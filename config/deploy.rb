@@ -1,32 +1,35 @@
-set :application, "set your application name here"
-set :repository,  "set your repository location here"
+set :application, "ria"
 
-# If you have previously been relying upon the code to start, stop 
-# and restart your mongrel application, or if you rely on the database
-# migration code, please uncomment the lines you require below
+set :server_ip, '174.132.251.233'
+ssh_options[:port] = 7822
 
-# If you are deploying a rails app you probably need these:
 
-# load 'ext/rails-database-migrations.rb'
-# load 'ext/rails-shared-directories.rb'
+role :app, server_ip
+role :web, server_ip
+role :db,  server_ip, :primary => true
 
-# There are also new utility libaries shipped with the core these 
-# include the following, please see individual files for more
-# documentation, or run `cap -vT` with the following lines commented
-# out to see what they make available.
+set :user, "ria"
 
-# load 'ext/spinner.rb'              # Designed for use with script/spin
-# load 'ext/passenger-mod-rails.rb'  # Restart task for use with mod_rails
-# load 'ext/web-disable-enable.rb'   # Gives you web:disable and web:enable
+set :scm, :git
+set :repository,  "git@69.64.75.174:ria.git"
+set :branch, 'master'
+set :git_enable_submodules, 1
 
-# If you aren't deploying to /u/apps/#{application} on the target
-# servers (which is the default), you can specify the actual location
-# via the :deploy_to variable:
-# set :deploy_to, "/var/www/#{application}"
+set :deploy_to, "/home/ria/railsapp"
+set :deploy_via, :remote_cache
 
-# If you aren't using Subversion to manage your source code, specify
-# your SCM below:
-# set :scm, :subversion
-# see a full list by running "gem contents capistrano | grep 'scm/'"
+set :use_sudo, false
 
-role :web, "your web-server here"
+namespace :deploy do
+  desc "Tell Passenger to restart the app."
+  task :restart do
+    run "touch #{current_path}/tmp/restart.txt"
+  end
+  
+  desc "Symlink shared configs and folders on each release."
+  task :symlink_shared do
+    run "ln -nfs #{shared_path}/config/database.yml #{release_path}/config/database.yml"
+  end
+end
+
+after 'deploy:update_code', 'deploy:symlink_shared'
