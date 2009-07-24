@@ -9,6 +9,7 @@ role :web, server_ip
 role :db,  server_ip, :primary => true
 
 set :user, "ria"
+set :use_sudo, false
 
 set :scm, :git
 set :repository,  "git@69.64.75.174:ria.git"
@@ -17,8 +18,6 @@ set :git_enable_submodules, 1
 
 set :deploy_to, "/home/ria/railsapp"
 set :deploy_via, :remote_cache
-
-set :use_sudo, false
 
 namespace :deploy do
   desc "Tell Passenger to restart the app."
