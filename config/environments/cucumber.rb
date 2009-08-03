@@ -21,3 +21,4 @@ config.gem "rspec",       :lib => false,        :version => ">=1.2.6" unless Fil
 config.gem "rspec-rails", :lib => 'spec/rails', :version => ">=1.2.6" unless File.directory?(File.join(Rails.root, 'vendor/plugins/rspec-rails'))
 
 config.gem "thoughtbot-factory_girl", :lib => "factory_girl", :source => "http://gems.github.com"
+config.gem 'bmabey-email_spec', :lib => 'email_spec', :source => "http://gems.github.com"

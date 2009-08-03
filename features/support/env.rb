@@ -5,6 +5,7 @@ I_KNOW_I_AM_USING_AN_OLD_AND_BUGGY_VERSION_OF_LIBXML2 = true
 ENV["RAILS_ENV"] ||= "cucumber"
 require File.expand_path(File.dirname(__FILE__) + '/../../config/environment')
 require 'cucumber/rails/world'
+require 'email_spec/cucumber'
 
 Dir["#{Rails.root}/spec/factories/**/*.rb"].each {|f| require f}
 

@@ -6,6 +6,7 @@ class UsersController < ApplicationController
   def create
     @user = User.new(params[:user])
     if @user.save
+      UserMailer.deliver_signup(@user)
       flash[:notice] = "Registration successful"
       redirect_to '/'
     else
@@ -25,5 +26,10 @@ class UsersController < ApplicationController
     else
       render :edit
     end
+  end
+  
+  def confirm
+    @user = User.find_by_perishable_token(params[:id])
+    @user.update_attributes(:confirmed_at => Time.now)
   end
 end

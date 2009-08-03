@@ -16,7 +16,7 @@ set :repository,  "git@69.64.75.174:ria.git"
 set :branch, 'master'
 set :git_enable_submodules, 1
 
-set :deploy_to, "/home/ria/railsapp"
+set :deploy_to, "/home/ria/rails"
 set :deploy_via, :remote_cache
 
 namespace :deploy do
@@ -28,6 +28,7 @@ namespace :deploy do
   desc "Symlink shared configs and folders on each release."
   task :symlink_shared do
     run "ln -nfs #{shared_path}/config/database.yml #{release_path}/config/database.yml"
+    run "ln -nfs #{shared_path}/db/production.sqlite3 #{release_path}/db/production.sqlite3"
   end
 end
 
