@@ -1,5 +1,5 @@
 class UserMailer < ActionMailer::Base
-  default_url_options[:host] = 'localhost:3000'
+  default_url_options[:host] = DEFAULT_HOST
 
   def signup(user = nil, sent_at = Time.now)
     if user

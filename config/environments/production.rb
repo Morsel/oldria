@@ -1,5 +1,7 @@
 # Settings specified here will take precedence over those in config/environment.rb
 
+DEFAULT_HOST = '174.132.251.233'
+
 # The production environment is meant for finished, "live" apps.
 # Code is not reloaded between requests
 config.cache_classes = true
