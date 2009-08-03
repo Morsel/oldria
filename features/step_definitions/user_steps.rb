@@ -21,3 +21,10 @@ Then /^"([^\"]*)" should be a confirmed user$/ do |username|
   User.find_by_username(username).should be_confirmed
 end
 
+Then /^"([^\"]*)" should not be logged in$/ do |username|
+  User.find_by_username(username).should_not be_logged_in
+end
+
+Then /^"([^\"]*)" should be logged in$/ do |username|
+  User.find_by_username(username).should be_logged_in
+end

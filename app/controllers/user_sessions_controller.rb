@@ -9,7 +9,7 @@ class UserSessionsController < ApplicationController
       flash[:notice] = "Successfully logged in."
       redirect_to root_url
     else
-      flash.now[:error] = "Sorry, but your username or password is incorrect"
+      flash.now[:error] = "Sorry, but we couldn't log you in"
       render :new
     end
   end

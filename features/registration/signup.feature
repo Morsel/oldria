@@ -27,6 +27,7 @@ Feature: Create an Account
     When I follow "Click here to confirm your account!" in the email
     Then I should see "Thanks. You are now confirmed, janet"
     And "janet" should be a confirmed user
+    #And "janet" should be logged in
 
 
   Scenario: Bad email
@@ -73,6 +74,7 @@ Feature: Create an Account
     And I press "Submit"
 
     Then I should see "Your account is not confirmed"
+    And "jimbob" should not be logged in
 
 
   Scenario: Logging in
@@ -97,7 +99,7 @@ Feature: Create an Account
     And I fill in "Username" with "mistered"
     And I fill in "Password" with "blue"
     And I press "Submit"
-    Then I should see "username or password is incorrect"
+    Then I should see "we couldn't log you in"
 
 
   Scenario: Logging Out
