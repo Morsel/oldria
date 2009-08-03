@@ -1,7 +1,12 @@
+# Suppress annoying error message
+I_KNOW_I_AM_USING_AN_OLD_AND_BUGGY_VERSION_OF_LIBXML2 = true
+
 # Sets up the Rails environment for Cucumber
 ENV["RAILS_ENV"] ||= "cucumber"
 require File.expand_path(File.dirname(__FILE__) + '/../../config/environment')
 require 'cucumber/rails/world'
+
+Dir["#{Rails.root}/spec/factories/**/*.rb"].each {|f| require f}
 
 # Comment out the next line if you don't want Cucumber Unicode support
 require 'cucumber/formatter/unicode'
