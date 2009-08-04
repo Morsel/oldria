@@ -14,6 +14,8 @@ module NavigationHelpers
       signup_path
     when /^the login page$/
       login_path
+    when /^the password reset request page$/
+      new_password_reset_path
     
 
     # Add more mappings here.

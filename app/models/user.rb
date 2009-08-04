@@ -5,4 +5,9 @@ class User < ActiveRecord::Base
     confirmed_at
   end
   
+  def deliver_password_reset_instructions!  
+    reset_perishable_token!  
+    UserMailer.deliver_password_reset_instructions(self)  
+  end
+  
 end
