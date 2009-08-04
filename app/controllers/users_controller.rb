@@ -31,5 +31,9 @@ class UsersController < ApplicationController
   def confirm
     @user = User.find_by_perishable_token(params[:id])
     @user.update_attributes(:confirmed_at => Time.now)
+    @user_session = UserSession.new(@user)
+    if @user_session.save
+      flash.now[:notice] = "Thanks for Confirming your account. You are now logged in." 
+    end
   end
 end

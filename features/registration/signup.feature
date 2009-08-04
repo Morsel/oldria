@@ -27,7 +27,8 @@ Feature: Create an Account
     When I follow "Click here to confirm your account!" in the email
     Then I should see "Thanks. You are now confirmed, janet"
     And "janet" should be a confirmed user
-    #And "janet" should be logged in
+    And "janet" should be logged in
+    And I should see "You are now logged in"
 
 
   Scenario: Bad email
