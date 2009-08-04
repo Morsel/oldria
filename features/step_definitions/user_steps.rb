@@ -17,6 +17,11 @@ Given /^I am logged in as "([^\"]*)" with password "([^\"]*)"$/ do |username, pa
   end
 end
 
+When /^I visit the logout path$/ do
+  visit logout_url
+end
+
+
 Then /^"([^\"]*)" should be a confirmed user$/ do |username|
   User.find_by_username(username).should be_confirmed
 end

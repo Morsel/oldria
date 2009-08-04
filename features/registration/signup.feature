@@ -112,3 +112,6 @@ Feature: Create an Account
     When I follow "Log out"
     Then I should see "Successfully logged out"
 
+    When I visit the logout path
+    Then I should see "You must be logged in"
+    And I should be on the login page
