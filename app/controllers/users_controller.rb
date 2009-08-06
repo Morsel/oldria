@@ -7,7 +7,7 @@ class UsersController < ApplicationController
     @user = User.new(params[:user])
     if @user.save
       UserMailer.deliver_signup(@user)
-      flash[:notice] = "Registration successful"
+      flash[:notice] = "Please check your email to confirm your account"
       redirect_to '/'
     else
       render :new
@@ -30,10 +30,14 @@ class UsersController < ApplicationController
   
   def confirm
     @user = User.find_by_perishable_token(params[:id])
-    @user.update_attributes(:confirmed_at => Time.now)
-    @user_session = UserSession.new(@user)
-    if @user_session.save
-      flash.now[:notice] = "Thanks for Confirming your account. You are now logged in." 
+    if @user
+      @user.update_attributes(:confirmed_at => Time.now)
+      @user_session = UserSession.new(@user)
+      if @user_session.save
+        @message = "Thanks for confirming your account. You are now logged in." 
+      end
+    else
+      @message = "Oops, we couldn't find your account. Have you already confirmed your account?"
     end
   end
 end
