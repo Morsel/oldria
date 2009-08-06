@@ -6,7 +6,8 @@ ActionController::Routing::Routes.draw do |map|
   map.confirm 'confirm/:id', :controller => 'users', :action => 'confirm'
 
 
-  map.resources :users, :user_sessions, :password_resets
+  map.resources :users, :has_many => 'statuses'
+  map.resources :user_sessions, :password_resets
 
   map.root :controller => 'welcome'
   # Default Routes 

@@ -1,0 +1,13 @@
+<% title "Statuses for #{@user.username}" %>
+
+<% if @editable %>
+  <%= render 'form' %>  
+<% end %>
+
+<h3>Previous Statuses</h3>
+<ol>
+  <% for status in @statuses %>
+    <li><%= status.message %></li>
+  <% end %>  
+</ol>
+

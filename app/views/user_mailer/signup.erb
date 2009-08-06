@@ -1,3 +1,7 @@
 Hi, <%= @user.username %>
 
-Welcome to SpoonFeed. <%= confirm_url(:id => @user.perishable_token) %>
+Welcome to SpoonFeed. Click on the link below to confirm you account!
+
+<%= confirm_url(:id => @user.perishable_token) %>
+
+Note: If you have trouble clicking this link above, try copying it and pasting it into your browser's URL bar.

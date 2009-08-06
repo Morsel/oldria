@@ -24,6 +24,7 @@ begin
 
     desc 'Run all features'
     task :all => [:ok, :wip]
+    
   end
 
   task :features => 'cucumber:ok' do
