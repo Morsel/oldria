@@ -24,7 +24,7 @@ Feature: Create an Account
     Then I should see "confirm" in the email
     And I should see "janet" in the email
 
-    When I follow "Click here to confirm your account!" in the email
+    When I click the first link in the email
     Then I should see "Thanks for confirming your account"
     And "janet" should be a confirmed user
     And "janet" should be logged in
@@ -43,7 +43,7 @@ Feature: Create an Account
     And "twice@example.com" should receive 1 email
 
     When "twice@example.com" opens the email with subject "Welcome to SpoonFeed! Please confirm your account"
-    And I follow "Click here to confirm your account!" in the email
+    And I click the first link in the email
     
     Then I should see "Thanks for confirming your account"
     And "twice" should be a confirmed user
@@ -51,7 +51,7 @@ Feature: Create an Account
     And I should see "You are now logged in"
     
     When "twice@example.com" opens the email with subject "Welcome to SpoonFeed! Please confirm your account"
-    And I follow "Click here to confirm your account!" in the email
+    And I click the first link in the email
     Then I should see "Oops, we couldn't find your account"
 
 
