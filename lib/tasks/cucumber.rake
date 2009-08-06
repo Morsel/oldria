@@ -15,15 +15,15 @@ begin
       t.cucumber_opts = "--tags @wip:2 --wip --format #{ENV['CUCUMBER_FORMAT'] || 'pretty'}"
     end
 
+    Cucumber::Rake::Task.new(:rcov => 'db:test:prepare') do |t|
+      t.fork = true
+      t.rcov = true
+      t.rcov_opts = %w{--rails --exclude osx\/objc,gems\/,spec\/,features\/}
+      t.rcov_opts << %[-o "features_rcov"]
+    end
+
     desc 'Run all features'
     task :all => [:ok, :wip]
-  end
-
-  Cucumber::Rake::Task.new(:rcov => 'db:test:prepare') do |t|
-    t.fork = true
-    t.rcov = true
-    t.rcov_opts = %w{--rails --exclude osx\/objc,gems\/,spec\/}
-    t.rcov_opts << %[-o "features_rcov"]
   end
 
   task :features => 'cucumber:ok' do
