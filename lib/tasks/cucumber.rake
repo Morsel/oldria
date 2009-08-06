@@ -19,6 +19,13 @@ begin
     task :all => [:ok, :wip]
   end
 
+  Cucumber::Rake::Task.new(:rcov => 'db:test:prepare') do |t|
+    t.fork = true
+    t.rcov = true
+    t.rcov_opts = %w{--rails --exclude osx\/objc,gems\/,spec\/}
+    t.rcov_opts << %[-o "features_rcov"]
+  end
+
   task :features => 'cucumber:ok' do
     STDERR.puts "*** The 'features' task is deprecated. See rake -T cucumber ***"
   end
