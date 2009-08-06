@@ -3,7 +3,7 @@ Feature: Reset password
   As a user who has forgotten/lost my password
   I want to reset my password, with an email confirmation
 
-@focus
+
   Scenario: Normal Reset Password Workflow
     Given the following confirmed user:
     | username | email       |
@@ -29,13 +29,60 @@ Feature: Reset password
 
     When "fred@me.com" opens the email with subject "SpoonFeed: Password Reset Instructions"
     Then I should see "reset" in the email
-    
+
     When I click the first link in the email
     Then I should see "Change My Password"
     And "freddy" should not be logged in
-    
+
     When I fill in "New Password" with "newpassword"
     And I fill in "Confirm New Password" with "newpassword"
     And I press "Update my password and log me in"
     Then I should see "Password successfully updated"
     And "freddy" should be logged in
+
+
+  Scenario: Trying to reset when already logged in
+    Given the following confirmed user:
+    | username | password  |
+    | james    | secret    |
+    And I am logged in as "james" with password "secret"
+
+    When I go to the password reset request page
+    Then I should see "You must be logged out to access this page"
+
+
+  Scenario: Trying to reset a non-existing account
+    Given the following confirmed user:
+    | username | email               |
+    | correct  | correct@example.com |
+
+    When I am on the password reset request page
+    And I fill in "Email" with "noone@example.com"
+    And I press "Reset my password"
+
+    Then I should see "No user was found with that email address"
+
+
+  Scenario: Trying to reset more than once
+    Given the following confirmed user:
+    | username | email               |
+    | thatguy  | correct@example.com |
+
+    And I am on the password reset request page
+
+    When I fill in "Email" with "correct@example.com"
+    And I press "Reset my password"
+    Then "correct@example.com" should receive 1 email
+
+    When "correct@example.com" opens the email with subject "SpoonFeed: Password Reset Instructions"
+    And I click the first link in the email
+    And I fill in "New Password" with "newpassword"
+    And I fill in "Confirm New Password" with "newpassword"
+    And I press "Update my password and log me in"
+    Then I should see "Password successfully updated"
+    And "thatguy" should be logged in
+
+    When I logout
+    And "correct@example.com" opens the email with subject "SpoonFeed: Password Reset Instructions"
+    And I click the first link in the email
+    Then I should see "Oops. We're having trouble finding your account."
