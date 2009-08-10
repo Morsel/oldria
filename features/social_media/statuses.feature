@@ -14,6 +14,7 @@ Feature: Manage SpoonFeed Statuses
   Scenario: Post a status message
     Given I am on the statuses page for "freddy"
     Then I should see "Statuses for freddy"
+    And I should see "Post"
 
     When I fill in "Status" with "This is my message"
     And I press "Post"
@@ -24,7 +25,12 @@ Feature: Manage SpoonFeed Statuses
     Given the following confirmed user:
     | username | password |
     | another  | secret   |
+    And "another" has the following status messages:
+    | message        |
+    | I just ate     |
+    | I ate too much |
     And I am on the statuses page for "another"
     Then I should see "Statuses for another"
     But I should not see "Post"
+    And I should not see "Delete"
 

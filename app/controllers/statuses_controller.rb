@@ -25,7 +25,10 @@ class StatusesController < ApplicationController
     @status = @user.statuses.find(params[:id])
     @status.destroy
     flash[:notice] = "Successfully destroyed status."
-    redirect_to user_statuses_path(@user)
+    respond_to do |format|
+      format.html { redirect_to user_statuses_path(@user) }
+      format.js
+    end
   end
   
   private

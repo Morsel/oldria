@@ -1,0 +1,5 @@
+<span class="posted"><%= time_ago_in_words status.created_at %> ago</span>
+<% if owner? %>
+  <span class="utility"><%= link_to image_tag('trash.gif'), user_status_path(@user, status), :class => 'trash' %></span>
+<% end %>
+<span class="message"><%= status.message %></span> 

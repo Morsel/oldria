@@ -4,10 +4,11 @@
   <%= render 'form' %>  
 <% end %>
 
-<h3>Previous Statuses</h3>
-<ol id="statuses">
-  <% for status in @statuses %>
-    <li><%= status.message %></li>
-  <% end %>  
-</ol>
-
+  <h3>Previous Statuses</h3>
+  <ol id="statuses">
+<% unless @statuses.blank? %>
+    <% for status in @statuses %>
+      <li id="status_<%= status.id %>"><%= render :partial => 'status', :locals => { :status => status } %></li>
+    <% end %>  
+<% end %>
+  </ol>
