@@ -12,7 +12,10 @@ class StatusesController < ApplicationController
     @status = @user.statuses.build(params[:status])
     if @status.save
       flash[:notice] = "Successfully created status."
-      redirect_to user_statuses_path(@user)
+      respond_to do |format|
+        format.html { redirect_to user_statuses_path(@user) }
+        format.js
+      end
     else
       render :new
     end

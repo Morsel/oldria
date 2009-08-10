@@ -1,0 +1,8 @@
+// Add the message the list
+$("#statuses").prepend("<li style=\"height:0px\"><%= escape_javascript(@status.message) %></li>").find('li:first').animate({height:16}, 'slow');
+
+// Reset the form
+$("#new_status")[0].reset();
+
+// Update the Flash message
+$("#new_status").before('<div id="flash_notice"><%= escape_javascript(flash.delete(:notice)) %></div>');
