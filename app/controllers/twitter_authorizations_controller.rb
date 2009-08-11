@@ -19,15 +19,14 @@ class TwitterAuthorizationsController < ApplicationController
       :oauth_verifier => params[:oauth_verifier]
     )
     
-    clear_request_tokens
-    
-    current_user.update_attributes({
-          :atoken => access_token.token, 
-          :asecret => access_token.secret
-    })
-    
-    flash[:notice] = "Cool. Your Twitter account was successfully linked to SpoonFeed"
-    redirect_to root_path
+    if current_user.update_attributes({:atoken => access_token.token, :asecret => access_token.secret})
+      clear_request_tokens
+      flash[:notice] = "Cool. Your Twitter account was successfully linked to SpoonFeed"
+      redirect_to root_path
+    else
+      flash[:error] = "Hmm, something went wrong. We'll sent our worker bees in to find out why."
+      redirect_to root_path
+    end
   end
   
   private
