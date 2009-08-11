@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090806184955) do
+ActiveRecord::Schema.define(:version => 20090811172115) do
 
   create_table "statuses", :force => true do |t|
     t.string   "message"
@@ -29,6 +29,8 @@ ActiveRecord::Schema.define(:version => 20090806184955) do
     t.datetime "updated_at"
     t.datetime "confirmed_at"
     t.datetime "last_request_at"
+    t.string   "atoken"
+    t.string   "asecret"
   end
 
 end

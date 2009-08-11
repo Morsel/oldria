@@ -29,3 +29,6 @@ end
 
 require 'cucumber/rails/rspec'
 require 'webrat/core/matchers'
+
+@tweets = JSON.parse( File.new(File.dirname(__FILE__) + '/../../spec/fixtures/twitter_update.json').read )
+TwitterOAuth::Client.any_instance.stubs(:friends_timeline).returns(@tweets)

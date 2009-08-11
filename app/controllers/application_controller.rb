@@ -10,6 +10,7 @@ class ApplicationController < ActionController::Base
 
   helper_method :current_user
 
+
   private
 
   def current_user_session
@@ -20,6 +21,14 @@ class ApplicationController < ActionController::Base
   def current_user
     return @current_user if defined?(@current_user)
     @current_user = current_user_session && current_user_session.record
+  end
+  
+  def require_twitter_authorization
+    unless current_user.twitter_authorized?
+      flash[:notice] = "You must be authorized with Twitter to view this page"
+      redirect_to new_twitter_authorization_path
+      return false
+    end
   end
   
   def require_user

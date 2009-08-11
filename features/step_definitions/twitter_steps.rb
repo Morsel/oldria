@@ -1,0 +1,23 @@
+Given /^the following confirmed,? twitter\-authorized users?:?$/ do |table|
+  table.hashes.each do |row|
+    attributes = row.merge(:asecret => 'fake', :atoken => 'fake')
+    Factory(:user, attributes)
+  end
+end
+
+
+When /^Twitter authorizes "([^\"]+)"$/ do |username|
+  u = User.find_by_username(username)
+  u.asecret = "fakesecret"
+  u.atoken  = "faketoken"
+  u.save.should be_true
+  u.twitter_authorized?.should be_true
+  visit path_to('the homepage')
+end
+
+Then /^"([^\"]+)" should have ([\d]+) friend tweets$/ do |username, number|
+  puts 
+  puts User.find_by_username(username).twitter_client
+  puts
+  User.find_by_username(username).twitter_client.friends_timeline.length.should == number.to_i
+end

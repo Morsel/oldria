@@ -36,13 +36,23 @@
 
     <div class="gt-nav">
       <ul>
-        <% if current_user -%>
+        <%- if current_user -%>
+
         <li><%= link_to "Log out", logout_path %></li>
         <li><%= link_to "Statuses", user_statuses_path(current_user) %></li>
-        <% else -%>
+
+          <% if current_user.twitter_authorized? -%>
+        <li><%= link_to "Latest Tweets", friend_timeline_path %></li>
+          <% else -%>
+        <li><%= link_to "Setup Twitter", new_twitter_authorization_url %></li>
+          <% end -%>
+
+        <%- else -%>
+
         <li><%= link_to "Sign Up", signup_path %> </li>
         <li><%= link_to "Login", login_path %></li>
-        <% end -%>
+
+        <%- end -%>
       </ul>
     </div><!--.gt-nav-->
   </div><!--.gt-hd -->

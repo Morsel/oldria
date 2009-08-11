@@ -1,0 +1,15 @@
+development: &DEV
+  token: heUg9OmCb9WITgaiKn5uw
+  secret: trPK1YWlFyqt9aZf3dqSPJ5eQi3vuiYN56WBcDnMmSY
+  callbackurl: http://parker.local:3000/twitter_authorization/
+
+production:
+  token: 2O3cZx2xW6mH3FqfNkXtw
+  secret: yGfF87HbIZFDABqYs7EVgBQMupE93kVjOjITueUsRAs
+  callbackurl: http://174.132.251.233/twitter_authorization/
+
+test:
+  <<: *DEV
+  
+cucumber:
+  <<: *DEV

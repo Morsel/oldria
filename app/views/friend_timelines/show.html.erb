@@ -1,0 +1,15 @@
+
+<% unless @tweets.blank? %>
+<ul class="statuses" id="friend_timeline">
+  <% for tweet in @tweets %>
+  <li>
+    <span class="message"><%= tweet['text'] %></span><br/>
+    <span class="meta">
+      Posted by
+      <span class="tweeter"><%= tweet['user']['name'] %></span> 
+      <span class="posted"><%= time_ago_in_words tweet['created_at'] %> ago</span>
+    </span>
+  </li>
+  <% end %>
+</ul>
+<% end %>
