@@ -167,7 +167,7 @@ a.negative:active {
 /* New
 -------------------------------*/
 
-#statuses li {
+.statuses li {
 	clear: left;
 	list-style: none;
 	margin: 15px 0 0;
@@ -176,7 +176,7 @@ a.negative:active {
 	overflow: hidden;
 }
 
-#statuses .posted, #statuses .utility {
+#statuses .posted, .statuses .utility, .statuses .meta {
 	color: #999;
 	font-size: .8em;
 	display: inline;
@@ -187,6 +187,11 @@ a.negative:active {
 #statuses .message {
 	clear: left;
 	float: left;
+}
+
+.statuses .profile_image {
+	float: left;
+	padding-right: 10px;
 }
 
 .trash img{

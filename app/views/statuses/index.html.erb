@@ -5,10 +5,10 @@
 <% end %>
 
   <h3>Previous Statuses</h3>
-  <ol id="statuses">
+  <ol id="statuses" class="statuses">
 <% unless @statuses.blank? %>
     <% for status in @statuses %>
-      <li id="status_<%= status.id %>"><%= render :partial => 'status', :locals => { :status => status } %></li>
+      <li class="status" id="status_<%= status.id %>"><%= render :partial => 'status', :locals => { :status => status } %></li>
     <% end %>  
 <% end %>
   </ol>

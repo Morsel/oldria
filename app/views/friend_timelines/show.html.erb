@@ -2,7 +2,8 @@
 <% unless @tweets.blank? %>
 <ul class="statuses" id="friend_timeline">
   <% for tweet in @tweets %>
-  <li>
+  <li class="status tweet">
+    <span class="profile_image"><%= image_tag tweet['user']['profile_image_url'], :width => 48, :height => 48 %></span>
     <span class="message"><%= tweet['text'] %></span><br/>
     <span class="meta">
       Posted by
