@@ -24,7 +24,7 @@ Feature: Twitter Authentication
     And I am on the homepage
     When I follow "Latest Tweets"
 
-  ## From a fixture file ##
+    ## From a fixture file ##
     Then I should see "Best American flag etiquette video series I've seen all month!"
     And the first tweet should have a link
 

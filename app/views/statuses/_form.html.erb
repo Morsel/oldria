@@ -3,6 +3,10 @@
   <p>
     <%= f.label :message, "Status" %><br />
     <%= f.text_field :message, :size => '100', :class => 'title' %>
+    <% if current_user.twitter_authorized? %>
+      <%= f.label :queue_for_social_media, "Also post to Twitter?" %>
+      <%= f.check_box :queue_for_social_media %>
+    <% end %>
     <%= content_tag :button, "Post", :type => 'submit', :class => 'positive' %>
   </p>
 <% end %>

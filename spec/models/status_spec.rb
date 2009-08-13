@@ -30,3 +30,18 @@ describe Status, "html stripping" do
     status.message.should == 'This is a message'
   end
 end
+
+describe Status, "updating Twitter" do
+  before(:each) do
+    @user = Factory(:twitter_user)
+    @tweet = JSON.parse( File.new(File.dirname(__FILE__) + '/../fixtures/twitter_response.json').read )
+  end
+  
+  it "should update Twitter on save" do
+    @user.twitter_client.stubs(:update).returns(@tweet)
+    s = Factory.build(:status, :user => @user, :queue_for_social_media => true, :message => 'A Tweet')
+    s.save
+    s.twitter_id.should == 3291760836
+    s.queue_for_social_media.should be_nil
+  end
+end
