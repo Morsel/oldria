@@ -3,6 +3,8 @@ Feature: Twitter update
   As a SF member and twitter member,
   I want to update my twitter status with my SF status.
 
+  Background:
+    Given Twitter is functioning
 
   Scenario: Updating Twitter Status when typing in new status
     Given the following confirmed user:

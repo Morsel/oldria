@@ -1,3 +1,9 @@
+Given /^Twitter is functioning$/ do
+  tweet = JSON.parse( File.new( RAILS_ROOT + '/spec/fixtures/twitter_response.json').read )
+  TwitterOAuth::Client.any_instance.stubs(:update).returns(tweet)
+end
+
+
 Given /^the following confirmed,? twitter\-authorized users?:?$/ do |table|
   table.hashes.each do |row|
     attributes = row.merge(:asecret => 'fake', :atoken => 'fake')
@@ -20,7 +26,7 @@ Then /^"([^\"]+)" should have ([\d]+) friend tweets$/ do |username, number|
 end
 
 Then /^the first tweet should have a link$/ do
-  response.body.should have_selector '.tweet' do |t|
+  response.body.should have_selector('.tweet') do |t|
     t.should have_selector('a')
   end
 end
