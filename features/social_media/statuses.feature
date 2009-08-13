@@ -25,12 +25,31 @@ Feature: Manage SpoonFeed Statuses
     Given the following confirmed user:
     | username | password |
     | another  | secret   |
+    And "freddy" has the following status messages:
+    | message                         |
+    | I am the user that is logged in |
     And "another" has the following status messages:
     | message        |
     | I just ate     |
     | I ate too much |
     And I am on the statuses page for "another"
     Then I should see "Statuses for another"
+    And I should see 2 status updates
     But I should not see "Post"
     And I should not see "Delete"
 
+
+  Scenario: Clean HTML from input
+    Given I am on the statuses page for "freddy"
+    When I fill in "Status" with "<h1>This is my message</h1>"
+    And I press "Post"
+    Then I should see "This is my message"
+    And the top message should be "This is my message"
+    And the top message should not include a "h1" tag
+
+
+  Scenario: Auto-link links in status message
+    Given I am on the statuses page for "freddy"
+    When I fill in "Status" with "Check out http://www.google.com, it's my favorite."
+    And I press "Post"
+    And the top message should contain a link to "http://www.google.com"

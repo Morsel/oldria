@@ -16,8 +16,11 @@ When /^Twitter authorizes "([^\"]+)"$/ do |username|
 end
 
 Then /^"([^\"]+)" should have ([\d]+) friend tweets$/ do |username, number|
-  puts 
-  puts User.find_by_username(username).twitter_client
-  puts
   User.find_by_username(username).twitter_client.friends_timeline.length.should == number.to_i
+end
+
+Then /^the first tweet should have a link$/ do
+  response.body.should have_selector '.tweet' do |t|
+    t.should have_selector('a')
+  end
 end

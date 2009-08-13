@@ -15,7 +15,7 @@ Feature: Twitter Authentication
     Then I should see "Latest Tweets"
     And I should not see "Setup Twitter"
 
-@focus
+
   Scenario: Viewing Friends Timeline
     Given the following confirmed, twitter-authorized user:
     | username | password |
@@ -26,4 +26,5 @@ Feature: Twitter Authentication
 
   ## From a fixture file ##
     Then I should see "Best American flag etiquette video series I've seen all month!"
+    And the first tweet should have a link
 

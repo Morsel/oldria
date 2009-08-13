@@ -16,3 +16,17 @@ describe Status, "order" do
     Status.all.should eql([post3, post2, post1])
   end
 end
+
+describe Status, "html stripping" do
+  it "should strip html content (example 1)" do
+    status = Factory.build(:status, :message => '<h1>This is a message</h1>')
+    status.strip_html.should == 'This is a message'
+    status.save
+    status.message.should == 'This is a message'
+  end
+  
+  it "should strip html content before save" do
+    status = Factory.create(:status, :message => '<em>This</em> is a <a href="http://www.google.com">message</a>')
+    status.message.should == 'This is a message'
+  end
+end
