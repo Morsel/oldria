@@ -30,8 +30,9 @@ DEFAULT_HOST = 'localhost:3000'
 # config.active_record.schema_format = :sql
 config.gem "rspec", :lib => false, :version => '>=1.2.6'
 config.gem "rspec-rails", :lib => false, :version => '>=1.2.6'
-config.gem "webrat", :lib => false, :version => '>=0.4.4'
-config.gem "cucumber", :lib => false, :version => '>=0.3.11'
+config.gem "webrat", :lib => false, :version => '>=0.5.0'
+config.gem "cucumber", :lib => false, :version => '>=0.3.94'
 config.gem "thoughtbot-factory_girl", :lib => "factory_girl", :source => "http://gems.github.com"
 config.gem 'bmabey-email_spec', :lib => 'email_spec', :source => "http://gems.github.com"
 config.gem "fakeweb", :version => ">= 1.2.5"
+config.gem "mocha"
