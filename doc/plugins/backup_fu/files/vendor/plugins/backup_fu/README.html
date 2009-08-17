@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>File: README</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Script-Type" content="text/javascript" />
+  <link rel="stylesheet" href="../../../.././rdoc-style.css" type="text/css" media="screen" />
+  <script type="text/javascript">
+  // <![CDATA[
+
+  function popupCode( url ) {
+    window.open(url, "Code", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=150,width=400")
+  }
+
+  function toggleCode( id ) {
+    if ( document.getElementById )
+      elem = document.getElementById( id );
+    else if ( document.all )
+      elem = eval( "document.all." + id );
+    else
+      return false;
+
+    elemStyle = elem.style;
+    
+    if ( elemStyle.display != "block" ) {
+      elemStyle.display = "block"
+    } else {
+      elemStyle.display = "none"
+    }
+
+    return true;
+  }
+  
+  // Make codeblocks hidden by default
+  document.writeln( "<style type=\"text/css\">div.method-source-code { display: none }</style>" )
+  
+  // ]]>
+  </script>
+
+</head>
+<body>
+
+
+
+  <div id="fileHeader">
+    <h1>README</h1>
+    <table class="header-table">
+    <tr class="top-aligned-row">
+      <td><strong>Path:</strong></td>
+      <td>vendor/plugins/backup_fu/README
+      </td>
+    </tr>
+    <tr class="top-aligned-row">
+      <td><strong>Last Update:</strong></td>
+      <td>Mon Aug 17 16:17:40 -0500 2009</td>
+    </tr>
+    </table>
+  </div>
+  <!-- banner header -->
+
+  <div id="bodyContent">
+
+
+
+  <div id="contextContent">
+
+    <div id="description">
+      <p>
+<a href="../../../../classes/BackupFu.html">BackupFu</a>
+</p>
+<h6>==</h6>
+<p>
+The backup_fu plugin makes it redonkulously easy to:
+</p>
+<pre>
+ A) dump your database and/or static files to tar/gzipped or zipped archives, and
+ B) upload these archives to a private Amazon S3 bucket for safekeeping
+</pre>
+<p>
+Allows restore of PostgreSQL databases.
+</p>
+<p>
+It also uses credentials in config/amazon_s3.yml if not supplied in
+backup_fu.yml
+</p>
+<p>
+Installation
+</p>
+<h6>======</h6>
+<p>
+The &#8216;right_aws&#8217; gem is required for backup_fu to function
+properly. Install with:
+</p>
+<pre>
+  sudo gem install right_aws
+</pre>
+<p>
+Install the plugin with:
+</p>
+<pre>
+  script/plugin install git://github.com/gravelpup/backup_fu.git
+</pre>
+<p>
+Configuration
+</p>
+<h6>=======</h6>
+<p>
+Run the following to copy over the example backup_fu.yml config file:
+</p>
+<pre>
+  rake backup_fu:setup
+</pre>
+<p>
+This copies the example config file to: config/backup_fu.yml.
+</p>
+<p>
+Usage
+</p>
+<h5></h5>
+<p>
+For the list of available rake tasks:
+</p>
+<pre>
+  rake -T backup_fu
+</pre>
+<p>
+Backing up your database:
+</p>
+<pre>
+  rake backup
+</pre>
+<p>
+Dumping your database:
+</p>
+<pre>
+  rake backup_fu:dump
+</pre>
+<p>
+Backing up your static files:
+</p>
+<pre>
+  rake backup_fu:static:backup
+</pre>
+<p>
+Backing up both your database + static files:
+</p>
+<pre>
+  rake backup_fu:all
+</pre>
+<p>
+Restoring from S3:
+</p>
+<pre>
+  BACKUP_FILE=myapp_1999-12-31_12345679_db.tar.gz rake backup_fu:restore
+</pre>
+<p>
+Advanced Configuration
+</p>
+<h6>================</h6>
+<p>
+See vendor/plugins/backup_fu/config/backup_fu.yml.advanced_example for the
+list of advanced configuration options.
+</p>
+<p>
+Advanced options include:
+</p>
+<ul>
+<li>specify static path(s) that should be backed up &#8212; i.e. backup your
+entire &#8216;public/static&#8217; directory
+
+</li>
+<li>change default dump path from RAILS_ROOT/tmp/backup to whatever
+
+</li>
+<li>specify fully-qualified &#8216;mysqldump&#8217; path
+
+</li>
+<li>disable compression of database dump
+
+</li>
+<li>choose between zip or tar/gzip compression
+
+</li>
+<li>enable &#8216;nice&#8217; with level specification to prevent backup_fu
+from bogarting your server
+
+</li>
+</ul>
+<p>
+Cronjob Installation
+</p>
+<h6>==============</h6>
+<p>
+Here are some cron job examples.
+</p>
+<pre>
+        # Backup just the database everyday at 1am
+        0 1 * * * cd /apps/foo/current; RAILS_ENV=production rake backup &gt; /dev/null
+
+  # Backup db + static @ 2am every 3 days, log the results to ~/backup.log (verbosity should be turned on if logging results)
+  0 2 1-31/3  * * cd /u/apps/shanti.railsblog/current; RAILS_ENV=production rake backup_fu:all &gt;&gt; ~/backup.log
+</pre>
+<p>
+Debugging
+</p>
+<h6>===</h6>
+
+    </div>
+
+
+   </div>
+
+
+  </div>
+
+
+    <!-- if includes -->
+
+    <div id="section">
+
+
+
+
+
+      
+
+
+    <!-- if method_list -->
+
+
+  </div>
+
+
+<div id="validator-badges">
+  <p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+</div>
+
+</body>
+</html>
