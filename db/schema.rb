@@ -9,7 +9,16 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090803224033) do
+ActiveRecord::Schema.define(:version => 20090813200813) do
+
+  create_table "statuses", :force => true do |t|
+    t.string   "message"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "user_id"
+    t.integer  "twitter_id"
+    t.boolean  "queue_for_social_media"
+  end
 
   create_table "users", :force => true do |t|
     t.string   "username"
@@ -22,6 +31,8 @@ ActiveRecord::Schema.define(:version => 20090803224033) do
     t.datetime "updated_at"
     t.datetime "confirmed_at"
     t.datetime "last_request_at"
+    t.string   "atoken"
+    t.string   "asecret"
   end
 
 end

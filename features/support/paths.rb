@@ -14,7 +14,11 @@ module NavigationHelpers
       signup_path
     when /^the login page$/
       login_path
+    when /^the password reset request page$/
+      new_password_reset_path
     
+    when /^the statuses page for "(.+)"$/
+      user_statuses_path(User.find_by_username($1))
 
     # Add more mappings here.
     # Here is a more fancy example:

@@ -15,19 +15,44 @@ Feature: Create an Account
     And I fill in "Password Confirmation" with "secret"
     And I press "Submit"
 
-    Then "jparker@example.com" should receive 1 email
-    And "jparker@example.com" should have 1 email
-    And "foo@bar.com" should not receive an email
+    Then I should see "Please check your email to confirm your account"
+    And "jparker@example.com" should receive 1 email
+    But "foo@bar.com" should not receive an email
 
     When "jparker@example.com" opens the email with subject "Welcome to SpoonFeed! Please confirm your account"
 
     Then I should see "confirm" in the email
     And I should see "janet" in the email
 
-    When I follow "Click here to confirm your account!" in the email
-    Then I should see "Thanks. You are now confirmed, janet"
+    When I click the first link in the email
+    Then I should see "Thanks for confirming your account"
     And "janet" should be a confirmed user
-    #And "janet" should be logged in
+    And "janet" should be logged in
+    And I should see "You are now logged in"
+    
+  
+  Scenario: Trying to follow email link twice
+    Given I am on the signup page
+    When I fill in "Username" with "twice"
+    And I fill in "Email" with "twice@example.com"
+    And I fill in "Password" with "secret"
+    And I fill in "Password Confirmation" with "secret"
+    And I press "Submit"
+
+    Then I should see "Please check your email to confirm your account"
+    And "twice@example.com" should receive 1 email
+
+    When "twice@example.com" opens the email with subject "Welcome to SpoonFeed! Please confirm your account"
+    And I click the first link in the email
+    
+    Then I should see "Thanks for confirming your account"
+    And "twice" should be a confirmed user
+    And "twice" should be logged in
+    And I should see "You are now logged in"
+    
+    When "twice@example.com" opens the email with subject "Welcome to SpoonFeed! Please confirm your account"
+    And I click the first link in the email
+    Then I should see "Oops, we couldn't find your account"
 
 
   Scenario: Bad email
@@ -111,3 +136,6 @@ Feature: Create an Account
     When I follow "Log out"
     Then I should see "Successfully logged out"
 
+    When I visit the logout path
+    Then I should see "You must be logged in"
+    And I should be on the login page
