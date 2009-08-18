@@ -3,6 +3,9 @@ class User < ActiveRecord::Base
   
   has_many :statuses
   
+  # Attributes that should not be updated from a form
+  attr_protected :crypted_password, :password_salt, :perishable_token, :persistence_token, :confirmed_at, :last_request_at, :atoken, :asecret, :admin
+  
   def confirmed?
     confirmed_at
   end
