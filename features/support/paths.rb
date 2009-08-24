@@ -10,6 +10,8 @@ module NavigationHelpers
     
     when /the homepage/
       '/'
+    when /^the coached status updates page$/
+      coached_status_updates_path
     when /^the signup page$/
       signup_path
     when /^the login page$/

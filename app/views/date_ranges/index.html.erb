@@ -1,0 +1,23 @@
+<% title "Date Ranges" %>
+
+<table>
+  <tr>
+    <th>Start Date</th>
+    <th>End Date</th>
+    <th>Name</th>
+  </tr>
+  <% for date_range in @date_ranges %>
+    <tr>
+      <td><%=h date_range.start_date %></td>
+      <td><%=h date_range.end_date %></td>
+      <td><%=h date_range.name %></td>
+      <td class="utility">
+        <%= link_to "Show", date_range %>
+        <%= link_to "Edit", edit_date_range_path(date_range) %>
+        <%= link_to "Destroy", date_range, :confirm => 'Are you sure?', :method => :delete %>
+      </td>
+    </tr>
+  <% end %>
+</table>
+
+<p><%= link_to "New Date Range", new_date_range_path %></p>

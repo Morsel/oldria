@@ -1,0 +1,12 @@
+<% form_for @coached_status_update do |f| %>
+  <%= f.error_messages %>
+  <p>
+    <%= f.label :message %><br />
+    <%= f.text_field :message %>
+  </p>
+  <p>
+    <%= f.label :date_range_id, "Time of year" %><br />
+    <%= f.collection_select :date_range_id, DateRange.all, :id, :name %>
+  </p>
+  <p><%= f.submit "Save" %></p>
+<% end %>

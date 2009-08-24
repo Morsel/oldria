@@ -1,0 +1,21 @@
+<% title "Coached Status Updates" %>
+
+<table>
+  <tr>
+    <th>Message</th>
+    <th>Time Of Year</th>
+  </tr>
+  <% for coached_status_update in @coached_status_updates %>
+    <tr>
+      <td><%=h coached_status_update.message %></td>
+      <td><%=h coached_status_update.date_range.try(:name) %></td>
+      <td class="utility">
+         <%= link_to "Show", coached_status_update %>
+         <%= link_to "Edit", edit_coached_status_update_path(coached_status_update) %>
+         <%= link_to "Destroy", coached_status_update, :confirm => 'Are you sure?', :method => :delete %>
+      </td>
+    </tr>
+  <% end %>
+</table>
+
+<p><%= link_to "New Coached Status Update", new_coached_status_update_path %></p>
