@@ -3,7 +3,8 @@
 <html>
 <head>
   <title><%= h(yield(:title) || "Untitled") %></title>
-  <%= stylesheet_link_tag 'reset-fonts','gt-styles','application' %>
+  <%= stylesheet_link_tag 'reset-fonts','gt-styles' %>
+	<link rel="stylesheet" href="/stylesheets/application.css" type="text/css" media="screen" charset="utf-8" />
   
   <%= yield(:head) %>
 
@@ -46,6 +47,7 @@
           <% else -%>
         <li><%= link_to "Setup Twitter", new_twitter_authorization_url %></li>
           <% end -%>
+        <li><%= link_to "Coached Status Updates", coached_status_updates_path %></li>
         <li><%= link_to "Seasons and Holidays", date_ranges_path %></li>
         <%- else -%>
 
