@@ -26,3 +26,8 @@ Factory.define :date_range do |f|
   f.start_date Date.parse('2009-01-01')
   f.end_date   Date.parse('2009-12-31')
 end
+
+Factory.define :coached_status_update do |f|
+  f.message "Where was the last place you ate?"
+  f.association :date_range
+end

@@ -1,6 +1,11 @@
 <% title "Statuses for #{@user.username}" %>
 
 <% if @editable %>
+  <% unless @coached_message.blank? %>
+    <div id="coached">
+      <%= simple_format @coached_message.message %>
+    </div>
+  <% end %>
   <%= render 'form' %>  
 <% end %>
 

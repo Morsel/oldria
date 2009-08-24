@@ -6,6 +6,7 @@ class StatusesController < ApplicationController
     @user = User.find(params[:user_id])
     @statuses = @user.statuses
     @editable = (@user == current_user)
+    @coached_message = CoachedStatusUpdate.current.first
   end
 
   def create

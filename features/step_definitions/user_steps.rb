@@ -13,6 +13,10 @@ Given /^I am logged in as an admin$/ do
   Given 'I am logged in as "admin" with password "secret"'
 end
 
+Given /^I am logged in as a normal user$/ do
+  Factory(:user, :username => 'normal', :password => 'normal')
+  Given 'I am logged in as "normal" with password "normal"'
+end
 
 Given /^I am logged in as "([^\"]*)" with password "([^\"]*)"$/ do |username, password|
   unless username.blank?
