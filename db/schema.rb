@@ -11,6 +11,14 @@
 
 ActiveRecord::Schema.define(:version => 20090820202403) do
 
+  create_table "date_ranges", :force => true do |t|
+    t.date     "start_date"
+    t.date     "end_date"
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "statuses", :force => true do |t|
     t.string   "message"
     t.datetime "created_at"
