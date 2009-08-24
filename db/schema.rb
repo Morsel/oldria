@@ -33,6 +33,7 @@ ActiveRecord::Schema.define(:version => 20090813200813) do
     t.datetime "last_request_at"
     t.string   "atoken"
     t.string   "asecret"
+    t.boolean  "admin"
   end
 
 end

@@ -8,6 +8,12 @@ Given /^the following confirmed users?:?$/ do |table|
   end
 end
 
+Given /^I am logged in as an admin$/ do
+  Factory(:admin, :username => 'admin', :password => 'admin')
+  Given 'I am logged in as "admin" with password "secret"'
+end
+
+
 Given /^I am logged in as "([^\"]*)" with password "([^\"]*)"$/ do |username, password|
   unless username.blank?
     visit login_url
