@@ -1,5 +1,5 @@
 # Settings specified here will take precedence over those in config/environment.rb
-
+RANDOM_SQL_STRING = 'RAND()'
 DEFAULT_HOST = '174.132.251.233'
 
 ActionMailer::Base.delivery_method = :sendmail

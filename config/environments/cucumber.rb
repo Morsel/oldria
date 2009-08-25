@@ -1,5 +1,5 @@
 config.cache_classes = true # This must be true for Cucumber to operate correctly!
-
+::RANDOM_SQL_STRING = 'RANDOM()'
 # Log error messages when you accidentally call methods on nil.
 config.whiny_nils = true
 
