@@ -25,10 +25,10 @@ Feature: Create an Account
     And I should see "janet" in the email
 
     When I click the first link in the email
-    Then I should see "Thanks for confirming your account"
+    Then I should see "Welcome aboard! Your account has been confirmed"
     And "janet" should be a confirmed user
     And "janet" should be logged in
-    And I should see "You are now logged in"
+    # And I should see "You are now logged in"
     
   
   Scenario: Trying to follow email link twice
@@ -45,10 +45,10 @@ Feature: Create an Account
     When "twice@example.com" opens the email with subject "Welcome to SpoonFeed! Please confirm your account"
     And I click the first link in the email
     
-    Then I should see "Thanks for confirming your account"
+    Then I should see "Welcome aboard! Your account has been confirmed"
     And "twice" should be a confirmed user
     And "twice" should be logged in
-    And I should see "You are now logged in"
+    And I should see "Confirming your account"
     
     When "twice@example.com" opens the email with subject "Welcome to SpoonFeed! Please confirm your account"
     And I click the first link in the email
@@ -113,7 +113,7 @@ Feature: Create an Account
     And I fill in "Password" with "secret"
     And I press "Submit"
 
-    Then I should see "Successfully logged in"
+    Then I should see "You are now logged in"
 
 
   Scenario: Attempting to Log in with incorrect password

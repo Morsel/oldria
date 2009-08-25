@@ -34,7 +34,7 @@ class UsersController < ApplicationController
       @user.confirmed_at = Time.now
       @user_session = UserSession.new(@user)
       if @user_session.save
-        @message = "Thanks for confirming your account. You are now logged in." 
+        @message = "Welcome aboard! Your account has been confirmed." 
       end
     else
       @message = "Oops, we couldn't find your account. Have you already confirmed your account?"
