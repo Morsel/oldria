@@ -43,7 +43,7 @@
         <li><%= link_to "Statuses", user_statuses_path(current_user) %></li>
 
           <% if current_user.twitter_authorized? -%>
-        <li><%= link_to "Latest Tweets", friend_timeline_path %></li>
+        <li><%= link_to "Twitter Timeline", friend_timeline_path %></li>
           <% else -%>
         <li><%= link_to "Setup Twitter", new_twitter_authorization_url %></li>
           <% end -%>
@@ -84,7 +84,7 @@
   </div><!--.gt-bd gt-cols -->
 
   <div class="gt-footer">
-    <p>Copyright 2009, Restaurant Intelligence Agency.</p>
+    <p>SpoonFeed footer.</p>
   </div>
   <%= javascript_include_tag :defaults %>
 </body>
