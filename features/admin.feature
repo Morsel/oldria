@@ -16,4 +16,11 @@ Feature: Admin Interface
     Given I am logged in as an admin
     When I go to the admin landing page
     Then I should see "This is the administrative area"
+
+
+  Scenario: Editing User Accounts
+    Given I am logged in as an admin
+    When I go to the admin landing page
+    And I follow "Users"
+    Then I should see "All Users"
   

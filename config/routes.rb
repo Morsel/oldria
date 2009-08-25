@@ -19,7 +19,8 @@ ActionController::Routing::Routes.draw do |map|
   map.root :controller => 'welcome'
   
   map.namespace :admin do |admin|
-    admin.root :controller => 'admin'
+    admin.root      :controller => 'admin'
+    admin.resources :users
   end
 
   # Default Routes 
