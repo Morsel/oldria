@@ -2,9 +2,12 @@
 
 <% if @editable %>
   <% unless @coached_message.blank? %>
+  <% content_for :sidebar do %>
     <div id="coached">
+      <h3>Status Suggestions</h3>
       <%= simple_format @coached_message.message %>
     </div>
+    <% end -%>
   <% end %>
   <%= render 'form' %>  
 <% end %>

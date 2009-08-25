@@ -1,4 +1,7 @@
-/* @override http://localhost:3000/stylesheets/application.css */
+/* 
+	@override http://localhost:3000/stylesheets/application.css
+	@override http://localhost:3001/stylesheets/application.css
+*/
 
 a img {
   border: none;
@@ -79,6 +82,7 @@ input.title {
 	font-size: 13px;
 	padding: 5px;
 	border: 1px solid #bbb;
+	max-width: 600px;
 }
 
 
@@ -229,4 +233,21 @@ td.utility {
 	word-spacing: 5px;
 }
 
+
+#coached {
+	border: 1px solid #edc;
+	background-color: #fed;
+	padding: 1em 1em 1px;
+	color: #644;
+	margin-bottom: 1em;
+	font: 1.2em normal "Gill sans";
+}
+
+#coached h3 {
+	font-size: 1em;
+}
+
+#coached p {
+	margin-bottom: 1em;
+}
 
