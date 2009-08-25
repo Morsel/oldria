@@ -32,7 +32,6 @@ Feature: Reset password
 
     When I click the first link in the email
     Then I should see "Change My Password"
-    And "freddy" should not be logged in
 
     When I fill in "New Password" with "newpassword"
     And I fill in "Confirm New Password" with "newpassword"
