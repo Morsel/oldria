@@ -58,4 +58,12 @@ class ApplicationController < ActionController::Base
     session[:return_to] = nil
   end
   
+  def require_admin
+    unless current_user && current_user.admin?
+      flash[:error] = "You don't have permission to access this page."
+      redirect_to root_url
+      return false
+    end
+  end
+  
 end

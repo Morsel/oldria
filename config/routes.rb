@@ -17,6 +17,10 @@ ActionController::Routing::Routes.draw do |map|
   map.resource :friend_timeline, :only => 'show'
 
   map.root :controller => 'welcome'
+  
+  map.namespace :admin do |admin|
+    admin.root :controller => 'admin'
+  end
 
   # Default Routes 
   # map.connect ':controller/:action/:id'

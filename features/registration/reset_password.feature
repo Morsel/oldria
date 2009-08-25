@@ -7,11 +7,11 @@ Feature: Reset password
   Scenario: Normal Reset Password Workflow
     Given the following confirmed user:
     | username | email       |
-    | freddy   | fred@me.com |
+    | freddyb  | fred@me.com |
 
     When I am on the homepage
     And I follow "Login"
-    And I fill in "Username" with "freddy"
+    And I fill in "Username" with "freddyb"
     And I fill in "Password" with "incorrect"
     And I press "Submit"
     Then I should see "couldn't log you in"
@@ -37,7 +37,7 @@ Feature: Reset password
     And I fill in "Confirm New Password" with "newpassword"
     And I press "Update my password and log me in"
     Then I should see "Password successfully updated"
-    And "freddy" should be logged in
+    And "freddyb" should be logged in
 
 
   Scenario: Trying to reset when already logged in

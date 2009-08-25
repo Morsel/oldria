@@ -22,6 +22,8 @@ module NavigationHelpers
     when /^the statuses page for "(.+)"$/
       user_statuses_path(User.find_by_username($1))
 
+    when /^the admin landing page$/
+      admin_root_path
     # Add more mappings here.
     # Here is a more fancy example:
     #

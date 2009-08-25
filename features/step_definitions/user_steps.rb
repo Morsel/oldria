@@ -10,7 +10,7 @@ end
 
 Given /^I am logged in as an admin$/ do
   Factory(:admin, :username => 'admin', :password => 'admin')
-  Given 'I am logged in as "admin" with password "secret"'
+  Given 'I am logged in as "admin" with password "admin"'
 end
 
 Given /^I am logged in as a normal user$/ do
