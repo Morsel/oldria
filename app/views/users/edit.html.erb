@@ -2,3 +2,8 @@
 
 <%= render :partial => 'form' %>
 
+<% if @user.twitter_authorized? %>
+<p><%= link_to "Remove Twitter Information", remove_twitter_user_path(@user), :method => :put %></p>
+<% end %>
+
+<p><%= link_to "Cancel editing", root_url %></p>

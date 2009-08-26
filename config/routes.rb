@@ -10,7 +10,7 @@ ActionController::Routing::Routes.draw do |map|
   map.confirm 'confirm/:id', :controller => 'users', :action => 'confirm'
 
 
-  map.resources :users, :has_many => 'statuses'
+  map.resources :users, :has_many => 'statuses', :member => { :remove_twitter => :put }
   map.resources :user_sessions, :password_resets
 
   map.resource :twitter_authorization

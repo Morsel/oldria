@@ -1,0 +1,70 @@
+Feature: Update information
+  So that I can change my twitter account, my name, or other details about my account, 
+  As a SF member,
+  I should be able to update my account profile.
+
+
+  Scenario: Update my username
+    Given the following user records:
+    | username | password |
+    | lestor   | secret   |
+    And I am logged in as "lestor" with password "secret"
+    When I follow "Edit My Account"
+    And I fill in "Username" with "leslie"
+    And I press "Submit"
+    Then I should see "Successfully updated your account"
+    And I should see "Logged in as leslie"
+
+
+  Scenario: Updating password
+    Given the following user records:
+    | username | password |
+    | manny    | secret   |
+    And I am logged in as "manny" with password "secret"
+    When I follow "Edit My Account"
+    And I fill in "Password" with "betterpassword"
+    And I fill in "Password Confirmation" with "betterpassword"
+    And I press "Submit"
+    Then I should see "Successfully updated your account"
+
+    When I am on the login page
+    And I fill in "Username" with "manny"
+    And I fill in "Password" with "betterpassword"
+    And I press "Submit"
+    
+    Then I should see "You are now logged in"
+
+
+  Scenario: Require matching password/confirmation to update
+    Given the following user records:
+    | username | password |
+    | horatio  | secret   |
+    And I am logged in as "horatio" with password "secret"
+    When I follow "Edit My Account"
+    And I fill in "Password" with "betterpassword"
+    And I fill in "Password Confirmation" with "better"
+    And I press "Submit"
+    Then I should see "Password doesn't match confirmation"
+
+
+  Scenario: Removing Twitter
+    Given the following confirmed, twitter-authorized users:
+    | username | password |
+    | sammy    | secret   |
+    And I am logged in as "sammy" with password "secret"
+    When I follow "Edit My Account"
+    And I follow "Remove Twitter Information"
+    Then I should see "Your Twitter Account was disassociated with your SpoonFeed Account"
+    And "sammy" should not have Twitter linked to his account
+    And I should not see "Remove Twitter Information"
+
+
+  Scenario: Users cannot edit other users' accounts
+    Given the following confirmed, twitter-authorized users:
+    | username | password |
+    | angel    | secret   |
+    | devil    | demon    |
+    And I am logged in as "devil" with password "demon"
+    When I go to the edit page for "angel"
+    Then I should see "You are not allowed to view this page"
+    And I should be on the homepage

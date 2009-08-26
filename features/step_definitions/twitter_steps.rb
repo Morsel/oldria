@@ -30,3 +30,8 @@ Then /^the first tweet should have a link$/ do
     t.should have_selector('a')
   end
 end
+
+Then /^"([^\"]*)" should not have Twitter linked to (?:his|her) account$/ do |username|
+  User.find_by_username(username).should_not be_twitter_authorized
+end
+
