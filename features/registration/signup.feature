@@ -4,6 +4,12 @@ Feature: Create an Account
   I want to create a free SF account.
 
 
+  Background:
+    Given the following account_type records:
+    | name      |
+    | Concierge |
+
+
   Scenario: Brand New account signup
     Given there are no users
     When I am on the signup page
@@ -13,6 +19,7 @@ Feature: Create an Account
     And I fill in "Email" with "jparker@example.com"
     And I fill in "Password" with "secret"
     And I fill in "Password Confirmation" with "secret"
+    And I select "Concierge" from "Account Type"
     And I press "Submit"
 
     Then I should see "Please check your email to confirm your account"

@@ -7,7 +7,6 @@ module NavigationHelpers
   #
   def path_to(page_name)
     case page_name
-    
     when /the homepage/
       '/'
     when /^the coached status updates page$/
@@ -18,12 +17,16 @@ module NavigationHelpers
       login_path
     when /^the password reset request page$/
       new_password_reset_path
-    
+
     when /^the statuses page for "(.+)"$/
       user_statuses_path(User.find_by_username($1))
 
+    # Admin pages
     when /^the admin landing page$/
       admin_root_path
+    when /^the list of account types$/
+      admin_account_types_path
+
     # Add more mappings here.
     # Here is a more fancy example:
     #

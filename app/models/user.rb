@@ -1,6 +1,6 @@
 class User < ActiveRecord::Base
   acts_as_authentic
-  
+  belongs_to :account_type
   has_many :statuses
   
   # Attributes that should not be updated from a form

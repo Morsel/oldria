@@ -4,6 +4,7 @@ Factory.define :user do |f|
   f.password 'foobar'
   f.password_confirmation { |u| u.password }
   f.confirmed_at { Time.now }
+  f.association :account_type
 end
 
 Factory.define :admin, :parent => :user do |f|
@@ -30,4 +31,8 @@ end
 Factory.define :coached_status_update do |f|
   f.message "Where was the last place you ate?"
   f.association :date_range
+end
+
+Factory.define :account_type do |f|
+  f.name "Concierge"
 end

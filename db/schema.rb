@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090826161005) do
+ActiveRecord::Schema.define(:version => 20090826165014) do
 
   create_table "account_types", :force => true do |t|
     t.string   "name"
@@ -55,6 +55,7 @@ ActiveRecord::Schema.define(:version => 20090826161005) do
     t.string   "atoken"
     t.string   "asecret"
     t.boolean  "admin"
+    t.integer  "account_type_id"
   end
 
 end
