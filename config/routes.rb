@@ -21,6 +21,7 @@ ActionController::Routing::Routes.draw do |map|
   map.namespace :admin do |admin|
     admin.root      :controller => 'admin'
     admin.resources :users
+    admin.resources :account_types
   end
 
   # Default Routes 

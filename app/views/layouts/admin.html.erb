@@ -38,13 +38,8 @@
 
     <div class="gt-nav">
       <ul>
-        <li><%= link_to "Statuses", user_statuses_path(current_user) %></li>
         <li><%= link_to "Users", admin_users_path %></li>
-          <% if current_user.twitter_authorized? -%>
-        <li><%= link_to "Twitter Timeline", friend_timeline_path %></li>
-          <% else -%>
-        <li><%= link_to "Setup Twitter", new_twitter_authorization_url %></li>
-          <% end -%>
+        <li><%= link_to "Account Types", admin_account_types_path %></li>
         <li><%= link_to "Coached Status Updates", coached_status_updates_path %></li>
         <li><%= link_to "Seasons and Holidays", date_ranges_path %></li>
       </ul>

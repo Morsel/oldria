@@ -1,0 +1,12 @@
+<% title "Account Type" %>
+
+<p>
+  <strong>Name:</strong>
+  <%=h @account_type.name %>
+</p>
+
+<p>
+  <%= link_to "Edit", edit_admin_account_type_path(@account_type) %> |
+  <%= link_to "Destroy", admin_account_type_path(@account_type), :confirm => 'Are you sure?', :method => :delete %> |
+  <%= link_to "View All", admin_account_types_path %>
+</p>
