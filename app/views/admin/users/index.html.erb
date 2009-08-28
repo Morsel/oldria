@@ -5,6 +5,10 @@
     <th>Username</th>
     <th>Email</th>
     <th>Admin</th>
+	<th colspan="2">Created on</td>
+	<th colspan="2">Confirmed on</th>
+	<th colspan="2">Updated on</th>
+	<th colspan="2">Last Used on</th>
   </tr>
 
 <% @users.each do |user| %>
@@ -12,6 +16,18 @@
     <td><%=h user.username %></td>
     <td><%=h user.email %></td>
     <td><%=h user.admin? %></td>
+	<td><%=h user.created_at.strftime('%x') %> <%=h user.created_at.strftime('%X') %></td>
+	<td><%=h time_ago_in_words(user.created_at) %> ago</td>
+
+    <td><%=h user.confirmed_at.strftime('%x') %> <%=h user.confirmed_at.strftime('%X')  %></td>	
+    <td><%=h time_ago_in_words(user.confirmed_at) %> ago</td>
+
+    <td><%=h user.updated_at.strftime('%x') %> <%=h user.updated_at.strftime('%X') %></td>
+    <td><%=h time_ago_in_words(user.updated_at) %> ago</td>
+
+    <td><%=h user.last_request_at.strftime('%x') %> <%=h user.last_request_at.strftime('%X') %></td>
+    <td><%=h time_ago_in_words(user.last_request_at) %> ago</td>
+
     <td><%= link_to 'Show', admin_user_path(user) %></td>
     <td><%= link_to 'Edit', edit_admin_user_path(user) %></td>
     <td><%= link_to 'Destroy', admin_user_path(user), :confirm => 'Are you sure?', :method => :delete %></td>
