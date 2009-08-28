@@ -2,9 +2,9 @@ class User < ActiveRecord::Base
   acts_as_authentic
   belongs_to :account_type
   has_many :statuses
-  
-  # Attributes that should not be updated from a form
-  attr_protected :crypted_password, :password_salt, :perishable_token, :persistence_token, :confirmed_at, :last_request_at, :atoken, :asecret, :admin
+
+  # Attributes that should not be updated from a form or mass-assigned
+  attr_protected :crypted_password, :password_salt, :perishable_token, :persistence_token, :confirmed_at, :admin
   
   def confirmed?
     confirmed_at
@@ -17,6 +17,12 @@ class User < ActiveRecord::Base
 
 
 ### Twitter Methods ###
+
+  def twitter_username
+    if twitter_authorized?
+      @twitter_username ||= twitter_client.user({:count=>1}).first['user']['screen_name']
+    end
+  end
 
   def twitter_authorized?
     !atoken.blank? && !asecret.blank?
