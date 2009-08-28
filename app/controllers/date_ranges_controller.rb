@@ -1,4 +1,8 @@
 class DateRangesController < ApplicationController
+  layout 'admin'
+
+  before_filter :require_admin
+
   def index
     @date_ranges = DateRange.all
   end

@@ -1,4 +1,8 @@
 class CoachedStatusUpdatesController < ApplicationController
+  layout 'admin'
+
+  before_filter :require_admin
+
   def index
     @coached_status_updates = CoachedStatusUpdate.all(:include => :date_range)
   end
