@@ -45,4 +45,17 @@ class User < ActiveRecord::Base
       )
     end
   end
+  
+  def self.find_by_smart_case_login_field(user_login)
+    # login like an email address ?
+    if user_login =~ Authlogic::Regex.email 
+      first(:conditions => { :email => user_login })
+    else
+      first(:conditions => { :username => user_login })
+    end
+  end
+  
+  def self.find_by_login(login)
+    find_by_smart_case_login_field(login)
+  end
 end
