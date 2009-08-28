@@ -29,8 +29,10 @@
     </td>
 
     <td>
-      <%=h user.last_request_at.to_s(:long) if user.last_request_at %><br/>
+    <% if user.last_request_at -%>
+      <%=h user.last_request_at.to_s(:long) %><br/>
       <small><%=h time_ago_in_words(user.last_request_at) %> ago</small>
+    <% end -%>
     </td>
 
     <td class="utility">
