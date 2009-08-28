@@ -3,7 +3,9 @@
 <%= render :partial => 'form' %>
 
 <% if @user.twitter_authorized? %>
-<p><%= link_to "Remove Twitter Information", remove_twitter_user_path(@user), :method => :put %></p>
+<h3>Twitter</h3>
+<p>You currently have your Twitter account set up <em><%= @user.twitter_username %></em>. To change which Twitter account you want your SpoonFeed account linked with, you can remove the Twitter credentials below, and then setup Twitter again.</p>
+<p><%= link_to "Remove Twitter Information", remove_twitter_user_path(@user), :confirm => "Are you sure you want to unlink your Twitter account? This action cannot be undone.", :method => :put %></p>
 <% end %>
 
 <p><%= link_to "Cancel editing", root_url %></p>

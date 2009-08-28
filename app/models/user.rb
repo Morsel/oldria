@@ -18,6 +18,12 @@ class User < ActiveRecord::Base
 
 ### Twitter Methods ###
 
+  def twitter_username
+    if twitter_authorized?
+      @twitter_username ||= twitter_client.user({:count=>1}).first['user']['screen_name']
+    end
+  end
+
   def twitter_authorized?
     !atoken.blank? && !asecret.blank?
   end
