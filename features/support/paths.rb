@@ -26,8 +26,12 @@ module NavigationHelpers
     # Admin pages
     when /^the admin landing page$/
       admin_root_path
+    when /^the admin users landing page$/
+      admin_users_path
     when /^the list of account types$/
       admin_account_types_path
+    when /^the admin edit page for "(.+)"$/
+      edit_admin_user_path(User.find_by_username($1))
 
     # Add more mappings here.
     # Here is a more fancy example:
