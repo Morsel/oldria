@@ -30,5 +30,8 @@ end
 require 'cucumber/rails/rspec'
 require 'webrat/core/matchers'
 
+# Global Mocks and Stubs
 @tweets = JSON.parse( File.new(File.dirname(__FILE__) + '/../../spec/fixtures/twitter_update.json').read )
 TwitterOAuth::Client.any_instance.stubs(:friends_timeline).returns(@tweets)
+
+User.any_instance.stubs(:twitter_username).returns("twitter_username")
