@@ -5,9 +5,9 @@
     <th>Username</th>
     <th>Email</th>
     <th>Admin</th>
-	<th>Created on</td>
-	<th>Confirmed on</th>
-	<th>Last Used on</th>
+    <th>Created on</th>
+    <th>Confirmed on</th>
+    <th>Last Used on</th>
   </tr>
 
 <% @users.each do |user| %>
@@ -22,12 +22,12 @@
     </td>
 
     <td>
-      <%=h user.confirmed_at.to_s(:long) %><br/>
+      <%=h user.confirmed_at.to_s(:long) if user.confirmed? %><br/>
       <small><%=h time_ago_in_words(user.confirmed_at) %> ago</small>
     </td>
 
     <td>
-      <%=h user.last_request_at.to_s(:long) %><br/>
+      <%=h user.last_request_at.to_s(:long) if user.last_request_at %><br/>
       <small><%=h time_ago_in_words(user.last_request_at) %> ago</small>
     </td>
 
