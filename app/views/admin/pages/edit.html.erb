@@ -1,0 +1,12 @@
+<h1>Editing pages</h1>
+
+<% form_for(@pages) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.submit 'Update' %>
+  </p>
+<% end %>
+
+<%= link_to 'Show', @pages %> |
+<%= link_to 'Back', pages_path %>

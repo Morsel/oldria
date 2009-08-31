@@ -1,0 +1,20 @@
+<h1>Listing pages</h1>
+
+<table>
+  <tr>
+  </tr>
+
+<% unless @pages.nil? %>
+<% @pages.each do |pages| %>
+  <tr>
+    <td><%= link_to 'Show', pages %></td>
+    <td><%= link_to 'Edit', edit_pages_path(pages) %></td>
+    <td><%= link_to 'Destroy', pages, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New pages', new_pages_path unless @pages.nil? %>

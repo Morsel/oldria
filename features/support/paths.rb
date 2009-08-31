@@ -32,6 +32,11 @@ module NavigationHelpers
       admin_account_types_path
     when /^the admin edit page for "(.+)"$/
       edit_admin_user_path(User.find_by_username($1))
+      
+    when /^the admin list static pages page$/
+      admin_pages_path
+      
+      
 
     # Add more mappings here.
     # Here is a more fancy example:

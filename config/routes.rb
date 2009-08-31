@@ -1,4 +1,6 @@
 ActionController::Routing::Routes.draw do |map|
+  map.resources :pages
+
   map.resources :date_ranges
 
   map.resources :coached_status_updates
@@ -22,6 +24,7 @@ ActionController::Routing::Routes.draw do |map|
     admin.root      :controller => 'admin'
     admin.resources :users
     admin.resources :account_types
+    admin.resources :pages
   end
 
   # Default Routes 
