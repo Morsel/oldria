@@ -1,5 +1,10 @@
 class UsersController < ApplicationController
-  before_filter :require_owner, :only => [:edit, :update, :remove_twitter]
+  before_filter :require_owner, :only => [:edit, :update, :remove_twitter, :remove_avatar]
+
+  def show
+    @user = User.find(params[:id])
+  end
+
   def new
     @user = User.new
   end
@@ -23,7 +28,7 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     if @user.update_attributes(params[:user])
       flash[:notice] = "Successfully updated your account."
-      redirect_to root_url
+      redirect_to user_path(@user)
     else
       render :edit
     end
@@ -48,6 +53,17 @@ class UsersController < ApplicationController
     @user.asecret = nil
     if @user.save
       flash[:message] = "Your Twitter Account was disassociated with your SpoonFeed Account"
+      redirect_to edit_user_path(@user)
+    else
+      render :edit
+    end
+  end
+  
+  def remove_avatar
+    @user = User.find(params[:id])
+    @user.avatar = nil
+    if @user.save
+      flash[:message] = "Your Headshot was successfully removed"
       redirect_to edit_user_path(@user)
     else
       render :edit

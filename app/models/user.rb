@@ -5,7 +5,12 @@ class User < ActiveRecord::Base
 
   # Attributes that should not be updated from a form or mass-assigned
   attr_protected :crypted_password, :password_salt, :perishable_token, :persistence_token, :confirmed_at, :admin
-  
+
+  has_attached_file :avatar, :styles => {
+    :thumb => "100x100#"
+  }
+
+
   def confirmed?
     confirmed_at
   end

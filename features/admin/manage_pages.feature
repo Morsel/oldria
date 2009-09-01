@@ -1,4 +1,3 @@
-@focus
 Feature: Manage pages
   So that I can publish marketing copy content to the site,
   As an RIA admin, 

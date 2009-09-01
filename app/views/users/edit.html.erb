@@ -3,9 +3,28 @@
 <%= render :partial => 'form' %>
 
 <% if @user.twitter_authorized? %>
+<hr/>
+
 <h3>Twitter</h3>
 <p>You currently have your Twitter account set up <em><%= @user.twitter_username %></em>. To change which Twitter account you want your SpoonFeed account linked with, you can remove the Twitter credentials below, and then setup Twitter again.</p>
 <p><%= link_to "Remove Twitter Information", remove_twitter_user_path(@user), :confirm => "Are you sure you want to unlink your Twitter account? This action cannot be undone.", :method => :put %></p>
 <% end %>
 
-<p><%= link_to "Cancel editing", root_url %></p>
+<hr/>
+
+
+<% form_for @user, :html => { :multipart => true } do |f| %>
+  <fieldset class="headshot">
+    <h3>Headshot</h3>
+  <p>
+    <%= image_tag @user.avatar.url(:thumb), :class => 'thumbnail' %><br/>
+    <%= f.label :avatar, "Headshot" %><br/>
+    <%= f.file_field :avatar %>
+  </p>
+  <p><%= f.submit "Upload Headshot" %> or <%= link_to "Remove my headshot", remove_avatar_user_path(@user), :method => :put, :confirm => "Are you sure you want to remove your headshot? You'll have to upload another one later to get it back" %></p>
+  </fieldset>
+<% end %>
+
+<hr/>
+
+<p><%= link_to "Cancel editing", user_path(@user) %></p>

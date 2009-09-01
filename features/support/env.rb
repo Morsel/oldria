@@ -35,3 +35,7 @@ require 'webrat/core/matchers'
 TwitterOAuth::Client.any_instance.stubs(:friends_timeline).returns(@tweets)
 
 User.any_instance.stubs(:twitter_username).returns("twitter_username")
+
+Spec::Matchers.define :have_avatar do
+  match { |user| user.avatar? }
+end

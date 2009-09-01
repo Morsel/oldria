@@ -1,0 +1,5 @@
+<% title "#{@user.username}'s profile" %>
+
+<% if @user.avatar? %>
+<p><%= image_tag @user.avatar.url(:thumb), :class => 'thumbnail' %></p>  
+<% end %>
