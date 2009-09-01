@@ -2,19 +2,19 @@
 
 <table>
   <tr>
+    <th>Title</th>
   </tr>
 
-<% unless @pages.nil? %>
-<% @pages.each do |pages| %>
+<% for page in @pages %>
   <tr>
-    <td><%= link_to 'Show', pages %></td>
-    <td><%= link_to 'Edit', edit_pages_path(pages) %></td>
-    <td><%= link_to 'Destroy', pages, :confirm => 'Are you sure?', :method => :delete %></td>
+    <td><%= page.title %></td>
+    <td><%= link_to 'Show', page %></td>
+    <td><%= link_to 'Edit', edit_page_path(page) %></td>
+    <td><%= link_to 'Destroy', page, :confirm => 'Are you sure?', :method => :delete %></td>
   </tr>
-<% end %>
 <% end %>
 </table>
 
 <br />
 
-<%= link_to 'New pages', new_pages_path unless @pages.nil? %>
+<%= link_to 'New pages', new_page_path %>

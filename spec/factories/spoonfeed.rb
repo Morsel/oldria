@@ -36,3 +36,7 @@ end
 Factory.define :account_type do |f|
   f.name "Concierge"
 end
+
+Factory.define :page do |f|
+  f.title "Page Title"
+end

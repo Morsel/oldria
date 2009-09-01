@@ -1,6 +1,6 @@
 <h1>Editing pages</h1>
 
-<% form_for(@pages) do |f| %>
+<% form_for(@page) do |f| %>
   <%= f.error_messages %>
 
   <p>
@@ -8,5 +8,5 @@
   </p>
 <% end %>
 
-<%= link_to 'Show', @pages %> |
+<%= link_to 'Show', @page %> |
 <%= link_to 'Back', pages_path %>
