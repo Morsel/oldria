@@ -2,6 +2,7 @@
 # Likewise, all the methods added will be available for all controllers.
 
 class ApplicationController < ActionController::Base
+  before_filter :authenticate
   helper :all # include all helpers, all the time
   protect_from_forgery # See ActionController::RequestForgeryProtection for details
 
@@ -65,5 +66,12 @@ class ApplicationController < ActionController::Base
       return false
     end
   end
-  
+
+  protected
+
+  def authenticate
+    authenticate_or_request_with_http_basic do |username, password|
+      username == "spoon" && password == "feed"
+    end
+  end  
 end
