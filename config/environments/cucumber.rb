@@ -16,12 +16,11 @@ config.action_controller.allow_forgery_protection    = false
 config.action_mailer.delivery_method = :test
 DEFAULT_HOST = 'localhost:3000'
 
-config.gem 'cucumber',    :lib => false,        :version => '>=0.3.94' unless File.directory?(File.join(Rails.root, 'vendor/plugins/cucumber'))
-config.gem 'webrat',      :lib => false,        :version => '>=0.5.0' unless File.directory?(File.join(Rails.root, 'vendor/plugins/webrat'))
-config.gem 'rspec',       :lib => false,        :version => '>=1.2.6' unless File.directory?(File.join(Rails.root, 'vendor/plugins/rspec'))
-config.gem 'rspec-rails', :lib => 'spec/rails', :version => '>=1.2.6' unless File.directory?(File.join(Rails.root, 'vendor/plugins/rspec-rails'))
+config.gem "rspec", :lib => false, :version => '>=1.2.8' unless File.directory?(File.join(Rails.root, 'vendor/plugins/rspec'))
+config.gem "rspec-rails", :lib => false, :version => '>=1.2.7' unless File.directory?(File.join(Rails.root, 'vendor/plugins/rspec-rails'))
+config.gem "webrat", :lib => false, :version => '>=0.5.3' unless File.directory?(File.join(Rails.root, 'vendor/plugins/webrat'))
+config.gem "cucumber", :lib => false, :version => '>=0.3.98' unless File.directory?(File.join(Rails.root, 'vendor/plugins/cucumber'))
 config.gem "thoughtbot-factory_girl", :lib => "factory_girl", :source => "http://gems.github.com"
-config.gem 'bmabey-email_spec', :lib => 'email_spec', :source => "http://gems.github.com"
+config.gem 'bmabey-email_spec', :lib => 'email_spec', :source => "http://gems.github.com", :version => ">= 0.3.1"
 config.gem "fakeweb", :version => ">= 1.2.5"
 config.gem "mocha"
-

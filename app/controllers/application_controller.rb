@@ -70,8 +70,10 @@ class ApplicationController < ActionController::Base
   protected
 
   def authenticate
-    authenticate_or_request_with_http_basic do |username, password|
-      username == "spoon" && password == "feed"
+    if RAILS_ENV == 'production'
+      authenticate_or_request_with_http_basic do |username, password|
+        username == "spoon" && password == "feed"
+      end
     end
   end  
 end
