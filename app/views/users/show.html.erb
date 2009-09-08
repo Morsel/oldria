@@ -3,3 +3,9 @@
 <% if @user.avatar? %>
 <p><%= image_tag @user.avatar.url(:thumb), :class => 'thumbnail' %></p>  
 <% end %>
+
+<h3>Latest Status</h3>
+<p>
+  <%= @user.statuses.first.try(:message) %><br/>
+  <small><%= link_to "more statuses", user_statuses_path(@user) %></small>
+</p>
