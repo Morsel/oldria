@@ -1,7 +1,8 @@
 <h1>All Users</h1>
 
-<table>
+<table id="admin_users_list">
   <tr>
+    <th></th>
     <th>Username</th>
     <th>Email</th>
     <th>Admin</th>
@@ -12,6 +13,11 @@
 
 <% @users.each do |user| %>
   <tr class="<%= user.admin? ? 'admin' : '' %>">
+    <td class="thumb">
+    <%- if user.avatar? -%>
+      <%= image_tag user.avatar.url(:thumb), :class => 'thumbnail'  %>  
+    <%- end -%>
+    </td>
     <td><%=h user.username %></td>
     <td><%=h user.email %></td>
     <td><%= user.admin? ? '&#10003;' : '' %></td>

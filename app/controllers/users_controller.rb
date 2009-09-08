@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_filter :require_owner, :only => [:edit, :update, :remove_twitter, :remove_avatar]
+  before_filter :require_owner_or_admin, :only => [:edit, :update, :remove_twitter, :remove_avatar]
 
   def show
     @user = User.find(params[:id])
@@ -73,8 +73,8 @@ class UsersController < ApplicationController
 
   private
 
-  def require_owner
-    unless params[:id] && User.find(params[:id]) == current_user
+  def require_owner_or_admin
+    unless (params[:id] && User.find(params[:id]) == current_user) || current_user.admin?
       flash[:error] = "You are not allowed to view this page."
       redirect_to root_url
     end

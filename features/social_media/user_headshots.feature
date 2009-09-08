@@ -1,4 +1,3 @@
-@focus
 Feature: User headshots
   In order to show people what I look like
   As a SpoonFeed user
@@ -26,7 +25,7 @@ Feature: User headshots
     And "emily" has a headshot
     When I follow "Edit My Account"
     Then I should see my headshot
-    
+
     When I follow "Remove my headshot"
     Then I should see "Your Headshot was successfully removed"
     And "emily" should not have a headshot
