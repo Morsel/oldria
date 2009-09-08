@@ -42,3 +42,7 @@ end
 Then /^"([^\"]*)" should be logged in$/ do |username|
   User.find_by_username(username).should be_logged_in
 end
+
+Then /^"([^\"]*)" should be an admin$/ do |username|
+  User.find_by_username(username).should be_admin
+end

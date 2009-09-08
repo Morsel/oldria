@@ -58,7 +58,7 @@ class Admin::UsersController < Admin::AdminController
   # PUT /admin_users/1.xml
   def update
     @user = User.find(params[:id])
-
+    @user.admin = params[:user].delete(:admin)
     respond_to do |format|
       if @user.update_attributes(params[:user])
         flash[:notice] = 'User was successfully updated.'

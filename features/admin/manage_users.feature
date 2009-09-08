@@ -15,3 +15,17 @@ Feature: Manage users
     And I press "Update"
     Then I should be on the admin users landing page
     And I should see "User was successfully updated"
+
+
+  Scenario: Editing admin status of a user
+    Given I am logged in as an admin
+    When I go to the admin edit page for "jimbob"
+    Then the "Admin?" checkbox should not be checked
+    
+    When I check "Admin?"  
+    And I press "Update"
+    Then I should see "User was successfully updated"
+    And "jimbob" should be an admin
+    
+    When I go to the admin edit page for "jimbob"
+    Then the "Admin?" checkbox should be checked
