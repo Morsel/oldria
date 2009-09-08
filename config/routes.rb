@@ -16,6 +16,8 @@ ActionController::Routing::Routes.draw do |map|
 
   map.resource :twitter_authorization
   map.resource :friend_timeline, :only => 'show'
+  
+  map.resource :search, :only => 'show'
 
   map.root :controller => 'welcome'
   

@@ -10,6 +10,7 @@ Rails::Initializer.run do |config|
   config.gem 'mislav-will_paginate', :lib => 'will_paginate', :source => 'http://gems.github.com'
   config.gem 'RedCloth', :lib => 'redcloth'
   config.gem 'authlogic'
+  config.gem 'searchlogic'
   config.gem 'moomerman-twitter_oauth', :lib => 'twitter_oauth', :source => "http://gems.github.com"
   config.gem 'thoughtbot-paperclip', :lib => 'paperclip', :source => 'http://gems.github.com'
   

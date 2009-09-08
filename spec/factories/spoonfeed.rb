@@ -5,11 +5,14 @@ Factory.define :user do |f|
   f.password_confirmation { |u| u.password }
   f.confirmed_at { Time.now }
   f.association :account_type
+  f.first_name { |u| u.name.split(' ').first || "John" }
+  f.last_name  { |u| u.name.split(' ').last  || "Doe" }
 end
 
 Factory.define :admin, :parent => :user do |f|
   f.admin true
   f.username 'admin'
+  f.first_name "Administrator"
 end
 
 Factory.define :status do |f|

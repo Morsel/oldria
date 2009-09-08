@@ -4,6 +4,19 @@ describe User do
   it "should be valid" do
     Factory(:user).should be_valid
   end
+  
+  it "should handle #name" do
+    u = Factory(:user, :first_name => "Ben", :last_name => "Davis" )
+    u.name.should eql("Ben Davis")
+  end
+
+  it "should handle #name=" do
+    u = Factory.build(:user, :first_name => '', :last_name => '')
+    u.name = "Ben Davis"
+    u.save
+    u.first_name.should eql("Ben")
+    u.last_name.should eql("Davis")
+  end
 end
 
 describe User, "twitter and oauth" do

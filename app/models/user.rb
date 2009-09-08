@@ -11,10 +11,18 @@ class User < ActiveRecord::Base
   }
 
 
+  def name
+    @name ||= [first_name, last_name].join(' ')
+  end
+
+  def name=(_name)
+    self.first_name, self.last_name = _name.split(' ')
+  end
+
   def confirmed?
     confirmed_at
   end
-  
+
   def deliver_password_reset_instructions!  
     reset_perishable_token!  
     UserMailer.deliver_password_reset_instructions(self)  

@@ -1,0 +1,22 @@
+<% title "Search" %>
+
+<%= render :partial => 'form' %>
+
+<% if !@users.blank? %>
+<h2>Search Results</h2>
+<table id="search-results">
+  <tr>
+    <th></th>
+    <th>Name</th>
+    <th>Username</th>
+  </tr>
+  <% for user in @users %>
+    <tr class="search-result">
+      <td><%= image_tag user.avatar.url(:thumb) %></td>
+      <td><%=h user.name %></td>
+      <td><%=h user.username %></td>
+    </tr>
+  <% end %>  
+</table>
+<% else %>
+<% end %>
