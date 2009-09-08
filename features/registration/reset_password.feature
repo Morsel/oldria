@@ -25,10 +25,10 @@ Feature: Reset password
 
     Then I should see "Please check your email for instructions"
     Then "fred@me.com" should receive 1 email
-    And "foo@bar.com" should not receive an email
+    And "foo@bar.com" should receive no emails
 
     When "fred@me.com" opens the email with subject "SpoonFeed: Password Reset Instructions"
-    Then I should see "reset" in the email
+    Then I should see "reset" in the email body
 
     When I click the first link in the email
     Then I should see "Change My Password"
