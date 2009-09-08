@@ -1,8 +1,4 @@
-class DateRangesController < ApplicationController
-  layout 'admin'
-
-  before_filter :require_admin
-
+class Admin::DateRangesController < Admin::AdminController
   def index
     @date_ranges = DateRange.all
   end
@@ -19,9 +15,9 @@ class DateRangesController < ApplicationController
     @date_range = DateRange.new(params[:date_range])
     if @date_range.save
       flash[:notice] = "Successfully created date range."
-      redirect_to @date_range
+      redirect_to [:admin, @date_range]
     else
-      render :action => 'new'
+      render :new
     end
   end
   
@@ -33,9 +29,9 @@ class DateRangesController < ApplicationController
     @date_range = DateRange.find(params[:id])
     if @date_range.update_attributes(params[:date_range])
       flash[:notice] = "Successfully updated date range."
-      redirect_to @date_range
+      redirect_to [:admin, @date_range]
     else
-      render :action => 'edit'
+      render :edit
     end
   end
   
@@ -43,6 +39,6 @@ class DateRangesController < ApplicationController
     @date_range = DateRange.find(params[:id])
     @date_range.destroy
     flash[:notice] = "Successfully destroyed date range."
-    redirect_to date_ranges_url
+    redirect_to admin_date_ranges_url
   end
 end

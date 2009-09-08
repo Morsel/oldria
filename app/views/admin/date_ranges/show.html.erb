@@ -14,7 +14,7 @@
 </p>
 
 <p>
-  <%= link_to "Edit", edit_date_range_path(@date_range) %> |
-  <%= link_to "Destroy", @date_range, :confirm => 'Are you sure?', :method => :delete %> |
-  <%= link_to "View All", date_ranges_path %>
+  <%= link_to "Edit", edit_admin_date_range_path(@date_range) %> |
+  <%= link_to "Destroy", [:admin, @date_range], :confirm => 'Are you sure?', :method => :delete %> |
+  <%= link_to "View All", admin_date_ranges_path %>
 </p>

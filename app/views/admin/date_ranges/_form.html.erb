@@ -1,4 +1,4 @@
-<% form_for @date_range do |f| %>
+<% form_for [:admin, @date_range] do |f| %>
   <%= f.error_messages %>
   <p>
     <%= f.label :start_date %><br />

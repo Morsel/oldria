@@ -33,7 +33,7 @@
     <div id="user_nav">
       Logged in as <%= current_user.username %> | 
       <%= link_to "Log out", logout_path %> |
-		<%= link_to "Public", root_path %>
+      <%= link_to "Public", root_path %>
     </div>
 
 
@@ -41,8 +41,8 @@
       <ul>
         <li><%= link_to "Users", admin_users_path %></li>
         <li><%= link_to "Account Types", admin_account_types_path %></li>
-        <li><%= link_to "Coached Status Updates", coached_status_updates_path %></li>
-        <li><%= link_to "Seasons and Holidays", date_ranges_path %></li>
+        <li><%= link_to "Coached Status Updates", admin_coached_status_updates_path %></li>
+        <li><%= link_to "Seasons and Holidays", admin_date_ranges_path %></li>
       </ul>
     </div><!--.gt-nav-->
   </div><!--.gt-hd -->

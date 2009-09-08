@@ -1,11 +1,6 @@
 ActionController::Routing::Routes.draw do |map|
   map.resources :pages
 
-  map.resources :date_ranges
-
-  map.resources :coached_status_updates
-
-
   map.signup 'signup', :controller => 'users', :action => 'new'
   map.login  'login',  :controller => 'user_sessions', :action => 'new'
   map.logout 'logout', :controller => 'user_sessions', :action => 'destroy'
@@ -27,8 +22,8 @@ ActionController::Routing::Routes.draw do |map|
   map.namespace :admin do |admin|
     admin.root      :controller => 'admin'
     admin.resources :users
-    admin.resources :account_types
     admin.resources :pages
+    admin.resources :date_ranges, :account_types, :coached_status_updates
   end
 
   # Default Routes 

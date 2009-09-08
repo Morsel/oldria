@@ -12,12 +12,12 @@
       <td><%=h date_range.end_date %></td>
       <td><%=h date_range.name %></td>
       <td class="utility">
-        <%= link_to "Show", date_range %>
-        <%= link_to "Edit", edit_date_range_path(date_range) %>
-        <%= link_to "Destroy", date_range, :confirm => 'Are you sure?', :method => :delete %>
+        <%= link_to "Show", [:admin, date_range] %>
+        <%= link_to "Edit", edit_admin_date_range_path(date_range) %>
+        <%= link_to "Destroy", [:admin, date_range], :confirm => 'Are you sure?', :method => :delete %>
       </td>
     </tr>
   <% end %>
 </table>
 
-<p><%= link_to "New Date Range", new_date_range_path %></p>
+<p><%= link_to "New Date Range", new_admin_date_range_path %></p>
