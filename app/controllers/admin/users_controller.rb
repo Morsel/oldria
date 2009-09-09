@@ -2,10 +2,11 @@ class Admin::UsersController < Admin::AdminController
   # GET /admin_users
   # GET /admin_users.xml
   def index
-    @users = User.all
-
+    @search = User.search(params[:search])
+    @users = @search.all
+    
     respond_to do |format|
-      format.html # index.html.erb
+      format.html { flash.now[:notice] = "We couldn't find anything" if @users.blank? }
       format.xml  { render :xml => @admin_users }
     end
   end

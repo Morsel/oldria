@@ -14,20 +14,21 @@ Feature: Member search
   Scenario: Normal search
     Given I am on the homepage
     When I follow "Search for People"
-    And I fill in "Username or Name" with "John"
+    And I fill in "First Name" with "John"
     And I press "Search"
     Then I should see 1 search result
     And I should see "John Appleseed"
-    And I should not see "Sarah Cooper"
+    But I should not see "Sarah Cooper"
 
 
   Scenario: No results
     Given I am on the homepage
     When I follow "Search for People"
-    And I fill in "Username or Name" with "Mary"
+    And I fill in "First Name" with "Mary"
     And I press "Search"
     Then I should see no search results
-    And I should not see "John Appleseed"
+    And I should see "We couldn't find anything"
+    But I should not see "John Appleseed"
 
 
   

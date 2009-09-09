@@ -2,8 +2,10 @@ class SearchesController < ApplicationController
   def show
     @search = User.search(params[:search])
     if params[:search]
-      un = params[:search][:username] || ''
-      @users = User.username_or_first_name_or_last_name_like(un)
+      @users = @search.all
+      flash.now[:notice] = "We couldn't find anything" if @users.blank?
+    else
+      # TODO helpful message about how to search
     end
   end
 end
