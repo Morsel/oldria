@@ -9,3 +9,15 @@
   <%= @user.statuses.first.try(:message) %><br/>
   <small><%= link_to "more statuses", user_statuses_path(@user) %></small>
 </p>
+
+<h3>Following</h3>
+<% if !@user.followings.blank? %>
+  <% for following in @user.followings %>
+    <li>
+      <%= following.friend.name %>
+      <%= link_to "unfollow this user", following_path(following), :method => :delete %>
+    </li>
+  <% end %>
+<% else %>
+  
+<% end %>

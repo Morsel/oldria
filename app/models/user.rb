@@ -2,6 +2,11 @@ class User < ActiveRecord::Base
   acts_as_authentic
   belongs_to :account_type
   has_many :statuses
+  
+  has_many :followings, :foreign_key => 'follower_id'
+  has_many :friends, :through => :followings
+  has_many :inverse_followings, :class_name => "Following", :foreign_key => 'friend_id'
+  has_many :followers, :through => :inverse_followings, :source => :follower
 
   # Attributes that should not be updated from a form or mass-assigned
   attr_protected :crypted_password, :password_salt, :perishable_token, :persistence_token, :confirmed_at, :admin

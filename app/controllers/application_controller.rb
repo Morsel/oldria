@@ -54,7 +54,7 @@ class ApplicationController < ActionController::Base
     session[:return_to] = request.request_uri
   end
   
-  def redirect_back_or_default(default = homepage_url)
+  def redirect_back_or_default(default = root_url)
     redirect_to(session[:return_to] || default)
     session[:return_to] = nil
   end
