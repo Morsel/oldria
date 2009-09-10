@@ -8,6 +8,7 @@ ActionController::Routing::Routes.draw do |map|
   map.logout 'logout', :controller => 'user_sessions', :action => 'destroy'
   map.confirm 'confirm/:id', :controller => 'users', :action => 'confirm'
 
+  map.profile 'profile/:username', :controller => 'users', :action => 'show'
 
   map.resources :users, :has_many => 'statuses', :member => { 
     :remove_twitter => :put,

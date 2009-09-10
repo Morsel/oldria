@@ -1,4 +1,14 @@
 class Following < ActiveRecord::Base
   belongs_to :follower, :class_name => 'User'
   belongs_to :friend, :class_name => 'User'
+
+  validates_uniqueness_of :friend_id,
+                          :scope => [:follower_id],
+                          :message => "You already follow that person"
+
+  validate :you_cant_follow_yourself
+    
+  def you_cant_follow_yourself
+    errors.add(:base, "You can't follow yourself") if follower == friend
+  end
 end

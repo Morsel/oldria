@@ -6,18 +6,31 @@
 
 <h3>Latest Status</h3>
 <p>
-  <%= @user.statuses.first.try(:message) %><br/>
+  <%= @latest_status.message if @latest_status %><br/>
   <small><%= link_to "more statuses", user_statuses_path(@user) %></small>
 </p>
-
-<h3>Following</h3>
+<hr/>
 <% if !@user.followings.blank? %>
+<h3>Following</h3>
+<ul>
   <% for following in @user.followings %>
-    <li>
-      <%= following.friend.name %>
-      <%= link_to "unfollow this user", following_path(following), :method => :delete %>
-    </li>
+  <li>
+    <%= image_tag following.friend.avatar.url(:thumb) %>
+    <%= following.friend.name %>
+    <%= link_to "unfollow this user", following, :method => :delete if current_user == @user %>
+  </li>
   <% end %>
-<% else %>
-  
+</ul>
+<% end %>
+
+<% if !@user.followers.blank? %>
+<h3>Followers</h3>
+<ul>
+  <% for follower in @user.followers %>
+  <li>
+    <%= image_tag follower.avatar.url(:thumb) %>
+    <%= follower.name %>
+  </li>
+  <% end %>
+</ul>
 <% end %>

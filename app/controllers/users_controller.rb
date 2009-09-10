@@ -1,8 +1,15 @@
 class UsersController < ApplicationController
+  before_filter :require_user, :only => [:show]
   before_filter :require_owner_or_admin, :only => [:edit, :update, :remove_twitter, :remove_avatar]
 
   def show
-    @user = User.find(params[:id])
+    if params[:username]
+      @user = User.find_by_username(params[:username], :include => [{:followings => :friend}, :followers])
+      raise ActiveRecord::RecordNotFound, "Couldn't find User with username=#{params[:username]}" if @user.nil?
+    else
+      @user = User.find(params[:id], :include => [{:followings => :friend}, :followers])
+    end
+    @latest_status = @user.statuses.first
   end
 
   def new

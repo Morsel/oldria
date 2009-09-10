@@ -67,6 +67,15 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def activerecord_error_list(errors = nil)
+    return '' unless errors.instance_of? ActiveRecord::Errors
+    error_list = '<ul class="error_list">'
+    error_list << errors.collect do |e, m|
+      "<li>#{e.humanize unless e == "base"} #{m}</li>"
+    end.to_s << '</ul>'
+    error_list
+  end
+
   protected
 
   def authenticate

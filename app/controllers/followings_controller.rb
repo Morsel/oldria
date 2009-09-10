@@ -1,13 +1,13 @@
 class FollowingsController < ApplicationController
   before_filter :require_user
-  
+
   def create
     store_location
     @following = current_user.followings.build(:friend_id => params[:friend_id])
     if @following.save
       flash[:notice] = "You are now following #{@following.friend.name}"
     else
-      flash[:error] = "Unable to follow that person"      
+      flash[:error] = "Unable to follow that person." + activerecord_error_list(@following.errors)
     end
     redirect_to root_url
   end
@@ -21,4 +21,5 @@ class FollowingsController < ApplicationController
     end
     redirect_to root_url
   end
+
 end

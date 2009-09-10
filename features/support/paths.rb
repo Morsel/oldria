@@ -18,7 +18,7 @@ module NavigationHelpers
     when /^the password reset request page$/
       new_password_reset_path
     when /^the profile page for "(.+)"$/
-      user_path(User.find_by_username($1))
+      profile_path($1)
     when /^the statuses page for "(.+)"$/
       user_statuses_path(User.find_by_username($1))
     when /^the edit page for "(.+)"$/
