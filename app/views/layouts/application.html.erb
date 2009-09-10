@@ -34,12 +34,12 @@
     <div id="header" class="span-18 last">
 
       <div id="brand" class="span-7">
-        <a href="#"><img src="/images/spoonfeed_logo.png" alt="Spoonfeed" title="" border="0" /></a>
+        <a href="/"><img src="/images/spoonfeed_logo.png" alt="Spoonfeed" title="" border="0" /></a>
       </div><!--#brand-->
 
       <div id="navigation" class="span-11 last">
         <ul>
-          <li class="selected"><a class="current" href="index.html">Home</a></li>
+          <li><%= link_to "Home", root_url %></li>
           <%- if current_user -%>
           <li><%= link_to "Profile", profile_path(current_user.username) %></li>
           <li><%= link_to "Status", user_statuses_path(current_user) %></li>

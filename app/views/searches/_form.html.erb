@@ -7,13 +7,15 @@
     <%= f.label :email %>
     <%= f.text_field :email, :class => 'text' %>
   </p>
-  <p>
+  <p class="first_name">
     <%= f.label :first_name_begins_with, "First Name" %>
     <%= f.text_field :first_name_begins_with, :size => 10, :class => 'text' %>
+  </p>
+  <p class="last_name">
     <%= f.label :last_name_begins_with, "Last Name" %>
     <%= f.text_field :last_name_begins_with,  :size => 20, :class => 'text'  %>
   </p>
-  <p>
+  <p class="clear">
     <%= f.label :account_type_id %>
     <%= f.collection_select :account_type_id, AccountType.all, :id, :name, :include_blank => true %>
   </p>

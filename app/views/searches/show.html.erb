@@ -15,7 +15,7 @@
       <td><%= image_tag user.avatar.url(:thumb) %></td>
       <td><%=h user.name %></td>
       <td><%=h user.username %></td>
-      <td><%= link_to "follow this user", followings_path(:friend_id => user), :method => :post %></td>
+      <td><%= link_to "follow this user", followings_path(:friend_id => user), :method => :post, :class => 'button positive'%></td>
     </tr>
   <% end %>  
 </table>

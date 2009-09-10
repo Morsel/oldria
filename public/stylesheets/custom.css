@@ -133,6 +133,15 @@ div#navigation ul {
 			background-color: #69A74D;
 			color: #fff;
 			}
+
+form .first_name, form .last_name {
+	float: left;
+	margin-right: 10px;
+}
+
+form .first_name input.text, form .last_name input.text {
+	width: 138px;
+}
 			
 /* statuses ---- */
 		
