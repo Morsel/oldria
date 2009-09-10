@@ -11,11 +11,11 @@ class User < ActiveRecord::Base
   # Attributes that should not be updated from a form or mass-assigned
   attr_protected :crypted_password, :password_salt, :perishable_token, :persistence_token, :confirmed_at, :admin
 
-  has_attached_file :avatar, :styles => {
-    :thumb => "100x100#"
-  }
+  has_attached_file :avatar, 
+                    :default_url => "/images/default_avatars/:style.png",
+                    :styles => { :thumb => "100x100#" }
 
-
+### Convenience methods for getting/setting first and last names ###
   def name
     @name ||= [first_name, last_name].compact.join(' ')
   end
