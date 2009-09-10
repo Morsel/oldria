@@ -12,9 +12,9 @@
   </tr>
   <% for user in @users %>
     <tr class="search-result">
-      <td><%= image_tag user.avatar.url(:thumb) %></td>
+      <td><%= link_to image_tag(user.avatar.url(:thumb)), profile_path(user.username) %></td>
       <td><%=h user.name %></td>
-      <td><%=h user.username %></td>
+      <td><%= link_to user.username, profile_path(user.username) %></td>
       <td><%= link_to "follow this user", followings_path(:friend_id => user), :method => :post, :class => 'button positive'%></td>
     </tr>
   <% end %>  
