@@ -37,13 +37,22 @@ $(document).ready(function() {
 	});
 
 	$('a.delete, a.trash').removeAttr('onclick');
-	
-	
-// Hide the filter form by default on Admin search
-	$("#filter").hide();
-	
-	$("a.showtarget").click(function(){
-		$(this.hash).slideToggle('fast');
-		return false;
-	});
 });
+
+
+// Hide the filter form by default on Admin search
+
+$("#filter").hide();
+
+$("a.showtarget").click(function(){
+	$(this.hash).slideToggle('fast');
+	return false;
+});
+
+
+
+// Show Current State indicators
+
+$("#navigation a[href$=" + window.location.pathname + "]").parent().addClass("selected");
+
+
