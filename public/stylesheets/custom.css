@@ -12,7 +12,6 @@ blue alt: #1D9BBB;
 green: #69A74D;
 */
 
-
 body {
 	margin: 0px;
 	background-image: url(/images/header_bg.gif);
@@ -30,109 +29,118 @@ div#header {
 	margin: 0px 0px 15px 0px;
 }
 
-#brand {margin-top: 18px;}
+#brand {
+	margin-top: 18px;
+}
 
-.admin_backend #header { position: relative; }
+.admin_backend #header {
+	position: relative;
+}
+
 .admin_backend #header h2 {
 	position: absolute;
 	right: 0;
 	color: #fc9;
 	text-transform: uppercase;
 }
-	
-	
-/* Primary Navigation ----------------- */	
-	
+
+/* Primary Navigation ----------------- */
+
 div#navigation ul {
 	float: right;
 	display: inline;
-	list-style: none;	
+	list-style: none;
 	margin: 60px 0px 0px 0px;
 }
-	
-	div#navigation ul li {
-		float: left;
-		display: inline;
-		font-family: 'helvetica neue', helvetica, tahoma, arial, sans-serif;
-		font-weight: normal;
-		font-size: 1.4em;
-		line-height: 22px;
-		margin: 0px 0px 0px 8px;
-		padding: 4px 0px 10px 0px;
-	}
-	
-	.admin_backend #navigation li { font-size: 1.2em; }
-	
-	div#navigation ul li.selected {
-		background-image: url(/images/nav_arrow.png);
-		background-repeat: no-repeat;
-		background-position: 50% 26px;
-		padding: 4px 0px 14px 0px;
-	}
-	
-		div#navigation ul li a {
-			color: #fff;
-			text-decoration: none;
-			padding: 2px 7px;
-		}
-		
-		div#navigation ul li a:hover {
-			background-color: #513d28;
-			-moz-border-radius: 3px;
-			-webkit-border-radius: 3px;
-			border-radius: 3px;
-		}
-			
-		div#navigation ul li a.current:hover {background: none;}
-		
+
+div#navigation ul li {
+	float: left;
+	display: inline;
+	font-family: 'helvetica neue', helvetica, tahoma, arial, sans-serif;
+	font-weight: normal;
+	font-size: 1.4em;
+	line-height: 22px;
+	margin: 0px 0px 0px 8px;
+	padding: 4px 0px 10px 0px;
+}
+
+.admin_backend #navigation li {
+	font-size: 1.2em;
+}
+
+div#navigation ul li.selected {
+	background-image: url(/images/nav_arrow.png);
+	background-repeat: no-repeat;
+	background-position: 50% 26px;
+	padding: 4px 0px 14px 0px;
+}
+
+div#navigation ul li a {
+	color: #fff;
+	text-decoration: none;
+	padding: 2px 7px;
+}
+
+div#navigation ul li a:hover {
+	background-color: #513d28;
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
+	border-radius: 3px;
+}
+
+div#navigation ul li a.current:hover {
+	background: none;
+}
 
 /* Content area ---------------------- */
 
-.formbox {}
+.formbox {
 	
+}
+
 .formbox input {
 	width: 220px;
 	padding: 2px;
 	margin: 0px;
-	}
-	
+}
+
 .formbox select {
 	width: 220px;
 	padding: 1px;
 	margin: 0px;
-	}
+}
 
 .formbox input.submit {
 	width: auto;
-	}
-	
-	.formbox h3 {
-		margin: 0px 0px 10px 0px;
-		padding: 0px;
-		}
-		
-	.formbox p {
-		margin: 0px 0px 10px 0px;
-		padding: 0px;
-		}
-		
-	#login p.forgot {
-		font-size: .8em;
-		font-family: 'lucida grande', tahoma, arial, sans-serif;
-		margin: 0px;
-		padding: 0px;
-		}
-		
-		#login p.forgot a {
-			color: #69A74D;
-			background-color: #f2ffec;
-			padding: 2px 5px;
-			}
-			
-		#login p.forgot a:hover {
-			background-color: #69A74D;
-			color: #fff;
-			}
+}
+
+.formbox h3 {
+	margin: 0px 0px 10px 0px;
+	padding: 0px;
+}
+
+.formbox p {
+	margin: 0px 0px 10px 0px;
+	padding: 0px;
+}
+
+#login p.forgot {
+	font-size: .8em;
+	font-family: 'lucida grande', tahoma, arial, sans-serif;
+	margin: 0px;
+	padding: 0px;
+}
+
+#login p.forgot a {
+	color: #69A74D;
+	background-color: #f2ffec;
+	padding: 2px 5px;
+}
+
+#login p.forgot a:hover {
+	background-color: #69A74D;
+	color: #fff;
+}
 
 form .first_name, form .last_name {
 	float: left;
@@ -142,103 +150,140 @@ form .first_name, form .last_name {
 form .first_name input.text, form .last_name input.text {
 	width: 138px;
 }
-			
+
 /* statuses ---- */
-		
-#status_update {
+
+#new_status {
 	background-color: #edfbff;
 	padding: 12px;
-	}
-	
-	#status_update input {
-		font-size: 1.3em;
-		padding: 4px 5px;
-		font-family: 'helvetica neue', helvetica, arial, sans-serif;
-		color: #666;
-	}
-	
-	#status_update button {
-		margin: 0;
-		float: none;
-		border-color: #ccf;
-		background-color: #def;
-		color: #1d9bbb;
-	}
-	
-	#status_update button:hover {
-		background-color: #1D9BBB;
-		color: #fff;
-	}
-		
-	#leftcolumn #status_update input.status_message {width: 450px;}
-	#rightcolumn #status_update input.status_message {width: 240px;}
-		
-	#status_update input:active, #status_update input:focus {
-		background-color:#fffde6;
-	}
-	
-	.checkbox_twitter {
-		width: 150px;
-		clear: both;
-		background-color: #1D9BBB;
-		padding: 5px 5px 5px 8px;
-		margin: 0px 2em 12px 0px;
-		border: 0 none;
-		float: left;
-	}
-	
-	.checkbox_twitter input.checkbox {
-		float: left;
-		display: inline;
-		width: auto;
-		margin: -2px 7px 0px 0px;
-		height: 14px;
-		padding: 0px;
-	}
-	
-	.checkbox_twitter label {color: #fff;}
-	
-#past_status ul {
+}
+
+#new_status input {
+	font-size: 1.3em;
+	padding: 4px 5px;
+	font-family: 'helvetica neue', helvetica, arial, sans-serif;
+	color: #666;
+}
+
+#new_status button {
+	margin: 0;
+	float: none;
+	border-color: #ccf;
+	background-color: #def;
+	color: #1d9bbb;
+}
+
+#new_status button:hover {
+	background-color: #1D9BBB;
+	color: #fff;
+}
+
+#leftcolumn #new_status input.status_message {
+	width: 450px;
+}
+
+#rightcolumn #new_status input.status_message {
+	width: 240px;
+}
+
+#new_status input:active, #new_status input:focus {
+	background-color: #fffde6;
+}
+
+.checkbox_twitter {
+	width: 150px;
+	clear: both;
+	background-color: #1D9BBB;
+	padding: 5px 5px 5px 8px;
+	margin: 0px 2em 12px 0px;
+	border: 0 none;
+	float: left;
+}
+
+.checkbox_twitter input.checkbox {
+	float: left;
+	display: inline;
+	width: auto;
+	margin: -2px 7px 0px 0px;
+	height: 14px;
+	padding: 0px;
+}
+
+.checkbox_twitter label {
+	color: #fff;
+}
+
+#statuses {
 	list-style: none;
 	margin: 10px 0px;
 	padding: 0px;
-	}	
-	
-	#past_status ul li {
-		font-family: 'lucida grande', tahoma, arial, sans-serif;
-		font-size: .9em;
-		color: #666;
-		line-height:15px;
-		margin: 0px 0px 12px 0px;
-		padding: 0px 0px 8px 0px;
-		border-bottom: 1px dotted #ccc;
-		}
-		
-		#past_status ul li span.message {
-			display: block;
-			color: #333;
-			font-size: 1.5em;
-			line-height: 22px;
-			font-family: Georgia, 'Trebuchet MS', Times, arial, sans-serif;
-			}
-			
-		#past_status ul li span.recentmessage {
-			font-size: 2.1em;
-			line-height: 28px;
-			}
-	
-	
-	
-	
-	
-	
+}
 
+.status {
+	font-family: 'lucida grande', tahoma, arial, sans-serif;
+	color: #666;
+	margin: 0px 0px 12px 0px;
+	padding: 0px 0px 8px 0px;
+	border-bottom: 1px dotted #ccc;
+}
+
+.status .message {
+	display: block;
+	color: #333;
+	font-size: 1.5em;
+	line-height: 22px;
+	font-family: Georgia, 'Trebuchet MS', Times, arial, sans-serif;
+}
+
+#statuses li .recentmessage {
+	font-size: 2.1em;
+	line-height: 28px;
+}
+
+
+
+.statuses li {
+	clear: left;
+	list-style: none;
+	margin: 15px 0 0;
+	padding: 0 0 10px;
+	overflow: hidden;
+}
+
+#statuses .posted, .statuses .utility, .statuses .meta {
+	color: #999;
+	font-size: .8em;
+	display: inline;
+	float: left;
+	padding-right: 5px;
+}
+
+#statuses .meta {
+	clear: left;
+}
+
+#statuses .message {
+	float: left;
+}
+
+#statuses .posted {
+	clear: left;
+}
+
+.statuses .profile_image {
+	float: left;
+	padding-right: 10px;
+}
 
 /* Typography -------------------  */
 
-strong {font-weight: bold;}
+strong {
+	font-weight: bold;
+}
 
-a {text-decoration: none;}
+a {
+	text-decoration: none;
+}
 
 p, li {
 	color: #333;
@@ -261,7 +306,7 @@ h1,h2,h3 {
 	font-weight: bold;
 }
 
-h1{
+h1 {
 	font-size: 2em;
 }
 
@@ -271,6 +316,7 @@ h2 {
 
 h3 {
 	color: #276b96;
+	margin: 0 0 .5em 0;
 }
 
 h4 {
@@ -284,7 +330,7 @@ blockquote {
 	padding-left: 36px;
 	padding-bottom: 0px;
 }
-	
+
 pre {
 	font-size: .9em;
 	font-family: monospace;
@@ -292,7 +338,7 @@ pre {
 
 dl {
 	margin: 10px 0px 20px 0px;
-	}
+}
 
 dt {
 	font-size: 1em;
@@ -305,7 +351,7 @@ dt {
 }
 
 dd {
-	font-size:1em;
+	font-size: 1em;
 	font-weight: normal;
 	color: #444;
 	font-family: helvetica, arial, sans-serif;
@@ -314,13 +360,18 @@ dd {
 	padding: 0px;
 }
 
-big   {font-size: 115%;}
-small {font-size:  85%;}
+big {
+	font-size: 115%;
+}
+
+small {
+	font-size: 85%;
+}
 
 code {
 	font-family: monospace;
 }
-	
+
 del {
 	color: #999;
 	text-decoration: line-through;
@@ -331,16 +382,19 @@ ins {
 	padding: 2px;
 	text-decoration: none;
 	border: 0px;
-	}
-
+}
 
 /* Tables ---------------------- */
+
+#leftcolumn table {
+	max-width: 637px;
+}
 
 table {
 	border: 1px solid #ccc;
 	font-family: 'lucida grande', tahoma, arial, sans-serif;
 }
-	
+
 table caption {
 	font-size: 1em;
 	line-height: 16px;
@@ -379,7 +433,7 @@ td.utility {
 	padding-left: 1em;
 	padding-right: 1em;
 	word-spacing: 3px;
-	width:95px;
+	width: 95px;
 }
 
 /* Forms ---------------------------- */
@@ -413,35 +467,37 @@ textarea {
 	font-size: 1em;
 }
 
-select {font-size: .9em;}
+select {
+	font-size: .9em;
+}
 
-option {padding: 3px 3px 0px 3px;}
-
-
-
-
-
-
+option {
+	padding: 3px 3px 0px 3px;
+}
 
 /* blueprint extensions ------------  */
 
-.round {-moz-border-radius: 3px;-webkit-border-radius: 3px;border-radius: 3px;}
+.round {
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
+	border-radius: 3px;
+}
 
 .box {
 	padding: 1em;
 	background: none;
 	border: 1px solid #ddd;
-	-moz-border-radius:3px;
-	-webkit-border-radius:3px;
-	border-radius:3px;
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
+	border-radius: 3px;
 }
 
 .marginright {
-	margin-right:34px;
+	margin-right: 34px;
 }
 
 .marginleft {
-	margin-left:34px;
+	margin-left: 34px;
 }
 
 .hidden {
@@ -468,7 +524,7 @@ option {padding: 3px 3px 0px 3px;}
 	padding: 0px 14px 0px 0px;
 	display: inline;
 }
-		
+
 #footer ul li a {
 	color: #0089C2;
 	background-color: #edfbff;
@@ -478,15 +534,13 @@ option {padding: 3px 3px 0px 3px;}
 	-moz-border-radius: 3px;
 	-webkit-border-radius: 3px;
 	border-radius: 3px;
-	}
-		
+}
+
 #footer ul li a:hover {
 	background-color: #0089C2;
 	border: 0px;
 	color: #fff;
 }
-
-
 
 /* Application
 ------------------------*/
@@ -497,89 +551,55 @@ option {padding: 3px 3px 0px 3px;}
 }
 
 #flash_notice, #flash_error {
-  padding: 5px 8px;
+	padding: 5px 8px;
 }
 
 #flash_notice {
-  background-color: #CFC;
-  border: solid 1px #6C6;
+	background-color: #CFC;
+	border: solid 1px #6C6;
 }
 
 #flash_error {
-  background-color: #FCC;
-  border: solid 1px #C66;
+	background-color: #FCC;
+	border: solid 1px #C66;
 }
 
 .fieldWithErrors {
-  display: inline;
+	display: inline;
 }
 
 #errorExplanation {
-  width: 400px;
-  border: 2px solid #CF0000;
-  padding: 0px;
-  padding-bottom: 12px;
-  margin-bottom: 20px;
-  background-color: #f0f0f0;
+	width: 400px;
+	border: 2px solid #CF0000;
+	padding: 0px;
+	padding-bottom: 12px;
+	margin-bottom: 20px;
+	background-color: #f0f0f0;
 }
 
 #errorExplanation h2 {
-  text-align: left;
-  font-weight: bold;
-  padding: 5px 5px 5px 15px;
-  font-size: 12px;
-  margin: 0;
-  background-color: #c00;
-  color: #fff;
+	text-align: left;
+	font-weight: bold;
+	padding: 5px 5px 5px 15px;
+	font-size: 12px;
+	margin: 0;
+	background-color: #c00;
+	color: #fff;
 }
 
 #errorExplanation p {
-  color: #333;
-  margin-bottom: 0;
-  padding: 8px;
+	color: #333;
+	margin-bottom: 0;
+	padding: 8px;
 }
 
 #errorExplanation ul {
-  margin: 2px 24px;
+	margin: 2px 24px;
 }
 
 #errorExplanation ul li {
-  font-size: 12px;
-  list-style: disc;
-}
-
-.statuses li {
-	clear: left;
-	list-style: none;
-	margin: 15px 0 0;
-	padding: 0 0 10px;
-	font-size: 1.2em;
-	overflow: hidden;
-}
-
-#statuses .posted, .statuses .utility, .statuses .meta {
-	color: #999;
-	font-size: .8em;
-	display: inline;
-	float: left;
-	padding-right: 5px;
-}
-
-#statuses .meta {
-	clear: left;
-}
-
-#statuses .message {
-	float: left;
-}
-
-#statuses .posted {
-	clear: left;
-}
-
-.statuses .profile_image {
-	float: left;
-	padding-right: 10px;
+	font-size: 12px;
+	list-style: disc;
 }
 
 .trash img {
@@ -603,17 +623,17 @@ option {padding: 3px 3px 0px 3px;}
 	margin-bottom: 1em;
 }
 
-
 tr.admin td {
 	background-color: #fdc;
 }
 
 #admin_users_list td.thumb {
 	max-width: 52px;
-	font-size:8px;
+	font-size: 8px;
 }
+
 #admin_users_list .thumbnail {
 	width: 50px;
-	height:50px;
-	margin:0;
+	height: 50px;
+	margin: 0;
 }

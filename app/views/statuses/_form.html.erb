@@ -1,4 +1,5 @@
 <div id="status_update" class="box clearfix">
+  <h3>Update Your Status</h3>
 <% form_for [@user, (@status ||= Status.new)] do |f| %>
   <%= f.error_messages %>
   <p>
