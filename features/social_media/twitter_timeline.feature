@@ -12,8 +12,8 @@ Feature: Twitter Authentication
     When I go to the homepage
     And I follow "Setup Twitter"
     And Twitter authorizes "johnny"
-    Then I should see "Twitter Timeline"
-    And I should not see "Setup Twitter"
+    Then I should see "Twitter"
+    But I should not see "Setup Twitter"
 
 
   Scenario: Viewing Friends Timeline
@@ -22,7 +22,7 @@ Feature: Twitter Authentication
     | stevie   | secret   |
     Given I am logged in as "stevie" with password "secret"
     And I am on the homepage
-    When I follow "Twitter Timeline"
+    When I follow "Twitter"
 
     ## From a fixture file ##
     Then I should see "Best American flag etiquette video series I've seen all month!"

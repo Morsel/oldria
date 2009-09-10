@@ -13,7 +13,7 @@ Feature: Member search
 
   Scenario: Normal search
     Given I am on the homepage
-    When I follow "Search for People"
+    When I follow "Search"
     And I fill in "First Name" with "John"
     And I press "Search"
     Then I should see 1 search result
@@ -23,7 +23,7 @@ Feature: Member search
 
   Scenario: No results
     Given I am on the homepage
-    When I follow "Search for People"
+    When I follow "Search"
     And I fill in "First Name" with "Mary"
     And I press "Search"
     Then I should see no search results

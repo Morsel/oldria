@@ -1,16 +1,16 @@
 <% form_for [:admin, @date_range] do |f| %>
   <%= f.error_messages %>
   <p>
-    <%= f.label :start_date %><br />
+    <%= f.label :start_date %>
     <%= f.date_select :start_date %>
   </p>
   <p>
-    <%= f.label :end_date %><br />
+    <%= f.label :end_date %>
     <%= f.date_select :end_date %>
   </p>
   <p>
-    <%= f.label :name %><br />
-    <%= f.text_field :name %>
+    <%= f.label :name %>
+    <%= f.text_field :name, :class => 'text' %>
   </p>
   <p><%= f.submit "Submit" %></p>
 <% end %>

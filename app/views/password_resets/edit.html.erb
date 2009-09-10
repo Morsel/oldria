@@ -4,11 +4,11 @@
   <%= f.error_messages %>
   <p>
     <%= f.label :password, "New Password" %><br />
-    <%= f.password_field :password %>
+    <%= f.password_field :password, :class => 'text' %>
   </p>
   <p>
     <%= f.label :password_confirmation, "Confirm New Password" %><br />
-    <%= f.password_field :password_confirmation %>
+    <%= f.password_field :password_confirmation, :class => 'text' %>
   </p>
   <p><%= f.submit "Update my password and log me in" %></p>
 <% end %>

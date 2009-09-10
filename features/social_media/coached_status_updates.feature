@@ -17,13 +17,13 @@ Feature: Coached Status Updates
   Scenario: Seeing a Coached Status during the specified time
     Given the current date is "2009-12-20"
     When I am on the homepage
-    And I follow "Statuses"
+    And I follow "Status"
     Then I should see "Christmas Menu coming up?"
 
   Scenario: Not displaying message out of date range
     Given the current date is "2009-10-02"
     When I am on the homepage
-    And I follow "Statuses"
+    And I follow "Status"
     Then I should not see "Christmas Menu coming up?"
 
 

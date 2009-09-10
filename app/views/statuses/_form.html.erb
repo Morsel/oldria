@@ -1,12 +1,17 @@
+<div id="status_update" class="box clearfix">
 <% form_for [@user, (@status ||= Status.new)] do |f| %>
   <%= f.error_messages %>
   <p>
-    <%= f.label :message, "Status" %><br />
-    <%= f.text_field :message, :size => '100', :class => 'title' %>
+    <%= f.label :message, "Status", :class => 'hidden' %>
+    <%= f.text_field :message, :size => '100', :class => 'status_message title' %>
     <% if current_user.twitter_authorized? %>
+    <fieldset class="checkbox_twitter round">
+      <%= f.check_box :queue_for_social_media, :class => 'checkbox' %>      
       <%= f.label :queue_for_social_media, "Also post to Twitter?" %>
-      <%= f.check_box :queue_for_social_media %>
+    </fieldset>
     <% end %>
-    <%= content_tag :button, "Post", :type => 'submit', :class => 'positive' %>
+
+    <%= content_tag :button, "Post", :type => 'submit' %>
   </p>
 <% end %>
+</div>

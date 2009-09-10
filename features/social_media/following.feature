@@ -18,7 +18,7 @@ Feature: Follow a SpoonFeed member, See who's following me
 
   Scenario: Find someone and follow them
     Given I am on the homepage
-    When I follow "Search for People"
+    When I follow "Search"
     And I fill in "First Name" with "Sarah"
     And I press "Search"
     Then I should see "Sarah Cooper"
@@ -38,7 +38,7 @@ Feature: Follow a SpoonFeed member, See who's following me
 
   Scenario: You can't follow yourself
     Given I am on the homepage
-    When I follow "Search for People"
+    When I follow "Search"
     And I fill in "Username" with "friendly"
     And I press "Search"
     Then I should see "John Appleseed"
