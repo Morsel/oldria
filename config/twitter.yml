@@ -6,7 +6,7 @@ development: &DEV
 production:
   token: 2O3cZx2xW6mH3FqfNkXtw
   secret: yGfF87HbIZFDABqYs7EVgBQMupE93kVjOjITueUsRAs
-  callbackurl: http://174.132.251.233/twitter_authorization/
+  callbackurl: http://spoonfeed.restaurantintelligenceagency.com/twitter_authorization/
 
 test:
   <<: *DEV

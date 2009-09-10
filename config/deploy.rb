@@ -1,6 +1,6 @@
 set :application, "ria"
 
-set :server_ip, '174.132.251.233'
+set :server_ip, 'spoonfeed.restaurantintelligenceagency.com'
 ssh_options[:port] = 7822
 
 
