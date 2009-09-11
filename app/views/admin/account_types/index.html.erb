@@ -3,12 +3,15 @@
 <table>
   <tr>
     <th>Name</th>
+    <th></th>
   </tr>
   <% for account_type in @account_types %>
     <tr>
       <td><%=h account_type.name %></td>
-      <td><%= link_to "Edit", edit_admin_account_type_path(account_type) %></td>
-      <td><%= link_to "Destroy", [:admin, account_type], :confirm => 'Are you sure?', :method => :delete %></td>
+      <td class="utility">
+        <%= link_to "Edit", edit_admin_account_type_path(account_type) %>
+        <%= link_to "Destroy", [:admin, account_type], :confirm => 'Are you sure?', :method => :delete %>
+      </td>
     </tr>
   <% end %>
 </table>

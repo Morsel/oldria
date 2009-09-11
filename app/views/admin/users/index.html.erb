@@ -23,7 +23,7 @@
       <%= image_tag user.avatar.url(:thumb), :class => 'thumbnail'  %>  
     <%- end -%>
     </td>
-    <td><%=h user.username %></td>
+    <td><%= link_to user.username, profile_path(user.username) %></td>
     <td><%=h user.email %></td>
     <!-- <td><%= user.admin? ? '&#10003;' : '' %></td> -->
 
@@ -47,9 +47,8 @@
     </td>
 
     <td class="utility">
-      <%= link_to 'Show', admin_user_path(user) %>
       <%= link_to 'Edit', edit_admin_user_path(user) %>
-      <%= link_to 'Destroy', admin_user_path(user), :confirm => 'Are you sure?', :method => :delete %>
+      <%= link_to 'Destroy', admin_user_path(user), :confirm => 'Are you sure? This action CANNOT be undone', :method => :delete %>
     </td>
   </tr>
 <% end %>
