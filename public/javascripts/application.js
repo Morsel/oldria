@@ -31,7 +31,7 @@ $(document).ready(function() {
 	$("#new_status").submitWithAjax();
 	
 // Ajaxy Delete
-	$('#statuses a.trash').live('click', function(){
+	$('.status a.trash').live('click', function(){
 		$.post(this.href, { _method: 'delete' }, null, 'script');
 		return false;	
 	});

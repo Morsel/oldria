@@ -1,5 +1,5 @@
 // Add the message the list
-$("#statuses").prepend("<li style=\"opacity:0\" id=\"status_<%= @status.id %>\"><%= escape_javascript(render @status) %></li>").find('li:first').animate({opacity: 1}, 1000);
+$("#statuses").prepend("<li class=\"status\" style=\"opacity:0\" id=\"status_<%= @status.id %>\"><%= escape_javascript(render @status) %></li>").find('li:first').animate({opacity: 1}, 1000);
 
 // Reset the form
 $("#new_status")[0].reset();

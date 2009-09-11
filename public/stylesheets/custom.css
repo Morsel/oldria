@@ -274,7 +274,7 @@ form .first_name input.text, form .last_name input.text {
 	overflow: hidden;
 }
 
-#statuses .posted, .statuses .utility, .statuses .meta {
+.status .posted, .status .utility, .status .meta {
 	color: #999;
 	font-size: .8em;
 	display: inline;
@@ -282,21 +282,27 @@ form .first_name input.text, form .last_name input.text {
 	padding-right: 5px;
 }
 
-#statuses .meta {
+.status .meta, .status .posted {
 	clear: left;
+}
+
+.status .meta .posted {
+	clear: none;
+	float: none;
 }
 
 #statuses .message {
 	float: left;
 }
 
-#statuses .posted {
-	clear: left;
-}
-
-.statuses .profile_image {
+.status .profile_image {
 	float: left;
 	padding-right: 10px;
+	margin-bottom: 10px;
+}
+
+.status {
+	overflow: hidden;
 }
 
 /* Typography -------------------  */

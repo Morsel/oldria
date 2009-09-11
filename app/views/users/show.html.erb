@@ -6,11 +6,14 @@
 <p><%= image_tag @user.avatar.url(:small) %></p>  
 <% end %>
 
+<% if @latest_status %>
 <h3>Latest Status</h3>
-<p>
-  <%= @latest_status.message if @latest_status %><br/>
-  <small><%= link_to "more statuses", user_statuses_path(@user) %></small>
+<p class="status" id="status_<%= @latest_status.id %>">
+  <%= render :partial => 'statuses/status', :locals => { :status => @latest_status } %>
 </p>
+<p><small><%= link_to "more statuses", user_statuses_path(@user) %></small></p>
+<% end %>
+
 <hr/>
 <% if !@user.followings.blank? %>
 <h3>Following</h3>
