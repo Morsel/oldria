@@ -19,5 +19,5 @@
     <%= f.label :account_type_id %>
     <%= f.collection_select :account_type_id, AccountType.all, :id, :name, :include_blank => true %>
   </p>
-  <p><%= button_tag "Search", :class => 'positive' %></p>
+  <p class="clearfix"><%= button_tag "Search", :class => 'positive' %></p>
 <% end %>
