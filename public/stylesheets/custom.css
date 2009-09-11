@@ -541,7 +541,7 @@ option {
 	padding: 0px;
 }
 
-#footer ul li {
+#footer li {
 	font-family: 'helvetica neue', 'lucida grande', helvetica, arial, sans-serif;
 	font-size: 1.1em;
 	color: #333;
@@ -550,7 +550,7 @@ option {
 	display: inline;
 }
 
-#footer ul li a {
+#footer li a {
 	color: #0089C2;
 	background-color: #edfbff;
 	border: 1px solid #cdeff8;
@@ -561,9 +561,9 @@ option {
 	border-radius: 3px;
 }
 
-#footer ul li a:hover {
+#footer li a:hover {
 	background-color: #0089C2;
-	border: 0px;
+	border-color: #0089C2;
 	color: #fff;
 }
 
