@@ -13,7 +13,7 @@ class User < ActiveRecord::Base
 
   has_attached_file :avatar, 
                     :default_url => "/images/default_avatars/:style.png",
-                    :styles => { :thumb => "100x100#" }
+                    :styles => { :small => "100x100>", :thumb => "50x50#" }
 
 ### Convenience methods for getting/setting first and last names ###
   def name
