@@ -94,6 +94,30 @@ div#navigation ul li a.current:hover {
 
 /* Content area ---------------------- */
 
+#user_status img {
+	float: left;
+	border: 1px solid #ddd;
+	margin-right: 1em;
+}
+
+#user_status a:hover img {
+	border-color: #daa;
+}
+
+#user_status p {
+	margin-bottom: .25em; /* 3px at 12px font */
+}
+
+#user_status a {
+	color: #513d28;
+	border-bottom: 1px dashed #cbb;
+}
+
+#user_status a:hover {
+	border-color: #fff;
+	color: green;
+}
+
 .formbox {
 	
 }
@@ -384,6 +408,7 @@ ins {
 	border: 0px;
 }
 
+
 /* Tables ---------------------- */
 
 #leftcolumn table {
@@ -600,6 +625,12 @@ option {
 #errorExplanation ul li {
 	font-size: 12px;
 	list-style: disc;
+}
+
+.button-separator {
+	float: left;
+	line-height: 18px;
+	margin: 1em 1em 1em .5em;
 }
 
 .trash img {

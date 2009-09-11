@@ -30,7 +30,7 @@ Feature: Update information
     When I am on the login page
     And I fill in "Username" with "manny"
     And I fill in "Password" with "betterpassword"
-    And I press "Submit"
+    And I press "Login"
     
     Then I should see "You are now logged in"
 

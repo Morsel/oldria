@@ -13,7 +13,7 @@ Feature: Reset password
     And I follow "Login"
     And I fill in "Username" with "freddyb"
     And I fill in "Password" with "incorrect"
-    And I press "Submit"
+    And I press "Login"
     Then I should see "couldn't log you in"
     And I should see "Forgot your password?"
 

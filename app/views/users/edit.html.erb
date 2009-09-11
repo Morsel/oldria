@@ -18,13 +18,17 @@
     <h3>Headshot</h3>
   <p>
     <%= image_tag @user.avatar.url(:thumb), :class => 'thumbnail' %><br/>
-    <%= f.label :avatar, "Headshot" %><br/>
+    <%= f.label :avatar, "Headshot" %>
     <%= f.file_field :avatar %>
   </p>
-  <p><%= f.submit "Upload Headshot" %> or <%= link_to "Remove my headshot", remove_avatar_user_path(@user), :method => :put, :confirm => "Are you sure you want to remove your headshot? You'll have to upload another one later to get it back" %></p>
+  <p>
+  <%= button_tag "Upload Headshot", :class => 'positive' %>
+  <span class="button-separator"> or </span> 
+  <%= link_to (image_tag('x.png') + "Remove my headshot"), remove_avatar_user_path(@user), :method => :put, :confirm => "Are you sure you want to remove your headshot? You'll have to upload another one later to get it back", :class => 'button negative' %>
+  </p>
   </fieldset>
 <% end %>
 
 <hr/>
 
-<p><%= link_to "Cancel editing", user_path(@user) %></p>
+<p><%= link_to "Cancel editing", profile_path(@user.username) %></p>

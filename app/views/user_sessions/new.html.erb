@@ -5,14 +5,14 @@
   <p>
     <%= f.label :username %>
     <%= f.text_field :username, :class => 'text' %>
-    <small>Your username or email</small>
+    <small>Your <strong>username</strong> or<strong> email</strong></small>
   </p>
   <p>
     <%= f.label :password %>
     <%= f.password_field :password, :class => 'text' %>
   </p>
-  <p><%= f.submit "Submit" %></p>
+  <p><%= button_tag image_tag('key.png') + "Login", :name => 'submit' %></p>
 <% end %>
 
 
-<p><small><%= link_to "Forgot your password?", new_password_reset_path %></small></p>
+<p class="clear forgot"><small><%= link_to "Forgot your password?", new_password_reset_path %></small></p>

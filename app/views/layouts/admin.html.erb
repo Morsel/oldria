@@ -66,13 +66,9 @@
   </div><!--#leftcolumn-->
 
   <div id="sidebar" class="span-6 last">
-    <div id="user_nav" class="box">
-      <ul>
-      <li>Logged in as <%= link_to current_user.username, profile_path(current_user.username) %></li>
-      <li><%= link_to "Log out", logout_path %></li>
-      <li><%= link_to "Public", root_path %></li>
-
-      </ul>
+    <div id="user_status" class="box">
+      <p>Logged in as <%= link_to current_user.username, profile_path(current_user.username) %> &nbsp;&nbsp;<%= link_to "(Log out)", logout_path %></p>
+      <p><strong><%= link_to "Public", root_path %></strong></p>
     </div>
     
     <% if !(sb = yield :sidebar).blank? %>

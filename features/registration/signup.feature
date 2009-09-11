@@ -103,7 +103,7 @@ Feature: Create an Account
     When I am on the login page
     And I fill in "Username" with "jimbob"
     And I fill in "Password" with "secret"
-    And I press "Submit"
+    And I press "Login"
 
     Then I should see "Your account is not confirmed"
     And "jimbob" should not be logged in
@@ -118,7 +118,7 @@ Feature: Create an Account
     And I follow "Login"
     And I fill in "Username" with "mistered"
     And I fill in "Password" with "secret"
-    And I press "Submit"
+    And I press "Login"
 
     Then I should see "You are now logged in"
 
@@ -130,7 +130,7 @@ Feature: Create an Account
     When I am on the login page
     And I fill in "Username" with "mistered"
     And I fill in "Password" with "blue"
-    And I press "Submit"
+    And I press "Login"
     Then I should see "we couldn't log you in"
 
 

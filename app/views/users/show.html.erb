@@ -3,7 +3,7 @@
 <p><%= link_to "[edit info]", edit_user_path(@user) %></p>
 <% end -%>
 <% if @user.avatar? %>
-<p><%= image_tag @user.avatar.url(:thumb), :class => 'thumbnail' %></p>  
+<p><%= image_tag @user.avatar.url(:small) %></p>  
 <% end %>
 
 <h3>Latest Status</h3>

@@ -13,12 +13,12 @@ Feature: Users login with username or email address
     Given I am on the login page
     When I fill in "Username" with "jimmy@dean.com"
     And I fill in "Password" with "secret"
-    And I press "Submit"
+    And I press "Login"
     Then I should see "You are now logged in."
 
   Scenario: Logging in with username
     Given I am on the login page
     When I fill in "Username" with "jimmy12"
     And I fill in "Password" with "secret"
-    And I press "Submit"
+    And I press "Login"
     Then I should see "You are now logged in."
