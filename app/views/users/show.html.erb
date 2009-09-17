@@ -6,6 +6,10 @@
 <p><%= image_tag @user.avatar.url(:small) %></p>  
 <% end %>
 
+<p class="clearfix">
+<%= link_to "send a message", new_user_direct_message_path(@user), :class => 'button'%>
+</p>
+
 <% if @latest_status %>
 <h3>Latest Status</h3>
 <p class="status" id="status_<%= @latest_status.id %>">

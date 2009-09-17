@@ -1,8 +1,4 @@
 ActionController::Routing::Routes.draw do |map|
-  map.resources :followings
-
-  map.resources :pages
-
   map.signup 'signup', :controller => 'users', :action => 'new'
   map.login  'login',  :controller => 'user_sessions', :action => 'new'
   map.logout 'logout', :controller => 'user_sessions', :action => 'destroy'
@@ -10,13 +6,15 @@ ActionController::Routing::Routes.draw do |map|
 
   map.profile 'profile/:username', :controller => 'users', :action => 'show'
 
-  map.resources :users, :has_many => 'statuses', :member => { 
-    :remove_twitter => :put,
-    :remove_avatar => :put 
-  }
+  map.resources :users, :member => { 
+    :remove_twitter => :put, 
+    :remove_avatar => :put
+  }, :shallow => true do |users|
+    users.resources :statuses
+    users.resources :direct_messages, :member => { :reply => :get }
+  end
 
-  map.resources :user_sessions, :password_resets
-
+  map.resources :user_sessions, :password_resets, :followings, :pages
   map.resource :twitter_authorization
   map.resource :friend_timeline, :only => 'show'
   

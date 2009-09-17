@@ -1,6 +1,6 @@
 <div id="status_update" class="box clearfix">
   <h3>Update Your Status</h3>
-<% form_for [@user, (@status ||= Status.new)] do |f| %>
+<% form_for (@status ||= Status.new), :url => user_statuses_path(@user) do |f| %>
   <%= f.error_messages %>
   <p>
     <%= f.label :message, "Status", :class => 'hidden' %>

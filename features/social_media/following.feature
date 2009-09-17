@@ -1,4 +1,3 @@
-@focus
 Feature: Follow a SpoonFeed member, See who's following me
   So that I can increase my social network at SF
   As a SpoonFeed member

@@ -94,6 +94,10 @@ div#navigation ul li a.current:hover {
 
 /* Content area ---------------------- */
 
+#leftcolumn {
+	min-height: 360px;
+}
+
 #user_status img {
 	float: left;
 	border: 1px solid #ddd;
@@ -305,6 +309,31 @@ form .first_name input.text, form .last_name input.text {
 	overflow: hidden;
 }
 
+.direct_message {
+	border-bottom: 	1px solid #ddd;
+	padding-bottom: 8px;
+	margin-bottom: 	9px;
+}
+
+.direct_message h5, .direct_message p {
+	margin:0;
+}
+
+.direct_message .meta {
+	font-size: 0.85em;
+	color: #777;
+}
+
+.direct_message h5 a{
+	border-bottom: 1px dashed #ccc;
+}
+
+.direct_message img.left {
+	margin-bottom: 2px;
+	border:1px solid #fff;
+}
+
+
 /* Typography -------------------  */
 
 strong {
@@ -415,7 +444,19 @@ ins {
 }
 
 
+img.left {
+	float: left;
+	margin: 0 10px 10px 0;
+}
+
+img.right {
+	float: right;
+	margin: 0 0 10px 10px;
+}
+
 /* Tables ---------------------- */
+
+
 
 #leftcolumn table {
 	max-width: 637px;
@@ -492,10 +533,8 @@ label {
 
 textarea {
 	color: #222;
-	margin: 4px 0px 0px 0px;
-	padding: 3px;
-	border: 1px solid #aaa;
-	font-size: 1em;
+	height:auto;
+	border-color: #aaa;
 }
 
 select {

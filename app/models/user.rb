@@ -8,6 +8,9 @@ class User < ActiveRecord::Base
   has_many :inverse_followings, :class_name => "Following", :foreign_key => 'friend_id'
   has_many :followers, :through => :inverse_followings, :source => :follower
 
+  has_many :direct_messages, :foreign_key => "receiver_id"
+  has_many :sent_direct_messages, :class_name => "DirectMessage", :foreign_key => "sender_id"
+
   # Attributes that should not be updated from a form or mass-assigned
   attr_protected :crypted_password, :password_salt, :perishable_token, :persistence_token, :confirmed_at, :admin
 

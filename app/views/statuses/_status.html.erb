@@ -1,6 +1,6 @@
 
 <% if owner? %>
-  <span class="utility"><%= link_to image_tag('trash.gif'), user_status_path(@user, status), :class => 'trash' %></span>
+  <span class="utility"><%= link_to image_tag('trash.gif'), status, :class => 'trash' %></span>
 <% end %>
 <span class="message"><%= auto_link status.message %></span> 
 

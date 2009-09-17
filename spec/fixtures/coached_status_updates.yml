@@ -1,7 +1,0 @@
-one:
-  message: MyString
-  time_of_year: MyString
-
-two:
-  message: MyString
-  time_of_year: MyString

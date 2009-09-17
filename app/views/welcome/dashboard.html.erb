@@ -1,0 +1,40 @@
+<% title "Dashboard" %>
+
+	<div id="direct_messages" class="span-6">
+<% if !@direct_messages.blank? %>
+		<h3>Messages to You</h3>
+	<% for message in @direct_messages %>
+	<% div_for message, :class => 'clearfix' do %>
+		<%= image_tag message.sender.avatar.url(:thumb), :class => 'left' %>
+		<h5><%= message.title %></h5>
+		<p>
+			<%= message.body %>
+		</p>
+		<p class="meta">
+			from <%= link_to message.sender.username, message.sender %> | 
+			<%= message.created_at.to_s(:short) %> | 
+			<%= link_to "reply", reply_direct_message_path(message) %>
+		</p>
+	<% end # div -%>
+	<% end # for loop %>
+<% end -%>
+	</div>
+
+	<div id="sent_messages" class="span-6 last">
+<% if !@sent_messages.blank? %>
+	<h3>Sent Messages</h3>
+	<% for message in @sent_messages %>
+	<% div_for message, :class => 'sent_message clearfix' do %>
+		<%= image_tag message.receiver.avatar.url(:thumb), :class => 'left' %>
+		<h5><%= message.title %></h5>
+		<p>
+			<%= message.body %>
+		</p>
+		<p class="meta">
+			to <%= link_to message.receiver.username, message.receiver %> | 
+			<%= message.created_at.to_s(:short) %>
+		</p>
+	<% end # div -%>
+	<% end # for loop %>
+<% end -%>
+	</div>

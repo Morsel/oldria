@@ -43,3 +43,10 @@ end
 Factory.define :page do |f|
   f.title "Page Title"
 end
+
+Factory.define :direct_message do |f|
+  f.association :receiver, :factory => :user
+  f.association :sender, :factory => :user
+  f.title "Hello there"
+  f.body  "This is a message"
+end

@@ -36,3 +36,4 @@ config.gem "thoughtbot-factory_girl", :lib => "factory_girl", :source => "http:/
 config.gem 'bmabey-email_spec', :lib => 'email_spec', :source => "http://gems.github.com", :version => ">= 0.3.1"
 config.gem "fakeweb", :version => ">= 1.2.5"
 config.gem "mocha"
+config.gem "spork"

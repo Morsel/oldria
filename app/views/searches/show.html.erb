@@ -10,6 +10,7 @@
     <th>Name</th>
     <th>Username</th>
     <th></th>
+    <th></th>
   </tr>
   <% for user in @users %>
     <tr class="search-result">
@@ -18,6 +19,9 @@
       <td><%= link_to user.username, profile_path(user.username) %></td>
       <td>
         <%= link_to "follow this user", followings_path(:friend_id => user), :method => :post, :class => 'button positive'%>
+      </td>
+      <td>
+        <%= link_to "send a message", new_user_direct_message_path(user), :class => 'button'%>
       </td>
     </tr>
   <% end %>  
