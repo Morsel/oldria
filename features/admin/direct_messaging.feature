@@ -1,0 +1,21 @@
+Feature: Direct messaging
+  So that staff can praise, suggest, or notify SF members privately
+  As an RIA staff person
+  I want to send a DM to users and they can reply to me.
+  These should be visually different from other user DMs.
+
+  Background:
+    Given the following user records:
+      | username  | password |
+      | normalguy | secret   |
+
+@focus
+  Scenario: Sending an Admin Direct Message to a user
+    Given I am logged in as an admin
+    When I send an admin direct message to "normalguy" with:
+      | title                  | body                        |
+      | Administrative Message | You need to fill out a menu |
+    Then "normalguy" should have an admin message titled "Administrative Message"
+
+
+

@@ -24,7 +24,7 @@
 <% if !@sent_messages.blank? %>
 	<h3>Sent Messages</h3>
 	<% for message in @sent_messages %>
-	<% div_for message, :class => 'sent_message clearfix' do %>
+	<% div_for message, :class => 'sent_message clearfix' + (message.from_admin? ? ' admin' : '') do %>
 		<%= image_tag message.receiver.avatar.url(:thumb), :class => 'left' %>
 		<h5><%= message.title %></h5>
 		<p>
@@ -38,3 +38,24 @@
 	<% end # for loop %>
 <% end -%>
 	</div>
+	
+	<div id="admin_messages" class="span-6">
+<% if !@admin_direct_messages.blank? %>
+		<h3>Administrative Notices</h3>
+	<% for message in @admin_direct_messages %>
+	<% div_for message, :class => 'clearfix admin' do %>
+		<%= image_tag message.sender.avatar.url(:thumb), :class => 'left' %>
+		<h5><%= message.title %></h5>
+		<p>
+			<%= message.body %>
+		</p>
+		<p class="meta">
+			from <%= link_to message.sender.username, message.sender %> | 
+			<%= message.created_at.to_s(:short) %> | 
+			<%= link_to "reply", reply_direct_message_path(message) %>
+		</p>
+	<% end # div -%>
+	<% end # for loop %>
+<% end -%>
+	</div>
+

@@ -333,6 +333,12 @@ form .first_name input.text, form .last_name input.text {
 	border:1px solid #fff;
 }
 
+.direct_message.admin {
+	background-color: #fed;
+	padding: 1em;
+	border: 0 none;
+}
+
 
 /* Typography -------------------  */
 

@@ -64,4 +64,22 @@ describe DirectMessage do
       @original_message.parent_message.should == nil
     end
   end
+  
+  context "from admin" do
+    before(:each) do
+      @admin = Factory(:admin)
+      @message = Factory(:direct_message, :sender => @admin, :from_admin => true)
+      normal_message = Factory(:direct_message)
+    end
+    
+    it "should know it's from an admin" do
+      dm = DirectMessage.new(:sender => @admin, :receiver => @getter)
+      dm.from_admin = true
+      dm.should be_from_admin
+    end
+    
+    it "should scope admin messages" do
+      DirectMessage.all_from_admin.should == [@message]
+    end
+  end
 end

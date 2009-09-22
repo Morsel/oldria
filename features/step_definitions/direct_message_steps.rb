@@ -1,3 +1,9 @@
+def fill_in_form_with_data_hash(data_hash)
+  fill_in :direct_message_title, :with => data_hash[:title]
+  fill_in :direct_message_body,  :with => data_hash[:body]
+  click_button "Send"
+end
+
 Given /^"([^\"]*)" has ([0-9]+) direct messages? from "([^\"]*)"$/ do |receiver, num, sender|
   receiving_user = User.find_by_username(receiver)
   sending_user = User.find_by_username(sender)
@@ -8,11 +14,21 @@ end
 
 When /^I send a direct message to "([^\"]*)" with:$/ do |username, table|
   visit new_user_direct_message_path(:user_id => User.find_by_username(username).to_param)
-  message_date = table.hashes.first
-  fill_in :direct_message_title, :with => message_date[:title]
-  fill_in :direct_message_body,  :with => message_date[:body]
-  click_button "Send"
+  fill_in_form_with_data_hash table.hashes.first
 end
+
+When /^I send an admin direct message to "([^\"]*)" with:$/ do |username, table|
+  visit new_admin_direct_message_path
+  select username
+  fill_in_form_with_data_hash table.hashes.first
+end
+
+Then /^"([^\"]*)" should have an admin message titled "([^\"]*)"$/ do |username, title|
+  message = User.find_by_username(username).direct_messages.first
+  message.title.should == title
+  message.should be_from_admin
+end
+
 
 Then /^I should see a message from "([^\"]*)"$/ do |username|
   response.should have_selector(".direct_message") do |message|
