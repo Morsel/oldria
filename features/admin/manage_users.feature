@@ -29,6 +29,7 @@ Feature: Manage users
     When I go to the admin edit page for "jimbob"
     Then the "Admin?" checkbox should be checked
 
+
   Scenario: Editing the account type of a user
     Given "jimbob" has a "Media" account type
     When I go to the admin edit page for "jimbob"
@@ -37,3 +38,10 @@ Feature: Manage users
     And I press "Update"
     Then I should see "User was successfully updated"
     And "jimbob" should have a "Concierge" account type
+
+
+  Scenario: Seeing account type on index view
+    Given "jimbob" has a "Media" account type
+    When I am on the admin users landing page
+    Then I should see that "jimbob" has a "Media" account type
+  
