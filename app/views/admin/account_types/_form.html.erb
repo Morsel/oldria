@@ -4,5 +4,10 @@
     <%= f.label :name %>
     <%= f.text_field :name, :class => 'text' %>
   </p>
-  <p><%= button_tag "Submit" %></p>
+
+
+<p>
+  <%= link_to "View All", admin_account_types_path, :class => 'button' %>
+</p>
+  <p><%= button_tag "Save" %></p>
 <% end %>

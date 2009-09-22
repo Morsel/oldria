@@ -12,7 +12,7 @@ Feature: Managing Account Types
     When I follow "Account Types"
     And I follow "New Account Type"
     And I fill in "Name" with "An Account Type"
-    And I press "Submit"
+    And I press "Save"
     Then I should be on the list of account types
     And I should see "Successfully created account type"
     And I should see "An Account Type"

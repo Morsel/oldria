@@ -11,7 +11,7 @@ Feature: Update information
     And I am logged in as "lestor" with password "secret"
     When I follow "Edit My Account"
     And I fill in "Username" with "leslie"
-    And I press "Submit"
+    And I press "Save"
     Then I should see "Successfully updated your account"
     And I should see "Logged in as leslie"
 
@@ -24,7 +24,7 @@ Feature: Update information
     When I follow "Edit My Account"
     And I fill in "Password" with "betterpassword"
     And I fill in "Password Confirmation" with "betterpassword"
-    And I press "Submit"
+    And I press "Save"
     Then I should see "Successfully updated your account"
 
     When I am on the login page
@@ -43,7 +43,7 @@ Feature: Update information
     When I follow "Edit My Account"
     And I fill in "Password" with "betterpassword"
     And I fill in "Password Confirmation" with "better"
-    And I press "Submit"
+    And I press "Save"
     Then I should see "Password doesn't match confirmation"
 
 
@@ -66,5 +66,5 @@ Feature: Update information
     | devil    | demon    |
     And I am logged in as "devil" with password "demon"
     When I go to the edit page for "angel"
-    Then I should see "You are not allowed to view this page"
+    Then I should see "This is an administrative area"
     And I should be on the homepage

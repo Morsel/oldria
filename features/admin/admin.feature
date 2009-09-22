@@ -8,14 +8,14 @@ Feature: Admin Interface
   Scenario: Non-admin users get the boot
     Given I am logged in as a normal user
     When I go to the admin landing page
-    Then I should see "You don't have permission to access this page"
+    Then I should see "This is an administrative area."
     And I should be on the homepage
 
 
   Scenario: Admin landing pages
     Given I am logged in as an admin
     When I go to the admin landing page
-    Then I should see "This is the administrative area"
+    Then I should see "Welcome back to work"
 
 
   Scenario: Editing User Accounts

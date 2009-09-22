@@ -20,9 +20,9 @@ Feature: Create an Account
     And I fill in "Password" with "secret"
     And I fill in "Password Confirmation" with "secret"
     And I select "Concierge" from "Account Type"
-    And I press "Submit"
+    And I press "Save"
 
-    Then I should see "Please check your email to confirm your account"
+    Then I should see "Just to make sure you are who you say you are"
     And "jparker@example.com" should receive 1 email
     But "foo@bar.com" should receive no emails
 
@@ -44,9 +44,9 @@ Feature: Create an Account
     And I fill in "Email" with "twice@example.com"
     And I fill in "Password" with "secret"
     And I fill in "Password Confirmation" with "secret"
-    And I press "Submit"
+    And I press "Save"
 
-    Then I should see "Please check your email to confirm your account"
+    Then I should see "Just to make sure you are who you say you are"
     And "twice@example.com" should receive 1 email
 
     When "twice@example.com" opens the email with subject "Welcome to SpoonFeed! Please confirm your account"
@@ -71,7 +71,7 @@ Feature: Create an Account
     And I fill in "Email" with "janet"
     And I fill in "Password" with "secret"
     And I fill in "Password Confirmation" with "secret"
-    And I press "Submit"
+    And I press "Save"
     
     Then I should see "Email should look like an email address"
     
@@ -85,7 +85,7 @@ Feature: Create an Account
     And I fill in "Email" with "jimjames@example.com"
     And I fill in "Password" with "secret"
     And I fill in "Password Confirmation" with "secret"
-    And I press "Submit"
+    And I press "Save"
     
     Then I should see "Email has already been taken"
 
@@ -97,7 +97,7 @@ Feature: Create an Account
     And I fill in "Email" with "jimbob@example.com"
     And I fill in "Password" with "secret"
     And I fill in "Password Confirmation" with "secret"
-    And I press "Submit"
+    And I press "Save"
     Then "jimbob@example.com" should receive 1 email
 
     When I am on the login page

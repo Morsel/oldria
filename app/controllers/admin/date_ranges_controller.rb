@@ -15,7 +15,7 @@ class Admin::DateRangesController < Admin::AdminController
     @date_range = DateRange.new(params[:date_range])
     if @date_range.save
       flash[:notice] = "Successfully created date range."
-      redirect_to [:admin, @date_range]
+      redirect_to admin_date_ranges_path
     else
       render :new
     end
@@ -29,7 +29,7 @@ class Admin::DateRangesController < Admin::AdminController
     @date_range = DateRange.find(params[:id])
     if @date_range.update_attributes(params[:date_range])
       flash[:notice] = "Successfully updated date range."
-      redirect_to [:admin, @date_range]
+      redirect_to admin_date_ranges_path
     else
       render :edit
     end
@@ -39,6 +39,6 @@ class Admin::DateRangesController < Admin::AdminController
     @date_range = DateRange.find(params[:id])
     @date_range.destroy
     flash[:notice] = "Successfully destroyed date range."
-    redirect_to admin_date_ranges_url
+    redirect_to admin_date_ranges_path
   end
 end

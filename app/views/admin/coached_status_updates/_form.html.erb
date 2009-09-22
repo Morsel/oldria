@@ -8,6 +8,8 @@
     <%= f.label :date_range_id, "Time of year" %><br />
     <%= f.collection_select :date_range_id, DateRange.all, :id, :name %>
   </p>
+
+  <p><%= link_to "Back to List", admin_coached_status_updates_path, :class => 'button' %></p>
   <p><%= button_tag "Save" %></p>
   <p><%= button_tag "Save and Create Another", :name => 'save_and_new' %></p>
 <% end %>

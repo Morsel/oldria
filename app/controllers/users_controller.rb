@@ -20,7 +20,7 @@ class UsersController < ApplicationController
     @user = User.new(params[:user])
     if @user.save
       UserMailer.deliver_signup(@user)
-      flash[:notice] = "Please check your email to confirm your account"
+      flash[:notice] = "Just to make sure you are who you say you are, we sent you a secret coded message to your email account. Once you check that, we’ll give you your fancy credentials to log on."
       redirect_to '/'
     else
       render :new
@@ -50,7 +50,7 @@ class UsersController < ApplicationController
         @message = "Welcome aboard! Your account has been confirmed." 
       end
     else
-      @message = "Oops, we couldn't find your account. Have you already confirmed your account?"
+      @message = "Hey, now, you can’t log in without checking your email. It’ll just take a minute."
     end
   end
 
@@ -82,7 +82,7 @@ class UsersController < ApplicationController
 
   def require_owner_or_admin
     unless (params[:id] && User.find(params[:id]) == current_user) || current_user.admin?
-      flash[:error] = "You are not allowed to view this page."
+      flash[:error] = "This is an administrative area. Nothing exciting here at all."
       redirect_to root_url
     end
   end
