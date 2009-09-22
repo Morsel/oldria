@@ -37,8 +37,12 @@ class Admin::AccountTypesController < Admin::AdminController
   
   def destroy
     @account_type = AccountType.find(params[:id])
-    @account_type.destroy
-    flash[:notice] = "Successfully destroyed account type."
-    redirect_to admin_account_types_url
+    if @account_type.users.blank?
+      @account_type.destroy
+      flash[:notice] = "Successfully destroyed account type."
+    else
+      flash[:error] = "You can't delete that, because there are users with this account type!"
+    end
+    redirect_to admin_account_types_path
   end
 end

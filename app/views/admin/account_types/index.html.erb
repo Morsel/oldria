@@ -12,7 +12,7 @@
       <td><%=h account_type.name %></td>
       <td class="utility">
         <%= link_to "Edit", edit_admin_account_type_path(account_type) %>
-        <%= link_to "Destroy", [:admin, account_type], :confirm => 'Are you sure?', :method => :delete %>
+        <%= link_to "Destroy", [:admin, account_type], :confirm => 'Are you sure?', :method => :delete if account_type.users.blank? %>
       </td>
     </tr>
   <% end %>

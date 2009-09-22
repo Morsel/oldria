@@ -37,8 +37,12 @@ class Admin::DateRangesController < Admin::AdminController
   
   def destroy
     @date_range = DateRange.find(params[:id])
-    @date_range.destroy
-    flash[:notice] = "Successfully destroyed date range."
+    if @date_range.coached_status_updates.blank?
+      @date_range.destroy
+      flash[:notice] = "Successfully destroyed date range."
+    else
+      flash[:error] = "You can't delete that, because there are status updates that are using it."
+    end
     redirect_to admin_date_ranges_path
   end
 end
