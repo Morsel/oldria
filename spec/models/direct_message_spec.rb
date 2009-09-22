@@ -30,6 +30,7 @@ describe DirectMessage do
 
     it "should be invalid if sender and receiver are the same" do
       dm = DirectMessage.new(:sender => @sender, :receiver => @sender)
+      dm.should_not be_valid
       dm.should have(1).errors_on(:receiver)
     end
   end

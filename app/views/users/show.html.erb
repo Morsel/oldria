@@ -6,14 +6,16 @@
 <p><%= image_tag @user.avatar.url(:small) %></p>  
 <% end %>
 
+<% unless current_user == @user %>
 <p class="clearfix">
 <%= link_to "send a message", new_user_direct_message_path(@user), :class => 'button'%>
 </p>
+<% end -%>
 
 <% if @latest_status %>
 <h3>Latest Status</h3>
 <p class="status" id="status_<%= @latest_status.id %>">
-  <%= render :partial => 'statuses/status', :locals => { :status => @latest_status } %>
+	<%= render :partial => 'statuses/status', :locals => { :status => @latest_status } %>
 </p>
 <p><small><%= link_to "more statuses", user_statuses_path(@user) %></small></p>
 <% end %>
@@ -22,24 +24,24 @@
 <% if !@user.followings.blank? %>
 <h3>Following</h3>
 <ul>
-  <% for following in @user.followings %>
-  <li>
-    <%= image_tag following.friend.avatar.url(:thumb) %>
-    <%= following.friend.name %>
-    <%= link_to "unfollow this user", following, :method => :delete if current_user == @user %>
-  </li>
-  <% end %>
+	<% for following in @user.followings %>
+	<li>
+		<%= image_tag following.friend.avatar.url(:thumb) %>
+		<%= following.friend.name %>
+		<%= link_to "unfollow this user", following, :method => :delete if current_user == @user %>
+	</li>
+	<% end %>
 </ul>
 <% end %>
 
 <% if !@user.followers.blank? %>
 <h3>Followers</h3>
 <ul>
-  <% for follower in @user.followers %>
-  <li>
-    <%= image_tag follower.avatar.url(:thumb) %>
-    <%= follower.name %>
-  </li>
-  <% end %>
+	<% for follower in @user.followers %>
+	<li>
+		<%= image_tag follower.avatar.url(:thumb) %>
+		<%= follower.name %>
+	</li>
+	<% end %>
 </ul>
 <% end %>
