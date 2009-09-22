@@ -28,8 +28,10 @@ Given /^I am logged in as "([^\"]*)" with password "([^\"]*)"$/ do |username, pa
 end
 
 Given /^"([^\"]*)" has a "([^\"]*)" account type$/ do |username, account_type_name|
-  account_type = AccountType.find_or_create_by_name(account_type_name)
-  user = User.find_by_username(username).account_type = account_type
+  account_type = AccountType.find_by_name(account_type_name)
+  account_type ||= Factory(:account_type, :name => account_type_name)
+  user = User.find_by_username(username)
+  user.account_type = account_type
   user.save
 end
 
@@ -56,4 +58,12 @@ end
 Then /^"([^\"]*)" should have an? "([^\"]*)" account type$/ do |username, account_type_name|
   User.find_by_username(username).account_type.name.should == account_type_name
 end
+
+Then /^I should see that "([^\"]*)" has a "([^\"]*)" account type$/ do |username, account_type_name|
+  response.should have_selector(".user") do |usertag|
+    usertag.should contain(username)
+    usertag.should contain(account_type_name)
+  end
+end
+
 

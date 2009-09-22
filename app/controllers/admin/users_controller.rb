@@ -3,7 +3,7 @@ class Admin::UsersController < Admin::AdminController
   # GET /admin_users.xml
   def index
     @search = User.search(params[:search])
-    @users = @search.all
+    @users = @search.all(:include => :account_type)
     
     respond_to do |format|
       format.html { flash.now[:notice] = "We couldn't find anything" if @users.blank? }
