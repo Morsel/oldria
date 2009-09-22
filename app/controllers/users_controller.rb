@@ -70,7 +70,7 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     @user.avatar = nil
     if @user.save
-      flash[:message] = "Your Headshot was successfully removed"
+      flash[:message] = "Got it! We’ve removed your headshot from your account"
       redirect_to edit_user_path(@user)
     else
       render :edit

@@ -27,7 +27,7 @@ Feature: Member search
     And I fill in "First Name" with "Mary"
     And I press "Search"
     Then I should see no search results
-    And I should see "We couldn't find anything"
+    And I should see "Sorry, we came up empty-handed"
     But I should not see "John Appleseed"
 
 

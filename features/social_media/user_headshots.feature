@@ -16,7 +16,7 @@ Feature: User headshots
     When I follow "Edit My Account"
     And I attach an avatar "headshot.jpg" to "Headshot"
     And I press "Upload Headshot"
-    Then I should see "Successfully updated your account"
+    Then I should see "Successfully updated your profile"
     And "emily" should have a headshot
 
 
@@ -27,7 +27,7 @@ Feature: User headshots
     Then I should see my headshot
 
     When I follow "Remove my headshot"
-    Then I should see "Your Headshot was successfully removed"
+    Then I should see "We’ve removed your headshot from your account"
     And "emily" should not have a headshot
 
 

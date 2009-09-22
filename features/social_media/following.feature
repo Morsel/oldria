@@ -31,7 +31,7 @@ Feature: Follow a SpoonFeed member, See who's following me
     Given "friendly" is following "otherguy"
     When I am on the profile page for "friendly"
     And I follow "unfollow this user"
-    Then I should see "Successfully unfollowed"
+    Then I should see "you aren't following them anymore"
     And "friendly" should be following 0 users
 
 

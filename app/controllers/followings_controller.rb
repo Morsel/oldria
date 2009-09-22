@@ -5,7 +5,7 @@ class FollowingsController < ApplicationController
     store_location
     @following = current_user.followings.build(:friend_id => params[:friend_id])
     if @following.save
-      flash[:notice] = "You are now following #{@following.friend.name}"
+      flash[:notice] = "OK! You are now following #{@following.friend.name}"
     else
       flash[:error] = "Unable to follow that person." + activerecord_error_list(@following.errors)
     end
@@ -15,7 +15,7 @@ class FollowingsController < ApplicationController
   def destroy
     @following = current_user.followings.find(params[:id])
     if @following.destroy
-      flash[:notice] = "Successfully unfollowed"
+      flash[:notice] = "OK, you aren't following them anymore."
     else
       flash[:error] = "Could not unfollow"
     end
