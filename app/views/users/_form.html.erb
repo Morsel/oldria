@@ -12,10 +12,13 @@
     <%= f.label :email %>
     <%= f.text_field :email, :class => 'text' %>
   </p>
+<% unless action_name == 'edit' %>
   <p>
     <%= f.label :account_type_id %>
     <%= f.collection_select :account_type_id, AccountType.all, :id, :name %>
-  </p>
+  </p>	
+<% end %>
+
   <p>
     <%= f.label :password %>
     <%= f.password_field :password, :class => 'text' %>
