@@ -12,7 +12,7 @@ Feature: Update information
     When I follow "Edit My Account"
     And I fill in "Username" with "leslie"
     And I press "Save"
-    Then I should see "Successfully updated your account"
+    Then I should see "Successfully updated your profile"
     And I should see "Logged in as leslie"
 
 
@@ -25,7 +25,7 @@ Feature: Update information
     And I fill in "Password" with "betterpassword"
     And I fill in "Password Confirmation" with "betterpassword"
     And I press "Save"
-    Then I should see "Successfully updated your account"
+    Then I should see "Successfully updated your profile"
 
     When I am on the login page
     And I fill in "Username" with "manny"
