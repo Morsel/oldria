@@ -5,6 +5,12 @@ class DirectMessage < ActiveRecord::Base
   validates_presence_of :receiver
   validates_presence_of :sender
   
+  def validate
+    if sender_id == receiver_id
+      errors.add :receiver, "You can't send yourself a message"
+    end
+  end
+  
   def build_reply
     DirectMessage.new(
       :sender => self.receiver,

@@ -5,7 +5,7 @@ describe DirectMessage do
     @sender = Factory(:user, :username => 'sender')
     @getter = Factory(:user, :username => 'getter')
   end
-  
+
   describe "associations"  do
     it "should be valid with sender and receiver" do
       dm = DirectMessage.new(:sender => @sender, :receiver => @getter)
@@ -27,12 +27,18 @@ describe DirectMessage do
       @getter.direct_messages.first.should == dm
       @sender.sent_direct_messages.first.should == dm
     end
+
+    it "should be invalid if sender and receiver are the same" do
+      dm = DirectMessage.new(:sender => @sender, :receiver => @sender)
+      dm.should have(1).errors_on(:receiver)
+    end
   end
-  
+
   describe "reply" do
     before(:each) do
       @original_message = DirectMessage.create!(:sender => @sender, :receiver => @getter)
     end
+
     it "should build a reply" do
       @original_message.build_reply.should be_a(DirectMessage)
       @original_message.build_reply.should be_new_record
@@ -42,17 +48,17 @@ describe DirectMessage do
       @original_message.build_reply.sender.should == @original_message.receiver
       @original_message.build_reply.receiver.should == @original_message.sender
     end
-    
+
     it "should include the id of the original message" do
       reply = @original_message.build_reply
       reply.in_reply_to_message_id.should == @original_message.id
     end
-    
+
     it "should know its parent (replied-to) message" do
       reply = @original_message.build_reply
       reply.parent_message.should == @original_message
     end
-    
+
     it "should return nil if it has no parent" do
       @original_message.parent_message.should == nil
     end
