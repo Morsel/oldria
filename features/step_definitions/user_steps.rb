@@ -27,6 +27,12 @@ Given /^I am logged in as "([^\"]*)" with password "([^\"]*)"$/ do |username, pa
   end
 end
 
+Given /^"([^\"]*)" has a "([^\"]*)" account type$/ do |username, account_type_name|
+  account_type = AccountType.find_or_create_by_name(account_type_name)
+  user = User.find_by_username(username).account_type = account_type
+  user.save
+end
+
 When /^I (?:visit the logout path|logout)$/ do
   visit logout_url
 end
@@ -46,3 +52,8 @@ end
 Then /^"([^\"]*)" should be an admin$/ do |username|
   User.find_by_username(username).should be_admin
 end
+
+Then /^"([^\"]*)" should have an? "([^\"]*)" account type$/ do |username, account_type_name|
+  User.find_by_username(username).account_type.name.should == account_type_name
+end
+

@@ -1,6 +1,6 @@
 class StatusesController < ApplicationController
   before_filter :require_user
-  before_filter :require_owner, :except => :index
+  before_filter :require_owner, :except => [:index, :destroy]
 
   def index
     @user = User.find(params[:user_id])
@@ -23,7 +23,7 @@ class StatusesController < ApplicationController
   end
 
   def destroy
-    @status = @user.statuses.find(params[:id])
+    @status = current_user.statuses.find(params[:id])
     @status.destroy
     flash[:notice] = "Successfully destroyed status."
     respond_to do |format|
