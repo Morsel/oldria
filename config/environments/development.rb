@@ -19,3 +19,6 @@ config.action_controller.perform_caching             = false
 config.action_mailer.raise_delivery_errors = false
 
 config.gem "josevalim-rails-footnotes", :lib => "rails-footnotes", :source => "http://gems.github.com"
+
+# Turn off asset timestamp appends for development
+ENV['RAILS_ASSET_ID'] = ''

@@ -22,6 +22,7 @@ Spork.prefork do
 
   Spec::Runner.configure do |config|
     config.use_instantiated_fixtures  = false
+    config.use_transactional_fixtures = true
     config.fixture_path = RAILS_ROOT + '/spec/fixtures/'
     config.mock_with :mocha
     include Webrat::Methods
@@ -30,7 +31,5 @@ end
 
 Spork.each_run do
   # This code will be run each time you run your specs.
-  Spec::Runner.configure do |config|
-    config.use_transactional_fixtures = true
-  end
+
 end
