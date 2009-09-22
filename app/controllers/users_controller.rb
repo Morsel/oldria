@@ -50,7 +50,7 @@ class UsersController < ApplicationController
         @message = "Welcome aboard! Your account has been confirmed." 
       end
     else
-      @message = "Hey, now, you can’t log in without checking your email. It’ll just take a minute."
+      @message = "Oops, we couldn't find your account. Have you already confirmed your account?"
     end
   end
 
