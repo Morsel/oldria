@@ -1,4 +1,9 @@
 <h1>All Users</h1>
+
+<p><%= link_to 'Sign Up a New User', new_user_path, :class => 'button positive' %></p>
+<br clear="all" />
+
+
 <p><a href="#filter" class="showtarget">Toggle Filter</a></p>
 <div id="filter">
 <%= render :partial => 'searches/form' %>  
@@ -56,4 +61,3 @@
 
 <br />
 
-<p><%= link_to 'Sign Up a New User', new_user_path, :class => 'button positive' %></p>

@@ -23,9 +23,9 @@
     <%= f.label :account_type_id %>
     <%= f.collection_select :account_type_id, AccountType.all, :id, :name %>
   </p>
+<p class="clear"><%= link_to 'Back', admin_users_path, :class=>'button' %></p>
   <p>
     <%= button_tag 'Update', :class => 'positive' %>
   </p>
 <% end %>
 
-<p class="clear"><%= link_to 'Back', admin_users_path %></p>
