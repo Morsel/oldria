@@ -1,6 +1,5 @@
 /* @override http://localhost:3001/stylesheets/custom.css */
 
-@import "blueprint/screen.css";
 
 /* colors 
 dark brown: #3e2611;
@@ -61,36 +60,46 @@ div#navigation ul li {
 	font-size: 1.4em;
 	line-height: 22px;
 	margin: 0px 0px 0px 8px;
-	padding: 4px 0px 10px 0px;
-}
-
-.admin_backend #navigation li {
-	font-size: 1.2em;
+	padding: 4px 0px 2px 0px;
 }
 
 div#navigation ul li.selected {
 	background-image: url(/images/nav_arrow.png);
 	background-repeat: no-repeat;
 	background-position: 50% 26px;
-	padding: 4px 0px 14px 0px;
+	padding-bottom: 14px;
 }
 
 div#navigation ul li a {
 	color: #fff;
 	text-decoration: none;
-	padding: 2px 7px;
-}
-
-div#navigation ul li a:hover {
-	background-color: #513d28;
+	padding: 2px 7px;	
 	-moz-border-radius: 3px;
 	-webkit-border-radius: 3px;
 	border-radius: 3px;
 }
 
+div#navigation ul li a:hover, .admin_backend #navigation li.selected a {
+	background-color: #513d28;
+}
+
 div#navigation ul li a.current:hover {
 	background: none;
 }
+
+.admin_backend #navigation ul{
+	margin-top: 30px;
+}
+
+.admin_backend #navigation li {
+	font-size: 1.2em;
+}
+
+.admin_backend #navigation li.selected {
+	background-image: none;
+	padding-bottom: 2px;
+}
+
 
 /* Content area ---------------------- */
 
@@ -179,7 +188,7 @@ form .first_name input.text, form .last_name input.text {
 	width: 138px;
 }
 
-/* statuses ---- */
+/* Statuses --------------------- */
 
 #new_status {
 	background-color: #edfbff;
@@ -514,7 +523,7 @@ td.utility {
 	width: 95px;
 }
 
-/* Forms ---------------------------- */
+/* Forms ------------------------- */
 
 fieldset {
 	border: 1px solid #ccc;
@@ -551,7 +560,7 @@ option {
 	padding: 3px 3px 0px 3px;
 }
 
-/* blueprint extensions ------------  */
+/* Blueprint Extensions ------------  */
 
 .round {
 	-moz-border-radius: 3px;
@@ -580,7 +589,7 @@ option {
 	display: none;
 }
 
-/* footer ------------  */
+/* Footer ----------------------  */
 
 #footer {
 	border-top: 1px solid #ddd;

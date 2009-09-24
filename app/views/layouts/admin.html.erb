@@ -6,13 +6,13 @@
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
   <title><%= h(yield(:title) || "Untitled") %> - Spoonfeed - Restaurant Intelligence Agency</title>
 
-  <link rel="stylesheet" href="/stylesheets/custom.css" type="text/css" media="screen" />
-  <link rel="stylesheet" href="/stylesheets/blueprint/print.css" type="text/css" media="print" /> 
-  <!--[if lt IE 7]>
-  <link rel="stylesheet" href="/stylesheets/blueprint/ie.css" type="text/css" media="screen" />
-  <link rel="stylesheet" href="/stylesheets/ie6.css" type="text/css" media="screen" />
-  <![endif]-->
+  <%= stylesheet_link_tag 'blueprint/screen', 'custom' %>
+  <%= stylesheet_link_tag 'blueprint/print', :media => 'print' %>
 
+  <!--[if lt IE 7]>
+  <%= stylesheet_link_tag 'blueprint/ie', 'ie6' %>
+  <![endif]-->
+ 
   <%= yield(:head) %>
 
   <%- if protect_against_forgery? -%>
@@ -23,6 +23,7 @@
   //]]>
   </script>
   <%- end -%>
+
 
 </head>
 
@@ -41,6 +42,7 @@
       <div id="navigation" class="span-11 last">
         <ul>
           <li><%= link_to "Users", admin_users_path %></li>
+          <li><%= link_to "Direct Messages", admin_direct_messages_path %></li>
           <li><%= link_to "Account Types", admin_account_types_path %></li>
           <li><%= link_to "Coached Status Updates", admin_coached_status_updates_path %></li>
           <li><%= link_to "Seasons and Holidays", admin_date_ranges_path %></li>
