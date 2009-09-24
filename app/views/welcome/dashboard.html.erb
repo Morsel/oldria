@@ -64,8 +64,8 @@
 		<h3>Friend Activity</h3>
 	<% for status in @friend_activity %>
 	<% div_for status, :class => 'clearfix admin' do %>
-		<%= image_tag status.user.avatar.url(:thumb), :class => 'left' %>
-		<p>
+		<%# image_tag status.user.avatar.url(:thumb), :class => 'left' %>
+		<p class="message">
 			<%= status.message %>
 		</p>
 		<p class="meta">

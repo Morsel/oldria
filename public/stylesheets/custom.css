@@ -107,6 +107,10 @@ div#navigation ul li a.current:hover {
 	min-height: 360px;
 }
 
+#direct_messages, #sent_messages {
+	margin-bottom: 2em;
+}
+
 #user_status img {
 	float: left;
 	border: 1px solid #ddd;
@@ -256,12 +260,21 @@ form .first_name input.text, form .last_name input.text {
 	padding: 0px;
 }
 
+.status p {
+	margin: 0;
+}
+
+.status p.message {
+	font-size: 1.2em;
+}
+
 .status {
 	font-family: 'lucida grande', tahoma, arial, sans-serif;
 	color: #666;
 	margin: 0px 0px 12px 0px;
 	padding: 0px 0px 8px 0px;
 	border-bottom: 1px dotted #ccc;
+	overflow: hidden;
 }
 
 .status .message {
@@ -312,10 +325,6 @@ form .first_name input.text, form .last_name input.text {
 	float: left;
 	padding-right: 10px;
 	margin-bottom: 10px;
-}
-
-.status {
-	overflow: hidden;
 }
 
 .direct_message {
