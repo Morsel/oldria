@@ -9,6 +9,7 @@
 <% unless current_user == @user %>
 <p class="clearfix">
 <%= link_to "send a message", new_user_direct_message_path(@user), :class => 'button'%>
+<%= link_to "follow this user", followings_path(:friend_id => @user), :method => :post, :class => 'button positive'%>
 </p>
 <% end -%>
 

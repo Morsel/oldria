@@ -58,4 +58,25 @@
 	<% end # for loop %>
 <% end -%>
 	</div>
+	
+	<div id="friend_activity" class="span-6 last" rel="Friend Activity">
+<% if !@friend_activity.blank? %>
+		<h3>Friend Activity</h3>
+	<% for status in @friend_activity %>
+	<% div_for status, :class => 'clearfix admin' do %>
+		<%= image_tag status.user.avatar.url(:thumb), :class => 'left' %>
+		<p>
+			<%= status.message %>
+		</p>
+		<p class="meta">
+			posted by <%= link_to status.user.username, status.user %> | 
+			<%= status.created_at.to_s(:short) %>
+		</p>
+	<% end # div -%>
+	<% end # for loop %>
+<% end -%>
+
+	</div>
+	
+	
 

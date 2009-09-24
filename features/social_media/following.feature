@@ -53,5 +53,15 @@ Feature: Follow a SpoonFeed member, See who's following me
     Then I should see "Followers"
     And I should see "John Appleseed"
 
+@focus
+  Scenario: Viewing Friends Activity
+    Given I am following "otherguy"
+    And "otherguy" has the following status messages:
+      | message        |
+      | I just ate     |
+      | I ate too much |    
+    When I am on the homepage
+    Then I should see "I just ate" within "Friend Activity"
+    And I should see "I ate too much" within "Friend Activity"
 
    

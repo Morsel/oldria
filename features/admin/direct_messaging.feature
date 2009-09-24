@@ -9,7 +9,7 @@ Feature: Direct messaging
       | username  | password |
       | normalguy | secret   |
 
-@focus
+
   Scenario: Sending an Admin Direct Message to a user
     Given I am logged in as an admin
     When I send an admin direct message to "normalguy" with:

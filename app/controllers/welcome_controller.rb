@@ -5,6 +5,7 @@ class WelcomeController < ApplicationController
       @direct_messages = @user.direct_messages.all_not_from_admin(:joins => :sender)
       @sent_messages = @user.sent_direct_messages.all(:joins => :receiver)
       @admin_direct_messages = @user.direct_messages.all_from_admin
+      @friend_activity = Status.friends_of_user(@user)
       render :dashboard
     else
       # render index.html
