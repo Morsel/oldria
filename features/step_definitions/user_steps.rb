@@ -18,6 +18,16 @@ Given /^I am logged in as a normal user$/ do
   Given 'I am logged in as "normal" with password "normal"'
 end
 
+Given /^I am logged in as a spoonfeed member$/ do
+  Given("I am logged in as a normal user")
+end
+
+# Given /^I am logged in as a media member$/ do
+#   Factory(:user, :username => 'normal', :password => 'normal', :type => ...)
+#   Given 'I am logged in as "normal" with password "normal"'
+# end
+
+
 Given /^I am logged in as "([^\"]*)" with password "([^\"]*)"$/ do |username, password|
   unless username.blank?
     visit login_url
@@ -37,6 +47,19 @@ end
 
 When /^I (?:visit the logout path|logout)$/ do
   visit logout_url
+end
+
+When /^I sign up with:$/ do |table|
+  user_data = table.hashes.first
+  user_data.each do |field, value|
+    fill_in "user[#{field}]", :with => value
+  end
+  fill_in "user[password_confirmation]", :with => user_data["password"] if user_data["password"]
+  click_button :submit
+end
+
+Then /^"([^\"]*)" should be marked as a media user$/ do |username|
+  User.find_by_username(username).should be_media
 end
 
 Then /^"([^\"]*)" should be a confirmed user$/ do |username|

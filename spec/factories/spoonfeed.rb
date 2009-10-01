@@ -15,6 +15,10 @@ Factory.define :admin, :parent => :user do |f|
   f.first_name "Administrator"
 end
 
+Factory.define :media_user, :parent => :user do |f|
+  
+end
+
 Factory.define :status do |f|
   f.association :user
   f.message     "I just ate a cheeseburger"

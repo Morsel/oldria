@@ -1,5 +1,4 @@
 ActionController::Routing::Routes.draw do |map|
-  map.resources :direct_messages
 
   map.signup 'signup', :controller => 'users', :action => 'new'
   map.login  'login',  :controller => 'user_sessions', :action => 'new'
@@ -7,6 +6,8 @@ ActionController::Routing::Routes.draw do |map|
   map.confirm 'confirm/:id', :controller => 'users', :action => 'confirm'
 
   map.profile 'profile/:username', :controller => 'users', :action => 'show'
+
+  map.resources :media_users, :except => [:index, :show]
 
   map.resources :users, :member => { 
     :remove_twitter => :put, 
@@ -16,7 +17,7 @@ ActionController::Routing::Routes.draw do |map|
     users.resources :direct_messages, :member => { :reply => :get }
   end
 
-  map.resources :user_sessions, :password_resets, :followings, :pages
+  map.resources :user_sessions, :password_resets, :followings, :pages, :direct_messages
   map.resource :twitter_authorization
   map.resource :friend_timeline, :only => 'show'
   

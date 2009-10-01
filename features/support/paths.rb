@@ -7,7 +7,7 @@ module NavigationHelpers
   #
   def path_to(page_name)
     case page_name
-    when /the homepage/
+    when /^the (?:homepage|dashboard)$/
       '/'
     when /^the coached status updates page$/
       admin_coached_status_updates_path
@@ -23,6 +23,10 @@ module NavigationHelpers
       user_statuses_path(User.find_by_username($1))
     when /^the edit page for "(.+)"$/
       edit_user_path(User.find_by_username($1))
+    
+    # Media-users
+    when /^the media( user)? signup page$/
+      new_media_user_path
 
     # Admin pages
     when /^the admin landing page$/
