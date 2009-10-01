@@ -62,16 +62,16 @@
 <h3>Followers</h3>
 <div class="box rounded">
 	<ul>
-		<% for follower in @user.followers %>
+	<% for follower in @user.followers %>
 		<li class="clearfix">
 			<%= link_to image_tag(follower.avatar.url(:thumb)), profile_path(follower.username) %>
 			<h4><%= link_to follower.name, profile_path(follower.username) %></h4>
-			<% unless (current_user == follower) || current_user.following?(follower) -%>
+			<% unless (current_user == follower) || current_user.following?(follower) %>
 			<p><%= link_to "Follow this user", followings_path(:friend_id => follower), :method => :post %></p>
-			<%- end #unless %>
+			<% end %>
 		</li>
-		<% end #for loop %>
+	<% end %>
 	</ul>
 </div><!-- .box -->
-<% end #if%>
+<% end #if %>
 </div><!--#user_content-->
