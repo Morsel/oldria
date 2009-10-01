@@ -36,6 +36,8 @@
 		</p>
 		<% end %>
 	</div><!-- .box -->
+<% else %>
+<h4><%= @user.username %> hasn't posted any statuses yet.</h4>
 <% end #if -%>
 
 <% if !@user.followings.blank? %>
@@ -48,8 +50,6 @@
 			<h4><%= link_to following.friend.name, profile_path(following.friend.username) %></h4>
 			<% if (current_user == @user) %>
 			<p><%= link_to "Stop following this user", following, :method => :delete %></p>
-			<% else %>
-			<!-- Hello from "else" -->
 			<% end %>
 		</li>
 	<% end %>
