@@ -4,10 +4,9 @@
 
 <% if @user.twitter_authorized? %>
 <hr/>
-
-<h3>Twitter</h3>
-<p>You currently have your Twitter account set up <em><%= @user.twitter_username %></em>. To change which Twitter account you want your SpoonFeed account linked with, you can remove the Twitter credentials below, and then setup Twitter again.</p>
-<p><%= link_to "Remove Twitter Information", remove_twitter_user_path(@user), :confirm => "Are you sure you want to unlink your Twitter account? This action cannot be undone.", :method => :put %></p>
+	<h3>Twitter</h3>
+	<p>You currently have your Twitter account set up <em><%= @user.twitter_username %></em>. To change which Twitter account you want your SpoonFeed account linked with, you can remove the Twitter credentials below, and then setup Twitter again.<br/>
+	<%= link_to (image_tag('x.png') + "Remove Twitter Information"), remove_twitter_user_path(@user), :confirm => "Are you sure you want to unlink your Twitter account? This action cannot be undone.", :method => :put, :class => 'button negative' %></p>
 <% end %>
 
 <hr/>
@@ -22,7 +21,7 @@
     <%= f.file_field :avatar %>
   </p>
   <p>
-  <%= button_tag "Upload Headshot", :class => 'positive' %>
+  <%= button_tag (image_tag('tick.png') + "Upload Headshot"), :class => 'positive' %>
   <span class="button-separator"> or </span> 
   <%= link_to (image_tag('x.png') + "Remove my headshot"), remove_avatar_user_path(@user), :method => :put, :confirm => "Are you sure you want to remove your headshot? You'll have to upload another one later to get it back", :class => 'button negative' %>
   </p>
@@ -31,4 +30,4 @@
 
 <hr/>
 
-<p><%= link_to "Cancel editing", profile_path(@user.username) %></p>
+<p><%= link_to "Cancel editing", profile_path(@user.username), :class => 'button' %></p>

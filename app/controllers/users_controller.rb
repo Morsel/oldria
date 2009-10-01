@@ -3,13 +3,10 @@ class UsersController < ApplicationController
   before_filter :require_owner_or_admin, :only => [:edit, :update, :remove_twitter, :remove_avatar]
 
   def show
-    if params[:username]
-      @user = User.find_by_username(params[:username], :include => [{:followings => :friend}, :followers])
-      raise ActiveRecord::RecordNotFound, "Couldn't find User with username=#{params[:username]}" if @user.nil?
-    else
-      @user = User.find(params[:id], :include => [{:followings => :friend}, :followers])
-    end
-    @latest_status = @user.statuses.first
+    get_user
+    # Is the current user following this person?
+    @following = current_user.friends.first(:conditions => {:id => @user.id})
+    @latest_statuses = @user.statuses.all(:limit => 3)
   end
 
   def new
@@ -79,6 +76,15 @@ class UsersController < ApplicationController
 
 
   private
+  
+  def get_user
+    if params[:username]
+      @user = User.find_by_username(params[:username], :include => [:followings])
+      raise ActiveRecord::RecordNotFound, "Couldn't find User with username=#{params[:username]}" if @user.nil?
+    else
+      @user = User.find(params[:id], :include => [:followings])
+    end
+  end
 
   def require_owner_or_admin
     unless (params[:id] && User.find(params[:id]) == current_user) || current_user.admin?

@@ -18,6 +18,10 @@ class User < ActiveRecord::Base
                     :default_url => "/images/default_avatars/:style.png",
                     :styles => { :small => "100x100>", :thumb => "50x50#" }
 
+  def following?(otheruser)
+    friends.include?(otheruser)
+  end
+
 ### Convenience methods for getting/setting first and last names ###
   def name
     @name ||= [first_name, last_name].compact.join(' ')

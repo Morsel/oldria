@@ -30,7 +30,7 @@ Feature: Follow a SpoonFeed member, See who's following me
   Scenario: Unfollow someone
     Given "friendly" is following "otherguy"
     When I am on the profile page for "friendly"
-    And I follow "unfollow this user"
+    And I follow "stop following this user"
     Then I should see "you aren't following them anymore"
     And "friendly" should be following 0 users
 
@@ -47,13 +47,13 @@ Feature: Follow a SpoonFeed member, See who's following me
     And "friendly" should be following 0 users
 
 
-  Scenario: Unfollow someone
+  Scenario: Listing followers
     Given "friendly" is following "otherguy"
     When I am on the profile page for "otherguy"
     Then I should see "Followers"
     And I should see "John Appleseed"
 
-@focus
+
   Scenario: Viewing Friends Activity
     Given I am following "otherguy"
     And "otherguy" has the following status messages:

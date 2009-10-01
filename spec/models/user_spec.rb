@@ -19,6 +19,15 @@ describe User do
   end
 end
 
+describe User, "following" do
+  it "should know if he/she is following a user" do
+    guy  = Factory(:user, :username => 'guy')
+    girl = Factory(:user, :username => 'girl')
+    guy.friends << girl
+    guy.should be_following(girl)
+  end
+end
+
 describe User, "twitter and oauth" do
   before(:each) do
     @user = User.new(:atoken => 'atoken', :asecret => 'asecret')
