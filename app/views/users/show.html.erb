@@ -46,7 +46,9 @@
 		<li class="clearfix">
 			<%= link_to image_tag(following.friend.avatar.url(:thumb)), profile_path(following.friend.username) %>
 			<h4><%= link_to following.friend.name, profile_path(following.friend.username) %></h4>
-			<p><%= link_to "Stop following this user", following, :method => :delete if current_user == @user %></p>
+			<% if current_user == @user -%>
+			<p><%= link_to "Stop following this user", following, :method => :delete %></p>
+			<%- end %>
 		</li>
 		<% end #for loop%>
 	</ul>
@@ -62,10 +64,12 @@
 		<li class="clearfix">
 			<%= link_to image_tag(follower.avatar.url(:thumb)), profile_path(follower.username) %>
 			<h4><%= link_to follower.name, profile_path(follower.username) %></h4>
-			<p><%= link_to "Follow this user", followings_path(:friend_id => follower), :method => :post unless (current_user == follower) || current_user.following?(follower)%></p>
+			<% unless (current_user == follower) || current_user.following?(follower) -%>
+			<p><%= link_to "Follow this user", followings_path(:friend_id => follower), :method => :post %></p>
+			<%- end #unless %>
 		</li>
 		<% end #for loop %>
 	</ul>
 </div><!-- .box -->
-<% end #if %>
+<% end #if%>
 </div><!--#user_content-->
