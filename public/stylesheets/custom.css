@@ -462,8 +462,7 @@ ul.user_profile_actions {
 			
 #user_content ul {
 	list-style: none;
-	margin: 0px;
-	padding: 0px;
+	margin: 0 0 1em;
 }
 
 #user_content ul li {
