@@ -25,6 +25,14 @@ describe MediaUsersController do
       post :create
       response.should render_template(:new)
     end
+    
+    it "should set the account_type on the assigned user to media" do
+      account_type = Factory.stub(:account_type, :name => "Media")
+      AccountType.expects(:find).returns(account_type)
+      User.any_instance.stubs(:save).returns(true)
+      post :create
+      assigns[:media_user].account_type.name.should == "Media"
+    end
   
     it "create action should redirect when model is valid" do
       UserMailer.expects(:deliver_signup).returns true

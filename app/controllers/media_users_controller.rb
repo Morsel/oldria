@@ -5,6 +5,7 @@ class MediaUsersController < ApplicationController
   
   def create
     @media_user = User.new(params[:user])
+    @media_user.account_type = AccountType.find_by_name("Media")
     if @media_user.save
       UserMailer.deliver_signup(@media_user)
       flash[:notice] = "Just to make sure you are who you say you are, we sent you a secret coded message to your email account. Once you check that, we’ll give you your fancy credentials to log on."

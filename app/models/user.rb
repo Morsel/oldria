@@ -48,6 +48,10 @@ class User < ActiveRecord::Base
       @twitter_username ||= twitter_client.user({:count=>1}).first['user']['screen_name']
     end
   end
+  
+  def twitter_allowed?
+    !(account_type && account_type.name == "Media")
+  end
 
   def twitter_authorized?
     !atoken.blank? && !asecret.blank?

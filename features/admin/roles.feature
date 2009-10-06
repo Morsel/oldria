@@ -1,3 +1,4 @@
+@focus
 Feature: Member roles
   In order protect certain portions of the site
   As an Admin
@@ -9,7 +10,7 @@ Feature: Member roles
     When I am on the dashboard
     Then I should see "Twitter"
     And I should not see "Media Portal"
- 
+
 
   Scenario: Media members
     Given I am logged in as a media member

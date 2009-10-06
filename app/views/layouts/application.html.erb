@@ -47,7 +47,7 @@
           <li><%= link_to "Search", search_path %></li>
           <% if current_user.twitter_authorized? -%>
           <li><%= link_to "Twitter ", friend_timeline_path %></li>
-          <% else -%>
+          <% elsif current_user.twitter_allowed? -%>
           <li><%= link_to "Setup Twitter", new_twitter_authorization_url %></li>
           <% end -%>
 
