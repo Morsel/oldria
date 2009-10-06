@@ -32,7 +32,9 @@ class User < ActiveRecord::Base
   end
 
   def name=(_name)
-    self.first_name, self.last_name = _name.split(' ')
+    name_parts = _name.split(' ')
+    self.first_name = name_parts.shift
+    self.last_name = name_parts.pop
   end
 
   def confirmed?

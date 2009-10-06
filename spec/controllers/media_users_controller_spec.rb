@@ -43,7 +43,7 @@ describe MediaUsersController do
 
   describe "GET edit" do
     it "edit action should render edit template" do
-      controller.stubs(:current_user).returns Factory.stub(:user)
+      controller.stubs(:current_user).returns @user
       get :edit, :id => User.first
       response.should render_template(:edit)
     end
@@ -51,7 +51,7 @@ describe MediaUsersController do
 
   describe "PUT update" do
     it "update action should render edit template when model is invalid" do
-      controller.stubs(:current_user).returns Factory.stub(:user)
+      controller.stubs(:current_user).returns @user
       User.any_instance.stubs(:valid?).returns(false)
       put :update, :id => User.first
       response.should render_template(:edit)
@@ -60,7 +60,7 @@ describe MediaUsersController do
 
   describe "DELETE destroy" do
     it "update action should redirect when model is valid" do
-      controller.stubs(:current_user).returns Factory.stub(:user)
+      controller.stubs(:current_user).returns @user
       User.any_instance.stubs(:valid?).returns(true)
       put :update, :id => User.first
       response.should redirect_to(media_user_url(assigns[:media_user]))
