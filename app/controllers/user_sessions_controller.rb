@@ -9,7 +9,7 @@ class UserSessionsController < ApplicationController
     @user_session = UserSession.new(params[:user_session])
     if @user_session.save
       flash[:notice] = "You are now logged in."
-      redirect_to root_url
+      redirect_back_or_default
     else
       flash.now[:error] = "Sorry, but we couldn't log you in"
       render :new

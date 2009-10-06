@@ -60,7 +60,8 @@ class ApplicationController < ActionController::Base
   end
   
   def require_admin
-    unless current_user && current_user.admin?
+    require_user
+    unless current_user.admin?
       flash[:error] = "This is an administrative area. Nothing exciting here at all."
       redirect_to root_url
       return false

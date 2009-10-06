@@ -23,8 +23,8 @@ Given /^I am logged in as a spoonfeed member$/ do
 end
 
 Given /^I am logged in as a media member$/ do
-  Factory(:user, :username => 'media', :password => 'normal')
-  Given '"media" has a "Media" account type'
+  user = Factory(:user, :username => 'media', :password => 'normal')
+  user.has_role! :media
   Given 'I am logged in as "media" with password "normal"'
 end
 
@@ -61,8 +61,7 @@ end
 
 Then /^"([^\"]*)" should be marked as a media user$/ do |username|
   u = User.find_by_username(username)
-  u.account_type.should_not be_nil
-  u.account_type.name.should == "Media"
+  u.should have_role(:media)
 end
 
 Then /^"([^\"]*)" should be a confirmed user$/ do |username|

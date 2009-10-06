@@ -27,11 +27,9 @@ describe MediaUsersController do
     end
     
     it "should set the account_type on the assigned user to media" do
-      account_type = Factory.stub(:account_type, :name => "Media")
-      AccountType.expects(:find).returns(account_type)
       User.any_instance.stubs(:save).returns(true)
       post :create
-      assigns[:media_user].account_type.name.should == "Media"
+      assigns[:media_user].should have_role(:media)
     end
   
     it "create action should redirect when model is valid" do
@@ -45,11 +43,15 @@ describe MediaUsersController do
 
   describe "GET edit" do
     it "edit action should render edit template" do
+      controller.stubs(:current_user).returns Factory.stub(:user)
       get :edit, :id => User.first
       response.should render_template(:edit)
     end
-  
+  end
+
+  describe "PUT update" do
     it "update action should render edit template when model is invalid" do
+      controller.stubs(:current_user).returns Factory.stub(:user)
       User.any_instance.stubs(:valid?).returns(false)
       put :update, :id => User.first
       response.should render_template(:edit)
@@ -58,6 +60,7 @@ describe MediaUsersController do
 
   describe "DELETE destroy" do
     it "update action should redirect when model is valid" do
+      controller.stubs(:current_user).returns Factory.stub(:user)
       User.any_instance.stubs(:valid?).returns(true)
       put :update, :id => User.first
       response.should redirect_to(media_user_url(assigns[:media_user]))

@@ -26,8 +26,7 @@ describe WelcomeController do
     context "for logged in media users" do
       before(:each) do
         @user = Factory(:user)
-        accounttype = Factory.stub(:account_type, :name => "Media")
-        @user.stubs(:account_type).returns(accounttype)
+        @user.has_role! :media
         controller.stubs(:current_user).returns(@user)
       end
       

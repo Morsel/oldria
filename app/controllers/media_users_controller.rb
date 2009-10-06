@@ -1,11 +1,16 @@
 class MediaUsersController < ApplicationController
+  access_control do
+    default :allow
+    deny anonymous, :except => [:new, :create]
+  end
+
   def new
     @media_user = User.new
   end
   
   def create
     @media_user = User.new(params[:user])
-    @media_user.account_type = AccountType.find_by_name("Media")
+    @media_user.has_role! :media
     if @media_user.save
       UserMailer.deliver_signup(@media_user)
       flash[:notice] = "Just to make sure you are who you say you are, we sent you a secret coded message to your email account. Once you check that, we’ll give you your fancy credentials to log on."

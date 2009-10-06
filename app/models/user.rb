@@ -1,5 +1,7 @@
 class User < ActiveRecord::Base
   acts_as_authentic
+  acts_as_authorization_subject
+  
   belongs_to :account_type
   has_many :statuses, :dependent => :destroy
   
@@ -10,6 +12,8 @@ class User < ActiveRecord::Base
 
   has_many :direct_messages, :foreign_key => "receiver_id", :dependent => :destroy
   has_many :sent_direct_messages, :class_name => "DirectMessage", :foreign_key => "sender_id", :dependent => :destroy
+
+  has_and_belongs_to_many :roles
 
   # Attributes that should not be updated from a form or mass-assigned
   attr_protected :crypted_password, :password_salt, :perishable_token, :persistence_token, :confirmed_at, :admin
@@ -50,7 +54,7 @@ class User < ActiveRecord::Base
   end
   
   def twitter_allowed?
-    !(account_type && account_type.name == "Media")
+    !(has_role? :media)
   end
 
   def twitter_authorized?

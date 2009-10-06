@@ -2,7 +2,7 @@ class WelcomeController < ApplicationController
   def index
     if current_user
       @user = current_user
-      if @user.account_type.try(:name) == "Media"
+      if @user.has_role? :media
         render :mediahome
       else
         @direct_messages = @user.direct_messages.all_not_from_admin(:joins => :sender)
