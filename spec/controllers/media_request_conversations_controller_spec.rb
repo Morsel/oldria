@@ -6,6 +6,7 @@ describe MediaRequestConversationsController do
   before(:each) do
     @mrc = Factory(:media_request_conversation, :id => 98)
     MediaRequestConversation.stubs(:find).returns(@mrc)
+    controller.stubs(:current_user).returns(Factory(:user))
   end
   
   describe "GET show" do
@@ -16,13 +17,6 @@ describe MediaRequestConversationsController do
     it "should assign @media_request_conversation" do
       get :show, :id => 98
       assigns[:media_request_conversation].should == @mrc
-    end
-  end
-
-  describe "PUT update" do
-    it "should be successful" do
-      put :update, :id => 98
-      response.should be_success
     end
   end
 end

@@ -1,6 +1,9 @@
 class MediaRequestConversationsController < ApplicationController
   def show
     @media_request_conversation = MediaRequestConversation.find(params[:id])
+    @comments = @media_request_conversation.comments.reject(&:new_record?)
+    @comment = @media_request_conversation.comments.build
+    @comment.user = current_user
   end
 
   def update

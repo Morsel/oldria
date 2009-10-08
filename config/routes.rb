@@ -1,5 +1,4 @@
 ActionController::Routing::Routes.draw do |map|
-
   map.signup 'signup', :controller => 'users', :action => 'new'
   map.login  'login',  :controller => 'user_sessions', :action => 'new'
   map.logout 'logout', :controller => 'user_sessions', :action => 'destroy'
@@ -9,7 +8,9 @@ ActionController::Routing::Routes.draw do |map|
 
   map.resources :media_users, :except => [:index, :show]
   map.resources :media_requests, :except => [:index]
-  map.resources :media_request_conversations, :only => [:show, :update]
+  map.resources :media_request_conversations, :only => [:show, :update] do |mrc|
+    mrc.resources :comments, :only => [:new, :create]
+  end
 
   map.resources :users, :member => { 
     :remove_twitter => :put, 
