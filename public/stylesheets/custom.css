@@ -260,7 +260,7 @@ form .first_name input.text, form .last_name input.text {
 	padding: 0px;
 }
 
-.status p {
+.status p, .comment p {
 	margin: 0;
 }
 
@@ -300,7 +300,7 @@ form .first_name input.text, form .last_name input.text {
 	overflow: hidden;
 }
 
-.status .posted, .status .utility, .status .meta {
+.status .posted, .status .utility, .status .meta, .comment .meta {
 	color: #999;
 	font-size: .8em;
 	display: inline;
@@ -308,11 +308,11 @@ form .first_name input.text, form .last_name input.text {
 	padding-right: 5px;
 }
 
-.status .meta, .status .posted {
+.status .meta, .status .posted, .comment .meta  {
 	clear: left;
 }
 
-.status .meta .posted {
+.status .meta .posted, .comment .meta  {
 	clear: none;
 	float: none;
 }
@@ -327,7 +327,7 @@ form .first_name input.text, form .last_name input.text {
 	margin-bottom: 10px;
 }
 
-.direct_message {
+.direct_message, .comment {
 	border-bottom: 	1px solid #ddd;
 	padding-bottom: 8px;
 	margin-bottom: 	9px;
