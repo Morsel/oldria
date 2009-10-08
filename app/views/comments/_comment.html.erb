@@ -7,7 +7,7 @@
 	<% if !comment.attachments.blank? %>
 		Attached files:
 		<% for attachment in comment.attachments %>
-		<%=  attachment_link(attachment) %>
+		<%= attachment_link(attachment) %>
 		<% end %>
 	<% end %>
 

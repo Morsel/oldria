@@ -1,6 +1,6 @@
 class Comment < ActiveRecord::Base
   include ActsAsCommentable::Comment
-  has_many :attachments, :as => :attachable
+  has_many :attachments, :as => :attachable, :class_name => '::Attachment'
   belongs_to :commentable, :polymorphic => true
   belongs_to :user
   default_scope :order => 'created_at ASC'
