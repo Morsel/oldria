@@ -18,4 +18,34 @@ Feature: Member roles
     Then I should see "Media Portal"
     And I should not see "Twitter"
 
+  @allow-rescue
+  Scenario Outline: Media members access
+    Given the following confirmed users:
+      | username | email             |
+      | jimmy    | jimmy@example.com |
+    And I am logged in as a media member
+    When I try to visit <page>
+    Then I should <action>
+  
+  Examples:
+    | page                         | action              |
+    | the admin landing page       | be on the homepage  |
+    | the edit page for "jimmy"    | be on the homepage  |
+    | the profile page for "jimmy" | see "Access denied" |
+
+
+  Scenario Outline: Admin members access
+    Given the following confirmed users:
+      | username | email             |
+      | jimmy    | jimmy@example.com |
+    And I am logged in as an admin
+    When I go to <page>
+    Then I should be on <page>
+
+  Examples:
+    | page                         |
+    | the admin landing page       |
+    | the edit page for "jimmy"    |
+    | the profile page for "jimmy" |
+
 

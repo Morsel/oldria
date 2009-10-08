@@ -4,7 +4,8 @@ end
 
 Given /^the following confirmed users?:?$/ do |table|
   table.hashes.each do |row|
-    Factory(:user, row)
+    user = Factory(:user, row)
+    user.has_role! :spoonfeed
   end
 end
 
@@ -23,7 +24,8 @@ Given /^I am logged in as a spoonfeed member$/ do
 end
 
 Given /^I am logged in as a media member$/ do
-  user = Factory(:user, :username => 'media', :password => 'normal')
+  user = User.find_by_username("media")
+  user ||= Factory(:user, :username => 'media', :password => 'normal')
   user.has_role! :media
   Given 'I am logged in as "media" with password "normal"'
 end

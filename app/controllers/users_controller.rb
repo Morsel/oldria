@@ -1,6 +1,13 @@
 class UsersController < ApplicationController
+  access_control :only => [:show, :new], :as_method => :acl do
+    deny :medias
+    allow all
+    deny logged_in, :to => :new
+  end
+
   before_filter :require_user, :only => [:show]
   before_filter :require_owner_or_admin, :only => [:edit, :update, :remove_twitter, :remove_avatar]
+  before_filter :acl
 
   def show
     get_user
@@ -84,6 +91,10 @@ class UsersController < ApplicationController
     else
       @user = User.find(params[:id], :include => [:followings])
     end
+  end
+
+  def owner?
+    params[:id] && User.find(params[:id]) == current_user
   end
 
   def require_owner_or_admin

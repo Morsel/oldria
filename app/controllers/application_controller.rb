@@ -2,7 +2,7 @@
 # Likewise, all the methods added will be available for all controllers.
 
 class ApplicationController < ActionController::Base
-  before_filter :authenticate
+  #before_filter :authenticate
   helper :all # include all helpers, all the time
   protect_from_forgery # See ActionController::RequestForgeryProtection for details
 
@@ -11,6 +11,15 @@ class ApplicationController < ActionController::Base
 
   helper_method :current_user
 
+  rescue_from "Acl9::AccessDenied" do
+    if current_user
+      flash[:error] = "Access denied. This area is above your pay grade."
+      redirect_to root_url
+    else
+      flash[:notice] = 'Access denied. Try to log in first.'
+      redirect_to login_path
+    end
+  end
 
   private
 

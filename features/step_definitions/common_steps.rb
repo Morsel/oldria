@@ -13,3 +13,7 @@ Then /^I should see "([^\"]*)" within "([^\"]*)" section$/ do |text, title_of_ar
     div.should contain(text)
   end
 end
+
+When /^I try to visit (.*)+$/ do |path|
+  visit path_to(path)
+end
