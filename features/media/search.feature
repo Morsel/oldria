@@ -1,4 +1,3 @@
-@focus
 Feature: Member search
   So that I can increase my social networking
   As a SpoonFeed member

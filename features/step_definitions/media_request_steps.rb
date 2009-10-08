@@ -1,3 +1,27 @@
+def visit_and_fill_out_form_and_submit(recipient_ids = [], message = "")
+  visit new_media_request_path(:recipient_ids => recipient_ids)
+  fill_in 'media_request[message]', :with => message
+  click_button :submit
+end
+
+Given /^"([^\"]*)" has a media request from a media member with:$/ do |username, table|
+  Given('I am logged in as a media member')
+  recipient_ids = [User.find_by_username(username).id]
+  visit_and_fill_out_form_and_submit(recipient_ids, table.rows_hash["Message"])
+end
+
+
+When /^I follow "([^\"]*)" within the "([^\"]*)" section$/ do |link, relselector|
+  response.should have_selector("div", :rel => relselector) do |section|
+    click_link link
+  end
+end
+
+Then /^the media request should have ([0-9]+) comments?$/ do |num|
+  MediaRequestConversation.first.comments.count.should == num.to_i
+end
+
+
 When /^I create a new media request with:$/ do |table|
   mrdata = table.rows_hash
   recipient_ids = []
@@ -6,7 +30,5 @@ When /^I create a new media request with:$/ do |table|
       recipient_ids << User.find_by_username(username).id
     end
   end
-  visit new_media_request_path(:recipient_ids => recipient_ids)
-  fill_in 'media_request[message]', :with => mrdata["Message"]
-  click_button :submit
+  visit_and_fill_out_form_and_submit(recipient_ids, mrdata["Message"])
 end

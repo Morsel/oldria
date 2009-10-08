@@ -1,0 +1,29 @@
+<% title "Media Request" %>
+
+<h3>Original Request</h3>
+<p><%= @media_request_conversation.media_request.try(:message) %></p>
+
+<div class="comments">
+<% if !@media_request_conversation.comments.blank? %>
+<h3>Comments</h3>
+<% for comment in @media_request_conversation.comments %>
+	<% div_for comment do %>
+		<p class="meta"><%= comment.user.try(:username) %> said:</p>
+		<p><%= comment.comment %></p>
+	<% end %>
+<% end %>
+
+<% else %>
+No comments yet
+<% end %>
+</div>
+
+<h3>Leave a Comment</h3>
+<% form_for @media_request_conversation do |f| %>
+<%= hidden_field_tag 'media_request_conversation[comments_attributes][][user_id]', current_user.id %>
+<p>
+	<%= label_tag 'media_request_conversation[comments_attributes][][comment]', "Comment"  %>
+	<%= text_area_tag 'media_request_conversation[comments_attributes][][comment]' %>
+</p>
+<p class="clearfix"><%= button_tag "Submit" %></p>
+<% end %>

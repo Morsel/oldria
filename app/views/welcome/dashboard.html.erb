@@ -20,18 +20,19 @@
 <% end -%>
 	</div>
 	
-		<div id="media_requests" class="span-6 last" rel="Media Requests">
-	<% if !@user.received_media_requests.blank? %>
-	<h3>Media Requests for You</h3>
-		<% for request in @user.received_media_requests %>
-		<% div_for request, :class => 'clearfix' do %>
-			<p class="message">
-				<%= request.message %>
-			</p>
-		<% end # div -%>
-		<% end # for loop %>
-	<% end -%>
-		</div>	
+	<div id="media_requests" class="span-6 last" rel="Media Requests">
+<% if !@user.media_request_conversations.blank? %>
+<h3>Media Requests for You</h3>
+	<% for request in @user.media_request_conversations %>
+	<% div_for request, :class => 'clearfix' do %>
+		<p class="message">
+			<%= request.media_request.message %>
+			<%= link_to "reply", request %>
+		</p>
+	<% end # div -%>
+	<% end # for loop %>
+<% end -%>
+	</div>	
 	
 
 <div id="sent_messages" class="span-6">
