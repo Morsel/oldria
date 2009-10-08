@@ -1,5 +1,6 @@
 module CommentsHelper
   def attachment_link(attached)
+    return '' unless attached && attached.attachment_content_type
     if attached.attachment_content_type.match(/image/)
       link_to(image_tag(attached.attachment.url, :height => 16, :width => 16), attached.attachment.url)
     else
