@@ -1,0 +1,17 @@
+<% form_for @media_request do |f| %>
+  <%= f.error_messages %>
+  <%= f.hidden_field :sender_id %>
+<% if !@recipient_ids.blank? %>
+  <% for recipient in @recipient_ids %>
+    <%= hidden_field_tag 'recipient_ids[]', recipient %>
+  <% end %>
+<% else %>
+  
+<% end %>
+
+  <p>
+    <%= f.label :message %>
+    <%= f.text_area :message, :rows => 5, :style => 'height:auto' %>
+  </p>
+  <p class="clearfix"><%= button_tag "Submit", :class => 'positive' %></p>
+<% end %>

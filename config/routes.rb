@@ -8,6 +8,7 @@ ActionController::Routing::Routes.draw do |map|
   map.profile 'profile/:username', :controller => 'users', :action => 'show'
 
   map.resources :media_users, :except => [:index, :show]
+  map.resources :media_requests, :except => [:index]
 
   map.resources :users, :member => { 
     :remove_twitter => :put, 

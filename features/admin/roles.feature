@@ -1,4 +1,3 @@
-@focus
 Feature: Member roles
   In order protect certain portions of the site
   As an Admin

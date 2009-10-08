@@ -1,0 +1,2 @@
+module MediaRequestsHelper
+end

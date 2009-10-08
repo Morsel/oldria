@@ -1,1 +1,10 @@
 <% title "Media Portal" %>
+
+<h3>Sent Media Requests</h3>
+<% for media_request in @media_requests %>
+	<% div_for media_request, :class => 'clearfix' do %>
+	<p>
+		<%= media_request.message %>
+	</p>
+	<% end # div -%>
+<% end # for loop %>

@@ -62,3 +62,15 @@ describe User, "twitter and oauth" do
     @user.twitter_client.friends_timeline.first['text'].should eql("Best American flag etiquette video series I've seen all month!  http://bit.ly/eiOZe")
   end
 end
+
+describe User, "media_requests" do
+  before(:each) do
+    @user = Factory(:media_user)
+    @user.has_role! :media
+  end
+
+  it "should have many media_requests" do
+    MediaRequest.destroy_all
+    @user.media_requests.should == []
+  end
+end

@@ -19,8 +19,22 @@
 	<% end # for loop %>
 <% end -%>
 	</div>
+	
+		<div id="media_requests" class="span-6 last" rel="Media Requests">
+	<% if !@user.received_media_requests.blank? %>
+	<h3>Media Requests for You</h3>
+		<% for request in @user.received_media_requests %>
+		<% div_for request, :class => 'clearfix' do %>
+			<p class="message">
+				<%= request.message %>
+			</p>
+		<% end # div -%>
+		<% end # for loop %>
+	<% end -%>
+		</div>	
+	
 
-	<div id="sent_messages" class="span-6 last">
+<div id="sent_messages" class="span-6">
 <% if !@sent_messages.blank? %>
 	<h3>Sent Messages</h3>
 	<% for message in @sent_messages %>
@@ -37,9 +51,9 @@
 	<% end # div -%>
 	<% end # for loop %>
 <% end -%>
-	</div>
+	</div> 
 	
-	<div id="admin_messages" class="span-6">
+	<div id="admin_messages" class="span-6 last">
 <% if !@admin_direct_messages.blank? %>
 		<h3>Administrative Notices</h3>
 	<% for message in @admin_direct_messages %>
@@ -59,7 +73,7 @@
 <% end -%>
 	</div>
 	
-	<div id="friend_activity" class="span-6 last" rel="Friend Activity">
+	<div id="friend_activity" class="span-12" rel="Friend Activity">
 <% if !@friend_activity.blank? %>
 		<h3>Friend Activity</h3>
 	<% for status in @friend_activity %>
@@ -75,8 +89,6 @@
 	<% end # div -%>
 	<% end # for loop %>
 <% end -%>
-
 	</div>
-	
-	
+
 

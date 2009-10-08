@@ -1,0 +1,27 @@
+<% title "Search" %>
+
+<%= render :partial => 'form' %>
+
+<% if !@users.blank? %>
+<h2>Search Results</h2>
+<table id="search-results">
+	<tr>
+		<th></th>
+		<th>Name</th>
+		<th>Username</th>
+	</tr>
+
+<% form_for MediaRequest.new, :url => new_media_request_path, :html => {:method => :get} do |f| %>
+	<% for user in @users %>
+	<tr class="search-result">
+		<td><%= check_box_tag 'recipient_ids[]', user.id %></td>
+		<td><%=h user.name %></td>
+		<td><%= link_to user.username, profile_path(user.username) %></td>
+	</tr>
+	<% end %>  
+
+	<p class="clearfix"><%= button_tag "Next" %></p>
+<% end %>
+
+</table>
+<% end %>

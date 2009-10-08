@@ -53,3 +53,13 @@ Factory.define :direct_message do |f|
   f.title "Hello there"
   f.body  "This is a message"
 end
+
+Factory.define :media_request_conversation do |f|
+  f.association :recipient, :factory => :user
+  f.association :media_request
+end
+
+Factory.define :media_request do |f|
+  f.association :sender, :factory => :media_user
+  f.message "This is a media request message"
+end

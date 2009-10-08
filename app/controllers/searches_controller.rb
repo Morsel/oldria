@@ -7,5 +7,10 @@ class SearchesController < ApplicationController
     else
       # TODO helpful message about how to search
     end
+    if current_user.has_role?(:media)
+      render :mediashow
+    else
+      # render 'show.html'
+    end
   end
 end

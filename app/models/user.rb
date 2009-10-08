@@ -13,6 +13,10 @@ class User < ActiveRecord::Base
   has_many :direct_messages, :foreign_key => "receiver_id", :dependent => :destroy
   has_many :sent_direct_messages, :class_name => "DirectMessage", :foreign_key => "sender_id", :dependent => :destroy
 
+  has_many :media_requests, :foreign_key => 'sender_id'
+  has_many :media_request_conversations, :foreign_key => "recipient_id"
+  has_many :received_media_requests, :through => :media_request_conversations, :source => :media_request
+  
   has_and_belongs_to_many :roles
 
   # Attributes that should not be updated from a form or mass-assigned

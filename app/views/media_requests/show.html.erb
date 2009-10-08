@@ -1,0 +1,10 @@
+<% title "Media Request" %>
+
+<p>
+  <strong>Sender:</strong>
+  <%=h @media_request.sender.try(:name) %>
+</p>
+<p>
+  <strong>Message:</strong>
+  <%=h @media_request.message %>
+</p>
