@@ -19,12 +19,16 @@
 <hr class="space"/>
 
 <h3>Leave a Comment</h3>
-<% form_for [@media_request_conversation, @comment] do |f| %>
+<% form_for [@media_request_conversation, @comment], :html => { :multipart => true } do |f| %>
 <%= f.hidden_field :user_id %>
 <p>
 	<%= f.label :comment %>
 	<%= f.text_area :comment, :style => 'height:auto', :rows => 4 %>
 </p>
+<% f.fields_for :attachments do |child_form| -%>
+	<%= child_form.file_field :attachment %>
+<% end -%>
+
 <p class="clearfix"><%= button_tag "Submit" %></p>
 <% end %>
 

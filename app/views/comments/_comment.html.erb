@@ -1,7 +1,14 @@
 <% div_for comment do %>
-	<p class="meta">
-		On <%= comment.created_at.strftime("%b %e, %Y at %l:%M %p") %> 
-		<%= comment.user.try(:username) %> said:
-	</p>
-	<p><%= comment.comment %></p>
-<% end %>
+<p class="meta">
+	On <%= comment.created_at.strftime("%b %e, %Y at %l:%M %p") %> 
+	<%= comment.user.try(:username) %> said:
+</p>
+<p><%= comment.comment %></p>
+	<% if !comment.attachments.blank? %>
+		Attached files:
+		<% for attachment in comment.attachments %>
+		<%=  attachment_link(attachment) %>
+		<% end %>
+	<% end %>
+
+<% end #div %>
