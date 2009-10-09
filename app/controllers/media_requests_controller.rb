@@ -5,7 +5,10 @@ class MediaRequestsController < ApplicationController
   
   def new
     @sender = current_user
-    @recipient_ids = params[:recipient_ids] if params[:recipient_ids]
+    if params[:recipient_ids]
+      @recipient_ids = params[:recipient_ids]
+      @recipients = User.find(@recipient_ids)
+    end
     @media_request = @sender.media_requests.build
   end
   

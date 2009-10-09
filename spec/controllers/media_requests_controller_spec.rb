@@ -21,11 +21,13 @@ describe MediaRequestsController do
     end
     
     it "should collect the recipients into @recipient_ids" do
+      User.stubs(:find).returns([@user])
       get :new, :recipient_ids => ['12', '34']
       assigns[:recipient_ids].should == ['12','34']
     end
 
     it "should create a hidden field for each recipient" do
+      User.stubs(:find).returns([@user])
       id_array = ['12', '34']
       get :new, :recipient_ids => id_array
       id_array.each do |idstring|

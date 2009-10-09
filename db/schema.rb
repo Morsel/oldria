@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20091008204835) do
+ActiveRecord::Schema.define(:version => 20091009191203) do
 
   create_table "account_types", :force => true do |t|
     t.string   "name"
@@ -75,6 +75,13 @@ ActiveRecord::Schema.define(:version => 20091008204835) do
     t.datetime "updated_at"
   end
 
+  create_table "james_beard_regions", :force => true do |t|
+    t.string   "name"
+    t.string   "description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "media_request_conversations", :force => true do |t|
     t.integer  "media_request_id"
     t.integer  "recipient_id"
@@ -125,7 +132,7 @@ ActiveRecord::Schema.define(:version => 20091008204835) do
     t.string   "crypted_password"
     t.string   "password_salt"
     t.string   "perishable_token"
-    t.string   "persistence_token",   :null => false
+    t.string   "persistence_token",     :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.datetime "confirmed_at"
@@ -140,6 +147,7 @@ ActiveRecord::Schema.define(:version => 20091008204835) do
     t.datetime "avatar_updated_at"
     t.string   "first_name"
     t.string   "last_name"
+    t.integer  "james_beard_region_id"
   end
 
 end

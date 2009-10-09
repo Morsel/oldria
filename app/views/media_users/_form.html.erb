@@ -17,6 +17,10 @@
     <%= f.text_field :email, :class => 'text' %>
   </p>
   <p>
+    <%= f.label :james_beard_region_id, "Region (Based on James Beard Foundation)" %>
+    <%= f.collection_select :james_beard_region_id, JamesBeardRegion.all, :id, :name_and_description %>
+  </p>
+  <p>
     <%= f.label :password %>
     <%= f.password_field :password, :class => 'text' %>
   </p>

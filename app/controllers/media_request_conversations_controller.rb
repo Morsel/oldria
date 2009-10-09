@@ -3,7 +3,7 @@ class MediaRequestConversationsController < ApplicationController
     @media_request_conversation = MediaRequestConversation.find(params[:id])
     @comments = @media_request_conversation.comments.all(:include => [:user, :attachments]).reject(&:new_record?)
     @comment = @media_request_conversation.comments.build
-    @comment.attachments.build
+    2.times { @comment.attachments.build }
     @comment.user = current_user
   end
 

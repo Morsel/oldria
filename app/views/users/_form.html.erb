@@ -16,8 +16,12 @@
   <p>
     <%= f.label :account_type_id %>
     <%= f.collection_select :account_type_id, AccountType.all, :id, :name %>
-  </p>	
+  </p>
 <% end %>
+  <p>
+    <%= f.label :james_beard_region_id %>
+    <%= f.collection_select :james_beard_region_id, JamesBeardRegion.all, :id, :name %>
+  </p>
 
   <p>
     <%= f.label :password %>

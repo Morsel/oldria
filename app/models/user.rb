@@ -2,6 +2,7 @@ class User < ActiveRecord::Base
   acts_as_authentic
   acts_as_authorization_subject
   
+  belongs_to :james_beard_region
   belongs_to :account_type
   has_many :statuses, :dependent => :destroy
   

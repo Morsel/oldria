@@ -1,5 +1,9 @@
 <% title "New Media Request" %>
 
-<%= render :partial => 'form' %>
+<% if !@recipients.blank? %>
+	<h4>To: <%= @recipients.map(&:name).try(:to_sentence) %></h4>
+<% else %>
+<% end %>
 
-<p><%= link_to "Back to List", media_requests_path %></p>
+
+<%= render :partial => 'form' %>
