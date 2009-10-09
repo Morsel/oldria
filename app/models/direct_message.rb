@@ -27,4 +27,8 @@ class DirectMessage < ActiveRecord::Base
   def parent_message
     DirectMessage.find(in_reply_to_message_id) if in_reply_to_message_id
   end
+  
+  def from?(user)
+    sender_id == user.id
+  end
 end
