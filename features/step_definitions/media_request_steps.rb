@@ -32,3 +32,15 @@ When /^I create a new media request with:$/ do |table|
   end
   visit_and_fill_out_form_and_submit(recipient_ids, mrdata["Message"])
 end
+
+Given /^"([^\"]*)" has a media request from "([^\"]*)" with:$/ do |username, mediauser, table|
+  message = table.rows_hash['Message']
+  user = User.find_by_username(username)
+  sender = User.find_by_username(mediauser)
+  Factory(:media_request, :recipients => [user], :sender => sender, :message => message)
+end
+
+When /^I leave a comment with "([^\"]*)"$/ do |text|
+  fill_in "Comment", :with => text
+  click_button :submit
+end

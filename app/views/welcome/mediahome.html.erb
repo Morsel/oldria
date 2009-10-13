@@ -3,8 +3,18 @@
 <h3>Sent Media Requests</h3>
 <% for media_request in @media_requests %>
 	<% div_for media_request, :class => 'clearfix' do %>
-	<p>
-		<%= media_request.message %>
-	</p>
+	<ul>
+		<li>
+			<%= media_request.message %>
+		<ul>
+		<% for conversation in media_request.media_request_conversations %>
+		<% if !conversation.comments.blank? %>
+		<li><%= conversation.comments.last.try(:comment) %>
+			<%= link_to "reply", conversation %></li>
+		<% end %>
+		<% end %>
+		</ul>
+		</li>
+	</ul>
 	<% end # div -%>
 <% end # for loop %>

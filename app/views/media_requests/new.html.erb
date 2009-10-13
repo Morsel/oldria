@@ -2,8 +2,6 @@
 
 <% if !@recipients.blank? %>
 	<h4>To: <%= @recipients.map(&:name).try(:to_sentence) %></h4>
-<% else %>
 <% end %>
-
 
 <%= render :partial => 'form' %>

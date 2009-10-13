@@ -1,10 +1,8 @@
 class MediaRequestConversationsController < ApplicationController
   def show
     @media_request_conversation = MediaRequestConversation.find(params[:id])
-    @comments = @media_request_conversation.comments.all(:include => [:user, :attachments]).reject(&:new_record?)
-    @comment = @media_request_conversation.comments.build
-    2.times { @comment.attachments.build }
-    @comment.user = current_user
+    @comments = @media_request_conversation.comments.all(:include => [:user, :attachments], :order => 'created_at DESC').reject(&:new_record?)
+    build_comment
   end
 
   def update
@@ -15,5 +13,12 @@ class MediaRequestConversationsController < ApplicationController
     else
       render :show
     end
+  end
+  
+  def build_comment
+    @comment = @media_request_conversation.comments.build
+    @comment.attachments.build
+    @comment.user = current_user
+    @comment_resource = [@media_request_conversation, @comment]
   end
 end

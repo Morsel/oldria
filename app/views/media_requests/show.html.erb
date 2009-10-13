@@ -1,10 +1,11 @@
 <% title "Media Request" %>
 
-<p>
-  <strong>Sender:</strong>
-  <%=h @media_request.sender.try(:name) %>
-</p>
-<p>
-  <strong>Message:</strong>
-  <%=h @media_request.message %>
-</p>
+<h3>Message</h3>
+  <p><%=h @media_request.message %></p>
+
+<% if !@media_request.attachments.blank? %>
+<h3>Attached files:</h3>
+  <% for attachment in @media_request.attachments %>
+		<%= attachment_link(attachment) %>
+  <% end %>
+<% end %>

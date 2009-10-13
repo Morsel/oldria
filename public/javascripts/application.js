@@ -54,3 +54,16 @@ $("a.showtarget").click(function(){
 $("#navigation a[href$=" + window.location.pathname + "]").parent().addClass("selected");
 
 
+// == Comment attachments
+
+$(".attachfield:first").after('<p class="add-another"><a href="#">Add another attachment</a></p>').next().click(function(){
+	var oldfield = $(".attachfield:last");
+	var newfield = oldfield.clone();
+	var fieldname = newfield.find("input").attr("name");
+	var number = parseInt(fieldname.match(/(\d)/), 10);
+	newfield.find("input").attr("name", fieldname.replace(/(\d)/g, number+1)).attr('id', "");
+	newfield.insertAfter(oldfield);
+	return false;
+});
+
+

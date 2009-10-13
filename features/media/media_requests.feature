@@ -1,8 +1,8 @@
-@focus
 Feature: Media requests
   In order to find out valuable information
   As a Media member
   I want to send media requests and have SpoonFeed members respond
+
 
   Background:
     Given the following confirmed users:
@@ -22,7 +22,8 @@ Feature: Media requests
     When I go to the homepage
     Then I should see "Cucumber recipes"
     # And my media request should be held for moderation
-  
+
+
   Scenario: A new media request shows up on my dashboard
     Given I am logged in as a media member
     When I create a new media request with:
@@ -33,6 +34,7 @@ Feature: Media requests
     Given I am logged in as "sam" with password "secret"
     When I go to the dashboard
     Then I should see "Are cucumbers good in salad?"
+
 
   Scenario: Responding to a media request
     Given "sam" has a media request from a media member with:

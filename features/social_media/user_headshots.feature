@@ -27,7 +27,7 @@ Feature: User headshots
     Then I should see my headshot
 
     When I follow "Remove my headshot"
-    Then I should see "We’ve removed your headshot from your account"
+    Then I should see "removed your headshot from your account"
     And "emily" should not have a headshot
 
 

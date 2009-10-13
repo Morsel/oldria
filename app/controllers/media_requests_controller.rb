@@ -10,6 +10,7 @@ class MediaRequestsController < ApplicationController
       @recipients = User.find(@recipient_ids)
     end
     @media_request = @sender.media_requests.build
+    @media_request.attachments.build
   end
   
   def create
