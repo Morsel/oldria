@@ -34,33 +34,17 @@
 		<div id="header" class="span-18 last">
 
 			<div id="brand" class="span-7">
-				<a href="/"><img src="/images/spoonfeed_logo.png" alt="Spoonfeed" title="" border="0" /></a>
+				<a href="/"><img src="/images/spoonfeed_logo.png" alt="Spoonfeed" /></a>
 			</div><!--#brand-->
 
 			<div id="navigation" class="span-11 last">
-				<ul>
-					<li><%= link_to "Home", root_url %></li>
-					
-				<%- if current_user && current_user.has_role?(:media) %>
-					<li><%= link_to "New Media Request", new_media_request_path %></li>
-					<li><%= link_to "Search", search_path %></li>
-				<% elsif current_user %>
-					<li><%= link_to "Profile", profile_path(current_user.username) %></li>
-					<li><%= link_to "Status", user_statuses_path(current_user) %></li>
-					<li><%= link_to "Search", search_path %></li>
-					<% if current_user.twitter_authorized? -%>
-						<li><%= link_to "Twitter ", friend_timeline_path %></li>
-					<% elsif current_user.twitter_allowed? -%>
-						<li><%= link_to "Setup Twitter", new_twitter_authorization_url %></li>
-					<% end -%>
-
-				<%- else -%>
-
-					<li><%= link_to "Sign Up", signup_path %> </li>
-					<li><%= link_to "Login", login_path %></li>
-
-				<%- end -%>
-				</ul>
+			<%- if current_user && current_user.has_role?(:media) %>
+				<%= render :partial => 'layouts/nav_media' %>
+			<% elsif current_user %>
+				<%= render :partial => 'layouts/nav_spoonfeed' %>
+			<% else %>
+				<%= render :partial => 'layouts/nav' %>
+			<% end -%>
 			</div><!--#navigation-->
 
 		</div><!--header-->

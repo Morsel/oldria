@@ -1,0 +1,11 @@
+<ul>
+	<li><%= link_to "Home", root_url %></li>
+	<li><%= link_to "Profile", profile_path(current_user.username) %></li>
+	<li><%= link_to "Status", user_statuses_path(current_user) %></li>
+	<li><%= link_to "Search", search_path %></li>
+	<% if current_user.twitter_authorized? -%>
+		<li><%= link_to "Twitter ", friend_timeline_path %></li>
+	<% elsif current_user.twitter_allowed? -%>
+		<li><%= link_to "Setup Twitter", new_twitter_authorization_url %></li>
+	<% end -%>
+</ul>
