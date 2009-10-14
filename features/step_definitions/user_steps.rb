@@ -32,7 +32,7 @@ end
 
 Given /^I am logged in as a media member$/ do
   user = User.find_by_username("media")
-  user ||= Factory(:user, :username => 'media', :password => 'normal')
+  user ||= Factory(:media_user, :username => 'media', :password => 'normal')
   user.has_role! :media
   Given 'I am logged in as "media" with password "normal"'
 end

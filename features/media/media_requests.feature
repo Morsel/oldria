@@ -13,15 +13,9 @@ Feature: Media requests
 
   Scenario: A new media request
     Given I am logged in as a media member
-    Given I am on the homepage
-    When I follow "New Media Request"
-    And I fill in the following:
-      | Message | Cucumber recipes |
-    And I press "Submit"
+    When I create a new media request with:
+      | Message    | Are cucumbers good in salad? |
     Then I should see "held for approval"
-    When I go to the homepage
-    Then I should see "Cucumber recipes"
-    # And my media request should be held for moderation
 
 
   Scenario: A new media request shows up on my dashboard

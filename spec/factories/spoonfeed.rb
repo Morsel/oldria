@@ -16,6 +16,7 @@ Factory.define :admin, :parent => :user do |f|
 end
 
 Factory.define :media_user, :parent => :user do |f|
+  f.publication "The Times"
 end
 
 Factory.define :status do |f|

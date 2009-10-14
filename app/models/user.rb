@@ -27,6 +27,11 @@ class User < ActiveRecord::Base
                     :default_url => "/images/default_avatars/:style.png",
                     :styles => { :small => "100x100>", :thumb => "50x50#" }
 
+  validates_exclusion_of :publication, 
+                         :in => %w( freelance Freelance ), 
+                         :message => "'{{value}}' is not allowed"
+  
+  
   def following?(otheruser)
     friends.include?(otheruser)
   end

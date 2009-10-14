@@ -7,8 +7,8 @@ Feature: Media accounts
   Scenario: Sign up
     Given I am on the media user signup page
     When I sign up with:
-      | username | email        | password |
-      | jimbo    | jimbo@bo.com | secret   |
+      | username | email        | password | publication     |
+      | jimbo    | jimbo@bo.com | secret   | Chicago Tribune |
     Then "jimbo@bo.com" should have 1 email
     And "jimbo" should be marked as a media user
 
