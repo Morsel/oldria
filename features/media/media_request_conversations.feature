@@ -10,8 +10,8 @@ Feature: Media request conversations
       | username | password |
       | sam      | secret   |
     Given the following media users:
-      | username | password |
-      | mediaguy | secret   |
+      | username | password | publication    |
+      | mediaguy | secret   | New York Times |
 
 
   Scenario: Responding to a media request
@@ -19,7 +19,10 @@ Feature: Media request conversations
       | Message | Do you like cheesy potatoes? |
     And I am logged in as "sam" with password "secret"
     When I go to the dashboard
-    And I follow "reply" within the "Media Requests" section
+    Then I should see /writer[\n\s]*from New York Times/
+    And I should see "Do you like cheesy potatoes?"
+
+    When I follow "reply" within the "Media Requests" section
     Then the media request should have 0 comments
 
     When I leave a comment with "Of course I love cheesy potatoes!"

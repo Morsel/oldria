@@ -277,7 +277,7 @@ form .first_name input.text, form .last_name input.text {
 	overflow: hidden;
 }
 
-.status .message {
+.status .message, .media_request_conversation .message {
 	display: block;
 	color: #333;
 	font-size: 1.5em;
@@ -357,6 +357,45 @@ form .first_name input.text, form .last_name input.text {
 	border: 0 none;
 }
 
+
+/* media requests ----------------*/
+
+#media_requests {
+	margin-bottom: 2em;
+}
+
+.media_request_conversation {
+	border-bottom: 	1px solid #ddd;
+	padding-bottom: 8px;
+	margin-bottom: 	9px;
+}
+
+.media_request_conversation p.message {
+	font-size: 1.2em;
+}
+
+.media_request_conversation p {
+	margin: 0;
+}
+
+.media_request_conversation .meta {
+	color: #666;
+	font-size: .9em;
+}
+
+.media_request_conversation .reply_link {
+	float: right;
+}
+.media_request_conversation .reply_link a {
+	font-family: "Lucida Grande", sans-serif;
+	font-weight: bold;
+	font-size: .9em;
+	color: #1D9BBB;
+}
+
+.media_request_conversation .reply_link a:hover {
+	color: #333;
+}
 
 /* users ------------------------ */
 

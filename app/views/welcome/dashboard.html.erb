@@ -25,9 +25,17 @@
 <h3>Media Requests for You</h3>
 	<% for request in @media_request_conversations %>
 	<% div_for request, :class => 'clearfix' do %>
+		<p class="reply_link"><%= link_to "reply", request %></p>
+		<p class="meta">
+			<%= request.created_at.strftime("%b %e") %> |
+			A writer 
+		<%- if request.media_request.sender.try(:publication) %>
+			from <em><%= request.media_request.sender.try(:publication) %></em> 
+		<% end -%>
+		  wants to know:
+		</p>
 		<p class="message">
 			<%= request.media_request.message %>
-			<%= link_to "reply", request %>
 		</p>
 	<% end # div -%>
 	<% end # for loop %>
