@@ -1,6 +1,6 @@
 <h1>All Users</h1>
 
-<p><%= link_to 'Sign Up a New User', new_user_path, :class => 'button positive' %></p>
+<p><%= link_to 'Sign Up a New User', new_admin_user_path, :class => 'button positive' %></p>
 <br clear="all" />
 
 
@@ -19,7 +19,7 @@
 	</tr>
 
 	<% @users.each do |user| %>
-	<tr class="user <%= user.admin? ? 'admin' : '' %>">
+	<tr class="user <%= user.roles.include?(@adminrole) ? 'admin' : '' %>">
 		<td><%= link_to user.username, profile_path(user.username) %></td>
 		<td><%= h user.email %></td>
 		<td><%= h user.account_type.try(:name) %></td>

@@ -1,23 +1,40 @@
 <h1>New user</h1>
 
-<% form_for(@user) do |f| %>
+<% form_for [:admin, @user] do |f| %>
   <%= f.error_messages %>
-
-  <p>
-    <%= f.label :username %><br />
+  <p class="span-3 column">
+    <%= f.label :first_name %>
+    <%= f.text_field :first_name, :class => 'text span-3' %>
+  </p>
+  <p class="span-4 column">
+    <%= f.label :last_name %>
+    <%= f.text_field :last_name, :class => 'text span-4' %>
+  </p>
+  <p class="clear">
+    <%= f.label :username %>
     <%= f.text_field :username, :class => 'text' %>
   </p>
   <p>
-    <%= f.label :email %><br />
+    <%= f.label :email %>
     <%= f.text_field :email, :class => 'text' %>
   </p>
+
   <p>
-    <%= f.label :admin %><br />
-    <%= f.check_box :admin %>
+    <%= f.label :james_beard_region_id, "Region (Based on James Beard Foundation)" %>
+    <%= f.collection_select :james_beard_region_id, JamesBeardRegion.all, :id, :name_and_description, :include_blank => true %>
+  </p>
+
+  <p>
+    <%= f.label :password %>
+    <%= f.text_field :password, :class => 'text' %>
   </p>
   <p>
-    <%= button_tag 'Create' %>
+    <%= f.label :password_confirmation %>
+    <%= f.text_field :password_confirmation, :class => 'text' %>
+  </p>
+  <p>
+   <%= link_to 'Back', admin_users_path, :class => 'button' %>
+   <%= button_tag "Save", :class => 'positive' %>
   </p>
 <% end %>
 
-<%= link_to 'Back', users_path %>

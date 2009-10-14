@@ -21,7 +21,7 @@ class User < ActiveRecord::Base
   has_and_belongs_to_many :roles
 
   # Attributes that should not be updated from a form or mass-assigned
-  attr_protected :crypted_password, :password_salt, :perishable_token, :persistence_token, :confirmed_at, :admin
+  attr_protected :crypted_password, :password_salt, :perishable_token, :persistence_token, :confirmed_at, :admin=, :admin
 
   has_attached_file :avatar, 
                     :default_url => "/images/default_avatars/:style.png",
@@ -31,6 +31,15 @@ class User < ActiveRecord::Base
                          :in => %w( freelance Freelance ), 
                          :message => "'{{value}}' is not allowed"
   
+  
+  def admin?
+    @admin ||= has_role? :admin
+  end
+  alias :admin :admin?
+  
+  def admin=(bool)
+    TRUE_VALUES.include?(bool) ? has_role!(:admin) : has_no_role!(:admin)
+  end
   
   def following?(otheruser)
     friends.include?(otheruser)

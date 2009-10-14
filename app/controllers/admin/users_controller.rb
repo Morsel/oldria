@@ -3,7 +3,8 @@ class Admin::UsersController < Admin::AdminController
   # GET /admin_users.xml
   def index
     @search = User.search(params[:search])
-    @users = @search.all(:include => :account_type)
+    @users = @search.all(:include => [:account_type, :roles, :james_beard_region])
+    @adminrole = Role.find_by_name("admin")
     
     respond_to do |format|
       format.html { flash.now[:notice] = "We couldn't find anything" if @users.blank? }
@@ -42,7 +43,7 @@ class Admin::UsersController < Admin::AdminController
   # POST /admin_users.xml
   def create
     @user = User.new(params[:user])
-
+    @user.confirmed_at = Time.now
     respond_to do |format|
       if @user.save
         flash[:notice] = 'User was successfully created.'
@@ -59,9 +60,7 @@ class Admin::UsersController < Admin::AdminController
   # PUT /admin_users/1.xml
   def update
     @user = User.find(params[:id])
-    if @user.admin = params[:user].delete(:admin)
-      @user.has_role! :admin
-    end
+    @user.admin = params[:user].delete(:admin)
     respond_to do |format|
       if @user.update_attributes(params[:user])
         flash[:notice] = 'User was successfully updated.'

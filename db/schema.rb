@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20091014164142) do
+ActiveRecord::Schema.define(:version => 20091014201907) do
 
   create_table "account_types", :force => true do |t|
     t.string   "name"
@@ -139,7 +139,6 @@ ActiveRecord::Schema.define(:version => 20091014164142) do
     t.datetime "last_request_at"
     t.string   "atoken"
     t.string   "asecret"
-    t.boolean  "admin"
     t.integer  "account_type_id"
     t.string   "avatar_file_name"
     t.string   "avatar_content_type"

@@ -3,21 +3,35 @@
 <% form_for [:admin, @user] do |f| %>
   <%= f.error_messages %>
 
-  <%- if @user.avatar? -%>
-    <p><%= image_tag @user.avatar.url(:small) %></p>    
-  <%- end -%>
 
-  <p>
-    <%= f.label :username %>
-    <%= f.text_field :username, :class => 'text' %>
+  <p class="span-3 column">
+    <%= f.label :first_name %>
+    <%= f.text_field :first_name, :class => 'text span-3' %>
   </p>
-  <p>
+  <p class="span-4 column">
+    <%= f.label :last_name %>
+    <%= f.text_field :last_name, :class => 'text span-4' %>
+  </p>
+  <p class="clear">
     <%= f.label :email %>
     <%= f.text_field :email, :class => 'text' %>
   </p>
   <p>
+    <%= f.label :username %>
+    <%= f.text_field :username, :class => 'text' %>
+  </p>  
+
+<% if @user.has_role? :media %>
+  <p>
+    <%= f.label :publication, "Affiliated Publication" %>
+    <%= f.text_field :publication, :class => 'text' %><br/>
+    <small>Media users only</small>
+  </p>
+<% end %>
+
+  <p>
     <%= f.label :james_beard_region_id %>
-    <%= f.collection_select :james_beard_region_id, JamesBeardRegion.all, :id, :name_and_description %>
+    <%= f.collection_select :james_beard_region_id, JamesBeardRegion.all, :id, :name_and_description, :include_blank => true %>
   </p>
   <p>
     <%= f.label :admin, "Admin?" %>
@@ -27,7 +41,8 @@
     <%= f.label :account_type_id %>
     <%= f.collection_select :account_type_id, AccountType.all, :id, :name %>
   </p>
-<p class="clear"><%= link_to 'Back', admin_users_path, :class=>'button' %></p>
+
+  <p class="clear"><%= link_to 'Back', admin_users_path, :class=>'button' %></p>
   <p>
     <%= button_tag 'Update', :class => 'positive' %>
   </p>

@@ -19,8 +19,8 @@
   </p>
 <% end %>
   <p>
-    <%= f.label :james_beard_region_id %>
-    <%= f.collection_select :james_beard_region_id, JamesBeardRegion.all, :id, :name %>
+    <%= f.label :james_beard_region_id, "Region (Based on James Beard Foundation)" %>
+    <%= f.collection_select :james_beard_region_id, JamesBeardRegion.all, :id, :name_and_description %>
   </p>
 
   <p>
