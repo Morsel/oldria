@@ -277,7 +277,7 @@ form .first_name input.text, form .last_name input.text {
 	overflow: hidden;
 }
 
-.status .message, .media_request_conversation .message {
+.message {
 	display: block;
 	color: #333;
 	font-size: 1.5em;
@@ -289,8 +289,6 @@ form .first_name input.text, form .last_name input.text {
 	font-size: 2.1em;
 	line-height: 28px;
 }
-
-
 
 .statuses li {
 	clear: left;
@@ -362,6 +360,31 @@ form .first_name input.text, form .last_name input.text {
 
 #media_requests {
 	margin-bottom: 2em;
+}
+
+.media_request .message {
+	font-size: 1.2em;
+}
+
+.media_request .meta {
+	color: #999;
+	font-size: .9em;
+	font-family: "Lucida Grande", arial, sans-serif;
+}
+
+ul.responses {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+
+.responses li {
+	border-top: 1px solid #ddd;
+	padding-top: 5px;
+}
+
+.responses li a:after {
+	content: " \279E";
 }
 
 .media_request_conversation {
