@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20091016144838) do
+ActiveRecord::Schema.define(:version => 20091016191013) do
 
   create_table "account_types", :force => true do |t|
     t.string   "name"
@@ -90,12 +90,23 @@ ActiveRecord::Schema.define(:version => 20091016144838) do
     t.integer  "comments_count",   :default => 0
   end
 
+  create_table "media_request_types", :force => true do |t|
+    t.string   "name"
+    t.string   "shortname"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "fields"
+  end
+
   create_table "media_requests", :force => true do |t|
     t.integer  "sender_id"
     t.text     "message"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.date     "due_date"
+    t.string   "request_type"
+    t.integer  "media_request_type_id"
+    t.text     "fields"
   end
 
   create_table "pages", :force => true do |t|

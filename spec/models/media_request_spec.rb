@@ -19,4 +19,55 @@ describe MediaRequest do
     mr.media_request_conversations.first.recipient.should == @receiver
     @receiver.received_media_requests.should include(mr)
   end
+  
+  describe "fields" do
+    before(:each) do
+      @request = Factory.build(:media_request)
+    end
+
+    it "should be empty Hash for new instance" do
+      @request.fields.should == {}
+    end
+
+    it "should be a hash with keys and values" do
+      @request.fields = {:hello => "No!"}
+      @request.fields.should be_a(Hash)
+      @request.save
+      MediaRequest.find(@request.id).fields.should be_a(Hash)
+    end
+    
+    it "should raise an error for an array" do
+      @request.fields = ['hello', 'sammy']
+      lambda{ @request.save }.should raise_error(ActiveRecord::SerializationTypeMismatch)
+    end
+    
+    it "should reject blank values" do
+      @request.fields = {:hello => '', :nothing => "Booya!"}
+      @request.fields[:hello].should be_nil
+    end
+  end
+  
+  describe "message_with_fields" do
+    before(:each) do
+      @request = Factory.build(:media_request)
+    end
+    
+    it "should join a field and the message" do
+      @request.message = "This is a message"
+      @request.fields = {:date => "December 10"}
+      @request.message_with_fields.should == <<-EOT.gsub(/^[ ]+/,'').chomp
+      Date: December 10
+      
+      This is a message
+      EOT
+    end
+    
+    it "should join all fields and the message" do
+      @request.message = "Messages are neat"
+      @request.fields = {:photo_requirements => "8x10 large", :time_of_event => "10am"}
+      @request.message_with_fields.should include("Photo requirements: 8x10 large")
+      @request.message_with_fields.should include("Time of event: 10am")
+      @request.message_with_fields.should include("Messages are neat")
+    end
+  end
 end

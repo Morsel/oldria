@@ -1,5 +1,7 @@
 class MediaRequest < ActiveRecord::Base
+  serialize :fields, Hash
   belongs_to :sender, :class_name => 'User'
+  belongs_to :media_request_type
   has_many :media_request_conversations
   has_many :conversations_with_comments, :class_name => 'MediaRequestConversation', :conditions => 'comments_count > 0'
 
@@ -13,6 +15,23 @@ class MediaRequest < ActiveRecord::Base
 
   def reply_count
     @reply_count ||= conversations_with_comments.size
+  end
+  
+  def message_with_fields
+    message_with_fields = fields.inject("") do |result, (key,value)|
+      result += key.to_s.humanize + ": #{value}\n"
+    end
+    return message_with_fields if message.blank?
+    message_with_fields += "\n#{message}"
+  end
+  
+  def fields=(fields)
+    fields.delete_if {|k,v| v.blank? } if fields.respond_to?(:delete_if)
+    write_attribute(:fields, fields)
+  end
+
+  def fields
+    read_attribute(:fields) || Hash.new
   end
 
 end

@@ -1,0 +1,15 @@
+<p>
+	<%= f.label :media_request_type_id, "Media Request Type" %>
+	<%= f.collection_select :media_request_type_id, @media_request_types, :id, :name %>
+</p>
+
+<% @media_request_types.each do |media_request_type| %>
+<div id="fields_for_<%= media_request_type.id %>" class="fieldsets">
+	<% media_request_type.fieldset.each do |field| %>
+	<p>
+		<%= label_tag "media_request[fields][#{field}]", field.humanize %>
+		<%= text_field_tag "media_request[fields][#{field}]", @media_request.fields[field], :class => 'text' %>
+	</p>
+	<% end -%>
+</div>	
+<% end -%>

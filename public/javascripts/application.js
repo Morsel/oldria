@@ -67,3 +67,22 @@ $(".attachfield:first").after('<p class="add-another"><a href="#">Add another at
 });
 
 
+// == Hidden fieldsets
+var fieldsets = $("div.fieldsets").hide();
+
+$("#media_request_media_request_type_id").bind('change', function(){
+	fieldsets.hide();
+	var val = $(this).find(":selected").attr("value");
+	$("#fields_for_" + val).show();
+}).change();
+
+
+var calendarFields = fieldsets.find('input').filter(function(){
+	return $(this).attr("id").match(/date/);
+});
+
+calendarFields.datepicker ({
+	showAnim: 'fadeIn',
+	constrainInput: false
+});
+

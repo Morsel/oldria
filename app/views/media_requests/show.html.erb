@@ -1,7 +1,7 @@
 <% title "Media Request" %>
 
 <h3>Message</h3>
-  <p><%=h @media_request.message %></p>
+<%= simple_format @media_request.message_with_fields %>
 
 <% if !@media_request.attachments.blank? %>
 <h3>Attached files:</h3>

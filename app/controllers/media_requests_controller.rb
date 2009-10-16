@@ -11,6 +11,7 @@ class MediaRequestsController < ApplicationController
     end
     @media_request = @sender.media_requests.build
     @media_request.attachments.build
+    @media_request_types = MediaRequestType.all
   end
   
   def create
@@ -31,6 +32,7 @@ class MediaRequestsController < ApplicationController
   end
   
   def edit
+    @media_request_types = MediaRequestType.all
     @media_request = MediaRequest.find(params[:id])
   end
   
