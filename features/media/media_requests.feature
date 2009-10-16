@@ -15,6 +15,7 @@ Feature: Media requests
     Given I am logged in as a media member
     When I create a new media request with:
       | Message    | Are cucumbers good in salad? |
+      | Due date   | 2009-10-10                   |
     Then I should see "held for approval"
 
 
@@ -23,6 +24,7 @@ Feature: Media requests
     When I create a new media request with:
       | Message    | Are cucumbers good in salad? |
       | Recipients | sam, john                    |
+      | Due date   | 2009-10-10                   |
     And I logout
 
     Given I am logged in as "sam" with password "secret"
@@ -32,7 +34,8 @@ Feature: Media requests
 
   Scenario: Responding to a media request
     Given "sam" has a media request from a media member with:
-      | Message | Do you like cheese? |
+      | Message   | Do you like cheese? |
+      | Due date  | 2009-10-02          |
     And I am logged in as "sam" with password "secret"
     When I go to the dashboard
     And I follow "reply" within the "Media Requests" section

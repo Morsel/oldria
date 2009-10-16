@@ -1,6 +1,7 @@
-def visit_and_fill_out_form_and_submit(recipient_ids = [], message = "")
+def visit_and_fill_out_form_and_submit(recipient_ids = [], message = "", duedate = "2009-12-01")
   visit new_media_request_path(:recipient_ids => recipient_ids)
   fill_in 'media_request[message]', :with => message
+  select_date(duedate)
   click_button :submit
 end
 
@@ -30,7 +31,7 @@ When /^I create a new media request with:$/ do |table|
       recipient_ids << User.find_by_username(username).id
     end
   end
-  visit_and_fill_out_form_and_submit(recipient_ids, mrdata["Message"])
+  visit_and_fill_out_form_and_submit(recipient_ids, mrdata["Message"], mrdata["Due date"])
 end
 
 Given /^"([^\"]*)" has a media request from "([^\"]*)" with:$/ do |username, mediauser, table|

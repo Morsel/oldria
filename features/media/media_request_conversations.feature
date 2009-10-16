@@ -1,4 +1,3 @@
-@focus
 Feature: Media request conversations
   So that I can can converse about an MR
   As a Media user or recipient of a media request
@@ -7,8 +6,8 @@ Feature: Media request conversations
 
   Background:
     Given the following confirmed users:
-      | username | password |
-      | sam      | secret   |
+      | username | password | first_name | last_name |
+      | sam      | secret   | Sam        | Smith     |
     Given the following media users:
       | username | password | publication    |
       | mediaguy | secret   | New York Times |
@@ -30,5 +29,4 @@ Feature: Media request conversations
 
     Given I am logged in as "mediaguy" with password "secret"
     When I go to the homepage
-    And I follow "reply"
-    Then I should see "Of course I love cheesy potatoes!"
+    Then I should see "Sam Smith replied"

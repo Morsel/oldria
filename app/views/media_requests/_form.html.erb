@@ -8,7 +8,10 @@
 	<% end %>
 <% end %>
 
-
+	<p>
+		<%= f.label :due_date, "Due date" %> 
+		<%= f.date_select :due_date %><small>(When do you need the response by?)</small>
+	</p>
 	<p>
 		<%= f.label :message %>
 		<%= f.text_area :message, :rows => 5, :style => 'height:auto' %>
