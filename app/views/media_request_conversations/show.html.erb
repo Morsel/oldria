@@ -1,8 +1,9 @@
 <% title "Media Request" %>
 
 <h3>Original Request</h3>
+<h4><%= @media_request_conversation.media_request.media_request_type.try(:name) %></h4>
 
-<p><%= @media_request_conversation.media_request.try(:message) %></p>
+<%= simple_format @media_request_conversation.media_request.message_with_fields("\n","\n") %>
 
 <% unless @media_request_conversation.media_request.try(:attachments).blank? %>
 <h3>Attached files:</h3>

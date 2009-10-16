@@ -17,9 +17,9 @@ class MediaRequest < ActiveRecord::Base
     @reply_count ||= conversations_with_comments.size
   end
   
-  def message_with_fields
+  def message_with_fields(before_key = '', after_key = ': ')
     message_with_fields = fields.inject("") do |result, (key,value)|
-      result += key.to_s.humanize + ": #{value}\n"
+      result += "#{before_key + key.to_s.humanize + after_key + value}\n"
     end
     return message_with_fields if message.blank?
     message_with_fields += "\n#{message}"
