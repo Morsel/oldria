@@ -45,3 +45,10 @@ When /^I leave a comment with "([^\"]*)"$/ do |text|
   fill_in "Comment", :with => text
   click_button :submit
 end
+
+Then /^I should see a list of media requests$/ do
+  response.should have_selector("tbody") do |tbody|
+    tbody.should have_selector("tr")
+  end
+end
+

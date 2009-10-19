@@ -1,0 +1,32 @@
+<% title "Media Requests" %>
+
+<table cellspacing="0" cellpadding="0">
+	<thead>
+		<tr>
+			<th>Sender</th>
+			<th>Recipient(s)</th>
+			<th>Type</th>
+			<th>Message</th>
+			<th>Replies</th>
+			<th>Due Date</th>
+			<th></th>
+		</tr>	
+	</thead>
+	<tbody>
+		<% for media_request in @media_requests %>
+		<tr>
+			<td class="span-2"><%= link_to media_request.sender.try(:name), admin_user_path(media_request.sender) %></td>
+			<td><%= media_request.media_request_conversations.size %></td>
+			<td><%= media_request.media_request_type.try(:name) %></td>
+			<td><%= link_to truncate(media_request.message, :length => 50), media_request %></td>
+			<td><%= list_and_link_replies(media_request) %></td>
+			<td><%= media_request.due_date.strftime("%b %e") %></td>
+			<td class="utility">
+				<%= link_to "edit", edit_admin_media_request_path(media_request) %>
+			</td>
+		</tr>
+		<% end %>	
+	</tbody>
+</table>
+
+
