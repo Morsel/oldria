@@ -63,4 +63,5 @@ end
 Factory.define :media_request do |f|
   f.association :sender, :factory => :media_user
   f.message "This is a media request message"
+  f.due_date 2.days.from_now
 end
