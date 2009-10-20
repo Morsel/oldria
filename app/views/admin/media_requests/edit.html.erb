@@ -1,6 +1,6 @@
 <% title "Media request from #{@media_request.sender.try(:name)}" %>
 
-<% form_for @media_request, :html => { :multipart => true } do |f| %>
+<% form_for [:admin, @media_request], :html => { :multipart => true } do |f| %>
 	<%= f.error_messages %>
 	<%= f.hidden_field :sender_id %>
 

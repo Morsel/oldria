@@ -877,11 +877,11 @@ option {
 	margin-bottom: 1em;
 }
 
-#flash_notice, #flash_error {
+#flash_notice, #flash_error, #flash_success {
 	padding: 5px 8px;
 }
 
-#flash_notice {
+#flash_notice, #flash_success {
 	background-color: #CFC;
 	border: solid 1px #6C6;
 }

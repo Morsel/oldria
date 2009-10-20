@@ -47,4 +47,31 @@ describe Admin::MediaRequestsController do
       end
     end
   end
+
+  describe "PUT update" do
+    before(:each) do
+      @media_request = Factory.stub(:media_request, :id => 29)
+      MediaRequest.stubs(:find).returns(@media_request)
+      @params = {'these' => 'params'}
+    end
+    
+    it "should assign @media_request" do
+      @media_request.stubs(:update_attributes)
+      put :update, :id => 29, :media_request => @params
+      assigns[:media_request].should == @media_request
+    end
+    
+    it "should redirect when update is successful and flash success message" do
+      @media_request.expects(:update_attributes).with(@params).returns(true)
+      put :update, :id => 29, :media_request => @params
+      response.should redirect_to(admin_media_requests_path)
+      flash[:success].should_not be_nil
+    end
+
+    it "should render the edit page when update is unsuccessful" do
+      @media_request.expects(:update_attributes).with(@params).returns(false)
+      put :update, :id => 29, :media_request => @params
+      response.should render_template(:edit)
+    end
+  end
 end
