@@ -4,12 +4,10 @@ class Admin::MediaRequestsController < Admin::AdminController
     @media_requests = MediaRequest.find(:all, :include => :media_request_conversations)
   end
 
-  # def show
-  # end
-
-  # def edit
-  # end
-
+  def edit
+    @media_request = MediaRequest.find(params[:id])
+    @media_request_types = MediaRequestType.all
+  end
 
   # def update
   # end

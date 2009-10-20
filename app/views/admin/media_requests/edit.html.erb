@@ -1,0 +1,33 @@
+<% title "Media request from #{@media_request.sender.try(:name)}" %>
+
+<% form_for @media_request, :html => { :multipart => true } do |f| %>
+	<%= f.error_messages %>
+	<%= f.hidden_field :sender_id %>
+
+	<% if !@media_request.recipients.blank? %>
+		<h4>To: <%= @media_request.recipients.map(&:name).try(:to_sentence) %></h4>
+	<% end %>
+
+	<%= render :partial => 'media_requests/media_request_types', :locals => {:f => f} %>
+
+	<p>
+		<%= f.label :due_date, "Due date" %> 
+		<%= f.date_select :due_date %><small>(When do you need the response by?)</small>
+	</p>
+	<p>
+		<%= f.label :message %>
+		<%= f.text_area :message, :rows => 5, :style => 'height:auto' %>
+	</p>
+
+	<% f.fields_for :attachments do |child_form| -%>
+		<%= child_form.label :attachment, "Attachment(s)" %>
+		<p class="attachfield"><%= child_form.file_field :attachment %></p>
+	<% end -%>
+
+	<p>
+		<%= f.label :status %>
+		<%= f.select :status, MediaRequest.aasm_states_for_select %>
+	</p>
+
+	<p class="clearfix"><%= button_tag "Save", :class => 'positive' %></p>
+<% end %>

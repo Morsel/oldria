@@ -1,5 +1,4 @@
 module MediaRequestsHelper
-  
   def sent_date_and_recipient_count(media_request)
     count = media_request.media_request_conversations.size
     "You sent this #{time_ago_in_words(media_request.created_at)} ago to  #{pluralize(count, 'person')}"
@@ -14,5 +13,18 @@ module MediaRequestsHelper
     else
       "#{count} people have responded"
     end
+  end
+  
+  def formatted_fields(media_request, options={})
+    before_key = options[:before_key] || '<span class="fieldname">'
+    after_key = options[:after_key] || "</span>"
+    html_tag = options[:html_tag] || "p"
+    outer_tag = options[:html_tag] || "div"
+    
+    stringified = media_request.fields.inject("") do |result, (key,value)|
+      result += content_tag(html_tag, "#{before_key + key.to_s.humanize + after_key + value}\n")
+    end
+    
+    content_tag(outer_tag, :class => "fields") { stringified }
   end
 end

@@ -23,7 +23,7 @@ module NavigationHelpers
       user_statuses_path(User.find_by_username($1))
     when /^the edit page for "(.+)"$/
       edit_user_path(User.find_by_username($1))
-    
+
     # Media-users
     when /^the media( user)? signup page$/
       new_media_user_path
@@ -35,13 +35,13 @@ module NavigationHelpers
       admin_users_path
     when /^the list of account types$/
       admin_account_types_path
+    when /^the list of media requests page$/
+      admin_media_requests_path
     when /^the admin edit page for "(.+)"$/
       edit_admin_user_path(User.find_by_username($1))
-      
     when /^the admin list static pages page$/
       admin_pages_path
-      
-      
+
 
     # Add more mappings here.
     # Here is a more fancy example:

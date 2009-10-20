@@ -5,6 +5,10 @@ def visit_and_fill_out_form_and_submit(recipient_ids = [], message = "", duedate
   click_button :submit
 end
 
+def find_media_requests_for_username(username)
+  User.find_by_username(username).received_media_requests
+end
+
 Given /^"([^\"]*)" has a media request from a media member with:$/ do |username, table|
   Given('I am logged in as a media member')
   recipient_ids = [User.find_by_username(username).id]
@@ -36,10 +40,18 @@ end
 
 Given /^"([^\"]*)" has a media request from "([^\"]*)" with:$/ do |username, mediauser, table|
   message = table.rows_hash['Message']
+  status = table.rows_hash['Status'] || 'pending'
   user = User.find_by_username(username)
   sender = User.find_by_username(mediauser)
-  Factory(:media_request, :recipients => [user], :sender => sender, :message => message)
+  Factory(:media_request, :recipient_ids => [user.id], :sender => sender, :message => message, :status => status)
 end
+
+Given /^an admin has approved the media request for "([^\"]*)"$/ do |username|
+  Given("I am logged in as an admin")
+  visit admin_media_requests_path
+  When("I approve the media request")
+end
+
 
 When /^I leave a comment with "([^\"]*)"$/ do |text|
   fill_in "Comment", :with => text
@@ -51,4 +63,26 @@ Then /^I should see a list of media requests$/ do
     tbody.should have_selector("tr")
   end
 end
+
+When /^I approve the media request$/ do
+  click_link "edit"
+  select "Approved", :from => :status
+  click_button "Save"
+end
+
+Then /^the media request for "([^\"]*)" should be pending$/ do |username|
+  media_requests = find_media_requests_for_username(username)
+  media_requests.last.should be_pending
+end
+
+Then /^the media request for "([^\"]*)" should be approved$/ do |username|
+  media_requests = find_media_requests_for_username(username)
+  media_requests.last.should be_approved
+end
+
+Then /^"([^\"]*)" should have ([0-9]+) media request$/ do |username,num|
+  media_requests = find_media_requests_for_username(username)
+  media_requests.size.should == num.to_i
+end
+
 

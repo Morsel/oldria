@@ -16,6 +16,7 @@ Feature: Media request conversations
   Scenario: Responding to a media request
     Given "sam" has a media request from "mediaguy" with:
       | Message | Do you like cheesy potatoes? |
+      | Status  | approved                     |
     And I am logged in as "sam" with password "secret"
     When I go to the dashboard
     Then I should see /writer[\n\s]*from New York Times/

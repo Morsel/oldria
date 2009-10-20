@@ -20,7 +20,7 @@
 			<td><%= media_request.media_request_type.try(:name) %></td>
 			<td><%= link_to truncate(media_request.message, :length => 50), media_request %></td>
 			<td><%= list_and_link_replies(media_request) %></td>
-			<td><%= media_request.due_date.strftime("%b %e") %></td>
+			<td><%= media_request.due_date && media_request.due_date.strftime("%b %e") %></td>
 			<td class="utility">
 				<%= link_to "edit", edit_admin_media_request_path(media_request) %>
 			</td>

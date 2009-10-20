@@ -1,5 +1,6 @@
 class MediaRequest < ActiveRecord::Base
   serialize :fields, Hash
+
   belongs_to :sender, :class_name => 'User'
   belongs_to :media_request_type
   has_many :media_request_conversations
@@ -12,6 +13,23 @@ class MediaRequest < ActiveRecord::Base
   accepts_nested_attributes_for :attachments
 
   named_scope :past_due, lambda {{ :conditions => ['due_date < ?', Date.today] }}
+
+
+  include AASM
+
+  aasm_column :status
+  aasm_initial_state :pending
+  aasm_state :pending
+  aasm_state :approved
+  aasm_state :closed
+
+  aasm_event :approve do
+    transitions :to => :approved, :from => [:pending]
+  end
+
+  def conversation_with_recipient(user)
+    media_request_conversations.first(:conditions => {:recipient_id => user.id})
+  end
 
   def reply_count
     @reply_count ||= conversations_with_comments.size

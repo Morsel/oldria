@@ -1,23 +1,35 @@
 require File.dirname(__FILE__) + '/../spec_helper'
 
 describe MediaRequest do
-  it "should require a sender" do
-    MediaRequest.new.should_not be_valid
-    MediaRequest.new(:sender_id => 1).should be_valid
-  end
+  describe "senders and receivers" do
+    before(:each) do
+      @receiver = Factory(:user, :id => 78)
+    end
+
+    it "should require a sender" do
+      MediaRequest.new.should_not be_valid
+      MediaRequest.new(:sender_id => 1).should be_valid
+    end
   
-  it "should have many conversations" do
-    mrc = Factory(:media_request_conversation)
-    MediaRequest.first.media_request_conversations.should include(mrc)
-  end
+    it "should have many conversations" do
+      mrc = Factory(:media_request_conversation)
+      MediaRequest.first.media_request_conversations.should include(mrc)
+    end
   
-  it "should build conversations with other folks" do
-    @receiver = Factory(:user, :id => 78)
-    mr = Factory(:media_request, :sender => Factory(:user))
-    mr.media_request_conversations.build(:recipient_id => 78)
-    mr.save
-    mr.media_request_conversations.first.recipient.should == @receiver
-    @receiver.received_media_requests.should include(mr)
+    it "should build conversations with other folks" do
+      mr = Factory(:media_request, :sender => Factory(:user))
+      mr.media_request_conversations.build(:recipient_id => 78)
+      mr.save
+      mr.media_request_conversations.first.recipient.should == @receiver
+      @receiver.received_media_requests.should include(mr)
+    end
+
+    describe "finding conversation by way of recipient" do
+      it "should include the first conversation" do
+        media_request = Factory(:media_request, :sender => Factory(:user), :recipients => [@receiver])
+        media_request.conversation_with_recipient(@receiver).should be_a(MediaRequestConversation)
+      end
+    end
   end
   
   describe "fields" do
@@ -70,4 +82,19 @@ describe MediaRequest do
       @request.message_with_fields.should include("Messages are neat")
     end
   end
+  
+  describe "status" do
+    it "should start out pending" do
+      MediaRequest.new.should be_pending
+    end
+    
+    it "should be approvable" do
+      media_request = MediaRequest.new(:message => 'Message')
+      media_request.save
+      media_request.approve!
+      media_request.should_not be_pending
+      media_request.should be_approved
+    end
+  end
+
 end

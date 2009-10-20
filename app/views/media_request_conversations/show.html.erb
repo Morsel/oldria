@@ -1,26 +1,14 @@
 <% title "Media Request" %>
 
-<h3>Original Request</h3>
-<h4><%= @media_request_conversation.media_request.media_request_type.try(:name) %></h4>
-
-<%= simple_format @media_request_conversation.media_request.message_with_fields("\n","\n") %>
-
-<% unless @media_request_conversation.media_request.try(:attachments).blank? %>
-<h3>Attached files:</h3>
-<ul>
-	<% for attachment in @media_request_conversation.media_request.attachments %>
-	<li><%= attachment_link(attachment) %></li>
-	<% end %>
-</ul>
-<% end %>
-
-<hr/>
+<% unless @media_request.blank? %>
+	<%= render :partial => 'media_requests/media_request_long' %>
+<% end -%>
 
 <div class="comments span-8">
-<% if !@comments.blank? %>
 <h3>Comments</h3>
-<p><em>Note: The most recent are listed first</em></p>
 
+<% if !@comments.blank? %>
+<p><em>Note: The most recent are listed first</em></p>
 <%= render @comments %>
 
 <%- else %>

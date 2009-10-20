@@ -1,6 +1,7 @@
 class MediaRequestConversationsController < ApplicationController
   def show
     @media_request_conversation = MediaRequestConversation.find(params[:id])
+    @media_request = @media_request_conversation.media_request
     @comments = @media_request_conversation.comments.all(:include => [:user, :attachments], :order => 'created_at DESC').reject(&:new_record?)
     build_comment
   end

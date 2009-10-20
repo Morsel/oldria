@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20091016191013) do
+ActiveRecord::Schema.define(:version => 20091019210253) do
 
   create_table "account_types", :force => true do |t|
     t.string   "name"
@@ -107,6 +107,7 @@ ActiveRecord::Schema.define(:version => 20091016191013) do
     t.string   "request_type"
     t.integer  "media_request_type_id"
     t.text     "fields"
+    t.string   "status"
   end
 
   create_table "pages", :force => true do |t|

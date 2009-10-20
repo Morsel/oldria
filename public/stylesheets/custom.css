@@ -387,37 +387,38 @@ ul.responses {
 	content: " \279E";
 }
 
-.media_request_conversation {
+.media_request {
 	border-bottom: 	1px solid #ddd;
 	padding-bottom: 8px;
 	margin-bottom: 	9px;
 }
 
-.media_request_conversation p.message {
+.media_request p.message {
 	font-size: 1.2em;
 }
 
-.media_request_conversation p {
-	margin: 0;
-}
-
-.media_request_conversation .meta {
+.media_request .meta {
 	color: #666;
 	font-size: .9em;
 }
 
-.media_request_conversation .reply_link {
+.media_request .reply_link {
 	float: right;
 }
-.media_request_conversation .reply_link a {
+.media_request .reply_link a {
 	font-family: "Lucida Grande", sans-serif;
 	font-weight: bold;
 	font-size: .9em;
 	color: #1D9BBB;
 }
 
-.media_request_conversation .reply_link a:hover {
+.media_request .reply_link a:hover {
 	color: #333;
+}
+
+.fields .fieldname {
+	display:block;
+	font-weight:bold;
 }
 
 /* users ------------------------ */

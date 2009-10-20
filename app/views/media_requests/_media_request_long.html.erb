@@ -1,0 +1,20 @@
+<% div_for @media_request, :class => 'clearfix box' do %>
+
+	<h3>Original Request</h3>
+	<h4><%= @media_request.media_request_type.try(:name) %></h4>
+
+	<%= formatted_fields @media_request %>
+
+	<p><strong>Additional Information:</strong></p>
+	<%= simple_format @media_request.message %>
+
+	<% unless @media_request.try(:attachments).blank? %>
+	<h3>Attached files:</h3>
+	<ul>
+		<% for attachment in @media_request.attachments %>
+		<li><%= attachment_link(attachment) %></li>
+		<% end %>
+	</ul>
+	<% end %>
+
+<% end -%>
