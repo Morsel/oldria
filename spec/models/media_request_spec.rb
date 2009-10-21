@@ -106,7 +106,7 @@ describe MediaRequest do
         @receiver = Factory(:user, :name => "Hambone Fisher", :email => "hammy@spammy.com")
         @request.sender = Factory(:media_user, :username => "jim", :email => "media@media.com")
         @request.recipients = [@receiver]
-        UserMailer.expects(:deliver_media_request_notification).with(@request)
+        UserMailer.expects(:deliver_media_request_notification)
         @request.approve!.should == true
       end
     end

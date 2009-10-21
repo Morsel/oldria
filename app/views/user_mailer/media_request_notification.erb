@@ -1,5 +1,5 @@
-A writer <%= @sender.publication.blank? ? "" : "from #{@sender.publication} "%>has a question for you.
+<%= @request.sender_publication_string %> has a question for you.
 
 Please login to MediaFeed to view this request.
 
-<%= login_url %>
+<%= media_request_conversation_url @request_conversation %>

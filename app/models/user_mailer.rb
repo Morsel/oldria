@@ -19,11 +19,11 @@ class UserMailer < ActionMailer::Base
     body          :edit_password_reset_url => edit_password_reset_url(user.perishable_token)
   end
   
-  def media_request_notification(request)
+  def media_request_notification(request, request_conversation)
     from       'notifications@restaurantintelligenceagency.com'
-    recipients request.recipients.map(&:email)
+    recipients request_conversation.recipient.email
     sent_on    Time.now
-    subject    "MediaFeed: You have a Media Request"
-    body       :sender => request.sender
+    subject    "MediaFeed: #{request.sender_publication_string} has a question for you"
+    body       :request_conversation => request_conversation, :request => request
   end
 end

@@ -7,12 +7,11 @@ describe UserMailer do
 
   describe "media request notifications" do
     before(:all) do
-      @request = Factory.stub(:media_request)
-      @receiver = Factory.stub(:user, :name => "Hambone Fisher", :email => "hammy@spammy.com")
       @sender = Factory.stub(:media_user, :email => "media@media.com", :publication => "New York Times")
-      @request.stubs(:sender).returns(@sender)
-      @request.stubs(:recipients).returns([@receiver])
-      @email = UserMailer.create_media_request_notification(@request)
+      @receiver = Factory.stub(:user, :name => "Hambone Fisher", :email => "hammy@spammy.com")
+      @request = Factory.stub(:media_request, :sender => @sender)
+      @request_conversation = Factory.stub(:media_request_conversation, :media_request => @request, :recipient => @receiver)
+      @email = UserMailer.create_media_request_notification(@request, @request_conversation)
     end
 
     it "should be set to be delivered to the email passed in" do
@@ -23,12 +22,12 @@ describe UserMailer do
       @email.should have_text(/writer from New York Times/)
     end
 
-    it "should contain a link to login" do
-      @email.should have_text(/#{login_url}/)
+    it "should contain a link to the media request conversation" do
+      @email.should have_text(/#{media_request_conversation_url(@request_conversation)}/)
     end
 
     it "should have the correct subject" do
-      @email.should have_subject(/You have a Media Request/)
+      @email.should have_subject(/#{@request.sender_publication_string}/)
     end
   end
 end

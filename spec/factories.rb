@@ -65,3 +65,10 @@ Factory.define :media_request do |f|
   f.message "This is a media request message"
   f.due_date 2.days.from_now
 end
+
+Factory.define :media_request_conversation do |f|
+  f.association :media_request
+  f.association :recipient
+  f.comments_count 0
+end
+
