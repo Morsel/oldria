@@ -84,16 +84,31 @@ describe MediaRequest do
   end
   
   describe "status" do
+    before(:each) do
+      @request = Factory.build(:media_request)
+    end
+    
     it "should start out pending" do
-      MediaRequest.new.should be_pending
+      @request.should be_pending
     end
     
     it "should be approvable" do
+      UserMailer.stubs(:deliver_media_request_notification)
       media_request = MediaRequest.new(:message => 'Message')
       media_request.save
       media_request.approve!
       media_request.should_not be_pending
       media_request.should be_approved
+    end
+    
+    describe "when approved email" do
+      it "should be sent to each recipient" do
+        @receiver = Factory(:user, :name => "Hambone Fisher", :email => "hammy@spammy.com")
+        @request.sender = Factory(:media_user, :username => "jim", :email => "media@media.com")
+        @request.recipients = [@receiver]
+        UserMailer.expects(:deliver_media_request_notification).with(@request)
+        @request.approve!.should == true
+      end
     end
   end
 

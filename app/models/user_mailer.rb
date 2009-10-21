@@ -18,5 +18,12 @@ class UserMailer < ActionMailer::Base
     subject       "SpoonFeed: Password Reset Instructions"
     body          :edit_password_reset_url => edit_password_reset_url(user.perishable_token)
   end
-
+  
+  def media_request_notification(request)
+    from       'notifications@restaurantintelligenceagency.com'
+    recipients request.recipients.map(&:email)
+    sent_on    Time.now
+    subject    "MediaFeed: You have a Media Request"
+    body       :sender => request.sender
+  end
 end

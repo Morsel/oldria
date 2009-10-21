@@ -7,9 +7,9 @@ Feature: Media requests
 
   Background:
     Given the following confirmed users:
-      | username | password |
-      | sam      | secret   |
-      | john     | secret   |
+      | username | password | email            |
+      | sam      | secret   | sam@example.com  |
+      | john     | secret   | john@example.com |
     Given the following media users:
       | username | password |
       | mediaman | secret   |
@@ -49,3 +49,14 @@ Feature: Media requests
     And I fill in "Comment" with "I love cheese!"
     And I press "Submit"
     Then the media request should have 1 comment
+
+  Scenario: A media requests notifications are emailed to recipients
+    Given "sam" has a media request from "mediaman" with:
+      | Message | Where are the best mushrooms? |
+    And an admin has approved the media request for "sam"
+    Then "sam@example.com" should have 1 email
+    And "john@example.com" should have 0 emails
+    Given I am logged in as "sam" with password "secret"
+    When I go to the dashboard
+    Then I should see "Where are the best mushrooms?"
+    But I should not see "This message has not been approved"

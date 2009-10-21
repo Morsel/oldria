@@ -23,8 +23,12 @@ class MediaRequest < ActiveRecord::Base
   aasm_state :approved
   aasm_state :closed
 
-  aasm_event :approve do
+  aasm_event :approve, :success => :deliver_notification do
     transitions :to => :approved, :from => [:pending]
+  end
+
+  def deliver_notification
+    UserMailer.deliver_media_request_notification(self)
   end
 
   def conversation_with_recipient(user)

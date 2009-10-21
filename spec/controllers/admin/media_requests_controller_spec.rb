@@ -74,4 +74,41 @@ describe Admin::MediaRequestsController do
       response.should render_template(:edit)
     end
   end
+  
+  describe "PUT approve" do
+    before(:each) do
+      @media_request = Factory.stub(:media_request, :id => 45)
+      MediaRequest.stubs(:find).returns(@media_request)
+      @media_request.stubs(:approve!)
+    end
+
+    it "should assign @media_request" do
+      put :approve, :id => 45
+      assigns[:media_request].should == @media_request
+    end
+
+    it "should approve the media request" do
+      @media_request.expects(:approve!).returns(true)
+      put :approve, :id => 45
+    end
+
+    context "responding to html" do
+      it "should redirect to the index" do
+        put :approve, :id => 45
+        response.should redirect_to(admin_media_requests_path)
+      end
+
+      it "should flash a success when successful" do
+        @media_request.stubs(:approve!).returns(true)
+        put :approve, :id => 45
+        flash[:success].should contain("Successfully approved")
+      end
+
+      it "should flash a error when unsuccessful" do
+        @media_request.stubs(:approve!).returns(false)
+        put :approve, :id => 45
+        flash[:error].should contain("unable to approve")
+      end
+    end
+  end
 end

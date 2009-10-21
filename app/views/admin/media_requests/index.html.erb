@@ -23,6 +23,9 @@
 			<td><%= media_request.due_date && media_request.due_date.strftime("%b %e") %></td>
 			<td class="utility">
 				<%= link_to "edit", edit_admin_media_request_path(media_request) %>
+				<% unless media_request.approved? %>
+				<%= link_to "approve", approve_admin_media_request_path(media_request), :method => :put %>
+				<% end %>
 			</td>
 		</tr>
 		<% end %>	

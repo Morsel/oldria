@@ -49,7 +49,7 @@ end
 Given /^an admin has approved the media request for "([^\"]*)"$/ do |username|
   Given("I am logged in as an admin")
   visit admin_media_requests_path
-  When("I approve the media request")
+  click_link "approve"
 end
 
 

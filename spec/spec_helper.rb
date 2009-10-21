@@ -13,6 +13,10 @@ Spork.prefork do
   I_KNOW_I_AM_USING_AN_OLD_AND_BUGGY_VERSION_OF_LIBXML2 = true unless defined?(I_KNOW_I_AM_USING_AN_OLD_AND_BUGGY_VERSION_OF_LIBXML2)
   require 'webrat'
   require 'webrat/rspec-rails'
+  
+  require "email_spec/helpers"
+  require "email_spec/matchers"
+  
 
   Dir["#{File.dirname(__FILE__)}/support/**/*.rb"].each {|f| require f}
 
@@ -23,6 +27,8 @@ Spork.prefork do
   Spec::Runner.configure do |config|
     config.use_instantiated_fixtures  = false
     config.use_transactional_fixtures = true
+    config.include(EmailSpec::Helpers)
+    config.include(EmailSpec::Matchers)
     config.fixture_path = RAILS_ROOT + '/spec/fixtures/'
     config.mock_with :mocha
     include Webrat::Methods
@@ -30,8 +36,4 @@ Spork.prefork do
 end
 
 Spork.each_run do
-  # This code will be run each time you run your specs.
-  Spec::Runner.configure do |config|
-    config.use_transactional_fixtures = true
-  end
 end
