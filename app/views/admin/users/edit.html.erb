@@ -1,4 +1,4 @@
-<h1>Editing user</h1>
+<% title "Editing #{@user.name_or_username}" %>
 
 <% form_for [:admin, @user] do |f| %>
   <%= f.error_messages %>

@@ -55,6 +55,10 @@ class User < ActiveRecord::Base
     self.first_name = name_parts.shift
     self.last_name = name_parts.pop
   end
+  
+  def name_or_username
+    name.blank? ? username : name
+  end
 
   def confirmed?
     confirmed_at
