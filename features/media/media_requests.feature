@@ -7,9 +7,9 @@ Feature: Media requests
 
   Background:
     Given the following confirmed users:
-      | username | password | email            |
-      | sam      | secret   | sam@example.com  |
-      | john     | secret   | john@example.com |
+      | username | password | email            | name      |
+      | sam      | secret   | sam@example.com  | Sam Smith |
+      | john     | secret   | john@example.com | John Doe  |
     Given the following media users:
       | username | password |
       | mediaman | secret   |
@@ -36,7 +36,7 @@ Feature: Media requests
     But I should not see "This message has not been approved"
 
 
-  Scenario: Responding to a media request
+  Scenario: Responding to a media request and conversations
     Given "sam" has a media request from "mediaman" with:
       | Message   | Do you like cheese? |
       | Due date  | 2009-10-02          |
@@ -49,6 +49,14 @@ Feature: Media requests
     And I fill in "Comment" with "I love cheese!"
     And I press "Submit"
     Then the media request should have 1 comment
+
+    Given I am logged in as "mediaman" with password "secret"
+    When I am on the homepage
+    Then I should see /replied less than a minute ago/
+    When I follow "Sam Smith replied less than a minute ago"
+    And I fill in "Comment" with "Thanks for your quick response, Sam"
+    And I press "Submit"
+    Then the media request should have 2 comments
 
   Scenario: A media requests notifications are emailed to recipients
     Given "sam" has a media request from "mediaman" with:
