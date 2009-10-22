@@ -7,9 +7,6 @@
 	<p><%= link_to "Edit My Account", edit_user_path(current_user) %></p>
 	<p><%= link_to "(Log out)", logout_path %></p>
 
-	<% if current_user.admin? %>
-	<p><strong><%= link_to "Admin", admin_root_path %></strong></p>
-	<% end %>
 
 	<% else -%>
 	<p>

@@ -1,8 +1,8 @@
 <% title "Dashboard" %>
 
 	<div id="admin_messages" class="span-6">
-<% if !@admin_direct_messages.blank? %>
 		<h3>Administrative Notices</h3>
+<% if !@admin_direct_messages.blank? %>
 	<% for message in @admin_direct_messages %>
 	<% div_for message, :class => 'clearfix admin' do %>
 		<%= image_tag message.sender.avatar.url(:thumb), :class => 'left' %>
@@ -17,12 +17,14 @@
 		</p>
 	<% end # div -%>
 	<% end # for loop %>
+	<% else %>
+	<p>There are no administrative notices for you at this time.</p>
 <% end -%>
 	</div>
 
 	<div id="media_requests" class="span-6 last" rel="Media Requests">
-<% if !@media_requests.blank? %>
 <h3>Media Requests for You</h3>
+<% if !@media_requests.blank? %>
 	<% for request in @media_requests %>
 	<% div_for request, :class => 'clearfix' do %>
 		<p class="reply_link"><%= link_to "reply", request.conversation_with_recipient(current_user) %></p>
@@ -39,6 +41,8 @@
 		</p>
 	<% end # div -%>
 	<% end # for loop %>
+	<% else %>
+	<p>You don't have any media requests yet.</p>
 <% end -%>
 	</div>	
 

@@ -73,6 +73,9 @@
 	</div><!--#sidebar-->
 
 	<div id="footer" class="clear">
+	<% if current_user && current_user.admin? %>
+		<p class="admin-link"><%= link_to "Go to Admin", admin_root_path %></p>
+	<% end %>
 		<ul>
 			<li>Copyright &copy; 2009 Restaurant Intelligence Agency</li>
 			<li><a href="#">About SpoonFeed</a></li>
