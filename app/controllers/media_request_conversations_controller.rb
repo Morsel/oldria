@@ -1,4 +1,5 @@
 class MediaRequestConversationsController < ApplicationController
+  before_filter :require_user
   before_filter :find_media_request_conversation
   before_filter :require_sender_recipient_or_admin
 

@@ -1,20 +1,20 @@
-<% div_for media_request, :class => 'clearfix box' do %>
-	<p class="message">
-		<%= media_request.message %>
-	</p>
-
-	<p class="meta">
-		<%= sent_date_and_recipient_count(media_request) %>. 
-		<%= response_count(media_request) %> so far.
-	</p>
+<% div_for media_request, :class => 'clearfix summary' do %>
+	<p>To: <%= media_request.recipients.map(&:name).try(:to_sentence) %></p>
+	<p>Due by <%= media_request.due_date.to_s(:long_ordinal) %></p>
+	<p>Sent: <%= media_request.created_at.to_s(:sentence) %></p>
+	<p class="message"><%= truncate(media_request.message, :length => 100) %></p>
 
 	<ul class="responses">
-	<% for conversation in media_request.conversations_with_comments %>
-			<% if comment = conversation.comments.not_user(current_user).last  %>
-		<li>
-			<%= link_to "#{comment.user.name} replied #{time_ago_in_words(comment.created_at)} ago", conversation %>
-		</li>
-			<% end -%>
+	<% if media_request.reply_count > 0 %>
+		<% for conversation in media_request.conversations_with_comments %>
+				<% if comment = conversation.comments.not_user(current_user).last  %>
+			<li class="response">
+				<%= link_to last_comment_and_date_span(comment), conversation, :title => "Conversation with #{comment.user.name}"  %>
+			</li>
+				<% end -%>
+		<% end %>
+	<% else %>
+		<li class="noone">No one has responded yet</li>
 	<% end %>
 	</ul>
 <% end # div -%>

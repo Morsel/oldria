@@ -3,7 +3,7 @@ class WelcomeController < ApplicationController
     if current_user
       @user = current_user
       if @user.has_role? :media
-        @media_requests = @user.media_requests.all(:include => :conversations_with_comments, :order => "created_at DESC")
+        @media_requests = @user.media_requests.all(:include => [:conversations_with_comments, :media_request_type, :recipients], :order => "created_at DESC").group_by(&:media_request_type)
         render :mediahome
       else
         @direct_messages = @user.direct_messages.all_not_from_admin(:include => :sender)

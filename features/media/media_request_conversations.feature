@@ -12,7 +12,7 @@ Feature: Media request conversations
       | username | password | publication    |
       | mediaguy | secret   | New York Times |
 
-
+@focus
   Scenario: Responding to a media request
     Given "sam" has a media request from "mediaguy" with:
       | Message | Do you like cheesy potatoes? |
@@ -30,4 +30,4 @@ Feature: Media request conversations
 
     Given I am logged in as "mediaguy" with password "secret"
     When I go to the homepage
-    Then I should see "Sam Smith replied"
+    Then I should see "Sam Smith said"

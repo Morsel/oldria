@@ -1,20 +1,29 @@
-<% div_for @media_request, :class => 'clearfix box' do %>
+<% div_for @media_request, :class => 'clearfix box extended' do %>
 
 	<h3>Original Request</h3>
+
+
+	<% unless @media_request.try(:attachments).blank? %>
+	<div class="attachments box">
+		<h4>Attached files:</h4>
+		<ul>
+			<% for attachment in @media_request.attachments %>
+			<li><%= attachment_link(attachment) %></li>
+			<% end %>
+		</ul>
+	</div>
+	<% end %>
+
 	<h4><%= @media_request.media_request_type.try(:name) %></h4>
+
+	<p>
+		<strong>Due by:</strong> <%= @media_request.due_date.to_s(:long_ordinal) %><br/>
+		<strong>Sent:</strong> <%= @media_request.created_at.to_s(:sentence) %>
+	</p>
 
 	<%= formatted_fields @media_request %>
 
-	<p><strong>Additional Information:</strong></p>
-	<%= simple_format @media_request.message %>
-
-	<% unless @media_request.try(:attachments).blank? %>
-	<h3>Attached files:</h3>
-	<ul>
-		<% for attachment in @media_request.attachments %>
-		<li><%= attachment_link(attachment) %></li>
-		<% end %>
-	</ul>
-	<% end %>
+	<p class="messagelabel bottom"><strong>Message:</strong></p>
+	<div class="message"><%= simple_format @media_request.message %></div>
 
 <% end -%>

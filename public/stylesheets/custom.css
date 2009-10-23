@@ -377,22 +377,94 @@ form .first_name input.text, form .last_name input.text {
 ul.responses {
 	list-style: none;
 	padding: 0;
-	margin: 0;
+	margin: 10px 0 0;
 }
 
 .responses li {
-	border-top: 1px solid #ddd;
-	padding-top: 5px;
+	font-size: 1.1em;
+	border-bottom: 1px solid #fff;
+}
+
+.responses li a, .responses li.noone {
+	background-color: #f0f3fc;
+	padding: 3px 8px 2px;
+	display: block;
+	color: #555;
+}
+
+.responses li.noone {
+	background-color: #fafafa;
+}
+
+.responses li a.unread {
+	color: #393;
+	background-color: #d9fad4;
+}
+
+.responses li a:hover {
+	background-color: #eee;
+}
+
+.responses li .commentdate {
+	float: right;
+	margin-left: 2em;
+	font-size: .85em;
+	line-height: 18px;
+	color: #999;
 }
 
 .responses li a:after {
 	content: " \279E";
 }
 
-.media_request {
-	border-bottom: 	1px solid #ddd;
+.media_request.summary {
+	border-bottom: 	1px dashed #ddd;
 	padding-bottom: 8px;
 	margin-bottom: 	9px;
+}
+
+.media_request.summary p {
+	margin-bottom: 0;
+}
+
+.media_request.extended {
+	background-color: #fffce9;
+	-webkit-box-shadow: 4px 3px 15px #baa;
+	-moz-box-shadow: 4px 3px 15px #baa;
+	box-shadow: 4px 3px 15px #baa;
+	border: 0 none;
+	margin: 2.0em 0.5em;
+	padding: 1.5em;
+}
+
+.media_request .attachments {
+	float: right;
+	width: 220px;
+	min-height: 100px;
+	background-color: #fec;
+	border: 0 none;
+}
+
+.attachments ul {
+	list-style: none;
+	margin: 0;
+}
+
+.media_request h3 {
+	color: #a99;
+	font-size: 1.1em;
+	font-family: "Trebuchet MS", helvetica, sans-serif;
+	text-transform: uppercase;
+	letter-spacing: 3px;
+	font-weight: normal;
+	margin-bottom: 1em;
+}
+
+.media_request .message p {
+	font-family: Georgia, serif;
+	font-size: 1.0em;
+	line-height: 1.75em;
+	margin: .5em 0;
 }
 
 .media_request p.message {
@@ -406,17 +478,40 @@ ul.responses {
 
 .media_request .reply_link {
 	float: right;
+	margin-left: 10px;
 }
 .media_request .reply_link a {
 	font-family: "Lucida Grande", sans-serif;
 	font-weight: bold;
 	font-size: .9em;
+	padding: 2px 4px;
 	color: #1D9BBB;
+}
+
+.media_request .reply-link a:after {
+	content: " \279E";
 }
 
 .media_request .reply_link a:hover {
 	color: #333;
+	background-color: #fec;
 }
+
+
+.media_request_group {
+	margin: 3em 0;
+}
+
+.media_request_group h4 {
+	border-bottom: 1px solid #999;
+}
+
+.media_request_group h4 span {
+	background-color: #999;
+	padding: 2px 6px;
+	color: #fff;
+}
+
 
 .fields .fieldname {
 	display:block;

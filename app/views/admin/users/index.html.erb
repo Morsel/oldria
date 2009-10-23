@@ -11,6 +11,7 @@
 
 <table id="admin_users_list" cellspacing="0" width="637">
 	<tr>
+		<th>Name</th>
 		<th>Username</th>
 		<th>Email</th>
 		<th>Account Type</th>
@@ -20,6 +21,7 @@
 
 	<% @users.each do |user| %>
 	<tr class="user <%= user.roles.include?(@adminrole) ? 'admin' : '' %>">
+		<td><%= h user.name %></td>
 		<td><%= link_to user.username, profile_path(user.username) %></td>
 		<td><%= h user.email %></td>
 		<td><%= h user.account_type.try(:name) %></td>

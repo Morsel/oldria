@@ -48,6 +48,7 @@ class ApplicationController < ActionController::Base
       redirect_to login_url
       return false
     end
+    true
   end
 
   def require_no_user
@@ -69,7 +70,7 @@ class ApplicationController < ActionController::Base
   end
   
   def require_admin
-    require_user
+    return false if !require_user
     unless current_user.admin?
       flash[:error] = "This is an administrative area. Nothing exciting here at all."
       redirect_to root_url

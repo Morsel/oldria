@@ -52,8 +52,8 @@ Feature: Media requests
 
     Given I am logged in as "mediaman" with password "secret"
     When I am on the homepage
-    Then I should see /replied less than a minute ago/
-    When I follow "Sam Smith replied less than a minute ago"
+    Then I should see /Sam Smith said/
+    When I follow "Conversation with Sam Smith"
     And I fill in "Comment" with "Thanks for your quick response, Sam"
     And I press "Submit"
     Then the media request should have 2 comments

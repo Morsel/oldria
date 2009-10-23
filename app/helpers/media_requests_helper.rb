@@ -27,4 +27,11 @@ module MediaRequestsHelper
     
     content_tag(outer_tag, :class => "fields") { stringified }
   end
+  
+  def last_comment_and_date_span(comment)
+     "<span class=\"commentdate\">" +
+     time_ago_in_words(comment.created_at) +
+     " ago</span> " +
+     "#{comment.user.name} said, &ldquo;#{comment.comment}&rdquo;"
+  end
 end
