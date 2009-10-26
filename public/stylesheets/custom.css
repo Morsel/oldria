@@ -381,7 +381,7 @@ ul.responses {
 }
 
 .responses li {
-	font-size: 1.1em;
+	font-size: 1.16em;
 	border-bottom: 1px solid #fff;
 }
 
@@ -394,9 +394,10 @@ ul.responses {
 
 .responses li.noone {
 	background-color: #fafafa;
+	color: #666;
 }
 
-.responses li a.unread {
+.responses li a.new {
 	color: #393;
 	background-color: #d9fad4;
 }
@@ -408,9 +409,10 @@ ul.responses {
 .responses li .commentdate {
 	float: right;
 	margin-left: 2em;
-	font-size: .85em;
+	font-size: .71em;
 	line-height: 18px;
 	color: #999;
+	font-family: "Lucida Grande", arial, sans-serif;
 }
 
 .responses li a:after {

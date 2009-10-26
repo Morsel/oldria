@@ -86,3 +86,12 @@ calendarFields.datepicker ({
 	constrainInput: false
 });
 
+// == Placebo Fields
+var placeboFields = $("form .general_info input").not(":checkbox");
+$("form .general_info :checkbox").change(function(){
+	if(placeboFields.attr('disabled')) {
+		placeboFields.removeAttr('disabled');
+	} else {
+		placeboFields.attr('disabled', 'disabled');
+	}
+});

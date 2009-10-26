@@ -2,7 +2,7 @@ class Admin::MediaRequestsController < Admin::AdminController
 
   # GET /admin/media_requests
   def index
-    @media_requests = MediaRequest.find(:all, :include => :media_request_conversations)
+    @media_requests = MediaRequest.find(:all, :include => :media_request_conversations, :order => "id DESC")
   end
 
   # GET /admin/media_requests/1/edit
