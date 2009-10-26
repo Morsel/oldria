@@ -1,11 +1,11 @@
 <% form_for([:admin, @cuisine]) do |f| %>
-  <%= f.error_messages %>
-
-  <p>
-    <%= f.label :name %><br />
-    <%= f.text_field :name %>
-  </p>
-  <p>
-    <%= f.submit 'Update' %>
-  </p>
+<%= f.error_messages %>
+	<p>
+		<%= f.label :name %>
+		<%= f.text_field :name, :class => 'text' %>
+	</p>
+	<p class="clearfix">
+		<%= link_to 'Back', admin_cuisines_path, :class => 'button' %>
+		<%= button_tag 'Save', :class => 'positive' %>
+	</p>
 <% end %>

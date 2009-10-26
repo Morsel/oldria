@@ -1,18 +1,17 @@
 <% title "Cuisines" %>
 
+<p><%= link_to 'New cuisine', new_admin_cuisine_path, :class => 'button positive' %></p>
+
 <table>
-  <tr>
-    <th>Name</th>
-  </tr>
+	<tr>
+		<th>Name</th>
+		<th></th>
+	</tr>
 
-<% @cuisines.each do |cuisine| %>
-  <tr>
-    <td><%=h cuisine.name %></td>
-    <td><%= link_to 'Edit', edit_admin_cuisine_path(cuisine) %></td>
-  </tr>
-<% end %>
+	<% @cuisines.each do |cuisine| %>
+	<tr>
+		<td><%=h cuisine.name %></td>
+		<td class="utility"><%= link_to 'Edit', edit_admin_cuisine_path(cuisine) %></td>
+	</tr>
+	<% end %>
 </table>
-
-<br />
-
-<%= link_to 'New cuisine', new_admin_cuisine_path %>

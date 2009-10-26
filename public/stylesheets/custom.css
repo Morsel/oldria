@@ -17,6 +17,8 @@ body {
 	background-repeat: repeat-x;
 }
 
+button { float:none; display:inline;}
+
 div#container {
 	width: 969px;
 	margin: 0px auto;
