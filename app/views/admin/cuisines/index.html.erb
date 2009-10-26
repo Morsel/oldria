@@ -1,0 +1,18 @@
+<% title "Cuisines" %>
+
+<table>
+  <tr>
+    <th>Name</th>
+  </tr>
+
+<% @cuisines.each do |cuisine| %>
+  <tr>
+    <td><%=h cuisine.name %></td>
+    <td><%= link_to 'Edit', edit_admin_cuisine_path(cuisine) %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New cuisine', new_admin_cuisine_path %>

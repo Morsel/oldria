@@ -72,3 +72,7 @@ Factory.define :media_request_conversation do |f|
   f.comments_count 0
 end
 
+Factory.define :cuisine do |f|
+  f.name "Mexican"
+end
+

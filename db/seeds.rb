@@ -15,7 +15,6 @@ puts "There are now #{JamesBeardRegion.count} regions"
 request_types = YAML.load_file(@seedling_path + '/media_request_types.yml')
 
 request_types.each_pair do |shortname, name_and_fields|
-  puts name_and_fields
   name = name_and_fields['name']
   fields = name_and_fields['fields']
   fields = fields.join(", ") if fields
@@ -29,6 +28,12 @@ puts "There are now #{MediaRequestType.count} media request types"
 # == Set up Cuisines ==
 
 cuisines = YAML.load_file(@seedling_path + '/cuisines.yml')['cuisines']
+
+cuisines.each do |c|
+  Cuisine.find_or_create_by_name(c)
+end
+
+puts "There are now #{Cuisine.count} cuisines"
 
 
 # == Set up Metropolitan Regions ==
