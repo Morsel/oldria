@@ -1,0 +1,34 @@
+---
+photo:
+  name: Photo Request
+  fields:
+  - Photo needed
+  - Photo requirements
+  - Other important notes
+
+interview:
+  name: Interview Scheduling
+  fields:
+  - By phone or in person?
+  - Convenient date and time 1
+  - Convenient date and time 2
+  - Convenient date and time 3
+  - Interview subject
+  - Are there any requirements for the interview?
+
+photoshoot:
+  name: Photo Shoot/On-Site Video Shoot Scheduling
+  fields:
+  - For which outlet is this shoot?
+  - Requested Date and Time
+  - Alternate Date and Time
+  - Primary subject
+  - Appearance requirements
+
+information:
+  name: Information Request
+
+recipe:
+  name: Recipe Request
+  fields:
+  - Dish or Drink?
