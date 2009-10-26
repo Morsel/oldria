@@ -38,4 +38,10 @@ puts "There are now #{Cuisine.count} cuisines"
 
 # == Set up Metropolitan Regions ==
 
-metroregions = YAML.load_file(@seedling_path + '/metroregions.yml')['metroregions']
+metroareas = YAML.load_file(@seedling_path + '/metroregions.yml')['metroregions']
+metroareas.each do |ma|
+  MetropolitanArea.find_or_create_by_name(ma)
+end
+
+puts "There are now #{MetropolitanArea.count} metropolitan areas"
+
