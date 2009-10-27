@@ -3,11 +3,11 @@
 <% form_for @user, :url => password_reset_path, :method => :put do |f| %>
   <%= f.error_messages %>
   <p>
-    <%= f.label :password, "New Password" %><br />
+    <%= f.label :password, "New Password" %>
     <%= f.password_field :password, :class => 'text' %>
   </p>
   <p>
-    <%= f.label :password_confirmation, "Confirm New Password" %><br />
+    <%= f.label :password_confirmation, "Confirm New Password" %>
     <%= f.password_field :password_confirmation, :class => 'text' %>
   </p>
   <p><%= button_tag image_tag('key.png') + "Update my password and log me in" %></p>
