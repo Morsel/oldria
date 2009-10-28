@@ -30,9 +30,7 @@
 		<p class="reply_link"><%= link_to "reply", request.conversation_with_recipient(current_user) %></p>
 		<p class="meta">
 			<%= request.created_at.strftime("%b %e") %> |
-			A writer 
-		<%= request.publication_string %>
-		  wants to know:
+			<%= request.publication_string %> wants to know:
 		</p>
 		<p class="message">
 			<%= request.message %>
