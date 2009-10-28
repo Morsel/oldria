@@ -18,6 +18,8 @@ class User < ActiveRecord::Base
   has_many :media_request_conversations, :foreign_key => "recipient_id"
   has_many :received_media_requests, :through => :media_request_conversations, :source => :media_request
   
+  has_many :managed_restaurants, :class_name => "Restaurant", :foreign_key => "manager_id"
+  
   has_and_belongs_to_many :roles
 
   # Attributes that should not be updated from a form or mass-assigned

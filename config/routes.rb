@@ -20,6 +20,8 @@ ActionController::Routing::Routes.draw do |map|
     users.resources :direct_messages, :member => { :reply => :get }
   end
 
+  map.resources :restaurants
+
   map.resources :user_sessions, :password_resets, :followings, :pages, :direct_messages
   map.resource :twitter_authorization
   map.resource :friend_timeline, :only => 'show'

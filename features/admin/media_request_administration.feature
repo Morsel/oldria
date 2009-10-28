@@ -1,4 +1,3 @@
-@focus
 Feature: Media request administration
   So that bad MRs aren't sent out to tons of people who will get angry
   And So that the MRs are formulated to ensure member use the system and don't contact media directly outside the system

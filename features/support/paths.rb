@@ -28,6 +28,10 @@ module NavigationHelpers
     when /^the media( user)? signup page$/
       new_media_user_path
 
+    # Restaurants
+    when /^the new restaurant page$/
+      new_restaurant_path
+
     # Admin pages
     when /^the admin landing page$/
       admin_root_path

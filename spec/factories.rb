@@ -76,3 +76,6 @@ Factory.define :cuisine do |f|
   f.name "Mexican"
 end
 
+Factory.define :metropolitan_area do |f|
+  f.name "Chicago IL"
+end

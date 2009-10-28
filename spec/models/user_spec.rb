@@ -1,6 +1,15 @@
 require File.dirname(__FILE__) + '/../spec_helper'
 
 describe User do
+  should_have_many :statuses, :dependent => :destroy
+  should_have_many :followings, :foreign_key => 'follower_id', :dependent => :destroy
+  should_have_many :media_requests, :foreign_key => 'sender_id'
+  should_have_many :media_request_conversations, :foreign_key => "recipient_id"
+  should_have_many :managed_restaurants, :foreign_key => "manager_id", :class_name => "Restaurant"
+  should_have_and_belong_to_many :roles
+  should_belong_to :james_beard_region
+  should_belong_to :account_type
+  
   it "should be valid" do
     Factory(:user, :username => 'normal').should be_valid
   end

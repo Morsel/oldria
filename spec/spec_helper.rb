@@ -11,6 +11,7 @@ Spork.prefork do
   require 'spec/autorun'
   require 'spec/rails'
   I_KNOW_I_AM_USING_AN_OLD_AND_BUGGY_VERSION_OF_LIBXML2 = true unless defined?(I_KNOW_I_AM_USING_AN_OLD_AND_BUGGY_VERSION_OF_LIBXML2)
+  require 'remarkable_rails'
   require 'webrat'
   require 'webrat/rspec-rails'
   
