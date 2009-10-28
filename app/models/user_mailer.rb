@@ -23,7 +23,7 @@ class UserMailer < ActionMailer::Base
     from       'notifications@restaurantintelligenceagency.com'
     recipients request_conversation.recipient.email
     sent_on    Time.now
-    subject    "MediaFeed: #{request.sender_publication_string} has a question for you"
+    subject    "MediaFeed: #{request.publication_string} has a question for you"
     body       :request_conversation => request_conversation, :request => request
   end
 end

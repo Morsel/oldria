@@ -4,7 +4,7 @@ describe MediaRequestsController do
   integrate_views
 
   before(:each) do
-    @user = Factory(:user)
+    @user = Factory(:user, :publication => 'New York Times')
     @user.has_role! :media
     controller.stubs(:current_user).returns(@user)
   end
@@ -19,7 +19,12 @@ describe MediaRequestsController do
       get :new
       assigns[:sender].should == @user
     end
-    
+
+    it "should set the default publication as the sender's publication" do
+      get :new
+      assigns[:media_request].publication.should == @user.publication
+    end
+
     it "should collect the recipients into @recipient_ids" do
       User.stubs(:find).returns([@user])
       get :new, :recipient_ids => ['12', '34']

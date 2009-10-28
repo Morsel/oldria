@@ -9,7 +9,7 @@ class MediaRequestsController < ApplicationController
       @recipient_ids = params[:recipient_ids]
       @recipients = User.find(@recipient_ids)
     end
-    @media_request = @sender.media_requests.build
+    @media_request = @sender.media_requests.build(:publication => @sender.publication)
     @media_request.attachments.build
     @media_request_types = MediaRequestType.all
   end

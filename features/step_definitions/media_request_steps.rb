@@ -43,7 +43,8 @@ Given /^"([^\"]*)" has a media request from "([^\"]*)" with:$/ do |username, med
   status = table.rows_hash['Status'] || 'pending'
   user = User.find_by_username(username)
   sender = User.find_by_username(mediauser)
-  Factory(:media_request, :recipient_ids => [user.id], :sender => sender, :message => message, :status => status)
+  publication = table.rows_hash['Publication'] || sender.publication
+  Factory(:media_request, :recipient_ids => [user.id], :sender => sender, :message => message, :status => status, :publication => publication)
 end
 
 Given /^an admin has approved the media request for "([^\"]*)"$/ do |username|

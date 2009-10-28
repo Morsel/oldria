@@ -37,9 +37,8 @@ class MediaRequest < ActiveRecord::Base
     media_request_conversations.first(:conditions => {:recipient_id => user.id})
   end
   
-  def sender_publication_string
-    return "" if sender_id.blank?
-    "A writer" + (self.sender.publication.blank? ? "" : " from #{self.sender.publication}")
+  def publication_string
+    "A writer" + (self.publication.blank? ? "" : " from #{self.publication}")
   end
 
   def reply_count

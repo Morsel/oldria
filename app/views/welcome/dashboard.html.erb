@@ -31,9 +31,7 @@
 		<p class="meta">
 			<%= request.created_at.strftime("%b %e") %> |
 			A writer 
-		<%- if request.sender.try(:publication) %>
-			from <em><%= request.sender.try(:publication) %></em> 
-		<% end -%>
+		<%= request.publication_string %>
 		  wants to know:
 		</p>
 		<p class="message">

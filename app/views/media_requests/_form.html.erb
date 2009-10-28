@@ -18,8 +18,8 @@
 		<%= text_field_tag 'email', current_user.email, :class => 'text'  %>
 	</p>
 	<p>
-		<%= label_tag 'publication', "For whom are you writing this?" %>
-		<%= text_field_tag 'publication', current_user.publication, :class => 'text'  %>
+		<%= f.label :publication, "For whom are you writing this?" %>
+		<%= f.text_field :publication, :class => 'text'  %>
 	</p>
 	<p>
 		<label>
