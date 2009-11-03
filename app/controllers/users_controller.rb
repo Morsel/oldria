@@ -9,6 +9,12 @@ class UsersController < ApplicationController
   before_filter :require_owner_or_admin, :only => [:edit, :update, :remove_twitter, :remove_avatar]
   before_filter :acl
 
+  def index
+    respond_to do |format|
+      format.js { auto_complete_employees }
+    end
+  end
+
   def show
     get_user
     # Is the current user following this person?
@@ -101,6 +107,13 @@ class UsersController < ApplicationController
     unless (params[:id] && User.find(params[:id]) == current_user) || current_user.admin?
       flash[:error] = "This is an administrative area. Nothing exciting here at all."
       redirect_to root_url
+    end
+  end
+  
+  def auto_complete_employees
+    @users = User.for_autocomplete.find_all_by_name(params[:q]) if params[:q]
+    if @users
+      render :text => @users.map(&:name).join("\n")
     end
   end
   

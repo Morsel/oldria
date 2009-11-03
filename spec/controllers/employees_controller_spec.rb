@@ -12,36 +12,19 @@ describe EmployeesController do
   end
 
   describe "GET index" do
-    context "responding with js" do
-      before(:each) do
-        @john1 = Factory.stub(:user, :first_name => "John", :last_name => "Hamm")
-        @john2 = Factory.stub(:user, :first_name => "John", :last_name => "Manner")
-      end
-      
-      it "should return a list of found users, joined by newlines" do
-        User.expects(:find_all_by_name).returns([@john1,@john2])
-        get :index, :format => 'js', :restaurant_id => @restaurant.id, :q => "John"
-        assigns[:employees].should == [@john1, @john2]
-        response.body.should contain("John Hamm")
-        response.body.should contain("John Manner")
-      end
+    before(:each) do
+      @restaurant.stubs(:employees).returns([@employee])
+      get :index, :restaurant_id => @restaurant.id
     end
 
-    context "responding with html" do
-      before(:each) do
-        @restaurant.stubs(:employees).returns([@employee])
-        get :index, :restaurant_id => @restaurant.id
-      end
+    it { response.should be_success }
 
-      it { response.should be_success }
+    it "should assign @restaurant" do
+      assigns[:restaurant].should == @restaurant
+    end
 
-      it "should assign @restaurant" do
-        assigns[:restaurant].should == @restaurant
-      end
-
-      it "should assign @employees, scoped by the restaurant" do
-        assigns[:employees].should == @restaurant.employees
-      end
+    it "should assign @employees, scoped by the restaurant" do
+      assigns[:employees].should == @restaurant.employees
     end
   end
 

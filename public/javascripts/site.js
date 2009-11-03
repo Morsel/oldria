@@ -100,9 +100,7 @@ $("form .general_info :checkbox").change(function(){
 
 // == Employee Autocomplete
 
-var $employeeInput = $("#employment_employee_name");
-var employeeFormAction = $employeeInput.parents("form").attr("action");
-$employeeInput.autocomplete(employeeFormAction +".js", {
+$("#employment_employee_name").autocomplete("/users.js", {
 	autoFill: true,
 	max: 15
 });
