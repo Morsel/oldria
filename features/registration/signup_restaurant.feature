@@ -28,3 +28,4 @@ Feature: Signup restaurant
     And "joesak" should be the account manager for "Joe's Shack"
     And "Joe's Shack" should be in the "Chicago IL" metropolitan area
     And "Joe's Shack" should have "Italian" cuisine
+    And I should see "Joe's Shack" within "My Restaurants" section

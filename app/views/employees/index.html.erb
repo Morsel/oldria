@@ -1,0 +1,13 @@
+<% title "Add Employees to your Restaurant" %>
+
+<% unless @employees.blank? %>
+<ul id="restaurant_employees">
+	<% for employee in @employees %>
+	<li><%= employee.name %></li>
+	<% end %>
+</ul>
+<% end -%>
+
+<p>
+	<%= link_to "Add employee", new_restaurant_employee_path(@restaurant), :class => 'positive button' %>
+</p>

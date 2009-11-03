@@ -1127,3 +1127,46 @@ a.ui-state-default:hover {
 .ui-helper-hidden-accessible {
 	display:none;
 }
+
+
+/* Autocompletion box */
+.ac_results {
+	padding: 0px;
+	border: 1px solid #333;
+	background-color: white;
+	overflow: hidden;
+	z-index: 99999;
+}
+
+.ac_results ul {
+	width: 100%;
+	list-style-position: outside;
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+
+.ac_results li {
+	margin: 0px;
+	padding: 2px 5px;
+	cursor: default;
+	display: block;
+	font: menu;
+	font-size: 12px;
+	line-height: 16px;
+	overflow: hidden;
+}
+
+.ac_loading {
+	background: white url('/images/indicator.gif') 100% 50% no-repeat;
+}
+
+.ac_odd {
+	background-color: #f3f3f9;
+}
+
+.ac_over {
+	background-color: #669;
+	color: white;
+}
+

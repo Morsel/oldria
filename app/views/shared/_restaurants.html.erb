@@ -1,0 +1,16 @@
+<div id="my_restaurants" rel="My Restaurants" class="box">
+	<h3>My Restaurants</h3>
+<% if current_user.managed_restaurants.blank? %>
+
+	<p>You don't have any restaurants. <%= link_to "Sign one up now", new_restaurant_path %></p>
+
+<% else %>
+
+	<% current_user.managed_restaurants.each do |restaurant| %>
+	<% div_for restaurant do %>
+		<%= link_to h(restaurant.name), restaurant %>
+	<% end -%>
+	<% end %>
+
+<% end %>
+</div>

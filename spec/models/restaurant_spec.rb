@@ -5,6 +5,8 @@ describe Restaurant do
   should_belong_to :metropolitan_area
   should_belong_to :james_beard_region
   should_belong_to :cuisine
+  should_have_many :employments
+  should_have_many :employees, :through => :employments
 
   it "should belong to a manager (user)" do
     user = Factory(:user)

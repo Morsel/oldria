@@ -1,0 +1,8 @@
+<% title "New Employee" %>
+
+<% form_for :employee, :url => restaurant_employees_path(@restaurant) do |f| %>
+	<%= f.label :name, "Employee Name" %>
+	<%= f.text_field :name, :class => 'text' %>
+	<p><%= button_tag "Submit" %></p>
+<% end %>
+

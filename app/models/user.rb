@@ -19,6 +19,9 @@ class User < ActiveRecord::Base
   has_many :received_media_requests, :through => :media_request_conversations, :source => :media_request
   
   has_many :managed_restaurants, :class_name => "Restaurant", :foreign_key => "manager_id"
+
+  has_many :employments, :foreign_key => "employee_id"
+  has_many :restaurants, :through => :employments
   
   has_and_belongs_to_many :roles
 
@@ -32,7 +35,8 @@ class User < ActiveRecord::Base
   validates_exclusion_of :publication, 
                          :in => %w( freelance Freelance ), 
                          :message => "'{{value}}' is not allowed"
-  
+
+  named_scope :for_autocomplete, :select => "first_name, last_name", :order => "last_name ASC", :limit => 15
   
   def admin?
     @admin ||= has_role? :admin
@@ -117,5 +121,19 @@ class User < ActiveRecord::Base
   
   def self.find_by_login(login)
     find_by_smart_case_login_field(login)
+  end
+  
+  def self.find_by_name(_name)
+    name_parts = _name.split(' ')
+    find_by_first_name_and_last_name(name_parts.shift, name_parts.pop)
+  end
+  
+  def self.find_all_by_name(_name)
+    namearray = _name.split(" ")
+    if namearray.length > 1
+      first_name_begins_with(namearray.first).last_name_begins_with(namearray.last)
+    else
+      first_name_or_last_name_begins_with(namearray.first)
+    end
   end
 end

@@ -19,6 +19,17 @@ Factory.define :media_user, :parent => :user do |f|
   f.publication "The Times"
 end
 
+Factory.define :restaurant do |f|
+  f.name    "Joe's Diner"
+  f.street1 "123 S State St"
+  f.city    "Chicago"
+  f.state   "IL"
+  f.zip     "60606"
+  f.association :manager, :factory => :user
+  f.association :cuisine
+  f.association :metropolitan_area
+end
+
 Factory.define :status do |f|
   f.association :user
   f.message     "I just ate a cheeseburger"

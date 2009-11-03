@@ -9,7 +9,7 @@ class RestaurantsController < ApplicationController
     @restaurant = current_user.managed_restaurants.build(params[:restaurant])
     if @restaurant.save
       flash[:notice] = "Successfully created restaurant."
-      redirect_to root_url
+      redirect_to restaurant_employees_path(@restaurant)
     else
       render :new
     end

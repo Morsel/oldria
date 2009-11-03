@@ -40,7 +40,7 @@ describe RestaurantsController do
     it "should redirect when model is valid" do
       Restaurant.any_instance.stubs(:valid?).returns(true)
       post :create
-      response.should redirect_to(root_url)
+      response.should redirect_to(restaurant_employees_path(assigns[:restaurant]))
     end
   end
 end

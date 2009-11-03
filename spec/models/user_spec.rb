@@ -9,6 +9,8 @@ describe User do
   should_have_and_belong_to_many :roles
   should_belong_to :james_beard_region
   should_belong_to :account_type
+  should_have_many :employments, :foreign_key => "employee_id"
+  should_have_many :restaurants, :through => :employments
   
   it "should be valid" do
     Factory(:user, :username => 'normal').should be_valid
@@ -40,6 +42,52 @@ describe User do
       u.name = "Jimmy"
       u.first_name.should == "Jimmy"
       u.last_name.should be_blank
+    end
+  end
+
+  context "searching using ::find_all_by_name" do
+    before(:each) do
+      @johnny = Factory(:user, :first_name => "Johnny", :last_name => "McArthur")
+      @john   = Factory(:user, :first_name => "John", :last_name => "Salsman")
+      @amy    = Factory(:user, :first_name => "Amy", :last_name => "Fisher")
+    end
+
+    it "should allow searching both columns simultaneously" do
+      users = User.find_all_by_name("John McArth")
+      users.should include(@johnny)
+      users.should_not include(@john)
+    end
+    
+    it "should allow searching using only last name" do
+      users = User.find_all_by_name("McArth")
+      users.should include(@johnny)
+      users.should_not include(@john)
+    end
+    
+    it "should allow search using only first name" do
+      users = User.find_all_by_name("John")
+      users.should include(@johnny)
+      users.should include(@john)
+    end
+    
+    it "should allow search using only first name (with leading/trailing spaces)" do
+      users = User.find_all_by_name("  John ")
+      users.should include(@johnny)
+      users.should include(@john)
+      users.should_not include(@amy)
+    end
+
+    it "should be able to find by name" do
+      user = Factory(:user, :first_name => "Hamburg", :last_name => "Erlang" )
+      User.find_by_name("Hamburg Erlang").should == user
+    end
+
+    it "should be able to find all by name for autocompletion" do
+      john = Factory(:user, :first_name => "John", :last_name => "Dorian" )
+      joe = Factory(:user, :first_name => "Joe", :last_name => "Doe" )
+      found = User.find_all_by_name("Jo Do")
+      found.should include(john)
+      found.should include(joe)
     end
   end
 end

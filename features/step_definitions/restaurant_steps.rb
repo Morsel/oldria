@@ -1,3 +1,10 @@
+Given /^I have just created a restaurant named "([^\"]*)"$/ do |restaurantname|
+  visit new_restaurant_url
+  fill_in "Name", :with => restaurantname
+  click_button :submit
+end
+
+
 Then /^"([^\"]*)" should be the account manager for "([^\"]*)"$/ do |username, restaurantname|
   user = User.find_by_username!(username)
   Restaurant.find_by_name(restaurantname).manager.should == user
