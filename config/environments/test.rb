@@ -33,7 +33,7 @@ config.gem "rspec-rails", :lib => false, :version => '>=1.2.7'
 config.gem "webrat", :lib => false, :version => '>=0.5.3'
 config.gem "remarkable_rails", :lib => false
 config.gem "cucumber", :lib => false, :version => '>=0.3.104'
-config.gem "thoughtbot-factory_girl", :lib => "factory_girl", :source => "http://gems.github.com"
+config.gem "factory_girl", :source => "http://gemcutter.org"
 config.gem 'bmabey-email_spec', :lib => 'email_spec', :source => "http://gems.github.com", :version => ">= 0.3.4"
 config.gem "fakeweb", :version => ">= 1.2.5"
 config.gem "mocha"

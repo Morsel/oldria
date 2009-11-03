@@ -34,6 +34,11 @@ Spork.prefork do
     config.mock_with :mocha
     include Webrat::Methods
   end
+  
+  module DisableFlashSweeping
+    def sweep
+    end
+  end
 end
 
 Spork.each_run do

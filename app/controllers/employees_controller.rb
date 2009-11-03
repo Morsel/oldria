@@ -12,12 +12,12 @@ class EmployeesController < ApplicationController
   end
 
   def new
-    @employee = @restaurant.employees.build
+    @employment = @restaurant.employments.build
   end
 
   def create
-    @employee = User.find_by_name(params[:employee][:name])
-    if @employee && @restaurant.employees << @employee
+    @employment = @restaurant.employments.build(params[:employment])
+    if @employment.save
       flash[:notice] = "Successfully associated employee and restaurant"
       redirect_to restaurant_employees_path(@restaurant)
     else

@@ -4,6 +4,12 @@ Given /^I have just created a restaurant named "([^\"]*)"$/ do |restaurantname|
   click_button :submit
 end
 
+Given /^I have added "([^\"]*)" to that restaurant$/ do |name|
+  click_link "Add employee"
+  fill_in "Employee Name", :with => "Betty Davis"
+  click_button "Submit"
+end
+
 
 Then /^"([^\"]*)" should be the account manager for "([^\"]*)"$/ do |username, restaurantname|
   user = User.find_by_username!(username)
@@ -18,4 +24,8 @@ end
 Then /^"([^\"]*)" should have "([^\"]*)" cuisine$/ do |restaurantname, cuisinename|
   cuisine = Cuisine.find_by_name!(cuisinename)
   Restaurant.find_by_name(restaurantname).cuisine.should == cuisine
+end
+
+Then /^"([^\"]*)" should(?: only)? have ([0-9]+) employees?$/ do |restaurantname, num|
+  Restaurant.find_by_name(restaurantname).employees.count.should == num.to_i
 end

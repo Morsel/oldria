@@ -1,10 +1,5 @@
 require File.dirname(__FILE__) + '/../spec_helper'
 
-module DisableFlashSweeping
-  def sweep
-  end
-end
-
 describe EmployeesController do
   integrate_views
 
@@ -59,11 +54,11 @@ describe EmployeesController do
       assigns[:restaurant].should == @restaurant
     end
 
-    it { assigns[:employee].should be_a(User) }
+    it { assigns[:employment].should be_a(Employment) }
 
     it "should have a form with employee[name]" do
       response.should have_selector("form", :action => "/restaurants/#{@restaurant.id}/employees") do |form|
-        form.should have_selector("input", :name => "employee[name]")
+        form.should have_selector("input", :name => "employment[employee_name]")
       end
     end
   end
@@ -72,7 +67,7 @@ describe EmployeesController do
     context "when user exists" do
       before(:each) do
         User.stubs(:find_by_name).returns(@employee)
-        post :create, :restaurant_id => @restaurant.id, :employee => {:name => "John Doe"}
+        post :create, :restaurant_id => @restaurant.id, :employment=> {:employee_name => "John Doe"}
       end
 
       it "should assign @restaurant" do
@@ -80,7 +75,7 @@ describe EmployeesController do
       end
 
       it "should assign a found employee" do
-        assigns[:employee].should == @employee
+        assigns[:employment].employee.should == @employee
       end
     end
 
