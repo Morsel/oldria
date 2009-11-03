@@ -22,8 +22,8 @@ $("body").bind("ajaxSend", function(elm, xhr, s) {
 	s.data = "";
 	// if there was no data, $ didn't set the content-type
 	xhr.setRequestHeader("Content-Type", s.contentType);
-}
-s.data = s.data + encodeURIComponent(window._auth_token_name) + "=" + encodeURIComponent(window._auth_token);
+	}
+	s.data = s.data + encodeURIComponent(window._auth_token_name) + "=" + encodeURIComponent(window._auth_token);
 });
 
 // Ajaxify the New Status form
@@ -100,8 +100,8 @@ $("form .general_info :checkbox").change(function(){
 
 // == Employee Autocomplete
 
-var $employeeInput = $("#employee_name");
-var employeeFormAction = $employeeInput.parent("form").attr("action");
+var $employeeInput = $("#employment_employee_name");
+var employeeFormAction = $employeeInput.parents("form").attr("action");
 $employeeInput.autocomplete(employeeFormAction +".js", {
 	autoFill: true,
 	max: 15

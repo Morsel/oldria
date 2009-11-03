@@ -5,8 +5,10 @@ describe EmployeesController do
 
   before(:each) do
     @restaurant = Factory.stub(:restaurant)
-    @employee = Factory.stub(:user, :name => "John Doe")
+    @employee = Factory(:user, :name => "John Doe")
+    @employee.stubs(:managed_restaurants).returns([@restaurant])
     Restaurant.stubs(:find).returns(@restaurant)
+    controller.stubs(:current_user).returns(@employee)
   end
 
   describe "GET index" do

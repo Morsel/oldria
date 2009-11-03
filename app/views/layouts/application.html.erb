@@ -38,7 +38,7 @@
 			</div><!--#brand-->
 
 			<div id="navigation" class="span-11 last">
-			<%- if current_user && current_user.has_role?(:media) %>
+			<%- if current_user && current_user.media? %>
 				<%= render :partial => 'layouts/nav_media' %>
 			<% elsif current_user %>
 				<%= render :partial => 'layouts/nav_spoonfeed' %>

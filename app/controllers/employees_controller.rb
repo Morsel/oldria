@@ -1,4 +1,5 @@
 class EmployeesController < ApplicationController
+  before_filter :require_user
   before_filter :find_restaurant, :except => :index
 
   def index

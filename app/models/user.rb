@@ -37,16 +37,22 @@ class User < ActiveRecord::Base
                          :message => "'{{value}}' is not allowed"
 
   named_scope :for_autocomplete, :select => "first_name, last_name", :order => "last_name ASC", :limit => 15
-  
+
   def admin?
-    @admin ||= has_role? :admin
+    return @admin if defined?(@admin)
+    @admin = !roles.blank? && has_role?(:admin)
   end
   alias :admin :admin?
-  
+
   def admin=(bool)
     TRUE_VALUES.include?(bool) ? has_role!(:admin) : has_no_role!(:admin)
   end
-  
+
+  def media?
+    return @is_media if defined?(@is_media)
+    @is_media = !roles.blank? && has_role?(:media)
+  end
+
   def following?(otheruser)
     friends.include?(otheruser)
   end
