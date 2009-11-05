@@ -7,6 +7,7 @@ describe EmployeesController do
     @restaurant = Factory.stub(:restaurant)
     @employee = Factory(:user, :name => "John Doe", :email => "john@example.com")
     @employee.stubs(:managed_restaurants).returns([@restaurant])
+    @employee.stubs(:restaurants)
     Restaurant.stubs(:find).returns(@restaurant)
     controller.stubs(:current_user).returns(@employee)
   end

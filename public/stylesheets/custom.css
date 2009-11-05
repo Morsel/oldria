@@ -545,7 +545,7 @@ p.editprofile a:hover {
 	color: #fff;
 }
 
-#user_profile_view {
+#user_profile_view, .user.box {
 	border: 0px solid #ddd;
 	background-color: #edfbff;
 	-moz-border-radius: 8px;
@@ -555,7 +555,7 @@ p.editprofile a:hover {
 	-moz-box-shadow: -3px 3px 0px #e5f2fe;
 }
 
-#user_profile_view img {
+#user_profile_view img{
 	padding: 5px;
 	border: 1px solid #ccc;
 	background-color: #fff;
@@ -564,29 +564,44 @@ p.editprofile a:hover {
 	margin: 0px 12px 6px 0px;
 	}
 	
-#user_profile_view h2 {
+#user_profile_view h2, .user.box h2 {
 	margin: 0px;
 	padding: 0px;
 	}
 	
-#user_profile_view h3 {
+#user_profile_view h3, .user.box h3 {
 	font-size: 1.2em;
 	line-height: 20px;
 	margin: 0px 0px 0px 0px;
 	padding: 0px;
 	font-weight: normal;
 	}
-#user_profile_view h4 {
+#user_profile_view h4, .user.box h4 {
 	margin:5px 0px;
 	font-weight: bold;
 	padding: 0px;
 	clear: both;
 	}
 	
-#user_profile_view p {
+#user_profile_view p, .user.box p {
 	margin: 0px 0px 12px 0px;
 	padding: 0px;
 	}
+	
+.user.box {
+	margin-bottom: 18px;
+}
+
+.user.box img {
+	width:25px;
+	height:25px;
+	padding: 2px;
+	border: 1px solid #ccc;
+	background-color: #fff;
+	float: left;
+	display: inline;
+	margin-right: 12px;
+}
 	
 ul.user_profile_actions {
 	text-align: right;
@@ -1128,6 +1143,10 @@ a.ui-state-default:hover {
 	display:none;
 }
 
+
+#my_restaurants .restaurant + h3 {
+	margin-top:1em;
+}
 
 /* Autocompletion box */
 .ac_results {

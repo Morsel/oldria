@@ -1,13 +1,17 @@
-<% title "Add Employees to your Restaurant" %>
+<% title "Employees at #{@restaurant.name}" %>
 
 <% unless @employees.blank? %>
-<ul id="restaurant_employees">
-	<% for employee in @employees %>
-	<li><%= employee.name %></li>
-	<% end %>
-</ul>
+<div id="restaurant_employees">
+	<% @employees.in_groups(2, false) do |group| %>
+		<div class="span-6<%= cycle("", " last") %>">
+			<%= render group %>
+		</div>
+	<% end -%>
+</div>
 <% end -%>
 
-<p>
+<h3 class="clear">Add Employees to your Restaurant</h3>
+
+<p class="clearfix">
 	<%= link_to "Add employee", new_restaurant_employee_path(@restaurant), :class => 'positive button' %>
 </p>
