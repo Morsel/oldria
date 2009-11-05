@@ -4,10 +4,11 @@ Given /^I have just created a restaurant named "([^\"]*)"$/ do |restaurantname|
   click_button :submit
 end
 
-Given /^I have added "([^\"]*)" to that restaurant$/ do |name|
+Given /^I have added "([^\"]*)" to that restaurant$/ do |email|
   click_link "Add employee"
-  fill_in "Employee Name", :with => "Betty Davis"
+  fill_in "Employee Email", :with => email
   click_button "Submit"
+  click_button "Yes"
 end
 
 

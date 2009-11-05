@@ -90,44 +90,54 @@ describe User do
       found.should include(joe)
     end
   end
-end
-
-describe User, "following" do
-  it "should know if he/she is following a user" do
-    guy  = Factory(:user, :username => 'guy')
-    girl = Factory(:user, :username => 'girl')
-    guy.friends << girl
-    guy.should be_following(girl)
+  
+  context "following" do
+    it "should know if he/she is following a user" do
+      guy  = Factory(:user, :username => 'guy')
+      girl = Factory(:user, :username => 'girl')
+      guy.friends << girl
+      guy.should be_following(girl)
+    end
   end
-end
+  
+  context "twitter and oauth" do
+    before(:each) do
+      @user = User.new(:atoken => 'atoken', :asecret => 'asecret')
+      @twitter_oauth = TwitterOAuth::Client.new(:consumer_key => 'key', :consumer_secret => 'secret')
+      @user.stubs(:twitter_oauth).returns(@twitter_oauth)
+      @user.stubs(:twitter_client).returns(@twitter_oauth)
+      @tweet = JSON.parse( File.new(File.dirname(__FILE__) + '/../fixtures/twitter_update.json').read )
+    end
 
-describe User, "twitter and oauth" do
-  before(:each) do
-    @user = User.new(:atoken => 'atoken', :asecret => 'asecret')
-    @twitter_oauth = TwitterOAuth::Client.new(:consumer_key => 'key', :consumer_secret => 'secret')
-    @user.stubs(:twitter_oauth).returns(@twitter_oauth)
-    @user.stubs(:twitter_client).returns(@twitter_oauth)
-    @tweet = JSON.parse( File.new(File.dirname(__FILE__) + '/../fixtures/twitter_update.json').read )
+    it "authorize from access token and secret" do
+      @user.twitter_client.should_not be_nil
+    end
+
+    it "should retrieve friend requests" do
+      @twitter_oauth.stubs(:friends_timeline).returns(@tweet)
+      @user.twitter_client.friends_timeline.first['text'].should eql("Best American flag etiquette video series I've seen all month!  http://bit.ly/eiOZe")
+    end
   end
+  
+  context "media_requests" do
+    before(:each) do
+      @user = Factory(:media_user)
+      @user.has_role! :media
+    end
 
-  it "authorize from access token and secret" do
-    @user.twitter_client.should_not be_nil
+    it "should have many media_requests" do
+      MediaRequest.destroy_all
+      @user.media_requests.should == []
+    end
   end
-
-  it "should retrieve friend requests" do
-    @twitter_oauth.stubs(:friends_timeline).returns(@tweet)
-    @user.twitter_client.friends_timeline.first['text'].should eql("Best American flag etiquette video series I've seen all month!  http://bit.ly/eiOZe")
-  end
-end
-
-describe User, "media_requests" do
-  before(:each) do
-    @user = Factory(:media_user)
-    @user.has_role! :media
-  end
-
-  it "should have many media_requests" do
-    MediaRequest.destroy_all
-    @user.media_requests.should == []
+  
+  context "sending invitations" do
+    it "should trigger invitation sending after save" do
+      user = Factory.build(:user)
+      user.send_invitation = true
+      UserMailer.expects(:deliver_employee_invitation!).with(user)
+      user.save
+      user.send_invitation.should be_nil
+    end
   end
 end

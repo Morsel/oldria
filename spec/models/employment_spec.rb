@@ -5,11 +5,12 @@ describe Employment do
   should_belong_to :restaurant
   should_validate_presence_of :employee_id
   should_validate_presence_of :restaurant_id
+  should_accept_nested_attributes_for :employee
   
   describe "with employees" do
     before do
       @restaurant = Factory(:restaurant)
-      @user = Factory(:user, :name => "Jimmy Dorian")
+      @user = Factory(:user, :name => "Jimmy Dorian", :email => "dorian@rd.com")
       @employment = Employment.create!(:employee_id => @user.id, :restaurant_id => @restaurant.id)
     end
     
@@ -19,9 +20,13 @@ describe Employment do
       @employment.employee_name.should eql("Jimmy Dorian")
     end
     
-    it "should set employee through #employee_name" do
-      another_user = Factory(:user, :name => "John Hammond")
-      @employment.employee_name = "John Hammond"
+    it "#employee_email should return the employee's email" do
+      @employment.employee_email.should eql("dorian@rd.com")
+    end
+    
+    it "should set employee through #employee_email" do
+      another_user = Factory(:user, :name => "John Hammond", :email => "hammond@rd.com")
+      @employment.employee_email = "hammond@rd.com"
       @employment.save
       Employment.first.employee.should == another_user
     end

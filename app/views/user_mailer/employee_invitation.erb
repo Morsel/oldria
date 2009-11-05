@@ -1,0 +1,7 @@
+<%= @user.name %>,
+
+Welcome to MediaFeed. You've been invited by a worker at <%= @user.restaurants.last.try(:name) %>
+
+<%= @invitation_url %>
+
+Click the link above to sign in and start having fun!

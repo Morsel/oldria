@@ -2,6 +2,8 @@ class Employment < ActiveRecord::Base
   belongs_to :employee, :class_name => "User"
   belongs_to :restaurant
 
+  accepts_nested_attributes_for :employee
+
   validates_presence_of :employee_id
   validates_presence_of :restaurant_id
   validates_uniqueness_of :employee_id, :scope => :restaurant_id, :message => "is already associated with that restaurant"
@@ -10,7 +12,11 @@ class Employment < ActiveRecord::Base
     @employee_name ||= employee && employee.name
   end
   
-  def employee_name=(name)
-    self.employee = User.find_by_name(name)
+  def employee_email
+    @employee_email ||= employee && employee.email
+  end
+  
+  def employee_email=(email)
+    self.employee = User.find_by_email(email)
   end
 end

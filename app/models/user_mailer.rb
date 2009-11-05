@@ -26,4 +26,13 @@ class UserMailer < ActionMailer::Base
     subject    "MediaFeed: #{request.publication_string} has a question for you"
     body       :request_conversation => request_conversation, :request => request
   end
+  
+  def employee_invitation(user)
+    from          'accounts@restaurantintelligenceagency.com'
+    recipients    user.email
+    sent_on       Time.now
+    subject       "MediaFeed: You've been added"
+    body          :invitation_url => invitation_url(user.perishable_token), :user => user
+  end
+  
 end

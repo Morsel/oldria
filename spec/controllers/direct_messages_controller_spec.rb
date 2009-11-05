@@ -2,6 +2,10 @@ require File.dirname(__FILE__) + '/../spec_helper'
 
 describe DirectMessagesController do
   integrate_views
+  before(:all) do
+    User.destroy_all
+  end
+
   before(:each) do
     @sender = Factory(:user)
     controller.stubs(:current_user).returns(@sender)

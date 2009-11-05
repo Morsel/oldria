@@ -25,6 +25,9 @@ class User < ActiveRecord::Base
   
   has_and_belongs_to_many :roles
 
+  attr_accessor :send_invitation
+  after_create  :deliver_invitation_message
+
   # Attributes that should not be updated from a form or mass-assigned
   attr_protected :crypted_password, :password_salt, :perishable_token, :persistence_token, :confirmed_at, :admin=, :admin
 
@@ -140,6 +143,15 @@ class User < ActiveRecord::Base
       first_name_begins_with(namearray.first).last_name_begins_with(namearray.last)
     else
       first_name_or_last_name_begins_with(namearray.first)
+    end
+  end
+
+  def deliver_invitation_message
+    if @send_invitation
+      @send_invitation = nil
+      reset_perishable_token!
+      logger.info( 'Delivering invitation email' )
+      UserMailer.deliver_employee_invitation!(self)
     end
   end
 end

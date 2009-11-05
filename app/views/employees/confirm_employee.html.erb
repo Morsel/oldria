@@ -1,0 +1,13 @@
+<% title "Confirm Employee" %>
+
+<% form_for @employment, :url => restaurant_employees_path(@restaurant) do |f| %>
+	<%= f.error_messages %>
+	<%= f.hidden_field :employee_email, :class => 'text' %>
+	<% if @employee %>
+		<p>Is this who you were looking for?</p>
+		<%= render @employee %>
+		<p><%= button_tag "Yes", :class => 'nofloat positive' %> or <%= link_to "No", :action => :new %></p>
+	<% else %>
+		<p>We couldn't find that person</p>
+	<% end %>
+<% end %>

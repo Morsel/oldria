@@ -100,4 +100,8 @@ Then /^I should see that "([^\"]*)" has a "([^\"]*)" account type$/ do |username
   end
 end
 
+Then /^I should see an invitation URL in the email body$/ do
+  token = User.find_by_email(current_email.to).perishable_token
+  current_email.body.should =~ Regexp.new(token)
+end
 
