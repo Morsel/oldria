@@ -132,11 +132,11 @@ describe User do
   end
   
   context "sending invitations" do
-    it "should trigger invitation sending after save" do
-      user = Factory.build(:user)
+    it "should send from UserMailer" do
+      user = Factory(:user)
       user.send_invitation = true
       UserMailer.expects(:deliver_employee_invitation!).with(user)
-      user.save
+      user.deliver_invitation_message!
       user.send_invitation.should be_nil
     end
   end

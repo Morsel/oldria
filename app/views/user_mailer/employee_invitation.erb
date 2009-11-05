@@ -2,6 +2,6 @@
 
 Welcome to MediaFeed. You've been invited by a worker at <%= @user.restaurants.last.try(:name) %>
 
-<%= @invitation_url %>
+<%= invitation_url(@user.perishable_token) %>
 
 Click the link above to sign in and start having fun!

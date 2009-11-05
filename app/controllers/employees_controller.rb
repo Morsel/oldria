@@ -18,6 +18,7 @@ class EmployeesController < ApplicationController
 
     if @employment.save
       flash[:notice] = "Successfully associated employee and restaurant"
+      @employee.deliver_invitation_message! if @send_invitation
       redirect_to restaurant_employees_path(@restaurant)
     else
       flash[:error] = "We could not associate that employee with this restaurant. Please try again."
@@ -43,7 +44,9 @@ class EmployeesController < ApplicationController
     @employee = @employment.employee
     if @employee.new_record? 
       @employee.send_invitation = true
-      unless @employee.save
+      if @employee.save
+        @send_invitation = true
+      else
         render :new_employee
         return false
       end
