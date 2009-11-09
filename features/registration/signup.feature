@@ -1,6 +1,6 @@
 Feature: Create an Account
   So that I can improve my social media networking/marketing
-  As a prospective RIA client that is not a journalist, 
+  As a prospective RIA client that is not a journalist,
   I want to create a free SF account.
 
 
@@ -36,8 +36,8 @@ Feature: Create an Account
     And "janet" should be a confirmed user
     And "janet" should be logged in
     # And I should see "You are now logged in"
-    
-  
+
+
   Scenario: Trying to follow email link twice
     Given I am on the signup page
     When I fill in "Username" with "twice"
@@ -51,12 +51,12 @@ Feature: Create an Account
 
     When "twice@example.com" opens the email with subject "Welcome to SpoonFeed! Please confirm your account"
     And I click the first link in the email
-    
+
     Then I should see "Welcome aboard! Your account has been confirmed"
     And "twice" should be a confirmed user
     And "twice" should be logged in
     And I should see "Confirming your account"
-    
+
     When "twice@example.com" opens the email with subject "Welcome to SpoonFeed! Please confirm your account"
     And I click the first link in the email
     Then I should see "Oops, we couldn't find your account. Have you already confirmed your account"
@@ -72,9 +72,9 @@ Feature: Create an Account
     And I fill in "Password" with "secret"
     And I fill in "Password Confirmation" with "secret"
     And I press "Save"
-    
-    Then I should see "Email should look like an email address"
-    
+
+    Then I should see "should look like an email address"
+
   Scenario: Email already taken
     Given the following confirmed user:
     | username | password | email |
@@ -86,8 +86,8 @@ Feature: Create an Account
     And I fill in "Password" with "secret"
     And I fill in "Password Confirmation" with "secret"
     And I press "Save"
-    
-    Then I should see "Email has already been taken"
+
+    Then I should see "has already been taken"
 
 
   Scenario: Attempting to Log in before confirmed

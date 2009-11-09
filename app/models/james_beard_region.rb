@@ -8,4 +8,6 @@ class JamesBeardRegion < ActiveRecord::Base
       "#{name} #{desc}"
     end
   end
+  # Formtastic Labels
+  alias :to_label :name_and_description
 end

@@ -11,7 +11,9 @@ describe User do
   should_belong_to :account_type
   should_have_many :employments, :foreign_key => "employee_id"
   should_have_many :restaurants, :through => :employments
-  
+
+  should_validate_presence_of :email
+
   it "should be valid" do
     Factory(:user, :username => 'normal').should be_valid
   end
@@ -57,19 +59,19 @@ describe User do
       users.should include(@johnny)
       users.should_not include(@john)
     end
-    
+
     it "should allow searching using only last name" do
       users = User.find_all_by_name("McArth")
       users.should include(@johnny)
       users.should_not include(@john)
     end
-    
+
     it "should allow search using only first name" do
       users = User.find_all_by_name("John")
       users.should include(@johnny)
       users.should include(@john)
     end
-    
+
     it "should allow search using only first name (with leading/trailing spaces)" do
       users = User.find_all_by_name("  John ")
       users.should include(@johnny)
@@ -90,7 +92,7 @@ describe User do
       found.should include(joe)
     end
   end
-  
+
   context "following" do
     it "should know if he/she is following a user" do
       guy  = Factory(:user, :username => 'guy')
@@ -99,7 +101,7 @@ describe User do
       guy.should be_following(girl)
     end
   end
-  
+
   context "twitter and oauth" do
     before(:each) do
       @user = User.new(:atoken => 'atoken', :asecret => 'asecret')
@@ -118,7 +120,7 @@ describe User do
       @user.twitter_client.friends_timeline.first['text'].should eql("Best American flag etiquette video series I've seen all month!  http://bit.ly/eiOZe")
     end
   end
-  
+
   context "media_requests" do
     before(:each) do
       @user = Factory(:media_user)
@@ -130,7 +132,7 @@ describe User do
       @user.media_requests.should == []
     end
   end
-  
+
   context "sending invitations" do
     it "should send from UserMailer" do
       user = Factory(:user)

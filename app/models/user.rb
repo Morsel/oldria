@@ -1,11 +1,11 @@
 class User < ActiveRecord::Base
   acts_as_authentic
   acts_as_authorization_subject
-  
+
   belongs_to :james_beard_region
   belongs_to :account_type
   has_many :statuses, :dependent => :destroy
-  
+
   has_many :followings, :foreign_key => 'follower_id', :dependent => :destroy
   has_many :friends, :through => :followings
   has_many :inverse_followings, :class_name => "Following", :foreign_key => 'friend_id', :dependent => :destroy
@@ -17,25 +17,27 @@ class User < ActiveRecord::Base
   has_many :media_requests, :foreign_key => 'sender_id'
   has_many :media_request_conversations, :foreign_key => "recipient_id"
   has_many :received_media_requests, :through => :media_request_conversations, :source => :media_request
-  
+
   has_many :managed_restaurants, :class_name => "Restaurant", :foreign_key => "manager_id"
 
   has_many :employments, :foreign_key => "employee_id"
   has_many :restaurants, :through => :employments
-  
+
   has_and_belongs_to_many :roles
+
+  validates_presence_of :email
 
   attr_accessor :send_invitation
 
   # Attributes that should not be updated from a form or mass-assigned
   attr_protected :crypted_password, :password_salt, :perishable_token, :persistence_token, :confirmed_at, :admin=, :admin
 
-  has_attached_file :avatar, 
+  has_attached_file :avatar,
                     :default_url => "/images/default_avatars/:style.png",
                     :styles => { :small => "100x100>", :thumb => "50x50#" }
 
-  validates_exclusion_of :publication, 
-                         :in => %w( freelance Freelance ), 
+  validates_exclusion_of :publication,
+                         :in => %w( freelance Freelance ),
                          :message => "'{{value}}' is not allowed"
 
   named_scope :for_autocomplete, :select => "first_name, last_name", :order => "last_name ASC", :limit => 15
@@ -69,7 +71,7 @@ class User < ActiveRecord::Base
     self.first_name = name_parts.shift
     self.last_name = name_parts.pop
   end
-  
+
   def name_or_username
     name.blank? ? username : name
   end
@@ -78,9 +80,9 @@ class User < ActiveRecord::Base
     confirmed_at
   end
 
-  def deliver_password_reset_instructions!  
-    reset_perishable_token!  
-    UserMailer.deliver_password_reset_instructions(self)  
+  def deliver_password_reset_instructions!
+    reset_perishable_token!
+    UserMailer.deliver_password_reset_instructions(self)
   end
 
 
@@ -91,7 +93,7 @@ class User < ActiveRecord::Base
       @twitter_username ||= twitter_client.user({:count=>1}).first['user']['screen_name']
     end
   end
-  
+
   def twitter_allowed?
     !(has_role? :media)
   end
@@ -99,43 +101,43 @@ class User < ActiveRecord::Base
   def twitter_authorized?
     !atoken.blank? && !asecret.blank?
   end
-  
+
   def twitter_oauth
     @twitter_oauth ||= TwitterOAuth::Client.new(
-      :consumer_key =>    TWITTER_CONFIG['token'], 
+      :consumer_key =>    TWITTER_CONFIG['token'],
       :consumer_secret => TWITTER_CONFIG['secret']
     )
   end
-  
+
   def twitter_client
     @twitter_client ||= begin
       TwitterOAuth::Client.new(
           :consumer_key =>    TWITTER_CONFIG['token'],
           :consumer_secret => TWITTER_CONFIG['secret'],
-          :token =>           atoken, 
+          :token =>           atoken,
           :secret =>          asecret
       )
     end
   end
-  
+
   def self.find_by_smart_case_login_field(user_login)
     # login like an email address ?
-    if user_login =~ Authlogic::Regex.email 
+    if user_login =~ Authlogic::Regex.email
       first(:conditions => { :email => user_login })
     else
       first(:conditions => { :username => user_login })
     end
   end
-  
+
   def self.find_by_login(login)
     find_by_smart_case_login_field(login)
   end
-  
+
   def self.find_by_name(_name)
     name_parts = _name.split(' ')
     find_by_first_name_and_last_name(name_parts.shift, name_parts.pop)
   end
-  
+
   def self.find_all_by_name(_name)
     namearray = _name.split(" ")
     if namearray.length > 1

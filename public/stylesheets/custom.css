@@ -1,7 +1,7 @@
 /* @override http://localhost:3001/stylesheets/custom.css */
 
 
-/* colors 
+/* colors
 dark brown: #3e2611;
 alt dark brown: #49341f;
 blue: #8CD0E2;
@@ -75,7 +75,7 @@ div#navigation ul li.selected {
 div#navigation ul li a {
 	color: #fff;
 	text-decoration: none;
-	padding: 2px 7px;	
+	padding: 2px 7px;
 	-moz-border-radius: 3px;
 	-webkit-border-radius: 3px;
 	border-radius: 3px;
@@ -140,7 +140,7 @@ div#navigation ul li a.current:hover {
 }
 
 .formbox {
-	
+
 }
 
 .formbox input {
@@ -195,6 +195,49 @@ form .first_name, form .last_name {
 form .first_name input.text, form .last_name input.text {
 	width: 138px;
 }
+
+
+.formtastic ol {
+	list-style:none;
+	margin:0;
+	padding:0;
+}
+
+.formtastic li {
+	margin-bottom:1em;
+}
+
+form .inline-hints {
+	font-size: .85em;
+	color: #666;
+	margin-bottom:0;
+}
+
+form .inline-errors {
+	color: #8A1F11;
+	margin-bottom:0;
+}
+
+label abbr {
+	border-bottom:0 none;
+	font-weight:bold;
+	color: #8A1F11;
+	padding:0 1px;
+}
+
+.boolean input, .check_boxes input {
+	margin: 0 .5em 0 0;
+	top:1px;
+}
+
+
+.string input, .numeric input, .password input {
+	width:300px;
+	padding:5px;
+	margin:0.5em 0;
+}
+
+
 
 /* Statuses --------------------- */
 
@@ -563,12 +606,12 @@ p.editprofile a:hover {
 	display: inline;
 	margin: 0px 12px 6px 0px;
 	}
-	
+
 #user_profile_view h2, .user.box h2 {
 	margin: 0px;
 	padding: 0px;
 	}
-	
+
 #user_profile_view h3, .user.box h3 {
 	font-size: 1.2em;
 	line-height: 20px;
@@ -582,12 +625,12 @@ p.editprofile a:hover {
 	padding: 0px;
 	clear: both;
 	}
-	
+
 #user_profile_view p, .user.box p {
 	margin: 0px 0px 12px 0px;
 	padding: 0px;
 	}
-	
+
 .user.box {
 	margin-bottom: 18px;
 }
@@ -602,7 +645,7 @@ p.editprofile a:hover {
 	display: inline;
 	margin-right: 12px;
 }
-	
+
 ul.user_profile_actions {
 	text-align: right;
 	float: none;
@@ -620,7 +663,7 @@ ul.user_profile_actions {
 		display: inline;
 		margin: 0px 5px 0px 0px;
 	}
-		
+
 		ul.user_profile_actions li a {
 			background-color: #1D9BBB;
 			padding: 4px 8px;
@@ -630,15 +673,15 @@ ul.user_profile_actions {
 			-moz-border-radius: 3px;
 			-webkit-border-radius: 3px;
 		}
-		
+
 		ul.user_profile_actions li a:hover {
 			background-color: #69A74D;
 			border: 1px solid #8abe73;
 		}
-	
+
 
 #user_content h3 {color: #49341f;}
-			
+
 #user_content ul {
 	list-style: none;
 	margin: 0 0 1em;
@@ -648,7 +691,7 @@ ul.user_profile_actions {
 	display: block;
 	margin: 3px 0px;
 	}
-	
+
 	#user_content ul li img {
 		float: left;
 		display: inline;
@@ -657,35 +700,35 @@ ul.user_profile_actions {
 		background-color: #f9f9f9;
 		margin: 0px 10px 5px 0px;
 	}
-	
+
 	#user_content ul li h4 {
 		font-weight: bold;
 		margin: 4px 0px 4px 0px;
 	}
-	
+
 	#user_content ul li p {
 		margin: 5px 0px;
 		color: #333;
 		font-family: 'lucida grande', tahoma, arial, sans-serif;
 		font-size: .9em;
 		}
-		
+
 		#user_content ul li p a {
 			border: 1px solid #c9e1f9;
 			background-color: #edfbff;
 			color: #1d9bbb;
 			padding: 2px 5px;
 		}
-		
+
 		#user_content ul li p a:hover {
 			background-color: #3e2611;
 			color: #fff;
 			}
-	
+
 #user_content h3 {
 	margin: 20px 0px 4px 0px;
-	}	
-		
+	}
+
 #user_content p.more_statuses {
 	font-family: 'lucida grande', tahoma, arial, sans-serif;
 	font-size: .9em;

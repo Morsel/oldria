@@ -1,5 +1,5 @@
 Feature: Update information
-  So that I can change my twitter account, my name, or other details about my account, 
+  So that I can change my twitter account, my name, or other details about my account,
   As a SF member,
   I should be able to update my account profile.
 
@@ -31,7 +31,7 @@ Feature: Update information
     And I fill in "Username" with "manny"
     And I fill in "Password" with "betterpassword"
     And I press "Login"
-    
+
     Then I should see "You are now logged in"
 
 
@@ -44,7 +44,7 @@ Feature: Update information
     And I fill in "Password" with "betterpassword"
     And I fill in "Password Confirmation" with "better"
     And I press "Save"
-    Then I should see "Password doesn't match confirmation"
+    Then I should see "doesn't match confirmation"
 
 
   Scenario: Removing Twitter

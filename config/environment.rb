@@ -17,6 +17,8 @@ Rails::Initializer.run do |config|
   config.gem 'jackdempsey-acts_as_commentable', :lib => 'acts_as_commentable', :source => "http://gems.github.com"
   config.gem 'aasm', :source => 'http://gemcutter.org'
   config.gem 'formtastic', :source => "http://gemcutter.org"
+  config.gem 'validation_reflection', :source => "http://gemcutter.org"
+
 
   # Settings in config/environments/* take precedence over those specified here.
   # Application configuration should go into files in config/initializers

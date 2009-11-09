@@ -1,35 +1,20 @@
-<% form_for @user do |f| %>
-  <%= f.error_messages %>
-  <p>
-    <%= f.label :name %>
-    <%= f.text_field :name, :class => 'text' %>
-  </p>
-  <p>
-    <%= f.label :username %>
-    <%= f.text_field :username, :class => 'text' %>
-  </p>
-  <p>
-    <%= f.label :email %>
-    <%= f.text_field :email, :class => 'text' %>
-  </p>
-<% unless action_name == 'edit' %>
-  <p>
-    <%= f.label :account_type_id %>
-    <%= f.collection_select :account_type_id, AccountType.all, :id, :name %>
-  </p>
+<% semantic_form_for @user do |f| %>
+<% f.inputs :name => 'Your Information' do %>
+	<%= f.input :first_name, :input_html => {:class => 'span-3'}, :wrapper_html => {:class => 'span-3'} %>
+	<%= f.input :last_name, :input_html => {:class => 'span-4'}, :wrapper_html => {:class => 'span-4'} %>
+	<%= f.input :email, :wrapper_html => {:class => 'clear'} %>
+	<%= f.input :james_beard_region, :label => 'Region', :wrapper_html => {:class => 'bottom'} %>
+	<% unless action_name == 'edit' %>
+		<%= f.input :account_type %>
+	<% end -%>
 <% end %>
-  <p>
-    <%= f.label :james_beard_region_id, "Region (Based on James Beard Foundation)" %>
-    <%= f.collection_select :james_beard_region_id, JamesBeardRegion.all, :id, :name_and_description %>
-  </p>
 
-  <p>
-    <%= f.label :password %>
-    <%= f.password_field :password, :class => 'text' %>
-  </p>
-  <p>
-    <%= f.label :password_confirmation %>
-    <%= f.password_field :password_confirmation, :class => 'text' %>
-  </p>
-  <p><%= button_tag "Save", :class => 'positive' %></p>
+<% f.inputs :name => 'Desired Login Information' do %>
+	<%= f.input :username %>
+	<%= f.input :password %>
+	<%= f.input :password_confirmation %>
+<% end %>
+
+<p><%= button_tag "Save", :class => 'positive' %></p>
+
 <% end %>
