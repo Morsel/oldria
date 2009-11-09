@@ -1,17 +1,14 @@
 <% title "Login to SpoonFeed" %>
 
-<% form_for @user_session do |f| %>
-  <%= f.error_messages %>
-  <p>
-    <%= f.label :username %>
-    <%= f.text_field :username, :class => 'text' %>
-    <small>Your <strong>username</strong> or<strong> email</strong></small>
-  </p>
-  <p>
-    <%= f.label :password %>
-    <%= f.password_field :password, :class => 'text' %>
-  </p>
-  <p><%= button_tag image_tag('key.png') + "Login", :name => 'submit' %></p>
+<% semantic_form_for @user_session do |f| %>
+
+<% f.inputs do %>
+	<%= f.input :username, :hint => 'Your <strong>username</strong> or <strong>email</strong>' %>
+	<%= f.input :password %>
+<% end %>
+
+<p><%= button_tag image_tag('key.png') + "Login", :name => 'submit' %></p>
+
 <% end %>
 
 
