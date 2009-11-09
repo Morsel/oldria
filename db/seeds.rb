@@ -45,3 +45,18 @@ end
 
 puts "There are now #{MetropolitanArea.count} metropolitan areas"
 
+
+# == Set up Restaurant Roles ==
+
+roles = YAML.load_file(@seedling_path + '/restaurant_roles.yml')['restaurant_roles']
+roles.each do |role|
+  RestaurantRole.find_or_create_by_name(role)
+end
+
+puts "There are now #{RestaurantRole.count} restaurant roles"
+
+
+
+
+
+

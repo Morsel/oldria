@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20091102183650) do
+ActiveRecord::Schema.define(:version => 20091109215733) do
 
   create_table "account_types", :force => true do |t|
     t.string   "name"
@@ -79,6 +79,7 @@ ActiveRecord::Schema.define(:version => 20091102183650) do
     t.integer  "restaurant_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "restaurant_role_id"
   end
 
   create_table "followings", :force => true do |t|
@@ -138,6 +139,12 @@ ActiveRecord::Schema.define(:version => 20091102183650) do
     t.text     "content"
   end
 
+  create_table "restaurant_roles", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "restaurants", :force => true do |t|
     t.string   "name"
     t.string   "street1"
@@ -187,7 +194,6 @@ ActiveRecord::Schema.define(:version => 20091102183650) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.datetime "confirmed_at"
-    t.datetime "last_request_at"
     t.string   "atoken"
     t.string   "asecret"
     t.integer  "account_type_id"
@@ -199,6 +205,7 @@ ActiveRecord::Schema.define(:version => 20091102183650) do
     t.string   "last_name"
     t.integer  "james_beard_region_id"
     t.string   "publication"
+    t.datetime "last_request_at"
   end
 
 end

@@ -1,0 +1,22 @@
+<% title "Restaurant Roles" %>
+
+<p class="clearfix">
+	<%= link_to "New Restaurant Role", new_admin_restaurant_role_path, :class => 'positive button' %>
+</p>
+
+<table>
+	<tr>
+		<th>Name</th>
+		<th></th>
+	</tr>
+	<% for role in @restaurant_roles %>
+	<tr>
+		<td><%=h role.name %></td>
+		<td class="utility">
+			<%= link_to "Edit", edit_admin_restaurant_role_path(role) %>
+			<%= link_to "Destroy", admin_restaurant_role_path(role), :confirm => 'Are you sure?', :method => :delete %>
+		</td>
+	</tr>
+	<% end %>
+</table>
+

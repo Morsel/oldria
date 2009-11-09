@@ -12,27 +12,28 @@ ActionController::Routing::Routes.draw do |map|
     mrc.resources :comments, :only => [:new, :create]
   end
 
-  map.resources :users, :member => { 
-    :remove_twitter => :put, 
+  map.resources :users, :member => {
+    :remove_twitter => :put,
     :remove_avatar => :put
   }, :shallow => true do |users|
     users.resources :statuses
     users.resources :direct_messages, :member => { :reply => :get }
   end
 
-  map.resources :restaurants do |restaurants|
-    restaurants.resources :employees
+  map.resources :restaurants do |restaurant|
+    restaurant.resources :employees
+    restaurant.resources :restaurant_roles, :as => 'roles'
   end
 
   map.resources :user_sessions, :password_resets, :followings, :pages, :direct_messages
   map.resource :twitter_authorization
   map.resource :friend_timeline, :only => 'show'
   map.resources :invitations, :only => 'show'
-  
+
   map.resource :search, :only => 'show'
 
   map.root :controller => 'welcome'
-  
+
   map.namespace :admin do |admin|
     admin.root      :controller => 'admin'
     admin.resources :users
@@ -40,9 +41,10 @@ ActionController::Routing::Routes.draw do |map|
     admin.resources :date_ranges, :account_types, :coached_status_updates, :direct_messages
     admin.resources :media_requests, :member => { :approve => :put }
     admin.resources :cuisines
+    admin.resources :restaurant_roles, :except => [:show]
   end
 
-  # Default Routes 
+  # Default Routes
   # map.connect ':controller/:action/:id'
   # map.connect ':controller/:action/:id.:format'
 end
