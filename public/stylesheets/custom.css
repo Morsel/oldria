@@ -607,6 +607,7 @@ p.editprofile a:hover {
 	border-radius: 8px;
 	margin-bottom: 30px;
 	-moz-box-shadow: -3px 3px 0px #e5f2fe;
+	-webkit-box-shadow: -3px 3px 0px #e5f2fe
 }
 
 #user_profile_view img{

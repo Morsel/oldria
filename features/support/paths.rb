@@ -31,6 +31,8 @@ module NavigationHelpers
     # Restaurants
     when /^the new restaurant page$/
       new_restaurant_path
+    when /^the employees page for "(.+)"$/
+      restaurant_employees_path(Restaurant.find_by_name($1))
 
     # Admin pages
     when /^the admin landing page$/
