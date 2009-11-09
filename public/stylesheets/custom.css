@@ -207,6 +207,17 @@ form .first_name input.text, form .last_name input.text {
 	margin-bottom:1em;
 }
 
+form .date li {
+	float:left;
+	margin-right: 1em;
+	margin-bottom: 0;
+}
+
+form .date fieldset {
+	padding:0;
+	border: 0 none;
+}
+
 form .inline-hints {
 	font-size: .85em;
 	color: #666;

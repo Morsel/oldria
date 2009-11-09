@@ -6,13 +6,13 @@ Feature: Direct messaging
 
   Background:
     Given the following user records:
-      | username  | password |
-      | normalguy | secret   |
+      | username  | password | name     |
+      | normalguy | secret   | Jim John |
 
 
   Scenario: Sending an Admin Direct Message to a user
     Given I am logged in as an admin
-    When I send an admin direct message to "normalguy" with:
+    When I send an admin direct message to "Jim John" with:
       | title                  | body                        |
       | Administrative Message | You need to fill out a menu |
     Then "normalguy" should have an admin message titled "Administrative Message"

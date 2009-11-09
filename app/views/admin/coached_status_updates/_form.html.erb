@@ -1,15 +1,13 @@
-<% form_for [:admin, @coached_status_update] do |f| %>
-  <%= f.error_messages %>
-  <p>
-    <%= f.label :message %>
-    <%= f.text_field :message, :class => 'text' %>
-  </p>
-  <p>
-    <%= f.label :date_range_id, "Time of year" %>
-    <%= f.collection_select :date_range_id, DateRange.all, :id, :name %>
-  </p>
+<% semantic_form_for [:admin, @coached_status_update] do |f| %>
 
-  <p><%= link_to "Back to List", admin_coached_status_updates_path, :class => 'button' %></p>
-  <p><%= button_tag "Save", :class => 'positive' %></p>
-  <p><%= button_tag "Save and Create Another", :name => 'save_and_new' %></p>
+	<% f.inputs do %>
+		<%= f.input :message %>
+		<%= f.input :date_range, :label => 'Time of Year' %>
+	<% end -%>
+<p>
+	<%= button_tag "Save", :class => 'positive' %> -or-
+	<%= button_tag "Save and Create Another", :name => 'save_and_new' %>
+</p>
+
+<p><%= link_to "Back to List", admin_coached_status_updates_path %></p>
 <% end %>
