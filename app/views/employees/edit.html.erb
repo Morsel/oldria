@@ -1,0 +1,11 @@
+<% title "Editing Employee #{@employee.name}" %>
+
+<% semantic_form_for @employment, :url => restaurant_employee_path(@restaurant,@employee) do |f| %>
+	<% f.inputs do %>
+		<%= f.input :restaurant_role,
+			:hint => "Which best describes the role that #{@employee.name} has at #{@restaurant.name}?" %>
+	<% end %>
+
+	<p><%= button_tag "Submit", :class => 'positive' %></p>
+
+<% end %>

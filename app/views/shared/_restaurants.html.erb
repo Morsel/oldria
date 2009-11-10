@@ -2,7 +2,7 @@
 	<h3>Restaurants I Manage</h3>
 <% if current_user.managed_restaurants.blank? %>
 
-	<p>You don't have any restaurants. <%= link_to "Sign one up now", new_restaurant_path %></p>
+	<p>You don't have any restaurants.</p>
 
 <% else %>
 
@@ -14,6 +14,10 @@
 
 <% end %>
 
+<p class="add_restaurant clearfix">
+	<%= link_to image_tag("plus.png") + "Sign up a restaurant", new_restaurant_path, :class => 'button positive' %>
+</p>
+
 <% unless current_user.restaurants.blank? %>
 	<h3>My Restaurants</h3>
 
@@ -24,7 +28,5 @@
 	<% end %>
 
 <% end %>
-
-
 
 </div>

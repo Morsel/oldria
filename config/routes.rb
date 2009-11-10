@@ -21,8 +21,7 @@ ActionController::Routing::Routes.draw do |map|
   end
 
   map.resources :restaurants do |restaurant|
-    restaurant.resources :employees
-    restaurant.resources :restaurant_roles, :as => 'roles'
+    restaurant.resources :employees, :except => [:show]
   end
 
   map.resources :user_sessions, :password_resets, :followings, :pages, :direct_messages

@@ -94,3 +94,8 @@ end
 Factory.define :metropolitan_area do |f|
   f.name "Chicago IL"
 end
+
+Factory.define :employment do |f|
+  f.association :restaurant
+  f.association :employee, :factory => :user
+end

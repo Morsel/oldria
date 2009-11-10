@@ -11,6 +11,8 @@ blue alt: #1D9BBB;
 green: #69A74D;
 */
 
+/* @group grid --------------------- */
+
 body {
 	margin: 0px;
 	background-image: url(/images/header_bg.gif);
@@ -38,6 +40,123 @@ div#header {
 	position: relative;
 }
 
+#leftcolumn {
+	min-height: 360px;
+}
+
+/* @end */
+
+/* @group typography --------------- */
+
+/* @group default */
+
+strong {
+	font-weight: bold;
+}
+
+a {
+	text-decoration: none;
+}
+
+p, li {
+	color: #333;
+	font-family: helvetica, arial, sans-serif;
+}
+
+a {
+	color: #000;
+}
+
+a:hover {
+	color: #999;
+}
+
+h1,h2,h3,h4,h5,h6 {
+	font-family: "helvetica neue", helvetica, arial, sans-serif;
+}
+
+h1,h2,h3 {
+	font-weight: bold;
+}
+
+h1 {
+	font-size: 2em;
+}
+
+h2 {
+	color: #333;
+}
+
+h3 {
+	color: #276b96;
+	margin: 0 0 .5em 0;
+}
+
+h4 {
+	color: #333;
+}
+
+blockquote {
+	margin: 0px 0px 10px 0px;
+	color: #666;
+	font-family: Georgia, "trebuchet MS", "times new roman", serif;
+	padding-left: 36px;
+	padding-bottom: 0px;
+}
+
+pre {
+	font-size: .9em;
+	font-family: monospace;
+}
+
+dl {
+	margin: 10px 0px 20px 0px;
+}
+
+dt {
+	font-size: 1em;
+	font-weight: bold;
+	color: #111;
+	font-family: helvetica, arial, sans-serif;
+	line-height: 15px;
+	margin: 10px 0px 2px 0px;
+	padding: 0px;
+}
+
+dd {
+	font-size: 1em;
+	font-weight: normal;
+	color: #444;
+	font-family: helvetica, arial, sans-serif;
+	line-height: 17px;
+	margin: 0px 0px 0px 0px;
+	padding: 0px;
+}
+
+big {
+	font-size: 115%;
+}
+
+small {
+	font-size: 85%;
+}
+
+code {
+	font-family: monospace;
+}
+
+del {
+	color: #999;
+	text-decoration: line-through;
+}
+
+ins {
+	background-color: #dbf4d6;
+	padding: 2px;
+	text-decoration: none;
+	border: 0px;
+}
+
 .admin_backend #header h2 {
 	position: absolute;
 	right: 0;
@@ -45,7 +164,37 @@ div#header {
 	text-transform: uppercase;
 }
 
-/* Primary Navigation ----------------- */
+/* @end */
+
+/* @group custom */
+
+#coached {
+	border: 1px solid #edc;
+	background-color: #fed;
+	padding: 1em 1em 1px;
+	color: #644;
+	margin-bottom: 1em;
+	font: 1.2em normal "Gill sans";
+}
+
+#coached h3 {
+	font-size: 1em;
+}
+
+#coached p {
+	margin-bottom: 1em;
+}
+
+#my_restaurants .restaurant + h3 {
+	margin-top:1em;
+}
+
+
+/* @end */
+
+/* @end */
+
+/* @group primary navigation --------- */
 
 div#navigation ul {
 	float: right;
@@ -104,12 +253,9 @@ div#navigation ul li a.current:hover {
 
 .admin-link { float: right; font-size: 1.2em; line-height: 18px; font-weight:bold }
 
+/* @end */
 
-/* Content area ---------------------- */
-
-#leftcolumn {
-	min-height: 360px;
-}
+/* @group status messages ----------- */
 
 #direct_messages, #sent_messages {
 	margin-bottom: 2em;
@@ -138,119 +284,6 @@ div#navigation ul li a.current:hover {
 	border-color: #fff;
 	color: green;
 }
-
-.formbox {
-
-}
-
-.formbox input {
-	width: 220px;
-	padding: 2px;
-	margin: 0px;
-}
-
-.formbox select {
-	width: 220px;
-	padding: 1px;
-	margin: 0px;
-}
-
-.formbox input.submit {
-	width: auto;
-}
-
-.formbox h3 {
-	margin: 0px 0px 10px 0px;
-	padding: 0px;
-}
-
-.formbox p {
-	margin: 0px 0px 10px 0px;
-	padding: 0px;
-}
-
-#login p.forgot {
-	font-size: .8em;
-	font-family: 'lucida grande', tahoma, arial, sans-serif;
-	margin: 0px;
-	padding: 0px;
-}
-
-#login p.forgot a {
-	color: #69A74D;
-	background-color: #f2ffec;
-	padding: 2px 5px;
-}
-
-#login p.forgot a:hover {
-	background-color: #69A74D;
-	color: #fff;
-}
-
-form .first_name, form .last_name {
-	float: left;
-	margin-right: 10px;
-}
-
-form .first_name input.text, form .last_name input.text {
-	width: 138px;
-}
-
-
-.formtastic ol {
-	list-style:none;
-	margin:0;
-	padding:0;
-}
-
-.formtastic li {
-	margin-bottom:1em;
-}
-
-form .date li {
-	float:left;
-	margin-right: 1em;
-	margin-bottom: 0;
-}
-
-form .date fieldset {
-	padding:0;
-	border: 0 none;
-}
-
-form .inline-hints {
-	font-size: .85em;
-	color: #666;
-	margin-bottom:0;
-}
-
-form .inline-errors {
-	color: #8A1F11;
-	margin-bottom:0;
-}
-
-label abbr {
-	border-bottom:0 none;
-	font-weight:bold;
-	color: #8A1F11;
-	padding:0 1px;
-}
-
-.boolean input, .check_boxes input {
-	margin: 0 .5em 0 0;
-	top:1px;
-}
-
-
-.string input, .numeric input, .password input {
-	width:300px;
-	padding:5px;
-	margin:0.5em 0;
-}
-
-
-
-/* Statuses --------------------- */
 
 #new_status {
 	background-color: #edfbff;
@@ -413,8 +446,48 @@ label abbr {
 	border: 0 none;
 }
 
+/* @end */
 
-/* media requests ----------------*/
+/* @group restaurants ---------------
+ */
+
+.restaurant {
+	font-size: 1.2em;
+}
+
+.restaurant a {
+	color: #333;
+	border-bottom: 1px dashed #aaa;
+}
+
+.restaurant a:hover {
+	background-color: #ffd;
+	color: #000;
+	border-bottom: 1px dashed #777;
+}
+
+.add_restaurant a {
+	border-radius: 14px;
+	-moz-border-radius: 14px;
+	-webkit-border-radius: 14px;
+	margin: 1em 0;
+}
+
+
+.restaurant_role a {
+	background: url("../images/pencil.png") no-repeat 0 -2px;
+	float: right;
+	width: 12px;
+	height: 12px;
+}
+
+.restaurant_role a span {
+	display: none;
+}
+
+/* @end */
+
+/* @group media requests ------------ */
 
 #media_requests {
 	margin-bottom: 2em;
@@ -570,13 +643,11 @@ ul.responses {
 	color: #fff;
 }
 
+/* @end */
 
-.fields .fieldname {
-	display:block;
-	font-weight:bold;
-}
 
-/* users ------------------------ */
+
+/* @group users --------------------- */
 
 p.editprofile {
 	font-family: 'lucida grande', tahoma, arial, sans-serif;
@@ -757,134 +828,9 @@ ul.user_profile_actions {
 	color: #1D9BBB;
 	}
 
+/* @end */
 
-
-
-
-
-/* Typography -------------------  */
-
-strong {
-	font-weight: bold;
-}
-
-a {
-	text-decoration: none;
-}
-
-p, li {
-	color: #333;
-	font-family: helvetica, arial, sans-serif;
-}
-
-a {
-	color: #000;
-}
-
-a:hover {
-	color: #999;
-}
-
-h1,h2,h3,h4,h5,h6 {
-	font-family: "helvetica neue", helvetica, arial, sans-serif;
-}
-
-h1,h2,h3 {
-	font-weight: bold;
-}
-
-h1 {
-	font-size: 2em;
-}
-
-h2 {
-	color: #333;
-}
-
-h3 {
-	color: #276b96;
-	margin: 0 0 .5em 0;
-}
-
-h4 {
-	color: #333;
-}
-
-blockquote {
-	margin: 0px 0px 10px 0px;
-	color: #666;
-	font-family: Georgia, "trebuchet MS", "times new roman", serif;
-	padding-left: 36px;
-	padding-bottom: 0px;
-}
-
-pre {
-	font-size: .9em;
-	font-family: monospace;
-}
-
-dl {
-	margin: 10px 0px 20px 0px;
-}
-
-dt {
-	font-size: 1em;
-	font-weight: bold;
-	color: #111;
-	font-family: helvetica, arial, sans-serif;
-	line-height: 15px;
-	margin: 10px 0px 2px 0px;
-	padding: 0px;
-}
-
-dd {
-	font-size: 1em;
-	font-weight: normal;
-	color: #444;
-	font-family: helvetica, arial, sans-serif;
-	line-height: 17px;
-	margin: 0px 0px 0px 0px;
-	padding: 0px;
-}
-
-big {
-	font-size: 115%;
-}
-
-small {
-	font-size: 85%;
-}
-
-code {
-	font-family: monospace;
-}
-
-del {
-	color: #999;
-	text-decoration: line-through;
-}
-
-ins {
-	background-color: #dbf4d6;
-	padding: 2px;
-	text-decoration: none;
-	border: 0px;
-}
-
-
-img.left {
-	float: left;
-	margin: 0 10px 10px 0;
-}
-
-img.right {
-	float: right;
-	margin: 0 0 10px 10px;
-}
-
-/* Tables ---------------------- */
-
-
+/* @group tables -------------------- */
 
 #leftcolumn table {
 	max-width: 637px;
@@ -936,7 +882,9 @@ td.utility {
 	width: 95px;
 }
 
-/* Forms ------------------------- */
+/* @end */
+
+/* @group forms -------------------- */
 
 fieldset {
 	border: 1px solid #ccc;
@@ -973,7 +921,133 @@ option {
 	padding: 3px 3px 0px 3px;
 }
 
-/* Blueprint Extensions ------------  */
+.fields .fieldname {
+	display:block;
+	font-weight:bold;
+}
+
+.formbox {
+
+}
+
+.formbox input {
+	width: 220px;
+	padding: 2px;
+	margin: 0px;
+}
+
+.formbox select {
+	width: 220px;
+	padding: 1px;
+	margin: 0px;
+}
+
+.formbox input.submit {
+	width: auto;
+}
+
+.formbox h3 {
+	margin: 0px 0px 10px 0px;
+	padding: 0px;
+}
+
+.formbox p {
+	margin: 0px 0px 10px 0px;
+	padding: 0px;
+}
+
+#login p.forgot {
+	font-size: .8em;
+	font-family: 'lucida grande', tahoma, arial, sans-serif;
+	margin: 0px;
+	padding: 0px;
+}
+
+#login p.forgot a {
+	color: #69A74D;
+	background-color: #f2ffec;
+	padding: 2px 5px;
+}
+
+#login p.forgot a:hover {
+	background-color: #69A74D;
+	color: #fff;
+}
+
+form .first_name, form .last_name {
+	float: left;
+	margin-right: 10px;
+}
+
+form .first_name input.text, form .last_name input.text {
+	width: 138px;
+}
+
+
+.formtastic ol {
+	list-style:none;
+	margin:0;
+	padding:0;
+}
+
+.formtastic li {
+	margin-bottom:1em;
+}
+
+form .date li {
+	float:left;
+	margin-right: 1em;
+	margin-bottom: 0;
+}
+
+form .date fieldset {
+	padding:0;
+	border: 0 none;
+}
+
+form .inline-hints {
+	font-size: .85em;
+	color: #666;
+	margin-bottom:0;
+}
+
+form .inline-errors {
+	color: #8A1F11;
+	margin-bottom:0;
+}
+
+label abbr {
+	border-bottom:0 none;
+	font-weight:bold;
+	color: #8A1F11;
+	padding:0 1px;
+}
+
+.boolean input, .check_boxes input {
+	margin: 0 .5em 0 0;
+	top:1px;
+}
+
+
+.string input, .numeric input, .password input {
+	width:300px;
+	padding:5px;
+	margin:0.5em 0;
+}
+
+/* @end */
+
+/* @group blueprint extensions -------- */
+
+img.left {
+	float: left;
+	margin: 0 10px 10px 0;
+}
+
+img.right {
+	float: right;
+	margin: 0 0 10px 10px;
+}
 
 .round {
 	-moz-border-radius: 3px;
@@ -1002,7 +1076,9 @@ option {
 	display: none;
 }
 
-/* Footer ----------------------  */
+/* @end */
+
+/* @group footer --------------------*/
 
 #footer {
 	border-top: 1px solid #ddd;
@@ -1040,8 +1116,9 @@ option {
 	color: #fff;
 }
 
-/* Application
-------------------------*/
+/* @end */
+
+/* @group application ---------------- */
 
 #flashes {
 	min-height: 30px;
@@ -1110,27 +1187,6 @@ option {
 	padding: 3px 1px 0;
 }
 
-#coached {
-	border: 1px solid #edc;
-	background-color: #fed;
-	padding: 1em 1em 1px;
-	color: #644;
-	margin-bottom: 1em;
-	font: 1.2em normal "Gill sans";
-}
-
-#coached h3 {
-	font-size: 1em;
-}
-
-#coached p {
-	margin-bottom: 1em;
-}
-
-tr.admin td {
-	background-color: #fdc;
-}
-
 #admin_users_list td.thumb {
 	max-width: 52px;
 	font-size: 8px;
@@ -1141,6 +1197,14 @@ tr.admin td {
 	height: 50px;
 	margin: 0;
 }
+
+tr.admin td {
+	background-color: #fdc;
+}
+
+/* @end */
+
+/* @group datepicker ui --------------- */
 
 .ui-datepicker {
 	background-color: #fff;
@@ -1198,12 +1262,10 @@ a.ui-state-default:hover {
 	display:none;
 }
 
+/* @end */
 
-#my_restaurants .restaurant + h3 {
-	margin-top:1em;
-}
+/* @group autocomplete ui ------------ */
 
-/* Autocompletion box */
 .ac_results {
 	padding: 0px;
 	border: 1px solid #333;
@@ -1243,4 +1305,6 @@ a.ui-state-default:hover {
 	background-color: #669;
 	color: white;
 }
+
+/* @end */
 

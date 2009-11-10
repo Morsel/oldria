@@ -4,11 +4,20 @@ Given /^I have just created a restaurant named "([^\"]*)"$/ do |restaurantname|
   click_button :submit
 end
 
+Given /^a restaurant role named "([^\"]*)"$/ do |name|
+  Factory(:restaurant_role, :name => name)
+end
+
 Given /^I have added "([^\"]*)" to that restaurant$/ do |email|
   click_link "Add employee"
   fill_in "Employee Email", :with => email
   click_button "Submit"
   click_button "Yes"
+end
+
+When /^I follow the edit role link for "([^\"]*)"$/ do |employee_name|
+  user_id = User.find_by_name(employee_name).id
+  click_link "edit", :within => "user_#{user_id}"
 end
 
 
@@ -29,4 +38,10 @@ end
 
 Then /^"([^\"]*)" should(?: only)? have ([0-9]+) employees?$/ do |restaurantname, num|
   Restaurant.find_by_name(restaurantname).employees.count.should == num.to_i
+end
+
+Then /^"([^\"]*)" should be a "([^\"]*)" at "([^\"]*)"$/ do |name, rolename, restaurantname|
+  restaurant = Restaurant.find_by_name(restaurantname)
+  user = User.find_by_name(name)
+  Employment.first(:conditions => { :restaurant_id => restaurant.id, :employee_id => user.id }).restaurant_role.name.should eql(rolename)
 end

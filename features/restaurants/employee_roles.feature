@@ -16,10 +16,12 @@ Feature: Employee roles
     And I have added "cole@example.com" to that restaurant
 
   Scenario: Basic Role Assignment
+    Given a restaurant role named "Chef"
     Given I am on the employees page for "Restaurant du Jour"
-    When I follow "Assign Roles"
-    Then I should see "Role Assignment"
-    And I should see "Betty Davis"
-    And I should see "Cole Cal"
+    When I follow the edit role link for "Betty Davis"
+    And I select "Chef" from "Restaurant role"
+    And I press "Submit"
+    Then I should see "updated"
+    And "Betty Davis" should be a "Chef" at "Restaurant du Jour"
 
 
