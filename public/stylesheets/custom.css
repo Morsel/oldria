@@ -158,10 +158,14 @@ ins {
 }
 
 .admin_backend #header h2 {
-	position: absolute;
-	right: 0;
+	position: relative;
+	top: -14px;
+	left: 0;
+	font-size: 1.6em;
 	color: #fc9;
 	text-transform: uppercase;
+	float: left;
+	margin: 0;
 }
 
 /* @end */

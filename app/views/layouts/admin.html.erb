@@ -30,13 +30,12 @@
 <body class="admin_backend">
 	<div id="container" class="clearfix">
 		<div id="header" class="span-18 last">
-			<div id="brand" class="span-7">
-				<a href="/"><img src="/images/spoonfeed_logo.png" alt="Spoonfeed" /></a>
+			<div id="brand" class="span-6">
+				<a href="/"><img src="/images/ria_logo.png" alt="Restaurant Intelligence Agency" /></a>
+				<h2>Admin</h2>
 			</div><!--#brand-->
 
-			<h2 class="note">Admin</h2>
-
-			<div id="navigation" class="span-11 last">
+			<div id="navigation" class="span-12 last">
 				<ul>
 					<li><%= link_to "Users", admin_users_path %></li>
 					<li><%= link_to "Direct Messages", admin_direct_messages_path %></li>
@@ -45,6 +44,7 @@
 					<li><%= link_to "Coached Status Updates", admin_coached_status_updates_path %></li>
 					<li><%= link_to "Seasons and Holidays", admin_date_ranges_path %></li>
 					<li><%= link_to "Cuisines", admin_cuisines_path %></li>
+					<li><%= link_to "Restaurant Roles", admin_restaurant_roles_path %></li>
 				</ul>
 			</div><!--#navigation-->
 		</div><!--header-->
