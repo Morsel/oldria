@@ -38,7 +38,7 @@
 		<%= f.collection_select :metropolitan_area_id, MetropolitanArea.all, :id, :name %>
 	</p>
 	<p class="span-5 column">
-		<%= f.label :james_beard_region_id, "Region (Based on James Beard Foundation)" %>
+		<%= f.label :james_beard_region_id, "Region" %>
 		<%= f.collection_select :james_beard_region_id, JamesBeardRegion.all, :id, :name_and_description %>
 	</p>
 	<p class="clear">

@@ -3,7 +3,7 @@
 <% form_for @search do |f| %>
 <p>TODO: Add other fields like Cuisine type</p>
   <p>
-    <%= f.label :james_beard_region_id, "Region (Based on James Beard Foundation)" %>
+    <%= f.label :james_beard_region_id, "Region" %>
     <%= f.collection_select :james_beard_region_id, JamesBeardRegion.all, :id, :name_and_description, :include_blank => true %>
   </p>
   <p class="clearfix"><%= button_tag "Search", :class => 'positive' %></p>
@@ -27,7 +27,7 @@
 		<td><%=h user.name %></td>
 		<td><%= link_to user.username, profile_path(user.username) %></td>
 	</tr>
-	<% end %>  
+	<% end %>
 </table>
 	<p class="clearfix"><%= button_tag "Next &raquo;" %></p>
 <% end %>
