@@ -12,7 +12,7 @@ set :user, "ria"
 set :use_sudo, false
 
 set :scm, :git
-set :repository,  "git@69.64.75.174:ria.git"
+set :repository,  "git@code.neotericdesign.com:ria.git"
 set :branch, 'master'
 set :git_enable_submodules, 1
 
@@ -24,11 +24,18 @@ namespace :deploy do
   task :restart do
     run "touch #{current_path}/tmp/restart.txt"
   end
-  
+
   desc "Symlink shared configs and folders on each release."
   task :symlink_shared do
     run "ln -nfs #{shared_path}/config/database.yml #{release_path}/config/database.yml"
     run "ln -nfs #{shared_path}/db/production.sqlite3 #{release_path}/db/production.sqlite3"
+  end
+end
+
+namespace :db do
+  desc "Seed the database with configured seedlings"
+  task :seed do
+    run("cd #{deploy_to}/current; /usr/bin/rake db:seed RAILS_ENV=production")
   end
 end
 
