@@ -1,6 +1,7 @@
 <% title "Invite an Employee to SpoonFeed" %>
 
 <% form_for @employment, :url => restaurant_employees_path(@restaurant) do |form| %>
+	<%= form.hidden_field :restaurant_role_id %>
 	<% form.fields_for :employee, @employee do |f| -%>
 	<%= f.error_messages %>
 	<p>

@@ -20,6 +20,10 @@ When /^I follow the edit role link for "([^\"]*)"$/ do |employee_name|
   click_link "edit", :within => "user_#{user_id}"
 end
 
+When /^I confirm the employee$/ do
+  click_button "Yes"
+end
+
 
 Then /^"([^\"]*)" should be the account manager for "([^\"]*)"$/ do |username, restaurantname|
   user = User.find_by_username!(username)
@@ -43,5 +47,7 @@ end
 Then /^"([^\"]*)" should be a "([^\"]*)" at "([^\"]*)"$/ do |name, rolename, restaurantname|
   restaurant = Restaurant.find_by_name(restaurantname)
   user = User.find_by_name(name)
-  Employment.first(:conditions => { :restaurant_id => restaurant.id, :employee_id => user.id }).restaurant_role.name.should eql(rolename)
+  employment = Employment.first(:conditions => { :restaurant_id => restaurant.id, :employee_id => user.id })
+  employment.restaurant_role.should_not be_nil
+  employment.restaurant_role.name.should eql(rolename)
 end

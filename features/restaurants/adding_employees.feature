@@ -23,7 +23,7 @@ Feature: Associating a Restaurant with its employees
     And I press "Submit"
     Then I should see "Is this who you were looking for?"
     Then I should see "Betty Davis"
-    
+
     When I press "Yes"
     Then I should see "Betty Davis"
     And "Jimmy's Diner" should have 1 employee
@@ -39,14 +39,14 @@ Feature: Associating a Restaurant with its employees
     Then I should see "Employee is already associated with that restaurant"
     And "Jimmy's Diner" should only have 1 employee
 
-@focus
+
   Scenario: Inviting a non-existing Employee
     Given I have just created a restaurant named "Duck Soup"
     When I follow "Add employee"
     And I fill in "Employee Email" with "dinkle@example.com"
     And I press "Submit"
     Then I should see "Invite an Employee"
-    
+
     When I fill in "Name" with "David Dinkle"
     And I fill in "Username" with "daviddinkle"
     And I fill in "Temporary Password" with "secret"
@@ -55,7 +55,7 @@ Feature: Associating a Restaurant with its employees
     Then I should see "Successfully associated employee and restaurant"
     And "Duck Soup" should have 1 employee
     And "dinkle@example.com" should have 1 email
-    
+
     When I logout
     And "dinkle@example.com" opens the email with subject "MediaFeed: You've been added"
     Then I should see "Welcome" in the email body
@@ -63,5 +63,4 @@ Feature: Associating a Restaurant with its employees
     And I should see an invitation URL in the email body
     When I click the first link in the email
     Then I should see "Successfully logged in"
-    
-  
+
