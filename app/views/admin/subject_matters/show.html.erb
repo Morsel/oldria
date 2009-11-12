@@ -1,0 +1,12 @@
+<% title "Subject Matter" %>
+
+<p>
+	<strong>Name:</strong>
+	<%=h @subject_matter.name %>
+</p>
+
+<p>
+	<%= link_to "Edit", edit_admin_subject_matter_path(@subject_matter) %> |
+	<%= link_to "Destroy", [:admin, @subject_matter], :confirm => 'Are you sure?', :method => :delete %> |
+	<%= link_to "View All", admin_subject_matters_path %>
+</p>

@@ -1,0 +1,21 @@
+<% title "Subject Matters" %>
+
+<p class="clearfix"><%= link_to "New Subject Matter", new_admin_subject_matter_path, :class => 'button positive'%></p>
+
+<table>
+	<tr>
+		<th>Name</th>
+		<th></th>
+	</tr>
+	<% for subject_matter in @subject_matters %>
+	<tr>
+		<td><%=h subject_matter.name %></td>
+		<td class="utility">
+			<%= link_to "Show", [:admin, subject_matter] %>
+			<%= link_to "Edit", edit_admin_subject_matter_path(subject_matter) %>
+			<%= link_to "Destroy", [:admin, subject_matter], :confirm => 'Are you sure?', :method => :delete %>
+		</td>
+	</tr>
+	<% end %>
+</table>
+

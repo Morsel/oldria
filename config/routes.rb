@@ -38,8 +38,8 @@ ActionController::Routing::Routes.draw do |map|
     admin.resources :users
     admin.resources :pages
     admin.resources :date_ranges, :account_types, :coached_status_updates, :direct_messages
+    admin.resources :cuisines, :subject_matters
     admin.resources :media_requests, :member => { :approve => :put }
-    admin.resources :cuisines
     admin.resources :restaurant_roles, :except => [:show]
   end
 

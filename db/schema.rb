@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20091109215733) do
+ActiveRecord::Schema.define(:version => 20091112204519) do
 
   create_table "account_types", :force => true do |t|
     t.string   "name"
@@ -182,6 +182,12 @@ ActiveRecord::Schema.define(:version => 20091109215733) do
     t.integer  "user_id"
     t.integer  "twitter_id"
     t.boolean  "queue_for_social_media"
+  end
+
+  create_table "subject_matters", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "users", :force => true do |t|

@@ -56,7 +56,14 @@ end
 puts "There are now #{RestaurantRole.count} restaurant roles"
 
 
+# == Set up Subject Matters ==
 
+subject_matters = YAML.load_file(@seedling_path + '/subject_matters.yml')['subject_matters']
+subject_matters.each do |subject_matter|
+  SubjectMatter.find_or_create_by_name(subject_matter)
+end
+
+puts "There are now #{SubjectMatter.count} subject matters"
 
 
 
