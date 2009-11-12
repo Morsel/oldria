@@ -3,7 +3,7 @@ class EmployeesController < ApplicationController
   before_filter :find_restaurant
 
   def index
-    @employees = @restaurant.employees
+    @employments = @restaurant.employments
   end
 
   def new

@@ -1,3 +1,5 @@
 class SubjectMatter < ActiveRecord::Base
-  attr_accessible :name
+  has_many :responsibilities
+  has_many :employments, :through => :responsibilities
+  validates_presence_of :name
 end

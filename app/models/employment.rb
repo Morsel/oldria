@@ -2,6 +2,8 @@ class Employment < ActiveRecord::Base
   belongs_to :employee, :class_name => "User"
   belongs_to :restaurant
   belongs_to :restaurant_role
+  has_many :responsibilities
+  has_many :subject_matters, :through => :responsibilities
 
   accepts_nested_attributes_for :employee
 

@@ -4,6 +4,8 @@ describe Employment do
   should_belong_to :employee, :class_name => "User"
   should_belong_to :restaurant
   should_belong_to :restaurant_role
+  should_have_many :responsibilities
+  should_have_many :subject_matters, :through => :responsibilities
   should_validate_presence_of :employee_id
   should_validate_presence_of :restaurant_id
   should_accept_nested_attributes_for :employee

@@ -4,7 +4,7 @@ describe EmployeesController do
   integrate_views
 
   before(:each) do
-    @restaurant = Factory.stub(:restaurant)
+    @restaurant = Factory(:restaurant)
     @employee = Factory(:user, :name => "John Doe", :email => "john@example.com")
     @employee.stubs(:managed_restaurants).returns([@restaurant])
     @employee.stubs(:restaurants)
@@ -14,7 +14,8 @@ describe EmployeesController do
 
   describe "GET index" do
     before(:each) do
-      @restaurant.stubs(:employees).returns([@employee])
+      @employment = Factory(:employment, :employee => @employee, :restaurant => @restaurant)
+      @restaurant.stubs(:employments).returns([@employment])
       get :index, :restaurant_id => @restaurant.id
     end
 
@@ -24,8 +25,8 @@ describe EmployeesController do
       assigns[:restaurant].should == @restaurant
     end
 
-    it "should assign @employees, scoped by the restaurant" do
-      assigns[:employees].should == @restaurant.employees
+    it "should assign @employments, scoped by the restaurant" do
+      assigns[:employments].should == @restaurant.employments
     end
   end
 
@@ -94,8 +95,8 @@ describe EmployeesController do
   describe "POST create" do
     context "when user exists" do
       before(:each) do
-        User.stubs(:find_by_email).returns(@employee)
-        post :create, :restaurant_id => @restaurant.id, :employment=> {:employee_email => "John Doe"}
+        @employment.stubs(:save).returns(true)
+        post :create, :restaurant_id => @restaurant.id, :employment=> {:employee_email => "john@example.com"}
       end
 
       it "should assign @restaurant" do

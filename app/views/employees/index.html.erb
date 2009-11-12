@@ -1,8 +1,8 @@
 <% title "Employees at #{@restaurant.name}" %>
 
-<% unless @employees.blank? %>
+<% unless @employments.blank? %>
 <div id="restaurant_employees">
-	<% @employees.in_groups(2, false) do |group| %>
+	<% @employments.in_groups(2, false) do |group| %>
 		<div class="span-6<%= cycle("", " last") %>">
 			<%= render group %>
 		</div>
