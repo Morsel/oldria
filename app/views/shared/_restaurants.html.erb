@@ -6,7 +6,7 @@
 
 <% else %>
 
-	<% current_user.managed_restaurants.each do |restaurant| %>
+	<% current_user.managed_restaurants.reject(&:new_record?).each do |restaurant| %>
 	<% div_for restaurant do %>
 		<%= link_to h(restaurant.name), restaurant_employees_path(restaurant) %>
 	<% end -%>
