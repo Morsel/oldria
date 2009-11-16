@@ -1,0 +1,4 @@
+<p>
+	<%= check_box_tag 'recipient_ids[]', employment.id %>
+	<%= employment.employee.try(:name) %>, <%= employment.restaurant_role.try(:name) %>
+</p>

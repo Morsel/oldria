@@ -27,6 +27,24 @@ Then /^the media request should have ([0-9]+) comments?$/ do |num|
 end
 
 
+When /^I perform the search:$/ do |table|
+  searchcriteria = table.rows_hash
+  searchcriteria.each do |field, value|
+    if %w{Region}.include?(field)
+      select value, :from => field
+    else
+      fill_in field, :with => value
+    end
+  end
+  click_button "Search"
+end
+
+When /^I select "([^\"]*)" as a recipient$/ do |name|
+  # check
+  check 'recipient_ids[]'
+end
+
+
 When /^I create a new media request with:$/ do |table|
   mrdata = table.rows_hash
   recipient_ids = []

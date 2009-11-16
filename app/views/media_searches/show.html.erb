@@ -1,0 +1,59 @@
+<% title "Search" %>
+
+<% form_for @search, :html => {:class => 'formtastic'} do |f| %>
+<fieldset>
+	<legend>Restaurant</legend>
+	<ol>
+		<li class="string">
+			<%= f.label :restaurant_name_like, "Restaurant Name"  %>
+			<%= f.text_field :restaurant_name_like %>
+		</li>
+		<li class="span-5 column">
+			<%= f.label :restaurant_james_beard_region_id_is, "Region" %>
+			<%= f.collection_select :restaurant_james_beard_region_id_is, JamesBeardRegion.all, :id, :name, :include_blank => true %>
+		</li>
+		<li class="span-3 column last">
+			<%= f.label :restaurant_metropolitan_area_id_is, "Greater Metropolitan Area" %>
+			<%= f.collection_select :restaurant_metropolitan_area_id_is, MetropolitanArea.all, :id, :name, :include_blank => true %>
+		</li>
+		<li class="clear">
+			<%= f.label :restaurant_cuisine_id_is, "Cuisine" %>
+			<%= f.collection_select :restaurant_cuisine_id_is, Cuisine.all, :id, :name, :include_blank => true %>
+		</li>
+	</ol>
+</fieldset>
+<fieldset>
+	<legend>Employee</legend>
+	<ol>
+		<li class="string">
+			<%= f.label :employee_first_name_or_last_name_like, "Name" %>
+			<%= f.text_field :employee_first_name_or_last_name_like %>
+		</li>
+		<li>
+			<%= f.label :restaurant_role_id_is, "Role at Restaurant" %>
+			<%= f.collection_select :restaurant_role_id_is, RestaurantRole.all, :id, :name, :include_blank => true %>
+		</li>
+		<li>
+			<%= f.label :restaurant_role_id_is, "Role at Restaurant" %>
+			<%= f.collection_select :restaurant_role_id_is, RestaurantRole.all, :id, :name, :include_blank => true %>
+		</li>
+
+	</ol>
+</fieldset>
+<p class="clearfix"><%= button_tag "Search", :class => 'positive' %></p>
+<% end %>
+
+<% if @restaurants_and_employees && !@restaurants_and_employees.blank? %>
+	<% form_for MediaRequest.new, :url => new_media_request_path, :html => {:method => :get} do |f| %>
+		<% @restaurants_and_employees.each do |restaurant, employments| %>
+			<% div_for restaurant do %>
+				<h3><%= restaurant.name %></h3>
+				<%= render :partial => 'employment', :collection => employments %>
+			<% end -%>
+		<% end -%>
+
+		<p class="clearfix"><%= button_tag "Next" %></p>
+	<% end -%>
+<% elsif params[:search] %>
+<p>Sorry, we couldn't find anything that fit that criteria</p>
+<% end -%>

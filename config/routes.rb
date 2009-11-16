@@ -30,6 +30,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :invitations, :only => 'show'
 
   map.resource :search, :only => 'show'
+  map.resource :media_search, :only => 'show'
 
   map.root :controller => 'welcome'
 

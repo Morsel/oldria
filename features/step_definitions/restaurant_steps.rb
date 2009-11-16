@@ -1,7 +1,25 @@
+Given /^a restaurant named "([^\"]*)" with the following employees:$/ do |restaurantname, table|
+  restaurant = Factory(:restaurant, :name => restaurantname)
+  table.hashes.each do |userhash|
+    role = RestaurantRole.find_or_create_by_name(userhash['role'])
+    # subjectmatters = userhash.delete('subject matters')
+    #   subjects = nil
+    user = Factory(:user, :email => userhash['email'], :name => userhash['name'])
+    restaurant.employments.build(:employee => user, :restaurant_role => role)
+    restaurant.save!
+  end
+end
+
+
 Given /^I have just created a restaurant named "([^\"]*)"$/ do |restaurantname|
   visit new_restaurant_url
   fill_in "Name", :with => restaurantname
   click_button :submit
+end
+
+Given /^the restaurant "([^\"]*)" is in the region "([^\"]*)"$/ do |restaurantname, regionname|
+  region = JamesBeardRegion.find_or_create_by_name(regionname)
+  Restaurant.find_or_create_by_name(restaurantname).update_attribute(:james_beard_region, region)
 end
 
 Given /^a subject matter "([^\"]*)"$/ do |name|
