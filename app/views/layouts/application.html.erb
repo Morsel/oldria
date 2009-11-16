@@ -66,13 +66,13 @@
 		</div><!--#leftcolumn-->
 
 	<div id="sidebar" class="span-6 last">
-		<%= render :partial => 'shared/user_status' %>    
+		<%= render :partial => 'shared/user_status' %>
 
 		<% if !(sb = yield :sidebar).blank? %>
 		<%= sb %>
 		<% end -%>
 
-		<%= render :partial => 'shared/restaurants' if current_user %>
+		<%= render :partial => 'shared/restaurants' if current_user && !current_user.media? %>
 	</div><!--#sidebar-->
 
 	<div id="footer" class="clear">
@@ -96,14 +96,14 @@ var uservoiceJsHost = ("https:" == document.location.protocol) ? "https://uservo
 document.write(unescape("%3Cscript src='" + uservoiceJsHost + "/javascripts/widgets/tab.js' type='text/javascript'%3E%3C/script%3E"))
 </script>
 <script type="text/javascript">
-UserVoice.Tab.show({ 
+UserVoice.Tab.show({
 	/* required */
 	key: 'spoonfeed',
-	host: 'spoonfeed.uservoice.com', 
-	forum: '27993', 
+	host: 'spoonfeed.uservoice.com',
+	forum: '27993',
 	/* optional */
 	alignment: 'left',
-	background_color:'#f00', 
+	background_color:'#f00',
 	text_color: 'white',
 	hover_color: '#06C',
 	lang: 'en'
