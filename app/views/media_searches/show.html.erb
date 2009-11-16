@@ -33,11 +33,6 @@
 			<%= f.label :restaurant_role_id_is, "Role at Restaurant" %>
 			<%= f.collection_select :restaurant_role_id_is, RestaurantRole.all, :id, :name, :include_blank => true %>
 		</li>
-		<li>
-			<%= f.label :restaurant_role_id_is, "Role at Restaurant" %>
-			<%= f.collection_select :restaurant_role_id_is, RestaurantRole.all, :id, :name, :include_blank => true %>
-		</li>
-
 	</ol>
 </fieldset>
 <p class="clearfix"><%= button_tag "Search", :class => 'positive' %></p>
