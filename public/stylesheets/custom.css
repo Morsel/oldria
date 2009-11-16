@@ -1032,6 +1032,22 @@ form .inline-errors {
 	margin-bottom:0;
 }
 
+input[type="checkbox"], input[type="radio"], input.checkbox, input.radio {
+	top:1px;
+}
+
+ul.multiple_checkbox {
+	list-style:none;
+	margin:0;
+	height: 180px;
+	overflow:auto;
+	border:1px solid #ddd;
+}
+
+ul.multiple_checkbox li {
+	margin:0;
+}
+
 label abbr {
 	border-bottom:0 none;
 	font-weight:bold;

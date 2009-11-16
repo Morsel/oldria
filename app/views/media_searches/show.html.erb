@@ -9,16 +9,16 @@
 			<%= f.text_field :restaurant_name_like %>
 		</li>
 		<li class="span-5 column">
-			<%= f.label :restaurant_james_beard_region_id_is, "Region" %>
-			<%= f.collection_select :restaurant_james_beard_region_id_is, JamesBeardRegion.all, :id, :name, :include_blank => true %>
+			<%= f.label :restaurant_james_beard_region_id_is_any, "Region" %>
+			<%= multiple_checkbox_search JamesBeardRegion.all, :restaurant_james_beard_region_id_is_any %>
 		</li>
-		<li class="span-3 column last">
-			<%= f.label :restaurant_metropolitan_area_id_is, "Greater Metropolitan Area" %>
-			<%= f.collection_select :restaurant_metropolitan_area_id_is, MetropolitanArea.all, :id, :name, :include_blank => true %>
+		<li class="span-5 column last">
+			<%= f.label :restaurant_metropolitan_area_id_is_any, "Greater Metropolitan Area" %>
+			<%= multiple_checkbox_search(MetropolitanArea.all, :restaurant_metropolitan_area_id_is_any) %>
 		</li>
-		<li class="clear">
-			<%= f.label :restaurant_cuisine_id_is, "Cuisine" %>
-			<%= f.collection_select :restaurant_cuisine_id_is, Cuisine.all, :id, :name, :include_blank => true %>
+		<li class="clear span-10 last">
+			<%= f.label :restaurant_cuisine_id_is_any, "Cuisine" %>
+			<%= multiple_checkbox_search(Cuisine.all, :restaurant_cuisine_id_is_any) %>
 		</li>
 	</ol>
 </fieldset>
@@ -29,9 +29,9 @@
 			<%= f.label :employee_first_name_or_last_name_like, "Name" %>
 			<%= f.text_field :employee_first_name_or_last_name_like %>
 		</li>
-		<li>
-			<%= f.label :restaurant_role_id_is, "Role at Restaurant" %>
-			<%= f.collection_select :restaurant_role_id_is, RestaurantRole.all, :id, :name, :include_blank => true %>
+		<li class="span-10">
+			<%= f.label :restaurant_role_id_is_any, "Role at Restaurant" %>
+			<%= multiple_checkbox_search(RestaurantRole.all, :restaurant_role_id_is_any) %>
 		</li>
 	</ol>
 </fieldset>

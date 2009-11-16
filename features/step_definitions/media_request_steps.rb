@@ -31,7 +31,7 @@ When /^I perform the search:$/ do |table|
   searchcriteria = table.rows_hash
   searchcriteria.each do |field, value|
     if %w{Region}.include?(field)
-      select value, :from => field
+      check value
     else
       fill_in field, :with => value
     end
