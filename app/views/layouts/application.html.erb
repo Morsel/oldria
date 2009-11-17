@@ -4,7 +4,7 @@
 <head>
 
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-	<title><%= h(yield(:title) || "Untitled") %> - Spoonfeed - Restaurant Intelligence Agency</title>
+	<title><%= h(yield(:title) || "Untitled") %> - <%= current_user && current_user.media? ? "MediaFeed" : "SpoonFeed" %> - Restaurant Intelligence Agency</title>
 
 	<%= stylesheet_link_tag 'blueprint/screen', 'custom' %>
 	<%= stylesheet_link_tag 'blueprint/print', :media => 'print' %>
@@ -34,7 +34,13 @@
 		<div id="header" class="span-18 last">
 
 			<div id="brand" class="span-7">
-				<a href="/"><img src="/images/spoonfeed_logo.png" alt="Spoonfeed" /></a>
+				<a href="/">
+					<%- if current_user && current_user.media? %>
+					<img src="/images/mediafeed_logo.png" alt="Mediafeed" />
+					<%- else -%>
+					<img src="/images/spoonfeed_logo.png" alt="Spoonfeed" />
+					<% end -%>
+				</a>
 			</div><!--#brand-->
 
 			<div id="navigation" class="span-11 last">
@@ -66,8 +72,11 @@
 		</div><!--#leftcolumn-->
 
 	<div id="sidebar" class="span-6 last">
-		<%= render :partial => 'shared/user_status' %>
-
+		<%- if current_user && current_user.media? %>
+			<%= render :partial => 'shared/media_user_status' %>
+		<%- else -%>
+			<%= render :partial => 'shared/user_status' %>
+		<% end -%>
 		<% if !(sb = yield :sidebar).blank? %>
 		<%= sb %>
 		<% end -%>
