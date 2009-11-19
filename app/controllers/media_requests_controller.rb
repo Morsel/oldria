@@ -2,50 +2,44 @@ class MediaRequestsController < ApplicationController
   def show
     @media_request = MediaRequest.find(params[:id])
   end
-  
+
   def new
     @sender = current_user
-    if params[:recipient_ids]
-      @recipient_ids = params[:recipient_ids]
-      @recipients = User.find(@recipient_ids)
+    @search = Employment.search(params[:search])
+    if params[:search]
+      @employments = @search.all(:include => [:restaurant])
+      @restaurants = @employments.map(&:restaurant).uniq
+      @media_request = @sender.media_requests.build(:publication => @sender.publication)
     end
-    @media_request = @sender.media_requests.build(:publication => @sender.publication)
-    @media_request.attachments.build
-    @media_request_types = MediaRequestType.all
   end
-  
+
   def create
     @media_request = current_user.media_requests.build(params[:media_request])
 
-    if params[:recipient_ids]
-      for recipient in params[:recipient_ids]
-        @media_request.media_request_conversations.build(:recipient_id => recipient)
-      end      
-    end
-
     if @media_request.save
-      flash[:notice] = "Successfully created media request. It will be held for approval."
-      redirect_to @media_request
+      redirect_to edit_media_request_path(@media_request)
     else
       render :new
     end
   end
-  
+
   def edit
     @media_request_types = MediaRequestType.all
     @media_request = MediaRequest.find(params[:id])
+    @restaurants = @media_request.restaurants
   end
-  
+
   def update
     @media_request = MediaRequest.find(params[:id])
+    @media_request.fill_out
     if @media_request.update_attributes(params[:media_request])
-      flash[:notice] = "Successfully updated media request."
+      flash[:notice] = "Thanks! Your media request will be sent shortly!"
       redirect_to @media_request
     else
       render :edit
     end
   end
-  
+
   def destroy
     @media_request = MediaRequest.find(params[:id])
     @media_request.destroy

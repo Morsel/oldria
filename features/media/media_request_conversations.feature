@@ -1,8 +1,9 @@
+@mediarequest
 Feature: Media request conversations
   So that I can can converse about an MR
   As a Media user or recipient of a media request
   I want to see a dated comment box with attachments on the MR conversation page, most recent on top
-  
+
 
   Background:
     Given the following confirmed users:

@@ -1,0 +1,35 @@
+<% form_for @search, :html => {:class => 'formtastic faceted'} do |f| %>
+	<ol>
+		<li class="string">
+			<%= f.label :restaurant_name_like, "Restaurant Name"  %>
+			<%= f.text_field :restaurant_name_like %>
+		</li>
+		<li>
+			<a href="#faceted_search_criteria" class="toggler">Toggle advanced search</a>
+		</li>
+	</ol>
+	<ol id="faceted_search_criteria" style="display:none">
+		<li class="span-5 column">
+			<%= f.label :restaurant_james_beard_region_id_is_any, "Region" %>
+			<%= multiple_checkbox_search JamesBeardRegion.all, :restaurant_james_beard_region_id_is_any %>
+		</li>
+		<li class="span-5 column last">
+			<%= f.label :restaurant_metropolitan_area_id_is_any, "Greater Metropolitan Area" %>
+			<%= multiple_checkbox_search(MetropolitanArea.all, :restaurant_metropolitan_area_id_is_any) %>
+		</li>
+		<li class="clear span-10 last">
+			<%= f.label :restaurant_cuisine_id_is_any, "Cuisine" %>
+			<%= multiple_checkbox_search(Cuisine.all, :restaurant_cuisine_id_is_any) %>
+		</li>
+		<li class="span-5 column">
+			<%= f.label :responsibilities_subject_matter_id_is_any, "Subject Matter" %>
+			<%= multiple_checkbox_search(SubjectMatter.all, :responsibilities_subject_matter_id_is_any) %>
+		</li>
+		<li class="span-5 column last">
+			<%= f.label :restaurant_role_id_is_any, "Role at Restaurant" %>
+			<%= multiple_checkbox_search(RestaurantRole.all, :restaurant_role_id_is_any) %>
+		</li>
+	</ol>
+
+	<p class="clearfix clear"><%= button_tag "Search", :class => 'positive' %></p>
+<% end %>

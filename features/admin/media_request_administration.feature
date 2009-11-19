@@ -1,3 +1,4 @@
+@mediarequest
 Feature: Media request administration
   So that bad MRs aren't sent out to tons of people who will get angry
   And So that the MRs are formulated to ensure member use the system and don't contact media directly outside the system
@@ -21,4 +22,4 @@ Feature: Media request administration
     When I approve the media request
     Then "sam" should have 1 media request
     Then the media request for "sam" should be approved
-  
+

@@ -105,4 +105,16 @@ $("#employment_employee_name").autocomplete("/users.js", {
 	max: 15
 });
 
+// == Filter Toggler ==
+$("a.toggler").each(function(){
+	var $div = $(this.hash);
+	if ($div.length > 0) {
+		$div.hide();
+		$(this).click(function(){
+			$div.slideToggle();
+			$(this).toggleClass("open");
+			return false;
+		});
+	}
+});
 

@@ -1032,6 +1032,15 @@ form .inline-errors {
 	margin-bottom:0;
 }
 
+form.faceted label {
+	font-weight:bold;
+}
+
+form.faceted .multiple_checkbox label {
+	font-weight:normal;
+}
+
+
 input[type="checkbox"], input[type="radio"], input.checkbox, input.radio {
 	top:1px;
 }
@@ -1039,7 +1048,7 @@ input[type="checkbox"], input[type="radio"], input.checkbox, input.radio {
 ul.multiple_checkbox {
 	list-style:none;
 	margin:0;
-	height: 180px;
+	height: 120px;
 	overflow:auto;
 	border:1px solid #ddd;
 }

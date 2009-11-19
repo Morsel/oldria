@@ -79,7 +79,7 @@ end
 
 Factory.define :media_request_conversation do |f|
   f.association :media_request
-  f.association :recipient, :factory => :user
+  f.association :recipient, :factory => :employment
   f.comments_count 0
 end
 

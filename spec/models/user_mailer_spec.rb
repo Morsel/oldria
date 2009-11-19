@@ -9,8 +9,9 @@ describe UserMailer do
     before(:all) do
       @sender = Factory.stub(:media_user, :email => "media@media.com")
       @receiver = Factory.stub(:user, :name => "Hambone Fisher", :email => "hammy@spammy.com")
+      @employment = Factory.stub(:employment, :employee => @receiver)
       @request = Factory.stub(:media_request, :sender => @sender, :publication => "New York Times")
-      @request_conversation = Factory.stub(:media_request_conversation, :media_request => @request, :recipient => @receiver)
+      @request_conversation = Factory.stub(:media_request_conversation, :media_request => @request, :recipient => @employment)
       @email = UserMailer.create_media_request_notification(@request, @request_conversation)
     end
 
@@ -30,7 +31,7 @@ describe UserMailer do
       @email.should have_subject(/#{@request.publication_string}/)
     end
   end
-  
+
   describe "restaurant employee invitations" do
     before(:each) do
       @restaurant = Factory.stub(:restaurant, :name => "Joe's Place")

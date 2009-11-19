@@ -11,8 +11,8 @@
 			<%= message.body %>
 		</p>
 		<p class="meta">
-			from <%= link_to message.sender.username, message.sender %> | 
-			<%= message.created_at.to_s(:short) %> | 
+			from <%= link_to message.sender.username, message.sender %> |
+			<%= message.created_at.to_s(:short) %> |
 			<%= link_to "reply", reply_direct_message_path(message) %>
 		</p>
 	<% end # div -%>
@@ -24,23 +24,23 @@
 
 	<div id="media_requests" class="span-6 last" rel="Media Requests">
 <h3>Media Requests for You</h3>
-<% if !@media_requests.blank? %>
-	<% for request in @media_requests %>
-	<% div_for request, :class => 'clearfix' do %>
-		<p class="reply_link"><%= link_to "reply", request.conversation_with_recipient(current_user) %></p>
+<% if !@media_request_conversations.blank? %>
+	<% for conversation in @media_request_conversations %>
+	<% div_for conversation.media_request, :class => 'clearfix' do %>
+		<p class="reply_link"><%= link_to "reply", conversation %></p>
 		<p class="meta">
-			<%= request.created_at.strftime("%b %e") %> |
-			<%= request.publication_string %> wants to know:
+			<%= conversation.media_request.created_at.strftime("%b %e") %> |
+			<%= conversation.media_request.publication_string %> wants to know:
 		</p>
 		<p class="message">
-			<%= request.message %>
+			<%= conversation.media_request.message %>
 		</p>
 	<% end # div -%>
 	<% end # for loop %>
 	<% else %>
 	<p>You don't have any media requests yet.</p>
 <% end -%>
-	</div>	
+	</div>
 
 	<div id="direct_messages" class="span-6">
 	<h3>Direct Messages</h3>
@@ -55,7 +55,7 @@
 	<% end -%>
 	</div>
 
-	
+
 	<div id="friend_activity" class="span-6 last" rel="Friend Activity">
 <% if !@friend_activity.blank? %>
 		<h3>Friend Activity</h3>
@@ -66,7 +66,7 @@
 			<%= status.message %>
 		</p>
 		<p class="meta">
-			posted by <%= link_to status.user.username, status.user %> | 
+			posted by <%= link_to status.user.username, status.user %> |
 			<%= status.created_at.to_s(:short) %>
 		</p>
 	<% end # div -%>

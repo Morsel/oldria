@@ -22,7 +22,7 @@ describe Admin::MediaRequestsController do
       assigns[:media_requests].should == media_requests
     end
   end
-  
+
   describe "GET edit" do
     before(:each) do
       @media_request = Factory.stub(:media_request, :id => 29)
@@ -33,14 +33,15 @@ describe Admin::MediaRequestsController do
       get :edit, :id => 29
       response.should render_template(:edit)
     end
-    
+
     it "should assign @media_request" do
       get :edit, :id => 29
       assigns[:media_request].should == @media_request
     end
 
     it "should list the recipients" do
-      @media_request.stubs(:recipients).returns([Factory.stub(:user, :name => "Jimmy")])
+      user = Factory.stub(:user, :name => "Jimmy Nono")
+      @media_request.stubs(:recipients).returns([Factory.stub(:employment, :employee => user)])
       get :edit, :id => 29
       response.should have_selector("form") do |form|
         form.should contain("Jimmy")
@@ -54,13 +55,13 @@ describe Admin::MediaRequestsController do
       MediaRequest.stubs(:find).returns(@media_request)
       @params = {'these' => 'params'}
     end
-    
+
     it "should assign @media_request" do
       @media_request.stubs(:update_attributes)
       put :update, :id => 29, :media_request => @params
       assigns[:media_request].should == @media_request
     end
-    
+
     it "should redirect when update is successful and flash success message" do
       @media_request.expects(:update_attributes).with(@params).returns(true)
       put :update, :id => 29, :media_request => @params
@@ -74,7 +75,7 @@ describe Admin::MediaRequestsController do
       response.should render_template(:edit)
     end
   end
-  
+
   describe "PUT approve" do
     before(:each) do
       @media_request = Factory.stub(:media_request, :id => 45)

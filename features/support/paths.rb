@@ -28,7 +28,7 @@ module NavigationHelpers
     when /^the media( user)? signup page$/
       new_media_user_path
     when /^the media request search page$/
-      media_search_path
+      new_media_request_path
 
     # Restaurants
     when /^the new restaurant page$/

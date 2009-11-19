@@ -1,3 +1,4 @@
+@mediarequest
 Feature: Media requests
   In order to find out valuable information
   As a Media member
@@ -5,21 +6,23 @@ Feature: Media requests
 
 
   Background:
-    Given the following confirmed users:
-      | username | password | email            | name      |
-      | sam      | secret   | sam@example.com  | Sam Smith |
-      | john     | secret   | john@example.com | John Doe  |
+    Given a restaurant named "Eight Ball" with the following employees:
+      | username | password | email            | name      | role      | subject matters |
+      | sam      | secret   | sam@example.com  | Sam Smith | Chef      | Food, Pastry    |
+      | john     | secret   | john@example.com | John Doe  | Sommelier | Beer, Wine      |
     Given the following media users:
       | username | password |
       | mediaman | secret   |
 
 
-  Scenario: A new media request
+  Scenario: A new media request is held for approval
     Given I am logged in as "mediaman" with password "secret"
-    When I create a new media request with:
+    When I search for and find "Eight Ball" restaurant
+    And I create a new media request with:
       | Message    | Are cucumbers good in salad? |
       | Due date   | 2009-10-10                   |
-    Then I should see "held for approval"
+    Then I should see "media request will be sent shortly"
+    And the media request from "mediaman" should be pending
 
 
   Scenario: A new media request shows up on my dashboard
@@ -28,7 +31,7 @@ Feature: Media requests
       | Status  | approved                      |
     And "sam" has a media request from "mediaman" with:
       | Message | This message has not been approved |
-      | Status  | pending                            | 
+      | Status  | pending                            |
     And I am logged in as "sam" with password "secret"
     When I go to the dashboard
     Then I should see "Where are the best mushrooms?"
@@ -60,7 +63,7 @@ Feature: Media requests
   Scenario: A media requests notifications are emailed to recipients
     Given "sam" has a media request from "mediaman" with:
       | Message | Where are the best mushrooms? |
-    And an admin has approved the media request for "sam"
+    And an admin has approved the media request from "mediaman"
     Then "sam@example.com" should have 1 email
     And "john@example.com" should have 0 emails
     Given I am logged in as "sam" with password "secret"

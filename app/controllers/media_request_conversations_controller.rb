@@ -16,7 +16,7 @@ class MediaRequestConversationsController < ApplicationController
       render :show
     end
   end
-  
+
   private
 
   def build_comment
@@ -32,7 +32,7 @@ class MediaRequestConversationsController < ApplicationController
   end
 
   def require_sender_recipient_or_admin
-    unless (@media_request_conversation.recipient_id == current_user.id) || (@media_request.sender_id == current_user.id) || current_user.admin?
+    unless (@media_request_conversation.recipient.employee_id == current_user.id) || (@media_request.sender_id == current_user.id) || current_user.admin?
       flash[:error] = "You aren't allowed to view this page."
       redirect_to root_url
     end

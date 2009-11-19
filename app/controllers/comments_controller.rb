@@ -4,6 +4,7 @@ class CommentsController < ApplicationController
       @parent = MediaRequestConversation.find(params[:media_request_conversation_id])
     end
     @comment = @parent.comments.build(params[:comment])
+
     if @comment.save
       flash[:notice] = "Successfully created comment."
       redirect_to @parent

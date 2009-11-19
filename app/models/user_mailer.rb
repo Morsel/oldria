@@ -10,7 +10,7 @@ class UserMailer < ActionMailer::Base
       body       :user => user
     end
   end
-  
+
   def password_reset_instructions(user)
     from          'accounts@restaurantintelligenceagency.com'
     recipients    user.email
@@ -18,15 +18,15 @@ class UserMailer < ActionMailer::Base
     subject       "SpoonFeed: Password Reset Instructions"
     body          :edit_password_reset_url => edit_password_reset_url(user.perishable_token)
   end
-  
+
   def media_request_notification(request, request_conversation)
     from       'notifications@restaurantintelligenceagency.com'
-    recipients request_conversation.recipient.email
+    recipients request_conversation.recipient.employee.email
     sent_on    Time.now
     subject    "MediaFeed: #{request.publication_string} has a question for you"
     body       :request_conversation => request_conversation, :request => request
   end
-  
+
   def employee_invitation(user)
     from          'accounts@restaurantintelligenceagency.com'
     recipients    user.email
@@ -34,5 +34,5 @@ class UserMailer < ActionMailer::Base
     subject       "MediaFeed: You've been added"
     body          :user => user
   end
-  
+
 end

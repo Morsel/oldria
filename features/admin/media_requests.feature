@@ -1,3 +1,4 @@
+@mediarequest
 Feature: Media requests
   In order to administer media requests
   As a RIA Staff
@@ -15,4 +16,3 @@ Feature: Media requests
     When I follow "Media Requests"
     Then I should see a list of media requests
     And I should see "I can haz food?"
-  

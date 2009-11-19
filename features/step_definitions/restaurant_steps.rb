@@ -4,7 +4,9 @@ Given /^a restaurant named "([^\"]*)" with the following employees:$/ do |restau
     role = RestaurantRole.find_or_create_by_name(userhash['role'])
     # subjectmatters = userhash.delete('subject matters')
     #   subjects = nil
-    user = Factory(:user, :email => userhash['email'], :name => userhash['name'])
+    userhash.delete('role')
+    userhash.delete('subject matters')
+    user = Factory(:user, userhash)
     restaurant.employments.build(:employee => user, :restaurant_role => role)
     restaurant.save!
   end

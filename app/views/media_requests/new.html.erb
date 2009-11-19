@@ -1,7 +1,26 @@
 <% title "New Media Request" %>
+<h3>Who will you be sending this to?</h3>
 
-<% if !@recipients.blank? %>
-	<h4>To: <%= @recipients.map(&:name).try(:to_sentence) %></h4>
-<% end %>
+<% if @restaurants && !@restaurants.blank? %>
 
-<%= render :partial => 'form' %>
+	<% semantic_form_for @media_request do |f| %>
+		<% f.inputs do %>
+			<%= f.input :restaurant_ids, :collection => @restaurants, :as => :check_boxes,
+			:wrapper_html => {:class => ''},
+			:label => "At these Restaurants:" %>
+			<%= f.input :subject_matter_ids, :collection => SubjectMatter.all, :as => :check_boxes,
+			:wrapper_html => {:class => 'last'},
+			:label => "People who handle:", :hint => "Check all that apply" %>
+		<% end %>
+
+		<p class="clearfix"><%= button_tag "Next" %></p>
+	<% end -%>
+
+	<h3>Not quite who you're looking for? Try searching again:</h3>
+
+<% elsif params[:search] %>
+<h3>Sorry, we couldn't find anything that fit that criteria.</h3>
+<p>Please try a different search.</p>
+<% end -%>
+
+<%= render :partial => 'search' %>

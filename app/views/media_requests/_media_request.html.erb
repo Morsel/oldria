@@ -1,6 +1,6 @@
 <% div_for media_request, :class => 'clearfix summary' do %>
-	<p>To: <%= media_request.recipients.map(&:name).try(:to_sentence) %></p>
-	<p>Due by <%= media_request.due_date.to_s(:long_ordinal) %></p>
+	<p>To: <%= media_request.recipients.map(&:employee_name).try(:to_sentence) %></p>
+	<p>Due by <%= media_request.due_date.try(:to_s, :long_ordinal) %></p>
 	<p>Sent: <%= media_request.created_at.to_s(:sentence) %></p>
 	<p class="message"><%= truncate(media_request.message, :length => 100) %></p>
 

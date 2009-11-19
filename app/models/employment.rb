@@ -4,6 +4,8 @@ class Employment < ActiveRecord::Base
   belongs_to :restaurant_role
   has_many :responsibilities
   has_many :subject_matters, :through => :responsibilities
+  has_many :media_request_conversations, :foreign_key => 'recipient_id'
+  has_many :media_requests, :through => :media_request_conversations
 
   accepts_nested_attributes_for :employee
 
@@ -21,5 +23,9 @@ class Employment < ActiveRecord::Base
 
   def employee_email=(email)
     self.employee = User.find_by_email(email)
+  end
+
+  def restaurant_name
+    @restaurant_name ||= restaurant && restaurant.name
   end
 end

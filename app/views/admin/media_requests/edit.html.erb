@@ -5,13 +5,19 @@
 	<%= f.hidden_field :sender_id %>
 
 	<% if !@media_request.recipients.blank? %>
-		<h4>To: <%= @media_request.recipients.map(&:name).try(:to_sentence) %></h4>
+	<h4>
+		To:
+		<% @media_request.recipients.each do |employment| %>
+			<%= employment.restaurant.try(:name) %>:
+			<%= employment.employee.try(:name) %>
+		<% end -%>
+	</h4>
 	<% end %>
 
 	<%= render :partial => 'media_requests/media_request_types', :locals => {:f => f} %>
 
 	<p>
-		<%= f.label :due_date, "Due date" %> 
+		<%= f.label :due_date, "Due date" %>
 		<%= f.date_select :due_date %><small>(When do you need the response by?)</small>
 	</p>
 	<p>

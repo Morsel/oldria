@@ -1,4 +1,4 @@
-@media
+@media @mediarequest
 Feature: Media faceted member search
   In order to find people to send things to
   As a Media member
@@ -19,22 +19,16 @@ Feature: Media faceted member search
     Given I am on the media request search page
     When I perform the search:
       | Restaurant Name | South of the Border |
-    Then I should see "South of the Border"
-    And I should see "Sam Smith, Chef"
-    And I should see "John Doe, Sommelier"
-
-    When I select "John Doe" as a recipient
+    And I select "South of the Border" as a recipient
     And I press "Next"
-    Then I should see "New Media Request"
-    And I should see "To: John Doe"
+    Then "mediaman" should have a new draft media request
+    And I should see "Compose Media Request"
+    And I should see /To:(\s)*South of the Border/
 
 
-  Scenario: Searching by restaurant name
+  Scenario: Searching by other criteria
     Given the restaurant "South of the Border" is in the region "Midwest"
     And I am on the media request search page
     When I perform the search:
       | Region | Midwest |
     Then I should see "South of the Border"
-    And I should see "Sam Smith, Chef"
-    And I should see "John Doe, Sommelier"
-
