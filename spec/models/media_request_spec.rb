@@ -107,7 +107,18 @@ describe MediaRequest do
     end
 
     it "should assign recipients before saving the first time" do
+      # it goes to everyone when @subject_matters is nil
       @request.restaurant_ids = [@restaurant.id]
+      @request.save
+      @request.reload
+      @request.recipients.should include(@employment)
+    end
+
+    it "should assign recipients before saving with subject matters" do
+      @subject_matter = Factory(:subject_matter, :name => "Blah")
+      @employment.subject_matters << @subject_matter
+      @request.restaurant_ids = [@restaurant.id]
+      @request.subject_matter_ids = [@subject_matter.id]
       @request.save
       @request.recipients.should include(@employment)
     end

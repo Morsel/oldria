@@ -3,7 +3,7 @@ class MediaRequest < ActiveRecord::Base
 
   belongs_to :sender, :class_name => 'User'
   belongs_to :media_request_type
-  has_many :media_request_conversations
+  has_many :media_request_conversations, :dependent => :destroy
   has_many :conversations_with_comments, :class_name => 'MediaRequestConversation', :conditions => 'comments_count > 0'
 
   # Recipients are Employment objects, not Employees directly
@@ -80,8 +80,14 @@ class MediaRequest < ActiveRecord::Base
 
   def assign_recipients_from_restaurants
     if @restaurant_ids
-      self.recipients = Employment.all(:conditions => {:restaurant_id => @restaurant_ids})
-      @restaurant_ids = nil
+      if @subject_matter_ids
+        employments = Employment.all(:include => :responsibilities, :conditions => {:restaurant_id => @restaurant_ids, :responsibilities => {:subject_matter_id => @subject_matter_ids}})
+        @subject_matter_ids = nil
+      else
+        employments = Employment.all(:conditions => {:restaurant_id => @restaurant_ids})
+        @restaurant_ids = nil
+      end
+      self.recipients = employments
     end
   end
 

@@ -13,6 +13,11 @@ Given /^"([^\"]*)" has a media request from a media member with:$/ do |username,
 end
 
 
+Given /^there are no media requests$/ do
+  MediaRequest.destroy_all
+end
+
+
 When /^I follow "([^\"]*)" within the "([^\"]*)" section$/ do |link, relselector|
   response.should have_selector("div", :rel => relselector) do |section|
     click_link link
@@ -125,4 +130,7 @@ Then(/^"([^\"]*)" should have a(?: new)? draft media request$/) do |username|
   media_requests.last.status.should == 'draft'
 end
 
+Then(/^there should be ([0-9]+) media requests?(?: in the system)?$/) do |num|
+  MediaRequest.count.should == num.to_i
+end
 
