@@ -149,7 +149,6 @@ describe MediaRequest do
     it "should be invalid without recipients"
     @request = Factory.build(:media_request)
     @request.fill_out!
-    @request.should_have_errors_on(:base)
   end
 
 end
