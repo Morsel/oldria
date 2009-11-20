@@ -6,11 +6,19 @@
 	<% semantic_form_for @media_request do |f| %>
 		<% f.inputs do %>
 			<%= f.input :restaurant_ids, :collection => @restaurants, :as => :check_boxes,
-			:wrapper_html => {:class => ''},
+			:wrapper_html => {:class => 'restaurant_list'},
+			:label_method => :name_and_location,
 			:label => "At these Restaurants:" %>
+
 			<%= f.input :subject_matter_ids, :collection => SubjectMatter.all, :as => :check_boxes,
-			:wrapper_html => {:class => 'last'},
+			:wrapper_html => {:class => 'span-3 column'},
 			:label => "People who handle:", :hint => "Check all that apply" %>
+			<li class="list_or column span-2">
+				<span>OR</span>
+			</li>
+			<%= f.input :restaurant_role_ids, :collection => RestaurantRole.all, :as => :check_boxes,
+			:wrapper_html => {:class => 'last span-6 column'},
+			:label => "People who are:", :hint => "Check all that apply" %>
 		<% end %>
 
 		<p class="clearfix"><%= button_tag "Next" %></p>

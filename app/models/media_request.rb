@@ -18,7 +18,7 @@ class MediaRequest < ActiveRecord::Base
 
   before_save :assign_recipients_from_restaurants
 
-  attr_accessor :restaurant_ids, :subject_matter_ids
+  attr_accessor :restaurant_ids, :subject_matter_ids, :restaurant_role_ids
 
   include AASM
 
@@ -80,13 +80,16 @@ class MediaRequest < ActiveRecord::Base
 
   def assign_recipients_from_restaurants
     if @restaurant_ids
-      if @subject_matter_ids
+      if !@subject_matter_ids.blank?
         employments = Employment.all(:include => :responsibilities, :conditions => {:restaurant_id => @restaurant_ids, :responsibilities => {:subject_matter_id => @subject_matter_ids}})
         @subject_matter_ids = nil
+      elsif !@restaurant_role_ids.blank?
+        employments = Employment.all(:conditions => {:restaurant_id => @restaurant_ids, :restaurant_role_id => @restaurant_role_ids})
+        @restaurant_role_ids = nil
       else
         employments = Employment.all(:conditions => {:restaurant_id => @restaurant_ids})
-        @restaurant_ids = nil
       end
+      @restaurant_ids = nil
       self.recipients = employments
     end
   end

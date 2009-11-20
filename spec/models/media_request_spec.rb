@@ -145,4 +145,11 @@ describe MediaRequest do
     end
   end
 
+  describe "brand new request" do
+    it "should be invalid without recipients"
+    @request = Factory.build(:media_request)
+    @request.fill_out!
+    @request.should_have_errors_on(:base)
+  end
+
 end

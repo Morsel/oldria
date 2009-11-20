@@ -20,6 +20,7 @@ Feature: Media faceted member search
     When I perform the search:
       | Restaurant Name | South of the Border |
     And I select "South of the Border" as a recipient
+    And I check "Chef"
     And I press "Next"
     Then "mediaman" should have a new draft media request
     And I should see "Compose Media Request"

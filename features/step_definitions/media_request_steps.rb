@@ -1,5 +1,7 @@
 def find_media_requests_for_username(username)
-  User.find_by_username(username).media_request_conversations.map(&:media_request)
+  user = User.find_by_username(username)
+  ids = user.media_request_conversations.map(&:media_request_id).uniq
+  media_requests = MediaRequest.find(ids)
 end
 
 Given /^"([^\"]*)" has a media request from a media member with:$/ do |username, table|
@@ -30,13 +32,18 @@ end
 
 
 When /^I search for and find "([^\"]*)" restaurant$/ do |restaurantname|
+  When("I search for \"#{restaurantname}\" restaurant")
+  check restaurantname
+  click_button "Next"
+end
+
+When /^I search for "([^\"]*)" restaurant$/ do |restaurantname|
   restaurant = Restaurant.find_or_create_by_name(restaurantname)
   visit new_media_request_path
   fill_in "Restaurant", :with => restaurantname
   click_button "Search"
-  check restaurantname
-  click_button "Next"
 end
+
 
 When /^I perform the search:$/ do |table|
   searchcriteria = table.rows_hash
@@ -61,7 +68,8 @@ When /^I create a new media request with:$/ do |table|
   recipient_ids = []
   if mrdata['Recipients']
     mrdata['Recipients'].split(", ").each do |username|
-      recipient_ids << User.find_by_username(username).id
+      user = User.find_by_username(username)
+      recipient_ids << Employment.find_by_user_id(user.id).id
     end
   end
   fill_in 'media_request[message]', :with => mrdata["Message"]
@@ -120,7 +128,7 @@ Then /^the media request for "([^\"]*)" should be approved$/ do |username|
   media_requests.last.should be_approved
 end
 
-Then(/^"([^\"]*)" should have ([0-9]+) media request$/) do |username,num|
+Then(/^"([^\"]*)" should have ([0-9]+) media requests?$/) do |username,num|
   media_requests = find_media_requests_for_username(username)
   media_requests.size.should == num.to_i
 end

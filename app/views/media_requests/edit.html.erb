@@ -3,7 +3,7 @@
 <h4>
 To:
 <% @restaurants.each do |restaurant| %>
-<%= restaurant.try(:name) %>
+	<%= restaurant.try(:name_and_location) %>
 <% end -%>
 </h4>
 

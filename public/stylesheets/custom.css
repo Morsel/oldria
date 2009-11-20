@@ -1088,6 +1088,31 @@ label abbr {
 	float: left;
 }
 
+.subject_matter_ids.column li, form .restaurant_list li {
+	width: auto;
+	float:none;
+}
+
+
+.restaurant_list li {
+	font-size: 1.2em;
+}
+
+.restaurant_role_ids.column li {
+	width:48%;
+	padding: 0 2% 0 0;
+}
+
+form li.list_or {
+	font-size: 2em;
+	color: #bbb;
+	font-weight:bold;
+	padding: 1em 0;
+}
+
+form li.list_or span {
+	padding:0 .5em;
+}
 
 /* @end */
 
