@@ -10,6 +10,8 @@ class MediaRequest < ActiveRecord::Base
   has_many :recipients, :through => :media_request_conversations
   has_many :attachments, :as => :attachable, :class_name => '::Attachment'
   validates_presence_of :sender_id
+  validate :require_recipients
+
 
   accepts_nested_attributes_for :attachments
 
@@ -91,6 +93,12 @@ class MediaRequest < ActiveRecord::Base
       end
       @restaurant_ids = nil
       self.recipients = employments
+    end
+  end
+
+  def require_recipients
+    if restaurant_ids && restaurant_ids.blank?
+      errors.add_to_base("You need to specify some recipients")
     end
   end
 

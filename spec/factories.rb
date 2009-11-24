@@ -4,7 +4,6 @@ Factory.define :user do |f|
   f.password 'foobar'
   f.password_confirmation { |u| u.password }
   f.confirmed_at { Time.now }
-  f.association :account_type
   f.first_name { |u| u.name.split(' ').first || "John" }
   f.last_name  { |u| u.name.split(' ').last  || "Doe" }
 end
@@ -17,7 +16,9 @@ end
 
 Factory.define :media_user, :parent => :user do |f|
   f.publication "The Times"
+  f.after_create { |user| user.has_role! :media }
 end
+
 
 Factory.define :restaurant do |f|
   f.name    "Joe's Diner"
@@ -25,6 +26,9 @@ Factory.define :restaurant do |f|
   f.city    "Chicago"
   f.state   "IL"
   f.zip     "60606"
+end
+
+Factory.define :managed_restaurant, :parent => :restaurant do |f|
   f.association :manager, :factory => :user
   f.association :cuisine
   f.association :metropolitan_area
@@ -67,14 +71,19 @@ Factory.define :direct_message do |f|
 end
 
 Factory.define :media_request_conversation do |f|
-  f.association :recipient, :factory => :user
   f.association :media_request
+  f.association :recipient, :factory => :employment
 end
 
 Factory.define :media_request do |f|
   f.association :sender, :factory => :media_user
   f.message "This is a media request message"
   f.due_date 2.days.from_now
+end
+
+Factory.define :sent_media_request, :parent => :media_request do |f|
+  f.status 'approved'
+  f.after_build {|r| Factory(:media_request_conversation, :media_request => r)}
 end
 
 Factory.define :media_request_conversation do |f|

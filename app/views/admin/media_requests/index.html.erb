@@ -10,12 +10,12 @@
 			<th>Replies</th>
 			<th>Due Date</th>
 			<th></th>
-		</tr>	
+		</tr>
 	</thead>
 	<tbody>
 		<% for media_request in @media_requests %>
 		<tr>
-			<td class="span-2"><%= link_to media_request.sender.try(:name), admin_user_path(media_request.sender) %></td>
+			<td class="span-2"><%= link_to media_request.sender.try(:name), admin_user_path(media_request.sender) if media_request.sender %></td>
 			<td><%= media_request.media_request_conversations.size %></td>
 			<td><%= media_request.media_request_type.try(:name) %></td>
 			<td><%= link_to truncate(media_request.message, :length => 50), media_request %></td>
@@ -28,7 +28,7 @@
 				<% end %>
 			</td>
 		</tr>
-		<% end %>	
+		<% end %>
 	</tbody>
 </table>
 

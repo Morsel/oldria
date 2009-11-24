@@ -1,3 +1,4 @@
+@uploads
 Feature: User headshots
   In order to show people what I look like
   As a SpoonFeed user
@@ -40,4 +41,3 @@ Feature: User headshots
     And I am logged in as "jimbob" with password "secret"
     When I go to the profile page for "tony"
     Then I should see his headshot
-  

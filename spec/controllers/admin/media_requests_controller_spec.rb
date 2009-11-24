@@ -11,12 +11,14 @@ describe Admin::MediaRequestsController do
 
   describe "GET index" do
     it "should render new template" do
+      MediaRequest.expects(:find).returns([])
       get :index
       response.should render_template(:index)
     end
 
     it "should assign @media_requests" do
-      media_requests = [Factory.stub(:media_request)]
+      sender = Factory(:media_user, :id => 49)
+      media_requests = [Factory(:media_request, :sender => sender)]
       MediaRequest.expects(:find).returns(media_requests)
       get :index
       assigns[:media_requests].should == media_requests

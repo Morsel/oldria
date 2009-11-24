@@ -146,9 +146,12 @@ describe MediaRequest do
   end
 
   describe "brand new request" do
-    it "should be invalid without recipients"
-    @request = Factory.build(:media_request)
-    @request.fill_out!
+    it "should be invalid without recipients" do
+      @request = Factory.build(:media_request)
+      @request.restaurant_ids = []
+      @request.fill_out
+      @request.should_not be_valid
+    end
   end
 
 end

@@ -17,8 +17,8 @@
 	<h4><%= @media_request.media_request_type.try(:name) %></h4>
 
 	<p>
-		<strong>Due by:</strong> <%= @media_request.due_date.to_s(:long_ordinal) %><br/>
-		<strong>Sent:</strong> <%= @media_request.created_at.to_s(:sentence) %>
+		<strong>Due by:</strong> <%= @media_request.due_date.try(:to_s, :long_ordinal) %><br/>
+		<strong>Sent:</strong> <%= @media_request.created_at.try(:to_s, :sentence) %>
 	</p>
 
 	<%= formatted_fields @media_request %>

@@ -166,7 +166,7 @@ describe EmployeesController do
     end
 
     it "should have a form to edit the employment" do
-      response.should have_selector("form", :action => restaurant_employee_path(@employee))
+      response.should have_selector("form", :action => restaurant_employee_path(@restaurant2, @employee))
     end
   end
 

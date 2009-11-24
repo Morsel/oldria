@@ -14,6 +14,17 @@ Given /^"([^\"]*)" has a media request from a media member with:$/ do |username,
   click_button :submit
 end
 
+Given /^"([^\"]*)" has a media request from "([^\"]*)" with:$/ do |username, mediauser, table|
+  message = table.rows_hash['Message']
+  status = table.rows_hash['Status'] || 'pending'
+  user = User.find_by_username(username)
+  user.should_not be_nil
+  employment = Factory(:employment, :employee => user)
+  sender = User.find_by_username(mediauser)
+  publication = table.rows_hash['Publication'] || sender.publication
+  Factory(:media_request, :recipients => [employment], :sender => sender, :message => message, :status => status, :publication => publication)
+end
+
 
 Given /^there are no media requests$/ do
   MediaRequest.destroy_all
@@ -75,17 +86,6 @@ When /^I create a new media request with:$/ do |table|
   fill_in 'media_request[message]', :with => mrdata["Message"]
   select_date(mrdata["Due date"] || 2009-12-01)
   click_button :submit
-end
-
-Given /^"([^\"]*)" has a media request from "([^\"]*)" with:$/ do |username, mediauser, table|
-  message = table.rows_hash['Message']
-  status = table.rows_hash['Status'] || 'pending'
-  user = User.find_by_username(username)
-  user.should_not be_nil
-  employment = Factory(:employment, :employee => user)
-  sender = User.find_by_username(mediauser)
-  publication = table.rows_hash['Publication'] || sender.publication
-  Factory(:media_request, :recipients => [employment], :sender => sender, :message => message, :status => status, :publication => publication)
 end
 
 Given /^an admin has approved the media request from "([^\"]*)"$/ do |username|

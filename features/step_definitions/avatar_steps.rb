@@ -11,7 +11,7 @@ end
 
 
 When /^I attach(?: an)? avatar "([^\"]*)" to "([^\"]*)"$/ do |attachment, field|
-  attach_file field, "features/support/paperclip/avatar/#{attachment}"
+  attach_file(field, RAILS_ROOT + "/features/support/paperclip/avatar/#{attachment}", "image/jpg")
 end
 
 Then /^"([^\"]*)" should have a headshot$/ do |username|
