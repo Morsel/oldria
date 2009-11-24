@@ -19,6 +19,15 @@ set :git_enable_submodules, 1
 set :deploy_to, "/home/ria/rails"
 set :deploy_via, :remote_cache
 
+desc "Run a Rake task remotely. Set the task with RAKE_TASK='your task here'"
+task :rake do
+  if ENV["RAKE_TASK"]
+    run "cd #{current_path} && rake RAILS_ENV=production #{ENV["RAKE_TASK"]}"
+  else
+    puts "You need to set a task with RAKE_TASK='task here'"
+  end
+end
+
 namespace :deploy do
   desc "Tell Passenger to restart the app."
   task :restart do
