@@ -10,16 +10,14 @@ describe MediaRequest do
   should_validate_presence_of :sender_id
 
   before(:each) do
-    @employee = Factory(:user)
+    @employee = Factory(:user, :username => "employee", :email => "employee@example.com")
     @restaurant = Factory(:restaurant)
     @employment = Factory(:employment, :restaurant => @restaurant, :employee => @employee)
   end
 
   describe "senders and receivers" do
     it "should build conversations with other folks" do
-      mr = Factory(:media_request, :sender => Factory(:user))
-      mr.media_request_conversations.build(:recipient_id => @employment.id)
-      mr.save
+      mr = Factory(:media_request, :sender => Factory(:user), :recipients => [@employment])
       mr.media_request_conversations.first.recipient.should == @employment
       @employee.media_request_conversations.first.media_request.should eql(mr)
     end
@@ -124,11 +122,10 @@ describe MediaRequest do
     end
 
     it "should be approvable" do
-      UserMailer.stubs(:deliver_media_request_notification)
-      media_request = MediaRequest.new(:message => 'Message')
+      UserMailer.stubs(:deliver_media_request_notification).returns(true)
+      media_request = Factory(:pending_media_request)
+      media_request.approve
       media_request.save
-      media_request.fill_out!
-      media_request.approve!
       media_request.should_not be_pending
       media_request.should be_approved
     end
@@ -146,11 +143,24 @@ describe MediaRequest do
   end
 
   describe "brand new request" do
+    before do
+      @subject_matter = Factory(:subject_matter, :name => "Ham")
+      @employment2 = Factory(:assigned_employment, :subject_matters => [@subject_matter])
+      sender = Factory(:user)
+      @request = Factory.build(:media_request, :sender => sender)
+    end
+
     it "should be invalid without recipients" do
-      @request = Factory.build(:media_request)
       @request.restaurant_ids = []
-      @request.fill_out
       @request.should_not be_valid
+      @request.save.should be_false
+    end
+
+    it "should be valid when restaurants are found" do
+      @request.restaurant_ids = [@employment2.restaurant.id.to_s]
+      @request.subject_matter_ids = [@subject_matter.id.to_s]
+      @request.should be_valid
+      @request.save.should be_true
     end
   end
 

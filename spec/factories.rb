@@ -79,12 +79,19 @@ Factory.define :media_request do |f|
   f.association :sender, :factory => :media_user
   f.message "This is a media request message"
   f.due_date 2.days.from_now
+  f.status 'draft'
 end
 
 Factory.define :sent_media_request, :parent => :media_request do |f|
   f.status 'approved'
   f.after_build {|r| Factory(:media_request_conversation, :media_request => r)}
 end
+
+Factory.define :pending_media_request, :parent => :media_request do |f|
+  f.status 'pending'
+  f.after_build {|r| Factory(:media_request_conversation, :media_request => r)}
+end
+
 
 Factory.define :media_request_conversation do |f|
   f.association :media_request
@@ -112,3 +119,9 @@ Factory.define :employment do |f|
   f.association :restaurant
   f.association :employee, :factory => :user
 end
+
+Factory.define :assigned_employment, :parent => :employment do |f|
+  f.subject_matters {|e| [e.association(:subject_matter)] }
+  f.restaurant_role {|e|  e.association(:restaurant_role) }
+end
+
