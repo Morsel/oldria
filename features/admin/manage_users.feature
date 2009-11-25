@@ -20,17 +20,21 @@ Feature: Manage users
   Scenario: Editing admin status of a user
     When I go to the admin edit page for "jimbob"
     Then the "Admin?" checkbox should not be checked
-    
-    When I check "Admin?"  
+
+    When I check "Admin?"
     And I press "Update"
     Then I should see "User was successfully updated"
     And "jimbob" should be an admin
-    
+
     When I go to the admin edit page for "jimbob"
     Then the "Admin?" checkbox should be checked
 
 
   Scenario: Editing the account type of a user
+    Given the following account_type records:
+      | name               |
+      | Concierge          |
+      | Media Professional |
     Given "jimbob" has a "Media" account type
     When I go to the admin edit page for "jimbob"
     Then I should see "Account type"
@@ -44,4 +48,3 @@ Feature: Manage users
     Given "jimbob" has a "Media" account type
     When I am on the admin users landing page
     Then I should see that "jimbob" has a "Media" account type
-  
