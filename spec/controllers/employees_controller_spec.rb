@@ -15,7 +15,9 @@ describe EmployeesController do
   describe "GET index" do
     before(:each) do
       @employment = Factory(:employment, :employee => @employee, :restaurant => @restaurant)
-      @restaurant.stubs(:employments).returns([@employment])
+      @employments = [@employment]
+      @employments.stubs(:all).returns([@employment])
+      @restaurant.stubs(:employments).returns(@employments)
       get :index, :restaurant_id => @restaurant.id
     end
 
