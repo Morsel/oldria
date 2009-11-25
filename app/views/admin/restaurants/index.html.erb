@@ -1,0 +1,13 @@
+<% title "Restaurants" %>
+
+<% table_for(@restaurants) do |t| %>
+	<%= t.data :name,
+             :city,
+             :state,
+             :manager,
+             :metropolitan_area,
+             :cuisine,
+             :actions => [:edit],
+             :action_prefix => :admin %>
+<% end -%>
+

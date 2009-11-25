@@ -41,6 +41,8 @@ module NavigationHelpers
       admin_root_path
     when /^the admin users landing page$/
       admin_users_path
+    when /^the admin restaurants page$/
+      admin_restaurants_path
     when /^the list of account types$/
       admin_account_types_path
     when /^the list of media requests page$/

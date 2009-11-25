@@ -455,7 +455,7 @@ div#navigation ul li a.current:hover {
 /* @group restaurants ---------------
  */
 
-.restaurant {
+div.restaurant {
 	font-size: 1.2em;
 }
 
@@ -890,13 +890,37 @@ tr:hover td {
 	background-color: #ffd;
 }
 
-td.utility {
+tr.even td {
+	background-color: #fafafa;
+}
+
+tr.restaurant { font-size: 1em; }
+
+td.actions, td.utility {
 	font-size: .8em;
+}
+
+td.utility {
 	padding-left: 1em;
 	padding-right: 1em;
 	word-spacing: 3px;
 	width: 95px;
 }
+
+td.actions {
+	width: 2em;
+}
+
+td.actions a {
+	border-bottom: 0;
+	color: #999;
+}
+
+td.actions a:hover {
+	border-bottom: 0;
+	color: #333;
+}
+
 
 /* @end */
 

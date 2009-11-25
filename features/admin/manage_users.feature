@@ -1,7 +1,7 @@
 Feature: Manage users
   So that staff can fix things and manage users
   As an RIA Staff Member
-  I want to edit user accounts, including acount type
+  I want to edit user accounts, including account type
 
   Background:
     Given the following confirmed users:
