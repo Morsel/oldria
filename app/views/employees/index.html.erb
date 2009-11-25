@@ -1,4 +1,14 @@
 <% title "Employees at #{@restaurant.name}" %>
+<p>So that your media requests go to the correct person, please also check what type of questions this employee should answer.</p>
+<p>We recommend that you assign one person to all the roles as a traffic manager to ensure the request gets answered. You can have multiple employees with the same role.</p>
+
+<% unless @restaurant.missing_subject_matters.empty? %>
+	<h4>No one is assigned for the following subjects:</h4>
+
+	<p class="error">
+		<%= @restaurant.missing_subject_matters.map(&:name).to_sentence %>
+	</p>
+<% end -%>
 
 <% unless @employments.blank? %>
 <div id="restaurant_employees">
