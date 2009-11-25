@@ -5,7 +5,12 @@ class MediaRequestsController < ApplicationController
 
   def new
     @sender = current_user
+    if params[:search] && namelike = params[:search].delete(:restaurant_name_like)
+      params[:search][:restaurant_name_like_all] = namelike.split
+    end
+
     @search = Employment.search(params[:search])
+
     if params[:search]
       @employments = @search.all(:include => [:restaurant])
       @restaurants = @employments.map(&:restaurant).uniq

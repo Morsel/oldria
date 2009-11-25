@@ -107,6 +107,11 @@ Factory.define :restaurant_role do |f|
   f.name "Chef"
 end
 
+Factory.define :james_beard_region do |f|
+  f.name "Midwest"
+  f.description "IN IL OH"
+end
+
 Factory.define :metropolitan_area do |f|
   f.name "Chicago IL"
 end

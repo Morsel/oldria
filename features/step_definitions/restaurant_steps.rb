@@ -8,8 +8,9 @@ Given /^a restaurant named "([^\"]*)" with the following employees:$/ do |restau
     userhash.delete('subject matters')
     user = Factory(:user, userhash)
     restaurant.employments.build(:employee => user, :restaurant_role => role)
-    restaurant.save!
   end
+  restaurant.manager = restaurant.employees.first
+  restaurant.save!
 end
 
 
@@ -20,8 +21,8 @@ Given /^I have just created a restaurant named "([^\"]*)"$/ do |restaurantname|
 end
 
 Given /^the restaurant "([^\"]*)" is in the region "([^\"]*)"$/ do |restaurantname, regionname|
-  region = JamesBeardRegion.find_or_create_by_name(regionname)
-  Restaurant.find_or_create_by_name(restaurantname).update_attribute(:james_beard_region, region)
+  region = Factory(:james_beard_region)
+  Restaurant.find_by_name!(restaurantname).update_attribute(:james_beard_region, region)
 end
 
 Given /^a subject matter "([^\"]*)"$/ do |name|
