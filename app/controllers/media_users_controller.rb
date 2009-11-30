@@ -1,13 +1,10 @@
 class MediaUsersController < ApplicationController
-  access_control do
-    default :allow
-    deny anonymous, :except => [:new, :create]
-  end
+  before_filter :require_media_user, :only => [:edit, :update]
 
   def new
     @media_user = User.new
   end
-  
+
   def create
     @media_user = User.new(params[:user])
     @media_user.has_role! :media
@@ -23,14 +20,23 @@ class MediaUsersController < ApplicationController
   def edit
     @media_user = User.find(params[:id])
   end
-  
+
   def update
     @media_user = User.find(params[:id])
     if @media_user.update_attributes(params[:user])
       flash[:notice] = "Successfully updated media user."
-      redirect_to media_user_path(@media_user)
+      redirect_to root_url
     else
       render :edit
+    end
+  end
+
+  private
+
+  def require_media_user
+    unless current_user && current_user.media?
+      flash[:message] = "Please log in first"
+      redirect_to root_url
     end
   end
 end

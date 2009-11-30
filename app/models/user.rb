@@ -1,6 +1,5 @@
 class User < ActiveRecord::Base
   acts_as_authentic
-  acts_as_authorization_subject
 
   belongs_to :james_beard_region
   belongs_to :account_type
@@ -22,8 +21,6 @@ class User < ActiveRecord::Base
   has_many :employments, :foreign_key => "employee_id"
   has_many :restaurants, :through => :employments
 
-  has_and_belongs_to_many :roles
-
   validates_presence_of :email
 
   attr_accessor :send_invitation
@@ -42,18 +39,30 @@ class User < ActiveRecord::Base
   named_scope :for_autocomplete, :select => "first_name, last_name", :order => "last_name ASC", :limit => 15
 
   def admin?
-    return @admin if defined?(@admin)
-    @admin = !roles.blank? && has_role?(:admin)
+    return @is_admin if defined?(@is_admin)
+    @is_admin = has_role?(:admin)
   end
   alias :admin :admin?
 
-  def admin=(bool)
-    TRUE_VALUES.include?(bool) ? has_role!(:admin) : has_no_role!(:admin)
-  end
-
   def media?
     return @is_media if defined?(@is_media)
-    @is_media = !roles.blank? && has_role?(:media)
+    @is_media = has_role?(:media)
+  end
+
+  def admin=(bool)
+    TRUE_VALUES.include?(bool) ? has_role!("admin") : has_no_role!(:admin)
+  end
+
+  def has_role?(_role)
+    role == _role.to_s.downcase
+  end
+
+  def has_role!(role)
+    update_attribute(:role, role.to_s)
+  end
+
+  def has_no_role!(role = nil)
+    update_attribute(:role, nil)
   end
 
   def following?(otheruser)

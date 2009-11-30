@@ -11,7 +11,7 @@ class ApplicationController < ActionController::Base
 
   helper_method :current_user
 
-  rescue_from "Acl9::AccessDenied" do
+  rescue_from CanCan::AccessDenied do
     if current_user
       flash[:error] = "Access denied. This area is above your pay grade."
       redirect_to root_url

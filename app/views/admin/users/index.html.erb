@@ -6,7 +6,7 @@
 
 <p><a href="#filter" class="showtarget">Toggle Filter</a></p>
 <div id="filter">
-<%= render :partial => 'searches/form' %>  
+<%= render :partial => 'searches/form' %>
 </div>
 
 <table id="admin_users_list" cellspacing="0" width="637">
@@ -20,7 +20,7 @@
 	</tr>
 
 	<% @users.each do |user| %>
-	<tr class="user <%= user.roles.include?(@adminrole) ? 'admin' : '' %>">
+	<tr class="user <%= user.admin? ? 'admin' : '' %>">
 		<td><%= h user.name %></td>
 		<td><%= link_to user.username, profile_path(user.username) %></td>
 		<td><%= h user.email %></td>

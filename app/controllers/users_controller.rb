@@ -1,13 +1,8 @@
 class UsersController < ApplicationController
-  access_control :only => [:show, :new], :as_method => :acl do
-    deny :medias
-    allow all
-    deny logged_in, :to => :new
-  end
-
   before_filter :require_user, :only => [:show]
+  before_filter :require_no_user, :only => [:new]
   before_filter :require_owner_or_admin, :only => [:edit, :update, :remove_twitter, :remove_avatar]
-  before_filter :acl
+  before_filter :block_media, :only => [:show, :new]
 
   def index
     respond_to do |format|
@@ -57,7 +52,7 @@ class UsersController < ApplicationController
       @user.confirmed_at = Time.now
       @user_session = UserSession.new(@user)
       if @user_session.save
-        @message = "Welcome aboard! Your account has been confirmed." 
+        @message = "Welcome aboard! Your account has been confirmed."
       end
     else
       @message = "Oops, we couldn't find your account. Have you already confirmed your account?"
@@ -75,7 +70,7 @@ class UsersController < ApplicationController
       render :edit
     end
   end
-  
+
   def remove_avatar
     @user = User.find(params[:id])
     @user.avatar = nil
@@ -89,7 +84,7 @@ class UsersController < ApplicationController
 
 
   private
-  
+
   def get_user
     if params[:username]
       @user = User.find_by_username(params[:username], :include => [:followings])
@@ -103,18 +98,25 @@ class UsersController < ApplicationController
     params[:id] && User.find(params[:id]) == current_user
   end
 
+  def block_media
+    if current_user && current_user.media?
+      flash[:error] = "This is an administrative area. Nothing exciting here at all."
+      redirect_to root_url
+    end
+  end
+
   def require_owner_or_admin
     unless (params[:id] && User.find(params[:id]) == current_user) || current_user.admin?
       flash[:error] = "This is an administrative area. Nothing exciting here at all."
       redirect_to root_url
     end
   end
-  
+
   def auto_complete_employees
     @users = User.for_autocomplete.find_all_by_name(params[:q]) if params[:q]
     if @users
       render :text => @users.map(&:name).join("\n")
     end
   end
-  
+
 end

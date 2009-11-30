@@ -2,7 +2,7 @@ class WelcomeController < ApplicationController
   def index
     if current_user
       @user = current_user
-      if @user.has_role? :media
+      if @user.has_role?(:media)
         @media_requests_by_type = @user.media_requests.for_dashboard.all(:include => [:conversations_with_comments, :media_request_type, :recipients]).group_by(&:media_request_type)
         render :mediahome
       else

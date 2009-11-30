@@ -4,8 +4,8 @@ describe EmployeesController do
   integrate_views
 
   before(:each) do
-    @restaurant = Factory(:restaurant)
     @employee = Factory(:user, :name => "John Doe", :email => "john@example.com")
+    @restaurant = Factory(:restaurant, :manager => @employee)
     @employee.stubs(:managed_restaurants).returns([@restaurant])
     @employee.stubs(:restaurants)
     Restaurant.stubs(:find).returns(@restaurant)
@@ -149,7 +149,7 @@ describe EmployeesController do
 
   describe "GET edit" do
     before(:each) do
-      @restaurant2 = Factory(:restaurant)
+      @restaurant2 = Factory(:restaurant, :manager => @employee)
       Restaurant.stubs(:find).returns(@restaurant2)
       @employment = Factory(:employment, :restaurant => @restaurant2, :employee => @employee)
       get :edit, :id => @employee.id, :restaurant_id => @restaurant2.id
@@ -174,7 +174,7 @@ describe EmployeesController do
 
   describe "PUT update" do
     before(:each) do
-      @restaurant2 = Factory(:restaurant)
+      @restaurant2 = Factory(:restaurant, :manager => @employee)
       Restaurant.stubs(:find).returns(@restaurant2)
       @employment = Factory(:employment, :restaurant => @restaurant2, :employee => @employee)
     end

@@ -1,8 +1,9 @@
 class EmployeesController < ApplicationController
   before_filter :require_user
-  before_filter :find_restaurant
+  before_filter :find_and_authorize_restaurant, :except => :index
 
   def index
+    @restaurant = Restaurant.find(params[:restaurant_id])
     @employments = @restaurant.employments
   end
 
@@ -71,7 +72,8 @@ class EmployeesController < ApplicationController
     true
   end
 
-  def find_restaurant
+  def find_and_authorize_restaurant
     @restaurant = Restaurant.find(params[:restaurant_id])
+    unauthorized! if cannot? :edit, @restaurant
   end
 end

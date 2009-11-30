@@ -9,9 +9,9 @@ Factory.define :user do |f|
 end
 
 Factory.define :admin, :parent => :user do |f|
-  f.admin true
   f.username 'admin'
   f.first_name "Administrator"
+  f.after_create { |user| user.has_role! :admin }
 end
 
 Factory.define :media_user, :parent => :user do |f|

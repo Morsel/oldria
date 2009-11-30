@@ -3,9 +3,8 @@ class Admin::UsersController < Admin::AdminController
   # GET /admin_users.xml
   def index
     @search = User.search(params[:search])
-    @users = @search.all(:include => [:account_type, :roles, :james_beard_region])
-    @adminrole = Role.find_by_name("admin")
-    
+    @users = @search.all(:include => [:account_type, :james_beard_region])
+
     respond_to do |format|
       format.html { flash.now[:notice] = "We couldn't find anything" if @users.blank? }
       format.xml  { render :xml => @admin_users }

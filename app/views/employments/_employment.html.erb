@@ -1,8 +1,13 @@
 <% user = employment.employee %>
 <% div_for user, :class => 'box clearfix' do %>
+
 	<%= link_to image_tag(user.avatar.url(:thumb)), profile_path(user.username) %>
 	<h3><%= user.name %></h3>
-	<%= restaurant_role_and_link(employment) %>
+
+	<% if can? :edit, employment.restaurant %>
+		<%= restaurant_role_and_link(employment) %>
+	<% end %>
+
 	<% if !employment.subject_matters.blank? %>
 		<p class="responsibilities">Handles <%= employment.subject_matters.map(&:name).to_sentence %></p>
 	<% end %>

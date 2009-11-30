@@ -5,9 +5,14 @@ Given /^a restaurant named "([^\"]*)" with the following employees:$/ do |restau
     # subjectmatters = userhash.delete('subject matters')
     #   subjects = nil
     userhash.delete('role')
-    userhash.delete('subject matters')
+    subjects = userhash.delete('subject matters')
+    subjectmatters = []
+    subjects.split(",").each do |subject|
+      subjectmatters << Factory(:subject_matter, :name => subject.strip)
+    end
     user = Factory(:user, userhash)
-    restaurant.employments.build(:employee => user, :restaurant_role => role)
+    restaurant.employments.build(:employee => user, :restaurant_role => role, :subject_matters => subjectmatters)
+
   end
   restaurant.manager = restaurant.employees.first
   restaurant.save!

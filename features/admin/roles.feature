@@ -25,12 +25,12 @@ Feature: Member roles
     And I am logged in as a media member
     When I try to visit <page>
     Then I should <action>
-  
+
   Examples:
-    | page                         | action              |
-    | the admin landing page       | be on the homepage  |
-    | the edit page for "jimmy"    | be on the homepage  |
-    | the profile page for "jimmy" | see "Access denied" |
+    | page                         | action                       |
+    | the admin landing page       | be on the homepage           |
+    | the edit page for "jimmy"    | be on the homepage           |
+    | the profile page for "jimmy" | see "an administrative area" |
 
 
   Scenario Outline: Admin members access

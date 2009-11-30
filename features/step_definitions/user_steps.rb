@@ -5,14 +5,12 @@ end
 Given /^the following confirmed users?:?$/ do |table|
   table.hashes.each do |row|
     user = Factory(:user, row)
-    user.has_role! :spoonfeed
   end
 end
 
 Given /^the following media users?:?$/ do |table|
   table.hashes.each do |row|
     user = Factory(:media_user, row)
-    user.has_role! :media
   end
 end
 

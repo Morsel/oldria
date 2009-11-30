@@ -6,7 +6,6 @@ describe User do
   should_have_many :media_requests, :foreign_key => 'sender_id'
   should_have_many :media_request_conversations, :through => :employments
   should_have_many :managed_restaurants, :foreign_key => "manager_id", :class_name => "Restaurant"
-  should_have_and_belong_to_many :roles
   should_belong_to :james_beard_region
   should_belong_to :account_type
   should_have_many :employments, :foreign_key => "employee_id"

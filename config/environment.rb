@@ -11,7 +11,7 @@ Rails::Initializer.run do |config|
   config.gem 'RedCloth', :lib => 'redcloth'
   config.gem 'searchlogic'
   config.gem 'authlogic'
-  config.gem 'acl9', :source => "http://gemcutter.org"
+  config.gem 'cancan', :source => "http://gemcutter.org"
   config.gem 'paperclip', :source => "http://gemcutter.org"
   config.gem 'moomerman-twitter_oauth', :lib => 'twitter_oauth', :source => "http://gems.github.com"
   config.gem 'jackdempsey-acts_as_commentable', :lib => 'acts_as_commentable', :source => "http://gems.github.com"

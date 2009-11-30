@@ -1,14 +1,18 @@
 <% title "Employees at #{@restaurant.name}" %>
-<p>So that your media requests go to the correct person, please also check what type of questions this employee should answer.</p>
-<p>We recommend that you assign one person to all the roles as a traffic manager to ensure the request gets answered. You can have multiple employees with the same role.</p>
 
-<% unless @restaurant.missing_subject_matters.empty? %>
-	<h4>No one is assigned for the following subjects:</h4>
+<% if can? :edit, @restaurant %>
+	<p>So that your media requests go to the correct person, please also check what type of questions this employee should answer.</p>
+	<p>We recommend that you assign one person to all the roles as a traffic manager to ensure the request gets answered. You can have multiple employees with the same role.</p>
 
-	<p class="error">
-		<%= @restaurant.missing_subject_matters.map(&:name).to_sentence %>
-	</p>
+	<% unless @restaurant.missing_subject_matters.empty? %>
+		<h4>No one is assigned for the following subjects:</h4>
+
+		<p class="error">
+			<%= @restaurant.missing_subject_matters.map(&:name).to_sentence %>
+		</p>
+	<% end -%>
 <% end -%>
+
 
 <% unless @employments.blank? %>
 <div id="restaurant_employees">
@@ -20,8 +24,11 @@
 </div>
 <% end -%>
 
-<h3 class="clear">Add Employees to your Restaurant</h3>
 
-<p class="clearfix">
-	<%= link_to "Add employee", new_restaurant_employee_path(@restaurant), :class => 'positive button' %>
-</p>
+<% if can? :edit, @restaurant %>
+	<h3 class="clear">Add Employees to your Restaurant</h3>
+
+	<p class="clearfix">
+		<%= link_to "Add employee", new_restaurant_employee_path(@restaurant), :class => 'positive button' %>
+	</p>
+<% end %>
