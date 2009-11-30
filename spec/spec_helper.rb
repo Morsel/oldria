@@ -4,7 +4,7 @@ require 'spork'
 ENV["RAILS_ENV"] ||= 'test'
 
 Spork.prefork do
-  # Loading more in this block will cause your tests to run faster. However, 
+  # Loading more in this block will cause your tests to run faster. However,
   # if you change any configuration or code from libraries loaded here, you'll
   # need to restart spork for it take effect.
   require File.dirname(__FILE__) + "/../config/environment"
@@ -13,11 +13,11 @@ Spork.prefork do
   I_KNOW_I_AM_USING_AN_OLD_AND_BUGGY_VERSION_OF_LIBXML2 = true unless defined?(I_KNOW_I_AM_USING_AN_OLD_AND_BUGGY_VERSION_OF_LIBXML2)
   require 'remarkable_rails'
   require 'webrat'
-  require 'webrat/rspec-rails'
-  
+  require 'webrat/integrations/rspec-rails'
+
   require "email_spec/helpers"
   require "email_spec/matchers"
-  
+
 
   Dir["#{File.dirname(__FILE__)}/support/**/*.rb"].each {|f| require f}
 
@@ -34,7 +34,7 @@ Spork.prefork do
     config.mock_with :mocha
     include Webrat::Methods
   end
-  
+
   module DisableFlashSweeping
     def sweep
     end
