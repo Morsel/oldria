@@ -1112,9 +1112,9 @@ label abbr {
 	float: left;
 }
 
-.subject_matter_ids.column li, form .restaurant_list li {
+form .column li, form .restaurant_list li {
 	width: auto;
-	float:none;
+	float: none;
 }
 
 
@@ -1122,9 +1122,10 @@ label abbr {
 	font-size: 1.2em;
 }
 
-.restaurant_role_ids.column li {
-	width:48%;
+#media_request_restaurant_role_ids_input li {
+	width: 48%;
 	padding: 0 2% 0 0;
+	float:left;
 }
 
 form li.list_or {
