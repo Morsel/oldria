@@ -1,4 +1,4 @@
-@restaurant @focus
+@restaurant
 Feature: Manage restaurants
   In order to fix restaurant information and keep it accurate
   As an RIA Staff Member

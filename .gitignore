@@ -1,8 +1,10 @@
 .DS_Store
 log/*.log
 tmp/**/*
+tmp/restart.txt
 config/database.yml
 db/*.sqlite3
+db/*.sqlite3-journal
 public/upload/*
 coverage/*
 features_rcov/

@@ -1,4 +1,4 @@
-@mediarequest
+@mediarequest @media
 Feature: Media requests
   In order to find out valuable information
   As a Media member
@@ -42,6 +42,25 @@ Feature: Media requests
     And there should be 1 media request in the system
     And "sam" should have 1 media request
     But "john" should have 0 media requests
+
+
+  Scenario: Media Requests go to the assigned subject matters
+    Given there are no media requests
+    And I am logged in as "mediaman" with password "secret"
+    When I search for "Eight Ball" restaurant
+    And I check "Eight Ball"
+    And I check "Food"
+    And I check "Beer"
+    And I check "Pastry"
+    And I press "Next"
+    And I create a new media request with:
+      | Message    | Eight Ball is good? |
+      | Due date   | 2009-10-10          |
+    Then I should see "media request will be sent shortly"
+    And the media request from "mediaman" should be pending
+    And there should be 1 media request in the system
+    And "sam" should have 1 media request
+    And "john" should have 1 media requests
 
 
   Scenario: A new media request shows up on my dashboard

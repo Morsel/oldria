@@ -83,12 +83,18 @@ class MediaRequest < ActiveRecord::Base
   def assign_recipients_from_restaurants
     if @restaurant_ids
       employments = find_recipient_employments
-      @restaurant_ids, @restaurant_role_ids, @subject_matter_ids = nil
+      reset_virtual_attributes!
       self.recipients = employments
     end
   end
 
   def find_recipient_employments
+    @restaurant_role_ids.reject!(&:blank?) if @restaurant_role_ids
+    @subject_matter_ids.reject!(&:blank?) if @subject_matter_ids
+
+    logger.info "\n\nrestaurant_role_ids = #{@restaurant_role_ids.inspect}\n\n" +
+    "subject_matter_ids = #{@subject_matter_ids.inspect}\n"
+
     if !@restaurant_role_ids.blank?
       Employment.all(:conditions => {:restaurant_id => @restaurant_ids, :restaurant_role_id => @restaurant_role_ids})
     elsif !@subject_matter_ids.blank?
@@ -96,6 +102,10 @@ class MediaRequest < ActiveRecord::Base
     else
       Employment.all(:conditions => {:restaurant_id => @restaurant_ids})
     end
+  end
+
+  def reset_virtual_attributes!
+    @restaurant_ids, @restaurant_role_ids, @subject_matter_ids = nil, nil, nil
   end
 
   def require_recipients
