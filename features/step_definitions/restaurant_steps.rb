@@ -1,21 +1,33 @@
 Given /^a restaurant named "([^\"]*)" with the following employees:$/ do |restaurantname, table|
-  restaurant = Factory(:restaurant, :name => restaurantname)
+  restaurant = Restaurant.find_by_name(restaurantname) || Factory(:restaurant, :name => restaurantname)
   table.hashes.each do |userhash|
     role = RestaurantRole.find_or_create_by_name(userhash['role'])
     # subjectmatters = userhash.delete('subject matters')
     #   subjects = nil
     userhash.delete('role')
-    subjects = userhash.delete('subject matters')
+
     subjectmatters = []
-    subjects.split(",").each do |subject|
-      subjectmatters << Factory(:subject_matter, :name => subject.strip)
+
+    if subjects = userhash.delete('subject matters')
+      subjects.split(",").each do |subject|
+        subjectmatters << Factory(:subject_matter, :name => subject.strip)
+      end
     end
+
     user = Factory(:user, userhash)
+
     restaurant.employments.build(:employee => user, :restaurant_role => role, :subject_matters => subjectmatters)
 
   end
   restaurant.manager = restaurant.employees.first
   restaurant.save!
+end
+
+Given /^"([^\"]*)" is the account manager for "([^\"]*)"$/ do |username, restaurantname|
+  user = User.find_by_username!(username)
+  restaurant = Restaurant.find_by_name!(restaurantname)
+  restaurant.manager = user
+  restaurant.save
 end
 
 
