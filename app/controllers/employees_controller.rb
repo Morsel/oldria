@@ -4,7 +4,7 @@ class EmployeesController < ApplicationController
 
   def index
     @restaurant = Restaurant.find(params[:restaurant_id])
-    @employments = @restaurant.employments
+    @employments = @restaurant.employments.all(:include => [:subject_matters, :restaurant_role, :employee])
   end
 
   def new
