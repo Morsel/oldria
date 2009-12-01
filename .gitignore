@@ -10,3 +10,4 @@ coverage/*
 features_rcov/
 public/system/avatars/
 public/system/attachments/
+mkmf.log
