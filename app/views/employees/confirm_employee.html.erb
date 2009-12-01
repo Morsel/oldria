@@ -2,7 +2,7 @@
 
 <% form_for @employment, :url => restaurant_employees_path(@restaurant) do |f| %>
 	<%= f.error_messages %>
-	<%= f.hidden_field :employee_email %>
+	<%= f.hidden_field :employee_id %>
 	<%= f.hidden_field :restaurant_role_id %>
 	<% if @employee %>
 		<p>Is this who you were looking for?</p>

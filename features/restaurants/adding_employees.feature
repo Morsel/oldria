@@ -1,4 +1,4 @@
-@restaurant
+@focus @restaurant
 Feature: Associating a Restaurant with its employees
   So that I can have employees associated with my MF Restaurant
   As a Restaurant account manager
@@ -10,23 +10,33 @@ Feature: Associating a Restaurant with its employees
       | username | email               | name        | password |
       | mgmt     | manager@example.com | Jim Jones   | secret   |
       | betty    | betty@example.com   | Betty Davis | secret   |
+      | bob      | bob@example.com     | Bob Davy    | secret   |
       | cole     | cole@example.com    | Cole Cal    | secret   |
     Given I am logged in as "mgmt" with password "secret"
 
 
-  Scenario: Adding an existing Employee after initial signup
+  Scenario Outline: Adding an existing Employee after initial signup
     Given I have just created a restaurant named "Jimmy's Diner"
     Then I should see "Add Employees to your Restaurant"
 
     When I follow "Add employee"
-    And I fill in "Employee Email" with "betty@example.com"
+    And I fill in "Employee Email" with "<inputfield>"
     And I press "Submit"
     Then I should see "Is this who you were looking for?"
-    Then I should see "Betty Davis"
+    Then I should see "<name>"
 
     When I press "Yes"
-    Then I should see "Betty Davis"
+    Then I should see "<name>"
     And "Jimmy's Diner" should have 1 employee
+
+  Examples:
+    | inputfield        | name        |
+    | betty@example.com | Betty Davis |
+    | betty             | Betty Davis |
+    | Betty Davis       | Betty Davis |
+    | B Davis           | Betty Davis |
+    | bob               | Bob Davy    |
+    | Bob Davy          | Bob Davy    |
 
 
   Scenario: You can't add an employee twice

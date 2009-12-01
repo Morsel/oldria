@@ -47,8 +47,9 @@ class EmployeesController < ApplicationController
 
   def find_or_initialize_employee
     email = params[:employment][:employee_email]
-    @employee = User.find_by_email(email)
-    if @employee
+    @employee = User.find_by_email(email) || User.find_all_by_name(email).first
+    if !@employee.blank?
+      @employment.employee_id = @employee.id
       render :confirm_employee
     else
       flash.now[:notice] = "We couldn't find them in our system. You can invite this person."
@@ -58,6 +59,7 @@ class EmployeesController < ApplicationController
   end
 
   def verify_employee
+    return true if @employment.employee_id
     @employee = @employment.employee
     if @employee.new_record?
       @employee.send_invitation = true
