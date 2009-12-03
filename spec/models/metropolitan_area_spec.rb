@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'spec/spec_helper'
 
 describe MetropolitanArea do
   should_have_many :restaurants

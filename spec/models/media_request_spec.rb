@@ -1,4 +1,4 @@
-require File.dirname(__FILE__) + '/../spec_helper'
+require 'spec/spec_helper'
 
 describe MediaRequest do
   should_belong_to :sender, :class_name => 'User'

@@ -1,4 +1,4 @@
-require File.dirname(__FILE__) + '/../spec_helper'
+require 'spec/spec_helper'
 
 describe Restaurant do
   should_belong_to :manager, :class_name => "User"
