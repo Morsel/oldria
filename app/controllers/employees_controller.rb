@@ -49,7 +49,7 @@ class EmployeesController < ApplicationController
     
     @restaurant.employments.delete(employment)
     
-    flash[:notice] = employee.first_name + ' was removed from Crazy Eights'
+    flash[:notice] = employee.first_name + ' was removed from ' + @restaurant.name
     redirect_to restaurant_employees_path(@restaurant)
   end
 
