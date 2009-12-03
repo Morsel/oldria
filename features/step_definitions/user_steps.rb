@@ -103,3 +103,7 @@ Then /^I should see an invitation URL in the email body$/ do
   current_email.body.should =~ Regexp.new(token)
 end
 
+Then /^"([^\"]*)" should still exist$/ do |username|
+  User.find_by_username(username).should_not be_nil
+end
+

@@ -5,6 +5,7 @@
 	<h3><%= user.name %></h3>
 
 	<% if can? :edit, employment.restaurant %>
+	  <%= link_to 'Delete', restaurant_employee_path(employment.restaurant, user), :method => :delete, :confirm => 'Are you sure?' %>
 		<%= restaurant_role_and_link(employment) %>
 	<% end %>
 

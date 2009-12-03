@@ -41,6 +41,17 @@ class EmployeesController < ApplicationController
     end
     redirect_to restaurant_employees_path(@restaurant)
   end
+  
+  def destroy
+    @restaurant = Restaurant.find(params[:restaurant_id])
+    employment = @restaurant.employments.find_by_employee_id(params[:id])
+    employee = employment.employee
+    
+    @restaurant.employments.delete(employment)
+    
+    flash[:notice] = employee.first_name + ' was removed from Crazy Eights'
+    redirect_to restaurant_employees_path(@restaurant)
+  end
 
 
   private
