@@ -1,7 +1,7 @@
 <% title "New Media Request" %>
 <h3>Who will you be sending this to?</h3>
 
-<% if @restaurants && !@restaurants.blank? %>
+<% if @restaurants && !@restaurants.blank? && @media_request %>
 
 	<% semantic_form_for @media_request do |f| %>
 		<% f.inputs do %>
