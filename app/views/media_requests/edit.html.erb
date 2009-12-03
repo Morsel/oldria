@@ -47,5 +47,17 @@ To:
 		<p class="attachfield"><%= child_form.file_field :attachment %></p>
 	<% end -%>
 
+	<% if current_user.admin? %>
+		<p>
+			<label><%= f.check_box :admin %> Admin</label>
+			Is this an RIA (admin) media request?
+		</p>
+
+		<p>
+			<%= f.label :status %>
+			<%= f.select :status, ["pending", "approved"] %>
+		</p>
+	<% end %>
+
 	<p class="clearfix"><%= button_tag "Submit", :class => 'positive' %></p>
 <% end %>

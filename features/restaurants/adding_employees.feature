@@ -1,4 +1,4 @@
-@focus @restaurant
+@restaurant
 Feature: Associating a Restaurant with its employees
   So that I can have employees associated with my MF Restaurant
   As a Restaurant account manager

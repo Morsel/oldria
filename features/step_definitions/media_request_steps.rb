@@ -73,18 +73,28 @@ When /^I select "([^\"]*)" as a recipient$/ do |name|
   check name
 end
 
-
-When /^I create a new media request with:$/ do |table|
-  mrdata = table.rows_hash
+def media_request_from_hash(hash_data)
   recipient_ids = []
-  if mrdata['Recipients']
-    mrdata['Recipients'].split(", ").each do |username|
+  if hash_data['Recipients']
+    hash_data['Recipients'].split(", ").each do |username|
       user = User.find_by_username(username)
       recipient_ids << Employment.find_by_user_id(user.id).id
     end
   end
-  fill_in 'media_request[message]', :with => mrdata["Message"]
-  select_date(mrdata["Due date"] || 2009-12-01)
+  fill_in 'media_request[message]', :with => hash_data["Message"]
+  select_date(hash_data["Due date"] || 2009-12-01)
+end
+
+When /^I create a new media request with:$/ do |table|
+  media_request_from_hash(table.rows_hash)
+  click_button :submit
+end
+
+When /^I create a new admin media request with:$/ do |table|
+  hash_data = table.rows_hash
+  media_request_from_hash(hash_data)
+  check "Admin"
+  select hash_data["Status"], :from => :status if hash_data["Status"]
   click_button :submit
 end
 
@@ -142,3 +152,6 @@ Then(/^there should be ([0-9]+) media requests?(?: in the system)?$/) do |num|
   MediaRequest.count.should == num.to_i
 end
 
+Then /^I should see an admin media request$/ do
+  response.should have_selector(".media_request.admin")
+end

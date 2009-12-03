@@ -444,7 +444,7 @@ div#navigation ul li a.current:hover {
 	border:1px solid #fff;
 }
 
-.direct_message.admin {
+.direct_message.admin, .media_request.admin {
 	background-color: #fed;
 	padding: 1em;
 	border: 0 none;
