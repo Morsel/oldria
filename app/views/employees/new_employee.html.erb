@@ -2,6 +2,11 @@
 
 <% form_for @employment, :url => restaurant_employees_path(@restaurant) do |form| %>
 	<%= form.hidden_field :restaurant_role_id %>
+
+	<% @employment.subject_matter_ids.each do |sm| %>
+		<%= hidden_field_tag 'employment[subject_matter_ids][]', sm %>
+	<% end -%>
+
 	<% form.fields_for :employee, @employee do |f| -%>
 	<%= f.error_messages %>
 	<p>

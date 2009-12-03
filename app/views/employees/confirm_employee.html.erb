@@ -4,6 +4,11 @@
 	<%= f.error_messages %>
 	<%= f.hidden_field :employee_id %>
 	<%= f.hidden_field :restaurant_role_id %>
+
+	<% @employment.subject_matter_ids.each do |sm| %>
+		<%= hidden_field_tag 'employment[subject_matter_ids][]', sm %>
+	<% end -%>
+
 	<% if @employee %>
 		<p>Is this who you were looking for?</p>
 		<%= render @employee %>
