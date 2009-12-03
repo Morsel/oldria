@@ -51,6 +51,8 @@ module NavigationHelpers
       edit_admin_user_path(User.find_by_username($1))
     when /^the admin list static pages page$/
       admin_pages_path
+    when /^the admin new user page$/
+      new_admin_user_path
 
 
     # Add more mappings here.
