@@ -10,7 +10,7 @@ describe Admin::MediaRequestsController do
   end
 
   describe "GET index" do
-    it "should render new template" do
+    it "should render index template" do
       MediaRequest.expects(:find).returns([])
       get :index
       response.should render_template(:index)
@@ -22,6 +22,22 @@ describe Admin::MediaRequestsController do
       MediaRequest.expects(:find).returns(media_requests)
       get :index
       assigns[:media_requests].should == media_requests
+    end
+  end
+
+  describe "GET show" do
+    before(:each) do
+      @media_request = Factory.stub(:media_request, :id => 29)
+      MediaRequest.stubs(:find).returns(@media_request)
+      get :show, :id => '29'
+    end
+
+    it "should render show template" do
+      response.should render_template(:show)
+    end
+
+    it "should assign @media_request" do
+      assigns[:media_request].should == @media_request
     end
   end
 

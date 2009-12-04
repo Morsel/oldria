@@ -1,0 +1,23 @@
+<% title "Media Request" %>
+
+<p class="clearfix">
+	<%= link_to "Edit", edit_admin_media_request_path(@media_request), :class => 'button' %>
+	<%= (link_to "Approve!", approve_admin_media_request_path(@media_request), :method => :put, :class => 'button positive') if @media_request.pending? %>
+</p>
+
+<h3>Recipients</h3>
+<% if !@media_request.recipients.blank? %>
+<ul>
+	<% @media_request.recipients.each do |employment| %>
+		<li>
+			<%= link_to employment.employee.try(:name), admin_user_path(employment.employee) %>,
+			<em><%= employment.restaurant_role.try(:name) %></em>
+			at <%= link_to employment.restaurant.try(:name),  edit_admin_restaurant_path(employment.restaurant) %>
+		</li>
+	<% end -%>
+</ul>
+<% end %>
+
+<% unless @media_request.nil? %>
+	<%= render :partial => 'media_requests/media_request_long' %>
+<% end -%>

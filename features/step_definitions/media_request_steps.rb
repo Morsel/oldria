@@ -5,13 +5,8 @@ def find_media_requests_for_username(username)
 end
 
 Given /^"([^\"]*)" has a media request from a media member with:$/ do |username, table|
-  user = User.find_by_username(username)
-  Factory(:restaurant, :name => "Eight Ball", :employees => [user])
-  Given('I am logged in as a media member')
-  When('I search for and find "Eight Ball" restaurant')
-  fill_in 'media_request[message]', :with => table.rows_hash["Message"]
-  select_date("2009-10-01")
-  click_button :submit
+  Factory(:media_user, :username => "media")
+  Given %Q{"#{username}" has a media request from "media" with:}, table
 end
 
 Given /^"([^\"]*)" has a media request from "([^\"]*)" with:$/ do |username, mediauser, table|
