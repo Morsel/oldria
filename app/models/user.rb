@@ -69,6 +69,12 @@ class User < ActiveRecord::Base
     friends.include?(otheruser)
   end
 
+
+  def allowed_subject_matters
+    allsubjects = SubjectMatter.all
+    admin? ? allsubjects : allsubjects.reject(&:admin_only?)
+  end
+
 ### Convenience methods for getting/setting first and last names ###
   def name
     @name ||= [first_name, last_name].compact.join(' ')

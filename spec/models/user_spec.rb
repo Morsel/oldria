@@ -141,4 +141,22 @@ describe User do
       user.send_invitation.should be_nil
     end
   end
+
+  context "allowed subject matters" do
+    before(:each) do
+      @normal_subject = Factory(:subject_matter, :name => "Beer")
+      @special_subject = Factory(:subject_matter, :name => "Admin (RIA)")
+    end
+
+    it "should include all but admin_only by default" do
+      user = Factory(:user)
+      user.allowed_subject_matters.should == [@normal_subject]
+    end
+
+    it "should include all for admins" do
+      user = Factory(:admin)
+      user.allowed_subject_matters.should include(@normal_subject)
+      user.allowed_subject_matters.should include(@special_subject)
+    end
+  end
 end
