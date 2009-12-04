@@ -12,9 +12,9 @@
 <% end %>
 
 <% f.inputs :name => 'Login Information' do %>
-	<%= f.input :username %>
-	<%= f.input :password, :as => :string, :label => "Initial password" %>
-	<%= f.input :password_confirmation, :as => :string, :label => "Confirm initial password" %>
+	<%= f.input :username, :required => true %>
+	<%= f.input :password, :as => :string, :label => "Initial password", :required => true %>
+	<%= f.input :password_confirmation, :as => :string, :label => "Confirm initial password", :required => true %>
 <% end %>
 
 	<p><%= button_tag "Save", :class => 'positive' %></p>
