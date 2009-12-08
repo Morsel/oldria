@@ -50,13 +50,26 @@ describe MediaRequestsController do
   end
 
   describe "POST create" do
-    before(:each) do
-      @media_request = MediaRequest.new(:sender_id => @user.id)
-      @user.media_requests.expects(:build).returns(@media_request)
-      post :create
+    context "with valid media request" do
+      before(:each) do
+        @media_request = Factory.build(:media_request, :sender_id => @user.id)
+        @user.media_requests.expects(:build).returns(@media_request)
+        post :create
+      end
+
+      it { response.should redirect_to(edit_media_request_path(@media_request))}
     end
 
-    it { response.should redirect_to(edit_media_request_path(@media_request))}
+    context "with invalid media request" do
+      before(:each) do
+        @media_request = Factory.build(:media_request, :sender_id => @user.id, :recipients => [])
+        @user.media_requests.expects(:build).returns(@media_request)
+        post :create
+      end
+
+      it { response.should render_template(:new) }
+      it { flash[:error].should_not be_nil }
+    end
   end
 
   describe "GET edit" do

@@ -1,5 +1,5 @@
 <h3>Search</h3>
-<% form_for @search, :html => {:class => 'formtastic faceted'} do |f| %>
+<% form_for @search, :url => new_media_request_path, :html => {:class => 'formtastic faceted'} do |f| %>
 	<ol>
 		<li class="string">
 			<%= f.label :restaurant_name_like, "Restaurant Name"  %>

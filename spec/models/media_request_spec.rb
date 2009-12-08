@@ -42,6 +42,7 @@ describe MediaRequest do
   describe "fields" do
     before(:each) do
       @request = Factory.build(:media_request)
+      @request.stubs(:recipient_ids).returns([1])
     end
 
     it "should be empty Hash for new instance" do
@@ -146,14 +147,19 @@ describe MediaRequest do
     before do
       @subject_matter = Factory(:subject_matter, :name => "Ham")
       @employment2 = Factory(:assigned_employment, :subject_matters => [@subject_matter])
-      sender = Factory(:user)
-      @request = Factory.build(:media_request, :sender => sender)
+      sender = Factory(:media_user)
+      @request = Factory.build(:media_request, :sender => sender, :recipients => [])
     end
 
-    it "should be invalid without recipients" do
+    it "should be invalid when no restaurants are found" do
       @request.restaurant_ids = []
       @request.should_not be_valid
       @request.save.should be_false
+    end
+
+    it "should be valid with recipients" do
+      @request.recipient_ids = [@employment2.id]
+      @request.should be_valid
     end
 
     it "should be valid when restaurants are found" do
@@ -161,6 +167,11 @@ describe MediaRequest do
       @request.subject_matter_ids = [@subject_matter.id.to_s]
       @request.should be_valid
       @request.save.should be_true
+    end
+
+    it "should be invalid when not recipients are chosen" do
+      @request.recipient_ids = []
+      @request.should_not be_valid
     end
   end
 

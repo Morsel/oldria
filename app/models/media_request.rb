@@ -10,15 +10,15 @@ class MediaRequest < ActiveRecord::Base
   has_many :recipients, :through => :media_request_conversations
   has_many :attachments, :as => :attachable, :class_name => '::Attachment'
   validates_presence_of :sender_id
+  validates_presence_of :recipients, :on => :create
+  before_validation :assign_recipients_from_restaurants
   validate :require_recipients
-
 
   accepts_nested_attributes_for :attachments
 
   named_scope :past_due, lambda {{ :conditions => ['due_date < ?', Date.today] }}
   named_scope :for_dashboard, :order => "created_at DESC", :conditions => {:status => ["approved", "pending"]}
 
-  before_save :assign_recipients_from_restaurants
 
   attr_accessor :restaurant_ids, :subject_matter_ids, :restaurant_role_ids
 
@@ -92,9 +92,6 @@ class MediaRequest < ActiveRecord::Base
     @restaurant_role_ids.reject!(&:blank?) if @restaurant_role_ids
     @subject_matter_ids.reject!(&:blank?) if @subject_matter_ids
 
-    logger.info "\n\nrestaurant_role_ids = #{@restaurant_role_ids.inspect}\n\n" +
-    "subject_matter_ids = #{@subject_matter_ids.inspect}\n"
-
     if !@restaurant_role_ids.blank?
       Employment.all(:conditions => {:restaurant_id => @restaurant_ids, :restaurant_role_id => @restaurant_role_ids})
     elsif !@subject_matter_ids.blank?
@@ -109,7 +106,7 @@ class MediaRequest < ActiveRecord::Base
   end
 
   def require_recipients
-    if restaurant_ids && restaurant_ids.blank?
+    if (restaurant_ids && restaurant_ids.blank?)
       errors.add_to_base("You need to specify some recipients")
     end
   end

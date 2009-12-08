@@ -25,6 +25,8 @@ class MediaRequestsController < ApplicationController
     if @media_request.save
       redirect_to edit_media_request_path(@media_request)
     else
+      flash.now[:error] = "Oops! No one would get the media request based on your criteria. Are you sure you checked the boxes? Please retry your search, broadening your criteria if necessary."
+      @search = Employment.search(params[:search])
       render :new
     end
   end

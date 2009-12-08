@@ -80,6 +80,7 @@ Factory.define :media_request do |f|
   f.message "This is a media request message"
   f.due_date 2.days.from_now
   f.status 'draft'
+  f.recipients {|mr| [mr.association(:employment)]}
 end
 
 Factory.define :sent_media_request, :parent => :media_request do |f|
