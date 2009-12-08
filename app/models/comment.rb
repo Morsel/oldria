@@ -6,7 +6,7 @@ class Comment < ActiveRecord::Base
   default_scope :order => 'created_at ASC'
 
   accepts_nested_attributes_for :attachments
-  
+
   named_scope :not_user, lambda { |user| {
     :conditions => ["user_id != ?", user.id]
   }}

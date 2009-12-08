@@ -68,7 +68,7 @@ describe MediaRequestsController do
       end
 
       it { response.should render_template(:new) }
-      it { flash[:error].should_not be_nil }
+      it { response.flash[:error].should_not be_nil }
     end
   end
 

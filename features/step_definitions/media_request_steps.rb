@@ -33,7 +33,7 @@ When /^I follow "([^\"]*)" within the "([^\"]*)" section$/ do |link, relselector
 end
 
 Then /^the media request should have ([0-9]+) comments?$/ do |num|
-  MediaRequestConversation.first.comments.count.should == num.to_i
+  MediaRequestConversation.last.comments.count.should == num.to_i
 end
 
 

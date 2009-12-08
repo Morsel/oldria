@@ -6,6 +6,7 @@ Feature: Media request conversations
 
 
   Background:
+    Given there are no media requests
     Given the following confirmed users:
       | username | password | first_name | last_name |
       | sam      | secret   | Sam        | Smith     |

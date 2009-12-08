@@ -45,7 +45,7 @@
 				<%= conversation.media_request.publication_string %> wants to know:
 			</p>
 			<p class="message">
-				<%= conversation.media_request.message %>
+				<%= truncate h(conversation.media_request.message), :length => 100 %>
 			</p>
 		<% end # div -%>
 	<% end -%>

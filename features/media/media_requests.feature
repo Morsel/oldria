@@ -13,11 +13,11 @@ Feature: Media requests
     Given the following media users:
       | username | password |
       | mediaman | secret   |
+    Given there are no media requests
 
 
   Scenario: A new media request is held for approval
-    Given there are no media requests
-    And I am logged in as "mediaman" with password "secret"
+    Given I am logged in as "mediaman" with password "secret"
     When I search for and find "Eight Ball" restaurant
     And I create a new media request with:
       | Message    | Are cucumbers good in salad? |
@@ -28,8 +28,7 @@ Feature: Media requests
 
 
   Scenario: Media Requests go to the assigned roles
-    Given there are no media requests
-    And I am logged in as "mediaman" with password "secret"
+    Given I am logged in as "mediaman" with password "secret"
     When I search for "Eight Ball" restaurant
     And I check "Eight Ball"
     And I check "Chef"
@@ -45,8 +44,7 @@ Feature: Media requests
 
 
   Scenario: Media Requests go to the assigned subject matters
-    Given there are no media requests
-    And I am logged in as "mediaman" with password "secret"
+    Given I am logged in as "mediaman" with password "secret"
     When I search for "Eight Ball" restaurant
     And I check "Eight Ball"
     And I check "Food"
