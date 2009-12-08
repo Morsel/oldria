@@ -1150,6 +1150,10 @@ form li.list_or span {
 	padding:0 .5em;
 }
 
+form .checkall_link label {
+	font-weight: bold;
+}
+
 /* @end */
 
 /* @group blueprint extensions -------- */

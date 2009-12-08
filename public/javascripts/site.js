@@ -118,3 +118,22 @@ $("a.toggler").each(function(){
 	}
 });
 
+// == Search checkboxes ==
+// Dynamically "all" html...
+var checkallItemString = '<li class="checkall_link"><label><input type="checkbox" class="novalue"/> Select All</label></li>';
+// To these elements
+var checkallList = $(".checkall ol");
+var checkallLinks =  checkallList
+	.prepend(checkallItemString)
+	.find(".checkall_link :checkbox");
+
+// bind action to links
+checkallLinks.click(function(){
+	$(this).parents('fieldset:eq(0)').find(':checkbox').attr('checked', this.checked);
+});
+
+// Uncheck the all
+checkallList.find(":checkbox").not(".novalue").click(function(){
+	if (this.checked) return true;
+	$(this).parents('fieldset:eq(0)').find('.checkall_link :checkbox').removeAttr('checked');
+});

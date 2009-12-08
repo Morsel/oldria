@@ -4,7 +4,7 @@
 	<% f.inputs do %>
 		<%= f.input :restaurant_role,
 			:hint => "Which best describes the role that #{@employee.name} has at #{@restaurant.name}?" %>
-		<%= f.input :subject_matters, :as => :check_boxes %>
+		<%= f.input :subject_matters, :as => :check_boxes, :wrapper_html => {:class => 'checkall'} %>
 	<% end %>
 
 	<p><%= button_tag "Submit", :class => 'positive' %></p>
