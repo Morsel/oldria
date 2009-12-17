@@ -1,10 +1,11 @@
+@restaurant
 Feature: Signup restaurant
   So that I can get my restaurant up on RIA
   As a SpoonFeed user
   I want to sign up a Restaurant with: Name, Location (all fields), and Simple Facts
   And I want to be the administrative contact of that Restaurant
 
-@restaurant
+
   Scenario: Sign up a new restaurant
     Given the following confirmed users:
       | username | password |
@@ -19,7 +20,7 @@ Feature: Signup restaurant
       | Italian  |
     Given I am logged in as "joesak" with password "secret"
     And I am on the new restaurant page
-    When I fill in "Name" with "Joe's Shack"
+    When I fill in "Restaurant Name" with "Joe's Shack"
     And I fill in "City" with "Chicago"
     And I select "Chicago IL" from "Metropolitan area"
     And I select "Italian" from "Cuisine"

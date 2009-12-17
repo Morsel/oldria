@@ -3,7 +3,7 @@
 <% form_for @restaurant do |f| %>
 <%= f.error_messages %>
 	<p>
-		<%= f.label :name %>
+		<%= f.label :name, "Restaurant Name" %>
 		<%= f.text_field :name, :class => 'title span-8' %>
 	</p>
 

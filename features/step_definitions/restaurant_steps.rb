@@ -33,7 +33,7 @@ end
 
 Given /^I have just created a restaurant named "([^\"]*)"$/ do |restaurantname|
   visit new_restaurant_url
-  fill_in "Name", :with => restaurantname
+  fill_in "Restaurant Name", :with => restaurantname
   click_button :submit
 end
 
