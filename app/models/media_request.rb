@@ -40,7 +40,13 @@ class MediaRequest < ActiveRecord::Base
   end
 
   def restaurants
-    Restaurant.all(:conditions => {:id => recipients.map(&:restaurant_id).uniq})
+    return [] if restaurant_ids.blank?
+    Restaurant.all(:conditions => {:id => restaurant_ids})
+  end
+
+  def restaurant_ids
+    return [] if recipients.blank?
+    recipients.reject(&:blank?).map(&:restaurant_id).uniq
   end
 
   def deliver_notifications
