@@ -6,7 +6,7 @@ class Ability
       can :manage, :all
     else
       can :manage, Restaurant do |action, restaurant|
-        restaurant && restaurant.manager == user
+        restaurant && restaurant.manager == user || restaurant.additional_managers.include?(user)
       end
     end
   end
