@@ -14,7 +14,7 @@
 	<%= f.input :username %>
 	<%= f.input :password %>
 	<%= f.input :password_confirmation %>
-	<% if controller.action_name == "new" %>
+	<% unless controller.action_name == "edit" %>
 		<%= f.input :agree_to_contract, :label => 'Agree to Contract?', :as => :boolean %>
 	<% end %>
 <% end %>
