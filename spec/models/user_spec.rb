@@ -12,9 +12,15 @@ describe User do
   should_have_many :restaurants, :through => :employments
 
   should_validate_presence_of :email
+  should_validate_acceptance_of :agree_to_contract
 
   it "should be valid" do
     Factory(:user, :username => 'normal').should be_valid
+  end
+
+  it "should allow a contractual virtual attribute" do
+    user = Factory.build(:user)
+    user.agree_to_contract = true
   end
 
   it "should handle #name" do
@@ -30,7 +36,7 @@ describe User do
       u.first_name.should eql("Ben")
       u.last_name.should eql("Davis")
     end
-    
+
     it "should save the name for two names only" do
       u = Factory.build(:user, :first_name => '', :last_name => '')
       u.name = "Ben Davis Smith"
@@ -38,7 +44,7 @@ describe User do
       u.first_name.should eql("Ben")
       u.last_name.should eql("Davis Smith")
     end
-    
+
     it "should handle hyphenated names" do
       u = Factory.build(:user, :first_name => '', :last_name => '')
       u.name = "Ben Davis-Smith"

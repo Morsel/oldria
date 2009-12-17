@@ -5,8 +5,9 @@ class Restaurant < ActiveRecord::Base
   belongs_to :cuisine
   has_many :employments
   has_many :employees, :through => :employments
-  has_many :additional_managers, :source => :employee,
+  has_many :additional_managers,
            :through => :employments,
+           :source => :employee,
            :conditions => {:employments => {:omniscient => true}}
   has_many :media_request_conversations, :through => :employments
 

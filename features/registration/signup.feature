@@ -1,3 +1,4 @@
+@signup
 Feature: Create an Account
   So that I can improve my social media networking/marketing
   As a prospective RIA client that is not a journalist,
@@ -20,6 +21,7 @@ Feature: Create an Account
     And I fill in "Password" with "secret"
     And I fill in "Password Confirmation" with "secret"
     And I select "Concierge" from "Account Type"
+    And I check "Agree to Contract?"
     And I press "Save"
 
     Then I should see "Just to make sure you are who you say you are"
@@ -44,6 +46,7 @@ Feature: Create an Account
     And I fill in "Email" with "twice@example.com"
     And I fill in "Password" with "secret"
     And I fill in "Password Confirmation" with "secret"
+    And I check "Agree to Contract?"
     And I press "Save"
 
     Then I should see "Just to make sure you are who you say you are"
@@ -71,6 +74,7 @@ Feature: Create an Account
     And I fill in "Email" with "janet"
     And I fill in "Password" with "secret"
     And I fill in "Password Confirmation" with "secret"
+    And I check "Agree to Contract?"
     And I press "Save"
 
     Then I should see "should look like an email address"
@@ -97,6 +101,7 @@ Feature: Create an Account
     And I fill in "Email" with "jimbob@example.com"
     And I fill in "Password" with "secret"
     And I fill in "Password Confirmation" with "secret"
+    And I check "Agree to Contract?"
     And I press "Save"
     Then "jimbob@example.com" should receive 1 email
 

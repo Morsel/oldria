@@ -23,7 +23,7 @@ class User < ActiveRecord::Base
 
   validates_presence_of :email
 
-  attr_accessor :send_invitation
+  attr_accessor :send_invitation, :agree_to_contract
 
   # Attributes that should not be updated from a form or mass-assigned
   attr_protected :crypted_password, :password_salt, :perishable_token, :persistence_token, :confirmed_at, :admin=, :admin
@@ -36,6 +36,7 @@ class User < ActiveRecord::Base
                          :in => %w( freelance Freelance ),
                          :message => "'{{value}}' is not allowed"
 
+  validates_acceptance_of :agree_to_contract
   named_scope :for_autocomplete, :select => "first_name, last_name", :order => "last_name ASC", :limit => 15
 
   def admin?

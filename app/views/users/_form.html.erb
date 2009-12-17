@@ -14,8 +14,10 @@
 	<%= f.input :username %>
 	<%= f.input :password %>
 	<%= f.input :password_confirmation %>
+	<% if controller.action_name == "new" %>
+		<%= f.input :agree_to_contract, :label => 'Agree to Contract?', :as => :boolean %>
+	<% end %>
 <% end %>
-
 <p><%= button_tag "Save", :class => 'positive' %></p>
 
 <% end %>
