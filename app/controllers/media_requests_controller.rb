@@ -1,4 +1,11 @@
 class MediaRequestsController < ApplicationController
+
+  def index
+    # These are always scoped by restaurant!
+    @restaurant = Restaurant.find(params[:restaurant_id])
+    @media_requests = @restaurant.media_requests.all(:include => [:sender, :conversations_with_comments])
+  end
+
   def show
     @media_request = MediaRequest.find(params[:id])
   end
@@ -6,7 +13,6 @@ class MediaRequestsController < ApplicationController
   def new
     @sender = current_user
     if params[:search] && namelike = params[:search].delete(:restaurant_name_like)
-
       params[:search][:restaurant_name_like_all] = namelike.split unless namelike.blank?
     end
 

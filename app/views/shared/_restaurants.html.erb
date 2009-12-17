@@ -9,6 +9,9 @@
 	<% current_user.managed_restaurants.reject(&:new_record?).each do |restaurant| %>
 	<% div_for restaurant do %>
 		<%= link_to h(restaurant.name), restaurant_employees_path(restaurant) %>
+		<span class="media_requests_count">
+			<%= link_to "#{restaurant.media_requests.size} media requests", restaurant_media_requests_path(restaurant) if !restaurant.media_requests.blank? %>
+		</span>
 	<% end -%>
 	<% end %>
 

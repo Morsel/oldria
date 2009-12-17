@@ -21,6 +21,7 @@ ActionController::Routing::Routes.draw do |map|
   end
 
   map.resources :restaurants do |restaurant|
+    restaurant.media_requests 'media_requests', :controller => 'media_requests', :action => 'index'
     restaurant.resources :employees, :except => [:show]
   end
 

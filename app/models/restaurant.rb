@@ -5,6 +5,7 @@ class Restaurant < ActiveRecord::Base
   belongs_to :cuisine
   has_many :employments
   has_many :employees, :through => :employments
+  has_many :media_request_conversations, :through => :employments
 
   def name_and_location
     [name, city, state].reject(&:blank?).join(", ")
@@ -12,6 +13,16 @@ class Restaurant < ActiveRecord::Base
 
   def missing_subject_matters
     SubjectMatter.find(missing_subject_matter_ids)
+  end
+
+  def media_requests
+    return [] if media_request_ids.blank?
+    MediaRequest.scoped(:conditions => {:id => media_request_ids})
+  end
+
+  def media_request_ids
+    return [] if media_request_conversations.blank?
+    media_request_conversations.reject(&:blank?).map(&:media_request_id).uniq
   end
 
   private

@@ -459,6 +459,17 @@ div.restaurant {
 	font-size: 1.2em;
 }
 
+.restaurant .media_requests_count {
+	font-size: 0.7em;
+	padding: 0 .8em;
+	display: inline-block;
+}
+
+.restaurant .media_requests_count a{
+	border: 0 none;
+	color: #555;
+}
+
 .restaurant a {
 	color: #333;
 	border-bottom: 1px dashed #aaa;

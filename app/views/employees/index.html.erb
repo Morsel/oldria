@@ -12,7 +12,6 @@
 	<% end -%>
 <% end -%>
 
-
 <% unless @employments.blank? %>
 <div id="restaurant_employees">
 	<% @employments.in_groups(2, false) do |group| %>
@@ -30,4 +29,11 @@
 	<p class="clearfix">
 		<%= link_to "Add employee", new_restaurant_employee_path(@restaurant), :class => 'positive button' %>
 	</p>
+
+	<% unless @restaurant.media_requests.blank? %>
+		<hr />
+		<h4>
+			Your restaurant has <%= link_to "#{@restaurant.media_requests.size} media requests", restaurant_media_requests_path(@restaurant) %>
+		</h4>
+	<% end %>
 <% end %>
