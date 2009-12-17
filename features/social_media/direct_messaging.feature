@@ -1,3 +1,4 @@
+@dm
 Feature: Direct messaging
   So that users can communicate privately with each other
   And increase social networking inside the system

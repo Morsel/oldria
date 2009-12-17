@@ -10,11 +10,11 @@
 	</p>
 	<p class="meta">
 	<% if direct_message.from?(current_user) %>
-		to <%= link_to direct_message.receiver.username, direct_message.receiver %> |
+		to <%= link_to direct_message.receiver.name, profile_path(direct_message.receiver.username) %> |
 		<%= direct_message.created_at.to_s(:short) %>
 	<% else %>
-		from <%= link_to direct_message.sender.username, direct_message.sender %> | 
-		<%= direct_message.created_at.to_s(:short) %> | 
+		from <%= link_to direct_message.sender.name, profile_path(direct_message.sender.username) %> |
+		<%= direct_message.created_at.to_s(:short) %> |
 		<%= link_to "reply", reply_direct_message_path(direct_message) %>
 	<% end -%>
 	</p>

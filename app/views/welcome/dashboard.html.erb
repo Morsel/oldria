@@ -11,7 +11,7 @@
 			<%= message.body %>
 		</p>
 		<p class="meta">
-			from <%= link_to message.sender.username, message.sender %> |
+			from <%= link_to message.sender.name_or_username, profile_path(message.sender.username) %> |
 			<%= message.created_at.to_s(:short) %> |
 			<%= link_to "reply", reply_direct_message_path(message) %>
 		</p>

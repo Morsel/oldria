@@ -31,14 +31,16 @@ end
 
 
 Then /^I should see a message from "([^\"]*)"$/ do |username|
+  user = User.find_by_username(username)
   response.should have_selector(".direct_message") do |message|
-    message.should contain(username)
+    message.should contain(user.name)
   end
 end
 
 Then /^I should see my message to "([^\"]*)"$/ do |username|
+  user = User.find_by_username(username)
   response.should have_selector(".sent_message") do |message|
-    message.should contain(username)
+    message.should contain(user.name)
   end
 end
 

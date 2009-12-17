@@ -1,3 +1,4 @@
+@dm
 Feature: Direct messaging
   So that staff can praise, suggest, or notify SF members privately
   As an RIA staff person
