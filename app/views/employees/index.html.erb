@@ -2,12 +2,11 @@
 
 <% if can? :edit, @restaurant %>
 	<p>So that your media requests go to the correct person, please also check what type of questions this employee should answer.</p>
-	<p>We recommend that you assign one person to all the roles as a traffic manager to ensure the request gets answered. You can have multiple employees with the same role.</p>
+	<p>We recommend that each role actually has at least one person assigned to it so you can be sure to get every media request. You can have multiple employees with the same role, just make sure that one person is for sure responsible for answering the question.</p>
 
 	<% unless @restaurant.missing_subject_matters.empty? %>
-		<h4>No one is assigned for the following subjects:</h4>
-
 		<p class="error">
+		  <strong>No one is assigned for the following subjects:</strong><br />
 			<%= @restaurant.missing_subject_matters.map(&:name).to_sentence %>
 		</p>
 	<% end -%>

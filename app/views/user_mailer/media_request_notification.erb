@@ -1,5 +1,5 @@
-<%= @request.publication_string %> has a question for you.
+<h2><%= @request.publication_string %> has a question for you.</h2>
 
-Please login to MediaFeed to view this request.
+<p>Please login to MediaFeed to view this request.</p>
 
-<%= media_request_conversation_url @request_conversation %>
+<p><a href="<%= media_request_conversation_url @request_conversation %>"><%= media_request_conversation_url @request_conversation %></a></p>

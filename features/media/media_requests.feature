@@ -106,3 +106,11 @@ Feature: Media requests
     When I go to the dashboard
     Then I should see "Where are the best mushrooms?"
     But I should not see "This message has not been approved"
+    
+@click_anywhere
+  Scenario: A media request can be clicked anywhere to reply from the dashboard
+    Given "sam" has a media request from "mediaman" with:
+    |Message|Where are the best mushrooms?|
+    And an admin has approved the media request from "mediaman"
+    When I am logged in as "sam" with password "secret"
+    And I go to the dashboard

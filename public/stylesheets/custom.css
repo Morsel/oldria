@@ -520,6 +520,14 @@ div.restaurant {
 	margin-bottom: 2em;
 }
 
+#media_requests .media_request{
+	cursor:pointer;
+	padding:5px;
+}
+#media_requests .media_request:hover{
+	background:#eee;
+}
+
 .media_request .message {
 	font-size: 1.2em;
 }

@@ -1,7 +1,7 @@
-<%= @user.name %>,
+<h2><%= @user.name %>,</h2>
 
-Welcome to MediaFeed. You've been invited by a worker at <%= @user.restaurants.last.try(:name) %>
+<p>Welcome to MediaFeed. You've been invited by a worker at <%= @user.restaurants.last.try(:name) %></p>
 
-<%= invitation_url(@user.perishable_token) %>
+<p><a href="<%= invitation_url(@user.perishable_token) %>"><%= invitation_url(@user.perishable_token) %></a></p>
 
-Click the link above to sign in and start having fun!
+<p>Click the link above to sign in and start having fun!</p>

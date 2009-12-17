@@ -4,6 +4,7 @@
 	<% f.inputs do %>
 		<%= f.input :restaurant_role,
 			:hint => "Which best describes the role that #{@employee.name} has at #{@restaurant.name}?" %>
+			<p>We want to make sure that the right media inquiries go to the right people at your restaurant. What kinds of topics are you comfortable having <%= @employee.name %> respond to? Keep in mind, their responses will represent <%= @restaurant.name %> and go straight to the media. So, it is important to chose wisely!</p>
 		<%= f.input :subject_matters, :as => :check_boxes, :wrapper_html => {:class => 'checkall'} %>
 	<% end %>
 

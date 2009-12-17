@@ -81,7 +81,7 @@ class User < ActiveRecord::Base
   end
 
   def name=(_name)
-    name_parts = _name.split(' ')
+    name_parts = _name.split(' ',2)
     self.first_name = name_parts.shift
     self.last_name = name_parts.pop
   end

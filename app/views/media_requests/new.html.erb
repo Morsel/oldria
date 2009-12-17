@@ -1,5 +1,5 @@
 <% title "New Media Request" %>
-<h3>Who will you be sending this to?</h3>
+<h3>To whom would you like to send this request?</h3>
 <p>Fine-tune your search to select people who should get this request.</p>
 
 <% if @restaurants && !@restaurants.blank? && @media_request %>
@@ -10,16 +10,16 @@
 			:wrapper_html => {:class => 'restaurant_list checkall'},
 			:label_method => :name_and_location,
 			:label => "At these Restaurants:" %>
-
+      <p>So that we make sure the right person gets this request, we would appreciate your picking a topic area or staff person. Be sure, the restaurant has chosen who the right person is for all these categories, you can just pick the one that best fits your story.</p>
 			<%= f.input :subject_matter_ids, :collection => current_user.allowed_subject_matters, :as => :check_boxes,
 			:wrapper_html => {:class => 'span-3 column checkall'},
-			:label => "People who handle:", :hint => "Check all that apply" %>
+			:label => "What is the general topic of your request?", :hint => "Check all that apply" %>
 			<li class="list_or column span-2">
 				<span>OR</span>
 			</li>
 			<%= f.input :restaurant_role_ids, :collection => RestaurantRole.all, :as => :check_boxes,
 			:wrapper_html => {:class => 'last span-6 column checkall'},
-			:label => "People who are:", :hint => "Check all that apply" %>
+			:label => "If you would rather send direct to certain staffers, to whom would you like to send this?", :hint => "Check all that apply" %>
 		<% end %>
 
 		<p class="clearfix"><%= button_tag "Next" %></p>

@@ -1,7 +1,7 @@
-Hi, <%= @user.username %>
+<h2>Hi, <%= @user.username %></h2>
 
-Click right here on this link to confirm your account and you’ll be good to go: 
+<p>Click right here on this link to confirm your account and you’ll be good to go: </p>
 
-<%= confirm_url(:id => @user.perishable_token) %>
+<p><a href="<%= confirm_url(:id => @user.perishable_token) %>"><%= confirm_url(:id => @user.perishable_token) %></a></p>
 
-Note: If you have trouble clicking this link above, try copying it and pasting it into your browser's URL bar.
+<p>Note: If you have trouble clicking this link above, try copying it and pasting it into your browser's URL bar.</p>

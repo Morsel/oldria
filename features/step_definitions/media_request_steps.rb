@@ -26,6 +26,12 @@ Given /^there are no media requests$/ do
 end
 
 
+When /^I click on "([^\"]*)"$/ do |selector|
+  response.should have_selector("div", :id => selector) do |section|
+  end
+end
+
+
 When /^I follow "([^\"]*)" within the "([^\"]*)" section$/ do |link, relselector|
   response.should have_selector("div", :rel => relselector) do |section|
     click_link link

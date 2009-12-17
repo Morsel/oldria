@@ -30,12 +30,28 @@ describe User do
       u.first_name.should eql("Ben")
       u.last_name.should eql("Davis")
     end
+    
+    it "should save the name for two names only" do
+      u = Factory.build(:user, :first_name => '', :last_name => '')
+      u.name = "Ben Davis Smith"
+      u.save
+      u.first_name.should eql("Ben")
+      u.last_name.should eql("Davis Smith")
+    end
+    
+    it "should handle hyphenated names" do
+      u = Factory.build(:user, :first_name => '', :last_name => '')
+      u.name = "Ben Davis-Smith"
+      u.save
+      u.first_name.should eql("Ben")
+      u.last_name.should eql("Davis-Smith")
+    end
 
     it "should drop everything but the first and last names" do
       u = User.new
       u.name = "John Q. Morris"
       u.first_name.should == "John"
-      u.last_name.should == "Morris"
+      u.last_name.should == "Q. Morris"
     end
 
     it "should only update first_name if one name is given" do
