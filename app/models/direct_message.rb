@@ -4,10 +4,11 @@ class DirectMessage < ActiveRecord::Base
 
   named_scope :all_from_admin, :conditions => { :from_admin => true }
   named_scope :all_not_from_admin, :conditions => { :from_admin => false }
-  
+
   validates_presence_of :receiver
   validates_presence_of :sender
-  
+  validates_presence_of :body
+
   attr_protected :from_admin
 
   def validate
@@ -23,11 +24,11 @@ class DirectMessage < ActiveRecord::Base
       :in_reply_to_message_id => self.id
     )
   end
-  
+
   def parent_message
     DirectMessage.find(in_reply_to_message_id) if in_reply_to_message_id
   end
-  
+
   def from?(user)
     sender_id == user.id
   end

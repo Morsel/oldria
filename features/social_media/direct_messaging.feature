@@ -44,6 +44,7 @@ Feature: Direct messaging
     And I follow "reply"
     Then I should see "Reply to senderman's message"
 
-    When I press "Send"
+    When I fill in "Body" with "This is my reply"
+    And I press "Send"
     Then I should see "Your message has been sent"
     And "senderman" should have 1 direct message
