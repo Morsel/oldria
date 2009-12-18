@@ -1,23 +1,13 @@
-<% title "Listing pages" %>
+<% title "Pages" %>
 
-<table>
-  <tr>
-    <th>Title</th>
-    <th></th>
-  </tr>
+<p><%= link_to "New Page", new_admin_page_path, :class => 'button positive' %></p>
 
-<% for page in @pages %>
-  <tr>
-    <td><%= page.title %></td>
-    <td class="utility">
-      <%= link_to 'Show', [:admin, page] %>
-      <%= link_to 'Edit', edit_admin_page_path(page) %>
-      <%= link_to 'Destroy', [:admin, page], :confirm => 'Are you sure?', :method => :delete %>
-    </td>
-  </tr>
+<% table_for(@pages) do |t|%>
+	<% t.data :actions => :edit, :action_prefix => 'admin' do
+			t.cell :title
+			t.cell :slug
+			t.cell :view_live, :heading => "", :cell_html => {:class => 'actions'} do |p|
+				link_to "Live", public_page_path(p)
+			end
+	end %>
 <% end %>
-</table>
-
-<br />
-
-<%= link_to 'New page', new_admin_page_path, :class => 'button positive' %>

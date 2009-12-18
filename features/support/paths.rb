@@ -54,6 +54,9 @@ module NavigationHelpers
     when /^the admin new user page$/
       new_admin_user_path
 
+    # Direct path
+    when /"([^\"]+)"/
+      $1
 
     # Add more mappings here.
     # Here is a more fancy example:

@@ -137,3 +137,7 @@ checkallList.find(":checkbox").not(".novalue").click(function(){
 	if (this.checked) return true;
 	$(this).parents('fieldset:eq(0)').find('.checkall_link :checkbox').removeAttr('checked');
 });
+
+
+// WYSIWYG
+CKEDITOR.replace( 'page_content' );

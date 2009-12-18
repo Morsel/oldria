@@ -1,0 +1,9 @@
+<% title @page.title %>
+
+<%= @page.content %>
+
+<% if can?(:edit, @page) %>
+	<p>
+		<%= link_to (image_tag("pencil.png") + "Edit this page"), edit_admin_page_path(@page), :class => 'button' %>
+	</p>
+<% end %>

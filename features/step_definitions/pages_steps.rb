@@ -1,12 +1,12 @@
-Then /^I should see the admin interface$/ do
-  true #TODO
+When /^I create a new page with:$/ do |table|
+  page_data = table.rows_hash
+  visit new_admin_page_path
+  page_data.each do |field,value|
+    fill_in field, :with => value
+  end
+  click_button "Save"
 end
 
-Then /^I should see the static page name "([^\"]*)"$/ do |title|
-  Then "I should see \"#{title}\""
+Then /^there should be a page with slug "([^\"]*)"$/ do |slug|
+  Page.find_by_slug!(slug)
 end
-
-Then /^I should see the "([^\"]*)" error message$/ do |arg1|
-  true #TODO
-end
-

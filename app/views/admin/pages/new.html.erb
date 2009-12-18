@@ -1,11 +1,6 @@
-<% title "New page" %>
+<% javascript 'ckeditor/ckeditor' %>
+<% title "New Page" %>
 
-<% form_for([:admin, @page]) do |f| %>
-  <%= f.error_messages %>
+<%= render :partial => 'form' %>
 
-  <p>
-    <%= button_tag 'Create' %>
-  </p>
-<% end %>
-
-<%= link_to 'Back', admin_pages_path %>
+<p><%= link_to "Back to List", admin_pages_path %></p>

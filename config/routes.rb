@@ -45,6 +45,8 @@ ActionController::Routing::Routes.draw do |map|
     admin.resources :restaurant_roles, :except => [:show]
   end
 
+  map.public_page ":id", :controller => 'pages', :action => 'show'
+
   # Default Routes
   # map.connect ':controller/:action/:id'
   # map.connect ':controller/:action/:id.:format'

@@ -1,12 +1,9 @@
-<% title "Editing pages" %>
+<% javascript 'ckeditor/ckeditor' %>
+<% title "Edit Page" %>
 
-<% form_for([:admin, @page]) do |f| %>
-  <%= f.error_messages %>
+<%= render :partial => 'form' %>
 
-  <p>
-    <%= button_tag 'Update' %>
-  </p>
-<% end %>
-
-<%= link_to 'Show', [:admin, @page] %> |
-<%= link_to 'Back', admin_pages_path %>
+<p>
+	<%= link_to "Show", [:admin, @page] %> |
+	<%= link_to "View All", admin_pages_path %>
+</p>

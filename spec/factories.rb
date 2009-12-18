@@ -60,7 +60,9 @@ Factory.define :account_type do |f|
 end
 
 Factory.define :page do |f|
-  f.title "Page Title"
+  f.title   "Page Title"
+  f.slug    {"page-title"}
+  f.content {"This is the page content"}
 end
 
 Factory.define :direct_message do |f|

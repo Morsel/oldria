@@ -19,7 +19,7 @@ Rails::Initializer.run do |config|
   config.gem 'formtastic', :source => "http://gemcutter.org"
   config.gem 'tabletastic', :source => "http://gemcutter.org", :version => ">=0.1.2"
   config.gem 'validation_reflection', :source => "http://gemcutter.org"
-
+  config.gem "friendly_id"
 
   # Settings in config/environments/* take precedence over those specified here.
   # Application configuration should go into files in config/initializers

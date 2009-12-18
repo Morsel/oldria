@@ -520,7 +520,7 @@ div.restaurant {
 .restaurant_role a span.delete{
 	width:18px;
 	height:18px;
-	background: url("../images/x.png") no-repeat 0 -2px;	
+	background: url("../images/x.png") no-repeat 0 -2px;
 }
 
 /* @end */
@@ -917,7 +917,7 @@ table td {
 }
 
 tr:hover td {
-	background-color: #ffd;
+	#background-color: #ffd;
 }
 
 tr.even td {
@@ -1443,6 +1443,22 @@ a.ui-state-default:hover {
 	background-color: #669;
 	color: white;
 }
+
+/* @end */
+
+
+/* @group CKEditor overrides ui ---------*/
+
+
+form span.cke_skin_kama {
+	border: 0 none;
+	padding: 0;
+}
+
+form .cke_skin_kama .cke_wrapper {
+	border: 1px solid #ccc;
+}
+
 
 /* @end */
 
