@@ -13,7 +13,7 @@
 		<li><%= link_to "Message this user", new_user_direct_message_path(@user) %></li>
 
 		<%- if @following -%>
-		<li class="following"><%= link_to "Stop following this user", @following, :method => :delete %></li>
+		<li class="following"><%= link_to "Stop following this user", following_path(@following), :method => :delete %></li>
 		<% else %>
 		<li><%= link_to "Follow this user", followings_path(:friend_id => @user), :method => :post %></li>
 		<% end -%>

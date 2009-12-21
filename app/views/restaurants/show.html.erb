@@ -1,0 +1,15 @@
+<% title "Viewing " + h(@restaurant.name) -%>
+<p>Added <%= time_ago_in_words(@restaurant.created_at) %> ago</p>
+<p><%=h @restaurant.street1 %> <%=h @restaurant.street2 %><br />
+  <%=h @restaurant.city %> <%=h @restaurant.city %> <%=h @restaurant.state %> <%=h @restaurant.country %></p>
+<p>Facts: <%=h @restaurant.facts %></p>
+<% if @restaurant.manager %><p>Manager: <%=h @restaurant.manager.name %></p><% end -%>
+<% if @restaurant.metropolitan_area %><p>Metropolitan Area: <%=h @restaurant.metropolitan_area.name %></p><% end -%>
+<% if @restaurant.james_beard_region %><p>James Beard Region: <%=h @restaurant.james_beard_region.name %></p><% end -%>
+<% if @restaurant.cuisine %><p>Cuisine: <%=h @restaurant.cuisine.name %></p><% end -%>
+<% if can? :edit, @restaurant %>
+  <p class="clearfix">
+    <%= link_to 'Manage employees', restaurant_employees_path(@restaurant), :class=>'button positive' %> 
+    <%= link_to 'Edit restaurant', edit_restaurant_path(@restaurant), :class=>'button positive' %>
+  </p>
+<% end -%>

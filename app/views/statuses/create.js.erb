@@ -1,6 +1,6 @@
 // Add the message the list
 $("#statuses").prepend("<li class=\"status\" style=\"opacity:0\" id=\"status_<%= @status.id %>\"><%= escape_javascript(render @status) %></li>").find('li:first').animate({opacity: 1}, 1000);
-
+$("#sidebar_statuses").html('<%= escape_javascript(render :partial => "statuses/user_bar_status", :collection => current_user.statuses[0..1]) %>')
 // Reset the form
 $("#new_status")[0].reset();
 

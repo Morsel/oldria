@@ -1,3 +1,4 @@
+@statuses
 Feature: Manage SpoonFeed Statuses
   So that I can market myself
   As a SpoonFeed member
@@ -34,8 +35,8 @@ Feature: Manage SpoonFeed Statuses
     | I ate too much |
     And I am on the statuses page for "another"
     Then I should see "Statuses for another"
-    And I should see 2 status updates
-    But I should not see "Post"
+    And I should see "I ate too much"
+    But I should not see "Post" within "#leftcolumn"
     And I should not see "Delete"
 
 
@@ -53,3 +54,15 @@ Feature: Manage SpoonFeed Statuses
     When I fill in "Status" with "Check out http://www.google.com, it's my favorite."
     And I press "Post"
     And the top message should contain a link to "http://www.google.com"
+
+  Scenario: Post status from logged in user box
+    Given "freddy" has the following status messages:
+    | message                         |
+    | I am the user that is logged in |
+    | This is my message              |
+    | Another message update          |
+    And I am on the dashboard
+    Then I should see 2 status updates
+    When I fill in "Status" with "This is my status"
+    And I press "Post"
+    Then I should see "This is my status"

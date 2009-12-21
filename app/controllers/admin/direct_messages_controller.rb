@@ -21,7 +21,7 @@ class Admin::DirectMessagesController < Admin::AdminController
     @direct_message = current_user.sent_direct_messages.build(params[:direct_message])
     @direct_message.from_admin = true
     if @direct_message.save
-      flash[:notice] = 'Direct message was successfully created.'
+      flash[:notice] = 'Private message was successfully created.'
       redirect_to(admin_direct_messages_url)
     else
       render :new
@@ -31,7 +31,7 @@ class Admin::DirectMessagesController < Admin::AdminController
   def update
     @direct_message = DirectMessage.find(params[:id])
     if @direct_message.update_attributes(params[:direct_message])
-      flash[:notice] = 'Direct message was successfully updated.'
+      flash[:notice] = 'Private message was successfully updated.'
       redirect_to(admin_direct_messages_url)
     else
       render :edit

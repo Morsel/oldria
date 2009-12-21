@@ -1,7 +1,7 @@
-<% title "Dashboard" %>
+<% title "Your Digital Dashboard" %>
 
 	<div id="admin_messages" class="span-6">
-		<h3>Administrative Notices</h3>
+		<h3>RIA Messages</h3>
 <% if !@admin_direct_messages.blank? %>
 	<% for message in @admin_direct_messages %>
 	<% div_for message, :class => 'clearfix admin' do %>
@@ -23,7 +23,7 @@
 	</div>
 
 	<div id="media_requests" class="span-6 last" rel="Media Requests">
-	<h3>Media Requests for You</h3>
+	<h3>Media Requests</h3>
 		<%= render :partial => 'media_requests' %>
 
 		<% if @media_request_conversations.blank? %>
@@ -32,7 +32,7 @@
 	</div>
 
 	<div id="direct_messages" class="span-6">
-	<h3>Direct Messages</h3>
+	<h3>Private Messages</h3>
 	<% if !@direct_messages.blank? %>
 		<h4>Messages to You</h4>
 		<%= render @direct_messages %>

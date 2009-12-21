@@ -30,6 +30,16 @@ Given /^"([^\"]*)" is the account manager for "([^\"]*)"$/ do |username, restaur
   restaurant.save
 end
 
+Given /^I am an employee of "([^\"]*)"$/ do |restaurantname|
+  restaurant = Restaurant.find_by_name(restaurantname)
+  visit restaurant_employees_path(restaurant)
+  click_link "Add employee"
+  fill_in "Employee Email", :with => current_user.email
+  click_button "Submit"
+  click_button "Yes"
+end
+
+
 
 Given /^I have just created a restaurant named "([^\"]*)"$/ do |restaurantname|
   visit new_restaurant_url

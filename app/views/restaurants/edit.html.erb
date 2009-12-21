@@ -1,6 +1,6 @@
 <% title "Editing Restaurant" %>
 
-<% semantic_form_for([:admin, @restaurant]) do |f| %>
+<% semantic_form_for(@restaurant) do |f| %>
 	<p>
 		<%= f.label :name %>
 		<%= f.text_field :name, :class => 'title span-8' %>

@@ -9,7 +9,7 @@ Feature: Twitter Authentication
     | username | password |
     | johnny   | secret   |
     And I am logged in as "johnny" with password "secret"
-    When I go to the homepage
+    When I follow "Edit My Account"
     And I follow "Setup Twitter"
     And Twitter authorizes "johnny"
     Then I should see "Twitter"
@@ -21,8 +21,8 @@ Feature: Twitter Authentication
     | username | password |
     | stevie   | secret   |
     Given I am logged in as "stevie" with password "secret"
-    And I am on the homepage
-    When I follow "Twitter"
+    When I follow "Edit My Account"
+    And I follow "Read Twitter Timeline"
 
     ## From a fixture file ##
     Then I should see "Best American flag etiquette video series I've seen all month!"

@@ -293,6 +293,15 @@ div#navigation ul li a.current:hover {
 	background-color: #edfbff;
 	padding: 12px;
 }
+#user_status #new_status{
+	background:0;
+	padding:0;
+}
+#user_status #status_update.box{
+	border:0;
+	margin:10px 0;
+	padding:0;
+}
 
 #new_status input {
 	font-size: 1.3em;
@@ -318,7 +327,7 @@ div#navigation ul li a.current:hover {
 	width: 450px;
 }
 
-#rightcolumn #new_status input.status_message {
+#sidebar #new_status input.status_message {
 	width: 240px;
 }
 
@@ -349,7 +358,7 @@ div#navigation ul li a.current:hover {
 	color: #fff;
 }
 
-#statuses {
+#statuses, .statuses {
 	list-style: none;
 	margin: 10px 0px;
 	padding: 0px;
@@ -380,7 +389,7 @@ div#navigation ul li a.current:hover {
 	font-family: Georgia, 'Trebuchet MS', Times, arial, sans-serif;
 }
 
-#statuses li .recentmessage {
+#statuses li .recentmessage, .statuses li .recentmessage {
 	font-size: 2.1em;
 	line-height: 28px;
 }

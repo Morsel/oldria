@@ -13,7 +13,7 @@ class FollowingsController < ApplicationController
   end
   
   def destroy
-    @following = current_user.followings.find(params[:id])
+    @following = current_user.followings.first(:conditions => { :friend_id => params[:id] })
     if @following.destroy
       flash[:notice] = "OK, you aren't following them anymore."
     else

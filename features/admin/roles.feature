@@ -7,7 +7,7 @@ Feature: Member roles
   Scenario: SpoonFeed normal member
     Given I am logged in as a spoonfeed member
     When I am on the dashboard
-    Then I should see "Twitter"
+    Then I should see "Status"
     And I should not see "Media Portal"
 
 
@@ -15,7 +15,7 @@ Feature: Member roles
     Given I am logged in as a media member
     When I am on the dashboard
     Then I should see "Media Portal"
-    And I should not see "Twitter"
+    And I should not see "Status"
 
   @allow-rescue
   Scenario Outline: Media members access
