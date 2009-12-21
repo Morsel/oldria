@@ -293,7 +293,7 @@ div#navigation ul li a.current:hover {
 	background-color: #edfbff;
 	padding: 12px;
 }
-#user_status #new_status{
+#sidebar #new_status{
 	background:0;
 	padding:0;
 }
@@ -377,16 +377,15 @@ div#navigation ul li a.current:hover {
 	color: #666;
 	margin: 0px 0px 12px 0px;
 	padding: 0px 0px 8px 0px;
-	border-bottom: 1px dotted #ccc;
+	border-bottom: 1px dashed #ccc;
 	overflow: hidden;
 }
 
 .message {
 	display: block;
 	color: #333;
-	font-size: 1.5em;
 	line-height: 22px;
-	font-family: Georgia, 'Trebuchet MS', Times, arial, sans-serif;
+	font:bold 1.3em "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
 #statuses li .recentmessage, .statuses li .recentmessage {
@@ -408,6 +407,7 @@ div#navigation ul li a.current:hover {
 	display: inline;
 	float: left;
 	padding-right: 5px;
+	font-family:"Lucidia Grande", Arial, sans-serif;
 }
 
 .status .meta, .status .posted, .comment .meta  {
@@ -421,6 +421,10 @@ div#navigation ul li a.current:hover {
 
 #statuses .message {
 	float: left;
+}
+
+.message a{
+	color:#0684ad;
 }
 
 .status .profile_image {
@@ -465,7 +469,7 @@ div#navigation ul li a.current:hover {
  */
 
 div.restaurant {
-	font-size: 1.2em;
+	font-size: 1em;
 }
 
 .restaurant .media_requests_count {
@@ -479,15 +483,21 @@ div.restaurant {
 	color: #555;
 }
 
-.restaurant a {
-	color: #333;
-	border-bottom: 1px dashed #aaa;
+.restaurant a{
+	display:inline-block;
+	margin:5px 0;
 }
-
-.restaurant a:hover {
-	background-color: #ffd;
-	color: #000;
-	border-bottom: 1px dashed #777;
+.my_restaurants a{
+	color:#008bc4;
+}
+.my_employers{
+	padding:10px 0 0;
+}
+.my_employers a{
+	color:#e8750a;
+}
+.restaurant a:hover{
+	text-decoration:underline;
 }
 
 .add_restaurant a {
@@ -726,14 +736,11 @@ p.editprofile a:hover {
 }
 
 #user_profile_view, .user.box {
-	border: 0px solid #ddd;
-	background-color: #edfbff;
-	-moz-border-radius: 8px;
-	-webkit-border-radius: 8px;
-	border-radius: 8px;
+	border: 1px solid #ddd;
+	background-color: #fff;
 	margin-bottom: 30px;
-	-moz-box-shadow: -3px 3px 0px #e5f2fe;
-	-webkit-box-shadow: -3px 3px 0px #e5f2fe
+	-moz-box-shadow: 1px 1px 3px #ddd;
+	-webkit-box-shadow: 1px 1px 3px #ddd
 }
 
 #user_profile_view img{
@@ -748,14 +755,14 @@ p.editprofile a:hover {
 #user_profile_view h2, .user.box h2 {
 	margin: 0px;
 	padding: 0px;
+	font:bold 1.6em "Helvetica Neue", Helvetica, Arial, sans-serif;
 	}
 
-#user_profile_view h3, .user.box h3 {
-	font-size: 1.2em;
+#user_profile_view h3, .user.box h3, #user_profile_view p, .user.box p {
 	line-height: 20px;
 	margin: 0px 0px 0px 0px;
 	padding: 0px;
-	font-weight: normal;
+	font:bold 1em "Lucidia Grande", Arial, sans-serif;
 	}
 #user_profile_view h4, .user.box h4 {
 	margin:5px 0px;
@@ -771,6 +778,12 @@ p.editprofile a:hover {
 
 .user.box {
 	margin-bottom: 18px;
+}
+
+.recent_statuses{
+	padding:10px;
+	border:solid #ddd;
+	border-width:0 0 1px;
 }
 
 .user.box img {
@@ -819,6 +832,7 @@ ul.user_profile_actions {
 
 
 #user_content h3 {color: #49341f;}
+#user_content h4 a{color:#0684ad; }
 
 #user_content ul {
 	list-style: none;
@@ -827,7 +841,11 @@ ul.user_profile_actions {
 
 #user_content ul li {
 	display: block;
-	margin: 3px 0px;
+	margin: 5px 0px;
+	padding:10px;
+	}
+	#user_content ul li.even{
+		background:#f2f2f2;
 	}
 
 	#user_content ul li img {
@@ -866,6 +884,17 @@ ul.user_profile_actions {
 #user_content h3 {
 	margin: 20px 0px 4px 0px;
 	}
+	
+h3.function-bold{
+	padding-bottom:5px;
+	margin-bottom:10px;
+	border-bottom:1px solid #ddd;
+	text-transform:uppercase;
+	color:#989898;
+	font-weight:normal;
+	font-size:1.3em;
+}
+
 
 #user_content p.more_statuses {
 	font-family: 'lucida grande', tahoma, arial, sans-serif;
@@ -1471,3 +1500,9 @@ form .cke_skin_kama .cke_wrapper {
 
 /* @end */
 
+#sidebar .box{
+	-webkit-border-radius:0;
+	-moz-border-radius:0;
+	border-radius:0;
+	background:#f7f7f7;
+}

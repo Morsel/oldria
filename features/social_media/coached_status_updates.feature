@@ -1,3 +1,4 @@
+@coached
 Feature: Coached Status Updates
   So that I can update my SF status with meaningful, interesting things, 
   As a SF member who doesn’t know what to say in his/her SF status update, 
@@ -16,14 +17,12 @@ Feature: Coached Status Updates
 
   Scenario: Seeing a Coached Status during the specified time
     Given the current date is "2009-12-20"
-    When I am on the homepage
-    And I follow "Status"
+    And I am on the dashboard
     Then I should see "Christmas Menu coming up?"
 
   Scenario: Not displaying message out of date range
     Given the current date is "2009-10-02"
-    When I am on the homepage
-    And I follow "Status"
+    And I am on the dashboard
     Then I should not see "Christmas Menu coming up?"
 
 

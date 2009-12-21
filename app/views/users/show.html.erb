@@ -1,35 +1,46 @@
-<% title "#{@user.username}'s profile" %>
+<% title "#{@user.username}'s Profile" %>
 <% if current_user == @user  %>
-<p class="editprofile"><%= link_to "Edit Profile", edit_user_path(@user) %></p>
+<% content_for :page_actions do -%>
+  <%= link_to "Edit Profile", edit_user_path(@user) %>
+<% end -%>
+
 <% end -%>
 
 <div id="user_profile_view" class="box clearfix">
-	<%= image_tag @user.avatar.url(:small) %>
-	<h2><%= @user.username %></h2>
-	<h3><%= @user.name %></h3>
+	<div class="span-3">
+	  <%= image_tag @user.avatar.url(:small), :width=>'100', :height=>'100' %>
+	</div>
+	<div class="span-8 last">
+    <h2><%= @user.name %></h2>
+    <h3><%= @user.username %></h3>
+    <p><% if @user.james_beard_region %>Region: <span><%= @user.james_beard_region.name %></span><br /><% end -%>
+      <% if @user.twitter_username %><% end -%></p>
+  </div>
+  
 	<% if false %><h3>Neoteric Design, Web Designer</h3><% end %>
+	
 	<% unless current_user == @user %>
 	<ul class="user_profile_actions">
 		<li><%= link_to "Message this user", new_user_direct_message_path(@user) %></li>
-
 		<%- if @following -%>
 		<li class="following"><%= link_to "Stop following this user", following_path(@following), :method => :delete %></li>
 		<% else %>
 		<li><%= link_to "Follow this user", followings_path(:friend_id => @user), :method => :post %></li>
 		<% end -%>
-
 	</ul>
 	<% end -%>
+	
 	<% if false %>
 	<h4>About Me:</h4>
 	<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ut ligula magna. Sed sed odio velit. Phasellus orci nunc, bibendum ut consectetur sit amet, tempus nec lacus. Integer congue vulputate lectus id feugiat. Class aptent taciti sociosqu ad litora torquent per conubia nostra</p>
 	<% end %>
+	
 </div><!--#user_profile_view -->
 
 <div id="user_content">
 <% if @latest_statuses -%>
-<h3>Latest Statuses</h3>
-<div class="box rounded">
+<h3 class="function-bold">Recent Status Updates</h3>
+<div class="recent_statuses">
 	<% for status in @latest_statuses -%>
 	<p class="status" id="status_<%= status.id %>">
 		<%= render :partial => 'statuses/status', :locals => { :status => status } %>
@@ -42,12 +53,14 @@
 
 <% if !@user.followings.blank? %>
 <div class="span-6">
-	<h3>Following</h3>
-	<ul class="box rounded">
+	<h3 class="function-bold">Following</h3>
+	<ul>
 		<% for following in @user.followings %>
-		<li class="clearfix">
+		<li class="clearfix<%= cycle(' odd',' even') %>">
 			<%= link_to image_tag(following.friend.avatar.url(:thumb)), profile_path(following.friend.username) %>
 			<h4><%= link_to following.friend.name, profile_path(following.friend.username) %></h4>
+			<p class="meta">Username: <%= following.friend.username %><br />
+			  Region: <%= following.friend.james_beard_region.name %></p>
 			<% if (current_user == @user) %>
 			<p><%= link_to "Stop following this user", following, :method => :delete %></p>
 			<% end %>
@@ -60,10 +73,10 @@
 
 <% if !@user.followers.blank? %>
 <div class="span-6 last">
-	<h3>Followers</h3>
-	<ul class="box rounded">
+	<h3 class="function-bold">Followers</h3>
+	<ul>
 		<% for follower in @user.followers %>
-		<li class="clearfix">
+		<li class="clearfix<%= cycle(' odd',' even') %>">
 			<%= link_to image_tag(follower.avatar.url(:thumb)), profile_path(follower.username) %>
 			<h4><%= link_to follower.name, profile_path(follower.username) %></h4>
 			<% unless (current_user == follower) || current_user.following?(follower) %>

@@ -21,7 +21,7 @@
 
 	<% @users.each do |user| %>
 	<tr class="user <%= user.admin? ? 'admin' : '' %>">
-		<td><%= h user.name %></td>
+		<td><%= h user.last_name %>, <%=h user.first_name %></td>
 		<td><%= link_to user.username, profile_path(user.username) %></td>
 		<td><%= h user.email %></td>
 		<td><%= h user.account_type.try(:name) %></td>

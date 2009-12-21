@@ -64,8 +64,14 @@
 			</div>
 
 			<%- if show_title? -%>
-			<h1><%=h yield(:title) %></h1>
+			<div class="span-4">
+			  <h1><%=h yield(:title) %></h1>
+			</div>
 			<%- end -%>
+			<div class="page_actions span-8 last">
+			  <%= yield(:page_actions) %>
+			</div>
+			<div class="clear"></div>
 
 			<%= yield %>
 
@@ -77,12 +83,23 @@
 		<%- else -%>
 			<%= render :partial => 'shared/user_status' %>
 		<% end -%>
+		
+		<% unless @coached_message.blank? %>
+      <div id="coached">
+        <h3 class="function-bold">Status Suggestions</h3>
+        <%= simple_format @coached_message.message %>
+      </div>
+    <% end %>
+    
 		<% if !(sb = yield :sidebar).blank? %>
 		<%= sb %>
 		<% end -%>
 
 		<%= render :partial => 'shared/restaurants' if current_user && !current_user.media? %>
 	</div><!--#sidebar-->
+	
+
+  
 
 	<div id="footer" class="clear">
 	<% if current_user && current_user.admin? %>

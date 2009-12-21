@@ -24,7 +24,7 @@
   <%= render :partial => 'statuses/form' %>
 
   <div id="previous_statuses" class="box">
-    <h3>Previous Status Messages</h3>
+    <h3 class="function-bold">Previous Status Messages</h3>
     <ol class="statuses" id="sidebar_statuses">
       <% if current_user.statuses.any? -%>
         <%= render :partial => 'statuses/user_bar_status', :collection => current_user.statuses[0..1] %>

@@ -3,6 +3,7 @@
 
 class ApplicationController < ActionController::Base
   #before_filter :authenticate
+  before_filter :find_coached_message
   helper :all # include all helpers, all the time
   protect_from_forgery # See ActionController::RequestForgeryProtection for details
 
@@ -22,6 +23,10 @@ class ApplicationController < ActionController::Base
   end
 
   private
+  
+  def find_coached_message
+    @coached_message = CoachedStatusUpdate.current.random.first
+  end
 
   def current_user_session
     return @current_user_session if defined?(@current_user_session)
