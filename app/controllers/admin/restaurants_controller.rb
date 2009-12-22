@@ -21,7 +21,10 @@ class Admin::RestaurantsController < Admin::AdminController
   def destroy
     @restaurant.destroy
     flash[:notice] = "Successfully removed restaurant"
-    redirect_to admin_restaurants_path
+    respond_to do |format|
+      format.html { redirect_to admin_restaurants_path }
+      format.js   { render :text => '' }
+    end
   end
 
   private

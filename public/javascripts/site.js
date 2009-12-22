@@ -35,7 +35,20 @@ $('.status a.trash').live('click', function(){
 	return false;	
 });
 
-$('a.delete, a.trash').removeAttr('onclick');
+$('a.delete, a.trash, .actions.destroy_link a').removeAttr('onclick');
+
+$('.actions.destroy_link a').click(function(){
+	var $destroyLink = $(this);
+	if (confirm("Are you sure you want to PERMANENTLY delete this?")) {
+		$.post(this.href+".js", {_method: 'delete'}, function(data, status){
+			var row = $destroyLink.parents('tr:first');
+			row.fadeOut(200,function(){
+				row.remove();
+			});
+		});
+	}
+	return false;
+});
 
 
 // Hide the filter form by default on Admin search
@@ -139,10 +152,12 @@ checkallList.find(":checkbox").not(".novalue").click(function(){
 });
 
 //Cufon
-Cufon.replace('.function-bold', {fontFamily:'FunctionBold', hover:true});
-
+if(typeof(Cufon) != 'undefined') {
+	Cufon.replace('.function-bold', {fontFamily:'FunctionBold', hover:true});
+}
 
 // WYSIWYG
-CKEDITOR.replace( 'page_content' );
-
+if(typeof(CKEDITOR) != 'undefined'){
+	CKEDITOR.replace( 'page_content' );
+}
 

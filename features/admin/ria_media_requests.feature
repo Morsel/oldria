@@ -1,4 +1,4 @@
-@focus
+@mediarequest
 Feature: RIA Media requests
   In order to easily communicate with clients
   As a RIA staff member
