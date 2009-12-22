@@ -35,9 +35,10 @@ class Admin::MediaRequestsController < Admin::AdminController
     @media_request = MediaRequest.find(params[:id])
     if @media_request.approve!
       flash[:success] = "Successfully approved that message. A notice will be sent to the recipients."
+      redirect_to admin_media_requests_path
     else
       flash[:error] = "We were unable to approve that message."
+      redirect_to admin_media_requests_path
     end
-    redirect_to admin_media_requests_path
   end
 end
