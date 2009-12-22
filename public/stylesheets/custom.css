@@ -19,7 +19,7 @@ body {
 	background-repeat: repeat-x;
 }
 
-button { float:none; display:inline;}
+button { float:none; display:inline; font-family:'helvetica neue', helvetica, tahoma, arial, sans-serif;}
 .edit_user button{ float:left;}
 
 div#container {
@@ -325,7 +325,6 @@ div#navigation ul li a.current:hover {
 	border-color: #ccf;
 	background-color: #def;
 	color: #1d9bbb;
-	font-size:1.3em;
 }
 
 #new_status button:hover {
@@ -879,8 +878,12 @@ ul.user_profile_actions {
 		font-family: 'lucida grande', tahoma, arial, sans-serif;
 		font-size: .9em;
 		}
-
+		
+		.button{
+			font-family:'helvetica neue', helvetica, tahoma, arial, sans-serif;
+		}
 		a.sf-button {
+			font:bold 0.9em 'helvetica neue', helvetica, tahoma, arial, sans-serif;
 			border: 1px solid #c9e1f9;
 			background-color: #edfbff;
 			color: #1d9bbb;
