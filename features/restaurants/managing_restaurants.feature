@@ -12,7 +12,7 @@ Feature: Managing Restaurants
   Scenario: I can view my restaurants individually
     Given I am on the dashboard
     When I follow "Jimmy's Diner"
-    Then I should see "Viewing Jimmy's Diner"
+    Then I should not see "Your Digital Dashboard"
     
   Scenario: I can edit the employees of restaurants I manage
     Given I am on the dashboard
