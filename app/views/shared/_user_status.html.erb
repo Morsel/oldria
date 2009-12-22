@@ -29,7 +29,7 @@
 				<%= render :partial => 'statuses/user_bar_status', :collection => current_user.statuses.all(:limit => 2) %>
 			</ol>
 
-			<p><%= link_to 'Status history', user_statuses_path(current_user) %></p>
+			<% if current_user.statuses.size > 2 -%><p><%= link_to 'View all', user_statuses_path(current_user),:class=>'sf-button' %></p><% end -%>
 	</div>
 
 	<% unless (@coached_message ||= CoachedStatusUpdate.current.random.first).blank? %>
