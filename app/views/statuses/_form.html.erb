@@ -2,7 +2,7 @@
   <h3 class="function-bold">Update Your Status</h3>
 <% form_for (@status ||= Status.new), :url => user_statuses_path(@user) do |f| %>
   <%= f.error_messages %>
-  <p>
+  <p class="clearfix">
     <%= f.label :message, "Status", :class => 'hidden' %>
     <%= f.text_field :message, :size => '100', :class => 'status_message title' %>
     <%= button_tag "Post", :class => 'positive' %>
