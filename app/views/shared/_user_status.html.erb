@@ -21,19 +21,26 @@
 
 </div>
 <% if current_user -%>
-  <%= render :partial => 'statuses/form' %>
+<%= render :partial => 'statuses/form' %>
 
-  <div id="previous_statuses" class="box">
-    <h3 class="function-bold">Previous Status Messages</h3>
-    <ol class="statuses" id="sidebar_statuses">
-      <% if current_user.statuses.any? -%>
-        <%= render :partial => 'statuses/user_bar_status', :collection => current_user.statuses[0..1] %>
-      <% end -%>
-    </ol>
-    <% if current_user.statuses.size > 2 -%>
-      <p>
-        <%= link_to 'Status history', user_statuses_path(current_user) %>
-      </p>
-    <% end -%>
-  </div>
+	<div id="previous_statuses" class="box">
+		<h3 class="function-bold">Previous Status Messages</h3>
+		<ol class="statuses" id="sidebar_statuses">
+			<% if current_user.statuses.any? -%>
+			<%= render :partial => 'statuses/user_bar_status', :collection => current_user.statuses[0..1] %>
+			<% end -%>
+		</ol>
+		<% if current_user.statuses.size > 2 -%>
+		<p>
+			<%= link_to 'Status history', user_statuses_path(current_user) %>
+		</p>
+		<% end -%>
+	</div>
+
+	<% unless @coached_message.blank? %>
+	<div id="coached">
+		<h3 class="function-bold">Status Suggestions</h3>
+		<%= simple_format @coached_message.message %>
+	</div>
+	<% end %>
 <% end -%>

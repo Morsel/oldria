@@ -23,9 +23,9 @@ class ApplicationController < ActionController::Base
   end
 
   private
-  
+
   def find_coached_message
-    @coached_message = CoachedStatusUpdate.current.random.first
+    @coached_message ||= CoachedStatusUpdate.current.random.first if current_user
   end
 
   def current_user_session
