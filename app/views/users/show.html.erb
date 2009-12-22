@@ -1,4 +1,4 @@
-<% title "#{@user.username}'s Profile" %>
+<% title "#{@user.first_name}'s Profile" %>
 <% if current_user == @user  %>
 
 <% content_for :page_actions do -%>
@@ -13,7 +13,7 @@
 	  <h2><%= @user.name %></h2>
     <h3><%= @user.username %></h3>
     <p><% if @user.james_beard_region %>Region: <span><%= @user.james_beard_region.name %></span><br /><% end -%>
-      </p>
+      <% if @user.twitter_username -%>Twitter: <span><%= @user.twitter_username %></span><% end -%></p>
     <% unless current_user == @user %>
   	  <ul class="user_profile_actions">
     		<li><%= link_to "Message this user", new_user_direct_message_path(@user) %></li>
@@ -34,7 +34,7 @@
 </div><!--#user_profile_view -->
 
 <div id="user_content">
-<% if @latest_statuses -%>
+<% unless @latest_statuses.blank? -%>
 <h3 class="function-bold">Recent Status Updates</h3>
 <div class="recent_statuses">
 	<% for status in @latest_statuses -%>
@@ -48,9 +48,7 @@
   	</p>
 	<% end -%>
 </div><!-- .box -->
-<% else %>
-<h4><%= @user.username %> hasn't posted any statuses yet.</h4>
-<% end #if -%>
+<% end #unless -%>
 
 <% if !@user.followings.blank? %>
 <div class="span-6">

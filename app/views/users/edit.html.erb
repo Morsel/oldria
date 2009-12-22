@@ -24,7 +24,7 @@
   	<%= link_to (image_tag('x.png') + "Remove Twitter Information"), remove_twitter_user_path(@user), :confirm => "Are you sure you want to unlink your Twitter account? This action cannot be undone.", :method => :put, :class => 'button negative' %>
   	<%= link_to 'Read Twitter Timeline', friend_timeline_path, :class=>'button positive' %></p>
   <% elsif @user.twitter_allowed? -%>
-    <%= link_to "Setup Twitter", new_twitter_authorization_url %>
+    <%= link_to "Setup Twitter", new_twitter_authorization_url, :class=>'sf-button' %>
   <% end -%>
 </fieldset>
 

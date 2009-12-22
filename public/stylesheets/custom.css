@@ -20,6 +20,7 @@ body {
 }
 
 button { float:none; display:inline;}
+.edit_user button{ float:left;}
 
 div#container {
 	width: 969px;
@@ -320,15 +321,15 @@ div#navigation ul li a.current:hover {
 
 #new_status button {
 	margin: 0;
-	float: none;
+	float: left;
 	border-color: #ccf;
 	background-color: #def;
 	color: #1d9bbb;
+	font-size:1.3em;
 }
 
 #new_status button:hover {
-	background-color: #1D9BBB;
-	color: #fff;
+	background-color: #fff;
 }
 
 #leftcolumn #new_status input.status_message {
@@ -343,27 +344,13 @@ div#navigation ul li a.current:hover {
 	background-color: #fffde6;
 }
 
-.checkbox_twitter {
-	width: 150px;
-	clear: both;
-	background-color: #1D9BBB;
-	padding: 5px 5px 5px 8px;
-	margin: 0px 2em 12px 0px;
-	border: 0 none;
-	float: left;
-}
-
-.checkbox_twitter input.checkbox {
+input.checkbox {
 	float: left;
 	display: inline;
 	width: auto;
-	margin: -2px 7px 0px 0px;
+	margin: 0 7px 0px 10px;
 	height: 14px;
 	padding: 0px;
-}
-
-.checkbox_twitter label {
-	color: #fff;
 }
 
 #statuses, .statuses {
@@ -415,7 +402,7 @@ div#navigation ul li a.current:hover {
 	display: inline;
 	float: left;
 	padding-right: 5px;
-	font-family:"Lucidia Grande", Arial, sans-serif;
+	font-family:"Lucida Grande", Arial, sans-serif;
 }
 
 .status .meta, .status .posted, .comment .meta  {
@@ -620,6 +607,12 @@ ul.responses {
 .responses li a:after {
 	content: " \279E";
 }
+.name_and_pic{
+	font-family:"Lucida Grande", Arial, sans-serif;
+}
+.name_and_pic span{
+	color:#0487b1;
+}
 
 .media_request.summary {
 	border-bottom: 	1px dashed #ddd;
@@ -767,10 +760,10 @@ p.editprofile a:hover {
 	}
 
 #user_profile_view h3, .user.box h3, #user_profile_view p, .user.box p {
-	line-height: 20px;
+	line-height: 21px;
 	margin: 0px 0px 0px 0px;
 	padding: 0px;
-	font:bold 1em "Lucidia Grande", Arial, sans-serif;
+	font:bold 1em "Lucida Grande", Arial, sans-serif;
 	}
 #user_profile_view h4, .user.box h4 {
 	margin:5px 0px;
