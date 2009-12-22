@@ -1,15 +1,27 @@
-<% title "Viewing " + h(@restaurant.name) -%>
-<p>Added <%= time_ago_in_words(@restaurant.created_at) %> ago</p>
-<p><%=h @restaurant.street1 %> <%=h @restaurant.street2 %><br />
-  <%=h @restaurant.city %> <%=h @restaurant.city %> <%=h @restaurant.state %> <%=h @restaurant.country %></p>
-<p>Facts: <%=h @restaurant.facts %></p>
-<% if @restaurant.manager %><p>Manager: <%=h @restaurant.manager.name %></p><% end -%>
-<% if @restaurant.metropolitan_area %><p>Metropolitan Area: <%=h @restaurant.metropolitan_area.name %></p><% end -%>
-<% if @restaurant.james_beard_region %><p>James Beard Region: <%=h @restaurant.james_beard_region.name %></p><% end -%>
-<% if @restaurant.cuisine %><p>Cuisine: <%=h @restaurant.cuisine.name %></p><% end -%>
+<% title @restaurant.name -%>
 <% if can? :edit, @restaurant %>
-  <p class="clearfix">
-    <%= link_to 'Manage employees', restaurant_employees_path(@restaurant), :class=>'button positive' %> 
-    <%= link_to 'Edit restaurant', edit_restaurant_path(@restaurant), :class=>'button positive' %>
-  </p>
+  <% content_for :page_actions do -%>
+    <p class="clearfix">
+      <%= link_to 'Manage employees', restaurant_employees_path(@restaurant), :class=>'sf-button' %> 
+      <%= link_to 'Edit restaurant', edit_restaurant_path(@restaurant), :class=>'sf-button' %>
+    </p>
+  <% end -%>
 <% end -%>
+
+<div id="restaurant_profile_view" class="box clearfix">
+	<div class="name_and_pic span-7">
+	  <%= image_tag 'avatar_restaurant.gif', :width=>'100' %>
+	  <div class="user_info">
+  	  <h2 class="function-bold"><%= @restaurant.name %></h2>
+  	  <p><%=h @restaurant.street1 %> <%=h @restaurant.street2 %><br />
+        <%=h @restaurant.city %> <%=h @restaurant.city %> <%=h @restaurant.state %> <%=h @restaurant.country %></p>
+      <p><% if @restaurant.metropolitan_area %>Metropolitan Area: <span><%=h @restaurant.metropolitan_area.name %></span><br /><% end -%>
+      <% if @restaurant.james_beard_region %>Region: <span><%=h @restaurant.james_beard_region.name %></span><% end -%></p>
+    </div>
+	</div><!--/name_and_pic -->
+	<div class="manager_and_facts span-4 last">
+	  <% if @restaurant.manager %><p>Manager: <span><%=h @restaurant.manager.name %></span></p><% end -%>
+	  <% if @restaurant.cuisine %><p>Cuisine: <span><%=h @restaurant.cuisine.name %></span></p><% end -%>
+	  <p><%=h @restaurant.facts %></p>
+	</div><!-- /manager_and_facts -->
+</div><!--#restaurant_profile_view -->

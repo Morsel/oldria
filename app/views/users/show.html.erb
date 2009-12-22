@@ -8,29 +8,25 @@
 <% end -%>
 
 <div id="user_profile_view" class="box clearfix">
-	<div class="name_and_pic span-6">
+	<div class="name_and_pic span-10">
 	  <%= image_tag @user.avatar.url(:small), :width=>'100' %>
-	  <h2><%= @user.name %></h2>
-    <h3><%= @user.username %></h3>
-    <p><% if @user.james_beard_region %>Region: <span><%= @user.james_beard_region.name %></span><br /><% end -%>
-      <% if @user.twitter_username -%>Twitter: <span><%= @user.twitter_username %></span><% end -%></p>
-    <% unless current_user == @user %>
-  	  <ul class="user_profile_actions">
-    		<li><%= link_to "Message this user", new_user_direct_message_path(@user) %></li>
-    		<%- if @following -%>
-    		<li class="following"><%= link_to "Stop following this user", following_path(@following), :method => :delete, :class=>'sf-button' %></li>
-    		<% else %>
-    		<li><%= link_to "Follow this user", followings_path(:friend_id => @user), :method => :post, :class=>'sf-button' %></li>
-    		<% end -%>
-  	  </ul>
-  	<% end -%>
+	  <div class="user_info">
+	    <h2><%= @user.name %></h2>
+      <h3><%= @user.username %></h3>
+      <p><% if @user.james_beard_region %>Region: <span><%= @user.james_beard_region.name %></span><br /><% end -%>
+        <% if @user.twitter_username -%>Twitter: <span><%= @user.twitter_username %></span><% end -%></p>
+      <% unless current_user == @user %>
+    	  <ul class="user_profile_actions">
+      		<li><%= link_to "Message this user", new_user_direct_message_path(@user), :class=>'sf-button' %></li>
+      		<%- if @following -%>
+      		<li class="following"><%= link_to "Stop following this user", following_path(@following), :method => :delete, :class=>'sf-button' %></li>
+      		<% else %>
+      		<li><%= link_to "Follow this user", followings_path(:friend_id => @user), :method => :post, :class=>'sf-button' %></li>
+      		<% end -%>
+    	  </ul>
+    	<% end -%>
+    </div><!-- /user_info -->
 	</div><!--/name_and_pic -->
-  
-
-	
-
-
-	
 </div><!--#user_profile_view -->
 
 <div id="user_content">
@@ -59,7 +55,7 @@
 			<%= link_to image_tag(following.friend.avatar.url(:thumb), :width=>'50',:height=>'50'), profile_path(following.friend.username) %>
 			<h4><%= link_to following.friend.name, profile_path(following.friend.username) %></h4>
 			<p class="meta">Username: <%= following.friend.username %><br />
-			  Region: <%= following.friend.james_beard_region.name %></p>
+			  <% if following.friend.james_beard_region -%>Region: <%=  following.friend.james_beard_region.name %><% end -%></p>
 			<% if (current_user == @user) %>
 			  <p><%= link_to "Stop following this user", following, :method => :delete, :class=>'sf-button' %></p>
 			<% end %>
@@ -78,6 +74,8 @@
 		<li class="clearfix<%= cycle(' odd',' even') %>">
 			<%= link_to image_tag(follower.avatar.url(:thumb), :width=>'50', :height=>'50'), profile_path(follower.username) %>
 			<h4><%= link_to follower.name, profile_path(follower.username) %></h4>
+			<p class="meta">Username: <%= follower.username %><br />
+			  <% if follower.james_beard_region -%>Region: <%=  follower.james_beard_region.name %><% end -%></p>
 			<% unless (current_user == follower) || current_user.following?(follower) %>
 			<p><%= link_to "Follow this user", followings_path(:friend_id => follower), :method => :post, :class=>'sf-button' %></p>
 			<% end %>

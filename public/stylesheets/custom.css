@@ -607,11 +607,21 @@ ul.responses {
 .responses li a:after {
 	content: " \279E";
 }
-.name_and_pic{
+.name_and_pic, .manager_and_facts{
 	font-family:"Lucida Grande", Arial, sans-serif;
 }
-.name_and_pic span{
+.user_info{
+	margin-left:125px;
+}
+.name_and_pic p, .manager_and_facts p{
+	margin:0 0 5px;
+}
+.manager_and_facts{
+	padding-top:40px;
+}
+.name_and_pic span, .manager_and_facts span{
 	color:#0487b1;
+	font-weight:bold;
 }
 
 .media_request.summary {
@@ -736,7 +746,7 @@ p.editprofile a:hover {
 	color: #fff;
 }
 
-#user_profile_view, .user.box {
+#user_profile_view, .user.box, #restaurant_profile_view {
 	border: 1px solid #ddd;
 	background-color: #fff;
 	margin-bottom: 30px;
@@ -744,7 +754,7 @@ p.editprofile a:hover {
 	-webkit-box-shadow: 1px 1px 3px #ddd
 }
 
-#user_profile_view img{
+#user_profile_view img, #restaurant_profile_view img{
 	padding: 5px;
 	border: 1px solid #ccc;
 	background-color: #fff;
