@@ -1,6 +1,6 @@
 // Remove the status in question
 $("#status_<%= @status.id %>").fadeOut('slow');
-$("#sidebar_statuses").html('<%= escape_javascript(render :partial => "statuses/user_bar_status", :collection => current_user.statuses[0..1]) %>')
+$("#sidebar_statuses").html('<%= escape_javascript(render :partial => "statuses/user_bar_status", :collection => current_user.statuses.all(:limit => 2)) %>')
 
 // Update the Flash message
 $("#flashes").html('<div id="flash_notice" style="opacity:0"><%= escape_javascript(flash.delete(:notice)) %></div>');

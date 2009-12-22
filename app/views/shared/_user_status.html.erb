@@ -25,19 +25,14 @@
 
 	<div id="previous_statuses" class="box">
 		<h3 class="function-bold">Previous Status Messages</h3>
-		<ol class="statuses" id="sidebar_statuses">
-			<% if current_user.statuses.any? -%>
-			<%= render :partial => 'statuses/user_bar_status', :collection => current_user.statuses[0..1] %>
-			<% end -%>
-		</ol>
-		<% if current_user.statuses.size > 2 -%>
-		<p>
-			<%= link_to 'Status history', user_statuses_path(current_user) %>
-		</p>
-		<% end -%>
+			<ol class="statuses" id="sidebar_statuses">
+				<%= render :partial => 'statuses/user_bar_status', :collection => current_user.statuses.all(:limit => 2) %>
+			</ol>
+
+			<p><%= link_to 'Status history', user_statuses_path(current_user) %></p>
 	</div>
 
-	<% unless @coached_message.blank? %>
+	<% unless (@coached_message ||= CoachedStatusUpdate.current.random.first).blank? %>
 	<div id="coached">
 		<h3 class="function-bold">Status Suggestions</h3>
 		<%= simple_format @coached_message.message %>

@@ -1,8 +1,6 @@
 <li class="status">
-  <% if owner? %>
-    <span class="utility"><%= link_to image_tag('trash.gif'), user_bar_status, :class => 'trash', :method => :delete %></span>
-  <% end %>
-  <span class="message"><%= auto_link user_bar_status.message %></span> 
+    <span class="utility"><%= link_to image_tag('trash.gif'), user_bar_status, :class => 'trash' %></span>
+  <span class="message"><%= auto_link user_bar_status.message %></span>
 
   <span class="posted">
     <%= time_ago_in_words user_bar_status.created_at %> ago

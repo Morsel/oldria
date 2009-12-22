@@ -139,7 +139,7 @@ checkallList.find(":checkbox").not(".novalue").click(function(){
 });
 
 //Cufon
-Cufon.replace('.function-bold, .button, .sf-button, button', {fontFamily:'FunctionBold', hover:true})
+Cufon.replace('.function-bold, .button, .sf-button, button', {fontFamily:'FunctionBold', hover:true});
 
 
 // WYSIWYG
