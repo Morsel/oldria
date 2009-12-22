@@ -22,6 +22,7 @@ class MediaRequestsController < ApplicationController
       @employments = @search.all(:include => [:restaurant])
       @restaurants = @employments.map(&:restaurant).reject(&:blank?).uniq
       @media_request = @sender.media_requests.build(:publication => @sender.publication)
+      @search = Employment.search(nil) # reset the form
     end
   end
 

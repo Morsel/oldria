@@ -19,12 +19,12 @@ body {
 	background-repeat: repeat-x;
 }
 
-button { 
-	float:none; 
-	display:inline; 
+button {
+	float:none;
+	display:inline;
 	font-family:'helvetica neue', helvetica, tahoma, arial, sans-serif;
 }
-.edit_user button{ 
+.edit_user button{
 	float:left;
 }
 .hidden_text{
@@ -267,7 +267,7 @@ div#navigation ul#sf_nav li#dashboard a{
 }
 div#navigation ul#sf_nav li#welcome a{
 	width:103px;
-	background-position:-125px 0;	
+	background-position:-125px 0;
 }
 div#navigation ul#sf_nav li#profile a{
 	width:103px;
@@ -939,7 +939,7 @@ ul.user_profile_actions {
 		font-family: 'lucida grande', tahoma, arial, sans-serif;
 		font-size: .9em;
 		}
-		
+
 		.button{
 			font-family:'helvetica neue', helvetica, tahoma, arial, sans-serif;
 		}
@@ -962,7 +962,7 @@ ul.user_profile_actions {
 	color:#333;
 	}
 
-	
+
 h3.function-bold{
 	padding-bottom:5px;
 	margin-bottom:10px;
@@ -1083,6 +1083,10 @@ legend {
 	font-size: 1em;
 	color: #333;
 	font-weight: bold;
+}
+
+legend label {
+	white-space:normal;
 }
 
 label {
