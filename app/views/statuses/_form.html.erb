@@ -1,6 +1,6 @@
 <div id="status_update" class="box clearfix">
   <h3 class="function-bold">Update Your Status</h3>
-<% form_for (@status ||= Status.new), :url => user_statuses_path(@user) do |f| %>
+<% form_for (@status ||= current_user.statuses.build), :url => user_statuses_path(current_user) do |f| %>
   <%= f.error_messages %>
   <p class="clearfix">
     <%= f.label :message, "Status", :class => 'hidden' %>
@@ -9,7 +9,7 @@
   <p class="clear clearfix">
     <%= button_tag "Post", :class => 'positive' %>
     <% if current_user.twitter_authorized? -%>
-      <%= f.check_box :queue_for_social_media, :class => 'checkbox' %>      
+      <%= f.check_box :queue_for_social_media, :class => 'checkbox' %>
       <%= f.label :queue_for_social_media, "Also post to Twitter?" %>
     <% end -%>
   </p>
