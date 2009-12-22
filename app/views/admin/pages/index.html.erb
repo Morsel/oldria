@@ -1,6 +1,6 @@
 <% title "Pages" %>
 
-<p><%= link_to "New Page", new_admin_page_path, :class => 'button positive' %></p>
+<p class="clearfix"><%= link_to "New Page", new_admin_page_path, :class => 'button positive' %></p>
 
 <% table_for(@pages) do |t|%>
 	<% t.data :actions => :edit, :action_prefix => 'admin' do

@@ -109,7 +109,8 @@ h1 {
 }
 
 h2 {
-	color: #333;
+	color: #276b96;
+	font-size:1.4em;
 }
 
 h3 {
@@ -399,8 +400,12 @@ div#navigation ul#sf_nav li#search.selected a{
 	background-color: #fffde6;
 }
 
+#new_status p{
+	margin:0;
+}
+
 input.checkbox {
-	float: left;
+	float:left;
 	display: inline;
 	width: auto;
 	margin: 0 7px 0px 10px;
