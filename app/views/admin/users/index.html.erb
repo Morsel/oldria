@@ -16,6 +16,7 @@
 		<th>Email</th>
 		<th>Account Type</th>
 		<th>JBF Region</th>
+		<th>Last Logged In</th>
 		<th></th>
 	</tr>
 
@@ -26,6 +27,7 @@
 		<td><%= h user.email %></td>
 		<td><%= h user.account_type.try(:name) %></td>
 		<td><%= h user.james_beard_region.try(:name) %></td>
+		<td><%= h user.updated_at.strftime("%m/%d/%Y %I:%M%p") %></td>
 		<td class="utility">
 			<%= link_to 'Edit', edit_admin_user_path(user) %>
 			<%= link_to 'Destroy', admin_user_path(user), :confirm => 'Are you sure? This action CANNOT be undone', :method => :delete %>
