@@ -60,7 +60,7 @@ end
 When /^I perform the search:$/ do |table|
   searchcriteria = table.rows_hash
   searchcriteria.each do |field, value|
-    if %w{Region}.include?(field)
+    if ['Region', 'Greater Metropolitan Area'].include?(field)
       check value
     else
       fill_in field, :with => value

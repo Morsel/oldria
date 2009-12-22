@@ -39,6 +39,12 @@ Given /^I am an employee of "([^\"]*)"$/ do |restaurantname|
   click_button "Yes"
 end
 
+Given /^"([^\"]*)" restaurant is in the "([^\"]*)" metro region$/ do |restaurantname, metroregion|
+  restaurant = Restaurant.find_by_name(restaurantname)
+  metro = Factory(:metropolitan_area, :name => metroregion)
+  restaurant.metropolitan_area = metro
+  restaurant.save
+end
 
 
 Given /^I have just created a restaurant named "([^\"]*)"$/ do |restaurantname|

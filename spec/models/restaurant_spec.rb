@@ -41,4 +41,14 @@ describe Restaurant do
       restaurant.missing_subject_matters.should_not include(handled_subject)
     end
   end
+
+  describe "safe deletion" do
+    it "should not actually delete Restaurants" do
+      restaurant = Factory(:restaurant)
+      Restaurant.all.should == [restaurant]
+      restaurant.destroy
+      Restaurant.count.should == 0
+      Restaurant.with_destroyed { Restaurant.count }.should == 1
+    end
+  end
 end

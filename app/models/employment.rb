@@ -4,7 +4,7 @@ class Employment < ActiveRecord::Base
   belongs_to :restaurant_role
   has_many :responsibilities
   has_many :subject_matters, :through => :responsibilities
-  has_many :media_request_conversations, :foreign_key => 'recipient_id'
+  has_many :media_request_conversations, :foreign_key => 'recipient_id', :dependent => :destroy
   has_many :media_requests, :through => :media_request_conversations
 
   accepts_nested_attributes_for :employee
