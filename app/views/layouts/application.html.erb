@@ -63,16 +63,14 @@
 				<%- end -%>
 			</div>
 
-			<%- if show_title? -%>
-			<div class="span-4">
-			  <h1><%=h yield(:title) %></h1>
-			</div>
-			<%- end -%>
-			<div class="page_actions span-8 last">
-			  <%= yield(:page_actions) %>
-			</div>
-			<div class="clear"></div>
-
+      <div class="clearfix">
+  			<%- if show_title? -%>
+  			  <h1 class="function-bold"><%=h yield(:title) %></h1>
+  			<%- end -%>
+  			<div class="page_actions">
+  			  <%= yield(:page_actions) %>
+  			</div>
+      </div>
 			<%= yield %>
 
 		</div><!--#leftcolumn-->
@@ -103,7 +101,7 @@
 
 </div><!--#container-->
 <%= javascript_include_tag :defaults %>
-<%= javascript_include_tag 'jquery.autocomplete','site' %>
+<%= javascript_include_tag 'jquery.autocomplete','cufon','FunctionBold_700.font.js','site' %>
 
 <%= render :partial => 'layouts/uservoice' %>
 </body>

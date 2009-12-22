@@ -81,6 +81,14 @@ h1,h2,h3 {
 
 h1 {
 	font-size: 2em;
+	float:left;
+	width:auto;
+	display:inline-block;
+	margin-right:10px;
+}
+.page_actions{
+	float:left;
+	padding-top:3px;
 }
 
 h2 {
@@ -831,7 +839,7 @@ ul.user_profile_actions {
 		}
 
 
-#user_content h3 {color: #49341f;}
+
 #user_content h4 a{color:#0684ad; }
 
 #user_content ul {
@@ -869,30 +877,35 @@ ul.user_profile_actions {
 		font-size: .9em;
 		}
 
-		#user_content ul li p a {
+		a.sf-button {
 			border: 1px solid #c9e1f9;
 			background-color: #edfbff;
 			color: #1d9bbb;
 			padding: 2px 5px;
+			text-transform:uppercase;
 		}
 
-		#user_content ul li p a:hover {
-			background-color: #3e2611;
+		a.sf-button:hover {
+			background-color: #0089c2;
 			color: #fff;
-			}
+		}
 
 #user_content h3 {
 	margin: 20px 0px 4px 0px;
+	color:#333;
 	}
+
 	
 h3.function-bold{
 	padding-bottom:5px;
 	margin-bottom:10px;
 	border-bottom:1px solid #ddd;
 	text-transform:uppercase;
-	color:#989898;
 	font-weight:normal;
 	font-size:1.3em;
+}
+#sidebar h3{
+	color:#989898;
 }
 
 

@@ -138,6 +138,11 @@ checkallList.find(":checkbox").not(".novalue").click(function(){
 	$(this).parents('fieldset:eq(0)').find('.checkall_link :checkbox').removeAttr('checked');
 });
 
+//Cufon
+Cufon.replace('.function-bold, .button, .sf-button', {fontFamily:'FunctionBold', hover:true})
+
 
 // WYSIWYG
 CKEDITOR.replace( 'page_content' );
+
+
