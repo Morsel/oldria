@@ -1,5 +1,4 @@
-<div id="status_update" class="box clearfix">
-  <h3 class="function-bold">Update Your Status</h3>
+
 <% form_for (@status ||= current_user.statuses.build), :url => user_statuses_path(current_user) do |f| %>
   <%= f.error_messages %>
   <p class="clearfix">
@@ -14,4 +13,3 @@
     <% end -%>
   </p>
 <% end %>
-</div>
