@@ -256,14 +256,10 @@ div#navigation ul li a {
 div#navigation ul#sf_nav li a{
 	background:url(/images/sf_nav.png) no-repeat;
 	height:36px;
-	margin-right:8px;
 	padding:0;
 	-moz-border-radius: 0;
 	-webkit-border-radius: 0;
 	border-radius: 0;
-}
-div#navigation ul#sf_nav li:last-child a{
-	margin-right:0;
 }
 div#navigation ul#sf_nav li#dashboard a{
 	width:117px;
