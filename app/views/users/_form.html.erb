@@ -12,8 +12,8 @@
 
 <% f.inputs :name => 'Desired Login Information' do %>
 	<%= f.input :username %>
-	<%= f.input :password %>
-	<%= f.input :password_confirmation %>
+	<%= f.input :password, :input_html => {:autocomplete => "off"} %>
+	<%= f.input :password_confirmation, :input_html => {:autocomplete => "off"} %>
 	<% unless controller.action_name == "edit" %>
 		<%= f.input :agree_to_contract, :label => 'Agree to Contract?', :as => :boolean %>
 	<% end %>
