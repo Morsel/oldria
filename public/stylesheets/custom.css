@@ -404,6 +404,10 @@ div#navigation ul#sf_nav li#search.selected a{
 	margin:0;
 }
 
+#sidebar #status_update.box{
+	background:#edf8fc;
+}
+
 input.checkbox {
 	float:left;
 	display: inline;
