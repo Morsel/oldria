@@ -2,7 +2,7 @@ class FollowingsController < ApplicationController
   before_filter :require_user
 
   def create
-    store_location
+    #store_location
     @following = current_user.followings.build(:friend_id => params[:friend_id])
     if @following.save
       flash[:notice] = "OK! You are now following #{@following.friend.name}"
