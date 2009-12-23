@@ -201,10 +201,9 @@ ins {
 #coached {
 	border: 1px solid #edc;
 	background-color: #fed;
-	padding: 1em 1em 1px;
+	padding: 5px;
 	color: #644;
-	margin-bottom: 1em;
-	font: 1.2em normal "Gill sans";
+	font-family:"Lucida Grande", Arial, sans-serif;
 }
 
 #coached h3 {
@@ -212,7 +211,43 @@ ins {
 }
 
 #coached p {
-	margin-bottom: 1em;
+	margin:0;
+	font-size:0.9em;
+}
+#coached p span{
+	color:#ea801a;
+	font-weight:bold;
+}
+
+#previous_statuses{
+	border-top:1px dashed #c1dce7;
+	padding:10px 0 0;
+	margin:10px 0 0;
+}
+#sidebar #status_update h3.function-bold{
+	color:#646464;
+}
+#sidebar #status_update #previous_statuses h3.function-bold{
+	color:#0089C2;
+	border:0;
+	font-size:1em;
+	margin:0;
+}
+
+
+#previous_statuses p{
+	margin:0;
+}
+
+#previous_statuses a.sf-button{
+	text-transform:none;
+	background:#0587c1;
+	color:#fff;
+	font:normal 1em "Lucida Grande", Arial, sans-serif;
+}
+#previous_statuses a.sf-button:hover{
+	background:#fff;
+	color:#0587c1;
 }
 
 #my_restaurants .restaurant + h3 {
@@ -333,6 +368,8 @@ div#navigation ul#sf_nav li#search.selected a{
 
 #user_status img {
 	float: left;
+	background:#fff;
+	padding:3px;
 	border: 1px solid #ddd;
 	margin-right: 1em;
 }
@@ -379,9 +416,9 @@ div#navigation ul#sf_nav li#search.selected a{
 #new_status button {
 	margin: 0;
 	float: left;
-	border-color: #ccf;
-	background-color: #def;
-	color: #1d9bbb;
+	border-color: #9ad9e2;
+	background-color: #ceebf1;
+	color: #0089C2;
 }
 
 #new_status button:hover {
@@ -393,7 +430,7 @@ div#navigation ul#sf_nav li#search.selected a{
 }
 
 #sidebar #new_status input.status_message {
-	width: 240px;
+	width: 270px;
 }
 
 #new_status input:active, #new_status input:focus {
@@ -408,6 +445,7 @@ div#navigation ul#sf_nav li#search.selected a{
 	background:#edf8fc;
 }
 
+
 input.checkbox {
 	float:left;
 	display: inline;
@@ -419,8 +457,8 @@ input.checkbox {
 
 #statuses, .statuses {
 	list-style: none;
-	margin: 10px 0px;
-	padding: 0px;
+	margin: 0;
+	padding: 0;
 }
 
 .status p, .comment p {
@@ -431,20 +469,10 @@ input.checkbox {
 	font-size: 1.2em;
 }
 
-.status {
-	font-family: 'lucida grande', tahoma, arial, sans-serif;
-	color: #666;
-	margin: 0px 0px 12px 0px;
-	padding: 0px 0px 8px 0px;
-	border-bottom: 1px dashed #ccc;
-	overflow: hidden;
-}
 
 .message {
 	display: block;
-	color: #333;
 	line-height: 22px;
-	font:bold 1.3em "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
 #statuses li .recentmessage, .statuses li .recentmessage {
@@ -455,9 +483,13 @@ input.checkbox {
 .statuses li {
 	clear: left;
 	list-style: none;
-	margin: 15px 0 0;
-	padding: 0 0 10px;
 	overflow: hidden;
+	font-family: 'lucida grande', tahoma, arial, sans-serif;
+	color: #333;
+	margin: 0 0 10px;
+	padding: 5px;
+	font-size:0.9em;
+	background:#fff;
 }
 
 .status .posted, .status .utility, .status .meta, .comment .meta {
@@ -543,8 +575,14 @@ div.restaurant {
 }
 
 .restaurant a{
+	padding-left:15px;
+	background:url(/images/arrow2.png) no-repeat left;
 	display:inline-block;
 	margin:5px 0;
+}
+.restaurant .media_requests_count a{
+	background:0;
+	padding-left:0;
 }
 .my_restaurants a{
 	color:#008bc4;

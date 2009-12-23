@@ -4,7 +4,7 @@
 	<% unless (@coached_message ||= CoachedStatusUpdate.current.random.first).blank? %>
 	<div id="coached">
 		<p>
-			<span class="function-bold">Ideas:</span>
+			<span>Ideas:</span>
 			<%= @coached_message.message %>
 		</p>
 	</div>
@@ -13,13 +13,13 @@
 	<%= render :partial => 'statuses/form' %>
 
 	<div id="previous_statuses">
-		<h3 class="function-bold">Previous Status Messages</h3>
+		<h3 class="function-bold">Past Status Updates</h3>
 		<ol class="statuses" id="sidebar_statuses">
 			<%= render :partial => 'statuses/user_bar_status', :collection => current_user.statuses.all(:limit => 2) %>
 		</ol>
 
 		<% if current_user.statuses.size > 2 -%>
-		<p><%= link_to 'View all', user_statuses_path(current_user), :class=>'sf-button' %></p>
+		<p><%= link_to 'View past status updates &#187;', user_statuses_path(current_user), :class=>'sf-button' %></p>
 		<% end -%>
 	</div>
 

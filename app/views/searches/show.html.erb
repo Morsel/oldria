@@ -18,7 +18,9 @@
 		<td><%=h user.name %></td>
 		<td><%= link_to user.username, profile_path(user.username) %></td>
 		<td>
-			<%= link_to "follow this user", followings_path(:friend_id => user), :method => :post, :class => 'button positive'%>
+			<% if not current_user.friends.include?(user) -%>
+			  <%= link_to "follow this user", followings_path(:friend_id => user), :method => :post, :class => 'button positive'%>
+			<% end -%>
 		</td>
 		<td>
 			<% unless current_user == user %>

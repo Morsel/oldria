@@ -161,3 +161,8 @@ if(typeof(CKEDITOR) != 'undefined'){
 	CKEDITOR.replace( 'page_content' );
 }
 
+$('#status_message').autofill({
+	value: 'What are you up to?',
+	defaultTextColor: '#666',
+	activeTextColor: '#333'
+});

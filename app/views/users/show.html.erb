@@ -35,7 +35,7 @@
 <h3 class="function-bold">Recent Status Updates</h3>
 <div class="recent_statuses">
 	<% for status in @latest_statuses -%>
-	<p class="status" id="status_<%= status.id %>">
+	<p class="status clearfix" id="status_<%= status.id %>">
 		<%= render :partial => 'statuses/status', :locals => { :status => status } %>
 	</p>
 	<% end %>
