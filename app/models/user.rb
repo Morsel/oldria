@@ -105,7 +105,14 @@ class User < ActiveRecord::Base
 
   def twitter_username
     if twitter_authorized?
-      @twitter_username ||= twitter_client.user({:count=>1}).first['user']['screen_name']
+      @twitter_username ||= begin
+        first_tweet = twitter_client.user({:count=>1})
+        if first_tweet.respond_to?(:first)
+          first_tweet.first['user']['screen_name']
+        else
+          nil
+        end
+      end
     end
   end
 

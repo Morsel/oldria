@@ -6,8 +6,7 @@ end
 
 Given /^the following confirmed,? twitter\-authorized users?:?$/ do |table|
   table.hashes.each do |row|
-    attributes = row.merge(:asecret => 'fake', :atoken => 'fake')
-    Factory(:user, attributes)
+    Factory(:twitter_user, row)
   end
 end
 

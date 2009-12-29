@@ -46,7 +46,7 @@ Feature: Update information
     And I press "Save"
     Then I should see "doesn't match confirmation"
 
-
+@twitter
   Scenario: Removing Twitter
     Given the following confirmed, twitter-authorized users:
     | username | password |

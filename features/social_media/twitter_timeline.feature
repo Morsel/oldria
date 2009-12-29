@@ -1,6 +1,7 @@
+@twitter
 Feature: Twitter Authentication
-  So that I can read my twitter timeline without having to go over there, 
-  As a SF member and twitter member, 
+  So that I can read my twitter timeline without having to go over there,
+  As a SF member and twitter member,
   I want to see my Twitter timeline from within SF.
 
 

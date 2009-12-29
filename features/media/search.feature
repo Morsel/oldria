@@ -42,8 +42,7 @@ Feature: Media faceted member search
 
 @focus
   Scenario: Searching by city
-    Given the restaurant "South of the Border" is in the region "Midwest"
-    And "South of the Border" restaurant is in the "Chicago IL" metro region
+    Given "South of the Border" restaurant is in the "Chicago IL" metro region
     And I am on the media request search page
     When I perform the search:
       | Greater Metropolitan Area | Chicago IL |

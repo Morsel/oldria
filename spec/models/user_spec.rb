@@ -140,6 +140,15 @@ describe User do
       @twitter_oauth.stubs(:friends_timeline).returns(@tweet)
       @user.twitter_client.friends_timeline.first['text'].should eql("Best American flag etiquette video series I've seen all month!  http://bit.ly/eiOZe")
     end
+
+    it "should find twitter username when it's available" do
+      @twitter_oauth.stubs(:user).returns([{'user' => {'screen_name' => 'twitter_username'}}])
+      @user.twitter_username.should == "twitter_username"
+    end
+
+    it "should return nil when twitter username isn't available" do
+      @user.twitter_username.should be_nil
+    end
   end
 
   context "media_requests" do

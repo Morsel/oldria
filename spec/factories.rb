@@ -8,6 +8,11 @@ Factory.define :user do |f|
   f.last_name  { |u| u.name.split(' ').last  || "Doe" }
 end
 
+Factory.define :twitter_user, :parent => :user do |f|
+  f.atoken  'fake'
+  f.asecret 'fake'
+end
+
 Factory.define :admin, :parent => :user do |f|
   f.username 'admin'
   f.first_name "Administrator"
@@ -37,11 +42,6 @@ end
 Factory.define :status do |f|
   f.association :user
   f.message     "I just ate a cheeseburger"
-end
-
-Factory.define :twitter_user, :parent => :user do |f|
-  f.atoken  'fake'
-  f.asecret 'fake'
 end
 
 Factory.define :date_range do |f|
