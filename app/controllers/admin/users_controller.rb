@@ -42,11 +42,11 @@ class Admin::UsersController < Admin::AdminController
   # POST /admin_users.xml
   def create
     @user = User.new(params[:user])
-    @user.confirmed_at = Time.now
+    @user.admin = params[:user].delete(:admin)
     respond_to do |format|
-      if @user.save
+      if (@user.confirmed_at = Time.now) && @user.save
         flash[:notice] = 'User was successfully created.'
-        format.html { redirect_to([:admin,@user]) }
+        format.html { redirect_to([:admin, @user]) }
         format.xml  { render :xml => @user, :status => :created, :location => @user }
       else
         format.html { render :new }

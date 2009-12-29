@@ -9,6 +9,7 @@
 	<%= f.input :username %>
 	<%= f.input :james_beard_region, :label => 'Region', :wrapper_html => {:class => 'bottom'} %>
 	<%= f.input :account_type %>
+	<%= f.input :confirmed_at %>
 	<% if @user.has_role? :media %>
 		<%= f.input :publication, :label => 'Affiliated Publication' %>
 	<% end %>

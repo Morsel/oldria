@@ -51,10 +51,11 @@ Feature: Manage users
 
 @preconfirmed
   Scenario: Add a user from the admin interface
-	Given I am on the admin new user page
-	When I fill in "Email" with "joesak.com@gmail.com"
-	And I fill in "Username" with "joemsak"
-	And I fill in "Initial password" with "blAh1!lol"
-	And I fill in "Confirm initial password" with "blAh1!lol"
-	And I press "Save"
-	Then "joemsak" should be a confirmed user
+    Given I am on the admin new user page
+    When I fill in "Email" with "joesak.com@gmail.com"
+    And I fill in "Username" with "joemsak"
+    And I fill in "Initial password" with "blAh1!lol"
+    And I fill in "Confirm initial password" with "blAh1!lol"
+    And I press "Save"
+    Then "joemsak" should be a confirmed user
+    And "joesak.com@gmail.com" should have 0 emails
