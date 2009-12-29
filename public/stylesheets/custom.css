@@ -470,6 +470,10 @@ input.checkbox {
 }
 
 
+button.status_button {
+	text-transform:uppercase;
+}
+
 .message {
 	display: block;
 	line-height: 22px;

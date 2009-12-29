@@ -1,5 +1,6 @@
+@twitter
 Feature: Twitter update
-  So that I can update my twitter account without having to go over there, 
+  So that I can update my twitter account without having to go over there,
   As a SF member and twitter member,
   I want to update my twitter status with my SF status.
 
@@ -13,7 +14,7 @@ Feature: Twitter update
     And I am logged in as "tweetie" with password "secret"
     Given I am on the statuses page for "tweetie"
     When I fill in "Status" with "A Tweet"
-    And I check "Also post to Twitter?"
+    And I check "Post to Twitter?"
     And I press "Post"
     And I go to the statuses page for "tweetie"
     Then I should see "and on Twitter"
