@@ -1341,6 +1341,12 @@ form .checkall_link label {
 	font-weight: bold;
 }
 
+
+.datetime fieldset li {
+	float: left;
+	margin-right: 1em;
+}
+
 /* @end */
 
 /* @group blueprint extensions -------- */
