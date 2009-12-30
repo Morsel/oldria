@@ -107,7 +107,7 @@ class User < ActiveRecord::Base
     if twitter_authorized?
       @twitter_username ||= begin
         first_tweet = twitter_client.user({:count=>1})
-        if first_tweet.respond_to?(:first)
+        if first_tweet.kind_of?(Array)
           first_tweet.first['user']['screen_name']
         else
           nil

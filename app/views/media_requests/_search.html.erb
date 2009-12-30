@@ -11,16 +11,16 @@
 	</ol>
 	<ol id="faceted_search_criteria" style="display:none">
 		<li class="span-5 column">
-			<%= f.label :restaurant_james_beard_region_id_is_any, "Region" %>
-			<%= multiple_checkbox_search JamesBeardRegion.all, :restaurant_james_beard_region_id_is_any %>
+			<%= f.label :restaurants_region_id, "Region" %>
+			<%= multiple_checkbox_search JamesBeardRegion.all, :restaurants_region_id %>
 		</li>
 		<li class="span-5 column last">
-			<%= f.label :restaurant_metropolitan_area_id_is_any, "Greater Metropolitan Area" %>
-			<%= multiple_checkbox_search(MetropolitanArea.all, :restaurant_metropolitan_area_id_is_any) %>
+			<%= f.label :restaurants_metro_id, "Greater Metropolitan Area" %>
+			<%= multiple_checkbox_search(MetropolitanArea.all, :restaurants_metro_id) %>
 		</li>
 		<li class="clear span-10 last">
-			<%= f.label :restaurant_cuisine_id_is_any, "Cuisine" %>
-			<%= multiple_checkbox_search(Cuisine.all, :restaurant_cuisine_id_is_any) %>
+			<%= f.label :restaurants_cuisine_id, "Cuisine" %>
+			<%= multiple_checkbox_search(Cuisine.all, :restaurants_cuisine_id) %>
 		</li>
 		<li class="span-5 column">
 			<%= f.label :responsibilities_subject_matter_id_is_any, "Subject Matter" %>

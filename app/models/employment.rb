@@ -13,6 +13,18 @@ class Employment < ActiveRecord::Base
   validates_presence_of :restaurant_id
   validates_uniqueness_of :employee_id, :scope => :restaurant_id, :message => "is already associated with that restaurant"
 
+  named_scope :restaurants_metro_id, lambda { |ids|
+    {:joins => :restaurant, :conditions => {:restaurants => { :metropolitan_area_id => ids.map(&:to_i)}}}
+  }
+
+  named_scope :restaurants_cuisine_id, lambda { |ids|
+    {:joins => :restaurant, :conditions => {:restaurants => { :cuisine_id => ids.map(&:to_i)}}}
+  }
+
+  named_scope :restaurants_region_id, lambda { |ids|
+    {:joins => :restaurant, :conditions => {:restaurants => { :james_beard_region_id => ids.map(&:to_i)}}}
+  }
+
   def employee_name
     @employee_name ||= employee && employee.name
   end
