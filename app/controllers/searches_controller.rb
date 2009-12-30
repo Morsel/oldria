@@ -3,7 +3,10 @@ class SearchesController < ApplicationController
     @search = User.search(params[:search])
     if params[:search]
       @users = @search.all
-      flash.now[:notice] = "Sorry, we came up empty-handed. Doesn’t look like there’s anyone on Spoonfeed that fit your search criteria." if @users.blank?
+      if @users.blank?
+        flash.now[:notice] = "Sorry, we came up empty-handed. Doesn’t look like there’s anyone on Spoonfeed that fit your search criteria."
+        @search = User.search(nil) # blank out search form
+      end
     else
       # TODO helpful message about how to search
     end
