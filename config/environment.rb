@@ -21,6 +21,8 @@ Rails::Initializer.run do |config|
   config.gem 'validation_reflection', :source => "http://gemcutter.org"
   config.gem "friendly_id"
 
+  config.gem "whenever", :lib => false
+
   # Settings in config/environments/* take precedence over those specified here.
   # Application configuration should go into files in config/initializers
   # -- all .rb files in that directory are automatically loaded.
