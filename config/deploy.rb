@@ -42,14 +42,14 @@ namespace :deploy do
 
   desc "Update the crontab file"
   task :update_crontab, :roles => :db do
-    run "cd #{release_path} && whenever --update-crontab #{application}"
+    run "cd #{release_path} && whenever --update-crontab"
   end
 end
 
 namespace :db do
   desc "Seed the database with configured seedlings"
   task :seed do
-    run("cd #{deploy_to}/current; /usr/bin/rake db:seed RAILS_ENV=production")
+    run("cd #{deploy_to}/current; rake db:seed RAILS_ENV=production")
   end
 end
 
