@@ -29,5 +29,5 @@ config.action_mailer.smtp_settings = {
   :domain         => "ndclients+spoonfeed@gmail.com",
   :authentication => :plain,
   :user_name      => "ndclients+spoonfeed@gmail.com",
-  :password       => "400nwells" 
+  :password       => "400nwells"
 }

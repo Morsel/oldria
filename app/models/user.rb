@@ -100,6 +100,10 @@ class User < ActiveRecord::Base
     UserMailer.deliver_password_reset_instructions(self)
   end
 
+  # For User.to_csv export
+  def export_columns(format = nil)
+    %w[username first_name last_name email]
+  end
 
 ### Twitter Methods ###
 
