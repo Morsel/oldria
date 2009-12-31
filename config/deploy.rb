@@ -2,6 +2,7 @@ set :application, "ria"
 
 set :server_ip, 'spoonfeed.restaurantintelligenceagency.com'
 ssh_options[:port] = 7822
+default_run_options[:pty] = true
 
 
 role :app, server_ip
@@ -55,3 +56,8 @@ end
 
 after "deploy:symlink", "deploy:update_crontab"
 after 'deploy:update_code', 'deploy:symlink_shared'
+
+# Delayed Job callbacks:
+after "deploy:stop",    "delayed_job:stop"
+after "deploy:start",   "delayed_job:start"
+after "deploy:restart", "delayed_job:restart"
