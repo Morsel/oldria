@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20091222203823) do
+ActiveRecord::Schema.define(:version => 20091231220005) do
 
   create_table "account_types", :force => true do |t|
     t.string   "name"
@@ -59,6 +59,19 @@ ActiveRecord::Schema.define(:version => 20091222203823) do
     t.date     "start_date"
     t.date     "end_date"
     t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "delayed_jobs", :force => true do |t|
+    t.integer  "priority",   :default => 0
+    t.integer  "attempts",   :default => 0
+    t.text     "handler"
+    t.text     "last_error"
+    t.datetime "run_at"
+    t.datetime "locked_at"
+    t.datetime "failed_at"
+    t.string   "locked_by"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -119,7 +132,6 @@ ActiveRecord::Schema.define(:version => 20091222203823) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.date     "due_date"
-    t.string   "request_type"
     t.integer  "media_request_type_id"
     t.text     "fields"
     t.string   "status"
@@ -209,6 +221,7 @@ ActiveRecord::Schema.define(:version => 20091222203823) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.datetime "confirmed_at"
+    t.datetime "last_request_at"
     t.string   "atoken"
     t.string   "asecret"
     t.integer  "account_type_id"
@@ -220,7 +233,6 @@ ActiveRecord::Schema.define(:version => 20091222203823) do
     t.string   "last_name"
     t.integer  "james_beard_region_id"
     t.string   "publication"
-    t.datetime "last_request_at"
     t.string   "role"
   end
 

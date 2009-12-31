@@ -22,6 +22,7 @@ Rails::Initializer.run do |config|
   config.gem "friendly_id"
 
   config.gem "whenever", :lib => false
+  config.gem "delayed_job"
 
   # Settings in config/environments/* take precedence over those specified here.
   # Application configuration should go into files in config/initializers
