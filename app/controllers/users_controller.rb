@@ -24,7 +24,7 @@ class UsersController < ApplicationController
   def create
     @user = User.new(params[:user])
     if @user.save
-      UserMailer.deliver_signup(@user)
+      UserMailer.send_later :deliver_signup, @user
       flash[:notice] = "Just to make sure you are who you say you are, we sent you a secret coded message to your email account. Once you check that, we’ll give you your fancy credentials to log on."
       redirect_to '/'
     else
