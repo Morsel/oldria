@@ -12,6 +12,8 @@ role :db,  server_ip, :primary => true
 set :user, "ria"
 set :use_sudo, false
 
+set :rails_env, "production"
+
 set :scm, :git
 set :repository,  "git@code.neotericdesign.com:ria.git"
 set :branch, 'master'
