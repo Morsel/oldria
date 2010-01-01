@@ -54,6 +54,8 @@ class MediaRequest < ActiveRecord::Base
       UserMailer.deliver_media_request_notification(self, conversation)
     end
   end
+  handle_asynchronously :deliver_notifications # Use delayed_job to send
+
 
   def conversation_with_recipient(employment)
     media_request_conversations.first(:conditions => {:recipient_id => employment.id})

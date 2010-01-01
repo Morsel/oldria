@@ -139,6 +139,7 @@ describe MediaRequest do
         @request.recipients = [@employment]
         UserMailer.expects(:deliver_media_request_notification)
         @request.approve!.should == true
+        Delayed::Job.last.invoke_job if defined?(Delayed::Job)
       end
     end
   end
