@@ -109,6 +109,7 @@ class User < ActiveRecord::Base
 
   def twitter_username
     if twitter_authorized?
+<<<<<<< Updated upstream:app/models/user.rb
       @twitter_username ||= begin
         first_tweet = twitter_client.user({:count=>1})
         if first_tweet.kind_of?(Array)
@@ -117,6 +118,9 @@ class User < ActiveRecord::Base
           nil
         end
       end
+=======
+      @twitter_username ||= twitter_client.info['screen_name']
+>>>>>>> Stashed changes:app/models/user.rb
     end
   end
 

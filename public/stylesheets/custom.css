@@ -80,6 +80,9 @@ p, li {
 	font-family: helvetica, arial, sans-serif;
 }
 
+p a, li a {color: #0587c1;}
+p a:hover, li a:hover {color: #4eaed9;text-decoration: underline;}
+
 a {
 	color: #000;
 }
