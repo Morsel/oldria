@@ -74,8 +74,7 @@ describe MediaRequestsController do
 
   describe "GET edit" do
     before do
-      @media_request = Factory(:media_request, :status => 'draft')
-      @user.media_requests << @media_request
+      @media_request = Factory(:media_request, :status => 'draft', :sender => @user)
     end
 
     it "should render new template" do
@@ -83,27 +82,9 @@ describe MediaRequestsController do
       response.should render_template(:edit)
     end
 
-    xit "should create a hidden field for each recipient" do
-      User.stubs(:find).returns([@user])
-      id_array = ['12', '34']
-      @media_request.stubs(:recipient_ids).returns(id_array)
+    it "should set the default publication as the sender's publication" do
       get :edit, :id => @media_request.id
-      id_array.each do |idstring|
-        response.should have_selector(:form) do |form|
-          form.should have_selector(:input, :type => 'hidden', :value => idstring)
-        end
-      end
+      assigns[:media_request].publication.should == @user.publication
     end
-
-    #
-    # it "should set the current_user as @sender" do
-    #   get :edit, :id => @media_request.id
-    #   assigns[:sender].should == @user
-    # end
-    #
-    # it "should set the default publication as the sender's publication" do
-    #   get :edit, :id => @media_request.id
-    #   assigns[:media_request].publication.should == @user.publication
-    # end
   end
 end

@@ -41,6 +41,7 @@ class MediaRequestsController < ApplicationController
   def edit
     @media_request_types = MediaRequestType.all
     @media_request = MediaRequest.find(params[:id])
+    @media_request.publication = @media_request.sender.try(:publication)
     @restaurants = @media_request.restaurants
   end
 
