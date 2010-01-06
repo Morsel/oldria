@@ -18,6 +18,7 @@ Feature: Associating a Restaurant with its employees
   Scenario Outline: Adding an existing Employee after initial signup
     Given I have just created a restaurant named "Jimmy's Diner"
     Then I should see "Add Employees to your Restaurant"
+    And "Jimmy's Diner" should have 1 employee
 
     When I follow "Add employee"
     And I fill in "Employee Email" with "<inputfield>"
@@ -27,7 +28,8 @@ Feature: Associating a Restaurant with its employees
 
     When I press "Yes"
     Then I should see "<name>"
-    And "Jimmy's Diner" should have 1 employee
+    # The manager plus the new person
+    And "Jimmy's Diner" should have 2 employees
 
   Examples:
     | inputfield        | name        |
@@ -41,13 +43,17 @@ Feature: Associating a Restaurant with its employees
 
   Scenario: You can't add an employee twice
     Given I have just created a restaurant named "Jimmy's Diner"
-    And I have added "betty@example.com" to that restaurant
+    Then "Jimmy's Diner" should have 1 employee
+
+    Given I have added "betty@example.com" to that restaurant
+    Then "Jimmy's Diner" should have 2 employees
+
     When I follow "Add employee"
     And I fill in "Employee Email" with "betty@example.com"
     And I press "Submit"
     And I press "Yes"
     Then I should see "Employee is already associated with that restaurant"
-    And "Jimmy's Diner" should only have 1 employee
+    And "Jimmy's Diner" should only have 2 employees
 
 
   Scenario: Inviting a non-existing Employee
@@ -63,7 +69,7 @@ Feature: Associating a Restaurant with its employees
     And I fill in "Password Confirmation" with "secret"
     And I press "Invite Employee"
     Then I should see "Successfully associated employee and restaurant"
-    And "Duck Soup" should have 1 employee
+    And "Duck Soup" should have 2 employees
     And "dinkle@example.com" should have 1 email
 
     When I logout

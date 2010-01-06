@@ -4,19 +4,20 @@ describe EmployeesController do
   integrate_views
 
   before(:each) do
+    @manager = Factory(:user, :name => "Manager Doe", :email => "manager@example.com")
     @employee = Factory(:user, :name => "John Doe", :email => "john@example.com")
-    @restaurant = Factory(:restaurant, :manager => @employee)
-    @employee.stubs(:managed_restaurants).returns([@restaurant])
-    @employee.stubs(:restaurants)
+    @restaurant = Factory(:restaurant, :manager => @manager)
+    @employee.stubs(:restaurants).returns([])
+    @manager.stubs(:restaurants).returns([@restaurant])
+    @manager.stubs(:managed_restaurants).returns([@restaurant])
     Restaurant.stubs(:find).returns(@restaurant)
-    controller.stubs(:current_user).returns(@employee)
+    controller.stubs(:current_user).returns(@manager)
   end
 
   describe "GET index" do
     before(:each) do
-      @employment = Factory(:employment, :employee => @employee, :restaurant => @restaurant)
-      @employments = [@employment]
-      @employments.stubs(:all).returns([@employment])
+      @employments = @restaurant.employments
+      @employment = @employments.first
       @restaurant.stubs(:employments).returns(@employments)
       get :index, :restaurant_id => @restaurant.id
     end
@@ -77,7 +78,7 @@ describe EmployeesController do
     context "after trying to find a non-existing employee" do
       before(:each) do
         User.stubs(:find)
-        get :new, :restaurant_id => @restaurant.id, :employment => {:employee_email => "john@example.com"}
+        get :new, :restaurant_id => @restaurant.id, :employment => {:employee_email => "sam@example.com"}
       end
       it { response.should be_success }
       it { response.should render_template(:new_employee)}
@@ -88,7 +89,7 @@ describe EmployeesController do
 
       it "should have a form to POST create action with hidden autofilled email" do
         response.should have_selector("form", :action => "/restaurants/#{@restaurant.id}/employees")
-        response.should have_selector("input", :name => "employment[employee_attributes][email]", :value => "john@example.com")
+        response.should have_selector("input", :name => "employment[employee_attributes][email]", :value => "sam@example.com")
       end
     end
   end
@@ -148,7 +149,7 @@ describe EmployeesController do
 
   describe "GET edit" do
     before(:each) do
-      @restaurant2 = Factory(:restaurant, :manager => @employee)
+      @restaurant2 = Factory(:restaurant, :manager => @manager)
       Restaurant.stubs(:find).returns(@restaurant2)
       @employment = Factory(:employment, :restaurant => @restaurant2, :employee => @employee)
       get :edit, :id => @employee.id, :restaurant_id => @restaurant2.id
@@ -173,7 +174,7 @@ describe EmployeesController do
 
   describe "PUT update" do
     before(:each) do
-      @restaurant2 = Factory(:restaurant, :manager => @employee)
+      @restaurant2 = Factory(:restaurant, :manager => @manager)
       Restaurant.stubs(:find).returns(@restaurant2)
       @employment = Factory(:employment, :restaurant => @restaurant2, :employee => @employee)
     end

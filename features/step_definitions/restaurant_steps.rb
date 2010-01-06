@@ -75,7 +75,7 @@ end
 
 When /^I follow the edit role link for "([^\"]*)"$/ do |employee_name|
   user_id = User.find_by_name(employee_name).id
-  click_link "edit", :within => "user_#{user_id}"
+  click_link_within "#user_#{user_id}", "edit"
 end
 
 When /^I confirm the employee$/ do
@@ -105,7 +105,7 @@ end
 Then /^"([^\"]*)" should be a "([^\"]*)" at "([^\"]*)"$/ do |name, rolename, restaurantname|
   restaurant = Restaurant.find_by_name(restaurantname)
   user = User.find_by_name(name)
-  employment = Employment.first(:conditions => { :restaurant_id => restaurant.id, :employee_id => user.id })
+  employment = Employment.last(:conditions => { :restaurant_id => restaurant.id, :employee_id => user.id })
   employment.restaurant_role.should_not be_nil
   employment.restaurant_role.name.should eql(rolename)
 end
@@ -115,7 +115,7 @@ Then /^"([^\"]*)" should be responsible for "([^\"]*)" at "([^\"]*)"$/ do |name,
   restaurant = Restaurant.find_by_name!(restaurantname)
   user = User.find_by_name(name)
   subject_matter = SubjectMatter.find_by_name!(subject)
-  employment = Employment.first(:conditions => { :restaurant_id => restaurant.id, :employee_id => user.id })
+  employment = Employment.last(:conditions => { :restaurant_id => restaurant.id, :employee_id => user.id })
   employment.subject_matters.should_not be_blank
   employment.subject_matters.should include(subject_matter)
 end

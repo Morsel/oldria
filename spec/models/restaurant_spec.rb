@@ -9,19 +9,29 @@ describe Restaurant do
   should_have_many :employees, :through => :employments
   should_have_many :media_request_conversations, :through => :employments
 
-  it "should belong to a manager (user)" do
-    user = Factory(:user)
-    restaurant = Restaurant.create(:name => "Moon Lodge", :manager => user)
-    restaurant.save
-    restaurant2 = Restaurant.find(restaurant.id)
-    restaurant2.manager.should == user
-  end
+  describe "manager and employees" do
+    it "should belong to a manager (user)" do
+      user = Factory(:user)
+      restaurant = Factory(:restaurant, :name => "Moon Lodge", :manager => user)
+      restaurant.save
+      restaurant2 = Restaurant.find(restaurant.id)
+      restaurant2.manager.should == user
+    end
 
-  it "should have many media request conversations through its employments" do
-    restaurant = Factory(:restaurant)
-    employment = Factory(:employment, :restaurant => restaurant)
-    mr = Factory(:media_request_conversation, :recipient => employment)
-    restaurant.media_request_conversations.should == [mr]
+    it "should add the manager as an employee on create" do
+      manager = Factory(:user, :name => "Jim John")
+      restaurant = Factory.build(:restaurant, :manager => manager)
+      restaurant.employees.should be_empty
+      restaurant.save
+      restaurant.employees.first.should == manager
+    end
+
+    it "should have many media request conversations through its employments" do
+      restaurant = Factory(:restaurant)
+      employment = Factory(:employment, :restaurant => restaurant)
+      mr = Factory(:media_request_conversation, :recipient => employment)
+      restaurant.media_request_conversations.should == [mr]
+    end
   end
 
   describe "missing_subject_matters" do

@@ -13,6 +13,8 @@ class Restaurant < ActiveRecord::Base
            :conditions => {:employments => {:omniscient => true}}
   has_many :media_request_conversations, :through => :employments
 
+  after_validation_on_create :add_manager_as_employee
+
   def name_and_location
     [name, city, state].reject(&:blank?).join(", ")
   end
@@ -56,6 +58,10 @@ class Restaurant < ActiveRecord::Base
   end
 
   private
+
+  def add_manager_as_employee
+    self.employees << manager if manager
+  end
 
   def handled_subject_matter_ids
     employments.all(:include => :subject_matters).map(&:subject_matter_ids).flatten.uniq

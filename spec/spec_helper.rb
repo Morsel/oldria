@@ -32,6 +32,7 @@ Spork.prefork do
     config.include(EmailSpec::Matchers)
     config.fixture_path = RAILS_ROOT + '/spec/fixtures/'
     config.mock_with :mocha
+    config.ignore_backtrace_patterns(/spork/)
     #include Webrat::Methods
   end
 

@@ -13,13 +13,15 @@ Feature: Employee Subject Matter Assignments
       | betty    | dodo@example.com    | Dodo DaVeer | secret   |
     Given I am logged in as "mgmt" with password "secret"
 
-
+@focus
   Scenario: Basic Assignment
     Given I have just created a restaurant named "Restaurant du Jour"
     And I have added "dodo@example.com" to that restaurant
     And I am on the employees page for "Restaurant du Jour"
     When I follow the edit role link for "Dodo DaVeer"
-    And I check "Beverages"
+    Then I should see "Editing Employee Dodo DaVeer"
+
+    When I check "Beverages"
     And I press "Submit"
     Then I should see "updated"
     And "Dodo DaVeer" should be responsible for "Beverages" at "Restaurant du Jour"
