@@ -12,7 +12,7 @@ class MediaRequestsController < ApplicationController
 
   def new
     @sender = current_user
-    if params[:search] && namelike = params[:search].delete(:restaurant_name_like)
+    if params[:search] && (namelike = params[:search].delete(:restaurant_name_like))
       params[:search][:restaurant_name_like_all] = namelike.split unless namelike.blank?
     end
 
