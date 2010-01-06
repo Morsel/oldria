@@ -6,17 +6,34 @@
 
 	<h3>Pending Media Requests</h3>
 <% if !@pending_media_requests.empty? %>
-	<% table_for(@pending_media_requests) do |t| %>
-		<% t.data :actions => [:show, :edit], :action_prefix => :admin do
-			t.cell :sender
-			t.cell(:recipients) {|r| r.media_request_conversations.size }
-			t.cell :media_request_type
-			t.cell(:message) {|r| truncate(r.message, :length => 50)}
-			t.cell(:replies) {|r| list_and_link_replies(r) }
-			t.cell :due_date
-			t.cell(:approve, :heading => "") {|r| link_to "<b>Approve!</b>", approve_admin_media_request_path(r), :method => :put }
-		end %>
-	<% end -%>
+<table id="pending_media_requests">
+	<thead>
+		<tr>
+			<th>Sender</th>
+			<th>Recipients</th>
+			<th>Media request type</th>
+			<th>Message</th>
+			<th>Replies</th>
+			<th>Due date</th>
+			<th></th><th></th><th></th>
+		</tr>
+	</thead>
+	<tbody>
+		<% @pending_media_requests.each do |media_request| -%>
+		<tr id="<%= dom_id(media_request) %>" class="media_request <%= cycle('even,odd') %>">
+			<td><%= media_request.sender.try(:name) %></td>
+			<td><%= media_request.recipients.count %></td>
+			<td><%= media_request.media_request_type.try(:name) %></td>
+			<td><%= truncate(media_request.message, :length => 50) %></td>
+			<td><%= list_and_link_replies(media_request) %></td>
+			<td><%= media_request.due_date %></td>
+			<td class="actions approve_link"><%= link_to "Approve!", approve_admin_media_request_path(media_request), :method => :put %></td>
+			<td class="actions show_link"><%= link_to "Show", admin_media_request_path(media_request) %></td>
+			<td class="actions edit_link"><%= link_to "Edit", edit_admin_media_request_path(media_request) %></td>
+		</tr>
+		<% end -%>
+	</tbody>
+</table>
 <% else %>
 	<p>There are no pending media requests right now</p>
 <% end -%>

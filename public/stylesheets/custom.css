@@ -1118,6 +1118,14 @@ td.actions a:hover {
 	color: #333;
 }
 
+td.actions.approve_link {
+	font-size: .9em;
+}
+
+td.actions.approve_link a {
+	color: #778;
+}
+
 
 /* @end */
 
