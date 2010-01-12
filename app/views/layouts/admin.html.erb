@@ -27,7 +27,14 @@
 
 </head>
 
-<body class="admin_backend">
+<body id="<%= RAILS_ENV %>" class="admin_backend">
+	<% if RAILS_ENV == 'staging' %>
+		<div id="staging_bar">
+			<p>Note: You are currently on <strong>STAGING</strong>.
+			You may want to visit the <a href="http://spoonfeed.restaurantintelligenceagency.com/admin" title="">live site &raquo;</a></p>
+		</div>
+	<% end %>
+
 	<div id="container" class="clearfix">
 		<div id="header" class="span-18 last">
 			<div id="brand" class="span-6">
