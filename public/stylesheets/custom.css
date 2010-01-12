@@ -11,6 +11,34 @@ blue alt: #1D9BBB;
 green: #69A74D;
 */
 
+/* @group staging */
+
+#staging_bar {
+	background-color: #f6df7f;
+	width: 100%;
+	height: 18px;
+	border-bottom: 1px solid #e2c13d;
+	overflow: hidden;
+	color: #433;
+	line-height: 18px;
+	text-transform: uppercase;
+}
+
+#staging_bar p {
+	margin: 0 auto;
+	width: 960px;
+	font-family: "Lucida Grande", sans-serif;
+	font-size: 11px;
+	text-align: right;
+}
+
+body#staging{
+	background-position: 0 18px;
+}
+
+/* @end */
+
+
 /* @group grid --------------------- */
 
 body {

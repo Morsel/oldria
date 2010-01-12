@@ -1,4 +1,6 @@
 set :application, "ria"
+
+# This only works because both are deployed on the same server
 set :server_ip, '174.132.251.233'
 role :web, server_ip
 role :app, server_ip
@@ -21,13 +23,10 @@ set :deploy_to, "/home/ria/staging"
 # From the command line:
 #   cap production deploy
 #
+desc "Deploy to production instead: 'cap production deploy'"
 task :production do
   set :rails_env, :production
   set :deploy_to, "/home/ria/rails"
-end
-
-task :list_roles do
-  puts roles.to_yaml
 end
 
 ssh_options[:port] = 7822

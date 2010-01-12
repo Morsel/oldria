@@ -18,7 +18,7 @@ config.action_controller.perform_caching             = false
 # Don't care if the mailer can't send
 config.action_mailer.raise_delivery_errors = false
 
-config.gem "josevalim-rails-footnotes", :lib => "rails-footnotes", :source => "http://gems.github.com"
+config.gem "rails-footnotes"
 
 # Turn off asset timestamp appends for development
 ENV['RAILS_ASSET_ID'] = ''

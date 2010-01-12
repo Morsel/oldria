@@ -1,5 +1,5 @@
 # Settings specified here will take precedence over those in config/environment.rb
-RANDOM_SQL_STRING = 'RAND()'
+RANDOM_SQL_STRING = 'RANDOM()'
 DEFAULT_HOST = 'staging.restaurantintelligenceagency.com'
 
 ActionMailer::Base.delivery_method = :sendmail
