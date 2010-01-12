@@ -1,31 +1,52 @@
 set :application, "ria"
+set :server_ip, '174.132.251.233'
+role :web, server_ip
+role :app, server_ip
+role :db, server_ip, :primary => true
 
-set :server_ip, 'spoonfeed.restaurantintelligenceagency.com'
+##
+# == Staging environment
+#
+# From the command line:
+#   cap deploy
+#
+# Default to staging
+set :rails_env, :staging
+set :deploy_to, "/home/ria/staging"
+
+
+##
+# == Production environment
+#
+# From the command line:
+#   cap production deploy
+#
+task :production do
+  set :rails_env, :production
+  set :deploy_to, "/home/ria/rails"
+end
+
+task :list_roles do
+  puts roles.to_yaml
+end
+
 ssh_options[:port] = 7822
 default_run_options[:pty] = true
 
-
-role :app, server_ip
-role :web, server_ip
-role :db,  server_ip, :primary => true
-
 set :user, "ria"
 set :use_sudo, false
-
-set :rails_env, "production"
 
 set :scm, :git
 set :repository,  "git@code.neotericdesign.com:ria.git"
 set :branch, 'master'
 set :git_enable_submodules, 1
 
-set :deploy_to, "/home/ria/rails"
 set :deploy_via, :remote_cache
 
 desc "Run a Rake task remotely. Set the task with RAKE_TASK='your task here'"
 task :rake do
   if ENV["RAKE_TASK"]
-    run "cd #{current_path} && rake RAILS_ENV=production #{ENV["RAKE_TASK"]}"
+    run "cd #{current_path} && rake RAILS_ENV=#{rails_env} #{ENV["RAKE_TASK"]}"
   else
     puts "You need to set a task with RAKE_TASK='task here'"
   end
@@ -52,7 +73,7 @@ end
 namespace :db do
   desc "Seed the database with configured seedlings"
   task :seed do
-    run("cd #{deploy_to}/current; rake db:seed RAILS_ENV=production")
+    run("cd #{deploy_to}/current; rake db:seed RAILS_ENV=#{rails_env}")
   end
 end
 
