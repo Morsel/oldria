@@ -22,14 +22,12 @@ green: #69A74D;
 	color: #433;
 	line-height: 18px;
 	text-transform: uppercase;
+	text-align: center;
 }
 
 #staging_bar p {
-	margin: 0 auto;
-	width: 960px;
 	font-family: "Lucida Grande", sans-serif;
 	font-size: 11px;
-	text-align: right;
 }
 
 body#staging{
