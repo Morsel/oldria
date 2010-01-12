@@ -3,13 +3,16 @@ development: &DEV
   secret: trPK1YWlFyqt9aZf3dqSPJ5eQi3vuiYN56WBcDnMmSY
   callbackurl: http://parker.local:3000/twitter_authorization/
 
-production:
+production: &PRODUCTION
   token: 2O3cZx2xW6mH3FqfNkXtw
   secret: yGfF87HbIZFDABqYs7EVgBQMupE93kVjOjITueUsRAs
   callbackurl: http://spoonfeed.restaurantintelligenceagency.com/twitter_authorization/
 
+staging:
+  <<: *PRODUCTION
+
 test:
   <<: *DEV
-  
+
 cucumber:
   <<: *DEV
