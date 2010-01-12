@@ -10,6 +10,7 @@ production: &PRODUCTION
 
 staging:
   <<: *PRODUCTION
+  callbackurl: http://staging.restaurantintelligenceagency.com/twitter_authorization/
 
 test:
   <<: *DEV
