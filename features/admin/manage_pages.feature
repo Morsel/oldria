@@ -34,8 +34,8 @@ Feature: Manage pages
 
 
   Scenario: Non-logged-in user page
-    Given the special "non-logged-in-user" page exists
-    When I update the "non-logged-in-user" page with:
+    Given the special "_non-logged-in-user" page exists
+    When I update the "_non-logged-in-user" page with:
       | Title   | Welcome                 |
       | Content | You've finally made it! |
     And I logout

@@ -1,5 +1,5 @@
 class Page < ActiveRecord::Base
-  SPECIAL = %w(non-logged-in-user about contact)
+  SPECIAL = %w(_non-logged-in-user about contact)
 
   validates_presence_of :title
   validates_presence_of :slug
