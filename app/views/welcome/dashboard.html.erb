@@ -18,7 +18,7 @@
 	<% end # div -%>
 	<% end # for loop %>
 	<% else %>
-	<p>There are no administrative notices for you at this time.</p>
+	<p class="none box">There are no administrative notices for you at this time.</p>
 <% end -%>
 	</div>
 
@@ -27,7 +27,7 @@
 		<%= render :partial => 'media_requests' %>
 
 		<% if @media_request_conversations.blank? %>
-			<p>You don't have any media requests yet.</p>
+			<p class="none box">You don't have any media requests yet.</p>
 		<% end -%>
 	</div>
 
@@ -47,16 +47,15 @@
 
 	<div id="friend_activity" class="span-6 last" rel="Friend Activity">
 <% if !@friend_activity.blank? %>
-		<h3>Friend Activity</h3>
+		<h3>Folks You Follow</h3>
 	<% for status in @friend_activity %>
-	<% div_for status, :class => 'clearfix admin' do %>
-		<%# image_tag status.user.avatar.url(:thumb), :class => 'left' %>
+	<% div_for status, :class => 'clearfix' do %>
 		<p class="message">
 			<%= status.message %>
 		</p>
 		<p class="meta">
 			posted by <%= link_to status.user.username, status.user %> |
-			<%= status.created_at.to_s(:short) %>
+			<%= time_ago_in_words status.created_at %> ago
 		</p>
 	<% end # div -%>
 	<% end # for loop %>
