@@ -14,7 +14,7 @@ class WelcomeController < ApplicationController
         render :dashboard
       end
     else
-      # render index.html
+      @page = Page.find_by_slug('non-logged-in-user')
     end
   end
 end

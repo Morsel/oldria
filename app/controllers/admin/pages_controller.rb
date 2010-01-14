@@ -1,6 +1,6 @@
 class Admin::PagesController < Admin::AdminController
   def index
-    @pages = Page.all
+    @pages = Page.all(:order => :slug)
   end
 
   def show

@@ -24,6 +24,7 @@ Feature: Manage pages
     Then I should see "About Us"
     And I should see "This page explains a lot."
 
+
   Scenario: New pages can auto-generate slugs
     When I create a new page with:
       | Title   | Contact                   |
@@ -31,3 +32,12 @@ Feature: Manage pages
     Then I should see "Successfully created page"
     And there should be a page with slug "contact"
 
+
+  Scenario: Non-logged-in user page
+    Given the special "non-logged-in-user" page exists
+    When I update the "non-logged-in-user" page with:
+      | Title   | Welcome                 |
+      | Content | You've finally made it! |
+    And I logout
+    And I go to the homepage
+    Then I should see "You've finally made it!"

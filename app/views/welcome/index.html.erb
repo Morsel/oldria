@@ -1,3 +1,14 @@
-<% title "Home" %>
+<% if @page %>
+	<% title @page.title %>
 
-<p>Welcome to Spoonfeed!</p>
+	<%= @page.content %>
+
+	<% if can?(:edit, @page) %>
+	<p>
+		<%= link_to (image_tag("pencil.png") + "Edit this page"), edit_admin_page_path(@page), :class => 'button' %>
+	</p>
+	<% end %>
+<% else %>
+	<% title "Home" %>
+	<p>Welcome to Spoonfeed!</p>
+<% end %>
