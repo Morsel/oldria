@@ -7,7 +7,7 @@
 dark brown: #3e2611;
 alt dark brown: #49341f;
 blue: #8CD0E2;
-blue bg: #edfbff;
+blue bg: #0587c1;
 blue border: #cdeff8;
 blue alt: #1D9BBB;
 green: #69A74D;
@@ -1601,6 +1601,34 @@ tr.admin td {
 	border: 0 none;
 	background-color: #edfbff;
 }
+
+
+.pagination {
+	text-align: right;
+}
+
+.pagination .disabled {
+	display: none;
+}
+
+.pagination a, .pagination > span {
+	display: inline-block;
+	padding: 1px 8px 1px;
+	line-height: 18px;
+	height: 18px;
+	margin-left: 6px;
+	border: 1px solid #cdeff8;
+	font-size: 1.1em;
+	font-weight: bold;
+	color: #0587c1;
+	text-transform: uppercase;
+}
+
+.pagination a:hover, .pagination .current {
+	background-color: #0587c1;
+	color: #fff
+}
+
 
 /* @end */
 

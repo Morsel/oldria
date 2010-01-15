@@ -4,7 +4,7 @@ class StatusesController < ApplicationController
 
   def index
     @user = User.find(params[:user_id])
-    @statuses = @user.statuses
+    @statuses = @user.statuses.paginate(:page => params[:page], :per_page => 10)
     @editable = (@user == current_user)
   end
 
@@ -30,9 +30,9 @@ class StatusesController < ApplicationController
       format.js
     end
   end
-  
+
   private
-  
+
   def require_owner
     @user = User.find(params[:user_id])
     unless @user == current_user
