@@ -42,6 +42,7 @@ end
 Factory.define :status do |f|
   f.association :user
   f.message     "I just ate a cheeseburger"
+  f.created_at { 2.days.ago }
 end
 
 Factory.define :date_range do |f|

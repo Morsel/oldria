@@ -276,19 +276,21 @@ ins {
 	margin:0;
 }
 
-#previous_statuses a.sf-button{
+#previous_statuses a.sf-button,  a.sf-button.alt {
 	text-transform:none;
 	background:#0587c1;
 	color:#fff;
-	border: 0 none;
+	border: 1px solid #0587c1;
 	padding: 3px 8px;
 	font-family: "Lucida Grande", Arial, sans-serif;
 	font-size: .9em;
 	font-weight: normal;
 }
-#previous_statuses a.sf-button:hover{
-	background:#fff;
-	color:#0587c1;
+
+#previous_statuses a.sf-button:hover,  a.sf-button.alt:hover {
+	background: #fff;
+	color: #0587c1;
+	border-color: #c9e1f9;
 }
 
 #my_restaurants .restaurant + h3 {

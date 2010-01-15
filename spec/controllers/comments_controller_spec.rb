@@ -4,6 +4,7 @@ describe CommentsController do
   integrate_views
 
   before(:each) do
+    MediaRequestConversation.destroy_all
     @parent = Factory(:media_request_conversation, :id => 8)
     MediaRequestConversation.stubs(:find).returns(@parent)
     controller.stubs(:current_user).returns(Factory(:user))

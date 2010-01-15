@@ -1,0 +1,13 @@
+<% title "Updates from Folks You Follow" %>
+
+<% for status in @statuses %>
+<% div_for status, :class => 'clearfix' do %>
+	<p class="message">
+		<%= status.message %>
+	</p>
+	<p class="meta">
+		posted by <%= link_to status.user.username, status.user %> |
+		<%= time_ago_in_words status.created_at %> ago
+	</p>
+<% end # div -%>
+<% end # for loop %>

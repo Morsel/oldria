@@ -28,6 +28,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :user_sessions, :password_resets, :followings, :pages, :direct_messages
   map.resource :twitter_authorization
   map.resource :friend_timeline, :only => 'show'
+  map.resource :friends_statuses, :only => 'show'
   map.resources :invitations, :only => 'show'
 
   map.resource :search, :only => 'show'
