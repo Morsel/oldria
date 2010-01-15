@@ -2,7 +2,7 @@
 	<% f.inputs do %>
 		<%= f.input :title,
                 :input_html => {:class => 'title span-8'} %>
-		<%= f.input :slug %>
+		<%= f.input :slug unless @page.special? %>
 		<%= f.input :content, :wrapper_html => {:class => 'span-12'} %>
 	<% end %>
 

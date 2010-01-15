@@ -504,6 +504,10 @@ input.checkbox {
 	padding: 0px;
 }
 
+#friend_activity {
+	padding-bottom: 2em;
+}
+
 #statuses, .statuses {
 	list-style: none;
 	margin: 0;

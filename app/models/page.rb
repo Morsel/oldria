@@ -1,5 +1,5 @@
 class Page < ActiveRecord::Base
-  SPECIAL = %w(_non-logged-in-user about contact)
+  SPECIAL = %w(welcome_new_user about contact)
 
   validates_presence_of :title
   validates_presence_of :slug
@@ -13,6 +13,10 @@ class Page < ActiveRecord::Base
   end
 
   def deletable?
-    !SPECIAL.include?(slug)
+    not special?
+  end
+
+  def special?
+    SPECIAL.include?(slug)
   end
 end
