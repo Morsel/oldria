@@ -9,9 +9,7 @@
 	<%= stylesheet_link_tag 'blueprint/screen', 'custom' %>
 	<%= stylesheet_link_tag 'blueprint/print', :media => 'print' %>
 
-	<!--[if lt IE 7]>
-	<%= stylesheet_link_tag 'blueprint/ie', 'ie6' %>
-	<![endif]-->
+	<!--[if lt IE 7]><%= stylesheet_link_tag 'blueprint/ie', 'ie6' %><![endif]-->
 
 	<%= yield(:head) %>
 
@@ -98,7 +96,7 @@
 		<p class="admin-link"><%= link_to "Go to Admin", admin_root_path %></p>
 	<% end %>
 		<ul>
-			<li>Copyright &copy; 2009 Restaurant Intelligence Agency</li>
+			<li>Copyright &copy; 2010 Restaurant Intelligence Agency</li>
 			<li><%= link_to 'About SpoonFeed', public_page_path('about') %></li>
 			<li><%= link_to 'Contact', public_page_path('contact') %></li>
 		</ul>

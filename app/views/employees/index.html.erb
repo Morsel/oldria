@@ -16,7 +16,7 @@
 <div id="restaurant_employees">
 	<% @employments.in_groups(2, false) do |group| %>
 		<div class="span-6<%= cycle("", " last") %>">
-			<%= render group %> <!-- employments/employment -->
+			<%= render group %> <%# employments/_employment.html.erb %>
 		</div>
 	<% end -%>
 </div>

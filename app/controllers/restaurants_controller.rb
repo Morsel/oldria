@@ -5,14 +5,15 @@ class RestaurantsController < ApplicationController
   def new
     @restaurant = current_user.managed_restaurants.build
   end
-  
+
   def show
     @restaurant = Restaurant.find(params[:id])
+    @employments = @restaurant.employments.all(:include => [:subject_matters, :restaurant_role, :employee])
   end
-  
+
   def edit
   end
-  
+
   def update
     if @restaurant.update_attributes(params[:restaurant])
       flash[:notice] = "Successfully updated restaurant"
@@ -22,7 +23,7 @@ class RestaurantsController < ApplicationController
       render :edit
     end
   end
-  
+
   def create
     @restaurant = current_user.managed_restaurants.build(params[:restaurant])
     if @restaurant.save
@@ -32,12 +33,12 @@ class RestaurantsController < ApplicationController
       render :new
     end
   end
-  
+
   private
-  
+
   def authenticate
     @restaurant = Restaurant.find(params[:id])
-    if current_user != @restaurant.manager
+    if cannot? :edit, @restaurant
       flash[:error] = "You don't have permission to access that page"
       redirect_to @restaurant
     end

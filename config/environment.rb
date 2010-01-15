@@ -7,18 +7,19 @@ RAILS_GEM_VERSION = '2.3.5' unless defined? RAILS_GEM_VERSION
 require File.join(File.dirname(__FILE__), 'boot')
 
 Rails::Initializer.run do |config|
-  config.gem 'will_paginate', :source => "http://gemcutter.org"
+  config.gem 'will_paginate'
   config.gem 'RedCloth', :lib => 'redcloth'
   config.gem 'searchlogic'
   config.gem 'authlogic'
-  config.gem 'cancan', :source => "http://gemcutter.org"
-  config.gem 'paperclip', :source => "http://gemcutter.org"
+  config.gem 'addresslogic'
+  config.gem 'cancan'
+  config.gem 'paperclip'
   config.gem 'moomerman-twitter_oauth', :lib => 'twitter_oauth', :source => "http://gems.github.com"
   config.gem 'jackdempsey-acts_as_commentable', :lib => 'acts_as_commentable', :source => "http://gems.github.com"
   config.gem 'aasm', :source => 'http://gemcutter.org'
   config.gem 'formtastic', :source => "http://gemcutter.org"
   config.gem 'tabletastic', :source => "http://gemcutter.org", :version => ">=0.1.2"
-  config.gem 'validation_reflection', :source => "http://gemcutter.org"
+  config.gem 'validation_reflection'
   config.gem "friendly_id"
 
   config.gem "whenever", :lib => false

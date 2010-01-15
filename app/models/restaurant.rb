@@ -1,4 +1,5 @@
 class Restaurant < ActiveRecord::Base
+  apply_addresslogic
   default_scope :conditions => {:deleted_at => nil}
 
   belongs_to :manager, :class_name => "User"
