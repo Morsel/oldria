@@ -1,4 +1,4 @@
-<% title "Statuses for #{@user.username}" %>
+<% title "Statuses for #{@user.name_or_username}" %>
 
 <% if @editable %>
 <div id="status_update" class="box clearfix">
@@ -11,7 +11,7 @@
 	<ol id="statuses" class="statuses">
 <% unless @statuses.blank? %>
 		<% for status in @statuses %>
-			<li class="status" id="status_<%= status.id %>"><%= render :partial => 'status', :locals => { :status => status } %></li>
+			<li class="status" id="status_<%= status.id %>"><%= render status %></li>
 		<% end %>
 <% end %>
 	</ol>

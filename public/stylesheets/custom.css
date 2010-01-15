@@ -280,7 +280,11 @@ ins {
 	text-transform:none;
 	background:#0587c1;
 	color:#fff;
-	font:normal 1em "Lucida Grande", Arial, sans-serif;
+	border: 0 none;
+	padding: 3px 8px;
+	font-family: "Lucida Grande", Arial, sans-serif;
+	font-size: .9em;
+	font-weight: normal;
 }
 #previous_statuses a.sf-button:hover{
 	background:#fff;
@@ -452,14 +456,20 @@ div#navigation ul#sf_nav li#search.selected a{
 
 #new_status button {
 	margin: 0;
+	padding-left: 1em;
+	padding-right: 1.1em;
 	float: left;
-	border-color: #9ad9e2;
-	background-color: #ceebf1;
-	color: #0089C2;
+	text-transform:uppercase;
+	background-color: #e8750a;
+	color: #fff;
+	border-color: #e8750a;
+	text-shadow: 1px 1px #963;
+	font-family: 'Lucida Grande', sans-serif;
 }
 
 #new_status button:hover {
-	background-color: #fff;
+	background-color: #f93;
+	border-color: #e8750a;
 }
 
 #leftcolumn #new_status input.status_message {
@@ -513,10 +523,6 @@ input.checkbox {
 	border-bottom: 1px dashed #ddd;
 }
 
-button.status_button {
-	text-transform:uppercase;
-}
-
 .message {
 	display: block;
 	line-height: 22px;
@@ -561,7 +567,7 @@ button.status_button {
 	float: none;
 }
 
-.status .meta {
+.status .meta, .status .posted {
 	padding-left: 12px;
 	background:url(/images/arrow2.png) no-repeat 0 50%;
 	margin: 1px 0 3px;
@@ -766,19 +772,18 @@ ul.responses {
 .responses li a:after {
 	content: " \279E";
 }
-.name_and_pic, .manager_and_facts{
+
+.user_info, .manager_and_facts{
 	font-family:"Lucida Grande", Arial, sans-serif;
 }
-.user_info{
-	margin-left:125px;
-}
-.name_and_pic p, .manager_and_facts p{
+
+.user_info p, .manager_and_facts p{
 	margin:0 0 5px;
 }
 .manager_and_facts{
 	padding-top:40px;
 }
-.name_and_pic span, .manager_and_facts span{
+.user_info span, .manager_and_facts span{
 	color:#0487b1;
 	font-weight:bold;
 }
@@ -913,6 +918,10 @@ p.editprofile a:hover {
 	-webkit-box-shadow: 1px 1px 3px #ddd
 }
 
+#user_profile_view {
+	background: #fff url(../images/white_gray.png) 50% 0;
+}
+
 #user_profile_view img, #restaurant_profile_view img{
 	padding: 5px;
 	border: 1px solid #ccc;
@@ -976,7 +985,6 @@ ul.user_profile_actions {
 }
 
 	ul.user_profile_actions li {
-		font-family: 'lucida grande', tahoma, arial, sans-serif;
 		font-weight: bold;
 		font-size: 1em;
 		line-height: 22px;
@@ -984,21 +992,25 @@ ul.user_profile_actions {
 		display: inline;
 		margin: 0px 5px 0px 0px;
 	}
-
-		ul.user_profile_actions li a {
-			background-color: #1D9BBB;
-			padding: 4px 8px;
-			color: #fff;
-			border: 1px solid #c9e1f9;
-			border-radius: 3px;
-			-moz-border-radius: 3px;
-			-webkit-border-radius: 3px;
-		}
-
-		ul.user_profile_actions li a:hover {
-			background-color: #69A74D;
-			border: 1px solid #8abe73;
-		}
+	
+	ul.user_profile_actions li a {
+		margin: 0;
+		line-height: 14px;
+		padding-left: 12px;
+		padding-right: 12px;
+		float: left;
+		text-transform: none;
+		background-color: #e8750a;
+		color: #fff;
+		border-color: #e8750a;
+		text-shadow: 1px 1px #963;
+		font-family: 'Lucida Grande', sans-serif;
+	}
+	
+	ul.user_profile_actions li a:hover {
+		background-color: #f93;
+		border-color: #e8750a;
+	}
 
 
 
@@ -1043,17 +1055,21 @@ ul.user_profile_actions {
 			font-family:'helvetica neue', helvetica, tahoma, arial, sans-serif;
 		}
 		a.sf-button {
-			font:bold 0.9em 'helvetica neue', helvetica, tahoma, arial, sans-serif;
+			font:bold 0.9em 'L', helvetica, tahoma, arial, sans-serif;
 			border: 1px solid #c9e1f9;
 			background-color: #edfbff;
 			color: #1d9bbb;
 			padding: 2px 5px;
 			text-transform:uppercase;
+			border-radius: 10px;
+			-moz-border-radius: 10px;
+			-webkit-border-radius: 10px;
 		}
 
 		a.sf-button:hover {
 			background-color: #0089c2;
 			color: #fff;
+			text-decoration: none;
 		}
 
 #user_content h3 {
@@ -1184,6 +1200,12 @@ td.actions.approve_link a {
 fieldset {
 	border: 1px solid #ccc;
 	font-family: 'lucida grande', tahoma, arial, sans-serif;
+}
+
+button.round {
+	border-radius: 16px;
+	-moz-border-radius: 16px;
+	-webkit-border-radius: 16px;
 }
 
 legend {

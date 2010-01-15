@@ -19,7 +19,7 @@
 		</ol>
 
 		<% if current_user.statuses.size > 2 -%>
-		<p><%= link_to 'View past status updates &#187;', user_statuses_path(current_user), :class=>'sf-button' %></p>
+		<p><%= link_to 'View all &#187;', user_statuses_path(current_user), :class=>'sf-button' %></p>
 		<% end -%>
 	</div>
 

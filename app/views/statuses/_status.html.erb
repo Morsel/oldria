@@ -4,7 +4,7 @@
 <span class="message"><%= auto_link status.message %></span>
 
 <span class="posted">
-  <%= time_ago_in_words status.created_at %> ago
+  posted <%= time_ago_in_words status.created_at %> ago
   <%- if status.twitter_id -%>
     and on Twitter
   <% end -%>
