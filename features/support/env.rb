@@ -4,6 +4,7 @@
 # instead of editing this one. Cucumber will automatically load all features/**/*.rb
 # files.
 I_KNOW_I_AM_USING_AN_OLD_AND_BUGGY_VERSION_OF_LIBXML2 = true
+
 ENV["RAILS_ENV"] ||= "cucumber"
 require File.expand_path(File.dirname(__FILE__) + '/../../config/environment')
 
@@ -51,3 +52,4 @@ Cucumber::Rails::World.use_transactional_fixtures = true
 # http://github.com/bmabey/database_cleaner for more info.
 require 'database_cleaner'
 DatabaseCleaner.strategy = :truncation
+
