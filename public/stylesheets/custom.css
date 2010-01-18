@@ -1,6 +1,7 @@
 /* @override 
 	http://localhost:3001/stylesheets/custom.css
 	http://staging.restaurantintelligenceagency.com/stylesheets/custom.css?1263502358
+	http://localhost:3000/stylesheets/custom.css
 */
 
 /* colors
@@ -114,7 +115,11 @@ p, li {
 	font-family: helvetica, arial, sans-serif;
 }
 
-p a, li a {color: #0587c1;}
+li{
+	margin: 10px 0;
+}
+
+p a, li a, h5 a, h4 a, h3 a {color: #0587c1;}
 p a:hover, li a:hover {color: #4eaed9;text-decoration: underline;}
 
 a {
