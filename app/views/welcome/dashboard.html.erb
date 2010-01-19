@@ -50,11 +50,12 @@
 		<h3>Folks You Follow</h3>
 	<% for status in @friend_activity %>
 	<% div_for status, :class => 'clearfix' do %>
+		<%= link_to image_tag(status.user.avatar.url(:thumb)), profile_path(status.user.username), :class => 'avatar' %>
 		<p class="message">
 			<%= status.message %>
 		</p>
 		<p class="meta">
-			posted by <%= link_to status.user.username, status.user %> |
+			posted by <%= link_to status.user.username, profile_path(status.user.username) %> |
 			<%= time_ago_in_words status.created_at %> ago
 		</p>
 	<% end # div -%>

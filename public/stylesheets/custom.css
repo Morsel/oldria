@@ -509,6 +509,21 @@ input.checkbox {
 	padding-bottom: 2em;
 }
 
+#friend_activity .meta {
+	clear: none;
+}
+
+.status .avatar img {
+	float: left;
+	margin: 0 .5em 5px 0;
+	padding: 2px;
+	width: 25px;
+	height: 25px;
+	border: 1px solid #ccc;
+}
+
+
+
 #statuses, .statuses {
 	list-style: none;
 	margin: 0;
@@ -565,7 +580,7 @@ input.checkbox {
 	font-family: "Lucida Grande", Arial, sans-serif;
 }
 
-.status .meta, .status .posted, .comment .meta  {
+.status .posted, .comment .meta  {
 	clear: left;
 }
 
@@ -739,10 +754,10 @@ div.restaurant {
 .employment a.avatar img {
 	float: left;
 	margin: 0 1em 1em 0;
+	border: 1px solid #ccc;
 	width: 35px;
 	height: 35px;
 	padding: 3px;
-	border: 1px solid #ccc;
 }
 
 .employment .responsibilities, .employment .actions {
@@ -1062,7 +1077,7 @@ ul.user_profile_actions {
 		line-height: 22px;
 		float: left;
 		display: inline;
-		margin: 0px 5px 0px 0px;
+		margin: 0px 5px .5em 0px;
 	}
 	
 	ul.user_profile_actions li a {
