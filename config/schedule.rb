@@ -19,6 +19,7 @@
 #
 # Learn more: http://github.com/javan/whenever
 
-every 15.minutes do
-  command "cd /home/ria/unplugged/_mt; perl ./tools/run-periodic-tasks >> ../../mt.log"
-end
+## I was using this for MT
+# every 15.minutes do
+#   command "cd /home/ria/unplugged/_mt; perl ./tools/run-periodic-tasks >> ../../mt.log"
+# end
