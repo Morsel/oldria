@@ -45,6 +45,8 @@ module NavigationHelpers
       admin_restaurants_path
     when /^the list of account types$/
       admin_account_types_path
+    when /^the admin feeds page$/
+      admin_feeds_path
     when /^the list of media requests page$/
       admin_media_requests_path
     when /^the admin edit page for "(.+)"$/

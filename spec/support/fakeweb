@@ -1,0 +1,57 @@
+--- 
+- - http://twitter.com/statuses/user_timeline.json?count=1
+  - global: 
+      :response: 
+      - :response: &id001 !ruby/object:Net::HTTPUnauthorized 
+          body: !str 
+            str: "{\"request\":\"/statuses/user_timeline.json?count=1\",\"error\":\"This method requires authentication.\"}"
+            "@_rails_html_safe": false
+          body_exist: true
+          code: "401"
+          header: 
+            x-ratelimit-reset: 
+            - "1264465170"
+            expires: 
+            - Tue, 31 Mar 1981 05:00:00 GMT
+            last-modified: 
+            - Mon, 25 Jan 2010 23:32:29 GMT
+            x-transaction: 
+            - 1264462349-34581-9988
+            x-ratelimit-limit: 
+            - "150"
+            connection: 
+            - close
+            content-type: 
+            - application/json; charset=utf-8
+            www-authenticate: 
+            - Basic realm="Twitter API"
+            x-runtime: 
+            - "0.01115"
+            server: 
+            - hi
+            date: 
+            - Mon, 25 Jan 2010 23:32:29 GMT
+            x-ratelimit-class: 
+            - api
+            content-length: 
+            - "97"
+            x-ratelimit-remaining: 
+            - "147"
+            x-revision: 
+            - DEV
+            set-cookie: 
+            - _twitter_sess=BAh7CDoRdHJhbnNfcHJvbXB0MDoHaWQiJWRmNWY2YjYwYzE3OWFkZWViMGVk%250AZmIwZmMzMDdkNDdkIgpmbGFzaElDOidBY3Rpb25Db250cm9sbGVyOjpGbGFz%250AaDo6Rmxhc2hIYXNoewAGOgpAdXNlZHsA--8b2306e93194ad12cef32b717013e7ae9e81402c; domain=.twitter.com; path=/
+            vary: 
+            - Accept-Encoding
+            cache-control: 
+            - no-cache, no-store, must-revalidate, pre-check=0, post-check=0
+            status: 
+            - 401 Unauthorized
+            pragma: 
+            - no-cache
+          http_version: "1.1"
+          message: Unauthorized
+          read: true
+          socket: 
+      - :response: *id001
+      :method: GET

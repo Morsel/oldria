@@ -16,14 +16,15 @@ Rails::Initializer.run do |config|
   config.gem 'paperclip'
   config.gem 'moomerman-twitter_oauth', :lib => 'twitter_oauth', :source => "http://gems.github.com"
   config.gem 'jackdempsey-acts_as_commentable', :lib => 'acts_as_commentable', :source => "http://gems.github.com"
+  config.gem 'acts_as_list'
   config.gem 'aasm', :source => 'http://gemcutter.org'
   config.gem 'formtastic', :source => "http://gemcutter.org"
   config.gem 'tabletastic', :source => "http://gemcutter.org", :version => ">=0.1.2"
   config.gem 'validation_reflection'
-  config.gem "friendly_id"
-
-  config.gem "whenever", :lib => false
-  config.gem "delayed_job"
+  config.gem 'friendly_id'
+  config.gem 'feedzirra'
+  config.gem 'whenever', :lib => false
+  config.gem 'delayed_job'
 
   # Settings in config/environments/* take precedence over those specified here.
   # Application configuration should go into files in config/initializers

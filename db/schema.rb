@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20091231220005) do
+ActiveRecord::Schema.define(:version => 20100125223338) do
 
   create_table "account_types", :force => true do |t|
     t.string   "name"
@@ -94,6 +94,18 @@ ActiveRecord::Schema.define(:version => 20091231220005) do
     t.datetime "updated_at"
     t.integer  "restaurant_role_id"
     t.boolean  "omniscient"
+  end
+
+  create_table "feeds", :force => true do |t|
+    t.string   "url"
+    t.string   "feed_url"
+    t.string   "title"
+    t.string   "etag"
+    t.boolean  "featured"
+    t.integer  "position",      :default => 0
+    t.datetime "last_modified"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "followings", :force => true do |t|

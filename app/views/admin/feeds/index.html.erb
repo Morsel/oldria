@@ -1,0 +1,10 @@
+<% title "Feeds" %>
+
+<p class="clearfix"><%= link_to "New Feed", new_admin_feed_path, :class => 'button positive' %></p>
+
+<% table_for(@feeds) do |t| %>
+	<%= t.data :title, :url, :feed_url,
+             :actions => [:edit, :destroy], :action_prefix => 'admin' %>
+<% end -%>
+
+

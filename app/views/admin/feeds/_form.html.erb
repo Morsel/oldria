@@ -1,0 +1,18 @@
+<% semantic_form_for [:admin, @feed] do |f| %>
+	<% f.inputs do %>
+		<%= f.input :feed_url,
+                :input_html => {:class => 'span-12 title'},
+                :hint => "This must be the URL to a valid RSS/ATOM feed itself, not simply the URL to the blog, <br/>\
+'http://feeds.feedburner.com/RIAUnplugged' and not 'http://unplugged.restaurantintelligenceagency.com'."
+    %>
+
+		<%- if action_name == 'edit' -%>
+			<%= f.input :url %>
+			<%= f.input :title %>
+		<%- end -%>
+
+		<%= f.input :featured, :hint => "Featured feeds are on by default the first time users opens their News page." %>
+
+	<% end %>
+	<p><%= button_tag "Save", :class => 'positive' %></p>
+<% end %>

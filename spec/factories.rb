@@ -134,3 +134,9 @@ Factory.define :assigned_employment, :parent => :employment do |f|
   f.restaurant_role {|e|  e.association(:restaurant_role) }
 end
 
+Factory.define :feed do |f|
+  f.title "Example Blog RSS"
+  f.url "http://www.example.com"
+  f.feed_url "http://feeds.neotericdesign.com/neotericdesign"
+  f.etag "aj39ukavkl"
+end

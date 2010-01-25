@@ -166,3 +166,13 @@ $('#status_message').autofill({
 	defaultTextColor: '#666',
 	activeTextColor: '#333'
 });
+
+$('#feeds tbody').sortable({
+	axis:'y',
+	dropOnEmpty:false,
+	update: function(){
+		$.ajax({ data:$(this).sortable('serialize', {key:'feeds[]'}), dataType:'script', type:'post', url:'/admin/feeds/sort'
+		});
+	}
+});
+

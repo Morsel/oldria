@@ -40,6 +40,7 @@ ActionController::Routing::Routes.draw do |map|
     admin.root      :controller => 'admin'
     admin.resources :users
     admin.resources :pages
+    admin.resources :feeds, :collection => { :sort => [:post, :put] }
     admin.resources :date_ranges, :account_types, :coached_status_updates, :direct_messages
     admin.resources :cuisines, :subject_matters, :restaurants
     admin.resources :media_requests, :member => { :approve => :put }

@@ -36,5 +36,6 @@ config.gem "cucumber",      :lib => false, :version => '>=0.6.2'
 config.gem "factory_girl",  :version => '>=1.2.3'
 config.gem 'email_spec',    :version => ">=0.3.5"
 config.gem "fakeweb",       :version => ">=1.2.5"
+config.gem "netrecorder"
 config.gem "mocha"
 config.gem "spork",         :version => ">=0.7.5"

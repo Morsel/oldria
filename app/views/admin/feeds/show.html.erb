@@ -1,0 +1,28 @@
+<% title "Feed" %>
+
+<p>
+	<strong>Url:</strong>
+	<%=h @feed.url %>
+</p>
+<p>
+	<strong>Feed Url:</strong>
+	<%=h @feed.feed_url %>
+</p>
+<p>
+	<strong>Title:</strong>
+	<%=h @feed.title %>
+</p>
+<p>
+	<strong>Etag:</strong>
+	<%=h @feed.etag %>
+</p>
+<p>
+	<strong>Last Modified:</strong>
+	<%=h @feed.last_modified %>
+</p>
+
+<p>
+	<%= link_to "Edit", edit_admin_feed_path(@feed) %> |
+	<%= link_to "Destroy", [:admin, @feed], :confirm => 'Are you sure?', :method => :delete %> |
+	<%= link_to "View All", admin_feeds_path %>
+</p>
