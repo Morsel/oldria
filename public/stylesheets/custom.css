@@ -288,6 +288,12 @@ ins {
 	font-weight: normal;
 }
 
+a.sf-button.alt img {
+	margin: 2px 5px -2px 0;
+	margin-right: 5px;
+	line-height: 8px;
+}
+
 #previous_statuses a.sf-button:hover,  a.sf-button.alt:hover {
 	background: #fff;
 	color: #0587c1;
@@ -787,6 +793,11 @@ div.restaurant {
 	margin-top: -10px;
 	padding: .5em 1em;
 	background-color: #f0f0f0;
+}
+
+.new_discussion {
+	margin: 3px 0;
+	height: 20px;
 }
 
 /* @end */

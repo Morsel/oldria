@@ -29,10 +29,13 @@
 
 <h3 class="function-bold">Restaurant Staff</h3>
 
-<div class="discussion_actions"></div>
+<div class="discussion_actions">
+	<p class="new_discussion">
+		<%= link_to image_tag('quotebubble.png') + "Start a discussion", root_path, :class => 'sf-button alt' %>
+	</p>
+</div>
 
 <div class="restaurant_employees employments">
-	<%# restaurants/_employment.html.erb %>
 	<%= render :partial => 'employment', :collection => @employments %>
 </div>
 
