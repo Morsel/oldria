@@ -12,4 +12,15 @@ describe Discussion do
   it "should create a new instance given valid attributes" do
     Discussion.create!(@valid_attributes)
   end
+
+
+  it "should send notifications to the invited users" do
+    user = Factory(:user)
+    discussion = Discussion.new(@valid_attributes)
+    discussion.poster = Factory(:user)
+    UserMailer.expects(:deliver_discussion_notification).with(discussion, user).returns(true)
+    discussion.users << user
+    discussion.save
+  end
+
 end

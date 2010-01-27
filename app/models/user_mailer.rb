@@ -35,4 +35,12 @@ class UserMailer < ActionMailer::Base
     body          :user => user
   end
 
+  def discussion_notification(discussion, user)
+    from        'notifications@restaurantintelligenceagency.com'
+    recipients  user.email
+    sent_on     Time.now
+    subject     "SpoonFeed: #{discussion.poster.try :name} has invited you to a discussion"
+    body        :discussion => discussion, :user => user
+  end
+
 end
