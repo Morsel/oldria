@@ -10,6 +10,10 @@ describe User do
   should_belong_to :account_type
   should_have_many :employments, :foreign_key => "employee_id"
   should_have_many :restaurants, :through => :employments
+  should_have_many :discussion_seats
+  should_have_many :discussions, :through => :discussion_seats
+  should_have_many :posted_discussions, :class_name => 'Discussion', :foreign_key => 'poster_id'
+
 
   should_validate_presence_of :email
   should_validate_acceptance_of :agree_to_contract
@@ -188,6 +192,26 @@ describe User do
       user = Factory(:admin)
       user.allowed_subject_matters.should include(@normal_subject)
       user.allowed_subject_matters.should include(@special_subject)
+    end
+  end
+
+  context "coworkers" do
+    before do
+      @restaurant = Factory(:restaurant)
+      @joe = Factory(:user)
+      @sam = Factory(:user)
+      Factory(:employment, :employee => @joe, :restaurant => @restaurant)
+      Factory(:employment, :employee => @sam, :restaurant => @restaurant)
+    end
+
+    it "should be a list of users that work at any of the same restaurants" do
+      @joe.coworkers.should include(@sam)
+    end
+
+    it "should not include users who are not coworkers" do
+      john = Factory(:user)
+      Factory(:employment, :employee => john)
+      @joe.coworkers.should_not include(john)
     end
   end
 end

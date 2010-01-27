@@ -12,12 +12,16 @@ Feature: Discussions
       | john     | secret   | john@example.com | John Doe  | Sommelier |
 
   Scenario: Create a new Discussion
+    Given there are no discussions
     Given I am logged in as "wendy" with password "secret"
     When I follow "Arabian Nights"
     Then I should see "Restaurant Staff"
 
     When I follow "Start a discussion"
-    And I create a new discussion with:
-      | Topic | blah |
+    And I fill in "Title" with "Where should we eat?"
+    And I check "Sam Smith"
+    And I press "Post Discussion"
+    Then there should be 1 discussion in the system
 
+    # Then "sam@example.com" should have 1 email
 

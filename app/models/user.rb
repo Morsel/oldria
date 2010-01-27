@@ -21,6 +21,12 @@ class User < ActiveRecord::Base
   has_many :employments, :foreign_key => "employee_id"
   has_many :restaurants, :through => :employments
 
+  has_many :discussion_seats
+  has_many :discussions, :through => :discussion_seats
+
+  has_many :posted_discussions, :class_name => "Discussion", :foreign_key => "poster_id"
+
+
   validates_presence_of :email
 
   attr_accessor :send_invitation, :agree_to_contract
@@ -74,6 +80,11 @@ class User < ActiveRecord::Base
   def allowed_subject_matters
     allsubjects = SubjectMatter.all
     admin? ? allsubjects : allsubjects.reject(&:admin_only?)
+  end
+
+  def coworkers
+    coworker_ids = restaurants.map(&:employee_ids).flatten.uniq
+    User.find(coworker_ids)
   end
 
 ### Convenience methods for getting/setting first and last names ###

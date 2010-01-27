@@ -1,0 +1,17 @@
+<% title "Start a Discussion" %>
+
+<% semantic_form_for(@discussion) do |f| %>
+  <% f.inputs do %>
+    <%= f.input :title %>
+    <%= f.input :body, :input_html => { :rows => '4' } %>
+    <%= f.input :users,
+                :as => :check_boxes,
+                :collection => @users,
+                :label => "Who should be a part of this discussion?"
+    %>
+  <% end %>
+
+  <p><%= button_tag "Post Discussion" %></p>
+<% end %>
+
+

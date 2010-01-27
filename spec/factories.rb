@@ -140,3 +140,8 @@ Factory.define :feed do |f|
   f.feed_url "http://feeds.neotericdesign.com/neotericdesign"
   f.etag "aj39ukavkl"
 end
+
+Factory.define :discussion do |f|
+  f.title "My Discussion"
+  f.body  "Lorem ipsum dolor sit amet, consectetur adipisicing elit."
+end
