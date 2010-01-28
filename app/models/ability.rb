@@ -10,6 +10,10 @@ class Ability
       can :manage, Restaurant do |action, restaurant|
         restaurant && restaurant.manager == user || restaurant.additional_managers.include?(user)
       end
+
+      can :manage, Discussion do |action, discussion|
+        discussion && discussion.poster == user || discussion.users.include?(user)
+      end
     end
   end
 

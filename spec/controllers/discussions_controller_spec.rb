@@ -12,6 +12,7 @@ describe DiscussionsController do
     before do
       @discussion = Factory(:discussion)
       Discussion.stubs(:find).with("32").returns(@discussion)
+      controller.stubs(:cannot?).returns(false)
       get :show, :id => "32"
     end
 

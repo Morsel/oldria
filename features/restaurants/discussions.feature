@@ -47,3 +47,17 @@ Feature: Discussions
     And I should see "Lets go to the movies"
     And I should see "Sounds like a plan"
 
+@allow-rescue
+  Scenario: Lockdown
+    Given I am logged in as "wendy" with password "secret"
+    When I follow "Arabian Nights"
+    And I follow "Start a discussion"
+    And I fill in "Title" with "Where should we eat?"
+    And I check "Sam Smith"
+    And I press "Post Discussion"
+    Then there should be 1 discussion in the system
+
+    Given I am logged in as "john" with password "secret"
+    And I visit that discussion
+    Then I should see "Access denied"
+    And I should not see "Where should we eat?"

@@ -6,7 +6,7 @@ class DiscussionsController < ApplicationController
   end
 
   def show
-    @discussion = Discussion.find(params[:id])
+    load_and_authorize_discussion
     @comments = @discussion.posted_comments
     build_comment
   end
@@ -26,6 +26,11 @@ class DiscussionsController < ApplicationController
   end
 
   private
+
+  def load_and_authorize_discussion
+    @discussion = Discussion.find(params[:id])
+    unauthorized! if cannot? :read, @discussion
+  end
 
   def build_comment
     @comment = @discussion.comments.build
