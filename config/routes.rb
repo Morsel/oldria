@@ -12,7 +12,7 @@ ActionController::Routing::Routes.draw do |map|
     mrc.resources :comments, :only => [:new, :create]
   end
 
-  map.resources :discussions, :except => 'index' do |discussions|
+  map.resources :discussions do |discussions|
     discussions.resources :comments, :only => [:new, :create]
   end
 
