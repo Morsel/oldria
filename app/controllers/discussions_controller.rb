@@ -19,7 +19,7 @@ class DiscussionsController < ApplicationController
   def create
     @discussion = current_user.posted_discussions.build(params[:discussion])
     if @discussion.save
-      redirect_to root_url
+      redirect_to @discussion
     else
       render :new
     end

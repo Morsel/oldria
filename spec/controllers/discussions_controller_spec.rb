@@ -43,11 +43,13 @@ describe DiscussionsController do
 
     context "when discussion is valid" do
       before do
-        Discussion.any_instance.stubs(:save).returns(true)
+        @discussion = Factory(:discussion)
+        Discussion.expects(:new).returns(@discussion)
+        @discussion.stubs(:save).returns(@discussion)
         post :create, :discussion => {}
       end
 
-      it { response.should redirect_to(root_url) }
+      it { response.should redirect_to(discussion_path(@discussion)) }
     end
 
     context "when discussion is valid" do
