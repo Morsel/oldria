@@ -1,9 +1,15 @@
-<% div_for comment do %>
-<p class="meta">
-	On <%= comment.created_at.strftime("%b %e, %Y at %l:%M %p") %> 
+<% div_for comment, :class => 'clearfix' do %>
+<div class="avatar">
+	<%= image_tag(comment.user.try(:avatar).try(:url, :thumb)) %>
+</div>
+<div class="content">
+	<p class="meta">
+	On <%= comment.created_at.strftime("%b %e, %Y at %l:%M %p") %>
 	<%= comment.user.try(:name_or_username) %> said:
-</p>
-<p><%= comment.comment %></p>
+	</p>
+
+	<p><%= comment.comment %></p>
+
 	<% if !comment.attachments.blank? %>
 		Attached files:
 		<% for attachment in comment.attachments %>
@@ -11,4 +17,5 @@
 		<% end %>
 	<% end %>
 
-<% end #div %>
+</div>
+<% end %>

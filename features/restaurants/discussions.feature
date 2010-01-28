@@ -35,3 +35,15 @@ Feature: Discussions
     When "sam@example.com" opens the email with subject "SpoonFeed: Wendy Sue has invited you to a discussion"
     And I click the first link in the email
     Then I should see "Where should we eat?"
+
+
+  Scenario: Commenting on a Discussion
+    Given I am logged in as "wendy" with password "secret"
+    And I have just posted a discussion with the title "Lets go to the movies"
+    When I visit that discussion
+    And I fill in "Comment" with "Sounds like a plan"
+    And I press "Submit"
+    Then I should see "Successfully created comment"
+    And I should see "Lets go to the movies"
+    And I should see "Sounds like a plan"
+

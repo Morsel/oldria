@@ -12,6 +12,10 @@ ActionController::Routing::Routes.draw do |map|
     mrc.resources :comments, :only => [:new, :create]
   end
 
+  map.resources :discussions, :except => 'index' do |discussions|
+    discussions.resources :comments, :only => [:new, :create]
+  end
+
   map.resources :users, :member => {
     :remove_twitter => :put,
     :remove_avatar => :put
@@ -26,7 +30,7 @@ ActionController::Routing::Routes.draw do |map|
   end
 
   map.resources :user_sessions, :password_resets, :followings, :pages, :direct_messages
-  map.resources :discussions, :except => 'index'
+
   map.resource :twitter_authorization
   map.resource :friend_timeline, :only => 'show'
   map.resource :friends_statuses, :only => 'show'

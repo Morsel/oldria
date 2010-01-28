@@ -1,8 +1,14 @@
 class DiscussionsController < ApplicationController
   before_filter :require_user
 
+  def index
+    @discussions = current_user.discussions
+  end
+
   def show
     @discussion = Discussion.find(params[:id])
+    @comments = @discussion.posted_comments
+    build_comment
   end
 
   def new
@@ -17,5 +23,14 @@ class DiscussionsController < ApplicationController
     else
       render :new
     end
+  end
+
+  private
+
+  def build_comment
+    @comment = @discussion.comments.build
+    @comment.user = current_user
+    @comment.attachments.build
+    @comment_resource = [@discussion, @comment]
   end
 end

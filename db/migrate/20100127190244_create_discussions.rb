@@ -4,6 +4,7 @@ class CreateDiscussions < ActiveRecord::Migration
       t.string :title
       t.text :body
       t.integer :poster_id
+      t.integer :comments_count, :default => 0
 
       t.timestamps
     end

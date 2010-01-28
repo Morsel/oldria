@@ -1,1 +1,29 @@
-<% title @discussion.title %>
+<% title @discussion.title, false %>
+
+<% div_for @discussion do %>
+	<div class="header clearfix">
+		<div class="span-10">
+			<h1>
+				<%= image_tag("bubble_large.png") %>
+				<%=h @discussion.title %>
+			</h1>
+			<p class="meta">
+				<span class="meta_label">From:</span> <%= @discussion.poster.try(:name) %><br />
+				<span class="meta_label">Date:</span> <%= @discussion.created_at.strftime("%B %e") %>
+			</p>
+		</div>
+		<div class="avatar span-2 last">
+			<% if @discussion.poster.try(:avatar) %>
+				<%= image_tag(@discussion.poster.avatar.url(:thumb)) %>
+			<% end %>
+		</div>
+	</div>
+
+	<div class="body">
+		<p><%=h @discussion.body %></p>
+	</div>
+<% end -%>
+
+<hr />
+
+<%= render :partial => 'comments/list' %>

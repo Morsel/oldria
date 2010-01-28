@@ -145,3 +145,14 @@ Factory.define :discussion do |f|
   f.title "My Discussion"
   f.body  "Lorem ipsum dolor sit amet, consectetur adipisicing elit."
 end
+
+Factory.define :comment do |f|
+  f.comment "This is my comment"
+  f.user    {|c| c.association :user }
+end
+
+Factory.define :discussion_comment, :parent => :comment do |f|
+  f.commentable {|c| c.association :discussion }
+  f.commentable_type { "Discussion" }
+end
+

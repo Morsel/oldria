@@ -98,6 +98,7 @@ ActiveRecord::Schema.define(:version => 20100127214913) do
     t.string   "title"
     t.text     "body"
     t.integer  "poster_id"
+    t.integer  "comments_count", :default => 0
     t.datetime "created_at"
     t.datetime "updated_at"
   end

@@ -4,21 +4,4 @@
 	<%= render :partial => 'media_requests/media_request_long' %>
 <% end -%>
 
-<div class="comments span-9">
-<h3>Comments</h3>
-
-<% if !@comments.blank? %>
-<p><em>Note: The most recent are listed first</em></p>
-<%= render @comments %>
-
-<%- else %>
-<p>No comments yet</p>
-<% end -%>
-
-<hr class="space"/>
-
-<h3>Leave a Comment</h3>
-
-<%= render :partial => 'comments/form' %>
-
-</div>
+<%= render :partial => 'comments/list' %>

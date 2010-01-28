@@ -800,7 +800,64 @@ div.restaurant {
 	height: 20px;
 }
 
+.discussion h1 {
+	float: none;
+	display: block;
+}
+
+.discussion h1 img {
+	float: left;
+	margin: -2px 9px 3px 0;
+}
+
+.discussion .avatar {
+	text-align: right;
+}
+
+.discussion .meta {
+	font-family: "Lucida Grande", helvetica, arial, sans-serif;
+	font-size: .9em;
+}
+
+.discussion .meta_label {
+	color: #999;
+}
+
+.discussion .header {
+	margin-bottom: 1em;
+}
+
+.discussion .header p {
+	margin-bottom: 0;
+}
+
+.discussion .body {
+	font-size: 1.1em;
+}
+
+
 /* @end */
+
+
+/* @group comments  ---------------- */
+
+.comment .avatar {
+	width: 60px;
+	padding: 3px 0;
+	float: left;
+}
+
+.comment .avatar img {
+	width: 50px;
+	height: 50px;
+}
+
+.comment .content {
+	margin-left: 60px;
+}
+
+/* @end */
+
 
 /* @group media requests ------------ */
 

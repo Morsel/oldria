@@ -10,12 +10,14 @@ describe DiscussionsController do
 
   describe "GET 'show'" do
     before do
-      Discussion.stubs(:find).with("32").returns(Factory.stub(:discussion))
+      @discussion = Factory(:discussion)
+      Discussion.stubs(:find).with("32").returns(@discussion)
       get :show, :id => "32"
     end
 
     it { response.should be_success }
-    it { assigns[:discussion].should be_a(Discussion) }
+    it { assigns[:discussion].should == @discussion }
+    it { assigns[:comment].should be_a(Comment) }
    end
 
   describe "GET new" do
