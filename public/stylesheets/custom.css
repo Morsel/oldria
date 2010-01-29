@@ -1264,6 +1264,106 @@ h3.function-bold{
 
 /* @end */
 
+/* @group feeds ---------------------*/
+
+.feed {
+	padding: 0 16px;
+}
+
+.feed > .title {
+	background-color: #0587c1;
+	color: #fff;
+	padding: 6px 16px;
+	margin: 0 -16px 1em;
+	letter-spacing: 1px;
+	text-transform: uppercase;
+	font-family: "Lucida Grande", helvetica, sans-serif;
+	font-weight: normal;
+	font-size: 1.4em;
+	text-shadow: 1px 1px 0 #058;
+	border-radius: 14px;
+	-moz-border-radius: 14px;
+	-webkit-border-radius: 14px;
+}
+
+.feed_entry {
+	padding-top: 8px;
+	padding-bottom: 8px;
+	border-top: 1px dashed #ddd;
+	position: relative;
+}
+
+.feed_entry_body {
+	margin: 0;
+	padding: 0;
+	display: none;
+}
+
+.feed_entry_body, .feed_entry_header {
+	padding-left: 18px;
+}
+
+.feed_entry .title a {
+	color: #222;
+}
+
+.feed_entry .title a:hover {
+	color: #0587C1;
+}
+
+.feed_entry .title{
+	margin: 0;
+	font-family: "Lucida Grande", arial, sans-serif;
+	font-size: 1.0em;
+	font-weight: bold;
+}
+
+.feed_entry .meta {
+	font-family: "Lucida Grande", arial, sans-serif;
+	margin: 0;
+	font-size: .9em;
+	color: #777;
+}
+
+.feed_entry .meta span {
+	margin-right: 15px;
+}
+
+.feed_entry .summary {
+	margin: 0.5em 0 0.5em -18px;
+	padding: 3px 18px 5px;
+	cursor: pointer;
+}
+
+.feed_entry .summary.hover {
+	background-color: #cef;
+}
+
+.feed_entry .indicator {
+	margin-top: 2px;
+	margin-left: -14px;
+	display: block;
+	float: left;
+	height: 14px;
+	width: 11px;
+	background: url('../images/rssarrows.gif') 0px 14px;
+}
+
+.feed_entry.open .indicator {
+	background-position: 0 0;
+}
+
+.feed_entry.read .indicator {
+	background-position: 11px 13px;
+}
+
+.feed_entry.read.open .indicator {
+	background-position: 11px 0;
+}
+
+
+/* @end */
+
 /* @group tables -------------------- */
 
 #leftcolumn table {

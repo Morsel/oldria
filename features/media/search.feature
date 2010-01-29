@@ -40,7 +40,7 @@ Feature: Media faceted member search
     Then I should see "South of the Border"
     And I should see "Southtown Borders"
 
-@focus
+
   Scenario: Searching by city
     Given "South of the Border" restaurant is in the "Chicago IL" metro region
     And I am on the media request search page

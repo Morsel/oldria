@@ -141,6 +141,14 @@ Factory.define :feed do |f|
   f.etag "aj39ukavkl"
 end
 
+Factory.define :feed_entry do |f|
+  f.title   "Pork is best with salmon"
+  f.summary "Although pork is uncommon, lorem ipsum."
+  f.url     { "http://www.example.com/posts/2" }
+  f.published_at { 2.days.ago }
+  f.feed    {|e| e.association(:feed) }
+end
+
 Factory.define :discussion do |f|
   f.title "My Discussion"
   f.body  "Lorem ipsum dolor sit amet, consectetur adipisicing elit."

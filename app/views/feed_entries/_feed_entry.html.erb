@@ -1,0 +1,17 @@
+<% div_for feed_entry, :class => 'entry' do %>
+	<div class="feed_entry_header">
+		<span class="indicator"></span>
+		<h4 class="title"><%= link_to feed_entry.title, feed_entry.url %></h4>
+		<p class="meta">
+			<span class="author"><%= feed_entry.author %></span>
+			<span class="published_at"><%= time_ago_in_words feed_entry.published_at %> ago</span>
+		</p>
+	</div>
+
+	<div class="feed_entry_body">
+		<p class="summary">
+			<%= feed_entry.summary %>
+			<%= link_to "more...", feed_entry.url %>
+		</p>
+	</div>
+<% end %>

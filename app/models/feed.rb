@@ -1,29 +1,56 @@
 class Feed < ActiveRecord::Base
-  attr_reader :feed
   attr_accessible :url, :feed_url, :title, :featured
-  named_scope :featured, :conditions => {:featured => true}
+  named_scope :featured, :conditions => ['featured=?', true]
   default_scope :order => :position
+  has_many :feed_entries
   acts_as_list
 
-  before_validation_on_create :fetch_and_parse_if_needed
+  after_validation_on_create :fetch_and_parse_if_needed
+
+  def feed
+    @feed ||= fetch_feed
+  end
 
   def fetch_and_parse
-    @feed ||= Feedzirra::Feed.fetch_and_parse(feed_url)
+    fetch_feed
     assign_attributes_from_feed
   end
 
+  def fetch_feed
+    Feedzirra::Feed.fetch_and_parse(feed_url)
+  end
+
   def assign_attributes_from_feed
-    if @feed && @feed.respond_to?(:title)
-      self.title = @feed.title
-      self.url   = @feed.url
-      self.etag  = @feed.etag
-      self.last_modified = @feed.last_modified
+    if feed && feed.respond_to?(:title)
+      self.title = feed.title
+      self.url   = feed.url
+      self.etag  = feed.etag
+      self.last_modified = feed.last_modified
     end
+  end
+
+  def update_entries!
+    feed.entries.each do |entry|
+      next if FeedEntry.exists?(:guid => entry.id)
+      self.feed_entries.create(
+        :title        => entry.title,
+        :author       => entry.author,
+        :content      => entry.content,
+        :summary      => entry.summary,
+        :url          => entry.url,
+        :published_at => entry.published,
+        :guid         => entry.id
+      )
+    end
+  end
+
+  def latest_entries
+    feed_entries.scoped(:limit => 5)
   end
 
   private
 
   def fetch_and_parse_if_needed
-    fetch_and_parse if [self.title, self.url].all?(&:blank?)
+    fetch_and_parse if title.blank? && url.blank?
   end
 end

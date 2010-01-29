@@ -2,7 +2,8 @@ require 'spec/spec_helper'
 
 describe Feed do
   should_have_default_scope :order => :position
-  should_have_scope :featured, :conditions => {:featured => true}
+  should_have_scope :featured, :conditions => ['featured=?', true]
+  should_have_many  :feed_entries
 
   it "should fetch and parse the feed url before saving" do
     feed = Feed.new(:feed_url => 'http://feeds.neotericdesign.com/neotericdesign')
@@ -29,4 +30,14 @@ describe Feed do
     Feed.all.should == [feed1,feed2]
   end
 
+  context "entries" do
+    it "should update" do
+      feed = Factory( :feed,
+                      :title => 'Neoteric',
+                      :feed_url => 'http://feeds.neotericdesign.com/neotericdesign')
+      feed.update_entries!
+      feed.reload
+      feed.feed_entries.all.should_not be_empty
+    end
+  end
 end

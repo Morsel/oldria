@@ -167,6 +167,8 @@ $('#status_message').autofill({
 	activeTextColor: '#333'
 });
 
+
+// == Feeds
 $('#feeds tbody').sortable({
 	axis:'y',
 	dropOnEmpty:false,
@@ -176,3 +178,17 @@ $('#feeds tbody').sortable({
 	}
 });
 
+$('.feed_entry_header').click(function(){
+	var $feedEntry = $(this).parent();
+	$feedEntry.toggleClass('open');
+	$feedEntry.addClass('read');
+	$feedEntry.find('.feed_entry_body').slideToggle(200);
+});
+
+$('.feed_entry .summary').hover(function(){
+	$(this).addClass('hover');
+}, function(){
+	$(this).removeClass('hover');
+}).click(function(){
+	window.location = $(this).find('a').attr('href');
+});

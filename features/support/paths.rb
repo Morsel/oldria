@@ -23,6 +23,8 @@ module NavigationHelpers
       user_statuses_path(User.find_by_username($1))
     when /^the edit page for "(.+)"$/
       edit_user_path(User.find_by_username($1))
+    when /^(my )?feeds page$/
+      feeds_path
 
     # Media-users
     when /^the media( user)? signup page$/
