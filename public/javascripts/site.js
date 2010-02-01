@@ -181,7 +181,10 @@ $('#feeds tbody').sortable({
 $('.feed_entry_header').click(function(){
 	var $feedEntry = $(this).parent();
 	$feedEntry.toggleClass('open');
-	$feedEntry.addClass('read');
+	if (!$feedEntry.hasClass('read')) {
+		$.post("/feed_entries/" + $feedEntry.attr('rel') + "/read", "_method=put", null);
+		$feedEntry.addClass('read');
+	}
 	$feedEntry.find('.feed_entry_body').slideToggle(200);
 });
 
