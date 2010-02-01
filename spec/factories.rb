@@ -139,9 +139,11 @@ Factory.define :feed do |f|
   f.url "http://www.example.com"
   f.feed_url "http://feeds.neotericdesign.com/neotericdesign"
   f.etag "aj39ukavkl"
+  f.no_entries true
 end
 
 Factory.define :feed_entry do |f|
+  f.sequence(:guid) { |n| "guid_#{n}" }
   f.title   "Pork is best with salmon"
   f.summary "Although pork is uncommon, lorem ipsum."
   f.url     { "http://www.example.com/posts/2" }

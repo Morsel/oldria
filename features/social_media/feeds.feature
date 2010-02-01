@@ -7,10 +7,9 @@ Feature: Feeds
   Background:
     Given a feed exists with a title of "Neoteric"
     And that feed is featured
-    And I am logged in as a normal user
+    And I am logged in as a spoonfeed member
 
   Scenario: Reading featured feeds
-    Given I am logged in as a spoonfeed member
     When I go to my feeds page
     Then I should see "Neoteric"
 
@@ -19,7 +18,6 @@ Feature: Feeds
     Given the feed with title "Neoteric" has the following entries:
       | title      | summary          | url                             |
       | Foody Foo! | Food lorem ipsum | http://www.example.com/food/foo |
-    And I am logged in as a spoonfeed member
     When I go to my feeds page
     Then I should see "Neoteric"
     And I should see "Foody Foo!"

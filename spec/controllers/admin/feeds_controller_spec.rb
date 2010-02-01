@@ -3,8 +3,9 @@ require 'spec/spec_helper'
 describe Admin::FeedsController do
   integrate_views
   before(:each) do
-    Factory(:feed)
+    Factory(:feed, :no_entries => true)
     @user = Factory(:admin)
+    @user.stubs(:update).returns(true)
     controller.stubs(:current_user).returns(@user)
   end
 
@@ -30,7 +31,7 @@ describe Admin::FeedsController do
   end
 
   it "create action should redirect when model is valid" do
-    Feed.any_instance.stubs(:valid?).returns(true)
+    Feed.any_instance.stubs(:save).returns(true)
     post :create
     response.should redirect_to(admin_feeds_url)
   end

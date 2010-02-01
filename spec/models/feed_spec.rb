@@ -15,11 +15,12 @@ describe Feed do
   end
 
   it "should not fetch and parse if the given fields are passed in when new" do
-    Feedzirra::Feed.stubs(:fetch_and_parse).raises(NoMethodError) # Guards against remote call
+    Feed.any_instance.stubs(:fetch_and_parse).raises(NoMethodError) # Guards against remote call
     feed = Feed.new(
       :feed_url => 'http://feeds.neotericdesign.com/neotericdesign',
       :url => 'http://www.neotericdesign.com',
-      :title => 'Arbitrary Title'
+      :title => 'Arbitrary Title',
+      :no_entries => true
     )
     feed.save
     feed.title.should == "Arbitrary Title"

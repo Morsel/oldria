@@ -2,14 +2,17 @@ class Feed < ActiveRecord::Base
   attr_accessible :url, :feed_url, :title, :featured
   named_scope :featured, :conditions => ['featured=?', true]
   default_scope :order => :position
-  has_many :feed_entries
+  has_many :feed_entries, :dependent => :destroy
 
-  has_many :feed_subscriptions
+  has_many :feed_subscriptions, :dependent => :destroy
   has_many :users, :through => :feed_subscriptions
 
   acts_as_list
 
   after_validation_on_create :fetch_and_parse_if_needed
+  after_create :update_entries
+
+  attr_accessor :no_entries
 
   def feed
     @feed ||= fetch_feed
@@ -33,8 +36,12 @@ class Feed < ActiveRecord::Base
     end
   end
 
+  def update_entries
+    return unless needs_update? && !no_entries
+    update_entries!
+  end
+
   def update_entries!
-    return unless needs_update?
     feed.entries.each do |entry|
       next if FeedEntry.exists?(:guid => entry.id)
       self.feed_entries.create(
@@ -54,6 +61,11 @@ class Feed < ActiveRecord::Base
   def needs_update?
     # If the etag isn't the same, or if it's out of date, or if it has no entries
     self.etag != feed.etag || self.last_modified < feed.last_modified || self.feed_entries.empty?
+  end
+
+  # Class methods to update everybody, conservatively or aggressivelycucum
+  def self.update_all_entries
+    self.all.each {|f| f.update_entries }
   end
 
   def self.update_all_entries!
