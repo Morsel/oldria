@@ -1,6 +1,8 @@
 <% title "My Feeds" %>
 
-<p><%= link_to "Choose feeds", edit_feeds_path %></p>
+<p class="button positive clearfix">
+	<%= link_to "Choose feeds", edit_feeds_path %>
+</p>
 
 <% unless current_user.has_feeds? %>
 	<p>Hey! You should really get some feeds going! You can custom-choose your feeds <%= link_to "here", edit_feeds_path %></p>
