@@ -26,6 +26,8 @@ class User < ActiveRecord::Base
 
   has_many :posted_discussions, :class_name => "Discussion", :foreign_key => "poster_id"
 
+  has_many :feed_subscriptions
+  has_many :feeds, :through => :feed_subscriptions
 
   validates_presence_of :email
 
@@ -93,7 +95,7 @@ class User < ActiveRecord::Base
   end
 
   def name=(_name)
-    name_parts = _name.split(' ',2)
+    name_parts = _name.split(' ', 2)
     self.first_name = name_parts.shift
     self.last_name = name_parts.pop
   end
@@ -109,6 +111,15 @@ class User < ActiveRecord::Base
   def deliver_password_reset_instructions!
     reset_perishable_token!
     UserMailer.deliver_password_reset_instructions(self)
+  end
+
+  def has_feeds?
+    !feeds.blank?
+  end
+
+  def chosen_feeds
+    return feeds if has_feeds?
+    nil
   end
 
   # For User.to_csv export

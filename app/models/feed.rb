@@ -3,6 +3,10 @@ class Feed < ActiveRecord::Base
   named_scope :featured, :conditions => ['featured=?', true]
   default_scope :order => :position
   has_many :feed_entries
+
+  has_many :feed_subscriptions
+  has_many :users, :through => :feed_subscriptions
+
   acts_as_list
 
   after_validation_on_create :fetch_and_parse_if_needed
@@ -44,9 +48,6 @@ class Feed < ActiveRecord::Base
     end
   end
 
-  def latest_entries
-    feed_entries.scoped(:limit => 5)
-  end
 
   private
 

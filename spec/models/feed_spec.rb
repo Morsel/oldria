@@ -4,6 +4,8 @@ describe Feed do
   should_have_default_scope :order => :position
   should_have_scope :featured, :conditions => ['featured=?', true]
   should_have_many  :feed_entries
+  should_have_many :feed_subscriptions
+  should_have_many :users, :through => :feed_subscriptions
 
   it "should fetch and parse the feed url before saving" do
     feed = Feed.new(:feed_url => 'http://feeds.neotericdesign.com/neotericdesign')

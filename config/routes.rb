@@ -29,8 +29,9 @@ ActionController::Routing::Routes.draw do |map|
     restaurant.resources :employees, :except => [:show]
   end
 
-  map.resources :user_sessions, :password_resets, :followings, :pages, :direct_messages, :feeds
+  map.resources :user_sessions, :password_resets, :followings, :pages, :direct_messages
 
+  map.resource :feeds
   map.resource :twitter_authorization
   map.resource :friend_timeline, :only => 'show'
   map.resource :friends_statuses, :only => 'show'

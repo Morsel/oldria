@@ -25,6 +25,8 @@ module NavigationHelpers
       edit_user_path(User.find_by_username($1))
     when /^(my )?feeds page$/
       feeds_path
+    when /^the (edit|choose) (my )?feeds page$/
+      edit_feeds_path
 
     # Media-users
     when /^the media( user)? signup page$/

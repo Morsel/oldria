@@ -1,0 +1,15 @@
+<% title "Edit My Feeds" %>
+
+<p>Choose which feeds you'd like to see on your Feed landing page.</p>
+
+<% form_for :feeds, :url => feeds_path, :html => {:method => :put} do |f| %>
+
+	<% @feeds.each do |feed| %>
+		<label>
+			<%= check_box_tag 'feed_ids[]', feed.id, @user_feed_ids.include?(feed.id), :id => "feed_#{feed.id}" %>
+			<%= feed.title %>
+		</label>
+	<% end %>
+
+	<%= button_tag "Submit", :class => 'positive' %>
+<% end %>

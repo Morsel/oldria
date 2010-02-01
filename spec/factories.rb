@@ -149,6 +149,11 @@ Factory.define :feed_entry do |f|
   f.feed    {|e| e.association(:feed) }
 end
 
+Factory.define :feed_subscription do |f|
+  f.association :user
+  f.association :feed
+end
+
 Factory.define :discussion do |f|
   f.title "My Discussion"
   f.body  "Lorem ipsum dolor sit amet, consectetur adipisicing elit."

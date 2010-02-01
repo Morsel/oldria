@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100129181828) do
+ActiveRecord::Schema.define(:version => 20100201195015) do
 
   create_table "account_types", :force => true do |t|
     t.string   "name"
@@ -120,6 +120,13 @@ ActiveRecord::Schema.define(:version => 20100129181828) do
     t.text     "content"
     t.datetime "published_at"
     t.string   "guid"
+    t.integer  "feed_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "feed_subscriptions", :force => true do |t|
+    t.integer  "user_id"
     t.integer  "feed_id"
     t.datetime "created_at"
     t.datetime "updated_at"
