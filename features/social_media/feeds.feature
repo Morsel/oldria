@@ -4,10 +4,12 @@ Feature: Feeds
   As a SpoonFeed member
   I want to read news from a curated list of feeds, through a date-sorted list of recent stories
 
+
   Background:
     Given a feed exists with a title of "Neoteric"
     And that feed is featured
     And I am logged in as a spoonfeed member
+
 
   Scenario: Reading featured feeds
     When I go to my feeds page
@@ -23,7 +25,7 @@ Feature: Feeds
     And I should see "Foody Foo!"
     And I should see "Food lorem ipsum"
 
-@focus
+
   Scenario: Choosing my favorite feeds
     Given a feed exists with a title of "Foody Times"
     And the feed with title "Neoteric" has the following entries:

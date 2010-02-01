@@ -1,7 +1,7 @@
 <% title "My Feeds" %>
 
-<p class="button positive clearfix">
-	<%= link_to "Choose feeds", edit_feeds_path %>
+<p class="clearfix">
+	<%= link_to "Choose feeds", edit_feeds_path, :class => 'button' %>
 </p>
 
 <% unless current_user.has_feeds? %>
