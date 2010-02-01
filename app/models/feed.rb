@@ -34,6 +34,7 @@ class Feed < ActiveRecord::Base
   end
 
   def update_entries!
+    return unless needs_update?
     feed.entries.each do |entry|
       next if FeedEntry.exists?(:guid => entry.id)
       self.feed_entries.create(
@@ -46,8 +47,18 @@ class Feed < ActiveRecord::Base
         :guid         => entry.id
       )
     end
+    self.etag = feed.etag
+    self.last_modified = feed.last_modified
   end
 
+  def needs_update?
+    # If the etag isn't the same, or if it's out of date, or if it has no entries
+    self.etag != feed.etag || self.last_modified < feed.last_modified || self.feed_entries.empty?
+  end
+
+  def self.update_all_entries!
+    self.all.each {|f| f.update_entries! }
+  end
 
   private
 

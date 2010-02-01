@@ -23,3 +23,7 @@
 # every 15.minutes do
 #   command "cd /home/ria/unplugged/_mt; perl ./tools/run-periodic-tasks >> ../../mt.log"
 # end
+
+every 1.hour do
+  runner 'Feed.update_all_entries!'
+end
