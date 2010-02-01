@@ -3,7 +3,9 @@ require 'spec/spec_helper'
 describe Admin::SubjectMattersController do
   integrate_views
   before(:each) do
-    controller.stubs(:current_user).returns(Factory(:admin))
+    @user = Factory.stub(:admin)
+    @user.stubs(:update).returns(true)
+    controller.stubs(:current_user).returns(@user)
     Factory(:subject_matter)
   end
 

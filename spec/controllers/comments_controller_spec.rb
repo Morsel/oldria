@@ -7,7 +7,9 @@ describe CommentsController do
     MediaRequestConversation.destroy_all
     @parent = Factory(:media_request_conversation, :id => 8)
     MediaRequestConversation.stubs(:find).returns(@parent)
-    controller.stubs(:current_user).returns(Factory(:user))
+    @user = Factory.stub(:user, :id => 1)
+    @user.stubs(:update).returns(true)
+    controller.stubs(:current_user).returns(@user)
   end
 
   describe "POST create" do

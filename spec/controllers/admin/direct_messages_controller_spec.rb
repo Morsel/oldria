@@ -3,7 +3,9 @@ require 'spec/spec_helper'
 describe Admin::DirectMessagesController do
   before(:each) do
     @direct_message = Factory(:direct_message)
-    controller.stubs(:current_user).returns(Factory(:admin))
+    @user = Factory.stub(:admin)
+    @user.stubs(:update).returns(true)
+    controller.stubs(:current_user).returns(@user)
   end
 
   describe "GET index" do

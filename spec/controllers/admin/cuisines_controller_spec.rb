@@ -5,7 +5,10 @@ describe Admin::CuisinesController do
 
   before(:each) do
     @cuisine = Factory.stub(:cuisine)
-    controller.stubs(:current_user).returns(Factory(:admin))
+    @user = Factory.stub(:admin)
+    @user.stubs(:update).returns(true)
+    controller.stubs(:current_user).returns(@user)
+    controller.stubs(:require_admin).returns(true)
   end
 
   describe "GET index" do
@@ -77,7 +80,7 @@ describe Admin::CuisinesController do
         Cuisine.stubs(:find).returns(@cuisine)
         Cuisine.any_instance.stubs(:update_attributes).returns(true)
       end
-      
+
       it "updates the requested cuisine" do
         Cuisine.expects(:find).with("37").returns(@cuisine)
         put :update, :id => "37", :cuisine => {:these => 'params'}
@@ -101,7 +104,7 @@ describe Admin::CuisinesController do
         Cuisine.stubs(:find).returns(@cuisine)
         Cuisine.any_instance.stubs(:update_attributes).returns(false)
       end
-      
+
       it "updates the requested cuisine" do
         Cuisine.expects(:find).with("37").returns(@cuisine)
         put :update, :id => "37", :cuisine => {:these => 'params'}

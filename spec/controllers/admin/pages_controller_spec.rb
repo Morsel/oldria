@@ -4,8 +4,9 @@ describe Admin::PagesController do
   integrate_views
   before(:each) do
     Factory(:page)
-    admin_user = Factory(:admin)
-    controller.stubs(:current_user).returns(admin_user)
+    @user = Factory.stub(:admin)
+    @user.stubs(:update).returns(true)
+    controller.stubs(:current_user).returns(@user)
   end
 
   context "GET index" do

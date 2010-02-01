@@ -3,7 +3,9 @@ require 'spec/spec_helper'
 describe Admin::RestaurantsController do
   integrate_views
   before do
-    controller.stubs(:current_user).returns(Factory(:admin))
+    @user = Factory.stub(:admin)
+    @user.stubs(:update).returns(true)
+    controller.stubs(:current_user).returns(@user)
   end
 
   describe "GET index" do

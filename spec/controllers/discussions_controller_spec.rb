@@ -5,6 +5,7 @@ describe DiscussionsController do
 
   before do
     @user = Factory(:user)
+    @user.stubs(:update).returns(true)
     controller.stubs(:current_user).returns(@user)
   end
 

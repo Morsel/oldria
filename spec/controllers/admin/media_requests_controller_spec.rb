@@ -4,9 +4,10 @@ describe Admin::MediaRequestsController do
   integrate_views
 
   before(:each) do
-    @sender = Factory(:user)
-    @sender.has_role! :media
-    controller.stubs(:current_user).returns(Factory(:admin))
+    @sender = Factory(:media_user)
+    @user = Factory.stub(:admin)
+    @user.stubs(:update).returns(true)
+    controller.stubs(:current_user).returns(@user)
   end
 
   describe "GET index" do

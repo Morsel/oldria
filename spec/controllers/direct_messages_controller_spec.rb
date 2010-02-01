@@ -8,6 +8,7 @@ describe DirectMessagesController do
 
   before(:each) do
     @sender = Factory(:user)
+    @sender.stubs(:update).returns(true)
     controller.stubs(:current_user).returns(@sender)
     @receiver = Factory(:user, :username => 'getterboy')
   end
@@ -41,7 +42,7 @@ describe DirectMessagesController do
       post :create, :direct_message => {}, :user_id => @receiver.id
       assigns[:direct_message].receiver.should == @receiver
     end
-    
+
     describe "when the direct message is a reply" do
       before(:each) do
         @dm = Factory.stub(:direct_message, :receiver => @sender, :sender => @receiver)
@@ -84,7 +85,7 @@ describe DirectMessagesController do
       get :reply, :id => @dm.id
       assigns[:recipient].should eql(@dm.build_reply.receiver)
     end
-    
+
     it "should not use a put request" do
       get :reply, :id => @dm.id
       response.should_not have_selector('input',
@@ -93,7 +94,7 @@ describe DirectMessagesController do
         :value => 'put'
       )
     end
-    
+
     it "should require the current_user to be receiver of original message" do
       other_dm = Factory.stub(:direct_message, :sender => Factory.stub(:user, :username => 'randomuser'))
       DirectMessage.stubs(:find).returns(other_dm)
@@ -101,11 +102,11 @@ describe DirectMessagesController do
       response.should redirect_to(root_url)
       flash[:error].should contain("only reply to messages sent to you")
     end
-    
+
     it "should have a hidden field with the value of original message id" do
       get :reply, :id => @dm.id
       response.should have_selector('form') do |form|
-        form.should have_selector('input', 
+        form.should have_selector('input',
           :type => 'hidden',
           :name => 'direct_message[in_reply_to_message_id]',
           :value => @dm.id.to_s

@@ -3,10 +3,11 @@ require 'spec/spec_helper'
 describe Admin::RestaurantRolesController do
   integrate_views
   before(:each) do
-    @admin = Factory(:admin)
+    @user = Factory.stub(:admin)
+    @user.stubs(:update).returns(true)
+    controller.stubs(:current_user).returns(@user)
     @restaurant_role = Factory.stub(:restaurant_role)
     RestaurantRole.stubs(:find).returns(@restaurant_role)
-    controller.stubs(:current_user).returns(@admin)
   end
 
   context "GET index" do

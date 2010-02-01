@@ -5,6 +5,7 @@ describe MediaRequestConversationsController do
 
   before(:each) do
     @employee = Factory(:user)
+    @employee.stubs(:update).returns(true)
     @recipient = Factory(:employment, :employee => @employee)
     @mrc = Factory(:media_request_conversation, :recipient => @recipient)
     MediaRequestConversation.stubs(:find).returns(@mrc)

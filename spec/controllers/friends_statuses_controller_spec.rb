@@ -4,7 +4,8 @@ describe FriendsStatusesController do
   integrate_views
 
   before do
-    @current_user = Factory(:user)
+    @current_user = Factory.stub(:user)
+    @current_user.stubs(:update).returns(true)
     controller.stubs(:current_user).returns(@current_user)
   end
 

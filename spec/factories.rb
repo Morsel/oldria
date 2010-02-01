@@ -16,12 +16,12 @@ end
 Factory.define :admin, :parent => :user do |f|
   f.username 'admin'
   f.first_name "Administrator"
-  f.after_create { |user| user.has_role! :admin }
+  f.role 'admin'
 end
 
 Factory.define :media_user, :parent => :user do |f|
   f.publication "The Times"
-  f.after_create { |user| user.has_role! :media }
+  f.role 'media'
 end
 
 

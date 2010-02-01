@@ -13,7 +13,8 @@ describe WelcomeController do
 
     context "for logged in spoonfeed users" do
       before do
-        @user = Factory(:user)
+        @user = Factory.stub(:user)
+        @user.stubs(:update).returns(true)
         controller.stubs(:current_user).returns(@user)
       end
 
@@ -26,6 +27,7 @@ describe WelcomeController do
     context "for logged in media users" do
       before do
         @user = Factory(:media_user)
+        @user.stubs(:update).returns(true)
         controller.stubs(:current_user).returns(@user)
       end
 
