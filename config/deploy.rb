@@ -6,6 +6,19 @@ role :web, server_ip
 role :app, server_ip
 role :db, server_ip, :primary => true
 
+ssh_options[:port] = 7822
+default_run_options[:pty] = true
+
+set :user, "ria"
+set :use_sudo, false
+
+set :scm, :git
+set :repository,  "git@code.neotericdesign.com:ria.git"
+set :branch, 'master'
+set :git_enable_submodules, 1
+
+set :deploy_via, :remote_cache
+
 ##
 # == Staging environment
 #
@@ -22,25 +35,15 @@ set :deploy_to, "/home/ria/staging"
 #
 # From the command line:
 #   cap production deploy
+#   cap production deploy:migrations # Deploy to production AND run migrations
 #
 desc "Deploy to production instead: 'cap production deploy'"
 task :production do
+  set :branch, 'production'
   set :rails_env, :production
   set :deploy_to, "/home/ria/rails"
 end
 
-ssh_options[:port] = 7822
-default_run_options[:pty] = true
-
-set :user, "ria"
-set :use_sudo, false
-
-set :scm, :git
-set :repository,  "git@code.neotericdesign.com:ria.git"
-set :branch, 'master'
-set :git_enable_submodules, 1
-
-set :deploy_via, :remote_cache
 
 desc "Run a Rake task remotely. Set the task with RAKE_TASK='your task here'"
 task :rake do
