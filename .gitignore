@@ -13,3 +13,4 @@ public/system/attachments/
 mkmf.log
 rerun.txt
 .rake_tasks~
+.cap_tasks~
