@@ -9,13 +9,11 @@ class CreateFeedCategories < ActiveRecord::Migration
       t.references :feed_category
     end
 
-    add_index :feed_categories, :id, :unique => true
     add_index :feeds, :feed_category_id
   end
 
   def self.down
     remove_index :feeds, :feed_category_id
-    remove_index :feed_categories, :column => :id
 
     change_table :feeds do |t|
       t.remove :feed_category_id
