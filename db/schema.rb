@@ -67,6 +67,8 @@ ActiveRecord::Schema.define(:version => 20100203163636) do
     t.datetime "updated_at"
   end
 
+  add_index "date_ranges", ["id"], :name => "index_date_ranges_on_id", :unique => true
+
   create_table "delayed_jobs", :force => true do |t|
     t.integer  "priority",   :default => 0
     t.integer  "attempts",   :default => 0
@@ -113,6 +115,7 @@ ActiveRecord::Schema.define(:version => 20100203163636) do
     t.datetime "updated_at"
   end
 
+  add_index "discussions", ["id"], :name => "index_discussions_on_id", :unique => true
   add_index "discussions", ["poster_id"], :name => "index_discussions_on_poster_id"
 
   create_table "employments", :force => true do |t|
@@ -164,6 +167,8 @@ ActiveRecord::Schema.define(:version => 20100203163636) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "feeds", ["id"], :name => "index_feeds_on_id", :unique => true
 
   create_table "followings", :force => true do |t|
     t.integer  "follower_id"
@@ -274,6 +279,7 @@ ActiveRecord::Schema.define(:version => 20100203163636) do
   end
 
   add_index "restaurants", ["cuisine_id"], :name => "index_restaurants_on_cuisine_id"
+  add_index "restaurants", ["id"], :name => "index_restaurants_on_id", :unique => true
   add_index "restaurants", ["james_beard_region_id"], :name => "index_restaurants_on_james_beard_region_id"
   add_index "restaurants", ["manager_id"], :name => "index_restaurants_on_manager_id"
   add_index "restaurants", ["metropolitan_area_id"], :name => "index_restaurants_on_metropolitan_area_id"
@@ -333,6 +339,7 @@ ActiveRecord::Schema.define(:version => 20100203163636) do
   end
 
   add_index "users", ["email"], :name => "index_users_on_email"
+  add_index "users", ["id"], :name => "index_users_on_id", :unique => true
   add_index "users", ["username"], :name => "index_users_on_username"
 
 end

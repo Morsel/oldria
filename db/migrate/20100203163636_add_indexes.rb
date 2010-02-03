@@ -1,6 +1,11 @@
 class AddIndexes < ActiveRecord::Migration
   def self.up
     # These were generated using the rails_indexes plugin
+    add_index :feeds, :id, :unique => true
+    add_index :date_ranges, :id, :unique => true
+    add_index :discussions, :id, :unique => true
+    add_index :restaurants, :id, :unique => true
+    add_index :users, :id, :unique => true
     add_index :pages, :slug
     add_index :employments, :restaurant_role_id
     add_index :employments, :restaurant_id
@@ -31,6 +36,11 @@ class AddIndexes < ActiveRecord::Migration
   end
 
   def self.down
+    # remove_index :users, :id
+    # remove_index :date_ranges, :id
+    # remove_index :discussions, :id
+    # remove_index :restaurants, :id
+    # remove_index :feeds, :id
     remove_index :pages, :slug
     remove_index :employments, :restaurant_role_id
     remove_index :employments, :restaurant_id
