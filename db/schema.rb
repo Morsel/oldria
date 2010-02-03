@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100201225121) do
+ActiveRecord::Schema.define(:version => 20100203163636) do
 
   create_table "account_types", :force => true do |t|
     t.string   "name"
@@ -28,12 +28,16 @@ ActiveRecord::Schema.define(:version => 20100201225121) do
     t.datetime "updated_at"
   end
 
+  add_index "attachments", ["attachable_id", "attachable_type"], :name => "index_attachments_on_attachable_id_and_attachable_type"
+
   create_table "coached_status_updates", :force => true do |t|
     t.string   "message"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "date_range_id"
   end
+
+  add_index "coached_status_updates", ["date_range_id"], :name => "index_coached_status_updates_on_date_range_id"
 
   create_table "comments", :force => true do |t|
     t.string   "title",            :limit => 50, :default => ""
@@ -87,12 +91,18 @@ ActiveRecord::Schema.define(:version => 20100201225121) do
     t.boolean  "from_admin",             :default => false
   end
 
+  add_index "direct_messages", ["receiver_id"], :name => "index_direct_messages_on_receiver_id"
+  add_index "direct_messages", ["sender_id"], :name => "index_direct_messages_on_sender_id"
+
   create_table "discussion_seats", :force => true do |t|
     t.integer  "user_id"
     t.integer  "discussion_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "discussion_seats", ["discussion_id"], :name => "index_discussion_seats_on_discussion_id"
+  add_index "discussion_seats", ["user_id"], :name => "index_discussion_seats_on_user_id"
 
   create_table "discussions", :force => true do |t|
     t.string   "title"
@@ -103,6 +113,8 @@ ActiveRecord::Schema.define(:version => 20100201225121) do
     t.datetime "updated_at"
   end
 
+  add_index "discussions", ["poster_id"], :name => "index_discussions_on_poster_id"
+
   create_table "employments", :force => true do |t|
     t.integer  "employee_id"
     t.integer  "restaurant_id"
@@ -111,6 +123,10 @@ ActiveRecord::Schema.define(:version => 20100201225121) do
     t.integer  "restaurant_role_id"
     t.boolean  "omniscient"
   end
+
+  add_index "employments", ["employee_id"], :name => "index_employments_on_employee_id"
+  add_index "employments", ["restaurant_id"], :name => "index_employments_on_restaurant_id"
+  add_index "employments", ["restaurant_role_id"], :name => "index_employments_on_restaurant_role_id"
 
   create_table "feed_entries", :force => true do |t|
     t.string   "title"
@@ -125,12 +141,17 @@ ActiveRecord::Schema.define(:version => 20100201225121) do
     t.datetime "updated_at"
   end
 
+  add_index "feed_entries", ["feed_id"], :name => "index_feed_entries_on_feed_id"
+
   create_table "feed_subscriptions", :force => true do |t|
     t.integer  "user_id"
     t.integer  "feed_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "feed_subscriptions", ["feed_id"], :name => "index_feed_subscriptions_on_feed_id"
+  add_index "feed_subscriptions", ["user_id"], :name => "index_feed_subscriptions_on_user_id"
 
   create_table "feeds", :force => true do |t|
     t.string   "url"
@@ -151,6 +172,9 @@ ActiveRecord::Schema.define(:version => 20100201225121) do
     t.datetime "updated_at"
   end
 
+  add_index "followings", ["follower_id"], :name => "index_followings_on_follower_id"
+  add_index "followings", ["friend_id"], :name => "index_followings_on_friend_id"
+
   create_table "james_beard_regions", :force => true do |t|
     t.string   "name"
     t.string   "description"
@@ -165,6 +189,9 @@ ActiveRecord::Schema.define(:version => 20100201225121) do
     t.datetime "updated_at"
     t.integer  "comments_count",   :default => 0
   end
+
+  add_index "media_request_conversations", ["media_request_id"], :name => "index_media_request_conversations_on_media_request_id"
+  add_index "media_request_conversations", ["recipient_id"], :name => "index_media_request_conversations_on_recipient_id"
 
   create_table "media_request_types", :force => true do |t|
     t.string   "name"
@@ -202,6 +229,8 @@ ActiveRecord::Schema.define(:version => 20100201225121) do
     t.text     "content"
   end
 
+  add_index "pages", ["slug"], :name => "index_pages_on_slug"
+
   create_table "readings", :force => true do |t|
     t.string   "readable_type"
     t.integer  "readable_id"
@@ -216,6 +245,9 @@ ActiveRecord::Schema.define(:version => 20100201225121) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "responsibilities", ["employment_id"], :name => "index_responsibilities_on_employment_id"
+  add_index "responsibilities", ["subject_matter_id"], :name => "index_responsibilities_on_subject_matter_id"
 
   create_table "restaurant_roles", :force => true do |t|
     t.string   "name"
@@ -241,6 +273,11 @@ ActiveRecord::Schema.define(:version => 20100201225121) do
     t.datetime "deleted_at"
   end
 
+  add_index "restaurants", ["cuisine_id"], :name => "index_restaurants_on_cuisine_id"
+  add_index "restaurants", ["james_beard_region_id"], :name => "index_restaurants_on_james_beard_region_id"
+  add_index "restaurants", ["manager_id"], :name => "index_restaurants_on_manager_id"
+  add_index "restaurants", ["metropolitan_area_id"], :name => "index_restaurants_on_metropolitan_area_id"
+
   create_table "slugs", :force => true do |t|
     t.string   "name"
     t.integer  "sluggable_id"
@@ -261,6 +298,8 @@ ActiveRecord::Schema.define(:version => 20100201225121) do
     t.integer  "twitter_id"
     t.boolean  "queue_for_social_media"
   end
+
+  add_index "statuses", ["user_id"], :name => "index_statuses_on_user_id"
 
   create_table "subject_matters", :force => true do |t|
     t.string   "name"
@@ -292,5 +331,8 @@ ActiveRecord::Schema.define(:version => 20100201225121) do
     t.datetime "last_request_at"
     t.string   "role"
   end
+
+  add_index "users", ["email"], :name => "index_users_on_email"
+  add_index "users", ["username"], :name => "index_users_on_username"
 
 end
