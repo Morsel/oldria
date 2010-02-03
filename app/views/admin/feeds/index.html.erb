@@ -1,10 +1,19 @@
 <% title "Feeds" %>
 
+<p><%= link_to "Manage Feed Categories", admin_feed_categories_path %></p>
+
 <p class="clearfix"><%= link_to "New Feed", new_admin_feed_path, :class => 'button positive' %></p>
 
-<% table_for(@feeds) do |t| %>
-	<%= t.data :title, :url, :feed_url,
-             :actions => [:edit, :destroy], :action_prefix => 'admin' %>
-<% end -%>
+<% for category in @feed_categories  %>
 
+  <h3><%= category.name %></h3>
 
+  <%= render 'feeds', :feeds => category.feeds %>
+
+<% end %>
+
+<% unless @uncategorized_feeds.blank?  %>
+  <h3>Uncategorized</h3>
+
+  <%= render 'feeds', :feeds => @uncategorized_feeds %>
+<% end %>

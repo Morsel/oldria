@@ -6,7 +6,8 @@ class FeedsController < ApplicationController
   end
 
   def edit
-    @feeds = Feed.all
+    @feed_categories = FeedCategory.all(:include => :feeds)
+    @uncategorized_feeds = Feed.uncategorized.all
     @user_feed_ids = current_user.feed_ids
   end
 

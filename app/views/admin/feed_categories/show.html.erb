@@ -1,0 +1,11 @@
+<% title "Feed Category" %>
+
+<p>
+	<strong>Name:</strong>
+	<%=h @feed_category.name %>
+</p>
+
+<p>
+	<%= link_to "Edit", edit_admin_feed_category_path(@feed_category) %> |
+	<%= link_to "View All", admin_feed_categories_path %>
+</p>

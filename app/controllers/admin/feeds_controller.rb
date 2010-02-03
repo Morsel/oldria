@@ -1,6 +1,7 @@
 class Admin::FeedsController < Admin::AdminController
   def index
-    @feeds = Feed.all
+    @feed_categories = FeedCategory.all(:include => :feeds)
+    @uncategorized_feeds = Feed.uncategorized.all
   end
 
   def show

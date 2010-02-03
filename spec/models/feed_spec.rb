@@ -3,7 +3,9 @@ require 'spec/spec_helper'
 describe Feed do
   should_have_default_scope :order => :position
   should_have_scope :featured, :conditions => ['featured=?', true]
-  should_have_many  :feed_entries
+  should_have_scope :uncategorized, :conditions => {:feed_category_id => nil}
+  should_belong_to :feed_category
+  should_have_many :feed_entries
   should_have_many :feed_subscriptions
   should_have_many :users, :through => :feed_subscriptions
 

@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100203163636) do
+ActiveRecord::Schema.define(:version => 20100203174304) do
 
   create_table "account_types", :force => true do |t|
     t.string   "name"
@@ -131,6 +131,14 @@ ActiveRecord::Schema.define(:version => 20100203163636) do
   add_index "employments", ["restaurant_id"], :name => "index_employments_on_restaurant_id"
   add_index "employments", ["restaurant_role_id"], :name => "index_employments_on_restaurant_role_id"
 
+  create_table "feed_categories", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "feed_categories", ["id"], :name => "index_feed_categories_on_id", :unique => true
+
   create_table "feed_entries", :force => true do |t|
     t.string   "title"
     t.string   "author"
@@ -162,12 +170,14 @@ ActiveRecord::Schema.define(:version => 20100203163636) do
     t.string   "title"
     t.string   "etag"
     t.boolean  "featured"
-    t.integer  "position",      :default => 0
+    t.integer  "position",         :default => 0
     t.datetime "last_modified"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "feed_category_id"
   end
 
+  add_index "feeds", ["feed_category_id"], :name => "index_feeds_on_feed_category_id"
   add_index "feeds", ["id"], :name => "index_feeds_on_id", :unique => true
 
   create_table "followings", :force => true do |t|

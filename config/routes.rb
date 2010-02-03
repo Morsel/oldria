@@ -1,4 +1,5 @@
 ActionController::Routing::Routes.draw do |map|
+
   map.signup 'signup', :controller => 'users', :action => 'new'
   map.login  'login',  :controller => 'user_sessions', :action => 'new'
   map.logout 'logout', :controller => 'user_sessions', :action => 'destroy'
@@ -49,6 +50,7 @@ ActionController::Routing::Routes.draw do |map|
     admin.resources :users
     admin.resources :pages
     admin.resources :feeds, :collection => { :sort => [:post, :put] }
+    admin.resources :feed_categories
     admin.resources :date_ranges, :account_types, :coached_status_updates, :direct_messages
     admin.resources :cuisines, :subject_matters, :restaurants
     admin.resources :media_requests, :member => { :approve => :put }

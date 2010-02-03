@@ -142,6 +142,10 @@ Factory.define :feed do |f|
   f.no_entries true
 end
 
+Factory.define :feed_category do |f|
+  f.name "Food Blogs"
+end
+
 Factory.define :feed_entry do |f|
   f.sequence(:guid) { |n| "guid_#{n}" }
   f.title   "Pork is best with salmon"
