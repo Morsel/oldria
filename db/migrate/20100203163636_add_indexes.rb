@@ -36,11 +36,11 @@ class AddIndexes < ActiveRecord::Migration
   end
 
   def self.down
-    # remove_index :users, :id
-    # remove_index :date_ranges, :id
-    # remove_index :discussions, :id
-    # remove_index :restaurants, :id
-    # remove_index :feeds, :id
+    remove_index :users, :id
+    remove_index :date_ranges, :id
+    remove_index :discussions, :id
+    remove_index :restaurants, :id
+    remove_index :feeds, :id
     remove_index :pages, :slug
     remove_index :employments, :restaurant_role_id
     remove_index :employments, :restaurant_id
