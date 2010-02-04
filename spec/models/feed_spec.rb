@@ -45,4 +45,17 @@ describe Feed do
       feed.feed_entries.all.should_not be_empty
     end
   end
+
+  context "feed url normalization" do
+    it "should change feed:// protocol to http:// protocol (Safari)" do
+       feed = Feed.new(
+          :feed_url => 'feed://feeds.feedburner.com/blogspot/MKuf',
+          :url => 'http://www.neotericdesign.com',
+          :title => 'Arbitrary Title',
+          :no_entries => true
+        )
+        feed.save
+        feed.feed_url.should == 'http://feeds.feedburner.com/blogspot/MKuf'
+    end
+  end
 end

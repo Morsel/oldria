@@ -138,7 +138,7 @@ Factory.define :feed do |f|
   f.title "Example Blog RSS"
   f.url "http://www.example.com"
   f.feed_url "http://feeds.neotericdesign.com/neotericdesign"
-  f.etag "aj39ukavkl"
+  f.etag "fake_etag_avkl"
   f.no_entries true
 end
 

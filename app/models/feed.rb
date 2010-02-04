@@ -11,7 +11,7 @@ class Feed < ActiveRecord::Base
 
   acts_as_list :scope => :feed_category
 
-
+  before_create :normalize_feed_url
   after_validation_on_create :fetch_and_parse_if_needed
   after_create :update_entries
 
@@ -30,6 +30,11 @@ class Feed < ActiveRecord::Base
     Feedzirra::Feed.fetch_and_parse(feed_url)
   end
 
+  def normalize_feed_url
+    return unless feed_url
+    self.feed_url = feed_url.gsub(/^feed\:\/\//,'http://')
+  end
+
   def assign_attributes_from_feed
     if feed && feed.respond_to?(:title)
       self.title = feed.title
@@ -40,7 +45,7 @@ class Feed < ActiveRecord::Base
   end
 
   def update_entries
-    return unless needs_update? && !no_entries
+    return if self.no_entries || !needs_update?
     update_entries!
   end
 
