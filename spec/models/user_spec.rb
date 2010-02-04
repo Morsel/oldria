@@ -152,6 +152,12 @@ describe User do
     end
 
     it "should return nil when twitter username isn't available" do
+      @twitter_oauth.stubs(:user).returns(nil)
+      @user.twitter_username.should be_nil
+    end
+
+    it "should return nil when twitter returns blank" do
+      @twitter_oauth.stubs(:user).returns([])
       @user.twitter_username.should be_nil
     end
   end

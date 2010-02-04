@@ -132,14 +132,14 @@ class User < ActiveRecord::Base
 ### Twitter Methods ###
 
   def twitter_username
-    if twitter_authorized?
-      @twitter_username ||= begin
-        first_tweet = twitter_client.user({:count=>1})
-        if first_tweet.kind_of?(Array)
-          first_tweet.first['user']['screen_name']
-        else
-          nil
-        end
+    return @twitter_username if defined?(@twitter_username)
+    return @twitter_username = nil unless twitter_authorized?
+    @twitter_username ||= begin
+      first_tweet = twitter_client.user({:count=>1})
+      if first_tweet.respond_to?(:first) && first_tweet.first # Guards nil
+        first_tweet.first['user']['screen_name']
+      else
+        nil
       end
     end
   end
