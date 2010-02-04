@@ -1,3 +1,9 @@
 <% div_for discussion do %>
-	<p><%= link_to discussion.title, discussion %></p>
+<h3><%= link_to discussion.title, discussion %></h3>
+<p class="meta">
+  Originally posted by <%= discussion.poster.try(:name) %>
+  on <%= discussion.created_at.to_s(:long) %> |
+  <%= discussion.comments.count %> Comments
+</p>
+<hr />
 <% end %>

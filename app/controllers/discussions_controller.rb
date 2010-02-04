@@ -2,7 +2,7 @@ class DiscussionsController < ApplicationController
   before_filter :require_user
 
   def index
-    @discussions = current_user.discussions
+    @discussions = current_user.discussions.all(:order => 'discussions.created_at DESC')
   end
 
   def show
