@@ -1,3 +1,3 @@
 HoptoadNotifier.configure do |config|
-  config.api_key = 'f8d1ffbb138a888f102b23251044cba8'
+  config.api_key = '3417d81195cd7d5e8371e9f889200d9e'
 end
