@@ -1266,6 +1266,10 @@ h3.function-bold{
 
 /* @group feeds ---------------------*/
 
+.feed .handle {
+	cursor: move;
+}
+
 .feed {
 	padding: 0 16px;
 	margin-bottom: 2em;
@@ -1302,6 +1306,10 @@ h3.function-bold{
 
 .feed_entry_body, .feed_entry_header {
 	padding-left: 18px;
+}
+
+.feed_entry_header {
+	cursor: pointer;
 }
 
 .feed_entry .title a {
