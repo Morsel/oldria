@@ -6,24 +6,14 @@
   <% for category in @feed_categories %>
   <fieldset>
     <legend><%= category.name %></legend>
-    <% category.feeds.each do |feed| %>
-      <label>
-        <%= check_box_tag 'feed_ids[]', feed.id, @user_feed_ids.include?(feed.id), :id => "feed_#{feed.id}" %>
-        <%= feed.title %>
-      </label>
-    <% end %>
+    <%= render :collection => category.feeds, :as => :feed, :partial => 'feed_check_box' %>
   </fieldset>
   <% end %>
 
   <% unless @uncategorized_feeds.blank? %>
   <fieldset>
     <legend>Other</legend>
-    <% @uncategorized_feeds.each do |feed| %>
-      <label>
-        <%= check_box_tag 'feed_ids[]', feed.id, @user_feed_ids.include?(feed.id), :id => "feed_#{feed.id}" %>
-        <%= feed.title %>
-      </label>
-    <% end %>
+    <%= render :collection => @uncategorized_feeds, :as => :feed, :partial => 'feed_check_box' %>
   </fieldset>
   <% end %>
 
