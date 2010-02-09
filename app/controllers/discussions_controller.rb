@@ -13,7 +13,10 @@ class DiscussionsController < ApplicationController
 
   def new
     @discussion = current_user.posted_discussions.build(:user_ids => [current_user.id])
-    @users = current_user.coworkers
+    if params[:restaurant_id]
+      @restaurant = Restaurant.find(params[:restaurant_id])
+      @discussion.users << @restaurant.employees
+    end
   end
 
   def create

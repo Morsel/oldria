@@ -54,6 +54,7 @@ Feature: Discussions
     And I follow "Start a discussion"
     And I fill in "Title" with "Where should we eat?"
     And I check "Sam Smith"
+    And I uncheck "John Doe"
     And I press "Post Discussion"
     Then there should be 1 discussion in the system
 

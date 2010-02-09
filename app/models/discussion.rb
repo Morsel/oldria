@@ -3,16 +3,16 @@ class Discussion < ActiveRecord::Base
   accepts_nested_attributes_for :comments
 
   belongs_to :poster, :class_name => "User"
-  has_many :discussion_seats
-  has_many :users, :through => :discussion_seats
+  has_many :discussion_seats, :dependent => :destroy
+  has_many :users, :through => :discussion_seats, :uniq => true
 
+  validates_presence_of :title
 
   after_create :notify_recipients
 
   def posted_comments
     comments.all(:include => [:user, :attachments], :order => 'created_at DESC').reject(&:new_record?)
   end
-
 
   private
 

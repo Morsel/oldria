@@ -304,6 +304,9 @@ a.sf-button.alt img {
 	margin-top:1em;
 }
 
+#my_restaurants div + p {
+	margin: 1em 0 3px;
+}
 
 /* @end */
 

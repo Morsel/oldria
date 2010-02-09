@@ -1,9 +1,10 @@
 require 'spec/spec_helper'
 
 describe Discussion do
-  should_have_many :discussion_seats
+  should_have_many :discussion_seats, :dependent => :destroy
   should_have_many :users, :through => :discussion_seats
   should_belong_to :poster, :class_name => 'User'
+  should_validate_presence_of :title
 
   before(:each) do
     @valid_attributes = Factory.attributes_for(:discussion)
@@ -13,13 +14,19 @@ describe Discussion do
     Discussion.create!(@valid_attributes)
   end
 
+  it "should have unique users (no repeats)" do
+    DiscussionSeat.destroy_all
+    user = Factory(:user)
+    discussion = Discussion.create(@valid_attributes.merge(:user_ids => [user.id, user.id]))
+    discussion.users.should == [user]
+    DiscussionSeat.count.should == 1
+  end
 
   it "should send notifications to the invited users" do
     user = Factory(:user)
     discussion = Discussion.new(@valid_attributes)
     discussion.poster = Factory(:user)
     UserMailer.expects(:deliver_discussion_notification).with(discussion, user).returns(true)
-    discussion.users << user
     discussion.save
   end
 
