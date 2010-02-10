@@ -859,6 +859,39 @@ div.restaurant {
 	margin-left: 60px;
 }
 
+.add-another {
+	clear: both;
+	margin: 1em 0;
+}
+
+.add-another a{
+	padding-left: 20px;
+	padding-top: 3px;
+	background: url(../images/plus.png) no-repeat 0 0;
+}
+
+.attachfield {
+	clear: both;
+	padding-bottom: 1em;
+	padding-left: 1px;
+}
+
+.attachfield input {
+	float: left;
+}
+
+.attachfield .remove_attachment {
+	text-indent: -9999px;
+	display: block;
+	float: left;
+	width: 16px;
+	height: 16px;
+	background: url(../images/x.png) no-repeat;
+	overflow: hidden;
+	margin: 3px 5px 0;
+}
+
+
 /* @end */
 
 
