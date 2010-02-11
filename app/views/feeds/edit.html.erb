@@ -1,6 +1,6 @@
 <% title "Edit My Feeds" %>
 
-<p>Choose which feeds you'd like to see on your Feed landing page.</p>
+<p>Choose which feeds you'd like to see on your ReadFeed landing page.</p>
 
 <% form_for :feeds, :url => feeds_path, :html => {:method => :put} do |f| %>
   <% for category in @feed_categories %>

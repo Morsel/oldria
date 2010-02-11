@@ -1,4 +1,4 @@
-<% title "My Feeds" %>
+<% title "ReadFeed" %>
 
 <p class="clearfix">
 	<%= link_to "Choose feeds", edit_feeds_path, :class => 'button' %>
@@ -6,7 +6,7 @@
 
 <% unless current_user.has_feeds? -%>
 
-	<p class="notice">Hey! You should really get some feeds going! You can custom-choose your feeds <%= link_to "here", edit_feeds_path %></p>
+	<p class="notice">Hey! You should really get some feeds going! You can custom-choose your ReadFeed <%= link_to "here", edit_feeds_path %></p>
 
 <%- end -%>
 
