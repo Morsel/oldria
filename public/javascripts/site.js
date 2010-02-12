@@ -69,44 +69,49 @@ $("#navigation a[href$=" + window.location.pathname + "]").parent().addClass("se
 
 // == Comment attachments
 
-var $attachmentFieldPrototype = $(".attachfield:first"),
-		attachmentCounter = 0,
-		addNewLink;
+jQuery.fn.attachmentCloner = function() {
+  return this.each(function(){
+    var $attachmentFieldPrototype = $(this),
+        attachmentCounter = 0,
+        addNewLink;
 
+    // Function to duplicate the markup, with new bindings on certain elements, and unique name field
+    function smartCloneAttachment() {
+      attachmentCounter++;
+      if (!(addNewLink && addNewLink.size())) addNewLink = $(".add-another");
 
-// Function to duplicate the markup, with new bindings on certain elements, and unique name field
-function smartCloneAttachment() {
-	attachmentCounter++;
-	if (!(addNewLink && addNewLink.size())) addNewLink = $(".add-another");
+      // Start with the basics, from the protype field
+      var $newfield = $attachmentFieldPrototype.clone();
+      var fieldname = $newfield.find("input").attr("name");
+      // Use a unique identifier, Rails requirement
+      $newfield.find("input").attr("name", fieldname.replace(/(\d)/g, attachmentCounter)).attr('id', "");
+      $newfield.insertBefore(addNewLink);
 
-	// Start with the basics, from the protype field
-	var $newfield = $attachmentFieldPrototype.clone();
-	var fieldname = $newfield.find("input").attr("name");
-	// Use a unique identifier, Rails requirement
-	$newfield.find("input").attr("name", fieldname.replace(/(\d)/g, attachmentCounter)).attr('id', "");
-	$newfield.insertBefore(addNewLink);
+      // Add a remove link
+      $newfield.find(".remove_attachment").click(function(){ $(this).parent().remove(); });
 
-	// Add a remove link
-	$newfield.find(".remove_attachment").click(function(){ $(this).parent().remove(); });
+      return false;
+    };
 
-	return false;
+    // Add the new markup for add/remove links
+    $attachmentFieldPrototype
+    .append('<a class="remove_attachment" href="javascript:void(0)">Remove</a>')
+    .after('<p class="add-another"><a href="javascript:void(0)">Add another attachment</a></p>')
+    .next().find('a').click(smartCloneAttachment);
+
+    // Cache this value for the smartCloneAttachment function
+    addNewLink = $(".add-another");
+
+    // Remove from DOM, but not memory
+    $attachmentFieldPrototype.detach();
+
+    // Let's do this!
+    smartCloneAttachment();
+
+  });
 };
 
-// Add the new markup for add/remove links
-$attachmentFieldPrototype
-	.append('<a class="remove_attachment" href="javascript:void(0)">Remove</a>')
-	.after('<p class="add-another"><a href="javascript:void(0)">Add another attachment</a></p>')
-	.next().find('a').click(smartCloneAttachment);
-
-// Cache this value for the smartCloneAttachment function
-addNewLink = $(".add-another");
-
-// Remove from DOM, but not memory
-$attachmentFieldPrototype.detach();
-
-// Let's do this!
-smartCloneAttachment();
-
+$(".attachfield:first").attachmentCloner();
 
 // == Hidden fieldsets
 var fieldsets = $("div.fieldsets").hide();
