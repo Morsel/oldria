@@ -25,6 +25,13 @@ Spork.prefork do
     config.mode = :rails
   end
 
+  def fake_admin_user
+    @user = Factory.stub(:admin)
+    @user.stubs(:update).returns(true)
+    controller.stubs(:current_user).returns(@user)
+    controller.stubs(:require_admin).returns(true)
+  end
+
   Spec::Runner.configure do |config|
     config.use_instantiated_fixtures  = false
     config.use_transactional_fixtures = true

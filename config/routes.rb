@@ -1,5 +1,4 @@
 ActionController::Routing::Routes.draw do |map|
-
   map.signup 'signup', :controller => 'users', :action => 'new'
   map.login  'login',  :controller => 'user_sessions', :action => 'new'
   map.logout 'logout', :controller => 'user_sessions', :action => 'destroy'
@@ -54,6 +53,11 @@ ActionController::Routing::Routes.draw do |map|
     admin.resources :cuisines, :subject_matters, :restaurants
     admin.resources :media_requests, :member => { :approve => :put }
     admin.resources :restaurant_roles, :except => [:show]
+
+    # Admin Messaging
+    exclusive_routes = [:index, :show, :destroy]
+    admin.resources :messages, :only => exclusive_routes
+    admin.resources :qotds, :except => exclusive_routes
   end
 
   map.public_page ":id", :controller => 'pages', :action => 'show'

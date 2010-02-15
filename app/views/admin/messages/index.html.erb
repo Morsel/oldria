@@ -1,0 +1,10 @@
+<% title "Listing Messages" %>
+
+
+<% table_for(@messages) do |t| %>
+  <% t.data :actions => :edit do
+    t.cell(:type) {|m| m.type.to_s.gsub(/^Admin::/, '') }
+    t.cell :message
+    t.cell :sent_at
+  end %>
+<% end %>

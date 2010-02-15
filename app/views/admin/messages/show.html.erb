@@ -1,0 +1,21 @@
+<p>
+  <b>Type:</b>
+  <%=h @message.type %>
+</p>
+
+<p>
+  <b>Sent at:</b>
+  <%=h @message.sent_at %>
+</p>
+
+<p>
+  <b>Status:</b>
+  <%=h @message.status %>
+</p>
+
+<p>
+  <b>Message:</b>
+  <%=h @message.message %>
+</p>
+
+<p><%= link_to 'View All', admin_messages_path %></p>

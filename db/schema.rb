@@ -9,10 +9,19 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100203174304) do
+ActiveRecord::Schema.define(:version => 20100215165358) do
 
   create_table "account_types", :force => true do |t|
     t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "admin_messages", :force => true do |t|
+    t.string   "type"
+    t.datetime "sent_at"
+    t.string   "status"
+    t.text     "message"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -136,6 +145,8 @@ ActiveRecord::Schema.define(:version => 20100203174304) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "feed_categories", ["id"], :name => "index_feed_categories_on_id", :unique => true
 
   create_table "feed_entries", :force => true do |t|
     t.string   "title"

@@ -175,3 +175,9 @@ Factory.define :discussion_comment, :parent => :comment do |f|
   f.commentable_type { "Discussion" }
 end
 
+Factory.define :admin_message, :class => Admin::Message do |f|
+  f.message "This is an admin message"
+end
+
+Factory.define :qotd, :class => Admin::Qotd do |f|
+end
