@@ -8,6 +8,8 @@ describe Employment do
   should_have_many :subject_matters, :through => :responsibilities
   should_have_many :media_request_conversations
   should_have_many :media_requests, :through => :media_request_conversations
+  should_have_many :admin_conversations
+  should_have_many :admin_messages, :through => :admin_conversations
 
   should_validate_presence_of :employee_id
   should_validate_presence_of :restaurant_id

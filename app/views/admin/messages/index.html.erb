@@ -1,10 +1,18 @@
 <% title "Listing Messages" %>
 
+<p class="clearfix">
+  <%= link_to "New QOTD", new_admin_qotd_path, :class => 'positive button' %>
+</p>
 
-<% table_for(@messages) do |t| %>
-  <% t.data :actions => :edit do
-    t.cell(:type) {|m| m.type.to_s.gsub(/^Admin::/, '') }
-    t.cell :message
-    t.cell :sent_at
-  end %>
+<% @message_groups.each do |klass, messages| %>
+
+  <h3><%= klass.to_s.gsub(/^Admin::/, '') %></h3>
+
+  <% table_for(@messages) do |t| %>
+    <% t.data :actions => :edit do
+        t.cell :message
+        t.cell :sent_at
+       end %>
+  <% end %>
+
 <% end %>

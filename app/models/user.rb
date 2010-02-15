@@ -15,7 +15,7 @@ class User < ActiveRecord::Base
 
   has_many :media_requests, :foreign_key => 'sender_id'
   has_many :media_request_conversations, :through => :employments, :foreign_key => "recipient_id"
-
+  has_many :admin_conversations, :through => :employments, :foreign_key => 'recipient_id'
   has_many :managed_restaurants, :class_name => "Restaurant", :foreign_key => "manager_id"
 
   has_many :employments, :foreign_key => "employee_id"

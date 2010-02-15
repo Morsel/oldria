@@ -6,6 +6,8 @@ class Employment < ActiveRecord::Base
   has_many :subject_matters, :through => :responsibilities
   has_many :media_request_conversations, :foreign_key => 'recipient_id', :dependent => :destroy
   has_many :media_requests, :through => :media_request_conversations
+  has_many :admin_conversations, :class_name => 'Admin::Conversation', :foreign_key => 'recipient_id'
+  has_many :admin_messages, :through => :admin_conversations, :class_name => 'Admin::Message'
 
   accepts_nested_attributes_for :employee
 
@@ -39,5 +41,9 @@ class Employment < ActiveRecord::Base
 
   def restaurant_name
     @restaurant_name ||= restaurant && restaurant.name
+  end
+
+  def name_and_restaurant
+    "#{employee_name} (#{restaurant_name})"
   end
 end

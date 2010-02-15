@@ -1,7 +1,21 @@
 <% semantic_form_for @qotd do |f| %>
+
+  <%- if @employments && !@employments.blank? %>
+    <% f.inputs :name => "Recipients" do %>
+      <%= f.input :recipient_ids,
+                  :collection => @employments,
+                  :as => :check_boxes,
+                  :wrapper_html => {:class => 'employment_list checkall'},
+                  :label_method => :name_and_restaurant,
+                  :label => "Who should receive this?"
+      %>
+    <% end %>
+  <% end -%>
+
   <%= f.inputs :message %>
 
   <p>
-    <%= button_tag "Submit" %>
+    <%= button_tag "Save", :name => 'submit' %>
+    <%# button_tag (image_tag('tick.png') + "Send Now"), :name => 'send_now', :class => 'positive' %>
   </p>
 <% end %>

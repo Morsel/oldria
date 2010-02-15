@@ -3,7 +3,8 @@ class Admin::MessagesController < Admin::AdminController
   # GET /admin/messages
   # GET /admin/messages.xml
   def index
-    @messages = Admin::Message.all
+    @messages = Admin::Message.all(:group => :type)
+    @message_groups = @messages.group_by(&:class)
 
     respond_to do |format|
       format.html # index.html.erb

@@ -1,0 +1,33 @@
+<ol>
+	<li class="string">
+		<%= f.label :restaurant_name_like, "Restaurant Name"  %>
+		<%= f.text_field :restaurant_name_like %>
+	</li>
+	<li>
+		<a href="#faceted_search_criteria" class="toggler">Advanced Search</a>
+	</li>
+</ol>
+<ol id="faceted_search_criteria" style="display:none">
+	<li class="span-5 column">
+		<%= f.label :restaurants_region_id, "Region" %>
+		<%= multiple_checkbox_search JamesBeardRegion.all, :restaurants_region_id %>
+	</li>
+	<li class="span-5 column last">
+		<%= f.label :restaurants_metro_id, "Greater Metropolitan Area" %>
+		<%= multiple_checkbox_search(MetropolitanArea.all, :restaurants_metro_id) %>
+	</li>
+	<li class="clear span-10 last">
+		<%= f.label :restaurants_cuisine_id, "Cuisine" %>
+		<%= multiple_checkbox_search(Cuisine.all, :restaurants_cuisine_id) %>
+	</li>
+	<li class="span-5 column">
+		<%= f.label :responsibilities_subject_matter_id_is, "Subject Matter" %>
+		<%= multiple_checkbox_search(SubjectMatter.all, :responsibilities_subject_matter_id_is) %>
+	</li>
+	<li class="span-5 column last">
+		<%= f.label :restaurant_role_id_is, "Role at Restaurant" %>
+		<%= multiple_checkbox_search(RestaurantRole.all, :restaurant_role_id_is) %>
+	</li>
+</ol>
+
+<p class="clearfix clear"><%= button_tag "Search", :class => 'positive' %></p>

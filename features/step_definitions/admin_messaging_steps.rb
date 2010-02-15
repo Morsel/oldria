@@ -13,3 +13,6 @@ Then(/^I should see list of QOTDs$/) do
   response.should have_selector('table')
 end
 
+Then(/^"([^\"]*)" should have (\d+) QOTD messages?$/) do |username, num|
+  User.find_by_username(username).admin_conversations.count.should == num.to_i
+end
