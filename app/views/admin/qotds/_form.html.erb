@@ -10,7 +10,6 @@
                   :label => "Who should receive this?"
       %>
     <% end %>
-  <% end -%>
 
   <%= f.inputs :message %>
 
@@ -18,4 +17,7 @@
     <%= button_tag "Save", :name => 'submit' %>
     <%# button_tag (image_tag('tick.png') + "Send Now"), :name => 'send_now', :class => 'positive' %>
   </p>
+  <% else %>
+    <p>Oops, we couldn't find anyone by that criteria. Try again.</p>
+  <% end -%>
 <% end %>

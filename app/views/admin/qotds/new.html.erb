@@ -1,9 +1,11 @@
 <% title "New Question of the Day" %>
-
+<p>First search, then choose the recipients</p>
 <% form_for @search, :url => new_admin_qotd_path, :html => {:class => 'formtastic faceted'} do |f| %>
   <%= render :partial => 'media_requests/search_fields', :locals => {:f => f} %>
 <% end %>
 
+<% if params[:search] %>
+  <%= render :partial => 'form' %>
+<% end %>
 
-<%= render :partial => 'form' %>
-
+<p><%= link_to "Back to All Messages", admin_messages_path %></p>

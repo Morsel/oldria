@@ -61,6 +61,8 @@ module NavigationHelpers
       new_admin_user_path
     when /^the new QOTD page$/
       new_admin_qotd_path
+    when /^the new Announcement page$/
+      new_admin_announcement_path
 
     # Direct path
     when /"([^\"]+)"/
