@@ -5,6 +5,10 @@ describe Admin::Qotd do
     @valid_attributes = Factory.attributes_for(:qotd)
   end
 
+  it "should set a class-based title of 'QOTD'" do
+    Admin::Qotd.title.should == "QOTD"
+  end
+
   it "should create a new instance given valid attributes" do
     Admin::Qotd.create!(@valid_attributes)
   end

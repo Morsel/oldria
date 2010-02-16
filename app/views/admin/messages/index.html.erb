@@ -8,7 +8,7 @@
 
 <% @message_groups.each do |klass, messages| %>
 
-  <h3><%= pluralize messages.length, klass.to_s.humanize %></h3>
+  <h3><%= pluralize messages.length, klass.title %></h3>
 
   <% table_for(messages) do |t| %>
     <% t.data :actions => :edit do

@@ -11,4 +11,8 @@ describe Admin::Message do
   it "should create a new instance given valid attributes" do
     Admin::Message.create!(@valid_attributes)
   end
+
+  it "should require class method ::title to be set in subclasses" do
+    lambda{ Admin::Message.title }.should raise_error
+  end
 end

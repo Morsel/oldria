@@ -13,4 +13,9 @@ class Admin::Message < ActiveRecord::Base
   aasm_event :deliver do
     transitions :to => :sent, :from => [:draft]
   end
+
+  def self.title
+    raise NoMethodError, "You need to set self.title method on each subclass"
+  end
+
 end

@@ -1,4 +1,8 @@
 <% title "Edit QOTD" %>
 
+<h3>Recipients:</h3>
+<p><%= @qotd.recipients.map(&:employee_name).to_sentence %></p>
+
 <%= render :partial => 'form' %>
 
+<p><%= link_to "Back to All Messages", admin_messages_path %></p>
