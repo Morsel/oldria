@@ -1,3 +1,25 @@
+# == Schema Information
+#
+# Table name: restaurants
+#
+#  id                    :integer         not null, primary key
+#  name                  :string(255)
+#  street1               :string(255)
+#  street2               :string(255)
+#  city                  :string(255)
+#  state                 :string(255)
+#  zip                   :string(255)
+#  country               :string(255)
+#  facts                 :text
+#  created_at            :datetime
+#  updated_at            :datetime
+#  manager_id            :integer
+#  metropolitan_area_id  :integer
+#  james_beard_region_id :integer
+#  cuisine_id            :integer
+#  deleted_at            :datetime
+#
+
 require 'spec/spec_helper'
 
 describe Restaurant do

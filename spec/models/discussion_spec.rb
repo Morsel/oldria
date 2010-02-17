@@ -1,3 +1,16 @@
+# == Schema Information
+#
+# Table name: discussions
+#
+#  id             :integer         not null, primary key
+#  title          :string(255)
+#  body           :text
+#  poster_id      :integer
+#  comments_count :integer         default(0)
+#  created_at     :datetime
+#  updated_at     :datetime
+#
+
 require 'spec/spec_helper'
 
 describe Discussion do

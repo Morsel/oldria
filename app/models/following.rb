@@ -1,3 +1,14 @@
+# == Schema Information
+#
+# Table name: followings
+#
+#  id          :integer         not null, primary key
+#  follower_id :integer
+#  friend_id   :integer
+#  created_at  :datetime
+#  updated_at  :datetime
+#
+
 class Following < ActiveRecord::Base
   belongs_to :follower, :class_name => 'User'
   belongs_to :friend, :class_name => 'User'

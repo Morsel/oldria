@@ -1,3 +1,14 @@
+# == Schema Information
+#
+# Table name: coached_status_updates
+#
+#  id            :integer         not null, primary key
+#  message       :string(255)
+#  created_at    :datetime
+#  updated_at    :datetime
+#  date_range_id :integer
+#
+
 require 'spec/spec_helper'
 
 describe CoachedStatusUpdate do

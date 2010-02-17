@@ -1,3 +1,32 @@
+# == Schema Information
+#
+# Table name: users
+#
+#  id                    :integer         not null, primary key
+#  username              :string(255)
+#  email                 :string(255)
+#  crypted_password      :string(255)
+#  password_salt         :string(255)
+#  perishable_token      :string(255)
+#  persistence_token     :string(255)     not null
+#  created_at            :datetime
+#  updated_at            :datetime
+#  confirmed_at          :datetime
+#  atoken                :string(255)
+#  asecret               :string(255)
+#  account_type_id       :integer
+#  avatar_file_name      :string(255)
+#  avatar_content_type   :string(255)
+#  avatar_file_size      :integer
+#  avatar_updated_at     :datetime
+#  first_name            :string(255)
+#  last_name             :string(255)
+#  james_beard_region_id :integer
+#  publication           :string(255)
+#  last_request_at       :datetime
+#  role                  :string(255)
+#
+
 require 'spec/spec_helper'
 
 describe User do

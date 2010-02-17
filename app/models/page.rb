@@ -1,3 +1,15 @@
+# == Schema Information
+#
+# Table name: pages
+#
+#  id         :integer         not null, primary key
+#  created_at :datetime
+#  updated_at :datetime
+#  title      :string(255)
+#  slug       :string(255)
+#  content    :text
+#
+
 class Page < ActiveRecord::Base
   SPECIAL = %w(welcome_new_user about contact)
 
