@@ -1,4 +1,4 @@
-@admin @messaging
+@focus @admin @messaging
 Feature: Admin Messaging
 
 
@@ -7,8 +7,8 @@ Feature: Admin Messaging
     | username | name      | role      | subject matters |
     | johndoe  | John Doe  | Chef      | Food, Pastry    |
 
-@focus
-  Scenario: Create a new Announcement
+
+  Scenario: Replying to a QOTD
     Given I am logged in as "johndoe"
     And "johndoe" has a QOTD message with:
       | message | Are lazy cakes cool? |
@@ -21,3 +21,12 @@ Feature: Admin Messaging
     Then I should see "Why, yes, they are quite cool!"
     And I should see "Successfully created"
 
+
+  Scenario: PR Tips have no replies
+    Given I am logged in as "johndoe"
+    And "johndoe" has a PR Tip message with:
+      | message | Never burn a burn notice |
+    When I go to the dashboard
+    And I follow "PR Tip"
+    Then I should see "Never burn a burn notice"
+    But I should not see "Reply"

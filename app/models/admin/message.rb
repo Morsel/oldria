@@ -16,10 +16,20 @@ class Admin::Message < ActiveRecord::Base
   end
 
   def self.title
-    raise NoMethodError, "You need to set self.title method on each subclass"
+    raise NoMethodError, "You need to set self.title on each subclass"
   end
 
   def broadcast?
     false
+  end
+
+  def recipients_can_reply?
+    true
+  end
+
+  protected
+
+  def add_everyone_as_recipients
+    self.recipients = Employment.all
   end
 end

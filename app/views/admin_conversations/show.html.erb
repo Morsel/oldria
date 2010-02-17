@@ -15,5 +15,8 @@
     </p>
   <% end %>
 
-  <%= render :partial => 'comments', :locals => {:message => message} %>
+  <% if message.recipients_can_reply? %>
+    <%= render :partial => 'comments', :locals => {:message => message}  %>
+  <% end %>
+
 <% end %>
