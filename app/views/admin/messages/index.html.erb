@@ -1,21 +1,22 @@
-<% title "Listing Messages" %>
-
-<p class="clearfix">
-  <%= link_to "New QOTD", new_admin_qotd_path, :class => 'positive button' %>
-  <%= link_to "New Announcement", new_admin_announcement_path, :class => 'positive button' %>
-  <%= link_to "New PR Tip", new_admin_pr_tip_path, :class => 'positive button' %>
-  <%= link_to "New Trend Question", new_admin_trend_question_path, :class => 'positive button' %>
-</p>
+<% title "Admin Messages" %>
 
 <% @message_groups.each do |klass, messages| %>
 
-  <h3><%= pluralize messages.length, klass.title %></h3>
+<div class="span-9 <%= cycle('clear', 'last', :name => 'tablecol') %> admin_message_section">
+  <p>
+    <%= link_to "New #{klass.title}", new_polymorphic_path(klass.new), :class => 'positive button' %>
+  </p>
+
+  <h3><%= klass.title %>s</h3>
 
   <% table_for(messages) do |t| %>
     <% t.data :actions => :edit do
-        t.cell :message
-        t.cell :sent_at
+        t.cell(:created_at) {|m| m.created_at.strftime("%m/%d") }
+        t.cell(:message)
+        t.cell(:show, :heading => '', :cell_html => {:class => 'actions'}) do |m|
+          link_to "#{m.reply_count}&nbsp;Replies", admin_message_path(m) if m.recipients_can_reply?
+        end
        end %>
   <% end %>
-
+</div>
 <% end %>

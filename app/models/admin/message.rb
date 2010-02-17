@@ -42,6 +42,18 @@ class Admin::Message < ActiveRecord::Base
     true
   end
 
+  def reply_count
+    conversations_with_replies.count
+  end
+
+  def conversations_with_replies
+    admin_conversations.scoped(:conditions => "comments_count > 0", :include => {:recipient => :employee})
+  end
+
+  def conversations_without_replies
+    admin_conversations.scoped(:conditions => "comments_count < 1", :include => {:recipient => :employee})
+  end
+
   protected
 
   def add_everyone_as_recipients_if_broadcast

@@ -1317,6 +1317,27 @@ h3.function-bold{
 	padding: 0;
 }
 
+.admin_message_section {
+	min-height: 180px;
+	padding-bottom: 2em;
+}
+
+.admin_message_section .button {
+	float: right;
+}
+
+.admin_messages_header h3 {
+	font-size: 1.2em;
+}
+
+.admin_message .message_body {
+	font-size: 1.2em;
+}
+
+.admin_conversations_list a:hover {
+	text-decoration: underline;
+}
+
 /* @end */
 
 
@@ -1332,20 +1353,23 @@ h3.function-bold{
 	margin-bottom: 2em;
 }
 
-.feed > .title {
+.feed > .title, .admin_messages_header h3 {
 	background-color: #0587c1;
 	color: #fff;
 	padding: 6px 16px;
-	margin: 0 -16px 1em;
 	letter-spacing: 1px;
 	text-transform: uppercase;
 	font-family: "Lucida Grande", helvetica, sans-serif;
 	font-weight: normal;
-	font-size: 1.4em;
 	text-shadow: 1px 1px 0 #058;
 	border-radius: 14px;
 	-moz-border-radius: 14px;
 	-webkit-border-radius: 14px;
+}
+
+.feed > .title {
+	margin: 0 -16px 1em;
+	font-size: 1.4em;
 }
 
 .feed_entry {

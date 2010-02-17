@@ -1,21 +1,39 @@
-<p>
-  <b>Type:</b>
-  <%=h @message.type %>
-</p>
+<% title @message.class.title %>
 
-<p>
-  <b>Sent at:</b>
-  <%=h @message.sent_at %>
-</p>
+<div class="admin_message">
+  <h2 class="message_title function-bold">
+    <span class="message_date">
+      <%= @message.created_at.strftime('%m/%d') %><span class="separator">:</span>
+    </span>
+    <%= @message.class.try(:title) %>
+  </h2>
 
-<p>
-  <b>Status:</b>
-  <%=h @message.status %>
-</p>
+  <p class="message_body">
+    <%= @message.message %>
+  </p>
+</div>
 
-<p>
-  <b>Message:</b>
-  <%=h @message.message %>
-</p>
+<div id="message_have_replied" class="span-9 admin_conversations_list">
+  <div class="admin_messages_header">
+    <span class="indicator"></span>
+    <h3>Replied (<%= @message.conversations_with_replies.count %>)</h3>
+  </div>
+  <table>
+    <%= render :partial => 'admin_conversations/admin_conversation',
+               :collection => @message.conversations_with_replies %>
+  </table>
+</div>
 
-<p><%= link_to 'View All', admin_messages_path %></p>
+<div id="message_have_not_replied" class="span-9 last admin_conversations_list">
+  <div class="admin_messages_header">
+    <span class="indicator"></span>
+    <h3>Have Not Replied (<%= @message.conversations_without_replies.count %>)</h3>
+  </div>
+
+  <table>
+    <%= render :partial => 'admin_conversations/admin_conversation',
+               :collection => @message.conversations_without_replies %>
+  </table>
+</div>
+
+<p><%= link_to 'Back to All', admin_messages_path %></p>

@@ -33,4 +33,12 @@ describe Admin::Message do
   it "should not be considered a broadcast message" do
     Admin::Message.new.should_not be_broadcast
   end
+
+  it "should know how many replies it has received (through conversations)" do
+    Admin::Message.new.reply_count.should == 0
+    qotd = Factory(:admin_message, :type => 'Admin::Qotd')
+    conversation = Factory(:admin_conversation, :admin_message => qotd)
+    conversation.comments.create(Factory.attributes_for(:comment))
+    qotd.reply_count.should == 1
+  end
 end

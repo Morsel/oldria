@@ -26,4 +26,5 @@ describe Admin::Conversation do
   it "should create a new instance given valid attributes" do
     Admin::Conversation.create!(@valid_attributes)
   end
+
 end
