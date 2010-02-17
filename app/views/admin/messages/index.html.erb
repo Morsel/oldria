@@ -1,10 +1,17 @@
 <% title "Admin Messages" %>
 
+<ul class="mini_menu">
+  <li><%= link_to "New QOTD", new_admin_qotd_path %></li>
+  <li><%= link_to "New Announcement", new_admin_announcement_path %></li>
+  <li><%= link_to "New PR Tip", new_admin_pr_tip_path %></li>
+  <li><%= link_to "New Trend Question", new_admin_trend_question_path %></li>
+</ul>
+
 <% @message_groups.each do |klass, messages| %>
 
 <div class="span-9 <%= cycle('clear', 'last', :name => 'tablecol') %> admin_message_section">
   <p>
-    <%= link_to "New #{klass.title}", new_polymorphic_path(klass.new), :class => 'positive button' %>
+    <%= link_to (image_tag("plus.png") + "New #{klass.title}"), new_polymorphic_path(klass.new), :class => 'button positive' %>
   </p>
 
   <h3><%= klass.title %>s</h3>

@@ -1338,6 +1338,15 @@ h3.function-bold{
 	text-decoration: underline;
 }
 
+ul.mini_menu {
+	margin: 0;
+}
+
+ul.mini_menu li {
+	list-style: none;
+	margin: 0;
+}
+
 /* @end */
 
 
