@@ -52,4 +52,19 @@ describe Employment do
       Employment.first.employee.should == another_user
     end
   end
+
+  describe "unique users" do
+    before do
+      @user = Factory(:user)
+      restaurant2 = Factory(:restaurant, :name => "What?")
+      @employment1 = Factory(:employment, :employee => @user)
+      @employment2 = Factory(:employment, :employee => @user, :restaurant => restaurant2)
+    end
+
+    it "should be able to find unique users, even if employed multiple places" do
+      Employment.unique_users.length.should == 1
+      Employment.unique_users.first.employee.should == @user
+    end
+  end
+
 end

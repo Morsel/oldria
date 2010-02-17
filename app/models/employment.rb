@@ -40,6 +40,8 @@ class Employment < ActiveRecord::Base
     {:joins => :restaurant, :conditions => {:restaurants => { :james_beard_region_id => ids.map(&:to_i)}}}
   }
 
+  named_scope :unique_users, :group => :employee_id
+
   def employee_name
     @employee_name ||= employee && employee.name
   end
