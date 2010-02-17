@@ -5,6 +5,8 @@ class Admin::Message < ActiveRecord::Base
   has_many :recipients, :through => :admin_conversations
   validates_presence_of :message
 
+  before_create :add_everyone_as_recipients_if_broadcast
+
   include AASM
   aasm_column :status
   aasm_initial_state :draft
@@ -29,7 +31,7 @@ class Admin::Message < ActiveRecord::Base
 
   protected
 
-  def add_everyone_as_recipients
-    self.recipients = Employment.all
+  def add_everyone_as_recipients_if_broadcast
+    self.recipients = Employment.all if broadcast?
   end
 end
