@@ -1,0 +1,19 @@
+<% title "Admin Messages" %>
+
+<% if message = @admin_conversation.admin_message %>
+
+  <% div_for message do %>
+    <h3 class="message_title function-bold">
+      <span class="message_date">
+        <%= @admin_conversation.created_at.strftime('%m/%d') %><span class="separator">:</span>
+      </span>
+      <%= message.class.try(:title) %>
+    </h3>
+
+    <p class="message_body">
+      <%= message.message %>
+    </p>
+  <% end %>
+
+  <%= render :partial => 'comments', :locals => {:message => message} %>
+<% end %>

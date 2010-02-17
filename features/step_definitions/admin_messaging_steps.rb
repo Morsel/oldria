@@ -17,3 +17,15 @@ end
 Then(/^"([^\"]*)" should have (\d+) QOTD messages?$/) do |username, num|
   User.find_by_username(username).admin_conversations.count.should == num.to_i
 end
+
+
+Given(/^"([^\"]*)" has a (QOTD) message with:$/) do |username, type, table|
+  data = table.rows_hash
+  message = Factory(:admin_message, data.merge(:type => 'Admin::Qotd'))
+  user = User.find_by_username(username)
+  recipient = user.employments.first
+  Factory(:admin_conversation, :admin_message => message, :recipient => recipient)
+
+  # Sanity check
+  user.admin_conversations.count.should be > 0
+end

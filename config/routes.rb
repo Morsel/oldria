@@ -31,6 +31,10 @@ ActionController::Routing::Routes.draw do |map|
 
   map.resources :user_sessions, :password_resets, :followings, :pages, :direct_messages
 
+  map.resources :admin_conversations, :only => 'show' do |admin_conversations|
+    admin_conversations.resources :comments, :only => [:new, :create]
+  end
+
   map.resources :feed_entries, :only => 'show', :member => { :read => :put }
   map.resource :feeds
 

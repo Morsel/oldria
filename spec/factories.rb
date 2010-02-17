@@ -178,3 +178,8 @@ end
 Factory.define :admin_message, :class => Admin::Message do |f|
   f.message "This is an admin message"
 end
+
+Factory.define :admin_conversation, :class => Admin::Conversation do |f|
+  f.recipient {|c| c.association :employment }
+  f.association :admin_message
+end

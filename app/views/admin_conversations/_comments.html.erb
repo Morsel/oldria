@@ -1,0 +1,17 @@
+<div class="comments span-9">
+<% unless @comment.blank? %>
+  <hr />
+  <%= render @comments %>
+<% end %>
+<hr class="space"/>
+
+<h3>Reply to this <%= message.class.try(:title) %></h3>
+<% semantic_form_for @comment_resource do |f| %>
+  <% f.inputs do %>
+    <%= f.input :comment, :label => 'Reply', :input_html => { :rows => 8 } %>
+  <% end %>
+
+  <p class="clearfix"><%= button_tag "Send" %></p>
+<% end %>
+</div>
+

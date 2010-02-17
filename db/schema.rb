@@ -20,6 +20,7 @@ ActiveRecord::Schema.define(:version => 20100215205724) do
   create_table "admin_conversations", :force => true do |t|
     t.integer  "recipient_id"
     t.integer  "admin_message_id"
+    t.integer  "comments_count",   :default => 0, :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end

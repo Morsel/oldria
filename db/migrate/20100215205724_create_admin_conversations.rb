@@ -3,7 +3,7 @@ class CreateAdminConversations < ActiveRecord::Migration
     create_table :admin_conversations do |t|
       t.integer :recipient_id
       t.integer :admin_message_id
-
+      t.integer :comments_count, :default => 0, :null => false
       t.timestamps
     end
   end

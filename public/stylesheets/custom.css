@@ -1300,6 +1300,27 @@ h3.function-bold{
 
 /* @end */
 
+/* @group admin messaging ----------- */
+
+#sidebar .admin_messages ul {
+	margin: 0;
+}
+
+#sidebar .admin_messages li {
+	background: url('../images/arrow2.png') no-repeat left center;
+	list-style: none;
+	padding-left: 15px;
+}
+
+.formtastic.comment fieldset{
+	border: 0 none;
+	padding: 0;
+}
+
+/* @end */
+
+
+
 /* @group feeds ---------------------*/
 
 .feed .handle {

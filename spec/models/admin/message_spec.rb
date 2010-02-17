@@ -16,4 +16,8 @@ describe Admin::Message do
   it "should require class method ::title to be set in subclasses" do
     lambda{ Admin::Message.title }.should raise_error
   end
+
+  it "should not be considered a broadcast message" do
+    Admin::Message.new.should_not be_broadcast
+  end
 end

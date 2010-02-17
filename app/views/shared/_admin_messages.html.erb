@@ -1,0 +1,14 @@
+<% conversations = current_user.admin_conversations.all %>
+<% unless conversations.blank? %>
+  <div class="box admin_messages">
+    <h3 class="function-bold">Admin Messages</h3>
+    <ul>
+    <% for conversation in conversations %>
+      <% content_tag_for :li, conversation.admin_message do %>
+        <%# messages_helper %>
+        <%= link_for_conversation(conversation) %>
+      <% end -%>
+    <% end %>
+    </ul>
+  </div>
+<% end %>

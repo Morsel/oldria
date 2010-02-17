@@ -45,6 +45,10 @@ Given /^I am logged in as "([^\"]*)" with password "([^\"]*)"$/ do |username, pa
   end
 end
 
+Given(/^I am logged in as "([^\" ]*)"$/) do |username|
+  Given %Q(I am logged in as "#{username}" with password "foobar")
+end
+
 Given /^"([^\"]*)" has a "([^\"]*)" account type$/ do |username, account_type_name|
   account_type = AccountType.find_by_name(account_type_name)
   account_type ||= Factory(:account_type, :name => account_type_name)
