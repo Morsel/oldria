@@ -47,18 +47,18 @@ class User < ActiveRecord::Base
   has_many :admin_conversations, :through => :employments, :foreign_key => 'recipient_id'
   has_many :managed_restaurants, :class_name => "Restaurant", :foreign_key => "manager_id"
 
-  has_many :employments, :foreign_key => "employee_id"
+  has_many :employments, :foreign_key => "employee_id", :dependent => :destroy
   has_many :restaurants, :through => :employments
 
-  has_many :discussion_seats
+  has_many :discussion_seats, :dependent => :destroy
   has_many :discussions, :through => :discussion_seats
 
   has_many :posted_discussions, :class_name => "Discussion", :foreign_key => "poster_id"
 
-  has_many :feed_subscriptions
+  has_many :feed_subscriptions, :dependent => :destroy
   has_many :feeds, :through => :feed_subscriptions
 
-  has_many :readings
+  has_many :readings, :dependent => :destroy
 
   validates_presence_of :email
 
