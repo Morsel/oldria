@@ -15,7 +15,7 @@ class AdminConversationsController < ApplicationController
   end
 
   def load_and_authorize_admin_conversation
-    @admin_conversation = Admin::Conversation.find(params[:id], :include => :admin_message)
+    @admin_conversation = Admin::Conversation.find(params[:id], :include => :admin_message, :order => 'created_at DESC')
     unauthorized! if cannot? :read, @admin_conversation
   end
 end
