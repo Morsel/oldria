@@ -14,6 +14,10 @@ class Ability
       can :manage, Discussion do |action, discussion|
         discussion && discussion.poster == user || discussion.users.include?(user)
       end
+
+      can :manage, Admin::Conversation do |action, conversation|
+        conversation.try(:recipient).try(:employee) == user
+      end
     end
   end
 
