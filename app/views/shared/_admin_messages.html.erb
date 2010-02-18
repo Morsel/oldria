@@ -1,4 +1,4 @@
-<% conversations = current_user.admin_conversations.all %>
+<% conversations = current_user.admin_conversations.all(:order => 'created_at DESC') %>
 <% unless conversations.blank? %>
   <div class="box admin_messages">
     <h3 class="function-bold">Admin Messages</h3>
