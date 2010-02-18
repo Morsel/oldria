@@ -34,6 +34,11 @@ class Admin::Message < ActiveRecord::Base
     raise NoMethodError, "You need to set self.title on each subclass"
   end
 
+  def self.shorttitle
+    self.title
+  end
+
+
   def broadcast?
     false
   end

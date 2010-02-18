@@ -13,6 +13,10 @@
 
 class Admin::Qotd < Admin::Message
   def self.title
+    "Question of the Day"
+  end
+
+  def self.shorttitle
     "QOTD"
   end
 end

@@ -15,4 +15,8 @@ class Admin::TrendQuestion < Admin::Message
   def self.title
     "Seasonal/Trend Question"
   end
+
+  def self.shorttitle
+    "Trend Question"
+  end
 end

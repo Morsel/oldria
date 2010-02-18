@@ -13,7 +13,7 @@ Feature: Admin Messaging
     And "johndoe" has a QOTD message with:
       | message | Are lazy cakes cool? |
     When I go to the dashboard
-    And I follow "QOTD"
+    And I follow "Question of the Day"
     Then I should see "Are lazy cakes cool?"
 
     When I fill in "Reply" with "Why, yes, they are quite cool!"
