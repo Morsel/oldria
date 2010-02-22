@@ -15,6 +15,7 @@ class Page < ActiveRecord::Base
 
   validates_presence_of :title
   validates_presence_of :slug
+  validates_format_of :slug, :with => /^[\w\d_\-]+$/, :on => :create, :message => "can only contain lowercase letters, numbers, underscores (_) and dashes (-)"
   before_validation :generate_slug!
 
   has_friendly_id :slug

@@ -22,6 +22,14 @@ describe Page do
       page.generate_slug!
       page.slug.should == 'about'
     end
-  end
 
+    it "should not convert to punctuation" do
+      page = Page.new(:title => 'Where am I?')
+      page.generate_slug!
+      page.slug.should == 'where-am-i'
+    end
+
+    it { should allow_values_for :slug, "blogging_101", "welcome-to-spoonfeed"  }
+    it { should_not allow_values_for :slug, "weather_man?", "why&how"  }
+  end
 end
