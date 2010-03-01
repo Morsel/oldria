@@ -1304,14 +1304,14 @@ h3.function-bold{
 
 /* @group admin messaging ----------- */
 
-#sidebar .admin_messages ul {
+#sidebar .fancy-list {
 	margin: 0;
 }
 
-#sidebar .admin_messages li {
+#sidebar .fancy-list li {
 	background: url('../images/arrow2.png') no-repeat left center;
 	list-style: none;
-	padding-left: 15px;
+	padding:0 0 0 15px;
 	margin: 0 0 9px;
 }
 

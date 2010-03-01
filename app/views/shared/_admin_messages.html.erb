@@ -2,7 +2,7 @@
 
 <div class="box admin_messages">
   <h3 class="function-bold">Admin Messages</h3>
-  <ul>
+  <ul class="fancy-list">
   <% for conversation in conversations %>
     <% content_tag_for :li, conversation.admin_message do %>
       <%# messages_helper %>
@@ -13,7 +13,7 @@
 
 <% unless current_user.announcements.blank? %>
   <h4>Announcements</h4>
-  <ul>
+  <ul class="fancy-list">
   <% for announcement in current_user.announcements %>
     <% content_tag_for :li, announcement do %>
       <%= link_for_message(announcement) %>
@@ -24,7 +24,7 @@
 
 <% unless current_user.pr_tips.blank? %>
   <h4>PR Tips</h4>
-  <ul>
+  <ul class="fancy-list">
   <% for pr_tip in current_user.pr_tips %>
     <% content_tag_for :li, pr_tip do %>
       <%= link_for_message(pr_tip) %>
