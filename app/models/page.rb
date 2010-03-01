@@ -11,12 +11,13 @@
 #
 
 class Page < ActiveRecord::Base
-  SPECIAL = %w(welcome_new_user about contact)
+  SPECIAL = %w(about contact first_time_users welcome_new_user)
 
   validates_presence_of :title
   validates_presence_of :slug
   validates_format_of :slug, :with => /^[\w\d_\-]+$/, :on => :create, :message => "can only contain lowercase letters, numbers, underscores (_) and dashes (-)"
   before_validation :generate_slug!
+  before_destroy :deletable? # Prevents accidental deletion of SPECIAL pages
 
   has_friendly_id :slug
 
