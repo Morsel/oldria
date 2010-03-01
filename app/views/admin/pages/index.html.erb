@@ -9,10 +9,10 @@
 			t.cell :view_live, :heading => "", :cell_html => {:class => 'actions'} do |p|
 				link_to "Live", public_page_path(p)
 			end
-			t.cell :edit, :heading => "", :cell_html => {:class => 'actions edit'} do |p|
+			t.cell :edit, :heading => "", :cell_html => {:class => 'actions edit_link'} do |p|
 				link_to "Edit", edit_admin_page_path(p)
 			end
-			t.cell :destroy, :heading => "", :cell_html => {:class => 'actions destroy'} do |p|
+			t.cell :destroy, :heading => "", :cell_html => {:class => 'actions destroy_link'} do |p|
 				link_to "Destroy", admin_page_path(p), :method => :delete if p.deletable?
 			end
 	end %>
