@@ -153,6 +153,14 @@ class User < ActiveRecord::Base
     nil
   end
 
+  def announcements
+    Admin::Announcement.scoped(:order => "updated_at DESC")
+  end
+
+  def pr_tips
+    Admin::PrTip.scoped(:order => "updated_at DESC")
+  end
+
   # For User.to_csv export
   def export_columns(format = nil)
     %w[username first_name last_name email]

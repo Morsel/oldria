@@ -1,14 +1,35 @@
 <% conversations = current_user.admin_conversations.all(:order => 'created_at DESC') %>
-<% unless conversations.blank? %>
-  <div class="box admin_messages">
-    <h3 class="function-bold">Admin Messages</h3>
-    <ul>
-    <% for conversation in conversations %>
-      <% content_tag_for :li, conversation.admin_message do %>
-        <%# messages_helper %>
-        <%= link_for_conversation(conversation) %>
-      <% end -%>
-    <% end %>
-    </ul>
-  </div>
+
+<div class="box admin_messages">
+  <h3 class="function-bold">Admin Messages</h3>
+  <ul>
+  <% for conversation in conversations %>
+    <% content_tag_for :li, conversation.admin_message do %>
+      <%# messages_helper %>
+      <%= link_for_conversation(conversation) %>
+    <% end -%>
+  <% end %>
+  </ul>
+
+<% unless current_user.announcements.blank? %>
+  <h4>Announcements</h4>
+  <ul>
+  <% for announcement in current_user.announcements %>
+    <% content_tag_for :li, announcement do %>
+      <%= link_for_message(announcement) %>
+    <% end -%>
+  <% end %>
+  </ul>
+<% end -%>
+
+<% unless current_user.pr_tips.blank? %>
+  <h4>PR Tips</h4>
+  <ul>
+  <% for pr_tip in current_user.pr_tips %>
+    <% content_tag_for :li, pr_tip do %>
+      <%= link_for_message(pr_tip) %>
+    <% end -%>
+  <% end %>
+  </ul>
 <% end %>
+</div>

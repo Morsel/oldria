@@ -83,9 +83,9 @@
 			<%= render :partial => 'shared/media_user_status' %>
 		<%- else -%>
 			<%= render :partial => 'shared/user_status' %>
+      <%= render :partial => 'shared/admin_messages' if current_user %>
 		<% end -%>
 
-    <%= render :partial => 'shared/admin_messages' if current_user && !current_user.media?%>
 
 		<%= yield :sidebar %>
 

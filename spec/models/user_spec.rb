@@ -257,6 +257,17 @@ describe User do
       @feed = Factory(:feed, :featured => true)
       @user.chosen_feeds.should be_false
     end
+  end
 
+  context "admin messages" do
+    before(:each) do
+      @user = Factory(:user)
+      Factory(:admin_message, :type => 'Admin::Announcement')
+      @announcement = Admin::Announcement.first
+    end
+
+    it "should have all announcements" do
+      @user.announcements.should == [@announcement]
+    end
   end
 end

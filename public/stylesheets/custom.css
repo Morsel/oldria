@@ -1312,6 +1312,13 @@ h3.function-bold{
 	background: url('../images/arrow2.png') no-repeat left center;
 	list-style: none;
 	padding-left: 15px;
+	margin: 0 0 9px;
+}
+
+#sidebar .admin_messages h4 {
+	margin: 1em 0 0;
+	font-size: 1.1em;
+	color: #999;
 }
 
 .formtastic.comment fieldset{

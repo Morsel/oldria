@@ -1,0 +1,10 @@
+<% div_for admin_message do %>
+  <h3 class="message_title function-bold">
+    <%= date_for_admin_message(admin_message) %>
+    <%= admin_message.class.try(:title) %>
+  </h3>
+
+  <p class="message_body">
+    <%= admin_message.message %>
+  </p>
+<% end %>
