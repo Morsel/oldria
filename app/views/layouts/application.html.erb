@@ -79,17 +79,17 @@
 		</div><!--#leftcolumn-->
 
 	<div id="sidebar" class="span-6 last">
-		<%- if current_user && current_user.media? %>
-			<%= render :partial => 'shared/media_user_status' %>
-		<%- else -%>
-			<%= render :partial => 'shared/user_status' %>
-      <%= render :partial => 'shared/admin_messages' if current_user %>
-		<% end -%>
+    <%= render :partial => 'shared/user_status' %>
 
+    <%= yield :sidebar %>
 
-		<%= yield :sidebar %>
+    <%- if current_user && !current_user.media? %>
+      <%= render :partial => 'statuses/sidebar_form' %>
+      <%= render :partial => 'shared/ria_labs' %>
+      <%= render :partial => 'shared/admin_messages'%>
+      <%= render :partial => 'shared/restaurants' %>
+    <% end -%>
 
-		<%= render :partial => 'shared/restaurants' if current_user && !current_user.media? %>
 	</div><!--#sidebar-->
 
 

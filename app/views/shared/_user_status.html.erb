@@ -1,9 +1,11 @@
 <div id="user_status" class="box">
 
-	<% if current_user -%>
-	<%= link_to image_tag(current_user.avatar.url(:thumb), :class => 'thumbnail'),
+	<%- if current_user && !current_user.media?-%>
+	  <%= link_to image_tag(current_user.avatar.url(:thumb), :class => 'thumbnail'),
 	profile_path(current_user.username) %>
+  <% end -%>
 
+  <%- if current_user %>
 	<p>Logged in as <%= link_to current_user.username, profile_path(current_user.username) %></p>
 	<p><%= link_to "Edit My Account", edit_user_path(current_user) %></p>
 	<p><%= link_to "(Log out)", logout_path %></p>
@@ -20,5 +22,3 @@
 	<% end -%>
 
 </div>
-
-<%= render :partial => 'statuses/sidebar_form' if current_user %>

@@ -1,6 +1,5 @@
-@focus @admin @messaging
+@admin @messaging
 Feature: Admin Messaging
-
 
   Background:
   Given a restaurant named "No Man's Land" with the following employees:
