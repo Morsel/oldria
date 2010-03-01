@@ -15,7 +15,7 @@
 	<div id="previous_statuses">
 		<h3 class="function-bold">Past Status Updates</h3>
 		<ol class="statuses" id="sidebar_statuses">
-			<%= render :partial => 'statuses/user_bar_status', :collection => current_user.statuses.all(:limit => 2) %>
+			<%= render :partial => 'statuses/user_bar_status', :collection => @current_user_recent_statuses %>
 		</ol>
 
 		<% if current_user.statuses.size > 2 -%>

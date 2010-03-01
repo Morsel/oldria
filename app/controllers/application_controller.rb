@@ -9,6 +9,10 @@ class ApplicationController < ActionController::Base
   # Scrub sensitive parameters from your log
   filter_parameter_logging :password
 
+  before_filter :load_admin_messages_sidebar
+  before_filter :load_random_coached_update
+  before_filter :load_current_user_statuses
+
   helper_method :current_user
 
   rescue_from CanCan::AccessDenied do
@@ -86,6 +90,23 @@ class ApplicationController < ActionController::Base
       "<li>#{e.humanize unless e == "base"} #{m}</li>"
     end.to_s << '</ul>'
     error_list
+  end
+
+  def load_admin_messages_sidebar
+    return unless current_user && !current_user.media?
+    @admin_conversations = current_user.admin_conversations.all(:include => :admin_message, :order => 'created_at DESC')
+    @admin_pr_tips = current_user.pr_tips
+    @admin_announcements = current_user.announcements
+  end
+
+  def load_random_coached_update
+    return unless current_user && !current_user.media?
+    @coached_message = CoachedStatusUpdate.current.random.first
+  end
+
+  def load_current_user_statuses
+    return unless current_user && !current_user.media?
+    @current_user_recent_statuses = current_user.statuses.all(:limit => 2)
   end
 
   protected
