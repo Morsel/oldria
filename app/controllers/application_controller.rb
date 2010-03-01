@@ -9,9 +9,9 @@ class ApplicationController < ActionController::Base
   # Scrub sensitive parameters from your log
   filter_parameter_logging :password
 
-  before_filter :load_admin_messages_sidebar
   before_filter :load_random_coached_update
   before_filter :load_current_user_statuses
+  before_filter :load_admin_messages_sidebar
   before_filter :load_current_user_restaurants
 
   helper_method :current_user
