@@ -1,14 +1,15 @@
 # == Schema Information
+# Schema version: 20100301222416
 #
 # Table name: admin_messages
 #
-#  id         :integer         not null, primary key
-#  type       :string(255)
-#  sent_at    :datetime
-#  status     :string(255)
-#  message    :text
-#  created_at :datetime
-#  updated_at :datetime
+#  id           :integer         not null, primary key
+#  type         :string(255)
+#  scheduled_at :datetime
+#  status       :string(255)
+#  message      :text
+#  created_at   :datetime
+#  updated_at   :datetime
 #
 
 class Admin::Message < ActiveRecord::Base
@@ -17,6 +18,10 @@ class Admin::Message < ActiveRecord::Base
   has_many :admin_conversations, :class_name => 'Admin::Conversation', :foreign_key => 'admin_message_id', :dependent => :destroy
   has_many :recipients, :through => :admin_conversations
   validates_presence_of :message
+
+  named_scope :current, lambda {
+    {:conditions => ['admin_messages.scheduled_at < ? OR admin_messages.scheduled_at IS NULL', Time.zone.now]}
+  }
 
   include AASM
   aasm_column :status

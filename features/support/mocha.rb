@@ -1,5 +1,7 @@
 require "mocha"
+require "delorean"
 
+World(Delorean)
 World(Mocha::API)
 
 Before do
@@ -10,14 +12,13 @@ After do
   begin
     mocha_verify
   ensure
+    back_to_the_present
     mocha_teardown
   end
 end
 
 # Global Mocks and Stubs
 User.any_instance.stubs(:twitter_username).returns("twitter_username")
-
-require 'email_spec/cucumber'
 
 Spec::Matchers.define :have_avatar do
   match { |user| user.avatar? }

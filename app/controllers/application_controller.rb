@@ -100,8 +100,8 @@ class ApplicationController < ActionController::Base
   def load_admin_messages_sidebar
     return unless current_user && !current_user.media?
     @admin_conversations = current_user.admin_conversations.all(:include => :admin_message, :order => 'created_at DESC')
-    @admin_pr_tips = current_user.pr_tips.all
-    @admin_announcements = current_user.announcements.all
+    @admin_pr_tips = current_user.pr_tips.current
+    @admin_announcements = current_user.announcements.current
   end
 
   def load_random_coached_update
