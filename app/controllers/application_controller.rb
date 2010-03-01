@@ -9,10 +9,7 @@ class ApplicationController < ActionController::Base
   # Scrub sensitive parameters from your log
   filter_parameter_logging :password
 
-  before_filter :load_random_coached_update
-  before_filter :load_current_user_statuses
-  before_filter :load_admin_messages_sidebar
-  before_filter :load_current_user_restaurants
+  before_filter :preload_resources
 
   helper_method :current_user
 
@@ -91,6 +88,13 @@ class ApplicationController < ActionController::Base
       "<li>#{e.humanize unless e == "base"} #{m}</li>"
     end.to_s << '</ul>'
     error_list
+  end
+
+  def preload_resources
+    load_random_coached_update
+    load_current_user_statuses
+    load_admin_messages_sidebar
+    load_current_user_restaurants
   end
 
   def load_admin_messages_sidebar

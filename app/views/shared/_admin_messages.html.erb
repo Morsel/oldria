@@ -1,5 +1,6 @@
 <div class="box admin_messages">
   <h3 class="function-bold">Admin Messages</h3>
+<% unless @admin_messages.blank? %>
   <ul class="fancy-list">
   <% for conversation in @admin_conversations %>
     <% content_tag_for :li, conversation.admin_message do %>
@@ -8,6 +9,7 @@
     <% end -%>
   <% end %>
   </ul>
+<% end -%>
 
 <% unless @admin_announcements.blank? %>
   <h4>Announcements</h4>

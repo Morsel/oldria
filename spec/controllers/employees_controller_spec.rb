@@ -12,6 +12,7 @@ describe EmployeesController do
     @manager.stubs(:managed_restaurants).returns([@restaurant])
     Restaurant.stubs(:find).returns(@restaurant)
     controller.stubs(:current_user).returns(@manager)
+    controller.stubs(:preload_resources)
   end
 
   describe "GET index" do
