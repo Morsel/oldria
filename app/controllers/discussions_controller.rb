@@ -31,7 +31,7 @@ class DiscussionsController < ApplicationController
   private
 
   def load_and_authorize_discussion
-    @discussion = Discussion.find(params[:id], :include => :poster)
+    @discussion = Discussion.find(params[:id])
     unauthorized! if cannot? :read, @discussion
   end
 

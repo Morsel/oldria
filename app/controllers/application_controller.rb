@@ -12,6 +12,7 @@ class ApplicationController < ActionController::Base
   before_filter :load_admin_messages_sidebar
   before_filter :load_random_coached_update
   before_filter :load_current_user_statuses
+  before_filter :load_current_user_restaurants
 
   helper_method :current_user
 
@@ -95,8 +96,8 @@ class ApplicationController < ActionController::Base
   def load_admin_messages_sidebar
     return unless current_user && !current_user.media?
     @admin_conversations = current_user.admin_conversations.all(:include => :admin_message, :order => 'created_at DESC')
-    @admin_pr_tips = current_user.pr_tips
-    @admin_announcements = current_user.announcements
+    @admin_pr_tips = current_user.pr_tips.all
+    @admin_announcements = current_user.announcements.all
   end
 
   def load_random_coached_update
@@ -107,6 +108,12 @@ class ApplicationController < ActionController::Base
   def load_current_user_statuses
     return unless current_user && !current_user.media?
     @current_user_recent_statuses = current_user.statuses.all(:limit => 2)
+  end
+
+  def load_current_user_restaurants
+    return unless current_user && !current_user.media?
+    @current_user_managed_restaurants = current_user.managed_restaurants.all(:include => :media_request_conversations)
+    @current_user_restaurants = current_user.restaurants.all
   end
 
   protected
