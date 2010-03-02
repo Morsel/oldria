@@ -31,7 +31,7 @@ Feature: Admin Messaging
     But I should not see "Reply"
 
 
-  Scenario: Admin Messages can be scheduled
+  Scenario: PR Tips and Announcements can be scheduled
     Given I am logged in as "johndoe"
     And "johndoe" has a PR Tip message with:
       | message      | This is a scheduled message |
@@ -43,4 +43,17 @@ Feature: Admin Messaging
     And I go to the dashboard
     And I follow "PR Tip"
     Then I should see "This is a scheduled message"
-    But I should not see "Reply"
+
+
+  Scenario: Qotds can be scheduled
+    Given I am logged in as "johndoe"
+    And "johndoe" has a QOTD message with:
+      | message      | This is a QOTD      |
+      | scheduled_at | 2010-06-04 11:30:00 |
+    When I go to the dashboard
+    Then I should not see "Question of the Day"
+
+    When the date and time is "2010-06-04 11:45:00"
+    And I go to the dashboard
+    And I follow "Question of the Day"
+    Then I should see "This is a QOTD"
