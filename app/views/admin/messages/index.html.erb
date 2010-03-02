@@ -10,7 +10,7 @@
   <table class="admin_message_table">
     <thead>
       <tr>
-        <th>Created</th>
+        <th>Scheduled</th>
         <th>Message</th>
         <th></th>
         <th></th>
@@ -19,7 +19,7 @@
     <tbody>
       <% @message_groups[message_type] && @message_groups[message_type].each do |message| %>
         <tr class="<%= cycle('odd','even', :name => message_type.title) %>">
-          <td><%= message.created_at.strftime("%m/%d") %></td>
+          <td><%= message.scheduled_at.try(:strftime,"%m/%d") %></td>
           <td><%= link_to message.message, admin_message_path(message) %></td>
           <td class="actions">
             <%= link_to "#{message.reply_count} of #{message.admin_conversations.count} Replies",

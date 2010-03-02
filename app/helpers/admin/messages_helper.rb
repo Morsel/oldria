@@ -1,7 +1,7 @@
 module Admin::MessagesHelper
 
   def date_for_admin_message(message)
-    content_tag(:span, message.updated_at.strftime("%m/%d:"))
+    content_tag(:span, message.scheduled_at.try(:strftime, "%m/%d:"))
   end
 
   def link_for_conversation(conversation)

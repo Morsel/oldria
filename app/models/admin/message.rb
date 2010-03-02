@@ -61,4 +61,5 @@ class Admin::Message < ActiveRecord::Base
   def conversations_without_replies
     admin_conversations.scoped(:conditions => "comments_count < 1", :include => {:recipient => :employee})
   end
+
 end

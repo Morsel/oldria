@@ -42,4 +42,5 @@ describe Admin::Message do
     conversation.comments.create(Factory.attributes_for(:comment))
     qotd.reply_count.should == 1
   end
+
 end
