@@ -18,6 +18,8 @@ class Admin::Conversation < ActiveRecord::Base
     { :joins => :admin_message,
       :conditions => ['admin_messages.scheduled_at < ? OR admin_messages.scheduled_at IS NULL', Time.zone.now]  }
     }
+  named_scope :with_replies, :conditions => "comments_count > 0"
+  named_scope :without_replies, :conditions => "comments_count = 0"
 
   belongs_to :recipient, :class_name => "Employment"
   belongs_to :admin_message, :foreign_key => 'admin_message_id', :class_name => 'Admin::Message'
