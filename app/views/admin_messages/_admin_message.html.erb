@@ -12,7 +12,7 @@
   </p>
   <% if admin_message.holiday_id %>
   <p>
-    <%= admin_message.holiday.try(:name) %> is coming up! Only <%= distance_of_time_in_words(Time.zone.now, admin_message.holiday.date) %> from now!
+    <%= admin_message.holiday.try(:name) %> is coming up! Only <%= distance_of_time_in_words(Date.today, admin_message.holiday.date) %> from now!
   </p>
   <% end -%>
 <% end %>

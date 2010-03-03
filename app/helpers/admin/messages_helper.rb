@@ -5,9 +5,13 @@ module Admin::MessagesHelper
   end
 
   def link_for_conversation(conversation)
-    conversation_type = conversation.admin_message.class.title
+    if conversation.admin_message.respond_to?(:holiday)
+      title = conversation.admin_message.holiday.try(:name)
+    else
+      title = conversation.admin_message.class.title
+    end
     conversation_date = date_for_admin_message(conversation.admin_message)
-    link_to("#{conversation_date} #{conversation_type}", conversation)
+    link_to("#{conversation_date} #{title}", conversation)
   end
 
   def link_for_message(message)
