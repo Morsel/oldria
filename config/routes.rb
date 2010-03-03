@@ -58,6 +58,7 @@ ActionController::Routing::Routes.draw do |map|
     admin.resources :cuisines, :subject_matters, :restaurants
     admin.resources :media_requests, :member => { :approve => :put }
     admin.resources :restaurant_roles, :except => [:show]
+    admin.resources :holidays
 
     # Admin Messaging
     exclusive_routes = [:index, :show, :destroy]
@@ -66,6 +67,7 @@ ActionController::Routing::Routes.draw do |map|
     admin.resources :announcements, :except => exclusive_routes
     admin.resources :pr_tips, :except => exclusive_routes
     admin.resources :trend_questions, :except => exclusive_routes
+    admin.resources :holiday_reminders, :except => exclusive_routes
   end
 
   map.public_page ":id", :controller => 'pages', :action => 'show'

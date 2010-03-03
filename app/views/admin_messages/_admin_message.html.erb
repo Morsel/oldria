@@ -2,9 +2,17 @@
   <h3 class="message_title function-bold">
     <%= date_for_admin_message(admin_message) %>
     <%= admin_message.class.try(:title) %>
+    <% if admin_message.holiday_id %>
+      (<span class="holiday_name"><%= admin_message.holiday.try(:name) %></span>)
+    <% end %>
   </h3>
 
   <p class="message_body">
     <%= admin_message.message %>
   </p>
+  <% if admin_message.holiday_id %>
+  <p>
+    <%= admin_message.holiday.try(:name) %> is coming up! Only <%= distance_of_time_in_words(Time.zone.now, admin_message.holiday.date) %> from now!
+  </p>
+  <% end -%>
 <% end %>

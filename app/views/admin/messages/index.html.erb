@@ -1,6 +1,6 @@
 <% title "Admin Messages" %>
 
-<% [Admin::Qotd, Admin::TrendQuestion, Admin::Announcement, Admin::PrTip].each do |message_type| %>
+<% [Admin::Qotd, Admin::TrendQuestion, Admin::Announcement, Admin::PrTip, Admin::HolidayReminder].each do |message_type| %>
 
 <div class="span-9 <%= cycle('clear', 'last', :name => 'message_types') %> admin_message_section">
   <p>
@@ -12,6 +12,9 @@
       <tr>
         <th>Scheduled</th>
         <th>Message</th>
+        <% if message_type == Admin::HolidayReminder %>
+          <th>Holiday</th>
+        <% end %>
         <th></th>
         <th></th>
       </tr>
@@ -21,6 +24,9 @@
         <tr class="<%= cycle('odd','even', :name => message_type.title) %>">
           <td><%= message.scheduled_at.try(:strftime,"%m/%d") %></td>
           <td><%= link_to message.message, admin_message_path(message) %></td>
+          <% if message.class == Admin::HolidayReminder %>
+            <td><%= message.holiday.try(:name) %></td>
+          <% end %>
           <td class="actions">
             <%= link_to "#{message.reply_count} of #{message.admin_conversations.count} Replies",
                 admin_message_path(message) if message.recipients_can_reply? %>
@@ -35,3 +41,5 @@
 </div>
 
 <% end %>
+
+<p class="clear"><%= link_to "Manage Holidays", admin_holidays_path %></p>

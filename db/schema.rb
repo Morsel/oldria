@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100301222416) do
+ActiveRecord::Schema.define(:version => 20100303185000) do
 
   create_table "account_types", :force => true do |t|
     t.string   "name"
@@ -32,6 +32,7 @@ ActiveRecord::Schema.define(:version => 20100301222416) do
     t.text     "message"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "holiday_id"
   end
 
   create_table "attachments", :force => true do |t|
@@ -206,6 +207,13 @@ ActiveRecord::Schema.define(:version => 20100301222416) do
 
   add_index "followings", ["follower_id"], :name => "index_followings_on_follower_id"
   add_index "followings", ["friend_id"], :name => "index_followings_on_friend_id"
+
+  create_table "holidays", :force => true do |t|
+    t.string   "name"
+    t.date     "date"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "james_beard_regions", :force => true do |t|
     t.string   "name"

@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20100301222416
+# Schema version: 20100303185000
 #
 # Table name: admin_messages
 #
@@ -10,6 +10,7 @@
 #  message      :text
 #  created_at   :datetime
 #  updated_at   :datetime
+#  holiday_id   :integer
 #
 
 class Admin::Announcement < Admin::Message
@@ -21,5 +22,11 @@ class Admin::Announcement < Admin::Message
   # This will add everyone as a recipient
   def broadcast?
     true
+  end
+
+  ##
+  # This will disable commenting (replying)
+  def recipients_can_reply?
+    false
   end
 end

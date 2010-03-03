@@ -1,0 +1,10 @@
+<% title "Holiday: #{@holiday.name}" %>
+
+<p>
+  <strong>Date:</strong>
+  <%=h @holiday.date %>
+</p>
+<p>
+  <%= link_to "Edit", edit_admin_holiday_path(@holiday) %>
+  <%= link_to "View All", admin_holidays_path %>
+</p>

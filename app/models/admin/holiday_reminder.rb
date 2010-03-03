@@ -13,14 +13,10 @@
 #  holiday_id   :integer
 #
 
-require 'spec/spec_helper'
+class Admin::HolidayReminder < Admin::Message
+  belongs_to :holiday
 
-describe Admin::Announcement do
-  it "should set a class-based title of 'Announcement'" do
-    Admin::Announcement.title.should == "Announcement"
-  end
-
-  it "should be considered a broadcast message" do
-    Admin::Announcement.new.should be_broadcast
+  def self.title
+    "Holiday Reminder"
   end
 end
