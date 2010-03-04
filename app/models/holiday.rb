@@ -12,6 +12,11 @@
 
 class Holiday < ActiveRecord::Base
   has_many :admin_holiday_reminders, :class_name => 'Admin::HolidayReminder'
+  accepts_nested_attributes_for :admin_holiday_reminders
   validates_presence_of :name
   validates_presence_of :date
+
+  def reminders_count
+    admin_holiday_reminders.size
+  end
 end

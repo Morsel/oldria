@@ -1,9 +1,18 @@
 <% semantic_form_for [:admin, @holiday] do |form| %>
-	<% form.inputs do %>
-		<%= form.input :name %>
-		<%= form.input :date %>
-	<% end %>
-	<% form.buttons do %>
-		<%= form.commit_button 'Submit' %>
-	<% end %>
+  <% form.inputs do %>
+    <%= form.input :name, :input_html => {:class => 'title span-8'} %>
+    <%= form.input :date %>
+  <% end %>
+
+  <% form.inputs :for => :admin_holiday_reminders do |reminder| -%>
+    <li><h3>Reminder</h3></li>
+    <%= reminder.input :scheduled_at %>
+    <%= reminder.input :message, :input_html => {:rows => 5} %>
+  <% end -%>
+
+  <% unless @holiday.new_record? %>
+  <p><%= link_to "Add a Reminder", new_admin_holiday_reminder_path(:holiday_id => @holiday) %></p>
+  <% end %>
+
+  <p><%= button_tag 'Submit', :class => 'positive' %></p>
 <% end %>

@@ -1,0 +1,21 @@
+<%- if @employments && !@employments.blank? %>
+  <% f.inputs :name => "Recipients" do %>
+    <%= f.input :recipient_ids,
+                :collection => @employments,
+                :as => :check_boxes,
+                :wrapper_html => {:class => 'employment_list checkall'},
+                :label_method => :name_and_restaurant,
+                :label => "Who should receive this?"
+    %>
+  <% end %>
+<% elsif params[:search] %>
+  <p>Oops, we couldn't find anyone by that criteria. Try again.</p>
+<% end -%>
+
+<% f.inputs do %>
+  <%= f.input :scheduled_at %>
+  <%= f.input :message, :as => :text, :input_html => {:class => '', :rows => 8} %>
+  <% unless @holiday %>
+    <%= f.input :holiday %>
+  <% end %>
+<% end %>

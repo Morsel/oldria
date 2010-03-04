@@ -1,7 +1,7 @@
 class Admin::HolidayRemindersController < Admin::AdminController
   def new
     # clean_search_params
-    @holiday_reminder = Admin::HolidayReminder.new
+    @holiday_reminder = Admin::HolidayReminder.new(:holiday_id => params[:holiday_id])
     @search = Employment.search(params[:search])
 
     if params[:search]

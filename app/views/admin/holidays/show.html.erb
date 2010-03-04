@@ -2,9 +2,24 @@
 
 <p>
   <strong>Date:</strong>
-  <%=h @holiday.date %>
+  <%=h @holiday.date.try(:to_s, :long_ordinal) %>
 </p>
+
+<h3>Reminders</h3>
+<% unless @holiday.admin_holiday_reminders.blank? %>
+  <ul>
+  <% @holiday.admin_holiday_reminders.each do |reminder| %>
+    <% content_tag_for :li, reminder do %>
+      <%= reminder.scheduled_at.try(:strftime, "%m/%d:") %>
+      <%= reminder.message %>
+    <% end %>
+  <% end %>
+  </ul>
+<% end %>
+
+<p><%= link_to "Add a Reminder", new_admin_holiday_reminder_path(:holiday_id => @holiday) %></p>
+
 <p>
-  <%= link_to "Edit", edit_admin_holiday_path(@holiday) %>
+  <%= link_to "Edit", edit_admin_holiday_path(@holiday) %> |
   <%= link_to "View All", admin_holidays_path %>
 </p>

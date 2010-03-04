@@ -4,7 +4,7 @@ describe Admin::HolidaysController do
   integrate_views
   before(:each) do
     fake_admin_user
-    Holiday.create!(:name => "Easter")
+    Factory(:holiday)
   end
 
   it "index action should render index template" do

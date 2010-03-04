@@ -29,7 +29,7 @@
           <% end %>
           <td class="actions">
             <%= link_to "#{message.reply_count} of #{message.admin_conversations.count} Replies",
-                admin_message_path(message) if message.recipients_can_reply? %>
+                :controller => 'admin/messages', :action => 'show', :id => message.id if message.recipients_can_reply? %>
           </td>
           <td class="actions edit_link">
             <%= link_to "Edit", edit_polymorphic_path(message) %>

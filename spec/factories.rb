@@ -183,3 +183,8 @@ Factory.define :admin_conversation, :class => Admin::Conversation do |f|
   f.recipient {|c| c.association :employment }
   f.association :admin_message
 end
+
+Factory.define :holiday do |f|
+  f.name "Valentine's Day"
+  f.date Date.today
+end
