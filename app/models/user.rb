@@ -154,11 +154,23 @@ class User < ActiveRecord::Base
   end
 
   def announcements
-    Admin::Announcement.scoped(:order => "updated_at DESC")
+    Admin::Announcement.scoped(:order => "updated_at DESC").current
   end
 
   def pr_tips
-    Admin::PrTip.scoped(:order => "updated_at DESC")
+    Admin::PrTip.scoped(:order => "updated_at DESC").current
+  end
+
+  def unread_pr_tips
+    Admin::PrTip.current.find_unread_by( self )
+  end
+
+  def unread_announcements
+    Admin::Announcement.current.find_unread_by( self )
+  end
+
+  def inbox_messages
+    [admin_conversations.current.all(:include => :admin_message), pr_tips, announcements].flatten.sort_by(&:updated_at).reverse
   end
 
   # For User.to_csv export

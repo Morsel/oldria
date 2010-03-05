@@ -1353,6 +1353,119 @@ ul.mini_menu li {
 	margin: 0;
 }
 
+/* @group inbox */
+
+.inbox_message {
+	border: 1px solid #eaeaea;
+	margin-bottom: 5px;
+	padding: 12px;
+	background: #fff url('../images/message_bg.png') 0 bottom repeat-x;
+	position: relative;
+}
+
+.inbox_message .readit {
+	display: block;
+	position: absolute;
+	right: 10px;
+	top: 10px;
+	height: 12px;
+	width: 12px;
+	background-color: #ddd;
+}
+
+.inbox_message .readit span {
+	display: none;
+}
+
+.inbox_message .message-header {
+	margin-bottom: 1em;
+}
+
+.inbox_message .message-title {
+	text-transform: uppercase;
+	font-size: 1.1em;
+	font-weight: bold;
+	padding: 0;
+	margin: 0;
+}
+
+.inbox_message .message-date {
+	float: right;
+	margin: 0;
+	text-transform: uppercase;
+	color: #999;
+	font: 10px normal verdana, arial, sans-serif;
+}
+
+.inbox_message .icon {
+	width: 30px;
+	height: 30px;
+	background-color: #ccc;
+	border: 1px solid #ccc;
+}
+
+
+.inbox_message .message-actions {
+	margin: 1em 0 0;
+}
+
+.inbox_message .message-actions a {
+	display: block;
+	float: left;
+	padding: 2px 10px;
+	background-color: #ccc;
+	border: 1px solid #ddd;
+	color: #fff;
+	font-weight: bold;
+}
+
+.inbox_message .message-actions a:hover {
+	background-color: #bbb;
+	color: #fff;
+	border-color: #fff;
+}
+
+.inbox_message .behalf {
+	margin: 0 6px;
+	line-height: 24px;
+	color: #999;
+}
+
+/* message type themes */
+.admin_holiday_reminder .icon {   background-color: #D14600 }
+.admin_holiday_reminder .message-title {     color: #D14600 }
+.admin_holiday_reminder .message-actions a { color: #D14600;
+	border-color: #eba;
+	background-color: #f7e3da;
+}
+.admin_holiday_reminder .message-actions a:hover { background-color: #D14600 }
+
+.admin_trend_question .icon {   background-color: #0088C1 }
+.admin_trend_question .message-title {     color: #0088C1 }
+.admin_trend_question .message-actions a { color: #0088C1;
+	border-color: #eba;
+	background-color: #daebf3;
+}
+.admin_trend_question .message-actions a:hover { background-color: #0088C1 }
+
+.admin_qotd .icon {   background-color: #F5911E }
+.admin_qotd .message-title {     color: #F5911E }
+.admin_qotd .message-actions a { color: #F5911E;
+	border-color: #eba;
+	background-color: #f7e3da;
+}
+.admin_qotd .message-actions a:hover { background-color: #F5911E}
+
+.admin_pr_tip .icon {   background-color: #005775 }
+.admin_pr_tip .message-title {     color: #005775 }
+
+.admin_announcement .icon {   background-color: #5B4329 }
+.admin_announcement .message-title {     color: #5B4329 }
+
+
+/* @end */
+
+
 /* @end */
 
 

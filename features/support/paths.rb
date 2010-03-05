@@ -27,6 +27,8 @@ module NavigationHelpers
       feeds_path
     when /^the (edit|choose) (my )?feeds page$/
       edit_feeds_path
+    when /^(my|the)? ?inbox$/
+      inbox_path
 
     # Media-users
     when /^the media( user)? signup page$/

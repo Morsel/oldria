@@ -93,15 +93,7 @@ class ApplicationController < ActionController::Base
   def preload_resources
     load_random_coached_update
     load_current_user_statuses
-    load_admin_messages_sidebar
     load_current_user_restaurants
-  end
-
-  def load_admin_messages_sidebar
-    return unless current_user && !current_user.media?
-    @admin_conversations = current_user.admin_conversations.current.without_replies.all(:include => :admin_message, :order => 'created_at DESC')
-    @admin_pr_tips = current_user.pr_tips.current
-    @admin_announcements = current_user.announcements.current
   end
 
   def load_random_coached_update

@@ -42,5 +42,5 @@ Given(/^"([^\"]*)" has a PR Tip message with:$/) do |username, table|
   data = table.rows_hash
   data['type'] = 'Admin::PrTip'
   Factory(:admin_message, data)
-  User.find_by_username(username).pr_tips.count.should > 0
+  Admin::PrTip.count.should be > 0
 end

@@ -1,5 +1,9 @@
 class InboxesController < ApplicationController
-  def show
-  end
+  before_filter :require_user
 
+  ##
+  # GET /inbox
+  def show
+    @messages = current_user.inbox_messages
+  end
 end
