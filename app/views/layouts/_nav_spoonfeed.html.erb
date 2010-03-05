@@ -1,5 +1,6 @@
 <ul id="sf_nav">
 	<li id="dashboard"><%= link_to "Dashboard", root_url, :class=>'hidden_text' %></li>
+	<li id="messages"><%= link_to "Messages", inbox_path, :class=>'hidden_text' %></li>
 	<li id="welcome"><%= link_to "Welcome", public_page_path("first_time_users"), :class=>'hidden_text' %></li>
 	<li id="profile"><%= link_to "Profile", profile_path(current_user.username), :class=>'hidden_text' %></li>
 	<li id="search"><%= link_to "Search", search_path, :class=>'hidden_text' %></li>

@@ -39,6 +39,8 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :feed_entries, :only => 'show', :member => { :read => :put }
   map.resource :feeds
 
+  map.resource :inbox, :only => 'show'
+
   map.resource :twitter_authorization
   map.resource :friend_timeline, :only => 'show'
   map.resource :friends_statuses, :only => 'show'
