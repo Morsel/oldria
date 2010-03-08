@@ -1,7 +1,6 @@
 <% restaurant = message.recipient.try(:restaurant) if message.respond_to?(:recipient) %>
 <% original_message = message && message = message.admin_message if message.respond_to?(:admin_message) %>
 <% div_for message, :class => 'inbox_message clear clearfix' do %>
-  <a href="#" class="readit"><span>read</span></a>
 
   <div class="span-1">
     <div class="icon">
@@ -10,8 +9,8 @@
   </div>
   <div class="span-10">
     <div class="message-header clearfix">
-      <p class="message-date"><%= message.scheduled_at.try(:strftime, "%B %d, %Y at %I:%M%p") %></p>
       <h4 class="message-title"><%= message.respond_to?(:holiday) ?  message.holiday.name : message.class.title %></h4>
+      <p class="message-date"><%= message.scheduled_at.try(:strftime, "%B %d, %Y at %I:%M%p") %></p>
     </div>
     <div class="message-body">
       <%= message.message %>
@@ -22,6 +21,7 @@
         <small class="behalf"> on behalf of <strong><%= restaurant.try(:name)%></strong></small>
       <% end %>
     </div>
+    <a href="#" class="readit"><span>read</span></a>
   </div>
 <% end %>
 

@@ -1370,7 +1370,7 @@ ul.mini_menu li {
 	top: 10px;
 	height: 12px;
 	width: 12px;
-	background-color: #ddd;
+	background: url('../images/x2.png') no-repeat;
 }
 
 .inbox_message .readit span {
@@ -1386,11 +1386,10 @@ ul.mini_menu li {
 	font-size: 1.1em;
 	font-weight: bold;
 	padding: 0;
-	margin: 0;
+	margin: 0 0 3px;
 }
 
 .inbox_message .message-date {
-	float: right;
 	margin: 0;
 	text-transform: uppercase;
 	color: #999;
