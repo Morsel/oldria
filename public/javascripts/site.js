@@ -228,3 +228,15 @@ $('.feed_entry .summary').hover(function(){
 }).click(function(){
 	window.location = $(this).find('a').attr('href');
 });
+
+// == Inbox
+$(".inbox_message .readit").click(function(){
+  var $message = $(this).parents('.inbox_message');
+  var messageId = $message.attr('id').match(/\d+$/g);
+  $.post("/admin_messages/" + messageId + "/read", "_method=put", null);  
+  $message.fadeOut(300, function(){
+    $message.remove();
+  });
+  return false;
+});
+

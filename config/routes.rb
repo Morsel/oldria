@@ -34,12 +34,12 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :admin_conversations, :only => 'show' do |admin_conversations|
     admin_conversations.resources :comments, :only => [:new, :create]
   end
-  map.resources :admin_messages, :only => 'show'
+  map.resources :admin_messages, :only => 'show', :member => { :read => :put }
+  map.resource :inbox, :only => 'show'
 
   map.resources :feed_entries, :only => 'show', :member => { :read => :put }
   map.resource :feeds
 
-  map.resource :inbox, :only => 'show'
 
   map.resource :twitter_authorization
   map.resource :friend_timeline, :only => 'show'
