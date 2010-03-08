@@ -12,6 +12,7 @@
     <% content_tag_for :li, reminder do %>
       <%= reminder.scheduled_at.try(:strftime, "%m/%d:") %>
       <%= reminder.message %>
+      <span class="edit_link"><%= link_to "edit", edit_admin_holiday_reminder_path(reminder) %></span>
     <% end %>
   <% end %>
   </ul>

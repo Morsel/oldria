@@ -19,4 +19,16 @@ module Admin::MessagesHelper
     message_date = date_for_admin_message(message)
     link_to("#{message_date} #{message_type}", admin_message_path(message))
   end
+
+  def admin_message_action_links(message)
+    return '' unless message && message.scheduled_at && message.recipients_can_reply?
+
+    if message.current?
+      link_text = "#{message.reply_count} of #{message.admin_conversations.count} Replies"
+    else
+      link_text = "scheduled"
+    end
+    link_to(link_text, :controller => 'admin/messages', :action => 'show', :id => message.id)
+  end
+
 end

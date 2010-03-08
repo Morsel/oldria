@@ -23,13 +23,14 @@
       <% @message_groups[message_type] && @message_groups[message_type].each do |message| %>
         <tr class="<%= cycle('odd','even', :name => message_type.title) %>">
           <td><%= message.scheduled_at.try(:strftime,"%m/%d") %></td>
-          <td><%= link_to message.message, admin_message_path(message) %></td>
-          <% if message.class == Admin::HolidayReminder %>
-            <td><%= message.holiday.try(:name) %></td>
-          <% end %>
+          <td><%= link_to message.message, edit_polymorphic_path(message) %></td>
+
+          <%- if message.class == Admin::HolidayReminder %>
+            <td><%= link_to message.holiday.try(:name), [:admin, message.holiday] %></td>
+          <% end -%>
+
           <td class="actions">
-            <%= link_to "#{message.reply_count} of #{message.admin_conversations.count} Replies",
-                :controller => 'admin/messages', :action => 'show', :id => message.id if message.recipients_can_reply? %>
+            <%= admin_message_action_links(message) %>
           </td>
           <td class="actions edit_link">
             <%= link_to "Edit", edit_polymorphic_path(message) %>

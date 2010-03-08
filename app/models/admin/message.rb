@@ -52,6 +52,10 @@ class Admin::Message < ActiveRecord::Base
     true
   end
 
+  def current?
+    scheduled_at < Time.zone.now
+  end
+
   def reply_count
     conversations_with_replies.count
   end
