@@ -1,6 +1,6 @@
 <% title "Admin Messages" %>
 
-<% [Admin::Qotd, Admin::TrendQuestion, Admin::Announcement, Admin::PrTip, Admin::HolidayReminder].each do |message_type| %>
+<% [Admin::Qotd, Admin::TrendQuestion, Admin::Announcement, Admin::PrTip, Admin::ContentRequest, Admin::HolidayReminder].each do |message_type| %>
 
 <div class="span-9 <%= cycle('clear', 'last', :name => 'message_types') %> admin_message_section">
   <p>

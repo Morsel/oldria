@@ -1,5 +1,9 @@
 <% restaurant = message.recipient.try(:restaurant) if message.respond_to?(:recipient) %>
-<% original_message = message && message = message.admin_message if message.respond_to?(:admin_message) %>
+<% if message.respond_to?(:admin_message)
+  reply_link = admin_conversation_path(message)
+  original_message = message
+  message = message.admin_message
+end %>
 <% div_for message, :class => 'inbox_message clear clearfix' do %>
 
   <div class="span-1">
@@ -19,7 +23,7 @@
       <%= message.message %>
     </div>
     <div class="message-actions">
-      <%= link_to "Reply", admin_conversation_path(original_message) if original_message %>
+      <%= link_to "Reply", reply_link if original_message %>
       <% if restaurant %>
         <small class="behalf"> on behalf of <strong><%= restaurant.try(:name)%></strong></small>
       <% end %>

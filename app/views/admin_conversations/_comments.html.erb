@@ -6,9 +6,15 @@
 <% end %>
 <hr class="space"/>
 
-<% semantic_form_for @comment_resource do |f| %>
+<% semantic_form_for @comment_resource, :html => { :multipart => true } do |f| %>
   <% f.inputs do %>
     <%= f.input :comment, :label => 'Reply', :input_html => { :rows => 8 } %>
+
+    <% f.fields_for :attachments do |child_form| -%>
+      <%= child_form.label :attachment, "Attachment(s)" %>
+      <p class="attachfield"><%= child_form.file_field :attachment %></p>
+    <% end -%>
+
   <% end %>
 
   <p class="clearfix"><%= button_tag "Send" %></p>

@@ -68,4 +68,7 @@ class Admin::Message < ActiveRecord::Base
     admin_conversations.scoped(:conditions => "comments_count < 1", :include => {:recipient => :employee})
   end
 
+  def attachments_allowed?
+    false
+  end
 end
