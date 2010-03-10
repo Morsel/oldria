@@ -79,6 +79,13 @@ namespace :db do
   end
 end
 
+namespace :sync do
+  desc "Sync down system folder (avatars)"
+  task :avatars do
+    system("rsync -auvz #{user}@#{application}:#{shared_path}/system public/")
+  end
+end
+
 after "deploy:symlink", "deploy:update_crontab"
 after 'deploy:update_code', 'deploy:symlink_shared'
 
