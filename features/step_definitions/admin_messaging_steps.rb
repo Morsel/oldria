@@ -9,7 +9,7 @@ When(/^I create a new QOTD with:$/)do |table|
   click_button :submit
 end
 
-Then(/^I should see list of (QOTD|Announcement)s$/) do |klass|
+Then(/^I should see list of (QOTD|Announcement|Holiday)s$/) do |klass|
   response.should contain(klass)
   response.should have_selector('table')
 end

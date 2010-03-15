@@ -29,7 +29,7 @@ Feature: Admin Messaging
     Then I should see "Never burn a burn notice"
     But I should not see "Reply"
 
-@focus
+
   Scenario: Content Requests have replies with attachments
     Given I am logged in as "johndoe"
     And "johndoe" has a Content Request message with:
@@ -42,7 +42,7 @@ Feature: Admin Messaging
     And I attach an avatar "headshot.jpg" to "Attachment"
     And I press "Send"
     Then I should see "Successfully created"
- 
+
 
   Scenario: PR Tips and Announcements can be scheduled
     Given I am logged in as "johndoe"
@@ -66,7 +66,7 @@ Feature: Admin Messaging
     When I go to my inbox
     Then I should not see "Question of the Day"
     And I should not see "This is a QOTD"
-    
+
     When the date and time is "2010-06-04 11:45:00"
     And I go to my inbox
     Then I should see "This is a QOTD"
