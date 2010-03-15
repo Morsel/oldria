@@ -35,7 +35,7 @@ ActionController::Routing::Routes.draw do |map|
     admin_conversations.resources :comments, :only => [:new, :create]
   end
   map.resources :admin_messages, :only => 'show', :member => { :read => :put }
-  map.resource :inbox, :only => 'show'
+  map.resource :inbox, :only => 'show', :collection => {:archive => :get}
 
   map.resources :feed_entries, :only => 'show', :member => { :read => :put }
   map.resource :feeds

@@ -176,6 +176,13 @@ class User < ActiveRecord::Base
     ].flatten.sort_by(&:updated_at).reverse
   end
 
+  def archived_messages
+    [ admin_conversations.current.find_read_by(self),
+      Admin::Announcement.current.find_read_by(self),
+      Admin::PrTip.current.find_read_by(self)
+    ].flatten.sort_by(&:updated_at).reverse
+  end
+
   # For User.to_csv export
   def export_columns(format = nil)
     %w[username first_name last_name email]

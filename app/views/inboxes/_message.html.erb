@@ -1,10 +1,11 @@
 <% restaurant = message.recipient.try(:restaurant) if message.respond_to?(:recipient) %>
+<% archive ||= false %>
 <% if message.respond_to?(:admin_message)
   reply_link = admin_conversation_path(message)
   original_message = message
   message = message.admin_message
 end %>
-<% div_for message, :class => 'inbox_message clear clearfix' do %>
+<% div_for message, :class => "inbox_message clear clearfix#{ ' archived' if archive}" do %>
 
   <div class="span-1">
     <div class="icon">
@@ -22,13 +23,16 @@ end %>
     <div class="message-body">
       <%= message.message %>
     </div>
+    <% unless archive %>
     <div class="message-actions">
       <%= link_to "Reply", reply_link if original_message %>
       <% if restaurant %>
         <small class="behalf"> on behalf of <strong><%= restaurant.try(:name)%></strong></small>
       <% end %>
     </div>
-    <a href="#" class="readit"><span>read</span></a>
+
+      <a href="#" class="readit"><span>read</span></a>
+    <% end %>
   </div>
 <% end %>
 

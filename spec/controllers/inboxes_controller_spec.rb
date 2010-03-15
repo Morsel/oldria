@@ -6,9 +6,16 @@ describe InboxesController do
     fake_normal_user
   end
 
-  describe "GET 'show'" do
+  describe "GET show" do
     it "should be successful" do
       get :show
+      response.should be_success
+    end
+  end
+
+  describe "GET archive" do
+    it "should be successful" do
+      get :archive
       response.should be_success
     end
   end

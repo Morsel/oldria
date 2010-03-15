@@ -6,4 +6,11 @@ class InboxesController < ApplicationController
   def show
     @messages = current_user.inbox_messages
   end
+
+  ##
+  # GET /inbox/archive
+  def archive
+    @messages = current_user.archived_messages
+  end
+
 end
