@@ -25,7 +25,7 @@ end %>
     </div>
     <% unless archive %>
     <div class="message-actions">
-      <%= link_to "Reply", reply_link if original_message %>
+      <%= reply_link_for_message(original_message) %>
       <% if restaurant %>
         <small class="behalf"> on behalf of <strong><%= restaurant.try(:name)%></strong></small>
       <% end %>
