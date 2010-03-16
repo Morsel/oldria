@@ -24,6 +24,8 @@ class CommentsController < ApplicationController
       @parent = Discussion.find(params[:discussion_id])
     elsif params[:admin_conversation_id]
       @parent = Admin::Conversation.find(params[:admin_conversation_id])
+    elsif params[:holiday_conversation_id]
+      @parent = HolidayConversation.find(params[:holiday_conversation_id])
     end
   end
 end

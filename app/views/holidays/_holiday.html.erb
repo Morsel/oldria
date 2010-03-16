@@ -1,0 +1,11 @@
+<% div_for holiday do %>
+  <h3 class="message_title function-bold">
+    <%= holiday.date.strftime("%m/%d:") %>
+    <%= holiday.name %>
+    (<span class="holiday_name"><%= holiday.try(:name) %></span>)
+  </h3>
+
+  <p>
+    <%= holiday.try(:name) %> is coming up! Only <%= distance_of_time_in_words(Date.today, holiday.date) %> from now!
+  </p>
+<% end %>

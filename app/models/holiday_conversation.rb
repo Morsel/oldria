@@ -14,4 +14,7 @@
 class HolidayConversation < ActiveRecord::Base
   belongs_to :holiday
   belongs_to :recipient, :class_name => "Employment"
+  acts_as_commentable
+  acts_as_readable
+
 end

@@ -1,6 +1,4 @@
 ActionController::Routing::Routes.draw do |map|
-  map.resources :holiday_conversations
-
   map.signup 'signup', :controller => 'users', :action => 'new'
   map.login  'login',  :controller => 'user_sessions', :action => 'new'
   map.logout 'logout', :controller => 'user_sessions', :action => 'destroy'
@@ -32,6 +30,11 @@ ActionController::Routing::Routes.draw do |map|
   end
 
   map.resources :user_sessions, :password_resets, :followings, :pages, :direct_messages
+
+
+  map.resources :holiday_conversations, :only => 'show' do |holiday_conversations|
+    holiday_conversations.resources :comments, :only => [:new, :create]
+  end
 
   map.resources :admin_conversations, :only => 'show' do |admin_conversations|
     admin_conversations.resources :comments, :only => [:new, :create]

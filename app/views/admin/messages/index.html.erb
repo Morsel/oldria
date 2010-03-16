@@ -12,9 +12,7 @@
       <tr>
         <th>Scheduled</th>
         <th>Message</th>
-        <% if message_type == Admin::HolidayReminder %>
-          <th>Holiday</th>
-        <% end %>
+        <th><%= "Holiday" if message_type == Admin::HolidayReminder %></th>
         <th></th>
         <th></th>
       </tr>
@@ -27,11 +25,11 @@
 
           <%- if message.respond_to?(:holiday) and message.holiday.present? %>
             <td><%= link_to message.holiday.try(:name), [:admin, message.holiday] %></td>
-          <% end -%>
-
+          <% else %>
           <td class="actions">
             <%= admin_message_action_links(message) %>
           </td>
+          <% end -%>
           <td class="actions edit_link">
             <%= link_to "Edit", edit_polymorphic_path(message) %>
           </td>
