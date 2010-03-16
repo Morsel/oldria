@@ -1,0 +1,20 @@
+<% title "Holiday Conversation" %>
+
+<p>
+	<strong>Recipient:</strong>
+	<%=h @holiday_conversation.recipient_id %>
+</p>
+<p>
+	<strong>Holiday:</strong>
+	<%=h @holiday_conversation.holiday_id %>
+</p>
+<p>
+	<strong>Comments Count:</strong>
+	<%=h @holiday_conversation.comments_count %>
+</p>
+
+<p>
+	<%= link_to "Edit", edit_holiday_conversation_path(@holiday_conversation) %> |
+	<%= link_to "Destroy", @holiday_conversation, :confirm => 'Are you sure?', :method => :delete %> |
+	<%= link_to "View All", holiday_conversations_path %>
+</p>

@@ -16,6 +16,13 @@
 class Admin::HolidayReminder < Admin::Message
   belongs_to :holiday
 
+  before_create :copy_recipients
+
+  def copy_recipients
+    return if holiday.blank?
+    self.recipient_ids = holiday.recipient_ids
+  end
+
   def self.title
     "Holiday Reminder"
   end

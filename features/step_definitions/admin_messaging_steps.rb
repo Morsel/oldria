@@ -2,6 +2,32 @@ Given(/^there are no (?:QOTDs|Admin Messages)(?: in the system)?$/) do
   Admin::Message.destroy_all
 end
 
+Given /^a holiday exists named "([^\"]*)" and recipients:$/ do |holidayname, table|
+  holiday = Factory(:holiday, :name => holidayname)
+
+  table.hashes.each do |hash|
+    if employee = Employment.employee_email_eq(hash['email']).first
+      holiday.recipients << employee
+    end
+  end
+
+  holiday.save
+  holiday.recipients.count.should == table.hashes.size
+end
+
+When /^I create a new reminder for holiday "([^\"]*)" with:$/ do |holidayname, table|
+  holiday = Holiday.find_by_name(holidayname)
+  visit new_admin_holiday_reminder_path, :get, :holiday_id => holiday.id
+  
+  table.rows_hash.each do |field, value|
+    fill_in field, :with => value
+  end
+  
+  click_button
+  
+  holiday.admin_holiday_reminders.count.should be > 0
+end
+
 When(/^I create a new QOTD with:$/)do |table|
   data = table.rows_hash
   visit new_admin_qotd_path
@@ -50,3 +76,10 @@ Given(/^"([^\"]*)" has a PR Tip message with:$/) do |username, table|
   Factory(:admin_message, data)
   Admin::PrTip.count.should be > 0
 end
+
+Then /^"([^\"]*)" should be subscribed to the holiday "([^\"]*)"$/ do |username, holidayname|
+  holiday = Holiday.find_by_name!(holidayname)
+  user = User.find_by_username!(username)
+  holiday.recipients.first.employee_name.should == user.name
+end
+

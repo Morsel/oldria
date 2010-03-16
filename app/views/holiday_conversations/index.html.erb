@@ -1,0 +1,20 @@
+<% title "Holiday Conversations" %>
+
+<table>
+	<tr>
+		<th>Recipient</th>
+		<th>Holiday</th>
+		<th>Comments Count</th>
+	</tr>
+	<% for holiday_conversation in @holiday_conversations %>
+	<tr>
+		<td><%=h holiday_conversation.recipient_id %></td>
+		<td><%=h holiday_conversation.holiday_id %></td>
+		<td><%=h holiday_conversation.comments_count %></td>
+		<td><%= link_to "Show", holiday_conversation %></td>
+		<td><%= link_to "Edit", edit_holiday_conversation_path(holiday_conversation) %></td>
+		<td><%= link_to "Destroy", holiday_conversation, :confirm => 'Are you sure?', :method => :delete %></td>
+	</tr>
+	<% end %>
+</table>
+<p><%= link_to "New Holiday Conversation", new_holiday_conversation_path %></p>

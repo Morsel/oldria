@@ -1,4 +1,5 @@
 # == Schema Information
+# Schema version: 20100316193326
 #
 # Table name: users
 #
@@ -12,6 +13,7 @@
 #  created_at            :datetime
 #  updated_at            :datetime
 #  confirmed_at          :datetime
+#  last_request_at       :datetime
 #  atoken                :string(255)
 #  asecret               :string(255)
 #  account_type_id       :integer
@@ -23,7 +25,6 @@
 #  last_name             :string(255)
 #  james_beard_region_id :integer
 #  publication           :string(255)
-#  last_request_at       :datetime
 #  role                  :string(255)
 #
 

@@ -25,7 +25,7 @@
           <td><%= message.scheduled_at.try(:strftime,"%m/%d") %></td>
           <td><%= link_to message.message, edit_polymorphic_path(message) %></td>
 
-          <%- if message.class == Admin::HolidayReminder %>
+          <%- if message.respond_to?(:holiday) and message.holiday.present? %>
             <td><%= link_to message.holiday.try(:name), [:admin, message.holiday] %></td>
           <% end -%>
 

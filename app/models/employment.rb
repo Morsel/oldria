@@ -21,6 +21,8 @@ class Employment < ActiveRecord::Base
   has_many :media_requests, :through => :media_request_conversations
   has_many :admin_conversations, :class_name => 'Admin::Conversation', :foreign_key => 'recipient_id'
   has_many :admin_messages, :through => :admin_conversations, :class_name => 'Admin::Message'
+  has_many :holiday_conversations, :foreign_key => 'recipient_id', :dependent => :destroy
+  has_many :holidays, :through => :holiday_conversations
 
   accepts_nested_attributes_for :employee
 

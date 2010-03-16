@@ -15,7 +15,9 @@
 <% f.inputs do %>
   <%= f.input :scheduled_at %>
   <%= f.input :message, :as => :text, :input_html => {:class => '', :rows => 8} %>
-  <% unless @holiday %>
+  <% if @holiday_reminder.holiday %>
+    <%= f.hidden_field :holiday_id %>
+  <% else %>
     <%= f.input :holiday %>
   <% end %>
 <% end %>

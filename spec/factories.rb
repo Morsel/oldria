@@ -179,6 +179,11 @@ Factory.define :admin_message, :class => Admin::Message do |f|
   f.message "This is an admin message"
 end
 
+Factory.define :holiday_reminder, :class => Admin::HolidayReminder do |f|
+  f.message "This is a holiday reminder"
+  f.association :holiday
+end
+
 Factory.define :admin_conversation, :class => Admin::Conversation do |f|
   f.recipient {|c| c.association :employment }
   f.association :admin_message
@@ -187,4 +192,9 @@ end
 Factory.define :holiday do |f|
   f.name "Valentine's Day"
   f.date Date.today
+end
+
+Factory.define :holiday_conversation do |f|
+  f.association :recipient, :factory => :employment
+  f.association :holiday
 end

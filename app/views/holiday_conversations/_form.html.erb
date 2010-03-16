@@ -1,0 +1,16 @@
+<% form_for @holiday_conversation do |f| %>
+  <%= f.error_messages %>
+  <p>
+    <%= f.label :recipient_id %><br />
+    <%= f.text_field :recipient_id %>
+  </p>
+  <p>
+    <%= f.label :holiday_id %><br />
+    <%= f.text_field :holiday_id %>
+  </p>
+  <p>
+    <%= f.label :comments_count %><br />
+    <%= f.text_field :comments_count %>
+  </p>
+  <p><%= f.submit "Submit" %></p>
+<% end %>

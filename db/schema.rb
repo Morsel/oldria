@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100303185000) do
+ActiveRecord::Schema.define(:version => 20100316193326) do
 
   create_table "account_types", :force => true do |t|
     t.string   "name"
@@ -205,6 +205,14 @@ ActiveRecord::Schema.define(:version => 20100303185000) do
 
   add_index "followings", ["follower_id"], :name => "index_followings_on_follower_id"
   add_index "followings", ["friend_id"], :name => "index_followings_on_friend_id"
+
+  create_table "holiday_conversations", :force => true do |t|
+    t.integer  "recipient_id"
+    t.integer  "holiday_id"
+    t.integer  "comments_count", :default => 0, :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "holidays", :force => true do |t|
     t.string   "name"
