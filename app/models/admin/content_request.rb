@@ -21,4 +21,8 @@ class Admin::ContentRequest < Admin::Message
   def attachments_allowed?
     true
   end
+
+  def inbox_title
+    message
+  end
 end

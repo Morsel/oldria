@@ -15,7 +15,7 @@ end %>
   <div class="span-10">
     <div class="message-header clearfix">
       <h4 class="message-title">
-        <%= message.respond_to?(:holiday) ?  message.holiday.name : message.class.title %>
+        <%= message.inbox_title %>
         <%= "(#{restaurant.name})" if restaurant %>
       </h4>
       <p class="message-date"><%= message.scheduled_at.try(:strftime, "%B %d, %Y at %I:%M%p") %></p>

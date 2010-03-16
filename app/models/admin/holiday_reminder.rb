@@ -26,4 +26,8 @@ class Admin::HolidayReminder < Admin::Message
   def self.title
     "Holiday Reminder"
   end
+
+  def inbox_title
+    holiday && holiday.name
+  end
 end
