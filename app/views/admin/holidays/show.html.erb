@@ -17,8 +17,30 @@
   <% end %>
   </ul>
 <% end %>
-
 <p><%= link_to "Add a Reminder", new_admin_holiday_reminder_path(:holiday_id => @holiday) %></p>
+
+
+<div id="holiday_have_replied" class="span-9 holiday_conversations_list">
+  <div class="admin_messages_header">
+    <span class="indicator"></span>
+    <h3>Replied (<%= @holiday.reply_count %>)</h3>
+  </div>
+  <table>
+    <%= render @holiday.holiday_conversations.with_replies %>
+  </table>
+</div>
+
+<div id="holiday_have_not_replied" class="span-9 last holiday_conversations_list">
+  <div class="admin_messages_header">
+    <span class="indicator"></span>
+    <h3>Have Not Replied (<%= @holiday.holiday_conversations.without_replies.count %>)</h3>
+  </div>
+
+  <table>
+    <%= render @holiday.holiday_conversations.without_replies %>
+  </table>
+</div>
+
 
 <p>
   <%= link_to "Edit", edit_admin_holiday_path(@holiday) %> |

@@ -1,0 +1,16 @@
+<tr class="holiday_conversation_recipient <%= cycle('odd', 'even', :name => 'conversation_row') %>">
+  <td>
+    <%= holiday_conversation.recipient.employee_name %>
+    (<%= holiday_conversation.recipient.restaurant_name %>)
+  </td>
+
+  <%- if holiday_conversation.comments_count > 0 -%>
+  <td>
+    <%= link_to pluralize(holiday_conversation.comments_count, "comment"), holiday_conversation %>
+  </td>
+  <%- end -%>
+
+  <td class="actions">
+    <%= link_to "Direct&nbsp;Message", new_user_direct_message_path(holiday_conversation.recipient.employee) %>
+  </td>
+</tr>

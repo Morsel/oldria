@@ -3,6 +3,13 @@
 <p class="clearfix"><%= link_to "New Holiday", new_admin_holiday_path, :class => 'positive button' %></p>
 
 <% table_for(@holidays) do |t| %>
-  <%= t.data :name, :date, :reminders_count, :actions => :all, :action_prefix => 'admin' %>
+  <% t.data :actions => :all, :action_prefix => 'admin' do
+      t.cell :name
+      t.cell :date
+      t.cell :reminders_count, :heading => 'Reminders'
+      t.cell :reply_count, :heading => '', :cell_html => {:class => 'actions'} do |h|
+        holiday_reply_count_link(h)
+      end
+    end %>
 <% end %>
 

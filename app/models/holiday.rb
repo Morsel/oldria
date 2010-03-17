@@ -22,4 +22,8 @@ class Holiday < ActiveRecord::Base
   def reminders_count
     admin_holiday_reminders.size
   end
+
+  def reply_count
+    holiday_conversations.with_replies.count
+  end
 end
