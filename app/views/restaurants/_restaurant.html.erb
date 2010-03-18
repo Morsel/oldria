@@ -1,5 +1,16 @@
-<% div_for restaurant do %>
-  <%= image_tag 'avatar_restaurant.gif', :width=>'100' %>
-  <h2 class="function-bold"><%= restaurant.name %></h2>
-  <p><%= restaurant.address_parts.join("<br />") %></p>
-<% end -%>
+<% div_for restaurant, :class => 'clearfix' do %>
+  <h2 class="function-bold">
+    <%= restaurant.name %>
+    (<%= restaurant.city %>)
+  </h2>
+
+  <ul class="employees">
+    <% restaurant.employments.each do |employment| %>
+      <% user = employment.employee %>
+      <% content_tag_for(:li, user) do %>
+        <%= link_to image_tag(user.avatar.url(:thumb)), profile_path(user.username) %>
+        <%= link_to "#{user.name}, #{employment.restaurant_role.try(:name)}", profile_path(user.username) %>
+      <% end %>
+    <% end %>
+  </ul>
+<% end %>

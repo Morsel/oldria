@@ -838,6 +838,45 @@ div.restaurant {
 }
 
 
+#directory .restaurant {
+	margin-bottom: 1em;
+	padding-bottom: 1em;
+	border-bottom: 1px dashed #ddd;
+}
+
+.restaurant .employees {
+	margin: 1em 0 0 1em;
+}
+
+.restaurant .user {
+	padding: 0;
+	border: 0;
+	margin: 0 0 10px;
+	list-style: none;
+	display: inline;
+	float: left;
+	width: 310px;
+	vertical-align: 1em;
+}
+
+.restaurant .user a {
+	padding: 0;
+	background: none;
+	margin: 0;
+	display: inline;
+}
+
+.restaurant .user img {
+	width: 25px;
+	height: 25px;
+	vertical-align: bottom;
+}
+
+#directory .pagination {
+	margin-bottom: 1em;
+	text-align: center;
+}
+
 /* @end */
 
 

@@ -1,5 +1,7 @@
 <% title "User Directory" %>
 
-<%= render @restaurants %>
+<div id="directory">
+  <%= render @restaurants %>
+  <%= will_paginate @restaurants %>
+</div>
 
-<%= will_paginate @restaurants %>
