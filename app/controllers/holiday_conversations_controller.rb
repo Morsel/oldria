@@ -3,6 +3,7 @@ class HolidayConversationsController < ApplicationController
 
   def show
     load_and_authorize_holiday_conversation
+    @comments = @holiday_conversation.comments.all(:include => :user).reject(&:new_record?)
     build_comment
   end
 
