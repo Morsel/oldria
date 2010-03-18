@@ -38,6 +38,10 @@ class Restaurant < ActiveRecord::Base
 
   after_validation_on_create :add_manager_as_employee
 
+  # For pagination
+  cattr_reader :per_page
+  @@per_page = 10
+
   def name_and_location
     [name, city, state].reject(&:blank?).join(", ")
   end

@@ -4,6 +4,8 @@ ActionController::Routing::Routes.draw do |map|
   map.logout 'logout', :controller => 'user_sessions', :action => 'destroy'
   map.confirm 'confirm/:id', :controller => 'users', :action => 'confirm'
 
+  map.directory 'directory', :controller => 'directory', :action => 'index'
+
   map.profile 'profile/:username', :controller => 'users', :action => 'show'
 
   map.resources :media_users, :except => [:index, :show]

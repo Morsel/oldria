@@ -1,0 +1,5 @@
+<% div_for restaurant do %>
+  <%= image_tag 'avatar_restaurant.gif', :width=>'100' %>
+  <h2 class="function-bold"><%= restaurant.name %></h2>
+  <p><%= restaurant.address_parts.join("<br />") %></p>
+<% end -%>
