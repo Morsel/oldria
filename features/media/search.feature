@@ -1,4 +1,4 @@
-@media @mediarequest
+@media @mediarequest @search
 Feature: Media faceted member search
   In order to find people to send things to
   As a Media member

@@ -1,3 +1,4 @@
+@following
 Feature: Follow a SpoonFeed member, See who's following me
   So that I can increase my social network at SF
   As a SpoonFeed member
@@ -9,19 +10,14 @@ Feature: Follow a SpoonFeed member, See who's following me
 
   Background:
     And the following user records:
-    | username  | email              | name           | password |
-    | friendly  | friend@example.com | John Appleseed | secret   |
-    | otherguy  | otherguy@msn.com   | Sarah Cooper   | secret   |
+    | username | email              | name           | password |
+    | friendly | friend@example.com | John Appleseed | secret   |
+    | otherguy | otherguy@msn.com   | Sarah Cooper   | secret   |
     Given I am logged in as "friendly" with password "secret"
 
 
   Scenario: Find someone and follow them
-    Given I am on the homepage
-    When I follow "Search"
-    And I fill in "First Name" with "Sarah"
-    And I press "Search"
-    Then I should see "Sarah Cooper"
-
+    Given I am on the profile page for "otherguy"
     When I follow "follow this user"
     Then I should see "You are now following Sarah Cooper"
     And "friendly" should be following 1 user
@@ -36,21 +32,14 @@ Feature: Follow a SpoonFeed member, See who's following me
 
 
   Scenario: You can't follow yourself
-    Given I am on the homepage
-    When I follow "Search"
-    And I fill in "Username" with "friendly"
-    And I press "Search"
-    Then I should see "John Appleseed"
-
-    When I follow "follow this user"
-    Then I should see "You can't follow yourself"
-    And "friendly" should be following 0 users
+    Given I am on the profile page for "friendly"
+    Then I should not see "follow this user"
 
 
   Scenario: Listing followers
     Given "friendly" is following "otherguy"
     When I am on the profile page for "otherguy"
-    And I should see "John Appleseed"
+    Then I should see "John Appleseed"
 
 
   Scenario: Viewing Friends Activity
