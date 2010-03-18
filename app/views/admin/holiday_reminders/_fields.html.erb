@@ -1,16 +1,16 @@
-<%- if @employments && !@employments.blank? %>
+<% if @holiday_reminder.holiday && action_name == 'new' %>
   <% f.inputs :name => "Recipients" do %>
     <%= f.input :recipient_ids,
-                :collection => @employments,
+                :collection => @holiday_reminder.holiday.recipients,
+                # :selected => @holiday_reminder.recipient_ids,
                 :as => :check_boxes,
                 :wrapper_html => {:class => 'employment_list checkall'},
                 :label_method => :name_and_restaurant,
-                :label => "Who should receive this?"
+                :label => "Who should receive this?",
+                :hint => "The folks listed are from the Holiday's master recipient list"
     %>
-  <% end %>
-<% elsif params[:search] %>
-  <p>Oops, we couldn't find anyone by that criteria. Try again.</p>
-<% end -%>
+  <% end -%>
+<% end %>
 
 <% f.inputs do %>
   <%= f.input :scheduled_at %>

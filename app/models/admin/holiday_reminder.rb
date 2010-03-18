@@ -19,7 +19,7 @@ class Admin::HolidayReminder < Admin::Message
   before_create :copy_recipients
 
   def copy_recipients
-    return if holiday.blank?
+    return if holiday.blank? || recipient_ids.present?
     self.recipient_ids = holiday.recipient_ids
   end
 

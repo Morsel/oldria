@@ -4,7 +4,7 @@
 
 <div class="span-9 <%= cycle('clear', 'last', :name => 'message_types') %> admin_message_section">
   <p>
-    <%= link_to (image_tag("plus.png") + "New #{message_type.title}"), new_polymorphic_path(message_type.new), :class => 'button positive' %>
+    <%= link_to (image_tag("plus.png") + "New #{message_type.title}"), new_polymorphic_path(message_type.new), :class => 'button positive' unless message_type == Admin::HolidayReminder%>
   </p>
   <h3><%= message_type.shorttitle %>s</h3>
   <table class="admin_message_table">

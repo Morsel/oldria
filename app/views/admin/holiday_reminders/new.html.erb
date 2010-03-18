@@ -1,4 +1,7 @@
 <% title "New Holiday Reminder" %>
+<% if @holiday_reminder.holiday %>
+  <h3><%= @holiday_reminder.holiday.try(:name) %></h3>
+<% end %>
 
 <%= render :partial => 'form' %>
 
