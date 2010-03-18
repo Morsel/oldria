@@ -8,7 +8,7 @@ class Admin::HolidayRemindersController < Admin::AdminController
     @holiday_reminder = Admin::HolidayReminder.new(params[:admin_holiday_reminder])
     if @holiday_reminder.save
       flash[:notice] = "Successfully created Holiday Reminder"
-      redirect_to admin_messages_path
+      redirect_to (@holiday_reminder.holiday ? [:admin, @holiday_reminder.holiday] : admin_messages_path)
     else
       render :new
     end
@@ -22,7 +22,7 @@ class Admin::HolidayRemindersController < Admin::AdminController
     @holiday_reminder = Admin::HolidayReminder.find(params[:id])
     if @holiday_reminder.update_attributes(params[:admin_holiday_reminder])
       flash[:notice] = "Successfully updated Holiday Reminder"
-      redirect_to admin_messages_path
+      redirect_to (@holiday_reminder.holiday ? [:admin, @holiday_reminder.holiday] : admin_messages_path)
     else
       render :edit
     end
