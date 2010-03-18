@@ -1,10 +1,10 @@
 <% title "Admin Messages" %>
 
-<% [Admin::Qotd, Admin::TrendQuestion, Admin::Announcement, Admin::PrTip, Admin::ContentRequest, Admin::HolidayReminder].each do |message_type| %>
+<% [Admin::Qotd, Admin::TrendQuestion, Admin::Announcement, Admin::PrTip, Admin::ContentRequest].each do |message_type| %>
 
 <div class="span-9 <%= cycle('clear', 'last', :name => 'message_types') %> admin_message_section">
   <p>
-    <%= link_to (image_tag("plus.png") + "New #{message_type.title}"), new_polymorphic_path(message_type.new), :class => 'button positive' unless message_type == Admin::HolidayReminder%>
+    <%= link_to (image_tag("plus.png") + "New #{message_type.title}"), new_polymorphic_path(message_type.new), :class => 'button positive'%>
   </p>
   <h3><%= message_type.shorttitle %>s</h3>
   <table class="admin_message_table">
@@ -12,7 +12,6 @@
       <tr>
         <th>Scheduled</th>
         <th>Message</th>
-        <th><%= "Holiday" if message_type == Admin::HolidayReminder %></th>
         <th></th>
         <th></th>
       </tr>
@@ -22,14 +21,9 @@
         <tr class="<%= cycle('odd','even', :name => message_type.title) %>">
           <td><%= message.scheduled_at.try(:strftime,"%m/%d") %></td>
           <td><%= link_to message.message, edit_polymorphic_path(message) %></td>
-
-          <%- if message.respond_to?(:holiday) and message.holiday.present? %>
-            <td><%= link_to message.holiday.try(:name), [:admin, message.holiday] %></td>
-          <% else %>
           <td class="actions">
             <%= admin_message_action_links(message) %>
           </td>
-          <% end -%>
           <td class="actions edit_link">
             <%= link_to "Edit", edit_polymorphic_path(message) %>
           </td>
@@ -40,5 +34,3 @@
 </div>
 
 <% end %>
-
-<p class="clear"><%= link_to "Manage Holidays", admin_holidays_path %></p>
