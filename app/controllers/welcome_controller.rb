@@ -8,9 +8,7 @@ class WelcomeController < ApplicationController
       else
         find_user_feeds
         @direct_messages = @user.direct_messages.all_not_from_admin(:include => :sender)
-        @admin_direct_messages = @user.direct_messages.all_from_admin
         @friend_activity = Status.friends_of_user(@user).all(:limit => 10)
-        @media_request_conversations = @user.media_request_conversations.all(:include => :media_request, :limit => 5, :order => "media_requests.created_at DESC", :conditions => {:media_requests => {:status => 'approved'}})
         render :dashboard
       end
     else

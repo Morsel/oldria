@@ -1,4 +1,11 @@
 <% title "Your Digital Dashboard", false %>
+<% if @current_user.inbox_messages.any? -%>
+  <div id="admin_messages">
+    <p>You have <%= pluralize(@current_user.inbox_messages.size, 'unread &#8220;admin&#8221; message') %>.</p>
+    <p><%= link_to 'View your messages &#187;', inbox_path %></p>
+  </div><!-- /admin_messages -->
+<% end -%>
+
 <div id="get_started">
   <h3>Here's a few quick and easy actions to get you started!</h3>
   <ol>
