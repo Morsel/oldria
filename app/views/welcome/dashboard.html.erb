@@ -36,11 +36,10 @@
     <% div_for status, :class=>'clearfix' do -%>
       <%= link_to image_tag(status.user.avatar.url(:thumb)), profile_path(status.user.username), :class => 'avatar' %>
       <p class="message">
-        <%= status.message %>
+        <strong><%= link_to status.user.username, profile_path(status.user.username) %></strong>: <%= status.message %>
       </p>
       <p class="meta">
-        posted by <%= link_to status.user.username, profile_path(status.user.username) %> |
-        <%= date_for status.created_at %>
+        posted <%= date_for status.created_at %>
       </p>
     <% end -%>
   <% end -%>
