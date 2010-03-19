@@ -105,9 +105,9 @@ Feature: Media requests
     Then "sam@example.com" should have 1 email
     And "john@example.com" should have 0 emails
     Given I am logged in as "sam" with password "secret"
-    When I go to the dashboard
-    Then I should see "Where are the best mushrooms?"
-    But I should not see "This message has not been approved"
+    # When I go to the dashboard
+    #     Then I should see "Where are the best mushrooms?"
+    #     But I should not see "This message has not been approved"
     
 @click_anywhere
   Scenario: A media request can be clicked anywhere to reply from the dashboard
