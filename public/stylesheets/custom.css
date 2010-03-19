@@ -428,31 +428,77 @@ a.sf-button.alt img {
 	margin-bottom: 2em;
 }
 
+#sidebar #user_status {
+	background: #fff url('../images/message_bg.png') 0 bottom repeat-x;
+	overflow: hidden;
+}
+
+#user_status p {
+	margin: 0;
+}
+
 #user_status img {
 	float: left;
 	background:#fff;
 	padding:3px;
 	border: 1px solid #ddd;
 	margin-right: 1em;
+	width:  35px;
+	height: 35px;
+	box-shadow: 2px 2px 5px #ddd;
+	-moz-box-shadow: 2px 2px 5px #ddd;
+	-webkit-box-shadow: 2px 2px 5px #ddd;
 }
 
 #user_status a:hover img {
-	border-color: #daa;
+	border-color: #bbb;
 }
 
-#user_status p {
-	margin-bottom: .25em; /* 3px at 12px font */
+#user_status .actions {
+	margin: 10px 0 0;
 }
 
-#user_status a {
-	color: #513d28;
-	border-bottom: 1px dashed #cbb;
+#user_status li {
+	list-style: none;
+	display: inline;
+	float: left;
+	margin: 0 18px 0 0;
 }
 
-#user_status a:hover {
-	border-color: #fff;
-	color: green;
+#user_status .actions a {
+	padding-left: 14px;
+	background-position: 0 1px;
+	background-repeat: no-repeat;
 }
+
+#user_status .username {
+	background-color: #cef;
+	background-color: rgba(0, 136, 193, .15);
+	color: #0088C1;
+	font-weight: bold;
+	padding: 1px 3px 2px;
+}
+
+#user_status .username:hover {
+	background-color: #0088C1;
+	color: #fff;
+}
+
+#user_status .logout a{
+	background-image: url(../images/logout.png);
+}
+
+#user_status .edit_profile a{
+	background-image: url(../images/edit.png);
+}
+
+
+#user_status p, #user_status li {
+	font-family: "Lucida Grande", verdana, sans-serif;
+	font-size: 11px;
+	color: #666;
+}
+
 
 #new_status {
 	background-color: #edfbff;
