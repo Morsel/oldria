@@ -154,6 +154,16 @@ h2 {
 	font-size:1.4em;
 }
 
+#dashboard h2:not(.primary_title){
+	color:#313131;
+	font-weight:normal;
+	font-size:1.3em;
+	text-transform:uppercase;
+	padding:0;
+	margin:0 0 5px;
+	border-bottom:1px dashed #b1b1b1;
+}
+
 h3 {
 	color: #276b96;
 	margin: 0 0 .5em 0;
@@ -2353,4 +2363,16 @@ h2.primary_title{
 #choose_feeds .box{
 	margin:0;
 	border:0;
+}
+
+#admin_messages{
+	border:1px solid #ddd;
+	background:#eaf2f4 url(/images/admin_messages_bg.gif) repeat-x;
+	padding:10px;
+	font-size:1.3em;
+	font-weight:bold;
+	margin:0 0 10px;
+}
+#admin_messages p{
+	margin:0;
 }

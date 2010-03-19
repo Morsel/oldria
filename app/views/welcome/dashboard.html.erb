@@ -1,68 +1,70 @@
 <% title "Your Digital Dashboard", false %>
-<% if current_user.inbox_messages.any? -%>
-  <div id="admin_messages">
-    <p>You have <%= pluralize(current_user.inbox_messages.size, 'unread &#8220;admin&#8221; message') %>.</p>
-    <p><%= link_to 'View your messages &#187;', inbox_path %></p>
-  </div><!-- /admin_messages -->
-<% end -%>
-
-<div id="get_started">
-  <div class="box">
-    <div class="box">
-      <h3>Here's a few quick and easy actions to get you started!</h3>
-      <ol>
-        <li><%= link_to 'Tweet what you had for breakfast this morning', user_statuses_path(current_user) %></li>
-        <li><%= link_to 'Find your friends on SpoonFeed', directory_path %></li>
-        <li><%= link_to 'Upload a photo for your profile', edit_user_path(current_user) %></li>
-      </ol>
-    </div>
-  </div>
-</div><!-- /get_started -->
-
-<div id="conversations" class="span-12">
-  <div class="box">
-    <h2 class="primary_title">Conversations</h2>
-    <div id="direct_messages">
-      <h3>Direct Messages</h3>
-      <% @direct_messages.each do |dm| -%>
-        <% div_for dm do -%>
-          <p><%= link_to details_for(dm), reply_direct_message_path(dm) %></p>
-        <% end -%>
-      <% end -%>
-    </div><!--/direct_messages-->
-  </div>
-</div><!-- /conversations -->
-
-<% if current_user.has_feeds? -%>
-  <div id="news_feeds" class="span-12">
-<% else -%>
-  <div id="news_feeds" class="span-8">
-<% end -%>
-  <h2>Featured News Feeds</h2>
-  <%= render :partial => 'feeds/feed', :collection => @feeds %>
-</div><!-- /news_feeds -->
-<% unless current_user.has_feeds? -%>
-  <div id="choose_feeds" class="span-4 last round">
-    <div class="box">
-      <h3><%= link_to 'Choose Your Feeds!', new_feeds_path %></h3>
-      <p>Lorem ipsum dolor sit amet. Neuriscilum paesce vudor.</p>
-      <%= link_to 'Go now!', new_feeds_path, :class=>'action' %>
-    </div>
-  </div><!-- /choose_feeds -->
-<% end -%>
-
-
-<div id="friend_activity" rel="Friend Activity" class="span-12">
-  <h2>People You Follow</h2>
-  <% @friend_activity.each do |status| -%>
-    <% div_for status, :class=>'clearfix' do -%>
-      <%= link_to image_tag(status.user.avatar.url(:thumb)), profile_path(status.user.username), :class => 'avatar' %>
-      <p class="message">
-        <strong><%= link_to status.user.username, profile_path(status.user.username) %></strong>: <%= status.message %>
-      </p>
-      <p class="meta">
-        posted <%= date_for status.created_at %>
-      </p>
-    <% end -%>
+<div id="dashboard">
+  <% if current_user.inbox_messages.any? -%>
+    <div id="admin_messages">
+      <p>You have <%= pluralize(current_user.inbox_messages.size, 'unread &#8220;admin&#8221; message') %>.</p>
+      <p><%= link_to 'View your messages &#187;', inbox_path %></p>
+    </div><!-- /admin_messages -->
   <% end -%>
-</div><!-- /friend_activity -->
+
+  <div id="get_started">
+    <div class="box">
+      <div class="box">
+        <h3 class="function-bold">Here's a few quick and easy actions to get you started!</h3>
+        <ol>
+          <li><%= link_to 'Tweet what you had for breakfast this morning', user_statuses_path(current_user) %></li>
+          <li><%= link_to 'Find your friends on SpoonFeed', directory_path %></li>
+          <li><%= link_to 'Upload a photo for your profile', edit_user_path(current_user) %></li>
+        </ol>
+      </div>
+    </div>
+  </div><!-- /get_started -->
+
+  <div id="conversations" class="span-12">
+    <div class="box">
+      <h2 class="primary_title function-bold">Conversations</h2>
+      <div id="direct_messages">
+        <h3>Direct Messages</h3>
+        <% @direct_messages.each do |dm| -%>
+          <% div_for dm do -%>
+            <p><%= link_to details_for(dm), reply_direct_message_path(dm) %></p>
+          <% end -%>
+        <% end -%>
+      </div><!--/direct_messages-->
+    </div>
+  </div><!-- /conversations -->
+
+  <% if current_user.has_feeds? -%>
+    <div id="news_feeds" class="span-12">
+  <% else -%>
+    <div id="news_feeds" class="span-8">
+  <% end -%>
+    <h2 class="function-bold">Featured News Feeds</h2>
+    <%= render :partial => 'feeds/feed', :collection => @feeds %>
+  </div><!-- /news_feeds -->
+  <% unless current_user.has_feeds? -%>
+    <div id="choose_feeds" class="span-4 last round">
+      <div class="box">
+        <h3><%= link_to 'Choose Your Feeds!', new_feeds_path %></h3>
+        <p>Lorem ipsum dolor sit amet. Neuriscilum paesce vudor.</p>
+        <%= link_to 'Go now!', new_feeds_path, :class=>'action' %>
+      </div>
+    </div><!-- /choose_feeds -->
+  <% end -%>
+
+
+  <div id="friend_activity" rel="Friend Activity" class="span-12">
+    <h2 class="function-bold">People You Follow</h2>
+    <% @friend_activity.each do |status| -%>
+      <% div_for status, :class=>'clearfix' do -%>
+        <%= link_to image_tag(status.user.avatar.url(:thumb)), profile_path(status.user.username), :class => 'avatar' %>
+        <p class="message">
+          <strong><%= link_to status.user.username, profile_path(status.user.username) %></strong>: <%= status.message %>
+        </p>
+        <p class="meta">
+          posted <%= date_for status.created_at %>
+        </p>
+      <% end -%>
+    <% end -%>
+  </div><!-- /friend_activity -->
+</div><!-- /dashboard -->
