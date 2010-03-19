@@ -41,7 +41,7 @@ Feature: Direct messaging
     Given "getterboy" has 1 direct message from "senderman"
     And I am logged in as "getterboy" with password "secret"
     When I am on the homepage
-    And I follow "This is a message Albert Albert less than a minute ago"
+    And I follow "less than a minute ago Albert Albert This is a message"
     Then I should see "Reply to senderman's message"
 
     When I fill in "Body" with "This is my reply"

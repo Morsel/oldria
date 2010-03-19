@@ -25,8 +25,8 @@ class ApplicationController < ActionController::Base
 
   private
   
-  def find_user_feeds
-    @feeds = current_user.chosen_feeds || Feed.featured.all
+  def find_user_feeds(dashboard = false)
+    @feeds = current_user.chosen_feeds(dashboard) || Feed.featured.all(:limit => (dashboard ? 2 : nil))
     @user_feed_ids = @feeds.map(&:id)
   end
   

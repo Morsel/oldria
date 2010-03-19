@@ -617,7 +617,7 @@ input.checkbox {
 	margin-bottom: 10px;
 }
 
-.direct_message, .comment {
+.comment {
 	border-bottom: 	1px solid #ddd;
 	padding-bottom: 8px;
 	margin-bottom: 	9px;
@@ -1524,11 +1524,10 @@ ul.mini_menu li {
 }
 
 .feed {
-	padding: 0 16px;
 	margin-bottom: 2em;
 }
 
-.feed > .title, .admin_messages_header h3 {
+.admin_messages_header h3 {
 	color: #0587c1;
 	padding: 6px 16px;
 	letter-spacing: 1px;
@@ -1538,15 +1537,19 @@ ul.mini_menu li {
 	text-shadow: 1px 1px 0 #058;
 }
 
-.feed > .title {
-	margin: 0 -16px 1em;
-	font-size: 1.4em;
+.feed > .title{
+	background:#fef4ea;
+	color:#e1771f;
+	font-weight:bold;
+	padding:3px;
+	margin:0 0 5px;
+	text-transform:uppercase;
+	font-size:1.1em;
 }
 
 .feed_entry {
 	padding-top: 8px;
 	padding-bottom: 8px;
-	border-top: 1px dashed #ddd;
 	position: relative;
 }
 
@@ -1975,6 +1978,11 @@ img.right {
 	border-radius: 3px;
 }
 
+.box .box{
+	border:0;
+	margin:0;
+}
+
 .marginright {
 	margin-right: 34px;
 }
@@ -2267,3 +2275,64 @@ form .cke_skin_kama .cke_wrapper {
 
 
 /* @end */
+
+
+/* ## Dashboard --------------------------------------------- */
+#get_started .box .box{
+	background:#fef4ea;
+}
+#get_started h3{
+	color:#676767;
+}
+#get_started ol, #get_started li{
+	list-style-type:none;
+}
+#get_started li, #get_started li a{
+	font-weight:bold;
+	color:#e1771f;
+}
+
+#conversations h2{
+	color:#fff;
+	font-weight:bold;
+	background:url(/images/conversations_title_bg.gif) repeat-x;
+	text-shadow:1px 1px 1px #10506c;
+	padding:5px 10px;
+	text-transform:uppercase;
+	margin:0;
+}
+
+#direct_messages h3{
+	color:#015673;
+	font-weight:normal;
+	font-size:0.9em;
+	padding:10px;
+	margin:0;
+}
+.direct_message{
+	border-bottom:1px solid #ddd;
+	margin:0;
+}
+
+.direct_message p{
+	margin:0;
+}
+.direct_message a{
+	color:#333;
+	display:block;
+	padding:10px;
+
+}
+.direct_message a span{
+	display:block;
+	float:right;
+	text-align:right;
+	margin:0 0 0 20px;
+	color:#8b8b8b;
+	width:135px;
+}
+.direct_message a:hover{
+	text-decoration:none;
+	background:#fff6ed;
+	color:#ed801b;
+}

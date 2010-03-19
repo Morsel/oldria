@@ -149,8 +149,8 @@ class User < ActiveRecord::Base
     !feeds.blank?
   end
 
-  def chosen_feeds
-    return feeds if has_feeds?
+  def chosen_feeds(dashboard = false)
+    return feeds.all(:limit => (dashboard ? 2 : nil)) if has_feeds?
     nil
   end
 

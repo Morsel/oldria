@@ -1,5 +1,5 @@
 module DirectMessagesHelper
   def details_for(dm)
-    "#{dm.body} #{dm.sender.name_or_username} #{date_for(dm.created_at)}"
+    "<span>#{date_for(dm.created_at)}</span> <span>#{dm.sender.name_or_username}</span> #{dm.body}"
   end
 end
