@@ -1,5 +1,6 @@
-<% title "Your Digital Dashboard" %>
+<% title "Your Digital Dashboard", false %>
 <div id="conversations" class="span-12">
+  <h2>Conversations</h2>
   <% @direct_messages.each do |dm| -%>
     <% div_for dm do -%>
       <p><%= link_to details_for(dm), reply_direct_message_path(dm) %></p>
@@ -8,11 +9,13 @@
 </div><!-- /conversations -->
 
 <div id="news_feeds" class="span-12">
+  <h2>Featured News Feeds</h2>
   <%= render :partial => 'feeds/feed', :collection => @feeds %>
 </div>
 
 
 <div id="friend_activity" rel="Friend Activity" class="span-12">
+  <h2>People You Follow</h2>
   <% @friend_activity.each do |status| -%>
     <% div_for status, :class=>'clearfix' do -%>
       <%= link_to image_tag(status.user.avatar.url(:thumb)), profile_path(status.user.username), :class => 'avatar' %>
