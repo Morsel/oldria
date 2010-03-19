@@ -31,6 +31,6 @@ Feature: RIA Media requests
     And "sam" should have 1 media request
     But "john" should have 0 media requests
 
-    Given I am logged in as "sam" with password "secret"
-    When I go to the dashboard
-    Then I should see an admin media request
+    # Given I am logged in as "sam" with password "secret"
+    # When I go to the dashboard
+    # Then I should see an admin media request

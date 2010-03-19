@@ -4,4 +4,12 @@ module ApplicationHelper
     options.reverse_merge!(:type => 'submit')
     content_tag(:button, content, options, escape, &block) 
   end
+  
+  def date_for(date)
+    if date < 1.day.ago
+      date.strftime('%b %d, %Y')
+    else
+      time_ago_in_words(date) + ' ago'
+    end
+  end
 end

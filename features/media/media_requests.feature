@@ -69,9 +69,9 @@ Feature: Media requests
       | Message | This message has not been approved |
       | Status  | pending                            |
     And I am logged in as "sam" with password "secret"
-    When I go to the dashboard
-    Then I should see "Where are the best mushrooms?"
-    But I should not see "This message has not been approved"
+    # When I go to the dashboard
+    #     Then I should see "Where are the best mushrooms?"
+    #     But I should not see "This message has not been approved"
 
 
   Scenario: Responding to a media request and conversations
@@ -80,18 +80,20 @@ Feature: Media requests
       | Due date  | 2009-10-02          |
       | Status    | approved            |
     And I am logged in as "sam" with password "secret"
-    When I go to the dashboard
-    Then I should see "Do you like cheese?"
-
-    When I follow "reply" within the "Media Requests" section
+    # When I go to the dashboard
+    #    Then I should see "Do you like cheese?"
+    # 
+    #    When I follow "reply" within the "Media Requests" section
+    Given I am on the media request conversation page
     And I fill in "Comment" with "I love cheese!"
     And I press "Submit"
     Then the media request should have 1 comment
 
     Given I am logged in as "mediaman" with password "secret"
-    When I am on the homepage
-    Then I should see /Sam Smith said/
-    When I follow "Conversation with Sam Smith"
+    # When I am on the homepage
+    #     Then I should see /Sam Smith said/
+    # When I follow "Conversation with Sam Smith"
+    Given I am on the media request conversation page
     And I fill in "Comment" with "Thanks for your quick response, Sam"
     And I press "Submit"
     Then the media request should have 2 comments

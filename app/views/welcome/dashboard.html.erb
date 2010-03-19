@@ -1,67 +1,23 @@
 <% title "Your Digital Dashboard" %>
+<div id="conversations" class="span-12">
+  <% @direct_messages.each do |dm| -%>
+    <% div_for dm do -%>
+      <p><%= link_to details_for(dm), reply_direct_message_path(dm) %></p>
+    <% end -%>
+  <% end -%>
+</div><!-- /conversations -->
 
-	<div id="admin_messages" class="span-6">
-		<h3>RIA Messages</h3>
-<% if !@admin_direct_messages.blank? %>
-	<% for message in @admin_direct_messages %>
-	<% div_for message, :class => 'clearfix admin' do %>
-		<%= image_tag message.sender.avatar.url(:thumb), :class => 'left' %>
-		<h5><%= message.title %></h5>
-		<p>
-			<%= message.body %>
-		</p>
-		<p class="meta">
-			from <%= link_to message.sender.name_or_username, profile_path(message.sender.username) %> |
-			<%= message.created_at.to_s(:short) %> |
-			<%= link_to "reply", reply_direct_message_path(message) %>
-		</p>
-	<% end # div -%>
-	<% end # for loop %>
-	<% else %>
-	<p class="none box">There are no administrative notices for you at this time.</p>
-<% end -%>
-	</div>
-
-	<div id="media_requests" class="span-6 last" rel="Media Requests">
-	<h3>Media Requests</h3>
-		<%= render :partial => 'media_requests' %>
-
-		<% if @media_request_conversations.blank? %>
-			<p class="none box">You don't have any media requests yet.</p>
-		<% end -%>
-	</div>
-
-	<div id="direct_messages" class="span-6">
-	<h3>Private Messages</h3>
-	<% if !@direct_messages.blank? %>
-		<h4>Messages to You</h4>
-		<%= render @direct_messages %>
-	<% end -%>
-
-	<% if !@sent_messages.blank? %>
-		<h4>Sent Messages</h4>
-		<%= render @sent_messages %>
-	<% end -%>
-	</div>
-
-
-	<div id="friend_activity" class="span-6 last" rel="Friend Activity">
-<% if !@friend_activity.blank? %>
-		<h3>Folks You Follow</h3>
-	<% for status in @friend_activity %>
-	<% div_for status, :class => 'clearfix' do %>
-		<%= link_to image_tag(status.user.avatar.url(:thumb)), profile_path(status.user.username), :class => 'avatar' %>
-		<p class="message">
-			<%= status.message %>
-		</p>
-		<p class="meta">
-			posted by <%= link_to status.user.username, profile_path(status.user.username) %> |
-			<%= time_ago_in_words status.created_at %> ago
-		</p>
-	<% end # div -%>
-	<% end # for loop %>
-	<%= link_to "View more", friends_statuses_path, :class => 'sf-button alt' %>
-<% end -%>
-	</div>
-
-
+<div id="friend_activity" rel="Friend Activity" class="span-12">
+  <% @friend_activity.each do |status| -%>
+    <% div_for status do -%>
+      <%= link_to image_tag(status.user.avatar.url(:thumb)), profile_path(status.user.username), :class => 'avatar' %>
+      <p class="message">
+        <%= status.message %>
+      </p>
+      <p class="meta">
+        posted by <%= link_to status.user.username, profile_path(status.user.username) %> |
+        <%= time_ago_in_words status.created_at %> ago
+      </p>
+    <% end -%>
+  <% end -%>
+</div><!-- /friend_activity -->
