@@ -24,8 +24,12 @@ class ApplicationController < ActionController::Base
   end
 
   private
-
-
+  
+  def find_user_feeds
+    @feeds = current_user.chosen_feeds || Feed.featured.all
+    @user_feed_ids = @feeds.map(&:id)
+  end
+  
   def current_user_session
     return @current_user_session if defined?(@current_user_session)
     @current_user_session = UserSession.find

@@ -7,16 +7,21 @@
   <% end -%>
 </div><!-- /conversations -->
 
+<div id="news_feeds" class="span-12">
+  <%= render :partial => 'feeds/feed', :collection => @feeds %>
+</div>
+
+
 <div id="friend_activity" rel="Friend Activity" class="span-12">
   <% @friend_activity.each do |status| -%>
-    <% div_for status do -%>
+    <% div_for status, :class=>'clearfix' do -%>
       <%= link_to image_tag(status.user.avatar.url(:thumb)), profile_path(status.user.username), :class => 'avatar' %>
       <p class="message">
         <%= status.message %>
       </p>
       <p class="meta">
         posted by <%= link_to status.user.username, profile_path(status.user.username) %> |
-        <%= time_ago_in_words status.created_at %> ago
+        <%= date_for status.created_at %>
       </p>
     <% end -%>
   <% end -%>
