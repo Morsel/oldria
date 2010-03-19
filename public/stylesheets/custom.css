@@ -86,12 +86,90 @@ div#header {
 	min-height: 360px;
 }
 
-#sidebar .box{
-	-webkit-border-radius:0;
-	-moz-border-radius:0;
-	border-radius:0;
-	background:#f7f7f7;
+/* @group sidebar */
+
+
+
+#sidebar #new_status{
+	background:0;
+	padding:0;
 }
+
+#sidebar #new_status input.status_message {
+	width: 270px;
+}
+
+#sidebar #status_update.box{
+	background:#edf8fc;
+}
+
+.sidebar_section {
+	margin: 1em 0;
+	padding-bottom: 1em;
+	border-bottom: 1px dashed #ddd;
+}
+
+
+
+#sidebar h3{
+	color: #fff;
+	background: #412203 url('../images/sidebar_title.png') repeat-x bottom;
+	padding: 4px 12px;
+	-webkit-border-radius: 15px;
+	-moz-border-radius: 15px;
+	border-radius: 15px;
+	border: 0;
+	margin: 0;
+}
+
+#sidebar .fancy-list {
+	margin: 0;
+}
+
+#sidebar .fancy-list li {
+	background: url('../images/arrow2.png') no-repeat left center;
+	list-style: none;
+	padding:0 0 0 15px;
+	margin: 0 0 9px;
+}
+
+#sidebar .admin_messages h4 {
+	margin: 1em 0 0;
+	font-size: 1.1em;
+	color: #999;
+}
+
+#sidebar .section_header {
+	margin-bottom: 1em;
+	position: relative;
+}
+
+#sidebar .section_body {
+	margin: 0 1em;
+}
+
+#sidebar #coached {
+	margin-top: -10px;
+	padding: 18px 1em 0.5em;
+	position: relative;
+	z-index: -1;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+}
+
+#sidebar #new_status p {
+	margin-bottom: 3px;
+}
+
+#sidebar #new_status .and_twitter {
+	margin: 3px;
+	display: block;
+	float: left;
+	width: 120px;
+}
+
+/* @end */
 
 /* @end */
 
@@ -250,7 +328,6 @@ ins {
 /* @group custom */
 
 #coached {
-	border: 1px solid #edc;
 	background-color: #fed;
 	padding: 5px;
 	color: #644;
@@ -270,27 +347,7 @@ ins {
 	font-weight:bold;
 }
 
-#previous_statuses{
-	border-top:1px dashed #c1dce7;
-	padding:10px 0 0;
-	margin:10px 0 0;
-}
-#sidebar #status_update h3.function-bold{
-	color:#646464;
-}
-#sidebar #status_update #previous_statuses h3.function-bold{
-	color:#0089C2;
-	border:0;
-	font-size:1em;
-	margin:0;
-}
-
-
-#previous_statuses p{
-	margin:0;
-}
-
-#previous_statuses a.sf-button,  a.sf-button.alt {
+a.sf-button.alt {
 	text-transform:none;
 	background:#0587c1;
 	color:#fff;
@@ -307,7 +364,7 @@ a.sf-button.alt img {
 	line-height: 8px;
 }
 
-#previous_statuses a.sf-button:hover,  a.sf-button.alt:hover {
+a.sf-button.alt:hover {
 	background: #fff;
 	color: #0587c1;
 	border-color: #c9e1f9;
@@ -428,90 +485,9 @@ a.sf-button.alt img {
 	margin-bottom: 2em;
 }
 
-#sidebar #user_status {
-	background: #fff url('../images/message_bg.png') 0 bottom repeat-x;
-	overflow: hidden;
-}
-
-#user_status p {
-	margin: 0;
-}
-
-#user_status img {
-	float: left;
-	background:#fff;
-	padding:3px;
-	border: 1px solid #ddd;
-	margin-right: 1em;
-	width:  35px;
-	height: 35px;
-	box-shadow: 2px 2px 5px #ddd;
-	-moz-box-shadow: 2px 2px 5px #ddd;
-	-webkit-box-shadow: 2px 2px 5px #ddd;
-}
-
-#user_status a:hover img {
-	border-color: #bbb;
-}
-
-#user_status .actions {
-	margin: 10px 0 0;
-}
-
-#user_status li {
-	list-style: none;
-	display: inline;
-	float: left;
-	margin: 0 18px 0 0;
-}
-
-#user_status .actions a {
-	padding-left: 14px;
-	background-position: 0 1px;
-	background-repeat: no-repeat;
-}
-
-#user_status .username {
-	background-color: #cef;
-	background-color: rgba(0, 136, 193, .15);
-	color: #0088C1;
-	font-weight: bold;
-	padding: 1px 3px 2px;
-}
-
-#user_status .username:hover {
-	background-color: #0088C1;
-	color: #fff;
-}
-
-#user_status .logout a{
-	background-image: url(../images/logout.png);
-}
-
-#user_status .edit_profile a{
-	background-image: url(../images/edit.png);
-}
-
-
-#user_status p, #user_status li {
-	font-family: "Lucida Grande", verdana, sans-serif;
-	font-size: 11px;
-	color: #666;
-}
-
-
 #new_status {
 	background-color: #edfbff;
 	padding: 12px;
-}
-#sidebar #new_status{
-	background:0;
-	padding:0;
-}
-#user_status #status_update.box{
-	border:0;
-	margin:10px 0;
-	padding:0;
 }
 
 #new_status input {
@@ -523,28 +499,24 @@ a.sf-button.alt img {
 
 #new_status button {
 	margin: 0;
-	padding-left: 1em;
-	padding-right: 1.1em;
+	padding: 3px 1.5em;
 	float: left;
 	text-transform:uppercase;
-	background-color: #e8750a;
-	color: #fff;
-	border-color: #e8750a;
-	text-shadow: 1px 1px #963;
-	font-family: 'Lucida Grande', sans-serif;
+	background: #fff url('../images/button_bg.png') 0 top repeat-x;
+	color: #666;
+	border-color: #ccc;
+	text-shadow: 1px 1px 0 #fff;
+	font-family: 'helvetica neue', helvetica, arial, sans-serif;
 }
 
 #new_status button:hover {
-	background-color: #f93;
-	border-color: #e8750a;
+	background: url('../images/button_bg_over.png') 0 top repeat-x;
+	border-color: #bbb;
+	color: #222;
 }
 
 #leftcolumn #new_status input.status_message {
 	width: 450px;
-}
-
-#sidebar #new_status input.status_message {
-	width: 270px;
 }
 
 #new_status input:active, #new_status input:focus {
@@ -553,10 +525,6 @@ a.sf-button.alt img {
 
 #new_status p{
 	margin:0;
-}
-
-#sidebar #status_update.box{
-	background:#edf8fc;
 }
 
 
@@ -630,10 +598,79 @@ input.checkbox {
 	font-size:0.9em;
 }
 
-#sidebar .statuses li {
-	background: #d7eef6;
-	border: 0 none;
+#sidebar #user_status {
+	background: #fff url('../images/message_bg.png') 0 bottom repeat-x;
+	overflow: hidden;
+	padding: 1em;
+	border: 1px solid #ddd;
 }
+
+#user_status p {
+	margin: 0;
+}
+
+#user_status img {
+	float: left;
+	background:#fff;
+	padding:3px;
+	border: 1px solid #ddd;
+	margin-right: 1em;
+	width:  35px;
+	height: 35px;
+	box-shadow: 2px 2px 5px #ddd;
+	-moz-box-shadow: 2px 2px 5px #ddd;
+	-webkit-box-shadow: 2px 2px 5px #ddd;
+}
+
+#user_status a:hover img {
+	border-color: #bbb;
+}
+
+#user_status .actions {
+	margin: 10px 0 0;
+}
+
+#user_status li {
+	list-style: none;
+	display: inline;
+	float: left;
+	margin: 0 18px 0 0;
+}
+
+#user_status .actions a {
+	padding-left: 14px;
+	background-position: 0 1px;
+	background-repeat: no-repeat;
+}
+
+#user_status .username {
+	background-color: #cef;
+	background-color: rgba(0, 136, 193, .15);
+	color: #0088C1;
+	font-weight: bold;
+	padding: 1px 3px 2px;
+}
+
+#user_status .username:hover {
+	background-color: #0088C1;
+	color: #fff;
+}
+
+#user_status .logout a{
+	background-image: url(../images/logout.png);
+}
+
+#user_status .edit_profile a{
+	background-image: url(../images/edit.png);
+}
+
+
+#user_status p, #user_status li {
+	font-family: "Lucida Grande", verdana, sans-serif;
+	font-size: 11px;
+	color: #666;
+}
+
 
 .status .posted, .status .utility, .status .meta, .comment .meta {
 	color: #999;
@@ -1371,9 +1408,6 @@ h3.function-bold{
 	font-weight:normal;
 	font-size:1.3em;
 }
-#sidebar h3{
-	color:#989898;
-}
 
 
 #user_content p.more_statuses {
@@ -1395,23 +1429,6 @@ h3.function-bold{
 /* @end */
 
 /* @group admin messaging ----------- */
-
-#sidebar .fancy-list {
-	margin: 0;
-}
-
-#sidebar .fancy-list li {
-	background: url('../images/arrow2.png') no-repeat left center;
-	list-style: none;
-	padding:0 0 0 15px;
-	margin: 0 0 9px;
-}
-
-#sidebar .admin_messages h4 {
-	margin: 1em 0 0;
-	font-size: 1.1em;
-	color: #999;
-}
 
 .formtastic.comment fieldset{
 	border: 0 none;

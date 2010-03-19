@@ -6,10 +6,12 @@
     <%= f.text_field :message, :size => '100', :class => 'status_message title' %>
   </p>
   <p class="clear clearfix">
-    <%= button_tag "Post", :class => 'positive status_button round' %>
+    <%= button_tag "Post", :class => 'status_button round' %>
     <% if current_user.twitter_authorized? -%>
+      <span class="and_twitter">
       <%= f.check_box :queue_for_social_media, :class => 'checkbox' %>
       <%= f.label :queue_for_social_media, "Post to Twitter?" %>
+      </span>
     <% end -%>
   </p>
 <% end %>
