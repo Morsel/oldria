@@ -9,7 +9,7 @@
   <p>Logged in as <%= link_to current_user.username, profile_path(current_user.username), :class => 'username' %></p>
 
   <ul class="actions">
-    <li class="edit_profile"><%= link_to "Edit", edit_user_path(current_user) %></li>
+    <li class="edit_profile"><%= link_to "Edit My Account", edit_user_path(current_user) %></li>
     <li class="logout"><%= link_to "Log out", logout_path %></li>
   </ul>
 

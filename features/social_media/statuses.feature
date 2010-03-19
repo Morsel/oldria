@@ -54,15 +54,3 @@ Feature: Manage SpoonFeed Statuses
     When I fill in "Status" with "Check out http://www.google.com, it's my favorite."
     And I press "Post"
     And the top message should contain a link to "http://www.google.com"
-
-  Scenario: Post status from logged in user box
-    Given "freddy" has the following status messages:
-    | message                         |
-    | I am the user that is logged in |
-    | This is my message              |
-    | Another message update          |
-    And I am on the dashboard
-    Then I should see 2 status updates
-    When I fill in "Status" with "This is my status"
-    And I press "Post"
-    Then I should see "This is my status"
