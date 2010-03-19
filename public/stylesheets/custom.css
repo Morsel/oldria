@@ -57,6 +57,10 @@ button {
 	outline:0;
 	display:block;
 }*/
+abbr{
+	outline:0;
+	border:0;
+}
 
 div#container {
 	width: 969px;
@@ -182,8 +186,6 @@ div#header {
 }
 #media_request_promo p {
 	color: #666;
-	font-size: 1.2em;
-	font-style: italic;
 }
 
 #media_request_promo .section_body {
