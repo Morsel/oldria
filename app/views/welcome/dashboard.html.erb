@@ -1,4 +1,13 @@
 <% title "Your Digital Dashboard", false %>
+<div id="get_started">
+  <h3>Here's a few quick and easy actions to get you started!</h3>
+  <ol>
+    <li><%= link_to 'Tweet what you had for breakfast this morning', user_statuses_path(@current_user) %></li>
+    <li><%= link_to 'Find your friends on SpoonFeed', directory_path %></li>
+    <li><%= link_to 'Upload a photo for your profile', edit_user_path(@current_user) %></li>
+  </ol>
+</div><!-- /get_started -->
+
 <div id="conversations" class="span-12">
   <h2>Conversations</h2>
   <% @direct_messages.each do |dm| -%>
