@@ -1,13 +1,11 @@
-<div id="my_restaurants" rel="My Restaurants" class="sibebar_section restaurants">
+<div id="my_restaurants" rel="My Restaurants" class="sibebar_section restaurants clearfix">
   <div class="section_header">
     <h3 class="function-bold">Restaurants</h3>
   </div>
   <div class="section_body">
     <h4>Managed</h4>
     <% if @current_user_managed_restaurants.blank? %>
-
-    <p>You don't manage any restaurants.</p>
-
+      <p class="none">You don't manage any restaurants.</p>
     <% else %>
     <div class="my_restaurants">
       <% @current_user_managed_restaurants.reject(&:new_record?).each do |restaurant| %>
@@ -27,7 +25,9 @@
     </p>
     <% end %>
 
-    <% unless @current_user_restaurants.blank? %>
+    <% if @current_user_restaurants.blank? %>
+      <p class="none">You don't manage any restaurants.</p>
+    <% else %>
     <div class="my_employers">
       <h4>Restaurant Associations</h4>
 

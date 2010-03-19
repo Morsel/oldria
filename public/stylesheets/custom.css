@@ -106,7 +106,7 @@ div#header {
 .sidebar_section {
 	margin: 1em 0;
 	padding-bottom: 1em;
-	border-bottom: 1px dashed #ddd;
+	border-bottom: 1px solid #ddd;
 }
 
 
@@ -168,6 +168,25 @@ div#header {
 	float: left;
 	width: 120px;
 }
+
+#media_request_promo {
+	border: 1px solid #ddd;
+	padding: 10px;
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
+}
+#media_request_promo p {
+	color: #666;
+	font-size: 1.2em;
+	font-style: italic;
+}
+
+#media_request_promo .section_body {
+	background: #fff url('../images/message_bg.png') 0 bottom repeat-x;
+	margin: 0;
+	padding: 4px 10px;
+}
+
 
 /* @end */
 
@@ -370,12 +389,30 @@ a.sf-button.alt:hover {
 	border-color: #c9e1f9;
 }
 
+#my_restaurants {
+	padding-bottom: 15px;
+	border-bottom: 1px solid #ddd;
+}
+
 #my_restaurants .restaurant + h3 {
 	margin-top:1em;
 }
 
-#my_restaurants div + p {
-	margin: 1em 0 3px;
+#my_restaurants h4 {
+	color: #999;
+	margin: 0;
+	font-size: 1em;
+	font-weight: bold;
+	text-transform: uppercase;
+}
+
+#my_restaurants .none {
+	color: #999;
+	font-style: italic;
+}
+
+#my_restaurants p {
+	margin:  0 0;
 }
 
 /* @end */
