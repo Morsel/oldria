@@ -21,12 +21,12 @@
 		<%= multiple_checkbox_search(Cuisine.all, :restaurants_cuisine_id) %>
 	</li>
 	<li class="span-5 column">
-		<%= f.label :responsibilities_subject_matter_id_is, "Subject Matter" %>
-		<%= multiple_checkbox_search(SubjectMatter.all, :responsibilities_subject_matter_id_is) %>
+		<%= f.label :responsibilities_subject_matter_id_is_any, "Subject Matter" %>
+		<%= multiple_checkbox_search(SubjectMatter.all, :responsibilities_subject_matter_id_is_any) %>
 	</li>
 	<li class="span-5 column last">
-		<%= f.label :restaurant_role_id_is, "Role at Restaurant" %>
-		<%= multiple_checkbox_search(RestaurantRole.all, :restaurant_role_id_is) %>
+		<%= f.label :restaurant_role_id_is_any, "Role at Restaurant" %>
+		<%= multiple_checkbox_search(RestaurantRole.all, :restaurant_role_id_is_any) %>
 	</li>
 </ol>
 

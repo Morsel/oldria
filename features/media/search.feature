@@ -55,3 +55,13 @@ Feature: Media faceted member search
     When I perform the search:
       | Region | Midwest |
     Then I should see "South of the Border"
+
+@regression
+  Scenario: Searching by restaurant role
+    Given I am on the media request search page
+    When I check "Chef"
+    And I check "Sommelier"
+    And I press "Search"
+    Then I should see "South of the Border"
+    And I should see "Southtown Borders"
+    And show me the page
