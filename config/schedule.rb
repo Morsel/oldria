@@ -27,3 +27,8 @@
 every 1.hour do
   runner 'Feed.update_all_entries!'
 end
+
+every :day, :at => '1:30 am' do
+  rake "backup:run trigger='backup-files-to-s3'"
+  rake "backup:run trigger='backup-db-to-s3'"
+end

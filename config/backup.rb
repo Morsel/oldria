@@ -45,7 +45,7 @@ backup 'backup-db-to-s3' do
   storage :s3 do
     access_key_id     'AKIAILTU3LUR6KLQ2ODQ'
     secret_access_key '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'
-    bucket            'spoonfeed/production/backups/mysql'
+    bucket            '/spoonfeed/production/backups/mysql'
     use_ssl           true
   end
 
@@ -60,13 +60,13 @@ end
 backup 'backup-files-to-s3' do
 
   adapter :archive do
-    files ["#{RAILS_ROOT}/log", "#{RAILS_ROOT}/db", "#{RAILS_ROOT}/public/system"]
+    files ["/home/ria/rails/shared/log", "/home/ria/rails/shared/system"]
   end
 
   storage :s3 do
     access_key_id     'AKIAILTU3LUR6KLQ2ODQ'
     secret_access_key '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'
-    bucket            'spoonfeed/production/backups/'
+    bucket            '/spoonfeed/production/backups/'
     use_ssl           true
   end
 
