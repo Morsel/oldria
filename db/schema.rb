@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100316193326) do
+ActiveRecord::Schema.define(:version => 20100323200122) do
 
   create_table "account_types", :force => true do |t|
     t.string   "name"
@@ -48,6 +48,17 @@ ActiveRecord::Schema.define(:version => 20100316193326) do
 
   add_index "attachments", ["attachable_id", "attachable_type"], :name => "index_attachments_on_attachable_id_and_attachable_type"
 
+  create_table "backup", :force => true do |t|
+    t.string   "storage"
+    t.string   "trigger"
+    t.string   "adapter"
+    t.string   "filename"
+    t.string   "path"
+    t.string   "bucket"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "coached_status_updates", :force => true do |t|
     t.string   "message"
     t.datetime "created_at"
@@ -59,7 +70,7 @@ ActiveRecord::Schema.define(:version => 20100316193326) do
 
   create_table "comments", :force => true do |t|
     t.string   "title",            :limit => 50, :default => ""
-    t.text     "comment",                        :default => ""
+    t.text     "comment"
     t.integer  "commentable_id"
     t.string   "commentable_type"
     t.integer  "user_id"
@@ -253,7 +264,6 @@ ActiveRecord::Schema.define(:version => 20100316193326) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.date     "due_date"
-    t.string   "request_type"
     t.integer  "media_request_type_id"
     t.text     "fields"
     t.string   "status"
@@ -364,6 +374,7 @@ ActiveRecord::Schema.define(:version => 20100316193326) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.datetime "confirmed_at"
+    t.datetime "last_request_at"
     t.string   "atoken"
     t.string   "asecret"
     t.integer  "account_type_id"
@@ -375,7 +386,6 @@ ActiveRecord::Schema.define(:version => 20100316193326) do
     t.string   "last_name"
     t.integer  "james_beard_region_id"
     t.string   "publication"
-    t.datetime "last_request_at"
     t.string   "role"
   end
 
