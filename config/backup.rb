@@ -32,10 +32,6 @@
 # end
 
 
-@s3_access_key = 'AKIAILTU3LUR6KLQ2ODQ'
-@s3_secret = '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'
-
-
 # Initialize with:
 #   rake backup:run trigger='backup-db-to-s3'
 backup 'backup-db-to-s3' do
@@ -47,8 +43,8 @@ backup 'backup-db-to-s3' do
   end
 
   storage :s3 do
-    access_key_id     @s3_access_key
-    secret_access_key @s3_secret
+    access_key_id     'AKIAILTU3LUR6KLQ2ODQ'
+    secret_access_key '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'
     bucket            'spoonfeed/production/backups/mysql'
     use_ssl           true
   end
@@ -68,8 +64,8 @@ backup 'backup-files-to-s3' do
   end
 
   storage :s3 do
-    access_key_id     @s3_access_key
-    secret_access_key @s3_secret
+    access_key_id     'AKIAILTU3LUR6KLQ2ODQ'
+    secret_access_key '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'
     bucket            'spoonfeed/production/backups/'
     use_ssl           true
   end
