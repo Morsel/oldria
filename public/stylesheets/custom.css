@@ -258,16 +258,6 @@ h2 {
 	font-size:1.4em;
 }
 
-#dashboard h2:not(.primary_title){
-	color:#313131;
-	font-weight:normal;
-	font-size:1.3em;
-	text-transform:uppercase;
-	padding:0;
-	margin:0 0 5px;
-	border-bottom:1px dashed #b1b1b1;
-}
-
 h3 {
 	color: #276b96;
 	margin: 0 0 .5em 0;
@@ -421,6 +411,26 @@ a.sf-button.alt:hover {
 #my_restaurants p {
 	margin:  0 0;
 }
+
+
+h2.with_icon {
+	color:#313131;
+	font-weight:normal;
+	font-size:1.3em;
+	text-transform:uppercase;
+	padding: 4px 0 3px 32px;
+	margin:0 0 16px;
+	border-bottom: 1px dashed #ccc;
+	position: relative;
+	
+}
+
+h2.with_icon img {
+	position: absolute;
+	left: 0px;
+	top: 0;;
+}
+
 
 /* @end */
 
@@ -2479,7 +2489,37 @@ h2.primary_title{
 	font-size:1.3em;
 	font-weight:bold;
 	margin:0 0 10px;
+	padding: 16px;
 }
+
+#admin_messages .mail_count {
+	float: left;
+	position: relative;
+	width: 90px;
+	height: 52px;
+	margin-right: 15px;
+	background-image: url('../images/letter.png');
+	background-repeat: no-repeat;
+	text-align: center;
+}
+
+#admin_messages .mail_count span {
+	text-align: center;
+	position: absolute;
+	display: block;
+	height: 38px;
+	padding: 2px 1px 2px 0;
+	width: 39px;
+	right: 5px;
+	top: -5px;
+	color: #fff;
+	text-shadow: 1px 1px 0 #555;
+	line-height: 35px;
+	background: url('../images/bluebadge.png') no-repeat 0 0;
+	font-weight: normal;
+	font-size: 15px;
+}
+
 #admin_messages p{
 	margin:0;
 }

@@ -2,6 +2,7 @@
 <div id="dashboard">
   <% if current_user.inbox_messages.any? -%>
     <div id="admin_messages">
+      <div class="mail_count"><span><%= current_user.inbox_messages.size %></span></div>
       <p>You have <%= pluralize(current_user.inbox_messages.size, 'unread message') %> from <abbr title="Restaurant Intelligence Agency">RIA</abbr>.</p>
       <p><%= link_to 'View your messages &#187;', inbox_path %></p>
     </div><!-- /admin_messages -->
@@ -39,7 +40,10 @@
   <% else -%>
     <div id="news_feeds" class="span-8">
   <% end -%>
-    <h2 class="function-bold">Featured News Feeds</h2>
+    <h2 class="function-bold with_icon">
+      <img src="/images/newspaper.png" alt="" class="titleicon"/>
+      Featured News Feeds
+    </h2>
     <%= render :partial => 'feeds/feed', :collection => @feeds %>
   </div><!-- /news_feeds -->
   <% unless current_user.has_feeds? -%>
@@ -54,7 +58,10 @@
 
 
   <div id="friend_activity" rel="Friend Activity" class="span-12">
-    <h2 class="function-bold">People You Follow</h2>
+    <h2 class="function-bold with_icon">
+      <img src="/images/follow.png" alt="" class="titleicon"/>
+      People You Follow
+    </h2>
     <% @friend_activity.each do |status| -%>
       <% div_for status, :class=>'clearfix' do -%>
         <%= link_to image_tag(status.user.avatar.url(:thumb)), profile_path(status.user.username), :class => 'avatar' %>
