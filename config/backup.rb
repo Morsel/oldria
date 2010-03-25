@@ -14,22 +14,22 @@
 # Notifier
 #   Uncomment this if you want to enable notification by email on successful backup runs
 #   You will also have to set "notify true" inside each backup block below to enable it for that particular backup
-# notifier_settings do
-#
-#   to    "example1@gmail.com"
-#   from  "example2@gmail.com"
-#
-#   smtp do
-#     host            "smtp.gmail.com"
-#     port            "587"
-#     username        "example1@gmail.com"
-#     password        "example1password"
-#     authentication  "plain"
-#     domain          "localhost.localdomain"
-#     tls             true
-#   end
-#
-# end
+notifier_settings do
+
+  to    ["servers@neotericdesign.com", "lauren@restaurantintelligenceagency.com", "ellen@restaurantintelligenceagency.com"]
+  from  "backups@restaurantintelligenceagency.com"
+
+  smtp do
+    host            "smtp.gmail.com"
+    port            "587"
+    username        "spoonfeed@neotericdesign.com"
+    password        "5U8579"
+    authentication  "plain"
+    domain          "restaurantintelligenceagency.com"
+    tls             true
+  end
+
+end
 
 
 # Initialize with:
@@ -51,7 +51,7 @@ backup 'backup-db-to-s3' do
 
   keep_backups 25
   encrypt_with_password false
-  notify false
+  notify true
 end
 
 
