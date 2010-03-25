@@ -1,6 +1,6 @@
 class Admin::HolidaysController < Admin::AdminController
   def index
-    @holidays = Holiday.all
+    @holidays = Holiday.all(:order => 'date ASC, name ASC')
   end
 
   def show
