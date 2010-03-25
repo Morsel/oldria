@@ -172,10 +172,10 @@ div#header {
 }
 
 #sidebar #new_status .and_twitter {
-	margin: 3px;
+	margin: 4px 6px;
 	display: block;
 	float: left;
-	width: 120px;
+	width: 180px;
 }
 
 #media_request_promo {
@@ -422,7 +422,7 @@ h2.with_icon {
 	margin:0 0 16px;
 	border-bottom: 1px dashed #ccc;
 	position: relative;
-	
+
 }
 
 h2.with_icon img {
