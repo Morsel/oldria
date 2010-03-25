@@ -23,7 +23,7 @@ class UserMailer < ActionMailer::Base
     from       'notifications@restaurantintelligenceagency.com'
     recipients request_conversation.recipient.employee.email
     sent_on    Time.now
-    subject    "MediaFeed: #{request.publication_string} has a question for you"
+    subject    "SpoonFeed: #{request.publication_string} has a question for you"
     body       :request_conversation => request_conversation, :request => request
   end
 
@@ -31,7 +31,7 @@ class UserMailer < ActionMailer::Base
     from          'accounts@restaurantintelligenceagency.com'
     recipients    user.email
     sent_on       Time.now
-    subject       "MediaFeed: You've been added"
+    subject       "SpoonFeed: You've been added"
     body          :user => user
   end
 

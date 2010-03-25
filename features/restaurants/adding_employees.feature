@@ -2,7 +2,7 @@
 Feature: Associating a Restaurant with its employees
   So that I can have employees associated with my MF Restaurant
   As a Restaurant account manager
-  I want to find or invite people to the MediaFeed Restaurant I am setting up.
+  I want to find or invite people to the SpoonFeed Restaurant I am setting up.
 
 
   Background:
@@ -73,7 +73,7 @@ Feature: Associating a Restaurant with its employees
     And "dinkle@example.com" should have 1 email
 
     When I logout
-    And "dinkle@example.com" opens the email with subject "MediaFeed: You've been added"
+    And "dinkle@example.com" opens the email with subject "SpoonFeed: You've been added"
     Then I should see "Welcome" in the email body
     And I should see "David" in the email body
     And I should see an invitation URL in the email body
