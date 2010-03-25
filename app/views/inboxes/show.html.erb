@@ -1,3 +1,15 @@
 <% title "{Admin Messages, title}" %>
 
-<%= render :partial => 'message', :collection =>  @messages %>
+<% if @messages.present? %>
+
+  <%= render :partial => 'message', :collection =>  @messages %>
+  <p><%= link_to "Read older messages", archive_inbox_path %></p>
+
+<% else %>
+
+  <p>
+    You don't have any messages! You can still
+    <%= link_to "read old messages", archive_inbox_path %>
+  </p>
+
+<% end %>
