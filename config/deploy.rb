@@ -4,48 +4,30 @@ set :scm, :git
 set :repository,  "git@code.neotericdesign.com:ria.git"
 set :branch, 'master'
 set :git_enable_submodules, 1
+set :deploy_via, :remote_cache
+set :use_sudo, false
+
+default_run_options[:pty] = true
 
 
-if ENV["HIGHLAND"]
-  set :server_ip, 'dh03172010.highlandgroupinc.com'
-  role :web, server_ip
-  role :app, server_ip
-  role :db, server_ip, :primary => true
+##
+# == Staging environment
+#
+# From the command line:
+#   cap deploy
+#
+# Default to staging
+set :server_ip, '174.132.251.233'
+role :web, server_ip
+role :app, server_ip
+role :db, server_ip, :primary => true
 
-  default_run_options[:pty] = true
+set :rails_env, :staging
+set :deploy_to, "/home/ria/staging"
 
-  set :user, "deployer"
-  set :use_sudo, false
+ssh_options[:port] = 7822
+set :user, "ria"
 
-  set :branch, 'production'
-  set :rails_env, :production
-  set :deploy_to, "/srv/httpd/spoonfeed.restaurantintelligenceagency.com/"
-else
-  # This only works because both are deployed on the same server
-  set :server_ip, '174.132.251.233'
-  role :web, server_ip
-  role :app, server_ip
-  role :db, server_ip, :primary => true
-
-  ##
-  # == Staging environment
-  #
-  # From the command line:
-  #   cap deploy
-  #
-  # Default to staging
-  set :rails_env, :staging
-  set :deploy_to, "/home/ria/staging"
-
-  ssh_options[:port] = 7822
-  default_run_options[:pty] = true
-
-  set :user, "ria"
-  set :use_sudo, false
-
-
-  set :deploy_via, :remote_cache
-end
 
 ##
 # == Production environment
@@ -56,10 +38,20 @@ end
 #
 desc "Deploy to production instead: 'cap production deploy'"
 task :production do
+  unset :server_ip
+  @roles.clear # Hack to empty the hash
+  set :server_ip, 'dh03172010.highlandgroupinc.com'
+  set :servers, nil
+  role :web, server_ip
+  role :app, server_ip
+  role :db, server_ip, :primary => true
+  ssh_options[:port] = nil
+
+  set :user, "deployer"
+
   set :branch, 'production'
   set :rails_env, :production
-  set :deploy_to, "/home/ria/rails"
-
+  set :deploy_to, "/srv/httpd/spoonfeed.restaurantintelligenceagency.com/"
 end
 
 
