@@ -1,0 +1,36 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <title>Maintenance - Restaurant Intelligence Agency</title>
+  <link rel="stylesheet" href="/stylesheets/blueprint/screen.css" type="text/css" media="screen" />
+  <link rel="stylesheet" href="/stylesheets/custom.css" type="text/css" media="screen" />
+  <!--[if lt IE 7]><link rel="stylesheet" href="/stylesheets/blueprint/ie.css" type="text/css" media="all"/><![endif]-->
+
+</head>
+
+<body id="maintenance">
+  <div id="container" class="clearfix">
+    <div id="header" class="span-18 last">
+      <div id="brand" class="span-7">
+        <img src="/images/logo_ria.png" alt="" />
+        <a href="/"><img alt="Spoon Feed" src="/images/logo_spoonfeed.png" /></a>
+      </div><!--#brand-->
+    </div><!--header-->
+
+
+    <div id="leftcolumn" class="clear">
+
+      <div class="clearfix span-18 prepend-2 margin-top">
+
+        <h1 class="function-bold">System Maintenance</h1>
+
+        <p class="clear">The system is down for <%= reason ? reason : "maintenance" %>
+           as of <%= Time.now.strftime("%H:%M %Z") %>.</p>
+        <p>It'll be back <%= deadline ? deadline : "shortly" %></p>
+      </div>
+    </div><!--#leftcolumn-->
+
+  </div><!--#container-->
+</body>
+</html>
