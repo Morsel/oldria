@@ -64,4 +64,3 @@ Feature: Media faceted member search
     And I press "Search"
     Then I should see "South of the Border"
     And I should see "Southtown Borders"
-    And show me the page
