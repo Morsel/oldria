@@ -34,7 +34,8 @@ class Discussion < ActiveRecord::Base
        LEFT OUTER JOIN readings ON comments.id = readings.readable_id
        AND readings.readable_type = 'Comment'
        AND readings.user_id = #{user.id}",
-       :conditions => 'readings.user_id IS NULL' }
+       :conditions => 'readings.user_id IS NULL',
+       :group => 'discussions.id' }
   }
 
   named_scope :unread_by, lambda { |user|
