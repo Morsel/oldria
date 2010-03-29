@@ -29,13 +29,13 @@ class Discussion < ActiveRecord::Base
   end
 
   named_scope :with_comments_unread_by, lambda { |user|
-     { :joins => "INNER JOIN comments ON comments.commentable_id = discussions.id
+     { :select => "DISTINCT(discussions.*)",
+       :joins => "INNER JOIN comments ON comments.commentable_id = discussions.id
        AND comments.commentable_type = 'Discussion'
        LEFT OUTER JOIN readings ON comments.id = readings.readable_id
        AND readings.readable_type = 'Comment'
        AND readings.user_id = #{user.id}",
-       :conditions => 'readings.user_id IS NULL',
-       :group => 'discussions.id' }
+       :conditions => 'readings.user_id IS NULL' }
   }
 
   named_scope :unread_by, lambda { |user|
