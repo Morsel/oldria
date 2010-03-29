@@ -1,6 +1,6 @@
 Given /^I have just posted a discussion with the title "([^\"]*)"$/ do |title|
   visit new_discussion_path
-  fill_in :title, :with => title
+  fill_in :subject, :with => title
   click_button
 end
 
