@@ -5,16 +5,13 @@ describe DiscussionsController do
 
   before do
     @user = Factory(:user)
-    @user.stubs(:update).returns(true)
     controller.stubs(:current_user).returns(@user)
   end
 
   describe "GET 'show'" do
     before do
-      @discussion = Factory(:discussion)
-      Discussion.stubs(:find).with("32").returns(@discussion)
-      controller.stubs(:cannot?).returns(false)
-      get :show, :id => "32"
+      @discussion = Factory(:discussion, :poster => @user)
+      get :show, :id => @discussion.id
     end
 
     it { response.should be_success }

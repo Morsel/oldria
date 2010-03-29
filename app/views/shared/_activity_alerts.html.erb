@@ -1,0 +1,12 @@
+<div id="activity_alerts" class="activity_alerts sidebar_section">
+  <div class="section_header"><h3 class="function-bold">Activity Alerts</h3></div>
+  <div class="section_body">
+    <ul class="fancy-list">
+
+      <li><%= link_to pluralize(current_user.inbox_messages.size, 'unread admin message'), inbox_path %></li>
+      <li><%= link_to pluralize(current_user.discussions.unread_by(current_user).size, 'new discussion'), discussions_path %></li>
+      <li><%= link_to pluralize(current_user.discussions.with_comments_unread_by(current_user).size, 'discussion') + ' with new comments', discussions_path %></li>
+
+    </ul>
+  </div>
+</div>

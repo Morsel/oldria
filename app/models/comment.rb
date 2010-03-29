@@ -15,6 +15,7 @@
 
 class Comment < ActiveRecord::Base
   include ActsAsCommentable::Comment
+  acts_as_readable
   has_many :attachments, :as => :attachable, :class_name => '::Attachment'
   belongs_to :commentable, :polymorphic => true, :counter_cache => true
   belongs_to :user

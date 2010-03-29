@@ -7,8 +7,9 @@ class DiscussionsController < ApplicationController
 
   def show
     load_and_authorize_discussion
-    @comments = @discussion.posted_comments
+    load_comments
     build_comment
+    @discussion.read_by!(current_user) unless @discussion.read_by?(current_user)
   end
 
   def new
@@ -33,6 +34,13 @@ class DiscussionsController < ApplicationController
   def load_and_authorize_discussion
     @discussion = Discussion.find(params[:id])
     unauthorized! if cannot? :read, @discussion
+  end
+
+  def load_comments
+    @comments = @discussion.posted_comments
+    @comments.each do |comment|
+      comment.read_by!(current_user) unless comment.read_by?(current_user)
+    end
   end
 
   def build_comment
