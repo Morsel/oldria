@@ -24,11 +24,13 @@
 #   command "cd /home/ria/unplugged/_mt; perl ./tools/run-periodic-tasks >> ../../mt.log"
 # end
 
+set :environment, Rails.env
+
 every 1.hour do
   runner 'Feed.update_all_entries!'
 end
 
 every 1.day, :at => '2:30am' do
-  rake "backup:run trigger='backup-files-to-s3'"
-  rake "backup:run trigger='backup-db-to-s3'"
+  rake "backup:run trigger='backup-files-to-s3'", :environment => :production
+  rake "backup:run trigger='backup-db-to-s3'", :environment => :production
 end
