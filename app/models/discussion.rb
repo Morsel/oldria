@@ -29,7 +29,7 @@ class Discussion < ActiveRecord::Base
   end
 
   named_scope :with_comments_unread_by, lambda { |user|
-     { :select => "DISTINCT(discussions.*)",
+     { :select => "DISTINCT(discussions.id), discussions.*",
        :joins => "INNER JOIN comments ON comments.commentable_id = discussions.id
        AND comments.commentable_type = 'Discussion'
        LEFT OUTER JOIN readings ON comments.id = readings.readable_id
