@@ -24,6 +24,7 @@ Rails::Initializer.run do |config|
   config.gem 'friendly_id',           :version => "~>2.2.7" # Versions at or above 2.2.7, but below 2.3.0
   config.gem 'loofah',                :version => "~>0.4.6"
   config.gem 'feedzirra',             :version => "~>0.0.20"
+  config.gem 'preferences',           :version => "~>0.4.1"
   config.gem 'whenever',              :lib => false
   config.gem 'delayed_job',           :version => "~>1.8.4"
 

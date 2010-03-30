@@ -79,6 +79,9 @@ class User < ActiveRecord::Base
   validates_acceptance_of :agree_to_contract
   named_scope :for_autocomplete, :select => "first_name, last_name", :order => "last_name ASC", :limit => 15
 
+### Preferences ###
+  preference :hide_help_box, :default => false
+
   def admin?
     return @is_admin if defined?(@is_admin)
     @is_admin = has_role?(:admin)

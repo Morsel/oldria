@@ -38,11 +38,18 @@ class UsersController < ApplicationController
 
   def update
     @user = User.find(params[:id])
-    if @user.update_attributes(params[:user])
-      flash[:notice] = "Successfully updated your profile."
-      redirect_to user_path(@user)
-    else
-      render :edit
+    respond_to do |format|
+      if @user.update_attributes(params[:user])
+        format.html do
+          flash[:notice] = "Successfully updated your profile."
+          redirect_to user_path(@user)
+        end
+        format.js   { head :ok }
+      else
+        format.html { render :edit }
+        format.js   { render :json => @user.errors, :status => :unprocessable_entity }
+      end
+
     end
   end
 

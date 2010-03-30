@@ -2406,19 +2406,37 @@ form .cke_skin_kama .cke_wrapper {
 
 
 /* ## Dashboard --------------------------------------------- */
+#get_started {
+	position: relative;
+}
+
 #get_started .box .box{
 	background:#fef4ea;
 }
+
 #get_started h3{
 	color:#676767;
 }
+
 #get_started ol, #get_started li{
 	list-style-type:none;
 }
+
 #get_started li, #get_started li a{
 	font-weight:bold;
 	color:#e1771f;
 }
+
+#hide_help_box {
+	width: 16px;
+	height: 16px;
+	background: url('../images/x.png');
+	cursor: pointer;
+	position: absolute;
+	top: 7px;
+	right: 8px;
+}
+
 
 h2.primary_title{
 	color:#fff;

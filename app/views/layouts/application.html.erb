@@ -106,6 +106,11 @@
 	</div><!--#footer-->
 
 </div><!--#container-->
+
+<script type="text/javascript">
+  window.current_user_id = '<%= current_user ? current_user.id : "null" %>';
+</script>
+
 <%= javascript_include_tag :defaults %>
 <%= javascript_include_tag 'jquery.autocomplete','jquery.autofill','cufon','FunctionBold_700.font','site' %>
 
