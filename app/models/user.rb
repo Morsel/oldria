@@ -82,6 +82,7 @@ class User < ActiveRecord::Base
 ### Preferences ###
   preference :hide_help_box, :default => false
 
+### Roles ###
   def admin?
     return @is_admin if defined?(@is_admin)
     @is_admin = has_role?(:admin)

@@ -2245,7 +2245,7 @@ img.right {
 	margin: 0;
 }
 
-tr.admin td {
+tr.admin td, tr.featured td {
 	background-color: #fdc;
 }
 

@@ -211,6 +211,13 @@ $('#feeds tbody').sortable({
 	}
 });
 
+$(".feed .featured").each(function(){
+  cell = $(this);
+  if (cell.text() == 'true') {
+    cell.parents("tr").addClass('featured');
+  }
+});
+
 $('.feed_entry_header').click(function(){
 	var $feedEntry = $(this).parent();
 	$feedEntry.toggleClass('open');
