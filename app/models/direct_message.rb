@@ -1,9 +1,9 @@
 # == Schema Information
+# Schema version: 20100331213108
 #
 # Table name: direct_messages
 #
 #  id                     :integer         not null, primary key
-#  title                  :string(255)
 #  body                   :string(255)
 #  sender_id              :integer         not null
 #  receiver_id            :integer         not null
