@@ -27,7 +27,7 @@
     <div class="box">
       <h2 class="primary_title function-bold">Conversations</h2>
       <div id="direct_messages">
-        <h3>Direct Messages</h3>
+        <h3>Private Messages</h3>
         <% @direct_messages.each do |dm| -%>
           <% div_for dm do -%>
             <p><%= link_to details_for(dm), reply_direct_message_path(dm) %></p>
