@@ -7,6 +7,13 @@ class HolidayConversationsController < ApplicationController
     build_comment
   end
 
+  def update
+    require_admin
+    load_and_authorize_holiday_conversation
+    @holiday_conversation.update_attributes(params[:holiday_conversation])
+    redirect_to admin_holiday_path(@holiday_conversation.holiday)
+  end
+
   private
 
   def build_comment

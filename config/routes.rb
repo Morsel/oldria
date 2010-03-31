@@ -34,7 +34,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :user_sessions, :password_resets, :followings, :pages, :direct_messages
 
 
-  map.resources :holiday_conversations, :only => 'show' do |holiday_conversations|
+  map.resources :holiday_conversations, :only => ['show','update'] do |holiday_conversations|
     holiday_conversations.resources :comments, :only => [:new, :create]
   end
 

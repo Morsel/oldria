@@ -1488,6 +1488,22 @@ h3.function-bold{
 
 /* @group admin messaging ----------- */
 
+#holiday_conversation_acceptable {
+	background-color: #fafafa;
+	padding: 5px 20px 0;
+}
+
+#holiday_conversation_acceptable fieldset {
+	border: 0 none;
+	padding: 0;
+}
+
+.holiday_conversation_recipient.accepted td{
+	background-color: #ddfadd;
+}
+
+
+
 .formtastic.comment fieldset{
 	border: 0 none;
 	padding: 0;
@@ -2393,7 +2409,7 @@ a.ui-state-default:hover {
 /* @end */
 
 
-/* @group CKEditor overrides ui ---------*/
+/* @group CKEditor overrides ui --------*/
 
 
 form span.cke_skin_kama {
@@ -2408,6 +2424,7 @@ form .cke_skin_kama .cke_wrapper {
 
 /* @end */
 
+/* @group dashboard ----------------- */
 
 /* ## Dashboard --------------------------------------------- */
 #get_started {
@@ -2545,3 +2562,5 @@ h2.primary_title{
 #admin_messages p{
 	margin:0;
 }
+
+/* @end */

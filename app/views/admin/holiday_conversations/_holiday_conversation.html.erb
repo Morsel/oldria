@@ -1,4 +1,4 @@
-<tr class="holiday_conversation_recipient <%= cycle('odd', 'even', :name => 'conversation_row') %>">
+<tr class="holiday_conversation_recipient <%= cycle('odd', 'even', :name => 'conversation_row') %><%= holiday_conversation.accepted? ? ' accepted' : ' unaccepted' %>">
   <td>
     <%= holiday_conversation.recipient.employee_name %>
     (<%= holiday_conversation.recipient.restaurant_name %>)
