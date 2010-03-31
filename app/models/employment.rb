@@ -44,6 +44,9 @@ class Employment < ActiveRecord::Base
 
   named_scope :unique_users, :group => :employee_id
 
+  named_scope :by_restaurant_name, :order => 'restaurants.name ASC, users.last_name ASC', :include => [:restaurant, :employee]
+  named_scope :by_employee_last_name, :order => 'users.last_name ASC', :include => :employee
+
   def employee_name
     @employee_name ||= employee && employee.name
   end
