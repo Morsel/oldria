@@ -1,5 +1,5 @@
 def fill_in_form_with_data_hash(data_hash)
-  fill_in :direct_message_subject, :with => data_hash[:title]
+  # fill_in :direct_message_subject, :with => data_hash[:title]
   fill_in :direct_message_body,  :with => data_hash[:body]
   click_button "Send"
 end
@@ -23,9 +23,9 @@ When /^I send an admin direct message to "([^\"]*)" with:$/ do |username, table|
   fill_in_form_with_data_hash table.hashes.first
 end
 
-Then /^"([^\"]*)" should have an admin message titled "([^\"]*)"$/ do |username, title|
+Then /^"([^\"]*)" should have an admin message with body: ?"([^\"]*)"$/ do |username, body|
   message = User.find_by_username(username).direct_messages.first
-  message.title.should == title
+  message.body.should == body
   message.should be_from_admin
 end
 

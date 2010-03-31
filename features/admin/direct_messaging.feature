@@ -14,9 +14,9 @@ Feature: Direct messaging
   Scenario: Sending an Admin Direct Message to a user
     Given I am logged in as an admin
     When I send an admin direct message to "Jim John" with:
-      | title                  | body                        |
-      | Administrative Message | You need to fill out a menu |
-    Then "normalguy" should have an admin message titled "Administrative Message"
+      | body                        |
+      | You need to fill out a menu |
+    Then "normalguy" should have an admin message with body: "You need to fill out a menu"
 
 
 
