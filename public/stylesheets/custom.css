@@ -339,6 +339,10 @@ ins {
 	margin: 0;
 }
 
+.cufon, .function-bold{
+	font-family:'FuturaStdHeavy';
+}
+
 /* @end */
 
 /* @group custom */

@@ -185,9 +185,9 @@ checkallList.find(":checkbox").not(".novalue").click(function(){
 });
 
 //Cufon
-if(typeof(Cufon) != 'undefined') {
-	Cufon.replace('.function-bold', {fontFamily:'FunctionBold', hover:true});
-}
+// if(typeof(Cufon) != 'undefined') {
+// 	Cufon.replace('.function-bold', {fontFamily:'FunctionBold', hover:true});
+// }
 
 // WYSIWYG
 if(typeof(CKEDITOR) != 'undefined'){

@@ -6,7 +6,7 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<title><%= h(yield(:title) || "Untitled") %> - <%= current_user && current_user.media? ? "MediaFeed" : "SpoonFeed" %> - Restaurant Intelligence Agency</title>
 
-	<%= stylesheet_link_tag 'blueprint/screen', 'custom' %>
+	<%= stylesheet_link_tag 'blueprint/screen', 'futurastdheavy-base64', 'custom' %>
 	<%= stylesheet_link_tag 'blueprint/print', :media => 'print' %>
 
 	<!--[if lt IE 7]><%= stylesheet_link_tag 'blueprint/ie', 'ie6' %><![endif]-->
@@ -115,7 +115,7 @@
 </script>
 
 <%= javascript_include_tag :defaults %>
-<%= javascript_include_tag 'jquery.autocomplete','jquery.autofill','cufon','FunctionBold_700.font','site' %>
+<%= javascript_include_tag 'jquery.autocomplete','jquery.autofill','site' %>
 
 <%= render :partial => 'layouts/uservoice' %>
 <%= render :partial => 'layouts/ga' %>
