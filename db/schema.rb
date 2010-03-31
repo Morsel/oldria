@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100330162223) do
+ActiveRecord::Schema.define(:version => 20100331213108) do
 
   create_table "account_types", :force => true do |t|
     t.string   "name"
@@ -112,7 +112,6 @@ ActiveRecord::Schema.define(:version => 20100330162223) do
   end
 
   create_table "direct_messages", :force => true do |t|
-    t.string   "title"
     t.string   "body"
     t.integer  "sender_id",                                 :null => false
     t.integer  "receiver_id",                               :null => false

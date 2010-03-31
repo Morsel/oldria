@@ -17,8 +17,8 @@ Feature: Direct messaging
   Scenario: Send a direct message
     Given I am logged in as "senderman" with password "secret"
     When I send a direct message to "getterboy" with:
-      | title      | body                       |
-      | Hey there! | I'm sending you a message! |
+      | body                       |
+      | I'm sending you a message! |
     Then I should see "Your message has been sent"
     And "getterboy" should have 1 direct message
 
@@ -28,7 +28,7 @@ Feature: Direct messaging
   #     And I am logged in as "senderman" with password "secret"
   #     When I am on the homepage
   #     Then I should see my message to "getterboy"
-  
+
 
   Scenario: See a direct message in an "inbox" on the dashboard
     Given "getterboy" has 1 direct message from "senderman"

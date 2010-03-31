@@ -10,7 +10,9 @@ describe Admin::DirectMessagesController do
 
   describe "GET index" do
     it "assigns all direct_messages as @direct_messages" do
-      DirectMessage.expects(:all_from_admin).returns([@direct_message])
+      proxy = [@direct_message]
+      proxy.stubs(:all).returns(proxy)
+      DirectMessage.expects(:all_from_admin).returns(proxy)
       get :index
       assigns[:direct_messages].should == [@direct_message]
     end

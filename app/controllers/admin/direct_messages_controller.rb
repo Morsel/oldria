@@ -1,7 +1,7 @@
 class Admin::DirectMessagesController < Admin::AdminController
 
   def index
-    @direct_messages = DirectMessage.all_from_admin
+    @direct_messages = DirectMessage.all_from_admin.all(:include => [:sender, :receiver])
   end
 
   def show

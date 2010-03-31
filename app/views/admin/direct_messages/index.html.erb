@@ -8,7 +8,6 @@
 	<tr>
 		<th>From</th>
 		<th>To</th>
-		<th>Title</th>
 		<th>Body</th>
 		<th></th>
 	</tr>
@@ -17,7 +16,6 @@
 	<tr>
 		<td><%=h direct_message.sender.username %></td>
 		<td><%= link_to direct_message.receiver.username, profile_path(direct_message.receiver.username) %></td>
-		<td><%=h direct_message.title %></td>
 		<td><%=h direct_message.body %></td>
 		<td class="utility">
 			<%= link_to 'Edit', edit_admin_direct_message_path(direct_message) %>
