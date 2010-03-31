@@ -1,5 +1,4 @@
 def fill_in_form_with_data_hash(data_hash)
-  # fill_in :direct_message_subject, :with => data_hash[:title]
   fill_in :direct_message_body,  :with => data_hash[:body]
   click_button "Send"
 end
