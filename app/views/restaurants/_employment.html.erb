@@ -16,7 +16,7 @@
 
 	<div class="employee_section last span-3">
 		<ul class="actions">
-			<li><%= link_to "Direct Message", new_user_direct_message_path(employment.employee) %></li>
+			<li><%= link_to "Private Message", new_user_direct_message_path(employment.employee) %></li>
 			<%- if can? :edit, employment.restaurant %>
 			<li><%= link_to "Edit Employee", edit_restaurant_employee_path(employment.restaurant, employment.employee) %></li>
 			<% end -%>
