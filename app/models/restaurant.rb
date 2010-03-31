@@ -40,7 +40,7 @@ class Restaurant < ActiveRecord::Base
 
   # For pagination
   cattr_reader :per_page
-  @@per_page = 10
+  @@per_page = 15
 
   def name_and_location
     [name, city, state].reject(&:blank?).join(", ")
