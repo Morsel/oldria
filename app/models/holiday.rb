@@ -19,6 +19,14 @@ class Holiday < ActiveRecord::Base
   validates_presence_of :name
   validates_presence_of :date
 
+  def accepted_holiday_conversations
+    holiday_conversations.accepted
+  end
+
+  def accepted_holiday_conversation_recipient_ids
+    accepted_holiday_conversations.map(&:recipient_id)
+  end
+
   def reminders_count
     admin_holiday_reminders.size
   end

@@ -20,7 +20,7 @@ class Admin::HolidayReminder < Admin::Message
 
   def copy_recipients
     return if holiday.blank? || recipient_ids.present?
-    self.recipient_ids = holiday.recipient_ids
+    self.recipient_ids = holiday.recipient_ids - holiday.accepted_holiday_conversation_recipient_ids
   end
 
   def self.title
