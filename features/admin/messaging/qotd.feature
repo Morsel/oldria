@@ -12,16 +12,12 @@ Feature: Admin Messaging: Question of the Day
     And there are no QOTDs in the system
     And I am logged in as an admin
 
-
+@focus
   Scenario: Create a new QOTD
     Given I am on the new QOTD page
     When I perform the search:
-      | Restaurant Name    | Eight Ball |
-      | Role at Restaurant | Chef       |
-    Then I should see "Sam Smith"
-    But I should not see "John Doe"
-
-    When I check "Sam Smith (Eight Ball)"
+      | Restaurant Name | Eight Ball |
+    And I check "Sam Smith (Eight Ball)"
     And I fill in "Message" with "What is your favorite pie?"
     And I press "Save"
     Then I should see list of QOTDs

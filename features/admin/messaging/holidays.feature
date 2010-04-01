@@ -11,15 +11,11 @@ I want to set up holidays, with multiple scheduled reminders
       | john     | secret   | john@example.com | John Doe  | Sommelier | Beer, Wine      |
     And I am logged in as an admin
 
-
+@focus
   Scenario: Create a new Holiday (not displayed on their own)
     Given I am on the new holiday page
     When I perform the search:
-      | Restaurant Name    | Eight Ball |
-      | Role at Restaurant | Chef       |
-    Then I should see "Sam Smith"
-    But I should not see "John Doe"
-
+      | Restaurant Name | Eight Ball |
     When I check "Sam Smith (Eight Ball)"
     And I fill in "Name" with "Easter"
     And I press "Save"
@@ -31,7 +27,6 @@ I want to set up holidays, with multiple scheduled reminders
     When I go to my inbox
     Then I should not see "Easter"
 
-@focus
   Scenario: Replying to a Holiday Reminder
     Given a holiday exists named "Christmas" and recipients:
       | email           |

@@ -13,8 +13,8 @@ class AdminMessagesController < ApplicationController
 
     # Mark either the conversation or the message itself as read by the user
     if @admin_message.recipients_can_reply? && current_user
-      conversation = current_user.admin_conversations.find_by_admin_message_id(@admin_message.id)
-      conversation && conversation.read_by!(current_user)
+      conversations = current_user.admin_conversations.find_all_by_admin_message_id(@admin_message.id)
+      conversations.present? && conversations.each{|conversation| conversation.read_by!(current_user)}
     else
       @admin_message.read_by!(current_user)
     end
