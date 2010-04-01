@@ -1542,11 +1542,10 @@ ul.mini_menu li {
 /* @group inbox */
 
 .inbox_message {
-	border: 1px solid #eaeaea;
-	margin-bottom: 5px;
+	margin:0 10px 5px;
 	padding: 12px;
-	background: #fff url('../images/message_bg.png') 0 bottom repeat-x;
 	position: relative;
+	border-bottom:3px solid #fff;
 }
 
 .inbox_message .readit {
@@ -1563,8 +1562,8 @@ ul.mini_menu li {
 	display: none;
 }
 
-.inbox_message .message-header {
-	margin-bottom: 1em;
+.inbox_message .message-body {
+	margin-bottom:10px;
 }
 
 .inbox_message .message-title {
@@ -1573,7 +1572,9 @@ ul.mini_menu li {
 	font-weight: bold;
 	padding: 0;
 	margin: 0 0 3px;
+	border-bottom:1px dashed #ddd;
 }
+
 
 .inbox_message .message-date {
 	margin: 0;
@@ -1583,10 +1584,14 @@ ul.mini_menu li {
 }
 
 .inbox_message .icon {
-	width: 30px;
-	height: 30px;
+	width: 15px;
+	height: 15px;
 	background-color: #ccc;
 	border: 1px solid #ddd;
+	float:left;
+}
+.inbox_message .message-details{
+	margin-left:25px;
 }
 
 
@@ -2567,7 +2572,7 @@ h2.primary_title{
 
 /* ## Messages --------------------------------------------- */
 
-#messages{
+#read_messages{
 	background:#f6f6f6;
 }
 #messages_nav ul, #messages_nav li{
@@ -2592,4 +2597,29 @@ h2.primary_title{
 	background:#f6f6f6;
 	border:0;
 	font-weight:bold;
+}
+
+#past_messages{
+	margin:10px 0 0;
+	padding:10px 0;
+	background:#fff;
+	font:bold 0.9em "Lucida Grande", Arial, sans-serif;
+}
+
+#past_messages a{
+	display:inline-block;
+	padding:7px 12px;
+	text-transform:uppercase;
+	color:#fff;
+	background:#048dc4;
+	text-shadow:0 1px 0 #333;
+	border-radius:35px;
+	-webkit-border-radius:35px;
+	-moz-border-radius:35px;
+	-khtml-border-radius:35px;
+}
+
+#past_messages a:hover{
+	text-decoration:none;
+	background:#2a98c4;
 }

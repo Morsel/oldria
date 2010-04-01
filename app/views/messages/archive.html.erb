@@ -2,6 +2,6 @@
 
 <%= render 'nav' %>
 
-<div id="messages" class="span-9 last">
+<div id="read_messages" class="span-9 last">
   <%= render :partial => 'message', :collection =>  @messages, :locals => { :archive => true } %>
 </div><!-- /messages -->

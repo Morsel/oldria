@@ -2,6 +2,6 @@
 
 <%= render 'nav' %>
 
-<div id="messages" class="span-9 last">
-  Hey!
+<div id="read_messages" class="span-9 last">
+  <%= render :partial => 'private_message', :collection =>  @messages %>
 </div>

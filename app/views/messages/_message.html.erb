@@ -7,29 +7,27 @@
 end %>
 <% div_for message, :class => "inbox_message clear clearfix#{ ' archived' if archive}" do %>
 
-  <div class="span-1">
-    <div class="icon">
+  <div class="icon">
 
-    </div>
   </div>
-  <div class="span-10">
+  <div class="message-details">
     <div class="message-header clearfix">
       <h4 class="message-title">
         <%= message.inbox_title %>
         <%= "(#{restaurant.name})" if restaurant %>
       </h4>
-      <p class="message-date"><%= message.scheduled_at.try(:strftime, "%B %d, %Y at %I:%M%p") %></p>
     </div>
     <div class="message-body">
       <%= message.message %>
     </div>
+    <p class="message-date"><%= message.scheduled_at.try(:strftime, "%B %d, %Y at %I:%M%p") %></p>
     <% unless archive %>
-    <div class="message-actions">
-      <%= reply_link_for_message(original_message) %>
-      <% if restaurant %>
-        <small class="behalf"> on behalf of <strong><%= restaurant.try(:name)%></strong></small>
-      <% end %>
-    </div>
+      <div class="message-actions">
+        <%= reply_link_for_message(original_message) %>
+        <% if restaurant %>
+          <small class="behalf"> on behalf of <strong><%= restaurant.try(:name)%></strong></small>
+        <% end %>
+      </div>
 
       <a href="#" class="readit"><span>read</span></a>
     <% end %>

@@ -2,11 +2,11 @@
 
 <%= render 'nav' %>
 
-<div id="messages" class="span-9 last">
+<div id="read_messages" class="span-9 last">
   <% if @messages.present? %>
 
     <%= render :partial => 'message', :collection =>  @messages %>
-    <p><%= link_to "Past Messages", archive_messages_path %></p>
+    <p id="past_messages"><%= link_to "Past Messages", archive_messages_path %></p>
 
   <% else %>
 

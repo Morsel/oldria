@@ -19,11 +19,11 @@ class MessagesController < ApplicationController
   end
   
   def private
-    
+    @messages = current_user.direct_messages
   end
   
   def staff_discussions
-    
+    @messages = current_user.discussions
   end
   
   private
