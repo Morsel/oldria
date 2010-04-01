@@ -31,6 +31,7 @@ class Admin::MessagesController < Admin::AdminController
     respond_to do |format|
       format.html { redirect_to admin_message_path }
       format.xml { head :ok }
+      format.js  { head :ok }
     end
   end
 end

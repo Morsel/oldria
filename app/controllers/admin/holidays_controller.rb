@@ -43,7 +43,10 @@ class Admin::HolidaysController < Admin::AdminController
     @holiday = Holiday.find(params[:id])
     @holiday.destroy
     flash[:notice] = "Successfully destroyed holiday."
-    redirect_to admin_holidays_path
+    respond_to do |format|
+      format.html { redirect_to admin_holidays_path }
+      format.js   { head :ok }
+    end
   end
 
   private
