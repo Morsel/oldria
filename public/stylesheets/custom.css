@@ -1584,6 +1584,10 @@ ul.mini_menu li {
 	margin: 0 0 3px;
 	border-bottom:1px dashed #ddd;
 }
+.inbox_message .message-title span{
+	color:#848484;
+	font-weight:normal;
+}
 
 
 .inbox_message .message-date {

@@ -14,7 +14,7 @@ end %>
     <div class="message-header clearfix">
       <h4 class="message-title">
         <%= message.inbox_title %>
-        <%= "(#{restaurant.name})" if restaurant %>
+        <%= "<span>for #{restaurant.name}</span>" if restaurant %>
       </h4>
     </div>
     <div class="message-body">
