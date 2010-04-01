@@ -180,7 +180,7 @@ class User < ActiveRecord::Base
     Admin::Announcement.current.find_unread_by( self )
   end
 
-  def inbox_messages
+  def messages_from_ria
     [ admin_conversations.current.find_unread_by(self),
       unread_pr_tips,
       unread_announcements

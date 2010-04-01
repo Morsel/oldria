@@ -1,10 +1,10 @@
 <% title "Your Digital Dashboard", false %>
 <div id="dashboard">
-  <% if current_user.inbox_messages.any? -%>
+  <% if current_user.messages_from_ria.any? -%>
     <div id="admin_messages">
-      <div class="mail_count"><span><%= current_user.inbox_messages.size %></span></div>
-      <p>You have <%= pluralize(current_user.inbox_messages.size, 'unread message') %> from <abbr title="Restaurant Intelligence Agency">RIA</abbr>.</p>
-      <p><%= link_to 'View your messages &#187;', inbox_path, html_options = {:onclick => "pageTracker._trackEvent('Dashboard', 'Click', 'New RIA Message Promo')"} %></p>
+      <div class="mail_count"><span><%= current_user.messages_from_ria.size %></span></div>
+      <p>You have <%= pluralize(current_user.messages_from_ria.size, 'unread message') %> from <abbr title="Restaurant Intelligence Agency">RIA</abbr>.</p>
+      <p><%= link_to 'View your messages &#187;', messages_path, html_options = {:onclick => "pageTracker._trackEvent('Dashboard', 'Click', 'New RIA Message Promo')"} %></p>
     </div><!-- /admin_messages -->
   <% end -%>
 

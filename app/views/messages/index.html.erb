@@ -3,13 +3,13 @@
 <% if @messages.present? %>
 
   <%= render :partial => 'message', :collection =>  @messages %>
-  <p><%= link_to "Read older messages", archive_inbox_path %></p>
+  <p><%= link_to "Read older messages", archive_messages_path %></p>
 
 <% else %>
 
   <p>
     You don't have any messages! You can still
-    <%= link_to "read old messages", archive_inbox_path %>.
+    <%= link_to "read old messages", archive_messages_path %>.
   </p>
 
 <% end %>
