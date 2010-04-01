@@ -144,6 +144,11 @@ class User < ActiveRecord::Base
   def confirmed?
     confirmed_at
   end
+  
+  def confirm!
+    self.confirmed_at = Time.now
+    self.save
+  end
 
   def deliver_password_reset_instructions!
     reset_perishable_token!
