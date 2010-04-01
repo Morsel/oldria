@@ -16,5 +16,13 @@ class MessagesController < ApplicationController
   def archive
     @messages = current_user.archived_messages
   end
+  
+  def private
+    
+  end
+  
+  def staff_discussions
+    
+  end
 
 end

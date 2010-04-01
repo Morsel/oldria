@@ -20,4 +20,14 @@ module LayoutHelper
     args = args.map { |arg| arg == :defaults ? arg : arg.to_s }
     content_for(:head) { javascript_include_tag(*args) }
   end
+  
+  def active_link_to text, path, options = {}
+    css_class = request.path == path ? 'here' : ''
+    if options[:class]
+      options[:class] += ', ' + css_class
+    else 
+      options[:class] = css_class
+    end
+    link_to text, path, options
+  end
 end

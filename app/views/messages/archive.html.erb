@@ -1,3 +1,7 @@
-<% title "All Messages from RIA" %>
+<% title "All Messages from RIA" -%>
 
-<%= render :partial => 'message', :collection =>  @messages, :locals => { :archive => true } %>
+<%= render 'nav' %>
+
+<div id="messages" class="span-9 last">
+  <%= render :partial => 'message', :collection =>  @messages, :locals => { :archive => true } %>
+</div><!-- /messages -->

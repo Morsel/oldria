@@ -1,4 +1,4 @@
-module InboxHelper
+module MessagesHelper
   def reply_link_for_message(message)
     return unless message
     if message.admin_message && message.admin_message.respond_to?(:holiday)
@@ -9,4 +9,6 @@ module InboxHelper
       link_to "Reply", admin_conversation_path(message)
     end
   end
+  
+  
 end

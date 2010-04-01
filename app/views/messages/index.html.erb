@@ -1,15 +1,19 @@
-<% title "Messages from RIA" %>
+<% title "Messages from RIA" -%>
 
-<% if @messages.present? %>
+<%= render 'nav' %>
 
-  <%= render :partial => 'message', :collection =>  @messages %>
-  <p><%= link_to "Read older messages", archive_messages_path %></p>
+<div id="messages" class="span-9 last">
+  <% if @messages.present? %>
 
-<% else %>
+    <%= render :partial => 'message', :collection =>  @messages %>
+    <p><%= link_to "Past Messages", archive_messages_path %></p>
 
-  <p>
-    You don't have any messages! You can still
-    <%= link_to "read old messages", archive_messages_path %>.
-  </p>
+  <% else %>
 
-<% end %>
+    <p>
+      You don't have any messages! You can still
+      <%= link_to "read past messages", archive_messages_path %>.
+    </p>
+
+  <% end %>
+</div><!-- /messages -->
