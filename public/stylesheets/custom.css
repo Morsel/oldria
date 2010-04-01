@@ -2575,7 +2575,7 @@ h2.primary_title{
 #read_messages{
 	background:#f6f6f6;
 	padding:10px;
-	min-height:600px;
+	min-height:765px;
 }
 #read_messages .direct_message a{
 	display:inline;
