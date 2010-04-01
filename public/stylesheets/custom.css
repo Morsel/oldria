@@ -2564,7 +2564,8 @@ h2.primary_title{
 
 /* ## Messages --------------------------------------------- */
 
-#read_messages{
+#read_messages .box{
+	border:0;
 }
 .hide_link{
 	display:block;
@@ -2574,7 +2575,7 @@ h2.primary_title{
 	margin-left:10px;
 }
 #read_messages .direct_message, #read_messages .discussion{
-	background:#f2f2f2;
+	background:#f6f6f6;
 	padding:10px;
 }
 
