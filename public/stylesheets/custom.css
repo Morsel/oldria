@@ -452,7 +452,7 @@ h2.with_icon img {
 #navigation li {
 	float: left;
 	display: inline;
-	font-family: futura, 'helvetica neue', arial, sans-serif;
+	font-family: 'FuturaStdHeavy', 'helvetica neue', arial, sans-serif;
 	font-size: 14px;
 	line-height: 22px;
 	margin: 0 0 0 10px;
