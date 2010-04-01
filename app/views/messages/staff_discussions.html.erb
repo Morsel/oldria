@@ -1,7 +1,8 @@
 <% title "Staff Discussions" -%>
 
 <%= render 'nav' %>
-
-<div id="read_messages" class="span-9 last">
-  <%= render :partial => 'discussion', :collection =>  @messages %>
-</div><!-- /messages -->
+<div class="span-9 last">
+  <div id="read_messages">
+    <%= render :partial => 'discussions/discussion', :collection =>  @messages %>
+  </div><!-- /messages -->
+</div>

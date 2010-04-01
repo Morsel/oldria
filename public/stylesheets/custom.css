@@ -1542,7 +1542,7 @@ ul.mini_menu li {
 /* @group inbox */
 
 .inbox_message {
-	margin:0 10px 5px;
+	margin:0 0 5px;
 	padding: 12px;
 	position: relative;
 	border-bottom:3px solid #fff;
@@ -1553,8 +1553,8 @@ ul.mini_menu li {
 	position: absolute;
 	right: 10px;
 	top: 10px;
-	height: 12px;
-	width: 12px;
+	height: 13px;
+	width: 13px;
 	background: url('../images/x2.png') no-repeat;
 }
 
@@ -2574,6 +2574,17 @@ h2.primary_title{
 
 #read_messages{
 	background:#f6f6f6;
+	padding:10px;
+	min-height:600px;
+}
+#read_messages .direct_message a{
+	display:inline;
+	padding:0;
+}
+#read_messages .direct_message a:hover{
+	background:0;
+	color:#333;
+	text-decoration:underline;
 }
 #messages_nav ul, #messages_nav li{
 	list-style-type:none;
