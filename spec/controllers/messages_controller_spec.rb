@@ -1,14 +1,14 @@
 require 'spec/spec_helper'
 
-describe InboxesController do
+describe MessagesController do
   integrate_views
   before do
     fake_normal_user
   end
 
-  describe "GET show" do
+  describe "GET index" do
     it "should be successful" do
-      get :show
+      get :index
       response.should be_success
     end
   end
