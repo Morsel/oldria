@@ -14,7 +14,8 @@
 class Discussion < ActiveRecord::Base
   acts_as_commentable
   acts_as_readable
-  accepts_nested_attributes_for :comments
+  has_many :attachments, :as => :attachable, :class_name => '::Attachment'
+  accepts_nested_attributes_for :comments, :attachments
 
   belongs_to :poster, :class_name => "User"
   has_many :discussion_seats, :dependent => :destroy

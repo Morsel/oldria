@@ -14,6 +14,7 @@ class DiscussionsController < ApplicationController
 
   def new
     @discussion = current_user.posted_discussions.build(:user_ids => [current_user.id])
+    @discussion.attachments.build
     if params[:restaurant_id]
       @restaurant = Restaurant.find(params[:restaurant_id])
       @discussion.users << @restaurant.employees
@@ -32,7 +33,7 @@ class DiscussionsController < ApplicationController
   private
 
   def load_and_authorize_discussion
-    @discussion = Discussion.find(params[:id])
+    @discussion = Discussion.find(params[:id], :include => :attachments)
     unauthorized! if cannot? :read, @discussion
   end
 

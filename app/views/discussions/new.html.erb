@@ -1,9 +1,13 @@
 <% title "Start a Discussion" %>
 
-<% semantic_form_for(@discussion) do |f| %>
+<% semantic_form_for(@discussion, :html => { :multipart => true }) do |f| %>
   <% f.inputs do %>
     <%= f.input :title, :label => "Subject" %>
     <%= f.input :body, :input_html => { :rows => '4' } %>
+    <% f.fields_for :attachments do |child_form| -%>
+      <%= child_form.label :attachment, "Attachment(s)" %>
+      <p class="attachfield"><%= child_form.file_field :attachment %></p>
+    <% end -%>
 
     <li><h4>Who will be in this discussion?</h4></li>
 

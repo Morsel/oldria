@@ -16,8 +16,11 @@ require 'spec/spec_helper'
 describe Discussion do
   should_have_many :discussion_seats, :dependent => :destroy
   should_have_many :users, :through => :discussion_seats
+  should_have_many :attachments
   should_belong_to :poster, :class_name => 'User'
   should_validate_presence_of :title
+
+  should_accept_nested_attributes_for :comments, :attachments
 
   before(:each) do
     @valid_attributes = Factory.attributes_for(:discussion)
