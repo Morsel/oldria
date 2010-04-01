@@ -2596,6 +2596,13 @@ h2.primary_title{
 	margin:0;
 	font-family:"Lucida Grande", Arial, sans-serif;
 }
+#messages_nav h3{
+	font-weight:normal;
+	color:#3a260b;
+	font-size:14px;
+	margin:0 0 10px;
+	text-transform:uppercase;
+}
 #messages_nav ul{
 	margin-right:-21px;
 }
