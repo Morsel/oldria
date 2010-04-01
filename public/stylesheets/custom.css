@@ -341,6 +341,7 @@ ins {
 
 .cufon, .function-bold{
 	font-family:'FuturaStdHeavy';
+	font-weight:normal !important;
 }
 
 /* @end */
