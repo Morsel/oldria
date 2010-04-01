@@ -24,9 +24,9 @@ end %>
     <% unless archive %>
       <div class="message-actions">
         <%= reply_link_for_message(original_message) %>
-        <% if restaurant %>
-          <small class="behalf"> on behalf of <strong><%= restaurant.try(:name)%></strong></small>
-        <% end %>
+        <span class="hide_link">
+          <%= link_to 'Hide', '#', :class=>'readit' %>
+        </span>
       </div>
 
       <a href="#" class="readit"><span>read</span></a>

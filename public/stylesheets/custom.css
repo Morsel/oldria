@@ -1546,6 +1546,7 @@ ul.mini_menu li {
 	padding: 12px;
 	position: relative;
 	border-bottom:3px solid #fff;
+	background:#f6f6f6;
 }
 
 .inbox_message .readit {
@@ -1556,6 +1557,15 @@ ul.mini_menu li {
 	height: 13px;
 	width: 13px;
 	background: url('../images/x2.png') no-repeat;
+}
+.inbox_message .hide_link .readit{
+	position:relative;
+	display:inline;
+	top:auto;
+	right:auto;
+	height:auto;
+	width:auto;
+	background:0;
 }
 
 .inbox_message .readit span {
@@ -1599,20 +1609,23 @@ ul.mini_menu li {
 	margin: 1em 0 0;
 }
 
-.inbox_message .message-actions a {
+.inbox_message .message-actions>a {
 	display: block;
 	float: left;
 	padding: 2px 10px;
-	background-color: #ddd;
+	background: #d3d3d3 url(/images/button-gradient.gif) repeat-x;
 	border: 1px solid #bbb;
+	border-radius:10px;
+	-webkit-border-radius:10px;
+	-moz-border-radius:10px;
+	-khtml-border-radius:10px;
 	color: #555;
 	font-weight: bold;
 }
 
-.inbox_message .message-actions a:hover {
-	background-color: #bbb;
-	color: #fff;
-	border-color: #fff;
+.inbox_message .message-actions>a:hover {
+	background: #bbb;
+	color: #333;
 }
 
 .inbox_message .behalf {
@@ -1624,36 +1637,15 @@ ul.mini_menu li {
 /* message type themes */
 .admin_holiday_reminder .icon {   background-color: #D14600 }
 .admin_holiday_reminder .message-title {     color: #D14600 }
-.admin_holiday_reminder .message-actions a { color: #D14600;
-	border-color: #eba;
-	background-color: #f7e3da;
-}
-.admin_holiday_reminder .message-actions a:hover { background-color: #D14600 }
 
 .admin_trend_question .icon {   background-color: #0088C1 }
 .admin_trend_question .message-title {     color: #0088C1 }
-.admin_trend_question .message-actions a { color: #0088C1;
-	border-color: #ace;
-	background-color: #daebf3;
-}
-.admin_trend_question .message-actions a:hover { background-color: #0088C1 }
 
 .admin_qotd .icon {   background-color: #F5911E }
 .admin_qotd .message-title {     color: #F5911E }
-.admin_qotd .message-actions a { color: #F5911E;
-	border-color: #eba;
-	background-color: #eed;
-}
-.admin_content_request .message-actions a:hover { background-color: #F5911E}
 
 .admin_content_request .icon {   background-color: #bf844b }
 .admin_content_request .message-title {     color: #bf844b }
-.admin_content_request .message-actions a { color: #bf844b;
-	border-color: #cb9;
-	background-color: #eed;
-}
-.admin_content_request .message-actions a:hover { background-color: #bf844b}
-
 
 .admin_pr_tip .icon {   background-color: #005775 }
 .admin_pr_tip .message-title {     color: #005775 }
@@ -2573,14 +2565,25 @@ h2.primary_title{
 /* ## Messages --------------------------------------------- */
 
 #read_messages{
-	background:#f6f6f6;
-	padding:10px;
-	min-height:765px;
 }
+.hide_link{
+	display:block;
+	float:left;
+	padding:3px 10px 5px;
+	border-left:1px solid #ddd;
+	margin-left:10px;
+}
+#read_messages .direct_message, #read_messages .discussion{
+	background:#f2f2f2;
+	padding:10px;
+}
+
+
 #read_messages .direct_message a{
 	display:inline;
 	padding:0;
 }
+
 #read_messages .direct_message a:hover{
 	background:0;
 	color:#333;
@@ -2611,8 +2614,8 @@ h2.primary_title{
 }
 
 #past_messages{
-	margin:10px 0 0;
-	padding:10px 0;
+	margin:5px 0 0;
+	padding:0;
 	background:#fff;
 	font:bold 0.9em "Lucida Grande", Arial, sans-serif;
 }
