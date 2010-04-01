@@ -455,8 +455,8 @@ h2.with_icon img {
 	font-family: 'FuturaStdHeavy', 'helvetica neue', arial, sans-serif;
 	font-size: 14px;
 	line-height: 22px;
-	margin: 0 0 0 10px;
-	padding: 4px 0 8px 5px;
+	margin: 0;
+	padding: 4px 0 8px 0;
 	text-transform: uppercase;
 	letter-spacing: 1px;
 	text-shadow: 1px 1px 0px #000;
