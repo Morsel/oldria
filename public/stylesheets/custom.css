@@ -118,7 +118,7 @@ div#header {
 #sidebar h3{
 	color: #fff;
 	background: #412203 url('../images/sidebar_title.png') repeat-x bottom;
-	padding: 4px 12px;
+	padding: 4px 12px 2px;
 	-webkit-border-radius: 15px;
 	-moz-border-radius: 15px;
 	border-radius: 15px;
@@ -1464,7 +1464,7 @@ h3.function-bold{
 	border-bottom:1px solid #ddd;
 	text-transform:uppercase;
 	font-weight:normal;
-	font-size:1.3em;
+	font-size:14px;
 }
 
 
@@ -2461,7 +2461,7 @@ form .cke_skin_kama .cke_wrapper {
 
 h2.primary_title{
 	color:#fff;
-	font-weight:bold;
+	font-weight:normal;
 	background:url(/images/conversations_title_bg.gif) repeat-x;
 	text-shadow:1px 1px 1px #10506c;
 	padding:5px 10px;
