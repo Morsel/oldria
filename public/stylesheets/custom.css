@@ -2564,3 +2564,32 @@ h2.primary_title{
 }
 
 /* @end */
+
+/* ## Messages --------------------------------------------- */
+
+#messages{
+	background:#f6f6f6;
+}
+#messages_nav ul, #messages_nav li{
+	list-style-type:none;
+	padding:0;
+	margin:0;
+	font-family:"Lucida Grande", Arial, sans-serif;
+}
+#messages_nav ul{
+	margin-right:-21px;
+}
+#messages_nav a{
+	display:block;
+	padding:5px 10px;
+	border-bottom:1px dashed #ddd;
+}
+#messages_nav a:hover{
+	color:#000;
+	text-decoration:none;
+}
+#messages_nav a.here{
+	background:#f6f6f6;
+	border:0;
+	font-weight:bold;
+}

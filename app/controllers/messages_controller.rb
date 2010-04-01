@@ -1,5 +1,6 @@
 class MessagesController < ApplicationController
   before_filter :require_user
+  before_filter :get_message_counts
 
   ##
   # GET /messages
@@ -23,6 +24,14 @@ class MessagesController < ApplicationController
   
   def staff_discussions
     
+  end
+  
+  private
+  
+  def get_message_counts
+    @ria_message_count = current_user.messages_from_ria.size
+    @private_message_count = current_user.direct_messages.size
+    @discussions_count = current_user.discussions.size
   end
 
 end
