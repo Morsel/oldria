@@ -27,6 +27,17 @@ class Holiday < ActiveRecord::Base
     accepted_holiday_conversations.map(&:recipient_id)
   end
 
+  def future_reminders
+    admin_holiday_reminders.all(:conditions => ['scheduled_at > ?', Time.now])
+  end
+
+  def remove_recipient_from_future_reminders(recipient)
+    future_reminders.each do |reminder|
+      reminder.recipient_ids = reminder.recipient_ids.to_a - [recipient.id]
+      reminder.save
+    end
+  end
+
   def reminders_count
     admin_holiday_reminders.size
   end
