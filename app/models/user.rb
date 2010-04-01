@@ -176,7 +176,7 @@ class User < ActiveRecord::Base
   end
 
   def inbox_messages
-    [ admin_conversations.current.find_unread_by(self),
+    [ admin_conversations.current.unread_by(self),
       unread_pr_tips,
       unread_announcements
     ].flatten.sort_by(&:updated_at).reverse
