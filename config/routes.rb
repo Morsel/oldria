@@ -48,6 +48,10 @@ ActionController::Routing::Routes.draw do |map|
                               :private => :get,
                               :staff_discussions => :get
                             }
+  map.resources :timelines, :collection => {
+                              :people_you_follow => :get,
+                              :twitter => :get
+                            }
 
   map.resources :feed_entries, :only => 'show', :member => { :read => :put }
   map.resource :feeds

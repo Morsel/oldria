@@ -8,7 +8,6 @@ class WelcomeController < ApplicationController
       else
         find_user_feeds(true)
         @direct_messages = @user.direct_messages.all_not_from_admin(:include => :sender)
-        @friend_activity = Status.friends_of_user(@user).all(:limit => 10)
         render :dashboard
       end
     else
