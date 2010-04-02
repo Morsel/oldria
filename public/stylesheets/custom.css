@@ -2572,6 +2572,10 @@ h2.primary_title{
 #read_messages .box{
 	border:0;
 }
+#read_messages .statuses li{
+	padding:5px 10px;
+	margin:5px 10px;
+}
 .hide_link{
 	display:block;
 	float:left;
