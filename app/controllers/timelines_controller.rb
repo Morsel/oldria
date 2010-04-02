@@ -14,7 +14,7 @@ class TimelinesController < ApplicationController
   private
   
   def get_friend_activity
-    @friend_activity = Status.friends_of_user(@user).all
+    @friend_activity = Status.friends_of_user(current_user).all
   end
 
 end
