@@ -1,5 +1,7 @@
 class TimelinesController < ApplicationController
+  before_filter :require_user
   before_filter :get_friend_activity, :except => :twitter
+  
   def index
     render :people_you_follow
   end
