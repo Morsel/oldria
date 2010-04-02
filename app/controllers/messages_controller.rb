@@ -1,15 +1,15 @@
 class MessagesController < ApplicationController
   before_filter :require_user
   before_filter :get_message_counts
+  before_filter :get_messages_from_ria, :only => [:index, :ria]
 
   ##
   # GET /messages
   def index
-    @messages = current_user.messages_from_ria
   end
   
   def ria
-    render :template => 'messages/index'
+    render :index
   end
 
   ##
@@ -33,5 +33,9 @@ class MessagesController < ApplicationController
     @private_message_count = current_user.direct_messages.size
     @discussions_count = current_user.discussions.size
   end
-
+  
+  def get_messages_from_ria
+    @messages = current_user.messages_from_ria
+  end
+  
 end

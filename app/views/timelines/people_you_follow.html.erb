@@ -4,6 +4,22 @@
 
 <div class="span-9 last">
   <div id="read_messages">
-    
+    <div id="friend_activity" rel="Friend Activity">
+         <h2 class="function-bold with_icon">
+           <img src="/images/follow.png" alt="" class="titleicon"/>
+           People You Follow
+         </h2>
+         <% @friend_activity.each do |status| -%>
+           <% div_for status, :class=>'clearfix' do -%>
+             <%= link_to image_tag(status.user.avatar.url(:thumb)), profile_path(status.user.username), :class => 'avatar' %>
+             <p class="message">
+               <strong><%= link_to status.user.username, profile_path(status.user.username) %></strong>: <%= status.message %>
+             </p>
+             <p class="meta">
+               posted <%= date_for status.created_at %>
+             </p>
+           <% end -%>
+         <% end -%>
+       </div><!-- /friend_activity -->
   </div><!-- /read_messages -->
 </div>

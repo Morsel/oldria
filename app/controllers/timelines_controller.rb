@@ -1,6 +1,7 @@
 class TimelinesController < ApplicationController
+  before_filter :get_friend_activity, :except => :twitter
   def index
-    render :template => 'timelines/people_you_follow'
+    render :people_you_follow
   end
 
   def twitter
@@ -8,6 +9,11 @@ class TimelinesController < ApplicationController
   end
 
   def people_you_follow
+  end
+  
+  private
+  
+  def get_friend_activity
     @friend_activity = Status.friends_of_user(@user).all
   end
 
