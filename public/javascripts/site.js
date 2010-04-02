@@ -63,8 +63,12 @@ $("a.showtarget").click(function(){
 
 
 // Show Current State indicators
-
-$("#navigation a[href$=" + window.location.pathname + "]").parent().addClass("selected");
+var topLevelSection = window.location.pathname.split('/')[1];
+if (topLevelSection == '') { topLevelSection = "home"; }
+var $navigationList = $("#navigation");
+$("a[href$=" + topLevelSection + "]", $navigationList)
+  .add("a[href$=" + window.location.pathname + "]", $navigationList)
+  .parent().addClass("selected");
 
 
 // == Comment attachments
