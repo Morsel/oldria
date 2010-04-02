@@ -1,3 +1,4 @@
+<% archive = direct_message.read_by?(current_user) %>
 <% div_for direct_message, :class => "clearfix#{ ' sent_message' if direct_message.from?(current_user)}" do %>
 <% if direct_message.from?(current_user) %>
 	<%= image_tag direct_message.receiver.avatar.url(:thumb), :class => 'left' %>

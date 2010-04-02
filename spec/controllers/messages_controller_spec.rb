@@ -6,9 +6,9 @@ describe MessagesController do
     fake_normal_user
   end
 
-  describe "GET index" do
+  describe "GET ria" do
     it "should be successful" do
-      get :index
+      get :ria
       response.should be_success
     end
   end

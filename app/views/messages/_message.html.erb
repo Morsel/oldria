@@ -1,5 +1,5 @@
 <% restaurant = message.recipient.try(:restaurant) if message.respond_to?(:recipient) %>
-<% archive ||= false %>
+<% archive = message.read_by?(current_user) %>
 <% if message.respond_to?(:admin_message)
   reply_link = admin_conversation_path(message)
   original_message = message

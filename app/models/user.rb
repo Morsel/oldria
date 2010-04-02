@@ -144,7 +144,7 @@ class User < ActiveRecord::Base
   def confirmed?
     confirmed_at
   end
-  
+
   def confirm!
     self.confirmed_at = Time.now
     self.save
@@ -187,10 +187,10 @@ class User < ActiveRecord::Base
     ].flatten.sort_by(&:updated_at).reverse
   end
 
-  def archived_messages
-    [ admin_conversations.current.find_read_by(self),
-      Admin::Announcement.current.find_read_by(self),
-      Admin::PrTip.current.find_read_by(self)
+  def all_messages
+    [ admin_conversations.current.all,
+      Admin::Announcement.current.all,
+      Admin::PrTip.current.all
     ].flatten.sort_by(&:updated_at).reverse
   end
 

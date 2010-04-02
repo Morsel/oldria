@@ -2,7 +2,9 @@
 
 <%= render 'nav' %>
 <div class="span-9 last">
+  <%= render :partial => 'new_or_old_nav' %>
+
   <div id="read_messages">
-    <%= render :partial => 'direct_messages/direct_message', :collection =>  @messages %>
+    <%= render @messages %>
   </div>
 </div>

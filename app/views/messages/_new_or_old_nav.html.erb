@@ -1,0 +1,5 @@
+<div id="new_or_old_messages">
+  <%= link_to "New", {:view_all => nil}, :class => "#{archived_view? ? '' : 'active'}" %>
+  <span class="separator">|</span>
+  <%= link_to "All", {:view_all => true }, :class => "#{archived_view? ? 'active' : ''}" %>
+</div>

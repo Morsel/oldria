@@ -2657,4 +2657,32 @@ h2.primary_title{
 	background:#2a98c4;
 }
 
+#new_or_old_messages {
+	text-align: right;
+	margin-bottom: 1em;
+	color: #999;
+	font-family: "Lucida Grande", sans-serif;
+	font-size: .9em;
+}
+
+#new_or_old_messages a {
+	color: #999;
+	padding: 0 3px;
+	display: inline-block;
+}
+
+#new_or_old_messages a:hover {
+	text-decoration: underline;
+}
+
+#new_or_old_messages a.active {
+	background-color: #eaefff;
+	color: #59d;
+	font-weight: bold;
+	padding: 0 7px;
+	border-radius: 8px;
+	-moz-border-radius: 8px;
+	-webkit-border-radius: 8px;
+}
+
 /* @end */
