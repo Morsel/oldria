@@ -118,7 +118,7 @@ div#header {
 #sidebar h3{
 	color: #fff;
 	background: #412203 url('../images/sidebar_title.png') repeat-x bottom;
-	padding: 4px 12px 2px;
+	padding: 4px 12px;
 	-webkit-border-radius: 15px;
 	-moz-border-radius: 15px;
 	border-radius: 15px;
@@ -340,7 +340,7 @@ ins {
 }
 
 .cufon, .function-bold{
-	font-family:'FuturaStdHeavy';
+	font-family:'FuturaSCTOTDemRegular';
 	font-weight:normal !important;
 }
 
@@ -453,7 +453,7 @@ h2.with_icon img {
 #navigation li {
 	float: left;
 	display: inline;
-	font-family: 'FuturaStdHeavy', 'helvetica neue', arial, sans-serif;
+	font-family: 'FuturaSCTOTDemRegular', 'helvetica neue', arial, sans-serif;
 	font-size: 14px;
 	line-height: 22px;
 	margin: 0;
