@@ -58,7 +58,6 @@ ActionController::Routing::Routes.draw do |map|
 
 
   map.resource :twitter_authorization
-  map.resource :friend_timeline, :only => 'show'
   map.resource :friends_statuses, :only => 'show'
   map.resources :invitations, :only => 'show'
 
