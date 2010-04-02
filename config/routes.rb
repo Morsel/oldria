@@ -31,7 +31,9 @@ ActionController::Routing::Routes.draw do |map|
     restaurant.resources :employees, :except => [:show]
   end
 
-  map.resources :user_sessions, :password_resets, :followings, :pages, :direct_messages
+  map.resources :user_sessions, :password_resets, :followings, :pages
+
+  map.resources :direct_messages, :member => { :read => :put }
 
 
   map.resources :holiday_conversations, :only => ['show','update'] do |holiday_conversations|
@@ -43,7 +45,7 @@ ActionController::Routing::Routes.draw do |map|
   end
   map.resources :admin_messages, :only => 'show', :member => { :read => :put }
   map.resources :messages, :collection => {
-                              :archive => :get, 
+                              :archive => :get,
                               :ria => :get,
                               :private => :get,
                               :staff_discussions => :get

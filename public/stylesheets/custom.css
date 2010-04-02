@@ -1550,7 +1550,11 @@ ul.mini_menu li {
 	background:#f6f6f6;
 }
 
-.inbox_message .readit {
+.direct_message {
+	position: relative;
+}
+
+.readit {
 	display: block;
 	position: absolute;
 	right: 10px;
@@ -1559,7 +1563,12 @@ ul.mini_menu li {
 	width: 13px;
 	background: url('../images/x2.png') no-repeat;
 }
-.inbox_message .hide_link .readit{
+
+.readit:hover {
+	background: url('../images/x2.png') no-repeat !important;
+}
+
+.hide_link .readit {
 	position:relative;
 	display:inline;
 	top:auto;
@@ -1569,8 +1578,8 @@ ul.mini_menu li {
 	background:0;
 }
 
-.inbox_message .readit span {
-	display: none;
+.readit span {
+	display: none !important;
 }
 
 .inbox_message .message-body {
@@ -2659,7 +2668,7 @@ h2.primary_title{
 
 #new_or_old_messages {
 	text-align: right;
-	margin-bottom: 1em;
+	margin-bottom: 8px;
 	color: #999;
 	font-family: "Lucida Grande", sans-serif;
 	font-size: .9em;

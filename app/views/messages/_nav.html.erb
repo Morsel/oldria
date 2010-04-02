@@ -1,7 +1,7 @@
 <div id="messages_nav" class="span-3">
   <h3 class="cufon">Messages</h3>
   <ul>
-    <li><%= active_link_to "From RIA (#{@ria_message_count})", messages_path %></li>
+    <li><%= active_link_to "From RIA (#{@ria_message_count})", ria_messages_path %></li>
     <li><%= active_link_to "Private Messages (#{@private_message_count})", private_messages_path %></li>
     <li><%= active_link_to "Staff Discussions (#{@discussions_count})", staff_discussions_messages_path %></li>
   </ul>

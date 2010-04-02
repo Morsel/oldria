@@ -3,7 +3,7 @@ class DirectMessagesController < ApplicationController
     @recipient = User.find(params[:user_id])
     @direct_message = @recipient.direct_messages.build
   end
-  
+
   def create
     @recipient = User.find(params[:user_id])
     @direct_message = current_user.sent_direct_messages.build(params[:direct_message])
@@ -15,7 +15,7 @@ class DirectMessagesController < ApplicationController
       render :new
     end
   end
-  
+
   def reply
     @original_message = DirectMessage.find(params[:id])
     if @original_message.receiver_id == current_user.id
@@ -25,5 +25,14 @@ class DirectMessagesController < ApplicationController
       flash[:error] = "You can only reply to messages sent to you"
       redirect_to root_url
     end
+  end
+
+  ##
+  # PUT /direct_messages/1/read
+  # This is meant to be called via AJAX
+  def read
+    @direct_message = current_user.direct_messages.find(params[:id])
+    @direct_message.read_by!(current_user)
+    render :nothing => true
   end
 end

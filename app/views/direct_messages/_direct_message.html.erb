@@ -1,4 +1,4 @@
-<% archive = direct_message.read_by?(current_user) %>
+<% archive = direct_message.users_who_read.include?(current_user) %>
 <% div_for direct_message, :class => "clearfix#{ ' sent_message' if direct_message.from?(current_user)}" do %>
 <% if direct_message.from?(current_user) %>
 	<%= image_tag direct_message.receiver.avatar.url(:thumb), :class => 'left' %>
@@ -18,4 +18,7 @@
 		<%= link_to "reply", reply_direct_message_path(direct_message) %>
 	<% end -%>
 	</p>
+	<% unless archived_view? %>
+	<a href="#" class="readit"><span>read</span></a>
+	<% end %>
 <% end # div -%>

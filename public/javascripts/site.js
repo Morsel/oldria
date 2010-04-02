@@ -240,11 +240,22 @@ $('.feed_entry .summary').hover(function(){
 	window.location = $(this).find('a').attr('href');
 });
 
-// == Inbox
+// == Inbox for RIA messages
 $(".inbox_message .readit").click(function(){
   var $message = $(this).parents('.inbox_message');
   var messageId = $message.attr('id').match(/\d+$/g);
   $.post("/admin_messages/" + messageId + "/read", "_method=put", function(){
+    $message.fadeOut(300, function(){
+      $message.remove();
+    });
+  },null);  
+  return false;
+});
+
+$('.direct_message .readit').click(function(){
+  var $message = $(this).parents('.direct_message');
+  var messageId = $message.attr('id').match(/\d+$/g);
+  $.post("/direct_messages/" + messageId + "/read", "_method=put", function(){
     $message.fadeOut(300, function(){
       $message.remove();
     });

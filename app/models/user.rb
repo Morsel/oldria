@@ -172,6 +172,10 @@ class User < ActiveRecord::Base
     Admin::PrTip.scoped(:order => "updated_at DESC").current
   end
 
+  def unread_direct_messages
+    direct_messages.unread_by(self)
+  end
+
   def unread_pr_tips
     Admin::PrTip.current.find_unread_by( self )
   end

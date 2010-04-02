@@ -9,7 +9,6 @@ class MessagesController < ApplicationController
     redirect_to ria_messages_path
   end
 
-
   ##
   # GET /messages/ria
   def ria
@@ -19,7 +18,11 @@ class MessagesController < ApplicationController
   ##
   # GET /messages/private
   def private
-    @messages = current_user.direct_messages
+    @messages = if archived_view?
+      current_user.direct_messages
+    else
+      current_user.unread_direct_messages.all(:include => [:sender, :users_who_read])
+    end
   end
 
   ##
@@ -38,7 +41,7 @@ class MessagesController < ApplicationController
 
   def get_message_counts
     @ria_message_count = current_user.messages_from_ria.size
-    @private_message_count = current_user.direct_messages.size
+    @private_message_count = current_user.unread_direct_messages.size
     @discussions_count = current_user.discussions.size
   end
 end
