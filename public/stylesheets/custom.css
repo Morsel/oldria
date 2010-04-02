@@ -598,6 +598,7 @@ input.checkbox {
 
 #friend_activity {
 	padding-bottom: 2em;
+	margin:0 10px;
 }
 
 #friend_activity .meta {
