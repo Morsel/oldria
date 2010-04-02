@@ -460,7 +460,6 @@ h2.with_icon img {
 	padding: 4px 0 8px 0;
 	text-transform: uppercase;
 	letter-spacing: 1px;
-	text-shadow: 1px 1px 0px #000;
 }
 
 #navigation li a {
@@ -2568,6 +2567,8 @@ h2.primary_title{
 
 /* @end */
 
+/* @group messsages ----------------- */
+
 /* ## Messages --------------------------------------------- */
 
 #read_messages .box{
@@ -2655,3 +2656,5 @@ h2.primary_title{
 	text-decoration:none;
 	background:#2a98c4;
 }
+
+/* @end */
