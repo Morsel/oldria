@@ -2480,7 +2480,7 @@ h2.primary_title{
 	margin:0;
 }
 
-#direct_messages h3{
+#direct_messages h3 {
 	color:#015673;
 	font-weight:normal;
 	font-size:0.9em;
@@ -2692,6 +2692,51 @@ h2.primary_title{
 	border-radius: 8px;
 	-moz-border-radius: 8px;
 	-webkit-border-radius: 8px;
+}
+
+
+.discussion .new_topic, .discussion .new_comment {
+	float: left;
+	color: #fff;
+	background-color: #E4790E;
+	margin-right: 1em;
+	font-size: 11px;
+	font-family: 'Lucida Grande', sans-serif;
+	font-weight: bold;
+	line-height: 18px;
+	padding: 1px 6px;
+	width: 100px;
+	text-shadow: -1px 1px 0 #533;
+}
+
+.discussion .new_comment {
+	background-color: #048dc4;
+}
+
+#dashboard .discussion {
+	border-bottom: 1px solid #ddd;
+	margin: 12px 0 4px;
+	padding-left: 10px;
+	
+}
+
+#dashboard .discussion p {
+	margin: 0;
+	padding: 0 0 6px;
+}
+
+#dashboard .view_all {
+	clear: both;
+	font-size: .9em;
+	margin: 1em 10px;
+}
+
+#dashboard #discussions h3, #dashboard #direct_messages h3 {
+	font-size: 11px;
+	font-weight: bold;
+	font-family: 'Lucida Grande', sans-serif;
+	padding: 10px 0 0 10px;
+	margin: 0 0 6px;
 }
 
 /* @end */
