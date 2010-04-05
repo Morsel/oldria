@@ -2695,3 +2695,24 @@ h2.primary_title{
 }
 
 /* @end */
+
+#sidebar_intra{
+	margin:0 0 10px 10px;
+	float:right;
+	width:200px;
+	padding:10px 0;
+	background:#f2f2f2;
+}
+
+#sidebar_intra a{
+	color:#8CD0E2;
+	font-weight:bold;
+	display:inline-block;
+	width:180px;
+	padding:5px 5px;
+	margin:0 5px;
+}
+
+#sidebar_intra a:hover{
+	background:#fff;
+}
