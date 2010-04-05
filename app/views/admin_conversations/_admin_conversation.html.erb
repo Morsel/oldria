@@ -1,7 +1,7 @@
 <tr class="admin_conversation_recipient <%= cycle('odd', 'even', :name => 'conversation_row') %>">
   <td>
-    <%= admin_conversation.recipient.employee_name %>
-    (<%= admin_conversation.recipient.restaurant_name %>)
+    <%= admin_conversation.recipient.try(:employee_name) %>
+    (<%= admin_conversation.recipient.try(:restaurant_name) %>)
   </td>
 
   <%- if admin_conversation.comments_count > 0 -%>
