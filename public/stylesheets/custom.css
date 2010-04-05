@@ -2701,11 +2701,12 @@ h2.primary_title{
 	float:right;
 	width:200px;
 	padding:10px 0;
-	background:#f2f2f2;
+	background:#fff;
+	border:1px solid #ddd
 }
 
 #sidebar_intra a{
-	color:#8CD0E2;
+	color:#0587C1;
 	font-weight:bold;
 	display:inline-block;
 	width:180px;
@@ -2714,5 +2715,6 @@ h2.primary_title{
 }
 
 #sidebar_intra a:hover{
-	background:#fff;
+	color:#4EAED9;
+	text-decoration:underline;
 }
