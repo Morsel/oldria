@@ -279,6 +279,7 @@ if (window.current_user_id) {
 }
 
 
-
+if (!typeof $.fn.tablesorter == 'undefined') {
 $('.tablesorter').tablesorter({sortList: [[0,0]]});
+}
 
