@@ -16,6 +16,10 @@
           </span>
         <% end -%>
       <% end %>
+    <p>
+      <%= link_to image_tag('quotebubble.png') + "Start a discussion", new_discussion_path, :class => 'sf-button alt top' %>
+    </p>
+
     </div>
     <% end %>
 
@@ -36,12 +40,13 @@
           <%= link_to h(restaurant.name), restaurant %>
         <% end -%>
       <% end -%>
+    <p>
+      <%= link_to image_tag('quotebubble.png') + "Start a discussion", new_discussion_path, :class => 'sf-button alt top' %>
+    </p>
+
     <% end -%>
     </div>
 
 
-    <p>
-      <%= link_to image_tag('quotebubble.png') + "Start a discussion", new_discussion_path, :class => 'sf-button alt top' %>
-    </p>
   </div>
 </div>
