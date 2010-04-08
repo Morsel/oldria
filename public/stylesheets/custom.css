@@ -2373,6 +2373,25 @@ a.ui-state-default:hover {
 	display:none;
 }
 
+/* tables */
+table.tablesorter thead tr th {
+	border: 1px solid #fff;
+}
+table.tablesorter thead tr .header {
+	cursor: pointer;
+	background-repeat: no-repeat;
+	background-position: center right;
+}
+table.tablesorter thead tr .headerSortUp {
+	background-image: url(/images/asc.gif);
+}
+table.tablesorter thead tr .headerSortDown {
+	background-image: url(/images/desc.gif);
+}
+table.tablesorter thead tr .headerSortDown, table.tablesorter thead tr .headerSortUp {
+  background-color: #def;
+}
+
 /* @end */
 
 /* @group autocomplete ui ------------ */
@@ -2717,7 +2736,7 @@ h2.primary_title{
 	border-bottom: 1px solid #ddd;
 	margin: 12px 0 4px;
 	padding-left: 10px;
-	
+
 }
 
 #dashboard .discussion p {

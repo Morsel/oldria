@@ -278,3 +278,7 @@ if (window.current_user_id) {
   });
 }
 
+
+
+$('.tablesorter').tablesorter({sortList: [[0,0]]});
+

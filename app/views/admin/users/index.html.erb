@@ -10,31 +10,35 @@
 </div>
 
 
-<table id="admin_users_list" cellspacing="0" width="637">
-	<tr>
-		<th>Name</th>
-		<th>Username</th>
-		<th>Email</th>
-		<th>Account Type</th>
-		<th>JBF Region</th>
-		<th>Last Action at</th>
-		<th></th>
-	</tr>
-
-	<% @users.each do |user| %>
-	<tr class="user <%= user.admin? ? 'admin' : '' %>">
-		<td><%= h user.last_name %>, <%=h user.first_name %></td>
-		<td><%= link_to user.username, profile_path(user.username) %></td>
-		<td><%= h user.email %></td>
-		<td><%= h user.account_type.try(:name) %></td>
-		<td><%= h user.james_beard_region.try(:name) %></td>
-		<td><%= user.last_request_at.try(:strftime, "%m/%d/%Y %I:%M%p") %></td>
-		<td class="utility">
-			<%= link_to 'Edit', edit_admin_user_path(user) %>
-			<%= link_to 'Destroy', admin_user_path(user), :confirm => 'Are you sure? This action CANNOT be undone', :method => :delete %>
-		</td>
-	</tr>
-	<% end %>
+<table id="admin_users_list" cellspacing="0" class="tablesorter">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Username</th>
+      <th>Email</th>
+      <th>Media?</th>
+      <th>JBF Region</th>
+      <th>Last Action at</th>
+      <th class="{sorter: false}"></th>
+      <th class="{sorter: false}"></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @users.each do |user| %>
+    <tr class="user <%= user.admin? ? 'admin' : '' %>">
+      <td><%= h user.last_name %>, <%=h user.first_name %></td>
+      <td><%= link_to user.username, profile_path(user.username) %></td>
+      <td><%= h user.email %></td>
+      <td><%= user.media? ? "Yes" : "" %></td>
+      <td><%= h user.james_beard_region.try(:name) %></td>
+      <td><%= user.last_request_at.try(:to_s,:long) %></td>
+      <td class="actions edit_link">
+        <%= link_to 'Edit', edit_admin_user_path(user) %>
+      </td>
+      <td class="actions destroy_link"><%= link_to 'Destroy', admin_user_path(user), :confirm => 'Are you sure? This action CANNOT be undone', :method => :delete %></td>
+    </tr>
+    <% end %>
+  </tbody>
 </table>
 <p>Note: Admins are marked in by a salmon-colored row</p>
 <br />
