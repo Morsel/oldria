@@ -62,7 +62,7 @@
   <% end -%>
     <h2 class="function-bold with_icon">
       <img src="/images/newspaper.png" alt="" class="titleicon"/>
-      Featured News Feeds
+      ReadFeed Featured News
     </h2>
     <%= render :partial => 'feeds/feed', :collection => @feeds %>
   </div><!-- /news_feeds -->
@@ -70,8 +70,8 @@
     <div id="choose_feeds" class="span-4 last round">
       <div class="box">
         <h3><%= link_to 'Choose Your Feeds!', new_feeds_path %></h3>
-        <p>Lorem ipsum dolor sit amet. Neuriscilum paesce vudor.</p>
-        <%= link_to 'Go now!', new_feeds_path, :class=>'action' %>
+        <p>Dozens of industry important news feeds to follow.</p>
+        <%= link_to 'Choose now!', new_feeds_path, :class=>'action' %>
       </div>
     </div><!-- /choose_feeds -->
   <% end -%>
