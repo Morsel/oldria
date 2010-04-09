@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100331215807) do
+ActiveRecord::Schema.define(:version => 20100409202918) do
 
   create_table "account_types", :force => true do |t|
     t.string   "name"
@@ -70,7 +70,7 @@ ActiveRecord::Schema.define(:version => 20100331215807) do
 
   create_table "comments", :force => true do |t|
     t.string   "title",            :limit => 50, :default => ""
-    t.text     "comment",                        :default => ""
+    t.text     "comment"
     t.integer  "commentable_id"
     t.string   "commentable_type"
     t.integer  "user_id"
@@ -146,6 +146,12 @@ ActiveRecord::Schema.define(:version => 20100331215807) do
   add_index "discussions", ["id"], :name => "index_discussions_on_id", :unique => true
   add_index "discussions", ["poster_id"], :name => "index_discussions_on_poster_id"
 
+  create_table "employment_searches", :force => true do |t|
+    t.string   "conditions"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "employments", :force => true do |t|
     t.integer  "employee_id"
     t.integer  "restaurant_id"
@@ -164,6 +170,8 @@ ActiveRecord::Schema.define(:version => 20100331215807) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "feed_categories", ["id"], :name => "index_feed_categories_on_id", :unique => true
 
   create_table "feed_entries", :force => true do |t|
     t.string   "title"
@@ -230,6 +238,7 @@ ActiveRecord::Schema.define(:version => 20100331215807) do
     t.date     "date"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "employment_search_id"
   end
 
   create_table "james_beard_regions", :force => true do |t|
@@ -264,7 +273,6 @@ ActiveRecord::Schema.define(:version => 20100331215807) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.date     "due_date"
-    t.string   "request_type"
     t.integer  "media_request_type_id"
     t.text     "fields"
     t.string   "status"
@@ -388,6 +396,7 @@ ActiveRecord::Schema.define(:version => 20100331215807) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.datetime "confirmed_at"
+    t.datetime "last_request_at"
     t.string   "atoken"
     t.string   "asecret"
     t.integer  "account_type_id"
@@ -399,7 +408,6 @@ ActiveRecord::Schema.define(:version => 20100331215807) do
     t.string   "last_name"
     t.integer  "james_beard_region_id"
     t.string   "publication"
-    t.datetime "last_request_at"
     t.string   "role"
   end
 
