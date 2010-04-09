@@ -57,7 +57,6 @@ class Admin::HolidaysController < Admin::AdminController
 
     if params[:search]
       @employments = @search.all(:select => 'DISTINCT employments.*', :include => [:restaurant])
-      @search = Employment.search(nil) # reset the form
     end
   end
 end
