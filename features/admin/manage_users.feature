@@ -44,11 +44,6 @@ Feature: Manage users
     And "jimbob" should have a "Concierge" account type
 
 
-  Scenario: Seeing account type on index view
-    Given "jimbob" has a "Media" account type
-    When I am on the admin users landing page
-    Then I should see that "jimbob" has a "Media" account type
-
 @preconfirmed
   Scenario: Add a user from the admin interface
     Given I am on the admin new user page
