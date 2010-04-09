@@ -147,7 +147,7 @@ ActiveRecord::Schema.define(:version => 20100409202918) do
   add_index "discussions", ["poster_id"], :name => "index_discussions_on_poster_id"
 
   create_table "employment_searches", :force => true do |t|
-    t.string   "conditions"
+    t.text     "conditions"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
