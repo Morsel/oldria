@@ -14,4 +14,6 @@
 #
 
 class TrendQuestion < ActiveRecord::Base
+  belongs_to :employment_search
+  accepts_nested_attributes_for :employment_search
 end

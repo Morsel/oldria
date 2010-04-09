@@ -18,8 +18,8 @@ Feature: Trend questions
 
   Scenario: New Trend Question
     Given I am logged in as an admin
-    # When I create a new trend question with subject "Where's the beef?" with criteria:
-    #   | James Beard Region | Midwest |
-    # Then "Normal Pants" should have 1 new trend question
-    # But "Fancy Lamb" should not have any new trend question
+    When I create a new trend question with subject "Where's the beef?" with criteria:
+      | James Beard Region | Midwest |
+    Then "Normal Pants" should have 1 new trend question
+    But "Fancy Lamb" should not have any new trend question
 

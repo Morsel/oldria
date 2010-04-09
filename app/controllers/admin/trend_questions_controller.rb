@@ -9,6 +9,8 @@ class Admin::TrendQuestionsController < Admin::AdminController
 
   def new
     @trend_question = ::TrendQuestion.new
+    @trend_question.employment_search = EmploymentSearch.new(:conditions => {})
+    @conditions = @trend_question.employment_search.conditions || {}
   end
 
   def create
@@ -22,7 +24,9 @@ class Admin::TrendQuestionsController < Admin::AdminController
   end
 
   def edit
-    @trend_question = ::TrendQuestion.find(params[:id])
+    @trend_question = ::TrendQuestion.find(params[:id], :include => :employment_search)
+    #@trend_question.employment_search ||= EmploymentSearch.new(:conditions => {})
+    @conditions = @trend_question.employment_search.conditions || {}
   end
 
   def update
@@ -40,5 +44,15 @@ class Admin::TrendQuestionsController < Admin::AdminController
     @trend_question.destroy
     flash[:notice] = "Successfully destroyed trend question."
     redirect_to admin_trend_questions_path
+  end
+
+  private
+  def search_setup
+    @search = Employment.search(params[:search])
+
+    if params[:search]
+      @employments = @search.all(:select => 'DISTINCT employments.*', :include => [:restaurant])
+      @search = Employment.search(nil) # reset the form
+    end
   end
 end

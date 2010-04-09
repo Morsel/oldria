@@ -6,7 +6,10 @@
     <%# f.input :expired_at, :selected => 3.months.from_now %>
   <% end %>
 
-  <% f.inputs :name => 'Criteria' do %>
+  <% f.semantic_fields_for :employment_search do |criteria| %>
+    <% criteria.semantic_fields_for :conditions do |conditions| %>
+      <%= conditions.input :restaurant_id, :collection => Restaurant.all, :selected => @conditions[:restaurant_id] %>
+    <% end %>
   <% end %>
 
   <p><%= button_tag "Submit" %></p>
