@@ -27,7 +27,8 @@ class Admin::HolidaysController < Admin::AdminController
 
   def edit
     @holiday = Holiday.find(params[:id], :include => [:admin_holiday_reminders, :recipients])
-    @employments = Employment.by_employee_last_name.all(:include => :restaurant)
+    @search = Employment.search(EmploymentSearch.find(@holiday.employment_search_id).conditions)    
+    @employments = @search.all(:select => 'DISTINCT employments.*', :include => [:restaurant])
   end
 
   def update

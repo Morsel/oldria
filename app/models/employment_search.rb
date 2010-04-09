@@ -4,4 +4,6 @@ class EmploymentSearch < ActiveRecord::Base
   
   serialize :conditions
   
+  validates_presence_of :conditions
+  
 end
