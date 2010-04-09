@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100409155415) do
+ActiveRecord::Schema.define(:version => 20100409202918) do
 
   create_table "account_types", :force => true do |t|
     t.string   "name"
@@ -146,6 +146,12 @@ ActiveRecord::Schema.define(:version => 20100409155415) do
   add_index "discussions", ["id"], :name => "index_discussions_on_id", :unique => true
   add_index "discussions", ["poster_id"], :name => "index_discussions_on_poster_id"
 
+  create_table "employment_searches", :force => true do |t|
+    t.string   "conditions"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "employments", :force => true do |t|
     t.integer  "employee_id"
     t.integer  "restaurant_id"
@@ -232,6 +238,7 @@ ActiveRecord::Schema.define(:version => 20100409155415) do
     t.date     "date"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "employment_search_id"
   end
 
   create_table "james_beard_regions", :force => true do |t|

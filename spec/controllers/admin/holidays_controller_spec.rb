@@ -33,6 +33,13 @@ describe Admin::HolidaysController do
     post :create
     response.should redirect_to(admin_holidays_path)
   end
+  
+  it "should create a new Holiday with saved Employment search" do
+    Holiday.expects(:new).with('name' => 'Fun Day', 'date' => Date.tomorrow).returns(holiday = Holiday.first)
+    EmploymentSearch.expects(:create).with(:conditions => {:restaurant_name_like => 'neo'}).returns(search = EmploymentSearch.new)
+    holiday.expects(:update_attribute).with(:employment_search_id, search.id)
+    post :create, :holiday => { :name => "Fun Day", :date => Date.tomorrow }, :search => { :restaurant_name_like => "neo" }
+  end
 
   it "edit action should render edit template" do
     get :edit, :id => Holiday.first

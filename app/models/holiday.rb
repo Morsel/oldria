@@ -14,6 +14,7 @@ class Holiday < ActiveRecord::Base
   has_many :admin_holiday_reminders, :class_name => 'Admin::HolidayReminder', :dependent => :destroy
   has_many :holiday_conversations, :dependent => :destroy
   has_many :recipients, :through => :holiday_conversations
+  belongs_to :employment_search
 
   accepts_nested_attributes_for :admin_holiday_reminders
   validates_presence_of :name

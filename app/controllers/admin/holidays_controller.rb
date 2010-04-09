@@ -16,6 +16,8 @@ class Admin::HolidaysController < Admin::AdminController
     @holiday = Holiday.new(params[:holiday])
     @search = Employment.search(params[:search])
     if @holiday.save
+      saved_search = EmploymentSearch.create(:conditions => @search.conditions)
+      @holiday.update_attribute(:employment_search_id, saved_search.id)
       flash[:notice] = "Successfully created holiday."
       redirect_to admin_holidays_path
     else
