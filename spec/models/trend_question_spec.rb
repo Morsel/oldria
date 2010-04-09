@@ -1,16 +1,16 @@
 # == Schema Information
-# Schema version: 20100409155415
+# Schema version: 20100409221445
 #
 # Table name: trend_questions
 #
-#  id           :integer         not null, primary key
-#  subject      :string(255)
-#  body         :text
-#  scheduled_at :datetime
-#  expired_at   :datetime
-#  criteria_id  :integer
-#  created_at   :datetime
-#  updated_at   :datetime
+#  id                   :integer         not null, primary key
+#  subject              :string(255)
+#  body                 :text
+#  scheduled_at         :datetime
+#  expired_at           :datetime
+#  created_at           :datetime
+#  updated_at           :datetime
+#  employment_search_id :integer
 #
 
 require 'spec/spec_helper'

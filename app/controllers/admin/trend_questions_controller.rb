@@ -10,7 +10,7 @@ class Admin::TrendQuestionsController < Admin::AdminController
   def new
     @trend_question = ::TrendQuestion.new
     @trend_question.employment_search = EmploymentSearch.new(:conditions => {})
-    @conditions = @trend_question.employment_search.conditions || {}
+    @search = @trend_question.employment_search.employments
   end
 
   def create
@@ -25,8 +25,8 @@ class Admin::TrendQuestionsController < Admin::AdminController
 
   def edit
     @trend_question = ::TrendQuestion.find(params[:id], :include => :employment_search)
-    #@trend_question.employment_search ||= EmploymentSearch.new(:conditions => {})
-    @conditions = @trend_question.employment_search.conditions || {}
+    @trend_question.employment_search ||= EmploymentSearch.new(:conditions => {})
+    @search = @trend_question.employment_search.employments
   end
 
   def update

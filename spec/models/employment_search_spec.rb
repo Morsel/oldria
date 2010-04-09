@@ -1,3 +1,14 @@
+# == Schema Information
+# Schema version: 20100409221445
+#
+# Table name: employment_searches
+#
+#  id         :integer         not null, primary key
+#  conditions :string(255)
+#  created_at :datetime
+#  updated_at :datetime
+#
+
 require 'spec_helper'
 
 describe EmploymentSearch do
