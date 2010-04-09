@@ -85,9 +85,10 @@ ActionController::Routing::Routes.draw do |map|
     admin.resources :qotds, :except => exclusive_routes
     admin.resources :announcements, :except => exclusive_routes
     admin.resources :pr_tips, :except => exclusive_routes
-    admin.resources :trend_questions, :except => exclusive_routes
     admin.resources :holiday_reminders, :except => exclusive_routes
-    admin.resources :content_requests, :except => exclusive_routes
+
+    # admin.resources :content_requests
+    admin.resources :trend_questions
   end
 
   map.public_page ":id", :controller => 'pages', :action => 'show'
