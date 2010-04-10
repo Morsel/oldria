@@ -6,15 +6,17 @@
     <%# f.input :expired_at, :selected => 3.months.from_now %>
   <% end %>
 
-  <% f.inputs :for => @search, :name => 'Criteria' do |form| %>
-    <%# form.input :employee_name_like %>
-    <%= form.input :restaurant_id, :collection => Restaurant.all(:order => 'name ASC'), :selected => @search.restaurant_id %>
+  <% semantic_fields_for @search do |s| %>
+    <%= s.input :restaurant_james_beard_region_id_eq,
+                :label => "Region",
+                :collection => JamesBeardRegion.all %>
+    <%= s.input :restaurant_id, :collection => Restaurant.all(:order => 'name ASC')%>
   <% end %>
 
   <div>
     <h3>Currently, this can be seen by:</h3>
     <ul id="employment_list">
-    <% @search.all.each do |employment| %>
+    <% @search.all(:include => [:restaurant, :employee]).each do |employment| %>
       <li><%= employment.employee_name %> (<%= employment.restaurant_name %>)</li>
     <% end %>
     </ul>

@@ -13,8 +13,11 @@ class EmploymentSearch < ActiveRecord::Base
   has_one :trend_question
   has_one :holiday
   
-  serialize :conditions, Hash
+  serialize :conditions
   
   validates_presence_of :conditions
-  
+
+  def employments
+    Employment.search(conditions) # searchlogic
+  end
 end

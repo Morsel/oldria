@@ -9,13 +9,14 @@ class Admin::TrendQuestionsController < Admin::AdminController
 
   def new
     @trend_question = ::TrendQuestion.new
-    @trend_question.employment_search = EmploymentSearch.new(:conditions => {})
-    @search = @trend_question.employment_search.employments
+    search_setup
   end
 
   def create
     @trend_question = ::TrendQuestion.new(params[:trend_question])
+    search_setup
     if @trend_question.save
+      save_search
       flash[:notice] = "Successfully created trend question."
       redirect_to admin_trend_questions_path
     else
@@ -25,13 +26,14 @@ class Admin::TrendQuestionsController < Admin::AdminController
 
   def edit
     @trend_question = ::TrendQuestion.find(params[:id], :include => :employment_search)
-    @trend_question.employment_search ||= EmploymentSearch.new(:conditions => {})
-    @search = @trend_question.employment_search.employments
+    search_setup
   end
 
   def update
     @trend_question = ::TrendQuestion.find(params[:id])
+    search_setup
     if @trend_question.update_attributes(params[:trend_question])
+      save_search
       flash[:notice] = "Successfully updated trend question."
       redirect_to admin_trend_questions_path
     else
@@ -48,11 +50,19 @@ class Admin::TrendQuestionsController < Admin::AdminController
 
   private
   def search_setup
-    @search = Employment.search(params[:search])
+    @employment_search = if @trend_question.employment_search
+        @trend_question.employment_search
+      else
+        @trend_question.build_employment_search(:conditions => {})
+      end
 
+    @search = @employment_search.employments #searchlogic
+  end
+  
+  def save_search
     if params[:search]
-      @employments = @search.all(:select => 'DISTINCT employments.*', :include => [:restaurant])
-      @search = Employment.search(nil) # reset the form
+      @employment_search.conditions = params[:search]
+      @employment_search.save
     end
   end
 end
