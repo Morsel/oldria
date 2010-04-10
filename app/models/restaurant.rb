@@ -35,6 +35,8 @@ class Restaurant < ActiveRecord::Base
            :source => :employee,
            :conditions => {:employments => {:omniscient => true}}
   has_many :media_request_conversations, :through => :employments
+  has_many :trend_question_discussions
+  has_many :trend_questions, :through => :trend_question_discussions
 
   after_validation_on_create :add_manager_as_employee
 

@@ -17,4 +17,6 @@ require 'spec/spec_helper'
 
 describe TrendQuestion do
   should_belong_to :employment_search
+  should_have_many :trend_question_discussions
+  should_have_many :restaurants, :through => :trend_question_discussions
 end

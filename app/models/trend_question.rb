@@ -15,5 +15,8 @@
 
 class TrendQuestion < ActiveRecord::Base
   belongs_to :employment_search
-  # accepts_nested_attributes_for :employment_search
+
+  has_many :trend_question_discussions
+  has_many :restaurants, :through => :trend_question_discussions
+
 end

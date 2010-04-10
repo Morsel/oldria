@@ -13,13 +13,15 @@ Feature: Trend questions
       | Normal Pants | Chicago     | IL    |
       | Fancy Lamb   | San Antonio | TX    |
     And the restaurant "Normal Pants" is in the region "Midwest"
-    And the restaurant "Fancy Lamb" is in the region "Soutwest"
+    And the restaurant "Fancy Lamb" is in the region "Southwest"
 
 
   Scenario: New Trend Question
     Given I am logged in as an admin
+    When I go to the new trend question page
+    # Then show me the page
     When I create a new trend question with subject "Where's the beef?" with criteria:
-      | James Beard Region | Midwest |
+      | Region | Midwest (IN IL OH) |
     Then "Normal Pants" should have 1 new trend question
     But "Fancy Lamb" should not have any new trend question
 

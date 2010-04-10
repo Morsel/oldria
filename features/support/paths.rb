@@ -41,7 +41,7 @@ module NavigationHelpers
       new_restaurant_path
     when /^the employees page for "(.+)"$/
       restaurant_employees_path(Restaurant.find_by_name($1))
-    
+
     # Media Requests
   when /^the media request conversation page$/
     media_request_conversation_path(MediaRequestConversation.last)
@@ -71,6 +71,9 @@ module NavigationHelpers
       new_admin_announcement_path
     when /^the new holiday page/
       new_admin_holiday_path
+    when /^the new trend question page/
+      new_admin_trend_question_path
+
 
     # Direct path
     when /"([^\"]+)"/
