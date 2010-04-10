@@ -58,11 +58,16 @@ class Admin::TrendQuestionsController < Admin::AdminController
 
     @search = @employment_search.employments #searchlogic
   end
-  
+
   def save_search
     if params[:search]
-      @employment_search.conditions = params[:search]
+      @employment_search.conditions = normalized_search_params
       @employment_search.save
     end
+  end
+
+  def normalized_search_params
+    normalized = params[:search].reject{|k,v| v.blank? }
+    normalized.blank? ? {:id => ""} : normalized
   end
 end

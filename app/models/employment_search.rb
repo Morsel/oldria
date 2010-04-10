@@ -20,4 +20,9 @@ class EmploymentSearch < ActiveRecord::Base
   def employments
     Employment.search(conditions) # searchlogic
   end
+  
+  def restaurants
+    restaurant_ids = employments.all(:group => :restaurant_id).map(&:restaurant_id)
+    Restaurant.find(restaurant_ids)
+  end
 end
