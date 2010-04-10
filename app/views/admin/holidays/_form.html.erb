@@ -1,19 +1,11 @@
 <% semantic_form_for [:admin, @holiday] do |form| %>
 
 <%- if @employments.present? %>
-  <% form.inputs :name => "Recipients" do %>
-    <%= form.input :recipient_ids,
-                :collection => @employments,
-                :as => :check_boxes,
-                :wrapper_html => {:class => 'employment_list checkall'},
-                :label_method => :name_and_restaurant,
-                :label => "Who should receive this?"
-    %>
-  <% end %>
+  <h3>Current Recipients</h3>
+  <p><%= @employments.map { |e| "#{e.employee.name} (#{e.restaurant_name})"}.join(", ") %></p>
 <% elsif params[:search] %>
   <p>Oops, we couldn't find anyone by that criteria. Try again.</p>
 <% end -%>
-
 
   <% form.inputs :name => 'Holiday' do %>
     <%= form.input :name, :input_html => {:class => 'title span-8'} %>
@@ -26,9 +18,13 @@
     <%= reminder.input :message, :input_html => {:rows => 5} %>
   <% end -%>
 
+  <%- @search.conditions.each do |k, v| %>
+  <%= hidden_field_tag "search[#{k}]", v %>
+  <%- end %>
+  
   <% unless @holiday.new_record? %>
   <p><%= link_to "Add a Reminder", new_admin_holiday_reminder_path(:holiday_id => @holiday) %></p>
   <% end %>
-
+  
   <p><%= button_tag 'Save', :class => 'positive' %></p>
 <% end %>

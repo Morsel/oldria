@@ -12,13 +12,9 @@
 class EmploymentSearch < ActiveRecord::Base
   has_one :trend_question
   has_one :holiday
-
-  serialize :conditions
-
-  alias_attribute :searchlogic_search, :conditions
-
-  def employments
-    Employment.search(conditions) # searchlogic
-  end
-
+  
+  serialize :conditions, Hash
+  
+  validates_presence_of :conditions
+  
 end

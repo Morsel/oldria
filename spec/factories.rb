@@ -192,6 +192,7 @@ end
 Factory.define :holiday do |f|
   f.name "Valentine's Day"
   f.date Date.today
+  f.association :employment_search
 end
 
 Factory.define :holiday_conversation do |f|
@@ -204,4 +205,8 @@ Factory.define :trend_question do |f|
   f.subject "What is the haps?"
   f.body    "Boo-ya"
   f.scheduled_at { 2.days.ago }
+end
+
+Factory.define :employment_search do |f|
+  f.conditions "--- \n:restaurant_name_like: neo\n"
 end
