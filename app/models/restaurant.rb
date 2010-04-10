@@ -24,7 +24,7 @@ class Restaurant < ActiveRecord::Base
   apply_addresslogic
   default_scope :conditions => {:deleted_at => nil}
 
-  belongs_to :manager, :class_name => "User"
+  belongs_to :manager, :class_name => "User", :foreign_key => 'manager_id'
   belongs_to :metropolitan_area
   belongs_to :james_beard_region
   belongs_to :cuisine
