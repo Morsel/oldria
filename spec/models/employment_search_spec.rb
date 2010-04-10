@@ -3,7 +3,7 @@ require 'spec_helper'
 describe EmploymentSearch do
   before(:each) do
     @valid_attributes = {
-      :conditions => "value for conditions"
+      :conditions => { :restaurant_name_like => "neo" }
     }
   end
 

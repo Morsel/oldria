@@ -186,9 +186,14 @@ end
 Factory.define :holiday do |f|
   f.name "Valentine's Day"
   f.date Date.today
+  f.association :employment_search
 end
 
 Factory.define :holiday_conversation do |f|
   f.association :recipient, :factory => :employment
   f.association :holiday
+end
+
+Factory.define :employment_search do |f|
+  f.conditions "--- \n:restaurant_name_like: neo\n"
 end
