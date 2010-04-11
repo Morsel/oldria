@@ -66,7 +66,9 @@ ActionController::Routing::Routes.draw do |map|
 
   map.resource :search, :only => 'show'
 
-  map.root :controller => 'welcome'
+  #map.root :controller => 'welcome'
+  # changed from welcome message to login screen
+  map.root :controller => 'user_sessions', :action => 'new'
 
   map.namespace :admin do |admin|
     admin.root      :controller => 'admin'
