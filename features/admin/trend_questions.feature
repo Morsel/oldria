@@ -52,14 +52,26 @@ Feature: Trend questions
     But the last trend question for "Normal Pants" should not be viewable by "Jim Smith"
 
 
-  Scenario: Managers can see trend questions
+  Scenario: Managers can see all the restaurant's trend questions
     Given "sam" is the account manager for "Normal Pants"
     Given I am logged in as an admin
     When I create a new trend question with subject "Assistants only" with criteria:
       | Role | Assistant |
     Then the trend question with subject "Assistants only" should have 1 restaurant
     And the last trend question for "Normal Pants" should be viewable by "Jim Smith"
-    And "sam" should be the account manager for "Normal Pants"
     And the last trend question for "Normal Pants" should be viewable by "Sam Smith"
 
+@focus
+  Scenario: Restaurant folks can respond to trend questions
+    Given I am logged in as an admin
+    When I create a new trend question with subject "My river runs blue" with criteria:
+      | Region | Midwest (IN IL OH) |
 
+    Given I am logged in as "sam" with password "secret"
+    And I go to the RIA messages page
+    Then I should see "My river runs blue"
+
+    When I follow "Reply"
+    And I fill in "Comment" with "But my river is green"
+    And I press "Submit"
+    Then I should see "success"
