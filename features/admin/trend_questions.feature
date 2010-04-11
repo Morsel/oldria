@@ -50,3 +50,16 @@ Feature: Trend questions
     Then the trend question with subject "Chefs only" should have 1 restaurant
     And the last trend question for "Normal Pants" should be viewable by "Sam Smith"
     But the last trend question for "Normal Pants" should not be viewable by "Jim Smith"
+
+
+  Scenario: Managers can see trend questions
+    Given "sam" is the account manager for "Normal Pants"
+    Given I am logged in as an admin
+    When I create a new trend question with subject "Assistants only" with criteria:
+      | Role | Assistant |
+    Then the trend question with subject "Assistants only" should have 1 restaurant
+    And the last trend question for "Normal Pants" should be viewable by "Jim Smith"
+    And "sam" should be the account manager for "Normal Pants"
+    And the last trend question for "Normal Pants" should be viewable by "Sam Smith"
+
+

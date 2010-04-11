@@ -26,6 +26,9 @@ class TrendQuestion < ActiveRecord::Base
   end
 
   def viewable_by?(employment)
+    return false unless employment
+    employment.employee == employment.restaurant.try(:manager) ||
+    employment.omniscient? ||
     employment_search.employments.include?(employment)
   end
 
