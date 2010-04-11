@@ -7,13 +7,17 @@ Feature: Trend questions
   These previously worked as staff-to-individual messages.
   Now they are staff-to-restaurant based. (They will work just like restaurant conversations.)
 
+
   Background:
-    Given the following restaurant records:
-      | name         | city        | state |
-      | Normal Pants | Chicago     | IL    |
-      | Fancy Lamb   | San Antonio | TX    |
+    Given a restaurant named "Normal Pants" with the following employees:
+      | username | password | email            | name      | role      | subject matters |
+      | sam      | secret   | sam@example.com  | Sam Smith | Chef      | Food, Pastry    |
+    Given a restaurant named "Fancy Lamb" with the following employees:
+      | username | password | email            | name      | role      | subject matters |
+      | john     | secret   | john@example.com | John Doe  | Sommelier | Beer, Wine      |
     And the restaurant "Normal Pants" is in the region "Midwest"
     And the restaurant "Fancy Lamb" is in the region "Southwest"
+
 
 
   Scenario: New Trend Question
@@ -22,6 +26,7 @@ Feature: Trend questions
     # Then show me the page
     When I create a new trend question with subject "Where's the beef?" with criteria:
       | Region | Midwest (IN IL OH) |
-    Then "Normal Pants" should have 1 new trend question
-    But "Fancy Lamb" should not have any new trend question
+    Then the trend question with subject "Where's the beef?" should have 1 restaurant
+    And "Normal Pants" should have 1 new trend question
+    But "Fancy Lamb" should not have any trend questions
 

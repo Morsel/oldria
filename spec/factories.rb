@@ -205,6 +205,7 @@ Factory.define :trend_question do |f|
   f.subject "What is the haps?"
   f.body    "Boo-ya"
   f.scheduled_at { 2.days.ago }
+  f.association :employment_search
 end
 
 Factory.define :employment_search do |f|

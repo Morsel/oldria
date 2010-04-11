@@ -19,4 +19,10 @@ class TrendQuestion < ActiveRecord::Base
   has_many :trend_question_discussions
   has_many :restaurants, :through => :trend_question_discussions
 
+  before_save :update_restaurants_from_search_criteria
+
+  def update_restaurants_from_search_criteria
+    self.restaurant_ids = employment_search.restaurant_ids
+  end
+
 end
