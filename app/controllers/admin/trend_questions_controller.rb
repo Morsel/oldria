@@ -16,8 +16,8 @@ class Admin::TrendQuestionsController < Admin::AdminController
   def create
     @trend_question = ::TrendQuestion.new(params[:trend_question])
     search_setup
+    save_search
     if @trend_question.save
-      save_search
       flash[:notice] = "Successfully created trend question."
       redirect_to([:admin, @trend_question])
     else
@@ -33,8 +33,8 @@ class Admin::TrendQuestionsController < Admin::AdminController
   def update
     @trend_question = ::TrendQuestion.find(params[:id])
     search_setup
+    save_search
     if @trend_question.update_attributes(params[:trend_question])
-      save_search
       flash[:notice] = "Successfully updated trend question."
       redirect_to([:admin, @trend_question])
     else
