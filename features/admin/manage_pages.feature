@@ -40,4 +40,4 @@ Feature: Manage pages
       | Content | You've finally made it! |
     And I logout
     And I go to the homepage
-    Then I should see "You've finally made it!"
+    Then I should see "Login to SpoonFeed"
