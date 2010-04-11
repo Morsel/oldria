@@ -5,6 +5,7 @@ class Admin::TrendQuestionsController < Admin::AdminController
 
   def show
     @trend_question = ::TrendQuestion.find(params[:id])
+    search_setup
   end
 
   def new
@@ -18,7 +19,7 @@ class Admin::TrendQuestionsController < Admin::AdminController
     if @trend_question.save
       save_search
       flash[:notice] = "Successfully created trend question."
-      redirect_to admin_trend_questions_path
+      redirect_to([:admin, @trend_question])
     else
       render :action => 'new'
     end
@@ -35,7 +36,7 @@ class Admin::TrendQuestionsController < Admin::AdminController
     if @trend_question.update_attributes(params[:trend_question])
       save_search
       flash[:notice] = "Successfully updated trend question."
-      redirect_to admin_trend_questions_path
+      redirect_to([:admin, @trend_question])
     else
       render :action => 'edit'
     end
@@ -57,6 +58,7 @@ class Admin::TrendQuestionsController < Admin::AdminController
       end
 
     @search = @employment_search.employments #searchlogic
+    @restaurants_and_employments = @search.all(:include => [:restaurant, :employee]).group_by(&:restaurant)
   end
 
   def save_search

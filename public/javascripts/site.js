@@ -284,5 +284,14 @@ if (sortedTables.length) {
   sortedTables.tablesorter({sortList: [[0,0]]});
 }
 
+var	$employmentsList  = $("#employment_list");
+var $employmentInputs = $("#employment_criteria select");
 
+function updateEmploymentsList() {
+	input_string = $employmentInputs.serialize();
+	console.log(input_string);
+	$employmentsList.load('/employment_search?' + input_string);
+	// return true;	
+}
 
+$employmentInputs.change(updateEmploymentsList);

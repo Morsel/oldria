@@ -57,6 +57,7 @@ ActionController::Routing::Routes.draw do |map|
 
   map.resources :feed_entries, :only => 'show', :member => { :read => :put }
   map.resource :feeds
+  map.resource :employment_search
 
 
   map.resource :twitter_authorization
