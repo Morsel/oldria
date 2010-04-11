@@ -19,3 +19,19 @@ end
 Then /^"([^\"]*)" should not have any(?: new)? trend questions?$/ do |restaurant_name|
   Restaurant.find_by_name(restaurant_name).trend_questions.count.should == 0
 end
+
+Then /^the last trend question for "([^\"]*)" should be viewable by "([^\"]*)"$/ do |restaurantname,  employeename|
+  restaurant = Restaurant.find_by_name(restaurantname)
+  user = User.find_by_name(employeename)
+  employment = restaurant.employments.find_by_employee_id(user.id)
+  
+  restaurant.trend_questions.last.should be_viewable_by(employment)
+end
+
+Then /^the last trend question for "([^\"]*)" should not be viewable by "([^\"]*)"$/ do |restaurantname,  employeename|
+  restaurant = Restaurant.find_by_name(restaurantname)
+  user = User.find_by_name(employeename)
+  employment = restaurant.employments.find_by_employee_id(user.id)
+  
+  restaurant.trend_questions.last.should_not be_viewable_by(employment)
+end

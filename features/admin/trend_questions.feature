@@ -12,6 +12,7 @@ Feature: Trend questions
     Given a restaurant named "Normal Pants" with the following employees:
       | username | password | email            | name      | role      | subject matters |
       | sam      | secret   | sam@example.com  | Sam Smith | Chef      | Food, Pastry    |
+      | jim      | secret   | jim@example.com  | Jim Smith | Assistant | Beer            |
     Given a restaurant named "Fancy Lamb" with the following employees:
       | username | password | email            | name      | role      | subject matters |
       | john     | secret   | john@example.com | John Doe  | Sommelier | Beer, Wine      |
@@ -40,3 +41,12 @@ Feature: Trend questions
       | guy      | secret   | guy@example.com  | Guy Jones | Chef      | Food            |
     And the restaurant "Newbie McGee" is in the region "Midwest"
     Then the trend question with subject "Are Cucumbers tasty?" should have 2 restaurants
+
+
+  Scenario: Only applicable employees can see the trend question
+    Given I am logged in as an admin
+    When I create a new trend question with subject "Chefs only" with criteria:
+      | Role | Chef |
+    Then the trend question with subject "Chefs only" should have 1 restaurant
+    And the last trend question for "Normal Pants" should be viewable by "Sam Smith"
+    But the last trend question for "Normal Pants" should not be viewable by "Jim Smith"

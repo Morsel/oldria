@@ -25,4 +25,8 @@ class TrendQuestion < ActiveRecord::Base
     self.restaurant_ids = employment_search.restaurant_ids
   end
 
+  def viewable_by?(employment)
+    employment_search.employments.include?(employment)
+  end
+
 end
