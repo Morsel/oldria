@@ -1,13 +1,5 @@
-<% title "New Season/Trend Question" %>
+<% title "New Trend Question" %>
 
-<p>First search, then choose the recipients</p>
-<% form_for @search, :url => new_admin_trend_question_path, :html => {:class => 'formtastic faceted'} do |f| %>
-  <%= render :partial => 'media_requests/search_fields', :locals => {:f => f} %>
-<% end %>
+<%= render :partial => 'form' %>
 
-<% if params[:search] %>
-  <%= render :partial => 'form' %>
-<% end %>
-
-<p><%= link_to "Back to All Messages", admin_messages_path %></p>
-
+<p><%= link_to "Back to List", admin_trend_questions_path %></p>

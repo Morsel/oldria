@@ -24,7 +24,7 @@ class Restaurant < ActiveRecord::Base
   apply_addresslogic
   default_scope :conditions => {:deleted_at => nil}
 
-  belongs_to :manager, :class_name => "User"
+  belongs_to :manager, :class_name => "User", :foreign_key => 'manager_id'
   belongs_to :metropolitan_area
   belongs_to :james_beard_region
   belongs_to :cuisine
@@ -35,8 +35,11 @@ class Restaurant < ActiveRecord::Base
            :source => :employee,
            :conditions => {:employments => {:omniscient => true}}
   has_many :media_request_conversations, :through => :employments
+  has_many :trend_question_discussions
+  has_many :trend_questions, :through => :trend_question_discussions
 
   after_validation_on_create :add_manager_as_employee
+  after_save :update_admin_discussions
 
   # For pagination
   cattr_reader :per_page
@@ -96,5 +99,9 @@ class Restaurant < ActiveRecord::Base
 
   def missing_subject_matter_ids
     (SubjectMatter.all(:select => :id).map(&:id) - handled_subject_matter_ids)
+  end
+
+  def update_admin_discussions
+    TrendQuestion.all.each(&:touch)
   end
 end

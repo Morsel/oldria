@@ -9,6 +9,12 @@
 
       <%= render :partial => 'message', :collection =>  @messages %>
 
+      <% current_user.restaurants.collect(&:trend_question_discussions).flatten.each do |discussion| %>
+        <%= discussion.trend_question.subject %>
+        <%= discussion.trend_question.body %>
+        <%= link_to "Reply", discussion %>
+      <% end %>
+
     <% unless archived_view? %>
       <p id="past_messages"><%= link_to "Past Messages", ria_messages_path(:view_all => true) %></p>
     <% end %>

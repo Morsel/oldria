@@ -2108,6 +2108,27 @@ form .checkall_link label {
 	margin-right: 1em;
 }
 
+#employment_criteria li {
+	float: left;
+	margin-right: 30px;
+}
+
+#employment_list ul {
+	margin:0;
+	min-height: 200px;
+}
+
+#employment_list .restaurant_and_employees {
+	margin: 0 0 5px;
+	padding-bottom: 1em;
+	list-style:none;
+}
+
+#employment_list .restaurant_and_employees h3 {
+	font-size: 1.2em;
+}
+
+
 /* @end */
 
 /* @group blueprint extensions -------- */

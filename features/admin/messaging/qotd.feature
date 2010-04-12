@@ -12,7 +12,7 @@ Feature: Admin Messaging: Question of the Day
     And there are no QOTDs in the system
     And I am logged in as an admin
 
-@focus
+
   Scenario: Create a new QOTD
     Given I am on the new QOTD page
     When I perform the search:

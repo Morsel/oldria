@@ -1,13 +1,14 @@
 # == Schema Information
-# Schema version: 20100303182810
+# Schema version: 20100409221445
 #
 # Table name: holidays
 #
-#  id         :integer         not null, primary key
-#  name       :string(255)
-#  date       :date
-#  created_at :datetime
-#  updated_at :datetime
+#  id                   :integer         not null, primary key
+#  name                 :string(255)
+#  date                 :date
+#  created_at           :datetime
+#  updated_at           :datetime
+#  employment_search_id :integer
 #
 
 class Holiday < ActiveRecord::Base

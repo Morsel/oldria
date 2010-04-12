@@ -54,8 +54,11 @@ Given /^I have just created a restaurant named "([^\"]*)"$/ do |restaurantname|
 end
 
 Given /^the restaurant "([^\"]*)" is in the region "([^\"]*)"$/ do |restaurantname, regionname|
-  region = Factory(:james_beard_region)
-  Restaurant.find_by_name!(restaurantname).update_attribute(:james_beard_region, region)
+  region = JamesBeardRegion.find_by_name(regionname)
+  region ||= Factory(:james_beard_region, :name => regionname)
+  restaurant = Restaurant.find_by_name!(restaurantname)
+  restaurant.james_beard_region = region
+  restaurant.save!
 end
 
 Given /^a subject matter "([^\"]*)"$/ do |name|

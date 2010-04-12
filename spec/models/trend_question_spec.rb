@@ -1,0 +1,53 @@
+# == Schema Information
+# Schema version: 20100409221445
+#
+# Table name: trend_questions
+#
+#  id                   :integer         not null, primary key
+#  subject              :string(255)
+#  body                 :text
+#  scheduled_at         :datetime
+#  expired_at           :datetime
+#  created_at           :datetime
+#  updated_at           :datetime
+#  employment_search_id :integer
+#
+
+require 'spec/spec_helper'
+
+describe TrendQuestion do
+  should_belong_to :employment_search
+  should_have_many :trend_question_discussions
+  should_have_many :restaurants, :through => :trend_question_discussions
+  
+  describe "restaurants" do
+    before do
+      @restaurant1 = Factory(:restaurant, :name => "Megan's Place")
+      @employment1 = Factory(:employment, :restaurant => @restaurant1)
+      @restaurant2 = Factory(:restaurant, :name => "Joe's Diner")
+      @employment2 = Factory(:employment, :restaurant => @restaurant2)
+    end
+
+    it "should update based on the search criteria" do
+      employment_search = Factory(:employment_search, :conditions => {
+        :restaurant_name_like => 'megan'
+      })
+      trend_question = Factory.build(:trend_question, :employment_search => employment_search)
+      trend_question.save
+      trend_question.restaurants.should include(@restaurant1)
+      trend_question.restaurants.should_not include(@restaurant2)
+    end
+    
+    it "should update based on the search criteria" do
+      employment_search = Factory(:employment_search, :conditions => {
+        :restaurant_name_like => 'megan'
+      })
+      trend_question = Factory.build(:trend_question, :employment_search => employment_search)
+      trend_question.save
+      trend_question.restaurants.should include(@restaurant1)
+      trend_question.employment_search.conditions = {:restaurant_name_like => 'joe'}
+      trend_question.save
+      trend_question.restaurants.should_not include(@restaurant1)
+    end
+  end
+end

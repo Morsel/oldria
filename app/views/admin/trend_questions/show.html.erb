@@ -1,0 +1,23 @@
+<% title "Trend Question" %>
+
+<p>
+  <strong>Subject:</strong>
+  <%=h @trend_question.subject %>
+</p>
+<p>
+  <strong>Body:</strong>
+  <%=h @trend_question.body %>
+</p>
+<p>
+  <strong>Scheduled At:</strong>
+  <%=h @trend_question.scheduled_at %>
+</p>
+<div id="employment_list">
+<%= render :partial => "employment_list" %>
+</div>
+
+<p class="clear">
+  <%= link_to "Edit", edit_admin_trend_question_path(@trend_question) %> |
+  <%= link_to "Destroy", [:admin, @trend_question], :confirm => 'Are you sure?', :method => :delete %> |
+  <%= link_to "View All", admin_trend_questions_path %>
+</p>

@@ -1,8 +1,0 @@
-<% title "Edit Question from Oz" %>
-
-<h3>Recipients:</h3>
-<p><%= @content_request.recipients.map(&:employee_name).to_sentence %></p>
-
-<%= render :partial => 'form' %>
-
-<p><%= link_to "Back to All Messages", admin_messages_path %></p>

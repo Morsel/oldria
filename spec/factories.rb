@@ -1,3 +1,4 @@
+# == Users ==
 Factory.define :user do |f|
   f.sequence(:username) { |n| "foo#{n}" }
   f.sequence(:email)    { |n| "foo#{n}@example.com" }
@@ -24,7 +25,7 @@ Factory.define :media_user, :parent => :user do |f|
   f.role 'media'
 end
 
-
+# == Restaurants ==
 Factory.define :restaurant do |f|
   f.name    "Joe's Diner"
   f.street1 "123 S State St"
@@ -37,6 +38,16 @@ Factory.define :managed_restaurant, :parent => :restaurant do |f|
   f.association :manager, :factory => :user
   f.association :cuisine
   f.association :metropolitan_area
+end
+
+Factory.define :employment do |f|
+  f.association :restaurant
+  f.association :employee, :factory => :user
+end
+
+Factory.define :assigned_employment, :parent => :employment do |f|
+  f.subject_matters {|e| [e.association(:subject_matter)] }
+  f.restaurant_role {|e|  e.association(:restaurant_role) }
 end
 
 Factory.define :status do |f|
@@ -56,8 +67,30 @@ Factory.define :coached_status_update do |f|
   f.association :date_range
 end
 
+# == Lookup Tables ==
 Factory.define :account_type do |f|
   f.name "Concierge"
+end
+
+Factory.define :cuisine do |f|
+  f.name "Mexican"
+end
+
+Factory.define :restaurant_role do |f|
+  f.name "Chef"
+end
+
+Factory.define :james_beard_region do |f|
+  f.name "Midwest"
+  f.description "IN IL OH"
+end
+
+Factory.define :metropolitan_area do |f|
+  f.name "Chicago IL"
+end
+
+Factory.define :subject_matter do |f|
+  f.name "Beverages"
 end
 
 Factory.define :page do |f|
@@ -72,6 +105,7 @@ Factory.define :direct_message do |f|
   f.body  "This is a message"
 end
 
+# == Media Requests ==
 Factory.define :media_request do |f|
   f.association :sender, :factory => :media_user
   f.message "This is a media request message"
@@ -97,37 +131,7 @@ Factory.define :media_request_conversation do |f|
   f.comments_count 0
 end
 
-Factory.define :cuisine do |f|
-  f.name "Mexican"
-end
-
-Factory.define :restaurant_role do |f|
-  f.name "Chef"
-end
-
-Factory.define :james_beard_region do |f|
-  f.name "Midwest"
-  f.description "IN IL OH"
-end
-
-Factory.define :metropolitan_area do |f|
-  f.name "Chicago IL"
-end
-
-Factory.define :subject_matter do |f|
-  f.name "Beverages"
-end
-
-Factory.define :employment do |f|
-  f.association :restaurant
-  f.association :employee, :factory => :user
-end
-
-Factory.define :assigned_employment, :parent => :employment do |f|
-  f.subject_matters {|e| [e.association(:subject_matter)] }
-  f.restaurant_role {|e|  e.association(:restaurant_role) }
-end
-
+# == Feeds ==
 Factory.define :feed do |f|
   f.title "Example Blog RSS"
   f.url "http://www.example.com"
@@ -169,6 +173,7 @@ Factory.define :discussion_comment, :parent => :comment do |f|
   f.commentable_type { "Discussion" }
 end
 
+# == Admin Messages ==
 Factory.define :admin_message, :class => Admin::Message do |f|
   f.message "This is an admin message"
 end
@@ -183,6 +188,7 @@ Factory.define :admin_conversation, :class => Admin::Conversation do |f|
   f.association :admin_message
 end
 
+# == Holidays ==
 Factory.define :holiday do |f|
   f.name "Valentine's Day"
   f.date Date.today
@@ -192,6 +198,14 @@ end
 Factory.define :holiday_conversation do |f|
   f.association :recipient, :factory => :employment
   f.association :holiday
+end
+
+# == Trend Question ==
+Factory.define :trend_question do |f|
+  f.subject "What is the haps?"
+  f.body    "Boo-ya"
+  f.scheduled_at { 2.days.ago }
+  f.association :employment_search
 end
 
 Factory.define :employment_search do |f|

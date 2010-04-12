@@ -11,7 +11,8 @@ class WelcomeController < ApplicationController
         render :dashboard
       end
     else
-      @page = Page.find_by_slug('welcome_new_user')
+      redirect_to :controller => 'user_sessions', :action => 'new'
+      #@page = Page.find_by_slug('welcome_new_user')
     end
   end
 end
