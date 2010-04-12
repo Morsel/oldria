@@ -19,4 +19,17 @@ class TrendQuestion < ActiveRecord::Base
   has_many :trend_question_discussions
   has_many :restaurants, :through => :trend_question_discussions
 
+  before_save :update_restaurants_from_search_criteria
+
+  def update_restaurants_from_search_criteria
+    self.restaurant_ids = employment_search.restaurant_ids
+  end
+
+  def viewable_by?(employment)
+    return false unless employment
+    employment.employee == employment.restaurant.try(:manager) ||
+    employment.omniscient? ||
+    employment_search.employments.include?(employment)
+  end
+
 end

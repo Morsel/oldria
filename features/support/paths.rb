@@ -41,6 +41,8 @@ module NavigationHelpers
       new_restaurant_path
     when /^the employees page for "(.+)"$/
       restaurant_employees_path(Restaurant.find_by_name($1))
+    when "the RIA messages page"
+      ria_messages_path
 
     # Media Requests
   when /^the media request conversation page$/

@@ -11,7 +11,7 @@ I want to set up holidays, with multiple scheduled reminders
       | john     | secret   | john@example.com | John Doe  | Sommelier | Beer, Wine      |
     And I am logged in as an admin
 
-@focus
+
   Scenario: Create a new Holiday (not displayed on their own)
     Given I am on the new holiday page
     When I perform the search:
