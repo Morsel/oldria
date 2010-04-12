@@ -7,8 +7,8 @@ module MessagesHelper
       link_to "Reply", holiday_conversation_path(rid)
     elsif message.respond_to?(:admin_message)
       link_to "Reply", admin_conversation_path(message)
-    elsif message.respond_to?(:trend_question)
-      link_to "Reply", trend_question_discussion_path(message)
+    elsif message.respond_to?(:discussionable)
+      link_to "Reply", admin_discussion_path(message)
     end
   end
 

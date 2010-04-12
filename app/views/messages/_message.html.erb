@@ -5,7 +5,7 @@
   original_message = message
   message = message.admin_message
 end
-if message.respond_to?(:trend_question)
+if message.respond_to?(:discussionable)
    original_message = message
    restaurant = message.restaurant
 end %>
