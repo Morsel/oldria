@@ -10,9 +10,9 @@
       <%= render :partial => 'message', :collection =>  @messages %>
 
       <% current_user.restaurants.collect(&:trend_question_discussions).flatten.each do |discussion| %>
-        <%= discussion.trend_question.subject %>
-        <%= discussion.trend_question.body %>
-        <%= link_to "Reply", discussion %>
+        <% employment = discussion.restaurant.employments.find_by_employee_id(current_user.id) %>
+        <% next unless discussion.trend_question.viewable_by?(employment) %>
+        <%= render :partial => 'message', :locals => {:message => discussion} %>
       <% end %>
 
     <% unless archived_view? %>

@@ -4,6 +4,10 @@
   reply_link = admin_conversation_path(message)
   original_message = message
   message = message.admin_message
+end
+if message.respond_to?(:trend_question)
+   original_message = message
+   restaurant = message.restaurant
 end %>
 <% div_for message, :class => "inbox_message clear clearfix#{ ' archived' if archive}" do %>
 
