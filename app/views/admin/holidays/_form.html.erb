@@ -18,13 +18,15 @@
     <%= reminder.input :message, :input_html => {:rows => 5} %>
   <% end -%>
 
-  <%- @search.conditions.each do |k, v| %>
-  <%= hidden_field_tag "search[#{k}]", v %>
-  <%- end %>
-  
+  <% if @search %>
+    <%- @search.conditions.each do |k, v| %>
+    <%= hidden_field_tag "search[#{k}]", v %>
+    <%- end %>
+  <% end %>
+
   <% unless @holiday.new_record? %>
   <p><%= link_to "Add a Reminder", new_admin_holiday_reminder_path(:holiday_id => @holiday) %></p>
   <% end %>
-  
+
   <p><%= button_tag 'Save', :class => 'positive' %></p>
 <% end %>
