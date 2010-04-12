@@ -21,6 +21,10 @@ class TrendQuestion < ActiveRecord::Base
 
   before_save :update_restaurants_from_search_criteria
 
+  def self.title
+    "Trend Question"
+  end
+
   def update_restaurants_from_search_criteria
     self.restaurant_ids = employment_search.restaurant_ids
   end

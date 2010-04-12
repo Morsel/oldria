@@ -72,6 +72,6 @@ Feature: Trend questions
     Then I should see "My river runs blue"
 
     When I follow "Reply"
-    And I fill in "Comment" with "But my river is green"
-    And I press "Submit"
-    Then I should see "success"
+    And I fill in "Reply" with "But my river is green"
+    And I press "Send"
+    Then I should see "Successfully created"

@@ -43,6 +43,10 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :admin_conversations, :only => 'show' do |admin_conversations|
     admin_conversations.resources :comments, :only => [:new, :create]
   end
+  map.resources :trend_question_discussions, :only => 'show' do |trend_question_discussions|
+    trend_question_discussions.resources :comments, :only => [:new, :create]
+  end
+
   map.resources :admin_messages, :only => 'show', :member => { :read => :put }
   map.resources :messages, :collection => {
                               :archive => :get,
