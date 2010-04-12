@@ -7,7 +7,7 @@ describe WelcomeController do
     context "for anonymous users" do
       it "should render the index.html template" do
         get :index
-        response.should render_template(:index)
+        response.should redirect_to(login_url)
       end
     end
 
