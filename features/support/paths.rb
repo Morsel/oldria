@@ -75,7 +75,8 @@ module NavigationHelpers
       new_admin_holiday_path
     when /^the new trend question page/
       new_admin_trend_question_path
-
+    when /^the list of trend questions$/
+      admin_trend_questions_path
 
     # Direct path
     when /"([^\"]+)"/
