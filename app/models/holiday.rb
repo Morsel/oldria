@@ -12,14 +12,21 @@
 #
 
 class Holiday < ActiveRecord::Base
-  has_many :admin_holiday_reminders, :class_name => 'Admin::HolidayReminder', :dependent => :destroy
-  has_many :holiday_conversations, :dependent => :destroy
-  has_many :recipients, :through => :holiday_conversations
   belongs_to :employment_search
+  has_many :holiday_discussions, :dependent => :destroy
+  has_many :restaurants, :through => :holiday_discussions
 
+  has_many :admin_holiday_reminders, :class_name => 'Admin::HolidayReminder', :dependent => :destroy
   accepts_nested_attributes_for :admin_holiday_reminders
+
   validates_presence_of :name
   validates_presence_of :date
+
+  before_save :update_restaurants_from_search_criteria
+
+  def update_restaurants_from_search_criteria
+    self.restaurant_ids = employment_search.restaurant_ids
+  end
 
   def accepted_holiday_conversations
     holiday_conversations.accepted
@@ -45,6 +52,6 @@ class Holiday < ActiveRecord::Base
   end
 
   def reply_count
-    holiday_conversations.with_replies.count
+    holiday_discussions.with_replies.count
   end
 end
