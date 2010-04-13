@@ -1,5 +1,6 @@
 <% restaurant = message.recipient.try(:restaurant) if message.respond_to?(:recipient) %>
 <% archive = message.read_by?(current_user) %>
+<% extra_css_class = "" %>
 <% if message.respond_to?(:admin_message)
   reply_link = admin_conversation_path(message)
   original_message = message
@@ -8,8 +9,9 @@ end
 if message.respond_to?(:discussionable)
    original_message = message
    restaurant = message.restaurant
+   extra_css_class = dom_class(message.discussionable)
 end %>
-<% div_for message, :class => "inbox_message clear clearfix#{ ' archived' if archive}" do %>
+<% div_for message, :class => "inbox_message clear clearfix#{ ' archived' if archive} #{extra_css_class}" do %>
 
   <div class="icon">
 
