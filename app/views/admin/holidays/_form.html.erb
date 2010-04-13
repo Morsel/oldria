@@ -1,8 +1,8 @@
 <% semantic_form_for [:admin, @holiday] do |form| %>
 
-<%- if @employments.present? %>
+<%- if @restaurants.present? %>
   <h3>Current Recipients</h3>
-  <p><%= @employments.map { |e| "#{e.employee.name} (#{e.restaurant_name})"}.join(", ") %></p>
+  <p><%= @restaurants.map { |r| "#{r.name}"}.join(", ") %></p>
 <% elsif params[:search] %>
   <p>Oops, we couldn't find anyone by that criteria. Try again.</p>
 <% end -%>

@@ -34,7 +34,7 @@ describe Admin::HolidayReminder do
     recipient = Factory(:employment)
     holiday  = Factory(:holiday, :name => "Thanksgiving")
     reminder = Factory(:holiday_reminder, :holiday => holiday)
-    reminder.recipient_ids.should == holiday.employment_search.restaurant_ids
+    reminder.recipient_ids.should == holiday.employment_search.employments.map(&:id)
   end
   
 end

@@ -27,7 +27,7 @@ class Admin::HolidaysController < Admin::AdminController
   def edit
     @holiday = Holiday.find(params[:id], :include => [:admin_holiday_reminders, :restaurants])
     @search = Employment.search(EmploymentSearch.find(@holiday.employment_search_id).conditions)
-    @employments = @search.all(:select => 'DISTINCT employments.*', :include => [:restaurant])
+    @restaurants = @search.all(:group => :restaurant_id).map(&:restaurant).uniq
   end
 
   def update
@@ -56,7 +56,7 @@ class Admin::HolidaysController < Admin::AdminController
     @search = Employment.search(params[:search])
 
     if params[:search]
-      @employments = @search.all(:select => 'DISTINCT employments.*', :include => [:restaurant])
+      @restaurants = @search.all(:group => :restaurant_id).map(&:restaurant).uniq
     end
   end
 end

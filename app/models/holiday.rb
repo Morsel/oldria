@@ -54,4 +54,5 @@ class Holiday < ActiveRecord::Base
   def reply_count
     holiday_discussions.with_replies.count
   end
+  
 end

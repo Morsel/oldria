@@ -20,7 +20,7 @@ class Admin::HolidayReminder < Admin::Message
 
   def copy_recipients
     return if holiday.blank? || recipient_ids.present?
-    self.recipient_ids = holiday.employment_search.restaurants.map(&:id) - holiday.accepted_holiday_discussion_restaurant_ids
+    self.recipient_ids = holiday.employment_search.employments.map(&:id) #- holiday.accepted_holiday_discussion_restaurant_ids
   end
 
   def self.title
