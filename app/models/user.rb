@@ -180,6 +180,10 @@ class User < ActiveRecord::Base
     admin_discussions.reject {|d| d.discussionable.scheduled_at > Time.now }
   end
 
+  def unread_admin_discussions
+    current_admin_discussions.reject {|d| d.read_by?(self)}
+  end
+
   def unread_direct_messages
     direct_messages.unread_by(self)
   end
@@ -193,7 +197,7 @@ class User < ActiveRecord::Base
   end
 
   def messages_from_ria
-    @messages_from_ria ||= [ current_admin_discussions,
+    @messages_from_ria ||= [ unread_admin_discussions,
       admin_conversations.current.unread_by(self),
       unread_pr_tips,
       unread_announcements

@@ -43,7 +43,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :admin_conversations, :only => 'show' do |admin_conversations|
     admin_conversations.resources :comments, :only => [:new, :create]
   end
-  map.resources :admin_discussions, :only => 'show' do |admin_discussions|
+  map.resources :admin_discussions, :only => 'show', :member => { :read => :put } do |admin_discussions|
     admin_discussions.resources :comments, :only => [:new, :create]
   end
 
@@ -92,7 +92,7 @@ ActionController::Routing::Routes.draw do |map|
     admin.resources :pr_tips, :except => exclusive_routes
     admin.resources :holiday_reminders, :except => exclusive_routes
 
-    # admin.resources :content_requests
+    admin.resources :content_requests
     admin.resources :trend_questions
   end
 

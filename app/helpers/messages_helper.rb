@@ -12,5 +12,16 @@ module MessagesHelper
     end
   end
 
+  def read_link_for_message(message, link_text = '<span>read</span>')
+    return unless message
+
+    if message.respond_to?(:discussionable)
+      link_path = read_admin_discussion_path(message)
+    else
+      link_path = read_admin_message_path(message)
+    end
+
+    link_to(link_text, link_path, :class => 'readit')
+  end
 
 end

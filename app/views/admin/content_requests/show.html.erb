@@ -1,0 +1,23 @@
+<% title "Content Request (Question from Oz)" %>
+
+<p>
+  <strong>Subject:</strong>
+  <%=h @content_request.subject %>
+</p>
+<p>
+  <strong>Body:</strong>
+  <%=h @content_request.body %>
+</p>
+<p>
+  <strong>Scheduled At:</strong>
+  <%=h @content_request.scheduled_at %>
+</p>
+<div id="employment_list">
+<%= render :partial => "employment_list" %>
+</div>
+
+<p class="clear">
+  <%= link_to "Edit", edit_admin_content_request_path(@content_request) %> |
+  <%= link_to "Destroy", [:admin, @content_request], :confirm => 'Are you sure?', :method => :delete %> |
+  <%= link_to "View All", admin_content_requests_path %>
+</p>
