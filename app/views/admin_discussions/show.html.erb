@@ -1,0 +1,5 @@
+<% title @discussionable.subject %>
+
+<p><%= @discussionable.body %></p>
+
+<%= render :partial => 'admin_conversations/comments', :locals => {:message => @discussionable }  %>

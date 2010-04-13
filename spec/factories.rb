@@ -211,3 +211,10 @@ end
 Factory.define :employment_search do |f|
   f.conditions "--- \n:restaurant_name_like: neo\n"
 end
+
+Factory.define :content_request do |f|
+  f.subject "RFP"
+  f.body    "Please send your proposal"
+  f.scheduled_at { 1.day.ago }
+  f.association :employment_search
+end

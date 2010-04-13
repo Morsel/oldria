@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100410223938) do
+ActiveRecord::Schema.define(:version => 20100412213706) do
 
   create_table "account_types", :force => true do |t|
     t.string   "name"
@@ -23,6 +23,15 @@ ActiveRecord::Schema.define(:version => 20100410223938) do
     t.integer  "comments_count",   :default => 0, :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "admin_discussions", :force => true do |t|
+    t.integer  "restaurant_id"
+    t.integer  "discussionable_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "comments_count",      :default => 0
+    t.string   "discussionable_type"
   end
 
   create_table "admin_messages", :force => true do |t|
@@ -70,7 +79,7 @@ ActiveRecord::Schema.define(:version => 20100410223938) do
 
   create_table "comments", :force => true do |t|
     t.string   "title",            :limit => 50, :default => ""
-    t.text     "comment",                        :default => ""
+    t.text     "comment"
     t.integer  "commentable_id"
     t.string   "commentable_type"
     t.integer  "user_id"
@@ -81,6 +90,16 @@ ActiveRecord::Schema.define(:version => 20100410223938) do
   add_index "comments", ["commentable_id"], :name => "index_comments_on_commentable_id"
   add_index "comments", ["commentable_type"], :name => "index_comments_on_commentable_type"
   add_index "comments", ["user_id"], :name => "index_comments_on_user_id"
+
+  create_table "content_requests", :force => true do |t|
+    t.string   "subject"
+    t.text     "body"
+    t.datetime "scheduled_at"
+    t.datetime "expired_at"
+    t.integer  "employment_search_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "cuisines", :force => true do |t|
     t.string   "name"
@@ -170,6 +189,8 @@ ActiveRecord::Schema.define(:version => 20100410223938) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "feed_categories", ["id"], :name => "index_feed_categories_on_id", :unique => true
 
   create_table "feed_entries", :force => true do |t|
     t.string   "title"
@@ -271,7 +292,6 @@ ActiveRecord::Schema.define(:version => 20100410223938) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.date     "due_date"
-    t.string   "request_type"
     t.integer  "media_request_type_id"
     t.text     "fields"
     t.string   "status"
@@ -385,13 +405,6 @@ ActiveRecord::Schema.define(:version => 20100410223938) do
     t.datetime "updated_at"
   end
 
-  create_table "trend_question_discussions", :force => true do |t|
-    t.integer  "restaurant_id"
-    t.integer  "trend_question_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "trend_questions", :force => true do |t|
     t.string   "subject"
     t.text     "body"
@@ -412,6 +425,7 @@ ActiveRecord::Schema.define(:version => 20100410223938) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.datetime "confirmed_at"
+    t.datetime "last_request_at"
     t.string   "atoken"
     t.string   "asecret"
     t.integer  "account_type_id"
@@ -423,7 +437,6 @@ ActiveRecord::Schema.define(:version => 20100410223938) do
     t.string   "last_name"
     t.integer  "james_beard_region_id"
     t.string   "publication"
-    t.datetime "last_request_at"
     t.string   "role"
   end
 

@@ -1,17 +1,20 @@
 # == Schema Information
-# Schema version: 20100409221445
+# Schema version: 20100412193718
 #
 # Table name: employment_searches
 #
 #  id         :integer         not null, primary key
-#  conditions :string(255)
+#  conditions :text
 #  created_at :datetime
 #  updated_at :datetime
 #
 
-require 'spec_helper'
+require 'spec/spec_helper'
 
 describe EmploymentSearch do
+  should_have_one :content_request
+  should_have_one :trend_question
+
   before(:each) do
     @r1 = Factory(:restaurant, :name => "Megan's Place")
     @e1 = Factory(:employment, :restaurant => @r1)

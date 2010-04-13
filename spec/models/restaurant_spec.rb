@@ -30,8 +30,9 @@ describe Restaurant do
   should_have_many :employments
   should_have_many :employees, :through => :employments
   should_have_many :media_request_conversations, :through => :employments
-  should_have_many :trend_question_discussions
-  should_have_many :trend_questions, :through => :trend_question_discussions
+  should_have_many :admin_discussions
+  should_have_many :trend_questions, :through => :admin_discussions
+  should_have_many :content_requests, :through => :admin_discussions
 
   describe "manager and employees" do
     it "should belong to a manager (user)" do
