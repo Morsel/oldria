@@ -10,6 +10,10 @@ class HolidayDiscussion < ActiveRecord::Base
   named_scope :with_replies, :conditions => 'comments_count > 0'
   named_scope :without_replies, :conditions => 'comments_count = 0'
   
+  def self.accepted
+    []
+  end
+
   def accepted?
     false
   end

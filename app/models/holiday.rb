@@ -28,12 +28,12 @@ class Holiday < ActiveRecord::Base
     self.restaurant_ids = employment_search.restaurant_ids
   end
 
-  def accepted_holiday_conversations
-    holiday_conversations.accepted
+  def accepted_holiday_discussions
+    holiday_discussions.accepted
   end
 
-  def accepted_holiday_conversation_recipient_ids
-    accepted_holiday_conversations.map(&:recipient_id)
+  def accepted_holiday_discussion_restaurant_ids
+    accepted_holiday_discussions.map(&:restaurant_id)
   end
 
   def future_reminders

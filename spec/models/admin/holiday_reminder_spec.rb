@@ -32,10 +32,9 @@ describe Admin::HolidayReminder do
   
   it "should copy recipients from its holiday" do
     recipient = Factory(:employment)
-    holiday  = Factory(:holiday, :name => "Thanksgiving", :recipients => [recipient])
+    holiday  = Factory(:holiday, :name => "Thanksgiving")
     reminder = Factory(:holiday_reminder, :holiday => holiday)
-    reminder.recipient_ids.should == holiday.recipient_ids
-    reminder.recipients.first.should == holiday.recipients.first
+    reminder.recipient_ids.should == holiday.employment_search.restaurant_ids
   end
   
 end
