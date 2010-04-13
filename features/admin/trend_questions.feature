@@ -51,6 +51,14 @@ Feature: Trend questions
     And the last trend question for "Normal Pants" should be viewable by "Sam Smith"
     But the last trend question for "Normal Pants" should not be viewable by "Jim Smith"
 
+    Given I am logged in as "sam" with password "secret"
+    When I go to my inbox
+    Then I should see "Chefs only"
+
+    Given I am logged in as "jim" with password "secret"
+    When I go to my inbox
+    Then I should not see "Chefs only"
+
 
   Scenario: Managers can see all the restaurant's trend questions
     Given "sam" is the account manager for "Normal Pants"

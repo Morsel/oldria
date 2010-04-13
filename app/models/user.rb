@@ -173,7 +173,10 @@ class User < ActiveRecord::Base
   end
 
   def admin_discussions
-    @admin_discussions ||= employments.map(&:admin_discussions).flatten
+    @admin_discussions ||= employments.map(&:admin_discussions).flatten.select do |discussion|
+      employment = discussion.restaurant.employments.find_by_employee_id(self.id)
+      discussion.discussionable.viewable_by?(employment)
+    end
   end
 
   def current_admin_discussions
