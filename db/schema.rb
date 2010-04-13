@@ -30,7 +30,7 @@ ActiveRecord::Schema.define(:version => 20100412213706) do
     t.integer  "discussionable_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "comments_count"
+    t.integer  "comments_count",      :default => 0
     t.string   "discussionable_type"
   end
 

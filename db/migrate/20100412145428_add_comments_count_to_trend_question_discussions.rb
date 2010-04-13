@@ -1,6 +1,6 @@
 class AddCommentsCountToTrendQuestionDiscussions < ActiveRecord::Migration
   def self.up
-    add_column :trend_question_discussions, :comments_count, :integer
+    add_column :trend_question_discussions, :comments_count, :integer, :default => 0
   end
 
   def self.down
