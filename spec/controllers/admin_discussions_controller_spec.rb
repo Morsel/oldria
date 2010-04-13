@@ -5,6 +5,7 @@ describe AdminDiscussionsController do
   before do
     fake_normal_user
     @restaurant = Factory(:restaurant)
+    @restaurant.employees << @user
     @trend_question = Factory(:trend_question)
     @admin_discussion = AdminDiscussion.create!(:restaurant => @restaurant, :discussionable => @trend_question)
   end
