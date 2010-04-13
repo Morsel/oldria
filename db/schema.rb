@@ -252,6 +252,14 @@ ActiveRecord::Schema.define(:version => 20100412213706) do
     t.boolean  "accepted"
   end
 
+  create_table "holiday_discussions", :force => true do |t|
+    t.integer  "restaurant_id"
+    t.integer  "holiday_id"
+    t.integer  "comments_count", :default => 0
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "holidays", :force => true do |t|
     t.string   "name"
     t.date     "date"
