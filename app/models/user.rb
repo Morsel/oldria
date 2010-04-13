@@ -172,6 +172,14 @@ class User < ActiveRecord::Base
     Admin::PrTip.scoped(:order => "updated_at DESC").current
   end
 
+  def admin_discussions
+    @admin_discussions ||= employments.map(&:admin_discussions).flatten
+  end
+
+  def current_admin_discussions
+    admin_discussions.reject {|d| d.discussionable.scheduled_at > Time.now }
+  end
+
   def unread_direct_messages
     direct_messages.unread_by(self)
   end
@@ -185,14 +193,16 @@ class User < ActiveRecord::Base
   end
 
   def messages_from_ria
-    [ admin_conversations.current.unread_by(self),
+    @messages_from_ria ||= [ current_admin_discussions,
+      admin_conversations.current.unread_by(self),
       unread_pr_tips,
       unread_announcements
     ].flatten.sort_by(&:updated_at).reverse
   end
 
   def all_messages
-    [ admin_conversations.current.all,
+    @all_messages ||= [ admin_discussions,
+      admin_conversations.current.all,
       Admin::Announcement.current.all,
       Admin::PrTip.current.all
     ].flatten.sort_by(&:updated_at).reverse
