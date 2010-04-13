@@ -1652,14 +1652,14 @@ ul.mini_menu li {
 .admin_holiday_reminder .icon {   background-color: #D14600 }
 .admin_holiday_reminder .message-title {     color: #D14600 }
 
-.admin_trend_question .icon {   background-color: #0088C1 }
-.admin_trend_question .message-title {     color: #0088C1 }
+.trend_question .icon {   background-color: #0088C1 }
+.trend_question .message-title {     color: #0088C1 }
 
 .admin_qotd .icon {   background-color: #F5911E }
 .admin_qotd .message-title {     color: #F5911E }
 
-.admin_content_request .icon {   background-color: #bf844b }
-.admin_content_request .message-title {     color: #bf844b }
+.content_request .icon {   background-color: #bf844b }
+.content_request .message-title {     color: #bf844b }
 
 .admin_pr_tip .icon {   background-color: #005775 }
 .admin_pr_tip .message-title {     color: #005775 }

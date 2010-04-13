@@ -1,21 +1,21 @@
 # == Schema Information
-# Schema version: 20100409221445
+# Schema version: 20100412193718
 #
-# Table name: trend_questions
+# Table name: content_requests
 #
 #  id                   :integer         not null, primary key
 #  subject              :string(255)
 #  body                 :text
 #  scheduled_at         :datetime
 #  expired_at           :datetime
+#  employment_search_id :integer
 #  created_at           :datetime
 #  updated_at           :datetime
-#  employment_search_id :integer
 #
 
 require 'spec/spec_helper'
 
-describe TrendQuestion do
+describe ContentRequest do
   should_belong_to :employment_search
   should_have_many :admin_discussions, :as => :discussionable
   should_have_many :restaurants, :through => :admin_discussions
@@ -32,22 +32,11 @@ describe TrendQuestion do
       employment_search = Factory(:employment_search, :conditions => {
         :restaurant_name_like => 'megan'
       })
-      trend_question = Factory.build(:trend_question, :employment_search => employment_search)
-      trend_question.save
-      trend_question.restaurants.should include(@restaurant1)
-      trend_question.restaurants.should_not include(@restaurant2)
-    end
-    
-    it "should update based on the search criteria" do
-      employment_search = Factory(:employment_search, :conditions => {
-        :restaurant_name_like => 'megan'
-      })
-      trend_question = Factory.build(:trend_question, :employment_search => employment_search)
-      trend_question.save
-      trend_question.restaurants.should include(@restaurant1)
-      trend_question.employment_search.conditions = {:restaurant_name_like => 'joe'}
-      trend_question.save
-      trend_question.restaurants.should_not include(@restaurant1)
+      content_request = Factory.build(:content_request, :employment_search => employment_search)
+      content_request.save
+      content_request.restaurants.should == employment_search.restaurants
+      content_request.restaurants.should_not include(@restaurant2)
     end
   end
+  
 end

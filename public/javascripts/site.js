@@ -243,8 +243,7 @@ $('.feed_entry .summary').hover(function(){
 // == Inbox for RIA messages
 $(".inbox_message .readit").click(function(){
   var $message = $(this).parents('.inbox_message');
-  var messageId = $message.attr('id').match(/\d+$/g);
-  $.post("/admin_messages/" + messageId + "/read", "_method=put", function(){
+  $.post(this.href, "_method=put", function(){
     $message.fadeOut(300, function(){
       $message.remove();
     });

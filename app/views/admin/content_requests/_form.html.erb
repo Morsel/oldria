@@ -1,0 +1,42 @@
+<% semantic_form_for [:admin, @content_request] do |f| %>
+  <% f.inputs do %>
+    <%= f.input :subject %>
+    <%= f.input :body %>
+    <%= f.input :scheduled_at %>
+    <%# f.input :expired_at, :selected => 3.months.from_now %>
+  <% end %>
+
+  <% f.inputs :name => 'Criteria', :id => 'employment_criteria' do %>
+    <% semantic_fields_for @search do |s| %>
+      <%= s.input :restaurant_id_eq,
+                  :collection => Restaurant.all(:order => 'name ASC'),
+                  :label => "Restaurant" %>
+
+      <%= s.input :restaurant_james_beard_region_id_eq,
+                  :label => "Region",
+                  :collection => JamesBeardRegion.all %>
+
+      <%= s.input :restaurant_metropolitan_area_id_eq,
+                  :collection => MetropolitanArea.all,
+                  :label => "Metro Area" %>
+
+      <%= s.input :restaurant_cuisine_id_eq,
+                  :collection => Cuisine.all,
+                  :label => "Cuisine" %>
+
+      <%= s.input :restaurant_role_id_eq,
+                  :collection => RestaurantRole.all,
+                  :label => "Role" %>
+
+      <%= s.input :subject_matters_id_eq,
+                  :collection => SubjectMatter.all,
+                  :label => "Subject Matter" %>
+    <% end %>
+  <% end %>
+
+  <div id="employment_list">
+    <%= render :partial => 'employment_list' %>
+  </div>
+
+  <p><%= button_tag "Submit" %></p>
+<% end %>
