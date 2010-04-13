@@ -175,7 +175,7 @@ class User < ActiveRecord::Base
   def admin_discussions
     @admin_discussions ||= employments.map(&:admin_discussions).flatten.select do |discussion|
       employment = discussion.restaurant.employments.find_by_employee_id(self.id)
-      discussion.discussionable.viewable_by?(employment)
+      discussion.discussionable.try(:viewable_by?, employment)
     end
   end
 
