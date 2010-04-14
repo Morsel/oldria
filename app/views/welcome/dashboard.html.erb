@@ -39,7 +39,7 @@
       <div id="discussions">
          <h3>Recent Discussions</h3>
          <% @discussions.each do |discussion| -%>
-           <% div_for discussion do -%>
+           <% div_for discussion, :class => "#{'read' if discussion.read_by?(current_user)}"  do -%>
              <h4 class="new_topic">
                <%= discussion_comment_badge(discussion) %>
                <%= "New " unless discussion.read_by?(current_user) %>Discussion
@@ -52,7 +52,7 @@
          <h3>Recent Comments</h3>
 
          <% @discussions_with_new_comments.each do |discussion| -%>
-           <% div_for discussion do -%>
+           <% div_for discussion, :class => "#{'read' if discussion.read_by?(current_user)}" do -%>
              <h4 class="new_comment">
                <%= discussion_comment_badge(discussion) %>
                New Comment
