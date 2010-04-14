@@ -35,15 +35,29 @@
         <% end -%>
         <p class="view_all"><%= link_to "View private messages...", private_messages_path %></p>
       </div><!--/direct_messages-->
-      <div id="discussions">
-         <h3>Discussions</h3>
 
+      <div id="discussions">
+         <h3>Recent Discussions</h3>
          <% @discussions.each do |discussion| -%>
            <% div_for discussion do -%>
              <h4 class="new_topic">
                <%= discussion_comment_badge(discussion) %>
-               New Topic
+               <%= "New " unless discussion.read_by?(current_user) %>Discussion
              </h4>
+             <h6 class="date"><%= discussion.created_at.try(:strftime, "%b %e") %></h6>
+             <p><%= link_to discussion.title, discussion %></p>
+           <% end -%>
+         <% end -%>
+
+         <h3>Recent Comments</h3>
+
+         <% @discussions_with_new_comments.each do |discussion| -%>
+           <% div_for discussion do -%>
+             <h4 class="new_comment">
+               <%= discussion_comment_badge(discussion) %>
+               New Comment
+             </h4>
+             <h6 class="date"><%= discussion.created_at.try(:strftime, "%b %e") %></h6>
              <p><%= link_to discussion.title, discussion %></p>
            <% end -%>
          <% end -%>
