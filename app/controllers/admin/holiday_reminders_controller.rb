@@ -1,7 +1,6 @@
 class Admin::HolidayRemindersController < Admin::AdminController
   def new
     @holiday_reminder = Admin::HolidayReminder.new(:holiday_id => params[:holiday_id])
-    @holiday_reminder.copy_recipients if @holiday_reminder.holiday
   end
 
   def create

@@ -55,4 +55,11 @@ class Holiday < ActiveRecord::Base
     holiday_discussions.with_replies.count
   end
   
+  def viewable_by?(employment)
+    return false unless employment
+    employment.employee == employment.restaurant.try(:manager) ||
+    employment.omniscient? ||
+    employment_search.employments.include?(employment)
+  end
+  
 end

@@ -36,6 +36,8 @@ class Restaurant < ActiveRecord::Base
            :conditions => {:employments => {:omniscient => true}}
   has_many :media_request_conversations, :through => :employments
   has_many :admin_discussions
+  has_many :holiday_discussions
+  has_many :holidays, :through => :holiday_discussions
 
   has_many :trend_questions, :through => :admin_discussions,
            :source => :discussionable, :source_type => 'TrendQuestion'

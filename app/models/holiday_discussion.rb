@@ -4,6 +4,7 @@ class HolidayDiscussion < ActiveRecord::Base
   belongs_to :holiday
   
   acts_as_commentable
+  acts_as_readable
 
   validates_uniqueness_of :restaurant_id, :scope => :holiday_id
   

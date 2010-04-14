@@ -186,6 +186,17 @@ class User < ActiveRecord::Base
   def unread_admin_discussions
     current_admin_discussions.reject {|d| d.read_by?(self)}
   end
+  
+  def holiday_reminders
+    reminders = []
+    employments.each do |e|
+      holidays = e.restaurant.holidays
+      holidays.each do |h|
+        reminders << h.admin_holiday_reminders if h.viewable_by?(e)
+      end
+    end
+    reminders
+  end
 
   def unread_direct_messages
     direct_messages.unread_by(self)
@@ -201,6 +212,7 @@ class User < ActiveRecord::Base
 
   def messages_from_ria
     @messages_from_ria ||= [ unread_admin_discussions,
+      holiday_reminders,
       admin_conversations.current.unread_by(self),
       unread_pr_tips,
       unread_announcements

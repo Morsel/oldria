@@ -13,15 +13,15 @@
 #  holiday_id   :integer
 #
 
-class Admin::HolidayReminder < Admin::Message
+class Admin::HolidayReminder < ActiveRecord::Base
+  acts_as_commentable
+  acts_as_readable
+
   belongs_to :holiday
-
-  before_create :copy_recipients
-
-  def copy_recipients
-    return if holiday.blank? || recipient_ids.present?
-    self.recipient_ids = holiday.employment_search.employments.map(&:id) #- holiday.accepted_holiday_discussion_restaurant_ids
-  end
+  
+  named_scope :current, lambda {
+    {:conditions => ['scheduled_at < ? OR scheduled_at IS NULL', Time.zone.now]}
+  }
 
   def self.title
     "Holiday Reminder"
@@ -30,4 +30,5 @@ class Admin::HolidayReminder < Admin::Message
   def inbox_title
     holiday && holiday.name
   end
+  
 end
