@@ -2,6 +2,7 @@ class HolidayDiscussion < ActiveRecord::Base
   
   belongs_to :restaurant
   belongs_to :holiday
+  has_and_belongs_to_many :holiday_reminders, :class_name => "Admin::HolidayReminder"
   
   acts_as_commentable
   acts_as_readable

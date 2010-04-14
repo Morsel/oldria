@@ -35,14 +35,18 @@ ActionController::Routing::Routes.draw do |map|
 
   map.resources :direct_messages, :member => { :read => :put }
 
-
   map.resources :holiday_conversations, :only => ['show','update'] do |holiday_conversations|
     holiday_conversations.resources :comments, :only => [:new, :create]
   end
-
+  
+  map.resources :holiday_discussions, :member => { :read => :put }, :only => ['show','update'] do |holiday_discussions|
+    holiday_discussions.resources :comments, :only => [:new, :create]
+  end
+  
   map.resources :admin_conversations, :only => 'show' do |admin_conversations|
     admin_conversations.resources :comments, :only => [:new, :create]
   end
+  
   map.resources :admin_discussions, :only => 'show', :member => { :read => :put } do |admin_discussions|
     admin_discussions.resources :comments, :only => [:new, :create]
   end

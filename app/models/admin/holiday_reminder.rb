@@ -18,6 +18,7 @@ class Admin::HolidayReminder < ActiveRecord::Base
   acts_as_readable
 
   belongs_to :holiday
+  has_and_belongs_to_many :holiday_discussions
   
   named_scope :current, lambda {
     {:conditions => ['scheduled_at < ? OR scheduled_at IS NULL', Time.zone.now]}
