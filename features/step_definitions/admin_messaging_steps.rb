@@ -51,14 +51,9 @@ Then(/^"([^\"]*)" should have (\d+) Announcement messages?$/) do |username, num|
 end
 
 
-Given(/^"([^\"]*)" has a (QOTD|Content Request) message with:$/) do |username, type, table|
+Given(/^"([^\"]*)" has a QOTD message with:$/) do |username, table|
   data = table.rows_hash
-  case type
-  when 'QOTD'
-    data['type'] = 'Admin::Qotd'
-  when 'Content Request'
-    data['type'] = 'Admin::ContentRequest'
-  end
+  data['type'] = 'Admin::Qotd'
 
   message = Factory(:admin_message, data)
 

@@ -5,7 +5,7 @@ class AdminDiscussionsController < ApplicationController
   ##
   # GET /admin_discussions/1
   def show
-    load_resource
+    load_and_authorize_resource
     build_comment
   end
 
@@ -20,8 +20,9 @@ class AdminDiscussionsController < ApplicationController
 
   private
 
-  def load_resource
+  def load_and_authorize_resource
     @admin_discussion = AdminDiscussion.find(params[:id])
+    unauthorized! if cannot? :read, @admin_discussion
     @discussionable = @admin_discussion.discussionable
     @comments = @admin_discussion.comments.reject(&:new_record?)
   end

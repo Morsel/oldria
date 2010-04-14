@@ -4,7 +4,7 @@
   <% t.data :actions => :all, :action_prefix => 'admin' do
        t.cell(:subject)
        t.cell(:body)
-       t.cell(:criteria) {|t| t.employment_search.try(:conditions).try(:inspect)}
+       t.cell(:criteria) {|t| t.employment_search.readable_conditions.join(", ") }
     end %>
 <% end %>
 
