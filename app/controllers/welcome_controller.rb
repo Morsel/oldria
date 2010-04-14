@@ -7,7 +7,7 @@ class WelcomeController < ApplicationController
         render :mediahome
       else
         find_user_feeds(true)
-        @direct_messages = @user.direct_messages.all_not_from_admin(:include => :sender)
+        @direct_messages = @user.unread_direct_messages.all_not_from_admin(:include => :sender)
         render :dashboard
       end
     else
