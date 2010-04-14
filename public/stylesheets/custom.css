@@ -2219,6 +2219,11 @@ img.right {
 
 /* @group application ---------------- */
 
+table#legend {
+  width:200px;
+  float:right;
+}
+
 #flashes {
 	min-height: 30px;
 	margin-bottom: 1em;
@@ -2299,6 +2304,10 @@ img.right {
 
 tr.admin td, tr.featured td {
 	background-color: #fdc;
+}
+
+tr.unconfirmed td {
+  background-color: #ff9;
 }
 
 .box.none {

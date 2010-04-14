@@ -142,7 +142,7 @@ class User < ActiveRecord::Base
   end
 
   def confirmed?
-    confirmed_at
+    confirmed_at.present?
   end
 
   def confirm!

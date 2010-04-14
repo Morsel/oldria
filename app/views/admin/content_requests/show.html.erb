@@ -12,6 +12,18 @@
   <strong>Scheduled At:</strong>
   <%=h @content_request.scheduled_at %>
 </p>
+
+<% if @content_request.employment_search %>
+<p>
+  <strong>Criteria:</strong>
+  <ul>
+  <% @content_request.employment_search.readable_conditions.each do |condition| %>
+    <li><%= condition %></li>
+  <% end %>
+  </ul>
+</p>
+<% end %>
+
 <div id="employment_list">
 <%= render :partial => "employment_list" %>
 </div>

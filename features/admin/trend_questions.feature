@@ -69,7 +69,7 @@ Feature: Trend questions
     And the last trend question for "Normal Pants" should be viewable by "Jim Smith"
     And the last trend question for "Normal Pants" should be viewable by "Sam Smith"
 
-@focus
+
   Scenario: Restaurant folks can respond to trend questions
     Given I am logged in as an admin
     When I create a new trend question with subject "My river runs blue" with criteria:
@@ -83,3 +83,15 @@ Feature: Trend questions
     And I fill in "Reply" with "But my river is green"
     And I press "Send"
     Then I should see "Successfully created"
+
+@focus
+  Scenario: Displaying saved criteria
+    Given I am logged in as an admin
+    When I create a new trend question with subject "Favorite colors" with criteria:
+      | Region | Midwest (IN IL OH) |
+    Then I should see "Region: Midwest"
+    When I go to the list of trend questions
+    Then I should see "Region: Midwest"
+
+
+
