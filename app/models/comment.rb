@@ -19,7 +19,7 @@ class Comment < ActiveRecord::Base
   has_many :attachments, :as => :attachable, :class_name => '::Attachment'
   belongs_to :commentable, :polymorphic => true, :counter_cache => true
   belongs_to :user
-  default_scope :order => 'created_at ASC'
+  default_scope :order => "#{table_name}.created_at ASC"
 
   accepts_nested_attributes_for :attachments
 

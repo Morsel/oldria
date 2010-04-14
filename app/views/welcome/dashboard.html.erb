@@ -38,15 +38,12 @@
       <div id="discussions">
          <h3>Discussions</h3>
 
-         <% current_user.discussions.unread_by(current_user).each do |discussion| -%>
+         <% @discussions.each do |discussion| -%>
            <% div_for discussion do -%>
-             <h4 class="new_topic">New Topic</h4>
-             <p><%= link_to discussion.title, discussion %></p>
-           <% end -%>
-         <% end -%>
-         <% current_user.discussions.with_comments_unread_by(current_user).each do |discussion| -%>
-           <% div_for discussion do -%>
-             <h4 class="new_comment">New Comment</h4>
+             <h4 class="new_topic">
+               <%= discussion_comment_badge(discussion) %>
+               New Topic
+             </h4>
              <p><%= link_to discussion.title, discussion %></p>
            <% end -%>
          <% end -%>

@@ -8,6 +8,7 @@ class WelcomeController < ApplicationController
       else
         find_user_feeds(true)
         @direct_messages = @user.unread_direct_messages.all_not_from_admin(:include => :sender)
+        @discussions = (current_user.discussions.unread_by(current_user) + current_user.discussions.with_comments_unread_by(current_user)).uniq
         render :dashboard
       end
     else
