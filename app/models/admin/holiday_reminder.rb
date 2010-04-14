@@ -14,11 +14,10 @@
 #
 
 class Admin::HolidayReminder < ActiveRecord::Base
-  acts_as_commentable
-  acts_as_readable
-
+  
   belongs_to :holiday
-  has_and_belongs_to_many :holiday_discussions
+  has_many :holiday_discussion_reminders
+  has_many :holiday_discussions, :through => :holiday_discussion_reminders
   
   named_scope :current, lambda {
     {:conditions => ['scheduled_at < ? OR scheduled_at IS NULL', Time.zone.now]}
@@ -31,5 +30,5 @@ class Admin::HolidayReminder < ActiveRecord::Base
   def inbox_title
     holiday && holiday.name
   end
-  
+    
 end

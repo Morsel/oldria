@@ -191,10 +191,10 @@ class User < ActiveRecord::Base
     restaurants.map(&:holiday_discussions).flatten
   end
   
-  def holiday_reminder(discussion)
-    
+  def holiday_discussion_reminders
+    holiday_discussions.map(&:holiday_discussion_reminders)
   end
-
+  
   def unread_direct_messages
     direct_messages.unread_by(self)
   end
@@ -209,7 +209,7 @@ class User < ActiveRecord::Base
 
   def messages_from_ria
     @messages_from_ria ||= [ unread_admin_discussions,
-      # holiday_reminders,
+      holiday_discussion_reminders,
       admin_conversations.current.unread_by(self),
       unread_pr_tips,
       unread_announcements

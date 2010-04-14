@@ -11,8 +11,9 @@ if message.respond_to?(:discussionable)
    restaurant = message.restaurant
    extra_css_class = dom_class(message.discussionable)
 end 
-if message.respond_to?(:holiday) 
-    original_message = message.discussion(current_user)
+if message.is_a?(HolidayDiscussionReminder)
+    original_message = message.holiday_discussion # discussion
+    message = message.holiday_reminder # reminder
 end %>
 <% div_for message, :class => "inbox_message clear clearfix#{ ' archived' if archive} #{extra_css_class}" do %>
   <div class="icon">

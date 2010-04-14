@@ -2,10 +2,10 @@ class HolidayDiscussion < ActiveRecord::Base
   
   belongs_to :restaurant
   belongs_to :holiday
-  has_and_belongs_to_many :holiday_reminders, :class_name => "Admin::HolidayReminder"
+  has_many :holiday_discussion_reminders
+  has_many :holiday_reminders, :through => :holiday_discussion_reminders
   
   acts_as_commentable
-  acts_as_readable
 
   validates_uniqueness_of :restaurant_id, :scope => :holiday_id
   
