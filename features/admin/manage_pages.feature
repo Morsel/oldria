@@ -34,10 +34,10 @@ Feature: Manage pages
 
 
   Scenario: Non-logged-in user page
-    Given the special "welcome_new_user" page exists
-    When I update the "welcome_new_user" page with:
+    Given the special "home" page exists
+    When I update the "home" page with:
       | Title   | Welcome                 |
       | Content | You've finally made it! |
     And I logout
     And I go to the homepage
-    Then I should see "Login to SpoonFeed"
+    Then I should see "You've finally made it!"
