@@ -10,9 +10,14 @@ if message.respond_to?(:discussionable)
    original_message = message
    restaurant = message.restaurant
    extra_css_class = dom_class(message.discussionable)
+end 
+if message.is_a?(HolidayDiscussionReminder)
+    restaurant = message.restaurant
+    restaurant_message = message # for marking as read
+    original_message = message.holiday_discussion # discussion
+    message = message.holiday_reminder # reminder -- redundant comments ftw ?
 end %>
 <% div_for message, :class => "inbox_message clear clearfix#{ ' archived' if archive} #{extra_css_class}" do %>
-
   <div class="icon">
 
   </div>
@@ -30,10 +35,10 @@ end %>
     <% unless archive %>
       <div class="message-actions">
         <%= reply_link_for_message(original_message) %>
-        <span class="hide_link"><%= read_link_for_message(message, "Hide") %></span>
+        <span class="hide_link"><%= read_link_for_message(restaurant_message || message, "Hide") %></span>
       </div>
 
-      <%= read_link_for_message(message) %>
+      <%= read_link_for_message(restaurant_message || message) %>
     <% end %>
   </div>
 <% end %>

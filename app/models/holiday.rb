@@ -12,21 +12,28 @@
 #
 
 class Holiday < ActiveRecord::Base
-  has_many :admin_holiday_reminders, :class_name => 'Admin::HolidayReminder', :dependent => :destroy
-  has_many :holiday_conversations, :dependent => :destroy
-  has_many :recipients, :through => :holiday_conversations
   belongs_to :employment_search
+  has_many :holiday_discussions, :dependent => :destroy
+  has_many :restaurants, :through => :holiday_discussions
 
+  has_many :admin_holiday_reminders, :class_name => 'Admin::HolidayReminder', :dependent => :destroy
   accepts_nested_attributes_for :admin_holiday_reminders
+
   validates_presence_of :name
   validates_presence_of :date
 
-  def accepted_holiday_conversations
-    holiday_conversations.accepted
+  before_save :update_restaurants_from_search_criteria
+
+  def update_restaurants_from_search_criteria
+    self.restaurant_ids = employment_search.restaurant_ids
   end
 
-  def accepted_holiday_conversation_recipient_ids
-    accepted_holiday_conversations.map(&:recipient_id)
+  def accepted_holiday_discussions
+    holiday_discussions.accepted
+  end
+
+  def accepted_holiday_discussion_restaurant_ids
+    accepted_holiday_discussions.map(&:restaurant_id)
   end
 
   def future_reminders
@@ -45,6 +52,14 @@ class Holiday < ActiveRecord::Base
   end
 
   def reply_count
-    holiday_conversations.with_replies.count
+    holiday_discussions.with_replies.count
   end
+  
+  def viewable_by?(employment)
+    return false unless employment
+    employment.employee == employment.restaurant.try(:manager) ||
+    employment.omniscient? ||
+    employment_search.employments.include?(employment)
+  end
+  
 end

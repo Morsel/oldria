@@ -15,9 +15,8 @@ class Admin::HolidaysController < Admin::AdminController
   def create
     @holiday = Holiday.new(params[:holiday])
     @search = Employment.search(params[:search])
+    @holiday.employment_search = EmploymentSearch.new(:conditions => @search.conditions)
     if @holiday.save
-      saved_search = EmploymentSearch.create(:conditions => @search.conditions)
-      @holiday.update_attribute(:employment_search_id, saved_search.id)
       flash[:notice] = "Successfully created holiday."
       redirect_to admin_holidays_path
     else
@@ -26,8 +25,9 @@ class Admin::HolidaysController < Admin::AdminController
   end
 
   def edit
-    @holiday = Holiday.find(params[:id], :include => [:admin_holiday_reminders, :recipients])
-    @employments = @holiday.recipients.all(:select => 'DISTINCT employments.*', :include => [:restaurant])
+    @holiday = Holiday.find(params[:id], :include => [:admin_holiday_reminders, :restaurants])
+    @search = Employment.search(EmploymentSearch.find(@holiday.employment_search_id).conditions)
+    @restaurants = @search.all(:group => :restaurant_id).map(&:restaurant).uniq
   end
 
   def update
@@ -56,7 +56,7 @@ class Admin::HolidaysController < Admin::AdminController
     @search = Employment.search(params[:search])
 
     if params[:search]
-      @employments = @search.all(:select => 'DISTINCT employments.*', :include => [:restaurant])
+      @restaurants = @search.all(:group => :restaurant_id).map(&:restaurant).uniq
     end
   end
 end

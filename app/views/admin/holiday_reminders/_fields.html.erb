@@ -1,15 +1,6 @@
 <% if @holiday_reminder.holiday && action_name == 'new' %>
-  <% f.inputs :name => "Recipients" do %>
-    <%= f.input :recipient_ids,
-                :collection => @holiday_reminder.holiday.recipients,
-                # :selected => @holiday_reminder.recipient_ids,
-                :as => :check_boxes,
-                :wrapper_html => {:class => 'employment_list checkall'},
-                :label_method => :name_and_restaurant,
-                :label => "Who should receive this?",
-                :hint => "The folks listed are from the Holiday's master recipient list. The unchecked ones have already responded acceptably."
-    %>
-  <% end -%>
+  <h4>Current Recipients</h4>
+  <p><%= @holiday_reminder.holiday.restaurants.map { |r| "#{r.name}"}.join(", ") %></p>
 <% end %>
 
 <% f.inputs do %>

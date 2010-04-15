@@ -1,8 +1,8 @@
 <% semantic_form_for [:admin, @holiday] do |form| %>
 
-<%- if @employments.present? %>
+<%- if @restaurants.present? %>
   <h3>Current Recipients</h3>
-  <p><%= @employments.map { |e| "#{e.employee.name} (#{e.restaurant_name})"}.join(", ") %></p>
+  <p><%= @restaurants.map { |r| "#{r.name}"}.join(", ") %></p>
 <% elsif params[:search] %>
   <p>Oops, we couldn't find anyone by that criteria. Try again.</p>
 <% end -%>
@@ -18,15 +18,13 @@
     <%= reminder.input :message, :input_html => {:rows => 5} %>
   <% end -%>
 
-  <% if @search %>
-    <%- @search.conditions.each do |k, v| %>
-    <%= hidden_field_tag "search[#{k}]", v %>
-    <%- end %>
-  <% end %>
-
+  <%- @search.conditions.each do |k, v| %>
+  <%= hidden_field_tag "search[#{k}]", v %>
+  <%- end %>
+  
   <% unless @holiday.new_record? %>
   <p><%= link_to "Add a Reminder", new_admin_holiday_reminder_path(:holiday_id => @holiday) %></p>
   <% end %>
-
+  
   <p><%= button_tag 'Save', :class => 'positive' %></p>
 <% end %>

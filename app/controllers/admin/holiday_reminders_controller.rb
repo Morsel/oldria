@@ -1,11 +1,11 @@
 class Admin::HolidayRemindersController < Admin::AdminController
   def new
     @holiday_reminder = Admin::HolidayReminder.new(:holiday_id => params[:holiday_id])
-    @holiday_reminder.copy_recipients if @holiday_reminder.holiday
   end
 
   def create
     @holiday_reminder = Admin::HolidayReminder.new(params[:admin_holiday_reminder])
+    @holiday_reminder.holiday_discussions = @holiday_reminder.holiday.holiday_discussions
     if @holiday_reminder.save
       flash[:notice] = "Successfully created Holiday Reminder"
       redirect_to (@holiday_reminder.holiday ? [:admin, @holiday_reminder.holiday] : admin_messages_path)
