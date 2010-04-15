@@ -27,7 +27,7 @@
     <div class="box">
       <h2 class="primary_title function-bold">Conversations</h2>
       <div id="direct_messages">
-        <h3>Private Messages</h3>
+        <h3>Unread Private Messages</h3>
         <% @direct_messages.each do |dm| -%>
           <% div_for dm do -%>
             <p><%= link_to details_for(dm), reply_direct_message_path(dm) %></p>
@@ -35,18 +35,29 @@
         <% end -%>
         <p class="view_all"><%= link_to "View private messages...", private_messages_path %></p>
       </div><!--/direct_messages-->
-      <div id="discussions">
-         <h3>Discussions</h3>
 
-         <% current_user.discussions.unread_by(current_user).each do |discussion| -%>
-           <% div_for discussion do -%>
-             <h4 class="new_topic">New Topic</h4>
+      <div id="discussions">
+         <h3>Recent Discussions</h3>
+         <% @discussions.each do |discussion| -%>
+           <% div_for discussion, :class => "#{'read' if discussion.read_by?(current_user)}"  do -%>
+             <h4 class="new_topic">
+               <%= discussion_comment_badge(discussion) %>
+               <%= "New " unless discussion.read_by?(current_user) %>Discussion
+             </h4>
+             <h6 class="date"><%= discussion.created_at.try(:strftime, "%b %e") %></h6>
              <p><%= link_to discussion.title, discussion %></p>
            <% end -%>
          <% end -%>
-         <% current_user.discussions.with_comments_unread_by(current_user).each do |discussion| -%>
-           <% div_for discussion do -%>
-             <h4 class="new_comment">New Comment</h4>
+
+         <h3>Recent Comments</h3>
+
+         <% @discussions_with_new_comments.each do |discussion| -%>
+           <% div_for discussion, :class => "#{'read' if discussion.read_by?(current_user)}" do -%>
+             <h4 class="new_comment">
+               <%= discussion_comment_badge(discussion) %>
+               New Comment
+             </h4>
+             <h6 class="date"><%= discussion.created_at.try(:strftime, "%b %e") %></h6>
              <p><%= link_to discussion.title, discussion %></p>
            <% end -%>
          <% end -%>
@@ -70,7 +81,7 @@
     <div id="choose_feeds" class="span-4 last round">
       <div class="box">
         <h3><%= link_to 'Choose your Feeds', feeds_path %></h3>
-        <p>Get all your industry news in one place 
+        <p>Get all your industry news in one place
 		here on SpoonFeed.</p>
         <%= link_to 'Click here to select your feeds.', feeds_path, :class=>'action' %>
       </div>

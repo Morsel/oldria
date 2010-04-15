@@ -194,6 +194,29 @@ div#header {
 	padding: 4px 10px;
 }
 
+#sidebar_intra{
+	margin:0 0 10px 10px;
+	float:right;
+	width:200px;
+	padding:10px 0;
+	background:#fff;
+	border:1px solid #ddd
+}
+
+#sidebar_intra a{
+	color:#0587C1;
+	font-weight:bold;
+	display:inline-block;
+	width:180px;
+	padding:5px 5px;
+	margin:0 5px;
+}
+
+#sidebar_intra a:hover{
+	color:#4EAED9;
+	text-decoration:underline;
+}
+
 
 /* @end */
 
@@ -2623,6 +2646,24 @@ h2.primary_title{
 	margin:0;
 }
 
+#discussions .unread_comments_count {
+	float: right;
+	position: absolute;
+	width: 20px;
+	height: 21px;
+	line-height: 21px;
+	padding: 9px 10px;
+	background: url('../images/blackbadge.png') no-repeat 0px 0px;
+	top: -16px;
+	right: -18px;
+	text-align: center;
+	font-size: 9px;
+	text-shadow: 0 0 0;
+}
+
+
+
+
 /* @end */
 
 /* @group messsages ----------------- */
@@ -2756,10 +2797,17 @@ h2.primary_title{
 	padding: 1px 6px;
 	width: 100px;
 	text-shadow: -1px 1px 0 #533;
+	position: relative;
 }
 
 .discussion .new_comment {
 	background-color: #048dc4;
+}
+
+.discussion .date{
+	float: right;
+	font-size: 11px;
+	font-weight: normal;
 }
 
 #dashboard .discussion {
@@ -2789,26 +2837,3 @@ h2.primary_title{
 }
 
 /* @end */
-
-#sidebar_intra{
-	margin:0 0 10px 10px;
-	float:right;
-	width:200px;
-	padding:10px 0;
-	background:#fff;
-	border:1px solid #ddd
-}
-
-#sidebar_intra a{
-	color:#0587C1;
-	font-weight:bold;
-	display:inline-block;
-	width:180px;
-	padding:5px 5px;
-	margin:0 5px;
-}
-
-#sidebar_intra a:hover{
-	color:#4EAED9;
-	text-decoration:underline;
-}
