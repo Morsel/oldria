@@ -186,15 +186,18 @@ class User < ActiveRecord::Base
   def unread_admin_discussions
     current_admin_discussions.reject {|d| d.read_by?(self)}
   end
-  
+
   def holiday_discussions
-    restaurants.map(&:holiday_discussions).flatten
+    restaurants.map(&:holiday_discussions).flatten.select do |discussion|
+      employment = discussion.restaurant.employments.find_by_employee_id(self.id)
+      discussion.holiday.try(:viewable_by?, employment)
+    end
   end
-  
+
   def holiday_discussion_reminders
     holiday_discussions.map(&:holiday_discussion_reminders)
   end
-  
+
   def unread_direct_messages
     direct_messages.unread_by(self)
   end
