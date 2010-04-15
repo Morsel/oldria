@@ -2,12 +2,39 @@ Given(/^there are no (?:QOTDs|Admin Messages)(?: in the system)?$/) do
   Admin::Message.destroy_all
 end
 
-Given /^a holiday exists named "([^\"]*)" and recipients:$/ do |holidayname, table|
+
+Then /^the last holiday for "([^\"]*)" should be viewable by "([^\"]*)"$/ do |restaurantname,  employeename|
+  restaurant = Restaurant.find_by_name!(restaurantname)
+  user = User.find_by_name(employeename)
+  employment = restaurant.employments.find_by_employee_id(user.id)
+  
+  restaurant.holidays.last.should be_viewable_by(employment)
+end
+
+Then /^the last holiday for "([^\"]*)" should not be viewable by "([^\"]*)"$/ do |restaurantname,  employeename|
+  restaurant = Restaurant.find_by_name!(restaurantname)
+  user = User.find_by_name(employeename)
+  employment = restaurant.employments.find_by_employee_id(user.id)
+  
+  restaurant.holidays.last.should_not be_viewable_by(employment)
+end
+
+When /^I create a holiday with name "([^\"]*)" and criteria:$/ do |name, table|
+  visit new_admin_holiday_path
+  fill_in :name, :with => name
+  table.rows_hash.each do |field, value|
+    select value, :from => field
+  end
+  click_button
+end
+
+
+Given /^a holiday exists named "([^\"]*)" and restaurants:$/ do |holidayname, table|
   holiday = Factory(:holiday, :name => holidayname)
 
   table.hashes.each do |hash|
     if employee = Employment.employee_email_eq(hash['email']).first
-      holiday.recipients << employee
+      holiday.restaurants << employee
     end
   end
 
@@ -75,6 +102,6 @@ end
 Then /^"([^\"]*)" should be subscribed to the holiday "([^\"]*)"$/ do |username, holidayname|
   holiday = Holiday.find_by_name!(holidayname)
   user = User.find_by_username!(username)
-  holiday.recipients.first.employee_name.should == user.name
+  holiday.restaurants.first.employees.should include(user)
 end
 

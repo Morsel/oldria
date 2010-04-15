@@ -5,17 +5,17 @@ class Admin::ContentRequestsController < Admin::AdminController
 
   def show
     @content_request = ::ContentRequest.find(params[:id])
-    search_setup
+    search_setup(@content_request)
   end
 
   def new
     @content_request = ::ContentRequest.new
-    search_setup
+    search_setup(@content_request)
   end
 
   def create
     @content_request = ::ContentRequest.new(params[:content_request])
-    search_setup
+    search_setup(@content_request)
     save_search
     if @content_request.save
       flash[:notice] = "Successfully created trend question."
@@ -27,12 +27,12 @@ class Admin::ContentRequestsController < Admin::AdminController
 
   def edit
     @content_request = ::ContentRequest.find(params[:id], :include => :employment_search)
-    search_setup
+    search_setup(@content_request)
   end
 
   def update
     @content_request = ::ContentRequest.find(params[:id])
-    search_setup
+    search_setup(@content_request)
     save_search
     if @content_request.update_attributes(params[:content_request])
       flash[:notice] = "Successfully updated trend question."
@@ -47,29 +47,5 @@ class Admin::ContentRequestsController < Admin::AdminController
     @content_request.destroy
     flash[:notice] = "Successfully destroyed trend question."
     redirect_to admin_content_requests_path
-  end
-
-  private
-  def search_setup
-    @employment_search = if @content_request.employment_search
-        @content_request.employment_search
-      else
-        @content_request.build_employment_search(:conditions => {})
-      end
-
-    @search = @employment_search.employments #searchlogic
-    @restaurants_and_employments = @search.all(:include => [:restaurant, :employee]).group_by(&:restaurant)
-  end
-
-  def save_search
-    if params[:search]
-      @employment_search.conditions = normalized_search_params
-      @employment_search.save
-    end
-  end
-
-  def normalized_search_params
-    normalized = params[:search].reject{|k,v| v.blank? }
-    normalized.blank? ? {:id => ""} : normalized
   end
 end
