@@ -5,7 +5,7 @@ describe Admin::HolidayRemindersController do
 
   before(:each) do
     fake_admin_user
-    Factory(:admin_message, :type => "Admin::HolidayReminder")
+    Factory(:holiday_reminder)
   end
 
   describe "GET 'new'" do

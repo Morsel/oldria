@@ -9,4 +9,12 @@ class HolidayDiscussionReminder < ActiveRecord::Base
     holiday_reminder.inbox_title
   end
   
+  def holiday
+    holiday_discussion.holiday
+  end
+  
+  def restaurant
+    holiday_discussion.restaurant
+  end
+  
 end

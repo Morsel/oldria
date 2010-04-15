@@ -1,6 +1,8 @@
 module MessagesHelper
+  
   def reply_link_for_message(message)
     return unless message
+    
     if message.respond_to?(:holiday)
       link_to "Reply", holiday_discussion_path(message)
     elsif message.respond_to?(:admin_message)
@@ -14,7 +16,7 @@ module MessagesHelper
     return unless message
 
     if message.respond_to?(:holiday)
-      link_path = read_holiday_discussion_path(message)
+      link_path = read_holiday_reminder_path(message)
     elsif message.respond_to?(:discussionable)
       link_path = read_admin_discussion_path(message)
     else
