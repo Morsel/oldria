@@ -200,6 +200,11 @@ Factory.define :holiday_conversation do |f|
   f.association :holiday
 end
 
+Factory.define :holiday_discussion do |f|
+  f.association :restaurant
+  f.association :holiday
+end
+
 # == Trend Question ==
 Factory.define :trend_question do |f|
   f.subject "What is the haps?"
