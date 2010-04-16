@@ -8,8 +8,8 @@ class WelcomeController < ApplicationController
       else
         find_user_feeds(true)
         @direct_messages = @user.unread_direct_messages.all_not_from_admin(:include => :sender)
-        @discussions = current_user.discussions.all(:limit => 5, :order => 'created_at DESC')
-        @discussions_with_new_comments = current_user.discussions.with_comments_unread_by( current_user ).all(:order => 'created_at DESC') - @discussions
+        @discussions = current_user.discussions.all(:limit => 5, :order => 'discussions.created_at DESC')
+        @discussions_with_new_comments = current_user.discussions.with_comments_unread_by( current_user ).all(:order => 'discussions.created_at DESC') - @discussions
         render :dashboard
       end
     else
