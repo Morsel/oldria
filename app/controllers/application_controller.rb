@@ -15,10 +15,10 @@ class ApplicationController < ActionController::Base
 
   rescue_from CanCan::AccessDenied do
     if current_user
-      flash[:error] = "Access denied. This area is above your pay grade."
+      flash[:error] = "Sorry: the content you are trying to view is not available to your user account."
       redirect_to root_url
     else
-      flash[:notice] = 'Access denied. Try to log in first.'
+      flash[:notice] = 'Please login.'
       redirect_to login_path
     end
   end
