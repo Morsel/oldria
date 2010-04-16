@@ -1,0 +1,15 @@
+<tr class="admin_discussion_recipient <%= cycle('odd', 'even', :name => 'discussion_row') %>">
+  <td>
+    <% if admin_discussion.comments_count > 0 %>
+      <%= link_to admin_discussion.restaurant.try(:name), admin_discussion %>
+    <% else %>
+      <%= admin_discussion.restaurant.try(:name)%>
+    <% end %>
+  </td>
+
+  <% if admin_discussion.comments_count > 0 %>
+  <td>
+    <%= link_to pluralize(admin_discussion.comments_count, "comment"), admin_discussion %>
+  </td>
+  <% end %>
+</tr>

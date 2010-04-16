@@ -10,7 +10,7 @@
 </p>
 <p>
   <strong>Scheduled At:</strong>
-  <%=h @trend_question.scheduled_at %>
+  <%=h @trend_question.scheduled_at.try(:to_s, :long_ordinal) %>
 </p>
 <% if @trend_question.employment_search %>
 <p>
@@ -23,9 +23,24 @@
 </p>
 <% end %>
 
-<div id="employment_list">
-<%= render :partial => "employment_list" %>
+
+<div id="have_replied" class="span-9 conversations_list">
+  <h3>Replied (<%= @trend_question.admin_discussions.with_replies.size %>)</h3>
+
+  <table>
+    <%= render @trend_question.admin_discussions.with_replies %>
+  </table>
 </div>
+
+<div id="have_not_replied" class="span-9 last conversations_list">
+  <h3>Have Not Replied (<%= @trend_question.admin_discussions.without_replies.size %>)</h3>
+
+  <table>
+    <%= render @trend_question.admin_discussions.without_replies %>
+  </table>
+</div>
+
+
 
 <p class="clear">
   <%= link_to "Edit", edit_admin_trend_question_path(@trend_question) %> |
