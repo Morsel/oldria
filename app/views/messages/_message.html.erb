@@ -29,7 +29,7 @@ end %>
       </h4>
     </div>
     <div class="message-body">
-      <%= message.message %>
+      <%= simple_format(message.message) %>
     </div>
     <p class="message-date"><%= message.scheduled_at.try(:strftime, "%B %d, %Y at %I:%M%p") %></p>
     <% unless archive %>
