@@ -144,6 +144,11 @@ class User < ActiveRecord::Base
   def confirmed?
     confirmed_at.present?
   end
+  alias :confirmed :confirmed?
+
+  def confirmed=(value)
+    self.confirmed_at = TRUE_VALUES.include?(value) ? Time.now : nil
+  end
 
   def confirm!
     self.confirmed_at = Time.now

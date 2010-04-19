@@ -3,13 +3,13 @@
 <% semantic_form_for [:admin, @user] do |f| %>
 
 <% f.inputs :name => 'Account Information' do %>
-	<%= f.input :first_name, :input_html => {:class => 'span-3'}, :wrapper_html => {:class => 'span-3'} %>
-	<%= f.input :last_name, :input_html => {:class => 'span-4'}, :wrapper_html => {:class => 'span-4'} %>
+	<%= f.input :first_name, :input_html => {:class => 'span-3'}, :wrapper_html => {:class => 'span-3 column'} %>
+	<%= f.input :last_name, :input_html => {:class => 'span-4'}, :wrapper_html => {:class => 'span-4 column'} %>
 	<%= f.input :email, :wrapper_html => {:class => 'clear'} %>
 	<%= f.input :username %>
 	<%= f.input :james_beard_region, :label => 'Region', :wrapper_html => {:class => 'bottom'} %>
-	<%= f.input :account_type %>
-	<%= f.input :confirmed_at %>
+	<%# f.input :account_type %>
+	<%= f.input :confirmed, :as => :boolean, :label => "Confirmed?" %>
 	<% if @user.has_role? :media %>
 		<%= f.input :publication, :label => 'Affiliated Publication' %>
 	<% end %>
