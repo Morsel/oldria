@@ -1,8 +1,24 @@
 module MessagesHelper
-  
+
+  def title_link_for_message(message)
+    return unless message
+
+    link_path = if message.respond_to?(:holiday)
+      holiday_discussion_path(message)
+    elsif message.respond_to?(:admin_message)
+      admin_conversation_path(message)
+    elsif message.respond_to?(:discussionable)
+      admin_discussion_path(message)
+    else
+      ria_messages_path # just in case
+    end
+
+    link_to message.inbox_title, link_path
+  end
+
   def reply_link_for_message(message)
     return unless message
-    
+
     if message.respond_to?(:holiday)
       link_to "Reply", holiday_discussion_path(message)
     elsif message.respond_to?(:admin_message)

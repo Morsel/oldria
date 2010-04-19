@@ -1674,21 +1674,31 @@ ul.mini_menu li {
 /* message type themes */
 .admin_holiday_reminder .icon {   background-color: #D14600 }
 .admin_holiday_reminder .message-title {     color: #D14600 }
+.admin_holiday_reminder .message-title a {   color: #D14600 }
 
 .trend_question .icon {   background-color: #0088C1 }
 .trend_question .message-title {     color: #0088C1 }
+.trend_question .message-title a {   color: #0088C1 }
 
 .admin_qotd .icon {   background-color: #F5911E }
 .admin_qotd .message-title {     color: #F5911E }
+.admin_qotd .message-title a {   color: #F5911E }
 
 .content_request .icon {   background-color: #bf844b }
 .content_request .message-title {     color: #bf844b }
+.content_request .message-title a {   color: #bf844b }
 
 .admin_pr_tip .icon {   background-color: #005775 }
 .admin_pr_tip .message-title {     color: #005775 }
+.admin_pr_tip .message-title a {   color: #005775 }
 
 .admin_announcement .icon {   background-color: #5B4329 }
 .admin_announcement .message-title {     color: #5B4329 }
+.admin_announcement .message-title a {   color: #5B4329 }
+
+.message-title a:hover {
+	text-decoration: underline;
+}
 
 
 /* @end */
