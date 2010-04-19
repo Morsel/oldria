@@ -1919,6 +1919,10 @@ td.actions {
 	width: 2em;
 }
 
+td.actions.reply_count {
+	width: 80px;
+}
+
 td.actions a {
 	border-bottom: 0;
 	color: #999;

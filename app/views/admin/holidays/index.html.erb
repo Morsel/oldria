@@ -7,7 +7,7 @@
       t.cell :name
       t.cell :date
       t.cell :reminders_count, :heading => 'Reminders'
-      t.cell :reply_count, :heading => '', :cell_html => {:class => 'actions'} do |h|
+      t.cell :reply_count, :heading => '', :cell_html => {:class => 'actions reply_count'} do |h|
         holiday_reply_count_link(h)
       end
     end %>
