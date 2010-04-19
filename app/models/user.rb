@@ -63,7 +63,7 @@ class User < ActiveRecord::Base
 
   validates_presence_of :email
 
-  attr_accessor :send_invitation, :agree_to_contract
+  attr_accessor :send_invitation, :agree_to_contract, :invitation_sender
 
   # Attributes that should not be updated from a form or mass-assigned
   attr_protected :crypted_password, :password_salt, :perishable_token, :persistence_token, :confirmed_at, :admin=, :admin
@@ -144,6 +144,11 @@ class User < ActiveRecord::Base
   def confirmed?
     confirmed_at.present?
   end
+  alias :confirmed :confirmed?
+
+  def confirmed=(value)
+    self.confirmed_at = TRUE_VALUES.include?(value) ? Time.now : nil
+  end
 
   def confirm!
     self.confirmed_at = Time.now
@@ -197,7 +202,7 @@ class User < ActiveRecord::Base
   def holiday_discussion_reminders
     holiday_discussions.map { |d| d.holiday_discussion_reminders.current }
   end
-  
+
   def unread_hdrs
     holiday_discussion_reminders.map { |r| r.find_unread_by(self) }.flatten
   end
@@ -309,8 +314,8 @@ class User < ActiveRecord::Base
     if @send_invitation
       @send_invitation = nil
       reset_perishable_token!
-      logger.info( 'Delivering invitation email' )
-      UserMailer.deliver_employee_invitation!(self)
+      logger.info( "Delivering invitation email to #{email}" )
+      UserMailer.deliver_employee_invitation!(self, invitation_sender)
     end
   end
 end

@@ -15,6 +15,7 @@ class AdminDiscussionsController < ApplicationController
   def read
     @admin_discussion = AdminDiscussion.find(params[:id])
     @admin_discussion.read_by!(current_user)
+    render :nothing => true
   end
 
   private
