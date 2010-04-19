@@ -3,6 +3,9 @@ module MessagesHelper
   def title_link_for_message(message)
     return unless message
 
+    # Don't link the headers for broadcast-style messages
+    return message.inbox_title if message.broadcast?
+
     link_path = if message.respond_to?(:holiday)
       holiday_discussion_path(message)
     elsif message.respond_to?(:admin_message)
