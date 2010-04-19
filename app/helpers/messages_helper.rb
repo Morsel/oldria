@@ -4,7 +4,7 @@ module MessagesHelper
     return unless message
 
     # Don't link the headers for broadcast-style messages
-    return message.inbox_title if message.broadcast?
+    return message.inbox_title if message.respond_to?(:broadcast?) && message.broadcast?
 
     link_path = if message.respond_to?(:holiday)
       holiday_discussion_path(message)
