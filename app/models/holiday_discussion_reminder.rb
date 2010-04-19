@@ -5,7 +5,10 @@ class HolidayDiscussionReminder < ActiveRecord::Base
   belongs_to :holiday_discussion
   belongs_to :holiday_reminder, :class_name => "Admin::HolidayReminder"
   
-  named_scope :current
+  named_scope :current, lambda {
+    { :joins => :holiday_reminder,
+      :conditions => ['holiday_reminders.scheduled_at < ? OR holiday_reminders.scheduled_at IS NULL', Time.zone.now]  }
+    }
   
   def inbox_title
     holiday_reminder.inbox_title
