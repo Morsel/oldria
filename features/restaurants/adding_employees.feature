@@ -76,6 +76,10 @@ Feature: Associating a Restaurant with its employees
     And "dinkle@example.com" opens the email with subject "SpoonFeed: You've been added"
     Then I should see "Welcome" in the email body
     And I should see "David" in the email body
+
+    # Show the name of the inviter in the email
+    And I should see "Jim Jones" in the email body
+
     And I should see an invitation URL in the email body
     When I click the first link in the email
     Then I should see "Successfully logged in"
