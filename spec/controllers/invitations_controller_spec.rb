@@ -2,7 +2,7 @@ require 'spec/spec_helper'
 
 describe InvitationsController do
 
-  describe "GET 'show'" do
+  describe "GET show" do
     before(:each) do
       @user = Factory(:user, :perishable_token =>"abc789", :username => "johnjohn", :confirmed_at => nil)
     end
@@ -14,7 +14,7 @@ describe InvitationsController do
       end
 
       it { assigns[:user].should eql(@user) }
-      it { should redirect_to(edit_user_path(@user)) }
+      it { should render_template(:show) }
 
       it "should flash a notice" do
         flash[:notice].should_not be_nil
