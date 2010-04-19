@@ -30,20 +30,6 @@ Feature: Manage users
     Then the "Admin?" checkbox should be checked
 
 
-  Scenario: Editing the account type of a user
-    Given the following account_type records:
-      | name               |
-      | Concierge          |
-      | Media Professional |
-    Given "jimbob" has a "Media" account type
-    When I go to the admin edit page for "jimbob"
-    Then I should see "Account type"
-    When I select "Concierge" from "Account type"
-    And I press "Update"
-    Then I should see "User was successfully updated"
-    And "jimbob" should have a "Concierge" account type
-
-
 @preconfirmed
   Scenario: Add a user from the admin interface
     Given I am on the admin new user page
