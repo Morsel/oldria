@@ -197,6 +197,10 @@ class User < ActiveRecord::Base
   def holiday_discussion_reminders
     holiday_discussions.map(&:holiday_discussion_reminders)
   end
+  
+  def unread_hdrs
+    holiday_discussion_reminders.map { |r| r.find_unread_by(self) }.flatten
+  end
 
   def unread_direct_messages
     direct_messages.unread_by(self)
@@ -212,7 +216,7 @@ class User < ActiveRecord::Base
 
   def messages_from_ria
     @messages_from_ria ||= [ unread_admin_discussions,
-      holiday_discussion_reminders,
+      unread_hdrs,
       admin_conversations.current.unread_by(self),
       unread_pr_tips,
       unread_announcements
@@ -221,6 +225,7 @@ class User < ActiveRecord::Base
 
   def all_messages
     @all_messages ||= [ admin_discussions,
+      holiday_discussion_reminders,
       admin_conversations.current.all,
       Admin::Announcement.current.all,
       Admin::PrTip.current.all

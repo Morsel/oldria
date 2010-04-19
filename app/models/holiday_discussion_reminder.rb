@@ -5,6 +5,8 @@ class HolidayDiscussionReminder < ActiveRecord::Base
   belongs_to :holiday_discussion
   belongs_to :holiday_reminder, :class_name => "Admin::HolidayReminder"
   
+  named_scope :current
+  
   def inbox_title
     holiday_reminder.inbox_title
   end
