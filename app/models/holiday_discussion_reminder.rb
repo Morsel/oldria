@@ -1,3 +1,15 @@
+# == Schema Information
+# Schema version: 20100415205144
+#
+# Table name: holiday_discussion_reminders
+#
+#  id                    :integer         not null, primary key
+#  holiday_discussion_id :integer
+#  holiday_reminder_id   :integer
+#  created_at            :datetime
+#  updated_at            :datetime
+#
+
 class HolidayDiscussionReminder < ActiveRecord::Base
   
   acts_as_readable

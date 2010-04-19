@@ -1,14 +1,15 @@
 # == Schema Information
-# Schema version: 20100412193718
+# Schema version: 20100415205144
 #
 # Table name: admin_discussions
 #
-#  id                :integer         not null, primary key
-#  restaurant_id     :integer
-#  trend_question_id :integer
-#  created_at        :datetime
-#  updated_at        :datetime
-#  comments_count    :integer
+#  id                  :integer         not null, primary key
+#  restaurant_id       :integer
+#  discussionable_id   :integer
+#  created_at          :datetime
+#  updated_at          :datetime
+#  comments_count      :integer         default(0)
+#  discussionable_type :string(255)
 #
 
 class AdminDiscussion < ActiveRecord::Base

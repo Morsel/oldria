@@ -1,16 +1,15 @@
 # == Schema Information
-# Schema version: 20100303185000
+# Schema version: 20100415205144
 #
-# Table name: admin_messages
+# Table name: holiday_reminders
 #
 #  id           :integer         not null, primary key
-#  type         :string(255)
 #  scheduled_at :datetime
 #  status       :string(255)
 #  message      :text
+#  holiday_id   :integer
 #  created_at   :datetime
 #  updated_at   :datetime
-#  holiday_id   :integer
 #
 
 class Admin::HolidayReminder < ActiveRecord::Base

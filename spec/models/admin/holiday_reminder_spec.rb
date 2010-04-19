@@ -19,7 +19,7 @@ describe Admin::HolidayReminder do
   should_belong_to :holiday
 
   before(:each) do
-    @valid_attributes = Factory.attributes_for(:admin_message, :type => 'Admin::HolidayReminder')
+    @valid_attributes = Factory.attributes_for(:holiday_reminder)
   end
 
   it "should set a class-based title of 'Holiday Reminder'" do
