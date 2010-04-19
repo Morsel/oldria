@@ -62,7 +62,7 @@ Feature: Create an Account
 
     When "twice@example.com" opens the email with subject "Welcome to SpoonFeed! Please confirm your account"
     And I click the first link in the email
-    Then I should see "Oops, we couldn't find your account. Have you already confirmed your account"
+    Then I should see "already set up"
 
 
   Scenario: Bad email

@@ -60,5 +60,5 @@ Feature: Discussions
 
     Given I am logged in as "john" with password "secret"
     And I visit that discussion
-    Then I should see "Access denied"
+    Then I should see "content you are trying to view is not available to your user account"
     And I should not see "Where should we eat?"
