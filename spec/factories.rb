@@ -203,6 +203,7 @@ end
 Factory.define :holiday_discussion do |f|
   f.association :restaurant
   f.association :holiday
+  f.accepted false
 end
 
 Factory.define :holiday_discussion_reminder do |f|

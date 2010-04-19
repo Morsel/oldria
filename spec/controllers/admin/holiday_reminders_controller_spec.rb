@@ -23,14 +23,19 @@ describe Admin::HolidayRemindersController do
   end
   
   it "should set up holiday reminders for all selected restaurants" do
-    reminder = Factory(:holiday_reminder)
+    holiday = Factory(:holiday)
+    Factory(:holiday_discussion, :holiday => holiday)
+    reminder = Factory(:holiday_reminder, :holiday => holiday)
     Admin::HolidayReminder.expects(:new).with(reminder.attributes).returns(reminder)
     reminder.expects(:holiday_discussions=).with(reminder.holiday.holiday_discussions)
     post :create, :admin_holiday_reminder => reminder.attributes
   end
   
   it "should only send a holiday reminder to restaurants that haven't replied acceptably" do
-    reminder = Factory(:holiday_reminder)
+    holiday = Factory(:holiday)
+    Factory(:holiday_discussion, :holiday => holiday, :accepted => false)
+    Factory(:holiday_discussion, :holiday => holiday, :accepted => true)
+    reminder = Factory(:holiday_reminder, :holiday => holiday)
     Admin::HolidayReminder.expects(:new).with(reminder.attributes).returns(reminder)
     reminder.expects(:holiday_discussions=).with(reminder.holiday.holiday_discussions.needs_reply)
     post :create, :admin_holiday_reminder => reminder.attributes
