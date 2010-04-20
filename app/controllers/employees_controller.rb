@@ -76,6 +76,7 @@ class EmployeesController < ApplicationController
     @employee = @employment.employee
     if @employee.new_record?
       @employee.send_invitation = true
+      @employee.invitation_sender = current_user
       if @employee.save
         @send_invitation = true
       else

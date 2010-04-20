@@ -7,42 +7,38 @@
 
 <h3>Reminders</h3>
 <% unless @holiday.admin_holiday_reminders.blank? %>
-  <ul>
+  <ul class="admin_holiday_reminders">
   <% @holiday.admin_holiday_reminders.each do |reminder| %>
     <% content_tag_for :li, reminder do %>
-      <%= reminder.scheduled_at.try(:strftime, "%m/%d:") %>
-      <%= reminder.message %>
-      <span class="edit_link"><%= link_to "edit", edit_admin_holiday_reminder_path(reminder) %></span>
+      <%= link_to "<span>edit</span>", edit_admin_holiday_reminder_path(reminder), :class => 'edit_link' %>
+      <h4><%= reminder.scheduled_at.try(:strftime, "%B %e") %></h4>
+      <%= simple_format(reminder.message) %>
     <% end %>
   <% end %>
   </ul>
 <% end %>
-<p><%= link_to "Add a Reminder", new_admin_holiday_reminder_path(:holiday_id => @holiday) %></p>
+
+<p class="clearfix"><%= link_to "Add a Reminder", new_admin_holiday_reminder_path(:holiday_id => @holiday), :class => 'positive button' %></p>
 
 
-<div id="holiday_have_replied" class="span-9 holiday_conversations_list">
-  <div class="admin_messages_header">
-    <span class="indicator"></span>
-    <h3>Replied (<%= @holiday.reply_count %>)</h3>
-  </div>
+<div id="holiday_have_replied" class="span-9 holiday_conversations_list clear">
+  <h3>Replied (<%= @holiday.reply_count %>)</h3>
+
   <table>
-    <%= render @holiday.holiday_conversations.with_replies %>
+    <%= render @holiday.holiday_discussions.with_replies %>
   </table>
 </div>
 
 <div id="holiday_have_not_replied" class="span-9 last holiday_conversations_list">
-  <div class="admin_messages_header">
-    <span class="indicator"></span>
-    <h3>Have Not Replied (<%= @holiday.holiday_conversations.without_replies.count %>)</h3>
-  </div>
+  <h3>Have Not Replied (<%= @holiday.holiday_discussions.without_replies.count %>)</h3>
 
   <table>
-    <%= render @holiday.holiday_conversations.without_replies %>
+    <%= render @holiday.holiday_discussions.without_replies %>
   </table>
 </div>
 
 
-<p>
+<p class="clear">
   <%= link_to "Edit", edit_admin_holiday_path(@holiday) %> |
   <%= link_to "View All", admin_holidays_path %>
 </p>

@@ -194,6 +194,29 @@ div#header {
 	padding: 4px 10px;
 }
 
+#sidebar_intra{
+	margin:0 0 10px 10px;
+	float:right;
+	width:200px;
+	padding:10px 0;
+	background:#fff;
+	border:1px solid #ddd
+}
+
+#sidebar_intra a{
+	color:#0587C1;
+	font-weight:bold;
+	display:inline-block;
+	width:180px;
+	padding:5px 5px;
+	margin:0 5px;
+}
+
+#sidebar_intra a:hover{
+	color:#4EAED9;
+	text-decoration:underline;
+}
+
 
 /* @end */
 
@@ -423,17 +446,17 @@ h2.with_icon {
 	font-weight:normal;
 	font-size:1.3em;
 	text-transform:uppercase;
-	padding: 4px 0 3px 32px;
+	padding: 4px 0 0px 36px;
 	margin:0 0 16px;
 	border-bottom: 1px dashed #ccc;
 	position: relative;
-
 }
 
 h2.with_icon img {
 	position: absolute;
 	left: 0px;
-	top: 0;;
+	top: 1px;
+	display: inline-block;
 }
 
 
@@ -1531,6 +1554,40 @@ h3.function-bold{
 	text-decoration: underline;
 }
 
+
+.admin_holiday_reminders {
+	margin: 0;
+	padding: 0;
+}
+
+.admin_backend .admin_holiday_reminder {
+	margin: 0 0 1em;
+	padding: 0 0 1em;
+	list-style: none;
+	border-bottom: 1px solid #ddd;
+}
+
+.admin_backend .admin_holiday_reminder h4 {
+	font-weight: bold;
+	margin: 0 0 4px;
+}
+
+
+.admin_backend .admin_holiday_reminder p {
+	margin: 0 16px 10px;
+}
+
+.admin_backend .admin_holiday_reminder .edit_link {
+	height: 16px;
+	width: 16px;
+	float: left;
+	background: url(../images/pencil.png) no-repeat;
+}
+
+.admin_backend .admin_holiday_reminder .edit_link span {
+	display: none;
+}
+
 ul.mini_menu {
 	margin: 0;
 }
@@ -1651,21 +1708,31 @@ ul.mini_menu li {
 /* message type themes */
 .admin_holiday_reminder .icon {   background-color: #D14600 }
 .admin_holiday_reminder .message-title {     color: #D14600 }
+.admin_holiday_reminder .message-title a {   color: #D14600 }
 
-.admin_trend_question .icon {   background-color: #0088C1 }
-.admin_trend_question .message-title {     color: #0088C1 }
+.trend_question .icon {   background-color: #0088C1 }
+.trend_question .message-title {     color: #0088C1 }
+.trend_question .message-title a {   color: #0088C1 }
 
 .admin_qotd .icon {   background-color: #F5911E }
 .admin_qotd .message-title {     color: #F5911E }
+.admin_qotd .message-title a {   color: #F5911E }
 
-.admin_content_request .icon {   background-color: #bf844b }
-.admin_content_request .message-title {     color: #bf844b }
+.content_request .icon {   background-color: #bf844b }
+.content_request .message-title {     color: #bf844b }
+.content_request .message-title a {   color: #bf844b }
 
 .admin_pr_tip .icon {   background-color: #005775 }
 .admin_pr_tip .message-title {     color: #005775 }
+.admin_pr_tip .message-title a {   color: #005775 }
 
 .admin_announcement .icon {   background-color: #5B4329 }
 .admin_announcement .message-title {     color: #5B4329 }
+.admin_announcement .message-title a {   color: #5B4329 }
+
+.message-title a:hover {
+	text-decoration: underline;
+}
 
 
 /* @end */
@@ -1850,6 +1917,10 @@ td.utility {
 
 td.actions {
 	width: 2em;
+}
+
+td.actions.reply_count {
+	width: 80px;
 }
 
 td.actions a {
@@ -2219,6 +2290,11 @@ img.right {
 
 /* @group application ---------------- */
 
+table#legend {
+  width:200px;
+  float:right;
+}
+
 #flashes {
 	min-height: 30px;
 	margin-bottom: 1em;
@@ -2299,6 +2375,10 @@ img.right {
 
 tr.admin td, tr.featured td {
 	background-color: #fdc;
+}
+
+tr.unconfirmed td {
+  background-color: #ff9;
 }
 
 .box.none {
@@ -2614,6 +2694,24 @@ h2.primary_title{
 	margin:0;
 }
 
+#discussions .unread_comments_count {
+	float: right;
+	position: absolute;
+	width: 20px;
+	height: 21px;
+	line-height: 21px;
+	padding: 9px 10px;
+	background: url('../images/blackbadge.png') no-repeat 0px 0px;
+	top: -16px;
+	right: -18px;
+	text-align: center;
+	font-size: 9px;
+	text-shadow: 0 0 0;
+}
+
+
+
+
 /* @end */
 
 /* @group messsages ----------------- */
@@ -2747,10 +2845,17 @@ h2.primary_title{
 	padding: 1px 6px;
 	width: 100px;
 	text-shadow: -1px 1px 0 #533;
+	position: relative;
 }
 
 .discussion .new_comment {
 	background-color: #048dc4;
+}
+
+.discussion .date{
+	float: right;
+	font-size: 11px;
+	font-weight: normal;
 }
 
 #dashboard .discussion {
@@ -2780,26 +2885,3 @@ h2.primary_title{
 }
 
 /* @end */
-
-#sidebar_intra{
-	margin:0 0 10px 10px;
-	float:right;
-	width:200px;
-	padding:10px 0;
-	background:#fff;
-	border:1px solid #ddd
-}
-
-#sidebar_intra a{
-	color:#0587C1;
-	font-weight:bold;
-	display:inline-block;
-	width:180px;
-	padding:5px 5px;
-	margin:0 5px;
-}
-
-#sidebar_intra a:hover{
-	color:#4EAED9;
-	text-decoration:underline;
-}

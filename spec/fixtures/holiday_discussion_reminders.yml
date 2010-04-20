@@ -1,0 +1,21 @@
+# == Schema Information
+# Schema version: 20100415205144
+#
+# Table name: holiday_discussion_reminders
+#
+#  id                    :integer         not null, primary key
+#  holiday_discussion_id :integer
+#  holiday_reminder_id   :integer
+#  created_at            :datetime
+#  updated_at            :datetime
+#
+
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  holiday_discussion_id: 1
+  holiday_reminder_id: 1
+
+two:
+  holiday_discussion_id: 1
+  holiday_reminder_id: 1

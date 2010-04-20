@@ -8,9 +8,9 @@
     <%= @message.class.try(:title) %>
   </h2>
 
-  <p class="message_body">
-    <%= @message.message %>
-  </p>
+  <div class="message_body">
+    <%= simple_format @message.message %>
+  </div>
 </div>
 
 <div id="message_have_replied" class="span-9 admin_conversations_list">
@@ -36,4 +36,4 @@
   </table>
 </div>
 
-<p><%= link_to 'Back to All', admin_messages_path %></p>
+<p class="clear"><%= link_to 'Back to All', admin_messages_path %></p>

@@ -35,14 +35,24 @@ ActionController::Routing::Routes.draw do |map|
 
   map.resources :direct_messages, :member => { :read => :put }
 
-
   map.resources :holiday_conversations, :only => ['show','update'] do |holiday_conversations|
     holiday_conversations.resources :comments, :only => [:new, :create]
   end
 
+  map.resources :holiday_discussions, :only => ['show','update'] do |holiday_discussions|
+    holiday_discussions.resources :comments, :only => [:new, :create]
+  end
+
+  map.resources :holiday_discussion_reminders, :member => { :read => :put }
+
   map.resources :admin_conversations, :only => 'show' do |admin_conversations|
     admin_conversations.resources :comments, :only => [:new, :create]
   end
+
+  map.resources :admin_discussions, :only => 'show', :member => { :read => :put } do |admin_discussions|
+    admin_discussions.resources :comments, :only => [:new, :create]
+  end
+
   map.resources :admin_messages, :only => 'show', :member => { :read => :put }
   map.resources :messages, :collection => {
                               :archive => :get,
@@ -88,7 +98,7 @@ ActionController::Routing::Routes.draw do |map|
     admin.resources :pr_tips, :except => exclusive_routes
     admin.resources :holiday_reminders, :except => exclusive_routes
 
-    # admin.resources :content_requests
+    admin.resources :content_requests
     admin.resources :trend_questions
   end
 

@@ -200,13 +200,32 @@ Factory.define :holiday_conversation do |f|
   f.association :holiday
 end
 
+Factory.define :holiday_discussion do |f|
+  f.association :restaurant
+  f.association :holiday
+  f.accepted false
+end
+
+Factory.define :holiday_discussion_reminder do |f|
+  f.association :holiday_discussion
+  f.association :holiday_reminder
+end
+
 # == Trend Question ==
 Factory.define :trend_question do |f|
   f.subject "What is the haps?"
   f.body    "Boo-ya"
   f.scheduled_at { 2.days.ago }
+  f.association :employment_search
 end
 
 Factory.define :employment_search do |f|
   f.conditions "--- \n:restaurant_name_like: neo\n"
+end
+
+Factory.define :content_request do |f|
+  f.subject "RFP"
+  f.body    "Please send your proposal"
+  f.scheduled_at { 1.day.ago }
+  f.association :employment_search
 end

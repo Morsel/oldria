@@ -1,27 +1,26 @@
 # == Schema Information
-# Schema version: 20100303185000
+# Schema version: 20100415205144
 #
-# Table name: admin_messages
+# Table name: holiday_reminders
 #
 #  id           :integer         not null, primary key
-#  type         :string(255)
 #  scheduled_at :datetime
 #  status       :string(255)
 #  message      :text
+#  holiday_id   :integer
 #  created_at   :datetime
 #  updated_at   :datetime
-#  holiday_id   :integer
 #
 
-class Admin::HolidayReminder < Admin::Message
+class Admin::HolidayReminder < ActiveRecord::Base
+  
   belongs_to :holiday
-
-  before_create :copy_recipients
-
-  def copy_recipients
-    return if holiday.blank? || recipient_ids.present?
-    self.recipient_ids = holiday.recipient_ids - holiday.accepted_holiday_conversation_recipient_ids
-  end
+  has_many :holiday_discussion_reminders
+  has_many :holiday_discussions, :through => :holiday_discussion_reminders
+  
+  named_scope :current, lambda {
+    {:conditions => ['scheduled_at < ? OR scheduled_at IS NULL', Time.zone.now]}
+  }
 
   def self.title
     "Holiday Reminder"
@@ -30,4 +29,5 @@ class Admin::HolidayReminder < Admin::Message
   def inbox_title
     holiday && holiday.name
   end
+    
 end

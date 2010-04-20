@@ -1,21 +1,21 @@
 class Admin::TrendQuestionsController < Admin::AdminController
   def index
-    @trend_questions = ::TrendQuestion.all
+    @trend_questions = ::TrendQuestion.by_scheduled_date.all(:include => :employment_search)
   end
 
   def show
     @trend_question = ::TrendQuestion.find(params[:id])
-    search_setup
+    search_setup(@trend_question)
   end
 
   def new
     @trend_question = ::TrendQuestion.new
-    search_setup
+    search_setup(@trend_question)
   end
 
   def create
     @trend_question = ::TrendQuestion.new(params[:trend_question])
-    search_setup
+    search_setup(@trend_question)
     save_search
     if @trend_question.save
       flash[:notice] = "Successfully created trend question."
@@ -27,12 +27,12 @@ class Admin::TrendQuestionsController < Admin::AdminController
 
   def edit
     @trend_question = ::TrendQuestion.find(params[:id], :include => :employment_search)
-    search_setup
+    search_setup(@trend_question)
   end
 
   def update
     @trend_question = ::TrendQuestion.find(params[:id])
-    search_setup
+    search_setup(@trend_question)
     save_search
     if @trend_question.update_attributes(params[:trend_question])
       flash[:notice] = "Successfully updated trend question."
@@ -47,29 +47,5 @@ class Admin::TrendQuestionsController < Admin::AdminController
     @trend_question.destroy
     flash[:notice] = "Successfully destroyed trend question."
     redirect_to admin_trend_questions_path
-  end
-
-  private
-  def search_setup
-    @employment_search = if @trend_question.employment_search
-        @trend_question.employment_search
-      else
-        @trend_question.build_employment_search(:conditions => {})
-      end
-
-    @search = @employment_search.employments #searchlogic
-    @restaurants_and_employments = @search.all(:include => [:restaurant, :employee]).group_by(&:restaurant)
-  end
-
-  def save_search
-    if params[:search]
-      @employment_search.conditions = normalized_search_params
-      @employment_search.save
-    end
-  end
-
-  def normalized_search_params
-    normalized = params[:search].reject{|k,v| v.blank? }
-    normalized.blank? ? {:id => ""} : normalized
   end
 end

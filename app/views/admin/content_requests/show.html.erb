@@ -1,0 +1,47 @@
+<% title "Content Request (Question from Oz)" %>
+
+<p>
+  <strong>Subject:</strong>
+  <%=h @content_request.subject %>
+</p>
+<p>
+  <strong>Body:</strong>
+  <%= simple_format @content_request.body %>
+</p>
+<p>
+  <strong>Scheduled At:</strong>
+  <%=h @content_request.scheduled_at.try(:to_s, :long_ordinal) %>
+</p>
+
+<% if @content_request.employment_search %>
+<p>
+  <strong>Criteria:</strong>
+  <ul>
+  <% @content_request.employment_search.readable_conditions.each do |condition| %>
+    <li><%= condition %></li>
+  <% end %>
+  </ul>
+</p>
+<% end %>
+
+<div id="have_replied" class="span-9 conversations_list">
+  <h3>Replied (<%= @content_request.admin_discussions.with_replies.size %>)</h3>
+
+  <table>
+    <%= render @content_request.admin_discussions.with_replies %>
+  </table>
+</div>
+
+<div id="have_not_replied" class="span-9 last conversations_list">
+  <h3>Have Not Replied (<%= @content_request.admin_discussions.without_replies.size %>)</h3>
+
+  <table>
+    <%= render @content_request.admin_discussions.without_replies %>
+  </table>
+</div>
+
+<p class="clear">
+  <%= link_to "Edit", edit_admin_content_request_path(@content_request) %> |
+  <%= link_to "Destroy", [:admin, @content_request], :confirm => 'Are you sure?', :method => :delete %> |
+  <%= link_to "View All", admin_content_requests_path %>
+</p>

@@ -23,11 +23,12 @@ describe DiscussionsController do
     before do
       @employment = Factory.stub(:employment)
       Employment.stubs(:find).returns(@employment)
+      @user.stubs(:messages_from_ria).returns([])
       get :new
     end
 
     it { response.should be_success }
-    it { assigns[:discussion].poster.should eql(@user) }
+    it { assigns[:discussion].poster_id.should eql(@user.id) }
   end
 
   describe "POST create" do

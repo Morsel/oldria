@@ -16,7 +16,7 @@
 class DirectMessage < ActiveRecord::Base
   belongs_to :receiver, :class_name => "User"
   belongs_to :sender, :class_name => "User"
-  default_scope :order => 'created_at DESC'
+  default_scope :order => 'direct_messages.created_at DESC'
   acts_as_readable
 
   named_scope :all_from_admin, :conditions => { :from_admin => true }

@@ -50,6 +50,7 @@ class User < ActiveRecord::Base
 
   has_many :employments, :foreign_key => "employee_id", :dependent => :destroy
   has_many :restaurants, :through => :employments
+  has_many :manager_restaurants, :source => :restaurant, :through => :employments, :conditions => ["employments.omniscient = ?", true]
 
   has_many :discussion_seats, :dependent => :destroy
   has_many :discussions, :through => :discussion_seats
@@ -63,7 +64,7 @@ class User < ActiveRecord::Base
 
   validates_presence_of :email
 
-  attr_accessor :send_invitation, :agree_to_contract
+  attr_accessor :send_invitation, :agree_to_contract, :invitation_sender
 
   # Attributes that should not be updated from a form or mass-assigned
   attr_protected :crypted_password, :password_salt, :perishable_token, :persistence_token, :confirmed_at, :admin=, :admin
@@ -115,6 +116,9 @@ class User < ActiveRecord::Base
     friends.include?(otheruser)
   end
 
+  def restaurants_where_manager
+    [managed_restaurants.all, manager_restaurants.all].compact.flatten.uniq
+  end
 
   def allowed_subject_matters
     allsubjects = SubjectMatter.all
@@ -142,7 +146,12 @@ class User < ActiveRecord::Base
   end
 
   def confirmed?
-    confirmed_at
+    confirmed_at.present?
+  end
+  alias :confirmed :confirmed?
+
+  def confirmed=(value)
+    self.confirmed_at = TRUE_VALUES.include?(value) ? Time.now : nil
   end
 
   def confirm!
@@ -172,6 +181,36 @@ class User < ActiveRecord::Base
     Admin::PrTip.scoped(:order => "updated_at DESC").current
   end
 
+  def admin_discussions
+    @admin_discussions ||= employments.map(&:admin_discussions).flatten.select do |discussion|
+      employment = discussion.restaurant.employments.find_by_employee_id(self.id)
+      discussion.discussionable.try(:viewable_by?, employment)
+    end
+  end
+
+  def current_admin_discussions
+    admin_discussions.reject {|d| d.discussionable.scheduled_at > Time.now }
+  end
+
+  def unread_admin_discussions
+    current_admin_discussions.reject {|d| d.read_by?(self)}
+  end
+
+  def holiday_discussions
+    restaurants.map(&:holiday_discussions).flatten.select do |discussion|
+      employment = discussion.restaurant.employments.find_by_employee_id(self.id)
+      discussion.holiday.try(:viewable_by?, employment)
+    end
+  end
+
+  def holiday_discussion_reminders
+    holiday_discussions.map { |d| d.holiday_discussion_reminders.current }
+  end
+
+  def unread_hdrs
+    holiday_discussion_reminders.map { |r| r.find_unread_by(self) }.flatten
+  end
+
   def unread_direct_messages
     direct_messages.unread_by(self)
   end
@@ -185,14 +224,18 @@ class User < ActiveRecord::Base
   end
 
   def messages_from_ria
-    [ admin_conversations.current.unread_by(self),
+    @messages_from_ria ||= [ unread_admin_discussions,
+      unread_hdrs,
+      admin_conversations.current.unread_by(self),
       unread_pr_tips,
       unread_announcements
     ].flatten.sort_by(&:updated_at).reverse
   end
 
   def all_messages
-    [ admin_conversations.current.all,
+    @all_messages ||= [ admin_discussions,
+      holiday_discussion_reminders,
+      admin_conversations.current.all,
       Admin::Announcement.current.all,
       Admin::PrTip.current.all
     ].flatten.sort_by(&:updated_at).reverse
@@ -275,8 +318,8 @@ class User < ActiveRecord::Base
     if @send_invitation
       @send_invitation = nil
       reset_perishable_token!
-      logger.info( 'Delivering invitation email' )
-      UserMailer.deliver_employee_invitation!(self)
+      logger.info( "Delivering invitation email to #{email}" )
+      UserMailer.deliver_employee_invitation!(self, invitation_sender)
     end
   end
 end

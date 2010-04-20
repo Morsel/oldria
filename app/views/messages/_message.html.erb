@@ -1,36 +1,43 @@
-<% restaurant = message.recipient.try(:restaurant) if message.respond_to?(:recipient) %>
-<% archive = message.read_by?(current_user) %>
-<% if message.respond_to?(:admin_message)
-  reply_link = admin_conversation_path(message)
+<%
+  restaurant = message.recipient.try(:restaurant) if message.respond_to?(:recipient)
+  archive = message.read_by?(current_user)
   original_message = message
+  extra_css_class = ""
+if message.respond_to?(:admin_message)
   message = message.admin_message
+end
+if message.respond_to?(:discussionable)
+   restaurant = message.restaurant
+   extra_css_class = dom_class(message.discussionable)
+end
+if message.is_a?(HolidayDiscussionReminder)
+    restaurant = message.restaurant
+    restaurant_message = message # for marking as read
+    original_message = message.holiday_discussion # discussion
+    message = message.holiday_reminder # reminder -- redundant comments ftw ?
 end %>
-<% div_for message, :class => "inbox_message clear clearfix#{ ' archived' if archive}" do %>
 
+<% div_for message, :class => "inbox_message clear clearfix#{ ' archived' if archive} #{extra_css_class}" do %>
   <div class="icon">
 
   </div>
   <div class="message-details">
     <div class="message-header clearfix">
       <h4 class="message-title">
-        <%= message.inbox_title %>
+        <%= title_link_for_message(original_message) %>
         <%= "<span>for #{restaurant.name}</span>" if restaurant %>
       </h4>
     </div>
     <div class="message-body">
-      <%= message.message %>
+      <%= simple_format(message.message) %>
     </div>
     <p class="message-date"><%= message.scheduled_at.try(:strftime, "%B %d, %Y at %I:%M%p") %></p>
     <% unless archive %>
       <div class="message-actions">
         <%= reply_link_for_message(original_message) %>
-        <span class="hide_link">
-          <%= link_to 'Hide', '#', :class=>'readit' %>
-        </span>
       </div>
 
-      <a href="#" class="readit"><span>read</span></a>
+      <%= read_link_for_message(restaurant_message || message) %>
     <% end %>
   </div>
 <% end %>
-

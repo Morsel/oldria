@@ -61,8 +61,12 @@ class UsersController < ApplicationController
       if @user_session.save
         @message = "Welcome aboard! Your account has been confirmed."
       end
+    elsif current_user
+      flash[:notice] = "Looks like you're already set up. Get to work!"
+      redirect_to root_path
     else
-      @message = "Oops, we couldn't find your account. Have you already confirmed your account?"
+      flash[:error] = "Oops, looks like that confirmation token has already been used.<br/>Log in below, or click the link to reset your password."
+      redirect_to login_path
     end
   end
 

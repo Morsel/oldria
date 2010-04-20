@@ -22,7 +22,7 @@
         <tr class="<%= cycle('odd','even', :name => message_type.title) %>">
           <td><%= message.scheduled_at.try(:strftime,"%m/%d") %></td>
           <td><%= link_to message.message, edit_polymorphic_path(message) %></td>
-          <td class="actions">
+          <td class="actions reply_count">
             <%= admin_message_action_links(message) %>
           </td>
           <td class="actions edit_link">

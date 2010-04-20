@@ -1,8 +1,14 @@
 <% title "All Users" %>
 
-<p><%= link_to 'Sign Up a New User', new_admin_user_path, :class => 'button positive' %></p>
-<br clear="all" />
 
+<table cellspacing="0" id="legend">
+  <tr><th>Legend</th></tr>
+  <tr class="admin"><td>Admin</td></tr>
+  <tr class="unconfirmed"><td>Unconfirmed</td></tr>
+  <tr><td>Non-admin, Confirmed</td></tr>
+</table>
+
+<p class="clearfix"><%= link_to 'Sign Up a New User', new_admin_user_path, :class => 'button positive' %></p>
 
 <p><a href="#filter" class="showtarget">Toggle Filter</a></p>
 <div id="filter">
@@ -25,7 +31,7 @@
   </thead>
   <tbody>
     <% @users.each do |user| %>
-    <tr class="user <%= user.admin? ? 'admin' : '' %>">
+    <tr class="user <%= users_extra_row_class(user) %>">
       <td><%= h user.last_name %>, <%=h user.first_name %></td>
       <td><%= link_to user.username, profile_path(user.username) %></td>
       <td><%= h user.email %></td>
@@ -40,5 +46,3 @@
     <% end %>
   </tbody>
 </table>
-<p>Note: Admins are marked in by a salmon-colored row</p>
-<br />

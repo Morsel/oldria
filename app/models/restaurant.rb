@@ -35,10 +35,17 @@ class Restaurant < ActiveRecord::Base
            :source => :employee,
            :conditions => {:employments => {:omniscient => true}}
   has_many :media_request_conversations, :through => :employments
-  has_many :trend_question_discussions
-  has_many :trend_questions, :through => :trend_question_discussions
+  has_many :admin_discussions
+  has_many :holiday_discussions
+  has_many :holidays, :through => :holiday_discussions
+
+  has_many :trend_questions, :through => :admin_discussions,
+           :source => :discussionable, :source_type => 'TrendQuestion'
+  has_many :content_requests, :through => :admin_discussions,
+           :source => :discussionable, :source_type => 'ContentRequest'
 
   after_validation_on_create :add_manager_as_employee
+  after_save :update_admin_discussions
 
   # For pagination
   cattr_reader :per_page
@@ -98,5 +105,9 @@ class Restaurant < ActiveRecord::Base
 
   def missing_subject_matter_ids
     (SubjectMatter.all(:select => :id).map(&:id) - handled_subject_matter_ids)
+  end
+
+  def update_admin_discussions
+    TrendQuestion.all.each(&:touch)
   end
 end

@@ -18,6 +18,12 @@ class Ability
       can :manage, Admin::Conversation do |action, conversation|
         conversation.try(:recipient).try(:employee) == user
       end
+
+      can :manage, AdminDiscussion do |action, discussion|
+        discussion.restaurant && discussion.discussionable && discussion.discussionable.viewable_by?(
+          discussion.restaurant.employments.find_by_employee_id(user.id)
+        )
+      end
     end
   end
 

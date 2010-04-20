@@ -19,7 +19,7 @@ describe Admin::HolidayReminder do
   should_belong_to :holiday
 
   before(:each) do
-    @valid_attributes = Factory.attributes_for(:admin_message, :type => 'Admin::HolidayReminder')
+    @valid_attributes = Factory.attributes_for(:holiday_reminder)
   end
 
   it "should set a class-based title of 'Holiday Reminder'" do
@@ -29,13 +29,5 @@ describe Admin::HolidayReminder do
   it "should create a new instance given valid attributes" do
     Admin::HolidayReminder.create!(@valid_attributes)
   end
-  
-  it "should copy recipients from its holiday" do
-    recipient = Factory(:employment)
-    holiday  = Factory(:holiday, :name => "Thanksgiving", :recipients => [recipient])
-    reminder = Factory(:holiday_reminder, :holiday => holiday)
-    reminder.recipient_ids.should == holiday.recipient_ids
-    reminder.recipients.first.should == holiday.recipients.first
-  end
-  
+    
 end
