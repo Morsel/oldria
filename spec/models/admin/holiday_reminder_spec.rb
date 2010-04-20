@@ -27,7 +27,8 @@ describe Admin::HolidayReminder do
   end
 
   it "should create a new instance given valid attributes" do
-    Admin::HolidayReminder.create!(@valid_attributes)
+    holiday = Factory(:holiday)
+    Admin::HolidayReminder.create!(@valid_attributes.merge(:holiday_id => holiday.id))
   end
     
 end
