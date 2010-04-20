@@ -204,7 +204,7 @@ class User < ActiveRecord::Base
   end
 
   def holiday_discussion_reminders
-    holiday_discussions.map { |d| d.holiday_discussion_reminders.current }
+    holiday_discussions.select { |d| d.accepted == false }.map { |d| d.holiday_discussion_reminders.current }
   end
 
   def unread_hdrs
