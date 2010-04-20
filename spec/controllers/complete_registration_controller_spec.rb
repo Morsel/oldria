@@ -13,7 +13,7 @@ describe CompleteRegistrationsController do
     end
   end
 
-  describe "GET update" do
+  describe "PUT update" do
     it "should re-render the form when data is not valid" do
       User.any_instance.stubs(:valid?).returns(false)
       put :update

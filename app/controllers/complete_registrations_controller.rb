@@ -22,6 +22,7 @@ class CompleteRegistrationsController < ApplicationController
 
   private
   def force_password_reset
+    return unless params[:user]
     @user.crypted_password = nil
     @user.password = params[:user][:password]
     @user.password_confirmation = params[:user][:password_confirmation]

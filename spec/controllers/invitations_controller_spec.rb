@@ -26,14 +26,14 @@ describe InvitationsController do
         end
       end
     
-      context "user is not found" do
+      context "user is not found by token" do
         before do
           User.stubs(:find_using_perishable_token) # returns nil
           get :show, :id => "abc789"
         end
 
         it { assigns[:user].should be_nil }
-        it { should redirect_to(root_url) }
+        it { should redirect_to(login_path) }
 
         it "should flash an error message" do
           flash[:error].should_not be_nil
@@ -42,22 +42,10 @@ describe InvitationsController do
         context "and is the invitee" do
           it "should redirect to the dashboard" do
             get :show, :id => 'expired_id', :user_id => @invitee.id
-            response.should redirect_to(login_path)
+            response.should render_template(:login)
           end
         end
       end
     end
   end # GET show
 end
-
-=begin
-
-If I click through an invitation email link, and another user is logged in, that user should be logged out.  *I* should be logged in instead, then view the "short registration" page.  
-
-If I try to save the short confirmation page without specifying a password, I should see the standard rails error. 
-
-If I click thru the invitation email link, and no other user is logged in, I should be logged in automatically. 
-
-If I click thru the invitation email link 2x, after doing the required actions, I should be logged in automatically. 
-
-=end

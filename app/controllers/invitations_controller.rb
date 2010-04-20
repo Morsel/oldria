@@ -9,11 +9,17 @@ class InvitationsController < ApplicationController
       flash[:notice] = "Successfully logged in. Please take a moment and update your account information."
       redirect_to complete_registration_path
     elsif params[:user_id] && User.exists?(params[:user_id])
-      redirect_to login_path
+      @user = User.find(params[:user_id])
+      @user_session = UserSession.new(:username => @user.username)
+      render :login
     else
       flash[:error] = "We could not locate your account."
-      redirect_to root_url
+      redirect_to login_path, :user_id => params[:user_id]
     end
+  end
+
+  def login
+    # stub for view
   end
 
   private
