@@ -24,12 +24,12 @@ class ApplicationController < ActionController::Base
   end
 
   private
-  
+
   def find_user_feeds(dashboard = false)
     @feeds = current_user.chosen_feeds(dashboard) || Feed.featured.all(:limit => (dashboard ? 2 : nil))
     @user_feed_ids = @feeds.map(&:id)
   end
-  
+
   def current_user_session
     return @current_user_session if defined?(@current_user_session)
     @current_user_session = UserSession.find
@@ -112,7 +112,7 @@ class ApplicationController < ActionController::Base
 
   def load_current_user_restaurants
     return unless current_user && !current_user.media?
-    @current_user_managed_restaurants = current_user.managed_restaurants.all(:include => :media_request_conversations)
+    @current_user_managed_restaurants = current_user.restaurants_where_manager
     @current_user_restaurants = current_user.restaurants.all
   end
 
