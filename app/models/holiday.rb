@@ -62,4 +62,8 @@ class Holiday < ActiveRecord::Base
     employment_search.employments.include?(employment)
   end
 
+  def next_reminder
+    admin_holiday_reminders.first(:order => 'scheduled_at ASC')
+  end
+
 end

@@ -50,6 +50,7 @@ class User < ActiveRecord::Base
 
   has_many :employments, :foreign_key => "employee_id", :dependent => :destroy
   has_many :restaurants, :through => :employments
+  has_many :manager_restaurants, :source => :restaurant, :through => :employments, :conditions => ["employments.omniscient = ?", true]
 
   has_many :discussion_seats, :dependent => :destroy
   has_many :discussions, :through => :discussion_seats
@@ -115,6 +116,9 @@ class User < ActiveRecord::Base
     friends.include?(otheruser)
   end
 
+  def restaurants_where_manager
+    [managed_restaurants.all, manager_restaurants.all].compact.flatten.uniq
+  end
 
   def allowed_subject_matters
     allsubjects = SubjectMatter.all

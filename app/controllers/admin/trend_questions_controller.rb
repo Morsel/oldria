@@ -1,6 +1,6 @@
 class Admin::TrendQuestionsController < Admin::AdminController
   def index
-    @trend_questions = ::TrendQuestion.all
+    @trend_questions = ::TrendQuestion.by_scheduled_date.all(:include => :employment_search)
   end
 
   def show

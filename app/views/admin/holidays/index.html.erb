@@ -5,8 +5,11 @@
 <% table_for(@holidays) do |t| %>
   <% t.data :actions => :all, :action_prefix => 'admin' do
       t.cell :name
-      t.cell :date
+      t.cell(:date) {|h| h.date.try(:to_s, :long)}
       t.cell :reminders_count, :heading => 'Reminders'
+      t.cell(:next, :heading => 'Next Reminder') do |h|
+        h.next_reminder.try(:scheduled_at).try(:strftime, "%m/%d")
+      end
       t.cell :reply_count, :heading => '', :cell_html => {:class => 'actions reply_count'} do |h|
         holiday_reply_count_link(h)
       end

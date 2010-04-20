@@ -30,4 +30,8 @@ class Admin::Conversation < ActiveRecord::Base
        AND readings.user_id = #{user.id}",
        :conditions => 'readings.user_id IS NULL' }
   }
+
+  def inbox_title
+    admin_message.inbox_title
+  end
 end

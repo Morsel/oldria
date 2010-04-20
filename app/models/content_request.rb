@@ -18,6 +18,8 @@ class ContentRequest < ActiveRecord::Base
   has_many :admin_discussions, :as => :discussionable
   has_many :restaurants, :through => :admin_discussions
 
+  named_scope :by_scheduled_date, :order => "#{table_name}.scheduled_at ASC"
+
   before_save :update_restaurants_from_search_criteria
 
   def self.title

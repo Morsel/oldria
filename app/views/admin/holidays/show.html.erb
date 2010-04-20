@@ -11,7 +11,7 @@
   <% @holiday.admin_holiday_reminders.each do |reminder| %>
     <% content_tag_for :li, reminder do %>
       <%= link_to "<span>edit</span>", edit_admin_holiday_reminder_path(reminder), :class => 'edit_link' %>
-      <h4><%= reminder.scheduled_at.try(:strftime, "%m/%d:") %></h4>
+      <h4><%= reminder.scheduled_at.try(:strftime, "%B %e") %></h4>
       <%= simple_format(reminder.message) %>
     <% end %>
   <% end %>

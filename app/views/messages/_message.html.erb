@@ -1,13 +1,12 @@
-<% restaurant = message.recipient.try(:restaurant) if message.respond_to?(:recipient) %>
-<% archive = message.read_by?(current_user) %>
-<% extra_css_class = "" %>
-<% if message.respond_to?(:admin_message)
-  reply_link = admin_conversation_path(message)
+<%
+  restaurant = message.recipient.try(:restaurant) if message.respond_to?(:recipient)
+  archive = message.read_by?(current_user)
   original_message = message
+  extra_css_class = ""
+if message.respond_to?(:admin_message)
   message = message.admin_message
 end
 if message.respond_to?(:discussionable)
-   original_message = message
    restaurant = message.restaurant
    extra_css_class = dom_class(message.discussionable)
 end
@@ -17,6 +16,7 @@ if message.is_a?(HolidayDiscussionReminder)
     original_message = message.holiday_discussion # discussion
     message = message.holiday_reminder # reminder -- redundant comments ftw ?
 end %>
+
 <% div_for message, :class => "inbox_message clear clearfix#{ ' archived' if archive} #{extra_css_class}" do %>
   <div class="icon">
 
@@ -24,7 +24,7 @@ end %>
   <div class="message-details">
     <div class="message-header clearfix">
       <h4 class="message-title">
-        <%= title_link_for_message(message) %>
+        <%= title_link_for_message(original_message) %>
         <%= "<span>for #{restaurant.name}</span>" if restaurant %>
       </h4>
     </div>
@@ -41,4 +41,3 @@ end %>
     <% end %>
   </div>
 <% end %>
-

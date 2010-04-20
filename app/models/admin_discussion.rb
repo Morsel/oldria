@@ -39,4 +39,13 @@ class AdminDiscussion < ActiveRecord::Base
     discussionable.scheduled_at
   end
 
+  def employments
+    # Only include the employments that
+    restaurant.employments.all(:include => :employee) & discussionable.employment_search.try(:employments).try(:all, :include => :employee)
+  end
+
+  def employees
+    employments.map(&:employee)
+  end
+
 end

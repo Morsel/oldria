@@ -8,7 +8,7 @@
 	<%= comment.user.try(:name_or_username) %> said:
 	</p>
 
-	<p><%= simple_format comment.comment %></p>
+  <%= simple_format comment.comment %>
 
 	<% if !comment.attachments.blank? %>
 		Attached files:
