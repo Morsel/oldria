@@ -7,6 +7,7 @@ class InvitationsController < ApplicationController
       @user.update_attribute(:confirmed_at, Time.now)
       UserSession.create(@user)
       flash[:notice] = "Successfully logged in. Please take a moment and update your account information."
+      redirect_to complete_registration_path
     else
       flash[:error] = "We could not locate your account."
       redirect_to root_url

@@ -14,7 +14,7 @@ describe InvitationsController do
         end
 
         it { assigns[:user].should eql(@invitee) }
-        it { should render_template(:show) }
+        it { should redirect_to(complete_registration_path) }
 
         it "should flash a notice" do
           flash[:notice].should_not be_nil
