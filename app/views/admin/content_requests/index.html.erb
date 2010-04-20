@@ -4,7 +4,7 @@
 
 <% table_for(@content_requests) do |t| %>
   <% t.data :actions => :all, :action_prefix => 'admin' do
-       t.cell(:scheduled_at){|c| c.scheduled_at.try(:strftime,"%m/%d")}
+       t.cell(:scheduled_at, :heading => "Scheduled"){|c| c.scheduled_at.try(:strftime,"%m/%d")}
        t.cell(:subject)
        t.cell(:body)
        t.cell(:criteria) {|cr| cr.employment_search.readable_conditions.join(", ") }
