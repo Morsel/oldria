@@ -446,17 +446,17 @@ h2.with_icon {
 	font-weight:normal;
 	font-size:1.3em;
 	text-transform:uppercase;
-	padding: 4px 0 3px 32px;
+	padding: 4px 0 0px 36px;
 	margin:0 0 16px;
 	border-bottom: 1px dashed #ccc;
 	position: relative;
-
 }
 
 h2.with_icon img {
 	position: absolute;
 	left: 0px;
-	top: 0;;
+	top: 1px;
+	display: inline-block;
 }
 
 
