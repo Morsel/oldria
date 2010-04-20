@@ -18,10 +18,6 @@ class InvitationsController < ApplicationController
     end
   end
 
-  def login
-    # stub for view
-  end
-
   private
 
   def logout_current_user
