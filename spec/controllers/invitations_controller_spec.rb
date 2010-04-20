@@ -1,6 +1,7 @@
 require 'spec/spec_helper'
 
 describe InvitationsController do
+  integrate_views
   before(:each) do
     @invitee = Factory(:user, :perishable_token =>"abc789", :username => "johnjohn", :confirmed_at => nil)
   end
@@ -27,7 +28,7 @@ describe InvitationsController do
     
       context "user is not found" do
         before do
-          User.expects(:find_using_perishable_token).with("abc789")
+          User.stubs(:find_using_perishable_token) # returns nil
           get :show, :id => "abc789"
         end
 
@@ -37,18 +38,15 @@ describe InvitationsController do
         it "should flash an error message" do
           flash[:error].should_not be_nil
         end
-      end
-    end
-
-    context "when a user is already logged in" do
-      context "and is the invitee" do
-        it "should redirect to the dashboard" do
-          get :show, :id => 'expired_id', :user_id => @invitee.id
-          response.should redirect_to(root_path)
+        
+        context "and is the invitee" do
+          it "should redirect to the dashboard" do
+            get :show, :id => 'expired_id', :user_id => @invitee.id
+            response.should redirect_to(login_path)
+          end
         end
       end
     end
-
   end # GET show
 end
 

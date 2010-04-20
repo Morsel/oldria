@@ -8,6 +8,8 @@ class InvitationsController < ApplicationController
       UserSession.create(@user)
       flash[:notice] = "Successfully logged in. Please take a moment and update your account information."
       redirect_to complete_registration_path
+    elsif params[:user_id] && User.exists?(params[:user_id])
+      redirect_to login_path
     else
       flash[:error] = "We could not locate your account."
       redirect_to root_url

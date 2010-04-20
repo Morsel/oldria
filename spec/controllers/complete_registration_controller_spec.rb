@@ -1,6 +1,7 @@
 require 'spec/spec_helper'
 
 describe CompleteRegistrationsController do
+  integrate_views
   before do
     fake_normal_user
   end
