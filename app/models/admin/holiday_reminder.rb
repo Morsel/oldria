@@ -21,6 +21,8 @@ class Admin::HolidayReminder < ActiveRecord::Base
   named_scope :current, lambda {
     {:conditions => ['scheduled_at < ? OR scheduled_at IS NULL', Time.zone.now]}
   }
+  
+  before_save :update_discussions
 
   def self.title
     "Holiday Reminder"
@@ -28,6 +30,10 @@ class Admin::HolidayReminder < ActiveRecord::Base
 
   def inbox_title
     holiday && holiday.name
+  end
+  
+  def update_discussions
+    self.holiday_discussions = self.holiday.holiday_discussions.needs_reply if self.holiday
   end
     
 end
