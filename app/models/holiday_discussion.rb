@@ -14,6 +14,8 @@
 
 class HolidayDiscussion < ActiveRecord::Base
 
+  acts_as_readable
+
   belongs_to :restaurant
   belongs_to :holiday
   has_many :holiday_discussion_reminders

@@ -34,4 +34,12 @@ class HolidayDiscussionReminder < ActiveRecord::Base
     holiday_discussion.restaurant
   end
   
+  def message
+    holiday_reminder.message
+  end
+  
+  def scheduled_at
+    holiday_reminder.scheduled_at
+  end
+  
 end

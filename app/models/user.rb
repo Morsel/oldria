@@ -202,6 +202,10 @@ class User < ActiveRecord::Base
       discussion.holiday.try(:viewable_by?, employment)
     end
   end
+  
+  def accepted_holiday_discussions
+    holiday_discussions.select(&:accepted?)
+  end
 
   def holiday_discussion_reminders
     holiday_discussions.reject(&:accepted?).map {|d| d.holiday_discussion_reminders.current }
@@ -235,6 +239,7 @@ class User < ActiveRecord::Base
   def all_messages
     @all_messages ||= [ admin_discussions,
       holiday_discussion_reminders,
+      # accepted_holiday_discussions,
       admin_conversations.current.all,
       Admin::Announcement.current.all,
       Admin::PrTip.current.all

@@ -7,9 +7,9 @@ module MessagesHelper
     return message.inbox_title if message.respond_to?(:broadcast?) && message.broadcast?
 
     link_path = if message.respond_to?(:holiday)
-      holiday_discussion_path(message)
+      holiday_discussion_path(message.holiday_discussion)
     elsif message.respond_to?(:admin_message)
-      admin_conversation_path(message)
+      admin_conversation_path(message.admin_message)
     elsif message.respond_to?(:discussionable)
       admin_discussion_path(message)
     else
@@ -23,9 +23,9 @@ module MessagesHelper
     return unless message
 
     if message.respond_to?(:holiday)
-      link_to "Reply", holiday_discussion_path(message)
+      link_to "Reply", holiday_discussion_path(message.holiday_discussion)
     elsif message.respond_to?(:admin_message)
-      link_to "Reply", admin_conversation_path(message)
+      link_to "Reply", admin_conversation_path(message.admin_message)
     elsif message.respond_to?(:discussionable)
       link_to "Reply", admin_discussion_path(message)
     end
@@ -38,11 +38,28 @@ module MessagesHelper
       link_path = read_holiday_discussion_reminder_path(message)
     elsif message.respond_to?(:discussionable)
       link_path = read_admin_discussion_path(message)
+    elsif message.respond_to?(:admin_message)
+      link_path = read_admin_message_path(message.admin_message)
     else
       link_path = read_admin_message_path(message)
     end
 
     link_to(link_text, link_path, :class => 'readit')
+  end
+  
+  def classes(message)
+    defaults = "inbox_message clear clearfix"
+    defaults += " archived" if message.read_by?(current_user)
+    defaults += " #{dom_class(message.discussionable)}" if message.respond_to?(:discussionable)
+    defaults
+  end
+  
+  def restaurant(message)
+    if message.respond_to?(:recipient)
+      restaurant = message.recipient.try(:restaurant)
+    elsif message.respond_to?(:discussionable) || message.is_a?(HolidayDiscussionReminder)
+      restaurant = message.restaurant
+    end
   end
 
 end
