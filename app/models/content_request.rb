@@ -23,7 +23,7 @@ class ContentRequest < ActiveRecord::Base
   before_save :update_restaurants_from_search_criteria
 
   def self.title
-    "Question from Oz"
+    "Question from RIA"
   end
 
   def update_restaurants_from_search_criteria
