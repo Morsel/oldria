@@ -203,16 +203,16 @@ class User < ActiveRecord::Base
     end
   end
   
-  def accepted_holiday_discussions
-    holiday_discussions.select(&:accepted?)
-  end
-
   def holiday_discussion_reminders
     holiday_discussions.reject(&:accepted?).map {|d| d.holiday_discussion_reminders.current }
   end
 
   def unread_hdrs
     holiday_discussion_reminders.map { |r| r.find_unread_by(self) }.flatten
+  end
+
+  def accepted_holiday_discussions
+    holiday_discussions.select(&:accepted?)
   end
 
   def unread_direct_messages
@@ -239,7 +239,7 @@ class User < ActiveRecord::Base
   def all_messages
     @all_messages ||= [ admin_discussions,
       holiday_discussion_reminders,
-      # accepted_holiday_discussions,
+      accepted_holiday_discussions,
       admin_conversations.current.all,
       Admin::Announcement.current.all,
       Admin::PrTip.current.all

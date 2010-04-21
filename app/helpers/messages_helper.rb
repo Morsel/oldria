@@ -6,7 +6,9 @@ module MessagesHelper
     # Don't link the headers for broadcast-style messages
     return message.inbox_title if message.respond_to?(:broadcast?) && message.broadcast?
 
-    link_path = if message.respond_to?(:holiday)
+    link_path = if message.is_a?(HolidayDiscussion)
+      holiday_discussion_path(message)
+    elsif message.respond_to?(:holiday)
       holiday_discussion_path(message.holiday_discussion)
     elsif message.respond_to?(:admin_message)
       admin_conversation_path(message.admin_message)
