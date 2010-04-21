@@ -5,7 +5,7 @@
 
       <li><%= link_to pluralize(current_user.messages_from_ria.size, 'unread admin message'), messages_path %></li>
       <li><%= link_to pluralize(current_user.discussions.unread_by(current_user).length, 'new discussion'), discussions_path %></li>
-      <li><%= link_to pluralize(current_user.discussions.with_comments_unread_by(current_user).size, 'discussion') + ' with new comments', discussions_path %></li>
+      <li><%= link_to pluralize(current_user.discussions.with_comments_unread_by(current_user).length, 'discussion') + ' with new comments', discussions_path %></li>
 
     </ul>
   </div>

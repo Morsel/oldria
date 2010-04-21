@@ -64,7 +64,7 @@ class User < ActiveRecord::Base
 
   validates_presence_of :email
 
-  attr_accessor :send_invitation, :agree_to_contract, :invitation_sender
+  attr_accessor :send_invitation, :agree_to_contract, :invitation_sender, :password_reset_required
 
   # Attributes that should not be updated from a form or mass-assigned
   attr_protected :crypted_password, :password_salt, :perishable_token, :persistence_token, :confirmed_at, :admin=, :admin

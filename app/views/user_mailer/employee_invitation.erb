@@ -2,6 +2,6 @@
 
 <p>Welcome to SpoonFeed. You've been invited by <%= @invitation_sender.try(:name) || "an employee" %> at <%= @user.restaurants.last.try(:name) %>.</p>
 
-<p><a href="<%= invitation_url(@user.perishable_token) %>"><%= invitation_url(@user.perishable_token) %></a></p>
+<p><a href="<%= invitation_url(@user.perishable_token, :user_id => @user.id) %>"><%= invitation_url(@user.perishable_token, :user_id => @user.id) %></a></p>
 
 <p>Click the link above to sign in and start having fun!</p>
