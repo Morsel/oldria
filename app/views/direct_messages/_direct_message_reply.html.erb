@@ -1,5 +1,4 @@
-<% archive = direct_message.users_who_read.include?(current_user) %>
-<% div_for direct_message, :class => "clearfix#{ ' sent_message' if direct_message.from?(current_user)}" do %>
+<div class="clearfix">
 <% if direct_message.from?(current_user) %>
 	<%= image_tag direct_message.receiver.avatar.url(:thumb), :class => 'left' %>
 <% else %>
@@ -18,15 +17,9 @@
 		<%= link_to "reply", reply_direct_message_path(direct_message) %>
 	<% end -%>
 	</p>
-	<% if direct_message.response %>
-	<div>
-	    <%= link_to_function "View all replies", '$("#direct-message-replies").toggle()' %>
-	</div>
-	<div id="direct-message-replies" style="display: none;">
-        <%= render :partial => "direct_messages/direct_message_reply", :locals => { :direct_message => direct_message.response } %>
-    </div>
-    <% end %>
-	<% unless archived_view? %>
-	<a href="#" class="readit"><span>read</span></a>
-	<% end %>
-<% end # div -%>
+</div>
+<% if direct_message.response %>
+<p>
+   <%= render :partial => "direct_messages/direct_message_reply", :locals => { :direct_message => direct_message.response } %> 
+<p>
+<% end %>
