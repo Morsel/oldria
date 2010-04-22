@@ -13,7 +13,7 @@
         <% end -%>
       <% end -%>
     <% end %>
-    <p class="view_all"><%= link_to "View all private messages...", private_messages_path %></p>
+    <p class="view_all"><%= link_to "View all private messages...", private_messages_path(:view_all => true) %></p>
   </div><!--/direct_messages-->
 
   <div id="discussions">
