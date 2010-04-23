@@ -48,17 +48,19 @@ module MessagesHelper
 
     link_to(link_text, link_path, :class => 'readit')
   end
-  
+
   def classes(message)
     defaults = "inbox_message clear clearfix"
     defaults += " archived" if message.read_by?(current_user)
     defaults += " #{dom_class(message.discussionable)}" if message.respond_to?(:discussionable)
     defaults
   end
-  
+
   def restaurant(message)
     if message.respond_to?(:recipient)
       restaurant = message.recipient.try(:restaurant)
+    elsif message.respond_to?(:restaurant)
+      restaurant = message.restaurant
     elsif message.respond_to?(:discussionable) || message.is_a?(HolidayDiscussionReminder)
       restaurant = message.restaurant
     end
