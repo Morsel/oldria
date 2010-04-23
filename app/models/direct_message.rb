@@ -55,8 +55,8 @@ class DirectMessage < ActiveRecord::Base
     DirectMessage.find(in_reply_to_message_id) if in_reply_to_message_id
   end
 
-  def response
-    DirectMessage.find_by_in_reply_to_message_id(self.id)
+  def responses
+    DirectMessage.all(:conditions => { :in_reply_to_message_id => self.id }, :order => "created_at")
   end
     
   def from?(user)

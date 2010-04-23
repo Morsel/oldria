@@ -1,3 +1,4 @@
+<% for direct_message in direct_messages %>
 <div class="clearfix">
 <% if direct_message.from?(current_user) %>
 	<%= image_tag direct_message.receiver.avatar.url(:thumb), :class => 'left' %>
@@ -19,6 +20,7 @@
 	</p>
 </div>
 <%# Recursion! %>
-<% if direct_message.response %>
- <%= render :partial => "direct_messages/direct_message_reply", :locals => { :direct_message => direct_message.response } %> 
+<% unless direct_message.responses.blank? %>
+ <%= render :partial => "direct_messages/direct_message_reply", :locals => { :direct_messages => direct_message.responses } %> 
+<% end %>
 <% end %>
