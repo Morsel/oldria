@@ -2,6 +2,8 @@
 <% title holiday.name %>
 
   <%= render holiday %>
+  
+  <p><%= @discussion.holiday_reminders.last.message %></p>
 
   <%= render :partial => 'comments' %>
 
