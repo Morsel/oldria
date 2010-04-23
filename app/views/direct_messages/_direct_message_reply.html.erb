@@ -9,7 +9,7 @@
 	</p>
 	<p class="meta">
 	<% if direct_message.from?(current_user) %>
-		to <%= link_to direct_message.receiver.name, profile_path(direct_message.receiver.username) %> |
+		from you |
 		<%= direct_message.created_at.to_s(:short) %>
 	<% else %>
 		from <%= link_to direct_message.sender.name, profile_path(direct_message.sender.username) %> |
@@ -18,8 +18,7 @@
 	<% end -%>
 	</p>
 </div>
+<%# Recursion! %>
 <% if direct_message.response %>
-<p>
-   <%= render :partial => "direct_messages/direct_message_reply", :locals => { :direct_message => direct_message.response } %> 
-<p>
+ <%= render :partial => "direct_messages/direct_message_reply", :locals => { :direct_message => direct_message.response } %> 
 <% end %>

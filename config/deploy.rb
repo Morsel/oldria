@@ -27,7 +27,7 @@ set :deploy_to, "/home/ria/staging"
 
 ssh_options[:port] = 7822
 set :user, "ria"
-
+set :branch, "private-discussions"
 
 ##
 # == Production environment
