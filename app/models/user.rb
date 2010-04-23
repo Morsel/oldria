@@ -173,6 +173,7 @@ class User < ActiveRecord::Base
     nil
   end
 
+
   def announcements
     Admin::Announcement.scoped(:order => "updated_at DESC").current
   end
@@ -202,7 +203,7 @@ class User < ActiveRecord::Base
       discussion.holiday.try(:viewable_by?, employment)
     end
   end
-  
+
   def holiday_discussion_reminders
     holiday_discussions.reject(&:accepted?).map {|d| d.holiday_discussion_reminders.current }
   end
@@ -233,7 +234,7 @@ class User < ActiveRecord::Base
       admin_conversations.current.unread_by(self),
       unread_pr_tips,
       unread_announcements
-    ].flatten.sort_by(&:updated_at).reverse
+    ].flatten.sort_by(&:scheduled_at).reverse
   end
 
   def all_messages
@@ -243,7 +244,7 @@ class User < ActiveRecord::Base
       admin_conversations.current.all,
       Admin::Announcement.current.all,
       Admin::PrTip.current.all
-    ].flatten.sort_by(&:updated_at).reverse
+    ].flatten.sort_by(&:scheduled_at).reverse
   end
 
   # For User.to_csv export
