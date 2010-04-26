@@ -10,7 +10,8 @@ describe Admin::HolidayRemindersController do
 
   describe "GET 'new'" do
     it "should be successful" do
-      get :new
+      holiday = Factory(:holiday)
+      get :new, :holiday_id => holiday.id
       response.should be_success
     end    
   end
