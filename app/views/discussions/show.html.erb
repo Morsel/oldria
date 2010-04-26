@@ -25,9 +25,7 @@
 
 	<% if @discussion.attachments.present? %>
 		<h3>Attached files:</h3>
-		<% for attached in @discussion.attachments %>
-			<%= link_to(attached.attachment_file_name, attached.attachment.url, :target => '_blank') %>
-		<% end %>
+		<%= render @discussion.attachments %>
 	<% end %>
 <% end -%>
 

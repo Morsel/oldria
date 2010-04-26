@@ -1083,27 +1083,6 @@ div.restaurant {
 	background: url(../images/plus.png) no-repeat 0 0;
 }
 
-.attachfield {
-	clear: both;
-	padding-bottom: 1em;
-	padding-left: 1px;
-}
-
-.attachfield input {
-	float: left;
-}
-
-.attachfield .remove_attachment {
-	text-indent: -9999px;
-	display: block;
-	float: left;
-	width: 16px;
-	height: 16px;
-	background: url(../images/x.png) no-repeat;
-	overflow: hidden;
-	margin: 3px 5px 0;
-}
-
 
 /* @end */
 
@@ -1212,19 +1191,6 @@ ul.responses {
 	padding: 1.5em;
 }
 
-.media_request .attachments {
-	float: right;
-	width: 220px;
-	min-height: 100px;
-	background-color: #fec;
-	border: 0 none;
-}
-
-.attachments ul {
-	list-style: none;
-	margin: 0;
-}
-
 .media_request h3 {
 	color: #a99;
 	font-size: 1.1em;
@@ -1285,6 +1251,61 @@ ul.responses {
 	background-color: #999;
 	padding: 2px 6px;
 	color: #fff;
+}
+
+/* @end */
+
+/* @group attachments */
+
+
+
+.attachfield {
+	clear: both;
+	padding-bottom: 1em;
+	padding-left: 1px;
+}
+
+.attachfield input {
+	float: left;
+}
+
+.attachfield .remove_attachment {
+	text-indent: -9999px;
+	display: block;
+	float: left;
+	width: 16px;
+	height: 16px;
+	background: url(../images/x.png) no-repeat;
+	overflow: hidden;
+	margin: 3px 5px 0;
+}
+
+.media_request .attachments {
+	float: right;
+	width: 220px;
+	min-height: 100px;
+	background-color: #fec;
+	border: 0 none;
+}
+
+.attachments ul {
+	list-style: none;
+	margin: 0;
+}
+
+.attachment {
+	margin: 1em 0;
+	font-family: "Lucida Grande", arial, sans-serif;
+	font-size: 0.9em;
+}
+
+.attachment .icon img {
+	display: inline;
+	vertical-align: middle;
+}
+
+.attachment .label {
+	
 }
 
 /* @end */
