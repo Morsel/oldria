@@ -29,6 +29,7 @@ class DirectMessage < ActiveRecord::Base
        :conditions => 'readings.user_id IS NULL' }
   }
 
+  named_scope :root, :conditions => { :in_reply_to_message_id => nil }
 
   validates_presence_of :receiver
   validates_presence_of :sender
@@ -54,7 +55,12 @@ class DirectMessage < ActiveRecord::Base
     DirectMessage.find(in_reply_to_message_id) if in_reply_to_message_id
   end
 
+  def responses
+    DirectMessage.all(:conditions => { :in_reply_to_message_id => self.id }, :order => "created_at")
+  end
+    
   def from?(user)
     sender_id == user.id
   end
+  
 end

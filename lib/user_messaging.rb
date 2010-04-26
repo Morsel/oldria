@@ -48,6 +48,10 @@ module UserMessaging
       direct_messages.unread_by(self)
     end
 
+    def root_direct_messages
+      (direct_messages.root + sent_direct_messages.root).sort { |a,b| b.created_at <=> a.created_at }
+    end
+
     def unread_pr_tips
       Admin::PrTip.current.find_unread_by( self )
     end

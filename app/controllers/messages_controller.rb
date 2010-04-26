@@ -19,7 +19,7 @@ class MessagesController < ApplicationController
   # GET /messages/private
   def private
     @messages = if archived_view?
-      current_user.direct_messages
+      current_user.root_direct_messages
     else
       current_user.unread_direct_messages.all(:include => [:sender, :users_who_read])
     end

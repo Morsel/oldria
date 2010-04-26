@@ -822,6 +822,10 @@ input.checkbox {
 	border: 0 none;
 }
 
+.direct_message #direct-message-replies {
+  margin-top: 1em;
+}
+
 /* @end */
 
 /* @group restaurants ---------------
