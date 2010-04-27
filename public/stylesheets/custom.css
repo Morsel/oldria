@@ -1259,7 +1259,7 @@ ul.responses {
 
 /* @end */
 
-/* @group attachments */
+/* @group attachments --------------- */
 
 
 
@@ -1310,6 +1310,17 @@ ul.responses {
 
 .attachment .label {
 	
+}
+
+.attachments-header {
+	font-size: 1em;
+	margin: 1em 0;
+	padding: 2px 0 0 22px;
+	border-bottom: 1px dashed #ddd;
+	line-height: 20px;
+	font-family: 'Lucida Grande', arial, sans-serif;
+	background: url('../images/paperclip.png') no-repeat 0 0;
+	color: #444;
 }
 
 /* @end */

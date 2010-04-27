@@ -11,7 +11,7 @@
   <%= simple_format comment.comment %>
 
 	<% if !comment.attachments.blank? %>
-    Attached files:
+    <h3 class="attachments-header">Attached files:</h3>
     <%= render comment.attachments %>
 	<% end %>
 
