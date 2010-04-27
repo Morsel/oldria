@@ -1,12 +1,12 @@
 <% for direct_message in direct_messages %>
-<div class="clearfix">
+<div class="clearfix dm_reply">
 <% if direct_message.from?(current_user) %>
 	<%= image_tag direct_message.receiver.avatar.url(:thumb), :class => 'left' %>
 <% else %>
 	<%= image_tag direct_message.sender.avatar.url(:thumb), :class => 'left' %>
 <% end -%>
 	<p>
-		<%= truncate(direct_message.body, :length => 100) %>
+		<%= truncate(direct_message.body, :omission => link_to("...", direct_message_path(direct_message)), :length => 125) %></span>
 	</p>
 	<p class="meta">
 	<% if direct_message.from?(current_user) %>

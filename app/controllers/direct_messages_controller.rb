@@ -16,6 +16,10 @@ class DirectMessagesController < ApplicationController
     end
   end
 
+  def show
+    @direct_message = DirectMessage.find(params[:id])
+  end
+
   def reply
     @original_message = DirectMessage.find(params[:id])
     if @original_message.receiver_id == current_user.id

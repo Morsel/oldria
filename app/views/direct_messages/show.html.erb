@@ -1,0 +1,9 @@
+<% title "Direct message from #{@direct_message.sender.username}" %>
+
+<p><%= @direct_message.sender.username %> wrote to you:</p>
+
+<blockquote>
+	<p><%= simple_format @direct_message.body %></p>
+</blockquote>
+
+<p><%= link_to "Back to all messages", private_messages_path(:view_all => true) %></p>

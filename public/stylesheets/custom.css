@@ -812,7 +812,7 @@ input.checkbox {
 }
 
 .direct_message img.left {
-	margin-bottom: 2px;
+	margin-bottom: 10px;
 	border:1px solid #fff;
 }
 
@@ -824,6 +824,11 @@ input.checkbox {
 
 .direct_message #direct-message-replies {
   margin-top: 1em;
+}
+
+.direct_message #direct-message-replies .dm_reply {
+  border-bottom: 1px solid white;
+  padding-top: 10px;
 }
 
 /* @end */
