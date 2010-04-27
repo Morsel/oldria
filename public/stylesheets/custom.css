@@ -1342,15 +1342,23 @@ ul.responses {
 	
 }
 
-.attachments-header {
+.attachments-header, .form-header {
 	font-size: 1em;
 	margin: 1em 0;
-	padding: 2px 0 0 22px;
 	border-bottom: 1px dashed #ddd;
 	line-height: 20px;
 	font-family: 'Lucida Grande', arial, sans-serif;
-	background: url('../images/paperclip.png') no-repeat 0 0;
 	color: #444;
+	font-weight: bold;
+}
+
+.attachments-header {
+	background: url('../images/paperclip.png') no-repeat 0 0;
+	padding: 2px 0 0 22px;
+}
+
+.discussion-recipients-header {
+	margin: 2em 0 -6px;
 }
 
 /* @end */

@@ -21,15 +21,15 @@ Feature: Media request conversations
       | Status  | approved                     |
     And I am logged in as "sam" with password "secret"
     # When I go to the dashboard
-    #     Then I should see /writer[\n\s]*from New York Times/
-    #     And I should see "Do you like cheesy potatoes?"
+    # Then I should see /writer[\n\s]*from New York Times/
+    # And I should see "Do you like cheesy potatoes?"
 
     # When I follow "reply" within the "Media Requests" section
-    #     Then the media request should have 0 comments
+    # Then the media request should have 0 comments
     Given I am on the media request conversation page
     When I leave a comment with "Of course I love cheesy potatoes!"
     Then the media request should have 1 comment
 
-    Given I am logged in as "mediaguy" with password "secret"
+    # Given I am logged in as "mediaguy" with password "secret"
     # When I go to the homepage
-    #     Then I should see "Sam Smith said"
+    # Then I should see "Sam Smith said"

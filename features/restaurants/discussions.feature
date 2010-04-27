@@ -42,7 +42,7 @@ Feature: Discussions
     And I have just posted a discussion with the title "Lets go to the movies"
     When I visit that discussion
     And I fill in "Comment" with "Sounds like a plan"
-    And I press "Submit"
+    And I press "Post Comment"
     Then I should see "Successfully created comment"
     And I should see "Lets go to the movies"
     And I should see "Sounds like a plan"
