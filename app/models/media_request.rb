@@ -27,7 +27,7 @@ class MediaRequest < ActiveRecord::Base
 
   # Recipients are Employment objects, not Employees directly
   has_many :recipients, :through => :media_request_conversations
-  has_many :attachments, :as => :attachable, :class_name => '::Attachment'
+  has_many :attachments, :as => :attachable, :class_name => '::Attachment', :dependent => :destroy
   validates_presence_of :sender_id
   validates_presence_of :recipients, :on => :create
   before_validation :assign_recipients_from_restaurants

@@ -25,7 +25,7 @@ describe MediaRequest do
   should_have_many :media_request_conversations
   should_have_many :conversations_with_comments
   should_have_many :recipients, :through => :media_request_conversations
-  should_have_many :attachments, :as => :attachable, :class_name => '::Attachment'
+  should_have_many :attachments, :as => :attachable, :class_name => '::Attachment', :dependent => :destroy
   should_validate_presence_of :sender_id
 
   before(:each) do
