@@ -19,7 +19,6 @@ class DirectMessagesController < ApplicationController
   def reply
     @original_message = DirectMessage.find(params[:id])
     if @original_message.receiver_id == current_user.id
-      @original_message.read_by!(current_user)
       @direct_message = @original_message.build_reply
       @recipient = @direct_message.receiver
     else
