@@ -3,6 +3,10 @@
 <%= render 'nav' %>
 <div class="span-9 last">
   <div id="read_messages">
-    <%= render :partial => 'discussions/discussion', :collection =>  @messages %>
+    <% if @messages.blank? %>
+      <p>You don't have any discussions right now. You can <%= link_to "start a discussion", new_discussion_path %> if you'd like.</p>
+    <% else %>
+      <%= render :partial => 'discussions/discussion', :collection =>  @messages %>
+    <% end %>
   </div><!-- /messages -->
 </div>
