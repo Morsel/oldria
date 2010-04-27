@@ -23,10 +23,10 @@
 		<%= simple_format @discussion.body %>
 	</div>
 
-	<% if @discussion.attachments.present? %>
-		<h3>Attached files:</h3>
-		<%= render @discussion.attachments %>
-	<% end %>
+  <% if @discussion.attachments.present? %>
+    <h3 class="attachments-header">Attached files:</h3>
+    <%= render @discussion.attachments %>
+  <% end %>
 <% end -%>
 
 <hr />
