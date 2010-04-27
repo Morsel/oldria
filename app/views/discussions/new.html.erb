@@ -5,11 +5,11 @@
     <%= f.input :title, :label => "Subject" %>
     <%= f.input :body, :input_html => { :rows => '4' } %>
     <% f.fields_for :attachments do |child_form| -%>
-      <%= child_form.label :attachment, "Attachment(s)" %>
+      <h3 class="attachments-header">Attach files</h3>
       <p class="attachfield"><%= child_form.file_field :attachment %></p>
     <% end -%>
 
-    <li><h4>Who will be in this discussion?</h4></li>
+    <li><h4>Who will would you like to include in this discussion?</h4></li>
 
     <% for restaurant in current_user.restaurants %>
         <%= f.input :users,
@@ -19,9 +19,8 @@
         %>
     <%- end -%>
 
+    <p><%= button_tag "Post Discussion", :class => 'submit' %></p>
   <% end -%>
-
-  <p><%= button_tag "Post Discussion" %></p>
 <% end %>
 
 
