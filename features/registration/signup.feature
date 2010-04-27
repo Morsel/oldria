@@ -109,9 +109,7 @@ Feature: Create an Account
     And I fill in "Username" with "jimbob"
     And I fill in "Password" with "secret"
     And I press "Login"
-
-    Then I should see "Your account is not confirmed"
-    And "jimbob" should not be logged in
+    Then "jimbob" should not be logged in
 
 
   Scenario: Logging in

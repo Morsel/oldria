@@ -18,6 +18,7 @@ class Attachment < ActiveRecord::Base
   has_attached_file :attachment
 
   def extname
-    @extname ||= File.extname(attachment_file_name).gsub(/^\.+/, "")
+    return @extname if defined?(@extname)
+    @extname = attachment_file_name && File.extname(attachment_file_name).gsub(/^\.+/, "")
   end
 end
