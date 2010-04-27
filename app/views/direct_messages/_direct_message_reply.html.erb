@@ -6,7 +6,7 @@
 	<%= image_tag direct_message.sender.avatar.url(:thumb), :class => 'left' %>
 <% end -%>
 	<p>
-		<%= direct_message.body %>
+		<%= truncate(direct_message.body, :length => 100) %>
 	</p>
 	<p class="meta">
 	<% if direct_message.from?(current_user) %>

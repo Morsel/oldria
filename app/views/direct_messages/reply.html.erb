@@ -3,7 +3,7 @@
 <p><%= @original_message.sender.username %> wrote to you:</p>
 
 <blockquote>
-	<p><%= @original_message.body %></p>
+	<p><%= simple_format @original_message.body %></p>
 </blockquote>
 
 <%= render :partial => 'form' %>

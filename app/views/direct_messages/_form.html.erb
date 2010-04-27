@@ -2,7 +2,7 @@
   <%= f.error_messages %>
 	<%= f.hidden_field :in_reply_to_message_id %>
   <p>
-    <%= f.label :body, "Body (limit: 255 characters)" %>
+    <%= f.label :body %>
     <%= f.text_area :body, :class => 'text', :rows => '4' %>
   </p>
   <p><%= button_tag "Send" %></p>
