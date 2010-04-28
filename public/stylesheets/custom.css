@@ -71,6 +71,7 @@ div#container {
 div#header {
 	height: 102px;
 	margin: 0px 0px 15px 0px;
+	position: relative;
 }
 
 #brand>img{
@@ -540,6 +541,10 @@ h2.with_icon img {
 	font-weight: normal;
 }
 
+.admin_backend #navigation li.public_home a {
+	font-weight: bold;
+}
+
 .admin_backend #navigation li.selected a {
 	background-color: #513d28;
 }
@@ -554,7 +559,18 @@ h2.with_icon img {
 	border: 0 none;
 }
 
-.admin-link { float: right; font-size: 1.2em; line-height: 18px; font-weight:bold }
+.admin-link { 
+	position: absolute;
+	font-size: 1.2em;
+	line-height: 18px;
+	font-weight: bold;
+	right: 0;
+	padding: 5px 0 0;
+}
+
+.admin-link a, .admin-link {
+	color: #fff;
+}
 
 /* @end */
 

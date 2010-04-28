@@ -47,6 +47,10 @@
 				<% end -%>
 			</div><!--#brand-->
 
+      <% if current_user && current_user.admin? %>
+        <p class="admin-link"><%= link_to "Go to Admin", admin_root_path %></p>
+      <% end %>
+
 			<div id="navigation" class="span-11 last">
 			<%- if current_user && current_user.media? %>
 				<%= render :partial => 'layouts/nav_media' %>
@@ -96,9 +100,6 @@
 
 
 	<div id="footer" class="clear">
-	<% if current_user && current_user.admin? %>
-		<p class="admin-link"><%= link_to "Go to Admin", admin_root_path %></p>
-	<% end %>
 		<ul>
 			<li>Copyright &copy; 2010 Restaurant Intelligence Agency</li>
 			<li><%= link_to 'About', public_page_path('about') %></li>
