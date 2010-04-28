@@ -303,3 +303,11 @@ function updateEmploymentsList() {
 }
 
 $employmentInputs.change(updateEmploymentsList);
+
+// == New User row highlight ==
+if (location.hash && location.hash.match(/user_\d+$/)) {
+  var userRowCells = $(location.hash).find('td');
+  userRowCells.css({'background-color': '#ffff55'});
+  userRowCells.animate({'background-color': '#ffffff'}, 700);
+}
+
