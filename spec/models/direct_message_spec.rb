@@ -20,6 +20,8 @@ describe DirectMessage do
   should_validate_presence_of :sender
   should_validate_presence_of :body
   should_have_default_scope :order => 'direct_messages.created_at DESC'
+  should_have_many :attachments
+  should_accept_nested_attributes_for :attachments
 
   before(:each) do
     @sender = Factory(:user, :username => 'sender')

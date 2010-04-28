@@ -19,6 +19,9 @@ class DirectMessage < ActiveRecord::Base
   default_scope :order => 'direct_messages.created_at DESC'
   acts_as_readable
 
+  has_many :attachments, :as => :attachable, :class_name => '::Attachment', :dependent => :destroy
+  accepts_nested_attributes_for :attachments
+
   named_scope :all_from_admin, :conditions => { :from_admin => true }
   named_scope :all_not_from_admin, :conditions => { :from_admin => false }
 
@@ -58,9 +61,9 @@ class DirectMessage < ActiveRecord::Base
   def responses
     DirectMessage.all(:conditions => { :in_reply_to_message_id => self.id }, :order => "created_at")
   end
-    
+
   def from?(user)
     sender_id == user.id
   end
-  
+
 end

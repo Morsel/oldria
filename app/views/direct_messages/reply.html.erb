@@ -6,4 +6,10 @@
 	<p><%= simple_format @original_message.body %></p>
 </blockquote>
 
+<% unless @original_message.attachments.blank? %>
+  <h3 class="attachments-header">Attached files:</h3>
+  <%= render @original_message.attachments %>
+<% end %>
+
+<h3>Your Response:</h3>
 <%= render :partial => 'form' %>
