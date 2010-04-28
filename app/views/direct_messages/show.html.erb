@@ -10,4 +10,9 @@
 	<p><%= simple_format @direct_message.body %></p>
 </blockquote>
 
+<% unless @direct_message.attachments.blank? %>
+  <h3 class="attachments-header">Attached files:</h3>
+  <%= render @direct_message.attachments %>
+<% end %>
+
 <p><%= link_to "Back to all messages", private_messages_path(:view_all => true) %></p>
