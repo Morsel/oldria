@@ -11,7 +11,7 @@ class DirectMessagesController < ApplicationController
     @direct_message.receiver = @recipient
     if @direct_message.save
       flash[:notice] = "Your message has been sent!"
-      redirect_to root_url
+      redirect_to direct_message_path(@direct_message)
     else
       render :new
     end
