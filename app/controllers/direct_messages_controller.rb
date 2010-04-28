@@ -18,9 +18,10 @@ class DirectMessagesController < ApplicationController
   end
 
   def show
-    @direct_message = DirectMessage.find(params[:id])
-    if current_user == @direct_message.receiver || @direct_message.sender
-      @direct_message.read_by!(current_user)
+    @current_message = DirectMessage.find(params[:id])
+    @direct_message = @current_message.root_message
+    if current_user == @current_message.receiver || @current_message.sender
+      @current_message.read_by!(current_user)
     else
       flash[:error] = "Sorry, this isn't your message."
       redirect_to root_url

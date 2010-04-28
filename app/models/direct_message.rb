@@ -60,7 +60,7 @@ class DirectMessage < ActiveRecord::Base
     DirectMessage.find(in_reply_to_message_id) if in_reply_to_message_id
   end
   
-  def root_parent_message
+  def root_message
     message = self
     while message.parent_message
       message = message.parent_message

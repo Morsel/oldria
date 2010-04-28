@@ -847,6 +847,10 @@ input.checkbox {
   padding-top: 10px;
 }
 
+#direct-message-replies #current {
+  background-color: #eee;
+}
+
 /* @end */
 
 /* @group restaurants ---------------

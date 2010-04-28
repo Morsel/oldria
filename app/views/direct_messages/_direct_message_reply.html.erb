@@ -1,5 +1,5 @@
 <% for direct_message in direct_messages %>
-<div class="clearfix dm_reply">
+<div id="<%= "current" if @current_message == direct_message %>" class="clearfix dm_reply">
 <%= image_tag direct_message.sender.avatar.url(:thumb), :class => 'left' %>
 	<p>
 		<%= link_to truncate(direct_message.body, :length => 100), direct_message_path(direct_message) %>
