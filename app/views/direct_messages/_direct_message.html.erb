@@ -2,7 +2,7 @@
 <% div_for direct_message, :class => "clearfix#{ ' sent_message' if direct_message.from?(current_user)}" do %>
 <%= image_tag direct_message.sender.avatar.url(:thumb), :class => 'left' %>
 	<p>
-		<span id="dm_<%= direct_message.id %>"><%= truncate(direct_message.body, :omission => link_to_function("..."), :length => 100) %></span>
+		<%= link_to truncate(direct_message.body, :length => 100), direct_message_path(direct_message) %>
 	</p>
 	<p class="meta">
 	<% if direct_message.from?(current_user) %>

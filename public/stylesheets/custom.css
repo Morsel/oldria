@@ -839,7 +839,7 @@ input.checkbox {
 }
 
 .direct_message #direct-message-replies {
-  margin-top: 1em;
+  margin: 1em 0 0 1em;
 }
 
 .direct_message #direct-message-replies .dm_reply {

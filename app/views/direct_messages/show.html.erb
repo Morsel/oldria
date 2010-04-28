@@ -1,6 +1,10 @@
-<% title "Direct message from #{@direct_message.sender.username}" %>
+<% title "Direct message" %>
 
+<% if @direct_message.from?(current_user) %>
+<p>You wrote to <%= @direct_message.receiver.username %></p>
+<% else %>
 <p><%= @direct_message.sender.username %> wrote to you:</p>
+<% end %>
 
 <blockquote>
 	<p><%= simple_format @direct_message.body %></p>
