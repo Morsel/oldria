@@ -16,8 +16,10 @@
 class DirectMessage < ActiveRecord::Base
   belongs_to :receiver, :class_name => "User"
   belongs_to :sender, :class_name => "User"
-  default_scope :order => 'direct_messages.created_at DESC'
+  default_scope :order => "#{table_name}.created_at DESC"
   acts_as_readable
+
+  has_many :responses, :class_name => "DirectMessage", :foreign_key => "in_reply_to_message_id"
 
   has_many :attachments, :as => :attachable, :class_name => '::Attachment', :dependent => :destroy
   accepts_nested_attributes_for :attachments
@@ -58,9 +60,9 @@ class DirectMessage < ActiveRecord::Base
     DirectMessage.find(in_reply_to_message_id) if in_reply_to_message_id
   end
 
-  def responses
-    DirectMessage.all(:conditions => { :in_reply_to_message_id => self.id }, :order => "created_at")
-  end
+  # def responses
+  #   DirectMessage.all(:conditions => { :in_reply_to_message_id => self.id })
+  # end
 
   def from?(user)
     sender_id == user.id
