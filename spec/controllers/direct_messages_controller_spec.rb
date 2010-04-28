@@ -28,9 +28,10 @@ describe DirectMessagesController do
     end
 
     it "should redirect when model is saved successfully" do
+      @sender.sent_direct_messages.stubs(:build).returns(message = Factory(:direct_message))
       DirectMessage.any_instance.stubs(:save).returns(true)
       post :create, :direct_message => {}, :user_id => @receiver.id
-      response.should redirect_to(root_url)
+      response.should redirect_to(direct_message_path(message))
     end
 
     it "should assign @recipient" do
