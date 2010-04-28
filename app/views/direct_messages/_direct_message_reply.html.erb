@@ -14,9 +14,13 @@
 		<%= link_to "reply", reply_direct_message_path(direct_message) %>
 	<% end -%>
 	</p>
+  <% unless direct_message.attachments.blank? %>
+    <h3 class="attachments-header">Attached files:</h3>
+    <%= render direct_message.attachments %>
+  <% end %>
 </div>
 <%# Recursion! %>
 <% unless direct_message.responses.blank? %>
- <%= render :partial => "direct_messages/direct_message_reply", :locals => { :direct_messages => direct_message.responses } %> 
+ <%= render :partial => "direct_messages/direct_message_reply", :locals => { :direct_messages => direct_message.responses } %>
 <% end %>
 <% end %>

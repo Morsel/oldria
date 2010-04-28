@@ -14,9 +14,13 @@
 		<%= link_to "reply", reply_direct_message_path(direct_message) %>
 	<% end -%>
 	</p>
+  <% unless direct_message.attachments.blank? %>
+    <h3 class="attachments-header">Attached files:</h3>
+    <%= render direct_message.attachments %>
+  <% end %>
 	<% unless direct_message.responses.blank? %>
 	<div>
-	    <%= link_to_function "View all replies", '$("#direct-message-replies").toggle()' %>
+	    <%= link_to_function "View all replies (#{direct_message.responses.count})", '$("#direct-message-replies").toggle()' %>
 	</div>
 	<div id="direct-message-replies" style="display: none;">
         <%= render :partial => "direct_messages/direct_message_reply", :locals => { :direct_messages => direct_message.responses } %>

@@ -2,6 +2,7 @@ class DirectMessagesController < ApplicationController
   def new
     @recipient = User.find(params[:user_id])
     @direct_message = @recipient.direct_messages.build
+    @direct_message.attachments.build
   end
 
   def create
@@ -27,6 +28,7 @@ class DirectMessagesController < ApplicationController
       @direct_message = @original_message.build_reply
       @original_message.read_by!(current_user)
       @recipient = @direct_message.receiver
+      @direct_message.attachments.build
     else
       flash[:error] = "You can only reply to messages sent to you"
       redirect_to root_url
