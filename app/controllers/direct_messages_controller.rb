@@ -18,6 +18,7 @@ class DirectMessagesController < ApplicationController
 
   def show
     @direct_message = DirectMessage.find(params[:id])
+    @direct_message.read_by!(current_user)
   end
 
   def reply
