@@ -1,13 +1,24 @@
 <% title "Direct message" %>
 
-<% if @direct_message.from?(current_user) %>
-<p>You wrote to <%= @direct_message.receiver.username %></p>
-<% else %>
-<p><%= @direct_message.sender.username %> wrote to you:</p>
-<% end %>
+<div>
+<%= image_tag @direct_message.sender.avatar.url(:thumb), :class => 'left' %>
+    <%= simple_format @direct_message.body %>
 
-<blockquote>
-	<p><%= simple_format @direct_message.body %></p>
-</blockquote>
+	<p class="meta">
+	<% if @direct_message.from?(current_user) %>
+		from you to <%= link_to @direct_message.receiver.name, profile_path(@direct_message.receiver.username) %> |
+		<%= @direct_message.created_at.to_s(:short) %>
+	<% else %>
+		from <%= link_to @direct_message.sender.name, profile_path(@direct_message.sender.username) %> |
+		<%= @direct_message.created_at.to_s(:short) %> |
+		<%= link_to "reply", reply_direct_message_path(@direct_message) %>
+	<% end -%>
+	</p>
+</div>
+
+<div id="direct-message-replies">
+    <%= render :partial => "direct_messages/direct_message_reply", :locals => { :direct_messages => @direct_message.responses } %>
+</div>
+
 
 <p><%= link_to "Back to all messages", private_messages_path(:view_all => true) %></p>
