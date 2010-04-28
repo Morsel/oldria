@@ -25,6 +25,7 @@ class DirectMessagesController < ApplicationController
     @original_message = DirectMessage.find(params[:id])
     if @original_message.receiver_id == current_user.id
       @direct_message = @original_message.build_reply
+      @original_message.read_by!(current_user)
       @recipient = @direct_message.receiver
     else
       flash[:error] = "You can only reply to messages sent to you"
