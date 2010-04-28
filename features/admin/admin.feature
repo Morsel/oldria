@@ -1,6 +1,6 @@
 Feature: Admin Interface
-  So that staff can fix things, 
-  As a Staff member 
+  So that staff can fix things,
+  As a Staff member
   I want to edit user accounts
   And I want a single login that serves both Spoonfeed and Administrative purposes
 
@@ -8,7 +8,7 @@ Feature: Admin Interface
   Scenario: Non-admin users get the boot
     Given I am logged in as a normal user
     When I go to the admin landing page
-    Then I should see "This is an administrative area."
+    Then I should see "you don't have access to the admin area"
     And I should be on the homepage
 
 
@@ -23,4 +23,3 @@ Feature: Admin Interface
     When I go to the admin landing page
     And I follow "Users"
     Then I should see "All Users"
-  
