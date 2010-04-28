@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20100215205724
+# Schema version: 20100426230131
 #
 # Table name: media_requests
 #
@@ -9,7 +9,6 @@
 #  created_at            :datetime
 #  updated_at            :datetime
 #  due_date              :date
-#  request_type          :string(255)
 #  media_request_type_id :integer
 #  fields                :text
 #  status                :string(255)
