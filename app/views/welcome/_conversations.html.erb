@@ -9,7 +9,7 @@
     <% else %>
       <% @direct_messages.each do |dm| -%>
         <% div_for dm do -%>
-          <p><%= link_to details_for(dm), reply_direct_message_path(dm) %></p>
+          <p><%= link_to details_for(dm), direct_message_path(dm) %></p>
         <% end -%>
       <% end -%>
     <% end %>
