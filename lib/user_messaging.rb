@@ -1,5 +1,5 @@
 module UserMessaging
-  
+
   # User Messages
 
     def announcements
@@ -49,7 +49,7 @@ module UserMessaging
     end
 
     def root_direct_messages
-      (direct_messages.root + sent_direct_messages.root).sort { |a,b| b.created_at <=> a.created_at }
+      (direct_messages.root + sent_direct_messages.root).sort_by(&:created_at).reverse
     end
 
     def unread_pr_tips
@@ -78,5 +78,5 @@ module UserMessaging
         Admin::PrTip.current.all
       ].flatten.sort_by(&:scheduled_at).reverse
     end
-  
+
 end
