@@ -17,6 +17,8 @@ class Discussion < ActiveRecord::Base
   has_many :attachments, :as => :attachable, :class_name => '::Attachment', :dependent => :destroy
   accepts_nested_attributes_for :comments, :attachments
 
+  default_scope :order => "#{table_name}.created_at DESC"
+
   belongs_to :poster, :class_name => "User"
   has_many :discussion_seats, :dependent => :destroy
   has_many :users, :through => :discussion_seats, :uniq => true
