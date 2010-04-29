@@ -49,11 +49,13 @@ class DirectMessage < ActiveRecord::Base
   end
 
   def build_reply
-    DirectMessage.new(
+    message = DirectMessage.new(
       :sender => self.receiver,
       :receiver => self.sender,
       :in_reply_to_message_id => self.id
     )
+    message.attachments.build
+    message
   end
 
   def parent_message

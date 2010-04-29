@@ -2,7 +2,6 @@ class DirectMessagesController < ApplicationController
   def new
     @recipient = User.find(params[:user_id])
     @direct_message = @recipient.direct_messages.build
-    @direct_message.attachments.build
   end
 
   def create
@@ -20,23 +19,11 @@ class DirectMessagesController < ApplicationController
   def show
     @current_message = DirectMessage.find(params[:id])
     @direct_message = @current_message.root_message
+    @reply_allowed = true
     if current_user == @current_message.receiver || @current_message.sender
       @current_message.read_by!(current_user)
     else
       flash[:error] = "Sorry, this isn't your message."
-      redirect_to root_url
-    end
-  end
-
-  def reply
-    @original_message = DirectMessage.find(params[:id])
-    if @original_message.receiver_id == current_user.id
-      @direct_message = @original_message.build_reply
-      @original_message.read_by!(current_user)
-      @recipient = @direct_message.receiver
-      @direct_message.attachments.build
-    else
-      flash[:error] = "You can only reply to messages sent to you"
       redirect_to root_url
     end
   end
