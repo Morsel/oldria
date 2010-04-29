@@ -559,7 +559,7 @@ h2.with_icon img {
 	border: 0 none;
 }
 
-.admin-link { 
+.admin-link {
 	position: absolute;
 	font-size: 1.2em;
 	line-height: 18px;
@@ -1360,7 +1360,7 @@ ul.responses {
 }
 
 .attachment .label {
-	
+
 }
 
 .attachments-header, .form-header {
@@ -2254,6 +2254,9 @@ form .column li, form .restaurant_list li {
 	float: none;
 }
 
+li.column {
+  list-style:none;
+}
 
 .restaurant_list li {
 	font-size: 1.2em;

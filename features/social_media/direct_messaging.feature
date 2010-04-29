@@ -42,7 +42,7 @@ Feature: Direct messaging
     And I am logged in as "getterboy" with password "secret"
     When I am on the homepage
     And I follow "less than a minute ago Albert Albert This is a message"
-    Then I should see "Reply to senderman's message"
+    Then I should see "from Albert Albert"
 
     When I fill in "Body" with "This is my reply"
     And I press "Send"
