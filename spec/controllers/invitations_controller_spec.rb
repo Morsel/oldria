@@ -40,11 +40,24 @@ describe InvitationsController do
         end
         
         context "and is the invitee" do
-          it "should redirect to the dashboard" do
+          it "should redirect to a special login page" do
             get :show, :id => 'expired_id', :user_id => @invitee.id
-            response.should render_template(:login)
+            response.should redirect_to(login_invitations_path(:user_session => {:username => @invitee.username}))
           end
         end
+      end
+    end
+
+    context "when someone is already logged in" do
+      before do
+        activate_authlogic
+        UserSession.create(Factory(:user))
+        (UserSession.find).should_not be_nil
+      end
+
+      it "should log out the user first" do
+        get :show, :id => "abc789"
+        (UserSession.find).should be_nil
       end
     end
   end # GET show
