@@ -70,7 +70,7 @@ module UserMessaging
     end
 
     def all_messages
-      @all_messages ||= [ admin_discussions,
+      @all_messages ||= [ current_admin_discussions,
         holiday_discussion_reminders,
         accepted_holiday_discussions,
         admin_conversations.current.all,
