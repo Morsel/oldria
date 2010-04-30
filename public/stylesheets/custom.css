@@ -2995,4 +2995,14 @@ h2.primary_title{
 	margin: 0 0 6px;
 }
 
+#dashboard #direct_messages p {
+	padding: 10px 0 0 10px;
+	margin: 0 0 6px;  
+}
+
+#dashboard #direct_messages .direct_message p {
+  padding: 0;
+  margin: 0;
+}
+
 /* @end */
