@@ -1,29 +1,35 @@
-<% title "Private message" %>
+<% title "Private Message", false -%>
 
-<div>
-<%= image_tag @direct_message.sender.avatar.url(:thumb), :class => 'left' %>
-    <%= simple_format @direct_message.body %>
+<%= render 'messages/nav' %>
+<div class="span-9 last">
+  <% div_for @direct_message, :class => (css_classes_for_direct_message(@direct_message) + ' individual') do %>
+    <div class="sender_avatar">
+      <%= image_tag @direct_message.sender.avatar.url(:thumb) %>
+    </div>
 
-	<p class="meta">
-	<% if @direct_message.from?(current_user) %>
-		from you to <%= link_to @direct_message.receiver.name, profile_path(@direct_message.receiver.username) %> |
-		<%= @direct_message.created_at.to_s(:short) %>
-	<% else %>
-		from <%= link_to @direct_message.sender.name, profile_path(@direct_message.sender.username) %> |
-		<%= @direct_message.created_at.to_s(:short) %> |
-		<%= link_to "reply", reply_direct_message_path(@direct_message) %>
-	<% end -%>
-	</p>
+    <h4 class="message_title column"><%= title_for_direct_message(@direct_message) %></h4>
+
+    <div class="message_body">
+      <%= link_to simple_format(@direct_message.body) %>
+    </div>
+
+    <%= render @direct_message.attachments %>
+
+    <p class="meta date"><%= @direct_message.created_at.to_s(:message_meta) %></p>
+
+    <% if !@direct_message.from?(current_user) && @reply_allowed  %>
+    <div id="reply_<%= @direct_message.id %>" class="reply_form">
+        <h4 class="cufon">Leave a Reply:</h4>
+        <%= render :partial => 'form', :locals => { :direct_message => @direct_message.build_reply, :recipient => @direct_message.sender } %>
+    </div>
+    <% end %>
+
+    <div class="message_replies">
+      <%= render :partial => "direct_messages/direct_message_reply", :locals => { :direct_messages => @direct_message.responses, :individual => true } %>
+    </div>
+
+  <% end # div -%>
+
+  <p><%= link_to "Back to all messages", private_messages_path(:view_all => true) %></p>
 </div>
 
-<div id="direct-message-replies">
-    <%= render :partial => "direct_messages/direct_message_reply", :locals => { :direct_messages => @direct_message.responses } %>
-</div>
-
-
-<% unless @direct_message.attachments.blank? %>
-  <h3 class="attachments-header">Attached files:</h3>
-  <%= render @direct_message.attachments %>
-<% end %>
-
-<p><%= link_to "Back to all messages", private_messages_path(:view_all => true) %></p>

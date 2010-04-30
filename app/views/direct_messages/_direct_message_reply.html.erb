@@ -1,5 +1,6 @@
+<% individual ||= false %>
 <% for direct_message in direct_messages %>
-<% sent_message = direct_message.from?(current_user) %>
+
 <div id="<%= "current" if @current_message == direct_message %>" class="clearfix dm_reply nested">
   <div class="sender_avatar">
     <%= image_tag direct_message.sender.avatar.url(:thumb) %>
@@ -7,25 +8,23 @@
 
   <h4 class="message_title column"><%= title_for_direct_message(direct_message) %></h4>
 
-  <p class="message_body">
-    <%= link_to truncate(direct_message.body, :length => 100), direct_message_path(direct_message) %>
-  </p>
+  <% if individual %>
+    <div class="message_body"><%= simple_format(direct_message.body) %></div>
+  <% else %>
+    <p class="message_body"><%= link_to truncate(direct_message.body, :length => 100), direct_message_path(direct_message) %></p>
+  <% end %>
 
   <%= render direct_message.attachments %>
 
   <p class="meta date"><%= direct_message.created_at.to_s(:message_meta) %></p>
 
-  <p class="actions message_actions">
-    <% unless sent_message %>
-      <%= link_to "reply", direct_message, :class => 'button utility round' %>
-    <% end %>
-  </p>
-  <% if !direct_message.from?(current_user) && @reply_allowed %>
-  <div id="reply_<%= direct_message.id %>" style="<%= display_form(direct_message) %>">
-      <h4>Reply:</h4>
+  <% if !direct_message.from?(current_user) && @reply_allowed  %>
+  <div id="reply_<%= direct_message.id %>" class="reply_form">
+      <h4>Leave a Reply:</h4>
       <%= render :partial => 'form', :locals => { :direct_message => direct_message.build_reply, :recipient => direct_message.sender } %>
   </div>
   <% end %>
+
 </div>
 <%# Recursion! %>
   <% unless direct_message.responses.blank? %>

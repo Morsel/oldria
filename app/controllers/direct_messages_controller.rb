@@ -18,6 +18,7 @@ class DirectMessagesController < ApplicationController
   end
 
   def show
+    get_message_counts
     @current_message = DirectMessage.find(params[:id])
     @direct_message = @current_message.root_message
     @reply_allowed = true

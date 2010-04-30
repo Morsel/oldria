@@ -832,6 +832,12 @@ input.checkbox {
 	border-color:     #e9f3f9;
 }
 
+.direct_message.individual {
+	background-color: #f6f6f6;
+	border-color: #f6f6f6;
+}
+
+
 .direct_message h5, .direct_message p {
 	margin:0;
 }
@@ -923,13 +929,20 @@ input.checkbox {
 	margin: 8px 0 0;
 }
 
-.direct_message .message_replies {
-  margin: 1em 0 0 1em;
+.direct_message .reply_form h4 {
+	margin: 1em 0 0;
+	text-transform: uppercase;
+}
+
+.reply_form form.direct_message {
+	margin: 0;
+	padding: 0;
 }
 
 .direct_message .message_replies .dm_reply {
   border-top: 1px solid #ddd;
   padding-top: 10px;
+  margin-top: 1em;
 }
 
 
