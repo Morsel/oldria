@@ -608,8 +608,10 @@ h2.with_icon img {
 
 #new_status button:hover, .button.utility:hover {
 	background: url('../images/button_bg_over.png') 0 top repeat-x;
-	border-color: #bbb;
-	color: #222;
+	border-color: #2d87bf;
+	text-decoration: none;
+	color: #fff;
+	text-shadow: 1px 1px 0 #269;
 }
 
 #leftcolumn #new_status input.status_message {
