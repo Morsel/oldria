@@ -947,11 +947,6 @@ input.checkbox {
   margin-top: 1em;
 }
 
-
-.direct_message .dm_reply .message_title {
-	width: 366px;
-}
-
 #direct-message-replies #current {
   background-color: #eee;
 }

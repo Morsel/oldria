@@ -29,4 +29,21 @@ module DirectMessagesHelper
     classes
   end
 
+  def show_reply_form?(direct_message)
+    return false unless direct_message
+
+    # First message in the series
+    if (direct_message == direct_message.root_message)
+      logger.info "\n\n --- --- In HERE ---- --- \n\n"
+      return false if direct_message.from?(current_user)
+      # Not originally from self
+      return true if direct_message.responses.blank?
+      last_response = direct_message && direct_message.responses.last
+      return true if last_response.from?(current_user)
+    else # It's a later reply
+      last_response = direct_message.parent && direct_message.parent.responses.last
+      return true if (last_response == direct_message) && !last_response.from?(current_user)
+    end
+  end
+
 end

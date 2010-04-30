@@ -20,6 +20,7 @@ class DirectMessage < ActiveRecord::Base
   acts_as_readable
 
   has_many :responses, :class_name => "DirectMessage", :foreign_key => "in_reply_to_message_id", :order => "created_at"
+  belongs_to :parent, :class_name => "DirectMessage", :foreign_key => "in_reply_to_message_id"
 
   has_many :attachments, :as => :attachable, :class_name => '::Attachment', :dependent => :destroy
   accepts_nested_attributes_for :attachments
@@ -61,7 +62,7 @@ class DirectMessage < ActiveRecord::Base
   def parent_message
     DirectMessage.find(in_reply_to_message_id) if in_reply_to_message_id
   end
-  
+
   def root_message
     message = self
     while message.parent_message
@@ -73,5 +74,5 @@ class DirectMessage < ActiveRecord::Base
   def from?(user)
     sender_id == user.id
   end
-  
+
 end
