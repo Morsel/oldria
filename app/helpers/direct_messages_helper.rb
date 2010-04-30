@@ -31,18 +31,19 @@ module DirectMessagesHelper
 
   def show_reply_form?(direct_message)
     return false unless direct_message
+    return false if @reply_form_already_shown
 
     # First message in the series
     if (direct_message == direct_message.root_message)
-      logger.info "\n\n --- --- In HERE ---- --- \n\n"
       return false if direct_message.from?(current_user)
-      # Not originally from self
-      return true if direct_message.responses.blank?
+      return @reply_form_already_shown = true if direct_message.responses.blank?
+      return false if direct_message.responses.any? {|dm| !dm.from?(current_user) }
       last_response = direct_message && direct_message.responses.last
-      return true if last_response.from?(current_user)
+      return @reply_form_already_shown = true if last_response.from?(current_user)
     else # It's a later reply
+
       last_response = direct_message.parent && direct_message.parent.responses.last
-      return true if (last_response == direct_message) && !last_response.from?(current_user)
+      return @reply_form_already_shown = true if (last_response == direct_message) && !last_response.from?(current_user)
     end
   end
 

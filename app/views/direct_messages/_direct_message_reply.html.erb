@@ -20,7 +20,7 @@
 
   <% if show_reply_form?(direct_message) %>
   <div id="reply_<%= direct_message.id %>" class="reply_form">
-      <h4>Leave a Reply:</h4>
+      <h4 class="cufon">Leave a Reply:</h4>
       <%= render :partial => 'form', :locals => { :direct_message => direct_message.build_reply, :recipient => direct_message.sender } %>
   </div>
   <% end %>
