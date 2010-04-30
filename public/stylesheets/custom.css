@@ -594,7 +594,7 @@ h2.with_icon img {
 	color: #666;
 }
 
-#new_status button {
+#new_status button, .button.utility {
 	margin: 0;
 	padding: 3px 1.5em;
 	float: left;
@@ -606,7 +606,7 @@ h2.with_icon img {
 	font-family: 'helvetica neue', helvetica, arial, sans-serif;
 }
 
-#new_status button:hover {
+#new_status button:hover, .button.utility:hover {
 	background: url('../images/button_bg_over.png') 0 top repeat-x;
 	border-color: #bbb;
 	color: #222;
@@ -814,6 +814,24 @@ input.checkbox {
 	margin-bottom: 	9px;
 }
 
+.direct_message {
+	margin-bottom: 1em;
+	background-color: #f6f6f6;
+	border: 1px solid #f6f6f6;
+	padding: 10px;
+	position: relative;
+}
+
+.direct_message.read {
+	background-color: #fff;
+	border-color:     #eee;
+}
+
+.direct_message.sent_message {
+	background-color: #e9f3f9;
+	border-color:     #e9f3f9;
+}
+
 .direct_message h5, .direct_message p {
 	margin:0;
 }
@@ -827,9 +845,17 @@ input.checkbox {
 	border-bottom: 1px dashed #ccc;
 }
 
-.direct_message img.left {
+.direct_message .sender_avatar {
+	width: 70px;
+	float: left;
+}
+
+.direct_message .sender_avatar img {
 	margin-bottom: 10px;
-	border:1px solid #fff;
+	border: 4px solid #fff;
+	box-shadow: 1px 1px 4px #999;
+	-webkit-box-shadow: 1px 1px 4px #999;
+	-moz-box-shadow: 1px 1px 4px #999;
 }
 
 .direct_message.admin, .media_request.admin {
@@ -838,13 +864,77 @@ input.checkbox {
 	border: 0 none;
 }
 
-.direct_message #direct-message-replies {
+.direct_message .message_title {
+	border-bottom: 1px dashed #ddd;
+	width: 382px;
+	font-size: 11px;
+	line-height: 18px;
+	font-family: "Lucida Grande", arial, sans-serif;
+	margin: 0 0 .5em;
+}
+
+.direct_message .message_title a {
+	font-weight: bold;
+	color: #000;
+}
+
+.direct_message .message_body { 
+	font-size: 1.1em; 
+	margin-bottom: 1em;
+}
+
+.direct_message .message_body a {
+	color: #333;
+}
+
+.direct_message .message_body a:hover {
+	color: #0088C1
+}
+
+.direct_message .attachment {
+	clear: left;
+}
+
+.direct_message .date {
+	clear: left;
+	color: #999;
+	font-size: 10px;
+	font-family: "Lucida Grande", sans-serif;
+	text-transform: uppercase;
+}
+
+.direct_message .actions {
+	line-height: 25px;
+	margin-top: 10px;
+}
+
+.direct_message .actions .button {
+	padding: 3px 13px;
+}
+
+.direct_message .actions .separator {
+	margin: 0 10px;
+	color: #999;
+	text-indent: -9999px;
+	border-left: 1px solid #999;
+}
+
+.direct_message .message_replies_link {
+	margin: 8px 0 0;
+}
+
+.direct_message .message_replies {
   margin: 1em 0 0 1em;
 }
 
-.direct_message #direct-message-replies .dm_reply {
-  border-bottom: 1px solid white;
+.direct_message .message_replies .dm_reply {
+  border-top: 1px solid #ddd;
   padding-top: 10px;
+}
+
+
+.direct_message .dm_reply .message_title {
+	width: 366px;
 }
 
 #direct-message-replies #current {
@@ -1378,10 +1468,6 @@ ul.responses {
 	padding: 2px 0 0 22px;
 }
 
-.direct_message .attachments-header {
-	clear: left;
-}
-
 .discussion-recipients-header {
 	margin: 2em 0 -6px;
 }
@@ -1704,10 +1790,6 @@ ul.mini_menu li {
 	position: relative;
 	border-bottom:3px solid #fff;
 	background:#f6f6f6;
-}
-
-.direct_message {
-	position: relative;
 }
 
 .readit {
@@ -2058,7 +2140,7 @@ fieldset {
 	font-family: 'lucida grande', tahoma, arial, sans-serif;
 }
 
-button.round {
+button.round, .button.round {
 	border-radius: 16px;
 	-moz-border-radius: 16px;
 	-webkit-border-radius: 16px;
@@ -2717,9 +2799,11 @@ h2.primary_title{
 	padding:10px;
 	margin:0;
 }
-.direct_message{
+
+#conversations .direct_message{
 	border-bottom:1px solid #ddd;
 	margin:0;
+	position: relative;
 }
 
 #conversations .direct_message p{
@@ -2832,10 +2916,12 @@ h2.primary_title{
 #read_messages .box{
 	border:0;
 }
+
 #read_messages .statuses li{
 	padding:5px 10px;
 	margin:5px 10px;
 }
+
 .hide_link{
 	display:block;
 	float:left;
@@ -2843,22 +2929,12 @@ h2.primary_title{
 	border-left:1px solid #ddd;
 	margin-left:10px;
 }
-#read_messages .direct_message, #read_messages .discussion{
+
+#read_messages .discussion{
 	background:#f6f6f6;
 	padding:10px;
 }
 
-
-#read_messages .direct_message a{
-	display:inline;
-	padding:0;
-}
-
-#read_messages .direct_message a:hover{
-	background:0;
-	color:#333;
-	text-decoration:underline;
-}
 #messages_nav ul, #messages_nav li{
 	list-style-type:none;
 	padding:0;
