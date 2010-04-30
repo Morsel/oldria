@@ -11,7 +11,7 @@ module MessagesHelper
     elsif message.respond_to?(:holiday)
       holiday_discussion_path(message.holiday_discussion)
     elsif message.respond_to?(:admin_message)
-      admin_conversation_path(message.admin_message)
+      admin_conversation_path(message)
     elsif message.respond_to?(:discussionable)
       admin_discussion_path(message)
     else
