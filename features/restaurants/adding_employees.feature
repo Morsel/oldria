@@ -63,7 +63,8 @@ Feature: Associating a Restaurant with its employees
     And I press "Submit"
     Then I should see "Invite an Employee"
 
-    When I fill in "Name" with "David Dinkle"
+    When I fill in "First Name" with "David"
+    And I fill in "Last Name" with "Dinkle"
     And I fill in "Username" with "daviddinkle"
     And I fill in "Temporary Password" with "secret"
     And I fill in "Password Confirmation" with "secret"

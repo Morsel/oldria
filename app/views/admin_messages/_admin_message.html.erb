@@ -8,7 +8,7 @@
   </h3>
 
   <p class="message_body">
-    <%= admin_message.message %>
+    <%= auto_link(simple_format(admin_message.message)) %>
   </p>
   <% if admin_message.holiday_id %>
   <p>

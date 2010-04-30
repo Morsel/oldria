@@ -11,10 +11,8 @@
   <%= simple_format comment.comment %>
 
 	<% if !comment.attachments.blank? %>
-		Attached files:
-		<% for attachment in comment.attachments %>
-		<%= attachment_link(attachment, :target => '_blank') %>
-		<% end %>
+    <h3 class="attachments-header">Attached files:</h3>
+    <%= render comment.attachments %>
 	<% end %>
 
 </div>

@@ -70,8 +70,8 @@ Feature: Media requests
       | Status  | pending                            |
     And I am logged in as "sam" with password "secret"
     # When I go to the dashboard
-    #     Then I should see "Where are the best mushrooms?"
-    #     But I should not see "This message has not been approved"
+    # Then I should see "Where are the best mushrooms?"
+    # But I should not see "This message has not been approved"
 
 
   Scenario: Responding to a media request and conversations
@@ -81,21 +81,20 @@ Feature: Media requests
       | Status    | approved            |
     And I am logged in as "sam" with password "secret"
     # When I go to the dashboard
-    #    Then I should see "Do you like cheese?"
-    # 
-    #    When I follow "reply" within the "Media Requests" section
+    # Then I should see "Do you like cheese?"
+    # When I follow "reply" within the "Media Requests" section
     Given I am on the media request conversation page
     And I fill in "Comment" with "I love cheese!"
-    And I press "Submit"
+    And I press "Post Comment"
     Then the media request should have 1 comment
 
     Given I am logged in as "mediaman" with password "secret"
     # When I am on the homepage
-    #     Then I should see /Sam Smith said/
+    # Then I should see /Sam Smith said/
     # When I follow "Conversation with Sam Smith"
     Given I am on the media request conversation page
     And I fill in "Comment" with "Thanks for your quick response, Sam"
-    And I press "Submit"
+    And I press "Post Comment"
     Then the media request should have 2 comments
 
   Scenario: A media requests notifications are emailed to recipients
@@ -106,13 +105,13 @@ Feature: Media requests
     And "john@example.com" should have 0 emails
     Given I am logged in as "sam" with password "secret"
     # When I go to the dashboard
-    #     Then I should see "Where are the best mushrooms?"
-    #     But I should not see "This message has not been approved"
-    
+    # Then I should see "Where are the best mushrooms?"
+    # But I should not see "This message has not been approved"
+
 @click_anywhere
   Scenario: A media request can be clicked anywhere to reply from the dashboard
     Given "sam" has a media request from "mediaman" with:
-    |Message|Where are the best mushrooms?|
+      | Message | Where are the best mushrooms? |
     And an admin has approved the media request from "mediaman"
     When I am logged in as "sam" with password "secret"
     And I go to the dashboard

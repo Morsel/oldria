@@ -16,4 +16,9 @@
 class Attachment < ActiveRecord::Base
   belongs_to :attachable, :polymorphic => true
   has_attached_file :attachment
+
+  def extname
+    return @extname if defined?(@extname)
+    @extname = attachment_file_name && File.extname(attachment_file_name).gsub(/^\.+/, "")
+  end
 end

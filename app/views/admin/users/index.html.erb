@@ -11,7 +11,7 @@
 <p class="clearfix"><%= link_to 'Sign Up a New User', new_admin_user_path, :class => 'button positive' %></p>
 
 <p><a href="#filter" class="showtarget">Toggle Filter</a></p>
-<div id="filter">
+<div id="filter" style="display:none">
 <%= render :partial => 'searches/form' %>
 </div>
 
@@ -31,7 +31,7 @@
   </thead>
   <tbody>
     <% @users.each do |user| %>
-    <tr class="user <%= users_extra_row_class(user) %>">
+    <tr id="<%= dom_id(user) %>" class="user <%= users_extra_row_class(user) %>">
       <td><%= h user.last_name %>, <%=h user.first_name %></td>
       <td><%= link_to user.username, profile_path(user.username) %></td>
       <td><%= h user.email %></td>

@@ -1,10 +1,10 @@
 # == Schema Information
-# Schema version: 20100331213108
+# Schema version: 20100426230131
 #
 # Table name: direct_messages
 #
 #  id                     :integer         not null, primary key
-#  body                   :string(255)
+#  body                   :text
 #  sender_id              :integer         not null
 #  receiver_id            :integer         not null
 #  in_reply_to_message_id :integer
@@ -16,8 +16,14 @@
 class DirectMessage < ActiveRecord::Base
   belongs_to :receiver, :class_name => "User"
   belongs_to :sender, :class_name => "User"
-  default_scope :order => 'direct_messages.created_at DESC'
+  default_scope :order => "#{table_name}.created_at DESC"
   acts_as_readable
+
+  has_many :responses, :class_name => "DirectMessage", :foreign_key => "in_reply_to_message_id", :order => "created_at"
+  belongs_to :parent, :class_name => "DirectMessage", :foreign_key => "in_reply_to_message_id"
+
+  has_many :attachments, :as => :attachable, :class_name => '::Attachment', :dependent => :destroy
+  accepts_nested_attributes_for :attachments
 
   named_scope :all_from_admin, :conditions => { :from_admin => true }
   named_scope :all_not_from_admin, :conditions => { :from_admin => false }
@@ -29,6 +35,7 @@ class DirectMessage < ActiveRecord::Base
        :conditions => 'readings.user_id IS NULL' }
   }
 
+  named_scope :root, :conditions => { :in_reply_to_message_id => nil }
 
   validates_presence_of :receiver
   validates_presence_of :sender
@@ -43,18 +50,29 @@ class DirectMessage < ActiveRecord::Base
   end
 
   def build_reply
-    DirectMessage.new(
+    message = DirectMessage.new(
       :sender => self.receiver,
       :receiver => self.sender,
       :in_reply_to_message_id => self.id
     )
+    message.attachments.build
+    message
   end
 
   def parent_message
     DirectMessage.find(in_reply_to_message_id) if in_reply_to_message_id
   end
 
+  def root_message
+    message = self
+    while message.parent_message
+      message = message.parent_message
+    end
+    return message
+  end
+
   def from?(user)
     sender_id == user.id
   end
+
 end

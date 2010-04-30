@@ -1,6 +1,4 @@
 <% title "New Private Message to #{@recipient.username}" %>
 
-<%= render :partial => 'form' %>
-
-
+<%= render :partial => 'form', :locals => { :direct_message => @direct_message, :recipient => @recipient } %>
 

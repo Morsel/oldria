@@ -13,7 +13,7 @@
     </p>
   </div>
   <div class="body">
-    <%= simple_format @discussionable.body %>
+    <%= auto_link(simple_format(@discussionable.body)) %>
   </div>
 
 <% end %>

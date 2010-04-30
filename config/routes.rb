@@ -72,7 +72,7 @@ ActionController::Routing::Routes.draw do |map|
 
   map.resource :twitter_authorization
   map.resource :friends_statuses, :only => 'show'
-  map.resources :invitations, :only => 'show'
+  map.resources :invitations, :only => 'show', :collection => { :login => :get }
   map.resource :complete_registration, :only => [:show, :update]
 
   map.resource :search, :only => 'show'

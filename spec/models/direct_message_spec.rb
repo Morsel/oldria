@@ -1,10 +1,10 @@
 # == Schema Information
-# Schema version: 20100331213108
+# Schema version: 20100426230131
 #
 # Table name: direct_messages
 #
 #  id                     :integer         not null, primary key
-#  body                   :string(255)
+#  body                   :text
 #  sender_id              :integer         not null
 #  receiver_id            :integer         not null
 #  in_reply_to_message_id :integer
@@ -20,6 +20,8 @@ describe DirectMessage do
   should_validate_presence_of :sender
   should_validate_presence_of :body
   should_have_default_scope :order => 'direct_messages.created_at DESC'
+  should_have_many :attachments
+  should_accept_nested_attributes_for :attachments
 
   before(:each) do
     @sender = Factory(:user, :username => 'sender')

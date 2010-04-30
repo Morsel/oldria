@@ -34,4 +34,12 @@ class Admin::Conversation < ActiveRecord::Base
   def inbox_title
     admin_message.inbox_title
   end
+  
+  def message
+    admin_message.message
+  end
+  
+  def scheduled_at
+    admin_message.scheduled_at
+  end
 end

@@ -10,12 +10,15 @@ class InvitationsController < ApplicationController
       redirect_to complete_registration_path
     elsif params[:user_id] && User.exists?(params[:user_id])
       @user = User.find(params[:user_id])
-      @user_session = UserSession.new(:username => @user.username)
-      render :login
+      redirect_to login_invitations_path(:user_session => {:username => @user.username})
     else
       flash[:error] = "We could not locate your account."
       redirect_to login_path, :user_id => params[:user_id]
     end
+  end
+
+  def login
+    @user_session = UserSession.new(params[:user_session])
   end
 
   private

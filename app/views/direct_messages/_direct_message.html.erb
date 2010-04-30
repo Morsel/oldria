@@ -1,24 +1,33 @@
-<% archive = direct_message.users_who_read.include?(current_user) %>
-<% div_for direct_message, :class => "clearfix#{ ' sent_message' if direct_message.from?(current_user)}" do %>
-<% if direct_message.from?(current_user) %>
-	<%= image_tag direct_message.receiver.avatar.url(:thumb), :class => 'left' %>
-<% else %>
-	<%= image_tag direct_message.sender.avatar.url(:thumb), :class => 'left' %>
-<% end -%>
-	<p>
-		<%= direct_message.body %>
-	</p>
-	<p class="meta">
-	<% if direct_message.from?(current_user) %>
-		to <%= link_to direct_message.receiver.name, profile_path(direct_message.receiver.username) %> |
-		<%= direct_message.created_at.to_s(:short) %>
-	<% else %>
-		from <%= link_to direct_message.sender.name, profile_path(direct_message.sender.username) %> |
-		<%= direct_message.created_at.to_s(:short) %> |
-		<%= link_to "reply", reply_direct_message_path(direct_message) %>
-	<% end -%>
-	</p>
-	<% unless archived_view? %>
-	<a href="#" class="readit"><span>read</span></a>
-	<% end %>
+<% div_for direct_message, :class => css_classes_for_direct_message(direct_message) do %>
+  <div class="sender_avatar">
+    <%= image_tag direct_message.sender.avatar.url(:thumb) %>
+  </div>
+
+  <h4 class="message_title column"><%= title_for_direct_message(direct_message) %></h4>
+
+  <p class="message_body">
+    <%= link_to truncate(direct_message.body, :length => 100), direct_message_path(direct_message) %>
+  </p>
+
+  <%= render direct_message.attachments %>
+
+  <p class="meta date"><%= direct_message.created_at.to_s(:message_meta) %></p>
+
+  <p class="actions message_actions">
+    <% unless direct_message.from?(current_user) %>
+      <%= link_to "reply", direct_message, :class => 'button utility round' %>
+      <span class="separator"></span>
+    <% end %>
+    <%= link_to "Go to message", direct_message %>
+  </p>
+
+  <% unless direct_message.responses.blank? %>
+    <div class="message_replies_link">
+      <%= link_to "Replies (#{direct_message.responses.count}) &raquo;", direct_message %>
+    </div>
+  <% end %>
+
+  <% unless archived_view? %>
+    <a href="#" class="readit"><span>read</span></a>
+  <% end %>
 <% end # div -%>

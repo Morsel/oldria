@@ -79,7 +79,7 @@ class ApplicationController < ActionController::Base
   def require_admin
     return false if !require_user
     unless current_user.admin?
-      flash[:error] = "This is an administrative area. Nothing exciting here at all."
+      flash[:error] = "Oops, you don't have access to the admin area. Nothing exciting there anyways."
       redirect_to root_url
       return false
     end
@@ -114,6 +114,18 @@ class ApplicationController < ActionController::Base
     return unless current_user && !current_user.media?
     @current_user_managed_restaurants = current_user.restaurants_where_manager
     @current_user_restaurants = current_user.restaurants.all
+  end
+
+  def archived_view?
+    return @archived_view if defined?(@archived_view)
+    @archived_view = params[:view_all] ? true : false
+  end
+  helper_method :archived_view?
+
+  def get_message_counts
+    @ria_message_count = current_user.messages_from_ria.size
+    @private_message_count = current_user.unread_direct_messages.size
+    @discussions_count = current_user.discussions.size
   end
 
   protected

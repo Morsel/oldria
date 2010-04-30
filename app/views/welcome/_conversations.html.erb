@@ -9,11 +9,11 @@
     <% else %>
       <% @direct_messages.each do |dm| -%>
         <% div_for dm do -%>
-          <p><%= link_to details_for(dm), reply_direct_message_path(dm) %></p>
+          <p><%= link_to details_for(dm), direct_message_path(dm) %></p>
         <% end -%>
       <% end -%>
     <% end %>
-    <p class="view_all"><%= link_to "View all private messages...", private_messages_path %></p>
+    <p class="view_all"><%= link_to "View all private messages...", private_messages_path(:view_all => true) %></p>
   </div><!--/direct_messages-->
 
   <div id="discussions">

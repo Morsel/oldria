@@ -1,0 +1,26 @@
+<% individual ||= false %>
+<% for direct_message in direct_messages %>
+<% set_latest_reply_id(direct_message) %>
+<div id="<%= "current" if @current_message == direct_message %>" class="clearfix dm_reply nested">
+  <div class="sender_avatar">
+    <%= image_tag direct_message.sender.avatar.url(:thumb) %>
+  </div>
+
+  <h4 class="message_title column"><%= title_for_direct_message(direct_message) %></h4>
+
+  <% if individual %>
+    <div class="message_body"><%= simple_format(direct_message.body) %></div>
+  <% else %>
+    <p class="message_body"><%= link_to truncate(direct_message.body, :length => 100), direct_message_path(direct_message) %></p>
+  <% end %>
+
+  <%= render direct_message.attachments %>
+
+  <p class="meta date"><%= direct_message.created_at.to_s(:message_meta) %></p>
+
+</div>
+<%# Recursion! %>
+  <% unless direct_message.responses.blank? %>
+   <%= render :partial => "direct_messages/direct_message_reply", :locals => { :direct_messages => direct_message.responses, :individual => individual } %>
+  <% end %>
+<% end %>

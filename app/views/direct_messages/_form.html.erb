@@ -1,9 +1,13 @@
-<% form_for @direct_message, :url => user_direct_messages_path(@recipient), :html => {:method => :post} do |f| %>
-  <%= f.error_messages %>
-	<%= f.hidden_field :in_reply_to_message_id %>
-  <p>
-    <%= f.label :body %>
-    <%= f.text_area :body, :class => 'text', :rows => '4' %>
-  </p>
-  <p><%= button_tag "Send" %></p>
+<% semantic_form_for direct_message, :url => user_direct_messages_path(recipient), :html => {:method => :post, :multipart => true} do |f| %>
+  <%= f.hidden_field :in_reply_to_message_id %>
+  <% f.inputs :class => 'plain' do %>
+    <%= f.input :body, :input_html => {:class => 'text', :rows => 4} %>
+  <% end %>
+
+  <% f.fields_for :attachments do |child_form| -%>
+    <h3 class="attachments-header">Attach files</h3>
+    <p class="attachfield"><%= child_form.file_field :attachment %></p>
+  <% end -%>
+
+  <p><%= button_tag "Send", :class => 'submit' %></p>
 <% end %>

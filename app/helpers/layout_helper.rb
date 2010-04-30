@@ -7,27 +7,24 @@ module LayoutHelper
     @content_for_title = page_title.to_s
     @show_title = show_title
   end
-  
+
   def show_title?
     @show_title
   end
-  
+
   def stylesheet(*args)
     content_for(:head) { stylesheet_link_tag(*args.map(&:to_s)) }
   end
-  
+
   def javascript(*args)
     args = args.map { |arg| arg == :defaults ? arg : arg.to_s }
     content_for(:head) { javascript_include_tag(*args) }
   end
-  
+
   def active_link_to text, path, options = {}
-    css_class = request.path == path ? 'here' : ''
-    if options[:class]
-      options[:class] += ', ' + css_class
-    else 
-      options[:class] = css_class
-    end
+    css_class = request.path == path ? ' here' : ''
+    options[:class] ||= ""
+    options[:class] << css_class
     link_to text, path, options
   end
 end

@@ -46,7 +46,7 @@ class Admin::UsersController < Admin::AdminController
     respond_to do |format|
       if (@user.confirmed_at = Time.now) && @user.save
         flash[:notice] = 'User was successfully created.'
-        format.html { redirect_to([:admin, @user]) }
+        format.html { redirect_to admin_users_path(:anchor => dom_id(@user)) }
         format.xml  { render :xml => @user, :status => :created, :location => @user }
       else
         format.html { render :new }
@@ -81,6 +81,7 @@ class Admin::UsersController < Admin::AdminController
     respond_to do |format|
       format.html { redirect_to(admin_users_url) }
       format.xml  { head :ok }
+      format.js   { head :ok }
     end
   end
 end

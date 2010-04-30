@@ -71,6 +71,7 @@ div#container {
 div#header {
 	height: 102px;
 	margin: 0px 0px 15px 0px;
+	position: relative;
 }
 
 #brand>img{
@@ -540,6 +541,10 @@ h2.with_icon img {
 	font-weight: normal;
 }
 
+.admin_backend #navigation li.public_home a {
+	font-weight: bold;
+}
+
 .admin_backend #navigation li.selected a {
 	background-color: #513d28;
 }
@@ -554,7 +559,18 @@ h2.with_icon img {
 	border: 0 none;
 }
 
-.admin-link { float: right; font-size: 1.2em; line-height: 18px; font-weight:bold }
+.admin-link {
+	position: absolute;
+	font-size: 1.2em;
+	line-height: 18px;
+	font-weight: bold;
+	right: 0;
+	padding: 5px 0 0;
+}
+
+.admin-link a, .admin-link {
+	color: #fff;
+}
 
 /* @end */
 
@@ -578,7 +594,7 @@ h2.with_icon img {
 	color: #666;
 }
 
-#new_status button {
+#new_status button, .button.utility {
 	margin: 0;
 	padding: 3px 1.5em;
 	float: left;
@@ -590,10 +606,12 @@ h2.with_icon img {
 	font-family: 'helvetica neue', helvetica, arial, sans-serif;
 }
 
-#new_status button:hover {
+#new_status button:hover, .button.utility:hover {
 	background: url('../images/button_bg_over.png') 0 top repeat-x;
-	border-color: #bbb;
-	color: #222;
+	border-color: #2d87bf;
+	text-decoration: none;
+	color: #fff;
+	text-shadow: 1px 1px 0 #269;
 }
 
 #leftcolumn #new_status input.status_message {
@@ -798,6 +816,30 @@ input.checkbox {
 	margin-bottom: 	9px;
 }
 
+.direct_message {
+	margin-bottom: 1em;
+	background-color: #f6f6f6;
+	border: 1px solid #f6f6f6;
+	padding: 10px;
+	position: relative;
+}
+
+.direct_message.read {
+	background-color: #fff;
+	border-color:     #eee;
+}
+
+.direct_message.sent_message {
+	background-color: #e9f3f9;
+	border-color:     #e9f3f9;
+}
+
+.direct_message.individual {
+	background-color: #f6f6f6;
+	border-color: #f6f6f6;
+}
+
+
 .direct_message h5, .direct_message p {
 	margin:0;
 }
@@ -811,15 +853,102 @@ input.checkbox {
 	border-bottom: 1px dashed #ccc;
 }
 
-.direct_message img.left {
-	margin-bottom: 2px;
-	border:1px solid #fff;
+.direct_message .sender_avatar {
+	width: 70px;
+	float: left;
+}
+
+.direct_message .sender_avatar img {
+	margin-bottom: 10px;
+	border: 4px solid #fff;
+	box-shadow: 1px 1px 4px #999;
+	-webkit-box-shadow: 1px 1px 4px #999;
+	-moz-box-shadow: 1px 1px 4px #999;
 }
 
 .direct_message.admin, .media_request.admin {
 	background-color: #fed;
 	padding: 1em;
 	border: 0 none;
+}
+
+.direct_message .message_title {
+	border-bottom: 1px dashed #ddd;
+	width: 382px;
+	font-size: 11px;
+	line-height: 18px;
+	font-family: "Lucida Grande", arial, sans-serif;
+	margin: 0 0 .5em;
+}
+
+.direct_message .message_title a {
+	font-weight: bold;
+	color: #000;
+}
+
+.direct_message .message_body { 
+	font-size: 1.1em; 
+	margin-bottom: 1em;
+}
+
+.direct_message .message_body a {
+	color: #333;
+}
+
+.direct_message .message_body a:hover {
+	color: #0088C1
+}
+
+.direct_message .attachment {
+	clear: left;
+}
+
+.direct_message .date {
+	clear: left;
+	color: #999;
+	font-size: 10px;
+	font-family: "Lucida Grande", sans-serif;
+	text-transform: uppercase;
+}
+
+.direct_message .actions {
+	line-height: 25px;
+	margin-top: 10px;
+}
+
+.direct_message .actions .button {
+	padding: 3px 13px;
+}
+
+.direct_message .actions .separator {
+	margin: 0 10px;
+	color: #999;
+	text-indent: -9999px;
+	border-left: 1px solid #999;
+}
+
+.direct_message .message_replies_link {
+	margin: 8px 0 0;
+}
+
+.direct_message .reply_form h4 {
+	margin: 1em 0 0;
+	text-transform: uppercase;
+}
+
+.reply_form form.direct_message {
+	margin: 0;
+	padding: 0;
+}
+
+.direct_message .message_replies .dm_reply {
+  border-top: 1px solid #ddd;
+  padding-top: 10px;
+  margin-top: 1em;
+}
+
+#direct-message-replies #current {
+  background-color: #eee;
 }
 
 /* @end */
@@ -1075,35 +1204,37 @@ div.restaurant {
 .add-another {
 	clear: both;
 	margin: 1em 0;
+	font-size: 10px;
+	font-family: "Lucida Grande", sans-serif;
 }
 
-.add-another a{
+.add-another a {
 	padding-left: 20px;
 	padding-top: 3px;
-	background: url(../images/plus.png) no-repeat 0 0;
+	background: url(../images/plus.png) no-repeat center left;
+	color: #090;
 }
 
-.attachfield {
-	clear: both;
-	padding-bottom: 1em;
-	padding-left: 1px;
+
+button.submit {
+	background:#0587c1;
+	border-color: #0587c1;
+	color:#fff;
+	font-weight: bold;
+	padding-left: 19px;
+	padding-right: 20px;
+	border-radius: 15px;
+	text-shadow: 1px 1px 1px #0055aa;
+	-moz-border-radius: 15px;
+	-webkit-border-radius: 15px;
 }
 
-.attachfield input {
-	float: left;
+button.submit:hover {
+	background-color: #fff;
+	border-color: #acd;
+	color: #0587c1;
+	text-shadow: none;
 }
-
-.attachfield .remove_attachment {
-	text-indent: -9999px;
-	display: block;
-	float: left;
-	width: 16px;
-	height: 16px;
-	background: url(../images/x.png) no-repeat;
-	overflow: hidden;
-	margin: 3px 5px 0;
-}
-
 
 /* @end */
 
@@ -1212,19 +1343,6 @@ ul.responses {
 	padding: 1.5em;
 }
 
-.media_request .attachments {
-	float: right;
-	width: 220px;
-	min-height: 100px;
-	background-color: #fec;
-	border: 0 none;
-}
-
-.attachments ul {
-	list-style: none;
-	margin: 0;
-}
-
 .media_request h3 {
 	color: #a99;
 	font-size: 1.1em;
@@ -1285,6 +1403,83 @@ ul.responses {
 	background-color: #999;
 	padding: 2px 6px;
 	color: #fff;
+}
+
+/* @end */
+
+/* @group attachments --------------- */
+
+
+
+.attachfield {
+	clear: both;
+	padding-bottom: 1em;
+	padding-left: 1px;
+	min-height: 16px;
+}
+
+.attachfield input {
+	float: left;
+}
+
+.attachfield .remove_attachment {
+	display: block;
+	float: left;
+	height: 16px;
+	line-height: 16px;
+	background: url(../images/x2.png) no-repeat center left;
+	margin: 3px 5px 0;
+	padding: 0 0 0 18px;
+	color: #c00;
+	font-size: 10px;
+	font-family: 'Lucida Grande', arial, sans-serif;
+}
+
+.media_request .attachments {
+	float: right;
+	width: 220px;
+	min-height: 100px;
+	background-color: #fec;
+	border: 0 none;
+}
+
+.attachments ul {
+	list-style: none;
+	margin: 0;
+}
+
+.attachment {
+	margin: 1em 0;
+	font-family: "Lucida Grande", arial, sans-serif;
+	font-size: 0.9em;
+}
+
+.attachment .icon img {
+	display: inline;
+	vertical-align: middle;
+}
+
+.attachment .label {
+
+}
+
+.attachments-header, .form-header {
+	font-size: 1em;
+	margin: 1em 0;
+	border-bottom: 1px dashed #ddd;
+	line-height: 20px;
+	font-family: 'Lucida Grande', arial, sans-serif;
+	color: #444;
+	font-weight: bold;
+}
+
+.attachments-header {
+	background: url('../images/paperclip.png') no-repeat 0 0;
+	padding: 2px 0 0 22px;
+}
+
+.discussion-recipients-header {
+	margin: 2em 0 -6px;
 }
 
 /* @end */
@@ -1528,7 +1723,7 @@ h3.function-bold{
 
 
 
-.formtastic.comment fieldset{
+.formtastic.comment fieldset, fieldset.plain {
 	border: 0 none;
 	padding: 0;
 }
@@ -1605,10 +1800,6 @@ ul.mini_menu li {
 	position: relative;
 	border-bottom:3px solid #fff;
 	background:#f6f6f6;
-}
-
-.direct_message {
-	position: relative;
 }
 
 .readit {
@@ -1706,9 +1897,13 @@ ul.mini_menu li {
 }
 
 /* message type themes */
-.admin_holiday_reminder .icon {   background-color: #D14600 }
-.admin_holiday_reminder .message-title {     color: #D14600 }
-.admin_holiday_reminder .message-title a {   color: #D14600 }
+.holiday_discussion_reminder .icon {   background-color: #D14600 }
+.holiday_discussion_reminder .message-title {     color: #D14600 }
+.holiday_discussion_reminder .message-title a {   color: #D14600 }
+
+.holiday_discussion .icon {   background-color: #D14600 }
+.holiday_discussion .message-title {     color: #D14600 }
+.holiday_discussion .message-title a {   color: #D14600 }
 
 .trend_question .icon {   background-color: #0088C1 }
 .trend_question .message-title {     color: #0088C1 }
@@ -1717,6 +1912,10 @@ ul.mini_menu li {
 .admin_qotd .icon {   background-color: #F5911E }
 .admin_qotd .message-title {     color: #F5911E }
 .admin_qotd .message-title a {   color: #F5911E }
+
+.admin_conversation .icon {   background-color: #F5911E }
+.admin_conversation .message-title {     color: #F5911E }
+.admin_conversation .message-title a {   color: #F5911E }
 
 .content_request .icon {   background-color: #bf844b }
 .content_request .message-title {     color: #bf844b }
@@ -1951,7 +2150,7 @@ fieldset {
 	font-family: 'lucida grande', tahoma, arial, sans-serif;
 }
 
-button.round {
+button.round, .button.round {
 	border-radius: 16px;
 	-moz-border-radius: 16px;
 	-webkit-border-radius: 16px;
@@ -2147,6 +2346,9 @@ form .column li, form .restaurant_list li {
 	float: none;
 }
 
+li.column {
+  list-style:none;
+}
 
 .restaurant_list li {
 	font-size: 1.2em;
@@ -2607,21 +2809,23 @@ h2.primary_title{
 	padding:10px;
 	margin:0;
 }
-.direct_message{
+
+#conversations .direct_message{
 	border-bottom:1px solid #ddd;
 	margin:0;
+	position: relative;
 }
 
-.direct_message p{
+#conversations .direct_message p{
 	margin:0;
 }
-.direct_message a{
+#conversations .direct_message a{
 	color:#333;
 	display:block;
 	padding:10px;
 
 }
-.direct_message a span{
+#conversations .direct_message a span{
 	display:block;
 	float:right;
 	text-align:right;
@@ -2629,13 +2833,14 @@ h2.primary_title{
 	color:#8b8b8b;
 	width:135px;
 }
-.direct_message a:hover{
+
+#conversations .direct_message a:hover{
 	text-decoration:none;
 	background:#fff6ed;
 	color:#ed801b;
 }
 
-#choose_feeds{
+#choose_feeds {
 	color:#fff;
 	font-weight:bold;
 	background:#0089c0 url(/images/choose_feeds_bg.gif) repeat-x;
@@ -2721,10 +2926,12 @@ h2.primary_title{
 #read_messages .box{
 	border:0;
 }
+
 #read_messages .statuses li{
 	padding:5px 10px;
 	margin:5px 10px;
 }
+
 .hide_link{
 	display:block;
 	float:left;
@@ -2732,22 +2939,12 @@ h2.primary_title{
 	border-left:1px solid #ddd;
 	margin-left:10px;
 }
-#read_messages .direct_message, #read_messages .discussion{
+
+#read_messages .discussion{
 	background:#f6f6f6;
 	padding:10px;
 }
 
-
-#read_messages .direct_message a{
-	display:inline;
-	padding:0;
-}
-
-#read_messages .direct_message a:hover{
-	background:0;
-	color:#333;
-	text-decoration:underline;
-}
 #messages_nav ul, #messages_nav li{
 	list-style-type:none;
 	padding:0;
@@ -2882,6 +3079,16 @@ h2.primary_title{
 	font-family: 'Lucida Grande', sans-serif;
 	padding: 10px 0 0 10px;
 	margin: 0 0 6px;
+}
+
+#dashboard #direct_messages p {
+	padding: 10px 0 0 10px;
+	margin: 0 0 6px;  
+}
+
+#dashboard #direct_messages .direct_message p {
+  padding: 0;
+  margin: 0;
 }
 
 /* @end */

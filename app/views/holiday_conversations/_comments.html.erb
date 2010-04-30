@@ -11,12 +11,12 @@
     <%= f.input :comment, :label => 'Reply', :input_html => { :rows => 8 } %>
 
     <% f.fields_for :attachments do |child_form| -%>
-      <%= child_form.label :attachment, "Attachment(s)" %>
+      <h3 class="attachments-header">Attach files</h3>
       <p class="attachfield"><%= child_form.file_field :attachment %></p>
     <% end -%>
 
+    <p class="clearfix"><%= button_tag "Send", :class => 'submit' %></p>
   <% end %>
 
-  <p class="clearfix"><%= button_tag "Send" %></p>
 <% end %>
 </div>
