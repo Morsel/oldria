@@ -17,16 +17,17 @@
 
     <p class="meta date"><%= @direct_message.created_at.to_s(:message_meta) %></p>
 
-    <% if !@direct_message.from?(current_user) && @reply_allowed  %>
+
+    <div class="message_replies">
+      <%= render :partial => "direct_messages/direct_message_reply", :locals => { :direct_messages => @direct_message.responses, :individual => true } %>
+    </div>
+
+    <% if !@direct_message.from?(current_user) && @reply_allowed && @direct_message.root_message.from?(current_user) %>
     <div id="reply_<%= @direct_message.id %>" class="reply_form">
         <h4 class="cufon">Leave a Reply:</h4>
         <%= render :partial => 'form', :locals => { :direct_message => @direct_message.build_reply, :recipient => @direct_message.sender } %>
     </div>
     <% end %>
-
-    <div class="message_replies">
-      <%= render :partial => "direct_messages/direct_message_reply", :locals => { :direct_messages => @direct_message.responses, :individual => true } %>
-    </div>
 
   <% end # div -%>
 
