@@ -9,7 +9,7 @@
       </h4>
     </div>
     <div class="message-body">
-      <%= simple_format(message.message) %>
+      <%= auto_link(simple_format(message.message)) %>
     </div>
     <p class="message-date"><%= message.scheduled_at.try(:strftime, "%B %d, %Y at %I:%M%p") %></p>
     <% unless message.read_by?(current_user) %>
