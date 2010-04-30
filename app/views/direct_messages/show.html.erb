@@ -3,6 +3,7 @@
 <%= render 'messages/nav' %>
 <div class="span-9 last">
   <% div_for @direct_message, :class => (css_classes_for_direct_message(@direct_message) + ' individual') do %>
+    <% set_latest_reply_id(@direct_message) %>
     <div class="sender_avatar">
       <%= image_tag @direct_message.sender.avatar.url(:thumb) %>
     </div>
@@ -22,10 +23,13 @@
       <%= render :partial => "direct_messages/direct_message_reply", :locals => { :direct_messages => @direct_message.responses, :individual => true } %>
     </div>
 
-    <% if show_reply_form?(@direct_message) %>
-    <div id="reply_<%= @direct_message.id %>" class="reply_form">
+    <% if @reply_to_dm %>
+    <div id="reply_<%= @reply_to_dm.id %>" class="reply_form">
         <h4 class="cufon">Leave a Reply:</h4>
-        <%= render :partial => 'form', :locals => { :direct_message => @direct_message.build_reply, :recipient => @direct_message.sender } %>
+        <%= render :partial => 'form', :locals => {
+          :direct_message => @reply_to_dm.build_reply,
+          :recipient => @reply_to_dm.sender
+        } %>
     </div>
     <% end %>
 

@@ -29,22 +29,9 @@ module DirectMessagesHelper
     classes
   end
 
-  def show_reply_form?(direct_message)
-    return false unless direct_message
-    return false if @reply_form_already_shown
-
-    # First message in the series
-    if (direct_message == direct_message.root_message)
-      return false if direct_message.from?(current_user)
-      return @reply_form_already_shown = true if direct_message.responses.blank?
-      return false if direct_message.responses.any? {|dm| !dm.from?(current_user) }
-      last_response = direct_message && direct_message.responses.last
-      return @reply_form_already_shown = true if last_response.from?(current_user)
-    else # It's a later reply
-
-      last_response = direct_message.parent && direct_message.parent.responses.last
-      return @reply_form_already_shown = true if (last_response == direct_message) && !last_response.from?(current_user)
-    end
+  def set_latest_reply_id(direct_message)
+    return unless direct_message
+    @reply_to_dm = direct_message unless direct_message.from?(current_user)
   end
 
 end

@@ -1,6 +1,6 @@
 <% individual ||= false %>
 <% for direct_message in direct_messages %>
-
+<% set_latest_reply_id(direct_message) %>
 <div id="<%= "current" if @current_message == direct_message %>" class="clearfix dm_reply nested">
   <div class="sender_avatar">
     <%= image_tag direct_message.sender.avatar.url(:thumb) %>
@@ -17,13 +17,6 @@
   <%= render direct_message.attachments %>
 
   <p class="meta date"><%= direct_message.created_at.to_s(:message_meta) %></p>
-
-  <% if show_reply_form?(direct_message) %>
-  <div id="reply_<%= direct_message.id %>" class="reply_form">
-      <h4 class="cufon">Leave a Reply:</h4>
-      <%= render :partial => 'form', :locals => { :direct_message => direct_message.build_reply, :recipient => direct_message.sender } %>
-  </div>
-  <% end %>
 
 </div>
 <%# Recursion! %>
