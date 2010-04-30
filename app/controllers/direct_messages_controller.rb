@@ -2,6 +2,7 @@ class DirectMessagesController < ApplicationController
   def new
     @recipient = User.find(params[:user_id])
     @direct_message = @recipient.direct_messages.build
+    @direct_message.attachments.build
   end
 
   def create
