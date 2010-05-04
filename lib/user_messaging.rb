@@ -64,6 +64,7 @@ module UserMessaging
       @messages_from_ria ||= [ unread_admin_discussions,
         unread_hdrs,
         admin_conversations.current.unread_by(self),
+        admin_conversations.current.with_unread_replies(self),
         unread_pr_tips,
         unread_announcements
       ].flatten.sort_by(&:scheduled_at).reverse

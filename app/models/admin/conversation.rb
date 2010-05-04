@@ -42,4 +42,9 @@ class Admin::Conversation < ActiveRecord::Base
   def scheduled_at
     admin_message.scheduled_at
   end
+  
+  def self.with_unread_replies(user)
+    user.admin_conversations.each { |c| c.comments.reject { |c| c.read_by?(user) } }.flatten
+  end
+  
 end
