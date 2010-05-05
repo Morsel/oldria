@@ -2932,6 +2932,39 @@ h2.primary_title{
 	margin:5px 10px;
 }
 
+#read_messages .latest {
+  float: left;
+  color: white;
+  background-color: #555;
+  text-transform: uppercase;
+  padding: 3px 5px;
+  font-size: 10.8px;
+  margin-left: 1em;
+}
+
+#read_messages .action {
+  background-color: #EAEFFF;
+}
+
+#read_messages a.replies {
+  color: #0587C1;
+}
+
+#read_messages a.replies span {
+  background:url("../images/bluebadge.png") no-repeat scroll 0 0 transparent;
+  color:#FFFFFF;
+  display:block;
+  float: left;
+  font-size:15px;
+  font-weight:normal;
+  height:38px;
+  line-height:35px;
+  padding:2px 1px 2px 0;
+  text-align:center;
+  text-shadow:1px 1px 0 #555555;
+  width:39px;
+}
+
 .hide_link{
 	display:block;
 	float:left;
@@ -3029,6 +3062,14 @@ h2.primary_title{
 	-webkit-border-radius: 8px;
 }
 
+#new_or_old_messages .replies {
+  text-transform: uppercase;
+  color: white;
+  background-color: #0088C2;
+  float: left;
+  padding: 3px 5px;
+  margin-left: 1em;
+}
 
 .discussion .new_topic, .discussion .new_comment {
 	float: left;

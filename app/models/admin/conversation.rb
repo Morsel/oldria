@@ -49,4 +49,8 @@ class Admin::Conversation < ActiveRecord::Base
     self.with_replies.unread_by(user)
   end
   
+  def action_required?(user)
+    !read_by?(user) && comments_count > 0
+  end
+  
 end

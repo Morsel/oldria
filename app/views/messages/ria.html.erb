@@ -7,10 +7,9 @@
 
     <div id="read_messages">
         <% unless archived_view? %>
-        <h3>Action Required</h3>
         <%= render :partial => 'message', :collection => @action_required_messages %>
         
-        <h3>Unread Messages</h3>
+        <span class="latest">The latest from RIA</span>
         <% end %>
         <%= render :partial => 'message', :collection => @messages %>
 

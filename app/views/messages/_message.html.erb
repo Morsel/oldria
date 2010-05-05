@@ -13,13 +13,13 @@
     </div>
     <p class="message-date"><%= message.scheduled_at.try(:strftime, "%B %d, %Y at %I:%M%p") %></p>
     <% unless message.read_by?(current_user) %>
+      <% if message.respond_to?(:admin_message) %>
+        <%= link_to "<span>4</span> replies &raquo;", link_for_message(message), :class => "replies" if message.comments_count > 0 %>
+      <% else %>
       <div class="message-actions">
-        <% if message.respond_to?(:admin_message) %>
-          <%= link_to "Replies (#{message.comments_count}) &raquo;", link_for_message(message) if message.comments_count > 0 %>
-        <% else %>
           <%= reply_link_for_message(message) %>
-        <% end %>
       </div>
+      <% end %>
 
       <%= read_link_for_message(message) %>
     <% end %>
