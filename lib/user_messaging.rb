@@ -82,5 +82,9 @@ module UserMessaging
         Admin::PrTip.current.all
       ].flatten.sort_by(&:scheduled_at).reverse
     end
+    
+    def ria_message_count
+      action_required_messages.size + messages_from_ria.size
+    end
 
 end
