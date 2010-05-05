@@ -45,14 +45,8 @@ class Admin::Conversation < ActiveRecord::Base
     admin_message.scheduled_at
   end
   
-  def self.with_unread_replies(user)
-    unread = []
-    user.admin_conversations.each do |convo|
-      comments = convo.comments
-      comments.reject! { |c| c.read_by?(user) }
-      unread << convo unless comments.empty?
-    end
-    unread
+  def self.action_required(user)
+    self.with_replies.unread_by(user)
   end
   
 end

@@ -61,13 +61,13 @@ module UserMessaging
     end
     
     def action_required_messages
-      admin_conversations.current.with_unread_replies(self)
+      admin_conversations.current.action_required(self)
     end
 
     def messages_from_ria
       @messages_from_ria ||= [ unread_admin_discussions,
         unread_hdrs,
-        admin_conversations.current.unread_by(self),
+        admin_conversations.current.without_replies.unread_by(self),
         unread_pr_tips,
         unread_announcements
       ].flatten.sort_by(&:scheduled_at).reverse
