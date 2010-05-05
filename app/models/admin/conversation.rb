@@ -17,13 +17,15 @@ class Admin::Conversation < ActiveRecord::Base
 
   named_scope :current, lambda {
     { :joins => :admin_message,
-      :conditions => ['admin_messages.scheduled_at < ? OR admin_messages.scheduled_at IS NULL', Time.zone.now]  }
+      :conditions => ['admin_messages.scheduled_at < ? OR admin_messages.scheduled_at IS NULL', Time.zone.now],
+      :order => 'admin_messages.scheduled_at DESC'  }
     }
   named_scope :with_replies, :conditions => "comments_count > 0"
   named_scope :without_replies, :conditions => "comments_count = 0"
 
   belongs_to :recipient, :class_name => "Employment"
   belongs_to :admin_message, :foreign_key => 'admin_message_id', :class_name => 'Admin::Message'
+  
   named_scope :unread_by, lambda { |user|
      { :joins => "LEFT OUTER JOIN readings ON #{table_name}.id = readings.readable_id
        AND readings.readable_type = '#{self.to_s}'
@@ -44,7 +46,13 @@ class Admin::Conversation < ActiveRecord::Base
   end
   
   def self.with_unread_replies(user)
-    user.admin_conversations.each { |c| c.comments.reject { |c| c.read_by?(user) } }.flatten
+    unread = []
+    user.admin_conversations.each do |convo|
+      comments = convo.comments
+      comments.reject! { |c| c.read_by?(user) }
+      unread << convo unless comments.empty?
+    end
+    unread
   end
   
 end
