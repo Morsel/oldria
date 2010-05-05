@@ -61,7 +61,7 @@ module UserMessaging
     end
     
     def action_required_messages
-      admin_conversations.current.action_required(self)
+      admin_conversations.current.action_required(self).sort { |a, b| b.comments.last.created_at <=> a.comments.last.created_at }
     end
 
     def messages_from_ria
