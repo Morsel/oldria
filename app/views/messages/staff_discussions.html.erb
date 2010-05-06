@@ -6,13 +6,15 @@
         <% if @messages.blank? && @messages_with_replies.blank? %>
           <p>You don't have any discussions right now. You can <%= link_to "start a discussion", new_discussion_path %> if you'd like.</p>
         <% else %>
+
           <% unless @messages_with_replies.blank? %>
             <div class="clearfix"><span class="discussion_replies">You have replies</span></div>
-            <%= render :partial => 'discussions/discussion', :collection => @messages_with_replies %>
+            <%= render @messages_with_replies %>
           <% end %>
+
           <% unless @messages.blank? %>
             <div class="clearfix"><span class="latest">Discussions</span></div>
-            <%= render :partial => 'discussions/discussion', :collection => @messages %>
+            <%= render @messages %>
           <% end %>
         <% end %>
     </div><!-- /messages -->

@@ -816,7 +816,7 @@ input.checkbox {
 	margin-bottom: 	9px;
 }
 
-.direct_message {
+.direct_message, #read_messages .discussion {
 	margin-bottom: 1em;
 	background-color: #f6f6f6;
 	border: 1px solid #f6f6f6;
@@ -844,7 +844,7 @@ input.checkbox {
 	margin:0;
 }
 
-.direct_message .meta {
+.direct_message .meta, #read_messages .discussion .meta {
 	font-size: 0.85em;
 	color: #777;
 }
@@ -853,12 +853,12 @@ input.checkbox {
 	border-bottom: 1px dashed #ccc;
 }
 
-.direct_message .sender_avatar {
+.direct_message .sender_avatar, .discussion .sender_avatar {
 	width: 70px;
 	float: left;
 }
 
-.direct_message .sender_avatar img {
+.sender_avatar img {
 	margin-bottom: 10px;
 	border: 4px solid #fff;
 	box-shadow: 1px 1px 4px #999;
@@ -872,7 +872,7 @@ input.checkbox {
 	border: 0 none;
 }
 
-.direct_message .message_title {
+.direct_message .message_title, .discussion .message_title {
 	border-bottom: 1px dashed #ddd;
 	width: 382px;
 	font-size: 11px;
@@ -881,12 +881,12 @@ input.checkbox {
 	margin: 0 0 .5em;
 }
 
-.direct_message .message_title a {
+.direct_message .message_title a, .discussion .message_title a {
 	font-weight: bold;
 	color: #000;
 }
 
-.direct_message .message_body { 
+.direct_message .message_body, .discussion .message_body { 
 	font-size: 1.1em; 
 	margin-bottom: 1em;
 }
@@ -903,12 +903,17 @@ input.checkbox {
 	clear: left;
 }
 
-.direct_message .date {
+.direct_message .date, #read_messages .discussion .date {
 	clear: left;
+	float: none;
 	color: #999;
 	font-size: 10px;
 	font-family: "Lucida Grande", sans-serif;
 	text-transform: uppercase;
+}
+
+#read_messages .discussion .message-actions {
+	margin: 0;
 }
 
 .direct_message .actions {
@@ -1123,6 +1128,7 @@ div.restaurant {
 .discussion .meta {
 	font-family: "Lucida Grande", helvetica, arial, sans-serif;
 	font-size: .9em;
+	margin-bottom: 0;
 }
 
 .discussion .meta_label {
@@ -3079,7 +3085,7 @@ h2.primary_title{
 	background-color: #048dc4;
 }
 
-.discussion .date{
+.discussion .date {
 	float: right;
 	font-size: 11px;
 	font-weight: normal;
