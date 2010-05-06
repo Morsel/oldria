@@ -65,5 +65,9 @@ module MessagesHelper
       restaurant = message.restaurant
     end
   end
+  
+  def show_replies?
+    params[:action] == "ria"
+  end
 
 end

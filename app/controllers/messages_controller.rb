@@ -29,6 +29,7 @@ class MessagesController < ApplicationController
   ##
   # GET /messages/staff_discussions
   def staff_discussions
-    @messages = current_user.discussions
+    @messages_with_replies = current_user.discussions.with_comments_unread_by(current_user)
+    @messages = current_user.discussions - @messages_with_replies
   end
 end

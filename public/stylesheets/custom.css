@@ -3062,7 +3062,7 @@ h2.primary_title{
 	-webkit-border-radius: 8px;
 }
 
-#new_or_old_messages .replies {
+#new_or_old_messages .replies, .discussion_replies {
   text-transform: uppercase;
   color: white;
   background-color: #0088C2;
