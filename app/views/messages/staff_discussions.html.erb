@@ -2,6 +2,7 @@
 
 <%= render 'nav' %>
 <div class="span-9 last">
+    <%= render :partial => 'new_or_old_nav' %>
     <div id="read_messages">
         <% if @messages.blank? && @messages_with_replies.blank? %>
           <p>You don't have any discussions right now. You can <%= link_to "start a discussion", new_discussion_path %> if you'd like.</p>
