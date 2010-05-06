@@ -46,11 +46,11 @@ class Admin::Conversation < ActiveRecord::Base
   end
   
   def self.action_required(user)
-    self.with_replies.unread_by(user)
+    self.with_replies.unread_by(user).reject { |c| c.comments.last.user == user }
   end
   
   def action_required?(user)
-    !read_by?(user) && comments_count > 0
+    !read_by?(user) && comments_count > 0 && comments.last.user != user
   end
   
 end

@@ -22,7 +22,11 @@ module UserMessaging
     end
 
     def unread_admin_discussions
-      current_admin_discussions.reject {|d| d.read_by?(self)}
+      current_admin_discussions.reject { |d| d.read_by?(self) }
+    end
+    
+    def action_required_admin_discussions
+      unread_admin_discussions.select { |d| d.comments_count > 0 && d.comments.last.user != self }
     end
 
     def holiday_discussions
@@ -61,11 +65,13 @@ module UserMessaging
     end
     
     def action_required_messages
-      admin_conversations.current.action_required(self).sort { |a, b| b.comments.last.created_at <=> a.comments.last.created_at }
+      [admin_conversations.current.action_required(self),
+        action_required_admin_discussions
+      ].flatten.sort { |a, b| b.comments.last.created_at <=> a.comments.last.created_at }
     end
 
     def messages_from_ria
-      @messages_from_ria ||= [ unread_admin_discussions,
+      @messages_from_ria ||= [ unread_admin_discussions.reject { |d| d.action_required?(self) },
         unread_hdrs,
         admin_conversations.current.without_replies.unread_by(self),
         unread_pr_tips,

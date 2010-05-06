@@ -47,5 +47,9 @@ class AdminDiscussion < ActiveRecord::Base
   def employees
     employments.map(&:employee)
   end
-
+  
+  def action_required?(user)
+    !read_by?(user) && comments_count > 0 && (comments.last.user != user)
+  end
+  
 end

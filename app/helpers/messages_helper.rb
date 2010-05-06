@@ -52,7 +52,7 @@ module MessagesHelper
     defaults = "inbox_message clear clearfix"
     defaults += " archived" if message.read_by?(current_user)
     defaults += " #{dom_class(message.discussionable)}" if message.respond_to?(:discussionable)
-    defaults += " action" if message.respond_to?(:admin_message) && message.action_required?(current_user)
+    defaults += " action" if message.respond_to?(:action_required?) && message.action_required?(current_user)
     defaults
   end
 

@@ -30,7 +30,7 @@ class Comment < ActiveRecord::Base
   before_create :clear_read_status
   
   def clear_read_status
-    if self.commentable_type == "Admin::Conversation"
+    if self.commentable.respond_to?(:action_required?)
       self.commentable.readings.each { |r| r.destroy }
     end
   end
