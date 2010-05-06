@@ -916,7 +916,7 @@ input.checkbox {
 	margin-top: 10px;
 }
 
-.direct_message .actions .button {
+.direct_message .actions .button, .message-actions .button {
 	padding: 3px 13px;
 }
 
@@ -1869,25 +1869,6 @@ ul.mini_menu li {
 
 .inbox_message .message-actions {
 	margin: 1em 0 0;
-}
-
-.inbox_message .message-actions>a {
-	display: block;
-	float: left;
-	padding: 2px 10px;
-	background: #d3d3d3 url(/images/button-gradient.gif) repeat-x;
-	border: 1px solid #bbb;
-	border-radius:10px;
-	-webkit-border-radius:10px;
-	-moz-border-radius:10px;
-	-khtml-border-radius:10px;
-	color: #555;
-	font-weight: bold;
-}
-
-.inbox_message .message-actions>a:hover {
-	background: #bbb;
-	color: #333;
 }
 
 .inbox_message .behalf {
@@ -3018,14 +2999,14 @@ h2.primary_title{
 }
 
 #past_messages{
-	margin:5px 0 0;
+	margin:5px 0 1em;
 	padding:0;
 	background:#fff;
 	font:bold 0.9em "Lucida Grande", Arial, sans-serif;
 }
 
-#past_messages a{
-	display:inline-block;
+#past_messages a {
+	display: inline-block;
 	padding:7px 12px;
 	text-transform:uppercase;
 	color:#fff;
@@ -3037,7 +3018,7 @@ h2.primary_title{
 	-khtml-border-radius:35px;
 }
 
-#past_messages a:hover{
+#past_messages a:hover {
 	text-decoration:none;
 	background:#2a98c4;
 }

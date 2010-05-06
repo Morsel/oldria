@@ -29,7 +29,7 @@ module MessagesHelper
     return unless message
     return if message.respond_to?(:broadcast?) && message.broadcast?
     link_path = link_for_message(message)
-    link_to "Reply", link_path
+    link_to "Reply", link_path, :class => 'button utility round'
   end
 
   def read_link_for_message(message, link_text = '<span>read</span>')
@@ -65,7 +65,7 @@ module MessagesHelper
       restaurant = message.restaurant
     end
   end
-  
+
   def show_replies?
     params[:action] == "ria"
   end
