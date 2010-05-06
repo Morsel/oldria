@@ -23,7 +23,9 @@
 
   <% unless direct_message.responses.blank? %>
     <div class="message_replies_link">
-      <%= link_to "Replies (#{direct_message.responses.count}) &raquo;", direct_message %>
+      <% link_to  direct_message, :class => 'replies' do %>
+        <span class="unread_comments_count"><%= direct_message.responses.count %></span> replies &raquo;
+      <% end %>
     </div>
   <% end %>
 

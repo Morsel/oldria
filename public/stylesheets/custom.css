@@ -2950,19 +2950,27 @@ h2.primary_title{
   color: #0587C1;
 }
 
-#read_messages a.replies span {
-  background:url("../images/bluebadge.png") no-repeat scroll 0 0 transparent;
+#read_messages .replies {
+	height: 36px;
+	line-height: 36px;
+}
+
+#read_messages .unread_comments_count {
+  background: url('../images/blackbadge.png') no-repeat 0 0;
   color:#FFFFFF;
   display:block;
   float: left;
-  font-size:15px;
+  position: relative;
+  text-align: center;
+  font-size: 9px;
+  text-shadow: 0 0 0;
   font-weight:normal;
-  height:38px;
-  line-height:35px;
-  padding:2px 1px 2px 0;
+  height: 36px;
+  line-height: 39px;
+  padding: 0 10px;
   text-align:center;
-  text-shadow:1px 1px 0 #555555;
-  width:39px;
+  width: 20px;
+  margin: -2px -6px -5px -10px;
 }
 
 .hide_link{
