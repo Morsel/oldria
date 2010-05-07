@@ -22,6 +22,8 @@ class HolidayDiscussionReminder < ActiveRecord::Base
       :conditions => ['holiday_reminders.scheduled_at < ? OR holiday_reminders.scheduled_at IS NULL', Time.zone.now]  }
     }
   
+  named_scope :with_replies, :joins => :holiday_discussion, :conditions => 'holiday_discussions.comments_count > 0'
+  
   def inbox_title
     holiday_reminder.inbox_title
   end
@@ -40,6 +42,22 @@ class HolidayDiscussionReminder < ActiveRecord::Base
   
   def scheduled_at
     holiday_reminder.scheduled_at
+  end
+  
+  def comments
+    holiday_discussion.comments
+  end
+  
+  def comments_count
+    holiday_discussion.comments_count
+  end
+  
+  def self.action_required(user)
+    self.with_replies.reject { |h| h.read_by?(user) }#.reject { |h| h.comments.last.user == user }
+  end
+  
+  def action_required?(user)
+    !read_by?(user) && comments_count > 0 && comments.last.user != user
   end
   
 end
