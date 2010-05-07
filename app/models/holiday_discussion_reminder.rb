@@ -53,7 +53,7 @@ class HolidayDiscussionReminder < ActiveRecord::Base
   end
   
   def self.action_required(user)
-    self.with_replies.reject { |h| h.read_by?(user) }#.reject { |h| h.comments.last.user == user }
+    self.with_replies.reject { |h| h.read_by?(user) }.reject { |h| h.comments.last.user == user }
   end
   
   def action_required?(user)
