@@ -2957,11 +2957,16 @@ h2.primary_title{
   text-shadow: 0 0 0;
   font-weight:normal;
   height: 36px;
-  line-height: 39px;
+  line-height: 40px;
   padding: 0 10px;
   text-align:center;
   width: 20px;
   margin: -2px -6px -5px -10px;
+}
+
+#read_messages .action .unread_comments_count, #read_messages .action_required .unread_comments_count {
+	background-image: url('../images/bluebadge_small.png');
+	background-position: 1px 0;
 }
 
 .hide_link{
