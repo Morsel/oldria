@@ -70,4 +70,11 @@ module MessagesHelper
     params[:action] == "ria"
   end
 
+  def css_classes_for_discussion(discussion)
+    classes = 'inbox_message'
+    classes << ' action_required' if discussion.action_required?(current_user)
+    classes << ' archived' if discussion.read_by?(current_user)
+    classes
+  end
+
 end

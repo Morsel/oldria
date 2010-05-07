@@ -48,6 +48,10 @@ class Discussion < ActiveRecord::Base
        :conditions => 'readings.user_id IS NULL' }
   }
 
+  def action_required?(user)
+    comments_count > 0 && comments.last.user != user && !comments.last.read_by?(user)
+  end
+
   private
 
   def notify_recipients

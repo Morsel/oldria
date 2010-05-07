@@ -1,4 +1,4 @@
-<% div_for discussion, :class => 'inbox_message' do %>
+<% div_for discussion, :class => css_classes_for_discussion(discussion) do %>
   <div class="sender_avatar">
     <%= image_tag discussion.poster.avatar.url(:thumb) %>
   </div>

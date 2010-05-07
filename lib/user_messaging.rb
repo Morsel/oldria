@@ -24,7 +24,11 @@ module UserMessaging
     def unread_admin_discussions
       current_admin_discussions.reject { |d| d.read_by?(self) }
     end
-    
+
+    def unread_discussions
+      discussions.unread_by(self)
+    end
+
     def action_required_admin_discussions
       unread_admin_discussions.select { |d| d.comments_count > 0 && d.comments.last.user != self }
     end
@@ -63,7 +67,7 @@ module UserMessaging
     def unread_announcements
       Admin::Announcement.current.find_unread_by( self )
     end
-    
+
     def action_required_messages
       [admin_conversations.current.action_required(self),
         action_required_admin_discussions
@@ -88,7 +92,7 @@ module UserMessaging
         Admin::PrTip.current.all
       ].flatten.sort_by(&:scheduled_at).reverse
     end
-    
+
     def ria_message_count
       action_required_messages.size + messages_from_ria.size
     end

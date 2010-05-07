@@ -36,6 +36,9 @@ class DiscussionsController < ApplicationController
   def read
     @discussion = current_user.discussions.find(params[:id])
     @discussion && @discussion.read_by!(current_user)
+    @discussion.comments.each do |comment|
+      comment.read_by!(current_user) unless comment.read_by?(current_user)
+    end
     render :nothing => true
   end
 
@@ -48,9 +51,6 @@ class DiscussionsController < ApplicationController
 
   def load_comments
     @comments = @discussion.posted_comments
-    @comments.each do |comment|
-      comment.read_by!(current_user) unless comment.read_by?(current_user)
-    end
   end
 
   def build_comment
