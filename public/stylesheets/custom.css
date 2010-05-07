@@ -2934,7 +2934,7 @@ h2.primary_title{
 }
 
 #read_messages .action {
-  background-color: #EAEFFF;
+  background-color: #eef6fa;
 }
 
 #read_messages a.replies {
@@ -2988,8 +2988,8 @@ h2.primary_title{
 }
 
 #read_messages .discussion.action_required {
- 	background-color: #eaefff;
-	border-color: #eaefff;
+	background-color: #eef6fa;
+	border-color:     #eef6fa;
 }
 
 #messages_nav ul, #messages_nav li{
