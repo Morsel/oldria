@@ -199,7 +199,7 @@ if(typeof(CKEDITOR) != 'undefined'){
 }
 
 $('#status_message').autofill({
-	value: 'What are you up to?',
+	value: 'What are you working on?',
 	defaultTextColor: '#666',
 	activeTextColor: '#333'
 });
