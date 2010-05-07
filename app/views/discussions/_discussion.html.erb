@@ -20,4 +20,8 @@
       <% end %>
     <% end %>
   </p>
+
+  <% unless archived_view? %>
+    <%= link_to "<span>read</span>", read_discussion_path(discussion), :class => 'readit' %>
+  <% end %>
 <% end %>

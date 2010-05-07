@@ -18,5 +18,10 @@
             <%= render @messages %>
           <% end %>
         <% end %>
+
+        <% unless archived_view? %>
+          <p id="past_messages"><%= link_to "All Discussions", staff_discussions_messages_path(:view_all => true) %></p>
+        <% end %>
+
     </div><!-- /messages -->
 </div>

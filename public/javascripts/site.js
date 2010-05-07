@@ -262,6 +262,8 @@ $('.direct_message .readit').click(function(){
   return false;
 });
 
+
+
 // == Getting started box
 if (window.current_user_id) {
   var $hideHelpBox = $('<div id="hide_help_box"/>');

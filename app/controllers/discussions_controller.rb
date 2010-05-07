@@ -9,7 +9,6 @@ class DiscussionsController < ApplicationController
     load_and_authorize_discussion
     load_comments
     build_comment
-    @discussion.read_by!(current_user) unless @discussion.read_by?(current_user)
   end
 
   def new
@@ -24,10 +23,20 @@ class DiscussionsController < ApplicationController
   def create
     @discussion = current_user.posted_discussions.build(params[:discussion])
     if @discussion.save
+      @discussion.read_by!(current_user) unless @discussion.read_by?(current_user)
       redirect_to @discussion
     else
       render :new
     end
+  end
+
+  ##
+  # PUT /discussions/1/read
+  # This is meant to be called via AJAX
+  def read
+    @discussion = current_user.discussions.find(params[:id])
+    @discussion && @discussion.read_by!(current_user)
+    render :nothing => true
   end
 
   private
