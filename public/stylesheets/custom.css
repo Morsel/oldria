@@ -77,13 +77,14 @@ div#header {
 	position: relative;
 }
 
-#brand>img{
+#brand > img{
 	float:left;
-	margin-right:16px;
+	margin-right:18px;
 }
-#brand a{
+
+#brand a {
 	display:block;
-	margin-top:25px;
+	margin-top:20px;
 }
 
 .admin_backend #header {
