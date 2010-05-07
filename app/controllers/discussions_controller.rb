@@ -23,7 +23,6 @@ class DiscussionsController < ApplicationController
   def create
     @discussion = current_user.posted_discussions.build(params[:discussion])
     if @discussion.save
-      @discussion.read_by!(current_user) unless @discussion.read_by?(current_user)
       redirect_to @discussion
     else
       render :new
