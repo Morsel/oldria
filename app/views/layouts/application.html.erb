@@ -34,7 +34,7 @@
 		</div>
 	<% end %>
 
-	<div id="container" class="clearfix">
+	<div id="container" class="clearfix container">
 
 		<div id="header" class="span-18 last">
 
@@ -42,8 +42,8 @@
 				<% if current_user && current_user.media? -%>
 				  <%= link_to image_tag('mediafeed_logo.png', :alt => "Media Feed"), root_path %>
 				<% else -%>
-				  <%= image_tag 'logo_ria.png' %>
-				  <%= link_to image_tag('logo_spoonfeed.png', :alt => "Spoon Feed"), root_path %>
+				  <%= image_tag 'logo_ria.png', :class => 'ria_logo' %>
+				  <%= link_to image_tag('logo_spoonfeed.png', :alt => "Spoon Feed"), root_path, :class => 'spoonfeed_logo' %>
 				<% end -%>
 			</div><!--#brand-->
 
