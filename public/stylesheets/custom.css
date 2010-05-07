@@ -1,4 +1,7 @@
-/* @override http://localhost:3001/stylesheets/custom.css */
+/* @override 
+	http://localhost:3001/stylesheets/custom.css
+	http://staging.restaurantintelligenceagency.com/stylesheets/custom.css?1273244999
+*/
 
 /* colors
 dark brown: #3e2611;
@@ -74,13 +77,14 @@ div#header {
 	position: relative;
 }
 
-#brand>img{
+#brand > img{
 	float:left;
-	margin-right:16px;
+	margin-right:18px;
 }
-#brand a{
+
+#brand a {
 	display:block;
-	margin-top:25px;
+	margin-top:20px;
 }
 
 .admin_backend #header {
@@ -816,7 +820,7 @@ input.checkbox {
 	margin-bottom: 	9px;
 }
 
-.direct_message {
+.direct_message, #read_messages .discussion {
 	margin-bottom: 1em;
 	background-color: #f6f6f6;
 	border: 1px solid #f6f6f6;
@@ -844,7 +848,7 @@ input.checkbox {
 	margin:0;
 }
 
-.direct_message .meta {
+.direct_message .meta, #read_messages .discussion .meta {
 	font-size: 0.85em;
 	color: #777;
 }
@@ -853,12 +857,12 @@ input.checkbox {
 	border-bottom: 1px dashed #ccc;
 }
 
-.direct_message .sender_avatar {
+.direct_message .sender_avatar, .discussion .sender_avatar {
 	width: 70px;
 	float: left;
 }
 
-.direct_message .sender_avatar img {
+.sender_avatar img {
 	margin-bottom: 10px;
 	border: 4px solid #fff;
 	box-shadow: 1px 1px 4px #999;
@@ -872,7 +876,7 @@ input.checkbox {
 	border: 0 none;
 }
 
-.direct_message .message_title {
+.direct_message .message_title, .discussion .message_title {
 	border-bottom: 1px dashed #ddd;
 	width: 382px;
 	font-size: 11px;
@@ -881,12 +885,12 @@ input.checkbox {
 	margin: 0 0 .5em;
 }
 
-.direct_message .message_title a {
+.direct_message .message_title a, .discussion .message_title a {
 	font-weight: bold;
 	color: #000;
 }
 
-.direct_message .message_body { 
+.direct_message .message_body, .discussion .message_body { 
 	font-size: 1.1em; 
 	margin-bottom: 1em;
 }
@@ -903,12 +907,17 @@ input.checkbox {
 	clear: left;
 }
 
-.direct_message .date {
+.direct_message .date, #read_messages .discussion .date {
 	clear: left;
+	float: none;
 	color: #999;
 	font-size: 10px;
 	font-family: "Lucida Grande", sans-serif;
 	text-transform: uppercase;
+}
+
+#read_messages .discussion .message-actions {
+	margin: 0;
 }
 
 .direct_message .actions {
@@ -916,7 +925,7 @@ input.checkbox {
 	margin-top: 10px;
 }
 
-.direct_message .actions .button {
+.direct_message .actions .button, .message-actions .button {
 	padding: 3px 13px;
 }
 
@@ -1123,6 +1132,7 @@ div.restaurant {
 .discussion .meta {
 	font-family: "Lucida Grande", helvetica, arial, sans-serif;
 	font-size: .9em;
+	margin-bottom: 0;
 }
 
 .discussion .meta_label {
@@ -1869,25 +1879,6 @@ ul.mini_menu li {
 
 .inbox_message .message-actions {
 	margin: 1em 0 0;
-}
-
-.inbox_message .message-actions>a {
-	display: block;
-	float: left;
-	padding: 2px 10px;
-	background: #d3d3d3 url(/images/button-gradient.gif) repeat-x;
-	border: 1px solid #bbb;
-	border-radius:10px;
-	-webkit-border-radius:10px;
-	-moz-border-radius:10px;
-	-khtml-border-radius:10px;
-	color: #555;
-	font-weight: bold;
-}
-
-.inbox_message .message-actions>a:hover {
-	background: #bbb;
-	color: #333;
 }
 
 .inbox_message .behalf {
@@ -2811,8 +2802,9 @@ h2.primary_title{
 }
 
 #conversations .direct_message{
-	border-bottom:1px solid #ddd;
+	border-bottom: 1px solid #ddd;
 	margin:0;
+	padding: 0;
 	position: relative;
 }
 
@@ -2932,6 +2924,52 @@ h2.primary_title{
 	margin:5px 10px;
 }
 
+#read_messages .latest {
+  float: left;
+  color: white;
+  background-color: #555;
+  text-transform: uppercase;
+  padding: 3px 5px;
+  font-size: 10.8px;
+  margin-left: 1em;
+}
+
+#read_messages .action {
+  background-color: #eef6fa;
+}
+
+#read_messages a.replies {
+  color: #0587C1;
+}
+
+#read_messages .replies {
+	height: 36px;
+	line-height: 36px;
+}
+
+#read_messages .unread_comments_count {
+  background: url('../images/blackbadge.png') no-repeat 0 0;
+  color:#FFFFFF;
+  display:block;
+  float: left;
+  position: relative;
+  text-align: center;
+  font-size: 9px;
+  text-shadow: 0 0 0;
+  font-weight:normal;
+  height: 36px;
+  line-height: 40px;
+  padding: 0 10px;
+  text-align:center;
+  width: 20px;
+  margin: -2px -6px -5px -10px;
+}
+
+#read_messages .action .unread_comments_count, #read_messages .action_required .unread_comments_count {
+	background-image: url('../images/bluebadge_small.png');
+	background-position: 1px 0;
+}
+
 .hide_link{
 	display:block;
 	float:left;
@@ -2943,6 +2981,16 @@ h2.primary_title{
 #read_messages .discussion{
 	background:#f6f6f6;
 	padding:10px;
+}
+
+#read_messages .discussion.archived {
+	background-color: #fff;
+	border-color: #eee;
+}
+
+#read_messages .discussion.action_required {
+	background-color: #eef6fa;
+	border-color:     #eef6fa;
 }
 
 #messages_nav ul, #messages_nav li{
@@ -2977,14 +3025,14 @@ h2.primary_title{
 }
 
 #past_messages{
-	margin:5px 0 0;
+	margin:5px 0 1em;
 	padding:0;
 	background:#fff;
 	font:bold 0.9em "Lucida Grande", Arial, sans-serif;
 }
 
-#past_messages a{
-	display:inline-block;
+#past_messages a {
+	display: inline-block;
 	padding:7px 12px;
 	text-transform:uppercase;
 	color:#fff;
@@ -2996,7 +3044,7 @@ h2.primary_title{
 	-khtml-border-radius:35px;
 }
 
-#past_messages a:hover{
+#past_messages a:hover {
 	text-decoration:none;
 	background:#2a98c4;
 }
@@ -3029,6 +3077,14 @@ h2.primary_title{
 	-webkit-border-radius: 8px;
 }
 
+#new_or_old_messages .replies, .discussion_replies {
+  text-transform: uppercase;
+  color: white;
+  background-color: #0088C2;
+  float: left;
+  padding: 3px 5px;
+  margin-left: 1em;
+}
 
 .discussion .new_topic, .discussion .new_comment {
 	float: left;
@@ -3049,7 +3105,7 @@ h2.primary_title{
 	background-color: #048dc4;
 }
 
-.discussion .date{
+.discussion .date {
 	float: right;
 	font-size: 11px;
 	font-weight: normal;

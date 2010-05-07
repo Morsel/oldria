@@ -199,7 +199,7 @@ if(typeof(CKEDITOR) != 'undefined'){
 }
 
 $('#status_message').autofill({
-	value: 'What are you up to?',
+	value: 'What are you working on?',
 	defaultTextColor: '#666',
 	activeTextColor: '#333'
 });
@@ -261,6 +261,8 @@ $('.direct_message .readit').click(function(){
   },null);  
   return false;
 });
+
+
 
 // == Getting started box
 if (window.current_user_id) {

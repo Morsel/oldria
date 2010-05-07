@@ -29,7 +29,7 @@ module MessagesHelper
     return unless message
     return if message.respond_to?(:broadcast?) && message.broadcast?
     link_path = link_for_message(message)
-    link_to "Reply", link_path
+    link_to "Reply", link_path, :class => 'button utility round'
   end
 
   def read_link_for_message(message, link_text = '<span>read</span>')
@@ -52,6 +52,7 @@ module MessagesHelper
     defaults = "inbox_message clear clearfix"
     defaults += " archived" if message.read_by?(current_user)
     defaults += " #{dom_class(message.discussionable)}" if message.respond_to?(:discussionable)
+    defaults += " action" if message.respond_to?(:action_required?) && message.action_required?(current_user)
     defaults
   end
 
@@ -63,6 +64,17 @@ module MessagesHelper
     elsif message.respond_to?(:discussionable) || message.is_a?(HolidayDiscussionReminder)
       restaurant = message.restaurant
     end
+  end
+
+  def show_replies?
+    params[:action] == "ria"
+  end
+
+  def css_classes_for_discussion(discussion)
+    classes = 'inbox_message'
+    classes << ' action_required' if discussion.action_required?(current_user)
+    classes << ' archived' if discussion.read_by?(current_user)
+    classes
   end
 
 end

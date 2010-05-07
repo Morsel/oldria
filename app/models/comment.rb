@@ -26,5 +26,13 @@ class Comment < ActiveRecord::Base
   named_scope :not_user, lambda { |user| {
     :conditions => ["user_id != ?", user.id]
   }}
+  
+  before_create :clear_read_status
+  
+  def clear_read_status
+    if self.commentable.respond_to?(:action_required?)
+      self.commentable.readings.each { |r| r.destroy }
+    end
+  end
 
 end

@@ -14,7 +14,7 @@ ActionController::Routing::Routes.draw do |map|
     mrc.resources :comments, :only => [:new, :create]
   end
 
-  map.resources :discussions do |discussions|
+  map.resources :discussions, :member => { :read => :put } do |discussions|
     discussions.resources :comments, :only => [:new, :create]
   end
 

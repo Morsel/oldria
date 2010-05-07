@@ -24,3 +24,20 @@ purple: #AB4A9C;
 #leftcontent {
 	height: 440px;
 }
+
+#container #brand a {
+	float: left;
+	display: inline;
+}
+
+#brand .spoonfeed_logo {
+	display: inline;
+	float: left;
+	height: 60px;
+	width: 180px;
+	background: url('../images/logo_spoonfeed.gif') no-repeat;
+}
+
+#brand .spoonfeed_logo img{
+	display: none;
+}
