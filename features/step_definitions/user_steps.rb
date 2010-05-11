@@ -46,7 +46,7 @@ Given /^I am logged in as "([^\"]*)" with password "([^\"]*)"$/ do |username, pa
 end
 
 Given(/^I am logged in as "([^\" ]*)"$/) do |username|
-  Given %Q(I am logged in as "#{username}" with password "foobar")
+  Given %Q(I am logged in as "#{username}" with password "secret")
 end
 
 Given /^"([^\"]*)" has a "([^\"]*)" account type$/ do |username, account_type_name|
