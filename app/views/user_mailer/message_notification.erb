@@ -8,6 +8,6 @@
 
 <p>Click the following link to view this message:</p>
 
-<p><%= link_to "link text...", @message %></p>
+<p><a href="<%= polymorphic_url(@message) %>"><%= polymorphic_url(@message) %></a></p>
 
 <p>Note: If you have trouble clicking this link above, try copying it and pasting it into your browser's URL bar.</p>
