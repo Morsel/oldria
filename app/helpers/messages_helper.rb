@@ -70,6 +70,14 @@ module MessagesHelper
     params[:action] == "ria"
   end
   
+  def show_replies_block?(message)
+    if message.is_a?(HolidayDiscussion)
+      false
+    else
+      !message.read_by?(current_user)
+    end
+  end
+  
   def show_replies_link?(message)
     message.respond_to?(:action_required?) && message.action_required?(current_user)
   end
