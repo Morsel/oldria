@@ -48,8 +48,8 @@ module UserMessaging
       holiday_discussion_reminders.map { |r| r.find_unread_by(self) }.flatten
     end
     
-    def action_required_hdrs
-      holiday_discussion_reminders.map { |h| h.action_required(self) }.flatten
+    def action_required_holidays
+      holiday_discussions.select { |d| d.comments_count > 0 && d.comments.last.user != self }
     end
 
     def accepted_holiday_discussions
@@ -75,13 +75,13 @@ module UserMessaging
     def action_required_messages
       [admin_conversations.current.action_required(self),
         action_required_admin_discussions,
-        action_required_hdrs
+        action_required_holidays
       ].flatten.sort { |a, b| b.comments.last.created_at <=> a.comments.last.created_at }
     end
 
     def messages_from_ria
       @messages_from_ria ||= [ unread_admin_discussions.reject { |d| d.action_required?(self) },
-        unread_hdrs - action_required_hdrs,
+        unread_hdrs,
         admin_conversations.current.without_replies.unread_by(self),
         unread_pr_tips,
         unread_announcements

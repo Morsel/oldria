@@ -20,6 +20,7 @@ class HolidayDiscussion < ActiveRecord::Base
   has_many :holiday_reminders, :through => :holiday_discussion_reminders
 
   acts_as_commentable
+  acts_as_readable
 
   validates_uniqueness_of :restaurant_id, :scope => :holiday_id
 
@@ -31,16 +32,20 @@ class HolidayDiscussion < ActiveRecord::Base
     holiday.try(:name)
   end
   
-  def read_by?(user)
-    true
-  end
-
   def message
     holiday_reminders.first.message
   end
   
   def scheduled_at
     created_at
+  end
+  
+  def self.action_required(user)
+    self.with_replies.unread_by(user).reject { |c| c.comments.last.user == user }
+  end
+
+  def action_required?(user)
+    !read_by?(user) && comments_count > 0 && (comments.last.user != user)
   end
 
 end
