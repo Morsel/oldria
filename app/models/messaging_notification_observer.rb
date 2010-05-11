@@ -9,6 +9,10 @@ class MessagingNotificationObserver < ActiveRecord::Observer
   observe DirectMessage
 
   def after_create(message_record)
-    message_record.notify_recipients if message_record.respond_to?(:notify_recipients)
+    if message_record.respond_to?(:notify_recipients)
+      Rails.logger.info "*"*55 +
+        "\nAttempting to send message <\##{message_record.class} id:#{message_record.id}>\n" + "*"*55
+      message_record.notify_recipients
+    end
   end
 end
