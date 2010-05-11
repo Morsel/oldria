@@ -43,4 +43,14 @@ class UserMailer < ActionMailer::Base
     body        :discussion => discussion, :user => user
   end
 
+  ##
+  # Generic message: could be one of DirectMessage, etc.
+  def message_notification(message, recipient, sender = nil)
+    from        'notifications@restaurantintelligenceagency.com'
+    recipients  recipient.email
+    sent_on     Time.now
+    subject     "SpoonFeed: #{message.class.title} notification"
+    body        :message => message, :recipient => recipient, :sender => sender
+  end
+
 end

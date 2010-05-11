@@ -85,6 +85,7 @@ class User < ActiveRecord::Base
 
 ### Preferences ###
   preference :hide_help_box, :default => false
+  preference :receive_email_notifications, :default => false
 
 ### Roles ###
   def admin?
