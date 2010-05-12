@@ -1,0 +1,9 @@
+<h2>Hi <%= @recipient.name_or_username %>,</h2>
+
+<p><%= @commenter ? @commenter.name : "Someone" %> just commented on the <%= @message.inbox_title %> "<%= @message.message %>"</p>
+
+<p>Click the following link to view this message:</p>
+
+<p><a href="<%= polymorphic_url(@message) %>"><%= polymorphic_url(@message) %></a></p>
+
+<p>Note: If you have trouble clicking this link above, try copying it and pasting it into your browser's URL bar.</p>
