@@ -6,7 +6,7 @@
 # This method must be implemented on all observed method types
 #
 class MessagingNotificationObserver < ActiveRecord::Observer
-  observe DirectMessage
+  observe DirectMessage, Admin::Conversation
 
   def after_create(message_record)
     if message_record.respond_to?(:notify_recipients)

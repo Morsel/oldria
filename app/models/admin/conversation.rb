@@ -53,4 +53,14 @@ class Admin::Conversation < ActiveRecord::Base
     !read_by?(user) && comments_count > 0 && comments.last.user != user
   end
   
+  ##
+  # A generically-called public method that sets up and sends a
+  # UserMailer notification based on the users' preferences.
+  # Should only be called from an external observer.
+  def notify_recipients
+    if recipient.employee.prefers_receive_email_notifications
+      UserMailer.sent_at(scheduled_at, :deliver_message_notification, self.admin_message, recipient.employee)
+    end
+  end
+
 end
