@@ -56,7 +56,9 @@ class AdminDiscussion < ActiveRecord::Base
   # Should only be called from an external observer.
   def notify_recipients
     employees.each do |user|
-      UserMailer.deliver_message_notification(self, user) if user.prefers_receive_email_notifications
+      if user.prefers_receive_email_notifications
+        UserMailer.send_at(scheduled_at, :deliver_message_notification, self, user)
+      end
     end
   end
 end
