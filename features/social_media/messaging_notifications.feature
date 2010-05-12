@@ -29,3 +29,4 @@ Feature: Messaging notifications preferences
     When "zeke@example.com" opens the email with subject "SpoonFeed: Private Message notification"
     And I click the first link in the email
     Then I should see "I'm sending you a message!"
+

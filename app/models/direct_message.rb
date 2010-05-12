@@ -47,6 +47,10 @@ class DirectMessage < ActiveRecord::Base
     "Private Message"
   end
 
+  def inbox_title
+    self.class.title
+  end
+
   def validate
     if sender_id == receiver_id
       errors.add :receiver, "You can't send yourself a message"

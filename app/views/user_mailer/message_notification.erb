@@ -1,9 +1,9 @@
 <h2>Hi <%= @recipient.name_or_username %>,</h2>
 
 <% if @sender %>
-  <p><%= @sender.name %> has been busy on SpoonFeed. They just sent you a <%= @message.class.title %></p>
+  <p><%= @sender.name %> has been busy on SpoonFeed. They just sent you a <%= @message.inbox_title %></p>
 <% else %>
-  <p>You've received a <%= @message.class.title %></p>
+  <p>You've received a <%= @message.inbox_title %></p>
 <% end %>
 
 <p>Click the following link to view this message:</p>

@@ -45,11 +45,18 @@ class AdminDiscussion < ActiveRecord::Base
   end
 
   def employees
-    employments.map(&:employee)
+    @employees ||= employments.map(&:employee)
   end
-  
+
   def action_required?(user)
     !read_by?(user) && comments_count > 0 && (comments.last.user != user)
   end
-  
+
+  ##
+  # Should only be called from an external observer.
+  def notify_recipients
+    employees.each do |user|
+      UserMailer.deliver_message_notification(self, user) if user.prefers_receive_email_notifications
+    end
+  end
 end
