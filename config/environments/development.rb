@@ -19,6 +19,8 @@ config.action_controller.perform_caching             = false
 config.action_mailer.raise_delivery_errors = true
 
 config.gem "rails-footnotes"
+config.gem 'mail_safe'
+
 
 # Turn off asset timestamp appends for development
 ENV['RAILS_ASSET_ID'] = ''
