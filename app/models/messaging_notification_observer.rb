@@ -10,8 +10,8 @@ class MessagingNotificationObserver < ActiveRecord::Observer
 
   def after_create(message_record)
     if message_record.respond_to?(:notify_recipients)
-      Rails.logger.info "*"*55 +
-        "\nAttempting to send message <\##{message_record.class} id:#{message_record.id}>\n" + "*"*55
+      Rails.logger.info "*" * 55 +
+        "\n Attempting to send message <\##{message_record.class} id:#{message_record.id}>\n" + "*" * 55
       message_record.notify_recipients
     end
   end
