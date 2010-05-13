@@ -39,7 +39,8 @@ class Comment < ActiveRecord::Base
   # This is only meant to be called as a callback from the observer
   def notify_recipients
 
-    # Only models that already have notifications set up
+    # Only models that already have notifications set up 
+    # With special exception for HolidayDiscussion because the notification is on HolidayDiscussionReminder
     return unless commentable.respond_to?(:notify_recipients) || commentable.is_a?(HolidayDiscussion)
 
     # Which method of finding users? (using the first available method)
