@@ -122,3 +122,6 @@ Feature: Trend questions
     And I press "Send"
 
     Then "sam@example.com" should have 2 emails
+
+
+
