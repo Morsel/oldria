@@ -10,9 +10,18 @@ class MessagingNotificationObserver < ActiveRecord::Observer
 
   def after_create(message_record)
     if message_record.respond_to?(:notify_recipients)
-      Rails.logger.info "*" * 55 +
-        "\n Attempting to send message <\##{message_record.class} id:#{message_record.id}>\n" + "*" * 55
+      log_message_queueing(message_record)
       message_record.notify_recipients
     end
+  end
+
+  private
+
+  def log_message_queueing(message_record)
+    Rails.logger.info %Q{
+    #{'*'*72}
+     Attempting to send or queue message notification for [#{message_record.class} id:#{message_record.id}]
+    #{'*'*72}
+    }.gsub(/^ {4}/, '')
   end
 end
