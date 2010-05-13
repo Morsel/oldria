@@ -40,7 +40,7 @@ class Comment < ActiveRecord::Base
   def notify_recipients
 
     # Only models that already have notifications set up
-    return unless commentable.respond_to?(:notify_recipients)
+    return unless commentable.respond_to?(:notify_recipients) || commentable.is_a?(HolidayDiscussion)
 
     commentable.respond_to?(:employees) && commentable.employees.each do |recipient|
       if (user_id != recipient.id) && recipient.prefers_receive_email_notifications

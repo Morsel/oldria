@@ -21,6 +21,7 @@ describe HolidayDiscussionReminder do
   end
 
   it "should create a new instance given valid attributes" do
+    HolidayDiscussionReminder.any_instance.stubs(:notify_recipients).returns(true)
     HolidayDiscussionReminder.create!(@valid_attributes)
   end
   
@@ -30,5 +31,15 @@ describe HolidayDiscussionReminder do
     tomorrow_reminder = Factory.create(:holiday_reminder, :scheduled_at => Time.now.tomorrow)
     tomorrow_hdr = Factory.create(:holiday_discussion_reminder, :holiday_reminder => tomorrow_reminder)
     HolidayDiscussionReminder.current.should == [current_hdr]
+  end
+  
+  it "should send a email notification to discussion recipients" do
+    user = Factory(:user, :prefers_receive_email_notifications => true)
+    restaurant = Factory(:restaurant)
+    Factory.create(:employment, :restaurant => restaurant, :employee => user)
+    discussion = Factory(:holiday_discussion, :restaurant => restaurant)
+    reminder = Factory(:holiday_reminder, :scheduled_at => Time.now)
+    UserMailer.expects(:send_at).with(reminder.scheduled_at, :deliver_message_notification, reminder, user)
+    HolidayDiscussionReminder.create!(:holiday_discussion => discussion, :holiday_reminder => reminder)
   end
 end
