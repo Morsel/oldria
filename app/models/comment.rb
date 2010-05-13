@@ -42,7 +42,11 @@ class Comment < ActiveRecord::Base
     # Only models that already have notifications set up
     return unless commentable.respond_to?(:notify_recipients) || commentable.is_a?(HolidayDiscussion)
 
-    commentable.respond_to?(:employees) && commentable.employees.each do |recipient|
+    # Which method of finding users? (using the first available method)
+    users_method = %w(employees users).detect {|method| commentable.respond_to?(method)}
+    return unless users_method
+
+    commentable.send(users_method).each do |recipient|
       if (user_id != recipient.id) && recipient.prefers_receive_email_notifications
         UserMailer.send_later(:deliver_message_comment_notification, commentable, recipient, user)
       end

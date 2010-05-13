@@ -25,8 +25,6 @@ class Discussion < ActiveRecord::Base
 
   validates_presence_of :title
 
-  after_create :notify_recipients
-
   def posted_comments
     comments.all(:include => [:user, :attachments], :order => 'created_at DESC').reject(&:new_record?)
   end
@@ -48,15 +46,23 @@ class Discussion < ActiveRecord::Base
        :conditions => 'readings.user_id IS NULL' }
   }
 
+  def inbox_title
+    "Discussion"
+  end
+
+  def message
+    title
+  end
+
   def action_required?(user)
     comments_count > 0 && comments.last.user != user && !comments.last.read_by?(user)
   end
 
-  private
-
+  ##
+  # Never call this directly!
   def notify_recipients
     for user in self.users
-      UserMailer.deliver_discussion_notification(self, user)
+      UserMailer.send_later(:deliver_discussion_notification, self, user)
     end
   end
 end
