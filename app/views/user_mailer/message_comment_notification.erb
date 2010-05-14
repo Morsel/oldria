@@ -1,9 +1,14 @@
-<h2>Hi <%= @recipient.name_or_username %>,</h2>
+<%= render :partial => 'email_header' %>
 
-<p><%= @commenter ? @commenter.name : "Someone" %> just commented on the <%= @message.inbox_title %> "<%= @message.message %>"</p>
+ <h3 id="messagetype" style="color: #bbb; font-size: 11px; font-weight: normal; letter-spacing: 2px; line-height: 14px; margin: 0 0 13px; text-transform: uppercase;"><%= @message.inbox_title %></h3>
+  <h1 id="salutation" style="font-size: 20px; line-height: 26px; margin: 12px 0;">Hi <%= @recipient.first_name %>,</h1>
 
-<p>Click the following link to view this message:</p>
+<p id="messagemessage" style="font-size: 14px;">
+      <img src="http://spoonfeed.restaurantintelligenceagency.com/http://<%= DEFAULT_HOST %>/images/bubble_large.png" align="left" alt="" style="margin-bottom:30px;margin-right:10px;float:left">
+  <%= @commenter ? @commenter.name : "Someone" %> just commented on the <%= @message.inbox_title %> "<%= @message.message %>"
+</p>
 
-<p><a href="<%= polymorphic_url(@message) %>"><%= polymorphic_url(@message) %></a></p>
+<p id="messagelink" style="clear: both; font-size: 16px;">
+  <a href="<%= polymorphic_url(@message) %>" style="color: #cc6632; font-weight: bold; text-decoration: none;">View this <%= @message.inbox_title %> &raquo;</a></p>
 
-<p>Note: If you have trouble clicking this link above, try copying it and pasting it into your browser's URL bar.</p>
+<%= render :partial => 'email_footer' %>
