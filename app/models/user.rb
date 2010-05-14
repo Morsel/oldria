@@ -209,7 +209,7 @@ class User < ActiveRecord::Base
   end
   
   def self.receive_email_notifications
-    all.select { |u| u.prefers_receive_email_notifications }
+    Preference.all(:conditions => "value = 't' AND name = 'receive_email_notifications'").map(&:owner)
   end
 
   def deliver_invitation_message!
