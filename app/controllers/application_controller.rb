@@ -123,7 +123,7 @@ class ApplicationController < ActionController::Base
   helper_method :archived_view?
 
   def get_message_counts
-    @ria_message_count = current_user.ria_message_count
+    @ria_message_count = current_user.try(:ria_message_count)
     @private_message_count = current_user.unread_direct_messages.size
     @discussions_count = (current_user.unread_discussions + current_user.discussions.with_comments_unread_by(current_user)).uniq.size
   end
