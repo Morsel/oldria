@@ -1,4 +1,6 @@
 class DirectMessagesController < ApplicationController
+  before_filter :require_user
+
   def new
     @recipient = User.find(params[:user_id])
     @direct_message = @recipient.direct_messages.build
