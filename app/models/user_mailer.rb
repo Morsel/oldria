@@ -49,7 +49,7 @@ class UserMailer < ActionMailer::Base
     from        'notifications@restaurantintelligenceagency.com'
     recipients  recipient.email
     sent_on     Time.now
-    subject     "SpoonFeed: #{message.inbox_title} notification"
+    subject     "SpoonFeed: #{message.email_title} notification"
     body        :message => message, :recipient => recipient, :sender => sender
   end
 
