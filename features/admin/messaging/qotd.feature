@@ -12,7 +12,6 @@ Feature: Admin Messaging: Question of the Day
     And there are no QOTDs in the system
     And I am logged in as an admin
 
-
   Scenario: Create a new QOTD
     Given I am on the new QOTD page
     When I perform the search:
@@ -24,3 +23,23 @@ Feature: Admin Messaging: Question of the Day
     And I should see "What is your favorite pie?"
     And "sam" should have 1 QOTD message
 
+@emails
+  Scenario: New QOTD notification, user prefers no emails
+  Given I am on the new QOTD page
+  When I perform the search:
+    | Restaurant Name | Eight Ball |
+  And I check "Sam Smith (Eight Ball)"
+  And I fill in "Message" with "What is your favorite pie?"
+  And I press "Save"
+  Then "sam@example.com" should have no emails
+
+@emails
+  Scenario: New QOTD notification, user prefers emails
+    Given "sam" prefers to receive direct message alerts
+    And I am on the new QOTD page
+    When I perform the search:
+      | Restaurant Name | Eight Ball |
+    And I check "Sam Smith (Eight Ball)"
+    And I fill in "Message" with "What is your favorite pie?"
+    And I press "Save"
+    Then "sam@example.com" should have 1 email
