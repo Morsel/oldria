@@ -50,6 +50,10 @@ class DirectMessage < ActiveRecord::Base
   def inbox_title
     self.class.title
   end
+  
+  def email_title
+    inbox_title
+  end
 
   def validate
     if sender_id == receiver_id

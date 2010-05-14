@@ -32,6 +32,10 @@ class HolidayDiscussion < ActiveRecord::Base
     holiday.try(:name)
   end
   
+  def email_title
+    inbox_title
+  end
+
   def read_by?(user)
     true
   end

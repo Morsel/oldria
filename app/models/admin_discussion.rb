@@ -35,6 +35,10 @@ class AdminDiscussion < ActiveRecord::Base
     discussionable.class.title
   end
 
+  def email_title
+    inbox_title
+  end
+
   def scheduled_at
     discussionable.scheduled_at
   end

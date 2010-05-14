@@ -49,6 +49,10 @@ class Discussion < ActiveRecord::Base
   def inbox_title
     "Discussion"
   end
+  
+  def email_title
+    inbox_title
+  end
 
   def message
     title

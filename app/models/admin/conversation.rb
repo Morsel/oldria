@@ -37,6 +37,10 @@ class Admin::Conversation < ActiveRecord::Base
     admin_message.inbox_title
   end
   
+  def email_title
+    inbox_title
+  end
+  
   def message
     admin_message.message
   end
