@@ -6,9 +6,9 @@ Feature: Admin Messaging: Announcements
 
   Background:
     Given a restaurant named "Corner Pocket" with the following employees:
-      | username | name      | role      | subject matters |
-      | sam      | Sam Smith | Chef      | Food, Pastry    |
-      | john     | John Doe  | Sommelier | Beer, Wine      |
+      | username | password | email            | name      | role      | subject matters |
+      | sam      | secret   | sam@example.com  | Sam Smith | Chef      | Food, Pastry    |
+      | john     | secret   | john@example.com | John Doe  | Sommelier | Beer, Wine      |
     Given I am logged in as an admin
 
 
@@ -21,3 +21,20 @@ Feature: Admin Messaging: Announcements
     And I should see "We've got Direct Messages!"
     And "sam" should have 1 Announcement message
     And "john" should have 1 Announcement message
+    
+    
+@emails
+  Scenario: New Announcement notification, user prefers no emails
+  Given there are no Admin Messages in the system
+  And I am on the new Announcement page
+  When I fill in "Message" with "Today is party day!"
+  And I press "Save"
+  Then "sam@example.com" should have no emails
+
+@emails
+  Scenario: New Announcement notification, user prefers emails
+    Given "sam" prefers to receive direct message alerts
+    And I am on the new Announcement page
+    When I fill in "Message" with "Today is party day!"
+    And I press "Save"
+    Then "sam@example.com" should have 1 email
