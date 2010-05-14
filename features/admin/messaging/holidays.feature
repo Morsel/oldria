@@ -33,4 +33,23 @@ I want to set up holidays, with multiple scheduled reminders
       | Scheduled at | 2009-01-01 12:00:00                |
       | Message      | Don't forget to wrap your presents |
     Then the last holiday for "Eight Ball" should be viewable by "Sam Smith"
-     And the last holiday for "Eight Ball" should not be viewable by "John Doe"
+    And the last holiday for "Eight Ball" should not be viewable by "John Doe"
+
+@emails
+  Scenario: New Holiday Reminder notification, user prefers no emails
+  When I create a holiday with name "Christmas" and criteria:
+    | Restaurant | Eight Ball |
+  When I create a new reminder for holiday "Christmas" with:
+    | Scheduled at | 2009-01-01 12:00:00                |
+    | Message      | Don't forget to wrap your presents |
+  Then "sam@example.com" should have no emails
+
+@emails
+  Scenario: New Holiday Reminder notification, user prefers emails
+  Given "sam" prefers to receive direct message alerts
+  When I create a holiday with name "Christmas" and criteria:
+    | Restaurant | Eight Ball |
+  When I create a new reminder for holiday "Christmas" with:
+    | Scheduled at | 2009-01-01 12:00:00                |
+    | Message      | Don't forget to wrap your presents |
+  Then "sam@example.com" should have 1 email
