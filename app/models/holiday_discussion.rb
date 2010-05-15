@@ -18,7 +18,7 @@ class HolidayDiscussion < ActiveRecord::Base
   belongs_to :holiday
   has_many :holiday_discussion_reminders
   has_many :holiday_reminders, :through => :holiday_discussion_reminders
-  has_many :employees, :through => :restaurant
+  has_many :employees, :through => :restaurant, :source => :user
 
   acts_as_commentable
 
