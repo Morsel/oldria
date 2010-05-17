@@ -9,6 +9,6 @@
 </p>
 
 <p id="messagelink" style="clear: both; font-size: 16px;">
-  <a href="<%= polymorphic_url(@message) %>" style="color: #cc6632; font-weight: bold; text-decoration: none;">Respond to the <%= @message.email_title %> &raquo;</a></p>
+  <a href="<%= @message.respond_to?(:admin_message) ? admin_conversation_url(@message) : polymorphic_url(@message) %>" style="color: #cc6632; font-weight: bold; text-decoration: none;">Respond to the <%= @message.email_title %> &raquo;</a></p>
 
 <%= render :partial => 'email_footer' %>

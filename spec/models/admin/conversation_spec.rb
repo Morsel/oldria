@@ -29,9 +29,9 @@ describe Admin::Conversation do
     user = Factory(:user, :prefers_receive_email_notifications => true)
     employment = Factory(:employment, :employee => user)
     message = Factory(:qotd, :scheduled_at => Time.now)
-    UserMailer.expects(:send_at).with(message.scheduled_at, :deliver_message_notification, message, user)
-    Admin::Conversation.create!(Factory.attributes_for(:admin_conversation, :recipient => employment, 
-      :admin_message => message))
+    admin_conversation = Admin::Conversation.new(Factory.attributes_for(:admin_conversation, :recipient => employment, :admin_message => message))
+    admin_conversation.expects(:send_at).with(message.scheduled_at, :queued_message_sending)
+    admin_conversation.save!
   end
 
 end
