@@ -5,14 +5,10 @@
 
 <p id="messagemessage" style="font-size: 14px;">
       <img src="http://spoonfeed.restaurantintelligenceagency.com/images/bubble_large.png" align="left" alt="" style="margin-bottom:30px;margin-right:10px;float:left">
-  <% if @sender %>
-  <%= @sender.name %> has been busy on SpoonFeed. They just sent you a <%= @message.email_title %>.
-  <% else %>
-  You've received a <%= @message.email_title %>.
-  <% end %>
+  You've received a <%= @message.email_title %><%= @sender ? " from #{@sender.name}" %>.
 </p>
 
 <p id="messagelink" style="clear: both; font-size: 16px;">
-  <a href="<%= polymorphic_url(@message) %>" style="color: #cc6632; font-weight: bold; text-decoration: none;">View the <%= @message.email_title %> &raquo;</a></p>
+  <a href="<%= polymorphic_url(@message) %>" style="color: #cc6632; font-weight: bold; text-decoration: none;">Respond to the <%= @message.email_title %> &raquo;</a></p>
 
 <%= render :partial => 'email_footer' %>
