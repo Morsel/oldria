@@ -25,9 +25,9 @@ class HolidayDiscussionReminder < ActiveRecord::Base
   def inbox_title
     holiday_reminder.inbox_title
   end
-  
+
   def email_title
-    inbox_title
+    holiday_reminder.email_title
   end
 
   def holiday

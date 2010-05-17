@@ -13,7 +13,7 @@
 #
 
 class HolidayDiscussion < ActiveRecord::Base
-  
+
   belongs_to :restaurant
   belongs_to :holiday
   has_many :holiday_discussion_reminders
@@ -30,9 +30,9 @@ class HolidayDiscussion < ActiveRecord::Base
   def inbox_title
     holiday.try(:name)
   end
-  
+
   def email_title
-    inbox_title
+    %Q[Discussion for "#{inbox_title}"]
   end
 
   def read_by?(user)
@@ -42,11 +42,11 @@ class HolidayDiscussion < ActiveRecord::Base
   def message
     holiday_reminders.first.message
   end
-  
+
   def scheduled_at
     created_at
   end
-  
+
   def employees
     restaurant.employees
   end
