@@ -4,7 +4,7 @@
   <h1 id="salutation" style="font-size: 20px; line-height: 26px; margin: 12px 0;">Hi <%= @recipient.first_name %>,</h1>
 
 <p id="messagemessage" style="font-size: 14px;">
-      <img src="http://spoonfeed.restaurantintelligenceagency.com/http://<%= DEFAULT_HOST %>/images/bubble_large.png" align="left" alt="" style="margin-bottom:30px;margin-right:10px;float:left">
+      <img src="http://<%= DEFAULT_HOST %>/images/bubble_large.png" align="left" alt="" style="margin-bottom:30px;margin-right:10px;float:left">
   <%= @commenter ? @commenter.name : "Someone" %> just commented on the <%= @message.email_title %> "<%= @message.message %>"
 </p>
 
