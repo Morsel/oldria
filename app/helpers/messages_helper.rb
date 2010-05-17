@@ -71,11 +71,7 @@ module MessagesHelper
   end
   
   def show_replies_block?(message)
-    if message.is_a?(HolidayDiscussion)
-      false
-    else
-      !message.read_by?(current_user)
-    end
+    !message.read_by?(current_user)
   end
   
   def show_replies_link?(message)

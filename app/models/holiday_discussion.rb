@@ -37,7 +37,7 @@ class HolidayDiscussion < ActiveRecord::Base
   end
 
   def read_by?(user)
-    true
+    accepted?
   end
 
   def message
