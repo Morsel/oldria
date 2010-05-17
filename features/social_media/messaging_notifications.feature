@@ -27,6 +27,6 @@ Feature: Messaging notifications preferences
       | I'm sending you a message! |
     Then "zeke@example.com" should have 1 email
     When "zeke@example.com" opens the email with subject "SpoonFeed: Private Message notification"
-    And I follow "View the Private Message" in the email
+    And I follow "Respond to the Private Message" in the email
     Then I should see "I'm sending you a message!"
 
