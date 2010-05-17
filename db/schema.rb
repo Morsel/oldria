@@ -79,7 +79,7 @@ ActiveRecord::Schema.define(:version => 20100426230131) do
 
   create_table "comments", :force => true do |t|
     t.string   "title",            :limit => 50, :default => ""
-    t.text     "comment",                        :default => ""
+    t.text     "comment"
     t.integer  "commentable_id"
     t.string   "commentable_type"
     t.integer  "user_id"
@@ -189,6 +189,8 @@ ActiveRecord::Schema.define(:version => 20100426230131) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "feed_categories", ["id"], :name => "index_feed_categories_on_id", :unique => true
 
   create_table "feed_entries", :force => true do |t|
     t.string   "title"
@@ -315,7 +317,6 @@ ActiveRecord::Schema.define(:version => 20100426230131) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.date     "due_date"
-    t.string   "request_type"
     t.integer  "media_request_type_id"
     t.text     "fields"
     t.string   "status"
@@ -449,6 +450,7 @@ ActiveRecord::Schema.define(:version => 20100426230131) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.datetime "confirmed_at"
+    t.datetime "last_request_at"
     t.string   "atoken"
     t.string   "asecret"
     t.integer  "account_type_id"
@@ -460,7 +462,6 @@ ActiveRecord::Schema.define(:version => 20100426230131) do
     t.string   "last_name"
     t.integer  "james_beard_region_id"
     t.string   "publication"
-    t.datetime "last_request_at"
     t.string   "role"
   end
 

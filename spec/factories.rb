@@ -2,7 +2,7 @@
 Factory.define :user do |f|
   f.sequence(:username) { |n| "foo#{n}" }
   f.sequence(:email)    { |n| "foo#{n}@example.com" }
-  f.password 'foobar'
+  f.password 'secret'
   f.password_confirmation { |u| u.password }
   f.confirmed_at { Time.now }
   f.first_name { |u| u.name.split(' ').first || "John" }
@@ -178,13 +178,25 @@ Factory.define :admin_message, :class => Admin::Message do |f|
   f.message "This is an admin message"
 end
 
+Factory.define :qotd, :class => Admin::Qotd do |f|
+  f.message "Today's question is: ..."
+end
+
+Factory.define :announcement, :class => Admin::Announcement do |f|
+  f.message "We're all taking tomorrow off."
+end
+
+Factory.define :pr_tip, :class => Admin::PrTip do |f|
+  f.message "Go forth and be awesome!"
+end
+
 Factory.define :holiday_reminder, :class => Admin::HolidayReminder do |f|
   f.message "This is a holiday reminder"
   f.association :holiday
 end
 
 Factory.define :admin_conversation, :class => Admin::Conversation do |f|
-  f.recipient {|c| c.association :employment }
+  f.association :recipient, :factory => :employment 
   f.association :admin_message
 end
 

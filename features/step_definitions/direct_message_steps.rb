@@ -47,3 +47,10 @@ end
 Then /^"([^\"]*)" should have ([0-9]+) direct message$/ do |username, num|
   User.find_by_username(username).direct_messages.count.should == num.to_i
 end
+
+Given /^"([^\"]*)" prefers to receive direct message alerts$/ do |username|
+  user = User.find_by_username!(username)
+  user.write_preference(:receive_email_notifications, true)
+  user.save
+end
+

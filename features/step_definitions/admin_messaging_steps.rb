@@ -2,7 +2,6 @@ Given(/^there are no (?:QOTDs|Admin Messages)(?: in the system)?$/) do
   Admin::Message.destroy_all
 end
 
-
 Then /^the last holiday for "([^\"]*)" should be viewable by "([^\"]*)"$/ do |restaurantname,  employeename|
   restaurant = Restaurant.find_by_name!(restaurantname)
   user = User.find_by_name(employeename)
@@ -55,7 +54,7 @@ When /^I create a new reminder for holiday "([^\"]*)" with:$/ do |holidayname, t
   holiday.admin_holiday_reminders.count.should be > 0
 end
 
-When(/^I create a new QOTD with:$/)do |table|
+When(/^I create a new QOTD with:$/) do |table|
   data = table.rows_hash
   visit new_admin_qotd_path
   fill_in 'Message', :with => data['Message']
@@ -76,7 +75,6 @@ Then(/^"([^\"]*)" should have (\d+) Announcement messages?$/) do |username, num|
   user = User.find_by_username(username)
   user.announcements.count.should == num.to_i
 end
-
 
 Given(/^"([^\"]*)" has a QOTD message with:$/) do |username, table|
   data = table.rows_hash

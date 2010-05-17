@@ -43,6 +43,18 @@ class DirectMessage < ActiveRecord::Base
 
   attr_protected :from_admin
 
+  def self.title
+    "Private Message"
+  end
+
+  def inbox_title
+    self.class.title
+  end
+  
+  def email_title
+    inbox_title
+  end
+
   def validate
     if sender_id == receiver_id
       errors.add :receiver, "You can't send yourself a message"
@@ -73,6 +85,16 @@ class DirectMessage < ActiveRecord::Base
 
   def from?(user)
     sender_id == user.id
+  end
+
+  ##
+  # A generically-called public method that sets up and sends a
+  # UserMailer notification based on the users' preferences.
+  # Should only be called from an external observer.
+  def notify_recipients
+    if receiver.prefers_receive_email_notifications
+      UserMailer.deliver_message_notification(self, receiver, sender)
+    end
   end
 
 end

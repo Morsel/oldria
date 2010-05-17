@@ -26,12 +26,31 @@ class Comment < ActiveRecord::Base
   named_scope :not_user, lambda { |user| {
     :conditions => ["user_id != ?", user.id]
   }}
-  
+
   before_create :clear_read_status
-  
+
   def clear_read_status
     if self.commentable.respond_to?(:action_required?)
       self.commentable.readings.each { |r| r.destroy }
+    end
+  end
+
+  ##
+  # This is only meant to be called as a callback from the observer
+  def notify_recipients
+
+    # Only models that already have notifications set up 
+    # With special exception for HolidayDiscussion because the notification is on HolidayDiscussionReminder
+    return unless commentable.respond_to?(:notify_recipients) || commentable.is_a?(HolidayDiscussion)
+
+    # Which method of finding users? (using the first available method)
+    users_method = %w(employees users).detect {|method| commentable.respond_to?(method)}
+    return unless users_method
+
+    commentable.send(users_method).each do |recipient|
+      if (user_id != recipient.id) && recipient.prefers_receive_email_notifications
+        UserMailer.send_later(:deliver_message_comment_notification, commentable, recipient, user)
+      end
     end
   end
 
