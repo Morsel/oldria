@@ -39,7 +39,8 @@ describe HolidayDiscussionReminder do
     Factory.create(:employment, :restaurant => restaurant, :employee => user)
     discussion = Factory(:holiday_discussion, :restaurant => restaurant)
     reminder = Factory(:holiday_reminder, :scheduled_at => Time.now)
-    UserMailer.expects(:send_at).with(reminder.scheduled_at, :deliver_message_notification, reminder, user)
-    HolidayDiscussionReminder.create!(:holiday_discussion => discussion, :holiday_reminder => reminder)
+    discussion_reminder = HolidayDiscussionReminder.new(:holiday_discussion => discussion, :holiday_reminder => reminder)
+    discussion_reminder.expects(:send_at).with(reminder.scheduled_at, :queued_message_sending)
+    discussion_reminder.save!
   end
 end

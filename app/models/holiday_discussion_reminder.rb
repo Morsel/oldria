@@ -52,9 +52,13 @@ class HolidayDiscussionReminder < ActiveRecord::Base
 
   # Should only be called from an external observer.
   def notify_recipients
+    self.send_at(scheduled_at, :queued_message_sending)
+  end
+
+  def queued_message_sending
     for recipient in employees
       if recipient.prefers_receive_email_notifications
-        UserMailer.send_at(scheduled_at, :deliver_message_notification, self.holiday_reminder, recipient)
+        UserMailer.deliver_message_notification(self, recipient)
       end
     end
   end
