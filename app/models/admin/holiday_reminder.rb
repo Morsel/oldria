@@ -32,6 +32,10 @@ class Admin::HolidayReminder < ActiveRecord::Base
     holiday && holiday.name
   end
   
+  def email_title
+    "Reminder for #{inbox_title}"
+  end
+  
   def update_discussions
     self.holiday_discussions = self.holiday.holiday_discussions.needs_reply if self.holiday
   end

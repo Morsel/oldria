@@ -35,6 +35,10 @@ class AdminDiscussion < ActiveRecord::Base
     discussionable.class.title
   end
 
+  def email_title
+    inbox_title
+  end
+
   def scheduled_at
     discussionable.scheduled_at
   end
@@ -45,11 +49,24 @@ class AdminDiscussion < ActiveRecord::Base
   end
 
   def employees
-    employments.map(&:employee)
+    @employees ||= employments.map(&:employee)
   end
-  
+
   def action_required?(user)
     !read_by?(user) && comments_count > 0 && (comments.last.user != user)
   end
-  
+
+  ##
+  # Should only be called from an external observer.
+  def notify_recipients
+    self.send_at(scheduled_at, :send_email_notification_to_each_employee)
+  end
+
+  def send_email_notification_to_each_employee
+    employees.each do |user|
+      if user.prefers_receive_email_notifications
+        UserMailer.deliver_message_notification(self, user)
+      end
+    end
+  end
 end

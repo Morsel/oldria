@@ -25,7 +25,7 @@ class Admin::Conversation < ActiveRecord::Base
 
   belongs_to :recipient, :class_name => "Employment"
   belongs_to :admin_message, :foreign_key => 'admin_message_id', :class_name => 'Admin::Message'
-  
+
   named_scope :unread_by, lambda { |user|
      { :joins => "LEFT OUTER JOIN readings ON #{table_name}.id = readings.readable_id
        AND readings.readable_type = '#{self.to_s}'
@@ -36,21 +36,37 @@ class Admin::Conversation < ActiveRecord::Base
   def inbox_title
     admin_message.inbox_title
   end
-  
+
+  def email_title
+    inbox_title
+  end
+
   def message
     admin_message.message
   end
-  
+
   def scheduled_at
     admin_message.scheduled_at
   end
-  
+
   def self.action_required(user)
     self.with_replies.unread_by(user).reject { |c| c.comments.last.user == user }
   end
-  
+
   def action_required?(user)
     !read_by?(user) && comments_count > 0 && comments.last.user != user
   end
-  
+
+  # Should only be called from an external observer.
+  def notify_recipients
+    self.send_at(scheduled_at, :queued_message_sending)
+  end
+
+  # Should only be called from the notify_recipients queued action
+  def queued_message_sending
+    if recipient.employee.prefers_receive_email_notifications
+      UserMailer.deliver_message_notification(self, recipient.employee)
+    end
+  end
+
 end

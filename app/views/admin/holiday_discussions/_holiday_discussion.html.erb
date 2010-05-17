@@ -1,6 +1,6 @@
 <tr class="holiday_discussion_recipient <%= cycle('odd', 'even', :name => 'discussion_row') %><%= holiday_discussion.accepted? ? ' accepted' : ' unaccepted' %>">
   <td>
-    <%= holiday_discussion.restaurant.name %>
+    <%= holiday_discussion.restaurant.try(:name) %>
   </td>
 
   <%- if holiday_discussion.comments_count > 0 -%>

@@ -82,9 +82,10 @@ class User < ActiveRecord::Base
   validates_acceptance_of :agree_to_contract
   named_scope :for_autocomplete, :select => "first_name, last_name", :order => "last_name ASC", :limit => 15
   named_scope :by_last_name, :order => "LOWER(last_name) ASC"
-
+  
 ### Preferences ###
   preference :hide_help_box, :default => false
+  preference :receive_email_notifications, :default => false
 
 ### Roles ###
   def admin?
@@ -205,6 +206,10 @@ class User < ActiveRecord::Base
     else
       first_name_or_last_name_begins_with(namearray.first)
     end
+  end
+  
+  def self.receive_email_notifications
+    Preference.all(:conditions => "value = 't' AND name = 'receive_email_notifications'").map(&:owner)
   end
 
   def deliver_invitation_message!

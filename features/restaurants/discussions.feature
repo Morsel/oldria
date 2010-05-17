@@ -33,7 +33,7 @@ Feature: Discussions
     And "john@example.com" should have no emails
 
     When "sam@example.com" opens the email with subject "SpoonFeed: Wendy Sue has invited you to a discussion"
-    And I click the first link in the email
+    And I follow "View this discussion" in the email
     Then I should see "Where should we eat?"
 
 

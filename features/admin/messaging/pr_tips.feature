@@ -1,8 +1,8 @@
 @admin @messaging
-Feature: Admin Messaging: Announcements
-  So that SF Staff can alert users to new features, for example
+Feature: Admin Messaging: Pr Tips
+  So that SF Staff can send pr tips to users, for example
   As a SF staff member
-  I want to make announcements that everyone will see
+  I want to make pr tip posts that everyone will see
 
   Background:
     Given a restaurant named "Corner Pocket" with the following employees:
@@ -12,19 +12,19 @@ Feature: Admin Messaging: Announcements
     Given I am logged in as an admin
 
 
-  Scenario: Announcements are sent to everyone
-    Given there are no Admin Messages in the system
-    And I am on the new Announcement page
-    When I fill in "Message" with "We've got Direct Messages!"
+  Scenario: PR Tips are sent to everyone
+    Given there are no PR Tips in the system
+    And I am on the new PR Tip page
+    When I fill in "Message" with "Be friendly!"
     And I press "Save"
-    Then I should see list of Announcements
-    And I should see "We've got Direct Messages!"
+    Then I should see a list of Pr Tips
+    And I should see "Be friendly!"
     And "sam" should have 1 Announcement message
     And "john" should have 1 Announcement message
     
     
 @emails
-  Scenario: New Announcement notification, user prefers no emails
+  Scenario: New Pr Tip notification, user prefers no emails
   Given there are no Admin Messages in the system
   And I am on the new Announcement page
   When I fill in "Message" with "Today is party day!"
