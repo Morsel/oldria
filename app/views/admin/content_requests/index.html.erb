@@ -7,7 +7,7 @@
        t.cell(:scheduled_at, :heading => "Scheduled"){|c| c.scheduled_at.try(:strftime,"%m/%d")}
        t.cell(:subject)
        t.cell(:body)
-       t.cell(:criteria) {|cr| cr.employment_search.readable_conditions.join(", ") rescue nil }
+       t.cell(:criteria) {|cr| cr.employment_search.readable_conditions.join(", ") }
        t.cell :reply_count, :heading => '', :cell_html => {:class => 'actions reply_count'} do |cr|
          reply_count_link(cr)
        end
