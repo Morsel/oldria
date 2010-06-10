@@ -94,5 +94,15 @@ describe Restaurant do
       restaurant.destroy
       content_request.admin_discussions.count.should == 0
     end
+    
+    it "should delete an associated admin_discussion when restaurant is deleted" do
+      restaurant = Factory(:restaurant)
+      holiday = Factory(:holiday)
+      holiday.restaurants = [restaurant]
+      holiday_reminder = Factory(:holiday_reminder, :holiday => holiday)
+      holiday_reminder.holiday_discussions.count.should == 1
+      restaurant.destroy
+      holiday_reminder.holiday_discussions.count.should == 0
+    end
   end
 end
