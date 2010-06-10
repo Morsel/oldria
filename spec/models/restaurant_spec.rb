@@ -85,5 +85,14 @@ describe Restaurant do
       Restaurant.count.should == 0
       Restaurant.with_destroyed { Restaurant.count }.should == 1
     end
+    
+    it "should delete an associated admin_discussion when restaurant is deleted" do
+      restaurant = Factory(:restaurant)
+      content_request = Factory(:content_request)
+      content_request.restaurant_ids = [restaurant.id]
+      content_request.admin_discussions.count.should == 1
+      restaurant.destroy
+      content_request.admin_discussions.count.should == 0
+    end
   end
 end

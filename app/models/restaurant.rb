@@ -35,7 +35,7 @@ class Restaurant < ActiveRecord::Base
            :source => :employee,
            :conditions => {:employments => {:omniscient => true}}
   has_many :media_request_conversations, :through => :employments
-  has_many :admin_discussions
+  has_many :admin_discussions, :dependent => :destroy
   has_many :holiday_discussions
   has_many :holidays, :through => :holiday_discussions
 
