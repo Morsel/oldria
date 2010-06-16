@@ -8,6 +8,12 @@ Given /^the following confirmed users?:?$/ do |table|
   end
 end
 
+Given /^the following unconfirmed users?:?$/ do |table|
+  table.hashes.each do |row|
+    user = Factory(:user, row.merge(:confirmed_at => nil))
+  end
+end
+
 Given /^the following media users?:?$/ do |table|
   table.hashes.each do |row|
     user = Factory(:media_user, row)
