@@ -1,8 +1,9 @@
 <ul id="sf_nav">
 	<li id="dashboard"><%= link_to "Dashboard", root_url, :class=>'hidden_text' %></li>
 	<li id="messages"><%= link_to "Messages", messages_path, :class=>'hidden_text' %></li>
+	<li id="directory"><%= link_to "Directory", directory_path %></li>
+    <li id="readfeed"><%= link_to "ReadFeed", feeds_path, :class => 'hidden_text' %></li>
 	<li id="timelines"><%= link_to "Timelines", timelines_path, :class=>'hidden_text' %></li>
 	<li id="profile"><%= link_to "Profile", profile_path(current_user.username), :class=>'hidden_text' %></li>
-	<li id="directory"><%= link_to "Directory", directory_path %></li>
 	<li id="search" style="display:none"><%= link_to "Search", search_path, :class=>'hidden_text' %></li>
 </ul>
