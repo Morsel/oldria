@@ -11,7 +11,7 @@ class UserSessionsController < ApplicationController
       flash[:notice] = "You are now logged in."
       redirect_back_or_default
     else
-      flash.now[:error] = "Sorry, but we couldn't log you in"
+      flash.now[:error] = @user_session.errors.on_base || "Sorry, but we couldn't log you in"
       render :new
     end
   end
