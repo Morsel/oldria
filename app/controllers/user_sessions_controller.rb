@@ -12,7 +12,8 @@ class UserSessionsController < ApplicationController
       redirect_back_or_default
     else
       if @user_session.errors.on_base == "Your account is not confirmed"
-        error_message = "Your account is not confirmed. Please check your email for instructions."
+        error_message = "Your account is not confirmed.<br/>
+Please check your email for instructions or <a href='#{resend_confirmation_users_path}'>click here</a> to request the confirmation email again."
       else
         error_message = "Sorry, but we couldn't log you in"
       end
