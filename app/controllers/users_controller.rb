@@ -60,6 +60,8 @@ class UsersController < ApplicationController
       @user_session = UserSession.new(@user)
       if @user_session.save
         @message = "Welcome aboard! Your account has been confirmed."
+      else
+        @message = "Could not log you in. Please contact us for assistance."
       end
     elsif current_user
       flash[:notice] = "Looks like you're already set up. Get to work!"
