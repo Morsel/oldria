@@ -26,7 +26,7 @@ describe InvitationsController do
         end
       end
     
-      context "user is not found by token" do
+      context "and the user is not found by token" do
         before do
           User.stubs(:find_using_perishable_token) # returns nil
           get :show, :id => "abc789"
@@ -39,10 +39,21 @@ describe InvitationsController do
           flash[:error].should_not be_nil
         end
         
-        context "and is the invitee" do
+        context "and is the invitee who is confirmed" do
+          before do
+            @invitee.confirmed_at = Time.now; @invitee.save
+          end
+          
           it "should redirect to a special login page" do
             get :show, :id => 'expired_id', :user_id => @invitee.id
             response.should redirect_to(login_invitations_path(:user_session => {:username => @invitee.username}))
+          end
+        end
+
+        context "and is the invitee who is not confirmed" do
+          it "should redirect to a special login page" do
+            get :show, :id => 'expired_id', :user_id => @invitee.id
+            response.should redirect_to(resend_confirmation_users_path)
           end
         end
       end
