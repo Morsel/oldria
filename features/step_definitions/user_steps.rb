@@ -63,6 +63,10 @@ Given /^"([^\"]*)" has a "([^\"]*)" account type$/ do |username, account_type_na
   user.save
 end
 
+Given /^I am not logged in$/ do
+  Given 'I visit the logout path'
+end
+
 When /^I (?:visit the logout path|logout)$/ do
   visit logout_url
 end
