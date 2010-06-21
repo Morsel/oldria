@@ -10,7 +10,12 @@ class InvitationsController < ApplicationController
       redirect_to complete_registration_path
     elsif params[:user_id] && User.exists?(params[:user_id])
       @user = User.find(params[:user_id])
-      redirect_to login_invitations_path(:user_session => {:username => @user.username})
+      if @user.confirmed
+        redirect_to login_invitations_path(:user_session => {:username => @user.username})
+      else
+        flash[:error] = "Something went wrong trying to confirm your account. Please request a new confirmation email below."
+        redirect_to resend_confirmation_users_path
+      end
     else
       flash[:error] = "We could not locate your account."
       redirect_to login_path, :user_id => params[:user_id]

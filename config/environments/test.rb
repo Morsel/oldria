@@ -33,7 +33,7 @@ config.gem "rspec-rails",   :lib => false, :version => '~>1.3.2'
 config.gem "webrat",        :lib => false, :version => '~>0.7.0'
 config.gem "remarkable_rails", :lib => false
 config.gem "cucumber",      :lib => false, :version => '~>0.7.2'
-config.gem "factory_girl",  :version => '>=1.2.3'
+config.gem "factory_girl",  :version => '~>1.2.3'
 config.gem 'email_spec',    :version => ">=0.3.5"
 config.gem "fakeweb",       :version => ">=1.2.5"
 config.gem "netrecorder"

@@ -69,7 +69,7 @@ Feature: Associating a Restaurant with its employees
     And I fill in "Temporary Password" with "secret"
     And I fill in "Password Confirmation" with "secret"
     And I press "Invite Employee"
-    Then I should see "Successfully associated employee and restaurant"
+    Then I should see "sent an invitation and added to your restaurant"
     And "Duck Soup" should have 2 employees
     And "dinkle@example.com" should have 1 email
 

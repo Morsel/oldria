@@ -29,7 +29,7 @@ config.gem 'webrat',           :lib => false, :version => '>=0.7.0' unless File.
 config.gem 'rspec',            :lib => false, :version => '>=1.3.0' unless File.directory?(File.join(Rails.root, 'vendor/plugins/rspec'))
 config.gem 'rspec-rails',      :lib => false, :version => '>=1.3.2' unless File.directory?(File.join(Rails.root, 'vendor/plugins/rspec-rails'))
 
-config.gem "factory_girl"
+config.gem "factory_girl",  :version => '~>1.2.3'
 config.gem 'bmabey-email_spec', :lib => 'email_spec', :source => "http://gems.github.com"
 config.gem "fakeweb", :version => ">= 1.2.5"
 config.gem "mocha"

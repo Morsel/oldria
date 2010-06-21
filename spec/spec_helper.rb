@@ -20,6 +20,8 @@ Spork.prefork do
 
   require "authlogic/test_case"
 
+  require "#{Rails.root}/spec/factories"
+
   Dir["#{File.dirname(__FILE__)}/support/**/*.rb"].each {|f| require f}
 
   Webrat.configure do |config|
