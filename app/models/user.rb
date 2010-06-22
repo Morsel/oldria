@@ -78,11 +78,13 @@ class User < ActiveRecord::Base
   validates_exclusion_of :publication,
                          :in => %w( freelance Freelance ),
                          :message => "'{{value}}' is not allowed"
+  validates_format_of :username,
+                      :with => /^[a-zA-Z0-9\-\_ ]+$/
 
   validates_acceptance_of :agree_to_contract
   named_scope :for_autocomplete, :select => "first_name, last_name", :order => "last_name ASC", :limit => 15
   named_scope :by_last_name, :order => "LOWER(last_name) ASC"
-  
+
 ### Preferences ###
   preference :hide_help_box, :default => false
   preference :receive_email_notifications, :default => false
@@ -207,7 +209,7 @@ class User < ActiveRecord::Base
       first_name_or_last_name_begins_with(namearray.first)
     end
   end
-  
+
   def self.receive_email_notifications
     Preference.all(:conditions => "value = 't' AND name = 'receive_email_notifications'").map(&:owner)
   end

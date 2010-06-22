@@ -57,6 +57,12 @@ describe User do
     user = Factory.build(:user)
     user.agree_to_contract = true
   end
+  
+  it "should only allow alphanumeric characters in username" do
+    user = Factory.build(:user, :username => nil)
+    user.username = "chef.bacle"
+    user.should_not be_valid
+  end
 
   it "should handle #name" do
     u = Factory(:user, :first_name => "Ben", :last_name => "Davis" )
