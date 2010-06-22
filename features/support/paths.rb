@@ -77,6 +77,8 @@ module NavigationHelpers
       new_admin_trend_question_path
     when /^the list of trend questions$/
       admin_trend_questions_path
+    when /^the new PR Tip page$/
+      new_admin_pr_tip_path
 
     # Direct path
     when /"([^\"]+)"/

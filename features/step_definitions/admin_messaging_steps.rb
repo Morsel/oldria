@@ -1,4 +1,4 @@
-Given(/^there are no (?:QOTDs|Admin Messages)(?: in the system)?$/) do
+Given(/^there are no (?:QOTDs|Admin Messages|PR Tips)(?: in the system)?$/) do
   Admin::Message.destroy_all
 end
 
