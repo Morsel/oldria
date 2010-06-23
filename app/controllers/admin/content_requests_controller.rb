@@ -1,7 +1,7 @@
 class Admin::ContentRequestsController < Admin::AdminController
   def index
-    @content_requests = ::ContentRequest.by_scheduled_date.all(:include => :employment_search, 
-                                                               :order => 'scheduled_at DESC, :subject ASC')
+    @content_requests = ::ContentRequest.all(:include => :employment_search, 
+                                                         :order => 'scheduled_at DESC, subject ASC')
   end
 
   def show
