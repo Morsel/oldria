@@ -116,7 +116,7 @@ after 'deploy:update_code', 'deploy:symlink_shared'
 # Delayed Job callbacks:
 after "deploy:stop",    "delayed_job:stop"
 after "deploy:start",   "delayed_job:start"
-after "deploy:restart", "delayed_job:restart"
+#after "deploy:restart", "delayed_job:restart"
 
 
 Dir[File.join(File.dirname(__FILE__), '..', 'vendor', 'gems', 'hoptoad_notifier-*')].each do |vendored_notifier|
