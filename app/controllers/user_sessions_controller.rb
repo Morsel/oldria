@@ -15,7 +15,7 @@ class UserSessionsController < ApplicationController
         error_message = "Your account is not confirmed.<br/>
 Please check your email for instructions or <a href='#{resend_confirmation_users_path}'>click here</a> to request the confirmation email again."
       elsif @user_session.errors.on(:username) || @user_session.errors.on(:password)
-        error_message = "Oops, you entered the wrong username and password.<br/>
+        error_message = "Oops, you entered the wrong username or password.<br/>
 It coulda been a minor error, so just try again&mdash;or, could it be you tried to log into spoonfeed with your RIA login credentials?"
       else
         error_message = "Sorry, but we couldn't log you in"

@@ -32,7 +32,7 @@ Feature: Users login with username or email address
     When I fill in "Username" with "jimmy12"
     And I fill in "Password" with "wrongness"
     And I press "Login"
-    Then I should see "Sorry, but we couldn't log you in"
+    Then I should see "wrong username or password"
 
     Scenario: Logging in with unconfirmed account
       Given I am on the login page
