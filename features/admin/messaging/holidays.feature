@@ -1,4 +1,4 @@
-@admin @messaging
+@admin @messaging @holidays
 Feature: Holidays
 In order to remind restauranteurs about upcoming events
 As an RIA staff member
@@ -12,13 +12,10 @@ I want to set up holidays, with multiple scheduled reminders
     And I am logged in as an admin
 
 
-  Scenario: Create a new Holiday (not displayed on their own)
+  Scenario: Create a new Holiday
     Given I am on the new holiday page
-    When I perform the search:
-      | Restaurant Name | Eight Ball |
-    When I check "Sam Smith (Eight Ball)"
-    And I fill in "Name" with "Easter"
-    And I press "Save"
+    When I create a holiday with name "Easter" and criteria:
+      | Restaurant | Eight Ball |
     Then I should see list of Holidays
     And I should see "Easter"
     And "sam" should be subscribed to the holiday "Easter"
@@ -27,24 +24,32 @@ I want to set up holidays, with multiple scheduled reminders
     When I go to my inbox
     Then I should not see "Easter"
 
+
   Scenario: Replying to a Holiday Reminder
-    Given a holiday exists named "Christmas" and recipients:
-      | email           |
-      | sam@example.com |
+    When I create a holiday with name "Christmas" and criteria:
+      | Restaurant | Eight Ball |
+      | Role       | Chef       |
     When I create a new reminder for holiday "Christmas" with:
       | Scheduled at | 2009-01-01 12:00:00                |
       | Message      | Don't forget to wrap your presents |
-    Then "sam" should be subscribed to the holiday "Christmas"
+    Then the last holiday for "Eight Ball" should be viewable by "Sam Smith"
+    And the last holiday for "Eight Ball" should not be viewable by "John Doe"
 
-    Given I am logged in as "sam" with password "secret"
-    When I go to my inbox
-    Then I should see "Christmas"
-    When I follow "Reply"
-    And I fill in "Reply" with "Here it is"
-    And I press "Send"
-    Then I should see "Successfully created"
+@emails
+  Scenario: New Holiday Reminder notification, user prefers no emails
+  When I create a holiday with name "Christmas" and criteria:
+    | Restaurant | Eight Ball |
+  When I create a new reminder for holiday "Christmas" with:
+    | Scheduled at | 2009-01-01 12:00:00                |
+    | Message      | Don't forget to wrap your presents |
+  Then "sam@example.com" should have no emails
 
-    Given I am logged in as "john" with password "secret"
-    When I go to my inbox
-    Then I should not see "Christmas"
-
+@emails
+  Scenario: New Holiday Reminder notification, user prefers emails
+  Given "sam" prefers to receive direct message alerts
+  When I create a holiday with name "Christmas" and criteria:
+    | Restaurant | Eight Ball |
+  When I create a new reminder for holiday "Christmas" with:
+    | Scheduled at | 2009-01-01 12:00:00                |
+    | Message      | Don't forget to wrap your presents |
+  Then "sam@example.com" should have 1 email

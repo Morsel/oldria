@@ -42,7 +42,7 @@ describe Discussion do
     user = Factory(:user)
     discussion = Discussion.new(@valid_attributes)
     discussion.poster = Factory(:user)
-    UserMailer.expects(:deliver_discussion_notification).with(discussion, user).returns(true)
+    discussion.expects(:notify_recipients)
     discussion.save
   end
 

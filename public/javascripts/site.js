@@ -99,8 +99,8 @@ jQuery.fn.attachmentCloner = function() {
 
     // Add the new markup for add/remove links
     $attachmentFieldPrototype
-    .append('<a class="remove_attachment" href="javascript:void(0)">Remove</a>')
-    .after('<p class="add-another"><a href="javascript:void(0)">Add another attachment</a></p>')
+    .append('<a class="remove_attachment" href="javascript:void(0)">remove</a>')
+    .after('<p class="add-another"><a href="javascript:void(0)">Add an attachment</a></p>')
     .next().find('a').click(smartCloneAttachment);
 
     // Cache this value for the smartCloneAttachment function
@@ -199,7 +199,7 @@ if(typeof(CKEDITOR) != 'undefined'){
 }
 
 $('#status_message').autofill({
-	value: 'What are you up to?',
+	value: 'What are you working on?',
 	defaultTextColor: '#666',
 	activeTextColor: '#333'
 });
@@ -262,6 +262,8 @@ $('.direct_message .readit').click(function(){
   return false;
 });
 
+
+
 // == Getting started box
 if (window.current_user_id) {
   var $hideHelpBox = $('<div id="hide_help_box"/>');
@@ -303,3 +305,11 @@ function updateEmploymentsList() {
 }
 
 $employmentInputs.change(updateEmploymentsList);
+
+// == New User row highlight ==
+if (location.hash && location.hash.match(/user_\d+$/)) {
+  var userRowCells = $(location.hash).find('td');
+  userRowCells.css({'background-color': '#ffff55'});
+  userRowCells.animate({'background-color': '#ffffff'}, 700);
+}
+

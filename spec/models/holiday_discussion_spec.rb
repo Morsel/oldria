@@ -1,3 +1,17 @@
+# == Schema Information
+# Schema version: 20100426230131
+#
+# Table name: holiday_discussions
+#
+#  id             :integer         not null, primary key
+#  restaurant_id  :integer
+#  holiday_id     :integer
+#  comments_count :integer         default(0)
+#  created_at     :datetime
+#  updated_at     :datetime
+#  accepted       :boolean
+#
+
 require 'spec_helper'
 
 describe HolidayDiscussion do

@@ -30,12 +30,13 @@ Rails::Initializer.run do |config|
 
   config.gem 'hoptoad_notifier',      :version => "~>2.2.0"
   config.gem 'backup',                :version => "~>2.3.1"
+  config.gem 'newrelic_rpm',          :version => "~>2.11.2"
 
   # Settings in config/environments/* take precedence over those specified here.
   # Application configuration should go into files in config/initializers
   # -- all .rb files in that directory are automatically loaded.
   # Activate observers that should always be running
-  config.active_record.observers = :holiday_conversation_observer
+  config.active_record.observers = [:holiday_conversation_observer, :messaging_notification_observer]
 
   # Set Time.zone default to the specified zone and make Active Record auto-convert to this zone.
   # Run "rake -D time" for a list of tasks for finding time zone names.

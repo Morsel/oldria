@@ -23,13 +23,6 @@ Feature: Direct messaging
     And "getterboy" should have 1 direct message
 
 
-  # Scenario: See sent messages on the dashboard
-  #     Given "getterboy" has 1 direct message from "senderman"
-  #     And I am logged in as "senderman" with password "secret"
-  #     When I am on the homepage
-  #     Then I should see my message to "getterboy"
-
-
   Scenario: See a direct message in an "inbox" on the dashboard
     Given "getterboy" has 1 direct message from "senderman"
     And I am logged in as "getterboy" with password "secret"
@@ -42,7 +35,7 @@ Feature: Direct messaging
     And I am logged in as "getterboy" with password "secret"
     When I am on the homepage
     And I follow "less than a minute ago Albert Albert This is a message"
-    Then I should see "Reply to senderman's message"
+    Then I should see "Albert Albert sent you a message"
 
     When I fill in "Body" with "This is my reply"
     And I press "Send"

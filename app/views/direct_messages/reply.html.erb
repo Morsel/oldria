@@ -1,9 +1,0 @@
-<% title "Reply to #{@original_message.sender.username}'s message" %>
-
-<p><%= @original_message.sender.username %> wrote to you:</p>
-
-<blockquote>
-	<p><%= @original_message.body %></p>
-</blockquote>
-
-<%= render :partial => 'form' %>

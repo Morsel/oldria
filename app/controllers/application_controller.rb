@@ -15,21 +15,21 @@ class ApplicationController < ActionController::Base
 
   rescue_from CanCan::AccessDenied do
     if current_user
-      flash[:error] = "Access denied. This area is above your pay grade."
+      flash[:error] = "Sorry: the content you are trying to view is not available to your user account."
       redirect_to root_url
     else
-      flash[:notice] = 'Access denied. Try to log in first.'
+      flash[:notice] = 'Please login.'
       redirect_to login_path
     end
   end
 
   private
-  
+
   def find_user_feeds(dashboard = false)
     @feeds = current_user.chosen_feeds(dashboard) || Feed.featured.all(:limit => (dashboard ? 2 : nil))
     @user_feed_ids = @feeds.map(&:id)
   end
-  
+
   def current_user_session
     return @current_user_session if defined?(@current_user_session)
     @current_user_session = UserSession.find
@@ -79,7 +79,7 @@ class ApplicationController < ActionController::Base
   def require_admin
     return false if !require_user
     unless current_user.admin?
-      flash[:error] = "This is an administrative area. Nothing exciting here at all."
+      flash[:error] = "Oops, you don't have access to the admin area. Nothing exciting there anyways."
       redirect_to root_url
       return false
     end
@@ -112,8 +112,20 @@ class ApplicationController < ActionController::Base
 
   def load_current_user_restaurants
     return unless current_user && !current_user.media?
-    @current_user_managed_restaurants = current_user.managed_restaurants.all(:include => :media_request_conversations)
+    @current_user_managed_restaurants = current_user.restaurants_where_manager
     @current_user_restaurants = current_user.restaurants.all
+  end
+
+  def archived_view?
+    return @archived_view if defined?(@archived_view)
+    @archived_view = params[:view_all] ? true : false
+  end
+  helper_method :archived_view?
+
+  def get_message_counts
+    @ria_message_count = current_user.try(:ria_message_count)
+    @private_message_count = current_user.try(:unread_direct_messages).try(:size)
+    @discussions_count = current_user && (current_user.unread_discussions + current_user.discussions.with_comments_unread_by(current_user)).uniq.size
   end
 
   protected

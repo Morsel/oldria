@@ -1,13 +1,16 @@
 <% title "Holidays" %>
 
-<p class="clearfix"><%= link_to "New Holiday", new_admin_holiday_path, :class => 'positive button' %></p>
+<p class="clearfix"><%= link_to (image_tag("plus.png") +"New Holiday"), new_admin_holiday_path, :class => 'positive button' %></p>
 
 <% table_for(@holidays) do |t| %>
   <% t.data :actions => :all, :action_prefix => 'admin' do
       t.cell :name
-      t.cell :date
+      t.cell(:date) {|h| h.date.try(:to_s, :long)}
       t.cell :reminders_count, :heading => 'Reminders'
-      t.cell :reply_count, :heading => '', :cell_html => {:class => 'actions'} do |h|
+      t.cell(:next, :heading => 'Next Reminder') do |h|
+        h.next_reminder.try(:scheduled_at).try(:strftime, "%m/%d")
+      end
+      t.cell :reply_count, :heading => '', :cell_html => {:class => 'actions reply_count'} do |h|
         holiday_reply_count_link(h)
       end
     end %>

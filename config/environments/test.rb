@@ -28,12 +28,12 @@ DEFAULT_HOST = 'localhost:3000'
 # This is necessary if your schema can't be completely dumped by the schema dumper,
 # like if you have constraints or database-specific column types
 # config.active_record.schema_format = :sql
-config.gem "rspec",         :lib => false, :version => '>=1.3.0'
-config.gem "rspec-rails",   :lib => false, :version => '>=1.3.2'
-config.gem "webrat",        :lib => false, :version => '>=0.6.0'
+config.gem "rspec",         :lib => false, :version => '~>1.3.0'
+config.gem "rspec-rails",   :lib => false, :version => '~>1.3.2'
+config.gem "webrat",        :lib => false, :version => '~>0.7.0'
 config.gem "remarkable_rails", :lib => false
-config.gem "cucumber",      :lib => false, :version => '>=0.6.2'
-config.gem "factory_girl",  :version => '>=1.2.3'
+config.gem "cucumber",      :lib => false, :version => '~>0.7.2'
+config.gem "factory_girl",  :version => '~>1.2.3'
 config.gem 'email_spec',    :version => ">=0.3.5"
 config.gem "fakeweb",       :version => ">=1.2.5"
 config.gem "netrecorder"

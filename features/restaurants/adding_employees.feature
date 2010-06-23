@@ -63,12 +63,13 @@ Feature: Associating a Restaurant with its employees
     And I press "Submit"
     Then I should see "Invite an Employee"
 
-    When I fill in "Name" with "David Dinkle"
+    When I fill in "First Name" with "David"
+    And I fill in "Last Name" with "Dinkle"
     And I fill in "Username" with "daviddinkle"
     And I fill in "Temporary Password" with "secret"
     And I fill in "Password Confirmation" with "secret"
     And I press "Invite Employee"
-    Then I should see "Successfully associated employee and restaurant"
+    Then I should see "sent an invitation and added to your restaurant"
     And "Duck Soup" should have 2 employees
     And "dinkle@example.com" should have 1 email
 
@@ -76,6 +77,10 @@ Feature: Associating a Restaurant with its employees
     And "dinkle@example.com" opens the email with subject "SpoonFeed: You've been added"
     Then I should see "Welcome" in the email body
     And I should see "David" in the email body
+
+    # Show the name of the inviter in the email
+    And I should see "Jim Jones" in the email body
+
     And I should see an invitation URL in the email body
     When I click the first link in the email
     Then I should see "Successfully logged in"

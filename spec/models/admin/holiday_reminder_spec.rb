@@ -1,16 +1,15 @@
 # == Schema Information
-# Schema version: 20100303185000
+# Schema version: 20100426230131
 #
-# Table name: admin_messages
+# Table name: holiday_reminders
 #
 #  id           :integer         not null, primary key
-#  type         :string(255)
 #  scheduled_at :datetime
 #  status       :string(255)
 #  message      :text
+#  holiday_id   :integer
 #  created_at   :datetime
 #  updated_at   :datetime
-#  holiday_id   :integer
 #
 
 require 'spec/spec_helper'
@@ -19,7 +18,7 @@ describe Admin::HolidayReminder do
   should_belong_to :holiday
 
   before(:each) do
-    @valid_attributes = Factory.attributes_for(:admin_message, :type => 'Admin::HolidayReminder')
+    @valid_attributes = Factory.attributes_for(:holiday_reminder)
   end
 
   it "should set a class-based title of 'Holiday Reminder'" do
@@ -27,7 +26,8 @@ describe Admin::HolidayReminder do
   end
 
   it "should create a new instance given valid attributes" do
-    Admin::HolidayReminder.create!(@valid_attributes)
+    holiday = Factory(:holiday)
+    Admin::HolidayReminder.create!(@valid_attributes.merge(:holiday_id => holiday.id))
   end
     
 end

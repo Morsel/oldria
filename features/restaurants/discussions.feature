@@ -33,7 +33,7 @@ Feature: Discussions
     And "john@example.com" should have no emails
 
     When "sam@example.com" opens the email with subject "SpoonFeed: Wendy Sue has invited you to a discussion"
-    And I click the first link in the email
+    And I follow "View this discussion" in the email
     Then I should see "Where should we eat?"
 
 
@@ -42,7 +42,7 @@ Feature: Discussions
     And I have just posted a discussion with the title "Lets go to the movies"
     When I visit that discussion
     And I fill in "Comment" with "Sounds like a plan"
-    And I press "Submit"
+    And I press "Post Comment"
     Then I should see "Successfully created comment"
     And I should see "Lets go to the movies"
     And I should see "Sounds like a plan"
@@ -60,5 +60,5 @@ Feature: Discussions
 
     Given I am logged in as "john" with password "secret"
     And I visit that discussion
-    Then I should see "Access denied"
+    Then I should see "content you are trying to view is not available to your user account"
     And I should not see "Where should we eat?"

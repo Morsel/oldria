@@ -30,6 +30,8 @@
 
 class User < ActiveRecord::Base
   acts_as_authentic
+  include TwitterAuthorization
+  include UserMessaging
 
   belongs_to :james_beard_region
   belongs_to :account_type
@@ -50,6 +52,7 @@ class User < ActiveRecord::Base
 
   has_many :employments, :foreign_key => "employee_id", :dependent => :destroy
   has_many :restaurants, :through => :employments
+  has_many :manager_restaurants, :source => :restaurant, :through => :employments, :conditions => ["employments.omniscient = ?", true]
 
   has_many :discussion_seats, :dependent => :destroy
   has_many :discussions, :through => :discussion_seats
@@ -63,7 +66,7 @@ class User < ActiveRecord::Base
 
   validates_presence_of :email
 
-  attr_accessor :send_invitation, :agree_to_contract
+  attr_accessor :send_invitation, :agree_to_contract, :invitation_sender, :password_reset_required
 
   # Attributes that should not be updated from a form or mass-assigned
   attr_protected :crypted_password, :password_salt, :perishable_token, :persistence_token, :confirmed_at, :admin=, :admin
@@ -75,6 +78,8 @@ class User < ActiveRecord::Base
   validates_exclusion_of :publication,
                          :in => %w( freelance Freelance ),
                          :message => "'{{value}}' is not allowed"
+  validates_format_of :username,
+                      :with => /^[a-zA-Z0-9\-\_ ]+$/
 
   validates_acceptance_of :agree_to_contract
   named_scope :for_autocomplete, :select => "first_name, last_name", :order => "last_name ASC", :limit => 15
@@ -82,6 +87,7 @@ class User < ActiveRecord::Base
 
 ### Preferences ###
   preference :hide_help_box, :default => false
+  preference :receive_email_notifications, :default => false
 
 ### Roles ###
   def admin?
@@ -115,6 +121,9 @@ class User < ActiveRecord::Base
     friends.include?(otheruser)
   end
 
+  def restaurants_where_manager
+    [managed_restaurants.all, manager_restaurants.all].compact.flatten.uniq
+  end
 
   def allowed_subject_matters
     allsubjects = SubjectMatter.all
@@ -144,6 +153,11 @@ class User < ActiveRecord::Base
   def confirmed?
     confirmed_at.present?
   end
+  alias :confirmed :confirmed?
+
+  def confirmed=(value)
+    self.confirmed_at = TRUE_VALUES.include?(value) ? Time.now : nil
+  end
 
   def confirm!
     self.confirmed_at = Time.now
@@ -164,110 +178,9 @@ class User < ActiveRecord::Base
     nil
   end
 
-  def announcements
-    Admin::Announcement.scoped(:order => "updated_at DESC").current
-  end
-
-  def pr_tips
-    Admin::PrTip.scoped(:order => "updated_at DESC").current
-  end
-
-  def admin_discussions
-    @admin_discussions ||= employments.map(&:admin_discussions).flatten.select do |discussion|
-      employment = discussion.restaurant.employments.find_by_employee_id(self.id)
-      discussion.discussionable.try(:viewable_by?, employment)
-    end
-  end
-
-  def current_admin_discussions
-    admin_discussions.reject {|d| d.discussionable.scheduled_at > Time.now }
-  end
-
-  def unread_admin_discussions
-    current_admin_discussions.reject {|d| d.read_by?(self)}
-  end
-  
-  def holiday_discussions
-    restaurants.map(&:holiday_discussions).flatten
-  end
-  
-  def holiday_discussion_reminders
-    holiday_discussions.map(&:holiday_discussion_reminders)
-  end
-  
-  def unread_direct_messages
-    direct_messages.unread_by(self)
-  end
-
-  def unread_pr_tips
-    Admin::PrTip.current.find_unread_by( self )
-  end
-
-  def unread_announcements
-    Admin::Announcement.current.find_unread_by( self )
-  end
-
-  def messages_from_ria
-    @messages_from_ria ||= [ unread_admin_discussions,
-      holiday_discussion_reminders,
-      admin_conversations.current.unread_by(self),
-      unread_pr_tips,
-      unread_announcements
-    ].flatten.sort_by(&:updated_at).reverse
-  end
-
-  def all_messages
-    @all_messages ||= [ admin_discussions,
-      admin_conversations.current.all,
-      Admin::Announcement.current.all,
-      Admin::PrTip.current.all
-    ].flatten.sort_by(&:updated_at).reverse
-  end
-
   # For User.to_csv export
   def export_columns(format = nil)
     %w[username first_name last_name email]
-  end
-
-### Twitter Methods ###
-
-  def twitter_username
-    return @twitter_username if defined?(@twitter_username)
-    return @twitter_username = nil unless twitter_authorized?
-    @twitter_username ||= begin
-      first_tweet = twitter_client.user({:count=>1})
-      if first_tweet.respond_to?(:first) && first_tweet.first # Guards nil
-        first_tweet.first['user']['screen_name']
-      else
-        nil
-      end
-    end
-  end
-
-  def twitter_allowed?
-    !(has_role? :media)
-  end
-
-  def twitter_authorized?
-    !atoken.blank? && !asecret.blank?
-  end
-
-  def twitter_oauth
-    @twitter_oauth ||= TwitterOAuth::Client.new(
-      :consumer_key =>    TWITTER_CONFIG['token'],
-      :consumer_secret => TWITTER_CONFIG['secret']
-    )
-  end
-
-  def twitter_client
-    @twitter_client ||= begin
-      TwitterOAuth::Client.new(
-          :consumer_key =>    TWITTER_CONFIG['token'],
-          :consumer_secret => TWITTER_CONFIG['secret'],
-          :token =>           atoken,
-          :secret =>          asecret
-      )
-    end
   end
 
   def self.find_by_smart_case_login_field(user_login)
@@ -297,12 +210,16 @@ class User < ActiveRecord::Base
     end
   end
 
+  def self.receive_email_notifications
+    Preference.all(:conditions => "value = 't' AND name = 'receive_email_notifications'").map(&:owner)
+  end
+
   def deliver_invitation_message!
     if @send_invitation
       @send_invitation = nil
       reset_perishable_token!
-      logger.info( 'Delivering invitation email' )
-      UserMailer.deliver_employee_invitation!(self)
+      logger.info( "Delivering invitation email to #{email}" )
+      UserMailer.deliver_employee_invitation!(self, invitation_sender)
     end
   end
 end

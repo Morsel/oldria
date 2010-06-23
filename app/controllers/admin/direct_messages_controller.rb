@@ -10,6 +10,7 @@ class Admin::DirectMessagesController < Admin::AdminController
 
   def new
     @direct_message = DirectMessage.new
+    @direct_message.attachments.build
     @direct_message.from_admin = true
   end
 

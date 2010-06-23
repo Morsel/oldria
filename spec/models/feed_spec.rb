@@ -55,12 +55,7 @@ describe Feed do
   end
 
   context "entries" do
-    # Although this is passing, this spec needs rewritten
-    # there is a bug in the library that causes an error that looks like:
-    #
-    #   src/tcmalloc.cc:353] Attempt to free invalid pointer: 0x215bb0
-
-    xit "should update" do
+    it "should update" do
       feed = Factory( :feed,
                       :title => 'Neoteric',
                       :feed_url => 'http://feeds.neotericdesign.com/neotericdesign')

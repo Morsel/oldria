@@ -14,11 +14,11 @@ ActionController::Routing::Routes.draw do |map|
     mrc.resources :comments, :only => [:new, :create]
   end
 
-  map.resources :discussions do |discussions|
+  map.resources :discussions, :member => { :read => :put } do |discussions|
     discussions.resources :comments, :only => [:new, :create]
   end
 
-  map.resources :users, :member => {
+  map.resources :users, :collection => { :resend_confirmation => :any }, :member => {
     :remove_twitter => :put,
     :remove_avatar => :put
   }, :shallow => true do |users|
@@ -38,17 +38,17 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :holiday_conversations, :only => ['show','update'] do |holiday_conversations|
     holiday_conversations.resources :comments, :only => [:new, :create]
   end
-  
+
   map.resources :holiday_discussions, :only => ['show','update'] do |holiday_discussions|
     holiday_discussions.resources :comments, :only => [:new, :create]
   end
-  
+
   map.resources :holiday_discussion_reminders, :member => { :read => :put }
-  
+
   map.resources :admin_conversations, :only => 'show' do |admin_conversations|
     admin_conversations.resources :comments, :only => [:new, :create]
   end
-  
+
   map.resources :admin_discussions, :only => 'show', :member => { :read => :put } do |admin_discussions|
     admin_discussions.resources :comments, :only => [:new, :create]
   end
@@ -72,7 +72,8 @@ ActionController::Routing::Routes.draw do |map|
 
   map.resource :twitter_authorization
   map.resource :friends_statuses, :only => 'show'
-  map.resources :invitations, :only => 'show'
+  map.resources :invitations, :only => 'show', :collection => { :login => :get }
+  map.resource :complete_registration, :only => [:show, :update]
 
   map.resource :search, :only => 'show'
 

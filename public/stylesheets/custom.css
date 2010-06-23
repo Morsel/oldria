@@ -1,4 +1,7 @@
-/* @override http://localhost:3001/stylesheets/custom.css */
+/* @override
+	http://localhost:3001/stylesheets/custom.css
+	http://staging.restaurantintelligenceagency.com/stylesheets/custom.css?1273244999
+*/
 
 /* colors
 dark brown: #3e2611;
@@ -71,15 +74,17 @@ div#container {
 div#header {
 	height: 102px;
 	margin: 0px 0px 15px 0px;
+	position: relative;
 }
 
-#brand>img{
+#brand > img{
 	float:left;
-	margin-right:16px;
+	margin-right:18px;
 }
-#brand a{
+
+#brand a {
 	display:block;
-	margin-top:25px;
+	margin-top:20px;
 }
 
 .admin_backend #header {
@@ -192,6 +197,29 @@ div#header {
 	background: #fff url('../images/message_bg.png') 0 bottom repeat-x;
 	margin: 0;
 	padding: 4px 10px;
+}
+
+#sidebar_intra{
+	margin:0 0 10px 10px;
+	float:right;
+	width:200px;
+	padding:10px 0;
+	background:#fff;
+	border:1px solid #ddd
+}
+
+#sidebar_intra a{
+	color:#0587C1;
+	font-weight:bold;
+	display:inline-block;
+	width:180px;
+	padding:5px 5px;
+	margin:0 5px;
+}
+
+#sidebar_intra a:hover{
+	color:#4EAED9;
+	text-decoration:underline;
 }
 
 
@@ -423,17 +451,17 @@ h2.with_icon {
 	font-weight:normal;
 	font-size:1.3em;
 	text-transform:uppercase;
-	padding: 4px 0 3px 32px;
+	padding: 4px 0 0px 36px;
 	margin:0 0 16px;
 	border-bottom: 1px dashed #ccc;
 	position: relative;
-
 }
 
 h2.with_icon img {
 	position: absolute;
 	left: 0px;
-	top: 0;;
+	top: 1px;
+	display: inline-block;
 }
 
 
@@ -517,6 +545,10 @@ h2.with_icon img {
 	font-weight: normal;
 }
 
+.admin_backend #navigation li.public_home a {
+	font-weight: bold;
+}
+
 .admin_backend #navigation li.selected a {
 	background-color: #513d28;
 }
@@ -531,7 +563,18 @@ h2.with_icon img {
 	border: 0 none;
 }
 
-.admin-link { float: right; font-size: 1.2em; line-height: 18px; font-weight:bold }
+.admin-link {
+	position: absolute;
+	font-size: 1.2em;
+	line-height: 18px;
+	font-weight: bold;
+	right: 0;
+	padding: 5px 0 0;
+}
+
+.admin-link a, .admin-link {
+	color: #fff;
+}
 
 /* @end */
 
@@ -555,7 +598,7 @@ h2.with_icon img {
 	color: #666;
 }
 
-#new_status button {
+#new_status button, .button.utility {
 	margin: 0;
 	padding: 3px 1.5em;
 	float: left;
@@ -567,10 +610,12 @@ h2.with_icon img {
 	font-family: 'helvetica neue', helvetica, arial, sans-serif;
 }
 
-#new_status button:hover {
+#new_status button:hover, .button.utility:hover {
 	background: url('../images/button_bg_over.png') 0 top repeat-x;
-	border-color: #bbb;
-	color: #222;
+	border-color: #2d87bf;
+	text-decoration: none;
+	color: #fff;
+	text-shadow: 1px 1px 0 #269;
 }
 
 #leftcolumn #new_status input.status_message {
@@ -775,11 +820,35 @@ input.checkbox {
 	margin-bottom: 	9px;
 }
 
+.direct_message, #read_messages .discussion {
+	margin-bottom: 1em;
+	background-color: #f6f6f6;
+	border: 1px solid #f6f6f6;
+	padding: 10px;
+	position: relative;
+}
+
+.direct_message.read {
+	background-color: #fff;
+	border-color:     #eee;
+}
+
+.direct_message.sent_message {
+	background-color: #e9f3f9;
+	border-color:     #e9f3f9;
+}
+
+.direct_message.individual {
+	background-color: #f6f6f6;
+	border-color: #f6f6f6;
+}
+
+
 .direct_message h5, .direct_message p {
 	margin:0;
 }
 
-.direct_message .meta {
+.direct_message .meta, #read_messages .discussion .meta {
 	font-size: 0.85em;
 	color: #777;
 }
@@ -788,15 +857,113 @@ input.checkbox {
 	border-bottom: 1px dashed #ccc;
 }
 
-.direct_message img.left {
-	margin-bottom: 2px;
-	border:1px solid #fff;
+.direct_message .sender_avatar, .discussion .sender_avatar {
+	width: 70px;
+	float: left;
+}
+
+.sender_avatar img {
+	margin-bottom: 10px;
+	border: 4px solid #fff;
+	box-shadow: 1px 1px 4px #999;
+	-webkit-box-shadow: 1px 1px 4px #999;
+	-moz-box-shadow: 1px 1px 4px #999;
 }
 
 .direct_message.admin, .media_request.admin {
 	background-color: #fed;
 	padding: 1em;
 	border: 0 none;
+}
+
+.direct_message .message_title, .discussion .message_title {
+	border-bottom: 1px dashed #ddd;
+	width: 382px;
+	font-size: 11px;
+	line-height: 18px;
+	font-family: "Lucida Grande", arial, sans-serif;
+	margin: 0 0 .5em;
+}
+
+.direct_message .message_title a, .discussion .message_title a {
+	font-weight: bold;
+	color: #000;
+}
+
+.direct_message .message_body, .discussion .message_body {
+	font-size: 1.1em;
+	margin-bottom: 1em;
+}
+
+.direct_message .message_body, .direct_message .message_title {
+	float: none;
+	margin-left: 70px;
+	width: auto;
+}
+
+.direct_message .message_body a {
+	color: #333;
+}
+
+.direct_message .message_body a:hover {
+	color: #0088C1
+}
+
+.direct_message .attachment {
+	clear: left;
+}
+
+.direct_message .date, #read_messages .discussion .date {
+	clear: left;
+	float: none;
+	color: #999;
+	font-size: 10px;
+	font-family: "Lucida Grande", sans-serif;
+	text-transform: uppercase;
+}
+
+#read_messages .discussion .message-actions {
+	margin: 0;
+}
+
+.direct_message .actions {
+	line-height: 25px;
+	margin-top: 10px;
+}
+
+.direct_message .actions .button, .message-actions .button {
+	padding: 3px 13px;
+}
+
+.direct_message .actions .separator {
+	margin: 0 10px;
+	color: #999;
+	text-indent: -9999px;
+	border-left: 1px solid #999;
+}
+
+.direct_message .message_replies_link {
+	margin: 8px 0 0;
+}
+
+.direct_message .reply_form h4 {
+	margin: 1em 0 0;
+	text-transform: uppercase;
+}
+
+.reply_form form.direct_message {
+	margin: 0;
+	padding: 0;
+}
+
+.direct_message .message_replies .dm_reply {
+  border-top: 1px solid #ddd;
+  padding-top: 10px;
+  margin-top: 1em;
+}
+
+#direct-message-replies #current {
+  background-color: #eee;
 }
 
 /* @end */
@@ -971,6 +1138,7 @@ div.restaurant {
 .discussion .meta {
 	font-family: "Lucida Grande", helvetica, arial, sans-serif;
 	font-size: .9em;
+	margin-bottom: 0;
 }
 
 .discussion .meta_label {
@@ -1052,35 +1220,37 @@ div.restaurant {
 .add-another {
 	clear: both;
 	margin: 1em 0;
+	font-size: 10px;
+	font-family: "Lucida Grande", sans-serif;
 }
 
-.add-another a{
+.add-another a {
 	padding-left: 20px;
 	padding-top: 3px;
-	background: url(../images/plus.png) no-repeat 0 0;
+	background: url(../images/plus.png) no-repeat center left;
+	color: #090;
 }
 
-.attachfield {
-	clear: both;
-	padding-bottom: 1em;
-	padding-left: 1px;
+
+button.submit {
+	background:#0587c1;
+	border-color: #0587c1;
+	color:#fff;
+	font-weight: bold;
+	padding-left: 19px;
+	padding-right: 20px;
+	border-radius: 15px;
+	text-shadow: 1px 1px 1px #0055aa;
+	-moz-border-radius: 15px;
+	-webkit-border-radius: 15px;
 }
 
-.attachfield input {
-	float: left;
+button.submit:hover {
+	background-color: #fff;
+	border-color: #acd;
+	color: #0587c1;
+	text-shadow: none;
 }
-
-.attachfield .remove_attachment {
-	text-indent: -9999px;
-	display: block;
-	float: left;
-	width: 16px;
-	height: 16px;
-	background: url(../images/x.png) no-repeat;
-	overflow: hidden;
-	margin: 3px 5px 0;
-}
-
 
 /* @end */
 
@@ -1189,19 +1359,6 @@ ul.responses {
 	padding: 1.5em;
 }
 
-.media_request .attachments {
-	float: right;
-	width: 220px;
-	min-height: 100px;
-	background-color: #fec;
-	border: 0 none;
-}
-
-.attachments ul {
-	list-style: none;
-	margin: 0;
-}
-
 .media_request h3 {
 	color: #a99;
 	font-size: 1.1em;
@@ -1262,6 +1419,83 @@ ul.responses {
 	background-color: #999;
 	padding: 2px 6px;
 	color: #fff;
+}
+
+/* @end */
+
+/* @group attachments --------------- */
+
+
+
+.attachfield {
+	clear: both;
+	padding-bottom: 1em;
+	padding-left: 1px;
+	min-height: 16px;
+}
+
+.attachfield input {
+	float: left;
+}
+
+.attachfield .remove_attachment {
+	display: block;
+	float: left;
+	height: 16px;
+	line-height: 16px;
+	background: url(../images/x2.png) no-repeat center left;
+	margin: 3px 5px 0;
+	padding: 0 0 0 18px;
+	color: #c00;
+	font-size: 10px;
+	font-family: 'Lucida Grande', arial, sans-serif;
+}
+
+.media_request .attachments {
+	float: right;
+	width: 220px;
+	min-height: 100px;
+	background-color: #fec;
+	border: 0 none;
+}
+
+.attachments ul {
+	list-style: none;
+	margin: 0;
+}
+
+.attachment {
+	margin: 1em 0;
+	font-family: "Lucida Grande", arial, sans-serif;
+	font-size: 0.9em;
+}
+
+.attachment .icon img {
+	display: inline;
+	vertical-align: middle;
+}
+
+.attachment .label {
+
+}
+
+.attachments-header, .form-header {
+	font-size: 1em;
+	margin: 1em 0;
+	border-bottom: 1px dashed #ddd;
+	line-height: 20px;
+	font-family: 'Lucida Grande', arial, sans-serif;
+	color: #444;
+	font-weight: bold;
+}
+
+.attachments-header {
+	background: url('../images/paperclip.png') no-repeat 0 0;
+	padding: 2px 0 0 22px;
+}
+
+.discussion-recipients-header {
+	margin: 2em 0 -6px;
 }
 
 /* @end */
@@ -1505,7 +1739,7 @@ h3.function-bold{
 
 
 
-.formtastic.comment fieldset{
+.formtastic.comment fieldset, fieldset.plain {
 	border: 0 none;
 	padding: 0;
 }
@@ -1531,6 +1765,40 @@ h3.function-bold{
 	text-decoration: underline;
 }
 
+
+.admin_holiday_reminders {
+	margin: 0;
+	padding: 0;
+}
+
+.admin_backend .admin_holiday_reminder {
+	margin: 0 0 1em;
+	padding: 0 0 1em;
+	list-style: none;
+	border-bottom: 1px solid #ddd;
+}
+
+.admin_backend .admin_holiday_reminder h4 {
+	font-weight: bold;
+	margin: 0 0 4px;
+}
+
+
+.admin_backend .admin_holiday_reminder p {
+	margin: 0 16px 10px;
+}
+
+.admin_backend .admin_holiday_reminder .edit_link {
+	height: 16px;
+	width: 16px;
+	float: left;
+	background: url(../images/pencil.png) no-repeat;
+}
+
+.admin_backend .admin_holiday_reminder .edit_link span {
+	display: none;
+}
+
 ul.mini_menu {
 	margin: 0;
 }
@@ -1548,10 +1816,6 @@ ul.mini_menu li {
 	position: relative;
 	border-bottom:3px solid #fff;
 	background:#f6f6f6;
-}
-
-.direct_message {
-	position: relative;
 }
 
 .readit {
@@ -1623,25 +1887,6 @@ ul.mini_menu li {
 	margin: 1em 0 0;
 }
 
-.inbox_message .message-actions>a {
-	display: block;
-	float: left;
-	padding: 2px 10px;
-	background: #d3d3d3 url(/images/button-gradient.gif) repeat-x;
-	border: 1px solid #bbb;
-	border-radius:10px;
-	-webkit-border-radius:10px;
-	-moz-border-radius:10px;
-	-khtml-border-radius:10px;
-	color: #555;
-	font-weight: bold;
-}
-
-.inbox_message .message-actions>a:hover {
-	background: #bbb;
-	color: #333;
-}
-
 .inbox_message .behalf {
 	margin: 0 6px;
 	line-height: 24px;
@@ -1649,23 +1894,41 @@ ul.mini_menu li {
 }
 
 /* message type themes */
-.admin_holiday_reminder .icon {   background-color: #D14600 }
-.admin_holiday_reminder .message-title {     color: #D14600 }
+.holiday_discussion_reminder .icon {   background-color: #D14600 }
+.holiday_discussion_reminder .message-title {     color: #D14600 }
+.holiday_discussion_reminder .message-title a {   color: #D14600 }
+
+.holiday_discussion .icon {   background-color: #D14600 }
+.holiday_discussion .message-title {     color: #D14600 }
+.holiday_discussion .message-title a {   color: #D14600 }
 
 .trend_question .icon {   background-color: #0088C1 }
 .trend_question .message-title {     color: #0088C1 }
+.trend_question .message-title a {   color: #0088C1 }
 
 .admin_qotd .icon {   background-color: #F5911E }
 .admin_qotd .message-title {     color: #F5911E }
+.admin_qotd .message-title a {   color: #F5911E }
+
+.admin_conversation .icon {   background-color: #F5911E }
+.admin_conversation .message-title {     color: #F5911E }
+.admin_conversation .message-title a {   color: #F5911E }
 
 .content_request .icon {   background-color: #bf844b }
 .content_request .message-title {     color: #bf844b }
+.content_request .message-title a {   color: #bf844b }
 
 .admin_pr_tip .icon {   background-color: #005775 }
 .admin_pr_tip .message-title {     color: #005775 }
+.admin_pr_tip .message-title a {   color: #005775 }
 
 .admin_announcement .icon {   background-color: #5B4329 }
 .admin_announcement .message-title {     color: #5B4329 }
+.admin_announcement .message-title a {   color: #5B4329 }
+
+.message-title a:hover {
+	text-decoration: underline;
+}
 
 
 /* @end */
@@ -1852,6 +2115,10 @@ td.actions {
 	width: 2em;
 }
 
+td.actions.reply_count {
+	width: 80px;
+}
+
 td.actions a {
 	border-bottom: 0;
 	color: #999;
@@ -1880,7 +2147,7 @@ fieldset {
 	font-family: 'lucida grande', tahoma, arial, sans-serif;
 }
 
-button.round {
+button.round, .button.round {
 	border-radius: 16px;
 	-moz-border-radius: 16px;
 	-webkit-border-radius: 16px;
@@ -2076,6 +2343,9 @@ form .column li, form .restaurant_list li {
 	float: none;
 }
 
+li.column {
+  list-style:none;
+}
 
 .restaurant_list li {
 	font-size: 1.2em;
@@ -2536,21 +2806,24 @@ h2.primary_title{
 	padding:10px;
 	margin:0;
 }
-.direct_message{
-	border-bottom:1px solid #ddd;
+
+#conversations .direct_message{
+	border-bottom: 1px solid #ddd;
 	margin:0;
+	padding: 0;
+	position: relative;
 }
 
-.direct_message p{
+#conversations .direct_message p{
 	margin:0;
 }
-.direct_message a{
+#conversations .direct_message a{
 	color:#333;
 	display:block;
 	padding:10px;
 
 }
-.direct_message a span{
+#conversations .direct_message a span{
 	display:block;
 	float:right;
 	text-align:right;
@@ -2558,13 +2831,14 @@ h2.primary_title{
 	color:#8b8b8b;
 	width:135px;
 }
-.direct_message a:hover{
+
+#conversations .direct_message a:hover{
 	text-decoration:none;
 	background:#fff6ed;
 	color:#ed801b;
 }
 
-#choose_feeds{
+#choose_feeds {
 	color:#fff;
 	font-weight:bold;
 	background:#0089c0 url(/images/choose_feeds_bg.gif) repeat-x;
@@ -2623,6 +2897,24 @@ h2.primary_title{
 	margin:0;
 }
 
+#discussions .unread_comments_count {
+	float: right;
+	position: absolute;
+	width: 20px;
+	height: 21px;
+	line-height: 21px;
+	padding: 9px 10px;
+	background: url('../images/blackbadge.png') no-repeat 0px 0px;
+	top: -16px;
+	right: -18px;
+	text-align: center;
+	font-size: 9px;
+	text-shadow: 0 0 0;
+}
+
+
+
+
 /* @end */
 
 /* @group messsages ----------------- */
@@ -2632,10 +2924,58 @@ h2.primary_title{
 #read_messages .box{
 	border:0;
 }
+
 #read_messages .statuses li{
 	padding:5px 10px;
 	margin:5px 10px;
 }
+
+#read_messages .latest {
+  float: left;
+  color: white;
+  background-color: #555;
+  text-transform: uppercase;
+  padding: 3px 5px;
+  font-size: 10.8px;
+  margin-left: 1em;
+}
+
+#read_messages .action {
+  background-color: #eef6fa;
+}
+
+#read_messages a.replies {
+  color: #0587C1;
+}
+
+#read_messages .replies {
+	height: 36px;
+	line-height: 36px;
+}
+
+#read_messages .unread_comments_count {
+  background: url('../images/blackbadge.png') no-repeat 0 0;
+  color:#FFFFFF;
+  display:block;
+  float: left;
+  position: relative;
+  text-align: center;
+  font-size: 9px;
+  text-shadow: 0 0 0;
+  font-weight:normal;
+  height: 36px;
+  line-height: 40px;
+  padding: 0 10px;
+  text-align:center;
+  width: 20px;
+  margin: -2px -6px -5px -10px;
+}
+
+#read_messages .action .unread_comments_count, #read_messages .action_required .unread_comments_count {
+	background-image: url('../images/bluebadge_small.png');
+	background-position: 1px 0;
+}
+
 .hide_link{
 	display:block;
 	float:left;
@@ -2643,22 +2983,22 @@ h2.primary_title{
 	border-left:1px solid #ddd;
 	margin-left:10px;
 }
-#read_messages .direct_message, #read_messages .discussion{
+
+#read_messages .discussion{
 	background:#f6f6f6;
 	padding:10px;
 }
 
-
-#read_messages .direct_message a{
-	display:inline;
-	padding:0;
+#read_messages .discussion.archived {
+	background-color: #fff;
+	border-color: #eee;
 }
 
-#read_messages .direct_message a:hover{
-	background:0;
-	color:#333;
-	text-decoration:underline;
+#read_messages .discussion.action_required {
+	background-color: #eef6fa;
+	border-color:     #eef6fa;
 }
+
 #messages_nav ul, #messages_nav li{
 	list-style-type:none;
 	padding:0;
@@ -2691,14 +3031,14 @@ h2.primary_title{
 }
 
 #past_messages{
-	margin:5px 0 0;
+	margin:5px 0 1em;
 	padding:0;
 	background:#fff;
 	font:bold 0.9em "Lucida Grande", Arial, sans-serif;
 }
 
-#past_messages a{
-	display:inline-block;
+#past_messages a {
+	display: inline-block;
 	padding:7px 12px;
 	text-transform:uppercase;
 	color:#fff;
@@ -2710,7 +3050,7 @@ h2.primary_title{
 	-khtml-border-radius:35px;
 }
 
-#past_messages a:hover{
+#past_messages a:hover {
 	text-decoration:none;
 	background:#2a98c4;
 }
@@ -2743,6 +3083,14 @@ h2.primary_title{
 	-webkit-border-radius: 8px;
 }
 
+#new_or_old_messages .replies, .discussion_replies {
+  text-transform: uppercase;
+  color: white;
+  background-color: #0088C2;
+  float: left;
+  padding: 3px 5px;
+  margin-left: 1em;
+}
 
 .discussion .new_topic, .discussion .new_comment {
 	float: left;
@@ -2756,10 +3104,17 @@ h2.primary_title{
 	padding: 1px 6px;
 	width: 100px;
 	text-shadow: -1px 1px 0 #533;
+	position: relative;
 }
 
 .discussion .new_comment {
 	background-color: #048dc4;
+}
+
+.discussion .date {
+	float: right;
+	font-size: 11px;
+	font-weight: normal;
 }
 
 #dashboard .discussion {
@@ -2788,27 +3143,14 @@ h2.primary_title{
 	margin: 0 0 6px;
 }
 
+#dashboard #direct_messages p {
+	padding: 10px 0 0 10px;
+	margin: 0 0 6px;
+}
+
+#dashboard #direct_messages .direct_message p {
+  padding: 0;
+  margin: 0;
+}
+
 /* @end */
-
-#sidebar_intra{
-	margin:0 0 10px 10px;
-	float:right;
-	width:200px;
-	padding:10px 0;
-	background:#fff;
-	border:1px solid #ddd
-}
-
-#sidebar_intra a{
-	color:#0587C1;
-	font-weight:bold;
-	display:inline-block;
-	width:180px;
-	padding:5px 5px;
-	margin:0 5px;
-}
-
-#sidebar_intra a:hover{
-	color:#4EAED9;
-	text-decoration:underline;
-}

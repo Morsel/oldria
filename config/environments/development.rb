@@ -16,18 +16,21 @@ config.action_view.debug_rjs                         = true
 config.action_controller.perform_caching             = false
 
 # Don't care if the mailer can't send
-config.action_mailer.raise_delivery_errors = false
+config.action_mailer.raise_delivery_errors = true
 
 config.gem "rails-footnotes"
+config.gem 'mail_safe'
+
 
 # Turn off asset timestamp appends for development
 ENV['RAILS_ASSET_ID'] = ''
-config.gem "ambethia-smtp-tls", :lib => "smtp-tls", :source => "http://gems.github.com/"
+
 config.action_mailer.smtp_settings = {
+  :enable_starttls_auto => true,
   :address        => "smtp.gmail.com",
   :port           => 587,
-  :domain         => "ndclients+spoonfeed@gmail.com",
+  :domain         => "spoonfeed@neotericdesign.com",
   :authentication => :plain,
-  :user_name      => "ndclients+spoonfeed@gmail.com",
-  :password       => "400nwells"
+  :user_name      => "spoonfeed@neotericdesign.com",
+  :password       => "5U8579"
 }

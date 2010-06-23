@@ -14,16 +14,16 @@
 class Discussion < ActiveRecord::Base
   acts_as_commentable
   acts_as_readable
-  has_many :attachments, :as => :attachable, :class_name => '::Attachment'
+  has_many :attachments, :as => :attachable, :class_name => '::Attachment', :dependent => :destroy
   accepts_nested_attributes_for :comments, :attachments
+
+  default_scope :order => "#{table_name}.created_at DESC"
 
   belongs_to :poster, :class_name => "User"
   has_many :discussion_seats, :dependent => :destroy
   has_many :users, :through => :discussion_seats, :uniq => true
 
   validates_presence_of :title
-
-  after_create :notify_recipients
 
   def posted_comments
     comments.all(:include => [:user, :attachments], :order => 'created_at DESC').reject(&:new_record?)
@@ -46,11 +46,27 @@ class Discussion < ActiveRecord::Base
        :conditions => 'readings.user_id IS NULL' }
   }
 
-  private
+  def inbox_title
+    "Discussion"
+  end
+  
+  def email_title
+    inbox_title
+  end
 
+  def message
+    title
+  end
+
+  def action_required?(user)
+    comments_count > 0 && comments.last.user != user && !comments.last.read_by?(user)
+  end
+
+  ##
+  # Never call this directly!
   def notify_recipients
     for user in self.users
-      UserMailer.deliver_discussion_notification(self, user)
+      UserMailer.send_later(:deliver_discussion_notification, self, user)
     end
   end
 end

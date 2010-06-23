@@ -77,6 +77,8 @@ module NavigationHelpers
       new_admin_trend_question_path
     when /^the list of trend questions$/
       admin_trend_questions_path
+    when /^the new PR Tip page$/
+      new_admin_pr_tip_path
 
     # Direct path
     when /"([^\"]+)"/
@@ -89,8 +91,14 @@ module NavigationHelpers
     #     user_profile_path(User.find_by_login($1))
 
     else
-      raise "\nCan't find mapping from \"#{page_name}\" to a path.\n" +
-        "Now, go and add a mapping in #{__FILE__}\n"
+      begin
+        page_name =~ /the (.*) page/
+        path_components = $1.split(/\s+/)
+        self.send(path_components.push('path').join('_').to_sym)
+      rescue Object => e
+        raise "Can't find mapping from \"#{page_name}\" to a path.\n" +
+          "Now, go and add a mapping in #{__FILE__}"
+      end
     end
   end
 end

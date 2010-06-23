@@ -1,45 +1,29 @@
-<% restaurant = message.recipient.try(:restaurant) if message.respond_to?(:recipient) %>
-<% archive = message.read_by?(current_user) %>
-<% extra_css_class = "" %>
-<% if message.respond_to?(:admin_message)
-  reply_link = admin_conversation_path(message)
-  original_message = message
-  message = message.admin_message
-end
-if message.respond_to?(:discussionable)
-   original_message = message
-   restaurant = message.restaurant
-   extra_css_class = dom_class(message.discussionable)
-end 
-if message.is_a?(HolidayDiscussionReminder)
-    restaurant = message.restaurant
-    restaurant_message = message # for marking as read
-    original_message = message.holiday_discussion # discussion
-    message = message.holiday_reminder # reminder -- redundant comments ftw ?
-end %>
-<% div_for message, :class => "inbox_message clear clearfix#{ ' archived' if archive} #{extra_css_class}" do %>
+<% div_for message, :class => classes(message) do %>
   <div class="icon">
-
   </div>
   <div class="message-details">
     <div class="message-header clearfix">
       <h4 class="message-title">
-        <%= message.inbox_title %>
-        <%= "<span>for #{restaurant.name}</span>" if restaurant %>
+        <%= title_link_for_message(message) %>
+        <%= "<span>for #{restaurant(message).name}</span>" if restaurant(message) %>
       </h4>
     </div>
     <div class="message-body">
-      <%= message.message %>
+      <%= auto_link(simple_format(message.message)) %>
     </div>
     <p class="message-date"><%= message.scheduled_at.try(:strftime, "%B %d, %Y at %I:%M%p") %></p>
-    <% unless archive %>
+    <% unless message.read_by?(current_user) %>
+      <% if message.respond_to?(:action_required?) && message.action_required?(current_user) %>
+        <% link_to link_for_message(message), :class => 'replies' do %>
+          <span class="unread_comments_count"><%= message.comments_count %></span> replies &raquo;
+        <% end if message.comments_count > 0 %>
+      <% else %>
       <div class="message-actions">
-        <%= reply_link_for_message(original_message) %>
-        <span class="hide_link"><%= read_link_for_message(restaurant_message || message, "Hide") %></span>
+          <%= reply_link_for_message(message) %>
       </div>
+      <% end %>
 
-      <%= read_link_for_message(restaurant_message || message) %>
+      <%= read_link_for_message(message) %>
     <% end %>
   </div>
 <% end %>
-

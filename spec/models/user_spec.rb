@@ -57,6 +57,12 @@ describe User do
     user = Factory.build(:user)
     user.agree_to_contract = true
   end
+  
+  it "should only allow alphanumeric characters in username" do
+    user = Factory.build(:user, :username => nil)
+    user.username = "chef.bacle"
+    user.should_not be_valid
+  end
 
   it "should handle #name" do
     u = Factory(:user, :first_name => "Ben", :last_name => "Davis" )
@@ -208,7 +214,7 @@ describe User do
     it "should send from UserMailer" do
       user = Factory(:user)
       user.send_invitation = true
-      UserMailer.expects(:deliver_employee_invitation!).with(user)
+      UserMailer.expects(:deliver_employee_invitation!)
       user.deliver_invitation_message!
       user.send_invitation.should be_nil
     end

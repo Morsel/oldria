@@ -62,7 +62,12 @@ Feature: Create an Account
 
     When "twice@example.com" opens the email with subject "Welcome to SpoonFeed! Please confirm your account"
     And I click the first link in the email
-    Then I should see "Oops, we couldn't find your account. Have you already confirmed your account"
+    Then I should see "already set up"
+
+    Given I am not logged in
+    When "twice@example.com" opens the email with subject "Welcome to SpoonFeed! Please confirm your account"
+    And I click the first link in the email
+    Then I should see "that confirmation token has already been used"
 
 
   Scenario: Bad email
@@ -109,9 +114,7 @@ Feature: Create an Account
     And I fill in "Username" with "jimbob"
     And I fill in "Password" with "secret"
     And I press "Login"
-
-    Then I should see "Your account is not confirmed"
-    And "jimbob" should not be logged in
+    Then "jimbob" should not be logged in
 
 
   Scenario: Logging in

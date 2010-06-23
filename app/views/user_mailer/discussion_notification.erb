@@ -1,3 +1,14 @@
-<h2><%= @user.name %>,</h2>
+<%= render :partial => 'email_header' %>
 
-<%= @discussion.poster.try(:name) %> has invited you to a discussion on the subject "<%= @discussion.title %>". <%= link_to "Check it out", discussion_url(@discussion) %>
+ <h3 id="messagetype" style="color: #bbb; font-size: 11px; font-weight: normal; letter-spacing: 2px; line-height: 14px; margin: 0 0 13px; text-transform: uppercase;">Discussion</h3>
+  <h1 id="salutation" style="font-size: 20px; line-height: 26px; margin: 12px 0;">Hi <%= @user.first_name %>,</h1>
+
+<p id="messagemessage" style="font-size: 14px;">
+      <img src="http://<%= DEFAULT_HOST %>/images/bubble_large.png" align="left" alt="" style="margin-bottom:30px;margin-right:10px;float:left">
+  <%= @discussion.poster.try(:name) %> has invited you to a discussion on the subject "<%= @discussion.title %>."
+</p>
+
+<p id="messagelink" style="clear: both; font-size: 16px;">
+  <a href="<%= polymorphic_url(@discussion) %>" style="color: #cc6632; font-weight: bold; text-decoration: none;">View this discussion &raquo;</a></p>
+
+<%= render :partial => 'email_footer' %>

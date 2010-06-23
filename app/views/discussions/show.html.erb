@@ -20,14 +20,13 @@
 	</div>
 
 	<div class="body">
-		<p><%=h @discussion.body %></p>
+		<%= simple_format @discussion.body %>
 	</div>
-	<% if @discussion.attachments.present? %>
-		<h3>Attached files:</h3>
-		<% for attached in @discussion.attachments %>
-			<%= link_to(attached.attachment_file_name, attached.attachment.url, :target => '_blank') %>
-		<% end %>
-	<% end %>
+
+  <% if @discussion.attachments.present? %>
+    <h3 class="attachments-header">Attached files:</h3>
+    <%= render @discussion.attachments %>
+  <% end %>
 <% end -%>
 
 <hr />

@@ -2,7 +2,7 @@ set :application, "ria"
 
 set :scm, :git
 set :repository,  "git@code.neotericdesign.com:ria.git"
-set :branch, 'master'
+set :branch, (ENV["DEPLOY_BRANCH"] || 'master')
 set :git_enable_submodules, 1
 set :deploy_via, :remote_cache
 set :use_sudo, false
@@ -27,7 +27,6 @@ set :deploy_to, "/home/ria/staging"
 
 ssh_options[:port] = 7822
 set :user, "ria"
-
 
 ##
 # == Production environment

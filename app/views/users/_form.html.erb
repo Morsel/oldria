@@ -10,6 +10,11 @@
 	<% end -%>
 <% end %>
 
+<% f.inputs :name => 'Preferences' do %>
+  <%= f.input :prefers_receive_email_notifications, :as => :boolean,
+              :label => 'Receive email notifications?' %>
+<% end %>
+
 <% f.inputs :name => 'Desired Login Information' do %>
 	<%= f.input :username %>
 	<%= f.input :password, :input_html => {:autocomplete => "off"} %>

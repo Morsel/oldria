@@ -1,5 +1,21 @@
-<% title @discussionable.subject %>
+<% title @discussionable.subject, false %>
 
-<p><%= @discussionable.body %></p>
+<% div_for @admin_discussion, :class => 'discussion' do %>
+
+  <div class="header clearfix">
+    <h1><%=h @discussionable.try(:subject) %></h1>
+
+    <p class="meta">
+      <span class="meta_label">To:</span> <%= @admin_discussion.restaurant.try(:name) %>
+        (<%= @admin_discussion.employees.map(&:name_or_username).to_sentence %>)<br />
+
+      <span class="meta_label">Date:</span> <%= @discussionable.scheduled_at.try(:strftime, "%B %e") %>
+    </p>
+  </div>
+  <div class="body">
+    <%= auto_link(simple_format(@discussionable.body)) %>
+  </div>
+
+<% end %>
 
 <%= render :partial => 'admin_conversations/comments', :locals => {:message => @discussionable }  %>

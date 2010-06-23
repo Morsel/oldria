@@ -84,7 +84,7 @@ Feature: Trend questions
     And I press "Send"
     Then I should see "Successfully created"
 
-@focus
+
   Scenario: Displaying saved criteria
     Given I am logged in as an admin
     When I create a new trend question with subject "Favorite colors" with criteria:
@@ -92,6 +92,36 @@ Feature: Trend questions
     Then I should see "Region: Midwest"
     When I go to the list of trend questions
     Then I should see "Region: Midwest"
+
+@emails
+  Scenario: New Trend Question notification, user prefers no emails
+    Given I am logged in as an admin
+    When I create a new trend question with subject "Chef Surprise" with criteria:
+      | Region | Midwest (IN IL OH) |
+      | Role   | Chef               |
+    Then the trend question with subject "Chef Surprise" should have 1 restaurant
+    And the last trend question for "Normal Pants" should be viewable by "Sam Smith"
+    And "sam@example.com" should have no emails
+
+@emails
+  Scenario: New Trend Question notification, user prefers emails
+    Given "sam" prefers to receive direct message alerts
+    Given I am logged in as an admin
+    When I create a new trend question with subject "Chef Surprise" with criteria:
+      | Region | Midwest (IN IL OH) |
+      | Role   | Chef               |
+    Then the trend question with subject "Chef Surprise" should have 1 restaurant
+    And the last trend question for "Normal Pants" should be viewable by "Sam Smith"
+    And "sam@example.com" should have 1 email
+
+    Given "jim" is the account manager for "Normal Pants"
+    And I am logged in as "jim" with password "secret"
+    When I go to my inbox
+    And I follow "Reply"
+    And I fill in "Reply" with "But my river is green"
+    And I press "Send"
+
+    Then "sam@example.com" should have 2 emails
 
 
 

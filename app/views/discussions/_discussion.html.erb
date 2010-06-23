@@ -1,9 +1,27 @@
-<% div_for discussion do %>
-<h3><%= link_to discussion.title, discussion %></h3>
-<p class="meta">
-  Originally posted by <%= discussion.poster.try(:name) %>
-  on <%= discussion.created_at.to_s(:long) %> |
-  <%= discussion.comments.count %> Comments
-</p>
-<hr />
+<% div_for discussion, :class => css_classes_for_discussion(discussion) do %>
+  <div class="sender_avatar">
+    <%= image_tag discussion.poster.avatar.url(:thumb) %>
+  </div>
+
+  <h4 class="message_title column">
+    <%= link_to discussion.poster.name, discussion.poster %> started a discussion
+  </h4>
+
+  <p class="message_body"><%= link_to discussion.title, discussion %></p>
+
+  <p class="meta date"><%= discussion.created_at.to_s(:message_meta) %></p>
+
+  <p class="message-actions">
+    <% link_to discussion, :class => 'replies' do %>
+      <% if discussion.comments.present? %>
+        <span class="unread_comments_count"><%= discussion.comments.size %></span> replies &raquo;
+      <% else %>
+        Go to message &raquo;
+      <% end %>
+    <% end %>
+  </p>
+
+  <% unless archived_view? %>
+    <%= link_to "<span>read</span>", read_discussion_path(discussion), :class => 'readit' %>
+  <% end %>
 <% end %>

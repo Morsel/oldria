@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20100215205724
+# Schema version: 20100426230131
 #
 # Table name: media_requests
 #
@@ -9,7 +9,6 @@
 #  created_at            :datetime
 #  updated_at            :datetime
 #  due_date              :date
-#  request_type          :string(255)
 #  media_request_type_id :integer
 #  fields                :text
 #  status                :string(255)
@@ -27,7 +26,7 @@ class MediaRequest < ActiveRecord::Base
 
   # Recipients are Employment objects, not Employees directly
   has_many :recipients, :through => :media_request_conversations
-  has_many :attachments, :as => :attachable, :class_name => '::Attachment'
+  has_many :attachments, :as => :attachable, :class_name => '::Attachment', :dependent => :destroy
   validates_presence_of :sender_id
   validates_presence_of :recipients, :on => :create
   before_validation :assign_recipients_from_restaurants

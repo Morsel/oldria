@@ -4,7 +4,7 @@
 		<h4 class="title"><%= feed_entry.title %></h4>
 		<p class="meta">
 			<span class="author"><%= feed_entry.author %></span>
-			<span class="published_at"><%= time_ago_in_words feed_entry.published_at %> ago</span>
+			<span class="published_at"><%= time_ago_in_words(feed_entry.published_at) if feed_entry.published_at %> ago</span>
 		</p>
 	</div>
 

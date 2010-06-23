@@ -6,6 +6,13 @@ class HolidayDiscussionsController < ApplicationController
     build_comment
   end
   
+  def update
+    require_admin
+    @discussion = HolidayDiscussion.find(params[:id])
+    @discussion.update_attributes(params[:holiday_discussion])
+    redirect_to admin_holiday_path(@discussion.holiday)
+  end
+  
   private
 
   def build_comment

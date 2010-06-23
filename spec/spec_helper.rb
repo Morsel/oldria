@@ -18,6 +18,9 @@ Spork.prefork do
   require "email_spec/helpers"
   require "email_spec/matchers"
 
+  require "authlogic/test_case"
+
+  require "#{Rails.root}/spec/factories"
 
   Dir["#{File.dirname(__FILE__)}/support/**/*.rb"].each {|f| require f}
 

@@ -1,9 +1,0 @@
-# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
-
-one:
-  holiday_discussion_id: 1
-  holiday_reminder_id: 1
-
-two:
-  holiday_discussion_id: 1
-  holiday_reminder_id: 1

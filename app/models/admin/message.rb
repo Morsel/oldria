@@ -46,6 +46,10 @@ class Admin::Message < ActiveRecord::Base
   def inbox_title
     self.class.title
   end
+  
+  def email_title
+    inbox_title
+  end
 
   def broadcast?
     false

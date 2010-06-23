@@ -8,6 +8,12 @@ Given /^the following confirmed users?:?$/ do |table|
   end
 end
 
+Given /^the following unconfirmed users?:?$/ do |table|
+  table.hashes.each do |row|
+    user = Factory(:user, row.merge(:confirmed_at => nil))
+  end
+end
+
 Given /^the following media users?:?$/ do |table|
   table.hashes.each do |row|
     user = Factory(:media_user, row)
@@ -46,7 +52,7 @@ Given /^I am logged in as "([^\"]*)" with password "([^\"]*)"$/ do |username, pa
 end
 
 Given(/^I am logged in as "([^\" ]*)"$/) do |username|
-  Given %Q(I am logged in as "#{username}" with password "foobar")
+  Given %Q(I am logged in as "#{username}" with password "secret")
 end
 
 Given /^"([^\"]*)" has a "([^\"]*)" account type$/ do |username, account_type_name|
@@ -55,6 +61,10 @@ Given /^"([^\"]*)" has a "([^\"]*)" account type$/ do |username, account_type_na
   user = User.find_by_username(username)
   user.account_type = account_type
   user.save
+end
+
+Given /^I am not logged in$/ do
+  Given 'I visit the logout path'
 end
 
 When /^I (?:visit the logout path|logout)$/ do

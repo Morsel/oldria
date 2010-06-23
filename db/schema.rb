@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100414233057) do
+ActiveRecord::Schema.define(:version => 20100426230131) do
 
   create_table "account_types", :force => true do |t|
     t.string   "name"
@@ -131,7 +131,7 @@ ActiveRecord::Schema.define(:version => 20100414233057) do
   end
 
   create_table "direct_messages", :force => true do |t|
-    t.string   "body"
+    t.text     "body"
     t.integer  "sender_id",                                 :null => false
     t.integer  "receiver_id",                               :null => false
     t.integer  "in_reply_to_message_id"
@@ -265,6 +265,7 @@ ActiveRecord::Schema.define(:version => 20100414233057) do
     t.integer  "comments_count", :default => 0
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "accepted",       :default => false
   end
 
   create_table "holiday_reminders", :force => true do |t|
