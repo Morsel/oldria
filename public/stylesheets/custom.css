@@ -2513,6 +2513,10 @@ table#legend {
 	border: solid 1px #C66;
 }
 
+#flash_error a {
+  color: white;
+}
+
 .fieldWithErrors {
 	display: inline;
 }
