@@ -10,8 +10,7 @@
 #   /opt/ruby-enterprise-1.8.7-2009.10/bin/bluepill
 
 
-after "deploy:update", "bluepill:quit"
-after "delayed_job:restart", "bluepill:start"
+after "deploy:update", "bluepill:quit", "bluepill:start"
 
 namespace :bluepill do
   desc "Stop processes that bluepill is monitoring and quit bluepill"
