@@ -14,7 +14,7 @@
 #
 
 class DirectMessage < ActiveRecord::Base
-  belongs_to :receiver, :class_name => "User"
+  belongs_to :receiver, :class_name => "User", :foreign_key => "receiver_id"
   belongs_to :sender, :class_name => "User"
   default_scope :order => "#{table_name}.created_at DESC"
   acts_as_readable
@@ -50,7 +50,7 @@ class DirectMessage < ActiveRecord::Base
   def inbox_title
     self.class.title
   end
-  
+
   def email_title
     inbox_title
   end
@@ -81,6 +81,14 @@ class DirectMessage < ActiveRecord::Base
       message = message.parent_message
     end
     return message
+  end
+
+  def descendants
+    self.responses.map {|child| child.descendants}.flatten + [self]
+  end
+
+  def descendants_size
+    descendants.size - 1 # ignore self for the count
   end
 
   def from?(user)

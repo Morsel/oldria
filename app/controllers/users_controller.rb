@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   before_filter :require_user, :only => [:show]
-  before_filter :require_no_user, :only => [:new]
+  before_filter :require_no_user, :only => [:new, :resend_confirmation]
   before_filter :require_owner_or_admin, :only => [:edit, :update, :remove_twitter, :remove_avatar]
   before_filter :block_media, :only => [:show, :new]
 
@@ -60,6 +60,8 @@ class UsersController < ApplicationController
       @user_session = UserSession.new(@user)
       if @user_session.save
         @message = "Welcome aboard! Your account has been confirmed."
+      else
+        @message = "Could not log you in. Please contact us for assistance."
       end
     elsif current_user
       flash[:notice] = "Looks like you're already set up. Get to work!"
@@ -67,6 +69,18 @@ class UsersController < ApplicationController
     else
       flash[:error] = "Oops, looks like that confirmation token has already been used.<br/>Log in below, or click the link to reset your password."
       redirect_to login_path
+    end
+  end
+  
+  def resend_confirmation
+    if request.post?
+      if user = User.find_by_email(params[:email])
+        UserMailer.deliver_signup user
+        flash[:notice] = "We just sent you a new confirmation email. Click the link in the email and you'll be ready to go!"
+        redirect_to root_path
+      else
+        flash[:error] = "Sorry, we can't find a user with that email address. Try again?"
+      end
     end
   end
 

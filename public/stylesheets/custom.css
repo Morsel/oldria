@@ -1,4 +1,4 @@
-/* @override 
+/* @override
 	http://localhost:3001/stylesheets/custom.css
 	http://staging.restaurantintelligenceagency.com/stylesheets/custom.css?1273244999
 */
@@ -890,9 +890,15 @@ input.checkbox {
 	color: #000;
 }
 
-.direct_message .message_body, .discussion .message_body { 
-	font-size: 1.1em; 
+.direct_message .message_body, .discussion .message_body {
+	font-size: 1.1em;
 	margin-bottom: 1em;
+}
+
+.direct_message .message_body, .direct_message .message_title {
+	float: none;
+	margin-left: 70px;
+	width: auto;
 }
 
 .direct_message .message_body a {
@@ -2507,6 +2513,10 @@ table#legend {
 	border: solid 1px #C66;
 }
 
+#flash_error a {
+  color: white;
+}
+
 .fieldWithErrors {
 	display: inline;
 }
@@ -3139,7 +3149,7 @@ h2.primary_title{
 
 #dashboard #direct_messages p {
 	padding: 10px 0 0 10px;
-	margin: 0 0 6px;  
+	margin: 0 0 6px;
 }
 
 #dashboard #direct_messages .direct_message p {

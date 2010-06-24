@@ -37,7 +37,8 @@ class EmploymentSearch < ActiveRecord::Base
         criteria_name = $2.humanize.titleize
         criteria_class = $2.classify
         criteria_class = "RestaurantRole" if criteria_class == "Role"
-        readable_conditions_hash[criteria_name] = criteria_class.constantize.find(value).try(:name)
+        readable_conditions_hash[criteria_name] = criteria_class.constantize.find(value).try(:name) rescue 
+            readable_conditions_hash[criteria_name] = "[not found]"
       end
     end
     readable_conditions_hash
