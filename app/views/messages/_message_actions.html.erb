@@ -1,0 +1,10 @@
+<%# Holidays %>
+<% if message.respond_to?(:restaurant) %>
+  <%= render 'message_reply_link', :message => message %>
+<%# Trend Questions and Content Requests %>
+<% elsif current_user.unread_grouped_admin_discussions[message] %>
+  <%= render :partial => 'message_reply_link', :collection => current_user.unread_grouped_admin_discussions[message], :as => :message %>
+<% end %>
+
+  <div style="clear:left">&nbsp;</div>
+  <%= reply_link_for_message(message) %>
