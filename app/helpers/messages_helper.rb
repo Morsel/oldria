@@ -69,6 +69,14 @@ module MessagesHelper
   def show_replies?
     params[:action] == "ria"
   end
+  
+  def show_replies_block?(message)
+    !message.read_by?(current_user)
+  end
+  
+  def show_replies_link?(message)
+    message.respond_to?(:action_required?) && message.action_required?(current_user)
+  end
 
   def css_classes_for_discussion(discussion)
     classes = 'inbox_message'
