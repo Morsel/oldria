@@ -9,7 +9,10 @@
 # Or wherever bluepill is installed. On some of our servers, it is at
 #   /opt/ruby-enterprise-1.8.7-2009.10/bin/bluepill
 
-after "deploy:update", "bluepill:quit", "bluepill:start"
+
+before "deploy:update", "bluepill:quit"
+after "deploy:update",  "bluepill:start"
+
 namespace :bluepill do
   desc "Stop processes that bluepill is monitoring and quit bluepill"
   task :quit, :roles => [:app] do
