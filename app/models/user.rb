@@ -79,7 +79,9 @@ class User < ActiveRecord::Base
                          :in => %w( freelance Freelance ),
                          :message => "'{{value}}' is not allowed"
   validates_format_of :username,
-                      :with => /^[a-zA-Z0-9\-\_ ]+$/
+                      :with => /^[a-zA-Z0-9\-\_ ]+$/,
+                      :message => "'{{value}}' is not allowed. \
+                      Usernames can only contain letters, numbers, and/or the '-' symbol."
 
   validates_acceptance_of :agree_to_contract
   named_scope :for_autocomplete, :select => "first_name, last_name", :order => "last_name ASC", :limit => 15
