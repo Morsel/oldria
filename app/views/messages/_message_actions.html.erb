@@ -12,7 +12,7 @@
    %>
    <%= render :partial => 'message_reply_link', :collection => discussions_with_replies, :as => :message %>
 
-   <%= discussions_without_replies.map(&:restaurant).map(&:name).to_sentence %> have not responded.
+   <%= not_responded_phrase_for_discussions(discussions_without_replies) %>
 
    <% link_to root_path, :class => 'quickreply' do %>
      Quick reply&nbsp;&raquo;

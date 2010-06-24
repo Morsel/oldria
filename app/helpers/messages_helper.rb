@@ -66,6 +66,24 @@ module MessagesHelper
     end
   end
 
+  def not_responded_phrase_for_discussions(discussions_without_replies)
+    return if discussions_without_replies.blank?
+
+    restuarants = discussions_without_replies.map(&:restaurant)
+
+    restaurant_phrase = restuarants.map do |restaurant|
+      "<span>#{restaurant.name}</span>"
+    end.to_sentence
+
+    if discussions_without_replies.length > 1
+      phrase = "have not responded"
+    else
+      phrase = "has not responded"
+    end
+
+    return "#{restaurant_phrase} #{phrase}"
+  end
+
   def show_replies?
     params[:action] == "ria"
   end
