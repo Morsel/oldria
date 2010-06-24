@@ -3,6 +3,7 @@
 <%= render 'nav' %>
 
 <div class="span-9 last">
+<% if !current_user.friends.blank? %>
   <div id="read_messages">
     <div id="friend_activity" rel="Friend Activity">
          <h2 class="function-bold with_icon">
@@ -22,4 +23,12 @@
          <% end -%>
        </div><!-- /friend_activity -->
   </div><!-- /read_messages -->
+<% else %>
+<div class="box">
+    <div class="box">
+        <p>Did you know you can follow others on spoonfeed just like you do Facebook? Of course our network is just for restaurant people so it is a lot more useful — and private!</p>
+        <p><%= link_to 'Find your coworkers and follow them now!', directory_path %></p>
+    </div>
+</div>
+<% end %>
 </div>
