@@ -14,6 +14,7 @@
 #
 
 class TrendQuestion < ActiveRecord::Base
+  acts_as_readable
   belongs_to :employment_search
 
   has_many :admin_discussions, :as => :discussionable
@@ -26,6 +27,14 @@ class TrendQuestion < ActiveRecord::Base
 
   def self.title
     "Trend Question"
+  end
+
+  def inbox_title
+    self.class.title
+  end
+
+  def message
+    body
   end
 
   def update_restaurants_from_search_criteria
