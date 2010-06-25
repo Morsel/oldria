@@ -12,10 +12,17 @@ class QuickRepliesController < ApplicationController
     @quick_reply.user = current_user
 
     if @quick_reply.save
-      flash[:notice] = "Successfully replied to the message."
-      redirect_to ria_messages_path
+      render :update do |page|
+        page.call "close_box"
+        page[@quick_reply.message].replace :partial => 'messages/message', :locals => { :message =>  @quick_reply.message }
+        page[@quick_reply.message].visual_effect(:highlight, :duration => 5.0)
+        page.call "$('.colorbox').unbind().colorbox"
+      end
     else
-      render :new
+      render :update do |page|
+        page.call "post_reply_text"
+        page['error_messages'].replace_html error_messages_for :quick_reply
+      end
     end
   end
 end

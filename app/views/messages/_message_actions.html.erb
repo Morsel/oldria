@@ -1,9 +1,17 @@
 <%# Holidays %>
 <% if message.respond_to?(:restaurant) %>
-  <%= render 'message_reply_link', :message => message %>
+  <%= render 'messages/message_reply_link', :message => message %>
 
 <%# Trend Questions and Content Requests %>
 <% elsif current_user.unread_grouped_admin_discussions[message] %>
+  <%
+  discussions = current_user.unread_grouped_admin_discussions[message]
+  discussions_with_replies = discussions.select do |discussion|
+    discussion.comments_count > 0
+  end
+  discussions_without_replies = discussions - discussions_with_replies
+   %>
+   <%= render :partial => 'messages/message_reply_link', :collection => discussions_with_replies, :as => :message %>
 
 <%= render 'message_response_summary', :message => message %>
 
