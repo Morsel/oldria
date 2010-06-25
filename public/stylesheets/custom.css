@@ -2398,6 +2398,16 @@ form .checkall_link label {
 	font-size: 1.2em;
 }
 
+.scroll-check {
+  width: 25%; 
+  float: left;
+  margin: 0 1em 1em 0;
+}
+
+.scroll-check .fields {
+  height: 100px; 
+  overflow-y: scroll;
+}
 
 /* @end */
 
