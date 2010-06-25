@@ -81,7 +81,7 @@ module MessagesHelper
       phrase = "has not responded"
     end
 
-    return "#{restaurant_phrase} #{phrase}"
+    return "#{restaurant_phrase} #{phrase}."
   end
 
   def show_replies?

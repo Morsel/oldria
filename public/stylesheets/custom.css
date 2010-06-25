@@ -1898,10 +1898,10 @@ ul.mini_menu li {
 
 .inbox_message .message-actions .quickreply {
 	color: #008bc4;
-	text-decoration: underline;
 }
 
 .inbox_message .message-actions a.quickreply:hover {
+	text-decoration: underline;
 	color: #000;
 }
 

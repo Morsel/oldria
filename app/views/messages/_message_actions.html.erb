@@ -1,6 +1,7 @@
 <%# Holidays %>
 <% if message.respond_to?(:restaurant) %>
   <%= render 'message_reply_link', :message => message %>
+
 <%# Trend Questions and Content Requests %>
 <% elsif current_user.unread_grouped_admin_discussions[message] %>
   <%
@@ -14,9 +15,10 @@
 
    <%= not_responded_phrase_for_discussions(discussions_without_replies) %>
 
-   <% link_to root_path, :class => 'quickreply' do %>
+   <% link_to '#', :class => 'quickreply' do %>
      Quick reply&nbsp;&raquo;
    <% end %>
+
 <%# QOTD %>
 <% else %>
   <%= reply_link_for_message(message) %>
