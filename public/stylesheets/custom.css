@@ -3177,3 +3177,55 @@ h2.primary_title{
 }
 
 /* @end */
+
+/* ## Quick Reply --------------------------------------------- */
+#quick_reply_time{
+	padding:20px;
+	background:#e3f2f9;
+	border-top:1px solid #aed9eb;
+	margin:0 -10px;
+}
+
+#cboxLoadedContent .readit{
+	display:none;
+} 
+#cboxLoadedContent .inbox_message{	
+	background:0;
+}
+
+#new_quick_reply label{
+	font-weight:bold;
+}
+
+#new_quick_reply label.function-bold{
+	font-size:1.4em;
+	margin:10px 0 0;
+	text-transform:uppercase;
+}
+#new_quick_reply p{
+	margin:10px 0 0;
+}
+
+#new_quick_reply button{
+	border-radius:80px;
+	-webkit-border-radius:80px;
+	-moz-border-radius:80px;
+	-khtml-border-radius:80px;
+	color:#fff;
+	font:bold 1.1em "Lucida Grande", Arial, Verdana, sans-serif;
+	background:#038bc0;
+	text-shadow:0 1px 0 #0076b2;
+	border:0;
+}
+#new_quick_reply button:hover{
+	cursor:pointer;
+	text-shadow:0;
+	background:#0076b2;
+}
+#new_quick_reply .close{
+	color:#333;
+	text-decoration:underline;
+	display:inline-block;
+	padding:10px;
+	border-left:1px solid #999;
+}

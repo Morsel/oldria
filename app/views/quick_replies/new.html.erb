@@ -1,24 +1,27 @@
 <% discussions = current_user.unread_grouped_admin_discussions[@quick_reply.message] %>
-<%= render 'messages/message_details', :message =>  @quick_reply.message %>
+<% div_for(@quick_reply.message, :class=>'inbox_message') do -%>
+  <%= render 'messages/message_details', :message =>  @quick_reply.message %>
+<% end -%>
 
   <% discussions_without_replies = discussions.select do |discussion|
        discussion.comments_count == 0
      end %>
-  <%= not_responded_phrase_for_discussions(discussions_without_replies) %>
+
+<div id="quick_reply_time">
+<%= not_responded_phrase_for_discussions(discussions_without_replies) %>
 
 <% form_for @quick_reply do |f| %>
   <%= f.hidden_field :message_id %>
   <%= f.hidden_field :message_type %>
 
-  <p><%= f.label :reply_text, "Comment for Restaurant(s)" %></p>
-  <%= f.text_area :reply_text %>
+  <%= f.label :reply_text, "Comment for Restaurant(s)", :class => 'function-bold' %>
+  <%= f.text_area :reply_text, :size => '100x5' %>
 
   <p>Check all of the restaurants that you'll be replying for:</p>
   <% discussions.each do |admin_discussion| %>
     <label><%= check_box_tag 'quick_reply[restaurant_ids][]', admin_discussion.restaurant_id %> <%= admin_discussion.restaurant.name %></label>
   <% end %>
 
-  <p><%= button_tag "Post Reply" %> | <%= link_to 'Cancel','#', :class => 'close' %></p>
+  <p><%= button_tag "Post Reply" %> <%= link_to 'Cancel','#', :class => 'close' %></p>
 <% end %>
-
-
+</div>

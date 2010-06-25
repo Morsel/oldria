@@ -313,3 +313,5 @@ if (location.hash && location.hash.match(/user_\d+$/)) {
   userRowCells.animate({'background-color': '#ffffff'}, 700);
 }
 
+
+$('.colorbox').colorbox({width:'500px'});
