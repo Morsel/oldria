@@ -1,0 +1,14 @@
+
+<%= render 'messages/message_details', :message =>  @quick_reply.message %>
+
+<% form_for @quick_reply do |f| %>
+  <%= f.hidden_field :message_id %>
+  <%= f.hidden_field :message_type %>
+  <%= f.text_area :reply_text %>
+  <% current_user.unread_grouped_admin_discussions[@quick_reply.message].each do |admin_discussion| %>
+    <label><%= check_box_tag 'quick_reply[restaurant_ids][]', admin_discussion.restaurant_id %> <%= admin_discussion.restaurant.name %></label>
+  <% end %>
+  <p><%= button_tag "Submit" %></p>
+<% end %>
+
+

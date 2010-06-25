@@ -15,7 +15,7 @@
 
    <%= not_responded_phrase_for_discussions(discussions_without_replies) %>
 
-   <% link_to '#', :class => 'quickreply' do %>
+   <% link_to new_quick_reply_path(:message_id => message.id, :message_type => message.class.name), :class => 'quickreply' do %>
      Quick reply&nbsp;&raquo;
    <% end %>
 

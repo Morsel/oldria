@@ -91,7 +91,7 @@
     <%- if current_user && !current_user.media? %>
       <%= render :partial => 'statuses/sidebar_form' %>
       <%= render :partial => 'shared/restaurants' %>
-      <%= render :partial => 'shared/activity_alerts' %>
+      <%# render :partial => 'shared/activity_alerts' %>
       <%= render :partial => 'shared/ria_labs' %>
       <%= render :partial => "shared/media_request_promo" %>
     <% end -%>
