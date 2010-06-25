@@ -12,7 +12,7 @@ class QuickRepliesController < ApplicationController
     @quick_reply.user = current_user
 
     if @quick_reply.save
-      flash[:notice] = "Successfully created quick reply."
+      flash[:notice] = "Successfully replied to the message."
       redirect_to ria_messages_path
     else
       render :new
