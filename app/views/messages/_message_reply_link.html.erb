@@ -4,6 +4,6 @@
 %>
 <% link_to link_for_message(message), :class => classes do %>
   <span class="unread_comments_count"><%= message.comments_count %></span>
-  <%= pluralize message.comments_count, 'reply' %> for <%= restaurant(message).name %>. Read &amp; Reply &raquo;
+  <%= message.comments_count == 1 ? 'reply' : 'replies' %> for <%= restaurant(message).name %>. Read &amp; Reply &raquo;
 <% end %>
 </p>
