@@ -1,95 +1,74 @@
 <% f.inputs :name => 'Criteria', :id => 'employment_criteria' do %>
 <p>Click a category to expand, then check off the items you want to filter by for each criteria type. A list of matching recipients will appear below.</p>
   <% semantic_fields_for @search do |s| %>
-  <div class="scroll-check">
-      <%= link_to_function "Subject Matter", "$('#subject_fields').toggle()" %>
-      <div id="subject_fields" class="fields" style="display:none;">
-          <% for subject in SubjectMatter.all %>
-          <div><%= check_box_tag subject.id %> <%= subject.name %></div>
-          <% end %>
-      </div>
-  </div>
+    <div class="scroll-check">
+        <%= link_to_function "Subject Matter", "$('#subject_fields').toggle()" %>
+        <div id="subject_fields" class="fields">
+            <%= s.input :subject_matters_id_eq,
+                        :as => "check_boxes",
+                        :collection => SubjectMatter.all,
+                        :label => "Subject Matter" %>
+        </div>
+    </div>
   
     <div class="scroll-check">
         <%= link_to_function "Users", "$('#user_fields').toggle()" %>
         <div id="user_fields" class="fields" style="display: none;">
-            <% for user in User.by_last_name %>
-            <div><%= check_box_tag user.id %> <%= user.name %></div>
-            <% end %>
+            <%= s.input :employee_id_eq,
+                        :as => "check_boxes",
+                        :collection => User.by_last_name,
+                        :label => "User" %>
         </div>
     </div>
     
     <div class="scroll-check">
         <%= link_to_function "Restaurants", "$('#restaurant_fields').toggle()" %>
         <div id="restaurant_fields" class="fields" style="display:none;">
-            <% for restaurant in Restaurant.all(:order => 'name ASC') %>
-            <div><%= check_box_tag restaurant.id %> <%= restaurant.name %></div>
-            <% end %>
+            <%= s.input :restaurant_id_eq,
+                        :as => "check_boxes",
+                        :collection => Restaurant.all(:order => 'name ASC'),
+                        :label => "Restaurant" %>
         </div>
     </div>
     
     <div class="scroll-check">
         <%= link_to_function "Cuisine", "$('#cuisine_fields').toggle()" %>
         <div id="cuisine_fields" class="fields" style="display:none;">
-            <% for cuisine in Cuisine.all %>
-            <div><%= check_box_tag cuisine.id %> <%= cuisine.name %></div>
-            <% end %>
+            <%= s.input :restaurant_cuisine_id_eq,
+                        :as => "check_boxes",
+                        :collection => Cuisine.all,
+                        :label => "Cuisine" %>
         </div>
     </div>
     
     <div class="scroll-check">
         <%= link_to_function "Role", "$('#role_fields').toggle()" %>
         <div id="role_fields" class="fields" style="display:none;">
-            <% for role in RestaurantRole.all %>
-            <div><%= check_box_tag role.id %> <%= role.name %></div>
-            <% end %>
+            <%= s.input :restaurant_role_id_eq,
+                        :as => "check_boxes",
+                        :collection => RestaurantRole.all,
+                        :label => "Role" %>
         </div>
     </div>
     
     <div class="scroll-check">
         <%= link_to_function "Region", "$('#region_fields').toggle()" %>
         <div id="region_fields" class="fields" style="display:none;">
-            <% for region in JamesBeardRegion.all %>
-            <div><%= check_box_tag region.id %> <%= region.name %></div>
-            <% end %>
+            <%= s.input :restaurant_james_beard_region_id_eq,
+                        :as => "check_boxes",
+                        :label => "Region",
+                        :collection => JamesBeardRegion.all %>
         </div>
     </div>
     
     <div class="scroll-check">
         <%= link_to_function "Metro Area", "$('#metro_fields').toggle()" %>
         <div id="metro_fields" class="fields" style="display:none;">
-            <% for metro in MetropolitanArea.all %>
-            <div><%= check_box_tag metro.id %> <%= metro.name %></div>
-            <% end %>
+            <%= s.input :restaurant_metropolitan_area_id_eq,
+                        :as => "check_boxes",
+                        :collection => MetropolitanArea.all,
+                        :label => "Metro Area" %>
         </div>
-    </div>
-    
-    <%#= s.input :employee_id_eq,
-                :collection => User.by_last_name,
-                :label => "User" %>
-                
-    <%#= s.input :restaurant_id_eq,
-                :collection => Restaurant.all(:order => 'name ASC'),
-                :label => "Restaurant" %>
-
-    <%#= s.input :restaurant_cuisine_id_eq,
-                :collection => Cuisine.all,
-                :label => "Cuisine" %>
-
-    <%#= s.input :restaurant_role_id_eq,
-                :collection => RestaurantRole.all,
-                :label => "Role" %>
-
-    <%#= s.input :subject_matters_id_eq,
-                :collection => SubjectMatter.all,
-                :label => "Subject Matter" %>
-
-    <%#= s.input :restaurant_james_beard_region_id_eq,
-                :label => "Region",
-                :collection => JamesBeardRegion.all %>
-
-    <%#= s.input :restaurant_metropolitan_area_id_eq,
-                :collection => MetropolitanArea.all,
-                :label => "Metro Area" %>
+    </div>    
   <% end %>
 <% end %>

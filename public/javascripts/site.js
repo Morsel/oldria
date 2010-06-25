@@ -287,7 +287,7 @@ if (sortedTables.length) {
 
 // == Dynamic Updates for Employment Searching
 var	$employmentsList  = $("#employment_list");
-var $employmentInputs = $("#employment_criteria select");
+var $employmentInputs = $("#employment_criteria input[type=checkbox]");
 var $loaderImg =        $('<img class="loader" src="/images/ajax-loader.gif" />').hide();
 
 // load the image load indicator, hidden
