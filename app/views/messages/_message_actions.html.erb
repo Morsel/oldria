@@ -13,7 +13,7 @@
    %>
    <%= render :partial => 'messages/message_reply_link', :collection => discussions_with_replies, :as => :message %>
 
-   <%= not_responded_phrase_for_discussions(discussions_without_replies) %>
+<%= render 'message_response_summary', :message => message %>
 
    <% link_to new_quick_reply_path(:message_id => message.id, :message_type => message.class.name), :class => 'colorbox quickreply' do %>
      Quick reply&nbsp;&raquo;

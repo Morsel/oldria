@@ -30,7 +30,11 @@ module UserMessaging
     end
 
     def unread_grouped_admin_discussions
-      @unread_grouped_admin_discussions ||= unread_admin_discussions.group_by(&:discussionable)
+      return @unread_grouped_admin_discussions if defined?(@unread_grouped_admin_discussions)
+      @unread_grouped_admin_discussions = current_admin_discussions.group_by(&:discussionable)
+      @unread_grouped_admin_discussions.reject! do |discussionable, admin_discussions|
+        discussionable.read_by?(self)
+      end
     end
 
     def unread_discussions

@@ -1816,6 +1816,7 @@ ul.mini_menu li {
 	background:#f6f6f6;
 }
 
+
 .readit {
 	display: block;
 	position: absolute;
@@ -1883,7 +1884,6 @@ ul.mini_menu li {
 	margin-left:25px;
 }
 
-
 .inbox_message .message-actions {
 	margin: 0;
 	border-top: 1px solid #ccc;
@@ -1911,6 +1911,8 @@ ul.mini_menu li {
 	line-height: 24px;
 	color: #999;
 }
+
+
 
 /* message type themes */
 .holiday_discussion_reminder .icon {   background-color: #D14600 }
@@ -1952,10 +1954,63 @@ ul.mini_menu li {
 
 /* @end */
 
+/* @group individual messages */
+
+.inbox_message.individual {
+	margin:0;
+	border-bottom:0;
+	background-color: transparent;
+}
+
+.inbox_message.individual .icon {
+	margin: 0 5px 0 0;
+}
+
+.inbox_message.individual .message-comments {
+	background-color: #e9f4f8;
+	border-top: 1px solid #d3e9f4;
+	padding: 12px;
+	margin-bottom: 1em;
+}
+
+.inbox_message.individual .message-comments .comments-title {
+	text-transform: uppercase;
+	font-size: 1.2em;
+	color: #222;
+}
+
+.inbox_message.individual .message-comments .comment {
+	background-color: #d3e9f4;
+	border: 0 none;
+	padding: 1em 0;
+}
+
+.inbox_message.individual .message-comments .comment .content{
+	margin-left: 70px;
+}
+
+.inbox_message.individual .message-comments form.comment {
+	background-color: transparent;
+	padding: 0;
+}
+
+.inbox_message.individual .message-header {
+	line-height: 24px;
+}
+
+.inbox_message.individual .message-body {
+	font-size: 1.2em;
+}
+
+
+.inbox_message h1 {
+	font-size: 1.7em;
+	margin: 1em 0 0.5em;
+}
+
 
 /* @end */
-
-
+/* @end */
 
 /* @group feeds ---------------------*/
 
@@ -2967,16 +3022,16 @@ h2.primary_title{
   background-color: #eef6fa;
 }
 
-#read_messages a.replies {
+.message-actions a.replies {
   color: #0587C1;
 }
 
-#read_messages .replies {
+.message-actions .replies {
 	height: 36px;
 	line-height: 36px;
 }
 
-#read_messages .unread_comments_count {
+.message-actions .unread_comments_count {
   background: url('../images/blackbadge.png') no-repeat 0 0;
   color:#FFFFFF;
   display:block;
@@ -2994,7 +3049,8 @@ h2.primary_title{
   margin: -2px -6px -5px -10px;
 }
 
-#read_messages .action .unread_comments_count, #read_messages .action_required .unread_comments_count {
+.message-actions .action .unread_comments_count, 
+.message-actions .action_required .unread_comments_count {
 	background-image: url('../images/bluebadge_small.png');
 	background-position: 1px 0;
 }
