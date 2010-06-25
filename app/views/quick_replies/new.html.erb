@@ -1,7 +1,7 @@
 <% discussions = current_user.unread_grouped_admin_discussions[@quick_reply.message] %>
-<% div_for(@quick_reply.message, :class=>'inbox_message') do -%>
+<div class="inbox_message <%= dom_class(@quick_reply.message) %>">
   <%= render 'messages/message_details', :message =>  @quick_reply.message %>
-<% end -%>
+</div>
 
   <% discussions_without_replies = discussions.select do |discussion|
        discussion.comments_count == 0
@@ -10,7 +10,8 @@
 <div id="quick_reply_time">
 <%= not_responded_phrase_for_discussions(discussions_without_replies) %>
 
-<% form_for @quick_reply do |f| %>
+<% remote_form_for @quick_reply do |f| %>
+  <div id="error_messages"></div>
   <%= f.hidden_field :message_id %>
   <%= f.hidden_field :message_type %>
 
