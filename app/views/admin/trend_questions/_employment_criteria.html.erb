@@ -1,6 +1,15 @@
 <% f.inputs :name => 'Criteria', :id => 'employment_criteria' do %>
-<p>Click a category to expand</p>
+<p>Click a category to expand, then check off the items you want to filter by for each criteria type. A list of matching recipients will appear below.</p>
   <% semantic_fields_for @search do |s| %>
+  <div class="scroll-check">
+      <%= link_to_function "Subject Matter", "$('#subject_fields').toggle()" %>
+      <div id="subject_fields" class="fields" style="display:none;">
+          <% for subject in SubjectMatter.all %>
+          <div><%= check_box_tag subject.id %> <%= subject.name %></div>
+          <% end %>
+      </div>
+  </div>
+  
     <div class="scroll-check">
         <%= link_to_function "Users", "$('#user_fields').toggle()" %>
         <div id="user_fields" class="fields" style="display: none;">
@@ -33,15 +42,6 @@
         <div id="role_fields" class="fields" style="display:none;">
             <% for role in RestaurantRole.all %>
             <div><%= check_box_tag role.id %> <%= role.name %></div>
-            <% end %>
-        </div>
-    </div>
-    
-    <div class="scroll-check">
-        <%= link_to_function "Subject Matter", "$('#subject_fields').toggle()" %>
-        <div id="subject_fields" class="fields" style="display:none;">
-            <% for subject in SubjectMatter.all %>
-            <div><%= check_box_tag subject.id %> <%= subject.name %></div>
             <% end %>
         </div>
     </div>

@@ -2399,9 +2399,13 @@ form .checkall_link label {
 }
 
 .scroll-check {
-  width: 25%; 
+  width: 22%; 
   float: left;
   margin: 0 1em 1em 0;
+}
+
+.scroll-check a {
+  font-weight: bold;
 }
 
 .scroll-check .fields {
