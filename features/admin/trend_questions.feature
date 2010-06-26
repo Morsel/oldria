@@ -89,7 +89,7 @@ Feature: Trend questions
     Given I am logged in as an admin
     When I create a new trend question with subject "Favorite colors" with criteria:
       | Region | Midwest (IN IL OH) |
-    Then I should see "Region: Midwest"
+    Then "Midwest" should be checked
     When I go to the list of trend questions
     Then I should see "Region: Midwest"
 

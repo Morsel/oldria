@@ -2,7 +2,7 @@ When /^I create a new content request with subject "([^\"]*)" with criteria:$/ d
   visit new_admin_content_request_path
   fill_in :subject, :with => subject
   table.rows_hash.each do |field, value|
-    select value, :from => field
+    check value
   end
   click_button :submit  
 end

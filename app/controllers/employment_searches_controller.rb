@@ -9,6 +9,6 @@ class EmploymentSearchesController < Admin::AdminController
   private
   def search_setup
     @search = Employment.search(params[:search])
-    @restaurants_and_employments = @search.all(:include => [:restaurant, :employee]).group_by(&:restaurant)
+    @restaurants_and_employments = @search.all(:include => [:restaurant, :employee]).uniq.group_by(&:restaurant)
   end
 end
