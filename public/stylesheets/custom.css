@@ -1469,7 +1469,7 @@ ul.responses {
 	font-size: 0.9em;
 }
 
-.attachment .icon img {
+.attachment .attachment_icon img {
 	display: inline;
 	vertical-align: middle;
 }

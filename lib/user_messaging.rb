@@ -59,7 +59,7 @@ module UserMessaging
     def unread_hdrs
       holiday_discussion_reminders.map { |r| r.find_unread_by(self) }.flatten
     end
-    
+
     def action_required_holidays
       holiday_discussions.select { |d| d.comments_count > 0 && d.comments.last.user != self }
     end
@@ -97,8 +97,8 @@ module UserMessaging
 
     def messages_from_ria
       @messages_from_ria ||= [ unread_grouped_admin_discussions.keys,
-        #unread_hdrs,
-        #unread_qotds,
+        unread_hdrs,
+        unread_qotds,
         unread_pr_tips,
         unread_announcements
       ].flatten.sort_by(&:scheduled_at).reverse
