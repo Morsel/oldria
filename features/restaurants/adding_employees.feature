@@ -84,4 +84,5 @@ Feature: Associating a Restaurant with its employees
     And I should see an invitation URL in the email body
     When I click the first link in the email
     Then I should see "Successfully logged in"
-
+    And "daviddinkle" should be a confirmed user
+    And I should be on the complete registration page
