@@ -17,7 +17,7 @@ class EmploymentSearch < ActiveRecord::Base
   serialize :conditions
 
   validates_presence_of :conditions
-  
+
   before_save :clean_up_conditions
 
   def employments
@@ -40,11 +40,11 @@ class EmploymentSearch < ActiveRecord::Base
         criteria_class = $2.classify
         criteria_class = "RestaurantRole" if criteria_class == "Role"
         # Find the matching objects for the criteria class, and assign to the hash for display
-        readable_conditions_hash[criteria_name] = criteria_class.constantize.find(value.to_a).map(&:name).to_sentence rescue 
+        readable_conditions_hash[criteria_name] = criteria_class.constantize.find([value].flatten).map(&:name).to_sentence rescue
             readable_conditions_hash[criteria_name] = "[not found]"
       end
     end
-    
+
     readable_conditions_hash
   end
 
@@ -53,7 +53,7 @@ class EmploymentSearch < ActiveRecord::Base
       ary + ["#{k}: #{v}"]
     end
   end
-  
+
   def clean_up_conditions
     conditions.each do |k,v|
       v = v.reject(&:blank?)
@@ -64,5 +64,5 @@ class EmploymentSearch < ActiveRecord::Base
       end
     end
   end
-  
+
 end

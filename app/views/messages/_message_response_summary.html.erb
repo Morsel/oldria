@@ -1,7 +1,7 @@
   <div class="message-responses">
 
     <%
-      discussions = current_user.unread_grouped_admin_discussions[message]
+      discussions = current_user.unread_grouped_admin_discussions[message] || []
       discussions_with_replies = discussions.select do |discussion|
         discussion.comments_count > 0
       end
