@@ -1,0 +1,9 @@
+<p>
+<% classes = 'replies'
+  classes += ' action_required' if message.respond_to?(:action_required?) && message.action_required?(current_user)
+%>
+<% link_to link_for_message(message), :class => classes do %>
+  <span class="unread_comments_count"><%= message.comments_count %></span>
+  <%= message.comments_count == 1 ? 'reply' : 'replies' %> for <%= restaurant(message).name %>. Read &amp; Reply &raquo;
+<% end %>
+</p>

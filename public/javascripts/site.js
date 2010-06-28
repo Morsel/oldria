@@ -313,3 +313,19 @@ if (location.hash && location.hash.match(/user_\d+$/)) {
   userRowCells.animate({'background-color': '#ffffff'}, 700);
 }
 
+
+$('.colorbox').colorbox();
+$('.close').live('click', function(){
+	close_box();
+})
+$('#new_quick_reply button').live('click', function(){
+	$(this).text('posting...');
+})
+
+function post_reply_text(){
+	$('#new_quick_reply button').text('Post Reply');
+}
+
+function close_box(){
+	$.fn.colorbox.close();
+}

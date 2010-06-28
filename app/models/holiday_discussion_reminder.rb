@@ -49,6 +49,10 @@ class HolidayDiscussionReminder < ActiveRecord::Base
     holiday_reminder.scheduled_at
   end
 
+  def comments_count
+    holiday_discussion.comments_count
+  end
+
   def employees
     restaurant ? restaurant.employees : []
   end
