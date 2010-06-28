@@ -27,21 +27,7 @@ Feature: Admin Messaging
       | message | Never burn a burn notice |
     When I go to my inbox
     Then I should see "Never burn a burn notice"
-    But I should not see "Reply"
-
-
-  # Scenario: Content Requests have replies with attachments
-  #   Given I am logged in as "johndoe"
-  #   And "johndoe" has a Content Request message with:
-  #     | message | Can I have your facebook pic? |
-  #   When I go to my inbox
-  #   Then I should see "Can I have your facebook pic?"
-  #
-  #   When I follow "Reply"
-  #   And I fill in "Reply" with "Here it is"
-  #   And I attach an avatar "headshot.jpg" to "Attachment"
-  #   And I press "Send"
-  #   Then I should see "Successfully created"
+    But I should not see "Quick Reply"
 
 
   Scenario: PR Tips and Announcements can be scheduled

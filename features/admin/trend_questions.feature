@@ -79,10 +79,10 @@ Feature: Trend questions
     And I go to the RIA messages page
     Then I should see "My river runs blue"
 
-    When I follow "Reply"
-    And I fill in "Reply" with "But my river is green"
-    And I press "Send"
-    Then I should see "Successfully created"
+    When I follow "Quick reply"
+    And I fill in "Comment for Restaurant(s)" with "But my river is green"
+    And I press "Post Reply"
+    Then the discussion for the trend question with subject "My river runs blue" should have 1 comment
 
 
   Scenario: Displaying saved criteria
@@ -117,11 +117,9 @@ Feature: Trend questions
     Given "jim" is the account manager for "Normal Pants"
     And I am logged in as "jim" with password "secret"
     When I go to my inbox
-    And I follow "Reply"
-    And I fill in "Reply" with "But my river is green"
-    And I press "Send"
+    And I follow "Quick reply"
+    And I fill in "Comment for Restaurant(s)" with "But my river is green"
+    And I press "Post Reply"
 
     Then "sam@example.com" should have 2 emails
-
-
 

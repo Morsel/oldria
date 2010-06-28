@@ -32,7 +32,7 @@ class ContentRequest < ActiveRecord::Base
   end
 
   def message
-    body
+    [subject, body].compact.join(': ')
   end
 
   def update_restaurants_from_search_criteria

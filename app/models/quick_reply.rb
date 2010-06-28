@@ -17,6 +17,7 @@ class QuickReply < ActiveRecord::Base
   belongs_to :user
 
   attr_accessor :restaurant_ids
+  validates_presence_of :restaurant_ids
 
   def save
     # This is where the action is!
@@ -26,7 +27,7 @@ class QuickReply < ActiveRecord::Base
       discussion.comments.create(:comment => reply_text, :user_id => user_id)
     end
 
-#    debugging_info
+    # debugging_info
     true
   end
 
@@ -37,6 +38,7 @@ class QuickReply < ActiveRecord::Base
     end.compact
   end
 
+  private
 
   def debugging_info
     Rails.logger.info <<-EOT
