@@ -24,11 +24,19 @@
   <p>You are replying for <%= restaurant.name %></p>
 <% else %>
   <p>Check all of the restaurants that you'll be replying for:</p>
+  <fieldset class="checkall">
+    <ol>
   <% discussions.each do |admin_discussion| %>
-    <label><%= check_box_tag 'quick_reply[restaurant_ids][]', admin_discussion.restaurant_id %> <%= admin_discussion.restaurant.name %></label>
+    <li><label><%= check_box_tag 'quick_reply[restaurant_ids][]', admin_discussion.restaurant_id %> <%= admin_discussion.restaurant.name %></label></li>
   <% end %>
+    </ol>
+  </fieldset>
 <% end %>
 
   <p><%= button_tag "Post Reply" %> <%= link_to 'Cancel','#', :class => 'close' %></p>
 <% end %>
 </div>
+
+<script type="text/javascript">
+  dynamicalCheckAllBoxes();
+</script>

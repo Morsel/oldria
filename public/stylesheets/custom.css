@@ -3234,6 +3234,8 @@ h2.primary_title{
 
 /* @end */
 
+/* @group Colorbox */
+
 /* ## Quick Reply --------------------------------------------- */
 #quick_reply_time{
 	padding:20px;
@@ -3285,3 +3287,30 @@ h2.primary_title{
 	padding:10px;
 	border-left:1px solid #999;
 }
+
+#new_quick_reply fieldset {
+	padding: 0;
+	border: 0 none;
+}
+
+#new_quick_reply ol {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+#new_quick_reply li {
+	list-style: none;
+	margin: .5em 0;
+}
+
+#new_quick_reply li label {
+	font-weight: normal;
+}
+
+#new_quick_reply .checkall_link label {
+	font-weight: bold;
+}
+
+
+/* @end */
