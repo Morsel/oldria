@@ -14,7 +14,7 @@
 #
 
 class DirectMessage < ActiveRecord::Base
-  belongs_to :receiver, :class_name => "User"
+  belongs_to :receiver, :class_name => "User", :foreign_key => "receiver_id"
   belongs_to :sender, :class_name => "User"
   default_scope :order => "#{table_name}.created_at DESC"
   acts_as_readable

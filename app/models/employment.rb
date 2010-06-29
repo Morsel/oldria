@@ -67,4 +67,5 @@ class Employment < ActiveRecord::Base
   def name_and_restaurant
     "#{employee_name} (#{restaurant_name})"
   end
+  
 end

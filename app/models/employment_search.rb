@@ -18,6 +18,8 @@ class EmploymentSearch < ActiveRecord::Base
 
   validates_presence_of :conditions
 
+  before_save :clean_up_conditions
+
   def employments
     Employment.search(conditions) # searchlogic
   end
@@ -33,14 +35,16 @@ class EmploymentSearch < ActiveRecord::Base
   def readable_conditions_hash
     readable_conditions_hash = {}
     conditions.each do |key,value|
-      if key.to_s =~ /(restaurant_)?(.+)_id_eq$/
+      if key.to_s =~ /(restaurant_)?(.+)_id/
         criteria_name = $2.humanize.titleize
         criteria_class = $2.classify
         criteria_class = "RestaurantRole" if criteria_class == "Role"
-        readable_conditions_hash[criteria_name] = criteria_class.constantize.find(value).try(:name) rescue 
+        # Find the matching objects for the criteria class, and assign to the hash for display
+        readable_conditions_hash[criteria_name] = criteria_class.constantize.find([value].flatten).map(&:name).to_sentence rescue
             readable_conditions_hash[criteria_name] = "[not found]"
       end
     end
+
     readable_conditions_hash
   end
 
@@ -49,4 +53,16 @@ class EmploymentSearch < ActiveRecord::Base
       ary + ["#{k}: #{v}"]
     end
   end
+
+  def clean_up_conditions
+    conditions.each do |k,v|
+      v = v.reject(&:blank?)
+      if v.blank?
+        conditions.delete(k)
+      else
+        conditions[k] = v
+      end
+    end
+  end
+
 end

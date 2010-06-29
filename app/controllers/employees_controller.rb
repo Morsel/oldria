@@ -18,7 +18,9 @@ class EmployeesController < ApplicationController
     return unless verify_employee
 
     if @employment.save
-      flash[:notice] = "Successfully associated employee and restaurant"
+      flash[:notice] = @send_invitation ? "#{@employment.employee.name} has been sent an invitation and added to your restaurant.<br/>
+          Please remind your employee to check their email for instructions on confirming their new account." : 
+          "Successfully added #{@employment.employee.name} to this restaurant"
       @employee.deliver_invitation_message! if @send_invitation
       redirect_to restaurant_employees_path(@restaurant)
     else

@@ -1,27 +1,74 @@
 <% f.inputs :name => 'Criteria', :id => 'employment_criteria' do %>
+<p>Click a category to expand, then check off the items you want to filter by for each criteria type. A list of matching recipients will appear below.</p>
   <% semantic_fields_for @search do |s| %>
-    <%= s.input :restaurant_id_eq,
-                :collection => Restaurant.all(:order => 'name ASC'),
-                :label => "Restaurant" %>
-
-    <%= s.input :restaurant_james_beard_region_id_eq,
-                :label => "Region",
-                :collection => JamesBeardRegion.all %>
-
-    <%= s.input :restaurant_metropolitan_area_id_eq,
-                :collection => MetropolitanArea.all,
-                :label => "Metro Area" %>
-
-    <%= s.input :restaurant_cuisine_id_eq,
-                :collection => Cuisine.all,
-                :label => "Cuisine" %>
-
-    <%= s.input :restaurant_role_id_eq,
-                :collection => RestaurantRole.all,
-                :label => "Role" %>
-
-    <%= s.input :subject_matters_id_eq,
-                :collection => SubjectMatter.all,
-                :label => "Subject Matter" %>
+    <div class="scroll-check">
+        <%= link_to_function "Subject Matter", "$('#subject_fields').toggle()" %>
+        <div id="subject_fields" class="fields">
+            <%= s.input :subject_matters_id_equals_any,
+                        :as => "check_boxes",
+                        :collection => SubjectMatter.all,
+                        :label => "Subject Matter" %>
+        </div>
+    </div>
+  
+    <div class="scroll-check">
+        <%= link_to_function "Users", "$('#user_fields').toggle()" %>
+        <div id="user_fields" class="fields" style="display: none;">
+            <%= s.input :employee_id_equals_any,
+                        :as => "check_boxes",
+                        :collection => User.by_last_name,
+                        :label => "User" %>
+        </div>
+    </div>
+    
+    <div class="scroll-check">
+        <%= link_to_function "Restaurants", "$('#restaurant_fields').toggle()" %>
+        <div id="restaurant_fields" class="fields" style="display:none;">
+            <%= s.input :restaurant_id_equals_any,
+                        :as => "check_boxes",
+                        :collection => Restaurant.all(:order => 'name ASC'),
+                        :label => "Restaurant" %>
+        </div>
+    </div>
+    
+    <div class="scroll-check">
+        <%= link_to_function "Cuisine", "$('#cuisine_fields').toggle()" %>
+        <div id="cuisine_fields" class="fields" style="display:none;">
+            <%= s.input :restaurant_cuisine_id_equals_any,
+                        :as => "check_boxes",
+                        :collection => Cuisine.all,
+                        :label => "Cuisine" %>
+        </div>
+    </div>
+    
+    <div class="scroll-check">
+        <%= link_to_function "Role", "$('#role_fields').toggle()" %>
+        <div id="role_fields" class="fields" style="display:none;">
+            <%= s.input :restaurant_role_id_equals_any,
+                        :as => "check_boxes",
+                        :collection => RestaurantRole.all,
+                        :label => "Role" %>
+        </div>
+    </div>
+    
+    <div class="scroll-check">
+        <%= link_to_function "Region", "$('#region_fields').toggle()" %>
+        <div id="region_fields" class="fields" style="display:none;">
+            <%= s.input :restaurant_james_beard_region_id_equals_any,
+                        :as => "check_boxes",
+                        :label => "Region",
+                        :collection => JamesBeardRegion.all %>
+        </div>
+    </div>
+    
+    <div class="scroll-check">
+        <%= link_to_function "Metro Area", "$('#metro_fields').toggle()" %>
+        <div id="metro_fields" class="fields" style="display:none;">
+            <%= s.input :restaurant_metropolitan_area_id_equals_any,
+                        :as => "check_boxes",
+                        :collection => MetropolitanArea.all,
+                        :label => "Metro Area" %>
+        </div>
+    </div>    
   <% end %>
 <% end %>

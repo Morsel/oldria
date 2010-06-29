@@ -1,4 +1,4 @@
-Given(/^there are no (?:QOTDs|Admin Messages)(?: in the system)?$/) do
+Given(/^there are no (?:QOTDs|Admin Messages|PR Tips)(?: in the system)?$/) do
   Admin::Message.destroy_all
 end
 
@@ -22,7 +22,7 @@ When /^I create a holiday with name "([^\"]*)" and criteria:$/ do |name, table|
   visit new_admin_holiday_path
   fill_in :name, :with => name
   table.rows_hash.each do |field, value|
-    select value, :from => field
+    check value
   end
   click_button
 end
@@ -61,7 +61,7 @@ When(/^I create a new QOTD with:$/) do |table|
   click_button :submit
 end
 
-Then(/^I should see list of (QOTD|Announcement|Holiday)s$/) do |klass|
+Then(/^I should see list of (QOTD|Announcement|Holiday|PR Tip)s$/) do |klass|
   response.should contain(klass)
   response.should have_selector('table')
 end
@@ -74,6 +74,11 @@ end
 Then(/^"([^\"]*)" should have (\d+) Announcement messages?$/) do |username, num|
   user = User.find_by_username(username)
   user.announcements.count.should == num.to_i
+end
+
+Then(/^"([^\"]*)" should have (\d+) PR Tip messages?$/) do |username, num|
+  user = User.find_by_username(username)
+  user.pr_tips.count.should == num.to_i
 end
 
 Given(/^"([^\"]*)" has a QOTD message with:$/) do |username, table|
@@ -101,5 +106,10 @@ Then /^"([^\"]*)" should be subscribed to the holiday "([^\"]*)"$/ do |username,
   holiday = Holiday.find_by_name!(holidayname)
   user = User.find_by_username!(username)
   holiday.restaurants.first.employees.should include(user)
+end
+
+Then /^the discussion for the trend question with subject "([^\"]*)" should have (\d+) comment$/ do |subject, num|
+  trend_question = TrendQuestion.find_by_subject(subject)
+  trend_question.admin_discussions.last.comments_count.should == num.to_i
 end
 

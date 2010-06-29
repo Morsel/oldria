@@ -2,7 +2,7 @@ When /^I create a new trend question with subject "([^\"]*)" with criteria:$/ do
   visit new_admin_trend_question_path
   fill_in :subject, :with => subject
   table.rows_hash.each do |field, value|
-    select value, :from => field
+    check value
   end
   click_button :submit  
 end

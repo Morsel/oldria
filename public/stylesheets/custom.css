@@ -1,6 +1,5 @@
-/* @override 
-	http://localhost:3001/stylesheets/custom.css
-	http://staging.restaurantintelligenceagency.com/stylesheets/custom.css?1273244999
+/* @override
+	http://localhost:3000/stylesheets/custom.css
 */
 
 /* colors
@@ -890,9 +889,15 @@ input.checkbox {
 	color: #000;
 }
 
-.direct_message .message_body, .discussion .message_body { 
-	font-size: 1.1em; 
+.direct_message .message_body, .discussion .message_body {
+	font-size: 1.1em;
 	margin-bottom: 1em;
+}
+
+.direct_message .message_body, .direct_message .message_title {
+	float: none;
+	margin-left: 70px;
+	width: auto;
 }
 
 .direct_message .message_body a {
@@ -1464,7 +1469,7 @@ ul.responses {
 	font-size: 0.9em;
 }
 
-.attachment .icon img {
+.attachment .attachment_icon img {
 	display: inline;
 	vertical-align: middle;
 }
@@ -1806,11 +1811,11 @@ ul.mini_menu li {
 
 .inbox_message {
 	margin:0 0 5px;
-	padding: 12px;
 	position: relative;
 	border-bottom:3px solid #fff;
 	background:#f6f6f6;
 }
+
 
 .readit {
 	display: block;
@@ -1868,24 +1873,46 @@ ul.mini_menu li {
 .inbox_message .icon {
 	width: 15px;
 	height: 15px;
+	margin: 12px 0 0 12px;
 	background-color: #ccc;
 	border: 1px solid #ddd;
 	float:left;
 }
-.inbox_message .message-details{
+
+.inbox_message .message-details, .inbox_message .message-actions {
+	padding: 12px;
 	margin-left:25px;
 }
 
-
 .inbox_message .message-actions {
-	margin: 1em 0 0;
+	margin: 0;
+	border-top: 1px solid #ccc;
+	background-color: rgba(100,100,100, 0.05);
+	overflow: hidden;
 }
+
+.inbox_message .message-actions p {
+	margin: 0;
+	line-height: 18px;
+}
+
+.inbox_message .message-actions .quickreply {
+	color: #008bc4;
+}
+
+.inbox_message .message-actions a.quickreply:hover {
+	text-decoration: underline;
+	color: #000;
+}
+
 
 .inbox_message .behalf {
 	margin: 0 6px;
 	line-height: 24px;
 	color: #999;
 }
+
+
 
 /* message type themes */
 .holiday_discussion_reminder .icon {   background-color: #D14600 }
@@ -1927,10 +1954,63 @@ ul.mini_menu li {
 
 /* @end */
 
+/* @group individual messages */
+
+.inbox_message.individual {
+	margin:0;
+	border-bottom:0;
+	background-color: transparent;
+}
+
+.inbox_message.individual .icon {
+	margin: 0 5px 0 0;
+}
+
+.inbox_message.individual .message-comments {
+	background-color: #e9f4f8;
+	border-top: 1px solid #d3e9f4;
+	padding: 12px;
+	margin-bottom: 1em;
+}
+
+.inbox_message.individual .message-comments .comments-title {
+	text-transform: uppercase;
+	font-size: 1.2em;
+	color: #222;
+}
+
+.inbox_message.individual .message-comments .comment {
+	background-color: #d3e9f4;
+	border: 0 none;
+	padding: 1em 0;
+}
+
+.inbox_message.individual .message-comments .comment .content{
+	margin-left: 70px;
+}
+
+.inbox_message.individual .message-comments form.comment {
+	background-color: transparent;
+	padding: 0;
+}
+
+.inbox_message.individual .message-header {
+	line-height: 24px;
+}
+
+.inbox_message.individual .message-body {
+	font-size: 1.2em;
+}
+
+
+.inbox_message h1 {
+	font-size: 1.7em;
+	margin: 1em 0 0.5em;
+}
+
 
 /* @end */
-
-
+/* @end */
 
 /* @group feeds ---------------------*/
 
@@ -2372,11 +2452,11 @@ form .checkall_link label {
 	margin-right: 1em;
 }
 
-#employment_criteria li {
-	float: left;
-	margin-right: 30px;
+/*#employment_criteria li {
+  float: left;
+  margin-right: 30px;
 }
-
+*/
 #employment_list ul {
 	margin:0;
 	min-height: 200px;
@@ -2392,6 +2472,30 @@ form .checkall_link label {
 	font-size: 1.2em;
 }
 
+.scroll-check {
+  width: 22%; 
+  float: left;
+  margin: 0 1em 1em 0;
+}
+
+.scroll-check a {
+  font-weight: bold;
+}
+
+.scroll-check legend {
+  display: none;
+}
+
+.scroll-check .fields {
+  height: 100px; 
+  overflow-y: scroll;
+}
+
+.scroll-check li {
+  display: block;
+  float: none;
+  width: 100%;
+}
 
 /* @end */
 
@@ -2505,6 +2609,10 @@ table#legend {
 #flash_error {
 	background-color: #FCC;
 	border: solid 1px #C66;
+}
+
+#flash_error a {
+  color: white;
 }
 
 .fieldWithErrors {
@@ -2938,16 +3046,16 @@ h2.primary_title{
   background-color: #eef6fa;
 }
 
-#read_messages a.replies {
+.message-actions a.replies {
   color: #0587C1;
 }
 
-#read_messages .replies {
+.message-actions .replies {
 	height: 36px;
 	line-height: 36px;
 }
 
-#read_messages .unread_comments_count {
+.message-actions .unread_comments_count {
   background: url('../images/blackbadge.png') no-repeat 0 0;
   color:#FFFFFF;
   display:block;
@@ -2965,7 +3073,8 @@ h2.primary_title{
   margin: -2px -6px -5px -10px;
 }
 
-#read_messages .action .unread_comments_count, #read_messages .action_required .unread_comments_count {
+.message-actions .action .unread_comments_count, 
+.message-actions .action_required .unread_comments_count {
 	background-image: url('../images/bluebadge_small.png');
 	background-position: 1px 0;
 }
@@ -3139,12 +3248,93 @@ h2.primary_title{
 
 #dashboard #direct_messages p {
 	padding: 10px 0 0 10px;
-	margin: 0 0 6px;  
+	margin: 0 0 6px;
 }
 
 #dashboard #direct_messages .direct_message p {
   padding: 0;
   margin: 0;
 }
+
+/* @end */
+
+/* @group Colorbox */
+
+/* ## Quick Reply --------------------------------------------- */
+#quick_reply_time{
+	padding:20px;
+	background:#e3f2f9;
+	border-top:1px solid #aed9eb;
+	margin:0 -10px;
+}
+
+#cboxLoadedContent .readit{
+	display:none;
+} 
+#cboxLoadedContent .inbox_message{	
+	background:0;
+}
+
+#new_quick_reply label{
+	font-weight:bold;
+}
+
+#new_quick_reply label.function-bold{
+	font-size:1.4em;
+	margin:10px 0 0;
+	text-transform:uppercase;
+}
+#new_quick_reply p{
+	margin:10px 0 0;
+}
+
+#new_quick_reply button{
+	border-radius:80px;
+	-webkit-border-radius:80px;
+	-moz-border-radius:80px;
+	-khtml-border-radius:80px;
+	color:#fff;
+	font:bold 1.1em "Lucida Grande", Arial, Verdana, sans-serif;
+	background:#038bc0;
+	text-shadow:0 1px 0 #0076b2;
+	border:0;
+}
+#new_quick_reply button:hover{
+	cursor:pointer;
+	text-shadow:0;
+	background:#0076b2;
+}
+#new_quick_reply .close{
+	color:#333;
+	text-decoration:underline;
+	display:inline-block;
+	padding:10px;
+	border-left:1px solid #999;
+}
+
+#new_quick_reply fieldset {
+	padding: 0;
+	border: 0 none;
+}
+
+#new_quick_reply ol {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+#new_quick_reply li {
+	list-style: none;
+	margin: .5em 0;
+}
+
+#new_quick_reply li label {
+	font-weight: normal;
+}
+
+#new_quick_reply .checkall_link label {
+	font-weight: bold;
+}
+
 
 /* @end */

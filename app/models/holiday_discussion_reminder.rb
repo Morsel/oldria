@@ -22,6 +22,9 @@ class HolidayDiscussionReminder < ActiveRecord::Base
       :conditions => ['holiday_reminders.scheduled_at < ? OR holiday_reminders.scheduled_at IS NULL', Time.zone.now]  }
     }
 
+
+  named_scope :with_replies, :joins => :holiday_discussion, :conditions => 'holiday_discussions.comments_count > 0'
+
   def inbox_title
     holiday_reminder.inbox_title
   end
@@ -46,6 +49,10 @@ class HolidayDiscussionReminder < ActiveRecord::Base
     holiday_reminder.scheduled_at
   end
 
+  def comments_count
+    holiday_discussion.comments_count
+  end
+
   def employees
     restaurant ? restaurant.employees : []
   end
@@ -61,6 +68,14 @@ class HolidayDiscussionReminder < ActiveRecord::Base
         UserMailer.deliver_message_notification(self, recipient)
       end
     end
+  end
+
+  def comments
+    holiday_discussion.comments
+  end
+
+  def comments_count
+    holiday_discussion.comments_count
   end
 
 end

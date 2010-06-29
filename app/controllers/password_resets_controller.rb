@@ -8,12 +8,14 @@ class PasswordResetsController < ApplicationController
 
   def create
     @user = User.find_by_email(params[:email])
-    if @user
-      @user.deliver_password_reset_instructions!  
+    if @user && @user.confirmed?
+      @user.deliver_password_reset_instructions!
       flash[:notice] = "Please check your email for instructions"
       redirect_to root_url
     else
-      flash.now[:notice] = "No user was found with that email address"
+      flash.now[:error] = @user ? "Your account is not confirmed.<br/>Please check your email for instructions or 
+          <a href='#{resend_confirmation_users_path}'>click here</a> to request the confirmation email again." : 
+          "No user was found with that email address"
       render :new
     end
   end

@@ -3,7 +3,7 @@
 
   <%= render holiday %>
   
-  <%= auto_link(simple_format(@discussion.holiday_reminders.current.last.message)) %>
+  <%= auto_link(simple_format(@discussion.holiday_reminders.current.first.message)) %>
 
   <%= render :partial => 'comments' %>
 

@@ -1,4 +1,6 @@
 ActionController::Routing::Routes.draw do |map|
+  map.resources :quick_replies
+
   map.signup 'signup', :controller => 'users', :action => 'new'
   map.login  'login',  :controller => 'user_sessions', :action => 'new'
   map.logout 'logout', :controller => 'user_sessions', :action => 'destroy'
@@ -18,7 +20,7 @@ ActionController::Routing::Routes.draw do |map|
     discussions.resources :comments, :only => [:new, :create]
   end
 
-  map.resources :users, :member => {
+  map.resources :users, :collection => { :resend_confirmation => :any }, :member => {
     :remove_twitter => :put,
     :remove_avatar => :put
   }, :shallow => true do |users|

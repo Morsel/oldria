@@ -41,6 +41,9 @@ module MessagesHelper
       link_path = read_admin_discussion_path(message)
     elsif message.respond_to?(:admin_message)
       link_path = read_admin_message_path(message.admin_message)
+    elsif message.respond_to?(:admin_discussions) # TrendQuestion or ContentRequest
+      first_discussion_for_user = current_user.unread_grouped_admin_discussions[message].first
+      link_path = read_admin_discussion_path(first_discussion_for_user)
     else
       link_path = read_admin_message_path(message)
     end
@@ -66,8 +69,34 @@ module MessagesHelper
     end
   end
 
+  def not_responded_phrase_for_discussions(discussions_without_replies)
+    return if discussions_without_replies.blank?
+
+    restuarants = discussions_without_replies.map(&:restaurant)
+
+    restaurant_phrase = restuarants.map do |restaurant|
+      "<span>#{restaurant.name}</span>"
+    end.to_sentence
+
+    if discussions_without_replies.length > 1
+      phrase = "have not responded"
+    else
+      phrase = "has not responded"
+    end
+
+    return "#{restaurant_phrase} #{phrase}."
+  end
+
   def show_replies?
     params[:action] == "ria"
+  end
+  
+  def show_replies_block?(message)
+    !message.read_by?(current_user)
+  end
+  
+  def show_replies_link?(message)
+    message.respond_to?(:action_required?) && message.action_required?(current_user)
   end
 
   def css_classes_for_discussion(discussion)

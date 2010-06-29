@@ -169,24 +169,28 @@ $("a.toggler").each(function(){
 });
 
 // == Search checkboxes ==
-// Dynamically "all" html...
-var checkallItemString = '<li class="checkall_link"><label><input type="checkbox" class="novalue"/> Select All</label></li>';
-// To these elements
-var checkallList = $(".checkall ol");
-var checkallLinks =  checkallList
-	.prepend(checkallItemString)
-	.find(".checkall_link :checkbox");
+var dynamicalCheckAllBoxes = function(){
+	// Dynamically "all" html...
+	var checkallItemString = '<li class="checkall_link"><label><input type="checkbox" class="novalue"/> Select All</label></li>';
+	// To these elements
+	var checkallList = $(".checkall ol");
+	var checkallLinks =  checkallList
+		.prepend(checkallItemString)
+		.find(".checkall_link :checkbox");
 
-// bind action to links
-checkallLinks.click(function(){
-	$(this).parents('fieldset:eq(0)').find(':checkbox').attr('checked', this.checked);
-});
+	// bind action to links
+	checkallLinks.click(function(){
+		$(this).parents('fieldset:eq(0)').find(':checkbox').attr('checked', this.checked);
+	});
 
-// Uncheck the all
-checkallList.find(":checkbox").not(".novalue").click(function(){
-	if (this.checked) return true;
-	$(this).parents('fieldset:eq(0)').find('.checkall_link :checkbox').removeAttr('checked');
-});
+	// Uncheck the all
+	checkallList.find(":checkbox").not(".novalue").click(function(){
+		if (this.checked) return true;
+		$(this).parents('fieldset:eq(0)').find('.checkall_link :checkbox').removeAttr('checked');
+	});
+};
+
+dynamicalCheckAllBoxes();
 
 //Cufon
 // if(typeof(Cufon) != 'undefined') {
@@ -287,7 +291,7 @@ if (sortedTables.length) {
 
 // == Dynamic Updates for Employment Searching
 var	$employmentsList  = $("#employment_list");
-var $employmentInputs = $("#employment_criteria select");
+var $employmentInputs = $("#employment_criteria input[type=checkbox]");
 var $loaderImg =        $('<img class="loader" src="/images/ajax-loader.gif" />').hide();
 
 // load the image load indicator, hidden
@@ -313,3 +317,21 @@ if (location.hash && location.hash.match(/user_\d+$/)) {
   userRowCells.animate({'background-color': '#ffffff'}, 700);
 }
 
+
+$('.colorbox').colorbox();
+
+$('.close').live('click', function(){
+	close_box();
+});
+
+$('#new_quick_reply button').live('click', function(){
+	$(this).text('posting...');
+});
+
+function post_reply_text(){
+	$('#new_quick_reply button').text('Post Reply');
+}
+
+function close_box(){
+	$.fn.colorbox.close();
+}

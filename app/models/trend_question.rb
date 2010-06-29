@@ -14,17 +14,27 @@
 #
 
 class TrendQuestion < ActiveRecord::Base
+  acts_as_readable
   belongs_to :employment_search
 
   has_many :admin_discussions, :as => :discussionable
   has_many :restaurants, :through => :admin_discussions
 
   named_scope :by_scheduled_date, :order => "#{table_name}.scheduled_at desc"
+  named_scope :by_subject, :order => "#{table_name}.subject asc"
 
   before_save :update_restaurants_from_search_criteria
 
   def self.title
     "Trend Question"
+  end
+
+  def inbox_title
+    self.class.title
+  end
+
+  def message
+    [subject, body].compact.join(': ')
   end
 
   def update_restaurants_from_search_criteria

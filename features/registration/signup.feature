@@ -64,6 +64,11 @@ Feature: Create an Account
     And I click the first link in the email
     Then I should see "already set up"
 
+    Given I am not logged in
+    When "twice@example.com" opens the email with subject "Welcome to SpoonFeed! Please confirm your account"
+    And I click the first link in the email
+    Then I should see "that confirmation token has already been used"
+
 
   Scenario: Bad email
     Given there are no users
@@ -134,7 +139,7 @@ Feature: Create an Account
     And I fill in "Username" with "mistered"
     And I fill in "Password" with "blue"
     And I press "Login"
-    Then I should see "we couldn't log you in"
+    Then I should see "wrong username or password"
 
 
   Scenario: Logging Out

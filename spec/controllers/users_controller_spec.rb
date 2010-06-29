@@ -87,4 +87,30 @@ describe UsersController do
       end
     end
   end
+
+  describe "resending the confirmation email" do
+    
+    context "as an unconfirmed user" do
+      
+      it "should show the user a page to request a new email" do
+        get :resend_confirmation
+        response.should render_template("users/resend_confirmation")
+      end
+      
+      it "should process a request to send a new email" do
+        user = Factory(:user, :email => "foo@bar.com")
+        UserMailer.expects(:deliver_signup).with(user)
+        post :resend_confirmation, :email => "foo@bar.com"
+        response.should be_redirect
+      end
+      
+      it "should return an error message if the user's email can't be found" do
+        post :resend_confirmation, :email => "fool@bar.com"
+        response.should render_template("users/resend_confirmation")
+        flash[:error].should_not be_nil
+      end
+      
+    end
+    
+  end
 end

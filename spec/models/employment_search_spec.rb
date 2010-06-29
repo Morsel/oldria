@@ -52,5 +52,18 @@ describe EmploymentSearch do
         search.readable_conditions.should include("Role: Waiter")
       end
     end
+    
+    it "should clean up empty arrays" do
+      Factory(:restaurant); Factory(:restaurant)
+      Factory(:subject_matter, :name => "Food"); Factory(:subject_matter)
+      conditions = {"restaurant_id_equals_any"=>["", "1", "", "", "", "", "", "", "", "", "", "2", ""], 
+                    "subject_matters_id_equals_any"=>["", "", "", "", "1", "", "", "2", "", "", "", ""], 
+                    "restaurant_metropolitan_area_id_equals_any"=>["", "", "", "", "", "", "", "", "", ""], 
+                    "restaurant_james_beard_region_id_equals_any"=>["", "", "", "", "", "", "", "", "", ""], 
+                    "restaurant_role_id_equals_any"=>["", "", "", "", "", "", "", "", "", "", "", "", "", "", ""]}
+      search = EmploymentSearch.create(:conditions => conditions)
+      search.readable_conditions.should include("Subject Matters: Beverages and Food")
+      search.readable_conditions.should_not include("Role: [not found]")
+    end
   end
 end
