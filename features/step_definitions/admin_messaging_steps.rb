@@ -22,7 +22,7 @@ When /^I create a holiday with name "([^\"]*)" and criteria:$/ do |name, table|
   visit new_admin_holiday_path
   fill_in :name, :with => name
   table.rows_hash.each do |field, value|
-    select value, :from => field
+    check value
   end
   click_button
 end

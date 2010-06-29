@@ -71,5 +71,18 @@ describe Employment do
       Employment.unique_users.first.employee.should == @user
     end
   end
+  
+  describe "multiple selection search" do
+    before do
+      @restaurant = Factory(:restaurant)
+      @user = Factory(:user, :name => "Jimmy Dorian", :email => "dorian@rd.com")
+      @employment = Employment.create!(:employee_id => @user.id, :restaurant_id => @restaurant.id)
+    end
+    
+    it "should return the right items for the search" do
+      Employment.search({"restaurant_id_equals_any"=>["1", "2"]}).all.should == [@employment]
+    end
+    
+  end
 
 end

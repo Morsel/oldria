@@ -2452,11 +2452,11 @@ form .checkall_link label {
 	margin-right: 1em;
 }
 
-#employment_criteria li {
-	float: left;
-	margin-right: 30px;
+/*#employment_criteria li {
+  float: left;
+  margin-right: 30px;
 }
-
+*/
 #employment_list ul {
 	margin:0;
 	min-height: 200px;
@@ -2472,6 +2472,30 @@ form .checkall_link label {
 	font-size: 1.2em;
 }
 
+.scroll-check {
+  width: 22%; 
+  float: left;
+  margin: 0 1em 1em 0;
+}
+
+.scroll-check a {
+  font-weight: bold;
+}
+
+.scroll-check legend {
+  display: none;
+}
+
+.scroll-check .fields {
+  height: 100px; 
+  overflow-y: scroll;
+}
+
+.scroll-check li {
+  display: block;
+  float: none;
+  width: 100%;
+}
 
 /* @end */
 
