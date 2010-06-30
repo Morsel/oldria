@@ -19,4 +19,3 @@ Feature: a restaurant has a calendar with events
     Given I go to the new event page for "Joe's Diner"
     When I press "Save"
     Then I should see "Title*can't be blank"
-    

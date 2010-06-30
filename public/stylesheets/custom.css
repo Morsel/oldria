@@ -1030,7 +1030,6 @@ div.restaurant {
 
 .restaurant_role a {
 	float: right;
-
 }
 
 .restaurant_role a span {
@@ -1091,7 +1090,6 @@ div.restaurant {
 	margin: 0;
 }
 
-
 .employments {
 	border-bottom: 1px solid #ddd;
 	padding-bottom: 1em;
@@ -1107,7 +1105,6 @@ div.restaurant {
 .employments .actions li a {
 	font-weight: bold;
 }
-
 
 .discussion_actions {
 	margin-top: -10px;
@@ -1194,6 +1191,15 @@ div.restaurant {
 #directory .pagination {
 	margin-bottom: 1em;
 	text-align: center;
+}
+
+.calendar table td {
+  vertical-align: top;
+  width: 14%;
+}
+
+.calendar .notmonth {
+  color: #ccc;
 }
 
 /* @end */

@@ -1,5 +1,15 @@
 <% title "Calendars" %>
 
-<%= link_to "Add an event", new_event_restaurant_calendars_path(:restaurant_id => @restaurant.id) %>
+<p><%= link_to "Add an event", new_restaurant_event_path(:restaurant_id => @restaurant.id) %></p>
 
-<p><%= @events.map(&:title).to_sentence %></p>
+<div class="calendar">
+<% calendar_for(@events) do |t| %>
+  <%= t.head('Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun') %>
+  <% t.day do |day, events| %>
+    <%= day.day %>
+    <% events.each do |event| %>
+      <p><%= link_to event.title, restaurant_event_path(:restaurant_id => @restaurant, :id => event) %></p>
+    <% end %>
+  <% end %>
+<% end %>
+</div>

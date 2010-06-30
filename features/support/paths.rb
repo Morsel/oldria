@@ -44,7 +44,7 @@ module NavigationHelpers
     when "the RIA messages page"
       ria_messages_path
     when /^the new event page for "(.+)"$/
-      new_event_restaurant_calendars_path(:restaurant_id => Restaurant.find_by_name($1).id)
+      new_restaurant_event_path(:restaurant_id => Restaurant.find_by_name($1).id)
     when /the calendars page for "(.+)"$/
       restaurant_calendars_path(:restaurant_id => Restaurant.find_by_name($1).id)
 

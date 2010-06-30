@@ -1,28 +1,23 @@
-class CalendarsController < RestaurantsController
+class CalendarsController < ApplicationController
   
-  before_filter :find_restaurant
+  before_filter :authenticate_employee
   
   def index
     @events = @restaurant.events
   end
   
-  def new_event
-    @event = Event.new
-  end
-  
-  def create_event
-    @event = @restaurant.events.build(params[:event])
-    if @event.save
-      redirect_to :action => "index"
-    else
-      render :action => "new_event"
-    end
-  end
-  
-  protected
+  private
   
   def find_restaurant
     @restaurant = Restaurant.find(params[:restaurant_id])    
+  end  
+  
+  def authenticate_employee
+    find_restaurant
+    unless current_user.restaurants.include?(@restaurant) || current_user.admin?
+      flash[:error] = "You don't have permission to access that page"
+      redirect_to @restaurant
+    end
   end
   
 end
