@@ -43,6 +43,10 @@ module NavigationHelpers
       restaurant_employees_path(Restaurant.find_by_name($1))
     when "the RIA messages page"
       ria_messages_path
+    when /^the new event page for "(.+)"$/
+      new_event_restaurant_calendars_path(:restaurant_id => Restaurant.find_by_name($1).id)
+    when /the calendars page for "(.+)"$/
+      restaurant_calendars_path(:restaurant_id => Restaurant.find_by_name($1).id)
 
     # Media Requests
   when /^the media request conversation page$/

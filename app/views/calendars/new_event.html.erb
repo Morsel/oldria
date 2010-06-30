@@ -1,0 +1,12 @@
+<% title "Add an event" %>
+
+<% semantic_form_for @event, :url => create_event_restaurant_calendars_path(:restaurant_id => @restaurant.id) do |f| %>
+    <% f.inputs do %>
+        <%= f.input :title %>
+        <%= f.input :start_at, :label => "Start Date" %>
+    <% end %>
+    
+    <p>
+      <%= button_tag "Save", :name => 'submit' %>
+    </p>
+<% end %>

@@ -1,3 +1,5 @@
 <% title "Calendars" %>
 
-<%= link_to "Add an event" %>
+<%= link_to "Add an event", new_event_restaurant_calendars_path(:restaurant_id => @restaurant.id) %>
+
+<p><%= @events.map(&:title).to_sentence %></p>

@@ -43,6 +43,8 @@ class Restaurant < ActiveRecord::Base
            :source => :discussionable, :source_type => 'TrendQuestion'
   has_many :content_requests, :through => :admin_discussions,
            :source => :discussionable, :source_type => 'ContentRequest'
+           
+  has_many :events
 
   after_validation_on_create :add_manager_as_employee
   after_save :update_admin_discussions
