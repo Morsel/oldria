@@ -318,7 +318,10 @@ if (location.hash && location.hash.match(/user_\d+$/)) {
 }
 
 
-$('.colorbox').colorbox();
+$('.colorbox').colorbox({
+	initialWidth: 420,
+	maxWidth: 450
+});
 
 $('.close').live('click', function(){
 	close_box();
