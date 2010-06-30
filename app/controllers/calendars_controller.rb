@@ -11,8 +11,12 @@ class CalendarsController < RestaurantsController
   end
   
   def create_event
-    @event = @restaurant.events.create(params[:event])
-    redirect_to :action => "index"
+    @event = @restaurant.events.build(params[:event])
+    if @event.save
+      redirect_to :action => "index"
+    else
+      render :action => "new_event"
+    end
   end
   
   protected

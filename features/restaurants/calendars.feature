@@ -14,3 +14,9 @@ Feature: a restaurant has a calendar with events
     When I press "Save"
     Then I should be on the calendars page for "Joe's Diner"
     And I should see "Happy hour"
+    
+  Scenario: a restaurant employee tries to add an invalid event
+    Given I go to the new event page for "Joe's Diner"
+    When I press "Save"
+    Then I should see "Title*can't be blank"
+    
