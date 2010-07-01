@@ -2,14 +2,19 @@
 
 <p><%= link_to "Add an event", new_restaurant_event_path(:restaurant_id => @restaurant.id) %></p>
 
+<h3><%= @date.strftime("%B %Y") %></h3>
 <div class="calendar">
-<% calendar_for(@events) do |t| %>
-  <%= t.head('Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun') %>
-  <% t.day do |day, events| %>
-    <%= day.day %>
-    <% events.each do |event| %>
-      <p><%= link_to event.title, restaurant_event_path(:restaurant_id => @restaurant, :id => event) %></p>
+    <% calendar_for(@events, :year => @date.year, :month => @date.month) do |t| %>
+        <%= t.head('Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun') %>
+        <% t.day do |day, events| %>
+            <%= day.day %>
+            <% events.each do |event| %>
+                <p><%= link_to event.title, restaurant_event_path(:restaurant_id => @restaurant, :id => event) %></p>
+            <% end %>
+        <% end %>
     <% end %>
-  <% end %>
-<% end %>
 </div>
+
+<%= link_to "<< previous", restaurant_calendars_path(:restaurant_id => @restaurant, :date => (@date - 1.month).to_s) %>
+
+<%= link_to "next >>", restaurant_calendars_path(:restaurant_id => @restaurant, :date => (@date + 1.month).to_s) %>

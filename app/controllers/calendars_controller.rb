@@ -3,7 +3,8 @@ class CalendarsController < ApplicationController
   before_filter :authenticate_employee
   
   def index
-    @events = @restaurant.events
+    @date = params[:date] ? Date.parse(params[:date]) : Date.today
+    @events = @restaurant.events.for_month_of(@date)
   end
   
   private
