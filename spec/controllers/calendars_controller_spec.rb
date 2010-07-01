@@ -2,9 +2,13 @@ require 'spec_helper'
 
 describe CalendarsController do
 
-  #Delete this example and add some real ones
-  it "should use CalendarsController" do
-    controller.should be_an_instance_of(CalendarsController)
+  it "should have an index with events" do
+    fake_normal_user
+    restaurant = Factory(:restaurant)
+    restaurant.employees << @user
+    Factory(:event, :restaurant => restaurant)
+    get :index, :restaurant_id => restaurant.id
+    assigns[:events].should == restaurant.events
   end
 
 end

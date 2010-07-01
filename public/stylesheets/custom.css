@@ -1202,6 +1202,10 @@ div.restaurant {
   color: #ccc;
 }
 
+.calendar .today {
+  background-color: #eef6fa;
+}
+
 /* @end */
 
 

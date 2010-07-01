@@ -69,7 +69,9 @@ end
 
 Factory.define :event do |f|
   f.title "Summer Dinner"
-  f.start_at Date.parse('2010-06-30')
+  f.start_at Date.today.beginning_of_day
+  f.end_at Date.today.end_of_day
+  f.location "the bar"
   f.association :restaurant
 end
 
