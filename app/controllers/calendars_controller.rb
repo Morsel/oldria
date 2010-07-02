@@ -4,7 +4,11 @@ class CalendarsController < ApplicationController
   
   def index
     @date = params[:date] ? Date.parse(params[:date]) : Date.today
-    @events = @restaurant.events.for_month_of(@date)
+    if params[:category] && (params[:category] != "all")
+      @events = @restaurant.events.for_month_of(@date).by_category(params[:category])
+    else
+      @events = @restaurant.events.for_month_of(@date)
+    end
   end
   
   private

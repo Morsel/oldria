@@ -1,10 +1,12 @@
 <% title @event.title %>
 
+<p>Calendar: <%= @event.category %></p>
+
 <%= @event.start_at.to_formatted_s(:short) %> - <%= @event.end_at.to_formatted_s(:short) %>
 
 <%= simple_format(@event.description) %>
 
-Location: <%= simple_format(@event.location) %>
+<p>Location: <%= @event.location %></p>
 
 <p><%= link_to "edit", edit_restaurant_event_path(:restaurant_id => @restaurant, :id => @event) %> | <%= link_to "delete" %></p>
 

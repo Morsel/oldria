@@ -1,8 +1,14 @@
 <% title "Calendars" %>
 
-<p><%= link_to "Add an event", new_restaurant_event_path(:restaurant_id => @restaurant.id) %></p>
-
 <h3><%= @date.strftime("%B %Y") %></h3>
+
+<% form_tag '', :method => :get do %>
+    <%= hidden_field_tag "date", params[:date] if params[:date] %>
+    <%= select_tag "category", 
+        options_for_select(Event::CATEGORIES.unshift("all"), :selected => params[:category]), 
+        :onchange => "this.form.submit();" %>
+<% end %>
+
 <div class="calendar">
     <% calendar_for(@events, :year => @date.year, :month => @date.month) do |t| %>
         <%= t.head('Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun') %>
@@ -15,6 +21,10 @@
     <% end %>
 </div>
 
-<%= link_to "<< previous", restaurant_calendars_path(:restaurant_id => @restaurant, :date => (@date - 1.month).to_s) %>
+<p>
+    <%= link_to "<< previous", restaurant_calendars_path(:restaurant_id => @restaurant, :date => (@date - 1.month).to_s) %>
+    &nbsp;&nbsp;&nbsp;
+    <%= link_to "next >>", restaurant_calendars_path(:restaurant_id => @restaurant, :date => (@date + 1.month).to_s) %>
+</p>
 
-<%= link_to "next >>", restaurant_calendars_path(:restaurant_id => @restaurant, :date => (@date + 1.month).to_s) %>
+<p><%= link_to "Add an event", new_restaurant_event_path(:restaurant_id => @restaurant.id) %></p>

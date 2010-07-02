@@ -73,6 +73,7 @@ Factory.define :event do |f|
   f.end_at Date.today.end_of_day
   f.location "the bar"
   f.association :restaurant
+  f.category "Promotion"
 end
 
 # == Lookup Tables ==

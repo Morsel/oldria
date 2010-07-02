@@ -1,5 +1,6 @@
 <% semantic_form_for [restaurant, event] do |f| %>
     <% f.inputs do %>
+        <%= f.input :category, :as => "select", :label => "Calendar", :collection => Event::CATEGORIES %>
         <%= f.input :title %>
         <%= f.input :start_at, :label => "Start Date" %>
         <%= f.input :end_at, :label => "End Date" %>
