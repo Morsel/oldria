@@ -15,7 +15,9 @@
         <% t.day do |day, events| %>
             <%= day.day %>
             <% events.each do |event| %>
-                <p><%= link_to event.title, restaurant_event_path(:restaurant_id => @restaurant, :id => event) %></p>
+                <p><%= link_to event.title, 
+                       restaurant_event_path(:restaurant_id => @restaurant, :id => event),
+                       :class => event.status %></p>
             <% end %>
         <% end %>
     <% end %>

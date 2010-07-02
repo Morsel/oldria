@@ -1206,6 +1206,14 @@ div.restaurant {
   background-color: #eef6fa;
 }
 
+.calendar .Pending {
+  color: red;
+}
+
+.calendar .Booked {
+  color: green;
+}
+
 /* @end */
 
 
