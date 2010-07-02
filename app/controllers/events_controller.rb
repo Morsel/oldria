@@ -32,6 +32,13 @@ class EventsController < CalendarsController
     end
   end
   
+  def destroy
+    find_event
+    flash[:notice] = "Deleted #{@event.title}"
+    @event.destroy
+    redirect_to restaurant_calendars_path(@restaurant)
+  end
+  
   private
   
   def find_event

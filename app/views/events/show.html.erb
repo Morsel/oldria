@@ -8,6 +8,6 @@
 
 <p>Location: <%= @event.location %></p>
 
-<p><%= link_to "edit", edit_restaurant_event_path(:restaurant_id => @restaurant, :id => @event) %> | <%= link_to "delete" %></p>
+<p><%= link_to "edit", edit_restaurant_event_path(:restaurant_id => @restaurant, :id => @event) %> | <%= link_to "delete", restaurant_event_path(:restaurant_id => @restaurant, :id => @event), :method => "delete" %></p>
 
 <p><%= link_to "Back to calendars", restaurant_calendars_path(:restaurant_id => @restaurant) %></p>

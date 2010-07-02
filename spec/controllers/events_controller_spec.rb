@@ -23,5 +23,12 @@ describe EventsController do
     put :update, :event => { :title => "New title" }, :id => event.id, :restaurant_id => @restaurant
     response.should be_redirect
   end
+  
+  it "should allow a user to delete an event" do
+    event = Factory(:event, :restaurant => @restaurant)
+    Event.stubs(:find).returns(event)
+    event.expects(:destroy)
+    delete :destroy, :id => event.id, :restaurant_id => @restaurant
+  end
 
 end
