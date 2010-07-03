@@ -1,15 +1,33 @@
+<script type="text/javascript">
+    function enable_form() {
+        $('#event-details').show(); 
+        $('#event-submit').show(); 
+        if ($('#event_category').val() == "Private") {
+            $('#event-status').show();
+        } else {
+            $('#event-status').hide();
+        };
+    }
+</script>
 <% semantic_form_for [restaurant, event] do |f| %>
     <% f.inputs do %>
-        <%= f.input :category, :as => "select", :label => "Calendar", :collection => Event::CATEGORIES %>
-        <%= f.input :title %>
-        <%= f.input :start_at, :label => "Start Date" %>
-        <%= f.input :end_at, :label => "End Date" %>
-        <%= f.input :status, :as => 'select', :collection => Event::STATUSES %>
-        <%= f.input :location %>
-        <%= f.input :description %>
+        <%= f.input :category, :as => "select", 
+                               :label => "Calendar", 
+                               :collection => Event::CATEGORIES, 
+                               :input_html => { :onchange => "enable_form()" } %>
+        <div id="event-details" style="<%= form_display(event) %>">
+            <%= f.input :title %>
+            <%= f.input :start_at, :label => "Start Date" %>
+            <%= f.input :end_at, :label => "End Date" %>
+            <div id="event-status" style="<%= form_display(event) %>">
+                <%= f.input :status, :as => 'select', :collection => Event::STATUSES %>
+            </div>
+            <%= f.input :location %>
+            <%= f.input :description %>
+        </div>
     <% end %>
     
-    <p>
+    <p id="event-submit" style="<%= form_display(event) %>">
       <%= button_tag "Save", :name => 'submit' %>
     </p>
 <% end %>
