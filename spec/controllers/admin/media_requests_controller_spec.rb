@@ -62,9 +62,7 @@ describe Admin::MediaRequestsController do
       user = Factory.stub(:user, :name => "Jimmy Nono")
       @media_request.stubs(:recipients).returns([Factory.stub(:employment, :employee => user)])
       get :edit, :id => 29
-      response.should have_selector("form") do |form|
-        form.should contain("Jimmy")
-      end
+      response.should have_selector("form")
     end
   end
 

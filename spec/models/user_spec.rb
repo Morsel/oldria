@@ -34,7 +34,6 @@ describe User do
   should_have_many :statuses, :dependent => :destroy
   should_have_many :followings, :foreign_key => 'follower_id', :dependent => :destroy
   should_have_many :media_requests, :foreign_key => 'sender_id'
-  should_have_many :media_request_conversations, :through => :employments
   should_have_many :managed_restaurants, :foreign_key => "manager_id", :class_name => "Restaurant"
   should_belong_to :james_beard_region
   should_belong_to :account_type

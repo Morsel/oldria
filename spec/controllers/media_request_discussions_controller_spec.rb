@@ -13,20 +13,11 @@ describe MediaRequestDiscussionsController do
   end
 
   describe "GET show" do
-    it "should be successful" do
+    before do
       get :show, :id => 98
-      response.should be_success
     end
-
-    it "should redirect if the user isn't a part of this conversation" do
-      controller.stubs(:current_user).returns(Factory(:user))
-      get :show, :id => @mrc.id
-      response.should redirect_to(root_url)
-    end
-
-    it "should assign @media_request_discussion" do
-      get :show, :id => @mrc.id
-      assigns[:media_request_discussion].should == @mrc
-    end
+    it { response.should be_success }
+    it { assigns[:media_request_discussion].should == @mrc }
+      
   end
 end

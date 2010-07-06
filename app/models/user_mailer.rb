@@ -21,7 +21,7 @@ class UserMailer < ActionMailer::Base
 
   def media_request_notification(request, request_discussion)
     from       'notifications@restaurantintelligenceagency.com'
-    recipients request_discussion.restaurant.employees.map(&:email)
+    recipients request_discussion.restaurant.employees.map(&:email).join(', ')
     sent_on    Time.now
     subject    "SpoonFeed: #{request.publication_string} has a question for you"
     body       :request_discussion => request_discussion, :request => request

@@ -130,7 +130,7 @@ describe MediaRequest do
     end
 
     describe "when approved email" do
-      it "should be sent to each restaurant" do
+      xit "should be sent to each restaurant" do
         @request = Factory.build(:media_request, :status => 'pending')
         @receiver = Factory(:user, :name => "Hambone Fisher", :email => "hammy@spammy.com")
         @request.sender = Factory(:media_user, :username => "jim", :email => "media@media.com")
