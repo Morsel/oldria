@@ -5,7 +5,7 @@
 <% form_tag '', :method => :get do %>
     <%= hidden_field_tag "date", params[:date] if params[:date] %>
     <%= select_tag "category", 
-        options_for_select(Event::CATEGORIES.unshift("all"), :selected => params[:category]), 
+        options_for_select(["all"] + Event::CATEGORIES, :selected => params[:category]), 
         :onchange => "this.form.submit();" %>
 <% end %>
 
