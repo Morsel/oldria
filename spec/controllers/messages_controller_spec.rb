@@ -19,4 +19,19 @@ describe MessagesController do
       response.should be_success
     end
   end
+  
+  describe "GET private" do
+    it "should be successful" do
+      get :private
+      response.should be_success
+    end
+  end
+  
+  describe "GET media_requests" do
+    it "should be successful" do
+      get :media_requests
+      response.should be_success
+    end
+  end
+  
 end

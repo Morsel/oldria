@@ -62,7 +62,8 @@ ActionController::Routing::Routes.draw do |map|
                               :archive => :get,
                               :ria => :get,
                               :private => :get,
-                              :staff_discussions => :get
+                              :staff_discussions => :get,
+                              :media_requests => :get
                             }
   map.resources :timelines, :collection => {
                               :people_you_follow => :get,

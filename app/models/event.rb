@@ -6,6 +6,9 @@ class Event < ActiveRecord::Base
   
   belongs_to :restaurant
   
+  has_many :attachments, :as => :attachable, :class_name => '::Attachment', :dependent => :destroy
+  accepts_nested_attributes_for :attachments
+
   validates_presence_of :title, :start_at, :end_at, :location, :category
   validates_presence_of :status, :if => Proc.new { |event| event.category == "Private" }
   

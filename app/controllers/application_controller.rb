@@ -2,14 +2,11 @@
 # Likewise, all the methods added will be available for all controllers.
 
 class ApplicationController < ActionController::Base
-  #before_filter :authenticate
   helper :all # include all helpers, all the time
   protect_from_forgery # See ActionController::RequestForgeryProtection for details
 
   # Scrub sensitive parameters from your log
   filter_parameter_logging :password
-
-  before_filter :preload_resources
 
   helper_method :current_user
 
@@ -128,13 +125,4 @@ class ApplicationController < ActionController::Base
     @discussions_count = current_user && (current_user.unread_discussions + current_user.discussions.with_comments_unread_by(current_user)).uniq.size
   end
 
-  protected
-
-  def authenticate
-    if RAILS_ENV == 'production'
-      authenticate_or_request_with_http_basic do |username, password|
-        username == "spoon" && password == "feed"
-      end
-    end
-  end
 end
