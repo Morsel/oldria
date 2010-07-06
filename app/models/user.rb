@@ -47,6 +47,7 @@ class User < ActiveRecord::Base
 
   has_many :media_requests, :foreign_key => 'sender_id'
   has_many :media_request_conversations, :through => :employments, :foreign_key => "recipient_id"
+
   has_many :admin_conversations, :through => :employments, :foreign_key => 'recipient_id'
   has_many :managed_restaurants, :class_name => "Restaurant", :foreign_key => "manager_id"
 
@@ -84,6 +85,10 @@ class User < ActiveRecord::Base
                       Usernames can only contain letters, numbers, and/or the '-' symbol."
 
   validates_acceptance_of :agree_to_contract
+
+  named_scope :media, :conditions => {:role => 'media'}
+  named_scope :admin, :conditions => {:role => 'admin'}
+
   named_scope :for_autocomplete, :select => "first_name, last_name", :order => "last_name ASC", :limit => 15
   named_scope :by_last_name, :order => "LOWER(last_name) ASC"
 
