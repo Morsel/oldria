@@ -29,9 +29,13 @@ module UserMessaging
       current_admin_discussions.reject { |d| d.read_by?(self) }
     end
 
+    def action_required_admin_discussions
+      unread_admin_discussions.select { |d| d.comments_count > 0 && d.comments.last.user != self }
+    end
+
     def unread_grouped_admin_discussions
       return @unread_grouped_admin_discussions if defined?(@unread_grouped_admin_discussions)
-      @unread_grouped_admin_discussions = current_admin_discussions.group_by(&:discussionable)
+      @unread_grouped_admin_discussions = (current_admin_discussions - action_required_admin_discussions).group_by(&:discussionable)
       @unread_grouped_admin_discussions.reject! do |discussionable, admin_discussions|
         discussionable.read_by?(self)
       end
@@ -39,10 +43,6 @@ module UserMessaging
 
     def unread_discussions
       discussions.unread_by(self)
-    end
-
-    def action_required_admin_discussions
-      unread_admin_discussions.select { |d| d.comments_count > 0 && d.comments.last.user != self }
     end
 
     def holiday_discussions

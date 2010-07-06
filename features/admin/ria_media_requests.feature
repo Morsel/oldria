@@ -1,4 +1,4 @@
-@mediarequest
+@media @mediarequest
 Feature: RIA Media requests
   In order to easily communicate with clients
   As a RIA staff member
@@ -30,7 +30,3 @@ Feature: RIA Media requests
     Then there should be 1 media request in the system
     And "sam" should have 1 media request
     But "john" should have 0 media requests
-
-    # Given I am logged in as "sam" with password "secret"
-    # When I go to the dashboard
-    # Then I should see an admin media request

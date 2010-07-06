@@ -1,4 +1,4 @@
-@mediarequest
+@media @mediarequest
 Feature: Media request conversations
   So that I can can converse about an MR
   As a Media user or recipient of a media request
@@ -20,16 +20,6 @@ Feature: Media request conversations
       | Message | Do you like cheesy potatoes? |
       | Status  | approved                     |
     And I am logged in as "sam" with password "secret"
-    # When I go to the dashboard
-    # Then I should see /writer[\n\s]*from New York Times/
-    # And I should see "Do you like cheesy potatoes?"
-
-    # When I follow "reply" within the "Media Requests" section
-    # Then the media request should have 0 comments
     Given I am on the media request conversation page
     When I leave a comment with "Of course I love cheesy potatoes!"
     Then the media request should have 1 comment
-
-    # Given I am logged in as "mediaguy" with password "secret"
-    # When I go to the homepage
-    # Then I should see "Sam Smith said"

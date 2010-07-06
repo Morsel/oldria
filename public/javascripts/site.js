@@ -245,7 +245,7 @@ $('.feed_entry .summary').hover(function(){
 });
 
 // == Inbox for RIA messages
-$(".inbox_message .readit").click(function(){
+$(".inbox_message .readit").live('click', function(){
   var $message = $(this).parents('.inbox_message');
   $.post(this.href, "_method=put", function(){
     $message.fadeOut(300, function(){
@@ -265,8 +265,6 @@ $('.direct_message .readit').click(function(){
   },null);  
   return false;
 });
-
-
 
 // == Getting started box
 if (window.current_user_id) {
