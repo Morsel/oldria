@@ -1,5 +1,4 @@
 class AdminDiscussionsController < ApplicationController
-  skip_before_filter :preload_resources, :only => 'read'
   before_filter :require_user
 
   ##

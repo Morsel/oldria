@@ -9,8 +9,6 @@ class ApplicationController < ActionController::Base
   # Scrub sensitive parameters from your log
   filter_parameter_logging :password
 
-  before_filter :preload_resources
-
   helper_method :current_user
 
   rescue_from CanCan::AccessDenied do
@@ -125,7 +123,7 @@ class ApplicationController < ActionController::Base
   def get_message_counts
     @ria_message_count = current_user.try(:ria_message_count)
     @private_message_count = current_user.try(:unread_direct_messages).try(:size)
-    @discussions_count = current_user && (current_user.unread_discussions + current_user.discussions.with_comments_unread_by(current_user)).uniq.size
+    @discussions_count = current_user && (current_user.unread_discussions.count + current_user.discussions.with_comments_unread_by(current_user).count)
   end
 
   protected

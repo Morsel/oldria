@@ -1,6 +1,5 @@
 class HolidayDiscussionRemindersController < ApplicationController
   before_filter :require_user
-  skip_before_filter :preload_resources
 
   def show
     hdr = HolidayDiscussionReminder.find(params[:id])
