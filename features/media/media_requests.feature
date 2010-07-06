@@ -69,9 +69,6 @@ Feature: Media requests
       | Message | This message has not been approved |
       | Status  | pending                            |
     And I am logged in as "sam" with password "secret"
-    # When I go to the dashboard
-    # Then I should see "Where are the best mushrooms?"
-    # But I should not see "This message has not been approved"
 
 
   Scenario: Responding to a media request and conversations
@@ -90,6 +87,7 @@ Feature: Media requests
     And I fill in "Comment" with "Thanks for your quick response, Sam"
     And I press "Post Comment"
     Then the media request should have 2 comments
+
 
   Scenario: A media requests notifications are emailed to recipients
     Given "sam" has a media request from "mediaman" with:

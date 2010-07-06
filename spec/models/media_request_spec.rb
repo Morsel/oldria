@@ -20,12 +20,14 @@ require 'spec/spec_helper'
 
 describe MediaRequest do
   should_belong_to :sender, :class_name => 'User'
-  should_belong_to :media_request_type
-  should_have_many :media_request_conversations
-  should_have_many :conversations_with_comments
-  should_have_many :recipients, :through => :media_request_conversations
-  should_have_many :attachments, :as => :attachable, :class_name => '::Attachment', :dependent => :destroy
   should_validate_presence_of :sender_id
+
+  should_belong_to :media_request_type
+  should_belong_to :employment_search
+  should_have_many :media_request_discussions
+  should_have_many :restaurants, :through => :media_request_discussions
+
+  should_have_many :attachments, :as => :attachable, :class_name => '::Attachment', :dependent => :destroy
 
   before(:each) do
     @employee = Factory(:user, :username => "employee", :email => "employee@example.com")
@@ -35,20 +37,20 @@ describe MediaRequest do
 
   describe "senders and receivers" do
     it "should build conversations with other folks" do
-      mr = Factory(:media_request, :sender => Factory(:user), :recipients => [@employment])
-      mr.media_request_conversations.first.recipient.should == @employment
-      @employee.media_request_conversations.first.media_request.should eql(mr)
+      mr = Factory(:media_request, :sender => Factory(:user), :restaurants => [@restaurant])
+      mr.media_request_discussions.first.restaurant.should == @restaurant
+      @restaurant.media_request_discussions.first.media_request.should == mr
     end
 
     describe "finding" do
       before do
         @media_request = Factory(:media_request,
                                   :sender => Factory(:user),
-                                  :recipients => [@employment])
+                                  :restaurants => [@restaurant])
       end
 
-      it "conversation by way of recipient should include the first conversation" do
-        @media_request.conversation_with_recipient(@employment).should be_a(MediaRequestConversation)
+      it "conversation by way of restaurant should include the first conversation" do
+        @media_request.discussion_with_restaurant(@restaurant).should be_a(MediaRequestDiscussion)
       end
 
       it "restaurants" do
@@ -60,7 +62,7 @@ describe MediaRequest do
   describe "fields" do
     before(:each) do
       @request = Factory.build(:media_request)
-      @request.stubs(:recipient_ids).returns([1])
+      @request.stubs(:restaurant_ids).returns([1])
     end
 
     it "should be empty Hash for new instance" do
@@ -72,11 +74,6 @@ describe MediaRequest do
       @request.fields.should be_a(Hash)
       @request.save
       MediaRequest.find(@request.id).fields.should be_a(Hash)
-    end
-
-    it "should raise an error for an array" do
-      @request.fields = ['hello', 'sammy']
-      lambda{ @request.save }.should raise_error(ActiveRecord::SerializationTypeMismatch)
     end
 
     it "should reject blank values" do
@@ -123,23 +120,6 @@ describe MediaRequest do
       @request.should be_pending
     end
 
-    it "should assign recipients before saving the first time" do
-      # it goes to everyone when @subject_matters is nil
-      @request.restaurant_ids = [@restaurant.id]
-      @request.save
-      @request.reload
-      @request.recipients.should include(@employment)
-    end
-
-    it "should assign recipients before saving with subject matters" do
-      @subject_matter = Factory(:subject_matter, :name => "Blah")
-      @employment.subject_matters << @subject_matter
-      @request.restaurant_ids = [@restaurant.id]
-      @request.subject_matter_ids = [@subject_matter.id]
-      @request.save
-      @request.recipients.should include(@employment)
-    end
-
     it "should be approvable" do
       UserMailer.stubs(:deliver_media_request_notification).returns(true)
       media_request = Factory(:pending_media_request)
@@ -150,11 +130,11 @@ describe MediaRequest do
     end
 
     describe "when approved email" do
-      it "should be sent to each recipient" do
+      it "should be sent to each restaurant" do
         @request = Factory.build(:media_request, :status => 'pending')
         @receiver = Factory(:user, :name => "Hambone Fisher", :email => "hammy@spammy.com")
         @request.sender = Factory(:media_user, :username => "jim", :email => "media@media.com")
-        @request.recipients = [@employment]
+        @request.restaurants = [@restaurant]
         UserMailer.expects(:deliver_media_request_notification)
         @request.approve!.should == true
         Delayed::Job.last.invoke_job if defined?(Delayed::Job)
@@ -165,9 +145,9 @@ describe MediaRequest do
   describe "brand new request" do
     before do
       @subject_matter = Factory(:subject_matter, :name => "Ham")
-      @employment2 = Factory(:assigned_employment, :subject_matters => [@subject_matter])
+      @employment2 = Factory(:assigned_employment, :subject_matters => [@subject_matter], :restaurant => @restaurant)
       sender = Factory(:media_user)
-      @request = Factory.build(:media_request, :sender => sender, :recipients => [])
+      @request = Factory.build(:media_request, :sender => sender, :restaurants => [])
     end
 
     it "should be invalid when no restaurants are found" do
@@ -176,21 +156,9 @@ describe MediaRequest do
       @request.save.should be_false
     end
 
-    it "should be valid with recipients" do
-      @request.recipient_ids = [@employment2.id]
+    it "should be valid with restaurants" do
+      @request.restaurant_ids = [@restaurant.id]
       @request.should be_valid
-    end
-
-    it "should be valid when restaurants are found" do
-      @request.restaurant_ids = [@employment2.restaurant.id.to_s]
-      @request.subject_matter_ids = [@subject_matter.id.to_s]
-      @request.should be_valid
-      @request.save.should be_true
-    end
-
-    it "should be invalid when not recipients are chosen" do
-      @request.recipient_ids = []
-      @request.should_not be_valid
     end
   end
 

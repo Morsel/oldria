@@ -1,6 +1,6 @@
 def find_media_requests_for_username(username)
   user = User.find_by_username(username)
-  ids = user.media_request_conversations.map(&:media_request_id).uniq
+  ids = user.media_request_discussions.map(&:media_request_id).uniq
   media_requests = MediaRequest.find(ids)
 end
 
@@ -39,7 +39,7 @@ When /^I follow "([^\"]*)" within the "([^\"]*)" section$/ do |link, relselector
 end
 
 Then /^the media request should have ([0-9]+) comments?$/ do |num|
-  MediaRequestConversation.last.comments.count.should == num.to_i
+  MediaRequestDiscussion.last.comments.count.should == num.to_i
 end
 
 

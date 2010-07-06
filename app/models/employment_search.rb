@@ -13,6 +13,7 @@ class EmploymentSearch < ActiveRecord::Base
   has_one :trend_question
   has_one :content_request
   has_one :holiday
+  has_one :media_request
 
   serialize :conditions
 

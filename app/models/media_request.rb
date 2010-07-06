@@ -21,24 +21,20 @@ class MediaRequest < ActiveRecord::Base
 
   belongs_to :sender, :class_name => 'User'
   belongs_to :media_request_type
-  has_many :media_request_conversations, :dependent => :destroy
-  has_many :conversations_with_comments, :class_name => 'MediaRequestConversation', :conditions => 'comments_count > 0'
+  has_many :media_request_discussions, :dependent => :destroy
+  belongs_to :employment_search
 
   # Recipients are Employment objects, not Employees directly
-  has_many :recipients, :through => :media_request_conversations
+  has_many :restaurants, :through => :media_request_discussions
   has_many :attachments, :as => :attachable, :class_name => '::Attachment', :dependent => :destroy
   validates_presence_of :sender_id
-  validates_presence_of :recipients, :on => :create
-  before_validation :assign_recipients_from_restaurants
-  validate :require_recipients
+  validates_presence_of :restaurants, :on => :create
 
   accepts_nested_attributes_for :attachments
 
   named_scope :past_due, lambda {{ :conditions => ['due_date < ?', Date.today] }}
   named_scope :for_dashboard, :order => "created_at DESC", :conditions => {:status => ["approved", "pending"]}
 
-
-  attr_accessor :restaurant_ids, :subject_matter_ids, :restaurant_role_ids
 
   include AASM
 
@@ -57,26 +53,17 @@ class MediaRequest < ActiveRecord::Base
     transitions :to => :pending, :from => [:pending, :draft]
   end
 
-  def restaurants
-    return [] if restaurant_ids.blank?
-    Restaurant.all(:conditions => {:id => restaurant_ids})
-  end
-
-  def restaurant_ids
-    return [] if recipients.blank?
-    recipients.reject(&:blank?).map(&:restaurant_id).uniq
-  end
 
   def deliver_notifications
-    for conversation in self.media_request_conversations
-      UserMailer.deliver_media_request_notification(self, conversation)
-    end
+    # for conversation in self.media_request_conversations
+    #   UserMailer.deliver_media_request_notification(self, conversation)
+    # end
   end
   handle_asynchronously :deliver_notifications # Use delayed_job to send
 
 
-  def conversation_with_recipient(employment)
-    media_request_conversations.first(:conditions => {:recipient_id => employment.id})
+  def discussion_with_restaurant(restaurant)
+    media_request_discussions.first(:conditions => {:restaurant_id => restaurant.id})
   end
 
   def publication_string
@@ -84,7 +71,11 @@ class MediaRequest < ActiveRecord::Base
   end
 
   def reply_count
-    @reply_count ||= conversations_with_comments.size
+    @reply_count ||= discussions.count(:conditions => 'comments_count > 0')
+  end
+
+  def discussions_with_comments
+    discussions.all(:conditions => 'comments_count > 0')
   end
 
   def message_with_fields(before_key = '', after_key = ': ')
@@ -103,38 +94,4 @@ class MediaRequest < ActiveRecord::Base
   def fields
     read_attribute(:fields) || Hash.new
   end
-
-  protected
-
-  def assign_recipients_from_restaurants
-    if @restaurant_ids
-      employments = find_recipient_employments
-      reset_virtual_attributes!
-      self.recipients = employments
-    end
-  end
-
-  def find_recipient_employments
-    @restaurant_role_ids.reject!(&:blank?) if @restaurant_role_ids
-    @subject_matter_ids.reject!(&:blank?) if @subject_matter_ids
-
-    if !@restaurant_role_ids.blank?
-      Employment.all(:conditions => {:restaurant_id => @restaurant_ids, :restaurant_role_id => @restaurant_role_ids})
-    elsif !@subject_matter_ids.blank?
-      Employment.all(:include => :responsibilities, :conditions => {:restaurant_id => @restaurant_ids, :responsibilities => {:subject_matter_id => @subject_matter_ids}})
-    else
-      Employment.all(:conditions => {:restaurant_id => @restaurant_ids})
-    end
-  end
-
-  def reset_virtual_attributes!
-    @restaurant_ids, @restaurant_role_ids, @subject_matter_ids = nil, nil, nil
-  end
-
-  def require_recipients
-    if (restaurant_ids && restaurant_ids.blank?)
-      errors.add_to_base("You need to specify some recipients")
-    end
-  end
-
 end
