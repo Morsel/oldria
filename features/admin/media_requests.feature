@@ -1,4 +1,4 @@
-@mediarequest
+@media @mediarequest
 Feature: Media requests
   In order to administer media requests
   As a RIA Staff
