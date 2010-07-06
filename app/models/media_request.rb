@@ -55,7 +55,7 @@ class MediaRequest < ActiveRecord::Base
 
 
   def deliver_notifications
-    # for conversation in self.media_request_conversations
+    # for conversation in self.media_request_discussions
     #   UserMailer.deliver_media_request_notification(self, conversation)
     # end
   end
