@@ -15,4 +15,9 @@ class Admin::EventsController < ApplicationController
     end
   end
   
+  def show
+    @event = Event.find(params[:id])
+    render :template => "events/show"
+  end
+  
 end

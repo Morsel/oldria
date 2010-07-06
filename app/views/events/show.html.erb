@@ -10,6 +10,12 @@
 
 <%= render @event.attachments %>
 
+<%- if @restaurant -%>
 <p><%= link_to "edit", edit_restaurant_event_path(:restaurant_id => @restaurant, :id => @event) %> | <%= link_to "delete", restaurant_event_path(:restaurant_id => @restaurant, :id => @event), :method => "delete" %></p>
 
 <p><%= link_to "Back to calendars", restaurant_calendars_path(:restaurant_id => @restaurant) %></p>
+<%- else -%>
+<p><%= link_to "edit", edit_admin_event_path(:id => @event) %> | <%= link_to "delete", admin_event_path(:id => @event), :method => "delete" %></p>
+
+<p><%= link_to "Back to calendars", admin_calendars_path %></p>
+<%- end -%>
