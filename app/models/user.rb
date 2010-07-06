@@ -85,6 +85,10 @@ class User < ActiveRecord::Base
                       Usernames can only contain letters, numbers, and/or the '-' symbol."
 
   validates_acceptance_of :agree_to_contract
+
+  named_scope :media, :conditions => {:role => 'media'}
+  named_scope :admin, :conditions => {:role => 'admin'}
+
   named_scope :for_autocomplete, :select => "first_name, last_name", :order => "last_name ASC", :limit => 15
   named_scope :by_last_name, :order => "LOWER(last_name) ASC"
 
