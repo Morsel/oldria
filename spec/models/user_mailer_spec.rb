@@ -9,10 +9,11 @@ describe UserMailer do
     before(:all) do
       @sender = Factory.stub(:media_user, :email => "media@media.com")
       @receiver = Factory.stub(:user, :name => "Hambone Fisher", :email => "hammy@spammy.com")
-      @employment = Factory.stub(:employment, :employee => @receiver)
+      @restaurant = Factory.stub(:restaurant)
+      @employment = Factory.stub(:employment, :employee => @receiver, :restaurant => @restaurant)
       @request = Factory.stub(:media_request, :sender => @sender, :publication => "New York Times")
-      @request_conversation = Factory.stub(:media_request_conversation, :media_request => @request, :recipient => @employment)
-      @email = UserMailer.create_media_request_notification(@request, @request_conversation)
+      @request_discussion = Factory.stub(:media_request_discussion, :media_request => @request, :restaurant => @restaurant)
+      @email = UserMailer.create_media_request_notification(@request, @request_discussion)
     end
 
     it "should be set to be delivered to the email passed in" do
@@ -24,7 +25,7 @@ describe UserMailer do
     end
 
     it "should contain a link to the media request conversation" do
-      @email.should have_text(/#{media_request_conversation_url(@request_conversation)}/)
+      @email.should have_text(/#{media_request_discussion_url(@request_discussion)}/)
     end
 
     it "should have the correct subject" do

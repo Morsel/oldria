@@ -62,7 +62,7 @@ describe MediaRequestsController do
 
     context "with invalid media request" do
       before(:each) do
-        @media_request = Factory.build(:media_request, :sender_id => @user.id, :recipients => [])
+        @media_request = Factory.build(:media_request, :sender_id => @user.id, :restaurants => [])
         @user.media_requests.expects(:build).returns(@media_request)
         post :create
       end

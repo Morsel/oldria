@@ -1,7 +1,6 @@
 class MediaRequestDiscussionsController < ApplicationController
   before_filter :require_user
   before_filter :find_media_request_discussion
-  before_filter :require_sender_recipient_or_admin
 
   def show
     @comments = @media_request_discussion.comments.all(:include => [:user, :attachments], :order => 'created_at DESC').reject(&:new_record?)
@@ -31,10 +30,4 @@ class MediaRequestDiscussionsController < ApplicationController
     @media_request = @media_request_discussion.media_request
   end
 
-  def require_sender_recipient_or_admin
-    unless (@media_request_discussion.recipient.employee_id == current_user.id) || (@media_request.sender_id == current_user.id) || current_user.admin?
-      flash[:error] = "You aren't allowed to view this page."
-      redirect_to root_url
-    end
-  end
 end
