@@ -2,6 +2,7 @@ class EventsController < CalendarsController
 
   def new
     @event = Event.new
+    @event.attachments.build
   end
   
   def create
@@ -20,6 +21,7 @@ class EventsController < CalendarsController
   
   def edit
     find_event
+    @event.attachments.build if @event.attachments.blank?
   end
   
   def update
