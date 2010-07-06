@@ -1,4 +1,4 @@
-<% semantic_form_for [:admin, event] do |f| %>
+<% semantic_form_for [:admin, event], :html => { :multipart => true } do |f| %>
     <% f.inputs :class => "plain" do %>
         <%= f.input :category, :as => "select", 
                                :label => "Calendar", 
@@ -9,6 +9,11 @@
         <%= f.input :location %>
         <%= f.input :description %>
     <% end %>
+    
+    <% f.fields_for :attachments do |child_form| -%>
+        <h3 class="attachments-header">Attach files</h3>
+        <p class="attachfield"><%= child_form.file_field :attachment %></p>
+    <% end -%>
     
     <p>
       <%= button_tag "Save", :name => 'submit' %>

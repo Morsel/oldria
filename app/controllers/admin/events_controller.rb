@@ -2,6 +2,7 @@ class Admin::EventsController < ApplicationController
   
   def new
     @event = Event.new
+    @event.attachments.build
   end
   
   def create
