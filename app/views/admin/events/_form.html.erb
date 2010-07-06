@@ -1,0 +1,16 @@
+<% semantic_form_for [:admin, event] do |f| %>
+    <% f.inputs :class => "plain" do %>
+        <%= f.input :category, :as => "select", 
+                               :label => "Calendar", 
+                               :collection => Event::ADMIN_CATEGORIES %>
+        <%= f.input :title %>
+        <%= f.input :start_at, :label => "Start Date" %>
+        <%= f.input :end_at, :label => "End Date" %>
+        <%= f.input :location %>
+        <%= f.input :description %>
+    <% end %>
+    
+    <p>
+      <%= button_tag "Save", :name => 'submit' %>
+    </p>
+<% end %>

@@ -94,6 +94,8 @@ ActionController::Routing::Routes.draw do |map|
     admin.resources :media_requests, :member => { :approve => :put }
     admin.resources :restaurant_roles, :except => [:show]
     admin.resources :holidays
+    admin.resources :calendars
+    admin.resources :events
 
     # Admin Messaging
     exclusive_routes = [:index, :show, :destroy]

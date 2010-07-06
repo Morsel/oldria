@@ -1,0 +1,17 @@
+class Admin::EventsController < ApplicationController
+  
+  def new
+    @event = Event.new
+  end
+  
+  def create
+    @event = Event.new(params[:event])
+    if @event.save
+      flash[:notice] = "Created #{@event.title}"
+      redirect_to admin_calendars_path
+    else
+      render :action => "new"
+    end
+  end
+  
+end

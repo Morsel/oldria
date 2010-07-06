@@ -83,6 +83,10 @@ module NavigationHelpers
       admin_trend_questions_path
     when /^the new PR Tip page$/
       new_admin_pr_tip_path
+    when /^the admin calendars page$/
+      admin_calendars_path
+    when /^the new admin event page$/
+      new_admin_event_path
 
     # Direct path
     when /"([^\"]+)"/

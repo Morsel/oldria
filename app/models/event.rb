@@ -1,6 +1,7 @@
 class Event < ActiveRecord::Base
   
   CATEGORIES = ['Charity', 'Holiday', 'Private', 'Promotion', 'Other']
+  ADMIN_CATEGORIES = [['Charity', 'admin_charity'], ['Holiday', 'admin_holiday']]
   STATUSES = ['Pending', 'Booked']
   
   belongs_to :restaurant
