@@ -1,6 +1,13 @@
 <div id="ria_labs" class="ria_labs sidebar_section">
   <div class="section_header"><h3 class="function-bold">RIA Labs</h3></div>
   <div class="section_body">
-      Keep an eye here for new features!
+      <% unless @current_user_restaurants.blank? -%>
+        Try out the new restaurant calendar:
+        <% @current_user_restaurants.each do |restaurant| %>
+          <% div_for restaurant do %>
+              <%= link_to h(restaurant.name), restaurant_calendars_path(:restaurant_id => restaurant) %>
+          <% end -%>
+        <% end -%>
+      <% end -%>
   </div>
 </div>

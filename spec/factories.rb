@@ -67,6 +67,15 @@ Factory.define :coached_status_update do |f|
   f.association :date_range
 end
 
+Factory.define :event do |f|
+  f.title "Summer Dinner"
+  f.start_at Date.today.beginning_of_day
+  f.end_at Date.today.end_of_day
+  f.location "the bar"
+  f.association :restaurant
+  f.category "Promotion"
+end
+
 # == Lookup Tables ==
 Factory.define :account_type do |f|
   f.name "Concierge"
