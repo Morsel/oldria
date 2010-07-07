@@ -23,7 +23,6 @@
       <th>Name</th>
       <th>Username</th>
       <th>Email</th>
-      <th>Media?</th>
       <th>JBF Region</th>
       <th>Last Action at</th>
       <th class="{sorter: false}"></th>
@@ -36,7 +35,6 @@
       <td><%= h user.last_name %>, <%=h user.first_name %></td>
       <td><%= link_to user.username, profile_path(user.username) %></td>
       <td><%= h user.email %></td>
-      <td><%= user.media? ? "Yes" : "" %></td>
       <td><%= h user.james_beard_region.try(:name) %></td>
       <td><%= user.last_request_at.try(:to_s,:long) %></td>
       <td class="actions edit_link">
