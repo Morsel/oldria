@@ -67,7 +67,7 @@ class MediaRequest < ActiveRecord::Base
   end
 
   def publication_string
-    "A writer" + (self.publication.blank? ? "" : " from #{self.publication}")
+    "A writer" + from_publication
   end
 
   def reply_count
@@ -93,5 +93,11 @@ class MediaRequest < ActiveRecord::Base
 
   def fields
     read_attribute(:fields) || Hash.new
+  end
+
+  private
+
+  def from_publication
+    self.publication.blank? ? "" : " from #{self.publication}"
   end
 end

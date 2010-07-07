@@ -1,4 +1,5 @@
 class MediaRequestsController < ApplicationController
+  before_filter :require_user
 
   def index
     # These are always scoped by restaurant!
@@ -11,29 +12,18 @@ class MediaRequestsController < ApplicationController
   end
 
   def new
-    @sender = current_user
-    if params[:search] && (namelike = params[:search].delete(:restaurant_name_like))
-      params[:search][:restaurant_name_like_all] = namelike.split unless namelike.blank?
-    end
-
-    @search = Employment.search(params[:search])
-
-    if params[:search]
-      @employments = @search.all(:include => [:restaurant])
-      @restaurants = @employments.map(&:restaurant).reject(&:blank?).uniq
-      @media_request = @sender.media_requests.build(:publication => @sender.publication)
-      @search = Employment.search(nil) # reset the form
-    end
+    @media_request = current_user.media_requests.build(params[:media_request])
+    search_setup(@media_request)
   end
 
   def create
     @media_request = current_user.media_requests.build(params[:media_request])
-
+    search_setup(@media_request)
+    save_search
     if @media_request.save
-      redirect_to edit_media_request_path(@media_request)
+      redirect_to @media_request
     else
       flash.now[:error] = "Oops! No one would get the media request based on your criteria. Are you sure you checked the boxes? Please retry your search, broadening your criteria if necessary."
-      @search = Employment.search(params[:search])
       render :new
     end
   end

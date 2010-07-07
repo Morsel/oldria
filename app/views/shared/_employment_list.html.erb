@@ -1,3 +1,4 @@
+<% if current_user.admin? %>
     <h3>Currently, this can be seen by:</h3>
     <ul class="clearfix">
     <% @restaurants_and_employments.each do |restaurant, employments| %>
@@ -7,3 +8,9 @@
       </li>
     <% end %>
     </ul>
+<% else %>
+    <p class="restaurant_employments_count">
+      Currently, this will be seen by <span class="number"><%= @search.size %></span> employees
+      at <span class="number"><%= @restaurants_and_employments.size %></span> restaurants
+    </p>
+<% end %>

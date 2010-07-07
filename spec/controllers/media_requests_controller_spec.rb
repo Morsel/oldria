@@ -10,42 +10,16 @@ describe MediaRequestsController do
   end
 
   describe "GET new" do
-    context "with no extra params" do
-      before do
-        get :new
-      end
-
-      it "should render new template" do
-        response.should render_template(:new)
-      end
-
-      it "should set the current_user as @sender" do
-        assigns[:sender].should == @user
-      end
-
-      it "should include a search form" do
-        response.should have_selector(:form, :action => new_media_request_path)
-      end
+    before do
+      get :new
     end
 
-    context "with search params" do
-      before do
-        @restaurant = Factory(:restaurant, :name => "Long John Silver's", :id => 3)
-        user = Factory(:user, :name => "John Smith")
-        @employment = Factory(:employment, :restaurant => @restaurant, :employee => user)
-        get :new, :search => { :restaurant_name_like => "Long" }
-      end
+    it "should render new template" do
+      response.should render_template(:new)
+    end
 
-      it { response.should be_success }
-
-      it "should assign @employments" do
-        assigns[:employments].should == [@employment]
-      end
-
-      it "should set the default publication as the sender's publication" do
-        assigns[:media_request].should_not be_nil
-        assigns[:media_request].publication.should == @user.publication
-      end
+    it "should include a search form" do
+      response.should have_selector(:form)
     end
   end
 
@@ -57,7 +31,7 @@ describe MediaRequestsController do
         post :create
       end
 
-      it { response.should redirect_to(edit_media_request_path(@media_request))}
+      it { response.should redirect_to(media_request_path(@media_request))}
     end
 
     context "with invalid media request" do
