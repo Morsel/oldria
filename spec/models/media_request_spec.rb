@@ -31,7 +31,7 @@ describe MediaRequest do
 
   before(:each) do
     @employee = Factory(:user, :username => "employee", :email => "employee@example.com")
-    @restaurant = Factory(:restaurant)
+    @restaurant = Factory(:restaurant, :name => "Joe's Crab Shack")
     @employment = Factory(:employment, :restaurant => @restaurant, :employee => @employee)
   end
 
@@ -56,6 +56,24 @@ describe MediaRequest do
       it "restaurants" do
         @media_request.restaurants.should == [@restaurant]
       end
+    end
+  end
+  
+  describe "with search criteria" do
+    before do
+      @restaurant2 = Factory(:restaurant, :name => "IHOP")
+    end
+    it "should update based on the search criteria" do
+      employment_search = Factory(:employment_search, :conditions => {
+        :restaurant_name_like => @restaurant.name
+      })
+      media_request = Factory.build(:media_request, :employment_search => employment_search)
+      media_request.save
+      media_request.restaurant_ids.should == [@restaurant.id]
+
+      media_request.employment_search.conditions = {:restaurant_name_like => 'nobody'}
+      media_request.save
+      media_request.restaurants.should_not include(@restaurant)
     end
   end
 
@@ -111,12 +129,7 @@ describe MediaRequest do
       @request = Factory.build(:media_request)
     end
 
-    it "should start out as a draft" do
-      @request.should be_draft
-    end
-
-    it "should transition to pending after fields are filled in" do
-      @request.fill_out!
+    it "should start out pending" do
       @request.should be_pending
     end
 

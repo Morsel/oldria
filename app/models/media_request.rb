@@ -28,19 +28,19 @@ class MediaRequest < ActiveRecord::Base
   has_many :restaurants, :through => :media_request_discussions
   has_many :attachments, :as => :attachable, :class_name => '::Attachment', :dependent => :destroy
   validates_presence_of :sender_id
-  validates_presence_of :restaurants, :on => :create
+  validates_presence_of :restaurant_ids, :on => :create
 
   accepts_nested_attributes_for :attachments
 
   named_scope :past_due, lambda {{ :conditions => ['due_date < ?', Date.today] }}
   named_scope :for_dashboard, :order => "created_at DESC", :conditions => {:status => ["approved", "pending"]}
 
-
   include AASM
 
+  before_validation :update_restaurants_from_search_criteria
+
   aasm_column :status
-  aasm_initial_state :draft
-  aasm_state :draft
+  aasm_initial_state :pending
   aasm_state :pending
   aasm_state :approved
   aasm_state :closed
@@ -48,11 +48,6 @@ class MediaRequest < ActiveRecord::Base
   aasm_event :approve, :success => :deliver_notifications do
     transitions :to => :approved, :from => [:pending]
   end
-
-  aasm_event :fill_out do
-    transitions :to => :pending, :from => [:pending, :draft]
-  end
-
 
   def deliver_notifications
     # for conversation in self.media_request_discussions
@@ -71,11 +66,11 @@ class MediaRequest < ActiveRecord::Base
   end
 
   def reply_count
-    @reply_count ||= discussions.count(:conditions => 'comments_count > 0')
+    @reply_count ||= media_request_discussions.count(:conditions => 'comments_count > 0')
   end
 
   def discussions_with_comments
-    discussions.all(:conditions => 'comments_count > 0')
+    media_request_discussions.all(:conditions => 'comments_count > 0')
   end
 
   def message_with_fields(before_key = '', after_key = ': ')
@@ -99,5 +94,9 @@ class MediaRequest < ActiveRecord::Base
 
   def from_publication
     self.publication.blank? ? "" : " from #{self.publication}"
+  end
+
+  def update_restaurants_from_search_criteria
+    self.restaurant_ids = employment_search.restaurant_ids if employment_search
   end
 end

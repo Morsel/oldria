@@ -24,10 +24,14 @@ describe MediaRequestsController do
   end
 
   describe "POST create" do
+    before do
+      @media_request = Factory.build(:media_request, :sender_id => @user.id)
+      @user.media_requests.expects(:build).returns(@media_request)
+    end
+
     context "with valid media request" do
       before(:each) do
-        @media_request = Factory.build(:media_request, :sender_id => @user.id)
-        @user.media_requests.expects(:build).returns(@media_request)
+        @media_request.stubs(:valid?).returns(true)
         post :create
       end
 
@@ -36,8 +40,7 @@ describe MediaRequestsController do
 
     context "with invalid media request" do
       before(:each) do
-        @media_request = Factory.build(:media_request, :sender_id => @user.id, :restaurants => [])
-        @user.media_requests.expects(:build).returns(@media_request)
+        @media_request.stubs(:valid?).returns(false)
         post :create
       end
 
@@ -48,7 +51,7 @@ describe MediaRequestsController do
 
   describe "GET edit" do
     before do
-      @media_request = Factory(:media_request, :status => 'draft', :sender => @user)
+      @media_request = Factory(:media_request, :sender => @user)
     end
 
     it "should render new template" do

@@ -19,7 +19,6 @@ class MediaRequestsController < ApplicationController
   def create
     @media_request = current_user.media_requests.build(params[:media_request])
     search_setup(@media_request)
-    save_search
     if @media_request.save
       redirect_to @media_request
     else
@@ -37,7 +36,6 @@ class MediaRequestsController < ApplicationController
 
   def update
     @media_request = MediaRequest.find(params[:id])
-    @media_request.fill_out
     if @media_request.update_attributes(params[:media_request])
       flash[:notice] = "Thanks! Your media request will be sent shortly!"
       redirect_to @media_request

@@ -15,15 +15,12 @@ Feature: Media requests
       | mediaman | secret   |
     Given there are no media requests
 
-
+@focus
   Scenario: A new media request is held for approval
     Given I am logged in as "mediaman" with password "secret"
-    When I search for and find "Eight Ball" restaurant
-    And I create a new media request with:
-      | Message    | Are cucumbers good in salad? |
-      | Due date   | 2009-10-10                   |
-    Then I should see "media request will be sent shortly"
-    And the media request from "mediaman" should be pending
+    When I create a media request with message "Are cucumbers good in salad?" and criteria:
+      | Role | Chef |
+    Then the media request from "mediaman" should be pending
     And there should be 1 media request in the system
 
 

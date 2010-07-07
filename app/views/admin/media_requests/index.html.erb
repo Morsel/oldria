@@ -22,7 +22,7 @@
 		<% @pending_media_requests.each do |media_request| -%>
 		<tr id="<%= dom_id(media_request) %>" class="media_request <%= cycle('even,odd') %>">
 			<td><%= media_request.sender.try(:name) %></td>
-			<td><%= media_request.recipients.count %></td>
+			<td><%= media_request.media_request_discussions.size %></td>
 			<td><%= media_request.media_request_type.try(:name) %></td>
 			<td><%= truncate(media_request.message, :length => 50) %></td>
 			<td><%= list_and_link_replies(media_request) %></td>

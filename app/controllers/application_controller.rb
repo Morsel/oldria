@@ -134,7 +134,7 @@ class ApplicationController < ActionController::Base
       @employment_search = if resource.employment_search
         resource.employment_search
       else
-        resource.build_employment_search(:conditions => {})
+        resource.build_employment_search(:conditions => params[:search] || {})
       end
       @search = @employment_search.employments #searchlogic
     else

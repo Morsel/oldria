@@ -119,7 +119,6 @@ Factory.define :media_request do |f|
   f.association :sender, :factory => :media_user
   f.message "This is a media request message"
   f.due_date 2.days.from_now
-  f.status 'draft'
   f.restaurants {|mr| [mr.association(:restaurant)]}
 end
 
@@ -128,7 +127,6 @@ Factory.define :sent_media_request, :parent => :media_request do |f|
 end
 
 Factory.define :pending_media_request, :parent => :media_request do |f|
-  f.status 'pending'
 end
 
 
