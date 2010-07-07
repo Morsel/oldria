@@ -1,6 +1,6 @@
 <% title @event.title %>
 
-<%= render :partial => "details" %>
+<%= render :partial => "events/details" %>
 
 <%- if @restaurant -%>
 <p><%= link_to "edit", edit_restaurant_event_path(:restaurant_id => @restaurant, :id => @event) %> | <%= link_to "delete", restaurant_event_path(:restaurant_id => @restaurant, :id => @event), :method => "delete" %></p>

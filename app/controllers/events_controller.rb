@@ -53,7 +53,7 @@ class EventsController < CalendarsController
     new_event.restaurant = @restaurant
     if new_event.save
       flash[:notice] = "Added #{new_event.title} to your calendar"
-      redirect_to restaurant_calendars_path(@restaurant)
+      redirect_to restaurant_calendars_path(@restaurant, :date => new_event.start_at.to_date)
     else
       flash[:error] = "We are unable to save your event."
       redirect_to :action => "ria_details", :id => @event, :restaurant_id => @restaurant
