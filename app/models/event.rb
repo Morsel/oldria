@@ -26,4 +26,17 @@ class Event < ActiveRecord::Base
     start_at
   end
   
+  def calendar
+    if ADMIN_CATEGORIES.flatten.include? self.category
+      case self.category
+      when "admin_charity"
+        "Charity"
+      when "admin_holiday"
+        "Holiday"
+      end
+    else
+      self.category
+    end
+  end
+  
 end

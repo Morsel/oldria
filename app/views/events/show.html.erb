@@ -1,14 +1,6 @@
 <% title @event.title %>
 
-<p>Calendar: <%= @event.category %></p>
-
-<%= @event.start_at.to_formatted_s(:short) %> - <%= @event.end_at.to_formatted_s(:short) %>
-
-<%= simple_format(@event.description) %>
-
-<p>Location: <%= @event.location %></p>
-
-<%= render @event.attachments %>
+<%= render :partial => "details" %>
 
 <%- if @restaurant -%>
 <p><%= link_to "edit", edit_restaurant_event_path(:restaurant_id => @restaurant, :id => @event) %> | <%= link_to "delete", restaurant_event_path(:restaurant_id => @restaurant, :id => @event), :method => "delete" %></p>

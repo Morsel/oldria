@@ -41,6 +41,10 @@ class EventsController < CalendarsController
     redirect_to restaurant_calendars_path(@restaurant)
   end
   
+  def transfer
+    find_event
+  end
+  
   private
   
   def find_event

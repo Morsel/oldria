@@ -15,7 +15,7 @@
         <% t.day do |day, events| %>
             <%= day.day %>
             <% events.each do |event| %>
-                <p><%= link_to event.title, admin_event_path(event),
+                <p><%= link_to event.title, event_link(event),
                        :class => event.status %></p>
             <% end %>
         <% end %>

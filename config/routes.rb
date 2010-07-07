@@ -32,7 +32,7 @@ ActionController::Routing::Routes.draw do |map|
     restaurant.media_requests 'media_requests', :controller => 'media_requests', :action => 'index'
     restaurant.resources :employees, :except => [:show]
     restaurant.resources :calendars, :collection => { "ria" => :get }
-    restaurant.resources :events
+    restaurant.resources :events, :collection => { "transfer" => :get }
   end
 
   map.resources :user_sessions, :password_resets, :followings, :pages
