@@ -197,15 +197,28 @@ describe User do
     end
   end
 
-  context "media_requests" do
+  context "who are media" do
     before(:each) do
       @user = Factory(:media_user)
-      @user.has_role! :media
     end
 
-    it "should have many media_requests" do
+    it "should have many (sent) media_requests" do
       MediaRequest.destroy_all
       @user.media_requests.should == []
+    end
+  end
+  
+  context "non-media" do
+    before do
+      @restaurant = Factory(:restaurant)
+      @user = Factory(:user)
+      @employment = Factory(:employment, :employee => @user, :restaurant => @restaurant)
+    end
+
+    it "should be able to see media requests" do
+      search = EmploymentSearch.new(:conditions => {:restaurant_id_is => "#{@restaurant.id}"})
+      request = Factory(:media_request, :employment_search => search)
+      @user.received_media_requests.should == [request]
     end
   end
 

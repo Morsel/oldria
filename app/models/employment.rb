@@ -17,8 +17,6 @@ class Employment < ActiveRecord::Base
   belongs_to :restaurant_role
   has_many :responsibilities
   has_many :subject_matters, :through => :responsibilities
-  has_many :media_request_discussions, :foreign_key => 'recipient_id', :dependent => :destroy
-  has_many :media_requests, :through => :media_request_discussions
   has_many :admin_conversations, :class_name => 'Admin::Conversation', :foreign_key => 'recipient_id'
   has_many :admin_discussions, :through => :restaurant
   has_many :admin_messages, :through => :admin_conversations, :class_name => 'Admin::Message'
@@ -67,5 +65,9 @@ class Employment < ActiveRecord::Base
   def name_and_restaurant
     "#{employee_name} (#{restaurant_name})"
   end
-  
+
+  def viewable_media_requests
+    restaurant.media_requests.select {|mr| mr.viewable_by? self }
+  end
+
 end

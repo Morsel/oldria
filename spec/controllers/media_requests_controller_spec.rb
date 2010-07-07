@@ -51,7 +51,8 @@ describe MediaRequestsController do
 
   describe "GET edit" do
     before do
-      @media_request = Factory(:media_request, :sender => @user)
+      @media_request = Factory.stub(:media_request, :sender => @user)
+      MediaRequest.stubs(:find).returns(@media_request)
     end
 
     it "should render new template" do

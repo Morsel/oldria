@@ -45,6 +45,7 @@ class User < ActiveRecord::Base
   has_many :direct_messages, :foreign_key => "receiver_id", :dependent => :destroy
   has_many :sent_direct_messages, :class_name => "DirectMessage", :foreign_key => "sender_id", :dependent => :destroy
 
+  # Sent, not received media requests
   has_many :media_requests, :foreign_key => 'sender_id'
 
   has_many :admin_conversations, :through => :employments, :foreign_key => 'recipient_id'

@@ -1,5 +1,10 @@
 module UserMessaging
 
+  # Received Media requests
+  def received_media_requests
+    employments.map(&:viewable_media_requests).flatten
+  end
+
   # User Messages
 
     def announcements

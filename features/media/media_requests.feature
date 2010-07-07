@@ -15,28 +15,21 @@ Feature: Media requests
       | mediaman | secret   |
     Given there are no media requests
 
-@focus
+
   Scenario: A new media request is held for approval
     Given I am logged in as "mediaman" with password "secret"
     When I create a media request with message "Are cucumbers good in salad?" and criteria:
       | Role | Chef |
-    Then the media request from "mediaman" should be pending
+    Then that media request should be pending
     And there should be 1 media request in the system
 
-
+@focus
   Scenario: Media Requests go to the assigned roles
     Given I am logged in as "mediaman" with password "secret"
-    When I search for "Eight Ball" restaurant
-    And I check "Eight Ball"
-    And I check "Chef"
-    And I press "Next"
-    And I create a new media request with:
-      | Message    | Eight Ball is good? |
-      | Due date   | 2009-10-10          |
-    Then I should see "media request will be sent shortly"
-    And the media request from "mediaman" should be pending
-    And there should be 1 media request in the system
-    And "sam" should have 1 media request
+    When I create a media request with message "Are cucumbers good in salad?" and criteria:
+       | Role | Chef |
+    And that media request is approved
+    Then "sam" should have 1 media request
     But "john" should have 0 media requests
 
 

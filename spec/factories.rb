@@ -205,6 +205,12 @@ Factory.define :admin_conversation, :class => Admin::Conversation do |f|
   f.association :admin_message
 end
 
+Factory.define :admin_discussion do |f|
+  f.discussionable {|d| d.association :trend_question }
+  f.discussionable_type { "TrendQuestion" }
+  f.restaurant {|d| d.association :restaurant }
+end
+
 # == Holidays ==
 Factory.define :holiday do |f|
   f.name "Valentine's Day"

@@ -12,8 +12,7 @@ end
 
 def find_media_requests_for_username(username)
   user = User.find_by_username(username)
-  ids = user.media_request_discussions.map(&:media_request_id).uniq
-  media_requests = MediaRequest.find(ids)
+  media_requests = user.received_media_requests
 end
 
 Given /^"([^\"]*)" has a media request from a media member with:$/ do |username, table|
@@ -43,12 +42,14 @@ When /^I create a media request with message "([^"]*)" and criteria:$/ do |messa
     check value
   end
   click_button :submit
+  @media_request = MediaRequest.last
 end
 
 
 When /^I create a new media request with:$/ do |table|
   media_request_from_hash(table.rows_hash)
   click_button :submit
+  @media_request = MediaRequest.last
 end
 
 When /^I create a new admin media request with:$/ do |table|
@@ -57,6 +58,7 @@ When /^I create a new admin media request with:$/ do |table|
   check "Admin"
   select hash_data["Status"], :from => :status if hash_data["Status"]
   click_button :submit
+  @media_request = MediaRequest.last
 end
 
 Given /^an admin has approved the media request from "([^\"]*)"$/ do |username|
@@ -74,6 +76,11 @@ When /^I approve the media request$/ do
   click_link "edit"
   select "Approved", :from => :status
   click_button "Save"
+end
+
+When /^that media request is approved$/ do
+  @media_request ||= MediaRequest.last
+  @media_request.approve!
 end
 
 Then /^the media request from "([^\"]*)" should be (.+)$/ do |username, status|

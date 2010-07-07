@@ -37,6 +37,7 @@ class MediaRequest < ActiveRecord::Base
 
   include AASM
 
+  before_validation :build_employment_search_if_needed
   before_validation :update_restaurants_from_search_criteria
 
   aasm_column :status
@@ -90,10 +91,21 @@ class MediaRequest < ActiveRecord::Base
     read_attribute(:fields) || Hash.new
   end
 
+  def viewable_by?(employment)
+    return false unless employment
+    employment.employee == employment.restaurant.try(:manager) ||
+    employment.omniscient? ||
+    employment_search.employments.include?(employment)
+  end
+
   private
 
   def from_publication
     self.publication.blank? ? "" : " from #{self.publication}"
+  end
+
+  def build_employment_search_if_needed
+    build_employment_search(:conditions => {}) if self.employment_search.blank?
   end
 
   def update_restaurants_from_search_criteria

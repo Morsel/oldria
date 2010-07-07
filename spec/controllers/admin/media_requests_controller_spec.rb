@@ -8,6 +8,7 @@ describe Admin::MediaRequestsController do
     @user = Factory.stub(:admin)
     @user.stubs(:update).returns(true)
     controller.stubs(:current_user).returns(@user)
+    @media_request = Factory.stub(:media_request, :id => 29, :sender => @sender)
   end
 
   describe "GET index" do
@@ -19,7 +20,7 @@ describe Admin::MediaRequestsController do
 
     it "should assign @media_requests" do
       sender = Factory(:media_user, :id => 49)
-      media_requests = [Factory(:media_request, :sender => sender)]
+      media_requests = [@media_request]
       MediaRequest.expects(:find).returns(media_requests)
       get :index
       assigns[:media_requests].should == media_requests
@@ -28,7 +29,6 @@ describe Admin::MediaRequestsController do
 
   describe "GET show" do
     before(:each) do
-      @media_request = Factory.stub(:media_request, :id => 29)
       MediaRequest.stubs(:find).returns(@media_request)
       get :show, :id => '29'
     end
@@ -44,7 +44,6 @@ describe Admin::MediaRequestsController do
 
   describe "GET edit" do
     before(:each) do
-      @media_request = Factory.stub(:media_request, :id => 29)
       MediaRequest.stubs(:find).returns(@media_request)
     end
 
@@ -58,17 +57,10 @@ describe Admin::MediaRequestsController do
       assigns[:media_request].should == @media_request
     end
 
-    it "should list the recipients" do
-      user = Factory.stub(:user, :name => "Jimmy Nono")
-      @media_request.stubs(:recipients).returns([Factory.stub(:employment, :employee => user)])
-      get :edit, :id => 29
-      response.should have_selector("form")
-    end
   end
 
   describe "PUT update" do
     before(:each) do
-      @media_request = Factory.stub(:media_request, :id => 29)
       MediaRequest.stubs(:find).returns(@media_request)
       @params = {'these' => 'params'}
     end
@@ -95,9 +87,9 @@ describe Admin::MediaRequestsController do
 
   describe "PUT approve" do
     before(:each) do
-      @media_request = Factory.stub(:media_request, :id => 45)
       MediaRequest.stubs(:find).returns(@media_request)
       @media_request.stubs(:approve!)
+      @media_request.stubs(:valid?).returns(true)
     end
 
     it "should assign @media_request" do

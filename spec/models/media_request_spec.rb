@@ -142,7 +142,7 @@ describe MediaRequest do
       media_request.should be_approved
     end
 
-    describe "when approved email" do
+    describe "when approved" do
       xit "should be sent to each restaurant" do
         @request = Factory.build(:media_request, :status => 'pending')
         @receiver = Factory(:user, :name => "Hambone Fisher", :email => "hammy@spammy.com")
@@ -160,17 +160,18 @@ describe MediaRequest do
       @subject_matter = Factory(:subject_matter, :name => "Ham")
       @employment2 = Factory(:assigned_employment, :subject_matters => [@subject_matter], :restaurant => @restaurant)
       sender = Factory(:media_user)
-      @request = Factory.build(:media_request, :sender => sender, :restaurants => [])
+      @request = Factory.build(:media_request, :sender => sender)
     end
 
     it "should be invalid when no restaurants are found" do
-      @request.restaurant_ids = []
+      @employment_search = EmploymentSearch.create(:conditions => {:restaurant_id_is => "9999"})
+      @request.employment_search = @employment_search
       @request.should_not be_valid
-      @request.save.should be_false
     end
 
     it "should be valid with restaurants" do
-      @request.restaurant_ids = [@restaurant.id]
+      @employment_search = EmploymentSearch.create(:conditions => {:restaurant_id_is => "#{@restaurant.id}"})
+      @request.employment_search = @employment_search
       @request.should be_valid
     end
   end
