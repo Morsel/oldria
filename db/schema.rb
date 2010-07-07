@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100630211353) do
+ActiveRecord::Schema.define(:version => 20100707183528) do
 
   create_table "account_types", :force => true do |t|
     t.string   "name"
@@ -195,6 +195,7 @@ ActiveRecord::Schema.define(:version => 20100630211353) do
     t.string   "status"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "parent_id"
   end
 
   create_table "feed_categories", :force => true do |t|

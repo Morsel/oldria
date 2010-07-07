@@ -30,5 +30,12 @@ describe EventsController do
     event.expects(:destroy)
     delete :destroy, :id => event.id, :restaurant_id => @restaurant
   end
+  
+  it "should allow a restaurant user to transfer a RIA event to their calendar" do
+    event = Factory(:admin_event)
+    Event.stubs(:find).returns(event)
+    Event.expects(:new).with(event.attributes).returns(event)
+    post :transfer, :id => event.id, :restaurant_id => @restaurant
+  end
 
 end

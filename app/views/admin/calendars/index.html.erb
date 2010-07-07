@@ -27,3 +27,5 @@
     &nbsp;&nbsp;&nbsp;
     <%= link_to "next >>", admin_calendars_path(:date => (@date + 1.month).to_s) %>
 </p>
+
+<p><%= link_to "Add an event", new_admin_event_path %></p>

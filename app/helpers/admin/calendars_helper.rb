@@ -4,7 +4,7 @@ module Admin::CalendarsHelper
     if params[:controller] == "admin/calendars"
       admin_event_path(event)
     elsif @restaurant
-      transfer_restaurant_events_path(:restaurant_id => @restaurant.id, :id => event.id)
+      ria_details_restaurant_event_path(:restaurant_id => @restaurant.id, :id => event.id)
     end
   end
 
