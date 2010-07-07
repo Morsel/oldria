@@ -24,8 +24,6 @@ Given /^"([^\"]*)" has a media request from "([^\"]*)" with:$/ do |username, med
   message = table.rows_hash['Message']
   status = table.rows_hash['Status'] || 'pending'
   user = User.find_by_username(username)
-  user.should_not be_nil
-  employment = Factory(:employment, :employee => user)
   sender = User.find_by_username(mediauser)
   publication = table.rows_hash['Publication'] || sender.publication
   search = EmploymentSearch.new(:conditions => {:employee_id_eq => "#{user.id}"})
@@ -72,6 +70,11 @@ end
 Then /^I should see a list of media requests$/ do
   Then("I should see a table of resources")
 end
+
+When /^I perform the search:$/ do |table|
+  visit new_media_request_path(:search => table.rows_hash)
+end
+
 
 When /^I approve the media request$/ do
   click_link "edit"

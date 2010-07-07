@@ -59,7 +59,7 @@ Feature: Media requests
     And I press "Post Comment"
     Then the media request should have 2 comments
 
-@focus
+
   Scenario: Approved media requests notifications are emailed to recipients
     Given "sam" has a media request from "mediaman" with:
       | Message | Where are the best mushrooms? |

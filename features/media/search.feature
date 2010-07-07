@@ -22,45 +22,28 @@ Feature: Media faceted member search
   Scenario: Searching by restaurant name, exact match
     Given I am on the media request search page
     When I perform the search:
-      | Restaurant Name | South of the Border |
-    Then I should see "South of the Border"
-    But I should not see "Southtown Borders"
-    And I select "South of the Border" as a recipient
-    And I check "Chef"
-    And I press "Next"
-    Then "mediaman" should have a new draft media request
-    And I should see "Compose Media Request"
-    And I should see "South of the Border"
-
-
-  Scenario: Searching by restaurant name, fuzzy match
-    Given I am on the media request search page
-    When I perform the search:
-      | Restaurant Name | south border |
-    Then I should see "South of the Border"
-    And I should see "Southtown Borders"
+      | restaurant_name_eq | South of the Border |
+    Then I should see "at 1 restaurant"
 
 
   Scenario: Searching by city
     Given "South of the Border" restaurant is in the "Chicago IL" metro region
     And I am on the media request search page
     When I perform the search:
-      | Greater Metropolitan Area | Chicago IL |
-    Then I should see "South of the Border"
+      | restaurant_metropolitan_area_name_eq | Chicago IL |
+    Then I should see "at 1 restaurant"
 
 
   Scenario: Searching by other criteria
     Given the restaurant "South of the Border" is in the region "Midwest"
     And I am on the media request search page
     When I perform the search:
-      | Region | Midwest |
-    Then I should see "South of the Border"
+      | restaurant_james_beard_region_name_eq | Midwest |
+    Then I should see "at 1 restaurant"
 
 @regression
   Scenario: Searching by restaurant role
     Given I am on the media request search page
-    When I check "Chef"
-    And I check "Sommelier"
-    And I press "Search"
-    Then I should see "South of the Border"
-    And I should see "Southtown Borders"
+    When I perform the search:
+      | restaurant_role_name_eq | Sommelier |
+    Then I should see "at 2 restaurants"
