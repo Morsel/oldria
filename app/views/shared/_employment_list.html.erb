@@ -1,3 +1,4 @@
+<% if current_user.admin? %>
     <h4>Currently, this can be seen by:</h4>
     <% @restaurants_and_employments.each do |restaurant, employments| %>
       <div class="restaurant_and_employees span-5 column">
@@ -5,3 +6,9 @@
         <%= employments.map(&:employee_name).to_sentence %>
       </div>
     <% end %>
+<% else %>
+    <p class="restaurant_employments_count">
+      Currently, this will be seen by <span class="number"><%= @search.size %></span> employees
+      at <span class="number"><%= @restaurants_and_employments.size %></span> restaurants
+    </p>
+<% end %>

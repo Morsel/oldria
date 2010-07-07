@@ -5,17 +5,17 @@
         <%= f.input :subject %>
         <%= f.input :body %>
       </div>
-      
+
       <div id="employment_list" class="clearfix">
-        <%= render :partial => 'employment_list' %>
+        <%= render :partial => 'shared/employment_list' %>
       </div>
-      
+
       <%= f.input :scheduled_at, :label => 'Post this question on:' %>
       <%# f.input :expired_at, :selected => 3.months.from_now %>
     <% end %>
     <p><%= button_tag "Submit" %></p>
   </div>
   <div class="span-6 last">
-    <%= render :partial => 'employment_criteria', :locals => {:f => f} %>
+    <%= render :partial => 'shared/employment_criteria', :locals => {:f => f} %>
   </div>
 <% end %>

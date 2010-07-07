@@ -29,8 +29,9 @@ describe Restaurant do
   should_belong_to :cuisine
   should_have_many :employments
   should_have_many :employees, :through => :employments
-  should_have_many :media_request_conversations, :through => :employments
   should_have_many :admin_discussions
+  should_have_many :media_request_discussions
+  should_have_many :media_requests, :through => :media_request_discussions
   should_have_many :trend_questions, :through => :admin_discussions
   should_have_many :content_requests, :through => :admin_discussions
 
@@ -49,13 +50,6 @@ describe Restaurant do
       restaurant.employees.should be_empty
       restaurant.save
       restaurant.employees.first.should == manager
-    end
-
-    it "should have many media request conversations through its employments" do
-      restaurant = Factory(:restaurant)
-      employment = Factory(:employment, :restaurant => restaurant)
-      mr = Factory(:media_request_conversation, :recipient => employment)
-      restaurant.media_request_conversations.should == [mr]
     end
   end
 

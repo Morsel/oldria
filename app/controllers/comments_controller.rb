@@ -18,8 +18,8 @@ class CommentsController < ApplicationController
   private
 
   def find_parent
-    if params[:media_request_conversation_id]
-      @parent = MediaRequestConversation.find(params[:media_request_conversation_id])
+    if params[:media_request_discussion_id]
+      @parent = MediaRequestDiscussion.find(params[:media_request_discussion_id])
     elsif params[:discussion_id]
       @parent = Discussion.find(params[:discussion_id])
     elsif params[:admin_conversation_id]
