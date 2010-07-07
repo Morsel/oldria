@@ -6,6 +6,7 @@
   <tr class="admin"><td>Admin</td></tr>
   <tr class="unconfirmed"><td>Unconfirmed</td></tr>
   <tr><td>Non-admin, Confirmed</td></tr>
+  <tr class="media"><td>Media</td></tr>
 </table>
 
 <p class="clearfix"><%= link_to 'Sign Up a New User', new_admin_user_path, :class => 'button positive' %></p>
@@ -22,7 +23,6 @@
       <th>Name</th>
       <th>Username</th>
       <th>Email</th>
-      <th>Media?</th>
       <th>JBF Region</th>
       <th>Last Action at</th>
       <th class="{sorter: false}"></th>
@@ -31,11 +31,10 @@
   </thead>
   <tbody>
     <% @users.each do |user| %>
-    <tr id="<%= dom_id(user) %>" class="user <%= users_extra_row_class(user) %>">
+    <tr id="<%= dom_id(user) %>" class="user <%= user.role %> <%= users_extra_row_class(user) %>">
       <td><%= h user.last_name %>, <%=h user.first_name %></td>
       <td><%= link_to user.username, profile_path(user.username) %></td>
       <td><%= h user.email %></td>
-      <td><%= user.media? ? "Yes" : "" %></td>
       <td><%= h user.james_beard_region.try(:name) %></td>
       <td><%= user.last_request_at.try(:to_s,:long) %></td>
       <td class="actions edit_link">
