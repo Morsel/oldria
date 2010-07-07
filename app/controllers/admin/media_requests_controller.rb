@@ -9,7 +9,7 @@ class Admin::MediaRequestsController < Admin::AdminController
 
   # GET /admin/media_requests/1
   def show
-    @media_request = MediaRequest.find(params[:id], :include => {:recipients => [:employee, :restaurant, :restaurant_role]})
+    @media_request = MediaRequest.find(params[:id], :include => :restaurants)
   end
 
   # GET /admin/media_requests/1/edit

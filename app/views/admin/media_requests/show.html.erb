@@ -5,7 +5,7 @@
 	<%= (link_to "Approve!", approve_admin_media_request_path(@media_request), :method => :put, :class => 'button positive') if @media_request.pending? %>
 </p>
 
-<h3>Recipients</h3>
+<h3>Restaurants</h3>
 <% if !@media_request.restaurants.blank? %>
 	<%= render :partial => 'recipients' %>
 <% end %>

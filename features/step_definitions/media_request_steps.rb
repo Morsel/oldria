@@ -24,6 +24,7 @@ Given /^"([^\"]*)" has a media request from "([^\"]*)" with:$/ do |username, med
   message = table.rows_hash['Message']
   status = table.rows_hash['Status'] || 'pending'
   user = User.find_by_username(username)
+  Factory(:employment, :employee => user) if user.restaurants.blank?
   sender = User.find_by_username(mediauser)
   publication = table.rows_hash['Publication'] || sender.publication
   search = EmploymentSearch.new(:conditions => {:employee_id_eq => "#{user.id}"})
@@ -71,8 +72,20 @@ Then /^I should see a list of media requests$/ do
   Then("I should see a table of resources")
 end
 
-When /^I perform the search:$/ do |table|
+When /^I perform the raw search:$/ do |table|
   visit new_media_request_path(:search => table.rows_hash)
+end
+
+When "I perform the search:" do |table|
+  searchcriteria = table.rows_hash
+  searchcriteria.each do |field, value|
+    if ['Region', 'Greater Metropolitan Area', 'Subject Matter', 'Role at Restaurant'].include?(field)
+      check value
+    else
+      fill_in field, :with => value
+    end
+  end
+  click_button "Search"
 end
 
 
@@ -95,6 +108,10 @@ end
 Then /^the media request for "([^\"]*)" should be (.+)$/ do |username, status|
   media_requests = find_media_requests_for_username(username)
   media_requests.last.status.should == status
+end
+
+Then /^that media request should be (.+)$/ do |status|
+  @media_request.status.should == status
 end
 
 Then(/^"([^\"]*)" should have ([0-9]+) media requests?$/) do |username,num|

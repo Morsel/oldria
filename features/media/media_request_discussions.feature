@@ -20,6 +20,6 @@ Feature: Media request discussions
       | Message | Do you like cheesy potatoes? |
       | Status  | approved                     |
     And I am logged in as "sam" with password "secret"
-    Given I am on the media request conversation page
+    Given I am on the media request discussion page
     When I leave a comment with "Of course I love cheesy potatoes!"
     Then the media request should have 1 comment
