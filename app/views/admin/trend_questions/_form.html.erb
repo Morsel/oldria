@@ -6,10 +6,10 @@
     <%# f.input :expired_at, :selected => 3.months.from_now %>
   <% end %>
 
-  <%= render :partial => 'employment_criteria', :locals => {:f => f} %>
+  <%= render :partial => 'shared/employment_criteria', :locals => {:f => f} %>
 
   <div id="employment_list">
-    <%= render :partial => 'employment_list' %>
+    <%= render :partial => 'shared/employment_list' %>
   </div>
 
   <p><%= button_tag "Submit" %></p>

@@ -3,7 +3,7 @@ class EmploymentSearchesController < Admin::AdminController
   # Intended for AJAX updating
   def show
     search_setup
-    render :partial => "admin/trend_questions/employment_list"
+    render :partial => "shared/employment_list"
   end
 
   private
