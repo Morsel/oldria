@@ -2696,6 +2696,11 @@ tr.admin td, tr.featured td {
 	background-color: #fdc;
 }
 
+tr.media td {
+	 /* admin user list, media user highlighting */ 
+	 background-color: #b8ddff; 
+}
+
 tr.unconfirmed td {
   background-color: #ff9;
 }
