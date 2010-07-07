@@ -16,7 +16,7 @@
             <%= day.day %>
             <% events.each do |event| %>
                 <p><%= link_to event.title, event_link(event),
-                       :class => event.status %></p>
+                       :class => event.status %> <span class="small-disc"><%= event.child_count %></span></p>
             <% end %>
         <% end %>
     <% end %>

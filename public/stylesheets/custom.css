@@ -3073,7 +3073,7 @@ h2.primary_title{
 	line-height: 36px;
 }
 
-.message-actions .unread_comments_count {
+.message-actions .unread_comments_count, .small-disc {
   background: url('../images/blackbadge.png') no-repeat 0 0;
   color:#FFFFFF;
   display:block;
@@ -3092,7 +3092,8 @@ h2.primary_title{
 }
 
 .message-actions .action .unread_comments_count, 
-.message-actions .action_required .unread_comments_count {
+.message-actions .action_required .unread_comments_count,
+.small-disc {
 	background-image: url('../images/bluebadge_small.png');
 	background-position: 1px 0;
 }

@@ -39,4 +39,16 @@ class Event < ActiveRecord::Base
     end
   end
   
+  def child_count
+    unless self.restaurant_id
+      Event.count(:conditions => { :parent_id => self.id })
+    end
+  end
+  
+  def children
+    unless self.restaurant_id
+      Event.all(:conditions => { :parent_id => self.id })
+    end
+  end
+  
 end

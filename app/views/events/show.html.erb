@@ -9,5 +9,13 @@
 <%- else -%>
 <p><%= link_to "edit", edit_admin_event_path(:id => @event) %> | <%= link_to "delete", admin_event_path(:id => @event), :method => "delete" %></p>
 
+<div id="have_replied" class="conversations_list">
+  <h3>Accepted (<%= @event.child_count %>)</h3>
+
+  <table>
+    <%= render @event.children %>
+  </table>
+</div>
+
 <p><%= link_to "Back to calendars", admin_calendars_path %></p>
 <%- end -%>
