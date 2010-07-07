@@ -51,12 +51,19 @@ class MediaRequest < ActiveRecord::Base
   end
 
   def deliver_notifications
-    # for conversation in self.media_request_discussions
-    #   UserMailer.deliver_media_request_notification(self, conversation)
-    # end
+    for discussion in media_request_discussions
+      UserMailer.deliver_media_request_notification(self, discussion)
+    end
   end
   handle_asynchronously :deliver_notifications # Use delayed_job to send
 
+  def employments
+    employment_search.employments
+  end
+
+  def employment_ids
+    employment_search.employment_ids
+  end
 
   def discussion_with_restaurant(restaurant)
     media_request_discussions.first(:conditions => {:restaurant_id => restaurant.id})

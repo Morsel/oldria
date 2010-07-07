@@ -25,6 +25,10 @@ class EmploymentSearch < ActiveRecord::Base
     Employment.search(conditions) # searchlogic
   end
 
+  def employment_ids
+    employments.map(&:id).uniq
+  end
+
   def restaurants
     Restaurant.find(restaurant_ids)
   end

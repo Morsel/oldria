@@ -1,5 +1,5 @@
-<h2><%= @request.publication_string %> has a question for you.</h2>
+<h2><%= @request.publication_string %> has a question for <%= @discussion.restaurant.name %></h2>
 
 <p>Please login to SpoonFeed to view this request.</p>
 
-<p><a href="<%= media_request_discussion_url @request_discussion %>"><%= media_request_discussion_url @request_discussion %></a></p>
+<p><a href="<%= media_request_discussion_url @discussion %>"><%= media_request_discussion_url @discussion %></a></p>

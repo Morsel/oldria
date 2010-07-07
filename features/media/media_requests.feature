@@ -41,7 +41,7 @@ Feature: Media requests
     Then "sam" should have 0 media requests
     But "john" should have 1 media request
 
-@focus
+
   Scenario: Responding to a media request and conversations
     Given "sam" has a media request from "mediaman" with:
       | Message   | Do you like cheese? |
@@ -59,11 +59,10 @@ Feature: Media requests
     And I press "Post Comment"
     Then the media request should have 2 comments
 
-
-  Scenario: A media requests notifications are emailed to recipients
+@focus
+  Scenario: Approved media requests notifications are emailed to recipients
     Given "sam" has a media request from "mediaman" with:
       | Message | Where are the best mushrooms? |
-    And an admin has approved the media request from "mediaman"
+    And that media request is approved
     Then "sam@example.com" should have 1 email
     And "john@example.com" should have 0 emails
-    Given I am logged in as "sam" with password "secret"

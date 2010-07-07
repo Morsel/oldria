@@ -9,14 +9,15 @@ describe UserMailer do
     before(:all) do
       @sender = Factory.stub(:media_user, :email => "media@media.com")
       @receiver = Factory.stub(:user, :name => "Hambone Fisher", :email => "hammy@spammy.com")
-      @restaurant = Factory.stub(:restaurant)
+      @restaurant = Factory.stub(:restaurant, :name => "Bluefish")
       @employment = Factory.stub(:employment, :employee => @receiver, :restaurant => @restaurant)
       @request = Factory.stub(:media_request, :sender => @sender, :publication => "New York Times")
       @request_discussion = Factory.stub(:media_request_discussion, :media_request => @request, :restaurant => @restaurant)
+      @request_discussion.stubs(:employments).returns([@employment])
       @email = UserMailer.create_media_request_notification(@request, @request_discussion)
     end
-
-    xit "should be set to be delivered to the email passed in" do
+    
+    it "should be set to be delivered to the email passed in" do
       @email.should deliver_to("hammy@spammy.com")
     end
 
