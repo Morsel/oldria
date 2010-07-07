@@ -23,7 +23,7 @@ Feature: Media requests
     Then that media request should be pending
     And there should be 1 media request in the system
 
-@focus
+
   Scenario: Media Requests go to the assigned roles
     Given I am logged in as "mediaman" with password "secret"
     When I create a media request with message "Are cucumbers good in salad?" and criteria:
@@ -35,45 +35,26 @@ Feature: Media requests
 
   Scenario: Media Requests go to the assigned subject matters
     Given I am logged in as "mediaman" with password "secret"
-    When I search for "Eight Ball" restaurant
-    And I check "Eight Ball"
-    And I check "Food"
-    And I check "Beer"
-    And I check "Pastry"
-    And I press "Next"
-    And I create a new media request with:
-      | Message    | Eight Ball is good? |
-      | Due date   | 2009-10-10          |
-    Then I should see "media request will be sent shortly"
-    And the media request from "mediaman" should be pending
-    And there should be 1 media request in the system
-    And "sam" should have 1 media request
-    And "john" should have 1 media requests
+    When I create a media request with message "Are cucumbers good in salad?" and criteria:
+       | Subject Matter | Beer |
+    And that media request is approved
+    Then "sam" should have 0 media requests
+    But "john" should have 1 media request
 
-
-  Scenario: A new media request shows up on my dashboard
-    Given "sam" has a media request from "mediaman" with:
-      | Message | Where are the best mushrooms? |
-      | Status  | approved                      |
-    And "sam" has a media request from "mediaman" with:
-      | Message | This message has not been approved |
-      | Status  | pending                            |
-    And I am logged in as "sam" with password "secret"
-
-
+@focus
   Scenario: Responding to a media request and conversations
     Given "sam" has a media request from "mediaman" with:
       | Message   | Do you like cheese? |
       | Due date  | 2009-10-02          |
       | Status    | approved            |
     And I am logged in as "sam" with password "secret"
-    Given I am on the media request conversation page
+    When I go to the media request discussion page
     And I fill in "Comment" with "I love cheese!"
     And I press "Post Comment"
     Then the media request should have 1 comment
 
     Given I am logged in as "mediaman" with password "secret"
-    Given I am on the media request conversation page
+    Given I am on the media request discussion page
     And I fill in "Comment" with "Thanks for your quick response, Sam"
     And I press "Post Comment"
     Then the media request should have 2 comments

@@ -28,7 +28,8 @@ Given /^"([^\"]*)" has a media request from "([^\"]*)" with:$/ do |username, med
   employment = Factory(:employment, :employee => user)
   sender = User.find_by_username(mediauser)
   publication = table.rows_hash['Publication'] || sender.publication
-  Factory(:media_request, :recipients => [employment], :sender => sender, :message => message, :status => status, :publication => publication)
+  search = EmploymentSearch.new(:conditions => {:employee_id_eq => "#{user.id}"})
+  Factory(:media_request, :employment_search => search, :sender => sender, :message => message, :status => status, :publication => publication)
 end
 
 Given /^there are no media requests$/ do

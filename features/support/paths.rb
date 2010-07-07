@@ -49,7 +49,7 @@ module NavigationHelpers
       restaurant_calendars_path(:restaurant_id => Restaurant.find_by_name($1).id)
 
     # Media Requests
-    when /^the media request discussions page$/
+    when /^the media request discussion page$/
       media_request_discussion_path(MediaRequestDiscussion.last)
 
     # Admin pages
