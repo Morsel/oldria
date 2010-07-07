@@ -5,7 +5,7 @@ class Admin::CalendarsController < ApplicationController
     if params[:category] && (params[:category] != "all")
       @events = Event.for_month_of(@date).by_category(params[:category])
     else
-      @events = Event.for_month_of(@date).by_category(['admin_charity', 'admin_holiday'])
+      @events = Event.for_month_of(@date).from_ria
     end  
   end
   

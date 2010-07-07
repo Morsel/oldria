@@ -20,6 +20,8 @@ class Event < ActiveRecord::Base
     { :conditions => { :category => category } }
   }
   
+  named_scope :from_ria, :conditions => { :category => ['admin_charity', 'admin_holiday'] }
+  
   def date
     start_at
   end
