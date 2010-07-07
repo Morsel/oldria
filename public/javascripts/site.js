@@ -315,6 +315,19 @@ if (location.hash && location.hash.match(/user_\d+$/)) {
   userRowCells.animate({'background-color': '#ffffff'}, 700);
 }
 
+$('#criteria_accordion').accordion({
+	autoHeight: false,
+	header: '.accordion_box a',
+	change: function() {
+		$('.accordion_box').each(function(){
+			if($(this).find('input:checked').length > 0){
+				$(this).find('a').addClass('options_selected');
+			} else {
+				$(this).find('a').removeClass('options_selected');
+			}
+		})
+	}
+});
 
 $('.colorbox').colorbox({
 	initialWidth: 420,
@@ -336,3 +349,4 @@ function post_reply_text(){
 function close_box(){
 	$.fn.colorbox.close();
 }
+
