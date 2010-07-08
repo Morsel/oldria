@@ -36,4 +36,8 @@
 
 <%= render :partial => 'month_nav' %>
 
-<p><%= link_to "Add an event", new_restaurant_event_path(:restaurant_id => @restaurant.id) %></p>
+<p>
+<% link_to new_restaurant_event_path(:restaurant_id => @restaurant.id), :class => 'button positive' do %>
+  <%= image_tag('tick.png') %> Add an event
+<% end %>
+</p>
