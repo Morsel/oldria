@@ -3268,14 +3268,8 @@ h2.primary_title{
   margin: -2px -6px -5px -10px;
 }
 
-<<<<<<< HEAD:public/stylesheets/custom.css
-.message-actions .action .unread_comments_count, 
-.message-actions .action_required .unread_comments_count,
-.small-disc {
-=======
 .message-actions .action .unread_comments_count,
 .message-actions .action_required .unread_comments_count {
->>>>>>> master:public/stylesheets/custom.css
 	background-image: url('../images/bluebadge_small.png');
 	background-position: 1px 0;
 }
