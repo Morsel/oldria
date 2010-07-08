@@ -377,7 +377,7 @@ blockquote p {
 	font-family: Georgia, "trebuchet MS", "times new roman", serif;
 }
 
-#leftcolumn p img {
+.page-content p img {
 	float: left;
 	display: inline;
 	margin: 12px 16px 16px 0px;
@@ -1879,6 +1879,7 @@ ul.user_profile_actions {
 			color: #1d9bbb;
 			padding: 2px 5px;
 			text-transform:uppercase;
+			text-decoration:none;
 			border-radius: 10px;
 			-moz-border-radius: 10px;
 			-webkit-border-radius: 10px;
@@ -1940,7 +1941,10 @@ h3.function-bold{
 	background-color: #ddfadd;
 }
 
-
+.formtastic li {
+    margin-left:0;
+    padding-left:0;
+}
 
 .formtastic.comment fieldset, fieldset.plain {
 	border: 0 none;
@@ -2871,8 +2875,8 @@ tr.admin td, tr.featured td {
 }
 
 tr.media td {
-	 /* admin user list, media user highlighting */ 
-	 background-color: #b8ddff; 
+	 /* admin user list, media user highlighting */
+	 background-color: #b8ddff;
 }
 
 tr.unconfirmed td {
