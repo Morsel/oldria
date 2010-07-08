@@ -30,8 +30,8 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :restaurants do |restaurant|
     restaurant.media_requests 'media_requests', :controller => 'media_requests', :action => 'index'
     restaurant.resources :employees, :except => [:show]
-    restaurant.resources :calendars
-    restaurant.resources :events
+    restaurant.resources :calendars, :collection => { "ria" => :get }
+    restaurant.resources :events, :member => { "ria_details" => :get, "transfer" => :post }
   end
 
   map.resources :user_sessions, :password_resets, :followings, :pages
@@ -94,6 +94,8 @@ ActionController::Routing::Routes.draw do |map|
     admin.resources :media_requests, :member => { :approve => :put }
     admin.resources :restaurant_roles, :except => [:show]
     admin.resources :holidays
+    admin.resources :calendars
+    admin.resources :events
 
     # Admin Messaging
     exclusive_routes = [:index, :show, :destroy]

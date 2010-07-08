@@ -17,7 +17,7 @@ class TrendQuestion < ActiveRecord::Base
   acts_as_readable
   belongs_to :employment_search
 
-  has_many :admin_discussions, :as => :discussionable
+  has_many :admin_discussions, :as => :discussionable, :dependent => :destroy
   has_many :restaurants, :through => :admin_discussions
 
   named_scope :by_scheduled_date, :order => "#{table_name}.scheduled_at desc"

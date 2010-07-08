@@ -76,6 +76,14 @@ Factory.define :event do |f|
   f.category "Promotion"
 end
 
+Factory.define :admin_event, :parent => "event" do |f|
+  f.title "Summer Benefit"
+  f.start_at Date.today.beginning_of_day
+  f.end_at Date.today.end_of_day
+  f.location "the restaurant"
+  f.category "Charity"
+end
+
 # == Lookup Tables ==
 Factory.define :account_type do |f|
   f.name "Concierge"

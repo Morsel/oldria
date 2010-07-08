@@ -1,0 +1,11 @@
+<p>Calendar: <%= @event.calendar %></p>
+
+<%= @event.start_at.to_formatted_s(:short) %> - <%= @event.end_at.to_formatted_s(:short) %>
+
+<%= simple_format(@event.description) %>
+
+<p>Location: <%= @event.location %></p>
+
+<% if @event.status -%><p>Status: <%= @event.status %></p><%- end %>
+
+<%= render @event.attachments %>

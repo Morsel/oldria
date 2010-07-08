@@ -1,4 +1,4 @@
-/* @override http://spoonfeed.restaurantintelligenceagency.com/stylesheets/custom.css?1277911265 */
+/* @override http://staging.restaurantintelligenceagency.com/stylesheets/custom.css?1278620747 */
 
 /* colors
 dark brown: #3e2611;
@@ -162,6 +162,7 @@ div#header {
 
 #sidebar .section_body {
 	margin: 0 1em;
+	color: #333;
 }
 
 #sidebar h3 {
@@ -766,8 +767,10 @@ h2.with_icon img {
 }
 
 #new_status input {
-	font-size: 1.3em;
+	font-size: 1.2em;
+	line-height: 17px;
 	padding: 4px 5px;
+	margin-top: 0px;
 	font-family: 'helvetica neue', helvetica, arial, sans-serif;
 	color: #666;
 }
@@ -926,7 +929,7 @@ input.checkbox {
 }
 
 #user_status .username {
-	background-color: #cef;
+	background-color: #d9edf6;
 	background-color: rgba(0, 136, 193, .15);
 	color: #0088C1;
 	font-weight: bold;
@@ -1169,6 +1172,7 @@ div.restaurant {
 	background:url(/images/arrow2.png) no-repeat left;
 	display:inline-block;
 	margin:5px 0;
+	color: #333;
 }
 .restaurant .media_requests_count a{
 	background:0;
@@ -1180,6 +1184,10 @@ div.restaurant {
 .my_employers{
 	padding:10px 0 0;
 }
+
+.my_employers .restaurant {
+	margin-bottom: 8px;
+	}
 .my_employers a{
 	color:#e8750a;
 }
@@ -1372,25 +1380,125 @@ div.restaurant {
 	text-align: center;
 }
 
+/* ed worked here 7/8/10 */
+
+.calendar-categories {
+	padding: 10px;
+	border: 1px solid #ddd;
+	background: transparent url(../images/admin_messages_bg.gif) repeat-x;
+	background-position: 0px 100%;
+	margin-bottom: 22px;
+	clear: both;
+}
+
+.calendar-header {
+	position: relative;
+	display: block;
+	height: 36px;
+	background-color: #0088C1;
+	padding: 0px 12px;
+	-webkit-border-top-left-radius: 5px;
+	-webkit-border-top-right-radius: 5px;
+	-moz-border-radius-topleft: 5px;
+	-moz-border-radius-topright: 5px;
+	border-top-left-radius: 5px;
+	border-top-right-radius: 5px;
+}
+
+h3.this-month {
+	float: left;
+	display: inline;
+	color: #fff;
+	line-height: 36px;
+	font-size: 1.7em;
+	margin: 0px;
+	padding: 0px;
+	text-shadow: 0px 1px 0px #000;
+}
+
+.calendar-header p.month-nav {
+	margin: 5px 0px 0px 0px;
+	padding: 0px;
+	float: right;
+	display: inline;
+	font-size: 1em;
+}
+
+a.prev-month, a.next-month {
+	float: left;
+	display: line;
+	margin: 0px 0px 0px 5px;
+	padding:2px 14px;
+	background-color: #006a97;
+	color: #fff;
+	font-size: 1.2em;
+	font-weight: bold;
+	border-radius: 12px;
+	-webkit-border-radius: 12px;
+	-moz-border-radius: 12px;
+	text-shadow: 0px 1px 0px #000;
+}
+
+a.prev-month:hover, a.next-month:hover {
+	background-color: #69A74D;
+	color: #fff;
+	text-shadow: 0px 1px 0px #006691;
+}
+
+.calendar-footer p.month-nav {
+	float: right;
+	height: 32px;
+	margin: 6px 0px 25px 0px;
+}
+
+.calendar-footer a.prev-month, .calendar-footer a.next-month {
+	margin: 0px 0px 0px 5px;
+	background-color:
+}
+
+.calendar p {margin-top: 6px;}
+
+span.event-title {font-weight: bold;font-size: 1.2em;line-height: 15px;}
+span.event-time {font-size: .9em; color: #777;line-height: 12px;}
+
+.calendar table {
+	margin-bottom: 5px;
+}
+
+.calendar table th {
+	background-color: #d9edf6;
+	color: #0088C1;
+	border-bottom: 1px solid #bce3f5;
+	font-weight: normal;
+}
+
 .calendar table td {
-  vertical-align: top;
-  width: 14%;
+	font-size: .9em;
+	height: 70px;
+	color: #666;
+	font-family: 'helvetican neue', arial, sans-serif;
+	vertical-align: top;
+	width: 14%;
 }
 
 .calendar .notmonth {
-  color: #ccc;
+	color: #ccc;
 }
 
 .calendar .today {
-  background-color: #eef6fa;
+	background-color: #f0f6f8;
 }
 
 .calendar .Pending {
-  color: red;
+	color: red;
 }
 
 .calendar .Booked {
-  color: green;
+	color: #69A74D;
+}
+
+.calendar a.Booked:hover {
+	color: #3a7420;
 }
 
 /* @end */
@@ -2348,8 +2456,11 @@ table th {
 	font-size: 1em;
 	font-weight: bold;
 	color: #333;
-	border-bottom: 1px solid #c0d1e2;
-	background-color: #eef3f7;
+	border-bottom: 1px solid #ddd;
+	background-color: #d9edf6;
+	background-color: rgba(0, 0, 0, .05);
+	color: #777;
+	text-shadow: 0px 1px 0px #fff;
 }
 
 table tfoot th, table tfoot td {
@@ -2782,27 +2893,64 @@ table#legend {
 }
 
 #flashes {
+	font-family: gotham, 'lucida grande', helvetica, arial, sans-serif;
+	text-shadow: 0px 1px 0px #fff;
+	font-size: 1.4em;
+	font-weight: bold;
 	min-height: 30px;
 	margin-bottom: 1em;
 }
 
 #flash_notice, #flash_error, #flash_success {
-	padding: 5px 8px;
+	padding: 12px 20px 12px 46px;
 }
 
+#flash_notice {
+	background-image: url(../images/success.gif);
+	background-position: 15px 12px;
+	background-repeat: no-repeat;
+	}
+
 #flash_notice, #flash_success {
-	background-color: #CFC;
-	border: solid 1px #6C6;
+	color: #21a507;
+	background-color: #dff9cb;
+	border: solid 1px #beeb99;
+	border-bottom: solid 2px #beeb99;
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
+	border-radius: 3px;
 }
 
 #flash_error {
-	background-color: #FCC;
-	border: solid 1px #C66;
+	color: #ae0c08;
+	background-image: url(../images/error.png);
+	background-position: 15px 12px;
+	background-repeat: no-repeat;
+	background-color: #fae0e0;
+	border: solid 1px #f3b3b3;
+	border-bottom: solid 2px #f3b3b3;
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
+	border-radius: 3px;
 }
 
 #flash_error a {
-  color: white;
+  color: #770300;
+  text-decoration: underline;
 }
+
+#container .error {
+	padding: 10px;
+	border: solid 1px #f3b3b3;
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
+	border-radius: 3px;
+	}
+
+p.inline-errors {
+	font-weight: bold;
+	color: #b30e0e;
+	}
 
 .fieldWithErrors {
 	display: inline;
@@ -3250,7 +3398,7 @@ h2.primary_title{
 	line-height: 36px;
 }
 
-.message-actions .unread_comments_count {
+.message-actions .unread_comments_count, .small-disc {
   background: url('../images/blackbadge.png') no-repeat 0 0;
   color:#FFFFFF;
   display:block;

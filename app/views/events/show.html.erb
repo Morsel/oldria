@@ -1,15 +1,21 @@
 <% title @event.title %>
 
-<p>Calendar: <%= @event.category %></p>
+<%= render :partial => "events/details" %>
 
-<%= @event.start_at.to_formatted_s(:short) %> - <%= @event.end_at.to_formatted_s(:short) %>
-
-<%= simple_format(@event.description) %>
-
-<p>Location: <%= @event.location %></p>
-
-<%= render @event.attachments %>
-
+<%- if @restaurant -%>
 <p><%= link_to "edit", edit_restaurant_event_path(:restaurant_id => @restaurant, :id => @event) %> | <%= link_to "delete", restaurant_event_path(:restaurant_id => @restaurant, :id => @event), :method => "delete" %></p>
 
 <p><%= link_to "Back to calendars", restaurant_calendars_path(:restaurant_id => @restaurant) %></p>
+<%- else -%>
+<p><%= link_to "edit", edit_admin_event_path(:id => @event) %> | <%= link_to "delete", admin_event_path(:id => @event), :method => "delete" %></p>
+
+<div id="have_replied" class="conversations_list">
+  <h3>Accepted (<%= @event.child_count %>)</h3>
+
+  <table>
+    <%= render @event.children %>
+  </table>
+</div>
+
+<p><%= link_to "Back to calendars", admin_calendars_path %></p>
+<%- end -%>
