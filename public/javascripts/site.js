@@ -325,28 +325,30 @@ $('#criteria_accordion').accordion({
 			} else {
 				$(this).find('a').removeClass('options_selected');
 			}
-		})
+		});
 	}
 });
 
-$('.colorbox').colorbox({
-	initialWidth: 420,
-	maxWidth: 450
-});
 
-$('.close').live('click', function(){
-	close_box();
-});
+if (typeof($.fn.colorbox) != 'undefined') {
+    $('.colorbox').colorbox({
+        initialWidth: 420,
+        maxWidth: 450
+    });
 
-$('#new_quick_reply button').live('click', function(){
-	$(this).text('posting...');
-});
+    $('.close').live('click', function(){
+        close_box();
+    });
 
-function post_reply_text(){
-	$('#new_quick_reply button').text('Post Reply');
+    $('#new_quick_reply button').live('click', function(){
+        $(this).text('posting...');
+    });
+
+    function post_reply_text(){
+        $('#new_quick_reply button').text('Post Reply');
+    }
+
+    function close_box(){
+        $.fn.colorbox.close();
+    }
 }
-
-function close_box(){
-	$.fn.colorbox.close();
-}
-
