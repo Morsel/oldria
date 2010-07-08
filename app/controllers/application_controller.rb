@@ -8,6 +8,8 @@ class ApplicationController < ActionController::Base
   # Scrub sensitive parameters from your log
   filter_parameter_logging :password
 
+  before_filter :preload_resources
+
   helper_method :current_user
 
   rescue_from CanCan::AccessDenied do
@@ -123,6 +125,38 @@ class ApplicationController < ActionController::Base
     @ria_message_count = current_user.try(:ria_message_count)
     @private_message_count = current_user.try(:unread_direct_messages).try(:size)
     @discussions_count = current_user && (current_user.unread_discussions + current_user.discussions.with_comments_unread_by(current_user)).uniq.size
+  end
+
+
+
+  ##
+  # Employment saved-search methods
+  def search_setup(resource = nil)
+    if resource
+      @employment_search = if resource.employment_search
+        resource.employment_search
+      else
+        resource.build_employment_search(:conditions => params[:search] || {})
+      end
+      @search = @employment_search.employments #searchlogic
+    else
+      @search = EmploymentSearch.new(:conditions => params[:search]).employments
+    end
+
+    @restaurants_and_employments = @search.all(:include => [:restaurant, :employee]).group_by(&:restaurant)
+  end
+
+  def save_search
+    if params[:search] && defined?(@employment_search)
+      @employment_search.conditions = normalized_search_params
+      return @employment_search.save
+    end
+    false
+  end
+
+  def normalized_search_params
+    normalized = params[:search].reject{|k,v| v.blank? }
+    normalized.blank? ? {:id => ""} : normalized
   end
 
 end

@@ -6,10 +6,10 @@
 
 	<ul class="responses">
 	<% if media_request.reply_count > 0 %>
-		<% for conversation in media_request.conversations_with_comments %>
-				<% if comment = conversation.comments.not_user(current_user).last  %>
+		<% for discussion in media_request.discussions_with_comments %>
+				<% if comment = discussion.comments.not_user(current_user).last  %>
 			<li class="response">
-				<%= link_to last_comment_and_date_span(comment), conversation, :title => "Conversation with #{comment.user.name}"  %>
+				<%= link_to last_comment_and_date_span(comment), discussion, :title => "Discussion with #{discussion.restaurant.name}"  %>
 			</li>
 				<% end -%>
 		<% end %>

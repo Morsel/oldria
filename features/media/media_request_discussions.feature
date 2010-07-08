@@ -1,5 +1,5 @@
 @media @mediarequest
-Feature: Media request conversations
+Feature: Media request discussions
   So that I can can converse about an MR
   As a Media user or recipient of a media request
   I want to see a dated comment box with attachments on the MR conversation page, most recent on top
@@ -20,6 +20,6 @@ Feature: Media request conversations
       | Message | Do you like cheesy potatoes? |
       | Status  | approved                     |
     And I am logged in as "sam" with password "secret"
-    Given I am on the media request conversation page
+    Given I am on the media request discussion page
     When I leave a comment with "Of course I love cheesy potatoes!"
     Then the media request should have 1 comment

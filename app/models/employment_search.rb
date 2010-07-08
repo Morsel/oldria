@@ -13,6 +13,7 @@ class EmploymentSearch < ActiveRecord::Base
   has_one :trend_question
   has_one :content_request
   has_one :holiday
+  has_one :media_request
 
   serialize :conditions
 
@@ -22,6 +23,10 @@ class EmploymentSearch < ActiveRecord::Base
 
   def employments
     Employment.search(conditions) # searchlogic
+  end
+
+  def employment_ids
+    employments.map(&:id).uniq
   end
 
   def restaurants

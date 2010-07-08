@@ -1,4 +1,5 @@
 class AdminMessagesController < ApplicationController
+  skip_before_filter :preload_resources, :only => 'read'
 
   def show
     @admin_message = Admin::Message.find(params[:id])

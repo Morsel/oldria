@@ -1,13 +1,18 @@
 <% title "Calendars" %>
 
-<h3><%= @date.strftime("%B %Y") %></h3>
+<div class="calendar-categories">
+  <% form_tag '', :method => :get do %>
+      <%= hidden_field_tag "date", params[:date] if params[:date] %>
+      <%= select_tag "category",
+          options_for_select(["all"] + Event::CATEGORIES, :selected => params[:category]),
+          :onchange => "this.form.submit();" %>
+  <% end %>
+</div>
 
-<% form_tag '', :method => :get do %>
-    <%= hidden_field_tag "date", params[:date] if params[:date] %>
-    <%= select_tag "category", 
-        options_for_select(["all"] + Event::CATEGORIES, :selected => params[:category]), 
-        :onchange => "this.form.submit();" %>
-<% end %>
+<div class="calendar-header">
+  <h3 class="this-month"><%= @date.strftime("%B %Y") %></h3>
+  <%= render :partial => 'month_nav' %>
+</div>
 
 <div class="calendar">
     <% calendar_for(@events, :year => @date.year, :month => @date.month) do |t| %>
@@ -15,18 +20,26 @@
         <% t.day do |day, events| %>
             <%= day.day %>
             <% events.each do |event| %>
-                <p><%= link_to event.title, 
-                       restaurant_event_path(:restaurant_id => @restaurant, :id => event),
-                       :class => event.status %></p>
+                <p>
+                  <% link_to restaurant_event_path(:restaurant_id => @restaurant, :id => event),
+                       :class => event.status do %>
+                    <span class="event-title"><%= event.title %></span>
+                    <span class="event-time">
+                      <%= event.start_at.try(:strftime, "%I:%M%p") %> &ndash;
+                      <%= event.end_at.try(:strftime, "%I:%M%p")  %>
+                    </span>
+                  <% end -%>
+                </p>
             <% end %>
         <% end %>
     <% end %>
 </div>
+<div class="calendar-footer">
+  <%= render :partial => 'month_nav' %>
+</div>
 
 <p>
-    <%= link_to "<< previous", restaurant_calendars_path(:restaurant_id => @restaurant, :date => (@date - 1.month).to_s) %>
-    &nbsp;&nbsp;&nbsp;
-    <%= link_to "next >>", restaurant_calendars_path(:restaurant_id => @restaurant, :date => (@date + 1.month).to_s) %>
+<% link_to new_restaurant_event_path(:restaurant_id => @restaurant.id), :class => 'button positive' do %>
+  <%= image_tag('tick.png') %> Add an event
+<% end %>
 </p>
-
-<p><%= link_to "Add an event", new_restaurant_event_path(:restaurant_id => @restaurant.id) %></p>

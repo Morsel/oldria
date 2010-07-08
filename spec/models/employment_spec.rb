@@ -20,9 +20,6 @@ describe Employment do
   should_have_many :responsibilities
   should_have_many :subject_matters, :through => :responsibilities
   
-  should_have_many :media_request_conversations
-  should_have_many :media_requests, :through => :media_request_conversations
-  
   should_have_many :admin_conversations
   should_have_many :admin_messages, :through => :admin_conversations
   
@@ -75,14 +72,22 @@ describe Employment do
   describe "multiple selection search" do
     before do
       @restaurant = Factory(:restaurant)
-      @user = Factory(:user, :name => "Jimmy Dorian", :email => "dorian@rd.com")
-      @employment = Employment.create!(:employee_id => @user.id, :restaurant_id => @restaurant.id)
+      @employment = Factory(:employment, :restaurant => @restaurant)
     end
     
     it "should return the right items for the search" do
       Employment.search({"restaurant_id_equals_any"=>["1", "2"]}).all.should == [@employment]
-    end
-    
+    end  
+  end
+  
+  it "should have many viewable media requests" do
+    employment = Factory(:employment)
+    employment.viewable_media_requests.should == []
+  end
+
+  it "should have many viewable media requests" do
+    employment = Factory(:employment)
+    employment.viewable_media_requests.should == []
   end
 
 end
