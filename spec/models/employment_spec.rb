@@ -82,12 +82,6 @@ describe Employment do
   
   it "should have many viewable media requests" do
     employment = Factory(:employment)
-    employment.viewable_media_requests.should == []
+    employment.viewable_media_request_discussions.should == []
   end
-
-  it "should have many viewable media requests" do
-    employment = Factory(:employment)
-    employment.viewable_media_requests.should == []
-  end
-
 end
