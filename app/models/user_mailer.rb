@@ -23,7 +23,7 @@ class UserMailer < ActionMailer::Base
     from       'notifications@restaurantintelligenceagency.com'
     recipients discussion.employments.map(&:employee_email).uniq
     sent_on    Time.now
-    subject    "SpoonFeed: #{request.publication_string} has a question for #{discussion.restaurant}"
+    subject    "SpoonFeed: #{request.publication_string} has a question for #{discussion.restaurant.name}"
     body       :request => request, :discussion => discussion
   end
 
