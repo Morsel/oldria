@@ -11,6 +11,12 @@ class CalendarsController < ApplicationController
     end
   end
   
+  def ria
+    @date = params[:date] ? Date.parse(params[:date]) : Date.today
+    @events = Event.from_ria
+    render :template => "admin/calendars/index"
+  end
+  
   private
   
   def find_restaurant

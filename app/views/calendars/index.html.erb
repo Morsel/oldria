@@ -39,7 +39,12 @@
 </div>
 
 <p>
-<% link_to new_restaurant_event_path(:restaurant_id => @restaurant.id), :class => 'button positive' do %>
-  <%= image_tag('tick.png') %> Add an event
-<% end %>
+    <% link_to new_restaurant_event_path(:restaurant_id => @restaurant.id), :class => 'button positive' do %>
+      <%= image_tag('tick.png') %> Add an event
+    <% end %>
+</p>
+<p>
+    <% link_to ria_restaurant_calendars_path(:restaurant_id => @restaurant.id), :class => "button positive" do %>
+      Browse RIA events
+    <% end %>
 </p>

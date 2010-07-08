@@ -3250,7 +3250,7 @@ h2.primary_title{
 	line-height: 36px;
 }
 
-.message-actions .unread_comments_count {
+.message-actions .unread_comments_count, .small-disc {
   background: url('../images/blackbadge.png') no-repeat 0 0;
   color:#FFFFFF;
   display:block;

@@ -1,0 +1,7 @@
+<% title "Transfer RIA Event" %>
+
+<h3><%= @event.title %></h3>
+
+<%= render :partial => "details" %>
+
+<%= button_to "Use this event", transfer_restaurant_event_path(:restaurant_id => @restaurant.id, :id => @event) %>

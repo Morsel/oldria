@@ -41,6 +41,25 @@ class EventsController < CalendarsController
     redirect_to restaurant_calendars_path(@restaurant)
   end
   
+  def ria_details
+    find_event
+  end
+  
+  def transfer
+    find_event
+    new_event = Event.new(@event.attributes)
+    new_event.category = @event.calendar
+    new_event.parent_id = @event.id
+    new_event.restaurant = @restaurant
+    if new_event.save
+      flash[:notice] = "Added #{new_event.title} to your calendar"
+      redirect_to restaurant_calendars_path(@restaurant, :date => new_event.start_at.to_date)
+    else
+      flash[:error] = "We are unable to save your event."
+      redirect_to :action => "ria_details", :id => @event, :restaurant_id => @restaurant
+    end
+  end
+  
   private
   
   def find_event
