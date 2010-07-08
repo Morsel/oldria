@@ -21,7 +21,10 @@
                   <% link_to restaurant_event_path(:restaurant_id => @restaurant, :id => event),
                        :class => event.status do %>
                     <span class="event-title"><%= event.title %></span>
-                    <span class="event-time"><%= event.start_at %> - <%= event.end_at %></span>
+                    <span class="event-time">
+                      <%= event.start_at.try(:strftime, "%I:%M%p") %> &ndash;
+                      <%= event.end_at.try(:strftime, "%I:%M%p")  %>
+                    </span>
                   <% end -%>
                 </p>
             <% end %>
