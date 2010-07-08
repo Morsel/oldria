@@ -1,15 +1,19 @@
 <% title "New Media Request" %>
 <% semantic_form_for(@media_request) do |f| %>
-  <% f.inputs do %>
-    <%= f.input :message %>
-    <%= f.input :due_date %>
-  <% end %>
+    <% f.inputs do %>
+      <%= f.input :message %>
 
-  <%= render :partial => 'shared/employment_criteria', :locals => {:f => f} %>
+      <%= render :partial => 'shared/employment_criteria', :locals => {:f => f} %>
 
-  <div id="employment_list">
-    <%= render :partial => 'shared/employment_list' %>
-  </div>
+      <div id="employment_list">
+        <%= render :partial => 'shared/employment_list' %>
+      </div>
 
-  <p><%= button_tag "Submit" %></p>
+      <%= f.input :due_date %>
+    <% end %>
+
+    <p><%= button_tag "Submit" %></p>
 <% end %>
+
+
+
