@@ -1,3 +1,5 @@
+/* @override http://staging.restaurantintelligenceagency.com/stylesheets/custom.css?1278620747 */
+
 /* colors
 dark brown: #3e2611;
 alt dark brown: #49341f;
@@ -2891,27 +2893,64 @@ table#legend {
 }
 
 #flashes {
+	font-family: gotham, 'lucida grande', helvetica, arial, sans-serif;
+	text-shadow: 0px 1px 0px #fff;
+	font-size: 1.4em;
+	font-weight: bold;
 	min-height: 30px;
 	margin-bottom: 1em;
 }
 
 #flash_notice, #flash_error, #flash_success {
-	padding: 5px 8px;
+	padding: 12px 20px 12px 46px;
 }
 
+#flash_notice {
+	background-image: url(../images/success.gif);
+	background-position: 15px 12px;
+	background-repeat: no-repeat;
+	}
+
 #flash_notice, #flash_success {
-	background-color: #CFC;
-	border: solid 1px #6C6;
+	color: #21a507;
+	background-color: #dff9cb;
+	border: solid 1px #beeb99;
+	border-bottom: solid 2px #beeb99;
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
+	border-radius: 3px;
 }
 
 #flash_error {
-	background-color: #FCC;
-	border: solid 1px #C66;
+	color: #ae0c08;
+	background-image: url(../images/error.png);
+	background-position: 15px 12px;
+	background-repeat: no-repeat;
+	background-color: #fae0e0;
+	border: solid 1px #f3b3b3;
+	border-bottom: solid 2px #f3b3b3;
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
+	border-radius: 3px;
 }
 
 #flash_error a {
-  color: white;
+  color: #770300;
+  text-decoration: underline;
 }
+
+#container .error {
+	padding: 10px;
+	border: solid 1px #f3b3b3;
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
+	border-radius: 3px;
+	}
+
+p.inline-errors {
+	font-weight: bold;
+	color: #b30e0e;
+	}
 
 .fieldWithErrors {
 	display: inline;
