@@ -13,6 +13,7 @@ class MediaRequestsController < ApplicationController
 
   def new
     @media_request = current_user.media_requests.build(params[:media_request])
+    @media_request.attachments.build
     search_setup(@media_request)
   end
 
