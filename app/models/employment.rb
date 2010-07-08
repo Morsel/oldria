@@ -67,7 +67,25 @@ class Employment < ActiveRecord::Base
   end
 
   def viewable_media_requests
-    restaurant.media_requests.select {|mr| mr.viewable_by? self }
+    omniscient ? restaurant.media_requests.all : filter_only_viewable(restaurant.media_requests.all)
+  end
+
+  def viewable_admin_discussions
+    omniscient? ? all_media_requests : filter_only_viewable(all_media_requests)
+  end
+
+  def current_viewable_admin_discussions
+    viewable_admin_discussions.select {|discussion| discussion.scheduled_at < Time.now }
+  end
+
+  private
+
+  def all_media_requests(find_options = {})
+    restaurant.admin_discussions.all({:include => :discussionable}.merge(find_options))
+  end
+
+  def filter_only_viewable(collection)
+    collection.select {|element| element.viewable_by? self }
   end
 
 end

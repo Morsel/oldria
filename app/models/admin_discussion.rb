@@ -56,6 +56,10 @@ class AdminDiscussion < ActiveRecord::Base
     !read_by?(user) && comments_count > 0 && (comments.last.user != user)
   end
 
+  def viewable_by?(employment)
+    discussionable.viewable_by?(employment)
+  end
+
   ##
   # Should only be called from an external observer.
   def notify_recipients
