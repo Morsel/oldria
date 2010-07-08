@@ -1,15 +1,17 @@
 <% title "Calendars" %>
 
-<h3><%= @date.strftime("%B %Y") %></h3>
+<div class="calendar-categories">
+  <% form_tag '', :method => :get do %>
+      <%= hidden_field_tag "date", params[:date] if params[:date] %>
+      <%= select_tag "category",
+          options_for_select(["all"] + Event::CATEGORIES, :selected => params[:category]),
+          :onchange => "this.form.submit();" %>
+  <% end %>
+</div>
+
+<h3 class="this-month"><%= @date.strftime("%B %Y") %></h3>
 
 <%= render :partial => 'month_nav' %>
-
-<% form_tag '', :method => :get do %>
-    <%= hidden_field_tag "date", params[:date] if params[:date] %>
-    <%= select_tag "category",
-        options_for_select(["all"] + Event::CATEGORIES, :selected => params[:category]),
-        :onchange => "this.form.submit();" %>
-<% end %>
 
 <div class="calendar">
     <% calendar_for(@events, :year => @date.year, :month => @date.month) do |t| %>
