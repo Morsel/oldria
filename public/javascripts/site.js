@@ -315,24 +315,40 @@ if (location.hash && location.hash.match(/user_\d+$/)) {
   userRowCells.animate({'background-color': '#ffffff'}, 700);
 }
 
-
-$('.colorbox').colorbox({
-	initialWidth: 420,
-	maxWidth: 450
+$('#criteria_accordion').accordion({
+	autoHeight: false,
+	header: '.accordion_box a',
+	change: function() {
+		$('.accordion_box').each(function(){
+			if($(this).find('input:checked').length > 0){
+				$(this).find('a').addClass('options_selected');
+			} else {
+				$(this).find('a').removeClass('options_selected');
+			}
+		});
+	}
 });
 
-$('.close').live('click', function(){
-	close_box();
-});
 
-$('#new_quick_reply button').live('click', function(){
-	$(this).text('posting...');
-});
+if (typeof($.fn.colorbox) != 'undefined') {
+    $('.colorbox').colorbox({
+        initialWidth: 420,
+        maxWidth: 450
+    });
 
-function post_reply_text(){
-	$('#new_quick_reply button').text('Post Reply');
-}
+    $('.close').live('click', function(){
+        close_box();
+    });
 
-function close_box(){
-	$.fn.colorbox.close();
+    $('#new_quick_reply button').live('click', function(){
+        $(this).text('posting...');
+    });
+
+    function post_reply_text(){
+        $('#new_quick_reply button').text('Post Reply');
+    }
+
+    function close_box(){
+        $.fn.colorbox.close();
+    }
 }

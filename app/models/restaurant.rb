@@ -34,7 +34,8 @@ class Restaurant < ActiveRecord::Base
            :through => :employments,
            :source => :employee,
            :conditions => {:employments => {:omniscient => true}}
-  has_many :media_request_conversations, :through => :employments
+  has_many :media_request_discussions
+  has_many :media_requests, :through => :media_request_discussions
   has_many :admin_discussions, :dependent => :destroy
   has_many :holiday_discussions, :dependent => :destroy
   has_many :holidays, :through => :holiday_discussions
@@ -43,7 +44,7 @@ class Restaurant < ActiveRecord::Base
            :source => :discussionable, :source_type => 'TrendQuestion'
   has_many :content_requests, :through => :admin_discussions,
            :source => :discussionable, :source_type => 'ContentRequest'
-           
+
   has_many :events
 
   after_validation_on_create :add_manager_as_employee
@@ -59,16 +60,6 @@ class Restaurant < ActiveRecord::Base
 
   def missing_subject_matters
     SubjectMatter.find(missing_subject_matter_ids)
-  end
-
-  def media_requests
-    return [] if media_request_ids.blank?
-    MediaRequest.scoped(:conditions => {:id => media_request_ids})
-  end
-
-  def media_request_ids
-    return [] if media_request_conversations.blank?
-    media_request_conversations.reject(&:blank?).map(&:media_request_id).uniq
   end
 
   def destroy_without_callbacks

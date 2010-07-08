@@ -306,16 +306,13 @@ ActiveRecord::Schema.define(:version => 20100707183528) do
     t.datetime "updated_at"
   end
 
-  create_table "media_request_conversations", :force => true do |t|
+  create_table "media_request_discussions", :force => true do |t|
     t.integer  "media_request_id"
-    t.integer  "recipient_id"
+    t.integer  "restaurant_id"
+    t.integer  "comments_count"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "comments_count",   :default => 0
   end
-
-  add_index "media_request_conversations", ["media_request_id"], :name => "index_media_request_conversations_on_media_request_id"
-  add_index "media_request_conversations", ["recipient_id"], :name => "index_media_request_conversations_on_recipient_id"
 
   create_table "media_request_types", :force => true do |t|
     t.string   "name"
@@ -336,6 +333,7 @@ ActiveRecord::Schema.define(:version => 20100707183528) do
     t.string   "status"
     t.string   "publication"
     t.boolean  "admin",                 :default => false
+    t.integer  "employment_search_id"
   end
 
   create_table "metropolitan_areas", :force => true do |t|

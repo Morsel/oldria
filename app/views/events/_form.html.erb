@@ -20,7 +20,7 @@
             <%= f.input :title %>
             <%= f.input :start_at, :label => "Start Date" %>
             <%= f.input :end_at, :label => "End Date" %>
-            <div id="event-status" style="<%= form_display(event) %>">
+            <div id="event-status" style="<%= status_display(event) %>">
                 <%= f.input :status, :as => 'select', :collection => Event::STATUSES %>
             </div>
             <%= f.input :location %>

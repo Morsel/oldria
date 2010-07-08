@@ -1,6 +1,4 @@
 ActionController::Routing::Routes.draw do |map|
-  map.resources :quick_replies
-
   map.signup 'signup', :controller => 'users', :action => 'new'
   map.login  'login',  :controller => 'user_sessions', :action => 'new'
   map.logout 'logout', :controller => 'user_sessions', :action => 'destroy'
@@ -10,9 +8,10 @@ ActionController::Routing::Routes.draw do |map|
 
   map.profile 'profile/:username', :controller => 'users', :action => 'show'
 
+  map.resources :quick_replies
   map.resources :media_users, :except => [:index, :show]
   map.resources :media_requests, :except => [:index]
-  map.resources :media_request_conversations, :only => [:show, :update] do |mrc|
+  map.resources :media_request_discussions, :only => [:show, :update] do |mrc|
     mrc.resources :comments, :only => [:new, :create]
   end
 
