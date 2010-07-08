@@ -2,7 +2,7 @@ class ChangeCommentsCountDefaultOnMediaRequestDiscussions < ActiveRecord::Migrat
   def self.up
     change_column_default :media_request_discussions, :comments_count, 0
 
-    MediaRequestDiscussion.each do |mrd|
+    MediaRequestDiscussion.all.each do |mrd|
       mrd.comments_count || mrd.update_attribute(:comments_count, 0)
     end
   end
