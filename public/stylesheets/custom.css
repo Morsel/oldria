@@ -2193,6 +2193,10 @@ ul.mini_menu li {
 	margin-left:25px;
 }
 
+.media_request_discussion .message-details {
+	margin-left:0;
+}
+
 .inbox_message .message-actions {
 	margin: 0;
 	border-top: 1px solid #ccc;
@@ -3465,6 +3469,7 @@ h2.primary_title{
 	display:block;
 	padding:5px 10px;
 	border-bottom:1px dashed #ddd;
+	text-decoration:none;
 }
 #messages_nav a:hover{
 	color:#000;

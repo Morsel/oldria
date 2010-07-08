@@ -66,8 +66,8 @@ class Employment < ActiveRecord::Base
     "#{employee_name} (#{restaurant_name})"
   end
 
-  def viewable_media_requests
-    omniscient ? restaurant.media_requests.all : filter_only_viewable(restaurant.media_requests.all)
+  def viewable_media_request_discussions
+    omniscient ? restaurant.media_request_discussions.all : filter_only_viewable(restaurant.media_request_discussions.all)
   end
 
   def viewable_admin_discussions

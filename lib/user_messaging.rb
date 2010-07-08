@@ -1,8 +1,8 @@
 module UserMessaging
 
   # Received Media requests
-  def received_media_requests
-    employments.map(&:viewable_media_requests).flatten
+  def viewable_media_request_discussions
+    employments.map(&:viewable_media_request_discussions).flatten
   end
 
   # User Messages
