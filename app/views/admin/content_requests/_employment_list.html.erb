@@ -1,9 +1,0 @@
-    <h3>Currently, this can be seen by:</h3>
-    <ul class="clearfix">
-    <% @restaurants_and_employments.each do |restaurant, employments| %>
-      <li class="restaurant_and_employees span-5 append-1 column<%= cycle(' clear','',' last') %>">
-        <h3><%= restaurant.name %></h3>
-        <%= employments.map(&:employee_name).to_sentence %>
-      </li>
-    <% end %>
-    </ul>

@@ -3688,19 +3688,19 @@ h2.primary_title{
 /* @end */
 
 /* ## New Trend Question --------------------------------------------- */
-#new_trend_question fieldset{
+#new_trend_question fieldset, #new_content_request fieldset{
 	border:0;
 	margin:0;
 	padding:0;
 }
-#trend_question_body{
+#trend_question_body, #content_request_body{
 	height:100px;
 }
 .form_basics{
 	background:#f5f5f5;
 	padding:10px;
 }
-#new_trend_question label{
+#new_trend_question label, #new_content_request label{
 	font-weight:bold;
 }
 .form_basics input, .form_basics textarea{
@@ -3712,14 +3712,14 @@ h2.primary_title{
 	box-shadow:0 1px 3px #d0d0d0;
 }
 
-#new_trend_question h4{
+#new_trend_question h4, #new_content_request h4{
 	margin:20px 0 5px;
 	padding:0 0 5px;
 	border-bottom:1px solid #ddd;
 	font:bold 1em "Lucida Grande", Arial, Verdana, sans-serif;
 }
 
-#new_trend_question li.datetime{
+#new_trend_question li.datetime, #new_content_request li.datetime{
 	margin:0 10px 0 0;
 }
 
