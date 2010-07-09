@@ -2910,14 +2910,11 @@ table#legend {
 	padding: 12px 20px 12px 46px;
 }
 
-#flash_notice {
+#flash_notice, #flash_success {
+	color: #21a507;
 	background-image: url(../images/success.gif);
 	background-position: 15px 12px;
 	background-repeat: no-repeat;
-	}
-
-#flash_notice, #flash_success {
-	color: #21a507;
 	background-color: #dff9cb;
 	border: solid 1px #beeb99;
 	border-bottom: solid 2px #beeb99;

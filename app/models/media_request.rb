@@ -70,7 +70,7 @@ class MediaRequest < ActiveRecord::Base
   end
 
   def publication_string
-    "A writer" + from_publication
+    "A journalist/blogger" + from_publication
   end
 
   def reply_count
