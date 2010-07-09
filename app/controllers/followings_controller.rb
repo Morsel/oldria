@@ -14,12 +14,13 @@ class FollowingsController < ApplicationController
   
   def destroy
     @following = current_user.followings.find(params[:id])
+    @user = @following.friend
     if @following.destroy
       flash[:notice] = "OK, you aren't following them anymore."
     else
       flash[:error] = "Could not unfollow"
     end
-    redirect_to root_url
+    redirect_to profile_path(@user.username)
   end
 
 end

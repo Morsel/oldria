@@ -13,7 +13,7 @@ class UsersController < ApplicationController
   def show
     get_user
     # Is the current user following this person?
-    @following = current_user.friends.first(:conditions => {:id => @user.id})
+    @following = current_user.followings.first(:conditions => {:friend_id => @user.id})
     @latest_statuses = @user.statuses.all(:limit => 5)
   end
 
