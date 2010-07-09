@@ -1,7 +1,8 @@
 <div id="ria_labs" class="ria_labs sidebar_section">
   <div class="section_header"><h3 class="function-bold">RIA Labs</h3></div>
   <div class="section_body">
-      <% unless @current_user_restaurants.blank? -%>
+    <div class="new_feature calendars">
+        <% unless @current_user_restaurants.blank? -%>
         <h4>Try out the new restaurant calendar:</h4>
         <% @current_user_restaurants.each do |restaurant| %>
           <% div_for restaurant do %>
@@ -9,9 +10,10 @@
           <% end -%>
         <% end -%>
       <% end -%>
-      <div>
+    </div>
+    <div class="new_feature external-conversations">
           <h4>Talk to other spoonfeed users:</h4>
-          <p>
+          <p class="start_discussion">
             <%= link_to image_tag('quotebubble.png') + "Start a conversation", new_conversation_path, :class => 'sf-button alt top' %>
           </p>
       </div>

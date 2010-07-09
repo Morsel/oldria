@@ -1,5 +1,3 @@
-/* @override http://staging.restaurantintelligenceagency.com/stylesheets/custom.css?1278620747 */
-
 /* colors
 dark brown: #3e2611;
 alt dark brown: #49341f;
@@ -464,7 +462,6 @@ ol li {
 			font-size: 1em;
 		}
 
-
 .page_actions {
 	float: right;
 	padding-top:3px;
@@ -603,7 +600,7 @@ a.sf-button.alt:hover {
 	margin-top:1em;
 }
 
-#my_restaurants h4 {
+#my_restaurants h4, #ria_labs h4 {
 	color: #999;
 	margin: 0;
 	font-size: 1em;
@@ -628,7 +625,7 @@ h2.with_icon {
 	text-transform:uppercase;
 	padding: 4px 0 0px 36px;
 	margin:0 0 16px;
-	border-bottom: 1px dashed #ccc;
+	border-bottom: 1px dotted #ccc;
 	position: relative;
 }
 
@@ -668,7 +665,7 @@ h2.with_icon img {
 #navigation li a {
 	color: #fff;
 	text-decoration: none;
-	border-right: 1px dashed #777;
+	border-right: 1px dotted #777;
 	padding: 5px 9px 3px;
 	line-height: 1;
 	display: block;
@@ -855,7 +852,7 @@ input.checkbox {
 .status {
 	padding-bottom: 2px;
 	margin-bottom: 8px;
-	border-bottom: 1px dashed #ddd;
+	border-bottom: 1px dotted #ddd;
 }
 
 .message {
@@ -884,6 +881,7 @@ input.checkbox {
 	overflow: hidden;
 	padding: 1em;
 	border: 1px solid #ddd;
+	border-bottom: 2px solid #ddd;
 }
 
 #user_status p {
@@ -1035,7 +1033,7 @@ input.checkbox {
 }
 
 .direct_message h5 a{
-	border-bottom: 1px dashed #ccc;
+	border-bottom: 1px dotted #ccc;
 }
 
 .direct_message .sender_avatar, .discussion .sender_avatar {
@@ -1058,7 +1056,7 @@ input.checkbox {
 }
 
 .direct_message .message_title, .discussion .message_title {
-	border-bottom: 1px dashed #ddd;
+	border-bottom: 1px dotted #ddd;
 	width: 382px;
 	font-size: 11px;
 	line-height: 18px;
@@ -1171,8 +1169,9 @@ div.restaurant {
 	padding-left:15px;
 	background:url(/images/arrow2.png) no-repeat left;
 	display:inline-block;
-	margin:5px 0;
+	margin:3px 0;
 	color: #333;
+	line-height: 15px;
 }
 .restaurant .media_requests_count a{
 	background:0;
@@ -1181,13 +1180,12 @@ div.restaurant {
 .my_restaurants a{
 	color:#008bc4;
 }
-.my_employers{
-	padding:10px 0 0;
+
+.my_employers, .new_feature {
+	margin:10px 0 0;
 }
 
-.my_employers .restaurant {
-	margin-bottom: 8px;
-	}
+.my_employers .restaurant {}
 .my_employers a{
 	color:#e8750a;
 }
@@ -1237,7 +1235,7 @@ div.restaurant {
 }
 
 .employment {
-	border-top: 1px dashed #ccc;
+	border-top: 1px dotted #ccc;
 }
 
 .employment * {
@@ -1344,7 +1342,7 @@ div.restaurant {
 #directory .restaurant {
 	margin-bottom: 1em;
 	padding-bottom: 1em;
-	border-bottom: 1px dashed #ddd;
+	border-bottom: 1px dotted #ddd;
 }
 
 .restaurant .employees {
@@ -1380,7 +1378,9 @@ div.restaurant {
 	text-align: center;
 }
 
-/* ed worked here 7/8/10 */
+/* @end */
+
+/* @group calendar --------------- */
 
 .calendar-categories {
 	padding: 10px;
@@ -1500,6 +1500,25 @@ span.event-time {font-size: .9em; color: #777;line-height: 12px;}
 .calendar .Booked {
 	color: #276B96;
 }
+
+.event-meta {margin: 7px 0px 14px 0px;}
+
+.event-meta dt {
+	margin: 0px 0px 4px 0px;
+	float: left;
+	display: inline;
+	width: 80px;
+	clear: left;
+	}
+
+.event-meta dt:after {content: ":";}
+
+.event-meta dd {
+	margin: 0px 0px 4px 0px;
+	float: left;
+	}
+
+
 
 /* @end */
 
@@ -1644,7 +1663,7 @@ ul.responses {
 }
 
 .media_request.summary {
-	border-bottom: 	1px dashed #ddd;
+	border-bottom: 	1px dotted #ddd;
 	padding-bottom: 8px;
 	margin-bottom: 	9px;
 }
@@ -1786,7 +1805,7 @@ ul.responses {
 .attachments-header, .form-header {
 	font-size: 1em;
 	margin: 1em 0;
-	border-bottom: 1px dashed #ddd;
+	border-bottom: 1px dotted #ccc;
 	line-height: 20px;
 	font-family: 'Lucida Grande', arial, sans-serif;
 	color: #444;
@@ -1825,7 +1844,7 @@ p.editprofile a {
 }
 
 p.editprofile a:hover {
-	background-color: #1d9bbb;
+	background-color: #0089c2;
 	color: #fff;
 }
 
@@ -1971,6 +1990,8 @@ ul.user_profile_actions {
 		font-size: .9em;
 		}
 
+#sidebar p.start_discussion {margin-top: 12px;}
+
 		.button{
 			font-family:'helvetica neue', helvetica, tahoma, arial, sans-serif;
 		}
@@ -2007,6 +2028,40 @@ h3.function-bold{
 	font-weight:normal;
 	font-size:14px;
 }
+
+p.event-actions {margin: 5px 0px 0px 0px;}
+
+p.event-actions a {
+	color: #fff;
+	text-shadow: 0px 1px 0px #333;
+	padding: 3px 10px 4px 10px;
+	background-color: #0089c2;
+	-moz-border-radius: 11px;
+	-webkit-border-radius: 11px;
+	border-radius: 11px;
+	border: none;
+	margin-left: 3px;
+	}
+
+p.event-actions a:hover {
+	color: #0089c2;
+	text-shadow: 0px 1px 0px #fff;
+	background-color: #d9edf6;
+	}
+
+.event-actions a.edit-event {
+	line-height: 20px;
+	padding-left: 22px;
+	background: #0089c2 url(../images/edit.png) no-repeat;
+	background-position: 6px 4px;
+	}
+
+.event-actions a.delete-event {
+	line-height: 20px;
+	padding-left: 22px;
+	background: #0089c2 url(../images/ex.png) no-repeat;
+	background-position: 6px 4px;
+	}
 
 
 #user_content p.more_statuses {
@@ -2165,7 +2220,7 @@ ul.mini_menu li {
 	font-weight: bold;
 	padding: 0;
 	margin: 0 0 3px;
-	border-bottom:1px dashed #ddd;
+	border-bottom:1px dotted #ddd;
 }
 .inbox_message .message-title span{
 	color:#848484;
@@ -3466,7 +3521,7 @@ h2.primary_title{
 #messages_nav a{
 	display:block;
 	padding:5px 10px;
-	border-bottom:1px dashed #ddd;
+	border-bottom:1px dotted #ddd;
 	text-decoration:none;
 }
 #messages_nav a:hover{
