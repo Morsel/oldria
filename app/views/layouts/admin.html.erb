@@ -72,6 +72,9 @@
 				<%- end -%>
 			</div>
 
+            <div class="page_actions">
+              <%= yield(:page_actions) %>
+            </div>
 			<%- if show_title? -%>
 			  <div class="clearfix">
 			    <h1><%=h yield(:title) %></h1>
