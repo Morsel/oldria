@@ -109,9 +109,6 @@ jQuery.fn.attachmentCloner = function() {
     // Remove from DOM, but not memory
     $attachmentFieldPrototype.detach();
 
-    // Let's do this!
-    smartCloneAttachment();
-
   });
 };
 
