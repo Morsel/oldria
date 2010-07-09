@@ -12,7 +12,7 @@ end
 
 def find_media_requests_for_username(username)
   user = User.find_by_username(username)
-  media_requests = user.received_media_requests
+  media_requests = user.viewable_media_requests
 end
 
 Given /^"([^\"]*)" has a media request from a media member with:$/ do |username, table|
