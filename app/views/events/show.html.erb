@@ -1,13 +1,19 @@
 <% title @event.title %>
 
-<%- if @restaurant -%>
+<% content_for :page_actions do %>
+  <p class="event-actions">
+  <% if @restaurant
+      edit_path = edit_restaurant_event_path(:restaurant_id => @restaurant, :id => @event)
+      delete_path = restaurant_event_path(:restaurant_id => @restaurant, :id => @event)
+    else
+      edit_path = edit_admin_event_path(:id => @event)
+      delete_path = admin_event_path(:id => @event)
+    end
+  %>
 
-  <p class="event-actions"><%= link_to "edit", edit_restaurant_event_path(:restaurant_id => @restaurant, :id => @event) %> | <%= link_to "delete", restaurant_event_path(:restaurant_id => @restaurant, :id => @event), :method => "delete" %></p>
-
-<%- else -%>
-
-  <p class="event-actions"><%= link_to "edit", edit_admin_event_path(:id => @event) %> | <%= link_to "delete", admin_event_path(:id => @event), :method => "delete" %></p>
-
+    <%= link_to "edit", edit_path, :class => 'edit-event' %>
+    <%= link_to "delete", delete_path, :method => "delete", :class => 'delete-event' %>
+  </p>
 <% end %>
 
 <%= render :partial => "events/details" %>

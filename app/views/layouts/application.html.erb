@@ -73,13 +73,14 @@
 			</div>
 
       <div class="clearfix">
-  			<%- if show_title? -%>
-  			  <h1 class="function-bold"><%=h yield(:title) %></h1>
-  			<%- end -%>
-  			<div class="page_actions">
-  			  <%= yield(:page_actions) %>
-  			</div>
+        <div class="page_actions">
+          <%= yield(:page_actions) %>
+        </div>
+        <%- if show_title? -%>
+        <h1 class="function-bold"><%=h yield(:title) %></h1>
+        <%- end -%>
       </div>
+
 			<%= yield %>
 
 		</div><!--#leftcolumn-->
@@ -108,7 +109,7 @@
 			<% else %>
 				<li><%= link_to 'About', public_page_path('about') %></li>
 			<% end -%>
-			
+
 			<li><%= link_to 'Contact', public_page_path('contact') %></li>
 
 			<% if current_user && current_user.media? %>
