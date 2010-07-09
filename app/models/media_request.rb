@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20100426230131
+# Schema version: 20100708221553
 #
 # Table name: media_requests
 #
@@ -14,6 +14,7 @@
 #  status                :string(255)
 #  publication           :string(255)
 #  admin                 :boolean
+#  employment_search_id  :integer
 #
 
 class MediaRequest < ActiveRecord::Base
