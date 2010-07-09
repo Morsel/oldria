@@ -1829,12 +1829,13 @@ p.editprofile a:hover {
 	color: #fff;
 }
 
-#user_profile_view, .user.box, #restaurant_profile_view {
+#user_profile_view, .user.box, #restaurant_profile_view, .shadow-box {
 	border: 1px solid #ddd;
 	background-color: #fff;
 	margin-bottom: 30px;
 	-moz-box-shadow: 1px 1px 3px #ddd;
-	-webkit-box-shadow: 1px 1px 3px #ddd
+	-webkit-box-shadow: 1px 1px 3px #ddd;
+	box-shadow: 1px 1px 3px #ddd;
 }
 
 #user_profile_view {
