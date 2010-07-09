@@ -1,21 +1,24 @@
 <div class="shadow-box box">
-  <dl class="event-meta clearfix">
-    <dt>Date</dt>
-    <dd><%= @event.start_at.to_formatted_s(:sentence) %> - <%= @event.end_at.to_formatted_s(:sentence) %></dd>
-    <dt>Location</dt>
-    <dd><%= @event.location %></dd>
-    <dt>Type</dt>
-    <dd><%= @event.calendar %></dd>
-    <% if @event.status -%>
-    <dt>Status</dt>
-    <dd><%= @event.status %></dd>
+    <dl class="event-meta clearfix">
+        <dt>Date</dt>
+        <dd><%= @event.start_at.to_formatted_s(:sentence) %> - <%= @event.end_at.to_formatted_s(:sentence) %></dd>
+
+        <dt>Location</dt>
+        <dd><%= @event.location %></dd>
+
+        <dt>Type</dt>
+        <dd><%= @event.calendar %></dd>
+
+        <% if @event.private? -%>
+          <dt>Status</dt>
+          <dd><%= @event.status %></dd>
+        <% end %>
+    </dl>
+    <div class="event-description">
+        <%= simple_format(@event.description) %>
+    </div>
+    <% if @event.attachments.present? %>
+      <p class="attachments-header">Attachments</p>
+      <%= render @event.attachments %>
     <% end %>
-  </dl>
-  <div class="event-description">
-    <%= simple_format(@event.description) %>
-  </div>
-  <% if @event.attachments.present? %>
-    <p class="attachments-header">Attachments</p>
-    <%= render @event.attachments %>
-  <% end %>
 </div>

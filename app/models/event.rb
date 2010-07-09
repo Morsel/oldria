@@ -53,6 +53,10 @@ class Event < ActiveRecord::Base
     end
   end
   
+  def private?
+    self.category == "Private"
+  end
+  
   protected
   
   def end_comes_after_start
