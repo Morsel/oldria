@@ -21,6 +21,7 @@ Feature: conversations with a group of users
     Given I go to the new conversations page
     And I fill in "Subject" with "Is your refrigerator running?"
     And I check "Beer"
+    And I check "Wine"
     And I press "Post"
     Then "jim" should have 1 discussion
     And "john" should have 1 discussion
