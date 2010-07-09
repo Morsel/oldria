@@ -19,6 +19,9 @@ class Admin::Message < ActiveRecord::Base
 
   has_many :admin_conversations, :class_name => 'Admin::Conversation', :foreign_key => 'admin_message_id', :dependent => :destroy
   has_many :recipients, :through => :admin_conversations
+  has_many :attachments, :as => :attachable, :class_name => '::Attachment', :dependent => :destroy
+  accepts_nested_attributes_for :attachments
+  
   validates_presence_of :message
 
   named_scope :current, lambda {
