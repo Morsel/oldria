@@ -18,6 +18,8 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :discussions, :member => { :read => :put } do |discussions|
     discussions.resources :comments, :only => [:new, :create]
   end
+  
+  map.resources :conversations
 
   map.resources :users, :collection => { :resend_confirmation => :any }, :member => {
     :remove_twitter => :put,

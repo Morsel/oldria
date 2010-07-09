@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100707183528) do
+ActiveRecord::Schema.define(:version => 20100708225449) do
 
   create_table "account_types", :force => true do |t|
     t.string   "name"
@@ -157,9 +157,10 @@ ActiveRecord::Schema.define(:version => 20100707183528) do
     t.string   "title"
     t.text     "body"
     t.integer  "poster_id"
-    t.integer  "comments_count", :default => 0
+    t.integer  "comments_count",       :default => 0
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "employment_search_id"
   end
 
   add_index "discussions", ["id"], :name => "index_discussions_on_id", :unique => true

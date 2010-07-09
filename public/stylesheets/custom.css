@@ -3570,7 +3570,7 @@ h2.primary_title{
 	margin:0 10px 0 0;
 }
 
-.restaurant_and_employees{
+.restaurant_and_employees {
 	font:normal 1em "Helvetica Neue", Helvetica, Arial, sans-serif;
 	margin-top:5px;
 	margin-bottom:5px;
@@ -3581,6 +3581,13 @@ h2.primary_title{
 	font-size:1em;
 	display:inline-block;
 }
+
+.restaurant_employments_count {
+	font:normal 1em "Helvetica Neue", Helvetica, Arial, sans-serif;
+	margin-top:10px;
+	margin-bottom:5px;
+}
+
 #employment_list{
 	padding:0 0 10px;
 	margin:0 0 10px;
