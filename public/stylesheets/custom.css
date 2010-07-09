@@ -1490,15 +1490,15 @@ span.event-time {font-size: .9em; color: #777;line-height: 12px;}
 }
 
 .calendar .Pending {
-	color: red;
-}
-
-.calendar .Booked {
 	color: #69A74D;
 }
 
-.calendar a.Booked:hover {
+.calendar a.Pending:hover {
 	color: #3a7420;
+}
+
+.calendar .Booked {
+	color: #276B96;
 }
 
 /* @end */
