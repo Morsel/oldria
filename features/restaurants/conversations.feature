@@ -22,6 +22,5 @@ Feature: conversations with a group of users
     And I fill in "Subject" with "Is your refrigerator running?"
     And I check "Beer"
     And I press "Post"
-    Then "john" should have 1 discussion
-    And "jim" should have 1 discussion
-    
+    Then "jim" should have 1 discussion
+    And "john" should have 1 discussion
