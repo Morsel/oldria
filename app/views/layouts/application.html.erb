@@ -40,6 +40,7 @@
 
 			<div id="brand" class="span-7">
 				<% if current_user && current_user.media? -%>
+				  <%= image_tag 'logo_ria.png', :class => 'ria_logo' %>
 				  <%= link_to image_tag('mediafeed_logo.png', :alt => "Media Feed"), root_path %>
 				<% else -%>
 				  <%= image_tag 'logo_ria.png', :class => 'ria_logo' %>
@@ -102,11 +103,19 @@
 	<div id="footer" class="clear">
 		<ul>
 			<li>Copyright &copy; 2010 Restaurant Intelligence Agency</li>
-			<li><%= link_to 'About', public_page_path('about') %></li>
+			<%- if current_user && current_user.media? %>
+				<li><%= link_to 'About', public_page_path('about_media') %></li>
+			<% else %>
+				<li><%= link_to 'About', public_page_path('about') %></li>
+			<% end -%>
+			
 			<li><%= link_to 'Contact', public_page_path('contact') %></li>
-	<% if current_user %>
+
+			<% if current_user && current_user.media? %>
+				<li><%= link_to 'Looking for Help?', public_page_path('help_media') %></li>
+			<% else %>
 				<li><%= link_to 'Looking for Help?', public_page_path('help') %></li>
-	<% end %>
+			<% end -%>
 		</ul>
 	</div><!--#footer-->
 

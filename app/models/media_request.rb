@@ -77,6 +77,10 @@ class MediaRequest < ActiveRecord::Base
     @reply_count ||= media_request_discussions.count(:conditions => 'comments_count > 0')
   end
 
+  def inbox_title
+    media_request_type.present? ? media_request_type.name : "Media Request"
+  end
+
   def discussions_with_comments
     media_request_discussions.all(:conditions => 'comments_count > 0')
   end

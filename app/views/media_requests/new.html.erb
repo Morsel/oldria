@@ -1,15 +1,44 @@
 <% title "New Media Request" %>
-<% semantic_form_for(@media_request) do |f| %>
-    <% f.inputs do %>
-      <%= f.input :message %>
+<% semantic_form_for @media_request, :html => {:multipart => true} do |f| %>
+    <% f.inputs :name => "General Info" do %>
+      <li>
+        <%= label_tag 'name', "Your Name" %>
+        <%= text_field_tag 'name', current_user.name, :class => 'text' %>
+      </li>
+      <li>
+        <%= label_tag 'email', "Your Email" %>
+        <%= text_field_tag 'email', current_user.email, :class => 'text'  %>
+      </li>
+      <%= f.input :publication, :label => "For whom are you writing this?", :value => current_user.publication %>
 
-      <%= render :partial => 'shared/employment_criteria', :locals => {:f => f} %>
+      <li>
+        <label>
+          <%= check_box_tag 'private' %> While all requests go directly to the email inbox of restaurant personnel, (no other media can see your request), I would like to make this media request anonymous
+        </label>
+      </li>
+    <% end %>
 
-      <div id="employment_list">
-        <%= render :partial => 'shared/employment_list' %>
-      </div>
+    <%= render :partial => 'shared/employment_criteria', :locals => {:f => f} %>
 
-      <%= f.input :due_date %>
+    <div id="employment_list">
+      <%= render :partial => 'shared/employment_list' %>
+    </div>
+
+    <% f.inputs :name => 'Your Request' do %>
+
+      <%= render :partial => 'media_request_types', :locals => {:f => f} %>
+
+      <%= f.input :due_date, :hint => "When do you need the response by?" %>
+      <li>
+        <%= f.label :message %>
+        <%= f.text_area :message, :rows => 5, :style => 'height:auto' %>
+      </li>
+
+      <% f.fields_for :attachments do |child_form| -%>
+        <%= child_form.label :attachment, "Attachment(s)" %>
+        <p class="attachfield"><%= child_form.file_field :attachment %></p>
+      <% end -%>
+
     <% end %>
 
     <p><%= button_tag "Submit" %></p>

@@ -12,4 +12,9 @@ class MediaRequestDiscussion < ActiveRecord::Base
   def employment_ids
     (media_request.employment_ids & restaurant.employment_ids).uniq
   end
+
+  def viewable_by?(employment)
+    media_request.viewable_by?(employment)
+  end
+
 end

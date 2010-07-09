@@ -310,7 +310,7 @@ ActiveRecord::Schema.define(:version => 20100708225449) do
   create_table "media_request_discussions", :force => true do |t|
     t.integer  "media_request_id"
     t.integer  "restaurant_id"
-    t.integer  "comments_count"
+    t.integer  "comments_count",   :default => 0
     t.datetime "created_at"
     t.datetime "updated_at"
   end
