@@ -9,8 +9,7 @@
         <%= label_tag 'email', "Your Email" %>
         <%= text_field_tag 'email', current_user.email, :class => 'text'  %>
       </li>
-      <%= f.input :publication, :label => "For whom are you writing this?", :value => current_user.publication %>
-
+      <%= f.input :publication, :label => "For whom are you writing this?", :input_html => {:value => current_user.publication} %>
       <li>
         <label>
           <%= check_box_tag 'private' %> While all requests go directly to the email inbox of restaurant personnel, (no other media can see your request), I would like to make this media request anonymous
