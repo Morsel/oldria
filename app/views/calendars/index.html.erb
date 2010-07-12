@@ -1,4 +1,6 @@
-<%- if @restaurant -%>
+<%- if ria_events? -%>
+<% title "RIA Events" %>
+<%- elsif @restaurant -%>
 <% title "Calendars for #{@restaurant.name}" %>
 <%- else -%>
 <% title "Calendars" %>
