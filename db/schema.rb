@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100426230131) do
+ActiveRecord::Schema.define(:version => 20100708225449) do
 
   create_table "account_types", :force => true do |t|
     t.string   "name"
@@ -157,9 +157,10 @@ ActiveRecord::Schema.define(:version => 20100426230131) do
     t.string   "title"
     t.text     "body"
     t.integer  "poster_id"
-    t.integer  "comments_count", :default => 0
+    t.integer  "comments_count",       :default => 0
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "employment_search_id"
   end
 
   add_index "discussions", ["id"], :name => "index_discussions_on_id", :unique => true
@@ -183,6 +184,20 @@ ActiveRecord::Schema.define(:version => 20100426230131) do
   add_index "employments", ["employee_id"], :name => "index_employments_on_employee_id"
   add_index "employments", ["restaurant_id"], :name => "index_employments_on_restaurant_id"
   add_index "employments", ["restaurant_role_id"], :name => "index_employments_on_restaurant_role_id"
+
+  create_table "events", :force => true do |t|
+    t.integer  "restaurant_id"
+    t.string   "title"
+    t.datetime "start_at"
+    t.datetime "end_at"
+    t.string   "location"
+    t.text     "description"
+    t.string   "category"
+    t.string   "status"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "parent_id"
+  end
 
   create_table "feed_categories", :force => true do |t|
     t.string   "name"
@@ -292,16 +307,13 @@ ActiveRecord::Schema.define(:version => 20100426230131) do
     t.datetime "updated_at"
   end
 
-  create_table "media_request_conversations", :force => true do |t|
+  create_table "media_request_discussions", :force => true do |t|
     t.integer  "media_request_id"
-    t.integer  "recipient_id"
+    t.integer  "restaurant_id"
+    t.integer  "comments_count",   :default => 0
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "comments_count",   :default => 0
   end
-
-  add_index "media_request_conversations", ["media_request_id"], :name => "index_media_request_conversations_on_media_request_id"
-  add_index "media_request_conversations", ["recipient_id"], :name => "index_media_request_conversations_on_recipient_id"
 
   create_table "media_request_types", :force => true do |t|
     t.string   "name"
@@ -322,6 +334,7 @@ ActiveRecord::Schema.define(:version => 20100426230131) do
     t.string   "status"
     t.string   "publication"
     t.boolean  "admin",                 :default => false
+    t.integer  "employment_search_id"
   end
 
   create_table "metropolitan_areas", :force => true do |t|

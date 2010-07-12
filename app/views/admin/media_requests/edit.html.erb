@@ -1,10 +1,10 @@
 <% title "Media request from #{@media_request.sender.try(:name)}" %>
 
-<% form_for [:admin, @media_request], :html => { :multipart => true } do |f| %>
+<% semantic_form_for [:admin, @media_request], :html => { :multipart => true } do |f| %>
 	<%= f.error_messages %>
 	<%= f.hidden_field :sender_id %>
 
-	<% if !@media_request.recipients.blank? %>
+	<% if @media_request.restaurants.present? %>
 		<h3>To:</h3>
 		<%= render :partial => 'recipients' %>
 	<% end %>

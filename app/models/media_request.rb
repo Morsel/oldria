@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20100426230131
+# Schema version: 20100708221553
 #
 # Table name: media_requests
 #
@@ -14,6 +14,7 @@
 #  status                :string(255)
 #  publication           :string(255)
 #  admin                 :boolean
+#  employment_search_id  :integer
 #
 
 class MediaRequest < ActiveRecord::Base
@@ -21,30 +22,27 @@ class MediaRequest < ActiveRecord::Base
 
   belongs_to :sender, :class_name => 'User'
   belongs_to :media_request_type
-  has_many :media_request_conversations, :dependent => :destroy
-  has_many :conversations_with_comments, :class_name => 'MediaRequestConversation', :conditions => 'comments_count > 0'
+  has_many :media_request_discussions, :dependent => :destroy
+  belongs_to :employment_search
 
   # Recipients are Employment objects, not Employees directly
-  has_many :recipients, :through => :media_request_conversations
+  has_many :restaurants, :through => :media_request_discussions
   has_many :attachments, :as => :attachable, :class_name => '::Attachment', :dependent => :destroy
   validates_presence_of :sender_id
-  validates_presence_of :recipients, :on => :create
-  before_validation :assign_recipients_from_restaurants
-  validate :require_recipients
+  validates_presence_of :restaurant_ids, :on => :create
 
   accepts_nested_attributes_for :attachments
 
   named_scope :past_due, lambda {{ :conditions => ['due_date < ?', Date.today] }}
   named_scope :for_dashboard, :order => "created_at DESC", :conditions => {:status => ["approved", "pending"]}
 
-
-  attr_accessor :restaurant_ids, :subject_matter_ids, :restaurant_role_ids
-
   include AASM
 
+  before_validation :build_employment_search_if_needed
+  before_validation :update_restaurants_from_search_criteria
+
   aasm_column :status
-  aasm_initial_state :draft
-  aasm_state :draft
+  aasm_initial_state :pending
   aasm_state :pending
   aasm_state :approved
   aasm_state :closed
@@ -53,38 +51,39 @@ class MediaRequest < ActiveRecord::Base
     transitions :to => :approved, :from => [:pending]
   end
 
-  aasm_event :fill_out do
-    transitions :to => :pending, :from => [:pending, :draft]
-  end
-
-  def restaurants
-    return [] if restaurant_ids.blank?
-    Restaurant.all(:conditions => {:id => restaurant_ids})
-  end
-
-  def restaurant_ids
-    return [] if recipients.blank?
-    recipients.reject(&:blank?).map(&:restaurant_id).uniq
-  end
-
   def deliver_notifications
-    for conversation in self.media_request_conversations
-      UserMailer.deliver_media_request_notification(self, conversation)
+    for discussion in media_request_discussions
+      UserMailer.deliver_media_request_notification(self, discussion)
     end
   end
   handle_asynchronously :deliver_notifications # Use delayed_job to send
 
+  def employments
+    employment_search.employments
+  end
 
-  def conversation_with_recipient(employment)
-    media_request_conversations.first(:conditions => {:recipient_id => employment.id})
+  def employment_ids
+    employment_search.employment_ids
+  end
+
+  def discussion_with_restaurant(restaurant)
+    media_request_discussions.first(:conditions => {:restaurant_id => restaurant.id})
   end
 
   def publication_string
-    "A writer" + (self.publication.blank? ? "" : " from #{self.publication}")
+    "A journalist/blogger" + from_publication
   end
 
   def reply_count
-    @reply_count ||= conversations_with_comments.size
+    @reply_count ||= media_request_discussions.count(:conditions => 'comments_count > 0')
+  end
+
+  def inbox_title
+    media_request_type.present? ? media_request_type.name : "Media Request"
+  end
+
+  def discussions_with_comments
+    media_request_discussions.all(:conditions => 'comments_count > 0')
   end
 
   def message_with_fields(before_key = '', after_key = ': ')
@@ -104,37 +103,24 @@ class MediaRequest < ActiveRecord::Base
     read_attribute(:fields) || Hash.new
   end
 
-  protected
-
-  def assign_recipients_from_restaurants
-    if @restaurant_ids
-      employments = find_recipient_employments
-      reset_virtual_attributes!
-      self.recipients = employments
-    end
+  def viewable_by?(employment)
+    return false unless employment
+    employment.employee == employment.restaurant.try(:manager) ||
+    employment.omniscient? ||
+    employment_search.employments.include?(employment)
   end
 
-  def find_recipient_employments
-    @restaurant_role_ids.reject!(&:blank?) if @restaurant_role_ids
-    @subject_matter_ids.reject!(&:blank?) if @subject_matter_ids
+  private
 
-    if !@restaurant_role_ids.blank?
-      Employment.all(:conditions => {:restaurant_id => @restaurant_ids, :restaurant_role_id => @restaurant_role_ids})
-    elsif !@subject_matter_ids.blank?
-      Employment.all(:include => :responsibilities, :conditions => {:restaurant_id => @restaurant_ids, :responsibilities => {:subject_matter_id => @subject_matter_ids}})
-    else
-      Employment.all(:conditions => {:restaurant_id => @restaurant_ids})
-    end
+  def from_publication
+    self.publication.blank? ? "" : " from #{self.publication}"
   end
 
-  def reset_virtual_attributes!
-    @restaurant_ids, @restaurant_role_ids, @subject_matter_ids = nil, nil, nil
+  def build_employment_search_if_needed
+    build_employment_search(:conditions => {}) if self.employment_search.blank?
   end
 
-  def require_recipients
-    if (restaurant_ids && restaurant_ids.blank?)
-      errors.add_to_base("You need to specify some recipients")
-    end
+  def update_restaurants_from_search_criteria
+    self.restaurant_ids = employment_search.restaurant_ids if employment_search
   end
-
 end

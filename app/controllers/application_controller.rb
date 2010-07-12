@@ -2,7 +2,6 @@
 # Likewise, all the methods added will be available for all controllers.
 
 class ApplicationController < ActionController::Base
-  #before_filter :authenticate
   helper :all # include all helpers, all the time
   protect_from_forgery # See ActionController::RequestForgeryProtection for details
 
@@ -126,15 +125,39 @@ class ApplicationController < ActionController::Base
     @ria_message_count = current_user.try(:ria_message_count)
     @private_message_count = current_user.try(:unread_direct_messages).try(:size)
     @discussions_count = current_user && (current_user.unread_discussions + current_user.discussions.with_comments_unread_by(current_user)).uniq.size
+    @media_requests_count = current_user.try(:viewable_media_request_discussions).try(:size)
   end
 
-  protected
 
-  def authenticate
-    if RAILS_ENV == 'production'
-      authenticate_or_request_with_http_basic do |username, password|
-        username == "spoon" && password == "feed"
+
+  ##
+  # Employment saved-search methods
+  def search_setup(resource = nil)
+    if resource
+      @employment_search = if resource.employment_search
+        resource.employment_search
+      else
+        resource.build_employment_search(:conditions => params[:search] || {})
       end
+      @search = @employment_search.employments #searchlogic
+    else
+      @search = EmploymentSearch.new(:conditions => params[:search]).employments
     end
+
+    @restaurants_and_employments = @search.all(:include => [:restaurant, :employee]).group_by(&:restaurant)
   end
+
+  def save_search
+    if params[:search] && defined?(@employment_search)
+      @employment_search.conditions = normalized_search_params
+      return @employment_search.save
+    end
+    false
+  end
+
+  def normalized_search_params
+    normalized = params[:search].reject{|k,v| v.blank? }
+    normalized.blank? ? {:id => ""} : normalized
+  end
+
 end

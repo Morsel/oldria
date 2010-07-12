@@ -1,0 +1,75 @@
+<%- if ria_events? -%>
+<% title "RIA Events" %>
+<%- elsif @restaurant -%>
+<% title "Calendars for #{@restaurant.name}" %>
+<%- else -%>
+<% title "Calendars" %>
+<%- end -%>
+
+<div class="calendar-categories">
+  <% form_tag '', :method => :get do %>
+      <%= hidden_field_tag "date", params[:date] if params[:date] %>
+      <%= select_tag "category",
+          options_for_select(["all"] + @categories, :selected => params[:category]),
+          :onchange => "this.form.submit();" %>
+  <% end %>
+</div>
+
+<div class="calendar-header">
+  <h3 class="this-month"><%= @date.strftime("%B %Y") %></h3>
+  <%= render :partial => 'calendars/month_nav' %>
+</div>
+
+<div class="calendar">
+    <% calendar_for(@events, :year => @date.year, :month => @date.month) do |t| %>
+        <%= t.head('Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun') %>
+        <% t.day do |day, events| %>
+            <%= day.day %>
+            <% events.each do |event| %>
+                <p>
+                  <% link_to event_link(event), :class => event_link_class(event), :title => event_link_title(event) do %>
+                    <% if ria_events? || admin_calendars? %>
+                      <span class="small-disc"><%= event.child_count %></span>
+                    <% end %>
+                    <span class="event-title"><%= event.title %></span>
+                    <span class="event-time">
+                      <%= event.start_at.try(:strftime, "%I:%M%p") %> &ndash;
+                      <%= event.end_at.try(:strftime, "%I:%M%p")  %>
+                    </span>
+                  <% end -%>
+                </p>
+            <% end %>
+        <% end %>
+    <% end %>
+</div>
+<div class="calendar-footer">
+  <%= render :partial => 'calendars/month_nav' %>
+</div>
+
+<% if current_user.admin? && ria_events? || admin_calendars? %>
+
+<p class="clear">
+  <% link_to new_admin_event_path, :class => 'button positive' do %>
+    <%= image_tag('plus.png') %> Add an event
+  <% end %>
+</p>
+
+<% else %>
+
+<p class="clearfix">
+  <% link_to new_restaurant_event_path(:restaurant_id => @restaurant.id), :class => 'button positive' do %>
+    <%= image_tag('plus.png') %> Add an event
+  <% end %>
+</p>
+
+<%- if ria_events? -%>
+<p class="clear"><%= link_to "Take me back to my calendars", restaurant_calendars_path(@restaurant), :class => "button" %></p>
+<%- else -%>
+<p class="clear">
+  <% link_to ria_restaurant_calendars_path(:restaurant_id => @restaurant.id), :class => "button" do %>
+    Browse RIA events
+  <% end %>
+</p>
+<%- end -%>
+
+<% end %>

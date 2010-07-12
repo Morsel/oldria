@@ -22,9 +22,11 @@ class Discussion < ActiveRecord::Base
   belongs_to :poster, :class_name => "User"
   has_many :discussion_seats, :dependent => :destroy
   has_many :users, :through => :discussion_seats, :uniq => true
+  
+  belongs_to :employment_search
 
   validates_presence_of :title
-
+  
   def posted_comments
     comments.all(:include => [:user, :attachments], :order => 'created_at DESC').reject(&:new_record?)
   end
@@ -69,4 +71,5 @@ class Discussion < ActiveRecord::Base
       UserMailer.send_later(:deliver_discussion_notification, self, user)
     end
   end
+  
 end

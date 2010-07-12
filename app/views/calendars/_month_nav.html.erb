@@ -1,0 +1,9 @@
+<p class="month-nav">
+    <% link_to restaurant_calendar_link(@restaurant, (@date - 1.month)), :class => 'prev-month' do %>
+      &laquo; <%= (@date - 1.month).try(:strftime, "%B") %>
+    <% end %>
+
+    <% link_to restaurant_calendar_link(@restaurant, (@date + 1.month)), :class => 'next-month' do %>
+      <%= (@date + 1.month).try(:strftime, "%B") %> &raquo;
+    <% end %>
+</p>

@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20100426230131
+# Schema version: 20100708221553
 #
 # Table name: media_requests
 #
@@ -14,41 +14,44 @@
 #  status                :string(255)
 #  publication           :string(255)
 #  admin                 :boolean
+#  employment_search_id  :integer
 #
 
 require 'spec/spec_helper'
 
 describe MediaRequest do
   should_belong_to :sender, :class_name => 'User'
-  should_belong_to :media_request_type
-  should_have_many :media_request_conversations
-  should_have_many :conversations_with_comments
-  should_have_many :recipients, :through => :media_request_conversations
-  should_have_many :attachments, :as => :attachable, :class_name => '::Attachment', :dependent => :destroy
   should_validate_presence_of :sender_id
+
+  should_belong_to :media_request_type
+  should_belong_to :employment_search
+  should_have_many :media_request_discussions
+  should_have_many :restaurants, :through => :media_request_discussions
+
+  should_have_many :attachments, :as => :attachable, :class_name => '::Attachment', :dependent => :destroy
 
   before(:each) do
     @employee = Factory(:user, :username => "employee", :email => "employee@example.com")
-    @restaurant = Factory(:restaurant)
+    @restaurant = Factory(:restaurant, :name => "Joe's Crab Shack")
     @employment = Factory(:employment, :restaurant => @restaurant, :employee => @employee)
   end
 
   describe "senders and receivers" do
     it "should build conversations with other folks" do
-      mr = Factory(:media_request, :sender => Factory(:user), :recipients => [@employment])
-      mr.media_request_conversations.first.recipient.should == @employment
-      @employee.media_request_conversations.first.media_request.should eql(mr)
+      mr = Factory(:media_request, :sender => Factory(:user), :restaurants => [@restaurant])
+      mr.media_request_discussions.first.restaurant.should == @restaurant
+      @restaurant.media_request_discussions.first.media_request.should == mr
     end
 
     describe "finding" do
       before do
         @media_request = Factory(:media_request,
                                   :sender => Factory(:user),
-                                  :recipients => [@employment])
+                                  :restaurants => [@restaurant])
       end
 
-      it "conversation by way of recipient should include the first conversation" do
-        @media_request.conversation_with_recipient(@employment).should be_a(MediaRequestConversation)
+      it "conversation by way of restaurant should include the first conversation" do
+        @media_request.discussion_with_restaurant(@restaurant).should be_a(MediaRequestDiscussion)
       end
 
       it "restaurants" do
@@ -56,11 +59,29 @@ describe MediaRequest do
       end
     end
   end
+  
+  describe "with search criteria" do
+    before do
+      @restaurant2 = Factory(:restaurant, :name => "IHOP")
+    end
+    it "should update based on the search criteria" do
+      employment_search = Factory(:employment_search, :conditions => {
+        :restaurant_name_like => @restaurant.name
+      })
+      media_request = Factory.build(:media_request, :employment_search => employment_search)
+      media_request.save
+      media_request.restaurant_ids.should == [@restaurant.id]
+
+      media_request.employment_search.conditions = {:restaurant_name_like => 'nobody'}
+      media_request.save
+      media_request.restaurants.should_not include(@restaurant)
+    end
+  end
 
   describe "fields" do
     before(:each) do
       @request = Factory.build(:media_request)
-      @request.stubs(:recipient_ids).returns([1])
+      @request.stubs(:restaurant_ids).returns([1])
     end
 
     it "should be empty Hash for new instance" do
@@ -72,11 +93,6 @@ describe MediaRequest do
       @request.fields.should be_a(Hash)
       @request.save
       MediaRequest.find(@request.id).fields.should be_a(Hash)
-    end
-
-    it "should raise an error for an array" do
-      @request.fields = ['hello', 'sammy']
-      lambda{ @request.save }.should raise_error(ActiveRecord::SerializationTypeMismatch)
     end
 
     it "should reject blank values" do
@@ -114,30 +130,8 @@ describe MediaRequest do
       @request = Factory.build(:media_request)
     end
 
-    it "should start out as a draft" do
-      @request.should be_draft
-    end
-
-    it "should transition to pending after fields are filled in" do
-      @request.fill_out!
+    it "should start out pending" do
       @request.should be_pending
-    end
-
-    it "should assign recipients before saving the first time" do
-      # it goes to everyone when @subject_matters is nil
-      @request.restaurant_ids = [@restaurant.id]
-      @request.save
-      @request.reload
-      @request.recipients.should include(@employment)
-    end
-
-    it "should assign recipients before saving with subject matters" do
-      @subject_matter = Factory(:subject_matter, :name => "Blah")
-      @employment.subject_matters << @subject_matter
-      @request.restaurant_ids = [@restaurant.id]
-      @request.subject_matter_ids = [@subject_matter.id]
-      @request.save
-      @request.recipients.should include(@employment)
     end
 
     it "should be approvable" do
@@ -149,12 +143,12 @@ describe MediaRequest do
       media_request.should be_approved
     end
 
-    describe "when approved email" do
-      it "should be sent to each recipient" do
+    describe "when approved" do
+      xit "should be sent to each restaurant" do
         @request = Factory.build(:media_request, :status => 'pending')
         @receiver = Factory(:user, :name => "Hambone Fisher", :email => "hammy@spammy.com")
         @request.sender = Factory(:media_user, :username => "jim", :email => "media@media.com")
-        @request.recipients = [@employment]
+        @request.restaurants = [@restaurant]
         UserMailer.expects(:deliver_media_request_notification)
         @request.approve!.should == true
         Delayed::Job.last.invoke_job if defined?(Delayed::Job)
@@ -165,32 +159,21 @@ describe MediaRequest do
   describe "brand new request" do
     before do
       @subject_matter = Factory(:subject_matter, :name => "Ham")
-      @employment2 = Factory(:assigned_employment, :subject_matters => [@subject_matter])
+      @employment2 = Factory(:assigned_employment, :subject_matters => [@subject_matter], :restaurant => @restaurant)
       sender = Factory(:media_user)
-      @request = Factory.build(:media_request, :sender => sender, :recipients => [])
+      @request = Factory.build(:media_request, :sender => sender)
     end
 
     it "should be invalid when no restaurants are found" do
-      @request.restaurant_ids = []
+      @employment_search = EmploymentSearch.create(:conditions => {:restaurant_id_is => "9999"})
+      @request.employment_search = @employment_search
       @request.should_not be_valid
-      @request.save.should be_false
     end
 
-    it "should be valid with recipients" do
-      @request.recipient_ids = [@employment2.id]
+    it "should be valid with restaurants" do
+      @employment_search = EmploymentSearch.create(:conditions => {:restaurant_id_is => "#{@restaurant.id}"})
+      @request.employment_search = @employment_search
       @request.should be_valid
-    end
-
-    it "should be valid when restaurants are found" do
-      @request.restaurant_ids = [@employment2.restaurant.id.to_s]
-      @request.subject_matter_ids = [@subject_matter.id.to_s]
-      @request.should be_valid
-      @request.save.should be_true
-    end
-
-    it "should be invalid when not recipients are chosen" do
-      @request.recipient_ids = []
-      @request.should_not be_valid
     end
   end
 

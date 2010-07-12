@@ -1,0 +1,42 @@
+<script type="text/javascript">
+    function enable_form() {
+        $('#event-details').show(); 
+        $('#event-attachments').show(); 
+        $('#event-submit').show(); 
+        if ($('#event_category').val() == "Private") {
+            $('#event-status').show();
+        } else {
+            $('#event-status').hide();
+        };
+    }
+</script>
+<% semantic_form_for [restaurant, event], :html => { :multipart => true } do |f| %>
+    <% f.inputs :class => "plain" do %>
+        <%= f.input :category, :as => "select", 
+                               :label => "Calendar", 
+                               :collection => Event::CATEGORIES, 
+                               :input_html => { :onchange => "enable_form()" } %>
+        <div id="event-details" style="<%= form_display(event) %>">
+            <%= f.input :title %>
+            <%= f.input :start_at, :label => "Start Date" %>
+            <%= f.input :end_at, :label => "End Date" %>
+            <div id="event-status" style="<%= status_display(event) %>">
+                <%= f.input :status, :as => 'select', :collection => Event::STATUSES %>
+            </div>
+            <%= f.input :location %>
+            <%= f.input :description %>
+            
+        </div>
+    <% end %>
+
+    <div id="event-attachments" style="<%= form_display(event) %>">
+        <% f.fields_for :attachments do |child_form| -%>
+            <h3 class="attachments-header">Attach files</h3>
+            <p class="attachfield"><%= child_form.file_field :attachment %></p>
+        <% end -%>
+    </div>
+    
+    <p id="event-submit" style="<%= form_display(event) %>">
+      <%= button_tag "Save", :name => 'submit' %>
+    </p>
+<% end %>

@@ -31,7 +31,11 @@ module DirectMessagesHelper
 
   def set_latest_reply_id(direct_message)
     return unless direct_message
-    @reply_to_dm = direct_message unless direct_message.from?(current_user)
+    @reply_to_dm = direct_message
+  end
+  
+  def reply_recipient(direct_message)
+    direct_message.sender == current_user ? direct_message.receiver : direct_message.sender
   end
 
 end

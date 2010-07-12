@@ -2,6 +2,7 @@
   <div class="section_header">
     <h3 class="function-bold">Restaurants</h3>
   </div>
+
   <div class="section_body">
     <h4>Managed</h4>
     <% if @current_user_managed_restaurants.blank? %>
@@ -9,22 +10,12 @@
     <% else %>
     <div class="my_restaurants">
       <% @current_user_managed_restaurants.reject(&:new_record?).each do |restaurant| %>
-        <% div_for restaurant do %>
+        <div class="<%= dom_class(restaurant) %>">
           <%= link_to h(restaurant.name), restaurant %>
-          <span class="media_requests_count">
-            <%= link_to "#{restaurant.media_requests.size} media requests", restaurant_media_requests_path(restaurant) if restaurant.media_requests.size > 0 %>
-          </span>
-        <% end -%>
+        </div>
       <% end %>
     </div>
     <% end %>
-
-    <% if false # Hide this %>
-    <p class="add_restaurant clearfix hidden">
-      <%= link_to image_tag("plus.png") + "Sign up a restaurant", new_restaurant_path, :class => 'button positive' %>
-    </p>
-    <% end %>
-
 
     <div class="my_employers">
       <h4>Restaurant Associations</h4>
@@ -32,11 +23,11 @@
       <p class="none">You aren't associated with any restaurants.</p>
     <% else -%>
       <% @current_user_restaurants.each do |restaurant| %>
-        <% div_for restaurant do %>
+        <div class="<%= dom_class(restaurant) %>">
           <%= link_to h(restaurant.name), restaurant %>
-        <% end -%>
+        </div>
       <% end -%>
-    <p>
+    <p class="start_discussion">
       <%= link_to image_tag('quotebubble.png') + "Start a discussion", new_discussion_path, :class => 'sf-button alt top' %>
     </p>
 

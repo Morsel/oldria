@@ -22,6 +22,14 @@ class DiscussionsController < ApplicationController
 
   def create
     @discussion = current_user.posted_discussions.build(params[:discussion])
+
+    # for cross-restaurant conversations, form submitted from conversations/new
+    if params[:search]
+      search_setup(@discussion)
+      save_search
+      @discussion.users << @search.map(&:employee)
+    end
+
     if @discussion.save
       redirect_to @discussion
     else

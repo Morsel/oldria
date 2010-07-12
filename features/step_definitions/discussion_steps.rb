@@ -18,3 +18,6 @@ Then(/^there should be (no|\d+) discussion(?: in the system)?$/) do |num|
   Discussion.count.should == num.to_i
 end
 
+Then /^"([^\"]*)" should have 1 discussion$/ do |login|
+  User.find_by_login(login).discussions.count.should == 1
+end

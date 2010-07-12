@@ -36,4 +36,10 @@ class MessagesController < ApplicationController
       @messages = current_user.discussions.unread_by(current_user) - @messages_with_replies
     end
   end
+
+  ##
+  # GET /messages/media_requests
+  def media_requests
+    @messages = current_user.viewable_media_request_discussions
+  end
 end

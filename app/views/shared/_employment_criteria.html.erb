@@ -1,0 +1,63 @@
+<% f.inputs :name => 'Criteria', :id => 'employment_criteria' do %>
+<p>Click a category to expand, then check off the items you want to filter by for each criteria type. A list of matching recipients will appear below.</p>
+  <% semantic_fields_for @search do |s| %>
+  <div id="criteria_accordion">
+      <div class="accordion_box">
+        <%= link_to "<span>Subject Matter</span>", "#" %>
+        <div id="subject_fields">
+            <%= s.input :subject_matters_id_equals_any,
+                        :as => "check_boxes",
+                        :collection => SubjectMatter.all %>
+        </div>
+      </div>
+      <div class="accordion_box">
+        <%= link_to  "<span>Users</span>", "#" %>
+        <div id="user_fields">
+            <%= s.input :employee_id_equals_any,
+                        :as => "check_boxes",
+                        :collection => User.by_last_name %>
+        </div>
+      </div>
+      <div class="accordion_box">
+        <%= link_to "<span>Restaurants</span>", "#" %>
+        <div id="restaurant_fields">
+            <%= s.input :restaurant_id_equals_any,
+                        :as => "check_boxes",
+                        :collection => Restaurant.all(:order => 'name ASC') %>
+        </div>
+      </div>
+      <div class="accordion_box">
+        <%= link_to "<span>Cuisine</span>", "#" %>
+        <div id="cuisine_fields">
+            <%= s.input :restaurant_cuisine_id_equals_any,
+                        :as => "check_boxes",
+                        :collection => Cuisine.all %>
+        </div>
+      </div>
+      <div class="accordion_box">
+        <%= link_to "<span>Role</span>", "#" %>
+        <div id="role_fields">
+            <%= s.input :restaurant_role_id_equals_any,
+                        :as => "check_boxes",
+                        :collection => RestaurantRole.all %>
+        </div>
+      </div>
+      <div class="accordion_box">
+        <%= link_to "<span>Region</span>", "#" %>
+        <div id="region_fields">
+            <%= s.input :restaurant_james_beard_region_id_equals_any,
+                        :as => "check_boxes",
+                        :collection => JamesBeardRegion.all %>
+        </div>
+      </div>
+      <div class="accordion_box">
+        <%= link_to "<span>Metro Area</span>", "#" %>
+        <div id="metro_fields">
+            <%= s.input :restaurant_metropolitan_area_id_equals_any,
+                        :as => "check_boxes",
+                        :collection => MetropolitanArea.all %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+<% end %>

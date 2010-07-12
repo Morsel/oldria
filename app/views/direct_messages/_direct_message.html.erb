@@ -14,11 +14,9 @@
   <p class="meta date"><%= direct_message.created_at.to_s(:message_meta) %></p>
 
   <p class="actions message_actions">
-    <% unless direct_message.from?(current_user) %>
       <%= link_to "reply", direct_message, :class => 'button utility round' %>
       <span class="separator"></span>
-    <% end %>
-    <%= link_to "Go to message", direct_message %>
+      <%= link_to "Go to message", direct_message %>
   </p>
 
   <% unless direct_message.responses.blank? %>

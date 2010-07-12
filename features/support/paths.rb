@@ -29,6 +29,8 @@ module NavigationHelpers
       edit_feeds_path
     when /^(my|the)? ?inbox$/
       messages_path
+    when /^the new conversations page$/
+      new_conversation_path
 
     # Media-users
     when /^the media( user)? signup page$/
@@ -43,10 +45,14 @@ module NavigationHelpers
       restaurant_employees_path(Restaurant.find_by_name($1))
     when "the RIA messages page"
       ria_messages_path
+    when /^the new event page for "(.+)"$/
+      new_restaurant_event_path(:restaurant_id => Restaurant.find_by_name($1).id)
+    when /the calendars page for "(.+)"$/
+      restaurant_calendars_path(:restaurant_id => Restaurant.find_by_name($1).id)
 
     # Media Requests
-  when /^the media request conversation page$/
-    media_request_conversation_path(MediaRequestConversation.last)
+    when /^the media request discussion page$/
+      media_request_discussion_path(MediaRequestDiscussion.last)
 
     # Admin pages
     when /^the admin landing page$/
@@ -79,6 +85,10 @@ module NavigationHelpers
       admin_trend_questions_path
     when /^the new PR Tip page$/
       new_admin_pr_tip_path
+    when /^the admin calendars page$/
+      admin_calendars_path
+    when /^the new admin event page$/
+      new_admin_event_path
 
     # Direct path
     when /"([^\"]+)"/

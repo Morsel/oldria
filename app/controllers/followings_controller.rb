@@ -9,17 +9,18 @@ class FollowingsController < ApplicationController
     else
       flash[:error] = "Unable to follow that person." + activerecord_error_list(@following.errors)
     end
-    redirect_to root_url
+    redirect_to profile_path(@following.friend.username)
   end
   
   def destroy
     @following = current_user.followings.find(params[:id])
+    @user = @following.friend
     if @following.destroy
       flash[:notice] = "OK, you aren't following them anymore."
     else
       flash[:error] = "Could not unfollow"
     end
-    redirect_to root_url
+    redirect_to profile_path(@user.username)
   end
 
 end

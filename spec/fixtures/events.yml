@@ -1,0 +1,40 @@
+# == Schema Information
+# Schema version: 20100708221553
+#
+# Table name: events
+#
+#  id            :integer         not null, primary key
+#  restaurant_id :integer
+#  title         :string(255)
+#  start_at      :datetime
+#  end_at        :datetime
+#  location      :string(255)
+#  description   :text
+#  category      :string(255)
+#  status        :string(255)
+#  created_at    :datetime
+#  updated_at    :datetime
+#  parent_id     :integer
+#
+
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  restaurant_id: 1
+  title: MyString
+  start_at: 2010-06-30 14:13:53
+  end_at: 2010-06-30 14:13:53
+  location: MyString
+  description: MyText
+  category: MyString
+  status: MyString
+
+two:
+  restaurant_id: 1
+  title: MyString
+  start_at: 2010-06-30 14:13:53
+  end_at: 2010-06-30 14:13:53
+  location: MyString
+  description: MyText
+  category: MyString
+  status: MyString

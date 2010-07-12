@@ -1,5 +1,14 @@
 module UserMessaging
 
+  # Received Media requests
+  def viewable_media_request_discussions
+    employments.map(&:viewable_media_request_discussions).flatten
+  end
+
+  def viewable_media_requests
+    viewable_media_request_discussions.map(&:media_request)
+  end
+
   # User Messages
 
     def announcements
@@ -12,26 +21,25 @@ module UserMessaging
 
     def admin_discussions
       return @admin_discussions if defined?(@admin_discussions)
-      @admin_discussions = employments.map do |employment|
-        employment.admin_discussions.all(:include => :discussionable)
-      end
-      @admin_discussions = @admin_discussions.flatten.select do |discussion|
-        employment = discussion.restaurant.employments.find_by_employee_id(self.id)
-        discussion.discussionable.try(:viewable_by?, employment)
-      end
+      @admin_discussions = employments.map(&:viewable_admin_discussions).flatten
     end
 
     def current_admin_discussions
-      admin_discussions.reject {|d| d.discussionable.scheduled_at > Time.now }
+      return @current_admin_discussions if defined?(@current_admin_discussions)
+      @current_admin_discussions = employments.map(&:current_viewable_admin_discussions).flatten
     end
 
     def unread_admin_discussions
       current_admin_discussions.reject { |d| d.read_by?(self) }
     end
 
+    def action_required_admin_discussions
+      unread_admin_discussions.select { |d| d.comments_count > 0 && d.comments.last.user != self }
+    end
+
     def unread_grouped_admin_discussions
       return @unread_grouped_admin_discussions if defined?(@unread_grouped_admin_discussions)
-      @unread_grouped_admin_discussions = current_admin_discussions.group_by(&:discussionable)
+      @unread_grouped_admin_discussions = (current_admin_discussions - action_required_admin_discussions).group_by(&:discussionable)
       @unread_grouped_admin_discussions.reject! do |discussionable, admin_discussions|
         discussionable.read_by?(self)
       end
@@ -39,10 +47,6 @@ module UserMessaging
 
     def unread_discussions
       discussions.unread_by(self)
-    end
-
-    def action_required_admin_discussions
-      unread_admin_discussions.select { |d| d.comments_count > 0 && d.comments.last.user != self }
     end
 
     def holiday_discussions

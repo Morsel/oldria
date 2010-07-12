@@ -1,6 +1,7 @@
 class Admin::AnnouncementsController < Admin::AdminController
   def new
     @admin_announcement = Admin::Announcement.new
+    @admin_announcement.attachments.build
   end
 
   def create

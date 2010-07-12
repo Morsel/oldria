@@ -1,16 +1,21 @@
 <% semantic_form_for [:admin, @content_request] do |f| %>
-  <% f.inputs do %>
-    <%= f.input :subject %>
-    <%= f.input :body %>
-    <%= f.input :scheduled_at %>
-    <%# f.input :expired_at, :selected => 3.months.from_now %>
-  <% end %>
+  <div class="span-12">
+    <% f.inputs do %>
+      <div class="form_basics">
+        <%= f.input :subject %>
+        <%= f.input :body %>
+      </div>
 
-  <%= render :partial => 'admin/trend_questions/employment_criteria', :locals => { :f => f } %>
+      <div id="employment_list" class="clearfix">
+        <%= render :partial => 'shared/employment_list' %>
+      </div>
 
-  <div id="employment_list">
-    <%= render :partial => 'employment_list' %>
+      <%= f.input :scheduled_at, :label => 'Post this question on:' %>
+    <% end %>
+    <p><%= button_tag "Submit" %></p>
   </div>
 
-  <p><%= button_tag "Submit" %></p>
+  <div class="span-6 last">
+    <%= render :partial => 'shared/employment_criteria', :locals => {:f => f} %>
+  </div>
 <% end %>

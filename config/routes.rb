@@ -1,6 +1,4 @@
 ActionController::Routing::Routes.draw do |map|
-  map.resources :quick_replies
-
   map.signup 'signup', :controller => 'users', :action => 'new'
   map.login  'login',  :controller => 'user_sessions', :action => 'new'
   map.logout 'logout', :controller => 'user_sessions', :action => 'destroy'
@@ -10,15 +8,18 @@ ActionController::Routing::Routes.draw do |map|
 
   map.profile 'profile/:username', :controller => 'users', :action => 'show'
 
+  map.resources :quick_replies
   map.resources :media_users, :except => [:index, :show]
   map.resources :media_requests, :except => [:index]
-  map.resources :media_request_conversations, :only => [:show, :update] do |mrc|
+  map.resources :media_request_discussions, :only => [:show, :update] do |mrc|
     mrc.resources :comments, :only => [:new, :create]
   end
 
   map.resources :discussions, :member => { :read => :put } do |discussions|
     discussions.resources :comments, :only => [:new, :create]
   end
+  
+  map.resources :conversations
 
   map.resources :users, :collection => { :resend_confirmation => :any }, :member => {
     :remove_twitter => :put,
@@ -31,6 +32,8 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :restaurants do |restaurant|
     restaurant.media_requests 'media_requests', :controller => 'media_requests', :action => 'index'
     restaurant.resources :employees, :except => [:show]
+    restaurant.resources :calendars, :collection => { "ria" => :get }
+    restaurant.resources :events, :member => { "ria_details" => :get, "transfer" => :post }
   end
 
   map.resources :user_sessions, :password_resets, :followings, :pages
@@ -60,7 +63,8 @@ ActionController::Routing::Routes.draw do |map|
                               :archive => :get,
                               :ria => :get,
                               :private => :get,
-                              :staff_discussions => :get
+                              :staff_discussions => :get,
+                              :media_requests => :get
                             }
   map.resources :timelines, :collection => {
                               :people_you_follow => :get,
@@ -92,6 +96,8 @@ ActionController::Routing::Routes.draw do |map|
     admin.resources :media_requests, :member => { :approve => :put }
     admin.resources :restaurant_roles, :except => [:show]
     admin.resources :holidays
+    admin.resources :calendars
+    admin.resources :events
 
     # Admin Messaging
     exclusive_routes = [:index, :show, :destroy]

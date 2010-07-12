@@ -1,6 +1,6 @@
 module MediaRequestsHelper
   def sent_date_and_recipient_count(media_request)
-    count = media_request.media_request_conversations.size
+    count = media_request.media_request_discussions.size
     "You sent this #{time_ago_in_words(media_request.created_at)} ago to  #{pluralize(count, 'person')}"
   end
 

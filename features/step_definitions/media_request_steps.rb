@@ -1,79 +1,3 @@
-def find_media_requests_for_username(username)
-  user = User.find_by_username(username)
-  ids = user.media_request_conversations.map(&:media_request_id).uniq
-  media_requests = MediaRequest.find(ids)
-end
-
-Given /^"([^\"]*)" has a media request from a media member with:$/ do |username, table|
-  Factory(:media_user, :username => "media")
-  Given %Q{"#{username}" has a media request from "media" with:}, table
-end
-
-Given /^"([^\"]*)" has a media request from "([^\"]*)" with:$/ do |username, mediauser, table|
-  message = table.rows_hash['Message']
-  status = table.rows_hash['Status'] || 'pending'
-  user = User.find_by_username(username)
-  user.should_not be_nil
-  employment = Factory(:employment, :employee => user)
-  sender = User.find_by_username(mediauser)
-  publication = table.rows_hash['Publication'] || sender.publication
-  Factory(:media_request, :recipients => [employment], :sender => sender, :message => message, :status => status, :publication => publication)
-end
-
-
-Given /^there are no media requests$/ do
-  MediaRequest.destroy_all
-end
-
-
-When /^I click on "([^\"]*)"$/ do |selector|
-  response.should have_selector("div", :id => selector) do |section|
-  end
-end
-
-
-When /^I follow "([^\"]*)" within the "([^\"]*)" section$/ do |link, relselector|
-  response.should have_selector("div", :rel => relselector) do |section|
-    click_link link
-  end
-end
-
-Then /^the media request should have ([0-9]+) comments?$/ do |num|
-  MediaRequestConversation.last.comments.count.should == num.to_i
-end
-
-
-When /^I search for and find "([^\"]*)" restaurant$/ do |restaurantname|
-  When("I search for \"#{restaurantname}\" restaurant")
-  check restaurantname
-  click_button "Next"
-end
-
-When /^I search for "([^\"]*)" restaurant$/ do |restaurantname|
-  restaurant = Restaurant.find_or_create_by_name(restaurantname)
-  visit new_media_request_path
-  fill_in "Restaurant", :with => restaurantname
-  click_button "Search"
-end
-
-
-When /^I perform the search:$/ do |table|
-  searchcriteria = table.rows_hash
-  searchcriteria.each do |field, value|
-    if ['Region', 'Greater Metropolitan Area', 'Subject Matter', 'Role at Restaurant'].include?(field)
-      check value
-    else
-      fill_in field, :with => value
-    end
-  end
-  click_button "Search"
-end
-
-When /^I select "([^\"]*)" as a recipient$/ do |name|
-  # Restaurant Name
-  check name
-end
-
 def media_request_from_hash(hash_data)
   recipient_ids = []
   if hash_data['Recipients']
@@ -86,9 +10,46 @@ def media_request_from_hash(hash_data)
   select_date(hash_data["Due date"] || 2009-12-01)
 end
 
+def find_media_requests_for_username(username)
+  user = User.find_by_username(username)
+  media_requests = user.viewable_media_requests
+end
+
+Given /^"([^\"]*)" has a media request from a media member with:$/ do |username, table|
+  Factory(:media_user, :username => "media")
+  Given %Q{"#{username}" has a media request from "media" with:}, table
+end
+
+Given /^"([^\"]*)" has a media request from "([^\"]*)" with:$/ do |username, mediauser, table|
+  message = table.rows_hash['Message']
+  status = table.rows_hash['Status'] || 'pending'
+  user = User.find_by_username(username)
+  Factory(:employment, :employee => user) if user.restaurants.blank?
+  sender = User.find_by_username(mediauser)
+  publication = table.rows_hash['Publication'] || sender.publication
+  search = EmploymentSearch.new(:conditions => {:employee_id_eq => "#{user.id}"})
+  Factory(:media_request, :employment_search => search, :sender => sender, :message => message, :status => status, :publication => publication)
+end
+
+Given /^there are no media requests$/ do
+  MediaRequest.destroy_all
+end
+
+When /^I create a media request with message "([^"]*)" and criteria:$/ do |message, criteria|
+  visit new_media_request_path
+  fill_in :message, :with => message
+  criteria.rows_hash.each do |field, value|
+    check value
+  end
+  click_button :submit
+  @media_request = MediaRequest.last
+end
+
+
 When /^I create a new media request with:$/ do |table|
   media_request_from_hash(table.rows_hash)
   click_button :submit
+  @media_request = MediaRequest.last
 end
 
 When /^I create a new admin media request with:$/ do |table|
@@ -97,6 +58,7 @@ When /^I create a new admin media request with:$/ do |table|
   check "Admin"
   select hash_data["Status"], :from => :status if hash_data["Status"]
   click_button :submit
+  @media_request = MediaRequest.last
 end
 
 Given /^an admin has approved the media request from "([^\"]*)"$/ do |username|
@@ -106,17 +68,26 @@ Given /^an admin has approved the media request from "([^\"]*)"$/ do |username|
   click_link "approve"
 end
 
-
-When /^I leave a comment with "([^\"]*)"$/ do |text|
-  fill_in "Comment", :with => text
-  click_button
-end
-
 Then /^I should see a list of media requests$/ do
-  response.should have_selector("tbody") do |tbody|
-    tbody.should have_selector("tr")
-  end
+  Then("I should see a table of resources")
 end
+
+When /^I perform the raw search:$/ do |table|
+  visit new_media_request_path(:search => table.rows_hash)
+end
+
+When "I perform the search:" do |table|
+  searchcriteria = table.rows_hash
+  searchcriteria.each do |field, value|
+    if ['Region', 'Greater Metropolitan Area', 'Subject Matter', 'Role at Restaurant'].include?(field)
+      check value
+    else
+      fill_in field, :with => value
+    end
+  end
+  click_button "Search"
+end
+
 
 When /^I approve the media request$/ do
   click_link "edit"
@@ -124,19 +95,23 @@ When /^I approve the media request$/ do
   click_button "Save"
 end
 
-Then /^the media request from "([^\"]*)" should be pending$/ do |username|
+When /^that media request is approved$/ do
+  @media_request ||= MediaRequest.last
+  @media_request.approve!
+end
+
+Then /^the media request from "([^\"]*)" should be (.+)$/ do |username, status|
   media_requests = User.find_by_username(username).media_requests
-  media_requests.last.should be_pending
+  media_requests.last.status.should == status
 end
 
-Then /^the media request for "([^\"]*)" should be pending$/ do |username|
+Then /^the media request for "([^\"]*)" should be (.+)$/ do |username, status|
   media_requests = find_media_requests_for_username(username)
-  media_requests.last.should be_pending
+  media_requests.last.status.should == status
 end
 
-Then /^the media request for "([^\"]*)" should be approved$/ do |username|
-  media_requests = find_media_requests_for_username(username)
-  media_requests.last.should be_approved
+Then /^that media request should be (.+)$/ do |status|
+  @media_request.status.should == status
 end
 
 Then(/^"([^\"]*)" should have ([0-9]+) media requests?$/) do |username,num|
@@ -144,13 +119,12 @@ Then(/^"([^\"]*)" should have ([0-9]+) media requests?$/) do |username,num|
   media_requests.size.should == num.to_i
 end
 
-Then(/^"([^\"]*)" should have a(?: new)? draft media request$/) do |username|
-  media_requests = User.find_by_username(username).media_requests
-  media_requests.last.status.should == 'draft'
+Then(/^there should be (\d+) media requests?(?: in the system)?$/) do |num|
+  MediaRequest.count.should == num.to_i
 end
 
-Then(/^there should be ([0-9]+) media requests?(?: in the system)?$/) do |num|
-  MediaRequest.count.should == num.to_i
+Then /^the media request should have ([0-9]+) comments?$/ do |num|
+  MediaRequestDiscussion.last.comments.count.should == num.to_i
 end
 
 Then /^I should see an admin media request$/ do

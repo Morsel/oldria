@@ -53,6 +53,7 @@
 					<li><%= link_to "Subject Matters", admin_subject_matters_path %></li>
 					<li><%= link_to "Feeds", admin_feeds_path %></li>
 					<li><%= link_to "Pages", admin_pages_path %></li>
+					<li><%= link_to "Calendars", admin_calendars_path %></li>
 					<li><%= link_to "Admin Messages", admin_messages_path %></li>
 					<li><%# link_to "QOTDs", admin_messages_path %></li>
 					<li><%= link_to "Holidays", admin_holidays_path %></li>
@@ -71,6 +72,9 @@
 				<%- end -%>
 			</div>
 
+            <div class="page_actions">
+              <%= yield(:page_actions) %>
+            </div>
 			<%- if show_title? -%>
 			  <div class="clearfix">
 			    <h1><%=h yield(:title) %></h1>
@@ -92,7 +96,7 @@
 
 	</div><!--#container-->
 	<%= javascript_include_tag :defaults %>
-	<%= javascript_include_tag 'jquery.autocomplete','jquery.autofill', 'jquery.tablesorter.min','jquery.metadata' %>
+	<%= javascript_include_tag 'jquery.ui.accordion','jquery.autocomplete','jquery.autofill', 'jquery.tablesorter.min','jquery.metadata' %>
 	<%= javascript_include_tag 'site' %>
 	<%= yield(:footer) %>
 </body>

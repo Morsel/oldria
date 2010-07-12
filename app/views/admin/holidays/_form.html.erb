@@ -15,10 +15,10 @@
     <p><%= link_to "Add a Reminder", new_admin_holiday_reminder_path(:holiday_id => @holiday) %></p>
   <% end %>
 
-  <%= render :partial => 'admin/trend_questions/employment_criteria', :locals => {:f => form } %>
+  <%= render :partial => 'shared/employment_criteria', :locals => {:f => form } %>
 
   <div id="employment_list">
-    <%= render :partial => 'admin/trend_questions/employment_list' %>
+    <%= render :partial => 'shared/employment_list' %>
   </div>
 
   <p><%= button_tag 'Save', :class => 'positive' %></p>

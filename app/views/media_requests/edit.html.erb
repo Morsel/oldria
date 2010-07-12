@@ -7,7 +7,7 @@ To:
 <% end -%>
 </h4>
 
-<% form_for @media_request, :html => { :multipart => true } do |f| %>
+<% semantic_form_for @media_request, :html => { :multipart => true } do |f| %>
 	<%= f.error_messages %>
 	<%= f.hidden_field :sender_id %>
 
@@ -31,7 +31,9 @@ To:
 	</p>
 </div>
 
-	<%= render :partial => 'media_request_types', :locals => {:f => f} %>
+  <% f.inputs do %>
+	  <%= render :partial => 'media_request_types', :locals => {:f => f} %>
+  <% end %>
 
 	<p>
 		<%= f.label :due_date, "Due date" %>

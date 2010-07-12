@@ -1,5 +1,4 @@
 class QuickRepliesController < ApplicationController
-  skip_before_filter :preload_resources
   before_filter :require_user
   layout false
 

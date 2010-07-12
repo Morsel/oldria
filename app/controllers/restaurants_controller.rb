@@ -7,7 +7,7 @@ class RestaurantsController < ApplicationController
   end
 
   def show
-    @restaurant = Restaurant.find(params[:id])
+    find_restaurant
     @employments = @restaurant.employments.all(:include => [:subject_matters, :restaurant_role, :employee])
   end
 
@@ -36,11 +36,16 @@ class RestaurantsController < ApplicationController
 
   private
 
+  def find_restaurant
+    @restaurant = Restaurant.find(params[:id])    
+  end  
+  
   def authenticate
-    @restaurant = Restaurant.find(params[:id])
+    find_restaurant
     if cannot? :edit, @restaurant
       flash[:error] = "You don't have permission to access that page"
       redirect_to @restaurant
     end
   end
+
 end

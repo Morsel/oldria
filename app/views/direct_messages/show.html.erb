@@ -28,7 +28,7 @@
         <h4 class="cufon">Leave a Reply:</h4>
         <%= render :partial => 'form', :locals => {
           :direct_message => @reply_to_dm.build_reply,
-          :recipient => @reply_to_dm.sender
+          :recipient => reply_recipient(@reply_to_dm)
         } %>
     </div>
     <% end %>

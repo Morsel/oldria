@@ -17,8 +17,6 @@ class Employment < ActiveRecord::Base
   belongs_to :restaurant_role
   has_many :responsibilities
   has_many :subject_matters, :through => :responsibilities
-  has_many :media_request_conversations, :foreign_key => 'recipient_id', :dependent => :destroy
-  has_many :media_requests, :through => :media_request_conversations
   has_many :admin_conversations, :class_name => 'Admin::Conversation', :foreign_key => 'recipient_id'
   has_many :admin_discussions, :through => :restaurant
   has_many :admin_messages, :through => :admin_conversations, :class_name => 'Admin::Message'
@@ -67,5 +65,27 @@ class Employment < ActiveRecord::Base
   def name_and_restaurant
     "#{employee_name} (#{restaurant_name})"
   end
-  
+
+  def viewable_media_request_discussions
+    omniscient ? restaurant.media_request_discussions.all : filter_only_viewable(restaurant.media_request_discussions.all)
+  end
+
+  def viewable_admin_discussions
+    omniscient? ? all_media_requests : filter_only_viewable(all_media_requests)
+  end
+
+  def current_viewable_admin_discussions
+    viewable_admin_discussions.select {|discussion| discussion.scheduled_at < Time.now }
+  end
+
+  private
+
+  def all_media_requests(find_options = {})
+    restaurant.admin_discussions.all({:include => :discussionable}.merge(find_options)).select(&:discussionable)
+  end
+
+  def filter_only_viewable(collection)
+    collection.select {|element| element.viewable_by? self }
+  end
+
 end
