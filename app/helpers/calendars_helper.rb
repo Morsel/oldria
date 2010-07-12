@@ -9,6 +9,24 @@ module CalendarsHelper
       restaurant_event_path(:restaurant_id => @restaurant.id, :id => event.id)
     end
   end
+  
+  def event_link_class(event)
+    if ria_events? && @restaurant
+      "accepted_#{event.accepted_for_restaurant?(@restaurant)}"
+    else
+      event.status
+    end
+  end
+  
+  def event_link_title(event)
+    if ria_events? && @restaurant
+      event.accepted_for_restaurant?(@restaurant) ? 
+          "#{@restaurant.name} is already participating in this event" : 
+          event.description
+    else
+      event.description
+    end
+  end
 
   def restaurant_calendar_link(restaurant, date = nil)
     if restaurant && ria_events?

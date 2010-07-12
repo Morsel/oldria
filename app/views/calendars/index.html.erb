@@ -25,7 +25,7 @@
             <%= day.day %>
             <% events.each do |event| %>
                 <p>
-                  <% link_to event_link(event), :class => event.status do %>
+                  <% link_to event_link(event), :class => event_link_class(event), :title => event_link_title(event) do %>
                     <% if ria_events? || admin_calendars? %>
                       <span class="small-disc"><%= event.child_count %></span>
                     <% end %>

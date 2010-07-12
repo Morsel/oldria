@@ -1501,6 +1501,10 @@ span.event-time {font-size: .9em; color: #777;line-height: 12px;}
 	color: #276B96;
 }
 
+.calendar .accepted_true {
+  color: #69A74D;
+}
+
 .event-meta {margin: 7px 0px 14px 0px;}
 
 .event-meta dt {

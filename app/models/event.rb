@@ -43,6 +43,10 @@ class Event < ActiveRecord::Base
   
   named_scope :from_ria, :conditions => { :category => ['admin_charity', 'admin_holiday'] }
   
+  named_scope :children, lambda { |event| 
+    { :conditions => { :parent_id => event.id } }
+  }
+  
   def date
     start_at
   end
@@ -60,20 +64,24 @@ class Event < ActiveRecord::Base
     end
   end
   
+  def children
+    unless self.restaurant_id
+      Event.children(self)
+    end
+  end
+  
   def child_count
     unless self.restaurant_id
       Event.count(:conditions => { :parent_id => self.id })
     end
   end
   
-  def children
-    unless self.restaurant_id
-      Event.all(:conditions => { :parent_id => self.id })
-    end
-  end
-  
   def private?
     self.category == "Private"
+  end
+  
+  def accepted_for_restaurant?(restaurant)
+    child_count > 0 && !Event.children(self).find(:first, :restaurant_id == restaurant.id).nil?
   end
   
   protected
