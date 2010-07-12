@@ -9,7 +9,7 @@
 		<% if !employment.subject_matters.blank? %>
 		<p class="responsibilities">
 			Areas:
-			<%=h employment.subject_matters.map(&:name).to_sentence %>
+			<%=h employment.subject_matters.all.map(&:name).to_sentence %>
 		</p>
 		<% end %>
 	</div>

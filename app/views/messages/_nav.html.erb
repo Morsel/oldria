@@ -5,7 +5,6 @@
     <li><%= active_link_to "Private Messages (#{@private_message_count})", private_messages_path %></li>
    <% unless current_user.restaurants.blank? -%>
     <li><%= active_link_to "Staff Discussions (#{@discussions_count})", staff_discussions_messages_path %></li>
-    <li><%= active_link_to "Media Requests (#{@media_requests_count})", media_requests_messages_path %></li>
    <% end -%>
   </ul>
 </div><!-- /messages_nav -->
