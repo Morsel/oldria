@@ -1023,8 +1023,12 @@ input.checkbox {
 }
 
 
-.direct_message h5, .direct_message p {
+.direct_message h5 {
 	margin:0;
+}
+
+.direct_message p {
+  margin: .5em 0;
 }
 
 .direct_message .meta, #read_messages .discussion .meta {
