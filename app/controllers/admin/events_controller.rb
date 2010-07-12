@@ -9,7 +9,7 @@ class Admin::EventsController < Admin::AdminController
     @event = Event.new(params[:event])
     if @event.save
       flash[:notice] = "Created #{@event.title}"
-      redirect_to admin_calendars_path
+      redirect_to new_admin_event_path
     else
       render :action => "new"
     end
