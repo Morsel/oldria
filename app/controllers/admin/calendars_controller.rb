@@ -1,4 +1,4 @@
-class Admin::CalendarsController < ApplicationController
+class Admin::CalendarsController < Admin::AdminController
   
   def index
     @date = params[:date] ? Date.parse(params[:date]) : Date.today
