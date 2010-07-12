@@ -1,6 +1,8 @@
 <div id="new_or_old_messages">
-    <% if !archived_view? && show_replies? && @action_required_messages.present? %>
+    <% if use_replies_header? %>
       <span class="replies">You have replies</span>
+    <% else %>
+      <span class="latest">The latest from RIA</span>
     <% end %>
     <%= link_to "New", {:view_all => nil}, :class => "#{archived_view? ? '' : 'active'}" %>
     <span class="separator">|</span>

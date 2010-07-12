@@ -9,7 +9,7 @@
     <% unless archived_view? %>
       <%= render :partial => 'message', :collection => @action_required_messages %>
 
-      <span class="latest">The latest from RIA</span>
+      <% if use_replies_header? -%><span class="latest">The latest from RIA</span><%- end %>
     <% end %>
 
     <%= render :partial => 'message', :collection => @messages %>

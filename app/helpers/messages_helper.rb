@@ -109,5 +109,13 @@ module MessagesHelper
   def announcement?(message)
      message.inbox_title == "Announcement"
   end
+  
+  def class_for_replies(action_required_messages)
+    action_required_messages.blank? ? "no_replies" : "with_replies" 
+  end
+  
+  def use_replies_header?
+    !archived_view? && show_replies? && @action_required_messages.present?
+  end
 
 end
