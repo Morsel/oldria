@@ -13,6 +13,6 @@ Feature: admins can create and view calendar events
   And I fill in "Title" with "Puppy Benefit"
   And I fill in "Location" with "the patio"
   When I press "Save"
-  Then I should be on the admin calendars page
+  Then I should be on the new admin event page
   And I should see "Puppy Benefit"
   
