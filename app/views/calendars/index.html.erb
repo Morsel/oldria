@@ -1,4 +1,8 @@
+<%- if @restaurant -%>
+<% title "Calendars for #{@restaurant.name}" %>
+<%- else -%>
 <% title "Calendars" %>
+<%- end -%>
 
 <div class="calendar-categories">
   <% form_tag '', :method => :get do %>
