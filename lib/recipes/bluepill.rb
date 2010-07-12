@@ -9,6 +9,7 @@
 # Or wherever bluepill is installed. On some of our servers, it is at
 #   /opt/ruby-enterprise-1.8.7-2009.10/bin/bluepill
 
+
 before "deploy:update", "bluepill:quit"
 after "deploy:update",  "bluepill:start"
 
