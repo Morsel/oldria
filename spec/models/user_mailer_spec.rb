@@ -22,7 +22,7 @@ describe UserMailer do
     end
 
     it "should contain the media requests's publication name in the mail body" do
-      @email.should have_text(/writer from New York Times/)
+      @email.should have_text(/from New York Times/)
     end
 
     it "should contain a link to the media request conversation" do

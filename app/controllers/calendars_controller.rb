@@ -1,28 +1,33 @@
 class CalendarsController < ApplicationController
-  
+
   before_filter :authenticate_employee
-  
+  before_filter :parse_and_assign_date
+
   def index
-    @date = params[:date] ? Date.parse(params[:date]) : Date.today
+    @categories = Event::CATEGORIES
     if params[:category] && (params[:category] != "all")
       @events = @restaurant.events.for_month_of(@date).by_category(params[:category])
     else
       @events = @restaurant.events.for_month_of(@date)
     end
   end
-  
+
   def ria
-    @date = params[:date] ? Date.parse(params[:date]) : Date.today
+    @categories = Event::ADMIN_CATEGORIES
     @events = Event.from_ria
-    render :template => "admin/calendars/index"
+    render :index
   end
-  
+
   private
-  
+
+  def parse_and_assign_date
+    @date = params[:date] ? Date.parse(params[:date]) : Date.today
+  end
+
   def find_restaurant
-    @restaurant = Restaurant.find(params[:restaurant_id])    
-  end  
-  
+    @restaurant = Restaurant.find(params[:restaurant_id])
+  end
+
   def authenticate_employee
     find_restaurant
     unless current_user.restaurants.include?(@restaurant) || current_user.admin?
@@ -30,5 +35,5 @@ class CalendarsController < ApplicationController
       redirect_to @restaurant
     end
   end
-  
+
 end
