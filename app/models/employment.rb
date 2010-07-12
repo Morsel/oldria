@@ -81,7 +81,7 @@ class Employment < ActiveRecord::Base
   private
 
   def all_media_requests(find_options = {})
-    restaurant.admin_discussions.all({:include => :discussionable}.merge(find_options))
+    restaurant.admin_discussions.all({:include => :discussionable}.merge(find_options)).select(&:discussionable)
   end
 
   def filter_only_viewable(collection)
