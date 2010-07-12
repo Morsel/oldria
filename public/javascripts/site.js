@@ -349,3 +349,8 @@ if (typeof($.fn.colorbox) != 'undefined') {
         $.fn.colorbox.close();
     }
 }
+
+// Cleaning up email fields
+$('#user_email').blur(function() {
+  this.value = jQuery.trim(this.value);
+});
