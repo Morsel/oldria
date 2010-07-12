@@ -105,5 +105,9 @@ module MessagesHelper
     classes << ' archived' if discussion.read_by?(current_user)
     classes
   end
+  
+  def announcement?(message)
+     message.inbox_title == "Announcement"
+  end
 
 end

@@ -59,7 +59,7 @@ class AdminDiscussion < ActiveRecord::Base
   def viewable_by?(employment)
     discussionable.viewable_by?(employment)
   end
-
+  
   ##
   # Should only be called from an external observer.
   def notify_recipients
