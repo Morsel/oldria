@@ -117,5 +117,9 @@ module MessagesHelper
   def use_replies_header?
     !archived_view? && show_replies? && @action_required_messages.present?
   end
+  
+  def ria_messages?
+    params[:action] == "ria"
+  end
 
 end
