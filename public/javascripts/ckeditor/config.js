@@ -18,6 +18,8 @@
     config.toolbar = 'Basic';
     config.resize_maxWidth = 933;
     config.resize_minWidth = 639;
+    
+    config.stylesCombo_stylesSet = 'riastyles:/javascripts/ckeditor/styles.js';
 
     config.extraPlugins = "embed,attachment";
 };
