@@ -4,7 +4,7 @@
     <li><%= active_link_to "From RIA (#{@ria_message_count})", ria_messages_path, :class => class_for_replies(@action_required_messages) %></li>
     <li><%= active_link_to "Private Messages (#{@private_message_count})", private_messages_path %></li>
    <% unless current_user.restaurants.blank? -%>
-    <li><%= active_link_to "Staff Discussions (#{@discussions_count})", staff_discussions_messages_path %></li>
+    <li><%= active_link_to "Staff Discussions (#{@discussions_count})", staff_discussions_messages_path, :class => class_for_replies(@messages_with_replies) %></li>
    <% end -%>
   </ul>
 </div><!-- /messages_nav -->
