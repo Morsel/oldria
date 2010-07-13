@@ -18,13 +18,13 @@ CKEDITOR.addStylesSet('riastyles',[
         name : 'Image of Left',
         element : 'img',
         styles : { 'float' : 'left' },
-        attributes : { 'class' : 'img-left'}
+        attributes : { 'class' : 'left'}
     },
     { 
         name : 'Image of Right',
         element : 'img',
         styles : { 'float' : 'right' },
-        attributes : { 'class' : 'img-right'}
+        attributes : { 'class' : 'right'}
     }
     
 ]);

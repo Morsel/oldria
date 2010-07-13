@@ -194,11 +194,6 @@ dynamicalCheckAllBoxes();
 // 	Cufon.replace('.function-bold', {fontFamily:'FunctionBold', hover:true});
 // }
 
-// WYSIWYG
-if(typeof(CKEDITOR) != 'undefined'){
-	CKEDITOR.replace( 'page_content' );
-}
-
 $('#status_message').autofill({
 	value: 'What are you working on?',
 	defaultTextColor: '#666',

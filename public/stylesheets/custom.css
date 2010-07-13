@@ -376,6 +376,12 @@ blockquote p {
 	padding: 3px;
 }
 
+.page-content p img.right {
+	float: right;
+	margin: 12px 0 16px 16px;
+}
+
+
 /* -------  lists -------- */
 
 ul {
