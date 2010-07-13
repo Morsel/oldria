@@ -130,11 +130,9 @@ img, img.left {
 }
 
 img.right {
-	float: right;
+	float: right !important;
 	margin: 6px 0 16px 16px;
 }
-
-
 
 
 p.text-left {
