@@ -6,8 +6,9 @@
         ['Undo', 'Redo'],
         ['Bold', 'Italic', '-', 'NumberedList', 'BulletedList'],
         ['Find','RemoveFormat'],
-        ['Link', 'Unlink', 'Anchor', '-', 'Source'],
-        ['Image','Embed','Attachment']
+        ['Link', 'Unlink', 'Anchor'],
+        ['Image','Embed','Attachment'],
+        ['Source']
     ];
 
     config.PreserveSessionOnFileBrowser = true;
