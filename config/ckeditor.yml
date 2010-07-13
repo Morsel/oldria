@@ -26,3 +26,6 @@ development:
 
 production:
   <<: *options
+
+staging:
+  <<: *options
