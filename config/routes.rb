@@ -18,7 +18,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :discussions, :member => { :read => :put } do |discussions|
     discussions.resources :comments, :only => [:new, :create]
   end
-  
+
   map.resources :conversations
 
   map.resources :users, :collection => { :resend_confirmation => :any }, :member => {
@@ -114,6 +114,6 @@ ActionController::Routing::Routes.draw do |map|
   map.public_page ":id", :controller => 'pages', :action => 'show'
 
   # Default Routes
-  # map.connect ':controller/:action/:id'
-  # map.connect ':controller/:action/:id.:format'
+  map.connect ':controller/:action/:id'
+  map.connect ':controller/:action/:id.:format'
 end
