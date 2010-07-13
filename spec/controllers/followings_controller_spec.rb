@@ -10,7 +10,7 @@ describe FollowingsController do
   it "should allow a user to follow someone" do
     friend = Factory(:user)
     post :create, :friend_id => friend.id
-    response.should redirect_to(profile_path(friend.username))
+    response.should redirect_to(profile_path(@user.username))
     @user.followings.count.should == 1
   end
 

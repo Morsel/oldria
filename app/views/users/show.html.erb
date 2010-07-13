@@ -17,7 +17,6 @@
   	  <ul class="user_profile_actions">
     		<li><%= link_to "Private Message", new_user_direct_message_path(@user), :class=>'sf-button' %></li>
     		<%- if @following -%>
-    	<!-- @following is producing the wrong ID for the following_path -->
     	      <li class="following"><%= link_to "Stop following this user", following_path(@following.id), :method => :delete, :class=>'sf-button' %></li>
     		<% else %>
     		  <li><%= link_to "Follow this user", followings_path(:friend_id => @user), :method => :post, :class=>'sf-button' %></li>

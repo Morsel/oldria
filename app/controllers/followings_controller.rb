@@ -9,7 +9,7 @@ class FollowingsController < ApplicationController
     else
       flash[:error] = "Unable to follow that person." + activerecord_error_list(@following.errors)
     end
-    redirect_to profile_path(@following.friend.username)
+    redirect_to profile_path(current_user.username)
   end
   
   def destroy
