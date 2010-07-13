@@ -21,7 +21,11 @@
 	//]]>
 	</script>
 	<%- end -%>
-
+	
+    <% fb_connect_async_js do %>
+      <%= yield :facebook_js %>
+    <% end %>
+    
 	<%= render :partial => 'layouts/ga' %>
 
 </head>
