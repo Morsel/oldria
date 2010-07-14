@@ -40,7 +40,7 @@ class ApplicationController < ActionController::Base
     return @current_user if defined?(@current_user)
     @current_user = current_user_session && current_user_session.user
   end
-
+ 
   def require_twitter_authorization
     unless current_user.twitter_authorized?
       flash[:notice] = "You must be authorized with Twitter to view this page"
@@ -129,8 +129,6 @@ class ApplicationController < ActionController::Base
     @discussions_count = current_user && (current_user.unread_discussions + current_user.discussions.with_comments_unread_by(current_user)).uniq.size
     @media_requests_count = current_user.try(:viewable_media_request_discussions).try(:size)
   end
-
-
 
   ##
   # Employment saved-search methods

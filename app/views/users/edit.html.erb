@@ -16,6 +16,7 @@
   </p>
   </fieldset>
 <% end %>
+
 <fieldset class="twitter">
   <h3>Twitter</h3>
   <% if @user.twitter_authorized? -%>
@@ -27,6 +28,16 @@
     <%= link_to "Setup Twitter", new_twitter_authorization_url, :class=>'sf-button' %>
   <% end -%>
 </fieldset>
+
+<fieldset class="facebook">
+    <h3>Facebook</h3>
+    <%- if current_facebook_user -%>
+      <%= fb_logout_link "Logout", logout_path, :class => 'sf-button' %>
+    <%- else -%>
+      <%= link_to "Setup Facebook", fb_auth_user_path(@user), :class=>'sf-button' %>
+    <%- end -%>
+</fieldset>
+
 
 <%= render :partial => 'form' %>
 

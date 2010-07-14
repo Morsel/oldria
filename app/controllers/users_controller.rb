@@ -107,6 +107,8 @@ class UsersController < ApplicationController
     end
   end
 
+  def fb_auth
+  end
 
   private
 
