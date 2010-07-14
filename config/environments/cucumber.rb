@@ -5,7 +5,6 @@
 # break Cucumber's use_transactional_fixtures method.
 # For more information see https://rspec.lighthouseapp.com/projects/16211/tickets/165
 config.cache_classes = true
-::RANDOM_SQL_STRING = 'RANDOM()'
 DEFAULT_HOST = 'localhost:3000'
 
 # Log error messages when you accidentally call methods on nil.
