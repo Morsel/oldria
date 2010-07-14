@@ -229,4 +229,9 @@ class User < ActiveRecord::Base
       UserMailer.deliver_employee_invitation!(self, invitation_sender)
     end
   end
+  
+  def connect_to_facebook_user(fb_id)
+    update_attributes(:facebook_id => fb_id)
+  end
+  
 end
