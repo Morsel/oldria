@@ -32,9 +32,9 @@
 <fieldset class="facebook">
     <h3>Facebook</h3>
     <%- if current_facebook_user -%>
-      <%= fb_logout_link "Logout", logout_path, :class => 'sf-button' %>
+      <%= fb_logout_link "Disconnect", edit_user_path(@user), :class => 'sf-button' %>
     <%- else -%>
-      <%= link_to "Setup Facebook", fb_auth_user_path(@user), :class=>'sf-button' %>
+      <%= link_to "Setup Facebook", fb_auth_user_path(@user), :class => 'sf-button' %>
     <%- end -%>
 </fieldset>
 

@@ -108,6 +108,7 @@ class UsersController < ApplicationController
   end
 
   def fb_auth
+    @user = User.find(params[:id])
   end
 
   private
