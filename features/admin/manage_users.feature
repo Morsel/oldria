@@ -1,3 +1,4 @@
+@users
 Feature: Manage users
   So that staff can fix things and manage users
   As an RIA Staff Member
@@ -12,22 +13,17 @@ Feature: Manage users
   Scenario: Editing a username
     When I go to the admin edit page for "jimbob"
     And I fill in "Username" with "boomoo"
-    And I press "Update"
+    And I press "Save"
     Then I should be on the admin users landing page
     And I should see "User was successfully updated"
 
 
   Scenario: Editing admin status of a user
     When I go to the admin edit page for "jimbob"
-    Then the "Admin?" checkbox should not be checked
-
-    When I check "Admin?"
-    And I press "Update"
+    And I select "Admin" from "Role"
+    And I press "Save"
     Then I should see "User was successfully updated"
     And "jimbob" should be an admin
-
-    When I go to the admin edit page for "jimbob"
-    Then the "Admin?" checkbox should be checked
 
 
 @preconfirmed
@@ -35,8 +31,8 @@ Feature: Manage users
     Given I am on the admin new user page
     When I fill in "Email" with "joesak.com@gmail.com"
     And I fill in "Username" with "joemsak"
-    And I fill in "Initial password" with "blAh1!lol"
-    And I fill in "Confirm initial password" with "blAh1!lol"
+    And I fill in "Password" with "blAh1!lol"
+    And I fill in "Confirm password" with "blAh1!lol"
     And I press "Save"
     Then "joemsak" should be a confirmed user
     And "joesak.com@gmail.com" should have 0 emails

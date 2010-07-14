@@ -34,7 +34,6 @@ class User < ActiveRecord::Base
   include UserMessaging
 
   belongs_to :james_beard_region
-  belongs_to :account_type
   has_many :statuses, :dependent => :destroy
 
   has_many :followings, :foreign_key => 'follower_id', :dependent => :destroy

@@ -9,13 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100713195507) do
-
-  create_table "account_types", :force => true do |t|
-    t.string   "name"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
+ActiveRecord::Schema.define(:version => 20100714215835) do
 
   create_table "admin_conversations", :force => true do |t|
     t.integer  "recipient_id"
@@ -220,8 +214,6 @@ ActiveRecord::Schema.define(:version => 20100713195507) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
-
-  add_index "feed_categories", ["id"], :name => "index_feed_categories_on_id", :unique => true
 
   create_table "feed_entries", :force => true do |t|
     t.string   "title"
@@ -482,7 +474,6 @@ ActiveRecord::Schema.define(:version => 20100713195507) do
     t.datetime "last_request_at"
     t.string   "atoken"
     t.string   "asecret"
-    t.integer  "account_type_id"
     t.string   "avatar_file_name"
     t.string   "avatar_content_type"
     t.integer  "avatar_file_size"
