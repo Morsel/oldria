@@ -9,7 +9,7 @@
 #
 
 class SubjectMatter < ActiveRecord::Base
-  has_many :responsibilities
+  has_many :responsibilities, :dependent => :destroy
   has_many :employments, :through => :responsibilities
   validates_presence_of :name
   default_scope :order => "#{table_name}.name ASC"
