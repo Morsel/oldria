@@ -107,9 +107,14 @@ class User < ActiveRecord::Base
     return @is_media if defined?(@is_media)
     @is_media = has_role?(:media)
   end
+  alias :media :media?
 
   def admin=(bool)
     TRUE_VALUES.include?(bool) ? has_role!("admin") : has_no_role!(:admin)
+  end
+
+  def media=(bool)
+    TRUE_VALUES.include?(bool) ? has_role!("media") : has_no_role!(:media)
   end
 
   def has_role?(_role)
