@@ -49,6 +49,8 @@ class Restaurant < ActiveRecord::Base
 
   after_validation_on_create :add_manager_as_employee
   after_save :update_admin_discussions
+  
+  named_scope :cuisines, :joins => :cuisine, :select => "distinct cuisines.*"
 
   # For pagination
   cattr_reader :per_page
