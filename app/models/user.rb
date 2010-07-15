@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20100316193326
+# Schema version: 20100715002740
 #
 # Table name: users
 #
@@ -26,6 +26,8 @@
 #  james_beard_region_id :integer
 #  publication           :string(255)
 #  role                  :string(255)
+#  facebook_id           :integer
+#  facebook_access_token :string(255)
 #
 
 class User < ActiveRecord::Base
