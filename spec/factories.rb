@@ -90,9 +90,6 @@ Factory.define :admin_event, :parent => "event" do |f|
 end
 
 # == Lookup Tables ==
-Factory.define :account_type do |f|
-  f.name "Concierge"
-end
 
 Factory.define :cuisine do |f|
   f.name "Mexican"

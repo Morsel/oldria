@@ -8,7 +8,7 @@
 		<%= restaurant_role_and_link(employment) %>
 	<% end %>
 
-	<% if !employment.subject_matters.blank? %>
-		<p class="responsibilities">Handles <%= employment.subject_matters.map(&:name).to_sentence %></p>
+	<% if employment.subject_matters.present? %>
+		<p class="responsibilities">Handles <%= employment.subject_matters.compact.map(&:name).to_sentence %></p>
 	<% end %>
 <% end -%>

@@ -3,7 +3,10 @@
 		<%= f.input :title,
                 :input_html => {:class => 'title span-8'} %>
 		<%= f.input :slug unless @page.special? %>
-		<%= f.input :content, :wrapper_html => {:class => 'span-12'} %>
+    <li class="span-12">
+      <label for="page_content_editor">Content</label>
+      <%= f.cktext_area :content, :swf_params=> { :assetable_type=>'User', :assetable_id => current_user.id}, :height => '340px' %>
+    </li>
 	<% end %>
 
 	<p>

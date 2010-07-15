@@ -18,7 +18,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :discussions, :member => { :read => :put } do |discussions|
     discussions.resources :comments, :only => [:new, :create]
   end
-  
+
   map.resources :conversations
 
   map.resources :users, :collection => { :resend_confirmation => :any }, :member => {
@@ -93,7 +93,7 @@ ActionController::Routing::Routes.draw do |map|
     admin.resources :pages
     admin.resources :feeds, :collection => { :sort => [:post, :put] }
     admin.resources :feed_categories
-    admin.resources :date_ranges, :account_types, :coached_status_updates, :direct_messages
+    admin.resources :date_ranges, :coached_status_updates, :direct_messages
     admin.resources :cuisines, :subject_matters, :restaurants
     admin.resources :media_requests, :member => { :approve => :put }
     admin.resources :restaurant_roles, :except => [:show]
@@ -116,6 +116,6 @@ ActionController::Routing::Routes.draw do |map|
   map.public_page ":id", :controller => 'pages', :action => 'show'
 
   # Default Routes
-  # map.connect ':controller/:action/:id'
-  # map.connect ':controller/:action/:id.:format'
+  map.connect ':controller/:action/:id'
+  map.connect ':controller/:action/:id.:format'
 end

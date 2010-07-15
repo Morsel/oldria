@@ -122,3 +122,41 @@ ins {
 	border: 0px;
 }
 
+img, img.left {
+	border: 1px solid #ddd;
+	padding: 3px;
+	float: left;
+	margin: 6px 16px 16px 0px;
+}
+
+img.right {
+	float: right !important;
+	margin: 6px 0 16px 16px;
+}
+
+
+p.text-left {
+	width: 200px;
+	float: left;
+	display: inline;
+	padding-right: 20px;
+	font-family: 'Helvetica neue', arial, sans-serif;
+	font-size: 1.3em;
+	line-height: 20px;
+	font-weight: bold;
+	color: #276b96;
+	}
+
+p.text-right {
+	width: 200px;
+	float: right;
+	display: inline;
+	padding-left: 20px;
+	font-family: 'Helvetica neue', arial, sans-serif;
+	font-size: 1.3em;
+	line-height: 20px;
+	font-weight: bold;
+	color: #276b96;
+	}
+
+

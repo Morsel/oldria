@@ -26,7 +26,7 @@ describe MediaUsersController do
       response.should render_template(:new)
     end
 
-    it "should set the account_type on the assigned user to media" do
+    it "should set make the new user a media user" do
       User.any_instance.stubs(:save).returns(true)
       post :create
       assigns[:media_user].should have_role(:media)

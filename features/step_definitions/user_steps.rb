@@ -55,14 +55,6 @@ Given(/^I am logged in as "([^\" ]*)"$/) do |username|
   Given %Q(I am logged in as "#{username}" with password "secret")
 end
 
-Given /^"([^\"]*)" has a "([^\"]*)" account type$/ do |username, account_type_name|
-  account_type = AccountType.find_by_name(account_type_name)
-  account_type ||= Factory(:account_type, :name => account_type_name)
-  user = User.find_by_username(username)
-  user.account_type = account_type
-  user.save
-end
-
 Given /^I am not logged in$/ do
   Given 'I visit the logout path'
 end
@@ -101,16 +93,6 @@ Then /^"([^\"]*)" should be an admin$/ do |username|
   User.find_by_username(username).should be_admin
 end
 
-Then /^"([^\"]*)" should have an? "([^\"]*)" account type$/ do |username, account_type_name|
-  User.find_by_username(username).account_type.name.should == account_type_name
-end
-
-Then /^I should see that "([^\"]*)" has a "([^\"]*)" account type$/ do |username, account_type_name|
-  response.should have_selector(".user") do |usertag|
-    usertag.should contain(username)
-    usertag.should contain(account_type_name)
-  end
-end
 
 Then /^I should see an invitation URL in the email body$/ do
   token = User.find_by_email(current_email.to).perishable_token

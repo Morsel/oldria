@@ -8,8 +8,7 @@ db/*.sqlite3-journal
 public/upload/*
 coverage/*
 features_rcov/
-public/system/avatars/
-public/system/attachments/
+public/system/a*/
 mkmf.log
 rerun.txt
 .rake_tasks~

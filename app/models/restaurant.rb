@@ -93,7 +93,7 @@ class Restaurant < ActiveRecord::Base
   end
 
   def handled_subject_matter_ids
-    employments.all(:include => :subject_matters).map(&:subject_matter_ids).flatten.uniq
+    employments.all(:include => :responsibilities).map(&:subject_matter_ids).flatten.uniq
   end
 
   def missing_subject_matter_ids

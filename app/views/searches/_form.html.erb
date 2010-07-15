@@ -16,9 +16,5 @@
     <%= f.label :username_like, "Username" %>
     <%= f.text_field :username_like, :class => 'text' %>
   </p>
-  <p >
-    <%= f.label :account_type_id %>
-    <%= f.collection_select :account_type_id, AccountType.all, :id, :name, :include_blank => true %>
-  </p>
   <p class="clearfix"><%= button_tag "Search", :class => 'positive' %></p>
 <% end %>

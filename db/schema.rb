@@ -11,12 +11,6 @@
 
 ActiveRecord::Schema.define(:version => 20100715002740) do
 
-  create_table "account_types", :force => true do |t|
-    t.string   "name"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "admin_conversations", :force => true do |t|
     t.integer  "recipient_id"
     t.integer  "admin_message_id"
@@ -43,6 +37,22 @@ ActiveRecord::Schema.define(:version => 20100715002740) do
     t.datetime "updated_at"
     t.integer  "holiday_id"
   end
+
+  create_table "assets", :force => true do |t|
+    t.string   "data_file_name"
+    t.string   "data_content_type"
+    t.integer  "data_file_size"
+    t.integer  "assetable_id"
+    t.string   "assetable_type",    :limit => 25
+    t.string   "type",              :limit => 25
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "assets", ["assetable_id", "assetable_type", "type"], :name => "ndx_type_assetable"
+  add_index "assets", ["assetable_id", "assetable_type"], :name => "fk_assets"
+  add_index "assets", ["user_id"], :name => "fk_user"
 
   create_table "attachments", :force => true do |t|
     t.string   "attachment_file_name"
@@ -468,7 +478,6 @@ ActiveRecord::Schema.define(:version => 20100715002740) do
     t.datetime "last_request_at"
     t.string   "atoken"
     t.string   "asecret"
-    t.integer  "account_type_id"
     t.string   "avatar_file_name"
     t.string   "avatar_content_type"
     t.integer  "avatar_file_size"

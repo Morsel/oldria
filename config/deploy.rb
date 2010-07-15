@@ -18,6 +18,7 @@ default_run_options[:pty] = true
 #
 # Default to staging
 set :server_ip, '174.132.251.233'
+set :stage, 'staging'
 role :web, server_ip
 role :app, server_ip
 role :db, server_ip, :primary => true
@@ -37,6 +38,7 @@ set :user, "ria"
 #
 desc "Deploy to production instead: 'cap production deploy'"
 task :production do
+  set :stage, 'production'
   unset :server_ip
   @roles.clear # Hack to empty the hash
   set :server_ip, 'dh03172010.highlandgroupinc.com'
@@ -104,9 +106,55 @@ namespace :db do
 end
 
 namespace :sync do
-  desc "Sync down system folder (avatars)"
-  task :avatars do
+  task :default do; db && data; end
+
+  desc <<-DESC
+  Syncs database from the selected mutli_stage environement to the local develoment environment.
+  The database credentials will be read from your local config/database.yml file and a copy of the
+  dump will be kept within the shared sync directory. It assumes that you're using mysql for both
+  the remote and the local development environment.
+  DESC
+  task :db, :roles => :db, :only => { :primary => true } do
+
+    filename = "database.#{stage}.#{Time.now.strftime '%Y-%m-%d_%H:%M:%S'}.sql.bz2"
+    on_rollback { delete "#{shared_path}/sync/#{filename}" }
+
+    # Remote DB dump
+    username, password, database = database_config(stage)
+    run "mysqldump -u #{username} --password='#{password}' #{database} | bzip2 -9 > #{shared_path}/sync/#{filename}" do |channel, stream, data|
+      puts data
+    end
+
+    # Download dump
+    download "#{shared_path}/sync/#{filename}", filename
+
+    # Local DB import
+    username, password, database = database_config('development')
+    system "bzip2 -d -c #{filename} | mysql -u #{username} --password='#{password}' #{database}; rm -f #{filename}"
+
+    logger.important "sync database from the stage '#{stage}' to local finished"
+  end
+
+  desc "Sync down system folder (avatars and uploads)"
+  task :data do
     system("rsync -auvz #{user}@#{application}:#{shared_path}/system public/")
+  end
+
+  #
+  # Reads the database credentials from the local config/database.yml file
+  # +db+ the name of the environment to get the credentials for
+  # Returns username, password, database
+  #
+  def database_config(db)
+    database = YAML::load_file('config/database.yml')
+    return database["#{db}"]['username'], database["#{db}"]['password'], database["#{db}"]['database']
+  end
+
+  #
+  # Returns the actual host name to sync and port
+  #
+  def host_and_port
+    return roles[:web].servers.first.host, ssh_options[:port] || roles[:web].servers.first.port || 22
   end
 end
 

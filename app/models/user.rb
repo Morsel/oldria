@@ -36,7 +36,6 @@ class User < ActiveRecord::Base
   include UserMessaging
 
   belongs_to :james_beard_region
-  belongs_to :account_type
   has_many :statuses, :dependent => :destroy
 
   has_many :followings, :foreign_key => 'follower_id', :dependent => :destroy
@@ -109,9 +108,14 @@ class User < ActiveRecord::Base
     return @is_media if defined?(@is_media)
     @is_media = has_role?(:media)
   end
+  alias :media :media?
 
   def admin=(bool)
     TRUE_VALUES.include?(bool) ? has_role!("admin") : has_no_role!(:admin)
+  end
+
+  def media=(bool)
+    TRUE_VALUES.include?(bool) ? has_role!("media") : has_no_role!(:media)
   end
 
   def has_role?(_role)
