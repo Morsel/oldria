@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100714173822) do
+ActiveRecord::Schema.define(:version => 20100715002740) do
 
   create_table "account_types", :force => true do |t|
     t.string   "name"
@@ -433,6 +433,8 @@ ActiveRecord::Schema.define(:version => 20100714173822) do
     t.integer  "user_id"
     t.integer  "twitter_id"
     t.boolean  "queue_for_social_media"
+    t.boolean  "queue_for_facebook"
+    t.integer  "facebook_id"
   end
 
   add_index "statuses", ["user_id"], :name => "index_statuses_on_user_id"
@@ -477,6 +479,7 @@ ActiveRecord::Schema.define(:version => 20100714173822) do
     t.string   "publication"
     t.string   "role"
     t.integer  "facebook_id"
+    t.string   "facebook_access_token"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email"

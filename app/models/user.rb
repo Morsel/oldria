@@ -234,4 +234,14 @@ class User < ActiveRecord::Base
     update_attributes(:facebook_id => fb_id)
   end
   
+  def facebook_authorized?
+    !facebook_id.nil?
+  end
+  
+  def facebook_user
+    if facebook_id and facebook_access_token
+      @facebook_user ||= Mogli::User.new(:id => facebook_id, :client => Mogli::Client.new(facebook_access_token))
+    end
+  end
+  
 end

@@ -115,6 +115,9 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     if current_facebook_user
       @user.connect_to_facebook_user(current_facebook_user.id)
+      if @user.facebook_access_token != current_facebook_user.client.access_token
+        @user.update_attribute(:facebook_access_token, current_facebook_user.client.access_token)
+      end
       flash[:notice] = "Your Facebook account has been connected to your spoonfeed account"
     end
     redirect_to :action => "edit", :id => @user.id

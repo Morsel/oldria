@@ -20,6 +20,7 @@ class Status < ActiveRecord::Base
 
   before_validation :strip_html
   after_create      :send_to_social_media!
+  after_create      :send_to_facebook!
 
   def strip_html
     self.message = strip_tags(message)
@@ -33,4 +34,14 @@ class Status < ActiveRecord::Base
       end
     end
   end
+  
+  def send_to_facebook!
+    if queue_for_facebook
+      response = user.facebook_user.feed_create(Mogli::Post.new(:message => self.message))
+      if response && response['id']
+        update_attributes!(:facebook_id => response['id'].to_i, :queue_for_facebook => nil)
+      end
+    end
+  end
+  
 end
