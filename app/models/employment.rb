@@ -67,7 +67,8 @@ class Employment < ActiveRecord::Base
   end
 
   def viewable_media_request_discussions
-    omniscient ? restaurant.media_request_discussions.all : filter_only_viewable(restaurant.media_request_discussions.all)
+    mrds = restaurant.media_request_discussions.all(:include => :media_request, :order => 'media_requests.created_at DESC')
+    omniscient ? mrds : filter_only_viewable(mrds)
   end
 
   def viewable_admin_discussions

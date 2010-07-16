@@ -34,7 +34,9 @@ class MediaRequest < ActiveRecord::Base
   accepts_nested_attributes_for :attachments
 
   named_scope :past_due, lambda {{ :conditions => ['due_date < ?', Date.today] }}
-  named_scope :for_dashboard, :order => "created_at DESC", :conditions => {:status => ["approved", "pending"]}
+  named_scope :for_dashboard, :conditions => {:status => ["approved", "pending"]}
+
+  default_scope :order => "#{table_name}.created_at DESC"
 
   include AASM
 
