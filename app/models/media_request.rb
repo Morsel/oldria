@@ -23,10 +23,11 @@ class MediaRequest < ActiveRecord::Base
   belongs_to :sender, :class_name => 'User'
   belongs_to :media_request_type
   has_many :media_request_discussions, :dependent => :destroy
-  belongs_to :employment_search
-
-  # Recipients are Employment objects, not Employees directly
   has_many :restaurants, :through => :media_request_discussions
+  belongs_to :employment_search
+  has_many :request_categorizations
+  has_many :subject_matters, :through => :request_categorizations
+
   has_many :attachments, :as => :attachable, :class_name => '::Attachment', :dependent => :destroy
   validates_presence_of :sender_id
   validates_presence_of :restaurant_ids, :on => :create

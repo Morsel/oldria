@@ -13,6 +13,8 @@ require 'spec/spec_helper'
 describe SubjectMatter do
   should_have_many :responsibilities
   should_have_many :employments, :through => :responsibilities
+  should_have_many :request_categorizations
+  should_have_many :media_requests, :through => :request_categorizations
   should_validate_presence_of :name
   should_have_default_scope :order => "subject_matters.name ASC"
 

@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100716163116) do
+ActiveRecord::Schema.define(:version => 20100716170729) do
 
   create_table "admin_conversations", :force => true do |t|
     t.integer  "recipient_id"
@@ -409,6 +409,17 @@ ActiveRecord::Schema.define(:version => 20100716163116) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "request_categorizations", :force => true do |t|
+    t.integer  "media_request_id"
+    t.integer  "subject_matter_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "request_categorizations", ["media_request_id", "subject_matter_id"], :name => "by_media_request_subject_matter", :unique => true
+  add_index "request_categorizations", ["media_request_id"], :name => "index_request_categorizations_on_media_request_id"
+  add_index "request_categorizations", ["subject_matter_id"], :name => "index_request_categorizations_on_subject_matter_id"
 
   create_table "responsibilities", :force => true do |t|
     t.integer  "employment_id"

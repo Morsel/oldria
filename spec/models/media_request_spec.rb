@@ -27,7 +27,8 @@ describe MediaRequest do
   should_belong_to :employment_search
   should_have_many :media_request_discussions
   should_have_many :restaurants, :through => :media_request_discussions
-
+  should_have_many :request_categorizations
+  should_have_many :subject_matters, :through => :request_categorizations
   should_have_many :attachments, :as => :attachable, :class_name => '::Attachment', :dependent => :destroy
 
   before(:each) do
@@ -59,7 +60,7 @@ describe MediaRequest do
       end
     end
   end
-  
+
   describe "with search criteria" do
     before do
       @restaurant2 = Factory(:restaurant, :name => "IHOP")

@@ -11,6 +11,9 @@
 class SubjectMatter < ActiveRecord::Base
   has_many :responsibilities, :dependent => :destroy
   has_many :employments, :through => :responsibilities
+  has_many :request_categorizations
+  has_many :media_requests, :through => :request_categorizations
+
   validates_presence_of :name
   default_scope :order => "#{table_name}.name ASC"
 
