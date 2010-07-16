@@ -14,6 +14,8 @@ class SubjectMatter < ActiveRecord::Base
   validates_presence_of :name
   default_scope :order => "#{table_name}.name ASC"
 
+  named_scope :nongeneral, :conditions => ["general IS NULL OR general = ?", false]
+
   def admin_only?
     name =~ /RIA/
   end

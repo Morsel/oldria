@@ -25,4 +25,30 @@ describe SubjectMatter do
       SubjectMatter.new(:name => "Beer (RIA)").should be_admin_only
     end
   end
+
+  context "general information" do
+
+    it "should not be a general subject matter by default" do
+      SubjectMatter.create(:name => "not general").should_not be_general
+    end
+
+    it "should know about its descendants" do
+      SubjectMatter.create(:name => "Food", :general => true).should be_general
+    end
+
+    context "class methods" do
+      before(:all) do
+        @general = SubjectMatter.create(:name => "Food", :general => true)
+        @notgeneral1 = SubjectMatter.create(:name => "Photo Shoot")
+        @notgeneral2 = SubjectMatter.create(:name => "Photo Shoot", :general => false)
+      end
+      after(:all) { SubjectMatter.destroy_all }
+
+      it { SubjectMatter.general.should include(@general) }
+      it { SubjectMatter.general.should_not include(@notgeneral1) }
+      it { SubjectMatter.nongeneral.should include(@notgeneral1) }
+      it { SubjectMatter.nongeneral.should include(@notgeneral2) }
+      it { SubjectMatter.nongeneral.should_not include(@general) }
+    end
+  end
 end
