@@ -1,4 +1,7 @@
 <% semantic_form_for [:admin, @subject_matter] do |f| %>
-	<%= f.inputs :name %>
-	<p><%= button_tag "Submit", :class => 'positive' %></p>
+  <% f.inputs do %>
+    <%= f.input :name %>
+    <%= f.input :general, :hint => "Should this appear under the 'General Information' category?" %>
+  <% end %>
+  <p><%= button_tag "Submit", :class => 'positive' %></p>
 <% end %>
