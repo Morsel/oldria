@@ -309,6 +309,8 @@ if (location.hash && location.hash.match(/user_\d+$/)) {
 
 $('#criteria_accordion').accordion({
 	autoHeight: false,
+	collapsible: true,
+	active: false,
 	header: '.accordion_box a',
 	change: function() {
 		$('.accordion_box').each(function(){
