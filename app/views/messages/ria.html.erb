@@ -13,10 +13,13 @@
     <% end %>
 
     <%= render :partial => 'message', :collection => @messages %>
-
-    <% unless archived_view? %>
-      <p id="past_messages"><%= link_to "Past Messages", ria_messages_path(:view_all => true) %></p>
+    
+    <% if @messages.blank? %>
+    <div id="no-messages">
+        <p>You don't have any new messages at the moment.</p>
+    </div>
     <% end %>
+
   </div><!-- /messages -->
 </div>
 

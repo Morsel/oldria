@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100715002740) do
+ActiveRecord::Schema.define(:version => 20100715214551) do
 
   create_table "admin_conversations", :force => true do |t|
     t.integer  "recipient_id"
@@ -27,6 +27,9 @@ ActiveRecord::Schema.define(:version => 20100715002740) do
     t.integer  "comments_count",      :default => 0
     t.string   "discussionable_type"
   end
+
+  add_index "admin_discussions", ["discussionable_id", "discussionable_type"], :name => "admin_discussions_by_discussionable"
+  add_index "admin_discussions", ["restaurant_id"], :name => "index_admin_discussions_on_restaurant_id"
 
   create_table "admin_messages", :force => true do |t|
     t.string   "type"
@@ -52,6 +55,7 @@ ActiveRecord::Schema.define(:version => 20100715002740) do
 
   add_index "assets", ["assetable_id", "assetable_type", "type"], :name => "ndx_type_assetable"
   add_index "assets", ["assetable_id", "assetable_type"], :name => "fk_assets"
+  add_index "assets", ["id", "type"], :name => "index_assets_on_id_and_type"
   add_index "assets", ["user_id"], :name => "fk_user"
 
   create_table "attachments", :force => true do |t|
@@ -111,6 +115,8 @@ ActiveRecord::Schema.define(:version => 20100715002740) do
     t.datetime "updated_at"
   end
 
+  add_index "content_requests", ["employment_search_id"], :name => "index_content_requests_on_employment_search_id"
+
   create_table "cuisines", :force => true do |t|
     t.string   "name"
     t.datetime "created_at"
@@ -150,6 +156,7 @@ ActiveRecord::Schema.define(:version => 20100715002740) do
     t.boolean  "from_admin",             :default => false
   end
 
+  add_index "direct_messages", ["in_reply_to_message_id"], :name => "index_direct_messages_on_in_reply_to_message_id"
   add_index "direct_messages", ["receiver_id"], :name => "index_direct_messages_on_receiver_id"
   add_index "direct_messages", ["sender_id"], :name => "index_direct_messages_on_sender_id"
 
@@ -173,6 +180,7 @@ ActiveRecord::Schema.define(:version => 20100715002740) do
     t.integer  "employment_search_id"
   end
 
+  add_index "discussions", ["employment_search_id"], :name => "index_discussions_on_employment_search_id"
   add_index "discussions", ["id"], :name => "index_discussions_on_id", :unique => true
   add_index "discussions", ["poster_id"], :name => "index_discussions_on_poster_id"
 
@@ -209,13 +217,13 @@ ActiveRecord::Schema.define(:version => 20100715002740) do
     t.integer  "parent_id"
   end
 
+  add_index "events", ["restaurant_id"], :name => "index_events_on_restaurant_id"
+
   create_table "feed_categories", :force => true do |t|
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
-
-  add_index "feed_categories", ["id"], :name => "index_feed_categories_on_id", :unique => true
 
   create_table "feed_entries", :force => true do |t|
     t.string   "title"
@@ -277,12 +285,18 @@ ActiveRecord::Schema.define(:version => 20100715002740) do
     t.boolean  "accepted"
   end
 
+  add_index "holiday_conversations", ["holiday_id"], :name => "index_holiday_conversations_on_holiday_id"
+  add_index "holiday_conversations", ["recipient_id"], :name => "index_holiday_conversations_on_recipient_id"
+
   create_table "holiday_discussion_reminders", :force => true do |t|
     t.integer  "holiday_discussion_id"
     t.integer  "holiday_reminder_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "holiday_discussion_reminders", ["holiday_discussion_id"], :name => "index_holiday_discussion_reminders_on_holiday_discussion_id"
+  add_index "holiday_discussion_reminders", ["holiday_reminder_id"], :name => "index_holiday_discussion_reminders_on_holiday_reminder_id"
 
   create_table "holiday_discussions", :force => true do |t|
     t.integer  "restaurant_id"
@@ -292,6 +306,9 @@ ActiveRecord::Schema.define(:version => 20100715002740) do
     t.datetime "updated_at"
     t.boolean  "accepted",       :default => false
   end
+
+  add_index "holiday_discussions", ["holiday_id"], :name => "index_holiday_discussions_on_holiday_id"
+  add_index "holiday_discussions", ["restaurant_id"], :name => "index_holiday_discussions_on_restaurant_id"
 
   create_table "holiday_reminders", :force => true do |t|
     t.datetime "scheduled_at"
@@ -310,6 +327,8 @@ ActiveRecord::Schema.define(:version => 20100715002740) do
     t.integer  "employment_search_id"
   end
 
+  add_index "holidays", ["employment_search_id"], :name => "index_holidays_on_employment_search_id"
+
   create_table "james_beard_regions", :force => true do |t|
     t.string   "name"
     t.string   "description"
@@ -324,6 +343,9 @@ ActiveRecord::Schema.define(:version => 20100715002740) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "media_request_discussions", ["media_request_id"], :name => "index_media_request_discussions_on_media_request_id"
+  add_index "media_request_discussions", ["restaurant_id"], :name => "index_media_request_discussions_on_restaurant_id"
 
   create_table "media_request_types", :force => true do |t|
     t.string   "name"
@@ -346,6 +368,10 @@ ActiveRecord::Schema.define(:version => 20100715002740) do
     t.boolean  "admin",                 :default => false
     t.integer  "employment_search_id"
   end
+
+  add_index "media_requests", ["employment_search_id"], :name => "index_media_requests_on_employment_search_id"
+  add_index "media_requests", ["media_request_type_id"], :name => "index_media_requests_on_media_request_type_id"
+  add_index "media_requests", ["sender_id"], :name => "index_media_requests_on_sender_id"
 
   create_table "metropolitan_areas", :force => true do |t|
     t.string   "name"
@@ -443,8 +469,6 @@ ActiveRecord::Schema.define(:version => 20100715002740) do
     t.integer  "user_id"
     t.integer  "twitter_id"
     t.boolean  "queue_for_social_media"
-    t.boolean  "queue_for_facebook"
-    t.integer  "facebook_id"
   end
 
   add_index "statuses", ["user_id"], :name => "index_statuses_on_user_id"
@@ -464,6 +488,8 @@ ActiveRecord::Schema.define(:version => 20100715002740) do
     t.datetime "updated_at"
     t.integer  "employment_search_id"
   end
+
+  add_index "trend_questions", ["employment_search_id"], :name => "index_trend_questions_on_employment_search_id"
 
   create_table "users", :force => true do |t|
     t.string   "username"
@@ -487,12 +513,11 @@ ActiveRecord::Schema.define(:version => 20100715002740) do
     t.integer  "james_beard_region_id"
     t.string   "publication"
     t.string   "role"
-    t.integer  "facebook_id"
-    t.string   "facebook_access_token"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email"
   add_index "users", ["id"], :name => "index_users_on_id", :unique => true
+  add_index "users", ["james_beard_region_id"], :name => "index_users_on_james_beard_region_id"
   add_index "users", ["username"], :name => "index_users_on_username"
 
 end

@@ -31,7 +31,7 @@
         <div id="cuisine_fields">
             <%= s.input :restaurant_cuisine_id_equals_any,
                         :as => "check_boxes",
-                        :collection => Cuisine.all %>
+                        :collection => Restaurant.cuisines %>
         </div>
       </div>
       <div class="accordion_box">

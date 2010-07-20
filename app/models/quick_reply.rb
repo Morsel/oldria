@@ -22,7 +22,7 @@ class QuickReply < ActiveRecord::Base
   column :user_id, :integer
 
   validates_presence_of :reply_text, :message_id, :message_type, :user_id
-  validates_length_of :reply_text, :maximum => 500
+  validates_length_of :reply_text, :maximum => 2000
 
   belongs_to :message, :polymorphic => true
   belongs_to :user

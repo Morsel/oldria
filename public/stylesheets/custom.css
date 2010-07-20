@@ -2295,7 +2295,17 @@ ul.mini_menu li {
 	color: #999;
 }
 
+#no-messages {
+  min-height: 300px;
+}
 
+#no-messages p {
+  background-color: #F6F6F6;
+  padding: 1em;
+  height: 75px;
+  margin-bottom: 1em;
+  display: block;
+}
 
 /* message type themes */
 .holiday_discussion_reminder .icon {   background-color: #D14600 }
