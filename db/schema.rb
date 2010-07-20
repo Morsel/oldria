@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100720201201) do
+ActiveRecord::Schema.define(:version => 20100720205124) do
 
   create_table "admin_conversations", :force => true do |t|
     t.integer  "recipient_id"
@@ -361,17 +361,17 @@ ActiveRecord::Schema.define(:version => 20100720201201) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.date     "due_date"
-    t.integer  "media_request_type_id"
+    t.integer  "subject_matter_id"
     t.text     "fields"
     t.string   "status"
     t.string   "publication"
-    t.boolean  "admin",                 :default => false
+    t.boolean  "admin",                :default => false
     t.integer  "employment_search_id"
   end
 
   add_index "media_requests", ["employment_search_id"], :name => "index_media_requests_on_employment_search_id"
-  add_index "media_requests", ["media_request_type_id"], :name => "index_media_requests_on_media_request_type_id"
   add_index "media_requests", ["sender_id"], :name => "index_media_requests_on_sender_id"
+  add_index "media_requests", ["subject_matter_id"], :name => "index_media_requests_on_media_request_type_id"
 
   create_table "metropolitan_areas", :force => true do |t|
     t.string   "name"
@@ -409,17 +409,6 @@ ActiveRecord::Schema.define(:version => 20100720201201) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
-
-  create_table "request_categorizations", :force => true do |t|
-    t.integer  "media_request_id"
-    t.integer  "subject_matter_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "request_categorizations", ["media_request_id", "subject_matter_id"], :name => "by_media_request_subject_matter", :unique => true
-  add_index "request_categorizations", ["media_request_id"], :name => "index_request_categorizations_on_media_request_id"
-  add_index "request_categorizations", ["subject_matter_id"], :name => "index_request_categorizations_on_subject_matter_id"
 
   create_table "responsibilities", :force => true do |t|
     t.integer  "employment_id"

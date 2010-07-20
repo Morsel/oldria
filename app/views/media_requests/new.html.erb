@@ -70,7 +70,7 @@
 
     <% f.inputs :name => 'Your Request' do %>
 
-      <%= render :partial => 'media_request_types', :locals => {:f => f} %>
+      <%= render 'subject_matters', :f => f %>
 
       <%= f.input :due_date, :hint => "When do you need the response by?" %>
       <li>

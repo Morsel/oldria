@@ -21,12 +21,10 @@ class MediaRequest < ActiveRecord::Base
   serialize :fields, Hash
 
   belongs_to :sender, :class_name => 'User'
-  belongs_to :media_request_type
+  belongs_to :subject_matter
   has_many :media_request_discussions, :dependent => :destroy
   has_many :restaurants, :through => :media_request_discussions
   belongs_to :employment_search
-  has_many :request_categorizations
-  has_many :subject_matters, :through => :request_categorizations
 
   has_many :attachments, :as => :attachable, :class_name => '::Attachment', :dependent => :destroy
   validates_presence_of :sender_id
@@ -82,7 +80,7 @@ class MediaRequest < ActiveRecord::Base
   end
 
   def inbox_title
-    media_request_type.present? ? media_request_type.name : "Media Request"
+    subject_matter.present? ? subject_matter.name : "Media Request"
   end
 
   def discussions_with_comments

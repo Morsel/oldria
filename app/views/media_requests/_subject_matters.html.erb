@@ -1,0 +1,12 @@
+<%= f.input :subject_matter, :include_blank => false, :collection => SubjectMatter.media_viewable.nongeneral.all %>
+
+<% SubjectMatter.all.each do |subject_matter| %>
+<div id="fields_for_<%= subject_matter.id %>" class="fieldsets">
+  <% subject_matter.fieldset.each do |field| %>
+  <li>
+    <%= label_tag "media_request[fields][#{field}]", field.humanize %>
+    <%= text_field_tag "media_request[fields][#{field}]", @media_request.fields[field], :class => 'text' %>
+  </li>
+  <% end -%>
+</div>
+<% end -%>

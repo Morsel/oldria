@@ -23,7 +23,7 @@
 		<tr id="<%= dom_id(media_request) %>" class="media_request <%= cycle('even,odd') %>">
 			<td><%= media_request.sender.try(:name) %></td>
 			<td><%= media_request.media_request_discussions.size %></td>
-			<td><%= media_request.media_request_type.try(:name) %></td>
+			<td><%= media_request.subject_matter.try(:name) %></td>
 			<td><%= truncate(media_request.message, :length => 50) %></td>
 			<td><%= list_and_link_replies(media_request) %></td>
 			<td><%= media_request.due_date %></td>
@@ -44,7 +44,7 @@
 		<% t.data :actions => [:show, :edit], :action_prefix => :admin do
 			t.cell :sender
 			t.cell(:recipients) {|r| r.media_request_discussions.size }
-			t.cell :media_request_type
+			t.cell :subject_matter
 			t.cell(:message) {|r| truncate(r.message, :length => 50)}
 			t.cell(:replies) {|r| list_and_link_replies(r) }
 			t.cell :due_date

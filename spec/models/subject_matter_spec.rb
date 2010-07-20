@@ -13,8 +13,7 @@ require 'spec/spec_helper'
 describe SubjectMatter do
   should_have_many :responsibilities
   should_have_many :employments, :through => :responsibilities
-  should_have_many :request_categorizations
-  should_have_many :media_requests, :through => :request_categorizations
+  should_have_many :media_requests
   should_validate_presence_of :name
   should_have_default_scope :order => "subject_matters.name ASC"
 
@@ -51,6 +50,18 @@ describe SubjectMatter do
       it { SubjectMatter.nongeneral.should include(@notgeneral1) }
       it { SubjectMatter.nongeneral.should include(@notgeneral2) }
       it { SubjectMatter.nongeneral.should_not include(@general) }
+    end
+  end
+
+  describe "fieldset" do
+    it "should return [] when there are no fields" do
+      sm = SubjectMatter.new(:name => "Family")
+      sm.fieldset.should == []
+    end
+
+    it "should split fields" do
+      sm = SubjectMatter.new(:name => "Family", :fields => "Date, Favorite Place")
+      sm.fieldset.should == ["date", "favorite_place"]
     end
   end
 end

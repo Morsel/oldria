@@ -11,8 +11,7 @@
 class SubjectMatter < ActiveRecord::Base
   has_many :responsibilities, :dependent => :destroy
   has_many :employments, :through => :responsibilities
-  has_many :request_categorizations
-  has_many :media_requests, :through => :request_categorizations
+  has_many :media_requests
 
   validates_presence_of :name
   default_scope :order => "#{table_name}.name ASC"
@@ -22,5 +21,15 @@ class SubjectMatter < ActiveRecord::Base
 
   def admin_only?
     name =~ /RIA/ # || private?
+  end
+
+  # Returns a parameterized array of strings
+  # from the comma separated list of field names
+  # For example, if fields is "Jimmy Dean, Little girl"
+  # fieldset will return # => ['jimmy_dean', 'little_girl']
+  def fieldset
+    @fieldset = (fields || "").split(/, */).map do |field|
+      field.gsub(/\s+/, '_').downcase
+    end
   end
 end
