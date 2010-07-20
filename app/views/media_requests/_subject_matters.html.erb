@@ -1,6 +1,10 @@
-<%= f.input :subject_matter, :include_blank => false, :collection => SubjectMatter.media_viewable.nongeneral.all %>
+<% main_types = SubjectMatter.media_viewable.nongeneral.all.map{|sm| [sm.name, sm.id]} << ["General Information", ""] %>
+<%= f.input :subject_matter,
+            :label => 'Type of Request',
+            :include_blank => false,
+            :collection => main_types %>
 
-<% SubjectMatter.all.each do |subject_matter| %>
+<% SubjectMatter.media_viewable.nongeneral.each do |subject_matter| %>
 <div id="fields_for_<%= subject_matter.id %>" class="fieldsets">
   <% subject_matter.fieldset.each do |field| %>
   <li>
@@ -10,3 +14,9 @@
   <% end -%>
 </div>
 <% end -%>
+
+<div id="fields_for_general" class="fieldsets">
+  <%= f.input :subject_matter,
+              :include_blank => false,
+              :collection => SubjectMatter.media_viewable.general.all %>
+</div>

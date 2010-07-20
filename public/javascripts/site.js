@@ -116,11 +116,20 @@ $(".attachfield:first").attachmentCloner();
 
 // == Hidden fieldsets
 var fieldsets = $("div.fieldsets").hide();
+var generalfields = $("#fields_for_general");
+  generalfields.detach();
 
-$("#media_request_media_request_type_id").bind('change', function(){
+$("#media_request_subject_matter_id").bind('change', function(){
 	fieldsets.hide();
-	var val = $(this).find(":selected").attr("value");
-	$("#fields_for_" + val).show();
+	var _this = $(this);
+	var val = _this.find(":selected").attr("value");
+	if (val == ''){
+		_this.after(generalfields);
+		generalfields.fadeIn();
+	} else {
+		generalfields.detach();
+		$("#fields_for_" + val).fadeIn();
+	} 
 }).change();
 
 
