@@ -9,13 +9,13 @@
 
 		<%= f.input :subject_matters,
 					:as => :check_boxes,
-					:wrapper_html => {:class => 'checkall'},
+					:wrapper_html => {:class => 'checkall', :id => "employment_subject_matters"},
 					:collection => SubjectMatter.nongeneral.all,
 					:label => "Handles Media Requests" %>
 
 		<%= f.input :subject_matters,
 					:as => :check_boxes,
-					:wrapper_html => {:class => 'checkall'},
+					:wrapper_html => {:class => 'checkall', :id => "employment_general_subject_matters"},
 					:collection => SubjectMatter.general.all,
 					:label => "Handles General Information Requests" %>
 	<% end %>
