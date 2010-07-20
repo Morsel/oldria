@@ -225,6 +225,8 @@ ActiveRecord::Schema.define(:version => 20100715214551) do
     t.datetime "updated_at"
   end
 
+  add_index "feed_categories", ["id"], :name => "index_feed_categories_on_id", :unique => true
+
   create_table "feed_entries", :force => true do |t|
     t.string   "title"
     t.string   "author"
@@ -469,6 +471,8 @@ ActiveRecord::Schema.define(:version => 20100715214551) do
     t.integer  "user_id"
     t.integer  "twitter_id"
     t.boolean  "queue_for_social_media"
+    t.boolean  "queue_for_facebook"
+    t.integer  "facebook_id"
   end
 
   add_index "statuses", ["user_id"], :name => "index_statuses_on_user_id"
@@ -513,6 +517,8 @@ ActiveRecord::Schema.define(:version => 20100715214551) do
     t.integer  "james_beard_region_id"
     t.string   "publication"
     t.string   "role"
+    t.integer  "facebook_id"
+    t.string   "facebook_access_token"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email"
