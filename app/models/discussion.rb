@@ -1,14 +1,16 @@
 # == Schema Information
+# Schema version: 20100715002740
 #
 # Table name: discussions
 #
-#  id             :integer         not null, primary key
-#  title          :string(255)
-#  body           :text
-#  poster_id      :integer
-#  comments_count :integer         default(0)
-#  created_at     :datetime
-#  updated_at     :datetime
+#  id                   :integer         not null, primary key
+#  title                :string(255)
+#  body                 :text
+#  poster_id            :integer
+#  comments_count       :integer         default(0)
+#  created_at           :datetime
+#  updated_at           :datetime
+#  employment_search_id :integer
 #
 
 class Discussion < ActiveRecord::Base

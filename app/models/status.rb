@@ -1,4 +1,5 @@
 # == Schema Information
+# Schema version: 20100715002740
 #
 # Table name: statuses
 #
@@ -9,6 +10,8 @@
 #  user_id                :integer
 #  twitter_id             :integer
 #  queue_for_social_media :boolean
+#  queue_for_facebook     :boolean
+#  facebook_id            :integer
 #
 
 class Status < ActiveRecord::Base
@@ -32,5 +35,13 @@ class Status < ActiveRecord::Base
         update_attributes!(:twitter_id => response['id'].to_i, :queue_for_social_media => nil)
       end
     end
+
+    if queue_for_facebook
+      response = user.facebook_user.feed_create(Mogli::Post.new(:message => self.message))
+      if response && response['id']
+        update_attributes!(:facebook_id => response['id'].to_i, :queue_for_facebook => nil)
+      end
+    end
   end
+  
 end

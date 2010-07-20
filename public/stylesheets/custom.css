@@ -2296,18 +2296,15 @@ ul.mini_menu li {
 }
 
 #no-messages {
-  background-color: #F6F6F6;
-  padding: 1em;
-  height: 50px;
-  margin-bottom: 1em;
+  min-height: 300px;
 }
 
-#no-messages h4 {
-  color: #999;
-  margin: 0;
-  font-size: 1em;
-  font-weight: bold;
-  text-transform: uppercase;
+#no-messages p {
+  background-color: #F6F6F6;
+  padding: 1em;
+  height: 75px;
+  margin-bottom: 1em;
+  display: block;
 }
 
 /* message type themes */

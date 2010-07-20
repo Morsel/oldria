@@ -13,6 +13,12 @@
         <% else %>
           <%= link_to "Setup Twitter to post there too!", new_twitter_authorization_url %>
         <% end -%>
+        <% if current_user.facebook_authorized? -%>
+          <%= f.check_box :queue_for_facebook, :class => 'checkbox' %>
+          <%= f.label :queue_for_facebook, "Post to Facebook?" %>
+        <% else %>
+          <%= link_to "Setup Facebook to post there too!", fb_auth_user_path(current_user) %>
+        <% end -%>
       </span>
   </p>
 <% end %>
