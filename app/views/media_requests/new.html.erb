@@ -27,7 +27,7 @@
 
       <%= render :partial => 'media_request_types', :locals => {:f => f} %>
 
-      <%= f.input :due_date, :hint => "When do you need the response by?" %>
+      <%= f.input :due_date, :label => "When do you need the response by?" %>
       <li>
         <%= f.label :message %>
         <%= f.text_area :message, :rows => 5, :style => 'height:auto' %>
