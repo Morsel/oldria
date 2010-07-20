@@ -2,7 +2,7 @@
 
 <% semantic_form_for @employment, :url => restaurant_employee_path(@restaurant,@employee) do |f| %>
 	<% f.inputs do %>
-		<%= f.input :omniscient, :label => "Manager?", :hint => "This indicates whether you'd like this employee to be able to administer this restaurant as you can" %>
+		<%= f.input :omniscient, :label => "Spoonfeed Account Manager?", :hint => "This indicates whether you'd like this employee to be able to administer this restaurant as you can" %>
 		<%= f.input :restaurant_role,
 			:hint => "Which best describes the role that #{@employee.name} has at #{@restaurant.name}?" %>
 			<p>We want to make sure that the right media inquiries go to the right people at your restaurant. What kinds of topics are you comfortable having <%= @employee.name %> respond to? Keep in mind, their responses will represent <%= @restaurant.name %> and go straight to the media. So, it is important to choose wisely!</p>
