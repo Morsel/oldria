@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20100316193326
+# Schema version: 20100715002740
 #
 # Table name: users
 #
@@ -26,6 +26,8 @@
 #  james_beard_region_id :integer
 #  publication           :string(255)
 #  role                  :string(255)
+#  facebook_id           :integer
+#  facebook_access_token :string(255)
 #
 
 class User < ActiveRecord::Base
@@ -233,4 +235,19 @@ class User < ActiveRecord::Base
       UserMailer.deliver_employee_invitation!(self, invitation_sender)
     end
   end
+  
+  def connect_to_facebook_user(fb_id)
+    update_attributes(:facebook_id => fb_id)
+  end
+  
+  def facebook_authorized?
+    !facebook_id.nil?
+  end
+  
+  def facebook_user
+    if facebook_id and facebook_access_token
+      @facebook_user ||= Mogli::User.new(:id => facebook_id, :client => Mogli::Client.new(facebook_access_token))
+    end
+  end
+  
 end

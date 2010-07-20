@@ -21,7 +21,7 @@
 	//]]>
 	</script>
 	<%- end -%>
-
+	
 	<%= render :partial => 'layouts/ga' %>
 
 </head>
@@ -130,6 +130,10 @@
 <%= javascript_include_tag 'jquery.autocomplete','jquery.autofill','jquery.colorbox-min','site' %>
 
 <%= render :partial => 'layouts/uservoice' %>
+
+<% fb_connect_async_js do %>
+  <%= yield :facebook_js %>
+<% end %>
 
 </body>
 </html>

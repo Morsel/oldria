@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
   before_filter :require_user, :only => [:show]
   before_filter :require_no_user, :only => [:new, :resend_confirmation]
-  before_filter :require_owner_or_admin, :only => [:edit, :update, :remove_twitter, :remove_avatar]
+  before_filter :require_owner_or_admin, :only => [:edit, :update, :remove_twitter, :remove_avatar, :fb_auth, :fb_connect]
   before_filter :block_media, :only => [:show, :new]
 
   def index
@@ -107,6 +107,21 @@ class UsersController < ApplicationController
     end
   end
 
+  def fb_auth
+    @user = User.find(params[:id])
+  end
+  
+  def fb_connect
+    @user = User.find(params[:id])
+    if current_facebook_user
+      @user.connect_to_facebook_user(current_facebook_user.id)
+      if @user.facebook_access_token != current_facebook_user.client.access_token
+        @user.update_attribute(:facebook_access_token, current_facebook_user.client.access_token)
+      end
+      flash[:notice] = "Your Facebook account has been connected to your spoonfeed account"
+    end
+    redirect_to :action => "edit", :id => @user.id
+  end
 
   private
 

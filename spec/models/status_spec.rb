@@ -66,3 +66,19 @@ describe Status, "updating Twitter" do
     s.queue_for_social_media.should be_nil
   end
 end
+
+describe Status, "updating Facebook" do
+  before(:each) do
+    @user = Factory(:facebook_user)
+  end
+
+  it "should update Twitter on save" do
+    message = JSON.parse( File.new(File.dirname(__FILE__) + '/../fixtures/facebook_response.json').read)
+    @user.facebook_user.stubs(:feed_create).returns(message)
+    s = Factory.build(:status, :user => @user, :queue_for_facebook => true, :message => 'My status')
+    s.save
+    s.facebook_id.should_not be_nil
+    s.queue_for_social_media.should be_nil
+  end
+
+end

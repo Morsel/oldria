@@ -14,6 +14,11 @@ Factory.define :twitter_user, :parent => :user do |f|
   f.asecret 'fake'
 end
 
+Factory.define :facebook_user, :parent => :user do |f|
+  f.facebook_id  1234567
+  f.facebook_access_token 'foobar'
+end
+
 Factory.define :admin, :parent => :user do |f|
   f.username 'admin'
   f.first_name "Administrator"
