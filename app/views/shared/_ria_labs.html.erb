@@ -10,23 +10,29 @@
 		</div>
 	</div><!--.new_feature workbook-->
 	
-	
     <div class="new_feature calendars">
         <% unless @current_user_restaurants.blank? -%>
         <h4>Try out the new restaurant calendar:</h4>
         <% @current_user_restaurants.each do |restaurant| %>
           <% div_for restaurant do %>
               <%= link_to h(restaurant.name), restaurant_calendars_path(:restaurant_id => restaurant) %>
-
           <% end -%>
         <% end -%>
       <% end -%>
     </div>
+    
     <div class="new_feature external-conversations">
           <h4>Talk to other spoonfeed users:</h4>
           <p class="start_discussion">
             <%= link_to image_tag('quotebubble.png') + "Start a conversation", new_conversation_path, :class => 'sf-button alt top' %>
           </p>
       </div>
+  </div>
+  
+  <div class="new_feature">
+      <h4>Try out the new activity stream:</h4>
+      <p>
+          <%= link_to "View your latest messages", activity_stream_timelines_path %>
+      </p>
   </div>
 </div>
