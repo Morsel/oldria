@@ -18,7 +18,7 @@ class TimelinesController < ApplicationController
 
   def facebook
     if current_user.facebook_authorized?
-      @updates = current_user.facebook_user.feed
+      @updates = current_user.facebook_user.home
     end
   end
 
