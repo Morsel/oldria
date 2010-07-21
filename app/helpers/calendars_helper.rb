@@ -30,10 +30,20 @@ module CalendarsHelper
 
   def restaurant_calendar_link(restaurant, date = nil)
     if restaurant && ria_events?
-      ria_restaurant_calendars_path(:restaurant_id => restaurant, :date => date.try(:to_s))
+      params[:category] ? 
+          ria_restaurant_calendars_path(:restaurant_id => restaurant, :date => date.try(:to_s), :category => params[:category]) : 
+          ria_restaurant_calendars_path(:restaurant_id => restaurant, :date => date.try(:to_s))
     elsif restaurant
-      restaurant_calendars_path(:restaurant_id => restaurant, :date => date.try(:to_s))
+      params[:category] ? 
+        restaurant_calendars_path(:restaurant_id => restaurant, :date => date.try(:to_s), :category => params[:category]) :
+        restaurant_calendars_path(:restaurant_id => restaurant, :date => date.try(:to_s))
     end
+  end
+
+  def admin_calendar_link(date = nil)
+    params[:category] ? 
+      admin_calendars_path(:date => date.try(:to_s), :category => params[:category]) :
+      admin_calendars_path(:date => date.try(:to_s))
   end
 
   def ria_events?
