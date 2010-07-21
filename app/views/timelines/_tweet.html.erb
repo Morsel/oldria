@@ -1,0 +1,9 @@
+<li class="status tweet">
+    <span class="profile_image"><%= image_tag tweet['user']['profile_image_url'], :width => 48, :height => 48 %></span>
+    <span class="message"><%= auto_link(tweet['text']) %></span><br/>
+    <span class="meta">
+        Posted by
+        <span class="tweeter"><%= tweet['user']['name'] %></span>
+        <span class="posted"><%= time_ago_in_words tweet['created_at'] %> ago</span>
+    </span>
+</li>

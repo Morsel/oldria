@@ -31,14 +31,11 @@
 
 <fieldset class="facebook">
     <h3>Facebook</h3>
-	<hr />
+    <hr/>
+    <p><%= link_to "Help?  Read everything you need to know about Facebook in the Marketing Workbook.", public_page_path('facebook_101_introduction') %></p>
 
-<p><%= link_to "Help?  Read everything you need to know about Facebook in the Marketing Workbook.", public_page_path('facebook_101_introduction') %></p>
-
-
-
-    <%- if current_facebook_user -%>
-      <%= fb_logout_link "Disconnect", edit_user_path(@user), :class => 'sf-button' %>
+    <%- if current_facebook_user && @user.facebook_authorized? -%>
+      <%= fb_logout_link "#{image_tag('x.png')} Disconnect", edit_user_path(@user), :class => 'button negative' %>
     <%- else -%>
       <%= link_to "Setup Facebook", fb_auth_user_path(@user), :class => 'sf-button' %>
     <%- end -%>
