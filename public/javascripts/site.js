@@ -119,7 +119,7 @@ var fieldsets = $("div.fieldsets").hide();
 var generalfields = $("#fields_for_general");
   generalfields.detach();
 
-$("#media_request_subject_matter_id").bind('change', function(){
+$("#media_request_request_types").bind('change', function(){
 	fieldsets.hide();
 	var _this = $(this);
 	var val = _this.find(":selected").attr("value");
