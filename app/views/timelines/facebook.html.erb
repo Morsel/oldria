@@ -1,0 +1,28 @@
+<% title "Facebook", false -%>
+
+<%= render 'nav' %>
+
+<% if current_user.facebook_authorized? -%>
+  <div class="span-9 last">
+    <div id="read_messages">
+      <% unless @updates.blank? %>
+      <ul class="statuses" id="friend_timeline">
+        <% for update in @updates %>
+        <%= update.inspect %>
+        <li class="status tweet">
+          <span class="profile_image"><%#= image_tag update['user']['profile_image_url'], :width => 48, :height => 48 %></span>
+          <span class="message"><%#= auto_link(update['text']) %></span><br/>
+          <span class="meta">
+            Posted by
+            <span class="tweeter"><%#= update['user']['name'] %></span>
+            <span class="posted"><%#= time_ago_in_words update['created_at'] %> ago</span>
+          </span>
+        </li>
+        <% end %>
+      </ul>
+      <% end %>
+    </div><!-- /read_messages -->
+  </div>
+<% else %>
+  <%= link_to "Set up Facebook to post there too!", fb_auth_path %>
+<% end -%>

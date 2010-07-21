@@ -71,7 +71,8 @@ ActionController::Routing::Routes.draw do |map|
                             }
   map.resources :timelines, :collection => {
                               :people_you_follow => :get,
-                              :twitter => :get
+                              :twitter => :get,
+                              :facebook => :get
                             }
 
   map.resources :feed_entries, :only => 'show', :member => { :read => :put }

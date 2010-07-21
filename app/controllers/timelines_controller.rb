@@ -16,6 +16,12 @@ class TimelinesController < ApplicationController
     end
   end
 
+  def facebook
+    if current_user.facebook_authorized?
+      @updates = current_user.facebook_user.feed
+    end
+  end
+
   ##
   # GET /timelines/people_you_follow
   def people_you_follow
