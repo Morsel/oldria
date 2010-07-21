@@ -32,4 +32,8 @@ class SubjectMatter < ActiveRecord::Base
       field.gsub(/\s+/, '_').downcase
     end
   end
+
+  def self.for_select
+    self.media_viewable.nongeneral.all.map{|sm| [sm.name, sm.id]} << ["General Information", ""]
+  end
 end

@@ -17,17 +17,19 @@ class MediaRequestDiscussion < ActiveRecord::Base
   belongs_to :restaurant
 
   def employments
-    Employment.find(employment_ids)
+    restaurant.employments.handling_subject_matter_id(subject_matter_id)
   end
 
-  # Employments are only those who are both a part of this discussion's restaurant
-  # and also part of the search criteria
+  def subject_matter_id
+    media_request.subject_matter_id
+  end
+
   def employment_ids
-    (media_request.employment_ids & restaurant.employment_ids).uniq
+    employments.map(&:id)
   end
 
   def viewable_by?(employment)
-    media_request.viewable_by?(employment)
+    employments.include?(employment)
   end
 
 end

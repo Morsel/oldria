@@ -1,8 +1,9 @@
-<% main_types = SubjectMatter.media_viewable.nongeneral.all.map{|sm| [sm.name, sm.id]} << ["General Information", ""] %>
 <%= f.input :subject_matter,
             :label => 'Type of Request',
             :include_blank => false,
-            :collection => main_types %>
+            :collection => SubjectMatter.for_select,
+            :input_html => {:id => 'media_request_request_types'}
+ %>
 
 <% SubjectMatter.media_viewable.nongeneral.each do |subject_matter| %>
 <div id="fields_for_<%= subject_matter.id %>" class="fieldsets">

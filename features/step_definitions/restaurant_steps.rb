@@ -23,6 +23,15 @@ Given /^a restaurant named "([^\"]*)" with the following employees:$/ do |restau
   restaurant.save!
 end
 
+Given /^"([^"]*)" is a manager for "([^"]*)"$/ do |username, restaurantname|
+  user = User.find_by_username!(username)
+  restaurant = Restaurant.find_by_name!(restaurantname)
+  employment = restaurant.employments.find_by_employee_id(user.id)
+
+  employment.update_attribute(:omniscient, true)
+end
+
+
 Given /^"([^\"]*)" is the account manager for "([^\"]*)"$/ do |username, restaurantname|
   user = User.find_by_username!(username)
   restaurant = Restaurant.find_by_name!(restaurantname)

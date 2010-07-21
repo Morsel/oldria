@@ -127,6 +127,7 @@ end
 # == Media Requests ==
 Factory.define :media_request do |f|
   f.association :sender, :factory => :media_user
+  f.association :subject_matter
   f.message "This is a media request message"
   f.due_date 2.days.from_now
   f.restaurants {|mr| [mr.association(:restaurant)]}

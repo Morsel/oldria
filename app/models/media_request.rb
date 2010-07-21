@@ -59,14 +59,6 @@ class MediaRequest < ActiveRecord::Base
   end
   handle_asynchronously :deliver_notifications # Use delayed_job to send
 
-  def employments
-    employment_search.employments
-  end
-
-  def employment_ids
-    employment_search.employment_ids
-  end
-
   def discussion_with_restaurant(restaurant)
     media_request_discussions.first(:conditions => {:restaurant_id => restaurant.id})
   end
@@ -106,9 +98,8 @@ class MediaRequest < ActiveRecord::Base
 
   def viewable_by?(employment)
     return false unless employment
-    employment.employee == employment.restaurant.try(:manager) ||
-    employment.omniscient? ||
-    employment_search.employments.include?(employment)
+    discussion = media_request_discussions.find_by_restaurant_id(employment.restaurant_id)
+    discussion && discussion.viewable_by?(employment)
   end
 
   private

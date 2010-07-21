@@ -37,14 +37,6 @@
             </div>
           </div>
           <div class="accordion_box">
-            <a href="#"><span>Role</span></a>
-            <div id="role_fields">
-                <%= s.input :restaurant_role_id_equals_any,
-                            :as => "check_boxes",
-                            :collection => RestaurantRole.all %>
-            </div>
-          </div>
-          <div class="accordion_box">
             <a href="#"><span>Region</span></a>
             <div id="region_fields">
                 <%= s.input :restaurant_james_beard_region_id_equals_any,
@@ -72,11 +64,8 @@
 
       <%= render 'subject_matters', :f => f %>
 
-      <%= f.input :due_date, :hint => "When do you need the response by?" %>
-      <li>
-        <%= f.label :message %>
-        <%= f.text_area :message, :rows => 5, :style => 'height:auto' %>
-      </li>
+      <%= f.input :due_date %>
+      <%= f.input :message, :input_html => {:rows => 5, :style => 'height:auto'} %>
 
       <% f.fields_for :attachments do |child_form| -%>
         <%= child_form.label :attachment, "Attachment(s)" %>
@@ -87,6 +76,3 @@
 
     <p><%= button_tag "Submit" %></p>
 <% end %>
-
-
-
