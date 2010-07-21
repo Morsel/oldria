@@ -1,7 +1,7 @@
-<% f.inputs :name => 'Criteria', :id => 'employment_criteria' do %>
-<p>Click a category to expand, then check off the items you want to filter by for each criteria type. A list of matching recipients will appear below.</p>
+<% f.inputs :name => 'Search Filter', :id => 'employment_criteria' do %>
   <% semantic_fields_for @search do |s| %>
   <div id="criteria_accordion">
+	<p class="search_filter_hint">Select a subject matter:</p>
       <div class="accordion_box">
         <%= link_to "<span>Subject Matter</span>", "#" %>
         <div id="subject_fields">
@@ -10,6 +10,8 @@
                         :collection => SubjectMatter.all %>
         </div>
       </div>
+	<p class="search_filter_hint">Filter using these criteria, if you like:</p>
+
       <div class="accordion_box">
         <%= link_to  "<span>Users</span>", "#" %>
         <div id="user_fields">
