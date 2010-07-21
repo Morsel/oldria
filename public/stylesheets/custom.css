@@ -3898,3 +3898,7 @@ h2.primary_title{
 	float:none;
 	width:100%;
 }
+
+p.search_filter_hint {
+	padding:0; margin:0; 
+}
