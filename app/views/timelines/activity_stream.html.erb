@@ -1,0 +1,20 @@
+<% title @title, false -%>
+
+<%= render 'nav' %>
+
+<div class="span-9 last">
+    <% unless @posts.blank? %>
+    <div id="read_messages">
+        <ul class="statuses" id="friend_timeline">
+            <% for post in @posts %>
+              <%= render :partial => "post", :object => post if post.class == Mogli::Post %>
+              <%= render :partial => "tweet", :object => post, :as => "tweet" if post.class != Mogli::Post %>
+            <% end %>
+        </ul>
+    </div><!-- /read_messages -->
+    <% end %>
+    <p>
+        Update your social media settings <%= link_to "on your profile", edit_user_path(current_user) %>.
+    </p>
+</div>
+
