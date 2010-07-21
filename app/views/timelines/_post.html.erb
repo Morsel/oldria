@@ -1,0 +1,19 @@
+<li class="status">
+    <span class="profile_image"><%= image_tag Mogli::User.find(post.from.id).image_url, :width => 48, :height => 48 %></span>
+    <span class="message">
+        <% if post.respond_to?(:caption) && !post['caption'].blank? %>
+        <%= auto_link(post['caption']) %>
+        <% elsif post.respond_to?(:name) && !post['name'].blank? %>
+        <%= link_to post['name'], post['link'] %>
+        <% else %>
+        <%= auto_link(post['message']) %>
+        <% end %>
+        <div><%= link_to image_tag(post['picture']), post['link'] unless post['picture'].blank? %></div>
+    </span><br/>
+    <span class="meta">
+        Posted by
+        <span class="tweeter"><%= post.from['name'] %></span>
+        <% user_id, post_id = post['id'].split("_") %>
+        <span class="posted"><%= link_to time_ago_in_words(post['updated_time']), "http://www.facebook.com/#{user_id}/posts/#{post_id}" %> ago</span>
+    </span>
+</li>

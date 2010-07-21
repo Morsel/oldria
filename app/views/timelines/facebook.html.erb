@@ -7,7 +7,7 @@
     <div id="read_messages">
         <% unless @updates.blank? %>
         <ul class="statuses" id="friend_timeline">
-            <%= render @updates %>
+            <%= render :partial => "post", :collection => @updates %>
         </ul>
         <% end %>
     </div><!-- /read_messages -->
