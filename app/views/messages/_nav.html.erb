@@ -6,5 +6,6 @@
    <% unless current_user.restaurants.blank? -%>
     <li><%= active_link_to "Staff Discussions (#{@discussions_count})", staff_discussions_messages_path, :class => class_for_replies(@messages_with_replies) %></li>
    <% end -%>
+    <li><%= active_link_to "Media Requests (#{@media_requests_count})", media_requests_messages_path %></li>
   </ul>
 </div><!-- /messages_nav -->

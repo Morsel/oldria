@@ -20,6 +20,27 @@ Given /^"([^\"]*)" has a media request from a media member with:$/ do |username,
   Given %Q{"#{username}" has a media request from "media" with:}, table
 end
 
+Given /^subject matter "([^"]*)" is general$/ do |name|
+  s = SubjectMatter.find_or_create_by_name(name)
+  s.update_attribute(:general, true)
+end
+
+Given /^"([^"]*)" handles the subject matter "([^"]*)" for "([^"]*)"$/ do |username, subject, restname|
+  r = Restaurant.find_by_name(restname)
+  u = User.find_by_username(username)
+  subject_matter = SubjectMatter.find_or_create_by_name(subject)
+  employment = u.employments.find_by_restaurant_id(r.id)
+  employment.subject_matters << subject_matter
+  employment.save
+end
+
+Given /^"([^"]*)" does not handle the subject matter "([^"]*)" for "([^"]*)"$/ do |username, subject, restname|
+  r = Restaurant.find_by_name(restname)
+  u = User.find_by_username(username)
+  employment = u.employments.find_by_restaurant_id(r.id)
+  employment.responsibilities.destroy_all
+end
+
 Given /^"([^\"]*)" has a media request from "([^\"]*)" with:$/ do |username, mediauser, table|
   message = table.rows_hash['Message']
   status = table.rows_hash['Status'] || 'pending'
@@ -27,9 +48,19 @@ Given /^"([^\"]*)" has a media request from "([^\"]*)" with:$/ do |username, med
   Factory(:employment, :employee => user) if user.restaurants.blank?
   sender = User.find_by_username(mediauser)
   publication = table.rows_hash['Publication'] || sender.publication
-  search = EmploymentSearch.new(:conditions => {:employee_id_eq => "#{user.id}"})
-  Factory(:media_request, :employment_search => search, :sender => sender, :message => message, :status => status, :publication => publication)
+  search = EmploymentSearch.new(:conditions => {})
+  @media_request = Factory(:media_request, :employment_search => search, :sender => sender, :message => message, :status => status, :publication => publication)
 end
+
+Given /^"([^\"]*)" has a media request$/ do |username|
+  subject_matter = Factory(:subject_matter)
+  user = User.find_by_username(username)
+  Factory(:employment, :employee => user) if user.restaurants.blank?
+  Given %Q["#{username}" handles the subject matter "#{subject_matter.name}" for "#{user.restaurants.first.name}"]
+  @media_request = Factory(:media_request, :subject_matter => subject_matter)
+  @media_request.approve!
+end
+
 
 Given /^there are no media requests$/ do
   MediaRequest.destroy_all
@@ -39,7 +70,11 @@ When /^I create a media request with message "([^"]*)" and criteria:$/ do |messa
   visit new_media_request_path
   fill_in :message, :with => message
   criteria.rows_hash.each do |field, value|
-    check value
+    if field =~ /(Subject Matter|Type of Request)/i
+      select value, :from => field
+    else
+      check value
+    end
   end
   click_button :submit
   @media_request = MediaRequest.last
@@ -101,21 +136,22 @@ When /^that media request is approved$/ do
 end
 
 Then /^the media request from "([^\"]*)" should be (.+)$/ do |username, status|
-  media_requests = User.find_by_username(username).media_requests
+  media_requests = User.find_by_username(username).viewable_media_requests
   media_requests.last.status.should == status
 end
 
 Then /^the media request for "([^\"]*)" should be (.+)$/ do |username, status|
-  media_requests = find_media_requests_for_username(username)
+  media_requests = User.find_by_username(username).viewable_media_requests
   media_requests.last.status.should == status
 end
 
 Then /^that media request should be (.+)$/ do |status|
+  @media_request ||= MediaRequest.last
   @media_request.status.should == status
 end
 
 Then(/^"([^\"]*)" should have ([0-9]+) media requests?$/) do |username,num|
-  media_requests = find_media_requests_for_username(username)
+  media_requests = User.find_by_username(username).viewable_media_requests
   media_requests.size.should == num.to_i
 end
 

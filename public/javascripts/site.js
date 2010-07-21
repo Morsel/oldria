@@ -116,11 +116,20 @@ $(".attachfield:first").attachmentCloner();
 
 // == Hidden fieldsets
 var fieldsets = $("div.fieldsets").hide();
+var generalfields = $("#fields_for_general");
+  generalfields.detach();
 
-$("#media_request_media_request_type_id").bind('change', function(){
+$("#media_request_request_types").bind('change', function(){
 	fieldsets.hide();
-	var val = $(this).find(":selected").attr("value");
-	$("#fields_for_" + val).show();
+	var _this = $(this);
+	var val = _this.find(":selected").attr("value");
+	if (val == ''){
+		_this.after(generalfields);
+		generalfields.fadeIn();
+	} else {
+		generalfields.detach();
+		$("#fields_for_" + val).fadeIn();
+	} 
 }).change();
 
 
@@ -188,6 +197,24 @@ var dynamicalCheckAllBoxes = function(){
 };
 
 dynamicalCheckAllBoxes();
+
+
+var $omniscientField = $("input#employment_omniscient"),
+    $omniscientRoleCheckboxes = $('#employment_general_subject_matters :checkbox, #employment_subject_matters :checkbox');
+
+var selectOmniscientRoles = function(){
+  if($omniscientField.is(":checked")) {
+    $omniscientRoleCheckboxes.disable();
+    $omniscientRoleCheckboxes.attr('checked', 'checked');
+  } else {
+    $omniscientRoleCheckboxes.enable();
+    $omniscientRoleCheckboxes.removeAttr('checked');
+  }
+}
+
+$omniscientField.change(selectOmniscientRoles);
+
+if($omniscientField.is(":checked")) { $omniscientField.change(); }
 
 //Cufon
 // if(typeof(Cufon) != 'undefined') {
@@ -309,6 +336,8 @@ if (location.hash && location.hash.match(/user_\d+$/)) {
 
 $('#criteria_accordion').accordion({
 	autoHeight: false,
+	collapsible: true,
+	active: false,
 	header: '.accordion_box a',
 	change: function() {
 		$('.accordion_box').each(function(){

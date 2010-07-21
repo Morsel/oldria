@@ -55,7 +55,7 @@ describe User do
     user = Factory.build(:user)
     user.agree_to_contract = true
   end
-  
+
   it "should only allow alphanumeric characters in username" do
     user = Factory.build(:user, :username => nil)
     user.username = "chef.bacle"
@@ -206,12 +206,12 @@ describe User do
       @user.media_requests.should == []
     end
   end
-  
+
   context "non-media" do
     before do
       @restaurant = Factory(:restaurant)
       @user = Factory(:user)
-      @employment = Factory(:employment, :employee => @user, :restaurant => @restaurant)
+      @employment = Factory(:employment, :employee => @user, :restaurant => @restaurant, :omniscient => true)
     end
 
     it "should be able to see media requests" do

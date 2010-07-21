@@ -16,11 +16,19 @@
 		<% unless current_user == @user %>
   	  <ul class="user_profile_actions">
     		<li><%= link_to "Private Message", new_user_direct_message_path(@user), :class=>'sf-button' %></li>
-    		<%- if @following -%>
-    	      <li class="following"><%= link_to "Stop following this user", following_path(@following.id), :method => :delete, :class=>'sf-button' %></li>
-    		<% else %>
-    		  <li><%= link_to "Follow this user", followings_path(:friend_id => @user), :method => :post, :class=>'sf-button' %></li>
-    		<% end -%>
+
+
+<% unless current_user.media? # no following option if media %>
+
+<%- if @following -%>
+  <li class="following"><%= link_to "Stop following this user", following_path(@following.id), :method => :delete, :class=>'sf-button' %></li>
+<% else %>
+  <li><%= link_to "Follow this user", followings_path(:friend_id => @user), :method => :post, :class=>'sf-button' %></li>
+<% end -%>
+
+<% end # no follow if media  %>
+			
+			
   	  </ul>
   	<% end -%>
 	</div><!--/name_and_actions -->
@@ -32,6 +40,9 @@
 </div><!--#user_profile_view -->
 
 <div id="user_content">
+	
+<% unless current_user.media? # no user statuses if media %>
+
 <% unless @latest_statuses.blank? -%>
 <h3 class="function-bold">Recent Status Updates</h3>
 <div class="recent_statuses">
@@ -48,7 +59,11 @@
 </div><!-- .box -->
 <% end #unless -%>
 
-<% if !@user.followings.blank? %>
+<% end # no statuses if media  %>
+
+
+
+<% if !@user.followings.blank? and not current_user.media? # media don't see followings '%>
 <div class="span-6">
 	<h3 class="function-bold">Members <%= this_is_me ? "You Follow" : "#{@user.name_or_username} Follows" %></h3>
 	<ul>
@@ -68,7 +83,9 @@
 <% end #if %>
 
 
-<% if !@user.followers.blank? %>
+
+
+<% if !@user.followers.blank? and not current_user.media? # media don't see followings  %>
 <div class="span-6 last">
 	<h3 class="function-bold">Members Following <%= this_is_me ? "You" : @user.name_or_username %></h3>
 	<ul>
@@ -86,5 +103,7 @@
 	</ul>
 </div> <!-- .span-6 -->
 <% end %>
+
+
 
 </div><!--#user_content-->

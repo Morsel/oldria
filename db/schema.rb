@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100715214551) do
+ActiveRecord::Schema.define(:version => 20100720205124) do
 
   create_table "admin_conversations", :force => true do |t|
     t.integer  "recipient_id"
@@ -225,6 +225,8 @@ ActiveRecord::Schema.define(:version => 20100715214551) do
     t.datetime "updated_at"
   end
 
+  add_index "feed_categories", ["id"], :name => "index_feed_categories_on_id", :unique => true
+
   create_table "feed_entries", :force => true do |t|
     t.string   "title"
     t.string   "author"
@@ -361,17 +363,17 @@ ActiveRecord::Schema.define(:version => 20100715214551) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.date     "due_date"
-    t.integer  "media_request_type_id"
+    t.integer  "subject_matter_id"
     t.text     "fields"
     t.string   "status"
     t.string   "publication"
-    t.boolean  "admin",                 :default => false
+    t.boolean  "admin",                :default => false
     t.integer  "employment_search_id"
   end
 
   add_index "media_requests", ["employment_search_id"], :name => "index_media_requests_on_employment_search_id"
-  add_index "media_requests", ["media_request_type_id"], :name => "index_media_requests_on_media_request_type_id"
   add_index "media_requests", ["sender_id"], :name => "index_media_requests_on_sender_id"
+  add_index "media_requests", ["subject_matter_id"], :name => "index_media_requests_on_media_request_type_id"
 
   create_table "metropolitan_areas", :force => true do |t|
     t.string   "name"
@@ -469,6 +471,8 @@ ActiveRecord::Schema.define(:version => 20100715214551) do
     t.integer  "user_id"
     t.integer  "twitter_id"
     t.boolean  "queue_for_social_media"
+    t.boolean  "queue_for_facebook"
+    t.integer  "facebook_id"
   end
 
   add_index "statuses", ["user_id"], :name => "index_statuses_on_user_id"
@@ -477,6 +481,9 @@ ActiveRecord::Schema.define(:version => 20100715214551) do
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "general"
+    t.string   "fields"
+    t.boolean  "private"
   end
 
   create_table "trend_questions", :force => true do |t|
@@ -513,6 +520,8 @@ ActiveRecord::Schema.define(:version => 20100715214551) do
     t.integer  "james_beard_region_id"
     t.string   "publication"
     t.string   "role"
+    t.integer  "facebook_id"
+    t.string   "facebook_access_token"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email"

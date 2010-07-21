@@ -17,21 +17,55 @@
       </li>
     <% end %>
 
-    <%= render :partial => 'shared/employment_criteria', :locals => {:f => f} %>
+    <% f.inputs :name => 'Advanced Criteria', :id => 'employment_criteria' do %>
+      <% semantic_fields_for @search do |s| %>
+      <div id="criteria_accordion">
+          <div class="accordion_box">
+            <a href="#"><span>Restaurants</span></a>
+            <div id="restaurant_fields">
+                <%= s.input :restaurant_id_equals_any,
+                            :as => "check_boxes",
+                            :collection => Restaurant.all(:order => 'name ASC') %>
+            </div>
+          </div>
+          <div class="accordion_box">
+            <a href="#"><span>Cuisine</span></a>
+            <div id="cuisine_fields">
+                <%= s.input :restaurant_cuisine_id_equals_any,
+                            :as => "check_boxes",
+                            :collection => Restaurant.cuisines %>
+            </div>
+          </div>
+          <div class="accordion_box">
+            <a href="#"><span>Region</span></a>
+            <div id="region_fields">
+                <%= s.input :restaurant_james_beard_region_id_equals_any,
+                            :as => "check_boxes",
+                            :collection => JamesBeardRegion.all %>
+            </div>
+          </div>
+          <div class="accordion_box">
+            <a href="#"><span>Metro Area</span></a>
+            <div id="metro_fields">
+                <%= s.input :restaurant_metropolitan_area_id_equals_any,
+                            :as => "check_boxes",
+                            :collection => MetropolitanArea.all %>
+            </div>
+          </div>
+        </div>
+      <% end %>
 
-    <div id="employment_list">
-      <%= render :partial => 'shared/employment_list' %>
-    </div>
+      <div id="employment_list">
+        <%= render :partial => 'shared/employment_list' %>
+      </div>
+    <% end %>
 
     <% f.inputs :name => 'Your Request' do %>
 
-      <%= render :partial => 'media_request_types', :locals => {:f => f} %>
+      <%= render 'subject_matters', :f => f %>
 
-      <%= f.input :due_date, :hint => "When do you need the response by?" %>
-      <li>
-        <%= f.label :message %>
-        <%= f.text_area :message, :rows => 5, :style => 'height:auto' %>
-      </li>
+      <%= f.input :due_date, :label => "When do you need the response by?" %>
+      <%= f.input :message, :input_html => {:rows => 5, :style => 'height:auto'} %>
 
       <% f.fields_for :attachments do |child_form| -%>
         <%= child_form.label :attachment, "Attachment(s)" %>
@@ -42,6 +76,3 @@
 
     <p><%= button_tag "Submit" %></p>
 <% end %>
-
-
-

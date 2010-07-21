@@ -4,7 +4,7 @@
   </div>
 
   <div class="section_body">
-    <h4>Managed</h4>
+    <h4>Restaurant Accounts</h4>
     <% if @current_user_managed_restaurants.blank? %>
       <p class="none">You don't manage any restaurants.</p>
     <% else %>
@@ -18,7 +18,7 @@
     <% end %>
 
     <div class="my_employers">
-      <h4>Restaurant Associations</h4>
+      <h4>My Restaurants</h4>
     <% if @current_user_restaurants.blank? -%>
       <p class="none">You aren't associated with any restaurants.</p>
     <% else -%>

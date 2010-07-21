@@ -2,20 +2,17 @@
 
 <p class="clearfix"><%= link_to "New Subject Matter", new_admin_subject_matter_path, :class => 'button positive'%></p>
 
-<table>
-	<tr>
-		<th>Name</th>
-		<th></th>
-	</tr>
-	<% for subject_matter in @subject_matters %>
-	<tr>
-		<td><%=h subject_matter.name %></td>
-		<td class="utility">
-			<%= link_to "Show", [:admin, subject_matter] %>
-			<%= link_to "Edit", edit_admin_subject_matter_path(subject_matter) %>
-			<%= link_to "Destroy", [:admin, subject_matter], :confirm => 'Are you sure?', :method => :delete %>
-		</td>
-	</tr>
-	<% end %>
-</table>
+<div class="span-9">
+  <h3>General Information</h3>
+  <% table_for(@subject_matters.select(&:general)) do |t| %>
+    <%= t.data :name, :actions => [:edit, :destroy], :action_prefix => 'admin' %>
+  <% end %>
+</div>
+
+<div class="span-9 last">
+  <h3>Specific Types of Media Requests</h3>
+  <% table_for(@subject_matters.reject(&:general)) do |t| %>
+    <%= t.data :name, :actions => [:edit, :destroy], :action_prefix => 'admin' %>
+  <% end %>
+</div>
 
