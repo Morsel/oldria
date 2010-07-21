@@ -13,7 +13,7 @@
 <% end %>
 
 <% f.inputs :name => 'Desired Login Information' do %>
-	<%= f.input :username %>
+	<%= f.input :username, :hint => 'Change your username, if you like, by entering a new one here' %>
 	<%= f.input :password, :input_html => {:autocomplete => "off"}, :hint => 'Type the new password you would like to use' %>
 	<%= f.input :password_confirmation, :input_html => {:autocomplete => "off"}, :hint => 'Re-type the password from above to confirm' %>
 	<% unless controller.action_name == "edit" %>
