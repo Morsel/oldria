@@ -30,7 +30,7 @@ class TimelinesController < ApplicationController
     @title = "Activity Stream"
     tweets = current_user.twitter_client.friends_timeline if current_user.twitter_authorized?
     updates = current_user.facebook_user.home if current_user.facebook_authorized?
-    @posts = (tweets + updates).sort { |a, b| creation(b) <=> creation(a) }[0..4]
+    @posts = (tweets.to_a + updates.to_a).sort { |a, b| creation(b) <=> creation(a) }[0..4]
   end  
 
   ##
