@@ -64,7 +64,7 @@
 
       <%= render 'subject_matters', :f => f %>
 
-      <%= f.input :due_date %>
+      <%= f.input :due_date, :label => "When do you need the response by?" %>
       <%= f.input :message, :input_html => {:rows => 5, :style => 'height:auto'} %>
 
       <% f.fields_for :attachments do |child_form| -%>

@@ -21,6 +21,7 @@ class MediaRequestsController < ApplicationController
     @media_request = current_user.media_requests.build(params[:media_request])
     search_setup(@media_request)
     if @media_request.save
+      flash[:notice] = "Thank you! Your query is fast on its way to the recipients you selected. You’ll be alerted that answers have arrived (shortly, we hope!) via an email sent to your email inbox. For your convenience, then, everything will be privately and securely stored here for you. Thanks again, and please do give us feedback!"
       redirect_to @media_request
     else
       flash.now[:error] = "Oops! No one would get the media request based on your criteria. Are you sure you checked the boxes? Please retry your search, broadening your criteria if necessary."

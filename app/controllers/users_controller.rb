@@ -2,7 +2,7 @@ class UsersController < ApplicationController
   before_filter :require_user, :only => [:show]
   before_filter :require_no_user, :only => [:new, :resend_confirmation]
   before_filter :require_owner_or_admin, :only => [:edit, :update, :remove_twitter, :remove_avatar, :fb_auth, :fb_connect]
-  before_filter :block_media, :only => [:show, :new]
+  before_filter :block_media, :only => [:new]
 
   def index
     respond_to do |format|
