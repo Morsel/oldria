@@ -19,16 +19,16 @@ Given /^that QOTD has the following answers:$/ do |table|
 end
 
 When /^I create a new soapbox entry for that QOTD with:$/ do |table|
-  visit admin_soapbox_entries_path(:qotd_id => @qotd.to_param)
+  visit new_admin_soapbox_entry_path(:qotd_id => @qotd.to_param)
 
   table.rows_hash.each do |field, value|
     fill_in field, :with => value
   end
 
-  click_button :submit
+  click_button
 end
 
 Then /^there should be (\d+) QOTDs? on the soapbox landing page$/ do |num|
-  SoapboxEntry.count.should == num.to_i
+  SoapboxEntry.count(:conditions => {:featured_item_type => 'Admin::Qotd'}).should == num.to_i
 end
 

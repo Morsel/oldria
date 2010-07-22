@@ -1,3 +1,20 @@
+# == Schema Information
+# Schema version: 20100721223109
+#
+# Table name: assets
+#
+#  id                :integer         not null, primary key
+#  data_file_name    :string(255)
+#  data_content_type :string(255)
+#  data_file_size    :integer
+#  assetable_id      :integer
+#  assetable_type    :string(25)
+#  type              :string(25)
+#  user_id           :integer
+#  created_at        :datetime
+#  updated_at        :datetime
+#
+
 class Picture < Asset
 
   # === List of columns ===

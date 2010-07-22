@@ -21,4 +21,8 @@ class Admin::Qotd < Admin::Message
   def self.shorttitle
     "QOTD"
   end
+
+  def title
+    self.class.title
+  end
 end

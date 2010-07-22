@@ -12,7 +12,7 @@ Feature: Soapbox
       | Patty Wallace | Hand-picked, all the way!       |
     And I am logged in as an admin
     When I create a new soapbox entry for that QOTD with:
-      | Publish at | 2010-05-10 |
+      | Published at | 2010-05-10 |
     Then there should be 1 QOTD on the soapbox landing page
 
 

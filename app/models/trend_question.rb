@@ -48,4 +48,15 @@ class TrendQuestion < ActiveRecord::Base
     employment_search.employments.include?(employment)
   end
 
+  def reply_count
+    admin_discussions.with_replies.count
+  end
+
+  def comments_count
+    admin_discussions.sum(:comments_count)
+  end
+
+  def title
+    self.class.title
+  end
 end
