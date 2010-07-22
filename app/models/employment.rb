@@ -51,6 +51,9 @@ class Employment < ActiveRecord::Base
 
   named_scope :by_restaurant_name, :order => 'restaurants.name ASC, users.last_name ASC', :include => [:restaurant, :employee]
   named_scope :by_employee_last_name, :order => 'users.last_name ASC', :include => :employee
+  
+  ### Preferences ###
+  preference :post_to_soapbox, :default => false
 
   def employee_name
     @employee_name ||= employee && employee.name

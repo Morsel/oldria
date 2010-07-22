@@ -19,6 +19,10 @@
 					:wrapper_html => {:class => 'checkall', :id => "employment_general_subject_matters"},
 					:collection => SubjectMatter.general.all,
 					:label => "Handles General Information Requests" %>
+					
+        <%= f.input :prefers_post_to_soapbox, :as => :boolean,
+                    :label => 'Is this person authorized to post responses on Soapbox?' %>
+                    
 	<% end %>
 
 	<p><%= button_tag "Submit", :class => 'positive' %></p>
