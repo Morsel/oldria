@@ -14,7 +14,7 @@
 
     <%= render :partial => 'message', :collection => @messages %>
     
-    <% if @messages.blank? %>
+    <% if @messages.blank? && @action_required_messages.blank? %>
     <div id="no-messages">
         <p>You don't have any new messages at the moment.</p>
     </div>
