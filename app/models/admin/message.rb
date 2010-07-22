@@ -25,7 +25,11 @@ class Admin::Message < ActiveRecord::Base
   validates_presence_of :message
 
   named_scope :current, lambda {
-    {:conditions => ['admin_messages.scheduled_at < ? OR admin_messages.scheduled_at IS NULL', Time.zone.now]}
+    { :conditions => ['admin_messages.scheduled_at < ? OR admin_messages.scheduled_at IS NULL', Time.zone.now] }
+  }
+  
+  named_scope :recent, lambda {
+    { :conditions => ['admin_messages.scheduled_at >= ?', 2.weeks.ago] }
   }
 
   include AASM

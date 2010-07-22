@@ -17,7 +17,7 @@ module UserMessaging
     end
 
     def unread_announcements
-      Admin::Announcement.current.find_unread_by( self )
+      Admin::Announcement.current.recent.find_unread_by( self )
     end
 
     # PR Tips
@@ -26,7 +26,7 @@ module UserMessaging
     end
 
     def unread_pr_tips
-      Admin::PrTip.current.find_unread_by( self )
+      Admin::PrTip.current.recent.find_unread_by( self )
     end
 
     # Admin discussions - includes content request, trend question
@@ -58,7 +58,7 @@ module UserMessaging
 
     # Question of the day
     def unread_qotds
-      admin_conversations.current.without_replies.unread_by(self)
+      admin_conversations.current.recent.without_replies.unread_by(self)
     end
 
     # Restaurant staff discussions, site-wide user conversations
@@ -76,7 +76,7 @@ module UserMessaging
     end
 
     def holiday_discussion_reminders
-      holiday_discussions.reject(&:accepted?).map {|d| d.holiday_discussion_reminders.current }
+      holiday_discussions.reject(&:accepted?).map {|d| d.holiday_discussion_reminders.current.recent }
     end
 
     def unread_hdrs
