@@ -1,0 +1,17 @@
+<% employment = comment.user.employments.first %>
+
+<% div_for comment do %>
+<% if comment.user.avatar? %>
+<div class="avatar">
+	<%= image_tag(comment.user.avatar.url(:thumb)) %>
+</div>
+<% end %>
+<div class="content">
+	<p class="meta">
+	<span class="employee_name"><%= comment.user.name_or_username %></span>,
+	<%= employment.restaurant_role.try(:name) %> at <%= employment.restaurant_name %> said:
+	</p>
+
+  <%= simple_format comment.comment %>
+</div>
+<% end %>

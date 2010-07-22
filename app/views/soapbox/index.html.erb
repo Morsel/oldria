@@ -1,0 +1,14 @@
+<% title "Soapbox" %>
+
+<% if @featured_trend_question %>
+
+<h2>Featured Trend Question</h2>
+<% div_for @featured_trend_question do %>
+	<div class="">
+		<%= @featured_trend_question.message %>
+	</div>
+	<div class="comments">
+		<%= render :partial => 'comment', :collection => @featured_trend_question.comments(true) %>
+	</div>
+<% end %>
+<% end %>

@@ -56,6 +56,11 @@ class TrendQuestion < ActiveRecord::Base
     admin_discussions.sum(:comments_count)
   end
 
+  def comments(deep_includes = false)
+    includes = deep_includes ? {:comments => {:user => :employments}} : :comments
+    admin_discussions.with_replies.all(:include => includes).map(&:comments).flatten
+  end
+
   def title
     self.class.title
   end

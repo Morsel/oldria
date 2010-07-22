@@ -3,6 +3,6 @@
 <% table_for @soapbox_entries do |t| %>
 	<% t.data :actions => [:edit], :action_prefix => 'admin' do
 		t.cell(:published_at)
-		t.cell(:featured_item) {|s| link_to s.featured_item.try(:title), [:admin, s.featured_item]}
+		t.cell(:featured_item) {|s| link_to s.featured_item.try(:title), resource_for_featured_item(s)}
 	end %>
 <% end %>

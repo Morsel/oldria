@@ -13,4 +13,12 @@
 
 class SoapboxEntry < ActiveRecord::Base
   belongs_to :featured_item, :polymorphic => true
+
+  named_scope :qotd, :conditions => {:featured_item_type => 'Admin::Qotd'}
+  named_scope :trend_question, :conditions => {:featured_item_type => 'TrendQuestion'}
+
+  def title
+    featured_item.title
+  end
+
 end

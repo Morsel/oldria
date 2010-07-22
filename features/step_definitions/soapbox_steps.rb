@@ -29,6 +29,8 @@ When /^I create a new soapbox entry for that QOTD with:$/ do |table|
 end
 
 Then /^there should be (\d+) QOTDs? on the soapbox landing page$/ do |num|
-  SoapboxEntry.count(:conditions => {:featured_item_type => 'Admin::Qotd'}).should == num.to_i
+  visit soapbox_path
+  response.should contain("Question of the Day")
+  #SoapboxEntry.count(:conditions => {:featured_item_type => 'Admin::Qotd'}).should == num.to_i
 end
 
