@@ -13,6 +13,12 @@ class HolidayDiscussionsController < ApplicationController
     redirect_to admin_holiday_path(@discussion.holiday)
   end
   
+  def read
+    discussion = HolidayDiscussion.find(params[:id])
+    discussion.read_by!(current_user)
+    render :nothing => true
+  end
+  
   private
 
   def build_comment
