@@ -25,7 +25,7 @@ When /^I create a new soapbox entry for that QOTD with:$/ do |table|
     fill_in field, :with => value
   end
 
-  click_button
+  click_button "Save"
 end
 
 Then /^there should be (\d+) QOTDs? on the soapbox landing page$/ do |num|

@@ -23,6 +23,9 @@
 </p>
 <% end %>
 
+<div class="clearfix">
+    <%= link_to "Add to Soapbox", new_admin_soapbox_entry_path(:trend_question_id => @trend_question.to_param), :class => "button" %>
+</div>
 
 <div id="have_replied" class="span-9 conversations_list">
   <h3>Replied (<%= @trend_question.admin_discussions.with_replies.size %>)</h3>
