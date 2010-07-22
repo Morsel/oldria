@@ -76,7 +76,7 @@ class Employment < ActiveRecord::Base
     if omniscient?
       conditions = {}
     else
-      conditions = ["media_requests.subject_matter_id IN(?)", subject_matter_ids.join(',')]
+      conditions = {:media_requests => {:subject_matter_id => subject_matter_ids}}
     end
 
     restaurant.media_request_discussions.all(:joins => :media_request,
