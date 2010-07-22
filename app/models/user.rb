@@ -65,7 +65,7 @@ class User < ActiveRecord::Base
   has_many :feeds, :through => :feed_subscriptions
 
   has_many :readings, :dependent => :destroy
-
+  
   validates_presence_of :email
 
   attr_accessor :send_invitation, :agree_to_contract, :invitation_sender, :password_reset_required
