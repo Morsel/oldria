@@ -69,4 +69,8 @@ class Admin::Conversation < ActiveRecord::Base
     end
   end
 
+  def restaurant
+    recipient.restaurant
+  end
+
 end
