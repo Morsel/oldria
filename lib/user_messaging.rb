@@ -41,7 +41,7 @@ module UserMessaging
     end
 
     def unread_admin_discussions
-      current_admin_discussions.reject { |d| d.read_by?(self) }
+      current_admin_discussions.reject { |d| d.read_by?(self) }.select { |d| d.scheduled_at >= 2.weeks.ago }
     end
 
     def action_required_admin_discussions
