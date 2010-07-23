@@ -16,5 +16,11 @@ module SoapboxHelper
       "<em>Question</em> of the Day"
     end
   end
+  
+  def entry_for_comment(comment)
+    comment.commentable.is_a?(Admin::Conversation) ?
+      comment.commentable.admin_message.soapbox_entry :
+      comment.commentable.discussionable.soapbox_entry
+  end
 
 end
