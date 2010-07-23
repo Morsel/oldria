@@ -1,7 +1,7 @@
 <div id="ria_labs" class="ria_labs sidebar_section">
   <div class="section_header"><h3 class="function-bold">RIA Labs</h3></div>
   <div class="section_body">
-	
+
 	<div class="new_feature workbook">
 		<h4>Checkout the marketing workbook:</h4>
 		<div class="restaurant">
@@ -9,7 +9,7 @@
 		<%= link_to "Marketing Workbook", public_page_path('introduction-marketing-workbook') %>
 		</div>
 	</div><!--.new_feature workbook-->
-	
+
     <div class="new_feature calendars">
         <% unless @current_user_restaurants.blank? -%>
         <h4>Try out the new restaurant calendar:</h4>
@@ -20,19 +20,26 @@
         <% end -%>
       <% end -%>
     </div>
-    
+
+    <% unless Rails.env.production? %>
+      <div class="soapbox new_feature">
+        <h4>Soapbox for Marketing yourself</h4>
+        <%= link_to "Soapbox", '/soapbox' %>
+      </div>
+    <% end %>
+
     <div class="new_feature external-conversations">
           <h4>Talk to other spoonfeed users:</h4>
           <p class="start_discussion">
             <%= link_to image_tag('quotebubble.png') + "Start a conversation", new_conversation_path, :class => 'sf-button alt top' %>
           </p>
       </div>
-  </div>
-  
-  <div class="new_feature">
-      <h4>Try out the new activity stream:</h4>
-      <p>
-          <%= link_to "View your latest messages", activity_stream_timelines_path %>
-      </p>
+
+      <div class="new_feature">
+          <h4>Try out the new activity stream:</h4>
+          <p>
+              <%= link_to "View your latest messages", activity_stream_timelines_path %>
+          </p>
+      </div>
   </div>
 </div>

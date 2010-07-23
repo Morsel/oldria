@@ -39,7 +39,7 @@ class Comment < ActiveRecord::Base
   # This is only meant to be called as a callback from the observer
   def notify_recipients
 
-    # Only models that already have notifications set up 
+    # Only models that already have notifications set up
     # With special exception for HolidayDiscussion because the notification is on HolidayDiscussionReminder
     return unless commentable.respond_to?(:notify_recipients) || commentable.is_a?(HolidayDiscussion)
 
@@ -54,4 +54,15 @@ class Comment < ActiveRecord::Base
     end
   end
 
+  def restaurant
+    if commentable.respond_to?(:restaurant)
+      commentable.restaurant
+    else
+      user.restaurants.first
+    end
+  end
+
+  def employment
+    @employment ||= user.employments.find_by_restaurant_id(restaurant.id)
+  end
 end

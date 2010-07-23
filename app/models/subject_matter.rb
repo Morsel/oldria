@@ -1,4 +1,5 @@
 # == Schema Information
+# Schema version: 20100721223109
 #
 # Table name: subject_matters
 #
@@ -6,6 +7,9 @@
 #  name       :string(255)
 #  created_at :datetime
 #  updated_at :datetime
+#  general    :boolean
+#  fields     :string(255)
+#  private    :boolean
 #
 
 class SubjectMatter < ActiveRecord::Base

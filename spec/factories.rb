@@ -263,3 +263,8 @@ Factory.define :content_request do |f|
   f.scheduled_at { 1.day.ago }
   f.association :employment_search
 end
+
+Factory.define :soapbox_entry do |f|
+  f.association :featured_item, :factory => :qotd
+  f.published_at Time.now
+end

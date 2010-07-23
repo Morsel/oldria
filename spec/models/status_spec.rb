@@ -1,4 +1,5 @@
 # == Schema Information
+# Schema version: 20100721223109
 #
 # Table name: statuses
 #
@@ -9,6 +10,8 @@
 #  user_id                :integer
 #  twitter_id             :integer
 #  queue_for_social_media :boolean
+#  queue_for_facebook     :boolean
+#  facebook_id            :integer
 #
 
 require 'spec/spec_helper'

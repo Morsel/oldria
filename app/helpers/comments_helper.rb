@@ -3,4 +3,6 @@ module CommentsHelper
     return '' unless attached && attached.attachment_content_type
     link_to(attached.attachment_file_name, attached.attachment.url, options)
   end
+
+
 end

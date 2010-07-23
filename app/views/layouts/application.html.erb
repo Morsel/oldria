@@ -21,7 +21,7 @@
 	//]]>
 	</script>
 	<%- end -%>
-	
+
 	<%= render :partial => 'layouts/ga' %>
 
 </head>
@@ -65,7 +65,7 @@
 		</div><!--header-->
 
 
-		<div id="leftcolumn" class="span-12">
+		<div id="leftcolumn" class="<%= display_sidebar? ? 'span-12' : 'span-18 last' %>">
 			<div id="flashes">
 				<%- flash.each do |name, msg| -%>
 				<%= content_tag :div, msg, :id => "flash_#{name}" %>
@@ -85,6 +85,8 @@
 
 		</div><!--#leftcolumn-->
 
+<% if display_sidebar? %>
+
 	<div id="sidebar" class="span-6 last">
     <%= render :partial => 'shared/user_status' %>
 
@@ -99,7 +101,7 @@
     <% end -%>
 
 	</div><!--#sidebar-->
-
+<% end %>
 
 	<div id="footer" class="clear">
 		<ul>

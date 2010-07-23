@@ -1,3 +1,5 @@
+/* @override http://localhost:3000/stylesheets/custom.css */
+
 /* colors
 dark brown: #3e2611;
 alt dark brown: #49341f;
@@ -3140,7 +3142,7 @@ tr.unconfirmed td {
 
 /* @end */
 
-/* @group datepicker ui --------------- */
+/* @group jquery ui ------------------ */
 
 .ui-datepicker {
 	background-color: #fff;
@@ -3197,6 +3199,41 @@ a.ui-state-default:hover {
 .ui-helper-hidden-accessible {
 	display:none;
 }
+
+.ui-tabs .ui-tabs-hide { display: none !important; }
+
+.ui-tabs-nav {
+	height: 33px;
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+.ui-tabs-nav li {
+	float: left;
+	padding: 0;
+	border: 1px solid #ccc;
+	border-bottom: 0 none;
+	margin: 0 5px 0 0;
+}
+
+.ui-tabs-nav a {
+	display: block;
+	padding: 5px 10px;
+}
+
+.ui-tabs-selected a{
+	background-color: #fff;
+	padding-bottom: 6px;
+	margin-bottom: -1px;
+}
+
+.ui-tabs-panel {
+	border: 1px solid #ccc;
+	padding: 10px;
+}
+
+
 
 /* tables */
 table.tablesorter thead tr th {
@@ -3783,7 +3820,8 @@ h2.primary_title{
 
 /* @end */
 
-/* ## New Trend Question --------------------------------------------- */
+/* @group searching */
+
 #new_trend_question fieldset, #new_content_request fieldset{
 	border:0;
 	margin:0;
@@ -3900,5 +3938,166 @@ h2.primary_title{
 }
 
 p.search_filter_hint {
-	padding:0; margin:0; 
+	padding:0; margin:0;
 }
+
+/* @end */
+
+/* @group soapbox */
+
+.soapbox_item {
+	margin-bottom: 30px;
+}
+
+.main_feature {
+	background-color: #eee;
+}
+
+.secondary_feature {
+	border: 1px solid #ccc;
+	padding: 5px;
+}
+
+.soapbox_item .featured_item_title {
+	float: left;
+	height: 50px;
+	padding: 15px 20px 20px 18px;
+	width: 92px;
+	margin: -12px 20px 12px 14px;
+	color: #eee;
+	color: rgba(255,255,255, 0.8);
+	font-size: 20px;
+	text-align: center;
+	background: url(../images/banner_small.png) 0 -5px no-repeat;
+}
+
+.main_feature .featured_item_title {
+	margin: -5px 20px 5px;
+	height: 90px;
+	padding: 22px 20px 22px 25px;
+	width: 150px;
+	font-size: 28px;
+	line-height: 28px;
+	background: url(../images/banner_large.png) 0 -5px no-repeat;
+}
+
+.soapbox_item .featured_item_title em {
+	display: block;
+	color: #fff;
+	font-style: normal;
+	font-size: 1.1em;
+}
+
+.soapbox_item .featured_item_title {
+	border: 0;
+}
+
+.soapbox_item .trend_question .featured_item_title em {
+	font-size: 1.6em;
+}
+
+.soapbox_item .admin_qotd .featured_item_title {
+	font-size: 17px;
+}
+
+.soapbox_item .admin_qotd .featured_item_title em {
+	font-size: 1.2em;
+}
+
+.soapbox_item .question {
+	font-size: 1.3em;
+	padding: 1em 2em;
+	color: #444;
+}
+
+.secondary_feature .question {
+	background-color: #f4901e;
+	color: #fff;
+	font-size: 1.2em;
+	text-shadow: -1px 1px 1px rgba(0,0,0, 0.4);
+}
+
+.soapbox_item .comments {
+	clear: left;
+}
+
+.main_feature .comments {
+	border-top: 1px solid #333;
+	color: #eee;
+	background: #4d4d4d url('../images/commentsrow.png') 0 0 repeat-x;
+}
+
+.secondary_feature .comments {
+	padding: 10px;
+}
+
+.main_feature .comment, .main_feature .comment p {
+	color: #eee;
+}
+
+.soapbox_item .comment {
+	float: none;
+	margin: 0 0 1em;
+	padding: 0 0 1em;
+	border-bottom: 1px dotted #ccc;
+}
+
+.main_feature .comment {
+	width: 200px;
+	padding: 0 20px;
+	height: 160px;
+	margin: 20px 0;
+	border-bottom: 0;
+	border-right: 1px dotted #777;
+	float: left;
+}
+
+.main_feature .comment.last {
+	border-right: 0;
+}
+
+.soapbox_item .comment .avatar img {
+	float: left;
+}
+
+.soapbox_item .comment .content {
+	margin: 0;
+}
+
+.soapbox_item .comment .identity {
+	font-size: 1.2em;
+	margin-bottom: 10px;
+	font-family: georgia, times, serif;
+}
+
+.main_feature .comment .identity {
+	text-shadow: -1px 1px 0 rgba(0,0,0,0.5);
+}
+
+.soapbox_item .comment .employee_name{
+	color: #F4901E;
+}
+
+.soapbox_item .comment .avatar{
+	margin: 0 15px 10px 0;
+	float: left;
+	padding: 0;
+	width: auto;
+	height: auto;
+	-moz-box-shadow: 1px 2px 5px rgba(0,0,0,0.3);
+	-webkit-box-shadow: 1px 2px 5px rgba(0,0,0,0.3);
+	box-shadow: 1px 2px 5px rgba(0,0,0,0.3);
+}
+
+.main_feature .comment .avatar {
+	margin: 0 10px 10px 0;
+}
+
+.soapbox_item .comment .avatar img {
+	background-color: #fff;
+	padding: 4px;
+	margin: 0;
+}
+
+/* @end */
+

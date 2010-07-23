@@ -21,7 +21,7 @@ class Admin::Message < ActiveRecord::Base
   has_many :recipients, :through => :admin_conversations
   has_many :attachments, :as => :attachable, :class_name => '::Attachment', :dependent => :destroy
   accepts_nested_attributes_for :attachments
-  
+
   validates_presence_of :message
 
   named_scope :current, lambda {
@@ -53,7 +53,7 @@ class Admin::Message < ActiveRecord::Base
   def inbox_title
     self.class.title
   end
-  
+
   def email_title
     inbox_title
   end
@@ -72,6 +72,11 @@ class Admin::Message < ActiveRecord::Base
 
   def reply_count
     conversations_with_replies.count
+  end
+
+  def comments(deep_includes = false)
+    includes = deep_includes ? {:comments => {:user => :employments}} : :comments
+    conversations_with_replies.all(:include => includes).map(&:comments).flatten
   end
 
   def conversations_with_replies
