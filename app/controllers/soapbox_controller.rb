@@ -11,4 +11,10 @@ class SoapboxController < ApplicationController
     @trend_questions = SoapboxEntry.trend_question.published.recent.all(:include => :featured_item).map(&:featured_item)
   end
 
+  def show
+    entry = SoapboxEntry.find(params[:id], :include => :featured_item)
+    @feature = entry.featured_item
+    @feature_comments = entry.comments
+  end
+
 end

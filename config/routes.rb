@@ -5,7 +5,7 @@ ActionController::Routing::Routes.draw do |map|
   map.confirm 'confirm/:id', :controller => 'users', :action => 'confirm'
 
   map.directory 'directory', :controller => 'directory', :action => 'index'
-  map.soapbox 'soapbox', :controller => 'soapbox', :action => 'index'
+  map.resources :soapbox
 
   map.profile 'profile/:username', :controller => 'users', :action => 'show'
 
