@@ -50,7 +50,7 @@ class SoapboxEntry < ActiveRecord::Base
     private
 
     def featured_item_comments_with_offset(offset = 0)
-      featured_item_with_offset(offset).comments(true).reject {|c| c.user.admin? }
+      featured_item_with_offset(offset).comments(true).select {|c| c.employment && c.employment.prefers_post_to_soapbox }
     end
 
     def featured_item_with_offset(offset = 0)
