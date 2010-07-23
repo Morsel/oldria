@@ -14,17 +14,17 @@
 class SoapboxEntry < ActiveRecord::Base
   belongs_to :featured_item, :polymorphic => true
 
+  default_scope :order => "#{table_name}.published_at DESC"
+
   named_scope :qotd, :conditions => { :featured_item_type => 'Admin::Qotd' }
   named_scope :trend_question, :conditions => { :featured_item_type => 'TrendQuestion' }
 
   named_scope :published,
-              :conditions => ['published_at < ?', Time.zone.now],
-              :order => "published_at DESC"
+              :conditions => ['published_at < ?', Time.zone.now]
 
   named_scope :recent,
               :limit => 5,
-              :offset => 1,
-              :order => "published_at DESC"
+              :offset => 1
 
   def title
     featured_item.title
