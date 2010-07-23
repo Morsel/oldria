@@ -3907,8 +3907,16 @@ h2.primary_title{
 /* @group soapbox */
 
 .soapbox_item {
+	margin-bottom: 30px;
+}
+
+.main_feature {
 	background-color: #eee;
-	margin-bottom: 20px;
+}
+
+.secondary_feature {
+	border: 1px solid #ccc;
+	padding: 5px;
 }
 
 .soapbox_item .featured_item_title {
@@ -3916,7 +3924,7 @@ h2.primary_title{
 	height: 50px;
 	padding: 15px 20px 20px 18px;
 	width: 92px;
-	margin: -5px 20px 5px;
+	margin: -12px 20px 12px 14px;
 	color: #eee;
 	color: rgba(255,255,255, 0.8);
 	font-size: 20px;
@@ -3925,6 +3933,7 @@ h2.primary_title{
 }
 
 .main_feature .featured_item_title {
+	margin: -5px 20px 5px;
 	height: 90px;
 	padding: 22px 20px 22px 25px;
 	width: 150px;
@@ -3954,6 +3963,13 @@ h2.primary_title{
 	color: #444;
 }
 
+.secondary_feature .question {
+	background-color: #f4901e;
+	color: #fff;
+	font-size: 1.2em;
+	text-shadow: -1px 1px 1px rgba(0,0,0, 0.4);
+}
+
 .soapbox_item .comments {
 	clear: left;	
 }
@@ -3964,8 +3980,19 @@ h2.primary_title{
 	background: #4d4d4d url('../images/commentsrow.png') 0 0 repeat-x;
 }
 
+.secondary_feature .comments {
+	padding: 10px;
+}
+
 .main_feature .comment, .main_feature .comment p {
 	color: #eee;
+}
+
+.soapbox_item .comment {
+	float: none;
+	margin: 0 0 1em;
+	padding: 0 0 1em;
+	border-bottom: 1px dotted #ccc;
 }
 
 .main_feature .comment {
@@ -3975,9 +4002,10 @@ h2.primary_title{
 	margin: 20px 0;
 	border-bottom: 0;
 	border-right: 1px dotted #777;
+	float: left;
 }
 
-.soapbox_item .comment.last {
+.main_feature .comment.last {
 	border-right: 0;
 }
 
@@ -3989,11 +4017,14 @@ h2.primary_title{
 	margin: 0;
 }
 
-
 .soapbox_item .comment .identity {
 	font-size: 1.2em;
 	margin-bottom: 10px;
-	text-shadow: -1px 1px 0 #111;
+	font-family: georgia, times, serif;
+}
+
+.main_feature .comment .identity {
+	text-shadow: -1px 1px 0 rgba(0,0,0,0.5);
 }
 
 .soapbox_item .comment .employee_name{
@@ -4001,11 +4032,18 @@ h2.primary_title{
 }
 
 .soapbox_item .comment .avatar{
-	margin: 0 10px 10px 0;
+	margin: 0 15px 10px 0;
 	float: left;
 	padding: 0;
 	width: auto;
 	height: auto;
+	-moz-box-shadow: 1px 2px 5px rgba(0,0,0,0.3);
+	-webkit-box-shadow: 1px 2px 5px rgba(0,0,0,0.3);
+	box-shadow: 1px 2px 5px rgba(0,0,0,0.3);
+}
+
+.main_feature .comment .avatar {
+	margin: 0 10px 10px 0;
 }
 
 .soapbox_item .comment .avatar img {

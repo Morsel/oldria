@@ -1,4 +1,4 @@
-<% div_for(comment, :class => "column#{cycle(' clear','','',' last', :name => comment.commentable_type)}") do %>
+<% div_for(comment, :class => "column clearfix#{cycle(' clear','','',' last', :name => comment.commentable_type)}") do %>
 <%= link_to "", "#", :name => "comment_#{comment.id}" %>
 <div class="identity">
     <span class="employee_name"><%= comment.user.name_or_username %></span>,
@@ -10,7 +10,7 @@
 </div>
 <% end %>
 <div class="content">
-    <%= link_to simple_format(truncate(comment.comment, :length => 120)), 
+    <%= link_to simple_format(truncate(comment.comment, :length => 120)),
             soapbox_path(entry_for_comment(comment), :anchor => "comment_#{comment.id}") %>
 </div>
 <% end %>
