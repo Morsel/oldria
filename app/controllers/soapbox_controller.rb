@@ -1,7 +1,5 @@
 class SoapboxController < ApplicationController
 
-  #before_filter :load_past_features
-
   def index
     @main_feature = SoapboxEntry.main_feature
     @main_feature_comments = SoapboxEntry.main_feature_comments if @main_feature
@@ -16,6 +14,7 @@ class SoapboxController < ApplicationController
     entry = SoapboxEntry.find(params[:id], :include => :featured_item)
     @feature = entry.featured_item
     @feature_comments = entry.comments
+    load_past_features
   end
 
   protected

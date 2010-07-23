@@ -378,3 +378,7 @@ if (typeof($.fn.colorbox) != 'undefined') {
 $('#user_email').blur(function() {
   this.value = jQuery.trim(this.value);
 });
+
+
+$('.soapbox_sidebar').tabs();
+

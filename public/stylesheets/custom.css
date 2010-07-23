@@ -3142,7 +3142,7 @@ tr.unconfirmed td {
 
 /* @end */
 
-/* @group datepicker ui --------------- */
+/* @group jquery ui ------------------ */
 
 .ui-datepicker {
 	background-color: #fff;
@@ -3198,6 +3198,24 @@ a.ui-state-default:hover {
 
 .ui-helper-hidden-accessible {
 	display:none;
+}
+
+.ui-tabs-nav {
+	margin: 0;
+	list-style: none;
+}
+
+.ui-tabs-nav li {
+	float: left;
+	padding: 10px;
+}
+
+.ui-tabs-selected {
+	
+}
+
+.ui-tabs-hide {
+	display: none;
 }
 
 /* tables */
@@ -3955,6 +3973,14 @@ h2.primary_title{
 
 .soapbox_item .trend_question .featured_item_title em {
 	font-size: 1.6em;
+}
+
+.soapbox_item .admin_qotd .featured_item_title {
+	font-size: 17px;
+}
+
+.soapbox_item .admin_qotd .featured_item_title em {
+	font-size: 1.2em;
 }
 
 .soapbox_item .question {
