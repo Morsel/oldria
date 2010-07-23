@@ -1,7 +1,10 @@
 <% title "Soapbox", false %>
 
 <% if @main_feature %>
-  <h2 class="cufon">Featured Trend Question</h2>
+<div class="soapbox_item main_feature">
+  <h2 class="cufon featured_item_title">
+    <%= soapbox_tabby_title(@main_feature) %>
+  </h2>
   <% div_for @main_feature do %>
     <div class="">
       <%= @main_feature.message %>
@@ -15,10 +18,14 @@
     <% end %>
 
   <% end %>
+</div>
 <% end %>
 
 <% if @secondary_feature %>
-  <h2 class="cufon">Featured Question of the Day</h2>
+<div class="soapbox_item secondary_feature">
+  <h2 class="cufon featured_item_title">
+    <%= soapbox_tabby_title(@secondary_feature) %>
+  </h2>
   <% div_for @secondary_feature do %>
     <div class="">
       <%= @secondary_feature.message %>
@@ -31,6 +38,7 @@
       </div>
     <% end %>
   <% end %>
+</div>
 <% end %>
 
 
