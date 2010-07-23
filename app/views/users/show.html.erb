@@ -13,7 +13,7 @@
 			<%= image_tag @user.avatar.url(:small), :width=>'100', :class => 'left' %>
 		</div>
 		<h2><%= @user.name %></h2>
-		<% unless current_user == @user %>
+		<% unless current_user == @user or current_user.media? %>
   	  <ul class="user_profile_actions">
     		<li><%= link_to "Private Message", new_user_direct_message_path(@user), :class=>'sf-button' %></li>
 
