@@ -1,6 +1,6 @@
 class SoapboxController < ApplicationController
 
-  before_filter :load_past_features
+  #before_filter :load_past_features
 
   def index
     @main_feature = SoapboxEntry.main_feature
@@ -17,9 +17,9 @@ class SoapboxController < ApplicationController
     @feature = entry.featured_item
     @feature_comments = entry.comments
   end
-  
+
   protected
-  
+
   def load_past_features
     @qotds = SoapboxEntry.qotd.published.recent.all(:include => :featured_item).map(&:featured_item)
     @trend_questions = SoapboxEntry.trend_question.published.recent.all(:include => :featured_item).map(&:featured_item)

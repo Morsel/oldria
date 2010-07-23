@@ -29,7 +29,7 @@ class SoapboxEntry < ActiveRecord::Base
   def title
     featured_item.title
   end
-  
+
   def comments
     featured_item.comments(true).select {|c| c.employment && c.employment.prefers_post_to_soapbox }
   end
@@ -43,11 +43,11 @@ class SoapboxEntry < ActiveRecord::Base
       featured_item_with_offset(0)
     end
 
-    def main_feature_comments(limit = 6)
+    def main_feature_comments(limit = 8)
       featured_item_comments_with_offset(0)[0...limit]
     end
 
-    def secondary_feature_comments(limit = 6)
+    def secondary_feature_comments(limit = 8)
       featured_item_comments_with_offset(1)[0...limit]
     end
 

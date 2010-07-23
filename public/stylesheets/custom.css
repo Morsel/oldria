@@ -3913,26 +3913,39 @@ h2.primary_title{
 
 .soapbox_item .featured_item_title {
 	float: left;
-	height: 80px;
-	padding: 20px;
-	width: 120px;
+	height: 50px;
+	padding: 15px 20px 20px 18px;
+	width: 92px;
 	margin: -5px 20px 5px;
 	color: #eee;
 	color: rgba(255,255,255, 0.8);
-	background-color: #0587c1;
-	font-size: 22px;
+	font-size: 20px;
 	text-align: center;
+	background: url(../images/banner_small.png) 0 -5px no-repeat;
+}
+
+.main_feature .featured_item_title {
+	height: 90px;
+	padding: 22px 20px 22px 25px;
+	width: 150px;
+	font-size: 28px;
+	line-height: 28px;
+	background: url(../images/banner_large.png) 0 -5px no-repeat;
 }
 
 .soapbox_item .featured_item_title em {
 	display: block;
 	color: #fff;
 	font-style: normal;
-	font-size: 1.2em;
+	font-size: 1.1em;
+}
+
+.soapbox_item .featured_item_title {
+	border: 0;
 }
 
 .soapbox_item .trend_question .featured_item_title em {
-	font-size: 1.8em;
+	font-size: 1.6em;
 }
 
 .soapbox_item .question {
@@ -3942,18 +3955,26 @@ h2.primary_title{
 }
 
 .soapbox_item .comments {
-	clear: left;
-	border-top: 1px solid #333;
-	color: #eee;
-	background-color: #333;
+	clear: left;	
 }
 
-.soapbox_item .comment {
+.main_feature .comments {
+	border-top: 1px solid #333;
+	color: #eee;
+	background: #4d4d4d url('../images/commentsrow.png') 0 0 repeat-x;
+}
+
+.main_feature .comment, .main_feature .comment p {
+	color: #eee;
+}
+
+.main_feature .comment {
 	width: 200px;
 	padding: 0 20px;
+	height: 160px;
 	margin: 20px 0;
 	border-bottom: 0;
-	border-right: 1px solid #333;
+	border-right: 1px dotted #777;
 }
 
 .soapbox_item .comment.last {
@@ -3966,7 +3987,31 @@ h2.primary_title{
 
 .soapbox_item .comment .content {
 	margin: 0;
-	color: #eee;
+}
+
+
+.soapbox_item .comment .identity {
+	font-size: 1.2em;
+	margin-bottom: 10px;
+	text-shadow: -1px 1px 0 #111;
+}
+
+.soapbox_item .comment .employee_name{
+	color: #F4901E;
+}
+
+.soapbox_item .comment .avatar{
+	margin: 0 10px 10px 0;
+	float: left;
+	padding: 0;
+	width: auto;
+	height: auto;
+}
+
+.soapbox_item .comment .avatar img {
+	background-color: #fff;
+	padding: 4px;
+	margin: 0;
 }
 
 /* @end */
