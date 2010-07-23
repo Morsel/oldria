@@ -2,23 +2,27 @@
 <h3>Questions of the Day</h3>
 <% for qotd in @qotds %>
   <% div_for qotd do %>
+    <% link_to soapbox_path(qotd.soapbox_entry) do %>
     <div class="">
       <%= qotd.message %>
     </div>
     <div>
       <%= pluralize qotd.conversations_with_replies.count, "reply" %>
     </div>
+    <% end %>
   <% end %>
 <% end %>
 
 <h3>Trend Questions</h3>
 <% for trend_question in @trend_questions %>
   <% div_for trend_question do %>
+    <% link_to soapbox_path(trend_question.soapbox_entry) do %>
     <div class="">
       <%= trend_question.message %>
     </div>
     <div>
       <%= pluralize trend_question.comments(false).count, "reply" %>
     </div>
+    <% end %>
   <% end %>
 <% end %>
