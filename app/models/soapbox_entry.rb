@@ -30,29 +30,32 @@ class SoapboxEntry < ActiveRecord::Base
     featured_item.title
   end
 
-  def self.featured_trend_question
-    trend_question.published.first(:include => :featured_item).try(:featured_item)
-  end
+  class << self
+    def secondary_feature
+      featured_item_with_offset(1)
+    end
 
-  def self.featured_trend_question_comments(limit = 6)
-    self.all_featured_trend_question_comments[0...limit]
-  end
+    def main_feature
+      featured_item_with_offset(0)
+    end
 
-  def self.all_featured_trend_question_comments
-    # FIXME: filter to authorized users/employments only - rejecting admins because they break the comment partial
-    self.featured_trend_question.comments(true).reject { |c| c.user.admin? }
-  end
+    def main_feature_comments(limit = 6)
+      featured_item_comments_with_offset(0)[0...limit]
+    end
 
-  def self.featured_qotd
-    qotd.published.first(:include => :featured_item).try(:featured_item)
-  end
+    def secondary_feature_comments(limit = 6)
+      featured_item_comments_with_offset(1)[0...limit]
+    end
 
-  def self.featured_qotd_comments(limit = 6)
-    self.all_featured_qotd_comments[0...limit]
-  end
+    private
 
-  def self.all_featured_qotd_comments
-    self.featured_qotd.conversations_with_replies.map(&:comments).flatten.reject { |c| c.user.admin? }
+    def featured_item_comments_with_offset(offset = 0)
+      featured_item_with_offset(offset).comments(true).reject {|c| c.user.admin? }
+    end
+
+    def featured_item_with_offset(offset = 0)
+      published.first(:include => :featured_item, :offset => offset).try(:featured_item)
+    end
   end
 
 end
