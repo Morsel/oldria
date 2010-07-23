@@ -241,7 +241,7 @@ class User < ActiveRecord::Base
   end
   
   def facebook_authorized?
-    !facebook_id.nil?
+    !facebook_id.nil? and !facebook_access_token.nil?
   end
   
   def facebook_user
