@@ -21,7 +21,7 @@
 <% end %>
 
 <% if @secondary_feature %>
-<div class="soapbox_item secondary_feature">
+<div class="soapbox_item secondary_feature span-12">
   <% div_for @secondary_feature do %>
     <h2 class="cufon featured_item_title">
       <%= soapbox_tabby_title(@secondary_feature) %>
@@ -39,6 +39,6 @@
 </div>
 <% end %>
 
-<% content_for :sidebar do %>
+<div class="span-6 last">
   <%= render :partial => "sidebar" %>
-<% end %>
+</div>
