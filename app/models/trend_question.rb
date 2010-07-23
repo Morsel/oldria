@@ -19,6 +19,8 @@ class TrendQuestion < ActiveRecord::Base
 
   has_many :admin_discussions, :as => :discussionable, :dependent => :destroy
   has_many :restaurants, :through => :admin_discussions
+  
+  has_one :soapbox_entry, :as => :featured_item
 
   named_scope :by_scheduled_date, :order => "#{table_name}.scheduled_at desc"
   named_scope :by_subject, :order => "#{table_name}.subject asc"
