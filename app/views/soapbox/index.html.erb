@@ -1,14 +1,50 @@
 <% title "Soapbox" %>
 
 <% if @featured_trend_question %>
-
-<h2>Featured Trend Question</h2>
-<% div_for @featured_trend_question do %>
-	<div class="">
-		<%= @featured_trend_question.message %>
-	</div>
-	<div class="comments">
-		<%= render :partial => 'comment', :collection => @featured_trend_question.comments(true) %>
-	</div>
+  <h2>Trend Question</h2>
+  <% div_for @featured_trend_question do %>
+      <div class="">
+	      <%= @featured_trend_question.message %>
+	  </div>
+	  <div class="comments">
+	    <%= render :partial => 'comment', :collection => @featured_tq_comments %>
+	  </div>
+  <% end %>
 <% end %>
+
+<% if @featured_qotd %>
+  <h2>Question of the Day</h2>
+  <% div_for @featured_qotd do %>
+      <div class="">
+	      <%= @featured_qotd.message %>
+	  </div>
+	  <div class="comments clearfix">
+	    <%= render :partial => 'comment', :collection => @featured_qotd_comments %>
+	  </div>
+  <% end %>
+<% end %>
+
+<h2>Recent Questions of the Day &amp; Trend Questions</h2>
+<h3>Questions of the Day</h3>
+<% for qotd in @qotds %>
+  <% div_for qotd do %>
+    <div class="">
+        <%= qotd.message %>
+    </div>
+    <div>
+        <%= pluralize qotd.conversations_with_replies.count, "reply" %>
+    </div>
+  <% end %>
+<% end %>
+
+<h3>Trend Questions</h3>
+<% for trend_question in @trend_questions %>
+  <% div_for trend_question do %>
+    <div class="">
+        <%= trend_question.message %>
+    </div>
+    <div>
+        <%= pluralize trend_question.comments(false).count, "reply" %>
+    </div>
+  <% end %>
 <% end %>
