@@ -1,0 +1,46 @@
+<% title "Soapbox", false %>
+
+<% if @main_feature %>
+<div class="soapbox_item main_feature">
+  <% div_for @main_feature do %>
+    <h2 class="cufon featured_item_title">
+      <%= soapbox_tabby_title(@main_feature) %>
+    </h2>
+    <div class="question">
+      <%= @main_feature.message %>
+    </div>
+
+    <% if @main_feature_comments %>
+      <div class="comments clearfix">
+        <%= render :partial => 'comment', :collection => @main_feature_comments %>
+      </div>
+    <% end %>
+
+  <% end %>
+</div>
+<% end %>
+
+<div class="span-12">
+<% if @secondary_feature %>
+<div class="soapbox_item secondary_feature">
+  <% div_for @secondary_feature do %>
+    <h2 class="cufon featured_item_title">
+      <%= soapbox_tabby_title(@secondary_feature) %>
+    </h2>
+    <div class="question">
+      <%= @secondary_feature.message %>
+    </div>
+
+    <% if @secondary_feature_comments %>
+      <div class="comments clearfix">
+        <%= render :partial => 'comment', :collection => @secondary_feature_comments %>
+      </div>
+    <% end %>
+  <% end %>
+</div>
+<% end %>
+</div>
+
+<div class="span-6 last soapbox_sidebar">
+  <%= render :partial => "sidebar" %>
+</div>

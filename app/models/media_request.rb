@@ -1,20 +1,20 @@
 # == Schema Information
-# Schema version: 20100708221553
+# Schema version: 20100721223109
 #
 # Table name: media_requests
 #
-#  id                    :integer         not null, primary key
-#  sender_id             :integer
-#  message               :text
-#  created_at            :datetime
-#  updated_at            :datetime
-#  due_date              :date
-#  media_request_type_id :integer
-#  fields                :text
-#  status                :string(255)
-#  publication           :string(255)
-#  admin                 :boolean
-#  employment_search_id  :integer
+#  id                   :integer         not null, primary key
+#  sender_id            :integer
+#  message              :text
+#  created_at           :datetime
+#  updated_at           :datetime
+#  due_date             :date
+#  subject_matter_id    :integer
+#  fields               :text
+#  status               :string(255)
+#  publication          :string(255)
+#  admin                :boolean
+#  employment_search_id :integer
 #
 
 class MediaRequest < ActiveRecord::Base

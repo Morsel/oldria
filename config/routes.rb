@@ -6,6 +6,7 @@ ActionController::Routing::Routes.draw do |map|
   map.fb_login 'facebook_login', :controller => 'user_sessions', :action => 'create_from_facebook'
 
   map.directory 'directory', :controller => 'directory', :action => 'index'
+  map.resources :soapbox
 
   map.profile 'profile/:username', :controller => 'users', :action => 'show'
 
@@ -103,6 +104,7 @@ ActionController::Routing::Routes.draw do |map|
     admin.resources :holidays
     admin.resources :calendars
     admin.resources :events
+    admin.resources :soapbox_entries
 
     # Admin Messaging
     exclusive_routes = [:index, :show, :destroy]

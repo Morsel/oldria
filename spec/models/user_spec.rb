@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20100316193326
+# Schema version: 20100721223109
 #
 # Table name: users
 #
@@ -16,7 +16,6 @@
 #  last_request_at       :datetime
 #  atoken                :string(255)
 #  asecret               :string(255)
-#  account_type_id       :integer
 #  avatar_file_name      :string(255)
 #  avatar_content_type   :string(255)
 #  avatar_file_size      :integer
@@ -26,6 +25,8 @@
 #  james_beard_region_id :integer
 #  publication           :string(255)
 #  role                  :string(255)
+#  facebook_id           :integer
+#  facebook_access_token :string(255)
 #
 
 require 'spec/spec_helper'

@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100720205124) do
+ActiveRecord::Schema.define(:version => 20100721223109) do
 
   create_table "admin_conversations", :force => true do |t|
     t.integer  "recipient_id"
@@ -463,6 +463,14 @@ ActiveRecord::Schema.define(:version => 20100720205124) do
 
   add_index "slugs", ["name", "sluggable_type", "scope", "sequence"], :name => "index_slugs_on_n_s_s_and_s", :unique => true
   add_index "slugs", ["sluggable_id"], :name => "index_slugs_on_sluggable_id"
+
+  create_table "soapbox_entries", :force => true do |t|
+    t.datetime "published_at"
+    t.integer  "featured_item_id"
+    t.string   "featured_item_type"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "statuses", :force => true do |t|
     t.string   "message"

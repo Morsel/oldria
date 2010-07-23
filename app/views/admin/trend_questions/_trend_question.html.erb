@@ -1,0 +1,8 @@
+<% div_for trend_question do %>
+	<h3>Trend Question</h3>
+	<p>
+		<%= trend_question.message %>
+		(<%= pluralize trend_question.reply_count, "reply" %> with
+		<%= trend_question.comments_count %> total comments)
+	</p>
+<% end %>
