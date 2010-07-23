@@ -3200,23 +3200,40 @@ a.ui-state-default:hover {
 	display:none;
 }
 
+.ui-tabs .ui-tabs-hide { display: none !important; }
+
 .ui-tabs-nav {
-	margin: 0;
+	height: 33px;
 	list-style: none;
+	margin: 0;
+	padding: 0;
 }
 
 .ui-tabs-nav li {
 	float: left;
+	padding: 0;
+	border: 1px solid #ccc;
+	border-bottom: 0 none;
+	margin: 0 5px 0 0;
+}
+
+.ui-tabs-nav a {
+	display: block;
+	padding: 5px 10px;
+}
+
+.ui-tabs-selected a{
+	background-color: #fff;
+	padding-bottom: 6px;
+	margin-bottom: -1px;
+}
+
+.ui-tabs-panel {
+	border: 1px solid #ccc;
 	padding: 10px;
 }
 
-.ui-tabs-selected {
-	
-}
 
-.ui-tabs-hide {
-	display: none;
-}
 
 /* tables */
 table.tablesorter thead tr th {
