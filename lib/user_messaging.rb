@@ -41,7 +41,7 @@ module UserMessaging
     end
 
     def unread_admin_discussions
-      current_admin_discussions.reject { |d| d.read_by?(self) }.select { |d| d.scheduled_at >= 2.weeks.ago }
+      current_admin_discussions.reject { |d| d.read_by?(self) }
     end
 
     def action_required_admin_discussions
@@ -52,7 +52,7 @@ module UserMessaging
       return @unread_grouped_admin_discussions if defined?(@unread_grouped_admin_discussions)
       @unread_grouped_admin_discussions = (current_admin_discussions - action_required_admin_discussions).group_by(&:discussionable)
       @unread_grouped_admin_discussions.reject! do |discussionable, admin_discussions|
-        discussionable.read_by?(self)
+        discussionable.read_by?(self) || (discussionable.scheduled_at < 2.weeks.ago)
       end
     end
 
