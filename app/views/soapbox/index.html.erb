@@ -12,7 +12,7 @@
 
     <% if @main_feature_comments %>
       <div class="comments clearfix">
-        <%= render :partial => 'comment', :collection => @main_feature_comments %>
+        <%= render :partial => 'comment', :collection => @main_feature_comments, :locals => { :full_text => false } %>
       </div>
     <% end %>
 
@@ -33,7 +33,7 @@
 
     <% if @secondary_feature_comments %>
       <div class="comments clearfix">
-        <%= render :partial => 'comment', :collection => @secondary_feature_comments %>
+        <%= render :partial => 'comment', :collection => @secondary_feature_comments, :locals => { :full_text => false } %>
       </div>
     <% end %>
   <% end %>

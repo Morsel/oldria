@@ -12,7 +12,7 @@
     <% if @feature_comments %>
       <h3 class="cufon">Comments from SpoonFeed users</h3>
       <div class="comments clearfix">
-        <%= render :partial => 'comment', :collection => @feature_comments %>
+        <%= render :partial => 'comment', :collection => @feature_comments, :locals => { :full_text => true } %>
       </div>
     <% end %>
   <% end %>
