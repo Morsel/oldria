@@ -111,6 +111,13 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
   end
   
+  def fb_deauth
+    @user = User.find(params[:id])
+    @user.update_attribute(:facebook_access_token, nil)
+    flash[:notice] = "Your Facebook account has been disconnected"
+    redirect_to :action => "edit", :id => @user.id    
+  end
+  
   def fb_connect
     @user = User.find(params[:id])
     if current_facebook_user

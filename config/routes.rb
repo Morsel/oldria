@@ -27,7 +27,8 @@ ActionController::Routing::Routes.draw do |map|
     :remove_twitter => :put,
     :remove_avatar => :put,
     :fb_auth => :get,
-    :fb_connect => :any
+    :fb_connect => :any,
+    :fb_deauth => :any
   }, :shallow => true do |users|
     users.resources :statuses
     users.resources :direct_messages, :member => { :reply => :get }

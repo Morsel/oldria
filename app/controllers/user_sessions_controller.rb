@@ -13,6 +13,9 @@ class UserSessionsController < ApplicationController
   def create_from_facebook
     user = User.find_by_facebook_id(current_facebook_user.id)
     if user
+      if user.facebook_access_token != current_facebook_user.client.access_token
+        user.update_attribute(:facebook_access_token, current_facebook_user.client.access_token)
+      end
       @user_session = UserSession.new(user)
       save_session
     else
