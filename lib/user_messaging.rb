@@ -103,6 +103,7 @@ module UserMessaging
     # Collections for display
 
     def action_required_messages
+      return nil if self.confirmed_at > 1.day.ago
       [admin_conversations.current.action_required(self),
         action_required_admin_discussions,
         action_required_holidays
