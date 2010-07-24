@@ -4,7 +4,7 @@ Factory.define :user do |f|
   f.sequence(:email)    { |n| "foo#{n}@example.com" }
   f.password 'secret'
   f.password_confirmation { |u| u.password }
-  f.confirmed_at { Time.now }
+  f.confirmed_at { 1.week.ago }
   f.first_name { |u| u.name.split(' ').first || "John" }
   f.last_name  { |u| u.name.split(' ').last  || "Doe" }
 end

@@ -14,7 +14,7 @@ describe SoapboxController do
     it "should find the entry" do
       Factory(:soapbox_entry)
       get :show, :id => 1
-      assigns[:entry].should_not be_nil
+      assigns[:feature].should_not be_nil
     end
   end
   
