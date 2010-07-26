@@ -19,8 +19,7 @@ class SoapboxEntry < ActiveRecord::Base
   named_scope :qotd, :conditions => { :featured_item_type => 'Admin::Qotd' }
   named_scope :trend_question, :conditions => { :featured_item_type => 'TrendQuestion' }
 
-  named_scope :published,
-              :conditions => ['published_at < ?', Time.zone.now]
+  named_scope :published, lambda {{ :conditions => ['published_at <= ?', Time.zone.now] }}
 
   named_scope :recent,
               :limit => 5,

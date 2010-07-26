@@ -30,7 +30,6 @@ end
 
 Then /^there should be (\d+) QOTDs? on the soapbox landing page$/ do |num|
   visit '/soapbox'
-  response.should contain("Question of the Day")
-  #SoapboxEntry.count(:conditions => {:featured_item_type => 'Admin::Qotd'}).should == num.to_i
+  SoapboxEntry.qotd.published.count.should == num.to_i
 end
 
