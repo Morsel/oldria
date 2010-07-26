@@ -1517,6 +1517,10 @@ span.event-time {font-size: .9em; color: #777;line-height: 12px;}
   color: #69A74D;
 }
 
+.calendar .admin_holiday, .calendar .admin_charity {
+  background-color: #FFEEDD;
+}
+
 .event-meta {margin: 7px 0px 14px 0px;}
 
 .event-meta dt {
