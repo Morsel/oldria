@@ -17,18 +17,12 @@
   	  <ul class="user_profile_actions">
     		<li><%= link_to "Private Message", new_user_direct_message_path(@user), :class=>'sf-button' %></li>
 
-
-<% unless current_user.media? # no following option if media %>
-
 <%- if @following -%>
   <li class="following"><%= link_to "Stop following this user", following_path(@following.id), :method => :delete, :class=>'sf-button' %></li>
 <% else %>
   <li><%= link_to "Follow this user", followings_path(:friend_id => @user), :method => :post, :class=>'sf-button' %></li>
 <% end -%>
 
-<% end # no follow if media  %>
-			
-			
   	  </ul>
   	<% end -%>
 	</div><!--/name_and_actions -->
@@ -40,7 +34,7 @@
 </div><!--#user_profile_view -->
 
 <div id="user_content">
-	
+
 <% unless current_user.media? # no user statuses if media %>
 
 <% unless @latest_statuses.blank? -%>
