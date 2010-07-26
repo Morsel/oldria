@@ -35,9 +35,7 @@
 
 <div id="user_content">
 
-<% unless current_user.media? # no user statuses if media %>
-
-<% unless @latest_statuses.blank? -%>
+<% unless current_user.media? || @latest_statuses.blank? %>
 <h3 class="function-bold">Recent Status Updates</h3>
 <div class="recent_statuses">
 	<% for status in @latest_statuses -%>
@@ -51,13 +49,11 @@
   	</p>
 	<% end -%>
 </div><!-- .box -->
-<% end #unless -%>
-
-<% end # no statuses if media  %>
+<% end %>
 
 
-
-<% if !@user.followings.blank? and not current_user.media? # media don't see followings '%>
+<%# media don't see followings  %>
+<% if @user.followings.present? && !current_user.media? %>
 <div class="span-6">
 	<h3 class="function-bold">Members <%= this_is_me ? "You Follow" : "#{@user.name_or_username} Follows" %></h3>
 	<ul>
@@ -74,12 +70,9 @@
 		<% end %>
 	</ul>
 </div> <!-- .span-6 -->
-<% end #if %>
+<% end %>
 
-
-
-
-<% if !@user.followers.blank? and not current_user.media? # media don't see followings  %>
+<% if @user.followers.present? && !current_user.media? %>
 <div class="span-6 last">
 	<h3 class="function-bold">Members Following <%= this_is_me ? "You" : @user.name_or_username %></h3>
 	<ul>

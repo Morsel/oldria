@@ -1,18 +1,16 @@
 <% title "New Employee" %>
 
 <% semantic_form_for @employment, :url => new_restaurant_employee_path(@restaurant), :html => {:method => :get } do |f| %>
-	<%= f.error_messages %>
+  <%= f.error_messages %>
 
-	<% f.inputs do %>
-		<%= f.input :employee_email, :hint => "If you are unsure of an email, try a first/last name" %>
-		<%= f.input :omniscient, :label => "Spoonfeed Account Manager?", :hint => "This indicates whether you'd like this employee to be able to administer this restaurant as you can" %>
-		<%= f.input :restaurant_role %>
-		<%= f.input :subject_matters, :as => :check_boxes %>
+  <% f.inputs do %>
+    <%= f.input :employee_email, :hint => "If you are unsure of an email, try a first/last name" %>
+    <%= f.input :omniscient, :label => "Spoonfeed Account Manager?", :hint => "This indicates whether you'd like this employee to be able to administer this restaurant as you can" %>
+    <%= f.input :restaurant_role %>
+    <%= render :partial => 'subject_matter_fields', :locals => {:f => f} %>
+    <%= f.input :prefers_post_to_soapbox, :as => :boolean,
+                :label => "Is this person authorized to post responses on Soapbox for #{@restaurant.name}?" %>
+  <% end %>
 
-        <%= f.input :prefers_post_to_soapbox, :as => :boolean,
-                    :label => "Is this person authorized to post responses on Soapbox for #{@restaurant.name}?" %>
-                    
-	<% end %>
-
-	<p><%= button_tag "Submit" %></p>
+<p><%= button_tag "Submit" %></p>
 <% end %>

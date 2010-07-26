@@ -5,7 +5,15 @@ class MigrateMediaRequestTypesToSubjectMatters < ActiveRecord::Migration
 
     say_with_time "Migrating Media Request Types to Subject Matters" do
       MediaRequestType.all.each do |mrt|
-        SubjectMatter.create!(:fields => mrt.fields, :name => mrt.name)
+        if SubjectMatter.name_like(mrt.name).blank?
+          say "Migrating #{mrt.name}"
+          subject_matter = SubjectMatter.create!(:name => mrt.name)
+        else
+          say "Updating #{mrt.name}"
+          subject_matter = SubjectMatter.name_like(mrt.name).first
+        end
+
+        SubjectMatter.update_all(['fields = ?', mrt.fields], ["subject_matters.id = ?", subject_matter.id])
       end
     end
   end
