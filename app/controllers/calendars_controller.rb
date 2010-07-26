@@ -10,6 +10,10 @@ class CalendarsController < ApplicationController
     else
       @events = @restaurant.events.for_month_of(@date)
     end
+    
+    if params[:show_ria]
+      @events += Event.from_ria.for_month_of(@date)
+    end
   end
 
   def ria

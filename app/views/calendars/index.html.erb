@@ -9,6 +9,7 @@
 <div class="calendar-categories">
   <% form_tag '', :method => :get do %>
       <%= hidden_field_tag "date", params[:date] if params[:date] %>
+      <%= hidden_field_tag "show_ria", params[:show_ria] if params[:show_ria] %>
       <%= select_tag "category",
           options_for_select(["all"] + @categories, :selected => params[:category]),
           :onchange => "this.form.submit();" %>
@@ -28,7 +29,7 @@
             <% events.each do |event| %>
                 <p>
                   <% link_to event_link(event), :class => event_link_class(event), :title => event_link_title(event) do %>
-                    <% if ria_events? || admin_calendars? %>
+                    <% if ria_event?(event) %>
                       <span class="small-disc"><%= event.child_count %></span>
                     <% end %>
                     <span class="event-title"><%= event.title %></span>
@@ -46,6 +47,16 @@
   <%= render :partial => 'calendars/month_nav' %>
 </div>
 
+<!-- Toggle RIA event display -->
+<% unless ria_events? || admin_calendars? %>
+  <% form_tag '', :method => :get, :class => "toggle-ria-events" do %>
+      <%= hidden_field_tag "date", params[:date] if params[:date] %>
+      <%= hidden_field_tag "category", params[:category] if params[:category] %>
+      <p><%= check_box_tag "show_ria", true, params[:show_ria], :onchange => "this.form.submit();" %> <label for="show_ria">See RIA event recommendations</label></p>
+  <% end %>
+<% end %>
+
+<!-- Adding events -->
 <% if current_user.admin? && ria_events? || admin_calendars? %>
 <p class="clearfix">
   <% link_to new_admin_event_path, :class => 'button positive' do %>
@@ -60,6 +71,7 @@
 </p>
 <% end %>
 
+<!-- RIA / Restaurant calendar navigation -->
 <%- if ria_events? -%>
 <p class="clear">
     <%= link_to "Take me back to my calendars", restaurant_calendars_path(@restaurant), :class => "button" %>

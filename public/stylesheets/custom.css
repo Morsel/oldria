@@ -1534,7 +1534,13 @@ span.event-time {font-size: .9em; color: #777;line-height: 12px;}
 	float: left;
 	}
 
+.toggle-ria-events {
+  margin-bottom: 1em;
+}
 
+.toggle-ria-events label {
+  display: inline;
+}
 
 /* @end */
 

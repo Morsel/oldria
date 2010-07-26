@@ -12,9 +12,9 @@ module CalendarsHelper
   
   def event_link_class(event)
     if ria_events? && @restaurant
-      "accepted_#{event.accepted_for_restaurant?(@restaurant)}"
+      "accepted_#{event.accepted_for_restaurant?(@restaurant)} #{event.category}"
     else
-      event.status
+      "#{event.status} #{event.category}"
     end
   end
   
@@ -29,14 +29,14 @@ module CalendarsHelper
   end
 
   def restaurant_calendar_link(restaurant, date = nil)
+    link_params = { :restaurant_id => restaurant.id, :date => date.try(:to_s) }
+    link_params = link_params.merge(:category => params[:category]) if params[:category]
+    link_params = link_params.merge(:show_ria => "true") if params[:show_ria]
+
     if restaurant && ria_events?
-      params[:category] ? 
-          ria_restaurant_calendars_path(:restaurant_id => restaurant, :date => date.try(:to_s), :category => params[:category]) : 
-          ria_restaurant_calendars_path(:restaurant_id => restaurant, :date => date.try(:to_s))
+      ria_restaurant_calendars_path(link_params)
     elsif restaurant
-      params[:category] ? 
-        restaurant_calendars_path(:restaurant_id => restaurant, :date => date.try(:to_s), :category => params[:category]) :
-        restaurant_calendars_path(:restaurant_id => restaurant, :date => date.try(:to_s))
+      restaurant_calendars_path(link_params)
     end
   end
 
@@ -48,6 +48,10 @@ module CalendarsHelper
 
   def ria_events?
     action_name == 'ria'
+  end
+  
+  def ria_event?(event)
+    Event::ADMIN_CATEGORIES.map{ |c| c[1] }.include? event.category
   end
 
   def admin_calendars?
