@@ -8,6 +8,10 @@
 		<%= f.input :omniscient, :label => "Spoonfeed Account Manager?", :hint => "This indicates whether you'd like this employee to be able to administer this restaurant as you can" %>
 		<%= f.input :restaurant_role %>
 		<%= f.input :subject_matters, :as => :check_boxes %>
+
+        <%= f.input :prefers_post_to_soapbox, :as => :boolean,
+                    :label => "Is this person authorized to post responses on Soapbox for #{@restaurant.name}?" %>
+                    
 	<% end %>
 
 	<p><%= button_tag "Submit" %></p>
