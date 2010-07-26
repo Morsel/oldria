@@ -6,7 +6,7 @@ Then /^the last holiday for "([^\"]*)" should be viewable by "([^\"]*)"$/ do |re
   restaurant = Restaurant.find_by_name!(restaurantname)
   user = User.find_by_name(employeename)
   employment = restaurant.employments.find_by_employee_id(user.id)
-  
+
   restaurant.holidays.last.should be_viewable_by(employment)
 end
 
@@ -14,7 +14,7 @@ Then /^the last holiday for "([^\"]*)" should not be viewable by "([^\"]*)"$/ do
   restaurant = Restaurant.find_by_name!(restaurantname)
   user = User.find_by_name(employeename)
   employment = restaurant.employments.find_by_employee_id(user.id)
-  
+
   restaurant.holidays.last.should_not be_viewable_by(employment)
 end
 
@@ -44,13 +44,13 @@ end
 When /^I create a new reminder for holiday "([^\"]*)" with:$/ do |holidayname, table|
   holiday = Holiday.find_by_name(holidayname)
   visit new_admin_holiday_reminder_path, :get, :holiday_id => holiday.id
-  
+
   table.rows_hash.each do |field, value|
     fill_in field, :with => value
   end
-  
+
   click_button
-  
+
   holiday.admin_holiday_reminders.count.should be > 0
 end
 
@@ -83,23 +83,16 @@ end
 
 Given(/^"([^\"]*)" has a QOTD message with:$/) do |username, table|
   data = table.rows_hash
-  data['type'] = 'Admin::Qotd'
-
-  message = Factory(:admin_message, data)
+  message = Factory(:qotd, data)
 
   user = User.find_by_username(username)
   recipient = user.employments.first
   Factory(:admin_conversation, :admin_message => message, :recipient => recipient)
-
-  # Sanity check
-  user.admin_conversations.count.should be > 0
 end
 
 Given(/^"([^\"]*)" has a PR Tip message with:$/) do |username, table|
   data = table.rows_hash
-  data['type'] = 'Admin::PrTip'
-  Factory(:admin_message, data)
-  Admin::PrTip.count.should be > 0
+  Factory(:pr_tip, data)
 end
 
 Then /^"([^\"]*)" should be subscribed to the holiday "([^\"]*)"$/ do |username, holidayname|
