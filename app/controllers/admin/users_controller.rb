@@ -1,9 +1,9 @@
 class Admin::UsersController < Admin::AdminController
-  # GET /admin_users
-  # GET /admin_users.xml
+  # GET /admin/users
+  # GET /admin/users.xml
   def index
     @search = User.search(params[:search])
-    @users = @search.all(:include => [:account_type, :james_beard_region], :order => :last_name)
+    @users = @search.all(:include => :james_beard_region, :order => :last_name)
 
     respond_to do |format|
       format.html { flash.now[:notice] = "We couldn't find anything" if @users.blank? }
@@ -11,8 +11,8 @@ class Admin::UsersController < Admin::AdminController
     end
   end
 
-  # GET /admin_users/1
-  # GET /admin_users/1.xml
+  # GET /admin/users/1
+  # GET /admin/users/1.xml
   def show
     @user = User.find(params[:id])
 
@@ -22,8 +22,8 @@ class Admin::UsersController < Admin::AdminController
     end
   end
 
-  # GET /admin_users/new
-  # GET /admin_users/new.xml
+  # GET /admin/users/new
+  # GET /admin/users/new.xml
   def new
     @user = User.new
 
@@ -33,13 +33,13 @@ class Admin::UsersController < Admin::AdminController
     end
   end
 
-  # GET /admin_users/1/edit
+  # GET /admin/users/1/edit
   def edit
     @user = User.find(params[:id])
   end
 
-  # POST /admin_users
-  # POST /admin_users.xml
+  # POST /admin/users
+  # POST /admin/users.xml
   def create
     @user = User.new(params[:user])
     @user.admin = params[:user].delete(:admin)
@@ -55,8 +55,8 @@ class Admin::UsersController < Admin::AdminController
     end
   end
 
-  # PUT /admin_users/1
-  # PUT /admin_users/1.xml
+  # PUT /admin/users/1
+  # PUT /admin/users/1.xml
   def update
     @user = User.find(params[:id])
     @user.admin = params[:user].delete(:admin)
@@ -72,8 +72,8 @@ class Admin::UsersController < Admin::AdminController
     end
   end
 
-  # DELETE /admin_users/1
-  # DELETE /admin_users/1.xml
+  # DELETE /admin/users/1
+  # DELETE /admin/users/1.xml
   def destroy
     @user = User.find(params[:id])
     @user.destroy

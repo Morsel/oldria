@@ -11,14 +11,25 @@ module UserMessaging
 
   # User Messages
 
+    # Announcements
     def announcements
       Admin::Announcement.scoped(:order => "updated_at DESC").current
     end
 
+    def unread_announcements
+      Admin::Announcement.current.recent.find_unread_by( self )
+    end
+
+    # PR Tips
     def pr_tips
       Admin::PrTip.scoped(:order => "updated_at DESC").current
     end
 
+    def unread_pr_tips
+      Admin::PrTip.current.recent.find_unread_by( self )
+    end
+
+    # Admin discussions - includes content request, trend question
     def admin_discussions
       return @admin_discussions if defined?(@admin_discussions)
       @admin_discussions = employments.map(&:viewable_admin_discussions).flatten
@@ -41,23 +52,31 @@ module UserMessaging
       return @unread_grouped_admin_discussions if defined?(@unread_grouped_admin_discussions)
       @unread_grouped_admin_discussions = (current_admin_discussions - action_required_admin_discussions).group_by(&:discussionable)
       @unread_grouped_admin_discussions.reject! do |discussionable, admin_discussions|
-        discussionable.read_by?(self)
+        discussionable.read_by?(self) || (discussionable.scheduled_at < 2.weeks.ago)
       end
     end
 
+    # Question of the day
+    def unread_qotds
+      admin_conversations.current.recent.without_replies.unread_by(self)
+    end
+
+    # Restaurant staff discussions, site-wide user conversations
     def unread_discussions
       discussions.unread_by(self)
     end
 
+    # Holiday mayhem
+
     def holiday_discussions
-      restaurants.map(&:holiday_discussions).flatten.select do |discussion|
+      HolidayDiscussion.for_restaurants(restaurants).select do |discussion|
         employment = discussion.restaurant.employments.find_by_employee_id(self.id)
         discussion.holiday.try(:viewable_by?, employment)
       end
     end
 
     def holiday_discussion_reminders
-      holiday_discussions.reject(&:accepted?).map {|d| d.holiday_discussion_reminders.current }
+      holiday_discussions.reject(&:accepted?).map {|d| d.holiday_discussion_reminders.current.recent }
     end
 
     def unread_hdrs
@@ -65,34 +84,26 @@ module UserMessaging
     end
 
     def action_required_holidays
-      holiday_discussions.select { |d| d.comments_count > 0 && d.comments.last.user != self }
+      holiday_discussions.select { |d| d.action_required?(self) }
     end
 
     def accepted_holiday_discussions
       holiday_discussions.select(&:accepted?)
     end
 
+    # Direct messages
     def unread_direct_messages
       direct_messages.unread_by(self)
     end
 
-    def root_direct_messages
+    def root_direct_messages # root is the first message in the thread
       (direct_messages.root + sent_direct_messages.root).sort_by(&:created_at).reverse
     end
 
-    def unread_qotds
-      admin_conversations.current.without_replies.unread_by(self)
-    end
-
-    def unread_pr_tips
-      Admin::PrTip.current.find_unread_by( self )
-    end
-
-    def unread_announcements
-      Admin::Announcement.current.find_unread_by( self )
-    end
+    # Collections for display
 
     def action_required_messages
+      return nil if self.confirmed_at > 1.day.ago # Really new users
       [admin_conversations.current.action_required(self),
         action_required_admin_discussions,
         action_required_holidays
@@ -119,7 +130,11 @@ module UserMessaging
     end
 
     def ria_message_count
-      action_required_messages.size + messages_from_ria.size
+      if action_required_messages
+        action_required_messages.size + messages_from_ria.size
+      else
+        messages_from_ria.size
+      end
     end
 
 end

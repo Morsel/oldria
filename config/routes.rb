@@ -3,8 +3,10 @@ ActionController::Routing::Routes.draw do |map|
   map.login  'login',  :controller => 'user_sessions', :action => 'new'
   map.logout 'logout', :controller => 'user_sessions', :action => 'destroy'
   map.confirm 'confirm/:id', :controller => 'users', :action => 'confirm'
+  map.fb_login 'facebook_login', :controller => 'user_sessions', :action => 'create_from_facebook'
 
   map.directory 'directory', :controller => 'directory', :action => 'index'
+  map.resources :soapbox
 
   map.profile 'profile/:username', :controller => 'users', :action => 'show'
 
@@ -23,7 +25,10 @@ ActionController::Routing::Routes.draw do |map|
 
   map.resources :users, :collection => { :resend_confirmation => :any }, :member => {
     :remove_twitter => :put,
-    :remove_avatar => :put
+    :remove_avatar => :put,
+    :fb_auth => :get,
+    :fb_connect => :any,
+    :fb_deauth => :any
   }, :shallow => true do |users|
     users.resources :statuses
     users.resources :direct_messages, :member => { :reply => :get }
@@ -44,7 +49,7 @@ ActionController::Routing::Routes.draw do |map|
     holiday_conversations.resources :comments, :only => [:new, :create]
   end
 
-  map.resources :holiday_discussions, :only => ['show','update'] do |holiday_discussions|
+  map.resources :holiday_discussions, :member => { :read => :put }, :only => ['show','update'] do |holiday_discussions|
     holiday_discussions.resources :comments, :only => [:new, :create]
   end
 
@@ -68,7 +73,9 @@ ActionController::Routing::Routes.draw do |map|
                             }
   map.resources :timelines, :collection => {
                               :people_you_follow => :get,
-                              :twitter => :get
+                              :twitter => :get,
+                              :facebook => :get,
+                              :activity_stream => :get
                             }
 
   map.resources :feed_entries, :only => 'show', :member => { :read => :put }
@@ -91,13 +98,14 @@ ActionController::Routing::Routes.draw do |map|
     admin.resources :pages
     admin.resources :feeds, :collection => { :sort => [:post, :put] }
     admin.resources :feed_categories
-    admin.resources :date_ranges, :account_types, :coached_status_updates, :direct_messages
+    admin.resources :date_ranges, :coached_status_updates, :direct_messages
     admin.resources :cuisines, :subject_matters, :restaurants
     admin.resources :media_requests, :member => { :approve => :put }
     admin.resources :restaurant_roles, :except => [:show]
     admin.resources :holidays
     admin.resources :calendars
     admin.resources :events
+    admin.resources :soapbox_entries
 
     # Admin Messaging
     exclusive_routes = [:index, :show, :destroy]

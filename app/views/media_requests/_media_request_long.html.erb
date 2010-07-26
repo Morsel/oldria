@@ -14,7 +14,7 @@
 	</div>
 	<% end %>
 
-	<h4><%= @media_request.media_request_type.try(:name) %></h4>
+	<h4><%= @media_request.subject_matter.try(:name) %></h4>
 
 	<p>
 		<strong>Due by:</strong> <%= @media_request.due_date.try(:to_s, :long_ordinal) %><br/>

@@ -41,10 +41,19 @@ class Employment < ActiveRecord::Base
     {:joins => :restaurant, :conditions => {:restaurants => { :james_beard_region_id => ids.map(&:to_i)}}}
   }
 
+  named_scope :handling_subject_matter_id, lambda { |subject_matter_id|
+    {:joins => "LEFT OUTER JOIN responsibilities ON responsibilities.employment_id = employments.id",
+      :conditions => ['responsibilities.subject_matter_id IN(?) OR omniscient = ?', subject_matter_id, true],
+      :group => 'employments.id'}
+  }
+
   named_scope :unique_users, :group => :employee_id
 
   named_scope :by_restaurant_name, :order => 'restaurants.name ASC, users.last_name ASC', :include => [:restaurant, :employee]
   named_scope :by_employee_last_name, :order => 'users.last_name ASC', :include => :employee
+  
+  ### Preferences ###
+  preference :post_to_soapbox, :default => false
 
   def employee_name
     @employee_name ||= employee && employee.name
@@ -67,7 +76,14 @@ class Employment < ActiveRecord::Base
   end
 
   def viewable_media_request_discussions
-    omniscient ? restaurant.media_request_discussions.all : filter_only_viewable(restaurant.media_request_discussions.all)
+    if omniscient?
+      conditions = {}
+    else
+      conditions = {:media_requests => {:subject_matter_id => subject_matter_ids}}
+    end
+
+    restaurant.media_request_discussions.all(:joins => :media_request,
+      :conditions => conditions, :order => 'media_requests.created_at DESC')
   end
 
   def viewable_admin_discussions

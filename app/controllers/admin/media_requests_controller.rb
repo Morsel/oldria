@@ -15,12 +15,12 @@ class Admin::MediaRequestsController < Admin::AdminController
   # GET /admin/media_requests/1/edit
   def edit
     @media_request = MediaRequest.find(params[:id])
-    @media_request_types = MediaRequestType.all
+    @subject_matters = SubjectMatter.all
   end
 
   # PUT /admin/media_requests/1
   def update
-    @media_request_types = MediaRequestType.all
+    @subject_matters = SubjectMatter.all
     @media_request = MediaRequest.find(params[:id])
     if @media_request.update_attributes(params[:media_request])
       flash[:success] = "Successfully updated the media request"

@@ -4,7 +4,7 @@ Factory.define :user do |f|
   f.sequence(:email)    { |n| "foo#{n}@example.com" }
   f.password 'secret'
   f.password_confirmation { |u| u.password }
-  f.confirmed_at { Time.now }
+  f.confirmed_at { 1.week.ago }
   f.first_name { |u| u.name.split(' ').first || "John" }
   f.last_name  { |u| u.name.split(' ').last  || "Doe" }
 end
@@ -12,6 +12,11 @@ end
 Factory.define :twitter_user, :parent => :user do |f|
   f.atoken  'fake'
   f.asecret 'fake'
+end
+
+Factory.define :facebook_user, :parent => :user do |f|
+  f.facebook_id  1234567
+  f.facebook_access_token 'foobar'
 end
 
 Factory.define :admin, :parent => :user do |f|
@@ -85,9 +90,6 @@ Factory.define :admin_event, :parent => "event" do |f|
 end
 
 # == Lookup Tables ==
-Factory.define :account_type do |f|
-  f.name "Concierge"
-end
 
 Factory.define :cuisine do |f|
   f.name "Mexican"
@@ -125,6 +127,7 @@ end
 # == Media Requests ==
 Factory.define :media_request do |f|
   f.association :sender, :factory => :media_user
+  f.association :subject_matter
   f.message "This is a media request message"
   f.due_date 2.days.from_now
   f.restaurants {|mr| [mr.association(:restaurant)]}
@@ -189,18 +192,22 @@ end
 # == Admin Messages ==
 Factory.define :admin_message, :class => Admin::Message do |f|
   f.message "This is an admin message"
+  f.scheduled_at { 1.day.ago }
 end
 
 Factory.define :qotd, :class => Admin::Qotd do |f|
   f.message "Today's question is: ..."
+  f.scheduled_at { 1.day.ago }
 end
 
 Factory.define :announcement, :class => Admin::Announcement do |f|
   f.message "We're all taking tomorrow off."
+  f.scheduled_at { 1.day.ago }
 end
 
 Factory.define :pr_tip, :class => Admin::PrTip do |f|
   f.message "Go forth and be awesome!"
+  f.scheduled_at { 1.day.ago }
 end
 
 Factory.define :holiday_reminder, :class => Admin::HolidayReminder do |f|
@@ -259,4 +266,9 @@ Factory.define :content_request do |f|
   f.body    "Please send your proposal"
   f.scheduled_at { 1.day.ago }
   f.association :employment_search
+end
+
+Factory.define :soapbox_entry do |f|
+  f.association :featured_item, :factory => :qotd
+  f.published_at Time.now
 end

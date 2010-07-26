@@ -1,0 +1,12 @@
+<ul>
+  <li><a href="#older_qotds_box">Questions of the Day</a></li>
+  <li><a href="#older_tqs_box">Trend Questions</a></li>
+</ul>
+
+<div id="older_qotds_box">
+  <%= render :partial => 'sidebar_item', :collection => @qotds %>
+</div>
+
+<div id="older_tqs_box">
+  <%= render :partial => 'sidebar_item', :collection => @trend_questions %>
+</div>

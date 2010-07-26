@@ -30,7 +30,6 @@ Feature: Member roles
     | page                         | action                       |
     | the admin landing page       | be on the homepage           |
     | the edit page for "jimmy"    | be on the homepage           |
-    | the profile page for "jimmy" | see "an administrative area" |
 
 
   Scenario Outline: Admin members access
@@ -45,6 +44,4 @@ Feature: Member roles
     | page                         |
     | the admin landing page       |
     | the edit page for "jimmy"    |
-    | the profile page for "jimmy" |
-
 

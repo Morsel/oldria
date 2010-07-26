@@ -1,0 +1,23 @@
+<% title "Soapbox - #{@feature.title}", false %>
+
+<div class="soapbox_item secondary_feature">
+  <h2 class="cufon featured_item_title">
+    <%= soapbox_tabby_title(@feature) %>
+  </h2>
+  <% div_for @feature do %>
+    <div class="">
+      <%= @feature.message %>
+    </div>
+
+    <% if @feature_comments %>
+      <h3 class="cufon">Comments from SpoonFeed users</h3>
+      <div class="comments clearfix">
+        <%= render :partial => 'comment', :collection => @feature_comments, :locals => { :full_text => true } %>
+      </div>
+    <% end %>
+  <% end %>
+</div>
+
+<% content_for :sidebar do %>
+  <%= render :partial => "sidebar" %>
+<% end %>

@@ -19,6 +19,8 @@ class TrendQuestion < ActiveRecord::Base
 
   has_many :admin_discussions, :as => :discussionable, :dependent => :destroy
   has_many :restaurants, :through => :admin_discussions
+  
+  has_one :soapbox_entry, :as => :featured_item
 
   named_scope :by_scheduled_date, :order => "#{table_name}.scheduled_at desc"
   named_scope :by_subject, :order => "#{table_name}.subject asc"
@@ -48,4 +50,20 @@ class TrendQuestion < ActiveRecord::Base
     employment_search.employments.include?(employment)
   end
 
+  def reply_count
+    admin_discussions.with_replies.count
+  end
+
+  def comments_count
+    admin_discussions.sum(:comments_count)
+  end
+
+  def comments(deep_includes = false)
+    includes = deep_includes ? {:comments => {:user => :employments}} : :comments
+    admin_discussions.with_replies.all(:include => includes).map(&:comments).flatten
+  end
+
+  def title
+    self.class.title
+  end
 end

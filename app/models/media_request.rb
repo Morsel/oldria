@@ -1,32 +1,31 @@
 # == Schema Information
-# Schema version: 20100708221553
+# Schema version: 20100721223109
 #
 # Table name: media_requests
 #
-#  id                    :integer         not null, primary key
-#  sender_id             :integer
-#  message               :text
-#  created_at            :datetime
-#  updated_at            :datetime
-#  due_date              :date
-#  media_request_type_id :integer
-#  fields                :text
-#  status                :string(255)
-#  publication           :string(255)
-#  admin                 :boolean
-#  employment_search_id  :integer
+#  id                   :integer         not null, primary key
+#  sender_id            :integer
+#  message              :text
+#  created_at           :datetime
+#  updated_at           :datetime
+#  due_date             :date
+#  subject_matter_id    :integer
+#  fields               :text
+#  status               :string(255)
+#  publication          :string(255)
+#  admin                :boolean
+#  employment_search_id :integer
 #
 
 class MediaRequest < ActiveRecord::Base
   serialize :fields, Hash
 
   belongs_to :sender, :class_name => 'User'
-  belongs_to :media_request_type
+  belongs_to :subject_matter
   has_many :media_request_discussions, :dependent => :destroy
+  has_many :restaurants, :through => :media_request_discussions
   belongs_to :employment_search
 
-  # Recipients are Employment objects, not Employees directly
-  has_many :restaurants, :through => :media_request_discussions
   has_many :attachments, :as => :attachable, :class_name => '::Attachment', :dependent => :destroy
   validates_presence_of :sender_id
   validates_presence_of :restaurant_ids, :on => :create
@@ -34,7 +33,9 @@ class MediaRequest < ActiveRecord::Base
   accepts_nested_attributes_for :attachments
 
   named_scope :past_due, lambda {{ :conditions => ['due_date < ?', Date.today] }}
-  named_scope :for_dashboard, :order => "created_at DESC", :conditions => {:status => ["approved", "pending"]}
+  named_scope :for_dashboard, :conditions => {:status => ["approved", "pending"]}
+
+  default_scope :order => "#{table_name}.created_at DESC"
 
   include AASM
 
@@ -58,14 +59,6 @@ class MediaRequest < ActiveRecord::Base
   end
   handle_asynchronously :deliver_notifications # Use delayed_job to send
 
-  def employments
-    employment_search.employments
-  end
-
-  def employment_ids
-    employment_search.employment_ids
-  end
-
   def discussion_with_restaurant(restaurant)
     media_request_discussions.first(:conditions => {:restaurant_id => restaurant.id})
   end
@@ -79,7 +72,7 @@ class MediaRequest < ActiveRecord::Base
   end
 
   def inbox_title
-    media_request_type.present? ? media_request_type.name : "Media Request"
+    subject_matter.present? ? subject_matter.name : "Media Request"
   end
 
   def discussions_with_comments
@@ -105,9 +98,8 @@ class MediaRequest < ActiveRecord::Base
 
   def viewable_by?(employment)
     return false unless employment
-    employment.employee == employment.restaurant.try(:manager) ||
-    employment.omniscient? ||
-    employment_search.employments.include?(employment)
+    discussion = media_request_discussions.find_by_restaurant_id(employment.restaurant_id)
+    discussion && discussion.viewable_by?(employment)
   end
 
   private

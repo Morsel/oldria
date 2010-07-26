@@ -1,5 +1,5 @@
 <% if current_user.admin? %>
-    <h4>Currently, this can be seen by:</h4>
+    <h4 style="display:none;">Currently, this can be seen by:</h4>
     <% @restaurants_and_employments.each do |restaurant, employments| %>
       <div class="restaurant_and_employees span-5 column">
         <h3><%= restaurant.name %>:</h3>

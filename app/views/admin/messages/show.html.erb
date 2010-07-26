@@ -13,6 +13,18 @@
   </div>
 </div>
 
+<% if @message.title == "Question of the Day" %>
+  <% if @message.soapbox_entry %>
+    <div class="clearfix">
+        <%= link_to "View on Soapbox", soapbox_path(@message.soapbox_entry), :class => "button" %>
+    </div>
+  <% else %>
+    <div class="clearfix">
+        <%= link_to "Add to Soapbox", new_admin_soapbox_entry_path(:qotd_id => @message.to_param), :class => "button" %>
+    </div>
+  <% end %>
+<% end %>
+
 <div id="message_have_replied" class="span-9 admin_conversations_list">
   <div class="admin_messages_header">
     <span class="indicator"></span>

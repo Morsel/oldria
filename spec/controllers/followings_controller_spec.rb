@@ -19,7 +19,7 @@ describe FollowingsController do
     @user.followings.create(:friend_id => friend.id)
     
     delete :destroy, :id => @user.followings.first.id
-    response.should redirect_to(profile_path(friend.username))
+    response.should redirect_to(profile_path(@user.username))
     @user.followings.count.should == 0
   end
   

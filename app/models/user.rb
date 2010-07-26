@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20100316193326
+# Schema version: 20100721223109
 #
 # Table name: users
 #
@@ -16,7 +16,6 @@
 #  last_request_at       :datetime
 #  atoken                :string(255)
 #  asecret               :string(255)
-#  account_type_id       :integer
 #  avatar_file_name      :string(255)
 #  avatar_content_type   :string(255)
 #  avatar_file_size      :integer
@@ -26,6 +25,8 @@
 #  james_beard_region_id :integer
 #  publication           :string(255)
 #  role                  :string(255)
+#  facebook_id           :integer
+#  facebook_access_token :string(255)
 #
 
 class User < ActiveRecord::Base
@@ -34,7 +35,6 @@ class User < ActiveRecord::Base
   include UserMessaging
 
   belongs_to :james_beard_region
-  belongs_to :account_type
   has_many :statuses, :dependent => :destroy
 
   has_many :followings, :foreign_key => 'follower_id', :dependent => :destroy
@@ -64,7 +64,7 @@ class User < ActiveRecord::Base
   has_many :feeds, :through => :feed_subscriptions
 
   has_many :readings, :dependent => :destroy
-
+  
   validates_presence_of :email
 
   attr_accessor :send_invitation, :agree_to_contract, :invitation_sender, :password_reset_required
@@ -107,9 +107,14 @@ class User < ActiveRecord::Base
     return @is_media if defined?(@is_media)
     @is_media = has_role?(:media)
   end
+  alias :media :media?
 
   def admin=(bool)
     TRUE_VALUES.include?(bool) ? has_role!("admin") : has_no_role!(:admin)
+  end
+
+  def media=(bool)
+    TRUE_VALUES.include?(bool) ? has_role!("media") : has_no_role!(:media)
   end
 
   def has_role?(_role)
@@ -229,4 +234,19 @@ class User < ActiveRecord::Base
       UserMailer.deliver_employee_invitation!(self, invitation_sender)
     end
   end
+  
+  def connect_to_facebook_user(fb_id)
+    update_attributes(:facebook_id => fb_id)
+  end
+  
+  def facebook_authorized?
+    !facebook_id.nil? and !facebook_access_token.nil?
+  end
+  
+  def facebook_user
+    if facebook_id and facebook_access_token
+      @facebook_user ||= Mogli::User.new(:id => facebook_id, :client => Mogli::Client.new(facebook_access_token))
+    end
+  end
+  
 end

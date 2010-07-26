@@ -1,20 +1,20 @@
 # == Schema Information
-# Schema version: 20100708221553
+# Schema version: 20100721223109
 #
 # Table name: media_requests
 #
-#  id                    :integer         not null, primary key
-#  sender_id             :integer
-#  message               :text
-#  created_at            :datetime
-#  updated_at            :datetime
-#  due_date              :date
-#  media_request_type_id :integer
-#  fields                :text
-#  status                :string(255)
-#  publication           :string(255)
-#  admin                 :boolean
-#  employment_search_id  :integer
+#  id                   :integer         not null, primary key
+#  sender_id            :integer
+#  message              :text
+#  created_at           :datetime
+#  updated_at           :datetime
+#  due_date             :date
+#  subject_matter_id    :integer
+#  fields               :text
+#  status               :string(255)
+#  publication          :string(255)
+#  admin                :boolean
+#  employment_search_id :integer
 #
 
 require 'spec/spec_helper'
@@ -23,11 +23,10 @@ describe MediaRequest do
   should_belong_to :sender, :class_name => 'User'
   should_validate_presence_of :sender_id
 
-  should_belong_to :media_request_type
+  should_belong_to :subject_matter
   should_belong_to :employment_search
   should_have_many :media_request_discussions
   should_have_many :restaurants, :through => :media_request_discussions
-
   should_have_many :attachments, :as => :attachable, :class_name => '::Attachment', :dependent => :destroy
 
   before(:each) do
@@ -59,7 +58,7 @@ describe MediaRequest do
       end
     end
   end
-  
+
   describe "with search criteria" do
     before do
       @restaurant2 = Factory(:restaurant, :name => "IHOP")

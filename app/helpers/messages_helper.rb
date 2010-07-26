@@ -35,7 +35,9 @@ module MessagesHelper
   def read_link_for_message(message, link_text = '<span>read</span>')
     return unless message
 
-    if message.respond_to?(:holiday)
+    if message.is_a?(HolidayDiscussion)
+      link_path = read_holiday_discussion_path(message)
+    elsif message.respond_to?(:holiday)
       link_path = read_holiday_discussion_reminder_path(message)
     elsif message.respond_to?(:discussionable)
       link_path = read_admin_discussion_path(message)

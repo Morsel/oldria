@@ -1,3 +1,4 @@
+<div class="span-7">
 <% semantic_form_for @user_session do |f| %>
 
   <% f.inputs do %>
@@ -14,3 +15,9 @@
   <p><%= button_tag image_tag('key.png') + "Login", :name => 'submit' %></p>
 
 <% end %>
+</div>
+
+<div class="span-4 last">
+    Or log in with Facebook:
+    <p><%= fb_login_link fb_login_path %></p>
+</div>

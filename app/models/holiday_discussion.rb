@@ -27,6 +27,13 @@ class HolidayDiscussion < ActiveRecord::Base
   named_scope :with_replies, :conditions => 'comments_count > 0'
   named_scope :without_replies, :conditions => 'comments_count = 0'
   named_scope :needs_reply, :conditions => { :accepted => false }
+  
+  named_scope :for_restaurants, lambda { |restaurants|
+    { :conditions => { :restaurant_id => restaurants.map(&:id) } }
+  }
+  
+  named_scope :open, { :conditions => { :accepted => false } }
+  named_scope :closed, { :conditions => { :accepted => true } }
 
   def inbox_title
     holiday.try(:name)
@@ -37,7 +44,7 @@ class HolidayDiscussion < ActiveRecord::Base
   end
 
   def read_by?(user)
-    accepted?
+    accepted? || self.readings.map(&:user).include?(user)
   end
 
   def message

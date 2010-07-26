@@ -3,7 +3,7 @@ namespace :db do
   task :populate => :environment do
     begin
       require 'faker'
-      
+
       25.times do
         u                       = User.new
         u.first_name            = Faker::Name.first_name
@@ -13,7 +13,6 @@ namespace :db do
         u.password              = 'password'
         u.password_confirmation = 'password'
         u.confirmed_at          = Time.now
-        u.account_type          = AccountType.first
         u.save
       end
     rescue LoadError

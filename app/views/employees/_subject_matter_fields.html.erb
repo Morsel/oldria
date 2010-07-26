@@ -1,0 +1,15 @@
+<p>We want to make sure that the right media inquiries go to the right people at your restaurant. What kinds of topics are you comfortable having <%= @employee ? @employee.name : 'this employee' %> respond to? Keep in mind, their responses will represent <%= @restaurant ? @restaurant.name : 'this restaurant'%> and go straight to the media. So, it is important to choose wisely!</p>
+
+<p class="highlightable"><strong>Note:</strong> Managers receive <strong>all</strong> media requests and RIA messages, regardless of the subject matters chosen below.</p>
+
+<%= f.input :subject_matters,
+  :as => :check_boxes,
+  :wrapper_html => {:class => 'checkall', :id => "employment_subject_matters"},
+  :collection => SubjectMatter.nongeneral.all,
+  :label => "Handles Media Requests" %>
+
+<%= f.input :subject_matters,
+  :as => :check_boxes,
+  :wrapper_html => {:class => 'checkall', :id => "employment_general_subject_matters"},
+  :collection => SubjectMatter.general.all,
+  :label => "Handles General Information Requests" %>

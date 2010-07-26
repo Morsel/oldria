@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20100316193326
+# Schema version: 20100721223109
 #
 # Table name: users
 #
@@ -16,7 +16,6 @@
 #  last_request_at       :datetime
 #  atoken                :string(255)
 #  asecret               :string(255)
-#  account_type_id       :integer
 #  avatar_file_name      :string(255)
 #  avatar_content_type   :string(255)
 #  avatar_file_size      :integer
@@ -26,6 +25,8 @@
 #  james_beard_region_id :integer
 #  publication           :string(255)
 #  role                  :string(255)
+#  facebook_id           :integer
+#  facebook_access_token :string(255)
 #
 
 require 'spec/spec_helper'
@@ -36,7 +37,6 @@ describe User do
   should_have_many :media_requests, :foreign_key => 'sender_id'
   should_have_many :managed_restaurants, :foreign_key => "manager_id", :class_name => "Restaurant"
   should_belong_to :james_beard_region
-  should_belong_to :account_type
   should_have_many :employments, :foreign_key => "employee_id"
   should_have_many :restaurants, :through => :employments
   should_have_many :discussion_seats
@@ -56,7 +56,7 @@ describe User do
     user = Factory.build(:user)
     user.agree_to_contract = true
   end
-  
+
   it "should only allow alphanumeric characters in username" do
     user = Factory.build(:user, :username => nil)
     user.username = "chef.bacle"
@@ -207,12 +207,12 @@ describe User do
       @user.media_requests.should == []
     end
   end
-  
+
   context "non-media" do
     before do
       @restaurant = Factory(:restaurant)
       @user = Factory(:user)
-      @employment = Factory(:employment, :employee => @user, :restaurant => @restaurant)
+      @employment = Factory(:employment, :employee => @user, :restaurant => @restaurant, :omniscient => true)
     end
 
     it "should be able to see media requests" do

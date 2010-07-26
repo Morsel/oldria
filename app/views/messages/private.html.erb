@@ -7,4 +7,11 @@
   <div id="read_messages">
     <%= render @messages %>
   </div>
+  
+  <% if @messages.blank? %>
+  <div id="no-messages">
+      <p>You don't have any new messages at the moment.</p>
+  </div>
+  <% end %>
+
 </div>

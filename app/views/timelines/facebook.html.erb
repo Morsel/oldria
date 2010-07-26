@@ -1,0 +1,17 @@
+<% title "Facebook", false -%>
+
+<%= render 'nav' %>
+
+<% if current_user.facebook_authorized? -%>
+<div class="span-9 last">
+    <div id="read_messages">
+        <% unless @updates.blank? %>
+        <ul class="statuses" id="friend_timeline">
+            <%= render :partial => "post", :collection => @updates %>
+        </ul>
+        <% end %>
+    </div><!-- /read_messages -->
+</div>
+<% else %>
+  <%= link_to "Set up Facebook to post there too!", fb_auth_path %>
+<% end -%>

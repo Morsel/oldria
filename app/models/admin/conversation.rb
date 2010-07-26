@@ -20,6 +20,11 @@ class Admin::Conversation < ActiveRecord::Base
       :conditions => ['admin_messages.scheduled_at < ? OR admin_messages.scheduled_at IS NULL', Time.zone.now],
       :order => 'admin_messages.scheduled_at DESC'  }
     }
+    
+  named_scope :recent, lambda {
+    { :conditions => ['admin_messages.scheduled_at >= ?', 2.weeks.ago] }
+  }
+
   named_scope :with_replies, :conditions => "comments_count > 0"
   named_scope :without_replies, :conditions => "comments_count = 0"
 
@@ -67,6 +72,10 @@ class Admin::Conversation < ActiveRecord::Base
     if recipient.employee.prefers_receive_email_notifications
       UserMailer.deliver_message_notification(self, recipient.employee)
     end
+  end
+
+  def restaurant
+    recipient.restaurant
   end
 
 end
