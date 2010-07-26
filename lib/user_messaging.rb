@@ -67,7 +67,7 @@ module UserMessaging
     end
 
     # Holiday mayhem
-    
+
     def holiday_discussions
       HolidayDiscussion.for_restaurants(restaurants).select do |discussion|
         employment = discussion.restaurant.employments.find_by_employee_id(self.id)
@@ -103,7 +103,7 @@ module UserMessaging
     # Collections for display
 
     def action_required_messages
-      return nil if self.confirmed_at > 1.day.ago
+      return nil if self.confirmed_at > 1.day.ago # Really new users
       [admin_conversations.current.action_required(self),
         action_required_admin_discussions,
         action_required_holidays
@@ -130,7 +130,11 @@ module UserMessaging
     end
 
     def ria_message_count
-      action_required_messages.size + messages_from_ria.size
+      if action_required_messages
+        action_required_messages.size + messages_from_ria.size
+      else
+        messages_from_ria.size
+      end
     end
 
 end

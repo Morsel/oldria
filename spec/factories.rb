@@ -192,18 +192,22 @@ end
 # == Admin Messages ==
 Factory.define :admin_message, :class => Admin::Message do |f|
   f.message "This is an admin message"
+  f.scheduled_at { 1.day.ago }
 end
 
 Factory.define :qotd, :class => Admin::Qotd do |f|
   f.message "Today's question is: ..."
+  f.scheduled_at { 1.day.ago }
 end
 
 Factory.define :announcement, :class => Admin::Announcement do |f|
   f.message "We're all taking tomorrow off."
+  f.scheduled_at { 1.day.ago }
 end
 
 Factory.define :pr_tip, :class => Admin::PrTip do |f|
   f.message "Go forth and be awesome!"
+  f.scheduled_at { 1.day.ago }
 end
 
 Factory.define :holiday_reminder, :class => Admin::HolidayReminder do |f|
