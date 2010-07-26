@@ -51,6 +51,9 @@ class Restaurant < ActiveRecord::Base
   after_save :update_admin_discussions
   
   named_scope :cuisines, :joins => :cuisine, :select => "distinct cuisines.*", :order => "cuisines.name ASC"
+  named_scope :metro_areas, :joins => :metropolitan_area, 
+                            :select => "distinct metropolitan_areas.*", 
+                            :order => "metropolitan_areas.name ASC"
 
   # For pagination
   cattr_reader :per_page

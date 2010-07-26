@@ -57,7 +57,7 @@
         <div id="metro_fields">
             <%= s.input :restaurant_metropolitan_area_id_equals_any,
                         :as => "check_boxes",
-                        :collection => MetropolitanArea.all %>
+                        :collection => Restaurant.metro_areas %>
         </div>
       </div>
     </div>
