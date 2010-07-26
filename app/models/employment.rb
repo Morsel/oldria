@@ -52,6 +52,10 @@ class Employment < ActiveRecord::Base
   named_scope :by_restaurant_name, :order => 'restaurants.name ASC, users.last_name ASC', :include => [:restaurant, :employee]
   named_scope :by_employee_last_name, :order => 'users.last_name ASC', :include => :employee
   
+  named_scope :roles, :joins => :restaurant_role, 
+                      :select => "distinct restaurant_roles.*", 
+                      :order => "restaurant_roles.name ASC"
+  
   ### Preferences ###
   preference :post_to_soapbox, :default => false
 

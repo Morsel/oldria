@@ -41,7 +41,7 @@
         <div id="role_fields">
             <%= s.input :restaurant_role_id_equals_any,
                         :as => "check_boxes",
-                        :collection => RestaurantRole.all %>
+                        :collection => Employment.roles %>
         </div>
       </div>
       <div class="accordion_box">
@@ -49,7 +49,7 @@
         <div id="region_fields">
             <%= s.input :restaurant_james_beard_region_id_equals_any,
                         :as => "check_boxes",
-                        :collection => JamesBeardRegion.all %>
+                        :collection => Restaurant.regions %>
         </div>
       </div>
       <div class="accordion_box">

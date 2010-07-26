@@ -54,6 +54,9 @@ class Restaurant < ActiveRecord::Base
   named_scope :metro_areas, :joins => :metropolitan_area, 
                             :select => "distinct metropolitan_areas.*", 
                             :order => "metropolitan_areas.name ASC"
+  named_scope :regions, :joins => :james_beard_region, 
+                        :select => "distinct james_beard_regions.*", 
+                        :order => "james_beard_regions.name ASC"
 
   # For pagination
   cattr_reader :per_page
