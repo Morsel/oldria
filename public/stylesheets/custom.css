@@ -3919,7 +3919,9 @@ h2.primary_title{
 #criteria_accordion a.ui-state-active span{
 	background-position:3px 5px;
 }
-
+#criteria_accordion div.loading{
+	display:none;
+}
 
 
 .accordion_box{

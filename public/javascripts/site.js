@@ -350,7 +350,7 @@ $('#criteria_accordion').accordion({
 			}
 		});
 	}
-});
+}).find('.loading').removeClass('loading');
 
 
 if (typeof($.fn.colorbox) != 'undefined') {
