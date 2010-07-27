@@ -1,7 +1,21 @@
 <% title "Soapbox", false %>
 
+<div id="soapbox_branding" class="span-12">
+  <h1>Publicize your restaurant better with Soapbox.</h1>
+  <h4>
+    Join the rapidly growing list of Restaurant Intelligence Agency clients,
+    and get direct exposure to local and national newspaper, magazine and
+    television outlets.
+  </h4>
+</div>
+
+<div id="soapbox_promos" class="span-6 last">
+  <h5><a href="#">See our plans and pricing</a></h5>
+  <h5><a href="#">Give it a test drive</a></h5>
+</div>
+
 <% if @main_feature %>
-<div class="soapbox_item main_feature">
+<div class="soapbox_item main_feature clear">
   <% div_for @main_feature do %>
     <h2 class="cufon featured_item_title">
       <%= soapbox_tabby_title(@main_feature) %>

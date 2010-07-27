@@ -8,6 +8,7 @@ blue bg: #0587c1;
 blue border: #cdeff8;
 blue alt: #1D9BBB;
 green: #69A74D;
+orange: #f4901e;
 */
 
 @font-face {
@@ -3222,28 +3223,71 @@ a.ui-state-default:hover {
 .ui-tabs-nav li {
 	float: left;
 	padding: 0;
-	border: 1px solid #ccc;
+	border: 1px solid #ddd;
 	border-bottom: 0 none;
 	margin: 0 5px 0 0;
+	font-size: 1.1em;
+}
+
+.ui-tabs-nav .ui-tabs-selected {
+	border: 1px solid #ccc;
 }
 
 .ui-tabs-nav a {
 	display: block;
 	padding: 5px 10px;
+	text-decoration: none;
+	color: #0587c1;
 }
 
-.ui-tabs-selected a{
+.ui-tabs-nav .ui-tabs-selected a {
 	background-color: #fff;
 	padding-bottom: 6px;
 	margin-bottom: -1px;
+	color: #333;
 }
 
 .ui-tabs-panel {
 	border: 1px solid #ccc;
-	padding: 10px;
+	padding: 5px;
+}
+
+.ui-tabs-panel a {
+	display: block;
+	overflow: hidden;
+	padding: 5px 5px 10px;
+	border-bottom: 1px solid #ccc;
+}
+
+.ui-tabs-panel a:hover {
+	background-color: #0587c1;
+	color: #eee;
+}
+
+.ui-tabs-panel span.replies {
+	display: block;
+	display: inline-block;
+	padding: 0 12px;
+	color: #f4901e;
+	font-weight: bold;
+	margin-left: 2px;
+	-webkit-border-radius: 16px;
+	-moz-border-radius: 16px;
+	border-radius: 16px;
+	-webkit-box-shadow: 0 2px 1px rgba(0,0,0, 0.2);
+	-moz-box-shadow: 0 2px 1px rgba(0,0,0, 0.2);
+	box-shadow: 0 2px 1px rgba(0,0,0, 0.2);
 }
 
 
+.ui-tabs-panel a:hover span.replies {
+	-webkit-box-shadow: 0 0 0;
+	-moz-box-shadow: 0 0 0;
+	box-shadow: 0 0 0;
+	color: #eee;
+	background-color: rgba(0,0,0, 0.1);
+
+}
 
 /* tables */
 table.tablesorter thead tr th {
@@ -3957,6 +4001,40 @@ p.search_filter_hint {
 
 /* @group soapbox */
 
+#soapbox_branding {
+	margin-bottom: 40px;	
+}
+
+#soapbox_branding h1 {
+	font-family: georgia;
+	font-weight: normal;
+	font-size: 2.4em;
+}
+
+#soapbox_branding h4 {
+	font-size: 1.6em;
+	color: #888;
+	font-weight: normal;
+}
+
+#soapbox_promos h5 {
+	padding: 0;
+	font-family: georgia;
+}
+
+#soapbox_promos a {
+	font-size: 24px;
+	font-weight: normal;
+	padding: 6px 16px 8px;
+	display: block;
+	color: #fff;
+	text-shadow: 0px 1px 1px #333;
+	background-color: #ccc;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+}
+
 .soapbox_item {
 	margin-bottom: 30px;
 }
@@ -4004,6 +4082,7 @@ p.search_filter_hint {
 	border: 0;
 }
 
+
 .soapbox_item .trend_question .featured_item_title em {
 	font-size: 1.6em;
 }
@@ -4016,6 +4095,10 @@ p.search_filter_hint {
 	font-size: 1.2em;
 }
 
+.main_feature .admin_qotd .featured_item_title {
+	font-size: 24px;
+}
+
 .soapbox_item .question {
 	font-size: 1.3em;
 	padding: 1em 2em;
@@ -4026,6 +4109,7 @@ p.search_filter_hint {
 	background-color: #f4901e;
 	color: #fff;
 	font-size: 1.2em;
+	padding-left: 164px;
 	text-shadow: -1px 1px 1px rgba(0,0,0, 0.4);
 }
 
