@@ -50,14 +50,6 @@ class Restaurant < ActiveRecord::Base
   after_validation_on_create :add_manager_as_employee
   after_save :update_admin_discussions
   
-  named_scope :cuisines, :joins => :cuisine, :select => "distinct cuisines.*", :order => "cuisines.name ASC"
-  named_scope :metro_areas, :joins => :metropolitan_area, 
-                            :select => "distinct metropolitan_areas.*", 
-                            :order => "metropolitan_areas.name ASC"
-  named_scope :regions, :joins => :james_beard_region, 
-                        :select => "distinct james_beard_regions.*", 
-                        :order => "james_beard_regions.name ASC"
-
   # For pagination
   cattr_reader :per_page
   @@per_page = 15
@@ -92,6 +84,24 @@ class Restaurant < ActiveRecord::Base
 
   def self.with_destroyed(&block)
     self.with_exclusive_scope(&block)
+  end
+  
+  def self.cuisines
+    Cuisine.find_by_sql('SELECT distinct cuisines.* FROM "restaurants" 
+    INNER JOIN "cuisines" ON "cuisines".id = "restaurants".cuisine_id 
+    WHERE ("restaurants"."deleted_at" IS NULL) ORDER BY cuisines.name ASC')
+  end
+  
+  def self.metro_areas
+    MetropolitanArea.find_by_sql('SELECT distinct metropolitan_areas.* FROM "restaurants" 
+    INNER JOIN "metropolitan_areas" ON "metropolitan_areas".id = "restaurants".metropolitan_area_id 
+    WHERE ("restaurants"."deleted_at" IS NULL) ORDER BY metropolitan_areas.name ASC')
+  end
+  
+  def self.regions
+    JamesBeardRegion.find_by_sql('SELECT distinct james_beard_regions.* FROM "restaurants" 
+    INNER JOIN "james_beard_regions" ON "james_beard_regions".id = "restaurants".james_beard_region_id 
+    WHERE ("restaurants"."deleted_at" IS NULL) ORDER BY james_beard_regions.name ASC')
   end
 
   private
