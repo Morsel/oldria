@@ -1,7 +1,15 @@
 <% title "Soapbox", false %>
 
+<div id="soapbox_branding" class="span-12">
+  <h1>Publicize your restaurant better with Soapbox.</h1>
+</div>
+
+<div id="soapbox_promos" class="span-6 last">
+  <h5><a href="#">Wanna Join?</a></h5>
+</div>
+
 <% if @main_feature %>
-<div class="soapbox_item main_feature">
+<div class="soapbox_item main_feature clear">
   <% div_for @main_feature do %>
     <h2 class="cufon featured_item_title">
       <%= soapbox_tabby_title(@main_feature) %>
@@ -22,6 +30,7 @@
 
 <div class="span-12">
 <% if @secondary_feature %>
+<h2 class="soapbox_subhead">We generate buzz for our clients using their responses</h2>
 <div class="soapbox_item secondary_feature">
   <% div_for @secondary_feature do %>
     <h2 class="cufon featured_item_title">
