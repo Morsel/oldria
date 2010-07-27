@@ -33,7 +33,7 @@
         <div id="cuisine_fields">
             <%= s.input :restaurant_cuisine_id_equals_any,
                         :as => "check_boxes",
-                        :collection => Cuisine.with_restaurants %>
+                        :collection => Cuisine.with_restaurants.all %>
         </div>
       </div>
       <div class="accordion_box">
@@ -41,7 +41,7 @@
         <div id="role_fields">
             <%= s.input :restaurant_role_id_equals_any,
                         :as => "check_boxes",
-                        :collection => Employment.roles %>
+                        :collection => RestaurantRole.with_employments.all %>
         </div>
       </div>
       <div class="accordion_box">
@@ -49,7 +49,7 @@
         <div id="region_fields">
             <%= s.input :restaurant_james_beard_region_id_equals_any,
                         :as => "check_boxes",
-                        :collection => Restaurant.regions %>
+                        :collection => JamesBeardRegion.with_restaurants.all %>
         </div>
       </div>
       <div class="accordion_box">
@@ -57,7 +57,7 @@
         <div id="metro_fields">
             <%= s.input :restaurant_metropolitan_area_id_equals_any,
                         :as => "check_boxes",
-                        :collection => Restaurant.metro_areas %>
+                        :collection => MetropolitanArea.with_restaurants.all %>
         </div>
       </div>
     </div>

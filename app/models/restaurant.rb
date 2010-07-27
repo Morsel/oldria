@@ -87,24 +87,6 @@ class Restaurant < ActiveRecord::Base
     self.with_exclusive_scope(&block)
   end
 
-  def self.cuisines
-    Cuisine.find_by_sql('SELECT distinct cuisines.* FROM "restaurants"
-    INNER JOIN "cuisines" ON "cuisines".id = "restaurants".cuisine_id
-    WHERE ("restaurants"."deleted_at" IS NULL) ORDER BY cuisines.name ASC')
-  end
-
-  def self.metro_areas
-    MetropolitanArea.find_by_sql('SELECT distinct metropolitan_areas.* FROM "restaurants"
-    INNER JOIN "metropolitan_areas" ON "metropolitan_areas".id = "restaurants".metropolitan_area_id
-    WHERE ("restaurants"."deleted_at" IS NULL) ORDER BY metropolitan_areas.name ASC')
-  end
-
-  def self.regions
-    JamesBeardRegion.find_by_sql('SELECT distinct james_beard_regions.* FROM "restaurants"
-    INNER JOIN "james_beard_regions" ON "james_beard_regions".id = "restaurants".james_beard_region_id
-    WHERE ("restaurants"."deleted_at" IS NULL) ORDER BY james_beard_regions.name ASC')
-  end
-
   private
 
   def add_manager_as_employee
