@@ -41,7 +41,7 @@
             <div id="region_fields">
                 <%= s.input :restaurant_james_beard_region_id_equals_any,
                             :as => "check_boxes",
-                            :collection => JamesBeardRegion.all %>
+                            :collection => JamesBeardRegion.with_restaurants.all %>
             </div>
           </div>
           <div class="accordion_box">
@@ -49,7 +49,7 @@
             <div id="metro_fields">
                 <%= s.input :restaurant_metropolitan_area_id_equals_any,
                             :as => "check_boxes",
-                            :collection => MetropolitanArea.all %>
+                            :collection => MetropolitanArea.with_restaurants.all %>
             </div>
           </div>
         </div>
