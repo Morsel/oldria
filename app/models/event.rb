@@ -28,7 +28,8 @@ class Event < ActiveRecord::Base
   has_many :attachments, :as => :attachable, :class_name => '::Attachment', :dependent => :destroy
   accepts_nested_attributes_for :attachments
 
-  validates_presence_of :title, :start_at, :end_at, :location, :category
+  validates_presence_of :title, :start_at, :end_at, :category
+  validates_presence_of :location, :unless => Proc.new { |event| ["admin_holiday", "admin_charity"].include? event.category }
   validates_presence_of :status, :if => Proc.new { |event| event.category == "Private" }
   
   validate :end_comes_after_start
