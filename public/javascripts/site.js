@@ -142,6 +142,8 @@ calendarFields.datepicker ({
 	constrainInput: false
 });
 
+$("#date-select #date").datepicker();
+
 // == Placebo Fields
 var placeboFields = $("form .general_info input").not(":checkbox");
 $("form .general_info :checkbox").change(function(){
