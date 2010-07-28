@@ -14,10 +14,6 @@
           options_for_select(["all"] + @categories, :selected => params[:category]),
           :onchange => "this.form.submit();" %>
   <% end %>
-</div>
-
-<div class="calendar-header">
-  <h3 class="this-month"><%= @date.strftime("%B %Y") %></h3>
 
 
 <!-- Toggle RIA event display -->
@@ -30,6 +26,14 @@
   <% end %>
 </div>
 <% end %>
+
+
+</div>
+
+<div class="calendar-header">
+  <h3 class="this-month"><%= @date.strftime("%B %Y") %></h3>
+
+
 
 <div class="month-skip">
     <p><%= link_to_function "Skip ahead to another date", '$("#date-select").toggle()' %></p>
@@ -46,7 +50,7 @@
 
 
   <%= render :partial => 'calendars/month_nav' %>
-</div>
+</div><!--.calendar-header-->
 
 <div class="calendar">
     <% calendar_for(@events, :year => @date.year, :month => @date.month) do |t| %>
