@@ -35,7 +35,22 @@
       <div class="accordion_box">
         <%= link_to "<span>Restaurants</span>", "#" %>
         <div id="restaurant_fields">
-            <%= s.input :restaurant_id_equals_any,
+            <% s.inputs :class => "plain" do %>
+                <li>
+                    <%= text_field_tag :restaurant_name %> 
+                    <%= link_to_remote "Add", 
+                        :with => "'restaurant=' + $('#restaurant_name').val() + '&' + $(\"#employment_criteria input[type=checkbox]\").serialize()",
+                        :class => "autocomplete-helper",
+                        :url => add_restaurant_employment_search_path %>
+                 </li>
+                 <li class="check_boxes optional" id="search_restaurant_id_equals_any_input">
+                     <ol><li>
+                         <div id="restaurant-list">
+                         </div>
+                     </li></ol>
+                 </li>
+            <% end %>
+            <%#= s.input :restaurant_id_equals_any,
                         :as => "check_boxes",
                         :collection => Restaurant.all(:order => 'name ASC') %>
         </div>
