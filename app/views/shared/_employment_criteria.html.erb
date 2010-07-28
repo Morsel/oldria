@@ -19,12 +19,16 @@
                 <li>
                     <%= text_field_tag :employee_name %> 
                     <%= link_to_remote "Add", 
-                        :with => "'employee=' + $('#employee_name').val() + '&search=' + $employmentInputs.serialize()",
+                        :with => "'employee=' + $('#employee_name').val() + '&' + $(\"#employment_criteria input[type=checkbox]\").serialize()",
                         :class => "autocomplete-helper",
                         :url => add_user_employment_search_path %>
                  </li>
-                <div id="employee-list">
-                </div>
+                 <li class="check_boxes optional" id="search_user_id_equals_any_input">
+                     <ol><li>
+                         <div id="employee-list">
+                         </div>
+                     </li></ol>
+                 </li>
             <% end %>
             <%#= s.input :employee_id_equals_any,
                         :as => "check_boxes",

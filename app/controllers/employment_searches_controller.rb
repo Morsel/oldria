@@ -11,9 +11,10 @@ class EmploymentSearchesController < ApplicationController
   def add_user
     users = User.for_autocomplete.find_all_by_name(params[:employee])
     
-    # if previous_user_list = params[:search].delete(:employee_id_equals_any)
-    #   users += User.find(previous_user_list)
-    # end
+    # collecting previously searched users
+    if params[:search] && params[:search].include?('employee_id_equals_any')
+      users += User.find(params[:search]['employee_id_equals_any']).to_a
+    end
 
     render :update do |page|
       page.replace_html 'employee-list', :partial => 'shared/search_user_selection', :collection => users, :as => :user
