@@ -25,6 +25,11 @@ class EmploymentSearchesController < ApplicationController
   def add_restaurant
     restaurants = Restaurant.find_all_by_name(params[:restaurant])
     
+    # collecting previously searched restaurants
+    if params[:search] && params[:search].include?('restaurant_id_equals_any')
+      restaurants += Restaurant.find(params[:search]['restaurant_id_equals_any']).to_a
+    end
+    
     render :update do |page|
       page.replace_html 'restaurant-list', :partial => 'shared/search_restaurant_selection', 
         :collection => restaurants, :as => :restaurant
