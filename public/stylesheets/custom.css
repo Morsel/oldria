@@ -3920,8 +3920,6 @@ h2.primary_title{
 	background-position:3px 5px;
 }
 
-
-
 .accordion_box{
 	background:#fff url(/images/accordion_box_bg.png) repeat-x bottom;
 	border:1px solid #d4ebf9;
@@ -3945,6 +3943,14 @@ h2.primary_title{
 #criteria_accordion .check_boxes li{
 	float:none;
 	width:100%;
+}
+
+#criteria_accordion li input[type=text] {
+  padding: 0 0 0 1em;
+}
+
+#criteria_accordion li a {
+  display: inline;
 }
 
 p.search_filter_hint {

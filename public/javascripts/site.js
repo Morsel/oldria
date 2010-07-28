@@ -163,6 +163,11 @@ $("#employment_employee_name").autocomplete("/users.js", {
 	max: 15
 });
 
+$("#employee_name").autocomplete("/users.js", {
+	autoFill: true,
+	max: 15
+});
+
 // == Filter Toggler ==
 $("a.toggler").each(function(){
 	var $div = $(this.hash);
@@ -317,6 +322,7 @@ var $loaderImg =        $('<img class="loader" src="/images/ajax-loader.gif" />'
 $employmentsList.before($loaderImg);
 
 function updateEmploymentsList() {
+  $employmentInputs = $("#employment_criteria input[type=checkbox]");
 	input_string = $employmentInputs.serialize();
 	$loaderImg.show();
 	$employmentsList.hide();
