@@ -333,7 +333,7 @@ function updateEmploymentsList() {
 	// return true;	
 }
 
-$employmentInputs.change(updateEmploymentsList);
+$employmentInputs.live('change', updateEmploymentsList);
 
 // == New User row highlight ==
 if (location.hash && location.hash.match(/user_\d+$/)) {
