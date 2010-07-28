@@ -1,5 +1,3 @@
-/* @override http://localhost:3000/stylesheets/custom.css */
-
 /* colors
 dark brown: #3e2611;
 alt dark brown: #49341f;
@@ -1429,6 +1427,41 @@ h3.this-month {
 	text-shadow: 0px 1px 0px #000;
 }
 
+.calendar-header div.month-skip {
+	margin: 9px 0px 0px 15px;
+	padding: 0px;
+	float: left;
+	display: inline;
+	font-size: 1em;
+}
+
+.calendar-header div.month-skip p {margin-bottom: 0px;}
+
+.calendar-header div.month-skip p a {
+	color: #fff;
+	text-decoration: underline;
+}
+
+.calendar-header div.month-skip p a:hover {
+	color: #a2cbeb;
+	text-decoration: none;
+}
+
+.calendar-header div#date-select {
+	float: left;
+	margin: -22px 0px 0px 158px;
+	height: 10px;
+	padding-bottom: 0px;
+}
+
+.RIA-recos {
+	float: right;
+	margin: -23px 10px 0px 0px;
+	}
+	
+.RIA-recos p {margin: 0px;color:#69A74D;}
+.RIA-recos p label {margin: 0px;color:#57953b;}
+
 .calendar-header p.month-nav {
 	margin: 5px 0px 0px 0px;
 	padding: 0px;
@@ -1516,10 +1549,6 @@ span.event-time {font-size: .9em; color: #777;line-height: 12px;}
 
 .calendar .accepted_true {
   color: #69A74D;
-}
-
-.calendar .admin_holiday, .calendar .admin_charity {
-  background-color: #FFEEDD;
 }
 
 .event-meta {margin: 7px 0px 14px 0px;}
@@ -3570,6 +3599,45 @@ h2.primary_title{
 	line-height: 36px;
 }
 
+.calendar .admin_holiday, .calendar .admin_charity {
+  	display: block;
+  	padding: 3px;
+  	background-color: #f1f9ed;
+  	-moz-border-radius: 3px;
+  	-webkit-border-radius: 3px;
+  	border-radius: 3px;
+}
+
+.calendar .admin_holiday span.event-title, .calendar .admin_charity span.event-title {
+	color: #69A74D;
+}
+
+.calendar .admin_holiday:hover, .calendar .admin_charity:hover {
+  	display: block;
+  	padding: 3px;
+  	background-color: #f2f2f2;
+  	-moz-border-radius: 3px;
+  	-webkit-border-radius: 3px;
+  	border-radius: 3px;
+}
+
+.calendar .admin_holiday:hover span.event-title, .calendar .admin_charity:hover span.event-title {
+	color: #555;
+}
+
+/*.calendar .admin_holiday span.small-disc, .calendar .admin_charity span.small-disc {
+	font-weight: bold;
+	float: right;
+	font-size: 1em;
+	background-image: none;
+	padding: 2px 0px;
+	margin: -3px -3px 0px 5px;
+	line-height: 20px;
+	height: auto;
+	background-color: #fff;
+	color: #E4790E;
+	}*/
+
 .message-actions .unread_comments_count, .small-disc {
   background: url('../images/blackbadge.png') no-repeat 0 0;
   color:#FFFFFF;
@@ -3585,7 +3653,7 @@ h2.primary_title{
   padding: 0 10px;
   text-align:center;
   width: 20px;
-  margin: -2px -6px -5px -10px;
+  margin: -6px -6px -5px -10px;
 }
 
 .message-actions .action .unread_comments_count,
