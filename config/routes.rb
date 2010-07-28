@@ -106,6 +106,7 @@ ActionController::Routing::Routes.draw do |map|
     admin.resources :calendars
     admin.resources :events
     admin.resources :soapbox_entries
+    admin.resources :profile_questions
 
     # Admin Messaging
     exclusive_routes = [:index, :show, :destroy]

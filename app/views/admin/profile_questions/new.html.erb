@@ -1,0 +1,7 @@
+<% title "New Profile Question" %>
+<% semantic_form_for [:admin, @question] do |f| %>
+    <% f.inputs do %>
+    <%= f.input :title %>
+    <% end %>
+    <p><%= button_tag "Submit" %></p>
+<% end %>

@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100721223109) do
+ActiveRecord::Schema.define(:version => 20100728223934) do
 
   create_table "admin_conversations", :force => true do |t|
     t.integer  "recipient_id"
@@ -403,6 +403,14 @@ ActiveRecord::Schema.define(:version => 20100721223109) do
   end
 
   add_index "preferences", ["owner_id", "owner_type", "name", "group_id", "group_type"], :name => "index_preferences_on_owner_and_name_and_preference", :unique => true
+
+  create_table "profile_questions", :force => true do |t|
+    t.integer  "topic_id"
+    t.integer  "chapter_id"
+    t.string   "title"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "readings", :force => true do |t|
     t.string   "readable_type"
