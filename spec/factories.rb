@@ -89,6 +89,20 @@ Factory.define :admin_event, :parent => "event" do |f|
   f.category "Charity"
 end
 
+Factory.define :profile_question do |f|
+  f.title "Where did you train?"
+  f.association :chapter
+end
+
+Factory.define :chapter do |f|
+  f.title "Early career"
+  f.association :topic
+end
+
+Factory.define :topic do |f|
+  f.title "Professional background"
+end
+
 # == Lookup Tables ==
 
 Factory.define :cuisine do |f|

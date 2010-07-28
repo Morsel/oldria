@@ -1,5 +1,11 @@
 class ProfileQuestion < ActiveRecord::Base
 
-  validates_presence_of :title
+  belongs_to :chapter
+  
+  validates_presence_of :title, :chapter_id
+  
+  def topic
+    chapter.topic
+  end
   
 end

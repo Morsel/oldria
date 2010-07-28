@@ -1,7 +1,6 @@
 class CreateProfileQuestions < ActiveRecord::Migration
   def self.up
     create_table :profile_questions do |t|
-      t.integer :topic_id
       t.integer :chapter_id
       t.string :title
 

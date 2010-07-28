@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100728223934) do
+ActiveRecord::Schema.define(:version => 20100728234744) do
 
   create_table "admin_conversations", :force => true do |t|
     t.integer  "recipient_id"
@@ -78,6 +78,13 @@ ActiveRecord::Schema.define(:version => 20100728223934) do
     t.string   "filename"
     t.string   "path"
     t.string   "bucket"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "chapters", :force => true do |t|
+    t.integer  "topic_id"
+    t.string   "title"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -405,7 +412,6 @@ ActiveRecord::Schema.define(:version => 20100728223934) do
   add_index "preferences", ["owner_id", "owner_type", "name", "group_id", "group_type"], :name => "index_preferences_on_owner_and_name_and_preference", :unique => true
 
   create_table "profile_questions", :force => true do |t|
-    t.integer  "topic_id"
     t.integer  "chapter_id"
     t.string   "title"
     t.datetime "created_at"
@@ -500,6 +506,12 @@ ActiveRecord::Schema.define(:version => 20100728223934) do
     t.boolean  "general"
     t.string   "fields"
     t.boolean  "private"
+  end
+
+  create_table "topics", :force => true do |t|
+    t.string   "title"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "trend_questions", :force => true do |t|
