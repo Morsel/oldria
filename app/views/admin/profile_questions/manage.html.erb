@@ -1,0 +1,7 @@
+<% title "Profile Questions: #{@chapter.title_with_topic}"%>
+
+<% table_for @questions do |t| %>
+    <% t.data :actions => [:edit, :destroy], :action_prefix => 'admin' do
+         t.cell(:title)
+       end %>
+<% end %>

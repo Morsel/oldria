@@ -89,6 +89,8 @@ module NavigationHelpers
       new_admin_event_path
     when /^the new profile question page$/
       new_admin_profile_question_path
+    when /^the admin profile questions page$/
+      admin_profile_questions_path
 
     # Direct path
     when /"([^\"]+)"/

@@ -2,10 +2,7 @@ require 'spec_helper'
 
 describe ProfileQuestion do
   before(:each) do
-    @valid_attributes = {
-      :chapter_id => 1,
-      :title => "value for title"
-    }
+    @valid_attributes = Factory.attributes_for(:profile_question, :chapter => Factory(:chapter))
   end
 
   it "should create a new instance given valid attributes" do
