@@ -26,3 +26,16 @@ Feature: Profile questions
     And I follow "Manage"
     Then I should see "How did you learn to cook?"
     And I should see "What is your formal training?"
+    
+  Scenario: creating a new chapter
+    When I go to the new profile question page
+    And fill in "Chapter Title" with "Mentoring"
+    And I select "Career building" from "Topic"
+    And I press "Save Chapter"
+    Then I should see "Created new chapter named Mentoring"
+  
+  Scenario: creating a new topic
+    When I go to the new profile question page
+    And fill in "Topic Title" with "Work Experience"
+    And I press "Save Topic"
+    Then I should see "Created new topic named Work Experience"
