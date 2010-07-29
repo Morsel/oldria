@@ -53,7 +53,7 @@ class Employment < ActiveRecord::Base
   named_scope :by_employee_last_name, :order => 'users.last_name ASC', :include => :employee
   
   ### Preferences ###
-  preference :post_to_soapbox, :default => false
+  preference :post_to_soapbox, :default => true
 
   def employee_name
     @employee_name ||= employee && employee.name
