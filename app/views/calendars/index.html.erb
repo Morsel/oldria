@@ -7,48 +7,41 @@
 <%- end -%>
 
 <div class="calendar-categories">
-  <% form_tag "", :method => :get do %>
-      <%= hidden_field_tag "date", params[:date], :id => "date-with-category" if params[:date] %>
-      <%= hidden_field_tag "show_ria", params[:show_ria], :id => "ria-with-category" if params[:show_ria] %>
-      <%= select_tag "category",
-          options_for_select(["all"] + @categories, :selected => params[:category]),
-          :onchange => "this.form.submit();" %>
-  <% end %>
+    <% form_tag "", :method => :get do %>
+        <%= hidden_field_tag "date", params[:date], :id => "date-with-category" if params[:date] %>
+        <%= hidden_field_tag "show_ria", params[:show_ria], :id => "ria-with-category" if params[:show_ria] %>
+        <%= select_tag "category",
+            options_for_select(["all"] + @categories, :selected => params[:category]),
+            :onchange => "this.form.submit();" %>
+    <% end %>
 
-
-<!-- Toggle RIA event display -->
-<% unless ria_events? || admin_calendars? %>
-<div class="RIA-recos">
-  <% form_tag '', :method => :get, :class => "toggle-ria-events" do %>
-      <%= hidden_field_tag "date", params[:date], :id => "date-with-ria" if params[:date] %>
-      <%= hidden_field_tag "category", params[:category], :id => "category-with-ria" if params[:category] %>
-      <p><%= check_box_tag "show_ria", true, params[:show_ria], :onchange => "this.form.submit();" %> <label for="show_ria">See RIA event recommendations</label></p>
-  <% end %>
-</div>
-<% end %>
-
-
+    <!-- Toggle RIA event display -->
+    <% unless ria_events? || admin_calendars? %>
+    <div class="RIA-recos">
+        <% form_tag '', :method => :get, :class => "toggle-ria-events" do %>
+            <%= hidden_field_tag "date", params[:date], :id => "date-with-ria" if params[:date] %>
+            <%= hidden_field_tag "category", params[:category], :id => "category-with-ria" if params[:category] %>
+            <p>
+                <%= check_box_tag "show_ria", true, params[:show_ria], :onchange => "this.form.submit();" %> 
+                <label for="show_ria">See RIA event recommendations</label>
+            </p>
+        <% end %>
+    </div>
+    <% end %>
 </div>
 
 <div class="calendar-header">
   <h3 class="this-month"><%= @date.strftime("%B %Y") %></h3>
 
-
-
-<div class="month-skip">
-    <p><%= link_to_function "Skip ahead to another date", '$("#date-select").toggle()' %></p>
-    <div id="date-select" style="display: none;">
-        <% form_tag '', :method => :get, :class => "toggle-ria-events" do %>
-            <%= hidden_field_tag "category", params[:category], :id => "category-with-date" if params[:category] %>
-            <%= hidden_field_tag "show_ria", params[:show_ria], :id => "ria-with-date" if params[:show_ria] %>
-            <%= text_field_tag "date", "click to select", :onchange => "this.form.submit();" %>
-        <% end %>
-    </div>
-</div>
-
-
-
-
+  <div class="month-skip">
+      <div id="date-select">
+          <% form_tag '', :method => :get, :class => "toggle-ria-events" do %>
+          <%= hidden_field_tag "category", params[:category], :id => "category-with-date" if params[:category] %>
+          <%= hidden_field_tag "show_ria", params[:show_ria], :id => "ria-with-date" if params[:show_ria] %>
+          <%= text_field_tag "date", "Pick a date to jump to", :onchange => "this.form.submit();" %>
+          <% end %>
+      </div>
+  </div>
   <%= render :partial => 'calendars/month_nav' %>
 </div><!--.calendar-header-->
 

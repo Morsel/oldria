@@ -1435,23 +1435,16 @@ h3.this-month {
 	font-size: 1em;
 }
 
-.calendar-header div.month-skip p {margin-bottom: 0px;}
-
-.calendar-header div.month-skip p a {
-	color: #fff;
-	text-decoration: underline;
-}
-
-.calendar-header div.month-skip p a:hover {
-	color: #a2cbeb;
-	text-decoration: none;
-}
-
 .calendar-header div#date-select {
 	float: left;
-	margin: -22px 0px 0px 158px;
+	margin: -5px 0 0 60px;
 	height: 10px;
 	padding-bottom: 0px;
+}
+
+.calendar-header div#date-select form input {
+  color: white;
+  background-color: #0088C1;
 }
 
 .RIA-recos {
