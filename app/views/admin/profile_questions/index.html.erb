@@ -1,2 +1,18 @@
 <% title "Profile Questions" %>
 
+<table>
+    <thead><tr>
+        <th>Topics</th>
+        <th>Chapters</th>
+        <th>Q&amp;As</th>
+    </tr></thead>
+    <% for topic in @topics %>
+    <% for chapter in topic.chapters %>
+    <tr>
+        <td><%= topic.title %></td>
+        <td><%= chapter.title %></td>
+        <td><%= chapter.profile_questions.count %></td>
+    </tr>
+    <% end %>
+    <% end %>
+</table>

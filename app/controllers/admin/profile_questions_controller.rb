@@ -1,7 +1,7 @@
 class Admin::ProfileQuestionsController < Admin::AdminController
   
   def index
-    @question = ProfileQuestion.all
+    @topics = Topic.all
   end
   
   def new
