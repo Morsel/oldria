@@ -18,6 +18,24 @@ class Admin::ProfileQuestionsController < Admin::AdminController
     end
   end
   
+  def edit
+    @question = ProfileQuestion.find(params[:id])
+  end
+  
+  def update
+    @question = ProfileQuestion.find(params[:id])
+    if @question.update_attributes(params[:profile_question])
+      flash[:notice] = "Updated question #{@question.title}"
+      redirect_to admin_profile_questions_path
+    else
+      render :action => "edit"
+    end
+  end
+  
+  def delete
+    raise "Not implemented yet"
+  end
+  
   def manage
     @chapter = Chapter.find(params[:chapter_id])
     @questions = @chapter.profile_questions
