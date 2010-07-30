@@ -20,7 +20,7 @@
 <fieldset class="twitter">
   <h3>Twitter</h3>
   <hr />
-  <p><%= link_to "Help?  Read our Twitter 101 introduction in the Marketing Workbook.", public_page_path('twitter_101_introduction') %></p>
+  <p><%= link_to "Help?  Read our Twitter 101 introduction in the Marketing Manual.", public_page_path('twitter_101_introduction') %></p>
 
   <% if @user.twitter_authorized? -%>
   	<p>You currently have your Twitter account set up <em><%= @user.twitter_username %></em>. To change which Twitter account you want your SpoonFeed account linked with, you can remove the Twitter credentials below, and then setup Twitter again.<br/>
@@ -34,7 +34,7 @@
 <fieldset class="facebook">
     <h3>Facebook</h3>
     <hr/>
-    <p><%= link_to "Help?  Read everything you need to know about Facebook in the Marketing Workbook.", public_page_path('facebook_101_introduction') %></p>
+    <p><%= link_to "Help?  Read everything you need to know about Facebook in the Marketing Manual.", public_page_path('facebook_101_introduction') %></p>
 
     <%- if current_facebook_user && @user.facebook_authorized? -%>
       <%= fb_logout_link "#{image_tag('x.png')} Disconnect", fb_deauth_user_path(@user), :class => 'button negative' %>

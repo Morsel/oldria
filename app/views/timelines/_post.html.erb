@@ -1,19 +1,29 @@
 <li class="status">
-    <span class="profile_image"><%= image_tag Mogli::User.find(post.from.id).image_url, :width => 48, :height => 48 %></span>
-    <span class="message">
-        <% if post.respond_to?(:caption) && !post['caption'].blank? %>
-          <%= auto_link(post['caption']) %>
-        <% elsif post.respond_to?(:name) && !post['name'].blank? %>
-          <%= link_to post['name'], post['link'] %>
-        <% else %>
-          <%= auto_link(post['message']) %>
+    <div class="span-1">
+        <span class="profile_image"><%= image_tag Mogli::User.find(post.from.id).image_url, :width => 48, :height => 48 %></span>
+    </div>
+    <div class="span-7 last">
+        <% unless post['name'].blank? %>
+          <div class="message"><%= link_to post['name'], post['link'] %></div>
         <% end %>
-        <div><%= link_to image_tag(post['picture']), post['link'] unless post['picture'].blank? %></div>
-    </span><br/>
-    <span class="meta">
-        Posted by
-        <span class="tweeter"><%= post.from['name'] %></span>
-        <% user_id, post_id = post['id'].split("_") %>
-        <span class="posted"><%= link_to time_ago_in_words(post['updated_time']), "http://www.facebook.com/#{user_id}/posts/#{post_id}" %> ago</span>
-    </span>
+
+        <% unless post['caption'].blank? %>
+          <div class="message"><%= auto_link(post['caption']) %></div>
+        <% end %>
+
+        <% unless post['message'].blank? %>
+          <div class="message"><%= auto_link(post['message']) %></div>
+        <% end %>
+
+        <div class="clearfix">
+            <div class="span-3"><%= link_to image_tag(post['picture']), post['link'] unless post['picture'].blank? %></div>
+            <div class="span-4 last"><%= post['description'] %></div>
+        </div>
+        <span class="meta">
+            Posted by
+            <span class="tweeter"><%= post.from['name'] %></span>
+            <% user_id, post_id = post['id'].split("_") %>
+            <span class="posted"><%= link_to time_ago_in_words(post['updated_time']), "http://www.facebook.com/#{user_id}/posts/#{post_id}" %> ago</span>
+        </span>
+    </div>
 </li>

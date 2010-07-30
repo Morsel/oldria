@@ -68,7 +68,9 @@ class EmployeesController < ApplicationController
       render :confirm_employee
     else
       flash.now[:notice] = "We couldn't find them in our system. You can invite this person."
-      @employee = @restaurant.employees.build(:email => email)
+      @employee = email.match(/\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i) ?
+        @restaurant.employees.build(:email => email) : 
+        @restaurant.employees.build(:first_name => email.split(" ").first, :last_name => email.split(" ").last)
       render :new_employee
     end
   end
