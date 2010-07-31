@@ -14,13 +14,13 @@ describe Admin::AnnouncementsController do
 
   it "create action should render new template when model is invalid" do
     Admin::Announcement.any_instance.stubs(:valid?).returns(false)
-    post :create
+    post :create, :search => {}
     response.should render_template(:new)
   end
 
   it "create action should redirect when model is valid" do
     Admin::Announcement.any_instance.stubs(:valid?).returns(true)
-    post :create
+    post :create, :search => {}
     response.should redirect_to(admin_messages_path)
   end
 

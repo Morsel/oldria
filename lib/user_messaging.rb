@@ -13,13 +13,9 @@ module UserMessaging
 
     # Announcements
     def announcements
-      Admin::Announcement.scoped(:order => "updated_at DESC").current
+      admin_conversations.select { |c| c.inbox_title == "Announcement" }
     end
-
-    def unread_announcements
-      Admin::Announcement.current.recent.find_unread_by( self )
-    end
-
+    
     # PR Tips
     def pr_tips
       Admin::PrTip.scoped(:order => "updated_at DESC").current
@@ -56,8 +52,8 @@ module UserMessaging
       end
     end
 
-    # Question of the day
-    def unread_qotds
+    # Question of the day & announcements
+    def unread_conversations
       admin_conversations.current.recent.without_replies.unread_by(self)
     end
 
@@ -113,9 +109,8 @@ module UserMessaging
     def messages_from_ria
       @messages_from_ria ||= [ unread_grouped_admin_discussions.keys,
         unread_hdrs,
-        unread_qotds,
-        unread_pr_tips,
-        unread_announcements
+        unread_conversations,
+        unread_pr_tips
       ].flatten.sort_by(&:scheduled_at).reverse
     end
 
@@ -124,7 +119,6 @@ module UserMessaging
         holiday_discussion_reminders,
         accepted_holiday_discussions,
         admin_conversations.current.all,
-        Admin::Announcement.current.all,
         Admin::PrTip.current.all
       ].flatten.sort_by(&:scheduled_at).reverse
     end
