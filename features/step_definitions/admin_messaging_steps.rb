@@ -92,7 +92,13 @@ end
 
 Given(/^"([^\"]*)" has a PR Tip message with:$/) do |username, table|
   data = table.rows_hash
-  Factory(:pr_tip, data)
+  message = Factory(:pr_tip, data)
+  user = User.find_by_username(username)
+  recipient = user.employments.first
+
+  user = User.find_by_username(username)
+  recipient = user.employments.first
+  Factory(:admin_conversation, :admin_message => message, :recipient => recipient)
 end
 
 Then /^"([^\"]*)" should be subscribed to the holiday "([^\"]*)"$/ do |username, holidayname|

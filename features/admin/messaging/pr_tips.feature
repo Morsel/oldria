@@ -22,6 +22,16 @@ Feature: Admin Messaging: Pr Tips
     And "sam" should have 1 PR Tip message
     And "john" should have 1 PR Tip message
     
+  Scenario: Announcements can be sent to a filtered group
+    Given there are no PR Tips in the system
+    And I am on the new PR Tip page
+    When I check "Food"
+    And I fill in "Message" with "Don't kick anyone!"
+    And I press "Save"
+    Then I should see list of PR Tips
+    And I should see "Don't kick anyone!"
+    And "sam" should have 1 PR Tip message
+    And "john" should have 0 PR Tip messages
     
 @emails
   Scenario: New Pr Tip notification, user prefers no emails

@@ -1,4 +1,19 @@
 <% semantic_form_for @admin_pr_tip do |f| %>
-  <%= f.inputs :message, :scheduled_at %>
-  <p><%= button_tag "Save" %></p>
+<div class="span-12">
+    <%= f.inputs :message, :scheduled_at %>
+
+    <% if action_name == 'new' %>
+      <h3>Message Recipients:</h3>
+      <div id="employment_list" class="clearfix">
+        <%= render :partial => 'shared/employment_list' %>
+      </div>
+    <% end %>
+
+    <p><%= button_tag "Save" %></p>
+</div>
+<div class="span-6 last">
+    <% if action_name == 'new' %>
+      <%= render :partial => 'shared/employment_criteria', :locals => {:f => f} %>
+    <% end %>
+</div>
 <% end %>
