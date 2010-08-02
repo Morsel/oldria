@@ -1,3 +1,5 @@
+/* @override http://localhost:3000/stylesheets/custom.css */
+
 /* colors
 dark brown: #3e2611;
 alt dark brown: #49341f;
@@ -4078,22 +4080,54 @@ p.search_filter_hint {
 	font-weight: normal;
 }
 
+#soapbox_branding h1, .soapbox_subhead, #soapbox_branding h4 {
+	font-family: "Hoefler Text", georgia, serif;
+}
+
+.soapbox_subhead, #soapbox_branding h4 {
+	font-size: 1.6em;
+	color: #777;
+	font-weight: normal;
+}
+
+.soapbox_subhead {
+	border-bottom: 0;
+	padding: 0;
+	margin: 8px 0 20px;
+}
+
 #soapbox_promos h5 {
 	padding: 0;
-	font-family: georgia;
+	font-family: "Hoefler Text", georgia, serif;
+	line-height: 1;
 }
 
 #soapbox_promos a {
+	text-align: center;
 	font-size: 24px;
 	font-weight: normal;
-	padding: 6px 16px 8px;
+	padding: 14px 16px 10px;
 	display: block;
 	color: #fff;
 	text-shadow: 0px 1px 1px #333;
-	background-color: #ccc;
 	-webkit-border-radius: 3px;
 	-moz-border-radius: 3px;
 	border-radius: 3px;
+	background-color: #f4901e;
+	background: -webkit-gradient(linear, 0 0, 0 bottom, from(#f4901e), to(#e3790c));
+	background: -moz-linear-gradient(#f4901e, #e3790c);
+	background: linear-gradient(#f4901e, #e3790c);
+	-pie-background: linear-gradient(#f4901e, #e3790c);
+	behavior: url(/PIE.htc);
+}
+
+#soapbox_promos a:hover {
+	background-color: #0087c0;
+	background: -webkit-gradient(linear, 0 0, 0 bottom, from(#007ab3), to(#0087c0));
+	background: -moz-linear-gradient(#007ab3, #0087c0);
+	background: linear-gradient(#007ab3, #0087c0);
+	-pie-background: linear-gradient(#007ab3, #0087c0);
+	behavior: url(/PIE.htc);
 }
 
 .soapbox_item {
@@ -4144,21 +4178,13 @@ p.search_filter_hint {
 }
 
 
-.soapbox_item .trend_question .featured_item_title em {
-	font-size: 1.6em;
-}
+.soapbox_item .trend_question .featured_item_title em { font-size: 1.6em}
 
-.soapbox_item .admin_qotd .featured_item_title {
-	font-size: 17px;
-}
+.soapbox_item .admin_qotd .featured_item_title { font-size: 17px }
+.soapbox_item .admin_qotd .featured_item_title em { font-size: 20px }
 
-.soapbox_item .admin_qotd .featured_item_title em {
-	font-size: 1.2em;
-}
-
-.main_feature .admin_qotd .featured_item_title {
-	font-size: 24px;
-}
+.main_feature .admin_qotd .featured_item_title { font-size: 28px; }
+.main_feature .admin_qotd .featured_item_title em {	font-size: 32px }
 
 .soapbox_item .question {
 	font-size: 1.3em;
@@ -4167,11 +4193,16 @@ p.search_filter_hint {
 }
 
 .secondary_feature .question {
-	background-color: #f4901e;
 	color: #fff;
 	font-size: 1.2em;
 	padding-left: 164px;
 	text-shadow: -1px 1px 1px rgba(0,0,0, 0.4);
+	background: #f4901e;
+	background: -webkit-gradient(linear, 0 0, 0 bottom, from(#f4901e), to(#e3790c));
+	background: -moz-linear-gradient(#f4901e, #e3790c);
+	background: linear-gradient(#f4901e, #e3790c);
+	-pie-background: linear-gradient(#f4901e, #e3790c);
+	behavior: url(/PIE.htc);
 }
 
 .soapbox_item .comments {
@@ -4231,8 +4262,12 @@ p.search_filter_hint {
 	text-shadow: -1px 1px 0 rgba(0,0,0,0.5);
 }
 
-.soapbox_item .comment .employee_name{
+.soapbox_item .comment .employee_name {
 	color: #F4901E;
+}
+
+.secondary_feature .comment .employee_name {
+	color: #e3790c;
 }
 
 .soapbox_item .comment .avatar{
