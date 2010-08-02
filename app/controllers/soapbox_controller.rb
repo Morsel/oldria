@@ -1,5 +1,4 @@
 class SoapboxController < ApplicationController
-  before_filter :require_admin
 
   def index
     @main_feature = SoapboxEntry.main_feature
@@ -24,4 +23,5 @@ class SoapboxController < ApplicationController
     @qotds = SoapboxEntry.qotd.published.recent.all(:include => :featured_item).map(&:featured_item)
     @trend_questions = SoapboxEntry.trend_question.published.recent.all(:include => :featured_item).map(&:featured_item)
   end
+
 end
