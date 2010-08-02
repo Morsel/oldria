@@ -1,5 +1,5 @@
 class SoapboxController < ApplicationController
-  before_filter :require_admin
+  before_filter :require_http_authenticated
 
   def index
     @main_feature = SoapboxEntry.main_feature
@@ -23,5 +23,11 @@ class SoapboxController < ApplicationController
   def load_past_features
     @qotds = SoapboxEntry.qotd.published.recent.all(:include => :featured_item).map(&:featured_item)
     @trend_questions = SoapboxEntry.trend_question.published.recent.all(:include => :featured_item).map(&:featured_item)
+  end
+
+  def require_http_authenticated
+    authenticate_or_request_with_http_basic do |username, password|
+      username == "soapbox" && password == "preview"
+    end
   end
 end
