@@ -1,0 +1,8 @@
+<% title "Edit the date on this Soapbox Entry" %>
+
+<% semantic_form_for [:admin, @soapbox_entry] do |f| %>
+	<% f.inputs do %>
+		<%= f.input :published_at %>
+	<% end %>
+	<%= button_tag "Save" %>
+<% end %>
