@@ -2,13 +2,10 @@ class Admin::AnnouncementsController < Admin::AdminController
   def new
     @admin_announcement = Admin::Announcement.new
     @admin_announcement.attachments.build
-    search_setup
   end
 
   def create
     @admin_announcement = Admin::Announcement.new(params[:admin_announcement])
-    @search = Employment.search(normalized_search_params)
-    @admin_announcement.recipients = @search.all
     if @admin_announcement.save
       flash[:notice] = "Successfully created Announcement."
       redirect_to admin_messages_path

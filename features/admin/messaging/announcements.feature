@@ -11,6 +11,7 @@ Feature: Admin Messaging: Announcements
       | john     | secret   | john@example.com | John Doe  | Sommelier | Beer, Wine      |
     Given I am logged in as an admin
 
+
   Scenario: Announcements are sent to everyone
     Given there are no Admin Messages in the system
     And I am on the new Announcement page
@@ -21,16 +22,6 @@ Feature: Admin Messaging: Announcements
     And "sam" should have 1 Announcement message
     And "john" should have 1 Announcement message
     
-  Scenario: Announcements can be sent to a filtered group
-    Given there are no Admin Messages in the system
-    And I am on the new Announcement page
-    When I check "Food"
-    And I fill in "Message" with "We've got orange soda!"
-    And I press "Save"
-    Then I should see list of Announcements
-    And I should see "We've got orange soda!"
-    And "sam" should have 1 Announcement message
-    And "john" should have 0 Announcement messages
     
 @emails
   Scenario: New Announcement notification, user prefers no emails

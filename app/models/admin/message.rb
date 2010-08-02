@@ -31,7 +31,7 @@ class Admin::Message < ActiveRecord::Base
   named_scope :recent, lambda {
     { :conditions => ['admin_messages.scheduled_at >= ?', 2.weeks.ago] }
   }
-  
+
   include AASM
   aasm_column :status
   aasm_initial_state :draft
