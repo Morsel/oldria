@@ -2,6 +2,7 @@
 
 <% table_for @questions do |t| %>
     <% t.data :actions => [:edit, :destroy], :action_prefix => 'admin' do
-         t.cell(:title)
-       end %>
+        t.cell(:handle, :heading => '', :cell_html => {:class => 'small handle'}) { "[drag]" }
+        t.cell(:title)
+    end %>
 <% end %>

@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100728234744) do
+ActiveRecord::Schema.define(:version => 20100802191740) do
 
   create_table "admin_conversations", :force => true do |t|
     t.integer  "recipient_id"
@@ -87,6 +87,7 @@ ActiveRecord::Schema.define(:version => 20100728234744) do
     t.string   "title"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "position",   :default => 0
   end
 
   create_table "coached_status_updates", :force => true do |t|
@@ -416,6 +417,7 @@ ActiveRecord::Schema.define(:version => 20100728234744) do
     t.string   "title"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "position",   :default => 0
   end
 
   create_table "readings", :force => true do |t|

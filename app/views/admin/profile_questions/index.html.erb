@@ -1,21 +1,21 @@
 <% title "Profile Questions" %>
 
-<table>
+<table id="profile_chapters">
     <thead><tr>
+        <th>&nbsp;</th>
         <th>Topics</th>
         <th>Chapters</th>
         <th>Q&amp;As</th>
         <th>&nbsp;</th>
     </tr></thead>
-    <% for topic in @topics %>
-      <% for chapter in topic.chapters %>
-        <tr>
-          <td><%= topic.title %></td>
-          <td><%= chapter.title %></td>
-          <td><%= chapter.profile_questions.count %></td>
-          <td><%= link_to "Manage", manage_admin_profile_questions_path(:chapter_id => chapter), :class => "button" %></td>
-        </tr>
-      <% end %>
+    <% for chapter in @chapters %>
+    <tr id="chapter_<%= chapter.id %>">
+        <td class="small handle">[drag]</td>
+        <td><%= chapter.topic.title %></td>
+        <td><%= chapter.title %></td>
+        <td><%= chapter.profile_questions.count %></td>
+        <td><%= link_to "Manage", manage_admin_profile_questions_path(:chapter_id => chapter), :class => "button" %></td>
+    </tr>
     <% end %>
 </table>
 

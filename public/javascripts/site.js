@@ -384,3 +384,21 @@ $('#user_email').blur(function() {
 
 $('.soapbox_sidebar').tabs();
 
+// Profile question admin
+$('#profile_chapters tbody').sortable({
+	axis:'y',
+	dropOnEmpty:false,
+	update: function(){
+		$.ajax({ data:$(this).sortable('serialize', { key: 'chapters[]' }), dataType:'script', type:'post', url:'/admin/profile_questions/sort'
+		});
+	}
+});
+
+$('#profile_questions tbody').sortable({
+	axis:'y',
+	dropOnEmpty:false,
+	update: function(){
+		$.ajax({ data:$(this).sortable('serialize', { key: 'profile_questions[]' }), dataType:'script', type:'post', url:'/admin/profile_questions/sort'
+		});
+	}
+});

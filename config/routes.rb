@@ -106,7 +106,7 @@ ActionController::Routing::Routes.draw do |map|
     admin.resources :calendars
     admin.resources :events
     admin.resources :soapbox_entries
-    admin.resources :profile_questions, :collection => { :manage => :get }
+    admin.resources :profile_questions, :collection => { :manage => :get, :sort => :post }
     map.admin_chapters 'admin/profile_questions/chapters', :controller => "admin/profile_questions", :action => "create_chapter"
     map.admin_topics 'admin/profile_questions/topics', :controller => "admin/profile_questions", :action => "create_topic"
 

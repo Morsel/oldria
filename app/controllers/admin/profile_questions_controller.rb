@@ -1,7 +1,7 @@
 class Admin::ProfileQuestionsController < Admin::AdminController
   
   def index
-    @topics = Topic.all
+    @chapters = Chapter.all(:order => "position ASC, topic_id ASC, title ASC")
   end
   
   def new
@@ -38,7 +38,7 @@ class Admin::ProfileQuestionsController < Admin::AdminController
   
   def manage
     @chapter = Chapter.find(params[:chapter_id])
-    @questions = @chapter.profile_questions
+    @questions = @chapter.profile_questions.all(:order => :position)
   end
   
   def create_chapter
@@ -59,6 +59,19 @@ class Admin::ProfileQuestionsController < Admin::AdminController
     else
       render :action => "new"
     end
+  end
+  
+  def sort
+    if params[:chapters]
+      params[:chapters].each_with_index do |id, index|
+        Chapter.update_all(['position=?', index+1], ['id=?', id])
+      end
+    elsif params[:profile_questions]
+      params[:profile_questions].each_with_index do |id, index|
+        ProfileQuestion.update_all(['position=?', index+1], ['id=?', id])
+      end
+    end
+    render :nothing => true
   end
 
 end
