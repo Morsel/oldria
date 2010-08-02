@@ -14,13 +14,13 @@ describe Admin::PrTipsController do
 
   it "create action should render new template when model is invalid" do
     Admin::PrTip.any_instance.stubs(:valid?).returns(false)
-    post :create, :search => {}
+    post :create
     response.should render_template(:new)
   end
 
   it "create action should redirect when model is valid" do
     Admin::PrTip.any_instance.stubs(:valid?).returns(true)
-    post :create, :search => {}
+    post :create
     response.should redirect_to(admin_messages_path)
   end
 

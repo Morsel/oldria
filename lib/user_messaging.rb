@@ -18,7 +18,11 @@ module UserMessaging
     
     # PR Tips
     def pr_tips
-      admin_conversations.select { |c| c.inbox_title == "PR Tip" }
+      Admin::PrTip.scoped(:order => "updated_at DESC").current
+    end
+
+    def unread_pr_tips
+      Admin::PrTip.current.recent.find_unread_by( self )
     end
 
     # Admin discussions - includes content request, trend question
@@ -106,6 +110,7 @@ module UserMessaging
       @messages_from_ria ||= [ unread_grouped_admin_discussions.keys,
         unread_hdrs,
         unread_conversations,
+        unread_pr_tips
       ].flatten.sort_by(&:scheduled_at).reverse
     end
 
@@ -113,7 +118,8 @@ module UserMessaging
       @all_messages ||= [ current_admin_discussions,
         holiday_discussion_reminders,
         accepted_holiday_discussions,
-        admin_conversations.current.all
+        admin_conversations.current.all,
+        Admin::PrTip.current.all
       ].flatten.sort_by(&:scheduled_at).reverse
     end
 
