@@ -1,6 +1,9 @@
 require 'spec_helper'
 
 describe SoapboxController do
+  before do
+    fake_admin_user
+  end
 
   describe "GET index" do
     it "should be successful" do
