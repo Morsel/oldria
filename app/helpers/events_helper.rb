@@ -13,5 +13,5 @@ module EventsHelper
       "display: none;"
     end
   end
-
+  
 end

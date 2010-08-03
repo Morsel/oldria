@@ -22,8 +22,8 @@
             <%= hidden_field_tag "date", params[:date], :id => "date-with-ria" if params[:date] %>
             <%= hidden_field_tag "category", params[:category], :id => "category-with-ria" if params[:category] %>
             <p>
-                <%= check_box_tag "show_ria", true, params[:show_ria], :onchange => "this.form.submit();" %> 
-                <label for="show_ria">See RIA event recommendations</label>
+                <label for="show_ria">Show RIA event recommendations?</label>
+                <%= select_tag "show_ria", options_for_select(ria_event_options, params[:show_ria]), :onchange => "this.form.submit();" %>
             </p>
         <% end %>
     </div>
