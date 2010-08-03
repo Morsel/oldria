@@ -3,7 +3,7 @@ module CalendarsHelper
   def event_link(event)
     if admin_calendars?
       admin_event_path(event)
-    elsif @restaurant && ria_events?
+    elsif @restaurant && ria_event?(event)
       ria_details_restaurant_event_path(:restaurant_id => @restaurant.id, :id => event.id)
     elsif @restaurant
       restaurant_event_path(:restaurant_id => @restaurant.id, :id => event.id)
