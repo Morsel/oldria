@@ -6,7 +6,14 @@ ActionController::Routing::Routes.draw do |map|
   map.fb_login 'facebook_login', :controller => 'user_sessions', :action => 'create_from_facebook'
 
   map.directory 'directory', :controller => 'directory', :action => 'index'
-  map.resources :soapbox
+
+
+  map.with_options :conditions => {:subdomain => 'soapbox'}, :controller => 'soapbox' do |soapbox|
+    soapbox.root :action => 'index'
+    soapbox.entry ':id', :action => 'show'
+  end
+
+  map.resources :soapbox, :only => 'show'
 
   map.profile 'profile/:username', :controller => 'users', :action => 'show'
 

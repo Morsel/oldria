@@ -29,7 +29,7 @@ When /^I create a new soapbox entry for that QOTD with:$/ do |table|
 end
 
 Then /^there should be (\d+) QOTDs? on the soapbox landing page$/ do |num|
-  visit '/soapbox'
+  visit root_url(:subdomain => 'soapbox')
   SoapboxEntry.qotd.published.count.should == num.to_i
 end
 
