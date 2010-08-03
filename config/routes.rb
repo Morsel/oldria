@@ -13,7 +13,7 @@ ActionController::Routing::Routes.draw do |map|
     soapbox.entry ':id', :action => 'show'
   end
 
-  map.resources :soapbox, :only => 'show'
+  map.resources :soapbox, :only => ['index','show']
 
   map.profile 'profile/:username', :controller => 'users', :action => 'show'
 
