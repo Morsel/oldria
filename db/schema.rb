@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100721223109) do
+ActiveRecord::Schema.define(:version => 20100803214759) do
 
   create_table "admin_conversations", :force => true do |t|
     t.integer  "recipient_id"
@@ -80,6 +80,14 @@ ActiveRecord::Schema.define(:version => 20100721223109) do
     t.string   "bucket"
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "chapters", :force => true do |t|
+    t.integer  "topic_id"
+    t.string   "title"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "position",   :default => 0
   end
 
   create_table "coached_status_updates", :force => true do |t|
@@ -404,6 +412,14 @@ ActiveRecord::Schema.define(:version => 20100721223109) do
 
   add_index "preferences", ["owner_id", "owner_type", "name", "group_id", "group_type"], :name => "index_preferences_on_owner_and_name_and_preference", :unique => true
 
+  create_table "profile_questions", :force => true do |t|
+    t.integer  "chapter_id"
+    t.string   "title"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "position",   :default => 0
+  end
+
   create_table "readings", :force => true do |t|
     t.string   "readable_type"
     t.integer  "readable_id"
@@ -494,6 +510,12 @@ ActiveRecord::Schema.define(:version => 20100721223109) do
     t.boolean  "private"
   end
 
+  create_table "topics", :force => true do |t|
+    t.string   "title"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "trend_questions", :force => true do |t|
     t.string   "subject"
     t.text     "body"
@@ -530,6 +552,8 @@ ActiveRecord::Schema.define(:version => 20100721223109) do
     t.string   "role"
     t.integer  "facebook_id"
     t.string   "facebook_access_token"
+    t.integer  "facebook_page_id"
+    t.string   "facebook_page_token"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email"

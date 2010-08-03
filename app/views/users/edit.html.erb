@@ -39,6 +39,17 @@
     <%- if @fb_user -%>
       <p>You are currently linked to your Facebook account <em>"<%= @fb_user.name %>"</em>. You can connect to a different Facebook profile by disconnecting below, then setting up Facebook again.</p>
       <%= fb_logout_link "#{image_tag('x.png')} Disconnect", fb_deauth_user_path(@user), :class => 'button negative' %>
+  
+      <% unless @fb_user.accounts.blank? %>
+        <div class="clear" style="padding-top: 1em;">
+            <p>Configure a page to post status updates to:</p>
+            <% form_tag fb_page_auth_user_path(@user) do %>
+                <%= select_tag "facebook_page", "<option>&nbsp;</option>" + options_from_collection_for_select(@fb_user.accounts, :id, :name, @user.facebook_page_id.to_s) %>
+                <%= submit_tag "Save" %>
+            <% end %>
+        </div>
+      <% end %>
+
     <%- else -%>
       <%= link_to "Setup Facebook", fb_auth_user_path(@user), :class => 'sf-button' %>
     <%- end -%>
