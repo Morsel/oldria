@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   before_filter :require_user, :only => [:show]
-  before_filter :require_no_user, :only => [:new, :resend_confirmation]
+  before_filter :require_no_user, :only => [:new]
   before_filter :require_owner_or_admin, :only => [:edit, :update, :remove_twitter, :remove_avatar, :fb_auth, :fb_connect]
   before_filter :block_media, :only => [:new]
 
@@ -73,6 +73,7 @@ class UsersController < ApplicationController
   end
   
   def resend_confirmation
+    require_no_user unless current_user && current_user.admin?
     if request.post?
       if user = User.find_by_email(params[:email])
         UserMailer.deliver_signup user
