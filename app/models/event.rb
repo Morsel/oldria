@@ -83,6 +83,10 @@ class Event < ActiveRecord::Base
     end
   end
   
+  def parent
+    Event.find(self.parent_id) if self.parent_id
+  end
+  
   def private?
     self.category == "Private"
   end

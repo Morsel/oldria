@@ -55,7 +55,7 @@ module CalendarsHelper
   end
 
   def ria_event_options
-    ['', 'all RIA events'] + Event.ria_locations
+    ['', 'all RIA events', 'in my calendar'] + Event.ria_locations
   end
 
   def admin_calendars?

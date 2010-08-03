@@ -12,9 +12,13 @@ class CalendarsController < ApplicationController
     end
     
     if params[:show_ria] && !params[:show_ria].blank?
-      params[:show_ria].match(/Location/) ? 
-        @events += Event.from_ria.for_location(params[:show_ria].split(": ")[1]).for_month_of(@date) :
+      if params[:show_ria].match(/Location/)
+        @events += Event.from_ria.for_location(params[:show_ria].split(": ")[1]).for_month_of(@date)
+      elsif params[:show_ria] == "in my calendar"
+        @events += @restaurant.events.for_month_of(@date).map { |e| e.parent }.compact
+      else
         @events += Event.from_ria.for_month_of(@date)
+      end
     end
   end
 
