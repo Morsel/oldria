@@ -383,6 +383,7 @@ $('#user_email').blur(function() {
 
 
 $('.soapbox_sidebar').tabs();
+$('.tabable').tabs();
 
 // Profile question admin
 $('#profile_chapters tbody').sortable({

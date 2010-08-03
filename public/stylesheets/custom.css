@@ -1899,7 +1899,7 @@ p.editprofile a:hover {
 	color: #fff;
 }
 
-#user_profile_view, .user.box, #restaurant_profile_view, .shadow-box {
+#restaurant_profile_view, .shadow-box {
 	border: 1px solid #ddd;
 	background-color: #fff;
 	margin-bottom: 30px;
@@ -1908,8 +1908,98 @@ p.editprofile a:hover {
 	box-shadow: 1px 1px 3px #ddd;
 }
 
+.profile_subhead {
+	color: #777;
+	font-weight: normal;
+	font-family: "Hoefler Text", georgia, serif;
+}
+
+/* These are being hidden for now */
+#following, #followers, #user_content, .user_profile_actions {
+	display: none;
+}
+
 #user_profile_view {
-	background: #fff url(../images/white_gray.png) 50% 0;
+	background: #333;
+	color: #ccc;
+}
+
+#user_profile_view, #extended_profile_container {
+	padding: 16px;
+}
+
+#profile_completeness {
+	float: right;
+	height: 90px;
+	padding: 15px 20px 20px 18px;
+	margin-top: -22px;
+	width: 150px;
+	color: #eee;
+	color: rgba(255,255,255, 0.9);
+	font-size: 14px;
+	text-transform: uppercase;
+	background: url(../images/banner_large.png) 0 -5px no-repeat;
+	padding: 22px 20px 22px 25px;
+}
+
+#profile_completeness_progressbar {
+	margin: 6px 0 0;
+	height: 18px;
+	border: 1px solid #fff;
+	background: #fff;	
+}
+
+#user_profile_view h2, #user_profile_view p {
+	color: #ccc;
+}
+
+#user_profile_view .user_name,
+#user_profile_view .user_employment {
+	font-family: "Hoefler Text", georgia, serif;
+}
+
+#user_profile_view .user_name {
+	color: #e3790c;
+	font-weight: normal;
+	font-size: 1.8em;
+	line-height: 1.4;
+	padding: 0;
+	border: 0;
+	margin: 0;
+}
+
+#user_profile_view .user_employment {
+	font-size: 1.3em;
+	color: #ccc;
+}
+
+dl.user_info {
+	font-size: 1.1em;
+	margin: 0;
+}
+
+dl.user_info dt, dl.user_info dd {
+	line-height: 1.5;
+}
+
+dl.user_info dt {
+	color: #fff;
+	width: 70px;
+	float: left;
+	clear: left;
+	margin: 0 10px;
+	text-align: right;
+	font-weight: normal;
+}
+
+dl.user_info dt:after {
+	content: ":";
+}
+
+dl.user_info dd {
+	margin-top: 0;
+	margin-left: 80px;
+	color: #e3790c;
 }
 
 #user_profile_view img, #restaurant_profile_view img{
@@ -1918,29 +2008,59 @@ p.editprofile a:hover {
 	background-color: #fff;
 	float: left;
 	display: inline;
-	margin: 0px 12px 6px 0px;
+	margin: 0px 12px 10px 0px;
 	}
 
-#user_profile_view h2, .user.box h2 {
+#extended_profile_container {
+	background-color: #555;
+}
+
+#extended_profile_container a    { color: #eaeaea }
+#extended_profile_container a em { color: #bbb }
+#extended_profile_container a:hover,
+#extended_profile_container a:hover em { color: #fff }
+
+#current_things {
+	margin: 1em 0;
+}
+
+dl.things {
+	overflow: hidden;
+	margin: 0;
+	padding: 0;
+}
+
+dl.things div {
+	padding-right: 20px;
+	margin-right: 20px;
+	border-right: 1px dotted #ccc;
+}
+
+dl.things div.last {
+	padding-right: 0;
+	border-right: 0;
+}
+
+.user.box h2 {
 	margin: 0px;
 	padding: 0px;
 	font:bold 1.6em "Helvetica Neue", Helvetica, Arial, sans-serif;
-	}
+}
 
-#user_profile_view h3, .user.box h3, #user_profile_view p, .user.box p {
+.user.box h3, .user.box p {
 	line-height: 21px;
 	margin: 0px 0px 0px 0px;
 	padding: 0px;
 	font:bold 1em "Lucida Grande", Arial, sans-serif;
 	}
-#user_profile_view h4, .user.box h4 {
+.user.box h4 {
 	margin:5px 0px;
 	font-weight: bold;
 	padding: 0px;
 	clear: both;
 	}
 
-#user_profile_view p, .user.box p {
+.user.box p {
 	margin: 0px 0px 12px 0px;
 	padding: 0px;
 	}
