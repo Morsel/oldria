@@ -5,5 +5,3 @@ elsif Rails.env.staging?
 else
   ''
 end
-
-SubdomainFu.tld_size = 1
