@@ -5,3 +5,10 @@ elsif Rails.env.staging?
 else
   ''
 end
+
+SubdomainFu.tld_sizes = {
+  :development => 0,
+  :test => 0,
+  :staging => 1,
+  :production => 1
+}

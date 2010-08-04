@@ -1,4 +1,4 @@
-# This file is auto-generated from the current state of the database. Instead of editing this file, 
+# This file is auto-generated from the current state of the database. Instead of editing this file,
 # please use the migrations feature of Active Record to incrementally modify your database, and
 # then regenerate this schema definition.
 #
@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100802191740) do
+ActiveRecord::Schema.define(:version => 20100803224657) do
 
   create_table "admin_conversations", :force => true do |t|
     t.integer  "recipient_id"
@@ -497,6 +497,8 @@ ActiveRecord::Schema.define(:version => 20100802191740) do
     t.boolean  "queue_for_social_media"
     t.boolean  "queue_for_facebook"
     t.integer  "facebook_id"
+    t.boolean  "queue_for_facebook_page", :default => false
+    t.integer  "facebook_page_id"
   end
 
   add_index "statuses", ["user_id"], :name => "index_statuses_on_user_id"
@@ -552,6 +554,8 @@ ActiveRecord::Schema.define(:version => 20100802191740) do
     t.string   "role"
     t.integer  "facebook_id"
     t.string   "facebook_access_token"
+    t.integer  "facebook_page_id"
+    t.string   "facebook_page_token"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email"

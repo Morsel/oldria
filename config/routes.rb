@@ -35,7 +35,8 @@ ActionController::Routing::Routes.draw do |map|
     :remove_avatar => :put,
     :fb_auth => :get,
     :fb_connect => :any,
-    :fb_deauth => :any
+    :fb_deauth => :any,
+    :fb_page_auth => :post
   }, :shallow => true do |users|
     users.resources :statuses
     users.resources :direct_messages, :member => { :reply => :get }

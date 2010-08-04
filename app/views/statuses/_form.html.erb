@@ -19,6 +19,10 @@
         <% else %>
           <%= link_to "Setup Facebook to post there too!", fb_auth_user_path(current_user) %>
         <% end -%>
+        <% if current_user.has_facebook_page? -%>
+          <%= f.check_box :queue_for_facebook_page, :class => 'checkbox' %>
+          <%= f.label :queue_for_facebook_page, "Post to Facebook fan page?" %>        
+        <% end %>
       </span>
   </p>
 <% end %>
