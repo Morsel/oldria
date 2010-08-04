@@ -2032,7 +2032,12 @@ dl.user_info dd {
 	outline: none;
 	font-size: 1.1em;
 	text-shadow: -1px 1px 1px #333;
-	background: url(../images/arrow-white.png) 10px 50% no-repeat;
+	background-image: url(../images/arrow-white.png);
+	background-position:10px 50%;
+	background-repeat: no-repeat;
+}
+#extended_profile_container .showit.open {
+	background-image: url(../images/arrow-down-blue.png);
 }
 
 #extended_profile_container .showit    { color: #eaeaea }
