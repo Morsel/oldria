@@ -3,7 +3,7 @@ module SoapboxHelper
   def resource_for_featured_item(soapbox_entry)
     return unless soapbox_entry.featured_item.present?
     if soapbox_entry.featured_item.class.to_s =~ /Admin::/
-      soapbox_entry.featured_item
+      url_for(:controller => 'admin/messages', :action => 'show', :id => soapbox_entry.featured_item.id)
     else
       [:admin, soapbox_entry.featured_item]
     end
