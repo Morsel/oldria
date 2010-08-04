@@ -71,7 +71,26 @@ $("a[href$=" + topLevelSection + "]", $navigationList)
   .parent().addClass("selected");
 
 
+//
+// Use this when you want a link to slidetoggle the element it's href points to:
+//
+//   <a href="#box">Toggles the element with id "box"</a>
+$.fn.showy = function(){
+  return this.each(function(){
+    var hidable = $(this.hash);
+    if (hidable.is(":visible"))
+      hidable.hide();
+    $(this).click(function(e) {
+      hidable.slideToggle();
+      e.preventDefault();
+    });
+  });
+};
+
+$(".showit").showy();
+
 // == Comment attachments
+
 
 jQuery.fn.attachmentCloner = function() {
   return this.each(function(){
@@ -212,7 +231,7 @@ var selectOmniscientRoles = function(){
     $omniscientRoleCheckboxes.enable();
     $omniscientRoleCheckboxes.removeAttr('checked');
   }
-}
+};
 
 $omniscientField.change(selectOmniscientRoles);
 

@@ -1925,7 +1925,7 @@ p.editprofile a:hover {
 	color: #ccc;
 }
 
-#user_profile_view, #extended_profile_container {
+#user_profile_view, #extended_profile {
 	padding: 16px;
 }
 
@@ -2012,14 +2012,85 @@ dl.user_info dd {
 	margin: 0px 12px 10px 0px;
 	}
 
-#extended_profile_container {
-	background-color: #555;
+#extended_profile_container, #extended_profile {
+	background-color: #4d4d4d;
 }
 
-#extended_profile_container a    { color: #eaeaea }
-#extended_profile_container a em { color: #bbb }
-#extended_profile_container a:hover,
-#extended_profile_container a:hover em { color: #fff }
+#extended_profile {
+	padding-top: 0;
+	background: -webkit-gradient(linear, 0 0, 0 bottom, from(#4d4d4d), to(#3a3a3a));
+	background: -moz-linear-gradient(#4d4d4d, #3a3a3a);
+	background: linear-gradient(#4d4d4d, #3a3a3a);
+	-pie-background: linear-gradient(#4d4d4d, #3a3a3a);
+	behavior: url(/PIE.htc);
+}
+
+
+#extended_profile_container .showit {
+	padding: 8px 16px 8px 26px;
+	display: block;
+	
+}
+#extended_profile_container .showit    { color: #eaeaea }
+#extended_profile_container .showit em { color: #bbb }
+#extended_profile_container .showit:hover,
+#extended_profile_container .showit:hover em { color: #fff }
+
+#extended_profile h3 {
+	color: #fff;
+	font-family: "Hoefler Text", georgia, serif;
+	font-weight: normal;
+	font-size: 1.5em;
+	border-bottom: 1px dotted #999;
+	margin-top: 1.2em;
+	margin-bottom: 12px;
+	padding-bottom: 2px;
+}
+
+#extended_profile li {
+	color: #fff;
+	line-height: 1.5;
+}
+
+#extended_profile ul {
+	list-style: disc;
+}
+
+#extended_profile .education, #extended_profile .employments {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	list-style: none;
+}
+
+#extended_profile .education li, #extended_profile .employments li {
+	margin: 0 0 1em;
+}
+
+#extended_profile .employments li {
+	padding-left: 56px;
+	border-bottom: 0;
+}
+
+#extended_profile .employee_role {
+	border: 0;
+}
+
+#extended_profile .restaurant_avatar {
+	border: 1px solid #fff;
+	margin-right: 10px;
+}
+
+#extended_profile a {
+	color: #e8750a;
+	display: block;
+	text-decoration: none;
+}
+
+#extended_profile a:hover {
+	color: #eee;
+	text-decoration: underline;
+}
 
 #current_things {
 	margin: 1em 0;
