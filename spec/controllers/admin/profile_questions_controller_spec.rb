@@ -3,8 +3,7 @@ require 'spec_helper'
 describe Admin::ProfileQuestionsController do
 
   before(:each) do
-    @user = Factory(:admin)
-    controller.stubs(:current_user).returns(@user)    
+    fake_admin_user
   end
 
   describe "GET 'new'" do
@@ -14,16 +13,16 @@ describe Admin::ProfileQuestionsController do
       assigns[:question].should_not be_nil
     end
   end
-  
+
   describe "editing and updating" do
-    
+
     it "should provide a page to edit the question" do
       question = Factory(:profile_question)
       get :edit, :id => question.id
       response.should be_success
       assigns[:question].should == question
     end
-    
+
     it "should update the question's data" do
       question = Factory(:profile_question)
       ProfileQuestion.expects(:find).returns(question)
@@ -31,12 +30,12 @@ describe Admin::ProfileQuestionsController do
       put :update, :id => question.id, :profile_question => { :title => "New title" }
       response.should be_redirect
     end
-    
+
   end
-  
+
   describe "destruction!" do
-    
-    it "should destroy the question"
-    
+
+    xit "should destroy the question"
+
   end
 end
