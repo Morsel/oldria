@@ -1,6 +1,8 @@
 # Settings specified here will take precedence over those in config/environment.rb
 DEFAULT_HOST = 'staging.restaurantintelligenceagency.com'
 
+SubdomainFu.tld_size = 1
+
 ActionMailer::Base.delivery_method = :sendmail
 
 # The production environment is meant for finished, "live" apps.
