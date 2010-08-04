@@ -78,11 +78,26 @@ $("a[href$=" + topLevelSection + "]", $navigationList)
 $.fn.showy = function(){
   return this.each(function(){
     var hidable = $(this.hash);
-    if (hidable.is(":visible"))
+
+    // Just in case it starts out shown, hide it
+    if (hidable.is(":visible")) {
       hidable.hide();
+      hidable.removeClass('open');
+    }
+
     $(this).click(function(e) {
-      hidable.slideToggle();
-      e.preventDefault();
+      var link = $(this);
+      hidable.slideToggle(200);
+      link.toggleClass('open');
+      hidable.toggleClass('open');
+      
+      var text = link.text();
+      if (link.hasClass('open')) {
+        link.text(text.replace(/View/, 'Close'));
+      } else {
+        link.text(text.replace(/Close/, 'View'));
+      }
+      return false;
     });
   });
 };
@@ -394,6 +409,20 @@ if (typeof($.fn.colorbox) != 'undefined') {
         $.fn.colorbox.close();
     }
 }
+
+
+
+var profile_progressbar = $('#profile_completeness_progressbar');
+if (profile_progressbar.length) {
+  var percent = parseInt(profile_progressbar.siblings('.numeral').text(), 10);
+  
+  console.log(percent);
+
+  profile_progressbar.progressbar({
+    value: percent
+  });
+}
+
 
 // Cleaning up email fields
 $('#user_email').blur(function() {

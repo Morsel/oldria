@@ -2029,12 +2029,19 @@ dl.user_info dd {
 #extended_profile_container .showit {
 	padding: 8px 16px 8px 26px;
 	display: block;
-	
+	outline: none;
+	font-size: 1.1em;
+	text-shadow: -1px 1px 1px #333;
+	background: url(../images/arrow-white.png) 10px 50% no-repeat;
 }
+
 #extended_profile_container .showit    { color: #eaeaea }
 #extended_profile_container .showit em { color: #bbb }
 #extended_profile_container .showit:hover,
 #extended_profile_container .showit:hover em { color: #fff }
+
+#extended_profile_container .showit.open,
+#extended_profile_container .showit.open em { color: #1d9bbb}
 
 #extended_profile h3 {
 	color: #fff;
@@ -3511,6 +3518,7 @@ a.ui-state-default:hover {
 	padding: 5px 10px;
 	text-decoration: none;
 	color: #0587c1;
+	outline: none;
 }
 
 .ui-tabs-nav .ui-tabs-selected a {
@@ -3560,6 +3568,14 @@ a.ui-state-default:hover {
 	color: #eee;
 	background-color: rgba(0,0,0, 0.1);
 
+}
+
+.ui-progressbar-value {
+	height: 100%;
+	background: #f4901e;
+	background: -webkit-gradient(linear, 0 0, right 0, from(#f4901e), to(#e3790c));
+	background: -moz-linear-gradient(left center, #f4901e, #e3790c);
+	background: linear-gradient(left center, #f4901e, #e3790c);
 }
 
 /* tables */
