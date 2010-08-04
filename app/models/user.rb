@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20100721223109
+# Schema version: 20100803224657
 #
 # Table name: users
 #
@@ -27,6 +27,8 @@
 #  role                  :string(255)
 #  facebook_id           :integer
 #  facebook_access_token :string(255)
+#  facebook_page_id      :integer
+#  facebook_page_token   :string(255)
 #
 
 class User < ActiveRecord::Base
@@ -247,6 +249,14 @@ class User < ActiveRecord::Base
     if facebook_id and facebook_access_token
       @facebook_user ||= Mogli::User.new(:id => facebook_id, :client => Mogli::Client.new(facebook_access_token))
     end
+  end
+  
+  def has_facebook_page?
+    !facebook_page_id.nil? and !facebook_page_token.nil?
+  end
+  
+  def facebook_page
+    @page ||= Mogli::Page.new(:id => facebook_page_id, :client => Mogli::Client.new(facebook_page_token))
   end
   
 end

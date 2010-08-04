@@ -11,4 +11,7 @@
   <%- if status.facebook_id -%>
     and on Facebook
   <% end -%>
+  <%- if status.facebook_page_id -%>
+    and on Facebook page for <%= facebook_page_name(status) %>
+  <% end -%>
 </span>
