@@ -1909,9 +1909,10 @@ p.editprofile a:hover {
 }
 
 .profile_subhead {
-	color: #777;
+	color: #666;
 	font-weight: normal;
 	font-family: "Hoefler Text", georgia, serif;
+	font-size: 1.4em;
 }
 
 /* These are being hidden for now */
@@ -2022,23 +2023,80 @@ dl.user_info dd {
 
 #current_things {
 	margin: 1em 0;
+	padding: 5px;
+	box-shadow: 0px 2px 1px #eee;
+	-moz-box-shadow: 0px 2px 1px #eee;
+	-webkit-box-shadow: 0px 2px 1px #eee;
 }
 
 dl.things {
 	overflow: hidden;
 	margin: 0;
-	padding: 0;
+	padding: 14px 10px;
+	background: #fff;
+	background: -webkit-gradient(linear, 0 0, 0 bottom, from(#fff), to(#eee));
+	background: -moz-linear-gradient(#fff, #eee);
+	background: linear-gradient(#fff, #eee);
+	-pie-background: linear-gradient(#ffffff, #eeeeee);
+	behavior: url(/PIE.htc);
 }
 
 dl.things div {
-	padding-right: 20px;
 	margin-right: 20px;
+	padding-right: 19px;
 	border-right: 1px dotted #ccc;
+	width: 172px;
+	float: left;
 }
 
 dl.things div.last {
 	padding-right: 0;
 	border-right: 0;
+	margin-right: 0;
+}
+
+dl.things dt {
+	margin: 0 0 1em;
+	font-weight: normal;
+}
+
+dl.things dd {
+	font-weight: bold;
+	font-size: 1.1em;
+}
+
+dl.things dt:after {content: ":"}
+
+#behindline .box {
+	border: 1px solid #ccc;
+	border-radius: 0px;
+	-moz-border-radius: 0px;
+	-webkit-border-radius: 0px;
+	margin: 0;
+	padding: 12px;
+}
+
+#behindline h5 {
+	color: #e8750a;
+	margin: 0;
+}
+
+#behindline .completeness {
+	color: #999;
+	font-weight: normal;
+	font-size: 9px;
+	font-family: "Lucida Grande", sans-serif;
+	float: right;
+	text-transform: uppercase;
+}
+
+#behindline li {
+	list-style: none;
+	padding: 5px 10px;
+}
+
+#behindline li.even {
+	background-color: #fdf6ee;
 }
 
 .user.box h2 {

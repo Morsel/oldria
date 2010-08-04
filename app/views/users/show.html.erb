@@ -59,31 +59,49 @@
 
 
 <div id="current_things" class="box">
-  <h3 class="profile_subhead">Three current things&hellip;</h3>
   <dl class="things">
-    <div class="span-3">
+    <div>
       <dt>Right now I'm working on</dt>
-      <dd>Nullam in dui mauris. Vivamus hendrerit arcu sed erat molestie vehicula. Sed auctor neque eu tellus rhoncus ut eleifend nibh porttitor. Ut in nulla enim. Phasellus molestie magna non est bibendum non venenatis nisl tempor. Suspendisse dictum feugiat nisl ut dapibus. Mauris iaculis porttitor posuere. Praesent.</dd>
+      <dd>Nullam in dui mauris. Vivamus hendrerit arcu sed erat molestie vehicula. Sed auctor neque eu tellus rhoncus ut eleifend nibh porttitor feugiat nisl ut dapibus. Mauris iaculis porttitor posuere. Praesent.</dd>
     </div>
-    <div class="span-3">
+    <div>
       <dt>The last thing that inspired me was</dt>
       <dd>Vestibulum mollis mauris enim. Morbi euismod magna ac lorem rutrum elementum. Donec viverra.</dd>
     </div>
-    <div class="span-3 last">
+    <div class="last">
       <dt>The last meal I cooked at home was</dt>
       <dd>Nam vestibulum, arcu sodales feugiat consectetur, nisl orci bibendum elit.</dd>
     </div>
   </dl>
 </div>
 
-<div class="span-6">
+<div class="span-6" id="behindline">
   <h3 class="profile_subhead">Behind the Line with: <%= @user.name %></h3>
-  <div class="box">
-    This is where Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-  </div>
+  <ul class="box">
+    <li class="even">
+      <h5>Background <span class="completeness">(80% complete)</span></h5>
+      This is where Lorem ipsum dolor sit amet
+    </li>
+    <li class="odd">
+      <h5>Job Experience <span class="completeness">(35% complete)</span></h5>
+      Nam vestibulum, arcu sodales feugiat consectetur, nisl orci bibendum elit.
+    </li>
+    <li class="even">
+      <h5>On the Job <span class="completeness">(20% complete)</span></h5>
+      This is where Lorem ipsum dolor sit amet
+    </li>
+    <li class="odd">
+      <h5>Off the Clock <span class="completeness">(10% complete)</span></h5>
+      Nam vestibulum, arcu sodales feugiat consectetur, nisl orci bibendum elit.
+    </li>
+    <li class="even">
+      <h5>Background <span class="completeness">(100% complete)</span></h5>
+      This is where Lorem ipsum dolor sit amet
+    </li>
+  </ul>
 </div>
 
-<div class="span-6 last tabable">
+<div class="span-6 last tabable" id="recentsoapbox">
   <h3 class="profile_subhead">Recent responses on Soapbox</h3>
 
   <ul>
