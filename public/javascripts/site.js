@@ -384,3 +384,8 @@ $('#user_email').blur(function() {
 
 $('.soapbox_sidebar').tabs();
 
+// Admin page row highlighting
+
+$(function() {
+  $(window.location.hash + " td").effect("highlight", {}, 3000);
+});
