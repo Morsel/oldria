@@ -2079,13 +2079,14 @@ dl.user_info dd {
 	padding-bottom: 2px;
 }
 
-#extended_profile li {
+#extended_profile li, #extended_profile li p {
 	color: #fff;
 	line-height: 1.5;
 }
 
 #extended_profile ul {
 	list-style: disc;
+	border-bottom: 0;
 }
 
 #extended_profile .education, #extended_profile .employments {
@@ -2095,14 +2096,17 @@ dl.user_info dd {
 	list-style: none;
 }
 
+#extended_profile .employments li {
+	padding-left: 56px;
+	border-bottom: 0;
+	overflow: hidden;
+}
+
+
 #extended_profile .education li, #extended_profile .employments li {
 	margin: 0 0 1em;
 }
 
-#extended_profile .employments li {
-	padding-left: 56px;
-	border-bottom: 0;
-}
 
 #extended_profile .employee_role {
 	border: 0;
@@ -2434,9 +2438,9 @@ form .clonable_fields textarea {
 	width: 300px;
 }
 
-.clonable_fields .remove_field {
-	float: none;
-	display: inline-block;
+form .clonable_fields textarea,
+form .clonable_fields input {
+	float: left;
 }
 
 /* @end */

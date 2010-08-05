@@ -2,8 +2,18 @@
   <div class="span-5 append-1">
     <h3>Work Experience</h3>
     <ul class="employments clearfix">
+    <% for employment in user.employments %>
+      <li>
+        <%= image_tag 'avatar_restaurant.gif', :width=>'50', :class => 'restaurant_avatar pull-1' %>
+        <a class="organization"><%= employment.restaurant.name %></a><br />
+        <span class="employee_role"><%= employment.restaurant_role.try(:name) %></span>
+      </li>
+    <% end %>
     <% profile && profile.experience_items.each do |item| %>
-      <li><%= item.content %></li>
+      <li>
+        <%= image_tag 'avatar_restaurant.gif', :width=>'50', :class => 'restaurant_avatar pull-1' %>
+        <%= item.content %>
+      </li>
     <% end %>
     </ul>
 
