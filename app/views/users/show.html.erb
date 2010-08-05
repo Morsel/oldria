@@ -8,10 +8,6 @@
 <% end -%>
 
 <div id="user_profile_view">
-  <div id="profile_completeness" class="ribbon">
-    <%= @user.first_name %>'s profile is <span class="numeral">50</span>% complete
-    <div id="profile_completeness_progressbar" class="progress"></div>
-  </div>
   <div class="name_and_actions">
     <div class="profile_picture">
       <%= image_tag @user.avatar.url(:small), :width=>'100', :class => 'left' %>
@@ -57,23 +53,6 @@
   <%= render 'extended_profile', :user => @user %>
 </div><!-- #extended_profile_container -->
 
-
-<div id="current_things" class="box">
-  <dl class="things">
-    <div>
-      <dt>Right now I'm working on</dt>
-      <dd>Nullam in dui mauris. Vivamus hendrerit arcu sed erat molestie vehicula. Sed auctor neque eu tellus rhoncus ut eleifend nibh porttitor feugiat nisl ut dapibus. Mauris iaculis porttitor posuere. Praesent.</dd>
-    </div>
-    <div>
-      <dt>The last thing that inspired me was</dt>
-      <dd>Vestibulum mollis mauris enim. Morbi euismod magna ac lorem rutrum elementum. Donec viverra.</dd>
-    </div>
-    <div class="last">
-      <dt>The last meal I cooked at home was</dt>
-      <dd>Nam vestibulum, arcu sodales feugiat consectetur, nisl orci bibendum elit.</dd>
-    </div>
-  </dl>
-</div>
 
 <div class="span-6" id="behindline">
   <h3 class="profile_subhead">Behind the Line with: <%= @user.name %></h3>
