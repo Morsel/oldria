@@ -78,8 +78,14 @@ class UsersController < ApplicationController
     if request.post?
       if user = User.find_by_email(params[:email])
         UserMailer.deliver_signup user
-        flash[:notice] = "We just sent you a new confirmation email. Click the link in the email and you'll be ready to go!"
-        redirect_to root_path
+
+        if current_user && current_user.admin?
+          flash[:notice] = "A confirmation email was just sent to #{user.name}"
+          redirect_to admin_users_path
+        else
+          flash[:notice] = "We just sent you a new confirmation email. Click the link in the email and you'll be ready to go!"
+          redirect_to root_path
+        end
       else
         flash[:error] = "Sorry, we can't find a user with that email address. Try again?"
       end
@@ -135,8 +141,15 @@ class UsersController < ApplicationController
   def fb_page_auth
     @user = User.find(params[:id])
     @page = current_facebook_user.accounts.select { |a| a.id == params[:facebook_page] }.first
-    @user.update_attributes(:facebook_page_id => @page.id, :facebook_page_token => @page.access_token)
-    flash[:notice] = "Added Facebook page #{@page.name} to your account"
+
+    if @page
+      @user.update_attributes!(:facebook_page_id => @page.id, :facebook_page_token => @page.access_token)
+      flash[:notice] = "Added Facebook page #{@page.name} to your account"
+    else
+      @user.update_attributes!(:facebook_page_id => nil, :facebook_page_token => nil)
+      flash[:notice] = "Cleared the Facebook page settings from your account"
+    end
+
     redirect_to :action => "edit", :id => @user.id
   end
 
