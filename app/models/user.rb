@@ -87,6 +87,8 @@ class User < ActiveRecord::Base
                       Usernames can only contain letters, numbers, and/or the '-' symbol."
 
   validates_acceptance_of :agree_to_contract
+  
+  validates_presence_of :facebook_page_token, :if => Proc.new { |user| user.facebook_page_id }
 
   named_scope :media, :conditions => {:role => 'media'}
   named_scope :admin, :conditions => {:role => 'admin'}
