@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100805194513) do
+ActiveRecord::Schema.define(:version => 20100805222713) do
 
   create_table "admin_conversations", :force => true do |t|
     t.integer  "recipient_id"
@@ -569,9 +569,9 @@ ActiveRecord::Schema.define(:version => 20100805194513) do
     t.integer  "james_beard_region_id"
     t.string   "publication"
     t.string   "role"
-    t.integer  "facebook_id"
+    t.string   "facebook_id"
     t.string   "facebook_access_token"
-    t.integer  "facebook_page_id"
+    t.string   "facebook_page_id"
     t.string   "facebook_page_token"
   end
 
