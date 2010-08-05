@@ -2,40 +2,31 @@
   <div class="span-5 append-1">
     <h3>Work Experience</h3>
     <ul class="employments clearfix">
-    <% for employment in user.employments %>
-      <li>
-        <%= image_tag 'avatar_restaurant.gif', :width=>'50', :class => 'restaurant_avatar pull-1' %>
-        <a class="organization"><%= employment.restaurant.name %></a><br />
-        <span class="employee_role"><%= employment.restaurant_role.try(:name) %></span>
-      </li>
+    <% profile && profile.experience_items.each do |item| %>
+      <li><%= item.content %></li>
     <% end %>
     </ul>
+
     <h3>Awards</h3>
     <ul class="awards">
-      <li>James Beard Menu Award 2009</li>
-      <li>Midwest Association Restaurant of the Year 2008</li>
+      <% profile && profile.awards_items.each do |item| %>
+        <li><%= item.content %></li>
+      <% end %>
     </ul>
   </div>
   <div class="span-5 last">
     <h3>Education</h3>
     <ul class="education">
-      <li>
-        <a class="organization" href="/">Minnesota University</a><br />
-        Minneapolis, MN<br />
-        September 2004 &ndash; May 2005
-
-      </li>
-      <li>
-        <a class="organization" href="/">Midwest Culinary Institute</a><br />
-        Chicago, IL<br />
-        August 2005 &ndash; June 2008
-      </li>
+      <% profile && profile.education_items.each do |item| %>
+        <li><%= simple_format item.content %></li>
+      <% end %>
     </ul>
 
     <h3>Certifications And Professional Associations</h3>
     <ul class="associations">
-      <li><a href="/">James Beard Menu Award 2009</a></li>
-      <li>Midwest Association Restaurant of the Year 2008</li>
+      <% profile && profile.associations_items.each do |item| %>
+        <li><%= item.content %></li>
+      <% end %>
     </ul>
 
   </div>

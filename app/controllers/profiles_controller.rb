@@ -1,6 +1,7 @@
 class ProfilesController < ApplicationController
   def edit
     @profile = current_user.profile || current_user.create_profile
+    @profile.build_extended_items
   end
 
   def update

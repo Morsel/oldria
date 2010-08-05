@@ -1812,7 +1812,7 @@ ul.responses {
 	float: left;
 }
 
-.attachfield .remove_attachment {
+.attachfield .remove_attachment, .remove_field {
 	display: block;
 	float: left;
 	height: 16px;
@@ -2416,6 +2416,28 @@ p.event-actions a:hover {
 #user_content p.more_statuses a {
 	color: #1D9BBB;
 	}
+	
+	
+form .clonable_fields {
+	margin: 0 0 2em;
+}
+
+form .clonable_fields li {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	line-height: 1;
+}
+
+form .clonable_fields textarea {
+	height: 50px;
+	width: 300px;
+}
+
+.clonable_fields .remove_field {
+	float: none;
+	display: inline-block;
+}
 
 /* @end */
 

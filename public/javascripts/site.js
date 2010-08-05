@@ -410,6 +410,48 @@ if (typeof($.fn.colorbox) != 'undefined') {
     }
 }
 
+// Using this assumes that you've "build" on an association to get new blank field(s)
+$.fn.clonableField = function(options){
+  var config = {};
+  if(options) $.extend(config, options);
+  
+  return this.each(function(){
+    var fieldsContainer = $(this);
+    var fieldprototype = fieldsContainer.children(':last-child').detach();
+    fieldprototype.find('input[type=hidden]').remove();
+    var linkHolder = $('<p class="add-another"><a href="#" class="positive">Add Another</a></p>');
+    var link = linkHolder.find('a.positive');
+
+    link.click(function(){
+      var newfield = fieldprototype.clone();
+      newfield.find('input, textarea').each(function(){
+        var field = $(this);
+        var originalName = field.attr('name');
+        var now = new Date().getTime();
+        field.attr("name", originalName.replace(/(\d)/g, now)).attr('id', "");
+      });
+      linkHolder.before(newfield);
+      return false;
+    });
+
+    fieldsContainer.append(linkHolder);
+  });
+};
+
+
+
+$('.clonable_fields').clonableField();
+
+function remove_fields() {
+  var link = $(this);
+  link.siblings("input.hidden_destroy").attr('value', '1');
+  link.siblings(".input").hide();
+  link.parent().hide();
+  link.remove();
+  return false;
+}
+
+$('a.remove_field').live('click', remove_fields);
 
 function setupProfileProgressbar(selector) {
   var profile_progressbar = $(selector);
