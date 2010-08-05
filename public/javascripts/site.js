@@ -498,5 +498,5 @@ $('#profile_questions tbody').sortable({
 // Admin page row highlighting
 
 $(function() {
-  $(window.location.hash + " td").effect("highlight", {}, 3000);
+  $(".admin_backend #pages " + window.location.hash + " td").effect("highlight", {}, 3000);
 });
