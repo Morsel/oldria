@@ -1,4 +1,4 @@
-# This file is auto-generated from the current state of the database. Instead of editing this file,
+# This file is auto-generated from the current state of the database. Instead of editing this file, 
 # please use the migrations feature of Active Record to incrementally modify your database, and
 # then regenerate this schema definition.
 #
@@ -232,8 +232,6 @@ ActiveRecord::Schema.define(:version => 20100803224657) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
-
-  add_index "feed_categories", ["id"], :name => "index_feed_categories_on_id", :unique => true
 
   create_table "feed_entries", :force => true do |t|
     t.string   "title"
