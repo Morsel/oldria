@@ -411,17 +411,18 @@ if (typeof($.fn.colorbox) != 'undefined') {
 }
 
 
+function setupProfileProgressbar(selector) {
+  var profile_progressbar = $(selector);
+  if (profile_progressbar.length) {
+    var percent = parseInt(profile_progressbar.siblings('.numeral').text(), 10);
 
-var profile_progressbar = $('#profile_completeness_progressbar');
-if (profile_progressbar.length) {
-  var percent = parseInt(profile_progressbar.siblings('.numeral').text(), 10);
-  
-  console.log(percent);
-
-  profile_progressbar.progressbar({
-    value: percent
-  });
+    profile_progressbar.progressbar({
+      value: percent
+    });
+  }  
 }
+
+setupProfileProgressbar('#profile_completeness_progressbar');
 
 
 // Cleaning up email fields
