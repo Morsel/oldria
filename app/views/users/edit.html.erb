@@ -37,9 +37,10 @@
     <p><%= link_to "Help?  Read everything you need to know about Facebook in the Marketing Manual.", public_page_path('facebook_101_introduction') %></p>
 
     <%- if @fb_user -%>
-      <p>You are currently linked to your Facebook account <em>"<%= @fb_user.name %>"</em>. You can connect to a different Facebook profile by disconnecting below, then setting up Facebook again.</p>
-      <%= fb_logout_link "#{image_tag('x.png')} Disconnect", fb_deauth_user_path(@user), :class => 'button negative' %>
-  
+      <p>
+          You are currently linked to your Facebook account <em>"<%= @fb_user.name %>"</em>. You can connect to a different Facebook profile by disconnecting below, then setting up Facebook again.<br/>
+          <%= fb_logout_link "#{image_tag('x.png')} Disconnect", fb_deauth_user_path(@user), :class => 'button negative' %>
+      </p>
       <% unless @fb_user.accounts.blank? %>
         <div class="clear" style="padding-top: 1em;">
             <p>Configure a page to post status updates to:</p>
