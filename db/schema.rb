@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100805161843) do
+ActiveRecord::Schema.define(:version => 20100805194513) do
 
   create_table "admin_conversations", :force => true do |t|
     t.integer  "recipient_id"
@@ -226,6 +226,14 @@ ActiveRecord::Schema.define(:version => 20100805161843) do
   end
 
   add_index "events", ["restaurant_id"], :name => "index_events_on_restaurant_id"
+
+  create_table "extended_profile_items", :force => true do |t|
+    t.integer  "profile_id"
+    t.string   "category"
+    t.text     "content"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "feed_categories", :force => true do |t|
     t.string   "name"
