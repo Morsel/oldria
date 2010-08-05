@@ -89,6 +89,7 @@ class User < ActiveRecord::Base
   validates_acceptance_of :agree_to_contract
   
   validates_presence_of :facebook_page_token, :if => Proc.new { |user| user.facebook_page_id }
+  validates_presence_of :facebook_page_id, :if => Proc.new { |user| user.facebook_page_token }
 
   named_scope :media, :conditions => {:role => 'media'}
   named_scope :admin, :conditions => {:role => 'admin'}
@@ -244,7 +245,7 @@ class User < ActiveRecord::Base
   end
   
   def facebook_authorized?
-    !facebook_id.nil? and !facebook_access_token.nil?
+    facebook_id.present? and facebook_access_token.present?
   end
   
   def facebook_user
@@ -254,7 +255,7 @@ class User < ActiveRecord::Base
   end
   
   def has_facebook_page?
-    !facebook_page_id.nil? and !facebook_page_token.nil?
+    facebook_page_id.present? and facebook_page_token.present?
   end
   
   def facebook_page

@@ -146,8 +146,8 @@ class UsersController < ApplicationController
       @user.update_attributes!(:facebook_page_id => @page.id, :facebook_page_token => @page.access_token)
       flash[:notice] = "Added Facebook page #{@page.name} to your account"
     else
-      flash[:notice] = "Cleared the Facebook page settings from your account"
       @user.update_attributes!(:facebook_page_id => nil, :facebook_page_token => nil)
+      flash[:notice] = "Cleared the Facebook page settings from your account"
     end
 
     redirect_to :action => "edit", :id => @user.id
