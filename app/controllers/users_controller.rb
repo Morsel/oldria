@@ -78,8 +78,14 @@ class UsersController < ApplicationController
     if request.post?
       if user = User.find_by_email(params[:email])
         UserMailer.deliver_signup user
-        flash[:notice] = "We just sent you a new confirmation email. Click the link in the email and you'll be ready to go!"
-        redirect_to root_path
+
+        if current_user && current_user.admin?
+          flash[:notice] = "A confirmation email was just sent to #{user.name}"
+          redirect_to admin_users_path
+        else
+          flash[:notice] = "We just sent you a new confirmation email. Click the link in the email and you'll be ready to go!"
+          redirect_to root_path
+        end
       else
         flash[:error] = "Sorry, we can't find a user with that email address. Try again?"
       end
