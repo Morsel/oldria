@@ -1899,6 +1899,24 @@ p.editprofile a:hover {
 	color: #fff;
 }
 
+.edit_profile_link {
+	position: absolute;
+	width: 27px;
+	height: 62px;
+	top: 15px;
+	left: -27px;
+	background: url('../images/edit-tab.png') no-repeat;	
+}
+
+.edit_profile_link a {
+	display: block;
+	height: 100%;
+}
+
+.edit_profile_link a span {
+	display: none;
+}
+
 #restaurant_profile_view, .shadow-box {
 	border: 1px solid #ddd;
 	background-color: #fff;
@@ -1923,6 +1941,8 @@ p.editprofile a:hover {
 #user_profile_view {
 	background: #333;
 	color: #ccc;
+	position: relative;
+	overflow: visible;
 }
 
 #user_profile_view, #extended_profile {
@@ -2150,13 +2170,18 @@ dl.things dd {
 
 dl.things dt:after {content: ":"}
 
-#behindline .box {
+#behindline, #recentsoapbox {
+	margin-top: 10px;
+}
+
+#behindline .box { /* ul */
 	border: 1px solid #ccc;
 	border-radius: 0px;
 	-moz-border-radius: 0px;
 	-webkit-border-radius: 0px;
 	margin: 0;
 	padding: 12px;
+	position: relative;
 }
 
 #behindline h5 {

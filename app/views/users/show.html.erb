@@ -1,13 +1,9 @@
 <% title "#{@user.first_name}'s Profile", false %>
-<% if current_user == @user  %>
-<% this_is_me = true %>
-<% content_for :page_actions do -%>
-  <%= link_to "Edit Profile", edit_user_path(@user), :class=>'sf-button' %>
-<% end -%>
-
-<% end -%>
 
 <div id="user_profile_view">
+  <% if current_user == @user %>
+    <div class="edit_profile_link"><a href="/profile/edit"><span>Edit profile</span></a></div>
+  <% end %>
   <div class="name_and_actions">
     <div class="profile_picture">
       <%= image_tag @user.avatar.url(:small), :width=>'100', :class => 'left' %>
@@ -19,7 +15,7 @@
       <span class="restaurant_name"><%= @user.employments.first.try(:restaurant).try(:name) %></span>
     </h4>
 
-    <%= render :partial => 'profile_actions' unless this_is_me || current_user.media?%>
+    <%= render :partial => 'profile_actions' unless (current_user == @user) || current_user.media? %>
   </div><!-- .name_and_actions -->
 
   <dl class="user_info clearfix clear">
@@ -36,12 +32,14 @@
       <% end %>
     </div>
     <div class="span-5 last">
+      <% if @user.profile %>
       <dt>Job Start</dt>
-      <dd>7/31/2009 (FPO)</dd>
+      <dd><%= @user.profile.job_start.try(:strftime, '%B %d, %Y') %></dd>
       <dt>Cell Phone</dt>
-      <dd>(773) 838-1384 (FPO)</dd>
+      <dd><%= @user.profile.cellnumber %></dd>
       <dt>Birthday</dt>
-      <dd>8/27/1973 (FPO)</dd>
+      <dd><%= @user.profile.birthday.try(:strftime, '%B %d') %></dd>
+      <% end %>
     </div>
   </dl><!-- .user_info.contact -->
 
@@ -57,6 +55,9 @@
 <div class="span-6" id="behindline">
   <h3 class="profile_subhead">Behind the Line with: <%= @user.name %></h3>
   <ul class="box">
+    <% if current_user == @user %>
+      <div class="edit_profile_link"><a href="/profile/edit"><span>Edit profile</span></a></div>
+    <% end %>
     <li class="even">
       <h5>Background <span class="completeness">(80% complete)</span></h5>
       This is where Lorem ipsum dolor sit amet

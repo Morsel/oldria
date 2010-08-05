@@ -15,7 +15,10 @@ ActionController::Routing::Routes.draw do |map|
 
   map.resources :soapbox, :only => ['index','show']
 
-  map.profile 'profile/:username', :controller => 'users', :action => 'show'
+  map.resource :profiles, :except => ['show'], :as => 'profile'
+
+  map.profile 'profile/:username', :controller => 'users', :action => 'show', :requirements => { :username => /[\w\d]+/}
+
 
   map.resources :quick_replies
   map.resources :media_users, :except => [:index, :show]

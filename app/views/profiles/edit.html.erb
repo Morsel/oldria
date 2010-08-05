@@ -1,0 +1,11 @@
+<% title "Edit Profile" %>
+
+<% semantic_form_for @profile, :url => profiles_path do |f| %>
+  <% f.inputs do %>
+    <%= f.input :birthday, :as => :string %>
+    <%= f.input :job_start %>
+    <%= f.input :cellnumber %>
+  <% end %>
+  <%= button_tag "Save" %>
+<% end %>
+
