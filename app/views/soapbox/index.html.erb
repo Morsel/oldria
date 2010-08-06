@@ -1,10 +1,10 @@
 <% title "Soapbox", false %>
 
-<div id="soapbox_branding" class="span-12">
+<div id="soapbox_branding" class="span-13">
   <h1>Publicize your restaurant better with Soapbox.</h1>
 </div>
 
-<div id="soapbox_promos" class="span-6 last">
+<div id="soapbox_promos" class="span-5 last">
   <h5><a href="#">Wanna Join?</a></h5>
 </div>
 
@@ -16,7 +16,12 @@
     </h2>
     <div class="question">
       <h4 class="date"><%= @main_feature.soapbox_entry.published_at.try(:strftime, "%b %e, %Y") %></h4>
-      <%= @main_feature.message %>
+      <% if @main_feature.respond_to?(:subject) %>
+        <strong class="subject"><%= @main_feature.subject %></strong>:
+        <%= @main_feature.body %>
+      <% else %>
+        <%= @main_feature.message %>
+      <% end %>
     </div>
 
     <% if @main_feature_comments %>

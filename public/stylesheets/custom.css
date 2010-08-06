@@ -3238,7 +3238,7 @@ a.ui-state-default:hover {
 .ui-tabs .ui-tabs-hide { display: none !important; }
 
 .ui-tabs-nav {
-	height: 33px;
+	height: 30px;
 	list-style: none;
 	margin: 0;
 	padding: 0;
@@ -3246,29 +3246,31 @@ a.ui-state-default:hover {
 
 .ui-tabs-nav li {
 	float: left;
-	padding: 0;
 	border: 1px solid #ddd;
 	border-bottom: 0 none;
 	margin: 0 5px 0 0;
-	font-size: 1.1em;
+	background-color: #fff;
+	font-size: 1.2em;
+	padding: 3px 3px 0;
 }
 
 .ui-tabs-nav .ui-tabs-selected {
-	border: 1px solid #ccc;
+	padding-bottom: 1px;
+	border-color: #ccc;
+	margin-bottom: -1px;
 }
 
 .ui-tabs-nav a {
 	display: block;
-	padding: 5px 10px;
 	text-decoration: none;
+	padding: 2px 6px;
 	color: #0587c1;
+	background-color: #e5f1fa;
 }
 
 .ui-tabs-nav .ui-tabs-selected a {
 	background-color: #fff;
-	padding-bottom: 6px;
-	margin-bottom: -1px;
-	color: #333;
+	color: #f4901e;
 }
 
 .ui-tabs-panel {
@@ -3276,11 +3278,16 @@ a.ui-state-default:hover {
 	padding: 5px;
 }
 
+.ui-tabs-panel div:nth-child(odd) {
+	background-color: #f9f9f9;
+}
+
 .ui-tabs-panel a {
 	display: block;
 	overflow: hidden;
 	padding: 5px 5px 10px;
-	border-bottom: 1px solid #ccc;
+	border-top: 1px solid #ddd;
+	color: #333;
 }
 
 .ui-tabs-panel a:hover {
@@ -3301,6 +3308,7 @@ a.ui-state-default:hover {
 	-webkit-box-shadow: 0 2px 1px rgba(0,0,0, 0.2);
 	-moz-box-shadow: 0 2px 1px rgba(0,0,0, 0.2);
 	box-shadow: 0 2px 1px rgba(0,0,0, 0.2);
+	background-color: #fff;
 }
 
 
@@ -4065,13 +4073,14 @@ p.search_filter_hint {
 /* @group soapbox */
 
 #soapbox_branding {
-	margin-bottom: 40px;	
+	margin-bottom: 10px;
 }
 
 #soapbox_branding h1 {
-	font-family: georgia;
 	font-weight: normal;
-	font-size: 2.4em;
+	font-size: 32px;
+	line-height: 1.4;
+	padding-top: 2px;
 }
 
 #soapbox_branding h4 {
@@ -4093,7 +4102,8 @@ p.search_filter_hint {
 .soapbox_subhead {
 	border-bottom: 0;
 	padding: 0;
-	margin: 8px 0 20px;
+	margin: 8px 0 18px;
+	font-size: 1.8em;
 }
 
 #soapbox_promos h5 {
@@ -4104,7 +4114,7 @@ p.search_filter_hint {
 
 #soapbox_promos a {
 	text-align: center;
-	font-size: 24px;
+	font-size: 30px;
 	font-weight: normal;
 	padding: 14px 16px 10px;
 	display: block;
@@ -4154,6 +4164,7 @@ div.main_feature {
 	font-size: 20px;
 	text-align: center;
 	background: url(../images/banner_small.png) 0 -5px no-repeat;
+	text-shadow: -1px 2px 0px rgba(0,0,0,0.2);
 }
 
 div.main_feature .featured_item_title {
@@ -4161,8 +4172,8 @@ div.main_feature .featured_item_title {
 	height: 90px;
 	padding: 22px 20px 22px 25px;
 	width: 150px;
-	font-size: 28px;
-	line-height: 28px;
+	font-size: 32px;
+	line-height: 32px;
 	background: url(../images/banner_large.png) 0 -5px no-repeat;
 }
 
@@ -4188,11 +4199,13 @@ div.main_feature .admin_qotd .featured_item_title em {	font-size: 32px }
 
 .soapbox_item .question {
 	font-size: 1.3em;
-	padding: 1em 2em;
+	padding: 14px;
 	color: #444;
 	color: #fff;
 	font-size: 1.2em;
+	font-weight: bold;
 	padding-left: 164px;
+	padding-bottom: 18px;
 	margin-bottom: 18px;
 	text-shadow: -1px 1px 1px rgba(0,0,0, 0.4);
 	background: #f4901e;
@@ -4208,10 +4221,10 @@ div.main_feature .admin_qotd .featured_item_title em {	font-size: 32px }
 	padding: 2px 8px;
 	background-color: #fff;
 	background-color: rgba(255,255,255, 0.2);
-	font-size: 12px;
+	font-size: 11px;
 	color: #999;
 	color: rgba(255,255,255, .8);
-	margin: 2px 0 10px 20px;
+	margin: 0 0 10px 20px;
 	text-shadow: 0 0 0;
 }
 
@@ -4223,8 +4236,13 @@ div.main_feature .admin_qotd .featured_item_title em {	font-size: 32px }
 .main_feature .question {
 	background: 0 !important;
 	font-size: 1.3em;
+	font-weight: normal;
 	color: #444;
 	text-shadow: 0 0 0;
+}
+
+.main_feature .question .subject {
+	color: #0587c1;
 }
 
 .soapbox_item .comments {
@@ -4274,8 +4292,9 @@ div.main_feature .comment.last {
 }
 
 .soapbox_item .comment .identity {
-	font-size: 1.3em;
-	margin-bottom: 4px;
+	font-size: 16px;
+	line-height: 19px;
+	margin-bottom: 10px;
 	font-family: 'Hoefler Text', georgia, times, serif;
 }
 
@@ -4304,6 +4323,11 @@ div.main_feature .comment.last {
 
 .main_feature .comment .avatar {
 	margin: 0 10px 10px 0;
+}
+
+.soapbox_item .comment .content p {
+	font-family: 'helvetica neue', helvetica, arial, sans-serif;
+	font-size: 13px;
 }
 
 .soapbox_item .comment .avatar img {

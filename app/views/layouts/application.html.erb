@@ -66,11 +66,13 @@
 
 
 		<div id="leftcolumn" class="<%= display_sidebar? ? 'span-12' : 'span-18 last' %>">
+			<% unless @hide_flashes %>
 			<div id="flashes">
 				<%- flash.each do |name, msg| -%>
 				<%= content_tag :div, msg, :id => "flash_#{name}" %>
 				<%- end -%>
 			</div>
+			<% end %>
 
       <div class="clearfix">
         <div class="page_actions">

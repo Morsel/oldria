@@ -1,8 +1,11 @@
 <% div_for(comment, :class => "column clearfix#{cycle(' clear','','',' last', :name => comment.commentable_type)}") do %>
 <%= link_to "", "#", :name => "comment_#{comment.id}" %>
 <div class="identity">
+  <% unless comment.commentable_type == 'TrendQuestion' %>
     <span class="employee_name"><%= comment.user.name_or_username %></span>,
-    <%= comment.employment.try(:restaurant_role).try(:name) %> at <%= comment.restaurant.try(:name) %> said:
+    <%= comment.employment.try(:restaurant_role).try(:name) %> at
+  <% end %>
+  <%= comment.restaurant.try(:name) %> said:
 </div>
 <% if comment.user.avatar? %>
 <div class="avatar">
@@ -11,10 +14,14 @@
 <% end %>
 <div class="content">
     <% if full_text %>
-      <%= link_to simple_format(comment.comment), soapbox_path(entry_for_comment(comment), :anchor => "comment_#{comment.id}") %>    
+      <%= link_to simple_format(comment.comment), soapbox_path(entry_for_comment(comment), :anchor => "comment_#{comment.id}") %>
     <% else %>
       <%= link_to simple_format(truncate(comment.comment, :length => 120)),
             soapbox_path(entry_for_comment(comment), :anchor => "comment_#{comment.id}") %>
+    <% end %>
+    <% if comment.commentable_type == 'TrendQuestion' %>
+      <span class="employee_name"><%= comment.user.name_or_username %></span>,
+      <%= comment.employment.try(:restaurant_role).try(:name) %>
     <% end %>
 </div>
 <% end %>
