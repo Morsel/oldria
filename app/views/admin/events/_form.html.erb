@@ -6,7 +6,7 @@
         <%= f.input :title %>
         <%= f.input :start_at, :label => "Start Date" %>
         <%= f.input :end_at, :label => "End Date" %>
-        <%= f.input :location, :required => false %>
+        <%= f.input :location, :required => false, :hint => "Location appears in a dropdown for users to sort events per location. Locations should be entered as the closest Metro Area: Chicago, IL" %>
         <%= f.input :description %>
     <% end %>
     
