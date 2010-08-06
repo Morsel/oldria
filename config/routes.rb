@@ -90,7 +90,6 @@ ActionController::Routing::Routes.draw do |map|
   map.resource :feeds
   map.resource :employment_search
 
-
   map.resource :twitter_authorization
   map.resource :friends_statuses, :only => 'show'
   map.resources :invitations, :only => 'show', :collection => { :login => :get }

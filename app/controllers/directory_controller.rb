@@ -2,10 +2,12 @@ class DirectoryController < ApplicationController
   before_filter :require_user
 
   def index
-    @restaurants = Restaurant.paginate(
-                    :order => 'UPPER(name) ASC',
-                    :page => params[:page],
-                    :include => {:employments => [:employee, :restaurant_role]})
+    search_setup
+  end
+
+  def search
+    search_setup
+    render :partial => "search_results"
   end
 
 end
