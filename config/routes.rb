@@ -17,7 +17,7 @@ ActionController::Routing::Routes.draw do |map|
 
   map.resource :profiles, :except => ['show'], :as => 'profile'
 
-  map.profile 'profile/:username', :controller => 'users', :action => 'show', :requirements => { :username => /[\w\d]+/}
+  map.profile 'profile/:username', :controller => 'users', :action => 'show', :requirements => { :username => /[a-zA-Z0-9\-\_ ]+/}
 
 
   map.resources :quick_replies
