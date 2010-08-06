@@ -1,3 +1,4 @@
+<% employments ||= restaurant.employments %>
 <% div_for restaurant, :class => 'clearfix' do %>
   <h2 class="function-bold">
     <%= restaurant.name %>
@@ -5,7 +6,7 @@
   </h2>
 
   <ul class="employees">
-    <% restaurant.employments.each do |employment| %>
+    <% employments.each do |employment| %>
       <% user = employment.employee %>
       <% content_tag_for(:li, user) do %>
         <%= link_to image_tag(user.avatar.url(:thumb)), profile_path(user.username) %>

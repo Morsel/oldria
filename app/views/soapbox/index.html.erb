@@ -15,6 +15,7 @@
       <%= soapbox_tabby_title(@main_feature) %>
     </h2>
     <div class="question">
+      <h4 class="date"><%= @main_feature.soapbox_entry.published_at.try(:strftime, "%b %e, %Y") %></h4>
       <%= @main_feature.message %>
     </div>
 
@@ -37,6 +38,7 @@
       <%= soapbox_tabby_title(@secondary_feature) %>
     </h2>
     <div class="question">
+      <h4 class="date"><%= @main_feature.soapbox_entry.published_at.try(:strftime, "%b %e, %Y") %></h4>
       <%= @secondary_feature.message %>
     </div>
 

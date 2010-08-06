@@ -363,6 +363,25 @@ function updateEmploymentsList() {
 
 $employmentInputs.change(updateEmploymentsList);
 
+// Directory search
+var	$directoryList  = $("#directory_list");
+var $directoryInputs = $("#directory_search #employment_criteria input[type=checkbox]");
+
+$directoryList.before($loaderImg);
+
+function updateDirectoryList() {
+	input_string = $directoryInputs.serialize();
+	$loaderImg.show();
+	$directoryList.hide();
+	$directoryList.load('/directory/search', input_string, function(responseText, textStatus){
+	  $loaderImg.hide();
+	  $directoryList.fadeIn(300);
+	});
+	// return true;	
+}
+
+$directoryInputs.change(updateDirectoryList);
+
 // == New User row highlight ==
 if (location.hash && location.hash.match(/user_\d+$/)) {
   var userRowCells = $(location.hash).find('td');
