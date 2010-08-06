@@ -1,5 +1,6 @@
 class CalendarsController < ApplicationController
 
+  before_filter :require_user
   before_filter :authenticate_employee
   before_filter :parse_and_assign_date
 
