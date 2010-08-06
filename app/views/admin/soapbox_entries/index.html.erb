@@ -8,3 +8,5 @@
 		t.cell(:authorized_comment_count) { |c| c.featured_item.comments.select { |c| c.employment && c.employment.prefers_post_to_soapbox }.size }
 	end %>
 <% end %>
+
+<%= will_paginate(@soapbox_entries) %>
