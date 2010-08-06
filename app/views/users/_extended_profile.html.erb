@@ -1,0 +1,43 @@
+<div id="extended_profile" class="clearfix">
+  <div class="span-5 append-1">
+    <h3>Work Experience</h3>
+    <ul class="employments clearfix">
+    <% for employment in user.employments %>
+      <li>
+        <%= image_tag 'avatar_restaurant.gif', :width=>'50', :class => 'restaurant_avatar pull-1' %>
+        <a class="organization"><%= employment.restaurant.name %></a><br />
+        <span class="employee_role"><%= employment.restaurant_role.try(:name) %></span>
+      </li>
+    <% end %>
+    <% profile && profile.experience_items.each do |item| %>
+      <li>
+        <%= image_tag 'avatar_restaurant.gif', :width=>'50', :class => 'restaurant_avatar pull-1' %>
+        <%= item.content %>
+      </li>
+    <% end %>
+    </ul>
+
+    <h3>Awards</h3>
+    <ul class="awards">
+      <% profile && profile.awards_items.each do |item| %>
+        <li><%= item.content %></li>
+      <% end %>
+    </ul>
+  </div>
+  <div class="span-5 last">
+    <h3>Education</h3>
+    <ul class="education">
+      <% profile && profile.education_items.each do |item| %>
+        <li><%= simple_format item.content %></li>
+      <% end %>
+    </ul>
+
+    <h3>Certifications And Professional Associations</h3>
+    <ul class="associations">
+      <% profile && profile.associations_items.each do |item| %>
+        <li><%= item.content %></li>
+      <% end %>
+    </ul>
+
+  </div>
+</div>

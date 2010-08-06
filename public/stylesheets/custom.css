@@ -1453,7 +1453,7 @@ h3.this-month {
 	float: right;
 	margin: -30px 10px 0px 0px;
 }
-	
+
 .RIA-recos p {margin: 0px;color:#69A74D;}
 .RIA-recos p label {margin: 0px;color:#57953b;}
 
@@ -1812,7 +1812,7 @@ ul.responses {
 	float: left;
 }
 
-.attachfield .remove_attachment {
+.attachfield .remove_attachment, .remove_field {
 	display: block;
 	float: left;
 	height: 16px;
@@ -1899,7 +1899,25 @@ p.editprofile a:hover {
 	color: #fff;
 }
 
-#user_profile_view, .user.box, #restaurant_profile_view, .shadow-box {
+.edit_profile_link {
+	position: absolute;
+	width: 27px;
+	height: 62px;
+	top: 15px;
+	left: -27px;
+	background: url('../images/edit-tab.png') no-repeat;
+}
+
+.edit_profile_link a {
+	display: block;
+	height: 100%;
+}
+
+.edit_profile_link a span {
+	display: none;
+}
+
+#restaurant_profile_view, .shadow-box {
 	border: 1px solid #ddd;
 	background-color: #fff;
 	margin-bottom: 30px;
@@ -1908,8 +1926,101 @@ p.editprofile a:hover {
 	box-shadow: 1px 1px 3px #ddd;
 }
 
+.profile_subhead {
+	color: #666;
+	font-weight: normal;
+	font-family: "Hoefler Text", georgia, serif;
+	font-size: 1.4em;
+}
+
+/* These are being hidden for now */
+#following, #followers, #user_content, .user_profile_actions {
+	display: none;
+}
+
 #user_profile_view {
-	background: #fff url(../images/white_gray.png) 50% 0;
+	background: #333;
+	color: #ccc;
+	position: relative;
+	overflow: visible;
+}
+
+#user_profile_view, #extended_profile {
+	padding: 16px;
+}
+
+#profile_completeness {
+	float: right;
+	height: 90px;
+	padding: 15px 20px 20px 18px;
+	margin-top: -22px;
+	width: 150px;
+	color: #eee;
+	color: rgba(255,255,255, 0.9);
+	font-size: 14px;
+	text-transform: uppercase;
+	background: url(../images/banner_large.png) 0 -5px no-repeat;
+	padding: 22px 20px 22px 25px;
+}
+
+#profile_completeness_progressbar {
+	margin: 6px 0 0;
+	height: 18px;
+	border: 1px solid #fff;
+	background: #fff;
+}
+
+#user_profile_view h2, #user_profile_view p {
+	color: #ccc;
+}
+
+#user_profile_view .user_name,
+#user_profile_view .user_employment {
+	font-family: "Hoefler Text", georgia, serif;
+}
+
+#user_profile_view .user_name {
+	color: #e3790c;
+	font-weight: normal;
+	font-size: 1.8em;
+	line-height: 1.4;
+	padding: 0;
+	border: 0;
+	margin: 0;
+}
+
+#user_profile_view .user_employment {
+	font-size: 1.3em;
+	color: #ccc;
+}
+
+dl.user_info {
+	font-size: 1.1em;
+	margin: 0;
+}
+
+dl.user_info dt, dl.user_info dd {
+	line-height: 1.5;
+}
+
+dl.user_info dt {
+	color: #fff;
+	width: 70px;
+	float: left;
+	clear: left;
+	margin: 0 10px;
+	text-align: right;
+	font-weight: normal;
+}
+
+dl.user_info dt:after {
+	content: ":";
+}
+
+dl.user_info dd {
+	margin-top: 0;
+	margin-left: 80px;
+	color: #e3790c;
 }
 
 #user_profile_view img, #restaurant_profile_view img{
@@ -1918,29 +2029,208 @@ p.editprofile a:hover {
 	background-color: #fff;
 	float: left;
 	display: inline;
-	margin: 0px 12px 6px 0px;
+	margin: 0px 12px 10px 0px;
 	}
 
-#user_profile_view h2, .user.box h2 {
+#extended_profile_container, #extended_profile {
+	background-color: #4d4d4d;
+}
+
+#extended_profile {
+	padding-top: 0;
+	background: -webkit-gradient(linear, 0 0, 0 bottom, from(#4d4d4d), to(#3a3a3a));
+	background: -moz-linear-gradient(#4d4d4d, #3a3a3a);
+	background: linear-gradient(#4d4d4d, #3a3a3a);
+	-pie-background: linear-gradient(#4d4d4d, #3a3a3a);
+	behavior: url(/PIE.htc);
+}
+
+
+#extended_profile_container .showit {
+	padding: 8px 16px 8px 26px;
+	display: block;
+	outline: none;
+	font-size: 1.1em;
+	text-shadow: -1px 1px 1px #333;
+	background-image: url(../images/arrow-white.png);
+	background-position:10px 50%;
+	background-repeat: no-repeat;
+}
+#extended_profile_container .showit.open {
+	background-image: url(../images/arrow-down-blue.png);
+}
+
+#extended_profile_container .showit    { color: #eaeaea }
+#extended_profile_container .showit em { color: #bbb }
+#extended_profile_container .showit:hover,
+#extended_profile_container .showit:hover em { color: #fff }
+
+#extended_profile_container .showit.open,
+#extended_profile_container .showit.open em { color: #1d9bbb}
+
+#extended_profile h3 {
+	color: #fff;
+	font-family: "Hoefler Text", georgia, serif;
+	font-weight: normal;
+	font-size: 1.5em;
+	border-bottom: 1px dotted #999;
+	margin-top: 1.2em;
+	margin-bottom: 12px;
+	padding-bottom: 2px;
+}
+
+#extended_profile li, #extended_profile li p {
+	color: #fff;
+	line-height: 1.5;
+}
+
+#extended_profile ul {
+	list-style: disc;
+	border-bottom: 0;
+}
+
+#extended_profile .education, #extended_profile .employments {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	list-style: none;
+}
+
+#extended_profile .employments li {
+	padding-left: 56px;
+	border-bottom: 0;
+	overflow: hidden;
+}
+
+
+#extended_profile .education li, #extended_profile .employments li {
+	margin: 0 0 1em;
+}
+
+
+#extended_profile .employee_role {
+	border: 0;
+}
+
+#extended_profile .restaurant_avatar {
+	border: 1px solid #fff;
+	margin-right: 10px;
+}
+
+#extended_profile a {
+	color: #e8750a;
+	display: block;
+	text-decoration: none;
+}
+
+#extended_profile a:hover {
+	color: #eee;
+	text-decoration: underline;
+}
+
+#current_things {
+	margin: 1em 0;
+	padding: 5px;
+	box-shadow: 0px 2px 1px #eee;
+	-moz-box-shadow: 0px 2px 1px #eee;
+	-webkit-box-shadow: 0px 2px 1px #eee;
+}
+
+dl.things {
+	overflow: hidden;
+	margin: 0;
+	padding: 14px 10px;
+	background: #fff;
+	background: -webkit-gradient(linear, 0 0, 0 bottom, from(#fff), to(#eee));
+	background: -moz-linear-gradient(#fff, #eee);
+	background: linear-gradient(#fff, #eee);
+	-pie-background: linear-gradient(#ffffff, #eeeeee);
+	behavior: url(/PIE.htc);
+}
+
+dl.things div {
+	margin-right: 20px;
+	padding-right: 19px;
+	border-right: 1px dotted #ccc;
+	width: 172px;
+	float: left;
+}
+
+dl.things div.last {
+	padding-right: 0;
+	border-right: 0;
+	margin-right: 0;
+}
+
+dl.things dt {
+	margin: 0 0 1em;
+	font-weight: normal;
+}
+
+dl.things dd {
+	font-weight: bold;
+	font-size: 1.1em;
+}
+
+dl.things dt:after {content: ":"}
+
+#behindline, #recentsoapbox {
+	margin-top: 10px;
+}
+
+#behindline .box { /* ul */
+	border: 1px solid #ccc;
+	border-radius: 0px;
+	-moz-border-radius: 0px;
+	-webkit-border-radius: 0px;
+	margin: 0;
+	padding: 12px;
+	position: relative;
+}
+
+#behindline h5 {
+	color: #e8750a;
+	margin: 0;
+}
+
+#behindline .completeness {
+	color: #999;
+	font-weight: normal;
+	font-size: 9px;
+	font-family: "Lucida Grande", sans-serif;
+	float: right;
+	text-transform: uppercase;
+}
+
+#behindline li {
+	list-style: none;
+	padding: 5px 10px;
+}
+
+#behindline li.even {
+	background-color: #fdf6ee;
+}
+
+.user.box h2 {
 	margin: 0px;
 	padding: 0px;
 	font:bold 1.6em "Helvetica Neue", Helvetica, Arial, sans-serif;
-	}
+}
 
-#user_profile_view h3, .user.box h3, #user_profile_view p, .user.box p {
+.user.box h3, .user.box p {
 	line-height: 21px;
 	margin: 0px 0px 0px 0px;
 	padding: 0px;
 	font:bold 1em "Lucida Grande", Arial, sans-serif;
 	}
-#user_profile_view h4, .user.box h4 {
+.user.box h4 {
 	margin:5px 0px;
 	font-weight: bold;
 	padding: 0px;
 	clear: both;
 	}
 
-#user_profile_view p, .user.box p {
+.user.box p {
 	margin: 0px 0px 12px 0px;
 	padding: 0px;
 	}
@@ -2130,6 +2420,28 @@ p.event-actions a:hover {
 #user_content p.more_statuses a {
 	color: #1D9BBB;
 	}
+
+
+form .clonable_fields {
+	margin: 0 0 2em;
+}
+
+form .clonable_fields li {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	line-height: 1;
+}
+
+form .clonable_fields textarea {
+	height: 50px;
+	width: 300px;
+}
+
+form .clonable_fields textarea,
+form .clonable_fields input {
+	float: left;
+}
 
 /* @end */
 
@@ -3266,6 +3578,7 @@ a.ui-state-default:hover {
 	padding: 2px 6px;
 	color: #0587c1;
 	background-color: #e5f1fa;
+	outline: none;
 }
 
 .ui-tabs-nav .ui-tabs-selected a {
@@ -3319,6 +3632,14 @@ a.ui-state-default:hover {
 	color: #eee;
 	background-color: rgba(0,0,0, 0.1);
 
+}
+
+.ui-progressbar-value {
+	height: 100%;
+	background: #f4901e;
+	background: -webkit-gradient(linear, 0 0, right 0, from(#f4901e), to(#e3790c));
+	background: -moz-linear-gradient(left center, #f4901e, #e3790c);
+	background: linear-gradient(left center, #f4901e, #e3790c);
 }
 
 /* tables */

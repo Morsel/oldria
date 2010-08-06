@@ -71,7 +71,41 @@ $("a[href$=" + topLevelSection + "]", $navigationList)
   .parent().addClass("selected");
 
 
+//
+// Use this when you want a link to slidetoggle the element it's href points to:
+//
+//   <a href="#box">Toggles the element with id "box"</a>
+$.fn.showy = function(){
+  return this.each(function(){
+    var hidable = $(this.hash);
+
+    // Just in case it starts out shown, hide it
+    if (hidable.is(":visible")) {
+      hidable.hide();
+      hidable.removeClass('open');
+    }
+
+    $(this).click(function(e) {
+      var link = $(this);
+      hidable.slideToggle(200);
+      link.toggleClass('open');
+      hidable.toggleClass('open');
+      
+      var text = link.text();
+      if (link.hasClass('open')) {
+        link.text(text.replace(/View/, 'Close'));
+      } else {
+        link.text(text.replace(/Close/, 'View'));
+      }
+      return false;
+    });
+  });
+};
+
+$(".showit").showy();
+
 // == Comment attachments
+
 
 jQuery.fn.attachmentCloner = function() {
   return this.each(function(){
@@ -212,7 +246,7 @@ var selectOmniscientRoles = function(){
     $omniscientRoleCheckboxes.enable();
     $omniscientRoleCheckboxes.removeAttr('checked');
   }
-}
+};
 
 $omniscientField.change(selectOmniscientRoles);
 
@@ -395,6 +429,63 @@ if (typeof($.fn.colorbox) != 'undefined') {
     }
 }
 
+// Using this assumes that you've "build" on an association to get new blank field(s)
+$.fn.clonableField = function(options){
+  var config = {};
+  if(options) $.extend(config, options);
+  
+  return this.each(function(){
+    var fieldsContainer = $(this);
+    var fieldprototype = fieldsContainer.children(':last-child').detach();
+    fieldprototype.find('input[type=hidden]').remove();
+    var linkHolder = $('<p class="add-another"><a href="#" class="positive">Add Another</a></p>');
+    var link = linkHolder.find('a.positive');
+
+    link.click(function(){
+      var newfield = fieldprototype.clone();
+      newfield.find('input, textarea').each(function(){
+        var field = $(this);
+        var originalName = field.attr('name');
+        var now = new Date().getTime();
+        field.attr("name", originalName.replace(/(\d)/g, now)).attr('id', "");
+      });
+      linkHolder.before(newfield);
+      return false;
+    });
+
+    fieldsContainer.append(linkHolder);
+  });
+};
+
+
+
+$('.clonable_fields').clonableField();
+
+function remove_fields() {
+  var link = $(this);
+  link.siblings("input.hidden_destroy").attr('value', '1');
+  link.siblings(".input").hide();
+  link.parent().hide();
+  link.remove();
+  return false;
+}
+
+$('a.remove_field').live('click', remove_fields);
+
+function setupProfileProgressbar(selector) {
+  var profile_progressbar = $(selector);
+  if (profile_progressbar.length) {
+    var percent = parseInt(profile_progressbar.siblings('.numeral').text(), 10);
+
+    profile_progressbar.progressbar({
+      value: percent
+    });
+  }  
+}
+
+setupProfileProgressbar('#profile_completeness_progressbar');
+
+
 // Cleaning up email fields
 $('#user_email').blur(function() {
   this.value = jQuery.trim(this.value);
@@ -402,6 +493,26 @@ $('#user_email').blur(function() {
 
 
 $('.soapbox_sidebar').tabs();
+$('.tabable').tabs();
+
+// Profile question admin
+$('#profile_chapters tbody').sortable({
+	axis:'y',
+	dropOnEmpty:false,
+	update: function(){
+		$.ajax({ data:$(this).sortable('serialize', { key: 'chapters[]' }), dataType:'script', type:'post', url:'/admin/profile_questions/sort'
+		});
+	}
+});
+
+$('#profile_questions tbody').sortable({
+	axis:'y',
+	dropOnEmpty:false,
+	update: function(){
+		$.ajax({ data:$(this).sortable('serialize', { key: 'profile_questions[]' }), dataType:'script', type:'post', url:'/admin/profile_questions/sort'
+		});
+	}
+});
 
 // Admin page row highlighting
 

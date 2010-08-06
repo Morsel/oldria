@@ -12,6 +12,7 @@ class UsersController < ApplicationController
 
   def show
     get_user
+    require_visibility
     # Is the current user following this person?
     @following = current_user.followings.first(:conditions => {:friend_id => @user.id})
     @latest_statuses = @user.statuses.all(:limit => 5)
@@ -186,6 +187,13 @@ class UsersController < ApplicationController
     @users = User.for_autocomplete.find_all_by_name(params[:q]) if params[:q]
     if @users
       render :text => @users.map(&:name).join("\n")
+    end
+  end
+  
+  def require_visibility
+    unless @user.prefers_publish_profile || (@user == current_user) || current_user.admin?
+      flash[:error] = "Sorry, that page isn't available to view."
+      redirect_to root_path 
     end
   end
 

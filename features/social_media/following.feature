@@ -25,8 +25,8 @@ Feature: Follow a SpoonFeed member, See who's following me
 
   Scenario: Unfollow someone
     Given "friendly" is following "otherguy"
-    When I am on the profile page for "friendly"
-    And I follow "stop following this user"
+    When I am on the profile page for "otherguy"
+    And I follow "Stop following this user"
     Then I should see "you aren't following them anymore"
     And "friendly" should be following 0 users
 
@@ -35,11 +35,12 @@ Feature: Follow a SpoonFeed member, See who's following me
     Given I am on the profile page for "friendly"
     Then I should not see "follow this user"
 
-
-  Scenario: Listing followers
-    Given "friendly" is following "otherguy"
-    When I am on the profile page for "otherguy"
-    Then I should see "John Appleseed"
+  # The new profile page makes this defunct for now
+  #
+  # Scenario: Listing followers
+  #   Given "friendly" is following "otherguy"
+  #   When I am on the profile page for "otherguy"
+  #   Then I should see "John Appleseed"
 
 
   Scenario: Viewing Friends Activity
@@ -48,8 +49,3 @@ Feature: Follow a SpoonFeed member, See who's following me
       | message        |
       | I just ate     |
       | I ate too much |
-    # When I am on the homepage
-    #     Then I should see "I just ate" within "Friend Activity" section
-    #     And I should see "I ate too much" within "Friend Activity" section
-    # TODO switch over to timelines
-

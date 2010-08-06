@@ -30,6 +30,10 @@ Factory.define :media_user, :parent => :user do |f|
   f.role 'media'
 end
 
+Factory.define :profile do |f|
+  f.association :user
+end
+
 # == Restaurants ==
 Factory.define :restaurant do |f|
   f.name    "Joe's Diner"
@@ -87,6 +91,20 @@ Factory.define :admin_event, :parent => "event" do |f|
   f.end_at Date.today.end_of_day
   f.location "the restaurant"
   f.category "Charity"
+end
+
+Factory.define :topic do |f|
+  f.title "Professional background"
+end
+
+Factory.define :chapter do |f|
+  f.title "Early career"
+  f.association :topic
+end
+
+Factory.define :profile_question do |f|
+  f.title "Where did you train?"
+  f.association :chapter
 end
 
 # == Lookup Tables ==
