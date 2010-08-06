@@ -24,7 +24,7 @@
     <% unless Rails.env.production? %>
       <div class="soapbox new_feature">
         <h4>Soapbox for Marketing yourself</h4>
-        <%= link_to "Soapbox", '/soapbox' %>
+        <%= link_to "Soapbox", root_url(:subdomain => 'soapbox') %>
       </div>
     <% end %>
 

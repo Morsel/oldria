@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
   before_filter :require_user, :only => [:show]
-  before_filter :require_no_user, :only => [:new, :resend_confirmation]
-  before_filter :require_owner_or_admin, :only => [:edit, :update, :remove_twitter, :remove_avatar, :fb_auth, :fb_connect]
+  before_filter :require_no_user, :only => [:new]
+  before_filter :require_owner_or_admin, :only => [:edit, :update, :remove_twitter, :remove_avatar, :fb_auth, :fb_connect, :fb_page_auth]
   before_filter :block_media, :only => [:new]
 
   def index
@@ -34,6 +34,7 @@ class UsersController < ApplicationController
 
   def edit
     @user = User.find(params[:id])
+    @fb_user = current_facebook_user.fetch if current_facebook_user && @user.facebook_authorized?
   end
 
   def update
@@ -73,11 +74,18 @@ class UsersController < ApplicationController
   end
   
   def resend_confirmation
+    require_no_user unless current_user && current_user.admin?
     if request.post?
       if user = User.find_by_email(params[:email])
         UserMailer.deliver_signup user
-        flash[:notice] = "We just sent you a new confirmation email. Click the link in the email and you'll be ready to go!"
-        redirect_to root_path
+
+        if current_user && current_user.admin?
+          flash[:notice] = "A confirmation email was just sent to #{user.name}"
+          redirect_to admin_users_path
+        else
+          flash[:notice] = "We just sent you a new confirmation email. Click the link in the email and you'll be ready to go!"
+          redirect_to root_path
+        end
       else
         flash[:error] = "Sorry, we can't find a user with that email address. Try again?"
       end
@@ -127,6 +135,21 @@ class UsersController < ApplicationController
       end
       flash[:notice] = "Your Facebook account has been connected to your spoonfeed account"
     end
+    redirect_to :action => "edit", :id => @user.id
+  end
+  
+  def fb_page_auth
+    @user = User.find(params[:id])
+    @page = current_facebook_user.accounts.select { |a| a.id == params[:facebook_page] }.first
+
+    if @page
+      @user.update_attributes!(:facebook_page_id => @page.id, :facebook_page_token => @page.access_token)
+      flash[:notice] = "Added Facebook page #{@page.name} to your account"
+    else
+      @user.update_attributes!(:facebook_page_id => nil, :facebook_page_token => nil)
+      flash[:notice] = "Cleared the Facebook page settings from your account"
+    end
+
     redirect_to :action => "edit", :id => @user.id
   end
 

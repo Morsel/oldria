@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100802191740) do
+ActiveRecord::Schema.define(:version => 20100805222713) do
 
   create_table "admin_conversations", :force => true do |t|
     t.integer  "recipient_id"
@@ -227,13 +227,19 @@ ActiveRecord::Schema.define(:version => 20100802191740) do
 
   add_index "events", ["restaurant_id"], :name => "index_events_on_restaurant_id"
 
+  create_table "extended_profile_items", :force => true do |t|
+    t.integer  "profile_id"
+    t.string   "category"
+    t.text     "content"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "feed_categories", :force => true do |t|
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
-
-  add_index "feed_categories", ["id"], :name => "index_feed_categories_on_id", :unique => true
 
   create_table "feed_entries", :force => true do |t|
     t.string   "title"
@@ -420,6 +426,17 @@ ActiveRecord::Schema.define(:version => 20100802191740) do
     t.integer  "position",   :default => 0
   end
 
+  create_table "profiles", :force => true do |t|
+    t.integer  "user_id",    :null => false
+    t.date     "birthday"
+    t.date     "job_start"
+    t.string   "cellnumber"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "profiles", ["user_id"], :name => "index_profiles_on_user_id", :unique => true
+
   create_table "readings", :force => true do |t|
     t.string   "readable_type"
     t.integer  "readable_id"
@@ -497,6 +514,8 @@ ActiveRecord::Schema.define(:version => 20100802191740) do
     t.boolean  "queue_for_social_media"
     t.boolean  "queue_for_facebook"
     t.integer  "facebook_id"
+    t.boolean  "queue_for_facebook_page", :default => false
+    t.integer  "facebook_page_id"
   end
 
   add_index "statuses", ["user_id"], :name => "index_statuses_on_user_id"
@@ -550,8 +569,10 @@ ActiveRecord::Schema.define(:version => 20100802191740) do
     t.integer  "james_beard_region_id"
     t.string   "publication"
     t.string   "role"
-    t.integer  "facebook_id"
+    t.string   "facebook_id"
     t.string   "facebook_access_token"
+    t.string   "facebook_page_id"
+    t.string   "facebook_page_token"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email"

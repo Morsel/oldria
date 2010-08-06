@@ -1,3 +1,16 @@
+# == Schema Information
+# Schema version: 20100802191740
+#
+# Table name: profile_questions
+#
+#  id         :integer         not null, primary key
+#  chapter_id :integer
+#  title      :string(255)
+#  created_at :datetime
+#  updated_at :datetime
+#  position   :integer         default(0)
+#
+
 require 'spec_helper'
 
 describe ProfileQuestion do

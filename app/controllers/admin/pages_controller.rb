@@ -29,7 +29,7 @@ class Admin::PagesController < Admin::AdminController
     @page = Page.find(params[:id])
     if @page.update_attributes(params[:page])
       flash[:notice] = "Successfully updated page."
-      redirect_to admin_pages_path
+      redirect_to admin_pages_path(:anchor => "page_#{@page.id}")
     else
       render :edit
     end

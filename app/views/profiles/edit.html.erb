@@ -1,0 +1,59 @@
+<% title "Edit Profile" %>
+
+<% semantic_form_for @profile, :url => profiles_path do |f| %>
+  <% f.inputs :name => 'Basics' do %>
+    <%= f.input :birthday, :as => :string %>
+    <%= f.input :job_start %>
+    <%= f.input :cellnumber %>
+  <% end %>
+
+  <fieldset>
+  <legend>Extended Profile</legend>
+  <h3>Work Experience</h3>
+  <ul class="clonable_fields">
+  <% f.fields_for :experience_items do |form| -%>
+    <li>
+      <%= form.hidden_field :_destroy, :class => 'hidden_destroy' %>
+      <%= form.text_field :content, :class => 'text input' %>
+      <a href="#" class="remove_field">Remove</a>
+    </li>
+  <% end -%>
+  </ul>
+
+  <h3>Awards</h3>
+  <ul class="clonable_fields">
+  <% f.fields_for :awards_items do |form| -%>
+    <li>
+      <%= form.hidden_field :_destroy, :class => 'hidden_destroy' %>
+      <%= form.text_field :content, :class => 'text input' %>
+      <a href="#" class="remove_field">Remove</a>
+    </li>
+  <% end -%>
+  </ul>
+
+  <h3>Education</h3>
+  <ul class="clonable_fields">
+  <% f.fields_for :education_items do |form| -%>
+    <li>
+      <%= form.hidden_field :_destroy, :class => 'hidden_destroy' %>
+      <%= form.text_area :content, :class => 'text input' %>
+      <a href="#" class="remove_field">Remove</a>
+    </li>
+  <% end -%>
+  </ul>
+
+  <h3>Professional Associations</h3>
+  <ul class="clonable_fields">
+  <% f.fields_for :associations_items do |form| -%>
+    <li>
+      <%= form.hidden_field :_destroy, :class => 'hidden_destroy' %>
+      <%= form.text_field :content, :class => 'text input' %>
+      <a href="#" class="remove_field">Remove</a>
+    </li>
+  <% end -%>
+  </ul>
+  </fieldset>
+
+  <%= button_tag "Save" %>
+<% end %>
+

@@ -1,3 +1,16 @@
+# == Schema Information
+# Schema version: 20100802191740
+#
+# Table name: chapters
+#
+#  id         :integer         not null, primary key
+#  topic_id   :integer
+#  title      :string(255)
+#  created_at :datetime
+#  updated_at :datetime
+#  position   :integer         default(0)
+#
+
 class Chapter < ActiveRecord::Base
   
   belongs_to :topic

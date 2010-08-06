@@ -56,9 +56,17 @@ module UserMessaging
       end
     end
 
+    def trend_questions_responded
+      TrendQuestion.on_soapbox_with_response_from_user(self)
+    end
+
     # Question of the day
     def unread_qotds
       admin_conversations.current.recent.without_replies.unread_by(self)
+    end
+
+    def qotds_responded
+      Admin::Qotd.on_soapbox_with_response_from_user(self)
     end
 
     # Restaurant staff discussions, site-wide user conversations

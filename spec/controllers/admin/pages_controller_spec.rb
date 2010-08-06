@@ -61,7 +61,7 @@ describe Admin::PagesController do
     it "should redirect when model is valid" do
       Page.any_instance.stubs(:valid?).returns(true)
       put :update, :id => Page.first
-      response.should redirect_to(admin_pages_url)
+      response.should redirect_to(admin_pages_url(:anchor => "page_#{Page.first.id}"))
     end
   end
 

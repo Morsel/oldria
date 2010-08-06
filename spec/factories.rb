@@ -30,6 +30,10 @@ Factory.define :media_user, :parent => :user do |f|
   f.role 'media'
 end
 
+Factory.define :profile do |f|
+  f.association :user
+end
+
 # == Restaurants ==
 Factory.define :restaurant do |f|
   f.name    "Joe's Diner"

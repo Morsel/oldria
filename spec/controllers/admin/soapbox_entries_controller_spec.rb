@@ -66,4 +66,45 @@ describe Admin::SoapboxEntriesController do
       it { response.should render_template(:new) }
     end
   end
+
+  describe "GET edit" do
+    context "with a QOTD" do
+      before do
+        @qotd = Factory.stub(:qotd)
+        @soapbox_entry = Factory.stub(:soapbox_entry, :featured_item => @qotd)
+        SoapboxEntry.expects(:find).returns(@soapbox_entry)
+        get :edit, :id => 1
+      end
+
+      it "should assign @soapbox_entry" do
+        assigns[:soapbox_entry].should == @soapbox_entry
+      end
+    end
+  end
+
+  describe "PUT update" do
+    before do
+      @soapbox_entry = Factory(:soapbox_entry)
+      SoapboxEntry.stubs(:find).returns(@soapbox_entry)
+    end
+
+    context "when model is valid" do
+      before do
+        @soapbox_entry.stubs(:valid?).returns(true)
+        put :update, :id => 101
+      end
+
+      it { response.should redirect_to admin_soapbox_entries_path }
+    end
+
+    context "when model is invalid" do
+      before do
+        @soapbox_entry.stubs(:valid?).returns(false)
+        put :update, :id => 101
+      end
+
+      it { response.should render_template(:edit) }
+    end
+  end
+
 end
