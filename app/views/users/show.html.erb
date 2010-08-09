@@ -1,4 +1,4 @@
-<% title "#{@user.first_name}'s Profile", false %>
+  <% title "#{@user.first_name}'s Profile", false %>
 
 <% unless @user.prefers_publish_profile %>
 <div>
@@ -59,7 +59,7 @@
 
 
 <div class="span-6" id="behindline">
-  <h3 class="profile_subhead">Behind the Line with: <%= @user.name %></h3>
+  <h3 class="profile_subhead">Behind the Line: <%= @user.name %></h3>
   <ul class="box">
     <% if current_user == @user %>
       <div class="edit_profile_link"><a href="/profile/edit"><span>Edit profile</span></a></div>
@@ -96,11 +96,19 @@
   </ul>
 
   <div id="older_qotds_box">
-    <%= render :partial => 'question', :collection => @user.qotds_responded, :local => {:user => @user} %>
+    <% if @user.qotds_responded.present? %>
+      <%= render :partial => 'question', :collection => @user.qotds_responded, :local => {:user => @user} %>
+    <% else %>
+      <p><%= @user.name %> hasn't answered any Questions of the Day yet.</p>
+    <% end %>
   </div>
 
   <div id="older_tqs_box">
-    <%= render :partial => 'question', :collection => @user.trend_questions_responded, :local => {:user => @user} %>
+    <% if @user.qotds_responded.present? %>
+      <%= render :partial => 'question', :collection => @user.trend_questions_responded, :local => {:user => @user} %>
+    <% else %>
+      <p><%= @user.name %> hasn't answered any Trend Questions yet.</p>
+    <% end %>
   </div>
 </div>
 
