@@ -12,7 +12,6 @@ class UsersController < ApplicationController
 
   def show
     get_user
-    require_visibility
     # Is the current user following this person?
     @following = current_user.followings.first(:conditions => {:friend_id => @user.id})
     @latest_statuses = @user.statuses.all(:limit => 5)
