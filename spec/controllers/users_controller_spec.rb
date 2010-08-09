@@ -100,42 +100,5 @@ describe UsersController do
     end
 
   end
-  
-  describe "profile visibility" do
-
-    before(:each) do
-      @current_user = Factory(:user)
-      controller.stubs(:current_user).returns @current_user
-    end    
-
-    it "should allow a user to view another user's profile" do
-      user = Factory(:user)
-      get :show, :id => user.id
-      response.should be_success
-    end
-    
-    it "should not allow a user to view another person's unpublished profile" do
-      user = Factory(:user, :prefers_publish_profile => false)
-      get :show, :id => user.id
-      response.should be_redirect
-    end
-    
-    it "should allow a user to view their own unpublished profile" do
-      @current_user.update_attribute(:prefers_publish_profile, false)
-      get :show, :id => @current_user.id
-      response.should be_success
-    end
-    
-    it "should allow an admin to view any profile" do
-      current_user = Factory(:admin)
-      controller.stubs(:current_user).returns current_user
-      
-      user = Factory(:user, :prefers_publish_profile => false)
-      get :show, :id => user.id
-      
-      response.should be_success
-    end
-
-  end
 
 end

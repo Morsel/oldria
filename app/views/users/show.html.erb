@@ -1,10 +1,4 @@
-  <% title "#{@user.first_name}'s Profile", false %>
-
-<% unless @user.prefers_publish_profile %>
-<div>
-    You are previewing an unpublished profile.
-</div>
-<% end %>
+<% title "#{@user.first_name}'s Profile", false %>
 
 <div id="user_profile_view">
   <% if current_user == @user %>
