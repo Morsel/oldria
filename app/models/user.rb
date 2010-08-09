@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20100803224657
+# Schema version: 20100809212429
 #
 # Table name: users
 #
@@ -25,9 +25,9 @@
 #  james_beard_region_id :integer
 #  publication           :string(255)
 #  role                  :string(255)
-#  facebook_id           :integer
+#  facebook_id           :string(255)
 #  facebook_access_token :string(255)
-#  facebook_page_id      :integer
+#  facebook_page_id      :string(255)
 #  facebook_page_token   :string(255)
 #
 

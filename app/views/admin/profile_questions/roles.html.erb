@@ -1,0 +1,19 @@
+<% title "Profile Question Roles" %>
+
+<% semantic_form_for @role do |f| %>
+    <% f.inputs :class => "plain" do %>
+        <%= f.input :name %>
+        <%= f.input :restaurant_role_ids, 
+                    :as => :check_boxes, 
+                    :collection => RestaurantRole.all, 
+                    :label => "Restaurant Roles" %>
+    <% end %>
+    <p><%= f.submit "Save" %></p>
+<% end %>
+
+<% table_for QuestionRole.all do |t| %>
+    <% t.data do
+        t.cell(:name)
+        t.cell(:roles) { |c| c.restaurant_roles.map(&:name).to_sentence }
+    end %>
+<% end %>

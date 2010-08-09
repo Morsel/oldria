@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100805222713) do
+ActiveRecord::Schema.define(:version => 20100809212429) do
 
   create_table "admin_conversations", :force => true do |t|
     t.integer  "recipient_id"
@@ -438,6 +438,13 @@ ActiveRecord::Schema.define(:version => 20100805222713) do
   end
 
   add_index "profiles", ["user_id"], :name => "index_profiles_on_user_id", :unique => true
+
+  create_table "question_roles", :force => true do |t|
+    t.string   "name"
+    t.string   "restaurant_role_ids"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "readings", :force => true do |t|
     t.string   "readable_type"

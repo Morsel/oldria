@@ -97,6 +97,8 @@ ActionController::Routing::Routes.draw do |map|
   map.resource :friends_statuses, :only => 'show'
   map.resources :invitations, :only => 'show', :collection => { :login => :get }
   map.resource :complete_registration, :only => [:show, :update]
+  
+  map.resources :question_roles
 
   map.resource :search, :only => 'show'
 
@@ -116,7 +118,7 @@ ActionController::Routing::Routes.draw do |map|
     admin.resources :calendars
     admin.resources :events
     admin.resources :soapbox_entries
-    admin.resources :profile_questions, :collection => { :manage => :get, :sort => :post }
+    admin.resources :profile_questions, :collection => { :manage => :get, :sort => :post, :roles => :get }
     map.admin_chapters 'admin/profile_questions/chapters', :controller => "admin/profile_questions", :action => "create_chapter"
     map.admin_topics 'admin/profile_questions/topics', :controller => "admin/profile_questions", :action => "create_topic"
 
