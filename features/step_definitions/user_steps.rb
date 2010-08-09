@@ -103,3 +103,7 @@ Then /^"([^\"]*)" should still exist$/ do |username|
   User.find_by_username(username).should_not be_nil
 end
 
+Given /^given that user "([^\"]*)" has just been confirmed$/ do |username|
+  user = User.find_by_username(username)
+  user.confirm!
+end
