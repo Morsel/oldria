@@ -1,6 +1,6 @@
 <% title "Profile Question Roles" %>
 
-<% semantic_form_for @role do |f| %>
+<% semantic_form_for [:admin, @role] do |f| %>
     <% f.inputs :class => "plain" do %>
         <%= f.input :name %>
         <%= f.input :restaurant_role_ids, 
@@ -12,7 +12,7 @@
 <% end %>
 
 <% table_for QuestionRole.all do |t| %>
-    <% t.data do
+    <% t.data :actions => [:edit], :action_prefix => 'admin' do
         t.cell(:name)
         t.cell(:roles) { |c| c.restaurant_roles.map(&:name).to_sentence }
     end %>

@@ -5,7 +5,6 @@
 #
 #  id                  :integer         not null, primary key
 #  name                :string(255)
-#  restaurant_role_ids :string(255)
 #  created_at          :datetime
 #  updated_at          :datetime
 #
@@ -13,11 +12,6 @@
 class QuestionRole < ActiveRecord::Base
 
   validates_presence_of :name
-
-  serialize :restaurant_role_ids
-  
-  def restaurant_roles
-    RestaurantRole.find(restaurant_role_ids.reject { |r| r.blank? })
-  end
+  has_and_belongs_to_many :restaurant_roles
   
 end

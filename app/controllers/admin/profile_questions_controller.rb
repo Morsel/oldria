@@ -74,8 +74,4 @@ class Admin::ProfileQuestionsController < Admin::AdminController
     render :nothing => true
   end
   
-  def roles
-    @role = QuestionRole.new
-  end
-
 end
