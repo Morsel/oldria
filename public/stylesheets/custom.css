@@ -4474,49 +4474,40 @@ div.main_feature {
 }
 
 
+/* Graphical flags */
 .soapbox_item .featured_item_title {
+	padding: 0;
 	float: left;
-	height: 50px;
-	padding: 15px 20px 20px 18px;
-	width: 92px;
-	margin: -12px 20px 12px 14px;
-	color: #eee;
-	color: rgba(255,255,255, 0.8);
-	font-size: 20px;
-	text-align: center;
-	background: url(../images/banner_small.png) 0 -5px no-repeat;
-	text-shadow: -1px 2px 0px rgba(0,0,0,0.2);
+	height: 86px;
+	width: 162px;
+	background: url(../images/soapbox-flags.png) 0 0 no-repeat;
+	border: 0;
+	margin: 5px 10px 10px -20px;
+	text-indent: -999px;
 }
 
 div.main_feature .featured_item_title {
-	margin: -5px 20px 5px;
-	height: 90px;
-	padding: 22px 20px 22px 25px;
-	width: 150px;
-	font-size: 32px;
-	line-height: 32px;
-	background: url(../images/banner_large.png) 0 -5px no-repeat;
+	width: 240px;
+	height: 123px;
+	margin: 15px 15px 15px -16px;
 }
 
-.soapbox_item .featured_item_title em {
-	display: block;
-	color: #fff;
-	font-style: normal;
-	font-size: 1.1em;
+.soapbox_item .admin_qotd .featured_item_title {
+	background-position: -280px -182px;
 }
 
-.soapbox_item .featured_item_title {
-	border: 0;
+.soapbox_item .trend_question .featured_item_title {
+	background-position: -2px -182px;
 }
 
+.main_feature .admin_qotd .featured_item_title {
+	background-position: -280px 0;
+}
 
-.soapbox_item .trend_question .featured_item_title em { font-size: 1.6em}
+.main_feature .trend_question .featured_item_title {
+	background-position: 0 0;
+}
 
-.soapbox_item .admin_qotd .featured_item_title { font-size: 17px }
-.soapbox_item .admin_qotd .featured_item_title em { font-size: 20px }
-
-div.main_feature .admin_qotd .featured_item_title { font-size: 28px; }
-div.main_feature .admin_qotd .featured_item_title em {	font-size: 32px }
 
 .soapbox_item .question {
 	font-size: 1.3em;
@@ -4525,9 +4516,10 @@ div.main_feature .admin_qotd .featured_item_title em {	font-size: 32px }
 	color: #fff;
 	font-size: 1.2em;
 	font-weight: bold;
-	padding-left: 164px;
+	padding-left: 150px;
 	padding-bottom: 18px;
 	margin-bottom: 18px;
+	min-height: 64px;
 	text-shadow: -1px 1px 1px rgba(0,0,0, 0.4);
 	background: #f4901e;
 	background: -webkit-gradient(linear, 0 0, 0 bottom, from(#f4901e), to(#e3790c));
@@ -4560,6 +4552,7 @@ div.main_feature .admin_qotd .featured_item_title em {	font-size: 32px }
 	font-weight: normal;
 	color: #444;
 	text-shadow: 0 0 0;
+	min-height: 100px;
 }
 
 .main_feature .question .subject {
