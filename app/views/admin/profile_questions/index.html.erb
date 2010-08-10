@@ -3,6 +3,7 @@
 <table id="profile_chapters">
     <thead><tr>
         <th>&nbsp;</th>
+        <th>Roles</th>
         <th>Topics</th>
         <th>Chapters</th>
         <th>Q&amp;As</th>
@@ -11,6 +12,7 @@
     <% for chapter in @chapters %>
     <tr id="chapter_<%= chapter.id %>">
         <td class="small handle">[drag]</td>
+        <td><%= chapter.topic.question_roles.map(&:name).to_sentence %></td>
         <td><%= link_to chapter.topic.title, topic_admin_profile_questions_path(:id => chapter.topic) %></td>
         <td><%= link_to chapter.title, chapter_admin_profile_questions_path(:id => chapter) %></td>
         <td><%= chapter.profile_questions.count %></td>
