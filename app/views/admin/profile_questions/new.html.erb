@@ -11,11 +11,6 @@
     
     <p><%= link_to_function "Add new topic", '$("#new-topic-form").toggle()' %></p>
     <div style="display: none;" id="new-topic-form">
-        <% semantic_form_for [:admin, Topic.new] do |f| %>
-            <% f.inputs do %>
-                <%= f.input :title, :label => "Topic Title" %>
-            <% end %>
-            <p><%= button_tag "Save Topic" %></p>
-        <% end %>
+        <%= render :partial => "topic_form", :locals => { :topic => Topic.new } %>
     </div>
 </div>

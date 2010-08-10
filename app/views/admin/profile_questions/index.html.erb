@@ -11,7 +11,7 @@
     <% for chapter in @chapters %>
     <tr id="chapter_<%= chapter.id %>">
         <td class="small handle">[drag]</td>
-        <td><%= chapter.topic.title %></td>
+        <td><%= link_to chapter.topic.title, topic_admin_profile_questions_path(:id => chapter.topic) %></td>
         <td><%= chapter.title %></td>
         <td><%= chapter.profile_questions.count %></td>
         <td><%= link_to "Manage", manage_admin_profile_questions_path(:chapter_id => chapter), :class => "button" %></td>

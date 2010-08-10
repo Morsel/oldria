@@ -61,6 +61,14 @@ class Admin::ProfileQuestionsController < Admin::AdminController
     end
   end
   
+  def topic
+    @topic = Topic.find(params[:id])
+    if params[:topic]
+      @topic.update_attributes(params[:topic])
+      flash[:notice] = "Updated topic"
+    end
+  end
+  
   def sort
     if params[:chapters]
       params[:chapters].each_with_index do |id, index|

@@ -13,9 +13,10 @@ class Topic < ActiveRecord::Base
 
   has_many :chapters
   has_many :profile_questions, :through => :chapters
+  has_and_belongs_to_many :question_roles
 
   validates_presence_of :title
-
+  
   default_scope :order => "topics.title ASC"
 
 end
