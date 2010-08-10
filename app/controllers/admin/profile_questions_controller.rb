@@ -63,9 +63,17 @@ class Admin::ProfileQuestionsController < Admin::AdminController
   
   def topic
     @topic = Topic.find(params[:id])
-    if params[:topic]
+    if request.put?
       @topic.update_attributes(params[:topic])
       flash[:notice] = "Updated topic"
+    end
+  end
+  
+  def chapter
+    @chapter = Chapter.find(params[:id])
+    if request.put?
+      @chapter.update_attributes(params[:chapter])
+      flash[:notice] = "Updated chapter"
     end
   end
   
