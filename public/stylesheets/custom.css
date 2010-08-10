@@ -4627,6 +4627,12 @@ div.main_feature .comment.last {
 	line-height: 1.2;
 }
 
+.identity .identity_details li a {
+  text-decoration: none;
+  background: none;
+  margin: 0;
+  padding: 0;
+}
 
 .main_feature .comment .identity {
 	text-shadow: -1px 1px 0 rgba(0,0,0,0.5);
@@ -4643,6 +4649,10 @@ div.main_feature .comment.last {
 	color: #e3790c;
 }
 
+.soapbox_item .comment .primary a {
+  text-decoration: none;
+	color: #e3790c;
+}
 
 .main_feature .comment .primary {
 	color: #F4901E;

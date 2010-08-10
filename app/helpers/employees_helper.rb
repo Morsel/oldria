@@ -18,6 +18,8 @@ module EmployeesHelper
   def identity_details_list(employment, highlight_restaurant = false)
     list_items = [
       content_tag(:li, :class => "employee_name#{' primary' unless highlight_restaurant}") do
+        employment.employee.prefers_publish_profile ? 
+        link_to(employment.employee.name_or_username, profile_path(employment.employee.username)) : 
         employment.employee.name_or_username
       end,
 

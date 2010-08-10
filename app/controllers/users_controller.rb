@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_filter :require_user, :only => [:show]
+  before_filter :require_visibility, :only => [:show]
   before_filter :require_no_user, :only => [:new]
   before_filter :require_owner_or_admin, :only => [:edit, :update, :remove_twitter, :remove_avatar, :fb_auth, :fb_connect, :fb_page_auth]
   before_filter :block_media, :only => [:new]
@@ -11,9 +11,8 @@ class UsersController < ApplicationController
   end
 
   def show
-    get_user
     # Is the current user following this person?
-    @following = current_user.followings.first(:conditions => {:friend_id => @user.id})
+    @following = current_user.followings.first(:conditions => {:friend_id => @user.id}) if current_user
     @latest_statuses = @user.statuses.all(:limit => 5)
   end
 
@@ -190,7 +189,8 @@ class UsersController < ApplicationController
   end
   
   def require_visibility
-    unless @user.prefers_publish_profile || (@user == current_user) || current_user.admin?
+    get_user
+    unless @user.prefers_publish_profile || current_user
       flash[:error] = "Sorry, that page isn't available to view."
       redirect_to root_path 
     end
