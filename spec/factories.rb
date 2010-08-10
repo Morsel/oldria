@@ -104,7 +104,6 @@ end
 
 Factory.define :profile_question do |f|
   f.title "Where did you train?"
-  f.association :chapter
 end
 
 # == Lookup Tables ==

@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100809235346) do
+ActiveRecord::Schema.define(:version => 20100810184557) do
 
   create_table "admin_conversations", :force => true do |t|
     t.integer  "recipient_id"
@@ -88,6 +88,11 @@ ActiveRecord::Schema.define(:version => 20100809235346) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "position",   :default => 0
+  end
+
+  create_table "chapters_profile_questions", :id => false, :force => true do |t|
+    t.integer "chapter_id"
+    t.integer "profile_question_id"
   end
 
   create_table "coached_status_updates", :force => true do |t|
@@ -421,7 +426,6 @@ ActiveRecord::Schema.define(:version => 20100809235346) do
   add_index "preferences", ["owner_id", "owner_type", "name", "group_id", "group_type"], :name => "index_preferences_on_owner_and_name_and_preference", :unique => true
 
   create_table "profile_questions", :force => true do |t|
-    t.integer  "chapter_id"
     t.string   "title"
     t.datetime "created_at"
     t.datetime "updated_at"

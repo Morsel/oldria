@@ -1,12 +1,12 @@
 # == Schema Information
-# Schema version: 20100809212429
+# Schema version: 20100810184557
 #
 # Table name: question_roles
 #
-#  id                  :integer         not null, primary key
-#  name                :string(255)
-#  created_at          :datetime
-#  updated_at          :datetime
+#  id         :integer         not null, primary key
+#  name       :string(255)
+#  created_at :datetime
+#  updated_at :datetime
 #
 
 class QuestionRole < ActiveRecord::Base

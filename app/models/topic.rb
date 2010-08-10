@@ -18,5 +18,9 @@ class Topic < ActiveRecord::Base
   validates_presence_of :title
   
   default_scope :order => "topics.title ASC"
+  
+  def question_roles_description
+    question_roles.map(&:name).to_sentence
+  end
 
 end
