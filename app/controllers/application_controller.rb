@@ -144,7 +144,8 @@ class ApplicationController < ActionController::Base
       @search = EmploymentSearch.new(:conditions => params[:search]).employments
     end
 
-    @restaurants_and_employments = @search.all(:include => [:restaurant, :employee]).group_by(&:restaurant)
+    @restaurants_and_employments = @search.all(:include => [:restaurant, :employee], 
+                                               :order => "restaurants.name").group_by(&:restaurant)
   end
 
   def save_search
