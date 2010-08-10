@@ -10,4 +10,8 @@ describe QuestionRole do
   it "should create a new instance given valid attributes" do
     QuestionRole.create!(@valid_attributes)
   end
+  
+  it "should have many restaurant roles" do
+    QuestionRole.new.restaurant_roles.should be_a_kind_of(Array)
+  end
 end

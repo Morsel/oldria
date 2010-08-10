@@ -99,7 +99,7 @@ class User < ActiveRecord::Base
   named_scope :for_autocomplete, :select => "first_name, last_name", :order => "last_name ASC", :limit => 15
   named_scope :by_last_name, :order => "LOWER(last_name) ASC"
   
-  after_update :mark_replies_as_read, :if => Proc.new { |user| user.confirmed_at > 1.minute.ago }
+  after_update :mark_replies_as_read, :if => Proc.new { |user| user.confirmed_at && user.confirmed_at > 1.minute.ago }
 
 ### Preferences ###
   preference :hide_help_box, :default => false

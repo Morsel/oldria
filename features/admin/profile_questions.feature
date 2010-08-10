@@ -39,3 +39,15 @@ Feature: Profile questions
     And fill in "Topic Title" with "Work Experience"
     And I press "Save Topic"
     Then I should see "Created new topic named Work Experience"
+    
+  Scenario: managing roles
+    Given a restaurant role named "Chef Assistant"
+    And a restaurant role named "Chef de Cuisine"
+    When I go to the admin profile questions page
+    And I follow "Manage roles"
+    And I fill in "Name" with "Culinary"
+    Then I should see "Chef Assistant"
+    And I check "Chef de Cuisine"
+    And I press "Save"
+    Then I should see "Created role"
+    And I should see "Culinary"
