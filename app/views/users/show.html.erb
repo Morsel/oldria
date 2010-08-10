@@ -15,7 +15,7 @@
       <span class="restaurant_name"><%= @user.employments.first.try(:restaurant).try(:name) %></span>
     </h4>
 
-    <%= render :partial => 'profile_actions' unless (current_user == @user) || current_user.media? %>
+    <%= render :partial => 'profile_actions' unless media_or_owner? %>
   </div><!-- .name_and_actions -->
 
   <dl class="user_info clearfix clear">
@@ -109,7 +109,7 @@
 <hr class="space"/>
 
 <div id="user_content">
-<% unless current_user.media? || @latest_statuses.blank? %>
+<% unless media? || @latest_statuses.blank? %>
   <%= render :partial => 'recent_statuses', :locals => {:user => @user, :statuses => @latest_statuses } %>
   <%= render :partial => 'followings', :locals => {:user => @user} %>
 <% end %>

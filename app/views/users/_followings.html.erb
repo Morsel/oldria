@@ -27,7 +27,7 @@
 			<h4><%= link_to follower.name, profile_path(follower.username) %></h4>
 			<p class="meta">Username: <%= follower.username %><br />
 			  <% if follower.james_beard_region -%>Region: <%=  follower.james_beard_region.name %><% end -%></p>
-			<% unless (current_user == follower) || current_user.following?(follower) %>
+			<% unless already_following?(follower) %>
 			<p><%= link_to "Follow this user", followings_path(:friend_id => follower), :method => :post, :class=>'sf-button' %></p>
 			<% end %>
 		</li>
