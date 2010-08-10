@@ -101,6 +101,7 @@ div#header {
 
 #leftcolumn {
 	min-height: 360px;
+	padding-bottom: 10px;
 }
 
 /* @group sidebar */
@@ -3589,6 +3590,7 @@ a.ui-state-default:hover {
 .ui-tabs-panel {
 	border: 1px solid #ccc;
 	padding: 5px;
+	margin-bottom: 1em;
 }
 
 .ui-tabs-panel div:nth-child(odd) {
@@ -4553,6 +4555,7 @@ div.main_feature .featured_item_title {
 	color: #444;
 	text-shadow: 0 0 0;
 	min-height: 100px;
+	padding-top: 20px;
 }
 
 .main_feature .question .subject {
@@ -4606,21 +4609,42 @@ div.main_feature .comment.last {
 }
 
 .soapbox_item .comment .identity {
-	font-size: 16px;
+	font-size: 12px;
 	line-height: 19px;
 	margin-bottom: 10px;
 	font-family: 'Hoefler Text', georgia, times, serif;
 }
 
+.identity .identity_details {
+	margin: 0;
+	padding: 0;
+}
+
+.identity .identity_details li {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	line-height: 1.2;
+}
+
+
 .main_feature .comment .identity {
 	text-shadow: -1px 1px 0 rgba(0,0,0,0.5);
 }
 
-.soapbox_item .comment .employee_name {
+.main_feature .identity_details li {
+		color: #fff;
+
+}
+
+.soapbox_item .comment .primary {
+	font-size: 15px;
+	line-height: 1.5;
 	color: #e3790c;
 }
 
-.main_feature .comment .employee_name {
+
+.main_feature .comment .primary {
 	color: #F4901E;
 }
 
@@ -4637,6 +4661,11 @@ div.main_feature .comment.last {
 
 .main_feature .comment .avatar {
 	margin: 0 10px 10px 0;
+}
+
+.soapbox_item .comment .content {
+	clear: left;
+	margin-top: 12px;
 }
 
 .soapbox_item .comment .content p {
