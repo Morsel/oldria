@@ -32,8 +32,11 @@ class Admin::ProfileQuestionsController < Admin::AdminController
     end
   end
   
-  def delete
-    raise "Not implemented yet"
+  def destroy
+    @question = ProfileQuestion.find(params[:id])
+    flash[:notice] = "Destroyed question #{@question.title}"
+    @question.destroy
+    redirect_to admin_profile_questions_path
   end
   
   def manage

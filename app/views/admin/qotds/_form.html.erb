@@ -4,6 +4,7 @@
     <% f.inputs do %>
       <div class="form_basics">
         <%= f.input :message %>
+        <%= f.input :display_message, :hint => "For Soapbox" %>
       </div>
 
       <% if action_name == 'new' %>

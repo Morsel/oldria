@@ -6,7 +6,7 @@
       <%= soapbox_tabby_title(@feature) %>
     </h2>
       <div class="question">
-        <%= @feature.message %>
+        <%= @feature.display_message || @feature.message %>
       </div>
 
       <% if @feature_comments %>
