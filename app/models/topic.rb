@@ -22,5 +22,12 @@ class Topic < ActiveRecord::Base
   def question_roles_description
     question_roles.map(&:name).to_sentence
   end
+  
+  def title_with_roles
+    "[#{question_roles_description}] #{title}"
+  end
+  
+  # for formtastic
+  alias :to_label :title_with_roles
 
 end
