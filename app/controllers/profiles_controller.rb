@@ -8,6 +8,13 @@ class ProfilesController < ApplicationController
 
   def update
     @profile = current_user.profile || current_user.create_profile
+    
+    if params[:preview]
+      @user = @profile.user
+      @user.profile.attributes = params[:profile]
+      render :template => "users/show" and return
+    end
+    
     if @profile.update_attributes(params[:profile])
       flash[:notice] = "Successfully updated profile."
       redirect_to profile_path(current_user.try(:username))

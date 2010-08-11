@@ -26,6 +26,7 @@ describe UsersController do
         # user.stubs(:has_role?).with(:media).returns(true)
         controller.stubs(:current_user).returns nil
       end
+      
       it "should render new template" do
         get :new
         response.should render_template(:new)
@@ -56,9 +57,16 @@ describe UsersController do
       before(:each) do
         controller.stubs(:current_user).returns nil
       end
-      it "should redirect to the login page" do
+      
+      it "should redirect to the login page if the profile is not visible" do
+        @user.prefers_publish_profile = false; @user.save
         get :show, :id => 3
         response.should redirect_to(login_url)
+      end
+      
+      it "should show the profile if it is visible" do
+        get :show, :id => 3
+        response.should render_template(:show)
       end
     end
 

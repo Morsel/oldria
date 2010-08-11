@@ -191,8 +191,8 @@ class UsersController < ApplicationController
   def require_visibility
     get_user
     unless @user.prefers_publish_profile || current_user
-      flash[:error] = "Sorry, that page isn't available to view."
-      redirect_to root_path 
+      flash[:error] = "You must be logged in to access this page"
+      redirect_to login_path 
     end
   end
 

@@ -1,5 +1,8 @@
 <% title "#{@user.first_name}'s Profile", false %>
 
+<% if params[:controller] == "profiles" %>
+<p>This is a preview view. These changes have not been saved. <%= link_to_function "Go back", "history.go(-1)" %> to edit or save.</p>
+<% end %>
 <div id="user_profile_view">
   <% if current_user == @user %>
     <div class="edit_profile_link"><a href="/profile/edit"><span>Edit profile</span></a></div>
@@ -48,7 +51,7 @@
   <a href="#extended_profile" class="showit">
     View Extended Profle <em>(Education, Experience, Awards, etc)</em>
   </a>
-  <%= render 'extended_profile', :user => @user, :profile => @user.profile %>
+  <%= render 'users/extended_profile', :user => @user, :profile => @user.profile %>
 </div><!-- #extended_profile_container -->
 
 
@@ -91,7 +94,7 @@
 
   <div id="older_qotds_box">
     <% if @user.qotds_responded.present? %>
-      <%= render :partial => 'question', :collection => @user.qotds_responded, :local => {:user => @user} %>
+      <%= render :partial => 'users/question', :collection => @user.qotds_responded, :local => {:user => @user} %>
     <% else %>
       <p><%= @user.name %> hasn't answered any Questions of the Day yet.</p>
     <% end %>
@@ -99,7 +102,7 @@
 
   <div id="older_tqs_box">
     <% if @user.qotds_responded.present? %>
-      <%= render :partial => 'question', :collection => @user.trend_questions_responded, :local => {:user => @user} %>
+      <%= render :partial => 'users/question', :collection => @user.trend_questions_responded, :local => {:user => @user} %>
     <% else %>
       <p><%= @user.name %> hasn't answered any Trend Questions yet.</p>
     <% end %>
