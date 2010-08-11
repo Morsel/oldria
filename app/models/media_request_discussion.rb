@@ -37,7 +37,7 @@ class MediaRequestDiscussion < ActiveRecord::Base
   end
 
   def deliver_notifications
-    employment.each do |employment|
+    employments.each do |employment|
       UserMailer.deliver_media_request_notification(self, employment.employee)
     end
   end
