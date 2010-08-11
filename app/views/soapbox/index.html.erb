@@ -2,6 +2,7 @@
 
 <div id="soapbox_branding" class="span-12">
   <h1><%= t('soapbox.taglines.main') %></h1>
+  <h2 class="soapbox_subhead"><%= t('soapbox.taglines.secondary') %></h2>
 </div>
 
 <div id="soapbox_promos" class="span-6 last">
@@ -36,7 +37,6 @@
 
 <div class="span-12">
 <% if @secondary_feature %>
-<h2 class="soapbox_subhead"><%= t('soapbox.taglines.secondary') %></h2>
 <div class="soapbox_item secondary_feature">
   <% div_for @secondary_feature do %>
     <h2 class="cufon featured_item_title">

@@ -4396,17 +4396,19 @@ p.search_filter_hint {
 /* @group soapbox */
 
 #soapbox_branding {
-	margin-bottom: 10px;
+	margin-bottom: 12px;
+}
+
+#soapbox_branding, #soapbox_promos {
+	margin-top: 10px;
 }
 
 #soapbox_branding h1 {
 	font-weight: normal;
 	font-size: 32px;
-	line-height: 1.4;
-	padding-top: 2px;
 }
 
-#soapbox_branding h4 {
+#soapbox_branding h2 {
 	font-size: 1.6em;
 	color: #888;
 	font-weight: normal;
@@ -4414,12 +4416,6 @@ p.search_filter_hint {
 
 #soapbox_branding h1, .soapbox_subhead, #soapbox_branding h4 {
 	font-family: "Hoefler Text", georgia, serif;
-}
-
-.soapbox_subhead, #soapbox_branding h4 {
-	font-size: 1.6em;
-	color: #777;
-	font-weight: normal;
 }
 
 .soapbox_subhead {
@@ -4437,9 +4433,9 @@ p.search_filter_hint {
 
 #soapbox_promos a {
 	text-align: center;
-	font-size: 30px;
-	font-weight: normal;
-	padding: 14px 16px 10px;
+	font-size: 26px;
+	font-weight: normal !important;
+	padding: 16px 16px 14px;
 	display: block;
 	color: #fff;
 	text-shadow: 0px 1px 1px #333;
