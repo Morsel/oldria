@@ -13,7 +13,7 @@ Feature: Profile questions
   Scenario: creating a new profile question
     When I go to the new profile question page
     And fill in "title" with "How did you learn to cook?"
-    And I select "Career building - Early on" from "Chapter"
+    And I select " - Career building - Early on" from "Chapters"
     And I press "Save Question"
     Then I should see "Added new profile question"
     
