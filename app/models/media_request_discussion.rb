@@ -32,4 +32,14 @@ class MediaRequestDiscussion < ActiveRecord::Base
     employments.include?(employment)
   end
 
+  def publication_string
+    media_request.publication_string
+  end
+
+  def deliver_notifications
+    employment.each do |employment|
+      UserMailer.deliver_media_request_notification(self, employment.employee)
+    end
+  end
+
 end

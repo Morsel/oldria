@@ -53,9 +53,7 @@ class MediaRequest < ActiveRecord::Base
   end
 
   def deliver_notifications
-    for discussion in media_request_discussions
-      UserMailer.deliver_media_request_notification(self, discussion)
-    end
+    media_request_discussions.each(&:deliver_notifications)
   end
   handle_asynchronously :deliver_notifications # Use delayed_job to send
 

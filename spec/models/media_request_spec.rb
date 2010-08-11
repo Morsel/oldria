@@ -143,13 +143,13 @@ describe MediaRequest do
     end
 
     describe "when approved" do
-      xit "should be sent to each restaurant" do
+      it "should be sent to each restaurant" do
         @request = Factory.build(:media_request, :status => 'pending')
         @receiver = Factory(:user, :name => "Hambone Fisher", :email => "hammy@spammy.com")
         @request.sender = Factory(:media_user, :username => "jim", :email => "media@media.com")
         @request.restaurants = [@restaurant]
         UserMailer.expects(:deliver_media_request_notification)
-        @request.approve!.should == true
+        @request.approve!
         Delayed::Job.last.invoke_job if defined?(Delayed::Job)
       end
     end
