@@ -1998,6 +1998,12 @@ p.editprofile a:hover {
 dl.user_info {
 	font-size: 1.1em;
 	margin: 0;
+	width: 260px;
+	float: left;
+}
+
+dl.user_info.contact {
+	width: 340px;
 }
 
 dl.user_info dt, dl.user_info dd {
@@ -2006,7 +2012,7 @@ dl.user_info dt, dl.user_info dd {
 
 dl.user_info dt {
 	color: #fff;
-	width: 62px;
+	width: 76px;
 	float: left;
 	clear: left;
 	margin: 0 10px;
