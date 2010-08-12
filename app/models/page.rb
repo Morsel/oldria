@@ -11,7 +11,7 @@
 #
 
 class Page < ActiveRecord::Base
-  SPECIAL = %w(about contact first_time_users welcome_new_user sales home)
+  SPECIAL = %w(about contact welcome_new_user sales home about_media home_media)
 
   validates_presence_of :title
   validates_presence_of :slug
