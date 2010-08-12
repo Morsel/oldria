@@ -14,7 +14,8 @@
 class Chapter < ActiveRecord::Base
   
   belongs_to :topic
-  has_and_belongs_to_many :profile_questions
+  has_many :chapter_question_memberships
+  has_many :profile_questions, :through => :chapter_question_memberships
   
   validates_presence_of :title, :topic_id
   

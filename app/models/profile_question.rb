@@ -12,7 +12,8 @@
 
 class ProfileQuestion < ActiveRecord::Base
 
-  has_and_belongs_to_many :chapters
+  has_many :chapter_question_memberships
+  has_many :chapters, :through => :chapter_question_memberships
   
   validates_presence_of :title
       

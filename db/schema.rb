@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100811202044) do
+ActiveRecord::Schema.define(:version => 20100812221140) do
 
   create_table "admin_conversations", :force => true do |t|
     t.integer  "recipient_id"
@@ -83,17 +83,20 @@ ActiveRecord::Schema.define(:version => 20100811202044) do
     t.datetime "updated_at"
   end
 
+  create_table "chapter_question_memberships", :force => true do |t|
+    t.integer  "chapter_id"
+    t.integer  "profile_question_id"
+    t.integer  "position"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "chapters", :force => true do |t|
     t.integer  "topic_id"
     t.string   "title"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "position",   :default => 0
-  end
-
-  create_table "chapters_profile_questions", :id => false, :force => true do |t|
-    t.integer "chapter_id"
-    t.integer "profile_question_id"
   end
 
   create_table "coached_status_updates", :force => true do |t|
@@ -430,7 +433,6 @@ ActiveRecord::Schema.define(:version => 20100811202044) do
     t.string   "title"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "position",   :default => 0
   end
 
   create_table "profiles", :force => true do |t|

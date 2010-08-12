@@ -43,7 +43,8 @@ class Admin::ProfileQuestionsController < Admin::AdminController
   
   def manage
     @chapter = Chapter.find(params[:chapter_id])
-    @questions = @chapter.profile_questions.all(:order => :position)
+    @questions = @chapter.profile_questions.all(:include => :chapter_question_memberships, 
+        :order => "chapter_question_memberships.position ASC")
   end
   
   def sort
@@ -53,7 +54,9 @@ class Admin::ProfileQuestionsController < Admin::AdminController
       end
     elsif params[:profile_questions]
       params[:profile_questions].each_with_index do |id, index|
-        ProfileQuestion.update_all(['position=?', index+1], ['id=?', id])
+        membership = ChapterQuestionMembership.find(:first, 
+            :conditions => { :profile_question_id => id, :chapter_id => params[:chapter_id] })
+        membership.update_attributes(:position => (index + 1))
       end
     end
     render :nothing => true

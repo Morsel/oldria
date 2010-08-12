@@ -1,4 +1,5 @@
-<% title "Profile Questions: #{@chapter.title_with_topic}"%>
+<% title "Profile Questions" %>
+<h2 id="chapter_<%= @chapter.id %>" class="chapter"><%= @chapter.title_with_topic %></h2>
 
 <% table_for @questions do |t| %>
     <% t.data :action_prefix => 'admin' do
