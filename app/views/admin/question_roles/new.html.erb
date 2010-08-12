@@ -13,5 +13,6 @@
     <% t.data :actions => [:edit], :action_prefix => 'admin' do
         t.cell(:name)
         t.cell(:roles) { |c| c.restaurant_roles.map(&:name).to_sentence }
+        t.cell(:topics) { |c| c.topics.map(&:title).to_sentence }
     end %>
 <% end %>

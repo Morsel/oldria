@@ -34,7 +34,7 @@ class Admin::ProfileQuestionsController < Admin::AdminController
   
   def destroy
     @question = ProfileQuestion.find(params[:id])
-    flash[:notice] = "Destroyed question #{@question.title}"
+    flash[:notice] = "Deleted question #{@question.title}"
     @question.destroy
     redirect_to admin_profile_questions_path
   end
@@ -42,42 +42,6 @@ class Admin::ProfileQuestionsController < Admin::AdminController
   def manage
     @chapter = Chapter.find(params[:chapter_id])
     @questions = @chapter.profile_questions.all(:order => :position)
-  end
-  
-  def create_chapter
-    @chapter = Chapter.new(params[:chapter])
-    if @chapter.save
-      flash[:notice] = "Created new chapter named #{@chapter.title}"
-      redirect_to admin_profile_questions_path
-    else
-      render :action => "new"
-    end
-  end
-
-  def create_topic
-    @topic = Topic.new(params[:topic])
-    if @topic.save
-      flash[:notice] = "Created new topic named #{@topic.title}"
-      redirect_to admin_profile_questions_path
-    else
-      render :action => "new"
-    end
-  end
-  
-  def topic
-    @topic = Topic.find(params[:id])
-    if request.put?
-      @topic.update_attributes(params[:topic])
-      flash[:notice] = "Updated topic"
-    end
-  end
-  
-  def chapter
-    @chapter = Chapter.find(params[:id])
-    if request.put?
-      @chapter.update_attributes(params[:chapter])
-      flash[:notice] = "Updated chapter"
-    end
   end
   
   def sort

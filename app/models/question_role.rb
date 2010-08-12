@@ -13,5 +13,6 @@ class QuestionRole < ActiveRecord::Base
 
   validates_presence_of :name
   has_and_belongs_to_many :restaurant_roles
+  has_and_belongs_to_many :topics
   
 end
