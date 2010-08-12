@@ -24,9 +24,11 @@ class Admin::ProfileQuestionsController < Admin::AdminController
   
   def update
     @question = ProfileQuestion.find(params[:id])
-    if @question.update_attributes(params[:profile_question])
-      flash[:notice] = "Updated question #{@question.title}"
-      redirect_to admin_profile_questions_path
+    chapter_params = params[:profile_question].delete("chapter_ids")
+    chapters = Chapter.find(chapter_params)
+    if @question.update_attributes(params[:profile_question].merge(:chapters => chapters))
+      flash[:notice] = "Updated question \"#{@question.title}\""
+      redirect_to :action => "manage", :chapter_id => params[:chapter_id]
     else
       render :action => "edit"
     end
@@ -34,7 +36,7 @@ class Admin::ProfileQuestionsController < Admin::AdminController
   
   def destroy
     @question = ProfileQuestion.find(params[:id])
-    flash[:notice] = "Deleted question #{@question.title}"
+    flash[:notice] = "Deleted question \"#{@question.title}\""
     @question.destroy
     redirect_to admin_profile_questions_path
   end
