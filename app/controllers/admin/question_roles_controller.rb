@@ -29,4 +29,15 @@ class Admin::QuestionRolesController < Admin::AdminController
     redirect_to :action => "new"
   end
 
+  def destroy
+    @role = QuestionRole.find(params[:id])
+    if @role.topics.count > 0
+      flash[:error] = "Unable to delete roles currently assigned to topics"
+    else
+      flash[:notice] = "Deleted role #{@role.name}"
+      @role.destroy
+    end
+    redirect_to :action => "new"
+  end
+
 end

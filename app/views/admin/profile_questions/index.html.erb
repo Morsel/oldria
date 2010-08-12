@@ -8,7 +8,7 @@
         <th>Roles</th>
         <th># of Q&amp;As</th>
         <th>&nbsp;</th>
-        <th>&nbsp;</th>
+        <th>Can be deleted?</th>
     </tr></thead>
     <% for chapter in @chapters %>
     <tr id="chapter_<%= chapter.id %>">
@@ -19,7 +19,7 @@
         <td><%= chapter.profile_questions.count %></td>
         <td><%= link_to "Manage", manage_admin_profile_questions_path(:chapter_id => chapter), :class => "button" %></td>
         <% if chapter.profile_questions.count == 0 %>
-        <td><%= link_to "Delete Chapter", admin_chapter_path(:id => chapter), :method => "delete", :confirm => "Are you sure you want to delete this?" %></td>
+        <td><%= link_to "Delete chapter", admin_chapter_path(:id => chapter), :method => "delete", :confirm => "Are you sure you want to delete this?" %></td>
         <% end %>
     </tr>
     <% end %>
