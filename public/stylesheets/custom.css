@@ -4437,6 +4437,7 @@ p.search_filter_hint {
 	padding: 0;
 	margin: 8px 0 18px;
 	font-size: 1.8em;
+	font-weight: normal;
 }
 
 #soapbox_promos h5 {
@@ -4660,12 +4661,16 @@ div.main_feature .comment.last {
 }
 
 .soapbox_item .comment .primary a {
-  text-decoration: none;
+	text-decoration: none;
 	color: #e3790c;
 }
 
 .main_feature .comment .primary {
 	color: #F4901E;
+}
+
+.main_feature .employee_name a{
+	color: #fff;
 }
 
 .soapbox_item .comment .avatar{
