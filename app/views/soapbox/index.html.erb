@@ -17,12 +17,7 @@
     </h2>
     <div class="question">
       <h4 class="date"><%= @main_feature.soapbox_entry.published_at.try(:strftime, "%b %e, %Y") %></h4>
-      <% if @main_feature.respond_to?(:subject) %>
-        <strong class="subject"><%= @main_feature.display_message || @main_feature.subject %></strong>:
-        <%= @main_feature.body %>
-      <% else %>
-        <%= @main_feature.display_message || @main_feature.message %>
-      <% end %>
+      <%= message(@main_feature) %>
     </div>
 
     <% if @main_feature_comments %>
@@ -44,7 +39,7 @@
     </h2>
     <div class="question">
       <h4 class="date"><%= @main_feature.soapbox_entry.published_at.try(:strftime, "%b %e, %Y") %></h4>
-      <%= @secondary_feature.display_message || @secondary_feature.message %>
+      <%= message(@secondary_feature) %>
     </div>
 
     <% if @secondary_feature_comments %>
