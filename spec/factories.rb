@@ -155,6 +155,7 @@ Factory.define :sent_media_request, :parent => :media_request do |f|
 end
 
 Factory.define :pending_media_request, :parent => :media_request do |f|
+  f.association :employment_search
 end
 
 
