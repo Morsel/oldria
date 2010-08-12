@@ -26,8 +26,8 @@
 
 </head>
 
-<body id="<%= RAILS_ENV %>">
-	<% if RAILS_ENV == 'staging' %>
+<body id="<%= Rails.env %>">
+	<% if Rails.env.staging? %>
 		<div id="staging_bar">
 			<p>Note: You are currently on <strong>STAGING</strong>.
 			You may want to visit the <a href="http://spoonfeed.restaurantintelligenceagency.com/" title="">live site &raquo;</a></p>
@@ -39,11 +39,10 @@
 		<div id="header" class="span-18 last">
 
 			<div id="brand" class="span-7">
-				<% if current_user && current_user.media? -%>
-				  <%= image_tag 'logo_ria.png', :class => 'ria_logo' %>
+				<%= image_tag 'logo_ria.png', :class => 'ria_logo' %>
+				<% if mediafeed? -%>
 				  <%= link_to image_tag('mediafeed_logo.png', :alt => "Media Feed"), root_path %>
 				<% else -%>
-				  <%= image_tag 'logo_ria.png', :class => 'ria_logo' %>
 				  <%= link_to image_tag('logo_spoonfeed.png', :alt => "Spoon Feed", :width => 163, :height => 61), root_path, :class => 'spoonfeed_logo' %>
 				<% end -%>
 			</div><!--#brand-->
@@ -53,7 +52,7 @@
       <% end %>
 
 			<div id="navigation" class="span-11 last">
-			<%- if current_user && current_user.media? %>
+			<%- if mediafeed? %>
 				<%= render :partial => 'layouts/nav_media' %>
 			<% elsif current_user %>
 				<%= render :partial => 'layouts/nav_spoonfeed' %>
@@ -97,7 +96,6 @@
     <%- if current_user && !current_user.media? %>
       <%= render :partial => 'statuses/sidebar_form' %>
       <%= render :partial => 'shared/restaurants' %>
-      <%# render :partial => 'shared/activity_alerts' %>
       <%= render :partial => 'shared/ria_labs' %>
       <%= render :partial => "shared/media_request_promo" %>
     <% end -%>
@@ -108,7 +106,7 @@
 	<div id="footer" class="clear">
 		<ul>
 			<li>Copyright &copy; 2010 Restaurant Intelligence Agency</li>
-			<%- if current_user && current_user.media? %>
+			<%- if mediafeed? %>
 				<li><%= link_to 'About', public_page_path('about_media') %></li>
 			<% else %>
 				<li><%= link_to 'About', public_page_path('about') %></li>
@@ -116,7 +114,7 @@
 
 			<li><%= link_to 'Contact', public_page_path('contact') %></li>
 
-			<% if current_user && current_user.media? %>
+			<% if mediafeed? %>
 				<li><%= link_to 'Looking for Help?', public_page_path('help_media') %></li>
 			<% else %>
 				<li><%= link_to 'Looking for Help?', public_page_path('help') %></li>
