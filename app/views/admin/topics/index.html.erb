@@ -1,0 +1,10 @@
+<% title "Topics" %>
+
+<% table_for @topics do |t| %>
+	<% t.data :actions => [:edit], :action_prefix => 'admin' do
+		t.cell(:title)
+		t.cell(:roles) { |c| c.question_roles_description }
+		t.cell(:chapter_count) { |c| c.chapters.count }
+		t.cell(:delete) { |c| link_to "delete", admin_topic_path(c), :method => "delete" if c.chapters.count == 0 }
+    end %>
+<% end %>
