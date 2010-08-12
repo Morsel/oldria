@@ -1,4 +1,9 @@
-<% title "Login to SpoonFeed" %>
-<p>Welcome to SpoonFeed. Please login.</p>
+<% if mediafeed? %>
+  <% title "Log in to Mediafeed" %>
+  <p>Welcome to Mediafeed. Please log in.</p>
+<% else %>
+  <% title "Log in to SpoonFeed" %>
+  <p>Welcome to SpoonFeed. Please log in.</p>
+<% end %>
 
 <%= render :partial => 'form' %>

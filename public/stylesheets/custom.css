@@ -1998,6 +1998,12 @@ p.editprofile a:hover {
 dl.user_info {
 	font-size: 1.1em;
 	margin: 0;
+	width: 260px;
+	float: left;
+}
+
+dl.user_info.contact {
+	width: 340px;
 }
 
 dl.user_info dt, dl.user_info dd {
@@ -2006,7 +2012,7 @@ dl.user_info dt, dl.user_info dd {
 
 dl.user_info dt {
 	color: #fff;
-	width: 62px;
+	width: 76px;
 	float: left;
 	clear: left;
 	margin: 0 10px;
@@ -4437,6 +4443,7 @@ p.search_filter_hint {
 	padding: 0;
 	margin: 8px 0 18px;
 	font-size: 1.8em;
+	font-weight: normal;
 }
 
 #soapbox_promos h5 {
@@ -4660,12 +4667,16 @@ div.main_feature .comment.last {
 }
 
 .soapbox_item .comment .primary a {
-  text-decoration: none;
+	text-decoration: none;
 	color: #e3790c;
 }
 
 .main_feature .comment .primary {
 	color: #F4901E;
+}
+
+.main_feature .employee_name a{
+	color: #fff;
 }
 
 .soapbox_item .comment .avatar{

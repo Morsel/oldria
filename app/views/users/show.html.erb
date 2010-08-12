@@ -3,7 +3,7 @@
 <% if params[:controller] == "profiles" %>
 <p>This is a preview view. These changes have not been saved. <%= link_to_function "Go back", "history.go(-1)" %> to edit or save.</p>
 <% end %>
-<div id="user_profile_view">
+<div id="user_profile_view" class="clearfix">
   <% if current_user == @user %>
     <div class="edit_profile_link"><a href="/profile/edit"><span>Edit profile</span></a></div>
   <% end %>
@@ -13,38 +13,44 @@
     </div>
 
     <h2 class="user_name"><%= @user.name %></h2>
-    <h4 class="user_employment">
-      <span class="employment_role"><%= @user.employments.first.try(:restaurant_role).try(:name) %></span> at
-      <span class="restaurant_name"><%= @user.employments.first.try(:restaurant).try(:name) %></span>
-    </h4>
+    <% if @user.employments.any? %>
+      <h4 class="user_employment">
+        <span class="employment_role"><%= @user.employments.first.try(:restaurant_role).try(:name) %></span> at
+        <span class="restaurant_name"><%= @user.employments.first.try(:restaurant).try(:name) %></span>
+      </h4>
+    <% end %>
 
     <%= render :partial => 'profile_actions' unless media_or_owner? %>
   </div><!-- .name_and_actions -->
 
-  <dl class="user_info clearfix clear">
-    <div class="span-6">
+  <dl class="user_info clearfix clear contact">
       <dt>Email</dt>
       <dd><%= @user.email %></dd>
       <% if @user.twitter_username %>
       <dt>Twitter</dt>
       <dd><%= @user.twitter_username %></dd>
       <% end -%>
-      <% if @user.facebook_user %>
+      <% if @user.facebook_user && @user.facebook_user.link %>
       <dt>Facebook</dt>
       <dd><%= @user.facebook_user.link %></dd>
       <% end %>
-    </div>
-    <div class="span-5 last">
-      <% if @user.profile %>
-      <dt>Job Start</dt>
-      <dd><%= @user.profile.job_start.try(:strftime, '%B %d, %Y') %></dd>
-      <dt>Cell Phone</dt>
-      <dd><%= @user.profile.cellnumber %></dd>
-      <dt>Birthday</dt>
-      <dd><%= @user.profile.birthday.try(:strftime, '%B %d') %></dd>
-      <% end %>
-    </div>
   </dl><!-- .user_info.contact -->
+  <dl class="user_info clearfix extra">
+    <% if @user.profile %>
+      <% if @user.profile.job_start.present? %>
+        <dt>Job Start</dt>
+        <dd><%= @user.profile.job_start.try(:strftime, '%B %d, %Y') %></dd>
+      <% end %>
+      <% if @user.profile.cellnumber.present? %>
+        <dt>Cell Phone</dt>
+        <dd><%= @user.profile.cellnumber %></dd>
+      <% end %>
+      <% if @user.profile.birthday.present? %>
+        <dt>Birthday</dt>
+        <dd><%= @user.profile.birthday.try(:strftime, '%B %d') %></dd>
+      <% end %>
+    <% end %>
+  </dl><!-- .user_info.extra -->
 
 </div><!--#user_profile_view -->
 <div id="extended_profile_container">
