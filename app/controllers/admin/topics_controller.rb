@@ -4,22 +4,27 @@ class Admin::TopicsController < Admin::AdminController
     @topics = Topic.all
   end
   
+  def new
+    @topic = Topic.new
+    render :action => "edit"
+  end
+  
   def create
     @topic = Topic.new(params[:topic])
     if @topic.save
       flash[:notice] = "Created new topic named #{@topic.title}"
       redirect_to admin_profile_questions_path
     else
-      render :action => "show"
+      render :action => "edit"
     end
   end
   
   def show
-    @topic = Topic.find(params[:id])
+    redirect_to :action => "edit", :id => params[:id]
   end
   
   def edit
-    redirect_to :action => "show", :id => params[:id]
+    @topic = Topic.find(params[:id])
   end
   
   def update
