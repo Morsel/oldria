@@ -13,7 +13,7 @@ class Admin::TopicsController < Admin::AdminController
     @topic = Topic.new(params[:topic])
     if @topic.save
       flash[:notice] = "Created new topic named #{@topic.title}"
-      redirect_to admin_profile_questions_path
+      redirect_to :action => "index"
     else
       render :action => "edit"
     end
