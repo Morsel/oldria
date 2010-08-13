@@ -56,6 +56,7 @@ class User < ActiveRecord::Base
   has_many :employments, :foreign_key => "employee_id", :dependent => :destroy
   has_many :restaurants, :through => :employments
   has_many :manager_restaurants, :source => :restaurant, :through => :employments, :conditions => ["employments.omniscient = ?", true]
+  has_many :restaurant_roles, :through => :employments
 
   has_many :discussion_seats, :dependent => :destroy
   has_many :discussions, :through => :discussion_seats
@@ -265,6 +266,10 @@ class User < ActiveRecord::Base
 
   def facebook_page
     @page ||= Mogli::Page.new(:id => facebook_page_id, :client => Mogli::Client.new(facebook_page_token))
+  end
+  
+  def profile_questions
+    self.restaurant_roles.map(&:question_roles).flatten.map(&:profile_questions).flatten
   end
 
 end

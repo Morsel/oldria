@@ -15,4 +15,12 @@ class QuestionRole < ActiveRecord::Base
   has_and_belongs_to_many :restaurant_roles
   has_and_belongs_to_many :topics
   
+  def chapters
+    topics.map(&:chapters).flatten
+  end
+  
+  def profile_questions
+    chapters.map(&:profile_questions).flatten
+  end
+  
 end

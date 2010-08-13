@@ -1,4 +1,5 @@
 class ProfilesController < ApplicationController
+
   before_filter :require_user
 
   def edit
@@ -22,4 +23,10 @@ class ProfilesController < ApplicationController
       render :edit
     end
   end
+  
+  def questions
+    @profile = current_user.profile || current_user.create_profile
+    @questions = @profile.user.profile_questions
+  end
+  
 end

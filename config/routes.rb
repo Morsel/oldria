@@ -18,7 +18,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resource :profiles, :except => ['show'], :as => 'profile'
 
   map.profile 'profile/:username', :controller => 'users', :action => 'show', :requirements => { :username => /[a-zA-Z0-9\-\_ ]+/}
-
+  map.profile_questions 'profile/:username/questions', :controller => 'profiles', :action => 'questions'
 
   map.resources :quick_replies
   map.resources :media_users, :except => [:index, :show]

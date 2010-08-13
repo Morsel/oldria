@@ -16,7 +16,7 @@ class ProfileQuestion < ActiveRecord::Base
   has_many :chapters, :through => :chapter_question_memberships
   
   validates_presence_of :title, :chapters
-      
+  
   def topics
     chapters.map(&:topic)
   end
