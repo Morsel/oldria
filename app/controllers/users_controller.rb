@@ -60,6 +60,7 @@ class UsersController < ApplicationController
       @user_session = UserSession.new(@user)
       if @user_session.save
         @message = "Welcome aboard! Your account has been confirmed."
+        redirect_to root_path if @user.media?
       else
         @message = "Could not log you in. Please contact us for assistance."
       end
@@ -71,7 +72,7 @@ class UsersController < ApplicationController
       redirect_to login_path
     end
   end
-  
+
   def resend_confirmation
     require_no_user unless current_user && current_user.admin?
     if request.post?
@@ -117,14 +118,14 @@ class UsersController < ApplicationController
   def fb_auth
     @user = User.find(params[:id])
   end
-  
+
   def fb_deauth
     @user = User.find(params[:id])
     @user.update_attribute(:facebook_access_token, nil)
     flash[:notice] = "Your Facebook account has been disconnected"
-    redirect_to :action => "edit", :id => @user.id    
+    redirect_to :action => "edit", :id => @user.id
   end
-  
+
   def fb_connect
     @user = User.find(params[:id])
     if current_facebook_user
@@ -136,7 +137,7 @@ class UsersController < ApplicationController
     end
     redirect_to :action => "edit", :id => @user.id
   end
-  
+
   def fb_page_auth
     @user = User.find(params[:id])
     @page = current_facebook_user.accounts.select { |a| a.id == params[:facebook_page] }.first
@@ -187,12 +188,12 @@ class UsersController < ApplicationController
       render :text => @users.map(&:name).join("\n")
     end
   end
-  
+
   def require_visibility
     get_user
     unless @user.prefers_publish_profile || current_user
       flash[:error] = "You must be logged in to access this page"
-      redirect_to login_path 
+      redirect_to login_path
     end
   end
 

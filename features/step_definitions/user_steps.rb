@@ -20,6 +20,17 @@ Given /^the following media users?:?$/ do |table|
   end
 end
 
+Given /^a media user "([^"]*)" has just signed up$/ do |username|
+  visit new_media_user_path
+
+  When 'I sign up with:', table(%Q{
+    | username    | email        | password |
+    | #{username} | jimbo@bo.com | secret   |
+  })
+
+  @user = User.find_by_username(username)
+end
+
 Given /^I am logged in as an admin$/ do
   Factory(:admin, :username => 'admin', :password => 'admin')
   Given 'I am logged in as "admin" with password "admin"'
@@ -70,6 +81,11 @@ When /^I sign up with:$/ do |table|
   end
   fill_in "user[password_confirmation]", :with => user_data["password"] if user_data["password"]
   click_button :submit
+end
+
+When /^I confirm my account$/ do
+  When 'I open the email with subject "Welcome to SpoonFeed! Please confirm your account"'
+  When 'I click the first link in the email'
 end
 
 Then /^"([^\"]*)" should be marked as a media user$/ do |username|
