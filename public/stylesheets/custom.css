@@ -176,6 +176,7 @@ div#header {
 	background: linear-gradient(#0087C0, #007EAA);
 	-pie-background: linear-gradient(#0087C0, #007EAA);
 	behavior: url(/PIE.htc);
+	margin-bottom: 12px;
 }
 
 #labs_list, #labs_list li {
