@@ -61,12 +61,12 @@
 </div><!-- #extended_profile_container -->
 
 
-<div class="span-6" id="behindline">
-  <h3 class="profile_subhead">Behind the Line: <%= @user.name %></h3>
+<!-- <div class="span-6" id="behindline">
+  <h3 class="profile_subhead">Behind the Line: <%#= @user.name %></h3>
   <ul class="box">
-    <% if current_user == @user %>
+    <%# if current_user == @user %>
       <div class="edit_profile_link"><a href="/profile/edit"><span>Edit profile</span></a></div>
-    <% end %>
+    <%# end %>
     <li class="even">
       <h5><a href="#">Background <span class="completeness">(80% complete)</span></a></h5>
       This is where Lorem ipsum dolor sit amet ipsum dolor sit amet, consectetur adipisicing elit aliqua&hellip; <a href="#">more&nbsp;&raquo;</a>
@@ -100,21 +100,21 @@
   </ul>
 
   <div id="older_qotds_box">
-    <% if @user.qotds_responded.present? %>
-      <%= render :partial => 'users/question', :collection => @user.qotds_responded, :local => {:user => @user} %>
-    <% else %>
-      <p><%= @user.name %> hasn't answered any Questions of the Day yet.</p>
-    <% end %>
+    <%# if @user.qotds_responded.present? %>
+      <%#= render :partial => 'users/question', :collection => @user.qotds_responded, :local => {:user => @user} %>
+    <%# else %>
+      <p><%#= @user.name %> hasn't answered any Questions of the Day yet.</p>
+    <%# end %>
   </div>
 
   <div id="older_tqs_box">
-    <% if @user.qotds_responded.present? %>
-      <%= render :partial => 'users/question', :collection => @user.trend_questions_responded, :local => {:user => @user} %>
-    <% else %>
-      <p><%= @user.name %> hasn't answered any Trend Questions yet.</p>
-    <% end %>
+    <%# if @user.qotds_responded.present? %>
+      <%#= render :partial => 'users/question', :collection => @user.trend_questions_responded, :local => {:user => @user} %>
+    <%# else %>
+      <p><%#= @user.name %> hasn't answered any Trend Questions yet.</p>
+    <%# end %>
   </div>
-</div>
+</div> -->
 
 <hr class="space"/>
 
