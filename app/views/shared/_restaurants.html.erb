@@ -1,39 +1,19 @@
 <div id="my_restaurants" rel="My Restaurants" class="sibebar_section restaurants clearfix">
-  <div class="section_header">
-    <h3 class="function-bold">Restaurants</h3>
-  </div>
-
+  <h3 class="section_header">My Restaurants</h3>
   <div class="section_body">
-    <h4>Restaurant Accounts</h4>
-    <% if @current_user_managed_restaurants.blank? %>
-      <p class="none">You don't manage any restaurants.</p>
-    <% else %>
-    <div class="my_restaurants">
-      <% @current_user_managed_restaurants.reject(&:new_record?).each do |restaurant| %>
-        <div class="<%= dom_class(restaurant) %>">
-          <%= link_to h(restaurant.name), restaurant %>
-        </div>
+    <div class="my_employers">
+      <% if @current_user_restaurants.blank? -%>
+        <p class="none">You aren't associated with any restaurants.</p>
+      <% else %>
+        <% @current_user_restaurants.each do |restaurant| %>
+          <div class="<%= dom_class(restaurant) %>">
+            <%= link_to h(restaurant.name), restaurant %>
+          </div>
+        <% end %>
+        <p class="start_discussion">
+          <%= link_to image_tag('quotebubble.png') + "Start a discussion", new_discussion_path, :class => 'sf-button alt top' %>
+        </p>
       <% end %>
     </div>
-    <% end %>
-
-    <div class="my_employers">
-      <h4>My Restaurants</h4>
-    <% if @current_user_restaurants.blank? -%>
-      <p class="none">You aren't associated with any restaurants.</p>
-    <% else -%>
-      <% @current_user_restaurants.each do |restaurant| %>
-        <div class="<%= dom_class(restaurant) %>">
-          <%= link_to h(restaurant.name), restaurant %>
-        </div>
-      <% end -%>
-    <p class="start_discussion">
-      <%= link_to image_tag('quotebubble.png') + "Start a discussion", new_discussion_path, :class => 'sf-button alt top' %>
-    </p>
-
-    <% end -%>
-    </div>
-
-
   </div>
 </div>
