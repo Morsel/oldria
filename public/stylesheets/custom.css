@@ -231,7 +231,13 @@ div#header {
 	margin: 4px 6px;
 	display: block;
 	float: left;
-	width: 180px;
+	width: 202px;
+}
+
+#sidebar #new_status .and_twitter a {
+	margin-left: 10px;
+	font-family: "Lucida Grande", sans-serif;
+	font-size: 10px;
 }
 
 #media_request_promo {
