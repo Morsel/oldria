@@ -27,8 +27,12 @@ class SoapboxController < ApplicationController
   end
 
   def require_http_authenticated
-    authenticate_or_request_with_http_basic do |username, password|
-      username == "soapbox" && password == "preview"
+    if Rails.env.production?
+      authenticate_or_request_with_http_basic do |username, password|
+        username == "soapbox" && password == "preview"
+      end
+    else
+      true
     end
   end
 
