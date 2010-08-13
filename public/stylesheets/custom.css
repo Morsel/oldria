@@ -176,6 +176,7 @@ div#header {
 	background: linear-gradient(#0087C0, #007EAA);
 	-pie-background: linear-gradient(#0087C0, #007EAA);
 	behavior: url(/PIE.htc);
+	margin-bottom: 12px;
 }
 
 #labs_list, #labs_list li {
@@ -231,7 +232,7 @@ div#header {
 	margin: 4px 6px;
 	display: block;
 	float: left;
-	width: 202px;
+	width: 200px;
 }
 
 #sidebar #new_status .and_twitter a {
