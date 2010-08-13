@@ -18,6 +18,10 @@ class Admin::TopicsController < ApplicationController
     @topic = Topic.find(params[:id])
   end
   
+  def edit
+    redirect_to :action => "show", :id => params[:id]
+  end
+  
   def update
     @topic = Topic.find(params[:id])
     @topic.update_attributes(params[:topic])
