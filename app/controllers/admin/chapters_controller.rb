@@ -1,4 +1,4 @@
-class Admin::ChaptersController < ApplicationController
+class Admin::ChaptersController < Admin::AdminController
   
   def create
     @chapter = Chapter.new(params[:chapter])
