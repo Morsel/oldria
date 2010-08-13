@@ -633,15 +633,6 @@ a.sf-button.alt:hover {
 	padding-bottom: 5px;
 }
 
-
-#my_restaurants h4, #ria_labs h4 {
-	color: #999;
-	margin: 0;
-	font-size: 1em;
-	font-weight: bold;
-	text-transform: uppercase;
-}
-
 #my_restaurants .none {
 	color: #999;
 	font-style: italic;
@@ -1202,7 +1193,7 @@ div.restaurant {
 	color: #555;
 }
 
-.restaurant a{
+.restaurant a {
 	padding-left:15px;
 	background:url(/images/arrow2.png) no-repeat left;
 	display:inline-block;
@@ -1210,22 +1201,25 @@ div.restaurant {
 	color: #333;
 	line-height: 15px;
 }
+
+.restaurant .restaurant_admin {
+	font-family: "Lucida Grande", arial, sans-serif;
+	font-size: 9px;
+	line-height: 14px;
+	text-transform: uppercase;
+	color: #ea801a;
+	padding-left: 14px;
+	background: url('../images/star-small.png') -1px -3px no-repeat;
+}
+
 .restaurant .media_requests_count a{
 	background:0;
 	padding-left:0;
 }
-.my_restaurants a{
+.my_employers a{
 	color:#008bc4;
 }
 
-.my_employers, .new_feature {
-	margin:10px 0 0;
-}
-
-.my_employers .restaurant {}
-.my_employers a{
-	color:#e8750a;
-}
 .restaurant a:hover{
 	text-decoration:underline;
 }

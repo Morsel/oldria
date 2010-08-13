@@ -2,12 +2,13 @@
   <h3 class="section_header">My Restaurants</h3>
   <div class="section_body">
     <div class="my_employers">
-      <% if @current_user_restaurants.blank? -%>
+      <% if current_user.employments.blank? -%>
         <p class="none">You aren't associated with any restaurants.</p>
       <% else %>
-        <% @current_user_restaurants.each do |restaurant| %>
-          <div class="<%= dom_class(restaurant) %>">
-            <%= link_to h(restaurant.name), restaurant %>
+        <% current_user.employments.each do |employment| %>
+          <div class="<%= dom_class(employment.restaurant) %>">
+            <%= link_to h(employment.restaurant_name), employment.restaurant %>
+            <% if employment.omniscient? %><span class="restaurant_admin">Admin</span><% end %>
           </div>
         <% end %>
         <p class="start_discussion">

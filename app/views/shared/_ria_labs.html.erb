@@ -6,7 +6,7 @@
         <%= link_to "Marketing Manual", public_page_path('introduction-marketing-workbook') %>
       </li>
 
-      <% @current_user_restaurants.each do |restaurant| %>
+      <% current_user.restaurants.each do |restaurant| %>
       <li class="labs_calendar">
         <%= link_to "Calendar (#{restaurant.name})", restaurant_calendars_path(:restaurant_id => restaurant) %>
       </li>

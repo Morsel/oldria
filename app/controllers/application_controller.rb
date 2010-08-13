@@ -104,7 +104,6 @@ class ApplicationController < ActionController::Base
   def preload_resources
     load_random_coached_update
     load_current_user_statuses
-    load_current_user_restaurants
   end
 
   def load_random_coached_update
@@ -115,12 +114,6 @@ class ApplicationController < ActionController::Base
   def load_current_user_statuses
     return unless current_user && !current_user.media?
     @current_user_recent_statuses = current_user.statuses.all(:limit => 2)
-  end
-
-  def load_current_user_restaurants
-    return unless current_user && !current_user.media?
-    @current_user_managed_restaurants = current_user.restaurants_where_manager
-    @current_user_restaurants = current_user.restaurants.all
   end
 
   def archived_view?
