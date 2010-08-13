@@ -121,25 +121,6 @@ div#header {
 	background:#edf8fc;
 }
 
-.sidebar_section {
-	margin: 1em 0;
-	padding-bottom: 1em;
-	border-bottom: 1px solid #ddd;
-}
-
-
-
-#sidebar h3{
-	color: #fff;
-	background: #412203 url('../images/sidebar_title.png') repeat-x bottom;
-	padding: 4px 12px;
-	-webkit-border-radius: 15px;
-	-moz-border-radius: 15px;
-	border-radius: 15px;
-	border: 0;
-	margin: 0;
-}
-
 #sidebar .fancy-list {
 	margin: 0;
 }
@@ -158,28 +139,88 @@ div#header {
 }
 
 #sidebar .section_header {
-	margin-bottom: 1em;
-	position: relative;
+	font-family: "Hoefler text", Georgia, serif;
+	color: #eee;
+	color: rgba(255,255,255, 0.7);
+	font-weight: normal;
+	font-size: 20px;
+	line-height: 24px;
+	margin: 0 0 10px;
+}
+
+#user_status .section_header {
+	clear: left;
+	margin: 1.5em 0 .5em;
+	line-height: 1.5;
+	font-size: 13px;
+	border-bottom: 2px dotted #ddd;
+	color: #777;
+	font-weight: normal;
+	text-transform: uppercase;
+	letter-spacing: 1px;
+	font-family: helvetica, arial, sans-serif;
+}
+
+#ria_labs, #quick_question {
+	padding: 10px;
+	color: #fff;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+}
+
+#ria_labs {
+	background-color: #007EAA;
+	background: -webkit-gradient(linear, 0 0, 0 bottom, from(#0087C0), to(#007EAA));
+	background: -moz-linear-gradient(#0087C0, #007EAA);
+	background: linear-gradient(#0087C0, #007EAA);
+	-pie-background: linear-gradient(#0087C0, #007EAA);
+	behavior: url(/PIE.htc);
+}
+
+#labs_list, #labs_list li {
+	list-style: none;
+	margin: 5px 0;
+}
+
+#labs_list li a {
+	padding-left: 20px;
+	display: block;
+	color: #fff;
+	color: rgba(255,255,255, 0.9);
+	text-decoration: none;
+	line-height: 19px;
+	background: url('../images/labs-sprite.png') 0 0 no-repeat;
+}
+
+#labs_list li a:hover {
+	color: #fff;
+	text-decoration: underline;
+}
+
+#labs_list .labs_marketing_manual a{
+	background-position: 0 -91px;
+}
+#labs_list .labs_calendar a{
+	background-position: 0 -22px;
+}
+#labs_list .labs_soapbox a{
+	background-position: 0 -46px;
+}
+#labs_list .labs_conversations a{
+	background-position: 0 1px;
+}
+#labs_list .labs_activity a{
+	background-position: 0 -68px;
 }
 
 #sidebar .section_body {
-	margin: 0 1em;
 	color: #333;
 }
 
 #sidebar h3 {
 	z-index: 2;
 	position: relative;
-}
-
-#sidebar #coached {
-	margin-top: -10px;
-	padding: 18px 1em 0.5em;
-	position: relative;
-	z-index: 1;
-	-webkit-border-radius: 3px;
-	-moz-border-radius: 3px;
-	border-radius: 3px;
 }
 
 #sidebar #new_status p {
@@ -190,7 +231,13 @@ div#header {
 	margin: 4px 6px;
 	display: block;
 	float: left;
-	width: 180px;
+	width: 202px;
+}
+
+#sidebar #new_status .and_twitter a {
+	margin-left: 10px;
+	font-family: "Lucida Grande", sans-serif;
+	font-size: 10px;
 }
 
 #media_request_promo {
@@ -558,24 +605,11 @@ ins {
 
 /* @group custom */
 
-#coached {
-	background-color: #fed;
-	padding: 5px;
-	color: #644;
+div#coached p {
 	font-family:"Lucida Grande", Arial, sans-serif;
-}
-
-#coached h3 {
-	font-size: 1em;
-}
-
-#coached p {
-	margin:0;
-	font-size:0.9em;
-}
-#coached p span{
 	color:#ea801a;
-	font-weight:bold;
+	font-style: italic;
+	margin: 0 0 1em;
 }
 
 a.sf-button.alt {
@@ -602,20 +636,7 @@ a.sf-button.alt:hover {
 }
 
 #my_restaurants {
-	padding-bottom: 15px;
-	border-bottom: 1px solid #ddd;
-}
-
-#my_restaurants .restaurant + h3 {
-	margin-top:1em;
-}
-
-#my_restaurants h4, #ria_labs h4 {
-	color: #999;
-	margin: 0;
-	font-size: 1em;
-	font-weight: bold;
-	text-transform: uppercase;
+	padding-bottom: 5px;
 }
 
 #my_restaurants .none {
@@ -626,7 +647,6 @@ a.sf-button.alt:hover {
 #my_restaurants p {
 	margin:  0 0;
 }
-
 
 h2.with_icon {
 	color:#313131;
@@ -902,7 +922,7 @@ input.checkbox {
 	text-decoration:none;
 }
 
-#user_status img {
+#user_status .avatar {
 	float: left;
 	background:#fff;
 	padding:3px;
@@ -920,7 +940,7 @@ input.checkbox {
 }
 
 #user_status .actions {
-	margin: 10px 0 0;
+	margin: 6px 0 0;
 }
 
 #user_status li {
@@ -1179,7 +1199,7 @@ div.restaurant {
 	color: #555;
 }
 
-.restaurant a{
+.restaurant a {
 	padding-left:15px;
 	background:url(/images/arrow2.png) no-repeat left;
 	display:inline-block;
@@ -1187,22 +1207,25 @@ div.restaurant {
 	color: #333;
 	line-height: 15px;
 }
+
+.restaurant .restaurant_admin {
+	font-family: "Lucida Grande", arial, sans-serif;
+	font-size: 9px;
+	line-height: 14px;
+	text-transform: uppercase;
+	color: #ea801a;
+	padding-left: 14px;
+	background: url('../images/star-small.png') -1px -3px no-repeat;
+}
+
 .restaurant .media_requests_count a{
 	background:0;
 	padding-left:0;
 }
-.my_restaurants a{
+.my_employers a{
 	color:#008bc4;
 }
 
-.my_employers, .new_feature {
-	margin:10px 0 0;
-}
-
-.my_employers .restaurant {}
-.my_employers a{
-	color:#e8750a;
-}
 .restaurant a:hover{
 	text-decoration:underline;
 }
