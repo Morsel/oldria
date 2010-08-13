@@ -10,7 +10,6 @@ ActionController::Routing::Routes.draw do |map|
 
   map.with_options :conditions => {:subdomain => 'soapbox'}, :controller => 'soapbox' do |soapbox|
     soapbox.root :action => 'index'
-    soapbox.entry ':id', :action => 'show'
   end
 
   map.resources :soapbox, :only => ['index','show']

@@ -1,6 +1,9 @@
 require 'spec_helper'
 
 describe SoapboxController do
+  before do
+    controller.stubs(:require_http_authenticated).returns(true)
+  end
 
   describe "GET index" do
     it "should be successful" do
