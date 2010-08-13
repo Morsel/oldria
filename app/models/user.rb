@@ -90,7 +90,7 @@ class User < ActiveRecord::Base
                       Usernames can only contain letters, numbers, and/or the '-' symbol."
 
   validates_acceptance_of :agree_to_contract
-  
+
   validates_presence_of :facebook_page_token, :if => Proc.new { |user| user.facebook_page_id }
   validates_presence_of :facebook_page_id, :if => Proc.new { |user| user.facebook_page_token }
 
@@ -99,7 +99,7 @@ class User < ActiveRecord::Base
 
   named_scope :for_autocomplete, :select => "first_name, last_name", :order => "last_name ASC", :limit => 15
   named_scope :by_last_name, :order => "LOWER(last_name) ASC"
-  
+
   after_update :mark_replies_as_read, :if => Proc.new { |user| user.confirmed_at && user.confirmed_at > 1.minute.ago }
 
 ### Preferences ###
@@ -267,9 +267,9 @@ class User < ActiveRecord::Base
   def facebook_page
     @page ||= Mogli::Page.new(:id => facebook_page_id, :client => Mogli::Client.new(facebook_page_token))
   end
-  
+
   def profile_questions
-    self.restaurant_roles.map(&:question_roles).flatten.map(&:profile_questions).flatten
+    ProfileQuestion.all(:joins => {:chapters => {:topic => {:question_roles => {:restaurant_roles => :employments}}}}, :conditions => {:employments => {:employee_id => self.id}})
   end
 
 end
