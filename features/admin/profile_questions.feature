@@ -13,7 +13,7 @@ Feature: Profile questions
   Scenario: creating a new profile question
     When I go to the new profile question page
     And fill in "title" with "How did you learn to cook?"
-    And I select "[] Career building - Early on" from "Chapters"
+    And I select "[Cuisine] Career building - Early on" from "Chapters"
     And I press "Save Question"
     Then I should see "Added new profile question"
     
@@ -30,13 +30,14 @@ Feature: Profile questions
   Scenario: creating a new chapter
     When I go to the new profile question page
     And fill in "Chapter Title" with "Mentoring"
-    And I select "[] Career building" from "Topic"
+    And I select "[Cuisine] Career building" from "Topic"
     And I press "Save Chapter"
     Then I should see "Created new chapter named Mentoring"
   
   Scenario: creating a new topic
     When I go to the new profile question page
     And fill in "Topic Title" with "Work Experience"
+    And I check "Cuisine"
     And I press "Save Topic"
     Then I should see "Created new topic named Work Experience"
     
