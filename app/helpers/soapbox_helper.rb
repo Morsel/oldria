@@ -22,5 +22,9 @@ module SoapboxHelper
       comment.commentable.admin_message.soapbox_entry :
       comment.commentable.discussionable.soapbox_entry
   end
+  
+  def message(featured_item)
+    featured_item.display_message || featured_item.message
+  end
 
 end

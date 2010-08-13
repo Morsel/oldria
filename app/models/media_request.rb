@@ -53,11 +53,9 @@ class MediaRequest < ActiveRecord::Base
   end
 
   def deliver_notifications
-    for discussion in media_request_discussions
-      UserMailer.deliver_media_request_notification(self, discussion)
-    end
+    media_request_discussions.each {|d| d.deliver_notifications }
   end
-  handle_asynchronously :deliver_notifications # Use delayed_job to send
+  #handle_asynchronously :deliver_notifications # Use delayed_job to send
 
   def discussion_with_restaurant(restaurant)
     media_request_discussions.first(:conditions => {:restaurant_id => restaurant.id})

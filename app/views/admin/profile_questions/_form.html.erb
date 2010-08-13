@@ -1,7 +1,8 @@
 <% semantic_form_for [:admin, @question] do |f| %>
     <% f.inputs do %>
         <%= f.input :title %>
-        <%= f.input :chapter, :collection => Chapter.all %>
+        <%= f.input :chapters, :collection => Chapter.all %>
+        <%= hidden_field_tag "chapter_id", params[:chapter_id] %>
     <% end %>
     <p><%= button_tag "Save Question" %></p>
 <% end %>

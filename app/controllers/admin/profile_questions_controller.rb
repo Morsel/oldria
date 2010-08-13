@@ -24,41 +24,27 @@ class Admin::ProfileQuestionsController < Admin::AdminController
   
   def update
     @question = ProfileQuestion.find(params[:id])
-    if @question.update_attributes(params[:profile_question])
-      flash[:notice] = "Updated question #{@question.title}"
-      redirect_to admin_profile_questions_path
+    chapter_params = params[:profile_question].delete("chapter_ids")
+    chapters = Chapter.find(chapter_params)
+    if @question.update_attributes(params[:profile_question].merge(:chapters => chapters))
+      flash[:notice] = "Updated question \"#{@question.title}\""
+      redirect_to :action => "manage", :chapter_id => params[:chapter_id]
     else
       render :action => "edit"
     end
   end
   
-  def delete
-    raise "Not implemented yet"
+  def destroy
+    @question = ProfileQuestion.find(params[:id])
+    flash[:notice] = "Deleted question \"#{@question.title}\""
+    @question.destroy
+    redirect_to admin_profile_questions_path
   end
   
   def manage
     @chapter = Chapter.find(params[:chapter_id])
-    @questions = @chapter.profile_questions.all(:order => :position)
-  end
-  
-  def create_chapter
-    @chapter = Chapter.new(params[:chapter])
-    if @chapter.save
-      flash[:notice] = "Created new chapter named #{@chapter.title}"
-      redirect_to admin_profile_questions_path
-    else
-      render :action => "new"
-    end
-  end
-
-  def create_topic
-    @topic = Topic.new(params[:topic])
-    if @topic.save
-      flash[:notice] = "Created new topic named #{@topic.title}"
-      redirect_to admin_profile_questions_path
-    else
-      render :action => "new"
-    end
+    @questions = @chapter.profile_questions.all(:include => :chapter_question_memberships, 
+        :order => "chapter_question_memberships.position ASC")
   end
   
   def sort
@@ -68,10 +54,12 @@ class Admin::ProfileQuestionsController < Admin::AdminController
       end
     elsif params[:profile_questions]
       params[:profile_questions].each_with_index do |id, index|
-        ProfileQuestion.update_all(['position=?', index+1], ['id=?', id])
+        membership = ChapterQuestionMembership.find(:first, 
+            :conditions => { :profile_question_id => id, :chapter_id => params[:chapter_id] })
+        membership.update_attributes(:position => (index + 1))
       end
     end
     render :nothing => true
   end
-
+  
 end

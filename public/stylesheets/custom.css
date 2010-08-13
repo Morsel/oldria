@@ -101,6 +101,7 @@ div#header {
 
 #leftcolumn {
 	min-height: 360px;
+	padding-bottom: 10px;
 }
 
 /* @group sidebar */
@@ -1453,7 +1454,7 @@ h3.this-month {
 	float: right;
 	margin: -30px 10px 0px 0px;
 }
-	
+
 .RIA-recos p {margin: 0px;color:#69A74D;}
 .RIA-recos p label {margin: 0px;color:#57953b;}
 
@@ -1905,7 +1906,7 @@ p.editprofile a:hover {
 	height: 62px;
 	top: 15px;
 	left: -27px;
-	background: url('../images/edit-tab.png') no-repeat;	
+	background: url('../images/edit-tab.png') no-repeat;
 }
 
 .edit_profile_link a {
@@ -1967,7 +1968,7 @@ p.editprofile a:hover {
 	margin: 6px 0 0;
 	height: 18px;
 	border: 1px solid #fff;
-	background: #fff;	
+	background: #fff;
 }
 
 #user_profile_view h2, #user_profile_view p {
@@ -1997,6 +1998,12 @@ p.editprofile a:hover {
 dl.user_info {
 	font-size: 1.1em;
 	margin: 0;
+	width: 260px;
+	float: left;
+}
+
+dl.user_info.contact {
+	width: 340px;
 }
 
 dl.user_info dt, dl.user_info dd {
@@ -2005,7 +2012,7 @@ dl.user_info dt, dl.user_info dd {
 
 dl.user_info dt {
 	color: #fff;
-	width: 70px;
+	width: 76px;
 	float: left;
 	clear: left;
 	margin: 0 10px;
@@ -2188,9 +2195,23 @@ dl.things dt:after {content: ":"}
 	position: relative;
 }
 
-#behindline h5 {
+#behindline h5, #behindline a {
 	color: #e8750a;
 	margin: 0;
+}
+
+#behindline .view_all {
+	margin: 1em 10px 0;
+	font-size: 1.1em;
+}
+
+#behindline a {
+	text-decoration: none;
+}
+
+
+#behindline a:hover {
+	text-decoration: underline;
 }
 
 #behindline .completeness {
@@ -2420,8 +2441,8 @@ p.event-actions a:hover {
 #user_content p.more_statuses a {
 	color: #1D9BBB;
 	}
-	
-	
+
+
 form .clonable_fields {
 	margin: 0 0 2em;
 }
@@ -3550,7 +3571,7 @@ a.ui-state-default:hover {
 .ui-tabs .ui-tabs-hide { display: none !important; }
 
 .ui-tabs-nav {
-	height: 33px;
+	height: 30px;
 	list-style: none;
 	margin: 0;
 	padding: 0;
@@ -3558,42 +3579,50 @@ a.ui-state-default:hover {
 
 .ui-tabs-nav li {
 	float: left;
-	padding: 0;
 	border: 1px solid #ddd;
 	border-bottom: 0 none;
 	margin: 0 5px 0 0;
-	font-size: 1.1em;
+	background-color: #fff;
+	font-size: 1.2em;
+	padding: 3px 3px 0;
 }
 
 .ui-tabs-nav .ui-tabs-selected {
-	border: 1px solid #ccc;
+	padding-bottom: 1px;
+	border-color: #ccc;
+	margin-bottom: -1px;
 }
 
 .ui-tabs-nav a {
 	display: block;
-	padding: 5px 10px;
 	text-decoration: none;
+	padding: 2px 6px;
 	color: #0587c1;
+	background-color: #e5f1fa;
 	outline: none;
 }
 
 .ui-tabs-nav .ui-tabs-selected a {
 	background-color: #fff;
-	padding-bottom: 6px;
-	margin-bottom: -1px;
-	color: #333;
+	color: #f4901e;
 }
 
 .ui-tabs-panel {
 	border: 1px solid #ccc;
 	padding: 5px;
+	margin-bottom: 1em;
+}
+
+.ui-tabs-panel div:nth-child(odd) {
+	background-color: #f9f9f9;
 }
 
 .ui-tabs-panel a {
 	display: block;
 	overflow: hidden;
 	padding: 5px 5px 10px;
-	border-bottom: 1px solid #ccc;
+	border-top: 1px solid #ddd;
+	color: #333;
 }
 
 .ui-tabs-panel a:hover {
@@ -3614,6 +3643,7 @@ a.ui-state-default:hover {
 	-webkit-box-shadow: 0 2px 1px rgba(0,0,0, 0.2);
 	-moz-box-shadow: 0 2px 1px rgba(0,0,0, 0.2);
 	box-shadow: 0 2px 1px rgba(0,0,0, 0.2);
+	background-color: #fff;
 }
 
 
@@ -4386,16 +4416,19 @@ p.search_filter_hint {
 /* @group soapbox */
 
 #soapbox_branding {
-	margin-bottom: 40px;	
+	margin-bottom: 12px;
+}
+
+#soapbox_branding, #soapbox_promos {
+	margin-top: 10px;
 }
 
 #soapbox_branding h1 {
-	font-family: georgia;
 	font-weight: normal;
-	font-size: 2.4em;
+	font-size: 32px;
 }
 
-#soapbox_branding h4 {
+#soapbox_branding h2 {
 	font-size: 1.6em;
 	color: #888;
 	font-weight: normal;
@@ -4405,16 +4438,12 @@ p.search_filter_hint {
 	font-family: "Hoefler Text", georgia, serif;
 }
 
-.soapbox_subhead, #soapbox_branding h4 {
-	font-size: 1.6em;
-	color: #777;
-	font-weight: normal;
-}
-
 .soapbox_subhead {
 	border-bottom: 0;
 	padding: 0;
-	margin: 8px 0 20px;
+	margin: 8px 0 18px;
+	font-size: 1.8em;
+	font-weight: normal;
 }
 
 #soapbox_promos h5 {
@@ -4425,9 +4454,9 @@ p.search_filter_hint {
 
 #soapbox_promos a {
 	text-align: center;
-	font-size: 24px;
-	font-weight: normal;
-	padding: 14px 16px 10px;
+	font-size: 26px;
+	font-weight: normal !important;
+	padding: 16px 16px 14px;
 	display: block;
 	color: #fff;
 	text-shadow: 0px 1px 1px #333;
@@ -4464,57 +4493,52 @@ div.main_feature {
 }
 
 
+/* Graphical flags */
 .soapbox_item .featured_item_title {
+	padding: 0;
 	float: left;
-	height: 50px;
-	padding: 15px 20px 20px 18px;
-	width: 92px;
-	margin: -12px 20px 12px 14px;
-	color: #eee;
-	color: rgba(255,255,255, 0.8);
-	font-size: 20px;
-	text-align: center;
-	background: url(../images/banner_small.png) 0 -5px no-repeat;
+	height: 86px;
+	width: 162px;
+	background: url(../images/soapbox-flags.png) 0 0 no-repeat;
+	border: 0;
+	margin: 5px 10px 10px -20px;
+	text-indent: -999px;
 }
 
 div.main_feature .featured_item_title {
-	margin: -5px 20px 5px;
-	height: 90px;
-	padding: 22px 20px 22px 25px;
-	width: 150px;
-	font-size: 28px;
-	line-height: 28px;
-	background: url(../images/banner_large.png) 0 -5px no-repeat;
+	width: 240px;
+	height: 123px;
+	margin: 15px 15px 15px -16px;
 }
 
-.soapbox_item .featured_item_title em {
-	display: block;
-	color: #fff;
-	font-style: normal;
-	font-size: 1.1em;
+.soapbox_item .admin_qotd .featured_item_title {
+	background-position: -280px -182px;
 }
 
-.soapbox_item .featured_item_title {
-	border: 0;
+.soapbox_item .trend_question .featured_item_title {
+	background-position: -2px -182px;
 }
 
+.main_feature .admin_qotd .featured_item_title {
+	background-position: -280px 0;
+}
 
-.soapbox_item .trend_question .featured_item_title em { font-size: 1.6em}
+.main_feature .trend_question .featured_item_title {
+	background-position: 0 0;
+}
 
-.soapbox_item .admin_qotd .featured_item_title { font-size: 17px }
-.soapbox_item .admin_qotd .featured_item_title em { font-size: 20px }
-
-div.main_feature .admin_qotd .featured_item_title { font-size: 28px; }
-div.main_feature .admin_qotd .featured_item_title em {	font-size: 32px }
 
 .soapbox_item .question {
 	font-size: 1.3em;
-	padding: 1em 2em;
+	padding: 14px;
 	color: #444;
 	color: #fff;
 	font-size: 1.2em;
-	padding-left: 164px;
+	font-weight: bold;
+	padding-left: 150px;
+	padding-bottom: 18px;
 	margin-bottom: 18px;
+	min-height: 64px;
 	text-shadow: -1px 1px 1px rgba(0,0,0, 0.4);
 	background: #f4901e;
 	background: -webkit-gradient(linear, 0 0, 0 bottom, from(#f4901e), to(#e3790c));
@@ -4529,10 +4553,10 @@ div.main_feature .admin_qotd .featured_item_title em {	font-size: 32px }
 	padding: 2px 8px;
 	background-color: #fff;
 	background-color: rgba(255,255,255, 0.2);
-	font-size: 12px;
+	font-size: 11px;
 	color: #999;
 	color: rgba(255,255,255, .8);
-	margin: 2px 0 10px 20px;
+	margin: 0 0 10px 20px;
 	text-shadow: 0 0 0;
 }
 
@@ -4544,8 +4568,15 @@ div.main_feature .admin_qotd .featured_item_title em {	font-size: 32px }
 .main_feature .question {
 	background: 0 !important;
 	font-size: 1.3em;
+	font-weight: normal;
 	color: #444;
 	text-shadow: 0 0 0;
+	min-height: 100px;
+	padding-top: 20px;
+}
+
+.main_feature .question .subject {
+	color: #0587c1;
 }
 
 .soapbox_item .comments {
@@ -4595,21 +4626,57 @@ div.main_feature .comment.last {
 }
 
 .soapbox_item .comment .identity {
-	font-size: 1.3em;
-	margin-bottom: 4px;
+	font-size: 12px;
+	line-height: 19px;
+	margin-bottom: 10px;
 	font-family: 'Hoefler Text', georgia, times, serif;
+}
+
+.identity .identity_details {
+	margin: 0;
+	padding: 0;
+}
+
+.identity .identity_details li {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	line-height: 1.2;
+}
+
+.identity .identity_details li a {
+  text-decoration: none;
+  background: none;
+  margin: 0;
+  padding: 0;
 }
 
 .main_feature .comment .identity {
 	text-shadow: -1px 1px 0 rgba(0,0,0,0.5);
 }
 
-.soapbox_item .comment .employee_name {
+.main_feature .identity_details li {
+		color: #fff;
+
+}
+
+.soapbox_item .comment .primary {
+	font-size: 15px;
+	line-height: 1.5;
 	color: #e3790c;
 }
 
-.main_feature .comment .employee_name {
+.soapbox_item .comment .primary a {
+	text-decoration: none;
+	color: #e3790c;
+}
+
+.main_feature .comment .primary {
 	color: #F4901E;
+}
+
+.main_feature .employee_name a{
+	color: #fff;
 }
 
 .soapbox_item .comment .avatar{
@@ -4625,6 +4692,16 @@ div.main_feature .comment.last {
 
 .main_feature .comment .avatar {
 	margin: 0 10px 10px 0;
+}
+
+.soapbox_item .comment .content {
+	clear: left;
+	margin-top: 12px;
+}
+
+.soapbox_item .comment .content p {
+	font-family: 'helvetica neue', helvetica, arial, sans-serif;
+	font-size: 13px;
 }
 
 .soapbox_item .comment .avatar img {

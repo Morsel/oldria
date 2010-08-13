@@ -1,4 +1,5 @@
 class SoapboxController < ApplicationController
+  before_filter :hide_flashes
 
   def index
     @main_feature = SoapboxEntry.main_feature
@@ -22,6 +23,10 @@ class SoapboxController < ApplicationController
   def load_past_features
     @qotds = SoapboxEntry.qotd.published.recent.all(:include => :featured_item).map(&:featured_item)
     @trend_questions = SoapboxEntry.trend_question.published.recent.all(:include => :featured_item).map(&:featured_item)
+  end
+
+  def hide_flashes
+    @hide_flashes = true
   end
 
 end

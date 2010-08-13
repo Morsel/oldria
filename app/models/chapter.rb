@@ -14,14 +14,15 @@
 class Chapter < ActiveRecord::Base
   
   belongs_to :topic
-  has_many :profile_questions
+  has_many :chapter_question_memberships
+  has_many :profile_questions, :through => :chapter_question_memberships
   
-  validates_presence_of :title, :topic_id
+  validates_presence_of :title, :topic
   
   default_scope :joins => :topic, :order => "topics.title ASC, chapters.title ASC"
   
   def title_with_topic
-    "#{topic.title} - #{title}"
+    "[#{topic.question_roles_description}] #{topic.title} - #{title}"
   end
   
   # for formtastic

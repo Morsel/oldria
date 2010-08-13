@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_filter :require_user, :only => [:show]
+  before_filter :require_visibility, :only => [:show]
   before_filter :require_no_user, :only => [:new]
   before_filter :require_owner_or_admin, :only => [:edit, :update, :remove_twitter, :remove_avatar, :fb_auth, :fb_connect, :fb_page_auth]
   before_filter :block_media, :only => [:new]
@@ -11,10 +11,8 @@ class UsersController < ApplicationController
   end
 
   def show
-    get_user
-    require_visibility
     # Is the current user following this person?
-    @following = current_user.followings.first(:conditions => {:friend_id => @user.id})
+    @following = current_user.followings.first(:conditions => {:friend_id => @user.id}) if current_user
     @latest_statuses = @user.statuses.all(:limit => 5)
   end
 
@@ -62,6 +60,7 @@ class UsersController < ApplicationController
       @user_session = UserSession.new(@user)
       if @user_session.save
         @message = "Welcome aboard! Your account has been confirmed."
+        redirect_to root_path if @user.media?
       else
         @message = "Could not log you in. Please contact us for assistance."
       end
@@ -73,7 +72,7 @@ class UsersController < ApplicationController
       redirect_to login_path
     end
   end
-  
+
   def resend_confirmation
     require_no_user unless current_user && current_user.admin?
     if request.post?
@@ -119,14 +118,14 @@ class UsersController < ApplicationController
   def fb_auth
     @user = User.find(params[:id])
   end
-  
+
   def fb_deauth
     @user = User.find(params[:id])
     @user.update_attribute(:facebook_access_token, nil)
     flash[:notice] = "Your Facebook account has been disconnected"
-    redirect_to :action => "edit", :id => @user.id    
+    redirect_to :action => "edit", :id => @user.id
   end
-  
+
   def fb_connect
     @user = User.find(params[:id])
     if current_facebook_user
@@ -138,7 +137,7 @@ class UsersController < ApplicationController
     end
     redirect_to :action => "edit", :id => @user.id
   end
-  
+
   def fb_page_auth
     @user = User.find(params[:id])
     @page = current_facebook_user.accounts.select { |a| a.id == params[:facebook_page] }.first
@@ -189,11 +188,12 @@ class UsersController < ApplicationController
       render :text => @users.map(&:name).join("\n")
     end
   end
-  
+
   def require_visibility
-    unless @user.prefers_publish_profile || (@user == current_user) || current_user.admin?
-      flash[:error] = "Sorry, that page isn't available to view."
-      redirect_to root_path 
+    get_user
+    unless @user.prefers_publish_profile || current_user
+      flash[:error] = "You must be logged in to access this page"
+      redirect_to login_path
     end
   end
 

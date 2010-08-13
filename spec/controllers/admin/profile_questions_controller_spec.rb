@@ -24,10 +24,13 @@ describe Admin::ProfileQuestionsController do
     end
 
     it "should update the question's data" do
+      chapter = Factory(:chapter)
+      Chapter.stubs(:find).returns(chapter)
       question = Factory(:profile_question)
       ProfileQuestion.expects(:find).returns(question)
-      question.expects(:update_attributes).with("title" => "New title").returns(true)
-      put :update, :id => question.id, :profile_question => { :title => "New title" }
+      question.expects(:update_attributes).with("title" => "New title", "chapters" => chapter).returns(true)
+      put :update, :id => question.id, :profile_question => { :title => "New title", :chapter_ids => ["1"] }, 
+          :chapter_id => chapter.id
       response.should be_redirect
     end
 

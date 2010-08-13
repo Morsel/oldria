@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20100803224657
+# Schema version: 20100809212429
 #
 # Table name: statuses
 #
@@ -13,6 +13,7 @@
 #  queue_for_facebook      :boolean
 #  facebook_id             :integer
 #  queue_for_facebook_page :boolean
+#  facebook_page_id        :integer
 #
 
 class Status < ActiveRecord::Base

@@ -19,12 +19,12 @@ class UserMailer < ActionMailer::Base
     body          :edit_password_reset_url => edit_password_reset_url(user.perishable_token)
   end
 
-  def media_request_notification(request, discussion)
+  def media_request_notification(request_discussion, user)
     from       'notifications@restaurantintelligenceagency.com'
-    recipients discussion.employments.map(&:employee_email).uniq
-    sent_on    Time.now
-    subject    "SpoonFeed: #{request.publication_string} has a question for #{discussion.restaurant.name}"
-    body       :request => request, :discussion => discussion
+    recipients user.email
+    sent_on    request_discussion.created_at
+    subject    "SpoonFeed: #{request_discussion.publication_string} has a question for #{request_discussion.restaurant.name}"
+    body       :request => request_discussion.media_request, :discussion => request_discussion
   end
 
   def employee_invitation(user, invitation_sender = nil)

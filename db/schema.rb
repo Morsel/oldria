@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100805222713) do
+ActiveRecord::Schema.define(:version => 20100812221140) do
 
   create_table "admin_conversations", :force => true do |t|
     t.integer  "recipient_id"
@@ -39,6 +39,7 @@ ActiveRecord::Schema.define(:version => 20100805222713) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "holiday_id"
+    t.string   "display_message"
   end
 
   create_table "assets", :force => true do |t|
@@ -78,6 +79,14 @@ ActiveRecord::Schema.define(:version => 20100805222713) do
     t.string   "filename"
     t.string   "path"
     t.string   "bucket"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "chapter_question_memberships", :force => true do |t|
+    t.integer  "chapter_id"
+    t.integer  "profile_question_id"
+    t.integer  "position"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -421,11 +430,9 @@ ActiveRecord::Schema.define(:version => 20100805222713) do
   add_index "preferences", ["owner_id", "owner_type", "name", "group_id", "group_type"], :name => "index_preferences_on_owner_and_name_and_preference", :unique => true
 
   create_table "profile_questions", :force => true do |t|
-    t.integer  "chapter_id"
     t.string   "title"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "position",   :default => 0
   end
 
   create_table "profiles", :force => true do |t|
@@ -438,6 +445,22 @@ ActiveRecord::Schema.define(:version => 20100805222713) do
   end
 
   add_index "profiles", ["user_id"], :name => "index_profiles_on_user_id", :unique => true
+
+  create_table "question_roles", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "question_roles_restaurant_roles", :id => false, :force => true do |t|
+    t.integer "question_role_id"
+    t.integer "restaurant_role_id"
+  end
+
+  create_table "question_roles_topics", :id => false, :force => true do |t|
+    t.integer "question_role_id"
+    t.integer "topic_id"
+  end
 
   create_table "readings", :force => true do |t|
     t.string   "readable_type"
@@ -545,6 +568,7 @@ ActiveRecord::Schema.define(:version => 20100805222713) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "employment_search_id"
+    t.string   "display_message"
   end
 
   add_index "trend_questions", ["employment_search_id"], :name => "index_trend_questions_on_employment_search_id"

@@ -1,10 +1,9 @@
 # == Schema Information
-# Schema version: 20100802191740
+# Schema version: 20100810184557
 #
 # Table name: profile_questions
 #
 #  id         :integer         not null, primary key
-#  chapter_id :integer
 #  title      :string(255)
 #  created_at :datetime
 #  updated_at :datetime
@@ -13,12 +12,13 @@
 
 class ProfileQuestion < ActiveRecord::Base
 
-  belongs_to :chapter
+  has_many :chapter_question_memberships
+  has_many :chapters, :through => :chapter_question_memberships
   
-  validates_presence_of :title, :chapter_id
-    
-  def topic
-    chapter.topic
+  validates_presence_of :title, :chapters
+      
+  def topics
+    chapters.map(&:topic)
   end
   
 end

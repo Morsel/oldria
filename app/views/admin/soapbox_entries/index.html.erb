@@ -5,6 +5,9 @@
 		t.cell(:published_at) { |c| c.published_at.to_s(:long) }
 		t.cell(:featured_item) {|s| link_to s.featured_item.try(:title), resource_for_featured_item(s)}
 		t.cell(:message) { |c| c.featured_item.message }
+		t.cell(:display_message) { |c| c.featured_item.display_message }
 		t.cell(:authorized_comment_count) { |c| c.featured_item.comments.select { |c| c.employment && c.employment.prefers_post_to_soapbox }.size }
 	end %>
 <% end %>
+
+<%= will_paginate(@soapbox_entries) %>

@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20100409221445
+# Schema version: 20100811202044
 #
 # Table name: trend_questions
 #
@@ -11,6 +11,7 @@
 #  created_at           :datetime
 #  updated_at           :datetime
 #  employment_search_id :integer
+#  display_message      :string(255)
 #
 
 class TrendQuestion < ActiveRecord::Base

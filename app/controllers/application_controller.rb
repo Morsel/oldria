@@ -4,7 +4,7 @@
 class ApplicationController < ActionController::Base
   helper :all # include all helpers, all the time
   protect_from_forgery # See ActionController::RequestForgeryProtection for details
-  
+
   include Facebooker2::Rails::Controller
 
   # Scrub sensitive parameters from your log
@@ -13,6 +13,7 @@ class ApplicationController < ActionController::Base
   before_filter :preload_resources
 
   helper_method :current_user
+  helper_method :mediafeed?
 
   rescue_from CanCan::AccessDenied do
     if current_user
@@ -25,6 +26,11 @@ class ApplicationController < ActionController::Base
   end
 
   private
+
+  def mediafeed?
+    return @is_mediafeed if defined?(@is_mediafeed)
+    @is_mediafeed = (current_subdomain =~ /^mediafeed/) || (current_user && current_user.media?)
+  end
 
   def find_user_feeds(dashboard = false)
     @feeds = current_user.chosen_feeds(dashboard) || Feed.featured.all(:limit => (dashboard ? 2 : nil))
@@ -40,7 +46,7 @@ class ApplicationController < ActionController::Base
     return @current_user if defined?(@current_user)
     @current_user = current_user_session && current_user_session.user
   end
- 
+
   def require_twitter_authorization
     unless current_user.twitter_authorized?
       flash[:notice] = "You must be authorized with Twitter to view this page"
@@ -144,7 +150,8 @@ class ApplicationController < ActionController::Base
       @search = EmploymentSearch.new(:conditions => params[:search]).employments
     end
 
-    @restaurants_and_employments = @search.all(:include => [:restaurant, :employee]).group_by(&:restaurant)
+    @restaurants_and_employments = @search.all(:include => [:restaurant, :employee],
+                                               :order => "restaurants.name").group_by(&:restaurant)
   end
 
   def save_search

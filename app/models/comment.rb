@@ -63,6 +63,7 @@ class Comment < ActiveRecord::Base
   end
 
   def employment
+    return nil unless user && restaurant
     @employment ||= user.employments.find_by_restaurant_id(restaurant.id)
   end
 

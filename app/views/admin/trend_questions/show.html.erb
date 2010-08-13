@@ -1,25 +1,29 @@
 <% title "Trend Question" %>
 
 <p>
-  <strong>Subject:</strong>
-  <%=h @trend_question.subject %>
+    <strong>Subject:</strong>
+    <%=h @trend_question.subject %>
 </p>
 <p>
-  <strong>Body:</strong>
-  <%= simple_format @trend_question.body %>
+    <strong>Body:</strong>
+    <%= simple_format @trend_question.body %>
 </p>
 <p>
-  <strong>Scheduled At:</strong>
-  <%=h @trend_question.scheduled_at.try(:to_s, :long_ordinal) %>
+    <strong>Display Message:</strong>
+    <%= @trend_question.display_message %>
+</p>
+<p>
+    <strong>Scheduled At:</strong>
+    <%=h @trend_question.scheduled_at.try(:to_s, :long_ordinal) %>
 </p>
 <% if @trend_question.employment_search %>
 <p>
-  <strong>Criteria:</strong>
-  <ul>
-  <% @trend_question.employment_search.readable_conditions.each do |condition| %>
-    <li><%= condition %></li>
-  <% end %>
-  </ul>
+    <strong>Criteria:</strong>
+    <ul>
+        <% @trend_question.employment_search.readable_conditions.each do |condition| %>
+        <li><%= condition %></li>
+        <% end %>
+    </ul>
 </p>
 <% end %>
 

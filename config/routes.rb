@@ -17,7 +17,7 @@ ActionController::Routing::Routes.draw do |map|
 
   map.resource :profiles, :except => ['show'], :as => 'profile'
 
-  map.profile 'profile/:username', :controller => 'users', :action => 'show', :requirements => { :username => /[\w\d]+/}
+  map.profile 'profile/:username', :controller => 'users', :action => 'show', :requirements => { :username => /[a-zA-Z0-9\-\_ ]+/}
 
 
   map.resources :quick_replies
@@ -116,9 +116,10 @@ ActionController::Routing::Routes.draw do |map|
     admin.resources :calendars
     admin.resources :events
     admin.resources :soapbox_entries
-    admin.resources :profile_questions, :collection => { :manage => :get, :sort => :post }
-    map.admin_chapters 'admin/profile_questions/chapters', :controller => "admin/profile_questions", :action => "create_chapter"
-    map.admin_topics 'admin/profile_questions/topics', :controller => "admin/profile_questions", :action => "create_topic"
+    admin.resources :profile_questions, :collection => { :manage => :get, :sort => :post, :topic => :any }
+    admin.resources :chapters
+    admin.resources :topics
+    admin.resources :question_roles
 
     # Admin Messaging
     exclusive_routes = [:index, :show, :destroy]

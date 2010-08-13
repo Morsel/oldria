@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20100803224657
+# Schema version: 20100809212429
 #
 # Table name: users
 #
@@ -25,9 +25,9 @@
 #  james_beard_region_id :integer
 #  publication           :string(255)
 #  role                  :string(255)
-#  facebook_id           :integer
+#  facebook_id           :string(255)
 #  facebook_access_token :string(255)
-#  facebook_page_id      :integer
+#  facebook_page_id      :string(255)
 #  facebook_page_token   :string(255)
 #
 
@@ -98,6 +98,8 @@ class User < ActiveRecord::Base
 
   named_scope :for_autocomplete, :select => "first_name, last_name", :order => "last_name ASC", :limit => 15
   named_scope :by_last_name, :order => "LOWER(last_name) ASC"
+  
+  after_update :mark_replies_as_read, :if => Proc.new { |user| user.confirmed_at && user.confirmed_at > 1.minute.ago }
 
 ### Preferences ###
   preference :hide_help_box, :default => false

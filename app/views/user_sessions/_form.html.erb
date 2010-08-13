@@ -17,7 +17,9 @@
 <% end %>
 </div>
 
+<% unless mediafeed? %>
 <div class="span-4 last">
     Or log in with Facebook:
     <p><%= fb_login_link fb_login_path %></p>
 </div>
+<% end %>

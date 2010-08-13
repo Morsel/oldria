@@ -20,7 +20,7 @@ class Admin::Conversation < ActiveRecord::Base
       :conditions => ['admin_messages.scheduled_at < ? OR admin_messages.scheduled_at IS NULL', Time.zone.now],
       :order => 'admin_messages.scheduled_at DESC'  }
     }
-    
+
   named_scope :recent, lambda {
     { :conditions => ['admin_messages.scheduled_at >= ?', 2.weeks.ago] }
   }
@@ -75,7 +75,7 @@ class Admin::Conversation < ActiveRecord::Base
   end
 
   def restaurant
-    recipient.restaurant
+    recipient.try(:restaurant)
   end
 
 end

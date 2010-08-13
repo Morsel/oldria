@@ -10,8 +10,13 @@
 <% f.inputs :name => 'Preferences' do %>
   <%= f.input :prefers_receive_email_notifications, :as => :boolean,
               :label => 'Receive email notifications?' %>
-              
+
   <%= f.input :prefers_publish_profile, :as => :boolean, :label => 'Publish your profile for other users to view?' %>
+
+  <% if @user.try(:username) %>
+  <%= link_to "Preview your profile", profile_path(@user.username), :class => "button", :popup => true %>
+  <% end %>
+
 <% end %>
 
 <% f.inputs :name => 'Desired Login Information' do %>

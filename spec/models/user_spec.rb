@@ -290,4 +290,14 @@ describe User do
       @user.announcements.should == [@announcement]
     end
   end
+  
+  context "updating replies after confirmed" do
+    
+    it "should mark message replies as read for recently confirmed user" do
+      user = Factory(:user, :confirmed_at => nil)
+      user.expects(:mark_replies_as_read)
+      user.confirm!
+    end
+    
+  end
 end
