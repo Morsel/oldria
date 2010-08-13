@@ -1,7 +1,7 @@
 class Admin::SoapboxEntriesController < Admin::AdminController
 
   def index
-    @soapbox_entries = SoapboxEntry.all
+    @soapbox_entries = SoapboxEntry.paginate(:page => params[:page])
   end
 
   def new

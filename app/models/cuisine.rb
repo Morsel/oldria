@@ -13,4 +13,9 @@ class Cuisine < ActiveRecord::Base
   validates_presence_of :name
   default_scope :order => "#{table_name}.name ASC"
 
+  named_scope :with_restaurants,
+    :joins => :restaurants,
+    :conditions => 'restaurants.deleted_at IS NULL',
+    :group => "#{table_name}.id"
+
 end

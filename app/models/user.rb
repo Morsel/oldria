@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20100721223109
+# Schema version: 20100809212429
 #
 # Table name: users
 #
@@ -25,8 +25,10 @@
 #  james_beard_region_id :integer
 #  publication           :string(255)
 #  role                  :string(255)
-#  facebook_id           :integer
+#  facebook_id           :string(255)
 #  facebook_access_token :string(255)
+#  facebook_page_id      :string(255)
+#  facebook_page_token   :string(255)
 #
 
 class User < ActiveRecord::Base
@@ -64,7 +66,9 @@ class User < ActiveRecord::Base
   has_many :feeds, :through => :feed_subscriptions
 
   has_many :readings, :dependent => :destroy
-  
+
+  has_one :profile
+
   validates_presence_of :email
 
   attr_accessor :send_invitation, :agree_to_contract, :invitation_sender, :password_reset_required
@@ -85,16 +89,22 @@ class User < ActiveRecord::Base
                       Usernames can only contain letters, numbers, and/or the '-' symbol."
 
   validates_acceptance_of :agree_to_contract
+  
+  validates_presence_of :facebook_page_token, :if => Proc.new { |user| user.facebook_page_id }
+  validates_presence_of :facebook_page_id, :if => Proc.new { |user| user.facebook_page_token }
 
   named_scope :media, :conditions => {:role => 'media'}
   named_scope :admin, :conditions => {:role => 'admin'}
 
   named_scope :for_autocomplete, :select => "first_name, last_name", :order => "last_name ASC", :limit => 15
   named_scope :by_last_name, :order => "LOWER(last_name) ASC"
+  
+  after_update :mark_replies_as_read, :if => Proc.new { |user| user.confirmed_at && user.confirmed_at > 1.minute.ago }
 
 ### Preferences ###
   preference :hide_help_box, :default => false
   preference :receive_email_notifications, :default => false
+  preference :publish_profile, :default => true
 
 ### Roles ###
   def admin?
@@ -234,19 +244,27 @@ class User < ActiveRecord::Base
       UserMailer.deliver_employee_invitation!(self, invitation_sender)
     end
   end
-  
+
   def connect_to_facebook_user(fb_id)
     update_attributes(:facebook_id => fb_id)
   end
-  
+
   def facebook_authorized?
-    !facebook_id.nil? and !facebook_access_token.nil?
+    facebook_id.present? and facebook_access_token.present?
   end
-  
+
   def facebook_user
     if facebook_id and facebook_access_token
       @facebook_user ||= Mogli::User.new(:id => facebook_id, :client => Mogli::Client.new(facebook_access_token))
     end
   end
-  
+
+  def has_facebook_page?
+    facebook_page_id.present? and facebook_page_token.present?
+  end
+
+  def facebook_page
+    @page ||= Mogli::Page.new(:id => facebook_page_id, :client => Mogli::Client.new(facebook_page_token))
+  end
+
 end

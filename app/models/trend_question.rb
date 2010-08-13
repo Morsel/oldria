@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20100409221445
+# Schema version: 20100811202044
 #
 # Table name: trend_questions
 #
@@ -11,6 +11,7 @@
 #  created_at           :datetime
 #  updated_at           :datetime
 #  employment_search_id :integer
+#  display_message      :string(255)
 #
 
 class TrendQuestion < ActiveRecord::Base
@@ -19,7 +20,7 @@ class TrendQuestion < ActiveRecord::Base
 
   has_many :admin_discussions, :as => :discussionable, :dependent => :destroy
   has_many :restaurants, :through => :admin_discussions
-  
+
   has_one :soapbox_entry, :as => :featured_item
 
   named_scope :by_scheduled_date, :order => "#{table_name}.scheduled_at desc"
@@ -56,6 +57,11 @@ class TrendQuestion < ActiveRecord::Base
 
   def comments_count
     admin_discussions.sum(:comments_count)
+  end
+
+  def self.on_soapbox_with_response_from_user(user = nil)
+    return [] unless user
+    self.all(:joins => [:soapbox_entry, {:admin_discussions => :comments}], :conditions => ['comments.user_id = ?', user.id], :group => 'trend_questions.id')
   end
 
   def comments(deep_includes = false)

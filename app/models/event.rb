@@ -28,13 +28,18 @@ class Event < ActiveRecord::Base
   has_many :attachments, :as => :attachable, :class_name => '::Attachment', :dependent => :destroy
   accepts_nested_attributes_for :attachments
 
-  validates_presence_of :title, :start_at, :end_at, :location, :category
+  validates_presence_of :title, :start_at, :end_at, :category
+  validates_presence_of :location, :unless => Proc.new { |event| ["admin_holiday", "admin_charity"].include? event.category }
   validates_presence_of :status, :if => Proc.new { |event| event.category == "Private" }
   
   validate :end_comes_after_start
   
   named_scope :for_month_of, lambda { |date| 
     { :conditions => { :start_at => date.beginning_of_month.at_midnight..date.end_of_month.end_of_day } } 
+  }
+  
+  named_scope :for_location, lambda { |location|
+    { :conditions => { :location => location } }
   }
   
   named_scope :by_category, lambda { |category|
@@ -46,6 +51,8 @@ class Event < ActiveRecord::Base
   named_scope :children, lambda { |event| 
     { :conditions => { :parent_id => event.id } }
   }
+  
+  named_scope :admin_locations, :conditions => { :category => ["admin_charity", "admin_holiday"] }, :select => "distinct location"
   
   def date
     start_at
@@ -76,12 +83,20 @@ class Event < ActiveRecord::Base
     end
   end
   
+  def parent
+    Event.find(self.parent_id) if self.parent_id
+  end
+  
   def private?
     self.category == "Private"
   end
   
   def accepted_for_restaurant?(restaurant)
     child_count > 0 && !Event.children(self).find(:first, :restaurant_id == restaurant.id).nil?
+  end
+  
+  def self.ria_locations
+    self.admin_locations.map { |l| "Location: #{l.location}"}.sort
   end
   
   protected

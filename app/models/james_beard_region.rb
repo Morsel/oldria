@@ -16,6 +16,11 @@ class JamesBeardRegion < ActiveRecord::Base
   validates_presence_of :name
   validates_presence_of :description
 
+  named_scope :with_restaurants,
+    :joins => :restaurants,
+    :conditions => 'restaurants.deleted_at IS NULL',
+    :group => "#{table_name}.id"
+
   def name_and_description(show_parentheses = true)
     @name_and_description ||= begin
       desc = (show_parentheses ? "(#{description})" : description)

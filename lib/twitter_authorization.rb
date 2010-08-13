@@ -12,6 +12,8 @@ module TwitterAuthorization
           nil
         end
       end
+    rescue
+      nil
     end
 
     def twitter_allowed?
@@ -39,5 +41,5 @@ module TwitterAuthorization
         )
       end
     end
-    
+
 end

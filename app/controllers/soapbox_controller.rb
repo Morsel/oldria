@@ -1,5 +1,6 @@
 class SoapboxController < ApplicationController
   before_filter :require_http_authenticated
+  before_filter :hide_flashes
 
   def index
     @main_feature = SoapboxEntry.main_feature
@@ -30,4 +31,9 @@ class SoapboxController < ApplicationController
       username == "soapbox" && password == "preview"
     end
   end
+
+  def hide_flashes
+    @hide_flashes = true
+  end
+
 end

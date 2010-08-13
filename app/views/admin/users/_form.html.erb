@@ -4,6 +4,7 @@
     <%= f.input :last_name, :input_html => {:class => 'span-4'}, :wrapper_html => {:class => 'span-4'} %>
     <%= f.input :email, :wrapper_html => {:class => 'clear'} %>
     <%= f.input :james_beard_region, :label => 'Region', :wrapper_html => {:class => 'bottom'} %>
+    <p><%= link_to "Resend confirmation email", resend_confirmation_users_path(:email => @user.email), :method => "post" unless @user.confirmed? %></p>
   <% end %>
 
   <% f.inputs :name => 'Account Permissions' do %>
