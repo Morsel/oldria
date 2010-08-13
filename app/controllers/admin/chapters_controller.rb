@@ -6,7 +6,7 @@ class Admin::ChaptersController < ApplicationController
       flash[:notice] = "Created new chapter named #{@chapter.title}"
       redirect_to admin_profile_questions_path
     else
-      render :action => "new"
+      render :action => "show"
     end
   end
   

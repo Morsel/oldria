@@ -10,7 +10,7 @@ class Admin::TopicsController < ApplicationController
       flash[:notice] = "Created new topic named #{@topic.title}"
       redirect_to admin_profile_questions_path
     else
-      render :action => "new"
+      render :action => "show"
     end
   end
   
