@@ -89,15 +89,12 @@
 <% if display_sidebar? %>
 
 	<div id="sidebar" class="span-6 last">
-    <%= render :partial => 'shared/user_status' %>
+    <%= render :partial => 'shared/userbox' %>
 
     <%= yield :sidebar %>
 
     <%- if current_user && !current_user.media? %>
-      <%= render :partial => 'statuses/sidebar_form' %>
-      <%= render :partial => 'shared/restaurants' %>
       <%= render :partial => 'shared/ria_labs' %>
-      <%= render :partial => "shared/media_request_promo" %>
     <% end -%>
 
 	</div><!--#sidebar-->
