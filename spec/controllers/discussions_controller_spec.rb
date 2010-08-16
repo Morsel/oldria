@@ -23,6 +23,7 @@ describe DiscussionsController do
     before do
       @employment = Factory.stub(:employment)
       Employment.stubs(:find).returns(@employment)
+      @user.stubs(:employments).returns([@employment])
       @user.stubs(:messages_from_ria).returns([])
       get :new
     end
