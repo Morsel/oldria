@@ -4,12 +4,12 @@ class UserSessionsController < ApplicationController
   def new
     @user_session = UserSession.new
   end
-  
+
   def create
     @user_session = UserSession.new(params[:user_session])
     save_session
   end
-  
+
   def create_from_facebook
     user = User.find_by_facebook_id(current_facebook_user.id)
     if user
@@ -19,20 +19,20 @@ class UserSessionsController < ApplicationController
       @user_session = UserSession.new(user)
       save_session
     else
-      flash[:error] = "No matching spoonfeed user was found. Maybe you still need to connect your Facebook account? Log in and go to your profile edit page."
+      flash[:error] = "We couldn't find a spoonfeed account connected to that Facebook account. Please log with your username and password below, edit your Profile, and connect your Facebook accounts there. Going forward, you can just click the Facebook login connect button."
       redirect_to :action => 'new'
     end
   end
-  
+
   def destroy
     @user_session = UserSession.find(params[:id])
     @user_session.destroy
     flash[:notice] = "Successfully logged out."
     redirect_to root_url
   end
-  
+
   protected
-  
+
   def save_session
     if @user_session.save
       flash[:notice] = "You are now logged in."

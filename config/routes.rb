@@ -6,9 +6,18 @@ ActionController::Routing::Routes.draw do |map|
   map.fb_login 'facebook_login', :controller => 'user_sessions', :action => 'create_from_facebook'
 
   map.directory 'directory', :controller => 'directory', :action => 'index'
-  map.resources :soapbox
 
-  map.profile 'profile/:username', :controller => 'users', :action => 'show'
+
+  map.with_options :conditions => {:subdomain => 'soapbox'}, :controller => 'soapbox' do |soapbox|
+    soapbox.root :action => 'index'
+  end
+
+  map.resources :soapbox, :only => ['index','show']
+
+  map.resource :profiles, :except => ['show'], :as => 'profile'
+
+  map.profile 'profile/:username', :controller => 'users', :action => 'show', :requirements => { :username => /[a-zA-Z0-9\-\_ ]+/}
+
 
   map.resources :quick_replies
   map.resources :media_users, :except => [:index, :show]
@@ -28,7 +37,8 @@ ActionController::Routing::Routes.draw do |map|
     :remove_avatar => :put,
     :fb_auth => :get,
     :fb_connect => :any,
-    :fb_deauth => :any
+    :fb_deauth => :any,
+    :fb_page_auth => :post
   }, :shallow => true do |users|
     users.resources :statuses
     users.resources :direct_messages, :member => { :reply => :get }
@@ -105,6 +115,10 @@ ActionController::Routing::Routes.draw do |map|
     admin.resources :calendars
     admin.resources :events
     admin.resources :soapbox_entries
+    admin.resources :profile_questions, :collection => { :manage => :get, :sort => :post, :topic => :any }
+    admin.resources :chapters
+    admin.resources :topics
+    admin.resources :question_roles
 
     # Admin Messaging
     exclusive_routes = [:index, :show, :destroy]

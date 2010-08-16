@@ -1,16 +1,20 @@
 <% title @message.class.title %>
 
 <div class="admin_message">
-  <h2 class="message_title function-bold">
-    <span class="message_date">
-      <%= @message.created_at.strftime('%m/%d') %><span class="separator">:</span>
-    </span>
-    <%= @message.class.try(:title) %>
-  </h2>
+    <h2 class="message_title function-bold">
+        <span class="message_date">
+            <%= @message.created_at.strftime('%m/%d') %><span class="separator">:</span>
+        </span>
+        <%= @message.class.try(:title) %>
+    </h2>
 
-  <div class="message_body">
-    <%= simple_format @message.message %>
-  </div>
+    <div class="message_body">
+        <%= simple_format @message.message %>
+    </div>
+
+    <div class="message_body">
+        Display message: <%= @message.display_message %>
+    </div>
 </div>
 
 <% if @message.title == "Question of the Day" %>

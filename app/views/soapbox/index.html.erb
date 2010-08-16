@@ -1,13 +1,23 @@
 <% title "Soapbox", false %>
 
+<div id="soapbox_branding" class="span-12">
+  <h1><%= t('soapbox.taglines.main') %></h1>
+  <h2 class="soapbox_subhead"><%= t('soapbox.taglines.secondary') %></h2>
+</div>
+
+<div id="soapbox_promos" class="span-6 last">
+  <h5><a href="#"><%= t('soapbox.call_to_action') %></a></h5>
+</div>
+
 <% if @main_feature %>
-<div class="soapbox_item main_feature">
+<div class="soapbox_item main_feature clear">
   <% div_for @main_feature do %>
     <h2 class="cufon featured_item_title">
       <%= soapbox_tabby_title(@main_feature) %>
     </h2>
     <div class="question">
-      <%= @main_feature.message %>
+      <h4 class="date"><%= @main_feature.soapbox_entry.published_at.try(:strftime, "%b %e, %Y") %></h4>
+      <%= message(@main_feature) %>
     </div>
 
     <% if @main_feature_comments %>
@@ -28,7 +38,8 @@
       <%= soapbox_tabby_title(@secondary_feature) %>
     </h2>
     <div class="question">
-      <%= @secondary_feature.message %>
+      <h4 class="date"><%= @main_feature.soapbox_entry.published_at.try(:strftime, "%b %e, %Y") %></h4>
+      <%= message(@secondary_feature) %>
     </div>
 
     <% if @secondary_feature_comments %>

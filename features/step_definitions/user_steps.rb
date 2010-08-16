@@ -20,6 +20,17 @@ Given /^the following media users?:?$/ do |table|
   end
 end
 
+Given /^a media user "([^"]*)" has just signed up$/ do |username|
+  visit new_media_user_path
+
+  When 'I sign up with:', table(%Q{
+    | username    | email        | password |
+    | #{username} | jimbo@bo.com | secret   |
+  })
+
+  @user = User.find_by_username(username)
+end
+
 Given /^I am logged in as an admin$/ do
   Factory(:admin, :username => 'admin', :password => 'admin')
   Given 'I am logged in as "admin" with password "admin"'
@@ -72,6 +83,11 @@ When /^I sign up with:$/ do |table|
   click_button :submit
 end
 
+When /^I confirm my account$/ do
+  When 'I open the email with subject "Welcome to SpoonFeed! Please confirm your account"'
+  When 'I click the first link in the email'
+end
+
 Then /^"([^\"]*)" should be marked as a media user$/ do |username|
   u = User.find_by_username(username)
   u.should have_role(:media)
@@ -103,3 +119,7 @@ Then /^"([^\"]*)" should still exist$/ do |username|
   User.find_by_username(username).should_not be_nil
 end
 
+Given /^given that user "([^\"]*)" has just been confirmed$/ do |username|
+  user = User.find_by_username(username)
+  user.confirm!
+end

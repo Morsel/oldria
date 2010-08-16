@@ -95,6 +95,15 @@ Given(/^"([^\"]*)" has a QOTD message with:$/) do |username, table|
   Factory(:admin_conversation, :admin_message => message, :recipient => recipient)
 end
 
+Given /^"([^\"]*)" has a trend question with:$/ do |username, table|
+  data = table.rows_hash
+  message = Factory(:trend_question, data)
+
+  user = User.find_by_username(username)
+  recipient = user.employments.first
+  Factory(:admin_discussion, :discussionable => message, :restaurant => recipient.restaurant)
+end
+
 Given(/^"([^\"]*)" has a PR Tip message with:$/) do |username, table|
   data = table.rows_hash
   Factory(:pr_tip, data)
@@ -109,5 +118,26 @@ end
 Then /^the discussion for the trend question with subject "([^\"]*)" should have (\d+) comment$/ do |subject, num|
   trend_question = TrendQuestion.find_by_subject(subject)
   trend_question.admin_discussions.last.comments_count.should == num.to_i
+end
+
+Given /^QOTD "([^\"]*)" has a reply "([^\"]*)"$/ do |qotd_name, reply|
+  qotd = Admin::Qotd.find_by_message(qotd_name)
+  Factory(:comment, :commentable => qotd.admin_conversations.first, :comment => reply)
+end
+
+Given /^trend question "([^\"]*)" has a reply "([^\"]*)"$/ do |question, reply|
+  trend_question = TrendQuestion.find_by_subject(question)
+  Factory(:comment, :commentable => trend_question.admin_discussions.first, :comment => reply)
+end
+
+Given /^"([^\"]*)" has a holiday reminder for holiday "([^\"]*)" with:$/ do |restaurant, holidayname, table|
+  holiday = Factory(:holiday, :name => holidayname, 
+      :employment_search => Factory(:employment_search, :conditions => "--- \n:restaurant_name_like: #{restaurant}\n"))
+  Factory(:holiday_reminder, table.rows_hash)
+end
+
+Given /^holiday "([^\"]*)" has a reply "([^\"]*)"$/ do |holidayname, reply|
+  holiday = Holiday.find_by_name(holidayname)
+  Factory(:comment, :commentable => holiday.holiday_discussions.first, :comment => reply)
 end
 

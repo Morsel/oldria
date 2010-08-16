@@ -1,7 +1,7 @@
 class Admin::SoapboxEntriesController < Admin::AdminController
 
   def index
-    @soapbox_entries = SoapboxEntry.all
+    @soapbox_entries = SoapboxEntry.paginate(:page => params[:page])
   end
 
   def new
@@ -15,6 +15,19 @@ class Admin::SoapboxEntriesController < Admin::AdminController
       redirect_to admin_soapbox_entries_path
     else
       render :new
+    end
+  end
+
+  def edit
+    @soapbox_entry = SoapboxEntry.find(params[:id])
+  end
+
+  def update
+    @soapbox_entry = SoapboxEntry.find(params[:id])
+    if @soapbox_entry.update_attributes(params[:soapbox_entry])
+      redirect_to admin_soapbox_entries_path
+    else
+      render :edit
     end
   end
 

@@ -14,11 +14,9 @@ Feature: Admin Messaging: Question of the Day
 
   Scenario: Create a new QOTD
     Given I am on the new QOTD page
-    When I perform the search:
-      | Restaurant Name | Eight Ball |
-    And I check "Sam Smith (Eight Ball)"
+    When I check "Eight Ball"
     And I fill in "Message" with "What is your favorite pie?"
-    And I press "Save"
+    And I press "Submit"
     Then I should see list of QOTDs
     And I should see "What is your favorite pie?"
     And "sam" should have 1 QOTD message
@@ -26,20 +24,16 @@ Feature: Admin Messaging: Question of the Day
 @emails
   Scenario: New QOTD notification, user prefers no emails
   Given I am on the new QOTD page
-  When I perform the search:
-    | Restaurant Name | Eight Ball |
-  And I check "Sam Smith (Eight Ball)"
+  When I check "Eight Ball"
   And I fill in "Message" with "What is your favorite pie?"
-  And I press "Save"
+  And I press "Submit"
   Then "sam@example.com" should have no emails
 
 @emails
   Scenario: New QOTD notification, user prefers emails
     Given "sam" prefers to receive direct message alerts
     And I am on the new QOTD page
-    When I perform the search:
-      | Restaurant Name | Eight Ball |
-    And I check "Sam Smith (Eight Ball)"
+    When I check "Eight Ball"
     And I fill in "Message" with "What is your favorite pie?"
-    And I press "Save"
+    And I press "Submit"
     Then "sam@example.com" should have 1 email

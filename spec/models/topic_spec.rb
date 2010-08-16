@@ -1,0 +1,26 @@
+# == Schema Information
+# Schema version: 20100802191740
+#
+# Table name: topics
+#
+#  id         :integer         not null, primary key
+#  title      :string(255)
+#  created_at :datetime
+#  updated_at :datetime
+#
+
+require 'spec_helper'
+
+describe Topic do
+  before(:each) do
+    role = Factory(:question_role)
+    @valid_attributes = {
+      :title => "value for title",
+      :question_role_ids => [role.id]
+    }
+  end
+
+  it "should create a new instance given valid attributes" do
+    Topic.create!(@valid_attributes)
+  end
+end

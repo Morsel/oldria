@@ -1,11 +1,15 @@
 <% title "Resend the confirmation email" %>
 
+<% if current_user && current_user.admin? %>
+<p>Send a new confirmation email to the user whose address is given below.</p>
+<% else %>
 <p>If you're seeing a message that you need to confirm your account, but you can't find the confirmation email, that's okay. We'll send it again. Just enter your email address below.</p>
+<% end %>
 
 <% form_tag resend_confirmation_users_path do %>
   <p>
     <%= label_tag "email", "Email" %>
-    <%= text_field_tag "email", "", :class => 'text' %>
+    <%= text_field_tag "email", params[:email], :class => 'text' %>
   </p>
   <p>
     <%= button_tag "Resend Email" %>

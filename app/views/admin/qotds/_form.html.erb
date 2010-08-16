@@ -1,23 +1,26 @@
 <% semantic_form_for @qotd do |f| %>
 
-  <%- if @employments && !@employments.blank? %>
-    <% f.inputs :name => "Recipients" do %>
-      <%= f.input :recipient_ids,
-                  :collection => @employments,
-                  :as => :check_boxes,
-                  :wrapper_html => {:class => 'employment_list checkall'},
-                  :label_method => :name_and_restaurant,
-                  :label => "Who should receive this?"
-      %>
+  <div class="span-12">
+    <% f.inputs do %>
+      <div class="form_basics">
+        <%= f.input :message %>
+        <%= f.input :display_message, :hint => "For Soapbox" %>
+      </div>
+
+      <% if action_name == 'new' %>
+        <h3>Message Recipients:</h3>
+        <div id="employment_list" class="clearfix">
+          <%= render :partial => 'shared/employment_list' %>
+        </div>
+      <% end %>
+
+      <%= f.input :scheduled_at, :label => 'Post this question on:' %>
     <% end %>
-  <% elsif params[:search] %>
-    <p>Oops, we couldn't find anyone by that criteria. Try again.</p>
-  <% end -%>
-
-  <%= f.inputs :message, :scheduled_at %>
-
-  <p>
-    <%= button_tag "Save", :name => 'submit' %>
-    <%# button_tag (image_tag('tick.png') + "Send Now"), :name => 'send_now', :class => 'positive' %>
-  </p>
+    <p><%= button_tag "Submit" %></p>
+  </div>
+  <div class="span-6 last">
+    <% if action_name == 'new' %>
+      <%= render :partial => 'shared/employment_criteria', :locals => {:f => f} %>
+    <% end %>
+  </div>
 <% end %>

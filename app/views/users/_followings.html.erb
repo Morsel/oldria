@@ -1,0 +1,37 @@
+<% if user.followings.present? %>
+<div id="following" class="span-6">
+	<h3 class="function-bold">Members <%= current_user == user ? "You Follow" : "#{user.name_or_username} Follows" %></h3>
+	<ul>
+		<% for following in user.followings %>
+		<li class="clearfix<%= cycle(' odd',' even') %>">
+			<%= link_to image_tag(following.friend.avatar.url(:thumb), :width=>'50',:height=>'50'), profile_path(following.friend.username) %>
+			<h4><%= link_to following.friend.name, profile_path(following.friend.username) %></h4>
+			<p class="meta">Username: <%= following.friend.username %><br />
+			  <% if following.friend.james_beard_region -%>Region: <%=  following.friend.james_beard_region.name %><% end -%></p>
+			<% if (current_user == user) %>
+			  <p><%= link_to "Stop following this user", following, :method => :delete, :class=>'sf-button' %></p>
+			<% end %>
+		</li>
+		<% end %>
+	</ul>
+</div> <!-- .span-6 -->
+<% end %>
+
+<% if user.followers.present?  %>
+<div id="followers" class="span-6 last">
+	<h3 class="function-bold">Members Following <%= current_user == user ? "You" : user.name_or_username %></h3>
+	<ul>
+		<% for follower in user.followers %>
+		<li class="clearfix<%= cycle(' odd',' even') %>">
+			<%= link_to image_tag(follower.avatar.url(:thumb), :width=>'50', :height=>'50'), profile_path(follower.username) %>
+			<h4><%= link_to follower.name, profile_path(follower.username) %></h4>
+			<p class="meta">Username: <%= follower.username %><br />
+			  <% if follower.james_beard_region -%>Region: <%=  follower.james_beard_region.name %><% end -%></p>
+			<% unless already_following?(follower) %>
+			<p><%= link_to "Follow this user", followings_path(:friend_id => follower), :method => :post, :class=>'sf-button' %></p>
+			<% end %>
+		</li>
+		<% end %>
+	</ul>
+</div> <!-- .span-6 -->
+<% end %>

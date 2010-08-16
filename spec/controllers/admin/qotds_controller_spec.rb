@@ -4,6 +4,7 @@ describe Admin::QotdsController do
   integrate_views
 
   before(:each) do
+    @search_params = {:restaurant_name_like => 'neo'}
     fake_admin_user
     Factory(:admin_message, :type => "Admin::Qotd")
   end
@@ -15,13 +16,13 @@ describe Admin::QotdsController do
 
   it "create action should render new template when model is invalid" do
     Admin::Qotd.any_instance.stubs(:valid?).returns(false)
-    post :create
+    post :create, :search => @search_params
     response.should render_template(:new)
   end
 
   it "create action should redirect when model is valid" do
     Admin::Qotd.any_instance.stubs(:valid?).returns(true)
-    post :create
+    post :create, :search  => @search_params
     response.should redirect_to(admin_messages_path)
   end
 

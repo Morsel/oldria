@@ -63,6 +63,12 @@ class Comment < ActiveRecord::Base
   end
 
   def employment
+    return nil unless user && restaurant
     @employment ||= user.employments.find_by_restaurant_id(restaurant.id)
+  end
+
+  def self.on_resource_by_user(resource, user)
+    return [] unless resource && user
+    self.all(:conditions => ['commentable_type = ? AND commentable_id = ? AND user_id = ?', resource.class.to_s, resource.id, user.id])
   end
 end
