@@ -131,7 +131,7 @@ class ApplicationController < ActionController::Base
 
   ##
   # Employment saved-search methods
-  def search_setup(resource = nil)
+  def search_setup(resource = nil, options = {})
     if resource
       @employment_search = if resource.employment_search
         resource.employment_search
@@ -143,8 +143,8 @@ class ApplicationController < ActionController::Base
       @search = EmploymentSearch.new(:conditions => params[:search]).employments
     end
 
-    @restaurants_and_employments = @search.all(:include => [:restaurant, :employee],
-                                               :order => "restaurants.name").group_by(&:restaurant)
+    options.reverse_merge!(:include => [:restaurant, :employee], :order => "restaurants.name")
+    @restaurants_and_employments = @search.all(options).group_by(&:restaurant)
   end
 
   def save_search
