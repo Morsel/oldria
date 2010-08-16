@@ -308,5 +308,13 @@ describe User do
       user.primary_employment.should == user.employments.first
       user.restaurants.count.should == 1
     end
+    
+    it "should allow a new primary employment to be set" do
+      user = Factory(:user)
+      e1 = Factory(:employment, :employee => user)
+      e2 = Factory(:employment, :employee => user, :primary => true)
+      e3 = Factory(:employment, :employee => user)
+      user.primary_employment.should == e2
+    end
   end
 end

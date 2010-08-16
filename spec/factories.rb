@@ -52,6 +52,7 @@ end
 Factory.define :employment do |f|
   f.association :restaurant
   f.association :employee, :factory => :user
+  f.primary false
 end
 
 Factory.define :assigned_employment, :parent => :employment do |f|

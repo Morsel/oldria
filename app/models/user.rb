@@ -158,7 +158,7 @@ class User < ActiveRecord::Base
   end
   
   def primary_employment
-    self.employments.first
+    self.employments.primary.first || self.employments.first
   end
 
 ### Convenience methods for getting/setting first and last names ###
