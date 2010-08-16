@@ -3948,6 +3948,7 @@ h2.primary_title{
 #criteria_accordion li input[type=text] {
   padding: 5px 1em 5px 5px;
 	margin:5px;
+	width:200px;
 }
 
 #criteria_accordion li a {
