@@ -351,13 +351,13 @@ $('#criteria_accordion').accordion({
 	autoHeight: false,
 	collapsible: true,
 	active: false,
-	header: '.accordion_box a',
+	header: '.accordion_box a:first-child',
 	change: function() {
 		$('.accordion_box').each(function(){
 			if($(this).find('input:checked').length > 0){
-				$(this).find('a').addClass('options_selected');
+				$(this).find('a.ui-accordion-header').addClass('options_selected');
 			} else {
-				$(this).find('a').removeClass('options_selected');
+				$(this).find('a.options_selected').removeClass('options_selected');
 			}
 		});
 	}
