@@ -297,7 +297,16 @@ describe User do
       user = Factory(:user, :confirmed_at => nil)
       user.expects(:mark_replies_as_read)
       user.confirm!
-    end
+    end   
+  end
+  
+  context "primary employment" do
     
+    it "should choose the user's first employment as the primary employment if not otherwise specified" do
+      user = Factory(:user)
+      user.restaurants << Factory(:restaurant)
+      user.primary_employment.should == user.employments.first
+      user.restaurants.count.should == 1
+    end
   end
 end

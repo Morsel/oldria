@@ -156,6 +156,10 @@ class User < ActiveRecord::Base
     coworker_ids = restaurants.map(&:employee_ids).flatten.uniq
     User.find(coworker_ids)
   end
+  
+  def primary_employment
+    self.employments.first
+  end
 
 ### Convenience methods for getting/setting first and last names ###
   def name
