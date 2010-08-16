@@ -1960,7 +1960,7 @@ p.editprofile a:hover {
 }
 
 /* These are being hidden for now */
-#following, #followers, #user_content, .user_profile_actions {
+#following, #followers, #user_content {
 	display: none;
 }
 
