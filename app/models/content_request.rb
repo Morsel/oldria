@@ -45,5 +45,9 @@ class ContentRequest < ActiveRecord::Base
     employment.omniscient? ||
     employment_search.employments.include?(employment)
   end
+  
+  def recipients_can_reply?
+    true
+  end
 
 end
