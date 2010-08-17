@@ -10,7 +10,6 @@ ActionController::Routing::Routes.draw do |map|
 
   map.with_options :conditions => {:subdomain => 'soapbox'}, :controller => 'soapbox' do |soapbox|
     soapbox.root :action => 'index'
-    soapbox.entry ':id', :action => 'show'
   end
 
   map.resources :soapbox, :only => ['index','show']
@@ -91,7 +90,7 @@ ActionController::Routing::Routes.draw do |map|
 
   map.resources :feed_entries, :only => 'show', :member => { :read => :put }
   map.resource :feeds
-  map.resource :employment_search
+  map.resource :employment_search, :collection => { :add_user => :any, :add_restaurant => :any }
 
   map.resource :twitter_authorization
   map.resource :friends_statuses, :only => 'show'

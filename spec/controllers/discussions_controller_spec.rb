@@ -21,8 +21,7 @@ describe DiscussionsController do
 
   describe "GET new" do
     before do
-      @employment = Factory.stub(:employment)
-      Employment.stubs(:find).returns(@employment)
+      @employment = Factory(:employment, :employee => @user)
       @user.stubs(:messages_from_ria).returns([])
       get :new
     end
@@ -58,17 +57,6 @@ describe DiscussionsController do
       end
 
       it { response.should render_template(:new) }
-    end
-
-    context "when using an employment search for a group conversation" do
-
-      xit "should use the search results to select discussion recipients" do
-        employments = [Factory(:employment), Factory(:employment)]
-        Discussion.any_instance.stubs(:build_employment_search).returns(search = Factory(:employment_search,
-                                                                        :conditions => "--- \n:restaurant_name_like: joe\n")) # fake conditions to match the employment factory data
-        post :create, :discussion => { :title => "Hello there" }, :search => {"subject_matters_id_equals_any"=>["1", "3"], "restaurant_james_beard_region_id_equals_any"=>["7", "8"]}
-        Discussion.find_by_title("Hello there").users.count.should == 3
-      end
     end
   end
 end

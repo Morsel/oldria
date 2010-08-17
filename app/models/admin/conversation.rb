@@ -59,7 +59,8 @@ class Admin::Conversation < ActiveRecord::Base
   end
 
   def action_required?(user)
-    !read_by?(user) && comments_count > 0 && comments.last.user != user
+    false
+    # !read_by?(user) && comments_count > 0 && comments.last.user != user
   end
 
   # Should only be called from an external observer.
@@ -76,6 +77,10 @@ class Admin::Conversation < ActiveRecord::Base
 
   def restaurant
     recipient.try(:restaurant)
+  end
+  
+  def recipients_can_reply?
+    !admin_message.is_a?(Admin::Qotd)
   end
 
 end

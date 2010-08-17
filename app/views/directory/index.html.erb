@@ -8,7 +8,7 @@
 
 <div id="directory_list">
     <% @restaurants_and_employments.each do |restaurant, employments| %>
-      <%= render restaurant %>
+      <%= render restaurant, :employments => employments %>
     <% end %>
 </div>
 

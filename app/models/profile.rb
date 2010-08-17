@@ -36,4 +36,15 @@ class Profile < ActiveRecord::Base
       self.send(association).build
     end
   end
+  
+  def primary_employment
+    user.primary_employment
+  end
+  
+  def primary_employment=(ids)
+    unless user.primary_employment && (user.primary_employment.id == ids.first.to_i)
+      user.primary_employment.update_attribute(:primary, false)
+      Employment.find(ids).first.update_attribute(:primary, true)
+    end
+  end
 end
