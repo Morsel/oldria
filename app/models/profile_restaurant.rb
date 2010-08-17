@@ -5,6 +5,7 @@
 #
 #  id           :integer(4)      not null, primary key
 #  profile_id   :integer(4)      not null
+#  restaurant_name :string(255)  default(""), not null
 #  title        :string(255)     default(""), not null
 #  city         :string(255)     default(""), not null
 #  state        :string(255)     default(""), not null
@@ -20,4 +21,8 @@
 
 class ProfileRestaurant < ActiveRecord::Base
   belongs_to :profile
+
+  validates_presence_of :restaurant_name, :title, :city, :state, :country
+  validates_presence_of :date_started, :chef_name, :cuisine
+
 end

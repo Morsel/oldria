@@ -2148,6 +2148,14 @@ dl.user_info dd {
 	margin-right: 10px;
 }
 
+#extended_profile .restaurant_name {
+	color: #e8750a;
+}
+
+#extended_profile .restaurant_name, #extended_profile .employee_title {
+	display: block;
+}
+
 #extended_profile a {
 	color: #e8750a;
 	display: block;

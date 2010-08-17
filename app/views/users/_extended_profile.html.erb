@@ -9,10 +9,12 @@
         <span class="employee_role"><%= employment.restaurant_role.try(:name) %></span>
       </li>
     <% end %>
-    <% if false %>
+    <% profile && profile.profile_restaurants.each do |restaurant| %>
       <li>
         <%= image_tag 'avatar_restaurant.gif', :width=>'50', :class => 'restaurant_avatar pull-1' %>
-        <%= item.content %>
+        <span class="restaurant_name"><%= restaurant.restaurant_name %></span>
+        <span class="employee_title"><%= restaurant.title %></span>
+        <span class="date_range"><%= date_range(restaurant) %></span>
       </li>
     <% end %>
     </ul>

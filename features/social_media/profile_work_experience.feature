@@ -20,4 +20,5 @@ Feature: Profile - Work Experience
       | Chef in Charge of menu | John Denver              |
       | Type of cuisine served | American (Classic)       |
     Then I should have 1 restaurant on my profile
+    And I should see "Jose's" on my profile page
 

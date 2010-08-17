@@ -22,4 +22,5 @@ require 'spec_helper'
 
 describe ProfileRestaurant do
   should_belong_to :profile
+
 end

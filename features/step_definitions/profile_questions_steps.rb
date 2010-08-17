@@ -40,3 +40,8 @@ end
 Then /^I should have (\d+) restaurant on my profile$/ do |num|
   @current_user.profile.profile_restaurants.count.should == num.to_i
 end
+
+Then /^I should see "([^"]*)" on my profile page$/ do |text|
+  visit profile_path(@current_user.username)
+  Then %Q{I should see "#{text}"}
+end

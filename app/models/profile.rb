@@ -14,11 +14,12 @@
 
 class Profile < ActiveRecord::Base
   REJECT_ALL_BLANK_PROC = proc { |attributes| attributes.all? { |_, value| value.blank? } }
+  REJECT_TITLE_BLANK_PROC = proc { |attributes| attributes['title'].blank? }
 
   belongs_to :user
   validates_uniqueness_of :user_id
   has_many :profile_restaurants
 
-  accepts_nested_attributes_for :profile_restaurants, :reject_if => REJECT_ALL_BLANK_PROC
+  accepts_nested_attributes_for :profile_restaurants, :reject_if => REJECT_TITLE_BLANK_PROC
 
 end
