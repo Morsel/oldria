@@ -197,6 +197,16 @@ $("#employment_employee_name").autocomplete("/users.js", {
 	max: 15
 });
 
+$("#employee_name").autocomplete("/users.js", {
+	autoFill: true,
+	max: 15
+});
+
+$("#restaurant_name").autocomplete("/restaurants.js", {
+	autoFill: true,
+	max: 15
+});
+
 // == Filter Toggler ==
 $("a.toggler").each(function(){
 	var $div = $(this.hash);
@@ -351,6 +361,7 @@ var $loaderImg =        $('<img class="loader" src="/images/ajax-loader.gif" />'
 $employmentsList.before($loaderImg);
 
 function updateEmploymentsList() {
+  $employmentInputs = $("#employment_criteria input[type=checkbox]");
 	input_string = $employmentInputs.serialize();
 	$loaderImg.show();
 	$employmentsList.hide();
@@ -361,7 +372,7 @@ function updateEmploymentsList() {
 	// return true;	
 }
 
-$employmentInputs.change(updateEmploymentsList);
+$employmentInputs.live('change', updateEmploymentsList);
 
 // Directory search
 var	$directoryList  = $("#directory_list");
@@ -393,13 +404,13 @@ $('#criteria_accordion').accordion({
 	autoHeight: false,
 	collapsible: true,
 	active: false,
-	header: '.accordion_box a',
+	header: '.accordion_box a:first-child',
 	change: function() {
 		$('.accordion_box').each(function(){
 			if($(this).find('input:checked').length > 0){
-				$(this).find('a').addClass('options_selected');
+				$(this).find('a.ui-accordion-header').addClass('options_selected');
 			} else {
-				$(this).find('a').removeClass('options_selected');
+				$(this).find('a.options_selected').removeClass('options_selected');
 			}
 		});
 	}

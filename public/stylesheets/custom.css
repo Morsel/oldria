@@ -4379,7 +4379,7 @@ h2.primary_title{
 	border-bottom:1px solid #ddd;
 }
 
-#criteria_accordion a{
+#criteria_accordion a.ui-accordion-header{
 	border-radius:5px;
 	-webkit-border-radius:5px;
 	-moz-border-radius:5px;
@@ -4391,7 +4391,7 @@ h2.primary_title{
 	padding:5px;
 	outline:0 !important;
 }
-#criteria_accordion a span{
+#criteria_accordion a.ui-accordion-header span{
 	display:block;
 	padding-left:15px;
 	background:url(/images/blue_arrow.png) no-repeat 3px -23px;
@@ -4407,10 +4407,10 @@ h2.primary_title{
 #criteria_accordion a.ui-state-active span{
 	background-position:3px 5px;
 }
+
 #criteria_accordion div.loading{
 	display:none;
 }
-
 
 .accordion_box{
 	background:#fff url(/images/accordion_box_bg.png) repeat-x bottom;
@@ -4435,6 +4435,16 @@ h2.primary_title{
 #criteria_accordion .check_boxes li{
 	float:none;
 	width:100%;
+}
+
+#criteria_accordion li input[type=text] {
+  padding: 5px 1em 5px 5px;
+	margin:5px;
+	width:200px;
+}
+
+#criteria_accordion li a {
+  display: inline-block;
 }
 
 p.search_filter_hint {
@@ -4746,4 +4756,6 @@ div.main_feature .comment.last {
 }
 
 /* @end */
+
+
 
