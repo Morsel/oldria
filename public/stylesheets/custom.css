@@ -1942,6 +1942,12 @@ p.editprofile a:hover {
 	display: none;
 }
 
+.primary-employment {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
 #restaurant_profile_view, .shadow-box {
 	border: 1px solid #ddd;
 	background-color: #fff;

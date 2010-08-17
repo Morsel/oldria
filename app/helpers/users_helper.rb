@@ -14,4 +14,8 @@ module UsersHelper
     return true unless current_user
     (current_user == follower) || current_user.following?(follower)
   end
+  
+  def primary?(employment)
+    employment == current_user.primary_employment
+  end
 end
