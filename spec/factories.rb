@@ -34,6 +34,17 @@ Factory.define :profile do |f|
   f.association :user
 end
 
+Factory.define :profile_restaurant do |f|
+  f.association  :profile
+  f.title        "Rico's Place"
+  f.city         "Atlanta"
+  f.state        "GA"
+  f.date_started 1.year.ago
+  f.date_ended   2.months.ago
+  f.chef_name    "Jorge Bergeson"
+  f.cuisine      "Seafood"
+end
+
 # == Restaurants ==
 Factory.define :restaurant do |f|
   f.name    "Joe's Diner"

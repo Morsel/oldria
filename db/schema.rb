@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100817152321) do
+ActiveRecord::Schema.define(:version => 20100817161538) do
 
   create_table "admin_conversations", :force => true do |t|
     t.integer  "recipient_id"
@@ -424,6 +424,25 @@ ActiveRecord::Schema.define(:version => 20100817152321) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "profile_restaurants", :force => true do |t|
+    t.integer  "profile_id",                         :null => false
+    t.string   "restaurant_name", :default => "",    :null => false
+    t.string   "title",           :default => "",    :null => false
+    t.string   "city",            :default => "",    :null => false
+    t.string   "state",           :default => "",    :null => false
+    t.string   "country",         :default => "",    :null => false
+    t.date     "date_started",                       :null => false
+    t.date     "date_ended"
+    t.string   "chef_name",       :default => "",    :null => false
+    t.boolean  "chef_is_me",      :default => false, :null => false
+    t.text     "cuisine",                            :null => false
+    t.text     "notes",                              :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "profile_restaurants", ["profile_id"], :name => "index_profile_restaurants_on_profile_id"
 
   create_table "profiles", :force => true do |t|
     t.integer  "user_id",    :null => false

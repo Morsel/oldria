@@ -60,6 +60,7 @@ Given /^I am logged in as "([^\"]*)" with password "([^\"]*)"$/ do |username, pa
     fill_in "Password", :with => password
     click_button "Login"
   end
+  @current_user = User.find_by_username(username)
 end
 
 Given(/^I am logged in as "([^\" ]*)"$/) do |username|
