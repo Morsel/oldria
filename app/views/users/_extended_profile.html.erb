@@ -9,7 +9,7 @@
         <span class="employee_role"><%= employment.restaurant_role.try(:name) %></span>
       </li>
     <% end %>
-    <% profile && profile.experience_items.each do |item| %>
+    <% if false %>
       <li>
         <%= image_tag 'avatar_restaurant.gif', :width=>'50', :class => 'restaurant_avatar pull-1' %>
         <%= item.content %>
@@ -17,7 +17,7 @@
     <% end %>
     </ul>
 
-    <% if profile && profile.awards_items.present? %>
+    <% if false %>
       <h3>Awards</h3>
       <ul class="awards">
         <% profile.awards_items.each do |item| %>
@@ -28,7 +28,7 @@
   </div>
   <div class="span-5 last">
 
-    <% if profile && profile.education_items.present? %>
+    <% if false %>
       <h3>Education</h3>
       <ul class="education">
         <% profile.education_items.each do |item| %>
@@ -37,7 +37,7 @@
       </ul>
     <% end %>
 
-    <% if profile && profile.associations_items.present? %>
+    <% if false %>
       <h3>Certifications And Professional Associations</h3>
       <ul class="associations">
         <% profile.associations_items.each do |item| %>
