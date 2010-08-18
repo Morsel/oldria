@@ -45,7 +45,7 @@ module UserMessaging
   end
 
   def action_required_admin_discussions
-    unread_admin_discussions.select { |d| d.comments_count > 0 && d.comments.last.user != self }
+    unread_admin_discussions.select { |d| d.comments_count > 0 && d.comments.last.user != self }.reject { |d| d.discussionable.is_a?(TrendQuestion) }
   end
 
   def unread_grouped_admin_discussions
@@ -62,7 +62,7 @@ module UserMessaging
 
   # Question of the day
   def unread_qotds
-    admin_conversations.current.recent.without_replies.unread_by(self)
+    admin_conversations.current.recent.unread_by(self)
   end
 
   def qotds_responded
@@ -111,8 +111,7 @@ module UserMessaging
   # Collections for display
 
   def action_required_messages
-    [admin_conversations.action_required(self),
-      action_required_admin_discussions,
+    [action_required_admin_discussions,
       action_required_holidays
     ].flatten.sort { |a, b| b.comments.last.created_at <=> a.comments.last.created_at }
   end

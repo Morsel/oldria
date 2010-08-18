@@ -81,5 +81,9 @@ class HolidayDiscussionReminder < ActiveRecord::Base
   def comments_count
     holiday_discussion.comments_count
   end
+  
+  def recipients_can_reply?
+    true
+  end
 
 end
