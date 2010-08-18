@@ -214,6 +214,7 @@ ActiveRecord::Schema.define(:version => 20100817161538) do
     t.datetime "updated_at"
     t.integer  "restaurant_role_id"
     t.boolean  "omniscient"
+    t.boolean  "primary",            :default => false
   end
 
   add_index "employments", ["employee_id"], :name => "index_employments_on_employee_id"

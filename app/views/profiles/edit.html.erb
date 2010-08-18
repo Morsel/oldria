@@ -6,6 +6,15 @@
     <%= f.input :job_start %>
     <%= f.input :cellnumber %>
   <% end %>
+  
+  <% f.inputs :name => "Current Employment" do %>
+    <label>Select your primary job role:</label>
+    <ul class="primary-employment">
+        <% for employment in @profile.user.employments %>
+          <li><%= radio_button_tag "profile[primary_employment][]", employment.id, primary?(employment) %> <%= employment.restaurant_role.try(:name) %> at <%= employment.restaurant.name %>
+        <% end %>
+    </ul>
+  <% end %>
 
   <div class="clonablefields">
 

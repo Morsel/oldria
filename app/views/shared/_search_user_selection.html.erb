@@ -1,0 +1,4 @@
+<label for="search_employee_id_equals_any_<%= user.id %>">
+    <%= check_box_tag "search[employee_id_equals_any][]", user.id, true, { :id => "search_employee_id_equals_any_#{user.id}" } %>
+    <%= user.name %>
+</label>

@@ -15,8 +15,8 @@
     <h2 class="user_name"><%= @user.name %></h2>
     <% if @user.employments.any? %>
       <h4 class="user_employment">
-        <span class="employment_role"><%= @user.employments.first.try(:restaurant_role).try(:name) %></span> at
-        <span class="restaurant_name"><%= @user.employments.first.try(:restaurant).try(:name) %></span>
+        <span class="employment_role"><%= @user.primary_employment.try(:restaurant_role).try(:name) %></span> at
+        <span class="restaurant_name"><%= @user.primary_employment.try(:restaurant).try(:name) %></span>
       </h4>
     <% end %>
 
