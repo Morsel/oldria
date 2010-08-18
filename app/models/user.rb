@@ -161,10 +161,6 @@ class User < ActiveRecord::Base
     self.employments.primary.first || self.employments.first
   end
 
-  def restaurant
-    primary_employment.restaurant
-  end
-  
 ### Convenience methods for getting/setting first and last names ###
   def name
     @name ||= [first_name, last_name].compact.join(' ')

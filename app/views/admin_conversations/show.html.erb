@@ -4,7 +4,6 @@
 
   <%= render :partial => 'admin_messages/admin_message', :locals => {:admin_message => admin_message} %>
 
-
   <% if admin_message.recipients_can_reply? %>
     <%= render :partial => 'comments', :locals => {:message => admin_message}  %>
   <% end %>
