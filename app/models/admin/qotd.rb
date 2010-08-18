@@ -30,4 +30,8 @@ class Admin::Qotd < Admin::Message
   def title
     self.class.title
   end
+  
+  def recipients_can_reply?
+    false
+  end
 end

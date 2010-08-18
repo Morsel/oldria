@@ -81,16 +81,16 @@ class Admin::Message < ActiveRecord::Base
   end
 
   def comments(deep_includes = false)
-    includes = deep_includes ? {:comments => {:user => :employments}} : :comments
+    includes = deep_includes ? { :comments => :user } : :comments
     conversations_with_replies.all(:include => includes).map(&:comments).flatten
   end
 
   def conversations_with_replies
-    admin_conversations.scoped(:conditions => "comments_count > 0", :include => {:recipient => :employee})
+    admin_conversations.scoped(:conditions => "comments_count > 0", :include => :recipient )
   end
 
   def conversations_without_replies
-    admin_conversations.scoped(:conditions => "comments_count < 1", :include => {:recipient => :employee})
+    admin_conversations.scoped(:conditions => "comments_count < 1", :include => :recipient )
   end
 
   def attachments_allowed?

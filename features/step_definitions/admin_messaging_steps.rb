@@ -91,7 +91,7 @@ Given(/^"([^\"]*)" has a QOTD message with:$/) do |username, table|
   message = Factory(:qotd, data)
 
   user = User.find_by_username(username)
-  recipient = user.employments.first
+  recipient = user
   Factory(:admin_conversation, :admin_message => message, :recipient => recipient)
 end
 

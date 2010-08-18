@@ -2,8 +2,8 @@ module MessagesHelper
 
   def title_link_for_message(message)
     return unless message
-    # Don't link the headers for broadcast-style messages
-    return message.inbox_title if message.respond_to?(:broadcast?) && message.broadcast?
+    # Don't link the headers for broadcast-style messages or no-reply ones
+    return message.inbox_title if (message.respond_to?(:broadcast?) && message.broadcast?) || (message.respond_to?(:recipients_can_reply?) && !message.recipients_can_reply?)
 
     link_path = link_for_message(message)
     link_to message.inbox_title, link_path

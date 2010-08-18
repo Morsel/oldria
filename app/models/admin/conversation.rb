@@ -28,7 +28,7 @@ class Admin::Conversation < ActiveRecord::Base
   named_scope :with_replies, :conditions => "comments_count > 0"
   named_scope :without_replies, :conditions => "comments_count = 0"
 
-  belongs_to :recipient, :class_name => "Employment"
+  belongs_to :recipient, :class_name => "User"
   belongs_to :admin_message, :foreign_key => 'admin_message_id', :class_name => 'Admin::Message'
 
   named_scope :unread_by, lambda { |user|
@@ -70,8 +70,8 @@ class Admin::Conversation < ActiveRecord::Base
 
   # Should only be called from the notify_recipients queued action
   def queued_message_sending
-    if recipient.employee.prefers_receive_email_notifications
-      UserMailer.deliver_message_notification(self, recipient.employee)
+    if recipient.prefers_receive_email_notifications
+      UserMailer.deliver_message_notification(self, recipient)
     end
   end
 

@@ -16,7 +16,7 @@ class Ability
       end
 
       can :manage, Admin::Conversation do |action, conversation|
-        conversation.try(:recipient).try(:employee) == user
+        conversation.try(:recipient) == user
       end
 
       can :manage, AdminDiscussion do |action, discussion|

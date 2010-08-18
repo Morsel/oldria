@@ -62,7 +62,7 @@ module UserMessaging
 
   # Question of the day
   def unread_qotds
-    admin_conversations.current.recent.unread_by(self)
+    admin_conversations.current.recent.unread_by(self).map(&:admin_message).uniq
   end
 
   def qotds_responded
@@ -129,7 +129,7 @@ module UserMessaging
     @all_messages ||= [ current_admin_discussions,
       holiday_discussion_reminders,
       accepted_holiday_discussions,
-      admin_conversations.current.all,
+      admin_conversations.current.map(&:admin_message).uniq,
       Admin::Announcement.current.all,
       Admin::PrTip.current.all
     ].flatten.sort_by(&:scheduled_at).reverse
