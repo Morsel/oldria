@@ -242,7 +242,7 @@ Factory.define :holiday_reminder, :class => Admin::HolidayReminder do |f|
 end
 
 Factory.define :admin_conversation, :class => Admin::Conversation do |f|
-  f.association :recipient, :factory => :employment
+  f.association :recipient, :factory => :user
   f.association :admin_message
 end
 
