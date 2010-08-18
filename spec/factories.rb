@@ -34,9 +34,10 @@ Factory.define :profile do |f|
   f.association :user
 end
 
-Factory.define :profile_restaurant do |f|
+Factory.define :culinary_job do |f|
   f.association  :profile
-  f.title        "Rico's Place"
+  f.restaurant_name "Rico's Place"
+  f.title        "Chef"
   f.city         "Atlanta"
   f.state        "GA"
   f.date_started 1.year.ago

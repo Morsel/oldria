@@ -3,7 +3,7 @@ class ProfilesController < ApplicationController
 
   def edit
     @profile = current_user.profile || current_user.create_profile
-    @profile.profile_restaurants.build
+    @profile.culinary_jobs.build
   end
 
   def update

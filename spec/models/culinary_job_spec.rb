@@ -1,11 +1,10 @@
 # == Schema Information
 # Schema version: 20100817161538
 #
-# Table name: profile_restaurants
+# Table name: culinary_jobs
 #
 #  id           :integer(4)      not null, primary key
 #  profile_id   :integer(4)      not null
-#  restaurant_name :string(255)  default(""), not null
 #  title        :string(255)     default(""), not null
 #  city         :string(255)     default(""), not null
 #  state        :string(255)     default(""), not null
@@ -19,10 +18,8 @@
 #  updated_at   :datetime
 #
 
-class ProfileRestaurant < ActiveRecord::Base
-  belongs_to :profile
+require 'spec_helper'
 
-  validates_presence_of :restaurant_name, :title, :city, :state, :country
-  validates_presence_of :date_started, :chef_name, :cuisine
-
+describe CulinaryJob do
+  should_belong_to :profile
 end

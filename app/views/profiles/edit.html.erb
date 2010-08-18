@@ -6,7 +6,7 @@
     <%= f.input :job_start %>
     <%= f.input :cellnumber %>
   <% end %>
-  
+
   <% f.inputs :name => "Current Employment" do %>
     <label>Select your primary job role:</label>
     <ul class="primary-employment">
@@ -19,21 +19,21 @@
   <div class="clonablefields">
 
   <h2>Work Experience - Restaurants</h2>
-  <% f.semantic_fields_for :profile_restaurants do |restaurant| %>
-    <% restaurant.inputs :class => "workexperience" do %>
-      <%= restaurant.input :restaurant_name, :input_html => {:class => 'title'} %>
-      <%= restaurant.input :title %>
-      <%= restaurant.input :city, :input_html => {:class => 'span-5'},
-        :wrapper_html => {:class => 'span-5 column'} %>
-      <%= restaurant.input :state, :input_html => {:maxlength => 2, :class => 'span-1'},
-        :wrapper_html => {:class => 'span-5 column'} %>
-      <%= restaurant.input :country,:wrapper_html => {:class => 'clear'} %>
-      <%= restaurant.input :date_started %>
-      <%= restaurant.input :date_ended, :as => :date, :selected => nil %>
-      <%= restaurant.input :chef_name, :label => "Chef in charge of menu" %>
-      <%= restaurant.input :chef_is_me %>
-      <%= restaurant.input :cuisine, :label => "Type of cuisine served", :input_html => {:rows => 3} %>
-      <%= restaurant.input :notes, :input_html => {:rows => 3} %>
+  <% f.semantic_fields_for :culinary_jobs do |job| %>
+    <% job.inputs :class => "culinary_jobs" do %>
+      <%= job.input :restaurant_name, :input_html => {:class => 'title'} %>
+      <%= job.input :title %>
+      <%= job.input :city, :input_html => {:class => 'span-5'},
+        :wjobl => {:class => 'span-5 column'} %>
+      <%= job.input :state, :input_html => {:maxlength => 2, :class => 'span-1'},
+        :wjobl => {:class => 'span-5 column'} %>
+      <%= job.input :country,:wrapper_html => {:class => 'clear'} %>
+      <%= job.input :date_started %>
+      <%= job.input :date_ended, :as => :date, :selected => nil %>
+      <%= job.input :chef_name, :label => "Chef in charge of menu" %>
+      <%= job.input :chef_is_me %>
+      <%= job.input :cuisine, :label => "Type of cuisine served", :input_html => {:rows => 3} %>
+      <%= job.input :notes, :input_html => {:rows => 3} %>
     <% end %>
   <% end %>
   </div>

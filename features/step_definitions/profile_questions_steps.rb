@@ -1,3 +1,15 @@
+def fill_in_fields_for_table(table)
+  table.rows_hash.each do |field, value|
+    if field == "Dates"
+      dates = value.split(/ ?to ?/, 2)
+      fill_in "Date started", :with => Date.parse(dates.first)
+      fill_in "Date ended", :with => Date.parse(dates.last)
+    else
+      fill_in field, :with => value
+    end
+  end
+end
+
 Given /^the following topics:$/ do |table|
   table.hashes.each do |row|
     Factory(:topic, :title => row['title'])
@@ -21,24 +33,15 @@ end
 When /^I add a restaurant to my profile with:$/ do |table|
   visit '/profile/edit'
 
-  within '.workexperience' do
-    table.rows_hash.each do |field, value|
-
-      if field == "Dates"
-        dates = value.split(/ ?to ?/, 2)
-        fill_in "Date started", :with => Date.parse(dates.first)
-        fill_in "Date ended", :with => Date.parse(dates.last)
-      else
-        fill_in field, :with => value
-      end
-    end
+  within '.culinary_jobs' do
+    fill_in_fields_for_table(table)
   end
 
   click_button "Save"
 end
 
-Then /^I should have (\d+) restaurant on my profile$/ do |num|
-  @current_user.profile.profile_restaurants.count.should == num.to_i
+Then /^I should have (\d+) restaurants? on my profile$/ do |num|
+  @current_user.profile.culinary_jobs.count.should == num.to_i
 end
 
 Then /^I should see "([^"]*)" on my profile page$/ do |text|

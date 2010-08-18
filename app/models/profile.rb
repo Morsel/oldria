@@ -18,9 +18,9 @@ class Profile < ActiveRecord::Base
 
   belongs_to :user
   validates_uniqueness_of :user_id
-  has_many :profile_restaurants
+  has_many :culinary_jobs
 
-  accepts_nested_attributes_for :profile_restaurants, :reject_if => REJECT_TITLE_BLANK_PROC
+  accepts_nested_attributes_for :culinary_jobs, :reject_if => REJECT_TITLE_BLANK_PROC
 
 
   def primary_employment
