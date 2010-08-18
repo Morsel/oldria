@@ -2,7 +2,13 @@ class ConvertConversationRecipientsToUsers < ActiveRecord::Migration
   def self.up
     # convert employment ids to employee (user) ids
     Admin::Conversation.all.each do |c|
-      c.update_attribute(:recipient_id, Employment.find(c.recipient_id).employee.id)
+      if Employment.exists?(c.recipient_id) && (employment = Employment.find(c.recipient_id))
+        c.update_attribute(:recipient_id, employment.employee_id)
+      else
+        say "Warning: no such Employment: #{c.recipient_id}"
+        say "Warning: Erasing the defunct conversation..."
+        c.destroy
+      end
     end
   end
 
