@@ -1,5 +1,10 @@
 <div class="comments span-9">
 <% if @comments.blank? %>
+<% if current_user.primary_employment.prefers_post_to_soapbox %>
+  <p>These comments will go to the public Soapbox.</p>
+<% else %>
+  <p>Just to let you know, your comments won't go to the public Soapbox. Contact your spoonfeed account manager for details.</p>
+<% end %>
 <% semantic_form_for @comment_resource, :html => { :multipart => true } do |f| %>
   <% f.inputs do %>
     <%= f.input :comment, :label => 'Post', :input_html => { :rows => 8 } %>
