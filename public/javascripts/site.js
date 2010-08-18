@@ -456,6 +456,7 @@ $.fn.clonableFieldset = function(options){
     var fieldset = fieldsetContainer.find(config.fieldsetSelector);
     var fieldprototype = fieldset.detach();
     fieldprototype.find('input[type=hidden]').remove();
+    fieldprototype.find('a.remove').remove();
     var linkHolder = $('<p class="add-another"><a href="#" class="positive">Add Another</a></p>');
     var link = linkHolder.find('a.positive');
 

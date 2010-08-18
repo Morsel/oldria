@@ -1,0 +1,15 @@
+<% f.inputs :class => "culinary_fs" do %>
+  <%= f.input :restaurant_name, :input_html => {:class => 'title'} %>
+  <%= f.input :title %>
+  <%= f.input :city, :input_html => {:class => 'span-5'},
+    :wrapper_html => {:class => 'span-5 column'} %>
+  <%= f.input :state, :input_html => {:maxlength => 2, :class => 'span-1'},
+    :wrapper_html => {:class => 'span-5 column'} %>
+  <%= f.input :country,:wrapper_html => {:class => 'clear'} %>
+  <%= f.input :date_started %>
+  <%= f.input :date_ended, :as => :date, :selected => nil %>
+  <%= f.input :chef_name, :label => "Chef in charge of menu" %>
+  <%= f.input :chef_is_me %>
+  <%= f.input :cuisine, :label => "Type of cuisine served", :input_html => {:rows => 3} %>
+  <%= f.input :notes, :input_html => {:rows => 3} %>
+<% end %>

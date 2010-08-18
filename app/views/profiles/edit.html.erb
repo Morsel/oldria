@@ -17,46 +17,17 @@
   <% end %>
 
   <div class="clonablefieldset">
-
-  <h2>Work Experience - Restaurants</h2>
-  <% f.semantic_fields_for :culinary_jobs do |job| %>
-    <% job.inputs :class => "culinary_jobs" do %>
-      <%= job.input :restaurant_name, :input_html => {:class => 'title'} %>
-      <%= job.input :title %>
-      <%= job.input :city, :input_html => {:class => 'span-5'},
-        :wrapper_html => {:class => 'span-5 column'} %>
-      <%= job.input :state, :input_html => {:maxlength => 2, :class => 'span-1'},
-        :wrapper_html => {:class => 'span-5 column'} %>
-      <%= job.input :country,:wrapper_html => {:class => 'clear'} %>
-      <%= job.input :date_started %>
-      <%= job.input :date_ended, :as => :date, :selected => nil %>
-      <%= job.input :chef_name, :label => "Chef in charge of menu" %>
-      <%= job.input :chef_is_me %>
-      <%= job.input :cuisine, :label => "Type of cuisine served", :input_html => {:rows => 3} %>
-      <%= job.input :notes, :input_html => {:rows => 3} %>
+    <h2>Work Experience - Restaurants</h2>
+    <% f.semantic_fields_for :culinary_jobs do |job| %>
+      <%= render 'culinary_jobs_fields', :f => job %>
     <% end %>
-  <% end %>
   </div>
 
-
   <div class="clonablefieldset">
-  <h2>Work Experience - Non-Restaurants</h2>
-  <% f.semantic_fields_for :nonculinary_jobs do |job| %>
-    <% job.inputs :class => "nonculinary_jobs" do %>
-      <%= job.input :company, :input_html => {:class => 'title'} %>
-      <%= job.input :title %>
-      <%= job.input :city, :input_html => {:class => 'span-5'},
-        :wrapper_html => {:class => 'span-5 column'} %>
-      <%= job.input :state, :input_html => {:maxlength => 2, :class => 'span-1'},
-        :wrapper_html => {:class => 'span-5 column'} %>
-      <%= job.input :country, :wrapper_html => {:class => 'clear'} %>
-      <%= job.input :date_started %>
-      <%= job.input :date_ended, :as => :date, :selected => nil %>
-      <%= job.input :responsibilities, :label => "Responsibilities and Accomplishments",
-        :input_html => {:rows => 3} %>
-      <%= job.input :reason_for_leaving %>
+    <h2>Work Experience - Non-Restaurants</h2>
+    <% f.semantic_fields_for :nonculinary_jobs do |job| %>
+      <%= render 'nonculinary_jobs_fields', :f => job %>
     <% end %>
-  <% end %>
   </div>
 
   <%= button_tag "Save" %>
