@@ -7,6 +7,9 @@
     <%= f.input :cellnumber %>
   <% end %>
 
+  <div class="clonablefields">
+
+  <h2>Work Experience - Restaurants</h2>
   <% f.semantic_fields_for :profile_restaurants do |restaurant| %>
     <% restaurant.inputs :class => "workexperience" do %>
       <%= restaurant.input :restaurant_name, :input_html => {:class => 'title'} %>
@@ -24,6 +27,7 @@
       <%= restaurant.input :notes, :input_html => {:rows => 3} %>
     <% end %>
   <% end %>
+  </div>
 
   <%= button_tag "Save" %>
   <%= button_tag "Preview", :name => "preview" %>

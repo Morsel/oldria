@@ -430,13 +430,18 @@ if (typeof($.fn.colorbox) != 'undefined') {
 }
 
 // Using this assumes that you've "build" on an association to get new blank field(s)
-$.fn.clonableField = function(options){
-  var config = {};
+// Call this on a containing element. By default, it will look for the last fieldset
+// within it, and clone all of the fields therein.
+$.fn.clonableFieldset = function(options){
+  var config = {
+    'fieldsetSelector':'>fieldset:last'
+  };
   if(options) $.extend(config, options);
   
   return this.each(function(){
-    var fieldsContainer = $(this);
-    var fieldprototype = fieldsContainer.children(':last-child').detach();
+    var fieldsetContainer = $(this);
+    var fieldset = fieldsetContainer.find(config.fieldsetSelector);
+    var fieldprototype = fieldsetgs.detach();
     fieldprototype.find('input[type=hidden]').remove();
     var linkHolder = $('<p class="add-another"><a href="#" class="positive">Add Another</a></p>');
     var link = linkHolder.find('a.positive');
@@ -447,19 +452,19 @@ $.fn.clonableField = function(options){
         var field = $(this);
         var originalName = field.attr('name');
         var now = new Date().getTime();
-        field.attr("name", originalName.replace(/(\d)/g, now)).attr('id', "");
+        field.attr("name", originalName.replace(/(\d+g)/g, now)).attr('id', "");
       });
       linkHolder.before(newfield);
       return false;
     });
 
-    fieldsContainer.append(linkHolder);
+    fieldsetContainer.append(linkHolder);
   });
 };
 
 
 
-$('.clonable_fields').clonableField();
+$('.clonablefields').clonableFieldset();
 
 function remove_fields() {
   var link = $(this);
