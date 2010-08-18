@@ -40,8 +40,22 @@ When /^I add a restaurant to my profile with:$/ do |table|
   click_button "Save"
 end
 
+When /^I add a nonculinary job to my profile with:$/ do |table|
+  visit '/profile/edit'
+
+  within '.nonculinary_jobs' do
+    fill_in_fields_for_table(table)
+  end
+
+  click_button "Save"
+end
+
 Then /^I should have (\d+) restaurants? on my profile$/ do |num|
   @current_user.profile.culinary_jobs.count.should == num.to_i
+end
+
+Then /^I should have (\d+) nonculinary jobs? on my profile$/ do |num|
+  @current_user.profile.nonculinary_jobs.count.should == num.to_i
 end
 
 Then /^I should see "([^"]*)" on my profile page$/ do |text|

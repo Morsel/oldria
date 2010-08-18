@@ -445,26 +445,38 @@ if (typeof($.fn.colorbox) != 'undefined') {
 // within it, and clone all of the fields therein.
 $.fn.clonableFieldset = function(options){
   var config = {
-    'fieldsetSelector':'>fieldset:last'
+    fieldsetSelector: '>fieldset:last',
+    allowDelete: true,
+    fieldsetCss: { position: 'relative' }
   };
   if(options) $.extend(config, options);
   
   return this.each(function(){
     var fieldsetContainer = $(this);
     var fieldset = fieldsetContainer.find(config.fieldsetSelector);
-    var fieldprototype = fieldsetgs.detach();
+    var fieldprototype = fieldset.detach();
     fieldprototype.find('input[type=hidden]').remove();
     var linkHolder = $('<p class="add-another"><a href="#" class="positive">Add Another</a></p>');
     var link = linkHolder.find('a.positive');
 
     link.click(function(){
       var newfield = fieldprototype.clone();
+      newfield.css(config.fieldsetCss);
       newfield.find('input, textarea').each(function(){
         var field = $(this);
         var originalName = field.attr('name');
         var now = new Date().getTime();
         field.attr("name", originalName.replace(/(\d+g)/g, now)).attr('id', "");
       });
+
+      if (config.allowDelete) {
+        var removeLink = $('<a class="remove" href="javascript:void(0)">remove</a>');
+        removeLink.click(function(){
+          newfield.fadeOut(300, function(){ newfield.remove(); });
+        });
+        newfield.prepend(removeLink);
+      }
+
       linkHolder.before(newfield);
       return false;
     });
@@ -475,7 +487,7 @@ $.fn.clonableFieldset = function(options){
 
 
 
-$('.clonablefields').clonableFieldset();
+$('.clonablefieldset').clonableFieldset();
 
 function remove_fields() {
   var link = $(this);

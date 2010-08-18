@@ -4,6 +4,7 @@ class ProfilesController < ApplicationController
   def edit
     @profile = current_user.profile || current_user.create_profile
     @profile.culinary_jobs.build
+    @profile.nonculinary_jobs.build
   end
 
   def update

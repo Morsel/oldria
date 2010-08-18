@@ -22,3 +22,19 @@ Feature: Profile - Work Experience
     Then I should have 1 restaurant on my profile
     And I should see "Jose's" on my profile page
 
+
+  Scenario: Add a non-restaurant to work experience
+    Given I am logged in as a normal user
+    And I am on my profile's edit page
+    When I add a nonculinary job to my profile with:
+      | Company                              | Exxon Mobile             |
+      | Title                                | CEO                      |
+      | City                                 | Indianapolis             |
+      | State                                | IN                       |
+      | Country                              | USA                      |
+      | Dates                                | 2009-10-01 to 2009-12-02 |
+      | Responsibilities and Accomplishments | Bossing people around    |
+      | Reason for leaving                   | I loved food too much    |
+    Then I should have 1 nonculinary job on my profile
+    And I should see "Exxon Mobile" on my profile page
+

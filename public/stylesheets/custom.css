@@ -2133,9 +2133,11 @@ dl.user_info dd {
 	list-style: none;
 }
 
-#extended_profile .employments li {
+
+#extended_profile .employments li { border-bottom: 0 }
+
+#extended_profile .employments .culinary {
 	padding-left: 56px;
-	border-bottom: 0;
 	overflow: hidden;
 }
 
@@ -2171,6 +2173,19 @@ dl.user_info dd {
 #extended_profile a:hover {
 	color: #eee;
 	text-decoration: underline;
+}
+
+a.remove {
+	background: url(../images/x2.png) no-repeat center left;
+	text-indent: -9999px;
+	display: block;
+	height: 15px;
+	width: 15px;
+	overflow: hidden;
+}
+
+fieldset a.remove {
+	float: right;
 }
 
 #current_things {

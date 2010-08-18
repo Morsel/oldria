@@ -16,7 +16,7 @@
     </ul>
   <% end %>
 
-  <div class="clonablefields">
+  <div class="clonablefieldset">
 
   <h2>Work Experience - Restaurants</h2>
   <% f.semantic_fields_for :culinary_jobs do |job| %>
@@ -24,9 +24,9 @@
       <%= job.input :restaurant_name, :input_html => {:class => 'title'} %>
       <%= job.input :title %>
       <%= job.input :city, :input_html => {:class => 'span-5'},
-        :wjobl => {:class => 'span-5 column'} %>
+        :wrapper_html => {:class => 'span-5 column'} %>
       <%= job.input :state, :input_html => {:maxlength => 2, :class => 'span-1'},
-        :wjobl => {:class => 'span-5 column'} %>
+        :wrapper_html => {:class => 'span-5 column'} %>
       <%= job.input :country,:wrapper_html => {:class => 'clear'} %>
       <%= job.input :date_started %>
       <%= job.input :date_ended, :as => :date, :selected => nil %>
@@ -34,6 +34,27 @@
       <%= job.input :chef_is_me %>
       <%= job.input :cuisine, :label => "Type of cuisine served", :input_html => {:rows => 3} %>
       <%= job.input :notes, :input_html => {:rows => 3} %>
+    <% end %>
+  <% end %>
+  </div>
+
+
+  <div class="clonablefieldset">
+  <h2>Work Experience - Non-Restaurants</h2>
+  <% f.semantic_fields_for :nonculinary_jobs do |job| %>
+    <% job.inputs :class => "nonculinary_jobs" do %>
+      <%= job.input :company, :input_html => {:class => 'title'} %>
+      <%= job.input :title %>
+      <%= job.input :city, :input_html => {:class => 'span-5'},
+        :wrapper_html => {:class => 'span-5 column'} %>
+      <%= job.input :state, :input_html => {:maxlength => 2, :class => 'span-1'},
+        :wrapper_html => {:class => 'span-5 column'} %>
+      <%= job.input :country, :wrapper_html => {:class => 'clear'} %>
+      <%= job.input :date_started %>
+      <%= job.input :date_ended, :as => :date, :selected => nil %>
+      <%= job.input :responsibilities, :label => "Responsibilities and Accomplishments",
+        :input_html => {:rows => 3} %>
+      <%= job.input :reason_for_leaving %>
     <% end %>
   <% end %>
   </div>

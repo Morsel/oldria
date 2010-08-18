@@ -3,16 +3,23 @@
     <h3>Work Experience</h3>
     <ul class="employments clearfix">
     <% for employment in user.employments %>
-      <li>
+      <li class="culinary">
         <%= image_tag 'avatar_restaurant.gif', :width=>'50', :class => 'restaurant_avatar pull-1' %>
         <a class="organization"><%= employment.restaurant.name %></a><br />
         <span class="employee_role"><%= employment.restaurant_role.try(:name) %></span>
       </li>
     <% end %>
     <% profile && profile.culinary_jobs.each do |job| %>
-      <li>
+      <li class="culinary">
         <%= image_tag 'avatar_restaurant.gif', :width=>'50', :class => 'restaurant_avatar pull-1' %>
         <span class="restaurant_name"><%= job.restaurant_name %></span>
+        <span class="employee_title"><%= job.title %></span>
+        <span class="date_range"><%= date_range(job) %></span>
+      </li>
+    <% end %>
+    <% profile && profile.nonculinary_jobs.each do |job| %>
+      <li class="nonculinary">
+        <span class="company_name"><%= job.company %></span>
         <span class="employee_title"><%= job.title %></span>
         <span class="date_range"><%= date_range(job) %></span>
       </li>

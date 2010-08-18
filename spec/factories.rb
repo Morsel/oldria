@@ -46,6 +46,20 @@ Factory.define :culinary_job do |f|
   f.cuisine      "Seafood"
 end
 
+Factory.define :nonculinary_job do |f|
+  f.association  :profile
+  f.company      "Johnson and Johnson"
+  f.title        "COO"
+  f.city         "Tucson"
+  f.state        "AZ"
+  f.country      "United States"
+  f.date_started 3.years.ago
+  f.date_ended   1.year.ago
+  f.responsibilities    "Bossing people around"
+  f.reason_for_leaving  "Had too much free time"
+end
+
+
 # == Restaurants ==
 Factory.define :restaurant do |f|
   f.name    "Joe's Diner"
