@@ -5,6 +5,7 @@ describe AdminConversationsController do
   before(:each) do
     @user = Factory(:user)
     controller.stubs(:current_user).returns(@user)
+    Factory(:employment, :employee => @user)
     message = Factory(:admin_message, :type => 'Admin::Qotd')
     Factory(:admin_conversation, :admin_message => message, :recipient => @user)
   end

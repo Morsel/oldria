@@ -3,11 +3,7 @@
 %>
 <p>
     <% link_to link_for_message(message), :class => classes do %>
-    <% if message.is_a?(Admin::Conversation) %>
-        <%= message.comments_count == 0 ? 'Post' : 'View your post' %>
-      <% else %>
         <span class="unread_comments_count"><%= message.comments_count %></span>
         <%= message.comments_count == 1 ? 'reply' : 'replies' %> for <%= restaurant(message).name %>. Read &amp; Reply &raquo;
-      <% end %>
     <% end %>
 </p>

@@ -8,7 +8,7 @@
   <%= render 'messages/message_response_summary', :message => message %>
 
   <% link_to new_quick_reply_path(:message_id => message.id, :message_type => message.class.name), :class => 'colorbox quickreply' do %>
-     Quick reply&nbsp;&raquo;
+     Quick <%= message.is_a?(TrendQuestion) ? "post" : "reply" %>&nbsp;&raquo;
   <% end %>
 
 <%# QOTD %>

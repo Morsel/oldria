@@ -70,19 +70,19 @@ Feature: Trend questions
     And the last trend question for "Normal Pants" should be viewable by "Sam Smith"
 
 
-  # Scenario: Restaurant folks can respond to trend questions
-  #   Given I am logged in as an admin
-  #   When I create a new trend question with subject "My river runs blue" with criteria:
-  #     | Region | Midwest (IN IL OH) |
-  # 
-  #   Given I am logged in as "sam" with password "secret"
-  #   And I go to the RIA messages page
-  #   Then I should see "My river runs blue"
-  # 
-  #   When I follow "Quick reply"
-  #   And I fill in "Comment for Restaurant(s)" with "But my river is green"
-  #   And I press "Post Reply"
-  #   Then the discussion for the trend question with subject "My river runs blue" should have 1 comment
+  Scenario: Restaurant folks can respond to trend questions
+    Given I am logged in as an admin
+    When I create a new trend question with subject "My river runs blue" with criteria:
+      | Region | Midwest (IN IL OH) |
+  
+    Given I am logged in as "sam" with password "secret"
+    And I go to the RIA messages page
+    Then I should see "My river runs blue"
+  
+    When I follow "Quick post"
+    And I fill in "Comment for Restaurant(s)" with "But my river is green"
+    And I press "Post"
+    Then the discussion for the trend question with subject "My river runs blue" should have 1 comment
 
 
   Scenario: Displaying saved criteria
@@ -114,12 +114,12 @@ Feature: Trend questions
     And the last trend question for "Normal Pants" should be viewable by "Sam Smith"
     And "sam@example.com" should have 1 email
 
-    # Given "jim" is the account manager for "Normal Pants"
-    # And I am logged in as "jim" with password "secret"
-    # When I go to my inbox
-    # And I follow "Quick reply"
-    # And I fill in "Comment for Restaurant(s)" with "But my river is green"
-    # And I press "Post Reply"
-    # 
-    # Then "sam@example.com" should have 2 emails
-    # 
+    Given "jim" is the account manager for "Normal Pants"
+    And I am logged in as "jim" with password "secret"
+    When I go to my inbox
+    And I follow "Quick post"
+    And I fill in "Comment for Restaurant(s)" with "But my river is green"
+    And I press "Post"
+    
+    Then "sam@example.com" should have 2 emails
+    
