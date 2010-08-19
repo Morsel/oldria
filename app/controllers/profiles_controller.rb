@@ -3,7 +3,6 @@ class ProfilesController < ApplicationController
 
   def edit
     @profile = current_user.profile || current_user.create_profile
-    @profile.culinary_jobs.build
     @profile.nonculinary_jobs.build
     @profile.awards.build
   end
@@ -19,7 +18,7 @@ class ProfilesController < ApplicationController
 
     if @profile.update_attributes(params[:profile])
       flash[:notice] = "Successfully updated profile."
-      redirect_to profile_path(current_user.try(:username))
+      redirect_to edit_my_profile_path
     else
       render :edit
     end

@@ -32,7 +32,7 @@ module NavigationHelpers
     when /^the new conversations page$/
       new_conversation_path
     when "my profile's edit page"
-      '/profile/edit'
+      edit_my_profile_path
 
     # Media-users
     when /^the media( user)? signup page$/

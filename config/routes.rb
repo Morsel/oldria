@@ -14,7 +14,9 @@ ActionController::Routing::Routes.draw do |map|
 
   map.resources :soapbox, :only => ['index','show']
 
-  map.resource :profiles, :except => ['show'], :as => 'profile'
+  map.resource :my_profile, :only => ['edit', 'update'], :controller => 'profiles' do |p|
+    p.resources :culinary_jobs
+  end
 
   map.profile 'profile/:username', :controller => 'users', :action => 'show', :requirements => { :username => /[a-zA-Z0-9\-\_ ]+/}
 

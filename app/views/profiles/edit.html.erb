@@ -1,6 +1,6 @@
 <% title "Edit Profile" %>
 
-<% semantic_form_for @profile, :url => profiles_path do |f| %>
+<% semantic_form_for @profile do |f| %>
   <% f.inputs :name => 'Basics' do %>
     <%= f.input :birthday, :as => :string %>
     <%= f.input :job_start %>
@@ -16,14 +16,20 @@
     </ul>
   <% end %>
 
-  <div class="clonablefieldset">
+  <div class="culinary_jobs">
     <h2>Work Experience - Restaurants</h2>
-    <% f.semantic_fields_for :culinary_jobs do |job| %>
-      <%= render 'culinary_jobs_fields', :f => job %>
+    <ul>
+    <% @profile.culinary_jobs.each do |job| %>
+      <li>
+        <%= job.restaurant_name %>
+        <%= link_to "Edit", edit_my_profile_culinary_job_path(job) unless job.new_record?%>
+      </li>
     <% end %>
+    </ul>
+    <%= link_to "New", new_my_profile_culinary_job_path, :class => 'positive button' %>
   </div>
 
-  <div class="clonablefieldset">
+  <div class="clonablefieldset clear">
     <h2>Work Experience - Non-Restaurants</h2>
     <% f.semantic_fields_for :nonculinary_jobs do |job| %>
       <%= render 'nonculinary_jobs_fields', :f => job %>

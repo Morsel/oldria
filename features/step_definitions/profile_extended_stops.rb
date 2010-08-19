@@ -11,7 +11,7 @@ def fill_in_fields_for_table(table)
 end
 
 When(/^I add a restaurant to my profile with:$/) do |table|
-  visit '/profile/edit'
+  visit new_my_profile_culinary_job_path
 
   within '.culinary_jobs' do
     fill_in_fields_for_table(table)
@@ -21,7 +21,7 @@ When(/^I add a restaurant to my profile with:$/) do |table|
 end
 
 When(/^I add a nonculinary job to my profile with:$/) do |table|
-  visit '/profile/edit'
+  visit edit_my_profile_path
 
   within '.nonculinary_jobs' do
     fill_in_fields_for_table(table)
@@ -32,7 +32,7 @@ end
 
 
 When(/^I add an award to my profile with:$/) do |table|
-  visit '/profile/edit'
+  visit edit_my_profile_path
 
   within '.awards' do
     fill_in_fields_for_table(table)
