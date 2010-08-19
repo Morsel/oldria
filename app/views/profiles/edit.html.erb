@@ -1,8 +1,13 @@
 <% title "Edit Profile" %>
 
+<% content_for :head do -%>
+  <%= stylesheet_link_tag 'colorbox' %>
+<% end -%>
+
+
 <% semantic_form_for @profile do |f| %>
   <% f.inputs :name => 'Basics' do %>
-    <%= f.input :birthday, :as => :string %>
+    <%= f.input :birthday %>
     <%= f.input :job_start %>
     <%= f.input :cellnumber %>
   <% end %>
@@ -16,46 +21,53 @@
     </ul>
   <% end %>
 
-  <div class="culinary_jobs">
-    <h2>Work Experience - Restaurants</h2>
-    <ul>
-    <% @profile.culinary_jobs.each do |job| %>
-      <li>
-        <%= job.restaurant_name %>
-        <%= link_to "Edit", edit_my_profile_culinary_job_path(job) %>
-      </li>
-    <% end %>
-    </ul>
-    <%= link_to "Add", new_my_profile_culinary_job_path, :class => 'positive button' %>
-  </div>
-
-  <div class="nonculinary_jobs clear">
-    <h2>Work Experience - Nonculinary</h2>
-    <ul>
-    <% @profile.nonculinary_jobs.each do |job| %>
-      <li>
-        <%= job.company %>
-        <%= link_to "Edit", edit_my_profile_nonculinary_job_path(job) %>
-      </li>
-    <% end %>
-    </ul>
-    <%= link_to "Add", new_my_profile_nonculinary_job_path, :class => 'positive button' %>
-  </div>
-
-  <div class="awards clear">
-    <h2>Awards</h2>
-    <ul>
-    <% @profile.awards.each do |award| %>
-      <li>
-        <%= award.name %>, <%= award.year_won %>
-        <%= link_to "Edit", edit_my_profile_award_path(award) %>
-      </li>
-    <% end %>
-    </ul>
-    <%= link_to "Add", new_my_profile_award_path, :class => 'positive button' %>
-  </div>
   <p class="clear">
-    <%= button_tag "Save" %>
+    <% button_tag :class => 'positive' do %><img src="/images/tick.png"/> Save<% end %>
     <%= button_tag "Preview", :name => "preview" %>
   </p>
 <% end %>
+
+<div class="culinary_jobs">
+  <h2>Work Experience - Restaurants</h2>
+  <ul>
+  <% @profile.culinary_jobs.each do |job| %>
+    <li>
+      <%= job.restaurant_name %>
+      <%= link_to "Edit", edit_my_profile_culinary_job_path(job), :class => 'colorbox' %>
+    </li>
+  <% end %>
+  </ul>
+  <% link_to  new_my_profile_culinary_job_path, :class => 'positive button colorbox' do %>
+    <img src="/images/plus.png"/> Add
+  <% end %>
+</div>
+
+<div class="nonculinary_jobs clear">
+  <h2>Work Experience - Nonculinary</h2>
+  <ul>
+  <% @profile.nonculinary_jobs.each do |job| %>
+    <li>
+      <%= job.company %>
+      <%= link_to "Edit", edit_my_profile_nonculinary_job_path(job), :class => 'colorbox' %>
+    </li>
+  <% end %>
+  </ul>
+  <% link_to new_my_profile_nonculinary_job_path, :class => 'positive button colorbox' do %>
+    <img src="/images/plus.png"/> Add
+  <% end %>
+</div>
+
+<div class="awards clear">
+  <h2>Awards</h2>
+  <ul>
+  <% @profile.awards.each do |award| %>
+    <li>
+      <%= award.name %>, <%= award.year_won %>
+      <%= link_to "Edit", edit_my_profile_award_path(award), :class => 'colorbox' %>
+    </li>
+  <% end %>
+  </ul>
+  <% link_to new_my_profile_award_path, :class => 'positive button colorbox' do %>
+    <img src="/images/plus.png"/> Add
+  <% end %>
+</div>

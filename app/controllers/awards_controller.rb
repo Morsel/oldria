@@ -3,6 +3,7 @@ class AwardsController < ApplicationController
 
   def new
     @award = @profile.awards.build
+    render :layout => false if request.xhr?
   end
 
   def create
@@ -16,6 +17,7 @@ class AwardsController < ApplicationController
 
   def edit
     @award = @profile.awards.find(params[:id])
+    render :layout => false if request.xhr?
   end
 
   def update

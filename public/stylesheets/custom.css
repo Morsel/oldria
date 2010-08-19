@@ -4338,6 +4338,16 @@ h2.primary_title{
 	font-weight: bold;
 }
 
+#colorbox fieldset {
+	border: 0;
+	padding: 0;
+}
+
+#colorbox textarea {
+	width: 300px;
+	height: 60px;
+}
+
 
 /* @end */
 

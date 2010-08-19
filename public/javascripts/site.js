@@ -420,7 +420,8 @@ $('#criteria_accordion').accordion({
 if (typeof($.fn.colorbox) != 'undefined') {
     $('.colorbox').colorbox({
         initialWidth: 420,
-        maxWidth: 450
+        maxWidth: 450,
+        maxHeight: 550
     });
 
     $('.close').live('click', function(){
@@ -438,6 +439,7 @@ if (typeof($.fn.colorbox) != 'undefined') {
     function close_box(){
         $.fn.colorbox.close();
     }
+
 }
 
 // Using this assumes that you've "build" on an association to get new blank field(s)

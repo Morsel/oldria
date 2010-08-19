@@ -3,6 +3,7 @@ class CulinaryJobsController < ApplicationController
 
   def new
     @culinary_job = @profile.culinary_jobs.build
+    render :layout => false if request.xhr?
   end
 
   def create
@@ -16,6 +17,7 @@ class CulinaryJobsController < ApplicationController
 
   def edit
     @culinary_job = @profile.culinary_jobs.find(params[:id])
+    render :layout => false if request.xhr?
   end
 
   def update
