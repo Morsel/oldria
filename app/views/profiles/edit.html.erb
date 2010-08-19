@@ -30,14 +30,9 @@
 <div class="culinary_jobs">
   <h2>Work Experience - Restaurants</h2>
   <ul>
-  <% @profile.culinary_jobs.each do |job| %>
-    <li>
-      <%= job.restaurant_name %>
-      <%= link_to "Edit", edit_my_profile_culinary_job_path(job), :class => 'colorbox' %>
-    </li>
-  <% end %>
+    <%= render @profile.culinary_jobs %>
   </ul>
-  <% link_to  new_my_profile_culinary_job_path, :class => 'positive button colorbox' do %>
+  <% link_to new_my_profile_culinary_job_path, :class => 'positive button colorbox' do %>
     <img src="/images/plus.png"/> Add
   <% end %>
 </div>
@@ -45,12 +40,7 @@
 <div class="nonculinary_jobs clear">
   <h2>Work Experience - Nonculinary</h2>
   <ul>
-  <% @profile.nonculinary_jobs.each do |job| %>
-    <li>
-      <%= job.company %>
-      <%= link_to "Edit", edit_my_profile_nonculinary_job_path(job), :class => 'colorbox' %>
-    </li>
-  <% end %>
+    <%= render @profile.nonculinary_jobs %>
   </ul>
   <% link_to new_my_profile_nonculinary_job_path, :class => 'positive button colorbox' do %>
     <img src="/images/plus.png"/> Add
@@ -59,13 +49,8 @@
 
 <div class="awards clear">
   <h2>Awards</h2>
-  <ul>
-  <% @profile.awards.each do |award| %>
-    <li>
-      <%= award.name %>, <%= award.year_won %>
-      <%= link_to "Edit", edit_my_profile_award_path(award), :class => 'colorbox' %>
-    </li>
-  <% end %>
+  <ul id="awards">
+    <%= render @profile.awards %>
   </ul>
   <% link_to new_my_profile_award_path, :class => 'positive button colorbox' do %>
     <img src="/images/plus.png"/> Add

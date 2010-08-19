@@ -1,4 +1,8 @@
 <% semantic_form_for [:my_profile, @award] do |f| %>
-  <%= render 'profiles/awards_fields', :f => f %>
+  <% f.inputs :class => "awards" do %>
+    <%= f.input :name, :label => "Name of Award" %>
+    <%= f.input :year_won, :as => :select, :collection => (1960..Date.today.year).to_a.reverse %>
+    <%= f.input :year_nominated, :as => :select, :collection => (1960..Date.today.year).to_a.reverse %>
+  <% end %>
   <%= button_tag "Save" %>
 <% end %>

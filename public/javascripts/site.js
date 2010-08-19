@@ -11,6 +11,29 @@ jQuery.fn.submitWithAjax = function() {
 	return this;
 };
 
+$.fn.ajaxDestroyLink = function(options){
+  var config = {
+    confirmMessage: "Are you sure you want to PERMANENTLY delete this?",
+    containerSelector: 'tr:first'
+  };
+  
+  if(options) $.extend(config, options);
+  
+  return this.each(function(){
+    var $this = $(this);
+    $this.click(function(){
+      if (confirm(config.confirmMessage)) {
+        $.post(this.href+".js", {_method: 'delete'}, function(data, status){
+          var container = $this.parents(config.containerSelector);
+          container.fadeOut(200,function(){
+            container.remove();
+          });
+        });
+      }
+      return false;
+    });
+  });
+};
 
 // Add the authenticity token to all POST-like requests, preventing XSS
 $("body").bind("ajaxSend", function(elm, xhr, s) {
@@ -37,17 +60,10 @@ $('.status a.trash').live('click', function(){
 
 $('a.delete, a.trash, .actions.destroy_link a').removeAttr('onclick');
 
-$('.actions.destroy_link a').click(function(){
-	var $destroyLink = $(this);
-	if (confirm("Are you sure you want to PERMANENTLY delete this?")) {
-		$.post(this.href+".js", {_method: 'delete'}, function(data, status){
-			var row = $destroyLink.parents('tr:first');
-			row.fadeOut(200,function(){
-				row.remove();
-			});
-		});
-	}
-	return false;
+$('.actions.destroy_link a').ajaxDestroyLink();
+
+$('.awards a.delete').ajaxDestroyLink({
+  containerSelector: 'li:first'
 });
 
 
@@ -441,6 +457,39 @@ if (typeof($.fn.colorbox) != 'undefined') {
     }
 
 }
+
+var colorboxForm = function(){
+  var $form = $(this);
+  // var button = $form.find('button:first');
+  // button.disable();
+  $form.ajaxSubmit({
+    dataType: 'json',
+    url: $form.attr('action') + '.json',
+    success: function(text){
+      var $html = $(text.html);
+      var $id   = $html.attr('id');
+      var singularName = $id.replace(/^new_/, "").replace(/_\d+$/, "");
+      var existingElement = $('#'+ $id);
+      console.log(singularName, existingElement);
+      if (existingElement.length) {
+        existingElement.html($html.html());
+      } else {
+        $("#" + singularName + "s").append($html);
+      }
+      $.fn.colorbox.close();
+    },
+    error: function(xhr, status){
+      var response;
+      try { response = $(xhr.responseText); } catch(e) { response = xhr.responseText; }
+      $.colorbox({html: response});
+    }
+  });
+  // button.enable();
+
+  return false;
+};
+
+$('#colorbox form.award, #colorbox form.culinary_job, #colorbox form.nonculinary_job').live('submit', colorboxForm);
 
 // Using this assumes that you've "build" on an association to get new blank field(s)
 // Call this on a containing element. By default, it will look for the last fieldset

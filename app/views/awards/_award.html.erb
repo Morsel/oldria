@@ -1,0 +1,5 @@
+<% content_tag_for :li, award do %>
+  <%= award.name %>, <%= award.year_won %>
+  <%= link_to "Edit", edit_my_profile_award_path(award), :class => 'colorbox' %>
+  <%= link_to "Destroy", my_profile_award_path(award), :method => :delete, :class => 'delete' %>
+<% end %>

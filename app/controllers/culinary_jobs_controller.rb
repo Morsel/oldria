@@ -8,10 +8,18 @@ class CulinaryJobsController < ApplicationController
 
   def create
     @culinary_job = @profile.culinary_jobs.build(params[:culinary_job])
-    if @culinary_job.save
-      redirect_to edit_my_profile_path
-    else
-      render :new
+    respond_to do |wants|
+      if @culinary_job.save
+        wants.html { redirect_to edit_my_profile_path }
+        wants.json do render :json => {
+            :html => render_to_string(:partial => '/culinary_jobs/culinary_job.html.erb', :locals => {:culinary_job => @culinary_job}),
+            :culinary_job => @culinary_job.to_json
+          }
+        end
+      else
+        wants.html { render :new }
+        wants.json { render :json => render_to_string(:partial => 'form.html.erb'), :status => :unprocessable_entity }
+      end
     end
   end
 
@@ -22,10 +30,18 @@ class CulinaryJobsController < ApplicationController
 
   def update
     @culinary_job = @profile.culinary_jobs.find(params[:id])
-    if @culinary_job.update_attributes(params[:culinary_job])
-      redirect_to edit_my_profile_path
-    else
-      render :edit
+    respond_to do |wants|
+      if @culinary_job.update_attributes(params[:culinary_job])
+        wants.html { redirect_to edit_my_profile_path }
+        wants.json do render :json => {
+            :html => render_to_string(:partial => '/culinary_jobs/culinary_job.html.erb', :locals => {:culinary_job => @culinary_job}),
+            :culinary_job => @culinary_job.to_json
+          }
+        end
+      else
+        wants.html { render :edit }
+        wants.json { render :json => render_to_string(:partial => 'form.html.erb'), :status => :unprocessable_entity }
+      end
     end
   end
 

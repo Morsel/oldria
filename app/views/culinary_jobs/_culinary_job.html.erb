@@ -1,0 +1,5 @@
+<% content_tag_for :li, culinary_job do %>
+  <%= culinary_job.restaurant_name %>
+  <%= link_to "Edit", edit_my_profile_culinary_job_path(culinary_job), :class => 'colorbox' %>
+  <%= link_to "Destroy", my_profile_culinary_job_path(culinary_job), :method => :delete, :class => 'delete' %>
+<% end %>

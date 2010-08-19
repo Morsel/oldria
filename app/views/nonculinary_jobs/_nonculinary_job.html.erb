@@ -1,0 +1,5 @@
+<% content_tag_for :li, nonculinary_job do %>
+  <%= nonculinary_job.company %>
+  <%= link_to "Edit", edit_my_profile_nonculinary_job_path(nonculinary_job), :class => 'colorbox' %>
+  <%= link_to "Destroy", my_profile_nonculinary_job_path(nonculinary_job), :method => :delete, :class => 'delete' %>
+<% end %>
