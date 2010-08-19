@@ -22,21 +22,27 @@
     <% @profile.culinary_jobs.each do |job| %>
       <li>
         <%= job.restaurant_name %>
-        <%= link_to "Edit", edit_my_profile_culinary_job_path(job) unless job.new_record?%>
+        <%= link_to "Edit", edit_my_profile_culinary_job_path(job) %>
       </li>
     <% end %>
     </ul>
     <%= link_to "New", new_my_profile_culinary_job_path, :class => 'positive button' %>
   </div>
 
-  <div class="clonablefieldset clear">
-    <h2>Work Experience - Non-Restaurants</h2>
-    <% f.semantic_fields_for :nonculinary_jobs do |job| %>
-      <%= render 'nonculinary_jobs_fields', :f => job %>
+  <div class="nonculinary_jobs clear">
+    <h2>Work Experience - Nonculinary</h2>
+    <ul>
+    <% @profile.nonculinary_jobs.each do |job| %>
+      <li>
+        <%= job.company %>
+        <%= link_to "Edit", edit_my_profile_nonculinary_job_path(job) %>
+      </li>
     <% end %>
+    </ul>
+    <%= link_to "New", new_my_profile_nonculinary_job_path, :class => 'positive button' %>
   </div>
 
-  <div class="clonablefieldset">
+  <div class="clonablefieldset clear">
     <h2>Awards</h2>
     <% f.semantic_fields_for :awards do |award_form| %>
       <%= render 'awards_fields', :f => award_form %>

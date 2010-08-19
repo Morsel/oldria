@@ -16,6 +16,7 @@ ActionController::Routing::Routes.draw do |map|
 
   map.resource :my_profile, :only => ['edit', 'update'], :controller => 'profiles' do |p|
     p.resources :culinary_jobs
+    p.resources :nonculinary_jobs
   end
 
   map.profile 'profile/:username', :controller => 'users', :action => 'show', :requirements => { :username => /[a-zA-Z0-9\-\_ ]+/}
