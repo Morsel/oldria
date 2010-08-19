@@ -2,15 +2,3 @@
 <div class="span-8">
     <%= render :partial => "form" %>
 </div>
-
-<div class="span-4">
-    <p><%= link_to_function "Add new chapter", '$("#new-chapter-form").toggle()' %></p>
-    <div style="display: none;" id="new-chapter-form">
-        <%= render :partial => "chapter_form", :locals => { :chapter => Chapter.new } %>
-    </div>
-    
-    <p><%= link_to_function "Add new topic", '$("#new-topic-form").toggle()' %></p>
-    <div style="display: none;" id="new-topic-form">
-        <%= render :partial => "topic_form", :locals => { :topic => Topic.new } %>
-    </div>
-</div>

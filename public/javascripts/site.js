@@ -507,7 +507,7 @@ $('.soapbox_sidebar').tabs();
 $('.tabable').tabs();
 
 // Profile question admin
-$('#profile_chapters tbody').sortable({
+$('#chapters tbody').sortable({
 	axis:'y',
 	dropOnEmpty:false,
 	update: function(){

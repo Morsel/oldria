@@ -1,4 +1,8 @@
 class Admin::ChaptersController < Admin::AdminController
+
+  def index
+    @chapters_by_topic = Chapter.all(:order => :position).group_by(&:topic)
+  end
   
   def create
     @chapter = Chapter.new(params[:chapter])
