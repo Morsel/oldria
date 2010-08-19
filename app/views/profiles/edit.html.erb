@@ -42,13 +42,20 @@
     <%= link_to "Add", new_my_profile_nonculinary_job_path, :class => 'positive button' %>
   </div>
 
-  <div class="clonablefieldset clear">
+  <div class="awards clear">
     <h2>Awards</h2>
-    <% f.semantic_fields_for :awards do |award_form| %>
-      <%= render 'awards_fields', :f => award_form %>
+    <ul>
+    <% @profile.awards.each do |award| %>
+      <li>
+        <%= award.name %>, <%= award.year_won %>
+        <%= link_to "Edit", edit_my_profile_award_path(award) %>
+      </li>
     <% end %>
+    </ul>
+    <%= link_to "Add", new_my_profile_award_path, :class => 'positive button' %>
   </div>
-
-  <%= button_tag "Save" %>
-  <%= button_tag "Preview", :name => "preview" %>
+  <p class="clear">
+    <%= button_tag "Save" %>
+    <%= button_tag "Preview", :name => "preview" %>
+  </p>
 <% end %>

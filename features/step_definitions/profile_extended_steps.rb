@@ -35,6 +35,7 @@ end
 
 When(/^I add an award to my profile with:$/) do |table|
   visit edit_my_profile_path
+  click_link_within '.awards', 'Add'
 
   within '.awards' do
     fill_in_fields_for_table(table)
