@@ -28,8 +28,14 @@ module MessagesHelper
   def reply_link_for_message(message)
     return unless message
     return if message.respond_to?(:broadcast?) && message.broadcast?
+    
     link_path = link_for_message(message)
-    link_to "Reply", link_path, :class => 'button utility round'
+    
+    if message.comments_count == 0
+      link_to "Post", link_path, :class => 'button utility round'
+    else
+      link_to "View your post", link_path, :class => 'replies'
+    end
   end
 
   def read_link_for_message(message, link_text = '<span>read</span>')

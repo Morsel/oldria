@@ -79,8 +79,4 @@ class Admin::Conversation < ActiveRecord::Base
     end
   end
 
-  def restaurant
-    recipient.try(:restaurant)
-  end
-  
 end
