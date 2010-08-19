@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100818204144) do
+ActiveRecord::Schema.define(:version => 20100819150756) do
 
   create_table "admin_conversations", :force => true do |t|
     t.integer  "recipient_id"
@@ -71,6 +71,15 @@ ActiveRecord::Schema.define(:version => 20100818204144) do
   end
 
   add_index "attachments", ["attachable_id", "attachable_type"], :name => "index_attachments_on_attachable_id_and_attachable_type"
+
+  create_table "awards", :force => true do |t|
+    t.integer  "profile_id"
+    t.string   "name"
+    t.string   "year_won",       :limit => 4, :default => "", :null => false
+    t.string   "year_nominated", :limit => 4, :default => "", :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "backup", :force => true do |t|
     t.string   "storage"

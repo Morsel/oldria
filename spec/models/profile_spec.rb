@@ -18,6 +18,7 @@ describe Profile do
   should_belong_to :user
   should_have_many :culinary_jobs
   should_have_many :nonculinary_jobs
+  should_have_many :awards
 
   it "exists for a user" do
     Factory(:profile).user.should be_present

@@ -59,6 +59,13 @@ Factory.define :nonculinary_job do |f|
   f.reason_for_leaving  "Had too much free time"
 end
 
+Factory.define :award do |f|
+  f.association :profile
+  f.name "Best Chef ever"
+  f.year_won "2009"
+  f.year_nominated "2008"
+end
+
 
 # == Restaurants ==
 Factory.define :restaurant do |f|

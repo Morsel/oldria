@@ -14,15 +14,16 @@
 
 class Profile < ActiveRecord::Base
   REJECT_ALL_BLANK_PROC = proc { |attributes| attributes.all? { |_, value| value.blank? } }
-  REJECT_TITLE_BLANK_PROC = proc { |attributes| attributes['title'].blank? }
+  REJECT_TITLE_BLANK_PROC = proc { |attributes| attributes['title'].blank? && attributes['name'].blank? }
 
   belongs_to :user
   validates_uniqueness_of :user_id
   has_many :culinary_jobs
   has_many :nonculinary_jobs
+  has_many :awards
 
-  accepts_nested_attributes_for :culinary_jobs, :reject_if => REJECT_TITLE_BLANK_PROC
-  accepts_nested_attributes_for :nonculinary_jobs, :reject_if => REJECT_TITLE_BLANK_PROC
+  accepts_nested_attributes_for :culinary_jobs, :nonculinary_jobs, :awards,
+    :reject_if => REJECT_TITLE_BLANK_PROC
 
 
   def primary_employment

@@ -26,11 +26,11 @@
     <% end %>
     </ul>
 
-    <% if false %>
+    <% if profile && profile.awards.present? %>
       <h3>Awards</h3>
       <ul class="awards">
-        <% profile.awards_items.each do |item| %>
-          <li><%= item.content %></li>
+        <% profile.awards.each do |award| %>
+          <li><%= award.name %>, <%= award.year_won %></li>
         <% end %>
       </ul>
     <% end %>

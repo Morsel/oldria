@@ -30,6 +30,13 @@
     <% end %>
   </div>
 
+  <div class="clonablefieldset">
+    <h2>Awards</h2>
+    <% f.semantic_fields_for :awards do |award_form| %>
+      <%= render 'awards_fields', :f => award_form %>
+    <% end %>
+  </div>
+
   <%= button_tag "Save" %>
   <%= button_tag "Preview", :name => "preview" %>
 <% end %>
