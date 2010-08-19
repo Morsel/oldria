@@ -1,19 +1,25 @@
 <div class="comments">
-  <%= render @comments %>
-  <hr class="space"/>
+    <% if @comments.blank? || message.is_a?(ContentRequest) %>
+      <%= render @comments %>
+      <hr class="space"/>
+      <%= render :partial => "shared/soapbox_comment_notice" if message.is_a?(TrendQuestion) %>
+      
+      <% semantic_form_for @comment_resource, :html => { :multipart => true } do |f| %>
+        <% f.inputs do %>
+            <%= f.input :comment, :label => 'Reply', :input_html => { :rows => 8 } %>
 
-  <% semantic_form_for @comment_resource, :html => { :multipart => true } do |f| %>
-    <% f.inputs do %>
-      <%= f.input :comment, :label => 'Reply', :input_html => { :rows => 8 } %>
+            <% f.fields_for :attachments do |child_form| -%>
+                <h3 class="attachments-header">Attach files</h3>
+                <p class="attachfield"><%= child_form.file_field :attachment %></p>
+            <% end -%>
 
-      <% f.fields_for :attachments do |child_form| -%>
-        <h3 class="attachments-header">Attach files</h3>
-        <p class="attachfield"><%= child_form.file_field :attachment %></p>
-      <% end -%>
+            <p class="clearfix"><%= button_tag "Send", :class => 'submit' %></p>
+        <% end %>
 
-      <p class="clearfix"><%= button_tag "Send", :class => 'submit' %></p>
+     <% end %>
+
+    <% else %>
+      <%= render @comments %>    
     <% end %>
-
-  <% end %>
 </div>
 

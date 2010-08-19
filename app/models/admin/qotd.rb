@@ -32,6 +32,6 @@ class Admin::Qotd < Admin::Message
   end
   
   def recipients_can_reply?
-    false
+    true
   end
 end

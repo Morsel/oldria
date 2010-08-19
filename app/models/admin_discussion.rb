@@ -62,7 +62,7 @@ class AdminDiscussion < ActiveRecord::Base
   end
   
   def recipients_can_reply?
-    !discussionable.is_a?(TrendQuestion)
+    true
   end
   
   ##
@@ -78,4 +78,5 @@ class AdminDiscussion < ActiveRecord::Base
       end
     end
   end
+  
 end

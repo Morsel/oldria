@@ -54,6 +54,10 @@ class Admin::Conversation < ActiveRecord::Base
     admin_message.scheduled_at
   end
 
+  def recipients_can_reply?
+    true
+  end
+
   def self.action_required(user)
     self.with_replies.unread_by(user).reject { |c| c.comments.last.user == user }
   end
@@ -73,14 +77,6 @@ class Admin::Conversation < ActiveRecord::Base
     if recipient.prefers_receive_email_notifications
       UserMailer.deliver_message_notification(self, recipient)
     end
-  end
-
-  def restaurant
-    recipient.try(:restaurant)
-  end
-  
-  def recipients_can_reply?
-    !admin_message.is_a?(Admin::Qotd)
   end
 
 end
