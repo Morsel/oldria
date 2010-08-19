@@ -1,7 +1,7 @@
 class Admin::TopicsController < Admin::AdminController
   
   def index
-    @topics = Topic.all
+    @topics = Topic.all(:order => "position ASC")
   end
   
   def new

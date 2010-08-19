@@ -22,7 +22,7 @@ class Chapter < ActiveRecord::Base
   default_scope :joins => :topic, :order => "topics.title ASC, chapters.title ASC"
   
   def title_with_topic
-    "[#{topic.question_roles_description}] #{topic.title} - #{title}"
+    "#{topic.title} - #{title}"
   end
   
   # for formtastic

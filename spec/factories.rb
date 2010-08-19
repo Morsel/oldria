@@ -101,7 +101,6 @@ end
 
 Factory.define :topic do |f|
   f.title "Professional background"
-  f.question_roles { [Factory(:question_role)] }
 end
 
 Factory.define :chapter do |f|

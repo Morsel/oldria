@@ -48,7 +48,11 @@ class Admin::ProfileQuestionsController < Admin::AdminController
   end
   
   def sort
-    if params[:chapters]
+    if params[:topics]
+      params[:topics].each_with_index do |id, index|
+        Topic.update_all(['position=?', index+1], ['id=?', id])
+      end      
+    elsif params[:chapters]
       params[:chapters].each_with_index do |id, index|
         Chapter.update_all(['position=?', index+1], ['id=?', id])
       end

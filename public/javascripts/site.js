@@ -528,6 +528,15 @@ $('#profile_questions tbody').sortable({
 	}
 });
 
+$('#topics tbody').sortable({
+	axis:'y',
+	dropOnEmpty:false,
+	update: function(){
+		$.ajax({ data:$(this).sortable('serialize', { key: 'topics[]' }), dataType:'script', type:'post', url:'/admin/profile_questions/sort'
+		});
+	}
+});
+
 // Admin page row highlighting
 
 $(function() {

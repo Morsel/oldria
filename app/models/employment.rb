@@ -1,4 +1,5 @@
 # == Schema Information
+# Schema version: 20100819192128
 #
 # Table name: employments
 #
@@ -9,6 +10,7 @@
 #  updated_at         :datetime
 #  restaurant_role_id :integer
 #  omniscient         :boolean
+#  primary            :boolean
 #
 
 class Employment < ActiveRecord::Base
