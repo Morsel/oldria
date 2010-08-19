@@ -93,6 +93,8 @@ module NavigationHelpers
       admin_profile_questions_path
     when /^the chapters page$/
       admin_chapters_path
+    when /^the new topic page$/
+      new_admin_topic_path
 
     # Direct path
     when /"([^\"]+)"/

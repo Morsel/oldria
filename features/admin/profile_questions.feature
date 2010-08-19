@@ -33,11 +33,11 @@ Feature: Profile questions
     And I press "Add"
     Then I should see "Created new chapter named Mentoring"
   
-  # Scenario: creating a new topic
-  #   When I go to the new profile question page
-  #   And fill in "Topic Title" with "Work Experience"
-  #   And I press "Save Topic"
-  #   Then I should see "Created new topic named Work Experience"
+  Scenario: creating a new topic
+    When I go to the new topic page
+    And fill in "Title" with "Work Experience"
+    And I press "Save Topic"
+    Then I should see "Created new topic named Work Experience"
     
   Scenario: managing roles
     Given a restaurant role named "Chef Assistant"
