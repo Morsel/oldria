@@ -470,7 +470,6 @@ var colorboxForm = function(){
       var $id   = $html.attr('id');
       var singularName = $id.replace(/^new_/, "").replace(/_\d+$/, "");
       var existingElement = $('#'+ $id);
-      console.log(singularName, existingElement);
       if (existingElement.length) {
         existingElement.html($html.html());
       } else {

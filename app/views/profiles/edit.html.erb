@@ -27,7 +27,7 @@
   </p>
 <% end %>
 
-<div class="culinary_jobs">
+<div class="culinary_jobs ajaxdelete">
   <h2>Work Experience - Restaurants</h2>
   <ul>
     <%= render @profile.culinary_jobs %>
@@ -37,7 +37,7 @@
   <% end %>
 </div>
 
-<div class="nonculinary_jobs clear">
+<div class="nonculinary_jobs clear ajaxdelete">
   <h2>Work Experience - Nonculinary</h2>
   <ul>
     <%= render @profile.nonculinary_jobs %>
@@ -47,7 +47,7 @@
   <% end %>
 </div>
 
-<div class="awards clear">
+<div class="awards clear ajaxdelete">
   <h2>Awards</h2>
   <ul id="awards">
     <%= render @profile.awards %>
