@@ -1,7 +1,7 @@
 class DestroyChapterQuestionMemberships < ActiveRecord::Migration
   def self.up
-    add_column :profile_questions, :position, :integer, :default => 0
-    add_column :profile_questions, :chapter_id, :integer
+    # add_column :profile_questions, :position, :integer, :default => 0
+    # add_column :profile_questions, :chapter_id, :integer
     
     ProfileQuestion.each do |q|
       q.update_attributes(:chapter_id => Chapter.first.id, :position => 0)
