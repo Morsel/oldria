@@ -273,7 +273,7 @@ class User < ActiveRecord::Base
   end
 
   def profile_questions
-    ProfileQuestion.all(:joins => {:chapters => {:topic => {:question_roles => {:restaurant_roles => :employments}}}}, :conditions => {:employments => { :id => primary_employment.id }})
+    ProfileQuestion.all(:joins => {:restaurant_roles => :employments}, :conditions => {:employments => { :id => primary_employment.id }})
   end
 
 end
