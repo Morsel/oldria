@@ -28,7 +28,7 @@ class Admin::Conversation < ActiveRecord::Base
   named_scope :with_replies, :conditions => "comments_count > 0"
   named_scope :without_replies, :conditions => "comments_count = 0"
 
-  belongs_to :recipient, :class_name => "Employment"
+  belongs_to :recipient, :class_name => "User"
   belongs_to :admin_message, :foreign_key => 'admin_message_id', :class_name => 'Admin::Message'
 
   named_scope :unread_by, lambda { |user|
@@ -54,6 +54,10 @@ class Admin::Conversation < ActiveRecord::Base
     admin_message.scheduled_at
   end
 
+  def recipients_can_reply?
+    true
+  end
+
   def self.action_required(user)
     self.with_replies.unread_by(user).reject { |c| c.comments.last.user == user }
   end
@@ -70,17 +74,9 @@ class Admin::Conversation < ActiveRecord::Base
 
   # Should only be called from the notify_recipients queued action
   def queued_message_sending
-    if recipient.employee.prefers_receive_email_notifications
-      UserMailer.deliver_message_notification(self, recipient.employee)
+    if recipient.prefers_receive_email_notifications
+      UserMailer.deliver_message_notification(self, recipient)
     end
-  end
-
-  def restaurant
-    recipient.try(:restaurant)
-  end
-  
-  def recipients_can_reply?
-    !admin_message.is_a?(Admin::Qotd)
   end
 
 end

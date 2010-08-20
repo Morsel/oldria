@@ -50,11 +50,9 @@ class User < ActiveRecord::Base
   # Sent, not received media requests
   has_many :media_requests, :foreign_key => 'sender_id'
 
-  has_many :admin_conversations, :through => :employments, :foreign_key => 'recipient_id'
-  has_many :managed_restaurants, :class_name => "Restaurant", :foreign_key => "manager_id"
-
   has_many :employments, :foreign_key => "employee_id", :dependent => :destroy
   has_many :restaurants, :through => :employments
+  has_many :managed_restaurants, :class_name => "Restaurant", :foreign_key => "manager_id"
   has_many :manager_restaurants, :source => :restaurant, :through => :employments, :conditions => ["employments.omniscient = ?", true]
   has_many :restaurant_roles, :through => :employments
 
@@ -62,6 +60,8 @@ class User < ActiveRecord::Base
   has_many :discussions, :through => :discussion_seats
 
   has_many :posted_discussions, :class_name => "Discussion", :foreign_key => "poster_id"
+
+  has_many :admin_conversations, :class_name => "Admin::Conversation", :foreign_key => 'recipient_id'
 
   has_many :feed_subscriptions, :dependent => :destroy
   has_many :feeds, :through => :feed_subscriptions
