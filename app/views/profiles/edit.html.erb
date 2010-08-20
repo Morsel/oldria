@@ -29,7 +29,7 @@
 
 <div class="culinary_jobs ajaxdelete">
   <h2>Work Experience - Restaurants</h2>
-  <ul>
+  <ul id="culinary_jobs">
     <%= render @profile.culinary_jobs %>
   </ul>
   <% link_to new_my_profile_culinary_job_path, :class => 'positive button colorbox' do %>
@@ -39,7 +39,7 @@
 
 <div class="nonculinary_jobs clear ajaxdelete">
   <h2>Work Experience - Nonculinary</h2>
-  <ul>
+  <ul id="nonculinary_jobs">
     <%= render @profile.nonculinary_jobs %>
   </ul>
   <% link_to new_my_profile_nonculinary_job_path, :class => 'positive button colorbox' do %>
