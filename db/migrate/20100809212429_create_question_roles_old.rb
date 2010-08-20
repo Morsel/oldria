@@ -1,4 +1,4 @@
-class CreateQuestionRoles < ActiveRecord::Migration
+class CreateQuestionRolesOld < ActiveRecord::Migration
   def self.up
     create_table :question_roles do |t|
       t.string :name

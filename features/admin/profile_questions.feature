@@ -9,12 +9,14 @@ Feature: Profile questions
     And the following chapters:
       | title    | topic           |
       | Early on | Career building |
+    And a restaurant role named "Chef"
   
   Scenario: creating a new profile question
     When I go to the new profile question page
     And fill in "Your question" with "How did you learn to cook?"
     And I select "Career building" from "Topic"
     And I select "Early on" from "Chapter"
+    And I check "Chef"
     And I press "Save Question"
     Then I should see "Added new profile question"
     

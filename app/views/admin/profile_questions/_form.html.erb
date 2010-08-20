@@ -5,7 +5,7 @@
         <%= select_tag "topic", options_from_collection_for_select(Topic.all, :id, :title), 
             :onchange => remote_function(:url => select_admin_chapters_path, :with => "'id=' + $('#topic').val()") %>
         <%= f.input :chapter, :collection => Topic.first.chapters %>
-        <%= f.input :restaurant_roles, :as => :check_boxes, :label => "For which roles?" %>
+        <%= f.input :restaurant_roles, :as => :check_boxes, :label => "For which roles?", :collection => RestaurantRole.all %>
     <% end %>
     <p><%= button_tag "Save Question" %></p>
 <% end %>
