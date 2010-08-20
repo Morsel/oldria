@@ -14,7 +14,7 @@ class ProfileQuestion < ActiveRecord::Base
   belongs_to :chapter
   has_and_belongs_to_many :restaurant_roles
   
-  validates_presence_of :title, :chapter_id
+  validates_presence_of :title, :chapter_id, :restaurant_roles
   
   def topic
     chapter.topic

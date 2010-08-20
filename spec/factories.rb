@@ -106,6 +106,7 @@ end
 Factory.define :profile_question do |f|
   f.title "Where did you train?"
   f.association :chapter
+  f.restaurant_roles { [Factory(:restaurant_role), Factory(:restaurant_role) ]}
 end
 
 # == Lookup Tables ==
