@@ -12,7 +12,7 @@ class Admin::ProfileQuestionsController < Admin::AdminController
     @question = ProfileQuestion.new(params[:profile_question])
     if @question.save
       flash[:notice] = "Added new profile question \"#{@question.title}\""
-      redirect_to :action => "index"
+      redirect_to :action => "new"
     else
       render :action => "new"
     end
