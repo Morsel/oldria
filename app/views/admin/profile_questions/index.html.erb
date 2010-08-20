@@ -1,27 +1,17 @@
 <% title "Profile Questions" %>
 
-<table id="profile_chapters">
-    <thead><tr>
-        <th>&nbsp;</th>
-        <th>Chapters</th>
-        <th>Topics</th>
-        <th># of Q&amp;As</th>
-        <th>&nbsp;</th>
-        <th>Can be deleted?</th>
-    </tr></thead>
-    <% for chapter in @chapters %>
-    <tr id="chapter_<%= chapter.id %>">
-        <td class="small handle">[drag]</td>
-        <td><%= link_to chapter.title, admin_chapter_path(:id => chapter) %></td>
-        <td><%= link_to chapter.topic.title, admin_topic_path(:id => chapter.topic) %></td>
-        <td><%= chapter.profile_questions.count %></td>
-        <td><%= link_to "Manage", manage_admin_profile_questions_path(:chapter_id => chapter), :class => "button" %></td>
-        <% if chapter.profile_questions.count == 0 %>
-        <td><%= link_to "Delete chapter", admin_chapter_path(:id => chapter), :method => "delete", :confirm => "Are you sure you want to delete this?" %></td>
-        <% end %>
-    </tr>
-    <% end %>
-</table>
+<% for chapter in @questions.keys %>
+
+<h2><%= chapter.title_with_topic %>:</h2>
+
+<% table_for @questions[chapter] do |t| %>
+	<% t.data :actions => [:edit, :destroy], :action_prefix => 'admin' do
+      t.cell(:handle, :heading => '', :cell_html => {:class => 'small handle'}) { "[drag]" }
+		t.cell(:title)
+  end %>
+<% end %>
+
+<% end %>
 
 <div><%= link_to "Add new question", new_admin_profile_question_path, :class => "button" %></div>
 <div class="clear">

@@ -28,9 +28,8 @@ describe Admin::ProfileQuestionsController do
       Chapter.stubs(:find).returns(chapter)
       question = Factory(:profile_question)
       ProfileQuestion.expects(:find).returns(question)
-      question.expects(:update_attributes).with("title" => "New title", "chapters" => chapter).returns(true)
-      put :update, :id => question.id, :profile_question => { :title => "New title", :chapter_ids => ["1"] }, 
-          :chapter_id => chapter.id
+      question.expects(:update_attributes).with("title" => "New title", "chapter_id" => "1").returns(true)
+      put :update, :id => question.id, :profile_question => { :title => "New title", :chapter_id => "1" }
       response.should be_redirect
     end
 

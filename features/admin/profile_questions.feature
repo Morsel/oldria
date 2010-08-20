@@ -18,16 +18,6 @@ Feature: Profile questions
     And I press "Save Question"
     Then I should see "Added new profile question"
     
-  Scenario: managing the questions in a chapter group
-    Given the following questions:
-      | title                         | chapter  |
-      | How did you learn to cook?    | Early on |
-      | What is your formal training? | Early on |
-    When I go to the admin profile questions page
-    And I follow "Manage"
-    Then I should see "How did you learn to cook?"
-    And I should see "What is your formal training?"
-    
   Scenario: creating a new chapter
     When I go to the chapters page
     And fill in "Title" with "Mentoring"

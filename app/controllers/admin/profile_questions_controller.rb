@@ -1,7 +1,7 @@
 class Admin::ProfileQuestionsController < Admin::AdminController
   
   def index
-    @chapters = Chapter.all(:order => "position ASC, topic_id ASC, title ASC")
+    @questions = ProfileQuestion.all(:order => "chapter_id ASC, position ASC").group_by(&:chapter)
   end
   
   def new
@@ -11,7 +11,7 @@ class Admin::ProfileQuestionsController < Admin::AdminController
   def create
     @question = ProfileQuestion.new(params[:profile_question])
     if @question.save
-      flash[:notice] = "Added new profile question"
+      flash[:notice] = "Added new profile question \"#{@question.title}\""
       redirect_to :action => "index"
     else
       render :action => "new"
