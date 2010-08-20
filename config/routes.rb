@@ -116,9 +116,8 @@ ActionController::Routing::Routes.draw do |map|
     admin.resources :events
     admin.resources :soapbox_entries
     admin.resources :profile_questions, :collection => { :manage => :get, :sort => :post, :topic => :any }
-    admin.resources :chapters
+    admin.resources :chapters, :collection => { :select => :post }
     admin.resources :topics
-    admin.resources :question_roles
 
     # Admin Messaging
     exclusive_routes = [:index, :show, :destroy]

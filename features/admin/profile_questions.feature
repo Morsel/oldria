@@ -12,8 +12,9 @@ Feature: Profile questions
   
   Scenario: creating a new profile question
     When I go to the new profile question page
-    And fill in "title" with "How did you learn to cook?"
-    And I select "Career building - Early on" from "Chapters"
+    And fill in "Your question" with "How did you learn to cook?"
+    And I select "Career building" from "Topic"
+    And I select "Early on" from "Chapter"
     And I press "Save Question"
     Then I should see "Added new profile question"
     
@@ -38,15 +39,3 @@ Feature: Profile questions
     And fill in "Title" with "Work Experience"
     And I press "Save Topic"
     Then I should see "Created new topic named Work Experience"
-    
-  Scenario: managing roles
-    Given a restaurant role named "Chef Assistant"
-    And a restaurant role named "Chef de Cuisine"
-    When I go to the admin profile questions page
-    And I follow "Manage roles"
-    And I fill in "Name" with "Culinary"
-    Then I should see "Chef Assistant"
-    And I check "Chef de Cuisine"
-    And I press "Save"
-    Then I should see "Created role"
-    And I should see "Culinary"

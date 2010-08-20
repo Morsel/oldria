@@ -10,7 +10,6 @@
 
 class RestaurantRole < ActiveRecord::Base
   has_many :employments
-  has_and_belongs_to_many :question_roles
   
   validates_presence_of :name
   
