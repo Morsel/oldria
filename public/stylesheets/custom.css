@@ -2058,6 +2058,7 @@ dl.user_info dd {
 	margin-top: 0;
 	margin-left: 80px;
 	color: #e3790c;
+	white-space:nowrap;
 }
 
 #user_profile_view img, #restaurant_profile_view img{
