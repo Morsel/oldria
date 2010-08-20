@@ -51,8 +51,11 @@
       <% end %>
     <% end %>
   </dl><!-- .user_info.extra -->
-
-</div><!--#user_profile_view -->
+  <span class="timestamp">
+    Last updated:
+    <%= @user.profile.updated_at.try(:strftime, "%b %e") %>
+  </span>
+</div><!-- #user_profile_view -->
 <div id="extended_profile_container">
   <a href="#extended_profile" class="showit">
     View Extended Profle <em>(Education, Experience, Awards, etc)</em>
@@ -123,4 +126,4 @@
   <%= render :partial => 'recent_statuses', :locals => {:user => @user, :statuses => @latest_statuses } %>
   <%= render :partial => 'followings', :locals => {:user => @user} %>
 <% end %>
-</div><!--#user_content-->
+</div><!-- #user_content-->

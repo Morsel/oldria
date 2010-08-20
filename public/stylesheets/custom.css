@@ -2010,6 +2010,16 @@ p.editprofile a:hover {
 	font-family: "Hoefler Text", georgia, serif;
 }
 
+.timestamp {
+	font-size: 10px;
+	color: #999;
+}
+
+#user_profile_view .timestamp {
+	clear: both;
+	float: right;
+}
+
 #user_profile_view .user_name {
 	color: #e3790c;
 	font-weight: normal;
