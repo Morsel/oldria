@@ -22,6 +22,19 @@ Feature: Admin Messaging
     And I press "Send"
     Then I should see "Why, yes, they are quite cool!"
     And I should see "Successfully created"
+    
+  Scenario: Editing a QOTD reply
+    Given I am logged in as "johndoe"
+    And "johndoe" has a QOTD message with:
+      | message | Are lazy cakes cool? |
+    And "johndoe" has commented on "Are lazy cakes cool?" with "Yes!"
+    When I go to my inbox
+    And I follow "View your post"
+    And I follow "Edit"
+    And I fill in "Comment" with "Yes! They are totally cool."
+    And I press "Save Comment"
+    Then I should see "Updated comment"
+    
 
   Scenario: PR Tips have no replies
     Given I am logged in as "johndoe"
