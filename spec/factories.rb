@@ -73,6 +73,13 @@ Factory.define :accolade do |f|
   f.media_type "National television exposure"
 end
 
+Factory.define :culinary_school do |f|
+  f.name         "Midwest International Culinary School"
+  f.city         "Columbus"
+  f.state        "OH"
+  f.country      "United States"
+end
+
 # == Restaurants ==
 Factory.define :restaurant do |f|
   f.name    "Joe's Diner"

@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100823140045) do
+ActiveRecord::Schema.define(:version => 20100823191122) do
 
   create_table "accolades", :force => true do |t|
     t.integer  "profile_id"
@@ -176,6 +176,15 @@ ActiveRecord::Schema.define(:version => 20100823140045) do
   end
 
   add_index "culinary_jobs", ["profile_id"], :name => "index_profile_restaurants_on_profile_id"
+
+  create_table "culinary_schools", :force => true do |t|
+    t.string   "name"
+    t.string   "city"
+    t.string   "state"
+    t.string   "country"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "date_ranges", :force => true do |t|
     t.date     "start_date"

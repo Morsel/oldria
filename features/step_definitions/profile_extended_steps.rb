@@ -29,13 +29,20 @@ When(/^I add a nonculinary job to my profile with:$/) do |table|
   When %Q{I add a profile item "nonculinary_job" to my profile with:}, table
 end
 
-
 When(/^I add an award to my profile with:$/) do |table|
   When %Q{I add a profile item "award" to my profile with:}, table
 end
 
 When(/^I add an accolade to my profile with:$/) do |table|
   When %Q{I add a profile item "accolade" to my profile with:}, table
+end
+
+When /^I add a culinary school to my profile with:$/ do |table|
+  When %Q{I add a profile item "culinary_school" to my profile with:}, table
+end
+
+Then /^I should have (\d+) culinary schools? on my profile$/ do |num|
+  @current_user.profile.culinary_schools.count.should == num.to_i
 end
 
 Then(/^I should have (\d+) restaurants? on my profile$/) do |num|
