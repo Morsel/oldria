@@ -488,7 +488,8 @@ var colorboxForm = function(){
   return false;
 };
 
-$('#colorbox form.award, #colorbox form.culinary_job, #colorbox form.nonculinary_job').live('submit', colorboxForm);
+$('#colorbox form.award, #colorbox form.culinary_job, #colorbox form.nonculinary_job, #colorbox form.accolade')
+  .live('submit', colorboxForm);
 
 // Using this assumes that you've "build" on an association to get new blank field(s)
 // Call this on a containing element. By default, it will look for the last fieldset

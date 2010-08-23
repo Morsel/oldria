@@ -21,6 +21,7 @@ class Profile < ActiveRecord::Base
   has_many :culinary_jobs
   has_many :nonculinary_jobs
   has_many :awards
+  has_many :accolades
 
   accepts_nested_attributes_for :culinary_jobs, :nonculinary_jobs, :awards,
     :reject_if => REJECT_TITLE_BLANK_PROC

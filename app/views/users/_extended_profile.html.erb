@@ -34,6 +34,15 @@
         <% end %>
       </ul>
     <% end %>
+
+    <% if profile && profile.accolades.present? %>
+      <h3>Accolades</h3>
+      <ul class="accolades">
+        <% profile.accolades.each do |accolade| %>
+          <li><%= accolade.name %>, <%= accolade.run_date.try(:strftime, "%Y") %></li>
+        <% end %>
+      </ul>
+    <% end %>
   </div>
   <div class="span-5 last">
 

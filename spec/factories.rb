@@ -66,6 +66,12 @@ Factory.define :award do |f|
   f.year_nominated "2008"
 end
 
+Factory.define :accolade do |f|
+  f.association :profile
+  f.name "The Today Show"
+  f.run_date 1.year.ago
+  f.media_type "National television exposure"
+end
 
 # == Restaurants ==
 Factory.define :restaurant do |f|

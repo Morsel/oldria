@@ -56,3 +56,13 @@
     <img src="/images/plus.png"/> Add
   <% end %>
 </div>
+
+<div class="accolades clear ajaxdelete">
+  <h2>Accolades</h2>
+  <ul id="accolades">
+    <%= render @profile.accolades %>
+  </ul>
+  <% link_to new_my_profile_accolade_path, :class => 'positive button colorbox' do %>
+    <img src="/images/plus.png"/> Add
+  <% end %>
+</div>
