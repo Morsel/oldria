@@ -21,6 +21,7 @@ $.fn.ajaxDestroyLink = function(options){
   
   return this.each(function(){
     var $this = $(this);
+    $this.removeAttr('onclick');
     $this.click(function(){
       if (confirm(config.confirmMessage)) {
         $.post(this.href+".js", {_method: 'delete'}, function(data, status){
@@ -57,12 +58,10 @@ $('.status a.trash').live('click', function(){
 	$.post(this.href, { _method: 'delete' }, null, 'script');
 	return false;	
 });
-
-$('a.delete, a.trash, .actions.destroy_link a').removeAttr('onclick');
+$('a.trash').removeAttr('onclick');
 
 $('.actions.destroy_link a').ajaxDestroyLink();
-
-$('.awards a.delete').ajaxDestroyLink({
+$('a.delete').ajaxDestroyLink({
   containerSelector: 'li:first'
 });
 
