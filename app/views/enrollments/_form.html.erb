@@ -9,10 +9,10 @@
       <%= school.input :country, :wrapper_html => {:class => 'clear'} %>
     <% end %>
 
-    <%= f.input :graduation_date %>
+    <%= f.input :graduation_date, :hint => "Leave blank if you did not graduate" %>
     <%= f.input :degree %>
-    <%= f.input :focus %>
-    <%= f.input :scholarships %>
+    <%= f.input :focus, :hint => 'Did you have any special focus?' %>
+    <%= f.input :scholarships, :hint => "Did you receive any awards or special scholarships" %>
   <% end %>
   <%= button_tag "Save" %>
 <% end %>

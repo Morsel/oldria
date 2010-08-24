@@ -5,7 +5,7 @@
 <% end -%>
 
 
-<% semantic_form_for @profile do |f| %>
+<% semantic_form_for @profile, :url => my_profile_path do |f| %>
   <% f.inputs :name => 'Basics' do %>
     <%= f.input :birthday %>
     <%= f.input :job_start %>
