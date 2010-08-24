@@ -435,7 +435,7 @@ if (typeof($.fn.colorbox) != 'undefined') {
     $('.colorbox').colorbox({
         initialWidth: 420,
         maxWidth: 450,
-        maxHeight: 550
+        maxHeight: 580
     });
 
     $('.close').live('click', function(){
@@ -486,7 +486,7 @@ var colorboxForm = function(){
   return false;
 };
 
-$('#colorbox form.award, #colorbox form.culinary_job, #colorbox form.nonculinary_job, #colorbox form.accolade')
+$('#colorbox form.award, #colorbox form.culinary_job, #colorbox form.nonculinary_job, #colorbox form.accolade, #colorbox form.enrollment')
   .live('submit', colorboxForm);
 
 // Using this assumes that you've "build" on an association to get new blank field(s)

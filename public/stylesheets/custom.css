@@ -3164,6 +3164,9 @@ form .first_name input.text, form .last_name input.text {
 .formtastic li {
 	margin-bottom:1em;
 }
+.formtastic>li{
+	list-style: none;
+}
 
 form .date li {
 	float:left;
@@ -4288,6 +4291,10 @@ h2.primary_title{
 	background:0;
 }
 
+#colorbox #new_quick_reply {
+	margin: 0;
+}
+
 #new_quick_reply label{
 	font-weight:bold;
 }
@@ -4325,10 +4332,6 @@ h2.primary_title{
 	border-left:1px solid #999;
 }
 
-#new_quick_reply fieldset {
-	padding: 0;
-	border: 0 none;
-}
 
 #new_quick_reply ol {
 	list-style: none;
@@ -4357,6 +4360,10 @@ h2.primary_title{
 #colorbox textarea {
 	width: 300px;
 	height: 60px;
+}
+
+#colorbox form {
+	margin: 20px 10px;
 }
 
 
