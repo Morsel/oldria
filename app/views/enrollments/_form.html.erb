@@ -1,16 +1,16 @@
 <% semantic_form_for [:my_profile, @enrollment] do |f| %>
   <% f.inputs :class => "enrollments" do %>
-    <%= f.input :culinary_school %>
+    <%= f.input :school %>
 
   <% if action_name == 'new' %>
     <p>
-      <a href="#culinary_school_fields" class="showit">
+      <a href="#school_fields" class="showit">
         We don't have your school listed? You can add it below
       </a>
     </p>
 
-    <div id="culinary_school_fields">
-      <% f.semantic_fields_for :culinary_school do |school| %>
+    <div id="school_fields">
+      <% f.semantic_fields_for :school do |school| %>
         <%= school.input :name, :label => 'School Name' %>
         <%= school.input :city, :input_html => {:class => 'span-5'},
           :wrapper_html => {:class => 'span-5 column'} %>

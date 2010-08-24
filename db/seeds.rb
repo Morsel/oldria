@@ -70,11 +70,12 @@ model_count_before_and_after(SubjectMatter) do
 end
 
 # == Set up Culinary Schools ==
-model_count_before_and_after(CulinarySchool) do
+model_count_before_and_after(School) do
   culinary_schools = YAML.load_file(@seedling_path + '/culinary_schools.yml')['culinary_schools']
-  culinary_schools.each do |culinary_school|
-    next if CulinarySchool.find_by_name(culinary_school['name'])
-    culinary_school['country'] ||= "United States"
-    CulinarySchool.create!(culinary_school)
+  culinary_schools.each do |school|
+    next if School.find_by_name(school['name'])
+    school['country'] ||= "United States"
+    school['culinary'] ||= true
+    School.create!(school)
   end
 end

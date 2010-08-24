@@ -3,7 +3,6 @@ class EnrollmentsController < ApplicationController
 
   def new
     @enrollment = @profile.enrollments.build
-    @enrollment.culinary_school ||= CulinarySchool.new
     render :layout => false if request.xhr?
   end
 

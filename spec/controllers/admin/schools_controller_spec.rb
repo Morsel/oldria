@@ -1,9 +1,9 @@
 require 'spec_helper'
  
-describe Admin::CulinarySchoolsController do
+describe Admin::SchoolsController do
   integrate_views
   before(:each) do
-    Factory(:culinary_school)
+    Factory(:school)
     fake_admin_user
   end
 
@@ -13,7 +13,7 @@ describe Admin::CulinarySchoolsController do
   end
   
   it "show action should render show template" do
-    get :show, :id => CulinarySchool.first
+    get :show, :id => School.first
     response.should render_template(:show)
   end
   
@@ -23,38 +23,38 @@ describe Admin::CulinarySchoolsController do
   end
   
   it "create action should render new template when model is invalid" do
-    CulinarySchool.any_instance.stubs(:valid?).returns(false)
+    School.any_instance.stubs(:valid?).returns(false)
     post :create
     response.should render_template(:new)
   end
   
   it "create action should redirect when model is valid" do
-    CulinarySchool.any_instance.stubs(:valid?).returns(true)
+    School.any_instance.stubs(:valid?).returns(true)
     post :create
-    response.should redirect_to(admin_culinary_schools_path)
+    response.should redirect_to(admin_schools_path)
   end
   
   it "edit action should render edit template" do
-    get :edit, :id => CulinarySchool.first
+    get :edit, :id => School.first
     response.should render_template(:edit)
   end
   
   it "update action should render edit template when model is invalid" do
-    CulinarySchool.any_instance.stubs(:valid?).returns(false)
-    put :update, :id => CulinarySchool.first
+    School.any_instance.stubs(:valid?).returns(false)
+    put :update, :id => School.first
     response.should render_template(:edit)
   end
   
   it "update action should redirect when model is valid" do
-    CulinarySchool.any_instance.stubs(:valid?).returns(true)
-    put :update, :id => CulinarySchool.first
-    response.should redirect_to(admin_culinary_school_path)
+    School.any_instance.stubs(:valid?).returns(true)
+    put :update, :id => School.first
+    response.should redirect_to(admin_school_path)
   end
   
   it "destroy action should destroy model and redirect to index action" do
-    culinary_school = CulinarySchool.first
-    delete :destroy, :id => culinary_school
-    response.should redirect_to(admin_culinary_schools_path)
-    CulinarySchool.exists?(culinary_school.id).should be_false
+    school = School.first
+    delete :destroy, :id => school
+    response.should redirect_to(admin_schools_path)
+    School.exists?(school.id).should be_false
   end
 end

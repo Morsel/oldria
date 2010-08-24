@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100823215204) do
+ActiveRecord::Schema.define(:version => 20100824205041) do
 
   create_table "accolades", :force => true do |t|
     t.integer  "profile_id"
@@ -177,15 +177,6 @@ ActiveRecord::Schema.define(:version => 20100823215204) do
 
   add_index "culinary_jobs", ["profile_id"], :name => "index_profile_restaurants_on_profile_id"
 
-  create_table "culinary_schools", :force => true do |t|
-    t.string   "name"
-    t.string   "city"
-    t.string   "state"
-    t.string   "country"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "date_ranges", :force => true do |t|
     t.date     "start_date"
     t.date     "end_date"
@@ -268,10 +259,10 @@ ActiveRecord::Schema.define(:version => 20100823215204) do
   add_index "employments", ["restaurant_role_id"], :name => "index_employments_on_restaurant_role_id"
 
   create_table "enrollments", :force => true do |t|
-    t.integer  "culinary_school_id",                 :null => false
-    t.integer  "profile_id",                         :null => false
+    t.integer  "school_id",                       :null => false
+    t.integer  "profile_id",                      :null => false
     t.date     "graduation_date"
-    t.string   "degree",             :default => "", :null => false
+    t.string   "degree",          :default => "", :null => false
     t.text     "focus"
     t.text     "scholarships"
     t.datetime "created_at"
@@ -572,6 +563,16 @@ ActiveRecord::Schema.define(:version => 20100823215204) do
   add_index "restaurants", ["james_beard_region_id"], :name => "index_restaurants_on_james_beard_region_id"
   add_index "restaurants", ["manager_id"], :name => "index_restaurants_on_manager_id"
   add_index "restaurants", ["metropolitan_area_id"], :name => "index_restaurants_on_metropolitan_area_id"
+
+  create_table "schools", :force => true do |t|
+    t.string   "name"
+    t.string   "city"
+    t.string   "state"
+    t.string   "country"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.boolean  "culinary"
+  end
 
   create_table "slugs", :force => true do |t|
     t.string   "name"

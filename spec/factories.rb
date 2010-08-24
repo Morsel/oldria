@@ -73,7 +73,7 @@ Factory.define :accolade do |f|
   f.media_type "National television exposure"
 end
 
-Factory.define :culinary_school do |f|
+Factory.define :school do |f|
   f.name         "Midwest International Culinary School"
   f.city         "Columbus"
   f.state        "OH"
@@ -81,7 +81,7 @@ Factory.define :culinary_school do |f|
 end
 
 Factory.define :enrollment do |f|
-  f.association :culinary_school
+  f.association :school
   f.association :profile
   f.graduation_date 4.years.ago
 end

@@ -51,7 +51,7 @@
       <ul class="education">
         <% profile.enrollments.each do |enrollment| %>
           <li>
-            <%= enrollment.culinary_school.try(:name) %>
+            <%= enrollment.school.try(:name) %>
             <%= enrollment.graduation_date.try(:strftime, "%b %Y") %>
           </li>
         <% end %>
