@@ -14,7 +14,7 @@ Feature: Education
     Given I am logged in as a normal user
     And I am on my profile's edit page
     When I add a culinary school to my profile with:
-      | Name            | Midwest International Food |
+      | School Name     | Midwest International Food |
       | City            | Columbus                   |
       | State           | OH                         |
       | Graduation Date |                            |
