@@ -23,7 +23,7 @@ class CommentsController < ApplicationController
     @comment = Comment.find(params[:id])
     if @comment.update_attributes(params[:comment])
       flash[:notice] = "Updated comment"
-      redirect_to @comment.commentable
+      redirect_to ria_messages_path
     else
       render :action => "edit"
     end
