@@ -429,15 +429,26 @@ $('#criteria_accordion').accordion({
 	}
 }).find('.loading').removeClass('loading');
 
+var colorboxOnComplete = function(){
+  $("#colorbox a.showit").showy();
+
+  $('#culinary_job_chef_is_me').click(function(){
+    var nameField = $('#culinary_job_chef_name');
+    var $this     = $(this);
+    if ($this.is(":checked")) {
+      nameField.val($(this).attr('rel'));
+    } else {
+      nameField.val('');
+    }
+  });
+};
 
 if (typeof($.fn.colorbox) != 'undefined') {
     $('.colorbox').colorbox({
         initialWidth: 420,
         maxWidth: 450,
         maxHeight: 580,
-        onComplete: function(){
-          $("#colorbox a.showit").showy();
-        }
+        onComplete: colorboxOnComplete
     });
 
     $('.close').live('click', function(){
