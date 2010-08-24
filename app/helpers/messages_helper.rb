@@ -36,7 +36,7 @@ module MessagesHelper
     if message.comments_count == 0
       link_to "Post", link_path, :class => 'button utility round'
     else
-      link_to "View your post", link_path, :class => 'replies'
+      link_to "View your post", link_path, :class => 'button utility round'
     end
   end
 
