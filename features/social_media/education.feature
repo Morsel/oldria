@@ -1,5 +1,5 @@
 @profile
-Feature: Culinary Schools
+Feature: Education
   Users can have none, one, or many of: 
 
   Name of culinary school, city, state, country
