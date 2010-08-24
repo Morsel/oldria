@@ -68,3 +68,13 @@ model_count_before_and_after(SubjectMatter) do
     SubjectMatter.find_or_create_by_name(subject_matter)
   end
 end
+
+# == Set up Culinary Schools ==
+model_count_before_and_after(CulinarySchool) do
+  culinary_schools = YAML.load_file(@seedling_path + '/culinary_schools.yml')['culinary_schools']
+  culinary_schools.each do |culinary_school|
+    next if CulinarySchool.find_by_name(culinary_school['name'])
+    culinary_school['country'] ||= "United States"
+    CulinarySchool.create!(culinary_school)
+  end
+end

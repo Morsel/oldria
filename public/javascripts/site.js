@@ -117,7 +117,7 @@ $.fn.showy = function(){
   });
 };
 
-$(".showit").showy();
+$("a.showit").showy();
 
 // == Comment attachments
 
@@ -434,7 +434,10 @@ if (typeof($.fn.colorbox) != 'undefined') {
     $('.colorbox').colorbox({
         initialWidth: 420,
         maxWidth: 450,
-        maxHeight: 580
+        maxHeight: 580,
+        onComplete: function(){
+          $("#colorbox a.showit").showy();
+        }
     });
 
     $('.close').live('click', function(){
