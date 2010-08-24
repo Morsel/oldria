@@ -9,7 +9,7 @@ Feature: Culinary Schools
   Did you have any special focus?
   Did you receive any awards or special scholarships?
 
-@wip
+
   Scenario: Adding a culinary school to your profile
     Given I am logged in as a normal user
     And I am on my profile's edit page

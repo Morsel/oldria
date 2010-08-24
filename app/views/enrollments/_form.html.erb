@@ -1,0 +1,15 @@
+<% semantic_form_for [:my_profile, @enrollment] do |f| %>
+  <% f.semantic_fields_for :culinary_school do |school| %>
+    <%= school.input :name %>
+    <%= school.input :city %>
+    <%= school.input :state %>
+    <%= school.input :country %>
+  <% end %>
+  <% f.inputs :class => "enrollments" do %>
+    <%= f.input :graduation_date %>
+    <%= f.input :degree %>
+    <%= f.input :focus %>
+    <%= f.input :scholarships %>
+  <% end %>
+  <%= button_tag "Save" %>
+<% end %>

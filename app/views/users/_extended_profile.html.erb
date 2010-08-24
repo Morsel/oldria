@@ -46,11 +46,14 @@
   </div>
   <div class="span-5 last">
 
-    <% if false %>
+    <% if profile && profile.enrollments.present? %>
       <h3>Education</h3>
       <ul class="education">
-        <% profile.education_items.each do |item| %>
-          <li><%= simple_format item.content %></li>
+        <% profile.enrollments.each do |enrollment| %>
+          <li>
+            <%= enrollment.culinary_school.try(:name) %>
+            <%= enrollment.graduation_date.try(:strftime, "%b %Y") %>
+          </li>
         <% end %>
       </ul>
     <% end %>

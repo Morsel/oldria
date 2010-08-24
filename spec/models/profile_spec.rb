@@ -20,6 +20,8 @@ describe Profile do
   should_have_many :nonculinary_jobs
   should_have_many :awards
   should_have_many :accolades
+  should_have_many :enrollments
+  should_have_many :culinary_schools, :through => :enrollments
 
   it "exists for a user" do
     Factory(:profile).user.should be_present

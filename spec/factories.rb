@@ -80,6 +80,12 @@ Factory.define :culinary_school do |f|
   f.country      "United States"
 end
 
+Factory.define :enrollment do |f|
+  f.association :culinary_school
+  f.association :profile
+  f.graduation_date 4.years.ago
+end
+
 # == Restaurants ==
 Factory.define :restaurant do |f|
   f.name    "Joe's Diner"
