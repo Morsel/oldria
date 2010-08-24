@@ -9,7 +9,12 @@
       <%= school.input :country, :wrapper_html => {:class => 'clear'} %>
     <% end %>
 
-    <%= f.input :graduation_date, :hint => "Leave blank if you did not graduate" %>
+    <li class="datetime optional">
+      <%= f.label :graduation_date %>
+      <%= f.date_select :graduation_date, :include_blank => true, :start_year => 1960, :end_year => Date.today.year %>
+      <p class="inline-hints">Leave blank if you did not graduate</p>
+    </li>
+
     <%= f.input :degree %>
     <%= f.input :focus, :hint => 'Did you have any special focus?' %>
     <%= f.input :scholarships, :hint => "Did you receive any awards or special scholarships" %>
