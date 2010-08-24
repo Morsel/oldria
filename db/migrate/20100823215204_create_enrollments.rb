@@ -3,7 +3,7 @@ class CreateEnrollments < ActiveRecord::Migration
     create_table :enrollments do |t|
       t.references :culinary_school, :null => false
       t.references :profile, :null => false
-      t.date :graduation_date, :null => false
+      t.date :graduation_date
       t.string :degree, :default => '', :null => false
       t.text :focus, :scholarships
 

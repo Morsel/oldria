@@ -270,7 +270,7 @@ ActiveRecord::Schema.define(:version => 20100823215204) do
   create_table "enrollments", :force => true do |t|
     t.integer  "culinary_school_id",                 :null => false
     t.integer  "profile_id",                         :null => false
-    t.date     "graduation_date",                    :null => false
+    t.date     "graduation_date"
     t.string   "degree",             :default => "", :null => false
     t.text     "focus"
     t.text     "scholarships"
