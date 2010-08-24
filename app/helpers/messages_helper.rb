@@ -18,7 +18,7 @@ module MessagesHelper
     elsif message.respond_to?(:discussionable)
       admin_discussion_path(message)
     elsif message.respond_to?(:admin_discussions) # TrendQuestion or ContentRequest
-      first_discussion_for_user = current_user.unread_grouped_admin_discussions[message].first
+      first_discussion_for_user = current_user.grouped_admin_discussions[message].first
       admin_discussion_path(first_discussion_for_user)
     else
       ria_messages_path # just in case

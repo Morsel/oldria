@@ -83,7 +83,21 @@ Feature: Trend questions
     And I fill in "Comment for Restaurant(s)" with "But my river is green"
     And I press "Post"
     Then the discussion for the trend question with subject "My river runs blue" should have 1 comment
-
+    
+  Scenario: A user can edit their trend question comment
+    Given I am logged in as an admin
+    When I create a new trend question with subject "Microbiology!" with criteria:
+      | Region | Midwest (IN IL OH) |
+    And trend question "Microbiology!" has a reply "Really?" by "sam"
+    
+    Given I am logged in as "sam" with password "secret"
+    And I go to the RIA messages page
+    And I follow "reply for Normal Pants"
+    # Then I should see "Edit" within "div.comments"
+    And I follow "Edit" within "div.comments"
+    And I fill in "Comment" with "Yes! It is green."
+    And I press "Save Comment"
+    Then I should see "Updated comment"
 
   Scenario: Displaying saved criteria
     Given I am logged in as an admin

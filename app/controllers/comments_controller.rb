@@ -14,6 +14,20 @@ class CommentsController < ApplicationController
       redirect_to :back
     end
   end
+  
+  def edit
+    @comment = Comment.find(params[:id])
+  end
+  
+  def update
+    @comment = Comment.find(params[:id])
+    if @comment.update_attributes(params[:comment])
+      flash[:notice] = "Updated comment"
+      redirect_to @comment.commentable
+    else
+      render :action => "edit"
+    end
+  end
 
   private
 

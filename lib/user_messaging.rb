@@ -47,6 +47,11 @@ module UserMessaging
   def action_required_admin_discussions
     unread_admin_discussions.select { |d| d.comments_count > 0 && d.comments.last.user != self }.reject { |d| d.discussionable.is_a?(TrendQuestion) }
   end
+  
+  def grouped_admin_discussions
+    return @grouped_admin_discussions if defined?(@grouped_admin_discussions)
+    @grouped_admin_discussions = (current_admin_discussions - action_required_admin_discussions).group_by(&:discussionable)
+  end
 
   def unread_grouped_admin_discussions
     return @unread_grouped_admin_discussions if defined?(@unread_grouped_admin_discussions)
