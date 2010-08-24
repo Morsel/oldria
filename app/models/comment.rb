@@ -75,4 +75,9 @@ class Comment < ActiveRecord::Base
     commentable.is_a?(Admin::Conversation) || 
         (commentable.is_a?(AdminDiscussion) && commentable.discussionable.is_a?(TrendQuestion))
   end
+  
+  def editable_by?(person)
+    return false unless editable?
+    (self.user == person) || self.user.coworkers.include?(person)
+  end
 end
