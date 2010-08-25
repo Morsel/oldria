@@ -22,6 +22,7 @@ $.fn.ajaxDestroyLink = function(options){
   return this.each(function(){
     var $this = $(this);
     $this.removeAttr('onclick');
+    $this.unbind();
     $this.click(function(){
       if (confirm(config.confirmMessage)) {
         $.post(this.href+".js", {_method: 'delete'}, function(data, status){
@@ -61,10 +62,13 @@ $('.status a.trash').live('click', function(){
 $('a.trash').removeAttr('onclick');
 
 $('.actions.destroy_link a').ajaxDestroyLink();
-$('a.delete').ajaxDestroyLink({
-  containerSelector: 'li:first'
-});
 
+var bindAjaxDeleters = function(){
+  $('a.delete').ajaxDestroyLink({
+    containerSelector: 'li:first'
+  });
+};
+bindAjaxDeleters();
 
 // Hide the filter form by default on Admin search
 
@@ -444,16 +448,24 @@ var colorboxOnComplete = function(){
 };
 
 if (typeof($.fn.colorbox) != 'undefined') {
-    $('.colorbox').colorbox({
-        initialWidth: 420,
-        maxWidth: 450,
-        maxHeight: 580,
-        onComplete: colorboxOnComplete
-    });
+    var bindColorbox = function() {
+      $('.colorbox').colorbox({
+          initialWidth: 420,
+          maxWidth: 450,
+          maxHeight: 580,
+          onComplete: colorboxOnComplete,
+          onClosed: function() {
+            bindAjaxDeleters();
+            bindColorbox();
+          }
+      });
+    };
 
-    $('.close').live('click', function(){
-        close_box();
-    });
+    function close_box(){
+        $.fn.colorbox.close();
+    }
+
+    $('.close').live('click', close_box);
 
     $('#new_quick_reply button').live('click', function(){
         $(this).text('posting...');
@@ -463,10 +475,8 @@ if (typeof($.fn.colorbox) != 'undefined') {
         $('#new_quick_reply button').text('Post Reply');
     }
 
-    function close_box(){
-        $.fn.colorbox.close();
-    }
-
+    // Do it!
+    bindColorbox();
 }
 
 var colorboxForm = function(){
