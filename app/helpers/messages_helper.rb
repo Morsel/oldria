@@ -52,7 +52,7 @@ module MessagesHelper
     elsif message.respond_to?(:admin_message)
       link_path = read_admin_message_path(message.admin_message)
     elsif message.respond_to?(:admin_discussions) # TrendQuestion or ContentRequest
-      first_discussion_for_user = current_user.unread_grouped_admin_discussions[message].first
+      first_discussion_for_user = current_user.grouped_admin_discussions[message].first
       link_path = read_admin_discussion_path(first_discussion_for_user)
     else
       link_path = read_admin_message_path(message)
