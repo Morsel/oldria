@@ -4364,6 +4364,7 @@ h2.primary_title{
 
 #colorbox form {
 	margin: 20px 10px;
+	min-width: 330px;
 }
 
 
