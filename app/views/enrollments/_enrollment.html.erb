@@ -1,5 +1,6 @@
 <% content_tag_for :li, enrollment do %>
-  <%= enrollment.school.try :name %>, <%= enrollment.graduation_date.try(:strftime, "%b %Y") %>
+  <%= enrollment.school.try :name %>,
+  <%= enrollment.graduation_date.try(:year) || "Did not graduate" %>
   <%= link_to "Edit", edit_my_profile_enrollment_path(enrollment), :class => 'colorbox' %>
   <%= link_to "Destroy", my_profile_enrollment_path(enrollment), :method => :delete, :class => 'delete' %>
 <% end %>

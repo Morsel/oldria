@@ -17,6 +17,6 @@ Feature: Education
       | School Name     | Midwest International Food |
       | City            | Columbus                   |
       | State           | OH                         |
-      | Graduation Date |                            |
+      | Graduation Year |                            |
     Then I should have 1 culinary school on my profile
     And I should see "Midwest International Food" on my profile page

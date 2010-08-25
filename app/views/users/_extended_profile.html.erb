@@ -5,8 +5,9 @@
     <% for employment in user.employments %>
       <li class="culinary">
         <%= image_tag 'avatar_restaurant.gif', :width=>'50', :class => 'restaurant_avatar pull-1' %>
-        <a class="organization"><%= employment.restaurant.name %></a><br />
-        <span class="employee_role"><%= employment.restaurant_role.try(:name) %></span>
+        <span class="restaurant_name"><a class="organization"><%= employment.restaurant.name %></a></span>
+        <span class="employee_title"><%= employment.restaurant_role.try(:name) %></span>
+        <span class="date_range">Current</span>
       </li>
     <% end %>
     <% profile && profile.culinary_jobs.each do |job| %>
@@ -51,8 +52,10 @@
       <ul class="education">
         <% profile.enrollments.each do |enrollment| %>
           <li>
-            <%= enrollment.school.try(:name) %>
-            <%= enrollment.graduation_date.try(:strftime, "%b %Y") %>
+            <p class="school_name"><%= enrollment.school.try(:name) %></p>
+            <span class="grad_year">
+              <%= enrollment.graduation_date.try(:year) || "Did not graduate" %>
+            </span>
           </li>
         <% end %>
       </ul>

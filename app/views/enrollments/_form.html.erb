@@ -22,8 +22,11 @@
   <% end %>
 
     <li class="date optional">
-      <label for="enrollment_graduation_date_1i">Graduation date</label>
-      <%= f.date_select :graduation_date, :include_blank => true, :start_year => 1960, :end_year => Date.today.year %>
+      <label for="enrollment_graduation_date_1i">Graduation Year</label>
+      <%= f.date_select :graduation_date, :include_blank => true,
+        :start_year => Date.today.year, :end_year => 1930,
+        :discard_month => true, :discard_day => true
+      %>
       <p class="inline-hints">Leave blank if you did not graduate</p>
     </li>
 
