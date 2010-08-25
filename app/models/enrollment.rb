@@ -1,11 +1,13 @@
 class Enrollment < ActiveRecord::Base
   belongs_to :profile
   belongs_to :school
-  accepts_nested_attributes_for :school
+  accepts_nested_attributes_for :school, :reject_if => :reject_school_attributes?
 
-  def school_attributes_with_check=(attributes)
-    return if school_id.present?
-    school_attributes_without_check=(attributes)
+  validates_presence_of :school, :profile_id
+
+  private
+
+  def reject_school_attributes?(attributes)
+    attributes.all? {|_,v| v.blank? } || school_id.present?
   end
-  alias_method_chain :school_attributes=, :check
 end

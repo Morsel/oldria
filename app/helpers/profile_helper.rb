@@ -11,4 +11,10 @@ module ProfileHelper
 
     "#{st} - #{en}"
   end
+
+  def setup_enrollment(enrollment, culinary = true)
+    returning(enrollment) do |e|
+      e.build_school unless e.school.present?
+    end
+  end  
 end

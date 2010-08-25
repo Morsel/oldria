@@ -1,4 +1,4 @@
-<% semantic_form_for [:my_profile, @enrollment] do |f| %>
+<% semantic_form_for [:my_profile, setup_enrollment(@enrollment)] do |f| %>
   <% f.inputs :class => "enrollments" do %>
     <%= f.input :school %>
 
