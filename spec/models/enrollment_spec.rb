@@ -6,6 +6,7 @@ describe Enrollment do
 
   before(:each) do
     @valid_attributes = Factory.attributes_for(:enrollment)
+    @blank_school_attributes = {:name => '', :city => '', :state => '', :country => ''}
   end
 
   let (:profile) { Factory(:profile) }
@@ -24,7 +25,16 @@ describe Enrollment do
 
   it "should ignore blank school attributes, favoring the school_id" do
     school = Factory(:school)
-    attrs = @valid_attributes.merge(:school_id => school.id, :school_attributes => {:name => '', :city => '', :state => '', :country => ''})
+    attrs = @valid_attributes.merge(:school_id => school.id,
+                                    :school_attributes => @blank_school_attributes)
+    enrollment = profile.enrollments.create(attrs)
+    enrollment.school.should == school
+  end
+
+  it "should ignore blank school attributes and strip out country field" do
+    school = Factory(:school)
+    attrs = @valid_attributes.merge(:school_id => school.id,
+                                    :school_attributes => @blank_school_attributes.merge(:country => 'United States'))
     enrollment = profile.enrollments.create(attrs)
     enrollment.school.should == school
   end

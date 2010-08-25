@@ -8,6 +8,8 @@ class Enrollment < ActiveRecord::Base
   private
 
   def reject_school_attributes?(attributes)
-    attributes.all? {|_,v| v.blank? } || school_id.present?
+    # We don't care if the country is filled out, since it is pre-filled
+    attributes.reject{|k,_| k == :country || k == "country" }.all? {|_,v| v.blank? } ||
+    school_id.present?
   end
 end
