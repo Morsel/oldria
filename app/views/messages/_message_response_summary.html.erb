@@ -7,7 +7,14 @@
       end
       discussions_without_replies = discussions - discussions_with_replies
     %>
-       <%= render :partial => 'messages/message_reply_link', :collection => discussions_with_replies, :as => :message %>
+    
+    <% if message.is_a?(TrendQuestion) %>
+      <%= render :partial => 'messages/soapbox_message_reply_link', :collection => discussions_with_replies, :as => :message %>
+      
+      <%= render :partial => 'messages/soapbox_message_reply_link', :collection => discussions_without_replies, :as => :message %>
+    <% else %>
+      <%= render :partial => 'messages/message_reply_link', :collection => discussions_with_replies, :as => :message %>
 
-    <%= not_responded_phrase_for_discussions(discussions_without_replies) %>
+      <%= not_responded_phrase_for_discussions(discussions_without_replies) %>
+    <% end %>
   </div>
