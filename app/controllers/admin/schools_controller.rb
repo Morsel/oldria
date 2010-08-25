@@ -1,6 +1,7 @@
 class Admin::SchoolsController < Admin::AdminController
   def index
-    @schools = School.all
+    @culinary_schools = School.culinary.all
+    @nonculinary_schools = School.nonculinary.all
   end
   
   def show

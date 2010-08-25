@@ -1,7 +1,13 @@
 <% title "Culinary Schools" %>
 
-<% table_for(@schools) do |t| %>
+<h3>Culinary Schools</h3>
+<% table_for(@culinary_schools) do |t| %>
   <%= t.data :actions => :all, :action_prefix => 'admin' %>
 <% end %>
 
-<p><%= link_to "New Culinary School", new_admin_school_path %></p>
+<h3>Other Schools</h3>
+<% table_for(@nonculinary_schools) do |t| %>
+  <%= t.data :actions => :all, :action_prefix => 'admin' %>
+<% end %>
+
+<p><%= link_to "New School", new_admin_school_path %></p>
