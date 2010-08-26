@@ -27,102 +27,104 @@
   </p>
 <% end %>
 
-<div class="culinary_jobs ajaxdelete">
-  <h2>Work Experience - Restaurants</h2>
-  <ul id="culinary_jobs">
-    <%= render @profile.culinary_jobs %>
-  </ul>
-  <% link_to new_my_profile_culinary_job_path, :class => 'positive button colorbox' do %>
-    <img src="/images/plus.png"/> Add
-  <% end %>
-</div>
+<div id="extended_profile_fields">
+    <div class="culinary_jobs ajaxdelete">
+        <h2>Work Experience - Restaurants</h2>
+        <ul id="culinary_jobs">
+            <%= render @profile.culinary_jobs %>
+        </ul>
+        <% link_to new_my_profile_culinary_job_path, :class => 'positive button colorbox' do %>
+        <img src="/images/plus.png"/> Add
+        <% end %>
+    </div>
 
-<div class="nonculinary_jobs clear ajaxdelete">
-  <h2>Work Experience - Nonculinary</h2>
-  <ul id="nonculinary_jobs">
-    <%= render @profile.nonculinary_jobs %>
-  </ul>
-  <% link_to new_my_profile_nonculinary_job_path, :class => 'positive button colorbox' do %>
-    <img src="/images/plus.png"/> Add
-  <% end %>
-</div>
+    <div class="nonculinary_jobs clear ajaxdelete">
+        <h2>Work Experience - Nonculinary</h2>
+        <ul id="nonculinary_jobs">
+            <%= render @profile.nonculinary_jobs %>
+        </ul>
+        <% link_to new_my_profile_nonculinary_job_path, :class => 'positive button colorbox' do %>
+        <img src="/images/plus.png"/> Add
+        <% end %>
+    </div>
 
-<div class="awards clear ajaxdelete">
-  <h2>Awards</h2>
-  <ul id="awards">
-    <%= render @profile.awards %>
-  </ul>
-  <% link_to new_my_profile_award_path, :class => 'positive button colorbox' do %>
-    <img src="/images/plus.png"/> Add
-  <% end %>
-</div>
+    <div class="awards clear ajaxdelete">
+        <h2>Awards</h2>
+        <ul id="awards">
+            <%= render @profile.awards %>
+        </ul>
+        <% link_to new_my_profile_award_path, :class => 'positive button colorbox' do %>
+        <img src="/images/plus.png"/> Add
+        <% end %>
+    </div>
 
-<div class="accolades clear ajaxdelete">
-  <h2>Accolades</h2>
-  <ul id="accolades">
-    <%= render @profile.accolades %>
-  </ul>
-  <% link_to new_my_profile_accolade_path, :class => 'positive button colorbox' do %>
-    <img src="/images/plus.png"/> Add
-  <% end %>
-</div>
+    <div class="accolades clear ajaxdelete">
+        <h2>Accolades</h2>
+        <ul id="accolades">
+            <%= render @profile.accolades %>
+        </ul>
+        <% link_to new_my_profile_accolade_path, :class => 'positive button colorbox' do %>
+        <img src="/images/plus.png"/> Add
+        <% end %>
+    </div>
 
-<div class="culinary_schools clear ajaxdelete">
-  <h2>Education (Culinary)</h2>
-  <ul id="enrollments">
-    <%= render @profile.enrollments %>
-  </ul>
-  <% link_to new_my_profile_enrollment_path, :class => 'positive button colorbox' do %>
-    <img src="/images/plus.png"/> Add
-  <% end %>
-</div>
+    <div class="culinary_schools clear ajaxdelete">
+        <h2>Education (Culinary)</h2>
+        <ul id="enrollments">
+            <%= render @profile.enrollments %>
+        </ul>
+        <% link_to new_my_profile_enrollment_path, :class => 'positive button colorbox' do %>
+        <img src="/images/plus.png"/> Add
+        <% end %>
+    </div>
 
-<div class="nonculinary_enrollments nonculinary_schools clear ajaxdelete">
-  <h2>Education (Other)</h2>
-  <ul id="nonculinary_enrollments">
-    <%= render @profile.nonculinary_enrollments %>
-  </ul>
-  <% link_to new_my_profile_nonculinary_enrollment_path, :class => 'positive button colorbox' do %>
-    <img src="/images/plus.png"/> Add
-  <% end %>
-</div>
+    <div class="nonculinary_enrollments nonculinary_schools clear ajaxdelete">
+        <h2>Education (Other)</h2>
+        <ul id="nonculinary_enrollments">
+            <%= render @profile.nonculinary_enrollments %>
+        </ul>
+        <% link_to new_my_profile_nonculinary_enrollment_path, :class => 'positive button colorbox' do %>
+        <img src="/images/plus.png"/> Add
+        <% end %>
+    </div>
 
-<div class="competitions clear ajaxdelete">
-    <h2>Competitions</h2>
-    <ul id="competitions">
-        <%= render @profile.competitions %>
-    </ul>
-    <% link_to new_my_profile_competition_path, :class => 'positive button colorbox' do %>
-      <img src="/images/plus.png"/> Add
-    <% end %>
-</div>
+    <div class="competitions clear ajaxdelete">
+        <h2>Competitions</h2>
+        <ul id="competitions">
+            <%= render @profile.competitions %>
+        </ul>
+        <% link_to new_my_profile_competition_path, :class => 'positive button colorbox' do %>
+        <img src="/images/plus.png"/> Add
+        <% end %>
+    </div>
 
-<div class="internships clear ajaxdelete">
-    <h2>Internships</h2>
-    <ul id="internships">
-        <%= render @profile.internships %>
-    </ul>
-    <% link_to new_my_profile_internship_path, :class => 'positive button colorbox' do %>
-      <img src="/images/plus.png"/> Add
-    <% end %>
-</div>
+    <div class="internships clear ajaxdelete">
+        <h2>Internships</h2>
+        <ul id="internships">
+            <%= render @profile.internships %>
+        </ul>
+        <% link_to new_my_profile_internship_path, :class => 'positive button colorbox' do %>
+        <img src="/images/plus.png"/> Add
+        <% end %>
+    </div>
 
-<div class="stages clear ajaxdelete">
-    <h2>Stages</h2>
-    <ul id="stages">
-        <%= render @profile.stages %>
-    </ul>
-    <% link_to new_my_profile_stage_path, :class => 'positive button colorbox' do %>
-      <img src="/images/plus.png"/> Add
-    <% end %>
-</div>
+    <div class="stages clear ajaxdelete">
+        <h2>Stages</h2>
+        <ul id="stages">
+            <%= render @profile.stages %>
+        </ul>
+        <% link_to new_my_profile_stage_path, :class => 'positive button colorbox' do %>
+        <img src="/images/plus.png"/> Add
+        <% end %>
+    </div>
 
-<div class="apprenticeships clear ajaxdelete">
-    <h2>Apprenticeships</h2>
-    <ul id="apprenticeships">
-        <%= render @profile.apprenticeships %>
-    </ul>
-    <% link_to new_my_profile_apprenticeship_path, :class => 'positive button colorbox' do %>
-      <img src="/images/plus.png"/> Add
-    <% end %>
-</div>
+    <div class="apprenticeships clear ajaxdelete">
+        <h2>Apprenticeships</h2>
+        <ul id="apprenticeships">
+            <%= render @profile.apprenticeships %>
+        </ul>
+        <% link_to new_my_profile_apprenticeship_path, :class => 'positive button colorbox' do %>
+        <img src="/images/plus.png"/> Add
+        <% end %>
+    </div>
+</div><!-- #extended_profile_fields -->

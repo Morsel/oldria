@@ -1969,6 +1969,23 @@ p.editprofile a:hover {
 	display: none;
 }
 
+#extended_profile_fields .button {
+	margin-bottom: 2.5em;
+	margin-top: 0;
+}
+
+#extended_profile_fields li a {
+	font-size: .9em;
+	padding: 0 2px;
+	color: #888;
+	text-decoration: none;
+}
+
+#extended_profile_fields li a:hover {
+	color: #333;
+	text-decoration: underline;
+}
+
 #user_profile_view {
 	background: #333;
 	color: #ccc;

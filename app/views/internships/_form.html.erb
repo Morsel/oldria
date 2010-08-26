@@ -3,9 +3,9 @@
     <%= f.input :establishment, :label => "Name of establishment", :hint => "restaurant, winery, brewery" %>
     <%= f.input :supervisor, :label => "Name of person for whom you interned", :hint => "chef, winemaker, mixologist, beer master" %>
     <%= f.input :start_date, :hint => "You must include a start date; if you exclude the end date, only the year will display",
-       :start_year => (Date.today.year-60) %>
+      :end_year => (Date.today.year-60), :start_year => Date.today.year %>
     <%= f.input :end_date, :hint => "Optional; exclude if you'd like only the year to display", :selected => nil, 
-       :start_year => (Date.today.year-60) %>
+      :end_year => (Date.today.year-60), :start_year => Date.today.year %>
     <%= f.input :comments, :label => "Anything you’d like to share on that?" %>
   <% end %>
   <%= button_tag "Save" %>
