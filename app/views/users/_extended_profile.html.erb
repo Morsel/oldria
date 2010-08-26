@@ -20,6 +20,7 @@
     <% end %>
     <% profile && profile.nonculinary_jobs.each do |job| %>
       <li class="nonculinary">
+        <%= image_tag 'avatar_restaurant.gif', :width=>'50', :class => 'restaurant_avatar pull-1' %>
         <span class="company_name"><%= job.company %></span>
         <span class="employee_title"><%= job.title %></span>
         <span class="date_range"><%= date_range(job) %></span>
