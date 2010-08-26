@@ -40,6 +40,7 @@ Factory.define :culinary_job do |f|
   f.title        "Chef"
   f.city         "Atlanta"
   f.state        "GA"
+  f.country      "United States"
   f.date_started 1.year.ago
   f.date_ended   2.months.ago
   f.chef_name    "Jorge Bergeson"

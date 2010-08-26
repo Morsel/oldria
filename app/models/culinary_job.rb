@@ -25,5 +25,12 @@ class CulinaryJob < ActiveRecord::Base
 
   validates_presence_of :restaurant_name, :title, :city, :state, :country
   validates_presence_of :date_started, :chef_name, :cuisine
+  validate :date_ended_after_date_started
 
+  def date_ended_after_date_started
+    if date_ended.present? && date_ended.to_date < date_started.to_date
+      errors.add(:date_ended, "must come after the date started")
+      false
+    end
+  end
 end
