@@ -93,6 +93,14 @@ Factory.define :competition do |f|
   f.year 2001
 end
 
+Factory.define :internship do |f|
+  f.association :profile
+  f.establishment "Restaurant B"
+  f.supervisor "The Boss"
+  f.start_date 1.year.ago
+  f.end_date 10.months.ago
+end
+
 # == Restaurants ==
 Factory.define :restaurant do |f|
   f.name    "Joe's Diner"

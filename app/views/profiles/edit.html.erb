@@ -86,3 +86,13 @@
       <img src="/images/plus.png"/> Add
     <% end %>
 </div>
+
+<div class="internships clear ajaxdelete">
+    <h2>Internships</h2>
+    <ul id="internships">
+        <%= render @profile.internships %>
+    </ul>
+    <% link_to new_my_profile_internship_path, :class => 'positive button colorbox' do %>
+      <img src="/images/plus.png"/> Add
+    <% end %>
+</div>

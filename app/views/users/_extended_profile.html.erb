@@ -69,5 +69,19 @@
         <% end %>
       </ul>
     <% end %>
+    
+    <% if profile && profile.competitions.present? %>
+    <h3>Competitions</h3>
+    <ul id="competitions">
+        <%= render profile.competitions %>
+    </ul>
+    <% end %>
+
+    <% if profile && profile.internships.present? %>
+    <h3>Internships</h3>
+    <ul id="competitions">
+        <%= render profile.internships %>
+    </ul>
+    <% end %>
   </div>
 </div>
