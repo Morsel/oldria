@@ -76,3 +76,13 @@
     <img src="/images/plus.png"/> Add
   <% end %>
 </div>
+
+<div class="competitions clear ajaxdelete">
+    <h2>Competitions</h2>
+    <ul id="competitions">
+        <%= render @profile.competitions %>
+    </ul>
+    <% link_to new_my_profile_competition_path, :class => 'positive button colorbox' do %>
+      <img src="/images/plus.png"/> Add
+    <% end %>
+</div>

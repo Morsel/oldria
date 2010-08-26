@@ -1,0 +1,5 @@
+<% content_tag_for :li, competition do %>
+  <%= competition.place %>: <%= competition.name %>, <%= competition.year %>
+  <%= link_to "Edit", edit_my_profile_competition_path(competition), :class => 'colorbox' %>
+  <%= link_to "Destroy", my_profile_competition_path(competition), :method => :delete, :class => 'delete' %>
+<% end %>

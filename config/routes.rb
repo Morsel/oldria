@@ -20,6 +20,7 @@ ActionController::Routing::Routes.draw do |map|
     p.resources :awards
     p.resources :accolades
     p.resources :enrollments
+    p.resources :competitions
   end
 
   map.profile 'profile/:username', :controller => 'users', :action => 'show', :requirements => { :username => /[a-zA-Z0-9\-\_ ]+/}
