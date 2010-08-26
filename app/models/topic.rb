@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20100802191740
+# Schema version: 20100825200638
 #
 # Table name: topics
 #
@@ -7,6 +7,7 @@
 #  title      :string(255)
 #  created_at :datetime
 #  updated_at :datetime
+#  position   :integer
 #
 
 class Topic < ActiveRecord::Base
