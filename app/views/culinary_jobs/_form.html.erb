@@ -7,8 +7,8 @@
     <%= f.input :state, :input_html => {:maxlength => 2, :class => 'span-1'},
       :wrapper_html => {:class => 'span-1 column'} %>
     <%= f.input :country,:wrapper_html => {:class => 'clear'} %>
-    <%= f.input :date_started %>
-    <%= f.input :date_ended, :as => :date, :selected => nil %>
+    <%= f.input :date_started, :start_year => (Date.today.year-60), :end_year => Date.today.year %>
+    <%= f.input :date_ended, :as => :date, :selected => nil, :start_year => (Date.today.year-60) %>
     <%= f.input :chef_name, :label => "Chef in charge of menu" %>
     <%= f.input :chef_is_me, :rel => current_user.name %>
     <%= f.input :cuisine, :label => "Type of cuisine served", :input_html => {:rows => 3} %>

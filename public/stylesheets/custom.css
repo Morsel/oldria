@@ -2159,7 +2159,8 @@ dl.user_info dd {
 
 #extended_profile .employments li { border-bottom: 0 }
 
-#extended_profile .employments .culinary {
+#extended_profile .employments .culinary,
+#extended_profile .employments .nonculinary {
 	padding-left: 56px;
 	overflow: hidden;
 }
