@@ -509,7 +509,7 @@ var colorboxForm = function(){
   return false;
 };
 
-$('#colorbox form.award, #colorbox form.culinary_job, #colorbox form.nonculinary_job, #colorbox form.accolade, #colorbox form.enrollment')
+$('#colorbox form.nonculinary_enrollment, #colorbox form.award, #colorbox form.culinary_job, #colorbox form.nonculinary_job, #colorbox form.accolade, #colorbox form.enrollment, #colorbox form.competition, #colorbox form.internship')
   .live('submit', colorboxForm);
 
 // Using this assumes that you've "build" on an association to get new blank field(s)
