@@ -99,6 +99,16 @@ Factory.define :internship do |f|
   f.supervisor "The Boss"
   f.start_date 1.year.ago
   f.end_date 10.months.ago
+  f.comments "Some comments"
+end
+
+Factory.define :stage do |f|
+  f.association :profile
+  f.establishment "Restaurant B"
+  f.expert "The Expert"
+  f.start_date 1.year.ago
+  f.end_date 10.months.ago
+  f.comments "Some comments"
 end
 
 # == Restaurants ==

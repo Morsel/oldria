@@ -79,8 +79,15 @@
 
     <% if profile && profile.internships.present? %>
     <h3>Internships</h3>
-    <ul id="competitions">
+    <ul id="internships">
         <%= render profile.internships %>
+    </ul>
+    <% end %>
+
+    <% if profile && profile.stages.present? %>
+    <h3>Stages</h3>
+    <ul id="stages">
+        <%= render profile.stages %>
     </ul>
     <% end %>
   </div>

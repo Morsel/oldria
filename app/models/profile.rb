@@ -27,6 +27,7 @@ class Profile < ActiveRecord::Base
   has_many :culinary_schools, :through => :enrollments, :source => :school
   has_many :competitions
   has_many :internships
+  has_many :stages
 
   accepts_nested_attributes_for :culinary_jobs, :nonculinary_jobs, :awards,
     :reject_if => REJECT_TITLE_BLANK_PROC

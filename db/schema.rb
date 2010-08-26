@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100826162154) do
+ActiveRecord::Schema.define(:version => 20100826190657) do
 
   create_table "accolades", :force => true do |t|
     t.integer  "profile_id"
@@ -605,6 +605,17 @@ ActiveRecord::Schema.define(:version => 20100826162154) do
     t.datetime "published_at"
     t.integer  "featured_item_id"
     t.string   "featured_item_type"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "stages", :force => true do |t|
+    t.string   "establishment"
+    t.string   "expert"
+    t.date     "start_date"
+    t.date     "end_date"
+    t.text     "comments"
+    t.integer  "profile_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

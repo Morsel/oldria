@@ -1,0 +1,7 @@
+<% content_tag_for :li, stage do %>
+  <%= stage.establishment %> with <%= stage.expert %>, <%= stage.start_date.to_formatted_s %>
+  <% if stage.profile.user == current_user %>
+  <%= link_to "Edit", edit_my_profile_stage_path(stage), :class => 'colorbox' %>
+  <%= link_to "Destroy", my_profile_stage_path(stage), :method => :delete, :class => 'delete' %>
+  <% end %>
+<% end %>

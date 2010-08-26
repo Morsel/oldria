@@ -96,3 +96,13 @@
       <img src="/images/plus.png"/> Add
     <% end %>
 </div>
+
+<div class="stages clear ajaxdelete">
+    <h2>Stages</h2>
+    <ul id="stages">
+        <%= render @profile.stages %>
+    </ul>
+    <% link_to new_my_profile_stage_path, :class => 'positive button colorbox' do %>
+      <img src="/images/plus.png"/> Add
+    <% end %>
+</div>

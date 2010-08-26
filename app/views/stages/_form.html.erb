@@ -1,0 +1,10 @@
+<% semantic_form_for [:my_profile, @stage] do |f| %>
+  <% f.inputs :class => "stage" do %>
+    <%= f.input :establishment, :label => "Name of establishment", :hint => "restaurant, winery, brewery" %>
+    <%= f.input :expert, :label => "Name of person for whom you staged", :hint => "chef, winemaker, mixologist, beer master" %>
+    <%= f.input :start_date, :hint => "You must include a start date; if you exclude the end date, only the year will display" %>
+    <%= f.input :end_date, :hint => "Optional; exclude if you'd like only the year to display", :selected => nil %>
+    <%= f.input :comments, :label => "Anything you’d like to share on that?" %>
+  <% end %>
+  <%= button_tag "Save" %>
+<% end %>
