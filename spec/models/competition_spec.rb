@@ -2,12 +2,7 @@ require 'spec_helper'
 
 describe Competition do
   before(:each) do
-    @valid_attributes = {
-      :profile_id => 1,
-      :name => "value for name",
-      :place => "value for place",
-      :year => 1
-    }
+    @valid_attributes = Factory.attributes_for(:competition)
   end
 
   it "should create a new instance given valid attributes" do

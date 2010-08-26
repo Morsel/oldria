@@ -86,6 +86,13 @@ Factory.define :enrollment do |f|
   f.graduation_date 4.years.ago
 end
 
+Factory.define :competition do |f|
+  f.association :profile
+  f.name "International Champeenship"
+  f.place "First!"
+  f.year 2001
+end
+
 # == Restaurants ==
 Factory.define :restaurant do |f|
   f.name    "Joe's Diner"
