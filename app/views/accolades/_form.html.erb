@@ -1,7 +1,7 @@
 <% semantic_form_for [:my_profile, @accolade] do |f| %>
   <% f.inputs :class => "accolades" do %>
     <%= f.input :name, :label => "Name of accolade" %>
-    <%= f.input :run_date %>
+    <%= f.input :run_date, :start_year => (Date.today.year-60) %>
     <%= f.input :media_type, :as => :select, :collection => Accolade.valid_media_types %>
     <%= f.input :link, :label => "Link (Optional)",
       :hint => "The full URL. You can copy and paste from your browser's Address bar." %>
