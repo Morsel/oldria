@@ -2144,6 +2144,18 @@ dl.user_info dd {
 	list-style: none;
 }
 
+#extended_profile .school_name,
+#extended_profile .focus,
+#extended_profile .field_of_study,
+#extended_profile .scholarships,
+#extended_profile .acheivements {
+	display: block;
+	margin: 0;
+}
+
+#extended_profile .school_name {
+	color: #e3790c;
+}
 
 #extended_profile .employments li { border-bottom: 0 }
 
