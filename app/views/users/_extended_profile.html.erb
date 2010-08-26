@@ -119,5 +119,12 @@
         <%= render profile.stages %>
     </ul>
     <% end %>
+
+    <% if profile && profile.apprenticeships.present? %>
+    <h3>Apprenticeships</h3>
+    <ul id="apprenticeships">
+        <%= render profile.apprenticeships %>
+    </ul>
+    <% end %>
   </div>
 </div>

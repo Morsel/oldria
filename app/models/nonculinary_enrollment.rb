@@ -1,3 +1,19 @@
+# == Schema Information
+# Schema version: 20100826212434
+#
+# Table name: nonculinary_enrollments
+#
+#  id                    :integer         not null, primary key
+#  nonculinary_school_id :integer
+#  profile_id            :integer
+#  graduation_date       :date
+#  field_of_study        :string(255)
+#  degree                :string(255)
+#  acheivements          :text
+#  created_at            :datetime
+#  updated_at            :datetime
+#
+
 class NonculinaryEnrollment < ActiveRecord::Base
   belongs_to :profile
   belongs_to :nonculinary_school

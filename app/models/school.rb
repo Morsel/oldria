@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20100825200638
+# Schema version: 20100826212434
 #
 # Table name: schools
 #
@@ -10,7 +10,6 @@
 #  country    :string(255)     default(""), not null
 #  created_at :datetime
 #  updated_at :datetime
-#  culinary   :boolean
 #
 
 class School < ActiveRecord::Base

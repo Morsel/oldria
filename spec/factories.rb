@@ -119,6 +119,13 @@ Factory.define :stage do |f|
   f.comments "Some comments"
 end
 
+Factory.define :apprenticeship do |f|
+  f.association :profile
+  f.establishment "Restaurant Q"
+  f.supervisor "The Chef"
+  f.year 1989
+end
+
 Factory.define :nonculinary_enrollment do |f|
   f.association :nonculinary_school
   f.association :profile
