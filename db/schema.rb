@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100826162154) do
+ActiveRecord::Schema.define(:version => 20100826195904) do
 
   create_table "accolades", :force => true do |t|
     t.integer  "profile_id"
@@ -102,6 +102,14 @@ ActiveRecord::Schema.define(:version => 20100826162154) do
     t.datetime "updated_at"
   end
 
+  create_table "chapter_question_memberships", :force => true do |t|
+    t.integer  "chapter_id"
+    t.integer  "profile_question_id"
+    t.integer  "position"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "chapters", :force => true do |t|
     t.integer  "topic_id"
     t.string   "title"
@@ -171,8 +179,8 @@ ActiveRecord::Schema.define(:version => 20100826162154) do
     t.date     "date_ended"
     t.string   "chef_name",       :default => "",    :null => false
     t.boolean  "chef_is_me",      :default => false, :null => false
-    t.text     "cuisine",         :default => "",    :null => false
-    t.text     "notes",           :default => "",    :null => false
+    t.text     "cuisine",                            :null => false
+    t.text     "notes",                              :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -292,8 +300,6 @@ ActiveRecord::Schema.define(:version => 20100826162154) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
-
-  add_index "feed_categories", ["id"], :name => "index_feed_categories_on_id", :unique => true
 
   create_table "feed_entries", :force => true do |t|
     t.string   "title"
@@ -480,8 +486,8 @@ ActiveRecord::Schema.define(:version => 20100826162154) do
     t.string   "country",            :default => "", :null => false
     t.date     "date_started",                       :null => false
     t.date     "date_ended"
-    t.text     "responsibilities",   :default => "", :null => false
-    t.text     "reason_for_leaving", :default => "", :null => false
+    t.text     "responsibilities",                   :null => false
+    t.text     "reason_for_leaving",                 :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -522,8 +528,6 @@ ActiveRecord::Schema.define(:version => 20100826162154) do
     t.string   "title"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "position"
-    t.integer  "chapter_id"
   end
 
   create_table "profiles", :force => true do |t|
@@ -537,18 +541,20 @@ ActiveRecord::Schema.define(:version => 20100826162154) do
 
   add_index "profiles", ["user_id"], :name => "index_profiles_on_user_id", :unique => true
 
-  create_table "question_role_categories", :force => true do |t|
-    t.integer  "restaurant_role_id"
-    t.string   "category"
+  create_table "question_roles", :force => true do |t|
+    t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "question_roles", :force => true do |t|
-    t.integer  "profile_question_id"
-    t.integer  "restaurant_role_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+  create_table "question_roles_restaurant_roles", :id => false, :force => true do |t|
+    t.integer "question_role_id"
+    t.integer "restaurant_role_id"
+  end
+
+  create_table "question_roles_topics", :id => false, :force => true do |t|
+    t.integer "question_role_id"
+    t.integer "topic_id"
   end
 
   create_table "readings", :force => true do |t|
@@ -600,13 +606,12 @@ ActiveRecord::Schema.define(:version => 20100826162154) do
   add_index "restaurants", ["metropolitan_area_id"], :name => "index_restaurants_on_metropolitan_area_id"
 
   create_table "schools", :force => true do |t|
-    t.string   "name",       :default => "", :null => false
-    t.string   "city",       :default => "", :null => false
-    t.string   "state",      :default => "", :null => false
-    t.string   "country",    :default => "", :null => false
+    t.string   "name"
+    t.string   "city"
+    t.string   "state"
+    t.string   "country"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "culinary"
   end
 
   create_table "slugs", :force => true do |t|
@@ -657,7 +662,6 @@ ActiveRecord::Schema.define(:version => 20100826162154) do
     t.string   "title"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "position"
   end
 
   create_table "trend_questions", :force => true do |t|
