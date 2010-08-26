@@ -1,7 +1,7 @@
 <% content_tag_for :li, internship do %>
   <%= internship.establishment %> with <%= internship.supervisor %>, <%= internship.start_date.to_formatted_s %>
-  <% if params[:action] == "edit" %>
-  <%= link_to "Edit", edit_my_profile_internship_path(internship), :class => 'colorbox' %>
-  <%= link_to "Destroy", my_profile_internship_path(internship), :method => :delete, :class => 'delete' %>
+  <% if action_name != 'show' %>
+    <%= link_to "Edit", edit_my_profile_internship_path(internship), :class => 'colorbox' %>
+    <%= link_to "Destroy", my_profile_internship_path(internship), :method => :delete, :class => 'delete' %>
   <% end %>
 <% end %>
