@@ -68,11 +68,21 @@
 </div>
 
 <div class="culinary_schools clear ajaxdelete">
-  <h2>Education</h2>
+  <h2>Education (Culinary)</h2>
   <ul id="enrollments">
     <%= render @profile.enrollments %>
   </ul>
   <% link_to new_my_profile_enrollment_path, :class => 'positive button colorbox' do %>
+    <img src="/images/plus.png"/> Add
+  <% end %>
+</div>
+
+<div class="nonculinary_enrollments nonculinary_schools clear ajaxdelete">
+  <h2>Education (Other)</h2>
+  <ul id="enrollments">
+    <%= render @profile.nonculinary_enrollments %>
+  </ul>
+  <% link_to new_my_profile_nonculinary_enrollment_path, :class => 'positive button colorbox' do %>
     <img src="/images/plus.png"/> Add
   <% end %>
 </div>

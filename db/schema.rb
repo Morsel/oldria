@@ -460,6 +460,17 @@ ActiveRecord::Schema.define(:version => 20100826162154) do
     t.datetime "updated_at"
   end
 
+  create_table "nonculinary_enrollments", :force => true do |t|
+    t.integer  "nonculinary_school_id"
+    t.integer  "profile_id"
+    t.date     "graduation_date"
+    t.string   "field_of_study"
+    t.string   "degree"
+    t.text     "acheivements"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "nonculinary_jobs", :force => true do |t|
     t.integer  "profile_id"
     t.string   "company",            :default => "", :null => false
@@ -471,6 +482,15 @@ ActiveRecord::Schema.define(:version => 20100826162154) do
     t.date     "date_ended"
     t.text     "responsibilities",   :default => "", :null => false
     t.text     "reason_for_leaving", :default => "", :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "nonculinary_schools", :force => true do |t|
+    t.string   "name",       :default => "", :null => false
+    t.string   "city",       :default => "", :null => false
+    t.string   "state",      :default => "", :null => false
+    t.string   "country",    :default => "", :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end

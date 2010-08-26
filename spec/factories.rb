@@ -80,6 +80,13 @@ Factory.define :school do |f|
   f.country      "United States"
 end
 
+Factory.define :nonculinary_school do |f|
+  f.name         "Purdue"
+  f.city         "West Lafayette"
+  f.state        "IN"
+  f.country      "United States"
+end
+
 Factory.define :enrollment do |f|
   f.association :school
   f.association :profile
@@ -100,6 +107,13 @@ Factory.define :internship do |f|
   f.start_date 1.year.ago
   f.end_date 10.months.ago
 end
+
+Factory.define :nonculinary_enrollment do |f|
+  f.association :nonculinary_school
+  f.association :profile
+  f.graduation_date 6.years.ago
+end
+
 
 # == Restaurants ==
 Factory.define :restaurant do |f|

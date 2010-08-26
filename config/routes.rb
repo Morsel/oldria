@@ -22,6 +22,7 @@ ActionController::Routing::Routes.draw do |map|
     p.resources :enrollments
     p.resources :competitions
     p.resources :internships
+    p.resources :nonculinary_enrollments
   end
 
   map.profile 'profile/:username', :controller => 'users', :action => 'show', :requirements => { :username => /[a-zA-Z0-9\-\_ ]+/}
