@@ -16,5 +16,11 @@ module ProfileHelper
     returning(enrollment) do |e|
       e.build_school unless e.school.present?
     end
-  end  
+  end
+
+  def setup_nonculinary_enrollment(enrollment)
+    returning(enrollment) do |e|
+      e.build_nonculinary_school unless e.nonculinary_school.present?
+    end
+  end
 end

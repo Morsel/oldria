@@ -20,11 +20,12 @@ class Profile < ActiveRecord::Base
   validates_uniqueness_of :user_id
   has_many :culinary_jobs
   has_many :nonculinary_jobs
+  has_many :nonculinary_enrollments
+  has_many :nonculinary_schools, :through => :nonculinary_enrollments
   has_many :awards
   has_many :accolades
   has_many :enrollments
   has_many :schools, :through => :enrollments
-  has_many :culinary_schools, :through => :enrollments, :source => :school
   has_many :competitions
   has_many :internships
   has_many :stages

@@ -42,7 +42,15 @@ When /^I add a culinary school to my profile with:$/ do |table|
 end
 
 Then /^I should have (\d+) culinary schools? on my profile$/ do |num|
-  @current_user.profile.culinary_schools.count.should == num.to_i
+  @current_user.profile.schools.count.should == num.to_i
+end
+
+When /^I add a nonculinary school to my profile with:$/ do |table|
+  When %Q{I add a profile item "nonculinary_school" to my profile with:}, table
+end
+
+Then /^I should have (\d+) nonculinary school on my profile$/ do |num|
+  @current_user.profile.nonculinary_schools.count.should == num.to_i
 end
 
 Then(/^I should have (\d+) restaurants? on my profile$/) do |num|

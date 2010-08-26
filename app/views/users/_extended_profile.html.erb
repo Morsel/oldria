@@ -48,14 +48,42 @@
   <div class="span-5 last">
 
     <% if profile && profile.enrollments.present? %>
-      <h3>Education</h3>
+      <h3>Culinary Education</h3>
       <ul class="education">
-        <% profile.enrollments.each do |enrollment| %>
+        <% profile.enrollments.all(:order => 'graduation_date DESC').each do |enrollment| %>
           <li>
             <p class="school_name"><%= enrollment.school.try(:name) %></p>
             <span class="grad_year">
               <%= enrollment.graduation_date.try(:year) || "Did not graduate" %>
             </span>
+            <% [:degree, :focus, :scholarships].each do |field| %>
+              <% if enrollment.try(field).present? %>
+                <span class="<%= field %>">
+                  <%= enrollment.try(field) %>
+                </span>
+              <% end %>
+            <% end -%>
+          </li>
+        <% end %>
+      </ul>
+    <% end %>
+
+    <% if profile && profile.nonculinary_enrollments.present? %>
+      <h3>Education (Other)</h3>
+      <ul class="education">
+        <% profile.nonculinary_enrollments.all(:order => 'graduation_date DESC').each do |enrollment| %>
+          <li>
+            <p class="school_name"><%= enrollment.nonculinary_school.try(:name) %></p>
+            <span class="grad_year">
+              <%= enrollment.graduation_date.try(:year) || "Did not graduate" %>
+            </span>
+          <% [:degree, :field_of_study, :acheivements].each do |field| %>
+            <% if enrollment.try(field).present? %>
+              <span class="<%= field %>">
+                <%= enrollment.try(field) %>
+              </span>
+            <% end %>
+          <% end -%>
           </li>
         <% end %>
       </ul>
