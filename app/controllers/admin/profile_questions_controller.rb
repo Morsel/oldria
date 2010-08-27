@@ -39,11 +39,6 @@ class Admin::ProfileQuestionsController < Admin::AdminController
     redirect_to :action => "index"
   end
   
-  def manage
-    @chapter = Chapter.find(params[:chapter_id])
-    @questions = @chapter.profile_questions.all(:order => :position)
-  end
-  
   def sort
     if params[:topics]
       params[:topics].each_with_index do |id, index|
