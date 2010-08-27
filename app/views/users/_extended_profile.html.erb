@@ -78,7 +78,7 @@
             <span class="grad_year">
               <%= enrollment.graduation_date.try(:year) || "Did not graduate" %>
             </span>
-          <% [:degree, :field_of_study, :acheivements].each do |field| %>
+          <% [:degree, :field_of_study, :achievements].each do |field| %>
             <% if enrollment.try(field).present? %>
               <span class="<%= field %>">
                 <%= enrollment.try(field) %>
