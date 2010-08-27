@@ -9,7 +9,17 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100820215912) do
+ActiveRecord::Schema.define(:version => 20100827181841) do
+
+  create_table "accolades", :force => true do |t|
+    t.integer  "profile_id"
+    t.string   "name",       :default => "", :null => false
+    t.string   "media_type", :default => "", :null => false
+    t.date     "run_date",                   :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "link"
+  end
 
   create_table "admin_conversations", :force => true do |t|
     t.integer  "recipient_id"
@@ -42,6 +52,16 @@ ActiveRecord::Schema.define(:version => 20100820215912) do
     t.string   "display_message"
   end
 
+  create_table "apprenticeships", :force => true do |t|
+    t.string   "establishment"
+    t.string   "supervisor"
+    t.integer  "year"
+    t.text     "comments"
+    t.integer  "profile_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "assets", :force => true do |t|
     t.string   "data_file_name"
     t.string   "data_content_type"
@@ -71,6 +91,15 @@ ActiveRecord::Schema.define(:version => 20100820215912) do
   end
 
   add_index "attachments", ["attachable_id", "attachable_type"], :name => "index_attachments_on_attachable_id_and_attachable_type"
+
+  create_table "awards", :force => true do |t|
+    t.integer  "profile_id"
+    t.string   "name"
+    t.string   "year_won",       :limit => 4, :default => "", :null => false
+    t.string   "year_nominated", :limit => 4, :default => "", :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "backup", :force => true do |t|
     t.string   "storage"
@@ -114,6 +143,15 @@ ActiveRecord::Schema.define(:version => 20100820215912) do
   add_index "comments", ["commentable_type"], :name => "index_comments_on_commentable_type"
   add_index "comments", ["user_id"], :name => "index_comments_on_user_id"
 
+  create_table "competitions", :force => true do |t|
+    t.integer  "profile_id"
+    t.string   "name"
+    t.string   "place"
+    t.integer  "year"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "content_requests", :force => true do |t|
     t.string   "subject"
     t.text     "body"
@@ -131,6 +169,25 @@ ActiveRecord::Schema.define(:version => 20100820215912) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "culinary_jobs", :force => true do |t|
+    t.integer  "profile_id",                         :null => false
+    t.string   "restaurant_name", :default => "",    :null => false
+    t.string   "title",           :default => "",    :null => false
+    t.string   "city",            :default => "",    :null => false
+    t.string   "state",           :default => "",    :null => false
+    t.string   "country",         :default => "",    :null => false
+    t.date     "date_started",                       :null => false
+    t.date     "date_ended"
+    t.string   "chef_name",       :default => "",    :null => false
+    t.boolean  "chef_is_me",      :default => false, :null => false
+    t.text     "cuisine",         :default => "",    :null => false
+    t.text     "notes",           :default => "",    :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "culinary_jobs", ["profile_id"], :name => "index_profile_restaurants_on_profile_id"
 
   create_table "date_ranges", :force => true do |t|
     t.date     "start_date"
@@ -213,6 +270,17 @@ ActiveRecord::Schema.define(:version => 20100820215912) do
   add_index "employments", ["restaurant_id"], :name => "index_employments_on_restaurant_id"
   add_index "employments", ["restaurant_role_id"], :name => "index_employments_on_restaurant_role_id"
 
+  create_table "enrollments", :force => true do |t|
+    t.integer  "school_id",                       :null => false
+    t.integer  "profile_id",                      :null => false
+    t.date     "graduation_date"
+    t.string   "degree",          :default => "", :null => false
+    t.text     "focus"
+    t.text     "scholarships"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "events", :force => true do |t|
     t.integer  "restaurant_id"
     t.string   "title"
@@ -228,14 +296,6 @@ ActiveRecord::Schema.define(:version => 20100820215912) do
   end
 
   add_index "events", ["restaurant_id"], :name => "index_events_on_restaurant_id"
-
-  create_table "extended_profile_items", :force => true do |t|
-    t.integer  "profile_id"
-    t.string   "category"
-    t.text     "content"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
 
   create_table "feed_categories", :force => true do |t|
     t.string   "name"
@@ -349,6 +409,17 @@ ActiveRecord::Schema.define(:version => 20100820215912) do
 
   add_index "holidays", ["employment_search_id"], :name => "index_holidays_on_employment_search_id"
 
+  create_table "internships", :force => true do |t|
+    t.string   "establishment"
+    t.string   "supervisor"
+    t.date     "start_date"
+    t.date     "end_date"
+    t.text     "comments"
+    t.integer  "profile_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "james_beard_regions", :force => true do |t|
     t.string   "name"
     t.string   "description"
@@ -399,6 +470,41 @@ ActiveRecord::Schema.define(:version => 20100820215912) do
     t.datetime "updated_at"
   end
 
+  create_table "nonculinary_enrollments", :force => true do |t|
+    t.integer  "nonculinary_school_id"
+    t.integer  "profile_id"
+    t.date     "graduation_date"
+    t.string   "field_of_study"
+    t.string   "degree"
+    t.text     "acheivements"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "nonculinary_jobs", :force => true do |t|
+    t.integer  "profile_id"
+    t.string   "company",            :default => "", :null => false
+    t.string   "title",              :default => "", :null => false
+    t.string   "city",               :default => "", :null => false
+    t.string   "state",              :default => "", :null => false
+    t.string   "country",            :default => "", :null => false
+    t.date     "date_started",                       :null => false
+    t.date     "date_ended"
+    t.text     "responsibilities",   :default => "", :null => false
+    t.text     "reason_for_leaving", :default => "", :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "nonculinary_schools", :force => true do |t|
+    t.string   "name",       :default => "", :null => false
+    t.string   "city",       :default => "", :null => false
+    t.string   "state",      :default => "", :null => false
+    t.string   "country",    :default => "", :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "pages", :force => true do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -441,6 +547,13 @@ ActiveRecord::Schema.define(:version => 20100820215912) do
 
   add_index "profiles", ["user_id"], :name => "index_profiles_on_user_id", :unique => true
 
+  create_table "question_role_categories", :force => true do |t|
+    t.integer  "restaurant_role_id"
+    t.string   "category"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "question_roles", :force => true do |t|
     t.integer  "profile_question_id"
     t.integer  "restaurant_role_id"
@@ -470,6 +583,7 @@ ActiveRecord::Schema.define(:version => 20100820215912) do
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "category"
   end
 
   create_table "restaurants", :force => true do |t|
@@ -496,6 +610,15 @@ ActiveRecord::Schema.define(:version => 20100820215912) do
   add_index "restaurants", ["manager_id"], :name => "index_restaurants_on_manager_id"
   add_index "restaurants", ["metropolitan_area_id"], :name => "index_restaurants_on_metropolitan_area_id"
 
+  create_table "schools", :force => true do |t|
+    t.string   "name",       :default => "", :null => false
+    t.string   "city",       :default => "", :null => false
+    t.string   "state",      :default => "", :null => false
+    t.string   "country",    :default => "", :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "slugs", :force => true do |t|
     t.string   "name"
     t.integer  "sluggable_id"
@@ -512,6 +635,17 @@ ActiveRecord::Schema.define(:version => 20100820215912) do
     t.datetime "published_at"
     t.integer  "featured_item_id"
     t.string   "featured_item_type"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "stages", :force => true do |t|
+    t.string   "establishment"
+    t.string   "expert"
+    t.date     "start_date"
+    t.date     "end_date"
+    t.text     "comments"
+    t.integer  "profile_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20100819192128
+# Schema version: 20100827181841
 #
 # Table name: profile_questions
 #
@@ -7,6 +7,8 @@
 #  title      :string(255)
 #  created_at :datetime
 #  updated_at :datetime
+#  position   :integer
+#  chapter_id :integer
 #
 
 class ProfileQuestion < ActiveRecord::Base

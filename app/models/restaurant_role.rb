@@ -1,4 +1,5 @@
 # == Schema Information
+# Schema version: 20100827181841
 #
 # Table name: restaurant_roles
 #
@@ -6,6 +7,7 @@
 #  name       :string(255)
 #  created_at :datetime
 #  updated_at :datetime
+#  category   :string(255)
 #
 
 class RestaurantRole < ActiveRecord::Base
@@ -17,4 +19,9 @@ class RestaurantRole < ActiveRecord::Base
   
   default_scope :order => "#{table_name}.name ASC"
   named_scope :with_employments, :joins => :employments, :group => "#{table_name}.id"
+  
+  def self.categories
+    @categories ||= all.map(&:category).uniq
+  end
+
 end

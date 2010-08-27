@@ -58,4 +58,15 @@ class Admin::ProfileQuestionsController < Admin::AdminController
     render :nothing => true
   end
   
+  def roles
+    @roles = RestaurantRole.all
+  end
+  
+  def update_role
+    @role = RestaurantRole.find(params[:role_id])
+    @role.update_attributes(params[:restaurant_role])
+    flash[:notice] = "Updated category"
+    redirect_to :action => "roles"
+  end
+  
 end

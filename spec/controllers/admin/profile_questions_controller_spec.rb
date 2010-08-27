@@ -37,7 +37,16 @@ describe Admin::ProfileQuestionsController do
 
   describe "destruction!" do
 
-    xit "should destroy the question"
+    it "should destroy the question" do
+      question = Factory(:profile_question)
+      delete :destroy, :id => question.id
+    end
 
+  end
+  
+  describe "roles" do
+    
+    it "should update a role's category"
+    
   end
 end

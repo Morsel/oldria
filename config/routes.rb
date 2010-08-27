@@ -115,7 +115,7 @@ ActionController::Routing::Routes.draw do |map|
     admin.resources :calendars
     admin.resources :events
     admin.resources :soapbox_entries
-    admin.resources :profile_questions, :collection => { :manage => :get, :sort => :post, :topic => :any }
+    admin.resources :profile_questions, :collection => { :manage => :get, :sort => :post, :roles => :get, :update_role => :put }
     admin.resources :chapters, :collection => { :select => :post }
     admin.resources :topics
 
