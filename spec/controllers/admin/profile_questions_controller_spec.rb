@@ -40,13 +40,19 @@ describe Admin::ProfileQuestionsController do
     it "should destroy the question" do
       question = Factory(:profile_question)
       delete :destroy, :id => question.id
+      ProfileQuestion.count.should == 0
     end
 
   end
   
   describe "roles" do
     
-    it "should update a role's category"
+    it "should update a role's category" do
+      role = Factory(:restaurant_role)
+      RestaurantRole.stubs(:find).returns(role)
+      role.expects(:update_attributes).with("category" => "New category")
+      put :update_role, :role_id => role.id, :restaurant_role => { :category => "New category" }
+    end
     
   end
 end

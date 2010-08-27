@@ -117,6 +117,7 @@ end
 
 Factory.define :restaurant_role do |f|
   f.name "Chef"
+  f.category "Cuisine"
 end
 
 Factory.define :james_beard_region do |f|

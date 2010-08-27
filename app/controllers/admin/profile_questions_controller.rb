@@ -6,6 +6,7 @@ class Admin::ProfileQuestionsController < Admin::AdminController
   
   def new
     @question = ProfileQuestion.new
+    @roles = RestaurantRole.all.group_by(&:category)
   end
   
   def create
