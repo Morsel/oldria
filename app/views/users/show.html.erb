@@ -4,126 +4,127 @@
 <p>This is a preview view. These changes have not been saved. <%= link_to_function "Go back", "history.go(-1)" %> to edit or save.</p>
 <% end %>
 <div id="user_profile_view" class="clearfix">
-  <% if current_user == @user %>
+    <% if current_user == @user %>
     <div class="edit_profile_link"><a href="<%= edit_my_profile_path %>"><span>Edit profile</span></a></div>
-  <% end %>
-  <div class="name_and_actions">
-    <div class="profile_picture">
-      <%= image_tag @user.avatar.url(:small), :width=>'100', :class => 'left' %>
-    </div>
-
-    <h2 class="user_name"><%= @user.name %></h2>
-    <% if @user.employments.any? %>
-      <h4 class="user_employment">
-        <span class="employment_role"><%= @user.primary_employment.try(:restaurant_role).try(:name) %></span> at
-        <span class="restaurant_name"><%= @user.primary_employment.try(:restaurant).try(:name) %></span>
-      </h4>
     <% end %>
+    <div class="name_and_actions">
+        <div class="profile_picture">
+            <%= image_tag @user.avatar.url(:small), :width=>'100', :class => 'left' %>
+        </div>
 
-    <%= render :partial => 'profile_actions' unless media_or_owner? %>
-  </div><!-- .name_and_actions -->
+        <h2 class="user_name"><%= @user.name %></h2>
+        <% if @user.employments.any? %>
+        <h4 class="user_employment">
+            <span class="employment_role"><%= @user.primary_employment.try(:restaurant_role).try(:name) %></span> at
+            <span class="restaurant_name"><%= @user.primary_employment.try(:restaurant).try(:name) %></span>
+        </h4>
+        <% end %>
 
-  <dl class="user_info clearfix clear contact">
-      <dt>Email</dt>
-      <dd><%= @user.email %></dd>
-      <% if @user.twitter_username %>
-      <dt>Twitter</dt>
-      <dd><%= @user.twitter_username %></dd>
-      <% end -%>
-      <% if @user.facebook_user && @user.facebook_user.link %>
-      <dt>Facebook</dt>
-      <dd><%= @user.facebook_user.link %></dd>
-      <% end %>
-  </dl><!-- .user_info.contact -->
-  <dl class="user_info clearfix extra">
-    <% if @user.profile %>
-      <% if @user.profile.job_start.present? %>
+        <%= render :partial => 'profile_actions' unless media_or_owner? %>
+    </div><!-- .name_and_actions -->
+
+    <dl class="user_info clearfix clear contact">
+        <dt>Email</dt>
+        <dd><%= @user.email %></dd>
+        <% if @user.twitter_username %>
+        <dt>Twitter</dt>
+        <dd><%= @user.twitter_username %></dd>
+        <% end -%>
+        <% if @user.facebook_user && @user.facebook_user.link %>
+        <dt>Facebook</dt>
+        <dd><%= @user.facebook_user.link %></dd>
+        <% end %>
+    </dl><!-- .user_info.contact -->
+    <dl class="user_info clearfix extra">
+        <% if @user.profile %>
+        <% if @user.profile.job_start.present? %>
         <dt>Job Start</dt>
         <dd><%= @user.profile.job_start.try(:strftime, '%B %d, %Y') %></dd>
-      <% end %>
-      <% if @user.profile.cellnumber.present? %>
+        <% end %>
+        <% if @user.profile.cellnumber.present? %>
         <dt>Cell Phone</dt>
         <dd><%= @user.profile.cellnumber %></dd>
-      <% end %>
-      <% if @user.profile.birthday.present? %>
+        <% end %>
+        <% if @user.profile.birthday.present? %>
         <dt>Birthday</dt>
         <dd><%= @user.profile.birthday.try(:strftime, '%B %d') %></dd>
-      <% end %>
-    <% end %>
-  </dl><!-- .user_info.extra -->
-  <span class="timestamp">
-    Last updated:
-    <%= @user.profile.try(:updated_at).try(:strftime, "%b %e") %>
-  </span>
+        <% end %>
+        <% end %>
+    </dl><!-- .user_info.extra -->
+    <span class="timestamp">
+        Last updated:
+        <%= @user.profile.try(:updated_at).try(:strftime, "%b %e") %>
+    </span>
 </div><!-- #user_profile_view -->
 <div id="extended_profile_container">
-  <a href="#extended_profile" class="showit">
-    View Extended Profle <em>(Education, Experience, Awards, etc)</em>
-  </a>
-  <%= render 'users/extended_profile', :user => @user, :profile => @user.profile %>
+    <a href="#extended_profile" class="showit">
+        View Extended Profle <em>(Education, Experience, Awards, etc)</em>
+    </a>
+    <%= render 'users/extended_profile', :user => @user, :profile => @user.profile %>
 </div><!-- #extended_profile_container -->
 
-
+<!-- Hiding incomplete profile elements
 <div class="span-6" id="behindline">
-  <h3 class="profile_subhead">Behind the Line: <%= @user.name %></h3>
-  <ul class="box">
-    <%# if current_user == @user %>
-      <div class="edit_profile_link"><a href="/my_profile/edit"><span>Edit profile</span></a></div>
-    <%# end %>
-    <li class="even">
-      <h5><a href="#">Background <span class="completeness">(80% complete)</span></a></h5>
-      This is where Lorem ipsum dolor sit amet ipsum dolor sit amet, consectetur adipisicing elit aliqua&hellip; <a href="#">more&nbsp;&raquo;</a>
-    </li>
-    <li class="odd">
-      <h5>Job Experience <span class="completeness">(35% complete)</span></h5>
-      Nam vestibulum, arcu sodales feugiat consectetur, nisl orci bibendum elit&hellip; <a href="#">more&nbsp;&raquo;</a>
-    </li>
-    <li class="even">
-      <h5>On the Job <span class="completeness">(20% complete)</span></h5>
-      This is where Lorem ipsum dolor sit amet <a href="#">more&nbsp;&raquo;</a>
-    </li>
-    <li class="odd">
-      <h5>Off the Clock <span class="completeness">(10% complete)</span></h5>
-      Nam vestibulum, arcu sodales feugiat consectetur, nisl orci bibendum elit&hellip; <a href="#">more&nbsp;&raquo;</a>
-    </li>
-    <li class="even">
-      <h5>Background <span class="completeness">(100% complete)</span></h5>
-      This is where Lorem ipsum dolor sit amet&hellip; <a href="#">more&nbsp;&raquo;</a>
-    </li>
-    <p class="view_all"><a href="#">View All</a></p>
-  </ul>
+    <h3 class="profile_subhead">Behind the Line: <#%= @user.name %></h3>
+    <ul class="box">
+        <%# if current_user == @user %>
+        <div class="edit_profile_link"><a href="/my_profile/edit"><span>Edit profile</span></a></div>
+        <%# end %>
+        <li class="even">
+            <h5><a href="#">Background <span class="completeness">(80% complete)</span></a></h5>
+            This is where Lorem ipsum dolor sit amet ipsum dolor sit amet, consectetur adipisicing elit aliqua&hellip; <a href="#">more&nbsp;&raquo;</a>
+        </li>
+        <li class="odd">
+            <h5>Job Experience <span class="completeness">(35% complete)</span></h5>
+            Nam vestibulum, arcu sodales feugiat consectetur, nisl orci bibendum elit&hellip; <a href="#">more&nbsp;&raquo;</a>
+        </li>
+        <li class="even">
+            <h5>On the Job <span class="completeness">(20% complete)</span></h5>
+            This is where Lorem ipsum dolor sit amet <a href="#">more&nbsp;&raquo;</a>
+        </li>
+        <li class="odd">
+            <h5>Off the Clock <span class="completeness">(10% complete)</span></h5>
+            Nam vestibulum, arcu sodales feugiat consectetur, nisl orci bibendum elit&hellip; <a href="#">more&nbsp;&raquo;</a>
+        </li>
+        <li class="even">
+            <h5>Background <span class="completeness">(100% complete)</span></h5>
+            This is where Lorem ipsum dolor sit amet&hellip; <a href="#">more&nbsp;&raquo;</a>
+        </li>
+        <p class="view_all"><a href="#">View All</a></p>
+    </ul>
 </div>
 
 <div class="span-6 last tabable" id="recentsoapbox">
-  <h3 class="profile_subhead">Recent responses on Soapbox</h3>
+    <h3 class="profile_subhead">Recent responses on Soapbox</h3>
 
-  <ul>
-    <li><a href="#older_qotds_box">Questions of the Day</a></li>
-    <li><a href="#older_tqs_box">Trend Questions</a></li>
-  </ul>
+    <ul>
+        <li><a href="#older_qotds_box">Questions of the Day</a></li>
+        <li><a href="#older_tqs_box">Trend Questions</a></li>
+    </ul>
 
-  <div id="older_qotds_box">
-    <% if @user.qotds_responded.present? %>
-      <%= render :partial => 'users/question', :collection => @user.qotds_responded, :local => {:user => @user} %>
-    <% else %>
-      <p><%= @user.name %> hasn't answered any Questions of the Day yet.</p>
-    <% end %>
-  </div>
+    <div id="older_qotds_box">
+        <%# if @user.qotds_responded.present? %>
+        <#%= render :partial => 'users/question', :collection => @user.qotds_responded, :local => {:user => @user} %>
+        <%# else %>
+        <p><%#= @user.name %> hasn't answered any Questions of the Day yet.</p>
+        <%# end %>
+    </div>
 
-  <div id="older_tqs_box">
-    <% if @user.qotds_responded.present? %>
-      <%= render :partial => 'users/question', :collection => @user.trend_questions_responded, :local => {:user => @user} %>
-    <% else %>
-      <p><%= @user.name %> hasn't answered any Trend Questions yet.</p>
-    <% end %>
-  </div>
+    <div id="older_tqs_box">
+        <%# if @user.qotds_responded.present? %>
+        <%#= render :partial => 'users/question', :collection => @user.trend_questions_responded, :local => {:user => @user} %>
+        <%# else %>
+        <p><%#= @user.name %> hasn't answered any Trend Questions yet.</p>
+        <%# end %>
+    </div>
 </div>
+-->
 
 <hr class="space"/>
 
 <div id="user_content">
 <% unless media? || @latest_statuses.blank? %>
-  <%= render :partial => 'recent_statuses', :locals => {:user => @user, :statuses => @latest_statuses } %>
-  <%= render :partial => 'followings', :locals => {:user => @user} %>
+<%= render :partial => 'recent_statuses', :locals => {:user => @user, :statuses => @latest_statuses } %>
+<%= render :partial => 'followings', :locals => {:user => @user} %>
 <% end %>
 </div><!-- #user_content-->

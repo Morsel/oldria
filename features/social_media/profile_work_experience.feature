@@ -15,7 +15,7 @@ Feature: Profile - Work Experience
       | Title                  | Head Chef                |
       | City                   | Atlanta                  |
       | State                  | GA                       |
-      | Country                | USA                      |
+      | Country                | United States            |
       | Dates                  | 2009-10-01 to 2009-12-02 |
       | Chef in Charge of menu | John Denver              |
       | Type of cuisine served | American (Classic)       |
@@ -31,7 +31,7 @@ Feature: Profile - Work Experience
       | Title                                | CEO                      |
       | City                                 | Indianapolis             |
       | State                                | IN                       |
-      | Country                              | USA                      |
+      | Country                              | United States            |
       | Dates                                | 2009-10-01 to 2009-12-02 |
       | Responsibilities and Accomplishments | Bossing people around    |
       | Reason for leaving                   | I loved food too much    |
