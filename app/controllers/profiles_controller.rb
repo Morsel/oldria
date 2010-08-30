@@ -16,7 +16,7 @@ class ProfilesController < ApplicationController
 
     if @profile.update_attributes(params[:profile])
       flash[:notice] = "Successfully updated profile."
-      redirect_to edit_my_profile_path
+      redirect_to profile_path(@profile.user.username)
     else
       render :edit
     end
