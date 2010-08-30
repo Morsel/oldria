@@ -1,7 +1,11 @@
 <% content_tag_for :li, culinary_job do %>
   <%= culinary_job.title %>: <%= culinary_job.restaurant_name %>, 
   <%= culinary_job.city %> <%= culinary_job.state %> <%= culinary_job.country %><br/>
+  <% if culinary_job.date_ended %>
   <%= culinary_job.date_started.strftime("%m/%d/%y") %> - <%= culinary_job.date_ended %><br/>
+  <% else %>
+  <%= culinary_job.date_started.strftime("%Y") %><br/>
+  <% end %>
   <%= "Chef: #{culinary_job.chef_name}<br/>" unless culinary_job.chef_is_me %>
   <%= "Cuisine: #{culinary_job.cuisine}" %><br/>
   <%= simple_format(culinary_job.notes) %>

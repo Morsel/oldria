@@ -1,5 +1,13 @@
 <% content_tag_for :li, nonculinary_job do %>
-  <%= nonculinary_job.company %>
+  <%= nonculinary_job.title %>: <%= nonculinary_job.company %>, 
+  <%= nonculinary_job.city %> <%= nonculinary_job.state %> <%= nonculinary_job.country %><br/>
+  <% if nonculinary_job.date_ended %>
+  <%= nonculinary_job.date_started.strftime("%m/%d/%y") %> - <%= nonculinary_job.date_ended %>
+  <% else %>
+  <%= nonculinary_job.date_started.strftime("%Y") %>
+  <% end %>
+  <%= simple_format("Responsibilities: #{nonculinary_job.responsibilities}") %>
+  <%= simple_format("Reason for leaving: #{nonculinary_job.reason_for_leaving}") %>
   <%= link_to "Edit", edit_my_profile_nonculinary_job_path(nonculinary_job), :class => 'colorbox' %>
   <%= link_to "Destroy", my_profile_nonculinary_job_path(nonculinary_job), :method => :delete, :class => 'delete' %>
 <% end %>
