@@ -1,0 +1,13 @@
+<% title "Chapters" %>
+
+<% for topic in @chapters_by_topic.keys %>
+  <h2><%= topic.title %>:</h2>
+  <% table_for @chapters_by_topic[topic] do |t| %>
+	<% t.data :actions => [:edit], :action_prefix => 'admin' do
+        t.cell(:handle, :heading => '', :cell_html => {:class => 'small handle'}) { "[drag]" }
+		t.cell(:title, :heading => '')
+		t.cell(:can_be_deleted?) { |c| link_to "delete", admin_topic_path(c), :method => "delete", :confirm => "Are you sure you want to delete this?" if c.profile_questions.count == 0 }
+    end %>
+  <% end %>
+  <%= render :partial => "form", :locals => { :chapter => Chapter.new, :topic => topic.id } %>
+<% end %>

@@ -13,13 +13,14 @@
 
 class ProfileQuestion < ActiveRecord::Base
 
-  has_many :chapter_question_memberships
-  has_many :chapters, :through => :chapter_question_memberships
+  belongs_to :chapter
+  has_many :question_roles
+  has_many :restaurant_roles, :through => :question_roles
   
-  validates_presence_of :title, :chapters
-      
-  def topics
-    chapters.map(&:topic)
+  validates_presence_of :title, :chapter_id, :restaurant_roles
+  
+  def topic
+    chapter.topic
   end
   
 end

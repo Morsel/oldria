@@ -34,7 +34,6 @@ Feature: Admin Messaging
     And I fill in "Comment" with "Yes! They are totally cool."
     And I press "Save Comment"
     Then I should see "Updated comment"
-    
 
   Scenario: PR Tips have no replies
     Given I am logged in as "johndoe"

@@ -1,4 +1,8 @@
 class Admin::ChaptersController < Admin::AdminController
+
+  def index
+    @chapters_by_topic = Chapter.all(:order => :position).group_by(&:topic)
+  end
   
   def create
     @chapter = Chapter.new(params[:chapter])
@@ -26,6 +30,14 @@ class Admin::ChaptersController < Admin::AdminController
     flash[:notice] = "Deleted chapter #{@chapter.title}"
     @chapter.destroy
     redirect_to admin_profile_questions_path
+  end
+  
+  def select
+    chapters = Topic.find(params[:id]).chapters
+    render :update do |page|
+      page.replace_html 'profile_question_chapter_id', 
+          '<option value=""></option>' + options_from_collection_for_select(chapters, :id, :title)
+    end
   end
   
 end

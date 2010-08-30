@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20100826212434
+# Schema version: 20100827181841
 #
 # Table name: nonculinary_enrollments
 #
@@ -9,7 +9,7 @@
 #  graduation_date       :date
 #  field_of_study        :string(255)
 #  degree                :string(255)
-#  acheivements          :text
+#  achievements          :text
 #  created_at            :datetime
 #  updated_at            :datetime
 #

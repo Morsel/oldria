@@ -1,18 +1,19 @@
 class Admin::ProfileQuestionsController < Admin::AdminController
   
   def index
-    @chapters = Chapter.all(:order => "position ASC, topic_id ASC, title ASC")
+    @questions = ProfileQuestion.all(:order => "chapter_id ASC, position ASC").group_by(&:chapter)
   end
   
   def new
     @question = ProfileQuestion.new
+    @roles = RestaurantRole.all.group_by(&:category)
   end
   
   def create
     @question = ProfileQuestion.new(params[:profile_question])
     if @question.save
-      flash[:notice] = "Added new profile question"
-      redirect_to admin_profile_questions_path
+      flash[:notice] = "Added new profile question \"#{@question.title}\""
+      redirect_to :action => "new"
     else
       render :action => "new"
     end
@@ -24,11 +25,9 @@ class Admin::ProfileQuestionsController < Admin::AdminController
   
   def update
     @question = ProfileQuestion.find(params[:id])
-    chapter_params = params[:profile_question].delete("chapter_ids")
-    chapters = Chapter.find(chapter_params)
-    if @question.update_attributes(params[:profile_question].merge(:chapters => chapters))
+    if @question.update_attributes(params[:profile_question])
       flash[:notice] = "Updated question \"#{@question.title}\""
-      redirect_to :action => "manage", :chapter_id => params[:chapter_id]
+      redirect_to :action => "index"
     else
       render :action => "edit"
     end
@@ -38,17 +37,15 @@ class Admin::ProfileQuestionsController < Admin::AdminController
     @question = ProfileQuestion.find(params[:id])
     flash[:notice] = "Deleted question \"#{@question.title}\""
     @question.destroy
-    redirect_to admin_profile_questions_path
-  end
-  
-  def manage
-    @chapter = Chapter.find(params[:chapter_id])
-    @questions = @chapter.profile_questions.all(:include => :chapter_question_memberships, 
-        :order => "chapter_question_memberships.position ASC")
+    redirect_to :action => "index"
   end
   
   def sort
-    if params[:chapters]
+    if params[:topics]
+      params[:topics].each_with_index do |id, index|
+        Topic.update_all(['position=?', index+1], ['id=?', id])
+      end      
+    elsif params[:chapters]
       params[:chapters].each_with_index do |id, index|
         Chapter.update_all(['position=?', index+1], ['id=?', id])
       end
@@ -60,6 +57,17 @@ class Admin::ProfileQuestionsController < Admin::AdminController
       end
     end
     render :nothing => true
+  end
+  
+  def roles
+    @roles = RestaurantRole.all
+  end
+  
+  def update_role
+    @role = RestaurantRole.find(params[:role_id])
+    @role.update_attributes(params[:restaurant_role])
+    flash[:notice] = "Updated category"
+    redirect_to :action => "roles"
   end
   
 end

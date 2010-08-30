@@ -13,10 +13,8 @@ require 'spec_helper'
 
 describe Topic do
   before(:each) do
-    role = Factory(:question_role)
     @valid_attributes = {
       :title => "value for title",
-      :question_role_ids => [role.id]
     }
   end
 

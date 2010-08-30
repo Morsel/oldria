@@ -28,7 +28,7 @@ ActionController::Routing::Routes.draw do |map|
   end
 
   map.profile 'profile/:username', :controller => 'users', :action => 'show', :requirements => { :username => /[a-zA-Z0-9\-\_ ]+/}
-
+  map.profile_questions 'profile/:username/questions', :controller => 'profiles', :action => 'questions'
 
   map.resources :quick_replies
   map.resources :media_users, :except => [:index, :show]
@@ -126,8 +126,8 @@ ActionController::Routing::Routes.draw do |map|
     admin.resources :calendars
     admin.resources :events
     admin.resources :soapbox_entries
-    admin.resources :profile_questions, :collection => { :manage => :get, :sort => :post, :topic => :any }
-    admin.resources :chapters
+    admin.resources :profile_questions, :collection => { :manage => :get, :sort => :post, :roles => :get, :update_role => :put }
+    admin.resources :chapters, :collection => { :select => :post }
     admin.resources :topics
     admin.resources :question_roles
     admin.resources :schools

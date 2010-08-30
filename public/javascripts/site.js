@@ -597,7 +597,7 @@ $('.soapbox_sidebar').tabs();
 $('.tabable').tabs();
 
 // Profile question admin
-$('#profile_chapters tbody').sortable({
+$('#chapters tbody').sortable({
 	axis:'y',
 	dropOnEmpty:false,
 	update: function(){
@@ -614,6 +614,15 @@ $('#profile_questions tbody').sortable({
     postData = postData + "&chapter_id=" + $(".chapter").attr("id").split("_")[1];
 		$.ajax({ data: postData,
 		    dataType:'script', type:'post', url:'/admin/profile_questions/sort'
+		});
+	}
+});
+
+$('#topics tbody').sortable({
+	axis:'y',
+	dropOnEmpty:false,
+	update: function(){
+		$.ajax({ data:$(this).sortable('serialize', { key: 'topics[]' }), dataType:'script', type:'post', url:'/admin/profile_questions/sort'
 		});
 	}
 });
