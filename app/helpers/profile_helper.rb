@@ -11,6 +11,10 @@ module ProfileHelper
 
     "#{st} - #{en}"
   end
+  
+  def years_for_select
+    (1960..Date.today.year).map(&:to_s).to_a.reverse
+  end
 
   def setup_enrollment(enrollment, culinary = true)
     returning(enrollment) do |e|
