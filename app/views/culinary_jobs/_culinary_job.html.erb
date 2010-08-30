@@ -4,7 +4,7 @@
   <% if culinary_job.date_ended %>
   <%= culinary_job.date_started.strftime("%m/%d/%y") %> - <%= culinary_job.date_ended %><br/>
   <% else %>
-  <%= culinary_job.date_started.strftime("%Y") %><br/>
+  <%= "Current: since #{culinary_job.date_started.strftime("%m/%d/%y")}" %><br/>
   <% end %>
   <%= "Chef: #{culinary_job.chef_name}<br/>" unless culinary_job.chef_is_me %>
   <%= "Cuisine: #{culinary_job.cuisine}" %><br/>
