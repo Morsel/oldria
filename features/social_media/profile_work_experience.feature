@@ -11,13 +11,13 @@ Feature: Profile - Work Experience
     Given I am logged in as a normal user
     And I am on my profile's edit page
     When I add a restaurant to my profile with:
-      | Restaurant Name        | Jose's                   |
+      | Restaurant name        | Jose's                   |
       | Title                  | Head Chef                |
       | City                   | Atlanta                  |
       | State                  | GA                       |
       | Country                | United States            |
       | Dates                  | 2009-10-01 to 2009-12-02 |
-      | Chef in Charge of menu | John Denver              |
+      | Chef in charge of menu | John Denver              |
       | Type of cuisine served | American (Classic)       |
     Then I should have 1 restaurant on my profile
     And I should see "Jose's" on my profile page

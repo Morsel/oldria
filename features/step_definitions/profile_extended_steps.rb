@@ -71,5 +71,6 @@ end
  
 Then(/^I should see "([^"]*)" on my profile page$/) do |text|
   visit profile_path(@current_user.username)
+  click_link "View Extended Profile (Education, Experience, Awards, etc)"
   Then %Q{I should see "#{text}"}
 end
