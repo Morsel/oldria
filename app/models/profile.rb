@@ -18,8 +18,8 @@ class Profile < ActiveRecord::Base
 
   belongs_to :user
   validates_uniqueness_of :user_id
-  has_many :culinary_jobs
-  has_many :nonculinary_jobs
+  has_many :culinary_jobs, :order => "date_started DESC"
+  has_many :nonculinary_jobs, :order => "date_started DESC"
   has_many :nonculinary_enrollments
   has_many :nonculinary_schools, :through => :nonculinary_enrollments
   has_many :awards
