@@ -19,4 +19,13 @@ class Internship < ActiveRecord::Base
   belongs_to :profile
   
   validates_presence_of :establishment, :supervisor, :start_date, :profile_id
+  validate :end_date_after_start_date
+
+  def end_date_after_start_date
+    if end_date.present? && end_date.to_date < started.to_date
+      errors.add(:date_ended, "must come after the date started")
+      false
+    end
+  end
+
 end
