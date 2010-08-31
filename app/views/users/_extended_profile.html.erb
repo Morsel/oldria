@@ -31,18 +31,14 @@
     <% if profile && profile.awards.present? %>
       <h3>Awards</h3>
       <ul class="awards">
-        <% profile.awards.each do |award| %>
-          <li><%= award.name %>, <%= award.year_won %></li>
-        <% end %>
+          <%= render profile.awards %>
       </ul>
     <% end %>
 
     <% if profile && profile.accolades.present? %>
       <h3>Accolades</h3>
       <ul class="accolades">
-        <% profile.accolades.each do |accolade| %>
-          <li><%= accolade.name %>, <%= accolade.run_date.try(:strftime, "%Y") %></li>
-        <% end %>
+          <%= render profile.accolades %>
       </ul>
     <% end %>
   </div>
