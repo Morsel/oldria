@@ -1,5 +1,5 @@
 <% semantic_form_for [:my_profile, @apprenticeship] do |f| %>
-  <% f.inputs :class => "apprenticeship" do %>
+  <% f.inputs :class => "apprenticeships" do %>
     <%= f.input :establishment, :label => "Name of establishment", :hint => "restaurant, winery, brewery" %>
     <%= f.input :supervisor, :label => "Name of person for whom you staged", :hint => "chef, winemaker, mixologist, beer master" %>
     <%= f.input :year, :label => "What year?", :as => :select, :collection => (1940..Date.today.year).to_a.reverse %>
