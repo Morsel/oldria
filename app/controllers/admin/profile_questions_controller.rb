@@ -15,6 +15,7 @@ class Admin::ProfileQuestionsController < Admin::AdminController
       flash[:notice] = "Added new profile question \"#{@question.title}\""
       redirect_to :action => "new"
     else
+      @roles = RestaurantRole.all.group_by(&:category)
       render :action => "new"
     end
   end
