@@ -44,5 +44,16 @@ class Profile < ActiveRecord::Base
       Employment.find(ids).first.update_attribute(:primary, true)
     end
   end
+  
+  def work_experience_updated_at
+    timestamps = [user.employments.all(:order => :updated_at).last.try(:updated_at), 
+      culinary_jobs.all(:order => :updated_at).last.try(:updated_at), 
+      nonculinary_jobs.all(:order => :updated_at).last.try(:updated_at)]
+    timestamps.blank? ? timestamps.sort { |a, b| b <=> a }.first : Time.now
+  end
+  
+  def section_updated_at(section)
+    section.all(:order => :updated_at).last.try(:updated_at)
+  end
 
 end
