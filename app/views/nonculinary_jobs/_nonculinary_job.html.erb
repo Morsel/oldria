@@ -2,7 +2,7 @@
   <%= nonculinary_job.title %>: <%= nonculinary_job.company %>, 
   <%= nonculinary_job.city %> <%= nonculinary_job.state %> <%= nonculinary_job.country %><br/>
   <% if nonculinary_job.date_ended %>
-  <%= nonculinary_job.date_started.strftime("%m/%d/%y") %> - <%= nonculinary_job.date_ended %>
+  <%= nonculinary_job.date_started.strftime("%m/%d/%y") %> - <%= nonculinary_job.date_ended.strftime("%m/%d/%y") %>
   <% else %>
   <%= nonculinary_job.date_started.strftime("%Y") %>
   <% end %>

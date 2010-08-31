@@ -2,7 +2,7 @@
   <%= culinary_job.title %>: <%= culinary_job.restaurant_name %>, 
   <%= culinary_job.city %> <%= culinary_job.state %> <%= culinary_job.country %><br/>
   <% if culinary_job.date_ended %>
-  <%= culinary_job.date_started.strftime("%m/%d/%y") %> - <%= culinary_job.date_ended %><br/>
+  <%= culinary_job.date_started.strftime("%m/%d/%y") %> - <%= culinary_job.date_ended.strftime("%m/%d/%y") %><br/>
   <% else %>
   <%= "Current: since #{culinary_job.date_started.strftime("%m/%d/%y")}" %><br/>
   <% end %>
