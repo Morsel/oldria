@@ -15,6 +15,8 @@
 class Award < ActiveRecord::Base
   belongs_to :profile
 
-  validates_presence_of :name, :year_won, :year_nominated
-  validates_format_of :year_won, :year_nominated, :with => /^(\d){4}+$/
+  validates_presence_of :name
+  validates_presence_of :year_won, :if => Proc.new { |a| a.year_nominated.blank? }
+  validates_presence_of :year_nominated, :if => Proc.new { |a| a.year_won.blank? }
+
 end
