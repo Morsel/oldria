@@ -22,7 +22,7 @@ class Stage < ActiveRecord::Base
   validate :end_date_after_start_date
 
   def end_date_after_start_date
-    if end_date.present? && end_date.to_date < started.to_date
+    if end_date.present? && end_date.to_date < start_date.to_date
       errors.add(:date_ended, "must come after the date started")
       false
     end
