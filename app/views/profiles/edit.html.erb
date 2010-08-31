@@ -7,8 +7,8 @@
 
 <% semantic_form_for @profile, :url => my_profile_path do |f| %>
   <% f.inputs :name => 'Basics' do %>
-    <%= f.input :birthday %>
-    <%= f.input :job_start %>
+    <%= f.input :birthday, :end_year => (Date.today.year-80), :start_year => Date.today.year, :selected => nil %>
+    <%= f.input :job_start, :end_year => (Date.today.year-70), :start_year => Date.today.year, :selected => nil %>
     <%= f.input :cellnumber %>
   <% end %>
 
