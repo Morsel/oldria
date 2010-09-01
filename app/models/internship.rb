@@ -23,7 +23,7 @@ class Internship < ActiveRecord::Base
 
   def end_date_after_start_date
     if end_date.present? && end_date.to_date < start_date.to_date
-      errors.add(:date_ended, "must come after the date started")
+      errors.add(:end_date, "must come after the date started")
       false
     end
   end
