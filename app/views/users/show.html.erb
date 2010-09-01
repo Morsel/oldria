@@ -53,7 +53,7 @@
     </dl><!-- .user_info.extra -->
     <span class="timestamp">
         Last updated:
-        <%= @user.profile.try(:updated_at).try(:strftime, "%b %e") %>
+        <%= @user.profile.try(:updated_at).try(:strftime, "%b %e %Y") %>
     </span>
 </div><!-- #user_profile_view -->
 <div id="extended_profile_container">
