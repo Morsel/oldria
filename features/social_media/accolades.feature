@@ -13,4 +13,4 @@ Feature: Profile Accolades
       | Run Date   | 2009-10-21                   |
       | Media Type | National television exposure |
     Then I should have 1 accolade on my profile
-    And I should see "Top Chef, 2009" on my profile page
+    And I should see "Top Chef, August 2009" on my profile page
