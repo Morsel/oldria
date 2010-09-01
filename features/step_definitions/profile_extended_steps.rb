@@ -1,9 +1,7 @@
 def fill_in_fields_for_table(table)
   table.rows_hash.each do |field, value|
-    if field == "Dates"
-      dates = value.split(/ ?to ?/, 2)
-      fill_in "Date started", :with => Date.parse(dates.first)
-      fill_in "Date ended", :with => Date.parse(dates.last)
+    if field == "Start date"
+      select_date(Date.parse(value))
     elsif field == 'Media Type'
       select value, :from => field
     else

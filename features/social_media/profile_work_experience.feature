@@ -16,7 +16,7 @@ Feature: Profile - Work Experience
       | City                   | Atlanta                  |
       | State                  | GA                       |
       | Country                | United States            |
-      | Dates                  | 2009-10-01 to 2009-12-02 |
+      | Start date             | 2009-10-01               |
       | Chef in charge of menu | John Denver              |
       | Type of cuisine served | American (Classic)       |
     Then I should have 1 restaurant on my profile
@@ -32,7 +32,7 @@ Feature: Profile - Work Experience
       | City                                 | Indianapolis             |
       | State                                | IN                       |
       | Country                              | United States            |
-      | Dates                                | 2009-10-01 to 2009-12-02 |
+      | Start date                           | 2009-10-01               |
       | Responsibilities and Accomplishments | Bossing people around    |
       | Reason for leaving                   | I loved food too much    |
     Then I should have 1 nonculinary job on my profile
