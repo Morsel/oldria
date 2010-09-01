@@ -162,6 +162,12 @@ class User < ActiveRecord::Base
     self.employments.primary.first || self.employments.first
   end
 
+  def restaurant_names
+    return nil if employments.blank?
+    return primary_employment.restaurant.name if employments.count == 1
+    employments.all(:order => '"primary" DESC').map(&:restaurant).map(&:name).to_sentence
+  end
+
 ### Convenience methods for getting/setting first and last names ###
   def name
     @name ||= [first_name, last_name].compact.join(' ')
