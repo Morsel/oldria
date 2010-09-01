@@ -10,6 +10,7 @@
     <%= f.input :birthday, :end_year => (Date.today.year-80), :start_year => Date.today.year, :selected => nil %>
     <%= f.input :job_start, :end_year => (Date.today.year-70), :start_year => Date.today.year, :selected => nil %>
     <%= f.input :cellnumber %>
+    <%= f.inputs :headline, :summary, :class => "plain" %>
   <% end %>
 
   <% f.inputs :name => "Current Employment" do %>
