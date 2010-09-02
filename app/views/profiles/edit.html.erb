@@ -4,13 +4,39 @@
   <%= stylesheet_link_tag 'colorbox' %>
 <% end -%>
 
-
 <% semantic_form_for @profile, :url => my_profile_path do |f| %>
   <% f.inputs :name => 'Basics' do %>
     <%= f.input :birthday, :end_year => (Date.today.year-80), :start_year => Date.today.year, :selected => nil %>
     <%= f.input :job_start, :end_year => (Date.today.year-70), :start_year => Date.today.year, :selected => nil %>
-    <%= f.input :cellnumber %>
     <%= f.inputs :headline, :summary, :class => "plain" %>
+  <% end %>
+  
+  <% f.inputs :name => "Contact Information" do %>
+    <div class="clear">
+        <%= f.input :prefers_display_cell, :as => :radio, :collection => privacy_options, :label => "Show this to:", :wrapper_html => { :class => "span-4" } %>
+        <%= f.input :cellnumber, :label => "Cellphone", :wrapper_html => { :class => "span-6 last" } %>
+    </div>
+
+    <div class="clear">
+        <%= f.input :prefers_display_email, :as => :radio, :collection => privacy_options, :label => "Show this to:", :wrapper_html => { :class => "span-4" } %>
+        <% f.semantic_fields_for :user do |user| %>
+            <%= user.input :email, :wrapper_html => { :class => "span-6 last" } %>
+        <% end %>
+    </div>
+
+    <%- if @profile.user.twitter_authorized? -%>
+    <div class="clear">
+        <%= f.input :prefers_display_twitter, :as => :radio, :collection => privacy_options, :label => "Show this to:", :wrapper_html => { :class => "span-4" } %>
+        <div class="span-6 last">Your Twitter account: <%= @profile.user.twitter_username %></div>
+    </div>
+    <%- end -%>
+  
+    <%- if @fb_user -%>
+    <div class="clear">
+        <%= f.input :prefers_display_facebook, :as => :radio, :collection => privacy_options, :label => "Show this to:", :wrapper_html => { :class => "span-4" } %>
+        <div class="span-6 last">Your Facebook account: <%= @fb_user.name %></div>
+    </div>
+    <%- end -%>
   <% end %>
 
   <% f.inputs :name => "Current Employment" do %>

@@ -24,15 +24,19 @@
     </div><!-- .name_and_actions -->
 
     <dl class="user_info clearfix clear contact">
+        <%- if display_email(@user) -%>
         <dt>Email</dt>
         <dd><%= @user.email %></dd>
-        <% if @user.twitter_username %>
+        <%- end -%>
+        
+        <% if display_twitter(@user) %>
         <dt>Twitter</dt>
-        <dd><%= @user.twitter_username %></dd>
+        <dd><%= link_to @user.twitter_username, "http://twitter.com/#{@user.twitter_username}" %></dd>
         <% end -%>
-        <% if @user.facebook_user && @user.facebook_user.link %>
+        
+        <% if display_facebook(@user) %>
         <dt>Facebook</dt>
-        <dd><%= @user.facebook_user.link %></dd>
+        <dd><%= link_to @user.facebook_user.name, @user.facebook_user.link %></dd>
         <% end %>
     </dl><!-- .user_info.contact -->
     <dl class="user_info clearfix extra">
@@ -41,7 +45,7 @@
         <dt>Job Start</dt>
         <dd><%= @user.profile.job_start.try(:strftime, '%B %d, %Y') %></dd>
         <% end %>
-        <% if @user.profile.cellnumber.present? %>
+        <% if display_cell(@user) %>
         <dt>Cell Phone</dt>
         <dd><%= @user.profile.cellnumber %></dd>
         <% end %>

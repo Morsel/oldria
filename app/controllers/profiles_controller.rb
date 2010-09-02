@@ -4,6 +4,7 @@ class ProfilesController < ApplicationController
 
   def edit
     @profile = current_user.profile || current_user.create_profile
+    @fb_user = current_facebook_user.fetch if current_facebook_user && @profile.user.facebook_authorized?
   end
 
   def update

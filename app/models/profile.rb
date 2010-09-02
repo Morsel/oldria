@@ -31,8 +31,14 @@ class Profile < ActiveRecord::Base
   has_many :stages
   has_many :apprenticeships
 
-  accepts_nested_attributes_for :culinary_jobs, :nonculinary_jobs, :awards,
+  accepts_nested_attributes_for :culinary_jobs, :nonculinary_jobs, :awards, :user,
     :reject_if => REJECT_TITLE_BLANK_PROC
+    
+  ### Preferences ###
+  preference :display_cell, :string, :default => "everyone"
+  preference :display_email, :string, :default => "everyone"
+  preference :display_twitter, :string, :default => "everyone"
+  preference :display_facebook, :string, :default => "everyone"
 
   def primary_employment
     user.primary_employment

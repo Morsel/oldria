@@ -27,4 +27,8 @@ module ProfileHelper
       e.build_nonculinary_school unless e.nonculinary_school.present?
     end
   end
+  
+  def privacy_options
+    [["Nobody!", "private"], ["Just Chefs in Spoonfeed", "spoonfeed"], ["The public at large", "everyone"]]
+  end
 end
