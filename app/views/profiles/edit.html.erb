@@ -9,6 +9,17 @@
     <%= f.input :birthday, :end_year => (Date.today.year-80), :start_year => Date.today.year, :selected => nil %>
     <%= f.input :job_start, :end_year => (Date.today.year-70), :start_year => Date.today.year, :selected => nil %>
     <%= f.inputs :headline, :summary, :class => "plain" %>
+    
+    <div class="cuisines ajaxdelete">
+        <h2>Cuisines</h2>
+        <ul id="cuisines">
+            <%= render @profile.cuisines %>
+        </ul>
+        <% link_to new_my_profile_profile_cuisine_path, :class => 'positive button colorbox' do %>
+        <img src="/images/plus.png"/> Add
+        <% end %>
+    </div>
+    
   <% end %>
   
   <% f.inputs :name => "Contact Information" do %>

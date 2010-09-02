@@ -45,13 +45,20 @@
         <dt>Job Start</dt>
         <dd><%= @user.profile.job_start.try(:strftime, '%B %d, %Y') %></dd>
         <% end %>
+        
         <% if display_cell(@user) %>
         <dt>Cell Phone</dt>
         <dd><%= @user.profile.cellnumber %></dd>
         <% end %>
+        
         <% if @user.profile.birthday.present? %>
         <dt>Birthday</dt>
         <dd><%= @user.profile.birthday.try(:strftime, '%B %d') %></dd>
+        <% end %>
+        
+        <% if @user.profile.cuisines.present? %>
+        <dt>Cuisine</dt>
+        <dd><%= @user.profile.cuisines.map(&:name).to_sentence %>
         <% end %>
         <% end %>
     </dl><!-- .user_info.extra -->

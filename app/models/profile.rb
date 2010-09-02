@@ -30,6 +30,8 @@ class Profile < ActiveRecord::Base
   has_many :internships
   has_many :stages
   has_many :apprenticeships
+  has_many :profile_cuisines
+  has_many :cuisines, :through => :profile_cuisines
 
   accepts_nested_attributes_for :culinary_jobs, :nonculinary_jobs, :awards, :user,
     :reject_if => REJECT_TITLE_BLANK_PROC

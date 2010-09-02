@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100901191630) do
+ActiveRecord::Schema.define(:version => 20100902210132) do
 
   create_table "accolades", :force => true do |t|
     t.integer  "profile_id"
@@ -527,6 +527,13 @@ ActiveRecord::Schema.define(:version => 20100901191630) do
   end
 
   add_index "preferences", ["owner_id", "owner_type", "name", "group_id", "group_type"], :name => "index_preferences_on_owner_and_name_and_preference", :unique => true
+
+  create_table "profile_cuisines", :force => true do |t|
+    t.integer  "profile_id"
+    t.integer  "cuisine_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "profile_questions", :force => true do |t|
     t.string   "title"
