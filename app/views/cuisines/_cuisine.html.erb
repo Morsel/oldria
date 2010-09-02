@@ -1,7 +1,8 @@
 <% content_tag_for :li, cuisine do %>
     <%= cuisine.name %>
     <% if action_name != 'show' %>
-      <%= link_to "Edit", edit_my_profile_profile_cuisine_path(cuisine), :class => 'colorbox' %>
-      <%= link_to "Destroy", my_profile_profile_cuisine_path(cuisine), :method => :delete, :class => 'delete' %>
+      <%= link_to "Destroy", 
+        my_profile_profile_cuisine_path(@profile.profile_cuisines.find(:first, :conditions => { :cuisine_id => cuisine })), 
+        :method => :delete, :class => 'delete' %>
     <% end %>
 <% end %>

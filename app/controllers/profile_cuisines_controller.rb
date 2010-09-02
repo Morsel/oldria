@@ -15,13 +15,24 @@ class ProfileCuisinesController < ApplicationController
         wants.html { redirect_to edit_my_profile_path }
         wants.json do render :json => {
             :html => render_to_string(:partial => '/profile_cuisines/profile_cuisine.html.erb', :locals => {:profile_cuisine => @profile_cuisine}),
-            :award => @profile_cuisine.to_json
+            :profile_cuisine => @profile_cuisine.to_json
           }
         end
       else
         wants.html { render :new }
         wants.json { render :json => render_to_string(:partial => 'form.html.erb'), :status => :unprocessable_entity }
       end
+    end
+  end
+
+  def destroy
+    @profile_cuisine = ProfileCuisine.find(params[:id])
+    if @profile_cuisine.destroy
+      respond_to do |wants|
+        wants.html { redirect_to edit_my_profile_path }
+        wants.js { render :nothing => true }
+      end
+
     end
   end
 
