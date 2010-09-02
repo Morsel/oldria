@@ -27,15 +27,24 @@
     <%- if @profile.user.twitter_authorized? -%>
     <div class="clear">
         <%= f.input :prefers_display_twitter, :as => :radio, :collection => privacy_options, :label => "Show this to:", :wrapper_html => { :class => "span-4" } %>
-        <div class="span-6 last">Your Twitter account: <%= @profile.user.twitter_username %></div>
+        <div class="span-6 last">Your Twitter account: <%= @profile.user.twitter_username %>
+            <p>(<%= link_to "Need to change your Twitter settings?", edit_user_path(@profile.user, :anchor => "twitter") %>)</p>
+        </div>
     </div>
+    <%- else -%>
+        <p><%= link_to "Set up Twitter", edit_user_path(@profile.user, :anchor => "twitter") %>)</p>
     <%- end -%>
   
     <%- if @fb_user -%>
     <div class="clear">
         <%= f.input :prefers_display_facebook, :as => :radio, :collection => privacy_options, :label => "Show this to:", :wrapper_html => { :class => "span-4" } %>
-        <div class="span-6 last">Your Facebook account: <%= @fb_user.name %></div>
+        <div class="span-6 last">
+            Your Facebook account: <%= @fb_user.name %>
+            <p>(<%= link_to "Need to change your Facebook settings?", edit_user_path(@profile.user, :anchor => "facebook") %>)</p>
+        </div>
     </div>
+    <%- else -%>
+        <p><%= link_to "Set up Facebook", edit_user_path(@profile.user, :anchor => "facebook") %>)</p>
     <%- end -%>
   <% end %>
 
