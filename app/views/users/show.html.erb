@@ -14,9 +14,10 @@
 
       <div class="profile_info">
         <h2 class="user_name"><%= @user.name %></h2>
-        <h3><%= @user.profile.try(:headline) %></h3>
+        <h3 class="headline"><%= @user.profile.try(:headline) %></h3>
         
-        <% if @user.profile && @user.profile.specialties.present? %>
+        <% #if @user.profile && @user.profile.specialties.present? 
+        if false %>
           <div class="span-5">
             <dl>
               <dt><h5>Specialties:</h5></dt>
@@ -48,72 +49,64 @@
         
         <div class="span-5">
           <h5>Contact Information:</h5>
-          <% #if there's any contact info -%>
-            <p>Mobile: (888) 899-9999<br />
-              Email: <a href="mailto:email@email.com">email@email.com</a><br />
-              Twitter: <a href="http://www.twitter.com/hernwood">@hernwood</a><br />
-              Facebook: <a href="http://www.facebook.com/edwardblake">facebook.com/edwardblake</a></p>
-          <% #else -%>
-            <p><em>No contact information provided</em></p>
-          <% #end -%>
+           <dl class="user_info clearfix clear contact">
+               <% if display_cell(@user) %>
+                 <dt>Mobile</dt>
+                 <dd><%= @user.profile.cellnumber %></dd>
+               <% end %>
+           
+             
+                <%- if display_email(@user) -%>
+                <dt>Email</dt>
+                <dd><%= @user.email %></dd>
+                <%- end -%>
+
+                <% if display_twitter(@user) %>
+                <dt>Twitter</dt>
+                <dd><%= link_to @user.twitter_username, "http://twitter.com/#{@user.twitter_username}" %></dd>
+                <% end -%>
+
+                <% if display_facebook(@user) %>
+                <dt>Facebook</dt>
+                <dd><%= link_to @user.facebook_user.name, @user.facebook_user.link %></dd>
+                <% end %>
+            </dl><!-- .user_info.contact -->
         </div>
         
         <div class="span-4 last">
           <h5>More Details:</h5>
-          <% #if data is present, show it with the <br> tag, otherwise don't -%>
-          <p>Hometown: Madison, WI<br />
-          Current City: Chicago, IL</p>
+          <dl class="user_info clearfix extra">
+              <% if @user.profile %>
+              <% if @user.profile.job_start.present? %>
+              <dt>Job Start</dt>
+              <dd><%= @user.profile.job_start.try(:strftime, '%B %d, %Y') %></dd>
+              <% end %>
+
+              <% if @user.profile.birthday.present? %>
+              <dt>Birthday</dt>
+              <dd><%= @user.profile.birthday.try(:strftime, '%B %d') %></dd>
+              <% end %>
+
+              <% if @user.profile.hometown.present? %>
+              <dt>Hometown</dt>
+              <dd><%= @user.profile.hometown %>
+              <% end %>
+
+              <% if @user.profile.current_residence.present? %>
+              <dt>Current City</dt>
+              <dd><%= @user.profile.current_residence %>
+              <% end %>
+
+              <% end %>
+          </dl><!-- .user_info.extra -->
         </div>
         
         <%= render :partial => 'profile_actions' unless media_or_owner? %>
       </div>
     </div><!-- .name_and_actions -->
 
-    <dl class="user_info clearfix clear contact">
-        <%- if display_email(@user) -%>
-        <dt>Email</dt>
-        <dd><%= @user.email %></dd>
-        <%- end -%>
-        
-        <% if display_twitter(@user) %>
-        <dt>Twitter</dt>
-        <dd><%= link_to @user.twitter_username, "http://twitter.com/#{@user.twitter_username}" %></dd>
-        <% end -%>
-        
-        <% if display_facebook(@user) %>
-        <dt>Facebook</dt>
-        <dd><%= link_to @user.facebook_user.name, @user.facebook_user.link %></dd>
-        <% end %>
-    </dl><!-- .user_info.contact -->
-    <dl class="user_info clearfix extra">
-        <% if @user.profile %>
-        <% if @user.profile.job_start.present? %>
-        <dt>Job Start</dt>
-        <dd><%= @user.profile.job_start.try(:strftime, '%B %d, %Y') %></dd>
-        <% end %>
-        
-        <% if display_cell(@user) %>
-        <dt>Cell Phone</dt>
-        <dd><%= @user.profile.cellnumber %></dd>
-        <% end %>
-        
-        <% if @user.profile.birthday.present? %>
-        <dt>Birthday</dt>
-        <dd><%= @user.profile.birthday.try(:strftime, '%B %d') %></dd>
-        <% end %>
-        
-        <% if @user.profile.hometown.present? %>
-        <dt>Hometown</dt>
-        <dd><%= @user.profile.hometown %>
-        <% end %>
-
-        <% if @user.profile.current_residence.present? %>
-        <dt>Current City</dt>
-        <dd><%= @user.profile.current_residence %>
-        <% end %>
-
-        <% end %>
-    </dl><!-- .user_info.extra -->
+   
+    
     <span class="timestamp">
         Last updated:
         <%= @user.profile.try(:updated_at).try(:strftime, "%b %e %Y") %>

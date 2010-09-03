@@ -1,5 +1,5 @@
 <% content_tag_for :li, stage do %>
-  <%= stage.establishment %> with <%= stage.expert %>, 
+  <span class="name"><%= stage.establishment %></span> with <%= stage.expert %><br />
   <% if stage.end_date %>
   <%= stage.start_date.strftime("%m/%d/%y") %> - <%= stage.end_date.strftime("%m/%d/%y") %>
   <% else %>

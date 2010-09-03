@@ -1987,6 +1987,12 @@ p.editprofile a:hover {
 	font-size: 12px;
 }
 
+#user_profile_view h3.headline{
+	margin: 0;
+	color:#333;
+	font:normal 15px "Georgia", Times, serif;
+}
+
 #user_profile_view .list{
 	font-size: 11px;
 }
@@ -2036,8 +2042,9 @@ p.editprofile a:hover {
 }
 
 dl.user_info {
-	font-size: 1.1em;
+	font-size: 1em;
 	margin: 0;
+	padding: 0;
 	width: 260px;
 	float: left;
 }
@@ -2051,12 +2058,10 @@ dl.user_info dt, dl.user_info dd {
 }
 
 dl.user_info dt {
-	color: #fff;
 	width: 76px;
 	float: left;
 	clear: left;
-	margin: 0 10px;
-	text-align: right;
+	margin: 0 10px 0 0;
 	font-weight: normal;
 }
 
@@ -2067,7 +2072,6 @@ dl.user_info dt:after {
 dl.user_info dd {
 	margin-top: 0;
 	margin-left: 80px;
-	color: #e3790c;
 }
 
 #user_profile_view img, #restaurant_profile_view img{
@@ -2085,9 +2089,9 @@ dl.user_info dd {
 	}
 #user_profile_view .profile_info{
 	float: left;
-
 }
 #user_profile_view .profile_info h4{
+	clear:both;
 	font:bold 15px 'Helvetica Neue', Helvetica, Arial, sans-serif;
 	padding: 10px 0;
 }
@@ -2127,7 +2131,6 @@ dl.user_info dd {
 #extended_profile_container .showit.open em { color: #0087C0}
 
 #extended_profile h3 {
-	color: #fff;
 	font-family: "Hoefler Text", georgia, serif;
 	font-weight: normal;
 	font-size: 1.5em;
@@ -2135,54 +2138,56 @@ dl.user_info dd {
 	margin-top: 1.2em;
 	margin-bottom: 12px;
 	padding-bottom: 2px;
+	color:#333;
 }
 
 #extended_profile li, #extended_profile li p {
-	color: #fff;
 	line-height: 1.5;
 }
 
 #extended_profile ul {
 	list-style: disc;
 	border-bottom: 0;
+	width:100%;
+}
+.extended_profile_info{
+	position:relative;
+	overflow:hidden;
+}
+.extended_profile_info .timestamp{
+	position:absolute;
+	top:25px; right:0;
+	font:normal 10px "Helvetica Neue", Helvetica, Arial, sans-serif;
+	color:#808080;
 }
 
-#extended_profile .education, #extended_profile .employments {
+.extended_profile_info ul {
 	margin: 0;
 	padding: 0;
 	border: 0;
 	list-style: none;
-}
-
-#extended_profile .employments li {
-	padding-left: 56px;
-	border-bottom: 0;
 	overflow: hidden;
 }
 
-
-#extended_profile .education li, #extended_profile .employments li {
-	margin: 0 0 1em;
+.extended_profile_info li {
+	width:30%;
+	border-bottom: 0;
+	margin:0 0 10px 0;
+	overflow: hidden;
+	float:left;
 }
-
 
 #extended_profile .employee_role {
 	border: 0;
 }
 
-#extended_profile .restaurant_avatar {
-	border: 1px solid #fff;
-	margin-right: 10px;
-}
-
-#extended_profile a {
-	color: #e8750a;
-	display: block;
+#extended_profile a, .extended_profile_info .name {
+	color: #0087C0;
 	text-decoration: none;
 }
 
 #extended_profile a:hover {
-	color: #eee;
+	color: #666;
 	text-decoration: underline;
 }
 
