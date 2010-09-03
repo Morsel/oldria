@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100903165039) do
+ActiveRecord::Schema.define(:version => 20100903212004) do
 
   create_table "accolades", :force => true do |t|
     t.integer  "profile_id"
@@ -543,6 +543,13 @@ ActiveRecord::Schema.define(:version => 20100903165039) do
     t.integer  "chapter_id"
   end
 
+  create_table "profile_specialties", :force => true do |t|
+    t.integer  "profile_id"
+    t.integer  "specialty_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "profiles", :force => true do |t|
     t.integer  "user_id",                           :null => false
     t.date     "birthday"
@@ -646,6 +653,12 @@ ActiveRecord::Schema.define(:version => 20100903165039) do
     t.datetime "published_at"
     t.integer  "featured_item_id"
     t.string   "featured_item_type"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "specialties", :force => true do |t|
+    t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

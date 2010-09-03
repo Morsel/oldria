@@ -20,6 +20,11 @@
         <dd><%= @user.profile.cuisines.map(&:name).to_sentence %>
         <% end %>
         
+        <% if @user.profile && @user.profile.specialties.present? %>
+        <dt>Specialties</dt>
+        <dd><%= @user.profile.specialties.map(&:name).to_sentence %>
+        <% end %>
+
         <% if @user.employments.any? %>
         <h4 class="user_employment">
             <span class="employment_role"><%= @user.primary_employment.try(:restaurant_role).try(:name) %></span> at

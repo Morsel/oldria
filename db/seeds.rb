@@ -45,6 +45,14 @@ model_count_before_and_after(Cuisine) do
   end
 end
 
+# == Set up Specialties ==
+model_count_before_and_after(Specialty) do
+  specialties = YAML.load_file(@seedling_path + '/specialties.yml')['specialties']
+  specialties.each do |s|
+    Specialty.find_or_create_by_name(s)
+  end
+end
+
 # == Set up Metropolitan Regions ==
 model_count_before_and_after(MetropolitanArea) do
   metroareas = YAML.load_file(@seedling_path + '/metroregions.yml')['metroregions']
@@ -75,7 +83,6 @@ model_count_before_and_after(School) do
   culinary_schools.each do |school|
     next if School.find_by_name(school['name'])
     school['country'] ||= "United States"
-    school['culinary'] ||= true
     School.create!(school)
   end
 end
