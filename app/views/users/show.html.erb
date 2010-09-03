@@ -15,7 +15,7 @@
         <h2 class="user_name"><%= @user.name %></h2>
         <h3><%= @user.profile.try(:headline) %></h3>
         
-        <% if @user.profile.cuisines.present? %>
+        <% if @user.profile && @user.profile.cuisines.present? %>
         <dt>Cuisine</dt>
         <dd><%= @user.profile.cuisines.map(&:name).to_sentence %>
         <% end %>
