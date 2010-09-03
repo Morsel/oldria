@@ -12,7 +12,7 @@ if defined?(MailSafe::Config)
     address =~ /.*@neotericdesign\.com/i ||
     address =~ /.*@restaurantintelligenceagency\.com/i ||
     address == 'aeschright@elevatedrails.com' ||
-    address == 'nicole.schnitzler@gmail.com'
+    address == /nicole\.schnitzler.*@gmail\.com/
   }
 
   MailSafe::Config.replacement_address = lambda { |address|
