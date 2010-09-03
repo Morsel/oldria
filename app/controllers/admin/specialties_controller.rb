@@ -1,4 +1,4 @@
-class Admin::SpecialtiesController < ApplicationController
+class Admin::SpecialtiesController < Admin::AdminController
   
   def index
     @specialties = Specialty.all(:order => :position)
