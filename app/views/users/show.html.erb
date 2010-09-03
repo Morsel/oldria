@@ -14,10 +14,9 @@
 
       <div class="profile_info">
         <h2 class="user_name"><%= @user.name %></h2>
-        <h3 class="headline"><%= @user.profile.try(:headline) %></h3>
+        <% if @user.profile && @user.profile.headline %><h3 class="headline"><%= @user.profile.try(:headline) %></h3><% end %>
         
-        <% #if @user.profile && @user.profile.specialties.present? 
-        if false %>
+        <% if @user.profile && @user.profile.specialties.present? %>
           <div class="span-5">
             <dl>
               <dt><h5>Specialties:</h5></dt>
@@ -42,9 +41,11 @@
             <span class="restaurant_name"><%= link_to @user.primary_employment.try(:restaurant).try(:name), @user.primary_employment.try(:restaurant) %></span>
         </h4>
         <% end %>
-
-        <h5>Summary:</h5>
-        <p><%= @user.profile.try(:summary) %></p>
+        
+        <% if @user.profile && @user.profile.summary -%>
+          <h5>Summary:</h5>
+          <p><%= @user.profile.try(:summary) %></p>
+        <% end -%>
         
         <div class="span-5">
           <h5>Contact Information:</h5>
