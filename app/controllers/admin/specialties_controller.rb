@@ -33,6 +33,13 @@ class Admin::SpecialtiesController < Admin::AdminController
     end
   end
   
+  def destroy
+    @specialty = Specialty.find(params[:id])
+    flash[:notice] = "Deleted specialty \"#{@specialty.name}\""
+    @specialty.destroy
+    redirect_to :action => "index"
+  end
+  
   def sort
     if params[:specialties]
       params[:specialties].each_with_index do |id, index|
