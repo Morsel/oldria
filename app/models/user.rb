@@ -270,5 +270,16 @@ class User < ActiveRecord::Base
   def facebook_page
     @page ||= Mogli::Page.new(:id => facebook_page_id, :client => Mogli::Client.new(facebook_page_token))
   end
-
+  
+  def cuisines
+    c = []
+    restaurants.each { |r| c << r.cuisine.name }
+    return c
+  end
+  
+  #### temporary method until in place ####
+  def specialties
+    ['Canning', 'Sausage', 'Curing', 'BBQ']
+  end
+  
 end
