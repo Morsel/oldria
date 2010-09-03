@@ -2177,7 +2177,7 @@ dl.user_info dd {
 .extended_profile_info li {
 	width:30%;
 	border-bottom: 0;
-	margin:0 0 20px 0;
+	margin:0 10px 20px 0;
 	overflow: hidden;
 	float:left;
 }
