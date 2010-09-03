@@ -2,6 +2,13 @@
       <div class="extended_profile_info">
         <h3>Work Experience: Culinary</h3>
         <ul class="employments clearfix">
+            <% for employment in user.employments %>
+            <li class="culinary">
+                <span class="name"><%= employment.restaurant.name %></span><br />
+                <span class="employee_title"><%= employment.restaurant_role.try(:name) %></span><br />
+                <span class="date_range">Current</span>
+            </li>
+            <% end %>
           <% profile && profile.culinary_jobs.each do |job| %>
           <li class="culinary">
               <span class="name"><%= job.restaurant_name %></span><br />
@@ -19,13 +26,6 @@
       <div class="extended_profile_info">
         <h3>Work Experience: Non-Culinary</h3>
         <ul class="employments clearfix">
-          <% for employment in user.employments %>
-          <li class="culinary">
-              <span class="name"><%= employment.restaurant.name %></span><br />
-              <span class="employee_title"><%= employment.restaurant_role.try(:name) %></span><br />
-              <span class="date_range">Current</span>
-          </li>
-          <% end %>
           <% profile && profile.nonculinary_jobs.each do |job| %>
           <li class="nonculinary">
               <span class="name"><%= job.company %></span><br />
