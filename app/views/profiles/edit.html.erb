@@ -10,10 +10,14 @@
     <%= f.input :job_start, :end_year => (Date.today.year-70), :start_year => Date.today.year, :selected => nil %>
     <%= f.inputs :headline, :summary, :class => "plain" %>
     <%= f.input :hometown %>
-    <%= f.input :current_residence, :label => "Currently residing in" %>
-    
+    <%= f.input :current_residence, :label => "Currently residing in" %>    
+  <% end %>
+  
+  <% f.inputs :name => "Specialties" do %>
+    <%= f.input :specialties, :as => :check_boxes, :collection => Specialty.all %>
+  
     <div class="cuisines ajaxdelete">
-        <h2>What Cuisines Are Your Specialty?</h2>
+        <label>What Cuisines Are Your Specialty?</label>
         <ul id="cuisines">
             <%= render @profile.cuisines %>
         </ul>
@@ -21,7 +25,6 @@
         <img src="/images/plus.png"/> Add
         <% end %>
     </div>
-    
   <% end %>
   
   <% f.inputs :name => "Contact Information" do %>
