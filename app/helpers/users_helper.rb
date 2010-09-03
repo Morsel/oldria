@@ -20,6 +20,7 @@ module UsersHelper
   end
   
   def display_email(user)
+    return false unless user.profile
     if user.profile.prefers_display_email == "everyone"
       true
     elsif current_user && user.profile.prefers_display_email == "spoonfeed"
@@ -30,7 +31,7 @@ module UsersHelper
   end
   
   def display_cell(user)
-    return false unless @user.profile.cellnumber.present?
+    return false unless user.profile && user.profile.cellnumber.present?
     if user.profile.prefers_display_cell == "everyone"
       true
     elsif current_user && user.profile.prefers_display_cell == "spoonfeed"
@@ -41,7 +42,7 @@ module UsersHelper
   end
   
   def display_twitter(user)
-    return false unless @user.twitter_username.present?
+    return false unless user.profile && user.twitter_username.present?
     if user.profile.prefers_display_twitter == "everyone"
       true
     elsif current_user && user.profile.prefers_display_twitter == "spoonfeed"
@@ -52,11 +53,14 @@ module UsersHelper
   end
   
   def display_facebook(user)
-    if @user.facebook_user
-      @user.facebook_user.fetch
+    return false unless user.profile
+
+    if user.facebook_user
+      user.facebook_user.fetch
     else
       return false
     end
+    
     if user.profile.prefers_display_facebook == "everyone"
       true
     elsif current_user && user.profile.prefers_display_facebook == "spoonfeed"
