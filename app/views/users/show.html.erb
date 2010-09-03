@@ -42,7 +42,7 @@
         </h4>
         <% end %>
         
-        <% if @user.profile && @user.profile.summary -%>
+        <% if @user.profile && @user.profile.summary.present? -%>
           <h5>Summary:</h5>
           <p><%= @user.profile.try(:summary) %></p>
         <% end -%>
