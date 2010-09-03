@@ -132,7 +132,7 @@ ActionController::Routing::Routes.draw do |map|
     admin.resources :topics
     admin.resources :question_roles
     admin.resources :schools
-    admin.resources :specialties
+    admin.resources :specialties, :collection => { :sort => :post }
 
     # Admin Messaging
     exclusive_routes = [:index, :show, :destroy]

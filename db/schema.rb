@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100903212004) do
+ActiveRecord::Schema.define(:version => 20100903225305) do
 
   create_table "accolades", :force => true do |t|
     t.integer  "profile_id"
@@ -661,6 +661,7 @@ ActiveRecord::Schema.define(:version => 20100903212004) do
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "position"
   end
 
   create_table "stages", :force => true do |t|

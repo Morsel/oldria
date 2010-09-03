@@ -632,3 +632,14 @@ $('#topics tbody').sortable({
 $(function() {
   $(".admin_backend #pages " + window.location.hash + " td").effect("highlight", {}, 3000);
 });
+
+// Sorting specialities
+
+$('#specialties tbody').sortable({
+	axis:'y',
+	dropOnEmpty:false,
+	update: function(){
+		$.ajax({ data:$(this).sortable('serialize', { key: 'specialties[]' }), dataType:'script', type:'post', url:'/admin/specialties/sort'
+		});
+	}
+});

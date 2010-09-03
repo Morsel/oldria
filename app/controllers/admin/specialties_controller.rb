@@ -1,7 +1,7 @@
 class Admin::SpecialtiesController < ApplicationController
   
   def index
-    @specialties = Specialty.all
+    @specialties = Specialty.all(:order => :position)
   end
   
   def new
@@ -32,4 +32,14 @@ class Admin::SpecialtiesController < ApplicationController
       render :action => "edit"
     end
   end
+  
+  def sort
+    if params[:specialties]
+      params[:specialties].each_with_index do |id, index|
+        Specialty.update_all(['position=?', index+1], ['id=?', id])
+      end      
+    end
+    render :nothing => true
+  end
+  
 end
