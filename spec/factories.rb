@@ -32,6 +32,8 @@ end
 
 Factory.define :profile do |f|
   f.association :user
+  f.hometown "Detroit"
+  f.current_residence "NYC"
 end
 
 Factory.define :culinary_job do |f|

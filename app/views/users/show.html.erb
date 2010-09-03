@@ -60,6 +60,17 @@
         <dt>Cuisine</dt>
         <dd><%= @user.profile.cuisines.map(&:name).to_sentence %>
         <% end %>
+
+        <% if @user.profile.hometown.present? %>
+        <dt>Hometown</dt>
+        <dd><%= @user.profile.hometown %>
+        <% end %>
+
+        <% if @user.profile.current_residence.present? %>
+        <dt>Current City</dt>
+        <dd><%= @user.profile.current_residence %>
+        <% end %>
+
         <% end %>
     </dl><!-- .user_info.extra -->
     <span class="timestamp">

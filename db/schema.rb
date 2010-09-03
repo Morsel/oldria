@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100902210132) do
+ActiveRecord::Schema.define(:version => 20100903165039) do
 
   create_table "accolades", :force => true do |t|
     t.integer  "profile_id"
@@ -544,14 +544,16 @@ ActiveRecord::Schema.define(:version => 20100902210132) do
   end
 
   create_table "profiles", :force => true do |t|
-    t.integer  "user_id",                    :null => false
+    t.integer  "user_id",                           :null => false
     t.date     "birthday"
     t.date     "job_start"
     t.string   "cellnumber"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "headline",   :default => ""
-    t.text     "summary",    :default => ""
+    t.string   "headline",          :default => ""
+    t.text     "summary",           :default => ""
+    t.string   "hometown"
+    t.string   "current_residence"
   end
 
   add_index "profiles", ["user_id"], :name => "index_profiles_on_user_id", :unique => true

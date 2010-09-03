@@ -1,23 +1,30 @@
 # == Schema Information
-# Schema version: 20100805194513
+# Schema version: 20100903165039
 #
 # Table name: profiles
 #
-#  id         :integer         not null, primary key
-#  user_id    :integer         not null
-#  birthday   :date
-#  job_start  :date
-#  cellnumber :string(255)
-#  created_at :datetime
-#  updated_at :datetime
+#  id                :integer         not null, primary key
+#  user_id           :integer         not null
+#  birthday          :date
+#  job_start         :date
+#  cellnumber        :string(255)
+#  created_at        :datetime
+#  updated_at        :datetime
+#  headline          :string(255)     default("")
+#  summary           :text            default("")
+#  hometown          :string(255)
+#  current_residence :string(255)
 #
 
 class Profile < ActiveRecord::Base
   REJECT_ALL_BLANK_PROC = proc { |attributes| attributes.all? { |_, value| value.blank? } }
   REJECT_TITLE_BLANK_PROC = proc { |attributes| attributes['title'].blank? && attributes['name'].blank? }
 
+  # validates_uniqueness_of :user_id
+  # validates_presence_of :hometown, :current_residence
+  
   belongs_to :user
-  validates_uniqueness_of :user_id
+  
   has_many :culinary_jobs, :order => "date_started DESC"
   has_many :nonculinary_jobs, :order => "date_started DESC"
   has_many :nonculinary_enrollments
