@@ -7,32 +7,66 @@
     <% if current_user == @user %>
     <div class="edit_profile_link"><a href="<%= edit_my_profile_path %>"><span>Edit profile</span></a></div>
     <% end %>
-    <div class="name_and_actions">
+    <div class="name_and_actions clearfix">
         <div class="profile_picture">
             <%= image_tag @user.avatar.url(:small), :width=>'100', :class => 'left' %>
         </div>
 
+      <div class="profile_info">
         <h2 class="user_name"><%= @user.name %></h2>
         <h3><%= @user.profile.try(:headline) %></h3>
         
+        <% if @user.profile && @user.profile.specialties.present? %>
+          <div class="span-5">
+            <dl>
+              <dt><h5>Specialties:</h5></dt>
+              <dd><%= @user.profile.specialties.map(&:name).to_sentence %>
+            </dl>
+          </div>
+        <% end %>
+  
         <% if @user.profile && @user.profile.cuisines.present? %>
-        <dt>Cuisine</dt>
-        <dd><%= @user.profile.cuisines.map(&:name).to_sentence %>
+          <div class="span-4 last">
+            <dl>
+              <dt><h5>Cuisine:</h5></dt>
+              <dd><%= @user.profile.cuisines.map(&:name).to_sentence %>
+            </dl>
+          </div>
         <% end %>
         
+         
+  
         <% if @user.employments.any? %>
         <h4 class="user_employment">
-            <span class="employment_role"><%= @user.primary_employment.try(:restaurant_role).try(:name) %></span> at
-            <span class="restaurant_name"><%= @user.primary_employment.try(:restaurant).try(:name) %></span>
+            <span class="employment_role"><%= @user.primary_employment.try(:restaurant_role).try(:name) %></span>,
+            <span class="restaurant_name"><%= link_to @user.primary_employment.try(:restaurant).try(:name), @user.primary_employment.try(:restaurant) %></span>
         </h4>
         <% end %>
 
-        <div>
-            <h4>Summary:</h4>
-            <p><%= @user.profile.try(:summary) %></p>
+        <h5>Summary:</h5>
+        <p><%= @user.profile.try(:summary) %></p>
+        
+        <div class="span-5">
+          <h5>Contact Information:</h5>
+          <% #if there's any contact info -%>
+            <p>Mobile: (888) 899-9999<br />
+              Email: <a href="mailto:email@email.com">email@email.com</a><br />
+              Twitter: <a href="http://www.twitter.com/hernwood">@hernwood</a><br />
+              Facebook: <a href="http://www.facebook.com/edwardblake">facebook.com/edwardblake</a></p>
+          <% #else -%>
+            <p><em>No contact information provided</em></p>
+          <% #end -%>
         </div>
-
+        
+        <div class="span-4 last">
+          <h5>More Details:</h5>
+          <% #if data is present, show it with the <br> tag, otherwise don't -%>
+          <p>Hometown: Madison, WI<br />
+          Current City: Chicago, IL</p>
+        </div>
+        
         <%= render :partial => 'profile_actions' unless media_or_owner? %>
+      </div>
     </div><!-- .name_and_actions -->
 
     <dl class="user_info clearfix clear contact">
