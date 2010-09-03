@@ -20,8 +20,8 @@ class Profile < ActiveRecord::Base
   REJECT_ALL_BLANK_PROC = proc { |attributes| attributes.all? { |_, value| value.blank? } }
   REJECT_TITLE_BLANK_PROC = proc { |attributes| attributes['title'].blank? && attributes['name'].blank? }
 
-  # validates_uniqueness_of :user_id
-  # validates_presence_of :hometown, :current_residence
+  validates_uniqueness_of :user_id
+  validates_presence_of :hometown, :current_residence
   
   belongs_to :user
   

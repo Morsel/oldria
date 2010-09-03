@@ -5,11 +5,11 @@ describe ApprenticeshipsController do
   before(:each) do
     current_user = Factory(:user)
     controller.stubs(:current_user).returns current_user
+    @profile = Factory(:profile, :user => current_user)
   end
   
   it "should create a new apprenticeship" do
-    profile = Factory(:profile)
-    post :create, :profile_id => profile.id, 
+    post :create, :profile_id => @profile.id, 
         :apprenticeship => { :establishment => "House of Interns", :supervisor => "Captain Crunch", :year => 1980 }
     Apprenticeship.count.should == 1
   end

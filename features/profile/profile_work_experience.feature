@@ -8,7 +8,7 @@ Feature: Profile - Work Experience
 
 
   Scenario: Adding restaurant work experience
-    Given I am logged in as a normal user
+    Given I am logged in as a normal user with a profile
     And I am on my profile's edit page
     When I add a restaurant to my profile with:
       | Restaurant name        | Jose's                   |
@@ -24,7 +24,7 @@ Feature: Profile - Work Experience
 
 
   Scenario: Add a non-restaurant to work experience
-    Given I am logged in as a normal user
+    Given I am logged in as a normal user with a profile
     And I am on my profile's edit page
     When I add a nonculinary job to my profile with:
       | Company                              | Exxon Mobile             |

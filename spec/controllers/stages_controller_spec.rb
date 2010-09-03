@@ -5,11 +5,11 @@ describe StagesController do
   before(:each) do
     current_user = Factory(:user)
     controller.stubs(:current_user).returns current_user
+    @profile = Factory(:profile, :user => current_user)
   end
   
   it "should create a new stage" do
-    profile = Factory(:profile)
-    post :create, :profile_id => profile.id, 
+    post :create, :profile_id => @profile.id, 
         :stage => { :establishment => "House of Experts", :expert => "Top Expert", :start_date => 2.years.ago }
     Stage.count.should == 1
   end

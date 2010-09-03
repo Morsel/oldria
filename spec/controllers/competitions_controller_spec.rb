@@ -5,11 +5,11 @@ describe CompetitionsController do
   before(:each) do
     current_user = Factory(:user)
     controller.stubs(:current_user).returns current_user
+    @profile = Factory(:profile, :user => current_user)
   end
   
   it "should create a new competition" do
-    profile = Factory(:profile)
-    post :create, :profile_id => profile.id, :competition => { :name => "name", :place => "place", :year => 2010 }
+    post :create, :profile_id => @profile.id, :competition => { :name => "name", :place => "place", :year => 2010 }
     Competition.count.should == 1
   end
   
