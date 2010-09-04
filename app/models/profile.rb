@@ -64,9 +64,12 @@ class Profile < ActiveRecord::Base
   
   def work_experience_updated_at
     timestamps = [user.employments.all(:order => :updated_at).last.try(:updated_at), 
-      culinary_jobs.all(:order => :updated_at).last.try(:updated_at), 
-      nonculinary_jobs.all(:order => :updated_at).last.try(:updated_at)]
+      culinary_jobs.all(:order => :updated_at).last.try(:updated_at)]
     timestamps.blank? ? timestamps.sort { |a, b| b <=> a }.first : Time.now
+  end
+  
+  def non_culinary_work_experience_updated_at
+    nonculinary_jobs.all(:order => :updated_at).last.try(:updated_at)
   end
   
   def section_updated_at(section)

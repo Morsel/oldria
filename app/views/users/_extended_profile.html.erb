@@ -36,7 +36,7 @@
         </ul>
         <span class="timestamp">
             Last updated:
-            <%= profile.try(:work_experience_updated_at).try(:strftime, "%b %e %Y") %>
+            <%= profile.try(:non_culinary_work_experience_updated_at).try(:strftime, "%b %e %Y") %>
         </span>
       </div>
         <% if profile && profile.awards.present? %>
