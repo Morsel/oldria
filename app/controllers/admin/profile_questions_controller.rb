@@ -16,7 +16,7 @@ class Admin::ProfileQuestionsController < Admin::AdminController
       redirect_to :action => "new"
     else
       @roles = RestaurantRole.all.group_by(&:category)
-      render :action => "new"
+      render :action => "index"
     end
   end
   
