@@ -13,10 +13,10 @@ class Admin::ProfileQuestionsController < Admin::AdminController
     @question = ProfileQuestion.new(params[:profile_question])
     if @question.save
       flash[:notice] = "Added new profile question \"#{@question.title}\""
-      redirect_to :action => "new"
+      redirect_to :action => "index"
     else
       @roles = RestaurantRole.all.group_by(&:category)
-      render :action => "index"
+      render :action => "new"
     end
   end
   
