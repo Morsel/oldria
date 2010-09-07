@@ -68,7 +68,7 @@ module UsersHelper
     else
       false
     end
-  rescue OAuthInvalidTokenException
+  rescue Exception
     false
   end
 
