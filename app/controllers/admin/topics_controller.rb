@@ -31,7 +31,7 @@ class Admin::TopicsController < Admin::AdminController
     @topic = Topic.find(params[:id])
     @topic.update_attributes(params[:topic])
     flash[:notice] = "Updated topic"
-    redirect_to admin_profile_questions_path
+    redirect_to :action => "index"
   end
   
   def destroy
