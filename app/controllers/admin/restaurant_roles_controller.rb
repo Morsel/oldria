@@ -37,4 +37,16 @@ class Admin::RestaurantRolesController < Admin::AdminController
     flash[:notice] = "Successfully destroyed restaurant role."
     redirect_to admin_restaurant_roles_path
   end
+  
+  def categories
+    @roles = RestaurantRole.all
+  end
+  
+  def update_category
+    @role = RestaurantRole.find(params[:role_id])
+    @role.update_attributes(params[:restaurant_role])
+    flash[:notice] = "Updated category"
+    redirect_to :action => "categories"
+  end
+  
 end
