@@ -48,7 +48,7 @@
         </div>
     </div>
     <%- else -%>
-        <p><%= link_to "Set up Twitter", edit_user_path(@profile.user, :anchor => "twitter") %>)</p>
+        <p><%= link_to "Set up Twitter", edit_user_path(@profile.user, :anchor => "twitter") %></p>
     <%- end -%>
   
     <%- if @fb_user -%>
@@ -60,7 +60,7 @@
         </div>
     </div>
     <%- else -%>
-        <p><%= link_to "Set up Facebook", edit_user_path(@profile.user, :anchor => "facebook") %>)</p>
+        <p><%= link_to "Set up Facebook", edit_user_path(@profile.user, :anchor => "facebook") %></p>
     <%- end -%>
   <% end %>
 
