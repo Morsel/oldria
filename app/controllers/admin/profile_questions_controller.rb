@@ -31,6 +31,7 @@ class Admin::ProfileQuestionsController < Admin::AdminController
       flash[:notice] = "Updated question \"#{@question.title}\""
       redirect_to :action => "index"
     else
+      @roles = RestaurantRole.all.group_by(&:category)
       render :action => "edit"
     end
   end
