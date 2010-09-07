@@ -23,7 +23,7 @@ Feature: Profile questions
   Scenario: creating a new chapter
     When I go to the chapters page
     And fill in "Title" with "Mentoring"
-    And I press "Add"
+    And I press "Save"
     Then I should see "Created new chapter named Mentoring"
   
   Scenario: creating a new topic
