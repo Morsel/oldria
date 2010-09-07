@@ -10,7 +10,7 @@ class Admin::ChaptersController < Admin::AdminController
       flash[:notice] = "Created new chapter named #{@chapter.title}"
       redirect_to :action => "index"
     else
-      render :action => "show"
+      render :action => "edit"
     end
   end
   
@@ -32,7 +32,7 @@ class Admin::ChaptersController < Admin::AdminController
     @chapter = Chapter.find(params[:id])
     flash[:notice] = "Deleted chapter #{@chapter.title}"
     @chapter.destroy
-    redirect_to admin_profile_questions_path
+    redirect_to :action => "index"
   end
   
   def select
