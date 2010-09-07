@@ -8,21 +8,24 @@ class Admin::ChaptersController < Admin::AdminController
     @chapter = Chapter.new(params[:chapter])
     if @chapter.save
       flash[:notice] = "Created new chapter named #{@chapter.title}"
-      redirect_to admin_profile_questions_path
+      redirect_to :action => "index"
     else
       render :action => "show"
     end
   end
   
-  def show
+  def edit
     @chapter = Chapter.find(params[:id])
   end
   
   def update
     @chapter = Chapter.find(params[:id])
-    @chapter.update_attributes(params[:chapter])
-    flash[:notice] = "Updated chapter" 
-    redirect_to admin_profile_questions_path
+    if @chapter.update_attributes(params[:chapter])
+      flash[:notice] = "Updated chapter" 
+      redirect_to :action => "index"
+    else
+      render :action => "edit"
+    end
   end
   
   def destroy

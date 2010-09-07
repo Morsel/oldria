@@ -16,7 +16,7 @@ class Chapter < ActiveRecord::Base
   belongs_to :topic
   has_many :profile_questions
   
-  validates_presence_of :title, :topic
+  validates_presence_of :title, :topic_id
   
   default_scope :joins => :topic, :order => "topics.title ASC, chapters.title ASC"
   
