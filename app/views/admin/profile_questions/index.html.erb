@@ -1,5 +1,7 @@
 <% title "Profile Questions" %>
 
+<div class="clearfix"><%= link_to "Add new question", new_admin_profile_question_path, :class => "positive button" %></div>
+
 <% for chapter in @questions.keys %>
 
 <h2><%= chapter.title_with_topic %>:</h2>
@@ -14,7 +16,6 @@
 
 <% end %>
 
-<div><%= link_to "Add new question", new_admin_profile_question_path, :class => "button" %></div>
 <div class="clear">
     <%= link_to "Manage topics", admin_topics_path, :class => "button" %>
     <%= link_to "Manage chapters", admin_chapters_path, :class => "button" %>
