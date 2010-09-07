@@ -10,20 +10,3 @@
         t.cell(:category) { |r| render :partial => "role_form", :locals => { :role => r } }
     end %>
 <% end %>
-
-<table>
-	<tr>
-		<th>Name</th>
-		<th></th>
-	</tr>
-	<% for role in @restaurant_roles %>
-	<tr>
-		<td><%=h role.name %></td>
-		<td class="utility">
-			<%= link_to "Edit", edit_admin_restaurant_role_path(role) %>
-			<%= link_to "Destroy", admin_restaurant_role_path(role), :confirm => 'Are you sure?', :method => :delete %>
-		</td>
-	</tr>
-	<% end %>
-</table>
-
