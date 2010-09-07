@@ -1,8 +1,0 @@
-<% title "Profile Question Roles" %>
-
-<% table_for @roles do |t| %>
-    <% t.data do
-        t.cell(:name)
-        t.cell(:category) { |r| render :partial => "role_form", :locals => { :role => r } }
-    end %>
-<% end %>

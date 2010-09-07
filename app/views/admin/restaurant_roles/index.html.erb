@@ -2,8 +2,14 @@
 
 <p class="clearfix">
 	<%= link_to "New Restaurant Role", new_admin_restaurant_role_path, :class => 'positive button' %>
-	<%= link_to "Manage Categories", categories_admin_restaurant_roles_path, :class => "button" %>
 </p>
+
+<% table_for @restaurant_roles do |t| %>
+    <% t.data :actions => [:edit, :destroy], :action_prefix => 'admin' do
+        t.cell(:name)
+        t.cell(:category) { |r| render :partial => "role_form", :locals => { :role => r } }
+    end %>
+<% end %>
 
 <table>
 	<tr>

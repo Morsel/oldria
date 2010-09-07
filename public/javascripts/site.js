@@ -643,3 +643,10 @@ $('#specialties tbody').sortable({
 		});
 	}
 });
+
+// Restaurant role autocomplete
+
+$("#restaurant_role_category").autocomplete("/admin/restaurant_roles.js", {
+	autoFill: true,
+	max: 15
+});

@@ -1,6 +1,12 @@
 class Admin::RestaurantRolesController < Admin::AdminController
+  
   def index
     @restaurant_roles = RestaurantRole.all
+    respond_to do |format|
+      format.js { render :text => RestaurantRole.find(:all, 
+        :conditions => ["category like ?", "%#{params[:q]}%"]).map(&:category).uniq.join("\n") if params[:q] }
+      format.html {}
+    end
   end
 
   def new
@@ -38,15 +44,11 @@ class Admin::RestaurantRolesController < Admin::AdminController
     redirect_to admin_restaurant_roles_path
   end
   
-  def categories
-    @roles = RestaurantRole.all
-  end
-  
   def update_category
     @role = RestaurantRole.find(params[:role_id])
     @role.update_attributes(params[:restaurant_role])
     flash[:notice] = "Updated category"
-    redirect_to :action => "categories"
+    redirect_to :action => "index"
   end
   
 end

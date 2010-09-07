@@ -122,7 +122,7 @@ ActionController::Routing::Routes.draw do |map|
     admin.resources :date_ranges, :coached_status_updates, :direct_messages
     admin.resources :cuisines, :subject_matters, :restaurants
     admin.resources :media_requests, :member => { :approve => :put }
-    admin.resources :restaurant_roles, :except => [:show], :collection => { :categories => :get, :update_category => :put }
+    admin.resources :restaurant_roles, :except => [:show], :collection => { :update_category => :put }
     admin.resources :holidays
     admin.resources :calendars
     admin.resources :events
