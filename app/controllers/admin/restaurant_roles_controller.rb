@@ -2,6 +2,7 @@ class Admin::RestaurantRolesController < Admin::AdminController
   
   def index
     @restaurant_roles = RestaurantRole.all
+    @categories = RestaurantRole.categories
     respond_to do |format|
       format.js { render :text => RestaurantRole.find(:all, 
         :conditions => ["category like ?", "%#{params[:q]}%"]).map(&:category).uniq.join("\n") if params[:q] }

@@ -7,6 +7,6 @@
 <% table_for @restaurant_roles do |t| %>
     <% t.data :actions => [:edit, :destroy], :action_prefix => 'admin' do
         t.cell(:name)
-        t.cell(:category) { |r| render :partial => "role_form", :locals => { :role => r } }
+        t.cell(:category) { |r| render :partial => "role_form", :locals => { :role => r, :categories => @categories } }
     end %>
 <% end %>

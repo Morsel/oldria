@@ -21,7 +21,7 @@ class RestaurantRole < ActiveRecord::Base
   named_scope :with_employments, :joins => :employments, :group => "#{table_name}.id"
   
   def self.categories
-    @categories ||= all.map(&:category).uniq.reject { |c| c.blank? }
+    all.map(&:category).uniq.reject { |c| c.blank? }
   end
 
 end
