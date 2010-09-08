@@ -1,7 +1,7 @@
 class Admin::ChaptersController < Admin::AdminController
 
   def index
-    @chapters_by_topic = Chapter.all(:order => "topic_id, position").group_by(&:topic)
+    @chapters_by_topic = Chapter.all(:include => :topic, :order => "topics.title ASC, chapters.position ASC").group_by(&:topic)
   end
   
   def create
