@@ -4,7 +4,7 @@
         
         <label for="topic">Topic</label>
         <%= select_tag "topic", 
-            options_from_collection_for_select(Topic.all, :id, :title, (@question.new_record? ? nil : @question.chapter.topic)), 
+            options_from_collection_for_select(Topic.all, :id, :title, (@question.new_record? ? nil : @question.chapter.topic_id)), 
             :onchange => remote_function(:url => select_admin_chapters_path, :with => "'id=' + $('#topic').val()") %>
         
         <%= f.input :chapter, :collection => Topic.first.chapters %>

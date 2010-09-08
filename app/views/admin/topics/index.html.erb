@@ -1,6 +1,8 @@
 <% title "Topics" %>
 
-<%= link_to "New Topic", new_admin_topic_path, :class => "button" %>
+<div class="clearfix">
+    <%= link_to "New Topic", new_admin_topic_path, :class => "button positive" %>
+</div>
 
 <% table_for @topics do |t| %>
 	<% t.data :actions => [:edit], :action_prefix => 'admin' do
