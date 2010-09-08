@@ -4439,13 +4439,9 @@ h2.primary_title{
 	background-position:3px 5px;
 }
 
-<<<<<<< HEAD:public/stylesheets/custom.css
 #criteria_accordion div.loading{
 	display:none;
 }
-=======
-
->>>>>>> 3e0133f... Updating employment search interface: users can be selected via test autocomplete.:public/stylesheets/custom.css
 
 .accordion_box{
 	background:#fff url(/images/accordion_box_bg.png) repeat-x bottom;
