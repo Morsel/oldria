@@ -4410,7 +4410,7 @@ h2.primary_title{
 	border-bottom:1px solid #ddd;
 }
 
-#criteria_accordion a.ui-accordion-header{
+#criteria_accordion a{
 	border-radius:5px;
 	-webkit-border-radius:5px;
 	-moz-border-radius:5px;
@@ -4422,7 +4422,7 @@ h2.primary_title{
 	padding:5px;
 	outline:0 !important;
 }
-#criteria_accordion a.ui-accordion-header span{
+#criteria_accordion a span{
 	display:block;
 	padding-left:15px;
 	background:url(/images/blue_arrow.png) no-repeat 3px -23px;
@@ -4469,12 +4469,11 @@ h2.primary_title{
 }
 
 #criteria_accordion li input[type=text] {
-  padding: 5px 1em 5px 5px;
-	margin:5px;
+  padding: 0 0 0 1em;
 }
 
 #criteria_accordion li a {
-  display: inline-block;
+  display: inline;
 }
 
 p.search_filter_hint {
@@ -4786,6 +4785,4 @@ div.main_feature .comment.last {
 }
 
 /* @end */
-
-
 
