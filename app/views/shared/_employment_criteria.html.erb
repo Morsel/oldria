@@ -18,18 +18,7 @@
       <div class="accordion_box">
         <%= link_to  "<span>Users</span>", "#" %>
         <div id="user_fields">
-            <% s.inputs :class => "plain" do %>
-                <li>
-                    <%= text_field_tag :employee_name %> 
-                    <%= link_to_remote "Add", 
-                        :with => "'employee=' + $('#employee_name').val() + '&search=' + $employmentInputs.serialize()",
-                        :class => "autocomplete-helper",
-                        :url => add_user_employment_search_path %>
-                 </li>
-                <div id="employee-list">
-                </div>
-            <% end %>
-            <%#= s.input :employee_id_equals_any,
+            <%= s.input :employee_id_equals_any,
                         :as => "check_boxes",
                         :collection => User.by_last_name %>
         </div>
