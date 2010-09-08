@@ -1,7 +1,7 @@
 class Admin::ProfileQuestionsController < Admin::AdminController
   
   def index
-    @questions = ProfileQuestion.all(:order => "chapter_id ASC, position ASC").group_by(&:chapter)
+    @questions = ProfileQuestion.all(:include => { :chapter => :topic }, :order => "topics.title ASC, chapters.title ASC, profile_questions.position ASC").group_by(&:chapter)
   end
   
   def new
