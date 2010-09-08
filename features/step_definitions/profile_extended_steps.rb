@@ -1,7 +1,7 @@
 def fill_in_fields_for_table(table)
   table.rows_hash.each do |field, value|
     if field == "Start date" || field == "Run date"
-      select_date(Date.parse(value))
+      select_date value, :from => field
     elsif field == 'Media Type' || field == 'Cuisine'
       select value, :from => field
     else
