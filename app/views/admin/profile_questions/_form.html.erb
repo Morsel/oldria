@@ -1,9 +1,12 @@
 <% semantic_form_for [:admin, @question] do |f| %>
     <% f.inputs do %>
         <%= f.input :title, :label => "Your question" %>
+        
         <label for="topic">Topic</label>
-        <%= select_tag "topic", options_from_collection_for_select(Topic.all, :id, :title), 
+        <%= select_tag "topic", 
+            options_from_collection_for_select(Topic.all, :id, :title, (@question.new_record? ? nil : @question.chapter.topic)), 
             :onchange => remote_function(:url => select_admin_chapters_path, :with => "'id=' + $('#topic').val()") %>
+        
         <%= f.input :chapter, :collection => Topic.first.chapters %>
         <label for="profile_question_restaurant_roles">For which roles?<abbr title="required">*</abbr></label>
         <% for category in @roles.keys %>
