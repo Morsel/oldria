@@ -1,4 +1,8 @@
-<label for="search_employee_id_equals_any_<%= user.id %>">
-    <%= check_box_tag "search[employee_id_equals_any][]", user.id, true, { :id => "search_employee_id_equals_any_#{user.id}" } %>
-    <%= user.name %>
-</label>
+<li class="check_boxes optional" id="search_user_id_equals_any_input">
+    <ol><li>
+        <label for="search_employee_id_equals_any_<%= user.id %>">
+            <%= check_box_tag "search[employee_id_equals_any][]", user.id, true, { :id => "search_employee_id_equals_any_#{user.id}" } %>
+            <%= user.name %>
+        </label>
+    </li></ol>
+</li>
