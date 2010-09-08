@@ -18,6 +18,7 @@ class ProfileQuestion < ActiveRecord::Base
   has_many :restaurant_roles, :through => :question_roles
   
   validates_presence_of :title, :chapter_id, :restaurant_roles
+  validates_uniqueness_of :title, :scope => :chapter_id, :case_sensitive => false
   
   def topic
     chapter.topic

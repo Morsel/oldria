@@ -196,11 +196,11 @@ Factory.define :admin_event, :parent => "event" do |f|
 end
 
 Factory.define :topic do |f|
-  f.title "Professional background"
+  f.sequence(:title) { |n| "Background #{n}" }
 end
 
 Factory.define :chapter do |f|
-  f.title "Early career"
+  f.sequence(:title) { |n| "Career #{n}" }
   f.association :topic
 end
 
