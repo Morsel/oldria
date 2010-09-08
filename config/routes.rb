@@ -102,7 +102,7 @@ ActionController::Routing::Routes.draw do |map|
 
   map.resources :feed_entries, :only => 'show', :member => { :read => :put }
   map.resource :feeds
-  map.resource :employment_search, :collection => { :add_user => :any, :add_restaurant => :any }
+  map.resource :employment_search, :collection => { :add_user => :any }
 
   map.resource :twitter_authorization
   map.resource :friends_statuses, :only => 'show'

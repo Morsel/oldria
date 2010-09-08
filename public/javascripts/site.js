@@ -221,11 +221,6 @@ $("#employee_name").autocomplete("/users.js", {
 	max: 15
 });
 
-$("#restaurant_name").autocomplete("/restaurants.js", {
-	autoFill: true,
-	max: 15
-});
-
 // == Filter Toggler ==
 $("a.toggler").each(function(){
 	var $div = $(this.hash);

@@ -21,15 +21,5 @@ class EmploymentSearchesController < ApplicationController
       page.call 'updateEmploymentsList'
     end unless users.blank?
   end
-  
-  def add_restaurant
-    restaurants = Restaurant.find_all_by_name(params[:restaurant])
-    
-    render :update do |page|
-      page.replace_html 'restaurant-list', :partial => 'shared/search_restaurant_selection', 
-        :collection => restaurants, :as => :restaurant
-      page.call 'updateEmploymentsList'
-    end unless restaurants.blank?
-  end
 
 end
