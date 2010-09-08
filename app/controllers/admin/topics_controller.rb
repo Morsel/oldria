@@ -29,9 +29,12 @@ class Admin::TopicsController < Admin::AdminController
   
   def update
     @topic = Topic.find(params[:id])
-    @topic.update_attributes(params[:topic])
-    flash[:notice] = "Updated topic"
-    redirect_to :action => "index"
+    if @topic.update_attributes(params[:topic])
+      flash[:notice] = "Updated topic"
+      redirect_to :action => "index"
+    else
+      render :action => "edit"
+    end
   end
   
   def destroy
