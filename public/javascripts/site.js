@@ -384,7 +384,7 @@ function updateEmploymentsList() {
 	// return true;	
 }
 
-$employmentInputs.live('change', updateEmploymentsList);
+$employmentInputs.change(updateEmploymentsList);
 
 // Directory search
 var	$directoryList  = $("#directory_list");
