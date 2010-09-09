@@ -14,7 +14,7 @@ ActionController::Routing::Routes.draw do |map|
 
   map.resources :soapbox, :only => ['index','show'], :collection => 'directory'
 
-  map.resource :my_profile, :only => ['edit', 'update'], :controller => 'profiles' do |p|
+  map.resource :my_profile, :only => ['create', 'edit', 'update'], :controller => 'profiles' do |p|
     p.resources :culinary_jobs
     p.resources :nonculinary_jobs
     p.resources :awards
