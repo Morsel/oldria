@@ -12,7 +12,7 @@ ActionController::Routing::Routes.draw do |map|
     soapbox.root :action => 'index'
   end
 
-  map.resources :soapbox, :only => ['index','show']
+  map.resources :soapbox, :only => ['index','show'], :collection => 'directory'
 
   map.resource :my_profile, :only => ['edit', 'update'], :controller => 'profiles' do |p|
     p.resources :culinary_jobs

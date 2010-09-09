@@ -18,6 +18,12 @@ class SoapboxController < ApplicationController
     @feature_comments = entry.comments
     load_past_features
   end
+  
+  def directory
+    @restaurants_and_employments = Employment.all(:include => :restaurant, 
+      :order => "restaurants.name ASC").select { |e| e.employee.prefers_publish_profile? }.group_by(&:restaurant)
+    render :template => "directory/index"
+  end
 
   protected
 
