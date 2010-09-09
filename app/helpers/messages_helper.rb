@@ -18,6 +18,7 @@ module MessagesHelper
     elsif message.respond_to?(:discussionable)
       admin_discussion_path(message)
     elsif message.respond_to?(:admin_discussions) # TrendQuestion or ContentRequest
+      return "" if current_user.grouped_admin_discussions[message].blank? && current_user.admin?
       first_discussion_for_user = current_user.grouped_admin_discussions[message].first
       admin_discussion_path(first_discussion_for_user)
     else
