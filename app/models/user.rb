@@ -283,14 +283,11 @@ class User < ActiveRecord::Base
   end
 
   def cuisines
-    c = []
-    restaurants.each { |r| c << r.cuisine.name }
-    return c
+    profile.present? ? profile.cuisines : []
   end
   
-  #### temporary method until in place ####
   def specialties
-    ['Canning', 'Sausage', 'Curing', 'BBQ']
+    profile.present? ? profile.specialties : []
   end
   
 end
