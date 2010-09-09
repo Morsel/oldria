@@ -57,7 +57,7 @@ class Comment < ActiveRecord::Base
     if commentable.respond_to?(:restaurant)
       commentable.restaurant
     else
-      user.restaurants.first
+      user.employments.present? && user.primary_employment.restaurant
     end
   end
 

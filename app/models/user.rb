@@ -54,6 +54,7 @@ class User < ActiveRecord::Base
   has_many :restaurants, :through => :employments
   has_many :managed_restaurants, :class_name => "Restaurant", :foreign_key => "manager_id"
   has_many :manager_restaurants, :source => :restaurant, :through => :employments, :conditions => ["employments.omniscient = ?", true]
+  has_many :restaurant_roles, :through => :employments
 
   has_many :discussion_seats, :dependent => :destroy
   has_many :discussions, :through => :discussion_seats
@@ -89,16 +90,16 @@ class User < ActiveRecord::Base
                       Usernames can only contain letters, numbers, and/or the '-' symbol."
 
   validates_acceptance_of :agree_to_contract
-  
+
   validates_presence_of :facebook_page_token, :if => Proc.new { |user| user.facebook_page_id }
   validates_presence_of :facebook_page_id, :if => Proc.new { |user| user.facebook_page_token }
 
   named_scope :media, :conditions => {:role => 'media'}
   named_scope :admin, :conditions => {:role => 'admin'}
 
-  named_scope :for_autocomplete, :select => "first_name, last_name, id", :order => "last_name ASC", :limit => 15
+  named_scope :for_autocomplete, :select => "first_name, last_name", :order => "last_name ASC", :limit => 15
   named_scope :by_last_name, :order => "LOWER(last_name) ASC"
-  
+
   after_update :mark_replies_as_read, :if => Proc.new { |user| user.confirmed_at && user.confirmed_at > 1.minute.ago }
 
 ### Preferences ###
@@ -159,6 +160,12 @@ class User < ActiveRecord::Base
   
   def primary_employment
     self.employments.primary.first || self.employments.first
+  end
+
+  def restaurant_names
+    return nil if employments.blank?
+    return primary_employment.restaurant.name if employments.count == 1
+    employments.all(:order => '"primary" DESC').map(&:restaurant).map(&:name).to_sentence
   end
 
 ### Convenience methods for getting/setting first and last names ###
@@ -270,7 +277,11 @@ class User < ActiveRecord::Base
   def facebook_page
     @page ||= Mogli::Page.new(:id => facebook_page_id, :client => Mogli::Client.new(facebook_page_token))
   end
-  
+
+  def profile_questions
+    ProfileQuestion.all(:joins => {:restaurant_roles => :employments}, :conditions => {:employments => { :id => primary_employment.id }})
+  end
+
   def cuisines
     c = []
     restaurants.each { |r| c << r.cuisine.name }

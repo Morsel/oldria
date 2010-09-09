@@ -12,12 +12,24 @@ ActionController::Routing::Routes.draw do |map|
     soapbox.root :action => 'index'
   end
 
-  map.resources :soapbox, :only => ['index','show']
+  map.resources :soapbox, :only => ['index','show'], :collection => 'directory'
 
-  map.resource :profiles, :except => ['show'], :as => 'profile'
+  map.resource :my_profile, :only => ['edit', 'update'], :controller => 'profiles' do |p|
+    p.resources :culinary_jobs
+    p.resources :nonculinary_jobs
+    p.resources :awards
+    p.resources :accolades
+    p.resources :enrollments
+    p.resources :competitions
+    p.resources :internships
+    p.resources :stages
+    p.resources :nonculinary_enrollments
+    p.resources :apprenticeships
+    p.resources :profile_cuisines
+  end
 
   map.profile 'profile/:username', :controller => 'users', :action => 'show', :requirements => { :username => /[a-zA-Z0-9\-\_ ]+/}
-
+  map.profile_questions 'profile/:username/questions', :controller => 'profiles', :action => 'questions'
 
   map.resources :quick_replies
   map.resources :media_users, :except => [:index, :show]
@@ -90,7 +102,8 @@ ActionController::Routing::Routes.draw do |map|
 
   map.resources :feed_entries, :only => 'show', :member => { :read => :put }
   map.resource :feeds
-  map.resource :employment_search, :collection => { :add_user => :any, :add_restaurant => :any }
+  map.resource :employment_search
+
 
   map.resource :twitter_authorization
   map.resource :friends_statuses, :only => 'show'
@@ -110,15 +123,17 @@ ActionController::Routing::Routes.draw do |map|
     admin.resources :date_ranges, :coached_status_updates, :direct_messages
     admin.resources :cuisines, :subject_matters, :restaurants
     admin.resources :media_requests, :member => { :approve => :put }
-    admin.resources :restaurant_roles, :except => [:show]
+    admin.resources :restaurant_roles, :except => [:show], :collection => { :update_category => :put }
     admin.resources :holidays
     admin.resources :calendars
     admin.resources :events
     admin.resources :soapbox_entries
-    admin.resources :profile_questions, :collection => { :manage => :get, :sort => :post, :topic => :any }
-    admin.resources :chapters
+    admin.resources :profile_questions, :collection => { :manage => :get, :sort => :post }
+    admin.resources :chapters, :collection => { :select => :post }
     admin.resources :topics
     admin.resources :question_roles
+    admin.resources :schools
+    admin.resources :specialties, :collection => { :sort => :post }
 
     # Admin Messaging
     exclusive_routes = [:index, :show, :destroy]

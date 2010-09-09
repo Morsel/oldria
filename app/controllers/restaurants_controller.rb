@@ -1,12 +1,6 @@
 class RestaurantsController < ApplicationController
   before_filter :require_user
   before_filter :authenticate, :only => [:edit, :update]
-  
-  def index
-    respond_to do |format|
-      format.js { autocomplete_restaurants }
-    end
-  end
 
   def new
     @restaurant = current_user.managed_restaurants.build
@@ -51,13 +45,6 @@ class RestaurantsController < ApplicationController
     if cannot? :edit, @restaurant
       flash[:error] = "You don't have permission to access that page"
       redirect_to @restaurant
-    end
-  end
-  
-  def autocomplete_restaurants
-    @restaurants = Restaurant.find(:all, :conditions => ["name like ?", "%#{params[:q]}%"]) if params[:q]
-    if @restaurants
-      render :text => @restaurants.map(&:name).join("\n")
     end
   end
 

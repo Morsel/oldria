@@ -1,0 +1,8 @@
+<% semantic_form_for [:my_profile, @competition] do |f| %>
+  <% f.inputs :class => "competitions" do %>
+    <%= f.input :name, :label => "Name of competition" %>
+    <%= f.input :place, :label => "How did you place?" %>
+    <%= f.input :year, :label => "What year?", :as => :select, :collection => (1940..Date.today.year).to_a.reverse %>
+  <% end %>
+  <%= button_tag "Save" %>
+<% end %>

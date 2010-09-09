@@ -65,6 +65,10 @@ class AdminDiscussion < ActiveRecord::Base
     true
   end
   
+  def view_on_soapbox?
+    comments.first.employment.prefers_post_to_soapbox?
+  end
+  
   ##
   # Should only be called from an external observer.
   def notify_recipients

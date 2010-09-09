@@ -3,6 +3,7 @@ class DirectoryController < ApplicationController
   skip_before_filter :preload_resources, :only => :search
 
   def index
+    @use_search = true
     search_setup(nil, :include => [:restaurant, :employee, :restaurant_role])
   end
 

@@ -1,7 +1,7 @@
 class Admin::TopicsController < Admin::AdminController
   
   def index
-    @topics = Topic.all
+    @topics = Topic.all(:order => "position ASC, title ASC")
   end
   
   def new
@@ -29,9 +29,12 @@ class Admin::TopicsController < Admin::AdminController
   
   def update
     @topic = Topic.find(params[:id])
-    @topic.update_attributes(params[:topic])
-    flash[:notice] = "Updated topic"
-    redirect_to admin_profile_questions_path
+    if @topic.update_attributes(params[:topic])
+      flash[:notice] = "Updated topic"
+      redirect_to :action => "index"
+    else
+      render :action => "edit"
+    end
   end
   
   def destroy

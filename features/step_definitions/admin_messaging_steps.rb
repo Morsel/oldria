@@ -22,12 +22,7 @@ When /^I create a holiday with name "([^\"]*)" and criteria:$/ do |name, table|
   visit new_admin_holiday_path
   fill_in :name, :with => name
   table.rows_hash.each do |field, value|
-    if ["Restaurant", "Employee"].include? field
-      fill_in "#{field.downcase}_name", :with => value
-      click_link "Add"
-    else
-      check value
-    end
+    check value
   end
   click_button
 end
