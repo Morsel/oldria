@@ -50,7 +50,7 @@ module UserMessaging
   
   def grouped_admin_discussions
     return @grouped_admin_discussions if defined?(@grouped_admin_discussions)
-    @grouped_admin_discussions = (current_admin_discussions - action_required_admin_discussions).group_by(&:discussionable)
+    @grouped_admin_discussions = current_admin_discussions.group_by(&:discussionable)
   end
 
   def unread_grouped_admin_discussions
@@ -131,7 +131,7 @@ module UserMessaging
   end
 
   def all_messages
-    @all_messages ||= [ current_admin_discussions,
+    @all_messages ||= [ grouped_admin_discussions.keys,
       holiday_discussion_reminders,
       accepted_holiday_discussions,
       admin_conversations.current.all, # QOTDs

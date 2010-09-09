@@ -282,4 +282,15 @@ class User < ActiveRecord::Base
     ProfileQuestion.all(:joins => {:restaurant_roles => :employments}, :conditions => {:employments => { :id => primary_employment.id }})
   end
 
+  def cuisines
+    c = []
+    restaurants.each { |r| c << r.cuisine.name }
+    return c
+  end
+  
+  #### temporary method until in place ####
+  def specialties
+    ['Canning', 'Sausage', 'Curing', 'BBQ']
+  end
+  
 end

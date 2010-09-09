@@ -92,8 +92,7 @@ Feature: Trend questions
     
     Given I am logged in as "sam" with password "secret"
     And I go to the RIA messages page
-    And I follow "reply for Normal Pants"
-    # Then I should see "Edit" within "div.comments"
+    And I follow "View your post"
     And I follow "Edit" within "div.comments"
     And I fill in "Comment" with "Yes! It is green."
     And I press "Save Comment"

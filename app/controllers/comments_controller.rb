@@ -21,9 +21,9 @@ class CommentsController < ApplicationController
   
   def update
     @comment = Comment.find(params[:id])
-    if @comment.update_attributes(params[:comment])
+    if @comment.update_attributes(params[:comment].merge(:user_id => current_user.id))
       flash[:notice] = "Updated comment"
-      redirect_to @comment.commentable
+      redirect_to ria_messages_path
     else
       render :action => "edit"
     end
