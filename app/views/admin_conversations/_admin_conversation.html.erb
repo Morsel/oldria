@@ -9,6 +9,12 @@
     <%= link_to pluralize(admin_conversation.comments_count, "comment"), admin_conversation %>
   </td>
   <%- end -%>
+  
+  <% if admin_conversation.recipient.primary_employment.prefers_post_to_soapbox %>
+  <td>[s]</td>
+  <% else %>
+  <td>&nbsp;</td>
+  <% end %>
 
   <td class="actions">
     <% if admin_conversation.recipient %>
