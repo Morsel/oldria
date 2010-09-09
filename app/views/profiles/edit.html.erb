@@ -4,6 +4,8 @@
   <%= stylesheet_link_tag 'colorbox' %>
 <% end -%>
 
+<%= "<h3>Fill in your basic profile to get started</h3>" if @profile.new_record? %>
+
 <% semantic_form_for @profile, :url => my_profile_path do |f| %>
   <% f.inputs :name => 'Basics' do %>
     <%= f.input :birthday, :end_year => (Date.today.year-80), :start_year => Date.today.year, :selected => nil %>
@@ -12,7 +14,8 @@
     <%= f.input :hometown %>
     <%= f.input :current_residence, :label => "Currently residing in" %>    
   <% end %>
-  
+
+  <% unless @profile.new_record? %>
   <% f.inputs :name => "Specialties" do %>
     <%= f.input :specialties, :as => :check_boxes, :collection => Specialty.all %>
   
@@ -72,6 +75,8 @@
         <% end %>
     </ul>
   <% end %>
+  
+  <% end %><%# unless new_record? %>
 
   <p class="clear">
     <% button_tag :class => 'positive' do %><img src="/images/tick.png"/> Save<% end %>
@@ -79,6 +84,7 @@
   </p>
 <% end %>
 
+<% unless @profile.new_record? %>
 <div id="extended_profile_fields">
     <div class="culinary_jobs ajaxdelete">
         <h2>Work Experience - Restaurants</h2>
@@ -180,3 +186,4 @@
         <% end %>
     </div>
 </div><!-- #extended_profile_fields -->
+<% end %><%# unless new_record? %>
