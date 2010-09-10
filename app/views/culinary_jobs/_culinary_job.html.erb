@@ -8,6 +8,7 @@
   <% end %>
   <%= "Chef: #{culinary_job.chef_name}<br/>" unless culinary_job.chef_is_me %>
   <%= "Cuisine: #{culinary_job.cuisine}" %><br/>
+  <%= "Was on opening staff<br/>" if culinary_job.opening_staff? %>
   <%= simple_format(culinary_job.notes) %>
   <%= link_to "Edit", edit_my_profile_culinary_job_path(culinary_job), :class => 'colorbox' %>
   <%= link_to "Destroy", my_profile_culinary_job_path(culinary_job), :method => :delete, :class => 'delete' %>

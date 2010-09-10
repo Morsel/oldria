@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100910002655) do
+ActiveRecord::Schema.define(:version => 20100910215004) do
 
   create_table "accolades", :force => true do |t|
     t.integer  "profile_id"
@@ -185,6 +185,7 @@ ActiveRecord::Schema.define(:version => 20100910002655) do
     t.text     "notes",           :default => "",    :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "opening_staff",   :default => false
   end
 
   add_index "culinary_jobs", ["profile_id"], :name => "index_profile_restaurants_on_profile_id"
