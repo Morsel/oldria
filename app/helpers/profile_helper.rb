@@ -13,7 +13,7 @@ module ProfileHelper
   end
   
   def years_for_select
-    (1960..Date.today.year).map(&:to_s).to_a.reverse
+    (1930..Date.today.year).map(&:to_s).to_a.reverse
   end
 
   def setup_enrollment(enrollment, culinary = true)
