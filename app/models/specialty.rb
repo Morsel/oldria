@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20100903205025
+# Schema version: 20100910002655
 #
 # Table name: specialties
 #
@@ -7,6 +7,7 @@
 #  name       :string(255)
 #  created_at :datetime
 #  updated_at :datetime
+#  position   :integer
 #
 
 class Specialty < ActiveRecord::Base
