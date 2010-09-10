@@ -7,6 +7,11 @@
 <%= "<h3>Fill in your basic profile to get started</h3>" if @profile.new_record? %>
 
 <% semantic_form_for @profile, :url => my_profile_path do |f| %>
+
+    <% f.inputs :name => "Preferences", :for => :user do |user_form| %>
+        <%= user_form.input :prefers_publish_profile, :as => :boolean, :label => 'Publish your profile for other users to view?' %>
+    <% end %>
+
   <% f.inputs :name => 'Basics' do %>
     <%= f.input :birthday, :end_year => (Date.today.year-80), :start_year => Date.today.year, :selected => nil %>
     <%= f.input :job_start, :end_year => (Date.today.year-70), :start_year => Date.today.year, :selected => nil %>
