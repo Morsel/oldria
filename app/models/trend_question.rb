@@ -72,4 +72,9 @@ class TrendQuestion < ActiveRecord::Base
   def title
     self.class.title
   end
+  
+  def recipients_can_reply?
+    true
+  end
+
 end

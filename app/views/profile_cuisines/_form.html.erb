@@ -1,0 +1,7 @@
+<% semantic_form_for [:my_profile, @profile_cuisine] do |f| %>
+  <% f.inputs :class => "plain profile_cuisines" do %>
+    <%= f.input :profile_id, :as => :hidden %>
+    <%= f.input :cuisine, :as => "select", :collection => Cuisine.all %>
+  <% end %>
+  <%= button_tag "Save" %>
+<% end %>

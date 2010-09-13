@@ -1,5 +1,7 @@
 /* @override http://localhost:3000/stylesheets/custom.css */
 
+/* @override http://localhost:3000/stylesheets/custom.css */
+
 /* colors
 dark brown: #3e2611;
 alt dark brown: #49341f;
@@ -1943,6 +1945,12 @@ p.editprofile a:hover {
 	display: none;
 }
 
+.primary-employment {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
 #restaurant_profile_view, .shadow-box {
 	border: 1px solid #ddd;
 	background-color: #fff;
@@ -1965,10 +1973,29 @@ p.editprofile a:hover {
 }
 
 #user_profile_view {
-	background: #333;
-	color: #ccc;
+	background: #f5f5f5;
+	color: #333;
 	position: relative;
 	overflow: visible;
+	border: solid #ddd;
+	border-width:1px 1px 0;
+}
+
+#user_profile_view h5{
+	color: #808080;
+	font-weight: normal;
+	margin: 0;
+	font-size: 12px;
+}
+
+#user_profile_view h3.headline{
+	margin: 0;
+	color:#333;
+	font:normal 15px "Georgia", Times, serif;
+}
+
+#user_profile_view .list{
+	font-size: 11px;
 }
 
 #user_profile_view, #extended_profile {
@@ -1996,20 +2023,16 @@ p.editprofile a:hover {
 	background: #fff;
 }
 
-#user_profile_view h2, #user_profile_view p {
-	color: #ccc;
-}
-
 #user_profile_view .user_name,
 #user_profile_view .user_employment {
 	font-family: "Hoefler Text", georgia, serif;
 }
 
 #user_profile_view .user_name {
-	color: #e3790c;
+	color: #40a4cb;
 	font-weight: normal;
 	font-size: 1.8em;
-	line-height: 1.4;
+	line-height: 1.2em;
 	padding: 0;
 	border: 0;
 	margin: 0;
@@ -2017,12 +2040,12 @@ p.editprofile a:hover {
 
 #user_profile_view .user_employment {
 	font-size: 1.3em;
-	color: #ccc;
 }
 
 dl.user_info {
-	font-size: 1.1em;
+	font-size: 1em;
 	margin: 0;
+	padding: 0;
 	width: 260px;
 	float: left;
 }
@@ -2036,12 +2059,10 @@ dl.user_info dt, dl.user_info dd {
 }
 
 dl.user_info dt {
-	color: #fff;
 	width: 76px;
 	float: left;
 	clear: left;
-	margin: 0 10px;
-	text-align: right;
+	margin: 0 10px 0 0;
 	font-weight: normal;
 }
 
@@ -2052,7 +2073,6 @@ dl.user_info dt:after {
 dl.user_info dd {
 	margin-top: 0;
 	margin-left: 80px;
-	color: #e3790c;
 }
 
 #user_profile_view img, #restaurant_profile_view img{
@@ -2062,19 +2082,34 @@ dl.user_info dd {
 	float: left;
 	display: inline;
 	margin: 0px 12px 10px 0px;
+	box-shadow:1px 1px 3px #666;
+	-webkit-box-shadow:1px 1px 3px #666;
+	-moz-box-shadow:1px 1px 3px #666;
+	-o-box-shadow:1px 1px 3px #666;
+	-khtml-box-shadow:1px 1px 3px #666;
 	}
-
+#user_profile_view .profile_info{
+	float: left;
+	width:480px;
+}
+#user_profile_view .profile_info h4{
+	clear:both;
+	font:bold 15px 'Helvetica Neue', Helvetica, Arial, sans-serif;
+	padding: 10px 0;
+}
+#user_profile_view .profile_info a{
+	color: #E3790E;
+}
 #extended_profile_container, #extended_profile {
-	background-color: #4d4d4d;
+	background-color: #fff;
+}
+#extended_profile_container{
+	border:solid #ddd;
+	border-width: 0 1px 1px;
 }
 
 #extended_profile {
 	padding-top: 0;
-	background: -webkit-gradient(linear, 0 0, 0 bottom, from(#4d4d4d), to(#3a3a3a));
-	background: -moz-linear-gradient(#4d4d4d, #3a3a3a);
-	background: linear-gradient(#4d4d4d, #3a3a3a);
-	-pie-background: linear-gradient(#4d4d4d, #3a3a3a);
-	behavior: url(/PIE.htc);
 }
 
 
@@ -2082,26 +2117,22 @@ dl.user_info dd {
 	padding: 8px 16px 8px 26px;
 	display: block;
 	outline: none;
-	font-size: 1.1em;
-	text-shadow: -1px 1px 1px #333;
-	background-image: url(../images/arrow-white.png);
-	background-position:10px 50%;
-	background-repeat: no-repeat;
+	font-size: 1em;
+	background: url(../images/arrow-blue.png) no-repeat 5px -47px;
 }
 #extended_profile_container .showit.open {
-	background-image: url(../images/arrow-down-blue.png);
+	background-position:5px 10px;
 }
 
-#extended_profile_container .showit    { color: #eaeaea }
-#extended_profile_container .showit em { color: #bbb }
+#extended_profile_container .showit    { color: #0087C0; }
+#extended_profile_container .showit em { color: #0087C0; }
 #extended_profile_container .showit:hover,
-#extended_profile_container .showit:hover em { color: #fff }
+#extended_profile_container .showit:hover em { color: #0087C0; }
 
 #extended_profile_container .showit.open,
-#extended_profile_container .showit.open em { color: #1d9bbb}
+#extended_profile_container .showit.open em { color: #0087C0}
 
 #extended_profile h3 {
-	color: #fff;
 	font-family: "Hoefler Text", georgia, serif;
 	font-weight: normal;
 	font-size: 1.5em;
@@ -2109,54 +2140,60 @@ dl.user_info dd {
 	margin-top: 1.2em;
 	margin-bottom: 12px;
 	padding-bottom: 2px;
+	color:#333;
 }
 
 #extended_profile li, #extended_profile li p {
-	color: #fff;
 	line-height: 1.5;
 }
 
 #extended_profile ul {
 	list-style: disc;
 	border-bottom: 0;
+	width:100%;
+}
+.extended_profile_info, .profile_info{
+	position:relative;
+	overflow:hidden;
+}
+.timestamp{
+	position:absolute;
+	top:25px; right:0;
+	font:normal 10px "Helvetica Neue", Helvetica, Arial, sans-serif;
+	color:#808080;
+}
+#user_profile_view .timestamp{
+	top:10px;
+	right:10px;
 }
 
-#extended_profile .education, #extended_profile .employments {
+.extended_profile_info ul {
 	margin: 0;
 	padding: 0;
 	border: 0;
 	list-style: none;
-}
-
-#extended_profile .employments li {
-	padding-left: 56px;
-	border-bottom: 0;
 	overflow: hidden;
 }
 
-
-#extended_profile .education li, #extended_profile .employments li {
-	margin: 0 0 1em;
+.extended_profile_info li {
+	width:30%;
+	border-bottom: 0;
+	margin:0 10px 20px 0;
+	overflow: hidden;
+	float:left;
 }
-
 
 #extended_profile .employee_role {
 	border: 0;
 }
 
-#extended_profile .restaurant_avatar {
-	border: 1px solid #fff;
-	margin-right: 10px;
-}
-
-#extended_profile a {
-	color: #e8750a;
-	display: block;
+#extended_profile a, .extended_profile_info .name {
+	color: #0087C0;
 	text-decoration: none;
 }
 
 #extended_profile a:hover {
-	color: #eee;
+	color: #666;
 	text-decoration: underline;
 }
 
@@ -4402,10 +4439,10 @@ h2.primary_title{
 #criteria_accordion a.ui-state-active span{
 	background-position:3px 5px;
 }
+
 #criteria_accordion div.loading{
 	display:none;
 }
-
 
 .accordion_box{
 	background:#fff url(/images/accordion_box_bg.png) repeat-x bottom;

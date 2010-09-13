@@ -5,9 +5,9 @@ describe AdminConversationsController do
   before(:each) do
     @user = Factory(:user)
     controller.stubs(:current_user).returns(@user)
-    employment = Factory(:employment, :employee => @user)
+    Factory(:employment, :employee => @user)
     message = Factory(:admin_message, :type => 'Admin::Qotd')
-    Factory(:admin_conversation, :admin_message => message, :recipient => employment)
+    Factory(:admin_conversation, :admin_message => message, :recipient => @user)
   end
 
   it "show action should render show template" do

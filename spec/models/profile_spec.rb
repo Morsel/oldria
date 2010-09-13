@@ -16,7 +16,14 @@ require 'spec_helper'
 
 describe Profile do
   should_belong_to :user
-  should_have_many :extended_profile_items
+  should_have_many :culinary_jobs
+  should_have_many :nonculinary_jobs
+  should_have_many :awards
+  should_have_many :accolades
+  should_have_many :enrollments
+  should_have_many :nonculinary_enrollments
+  should_have_many :schools, :through => :enrollments
+  should_have_many :nonculinary_schools, :through => :nonculinary_enrollments
 
   it "exists for a user" do
     Factory(:profile).user.should be_present

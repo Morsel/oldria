@@ -27,7 +27,6 @@ When /^I create a holiday with name "([^\"]*)" and criteria:$/ do |name, table|
   click_button
 end
 
-
 Given /^a holiday exists named "([^\"]*)" and restaurants:$/ do |holidayname, table|
   holiday = Factory(:holiday, :name => holidayname)
 
@@ -86,8 +85,13 @@ Given(/^"([^\"]*)" has a QOTD message with:$/) do |username, table|
   message = Factory(:qotd, data)
 
   user = User.find_by_username(username)
-  recipient = user.employments.first
+  recipient = user
   Factory(:admin_conversation, :admin_message => message, :recipient => recipient)
+end
+
+Given /^"([^\"]*)" has commented on "([^\"]*)" with "([^\"]*)"$/ do |username, qotd, comment|
+  commentable = Admin::Qotd.find(:first, :conditions => { :message => qotd }).admin_conversations.first
+  Factory(:comment, :comment => comment, :user_id => User.find_by_username(username).id, :commentable => commentable)
 end
 
 Given /^"([^\"]*)" has a trend question with:$/ do |username, table|
@@ -123,6 +127,12 @@ end
 Given /^trend question "([^\"]*)" has a reply "([^\"]*)"$/ do |question, reply|
   trend_question = TrendQuestion.find_by_subject(question)
   Factory(:comment, :commentable => trend_question.admin_discussions.first, :comment => reply)
+end
+
+Given /^trend question "([^\"]*)" has a reply "([^\"]*)" by "([^\"]*)"$/ do |question, reply, username|
+  trend_question = TrendQuestion.find_by_subject(question)
+  user = User.find_by_username(username)
+  Factory(:comment, :commentable => trend_question.admin_discussions.first, :comment => reply, :user => user)
 end
 
 Given /^"([^\"]*)" has a holiday reminder for holiday "([^\"]*)" with:$/ do |restaurant, holidayname, table|

@@ -28,9 +28,8 @@ describe Admin::ProfileQuestionsController do
       Chapter.stubs(:find).returns(chapter)
       question = Factory(:profile_question)
       ProfileQuestion.expects(:find).returns(question)
-      question.expects(:update_attributes).with("title" => "New title", "chapters" => chapter).returns(true)
-      put :update, :id => question.id, :profile_question => { :title => "New title", :chapter_ids => ["1"] }, 
-          :chapter_id => chapter.id
+      question.expects(:update_attributes).with("title" => "New title", "chapter_id" => "1").returns(true)
+      put :update, :id => question.id, :profile_question => { :title => "New title", :chapter_id => "1" }
       response.should be_redirect
     end
 
@@ -38,7 +37,12 @@ describe Admin::ProfileQuestionsController do
 
   describe "destruction!" do
 
-    xit "should destroy the question"
+    it "should destroy the question" do
+      question = Factory(:profile_question)
+      delete :destroy, :id => question.id
+      ProfileQuestion.count.should == 0
+    end
 
   end
+  
 end

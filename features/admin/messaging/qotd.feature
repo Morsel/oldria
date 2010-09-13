@@ -23,11 +23,11 @@ Feature: Admin Messaging: Question of the Day
 
 @emails
   Scenario: New QOTD notification, user prefers no emails
-  Given I am on the new QOTD page
-  When I check "Eight Ball"
-  And I fill in "Message" with "What is your favorite pie?"
-  And I press "Submit"
-  Then "sam@example.com" should have no emails
+    Given I am on the new QOTD page
+    When I check "Eight Ball"
+    And I fill in "Message" with "What is your favorite pie?"
+    And I press "Submit"
+    Then "sam@example.com" should have no emails
 
 @emails
   Scenario: New QOTD notification, user prefers emails

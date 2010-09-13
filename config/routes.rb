@@ -12,12 +12,24 @@ ActionController::Routing::Routes.draw do |map|
     soapbox.root :action => 'index'
   end
 
-  map.resources :soapbox, :only => ['index','show']
+  map.resources :soapbox, :only => ['index','show'], :collection => 'directory'
 
-  map.resource :profiles, :except => ['show'], :as => 'profile'
+  map.resource :my_profile, :only => ['create', 'edit', 'update'], :controller => 'profiles' do |p|
+    p.resources :culinary_jobs
+    p.resources :nonculinary_jobs
+    p.resources :awards
+    p.resources :accolades
+    p.resources :enrollments
+    p.resources :competitions
+    p.resources :internships
+    p.resources :stages
+    p.resources :nonculinary_enrollments
+    p.resources :apprenticeships
+    p.resources :profile_cuisines
+  end
 
   map.profile 'profile/:username', :controller => 'users', :action => 'show', :requirements => { :username => /[a-zA-Z0-9\-\_ ]+/}
-
+  map.profile_questions 'profile/:username/questions', :controller => 'profiles', :action => 'questions'
 
   map.resources :quick_replies
   map.resources :media_users, :except => [:index, :show]
@@ -66,11 +78,11 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :holiday_discussion_reminders, :member => { :read => :put }
 
   map.resources :admin_conversations, :only => 'show' do |admin_conversations|
-    admin_conversations.resources :comments, :only => [:new, :create]
+    admin_conversations.resources :comments, :only => [:new, :create, :edit, :update]
   end
 
   map.resources :admin_discussions, :only => 'show', :member => { :read => :put } do |admin_discussions|
-    admin_discussions.resources :comments, :only => [:new, :create]
+    admin_discussions.resources :comments, :only => [:new, :create, :edit, :update]
   end
 
   map.resources :admin_messages, :only => 'show', :member => { :read => :put }
@@ -92,6 +104,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resource :feeds
   map.resource :employment_search
 
+
   map.resource :twitter_authorization
   map.resource :friends_statuses, :only => 'show'
   map.resources :invitations, :only => 'show', :collection => { :login => :get }
@@ -110,15 +123,17 @@ ActionController::Routing::Routes.draw do |map|
     admin.resources :date_ranges, :coached_status_updates, :direct_messages
     admin.resources :cuisines, :subject_matters, :restaurants
     admin.resources :media_requests, :member => { :approve => :put }
-    admin.resources :restaurant_roles, :except => [:show]
+    admin.resources :restaurant_roles, :except => [:show], :collection => { :update_category => :put }
     admin.resources :holidays
     admin.resources :calendars
     admin.resources :events
     admin.resources :soapbox_entries
-    admin.resources :profile_questions, :collection => { :manage => :get, :sort => :post, :topic => :any }
-    admin.resources :chapters
+    admin.resources :profile_questions, :collection => { :manage => :get, :sort => :post }
+    admin.resources :chapters, :collection => { :select => :post }
     admin.resources :topics
     admin.resources :question_roles
+    admin.resources :schools
+    admin.resources :specialties, :collection => { :sort => :post }
 
     # Admin Messaging
     exclusive_routes = [:index, :show, :destroy]

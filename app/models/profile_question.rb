@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20100810184557
+# Schema version: 20100825200638
 #
 # Table name: profile_questions
 #
@@ -7,18 +7,22 @@
 #  title      :string(255)
 #  created_at :datetime
 #  updated_at :datetime
-#  position   :integer         default(0)
+#  position   :integer
+#  chapter_id :integer
 #
 
 class ProfileQuestion < ActiveRecord::Base
 
-  has_many :chapter_question_memberships
-  has_many :chapters, :through => :chapter_question_memberships
+  belongs_to :chapter
+  has_many :question_roles
+  has_many :restaurant_roles, :through => :question_roles
+  has_many :profile_answers
   
-  validates_presence_of :title, :chapters
-      
-  def topics
-    chapters.map(&:topic)
+  validates_presence_of :title, :chapter_id, :restaurant_roles
+  validates_uniqueness_of :title, :scope => :chapter_id, :case_sensitive => false
+  
+  def topic
+    chapter.topic
   end
   
 end

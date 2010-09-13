@@ -1,32 +1,40 @@
 class Admin::TopicsController < Admin::AdminController
   
   def index
-    @topics = Topic.all
+    @topics = Topic.all(:order => "position ASC, title ASC")
+  end
+  
+  def new
+    @topic = Topic.new
+    render :action => "edit"
   end
   
   def create
     @topic = Topic.new(params[:topic])
     if @topic.save
       flash[:notice] = "Created new topic named #{@topic.title}"
-      redirect_to admin_profile_questions_path
+      redirect_to :action => "index"
     else
-      render :action => "show"
+      render :action => "edit"
     end
   end
   
   def show
-    @topic = Topic.find(params[:id])
+    redirect_to :action => "edit", :id => params[:id]
   end
   
   def edit
-    redirect_to :action => "show", :id => params[:id]
+    @topic = Topic.find(params[:id])
   end
   
   def update
     @topic = Topic.find(params[:id])
-    @topic.update_attributes(params[:topic])
-    flash[:notice] = "Updated topic"
-    redirect_to admin_profile_questions_path
+    if @topic.update_attributes(params[:topic])
+      flash[:notice] = "Updated topic"
+      redirect_to :action => "index"
+    else
+      render :action => "edit"
+    end
   end
   
   def destroy

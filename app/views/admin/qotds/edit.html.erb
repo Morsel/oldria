@@ -1,7 +1,7 @@
 <% title "Edit QOTD" %>
 
 <h3>Recipients:</h3>
-<p><%= @qotd.recipients.map(&:employee_name).to_sentence %></p>
+<p><%= @qotd.recipients.map(&:name).to_sentence %></p>
 
 <%= render :partial => 'form' %>
 

@@ -1,7 +1,7 @@
 <% div_for message, :class => classes(message) do %>
   <%= render 'messages/message_details', :message => message %>
 
-  <% unless message.respond_to?(:broadcast?) and message.broadcast? %>
+  <% if message.respond_to?(:recipients_can_reply?) and message.recipients_can_reply? %>
     <div class="message-actions">
       <%= render 'messages/message_actions', :message => message %>
     </div>

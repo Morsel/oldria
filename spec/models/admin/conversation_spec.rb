@@ -14,7 +14,7 @@ require 'spec/spec_helper'
 
 describe Admin::Conversation do
   should_belong_to :admin_message
-  should_belong_to :recipient, :class_name => 'Employment'
+  should_belong_to :recipient, :class_name => 'User'
 
   before(:each) do
     @valid_attributes = Factory.attributes_for(:admin_conversation)
@@ -27,9 +27,8 @@ describe Admin::Conversation do
 
   it "should send the conversation recipients a email notification when created" do
     user = Factory(:user, :prefers_receive_email_notifications => true)
-    employment = Factory(:employment, :employee => user)
     message = Factory(:qotd, :scheduled_at => Time.now)
-    admin_conversation = Admin::Conversation.new(Factory.attributes_for(:admin_conversation, :recipient => employment, :admin_message => message))
+    admin_conversation = Admin::Conversation.new(Factory.attributes_for(:admin_conversation, :recipient => user, :admin_message => message))
     admin_conversation.expects(:send_at).with(message.scheduled_at, :queued_message_sending)
     admin_conversation.save!
   end

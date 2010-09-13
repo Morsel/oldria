@@ -25,8 +25,14 @@ module EmployeesHelper
 
       content_tag(:li, :class => 'employee_role') { employment.try(:restaurant_role).try(:name)},
 
-      content_tag(:li, :class => "restaurant_name#{' primary' if highlight_restaurant}") do
-        employment.try(:restaurant).try(:name)
+      if highlight_restaurant
+        content_tag(:li, :class => "restaurant_name primary") do
+          employment.restaurant.name
+        end
+      else
+        content_tag(:li, :class => "restaurant_name#{' primary' if highlight_restaurant}") do
+          employment.employee.restaurant_names
+        end
       end
     ]
 

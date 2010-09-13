@@ -1,4 +1,5 @@
 # == Schema Information
+# Schema version: 20100825200638
 #
 # Table name: employments
 #
@@ -9,6 +10,7 @@
 #  updated_at         :datetime
 #  restaurant_role_id :integer
 #  omniscient         :boolean
+#  primary            :boolean
 #
 
 class Employment < ActiveRecord::Base
@@ -51,6 +53,7 @@ class Employment < ActiveRecord::Base
 
   named_scope :by_restaurant_name, :order => 'restaurants.name ASC, users.last_name ASC', :include => [:restaurant, :employee]
   named_scope :by_employee_last_name, :order => 'users.last_name ASC', :include => :employee
+  named_scope :primary, :order => 'updated_at DESC', :limit => 1, :conditions => { :primary => true }
 
   ### Preferences ###
   preference :post_to_soapbox, :default => true

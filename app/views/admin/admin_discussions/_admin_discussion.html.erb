@@ -6,6 +6,12 @@
       <%= admin_discussion.restaurant.try(:name)%>
     <% end %>
   </td>
+  
+  <% if admin_discussion.discussionable.is_a?(TrendQuestion) && admin_discussion.comments_count > 0 %>
+  <td>
+      <%= admin_discussion.view_on_soapbox? ? "[s]" : "&nbsp;" %>
+  </td>
+  <% end %>
 
   <% if admin_discussion.comments_count > 0 %>
   <td>

@@ -1,0 +1,11 @@
+<% semantic_form_for [:admin, @school] do |f| %>
+  <% f.inputs do %>
+    <%= f.input :name, :label => 'School Name' %>
+    <%= f.input :city, :input_html => {:class => 'span-5'},
+      :wrapper_html => {:class => 'span-5 column'} %>
+    <%= f.input :state, :input_html => {:maxlength => 2, :class => 'span-1'},
+      :wrapper_html => {:class => 'span-1 column'} %>
+    <%= f.input :country, :wrapper_html => {:class => 'clear'} %>
+  <% end %>
+  <%= button_tag "Save" %>
+<% end %>

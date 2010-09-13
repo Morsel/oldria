@@ -53,11 +53,20 @@ class AdminDiscussion < ActiveRecord::Base
   end
 
   def action_required?(user)
+    return false if discussionable.is_a?(TrendQuestion)
     !read_by?(user) && comments_count > 0 && (comments.last.user != user)
   end
 
   def viewable_by?(employment)
     discussionable.viewable_by?(employment)
+  end
+  
+  def recipients_can_reply?
+    true
+  end
+  
+  def view_on_soapbox?
+    comments.first.employment.prefers_post_to_soapbox?
   end
   
   ##
@@ -73,4 +82,5 @@ class AdminDiscussion < ActiveRecord::Base
       end
     end
   end
+  
 end

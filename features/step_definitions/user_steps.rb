@@ -20,7 +20,7 @@ Given /^the following media users?:?$/ do |table|
   end
 end
 
-Given /^a media user "([^"]*)" has just signed up$/ do |username|
+Given /^a media user "([^\"]*)" has just signed up$/ do |username|
   visit new_media_user_path
 
   When 'I sign up with:', table(%Q{
@@ -38,6 +38,12 @@ end
 
 Given /^I am logged in as a normal user$/ do
   Factory(:user, :username => 'normal', :password => 'normal')
+  Given 'I am logged in as "normal" with password "normal"'
+end
+
+Given /^I am logged in as a normal user with a profile$/ do
+  user = Factory(:user, :username => 'normal', :password => 'normal')
+  Factory(:profile, :user => user)
   Given 'I am logged in as "normal" with password "normal"'
 end
 
@@ -60,6 +66,7 @@ Given /^I am logged in as "([^\"]*)" with password "([^\"]*)"$/ do |username, pa
     fill_in "Password", :with => password
     click_button "Login"
   end
+  @current_user = User.find_by_username(username)
 end
 
 Given(/^I am logged in as "([^\" ]*)"$/) do |username|
