@@ -69,6 +69,7 @@ class User < ActiveRecord::Base
   has_many :readings, :dependent => :destroy
 
   has_one :profile
+  has_many :profile_answers
 
   validates_presence_of :email
 
@@ -279,7 +280,8 @@ class User < ActiveRecord::Base
   end
 
   def profile_questions
-    ProfileQuestion.all(:joins => {:restaurant_roles => :employments}, :conditions => {:employments => { :id => primary_employment.id }})
+    ProfileQuestion.all(:joins => { :restaurant_roles => :employments }, 
+        :conditions => {:employments => { :id => primary_employment.id }})
   end
 
   def cuisines

@@ -210,6 +210,12 @@ Factory.define :profile_question do |f|
   f.restaurant_roles { [Factory(:restaurant_role), Factory(:restaurant_role) ]}
 end
 
+Factory.define :profile_answer do |f|
+  f.association :profile_question
+  f.association :user
+  f.answer "Awesomeland!"
+end
+
 # == Lookup Tables ==
 
 Factory.define :cuisine do |f|

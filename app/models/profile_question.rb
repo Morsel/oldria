@@ -25,4 +25,7 @@ class ProfileQuestion < ActiveRecord::Base
     chapter.topic
   end
   
+  def answered_by?(user)
+    self.profile_answers.exists?(:user_id => user.id)
+  end
 end
