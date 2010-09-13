@@ -3,9 +3,9 @@ class DestroyChapterQuestionMemberships < ActiveRecord::Migration
     add_column :profile_questions, :position, :integer, :default => 0
     add_column :profile_questions, :chapter_id, :integer
     
-    ProfileQuestion.all.each do |q|
-      q.update_attributes(:chapter_id => Chapter.first.id, :position => 0)
-    end
+    # ProfileQuestion.all.each do |q|
+    #   q.update_attributes(:chapter_id => Chapter.first.id, :position => 0)
+    # end
     
     drop_table :chapter_question_memberships
   end
@@ -19,9 +19,9 @@ class DestroyChapterQuestionMemberships < ActiveRecord::Migration
       t.timestamps
     end
     
-    ProfileQuestion.all.each do |p| 
-      ChapterQuestionMembership.create(:chapter_id => p.chapter_id, :profile_question_id => p.id, :position => p.position)
-    end
+    # ProfileQuestion.all.each do |p| 
+    #   ChapterQuestionMembership.create(:chapter_id => p.chapter_id, :profile_question_id => p.id, :position => p.position)
+    # end
 
     remove_column :profile_questions, :position
     remove_column :profile_questions, :chapter_id
