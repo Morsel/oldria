@@ -1927,7 +1927,6 @@ p.editprofile a:hover {
 }
 
 .edit_profile_link {
-	display: none !important;
 	position: absolute;
 	width: 27px;
 	height: 62px;
