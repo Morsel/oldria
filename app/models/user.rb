@@ -280,10 +280,9 @@ class User < ActiveRecord::Base
   end
 
   def profile_questions
-    ProfileQuestion.all(:joins => { :restaurant_roles => :employments }, 
-        :conditions => {:employments => { :id => primary_employment.id }})
+    ProfileQuestion.for_user(self)
   end
-
+  
   def cuisines
     profile.present? ? profile.cuisines : []
   end

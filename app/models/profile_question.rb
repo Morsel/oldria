@@ -21,6 +21,12 @@ class ProfileQuestion < ActiveRecord::Base
   validates_presence_of :title, :chapter_id, :restaurant_roles
   validates_uniqueness_of :title, :scope => :chapter_id, :case_sensitive => false
   
+  named_scope :for_user, lambda { |user|
+    { :joins => { :restaurant_roles => :employments }, 
+    :conditions => { :employments => { :id => user.primary_employment.id } },
+    :order => :position }
+  }
+  
   def topic
     chapter.topic
   end
