@@ -246,6 +246,10 @@ Factory.define :direct_message do |f|
   f.body  "This is a message"
 end
 
+Factory.define :specialty do |f|
+  f.name "Fish"
+end
+
 # == Media Requests ==
 Factory.define :media_request do |f|
   f.association :sender, :factory => :media_user
