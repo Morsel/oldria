@@ -17,7 +17,7 @@
 class Admin::Qotd < Admin::Message
 
   # TODO - figure out why :as => :featured_item isn't working here
-  has_one :soapbox_entry, :foreign_key => :featured_item_id, :conditions => { :featured_item_type => "Admin::Qotd" }
+  has_one :soapbox_entry, :foreign_key => :featured_item_id, :conditions => { :featured_item_type => "Admin::Qotd" }, :dependent => :destroy
 
   def self.title
     "Question of the Day"
