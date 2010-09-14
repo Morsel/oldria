@@ -122,7 +122,7 @@
     <h3 class="profile_subhead">Behind the Line: <%= @user.name %></h3>
     <ul class="box">
         <% if current_user == @user %>
-        <div class="edit_profile_link"><%= link_to "<span>Edit profile</span>", profile_questions_path(@user.username) %></div>
+        <div class="edit_profile_link"><%= link_to "<span>Edit profile</span>", topics_my_profile_questions_path %></div>
         <% end %>
         <li class="even">
             <h5><a href="#">Background <span class="completeness">(80% complete)</span></a></h5>

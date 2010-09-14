@@ -1,0 +1,16 @@
+<% title "Behind the Line" %>
+
+<h2><%= @topic.title %></h2>
+
+<%= link_to "All Topics", topics_my_profile_questions_path %>
+
+<% for chapter in @questions_by_chapter.keys %>
+<div>
+    <% link_to my_profile_questions_path(:chapter_id => chapter.id) do %>
+        <h3><%= chapter.title %></h3>
+        <span style="background-color: yellow">N of M</span>
+        <p><%= truncate(@questions_by_chapter[chapter].map(&:title).to_sentence, :length => 100) %></p>
+        <p style="background-color: yellow">Not Published</p>
+    <% end %>
+</div>
+<% end %>
