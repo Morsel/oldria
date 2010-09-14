@@ -10,10 +10,13 @@
         <%= f.input :chapter, :collection => (@question.new_record? ? Topic.first.chapters : @question.topic.chapters) %>
         <label for="profile_question_restaurant_roles">For which roles?<abbr title="required">*</abbr></label>
         <% for category in @roles.keys %>
-          <%= check_box_tag "#{category}", 1, false, :onchange => "selectCategoryGroup(this.id)" %> 
-          <%= label_tag "all_#{category}", "All #{category}", :style => "display: inline;" %>
+          <label for="all_<%= category %>">
+            <%= check_box_tag "#{category}", 1, false, :onchange => "selectCategoryGroup(this.id)", :style => "margin-left: 0" %> 
+            All <%= category %>
+          </label>
           
           <%= f.input :restaurant_roles, :as => :check_boxes, :label => "&nbsp;", :collection => @roles[category], :required => false, :wrapper_html => { :id => "profile_question_restaurant_roles_#{category.gsub(/ /, "_") rescue nil}_input" } %>
+          <hr/>
         <% end %>
     <% end %>
     <p><%= button_tag "Save Question" %></p>
