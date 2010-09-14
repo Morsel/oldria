@@ -634,8 +634,13 @@ $('#specialties tbody').sortable({
 });
 
 // Restaurant role autocomplete
-
 $("input#restaurant_role_category").autocomplete("/admin/restaurant_roles.js", {
 	autoFill: true,
 	max: 15
 });
+
+// Role checkbox groups
+function selectCategoryGroup(category) {
+  checked = $('#' + category).attr('checked');
+  $('#profile_question_restaurant_roles_' + category + '_input input[type=checkbox]').attr('checked', checked);
+}
