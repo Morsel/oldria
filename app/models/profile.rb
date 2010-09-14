@@ -22,6 +22,7 @@ class Profile < ActiveRecord::Base
 
   validates_uniqueness_of :user_id
   validates_presence_of :hometown, :current_residence
+  validate :birthday_year_is_set
   
   belongs_to :user
   
@@ -74,6 +75,10 @@ class Profile < ActiveRecord::Base
   
   def section_updated_at(section)
     section.all(:order => :updated_at).last.try(:updated_at)
+  end
+  
+  def birthday_year_is_set
+    self.errors.add(:birthday, "must specify a year") if self.birthday.present? && self.birthday.year == 1
   end
 
 end
