@@ -83,8 +83,8 @@
               <% end %>
 
               <% if @user.profile.birthday.present? %>
-              <dt>Birthday</dt>
-              <dd><%= @user.profile.birthday.try(:strftime, '%B %d') %></dd>
+              <dt>Age</dt>
+              <dd><%= age(@user.profile.birthday) %></dd>
               <% end %>
 
               <% if @user.profile.hometown.present? %>
