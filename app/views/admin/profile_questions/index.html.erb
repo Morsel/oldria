@@ -2,6 +2,12 @@
 
 <div class="clearfix"><%= link_to "Add new question", new_admin_profile_question_path, :class => "positive button" %></div>
 
+<div class="clearfix">
+    <%= link_to "Manage topics", admin_topics_path, :class => "button" %>
+    <%= link_to "Manage chapters", admin_chapters_path, :class => "button" %>
+    <%= link_to "Manage roles", admin_restaurant_roles_path, :class => "button" %>
+</div>
+
 <%- for chapter in @questions.keys -%>
 <%- unless chapter.nil? -%>
 <h2><%= chapter.title_with_topic %>:</h2>
@@ -16,9 +22,3 @@
 <% end %>
 
 <%- end -%>
-
-<div class="clear">
-    <%= link_to "Manage topics", admin_topics_path, :class => "button" %>
-    <%= link_to "Manage chapters", admin_chapters_path, :class => "button" %>
-    <%= link_to "Manage roles", admin_restaurant_roles_path, :class => "button" %>
-</div>
