@@ -2,7 +2,11 @@
 
 <h2><%= @topic.title %></h2>
 
-<%= link_to "All Topics", topics_my_profile_questions_path %>
+<div class="clearfix">
+    <%= link_to "Previous: #{@previous.title}", chapters_my_profile_questions_path(:topic_id => @previous.id), :class => "button round" if @previous %>
+    <%= link_to "All Topics", topics_my_profile_questions_path, :class => "button round" %>
+    <%= link_to "Next: #{@next.title}", chapters_my_profile_questions_path(:topic_id => @next.id), :class => "button round" if @next %>
+</div>
 
 <% for chapter in @questions_by_chapter.keys %>
 <div>
