@@ -50,7 +50,7 @@ class Chapter < ActiveRecord::Base
   
   def completion_percentage(user)
     if question_count_for_user(user) > 0
-      (answer_count_for_user(user).to_f / question_count_for_user(user).to_f) * 100
+      ((answer_count_for_user(user).to_f / question_count_for_user(user).to_f) * 100).to_i
     else
       0
     end

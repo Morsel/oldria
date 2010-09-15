@@ -9,7 +9,7 @@
         <% for chapter in @chapters_by_topic[topic][0..2] %>
         <tr>
            <td><%= chapter.title %></td>
-           <td style="background-color: yellow">N% complete</td> 
+           <td><%= chapter.completion_percentage(current_user) %>% complete</td> 
         </tr>
         <% end %>
     </table>
