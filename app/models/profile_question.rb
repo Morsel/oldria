@@ -28,6 +28,8 @@ class ProfileQuestion < ActiveRecord::Base
     :order => "chapters.position, profile_questions.position" }
   }
   
+  named_scope :answered, :joins => :profile_answers
+  
   def topic
     chapter.topic
   end

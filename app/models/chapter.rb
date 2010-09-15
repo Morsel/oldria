@@ -40,4 +40,24 @@ class Chapter < ActiveRecord::Base
     self.topic.chapters.for_user(user).find(:first, :conditions => ["chapters.position > ?", self.position])
   end
   
+  def question_count_for_user(user)
+    self.profile_questions.for_user(user).count
+  end
+  
+  def answer_count_for_user(user)
+    self.profile_questions.answered.for_user(user).count
+  end
+  
+  def completion_percentage(user)
+    if question_count_for_user(user) > 0
+      (answer_count_for_user(user).to_f / question_count_for_user(user).to_f) * 100
+    else
+      0
+    end
+  end
+  
+  def published?(user)
+    completion_percentage(user) > 30
+  end
+  
 end
