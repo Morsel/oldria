@@ -1,4 +1,9 @@
 class QuestionsController < ApplicationController
+  
+  def index
+    @chapter = Chapter.find(params[:chapter_id])
+    @questions = current_user.profile_questions.all(:conditions => { :chapter_id => params[:chapter_id] })
+  end
 
   def topics
     @profile = current_user.profile || current_user.build_profile

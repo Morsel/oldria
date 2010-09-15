@@ -1,0 +1,16 @@
+<% title "Behind the Line" %>
+
+<h2><%= @chapter.topic.title %></h2>
+<h3><%= @chapter.title %></h3>
+
+<% for question in @questions %>
+<h4>Q: <%= question.title %></h4>
+
+<% semantic_form_for question.find_or_build_answer_for(current_user) do |f| %>
+    <%= f.input :user_id, :as => :hidden %>
+    <%= f.input :profile_question_id, :as => :hidden %>
+    <%= f.inputs :answer %>
+    <%= button_tag "Save" %>
+<% end %>
+
+<% end %>

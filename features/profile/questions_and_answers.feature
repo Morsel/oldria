@@ -15,9 +15,15 @@ Feature: Profile - Behind the Line (aka Q&A)
     When I follow "Edit" within "#behindline"
     Then I should see "Topics"
     
-  Scenario: Viewing a chapter's details
+  Scenario: Viewing chapters for a topic
     Given I am on the profile page for "punkrock"
     And I follow "Edit" within "#behindline"
     And I follow "View all"
-    Then I should see "Free Time"
-    
+    Then I should see "Education"
+
+  Scenario: Viewing questions in a chapter
+    Given I am on the profile page for "punkrock"
+    And I follow "Edit" within "#behindline"
+    And I follow "View all"
+    And I follow "Education"
+    Then I should see "Title 1"

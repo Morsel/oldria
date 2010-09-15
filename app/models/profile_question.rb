@@ -34,4 +34,10 @@ class ProfileQuestion < ActiveRecord::Base
   def answered_by?(user)
     self.profile_answers.exists?(:user_id => user.id)
   end
+  
+  def find_or_build_answer_for(user)
+    self.answered_by?(user) ? 
+        self.answers.find_by_user_id(user.id) : 
+        ProfileAnswer.new(:profile_question_id => self.id, :user_id => user.id)
+  end
 end
