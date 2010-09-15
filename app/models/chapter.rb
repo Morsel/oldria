@@ -32,4 +32,12 @@ class Chapter < ActiveRecord::Base
     "#{topic.title} - #{title}"
   end
   
+  def previous_for_user(user)
+    self.topic.chapters.for_user(user).find(:first, :conditions => ["chapters.position < ?", self.position])
+  end
+  
+  def next_for_user(user)
+    self.topic.chapters.for_user(user).find(:first, :conditions => ["chapters.position > ?", self.position])
+  end
+  
 end

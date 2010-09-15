@@ -24,7 +24,8 @@ class ProfileQuestion < ActiveRecord::Base
   named_scope :for_user, lambda { |user|
     { :joins => { :restaurant_roles => :employments }, 
     :conditions => { :employments => { :id => user.primary_employment.id } },
-    :order => :position }
+    :include => :chapter,
+    :order => "chapters.position, profile_questions.position" }
   }
   
   def topic
