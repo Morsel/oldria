@@ -283,6 +283,14 @@ class User < ActiveRecord::Base
     ProfileQuestion.for_user(self)
   end
   
+  def topics
+    Topic.for_user(self)
+  end
+  
+  def published_topics
+    Topic.for_user(self).select { |t| t.published?(self) }
+  end
+  
   def cuisines
     profile.present? ? profile.cuisines : []
   end

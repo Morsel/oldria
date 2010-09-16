@@ -124,27 +124,18 @@
         <% if current_user == @user %>
         <div class="edit_profile_link"><%= link_to "<span>Edit profile</span>", topics_my_profile_questions_path %></div>
         <% end %>
-        <li class="even">
-            <h5><a href="#">Background <span class="completeness">(80% complete)</span></a></h5>
-            This is where Lorem ipsum dolor sit amet ipsum dolor sit amet, consectetur adipisicing elit aliqua&hellip; <a href="#">more&nbsp;&raquo;</a>
+        <% for topic in @user.topics %>
+        <li class="<%= cycle("even", "odd") %>">
+            <h5>
+                <% link_to chapters_my_profile_questions_path(:topic_id => topic.id) do %>
+                    <%= topic.title %> <span class="completeness">(<%= topic.completion_percentage(@user) %>% complete)</span>
+                <% end %>
+            </h5>
+            <%= truncate(topic.profile_questions.map(&:title).join(" "), :length => 100) %> 
+            <%= link_to "more&nbsp;&raquo;", chapters_my_profile_questions_path(:topic_id => topic.id) %>
         </li>
-        <li class="odd">
-            <h5>Job Experience <span class="completeness">(35% complete)</span></h5>
-            Nam vestibulum, arcu sodales feugiat consectetur, nisl orci bibendum elit&hellip; <a href="#">more&nbsp;&raquo;</a>
-        </li>
-        <li class="even">
-            <h5>On the Job <span class="completeness">(20% complete)</span></h5>
-            This is where Lorem ipsum dolor sit amet <a href="#">more&nbsp;&raquo;</a>
-        </li>
-        <li class="odd">
-            <h5>Off the Clock <span class="completeness">(10% complete)</span></h5>
-            Nam vestibulum, arcu sodales feugiat consectetur, nisl orci bibendum elit&hellip; <a href="#">more&nbsp;&raquo;</a>
-        </li>
-        <li class="even">
-            <h5>Background <span class="completeness">(100% complete)</span></h5>
-            This is where Lorem ipsum dolor sit amet&hellip; <a href="#">more&nbsp;&raquo;</a>
-        </li>
-        <p class="view_all"><%= link_to "View All", topics_my_profile_questions_path %></p>
+        <% end %>
+        <p class="view_all"><%= link_to "View all Topics &raquo;", topics_my_profile_questions_path %></p>
     </ul>
 </div>
 
