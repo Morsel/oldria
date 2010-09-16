@@ -16,5 +16,13 @@ describe ProfileAnswersController do
     post :create, :profile_answer => { :profile_question_id => question.id, :answer => "Something!" }
     response.should be_redirect
   end
+  
+  it "should let a user update an existing answer" do
+    answer = Factory(:profile_answer)
+    ProfileAnswer.expects(:find).returns(answer)
+    answer.expects(:update_attributes).with("answer" => "Something else!").returns(true)
+    put :update, :id => answer.id, :profile_answer => { :answer => "Something else!" }
+    response.should be_redirect
+  end
 
 end
