@@ -14,7 +14,12 @@
       <% if @user == current_user %>
         <%= render :partial => "profile_answers/form", :locals => { :answer => question.find_or_build_answer_for(current_user) } %>
       <% else %>
-        <p><%= question.answered_by?(@user) ? question.answer_for(@user).answer : "Not answered yet" %></p>
+        <% if answer = question.answer_for(@user) %>
+          <p><%= answer.answer %></p>
+          Last updated: <%= answer.try(:updated_at).try(:strftime, "%b %e %Y") %>
+        <% else %>
+          <p>Not answered yet.</p>
+        <% end %>
       <% end %>
   <% end %>
 <% end %>
