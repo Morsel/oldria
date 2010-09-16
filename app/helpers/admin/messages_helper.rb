@@ -30,5 +30,17 @@ module Admin::MessagesHelper
     end
     link_to(link_text, :controller => 'admin/messages', :action => 'show', :id => message.id)
   end
+  
+  def soapbox_notice(message)
+    if message.is_a?(TrendQuestion) || message.is_a?(Admin::Qotd)
+      if current_user.primary_employment && current_user.primary_employment.prefers_post_to_soapbox
+        "This post will be seen on the public Soapbox."
+      else
+        "Just to let you know, your comments won't go to the public Soapbox. Contact your spoonfeed account manager for details."
+      end
+    else
+      ""
+    end
+  end
 
 end

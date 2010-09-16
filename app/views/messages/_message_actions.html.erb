@@ -4,14 +4,7 @@
 
 <%# Trend Questions and Content Requests %>
 <% elsif discussions = current_user.grouped_admin_discussions[message] %>
-  <% if discussions.map { |d| d.comments.count }.inject { |sum, n| sum + n } > 0 # FIXME excessive code in view %>
     <%= render 'messages/message_response_summary', :message => message %>
-  <% else %>
-    <p><%= not_responded_phrase_for_discussions(discussions) %></p>
-    <% link_to new_quick_reply_path(:message_id => message.id, :message_type => message.class.name), :class => 'colorbox quickreply' do %>
-      Quick post&nbsp;&raquo;
-    <% end %>
-  <% end %>
 
 <%# QOTD %>
 <% else %>

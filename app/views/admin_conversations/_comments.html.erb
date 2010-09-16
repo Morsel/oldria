@@ -1,10 +1,9 @@
 <div class="comments span-9">
 <% if @comments.blank? %>
-<%= render :partial => "shared/soapbox_comment_notice" %>
 
 <% semantic_form_for @comment_resource, :html => { :multipart => true } do |f| %>
   <% f.inputs do %>
-    <%= f.input :comment, :label => 'Post', :input_html => { :rows => 8 } %>
+    <%= f.input :comment, :label => 'Post', :input_html => { :rows => 8 }, :hint => soapbox_notice(message) %>
 
     <% f.fields_for :attachments do |child_form| -%>
       <h3 class="attachments-header">Attach files</h3>

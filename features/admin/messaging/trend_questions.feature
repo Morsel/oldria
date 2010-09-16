@@ -79,9 +79,9 @@ Feature: Trend questions
     And I go to the RIA messages page
     Then I should see "My river runs blue"
   
-    When I follow "Quick post"
-    And I fill in "Comment for Restaurant(s)" with "But my river is green"
-    And I press "Post"
+    When I follow "Post"
+    And I fill in "Post" with "But my river is green"
+    And I press "Send"
     Then the discussion for the trend question with subject "My river runs blue" should have 1 comment
     
   Scenario: A user can edit their trend question comment
@@ -130,9 +130,9 @@ Feature: Trend questions
     Given "jim" is the account manager for "Normal Pants"
     And I am logged in as "jim" with password "secret"
     When I go to my inbox
-    And I follow "Quick post"
-    And I fill in "Comment for Restaurant(s)" with "But my river is green"
-    And I press "Post"
+    And I follow "Post"
+    And I fill in "Post" with "But my river is green"
+    And I press "Send"
     
     Then "sam@example.com" should have 2 emails
     

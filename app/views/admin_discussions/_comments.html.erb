@@ -2,11 +2,10 @@
     <% if @comments.blank? || message.is_a?(ContentRequest) %>
       <%= render @comments %>
       <hr class="space"/>
-      <%= render :partial => "shared/soapbox_comment_notice" if message.is_a?(TrendQuestion) %>
       
       <% semantic_form_for @comment_resource, :html => { :multipart => true } do |f| %>
         <% f.inputs do %>
-            <%= f.input :comment, :label => 'Reply', :input_html => { :rows => 8 } %>
+            <%= f.input :comment, :label => 'Post', :input_html => { :rows => 8 }, :hint => soapbox_notice(message) %>
 
             <% f.fields_for :attachments do |child_form| -%>
                 <h3 class="attachments-header">Attach files</h3>
