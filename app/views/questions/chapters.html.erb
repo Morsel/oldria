@@ -12,9 +12,9 @@
 <div>
     <% link_to user_questions_path(:user_id => @user.id, :chapter_id => chapter.id) do %>
         <h3><%= chapter.title %></h3>
-        <p><%= chapter.answer_count_for_user(current_user) %> of <%= chapter.question_count_for_user(current_user) %></p>
+        <p><%= chapter.answer_count_for_user(@user) %> of <%= chapter.question_count_for_user(@user) %></p>
         <p><%= truncate(@questions_by_chapter[chapter].map(&:title).to_sentence, :length => 100) %></p>
-        <p><%= chapter.published?(current_user) ? "Published" : "Not published" %></p>
+        <p><%= chapter.published?(@user) ? "Published" : "Not published" %></p>
     <% end %>
 </div>
 <% end %>
