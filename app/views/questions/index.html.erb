@@ -2,26 +2,30 @@
 
 <h2><%= @chapter.topic.title %></h2>
 <h3><%= @chapter.title %></h3>
-<%= link_to "Prev: #{@previous.title}", user_questions_path(:user_id => @user.id, :chapter_id => @previous.id) if @previous %>
-<%= link_to "Next: #{@next.title}", user_questions_path(:user_id => @user.id, :chapter_id => @next.id) if @next %>
+<div style="clearfix">
+    <%= link_to "Prev: #{@previous.title}", user_questions_path(:user_id => @user.id, :chapter_id => @previous.id) if @previous %>
+    <%= link_to "Next: #{@next.title}", user_questions_path(:user_id => @user.id, :chapter_id => @next.id) if @next %>
+</div>
 
 <% for question in @questions %>
-<h4>Q: <%= question.title %></h4>
+  <% div_for question do %>
+      <h4>Q: <%= question.title %></h4>
+
+      <% if @user == current_user %>
+        <% semantic_form_for question.find_or_build_answer_for(current_user) do |f| %>
+            <% f.inputs :class => "plain" do %>
+                <%= f.input :profile_question_id, :as => :hidden %>
+                <%= f.input :answer %>
+            <% end %>
+            
+            <%= button_tag "Save" %>
+        <% end %>
+      <% else %>
+        <p><%= question.answered_by?(@user) ? question.answer_for(@user).answer : "Not answered yet" %></p>
+      <% end %>
+  <% end %>
+<% end %>
 
 <% if @user == current_user %>
-<% semantic_form_for question.find_or_build_answer_for(current_user) do |f| %>
-    <% f.inputs :class => "plain" do %>
-        <%= f.input :profile_question_id, :as => :hidden %>
-        <%= f.input :answer %>
-    <% end %>
-    <%= button_tag "Save" %>
-<% end %>
-<% else %>
-<p><%= question.answered_by?(@user) ? question.answer_for(@user).answer : "Not answered yet" %></p>
-<% end %>
-
-<% end %>
-
-<% if @user == current_user %>
-<p>Answers to your questions will be posted on your profile and can be used by Restaurant Intelligence Agency to increase traffic to the site.</p>
+  <p>Answers to your questions will be posted on your profile and can be used by Restaurant Intelligence Agency to increase traffic to the site.</p>
 <% end %>
