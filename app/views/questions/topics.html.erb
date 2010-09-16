@@ -8,7 +8,7 @@
     <table>
         <% for chapter in @chapters_by_topic[topic][0..2] %>
         <tr>
-           <td><%= chapter.title %></td>
+           <td><%= link_to chapter.title, user_questions_path(:user_id => @user.id, :chapter_id => chapter.id) %></td>
            <td><%= chapter.completion_percentage(@user) %>% complete</td> 
         </tr>
         <% end %>
