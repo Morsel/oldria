@@ -26,7 +26,6 @@ ActionController::Routing::Routes.draw do |map|
     p.resources :nonculinary_enrollments
     p.resources :apprenticeships
     p.resources :profile_cuisines
-    p.resources :questions, :collection => { :topics => :get, :chapters => :get }
   end
 
   map.profile 'profile/:username', :controller => 'users', :action => 'show', :requirements => { :username => /[a-zA-Z0-9\-\_ ]+/}
@@ -56,6 +55,7 @@ ActionController::Routing::Routes.draw do |map|
   }, :shallow => true do |users|
     users.resources :statuses
     users.resources :direct_messages, :member => { :reply => :get }
+    users.resources :questions, :collection => { :topics => :get, :chapters => :get }
   end
 
   map.resources :restaurants do |restaurant|

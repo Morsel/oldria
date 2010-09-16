@@ -284,11 +284,11 @@ class User < ActiveRecord::Base
   end
   
   def topics
-    Topic.for_user(self)
+    Topic.for_user(self) || []
   end
   
   def published_topics
-    Topic.for_user(self).select { |t| t.published?(self) }
+    topics.select { |t| t.published?(self) }
   end
   
   def cuisines

@@ -3,14 +3,14 @@
 <h2><%= @topic.title %></h2>
 
 <div class="clearfix">
-    <%= link_to "Previous: #{@previous.title}", chapters_my_profile_questions_path(:topic_id => @previous.id), :class => "button round" if @previous %>
-    <%= link_to "All Topics", topics_my_profile_questions_path, :class => "button round" %>
-    <%= link_to "Next: #{@next.title}", chapters_my_profile_questions_path(:topic_id => @next.id), :class => "button round" if @next %>
+    <%= link_to "Previous: #{@previous.title}", chapters_user_questions_path(:user_id => @user.id, :topic_id => @previous.id), :class => "button round" if @previous %>
+    <%= link_to "All Topics", topics_user_questions_path(:user_id => @user.id), :class => "button round" %>
+    <%= link_to "Next: #{@next.title}", chapters_user_questions_path(:user_id => @user.id, :topic_id => @next.id), :class => "button round" if @next %>
 </div>
 
 <% for chapter in @questions_by_chapter.keys %>
 <div>
-    <% link_to my_profile_questions_path(:chapter_id => chapter.id) do %>
+    <% link_to user_questions_path(:user_id => @user.id, :chapter_id => chapter.id) do %>
         <h3><%= chapter.title %></h3>
         <p><%= chapter.answer_count_for_user(current_user) %> of <%= chapter.question_count_for_user(current_user) %></p>
         <p><%= truncate(@questions_by_chapter[chapter].map(&:title).to_sentence, :length => 100) %></p>
