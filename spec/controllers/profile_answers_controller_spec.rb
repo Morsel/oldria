@@ -24,5 +24,13 @@ describe ProfileAnswersController do
     put :update, :id => answer.id, :profile_answer => { :answer => "Something else!" }
     response.should be_redirect
   end
+  
+  it "should let a user delete their answer" do
+    answer = Factory(:profile_answer)
+    ProfileAnswer.expects(:find).returns(answer)
+    answer.expects(:destroy).returns(true)
+    delete :destroy, :id => answer.id
+    response.should be_redirect
+  end
 
 end

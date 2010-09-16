@@ -5,4 +5,5 @@
     <% end %>
     
     <%= button_tag "Save" %>
+    <%= link_to "Delete this answer", profile_answer_path(answer), :method => "delete", :class => "button" unless answer.new_record? %>
 <% end %>
