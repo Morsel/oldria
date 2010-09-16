@@ -38,6 +38,10 @@ class ProfileQuestion < ActiveRecord::Base
     self.profile_answers.exists?(:user_id => user.id)
   end
   
+  def answer_for(user)
+    self.profile_answers.find_by_user_id(user.id)
+  end
+  
   def find_or_build_answer_for(user)
     self.answered_by?(user) ? 
         self.profile_answers.find_by_user_id(user.id) : 

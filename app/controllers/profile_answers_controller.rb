@@ -1,5 +1,7 @@
 class ProfileAnswersController < ApplicationController
   
+  before_filter :require_user
+  
   def create
     @user = current_user #FIXME???
     @answer = ProfileAnswer.new(params[:profile_answer].merge(:user_id => @user.id))

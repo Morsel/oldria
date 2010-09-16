@@ -17,7 +17,7 @@
     <%= button_tag "Save" %>
 <% end %>
 <% else %>
-question answer goes here
+<p><%= question.answered_by?(@user) ? question.answer_for(@user).answer : "Not answered yet" %></p>
 <% end %>
 
 <% end %>
