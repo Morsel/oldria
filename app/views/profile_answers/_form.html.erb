@@ -1,0 +1,8 @@
+<% semantic_form_for answer do |f| %>
+    <% f.inputs :class => "plain" do %>
+        <%= f.input :profile_question_id, :as => :hidden %>
+        <%= f.input :answer %>
+    <% end %>
+    
+    <%= button_tag "Save" %>
+<% end %>

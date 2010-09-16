@@ -12,14 +12,7 @@
       <h4>Q: <%= question.title %></h4>
 
       <% if @user == current_user %>
-        <% semantic_form_for question.find_or_build_answer_for(current_user) do |f| %>
-            <% f.inputs :class => "plain" do %>
-                <%= f.input :profile_question_id, :as => :hidden %>
-                <%= f.input :answer %>
-            <% end %>
-            
-            <%= button_tag "Save" %>
-        <% end %>
+        <%= render :partial => "profile_answers/form", :locals => { :answer => question.find_or_build_answer_for(current_user) } %>
       <% else %>
         <p><%= question.answered_by?(@user) ? question.answer_for(@user).answer : "Not answered yet" %></p>
       <% end %>
