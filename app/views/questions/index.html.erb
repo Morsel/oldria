@@ -4,6 +4,7 @@
 <h3><%= @chapter.title %></h3>
 <div style="clearfix">
     <%= link_to "Prev: #{@previous.title}", user_questions_path(:user_id => @user.id, :chapter_id => @previous.id) if @previous %>
+    <%= link_to "All Chapters for #{@chapter.topic.title}", chapters_user_questions_path(:user_id => @user.id, :topic_id => @chapter.topic.id) %>
     <%= link_to "Next: #{@next.title}", user_questions_path(:user_id => @user.id, :chapter_id => @next.id) if @next %>
 </div>
 
