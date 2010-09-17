@@ -34,12 +34,14 @@ class Chapter < ActiveRecord::Base
   
   def previous_for_user(user)
     sort_field = (self.position == 0 ? "id" : "position")
-    self.topic.chapters.for_user(user).find(:first, :conditions => ["chapters.#{sort_field} < ?", self.send(sort_field)])
+    self.topic.chapters.for_user(user).find(:first, 
+        :conditions => ["chapters.#{sort_field} < ?", self.send(sort_field)], :order => "#{sort_field} DESC")
   end
   
   def next_for_user(user)
     sort_field = (self.position == 0 ? "id" : "position")
-    self.topic.chapters.for_user(user).find(:first, :conditions => ["chapters.#{sort_field} > ?", self.send(sort_field)])
+    self.topic.chapters.for_user(user).find(:first, 
+        :conditions => ["chapters.#{sort_field} > ?", self.send(sort_field)], :order => "#{sort_field} ASC")
   end
   
   def question_count_for_user(user)

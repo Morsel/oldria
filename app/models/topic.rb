@@ -29,12 +29,14 @@ class Topic < ActiveRecord::Base
 
   def previous_for_user(user)
     sort_field = (self.position == 0 ? "id" : "position")
-    Topic.for_user(user).find(:first, :conditions => ["topics.#{sort_field} < ?", self.send(sort_field)])
+    Topic.for_user(user).find(:first, 
+        :conditions => ["topics.#{sort_field} < ?", self.send(sort_field)], :order => "#{sort_field} DESC")
   end
   
   def next_for_user(user)
     sort_field = (self.position == 0 ? "id" : "position")
-    Topic.for_user(user).find(:first, :conditions => ["topics.#{sort_field} > ?", self.send(sort_field)])
+    Topic.for_user(user).find(:first, 
+        :conditions => ["topics.#{sort_field} > ?", self.send(sort_field)], :order => "#{sort_field} ASC")
   end
 
   def question_count_for_user(user)
