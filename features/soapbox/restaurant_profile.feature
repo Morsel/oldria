@@ -4,6 +4,7 @@ Feature: Restaurant profile
 
   Background:
     Given a restaurant named "Piece"
+
 @wip
   Scenario: Show basic data
   	Given I am logged in as an admin
@@ -47,4 +48,3 @@ Feature: Restaurant profile
     When I go to the soapbox restaurant profile for Piece
     Then I do not see the Twitter username
     And I do not see the Facebook username
-
