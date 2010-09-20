@@ -171,7 +171,6 @@ ActiveRecord::Schema.define(:version => 20100928183146) do
   end
 
   create_table "culinary_jobs", :force => true do |t|
-<<<<<<< HEAD
     t.integer  "profile_id",                                        :null => false
     t.string   "title",                          :default => "",    :null => false
     t.string   "city",                           :default => "",    :null => false
@@ -187,21 +186,6 @@ ActiveRecord::Schema.define(:version => 20100928183146) do
     t.boolean  "opening_staff",                  :default => false
     t.string   "restaurant_name", :limit => nil
     t.string   "country",         :limit => nil
-=======
-    t.integer  "profile_id",                       :null => false
-    t.string   "title",         :default => "",    :null => false
-    t.string   "city",          :default => "",    :null => false
-    t.string   "state",         :default => "",    :null => false
-    t.date     "date_started",                     :null => false
-    t.date     "date_ended"
-    t.string   "chef_name",     :default => "",    :null => false
-    t.boolean  "chef_is_me",    :default => false, :null => false
-    t.text     "cuisine",       :default => "",    :null => false
-    t.text     "notes",         :default => "",    :null => false
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.boolean  "opening_staff", :default => false
->>>>>>> first set of basic info to display
   end
 
   add_index "culinary_jobs", ["profile_id"], :name => "index_profile_restaurants_on_profile_id"
@@ -692,21 +676,12 @@ ActiveRecord::Schema.define(:version => 20100928183146) do
     t.string   "website"
     t.string   "twitter_username"
     t.string   "facebook_page"
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> More basic restaurant features
     t.string   "hours"
     t.integer  "media_contact_id"
     t.string   "management_company_name"
     t.string   "management_company_website"
-<<<<<<< HEAD
     t.integer  "logo_id"
     t.integer  "primary_photo_id"
-=======
->>>>>>> first set of basic info to display
-=======
->>>>>>> More basic restaurant features
   end
 
   add_index "restaurants", ["cuisine_id"], :name => "index_restaurants_on_cuisine_id"
