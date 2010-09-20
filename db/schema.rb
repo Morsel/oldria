@@ -693,14 +693,20 @@ ActiveRecord::Schema.define(:version => 20100928183146) do
     t.string   "twitter_username"
     t.string   "facebook_page"
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> More basic restaurant features
     t.string   "hours"
     t.integer  "media_contact_id"
     t.string   "management_company_name"
     t.string   "management_company_website"
+<<<<<<< HEAD
     t.integer  "logo_id"
     t.integer  "primary_photo_id"
 =======
 >>>>>>> first set of basic info to display
+=======
+>>>>>>> More basic restaurant features
   end
 
   add_index "restaurants", ["cuisine_id"], :name => "index_restaurants_on_cuisine_id"

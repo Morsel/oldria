@@ -153,5 +153,6 @@ end
 Then /^I see the restaurant logo for the profile$/ do
   response.should have_selector("#logo img")
   response.body.should include("http://spoonfeed.s3.amazonaws.com/cucumber/images/#{@restaurant.reload.logo.id}/medium/bourgeoispig_logo.gif")
+
 end
 
