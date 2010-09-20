@@ -1,6 +1,9 @@
 Given /^the following ([\w_]*) records?:?$/ do |factory, table|
   table.hashes.each do |row|
-    Factory(factory, row)
+    obj = Factory(factory, row)
+    if factory == "user"
+      Factory(:employment, :employee => obj)
+    end
   end
 end
 
