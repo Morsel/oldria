@@ -136,3 +136,15 @@ end
 When /^I see a page named "([^\"]*)"$/ do |page|
   response.should have_selector(".feature_page", :content => page) 
 end
+
+Then /^I see the restaurant's website$/ do
+  response.should have_selector("#website", :content => @restaurant.website)
+end
+
+Then /^I see the restaurant's Twitter username$/ do
+  response.should have_selector("#twitter_username", :content => @restaurant.twitter_username)
+end
+
+Then /^I see the restaurant's Facebook page$/ do
+  response.should have_selector("#facebook_page", :content => @restaurant.facebook_page)
+end

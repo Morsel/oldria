@@ -5,6 +5,7 @@ Feature: Restaurant profile
   Background:
     Given a restaurant named "Piece"
 
+  @wip
   Scenario: Show basic data
     When I go to the soapbox restaurant profile for Piece
     Then I see the restaurant's name as "Piece"
