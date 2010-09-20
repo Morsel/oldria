@@ -7,6 +7,7 @@ Factory.define :user do |f|
   f.confirmed_at { 1.week.ago }
   f.first_name { |u| u.name.split(' ').first || "John" }
   f.last_name  { |u| u.name.split(' ').last  || "Doe" }
+  f.phone_number "555-1234"
 end
 
 Factory.define :twitter_user, :parent => :user do |f|
@@ -145,12 +146,15 @@ Factory.define :restaurant do |f|
   f.phone_number "3125555555"
   f.website "http://restaurant.example.com"
   f.description "This is a great restaurant with good Pizza offerings"
+  f.management_company_name "Lettuce Entertain You"
+  f.management_company_website "http://www.lettuce.com"
 end
 
 Factory.define :managed_restaurant, :parent => :restaurant do |f|
   f.association :manager, :factory => :user
   f.association :cuisine
   f.association :metropolitan_area
+  f.association :media_contact, :factory => :user
 end
 
 Factory.define :employment do |f|

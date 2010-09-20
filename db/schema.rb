@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100920161145) do
+ActiveRecord::Schema.define(:version => 20100920194200) do
 
   create_table "accolades", :force => true do |t|
     t.integer  "profile_id"
@@ -625,6 +625,10 @@ ActiveRecord::Schema.define(:version => 20100920161145) do
     t.string   "website"
     t.string   "twitter_username"
     t.string   "facebook_page"
+    t.string   "hours"
+    t.integer  "media_contact_id"
+    t.string   "management_company_name"
+    t.string   "management_company_website"
   end
 
   add_index "restaurants", ["cuisine_id"], :name => "index_restaurants_on_cuisine_id"
@@ -750,6 +754,7 @@ ActiveRecord::Schema.define(:version => 20100920161145) do
     t.string   "facebook_access_token"
     t.string   "facebook_page_id"
     t.string   "facebook_page_token"
+    t.string   "phone_number"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email"
