@@ -148,6 +148,8 @@ Factory.define :restaurant do |f|
   f.description "This is a great restaurant with good Pizza offerings"
   f.management_company_name "Lettuce Entertain You"
   f.management_company_website "http://www.lettuce.com"
+  f.twitter_username "joeblow"
+  f.facebook_page "http://www.facebook.com/joeblow"
 end
 
 Factory.define :managed_restaurant, :parent => :restaurant do |f|
