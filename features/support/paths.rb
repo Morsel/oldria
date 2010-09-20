@@ -106,6 +106,10 @@ module NavigationHelpers
     when /"([^\"]+)"/
       $1
 
+    # Soapbox
+    when /the soapbox restaurant profile for (.+)/
+      soapbox_restaurant_path(Restaurant.find_by_name($1))
+
     # Add more mappings here.
     # Here is an example that pulls values out of the Regexp:
     #

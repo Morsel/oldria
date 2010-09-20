@@ -147,6 +147,9 @@ Factory.define :restaurant do |f|
   f.city    "Chicago"
   f.state   "IL"
   f.zip     "60606"
+  f.phone_number "3125555555"
+  f.website "http://restaurant.example.com"
+  f.description "This is a great restaurant with good Pizza offerings"
 end
 
 Factory.define :managed_restaurant, :parent => :restaurant do |f|
