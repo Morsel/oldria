@@ -10,7 +10,6 @@ Feature: Restaurant profile
     When I go to the soapbox restaurant profile for Piece
     Then I see the restaurant's name as "Piece"
     And I see the restaurant's description
-#    And I see the management company name
     And I see the address
     And I see the phone number
     And I see the restaurant's website
@@ -18,3 +17,4 @@ Feature: Restaurant profile
     And I see the restaurant's Facebook page
     And I see the restaurant's hours
     And I see media contact name, phone, and email
+    And I see the management company name as a link

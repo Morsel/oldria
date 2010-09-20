@@ -47,6 +47,8 @@ class Restaurant < ActiveRecord::Base
 
   has_many :events
 
+  belongs_to :media_contact, :class_name => "User", :foreign_key => 'media_contact_id'
+
   after_validation_on_create :add_manager_as_employee
   after_save :update_admin_discussions
 

@@ -99,4 +99,15 @@ describe Restaurant do
       holiday_reminder.holiday_discussions.count.should == 0
     end
   end
+
+  describe "media_contact" do
+    it "can be assigned a media contact" do
+      restaurant = Factory(:restaurant)
+      media_contact = Factory(:user)
+      restaurant.media_contact = media_contact
+      restaurant.save!
+      restaurant = Restaurant.find(restaurant.id)
+      restaurant.media_contact.should == media_contact
+    end
+  end
 end
