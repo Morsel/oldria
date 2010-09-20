@@ -148,3 +148,18 @@ end
 Then /^I see the restaurant's Facebook page$/ do
   response.should have_selector("#facebook_page", :content => @restaurant.facebook_page)
 end
+
+When /^I see the restaurant's hours$/ do
+  response.should have_selector("#hours", :content => @restaurant.hours)
+end
+
+Then /^I see media contact name, phone, and email$/ do
+  response.should have_selector("#media_contact_name", :content => @restaurant.media_contact.name)
+  response.should have_selector("#media_contact_phone", :content => @restaurant.media_contact.phone_number)
+  response.should have_selector("#media_contact_email", :content => @restaurant.media_contact.email)
+end
+
+Then /^I see the management company name as a link$/ do
+  response.should have_selector("#management_company a", :content => @restaurant.management_company_name)
+end
+
