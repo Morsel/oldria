@@ -46,6 +46,7 @@ Then /^I see media contact name, phone, and email$/ do
   response.should have_selector("#media_contact_phone", :content => @restaurant.media_contact.phone_number)
   response.should have_selector("#media_contact_email a", :content => @restaurant.media_contact.email,
       :href => "mailto:#{@restaurant.media_contact.email}")
+  response.should have_selector("#media_contact_email", :content => @restaurant.media_contact.email)
 end
 
 Then /^I see the management company name as a link$/ do
@@ -136,4 +137,3 @@ end
 When /^I see a page named "([^\"]*)"$/ do |page|
   response.should have_selector(".feature_page", :content => page) 
 end
-
