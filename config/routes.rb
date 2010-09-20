@@ -4,10 +4,12 @@ ActionController::Routing::Routes.draw do |map|
   map.confirm 'confirm/:id', :controller => 'users', :action => 'confirm'
   map.fb_login 'facebook_login', :controller => 'user_sessions', :action => 'create_from_facebook'
 
+  map.resources :invitations, :only => ['new', 'create', 'show'], :collection => { :login => :get }
+  map.resource :complete_registration, :only => [:show, :update]
+  
   map.directory 'directory', :controller => 'directory', :action => 'index'
 
-
-  map.with_options :conditions => {:subdomain => 'soapbox'}, :controller => 'soapbox' do |soapbox|
+  map.with_options :conditions => { :subdomain => 'soapbox' }, :controller => 'soapbox' do |soapbox|
     soapbox.root :action => 'index'
   end
 
@@ -108,8 +110,6 @@ ActionController::Routing::Routes.draw do |map|
 
   map.resource :twitter_authorization
   map.resource :friends_statuses, :only => 'show'
-  map.resources :invitations, :only => 'show', :collection => { :login => :get }
-  map.resource :complete_registration, :only => [:show, :update]
 
   map.resource :search, :only => 'show'
 

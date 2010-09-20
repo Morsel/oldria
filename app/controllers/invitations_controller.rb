@@ -1,6 +1,20 @@
 class InvitationsController < ApplicationController
-  before_filter :logout_current_user
-  before_filter :find_user_from_params
+  before_filter :logout_current_user, :only => [:show]
+  before_filter :find_user_from_params, :only => [:show]
+  
+  def new
+    @invitation = current_user ? Invitation.new(:requesting_user_id => current_user.id) : Invitation.new
+  end
+  
+  def create
+    @invitation = Invitation.new(params[:invitation])
+    if @invitation.save
+      flash[:notice] = "Your invite has been sent to an admin for approval"
+      redirect_to root_path
+    else
+      render :new
+    end
+  end
 
   def show
     if @user

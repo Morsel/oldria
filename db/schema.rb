@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100913210123) do
+ActiveRecord::Schema.define(:version => 20100920193024) do
 
   create_table "accolades", :force => true do |t|
     t.integer  "profile_id"
@@ -417,6 +417,21 @@ ActiveRecord::Schema.define(:version => 20100913210123) do
     t.date     "end_date"
     t.text     "comments"
     t.integer  "profile_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "invitations", :force => true do |t|
+    t.string   "first_name"
+    t.string   "last_name"
+    t.string   "email"
+    t.string   "title"
+    t.boolean  "coworker",           :default => false
+    t.integer  "restaurant_id"
+    t.string   "restaurant_name"
+    t.integer  "requesting_user_id"
+    t.integer  "invitee_id"
+    t.datetime "approved_at"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

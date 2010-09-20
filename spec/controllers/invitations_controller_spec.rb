@@ -2,11 +2,25 @@ require 'spec/spec_helper'
 
 describe InvitationsController do
   integrate_views
-  before(:each) do
-    @invitee = Factory(:user, :perishable_token =>"abc789", :username => "johnjohn", :confirmed_at => nil)
+  
+  describe "creating a new invite" do
+    
+    it "should create an invite from a valid form submit" do
+      invite = Factory.build(:invitation)
+      Invitation.expects(:new).with("email" => "foo@bar.com").returns(invite)
+      invite.expects(:save).returns(true)
+      post :create, :invitation => { :email => "foo@bar.com" }
+      response.should be_redirect
+    end
+    
   end
 
   describe "GET show" do
+    
+    before(:each) do
+      @invitee = Factory(:user, :perishable_token =>"abc789", :username => "johnjohn", :confirmed_at => nil)
+    end
+
     context "when no one is logged in" do
       context "user is found" do
         before do

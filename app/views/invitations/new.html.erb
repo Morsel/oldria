@@ -1,0 +1,19 @@
+<% title "Invite a user" %>
+
+<% semantic_form_for @invitation do |f| %>
+    <% f.inputs do %>
+        <%= f.input :first_name %>
+        <%= f.input :last_name %>
+        <%= f.input :email %>
+        <% f.inputs :name => "Work details" do %>
+          <% if @current_user.employments.present? %>
+            <%= f.input :coworker, :label => "This person is my coworker" %>
+            <%= f.input :restaurant, :as => :select, :collection => current_user.restaurants, :label => "We work together at:" %>
+          <% end %>
+          <%= f.input :restaurant_name, :label => "Or fill in the name of the restaurant(s) where they work:" %>
+          <%= f.input :title, :label => "Job title" %>
+        <% end %>
+        <%= f.input :requesting_user_id, :as => "hidden" %>
+    <% end %>
+    <%= submit_tag "Invite User" %>
+<% end %>

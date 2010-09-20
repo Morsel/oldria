@@ -33,6 +33,8 @@ module NavigationHelpers
       new_conversation_path
     when "my profile's edit page"
       edit_my_profile_path
+    when "the new invitation page"
+      new_invitation_path
 
     # Media-users
     when /^the media( user)? signup page$/
