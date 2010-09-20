@@ -44,6 +44,7 @@ end
 Given /^I am logged in as a normal user with a profile$/ do
   user = Factory(:user, :username => 'normal', :password => 'normal')
   Factory(:profile, :user => user)
+  Factory(:employment, :employee => user)
   Given 'I am logged in as "normal" with password "normal"'
 end
 

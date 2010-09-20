@@ -7,7 +7,11 @@ ActionController::Routing::Routes.draw do |map|
 
   map.directory 'directory', :controller => 'directory', :action => 'index'
 
-
+#  map.with_options :conditions => {:subdomain => 'soapbox'} do |soapbox_subdomain|
+  map.namespace(:soapbox) do |soapbox|
+    soapbox.resources :restaurants, :only => ['show']
+  end
+#  end
   map.with_options :conditions => {:subdomain => 'soapbox'}, :controller => 'soapbox' do |soapbox|
     soapbox.root :action => 'index'
   end
