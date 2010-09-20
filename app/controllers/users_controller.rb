@@ -1,8 +1,6 @@
 class UsersController < ApplicationController
   before_filter :require_visibility, :only => [:show]
-  before_filter :require_no_user, :only => [:new]
   before_filter :require_owner_or_admin, :only => [:edit, :update, :remove_twitter, :remove_avatar, :fb_auth, :fb_connect, :fb_page_auth]
-  before_filter :block_media, :only => [:new]
 
   def index
     respond_to do |format|
@@ -14,21 +12,6 @@ class UsersController < ApplicationController
     # Is the current user following this person?
     @following = current_user.followings.first(:conditions => {:friend_id => @user.id}) if current_user
     @latest_statuses = @user.statuses.all(:limit => 5)
-  end
-
-  def new
-    @user = User.new
-  end
-
-  def create
-    @user = User.new(params[:user])
-    if @user.save
-      UserMailer.deliver_signup @user
-      flash[:notice] = "Just to make sure you are who you say you are, we sent you a secret coded message to your email account. Once you check that, we’ll give you your fancy credentials to log on."
-      redirect_to '/'
-    else
-      render :new
-    end
   end
 
   def edit
@@ -166,13 +149,6 @@ class UsersController < ApplicationController
 
   def owner?
     params[:id] && User.find(params[:id]) == current_user
-  end
-
-  def block_media
-    if current_user && current_user.media?
-      flash[:error] = "This is an administrative area. Nothing exciting here at all."
-      redirect_to root_url
-    end
   end
 
   def require_owner_or_admin
