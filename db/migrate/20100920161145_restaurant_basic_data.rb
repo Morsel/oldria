@@ -5,9 +5,11 @@ class RestaurantBasicData < ActiveRecord::Migration
     add_column :restaurants, :website, :string
     add_column :restaurants, :twitter_username, :string
     add_column :restaurants, :facebook_page, :string
+    add_column :restaurants, :hours, :string
   end
 
   def self.down
+    remove_column :restaurants, :hours
     remove_column :restaurants, :facebook_page
     remove_column :restaurants, :twitter_username
     remove_column :restaurants, :website
