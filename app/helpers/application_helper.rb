@@ -24,4 +24,11 @@ module ApplicationHelper
     controller_name != "soapbox"
   end
 
+  def div_if(boolean, options={}, &block)
+    return "" unless boolean
+    content = content_tag(:div, options, &block)
+    concat(content)
+    content
+  end
+
 end
