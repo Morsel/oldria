@@ -18,3 +18,9 @@ Feature: RIA admins can review invitations, approve and archive them
   And I fill in "Job title" with "Line Cook"
   And I press "Save"
   Then I should see "Line Cook"
+  
+  Scenario: approving an invitation
+  Given I go to the admin invitations page
+  And I follow "accept"
+  Then "mariahcarpenter" should be a confirmed user
+  And "mc@restaurants.com" should have 1 email

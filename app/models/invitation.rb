@@ -29,7 +29,11 @@ class Invitation < ActiveRecord::Base
   validates_uniqueness_of :email, :message => "That person has already been invited"
   
   def name
-    @name ||= [first_name, last_name].compact.join(' ')
+    [first_name, last_name].join(' ')
+  end
+  
+  def username
+    first_name.downcase + last_name.downcase
   end
 
 end
