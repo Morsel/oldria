@@ -74,7 +74,7 @@ Feature: Associating a Restaurant with its employees
     And "dinkle@example.com" should have 1 email
 
     When I logout
-    And "dinkle@example.com" opens the email with subject "SpoonFeed: You've been added"
+    And "dinkle@example.com" opens the email with subject "SpoonFeed: You're invited"
     Then I should see "Welcome" in the email body
     And I should see "David" in the email body
 

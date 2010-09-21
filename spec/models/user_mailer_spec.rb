@@ -46,11 +46,7 @@ describe UserMailer do
       @email.should deliver_to("hambone@example.com")
     end
 
-    it "should contain the media requests's publication name in the mail body" do
-      @email.should have_text(/Joe's Place/)
-    end
-
-    it "should contain a link to the media request conversation" do
+    it "should contain a link to the invitation so the user can log in" do
       @email.should have_text(/#{invitation_url(@receiver.perishable_token)}/)
     end
   end

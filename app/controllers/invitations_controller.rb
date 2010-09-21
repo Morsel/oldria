@@ -18,7 +18,7 @@ class InvitationsController < ApplicationController
 
   def show
     if @user
-      @user.update_attribute(:confirmed_at, Time.now)
+      @user.confirm! unless @user.confirmed?
       UserSession.create(@user)
       flash[:notice] = "Successfully logged in. Please take a moment and update your account information."
       redirect_to complete_registration_path

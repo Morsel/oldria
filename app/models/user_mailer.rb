@@ -31,7 +31,7 @@ class UserMailer < ActionMailer::Base
     from          'accounts@restaurantintelligenceagency.com'
     recipients    user.email
     sent_on       Time.now
-    subject       "SpoonFeed: You've been added"
+    subject       "SpoonFeed: You're invited"
     body          :user => user, :invitation_sender => invitation_sender
   end
 
