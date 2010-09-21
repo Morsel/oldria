@@ -90,7 +90,10 @@ Then /^I do not see the Facebook username$/ do
   response.should_not have_selector("#facebook_page")
 end
 
-
-
+Then /^I see the following restaurant fields:$/ do |fields|
+  fields.rows_hash.each do |field, name|
+    response.should have_selector("##{field}", :content => name)
+  end
+end
 
 

@@ -51,6 +51,8 @@ module NavigationHelpers
       new_restaurant_event_path(:restaurant_id => Restaurant.find_by_name($1).id)
     when /the calendars page for "(.+)"$/
       restaurant_calendars_path(:restaurant_id => Restaurant.find_by_name($1).id)
+    when /the edit restaurant page for "(.+)"$/
+      edit_restaurant_path(Restaurant.find_by_name($1))
 
     # Media Requests
     when /^the media request discussion page$/
