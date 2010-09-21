@@ -31,6 +31,9 @@
       Description: <%= @restaurant.description %>
     </div>
     <div>Facts: <%=h @restaurant.facts %></div>
+    <div>
+      Phone Number: <span id="phone_number"><%=h @restaurant.phone_number %></span>
+    </div>
     <% div_if(@restaurant.website.present?, :id => "website") do %>
        Website: <%= link_to h(@restaurant.website), @restaurant.website%>
     <% end %>
