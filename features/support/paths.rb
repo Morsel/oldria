@@ -55,6 +55,8 @@ module NavigationHelpers
       restaurant_calendars_path(:restaurant_id => Restaurant.find_by_name($1).id)
     when /the edit restaurant page for "(.+)"$/
       edit_restaurant_path(Restaurant.find_by_name($1))
+    when /the restaurant show page for "(.+)"$/
+      restaurant_path(Restaurant.find_by_name($1))
 
     # Media Requests
     when /^the media request discussion page$/

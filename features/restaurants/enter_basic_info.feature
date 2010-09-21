@@ -47,3 +47,12 @@ Feature: Basic Restaurant Data
       | media_contact      | Fred Mercury                        |
       | management_company | Lettuce Entertain You               |
 
+  Scenario: Unhappy data
+    When I remove optional information from the restaurant
+    And I go to the restaurant show page for "Piece"
+    Then I do not see a section for "website"
+    And I do not see a section for "twitter_username"
+    And I do not see a section for "facebook_page"
+    And I do not see a section for "management_company"
+
+
