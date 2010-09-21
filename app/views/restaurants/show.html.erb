@@ -15,6 +15,7 @@
 			<h2 class="function-bold" id="name"><%= @restaurant.name %></h2>
 			<p id="address"><%= @restaurant.address_parts.join("<br />") %></p>
 			<p>
+				Phone Number: <span id="phone_number"><%=h @restaurant.phone_number %></span><br />
 				Metropolitan Area: <span><%=h @restaurant.metropolitan_area.try(:name) %></span><br />
 				Region: <span><%=h @restaurant.james_beard_region.try(:name) %></span>
 			</p>
@@ -31,9 +32,6 @@
       Description: <%= @restaurant.description %>
     </div>
     <div>Facts: <%=h @restaurant.facts %></div>
-    <div>
-      Phone Number: <span id="phone_number"><%=h @restaurant.phone_number %></span>
-    </div>
     <% div_if(@restaurant.website.present?, :id => "website") do %>
        Website: <%= link_to h(@restaurant.website), @restaurant.website%>
     <% end %>
