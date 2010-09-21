@@ -2311,8 +2311,8 @@ dl.things dt:after {content: ":"}
 	-moz-box-shadow: 1px 1px 3px #666;
 	box-shadow: 1px 1px 3px #666;
 }
-.topic.last{
-	margin:0;
+.topic table{
+	min-height:200px;
 }
 
 .topic h3{
@@ -2324,6 +2324,7 @@ dl.things dt:after {content: ":"}
 .topic td{
 	border:0;
 	padding:5px 0;
+	width:50%;
 }
 .topic td.topic_link{
 	font-size:1.1em;
