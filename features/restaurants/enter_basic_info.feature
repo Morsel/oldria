@@ -54,4 +54,3 @@ Feature: Basic Restaurant Data
     And I do not see a section for "twitter_username"
     And I do not see a section for "facebook_page"
     And I do not see a section for "management_company"
-
