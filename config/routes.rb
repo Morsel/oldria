@@ -129,13 +129,13 @@ ActionController::Routing::Routes.draw do |map|
     admin.resources :calendars
     admin.resources :events
     admin.resources :soapbox_entries
-    admin.resources :profile_questions, :collection => { :manage => :get, :sort => :post }
+    admin.resources :profile_questions, :collection => { :sort => :post }
     admin.resources :chapters, :collection => { :select => :post }
     admin.resources :topics
     admin.resources :question_roles
     admin.resources :schools
     admin.resources :specialties, :collection => { :sort => :post }
-    admin.resources :invitations, :member => { :accept => :post, :archive => :post }
+    admin.resources :invitations, :member => { :accept => :get, :archive => :get }
 
     # Admin Messaging
     exclusive_routes = [:index, :show, :destroy]
