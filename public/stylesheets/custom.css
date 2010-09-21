@@ -2301,6 +2301,58 @@ dl.things dt:after {content: ":"}
 	background-color: #F5F5F5;
 }
 
+.topic{
+	float:left;
+	padding:10px;
+	margin:0 21px 10px 0;
+	width:287px;
+	border:1px solid #ccc;
+	-webkit-box-shadow: 1px 1px 3px #666;
+	-moz-box-shadow: 1px 1px 3px #666;
+	box-shadow: 1px 1px 3px #666;
+}
+.topic.last{
+	margin:0;
+}
+
+.topic h3{
+	color:#333;
+	margin:0 0 10px;
+	padding:5px;
+	border-bottom:1px solid #ccc;
+}
+.topic td{
+	border:0;
+	padding:5px 0;
+}
+.topic td.topic_link{
+	font-size:1.1em;
+}
+.topic td.topic_completeness{
+	text-align:right;
+	text-transform:uppercase;
+	color:#999;
+	font-size:0.8em;
+}
+
+.topic a{
+	text-decoration:underline;
+}
+
+.topic a.view_all_chapters{
+	text-decoration:none;
+	display:inline-block;
+	margin:5px 0;
+	padding:5px 10px;
+	-webkit-border-radius: 80px;
+	-moz-border-radius: 80px;
+	border-radius: 80px;
+	background:#f2f2f2;
+}
+.topic a.view_all_chapters:hover{
+	background:#333;
+	color:#fff;
+}
 .user.box h2 {
 	margin: 0px;
 	padding: 0px;
