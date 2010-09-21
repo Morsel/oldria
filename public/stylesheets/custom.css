@@ -2376,10 +2376,17 @@ dl.things dt:after {content: ":"}
 }
 
 #topic_title{
+	width:200px;
+	margin-right:10px;
 	float:left;
 	border:0;
 }
 #topic_nav{
+	width:400px;
+	float:left;
+	overflow:hidden;
+}
+#topic_nav .button{
 	float:right;
 }
 
