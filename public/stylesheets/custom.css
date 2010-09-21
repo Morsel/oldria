@@ -2389,8 +2389,12 @@ div.topic a.view_all_chapters:hover{
 	float:left;
 	overflow:hidden;
 }
-#topic_nav .button{
+#topic_nav .button, #chapter_nav a{
 	float:right;
+}
+#chapter_nav a{
+	display:block;
+	margin-right:10px;
 }
 
 .chapter_answer_count{
@@ -2410,7 +2414,61 @@ div.chapter a:hover p.chapter_answer_count{
 	background-position:5px -28px;
 	text-shadow:none;
 }
+.profile_question{
+	padding:10px 0;
+}
 
+.profile_question h4{
+	margin:15px 0 0;
+	font-weight:bold;
+}
+.profile_answer textarea{
+	width:410px;
+	height:100px;
+	padding:5px;
+	background:#f2f2f2;
+	-webkit-box-shadow: 0 2px 1px rgba(0,0,0, 0.2);
+	-moz-box-shadow: 0 2px 1px rgba(0,0,0, 0.2);
+	box-shadow: 0 2px 1px rgba(0,0,0, 0.2);
+}
+.profile_answer fieldset.plain, .profile_answer button{
+	margin:0;
+}
+
+div#chapter_title{
+	padding:10px;
+	background-image: -webkit-gradient(linear, left top, right top,color-stop(0, rgb(255,255,255)), color-stop(1.0, rgb(223,223,223)));
+	background-image: -moz-linear-gradient(left center, rgb(255,255,255) 0%, rgb(223,223,223) 100%);
+  background-image: linear-gradient(left, #fff 0%, #dfdfdf 100%);
+}
+
+#chapter_title h3{
+	width:300px;
+	float:left;
+	margin:0;
+	padding:0;
+	color:#333;
+	text-transform:uppercase;
+	font-size:14px;
+	font-weight:normal;
+}
+
+#chapter_nav{
+	width:300px;
+	float:left;
+}
+#chapter_nav a.next_chapter{
+	padding:0 12px 0 0;
+	background:url(/images/icon-arrow-next.png) no-repeat right;
+}
+#chapter_nav a.prev_chapter{
+	padding:0 0 0 12px;
+	background:url(/images/icon-arrow-prev.png) no-repeat left;
+}
+#chapter_nav a:hover{
+	color:#333;
+	text-decoration:underline;
+}
 
 .user.box h2 {
 	margin: 0px;

@@ -7,6 +7,8 @@ class QuestionsController < ApplicationController
     @chapter = Chapter.find(params[:chapter_id])
     @previous = @chapter.previous_for_user(@user)
     @next = @chapter.next_for_user(@user)
+    @previous_topic = @chapter.topic.previous_for_user(@user)
+    @next_topic = @chapter.topic.next_for_user(@user)
     @questions = @user.profile_questions.all(:conditions => { :chapter_id => params[:chapter_id] })
   end
 

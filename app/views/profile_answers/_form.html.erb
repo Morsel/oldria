@@ -1,7 +1,7 @@
 <% semantic_form_for answer do |f| %>
     <% f.inputs :class => "plain" do %>
         <%= f.input :profile_question_id, :as => :hidden %>
-        <%= f.input :answer, :hint => answer.new_record? ? "" : "This answer is viewable by others" %>
+        <%= f.input :answer, :hint => answer.new_record? ? "" : "This answer is viewable by others", :label => false %>
     <% end %>
     
     <%= button_tag "Save" %>

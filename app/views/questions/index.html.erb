@@ -1,14 +1,19 @@
 <% title "Behind the Line" %>
 
 <h2 id="topic_title"><%= @chapter.topic.title %></h2>
-<div id="topic_nav" style="clearfix">
-    <%= link_to "Next: #{truncate(@next.title, :length=>20, :omission=>'&hellip;')}", user_questions_path(:user_id => @user.id, :chapter_id => @next.id), :class => 'button rounded' if @next %>
-    <%= link_to "All Chapters for #{@chapter.topic.title}", chapters_user_questions_path(:user_id => @user.id, :topic_id => @chapter.topic.id), :class => 'button rounded' %>
-    <%= link_to "Prev: #{truncate(@previous.title, :length=>20, :omission=>'&hellip;')}", user_questions_path(:user_id => @user.id, :chapter_id => @previous.id), :class => 'button rounded' if @previous %>
+<div id="topic_nav" class="clearfix">
+    <%= link_to "Next: #{truncate(@next_topic.title, :length=>20, :omission=>'&hellip;')}", chapters_user_questions_path(:user_id => @user.id, :topic_id => @next_topic.id), :class => "button round" if @next_topic %>
+    <%= link_to "All Topics", topics_user_questions_path(:user_id => @user.id), :class => "button round" %>
+    <%= link_to "Prev: #{truncate(@previous_topic.title, :length=>20, :omission=>'&hellip;')}", chapters_user_questions_path(:user_id => @user.id, :topic_id => @previous_topic.id), :class => "button round" if @previous_topic %>
 </div>
-<h3 class="clear"><%= @chapter.title %></h3>
 
-
+<div id="chapter_title" class="clear clearfix">
+  <h3><%= @chapter.title %></h3>
+  <div id="chapter_nav" style="clearfix">
+      <%= link_to "Next: #{truncate(@next.title, :length=>20, :omission=>'&hellip;')}", user_questions_path(:user_id => @user.id, :chapter_id => @next.id), :class=>'next_chapter' if @next %>
+      <%= link_to "Prev: #{truncate(@previous.title, :length=>20, :omission=>'&hellip;')}", user_questions_path(:user_id => @user.id, :chapter_id => @previous.id), :class=>'prev_chapter' if @previous %>
+  </div>
+</div>
 <% for question in @questions %>
   <% div_for question do %>
       <h4>Q: <%= question.title %></h4>
