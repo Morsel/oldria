@@ -2,6 +2,6 @@
 
 <p>Click right here on this link to confirm your account and you’ll be good to go: </p>
 
-<p><a href="<%= confirm_url(:id => @user.perishable_token) %>"><%= confirm_url(:id => @user.perishable_token) %></a></p>
+<p><a href="<%= invitation_url(@user.perishable_token, :user_id => @user.id) %>"><%= invitation_url(@user.perishable_token, :user_id => @user.id) %></a></p>
 
 <p>Note: If you have trouble clicking this link above, try copying it and pasting it into your browser's URL bar.</p>
