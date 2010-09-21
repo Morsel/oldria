@@ -2378,7 +2378,7 @@ div.topic a.view_all_chapters:hover{
 	color:#fff;
 }
 
-#topic_title{
+h2#topic_title{
 	width:200px;
 	margin-right:10px;
 	float:left;
