@@ -2431,8 +2431,12 @@ div.chapter a:hover p.chapter_answer_count{
 	-moz-box-shadow: 0 2px 1px rgba(0,0,0, 0.2);
 	box-shadow: 0 2px 1px rgba(0,0,0, 0.2);
 }
-.profile_answer fieldset.plain, .profile_answer button{
+.profile_answer fieldset.plain{
 	margin:0;
+}
+.profile_answer button, .profile_answer a.button{
+	float:left;
+	margin:0 5px 0 0;
 }
 
 div#chapter_title{
