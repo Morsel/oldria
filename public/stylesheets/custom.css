@@ -2274,6 +2274,9 @@ dl.things dt:after {content: ":"}
 	color:#333;
 	padding: 5px 10px;
 }
+.chapter a{
+	min-height:150px;
+}
 
 
 #behindline li a:hover, #behindline li a:hover h5, .chapter a:hover{
@@ -2333,6 +2336,7 @@ dl.things dt:after {content: ":"}
 	border-bottom:1px solid #ccc;
 }
 .chapter h3{
+	width:185px;
 	border:0;
 	padding:0;
 }
