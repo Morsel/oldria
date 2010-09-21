@@ -34,21 +34,23 @@
     <div>
       Phone Number: <span id="phone_number"><%=h @restaurant.phone_number %></span>
     </div>
-    <div id="website">
-      Website: <%= link_to h(@restaurant.website), @restaurant.website%>
-    </div>
-    <div id="twitter_username">
-      Twitter: <%= link_to h(@restaurant.twitter_username), "http://twitter.com/#{@restaurant.twitter_username}"%>
-    </div>
-    <div id="facebook_page">
+    <% div_if(@restaurant.website.present?, :id => "website") do %>
+       Website: <%= link_to h(@restaurant.website), @restaurant.website%>
+    <% end %>
+    <% div_if(@restaurant.twitter_username.present?, :id => "twitter_username") do %>
+      Twitter: <%= link_to h(@restaurant.twitter_username),
+          "http://twitter.com/#{@restaurant.twitter_username}"%>
+    <% end %>
+    <% div_if(@restaurant.facebook_page.present?, :id => "facebook_page") do %>
       Facebook Page: <%= link_to h(@restaurant.facebook_page), @restaurant.facebook_page%>
-    </div>
+    <% end %>
     <div id="hours">
       Hours: <%= h @restaurant.hours %>
     </div>
-    <div id="management_company">
-      Management Company: <%= link_to h(@restaurant.management_company_name), @restaurant.management_company_website %>
-    </div>
+    <% div_if(@restaurant.management_company_name.present?, :id => "management_company") do %>
+      Management Company: <%= link_to h(@restaurant.management_company_name),
+          @restaurant.management_company_website %>
+    <% end %>
   </div>
 </div><!--#restaurant_profile_view -->
 

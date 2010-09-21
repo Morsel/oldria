@@ -132,3 +132,14 @@ Then /^"([^\"]*)" should be responsible for "([^\"]*)" at "([^\"]*)"$/ do |name,
   employment.subject_matters.should include(subject_matter)
 end
 
+When /^I remove optional information from the restaurant$/ do
+  @restaurant.update_attributes(:website => nil, :twitter_username => nil,
+      :facebook_page => nil, :management_company_name => nil,
+      :management_company_website => nil)
+end
+
+Then /^I do not see a section for "([^\"]*)"$/ do |dom_id|
+  response.should_not have_tag("##{dom_id}")
+end
+
+
