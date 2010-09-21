@@ -1,12 +1,13 @@
 <% title "Behind the Line" %>
 
-<h2><%= @chapter.topic.title %></h2>
-<h3><%= @chapter.title %></h3>
-<div style="clearfix">
-    <%= link_to "Prev: #{@previous.title}", user_questions_path(:user_id => @user.id, :chapter_id => @previous.id) if @previous %>
-    <%= link_to "All Chapters for #{@chapter.topic.title}", chapters_user_questions_path(:user_id => @user.id, :topic_id => @chapter.topic.id) %>
-    <%= link_to "Next: #{@next.title}", user_questions_path(:user_id => @user.id, :chapter_id => @next.id) if @next %>
+<h2 id="topic_title"><%= @chapter.topic.title %></h2>
+<div id="topic_nav" style="clearfix">
+    <%= link_to "Next: #{truncate(@next.title, :length=>20, :omission=>'&hellip;')}", user_questions_path(:user_id => @user.id, :chapter_id => @next.id), :class => 'button rounded' if @next %>
+    <%= link_to "All Chapters for #{@chapter.topic.title}", chapters_user_questions_path(:user_id => @user.id, :topic_id => @chapter.topic.id), :class => 'button rounded' %>
+    <%= link_to "Prev: #{truncate(@previous.title, :length=>20, :omission=>'&hellip;')}", user_questions_path(:user_id => @user.id, :chapter_id => @previous.id), :class => 'button rounded' if @previous %>
 </div>
+<h3 class="clear"><%= @chapter.title %></h3>
+
 
 <% for question in @questions %>
   <% div_for question do %>

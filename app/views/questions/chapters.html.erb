@@ -3,9 +3,9 @@
 <h2 id="topic_title"><%= @topic.title %></h2>
 
 <div id="topic_nav" class="clearfix">
-    <%= link_to "Next: #{@next.title}", chapters_user_questions_path(:user_id => @user.id, :topic_id => @next.id), :class => "button round" if @next %>
+    <%= link_to "Next: #{truncate(@next.title, :length=>20, :omission=>'&hellip;')}", chapters_user_questions_path(:user_id => @user.id, :topic_id => @next.id), :class => "button round" if @next %>
     <%= link_to "All Topics", topics_user_questions_path(:user_id => @user.id), :class => "button round" %>
-    <%= link_to "Prev: #{@previous.title}", chapters_user_questions_path(:user_id => @user.id, :topic_id => @previous.id), :class => "button round" if @previous %>
+    <%= link_to "Prev: #{truncate(@previous.title, :length=>20, :omission=>'&hellip;')}", chapters_user_questions_path(:user_id => @user.id, :topic_id => @previous.id), :class => "button round" if @previous %>
 </div>
 <div class="clear"></div>
 <% for chapter in @questions_by_chapter.keys %>

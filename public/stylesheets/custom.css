@@ -2268,23 +2268,26 @@ dl.things dt:after {content: ":"}
 	font-size: 1.1em;
 }
 
-#behindline li a, .chapter a {
+#behindline li a, div.chapter a {
 	display:block;
 	text-decoration: none;
 	color:#333;
 	padding: 5px 10px;
 }
-.chapter a{
+div.chapter a{
 	min-height:150px;
 }
 
 
-#behindline li a:hover, #behindline li a:hover h5, .chapter a:hover{
+#behindline li a:hover, #behindline li a:hover h5, div.chapter a:hover{
 	background:#333;
 	color:#fff;
 }
-.chapter a:hover h3, .chapter a:hover p {
+div.chapter a:hover h3, div.chapter a:hover p {
 	color:#fff;
+}
+div.chapter.last, div.topic.last{
+	margin-right:0;
 }
 
 #behindline .completeness {
@@ -2307,7 +2310,7 @@ dl.things dt:after {content: ":"}
 	background-color: #F5F5F5;
 }
 
-.topic, .chapter{
+div.topic, div.chapter{
 	float:left;
 	padding:10px;
 	margin:0 21px 10px 0;
@@ -2318,49 +2321,49 @@ dl.things dt:after {content: ":"}
 	box-shadow: 1px 1px 3px #666;
 	position:relative;
 }
-.chapter{
+div.chapter{
 	padding:0;
 }
-.chapter a{
+div.chapter a{
 	padding:10px;
 }
-.topic table{
+div.topic table{
 	height:110px;
 	vertical-align:top;
 }
 
-.topic h3, .chapter h3{
+div.topic h3, div.chapter h3{
 	color:#333;
 	margin:0 0 10px;
 	padding:5px;
 	border-bottom:1px solid #ccc;
 }
-.chapter h3{
+div.chapter h3{
 	width:185px;
 	border:0;
 	padding:0;
 }
-.topic td{
+div.topic td{
 	border:0;
 	padding:5px 0;
 	width:50%;
 	vertical-align:top;
 }
-.topic td.topic_link{
+div.topic td.topic_link{
 	font-size:1.1em;
 }
-.topic td.topic_completeness{
+div.topic td.topic_completeness{
 	text-align:right;
 	text-transform:uppercase;
 	color:#999;
 	font-size:0.8em;
 }
 
-.topic a{
+div.topic a{
 	text-decoration:underline;
 }
 
-.topic a.view_all_chapters{
+div.topic a.view_all_chapters{
 	text-decoration:none;
 	display:inline-block;
 	margin:5px 0;
@@ -2370,7 +2373,7 @@ dl.things dt:after {content: ":"}
 	border-radius: 80px;
 	background:#f2f2f2;
 }
-.topic a.view_all_chapters:hover{
+div.topic a.view_all_chapters:hover{
 	background:#333;
 	color:#fff;
 }
@@ -2401,7 +2404,7 @@ dl.things dt:after {content: ":"}
 	font-size:14px;
 	margin:0;
 }
-.chapter a:hover p.chapter_answer_count{
+div.chapter a:hover p.chapter_answer_count{
 	color:#666;
 	background-color:#000;
 	background-position:5px -28px;
