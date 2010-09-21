@@ -1,7 +1,9 @@
 class Admin::InvitationsController < Admin::AdminController
   
   def index
-    @invitations = Invitation.all(:order => "created_at DESC")
+    @invitations = params[:archived] ? 
+        Invitation.all(:order => "created_at DESC", :conditions => { :archived => true }) : 
+        Invitation.all(:order => "created_at DESC", :conditions => { :archived => false })
   end
   
   def edit
@@ -20,12 +22,19 @@ class Admin::InvitationsController < Admin::AdminController
   
   def destroy
     @invitation = Invitation.find(params[:id])
+    flash[:notice] = "Deleted invitation for #{@invitation.name}"
     @invitation.destroy
-    flash[:notice] = "Deleted invitation"
     redirect_to :action => "index"
   end
   
   def accept
+  end
+
+  def archive
+    @invitation = Invitation.find(params[:id])
+    @invitation.update_attribute(:archived, true)
+    flash[:notice] = "Archived invitation for #{@invitation.name}"
+    redirect_to :action => "index"
   end
 
 end

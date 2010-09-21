@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20100920193024
+# Schema version: 20100921161540
 #
 # Table name: invitations
 #
@@ -7,12 +7,16 @@
 #  first_name         :string(255)
 #  last_name          :string(255)
 #  email              :string(255)
+#  title              :string(255)
 #  coworker           :boolean
 #  restaurant_id      :integer
+#  restaurant_name    :string(255)
 #  requesting_user_id :integer
 #  invitee_id         :integer
+#  approved_at        :datetime
 #  created_at         :datetime
 #  updated_at         :datetime
+#  archived           :boolean
 #
 
 class Invitation < ActiveRecord::Base
@@ -23,5 +27,9 @@ class Invitation < ActiveRecord::Base
   
   validates_presence_of :email, :first_name, :last_name
   validates_uniqueness_of :email, :message => "That person has already been invited"
+  
+  def name
+    @name ||= [first_name, last_name].compact.join(' ')
+  end
 
 end

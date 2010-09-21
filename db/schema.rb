@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100920193024) do
+ActiveRecord::Schema.define(:version => 20100921161540) do
 
   create_table "accolades", :force => true do |t|
     t.integer  "profile_id"
@@ -434,6 +434,7 @@ ActiveRecord::Schema.define(:version => 20100920193024) do
     t.datetime "approved_at"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "archived",           :default => false
   end
 
   create_table "james_beard_regions", :force => true do |t|

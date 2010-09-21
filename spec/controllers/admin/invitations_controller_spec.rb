@@ -26,5 +26,12 @@ describe Admin::InvitationsController do
     invite.expects(:destroy).returns(true)
     delete :destroy, :id => invite.id
   end
+  
+  it "should archive an invite" do
+    invite = Factory(:invitation)
+    Invitation.stubs(:find).returns(invite)
+    invite.expects(:update_attribute).with(:archived, true).returns(true)
+    post :archive, :id => invite.id
+  end
     
 end
