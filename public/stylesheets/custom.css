@@ -2257,22 +2257,28 @@ dl.things dt:after {content: ":"}
 }
 
 #behindline h5, #behindline a {
-	color: #e8750a;
+	color: #333;
 	margin: 0;
 }
 
 #behindline .view_all {
-	margin: 1em 10px 0;
+	border-top:1px solid #ccc;
+	padding: 1em 10px 0;
+	margin:0;
 	font-size: 1.1em;
 }
 
-#behindline a {
+#behindline li a {
+	display:block;
 	text-decoration: none;
+	color:#333;
+	padding: 5px 10px;
 }
 
 
-#behindline a:hover {
-	text-decoration: underline;
+#behindline li a:hover, #behindline li a:hover h5 {
+	background:#333;
+	color:#fff;
 }
 
 #behindline .completeness {
@@ -2286,11 +2292,13 @@ dl.things dt:after {content: ":"}
 
 #behindline li {
 	list-style: none;
-	padding: 5px 10px;
+	padding:0;
+	margin:0;
+	border-top:1px solid #ccc;
 }
 
 #behindline li.even {
-	background-color: #fdf6ee;
+	background-color: #F5F5F5;
 }
 
 .user.box h2 {

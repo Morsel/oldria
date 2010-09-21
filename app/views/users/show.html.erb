@@ -126,13 +126,10 @@
         <% end %>
         <% for topic in @user.topics %>
         <li class="<%= cycle("even", "odd") %>">
-            <h5>
-                <% link_to chapters_user_questions_path(:user_id => @user.id, :topic_id => topic.id) do %>
-                    <%= topic.title %> <span class="completeness">(<%= topic.completion_percentage(@user) %>% complete)</span>
-                <% end %>
-            </h5>
-            <%= truncate(topic.profile_questions.map(&:title).join(" "), :length => 100) %> 
-            <%= link_to "more&nbsp;&raquo;", chapters_user_questions_path(:user_id => @user.id, :topic_id => topic.id) %>
+          <% link_to chapters_user_questions_path(:user_id => @user.id, :topic_id => topic.id) do %>
+            <h5><%= topic.title %> <span class="completeness">(<%= topic.completion_percentage(@user) %>% complete)</span></h5>
+            <%= truncate(topic.profile_questions.map(&:title).join(" "), :length => 100) %>   
+          <% end %>
         </li>
         <% end if @user.primary_employment %>
         <p class="view_all"><%= link_to "View all Topics &raquo;", topics_user_questions_path(:user_id => @user.id) %></p>
