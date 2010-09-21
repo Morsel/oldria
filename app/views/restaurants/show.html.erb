@@ -15,7 +15,6 @@
 			<h2 class="function-bold" id="name"><%= @restaurant.name %></h2>
 			<p id="address"><%= @restaurant.address_parts.join("<br />") %></p>
 			<p>
-				Phone Number: <span id="phone_number"><%=h @restaurant.phone_number %></span><br />
 				Metropolitan Area: <span><%=h @restaurant.metropolitan_area.try(:name) %></span><br />
 				Region: <span><%=h @restaurant.james_beard_region.try(:name) %></span>
 			</p>
@@ -49,6 +48,7 @@
       Management Company: <%= link_to h(@restaurant.management_company_name),
           @restaurant.management_company_website %>
     <% end %>
+
   </div>
 </div><!--#restaurant_profile_view -->
 
