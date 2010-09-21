@@ -13,36 +13,17 @@
 		<%= image_tag 'avatar_restaurant.gif', :width=>'100' %>
 		<div class="user_info">
 			<h2 class="function-bold" id="name"><%= @restaurant.name %></h2>
-			<div class="function-bold" id="description"><%= @restaurant.description %></div>
 			<p id="address"><%= @restaurant.address_parts.join("<br />") %></p>
 			<p>
-				Phone Number: <span id="phone_number"><%=h @restaurant.phone_number %></span><br />
 				Metropolitan Area: <span><%=h @restaurant.metropolitan_area.try(:name) %></span><br />
 				Region: <span><%=h @restaurant.james_beard_region.try(:name) %></span>
 			</p>
 		</div>
 	</div><!-- .name_and_pic -->
 	<div class="manager_and_facts span-4 last">
-		<p>Manager: <span><%=h @restaurant.manager.try(:name) %></span></p>
+    <p>Manager: <span><%=h @restaurant.manager.try(:name) %></span></p>
     <p id="media_contact">Media Contact: <span><%=h @restaurant.media_contact.try(:name) %></span></p>
  		<p>Cuisine: <span><%=h @restaurant.cuisine.try(:name) %></span></p>
-		<p><%=h @restaurant.facts %></p>
-
-    <p id="website">
-      Website: <%= link_to h(@restaurant.website), @restaurant.website%>
-    </p>
-    <p id="twitter_username">
-      Twitter: <%= link_to h(@restaurant.twitter_username), "http://twitter.com/#{@restaurant.twitter_username}"%>
-    </p>
-    <p id="facebook_page">
-      Facebook Page: <%= link_to h(@restaurant.facebook_page), @restaurant.facebook_page%>
-    </p>
-    <p id="hours">
-      Hours: <%= h @restaurant.hours %>
-    </p>
-    <p id="management_company">
-      Management Company: <%= link_to h(@restaurant.management_company_name), @restaurant.management_company_website %>
-    </p>
 	</div><!-- .manager_and_facts -->
   <hr clear="all" />
   <div class="span-11 last">
@@ -53,23 +34,21 @@
     <div>
       Phone Number: <span id="phone_number"><%=h @restaurant.phone_number %></span>
     </div>
-    <% div_if(@restaurant.website.present?, :id => "website") do %>
-       Website: <%= link_to h(@restaurant.website), @restaurant.website%>
-    <% end %>
-    <% div_if(@restaurant.twitter_username.present?, :id => "twitter_username") do %>
-      Twitter: <%= link_to h(@restaurant.twitter_username),
-          "http://twitter.com/#{@restaurant.twitter_username}"%>
-    <% end %>
-    <% div_if(@restaurant.facebook_page.present?, :id => "facebook_page") do %>
+    <div id="website">
+      Website: <%= link_to h(@restaurant.website), @restaurant.website%>
+    </div>
+    <div id="twitter_username">
+      Twitter: <%= link_to h(@restaurant.twitter_username), "http://twitter.com/#{@restaurant.twitter_username}"%>
+    </div>
+    <div id="facebook_page">
       Facebook Page: <%= link_to h(@restaurant.facebook_page), @restaurant.facebook_page%>
-    <% end %>
+    </div>
     <div id="hours">
       Hours: <%= h @restaurant.hours %>
     </div>
-    <% div_if(@restaurant.management_company_name.present?, :id => "management_company") do %>
-      Management Company: <%= link_to h(@restaurant.management_company_name),
-          @restaurant.management_company_website %>
-    <% end %>
+    <div id="management_company">
+      Management Company: <%= link_to h(@restaurant.management_company_name), @restaurant.management_company_website %>
+    </div>
   </div>
 </div><!--#restaurant_profile_view -->
 
