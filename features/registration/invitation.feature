@@ -11,6 +11,7 @@ Feature: users can be invited to join Spoonfeed by registered SF users, restaura
   Scenario: a regular restaurant employee wants to invite a friend
     Given I am on the new invitation page
     And I fill in "First name" with "Mary Anne"
+    And I fill in "Last name" with "Smith"
     And I fill in "Email" with "ma@email.com"
     And I press "Invite User"
     Then I should see "Your invite has been sent to an admin for approval"

@@ -99,6 +99,8 @@ module NavigationHelpers
       admin_chapters_path
     when /^the new topic page$/
       new_admin_topic_path
+    when /^the admin invitations page$/
+      admin_invitations_path
 
     # Direct path
     when /"([^\"]+)"/

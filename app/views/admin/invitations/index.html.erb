@@ -1,0 +1,13 @@
+<% title "Invitations" %>
+
+<% table_for @invitations do |t| %>
+    <% t.data :actions => [:accept, :archive, :edit, :destroy], :action_prefix => 'admin' do
+    	t.cell(:first_name)
+    	t.cell(:last_name)
+    	t.cell(:email)
+    	t.cell(:title)
+    	t.cell(:restaurant) { |c| c.restaurant || c.restaurant_name }
+    	t.cell(:coworker)
+    	t.cell(:requesting_user, :heading => "Invited by") { |c| c.requesting_user.try(:name) }
+    end %>
+<% end %>

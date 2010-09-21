@@ -135,6 +135,8 @@ Factory.define :nonculinary_enrollment do |f|
 end
 
 Factory.define :invitation do |f|
+  f.first_name "Jane"
+  f.last_name "Doe"
   f.sequence(:email) { |n| "foo#{n}@example.com" }
 end
 
