@@ -2268,7 +2268,7 @@ dl.things dt:after {content: ":"}
 	font-size: 1.1em;
 }
 
-#behindline li a {
+#behindline li a, .chapter a {
 	display:block;
 	text-decoration: none;
 	color:#333;
@@ -2276,8 +2276,11 @@ dl.things dt:after {content: ":"}
 }
 
 
-#behindline li a:hover, #behindline li a:hover h5 {
+#behindline li a:hover, #behindline li a:hover h5, .chapter a:hover{
 	background:#333;
+	color:#fff;
+}
+.chapter a:hover h3, .chapter a:hover p {
 	color:#fff;
 }
 
@@ -2301,7 +2304,7 @@ dl.things dt:after {content: ":"}
 	background-color: #F5F5F5;
 }
 
-.topic{
+.topic, .chapter{
 	float:left;
 	padding:10px;
 	margin:0 21px 10px 0;
@@ -2310,21 +2313,34 @@ dl.things dt:after {content: ":"}
 	-webkit-box-shadow: 1px 1px 3px #666;
 	-moz-box-shadow: 1px 1px 3px #666;
 	box-shadow: 1px 1px 3px #666;
+	position:relative;
+}
+.chapter{
+	padding:0;
+}
+.chapter a{
+	padding:10px;
 }
 .topic table{
 	height:110px;
+	vertical-align:top;
 }
 
-.topic h3{
+.topic h3, .chapter h3{
 	color:#333;
 	margin:0 0 10px;
 	padding:5px;
 	border-bottom:1px solid #ccc;
 }
+.chapter h3{
+	border:0;
+	padding:0;
+}
 .topic td{
 	border:0;
 	padding:5px 0;
 	width:50%;
+	vertical-align:top;
 }
 .topic td.topic_link{
 	font-size:1.1em;
@@ -2354,6 +2370,34 @@ dl.things dt:after {content: ":"}
 	background:#333;
 	color:#fff;
 }
+
+#topic_title{
+	float:left;
+	border:0;
+}
+#topic_nav{
+	float:right;
+}
+
+.chapter_answer_count{
+	position:absolute;
+	top:0;
+	right:0;
+	padding:5px 10px 5px 25px;
+	background:#E4E4E4 url(/images/icon-star.png) no-repeat 5px 8px;
+	color:#666;
+	text-shadow:0 1px 0 #fff;
+	font-size:14px;
+	margin:0;
+}
+.chapter a:hover p.chapter_answer_count{
+	color:#666;
+	background-color:#000;
+	background-position:5px -28px;
+	text-shadow:none;
+}
+
+
 .user.box h2 {
 	margin: 0px;
 	padding: 0px;
