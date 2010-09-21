@@ -29,16 +29,12 @@
       <%= link_to @restaurant.website, @restaurant.website, :target => "_blank" %>
     </div>
 
-    <% if @restaurant.twitter_username.present? %>
-      <div id="twitter_username">
-        Twitter: <%= link_to h(@restaurant.twitter_username), "http://twitter.com/#{@restaurant.twitter_username}" %>
-      </div>
+    <% div_if(@restaurant.twitter_username.present?, :id => "twitter_username") do %>
+      Twitter: <%= link_to h(@restaurant.twitter_username), "http://twitter.com/#{@restaurant.twitter_username}" %>
     <% end %>
 
-    <% if @restaurant.facebook_page.present? %>
-      <div id="facebook_page">
-        Facebook: <%= link_to h(@restaurant.facebook_page), @restaurant.facebook_page %>
-      </div>
+    <% div_if(@restaurant.facebook_page.present?, :id => "facebook_page") do %>
+      Facebook: <%= link_to h(@restaurant.facebook_page), @restaurant.facebook_page %>
     <% end %>
 
   </div>
@@ -52,39 +48,34 @@
       Hours: <%= h @restaurant.hours %>
     </div>
     <br />
-    <% if @restaurant.media_contact %>
-      <div id="media_contact">
-        Media Contact:
-        <div id="media_contact_name">
-          <%= h @restaurant.media_contact.name %>
-        </div>
-        <div id="media_contact_email">
-          Email:
-          <%= link_to h(@restaurant.media_contact.email),
-              "mailto:#{@restaurant.media_contact.email}" %>
-        </div>
-        <div id="media_contact_phone">
-          Phone:
-          <%= h @restaurant.media_contact.phone_number %>
-        </div>
+    <% div_if @restaurant.media_contact, :id =>"media_contact" do %>
+      Media Contact:
+      <div id="media_contact_name">
+        <%= h @restaurant.media_contact.name %>
+      </div>
+      <div id="media_contact_email">
+        Email:
+        <%= link_to h(@restaurant.media_contact.email),
+            "mailto:#{@restaurant.media_contact.email}" %>
+      </div>
+      <div id="media_contact_phone">
+        Phone:
+        <%= h @restaurant.media_contact.phone_number %>
       </div>
     <% end %>
 
-    <% if @restaurant.management_company_name %>
+    <% div_if @restaurant.management_company_name, :id => "management_company" do %>
       <br />
-      <div id="management_company">
-        Managed by:
-        <% if @restaurant.management_company_website %>
-          <%= link_to @restaurant.management_company_name, @restaurant.management_company_website,
-              :target => "_blank"%>
-        <% else %>
-          <%= h @restaurant.management_company_name %>
-        <% end %>
-      </div>
+      Managed by:
+      <% if @restaurant.management_company_website %>
+        <%= link_to @restaurant.management_company_name, @restaurant.management_company_website,
+            :target => "_blank"%>
+      <% else %>
+        <%= h @restaurant.management_company_name %>
+      <% end %>
     <% end %>
   </div>
 
   <br />
-
 
 </div>
