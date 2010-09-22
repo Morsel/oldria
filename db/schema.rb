@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100920194200) do
+ActiveRecord::Schema.define(:version => 20100921212953) do
 
   create_table "accolades", :force => true do |t|
     t.integer  "profile_id"
@@ -598,6 +598,31 @@ ActiveRecord::Schema.define(:version => 20100920194200) do
 
   add_index "responsibilities", ["employment_id"], :name => "index_responsibilities_on_employment_id"
   add_index "responsibilities", ["subject_matter_id"], :name => "index_responsibilities_on_subject_matter_id"
+
+  create_table "restaurant_feature_categories", :force => true do |t|
+    t.string   "name"
+    t.integer  "restaurant_feature_page_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "restaurant_feature_pages", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "restaurant_features", :force => true do |t|
+    t.integer  "restaurant_feature_category_id"
+    t.string   "value"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "restaurant_restaurant_features", :id => false, :force => true do |t|
+    t.integer "restaurant_id"
+    t.integer "restaurant_feature_id"
+  end
 
   create_table "restaurant_roles", :force => true do |t|
     t.string   "name"

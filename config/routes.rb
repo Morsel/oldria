@@ -141,6 +141,9 @@ ActionController::Routing::Routes.draw do |map|
     admin.resources :question_roles
     admin.resources :schools
     admin.resources :specialties, :collection => { :sort => :post }
+    admin.resources :restaurant_features
+    admin.resources :restaurant_feature_pages
+    admin.resources :restaurant_feature_categories
 
     # Admin Messaging
     exclusive_routes = [:index, :show, :destroy]
