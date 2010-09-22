@@ -37,6 +37,10 @@ class Admin::RestaurantsController < Admin::AdminController
       flash[:error] = "We were unable to update the restaurant"
       render :edit_photos
     end
+    redirect_to edit_photos_admin_restaurant_path(@restaurant)
+  end
+
+  def edit_photos
   end
 
   def destroy
