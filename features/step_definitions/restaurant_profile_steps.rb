@@ -133,7 +133,6 @@ Then /^I see a category named "([^\"]*)" in the page "([^\"]*)"$/ do |category, 
   response.should have_selector("##{dom_id(page)} .feature_category", :content => category) 
 end
 
-
 When /^I see a page named "([^\"]*)"$/ do |page|
   response.should have_selector(".feature_page", :content => page) 
 end
@@ -142,3 +141,6 @@ Then /^I see the restaurant's website$/ do
   response.should have_selector("#website", :content => @restaurant.website)
 end
 
+When /^I see a page named "([^\"]*)"$/ do |page|
+  response.should have_selector(".feature_page", :content => page) 
+end
