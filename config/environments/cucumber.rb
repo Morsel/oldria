@@ -33,3 +33,4 @@ config.gem 'bmabey-email_spec', :lib => 'email_spec', :source => "http://gems.gi
 config.gem "fakeweb", :version => ">= 1.2.5"
 config.gem "mocha"
 config.gem "delorean"
+config.gem "awesome_print", :lib => "ap"

@@ -96,4 +96,43 @@ Then /^I see the following restaurant fields:$/ do |fields|
   end
 end
 
+Given /^the following restaurant features:$/ do |features|
+  features.hashes.each do |feature_hash|
+    page = RestaurantFeaturePage.find_or_create_by_name(feature_hash["page"])
+    category = RestaurantFeatureCategory.find_or_create_by_name(feature_hash["category"])
+    category.update_attributes(:page => page)
+    RestaurantFeature.create!(:category => category, :value => feature_hash["value"])
+  end
+end
 
+Then /^I see the page headers$/ do
+  RestaurantFeaturePage.all.each do |page|
+     response.should have_selector(".feature_page", :content => page.name) 
+  end
+end
+
+Then /^I see the category headers$/ do
+  RestaurantFeatureCategory.all.each do |category|
+     response.should have_selector(".feature_category", :content => category.name) 
+  end
+end
+
+Then /^I see the category values$/ do
+  RestaurantFeature.all.each do |feature|
+    response.should have_selector(".feature_category ##{dom_id(feature)}") 
+  end
+end
+
+Then /^I see a tag named "([^\"]*)" in the category "([^\"]*)"$/ do |feature, category_name|
+  category = RestaurantFeatureCategory.find_by_name(category_name)
+  response.should have_selector("##{dom_id(category)} .feature", :content => feature) 
+end
+
+Then /^I see a category named "([^\"]*)" in the page "([^\"]*)"$/ do |category, page_name|
+  page = RestaurantFeaturePage.find_by_name(page_name)
+  response.should have_selector("##{dom_id(page)} .feature_category", :content => category) 
+end
+
+When /^I see a page named "([^\"]*)"$/ do |page|
+  response.should have_selector(".feature_page", :content => page) 
+end
