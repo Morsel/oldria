@@ -136,7 +136,7 @@ When /^(?:|I )attach the file "([^\"]*)" to "([^\"]*)"$/ do |path, field|
   when "gif"
     type = "image/gif"
   end
-  
+  path = File.join(RAILS_ROOT, path)
   attach_file(field, path, type)
 end
 
