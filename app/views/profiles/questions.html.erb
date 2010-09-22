@@ -1,7 +1,12 @@
 <% title "My Questions" %>
 
 <ul>
-    <% for question in @questions %>
-    <li><%= question.title %></li>
+    <%- for chapter in @questions.keys -%>
+    <%- unless chapter.nil? -%><li><%= chapter.title_with_topic %></li><%- end -%>
+    <ul>
+        <% for question in @questions[chapter] %>
+        <li><%= question.title %></li>
+        <% end %>
+    </ul>
     <% end %>
 </ul>

@@ -31,4 +31,10 @@ module ProfileHelper
   def privacy_options
     [["Nobody!", "private"], ["Just Chefs in Spoonfeed", "spoonfeed"], ["The public at large", "everyone"]]
   end
+  
+  def age(birthday)
+    result = Date.today.year - birthday.year
+    result -= 1 if Date.today < birthday + result.years
+    result
+  end
 end

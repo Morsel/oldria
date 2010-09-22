@@ -1,18 +1,22 @@
-<% div_for admin_message do %>
-  <h3 class="message_title function-bold">
-    <%= date_for_admin_message(admin_message) %>
-    <%= admin_message.class.try(:title) %>
-    <% if admin_message.holiday_id %>
-      (<span class="holiday_name"><%= admin_message.holiday.try(:name) %></span>)
-    <% end %>
-  </h3>
+<% div_for admin_message, :class => 'discussion inbox_message individual' do %>
+    <div class="icon">
+    </div>
+    <div class="message-header clearfix">
+        <h4 class="message-title">
+            <%= admin_message.inbox_title %>
+            <span class="message-date">
+                <%= date_for_admin_message(admin_message) %>
+            </span>
+        </h4>
+    </div>
 
-  <p class="message_body">
-    <%= auto_link(simple_format(admin_message.message)) %>
-  </p>
-  <% if admin_message.holiday_id %>
-  <p>
-    <%= admin_message.holiday.try(:name) %> is coming up! Only <%= distance_of_time_in_words(Date.today, admin_message.holiday.date) %> from now!
-  </p>
-  <% end -%>
+    <div class="message-body">
+        <%= auto_link(simple_format(admin_message.message)) %>
+    </div>
+    
+    <div class="message-comments clearfix">
+        <% if admin_message.recipients_can_reply? %>
+        <%= render :partial => 'comments', :locals => {:message => admin_message}  %>
+        <% end %>
+    </div>
 <% end %>

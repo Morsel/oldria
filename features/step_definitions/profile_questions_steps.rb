@@ -17,3 +17,15 @@ Given /^the following questions:$/ do |table|
     Factory(:profile_question, :title => row['title'], :chapter => chapter)
   end
 end
+
+Given /^several profile questions matching employment roles for "([^\"]*)"$/ do |username|
+  user = User.find_by_username(username)
+  role = Factory(:restaurant_role)
+  Factory(:employment, :employee => user, :primary => true, :restaurant_role => role)
+  Factory(:profile_question, :title => "Title 1", :restaurant_roles => [role], 
+      :chapter => Factory(:chapter, :title => "Education"))
+  Factory(:profile_question, :title => "Title 2", :restaurant_roles => [role], 
+      :chapter => Factory(:chapter, :title => "Work Experience"))
+  Factory(:profile_question, :title => "Title 3", :restaurant_roles => [role], 
+      :chapter => Factory(:chapter, :title => "Free Time"))
+end

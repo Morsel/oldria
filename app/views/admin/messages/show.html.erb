@@ -33,6 +33,7 @@
   <div class="admin_messages_header">
     <span class="indicator"></span>
     <h3>Replied (<%= @message.conversations_with_replies.count %>)</h3>
+    <%- if @message.title == "Question of the Day" -%><h4>[s] authorized for soapbox</h4><%- end -%>
   </div>
   <table>
     <%= render :partial => 'admin_conversations/admin_conversation',

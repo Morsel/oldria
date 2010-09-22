@@ -69,6 +69,7 @@ class User < ActiveRecord::Base
   has_many :readings, :dependent => :destroy
 
   has_one :profile
+  has_many :profile_answers
 
   validates_presence_of :email
 
@@ -279,9 +280,17 @@ class User < ActiveRecord::Base
   end
 
   def profile_questions
-    ProfileQuestion.all(:joins => {:restaurant_roles => :employments}, :conditions => {:employments => { :id => primary_employment.id }})
+    ProfileQuestion.for_user(self)
   end
-
+  
+  def topics
+    Topic.for_user(self) || []
+  end
+  
+  def published_topics
+    topics.select { |t| t.published?(self) }
+  end
+  
   def cuisines
     profile.present? ? profile.cuisines : []
   end

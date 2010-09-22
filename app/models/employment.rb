@@ -17,6 +17,7 @@ class Employment < ActiveRecord::Base
   belongs_to :employee, :class_name => "User"
   belongs_to :restaurant
   belongs_to :restaurant_role
+
   has_many :responsibilities, :dependent => :destroy
   has_many :subject_matters, :through => :responsibilities
   has_many :admin_conversations, :class_name => 'Admin::Conversation', :foreign_key => 'recipient_id'

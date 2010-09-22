@@ -21,8 +21,30 @@ class ProfileQuestion < ActiveRecord::Base
   validates_presence_of :title, :chapter_id, :restaurant_roles
   validates_uniqueness_of :title, :scope => :chapter_id, :case_sensitive => false
   
+  named_scope :for_user, lambda { |user|
+    { :joins => { :restaurant_roles => :employments }, 
+    :conditions => { :employments => { :id => user.primary_employment.id } },
+    :include => :chapter,
+    :order => "chapters.position, profile_questions.position" }
+  }
+  
+  named_scope :answered, :joins => :profile_answers
+  
   def topic
     chapter.topic
   end
   
+  def answered_by?(user)
+    self.profile_answers.exists?(:user_id => user.id)
+  end
+  
+  def answer_for(user)
+    self.profile_answers.find_by_user_id(user.id)
+  end
+  
+  def find_or_build_answer_for(user)
+    self.answered_by?(user) ? 
+        self.profile_answers.find_by_user_id(user.id) : 
+        ProfileAnswer.new(:profile_question_id => self.id, :user_id => user.id)
+  end
 end

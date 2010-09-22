@@ -1,11 +1,5 @@
-<% title "Admin Messages" %>
+<% title @admin_conversation.inbox_title, false %>
 
-<% if admin_message = @admin_conversation.admin_message %>
+<% admin_message = @admin_conversation.admin_message %>
 
-  <%= render :partial => 'admin_messages/admin_message', :locals => {:admin_message => admin_message} %>
-
-  <% if admin_message.recipients_can_reply? %>
-    <%= render :partial => 'comments', :locals => {:message => admin_message}  %>
-  <% end %>
-
-<% end %>
+<%= render :partial => 'admin_messages/admin_message', :locals => { :admin_message => admin_message } %>

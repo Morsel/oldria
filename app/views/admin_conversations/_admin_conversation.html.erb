@@ -10,10 +10,10 @@
   </td>
   <%- end -%>
   
-  <% if admin_conversation.recipient.primary_employment.prefers_post_to_soapbox %>
-  <td>[s]</td>
-  <% else %>
-  <td>&nbsp;</td>
+  <% if admin_conversation.comments_count > 0 %>
+  <td>
+      <%= admin_conversation.recipient.primary_employment.prefers_post_to_soapbox ? "[s]" : "&nbsp;" %>
+  </td>
   <% end %>
 
   <td class="actions">

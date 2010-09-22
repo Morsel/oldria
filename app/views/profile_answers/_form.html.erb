@@ -1,0 +1,11 @@
+<% semantic_form_for answer do |f| %>
+    <% f.inputs :class => "plain" do %>
+        <%= f.input :profile_question_id, :as => :hidden %>
+        <%= f.input :answer, :hint => answer.new_record? ? "" : "This answer is viewable by others", :label => false %>
+    <% end %>
+    
+    <div class="clearfix">
+      <%= button_tag "Save" %>
+      <%= link_to "Delete this answer", profile_answer_path(answer), :method => "delete", :class => "button negative" unless answer.new_record? %>
+    </div>
+<% end %>

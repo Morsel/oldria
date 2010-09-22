@@ -1,0 +1,5 @@
+<% title "Behind the Line" %>
+
+<h4>Q: <%= @question.title %></h4>
+
+<%= render :partial => "profile_answers/form", :locals => { :answer => @answer } %>

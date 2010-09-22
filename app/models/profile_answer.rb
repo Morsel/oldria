@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20100910002655
+# Schema version: 20100913210123
 #
 # Table name: profile_answers
 #
@@ -8,12 +8,15 @@
 #  answer              :text
 #  created_at          :datetime
 #  updated_at          :datetime
+#  user_id             :integer
 #
 
 class ProfileAnswer < ActiveRecord::Base
 
   belongs_to :profile_question
+  belongs_to :user
   
-  validates_presence_of :answer
+  validates_presence_of :answer, :profile_question_id, :user_id
+  validates_uniqueness_of :profile_question_id, :scope => :user_id
 
 end
