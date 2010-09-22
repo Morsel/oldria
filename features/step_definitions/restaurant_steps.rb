@@ -142,4 +142,7 @@ Then /^I do not see a section for "([^\"]*)"$/ do |dom_id|
   response.should_not have_tag("##{dom_id}")
 end
 
-
+Then /^I see the uploaded restaurant photo$/ do
+  response.should have_selector("img.restaurant_photo")
+  response.body.should include("http://spoonfeed.s3.amazonaws.com/cucumber/images/#{@restaurant.photos.last.id}/original/bourgeoispig.jpg")
+end

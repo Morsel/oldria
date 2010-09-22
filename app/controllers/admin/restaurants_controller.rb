@@ -18,6 +18,14 @@ class Admin::RestaurantsController < Admin::AdminController
     end
   end
 
+  def upload_photo
+    @restaurant.photos << Image.create!(params[:image])
+    redirect_to edit_photos_admin_restaurant_path(@restaurant)    
+  end
+
+  def edit_photos
+  end
+
   def destroy
     @restaurant.destroy
     flash[:notice] = "Successfully removed restaurant"

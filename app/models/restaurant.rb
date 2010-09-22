@@ -52,6 +52,7 @@ class Restaurant < ActiveRecord::Base
   after_validation_on_create :add_manager_as_employee
   after_save :update_admin_discussions
 
+  has_many :photos, :class_name => "Image", :as => :attachable, :dependent => :destroy  
 
   # For pagination
   cattr_reader :per_page
