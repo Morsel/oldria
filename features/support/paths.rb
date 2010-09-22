@@ -87,7 +87,7 @@ module NavigationHelpers
       new_admin_holiday_path
     when /^the new trend question page/
       new_admin_trend_question_path
-    when /^the list of trend questions$/
+    when /^the list of trend questions$/ 
       admin_trend_questions_path
     when /^the new PR Tip page$/
       new_admin_pr_tip_path
@@ -105,6 +105,8 @@ module NavigationHelpers
       new_admin_topic_path
     when /^the admin invitations page$/
       admin_invitations_path
+    when /^the restaurant photo upload page for (.+)$/
+      edit_photos_admin_restaurant_path(Restaurant.find_by_name($1))
 
     # Direct path
     when /"([^\"]+)"/
