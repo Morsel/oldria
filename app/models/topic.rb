@@ -44,7 +44,7 @@ class Topic < ActiveRecord::Base
   end
   
   def answer_count_for_user(user)
-    self.profile_questions.answered.for_user(user).count
+    self.profile_questions.answered_for_user(user).count
   end
   
   def completion_percentage(user)
