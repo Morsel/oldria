@@ -118,23 +118,25 @@
     <%= render 'users/extended_profile', :user => @user, :profile => @user.profile %>
 </div><!-- #extended_profile_container -->
 
+<% if @user.primary_employment && (@user == current_user || @user.published_topics.present?) %>
 <div class="span-6" id="behindline">
     <h3 class="profile_subhead">Behind the Line: <%= @user.name %></h3>
     <ul class="box">
         <% if current_user == @user %>
         <div class="edit_profile_link"><%= link_to "<span>Edit profile</span>", topics_user_questions_path(:user_id => @user.id) %></div>
         <% end %>
-        <% for topic in @user.topics %>
+        <% for topic in @user == current_user ? @user.topics : @user.published_topics %>
         <li class="<%= cycle("even", "odd") %>">
           <% link_to chapters_user_questions_path(:user_id => @user.id, :topic_id => topic.id) do %>
             <h5><%= topic.title %> <span class="completeness">(<%= topic.completion_percentage(@user) %>% complete)</span></h5>
             <%= truncate(topic.profile_questions.map(&:title).join(" "), :length => 100) %>   
           <% end %>
         </li>
-        <% end if @user.primary_employment %>
+        <% end %>
         <p class="view_all"><%= link_to "View all Topics &raquo;", topics_user_questions_path(:user_id => @user.id) %></p>
     </ul>
 </div>
+<% end %>
 
 <div class="span-6 last tabable" id="recentsoapbox">
     <h3 class="profile_subhead">Recent responses on Soapbox</h3>
