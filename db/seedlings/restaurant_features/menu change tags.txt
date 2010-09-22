@@ -1,0 +1,8 @@
+﻿Daily
+Twice a week
+Weekly
+Twice a month
+Monthly
+Seasonally
+Annually
+Never

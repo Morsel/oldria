@@ -1,0 +1,12 @@
+﻿Free street
+Metered street
+Zoned street
+Free Garage
+Pay Garage
+Free Lot
+Pay Lot
+Free lunch valet
+Pay lunch valet
+Free dinner valet
+Pay dinner valet
+Other
