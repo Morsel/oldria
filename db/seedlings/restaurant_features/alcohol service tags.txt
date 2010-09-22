@@ -1,0 +1,9 @@
+﻿Full bar
+Featured alcohol program/s
+Limited bar
+Beer and wine only
+Beer only
+Wine only
+BYO only
+BYO allowed
+No alcohol allowed
