@@ -27,7 +27,7 @@ class Chapter < ActiveRecord::Base
     :select => "distinct chapters.*",
     :order => :position }
   }
-  
+    
   def title_with_topic
     "#{topic.title} - #{title}"
   end

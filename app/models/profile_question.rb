@@ -28,6 +28,10 @@ class ProfileQuestion < ActiveRecord::Base
     :order => "chapters.position, profile_questions.position" }
   }
   
+  named_scope :for_chapter, lambda { |chapter_id|
+    { :conditions => { :chapter_id => chapter_id } }
+  }
+  
   named_scope :answered, :joins => :profile_answers
   
   def topic
