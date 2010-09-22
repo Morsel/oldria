@@ -101,6 +101,8 @@ module NavigationHelpers
       admin_chapters_path
     when /^the new topic page$/
       new_admin_topic_path
+    when /^the admin restaurant feature page$/
+      admin_restaurant_features_path
 
     # Direct path
     when /"([^\"]+)"/
