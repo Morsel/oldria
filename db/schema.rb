@@ -656,6 +656,7 @@ ActiveRecord::Schema.define(:version => 20100921212953) do
     t.integer  "media_contact_id"
     t.string   "management_company_name"
     t.string   "management_company_website"
+    t.integer  "logo_id"
   end
 
   add_index "restaurants", ["cuisine_id"], :name => "index_restaurants_on_cuisine_id"
