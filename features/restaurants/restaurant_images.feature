@@ -42,3 +42,4 @@ Feature: Restaurant Images
     And I press "Upload"
     When I go to the restaurant photo upload page for Bourgeois Pig
     Then I see the 1st photo selected as the primary photo
+

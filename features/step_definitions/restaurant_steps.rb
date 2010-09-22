@@ -139,13 +139,10 @@ Then /^"([^\"]*)" should be responsible for "([^\"]*)" at "([^\"]*)"$/ do |name,
   employment.subject_matters.should include(subject_matter)
 end
 
-<<<<<<< HEAD
 Then /^"([^\"]*)" should have a primary employment$/ do |username|
   User.find_by_username(username).primary_employment.should_not be_nil
 end
 
-=======
->>>>>>> negative case for basic data; view refactor for if divs
 When /^I remove optional information from the restaurant$/ do
   @restaurant.update_attributes(:website => nil, :twitter_username => nil,
       :facebook_page => nil, :management_company_name => nil,
