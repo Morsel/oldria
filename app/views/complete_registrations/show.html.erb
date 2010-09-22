@@ -4,7 +4,7 @@
 
 <p>Also, you should choose a password for SpoonFeed.</p>
 
-<% semantic_form_for(@user, :url => complete_registration_path, :html => {:method => :put}) do |f| %>
+<% semantic_form_for(@user, :url => complete_registration_path, :html => { :method => :put }) do |f| %>
 
   <% f.inputs :name => 'Your Information' do %>
     <%= f.input :first_name, :input_html => {:class => 'span-3'}, :wrapper_html => {:class => 'span-3 column'} %>
@@ -16,6 +16,10 @@
     <%= f.input :username %>
     <%= f.input :password, :input_html => {:autocomplete => "off"}, :required => true %>
     <%= f.input :password_confirmation, :input_html => {:autocomplete => "off"}, :required => true %>
+  <% end %>
+  
+  <% f.inputs do %>
+    <%= f.input :agree_to_contract, :label => "I have read and agree to the #{link_to 'privacy policy', '/privacy', :popup => true} and #{link_to 'terms of service', '/terms', :popup => true} for spoonfeed", :as => :boolean %>
   <% end %>
 
   <p><%= button_tag "Save", :class => 'positive' %></p>

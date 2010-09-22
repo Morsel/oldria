@@ -36,6 +36,13 @@ Feature: users can be invited to join Spoonfeed by registered SF users, restaura
     
     When I fill in "Username" with "mcarpenter"
     And I fill in "Password" with "newpass"
-    And I fill in "Password confirmation" with "new pass"
     And I press "Save"
-    Then I should see "must accept contract"
+    Then I should see "must be accepted"
+    And I should see "doesn't match confirmation"
+    
+    When I fill in "Username" with "mcarpenter"
+    And I fill in "Password" with "newpass"
+    And I fill in "Password confirmation" with "newpass"
+    And I check "user_agree_to_contract"
+    And I press "Save"
+    Then I should see "Enjoy SpoonFeed!"
