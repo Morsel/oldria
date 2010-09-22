@@ -123,7 +123,7 @@ module NavigationHelpers
     when /^the admin restaurant feature page$/
       admin_restaurant_features_path
 
-    # Direct path
+    # Direct path  
     when /"([^\"]+)"/
       $1
 
