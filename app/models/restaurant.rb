@@ -53,6 +53,7 @@ class Restaurant < ActiveRecord::Base
   after_save :update_admin_discussions
 
   has_many :photos, :class_name => "Image", :as => :attachable, :dependent => :destroy  
+  belongs_to :logo, :class_name => "Image", :dependent => :destroy  
 
   # For pagination
   cattr_reader :per_page
