@@ -1,0 +1,8 @@
+<% form_for :image, :url => upload_photo_admin_restaurant_path(@restaurant), :html => { :multipart => true } do |image_form| %>
+    <%= image_form.file_field 'attachment' %>
+    <%= image_form.submit 'Upload' %>
+<% end %>
+
+<% @restaurant.photos.each do |photo| %>
+    <%= image_tag photo.attachment.url, :class => "restaurant_photo" %> 
+<% end %>
