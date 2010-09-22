@@ -156,3 +156,6 @@ Then /^I see the restaurant logo for the profile$/ do
 
 end
 
+When /^I see a page named "([^\"]*)"$/ do |page|
+  response.should have_selector(".feature_page", :content => page) 
+end

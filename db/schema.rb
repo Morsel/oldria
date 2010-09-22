@@ -643,7 +643,11 @@ ActiveRecord::Schema.define(:version => 20100928183146) do
     t.datetime "updated_at"
   end
 
+<<<<<<< HEAD
   create_table "restaurant_features_restaurants", :id => false, :force => true do |t|
+=======
+  create_table "restaurant_restaurant_features", :id => false, :force => true do |t|
+>>>>>>> restaurant feature tags can be seeded; pages and categories can be added
     t.integer "restaurant_id"
     t.integer "restaurant_feature_id"
   end
