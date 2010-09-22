@@ -11,7 +11,7 @@ class QuestionsController < ApplicationController
     @next_topic = @chapter.topic.next_for_user(@user)
     @questions = @user == current_user ? 
         @user.profile_questions.for_chapter(params[:chapter_id]) :
-        @user.profile_questions.answered.for_chapter(params[:chapter_id])
+        @user.profile_questions.answered_for_chapter(params[:chapter_id])
   end
 
   def topics
