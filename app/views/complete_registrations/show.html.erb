@@ -9,11 +9,11 @@
   <% f.inputs :name => 'Your Information' do %>
     <%= f.input :first_name, :input_html => {:class => 'span-3'}, :wrapper_html => {:class => 'span-3 column'} %>
     <%= f.input :last_name, :input_html => {:class => 'span-4'}, :wrapper_html => {:class => 'span-4 column'} %>
-    <%= f.input :email, :wrapper_html => {:class => 'clear'} %>
+    <%= f.input :email, :wrapper_html => {:class => 'clear'}, :input_html => { :disabled => true } %>
   <% end %>
 
   <% f.inputs :name => 'Desired Login Information' do %>
-    <%= f.input :username %>
+    <%= f.input :username, :required => true %>
     <%= f.input :password, :input_html => {:autocomplete => "off"}, :required => true %>
     <%= f.input :password_confirmation, :input_html => {:autocomplete => "off"}, :required => true %>
   <% end %>
