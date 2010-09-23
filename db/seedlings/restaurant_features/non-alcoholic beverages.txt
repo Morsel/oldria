@@ -1,0 +1,14 @@
+﻿Brand sodas
+Bubble teas
+Organic sodas
+Specialty sodas
+Housemade sodas (specify signature flavors)
+Hot chocolate
+Smoothies (specify signature flavors)
+Juice drinks (specify signature flavors) 
+Soda fountain creations (specify signatures) 
+Mocktails (specify signatures)  
+Kiddie drinks (specify signatures) 
+Notable water service
+Notable ice
+Other
