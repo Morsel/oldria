@@ -1,0 +1,21 @@
+<div class="feature_category" id="<%= dom_id(category) %>">
+  <h3 class="feature_category_header">
+    Category: <%= h category.name %>
+  </h3>
+  <% category.features.each do |feature| %>
+    <div class="feature" id="<%= dom_id(feature) %>">
+      <%= h feature.value %>
+    </div>
+  <% end %>
+  <div class="add_feature_form">
+    <% @restaurant_feature.category = category %>
+    <% form_for :restaurant_feature, :url => admin_restaurant_features_path do |f| %>
+      <%= f.label :value, "Add a feature in #{category.name}" %>
+      <%= f.text_field :value  %>
+      <%= f.hidden_field :restaurant_feature_category_id %>
+      <%= f.submit_tag "Add a feature to #{category.name}" %>
+    <% end %>
+    <br />
+  </div>
+  <br />
+</div>
