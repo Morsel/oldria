@@ -159,7 +159,7 @@ Then /^I see the uploaded restaurant photo$/ do
 end
 Then /^I see the restaurant logo$/ do
   response.should have_selector("img#restaurant_logo")
-  response.body.should include("http://spoonfeed.s3.amazonaws.com/cucumber/images/#{@restaurant.reload.logo.id}/original/bourgeoispig.jpg")
+  response.body.should include("http://spoonfeed.s3.amazonaws.com/cucumber/images/#{@restaurant.reload.logo.id}/original/bourgeoispig_logo.gif")
 end
 
 When /^I select the (\d+)(st|nd|th) photo as the primary photo$/ do |photo_order, ordinal|
