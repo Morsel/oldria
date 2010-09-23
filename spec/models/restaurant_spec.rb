@@ -110,4 +110,26 @@ describe Restaurant do
       restaurant.media_contact.should == media_contact
     end
   end
+
+  describe "update features" do
+
+    let(:restaurant) { Factory(:restaurant) }
+    let(:features) do
+      %w(ugly pretty open closed).map do |value|
+        RestaurantFeature.create!(:value => value)
+      end
+    end
+
+    it "sets feature list from ids" do
+      restaurant.reset_features([features[0].id, features[1].id])
+      restaurant.features.should =~ [features[0], features[1]]
+    end
+
+    it "should reset features if features change" do
+      restaurant.features = [features[1], features[3]]
+      restaurant.reset_features([features[0].id])
+      restaurant.features.should =~ [features[0]]
+    end
+
+  end
 end

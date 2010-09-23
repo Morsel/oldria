@@ -7,7 +7,7 @@ Feature: RIA admin of restaurant features
     Given I am logged in as an admin
     And the following restaurant features:
       | page    | category      | value    |
-      | Cuisine | Cuisine Style | Casual   |
+      | Cuisine | Cuisine style | Casual   |
       | Cuisine | Cuisine       | Buffet   |
       | Cuisine | Cuisine type  | Armenian |
       | Design  | Decor         | Ugly     |
@@ -32,7 +32,6 @@ Feature: RIA admin of restaurant features
     Then I am on the admin restaurant feature page
     And I see a category named "Kids Menu" in the page "Cuisine"
 
-  @wip
   Scenario: Create a tag
     When I go to the admin restaurant feature page
     And I fill in "Add a feature in Cuisine style" with "Pretty"

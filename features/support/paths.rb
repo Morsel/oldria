@@ -55,6 +55,8 @@ module NavigationHelpers
       edit_restaurant_path(Restaurant.find_by_name($1))
     when /the restaurant show page for "(.+)"$/
       restaurant_path(Restaurant.find_by_name($1))
+    when /the restaurant feature page for "(.+)"/
+      restaurant_features_path(Restaurant.find_by_name($1))
 
     # Media Requests
     when /^the media request discussion page$/

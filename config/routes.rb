@@ -67,6 +67,8 @@ ActionController::Routing::Routes.draw do |map|
     restaurant.resources :employees, :except => [:show]
     restaurant.resources :calendars, :collection => { "ria" => :get }
     restaurant.resources :events, :member => { "ria_details" => :get, "transfer" => :post }
+    restaurant.resources :features, :controller => "restaurant_features"
+    restaurant.resources 
   end
 
   map.resources :user_sessions, :password_resets, :followings, :pages
@@ -141,9 +143,9 @@ ActionController::Routing::Routes.draw do |map|
     admin.resources :question_roles
     admin.resources :schools
     admin.resources :specialties, :collection => { :sort => :post }
-    admin.resources :restaurant_features
-    admin.resources :restaurant_feature_pages
-    admin.resources :restaurant_feature_categories
+    admin.resources :restaurant_features, :only => [:index, :create]
+    admin.resources :restaurant_feature_pages, :only => [:create]
+    admin.resources :restaurant_feature_categories, :only => [:create]
 
     # Admin Messaging
     exclusive_routes = [:index, :show, :destroy]
