@@ -3,19 +3,24 @@
         <%= f.input :last_name %>
         <%= f.input :email %>
         <% f.inputs :name => "Work details" do %>
-            <% if current_user.admin? %>
-              <%= f.input :coworker, :label => "This person is a spoonfeed member's coworker" %>
-              <%= f.input :restaurant, :as => :select, :collection => Restaurant.all %>
-              <p><em>or</em></p>
-            <% elsif current_user.employments.present? %>
-              <%= f.input :coworker, :label => "This person is my coworker" %>
-              <%= f.input :restaurant, :as => :select, :collection => current_user.restaurants, 
+            <% if params[:restaurant] %>
+              <%= f.input :coworker, :label => "This person is my employee", :selected => true %>
+              <%= f.input :restaurant, :as => :select, :collection => current_user.restaurants, :selected => params[:invitation][:restaurant_id].to_i %>              
+            <% else %>
+              <% if current_user.admin? %>
+                <%= f.input :coworker, :label => "This person is a spoonfeed member's coworker" %>
+                <%= f.input :restaurant, :as => :select, :collection => Restaurant.all %>
+                <p><em>or</em></p>
+              <% elsif current_user.employments.present? %>
+                <%= f.input :coworker, :label => "This person is my coworker" %>
+                <%= f.input :restaurant, :as => :select, :collection => current_user.restaurants, 
                     :label => "We work together at:" %>
-              <p><em>or</em></p>
-            <% end %>
+                <p><em>or</em></p>
+              <% end %>
             
-            <%= f.input :restaurant_name, :label => "Name of the restaurant(s) where they work:" %>
-            <%= f.input :title, :label => "Job title" %>
+              <%= f.input :restaurant_name, :label => "Name of the restaurant(s) where they work:" %>
+              <%= f.input :title, :label => "Job title" %>
+            <% end %>
         <% end %>
         <% if @invitation.new_record? %>
           <%= f.input :requesting_user_id, :as => "hidden" %>

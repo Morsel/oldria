@@ -67,11 +67,17 @@ class EmployeesController < ApplicationController
       @employment.employee_id = @employee.id
       render :confirm_employee
     else
-      flash.now[:notice] = "We couldn't find them in our system. You can invite this person."
-      @employee = email.match(/\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i) ?
-        @restaurant.employees.build(:email => email) : 
-        @restaurant.employees.build(:first_name => email.split(" ").first, :last_name => email.split(" ").last)
-      render :new_employee
+      identifier = email.match(/\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i) ?
+        { :email => email } : 
+        { :first_name => email.split(" ").first, :last_name => email.split(" ").last }
+      if current_user.admin?
+        flash.now[:notice] = "We couldn't find them in our system. You can invite this person."
+        @employee = @restaurant.employees.build(identifier)
+        render :new_employee
+      else
+        flash[:notice] = "We couldn't find them in our system. You can invite this person."
+        redirect_to new_invitation_path(:restaurant => true, :invitation => identifier.merge(:restaurant_id => @restaurant.id))
+      end
     end
   end
 

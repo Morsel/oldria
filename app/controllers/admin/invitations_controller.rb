@@ -31,6 +31,7 @@ class Admin::InvitationsController < Admin::AdminController
     @user = User.new(:first_name => @invitation.first_name, :last_name => @invitation.last_name, 
         :username => @invitation.username, :password => token, :password_confirmation => token, :email => @invitation.email, 
         :agree_to_contract => "1", :send_invitation => true, :invitation_sender => @invitation.requesting_user)
+    @user.restaurants << Restaurant.find(@invitation.restaurant_id) if @invitation.restaurant_id
     if @user.save
       @user.confirm!
       @user.deliver_invitation_message!

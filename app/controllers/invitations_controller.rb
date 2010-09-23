@@ -3,7 +3,13 @@ class InvitationsController < ApplicationController
   before_filter :find_user_from_params, :only => [:show]
   
   def new
-    @invitation = current_user ? Invitation.new(:requesting_user_id => current_user.id) : Invitation.new
+    if params[:invitation]
+      @invitation = current_user ? 
+        Invitation.new(params[:invitation].merge(:requesting_user_id => current_user.id)) : 
+        Invitation.new(params[:invitation])
+    else
+      @invitation = current_user ? Invitation.new(:requesting_user_id => current_user.id) : Invitation.new
+    end
   end
   
   def create
