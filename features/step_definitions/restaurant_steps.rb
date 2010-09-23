@@ -170,3 +170,4 @@ When /^I see the (\d+)(st|nd|th) photo selected as the primary photo$/ do |photo
   response.should have_selector("input", :type => "radio", :value => @restaurant.reload.photos[photo_order.to_i - 1].id.to_s, :checked => "checked")
 end
 
+ 
