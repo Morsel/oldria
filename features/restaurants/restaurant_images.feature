@@ -14,9 +14,24 @@ Feature: Restaurant Images
     And I press "Upload"
     Then I see the uploaded restaurant photo
 
-  @wip
   Scenario: Upload logo
     When I go to the admin edit restaurant page for Bourgeois Pig
-    And I attach the file "/features/images/bourgeoispig.jpg" to "logo_attachment"
+    And I attach the file "/features/images/bourgeoispig_logo.gif" to "logo_attachment"
     And I press "Upload"
     Then I see the restaurant logo
+
+  Scenario: Select Primary Photo
+    When I go to the restaurant photo upload page for Bourgeois Pig
+    And I attach the file "/features/images/bourgeoispig.jpg" to "image_attachment"
+    And I press "Upload"
+    When I go to the restaurant photo upload page for Bourgeois Pig
+    And I attach the file "/features/images/bourgeoispig1.jpg" to "image_attachment"
+    And I press "Upload"
+    When I go to the restaurant photo upload page for Bourgeois Pig
+    And I attach the file "/features/images/bourgeoispig2.jpg" to "image_attachment"
+    And I press "Upload"
+    When I go to the restaurant photo upload page for Bourgeois Pig
+    And I select the 2nd photo as the primary photo
+    And I press "Save"
+    When I go to the restaurant photo upload page for Bourgeois Pig
+    Then I see the 2nd photo selected as the primary photo

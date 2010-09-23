@@ -1,8 +1,27 @@
-<% form_for :image, :url => upload_photo_admin_restaurant_path(@restaurant), :html => { :multipart => true } do |image_form| %>
-    <%= image_form.file_field 'attachment' %>
-    <%= image_form.submit 'Upload' %>
+<h2>Photos:</h2>
+<div>
+  <% form_for :image, :url => upload_photo_admin_restaurant_path(@restaurant), :html => { :multipart => true } do |image_form| %>
+      <%= image_form.file_field 'attachment' %>
+      <%= image_form.submit 'Upload' %>
+  <% end %>
+</div>
+
+<% form_for :restaurant, :url => select_primary_photo_admin_restaurant_path(@restaurant) do |restaurant_form| %>
+    <table>
+      <tr>
+        <th>Photo</th>
+        <th>Primary</th>
+      </tr>
+      <% @restaurant.photos.each do |photo| %>
+        <tr>
+          <td><%= image_tag photo.attachment.url, :class => "restaurant_photo" %></td>
+          <td><%= restaurant_form.radio_button :primary_photo_id, photo.id %></td>
+        </tr>
+      <% end %>
+    </table>
+    <%= restaurant_form.submit 'Save' %>
 <% end %>
 
-<% @restaurant.photos.each do |photo| %>
-    <%= image_tag photo.attachment.url, :class => "restaurant_photo" %> 
-<% end %>
+<p>
+  <%= link_to "Back To Restaurant", edit_admin_restaurant_path(@restaurant), :class => "button" %>
+</p>
