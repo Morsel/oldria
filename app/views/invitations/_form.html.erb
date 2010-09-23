@@ -16,7 +16,7 @@
                 <%= f.input :restaurant, :as => :select, :collection => current_user.restaurants, 
                     :label => "We work together at:" %>
                 <p><em>or</em></p>
-              <% end %>
+              <% end if current_user %>
             
               <%= f.input :restaurant_name, :label => "Name of the restaurant(s) where they work:" %>
               <%= f.input :title, :label => "Job title" %>

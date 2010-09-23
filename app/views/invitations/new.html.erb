@@ -1,6 +1,6 @@
-<% title "Invite a user" %>
+<% title current_user ? "Invite a user" : "Request an invitation" %>
 
 <% semantic_form_for @invitation do |f| %>
     <%= render :partial => "form", :locals => { :f => f } %>
-    <%= submit_tag "Invite User" %>
+    <%= submit_tag current_user ? "Invite User" : "Request Invite" %>
 <% end %>
