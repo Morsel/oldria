@@ -32,7 +32,11 @@
 #
 
 class User < ActiveRecord::Base
-  acts_as_authentic
+  acts_as_authentic do |c|
+    c.validates_format_of_login_field_options = { :with => /^[a-zA-Z0-9\-\_ ]+$/,
+      :message => "'{{value}}' is not allowed. Usernames can only contain letters, numbers, and/or the '-' symbol" }
+  end
+  
   include TwitterAuthorization
   include UserMessaging
 
@@ -87,11 +91,7 @@ class User < ActiveRecord::Base
   validates_exclusion_of :publication,
                          :in => %w( freelance Freelance ),
                          :message => "'{{value}}' is not allowed"
-  validates_format_of :username,
-                      :with => /^[a-zA-Z0-9\-\_ ]+$/,
-                      :message => "'{{value}}' is not allowed. \
-                      Usernames can only contain letters, numbers, and/or the '-' symbol."
-
+                         
   validates_acceptance_of :agree_to_contract
 
   validates_presence_of :facebook_page_token, :if => Proc.new { |user| user.facebook_page_id }

@@ -4,6 +4,7 @@ describe CompleteRegistrationsController do
   integrate_views
   before do
     fake_normal_user
+    User.stubs(:find).returns(Factory(:user))
   end
 
   describe "GET show" do
@@ -16,13 +17,13 @@ describe CompleteRegistrationsController do
   describe "PUT update" do
     it "should re-render the form when data is not valid" do
       User.any_instance.stubs(:valid?).returns(false)
-      put :update
+      put :update, :user => { :id => 1 }
       response.should render_template(:show)
     end
 
     it "should redirect to the dashboard when data is valid" do
       User.any_instance.stubs(:valid?).returns(true)
-      put :update
+      put :update, :user => { :id => 1 }
       response.should redirect_to(root_path)
     end
   end
