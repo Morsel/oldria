@@ -55,6 +55,8 @@ class Restaurant < ActiveRecord::Base
   has_many :photos, :class_name => "Image", :as => :attachable, :dependent => :destroy
   belongs_to :primary_photo, :class_name => "Image", :dependent => :destroy  
   belongs_to :logo, :class_name => "Image", :dependent => :destroy
+  has_and_belongs_to_many :restaurant_features
+  alias_attribute :features, :restaurant_features
 
   # For pagination
   cattr_reader :per_page

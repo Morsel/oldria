@@ -145,9 +145,6 @@ ActionController::Routing::Routes.draw do |map|
     admin.resources :schools
     admin.resources :specialties, :collection => { :sort => :post }
     admin.resources :invitations, :member => { :accept => :get, :archive => :get }
-    admin.resources :restaurant_features
-    admin.resources :restaurant_feature_pages
-    admin.resources :restaurant_feature_categories
     admin.resources :restaurant_features, :only => [:index, :create]
     admin.resources :restaurant_feature_pages, :only => [:create]
     admin.resources :restaurant_feature_categories, :only => [:create]
