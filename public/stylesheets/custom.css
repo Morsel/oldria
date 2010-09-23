@@ -2257,22 +2257,37 @@ dl.things dt:after {content: ":"}
 }
 
 #behindline h5, #behindline a {
-	color: #e8750a;
+	color: #333;
 	margin: 0;
 }
 
 #behindline .view_all {
-	margin: 1em 10px 0;
+	border-top:1px solid #ccc;
+	padding: 1em 10px 0;
+	margin:0;
 	font-size: 1.1em;
 }
 
-#behindline a {
+#behindline li a, div.chapter a {
+	display:block;
 	text-decoration: none;
+	color:#333;
+	padding: 5px 10px;
+}
+div.chapter a{
+	min-height:150px;
 }
 
 
-#behindline a:hover {
-	text-decoration: underline;
+#behindline li a:hover, #behindline li a:hover h5, div.chapter a:hover{
+	background:#333;
+	color:#fff;
+}
+div.chapter a:hover h3, div.chapter a:hover p {
+	color:#fff;
+}
+div.chapter.last, div.topic.last{
+	margin-right:0;
 }
 
 #behindline .completeness {
@@ -2286,11 +2301,177 @@ dl.things dt:after {content: ":"}
 
 #behindline li {
 	list-style: none;
-	padding: 5px 10px;
+	padding:0;
+	margin:0;
+	border-top:1px solid #ccc;
 }
 
 #behindline li.even {
-	background-color: #fdf6ee;
+	background-color: #F5F5F5;
+}
+
+div.topic, div.chapter{
+	float:left;
+	padding:10px;
+	margin:0 21px 10px 0;
+	width:287px;
+	border:1px solid #ccc;
+	-webkit-box-shadow: 1px 1px 3px #666;
+	-moz-box-shadow: 1px 1px 3px #666;
+	box-shadow: 1px 1px 3px #666;
+	position:relative;
+}
+div.chapter{
+	padding:0;
+}
+div.chapter a{
+	padding:10px;
+}
+div.topic table{
+	height:110px;
+	vertical-align:top;
+}
+
+div.topic h3, div.chapter h3{
+	color:#333;
+	margin:0 0 10px;
+	padding:5px;
+	border-bottom:1px solid #ccc;
+}
+div.chapter h3{
+	width:185px;
+	border:0;
+	padding:0;
+}
+div.topic td{
+	border:0;
+	padding:5px 0;
+	width:50%;
+	vertical-align:top;
+}
+div.topic td.topic_link{
+	font-size:1.1em;
+}
+div.topic td.topic_completeness{
+	text-align:right;
+	text-transform:uppercase;
+	color:#999;
+	font-size:0.8em;
+}
+
+div.topic a{
+	text-decoration:underline;
+}
+
+div.topic a.view_all_chapters{
+	text-decoration:none;
+	display:inline-block;
+	margin:5px 0;
+	padding:5px 10px;
+	-webkit-border-radius: 80px;
+	-moz-border-radius: 80px;
+	border-radius: 80px;
+	background:#f2f2f2;
+}
+div.topic a.view_all_chapters:hover{
+	background:#333;
+	color:#fff;
+}
+
+h2#topic_title{
+	width:200px;
+	margin-right:10px;
+	float:left;
+	border:0;
+}
+#topic_nav{
+	width:400px;
+	float:left;
+	overflow:hidden;
+}
+#topic_nav .button, #chapter_nav a{
+	float:right;
+}
+#chapter_nav a{
+	display:block;
+	margin-right:10px;
+}
+
+.chapter_answer_count{
+	position:absolute;
+	top:0;
+	right:0;
+	padding:5px 10px 5px 25px;
+	background:#E4E4E4 url(/images/icon-star.png) no-repeat 5px 8px;
+	color:#666;
+	text-shadow:0 1px 0 #fff;
+	font-size:14px;
+	margin:0;
+}
+div.chapter a:hover p.chapter_answer_count{
+	color:#666;
+	background-color:#000;
+	background-position:5px -28px;
+	text-shadow:none;
+}
+.profile_question{
+	padding:10px 0;
+}
+
+.profile_question h4{
+	margin:15px 0 0;
+	font-weight:bold;
+}
+.profile_answer textarea{
+	width:410px;
+	height:100px;
+	padding:5px;
+	background:#f2f2f2;
+	-webkit-box-shadow: 0 2px 1px rgba(0,0,0, 0.2);
+	-moz-box-shadow: 0 2px 1px rgba(0,0,0, 0.2);
+	box-shadow: 0 2px 1px rgba(0,0,0, 0.2);
+}
+.profile_answer fieldset.plain{
+	margin:0;
+}
+.profile_answer button, .profile_answer a.button{
+	float:left;
+	margin:0 15px 0 0;
+}
+
+div#chapter_title{
+	padding:10px;
+	background-image: -webkit-gradient(linear, left top, right top,color-stop(0, rgb(255,255,255)), color-stop(1.0, rgb(223,223,223)));
+	background-image: -moz-linear-gradient(left center, rgb(255,255,255) 0%, rgb(223,223,223) 100%);
+  background-image: linear-gradient(left, #fff 0%, #dfdfdf 100%);
+}
+
+#chapter_title h3{
+	width:300px;
+	float:left;
+	margin:0;
+	padding:0;
+	color:#333;
+	text-transform:uppercase;
+	font-size:14px;
+	font-weight:normal;
+}
+
+#chapter_nav{
+	width:300px;
+	float:left;
+}
+#chapter_nav a.next_chapter{
+	padding:0 12px 0 0;
+	background:url(/images/icon-arrow-next.png) no-repeat right;
+}
+#chapter_nav a.prev_chapter{
+	padding:0 0 0 12px;
+	background:url(/images/icon-arrow-prev.png) no-repeat left;
+}
+#chapter_nav a:hover{
+	color:#333;
+	text-decoration:underline;
 }
 
 .user.box h2 {
