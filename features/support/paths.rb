@@ -75,6 +75,8 @@ module NavigationHelpers
       admin_media_requests_path
     when /^the admin edit page for "(.+)"$/
       edit_admin_user_path(User.find_by_username($1))
+    when /^the admin edit restaurant page for (.+)$/
+      edit_admin_restaurant_path(Restaurant.find_by_name($1))
     when /^the admin list static pages page$/
       admin_pages_path
     when /^the admin new user page$/
@@ -107,6 +109,10 @@ module NavigationHelpers
       edit_photos_admin_restaurant_path(Restaurant.find_by_name($1))
     when /^the admin restaurant feature page$/
       admin_restaurant_features_path
+    when /^the admin restaurant feature page$/
+      admin_restaurant_features_path
+    when /^the restaurant photo upload page for (.+)$/
+      edit_photos_admin_restaurant_path(Restaurant.find_by_name($1))
 
     # Direct path
     when /"([^\"]+)"/

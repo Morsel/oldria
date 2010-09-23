@@ -52,9 +52,11 @@ class Restaurant < ActiveRecord::Base
   after_validation_on_create :add_manager_as_employee
   after_save :update_admin_discussions
 
-  has_many :photos, :class_name => "Image", :as => :attachable, :dependent => :destroy
   has_and_belongs_to_many :restaurant_features
   alias_attribute :features, :restaurant_features
+  has_many :photos, :class_name => "Image", :as => :attachable, :dependent => :destroy
+  belongs_to :primary_photo, :class_name => "Image", :dependent => :destroy  
+  belongs_to :logo, :class_name => "Image", :dependent => :destroy
 
   # For pagination
   cattr_reader :per_page
