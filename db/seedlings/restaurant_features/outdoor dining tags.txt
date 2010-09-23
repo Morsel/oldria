@@ -1,0 +1,9 @@
+﻿Patio
+Sidewalk
+Courtyard
+Roof deck
+Terrace
+Balcony
+Garden
+Waterfront
+Other

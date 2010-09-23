@@ -1,0 +1,10 @@
+﻿A la carte
+Prix fixe
+Beer pairings listed
+Wine pairings listed
+Cocktail pairings listed
+ 
+Tasting/Degustation
+days/hours
+number of courses
+price

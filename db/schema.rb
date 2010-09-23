@@ -643,7 +643,7 @@ ActiveRecord::Schema.define(:version => 20100928183146) do
     t.datetime "updated_at"
   end
 
-  create_table "restaurant_restaurant_features", :id => false, :force => true do |t|
+  create_table "restaurant_features_restaurants", :id => false, :force => true do |t|
     t.integer "restaurant_id"
     t.integer "restaurant_feature_id"
   end

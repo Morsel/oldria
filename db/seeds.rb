@@ -88,12 +88,21 @@ model_count_before_and_after(School) do
 end
 
 model_count_before_and_after(RestaurantFeature) do
+#  RestaurantFeaturePage.delete_all
+#  RestaurantFeatureCategory.delete_all
+#  RestaurantFeature.delete_all
   pages = {
       "Cuisine" => ["Accoutrement", "Cheese", "Cuisine style", "Cuisine tag", "Cuisine",
-          "Cuisine type", "Meals served", "Menu change"],
-      "Beverage" => ["Alcohol service"],
-      "Design" => ["Decor style", "Decor", "Space history"],
-      "Other" => ["Parking", "Payment", "Reservations", "Takeout"],
+          "Cuisine type", "Meals served", "Menu change", "Menu structure",
+          "Physical menu construction"],
+      "Beverage" => ["Alcohol service", "Cocktails and beers", "Coffee-tea",
+          "Non-alcoholic beverages", "Wine"],
+      "Design" => ["Artwork", "Atmosphere", "Decor style", "Decor",
+          "Decorative elements", "Seating types", "Space history"],
+      "Other" => ["Activities", "Dress code", "Hours of operation",
+          "Kids' activities", "Outdoor dining", "Parking", "Payment",
+          "Reservations", "Retail area", "Signature products", "Smoking",
+          "Takeout"],
   }
 
   pages.each do |key, values|
