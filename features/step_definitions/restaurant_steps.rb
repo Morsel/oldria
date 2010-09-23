@@ -161,3 +161,11 @@ Then /^I see the restaurant logo$/ do
   response.should have_selector("img#restaurant_logo")
   response.body.should include("http://spoonfeed.s3.amazonaws.com/cucumber/images/#{@restaurant.reload.logo.id}/original/bourgeoispig.jpg")
 end
+
+When /^I select the (\d+)(st|nd|th) photo as the primary photo$/ do |photo_order, ordinal|
+  choose("restaurant_primary_photo_id_#{@restaurant.reload.photos[photo_order.to_i-1].id}")
+end
+
+When /^I see the (\d+)(st|nd|th) photo selected as the primary photo$/ do |photo_order, ordinal|
+  response.should have_selector("input", :type => "radio", :value => @restaurant.reload.photos[1].id.to_s, :checked => "checked")
+end
