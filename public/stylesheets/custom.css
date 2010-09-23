@@ -4957,7 +4957,7 @@ div.main_feature .comment.last {
 	border-bottom: 1px solid #ccc;
 }
 
-#add_page_form label, .add_category_form label {
+#add_page_form label, .add_category_form label, .add_feature_form label {
   display: inline;  
 }
 

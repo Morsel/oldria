@@ -32,13 +32,13 @@ Feature: RIA admin of restaurant features
     Then I am on the admin restaurant feature page
     And I see a category named "Kids Menu" in the page "Cuisine"
 
-#  @wip
-#  Scenario: Create a tag
-#    When I go to the admin restaurant feature page
-#    And I fill in "Add a tag in Decor" with "Pretty"
-#    And I press "Add Decor tag"
-#    Then I am on the admin restaurant feature page
-#    And I see a tag named "Pretty" in the category "Decor"
+  @wip
+  Scenario: Create a tag
+    When I go to the admin restaurant feature page
+    And I fill in "Add a feature in Cuisine style" with "Pretty"
+    And I press "Add a feature to Cuisine style"
+    Then I am on the admin restaurant feature page
+    And I see a tag named "Pretty" in the category "Cuisine style"
 
 # Advanced edit scenarios
 #  Scenario: Edit a page name
@@ -48,4 +48,5 @@ Feature: RIA admin of restaurant features
 #  Scenario: Delete a category name
 #  Scenario: Delete a tag
 #  Scenario: Edit a tag name
+#  Scenario: Mark a category as important
 
