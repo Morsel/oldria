@@ -39,6 +39,7 @@ describe UserMailer do
       @restaurant = Factory.stub(:restaurant, :name => "Joe's Place")
       @receiver = Factory(:user, :name => "Hambone Johnson", :email => "hambone@example.com", :username => "hambone")
       @receiver.stubs(:restaurants).returns([@restaurant])
+      @receiver.reset_perishable_token!
       @email = UserMailer.create_employee_invitation(@receiver)
     end
 

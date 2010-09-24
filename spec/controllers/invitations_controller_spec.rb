@@ -74,15 +74,15 @@ describe InvitationsController do
     end
 
     context "when someone is already logged in" do
-      before do
+      before(:each) do
         activate_authlogic
         UserSession.create(Factory(:user))
-        (UserSession.find).should_not be_nil
+        UserSession.find.should_not be_nil
       end
 
       it "should log out the user first" do
+        UserSession.any_instance.expects(:destroy)
         get :show, :id => "abc789"
-        (UserSession.find).should be_nil
       end
     end
   end # GET show

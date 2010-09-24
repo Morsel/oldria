@@ -21,7 +21,6 @@ class EmployeesController < ApplicationController
       flash[:notice] = @send_invitation ? "#{@employment.employee.name} has been sent an invitation and added to your restaurant.<br/>
           Please remind your employee to check their email for instructions on confirming their new account." : 
           "Successfully added #{@employment.employee.name} to this restaurant"
-      @employee.deliver_invitation_message! if @send_invitation
       redirect_to restaurant_employees_path(@restaurant)
     else
       flash[:error] = "We could not associate that employee with this restaurant. Please try again."

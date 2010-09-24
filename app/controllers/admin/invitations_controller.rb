@@ -34,7 +34,6 @@ class Admin::InvitationsController < Admin::AdminController
     @user.restaurants << Restaurant.find(@invitation.restaurant_id) if @invitation.restaurant_id
     if @user.save
       @user.confirm!
-      @user.deliver_invitation_message!
       @invitation.update_attributes(:archived => true, :invitee_id => @user.id, :approved_at => Time.now)
       flash[:notice] = "Sent invitation to #{@invitation.email}"
       redirect_to :action => "index"

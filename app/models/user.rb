@@ -35,6 +35,7 @@ class User < ActiveRecord::Base
   acts_as_authentic do |c|
     c.validates_format_of_login_field_options = { :with => /^[a-zA-Z0-9\-\_ ]+$/,
       :message => "'{{value}}' is not allowed. Usernames can only contain letters, numbers, and/or the '-' symbol" }
+    c.disable_perishable_token_maintenance = true
   end
   
   include TwitterAuthorization
@@ -103,7 +104,7 @@ class User < ActiveRecord::Base
   named_scope :for_autocomplete, :select => "first_name, last_name", :order => "last_name ASC", :limit => 15
   named_scope :by_last_name, :order => "LOWER(last_name) ASC"
   
-  # after_create :deliver_invitation_message!, :if => Proc.new { |user| user.send_invitation }
+  after_create :deliver_invitation_message!, :if => Proc.new { |user| user.send_invitation }
 
   after_update :mark_replies_as_read, :if => Proc.new { |user| user.confirmed_at && user.confirmed_at > 1.minute.ago }
 
@@ -253,12 +254,10 @@ class User < ActiveRecord::Base
   end
 
   def deliver_invitation_message!
-    if @send_invitation
-      @send_invitation = nil
-      reset_perishable_token!
-      logger.info( "Delivering invitation email to #{email}" )
-      UserMailer.deliver_employee_invitation!(self, invitation_sender)
-    end
+    @send_invitation = nil
+    reset_perishable_token!
+    logger.info( "Delivering invitation email to #{email}" )
+    UserMailer.deliver_employee_invitation!(self, invitation_sender)
   end
 
   def connect_to_facebook_user(fb_id)

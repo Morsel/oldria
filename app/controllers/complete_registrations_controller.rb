@@ -3,17 +3,18 @@ class CompleteRegistrationsController < ApplicationController
   before_filter :require_user
 
   ##
-  # GET /complete_registraion
+  # GET /complete_registration
   def show
     @user = current_user
   end
 
   ##
-  # PUT /complete_registraion
+  # PUT /complete_registration
   def update
     @user = User.find(params[:user].delete(:id))
     force_password_reset
     if @user.update_attributes(params[:user])
+      @user.reset_perishable_token!
       flash[:notice] = "Thanks for updating your account. Enjoy SpoonFeed!"
       redirect_to root_path
     else

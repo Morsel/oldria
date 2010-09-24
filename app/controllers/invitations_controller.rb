@@ -1,5 +1,4 @@
 class InvitationsController < ApplicationController
-  before_filter :logout_current_user, :only => [:show]
   before_filter :find_user_from_params, :only => [:show]
   
   def new
@@ -24,6 +23,7 @@ class InvitationsController < ApplicationController
 
   def show
     if @user
+      logout_current_user
       @user.confirm! unless @user.confirmed?
       UserSession.create(@user)
       flash[:notice] = "Successfully logged in. Please take a moment and update your account information."
