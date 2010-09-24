@@ -166,3 +166,13 @@ When /^I see the primary photo$/ do
   response.should have_selector("#primary_photo img")
   response.body.should include("http://spoonfeed.s3.amazonaws.com/cucumber/images/#{@restaurant.reload.primary_photo.id}/medium/bourgeoispig.jpg")  
 end
+
+Given /^"([^\"]*)" is tagged with "([^\"]*)"$/ do |restaurant_name, tags|
+  restaurant = Restaurant.find_by_name(restaurant_name)
+  restaurant.restaurant_features << tags.split(",").map { |tag| RestaurantFeature.find_by_value(tag.strip) }
+end
+
+Then /^I see the restaurant "([^\"]*)"$/ do |restaurant_name|
+  response.should have_tag(".restaurant", :content => restaurant_name)
+end
+

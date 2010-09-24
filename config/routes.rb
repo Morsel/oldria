@@ -12,6 +12,7 @@ ActionController::Routing::Routes.draw do |map|
     soapbox.resources :restaurants, :only => ['show'] do |restaurants|
       restaurants.resources :feature_pages, :only => ['show']
     end
+    soapbox.resources :restaurant_features, :only => ["show"]
   end
 #  end
   map.with_options :conditions => {:subdomain => 'soapbox'}, :controller => 'soapbox' do |soapbox|

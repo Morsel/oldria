@@ -9,4 +9,8 @@ class RestaurantFeature < ActiveRecord::Base
     restaurant_feature_category.restaurant_feature_page
   end
 
+  def breadcrumbs
+    "#{restaurant_feature_page.name} : #{restaurant_feature_category.name} : #{value}"
+  end
+
 end

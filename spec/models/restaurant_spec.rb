@@ -79,7 +79,7 @@ describe Restaurant do
       Restaurant.count.should == 0
       Restaurant.with_destroyed { Restaurant.count }.should == 1
     end
-    
+
     it "should delete an associated admin_discussion when restaurant is deleted" do
       restaurant = Factory(:restaurant)
       content_request = Factory(:content_request)
@@ -88,7 +88,7 @@ describe Restaurant do
       restaurant.destroy
       content_request.admin_discussions.count.should == 0
     end
-    
+
     it "should delete an associated admin_discussion when restaurant is deleted" do
       restaurant = Factory(:restaurant)
       holiday = Factory(:holiday)
@@ -163,6 +163,14 @@ describe Restaurant do
       restaurant.categories_for_page(decor).should == [style]
       restaurant.features_for_page(cuisine).should == [dinner]
       restaurant.features_for_category(style).should == [pretty, ugly]
+    end
+
+    it "finds all restaurants with a tag" do
+      restaurant.restaurant_features = [ugly, pretty, dinner]
+      r2 = Factory(:restaurant)
+      r2.restaurant_features = [pretty, dinner]
+      Restaurant.with_feature(ugly).should == [restaurant]
+      Restaurant.with_feature(pretty).should =~ [restaurant, r2]
     end
   end
 end
