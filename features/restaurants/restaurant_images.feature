@@ -35,3 +35,10 @@ Feature: Restaurant Images
     And I press "Save"
     When I go to the restaurant photo upload page for Bourgeois Pig
     Then I see the 2nd photo selected as the primary photo
+
+  Scenario: First Photo Uploaded Is Automatically Selected As Primary Photo
+    When I go to the restaurant photo upload page for Bourgeois Pig
+    And I attach the file "/features/images/bourgeoispig.jpg" to "image_attachment"
+    And I press "Upload"
+    When I go to the restaurant photo upload page for Bourgeois Pig
+    Then I see the 1st photo selected as the primary photo

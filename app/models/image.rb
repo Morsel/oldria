@@ -16,6 +16,9 @@
 class Image < Attachment
   has_attached_file :attachment,
     :storage => :s3,
+    :styles => {
+      :medium => "300x300>"
+    },
     :s3_credentials => "#{RAILS_ROOT}/config/environments/#{RAILS_ENV}/amazon_s3.yml",
     :path => "#{RAILS_ENV}/images/:id/:style/:filename",
     :bucket => "spoonfeed",

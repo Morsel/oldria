@@ -139,6 +139,7 @@ When /^I see a page named "([^\"]*)"$/ do |page|
   response.should have_selector(".feature_page", :content => page) 
 end
 
+<<<<<<< HEAD
 Then /^I see headers for feature categories for "([^\"]*)"$/ do |page_name|
   page = RestaurantFeaturePage.find_by_name(page_name)
   @restaurant.categories_for_page(page).each do |category|
@@ -159,4 +160,9 @@ end
 
 Then /^I do not see links for "([^\"]*)"$/ do |tag|
   response.should_not have_selector(".feature", :content => tag.strip)
+end
+
+When /^I see the primary photo$/ do
+  response.should have_selector("#primary_photo img")
+  response.body.should include("http://spoonfeed.s3.amazonaws.com/cucumber/images/#{@restaurant.reload.primary_photo.id}/medium/bourgeoispig.jpg")  
 end

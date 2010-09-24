@@ -7,15 +7,15 @@
       :collection => @restaurant.feature_pages, :as => :feature_page %>
 </div>
 
-<<<<<<< HEAD
-  <br />
-=======
 <br clear="all"/>
 
 <div class="page_headers">
   <%= render :partial => 'page_header',
       :collection => @restaurant.feature_pages, :as => :feature_page %>
->>>>>>> basic tag display in restaurant profile page
+  <div id="primary_photo">
+    <%= image_tag @restaurant.primary_photo.attachment.url(:medium) %>
+  </div>
+
 </div>
 
 <div class="last"></div>
