@@ -5,7 +5,7 @@
   <div class="features">
     <% @restaurant.features_for_page(feature_page).each do |feature| %>
       <span class="feature" id="<%= dom_id feature%>">
-        <%= link_to h(feature.value), "" %>
+        <%= link_to h(feature.value), soapbox_restaurant_feature_path(feature) %>
       </span>
     <% end %>
   </div>

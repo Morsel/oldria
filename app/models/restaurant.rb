@@ -63,6 +63,11 @@ class Restaurant < ActiveRecord::Base
   cattr_reader :per_page
   @@per_page = 15
 
+  def self.with_feature(feature)
+    Restaurant.all(:include => :restaurant_features,
+        :conditions => ['restaurant_features_restaurants.restaurant_feature_id = ?', feature.id])
+  end
+
   def name_and_location
     [name, city, state].reject(&:blank?).join(", ")
   end

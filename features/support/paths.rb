@@ -126,6 +126,8 @@ module NavigationHelpers
     # Soapbox
     when /the soapbox restaurant profile for (.+)/
       soapbox_restaurant_path(Restaurant.find_by_name($1))
+    when /the soapbox feature page for "(.+)"/
+      soapbox_restaurant_feature_path(RestaurantFeature.find_by_value($1))
     when /the soapbox restaurant feature page for "(.+)" and "(.+)"/
       soapbox_restaurant_feature_page_path(
           Restaurant.find_by_name($1), RestaurantFeaturePage.find_by_name($2))

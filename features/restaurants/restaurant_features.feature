@@ -54,3 +54,13 @@ Feature: Associate Restaurant features
     And I see "Cuisine Style" links for "Casual"
     And I do not see links for "Armenian"
 
+  Scenario: Clicking on a tag link takes you to a link page
+    Given a restaurant named "Gino's East"
+    And "Piece" is tagged with "Buffet, Casual"
+    And "Gino's East" is tagged with "Buffet, Ugly"
+    And I go to the soapbox restaurant profile for Piece
+    And I follow "Buffet"
+    Then I am on the soapbox feature page for "Buffet"
+    And I see the restaurant "Pierce"
+    And I see the restaurant "Gino's East"
+
