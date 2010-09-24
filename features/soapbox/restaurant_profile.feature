@@ -5,11 +5,13 @@ Feature: Restaurant profile
   Background:
     Given a restaurant named "Piece"
 
-  @wip
   Scenario: Show basic data
   	Given I am logged in as an admin
     When I go to the restaurant photo upload page for Piece
     And I attach the file "/features/images/bourgeoispig.jpg" to "image_attachment"
+    And I press "Upload"
+    When I go to the admin edit restaurant page for Piece
+    And I attach the file "/features/images/bourgeoispig_logo.gif" to "logo_attachment"
     And I press "Upload"
     When I go to the soapbox restaurant profile for Piece
     Then I see the restaurant's name as "Piece"
@@ -23,6 +25,7 @@ Feature: Restaurant profile
     And I see media contact name, phone, and email
     And I see the management company name as a link
     And I see the primary photo
+		And I see the restaurant logo
 
   Scenario: Show basic data if the restaurant has no media contact
     Given the restaurant has no media contact
