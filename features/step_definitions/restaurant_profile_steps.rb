@@ -101,8 +101,9 @@ Given /^the following restaurant features:$/ do |features|
   features.hashes.each do |feature_hash|
     page = RestaurantFeaturePage.find_or_create_by_name(feature_hash["page"])
     category = RestaurantFeatureCategory.find_or_create_by_name(feature_hash["category"])
-    category.update_attributes(:page => page)
-    RestaurantFeature.create!(:category => category, :value => feature_hash["value"])
+    category.update_attributes(:restaurant_feature_page => page)
+    RestaurantFeature.create!(:restaurant_feature_category => category,
+        :value => feature_hash["value"])
   end
 end
 

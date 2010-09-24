@@ -122,14 +122,45 @@ describe Restaurant do
 
     it "sets feature list from ids" do
       restaurant.reset_features([features[0].id, features[1].id])
-      restaurant.features.should =~ [features[0], features[1]]
+      restaurant.restaurant_features.should =~ [features[0], features[1]]
     end
 
     it "should reset features if features change" do
-      restaurant.features = [features[1], features[3]]
+      restaurant.restaurant_features = [features[1], features[3]]
       restaurant.reset_features([features[0].id])
-      restaurant.features.should =~ [features[0]]
+      restaurant.restaurant_features.should =~ [features[0]]
     end
 
+  end
+
+  describe "feature pages and categories" do
+
+    let(:restaurant) { Factory(:restaurant) }
+    let(:decor) { RestaurantFeaturePage.create!(:name => "Decor") }
+    let(:cuisine) { RestaurantFeaturePage.create!(:name => "Cuisine") }
+    let(:style) { RestaurantFeatureCategory.create!(:name => "Style", :restaurant_feature_page => decor) }
+    let(:type) { RestaurantFeatureCategory.create!(:name => "Type", :restaurant_feature_page => decor) }
+    let(:meals) { RestaurantFeatureCategory.create!(:name => "Meals", :restaurant_feature_page => cuisine) }
+    let(:ugly) { RestaurantFeature.create!(:value => "Ugly", :restaurant_feature_category => style) }
+    let(:pretty) { RestaurantFeature.create!(:value => "Pretty", :restaurant_feature_category => style) }
+    let(:open) { RestaurantFeature.create!(:value => "Open", :restaurant_feature_category => type) }
+    let(:closed) { RestaurantFeature.create!(:value => "Closed", :restaurant_feature_category => type) }
+    let(:dinner) { RestaurantFeature.create!(:value => "Dinner", :restaurant_feature_category => meals) }
+    let(:brunch) { RestaurantFeature.create!(:value => "Brunch", :restaurant_feature_category => brunch) }
+
+    it "lists its categories" do
+      restaurant.restaurant_features = [ugly, pretty, open, closed]
+      restaurant.feature_categories.should == [style, type]
+      restaurant.feature_pages.should == [decor]
+      restaurant.restaurant_features = [ugly, pretty]
+      restaurant.feature_categories.should == [style]
+      restaurant.feature_pages.should ==  [decor]
+    end
+
+    it "finds features by page" do
+      restaurant.restaurant_features = [ugly, pretty, dinner]
+      restaurant.features_for_page(decor).should == [pretty, ugly]
+      restaurant.features_for_page(cuisine).should == [dinner]
+    end
   end
 end

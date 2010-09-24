@@ -1,80 +1,21 @@
 <% content_for :title, h(@restaurant.name) %>
 
-<div id="basic_info">
-  <h1 id="name">
-    <%=	h @restaurant.name %>
-  </h1>
+<%= render :partial => 'basic_info' %>
 
-  <div id="address" class="span-4">
-    <div id="street1">
-      <%= h @restaurant.street1 %>
-    </div>
-    <div id="street2">
-      <%= h @restaurant.street2 %>
-    </div>
-    <span id="city">
-      <%= h @restaurant.city %>,
-    </span>
-    <span id="state">
-      <%= h @restaurant.state %>
-    </span>
-    <span id="zip">
-      <%= h @restaurant.zip %>
-    </span>
-    <div id="phone_number">
-      <%= h @restaurant.phone_number %>
-    </div>
-    <div id="website">
-      Website:
-      <%= link_to @restaurant.website, @restaurant.website, :target => "_blank" %>
-    </div>
-
-    <% div_if(@restaurant.twitter_username.present?, :id => "twitter_username") do %>
-      Twitter: <%= link_to h(@restaurant.twitter_username), "http://twitter.com/#{@restaurant.twitter_username}" %>
-    <% end %>
-
-    <% div_if(@restaurant.facebook_page.present?, :id => "facebook_page") do %>
-      Facebook: <%= link_to h(@restaurant.facebook_page), @restaurant.facebook_page %>
-    <% end %>
-
-  </div>
-
-  <div class="span-8 last">
-    <div id="description">
-      <%=	h @restaurant.description %>
-    </div>
-    <br />
-    <div id="hours">
-      Hours: <%= h @restaurant.hours %>
-    </div>
-    <br />
-    <% div_if @restaurant.media_contact, :id =>"media_contact" do %>
-      Media Contact:
-      <div id="media_contact_name">
-        <%= h @restaurant.media_contact.name %>
-      </div>
-      <div id="media_contact_email">
-        Email:
-        <%= link_to h(@restaurant.media_contact.email),
-            "mailto:#{@restaurant.media_contact.email}" %>
-      </div>
-      <div id="media_contact_phone">
-        Phone:
-        <%= h @restaurant.media_contact.phone_number %>
-      </div>
-    <% end %>
-
-    <% div_if @restaurant.management_company_name, :id => "management_company" do %>
-      <br />
-      Managed by:
-      <% if @restaurant.management_company_website %>
-        <%= link_to @restaurant.management_company_name, @restaurant.management_company_website,
-            :target => "_blank"%>
-      <% else %>
-        <%= h @restaurant.management_company_name %>
-      <% end %>
-    <% end %>
-  </div>
-
-  <br />
+<div id="page_header_navigation" class="span-3 last">
+  <%= render :partial => 'page_header_navigation',
+      :collection => @restaurant.feature_pages, :as => :feature_page %>
 </div>
+
+<<<<<<< HEAD
+  <br />
+=======
+<br clear="all"/>
+
+<div class="page_headers">
+  <%= render :partial => 'page_header',
+      :collection => @restaurant.feature_pages, :as => :feature_page %>
+>>>>>>> basic tag display in restaurant profile page
+</div>
+
+<div class="last"></div>

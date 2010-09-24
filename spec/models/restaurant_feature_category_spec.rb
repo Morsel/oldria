@@ -7,9 +7,9 @@ describe RestaurantFeatureCategory do
     before(:each) do
       @cuisine = RestaurantFeatureCategory.create!(:name => "Cuisine")
       @decor = RestaurantFeatureCategory.create!(:name => "Decor")
-      @american = RestaurantFeature.create!(:category => @cuisine, :value => "American")
-      @ugly = RestaurantFeature.create!(:category => @decor, :value => "Ugly")
-      @pretty = RestaurantFeature.create!(:category => @decor, :value => "Pretty") 
+      @american = RestaurantFeature.create!(:restaurant_feature_category => @cuisine, :value => "American")
+      @ugly = RestaurantFeature.create!(:restaurant_feature_category => @decor, :value => "Ugly")
+      @pretty = RestaurantFeature.create!(:restaurant_feature_category => @decor, :value => "Pretty") 
     end
 
     it "finds all categories" do

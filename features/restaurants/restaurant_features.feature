@@ -30,5 +30,14 @@ Feature: Associate Restaurant features
     And the "Ugly" checkbox should be checked
     And the "Buffet" checkbox should not be checked
 
-# Scenario: Selecting a checkbox should display the page and tag on the home page
+  Scenario: Selecting a checkbox should display the page and tag on the home page
+    When I go to the restaurant feature page for "Piece"
+    And I check "Casual"
+    And I check "Buffet"
+    And I press "Update all features"
+    And I go to the soapbox restaurant profile for Piece
+    Then I see a navigation link for "Cuisine"
+    And I do not see a navigation link for "Design"
+    And I see a page header for "Cuisine" with "Casual, Buffet"
+    And I do not see a page header for "Design"
 
