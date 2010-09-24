@@ -79,8 +79,10 @@
   <br />
 
   <div id="primary_photo">
-    <%= image_tag @restaurant.primary_photo.attachment.url(:medium) %>
+    <%= image_tag @restaurant.primary_photo.attachment.url(:medium) if @restaurant.primary_photo %>
   </div>
-
+  <div id="logo">
+    <%= image_tag @restaurant.logo.attachment.url, :id => "restaurant_logo" if @restaurant.logo %>
+  </div>
 </div>
 
