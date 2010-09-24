@@ -160,7 +160,9 @@ describe Restaurant do
     it "finds features by page" do
       restaurant.restaurant_features = [ugly, pretty, dinner]
       restaurant.features_for_page(decor).should == [pretty, ugly]
+      restaurant.categories_for_page(decor).should == [style]
       restaurant.features_for_page(cuisine).should == [dinner]
+      restaurant.features_for_category(style).should == [pretty, ugly]
     end
   end
 end

@@ -123,13 +123,18 @@ module NavigationHelpers
     when /^the admin restaurant feature page$/
       admin_restaurant_features_path
 
-    # Direct path  
-    when /"([^\"]+)"/
-      $1
-
     # Soapbox
     when /the soapbox restaurant profile for (.+)/
       soapbox_restaurant_path(Restaurant.find_by_name($1))
+    when /the soapbox restaurant feature page for "(.+)" and "(.+)"/
+      soapbox_restaurant_feature_page_path(
+          Restaurant.find_by_name($1), RestaurantFeaturePage.find_by_name($2))
+
+    # Direct path
+    when /"([^\"]+)"/
+      $1
+
+
 
     # Add more mappings here.
     # Here is an example that pulls values out of the Regexp:
