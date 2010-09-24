@@ -25,8 +25,7 @@ Feature: Restaurant profile
     And I see media contact name, phone, and email
     And I see the management company name as a link
     And I see the primary photo
-		And I see the restaurant logo for the profile
-    And I see the primary photo
+		And I see the restaurant logo
 
   Scenario: Show basic data if the restaurant has no media contact
     Given the restaurant has no media contact
