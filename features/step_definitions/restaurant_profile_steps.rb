@@ -138,4 +138,25 @@ end
 When /^I see a page named "([^\"]*)"$/ do |page|
   response.should have_selector(".feature_page", :content => page) 
 end
-  
+
+Then /^I see headers for feature categories for "([^\"]*)"$/ do |page_name|
+  page = RestaurantFeaturePage.find_by_name(page_name)
+  @restaurant.categories_for_page(page).each do |category|
+    response.should have_selector(".category_header", :content => category.name)
+  end
+  missing = page.restaurant_feature_categories - @restaurant.categories_for_page(page)
+  missing.each do |category|
+    response.should_not have_selector(".category_header", :content => category.name)
+  end
+end
+
+Then /^I see "([^\"]*)" links for "([^\"]*)"$/ do |category_name, tags|
+  category = RestaurantFeatureCategory.find_by_name(category_name)
+  tags.split(",").each do |tag|
+    response.should have_selector("##{dom_id(category)} .feature", :content => tag.strip)
+  end
+end
+
+Then /^I do not see links for "([^\"]*)"$/ do |tag|
+  response.should_not have_selector(".feature", :content => tag.strip)
+end

@@ -111,6 +111,14 @@ class Restaurant < ActiveRecord::Base
     restaurant_features.select { |feature| feature.restaurant_feature_page == feature_page }.sort_by(&:value)
   end
 
+  def features_for_category(feature_category)
+    restaurant_features.select { |feature| feature.restaurant_feature_category == feature_category }.sort_by(&:value)
+  end
+
+  def categories_for_page(feature_page)
+    feature_categories.select { |cat| cat.restaurant_feature_page == feature_page }.sort_by(&:name)
+  end
+
   private
 
   def add_manager_as_employee

@@ -1,5 +1,5 @@
 Feature: Associate Restaurant features
-  In order to Asscociate tags to a restaurant
+  In order to Associate tags to a restaurant
   As a restaurant manager
   I want to manage restaurant tags
 
@@ -40,4 +40,17 @@ Feature: Associate Restaurant features
     And I do not see a navigation link for "Design"
     And I see a page header for "Cuisine" with "Casual, Buffet"
     And I do not see a page header for "Design"
+
+  Scenario: Clicking on the detail link takes you to the interior page
+    When I go to the restaurant feature page for "Piece"
+    And I check "Casual"
+    And I check "Buffet"
+    And I press "Update all features"
+    And I go to the soapbox restaurant profile for Piece
+    And I follow "Cuisine Details"
+    Then I am on the soapbox restaurant feature page for "Piece" and "Cuisine"
+    And I see headers for feature categories for "Cuisine"
+    And I see "Cuisine" links for "Buffet"
+    And I see "Cuisine Style" links for "Casual"
+    And I do not see links for "Armenian"
 
