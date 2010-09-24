@@ -1,0 +1,12 @@
+<div class="feature_page span-4 last" id="<%= dom_id(feature_page) %>">
+  <div class="feature_page_header">
+    <%= h feature_page.name %>
+  </div>
+  <div class="features">
+    <% @restaurant.features_for_page(feature_page).each do |feature| %>
+      <span class="feature" id="<%= dom_id feature%>">
+        <%= link_to h(feature.value), "" %>
+      </span>
+    <% end %>
+  </div>
+</div>

@@ -33,3 +33,24 @@ Then /^there should be (\d+) QOTDs? on the soapbox landing page$/ do |num|
   SoapboxEntry.qotd.published.count.should == num.to_i
 end
 
+Then /^I see a navigation link for "([^\"]*)"$/ do |header_name|
+  response.should have_selector(".page_nav_link a", :content => header_name)
+end
+
+Then /^I do not see a navigation link for "([^\"]*)"$/ do |header_name|
+  response.should_not have_selector(".page_nav_link a", :content => header_name)
+end
+
+Then /^I see a page header for "([^\"]*)" with "([^\"]*)"$/ do |page, tags|
+  page_obj = RestaurantFeaturePage.find_by_name(page)
+  response.should have_selector(".feature_page_header", :content => page)
+  tags.split(",").each do |tag|
+    response.should have_selector("##{dom_id(page_obj)} .feature", :content => tag.strip)
+  end
+end
+
+Then /^I do not see a page header for "([^\"]*)"$/ do |page|
+  response.should_not have_selector(".feature_page_header", :content => page)
+end
+
+

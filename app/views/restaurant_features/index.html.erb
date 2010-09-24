@@ -1,14 +1,26 @@
+<% if can? :edit, @restaurant %>
+	<% content_for :page_actions do -%>
+	<p class="clearfix">
+    <%= link_to 'Show Restaurant', restaurant_path(@restaurant),
+        :class=>'sf-button' %>
+    <%= link_to 'Edit restaurant', edit_restaurant_path(@restaurant),
+    :class=>'sf-button' %>
+    <%= link_to 'Soapbox Profile', soapbox_restaurant_path(@restaurant),
+        :class=>'sf-button' %>
+	</p>
+	<% end -%>
+<% end -%>
 <% form_tag :url => restaurant_features_path(@restaurant) do %>
   <div class="restaurant_feature_list ">
     <% @pages.each do |page| %>
       <div class="feature_page" id="<%= dom_id(page) %>">
         <h2>Page: <%= h page.name %></h2>
-        <% page.categories.by_name.each do |category| %>
+        <% page.restaurant_feature_categories.by_name.each do |category| %>
           <div class="feature_category" id="<%= dom_id(category) %>">
             <h3 class="feature_category_header">
               Category: <%= h category.name %>
             </h3>
-            <% category.features.in_groups(2).each do |feature_list| %>
+            <% category.restaurant_features.in_groups(2).each do |feature_list| %>
               <div class="feature span-5" >
                 <% feature_list.compact.each do |feature| %>
                   <div class="span-4" id="<%= dom_id(feature) %>">

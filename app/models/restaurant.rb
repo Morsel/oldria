@@ -52,11 +52,12 @@ class Restaurant < ActiveRecord::Base
   after_validation_on_create :add_manager_as_employee
   after_save :update_admin_discussions
 
+  has_and_belongs_to_many :restaurant_features,
+      :include => {:restaurant_feature_category => :restaurant_feature_page}
+
   has_many :photos, :class_name => "Image", :as => :attachable, :dependent => :destroy
   belongs_to :primary_photo, :class_name => "Image", :dependent => :destroy  
   belongs_to :logo, :class_name => "Image", :dependent => :destroy
-  has_and_belongs_to_many :restaurant_features
-  alias_attribute :features, :restaurant_features
 
   # For pagination
   cattr_reader :per_page
@@ -96,6 +97,18 @@ class Restaurant < ActiveRecord::Base
 
   def reset_features(feature_ids)
     self.restaurant_feature_ids = feature_ids
+  end
+
+  def feature_categories
+    restaurant_features.map(&:restaurant_feature_category).uniq
+  end
+
+  def feature_pages
+    feature_categories.map(&:restaurant_feature_page).uniq
+  end
+
+  def features_for_page(feature_page)
+    restaurant_features.select { |feature| feature.restaurant_feature_page == feature_page }.sort_by(&:value)
   end
 
   private

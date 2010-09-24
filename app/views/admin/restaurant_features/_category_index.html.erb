@@ -2,13 +2,13 @@
   <h3 class="feature_category_header">
     Category: <%= h category.name %>
   </h3>
-  <% category.features.each do |feature| %>
+  <% category.restaurant_features.each do |feature| %>
     <div class="feature" id="<%= dom_id(feature) %>">
       <%= h feature.value %>
     </div>
   <% end %>
   <div class="add_feature_form">
-    <% @restaurant_feature.category = category %>
+    <% @restaurant_feature.restaurant_feature_category = category %>
     <% form_for :restaurant_feature, :url => admin_restaurant_features_path do |f| %>
       <%= f.label :value, "Add a feature in #{category.name}" %>
       <%= f.text_field :value  %>
