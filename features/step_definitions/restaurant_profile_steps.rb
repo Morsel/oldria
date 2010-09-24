@@ -137,6 +137,10 @@ When /^I see a page named "([^\"]*)"$/ do |page|
   response.should have_selector(".feature_page", :content => page) 
 end
 
+When /^I see the primary photo$/ do
+  response.should have_selector("#primary_photo img")
+  response.body.should include("http://spoonfeed.s3.amazonaws.com/cucumber/images/#{@restaurant.reload.primary_photo.id}/medium/bourgeoispig.jpg")  
+end
 Then /^I see the restaurant's website$/ do
   response.should have_selector("#website", :content => @restaurant.website)
 end
