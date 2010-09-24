@@ -5,10 +5,6 @@ Feature: Restaurant profile
   Background:
     Given a restaurant named "Piece"
 
-<<<<<<< HEAD
-@wip
-=======
->>>>>>> error cases, basic layout, tweaks
   Scenario: Show basic data
   	Given I am logged in as an admin
     When I go to the restaurant photo upload page for Piece
@@ -28,11 +24,9 @@ Feature: Restaurant profile
     And I see the restaurant's hours
     And I see media contact name, phone, and email
     And I see the management company name as a link
-<<<<<<< HEAD
     And I see the primary photo
 		And I see the restaurant logo for the profile
-=======
->>>>>>> error cases, basic layout, tweaks
+    And I see the primary photo
 
   Scenario: Show basic data if the restaurant has no media contact
     Given the restaurant has no media contact
