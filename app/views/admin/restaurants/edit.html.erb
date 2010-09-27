@@ -27,7 +27,7 @@
 	</p>
 <% end %>
 
-<% semantic_form_for :logo, @restaurant.logo, :url => upload_logo_admin_restaurant_path(@restaurant), :html => { :multipart => true } do |logo_form| %>
+<% semantic_form_for :logo, @restaurant.logo, :url => upload_logo_restaurant_path(@restaurant), :html => { :multipart => true } do |logo_form| %>
     <% logo_form.inputs :name => 'Logo', :class => "span-17 column last clear" do %>
         <% logo = @restaurant.logo || Image.new %>
         <%= image_tag logo.attachment.url, :id => "restaurant_logo" %>
@@ -43,8 +43,4 @@
 <p>
     <%= link_to "View Restaurant calendar", restaurant_calendars_path(@restaurant), :class => "button" %>
 </p> 
-
-<p>
-    <%= link_to "Manage Photos", edit_photos_admin_restaurant_path(@restaurant), :class => "button" %>
-</p>
 

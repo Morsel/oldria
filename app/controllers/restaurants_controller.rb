@@ -1,6 +1,7 @@
 class RestaurantsController < ApplicationController
   before_filter :require_user
   before_filter :authenticate, :only => [:edit, :update]
+  before_filter :find_restaurant, :only => [:upload_photo, :edit_photos, :upload_logo, :select_primary_photo]  
 
   def new
     @restaurant = current_user.managed_restaurants.build
@@ -33,6 +34,31 @@ class RestaurantsController < ApplicationController
       render :new
     end
   end
+
+  def upload_photo
+    @restaurant.photos << Image.create!(params[:image])
+    @restaurant.update_attributes!(:primary_photo => @restaurant.photos.last) unless @restaurant.primary_photo
+    redirect_to edit_photos_admin_restaurant_path(@restaurant)
+  end
+
+  def edit_photos
+
+  end
+
+  def upload_logo
+    @restaurant.update_attributes!(:logo => Image.create!(params[:logo]))
+    redirect_to edit_admin_restaurant_path(@restaurant)
+  end
+
+  def select_primary_photo
+    if @restaurant.update_attributes(params[:restaurant])
+      flash[:notice] = "Successfully updated restaurant"
+      redirect_to edit_photos_admin_restaurant_path(@restaurant)
+    else
+      flash[:error] = "We were unable to update the restaurant"
+      render :edit_photos
+    end
+  end  
 
   private
 
