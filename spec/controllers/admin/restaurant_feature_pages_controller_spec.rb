@@ -1,6 +1,7 @@
 require 'spec/spec_helper'
 
 describe Admin::RestaurantFeaturePagesController do
+  include ActionView::Helpers::RecordIdentificationHelper
 
   before(:each) do
     @user = Factory.stub(:admin)
@@ -25,5 +26,31 @@ describe Admin::RestaurantFeaturePagesController do
       flash[:notice].should =~ /new page/
       response.should redirect_to(admin_restaurant_features_url)
     end
+  end
+
+  describe "POST edit_in_place" do
+
+    before(:each) do
+      @page = RestaurantFeaturePage.create!(:name => "Cuisine")
+    end
+
+    it "should return the new text on successful update" do
+      RestaurantFeaturePage.expects(:find).with(@page.id).returns(@page)
+      post :edit_in_place, "new_value" => "Food", "data" => "false",
+          "id" => dom_id(@page), "orig_value" => "Cuisine"
+      ActiveSupport::JSON.decode(response.body) == {"is_error" => false, "error_text" => nil,
+          "html" => "Food"}
+    end
+
+    it "should return error text on unsuccessful update" do
+      RestaurantFeaturePage.expects(:find).with(@page.id).returns(@page)
+      @page.expects(:update_attributes).returns(false)
+      post :edit_in_place, "new_value" => "Very Pretty ", "data" => "false",
+          "id" => dom_id(@page), "orig_value"=>"Pretty"
+      ActiveSupport::JSON.decode(response.body).should == {"is_error" => true,
+          "error_text" => "Error updating page -- possible duplicate",
+          "html" => "Cuisine"}
+    end
+
   end
 end

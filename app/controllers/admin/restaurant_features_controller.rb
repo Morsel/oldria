@@ -18,4 +18,20 @@ class Admin::RestaurantFeaturesController < Admin::AdminController
     redirect_to admin_restaurant_features_path
   end
 
+  # sent from the eip javascript function
+  # see http://josephscott.org/code/javascript/jquery-edit-in-place/ for
+  # parameters
+  def edit_in_place
+    id = params[:id].split("_")[-1]
+    @feature = RestaurantFeature.find(id.to_i)
+    success = @feature.update_attributes(:value => params[:new_value].strip)
+    if success
+      render :text => {:is_error => false, :error_text => nil, :html => @feature.value}.to_json
+    else
+      render :text => {:is_error => true,
+          :error_text => "Error updating feature -- possible duplicate",
+          :html => @feature.value}.to_json
+    end
+  end
+
 end
