@@ -28,8 +28,10 @@ class Topic < ActiveRecord::Base
   }
 
   named_scope :answered_for_user, lambda { |user|
-    { :joins => { :chapters => { :profile_questions => :profile_answers } }, 
-      :conditions => ["profile_answers.user_id = ?", user.id] }
+    { :joins => { :chapters => { :profile_questions => :profile_answers } },
+      :conditions => ["profile_answers.user_id = ?", user.id],
+      :select => "distinct topics.*",
+      :order => :position }
   }
     
   def previous_for_user(user, is_self = false)

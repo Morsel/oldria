@@ -29,7 +29,10 @@ class Chapter < ActiveRecord::Base
   }
   
   named_scope :answered_for_user, lambda { |user|
-    { :joins => { :profile_questions => :profile_answers }, :conditions => ["profile_answers.user_id = ?", user.id] }
+    { :joins => { :profile_questions => :profile_answers }, 
+      :conditions => ["profile_answers.user_id = ?", user.id],
+      :select => "distinct chapters.*",
+      :order => :position }
   }
     
   def title_with_topic
