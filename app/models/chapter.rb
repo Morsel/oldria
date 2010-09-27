@@ -27,21 +27,29 @@ class Chapter < ActiveRecord::Base
     :select => "distinct chapters.*",
     :order => :position }
   }
+  
+  named_scope :answered_for_user, lambda { |user|
+    { :joins => { :profile_questions => :profile_answers }, :conditions => ["profile_answers.user_id = ?", user.id] }
+  }
     
   def title_with_topic
     "#{topic.title} - #{title}"
   end
   
-  def previous_for_user(user)
+  def previous_for_user(user, is_self = false)
     sort_field = (self.position == 0 ? "id" : "position")
-    self.topic.chapters.for_user(user).find(:first, 
-        :conditions => ["chapters.#{sort_field} < ?", self.send(sort_field)], :order => "#{sort_field} DESC")
+    chapters = is_self ? self.topic.chapters.for_user(user) : self.topic.chapters.answered_for_user(user)
+    chapters.find(:first, 
+                  :conditions => ["chapters.#{sort_field} < ?", self.send(sort_field)], 
+                  :order => "#{sort_field} DESC")
   end
   
-  def next_for_user(user)
+  def next_for_user(user, is_self = false)
     sort_field = (self.position == 0 ? "id" : "position")
-    self.topic.chapters.for_user(user).find(:first, 
-        :conditions => ["chapters.#{sort_field} > ?", self.send(sort_field)], :order => "#{sort_field} ASC")
+    chapters = is_self ? self.topic.chapters.for_user(user) : self.topic.chapters.answered_for_user(user)
+    chapters.find(:first, 
+                  :conditions => ["chapters.#{sort_field} > ?", self.send(sort_field)], 
+                  :order => "#{sort_field} ASC")
   end
   
   def question_count_for_user(user)

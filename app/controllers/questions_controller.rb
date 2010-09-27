@@ -5,10 +5,13 @@ class QuestionsController < ApplicationController
   
   def index
     @chapter = Chapter.find(params[:chapter_id])
-    @previous = @chapter.previous_for_user(@user)
-    @next = @chapter.next_for_user(@user)
-    @previous_topic = @chapter.topic.previous_for_user(@user)
-    @next_topic = @chapter.topic.next_for_user(@user)
+
+    is_self = @user == current_user
+    @previous = @chapter.previous_for_user(@user, is_self)
+    @next = @chapter.next_for_user(@user, is_self)
+    @previous_topic = @chapter.topic.previous_for_user(@user, is_self)
+    @next_topic = @chapter.topic.next_for_user(@user, is_self)
+
     @questions = @user == current_user ? 
         @user.profile_questions.for_chapter(params[:chapter_id]) :
         @user.profile_questions.answered_for_chapter(params[:chapter_id])
@@ -23,8 +26,9 @@ class QuestionsController < ApplicationController
   
   def chapters
     @topic = Topic.find(params[:topic_id])
-    @previous = @topic.previous_for_user(@user)
-    @next = @topic.next_for_user(@user)
+    is_self = @user == current_user
+    @previous = @topic.previous_for_user(@user, is_self)
+    @next = @topic.next_for_user(@user, is_self)
     @questions_by_chapter = @user.profile_questions.
         all(:conditions => { :chapter_id => @topic.chapters.map(&:id) }, :joins => :chapter, 
         :order => "chapters.position, chapters.id").
