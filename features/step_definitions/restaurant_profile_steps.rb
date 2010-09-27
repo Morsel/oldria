@@ -139,7 +139,6 @@ When /^I see a page named "([^\"]*)"$/ do |page|
   response.should have_selector(".feature_page", :content => page) 
 end
 
-<<<<<<< HEAD
 Then /^I see headers for feature categories for "([^\"]*)"$/ do |page_name|
   page = RestaurantFeaturePage.find_by_name(page_name)
   @restaurant.categories_for_page(page).each do |category|
