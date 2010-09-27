@@ -106,7 +106,7 @@ module NavigationHelpers
     when /^the new topic page$/
       new_admin_topic_path
     when /^the restaurant photo upload page for (.+)$/
-      edit_photos_admin_restaurant_path(Restaurant.find_by_name($1))
+      edit_photos_restaurant_path(Restaurant.find_by_name($1))
     when /^the admin restaurant feature page$/
       admin_restaurant_features_path
 
