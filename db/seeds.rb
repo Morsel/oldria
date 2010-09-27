@@ -109,7 +109,7 @@ model_count_before_and_after(RestaurantFeature) do
     page = RestaurantFeaturePage.find_or_create_by_name(key)
     values.each do |value|
       category = RestaurantFeatureCategory.find_or_create_by_name(value)
-      category.update_attributes(:page => page)
+      category.update_attributes(:restaurant_feature_page => page)
     end
   end
 
