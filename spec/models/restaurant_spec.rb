@@ -173,4 +173,5 @@ describe Restaurant do
       Restaurant.with_feature(pretty).should =~ [restaurant, r2]
     end
   end
+
 end

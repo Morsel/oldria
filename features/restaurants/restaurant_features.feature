@@ -30,6 +30,7 @@ Feature: Associate Restaurant features
     And the "Ugly" checkbox should be checked
     And the "Buffet" checkbox should not be checked
 
+<<<<<<< HEAD
   Scenario: Selecting a checkbox should display the page and tag on the home page
     When I go to the restaurant feature page for "Piece"
     And I check "Casual"
@@ -63,4 +64,7 @@ Feature: Associate Restaurant features
     Then I am on the soapbox feature page for "Buffet"
     And I see the restaurant "Pierce"
     And I see the restaurant "Gino's East"
+=======
+# Scenario: Selecting a checkbox should display the page and tag on the home page
+>>>>>>> 34f220397d2e9d0ec840c4a056dd385dc9b10264
 

@@ -24,6 +24,10 @@ class Admin::RestaurantsController < Admin::AdminController
     redirect_to edit_photos_admin_restaurant_path(@restaurant)    
   end
 
+  def edit_photos
+
+  end
+
   def upload_logo
     @restaurant.update_attributes!(:logo => Image.create!(params[:logo]))
     redirect_to edit_admin_restaurant_path(@restaurant)    
