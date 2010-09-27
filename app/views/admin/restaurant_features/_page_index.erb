@@ -1,5 +1,7 @@
 <div class="feature_page" id="<%= dom_id(page) %>">
-  <h2>Page: <%= h page.name %></h2>
+  <h2>Page:
+    <span class="feature_page_eip" id="<%= dom_id(page, :eip) %>"><%= h page.name %></span>
+  </h2>
   <%= render :partial => "category_index",
       :collection => page.restaurant_feature_categories, :as => :category %>
   <div class="add_category_form">

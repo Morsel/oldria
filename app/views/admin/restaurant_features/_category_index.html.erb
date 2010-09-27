@@ -1,11 +1,10 @@
 <div class="feature_category" id="<%= dom_id(category) %>">
   <h3 class="feature_category_header">
-    Category: <%= h category.name %>
+    Category:
+    <span class="feature_category_eip" id="<%= dom_id(category, :eip)%>"><%= h category.name.strip %></span>
   </h3>
-  <% category.restaurant_features.each do |feature| %>
-    <div class="feature" id="<%= dom_id(feature) %>">
-      <%= h feature.value %>
-    </div>
+  <% category.restaurant_features.each do |feature| -%>
+    <div class="feature feature_eip" id="<%= dom_id(feature) %>"><%= h feature.value.strip -%></div>
   <% end %>
   <div class="add_feature_form">
     <% @restaurant_feature.restaurant_feature_category = category %>

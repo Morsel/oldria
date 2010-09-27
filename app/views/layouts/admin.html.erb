@@ -61,6 +61,7 @@
 					<li><%= link_to "Questions from RIA", admin_content_requests_path %></li>
 					<li><%= link_to "Soapbox", admin_soapbox_entries_path %></li>
 					<li><%= link_to "Q&amp;As", admin_profile_questions_path %></li>
+          <li><%= link_to "Restaurant Tags", admin_restaurant_features_path %></li>
 					<li class="public_home"><%= link_to "Public Home", root_path %></li>
 				</ul>
 			</div><!--#navigation-->
@@ -100,6 +101,8 @@
 	<%= javascript_include_tag :defaults %>
 	<%= javascript_include_tag 'jquery.ui.accordion','jquery.autocomplete','jquery.autofill', 'jquery.tablesorter.min','jquery.metadata' %>
 	<%= javascript_include_tag 'site' %>
+  <%= javascript_include_tag 'jeip' %>
 	<%= yield(:footer) %>
 </body>
 </html>
+<%= yield(:javascript) %>
