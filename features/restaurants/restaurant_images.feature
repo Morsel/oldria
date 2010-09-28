@@ -15,7 +15,7 @@ Feature: Restaurant Images
     Then I see the uploaded restaurant photo
 
   Scenario: Upload logo
-    When I go to the admin edit restaurant page for Bourgeois Pig
+    When I go to the edit restaurant page for "Bourgeois Pig"
     And I attach the file "/features/images/bourgeoispig_logo.gif" to "logo_attachment"
     And I press "Upload"
     Then I see the restaurant logo
