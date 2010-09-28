@@ -5,7 +5,7 @@
     <% end %>
     
     <div class="clearfix">
-      <%= button_tag "Save" %>
+      <%= button_tag "Post" %>
       <%= link_to "Delete this answer", profile_answer_path(answer), :method => "delete", :class => "button negative" unless answer.new_record? %>
     </div>
 <% end %>

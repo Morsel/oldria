@@ -27,16 +27,27 @@ class Topic < ActiveRecord::Base
     :order => :position }
   }
 
-  def previous_for_user(user)
+  named_scope :answered_for_user, lambda { |user|
+    { :joins => { :chapters => { :profile_questions => :profile_answers } },
+      :conditions => ["profile_answers.user_id = ?", user.id],
+      :select => "distinct topics.*",
+      :order => :position }
+  }
+    
+  def previous_for_user(user, is_self = false)
     sort_field = (self.position == 0 ? "id" : "position")
-    Topic.for_user(user).find(:first, 
-        :conditions => ["topics.#{sort_field} < ?", self.send(sort_field)], :order => "#{sort_field} DESC")
+    topics = is_self ? Topic.answered_for_user(user) : Topic.for_user(user)
+    topics.find(:first, 
+                :conditions => ["topics.#{sort_field} < ?", self.send(sort_field)], 
+                :order => "#{sort_field} DESC")
   end
   
-  def next_for_user(user)
+  def next_for_user(user, is_self = false)
     sort_field = (self.position == 0 ? "id" : "position")
-    Topic.for_user(user).find(:first, 
-        :conditions => ["topics.#{sort_field} > ?", self.send(sort_field)], :order => "#{sort_field} ASC")
+    topics = is_self ? Topic.answered_for_user(user) : Topic.for_user(user)
+    topics.find(:first, 
+                :conditions => ["topics.#{sort_field} > ?", self.send(sort_field)], 
+                :order => "#{sort_field} ASC")
   end
 
   def question_count_for_user(user)
