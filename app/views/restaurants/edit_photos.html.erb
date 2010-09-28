@@ -14,12 +14,12 @@
       </tr>
       <% @restaurant.photos.each do |photo| %>
         <tr>
-          <td><%= image_tag photo.attachment.url, :class => "restaurant_photo" %></td>
+          <td><%= image_tag photo.attachment.url(:medium), :class => "restaurant_photo" %></td>
           <td><%= restaurant_form.radio_button :primary_photo_id, photo.id %></td>
         </tr>
       <% end %>
     </table>
-    <%= restaurant_form.submit 'Save' %>
+    <%= restaurant_form.submit 'Save Primary Selection' %>
 <% end %>
 
 <p>
