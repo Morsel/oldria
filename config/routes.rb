@@ -78,6 +78,7 @@ ActionController::Routing::Routes.draw do |map|
     restaurant.resources :calendars, :collection => { "ria" => :get }
     restaurant.resources :events, :member => { "ria_details" => :get, "transfer" => :post }
     restaurant.resources :features, :controller => "restaurant_features"
+    restaurant.resources :menus
     restaurant.resources 
   end
 

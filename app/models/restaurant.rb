@@ -46,6 +46,7 @@ class Restaurant < ActiveRecord::Base
            :source => :discussionable, :source_type => 'ContentRequest'
 
   has_many :events
+  has_many :menus
 
   belongs_to :media_contact, :class_name => "User", :foreign_key => 'media_contact_id'
 
