@@ -39,13 +39,46 @@ Feature: RIA admin of restaurant features
     Then I am on the admin restaurant feature page
     And I see a tag named "Pretty" in the category "Cuisine style"
 
+  Scenario: Delete a page links
+    Given a restaurant feature page named "Beverages"
+    When I go to the admin restaurant feature page
+    Then I see a delete link for the page "Beverages"
+    And I do not see a delete link for the page "Cuisine"
+
+  Scenario: Actually delete a page
+    Given a restaurant feature page named "Beverages"
+    When I go to the admin restaurant feature page
+    And I click on the delete link for the page "Beverages"
+    Then I am on the admin restaurant feature page
+    And I do not see the page "Beverages"
+
+  Scenario: Delete a category links
+    Given a restaurant feature category named "Cheesburgers" in the page "Cuisine"
+    When I go to the admin restaurant feature page
+    Then I see a delete link for the category "Cheesburgers"
+    Then I do not see a delete link for the category "Cuisine type"
+
+  Scenario: Actually delete a category
+    Given a restaurant feature category named "Cheesburgers" in the page "Cuisine"
+    When I go to the admin restaurant feature page
+    And I click on the delete link for the category "Cheesburgers"
+    Then I am on the admin restaurant feature page
+    And I do not see the category "Cheesburgers"
+
+  Scenario: Delete a tag links
+    Given a restaurant named "Restaurant"
+    And the restaurant "Restaurant" has the tag "Ugly"
+    When I go to the admin restaurant feature page
+    Then I see a delete link for the tag "Casual"
+    Then I do not see a delete link for the tag "Ugly"
+
+  Scenario: Actually delete a feature
+    When I go to the admin restaurant feature page
+    And I click on the delete link for the feature "Ugly"
+    Then I am on the admin restaurant feature page
+    And I do not see the feature "Ugly"
+
 # Advanced edit scenarios
-#  Scenario: Edit a page name
-#  Scenario: Delete a page
 #  Scenario: Move a category to a new page
-#  Scenario: Edit a category name
-#  Scenario: Delete a category name
-#  Scenario: Delete a tag
-#  Scenario: Edit a tag name
 #  Scenario: Mark a category as important
 

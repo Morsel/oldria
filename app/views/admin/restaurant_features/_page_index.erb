@@ -1,6 +1,7 @@
 <div class="feature_page" id="<%= dom_id(page) %>">
   <h2>Page:
     <span class="feature_page_eip" id="<%= dom_id(page, :eip) %>"><%= h page.name %></span>
+    <%= delete_link_for(page, admin_restaurant_feature_page_path(page)) %>
   </h2>
   <%= render :partial => "category_index",
       :collection => page.restaurant_feature_categories, :as => :category %>
