@@ -60,6 +60,8 @@ class User < ActiveRecord::Base
   has_many :managed_restaurants, :class_name => "Restaurant", :foreign_key => "manager_id"
   has_many :manager_restaurants, :source => :restaurant, :through => :employments, :conditions => ["employments.omniscient = ?", true]
   has_many :restaurant_roles, :through => :employments
+  
+  has_one :default_employment, :foreign_key => "employee_id", :dependent => :destroy # only used if no restaurant employments
 
   has_many :discussion_seats, :dependent => :destroy
   has_many :discussions, :through => :discussion_seats
@@ -165,7 +167,7 @@ class User < ActiveRecord::Base
   end
   
   def primary_employment
-    self.employments.primary.first || self.employments.first
+    self.employments.primary.first || self.employments.first || self.default_employment
   end
 
   def restaurant_names

@@ -5,7 +5,7 @@ ActionController::Routing::Routes.draw do |map|
   map.fb_login 'facebook_login', :controller => 'user_sessions', :action => 'create_from_facebook'
 
   map.resources :invitations, :only => ['new', 'create', 'show'], :collection => { :login => :get }
-  map.resource :complete_registration, :only => [:show, :update]
+  map.resource :complete_registration, :only => [:show, :update], :collection => { :find_restaurant => :any }
   
   map.directory 'directory', :controller => 'directory', :action => 'index'
 
@@ -57,6 +57,7 @@ ActionController::Routing::Routes.draw do |map|
     users.resources :statuses
     users.resources :direct_messages, :member => { :reply => :get }
     users.resources :questions, :collection => { :topics => :get, :chapters => :get }
+    users.resources :default_employments
   end
 
   map.resources :restaurants do |restaurant|
@@ -106,7 +107,6 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :feed_entries, :only => 'show', :member => { :read => :put }
   map.resource :feeds
   map.resource :employment_search
-
 
   map.resource :twitter_authorization
   map.resource :friends_statuses, :only => 'show'

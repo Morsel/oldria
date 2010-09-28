@@ -243,6 +243,7 @@ end
 
 Factory.define :subject_matter do |f|
   f.name "Beverages"
+  f.general true
 end
 
 Factory.define :page do |f|

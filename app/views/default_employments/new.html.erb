@@ -1,0 +1,20 @@
+<% title "Set your work details" %>
+
+<% semantic_form_for [current_user, @employment] do |f| %>
+    <% f.inputs do %>
+        <%= f.input :restaurant_role, :label => "Role" %>
+
+        <h4>Area(s) of expertise</h4>
+        <%= f.input :subject_matters,
+          :as => :check_boxes,
+          :wrapper_html => {:class => 'checkall', :id => "employment_general_subject_matters"},
+          :collection => SubjectMatter.general.all,
+          :label => "I am interested in speaking to the media about the following subject(s):" %>
+
+        <%= f.input :prefers_post_to_soapbox, :as => :boolean,
+                    :label => "Do you want your posts to appear on the public Soapbox site?" %>
+                
+    <% end %>
+    
+    <p><%= button_tag "Submit" %></p>    
+<% end %>

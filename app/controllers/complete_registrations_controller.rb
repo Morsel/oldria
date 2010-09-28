@@ -15,11 +15,18 @@ class CompleteRegistrationsController < ApplicationController
     force_password_reset
     if @user.update_attributes(params[:user])
       @user.reset_perishable_token!
-      flash[:notice] = "Thanks for updating your account. Enjoy SpoonFeed!"
-      redirect_to root_path
+      if @user.employments.present?
+        flash[:notice] = "Thanks for updating your account. Enjoy SpoonFeed!"
+        redirect_to(root_path)
+      else
+        redirect_to(:action => "find_restaurant")
+      end
     else
       render :show
     end
+  end
+  
+  def find_restaurant
   end
 
   private

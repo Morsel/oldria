@@ -16,10 +16,11 @@ Feature: users can be invited to join Spoonfeed by registered SF users, restaura
     And I press "Invite User"
     Then I should see "Your invite has been sent to an admin for approval"
     
-  Scenario: an invite is approved and the user wants to log in and update their info
+  Scenario: an invite is approved and the user wants to log in and update their info (not a restaurant employee)
     Given there are the following invitations:
       | first_name  | last_name | email              |
       | Mariah      | Carpenter | mc@restaurants.com |
+    Given a subject matter "Food"
     And I am logged in as an admin
     And I go to the admin invitations page
     And I follow "accept"
@@ -45,4 +46,12 @@ Feature: users can be invited to join Spoonfeed by registered SF users, restaura
     And I fill in "Password confirmation" with "newpass"
     And I check "user_agree_to_contract"
     And I press "Save"
+    Then I should see "Find your restaurant"
+    
+    When I follow "I am not associated with a restaurant on spoonfeed"
+    And I select "Chef" from "Role"
+    And I check "Food"
+    And I check "default_employment_prefers_post_to_soapbox"
+    And I press "Submit"
     Then I should see "Enjoy SpoonFeed!"
+    And "mcarpenter" should have a primary employment

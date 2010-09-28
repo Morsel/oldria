@@ -132,3 +132,6 @@ Then /^"([^\"]*)" should be responsible for "([^\"]*)" at "([^\"]*)"$/ do |name,
   employment.subject_matters.should include(subject_matter)
 end
 
+Then /^"([^\"]*)" should have a primary employment$/ do |username|
+  User.find_by_username(username).primary_employment.should_not be_nil
+end
