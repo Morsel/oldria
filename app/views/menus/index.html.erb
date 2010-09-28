@@ -1,0 +1,10 @@
+<% title "Menu Upload For #{@restaurant.name}" %>
+
+<% semantic_form_for :menu, @menu, :url => restaurant_menus_path(@restaurant), :html => { :multipart => true } do |menu_form| %>
+    <% menu_form.inputs :name => 'Name', :class => "span-17 column last clear" do %>
+        <%= menu_form.input :name %>
+        <%= menu_form.input :change_frequency, :label => "How often it changes", :as => :select, :collection => Menu.change_frequencies %>
+        <%= menu_form.input :attachment, :as => :file, :for => :remote_attachment %>
+        <%= menu_form.submit 'Upload', :class => 'clear' %>
+    <% end %>
+<% end %>

@@ -488,6 +488,15 @@ ActiveRecord::Schema.define(:version => 20100928183146) do
   add_index "media_requests", ["sender_id"], :name => "index_media_requests_on_sender_id"
   add_index "media_requests", ["subject_matter_id"], :name => "index_media_requests_on_media_request_type_id"
 
+  create_table "menus", :force => true do |t|
+    t.string   "name"
+    t.string   "change_frequency"
+    t.integer  "remote_attachment_id"
+    t.integer  "restaurant_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "metropolitan_areas", :force => true do |t|
     t.string   "name"
     t.datetime "created_at"
