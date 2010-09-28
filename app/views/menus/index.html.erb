@@ -8,3 +8,14 @@
         <%= menu_form.submit 'Upload', :class => 'clear' %>
     <% end %>
 <% end %>
+
+<h2>Uploaded Menus</h2>
+<table>
+  <% @restaurant.menus.each do |menu| %>
+    <tr>
+      <td class="menu_name"><%= link_to h(menu.name), menu.remote_attachment.attachment.url %></td>
+      <td class="menu_date"><%=h menu.created_at.to_s(:standard) %></td>
+      <td class="menu_change_frequency"><%=h menu.change_frequency %></td>
+    </tr>
+  <% end %>
+</table>

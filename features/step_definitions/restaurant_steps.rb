@@ -159,3 +159,11 @@ end
 When /^I see the (\d+)(st|nd|th) photo selected as the primary photo$/ do |photo_order, ordinal|
   response.should have_selector("input", :type => "radio", :value => @restaurant.reload.photos[photo_order.to_i - 1].id.to_s, :checked => "checked")
 end
+Then /^I should see a menu with the name "([^\"]*)" and change frequency "([^\"]*)" and uploaded at date "([^\"]*)"$/ do |name, change_frequency, date|
+  response.should have_selector(".menu_name", :content => name)
+  response.should have_selector(".menu_change_frequency", :content => change_frequency)
+  response.should have_selector(".menu_date", :content => Chronic.parse(date).to_s(:standard))
+end
+Then /^I should see a link to download the uploaded menu pdf "([^\"]*)"$/ do |file_name|
+  response.body.should include("http://spoonfeed.s3.amazonaws.com/cucumber/attachments/#{@restaurant.reload.menus.last.id}/#{file_name}")
+end

@@ -6,8 +6,8 @@ class MenusController < ApplicationController
   end
 
   def create
-    Menu.from_params!(params[:menu])
-    redirect_to :action => :index
+    Menu.from_params!(params[:menu].merge(:restaurant => @restaurant))
+    redirect_to restaurant_menus_path
   end
 
   private
