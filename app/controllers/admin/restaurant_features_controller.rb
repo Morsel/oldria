@@ -34,4 +34,10 @@ class Admin::RestaurantFeaturesController < Admin::AdminController
     end
   end
 
+  def destroy
+    @feature = RestaurantFeature.find(params[:id])
+    @feature.destroy if @feature.deletable?
+    redirect_to admin_restaurant_features_path
+  end
+
 end

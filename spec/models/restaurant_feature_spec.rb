@@ -11,4 +11,17 @@ describe RestaurantFeature do
     open.breadcrumbs.should == "Decor : Type : Open"
   end
 
+  describe "deletable" do
+
+    let(:feature) { RestaurantFeature.create(:value => "Feature") }
+
+    specify { feature.should be_deletable }
+
+    it "should not be deletable if it has tags" do
+      feature.restaurants << Factory(:restaurant)
+      feature.should_not be_deletable
+    end
+
+  end
+
 end

@@ -31,4 +31,11 @@ module ApplicationHelper
     content
   end
 
+  def delete_link_for(deletable_object, path)
+    return "" unless deletable_object.deletable?
+    link_to "[x]", path, :method => :delete,
+        :confirm => "Are you sure you want to permanently delete #{deletable_object.name}?",
+        :class => "delete_link", :id => dom_id(deletable_object, :delete_link)
+  end
+
 end
