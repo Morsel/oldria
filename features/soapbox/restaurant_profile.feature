@@ -4,13 +4,13 @@ Feature: Restaurant profile
 
   Background:
     Given a restaurant named "Piece"
-@wip
+
   Scenario: Show basic data
   	Given I am logged in as an admin
     When I go to the restaurant photo upload page for Piece
     And I attach the file "/features/images/bourgeoispig.jpg" to "image_attachment"
     And I press "Upload"
-    When I go to the admin edit restaurant page for Piece
+    When I go to the edit restaurant page for Piece
     And I attach the file "/features/images/bourgeoispig_logo.gif" to "logo_attachment"
     And I press "Upload"
     When I go to the soapbox restaurant profile for Piece
