@@ -90,7 +90,7 @@ class User < ActiveRecord::Base
   has_attached_file :avatar,
                     :default_url => "/images/default_avatars/:style.png",
                     :styles => { :small => "100x100>", :thumb => "50x50#" }
-
+                    
   validates_exclusion_of :publication,
                          :in => %w( freelance Freelance ),
                          :message => "'{{value}}' is not allowed"
@@ -99,6 +99,8 @@ class User < ActiveRecord::Base
 
   validates_presence_of :facebook_page_token, :if => Proc.new { |user| user.facebook_page_id }
   validates_presence_of :facebook_page_id, :if => Proc.new { |user| user.facebook_page_token }
+
+  accepts_nested_attributes_for :default_employment
 
   named_scope :media, :conditions => {:role => 'media'}
   named_scope :admin, :conditions => {:role => 'admin'}

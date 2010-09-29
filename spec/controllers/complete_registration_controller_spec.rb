@@ -44,7 +44,7 @@ describe CompleteRegistrationsController do
       User.any_instance.stubs(:restaurants).returns([])
       
       restaurant = Factory(:restaurant, :name => "Some Pig")
-      Restaurant.expects(:find).returns(restaurant.to_a)
+      Restaurant.expects(:find).returns([restaurant])
       
       post :find_restaurant, :restaurant_name => restaurant.name
       assigns[:restaurants].should == [restaurant]

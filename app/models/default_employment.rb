@@ -18,7 +18,7 @@ class DefaultEmployment < ActiveRecord::Base
   has_many :responsibilities, :dependent => :destroy
   has_many :subject_matters, :through => :responsibilities
 
-  validates_presence_of :employee_id, :restaurant_role_id
+  validates_presence_of :employee_id
   validates_uniqueness_of :employee_id
   
   ### Preferences ###

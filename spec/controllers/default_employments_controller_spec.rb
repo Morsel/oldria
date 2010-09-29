@@ -17,7 +17,5 @@ describe DefaultEmploymentsController do
     @user.default_employment.should_not be_nil
     @user.primary_employment.should_not be_nil
   end
-  
-  it "should allow a user to update their default employment"
 
 end

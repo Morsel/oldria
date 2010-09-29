@@ -16,6 +16,7 @@ class UsersController < ApplicationController
 
   def edit
     @user = User.find(params[:id])
+    @user.build_default_employment unless @user.primary_employment
     @fb_user = current_facebook_user.fetch if current_facebook_user && @user.facebook_authorized?
   end
 
