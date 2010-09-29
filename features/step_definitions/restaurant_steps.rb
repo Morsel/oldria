@@ -167,3 +167,13 @@ end
 Then /^I should see a link to download the uploaded menu pdf "([^\"]*)"$/ do |file_name|
   response.body.should include("http://spoonfeed.s3.amazonaws.com/cucumber/attachments/#{@restaurant.reload.menus.last.id}/#{file_name}")
 end
+When /^I delete the menu with the name "([^"]*)"$/ do |name|
+  menu = Menu.find_by_name(name)
+  click_link_within("#menu_#{menu.id}", "Remove")
+end
+Then /^I should not have a menu with the name "([^"]*)" and change frequency "([^"]*)"$/ do |name, change_frequency|
+  Menu.first(:conditions => {:name => name, :change_frequency => change_frequency}).should be_nil
+end
+Then /^I should have a menu with the name "([^"]*)" and change frequency "([^"]*)"$/ do |name, change_frequency|
+  Menu.first(:conditions => {:name => name, :change_frequency => change_frequency}).should_not be_nil
+end

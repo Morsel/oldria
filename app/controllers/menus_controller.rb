@@ -10,6 +10,11 @@ class MenusController < ApplicationController
     redirect_to restaurant_menus_path
   end
 
+  def destroy
+    Menu.find(params[:id]).destroy
+    redirect_to restaurant_menus_path
+  end
+
   private
 
   def find_restaurant

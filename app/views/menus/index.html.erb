@@ -12,10 +12,11 @@
 <h2>Uploaded Menus</h2>
 <table>
   <% @restaurant.menus.each do |menu| %>
-    <tr>
+    <tr id="menu_<%=menu.id%>">
       <td class="menu_name"><%= link_to h(menu.name), menu.remote_attachment.attachment.url %></td>
       <td class="menu_date"><%=h menu.created_at.to_s(:standard) %></td>
       <td class="menu_change_frequency"><%=h menu.change_frequency %></td>
+      <td><%= link_to "Remove", restaurant_menu_path(@restaurant, menu), :method => :delete, :confirm => "Are you sure?" %></td>
     </tr>
   <% end %>
 </table>
