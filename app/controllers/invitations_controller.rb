@@ -31,7 +31,8 @@ class InvitationsController < ApplicationController
     elsif params[:user_id] && User.exists?(params[:user_id])
       @user = User.find(params[:user_id])
       if @user.confirmed
-        redirect_to login_invitations_path(:user_session => {:username => @user.username})
+        flash[:notice] = "Cool! It looks like you're already set up for SpoonFeed.<br/>Log in below to start having fun!"
+        redirect_to login_path(:user_session => {:username => @user.username})
       else
         flash[:error] = "Something went wrong trying to confirm your account. Please request a new confirmation email below."
         redirect_to resend_confirmation_users_path
@@ -40,10 +41,6 @@ class InvitationsController < ApplicationController
       flash[:error] = "We could not locate your account."
       redirect_to login_path, :user_id => params[:user_id]
     end
-  end
-
-  def login
-    @user_session = UserSession.new(params[:user_session])
   end
 
   private
