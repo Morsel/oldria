@@ -2,6 +2,9 @@ class Menu < ActiveRecord::Base
   belongs_to :remote_attachment
   belongs_to :restaurant
 
+  validates_presence_of :name
+  validates_presence_of :remote_attachment
+
   accepts_nested_attributes_for :remote_attachment
 
   def self.change_frequencies
@@ -9,12 +12,13 @@ class Menu < ActiveRecord::Base
       File.read(File.join(RAILS_ROOT, 'db/seedlings/restaurant_features/menu change tags.txt')).split("\r\n")
     end
   end
+  validates_inclusion_of :change_frequency, :in => Menu.change_frequencies
 
-  def self.from_params!(params)
-    remote_attachment = RemoteAttachment.create!(:attachment => params.delete(:attachment))
-    menu = Menu.create!(params)
-    menu.update_attributes!(:remote_attachment => remote_attachment)
+
+  def self.from_params(params)
+    menu = Menu.new(params)
+    menu.save
     menu
   end
-  
+
 end
