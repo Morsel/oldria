@@ -5,7 +5,7 @@ class Admin::RestaurantFeaturesController < Admin::AdminController
     @restaurant_feature_category = RestaurantFeatureCategory.new
     @restaurant_feature = RestaurantFeature.new
     @pages = RestaurantFeaturePage.by_name.all(
-        :include => {:restaurant_feature_categories => :restaurant_features})
+        :include => {:restaurant_feature_categories => {:restaurant_features => :restaurants}})
   end
 
   def create
