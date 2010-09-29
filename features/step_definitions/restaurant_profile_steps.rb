@@ -216,12 +216,12 @@ end
 
 Then /^I see a delete link for the tag "([^\"]*)"$/ do |value|
   feature = RestaurantFeature.find_by_value(value)
-  response.body.should have_selector("##{dom_id(feature)} ##{dom_id(feature, :delete_link)}")
+  response.body.should have_selector("##{dom_id(feature, :delete_link)}")
 end
 
 Then /^I do not see a delete link for the tag "([^\"]*)"$/ do |value|
   feature = RestaurantFeature.find_by_value(value)
-  response.body.should_not have_selector("##{dom_id(feature)} ##{dom_id(feature, :delete_link)}")
+  response.body.should_not have_selector("##{dom_id(feature, :delete_link)}")
 end
 
 When /^I click on the delete link for the page "([^\"]*)"$/ do |page_name|
