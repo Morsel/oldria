@@ -176,3 +176,9 @@ end
 Then /^I should have a menu with the name "([^"]*)" and change frequency "([^"]*)"$/ do |name, change_frequency|
   Menu.first(:conditions => {:name => name, :change_frequency => change_frequency}).should_not be_nil
 end
+Then /^I should not see any menus$/ do
+  response.should_not have_selector("table#menus tr")
+end
+Then /^I should see an error message$/ do
+  response.should have_selector("#errorExplanation")
+end
