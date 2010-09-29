@@ -26,9 +26,7 @@ module ApplicationHelper
 
   def div_if(boolean, options={}, &block)
     return "" unless boolean
-    content = content_tag(:div, options, &block)
-    concat(content)
-    content
+    content_tag(:div, options, &block)
   end
 
   def delete_link_for(deletable_object, path)

@@ -1,18 +1,3 @@
-# == Schema Information
-# Schema version: 20100825200638
-#
-# Table name: employments
-#
-#  id                 :integer         not null, primary key
-#  employee_id        :integer
-#  restaurant_id      :integer
-#  created_at         :datetime
-#  updated_at         :datetime
-#  restaurant_role_id :integer
-#  omniscient         :boolean
-#  primary            :boolean
-#
-
 class Employment < ActiveRecord::Base
   belongs_to :employee, :class_name => "User"
   belongs_to :restaurant
@@ -109,3 +94,18 @@ class Employment < ActiveRecord::Base
   end
 
 end
+
+# == Schema Information
+#
+# Table name: employments
+#
+#  id                 :integer         not null, primary key
+#  employee_id        :integer
+#  restaurant_id      :integer
+#  created_at         :datetime
+#  updated_at         :datetime
+#  restaurant_role_id :integer
+#  omniscient         :boolean
+#  primary            :boolean         default(FALSE)
+#
+

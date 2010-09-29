@@ -1,16 +1,3 @@
-# == Schema Information
-#
-# Table name: employments
-#
-#  id                 :integer         not null, primary key
-#  employee_id        :integer
-#  restaurant_id      :integer
-#  created_at         :datetime
-#  updated_at         :datetime
-#  restaurant_role_id :integer
-#  omniscient         :boolean
-#
-
 require 'spec/spec_helper'
 
 describe Employment do
@@ -85,3 +72,18 @@ describe Employment do
     employment.viewable_media_request_discussions.should == []
   end
 end
+
+# == Schema Information
+#
+# Table name: employments
+#
+#  id                 :integer         not null, primary key
+#  employee_id        :integer
+#  restaurant_id      :integer
+#  created_at         :datetime
+#  updated_at         :datetime
+#  restaurant_role_id :integer
+#  omniscient         :boolean
+#  primary            :boolean         default(FALSE)
+#
+

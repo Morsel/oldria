@@ -1,12 +1,9 @@
 <% title "Editing Restaurant" %>
 
 <% semantic_form_for(@restaurant) do |f| %>
-	<p>
-		<%= f.label :name %>
-		<%= f.text_field :name, :class => 'title span-8' %>
-	</p>
 
-  <% f.inputs :name => "Description", :class => "span-8 column" do %>
+  <% f.inputs :name => "Basics", :class => "title span-8" do %>
+    <%= f.input :name %>
     <%= f.input :description, :as => :text %>
   <% end %>
 
@@ -22,15 +19,15 @@
 	<% end -%>
 
 	<% f.inputs :name => 'Other', :class => "span-9 column last" do %>
-    <%= f.input :hours %>
+    <%= f.input :hours, :as => :text %>
 		<%= f.input :manager %>
     <%= f.input :media_contact %>
 		<%= f.input :cuisine %>
     <%= f.input :website %>
-    <%= f.input :twitter_username %>
-    <%= f.input :facebook_page %>
-    <%= f.input :management_company_name %>
-    <%= f.input :management_company_website %>
+    <%= f.input :twitter_username, :hint => "Not the whole URL, just your username" %>
+    <%= f.input :facebook_page, :hint => "Entire URL of your Facebook page" %>
+    <%= f.input :management_company_name, :hint => "Just the company name" %>
+    <%= f.input :management_company_website, :hint => "Full URL to the company website" %>
 		<%= f.input :facts, :input_html => { :rows => 3 } %>
 	<% end %>
 

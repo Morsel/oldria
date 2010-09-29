@@ -45,3 +45,19 @@ describe NonculinaryEnrollment do
   end
 
 end
+
+# == Schema Information
+#
+# Table name: nonculinary_enrollments
+#
+#  id                    :integer         not null, primary key
+#  nonculinary_school_id :integer
+#  profile_id            :integer
+#  graduation_date       :date
+#  field_of_study        :string(255)
+#  degree                :string(255)
+#  achievements          :text
+#  created_at            :datetime
+#  updated_at            :datetime
+#
+
