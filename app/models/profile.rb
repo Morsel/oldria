@@ -81,4 +81,8 @@ class Profile < ActiveRecord::Base
     self.errors.add(:birthday, "must specify a year") if self.birthday.present? && self.birthday.year == 1
   end
 
+  def culinary_schools
+    enrollments
+  end
+
 end

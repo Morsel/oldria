@@ -31,16 +31,19 @@
 	</div><!-- .manager_and_facts -->
   <hr clear="all" />
   <div class="span-11 last">
-    <div class="function-bold" id="description">
+    <% div_if(@restaurant.description, :class=> "function-bold", :id => "description") do %>
       Description: <%= @restaurant.description %>
-    </div>
-    <div>Facts: <%=h @restaurant.facts %></div>
+    <% end %>
+    <% div_if(@restaurant.facts, :id => "facts") do  %>
+      Facts: <%=h @restaurant.facts %>
+    <% end %>
     <div>
       Phone Number: <span id="phone_number"><%=h @restaurant.phone_number %></span>
     </div>
     <% div_if(@restaurant.website.present?, :id => "website") do %>
        Website: <%= link_to h(@restaurant.website), @restaurant.website%>
     <% end %>
+
     <% div_if(@restaurant.twitter_username.present?, :id => "twitter_username") do %>
       Twitter: <%= link_to h(@restaurant.twitter_username),
           "http://twitter.com/#{@restaurant.twitter_username}"%>
@@ -48,6 +51,8 @@
     <% div_if(@restaurant.facebook_page.present?, :id => "facebook_page") do %>
       Facebook Page: <%= link_to h(@restaurant.facebook_page), @restaurant.facebook_page%>
     <% end %>
+
+
     <div id="hours">
       Hours: <%= h @restaurant.hours %>
     </div>
@@ -57,7 +62,7 @@
     <% end %>
 
   </div>
-</div><!--#restaurant_profile_view -->
+</div>
 
 <h3 class="function-bold">Restaurant Staff</h3>
 

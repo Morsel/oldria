@@ -14,3 +14,17 @@ describe Menu do
     Menu.create!(@valid_attributes)
   end
 end
+
+# == Schema Information
+#
+# Table name: menus
+#
+#  id                   :integer         not null, primary key
+#  name                 :string(255)
+#  change_frequency     :string(255)
+#  remote_attachment_id :integer
+#  restaurant_id        :integer
+#  created_at           :datetime
+#  updated_at           :datetime
+#
+

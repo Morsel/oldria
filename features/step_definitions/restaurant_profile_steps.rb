@@ -275,4 +275,6 @@ Then /^I do not see the feature "([^\"]*)"$/ do |feature_value|
 end
 
 
-
+Then /^I see the ajax button for adding an accolade$/ do
+  response.should have_selector(".accolades #accolades", :content => "Accolades")
+end

@@ -1,0 +1,10 @@
+<% associated ||= @profile %>
+<div class="<%= association %> ajaxdelete clearfix">
+  <h2><%= caption %></h2>
+  <ul id="<%= association %>">
+    <%= render associated.send(association) %>
+  </ul>
+  <% link_to form_path, :class => 'positive button colorbox' do %>
+    <img src="/images/plus.png"/> Add
+  <% end %>
+</div>

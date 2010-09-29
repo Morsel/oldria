@@ -1,17 +1,3 @@
-# == Schema Information
-# Schema version: 20100415205144
-#
-# Table name: holiday_discussions
-#
-#  id             :integer         not null, primary key
-#  restaurant_id  :integer
-#  holiday_id     :integer
-#  comments_count :integer         default(0)
-#  created_at     :datetime
-#  updated_at     :datetime
-#  accepted       :boolean
-#
-
 class HolidayDiscussion < ActiveRecord::Base
 
   belongs_to :restaurant
@@ -71,3 +57,17 @@ class HolidayDiscussion < ActiveRecord::Base
     true
   end
 end
+
+# == Schema Information
+#
+# Table name: holiday_discussions
+#
+#  id             :integer         not null, primary key
+#  restaurant_id  :integer
+#  holiday_id     :integer
+#  comments_count :integer         default(0)
+#  created_at     :datetime
+#  updated_at     :datetime
+#  accepted       :boolean         default(FALSE)
+#
+

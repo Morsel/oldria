@@ -1,23 +1,3 @@
-# == Schema Information
-# Schema version: 20100817161538
-#
-# Table name: culinary_jobs
-#
-#  id           :integer(4)      not null, primary key
-#  profile_id   :integer(4)      not null
-#  title        :string(255)     default(""), not null
-#  city         :string(255)     default(""), not null
-#  state        :string(255)     default(""), not null
-#  date_started :date            not null
-#  date_ended   :date
-#  chef_name    :string(255)     default(""), not null
-#  chef_is_me   :boolean(1)      not null
-#  cuisine      :text            default(""), not null
-#  notes        :text            default(""), not null
-#  created_at   :datetime
-#  updated_at   :datetime
-#
-
 require 'spec_helper'
 
 describe CulinaryJob do
@@ -33,3 +13,26 @@ describe CulinaryJob do
     culinary_job.should be_valid
   end
 end
+
+# == Schema Information
+#
+# Table name: culinary_jobs
+#
+#  id              :integer         not null, primary key
+#  profile_id      :integer         not null
+#  title           :string(255)     default(""), not null
+#  city            :string(255)     default(""), not null
+#  state           :string(255)     default(""), not null
+#  date_started    :date            not null
+#  date_ended      :date
+#  chef_name       :string(255)     default(""), not null
+#  chef_is_me      :boolean         default(FALSE), not null
+#  cuisine         :text            default(""), not null
+#  notes           :text            default(""), not null
+#  created_at      :datetime
+#  updated_at      :datetime
+#  opening_staff   :boolean         default(FALSE)
+#  restaurant_name :string
+#  country         :string
+#
+
