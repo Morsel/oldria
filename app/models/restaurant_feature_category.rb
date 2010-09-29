@@ -6,4 +6,8 @@ class RestaurantFeatureCategory < ActiveRecord::Base
   validates_uniqueness_of :name
 
   named_scope :by_name, :order => "name ASC"
+
+  def deletable?
+    restaurant_features.empty?
+  end
 end

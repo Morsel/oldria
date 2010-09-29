@@ -180,3 +180,76 @@ Then /^I see the restaurant logo for the profile$/ do
   response.body.should include("http://spoonfeed.s3.amazonaws.com/cucumber/images/#{@restaurant.reload.logo.id}/medium/bourgeoispig_logo.gif")
 end
 
+Given /^a restaurant feature page named "([^\"]*)"$/ do |name|
+  RestaurantFeaturePage.create(:name => name)
+end
+
+Then /^I see a delete link for the page "([^\"]*)"$/ do |name|
+  page = RestaurantFeaturePage.find_by_name(name)
+  response.body.should have_selector("##{dom_id(page)} ##{dom_id(page, :delete_link)}")
+end
+
+Then /^I do not see a delete link for the page "([^\"]*)"$/ do |name|
+  page = RestaurantFeaturePage.find_by_name(name)
+  response.body.should_not have_selector("##{dom_id(page)} ##{dom_id(page, :delete_link)}")
+end
+
+Given /^a restaurant feature category named "([^\"]*)" in the page "([^\"]*)"$/ do |name, page_name|
+  page = RestaurantFeaturePage.find_by_name(page_name)
+  RestaurantFeatureCategory.create(:name => name, :restaurant_feature_page => page)
+end
+
+Then /^I see a delete link for the category "([^\"]*)"$/ do |name|
+  category = RestaurantFeatureCategory.find_by_name(name)
+  response.body.should have_selector("##{dom_id(category)} ##{dom_id(category, :delete_link)}")
+end
+
+Then /^I do not see a delete link for the category "([^\"]*)"$/ do |name|
+  category = RestaurantFeatureCategory.find_by_name(name)
+  response.body.should_not have_selector("##{dom_id(category)} ##{dom_id(category, :delete_link)}")
+end
+
+Given /^the restaurant "([^\"]*)" has the tag "([^\"]*)"$/ do |restaurant_name, tag_name|
+  restaurant = Restaurant.find_by_name(restaurant_name)
+  restaurant.restaurant_features << RestaurantFeature.find_by_value(tag_name)
+end
+
+Then /^I see a delete link for the tag "([^\"]*)"$/ do |value|
+  feature = RestaurantFeature.find_by_value(value)
+  response.body.should have_selector("##{dom_id(feature)} ##{dom_id(feature, :delete_link)}")
+end
+
+Then /^I do not see a delete link for the tag "([^\"]*)"$/ do |value|
+  feature = RestaurantFeature.find_by_value(value)
+  response.body.should_not have_selector("##{dom_id(feature)} ##{dom_id(feature, :delete_link)}")
+end
+
+When /^I click on the delete link for the page "([^\"]*)"$/ do |page_name|
+  page = RestaurantFeaturePage.find_by_name(page_name)
+  click_link(dom_id(page, :delete_link))
+end
+
+Then /^I do not see the page "([^\"]*)"$/ do |page_name|
+  RestaurantFeaturePage.find_by_name(page_name).should be_nil
+end
+
+When /^I click on the delete link for the category "([^\"]*)"$/ do |category_name|
+  category = RestaurantFeatureCategory.find_by_name(category_name)
+  click_link(dom_id(category, :delete_link))
+end
+
+Then /^I do not see the category "([^\"]*)"$/ do |category_name|
+  RestaurantFeatureCategory.find_by_name(category_name).should be_nil
+end
+
+When /^I click on the delete link for the feature "([^\"]*)"$/ do |feature_value|
+  feature = RestaurantFeature.find_by_value(feature_value)
+  click_link(dom_id(feature, :delete_link))
+end
+
+Then /^I do not see the feature "([^\"]*)"$/ do |feature_value|
+  RestaurantFeature.find_by_value(feature_value).should be_nil
+end
+
+
+

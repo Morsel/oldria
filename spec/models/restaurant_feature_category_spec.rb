@@ -18,4 +18,17 @@ describe RestaurantFeatureCategory do
 
   end
 
+  describe "deletable" do
+
+    let(:category) { RestaurantFeatureCategory.create(:name => "Category") }
+
+    specify { category.should be_deletable }
+
+    it "should not be deletable if it has tags" do
+      category.restaurant_features << RestaurantFeature.create(:value => "Feature")
+      category.should_not be_deletable
+    end
+
+  end
+
 end
