@@ -1,0 +1,12 @@
+<h2><%= @recipient.name_or_username %>,</h2>
+
+<p>
+    A new user, <%= @user.name %>, has joined spoonfeed 
+    <%- if @user.employments -%>
+    as a member of your restaurant (<%= @restaurant.name %>).
+    <%- else -%>
+    and requested to be added to your restaurant (<%= @restaurant.name %>).
+    <%- end -%>
+</p>
+
+<p>Please log in and set up this user's preferences.</p>

@@ -5,7 +5,8 @@ ActionController::Routing::Routes.draw do |map|
   map.fb_login 'facebook_login', :controller => 'user_sessions', :action => 'create_from_facebook'
 
   map.resources :invitations, :only => ['new', 'create', 'show'], :collection => { :login => :get }
-  map.resource :complete_registration, :only => [:show, :update], :collection => { :find_restaurant => :any }
+  map.resource :complete_registration, :only => [:show, :update], 
+    :collection => { :find_restaurant => :any, :contact_restaurant => :post }
   
   map.directory 'directory', :controller => 'directory', :action => 'index'
 
