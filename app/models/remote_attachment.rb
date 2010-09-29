@@ -14,6 +14,8 @@
 #
 
 class RemoteAttachment < Attachment
+  validates_attachment_content_type :attachment, :content_type => "application/pdf"
+
   has_attached_file :attachment,
     :storage => :s3,
     :s3_credentials => "#{RAILS_ROOT}/config/environments/#{RAILS_ENV}/amazon_s3.yml",

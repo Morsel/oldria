@@ -1,22 +1,25 @@
 <% title "Menu Upload For #{@restaurant.name}" %>
 
 <% semantic_form_for :menu, @menu, :url => restaurant_menus_path(@restaurant), :html => { :multipart => true } do |menu_form| %>
+    <%= menu_form.error_messages %>
     <% menu_form.inputs :name => 'Name', :class => "span-17 column last clear" do %>
         <%= menu_form.input :name %>
         <%= menu_form.input :change_frequency, :label => "How often it changes", :as => :select, :collection => Menu.change_frequencies %>
-        <%= menu_form.input :attachment, :as => :file, :for => :remote_attachment %>
+        <% menu_form.semantic_fields_for :remote_attachment do |remote_attachment| %>
+            <%= remote_attachment.input :attachment, :as => :file %>
+        <% end %>
         <%= menu_form.submit 'Upload', :class => 'clear' %>
     <% end %>
 <% end %>
 
 <h2>Uploaded Menus</h2>
-<table>
+<table id="menus">
   <% @restaurant.menus.each do |menu| %>
     <tr id="menu_<%=menu.id%>">
       <td class="menu_name"><%= link_to h(menu.name), menu.remote_attachment.attachment.url %></td>
       <td class="menu_date"><%=h menu.created_at.to_s(:standard) %></td>
       <td class="menu_change_frequency"><%=h menu.change_frequency %></td>
-      <td><%= link_to "Remove", restaurant_menu_path(@restaurant, menu), :method => :delete, :confirm => "Are you sure?" %></td>
+      <td><%= link_to "Remove", restaurant_menu_path(@restaurant, menu), :method => :delete, :confirm => "Are you sure you want to remove the menu #{menu.name}?" %></td>
     </tr>
   <% end %>
 </table>
