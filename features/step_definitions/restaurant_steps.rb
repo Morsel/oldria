@@ -21,6 +21,7 @@ Given /^a restaurant named "([^\"]*)" with the following employees:$/ do |restau
   end
   restaurant.manager = restaurant.employees.first
   restaurant.save!
+  restaurant
 end
 
 Given /^a restaurant named "([^\"]*)"$/ do |name|
@@ -61,14 +62,12 @@ Given /^"([^\"]*)" restaurant is in the "([^\"]*)" metro region$/ do |restaurant
   restaurant = Restaurant.find_by_name(restaurantname)
   metro = Factory(:metropolitan_area, :name => metroregion)
   restaurant.metropolitan_area = metro
-  restaurant.save
+  restaurant.save!
 end
 
-
 Given /^I have just created a restaurant named "([^\"]*)"$/ do |restaurantname|
-  visit new_restaurant_url
-  fill_in "Restaurant Name", :with => restaurantname
-  click_button :submit
+  @restaurant = Factory(:restaurant, :name => restaurantname, :manager => @current_user)
+  visit restaurant_employees_path(@restaurant)
 end
 
 Given /^the restaurant "([^\"]*)" is in the region "([^\"]*)"$/ do |restaurantname, regionname|
@@ -144,7 +143,7 @@ Then /^"([^\"]*)" should have a primary employment$/ do |username|
 end
 
 When /^I remove optional information from the restaurant$/ do
-  @restaurant.update_attributes(:website => nil, :twitter_username => nil,
+  @restaurant.update_attributes(:twitter_username => nil,
       :facebook_page => nil, :management_company_name => nil,
       :management_company_website => nil)
 end

@@ -155,13 +155,14 @@ Factory.define :restaurant do |f|
   f.management_company_website "http://www.lettuce.com"
   f.twitter_username "joeblow"
   f.facebook_page "http://www.facebook.com/joeblow"
+  f.association :metropolitan_area
+  f.hours "Open All Night"
+  f.association :media_contact, :factory => :user
+  f.association :cuisine
 end
 
 Factory.define :managed_restaurant, :parent => :restaurant do |f|
   f.association :manager, :factory => :user
-  f.association :cuisine
-  f.association :metropolitan_area
-  f.association :media_contact, :factory => :user
 end
 
 Factory.define :employment do |f|
