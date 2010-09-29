@@ -5,7 +5,7 @@ describe Menu do
     @valid_attributes = {
       :name => "value for name",
       :change_frequency => "value for change_frequency",
-      :remote_attachement_id => 1,
+      :remote_attachment_id => 1,
       :restaurant_id => 1
     }
   end
