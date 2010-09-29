@@ -27,6 +27,7 @@ class RestaurantsController < ApplicationController
 
   def create
     @restaurant = current_user.managed_restaurants.build(params[:restaurant])
+    @restaurant.media_contact = current_user
     if @restaurant.save
       flash[:notice] = "Successfully created restaurant."
       redirect_to restaurant_employees_path(@restaurant)

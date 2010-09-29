@@ -27,11 +27,6 @@ Feature: Restaurant profile
     And I see the primary photo
 		And I see the restaurant logo for the profile
 
-  Scenario: Show basic data if the restaurant has no media contact
-    Given the restaurant has no media contact
-    When I go to the soapbox restaurant profile for Piece
-    Then I should not see media contact info
-
   Scenario: Show management data without link if no link specified
     Given the restaurant has no website for it's management company
     When I go to the soapbox restaurant profile for Piece
