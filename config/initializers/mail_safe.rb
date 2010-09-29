@@ -11,7 +11,7 @@ if defined?(MailSafe::Config)
   MailSafe::Config.internal_address_definition = lambda { |address|
     address =~ /.*@neotericdesign\.com/i ||
     address =~ /.*@restaurantintelligenceagency\.com/i ||
-    address == 'aeschright@elevatedrails.com' ||
+    address == /.*@elevatedrails.com/i ||
     address == /nicole\.schnitzler.*@gmail\.com/
   }
 
