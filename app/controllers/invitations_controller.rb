@@ -30,7 +30,10 @@ class InvitationsController < ApplicationController
       redirect_to complete_registration_path
     elsif params[:user_id] && User.exists?(params[:user_id])
       @user = User.find(params[:user_id])
-      if @user.confirmed
+      if @user.confirmed && current_user
+        flash[:notice] = "Cool! It looks like you're already set up for SpoonFeed."
+        redirect_to root_path
+      elsif @user.confirmed
         flash[:notice] = "Cool! It looks like you're already set up for SpoonFeed.<br/>Log in below to start having fun!"
         redirect_to login_path(:user_session => {:username => @user.username})
       else

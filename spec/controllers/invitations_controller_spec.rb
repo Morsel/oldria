@@ -58,9 +58,9 @@ describe InvitationsController do
             @invitee.confirmed_at = Time.now; @invitee.save
           end
           
-          it "should redirect to a special login page" do
+          it "should redirect to the login page with their username" do
             get :show, :id => 'expired_id', :user_id => @invitee.id
-            response.should redirect_to(login_invitations_path(:user_session => {:username => @invitee.username}))
+            response.should redirect_to(login_path(:user_session => {:username => @invitee.username}))
           end
         end
 
