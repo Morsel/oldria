@@ -5,7 +5,8 @@
     <%= delete_link_for(category, admin_restaurant_feature_category_path(category)) %>
   </h3>
   <% category.restaurant_features.each do |feature| -%>
-    <div class="feature feature_eip" id="<%= dom_id(feature) %>"><%= h feature.value.strip -%>
+    <div>
+      <span class="feature feature_eip" id="<%= dom_id(feature) %>"><%= h feature.value.strip -%></span>
       <%= delete_link_for(feature, admin_restaurant_feature_path(feature)) %>
     </div>
   <% end %>
