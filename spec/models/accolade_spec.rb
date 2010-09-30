@@ -1,7 +1,6 @@
 require 'spec_helper'
 
 describe Accolade do
-  should_belong_to :profile
   should_validate_presence_of :name, :run_date
 
   before(:each) do
@@ -19,6 +18,14 @@ describe Accolade do
     accolade.media_type = Accolade.valid_media_types.first
     accolade.should be_valid
   end
+
+  it "should recognize its type" do
+    accolade = Factory.build(:accolade)
+    accolade.should_not be_restaurant
+    accolade.accoladable = Factory.build(:restaurant)
+    accolade.should be_restaurant
+  end
+
 end
 
 # == Schema Information

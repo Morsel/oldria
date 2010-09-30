@@ -71,7 +71,7 @@ Factory.define :award do |f|
 end
 
 Factory.define :accolade do |f|
-  f.association :profile
+  f.accoladable { |a| a.association(:profile)}
   f.name "The Today Show"
   f.run_date 1.year.ago
   f.media_type "National television exposure"

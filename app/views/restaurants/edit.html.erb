@@ -1,5 +1,9 @@
 <% title "Editing Restaurant" %>
 
+<% content_for :head do -%>
+  <%= stylesheet_link_tag 'colorbox' %>
+<% end -%>
+
 <% semantic_form_for(@restaurant) do |f| %>
 
   <% f.inputs :name => "Basics", :class => "title span-8" do %>
@@ -36,6 +40,12 @@
 		<%= button_tag "Save", :class => 'positive' %>
 	</p>
 <% end %>
+
+<%= render :partial => 'profiles/extended_profile_section', :locals => {
+        :associated => @restaurant,
+        :association => "accolades",
+        :caption => "Accolades",
+        :form_path => new_restaurant_accolade_path(@restaurant)} %>
 
 <% semantic_form_for :logo, @restaurant.logo, :url => upload_logo_restaurant_path(@restaurant), :html => { :multipart => true } do |logo_form| %>
     <% logo_form.inputs :name => 'Logo', :class => "span-17 column last clear" do %>

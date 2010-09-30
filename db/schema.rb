@@ -9,16 +9,17 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100930145646) do
+ActiveRecord::Schema.define(:version => 20100930160814) do
 
   create_table "accolades", :force => true do |t|
-    t.integer  "profile_id"
-    t.string   "name",       :default => "", :null => false
-    t.string   "media_type", :default => "", :null => false
-    t.date     "run_date",                   :null => false
+    t.integer  "accoladable_id"
+    t.string   "name",             :default => "", :null => false
+    t.string   "media_type",       :default => "", :null => false
+    t.date     "run_date",                         :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "link"
+    t.string   "accoladable_type"
   end
 
   create_table "admin_conversations", :force => true do |t|

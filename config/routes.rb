@@ -83,6 +83,7 @@ ActionController::Routing::Routes.draw do |map|
     restaurant.resources :events, :member => { "ria_details" => :get, "transfer" => :post }
     restaurant.resources :features, :controller => "restaurant_features"
     restaurant.resources :menus
+    restaurant.resources :accolades
     restaurant.resources 
   end
 
