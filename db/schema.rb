@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100929152119) do
+ActiveRecord::Schema.define(:version => 20100930145646) do
 
   create_table "accolades", :force => true do |t|
     t.integer  "profile_id"
@@ -675,6 +675,7 @@ ActiveRecord::Schema.define(:version => 20100929152119) do
     t.string   "management_company_website"
     t.integer  "logo_id"
     t.integer  "primary_photo_id"
+    t.date     "opening_date"
   end
 
   add_index "restaurants", ["cuisine_id"], :name => "index_restaurants_on_cuisine_id"

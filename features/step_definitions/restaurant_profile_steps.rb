@@ -265,3 +265,7 @@ end
 Then /^I see the ajax button for adding an accolade$/ do
   response.should have_selector(".accolades #accolades", :content => "Accolades")
 end
+
+Then /^I see the opening date$/ do
+  response.should have_tag("#opening_date", :content => @restaurant.opening_date.to_s(:long))
+end

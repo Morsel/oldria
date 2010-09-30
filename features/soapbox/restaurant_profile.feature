@@ -37,6 +37,7 @@ Feature: Restaurant profile
     And I see the primary photo
     And I see the restaurant logo for the profile
     And I see the restaurant menus
+    And I see the opening date
 
   Scenario: Show management data without link if no link specified
     Given the restaurant has no website for it's management company
