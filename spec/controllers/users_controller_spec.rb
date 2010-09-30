@@ -37,6 +37,7 @@ describe UsersController do
       end
       
       it "should show the profile if it is visible" do
+        @user.prefers_publish_profile = true; @user.save
         get :show, :id => 3
         response.should render_template(:show)
       end
