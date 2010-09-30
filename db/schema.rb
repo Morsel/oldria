@@ -185,8 +185,8 @@ ActiveRecord::Schema.define(:version => 20100930160814) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "opening_staff", :default => false
-    t.string   "restaurant_name", :limit => nil
-    t.string   "country",         :limit => nil
+    t.string "restaurant_name"
+    t.string "country"
   end
 
   add_index "culinary_jobs", ["profile_id"], :name => "index_profile_restaurants_on_profile_id"

@@ -24,10 +24,6 @@ Given /^a restaurant named "([^\"]*)" with the following employees:$/ do |restau
   restaurant
 end
 
-Given /^a restaurant named "([^\"]*)"$/ do |name|
-  Factory(:restaurant, :name => name)
-end
-
 Given /^a restaurant named "([^\"]*)" with manager "([^\"]*)"$/ do |name, username|
   user = Factory(:user, :username => username, :email => "#{username}@testsite.com")
   restaurant = Factory(:managed_restaurant, :name => name, :manager => user)
