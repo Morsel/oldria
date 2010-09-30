@@ -147,9 +147,15 @@ Then /^I see the uploaded restaurant photo$/ do
 end
 
 Then /^I see the restaurant logo$/ do
-  response.should have_selector("img#restaurant_logo")
-  response.body.should include("http://spoonfeed.s3.amazonaws.com/cucumber/images/#{@restaurant.reload.logo.id}/medium/bourgeoispig_logo.gif")
+  filename = "http://spoonfeed.s3.amazonaws.com/cucumber/images/#{@restaurant.reload.logo.id}/medium/bourgeoispig_logo.gif"
+  response.should have_selector("img#restaurant_logo[src*=\"#{filename}\"]")
 end
+
+Then /^I should not see the restaurant logo$/ do
+  filename = "missing.png"
+  response.should have_selector("img#restaurant_logo[src*=\"#{filename}\"]")
+end
+
 
 When /^I select the (\d+)(st|nd|th) photo as the primary photo$/ do |photo_order, ordinal|
   choose("restaurant_primary_photo_id_#{@restaurant.reload.photos[photo_order.to_i-1].id}")
@@ -181,4 +187,23 @@ Then /^I should not see any menus$/ do
 end
 Then /^I should see an error message$/ do
   response.should have_selector("#errorExplanation")
+end
+
+Then /^I should have a photo with the file "([^"]*)"$/ do |filename|
+  response.should have_selector("img.restaurant_photo[src*=\"#{filename}\"]")
+end
+Then /^I should not have a photo with the file "([^"]*)"$/ do |filename|
+  response.should_not have_selector("img.restaurant_photo[src*=\"#{filename}\"]")
+end
+When /^I remove the restaurant photo with the file "([^"]*)"$/ do |filename|
+  photo = @restaurant.photos.find_by_attachment_file_name(filename)
+  click_link_within("#restaurant_photo_#{photo.id}", "Remove")
+end
+
+When /^I remove the restaurant logo$/ do
+  click_link_within("#logo", "Remove")
+end
+
+Then /^I see no restaurant photos$/ do
+  response.should_not have_selector("img.restaurant_photo")
 end

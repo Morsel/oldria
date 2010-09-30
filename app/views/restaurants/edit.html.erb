@@ -38,11 +38,12 @@
 <% end %>
 
 <% semantic_form_for :logo, @restaurant.logo, :url => upload_logo_restaurant_path(@restaurant), :html => { :multipart => true } do |logo_form| %>
-    <% logo_form.inputs :name => 'Logo', :class => "span-17 column last clear" do %>
+    <% logo_form.inputs :name => 'Logo', :class => "span-17 column last clear", :id => "logo" do %>
         <% logo = @restaurant.logo || Image.new %>
         <%= image_tag logo.attachment.url(:medium), :id => "restaurant_logo" %>
         <%= logo_form.file_field 'attachment' %>
         <%= logo_form.submit 'Upload', :class => 'clear' %>
+        <%= link_to "Remove", restaurant_logo_path(@restaurant, logo), :method => :delete, :confirm => "Are you sure you want to remove the logo?" %>
     <% end %>
 <% end %>
 
