@@ -180,6 +180,16 @@ Then /^I see the restaurant logo for the profile$/ do
   response.body.should include("http://spoonfeed.s3.amazonaws.com/cucumber/images/#{@restaurant.reload.logo.id}/medium/bourgeoispig_logo.gif")
 end
 
+Then /^I see the restaurant menus$/ do
+  response.should have_selector("#menus")
+
+  @restaurant.menus.each do |menu|
+    response.should have_selector(".menu_name", :content => menu.name)
+    response.should have_selector(".menu_change_frequency", :content => menu.change_frequency)
+    response.should have_selector(".menu_date", :content => menu.created_at.to_s(:standard))
+  end
+end
+
 Given /^a restaurant feature page named "([^\"]*)"$/ do |name|
   RestaurantFeaturePage.create(:name => name)
 end
