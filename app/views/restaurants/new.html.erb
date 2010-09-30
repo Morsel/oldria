@@ -58,6 +58,10 @@
 		<%= f.label :cuisine_id %>
 		<%= f.collection_select :cuisine_id, Cuisine.all, :id, :name %>
 	</p>
+  <p class="clear">
+    <%= f.label :opening_date %>
+    <%= f.date_select :opening_date %>
+  </p>
 	<p class="clear">
 		<%= f.label :facts %>
 		<%= f.text_area :facts, :rows => 3 %>
