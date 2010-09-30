@@ -13,7 +13,7 @@ Rails::Initializer.run do |config|
   config.gem 'authlogic',             :version => "~>2.1.3"
   config.gem 'addresslogic',          :version => "~>1.2.1"
   config.gem 'cancan',                :version => "~>1.0.1"
-  config.gem 'paperclip',             :version => "~>2.3.3"
+  config.gem 'paperclip',             :version => "~>2.3.0"
   config.gem 'moomerman-twitter_oauth', :lib => 'twitter_oauth', :source => "http://gems.github.com"
   config.gem 'jackdempsey-acts_as_commentable', :lib => 'acts_as_commentable', :source => "http://gems.github.com"
   config.gem 'acts_as_list',          :version => "~>0.1.2"
