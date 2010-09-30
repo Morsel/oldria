@@ -14,7 +14,7 @@ class InvitationsController < ApplicationController
   def create
     @invitation = Invitation.new(params[:invitation])
     if @invitation.save
-      flash[:notice] = "Your invite has been sent to an admin for approval"
+      flash[:notice] = "Thanks for recommending a new member for Spoonfeed! We’ll shoot them an invitation as soon as our system can accept new members."
       redirect_to root_path
     else
       render :new

@@ -14,7 +14,7 @@ Feature: users can be invited to join Spoonfeed by registered SF users, restaura
     And I fill in "Last name" with "Smith"
     And I fill in "Email" with "ma@email.com"
     And I press "Invite User"
-    Then I should see "Your invite has been sent to an admin for approval"
+    Then I should see "Thanks for recommending a new member"
     
   Scenario: an invite is approved and the user wants to log in and update their info (not a restaurant employee)
     Given there are the following invitations:
