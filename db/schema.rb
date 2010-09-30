@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100929152119) do
+ActiveRecord::Schema.define(:version => 20100930145646) do
 
   create_table "accolades", :force => true do |t|
     t.integer  "profile_id"
@@ -171,19 +171,19 @@ ActiveRecord::Schema.define(:version => 20100929152119) do
   end
 
   create_table "culinary_jobs", :force => true do |t|
-    t.integer  "profile_id",                                        :null => false
-    t.string   "title",                          :default => "",    :null => false
-    t.string   "city",                           :default => "",    :null => false
-    t.string   "state",                          :default => "",    :null => false
-    t.date     "date_started",                                      :null => false
+    t.integer  "profile_id",                       :null => false
+    t.string   "title",         :default => "",    :null => false
+    t.string   "city",          :default => "",    :null => false
+    t.string   "state",         :default => "",    :null => false
+    t.date     "date_started",                     :null => false
     t.date     "date_ended"
-    t.string   "chef_name",                      :default => "",    :null => false
-    t.boolean  "chef_is_me",                     :default => false, :null => false
-    t.text     "cuisine",                        :default => "",    :null => false
-    t.text     "notes",                          :default => "",    :null => false
+    t.string   "chef_name",     :default => "",    :null => false
+    t.boolean  "chef_is_me",    :default => false, :null => false
+    t.text     "cuisine",       :default => "",    :null => false
+    t.text     "notes",         :default => "",    :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "opening_staff",                  :default => false
+    t.boolean  "opening_staff", :default => false
     t.string   "restaurant_name", :limit => nil
     t.string   "country",         :limit => nil
   end
@@ -699,6 +699,7 @@ ActiveRecord::Schema.define(:version => 20100929152119) do
     t.string   "management_company_website"
     t.integer  "logo_id"
     t.integer  "primary_photo_id"
+    t.date     "opening_date"
   end
 
   add_index "restaurants", ["cuisine_id"], :name => "index_restaurants_on_cuisine_id"

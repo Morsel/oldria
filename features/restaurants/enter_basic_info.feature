@@ -30,6 +30,7 @@ Feature: Basic Restaurant Data
       | Management Company Name | Lettuce Entertain You          |
       | Management Company Website | http://www.lettuce.com      |
     And I select "Fred Mercury" from "Media contact"
+    When I select "Janaury 22, 2008" as the date
     And I press "Save"
     And I see the following restaurant fields:
       | name               | NeoPiece                            |
@@ -46,6 +47,7 @@ Feature: Basic Restaurant Data
       | hours              | Mon-Sat 5-11pm                      |
       | media_contact      | Fred Mercury                        |
       | management_company | Lettuce Entertain You               |
+      | opening_date       | January 22, 2008                    |
 
   Scenario: Unhappy data
     When I remove optional information from the restaurant

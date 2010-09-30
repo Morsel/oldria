@@ -39,14 +39,17 @@
   </div>
 
   <div class="span-8 last">
-    <div id="description">
+    <% div_if(@restaurant.description, :id => "description") do %>
       <%= h @restaurant.description %>
-    </div>
+    <% end %>
     <br/>
 
     <div id="hours">
       Hours: <%= h @restaurant.hours %>
     </div>
+    <% div_if(@restaurant.opening_date, :id=> "opening_date") do %>
+      Opening Date: <%= h @restaurant.opening_date.to_s(:long) %>
+    <% end %>
     <br/>
     <% div_if @restaurant.media_contact, :id =>"media_contact" do %>
       Media Contact:

@@ -1,3 +1,37 @@
+# == Schema Information
+#
+# Table name: restaurants
+#
+#  id                         :integer         not null, primary key
+#  name                       :string(255)
+#  street1                    :string(255)
+#  street2                    :string(255)
+#  city                       :string(255)
+#  state                      :string(255)
+#  zip                        :string(255)
+#  country                    :string(255)
+#  facts                      :text
+#  created_at                 :datetime
+#  updated_at                 :datetime
+#  manager_id                 :integer
+#  metropolitan_area_id       :integer
+#  james_beard_region_id      :integer
+#  cuisine_id                 :integer
+#  deleted_at                 :datetime
+#  description                :string(255)
+#  phone_number               :string(255)
+#  website                    :string(255)
+#  twitter_username           :string(255)
+#  facebook_page              :string(255)
+#  hours                      :string(255)
+#  media_contact_id           :integer
+#  management_company_name    :string(255)
+#  management_company_website :string(255)
+#  logo_id                    :integer
+#  primary_photo_id           :integer
+#  opening_date               :date
+#
+
 class Restaurant < ActiveRecord::Base
   apply_addresslogic
   default_scope :conditions => {:deleted_at => nil}
@@ -39,7 +73,7 @@ class Restaurant < ActiveRecord::Base
   belongs_to :logo, :class_name => "Image", :dependent => :destroy
 
   validates_presence_of :name, :street1, :city, :state, :zip, :phone_number,
-      :metropolitan_area, :website, :media_contact, :hours, :cuisine
+      :metropolitan_area, :website, :media_contact, :hours, :cuisine, :opening_date
 
   validates_format_of :website, :with => URI::regexp(%w(http https)), :message => "Needs to be a valid URL"
   validates_format_of :management_company_website,
@@ -132,37 +166,4 @@ class Restaurant < ActiveRecord::Base
 
 
 end
-
-# == Schema Information
-#
-# Table name: restaurants
-#
-#  id                         :integer         not null, primary key
-#  name                       :string(255)
-#  street1                    :string(255)
-#  street2                    :string(255)
-#  city                       :string(255)
-#  state                      :string(255)
-#  zip                        :string(255)
-#  country                    :string(255)
-#  facts                      :text
-#  created_at                 :datetime
-#  updated_at                 :datetime
-#  manager_id                 :integer
-#  metropolitan_area_id       :integer
-#  james_beard_region_id      :integer
-#  cuisine_id                 :integer
-#  deleted_at                 :datetime
-#  description                :string(255)
-#  phone_number               :string(255)
-#  website                    :string(255)
-#  twitter_username           :string(255)
-#  facebook_page              :string(255)
-#  hours                      :string(255)
-#  media_contact_id           :integer
-#  management_company_name    :string(255)
-#  management_company_website :string(255)
-#  logo_id                    :integer
-#  primary_photo_id           :integer
-#
 

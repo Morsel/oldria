@@ -28,6 +28,9 @@
     <p>Manager: <span><%=h @restaurant.manager.try(:name) %></span></p>
     <p id="media_contact">Media Contact: <span><%=h @restaurant.media_contact.try(:name) %></span></p>
  		<p>Cuisine: <span><%=h @restaurant.cuisine.try(:name) %></span></p>
+    <% div_if(@restaurant.opening_date) do %>
+      Opening Date: <span id="opening_date"><%= @restaurant.opening_date.to_s(:long) %></span>
+    <% end %>
 	</div><!-- .manager_and_facts -->
   <hr clear="all" />
   <div class="span-11 last">

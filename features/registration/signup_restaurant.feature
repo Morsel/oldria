@@ -29,6 +29,7 @@ Feature: Signup restaurant
     And I fill in "Hours" with "Open all night"
     And I select "Chicago IL" from "Metropolitan area"
     And I select "Italian" from "Cuisine"
+    When I select "Janaury 22, 2008" as the date
     And I press "Submit"
     Then I should see "Successfully created restaurant"
     And "joesak" should be the account manager for "Joe's Shack"

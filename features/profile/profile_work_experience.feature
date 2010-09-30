@@ -6,7 +6,6 @@ Feature: Profile - Work Experience
   Restaurant Name, Title, City, State, Country, Work dates (range),
   Chef In Charge of menu, Type of Cuisine Served, Anything Notable
 
-
   Scenario: Adding restaurant work experience
     Given I am logged in as a normal user with a profile
     And I am on my profile's edit page

@@ -157,6 +157,7 @@ Factory.define :restaurant do |f|
   f.facebook_page "http://www.facebook.com/joeblow"
   f.association :metropolitan_area
   f.hours "Open All Night"
+  f.opening_date 1.year.ago
   f.association :media_contact, :factory => :user
   f.association :cuisine
 end
