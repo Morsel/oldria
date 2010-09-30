@@ -13,6 +13,16 @@ Feature: Restaurant profile
     When I go to the edit restaurant page for Piece
     And I attach the file "/features/images/bourgeoispig_logo.gif" to "logo_attachment"
     And I press "Upload"
+    When I go to the restaurant menu upload page for Piece
+    And I fill in "January" for "Name"
+    And I select "Monthly" from "How often it changes"
+    And I attach the file "/features/images/menu1.pdf" to "menu_remote_attachment_attributes_attachment"
+    And I press "Upload"
+    When I go to the restaurant menu upload page for Piece
+    And I fill in "February" for "Name"
+    And I select "Monthly" from "How often it changes"
+    And I attach the file "/features/images/menu1.pdf" to "menu_remote_attachment_attributes_attachment"
+    And I press "Upload"
     When I go to the soapbox restaurant profile for Piece
     Then I see the restaurant's name as "Piece"
     And I see the restaurant's description
@@ -25,7 +35,8 @@ Feature: Restaurant profile
     And I see media contact name, phone, and email
     And I see the management company name as a link
     And I see the primary photo
-		And I see the restaurant logo for the profile
+    And I see the restaurant logo for the profile
+    And I see the restaurant menus
     And I see the opening date
 
   Scenario: Show management data without link if no link specified
@@ -44,3 +55,11 @@ Feature: Restaurant profile
     Then I do not see the Twitter username
     And I do not see the Facebook username
 
+<<<<<<< HEAD
+=======
+  Scenario: The restaurant has no menus uploaded
+    When I go to the soapbox restaurant profile for Piece
+    Then I should not see any menus
+    And I should see "There are no menus available at this time."
+
+>>>>>>> ea327c7d3f82f25983d792c18021e4e78cc709a5

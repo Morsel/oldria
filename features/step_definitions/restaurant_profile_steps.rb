@@ -139,11 +139,14 @@ When /^I see a page named "([^\"]*)"$/ do |page|
   response.should have_selector(".feature_page", :content => page) 
 end
 
+<<<<<<< HEAD
 Then /^I see the restaurant's website$/ do
   response.should have_selector("#website", :content => @restaurant.website)
 end
 
   
+=======
+>>>>>>> ea327c7d3f82f25983d792c18021e4e78cc709a5
 Then /^I see headers for feature categories for "([^\"]*)"$/ do |page_name|
   page = RestaurantFeaturePage.find_by_name(page_name)
   @restaurant.categories_for_page(page).each do |category|
@@ -183,6 +186,16 @@ end
 Then /^I see the restaurant logo for the profile$/ do
   response.should have_selector("#logo img")
   response.body.should include("http://spoonfeed.s3.amazonaws.com/cucumber/images/#{@restaurant.reload.logo.id}/medium/bourgeoispig_logo.gif")
+end
+
+Then /^I see the restaurant menus$/ do
+  response.should have_selector("#menus")
+
+  @restaurant.menus.each do |menu|
+    response.should have_selector(".menu_name", :content => menu.name)
+    response.should have_selector(".menu_change_frequency", :content => menu.change_frequency)
+    response.should have_selector(".menu_date", :content => menu.created_at.to_s(:standard))
+  end
 end
 
 Given /^a restaurant feature page named "([^\"]*)"$/ do |name|
@@ -258,12 +271,17 @@ end
 
 
 Then /^I see the ajax button for adding an accolade$/ do
+<<<<<<< HEAD
   response.should have_selector(".accolades h2", :content => "Accolades")
+=======
+  response.should have_selector(".accolades #accolades", :content => "Accolades")
+>>>>>>> ea327c7d3f82f25983d792c18021e4e78cc709a5
 end
 
 Then /^I see the opening date$/ do
   response.should have_tag("#opening_date", :content => @restaurant.opening_date.to_s(:long))
 end
+<<<<<<< HEAD
 
 When /^I add an accolade to the restaurant "([^\"]*)" with:$/ do |restaurant_name, table|
   @restaurant = Restaurant.find_by_name(restaurant_name)
@@ -297,3 +315,5 @@ Then /^I should see the accolade form correctly$/ do
   response.should be_success
   response.should have_selector("form.accolade")
 end
+=======
+>>>>>>> ea327c7d3f82f25983d792c18021e4e78cc709a5

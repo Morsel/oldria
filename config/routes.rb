@@ -156,7 +156,10 @@ ActionController::Routing::Routes.draw do |map|
     admin.resources :question_roles
     admin.resources :schools
     admin.resources :specialties, :collection => { :sort => :post }
+<<<<<<< HEAD
     admin.resources :invitations, :member => { :accept => :get, :archive => :get }
+=======
+>>>>>>> ea327c7d3f82f25983d792c18021e4e78cc709a5
     admin.resources :restaurant_features, :only => [:index, :create, :destroy],
         :collection => {:edit_in_place => :post}
     admin.resources :restaurant_feature_pages, :only => [:create,  :destroy],

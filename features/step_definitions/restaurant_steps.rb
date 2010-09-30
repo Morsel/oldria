@@ -152,6 +152,7 @@ Then /^I see the uploaded restaurant photo$/ do
   response.should have_selector("img.restaurant_photo")
   response.body.should include("http://spoonfeed.s3.amazonaws.com/cucumber/images/#{@restaurant.photos.last.id}/medium/bourgeoispig.jpg")
 end
+
 Then /^I see the restaurant logo$/ do
   response.should have_selector("img#restaurant_logo")
   response.body.should include("http://spoonfeed.s3.amazonaws.com/cucumber/images/#{@restaurant.reload.logo.id}/medium/bourgeoispig_logo.gif")
