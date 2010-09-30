@@ -21,9 +21,12 @@ class WelcomeController < ApplicationController
   end
 
   def set_up_dashboard
-    find_user_feeds(true)
-    @direct_messages = @user.unread_direct_messages.all_not_from_admin(:include => :sender)
-    @discussions = current_user.discussions.all(:limit => 5, :order => 'discussions.created_at DESC')
-    @discussions_with_new_comments = current_user.discussions.with_comments_unread_by( current_user ).all(:order => 'discussions.created_at DESC') - @discussions
+    qotd_comments = Admin::Qotd.current.all(:limit => 10, :order => "created_at DESC").
+        map(&:admin_conversations).flatten.map(&:comments).flatten
+    trend_comments = TrendQuestion.current.all(:limit => 10, :order => "created_at DESC").
+        map(&:admin_discussions).flatten.map(&:comments).flatten
+    answers = ProfileAnswer.all(:limit => 10, :order => "created_at DESC")
+    
+    @recent_comments = [qotd_comments, trend_comments, answers].flatten.sort { |a,b| b.created_at <=> a.created_at }[0..10]
   end
 end
