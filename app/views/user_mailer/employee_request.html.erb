@@ -2,11 +2,19 @@
 
 <p>
     A new user, <%= @user.name %>, has joined spoonfeed 
-    <%- if @user.employments -%>
+    <%- if @user.employments.present? -%>
     as a member of your restaurant (<%= @restaurant.name %>).
     <%- else -%>
     and requested to be added to your restaurant (<%= @restaurant.name %>).
     <%- end -%>
 </p>
 
-<p>Please log in and set up this user's preferences.</p>
+<%- if @user.employments.present? -%>
+<a href="<%= restaurant_employees_url(@restaurant) %>"><%= restaurant_employees_url(@restaurant) %></a>
+<%- else -%>
+<a href="<%= new_restaurant_employee_url(@restaurant, :employment => { :employee_email => @user.email }) %>">
+    <%= new_restaurant_employee_url(@restaurant, :employment => { :employee_email => @user.email }) %>
+</a>
+<%- end -%>
+
+<p>Please log in using the link above and set up this user's preferences.</p>
