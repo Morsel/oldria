@@ -139,28 +139,10 @@ When /^I see a page named "([^\"]*)"$/ do |page|
   response.should have_selector(".feature_page", :content => page) 
 end
 
-When /^I see the primary photo$/ do
-  response.should have_selector("#primary_photo img")
-  response.body.should include("http://spoonfeed.s3.amazonaws.com/cucumber/images/#{@restaurant.reload.primary_photo.id}/medium/bourgeoispig.jpg")  
-end
-Then /^I
-see the restaurant's website$/ do
+Then /^I see the restaurant's website$/ do
   response.should have_selector("#website", :content => @restaurant.website)
 end
 
-When /^I see a page named "([^\"]*)"$/ do |page|
-  response.should have_selector(".feature_page", :content => page) 
-end
-
-Then /^I see the restaurant logo for the profile$/ do
-  response.should have_selector("#logo img")
-  response.body.should include("http://spoonfeed.s3.amazonaws.com/cucumber/images/#{@restaurant.reload.logo.id}/medium/bourgeoispig_logo.gif")
-
-end
-
-When /^I see a page named "([^\"]*)"$/ do |page|
-  response.should have_selector(".feature_page", :content => page) 
-end
   
 Then /^I see headers for feature categories for "([^\"]*)"$/ do |page_name|
   page = RestaurantFeaturePage.find_by_name(page_name)
