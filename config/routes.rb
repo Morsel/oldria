@@ -1,14 +1,16 @@
 ActionController::Routing::Routes.draw do |map|
-  map.signup 'signup', :controller => 'users', :action => 'new'
   map.login  'login',  :controller => 'user_sessions', :action => 'new'
   map.logout 'logout', :controller => 'user_sessions', :action => 'destroy'
   map.confirm 'confirm/:id', :controller => 'users', :action => 'confirm'
   map.fb_login 'facebook_login', :controller => 'user_sessions', :action => 'create_from_facebook'
 
+  map.resources :invitations, :only => ['new', 'create', 'show']
+  map.resource :complete_registration, :only => [:show, :update], 
+    :collection => { :find_restaurant => :any, :contact_restaurant => :post }
+  
   map.directory 'directory', :controller => 'directory', :action => 'index'
 
-
-  map.with_options :conditions => {:subdomain => 'soapbox'}, :controller => 'soapbox' do |soapbox|
+  map.with_options :conditions => { :subdomain => 'soapbox' }, :controller => 'soapbox' do |soapbox|
     soapbox.root :action => 'index'
   end
 
@@ -56,6 +58,7 @@ ActionController::Routing::Routes.draw do |map|
     users.resources :statuses
     users.resources :direct_messages, :member => { :reply => :get }
     users.resources :questions, :collection => { :topics => :get, :chapters => :get }
+    users.resources :default_employments
   end
 
   map.resources :restaurants do |restaurant|
@@ -106,11 +109,8 @@ ActionController::Routing::Routes.draw do |map|
   map.resource :feeds
   map.resource :employment_search
 
-
   map.resource :twitter_authorization
   map.resource :friends_statuses, :only => 'show'
-  map.resources :invitations, :only => 'show', :collection => { :login => :get }
-  map.resource :complete_registration, :only => [:show, :update]
 
   map.resource :search, :only => 'show'
 
@@ -130,12 +130,13 @@ ActionController::Routing::Routes.draw do |map|
     admin.resources :calendars
     admin.resources :events
     admin.resources :soapbox_entries
-    admin.resources :profile_questions, :collection => { :manage => :get, :sort => :post }
+    admin.resources :profile_questions, :collection => { :sort => :post }
     admin.resources :chapters, :collection => { :select => :post }
     admin.resources :topics
     admin.resources :question_roles
     admin.resources :schools
     admin.resources :specialties, :collection => { :sort => :post }
+    admin.resources :invitations, :member => { :accept => :get, :archive => :get }
 
     # Admin Messaging
     exclusive_routes = [:index, :show, :destroy]

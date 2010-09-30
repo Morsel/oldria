@@ -32,7 +32,12 @@
 #
 
 class User < ActiveRecord::Base
-  acts_as_authentic
+  acts_as_authentic do |c|
+    c.validates_format_of_login_field_options = { :with => /^[a-zA-Z0-9\-\_ ]+$/,
+      :message => "'{{value}}' is not allowed. Usernames can only contain letters, numbers, and/or the '-' symbol" }
+    c.disable_perishable_token_maintenance = true
+  end
+  
   include TwitterAuthorization
   include UserMessaging
 
@@ -55,6 +60,8 @@ class User < ActiveRecord::Base
   has_many :managed_restaurants, :class_name => "Restaurant", :foreign_key => "manager_id"
   has_many :manager_restaurants, :source => :restaurant, :through => :employments, :conditions => ["employments.omniscient = ?", true]
   has_many :restaurant_roles, :through => :employments
+  
+  has_one :default_employment, :foreign_key => "employee_id", :dependent => :destroy # only used if no restaurant employments
 
   has_many :discussion_seats, :dependent => :destroy
   has_many :discussions, :through => :discussion_seats
@@ -70,6 +77,8 @@ class User < ActiveRecord::Base
 
   has_one :profile
   has_many :profile_answers
+  
+  has_one :invitation, :foreign_key => "invitee_id"
 
   validates_presence_of :email
 
@@ -81,32 +90,32 @@ class User < ActiveRecord::Base
   has_attached_file :avatar,
                     :default_url => "/images/default_avatars/:style.png",
                     :styles => { :small => "100x100>", :thumb => "50x50#" }
-
+                    
   validates_exclusion_of :publication,
                          :in => %w( freelance Freelance ),
                          :message => "'{{value}}' is not allowed"
-  validates_format_of :username,
-                      :with => /^[a-zA-Z0-9\-\_ ]+$/,
-                      :message => "'{{value}}' is not allowed. \
-                      Usernames can only contain letters, numbers, and/or the '-' symbol."
-
+                         
   validates_acceptance_of :agree_to_contract
 
   validates_presence_of :facebook_page_token, :if => Proc.new { |user| user.facebook_page_id }
   validates_presence_of :facebook_page_id, :if => Proc.new { |user| user.facebook_page_token }
+
+  accepts_nested_attributes_for :default_employment
 
   named_scope :media, :conditions => {:role => 'media'}
   named_scope :admin, :conditions => {:role => 'admin'}
 
   named_scope :for_autocomplete, :select => "first_name, last_name", :order => "last_name ASC", :limit => 15
   named_scope :by_last_name, :order => "LOWER(last_name) ASC"
+  
+  after_create :deliver_invitation_message!, :if => Proc.new { |user| user.send_invitation }
 
   after_update :mark_replies_as_read, :if => Proc.new { |user| user.confirmed_at && user.confirmed_at > 1.minute.ago }
 
 ### Preferences ###
   preference :hide_help_box, :default => false
   preference :receive_email_notifications, :default => false
-  preference :publish_profile, :default => true
+  preference :publish_profile, :default => false
 
 ### Roles ###
   def admin?
@@ -160,7 +169,7 @@ class User < ActiveRecord::Base
   end
   
   def primary_employment
-    self.employments.primary.first || self.employments.first
+    self.employments.primary.first || self.employments.first || self.default_employment
   end
 
   def restaurant_names
@@ -249,12 +258,10 @@ class User < ActiveRecord::Base
   end
 
   def deliver_invitation_message!
-    if @send_invitation
-      @send_invitation = nil
-      reset_perishable_token!
-      logger.info( "Delivering invitation email to #{email}" )
-      UserMailer.deliver_employee_invitation!(self, invitation_sender)
-    end
+    @send_invitation = nil
+    reset_perishable_token!
+    logger.info( "Delivering invitation email to #{email}" )
+    UserMailer.deliver_employee_invitation!(self, invitation_sender)
   end
 
   def connect_to_facebook_user(fb_id)

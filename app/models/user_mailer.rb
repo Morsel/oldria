@@ -31,8 +31,16 @@ class UserMailer < ActionMailer::Base
     from          'accounts@restaurantintelligenceagency.com'
     recipients    user.email
     sent_on       Time.now
-    subject       "SpoonFeed: You've been added"
+    subject       "SpoonFeed: You're invited"
     body          :user => user, :invitation_sender => invitation_sender
+  end
+  
+  def employee_request(restaurant, user)
+    from          'accounts@restaurantintelligenceagency.com'    
+    recipients    restaurant.manager.email
+    sent_on       Time.now
+    subject       "SpoonFeed: a new employee has joined"
+    body          :recipient => restaurant.manager, :user => user, :restaurant => restaurant
   end
 
   def discussion_notification(discussion, user)

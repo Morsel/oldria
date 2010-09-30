@@ -2,11 +2,25 @@ require 'spec/spec_helper'
 
 describe InvitationsController do
   integrate_views
-  before(:each) do
-    @invitee = Factory(:user, :perishable_token =>"abc789", :username => "johnjohn", :confirmed_at => nil)
+  
+  describe "creating a new invite" do
+    
+    it "should create an invite from a valid form submit" do
+      invite = Factory.build(:invitation)
+      Invitation.expects(:new).with("email" => "foo@bar.com").returns(invite)
+      invite.expects(:save).returns(true)
+      post :create, :invitation => { :email => "foo@bar.com" }
+      response.should be_redirect
+    end
+    
   end
 
   describe "GET show" do
+    
+    before(:each) do
+      @invitee = Factory(:user, :perishable_token =>"abc789", :username => "johnjohn", :confirmed_at => nil)
+    end
+
     context "when no one is logged in" do
       context "user is found" do
         before do
@@ -44,9 +58,9 @@ describe InvitationsController do
             @invitee.confirmed_at = Time.now; @invitee.save
           end
           
-          it "should redirect to a special login page" do
+          it "should redirect to the login page with their username" do
             get :show, :id => 'expired_id', :user_id => @invitee.id
-            response.should redirect_to(login_invitations_path(:user_session => {:username => @invitee.username}))
+            response.should redirect_to(login_path(:user_session => {:username => @invitee.username}))
           end
         end
 
@@ -60,15 +74,15 @@ describe InvitationsController do
     end
 
     context "when someone is already logged in" do
-      before do
+      before(:each) do
         activate_authlogic
         UserSession.create(Factory(:user))
-        (UserSession.find).should_not be_nil
+        UserSession.find.should_not be_nil
       end
 
       it "should log out the user first" do
+        UserSession.any_instance.expects(:destroy)
         get :show, :id => "abc789"
-        (UserSession.find).should be_nil
       end
     end
   end # GET show

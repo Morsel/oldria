@@ -134,6 +134,11 @@ Factory.define :nonculinary_enrollment do |f|
   f.graduation_date 6.years.ago
 end
 
+Factory.define :invitation do |f|
+  f.first_name "Jane"
+  f.last_name "Doe"
+  f.sequence(:email) { |n| "foo#{n}@example.com" }
+end
 
 # == Restaurants ==
 Factory.define :restaurant do |f|
@@ -238,6 +243,7 @@ end
 
 Factory.define :subject_matter do |f|
   f.name "Beverages"
+  f.general true
 end
 
 Factory.define :page do |f|

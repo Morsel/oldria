@@ -33,6 +33,8 @@ module NavigationHelpers
       new_conversation_path
     when "my profile's edit page"
       edit_my_profile_path
+    when "the new invitation page"
+      new_invitation_path
 
     # Media-users
     when /^the media( user)? signup page$/
@@ -97,6 +99,8 @@ module NavigationHelpers
       admin_chapters_path
     when /^the new topic page$/
       new_admin_topic_path
+    when /^the admin invitations page$/
+      admin_invitations_path
 
     # Direct path
     when /"([^\"]+)"/

@@ -55,26 +55,27 @@ Feature: Associating a Restaurant with its employees
     Then I should see "Employee is already associated with that restaurant"
     And "Jimmy's Diner" should only have 2 employees
 
-
   Scenario: Inviting a non-existing Employee
     Given I have just created a restaurant named "Duck Soup"
     When I follow "Add employee"
     And I fill in "Employee Email" with "dinkle@example.com"
     And I press "Submit"
-    Then I should see "Invite an Employee"
+    Then I should see "invite this person"
 
     When I fill in "First Name" with "David"
     And I fill in "Last Name" with "Dinkle"
-    And I fill in "Username" with "daviddinkle"
-    And I fill in "Temporary Password" with "secret"
-    And I fill in "Password Confirmation" with "secret"
-    And I press "Invite Employee"
-    Then I should see "sent an invitation and added to your restaurant"
-    And "Duck Soup" should have 2 employees
+    And I press "Invite User"
+    Then I should see "invite has been sent"
+    
+    When I logout
+    And I am logged in as an admin
+    And I go to the admin invitations page
+    And I follow "accept"
+    Then "daviddinkle" should be a confirmed user
     And "dinkle@example.com" should have 1 email
 
     When I logout
-    And "dinkle@example.com" opens the email with subject "SpoonFeed: You've been added"
+    And "dinkle@example.com" opens the email with subject "SpoonFeed: You're invited"
     Then I should see "Welcome" in the email body
     And I should see "David" in the email body
 
@@ -85,4 +86,5 @@ Feature: Associating a Restaurant with its employees
     When I click the first link in the email
     Then I should see "Successfully logged in"
     And "daviddinkle" should be a confirmed user
+    And "Duck Soup" should have 2 employees
     And I should be on the complete registration page

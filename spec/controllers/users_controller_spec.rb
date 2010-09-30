@@ -19,34 +19,6 @@ describe UsersController do
     end
   end
 
-  describe "GET new" do
-    context "as an anonymous user" do
-      before(:each) do
-        # user =  Factory.stub(:user)
-        # user.stubs(:has_role?).with(:media).returns(true)
-        controller.stubs(:current_user).returns nil
-      end
-      
-      it "should render new template" do
-        get :new
-        response.should render_template(:new)
-      end
-    end
-
-    context "as a logged in user" do
-      before(:each) do
-        user =  Factory.stub(:user)
-        user.stubs(:has_role?).returns(false)
-        controller.stubs(:current_user).returns user
-      end
-
-      it "should redirect to the homepage" do
-        get :new
-        response.should redirect_to(root_url)
-      end
-    end
-  end
-
   describe "GET show" do
     before(:each) do
       @user = Factory(:user, :id => 3)
@@ -65,6 +37,7 @@ describe UsersController do
       end
       
       it "should show the profile if it is visible" do
+        @user.prefers_publish_profile = true; @user.save
         get :show, :id => 3
         response.should render_template(:show)
       end

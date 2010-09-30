@@ -81,17 +81,9 @@ describe EmployeesController do
         User.stubs(:find)
         get :new, :restaurant_id => @restaurant.id, :employment => {:employee_email => "sam@example.com"}
       end
-      it { response.should be_success }
-      it { response.should render_template(:new_employee)}
-
-      it { assigns[:restaurant].should == @restaurant }
-      it { assigns[:employment].should be_an(Employment) }
-      it { assigns[:employee].should be_new_record }
-
-      it "should have a form to POST create action with hidden autofilled email" do
-        response.should have_selector("form", :action => "/restaurants/#{@restaurant.id}/employees")
-        response.should have_selector("input", :name => "employment[employee_attributes][email]", :value => "sam@example.com")
-      end
+      it { response.should be_redirect }
+      it { response.should redirect_to(new_invitation_url(:restaurant => true, 
+          :invitation => { :restaurant_id => @restaurant.id, :email => "sam@example.com" }))}
     end
   end
 
