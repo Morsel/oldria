@@ -109,4 +109,3 @@ Feature: Restaurant Images
     And I press "Save"
     When I remove the restaurant photo with the file "bourgeoispig.jpg"
     Then I see no restaurant photos
-

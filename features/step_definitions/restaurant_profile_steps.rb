@@ -139,6 +139,10 @@ When /^I see a page named "([^\"]*)"$/ do |page|
   response.should have_selector(".feature_page", :content => page) 
 end
 
+Then /^I see the restaurant's website$/ do
+  response.should have_selector("#website", :content => @restaurant.website)
+end
+
 Then /^I see headers for feature categories for "([^\"]*)"$/ do |page_name|
   page = RestaurantFeaturePage.find_by_name(page_name)
   @restaurant.categories_for_page(page).each do |category|
@@ -263,9 +267,42 @@ end
 
 
 Then /^I see the ajax button for adding an accolade$/ do
-  response.should have_selector(".accolades #accolades", :content => "Accolades")
+  response.should have_selector(".accolades h2", :content => "Accolades")
 end
 
 Then /^I see the opening date$/ do
   response.should have_tag("#opening_date", :content => @restaurant.opening_date.to_s(:long))
+end
+
+When /^I add an accolade to the restaurant "([^\"]*)" with:$/ do |restaurant_name, table|
+  @restaurant = Restaurant.find_by_name(restaurant_name)
+  click_link_within ".accolades", "Add"
+  fill_in_fields_for_table(table)
+  click_button "Save"
+end
+
+Then(/^I should have (\d+) accolades? on my restaurant profile$/) do |num|
+  @restaurant.reload.accolades.count.should == num.to_i
+end
+
+When /^I should see an accolade for "([^\"]*)" on the profile page for "([^\"]*)"$/ do |accolade_name, restaurant_name|
+  restaurant = Restaurant.find_by_name(restaurant_name)
+  accolade = Accolade.find_by_name(accolade_name)
+  visit edit_restaurant_path(restaurant)
+  response.should have_selector("#accolades ##{dom_id(accolade)}", :content => accolade_name)
+end
+
+Given /^an accolade for "([^\"]*)" named "([^\"]*)"$/ do |restaurant_name, accolade_name|
+  restaurant = Restaurant.find_by_name(restaurant_name)
+  Factory(:accolade, :accoladable => restaurant, :name => accolade_name)
+end
+
+When /^I click on the "([^\"]*)" link within "([^\"]*)"$/ do |link, accolade_name|
+  accolade = Accolade.find_by_name(accolade_name)
+  click_link_within("##{dom_id(accolade)}", link)
+end
+
+Then /^I should see the accolade form correctly$/ do
+  response.should be_success
+  response.should have_selector("form.accolade")
 end

@@ -1,13 +1,13 @@
 class AccoladesController < ApplicationController
-  before_filter :get_profile
+  before_filter :get_accoladable
 
   def new
-    @accolade = @profile.accolades.build
+    @accolade = @accoladable.accolades.build
     render :layout => false if request.xhr?
   end
 
   def create
-    @accolade = @profile.accolades.build(params[:accolade])
+    @accolade = @accoladable.accolades.build(params[:accolade])
 
     respond_to do |wants|
       if @accolade.save
@@ -25,12 +25,12 @@ class AccoladesController < ApplicationController
   end
 
   def edit
-    @accolade = @profile.accolades.find(params[:id])
+    @accolade = @accoladable.accolades.find(params[:id])
     render :layout => false if request.xhr?
   end
 
   def update
-    @accolade = @profile.accolades.find(params[:id])
+    @accolade = @accoladable.accolades.find(params[:id])
 
     respond_to do |wants|
       if @accolade.update_attributes(params[:accolade])
@@ -47,7 +47,7 @@ class AccoladesController < ApplicationController
   end
 
   def destroy
-    @accolade = @profile.accolades.find(params[:id])
+    @accolade = @accoladable.accolades.find(params[:id])
     if @accolade.destroy
       respond_to do |wants|
         wants.html { redirect_to edit_my_profile_path }
@@ -60,8 +60,12 @@ class AccoladesController < ApplicationController
 
   private
 
-  def get_profile
-    require_user
-    @profile = (current_user.profile || current_user.create_profile)
+  def get_accoladable
+    if params[:restaurant_id]
+      @accoladable = Restaurant.find(params[:restaurant_id])
+    else
+      require_user
+      @accoladable = (current_user.profile || current_user.create_profile)
+    end
   end
 end

@@ -117,7 +117,6 @@ Then /^"([^\"]*)" should be an admin$/ do |username|
   User.find_by_username(username).should be_admin
 end
 
-
 Then /^I should see an invitation URL in the email body$/ do
   token = User.find_by_email(current_email.to).perishable_token
   current_email.body.should =~ Regexp.new(token)

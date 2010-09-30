@@ -237,7 +237,5 @@ describe Restaurant do
       restaurant.primary_photo.should == primary_photo
     end
   end
-
-
 end
 
