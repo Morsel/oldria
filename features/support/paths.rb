@@ -137,11 +137,6 @@ module NavigationHelpers
     when /"([^\"]+)"/
       $1
 
-
-<<<<<<< HEAD
-
-=======
->>>>>>> ea327c7d3f82f25983d792c18021e4e78cc709a5
     # Add more mappings here.
     # Here is an example that pulls values out of the Regexp:
     #

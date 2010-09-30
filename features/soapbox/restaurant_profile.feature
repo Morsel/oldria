@@ -55,11 +55,8 @@ Feature: Restaurant profile
     Then I do not see the Twitter username
     And I do not see the Facebook username
 
-<<<<<<< HEAD
-=======
   Scenario: The restaurant has no menus uploaded
     When I go to the soapbox restaurant profile for Piece
     Then I should not see any menus
     And I should see "There are no menus available at this time."
 
->>>>>>> ea327c7d3f82f25983d792c18021e4e78cc709a5
