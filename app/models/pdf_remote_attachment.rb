@@ -13,11 +13,6 @@
 #  updated_at              :datetime
 #
 
-class RemoteAttachment < Attachment
-  has_attached_file :attachment,
-    :storage => :s3,
-    :s3_credentials => "#{RAILS_ROOT}/config/environments/#{RAILS_ENV}/amazon_s3.yml",
-    :path => "#{RAILS_ENV}/attachments/:id/:filename",
-    :bucket => "spoonfeed",
-    :url => ':s3_domain_url'
+class PDFRemoteAttachment < RemoteAttachment
+  validates_attachment_content_type :attachment, :content_type => "application/pdf", :message => "Oops, you need to convert that file to PDF to upload it."
 end

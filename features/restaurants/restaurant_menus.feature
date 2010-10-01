@@ -13,7 +13,7 @@ Feature: Restaurant Menus
     When I go to the restaurant menu upload page for Bourgeois Pig
     And I fill in "January" for "Name"
     And I select "Monthly" from "How often it changes"
-    And I attach the file "/features/images/menu1.pdf" to "menu_remote_attachment_attributes_attachment"
+    And I attach the file "/features/images/menu1.pdf" to "menu_pdf_remote_attachment_attributes_attachment"
     And I press "Upload"
     Then I should see a menu with the name "January" and change frequency "Monthly" and uploaded at date "now" 
     Then I should see a link to download the uploaded menu pdf "menu1.pdf"
@@ -21,7 +21,7 @@ Feature: Restaurant Menus
   Scenario: Upload a menu fails when name not entered
     When I go to the restaurant menu upload page for Bourgeois Pig
     And I select "Monthly" from "How often it changes"
-    And I attach the file "/features/images/menu1.pdf" to "menu_remote_attachment_attributes_attachment"
+    And I attach the file "/features/images/menu1.pdf" to "menu_pdf_remote_attachment_attributes_attachment"
     And I press "Upload"
     Then I should not see any menus
     And I should see an error message
@@ -29,7 +29,7 @@ Feature: Restaurant Menus
   Scenario: Upload a menu fails when change_frequency not specified
     When I go to the restaurant menu upload page for Bourgeois Pig
     And I fill in "January" for "Name"
-    And I attach the file "/features/images/menu1.pdf" to "menu_remote_attachment_attributes_attachment"
+    And I attach the file "/features/images/menu1.pdf" to "menu_pdf_remote_attachment_attributes_attachment"
     And I press "Upload"
     Then I should not see any menus
     And I should see an error message
@@ -46,7 +46,7 @@ Feature: Restaurant Menus
     When I go to the restaurant menu upload page for Bourgeois Pig
     And I fill in "January" for "Name"
     And I select "Monthly" from "How often it changes"
-    And I attach the file "/features/images/bourgeoispig.jpg" to "menu_remote_attachment_attributes_attachment"
+    And I attach the file "/features/images/bourgeoispig.jpg" to "menu_pdf_remote_attachment_attributes_attachment"
     And I press "Upload"
     Then I should not see any menus
     And I should see an error message
@@ -55,7 +55,7 @@ Feature: Restaurant Menus
     When I go to the restaurant menu upload page for Bourgeois Pig
     And I fill in "January" for "Name"
     And I select "Monthly" from "How often it changes"
-    And I attach the file "/features/images/menu1.pdf" to "menu_remote_attachment_attributes_attachment"
+    And I attach the file "/features/images/menu1.pdf" to "menu_pdf_remote_attachment_attributes_attachment"
     And I press "Upload"
     Then I should have a menu with the name "January" and change frequency "Monthly"
     When I delete the menu with the name "January"

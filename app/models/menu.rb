@@ -1,11 +1,11 @@
 class Menu < ActiveRecord::Base
-  belongs_to :remote_attachment
+  belongs_to :pdf_remote_attachment, :class_name => "PDFRemoteAttachment" 
   belongs_to :restaurant
 
   validates_presence_of :name
-  validates_presence_of :remote_attachment
+  validates_presence_of :pdf_remote_attachment
 
-  accepts_nested_attributes_for :remote_attachment
+  accepts_nested_attributes_for :pdf_remote_attachment
 
   def self.change_frequencies
     @change_frequencies ||= begin

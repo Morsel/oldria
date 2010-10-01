@@ -2,11 +2,11 @@ require 'spec_helper'
 
 describe Menu do
   before(:each) do
-    remote_attachment = RemoteAttachment.create!(:attachment_content_type => "application/pdf")
+    pdf_remote_attachment = PDFRemoteAttachment.create!(:attachment_content_type => "application/pdf")
     @valid_attributes = {
       :name => "value for name",
       :change_frequency => "Monthly",
-      :remote_attachment => remote_attachment,
+      :pdf_remote_attachment => pdf_remote_attachment,
       :restaurant_id => 1
     }
   end
@@ -34,7 +34,7 @@ end
 #  id                   :integer         not null, primary key
 #  name                 :string(255)
 #  change_frequency     :string(255)
-#  remote_attachment_id :integer
+#  pdf_remote_attachment_id :integer
 #  restaurant_id        :integer
 #  created_at           :datetime
 #  updated_at           :datetime

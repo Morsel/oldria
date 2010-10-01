@@ -3,13 +3,13 @@ class MenusController < ApplicationController
 
   def index
     @menu = Menu.new(:restaurant => @restaurant)
-    @menu.remote_attachment = RemoteAttachment.new
+    @menu.pdf_remote_attachment = PDFRemoteAttachment.new
   end
 
   def create
     @menu = Menu.from_params(params[:menu].merge(:restaurant => @restaurant))
     if @menu.invalid?
-      @menu.remote_attachment = RemoteAttachment.new(params[:menu][:remote_attachment_attributes])
+      @menu.pdf_remote_attachment = PDFRemoteAttachment.new(params[:menu][:pdf_remote_attachment_attributes])
       render :action => :index
     else
       redirect_to restaurant_menus_path

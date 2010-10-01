@@ -16,12 +16,12 @@ Feature: Restaurant profile
     When I go to the restaurant menu upload page for Piece
     And I fill in "January" for "Name"
     And I select "Monthly" from "How often it changes"
-    And I attach the file "/features/images/menu1.pdf" to "menu_remote_attachment_attributes_attachment"
+    And I attach the file "/features/images/menu1.pdf" to "menu_pdf_remote_attachment_attributes_attachment"
     And I press "Upload"
     When I go to the restaurant menu upload page for Piece
     And I fill in "February" for "Name"
     And I select "Monthly" from "How often it changes"
-    And I attach the file "/features/images/menu1.pdf" to "menu_remote_attachment_attributes_attachment"
+    And I attach the file "/features/images/menu1.pdf" to "menu_pdf_remote_attachment_attributes_attachment"
     And I press "Upload"
     When I go to the soapbox restaurant profile for Piece
     Then I see the restaurant's name as "Piece"
