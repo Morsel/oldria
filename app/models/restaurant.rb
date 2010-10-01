@@ -170,7 +170,7 @@ class Restaurant < ActiveRecord::Base
   end
 
   def reset_primary_photo_on_remove(*params)
-    update_attributes!(:primary_photo_id => photos.first) unless photos.include?(primary_photo)
+    update_attributes!(:primary_photo => photos.first) unless photos.include?(primary_photo)
   end
 
 end

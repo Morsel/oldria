@@ -191,6 +191,8 @@ describe Restaurant do
     it "selects the first photo added as the primary photo" do
       restaurant = Factory(:restaurant)
       restaurant.photos.create!
+
+      restaurant = Restaurant.find(restaurant.id)
       restaurant.primary_photo.should == restaurant.photos.first
     end
 
@@ -201,14 +203,20 @@ describe Restaurant do
       restaurant.photos.create!
       restaurant.update_attributes!(:primary_photo => primary_photo)
       restaurant.photos.create!
+
+      restaurant = Restaurant.find(restaurant.id)
       restaurant.primary_photo.should == primary_photo
     end
 
     it "unselects primary photo of restaurant when deleted and it is the only photo for the restaurant" do
       restaurant = Factory(:restaurant)
-      restaurant.photos.create!
+      primary_photo = restaurant.photos.create!
+      restaurant.update_attributes!(:primary_photo => primary_photo)
       restaurant = Restaurant.find(restaurant.id)
-      restaurant.photos.delete(restaurant.photos.last)
+
+      restaurant.photos.delete(primary_photo)
+      restaurant = Restaurant.find(restaurant.id)
+
       restaurant.primary_photo.should be_nil
     end
 
@@ -219,7 +227,10 @@ describe Restaurant do
       restaurant.photos.create!
       restaurant.update_attributes!(:primary_photo => restaurant.photos.last)
       restaurant = Restaurant.find(restaurant.id)
+
       restaurant.photos.delete(restaurant.photos.last)
+      restaurant = Restaurant.find(restaurant.id)
+
       restaurant.primary_photo.should == restaurant.photos.first
     end
 
