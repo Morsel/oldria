@@ -37,8 +37,7 @@ class RestaurantsController < ApplicationController
   end
 
   def upload_photo
-    @restaurant.photos << Image.create!(params[:image])
-    @restaurant.update_attributes!(:primary_photo => @restaurant.photos.last) unless @restaurant.primary_photo
+    @restaurant.photos.create!(params[:image])
     redirect_to edit_photos_restaurant_path(@restaurant)
   end
 

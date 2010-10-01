@@ -69,8 +69,8 @@ class Restaurant < ActiveRecord::Base
   has_and_belongs_to_many :restaurant_features,
       :include => {:restaurant_feature_category => :restaurant_feature_page}
 
-  has_many :photos, :class_name => "Image", :as => :attachable, :dependent => :destroy
-  belongs_to :primary_photo, :class_name => "Image", :dependent => :destroy  
+  has_many :photos, :class_name => "Image", :as => :attachable, :dependent => :destroy, :after_add => :reset_primary_photo_on_add, :after_remove => :reset_primary_photo_on_remove
+  belongs_to :primary_photo, :class_name => "Image", :dependent => :destroy
   belongs_to :logo, :class_name => "Image", :dependent => :destroy
 
   validates_presence_of :name, :street1, :city, :state, :zip, :phone_number,
@@ -170,6 +170,13 @@ class Restaurant < ActiveRecord::Base
     TrendQuestion.all.each(&:touch)
   end
 
+  def reset_primary_photo_on_add(*params)
+    update_attributes!(:primary_photo => photos.first) if photos.size == 1
+  end
+
+  def reset_primary_photo_on_remove(*params)
+    update_attributes!(:primary_photo_id => photos.first) unless photos.include?(primary_photo)
+  end
 
 end
 
