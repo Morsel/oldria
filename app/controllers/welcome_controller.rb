@@ -27,6 +27,6 @@ class WelcomeController < ApplicationController
         map(&:admin_discussions).flatten.map(&:comments).flatten
     answers = ProfileAnswer.all(:limit => 10, :order => "created_at DESC")
     
-    @recent_comments = [qotd_comments, trend_comments, answers].flatten.sort { |a,b| b.created_at <=> a.created_at }[0..10]
+    @recent_comments = [qotd_comments, trend_comments, answers].flatten.sort { |a,b| b.created_at <=> a.created_at }[0..9]
   end
 end
