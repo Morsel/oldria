@@ -6,7 +6,7 @@ Feature: admins can create and view calendar events
   Scenario: an admin views their calendar of events
   Given I go to the admin calendars page
   Then I should see a list of events
-  
+
   Scenario: an admin creates a new event
   Given I go to the new admin event page
   And I select "Charity" from "Calendar"

@@ -10,25 +10,27 @@ Feature: Basic Restaurant Data
     And the following media users:
       | username | password | first_name | last_name |
       | fred     | secret   | Fred       | Mercury   |
-      | betty    | secret   | Betty      | Rubble   |
+      | betty    | secret   | Betty      | Rubble    |
+    And "fred" is an employee of "Piece"
+    And "betty" is an employee of "Piece"
 
   Scenario: I enter complete, valid data
     When I go to the edit restaurant page for "Piece"
     And I fill in the following:
-      | Name               | NeoPiece                            |
-      | Description        | This is a modern cuisine restaurant |
-      | Street Address     | 123 Sesame Street                   |
-      | restaurant_street2 | Suite 200                           |
-      | City               | Paris                               |
-      | State              | TX                                  |
-      | Zip                | 12345                               |
-      | Phone Number       | (312) 123-4567                      |
-      | Website            | http://www.restaurant.example.com   |
-      | Twitter Username   | piece                               |
-      | Facebook Page      | http://www.facebook.com/piece       |
-      | Hours              | Mon-Sat 5-11pm                      |
-      | Management Company Name | Lettuce Entertain You          |
-      | Management Company Website | http://www.lettuce.com      |
+      | Name                         | NeoPiece                            |
+      | Tagline or short description | This is a modern cuisine restaurant |
+      | Street Address               | 123 Sesame Street                   |
+      | restaurant_street2           | Suite 200                           |
+      | City                         | Paris                               |
+      | State                        | TX                                  |
+      | Zip                          | 12345                               |
+      | Phone Number                 | (312) 123-4567                      |
+      | Website                      | http://www.restaurant.example.com   |
+      | Twitter Username             | piece                               |
+      | Facebook Page                | http://www.facebook.com/piece       |
+      | Hours                        | Mon-Sat 5-11pm                      |
+      | Management Company Name      | Lettuce Entertain You          |
+      | Management Company Website   | http://www.lettuce.com      |
     And I select "Fred Mercury" from "Media contact"
     When I select "Janaury 22, 2008" as the date
     And I press "Save"

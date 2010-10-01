@@ -8,7 +8,7 @@
 
   <% f.inputs :name => "Basics", :class => "title span-8" do %>
     <%= f.input :name %>
-    <%= f.input :description, :as => :text %>
+    <%= f.input :description, :as => :text, :label => "Tagline or short description" %>
   <% end %>
 
 	<% f.inputs :name => "Address", :class => "span-8 column" do %>
@@ -24,8 +24,8 @@
 
 	<% f.inputs :name => 'Other', :class => "span-9 column last" do %>
     <%= f.input :hours, :as => :text %>
-		<%= f.input :manager %>
-    <%= f.input :media_contact %>
+		<%= f.input :manager, :collection => @restaurant.employees %>
+    <%= f.input :media_contact, :collection => @restaurant.employees %>
 		<%= f.input :cuisine %>
     <%= f.input :opening_date %>
     <%= f.input :website %>
@@ -33,7 +33,6 @@
     <%= f.input :facebook_page, :hint => "Entire URL of your Facebook page" %>
     <%= f.input :management_company_name, :hint => "Just the company name" %>
     <%= f.input :management_company_website, :hint => "Full URL to the company website" %>
-		<%= f.input :facts, :input_html => { :rows => 3 } %>
 	<% end %>
 
 	<p class="clear">
