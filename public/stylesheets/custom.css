@@ -4097,14 +4097,12 @@ form .cke_skin_kama .cke_wrapper {
 
 #recently .identity .avatar {
 	width: 60px;
-	max-width: 60px;
 	float: left;
 	display: inline;
 	margin: 0 12px 12px 0;
 }
 
 #recently .identity img {
-	max-width: 50px;
 	padding: 4px;
 	-webkit-box-shadow: 0 0 5px #ccc;
 	-moz-box-shadow: 0 0 5px #ccc;
