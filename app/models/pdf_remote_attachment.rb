@@ -14,5 +14,5 @@
 #
 
 class PDFRemoteAttachment < RemoteAttachment
-  validates_attachment_content_type :attachment, :content_type => "application/pdf", :message => "Oops, you need to convert that file to PDF to upload it."
+  validates_attachment_content_type :attachment, :content_type => "application/pdf", :message => "You need to convert that file to PDF to upload it."
 end
