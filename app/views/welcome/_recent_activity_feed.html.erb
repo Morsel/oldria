@@ -1,0 +1,40 @@
+<div id="recently">
+    <h2>Recently on Spoonfeed</h2>
+    
+    <% for comment in @recent_comments %>
+    <% if comment.is_a?(ProfileAnswer) %><%# profile answers are not really a comment so they get their own block %>
+    <% div_for comment do %>
+        <div>
+            <h3>Behind the Line</h3>
+            <%= "#{comment.profile_question.chapter.title_with_topic}: #{comment.profile_question.title}" %>            
+            <%= comment.created_at.strftime("%m/%d") %>
+        </div>
+        <div>
+            <%= render :partial => 'users/identity', :locals => { :user => comment.user } %>
+            <%= truncate(comment.answer, :length => 200) %>
+            <% if comment.answer.size > 200 -%><%= link_to "more &raquo;", profile_path(comment.user.username) %><%- end %>
+        </div>
+    <% end %>
+    
+    <% else %><%# comments from trend questions and QOTD %>
+    
+    <%- topic = comment.commentable -%>
+    <% div_for topic do %>
+        <div>
+            <h3><%= topic.inbox_title %></h3>
+            <%= topic.message %>
+            <%= topic.scheduled_at.strftime("%m/%d") %>
+        </div>
+        <% div_for comment do %>
+            <%= render :partial => 'users/identity', :locals => { :user => comment.user } %>
+            <%= truncate(comment.comment, :length => 200) %>
+            <% if comment.comment.size > 200 -%>
+              <%= link_to "more &raquo;", soapbox_path(topic.soapbox_entry, :anchor => "comment_#{comment.id}") %>
+            <%- end %>
+        <% end %>
+    <% end %>
+    <% end %>
+
+    <% end %>
+    
+</div>
