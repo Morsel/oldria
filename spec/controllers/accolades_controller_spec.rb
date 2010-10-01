@@ -2,14 +2,12 @@ require 'spec_helper'
 
 describe AccoladesController do
   integrate_views
-  before do
-    fake_normal_user
-  end
 
   describe "GET new" do
 
     describe "for a user accolade" do
       before do
+        fake_normal_user
         get :new
       end
 
@@ -22,6 +20,7 @@ describe AccoladesController do
       let(:restaurant) { Factory(:restaurant) }
 
       before do
+        fake_admin_user
         get :new, :restaurant_id => restaurant.id
       end
 
@@ -36,6 +35,7 @@ describe AccoladesController do
   describe "GET edit" do
     describe "for a user accolade" do
       before do
+        fake_normal_user
         @profile = Factory(:profile)
         @accolade = Factory(:accolade, :accoladable => @profile)
         Accolade.stubs(:find).returns(@accolade)
@@ -48,6 +48,7 @@ describe AccoladesController do
 
     describe "for a restaurant accolade" do
       before do
+        fake_admin_user
         @profile = Factory(:restaurant)
         @accolade = Factory(:accolade, :accoladable => @profile)
         get :edit, :id => @accolade.id, :restaurant_id => @profile.id
@@ -58,4 +59,30 @@ describe AccoladesController do
     end
 
   end
+
+  describe "POST update" do
+
+    it "blocks a user from editing a restaurant they can't edit" do
+      fake_normal_user
+      @restaurant = Factory(:restaurant)
+      @accolade = Factory(:accolade, :accoladable => @restaurant)
+      post :update, :id => @accolade.id, :restaurant_id => @restaurant.id,
+          :accolade => {:name => "fred"}
+      Accolade.find_by_name("fred").should be_nil
+      response.should render_template(:new)
+    end
+
+  end
+
+  describe "DELETE destroy" do
+    it "blocks a user from deleting a restaurant they can't edit" do
+      fake_normal_user
+      @restaurant = Factory(:restaurant)
+      @accolade = Factory(:accolade, :accoladable => @restaurant, :name => "Top Chef")
+      delete :destroy, :id => @accolade.id, :restaurant_id => @restaurant.id
+      Accolade.find_by_name("Top Chef").should_not be_nil
+      response.should render_template(:new)
+    end
+  end
+
 end
