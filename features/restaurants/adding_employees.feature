@@ -65,7 +65,7 @@ Feature: Associating a Restaurant with its employees
     When I fill in "First Name" with "David"
     And I fill in "Last Name" with "Dinkle"
     And I press "Invite User"
-    Then I should see "invite has been sent"
+    Then I should see "Thanks for recommending a new member"
     
     When I logout
     And I am logged in as an admin

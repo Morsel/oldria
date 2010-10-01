@@ -26,6 +26,8 @@ class TrendQuestion < ActiveRecord::Base
   named_scope :by_scheduled_date, :order => "#{table_name}.scheduled_at desc"
   named_scope :by_subject, :order => "#{table_name}.subject asc"
 
+  named_scope :current, :conditions => ['scheduled_at < ? OR scheduled_at IS NULL', Time.zone.now]
+
   before_save :update_restaurants_from_search_criteria
 
   def self.title

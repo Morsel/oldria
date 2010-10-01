@@ -67,7 +67,7 @@
       </div>
     <% end %>
 
-    <% div_if @restaurant.management_company_name, :id => "management_company" do %>
+    <% div_if @restaurant.management_company_name.present?, :id => "management_company" do %>
       <br/>
       Managed by:
       <% if @restaurant.management_company_website %>

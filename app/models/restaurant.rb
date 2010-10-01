@@ -82,6 +82,11 @@ class Restaurant < ActiveRecord::Base
       :message => "Needs to be a valid URL",
       :allow_blank => true
 
+  validates_format_of :facebook_page,
+      :with => %r{^http://www\.facebook\.com(.*)},
+      :allow_blank => true,
+      :message => "Facebook page must start with http://www.facebook.com"
+
   # For pagination
   cattr_reader :per_page
   @@per_page = 15

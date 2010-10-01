@@ -5,7 +5,8 @@
     </div>
   <% end %>
 
-  <% employment ||= user.primary_employment %>
+  <% employment ||= user.primary_employment
+     highlight_restaurant ||= false %>
 
-  <%= identity_details_list(employment, highlight_restaurant) %>
+  <%= identity_details_list(employment, highlight_restaurant) unless employment.nil? %>
 </div>

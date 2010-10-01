@@ -197,6 +197,11 @@ Then /^I should see an error message$/ do
   response.should have_selector("#errorExplanation")
 end
 
+Given /^"([^\"]*)" is an employee of "([^\"]*)"$/ do |username, restaurant_name|
+  user = User.find_by_username(username)
+  restaurant = Restaurant.find_by_name(restaurant_name)
+  user.restaurants << restaurant
+end
 Then /^I should have a photo with the file "([^"]*)"$/ do |filename|
   response.should have_selector("img.restaurant_photo[src*=\"#{filename}\"]")
 end

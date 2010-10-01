@@ -42,7 +42,6 @@ Feature: Trend questions
     And the restaurant "Newbie McGee" is in the region "Midwest"
     Then the trend question with subject "Are Cucumbers tasty?" should have 2 restaurants
 
-
   Scenario: Only applicable employees can see the trend question
     Given I am logged in as an admin
     When I create a new trend question with subject "Chefs only" with criteria:
@@ -69,7 +68,6 @@ Feature: Trend questions
     And the last trend question for "Normal Pants" should be viewable by "Jim Smith"
     And the last trend question for "Normal Pants" should be viewable by "Sam Smith"
 
-
   Scenario: Restaurant folks can respond to trend questions
     Given I am logged in as an admin
     When I create a new trend question with subject "My river runs blue" with criteria:
@@ -83,7 +81,7 @@ Feature: Trend questions
     And I fill in "Post" with "But my river is green"
     And I press "Send"
     Then the discussion for the trend question with subject "My river runs blue" should have 1 comment
-    
+
   Scenario: A user can edit their trend question comment
     Given I am logged in as an admin
     When I create a new trend question with subject "Microbiology!" with criteria:

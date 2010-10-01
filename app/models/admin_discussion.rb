@@ -19,13 +19,8 @@ class AdminDiscussion < ActiveRecord::Base
   acts_as_commentable
   validates_uniqueness_of :restaurant_id, :scope => [:discussionable_id, :discussionable_type]
 
-  # named_scope :current, lambda {
-  #   { :joins => :discussionable,
-  #     :conditions => 'scheduled_at < now() OR scheduled_at IS NULL'}
-  #   }
   named_scope :with_replies, :conditions => "#{table_name}.comments_count > 0"
   named_scope :without_replies, :conditions => "#{table_name}.comments_count = 0"
-
 
   def message
     [discussionable.subject, discussionable.body].reject(&:blank?).join(": ")
@@ -41,6 +36,10 @@ class AdminDiscussion < ActiveRecord::Base
 
   def scheduled_at
     discussionable.scheduled_at
+  end
+
+  def soapbox_entry
+    admin_message.soapbox_entry
   end
 
   def employments

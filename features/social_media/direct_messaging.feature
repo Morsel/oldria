@@ -23,18 +23,20 @@ Feature: Direct messaging
     And "getterboy" should have 1 direct message
 
 
-  Scenario: See a direct message in an "inbox" on the dashboard
+  Scenario: See a direct message in an "inbox"
     Given "getterboy" has 1 direct message from "senderman"
     And I am logged in as "getterboy" with password "secret"
-    When I am on the homepage
+    When I am on my inbox
+    And I follow "Private Messages (1)"
     Then I should see a message from "senderman"
 
 
-  Scenario: Reply to a message from the dashboard
+  Scenario: Reply to a message
     Given "getterboy" has 1 direct message from "senderman"
     And I am logged in as "getterboy" with password "secret"
-    When I am on the homepage
-    And I follow "less than a minute ago Albert Albert This is a message"
+    When I am on my inbox
+    And I follow "Private Messages (1)"
+    And I follow "Reply"
     Then I should see "Albert Albert sent you a message"
 
     When I fill in "Body" with "This is my reply"
