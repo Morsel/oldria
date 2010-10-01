@@ -15,4 +15,12 @@
 
 class PDFRemoteAttachment < RemoteAttachment
   validates_attachment_content_type :attachment, :content_type => "application/pdf", :message => "You need to convert that file to PDF to upload it."
+
+  HUMAN_ATTRIBUTES = {
+          :attachment_content_type => ""
+  }
+
+  def self.human_attribute_name(attr)
+    HUMAN_ATTRIBUTES[attr.to_sym] || super
+  end
 end
