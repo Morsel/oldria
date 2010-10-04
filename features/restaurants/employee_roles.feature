@@ -37,15 +37,13 @@ Feature: Employee roles
     And "Betty Davis" should be a "Chef" at "Restaurant du Jour"
 
 
-  # Scenario: Assigning Roles when adding new Employee
-  #   When I follow "Add employee"
-  #   And I fill in "Employee Email" with "newbie@example.com"
-  #   And I select "Chef" from "Restaurant role"
-  #   And I press "Submit"
-  #   And I fill in "First Name" with "David"
-  #   And I fill in "Last Name" with "Dinkle"
-  #   And I fill in "Username" with "daviddinkle"
-  #   And I fill in "Temporary Password" with "secret"
-  #   And I fill in "Password Confirmation" with "secret"
-  #   And I press "Invite Employee"
-  #   Then "David Dinkle" should be a "Chef" at "Restaurant du Jour"
+  Scenario: Assigning Roles when adding new Employee
+    When I follow "Add employee"
+    And I fill in "Employee Email" with "newbie@example.com"
+    And I select "Chef" from "Restaurant role"
+    And I press "Submit"
+    And I fill in "First Name" with "David"
+    And I fill in "Last Name" with "Dinkle"
+    And I fill in "Username" with "daviddinkle"
+    And I press "Invite Employee"
+    Then "David Dinkle" should be a "Chef" at "Restaurant du Jour"
