@@ -5,6 +5,10 @@
 
 <%= render :partial => 'basic_info' %>
 
+<% div_if(@restaurant.accolades.present?, :class => "accolade_link") do %>
+  <%= link_to "See accolades",  soapbox_restaurant_accolades_path(@restaurant) %>
+<% end %>
+
 <div id="page_header_navigation" class="span-3 last">
   <%= render :partial => 'page_header_navigation',
       :collection => @restaurant.feature_pages, :as => :feature_page %>

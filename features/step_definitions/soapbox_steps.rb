@@ -53,4 +53,10 @@ Then /^I do not see a page header for "([^\"]*)"$/ do |page|
   response.should_not have_selector(".feature_page_header", :content => page)
 end
 
+Then /^I should see an accolade link$/ do
+  response.should have_selector(".accolade_link")
+end
 
+Then /^I should not see an accolade link$/ do
+  response.should_not have_selector(".accolade_link")
+end

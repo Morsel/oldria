@@ -26,6 +26,12 @@ describe Accolade do
     accolade.should be_restaurant
   end
 
+  it "sorts by run date" do
+    accolade1 = Factory.create(:accolade, :run_date => 1.year.ago)
+    accolade2 = Factory.create(:accolade, :run_date => 1.day.ago)
+    Accolade.by_run_date.all.should == [accolade2, accolade1]
+  end
+
 end
 
 # == Schema Information

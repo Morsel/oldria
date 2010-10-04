@@ -26,6 +26,8 @@ class Accolade < ActiveRecord::Base
   validates_format_of :link, :with => /^https?\:\/\//, :allow_blank => true,
     :message => "needs to begin with 'http'. You can copy a URL from the Address bar in your browser"
 
+  named_scope :by_run_date, :order => "run_date DESC"
+
   def restaurant?
     accoladable.is_a?(Restaurant)
   end
