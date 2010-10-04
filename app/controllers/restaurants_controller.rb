@@ -1,7 +1,7 @@
 class RestaurantsController < ApplicationController
   before_filter :require_user
   before_filter :authenticate, :only => [:edit, :update]
-  before_filter :find_restaurant, :only => [:upload_logo, :select_primary_photo]
+  before_filter :find_restaurant, :only => [:select_primary_photo]
 
   def new
     @restaurant = current_user.managed_restaurants.build
@@ -33,15 +33,6 @@ class RestaurantsController < ApplicationController
       redirect_to restaurant_employees_path(@restaurant)
     else
       render :new
-    end
-  end
-
-  def upload_logo
-    @restaurant.logo = Image.new(params[:logo])
-    if @restaurant.save
-      redirect_to edit_restaurant_path(@restaurant)
-    else
-      render :action => :edit
     end
   end
 
