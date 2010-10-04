@@ -122,6 +122,10 @@ describe EmployeesController do
       it "should assign a found employee" do
         assigns[:employment].employee.name.should == "John Doe"
       end
+      
+      it "should set the user's password (to a random token)" do
+        assigns[:employee].password.should_not be_nil
+      end
 
       it { should redirect_to(restaurant_employees_path(@restaurant))}
 
