@@ -89,6 +89,7 @@ describe EmployeesController do
 
   describe "POST create" do
     context "when user exists" do
+      
       before(:each) do
         @employment.stubs(:save).returns(true)
         post :create, :restaurant_id => @restaurant.id, :employment=> {:employee_email => "john@example.com"}
@@ -97,22 +98,20 @@ describe EmployeesController do
       it "should assign @restaurant" do
         assigns[:restaurant].should == @restaurant
       end
-
+      
       it "should assign a found employee" do
         assigns[:employment].employee.should == @employee
       end
 
-      it { should redirect_to(restaurant_employees_path(@restaurant))}
+      it { should redirect_to(edit_restaurant_employee_path(@restaurant, @employee)) }
+      
     end
 
     context "when user is new and valid" do
+      
       before(:each) do
         user_attrs = Factory.attributes_for(:user, :name => "John Doe", :email => 'john@simple.com')
-        User.stubs(:find)
-        User.any_instance.stubs(:valid?).returns(true)
-        User.any_instance.stubs(:save).returns(true)
-        Employment.any_instance.stubs(:save).returns(true)
-        post :create, :restaurant_id => @restaurant.id, :employment=> {:employee_attributes => user_attrs }
+        post :create, :restaurant_id => @restaurant.id, :employment => { :employee_attributes => user_attrs }
       end
 
       it "should assign @restaurant" do
@@ -122,25 +121,27 @@ describe EmployeesController do
       it "should assign a found employee" do
         assigns[:employment].employee.name.should == "John Doe"
       end
-      
+
       it "should set the user's password (to a random token)" do
         assigns[:employee].password.should_not be_nil
       end
 
-      it { should redirect_to(restaurant_employees_path(@restaurant))}
+      it { should redirect_to(edit_restaurant_employee_path(@restaurant, assigns[:employee])) }
 
     end
 
     context "when user is new but invalid" do
+      
       before(:each) do
         user_attrs = Factory.attributes_for(:user, :name => "John Doe", :email => 'john@simple.com')
         User.stubs(:find_by_email)
         User.any_instance.stubs(:valid?).returns(false)
         Employment.any_instance.stubs(:save).returns(false)
-        post :create, :restaurant_id => @restaurant.id, :employment=> {:employee_attributes => user_attrs }
+        post :create, :restaurant_id => @restaurant.id, :employment => { :employee_attributes => user_attrs }
       end
 
       it { should render_template(:new_employee) }
+
     end
   end
 
