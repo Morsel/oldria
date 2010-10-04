@@ -6,11 +6,11 @@ Feature: Restaurant profile
     Given a restaurant named "Piece"
 
   Scenario: Show basic data
-  	Given I am logged in as an admin
+    Given I am logged in as an admin
     When I go to the restaurant photo upload page for Piece
     And I attach the file "/features/images/bourgeoispig.jpg" to "image_attachment"
     And I press "Upload"
-    When I go to the edit restaurant page for Piece
+    When I go to the edit restaurant page for "Piece"
     And I attach the file "/features/images/bourgeoispig_logo.gif" to "restaurant_logo_attributes_attachment"
     And I press "Save"
     When I go to the restaurant menu upload page for Piece

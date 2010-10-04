@@ -1,7 +1,7 @@
 class RestaurantsController < ApplicationController
   before_filter :require_user
   before_filter :authenticate, :only => [:edit, :update]
-  before_filter :find_restaurant, :only => [:upload_photo, :edit_photos, :upload_logo, :select_primary_photo]  
+  before_filter :find_restaurant, :only => [:upload_logo, :select_primary_photo]
 
   def new
     @restaurant = current_user.managed_restaurants.build
@@ -36,20 +36,6 @@ class RestaurantsController < ApplicationController
     end
   end
 
-  def upload_photo
-    @image = @restaurant.photos.create(params[:image])
-    if @image.valid?
-      redirect_to edit_photos_restaurant_path(@restaurant)
-    else
-      @restaurant.photos.reload
-      render :action => :edit_photos
-    end
-  end
-
-  def edit_photos
-
-  end
-
   def upload_logo
     @restaurant.logo = Image.new(params[:logo])
     if @restaurant.save
@@ -62,19 +48,19 @@ class RestaurantsController < ApplicationController
   def select_primary_photo
     if @restaurant.update_attributes(params[:restaurant])
       flash[:notice] = "Successfully updated restaurant"
-      redirect_to edit_photos_restaurant_path(@restaurant)
+      redirect_to restaurant_photos_path(@restaurant)
     else
       flash[:error] = "We were unable to update the restaurant"
-      render :edit_photos
+      render :template => "photos/edit"
     end
-  end  
+  end
 
   private
 
   def find_restaurant
-    @restaurant = Restaurant.find(params[:id])    
-  end  
-  
+    @restaurant = Restaurant.find(params[:id])
+  end
+
   def authenticate
     find_restaurant
     if cannot? :edit, @restaurant

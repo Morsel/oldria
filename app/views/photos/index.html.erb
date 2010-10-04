@@ -1,6 +1,6 @@
 <h2>Photos:</h2>
 <div>
-  <% form_for :image, :url => upload_photo_restaurant_path(@restaurant), :html => { :multipart => true } do |image_form| %>
+  <% form_for :image, :url => restaurant_photos_path(@restaurant), :html => { :multipart => true } do |image_form| %>
       <%= image_form.error_messages %>
       <%= image_form.file_field 'attachment' %>
       <%= image_form.submit 'Upload' %>

@@ -35,7 +35,6 @@ Feature: Adding accolades to a restaurant
     When I go to the soapbox restaurant profile for Restaurant
     Then I should not see an accolade link
 
-  @wip
   Scenario: Accolade interior page display
     Given an accolade for "Restaurant" named "Best Restaurant" dated "September 2, 2009"
     Given an accolade for "Restaurant" named "Extra Yummy" dated "September 10, 2010"
