@@ -14,8 +14,6 @@
     <%= f.input :last_name, :input_html => {:class => 'span-4'}, :wrapper_html => {:class => 'span-4 column'} %>
     <%= f.input :username, :hint => 'For someone whose name is "Jim Doe", a good username might be "JimDoe"', :wrapper_html => {:class => 'clear'}, :required => true %>
     <%= f.input :email, :wrapper_html => {:class => 'clear'} %>
-    <%= f.input :password, :input_html => {:autocomplete => "off"}, :required => true, :label => "Temporary Password" %>
-    <%= f.input :password_confirmation, :input_html => {:autocomplete => "off"}, :required => true %>
     <% end -%>
   <% end -%>
 
