@@ -98,7 +98,7 @@ class Restaurant < ActiveRecord::Base
   end
 
   def missing_subject_matter_ids
-    (SubjectMatter.all(:select => :id).map(&:id) - handled_subject_matter_ids)
+    (SubjectMatter.general.all(:select => :id).map(&:id) - handled_subject_matter_ids)
   end
 
   def update_admin_discussions
