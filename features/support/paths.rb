@@ -60,7 +60,7 @@ module NavigationHelpers
     when /the restaurant feature page for "(.+)"/
       restaurant_features_path(Restaurant.find_by_name($1))
     when /^the restaurant menu upload page for (.+)$/
-      restaurant_menus_path(Restaurant.find_by_name($1))    
+      restaurant_menus_path(Restaurant.find_by_name($1))
 
     # Media Requests
     when /^the media request discussion page$/
@@ -93,7 +93,7 @@ module NavigationHelpers
       new_admin_holiday_path
     when /^the new trend question page/
       new_admin_trend_question_path
-    when /^the list of trend questions$/ 
+    when /^the list of trend questions$/
       admin_trend_questions_path
     when /^the new PR Tip page$/
       new_admin_pr_tip_path
@@ -112,7 +112,7 @@ module NavigationHelpers
     when /^the admin invitations page$/
       admin_invitations_path
     when /^the restaurant photo upload page for (.+)$/
-      edit_photos_restaurant_path(Restaurant.find_by_name($1))
+      restaurant_photos_path(Restaurant.find_by_name($1))
     when /^the admin restaurant feature page$/
       admin_restaurant_features_path
     when /^the restaurant photo upload page for (.+)$/

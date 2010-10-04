@@ -71,8 +71,6 @@ ActionController::Routing::Routes.draw do |map|
 
   map.resources :restaurants,
                 :member => {
-                        :edit_photos => :get,
-                        :upload_photo => :post,
                         :edit_logo => :get,
                         :select_primary_photo => :post
                 } do |restaurant|

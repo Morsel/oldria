@@ -14,7 +14,6 @@ Feature: Basic Restaurant Data
     And "fred" is an employee of "Piece"
     And "betty" is an employee of "Piece"
 
-
   Scenario: I enter complete, valid data
     When I go to the edit restaurant page for "Piece"
     And I fill in the following:
