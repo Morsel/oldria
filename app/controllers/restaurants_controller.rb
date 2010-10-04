@@ -1,7 +1,7 @@
 class RestaurantsController < ApplicationController
   before_filter :require_user
   before_filter :authenticate, :only => [:edit, :update]
-  before_filter :find_restaurant, :only => [:upload_photo, :edit_photos, :upload_logo, :select_primary_photo]  
+  before_filter :find_restaurant, :only => [:upload_photo, :edit_photos, :upload_logo, :select_primary_photo]
 
   def new
     @restaurant = current_user.managed_restaurants.build
@@ -67,14 +67,14 @@ class RestaurantsController < ApplicationController
       flash[:error] = "We were unable to update the restaurant"
       render :edit_photos
     end
-  end  
+  end
 
   private
 
   def find_restaurant
-    @restaurant = Restaurant.find(params[:id])    
-  end  
-  
+    @restaurant = Restaurant.find(params[:id])
+  end
+
   def authenticate
     find_restaurant
     if cannot? :edit, @restaurant

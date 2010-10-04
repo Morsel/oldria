@@ -5,9 +5,9 @@ ActionController::Routing::Routes.draw do |map|
   map.fb_login 'facebook_login', :controller => 'user_sessions', :action => 'create_from_facebook'
 
   map.resources :invitations, :only => ['new', 'create', 'show']
-  map.resource :complete_registration, :only => [:show, :update], 
+  map.resource :complete_registration, :only => [:show, :update],
     :collection => { :find_restaurant => :any, :contact_restaurant => :post }
-  
+
   map.directory 'directory', :controller => 'directory', :action => 'index'
 
 #  map.with_options :conditions => {:subdomain => 'soapbox'} do |soapbox_subdomain|
@@ -74,7 +74,6 @@ ActionController::Routing::Routes.draw do |map|
                         :edit_photos => :get,
                         :upload_photo => :post,
                         :edit_logo => :get,
-                        :upload_logo => :post,
                         :select_primary_photo => :post
                 } do |restaurant|
     restaurant.media_requests 'media_requests', :controller => 'media_requests', :action => 'index'
@@ -86,7 +85,7 @@ ActionController::Routing::Routes.draw do |map|
     restaurant.resources :photos
     restaurant.resource :logo
     restaurant.resources :accolades
-    restaurant.resources 
+    restaurant.resources
   end
 
   map.resources :user_sessions, :password_resets, :followings, :pages
