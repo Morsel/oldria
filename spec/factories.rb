@@ -162,7 +162,7 @@ Factory.define :restaurant do |f|
   f.association :cuisine
 end
 
-Factory.define :managed_restaurant, :parent => :restaurant do |f|
+Factory.define :managed_restaurant, :parent => :restaurant do |f|f
   f.association :manager, :factory => :user
 end
 

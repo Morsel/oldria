@@ -37,8 +37,13 @@ class RestaurantsController < ApplicationController
   end
 
   def upload_photo
-    @restaurant.photos.create!(params[:image])
-    redirect_to edit_photos_restaurant_path(@restaurant)
+    @image = @restaurant.photos.create(params[:image])
+    if @image.valid?
+      redirect_to edit_photos_restaurant_path(@restaurant)
+    else
+      @restaurant.photos.reload
+      render :action => :edit_photos
+    end
   end
 
   def edit_photos
@@ -46,8 +51,12 @@ class RestaurantsController < ApplicationController
   end
 
   def upload_logo
-    @restaurant.update_attributes!(:logo => Image.create!(params[:logo]))
-    redirect_to edit_restaurant_path(@restaurant)
+    @restaurant.logo = Image.new(params[:logo])
+    if @restaurant.save
+      redirect_to edit_restaurant_path(@restaurant)
+    else
+      render :action => :edit
+    end
   end
 
   def select_primary_photo

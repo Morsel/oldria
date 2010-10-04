@@ -14,11 +14,25 @@ Feature: Restaurant Images
     And I press "Upload"
     Then I see the uploaded restaurant photo
 
+  Scenario: Upload a photo fails when content type is not an image
+    When I go to the restaurant photo upload page for Bourgeois Pig
+    And I attach the file "/features/images/menu1.pdf" to "image_attachment"
+    And I press "Upload"
+    Then I see no restaurant photos
+    And I should see an error message
+
   Scenario: Upload logo
     When I go to the edit restaurant page for "Bourgeois Pig"
-    And I attach the file "/features/images/bourgeoispig_logo.gif" to "logo_attachment"
-    And I press "Upload"
+    And I attach the file "/features/images/bourgeoispig_logo.gif" to "restaurant_logo_attributes_attachment"
+    And I press "Save"
+    When I go to the edit restaurant page for "Bourgeois Pig"
     Then I see the restaurant logo
+
+  Scenario: Upload logo fails when content type is not an image
+    When I go to the edit restaurant page for "Bourgeois Pig"
+    And I attach the file "/features/images/menu1.pdf" to "restaurant[logo_attributes][attachment]"
+    And I press "Save"
+    Then I should see an error message
 
   Scenario: Select Primary Photo
     When I go to the restaurant photo upload page for Bourgeois Pig
@@ -63,9 +77,10 @@ Feature: Restaurant Images
 
   Scenario: Remove the restaurant logo
     When I go to the edit restaurant page for "Bourgeois Pig"
-    And I attach the file "/features/images/bourgeoispig_logo.gif" to "logo_attachment"
-    And I press "Upload"
-    When I remove the restaurant logo
+    And I attach the file "/features/images/bourgeoispig_logo.gif" to "restaurant_logo_attributes_attachment"
+    And I press "Save"
+    When I go to the edit restaurant page for "Bourgeois Pig"
+    And I remove the restaurant logo
     Then I should not see the restaurant logo
 
   Scenario: Remove a restaurant photo that is the primary photo with other photos existing

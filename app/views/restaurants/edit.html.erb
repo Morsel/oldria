@@ -1,11 +1,12 @@
+<% @restaurant.logo ||= Image.new %>
 <% title "Editing Restaurant" %>
 
 <% content_for :head do -%>
   <%= stylesheet_link_tag 'colorbox' %>
 <% end -%>
 
-<% semantic_form_for(@restaurant) do |f| %>
-
+<% semantic_form_for(@restaurant, :html => { :multipart => true }) do |f| %>
+<%= f.error_messages %>
   <% f.inputs :name => "Basics", :class => "title span-8" do %>
     <%= f.input :name %>
     <%= f.input :description, :as => :text, :label => "Tagline or short description" %>
@@ -35,6 +36,16 @@
     <%= f.input :management_company_website, :hint => "Full URL to the company website" %>
 	<% end %>
 
+    <% f.inputs :name => 'Logo', :class => "span-17 column last clear", :id => "logo" do %>
+
+        <% f.semantic_fields_for :logo do |logo_fields| %>
+            <%= image_tag @restaurant.logo.attachment.url(:medium), :id => "restaurant_logo_image" %>
+            <%= logo_fields.input :attachment, :as => :file %>
+            <%= link_to "Remove", restaurant_logo_path(@restaurant, @restaurant.logo), :method => :delete, :confirm => "Are you sure you want to remove the logo?" %>
+        <% end %>
+    <% end %>
+
+
 	<p class="clear">
 		<%= button_tag "Save", :class => 'positive' %>
 	</p>
@@ -45,16 +56,6 @@
         :association => "accolades",
         :caption => "Accolades",
         :form_path => new_restaurant_accolade_path(@restaurant)} %>
-
-<% semantic_form_for :logo, @restaurant.logo, :url => upload_logo_restaurant_path(@restaurant), :html => { :multipart => true } do |logo_form| %>
-    <% logo_form.inputs :name => 'Logo', :class => "span-17 column last clear", :id => "logo" do %>
-        <% logo = @restaurant.logo || Image.new %>
-        <%= image_tag logo.attachment.url(:medium), :id => "restaurant_logo" %>
-        <%= logo_form.file_field 'attachment' %>
-        <%= logo_form.submit 'Upload', :class => 'clear' %>
-        <%= link_to "Remove", restaurant_logo_path(@restaurant, logo), :method => :delete, :confirm => "Are you sure you want to remove the logo?" %>
-    <% end %>
-<% end %>
 
 <p>
 	<%= link_to "Edit Restaurant employees", restaurant_employees_path(@restaurant), :class => 'button' %>

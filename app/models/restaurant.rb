@@ -73,6 +73,8 @@ class Restaurant < ActiveRecord::Base
   belongs_to :primary_photo, :class_name => "Image", :dependent => :destroy
   belongs_to :logo, :class_name => "Image", :dependent => :destroy
 
+  accepts_nested_attributes_for :logo
+
   validates_presence_of :name, :street1, :city, :state, :zip, :phone_number,
       :metropolitan_area, :website, :media_contact, :hours, :cuisine, :opening_date
 
@@ -170,11 +172,11 @@ class Restaurant < ActiveRecord::Base
     TrendQuestion.all.each(&:touch)
   end
 
-  def reset_primary_photo_on_add(*params)
-    update_attributes!(:primary_photo => photos.first) if photos.size == 1
+  def reset_primary_photo_on_add(added_photo)
+    update_attributes!(:primary_photo => photos.first) if added_photo.valid? && primary_photo.nil?
   end
 
-  def reset_primary_photo_on_remove(*params)
+  def reset_primary_photo_on_remove(removed_photo)
     update_attributes!(:primary_photo => photos.first) unless photos.include?(primary_photo)
   end
 

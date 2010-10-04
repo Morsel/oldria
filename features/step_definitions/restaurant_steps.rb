@@ -154,13 +154,14 @@ Then /^I see the uploaded restaurant photo$/ do
 end
 
 Then /^I see the restaurant logo$/ do
+  @restaurant = Restaurant.find(@restaurant.id)
   filename = "http://spoonfeed.s3.amazonaws.com/cucumber/images/#{@restaurant.reload.logo.id}/medium/bourgeoispig_logo.gif"
-  response.should have_selector("img#restaurant_logo[src*=\"#{filename}\"]")
+  response.should have_selector("img#restaurant_logo_image[src*=\"#{filename}\"]")
 end
 
 Then /^I should not see the restaurant logo$/ do
   filename = "missing.png"
-  response.should have_selector("img#restaurant_logo[src*=\"#{filename}\"]")
+  response.should have_selector("img#restaurant_logo_image[src*=\"#{filename}\"]")
 end
 
 

@@ -1,5 +1,7 @@
 Given /^a restaurant named "([^\"]*)"$/ do |name|
   @restaurant = Factory(:managed_restaurant, :name => name)
+  employment = Factory(:employment, :restaurant => @restaurant)
+  @restaurant.update_attributes!(:media_contact => employment.employee)
 end
 
 Then /^I see the restaurant's name as "([^\"]*)"$/ do |name|
@@ -93,6 +95,8 @@ end
 
 Then /^I see the following restaurant fields:$/ do |fields|
   fields.rows_hash.each do |field, name|
+    puts field
+    puts name
     response.should have_selector("##{field}", :content => name)
   end
 end
