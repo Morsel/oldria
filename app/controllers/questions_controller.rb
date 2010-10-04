@@ -12,9 +12,9 @@ class QuestionsController < ApplicationController
     @previous_topic = @chapter.topic.previous_for_user(@user, is_self)
     @next_topic = @chapter.topic.next_for_user(@user, is_self)
 
-    @questions = @user == current_user ? 
+    @questions = is_self ? 
         @user.profile_questions.for_chapter(params[:chapter_id]) :
-        @user.profile_questions.answered_for_chapter(params[:chapter_id])
+        ProfileQuestion.answered_for_user(@user).for_chapter(params[:chapter_id])
   end
 
   def topics

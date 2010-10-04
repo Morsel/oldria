@@ -39,7 +39,7 @@ class ProfileQuestion < ActiveRecord::Base
   }
   
   named_scope :answered_for_chapter, lambda { |chapter_id|
-    { :joins => :chapter, :conditions => ["chapters.id = ?", chapter_id] }
+    { :joins => [:chapter, :profile_answers], :conditions => ["chapters.id = ?", chapter_id] }
   }
   
   def topic
