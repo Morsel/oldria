@@ -39,7 +39,7 @@ class AdminDiscussion < ActiveRecord::Base
   end
 
   def soapbox_entry
-    admin_message.soapbox_entry
+    discussionable.soapbox_entry
   end
 
   def employments
