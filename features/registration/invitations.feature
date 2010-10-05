@@ -26,11 +26,14 @@ Feature: users can be invited to join Spoonfeed by registered SF users, restaura
     And I go to the admin invitations page
     And I follow "accept"
     Then "mariahcarpenter" should be a confirmed user
-    # one email for the you've been invited message, one for the approval
+    # one invitation welcome message, one confirmation with log in link
     And "mc@restaurants.com" should have 2 emails
-    
+
     When I logout
-    And "mc@restaurants.com" opens the email with subject "SpoonFeed: You're invited"
+    And "mc@restaurants.com" opens the email with subject "Thanks for your interest in Spoonfeed!"
+    Then they should see "Thanks, Ellen" in the email body
+    
+    When "mc@restaurants.com" opens the email with subject "SpoonFeed: You're invited"
     Then I should see an invitation URL in the email body
     
     When I click the first link in the email
@@ -68,7 +71,8 @@ Feature: users can be invited to join Spoonfeed by registered SF users, restaura
     And I go to the admin invitations page
     And I follow "accept"
     Then "maggiedavis" should be a confirmed user
-    And "davis@restaurants.com" should have 1 email
+    # one to confirm the invite was requested, one after approval
+    And "davis@restaurants.com" should have 2 emails
     
     When I logout
     And "davis@restaurants.com" opens the email with subject "SpoonFeed: You're invited"
@@ -97,7 +101,7 @@ Feature: users can be invited to join Spoonfeed by registered SF users, restaura
     And I go to the admin invitations page
     And I follow "accept"
     Then "marleenfisher" should be a confirmed user
-    And "fish@restaurants.com" should have 1 email
+    And "fish@restaurants.com" should have 2 emails
     
     When I logout
     And "fish@restaurants.com" opens the email with subject "SpoonFeed: You're invited"
