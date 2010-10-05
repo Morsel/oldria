@@ -1,6 +1,5 @@
 <% content_tag_for :li, accolade do %>
-  <%= accolade.name %>, <%= accolade.run_date.try(:strftime, "%B %Y") %> (<%= accolade.media_type %>)<br/>
-  <%= link_to accolade.link, accolade.link %><br/>
+  <%= link_to accolade.name, accolade.link %>, <%= accolade.run_date.try(:strftime, "%B %Y") %> (<%= accolade.media_type %>)<br/>
   <% if action_name != 'show' %>
   <%= link_to "Edit", edit_my_profile_accolade_path(accolade), :class => 'colorbox' %>
   <%= link_to "Destroy", my_profile_accolade_path(accolade), :method => :delete, :class => 'delete' %>

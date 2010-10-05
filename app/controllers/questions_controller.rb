@@ -1,17 +1,25 @@
 class QuestionsController < ApplicationController
   
   before_filter :require_user
-  before_filter :get_user
+  before_filter :get_user, :except => :show
   
   def index
     @chapter = Chapter.find(params[:chapter_id])
-    @previous = @chapter.previous_for_user(@user)
-    @next = @chapter.next_for_user(@user)
-    @previous_topic = @chapter.topic.previous_for_user(@user)
-    @next_topic = @chapter.topic.next_for_user(@user)
-    @questions = @user == current_user ? 
+
+    is_self = @user == current_user
+    @previous = @chapter.previous_for_user(@user, is_self)
+    @next = @chapter.next_for_user(@user, is_self)
+    @previous_topic = @chapter.topic.previous_for_user(@user, is_self)
+    @next_topic = @chapter.topic.next_for_user(@user, is_self)
+
+    @questions = is_self ? 
         @user.profile_questions.for_chapter(params[:chapter_id]) :
-        @user.profile_questions.answered.for_chapter(params[:chapter_id])
+        ProfileQuestion.answered_for_user(@user).for_chapter(params[:chapter_id])
+  end
+  
+  def show
+    @question = ProfileQuestion.find(params[:id])
+    @answers = @question.profile_answers.all(:order => "created_at DESC")
   end
 
   def topics
@@ -23,8 +31,9 @@ class QuestionsController < ApplicationController
   
   def chapters
     @topic = Topic.find(params[:topic_id])
-    @previous = @topic.previous_for_user(@user)
-    @next = @topic.next_for_user(@user)
+    is_self = @user == current_user
+    @previous = @topic.previous_for_user(@user, is_self)
+    @next = @topic.next_for_user(@user, is_self)
     @questions_by_chapter = @user.profile_questions.
         all(:conditions => { :chapter_id => @topic.chapters.map(&:id) }, :joins => :chapter, 
         :order => "chapters.position, chapters.id").

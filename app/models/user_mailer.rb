@@ -31,8 +31,16 @@ class UserMailer < ActionMailer::Base
     from          'accounts@restaurantintelligenceagency.com'
     recipients    user.email
     sent_on       Time.now
-    subject       "SpoonFeed: You've been added"
+    subject       "SpoonFeed: You're invited"
     body          :user => user, :invitation_sender => invitation_sender
+  end
+  
+  def employee_request(restaurant, user)
+    from          'accounts@restaurantintelligenceagency.com'    
+    recipients    restaurant.manager.email
+    sent_on       Time.now
+    subject       "SpoonFeed: a new employee has joined"
+    body          :recipient => restaurant.manager, :user => user, :restaurant => restaurant
   end
 
   def discussion_notification(discussion, user)
@@ -42,7 +50,15 @@ class UserMailer < ActionMailer::Base
     subject     "SpoonFeed: #{discussion.poster.try :name} has invited you to a discussion"
     body        :discussion => discussion, :user => user
   end
-
+  
+  def invitation_welcome(invite)
+    from        'notifications@restaurantintelligenceagency.com'
+    recipients  invite.email
+    sent_on     Time.now
+    subject     "Thanks for your interest in Spoonfeed!"
+    body        :invitation => invite
+  end
+  
   ##
   # Generic message: could be one of DirectMessage, etc.
   def message_notification(message, recipient, sender = nil)

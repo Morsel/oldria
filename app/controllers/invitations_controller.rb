@@ -1,17 +1,41 @@
 class InvitationsController < ApplicationController
-  before_filter :logout_current_user
-  before_filter :find_user_from_params
+  before_filter :find_user_from_params, :only => [:show]
+  
+  def new
+    if params[:invitation]
+      @invitation = current_user ? 
+        Invitation.new(params[:invitation].merge(:requesting_user_id => current_user.id)) : 
+        Invitation.new(params[:invitation])
+    else
+      @invitation = current_user ? Invitation.new(:requesting_user_id => current_user.id) : Invitation.new
+    end
+  end
+  
+  def create
+    @invitation = Invitation.new(params[:invitation])
+    if @invitation.save
+      flash[:notice] = "Thanks for recommending a new member for Spoonfeed! We’ll shoot them an invitation as soon as our system can accept new members."
+      redirect_to root_path
+    else
+      render :new
+    end
+  end
 
   def show
     if @user
-      @user.update_attribute(:confirmed_at, Time.now)
+      logout_current_user
+      @user.confirm! unless @user.confirmed?
       UserSession.create(@user)
       flash[:notice] = "Successfully logged in. Please take a moment and update your account information."
       redirect_to complete_registration_path
     elsif params[:user_id] && User.exists?(params[:user_id])
       @user = User.find(params[:user_id])
-      if @user.confirmed
-        redirect_to login_invitations_path(:user_session => {:username => @user.username})
+      if @user.confirmed && current_user
+        flash[:notice] = "Cool! It looks like you're already set up for SpoonFeed."
+        redirect_to root_path
+      elsif @user.confirmed
+        flash[:notice] = "Cool! It looks like you're already set up for SpoonFeed.<br/>Log in below to start having fun!"
+        redirect_to login_path(:user_session => {:username => @user.username})
       else
         flash[:error] = "Something went wrong trying to confirm your account. Please request a new confirmation email below."
         redirect_to resend_confirmation_users_path
@@ -20,10 +44,6 @@ class InvitationsController < ApplicationController
       flash[:error] = "We could not locate your account."
       redirect_to login_path, :user_id => params[:user_id]
     end
-  end
-
-  def login
-    @user_session = UserSession.new(params[:user_session])
   end
 
   private

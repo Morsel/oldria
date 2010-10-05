@@ -53,6 +53,10 @@ class Admin::Conversation < ActiveRecord::Base
   def scheduled_at
     admin_message.scheduled_at
   end
+  
+  def soapbox_entry
+    admin_message.soapbox_entry
+  end
 
   def recipients_can_reply?
     true

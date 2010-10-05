@@ -21,6 +21,6 @@ Feature: Fire an employee
   Scenario: Delete the employment
     Given I am on the employees page for "Crazy Eights"
     When I follow "Delete" within "#user_2"
-    Then I should see "Sam was removed from Crazy Eights"
-    And I should not see "Sam Smith"
+    Then I should see "Sam Smith was removed from Crazy Eights"
+    And I should not see "Sam Smith Chef"
     And "sam" should still exist

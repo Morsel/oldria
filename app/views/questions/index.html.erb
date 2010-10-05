@@ -10,27 +10,35 @@
 <div id="chapter_title" class="clear clearfix">
   <h3><%= @chapter.title %></h3>
   <div id="chapter_nav" style="clearfix">
-      <%= link_to "Next: #{truncate(@next.title, :length=>20, :omission=>'&hellip;')}", user_questions_path(:user_id => @user.id, :chapter_id => @next.id), :class=>'next_chapter' if @next %>
-      <%= link_to "Prev: #{truncate(@previous.title, :length=>20, :omission=>'&hellip;')}", user_questions_path(:user_id => @user.id, :chapter_id => @previous.id), :class=>'prev_chapter' if @previous %>
+      <%= link_to "Next: #{truncate(@next.title, :length => 20, :omission => '&hellip;')}", user_questions_path(:user_id => @user.id, :chapter_id => @next.id), :class => 'next_chapter' if @next %>
+      <%= link_to "Prev: #{truncate(@previous.title, :length => 20, :omission => '&hellip;')}", user_questions_path(:user_id => @user.id, :chapter_id => @previous.id), :class => 'prev_chapter' if @previous %>
   </div>
 </div>
+
+<% if @user == current_user %><%# let's edit these answers %>
+
 <% for question in @questions %>
   <% div_for question do %>
       <h4>Q: <%= question.title %></h4>
 
-      <% if @user == current_user %>
-        <%= render :partial => "profile_answers/form", :locals => { :answer => question.find_or_build_answer_for(current_user) } %>
-      <% else %>
-        <% if answer = question.answer_for(@user) %>
-          <p><%= answer.answer %></p>
-          Last updated: <%= answer.try(:updated_at).try(:strftime, "%b %e %Y") %>
-        <% else %>
-          <p>Not answered yet.</p>
-        <% end %>
-      <% end %>
+      <%= render :partial => "profile_answers/form", :locals => { :answer => question.find_or_build_answer_for(current_user) } %>
   <% end %>
 <% end %>
 
-<% if @user == current_user %>
-  <p class="clear">Answers to your questions will be posted on your profile and can be used by Restaurant Intelligence Agency to increase traffic to the site.</p>
-<% end %>
+<p class="clear">Answers to your questions will be posted on your profile and can be used by Restaurant Intelligence Agency to increase traffic to the site.</p>
+
+<% else -%><%# no editing by other users %>
+
+<% for question in @questions -%>
+  <% div_for question do %>
+      <h4>Q: <%= link_to question.title, question_path(question) %></h4>
+      <% if answer = question.answer_for(@user) %>
+        <p><%= answer.answer %></p>
+        Last updated: <%= answer.try(:updated_at).try(:strftime, "%b %e %Y") %>
+      <% else %>
+        <p>Not answered yet.</p>
+      <% end %>
+  <% end -%>
+<% end -%>
+
+<% end -%>

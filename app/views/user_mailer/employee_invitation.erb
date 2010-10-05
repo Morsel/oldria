@@ -1,7 +1,15 @@
 <h2><%= @user.name_or_username %>,</h2>
 
-<p>Welcome to SpoonFeed. You've been invited by <%= @invitation_sender.try(:name) || "an employee" %> at <%= @user.restaurants.last.try(:name) %>.</p>
+<%- if @invitation_sender -%>
+<p>You’ve been invited by <%= @invitation_sender.try(:name) || "a co-worker" %> to join Spoonfeed.</p>
+<%- end -%>
 
-<p><a href="<%= invitation_url(@user.perishable_token, :user_id => @user.id) %>"><%= invitation_url(@user.perishable_token, :user_id => @user.id) %></a></p>
+<p>Please <a href="<%= invitation_url(@user.perishable_token, :user_id => @user.id) %>">log in</a> and change your password. Keep it safe as only you should be updating information on your account.</p>
 
-<p>Click the link above to sign in and start having fun!</p>
+<p>Your log in link: <%= invitation_url(@user.perishable_token, :user_id => @user.id) %></p>
+
+<p>You can get started right away on Spoonfeed by working on your profile, which is a combination of essential facts for media and a few sections designed to develop your personal brand — A La Minute and Behind the Line. A la Minute is designed to help you share what is happening in the restaurant right now. Behind the Line is designed as comprehensive information database of you.</p>
+
+<p>We’ll walk you through more of the system as we go, but if you get started there, you’ll kick off your membership with Spoonfeed on the right foot!</p>
+
+<p>If you’d like to talk directly, just send an email to spoonfeed@restaurantintelligenceagency.com. We’d love to hear from you!</p>

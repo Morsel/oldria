@@ -22,8 +22,8 @@ class ProfileQuestion < ActiveRecord::Base
   validates_uniqueness_of :title, :scope => :chapter_id, :case_sensitive => false
   
   named_scope :for_user, lambda { |user|
-    { :joins => { :restaurant_roles => :employments }, 
-    :conditions => { :employments => { :id => user.primary_employment.id } },
+    { :joins => :restaurant_roles, 
+      :conditions => ["restaurant_roles.id = ?", user.primary_employment.restaurant_role.id],
     :include => :chapter,
     :order => "chapters.position, profile_questions.position" }
   }
@@ -36,6 +36,10 @@ class ProfileQuestion < ActiveRecord::Base
   
   named_scope :answered_for_user, lambda { |user|
     { :joins => :profile_answers, :conditions => ["profile_answers.user_id = ?", user.id] }
+  }
+  
+  named_scope :answered_for_chapter, lambda { |chapter_id|
+    { :joins => [:chapter, :profile_answers], :conditions => ["chapters.id = ?", chapter_id] }
   }
   
   def topic

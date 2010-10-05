@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100913210123) do
+ActiveRecord::Schema.define(:version => 20100928183146) do
 
   create_table "accolades", :force => true do |t|
     t.integer  "profile_id"
@@ -199,6 +199,13 @@ ActiveRecord::Schema.define(:version => 20100913210123) do
   end
 
   add_index "date_ranges", ["id"], :name => "index_date_ranges_on_id", :unique => true
+
+  create_table "default_employments", :force => true do |t|
+    t.integer  "employee_id"
+    t.integer  "restaurant_role_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "delayed_jobs", :force => true do |t|
     t.integer  "priority",   :default => 0
@@ -419,6 +426,22 @@ ActiveRecord::Schema.define(:version => 20100913210123) do
     t.datetime "updated_at"
   end
 
+  create_table "invitations", :force => true do |t|
+    t.string   "first_name"
+    t.string   "last_name"
+    t.string   "email"
+    t.string   "title"
+    t.boolean  "coworker",           :default => false
+    t.integer  "restaurant_id"
+    t.string   "restaurant_name"
+    t.integer  "requesting_user_id"
+    t.integer  "invitee_id"
+    t.datetime "approved_at"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.boolean  "archived",           :default => false
+  end
+
   create_table "james_beard_regions", :force => true do |t|
     t.string   "name"
     t.string   "description"
@@ -592,6 +615,7 @@ ActiveRecord::Schema.define(:version => 20100913210123) do
     t.integer  "subject_matter_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "default_employment_id"
   end
 
   add_index "responsibilities", ["employment_id"], :name => "index_responsibilities_on_employment_id"
