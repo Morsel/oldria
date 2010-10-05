@@ -8,7 +8,8 @@ Feature: Restaurant profile
   Scenario: Show basic data
     Given I am logged in as an admin
     When I go to the restaurant photo upload page for Piece
-    And I attach the file "/features/images/bourgeoispig.jpg" to "image_attachment"
+    And I attach the file "/features/images/bourgeoispig.jpg" to "photo_attachment"
+    And I fill in "Xavier Zarope" for "Credit"
     And I press "Upload"
     When I go to the edit restaurant page for "Piece"
     And I attach the file "/features/images/bourgeoispig_logo.gif" to "restaurant_logo_attributes_attachment"
