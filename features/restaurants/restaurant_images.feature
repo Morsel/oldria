@@ -8,7 +8,6 @@ Feature: Restaurant Images
     Given I am logged in as an admin
     And a restaurant named "Bourgeois Pig"
 
-    @wip
   Scenario: Upload a photo
     When I go to the restaurant photo upload page for Bourgeois Pig
     And I attach the file "/features/images/bourgeoispig.jpg" to "photo_attachment"

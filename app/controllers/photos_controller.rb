@@ -19,6 +19,10 @@ class PhotosController < ApplicationController
     redirect_to restaurant_photos_path(@restaurant)
   end
 
+  def show
+    @photo = @restaurant.photos.find(params[:id])
+  end
+
   private
 
   def find_restaurant
