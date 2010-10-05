@@ -16,4 +16,5 @@
 
 class Photo < Image
   validates_presence_of :credit
+  validates_attachment_presence :attachment  
 end

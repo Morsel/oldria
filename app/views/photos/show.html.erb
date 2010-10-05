@@ -1,6 +1,6 @@
 <div id="photo_<%= @photo.id %>">
   <%= image_tag @photo.attachment.url %>
   <div class="photo_credit">
-    <%= @photo.credit %>
+    <span class="photo_credit_label">Photo Credit: </span><%= @photo.credit %>
   </div>
 </div>

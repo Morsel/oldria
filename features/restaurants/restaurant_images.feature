@@ -14,6 +14,14 @@ Feature: Restaurant Images
     And I fill in "Xavier Zarope" for "Credit"
     And I press "Upload"
     Then I see the uploaded restaurant photo
+    And I should see the uploaded restaurant photo credit
+
+  Scenario: Upload a photo fails when no file specified
+    When I go to the restaurant photo upload page for Bourgeois Pig
+    And I fill in "Xavier Zarope" for "Credit"
+    And I press "Upload"
+    Then I see no restaurant photos
+    And I should see an error message
 
   Scenario: Upload a photo fails when content type is not an image
     When I go to the restaurant photo upload page for Bourgeois Pig
