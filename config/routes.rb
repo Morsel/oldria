@@ -31,7 +31,6 @@ ActionController::Routing::Routes.draw do |map|
   end
 
   map.profile 'profile/:username', :controller => 'users', :action => 'show', :requirements => { :username => /[a-zA-Z0-9\-\_ ]+/}
-  map.profile_questions 'profile/:username/questions', :controller => 'profiles', :action => 'questions'
   map.resources :profile_answers, :only => [:create, :update, :destroy]
 
   map.resources :quick_replies
