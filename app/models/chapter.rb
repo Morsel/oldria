@@ -22,8 +22,8 @@ class Chapter < ActiveRecord::Base
   default_scope :joins => :topic, :order => "topics.title ASC, chapters.title ASC"
   
   named_scope :for_user, lambda { |user|
-    { :joins => { :profile_questions => { :restaurant_roles => :employments }}, 
-    :conditions => { :employments => { :id => user.primary_employment.id } },
+    { :joins => { :profile_questions => :restaurant_roles }, 
+    :conditions => ["restaurant_roles.id = ?", user.primary_employment.restaurant_role.id],
     :select => "distinct chapters.*",
     :order => :position }
   }

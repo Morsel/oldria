@@ -171,6 +171,11 @@ class User < ActiveRecord::Base
   def primary_employment
     self.employments.primary.first || self.employments.first || self.default_employment
   end
+  
+  # do they have the setup needed for Behind the Line (profile questions)?
+  def btl_enabled?
+    primary_employment && primary_employment.restaurant_role
+  end
 
   def restaurant_names
     return nil if employments.blank?
