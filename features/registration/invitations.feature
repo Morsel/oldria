@@ -15,6 +15,7 @@ Feature: users can be invited to join Spoonfeed by registered SF users, restaura
     And I fill in "Email" with "ma@email.com"
     And I press "Invite User"
     Then I should see "Thanks for recommending a new member"
+    # And "ma@email.com" should have 1 email
     
   Scenario: an invite is approved and the user wants to log in and update their info (not a restaurant employee)
     Given there are the following invitations:
@@ -25,7 +26,8 @@ Feature: users can be invited to join Spoonfeed by registered SF users, restaura
     And I go to the admin invitations page
     And I follow "accept"
     Then "mariahcarpenter" should be a confirmed user
-    And "mc@restaurants.com" should have 1 email
+    # one email for the you've been invited message, one for the approval
+    And "mc@restaurants.com" should have 2 emails
     
     When I logout
     And "mc@restaurants.com" opens the email with subject "SpoonFeed: You're invited"

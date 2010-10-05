@@ -28,12 +28,18 @@ class Invitation < ActiveRecord::Base
   validates_presence_of :email, :first_name, :last_name
   validates_uniqueness_of :email, :message => "That person has already been invited"
   
+  after_create :send_welcome
+  
   def name
     [first_name, last_name].join(' ')
   end
   
   def username
     first_name.downcase + last_name.downcase
+  end
+  
+  def send_welcome
+    UserMailer.deliver_invitation_welcome(self) unless requesting_user_id
   end
 
 end
