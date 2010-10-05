@@ -1,3 +1,18 @@
+# == Schema Information
+#
+# Table name: employments
+#
+#  id                 :integer         not null, primary key
+#  employee_id        :integer
+#  restaurant_id      :integer
+#  created_at         :datetime
+#  updated_at         :datetime
+#  restaurant_role_id :integer
+#  omniscient         :boolean
+#  primary            :boolean         default(FALSE)
+#  public_profile     :boolean
+#
+
 require 'spec/spec_helper'
 
 describe Employment do
@@ -71,19 +86,15 @@ describe Employment do
     employment = Factory(:employment)
     employment.viewable_media_request_discussions.should == []
   end
-end
 
-# == Schema Information
-#
-# Table name: employments
-#
-#  id                 :integer         not null, primary key
-#  employee_id        :integer
-#  restaurant_id      :integer
-#  created_at         :datetime
-#  updated_at         :datetime
-#  restaurant_role_id :integer
-#  omniscient         :boolean
-#  primary            :boolean         default(FALSE)
-#
+  describe "public" do
+
+    it "finds public employees" do
+      public_employee = Factory(:employment, :public_profile => true)
+      private_employee = Factory(:employment, :public_profile => false)
+      Employment.public_profile_only.all.should == [public_employee]
+    end
+
+  end
+end
 

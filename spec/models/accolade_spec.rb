@@ -1,3 +1,18 @@
+# == Schema Information
+#
+# Table name: accolades
+#
+#  id               :integer         not null, primary key
+#  accoladable_id   :integer
+#  name             :string(255)     default(""), not null
+#  media_type       :string(255)     default(""), not null
+#  run_date         :date            not null
+#  created_at       :datetime
+#  updated_at       :datetime
+#  link             :string(255)
+#  accoladable_type :string(255)
+#
+
 require 'spec_helper'
 
 describe Accolade do
@@ -33,18 +48,4 @@ describe Accolade do
   end
 
 end
-
-# == Schema Information
-#
-# Table name: accolades
-#
-#  id         :integer         not null, primary key
-#  profile_id :integer
-#  name       :string(255)     default(""), not null
-#  media_type :string(255)     default(""), not null
-#  run_date   :date            not null
-#  created_at :datetime
-#  updated_at :datetime
-#  link       :string(255)
-#
 

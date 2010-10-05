@@ -4,7 +4,6 @@ Feature: Associating a Restaurant with its employees
   As a Restaurant account manager
   I want to find or invite people to the SpoonFeed Restaurant I am setting up.
 
-
   Background:
     Given the following confirmed users:
       | username | email               | name        | password |
@@ -13,7 +12,6 @@ Feature: Associating a Restaurant with its employees
       | bob      | bob@example.com     | Bob Davy    | secret   |
       | cole     | cole@example.com    | Cole Cal    | secret   |
     Given I am logged in as "mgmt" with password "secret"
-
 
   Scenario Outline: Adding an existing Employee after initial signup
     Given I have just created a restaurant named "Jimmy's Diner"
@@ -88,3 +86,15 @@ Feature: Associating a Restaurant with its employees
     And "daviddinkle" should be a confirmed user
     And "Duck Soup" should have 2 employees
     And I should be on the complete registration page
+
+  @wip
+  Scenario: Making an employee public
+    Given I have just created a restaurant named "Jimmy's Diner"
+    When I follow "Add employee"
+    And I fill in "Employee Email" with "betty@example.com"
+    And I check "Display on public profile?"
+    And I press "Submit"
+    And I press "Yes"
+    When I go to the the soapbox restaurant profile for Jimmy's Diner
+    Then I should see an employee named "Betty Davis"
+

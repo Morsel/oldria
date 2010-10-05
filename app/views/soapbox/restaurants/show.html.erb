@@ -26,21 +26,30 @@
   </div>
 </div>
 
+<div class="employee_box">
+  <h2>Key Personnel</h2>
+  <ul class="employees">
+    <%= render :partial => "public_employment", :collection => @restaurant.public_employments,
+        :as => :employment %>
+  </ul>
+</div>
 
-<h2>Menus</h2>
+<div class="menus_box">
+  <h2>Menus</h2>
 
-<% if @restaurant.menus.empty? %>
+  <% if @restaurant.menus.empty? %>
     <p>There are no menus available at this time.</p>
-<% else %>
+  <% else %>
     <table id="menus">
       <% @restaurant.menus.each do |menu| %>
-          <tr id="menu_<%=menu.id%>">
-            <td class="menu_name"><%= link_to h(menu.name), menu.pdf_remote_attachment.attachment.url %></td>
-            <td class="menu_date"><%=h menu.created_at.to_s(:standard) %></td>
-            <td class="menu_change_frequency"><%=h menu.change_frequency %></td>
-          </tr>
+        <tr id="menu_<%=menu.id%>">
+          <td class="menu_name"><%= link_to h(menu.name), menu.pdf_remote_attachment.attachment.url %></td>
+          <td class="menu_date"><%=h menu.created_at.to_s(:standard) %></td>
+          <td class="menu_change_frequency"><%=h menu.change_frequency %></td>
+        </tr>
       <% end %>
     </table>
-<% end %>
+  <% end %>
+</div>
 
 <div class="last"></div>

@@ -60,3 +60,7 @@ end
 Then /^I should not see an accolade link$/ do
   response.should_not have_selector(".accolade_link")
 end
+
+Then /^I should see an employee named "([^\"]*)"$/ do |name|
+  response.should have_selector(".employee_name", name)
+end

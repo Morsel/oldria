@@ -95,8 +95,6 @@ end
 
 Then /^I see the following restaurant fields:$/ do |fields|
   fields.rows_hash.each do |field, name|
-    puts field
-    puts name
     response.should have_selector("##{field}", :content => name)
   end
 end

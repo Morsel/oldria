@@ -1,3 +1,18 @@
+# == Schema Information
+#
+# Table name: employments
+#
+#  id                 :integer         not null, primary key
+#  employee_id        :integer
+#  restaurant_id      :integer
+#  created_at         :datetime
+#  updated_at         :datetime
+#  restaurant_role_id :integer
+#  omniscient         :boolean
+#  primary            :boolean         default(FALSE)
+#  public_profile     :boolean
+#
+
 class Employment < ActiveRecord::Base
   belongs_to :employee, :class_name => "User"
   belongs_to :restaurant
@@ -40,6 +55,8 @@ class Employment < ActiveRecord::Base
   named_scope :by_restaurant_name, :order => 'restaurants.name ASC, users.last_name ASC', :include => [:restaurant, :employee]
   named_scope :by_employee_last_name, :order => 'users.last_name ASC', :include => :employee
   named_scope :primary, :order => 'updated_at DESC', :limit => 1, :conditions => { :primary => true }
+
+  named_scope :public_profile_only, :conditions => { :public_profile => true }
 
   ### Preferences ###
   preference :post_to_soapbox, :default => true
@@ -94,18 +111,4 @@ class Employment < ActiveRecord::Base
   end
 
 end
-
-# == Schema Information
-#
-# Table name: employments
-#
-#  id                 :integer         not null, primary key
-#  employee_id        :integer
-#  restaurant_id      :integer
-#  created_at         :datetime
-#  updated_at         :datetime
-#  restaurant_role_id :integer
-#  omniscient         :boolean
-#  primary            :boolean         default(FALSE)
-#
 

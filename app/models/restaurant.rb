@@ -154,6 +154,10 @@ class Restaurant < ActiveRecord::Base
     feature_categories.select { |cat| cat.restaurant_feature_page == feature_page }.sort_by(&:name)
   end
 
+  def public_employments
+    employments.public_profile_only
+  end
+
   private
 
   def add_manager_as_employee
@@ -179,6 +183,8 @@ class Restaurant < ActiveRecord::Base
   def reset_primary_photo_on_remove(removed_photo)
     update_attributes!(:primary_photo => photos.first) unless photos.include?(primary_photo)
   end
+
+
 
 end
 
