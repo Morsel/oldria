@@ -139,7 +139,7 @@ class ApplicationController < ActionController::Base
         resource.build_employment_search(:conditions => params[:search] || {})
       end
       @search = @employment_search.employments #searchlogic
-    else
+    else # no resource
       @search = EmploymentSearch.new(:conditions => params[:search]).employments
     end
 
