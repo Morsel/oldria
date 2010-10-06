@@ -182,6 +182,18 @@ Then /^I should see the primary photo detail view$/ do
   response.body.should include("http://spoonfeed.s3.amazonaws.com/cucumber/images/#{@restaurant.primary_photo.id}/original/bourgeoispig.jpg")    
 end
 
+Then /^I should see the restaurant photo gallery$/ do
+  @restaurant.reload.photos.each do |photo|
+    response.should have_selector("#photo_#{photo.id} img")
+    response.body.should include("http://spoonfeed.s3.amazonaws.com/cucumber/images/#{photo.id}/medium/#{photo.attachment_file_name}")
+    response.body.should include(photo.credit)
+  end
+end
+
+Then /^I should see no restaurant photos$/ do
+  response.should have_selector("#no_photos_available")
+end
+
 Given /^"([^\"]*)" is tagged with "([^\"]*)"$/ do |restaurant_name, tags|
   restaurant = Restaurant.find_by_name(restaurant_name)
   restaurant.restaurant_features << tags.split(",").map { |tag| RestaurantFeature.find_by_value(tag.strip) }

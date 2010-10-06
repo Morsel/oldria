@@ -21,10 +21,13 @@
       :collection => @restaurant.feature_pages, :as => :feature_page %>
 
   <div id="primary_photo">
-    Restaurant Photo:
+    Photo:
     <a href="<%= soapbox_restaurant_photo_path(@restaurant, @restaurant.primary_photo) if @restaurant.primary_photo %>">
     <%= image_tag @restaurant.primary_photo.attachment.url(:medium) if @restaurant.primary_photo %>
     </a>
+  </div>
+  <div id="photo_gallery">
+    <%= link_to "Gallery", soapbox_restaurant_photos_path(@restaurant), :id => "photo_gallery" %>
   </div>
 </div>
 
