@@ -41,9 +41,4 @@ class ProfilesController < ApplicationController
     end
   end
   
-  def questions
-    @profile = current_user.profile || current_user.build_profile
-    @questions = @profile.user.profile_questions.group_by(&:chapter)
-  end
-  
 end

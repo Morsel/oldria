@@ -118,7 +118,7 @@
     <%= render 'users/extended_profile', :user => @user, :profile => @user.profile %>
 </div><!-- #extended_profile_container -->
 
-<% if @user.primary_employment && (@user == current_user || @user.published_topics.present?) %>
+<% if @user.btl_enabled? && (@user == current_user || @user.published_topics.present?) %>
 <div class="span-6" id="behindline">
     <h3 class="profile_subhead">Behind the Line: <%= @user.name %></h3>
     <ul class="box">
