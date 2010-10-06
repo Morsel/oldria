@@ -1,0 +1,17 @@
+<% if @photos.empty? %>
+    <div id="no_photos_available">
+      No photos are available at this time.
+    </div>
+<% end %>
+<% @photos.each do |photo| %>
+    <div id="photo_<%= photo.id%>">
+        <%= image_tag photo.attachment.url(:medium) %>
+        <div class="photo_credit">
+            <span class="photo_credit_label">Photo Credit: </span><%= photo.credit %>
+        </div>
+    </div>
+<% end %>
+
+<p>
+  <%= link_to "Back To Restaurant", soapbox_restaurant_path(@restaurant), :class => "button" %>
+</p>

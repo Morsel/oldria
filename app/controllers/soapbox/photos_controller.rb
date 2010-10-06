@@ -2,6 +2,10 @@ module Soapbox
   class PhotosController < ApplicationController
     before_filter :find_restaurant
 
+    def index
+      @photos = @restaurant.photos
+    end
+
     def show
       @photo = @restaurant.photos.find(params[:id])
     end

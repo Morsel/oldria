@@ -71,3 +71,25 @@ Feature: Restaurant profile
     And I browse to the the primary photo detail view
     Then I should see the primary photo detail view
     And I should see "Xavier Zarope"
+
+  Scenario: Show photo gallery
+    Given I am logged in as an admin
+    When I go to the restaurant photo upload page for Piece
+    And I attach the file "/features/images/bourgeoispig.jpg" to "photo_attachment"
+    And I fill in "Xavier Zarope" for "Credit"
+    And I press "Upload"
+    And I attach the file "/features/images/bourgeoispig1.jpg" to "photo_attachment"
+    And I fill in "Xavier Zarope I" for "Credit"
+    And I press "Upload"
+    And I attach the file "/features/images/bourgeoispig2.jpg" to "photo_attachment"
+    And I fill in "Xavier Zarope II" for "Credit"
+    And I press "Upload"
+    When I go to the soapbox restaurant profile for Piece
+    And I follow "photo_gallery"
+    Then I should see the restaurant photo gallery
+
+  Scenario: Display message about no photos available when photo gallery is empty
+    Given I am logged in as an admin
+    When I go to the soapbox restaurant profile for Piece
+    And I follow "photo_gallery"
+    Then I should see no restaurant photos

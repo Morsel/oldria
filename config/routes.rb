@@ -14,7 +14,7 @@ ActionController::Routing::Routes.draw do |map|
   map.namespace(:soapbox) do |soapbox|
     soapbox.resources :restaurants, :only => ['show'] do |restaurants|
       restaurants.resources :feature_pages, :only => ['show']
-      restaurants.resources :photos, :only => ['show']
+      restaurants.resources :photos, :only => ['show', 'index']
       restaurants.resources :accolades, :only => ['index']
     end
     soapbox.resources :restaurant_features, :only => ["show"]
