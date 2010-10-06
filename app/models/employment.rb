@@ -29,7 +29,7 @@ class Employment < ActiveRecord::Base
   accepts_nested_attributes_for :employee
 
   validates_presence_of :employee_id
-  validates_presence_of :restaurant_id
+  validates_presence_of :restaurant_id, :unless => Proc.new { |e| e.type = "DefaultEmployment" }
   validates_uniqueness_of :employee_id, :scope => :restaurant_id, :message => "is already associated with that restaurant"
 
   named_scope :restaurants_metro_id, lambda { |ids|
