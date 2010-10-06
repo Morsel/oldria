@@ -53,4 +53,19 @@ Then /^I do not see a page header for "([^\"]*)"$/ do |page|
   response.should_not have_selector(".feature_page_header", :content => page)
 end
 
+Then /^I should see an accolade link$/ do
+  response.should have_selector(".accolade_link")
+end
 
+Then /^I should not see an accolade link$/ do
+  response.should_not have_selector(".accolade_link")
+end
+
+Then /^I should see an employee named "([^\"]*)"$/ do |name|
+  response.should contain(name)
+end
+
+Then /^I should see the employees in the order "([^"]*)"$/ do |employee_names|
+  expected_names = tableish(".public_employee", ".employee_name")
+  expected_names.flatten.should == employee_names.split(",").map(&:strip)
+end

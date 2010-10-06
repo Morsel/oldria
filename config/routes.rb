@@ -15,6 +15,7 @@ ActionController::Routing::Routes.draw do |map|
     soapbox.resources :restaurants, :only => ['show'] do |restaurants|
       restaurants.resources :feature_pages, :only => ['show']
       restaurants.resources :photos, :only => ['show']
+      restaurants.resources :accolades, :only => ['index']
     end
     soapbox.resources :restaurant_features, :only => ["show"]
   end
@@ -84,6 +85,7 @@ ActionController::Routing::Routes.draw do |map|
     restaurant.resources :photos
     restaurant.resource :logo
     restaurant.resources :accolades
+    restaurant.resources :employments, :collection => { "reorder" => :post }
     restaurant.resources
   end
 

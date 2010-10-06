@@ -1,3 +1,18 @@
+# == Schema Information
+#
+# Table name: accolades
+#
+#  id               :integer         not null, primary key
+#  accoladable_id   :integer
+#  name             :string(255)     default(""), not null
+#  media_type       :string(255)     default(""), not null
+#  run_date         :date            not null
+#  created_at       :datetime
+#  updated_at       :datetime
+#  link             :string(255)
+#  accoladable_type :string(255)
+#
+
 require 'spec_helper'
 
 describe Accolade do
@@ -26,19 +41,11 @@ describe Accolade do
     accolade.should be_restaurant
   end
 
-end
+  it "sorts by run date" do
+    accolade1 = Factory.create(:accolade, :run_date => 1.year.ago)
+    accolade2 = Factory.create(:accolade, :run_date => 1.day.ago)
+    Accolade.by_run_date.all.should == [accolade2, accolade1]
+  end
 
-# == Schema Information
-#
-# Table name: accolades
-#
-#  id         :integer         not null, primary key
-#  profile_id :integer
-#  name       :string(255)     default(""), not null
-#  media_type :string(255)     default(""), not null
-#  run_date   :date            not null
-#  created_at :datetime
-#  updated_at :datetime
-#  link       :string(255)
-#
+end
 

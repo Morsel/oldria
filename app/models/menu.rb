@@ -1,3 +1,16 @@
+# == Schema Information
+#
+# Table name: menus
+#
+#  id                       :integer         not null, primary key
+#  name                     :string(255)
+#  change_frequency         :string(255)
+#  pdf_remote_attachment_id :integer
+#  restaurant_id            :integer
+#  created_at               :datetime
+#  updated_at               :datetime
+#
+
 class Menu < ActiveRecord::Base
   belongs_to :pdf_remote_attachment, :class_name => "PDFRemoteAttachment" 
   belongs_to :restaurant
@@ -22,17 +35,4 @@ class Menu < ActiveRecord::Base
   end
 
 end
-
-# == Schema Information
-#
-# Table name: menus
-#
-#  id                   :integer         not null, primary key
-#  name                 :string(255)
-#  change_frequency     :string(255)
-#  remote_attachment_id :integer
-#  restaurant_id        :integer
-#  created_at           :datetime
-#  updated_at           :datetime
-#
 

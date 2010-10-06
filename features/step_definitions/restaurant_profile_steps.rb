@@ -95,8 +95,6 @@ end
 
 Then /^I see the following restaurant fields:$/ do |fields|
   fields.rows_hash.each do |field, name|
-    puts field
-    puts name
     response.should have_selector("##{field}", :content => name)
   end
 end
@@ -311,6 +309,12 @@ Given /^an accolade for "([^\"]*)" named "([^\"]*)"$/ do |restaurant_name, accol
   Factory(:accolade, :accoladable => restaurant, :name => accolade_name)
 end
 
+Given /^an accolade for "([^\"]*)" named "([^\"]*)" dated "([^\"]*)"$/ do |restaurant_name, accolade_name, date|
+  restaurant = Restaurant.find_by_name(restaurant_name)
+  Factory(:accolade, :accoladable => restaurant, :name => accolade_name,
+      :run_date => Date.parse(date))
+end
+
 When /^I click on the "([^\"]*)" link within "([^\"]*)"$/ do |link, accolade_name|
   accolade = Accolade.find_by_name(accolade_name)
   click_link_within("##{dom_id(accolade)}", link)
@@ -320,3 +324,14 @@ Then /^I should see the accolade form correctly$/ do
   response.should be_success
   response.should have_selector("form.accolade")
 end
+
+Then /^"([^\"]*)" should be marked as the primary accolade$/ do |accolade_name|
+  accolade = Accolade.find_by_name(accolade_name)
+  field_labeled(dom_id(accolade, :primary)).should be_checked
+end
+
+Then /^I should see the accolades in order: "([^"]*)"$/ do |accolade_names|
+  expected_names = tableish(".accolade", ".accolade_name")
+  expected_names.flatten.should == accolade_names.split(",").map(&:strip)
+end
+

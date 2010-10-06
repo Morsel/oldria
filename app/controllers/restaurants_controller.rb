@@ -9,7 +9,7 @@ class RestaurantsController < ApplicationController
 
   def show
     find_restaurant
-    @employments = @restaurant.employments.all(:include => [:subject_matters, :restaurant_role, :employee])
+    @employments = @restaurant.employments.by_position.all(:include => [:subject_matters, :restaurant_role, :employee])
   end
 
   def edit

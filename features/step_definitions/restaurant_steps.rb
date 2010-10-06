@@ -207,6 +207,16 @@ Given /^"([^\"]*)" is an employee of "([^\"]*)"$/ do |username, restaurant_name|
   restaurant = Restaurant.find_by_name(restaurant_name)
   user.restaurants << restaurant
 end
+
+Given /^"([^"]*)" is an employee of "([^"]*)" with public position (\d+)$/ do |username, restaurant_name, position|
+  user = User.find_by_username(username)
+  restaurant = Restaurant.find_by_name(restaurant_name)
+  user.restaurants << restaurant
+  restaurant.employments.find_by_employee_id(user.id).update_attributes(
+      :position => position, :public_profile => true)
+end
+
+
 Then /^I should have a photo with the file "([^"]*)"$/ do |filename|
   response.should have_selector("img.restaurant_photo[src*=\"#{filename}\"]")
 end
@@ -225,3 +235,16 @@ end
 Then /^I see no restaurant photos$/ do
   response.should_not have_selector("img.restaurant_photo")
 end
+
+When /^click to make "([^"]*)" public$/ do |username|
+  user = User.find_by_username(username)
+  employment = user.employments.first
+  click_link_within("##{dom_id(employment)}", "Click to make public")
+end
+
+Then /^I should see that "([^"]*)" is public$/ do |username|
+  user = User.find_by_username(username)
+  employment = user.employments.first
+  response.should have_selector("##{dom_id(employment)} .public", :content => "will be displayed")
+end
+

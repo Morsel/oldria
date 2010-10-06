@@ -1,0 +1,9 @@
+<li class="public_employee" id="<% dom_id employment %>">
+  <%= link_to image_tag(employment.employee.avatar.url(:thumb)),
+      profile_path(employment.employee.username) %>
+  <%= link_to "#{employment.employee.name}",
+      profile_path(employment.employee.username), :class => "employee_name" %>
+  <span class="employee_role">
+    <%= employment.restaurant_role.try(:name) %>
+  </span>
+</li>

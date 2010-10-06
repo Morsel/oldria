@@ -2,11 +2,12 @@
 #
 # Table name: responsibilities
 #
-#  id                :integer         not null, primary key
-#  employment_id     :integer
-#  subject_matter_id :integer
-#  created_at        :datetime
-#  updated_at        :datetime
+#  id                    :integer         not null, primary key
+#  employment_id         :integer
+#  subject_matter_id     :integer
+#  created_at            :datetime
+#  updated_at            :datetime
+#  default_employment_id :integer
 #
 
 require 'spec/spec_helper'

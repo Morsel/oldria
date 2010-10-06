@@ -5,14 +5,13 @@ Feature: Adding accolades to a restaurant
 
   Background:
     Given a restaurant named "Restaurant"
+    Given I am logged in as an admin
 
   Scenario: Add a new accolade for a restaurant
-    Given I am logged in as an admin
     When I go to the edit restaurant page for "Restaurant"
     Then I see the ajax button for adding an accolade
 
   Scenario: Adding an award to your profile
-    Given I am logged in as an admin
     When I go to the edit restaurant page for "Restaurant"
     When I add an accolade to the restaurant "Restaurant" with:
       | Name       | Best Restaurant              |
@@ -22,11 +21,26 @@ Feature: Adding accolades to a restaurant
     And I should see an accolade for "Best Restaurant" on the profile page for "Restaurant"
 
   Scenario: Seeing the edit form
-    Given I am logged in as an admin
     And an accolade for "Restaurant" named "Best Restaurant"
     When I go to the edit restaurant page for "Restaurant"
     And I click on the "Edit" link within "Best Restaurant"
     Then I should see the accolade form correctly
+
+  Scenario: Accolade link display
+    Given an accolade for "Restaurant" named "Best Restaurant"
+    When I go to the soapbox restaurant profile for Restaurant
+    Then I should see an accolade link
+
+  Scenario: Accolade link non-display
+    When I go to the soapbox restaurant profile for Restaurant
+    Then I should not see an accolade link
+
+  Scenario: Accolade interior page display
+    Given an accolade for "Restaurant" named "Best Restaurant" dated "September 2, 2009"
+    Given an accolade for "Restaurant" named "Extra Yummy" dated "September 10, 2010"
+    When I go to the soapbox restaurant profile for Restaurant
+    And I follow "See accolades"
+    Then I should see the accolades in order: "Extra Yummy, Best Restaurant" 
 
 
 

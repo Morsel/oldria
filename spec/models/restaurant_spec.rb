@@ -261,5 +261,16 @@ describe Restaurant do
       restaurant.primary_photo.should == primary_photo
     end
   end
+
+  describe "public employment" do
+    it "should get only public employments" do
+      restaurant = Factory(:restaurant)
+      public_employment = Factory(:employment, :public_profile => true,
+          :restaurant => restaurant)
+      private_employment = Factory(:employment, :public_profile => false,
+          :restaurant => restaurant)
+      restaurant.public_employments.should == [public_employment]
+    end
+  end
 end
 
