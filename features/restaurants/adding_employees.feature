@@ -38,14 +38,11 @@ Feature: Associating a Restaurant with its employees
     | bob               | Bob Davy    |
     | Bob Davy          | Bob Davy    |
 
-
   Scenario: You can't add an employee twice
     Given I have just created a restaurant named "Jimmy's Diner"
     Then "Jimmy's Diner" should have 1 employee
-
     Given I have added "betty@example.com" to that restaurant
     Then "Jimmy's Diner" should have 2 employees
-
     When I follow "Add employee"
     And I fill in "Employee Email" with "betty@example.com"
     And I press "Submit"
@@ -87,7 +84,6 @@ Feature: Associating a Restaurant with its employees
     And "Duck Soup" should have 2 employees
     And I should be on the complete registration page
 
-  @wip
   Scenario: Making an employee public
     Given I have just created a restaurant named "Jimmy's Diner"
     When I follow "Add employee"
@@ -97,4 +93,19 @@ Feature: Associating a Restaurant with its employees
     And I press "Yes"
     When I go to the the soapbox restaurant profile for Jimmy's Diner
     Then I should see an employee named "Betty Davis"
+
+  Scenario: Making an employee public on the main page
+    Given I have just created a restaurant named "Jimmy's Diner"
+    And "betty" is an employee of "Jimmy's Diner"
+    When I go to the employees page for "Jimmy's Diner"
+    Then I should see "will not be displayed"
+    When click to make "betty" public
+    Then I should see that "betty" is public
+
+  Scenario: Sorted Employees
+    Given I have just created a restaurant named "Jimmy's Diner"
+    And "betty" is an employee of "Jimmy's Diner" with public position 3
+    And "bob" is an employee of "Jimmy's Diner" with public position 2
+    When I go to the soapbox restaurant profile for Jimmy's Diner
+    Then I should see the employees in the order "Bob Davy, Betty Davis"
 

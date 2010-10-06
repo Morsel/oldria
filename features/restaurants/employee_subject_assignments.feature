@@ -12,7 +12,7 @@ Feature: Employee Subject Matter Assignments
       | mgmt     | manager@example.com | Jim Jones   | secret   |
       | betty    | dodo@example.com    | Dodo DaVeer | secret   |
     Given I am logged in as "mgmt" with password "secret"
-    
+
   Scenario: Basic Assignment
     Given I have just created a restaurant named "Restaurant du Jour"
     And I have added "dodo@example.com" to that restaurant

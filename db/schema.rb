@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20101005145946) do
+ActiveRecord::Schema.define(:version => 20101005191057) do
 
   create_table "accolades", :force => true do |t|
     t.integer  "accoladable_id"
@@ -274,6 +274,7 @@ ActiveRecord::Schema.define(:version => 20101005145946) do
     t.boolean  "omniscient"
     t.boolean  "primary",            :default => false
     t.boolean  "public_profile"
+    t.integer  "position"
   end
 
   add_index "employments", ["employee_id"], :name => "index_employments_on_employee_id"

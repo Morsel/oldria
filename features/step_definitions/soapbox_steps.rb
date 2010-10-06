@@ -62,5 +62,10 @@ Then /^I should not see an accolade link$/ do
 end
 
 Then /^I should see an employee named "([^\"]*)"$/ do |name|
-  response.should have_selector(".employee_name", name)
+  response.should contain(name)
+end
+
+Then /^I should see the employees in the order "([^"]*)"$/ do |employee_names|
+  expected_names = tableish(".public_employee", ".employee_name")
+  expected_names.flatten.should == employee_names.split(",").map(&:strip)
 end

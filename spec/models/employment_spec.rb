@@ -11,6 +11,7 @@
 #  omniscient         :boolean
 #  primary            :boolean         default(FALSE)
 #  public_profile     :boolean
+#  position           :integer
 #
 
 require 'spec/spec_helper'

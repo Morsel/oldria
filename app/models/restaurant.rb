@@ -155,7 +155,7 @@ class Restaurant < ActiveRecord::Base
   end
 
   def public_employments
-    employments.public_profile_only
+    employments.public_profile_only.by_position
   end
 
   private

@@ -170,6 +170,7 @@ Factory.define :employment do |f|
   f.association :restaurant
   f.association :employee, :factory => :user
   f.primary false
+  f.public_profile false
 end
 
 Factory.define :assigned_employment, :parent => :employment do |f|

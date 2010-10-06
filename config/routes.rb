@@ -84,6 +84,7 @@ ActionController::Routing::Routes.draw do |map|
     restaurant.resources :photos
     restaurant.resource :logo
     restaurant.resources :accolades
+    restaurant.resources :employments, :collection => { "reorder" => :post }
     restaurant.resources
   end
 

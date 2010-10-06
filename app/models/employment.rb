@@ -11,9 +11,12 @@
 #  omniscient         :boolean
 #  primary            :boolean         default(FALSE)
 #  public_profile     :boolean
+#  position           :integer
 #
 
 class Employment < ActiveRecord::Base
+  acts_as_list :scope => :restaurant
+
   belongs_to :employee, :class_name => "User"
   belongs_to :restaurant
   belongs_to :restaurant_role
@@ -57,6 +60,7 @@ class Employment < ActiveRecord::Base
   named_scope :primary, :order => 'updated_at DESC', :limit => 1, :conditions => { :primary => true }
 
   named_scope :public_profile_only, :conditions => { :public_profile => true }
+  named_scope :by_position, :order => "position ASC"
 
   ### Preferences ###
   preference :post_to_soapbox, :default => true
