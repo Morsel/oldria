@@ -249,3 +249,7 @@ Then /^I should see that "([^"]*)" is public$/ do |username|
   response.should have_selector("##{dom_id(employment)} .public", :content => "will be displayed")
 end
 
+When /^I should not see an employee listing for "([^\"]*)"$/ do |username|
+  user = User.find_by_username(username)
+  response.should_not have_selector("##{dom_id(user)}")
+end

@@ -83,16 +83,6 @@ Feature: Associating a Restaurant with its employees
     And "Duck Soup" should have 2 employees
     And I should be on the complete registration page
 
-  Scenario: Making an employee public
-    Given I have just created a restaurant named "Jimmy's Diner"
-    When I follow "Add employee"
-    And I fill in "Employee Email" with "betty@example.com"
-    And I check "Display on public profile?"
-    And I press "Submit"
-    And I press "Yes"
-    When I go to the the soapbox restaurant profile for Jimmy's Diner
-    Then I should see an employee named "Betty Davis"
-
   Scenario: Making an employee public on the main page
     Given I have just created a restaurant named "Jimmy's Diner"
     And "betty" is an employee of "Jimmy's Diner"
