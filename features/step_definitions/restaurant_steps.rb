@@ -253,3 +253,19 @@ When /^I should not see an employee listing for "([^\"]*)"$/ do |username|
   user = User.find_by_username(username)
   response.should_not have_selector("##{dom_id(user)}")
 end
+
+Given /^the following a la minute questions:$/ do |table|
+  table.rows.each do |table|
+    ALaMinuteQuestion.create!(:question => table.first, :kind => :restaurant)
+  end
+end
+
+Then /^I see a header for a la minute$/ do
+  response.should have_selector("h3#a_la_minute_header")
+end
+
+Then /^I see the text for each question$/ do
+  ALaMinuteQuestion.all.each do |question|
+    response.should have_selector("##{dom_id(question)}")
+  end
+end

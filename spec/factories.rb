@@ -423,3 +423,8 @@ Factory.define :soapbox_entry do |f|
   f.association :featured_item, :factory => :qotd
   f.published_at Time.now
 end
+
+Factory.define :a_la_minute_question do |f|
+  f.question "What's new?"
+  f.kind :restaurant
+end
