@@ -60,6 +60,7 @@ class Restaurant < ActiveRecord::Base
   has_many :events
   has_many :menus
   has_many :accolades, :as => :accoladable
+  has_many :a_la_minute_answers, :as => :responder
 
   belongs_to :media_contact, :class_name => "User", :foreign_key => 'media_contact_id'
 

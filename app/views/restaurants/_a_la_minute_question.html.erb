@@ -2,6 +2,16 @@
 
   <div class="question">
     <%= h a_la_minute_question.question %>
+    <% answer = a_la_minute_question.answer_for(@restaurant) %>
+    <% if answer %>
+      <% div_for answer do %>
+        <span class="a_la_minute_answer_eip" id="<%= dom_id(a_la_minute_question, :eip) %>"
+          data-restaurant-id="<%= @restaurant.id %>"><%= h answer.answer %></span>
+      <% end %>
+    <% else %>
+      <span class="a_la_minute_answer_eip" id="<%= dom_id(a_la_minute_question, :eip) %>"
+          data-restaurant-id="<%= @restaurant.id %>">Click here to answer</span>
+    <% end %>
   </div>
 
 <% end %>

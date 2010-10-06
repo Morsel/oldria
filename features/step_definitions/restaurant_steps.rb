@@ -256,7 +256,7 @@ end
 
 Given /^the following a la minute questions:$/ do |table|
   table.rows.each do |table|
-    ALaMinuteQuestion.create!(:question => table.first, :kind => :restaurant)
+    ALaMinuteQuestion.create!(:question => table.first, :kind => "restaurant")
   end
 end
 
@@ -268,4 +268,17 @@ Then /^I see the text for each question$/ do
   ALaMinuteQuestion.all.each do |question|
     response.should have_selector("##{dom_id(question)}")
   end
+end
+
+Given /^"([^"]*)" has answered "([^"]*)" with "([^"]*)"$/ do |restaurant_name, question, answer|
+  @restaurant = Restaurant.find_by_name(restaurant_name)
+  @question = ALaMinuteQuestion.find_by_question(question)
+  @answer = ALaMinuteAnswer.create!(:answer => answer, :a_la_minute_question => @question,
+      :responder => @restaurant)
+end
+
+Then /^I should see the answer "([^"]*)"$/ do |answer_text|
+  answer = ALaMinuteAnswer.find_by_answer(answer_text)
+  response.should have_selector("##{dom_id(answer.a_la_minute_question)} ##{dom_id(answer)}",
+      :content => answer_text)
 end
