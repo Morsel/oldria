@@ -10,6 +10,7 @@ Feature: Restaurant Photos
 
   Scenario: Show basic data
     When I go to the restaurant photo upload page for Bourgeois Pig
-    And I attach the file "/features/images/bourgeoispig.jpg" to "image_attachment"
+    And I attach the file "/features/images/bourgeoispig.jpg" to "photo_attachment"
+    And I fill in "Xavier Zarope" for "Credit"
     And I press "Upload"
     Then I see the uploaded restaurant photo

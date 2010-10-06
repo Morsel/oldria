@@ -172,6 +172,16 @@ When /^I see the primary photo$/ do
   response.body.should include("http://spoonfeed.s3.amazonaws.com/cucumber/images/#{@restaurant.reload.primary_photo.id}/medium/bourgeoispig.jpg")  
 end
 
+When /^I browse to the the primary photo detail view$/ do
+  @restaurant.reload
+  click_link_within("#primary_photo", "a")
+end
+
+Then /^I should see the primary photo detail view$/ do
+  response.should have_selector("#photo_#{@restaurant.reload.primary_photo.id} img")
+  response.body.should include("http://spoonfeed.s3.amazonaws.com/cucumber/images/#{@restaurant.primary_photo.id}/original/bourgeoispig.jpg")    
+end
+
 Given /^"([^\"]*)" is tagged with "([^\"]*)"$/ do |restaurant_name, tags|
   restaurant = Restaurant.find_by_name(restaurant_name)
   restaurant.restaurant_features << tags.split(",").map { |tag| RestaurantFeature.find_by_value(tag.strip) }

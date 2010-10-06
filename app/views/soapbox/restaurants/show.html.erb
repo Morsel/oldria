@@ -21,8 +21,10 @@
       :collection => @restaurant.feature_pages, :as => :feature_page %>
 
   <div id="primary_photo">
-    Photo:
+    Restaurant Photo:
+    <a href="<%= restaurant_photo_path(@restaurant, @restaurant.primary_photo) if @restaurant.primary_photo %>">
     <%= image_tag @restaurant.primary_photo.attachment.url(:medium) if @restaurant.primary_photo %>
+    </a>
   </div>
 </div>
 

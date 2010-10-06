@@ -5,8 +5,8 @@ class PhotosController < ApplicationController
   end
 
   def create
-    @image = @restaurant.photos.create(params[:image])
-    if @image.valid?
+    @photo = @restaurant.photos.create(params[:photo])
+    if @photo.valid?
       redirect_to restaurant_photos_path(@restaurant)
     else
       @restaurant.photos.reload
@@ -15,8 +15,12 @@ class PhotosController < ApplicationController
   end
 
   def destroy
-    @restaurant.photos.delete(Image.find(params[:id]))
+    @restaurant.photos.delete(Photo.find(params[:id]))
     redirect_to restaurant_photos_path(@restaurant)
+  end
+
+  def show
+    @photo = @restaurant.photos.find(params[:id])
   end
 
   private

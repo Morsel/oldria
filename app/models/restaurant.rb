@@ -69,8 +69,8 @@ class Restaurant < ActiveRecord::Base
   has_and_belongs_to_many :restaurant_features,
       :include => {:restaurant_feature_category => :restaurant_feature_page}
 
-  has_many :photos, :class_name => "Image", :as => :attachable, :dependent => :destroy, :after_add => :reset_primary_photo_on_add, :after_remove => :reset_primary_photo_on_remove
-  belongs_to :primary_photo, :class_name => "Image", :dependent => :destroy
+  has_many :photos, :class_name => "Photo", :as => :attachable, :dependent => :destroy, :after_add => :reset_primary_photo_on_add, :after_remove => :reset_primary_photo_on_remove
+  belongs_to :primary_photo, :class_name => "Photo", :dependent => :destroy
   belongs_to :logo, :class_name => "Image", :dependent => :destroy
 
   accepts_nested_attributes_for :logo

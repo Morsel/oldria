@@ -199,7 +199,7 @@ describe Restaurant do
 
   describe "photos" do
 
-    let(:photo_attributes) {{:attachment_content_type => "image/png"}}
+    let(:photo_attributes) {{:attachment_content_type => "image/png", :credit => "Joe Pesci"}}
 
     it "selects the first photo added as the primary photo" do
       restaurant = Factory(:restaurant)

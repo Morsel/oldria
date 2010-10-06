@@ -153,6 +153,10 @@ Then /^I see the uploaded restaurant photo$/ do
   response.body.should include("http://spoonfeed.s3.amazonaws.com/cucumber/images/#{@restaurant.photos.last.id}/medium/bourgeoispig.jpg")
 end
 
+When /^I should see the uploaded restaurant photo credit$/ do
+  response.should have_selector(".restaurant_photo_credit", :content => @restaurant.photos.last.credit)
+end
+
 Then /^I see the restaurant logo$/ do
   @restaurant = Restaurant.find(@restaurant.id)
   filename = "http://spoonfeed.s3.amazonaws.com/cucumber/images/#{@restaurant.reload.logo.id}/medium/bourgeoispig_logo.gif"

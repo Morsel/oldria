@@ -10,13 +10,30 @@ Feature: Restaurant Images
 
   Scenario: Upload a photo
     When I go to the restaurant photo upload page for Bourgeois Pig
-    And I attach the file "/features/images/bourgeoispig.jpg" to "image_attachment"
+    And I attach the file "/features/images/bourgeoispig.jpg" to "photo_attachment"
+    And I fill in "Xavier Zarope" for "Credit"
     And I press "Upload"
     Then I see the uploaded restaurant photo
+    And I should see the uploaded restaurant photo credit
+
+  Scenario: Upload a photo fails when no file specified
+    When I go to the restaurant photo upload page for Bourgeois Pig
+    And I fill in "Xavier Zarope" for "Credit"
+    And I press "Upload"
+    Then I see no restaurant photos
+    And I should see an error message
 
   Scenario: Upload a photo fails when content type is not an image
     When I go to the restaurant photo upload page for Bourgeois Pig
-    And I attach the file "/features/images/menu1.pdf" to "image_attachment"
+    And I attach the file "/features/images/menu1.pdf" to "photo_attachment"
+    And I fill in "Xavier Zarope" for "Credit"
+    And I press "Upload"
+    Then I see no restaurant photos
+    And I should see an error message
+
+  Scenario: Upload a photo fails when credit is not filled in
+    When I go to the restaurant photo upload page for Bourgeois Pig
+    And I attach the file "/features/images/bourgeoispig.jpg" to "photo_attachment"
     And I press "Upload"
     Then I see no restaurant photos
     And I should see an error message
@@ -36,13 +53,16 @@ Feature: Restaurant Images
 
   Scenario: Select Primary Photo
     When I go to the restaurant photo upload page for Bourgeois Pig
-    And I attach the file "/features/images/bourgeoispig.jpg" to "image_attachment"
+    And I attach the file "/features/images/bourgeoispig.jpg" to "photo_attachment"
+    And I fill in "Xavier Zarope" for "Credit"
     And I press "Upload"
     When I go to the restaurant photo upload page for Bourgeois Pig
-    And I attach the file "/features/images/bourgeoispig1.jpg" to "image_attachment"
+    And I attach the file "/features/images/bourgeoispig1.jpg" to "photo_attachment"
+    And I fill in "Xavier Zarope" for "Credit"
     And I press "Upload"
     When I go to the restaurant photo upload page for Bourgeois Pig
-    And I attach the file "/features/images/bourgeoispig2.jpg" to "image_attachment"
+    And I attach the file "/features/images/bourgeoispig2.jpg" to "photo_attachment"
+    And I fill in "Xavier Zarope" for "Credit"
     And I press "Upload"
     When I go to the restaurant photo upload page for Bourgeois Pig
     And I select the 2nd photo as the primary photo
@@ -52,20 +72,24 @@ Feature: Restaurant Images
 
   Scenario: First Photo Uploaded Is Automatically Selected As Primary Photo
     When I go to the restaurant photo upload page for Bourgeois Pig
-    And I attach the file "/features/images/bourgeoispig.jpg" to "image_attachment"
+    And I attach the file "/features/images/bourgeoispig.jpg" to "photo_attachment"
+    And I fill in "Xavier Zarope" for "Credit"
     And I press "Upload"
     When I go to the restaurant photo upload page for Bourgeois Pig
     Then I see the 1st photo selected as the primary photo
 
   Scenario: Remove a restaurant photo
     When I go to the restaurant photo upload page for Bourgeois Pig
-    And I attach the file "/features/images/bourgeoispig.jpg" to "image_attachment"
+    And I attach the file "/features/images/bourgeoispig.jpg" to "photo_attachment"
+    And I fill in "Xavier Zarope" for "Credit"
     And I press "Upload"
     When I go to the restaurant photo upload page for Bourgeois Pig
-    And I attach the file "/features/images/bourgeoispig1.jpg" to "image_attachment"
+    And I attach the file "/features/images/bourgeoispig1.jpg" to "photo_attachment"
+    And I fill in "Xavier Zarope" for "Credit"
     And I press "Upload"
     When I go to the restaurant photo upload page for Bourgeois Pig
-    And I attach the file "/features/images/bourgeoispig2.jpg" to "image_attachment"
+    And I attach the file "/features/images/bourgeoispig2.jpg" to "photo_attachment"
+    And I fill in "Xavier Zarope" for "Credit"
     And I press "Upload"
     Then I should have a photo with the file "bourgeoispig.jpg"
     Then I should have a photo with the file "bourgeoispig1.jpg"
@@ -85,13 +109,16 @@ Feature: Restaurant Images
 
   Scenario: Remove a restaurant photo that is the primary photo with other photos existing
     When I go to the restaurant photo upload page for Bourgeois Pig
-    And I attach the file "/features/images/bourgeoispig.jpg" to "image_attachment"
+    And I attach the file "/features/images/bourgeoispig.jpg" to "photo_attachment"
+    And I fill in "Xavier Zarope" for "Credit"
     And I press "Upload"
     When I go to the restaurant photo upload page for Bourgeois Pig
-    And I attach the file "/features/images/bourgeoispig1.jpg" to "image_attachment"
+    And I attach the file "/features/images/bourgeoispig1.jpg" to "photo_attachment"
+    And I fill in "Xavier Zarope" for "Credit"
     And I press "Upload"
     When I go to the restaurant photo upload page for Bourgeois Pig
-    And I attach the file "/features/images/bourgeoispig2.jpg" to "image_attachment"
+    And I attach the file "/features/images/bourgeoispig2.jpg" to "photo_attachment"
+    And I fill in "Xavier Zarope" for "Credit"
     And I press "Upload"
     When I go to the restaurant photo upload page for Bourgeois Pig
     And I select the 2nd photo as the primary photo
@@ -101,13 +128,16 @@ Feature: Restaurant Images
 
   Scenario: Remove a restaurant photo that is the primary photo and first photo in multiple
     When I go to the restaurant photo upload page for Bourgeois Pig
-    And I attach the file "/features/images/bourgeoispig.jpg" to "image_attachment"
+    And I attach the file "/features/images/bourgeoispig.jpg" to "photo_attachment"
+    And I fill in "Xavier Zarope" for "Credit"
     And I press "Upload"
     When I go to the restaurant photo upload page for Bourgeois Pig
-    And I attach the file "/features/images/bourgeoispig1.jpg" to "image_attachment"
+    And I attach the file "/features/images/bourgeoispig1.jpg" to "photo_attachment"
+    And I fill in "Xavier Zarope" for "Credit"
     And I press "Upload"
     When I go to the restaurant photo upload page for Bourgeois Pig
-    And I attach the file "/features/images/bourgeoispig2.jpg" to "image_attachment"
+    And I attach the file "/features/images/bourgeoispig2.jpg" to "photo_attachment"
+    And I fill in "Xavier Zarope" for "Credit"
     And I press "Upload"
     When I go to the restaurant photo upload page for Bourgeois Pig
     And I select the 1st photo as the primary photo
@@ -117,7 +147,8 @@ Feature: Restaurant Images
 
   Scenario: Remove a restaurant photo that is the primary photo and only photo
     When I go to the restaurant photo upload page for Bourgeois Pig
-    And I attach the file "/features/images/bourgeoispig.jpg" to "image_attachment"
+    And I attach the file "/features/images/bourgeoispig.jpg" to "photo_attachment"
+    And I fill in "Xavier Zarope" for "Credit"
     And I press "Upload"
     When I go to the restaurant photo upload page for Bourgeois Pig
     And I select the 1nd photo as the primary photo
