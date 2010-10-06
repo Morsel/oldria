@@ -85,8 +85,9 @@ end
 Given /^I have added "([^\"]*)" to that restaurant$/ do |email|
   click_link "Add employee"
   fill_in "Employee Email", :with => email
-  click_button "Submit"
-  click_button "Yes"
+  click_button "Submit" # search for user
+  click_button "Yes" # confirm selected user
+  click_button "Submit" # save default roles/responsibilities
 end
 
 When /^I follow the edit role link for "([^\"]*)"$/ do |employee_name|
@@ -248,3 +249,7 @@ Then /^I should see that "([^"]*)" is public$/ do |username|
   response.should have_selector("##{dom_id(employment)} .public", :content => "will be displayed")
 end
 
+When /^I should not see an employee listing for "([^\"]*)"$/ do |username|
+  user = User.find_by_username(username)
+  response.should_not have_selector("##{dom_id(user)}")
+end

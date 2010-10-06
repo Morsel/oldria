@@ -23,4 +23,5 @@ Feature: RIA admins can review invitations, approve and archive them
   Given I go to the admin invitations page
   And I follow "accept"
   Then "mariahcarpenter" should be a confirmed user
-  And "mc@restaurants.com" should have 1 email
+  # one email for the you've been invited message, one for the approval
+  And "mc@restaurants.com" should have 2 emails

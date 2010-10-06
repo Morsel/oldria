@@ -3990,6 +3990,140 @@ form .cke_skin_kama .cke_wrapper {
 /* @group dashboard ----------------- */
 
 /* ## Dashboard --------------------------------------------- */
+
+/* ## Dashboard --------------------------------------------- */
+
+
+#recently {
+	overflow: hidden;
+	border: 1px solid #eee;
+	-webkit-box-shadow: 0 0 5px #ddd;
+	-moz-box-shadow: 0 0 5px #ddd;
+	box-shadow: 0 0 5px #ddd;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+	padding: 15px;
+	margin: 20px 0;
+	}
+
+#recently h2 {
+	font-family: 'Hoefler Text', 'Hoefler', Garamond, Georgia, Times, serif;
+	font-weight: normal;
+	font-size: 22px;
+	font-style: italic;
+	color: #333;
+	padding: 0 0 3px 0px;
+	border-bottom: 1px solid #aaa;
+	margin: 5px 0 10px;
+}
+
+#recently .admin_discussion div.activity_header {
+	background: transparent url(/images/bg-labels.gif) repeat-y;
+	background-position: -1000px 0;
+	border-bottom: 1px solid #0086BF;
+	overflow: hidden;
+	padding: 3px;
+	margin: 10px 0 0;
+}
+
+#recently .profile_answer div.activity_header {
+	background: transparent url(/images/bg-labels.gif) repeat-y;
+	background-position: -2000px 0;
+	border-bottom: 1px solid #808080;
+	overflow: hidden;
+	padding: 3px;
+	margin: 10px 0 0;
+}
+
+#recently .admin_conversation div.activity_header {
+	background: transparent url(/images/bg-labels.gif) repeat-y;
+	background-position: 0 0;
+	border-bottom: 1px solid #E2790E;
+	overflow: hidden;
+	padding: 3px;
+	margin: 10px 0 0;
+}
+
+
+#recently h3 {
+	font-family: Helvetica, arial, sans-serif;
+	text-transform: uppercase;
+	font-size: 12px;
+	width: 188px;
+	float: left;
+	display: inline;
+	margin: 0;
+	padding: 2px 6px 0 6px;
+	color: #fff;
+	text-shadow: 0px 1px 0px #000;
+}
+
+#recently .comment_date {
+	color: #777;
+	float: right;
+	margin: 0 0 2px 10px;
+	padding: 0 0 0 10px;
+	border-left: 1px dotted #ccc;
+}
+
+#recently .topic {
+	margin: 0 0 0 212px;
+	padding: 0;
+	line-height: 16px;
+}
+
+#recently .identity, #recently .avatar {border:0 !important;}
+#recently .comment {
+	overflow: hidden;
+	border-bottom: 1px dotted #ccc !important;
+	background: transparent url(/images/down-arrows.png) no-repeat;
+	padding: 12px 0;
+}
+
+#recently .admin_discussion .comment {background-position: 10px -600px;}
+#recently .profile_answer .comment {background-position: 10px -300px;}
+#recently .admin_conversation .comment {background-position: 10px 0px;}
+
+#recently .admin_discussion .comment .identity, 
+#recently .admin_conversation .comment .identity, 
+#recently .profile_answer .identity {
+	width: 200px;
+	float: left;
+	display: inline;
+	margin-right: 15px;
+	padding: 0;
+}
+
+#recently .identity .avatar {
+	width: 60px;
+	float: left;
+	display: inline;
+	margin: 0 12px 12px 0;
+}
+
+#recently .identity img {
+	padding: 4px;
+	-webkit-box-shadow: 0 0 5px #ccc;
+	-moz-box-shadow: 0 0 5px #ccc;
+	box-shadow: 0 0 5px #ccc;
+}
+
+#recently .identity ul {
+	list-style: none;
+	margin: ;
+}
+
+#recently .identity ul li {
+	line-height: 16px;
+	padding: 2px 0;
+}
+
+/* revised dashboard 10/1/2010 */
+
+
+
+
 #get_started {
 	position: relative;
 }

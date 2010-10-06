@@ -50,7 +50,15 @@ class UserMailer < ActionMailer::Base
     subject     "SpoonFeed: #{discussion.poster.try :name} has invited you to a discussion"
     body        :discussion => discussion, :user => user
   end
-
+  
+  def invitation_welcome(invite)
+    from        'notifications@restaurantintelligenceagency.com'
+    recipients  invite.email
+    sent_on     Time.now
+    subject     "Thanks for your interest in Spoonfeed!"
+    body        :invitation => invite
+  end
+  
   ##
   # Generic message: could be one of DirectMessage, etc.
   def message_notification(message, recipient, sender = nil)
