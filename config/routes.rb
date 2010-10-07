@@ -177,6 +177,8 @@ ActionController::Routing::Routes.draw do |map|
     admin.resources :trend_questions
   end
 
+  map.resources :a_la_minute_answers, :collection => {:edit_in_place => :post}
+
   map.public_page ":id", :controller => 'pages', :action => 'show'
 
   # Default Routes

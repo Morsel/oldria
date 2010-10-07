@@ -431,3 +431,14 @@ Factory.define :soapbox_entry do |f|
   f.association :featured_item, :factory => :qotd
   f.published_at Time.now
 end
+
+Factory.define :a_la_minute_question do |f|
+  f.question "What's new?"
+  f.kind :restaurant
+end
+
+Factory.define :a_la_minute_answer do |f|
+  f.answer "Nothing"
+  f.association :responder, :factory => :restaurant
+  f.association :a_la_minute_question
+end

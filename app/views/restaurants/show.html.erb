@@ -1,37 +1,37 @@
 <% title @restaurant.name -%>
 <% if can? :edit, @restaurant %>
-	<% content_for :page_actions do -%>
-	<p class="clearfix">
-		<%= link_to 'Manage employees', restaurant_employees_path(@restaurant),
+  <% content_for :page_actions do -%>
+  <p class="clearfix">
+    <%= link_to 'Manage employees', restaurant_employees_path(@restaurant),
         :class=>'sf-button' %>
-		<%= link_to 'Edit restaurant', edit_restaurant_path(@restaurant),
+    <%= link_to 'Edit restaurant', edit_restaurant_path(@restaurant),
         :class=>'sf-button' %>
     <%= link_to 'Edit restaurant features', restaurant_features_path(@restaurant),
         :class=>'sf-button' %>
-	</p>
-	<% end -%>
+  </p>
+  <% end -%>
 <% end -%>
 
 <div id="restaurant_profile_view" class="box clear clearfix">
-	<div class="name_and_pic clearfix span-7">
-		<%= image_tag 'avatar_restaurant.gif', :width=>'100' %>
-		<div class="user_info">
-			<h2 class="function-bold" id="name"><%= @restaurant.name %></h2>
-			<p id="address"><%= @restaurant.address_parts.join("<br />") %></p>
-			<p>
-				Metropolitan Area: <span><%=h @restaurant.metropolitan_area.try(:name) %></span><br />
-				Region: <span><%=h @restaurant.james_beard_region.try(:name) %></span>
-			</p>
-		</div>
-	</div><!-- .name_and_pic -->
-	<div class="manager_and_facts span-4 last">
+  <div class="name_and_pic clearfix span-7">
+    <%= image_tag 'avatar_restaurant.gif', :width=>'100' %>
+    <div class="user_info">
+      <h2 class="function-bold" id="name"><%= @restaurant.name %></h2>
+      <p id="address"><%= @restaurant.address_parts.join("<br />") %></p>
+      <p>
+        Metropolitan Area: <span><%=h @restaurant.metropolitan_area.try(:name) %></span><br />
+        Region: <span><%=h @restaurant.james_beard_region.try(:name) %></span>
+      </p>
+    </div>
+  </div><!-- .name_and_pic -->
+  <div class="manager_and_facts span-4 last">
     <p>Manager: <span><%=h @restaurant.manager.try(:name) %></span></p>
     <p id="media_contact">Media Contact: <span><%=h @restaurant.media_contact.try(:name) %></span></p>
- 		<p>Cuisine: <span><%=h @restaurant.cuisine.try(:name) %></span></p>
+     <p>Cuisine: <span><%=h @restaurant.cuisine.try(:name) %></span></p>
     <% div_if(@restaurant.opening_date) do %>
       Opening Date: <span id="opening_date"><%= @restaurant.opening_date.to_s(:long) %></span>
     <% end %>
-	</div><!-- .manager_and_facts -->
+  </div><!-- .manager_and_facts -->
   <hr clear="all" />
   <div class="span-11 last">
     <% div_if(@restaurant.description, :class=> "function-bold", :id => "description") do %>
@@ -69,13 +69,31 @@
 <h3 class="function-bold">Restaurant Staff</h3>
 
 <div class="discussion_actions">
-	<p class="new_discussion">
-		<%= link_to image_tag('quotebubble.png') + "Start a discussion", new_discussion_path(:restaurant_id => @restaurant.id), :class => 'sf-button alt' %>
-	</p>
+  <p class="new_discussion">
+    <%= link_to image_tag('quotebubble.png') + "Start a discussion", new_discussion_path(:restaurant_id => @restaurant.id), :class => 'sf-button alt' %>
+  </p>
 </div>
 
 <div class="restaurant_employees employments">
-	<%= render :partial => 'employment', :collection => @employments %>
+  <%= render :partial => 'employment', :collection => @employments %>
 </div>
+
+<div id="a_la_minute">
+  <h3>A La Minute Questions</h3>
+
+  <div class="questions">
+    <%= render :partial => "a_la_minute_question",
+            :collection => ALaMinuteQuestion.restaurants.all %>
+  </div>
+</div>
+
+<% content_for :javascript do %>
+  <script type="text/javascript">
+  //<![CDATA[
+  $('.a_la_minute_answer_eip').eip("/a_la_minute_answers/edit_in_place", {
+      data: "restaurant_id=" + $(".a_la_minute_answer_eip").attr("data-restaurant-id") } );
+  //]]>
+</script>
+<% end %>
 
 
