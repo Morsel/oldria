@@ -1,7 +1,9 @@
 <% if current_user.admin? %>
     <h4 style="display:none;">Currently, this can be seen by:</h4>
     
-    <p><%= @indy_users.map(&:employee_name).to_sentence %></p>
+    <% if @indy_users.present? %>
+    <p><h3>Unaffiliated:</h3> <%= @indy_users.map(&:employee_name).to_sentence %></p>
+    <% end %>
     
     <% @restaurants_and_employments.each do |restaurant, employments| %>
       <div class="restaurant_and_employees span-5 column">
