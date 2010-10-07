@@ -1,8 +1,8 @@
 <tr class="admin_conversation_recipient <%= cycle('odd', 'even', :name => 'conversation_row') %>">
   <td>
     <%= admin_conversation.recipient.try(:name) %>
-    <%- if admin_conversation.recipient && admin_conversation.recipient.primary_employment -%>
-    (<%= admin_conversation.recipient.primary_employment.try(:restaurant_name)  %>)
+    <%- if admin_conversation.recipient && admin_conversation.recipient.restaurants.present? -%>
+    (<%= admin_conversation.recipient.primary_employment.try(:restaurant_name) %>)
     <%- end -%>
   </td>
 

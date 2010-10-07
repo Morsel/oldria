@@ -62,8 +62,12 @@ class Comment < ActiveRecord::Base
   end
 
   def employment
-    return nil unless user && restaurant
-    @employment ||= user.employments.find_by_restaurant_id(restaurant.id)
+    return nil unless user
+    @employment ||= if restaurant
+      user.employments.find_by_restaurant_id(restaurant.id)
+    else
+      user.primary_employment
+    end
   end
 
   def self.on_resource_by_user(resource, user)
