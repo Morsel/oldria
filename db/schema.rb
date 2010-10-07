@@ -108,6 +108,7 @@ ActiveRecord::Schema.define(:version => 20101007163329) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "credit"
+    t.integer  "position"
   end
 
   add_index "attachments", ["attachable_id", "attachable_type"], :name => "index_attachments_on_attachable_id_and_attachable_type"

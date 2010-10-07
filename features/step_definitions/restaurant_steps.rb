@@ -226,7 +226,7 @@ Then /^I should not have a photo with the file "([^"]*)"$/ do |filename|
 end
 When /^I remove the restaurant photo with the file "([^"]*)"$/ do |filename|
   photo = @restaurant.photos.find_by_attachment_file_name(filename)
-  click_link_within("#restaurant_photo_#{photo.id}", "Remove")
+  click_link_within("#photo_#{photo.id}", "Remove")
 end
 
 When /^I remove the restaurant logo$/ do

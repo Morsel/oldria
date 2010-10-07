@@ -2,6 +2,7 @@ class PhotosController < ApplicationController
   before_filter :find_restaurant
 
   def index
+    @photos = @restaurant.photos
   end
 
   def create
@@ -9,7 +10,7 @@ class PhotosController < ApplicationController
     if @photo.valid?
       redirect_to restaurant_photos_path(@restaurant)
     else
-      @restaurant.photos.reload
+      @photos = @restaurant.photos.reload
       render :action => :index
     end
   end
@@ -17,6 +18,13 @@ class PhotosController < ApplicationController
   def destroy
     @restaurant.photos.delete(Photo.find(params[:id]))
     redirect_to restaurant_photos_path(@restaurant)
+  end
+
+  def reorder
+    params[:photo].each_with_index do |photo_id, index|
+      @restaurant.photos.find(photo_id).update_attribute(:position, index + 1)
+    end
+    render :nothing => true
   end
 
   private

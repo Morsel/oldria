@@ -60,8 +60,13 @@
       Hours: <%= h @restaurant.hours %>
     </div>
     <% div_if(@restaurant.management_company_name.present?, :id => "management_company") do %>
-      Management Company: <%= link_to h(@restaurant.management_company_name),
-          @restaurant.management_company_website %>
+      Management Company: 
+      <% if @restaurant.management_company_website.present? %>
+        <%= link_to h(@restaurant.management_company_name),
+            @restaurant.management_company_website %>
+      <% else %>em
+        <%= h(@restaurant.management_company_name) %>
+      <% end %>
     <% end %>
   </div>
 </div>
