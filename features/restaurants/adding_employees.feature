@@ -61,7 +61,7 @@ Feature: Associating a Restaurant with its employees
     And I fill in "Last Name" with "Dinkle"
     And I press "Invite User"
     Then I should see "Thanks for recommending a new member"
-    
+
     When I logout
     And I am logged in as an admin
     And I go to the admin invitations page
@@ -95,6 +95,6 @@ Feature: Associating a Restaurant with its employees
     Given I have just created a restaurant named "Jimmy's Diner"
     And "betty" is an employee of "Jimmy's Diner" with public position 3
     And "bob" is an employee of "Jimmy's Diner" with public position 2
-    When I go to the soapbox restaurant profile for Jimmy's Diner
+    When I go to the soapbox restaurant profile for "Jimmy's Diner"
     Then I should see the employees in the order "Bob Davy, Betty Davis"
 
