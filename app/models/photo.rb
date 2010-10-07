@@ -16,5 +16,7 @@
 
 class Photo < Image
   validates_presence_of :credit
-  validates_attachment_presence :attachment  
+  validates_attachment_presence :attachment
+
+  acts_as_list :scope => :attachable
 end
