@@ -78,13 +78,13 @@
   <%= render :partial => 'employment', :collection => @employments %>
 </div>
 
-<h3 id="a_la_minute_header">
-  A La Minute Questions
-</h3>
+<div id="a_la_minute">
+  <h3>A La Minute Questions</h3>
 
-<div class="a_la_minute_questions">
-  <%= render :partial => "a_la_minute_question",
-          :collection => ALaMinuteQuestion.restaurants.all %>
+  <div class="questions">
+    <%= render :partial => "a_la_minute_question",
+            :collection => ALaMinuteQuestion.restaurants.all %>
+  </div>
 </div>
 
 <% content_for :javascript do %>
