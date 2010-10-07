@@ -70,7 +70,7 @@
     <% div_if @restaurant.management_company_name.present?, :id => "management_company" do %>
       <br/>
       Managed by:
-      <% if @restaurant.management_company_website %>
+      <% if @restaurant.management_company_website.present? %>
         <%= link_to @restaurant.management_company_name, @restaurant.management_company_website,
             :target => "_blank" %>
       <% else %>
