@@ -226,7 +226,7 @@ Then /^I should not have a photo with the file "([^"]*)"$/ do |filename|
 end
 When /^I remove the restaurant photo with the file "([^"]*)"$/ do |filename|
   photo = @restaurant.photos.find_by_attachment_file_name(filename)
-  click_link_within("#restaurant_photo_#{photo.id}", "Remove")
+  click_link_within("#photo_#{photo.id}", "Remove")
 end
 
 When /^I remove the restaurant logo$/ do
@@ -261,12 +261,12 @@ Given /^the following a la minute questions:$/ do |table|
 end
 
 Then /^I see a header for a la minute$/ do
-  response.should have_selector("h3#a_la_minute_header")
+  response.should have_selector("#a_la_minute > h3")
 end
 
 Then /^I see the text for each question$/ do
   ALaMinuteQuestion.all.each do |question|
-    response.should have_selector("##{dom_id(question)}")
+    response.should have_selector("#a_la_minute .questions ##{dom_id(question)} .question", :content => question.question)
   end
 end
 
@@ -279,6 +279,6 @@ end
 
 Then /^I should see the answer "([^"]*)"$/ do |answer_text|
   answer = ALaMinuteAnswer.find_by_answer(answer_text)
-  response.should have_selector("##{dom_id(answer.a_la_minute_question)} ##{dom_id(answer)}",
+  response.should have_selector("#a_la_minute .questions ##{dom_id(answer.a_la_minute_question)} .answer",
       :content => answer_text)
 end

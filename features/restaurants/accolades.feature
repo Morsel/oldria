@@ -28,20 +28,19 @@ Feature: Adding accolades to a restaurant
 
   Scenario: Accolade link display
     Given an accolade for "Restaurant" named "Best Restaurant"
-    When I go to the soapbox restaurant profile for Restaurant
+    When I go to the soapbox restaurant profile for "Restaurant"
     Then I should see an accolade link
 
   Scenario: Accolade link non-display
-    When I go to the soapbox restaurant profile for Restaurant
+    When I go to the soapbox restaurant profile for "Restaurant"
     Then I should not see an accolade link
 
   Scenario: Accolade interior page display
     Given an accolade for "Restaurant" named "Best Restaurant" dated "September 2, 2009"
     Given an accolade for "Restaurant" named "Extra Yummy" dated "September 10, 2010"
-    When I go to the soapbox restaurant profile for Restaurant
+    When I go to the soapbox restaurant profile for "Restaurant"
     And I follow "See accolades"
-    Then I should see the accolades in order: "Extra Yummy, Best Restaurant" 
+    Then I should see the accolades in order: "Extra Yummy, Best Restaurant"
 
 
 
-    

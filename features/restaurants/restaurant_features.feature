@@ -35,7 +35,7 @@ Feature: Associate Restaurant features
     And I check "Casual"
     And I check "Buffet"
     And I press "Update all features"
-    And I go to the soapbox restaurant profile for Piece
+    And I go to the soapbox restaurant profile for "Piece"
     Then I see a navigation link for "Cuisine"
     And I do not see a navigation link for "Design"
     And I see a page header for "Cuisine" with "Casual, Buffet"
@@ -46,7 +46,7 @@ Feature: Associate Restaurant features
     And I check "Casual"
     And I check "Buffet"
     And I press "Update all features"
-    And I go to the soapbox restaurant profile for Piece
+    And I go to the soapbox restaurant profile for "Piece"
     And I follow "Cuisine Details"
     Then I am on the soapbox restaurant feature page for "Piece" and "Cuisine"
     And I see headers for feature categories for "Cuisine"
@@ -58,7 +58,7 @@ Feature: Associate Restaurant features
     Given a restaurant named "Gino's East"
     And "Piece" is tagged with "Buffet, Casual"
     And "Gino's East" is tagged with "Buffet, Ugly"
-    And I go to the soapbox restaurant profile for Piece
+    And I go to the soapbox restaurant profile for "Piece"
     And I follow "Buffet"
     Then I am on the soapbox feature page for "Buffet"
     And I see the restaurant "Pierce"

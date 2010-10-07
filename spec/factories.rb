@@ -162,6 +162,14 @@ Factory.define :restaurant do |f|
   f.association :cuisine
 end
 
+Factory.define :photo do |f|
+  f.sequence(:credit) { |n| "Sean Gingerbread #{n}" }
+  f.sequence(:attachment_file_name) { |n| "somefile#{n}.jpg" }
+  f.attachment_content_type "image/jpg"
+  f.attachment_file_size 3000
+  f.attachment_updated_at 2.days.ago
+end
+
 Factory.define :managed_restaurant, :parent => :restaurant do |f|f
   f.association :manager, :factory => :user
 end

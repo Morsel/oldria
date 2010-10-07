@@ -9,6 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
+ActiveRecord::Schema.define(:version => 20101006212035) do
 ActiveRecord::Schema.define(:version => 20101006202525) do
 
   create_table "a_la_minute_answers", :force => true do |t|
@@ -106,6 +107,7 @@ ActiveRecord::Schema.define(:version => 20101006202525) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "credit"
+    t.integer  "position"
   end
 
   add_index "attachments", ["attachable_id", "attachable_type"], :name => "index_attachments_on_attachable_id_and_attachable_type"
