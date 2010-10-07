@@ -143,9 +143,9 @@ class ApplicationController < ActionController::Base
       @search = EmploymentSearch.new(:conditions => params[:search]).employments
     end
 
-    options.reverse_merge!(:include => [:restaurant, :employee], :order => "restaurants.name", 
-        :conditions => "restaurant_id is not null")
-    @restaurants_and_employments = @search.all(options).group_by(&:restaurant)
+    options.reverse_merge!(:include => [:restaurant, :employee], :order => "restaurants.name")
+    @indy_users, @restaurants_and_employments = @search.all(options).partition { |e| e.restaurant.nil? }
+    @restaurants_and_employments = @restaurants_and_employments.group_by(&:restaurant)
   end
 
   def save_search

@@ -1,3 +1,7 @@
+<% @indy_users.each do |employment| %>
+    <%= render employment.employee %>
+<% end %>
+
 <% @restaurants_and_employments.each do |restaurant, employments| %>
-  <%= render :partial => "restaurants/restaurant", :locals => { :restaurant => restaurant, :employments => employments } %>
+  <%= render restaurant, :employments => employments %>
 <% end %>

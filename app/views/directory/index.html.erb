@@ -9,8 +9,6 @@
 <% end %>
 
 <div id="directory_list">
-    <% @restaurants_and_employments.each do |restaurant, employments| %>
-      <%= render restaurant, :employments => employments %>
-    <% end %>
+    <%= render :partial => 'search_results' %>
 </div>
 

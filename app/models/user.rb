@@ -196,6 +196,10 @@ class User < ActiveRecord::Base
     name.blank? ? username : name
   end
 
+  def to_label
+    name_or_username
+  end
+
   def confirmed?
     confirmed_at.present?
   end
