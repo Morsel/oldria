@@ -66,7 +66,7 @@ class AccoladesController < ApplicationController
   def get_accoladable
     if params[:restaurant_id]
       @accoladable = Restaurant.find(params[:restaurant_id])
-      @editable = can?(:edit, @restaurant)
+      @editable = can?(:edit, @accoladable)
     else
       require_user
       @accoladable = (current_user.profile || current_user.create_profile)
