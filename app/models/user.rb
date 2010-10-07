@@ -55,14 +55,14 @@ class User < ActiveRecord::Base
   # Sent, not received media requests
   has_many :media_requests, :foreign_key => 'sender_id'
 
-  has_many :employments, :foreign_key => "employee_id", :dependent => :destroy
+  has_many :employments, :foreign_key => "employee_id", :dependent => :destroy, :conditions => "restaurant_id is not null"
   has_many :restaurants, :through => :employments
   has_many :managed_restaurants, :class_name => "Restaurant", :foreign_key => "manager_id"
   has_many :manager_restaurants, :source => :restaurant, :through => :employments, :conditions => ["employments.omniscient = ?", true]
   has_many :restaurant_roles, :through => :employments
   
-  has_one :default_employment, :foreign_key => "employee_id", :dependent => :destroy # only used if no restaurant employments
-
+  has_one :default_employment, :foreign_key => "employee_id", :dependent => :destroy
+  
   has_many :discussion_seats, :dependent => :destroy
   has_many :discussions, :through => :discussion_seats
 
@@ -100,7 +100,9 @@ class User < ActiveRecord::Base
   validates_presence_of :facebook_page_token, :if => Proc.new { |user| user.facebook_page_id }
   validates_presence_of :facebook_page_id, :if => Proc.new { |user| user.facebook_page_token }
 
-  accepts_nested_attributes_for :default_employment
+  after_create :deliver_invitation_message!, :if => Proc.new { |user| user.send_invitation }
+
+  after_update :mark_replies_as_read, :if => Proc.new { |user| user.confirmed_at && user.confirmed_at > 1.minute.ago }
 
   named_scope :media, :conditions => {:role => 'media'}
   named_scope :admin, :conditions => {:role => 'admin'}
@@ -108,10 +110,6 @@ class User < ActiveRecord::Base
   named_scope :for_autocomplete, :select => "first_name, last_name", :order => "last_name ASC", :limit => 15
   named_scope :by_last_name, :order => "LOWER(last_name) ASC"
   
-  after_create :deliver_invitation_message!, :if => Proc.new { |user| user.send_invitation }
-
-  after_update :mark_replies_as_read, :if => Proc.new { |user| user.confirmed_at && user.confirmed_at > 1.minute.ago }
-
 ### Preferences ###
   preference :hide_help_box, :default => false
   preference :receive_email_notifications, :default => false

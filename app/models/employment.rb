@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20100825200638
+# Schema version: 20101006173434
 #
 # Table name: employments
 #
@@ -11,6 +11,7 @@
 #  restaurant_role_id :integer
 #  omniscient         :boolean
 #  primary            :boolean
+#  type               :string(255)
 #
 
 class Employment < ActiveRecord::Base
@@ -29,7 +30,8 @@ class Employment < ActiveRecord::Base
   accepts_nested_attributes_for :employee
 
   validates_presence_of :employee_id
-  validates_presence_of :restaurant_id, :unless => Proc.new { |e| e.type = "DefaultEmployment" }
+  validates_presence_of :restaurant_id, :unless => Proc.new { |e| e.type == "DefaultEmployment" }
+
   validates_uniqueness_of :employee_id, :scope => :restaurant_id, :message => "is already associated with that restaurant"
 
   named_scope :restaurants_metro_id, lambda { |ids|

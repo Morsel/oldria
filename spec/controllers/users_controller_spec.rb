@@ -81,5 +81,36 @@ describe UsersController do
     end
 
   end
+  
+  describe "editing" do
+    
+    it "should render the edit page" do
+      user = Factory(:user)
+      controller.stubs(:current_user).returns(user)
+      get :edit, :id => user.id
+      response.should render_template('users/edit')
+    end
+    
+  end
+  
+  describe "updating user attributes" do
+
+    before(:each) do
+      @user = Factory(:user)
+      controller.stubs(:current_user).returns(@user)
+      User.expects(:find).returns(@user)
+    end
+    
+    it "should update the user" do
+      @user.expects(:update_attributes).with("username" => "Hammy").returns(true)
+      put :update, :id => @user.id, :user => { :username => "Hammy" }
+    end
+    
+    it "should create a default employment" do
+      @user.expects(:create_default_employment).with("restaurant_role_id" => 1).returns(true)
+      put :update, :id => @user.id, :user => { :username => "Hammy", :default_employment => { :restaurant_role_id => 1 } }
+    end
+    
+  end
 
 end
