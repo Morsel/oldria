@@ -96,7 +96,7 @@ Feature: Restaurant profile
 
   Scenario: Show the public A La Minute Answers
     Given I am logged in as an admin
-    And "Piece" has the following A La Minute Answers:
+    And "Piece" has answered the following A La Minute questions:
      | question        | answer    | public |
      | What's new?     | Nothing   | false  |
      | What's playing? | Blink 182 | true   |
@@ -110,4 +110,14 @@ Feature: Restaurant profile
     When I go to the soapbox restaurant profile for "Piece"
     And I see media contact name and email, but no phone
 
+  Scenario: Only the most recent answer to a question should be shared publicly
+    Given I am logged in as an admin
+    And "Piece" has answered the following A La Minute questions:
+     | question    | answer         | public |
+     | What's new? | Lobster Bisque | true   |
+     | What's new? | Pea Soup       | true   |
 
+    And I go to the soapbox restaurant profile for "Piece"
+    And show me the page
+    Then I should see the question "What's the newest item on your menu?" with the answer "Pea Soup"
+    And I should not see the answer "Lobster Bisque"

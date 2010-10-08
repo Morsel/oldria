@@ -5,7 +5,7 @@ class ALaMinuteAnswersController < ApplicationController
   def edit_in_place
     id = params[:id].split("_")[-1]
     @question = ALaMinuteQuestion.find_by_id(id)
-    @restaurant = Restaurant.find_by_id(params[:data].split("=").last) 
+    @restaurant = Restaurant.find_by_id(params[:data].split("=").last)
     if @restaurant && @question
       @answer = ALaMinuteAnswer.create(:answer => params[:new_value].strip,
           :responder => @restaurant, :a_la_minute_question => @question)
