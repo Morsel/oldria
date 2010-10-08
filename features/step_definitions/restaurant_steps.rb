@@ -292,3 +292,25 @@ end
 Then /^I should view the dashboard$/ do
   response.should have_selector("#dashboard.selected")
 end
+
+Given /^"([^"]*)" has the following A La Minute Answers:$/ do |restaurant_name, table|
+  @restaurant = Restaurant.find_by_name(restaurant_name)
+  @restaurant.a_la_minute_answers.destroy_all
+  table.hashes.each do |row|
+    question = Factory(:a_la_minute_question, :question => row['question'], :kind => "restaurant")
+    answer = Factory(:a_la_minute_answer, :answer => row['answer'],
+        :a_la_minute_question => question, :responder => @restaurant,
+        :show_as_public => row['public'])
+  end
+end
+
+Then /^I should see the question "([^"]*)" with the answer "([^"]*)"$/ do |question_text, answer_text|
+  answer = @restaurant.a_la_minute_answers.find_by_answer(answer_text)
+  response.should have_selector("##{dom_id(answer)} .question", :content => question_text)
+  response.should have_selector("##{dom_id(answer)} .answer", :content => answer_text)
+end
+
+Then /^I should not see the question "([^"]*)" with the answer "([^"]*)"$/ do |question_text, answer_text|
+  response.should_not have_selector(".question", :content => question_text)
+  response.should_not have_selector(".answer", :content => answer_text)
+end

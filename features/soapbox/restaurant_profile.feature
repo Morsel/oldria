@@ -93,3 +93,21 @@ Feature: Restaurant profile
     When I go to the soapbox restaurant profile for "Piece"
     And I follow "photo_gallery"
     Then I should see no restaurant photos
+
+  Scenario: Show the public A La Minute Answers
+    Given I am logged in as an admin
+    And "Piece" has the following A La Minute Answers:
+     | question        | answer    | public |
+     | What's new?     | Nothing   | false  |
+     | What's playing? | Blink 182 | true   |
+
+    When I go to the soapbox restaurant profile for "Piece"
+    Then I should see the question "What's playing" with the answer "Blink 182"
+    And I should not see the question "What's new?" with the answer "Nothing"
+
+  Scenario: The media contact should be a link
+    Given the restaurant media contact has no phone number
+    When I go to the soapbox restaurant profile for "Piece"
+    And I see media contact name and email, but no phone
+
+

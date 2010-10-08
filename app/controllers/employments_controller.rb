@@ -12,7 +12,7 @@ class EmploymentsController < ApplicationController
     params[:employment].each_with_index do |employment_id, index|
       @restaurant.employments.find(employment_id).update_attribute(:position, index + 1)
     end
-    render :nothing => true
+    render :text => ""
   end
 
   private

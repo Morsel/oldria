@@ -18,6 +18,7 @@ ActiveRecord::Schema.define(:version => 20101006212035) do
     t.string   "responder_type"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "show_as_public"
   end
 
   create_table "a_la_minute_questions", :force => true do |t|
