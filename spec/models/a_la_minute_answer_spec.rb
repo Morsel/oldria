@@ -2,17 +2,32 @@ require 'spec_helper'
 
 describe ALaMinuteAnswer do
   before(:each) do
+    @question = Factory(:a_la_minute_question)
+    @responder = Factory(:restaurant)
     @valid_attributes = {
       :answer => "value for answer",
-      :a_la_minute_question_id => 1,
-      :responder_id => 1,
-      :responder_type => "value for responder_type",
-      :show_as_public => true
+      :a_la_minute_question => @question,
+      :responder => @restaurant,
+      :show_as_public => false
     }
   end
 
   it "should create a new instance given valid attributes" do
     ALaMinuteAnswer.create!(@valid_attributes)
+  end
+
+  it "should reflect the show_as_public state of any previous answer for the same question" do
+    restaurant = Factory(:restaurant)
+    question = Factory(:a_la_minute_question)
+    previous_answer = Factory(:a_la_minute_answer, :a_la_minute_question => question, :responder => restaurant, :show_as_public => true)
+
+    new_answer = ALaMinuteAnswer.create!({
+      :answer => "value for answer",
+      :a_la_minute_question => question,
+      :responder => restaurant
+    })
+
+    new_answer.show_as_public.should be_true
   end
 
   describe "show_as_public" do

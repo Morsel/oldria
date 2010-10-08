@@ -110,6 +110,7 @@ Feature: Restaurant profile
     When I go to the soapbox restaurant profile for "Piece"
     And I see media contact name and email, but no phone
 
+@wip
   Scenario: Only the most recent answer to a question should be shared publicly
     Given I am logged in as an admin
     And "Piece" has answered the following A La Minute questions:
@@ -119,5 +120,5 @@ Feature: Restaurant profile
 
     And I go to the soapbox restaurant profile for "Piece"
     And show me the page
-    Then I should see the question "What's the newest item on your menu?" with the answer "Pea Soup"
+    Then I should see the question "What's new?" with the answer "Pea Soup"
     And I should not see the answer "Lobster Bisque"
