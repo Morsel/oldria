@@ -18,7 +18,6 @@ ActiveRecord::Schema.define(:version => 20101007163329) do
     t.string   "responder_type"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "public"
     t.boolean  "show_as_public"
   end
 

@@ -54,17 +54,19 @@
     <% div_if @restaurant.media_contact, :id =>"media_contact" do %>
       Media Contact:
       <div id="media_contact_name">
-        <%= h @restaurant.media_contact.name %>
+        <%= link_to h(@restaurant.media_contact.name),
+            profile_path(@restaurant.media_contact)  %>
       </div>
       <div id="media_contact_email">
         Email:
         <%= link_to h(@restaurant.media_contact.email),
             "mailto:#{@restaurant.media_contact.email}" %>
       </div>
-      <div id="media_contact_phone">
+      <% div_if @restaurant.media_contact.phone_number.present?,
+          :id => "media_contact_phone" do %>
         Phone:
         <%= h @restaurant.media_contact.phone_number %>
-      </div>
+      <% end %>
     <% end %>
 
     <% div_if @restaurant.management_company_name.present?, :id => "management_company" do %>

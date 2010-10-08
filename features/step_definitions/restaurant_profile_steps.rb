@@ -44,11 +44,20 @@ When /^I see the restaurant's hours$/ do
 end
 
 Then /^I see media contact name, phone, and email$/ do
-  response.should have_selector("#media_contact_name", :content => @restaurant.media_contact.name)
-  response.should have_selector("#media_contact_phone", :content => @restaurant.media_contact.phone_number)
-  response.should have_selector("#media_contact_email a", :content => @restaurant.media_contact.email,
-      :href => "mailto:#{@restaurant.media_contact.email}")
-  response.should have_selector("#media_contact_email", :content => @restaurant.media_contact.email)
+  media_contact = @restaurant.media_contact
+  response.should have_selector("#media_contact_name a",
+      :content => media_contact.name,
+      :href => profile_path(media_contact))
+  response.should have_selector("#media_contact_phone", :content => media_contact.phone_number)
+  response.should have_selector("#media_contact_email a", :content => media_contact.email,
+      :href => "mailto:#{media_contact.email}")
+  response.should have_selector("#media_contact_email", :content => media_contact.email)
+end
+
+When /^I see media contact name and email, but no phone$/ do
+  media_contact = @restaurant.media_contact
+  response.should have_selector("#media_contact_name", :content => media_contact.name)
+  response.should_not have_selector("#media_contact_phone")
 end
 
 Then /^I see the management company name as a link$/ do
@@ -58,6 +67,11 @@ end
 Given /^the restaurant has no media contact$/ do
   @restaurant.update_attributes(:media_contact => nil)
 end
+
+Given /^the restaurant media contact has no phone number$/ do
+  @restaurant.media_contact.update_attributes(:phone_number => nil)
+end
+
 
 Then /^I should not see media contact info$/ do
   response.should_not have_selector("#media_contact")
