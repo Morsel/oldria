@@ -41,10 +41,13 @@ class Chapter < ActiveRecord::Base
   
   def previous_for_user(user, is_self = false)
     sort_field = (self.position == 0 ? "id" : "position")
-    chapters = is_self ? self.topic.chapters.for_user(user) : self.topic.chapters.answered_for_user(user)
-    chapters.find(:first, 
-                  :conditions => ["chapters.#{sort_field} < ?", self.send(sort_field)], 
-                  :order => "#{sort_field} DESC")
+    if is_self
+      self.topic.chapters.for_user(user).first(:conditions => ["chapters.#{sort_field} < ?", self.send(sort_field)], 
+                                               :order => "#{sort_field} DESC")
+    else
+      self.topic.chapters.answered_for_user(user).first(:conditions => ["chapters.#{sort_field} < ?", self.send(sort_field)], 
+                                                        :order => "#{sort_field} DESC")
+    end
   end
   
   def next_for_user(user, is_self = false)
