@@ -119,6 +119,5 @@ Feature: Restaurant profile
      | What's new? | Pea Soup       | true   |
 
     And I go to the soapbox restaurant profile for "Piece"
-    And show me the page
     Then I should see the question "What's new?" with the answer "Pea Soup"
     And I should not see the answer "Lobster Bisque"
