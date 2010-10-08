@@ -24,9 +24,13 @@ class QuestionsController < ApplicationController
 
   def topics
     @profile = @user.profile || @user.build_profile
-    questions = @user.profile_questions
-    @topics = Topic.for_user(@user)
-    @chapters_by_topic = Chapter.for_user(@user).group_by(&:topic)
+    if @user == current_user
+      @topics = Topic.for_user(@user)
+      @chapters_by_topic = Chapter.for_user(@user).all(:limit => 3).group_by(&:topic)
+    else
+      @topics = Topic.answered_for_user(@user)
+      @chapters_by_topic = Chapter.answered_for_user(@user).all(:limit => 3).group_by(&:topic)
+    end      
   end
   
   def chapters
@@ -34,6 +38,7 @@ class QuestionsController < ApplicationController
     is_self = @user == current_user
     @previous = @topic.previous_for_user(@user, is_self)
     @next = @topic.next_for_user(@user, is_self)
+    
     @questions_by_chapter = @user.profile_questions.
         all(:conditions => { :chapter_id => @topic.chapters.map(&:id) }, :joins => :chapter, 
         :order => "chapters.position, chapters.id").

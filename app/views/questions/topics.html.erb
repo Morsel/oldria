@@ -7,13 +7,11 @@
 <div class="topic <%= cycle '',' last' %>" id="<%= dom_id topic %>">
     <h3><%= topic.title %></h3>
     <table>
-        <% for chapter in @chapters_by_topic[topic][0..2] %>
-        <% if @user == current_user || chapter.published?(@user) %>
+        <% for chapter in @chapters_by_topic[topic] %>
         <tr>
            <td class="topic_link"><%= link_to chapter.title, user_questions_path(:user_id => @user.id, :chapter_id => chapter.id) %></td>
            <td class="topic_completeness"><%= chapter.completion_percentage(@user) %>% complete</td> 
         </tr>
-        <% end %>
         <% end %>
     </table>
     <%= link_to "View all \"#{topic.title}\" chapters &raquo;", chapters_user_questions_path(:user_id => @user.id, :topic_id => topic.id), :class => 'view_all_chapters' %>
