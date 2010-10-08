@@ -26,10 +26,18 @@ class QuestionsController < ApplicationController
     @profile = @user.profile || @user.build_profile
     if @user == current_user
       @topics = Topic.for_user(@user)
-      @chapters_by_topic = Chapter.for_user(@user).all(:limit => 3).group_by(&:topic)
+      chapters = []
+      for topic in @topics
+        chapters << topic.chapters.for_user(@user).all(:limit => 3)
+      end
+      @chapters_by_topic = chapters.flatten.group_by(&:topic)
     else
       @topics = Topic.answered_for_user(@user)
-      @chapters_by_topic = Chapter.answered_for_user(@user).all(:limit => 3).group_by(&:topic)
+      chapters = []
+      for topic in @topics
+        chapters << topic.chapters.answered_for_user(@user).all(:limit => 3)
+      end
+      @chapters_by_topic = chapters.flatten.group_by(&:topic)
     end      
   end
   
