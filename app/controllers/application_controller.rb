@@ -55,6 +55,14 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def require_account_manager_authorization
+    omniscient = current_user.employments.first && current_user.employments.first.omniscient?
+    unless omniscient
+      flash[:error] = "You don't have permission to access that page"
+      redirect_to root_path
+    end
+  end
+
   def require_user
     unless current_user
       store_location

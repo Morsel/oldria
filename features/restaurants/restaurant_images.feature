@@ -5,16 +5,25 @@ Feature: Restaurant Images
   would like to see the restaurant logo and photos
 
   Background:
-    Given I am logged in as an admin
-    And a restaurant named "Bourgeois Pig"
+    Given a restaurant named "Bourgeois Pig"
 
   Scenario: Upload a photo
+    Given I am logged in as an account manager for "Bourgeois Pig"
     When I go to the restaurant photo upload page for Bourgeois Pig
     And I attach the file "/features/images/bourgeoispig.jpg" to "photo_attachment"
     And I fill in "Xavier Zarope" for "Credit"
     And I press "Upload"
     Then I see the uploaded restaurant photo
     And I should see the uploaded restaurant photo credit
+
+  Scenario: Photo upload page does not display for a non-account manager
+    Given I am logged in as a normal user
+    When I go to the restaurant photo upload page for Bourgeois Pig
+    And I should see "You don't have permission to access that page"
+
+  Scenario: Photo upload page does not display for a logged out user
+    When I go to the restaurant photo upload page for Bourgeois Pig
+    And I should see "You must be logged in to access this page"
 
   Scenario: Upload a photo fails when no file specified
     When I go to the restaurant photo upload page for Bourgeois Pig
