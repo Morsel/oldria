@@ -283,11 +283,11 @@ Then /^I should see the answer "([^"]*)"$/ do |answer_text|
       :content => answer_text)
 end
 
-Given /^"([^"]*)" has the following A La Minute Answers:$/ do |restaurant_name, table|
+Given /^"([^"]*)" has answered the following A La Minute questions:$/ do |restaurant_name, table|
   @restaurant = Restaurant.find_by_name(restaurant_name)
-  @restaurant.a_la_minute_answers.destroy_all
   table.hashes.each do |row|
-    question = Factory(:a_la_minute_question, :question => row['question'], :kind => "restaurant")
+    # TODO this feels cludgy... there's probably a better way... refactor.
+    question = ALaMinuteQuestion.find_by_question(row['question']) || Factory(:a_la_minute_question, :question => row['question'], :kind => "restaurant")
     answer = Factory(:a_la_minute_answer, :answer => row['answer'],
         :a_la_minute_question => question, :responder => @restaurant,
         :show_as_public => row['public'])
@@ -296,11 +296,15 @@ end
 
 Then /^I should see the question "([^"]*)" with the answer "([^"]*)"$/ do |question_text, answer_text|
   answer = @restaurant.a_la_minute_answers.find_by_answer(answer_text)
-  response.should have_selector("##{dom_id(answer)} .question", :content => question_text)
-  response.should have_selector("##{dom_id(answer)} .answer", :content => answer_text)
+  response.should have_selector("##{dom_id(answer.a_la_minute_question)} .question", :content => question_text)
+  response.should have_selector("##{dom_id(answer.a_la_minute_question)} .answer", :content => answer_text)
 end
 
 Then /^I should not see the question "([^"]*)" with the answer "([^"]*)"$/ do |question_text, answer_text|
   response.should_not have_selector(".question", :content => question_text)
+  response.should_not have_selector(".answer", :content => answer_text)
+end
+
+Then /^I should not see the answer "([^"]*)"$/ do |answer_text|
   response.should_not have_selector(".answer", :content => answer_text)
 end

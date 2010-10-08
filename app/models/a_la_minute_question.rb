@@ -7,4 +7,7 @@ class ALaMinuteQuestion < ActiveRecord::Base
     restaurant.a_la_minute_answers.last(:conditions => {:a_la_minute_question_id => id})
   end
 
+  def answers_for(restaurant)
+    restaurant.a_la_minute_answers.find(:all, :conditions => {:a_la_minute_question_id => id})
+  end
 end

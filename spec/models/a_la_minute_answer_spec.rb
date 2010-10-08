@@ -16,7 +16,6 @@ describe ALaMinuteAnswer do
   end
 
   describe "show_as_public" do
-
     it "should only find public answers" do
       public_answer = ALaMinuteAnswer.create!(@valid_attributes.merge(:show_as_public => true))
       private_answer = ALaMinuteAnswer.create!(@valid_attributes.merge(:show_as_public => false))
@@ -26,4 +25,12 @@ describe ALaMinuteAnswer do
     end
   end
 
+  describe "newest" do
+    it "should only find the most recent answer for each question" do
+      old_answer = ALaMinuteAnswer.create!(@valid_attributes.merge(:show_as_public => true))
+      new_answer = ALaMinuteAnswer.create!(@valid_attributes.merge(:show_as_public => true))
+
+      ALaMinuteAnswer.newest.should == [new_answer]
+    end
+  end
 end

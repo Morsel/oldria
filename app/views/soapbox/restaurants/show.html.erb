@@ -49,8 +49,8 @@
       <% @restaurant.menus.each do |menu| %>
         <tr id="menu_<%=menu.id%>">
           <td class="menu_name"><%= link_to h(menu.name), menu.pdf_remote_attachment.attachment.url %></td>
-          <td class="menu_date"><%=h menu.created_at.to_s(:standard) %></td>
-          <td class="menu_change_frequency"><%=h menu.change_frequency %></td>
+          <td class="menu_date"><%= h menu.created_at.to_s(:standard) %></td>
+          <td class="menu_change_frequency"><%= h menu.change_frequency %></td>
         </tr>
       <% end %>
     </table>
@@ -62,9 +62,10 @@
 
   <div class="questions">
     <%= render :partial => "a_la_minute_question",
-            :collection => @restaurant.a_la_minute_answers.show_as_public.all,
+            :collection => @restaurant.a_la_minute_answers.show_as_public.newest.all,
             :as => :answer %>
   </div>
+
 </div>
 
 <div class="last"></div>
