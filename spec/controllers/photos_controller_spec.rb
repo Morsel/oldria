@@ -1,13 +1,15 @@
 require 'spec_helper'
 
-#Processing PhotosController#reorder (for 127.0.0.1 at 2010-10-06 16:47:44) [POST]
-#Parameters: {"photo"=>["73", "74", "71"], "action"=>"reorder", "authenticity_token"=>"JJRQF2nRBEQfvHKs7/kInm9e+4bYm4uOgw0fG2ZUHro=", "controller"=>"photos", "restaurant_id"=>"16"}
-
 describe PhotosController do
   describe "GET reorder" do
     let :restaurant do
       restaurant = Factory(:restaurant)
       3.times {restaurant.photos << Factory(:photo)}
+      fake_normal_user
+      user = @user
+      restaurant.additional_managers << user
+      employment = restaurant.employments.find_by_employee_id(user.id)
+      employment.update_attribute(:omniscient, true)
       restaurant
     end
 
