@@ -4,9 +4,9 @@ Feature: Restaurant profile
 
   Background:
     Given a restaurant named "Piece"
+    Given I am logged in as an account manager for "Piece"
 
   Scenario: Show basic data
-    Given I am logged in as an admin
     When I go to the restaurant photo upload page for Piece
     And I attach the file "/features/images/bourgeoispig.jpg" to "photo_attachment"
     And I fill in "Xavier Zarope" for "Credit"
@@ -62,7 +62,6 @@ Feature: Restaurant profile
     And I should see "There are no menus available at this time."
 
   Scenario: Show primary photo detail view
-    Given I am logged in as an admin
     When I go to the restaurant photo upload page for Piece
     And I attach the file "/features/images/bourgeoispig.jpg" to "photo_attachment"
     And I fill in "Xavier Zarope" for "Credit"
@@ -73,7 +72,6 @@ Feature: Restaurant profile
     And I should see "Xavier Zarope"
 
   Scenario: Show photo gallery
-    Given I am logged in as an admin
     When I go to the restaurant photo upload page for Piece
     And I attach the file "/features/images/bourgeoispig.jpg" to "photo_attachment"
     And I fill in "Xavier Zarope" for "Credit"
@@ -89,13 +87,11 @@ Feature: Restaurant profile
     Then I should see the restaurant photo gallery
 
   Scenario: Display message about no photos available when photo gallery is empty
-    Given I am logged in as an admin
     When I go to the soapbox restaurant profile for "Piece"
     And I follow "photo_gallery"
     Then I should see no restaurant photos
 
   Scenario: Show the public A La Minute Answers
-    Given I am logged in as an admin
     And "Piece" has the following A La Minute Answers:
      | question        | answer    | public |
      | What's new?     | Nothing   | false  |

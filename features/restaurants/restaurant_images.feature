@@ -6,9 +6,9 @@ Feature: Restaurant Images
 
   Background:
     Given a restaurant named "Bourgeois Pig"
+    Given I am logged in as an account manager for "Bourgeois Pig"
 
   Scenario: Upload a photo
-    Given I am logged in as an account manager for "Bourgeois Pig"
     When I go to the restaurant photo upload page for Bourgeois Pig
     And I attach the file "/features/images/bourgeoispig.jpg" to "photo_attachment"
     And I fill in "Xavier Zarope" for "Credit"
@@ -22,6 +22,7 @@ Feature: Restaurant Images
     And I should see "You don't have permission to access that page"
 
   Scenario: Photo upload page does not display for a logged out user
+    Given I am not logged in
     When I go to the restaurant photo upload page for Bourgeois Pig
     And I should see "You must be logged in to access this page"
 

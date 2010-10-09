@@ -1,4 +1,6 @@
 class MenusController < ApplicationController
+  before_filter :require_user
+  before_filter :require_account_manager_authorization
   before_filter :find_restaurant
 
   def index
