@@ -85,6 +85,8 @@ ActionController::Routing::Routes.draw do |map|
     restaurant.resource :logo
     restaurant.resources :accolades
     restaurant.resources :employments, :collection => { "reorder" => :post }
+    restaurant.resources :a_la_minute_answers, :collection => {:edit_in_place => :post}
+    restaurant.resources :a_la_minute_questions, :member => {:show_as_public => :post}
     restaurant.resources
   end
 
@@ -176,8 +178,6 @@ ActionController::Routing::Routes.draw do |map|
     admin.resources :content_requests
     admin.resources :trend_questions
   end
-
-  map.resources :a_la_minute_answers, :collection => {:edit_in_place => :post}
 
   map.public_page ":id", :controller => 'pages', :action => 'show'
 
