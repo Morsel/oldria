@@ -237,7 +237,7 @@ Then /^I see no restaurant photos$/ do
   response.should_not have_selector("img.restaurant_photo")
 end
 
-When /^click to make "([^"]*)" public$/ do |username|
+When /^I click to make "([^"]*)" public$/ do |username|
   user = User.find_by_username(username)
   employment = user.employments.first
   click_link_within("##{dom_id(employment)}", "Click to make public")

@@ -88,8 +88,23 @@ Feature: Associating a Restaurant with its employees
     And "betty" is an employee of "Jimmy's Diner"
     When I go to the employees page for "Jimmy's Diner"
     Then I should see "will not be displayed"
-    When click to make "betty" public
+    When I click to make "betty" public
     Then I should see that "betty" is public
+    
+  Scenario: The difference between a premium and basic employee
+    Given I have just created a restaurant named "Jimmy's Diner"
+    And that "Jimmy's Diner" has a premium account
+    And "betty" is an employee of "Jimmy's Diner"
+    And "bob" is an employee of "Jimmy's Diner"
+    When I go to the employees page for "Jimmy's Diner"
+    And I click to make "betty" public
+    And I go to the employees page for "Jimmy's Diner"
+    And I click to make "bob" public
+    And the user "betty" has a premium account
+    And the user "bob" does not have a premium account
+    When I go to the soapbox restaurant profile for "Jimmy's Diner" 
+    Then I see an employee named "betty" with a link
+    And I see an employee named "bob" without a link
 
   Scenario: Sorted Employees
     Given I have just created a restaurant named "Jimmy's Diner"

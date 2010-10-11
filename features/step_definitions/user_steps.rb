@@ -130,3 +130,8 @@ Given /^given that user "([^\"]*)" has just been confirmed$/ do |username|
   user = User.find_by_username(username)
   user.confirm!
 end
+
+When /^the user "([^\"]*)" (has|does not have) a premium account$/ do |username, toggle|
+  user = User.find_by_username(username)
+  user.update_attributes(:premium_account => (toggle == "has"))
+end

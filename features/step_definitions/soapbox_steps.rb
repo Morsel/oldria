@@ -74,3 +74,14 @@ When /^that "([^\"]*)" (has|does not have) a premium account$/ do |restaurant_na
   restaurant = Restaurant.find_by_name(restaurant_name)
   restaurant.update_attributes(:premium_account => toggle == "has")
 end
+
+Then /^I see an employee named "([^"]*)" with a link$/ do |username|
+  user = User.find_by_username(username)
+  response.should have_selector(".employee_name a", :content => user.name)
+end
+
+Then /^I see an employee named "([^"]*)" without a link$/ do |username|
+  user = User.find_by_username(username)
+  response.should have_selector(".employee_name", :content => user.name)
+  response.should_not have_selector(".employee_name a", :content => user.name)
+end
