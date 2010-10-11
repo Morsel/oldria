@@ -2,14 +2,14 @@ class UserSessionsController < ApplicationController
   before_filter :require_user, :only => :destroy
 
   def new
-    @user_session = UserSession.new
+    @user_session = UserSession.new(params[:user_session])
   end
-  
+
   def create
     @user_session = UserSession.new(params[:user_session])
     save_session
   end
-  
+
   def create_from_facebook
     user = User.find_by_facebook_id(current_facebook_user.id)
     if user
@@ -23,16 +23,16 @@ class UserSessionsController < ApplicationController
       redirect_to :action => 'new'
     end
   end
-  
+
   def destroy
     @user_session = UserSession.find(params[:id])
     @user_session.destroy
     flash[:notice] = "Successfully logged out."
     redirect_to root_url
   end
-  
+
   protected
-  
+
   def save_session
     if @user_session.save
       flash[:notice] = "You are now logged in."

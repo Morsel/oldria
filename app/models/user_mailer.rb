@@ -19,20 +19,28 @@ class UserMailer < ActionMailer::Base
     body          :edit_password_reset_url => edit_password_reset_url(user.perishable_token)
   end
 
-  def media_request_notification(request, discussion)
+  def media_request_notification(request_discussion, user)
     from       'notifications@restaurantintelligenceagency.com'
-    recipients discussion.employments.map(&:employee_email).uniq
-    sent_on    Time.now
-    subject    "SpoonFeed: #{request.publication_string} has a question for #{discussion.restaurant.name}"
-    body       :request => request, :discussion => discussion
+    recipients user.email
+    sent_on    request_discussion.created_at
+    subject    "SpoonFeed: #{request_discussion.publication_string} has a question for #{request_discussion.restaurant.name}"
+    body       :request => request_discussion.media_request, :discussion => request_discussion
   end
 
   def employee_invitation(user, invitation_sender = nil)
     from          'accounts@restaurantintelligenceagency.com'
     recipients    user.email
     sent_on       Time.now
-    subject       "SpoonFeed: You've been added"
+    subject       "SpoonFeed: You're invited"
     body          :user => user, :invitation_sender => invitation_sender
+  end
+  
+  def employee_request(restaurant, user)
+    from          'accounts@restaurantintelligenceagency.com'    
+    recipients    restaurant.manager.email
+    sent_on       Time.now
+    subject       "SpoonFeed: a new employee has joined"
+    body          :recipient => restaurant.manager, :user => user, :restaurant => restaurant
   end
 
   def discussion_notification(discussion, user)
@@ -42,7 +50,15 @@ class UserMailer < ActionMailer::Base
     subject     "SpoonFeed: #{discussion.poster.try :name} has invited you to a discussion"
     body        :discussion => discussion, :user => user
   end
-
+  
+  def invitation_welcome(invite)
+    from        'notifications@restaurantintelligenceagency.com'
+    recipients  invite.email
+    sent_on     Time.now
+    subject     "Thanks for your interest in Spoonfeed!"
+    body        :invitation => invite
+  end
+  
   ##
   # Generic message: could be one of DirectMessage, etc.
   def message_notification(message, recipient, sender = nil)

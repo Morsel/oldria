@@ -67,4 +67,7 @@ class HolidayDiscussion < ActiveRecord::Base
     restaurant.employees
   end
 
+  def recipients_can_reply?
+    true
+  end
 end

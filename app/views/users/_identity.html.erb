@@ -1,0 +1,12 @@
+<div class="identity">
+  <% if user.avatar? %>
+    <div class="avatar">
+      <%= image_tag(user.avatar.url(:thumb)) %>
+    </div>
+  <% end %>
+
+  <% employment ||= user.primary_employment
+     highlight_restaurant ||= false %>
+
+  <%= identity_details_list(employment, highlight_restaurant) unless employment.nil? %>
+</div>

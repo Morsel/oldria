@@ -81,22 +81,15 @@ describe EmployeesController do
         User.stubs(:find)
         get :new, :restaurant_id => @restaurant.id, :employment => {:employee_email => "sam@example.com"}
       end
-      it { response.should be_success }
-      it { response.should render_template(:new_employee)}
-
-      it { assigns[:restaurant].should == @restaurant }
-      it { assigns[:employment].should be_an(Employment) }
-      it { assigns[:employee].should be_new_record }
-
-      it "should have a form to POST create action with hidden autofilled email" do
-        response.should have_selector("form", :action => "/restaurants/#{@restaurant.id}/employees")
-        response.should have_selector("input", :name => "employment[employee_attributes][email]", :value => "sam@example.com")
-      end
+      it { response.should be_redirect }
+      it { response.should redirect_to(new_invitation_url(:restaurant => true, 
+          :invitation => { :restaurant_id => @restaurant.id, :email => "sam@example.com" }))}
     end
   end
 
   describe "POST create" do
     context "when user exists" do
+      
       before(:each) do
         @employment.stubs(:save).returns(true)
         post :create, :restaurant_id => @restaurant.id, :employment=> {:employee_email => "john@example.com"}
@@ -105,22 +98,20 @@ describe EmployeesController do
       it "should assign @restaurant" do
         assigns[:restaurant].should == @restaurant
       end
-
+      
       it "should assign a found employee" do
         assigns[:employment].employee.should == @employee
       end
 
-      it { should redirect_to(restaurant_employees_path(@restaurant))}
+      it { should redirect_to(edit_restaurant_employee_path(@restaurant, @employee)) }
+      
     end
 
     context "when user is new and valid" do
+      
       before(:each) do
         user_attrs = Factory.attributes_for(:user, :name => "John Doe", :email => 'john@simple.com')
-        User.stubs(:find)
-        User.any_instance.stubs(:valid?).returns(true)
-        User.any_instance.stubs(:save).returns(true)
-        Employment.any_instance.stubs(:save).returns(true)
-        post :create, :restaurant_id => @restaurant.id, :employment=> {:employee_attributes => user_attrs }
+        post :create, :restaurant_id => @restaurant.id, :employment => { :employee_attributes => user_attrs }
       end
 
       it "should assign @restaurant" do
@@ -131,20 +122,26 @@ describe EmployeesController do
         assigns[:employment].employee.name.should == "John Doe"
       end
 
-      it { should redirect_to(restaurant_employees_path(@restaurant))}
+      it "should set the user's password (to a random token)" do
+        assigns[:employee].password.should_not be_nil
+      end
+
+      it { should redirect_to(edit_restaurant_employee_path(@restaurant, assigns[:employee])) }
 
     end
 
     context "when user is new but invalid" do
+      
       before(:each) do
         user_attrs = Factory.attributes_for(:user, :name => "John Doe", :email => 'john@simple.com')
         User.stubs(:find_by_email)
         User.any_instance.stubs(:valid?).returns(false)
         Employment.any_instance.stubs(:save).returns(false)
-        post :create, :restaurant_id => @restaurant.id, :employment=> {:employee_attributes => user_attrs }
+        post :create, :restaurant_id => @restaurant.id, :employment => { :employee_attributes => user_attrs }
       end
 
       it { should render_template(:new_employee) }
+
     end
   end
 

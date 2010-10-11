@@ -19,33 +19,6 @@ describe UsersController do
     end
   end
 
-  describe "GET new" do
-    context "as an anonymous user" do
-      before(:each) do
-        # user =  Factory.stub(:user)
-        # user.stubs(:has_role?).with(:media).returns(true)
-        controller.stubs(:current_user).returns nil
-      end
-      it "should render new template" do
-        get :new
-        response.should render_template(:new)
-      end
-    end
-
-    context "as a logged in user" do
-      before(:each) do
-        user =  Factory.stub(:user)
-        user.stubs(:has_role?).returns(false)
-        controller.stubs(:current_user).returns user
-      end
-
-      it "should redirect to the homepage" do
-        get :new
-        response.should redirect_to(root_url)
-      end
-    end
-  end
-
   describe "GET show" do
     before(:each) do
       @user = Factory(:user, :id => 3)
@@ -56,9 +29,17 @@ describe UsersController do
       before(:each) do
         controller.stubs(:current_user).returns nil
       end
-      it "should redirect to the login page" do
+      
+      it "should redirect to the login page if the profile is not visible" do
+        @user.prefers_publish_profile = false; @user.save
         get :show, :id => 3
         response.should redirect_to(login_url)
+      end
+      
+      it "should show the profile if it is visible" do
+        @user.prefers_publish_profile = true; @user.save
+        get :show, :id => 3
+        response.should render_template(:show)
       end
     end
 
@@ -100,4 +81,36 @@ describe UsersController do
     end
 
   end
+  
+  describe "editing" do
+    
+    it "should render the edit page" do
+      user = Factory(:user)
+      controller.stubs(:current_user).returns(user)
+      get :edit, :id => user.id
+      response.should render_template('users/edit')
+    end
+    
+  end
+  
+  describe "updating user attributes" do
+
+    before(:each) do
+      @user = Factory(:user)
+      controller.stubs(:current_user).returns(@user)
+      User.expects(:find).returns(@user)
+    end
+    
+    it "should update the user" do
+      @user.expects(:update_attributes).with("username" => "Hammy").returns(true)
+      put :update, :id => @user.id, :user => { :username => "Hammy" }
+    end
+    
+    it "should create a default employment" do
+      @user.expects(:create_default_employment).with("restaurant_role_id" => 1).returns(true)
+      put :update, :id => @user.id, :user => { :username => "Hammy", :default_employment => { :restaurant_role_id => 1 } }
+    end
+    
+  end
+
 end

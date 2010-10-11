@@ -1,0 +1,13 @@
+<h3 class="function-bold">Recent Status Updates</h3>
+<div class="recent_statuses">
+	<% for status in statuses -%>
+	<p class="status clearfix" id="status_<%= status.id %>">
+		<%= render :partial => 'statuses/status', :locals => { :status => status } %>
+	</p>
+	<% end %>
+	<% if user.statuses.size > 5 -%>
+	  <p>
+  	  <%= link_to 'View past status updates', user_statuses_path(user), :class => 'sf-button' %>
+  	</p>
+	<% end -%>
+</div><!-- .recent_statuses -->

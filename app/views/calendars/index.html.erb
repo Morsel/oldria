@@ -46,7 +46,7 @@
 </div><!--.calendar-header-->
 
 <div class="calendar">
-    <% calendar_for(@events, :year => @date.year, :month => @date.month) do |t| %>
+    <% calendar_for(@events, :year => @date.year, :month => @date.month, :first_day_of_week => 1) do |t| %>
         <%= t.head('Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun') %>
         <% t.day do |day, events| %>
             <%= day.day %>

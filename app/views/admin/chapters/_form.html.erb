@@ -1,0 +1,7 @@
+<% semantic_form_for [:admin, chapter] do |f| %>
+    <% f.inputs :class => "plain" do %>
+        <%= f.input :title, :label => "Title" %>
+        <%= f.input :topic_id, :as => :hidden, :input_html => { :value => topic.id } %>
+        <%= button_tag "Save" %>
+    <% end %>
+<% end %>

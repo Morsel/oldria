@@ -1,21 +1,37 @@
 ActionController::Routing::Routes.draw do |map|
-  map.signup 'signup', :controller => 'users', :action => 'new'
   map.login  'login',  :controller => 'user_sessions', :action => 'new'
   map.logout 'logout', :controller => 'user_sessions', :action => 'destroy'
   map.confirm 'confirm/:id', :controller => 'users', :action => 'confirm'
   map.fb_login 'facebook_login', :controller => 'user_sessions', :action => 'create_from_facebook'
 
+  map.resources :invitations, :only => ['new', 'create', 'show']
+  map.resource :complete_registration, :only => [:show, :update], 
+    :collection => { :find_restaurant => :any, :contact_restaurant => :post }
+  
   map.directory 'directory', :controller => 'directory', :action => 'index'
 
-
-  map.with_options :conditions => {:subdomain => 'soapbox'}, :controller => 'soapbox' do |soapbox|
+  map.with_options :conditions => { :subdomain => 'soapbox' }, :controller => 'soapbox' do |soapbox|
     soapbox.root :action => 'index'
-    soapbox.entry ':id', :action => 'show'
   end
 
-  map.resources :soapbox, :only => ['index','show']
+  map.resources :soapbox, :only => ['index','show'], :collection => 'directory'
 
-  map.profile 'profile/:username', :controller => 'users', :action => 'show'
+  map.resource :my_profile, :only => ['create', 'edit', 'update'], :controller => 'profiles' do |p|
+    p.resources :culinary_jobs
+    p.resources :nonculinary_jobs
+    p.resources :awards
+    p.resources :accolades
+    p.resources :enrollments
+    p.resources :competitions
+    p.resources :internships
+    p.resources :stages
+    p.resources :nonculinary_enrollments
+    p.resources :apprenticeships
+    p.resources :profile_cuisines
+  end
+
+  map.profile 'profile/:username', :controller => 'users', :action => 'show', :requirements => { :username => /[a-zA-Z0-9\-\_ ]+/}
+  map.resources :profile_answers, :only => [:create, :update, :destroy]
 
   map.resources :quick_replies
   map.resources :media_users, :except => [:index, :show]
@@ -35,10 +51,13 @@ ActionController::Routing::Routes.draw do |map|
     :remove_avatar => :put,
     :fb_auth => :get,
     :fb_connect => :any,
-    :fb_deauth => :any
+    :fb_deauth => :any,
+    :fb_page_auth => :post
   }, :shallow => true do |users|
     users.resources :statuses
     users.resources :direct_messages, :member => { :reply => :get }
+    users.resources :questions, :collection => { :topics => :get, :chapters => :get }
+    users.resources :default_employments
   end
 
   map.resources :restaurants do |restaurant|
@@ -63,11 +82,11 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :holiday_discussion_reminders, :member => { :read => :put }
 
   map.resources :admin_conversations, :only => 'show' do |admin_conversations|
-    admin_conversations.resources :comments, :only => [:new, :create]
+    admin_conversations.resources :comments, :only => [:new, :create, :edit, :update]
   end
 
   map.resources :admin_discussions, :only => 'show', :member => { :read => :put } do |admin_discussions|
-    admin_discussions.resources :comments, :only => [:new, :create]
+    admin_discussions.resources :comments, :only => [:new, :create, :edit, :update]
   end
 
   map.resources :admin_messages, :only => 'show', :member => { :read => :put }
@@ -89,11 +108,8 @@ ActionController::Routing::Routes.draw do |map|
   map.resource :feeds
   map.resource :employment_search
 
-
   map.resource :twitter_authorization
   map.resource :friends_statuses, :only => 'show'
-  map.resources :invitations, :only => 'show', :collection => { :login => :get }
-  map.resource :complete_registration, :only => [:show, :update]
 
   map.resource :search, :only => 'show'
 
@@ -108,11 +124,18 @@ ActionController::Routing::Routes.draw do |map|
     admin.resources :date_ranges, :coached_status_updates, :direct_messages
     admin.resources :cuisines, :subject_matters, :restaurants
     admin.resources :media_requests, :member => { :approve => :put }
-    admin.resources :restaurant_roles, :except => [:show]
+    admin.resources :restaurant_roles, :except => [:show], :collection => { :update_category => :put }
     admin.resources :holidays
     admin.resources :calendars
     admin.resources :events
     admin.resources :soapbox_entries
+    admin.resources :profile_questions, :collection => { :sort => :post }
+    admin.resources :chapters, :collection => { :select => :post }
+    admin.resources :topics
+    admin.resources :question_roles
+    admin.resources :schools
+    admin.resources :specialties, :collection => { :sort => :post }
+    admin.resources :invitations, :member => { :accept => :get, :archive => :get }
 
     # Admin Messaging
     exclusive_routes = [:index, :show, :destroy]

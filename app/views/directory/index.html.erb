@@ -1,7 +1,14 @@
 <% title "User Directory" %>
 
-<div id="directory">
-  <%= render @restaurants %>
-  <%= will_paginate @restaurants %>
+<% if @use_search %>
+<div id="directory_search">
+    <% semantic_form_for EmploymentSearch.new, :url => employment_search_path do |f| %>
+        <%= render :partial => 'shared/employment_criteria', :locals => { :f => f, :hide_subject_matter => true } %>
+    <% end %>
+</div>
+<% end %>
+
+<div id="directory_list">
+    <%= render :partial => 'search_results' %>
 </div>
 

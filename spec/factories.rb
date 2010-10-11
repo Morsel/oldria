@@ -30,6 +30,116 @@ Factory.define :media_user, :parent => :user do |f|
   f.role 'media'
 end
 
+Factory.define :profile do |f|
+  f.association :user
+  f.hometown "Detroit"
+  f.current_residence "NYC"
+end
+
+Factory.define :culinary_job do |f|
+  f.association  :profile
+  f.restaurant_name "Rico's Place"
+  f.title        "Chef"
+  f.city         "Atlanta"
+  f.state        "GA"
+  f.country      "United States"
+  f.date_started 1.year.ago
+  f.date_ended   2.months.ago
+  f.chef_name    "Jorge Bergeson"
+  f.cuisine      "Seafood"
+end
+
+Factory.define :nonculinary_job do |f|
+  f.association  :profile
+  f.company      "Johnson and Johnson"
+  f.title        "COO"
+  f.city         "Tucson"
+  f.state        "AZ"
+  f.country      "United States"
+  f.date_started 3.years.ago
+  f.date_ended   1.year.ago
+  f.responsibilities    "Bossing people around"
+  f.reason_for_leaving  "Had too much free time"
+end
+
+Factory.define :award do |f|
+  f.association :profile
+  f.name "Best Chef ever"
+  f.year_won "2009"
+  f.year_nominated "2008"
+end
+
+Factory.define :accolade do |f|
+  f.association :profile
+  f.name "The Today Show"
+  f.run_date 1.year.ago
+  f.media_type "National television exposure"
+end
+
+Factory.define :school do |f|
+  f.name         "Midwest International Culinary School"
+  f.city         "Columbus"
+  f.state        "OH"
+  f.country      "United States"
+end
+
+Factory.define :nonculinary_school do |f|
+  f.name         "Purdue"
+  f.city         "West Lafayette"
+  f.state        "IN"
+  f.country      "United States"
+end
+
+Factory.define :enrollment do |f|
+  f.association :school
+  f.association :profile
+  f.graduation_date 4.years.ago
+end
+
+Factory.define :competition do |f|
+  f.association :profile
+  f.name "International Champeenship"
+  f.place "First!"
+  f.year 2001
+end
+
+Factory.define :internship do |f|
+  f.association :profile
+  f.establishment "Restaurant B"
+  f.supervisor "The Boss"
+  f.start_date 1.year.ago
+  f.end_date 10.months.ago
+  f.comments "Some comments"
+end
+
+Factory.define :stage do |f|
+  f.association :profile
+  f.establishment "Restaurant B"
+  f.expert "The Expert"
+  f.start_date 1.year.ago
+  f.end_date 10.months.ago
+  f.comments "Some comments"
+end
+
+Factory.define :apprenticeship do |f|
+  f.association :profile
+  f.establishment "Restaurant Q"
+  f.supervisor "The Chef"
+  f.year 1989
+end
+
+Factory.define :nonculinary_enrollment do |f|
+  f.association :nonculinary_school
+  f.association :profile
+  f.graduation_date 6.years.ago
+end
+
+Factory.define :invitation do |f|
+  f.first_name "Jane"
+  f.last_name "Doe"
+  f.sequence(:email) { |n| "foo#{n}@example.com" }
+end
+
 # == Restaurants ==
 Factory.define :restaurant do |f|
   f.name    "Joe's Diner"
@@ -48,6 +158,7 @@ end
 Factory.define :employment do |f|
   f.association :restaurant
   f.association :employee, :factory => :user
+  f.primary false
 end
 
 Factory.define :assigned_employment, :parent => :employment do |f|
@@ -89,6 +200,27 @@ Factory.define :admin_event, :parent => "event" do |f|
   f.category "Charity"
 end
 
+Factory.define :topic do |f|
+  f.sequence(:title) { |n| "Background #{n}" }
+end
+
+Factory.define :chapter do |f|
+  f.sequence(:title) { |n| "Career #{n}" }
+  f.association :topic
+end
+
+Factory.define :profile_question do |f|
+  f.sequence(:title) { |n| "Question #{n}" } 
+  f.association :chapter
+  f.restaurant_roles { [Factory(:restaurant_role), Factory(:restaurant_role) ]}
+end
+
+Factory.define :profile_answer do |f|
+  f.association :profile_question
+  f.association :user
+  f.answer "Awesomeland!"
+end
+
 # == Lookup Tables ==
 
 Factory.define :cuisine do |f|
@@ -97,6 +229,7 @@ end
 
 Factory.define :restaurant_role do |f|
   f.name "Chef"
+  f.category "Cuisine"
 end
 
 Factory.define :james_beard_region do |f|
@@ -110,6 +243,7 @@ end
 
 Factory.define :subject_matter do |f|
   f.name "Beverages"
+  f.general true
 end
 
 Factory.define :page do |f|
@@ -122,6 +256,10 @@ Factory.define :direct_message do |f|
   f.association :receiver, :factory => :user
   f.association :sender, :factory => :user
   f.body  "This is a message"
+end
+
+Factory.define :specialty do |f|
+  f.name "Fish"
 end
 
 # == Media Requests ==
@@ -138,6 +276,7 @@ Factory.define :sent_media_request, :parent => :media_request do |f|
 end
 
 Factory.define :pending_media_request, :parent => :media_request do |f|
+  f.association :employment_search
 end
 
 
@@ -216,7 +355,7 @@ Factory.define :holiday_reminder, :class => Admin::HolidayReminder do |f|
 end
 
 Factory.define :admin_conversation, :class => Admin::Conversation do |f|
-  f.association :recipient, :factory => :employment
+  f.association :recipient, :factory => :user
   f.association :admin_message
 end
 

@@ -1,0 +1,7 @@
+<% content_tag_for :li, award do %>
+  <%= award.name %><br /><%= award.year_won.blank? ? "nominated in #{award.year_nominated}" : award.year_won %>
+  <% if action_name != 'show' %>
+  <%= link_to "Edit", edit_my_profile_award_path(award), :class => 'colorbox' %>
+  <%= link_to "Destroy", my_profile_award_path(award), :method => :delete, :class => 'delete' %>
+  <% end %>
+<% end %>

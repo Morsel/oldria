@@ -1,0 +1,8 @@
+<% div_for question, :class => 'sidebar_item' do %>
+  <% link_to soapbox_path(question.soapbox_entry) do %>
+    <%= question.display_message %>
+    <% if (comment = Comment.on_resource_by_user(question, @user).first) %>
+      <%= comment.comment %>
+    <% end %>
+  <% end %>
+<% end %>

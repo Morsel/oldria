@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20100721223109
+# Schema version: 20100809212429
 #
 # Table name: users
 #
@@ -25,12 +25,19 @@
 #  james_beard_region_id :integer
 #  publication           :string(255)
 #  role                  :string(255)
-#  facebook_id           :integer
+#  facebook_id           :string(255)
 #  facebook_access_token :string(255)
+#  facebook_page_id      :string(255)
+#  facebook_page_token   :string(255)
 #
 
 class User < ActiveRecord::Base
-  acts_as_authentic
+  acts_as_authentic do |c|
+    c.validates_format_of_login_field_options = { :with => /^[a-zA-Z0-9\-\_ ]+$/,
+      :message => "'{{value}}' is not allowed. Usernames can only contain letters, numbers, and/or the '-' symbol" }
+    c.disable_perishable_token_maintenance = true
+  end
+  
   include TwitterAuthorization
   include UserMessaging
 
@@ -48,23 +55,31 @@ class User < ActiveRecord::Base
   # Sent, not received media requests
   has_many :media_requests, :foreign_key => 'sender_id'
 
-  has_many :admin_conversations, :through => :employments, :foreign_key => 'recipient_id'
-  has_many :managed_restaurants, :class_name => "Restaurant", :foreign_key => "manager_id"
-
-  has_many :employments, :foreign_key => "employee_id", :dependent => :destroy
+  has_many :employments, :foreign_key => "employee_id", :dependent => :destroy, :conditions => "restaurant_id is not null"
   has_many :restaurants, :through => :employments
+  has_many :managed_restaurants, :class_name => "Restaurant", :foreign_key => "manager_id"
   has_many :manager_restaurants, :source => :restaurant, :through => :employments, :conditions => ["employments.omniscient = ?", true]
-
+  has_many :restaurant_roles, :through => :employments
+  
+  has_one :default_employment, :foreign_key => "employee_id", :dependent => :destroy
+  
   has_many :discussion_seats, :dependent => :destroy
   has_many :discussions, :through => :discussion_seats
 
   has_many :posted_discussions, :class_name => "Discussion", :foreign_key => "poster_id"
 
+  has_many :admin_conversations, :class_name => "Admin::Conversation", :foreign_key => 'recipient_id'
+
   has_many :feed_subscriptions, :dependent => :destroy
   has_many :feeds, :through => :feed_subscriptions
 
   has_many :readings, :dependent => :destroy
+
+  has_one :profile
+  has_many :profile_answers
   
+  has_one :invitation, :foreign_key => "invitee_id"
+
   validates_presence_of :email
 
   attr_accessor :send_invitation, :agree_to_contract, :invitation_sender, :password_reset_required
@@ -75,26 +90,30 @@ class User < ActiveRecord::Base
   has_attached_file :avatar,
                     :default_url => "/images/default_avatars/:style.png",
                     :styles => { :small => "100x100>", :thumb => "50x50#" }
-
+                    
   validates_exclusion_of :publication,
                          :in => %w( freelance Freelance ),
                          :message => "'{{value}}' is not allowed"
-  validates_format_of :username,
-                      :with => /^[a-zA-Z0-9\-\_ ]+$/,
-                      :message => "'{{value}}' is not allowed. \
-                      Usernames can only contain letters, numbers, and/or the '-' symbol."
-
+                         
   validates_acceptance_of :agree_to_contract
+
+  validates_presence_of :facebook_page_token, :if => Proc.new { |user| user.facebook_page_id }
+  validates_presence_of :facebook_page_id, :if => Proc.new { |user| user.facebook_page_token }
+
+  after_create :deliver_invitation_message!, :if => Proc.new { |user| user.send_invitation }
+
+  after_update :mark_replies_as_read, :if => Proc.new { |user| user.confirmed_at && user.confirmed_at > 1.minute.ago }
 
   named_scope :media, :conditions => {:role => 'media'}
   named_scope :admin, :conditions => {:role => 'admin'}
 
   named_scope :for_autocomplete, :select => "first_name, last_name", :order => "last_name ASC", :limit => 15
   named_scope :by_last_name, :order => "LOWER(last_name) ASC"
-
+  
 ### Preferences ###
   preference :hide_help_box, :default => false
   preference :receive_email_notifications, :default => false
+  preference :publish_profile, :default => false
 
 ### Roles ###
   def admin?
@@ -146,6 +165,21 @@ class User < ActiveRecord::Base
     coworker_ids = restaurants.map(&:employee_ids).flatten.uniq
     User.find(coworker_ids)
   end
+  
+  def primary_employment
+    self.employments.primary.first || self.employments.first || self.default_employment
+  end
+  
+  # do they have the setup needed for Behind the Line (profile questions)?
+  def btl_enabled?
+    primary_employment && primary_employment.restaurant_role
+  end
+
+  def restaurant_names
+    return nil if employments.blank?
+    return primary_employment.restaurant.name if employments.count == 1
+    employments.all(:order => '"primary" DESC').map(&:restaurant).map(&:name).to_sentence
+  end
 
 ### Convenience methods for getting/setting first and last names ###
   def name
@@ -160,6 +194,10 @@ class User < ActiveRecord::Base
 
   def name_or_username
     name.blank? ? username : name
+  end
+
+  def to_label
+    name_or_username
   end
 
   def confirmed?
@@ -227,26 +265,52 @@ class User < ActiveRecord::Base
   end
 
   def deliver_invitation_message!
-    if @send_invitation
-      @send_invitation = nil
-      reset_perishable_token!
-      logger.info( "Delivering invitation email to #{email}" )
-      UserMailer.deliver_employee_invitation!(self, invitation_sender)
-    end
+    @send_invitation = nil
+    reset_perishable_token!
+    logger.info( "Delivering invitation email to #{email}" )
+    UserMailer.deliver_employee_invitation!(self, invitation_sender)
   end
-  
+
   def connect_to_facebook_user(fb_id)
     update_attributes(:facebook_id => fb_id)
   end
-  
+
   def facebook_authorized?
-    !facebook_id.nil? and !facebook_access_token.nil?
+    facebook_id.present? and facebook_access_token.present?
   end
-  
+
   def facebook_user
     if facebook_id and facebook_access_token
       @facebook_user ||= Mogli::User.new(:id => facebook_id, :client => Mogli::Client.new(facebook_access_token))
     end
+  end
+
+  def has_facebook_page?
+    facebook_page_id.present? and facebook_page_token.present?
+  end
+
+  def facebook_page
+    @page ||= Mogli::Page.new(:id => facebook_page_id, :client => Mogli::Client.new(facebook_page_token))
+  end
+
+  def profile_questions
+    ProfileQuestion.for_user(self)
+  end
+  
+  def topics
+    Topic.for_user(self) || []
+  end
+  
+  def published_topics
+    topics.select { |t| t.published?(self) }
+  end
+  
+  def cuisines
+    profile.present? ? profile.cuisines : []
+  end
+  
+  def specialties
+    profile.present? ? profile.specialties : []
   end
   
 end

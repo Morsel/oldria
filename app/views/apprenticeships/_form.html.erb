@@ -1,0 +1,9 @@
+<% semantic_form_for [:my_profile, @apprenticeship] do |f| %>
+  <% f.inputs :class => "apprenticeships" do %>
+    <%= f.input :establishment, :label => "Name of establishment", :hint => "restaurant, winery, brewery" %>
+    <%= f.input :supervisor, :label => "Name of person for whom you staged", :hint => "chef, winemaker, mixologist, beer master" %>
+    <%= f.input :year, :label => "What year?", :as => :select, :collection => years_for_select %>
+    <%= f.input :comments, :label => "Anything you’d like to share on that?" %>
+  <% end %>
+  <%= button_tag "Save" %>
+<% end %>

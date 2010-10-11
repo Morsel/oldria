@@ -14,9 +14,9 @@ describe UserMailer do
       @request = Factory.stub(:media_request, :sender => @sender, :publication => "New York Times")
       @request_discussion = Factory.stub(:media_request_discussion, :media_request => @request, :restaurant => @restaurant)
       @request_discussion.stubs(:employments).returns([@employment])
-      @email = UserMailer.create_media_request_notification(@request, @request_discussion)
+      @email = UserMailer.create_media_request_notification(@request_discussion, @receiver)
     end
-    
+
     it "should be set to be delivered to the email passed in" do
       @email.should deliver_to("hammy@spammy.com")
     end
@@ -39,6 +39,7 @@ describe UserMailer do
       @restaurant = Factory.stub(:restaurant, :name => "Joe's Place")
       @receiver = Factory(:user, :name => "Hambone Johnson", :email => "hambone@example.com", :username => "hambone")
       @receiver.stubs(:restaurants).returns([@restaurant])
+      @receiver.reset_perishable_token!
       @email = UserMailer.create_employee_invitation(@receiver)
     end
 
@@ -46,11 +47,7 @@ describe UserMailer do
       @email.should deliver_to("hambone@example.com")
     end
 
-    it "should contain the media requests's publication name in the mail body" do
-      @email.should have_text(/Joe's Place/)
-    end
-
-    it "should contain a link to the media request conversation" do
+    it "should contain a link to the invitation so the user can log in" do
       @email.should have_text(/#{invitation_url(@receiver.perishable_token)}/)
     end
   end

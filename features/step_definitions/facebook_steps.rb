@@ -2,6 +2,11 @@ Given /^Facebook is functioning$/ do
   status = JSON.parse( File.new( RAILS_ROOT + '/spec/fixtures/facebook_response.json').read )
   Mogli::User.stubs(:new).returns(user = mock())
   user.stubs(:feed_create).returns(status)
+  
+  Mogli::Page.stubs(:new).returns(page = mock())
+  page.stubs(:fetch).returns(true)
+  page.stubs(:name).returns("My Page")
+  page.stubs(:feed_create).returns(status)
 
   StatusesController.any_instance.stubs(:current_facebook_user).returns(user)
 end

@@ -1,4 +1,5 @@
 # == Schema Information
+# Schema version: 20101006173434
 #
 # Table name: employments
 #
@@ -9,12 +10,15 @@
 #  updated_at         :datetime
 #  restaurant_role_id :integer
 #  omniscient         :boolean
+#  primary            :boolean
+#  type               :string(255)
 #
 
 class Employment < ActiveRecord::Base
   belongs_to :employee, :class_name => "User"
   belongs_to :restaurant
   belongs_to :restaurant_role
+
   has_many :responsibilities, :dependent => :destroy
   has_many :subject_matters, :through => :responsibilities
   has_many :admin_conversations, :class_name => 'Admin::Conversation', :foreign_key => 'recipient_id'
@@ -26,7 +30,8 @@ class Employment < ActiveRecord::Base
   accepts_nested_attributes_for :employee
 
   validates_presence_of :employee_id
-  validates_presence_of :restaurant_id
+  validates_presence_of :restaurant_id, :unless => Proc.new { |e| e.type == "DefaultEmployment" }
+
   validates_uniqueness_of :employee_id, :scope => :restaurant_id, :message => "is already associated with that restaurant"
 
   named_scope :restaurants_metro_id, lambda { |ids|
@@ -51,6 +56,7 @@ class Employment < ActiveRecord::Base
 
   named_scope :by_restaurant_name, :order => 'restaurants.name ASC, users.last_name ASC', :include => [:restaurant, :employee]
   named_scope :by_employee_last_name, :order => 'users.last_name ASC', :include => :employee
+  named_scope :primary, :order => 'updated_at DESC', :limit => 1, :conditions => { :primary => true }
 
   ### Preferences ###
   preference :post_to_soapbox, :default => true

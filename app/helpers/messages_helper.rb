@@ -4,7 +4,6 @@ module MessagesHelper
     return unless message
     # Don't link the headers for broadcast-style messages
     return message.inbox_title if message.respond_to?(:broadcast?) && message.broadcast?
-
     link_path = link_for_message(message)
     link_to message.inbox_title, link_path
   end
@@ -14,10 +13,14 @@ module MessagesHelper
       holiday_discussion_path(message)
     elsif message.respond_to?(:holiday)
       holiday_discussion_path(message.holiday_discussion)
-    elsif message.respond_to?(:admin_message)
+    elsif message.respond_to?(:admin_message) # QOTD
       admin_conversation_path(message)
     elsif message.respond_to?(:discussionable)
       admin_discussion_path(message)
+    elsif message.respond_to?(:admin_discussions) # TrendQuestion or ContentRequest
+      return "" if current_user.grouped_admin_discussions[message].blank? && current_user.admin?
+      first_discussion_for_user = current_user.grouped_admin_discussions[message].first
+      admin_discussion_path(first_discussion_for_user)
     else
       ria_messages_path # just in case
     end
@@ -28,8 +31,14 @@ module MessagesHelper
   def reply_link_for_message(message)
     return unless message
     return if message.respond_to?(:broadcast?) && message.broadcast?
+    
     link_path = link_for_message(message)
-    link_to "Reply", link_path, :class => 'button utility round'
+    
+    if message.comments_count == 0
+      link_to "Post", link_path, :class => 'button utility round'
+    else
+      link_to "View your post", link_path, :class => 'button utility round'
+    end
   end
 
   def read_link_for_message(message, link_text = '<span>read</span>')
@@ -44,7 +53,7 @@ module MessagesHelper
     elsif message.respond_to?(:admin_message)
       link_path = read_admin_message_path(message.admin_message)
     elsif message.respond_to?(:admin_discussions) # TrendQuestion or ContentRequest
-      first_discussion_for_user = current_user.unread_grouped_admin_discussions[message].first
+      first_discussion_for_user = current_user.grouped_admin_discussions[message].first
       link_path = read_admin_discussion_path(first_discussion_for_user)
     else
       link_path = read_admin_message_path(message)

@@ -1,16 +1,17 @@
 # == Schema Information
-# Schema version: 20100303185000
+# Schema version: 20100811200806
 #
 # Table name: admin_messages
 #
-#  id           :integer         not null, primary key
-#  type         :string(255)
-#  scheduled_at :datetime
-#  status       :string(255)
-#  message      :text
-#  created_at   :datetime
-#  updated_at   :datetime
-#  holiday_id   :integer
+#  id              :integer         not null, primary key
+#  type            :string(255)
+#  scheduled_at    :datetime
+#  status          :string(255)
+#  message         :text
+#  created_at      :datetime
+#  updated_at      :datetime
+#  holiday_id      :integer
+#  display_message :string(255)
 #
 
 class Admin::Message < ActiveRecord::Base
@@ -27,7 +28,7 @@ class Admin::Message < ActiveRecord::Base
   named_scope :current, lambda {
     { :conditions => ['admin_messages.scheduled_at < ? OR admin_messages.scheduled_at IS NULL', Time.zone.now] }
   }
-  
+
   named_scope :recent, lambda {
     { :conditions => ['admin_messages.scheduled_at >= ?', 2.weeks.ago] }
   }
@@ -74,17 +75,22 @@ class Admin::Message < ActiveRecord::Base
     conversations_with_replies.count
   end
 
+  def self.on_soapbox_with_response_from_user(user = nil)
+    return [] unless user
+    self.all(:joins => [:soapbox_entry, {:admin_conversations => :comments}], :conditions => ['comments.user_id = ?', user.id], :group => 'admin_messages.id')
+  end
+
   def comments(deep_includes = false)
-    includes = deep_includes ? {:comments => {:user => :employments}} : :comments
+    includes = deep_includes ? { :comments => :user } : :comments
     conversations_with_replies.all(:include => includes).map(&:comments).flatten
   end
 
   def conversations_with_replies
-    admin_conversations.scoped(:conditions => "comments_count > 0", :include => {:recipient => :employee})
+    admin_conversations.scoped(:conditions => "comments_count > 0", :include => :recipient )
   end
 
   def conversations_without_replies
-    admin_conversations.scoped(:conditions => "comments_count < 1", :include => {:recipient => :employee})
+    admin_conversations.scoped(:conditions => "comments_count < 1", :include => :recipient )
   end
 
   def attachments_allowed?

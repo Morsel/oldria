@@ -18,11 +18,10 @@ class EmployeesController < ApplicationController
     return unless verify_employee
 
     if @employment.save
-      flash[:notice] = @send_invitation ? "#{@employment.employee.name} has been sent an invitation and added to your restaurant.<br/>
+      flash[:notice] = @send_invitation ? "#{@employment.employee.name_or_username} has been sent an invitation and added to your restaurant.<br/>
           Please remind your employee to check their email for instructions on confirming their new account." : 
           "Successfully added #{@employment.employee.name} to this restaurant"
-      @employee.deliver_invitation_message! if @send_invitation
-      redirect_to restaurant_employees_path(@restaurant)
+      redirect_to edit_restaurant_employee_path(@restaurant, @employment.employee)
     else
       flash[:error] = "We could not associate that employee with this restaurant. Please try again."
       render :new
@@ -50,7 +49,7 @@ class EmployeesController < ApplicationController
     employee = @employment.employee
 
     if @employment.destroy
-      flash[:notice] = employee.first_name + ' was removed from ' + @restaurant.name
+      flash[:notice] = employee.name_or_username + ' was removed from ' + @restaurant.name
     else
       flash[:error] = "Something went wrong. Our worker bees will look into it."
     end
@@ -67,11 +66,17 @@ class EmployeesController < ApplicationController
       @employment.employee_id = @employee.id
       render :confirm_employee
     else
-      flash.now[:notice] = "We couldn't find them in our system. You can invite this person."
-      @employee = email.match(/\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i) ?
-        @restaurant.employees.build(:email => email) : 
-        @restaurant.employees.build(:first_name => email.split(" ").first, :last_name => email.split(" ").last)
-      render :new_employee
+      identifier = email.match(/\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i) ?
+        { :email => email } : 
+        { :first_name => email.split(" ").first, :last_name => email.split(" ").last }
+      if current_user.admin?
+        flash.now[:notice] = "We couldn't find them in our system. You can invite this person."
+        @employee = @restaurant.employees.build(identifier)
+        render :new_employee
+      else
+        flash[:notice] = "We couldn't find them in our system. You can invite this person."
+        redirect_to new_invitation_path(:restaurant => true, :invitation => identifier.merge(:restaurant_id => @restaurant.id))
+      end
     end
   end
 
@@ -79,6 +84,7 @@ class EmployeesController < ApplicationController
     return true if @employment.employee_id
     @employee = @employment.employee
     if @employee.new_record?
+      @employee.password_confirmation = @employee.password = Authlogic::Random.friendly_token
       @employee.send_invitation = true
       @employee.invitation_sender = current_user
       if @employee.save

@@ -11,6 +11,31 @@ jQuery.fn.submitWithAjax = function() {
 	return this;
 };
 
+$.fn.ajaxDestroyLink = function(options){
+  var config = {
+    confirmMessage: "Are you sure you want to PERMANENTLY delete this?",
+    containerSelector: 'tr:first'
+  };
+  
+  if(options) $.extend(config, options);
+  
+  return this.each(function(){
+    var $this = $(this);
+    $this.removeAttr('onclick');
+    $this.unbind();
+    $this.click(function(){
+      if (confirm(config.confirmMessage)) {
+        $.post(this.href+".js", {_method: 'delete'}, function(data, status){
+          var container = $this.parents(config.containerSelector);
+          container.fadeOut(200,function(){
+            container.remove();
+          });
+        });
+      }
+      return false;
+    });
+  });
+};
 
 // Add the authenticity token to all POST-like requests, preventing XSS
 $("body").bind("ajaxSend", function(elm, xhr, s) {
@@ -34,22 +59,16 @@ $('.status a.trash').live('click', function(){
 	$.post(this.href, { _method: 'delete' }, null, 'script');
 	return false;	
 });
+$('a.trash').removeAttr('onclick');
 
-$('a.delete, a.trash, .actions.destroy_link a').removeAttr('onclick');
+$('.actions.destroy_link a').ajaxDestroyLink();
 
-$('.actions.destroy_link a').click(function(){
-	var $destroyLink = $(this);
-	if (confirm("Are you sure you want to PERMANENTLY delete this?")) {
-		$.post(this.href+".js", {_method: 'delete'}, function(data, status){
-			var row = $destroyLink.parents('tr:first');
-			row.fadeOut(200,function(){
-				row.remove();
-			});
-		});
-	}
-	return false;
-});
-
+var bindAjaxDeleters = function(){
+  $('a.delete').ajaxDestroyLink({
+    containerSelector: 'li:first'
+  });
+};
+bindAjaxDeleters();
 
 // Hide the filter form by default on Admin search
 
@@ -71,7 +90,41 @@ $("a[href$=" + topLevelSection + "]", $navigationList)
   .parent().addClass("selected");
 
 
+//
+// Use this when you want a link to slidetoggle the element it's href points to:
+//
+//   <a href="#box">Toggles the element with id "box"</a>
+$.fn.showy = function(){
+  return this.each(function(){
+    var hidable = $(this.hash);
+
+    // Just in case it starts out shown, hide it
+    if (hidable.is(":visible")) {
+      hidable.hide();
+      hidable.removeClass('open');
+    }
+
+    $(this).click(function(e) {
+      var link = $(this);
+      hidable.slideToggle(200);
+      link.toggleClass('open');
+      hidable.toggleClass('open');
+      
+      var text = link.text();
+      if (link.hasClass('open')) {
+        link.text(text.replace(/View/, 'Close'));
+      } else {
+        link.text(text.replace(/Close/, 'View'));
+      }
+      return false;
+    });
+  });
+};
+
+$("a.showit").showy();
+
 // == Comment attachments
+
 
 jQuery.fn.attachmentCloner = function() {
   return this.each(function(){
@@ -206,13 +259,11 @@ var $omniscientField = $("input#employment_omniscient"),
 
 var selectOmniscientRoles = function(){
   if($omniscientField.is(":checked")) {
-    $omniscientRoleCheckboxes.disable();
     $omniscientRoleCheckboxes.attr('checked', 'checked');
   } else {
-    $omniscientRoleCheckboxes.enable();
     $omniscientRoleCheckboxes.removeAttr('checked');
   }
-}
+};
 
 $omniscientField.change(selectOmniscientRoles);
 
@@ -329,6 +380,25 @@ function updateEmploymentsList() {
 
 $employmentInputs.change(updateEmploymentsList);
 
+// Directory search
+var	$directoryList  = $("#directory_list");
+var $directoryInputs = $("#directory_search #employment_criteria input[type=checkbox]");
+
+$directoryList.before($loaderImg);
+
+function updateDirectoryList() {
+	input_string = $directoryInputs.serialize();
+	$loaderImg.show();
+	$directoryList.hide();
+	$directoryList.load('/directory/search', input_string, function(responseText, textStatus){
+	  $loaderImg.hide();
+	  $directoryList.fadeIn(300);
+	});
+	// return true;	
+}
+
+$directoryInputs.change(updateDirectoryList);
+
 // == New User row highlight ==
 if (location.hash && location.hash.match(/user_\d+$/)) {
   var userRowCells = $(location.hash).find('td');
@@ -352,16 +422,39 @@ $('#criteria_accordion').accordion({
 	}
 }).find('.loading').removeClass('loading');
 
+var colorboxOnComplete = function(){
+  $("#colorbox a.showit").showy();
+
+  $('#culinary_job_chef_is_me').click(function(){
+    var nameField = $('#culinary_job_chef_name');
+    var $this     = $(this);
+    if ($this.is(":checked")) {
+      nameField.val($(this).attr('rel'));
+    } else {
+      nameField.val('');
+    }
+  });
+};
 
 if (typeof($.fn.colorbox) != 'undefined') {
-    $('.colorbox').colorbox({
-        initialWidth: 420,
-        maxWidth: 450
-    });
+    var bindColorbox = function() {
+      $('.colorbox').colorbox({
+          initialWidth: 420,
+          maxWidth: 450,
+          maxHeight: 580,
+          onComplete: colorboxOnComplete,
+          onClosed: function() {
+            bindAjaxDeleters();
+            bindColorbox();
+          }
+      });
+    };
 
-    $('.close').live('click', function(){
-        close_box();
-    });
+    function close_box(){
+        $.fn.colorbox.close();
+    }
+
+    $('.close').live('click', close_box);
 
     $('#new_quick_reply button').live('click', function(){
         $(this).text('posting...');
@@ -371,10 +464,117 @@ if (typeof($.fn.colorbox) != 'undefined') {
         $('#new_quick_reply button').text('Post Reply');
     }
 
-    function close_box(){
-        $.fn.colorbox.close();
-    }
+    // Do it!
+    bindColorbox();
 }
+
+var colorboxForm = function(){
+  var $form = $(this);
+  // var button = $form.find('button:first');
+  // button.disable();
+  $form.ajaxSubmit({
+    dataType: 'json',
+    url: $form.attr('action') + '.json',
+    success: function(text){
+      var $html = $(text.html);
+      var $id   = $html.attr('id');
+      var singularName = $id.replace(/^new_/, "").replace(/_\d+$/, "");
+      var existingElement = $('#'+ $id);
+      if (existingElement.length) {
+        existingElement.html($html.html());
+      } else {
+        $("#" + singularName + "s").append($html);
+      }
+      $.fn.colorbox.close();
+    },
+    error: function(xhr, status){
+      var response;
+      try { response = $(xhr.responseText); } catch(e) { response = xhr.responseText; }
+      $.colorbox({html: response});
+    }
+  });
+  // button.enable();
+
+  return false;
+};
+
+$('#colorbox form.nonculinary_enrollment, #colorbox form.award, #colorbox form.culinary_job, #colorbox form.nonculinary_job, #colorbox form.accolade, #colorbox form.enrollment, #colorbox form.competition, #colorbox form.internship')
+  .live('submit', colorboxForm);
+
+// Using this assumes that you've "build" on an association to get new blank field(s)
+// Call this on a containing element. By default, it will look for the last fieldset
+// within it, and clone all of the fields therein.
+$.fn.clonableFieldset = function(options){
+  var config = {
+    fieldsetSelector: '>fieldset:last',
+    allowDelete: true,
+    fieldsetCss: { position: 'relative' }
+  };
+  if(options) $.extend(config, options);
+  
+  return this.each(function(){
+    var fieldsetContainer = $(this);
+    var fieldset = fieldsetContainer.find(config.fieldsetSelector);
+    var fieldprototype = fieldset.detach();
+    fieldprototype.find('input[type=hidden]').remove();
+    fieldprototype.find('a.remove').remove();
+    var linkHolder = $('<p class="add-another"><a href="#" class="positive">Add Another</a></p>');
+    var link = linkHolder.find('a.positive');
+
+    link.click(function(){
+      var newfield = fieldprototype.clone();
+      newfield.css(config.fieldsetCss);
+      newfield.find('input, textarea').each(function(){
+        var field = $(this);
+        var originalName = field.attr('name');
+        var now = new Date().getTime();
+        field.attr("name", originalName.replace(/(\d+g)/g, now)).attr('id', "");
+      });
+
+      if (config.allowDelete) {
+        var removeLink = $('<a class="remove" href="javascript:void(0)">remove</a>');
+        removeLink.click(function(){
+          newfield.fadeOut(300, function(){ newfield.remove(); });
+        });
+        newfield.prepend(removeLink);
+      }
+
+      linkHolder.before(newfield);
+      return false;
+    });
+
+    fieldsetContainer.append(linkHolder);
+  });
+};
+
+
+
+$('.clonablefieldset').clonableFieldset();
+
+function remove_fields() {
+  var link = $(this);
+  link.siblings("input.hidden_destroy").attr('value', '1');
+  link.siblings(".input").hide();
+  link.parent().hide();
+  link.remove();
+  return false;
+}
+
+$('a.remove_field').live('click', remove_fields);
+
+function setupProfileProgressbar(selector) {
+  var profile_progressbar = $(selector);
+  if (profile_progressbar.length) {
+    var percent = parseInt(profile_progressbar.siblings('.numeral').text(), 10);
+
+    profile_progressbar.progressbar({
+      value: percent
+    });
+  }  
+}
+
+setupProfileProgressbar('#profile_completeness_progressbar');
+
 
 // Cleaning up email fields
 $('#user_email').blur(function() {
@@ -383,4 +583,64 @@ $('#user_email').blur(function() {
 
 
 $('.soapbox_sidebar').tabs();
+$('.tabable').tabs();
 
+// Profile question admin
+$('#chapters tbody').sortable({
+	axis:'y',
+	dropOnEmpty:false,
+	update: function(){
+		$.ajax({ data:$(this).sortable('serialize', { key: 'chapters[]' }), dataType:'script', type:'post', url:'/admin/profile_questions/sort'
+		});
+	}
+});
+
+$('#profile_questions tbody').sortable({
+	axis:'y',
+	dropOnEmpty:false,
+	update: function(){
+    var postData = $(this).sortable('serialize', { key: 'profile_questions[]' });
+    postData = postData + "&chapter_id=" + $(".chapter").attr("id").split("_")[1];
+		$.ajax({ data: postData,
+		    dataType:'script', type:'post', url:'/admin/profile_questions/sort'
+		});
+	}
+});
+
+$('#topics tbody').sortable({
+	axis:'y',
+	dropOnEmpty:false,
+	update: function(){
+		$.ajax({ data:$(this).sortable('serialize', { key: 'topics[]' }), dataType:'script', type:'post', url:'/admin/profile_questions/sort'
+		});
+	}
+});
+
+// Admin page row highlighting
+
+$(function() {
+  $(".admin_backend #pages " + window.location.hash + " td").effect("highlight", {}, 3000);
+});
+
+// Sorting specialities
+
+$('#specialties tbody').sortable({
+	axis:'y',
+	dropOnEmpty:false,
+	update: function(){
+		$.ajax({ data:$(this).sortable('serialize', { key: 'specialties[]' }), dataType:'script', type:'post', url:'/admin/specialties/sort'
+		});
+	}
+});
+
+// Restaurant role autocomplete
+$("input#restaurant_role_category").autocomplete("/admin/restaurant_roles.js", {
+	autoFill: true,
+	max: 15
+});
+
+// Role checkbox groups
+function selectCategoryGroup(category) {
+  checked = $('#' + category).attr('checked');
+  $('#profile_question_restaurant_roles_' + category + '_input input[type=checkbox]').attr('checked', checked);
+}

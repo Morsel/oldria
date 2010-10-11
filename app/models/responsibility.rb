@@ -1,4 +1,5 @@
 # == Schema Information
+# Schema version: 20101006173434
 #
 # Table name: responsibilities
 #

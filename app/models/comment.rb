@@ -38,7 +38,6 @@ class Comment < ActiveRecord::Base
   ##
   # This is only meant to be called as a callback from the observer
   def notify_recipients
-
     # Only models that already have notifications set up
     # With special exception for HolidayDiscussion because the notification is on HolidayDiscussionReminder
     return unless commentable.respond_to?(:notify_recipients) || commentable.is_a?(HolidayDiscussion)
@@ -58,11 +57,31 @@ class Comment < ActiveRecord::Base
     if commentable.respond_to?(:restaurant)
       commentable.restaurant
     else
-      user.restaurants.first
+      user.employments.present? && user.primary_employment.restaurant
     end
   end
 
   def employment
-    @employment ||= user.employments.find_by_restaurant_id(restaurant.id)
+    return nil unless user
+    @employment ||= if restaurant
+      user.employments.find_by_restaurant_id(restaurant.id)
+    else
+      user.primary_employment
+    end
+  end
+
+  def self.on_resource_by_user(resource, user)
+    return [] unless resource && user
+    self.all(:conditions => ['commentable_type = ? AND commentable_id = ? AND user_id = ?', resource.class.to_s, resource.id, user.id])
+  end
+  
+  def editable?
+    commentable.is_a?(Admin::Conversation) || 
+        (commentable.is_a?(AdminDiscussion) && commentable.discussionable.is_a?(TrendQuestion))
+  end
+  
+  def editable_by?(person)
+    return false unless editable?
+    (self.user == person) || self.user.coworkers.include?(person)
   end
 end

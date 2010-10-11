@@ -1,7 +1,9 @@
 <tr class="admin_conversation_recipient <%= cycle('odd', 'even', :name => 'conversation_row') %>">
   <td>
-    <%= admin_conversation.recipient.try(:employee_name) %>
-    (<%= admin_conversation.recipient.try(:restaurant_name) %>)
+    <%= admin_conversation.recipient.try(:name) %>
+    <%- if admin_conversation.recipient && admin_conversation.recipient.restaurants.present? -%>
+    (<%= admin_conversation.recipient.primary_employment.try(:restaurant_name) %>)
+    <%- end -%>
   </td>
 
   <%- if admin_conversation.comments_count > 0 -%>
@@ -9,10 +11,16 @@
     <%= link_to pluralize(admin_conversation.comments_count, "comment"), admin_conversation %>
   </td>
   <%- end -%>
+  
+  <%- if admin_conversation.comments_count > 0 && admin_conversation.recipient.primary_employment -%>
+  <td>
+      <%= admin_conversation.recipient.primary_employment.prefers_post_to_soapbox ? "[s]" : "&nbsp;" %>
+  </td>
+  <%- end -%>
 
   <td class="actions">
     <% if admin_conversation.recipient %>
-      <%= link_to "Direct&nbsp;Message", new_user_direct_message_path(admin_conversation.recipient.employee) %>
+      <%= link_to "Direct&nbsp;Message", new_user_direct_message_path(admin_conversation.recipient) %>
     <% end %>
   </td>
 </tr>

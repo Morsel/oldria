@@ -1,25 +1,29 @@
 <% title "Trend Question" %>
 
 <p>
-  <strong>Subject:</strong>
-  <%=h @trend_question.subject %>
+    <strong>Subject:</strong>
+    <%=h @trend_question.subject %>
 </p>
 <p>
-  <strong>Body:</strong>
-  <%= simple_format @trend_question.body %>
+    <strong>Body:</strong>
+    <%= simple_format @trend_question.body %>
 </p>
 <p>
-  <strong>Scheduled At:</strong>
-  <%=h @trend_question.scheduled_at.try(:to_s, :long_ordinal) %>
+    <strong>Display Message:</strong>
+    <%= @trend_question.display_message %>
+</p>
+<p>
+    <strong>Scheduled At:</strong>
+    <%=h @trend_question.scheduled_at.try(:to_s, :long_ordinal) %>
 </p>
 <% if @trend_question.employment_search %>
 <p>
-  <strong>Criteria:</strong>
-  <ul>
-  <% @trend_question.employment_search.readable_conditions.each do |condition| %>
-    <li><%= condition %></li>
-  <% end %>
-  </ul>
+    <strong>Criteria:</strong>
+    <ul>
+        <% @trend_question.employment_search.readable_conditions.each do |condition| %>
+        <li><%= condition %></li>
+        <% end %>
+    </ul>
 </p>
 <% end %>
 
@@ -35,9 +39,10 @@
 
 <div id="have_replied" class="span-9 conversations_list">
   <h3>Replied (<%= @trend_question.admin_discussions.with_replies.size %>)</h3>
+  <h4>[s] authorized for soapbox</h4>
 
   <table>
-    <%= render @trend_question.admin_discussions.with_replies %>
+      <%= render @trend_question.admin_discussions.with_replies %>
   </table>
 </div>
 

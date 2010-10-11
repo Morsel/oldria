@@ -1,4 +1,22 @@
-<% title "Login to SpoonFeed" %>
-<p>Welcome to SpoonFeed. Please login.</p>
+<% if mediafeed? %>
+
+  <% title "Log in to Mediafeed" %>
+
+  <p>Welcome to MediaFeed, our new portal for you to reach chefs, mixologists, sommeliers and other restaurant staffers directly.</p>
+  <p>If you are used to RIA's Media Request feature, you'll notice we have made a lot of improvements and plan on making many more (as well as adding a lot more people for you to query!) in the coming months. If you are new to RIA, welcome to the first draft of our vision of the future of restaurant media relations.</p>
+  <p>
+    Please log in using your RIA credentials<br />
+    (if you do not yet have an account with RIA,
+    please <%= link_to "click here", new_media_user_path %>.
+    You will be activated shortly.)
+  </p>
+
+<% else %>
+
+  <% title "Log in to SpoonFeed" %>
+  <p>Welcome to SpoonFeed. Please log in.</p>
+  <p>Don't have an account? <%= link_to "Request an invite", new_invitation_path %> now!</p>
+
+<% end %>
 
 <%= render :partial => 'form' %>

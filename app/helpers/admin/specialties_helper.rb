@@ -1,0 +1,2 @@
+module Admin::SpecialtiesHelper
+end

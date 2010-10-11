@@ -36,8 +36,8 @@ Feature: Content Requests (Questions from RIA)
     Given "jim" is the account manager for "Normal Pants"
     And I am logged in as "jim" with password "secret"
     When I go to my inbox
-    And I follow "Quick Reply"
-    And I fill in "Comment for Restaurant(s)" with "But my river is green"
-    And I press "Post Reply"
+    And I follow "Post"
+    And I fill in "Post" with "But my river is green"
+    And I press "Send"
 
     Then "sam@example.com" should have 2 emails

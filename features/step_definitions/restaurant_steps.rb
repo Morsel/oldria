@@ -23,11 +23,20 @@ Given /^a restaurant named "([^\"]*)" with the following employees:$/ do |restau
   restaurant.save!
 end
 
+Given /^a restaurant named "([^\"]*)"$/ do |name|
+  Factory(:restaurant, :name => name)
+end
+
+Given /^a restaurant named "([^\"]*)" with manager "([^\"]*)"$/ do |name, username|
+  user = Factory(:user, :username => username, :email => "#{username}@testsite.com")
+  restaurant = Factory(:managed_restaurant, :name => name, :manager => user)
+end
+
 Given /^"([^"]*)" is a manager for "([^"]*)"$/ do |username, restaurantname|
   user = User.find_by_username!(username)
   restaurant = Restaurant.find_by_name!(restaurantname)
-  employment = restaurant.employments.find_by_employee_id(user.id)
 
+  employment = restaurant.employments.find_by_employee_id(user.id)
   employment.update_attribute(:omniscient, true)
 end
 
@@ -81,8 +90,9 @@ end
 Given /^I have added "([^\"]*)" to that restaurant$/ do |email|
   click_link "Add employee"
   fill_in "Employee Email", :with => email
-  click_button "Submit"
-  click_button "Yes"
+  click_button "Submit" # search for user
+  click_button "Yes" # confirm selected user
+  click_button "Submit" # save default roles/responsibilities
 end
 
 When /^I follow the edit role link for "([^\"]*)"$/ do |employee_name|
@@ -93,7 +103,6 @@ end
 When /^I confirm the employee$/ do
   click_button "Yes"
 end
-
 
 Then /^"([^\"]*)" should be the account manager for "([^\"]*)"$/ do |username, restaurantname|
   user = User.find_by_username!(username)
@@ -122,7 +131,6 @@ Then /^"([^\"]*)" should be a "([^\"]*)" at "([^\"]*)"$/ do |name, rolename, res
   employment.restaurant_role.name.should eql(rolename)
 end
 
-
 Then /^"([^\"]*)" should be responsible for "([^\"]*)" at "([^\"]*)"$/ do |name, subject, restaurantname|
   restaurant = Restaurant.find_by_name!(restaurantname)
   user = User.find_by_name(name)
@@ -132,3 +140,6 @@ Then /^"([^\"]*)" should be responsible for "([^\"]*)" at "([^\"]*)"$/ do |name,
   employment.subject_matters.should include(subject_matter)
 end
 
+Then /^"([^\"]*)" should have a primary employment$/ do |username|
+  User.find_by_username(username).primary_employment.should_not be_nil
+end

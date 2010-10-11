@@ -79,4 +79,15 @@ describe Admin::RestaurantRolesController do
     end
   end
 
+  describe "categories" do
+    
+    it "should update a role's category" do
+      role = Factory(:restaurant_role)
+      RestaurantRole.stubs(:find).returns(role)
+      role.expects(:update_attributes).with("category" => "New category")
+      put :update_category, :role_id => role.id, :restaurant_role => { :category => "New category" }
+    end
+    
+  end
+
 end

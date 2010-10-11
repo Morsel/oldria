@@ -2,8 +2,8 @@
 
 <p class="highlightable"><strong>Note:</strong> Account Managers receive <strong>all</strong> media requests and RIA messages, regardless of the subject matters chosen below.</p>
 
-<h4>Responsibilities</h4>
-<%= f.input :subject_matters,
+<!-- <h4>Responsibilities</h4> -->
+<%#= f.input :subject_matters,
   :as => :check_boxes,
   :wrapper_html => {:class => 'checkall', :id => "employment_subject_matters"},
   :collection => SubjectMatter.nongeneral.all,

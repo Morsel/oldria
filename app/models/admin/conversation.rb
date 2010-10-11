@@ -20,7 +20,7 @@ class Admin::Conversation < ActiveRecord::Base
       :conditions => ['admin_messages.scheduled_at < ? OR admin_messages.scheduled_at IS NULL', Time.zone.now],
       :order => 'admin_messages.scheduled_at DESC'  }
     }
-    
+
   named_scope :recent, lambda {
     { :conditions => ['admin_messages.scheduled_at >= ?', 2.weeks.ago] }
   }
@@ -28,7 +28,7 @@ class Admin::Conversation < ActiveRecord::Base
   named_scope :with_replies, :conditions => "comments_count > 0"
   named_scope :without_replies, :conditions => "comments_count = 0"
 
-  belongs_to :recipient, :class_name => "Employment"
+  belongs_to :recipient, :class_name => "User"
   belongs_to :admin_message, :foreign_key => 'admin_message_id', :class_name => 'Admin::Message'
 
   named_scope :unread_by, lambda { |user|
@@ -53,13 +53,22 @@ class Admin::Conversation < ActiveRecord::Base
   def scheduled_at
     admin_message.scheduled_at
   end
+  
+  def soapbox_entry
+    admin_message.soapbox_entry
+  end
+
+  def recipients_can_reply?
+    true
+  end
 
   def self.action_required(user)
     self.with_replies.unread_by(user).reject { |c| c.comments.last.user == user }
   end
 
   def action_required?(user)
-    !read_by?(user) && comments_count > 0 && comments.last.user != user
+    false
+    # !read_by?(user) && comments_count > 0 && comments.last.user != user
   end
 
   # Should only be called from an external observer.
@@ -69,13 +78,9 @@ class Admin::Conversation < ActiveRecord::Base
 
   # Should only be called from the notify_recipients queued action
   def queued_message_sending
-    if recipient.employee.prefers_receive_email_notifications
-      UserMailer.deliver_message_notification(self, recipient.employee)
+    if recipient.prefers_receive_email_notifications
+      UserMailer.deliver_message_notification(self, recipient)
     end
-  end
-
-  def restaurant
-    recipient.restaurant
   end
 
 end

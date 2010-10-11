@@ -3,30 +3,26 @@
 <% div_for @discussionable, :class => 'discussion inbox_message individual' do %>
   <div class="icon">
   </div>
-    <div class="message-header clearfix">
-      <h4 class="message-title">
-        <%= title_link_for_message(@discussionable) %>
-        <span class="message-date">
-          <%= @discussionable.scheduled_at.try(:strftime, "%B %d, %Y at %I:%M%p") %>
-        </span>
-      </h4>
-    </div>
   <div class="message-header clearfix">
-    <h1><%=h @discussionable.try(:subject) %></h1>
+      <h4 class="message-title">
+          <%= title_link_for_message(@discussionable) %>
+          <span class="message-date">
+              <%= @discussionable.scheduled_at.try(:strftime, "%B %d, %Y at %I:%M%p") %>
+          </span>
+      </h4>
+  </div>
+  <div class="message-header clearfix">
+      <h1><%=h @discussionable.try(:subject) %></h1>
 
-    <p class="meta">
-      <span class="meta_label">To:</span> <%= @admin_discussion.restaurant.try(:name) %>
-      (<%= @admin_discussion.employees.map(&:name_or_username).to_sentence %>)<br />
-    </p>
+      <p class="meta">
+          <span class="meta_label">To:</span> <%= @admin_discussion.restaurant.try(:name) %>
+          (<%= @admin_discussion.employees.map(&:name_or_username).to_sentence %>)<br />
+      </p>
   </div>
 
   <hr/>
   <div class="message-body">
-  <%= auto_link(simple_format(@discussionable.body)) %>
-  </div>
-
-  <div class="message-actions">
-    <%= render 'messages/message_response_summary', :message => @discussionable %>
+      <%= auto_link(simple_format(@discussionable.body)) %>
   </div>
 
   <div class="message-comments clearfix">

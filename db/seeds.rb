@@ -45,6 +45,14 @@ model_count_before_and_after(Cuisine) do
   end
 end
 
+# == Set up Specialties ==
+model_count_before_and_after(Specialty) do
+  specialties = YAML.load_file(@seedling_path + '/specialties.yml')['specialties']
+  specialties.each do |s|
+    Specialty.find_or_create_by_name(s)
+  end
+end
+
 # == Set up Metropolitan Regions ==
 model_count_before_and_after(MetropolitanArea) do
   metroareas = YAML.load_file(@seedling_path + '/metroregions.yml')['metroregions']
@@ -66,5 +74,15 @@ model_count_before_and_after(SubjectMatter) do
   subject_matters = YAML.load_file(@seedling_path + '/subject_matters.yml')['subject_matters']
   subject_matters.each do |subject_matter|
     SubjectMatter.find_or_create_by_name(subject_matter)
+  end
+end
+
+# == Set up Culinary Schools ==
+model_count_before_and_after(School) do
+  culinary_schools = YAML.load_file(@seedling_path + '/culinary_schools.yml')['culinary_schools']
+  culinary_schools.each do |school|
+    next if School.find_by_name(school['name'])
+    school['country'] ||= "United States"
+    School.create!(school)
   end
 end

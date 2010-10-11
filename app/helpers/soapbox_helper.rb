@@ -3,7 +3,7 @@ module SoapboxHelper
   def resource_for_featured_item(soapbox_entry)
     return unless soapbox_entry.featured_item.present?
     if soapbox_entry.featured_item.class.to_s =~ /Admin::/
-      soapbox_entry.featured_item
+      url_for(:controller => 'admin/messages', :action => 'show', :id => soapbox_entry.featured_item.id)
     else
       [:admin, soapbox_entry.featured_item]
     end
@@ -21,6 +21,10 @@ module SoapboxHelper
     comment.commentable.is_a?(Admin::Conversation) ?
       comment.commentable.admin_message.soapbox_entry :
       comment.commentable.discussionable.soapbox_entry
+  end
+  
+  def message(featured_item)
+    featured_item.display_message || featured_item.message
   end
 
 end

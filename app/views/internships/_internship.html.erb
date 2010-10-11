@@ -1,0 +1,14 @@
+<% content_tag_for :li, internship do %>
+  <span class="name"><%= internship.establishment %></span><br />
+  <%= internship.supervisor %><br />
+  <% if internship.end_date %>
+  <%= internship.start_date.strftime("%m/%d/%y") %> - <%= internship.end_date.strftime("%m/%d/%y") %>
+  <% else %>
+  <%= internship.start_date.strftime("%Y") %>
+  <% end %>
+  
+  <% if action_name != 'show' %>
+    <%= link_to "Edit", edit_my_profile_internship_path(internship), :class => 'colorbox' %>
+    <%= link_to "Destroy", my_profile_internship_path(internship), :method => :delete, :class => 'delete' %>
+  <% end %>
+<% end %>

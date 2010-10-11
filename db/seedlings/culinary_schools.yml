@@ -1,0 +1,55 @@
+---
+culinary_schools:
+- name: "Cooking and Hospitality Institute of Chicago"
+  city: Chicago
+  state: IL
+  country: United States
+- name: "Cypress Community College Hotel, Restaurant Management, & Culinary Arts Program"
+  city: Anaheim
+  state: CA
+- name: "California School of Culinary Arts"
+  city: Pasadena
+  state: CA
+- name: "California State Polytechnic University"
+  city: Pomona
+  state: CA
+- name: "Cooking and Hospitality Institute of Chicago"
+  city: Chicago
+  state: IL
+- name: "Classic Cooking Academy"
+  city: Scottsdale
+  state: Arizona
+- name: "Culinary Institute of America"
+  city: Hyde Park
+  state: NY
+- name: "Culinary Institute of America at Grey Stone"
+  city: St. Helena
+  state: California
+- name: "Institute for the Culinary Arts at Metropolitan Community College"
+  city: Omaha
+  state: Nebraska
+- name: "Secchia Institute for Culinary Education: Grand Rapids Community College"
+  city: Grand Rapids
+  state: MI
+- name: "Kendall College"
+  city: Chicago
+  state: IL
+- name: "L'Ecole Culinaire"
+  city: Saint Louis
+  state: Missouri
+- name: "L'Ecole Culinaire"
+  city: Memphis
+  state: TN
+- name: "The Southeast Culinary and Hospitality College"
+  city: Bristol
+  state: Virginia
+- name: "The Culinary Institute"
+  city:  Charleston
+  state: South Carolina
+- name: "The Restaurant School at Walnut Hill College"
+  city: Philadelphia
+  state: Pennsylvania
+- name: "Coosa Valley Technical College"
+  city: Rome
+  state: GA
+

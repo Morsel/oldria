@@ -19,13 +19,8 @@ class AdminDiscussion < ActiveRecord::Base
   acts_as_commentable
   validates_uniqueness_of :restaurant_id, :scope => [:discussionable_id, :discussionable_type]
 
-  # named_scope :current, lambda {
-  #   { :joins => :discussionable,
-  #     :conditions => 'scheduled_at < now() OR scheduled_at IS NULL'}
-  #   }
   named_scope :with_replies, :conditions => "#{table_name}.comments_count > 0"
   named_scope :without_replies, :conditions => "#{table_name}.comments_count = 0"
-
 
   def message
     [discussionable.subject, discussionable.body].reject(&:blank?).join(": ")
@@ -43,6 +38,10 @@ class AdminDiscussion < ActiveRecord::Base
     discussionable.scheduled_at
   end
 
+  def soapbox_entry
+    discussionable.soapbox_entry
+  end
+
   def employments
     # Only include the employments that
     restaurant.employments.all(:include => :employee) & discussionable.employment_search.try(:employments).try(:all, :include => :employee)
@@ -53,11 +52,20 @@ class AdminDiscussion < ActiveRecord::Base
   end
 
   def action_required?(user)
+    return false if discussionable.is_a?(TrendQuestion)
     !read_by?(user) && comments_count > 0 && (comments.last.user != user)
   end
 
   def viewable_by?(employment)
     discussionable.viewable_by?(employment)
+  end
+  
+  def recipients_can_reply?
+    true
+  end
+  
+  def view_on_soapbox?
+    comments.first.employment.prefers_post_to_soapbox?
   end
   
   ##
@@ -73,4 +81,5 @@ class AdminDiscussion < ActiveRecord::Base
       end
     end
   end
+  
 end

@@ -1,20 +1,13 @@
+<% favor_restaurant = (comment.commentable_type == 'AdminDiscussion') %>
+
 <% div_for(comment, :class => "column clearfix#{cycle(' clear','','',' last', :name => comment.commentable_type)}") do %>
-<%= link_to "", "#", :name => "comment_#{comment.id}" %>
-<div class="identity">
-    <span class="employee_name"><%= comment.user.name_or_username %></span>,
-    <%= comment.employment.try(:restaurant_role).try(:name) %> at <%= comment.restaurant.try(:name) %> said:
-</div>
-<% if comment.user.avatar? %>
-<div class="avatar">
-    <%= image_tag(comment.user.avatar.url(:thumb)) %>
-</div>
-<% end %>
+<%= render 'users/identity', :user => comment.user, :highlight_restaurant =>  favor_restaurant %>
+
+<% comment_text_shown = full_text ? comment.comment : truncate(comment.comment, :length => 120) %>
+
 <div class="content">
-    <% if full_text %>
-      <%= link_to simple_format(comment.comment), soapbox_path(entry_for_comment(comment), :anchor => "comment_#{comment.id}") %>    
-    <% else %>
-      <%= link_to simple_format(truncate(comment.comment, :length => 120)),
-            soapbox_path(entry_for_comment(comment), :anchor => "comment_#{comment.id}") %>
-    <% end %>
+  <%= link_to simple_format(comment_text_shown), soapbox_path(entry_for_comment(comment),
+    :anchor => dom_id(comment)) %>
 </div>
+
 <% end %>

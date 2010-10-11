@@ -1,13 +1,10 @@
-  <div class="message-responses">
+<div class="message-responses">
+    <%- discussions = current_user.grouped_admin_discussions[message] || []
+       discussions_with_replies = discussions.select do |discussion|
+         discussion.comments_count > 0
+       end
+       discussions_without_replies = discussions - discussions_with_replies -%>
 
-    <%
-      discussions = current_user.unread_grouped_admin_discussions[message] || []
-      discussions_with_replies = discussions.select do |discussion|
-        discussion.comments_count > 0
-      end
-      discussions_without_replies = discussions - discussions_with_replies
-    %>
-       <%= render :partial => 'messages/message_reply_link', :collection => discussions_with_replies, :as => :message %>
-
-    <%= not_responded_phrase_for_discussions(discussions_without_replies) %>
-  </div>
+    <%= render :partial => 'messages/soapbox_message_reply_link', :collection => discussions_with_replies, :as => :message %>
+    <%= render :partial => 'messages/soapbox_message_reply_link', :collection => discussions_without_replies, :as => :message %>
+</div>
