@@ -16,7 +16,12 @@
 <div id="restaurant-results" style="display:none">
     <h3>Restaurants</h3>
     <% for restaurant in @restaurants %>
-      <%= render restaurant %>
+      <% div_for restaurant, :class => 'clearfix' do %>
+        <h2 class="function-bold">
+          <%= link_to restaurant.name %>
+          (<%= restaurant.city %>)
+        </h2>
+      <% end %>
     <% end %>
 </div>
 <% end %>

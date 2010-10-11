@@ -13,7 +13,7 @@ class DirectoryController < ApplicationController
   end
 
   def search
-    search_setup(nil, :include => [:restaurant, :employee, :restaurant_role])
+    directory_search_setup
     render :partial => "search_results"
   end
 

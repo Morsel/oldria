@@ -162,8 +162,11 @@ class ApplicationController < ActionController::Base
   end
   
   def directory_search_setup
-    @users = User.by_last_name.all(:include => :employments)
-    @restaurants = Restaurant.all
+    @search = EmploymentSearch.new(:conditions => params[:search]).employments
+
+    @users = @search.all(:include => [:restaurant, :employee, :restaurant_role], 
+        :order => "users.last_name").map(&:employee).uniq
+    @restaurants = @search.all(:include => [:restaurant], :order => "restaurants.name").group_by(&:restaurant).keys.compact
   end
 
 end
