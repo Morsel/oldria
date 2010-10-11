@@ -29,7 +29,7 @@
           <div class="span-4 last">
             <dl>
               <dt><h5>Cuisine:</h5></dt>
-              <dd><%= @user.profile.cuisines.map(&:name).to_sentence %>
+              <dd><%= @user.profile.cuisines.map { |c| link_to c.name, directory_path(:cuisine_id => c.id) }.to_sentence %>
             </dl>
           </div>
         <% end %>

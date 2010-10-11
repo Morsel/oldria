@@ -46,11 +46,6 @@ class Profile < ActiveRecord::Base
   accepts_nested_attributes_for :culinary_jobs, :nonculinary_jobs, :awards, :user, :specialties,
     :reject_if => REJECT_TITLE_BLANK_PROC
     
-  named_scope :by_specialty, lambda { |specialty_id|
-    { :joins => :specialties,
-      :conditions => ["specialties.id = ?", specialty_id] }
-  }
-
   ### Preferences ###
   preference :display_cell, :string, :default => "everyone"
   preference :display_email, :string, :default => "everyone"
