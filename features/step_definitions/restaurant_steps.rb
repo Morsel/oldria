@@ -300,8 +300,11 @@ Given /^"([^"]*)" has answered the following A La Minute questions:$/ do |restau
     question = ALaMinuteQuestion.find_by_question(row['question']) || Factory(:a_la_minute_question, :question => row['question'], :kind => "restaurant")
     answer = Factory(:a_la_minute_answer, :answer => row['answer'],
         :a_la_minute_question => question, :responder => @restaurant,
-        :show_as_public => row['public'])
+        :show_as_public => row['public'],
+        :created_at => eval(row['created_at']),
+        :updated_at => eval(row['created_at']))
   end
+  ap @restaurant.a_la_minute_answers
 end
 
 Then /^I should see the question "([^"]*)" with the answer "([^"]*)"$/ do |question_text, answer_text|

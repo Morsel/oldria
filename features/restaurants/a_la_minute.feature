@@ -34,3 +34,19 @@ Feature: Manage a_la_minutes
     And I press "Save"
     And I go to the soapbox restaurant profile for "Steak Knife"
     Then I should see the question "What's new?" with the answer "Lobster Bisque"
+
+  Scenario: Only the 3 most recently created answers should be shown
+    Given "Steak Knife" has answered the following A La Minute questions:
+    | question         | answer                  | public | created_at     |
+    | What's new?      | Lobster Bisque          | true   | 3.hours.ago    |
+    | What's changing? | Adding sidewalk seating | true   | 2.hours.ago    |
+    | What's up?       | Nothing much            | true   | 30.minutes.ago |
+    | Morning?         | Evening                 | true   | 10.minutes.ago |
+
+    And I go to the soapbox restaurant profile for "Steak Knife"
+    Then I should see the question "What's changing?" with the answer "Adding sidewalk seating"
+    And I should see the question "What's up?" with the answer "Nothing much"
+    And I should see the question "Morning?" with the answer "Evening"
+    And I should not see the answer "Lobster Bisque"
+
+

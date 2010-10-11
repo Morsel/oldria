@@ -61,9 +61,7 @@
   <h2>A La Minute Questions</h2>
 
   <div class="questions">
-    <%= render :partial => "a_la_minute_question",
-            :collection => @restaurant.a_la_minute_answers.show_as_public.newest.all,
-            :as => :answer %>
+    <%= render :partial => "a_la_minute_question", :collection => @questions, :as => :answer %>
   </div>
 
 </div>
