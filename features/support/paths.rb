@@ -128,6 +128,8 @@ module NavigationHelpers
       edit_photos_restaurant_path(Restaurant.find_by_name($1))
     when /^the admin restaurant feature page$/
       admin_restaurant_features_path
+    when /^the admin a la minute questions page$/
+      admin_a_la_minute_questions_path
 
     # Soapbox
     when /the soapbox restaurant profile for "(.+)"/

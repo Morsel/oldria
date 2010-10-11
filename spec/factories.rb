@@ -434,7 +434,7 @@ end
 
 Factory.define :a_la_minute_question do |f|
   f.question "What's new?"
-  f.kind :restaurant
+  f.kind 'restaurant'
 end
 
 Factory.define :a_la_minute_answer do |f|

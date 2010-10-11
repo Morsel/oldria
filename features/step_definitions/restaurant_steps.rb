@@ -334,3 +334,21 @@ Then /^the listing for "([^\"]*)" should not be premium$/ do |restaurant_name|
   response.should_not have_selector("tr##{dom_id(restaurant)} td",
       :content => "Premium")
 end
+
+Given /^I have created the following A La Minute Questions:$/ do |table|
+  table.hashes.each do |row|
+    question = Factory(:a_la_minute_question, row)
+  end
+end
+
+Then /^I should see the following questions:$/ do |table|
+  table.hashes.each do |row|
+    question = ALaMinuteQuestion.find_by_question(row['question'])
+    response.should have_selector(".questions .a_la_minute_question", :content => question.question)
+  end
+end
+
+When /^I follow "([^"]*)" for "([^"]*)"$/ do |link, question_text|
+  question = ALaMinuteQuestion.find_by_question(question_text)
+  click_link_within("##{dom_id(question)}", link)
+end
