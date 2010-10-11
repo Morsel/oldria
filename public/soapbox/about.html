@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <!--[if IE]><![endif]-->
 
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"><![endif]-->
   <title>About Soapbox</title>
   <meta name="description" content="All about Spoonfeed's Soapbox">
   <meta name="author" content="Restaruant Intelligence Agency">
@@ -18,21 +18,155 @@
 <!--[if IE 9 ]>    <body class="ie9"> <![endif]-->
 <!--[if (gt IE 9)|!(IE)]><!--> <body> <!--<![endif]-->
 
-  <div id="container">
-    <header>
-
+  <div id="container">    
+    <header id="header">
+      <hgroup>
+        <h1 id="logo"><a href="#">Soapbox</a></h1>
+        <h2 id="tagline">A digital magazine written by chefs</h2>
+      </hgroup>
+      <nav id="nav">
+        <a id="nav-home" href="#">Home</a>
+        <a id="nav-pulse" href="#">Pulse</a>
+        <a id="nav-directory" href="#">Directory</a>
+        <a id="nav-about" class="selected" href="#">About</a>
+        <a id="nav-contact" href="#">Contact</a>
+      </nav>
     </header>
     
-    <div id="main">
-
-    </div>
+    <nav id="utilities">
+      <a id="search-handle" title="Pulldown a search interface" href="#">Search the site</a>
+      <a id="ria-hq" title="Head back to RIA's home" href="#"><abbr title="Restaurant Intelligence Agency">RIA</abbr> <abbr title="Headquarters">HQ</abbr></a>
+    </nav>
     
-    <footer>
+    <div id="main">
+      <section id="content">
+        <header id="page-title">
+          <h1>About Soapbox</h1>
+        </header>
+        <article id="page-content">
+          <header id="content-title">
+            <h1>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor.</h1>
+          </header>
+          <p><img src="/soapbox/_images/placeholder.jpg" alt="It's a placeholder!"><strong>Pellentesque habitant morbi tristique</strong> senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. <em>Aenean ultricies mi vitae est.</em> Mauris placerat eleifend leo. Quisque sit amet est et sapien ullamcorper pharetra. Vestibulum erat wisi, condimentum sed, <code>commodo vitae</code>, ornare sit amet, wisi. Aenean fermentum, elit eget tincidunt condimentum, eros ipsum rutrum orci, sagittis tempus lacus enim ac dui. <a href="#">Donec non enim</a> in turpis pulvinar facilisis. Ut felis.</p>
 
+          <h2>Header Level 2</h2>
+
+          <ol>
+             <li>Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</li>
+             <li>Aliquam tincidunt mauris eu risus.</li>
+          </ol>
+
+          <blockquote><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus magna. Cras in mi at felis aliquet congue. Ut a est eget ligula molestie gravida. Curabitur massa. Donec eleifend, libero at sagittis mollis, tellus est malesuada tellus, at luctus turpis elit sit amet quam. Vivamus pretium ornare est.</p></blockquote>
+
+          <h3>Header Level 3</h3>
+
+          <ul>
+             <li>Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</li>
+             <li>Aliquam tincidunt mauris eu risus.</li>
+          </ul>
+        </article><!-- /page-content -->
+      </section><!-- /content -->
+      <div id="sidebar">
+        <aside id="recent-activity">
+          <header>
+            <h1>Recently on Soapbox</h1>
+            <nav id="activity-chooser">
+              <a href="#" id="choose-trend-questions">Trend Questions</a>
+              <a href="#" id="choose-qotd">Questions of the Day</a>
+            </nav>
+          </header>
+          <ol id="activity-feed">
+            <li>
+              <time class="feed-item-date" datetime="2010-09-24">9/24:</time>
+              <header class="feed-item-title">
+                <a href="#">Grapes roll into season</a>
+              </header>
+              <aside class="feed-item-reply-count">
+                <a href="#"><span class="num">6</span> replies</a>
+              </aside>
+            </li>
+            <li>
+              <time class="feed-item-date" datetime="2010-09-23">9/23:</time>
+              <header class="feed-item-title">
+                <a href="#">Sage-brown butter everything</a>
+              </header>
+              <aside class="feed-item-reply-count">
+                <a href="#"><span class="num">16</span> replies</a>
+              </aside>
+            </li>
+            <li>
+              <time class="feed-item-date" datetime="2010-09-22">9/22:</time>
+              <header class="feed-item-title">
+                <a href="#">Chefs weigh in on clogs as fall&#146;s fashion statement</a>
+              </header>
+              <aside class="feed-item-reply-count">
+                <a href="#"><span class="num">14</span> replies</a>
+              </aside>
+            </li>
+            <li>
+              <time class="feed-item-date" datetime="2010-09-21">9/21:</time>
+              <header class="feed-item-title">
+                <a href="#">The other grape juice, verjus flavors dishes around town</a>
+              </header>
+              <aside class="feed-item-reply-count">
+                <a href="#"><span class="num">14</span> replies</a>
+              </aside>
+            </li>
+            <li>
+              <time class="feed-item-date" datetime="2010-09-20">9/20:</time>
+              <header class="feed-item-title">
+                <a href="#">Chefs as lunch lady</a>
+              </header>
+              <aside class="feed-item-reply-count">
+                <a href="#"><span class="num">22</span> replies</a>
+              </aside>
+            </li>
+            <li>
+              <time class="feed-item-date" datetime="2010-09-19">9/19:</time>
+              <header class="feed-item-title">
+                <a href="#">Compound butters get the meat treatment</a>
+              </header>
+              <aside class="feed-item-reply-count">
+                <a href="#"><span class="num">22</span> replies</a>
+              </aside>
+            </li>
+          </ol><!-- /activity-feed -->
+        </aside><!-- /recent-activity -->
+        <nav id="participate">
+          <a class="button" href="#">Login to participate</a>
+          <span>or</span>
+          <a class="button" href="#">Request an invitation</a>
+        </nav><!-- /participate -->
+      </div><!-- /sidebar -->
+      <div id="sticky-footer-pad"></div>
+    </div><!-- /main -->
+    
+    <footer id="footer">
+      <header id="footer-logo">
+        Soapbox: Soapbox is a product of RIA
+      </header>
+      <div id="legal">
+        <p>&copy; 2010 <a href="#">Restaurant Intelligence Agency</a>. All Rights Reserved.</p>
+        <nav id="footer-links">
+          <a href="#">Contact</a>|
+          <a href="#">RIA HQ</a>|
+          <a href="#">Privacy</a>|
+          <a href="#">About</a>|
+          <a href="#">Help</a>
+        </nav>
+        <p>Powered by <a href="#">La Columbe Torrefaction</a> <span class="bullet">&bull;</span> Built by <a href="#">Neoteric Design</a></p>
+      </div><!-- /legal -->
+      <div class="social-media-links">
+        <p id="twitter-link">Follow us on Twitter at <a href="#">@soapbox</a></p>
+      </div>
+      <div class="social-media-links">
+        <p id="facebook-link"><a href="#">Check us out on Facebook</a></p>
+      </div>
     </footer>
   </div> <!-- end of #container -->
 
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+  <script>!window.jQuery && document.write('<script src="/soapbox/_js/jquery-1.4.2.min.js"><\/script>')</script>
   <script src="/soapbox/_js/site.js?v=1"></script>
 
   <!--[if lt IE 7 ]>
