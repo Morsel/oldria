@@ -1,7 +1,22 @@
-<% @indy_users.each do |employment| %>
-    <%= render employment.employee %>
+<% if @users.present? && @restaurants.present? %>
+<div class="clearfix">
+    <%= link_to_function "Users", '$("#user-results").toggle(); $("#restaurant-results").toggle()', :class => "button round" %>
+    <%= link_to_function "Restaurants", '$("#user-results").toggle(); $("#restaurant-results").toggle()', :class => "button round" %>
+</div>
 <% end %>
 
-<% @restaurants_and_employments.each do |restaurant, employments| %>
-  <%= render restaurant, :employments => employments %>
+<div id="user-results">
+    <h3>Users</h3>
+    <% for user in @users %>
+      <%= render :partial => 'users/identity', :locals => { :user => user } %>
+    <% end %>
+</div>
+
+<% if @restaurants %>
+<div id="restaurant-results" style="display:none">
+    <h3>Restaurants</h3>
+    <% for restaurant in @restaurants %>
+      <%= render restaurant %>
+    <% end %>
+</div>
 <% end %>

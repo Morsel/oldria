@@ -160,5 +160,10 @@ class ApplicationController < ActionController::Base
     normalized = params[:search].reject{|k,v| v.blank? }
     normalized.blank? ? {:id => ""} : normalized
   end
+  
+  def directory_search_setup
+    @users = User.by_last_name.all(:include => :employments)
+    @restaurants = Restaurant.all
+  end
 
 end

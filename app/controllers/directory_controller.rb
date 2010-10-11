@@ -3,8 +3,13 @@ class DirectoryController < ApplicationController
   skip_before_filter :preload_resources, :only => :search
 
   def index
-    @use_search = true
-    search_setup(nil, :include => [:restaurant, :employee, :restaurant_role])
+    if params[:specialty_id]
+      @specialty = Specialty.find(params[:specialty_id])
+      @users = Profile.by_specialty(@specialty).map(&:user)
+    else
+      @use_search = true
+      directory_search_setup
+    end
   end
 
   def search

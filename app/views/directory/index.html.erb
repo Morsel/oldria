@@ -1,5 +1,7 @@
 <% title "User Directory" %>
 
+<%= title_for_search %>
+
 <% if @use_search %>
 <div id="directory_search">
     <% semantic_form_for EmploymentSearch.new, :url => employment_search_path do |f| %>
