@@ -159,6 +159,10 @@ class Restaurant < ActiveRecord::Base
     employments.public_profile_only.by_position
   end
 
+  def account_type
+    if premium_account then "Premium" else "Basic" end
+  end
+
   private
 
   def add_manager_as_employee
@@ -184,7 +188,6 @@ class Restaurant < ActiveRecord::Base
   def reset_primary_photo_on_remove(removed_photo)
     update_attributes!(:primary_photo => photos.first) unless photos.include?(primary_photo)
   end
-
 
 
 end

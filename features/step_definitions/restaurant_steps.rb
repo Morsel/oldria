@@ -318,3 +318,15 @@ end
 Then /^I should not see the answer "([^"]*)"$/ do |answer_text|
   response.should_not have_selector(".answer", :content => answer_text)
 end
+
+Then /^the listing for "([^\"]*)" should be premium$/ do |restaurant_name|
+  restaurant = Restaurant.find_by_name(restaurant_name)
+  response.should have_selector("tr##{dom_id(restaurant)} td",
+      :content => "Premium")
+end
+
+Then /^the listing for "([^\"]*)" should not be premium$/ do |restaurant_name|
+  restaurant = Restaurant.find_by_name(restaurant_name)
+  response.should_not have_selector("tr##{dom_id(restaurant)} td",
+      :content => "Premium")
+end

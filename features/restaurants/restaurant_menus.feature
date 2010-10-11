@@ -5,8 +5,8 @@ Feature: Restaurant Menus
   would like to see the restaurant menus
 
   Background:
-    Given I am logged in as an admin
-    And a restaurant named "Bourgeois Pig"
+    Given a restaurant named "Bourgeois Pig"
+    Given I am logged in as an account manager for "Bourgeois Pig"
     And the date and time is "now"
 
   Scenario: Upload a menu

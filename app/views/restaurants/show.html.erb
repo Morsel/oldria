@@ -16,8 +16,15 @@
   <div class="name_and_pic clearfix span-7">
     <%= image_tag 'avatar_restaurant.gif', :width=>'100' %>
     <div class="user_info">
-      <h2 class="function-bold" id="name"><%= @restaurant.name %></h2>
+      <h2 class="function-bold" id="name">
+        <%= @restaurant.name %>
+      </h2>
 
+      <div class="premium">
+        <% if @restaurant.premium_account %>
+          <strong>Premium Account</strong>
+        <% end %>
+      </div>
       <div id="address"><%= @restaurant.address_parts.join("<br />") %></div>
 
       <div>

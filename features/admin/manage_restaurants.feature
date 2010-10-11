@@ -18,15 +18,20 @@ Feature: Manage restaurants
     And I should see "Fancy Pants"
     And I should be on the admin restaurants page
 
-    @wip
   Scenario: Upgrading an account to premium
     Given the following restaurant records:
       | name         | city    | state |
       | Piece        | Chicago | IL    |
     And I am logged in as an admin
     And I am on the admin restaurants page
+    Then the listing for "Piece" should not be premium
+    When I go to the restaurant show page for "Piece"
+    Then the show page should not be premium
+    When I am on the admin restaurants page
     When I follow "edit"
     And I check "Premium Account"
     And I press "Save"
     Then I should see "updated restaurant"
-#    Then the restaurant should have a "Premium Account" #display Premium Account true in Restaurants table in the index page.
+    Then the listing for "Piece" should be premium
+    When I go to the restaurant show page for "Piece"
+    Then the show page should be premium

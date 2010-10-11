@@ -361,3 +361,10 @@ Then /^I should see the accolades in order: "([^"]*)"$/ do |accolade_names|
   expected_names.flatten.should == accolade_names.split(",").map(&:strip)
 end
 
+Then /^the show page should be premium$/ do
+  response.should have_selector(".premium", :content => "Premium")
+end
+
+Then /^the show page should not be premium$/ do
+  response.should_not have_selector(".premium", :content => "Premium")
+end
