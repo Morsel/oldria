@@ -4,7 +4,8 @@ Feature: Restaurant profile
 
   Background:
     Given a restaurant named "Piece"
-    Given I am logged in as an account manager for "Piece"
+    And that "Piece" has a premium account
+    And I am logged in as an account manager for "Piece"
 
   Scenario: Show basic data
     When I go to the restaurant photo upload page for Piece
@@ -116,3 +117,8 @@ Feature: Restaurant profile
     And I go to the soapbox restaurant profile for "Piece"
     Then I should see the question "What's new?" with the answer "Pea Soup"
     And I should not see the answer "Lobster Bisque"
+
+  Scenario: No display if not premium
+    Given that "Piece" does not have a premium account
+    When I go to the soapbox restaurant profile for "Piece"
+    Then I should be on the soapbox index page

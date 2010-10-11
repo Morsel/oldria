@@ -98,6 +98,10 @@ class Restaurant < ActiveRecord::Base
     Restaurant.all(:include => :restaurant_features,
         :conditions => ['restaurant_features_restaurants.restaurant_feature_id = ?', feature.id])
   end
+  
+  def self.find_premium(id)
+    find_by_id_and_premium_account(id, true)
+  end
 
   def name_and_location
     [name, city, state].reject(&:blank?).join(", ")

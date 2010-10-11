@@ -93,6 +93,7 @@ Feature: Associating a Restaurant with its employees
 
   Scenario: Sorted Employees
     Given I have just created a restaurant named "Jimmy's Diner"
+    And that "Jimmy's Diner" has a premium account
     And "betty" is an employee of "Jimmy's Diner" with public position 3
     And "bob" is an employee of "Jimmy's Diner" with public position 2
     When I go to the soapbox restaurant profile for "Jimmy's Diner"

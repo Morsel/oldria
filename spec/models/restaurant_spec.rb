@@ -272,5 +272,20 @@ describe Restaurant do
       restaurant.public_employments.should == [public_employment]
     end
   end
+  
+  describe "premium account" do
+    
+    it "finds a premium account" do
+      restaurant = Factory(:restaurant, :premium_account => true)
+      Restaurant.find_premium(restaurant.id).should == restaurant
+    end
+    
+    it "doesn't find a basic account" do
+      restaurant = Factory(:restaurant, :premium_account => false)
+      Restaurant.find_premium(restaurant.id).should be_nil
+    end
+    
+  end
+  
 end
 

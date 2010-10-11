@@ -6,6 +6,7 @@ Feature: Associate Restaurant features
   Background:
     Given I am logged in as an admin
     And a restaurant named "Piece"
+    And that "Piece" has a premium account
     And the following restaurant features:
       | page    | category      | value    |
       | Cuisine | Cuisine Style | Casual   |

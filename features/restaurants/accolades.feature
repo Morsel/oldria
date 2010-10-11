@@ -5,6 +5,7 @@ Feature: Adding accolades to a restaurant
 
   Background:
     Given a restaurant named "Restaurant"
+    And that "Restaurant" has a premium account
     Given I am logged in as an admin
 
   Scenario: Add a new accolade for a restaurant

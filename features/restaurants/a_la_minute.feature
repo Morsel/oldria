@@ -9,6 +9,7 @@ Feature: Manage a_la_minutes
       | What's the newest item on your menu?          |
       | What music is playing in your kitchen?        |
     Given a restaurant named "Steak Knife"
+    And that "Steak Knife" has a premium account
     And I am logged in as an admin
 
   Scenario: Questions are displayed for a manager

@@ -11,6 +11,8 @@ module NavigationHelpers
       '/'
     when /the new a_la_minute page/
       new_a_la_minute_path
+    when /the soapbox index page/
+      soapbox_index_path
 
     when /^the coached status updates page$/
       admin_coached_status_updates_path

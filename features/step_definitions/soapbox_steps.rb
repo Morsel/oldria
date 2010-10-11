@@ -69,3 +69,8 @@ Then /^I should see the employees in the order "([^"]*)"$/ do |employee_names|
   expected_names = tableish(".public_employee", ".employee_name")
   expected_names.flatten.should == employee_names.split(",").map(&:strip)
 end
+
+When /^that "([^\"]*)" (has|does not have) a premium account$/ do |restaurant_name, toggle|
+  restaurant = Restaurant.find_by_name(restaurant_name)
+  restaurant.update_attributes(:premium_account => toggle == "has")
+end
