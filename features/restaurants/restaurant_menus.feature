@@ -18,13 +18,11 @@ Feature: Restaurant Menus
     Then I should see a menu with the name "January" and change frequency "Monthly" and uploaded at date "now" 
     Then I should see a link to download the uploaded menu pdf "menu1.pdf"
 
-    @wip
   Scenario: Menu upload page does not display for a non-account manager
     Given I am logged in as a normal user
     When I go to the restaurant menu upload page for Bourgeois Pig
     And I should see "You don't have permission to access that page"
 
-      @wip
   Scenario: Menu upload page does not display for a logged out user
     Given I am not logged in
     When I go to the restaurant menu upload page for Bourgeois Pig

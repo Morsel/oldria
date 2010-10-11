@@ -17,6 +17,7 @@
 	<% end -%>
 
 	<% f.inputs :name => 'Other', :class => "span-9 column last" do %>
+        <%= f.input :premium_account %>
 		<%= f.input :manager %>
 		<%= f.input :cuisine %>
 		<%= f.input :facts, :input_html => { :rows => 3 } %>        
