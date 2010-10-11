@@ -298,9 +298,13 @@ Given /^"([^"]*)" has answered the following A La Minute questions:$/ do |restau
   table.hashes.each do |row|
     # TODO this feels cludgy... there's probably a better way... refactor.
     question = ALaMinuteQuestion.find_by_question(row['question']) || Factory(:a_la_minute_question, :question => row['question'], :kind => "restaurant")
-    answer = Factory(:a_la_minute_answer, :answer => row['answer'],
+    answer_params = {:answer => row['answer'],
         :a_la_minute_question => question, :responder => @restaurant,
-        :show_as_public => row['public'])
+        :show_as_public => row['public']}
+    answer_params[:created_at] = eval(row['created_at']) if row['created_at']
+    answer_params[:updated_at] = eval(row['created_at']) if row['created_at']
+
+    answer = Factory(:a_la_minute_answer, answer_params)
   end
 end
 
