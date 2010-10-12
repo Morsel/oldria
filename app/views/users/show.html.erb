@@ -1,173 +1,213 @@
 <% title "#{@user.first_name}'s Profile", false %>
 
 <% if params[:controller] == "profiles" %>
-<p>This is a preview view. These changes have not been saved. <%= link_to_function "Go back", "history.go(-1)" %> to edit or save.</p>
+  <p>
+    This is a preview view. These changes have not been saved. 
+    <%= link_to_function "Go back", "history.go(-1)" %> to edit or save.
+  </p>
 <% end %>
 <div id="user_profile_view" class="clearfix">
-    <% if current_user == @user %>
-    <div class="edit_profile_link"><a href="<%= edit_my_profile_path %>"><span>Edit profile</span></a></div>
-    <% end %>
-    <div class="name_and_actions clearfix">
-        <div class="profile_picture">
-            <%= image_tag @user.avatar.url(:small), :width=>'100', :class => 'left' %>
-        </div>
-
-      <div class="profile_info">
-        <h2 class="user_name"><%= @user.name %></h2>
-        <% if @user.profile && @user.profile.headline %><h3 class="headline"><%= @user.profile.try(:headline) %></h3><% end %>
-        
-        <% if @user.profile && @user.profile.specialties.present? %>
-          <div class="span-5">
-            <dl>
-              <dt><h5>Specialties:</h5></dt>
-              <dd><%= @user.profile.specialties.map(&:name).to_sentence %>
-            </dl>
-          </div>
-        <% end %>
-  
-        <% if @user.profile && @user.profile.cuisines.present? %>
-          <div class="span-4 last">
-            <dl>
-              <dt><h5>Cuisine:</h5></dt>
-              <dd><%= @user.profile.cuisines.map(&:name).to_sentence %>
-            </dl>
-          </div>
-        <% end %>
-      
-
-        <% if @user.employments.any? %>
-        <h4 class="user_employment">
-            <span class="employment_role"><%= @user.primary_employment.try(:restaurant_role).try(:name) %></span>,
-            <span class="restaurant_name"><%= link_to @user.primary_employment.try(:restaurant).try(:name), @user.primary_employment.try(:restaurant) %></span>
-        </h4>
-        <% end %>
-        
-        <% if @user.profile && @user.profile.summary.present? -%>
-          <h5>Summary:</h5>
-          <p><%= @user.profile.try(:summary) %></p>
-        <% end -%>
-        
+  <% if current_user == @user %>
+    <div class="edit_profile_link">
+      <a href="<%= edit_my_profile_path %>"><span>Edit profile</span></a>
+    </div>
+  <% end %>
+  <div class="name_and_actions clearfix">
+    <div class="profile_picture">
+      <%= image_tag @user.avatar.url(:small), :width=>'100', :class => 'left' %>
+    </div>
+  <div class="profile_info">
+    <h2 class="user_name"><%= @user.name %></h2>
+      <% if @user.profile && @user.profile.headline %>
+        <h3 class="headline"><%= @user.profile.try(:headline) %></h3>
+      <% end %>
+      <% if @user.profile && @user.profile.specialties.present? %>
         <div class="span-5">
-          <h5>Contact Information:</h5>
-           <dl class="user_info clearfix clear contact">
-               <% if display_cell(@user) %>
-                 <dt>Mobile</dt>
-                 <dd><%= @user.profile.cellnumber %></dd>
-               <% end %>
-           
-             
-                <%- if display_email(@user) -%>
-                <dt>Email</dt>
-                <dd><%= mail_to(@user.email, truncate(@user.email, :length => 25)) %></dd>
-                <%- end -%>
-
-                <% if display_twitter(@user) %>
-                <dt>Twitter</dt>
-                <dd><%= link_to @user.twitter_username, "http://twitter.com/#{@user.twitter_username}" %></dd>
-                <% end -%>
-
-                <% if display_facebook(@user) %>
-                <dt>Facebook</dt>
-                <dd><%= link_to @user.facebook_user.name, @user.facebook_user.link %></dd>
-                <% end %>
-            </dl><!-- .user_info.contact -->
+          <dl>
+            <dt><h5>Specialties:</h5></dt>
+            <dd><%= @user.profile.specialties.map(&:name).to_sentence %>
+          </dl>
         </div>
-        
+      <% end %>
+  
+      <% if @user.profile && @user.profile.cuisines.present? %>
         <div class="span-4 last">
-          <h5>More Details:</h5>
-          <dl class="user_info clearfix extra">
-              <% if @user.profile %>
-              <% if @user.profile.job_start.present? %>
+          <dl>
+            <dt><h5>Cuisine:</h5></dt>
+            <dd><%= @user.profile.cuisines.map(&:name).to_sentence %>
+          </dl>
+        </div>
+      <% end %>
+      
+      <% if @user.employments.any? %>
+        <h4 class="user_employment">
+          <span class="employment_role">
+            <%= @user.primary_employment.try(:restaurant_role).try(:name) %>
+          </span>,
+          <span class="restaurant_name">
+            <%= link_to @user.primary_employment.try(:restaurant).try(:name), 
+                @user.primary_employment.try(:restaurant) %>
+          </span>
+        </h4>
+      <% end %>
+        
+      <% if @user.profile && @user.profile.summary.present? -%>
+        <h5>Summary:</h5>
+        <p><%= @user.profile.try(:summary) %></p>
+      <% end -%>
+        
+      <div class="span-5">
+        <h5>Contact Information:</h5>
+        <dl class="user_info clearfix clear contact">
+          <dt>Acct. Type</dt>
+          <dd class="user_account_type"><%= h @user.account_type%></dd>
+          <% if display_cell(@user) %>
+            <dt>Mobile</dt>
+            <dd><%= @user.profile.cellnumber %></dd>
+          <% end %>
+          
+          <%- if display_email(@user) -%>
+            <dt>Email</dt>
+            <dd>
+              <%= mail_to(@user.email, truncate(@user.email, :length => 25)) %>
+            </dd>
+          <%- end -%>
+
+          <% if display_twitter(@user) %>
+            <dt>Twitter</dt>
+            <dd>
+              <%= link_to @user.twitter_username, 
+                  "http://twitter.com/#{@user.twitter_username}" %>
+            </dd>
+          <% end -%>
+
+          <% if display_facebook(@user) %>
+            <dt>Facebook</dt>
+            <dd>
+              <%= link_to @user.facebook_user.name, 
+                  @user.facebook_user.link %>
+            </dd>
+          <% end %>
+        </dl><!-- .user_info.contact -->
+      </div>
+        
+      <div class="span-4 last">
+        <h5>More Details:</h5>
+        <dl class="user_info clearfix extra">
+          <% if @user.profile %>
+            <% if @user.profile.job_start.present? %>
               <dt>Job Start</dt>
               <dd><%= @user.profile.job_start.try(:strftime, '%B %d, %Y') %></dd>
-              <% end %>
+            <% end %>
 
-              <% if @user.profile.birthday.present? %>
+            <% if @user.profile.birthday.present? %>
               <dt>Age</dt>
               <dd><%= age(@user.profile.birthday) %></dd>
-              <% end %>
+            <% end %>
 
-              <% if @user.profile.hometown.present? %>
+            <% if @user.profile.hometown.present? %>
               <dt>Hometown</dt>
               <dd><%= @user.profile.hometown %>
-              <% end %>
+            <% end %>
 
-              <% if @user.profile.current_residence.present? %>
+            <% if @user.profile.current_residence.present? %>
               <dt>Current City</dt>
               <dd><%= @user.profile.current_residence %>
-              <% end %>
+            <% end %>
 
-              <% end %>
-          </dl><!-- .user_info.extra -->
-        </div>
-        
-        <%= render :partial => 'profile_actions' unless media_or_owner? %>
+          <% end %>
+        </dl><!-- .user_info.extra -->
       </div>
-    </div><!-- .name_and_actions -->
-    
-    <span class="timestamp">
-        Last updated:
-        <%= @user.profile.try(:updated_at).try(:strftime, "%b %e %Y") %>
-    </span>
+        
+      <%= render :partial => 'profile_actions' unless media_or_owner? %>
+    </div>
+  </div><!-- .name_and_actions -->
+      
+  <span class="timestamp">
+    Last updated:
+    <%= @user.profile.try(:updated_at).try(:strftime, "%b %e %Y") %>
+  </span>
 </div><!-- #user_profile_view -->
 
 <div id="extended_profile_container">
-    <a href="#extended_profile" class="showit">
-        View Extended Profile <em>(Education, Experience, Awards, etc)</em>
-    </a>
-    <%= render 'users/extended_profile', :user => @user, :profile => @user.profile %>
+  <a href="#extended_profile" class="showit">
+    View Extended Profile <em>(Education, Experience, Awards, etc)</em>
+  </a>
+  
+  <%= render 'users/extended_profile', :user => @user, 
+      :profile => @user.profile %>
 </div><!-- #extended_profile_container -->
 
 <% if @user.btl_enabled? && (@user == current_user || @user.published_topics.present?) %>
-<div class="span-6" id="behindline">
+  <div class="span-6" id="behindline">
     <h3 class="profile_subhead">Behind the Line: <%= @user.name %></h3>
+    
     <ul class="box">
-        <% if current_user == @user %>
-        <div class="edit_profile_link"><%= link_to "<span>Edit profile</span>", topics_user_questions_path(:user_id => @user.id) %></div>
-        <% end %>
-        <% for topic in @user == current_user ? @user.topics : @user.published_topics %>
+      <% if current_user == @user %>
+        <div class="edit_profile_link">
+          <%= link_to "<span>Edit profile</span>", 
+            topics_user_questions_path(:user_id => @user.id) %>
+        </div>
+      <% end %>
+      
+      <% for topic in @user == current_user ? @user.topics : @user.published_topics %>
         <li class="<%= cycle("even", "odd") %>">
-          <% link_to chapters_user_questions_path(:user_id => @user.id, :topic_id => topic.id) do %>
-            <h5><%= topic.title %> <span class="completeness">(<%= topic.completion_percentage(@user) %>% complete)</span></h5>
-            <%= truncate(topic.profile_questions.map(&:title).join(" "), :length => 100) %>   
+          <% link_to chapters_user_questions_path(:user_id => @user.id, 
+              :topic_id => topic.id) do %>
+            <h5>
+              <%= topic.title %> 
+              <span class="completeness">
+                (<%= topic.completion_percentage(@user) %>% complete)
+              </span>
+            </h5>
+            <%= truncate(topic.profile_questions.map(&:title).join(" "), 
+                :length => 100) %>   
           <% end %>
         </li>
-        <% end %>
-        <p class="view_all"><%= link_to "View all Topics &raquo;", topics_user_questions_path(:user_id => @user.id) %></p>
+      <% end %>
+      
+      <p class="view_all">
+        <%= link_to "View all Topics &raquo;", 
+            topics_user_questions_path(:user_id => @user.id) %>
+      </p>
     </ul>
-</div>
+  </div>
 <% end %>
 
 <div class="span-6 last tabable" id="recentsoapbox">
-    <h3 class="profile_subhead">Recent responses on Soapbox</h3>
+  <h3 class="profile_subhead">Recent responses on Soapbox</h3>
 
-    <ul>
-        <li><a href="#older_qotds_box">Questions of the Day</a></li>
-        <li><a href="#older_tqs_box">Trend Questions</a></li>
-    </ul>
+  <ul>
+    <li><a href="#older_qotds_box">Questions of the Day</a></li>
+    <li><a href="#older_tqs_box">Trend Questions</a></li>
+  </ul>
 
-    <div id="older_qotds_box">
-        <% if @user.qotds_responded.present? %>
-          <%= render :partial => 'users/question', :collection => @user.qotds_responded, :local => { :user => @user } %>
-        <% else %>
-          <p><%= @user.name %> hasn't answered any Questions of the Day yet.</p>
-        <% end %>
-    </div>
+  <div id="older_qotds_box">
+    <% if @user.qotds_responded.present? %>
+      <%= render :partial => 'users/question', 
+          :collection => @user.qotds_responded, :local => { :user => @user } %>
+    <% else %>
+      <p><%= @user.name %> hasn't answered any Questions of the Day yet.</p>
+    <% end %>
+  </div>
 
-    <div id="older_tqs_box">
-        <% if @user.qotds_responded.present? %>
-          <%= render :partial => 'users/question', :collection => @user.trend_questions_responded, :local => {:user => @user} %>
-        <% else %>
-          <p><%= @user.name %> hasn't answered any Trend Questions yet.</p>
-        <% end %>
-    </div>
+  <div id="older_tqs_box">
+    <% if @user.qotds_responded.present? %>
+      <%= render :partial => 'users/question', 
+          :collection => @user.trend_questions_responded, 
+          :local => {:user => @user} %>
+      <% else %>
+        <p><%= @user.name %> hasn't answered any Trend Questions yet.</p>
+      <% end %>
+  </div>
 </div>
 
 <hr class="space"/>
 
 <div id="user_content">
-    <% unless media? || @latest_statuses.blank? %>
-      <%= render :partial => 'recent_statuses', :locals => {:user => @user, :statuses => @latest_statuses } %>
-      <%= render :partial => 'followings', :locals => {:user => @user} %>
-    <% end %>
+  <% unless media? || @latest_statuses.blank? %>
+    <%= render :partial => 'recent_statuses', 
+        :locals => {:user => @user, :statuses => @latest_statuses } %>
+    <%= render :partial => 'followings', :locals => {:user => @user} %>
+  <% end %>
 </div><!-- #user_content-->

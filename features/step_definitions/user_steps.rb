@@ -135,3 +135,14 @@ When /^the user "([^\"]*)" (has|does not have) a premium account$/ do |username,
   user = User.find_by_username(username)
   user.update_attributes(:premium_account => (toggle == "has"))
 end
+
+Then /^"([^"]*)" should have a "([^"]*)" account in the list$/ do |username, account_type|
+  user = User.find_by_username(username)
+  response.should have_selector("##{dom_id(user)} .user_account_type", 
+      :content => account_type)
+end
+
+When /^"([^"]*)" should have a "([^"]*)" account on the page$/ do |user_name, account_type|
+  response.should have_selector(".user_account_type", :content => account_type)
+end
+

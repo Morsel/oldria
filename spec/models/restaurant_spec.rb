@@ -277,11 +277,13 @@ describe Restaurant do
     
     it "finds a premium account" do
       restaurant = Factory(:restaurant, :premium_account => true)
+      restaurant.account_type.should == "Premium"
       Restaurant.find_premium(restaurant.id).should == restaurant
     end
     
     it "doesn't find a basic account" do
       restaurant = Factory(:restaurant, :premium_account => false)
+      restaurant.account_type.should == "Basic"
       Restaurant.find_premium(restaurant.id).should be_nil
     end
     

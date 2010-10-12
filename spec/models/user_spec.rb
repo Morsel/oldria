@@ -286,6 +286,22 @@ describe User do
       user.primary_employment.should == e2
     end
   end
+  
+  describe "premium account" do
+    
+    it "finds a premium account" do
+      user = Factory(:user, :premium_account => true)
+      user.account_type.should == "Premium"
+      User.find_premium(user.id).should == user
+    end
+    
+    it "doesn't find a basic account" do
+      user = Factory(:user, :premium_account => false)
+      user.account_type.should == "Basic"
+      User.find_premium(user.id).should be_nil
+    end
+    
+  end
 end
 
 # == Schema Information

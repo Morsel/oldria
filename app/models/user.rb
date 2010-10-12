@@ -116,6 +116,10 @@ class User < ActiveRecord::Base
   def has_no_role!(role = nil)
     update_attribute(:role, nil)
   end
+  
+  def self.find_premium(id)
+    find_by_id_and_premium_account(id, true)
+  end
 
   def following?(otheruser)
     friends.include?(otheruser)
@@ -276,6 +280,10 @@ class User < ActiveRecord::Base
   
   def specialties
     profile.present? ? profile.specialties : []
+  end
+  
+  def account_type
+    if premium_account then "Premium" else "Basic" end
   end
   
 end
