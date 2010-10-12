@@ -14,7 +14,6 @@
 #  public_profile     :boolean
 #  position           :integer
 #  type               :string(255)
->>>>>>> master
 #
 
 class Employment < ActiveRecord::Base
