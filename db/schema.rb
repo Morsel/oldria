@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20101006173434) do
+ActiveRecord::Schema.define(:version => 20101011235856) do
 
   create_table "accolades", :force => true do |t|
     t.integer  "profile_id"
@@ -48,7 +48,6 @@ ActiveRecord::Schema.define(:version => 20101006173434) do
     t.text     "message"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "holiday_id"
     t.string   "display_message"
   end
 

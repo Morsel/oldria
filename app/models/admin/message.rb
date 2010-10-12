@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20100811200806
+# Schema version: 20101011235856
 #
 # Table name: admin_messages
 #
@@ -10,7 +10,6 @@
 #  message         :text
 #  created_at      :datetime
 #  updated_at      :datetime
-#  holiday_id      :integer
 #  display_message :string(255)
 #
 
