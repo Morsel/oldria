@@ -27,7 +27,6 @@ ActiveRecord::Schema.define(:version => 20101011235856) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
->>>>>>> obtiva
 
   create_table "accolades", :force => true do |t|
     t.integer  "accoladable_id"
