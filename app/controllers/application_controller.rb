@@ -147,12 +147,13 @@ class ApplicationController < ActionController::Base
         resource.build_employment_search(:conditions => params[:search] || {})
       end
       @search = @employment_search.employments #searchlogic
-    else
+    else # no resource
       @search = EmploymentSearch.new(:conditions => params[:search]).employments
     end
 
     options.reverse_merge!(:include => [:restaurant, :employee], :order => "restaurants.name")
-    @restaurants_and_employments = @search.all(options).group_by(&:restaurant)
+    @indy_users, @restaurants_and_employments = @search.all(options).partition { |e| e.restaurant.nil? }
+    @restaurants_and_employments = @restaurants_and_employments.group_by(&:restaurant)
   end
 
   def save_search
@@ -166,6 +167,14 @@ class ApplicationController < ActionController::Base
   def normalized_search_params
     normalized = params[:search].reject{|k,v| v.blank? }
     normalized.blank? ? {:id => ""} : normalized
+  end
+  
+  def directory_search_setup
+    @search = EmploymentSearch.new(:conditions => params[:search]).employments
+
+    @users = @search.all(:include => [:restaurant, :employee, :restaurant_role], 
+        :order => "users.last_name").map(&:employee).uniq
+    @restaurants = @search.all(:include => [:restaurant], :order => "restaurants.name").group_by(&:restaurant).keys.compact
   end
 
 end

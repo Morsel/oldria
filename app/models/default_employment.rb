@@ -1,27 +1,23 @@
 # == Schema Information
-# Schema version: 20100928175957
+# Schema version: 20101006173434
 #
-# Table name: default_employments
+# Table name: employments
 #
 #  id                 :integer         not null, primary key
 #  employee_id        :integer
-#  restaurant_role_id :integer
+#  restaurant_id      :integer
 #  created_at         :datetime
 #  updated_at         :datetime
+#  restaurant_role_id :integer
+#  omniscient         :boolean
+#  primary            :boolean
+#  type               :string(255)
 #
 
-class DefaultEmployment < ActiveRecord::Base
+class DefaultEmployment < Employment
 
-  belongs_to :employee, :class_name => "User"
-  belongs_to :restaurant_role
-  
-  has_many :responsibilities, :dependent => :destroy
-  has_many :subject_matters, :through => :responsibilities
-
-  validates_presence_of :employee_id
-  validates_uniqueness_of :employee_id
-  
-  ### Preferences ###
-  preference :post_to_soapbox, :default => true
+  def restaurant
+    nil
+  end
 
 end

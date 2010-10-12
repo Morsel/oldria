@@ -25,7 +25,9 @@
         <div class="span-5">
           <dl>
             <dt><h5>Specialties:</h5></dt>
-            <dd><%= @user.profile.specialties.map(&:name).to_sentence %>
+            <dd>
+              <%= @user.profile.specialties.map { |s| link_to s.name, directory_path(:specialty_id => s.id) }.to_sentence %>
+            </dd>
           </dl>
         </div>
       <% end %>
@@ -34,7 +36,9 @@
         <div class="span-4 last">
           <dl>
             <dt><h5>Cuisine:</h5></dt>
-            <dd><%= @user.profile.cuisines.map(&:name).to_sentence %>
+            <dd>
+              <%= @user.profile.cuisines.map { |c| link_to c.name, directory_path(:cuisine_id => c.id) }.to_sentence %>
+            </dd>
           </dl>
         </div>
       <% end %>

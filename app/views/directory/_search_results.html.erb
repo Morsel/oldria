@@ -1,3 +1,27 @@
-<% @restaurants_and_employments.each do |restaurant, employments| %>
-  <%= render :partial => "restaurants/restaurant", :locals => { :restaurant => restaurant, :employments => employments } %>
+<% if @users.present? && @restaurants.present? %>
+<div class="clearfix">
+    <%= link_to_function "Users", '$("#user-results").toggle(); $("#restaurant-results").toggle()', :class => "button round" %>
+    <%= link_to_function "Restaurants", '$("#user-results").toggle(); $("#restaurant-results").toggle()', :class => "button round" %>
+</div>
+<% end %>
+
+<div id="user-results">
+    <h3>Users</h3>
+    <% for user in @users %>
+      <%= render :partial => 'users/identity', :locals => { :user => user } %>
+    <% end %>
+</div>
+
+<% if @restaurants %>
+<div id="restaurant-results" style="display:none">
+    <h3>Restaurants</h3>
+    <% for restaurant in @restaurants %>
+      <% div_for restaurant, :class => 'clearfix' do %>
+        <h2 class="function-bold">
+          <%= link_to restaurant.name, restaurant_path(restaurant) %>
+          (<%= restaurant.city %>)
+        </h2>
+      <% end %>
+    <% end %>
+</div>
 <% end %>

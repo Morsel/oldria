@@ -220,13 +220,6 @@ ActiveRecord::Schema.define(:version => 20101011204051) do
 
   add_index "date_ranges", ["id"], :name => "index_date_ranges_on_id", :unique => true
 
-  create_table "default_employments", :force => true do |t|
-    t.integer  "employee_id"
-    t.integer  "restaurant_role_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "delayed_jobs", :force => true do |t|
     t.integer  "priority",   :default => 0
     t.integer  "attempts",   :default => 0
@@ -292,8 +285,12 @@ ActiveRecord::Schema.define(:version => 20101011204051) do
     t.integer  "restaurant_role_id"
     t.boolean  "omniscient"
     t.boolean  "primary",            :default => false
+<<<<<<< HEAD
     t.boolean  "public_profile"
     t.integer  "position"
+=======
+    t.string   "type"
+>>>>>>> master
   end
 
   add_index "employments", ["employee_id"], :name => "index_employments_on_employee_id"
@@ -648,7 +645,6 @@ ActiveRecord::Schema.define(:version => 20101011204051) do
     t.integer  "subject_matter_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "default_employment_id"
   end
 
   add_index "responsibilities", ["employment_id"], :name => "index_responsibilities_on_employment_id"

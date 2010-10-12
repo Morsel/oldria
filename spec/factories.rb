@@ -230,7 +230,7 @@ Factory.define :chapter do |f|
 end
 
 Factory.define :profile_question do |f|
-  f.title "Where did you train?"
+  f.sequence(:title) { |n| "Question #{n}" } 
   f.association :chapter
   f.restaurant_roles { [Factory(:restaurant_role), Factory(:restaurant_role) ]}
 end
