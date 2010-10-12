@@ -4,6 +4,7 @@
 @import "compass/css3";
 // To configure blueprint, edit the partials/base.sass file.
 @import "partials/base";
+@import "compass/layout/sticky-footer";
 
 // Import all the default blueprint modules so that we can access their mixins.
 
@@ -20,6 +21,8 @@ body{
 	background:$body-bg url(/images/soapbox/bg-site.jpg) repeat-x;
 	color:$font-color;
 }
+
+@include sticky-footer(168px,'#container','#sticky-footer-pad','#footer');
 
 h1,h2,h3,h4,h5,h6{
 	line-height:1.2;
@@ -239,4 +242,49 @@ h1,h2,h3,h4,h5,h6{
 	bottom:-30px;
 	left:0;
 	background:url(/images/soapbox/bg-sidebar-bottom.png) no-repeat;
+}
+
+#footer{
+	background:url(/images/soapbox/bg-footer.png) repeat-x;
+}
+
+#footer-logo{
+	@include hiddentext;
+	@include column(5);
+	height:88px;
+	background:url(/images/soapbox/icon-footer-logo.png) no-repeat;
+	float:left;
+}
+
+#footer-container{
+	@include container;
+	padding:20px 0;
+	overflow:hidden;
+	color:#fff;
+	p{
+		margin:0 0 10px;
+	}
+	a{
+		color:#fff;
+	}
+	.social-media-links{
+		@include column(5);
+		&.last{
+			@include column(5,true);
+		}
+	}
+	
+}
+#legal{
+	@include column(9);
+}
+#footer-links{
+	margin:0 0 10px;
+	a{
+		display:inline-block;
+		padding:0 10px;
+		&:first-child{
+			padding-left:0;
+		}
+	}
 }
