@@ -40,12 +40,27 @@ describe ALaMinuteAnswer do
     end
   end
 
-  describe "#newest" do
-    it "should only find the most recent answer for each question" do
-      old_answer = ALaMinuteAnswer.create!(@valid_attributes.merge(:show_as_public => true))
-      new_answer = ALaMinuteAnswer.create!(@valid_attributes.merge(:show_as_public => true))
+  describe "#newest_for" do
+    context "for responders" do
+      it "should only find the most recent answer for each question" do
+        old_answer = ALaMinuteAnswer.create!(@valid_attributes.merge(:show_as_public => true, :responder => @responder, :created_at => 4.hours.ago))
+        new_answer = ALaMinuteAnswer.create!(@valid_attributes.merge(:show_as_public => true, :responder => @responder, :created_at => 2.hours.ago))
 
-      ALaMinuteAnswer.newest.should == [new_answer]
+        ALaMinuteAnswer.newest_for(@responder).should == [new_answer]
+      end
+    end
+    context "for questions" do
+      it "should only find the most recent answers for each restaurant" do
+        responder_1 = Factory(:restaurant)
+        responder_2 = Factory(:restaurant)
+
+        old_answer_1 = ALaMinuteAnswer.create!(@valid_attributes.merge(:show_as_public => true, :responder => responder_1, :created_at => 4.hours.ago))
+        new_answer_1 = ALaMinuteAnswer.create!(@valid_attributes.merge(:show_as_public => true, :responder => responder_1, :created_at => 3.hours.ago))
+        old_answer_2 = ALaMinuteAnswer.create!(@valid_attributes.merge(:show_as_public => true, :responder => responder_2, :created_at => 2.hours.ago))
+        new_answer_2 = ALaMinuteAnswer.create!(@valid_attributes.merge(:show_as_public => true, :responder => responder_2, :created_at => 1.hours.ago))
+
+        ALaMinuteAnswer.newest_for(@question).should == [new_answer_2, new_answer_1]
+      end
     end
   end
 

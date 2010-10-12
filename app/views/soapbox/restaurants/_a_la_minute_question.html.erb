@@ -1,4 +1,6 @@
-<% content_tag_for(:dl, answer.a_la_minute_question) do %>
-  <dt class="question"><%= h answer.a_la_minute_question.question %></dt>
+<% question = answer.a_la_minute_question %>
+<% content_tag_for(:dl, question) do %>
+  <dt class="question">
+    <%= link_to(h(question.question), soapbox_a_la_minute_question_path(question) ) %></dt>
   <dd class="answer"><%= h answer.answer %></dd>
 <% end %>

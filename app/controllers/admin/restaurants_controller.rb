@@ -21,12 +21,12 @@ class Admin::RestaurantsController < Admin::AdminController
   def upload_photo
     @restaurant.photos << Image.create!(params[:image])
     @restaurant.update_attributes!(:primary_photo => @restaurant.photos.last) unless @restaurant.primary_photo
-    redirect_to edit_photos_admin_restaurant_path(@restaurant)    
+    redirect_to edit_photos_admin_restaurant_path(@restaurant)
   end
 
   def upload_logo
     @restaurant.update_attributes!(:logo => Image.create!(params[:logo]))
-    redirect_to edit_admin_restaurant_path(@restaurant)    
+    redirect_to edit_admin_restaurant_path(@restaurant)
   end
 
   def select_primary_photo

@@ -49,5 +49,3 @@ Feature: Manage a_la_minutes
     And I should see the question "What's up?" with the answer "Nothing much"
     And I should see the question "Morning?" with the answer "Evening"
     And I should not see the answer "Lobster Bisque"
-
-

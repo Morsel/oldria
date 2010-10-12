@@ -85,3 +85,7 @@ Then /^I see an employee named "([^"]*)" without a link$/ do |username|
   response.should have_selector(".employee_name", :content => user.name)
   response.should_not have_selector(".employee_name a", :content => user.name)
 end
+
+Then /^I should see the heading "([^"]*)"$/ do |text|
+  response.should have_selector("h2", :content => text)
+end
