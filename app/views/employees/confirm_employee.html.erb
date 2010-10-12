@@ -5,6 +5,7 @@
 	<%= f.hidden_field :employee_id %>
 	<%= f.hidden_field :restaurant_role_id %>
 	<%= f.hidden_field :omniscient %>
+  <%= f.hidden_field :public_profile %>
 
 	<% @employment.subject_matter_ids.each do |sm| %>
 		<%= hidden_field_tag 'employment[subject_matter_ids][]', sm %>

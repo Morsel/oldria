@@ -1,7 +1,21 @@
+# == Schema Information
+#
+# Table name: accolades
+#
+#  id               :integer         not null, primary key
+#  accoladable_id   :integer
+#  name             :string(255)     default(""), not null
+#  media_type       :string(255)     default(""), not null
+#  run_date         :date            not null
+#  created_at       :datetime
+#  updated_at       :datetime
+#  link             :string(255)
+#  accoladable_type :string(255)
+#
+
 require 'spec_helper'
 
 describe Accolade do
-  should_belong_to :profile
   should_validate_presence_of :name, :run_date
 
   before(:each) do
@@ -19,4 +33,19 @@ describe Accolade do
     accolade.media_type = Accolade.valid_media_types.first
     accolade.should be_valid
   end
+
+  it "should recognize its type" do
+    accolade = Factory.build(:accolade)
+    accolade.should_not be_restaurant
+    accolade.accoladable = Factory.build(:restaurant)
+    accolade.should be_restaurant
+  end
+
+  it "sorts by run date" do
+    accolade1 = Factory.create(:accolade, :run_date => 1.year.ago)
+    accolade2 = Factory.create(:accolade, :run_date => 1.day.ago)
+    Accolade.by_run_date.all.should == [accolade2, accolade1]
+  end
+
 end
+

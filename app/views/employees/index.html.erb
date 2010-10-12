@@ -13,11 +13,9 @@
 <% end -%>
 
 <% unless @employments.blank? %>
-<div id="restaurant_employees">
-	<% @employments.in_groups(2, false) do |group| %>
-		<div class="span-6<%= cycle("", " last") %>">
-			<%= render group %> <%# employments/_employment.html.erb %>
-		</div>
+<div id="restaurant_employees" data-remote-url="<%= reorder_restaurant_employments_url(@restaurant) %>">
+	<% @employments.each do |group| %>
+	  <%= render group %> <%# employments/_employment.html.erb %>
 	<% end -%>
 </div>
 <% end -%>
@@ -36,4 +34,33 @@
 			Your restaurant has <%= link_to "#{@restaurant.media_requests.size} media requests", restaurant_media_requests_path(@restaurant) %>
 		</h4>
 	<% end %>
+<% end %>
+
+<% content_for :javascript do %>
+
+  <script type="text/javascript">
+    //<![CDATA[
+    $('#restaurant_employees').sortable(
+    {
+      axis: 'y',
+      dropOnEmpty:false,
+      cursor: 'crosshair',
+      items: '.employment_box',
+      opacity: 0.4,
+      scroll: true,
+      update: function(event, ui){
+        var url = $("#restaurant_employees").attr("data-remote-url");
+        $.ajax({
+          type: 'post',
+          data: $('#restaurant_employees').sortable('serialize') + '&restaurant_id=<%= @restaurant.id -%>',
+          dataType: 'script',
+          complete: function(request){
+            $('#restaurant_employees').effect('highlight');
+          },
+          url: url})
+      }
+    })
+    //]]>
+  </script>
+
 <% end %>

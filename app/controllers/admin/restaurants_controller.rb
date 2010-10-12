@@ -18,6 +18,31 @@ class Admin::RestaurantsController < Admin::AdminController
     end
   end
 
+  def upload_photo
+    @restaurant.photos << Image.create!(params[:image])
+    @restaurant.update_attributes!(:primary_photo => @restaurant.photos.last) unless @restaurant.primary_photo
+    redirect_to edit_photos_admin_restaurant_path(@restaurant)    
+  end
+
+  def upload_logo
+    @restaurant.update_attributes!(:logo => Image.create!(params[:logo]))
+    redirect_to edit_admin_restaurant_path(@restaurant)    
+  end
+
+  def select_primary_photo
+    if @restaurant.update_attributes(params[:restaurant])
+      flash[:notice] = "Successfully updated restaurant"
+      redirect_to edit_photos_admin_restaurant_path(@restaurant)
+    else
+      flash[:error] = "We were unable to update the restaurant"
+      render :edit_photos
+    end
+    redirect_to edit_photos_admin_restaurant_path(@restaurant)
+  end
+
+  def edit_photos
+  end
+
   def destroy
     @restaurant.destroy
     flash[:notice] = "Successfully removed restaurant"

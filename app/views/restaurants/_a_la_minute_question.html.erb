@@ -1,0 +1,15 @@
+<% answer = a_la_minute_question.answer_for(@restaurant) %>
+<% content_tag_for(:dl, a_la_minute_question) do %>
+  <dt class="question">
+    <%= h a_la_minute_question.question %>
+    <% semantic_form_for answer, :url => show_as_public_restaurant_a_la_minute_question_path(@restaurant, a_la_minute_question),
+          :id => "#{dom_id(answer)}_form", :html => {:method => :post, :class => 'inline'} do |answer_form| %>
+      <%= answer_form.input :show_as_public, :id => dom_id(answer), :class => 'submit_on_change' %>
+      <%= answer_form.submit :save, :id => "#{dom_id(answer)}_submit", :class => "hidden_with_js" %>
+    <% end if answer%>
+  </dt>
+  <dd class="answer">
+      <span class="a_la_minute_answer_eip" id="<%= dom_id(a_la_minute_question, :eip) %>"
+          data-restaurant-id="<%= @restaurant.id %>"><%= answer ? h(answer.answer) : "Click here to answer" %></span>
+  </dd>
+<% end %>

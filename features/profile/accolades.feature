@@ -4,7 +4,6 @@ Feature: Profile Accolades
     Run Date, Type ( national television exposure, local TV exposure, 
     national press, significant local press), Name, Link
 
-
   Scenario: Adding an award to your profile
     Given I am logged in as a normal user with a profile
     And I am on my profile's edit page

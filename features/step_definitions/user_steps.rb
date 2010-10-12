@@ -44,6 +44,7 @@ end
 Given /^I am logged in as a normal user with a profile$/ do
   user = Factory(:user, :username => 'normal', :password => 'normal')
   Factory(:profile, :user => user)
+  Factory(:employment, :employee => user)
   Given 'I am logged in as "normal" with password "normal"'
 end
 
@@ -129,3 +130,19 @@ Given /^given that user "([^\"]*)" has just been confirmed$/ do |username|
   user = User.find_by_username(username)
   user.confirm!
 end
+
+When /^the user "([^\"]*)" (has|does not have) a premium account$/ do |username, toggle|
+  user = User.find_by_username(username)
+  user.update_attributes(:premium_account => (toggle == "has"))
+end
+
+Then /^"([^"]*)" should have a "([^"]*)" account in the list$/ do |username, account_type|
+  user = User.find_by_username(username)
+  response.should have_selector("##{dom_id(user)} .user_account_type", 
+      :content => account_type)
+end
+
+When /^"([^"]*)" should have a "([^"]*)" account on the page$/ do |user_name, account_type|
+  response.should have_selector(".user_account_type", :content => account_type)
+end
+

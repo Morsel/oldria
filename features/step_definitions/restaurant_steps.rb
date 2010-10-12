@@ -21,10 +21,7 @@ Given /^a restaurant named "([^\"]*)" with the following employees:$/ do |restau
   end
   restaurant.manager = restaurant.employees.first
   restaurant.save!
-end
-
-Given /^a restaurant named "([^\"]*)"$/ do |name|
-  Factory(:restaurant, :name => name)
+  restaurant
 end
 
 Given /^a restaurant named "([^\"]*)" with manager "([^\"]*)"$/ do |name, username|
@@ -61,14 +58,12 @@ Given /^"([^\"]*)" restaurant is in the "([^\"]*)" metro region$/ do |restaurant
   restaurant = Restaurant.find_by_name(restaurantname)
   metro = Factory(:metropolitan_area, :name => metroregion)
   restaurant.metropolitan_area = metro
-  restaurant.save
+  restaurant.save!
 end
 
-
 Given /^I have just created a restaurant named "([^\"]*)"$/ do |restaurantname|
-  visit new_restaurant_url
-  fill_in "Restaurant Name", :with => restaurantname
-  click_button :submit
+  @restaurant = Factory(:restaurant, :name => restaurantname, :manager => @current_user)
+  visit restaurant_employees_path(@restaurant)
 end
 
 Given /^the restaurant "([^\"]*)" is in the region "([^\"]*)"$/ do |restaurantname, regionname|
@@ -142,4 +137,218 @@ end
 
 Then /^"([^\"]*)" should have a primary employment$/ do |username|
   User.find_by_username(username).primary_employment.should_not be_nil
+end
+
+When /^I remove optional information from the restaurant$/ do
+  @restaurant.update_attributes(:twitter_username => nil,
+      :facebook_page => nil, :management_company_name => nil,
+      :management_company_website => nil)
+end
+
+Then /^I do not see a section for "([^\"]*)"$/ do |dom_id|
+  response.should_not have_tag("##{dom_id}")
+end
+
+Then /^I see the uploaded restaurant photo$/ do
+  response.should have_selector("img.restaurant_photo")
+  response.body.should include("http://spoonfeed.s3.amazonaws.com/cucumber/images/#{@restaurant.photos.last.id}/medium/bourgeoispig.jpg")
+end
+
+When /^I should see the uploaded restaurant photo credit$/ do
+  response.should have_selector(".restaurant_photo_credit", :content => @restaurant.photos.last.credit)
+end
+
+Then /^I see the restaurant logo$/ do
+  @restaurant = Restaurant.find(@restaurant.id)
+  filename = "http://spoonfeed.s3.amazonaws.com/cucumber/images/#{@restaurant.reload.logo.id}/medium/bourgeoispig_logo.gif"
+  response.should have_selector("img#restaurant_logo_image[src*=\"#{filename}\"]")
+end
+
+Then /^I should not see the restaurant logo$/ do
+  filename = "missing.png"
+  response.should have_selector("img#restaurant_logo_image[src*=\"#{filename}\"]")
+end
+
+
+When /^I select the (\d+)(st|nd|th) photo as the primary photo$/ do |photo_order, ordinal|
+  choose("restaurant_primary_photo_id_#{@restaurant.reload.photos[photo_order.to_i-1].id}")
+end
+
+When /^I see the (\d+)(st|nd|th) photo selected as the primary photo$/ do |photo_order, ordinal|
+  response.should have_selector("input", :type => "radio", :value => @restaurant.reload.photos[photo_order.to_i - 1].id.to_s, :checked => "checked")
+end
+
+Then /^I should see a menu with the name "([^\"]*)" and change frequency "([^\"]*)" and uploaded at date "([^\"]*)"$/ do |name, change_frequency, date|
+  response.should have_selector(".menu_name", :content => name)
+  response.should have_selector(".menu_change_frequency", :content => change_frequency)
+  response.should have_selector(".menu_date", :content => Chronic.parse(date).to_s(:standard))
+end
+Then /^I should see a link to download the uploaded menu pdf "([^\"]*)"$/ do |file_name|
+  response.body.should include("http://spoonfeed.s3.amazonaws.com/cucumber/attachments/#{@restaurant.reload.menus.last.id}/#{file_name}")
+end
+When /^I delete the menu with the name "([^"]*)"$/ do |name|
+  menu = Menu.find_by_name(name)
+  click_link_within("#menu_#{menu.id}", "Remove")
+end
+Then /^I should not have a menu with the name "([^"]*)" and change frequency "([^"]*)"$/ do |name, change_frequency|
+  Menu.first(:conditions => {:name => name, :change_frequency => change_frequency}).should be_nil
+end
+Then /^I should have a menu with the name "([^"]*)" and change frequency "([^"]*)"$/ do |name, change_frequency|
+  Menu.first(:conditions => {:name => name, :change_frequency => change_frequency}).should_not be_nil
+end
+Then /^I should not see any menus$/ do
+  response.should_not have_selector("table#menus tr")
+end
+Then /^I should see an error message$/ do
+  response.should have_selector("#errorExplanation")
+end
+
+Given /^"([^\"]*)" is an employee of "([^\"]*)"$/ do |username, restaurant_name|
+  user = User.find_by_username(username)
+  restaurant = Restaurant.find_by_name(restaurant_name)
+  user.restaurants << restaurant
+end
+
+Given /^"([^"]*)" is an employee of "([^"]*)" with public position (\d+)$/ do |username, restaurant_name, position|
+  user = User.find_by_username(username)
+  restaurant = Restaurant.find_by_name(restaurant_name)
+  user.restaurants << restaurant
+  restaurant.employments.find_by_employee_id(user.id).update_attributes(
+      :position => position, :public_profile => true)
+end
+
+
+Then /^I should have a photo with the file "([^"]*)"$/ do |filename|
+  response.should have_selector("img.restaurant_photo[src*=\"#{filename}\"]")
+end
+Then /^I should not have a photo with the file "([^"]*)"$/ do |filename|
+  response.should_not have_selector("img.restaurant_photo[src*=\"#{filename}\"]")
+end
+When /^I remove the restaurant photo with the file "([^"]*)"$/ do |filename|
+  photo = @restaurant.photos.find_by_attachment_file_name(filename)
+  click_link_within("#photo_#{photo.id}", "Remove")
+end
+
+When /^I remove the restaurant logo$/ do
+  click_link_within("#logo", "Remove")
+end
+
+Then /^I see no restaurant photos$/ do
+  response.should_not have_selector("img.restaurant_photo")
+end
+
+When /^I click to make "([^"]*)" public$/ do |username|
+  user = User.find_by_username(username)
+  employment = user.employments.first
+  click_link_within("##{dom_id(employment)}", "Click to make public")
+end
+
+Then /^I should see that "([^"]*)" is public$/ do |username|
+  user = User.find_by_username(username)
+  employment = user.employments.first
+  response.should have_selector("##{dom_id(employment)} .public", :content => "will be displayed")
+end
+
+When /^I should not see an employee listing for "([^\"]*)"$/ do |username|
+  user = User.find_by_username(username)
+  response.should_not have_selector("##{dom_id(user)}")
+end
+
+Given /^the following a la minute questions:$/ do |table|
+  table.rows.each do |table|
+    ALaMinuteQuestion.create!(:question => table.first, :kind => "restaurant")
+  end
+end
+
+Then /^I see a header for a la minute$/ do
+  response.should have_selector("#a_la_minute > h3")
+end
+
+Then /^I see the text for each question$/ do
+  ALaMinuteQuestion.all.each do |question|
+    response.should have_selector("#a_la_minute .questions ##{dom_id(question)} .question", :content => question.question)
+  end
+end
+
+Given /^"([^"]*)" has answered "([^"]*)" with "([^"]*)"$/ do |restaurant_name, question, answer|
+  @restaurant = Restaurant.find_by_name(restaurant_name)
+  @question = ALaMinuteQuestion.find_by_question(question)
+  @answer = ALaMinuteAnswer.create!(:answer => answer, :a_la_minute_question => @question,
+      :responder => @restaurant)
+end
+
+Then /^I should see the answer "([^"]*)"$/ do |answer_text|
+  answer = ALaMinuteAnswer.find_by_answer(answer_text)
+  response.should have_selector("#a_la_minute .questions ##{dom_id(answer.a_la_minute_question)} .answer",
+      :content => answer_text)
+end
+Given /^I am logged in as an account manager for "([^\"]*)"$/ do |arg1|
+  account_manager = Factory(:user, :username => 'account_manager', :password => 'account_manager')
+  @restaurant.employees << account_manager
+  account_manager.reload.employments.find(:first, :conditions => {:restaurant_id => @restaurant.id}).update_attributes!(:omniscient => true)
+
+  Given 'I am logged in as "account_manager" with password "account_manager"'
+end
+Then /^I should view the dashboard$/ do
+  response.should have_selector("#dashboard.selected")
+end
+
+Given /^"([^"]*)" has answered the following A La Minute questions:$/ do |restaurant_name, table|
+  @restaurant = Restaurant.find_by_name(restaurant_name)
+  table.hashes.each do |row|
+    # TODO this feels cludgy... there's probably a better way... refactor.
+    question = ALaMinuteQuestion.find_by_question(row['question']) || Factory(:a_la_minute_question, :question => row['question'], :kind => "restaurant")
+    answer_params = {:answer => row['answer'],
+        :a_la_minute_question => question, :responder => @restaurant,
+        :show_as_public => row['public']}
+    answer_params[:created_at] = eval(row['created_at']) if row['created_at']
+    answer_params[:updated_at] = eval(row['created_at']) if row['created_at']
+
+    answer = Factory(:a_la_minute_answer, answer_params)
+  end
+end
+
+Then /^I should see the question "([^"]*)" with the answer "([^"]*)"$/ do |question_text, answer_text|
+  answer = @restaurant.a_la_minute_answers.find_by_answer(answer_text)
+  response.should have_selector("##{dom_id(answer.a_la_minute_question)} .question", :content => question_text)
+  response.should have_selector("##{dom_id(answer.a_la_minute_question)} .answer", :content => answer_text)
+end
+
+Then /^I should not see the question "([^"]*)" with the answer "([^"]*)"$/ do |question_text, answer_text|
+  response.should_not have_selector(".question", :content => question_text)
+  response.should_not have_selector(".answer", :content => answer_text)
+end
+
+Then /^I should not see the answer "([^"]*)"$/ do |answer_text|
+  response.should_not have_selector(".answer", :content => answer_text)
+end
+
+Then /^the listing for "([^\"]*)" should be premium$/ do |restaurant_name|
+  restaurant = Restaurant.find_by_name(restaurant_name)
+  response.should have_selector("tr##{dom_id(restaurant)} td",
+      :content => "Premium")
+end
+
+Then /^the listing for "([^\"]*)" should not be premium$/ do |restaurant_name|
+  restaurant = Restaurant.find_by_name(restaurant_name)
+  response.should_not have_selector("tr##{dom_id(restaurant)} td",
+      :content => "Premium")
+end
+
+Given /^I have created the following A La Minute Questions:$/ do |table|
+  table.hashes.each do |row|
+    question = Factory(:a_la_minute_question, row)
+  end
+end
+
+Then /^I should see the following questions:$/ do |table|
+  table.hashes.each do |row|
+    question = ALaMinuteQuestion.find_by_question(row['question'])
+    response.should have_selector(".questions .a_la_minute_question", :content => question.question)
+  end
+end
+
+When /^I follow "([^"]*)" for "([^"]*)"$/ do |link, question_text|
+  question = ALaMinuteQuestion.find_by_question(question_text)
+  click_link_within("##{dom_id(question)}", link)
 end

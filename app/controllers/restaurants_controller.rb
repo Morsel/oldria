@@ -1,6 +1,7 @@
 class RestaurantsController < ApplicationController
   before_filter :require_user
   before_filter :authenticate, :only => [:edit, :update]
+  before_filter :find_restaurant, :only => [:select_primary_photo]
 
   def new
     @restaurant = current_user.managed_restaurants.build
@@ -8,7 +9,8 @@ class RestaurantsController < ApplicationController
 
   def show
     find_restaurant
-    @employments = @restaurant.employments.all(:include => [:subject_matters, :restaurant_role, :employee])
+    @employments = @restaurant.employments.by_position.all(
+        :include => [:subject_matters, :restaurant_role, :employee])
   end
 
   def edit
@@ -26,6 +28,7 @@ class RestaurantsController < ApplicationController
 
   def create
     @restaurant = current_user.managed_restaurants.build(params[:restaurant])
+    @restaurant.media_contact = current_user
     if @restaurant.save
       flash[:notice] = "Successfully created restaurant."
       redirect_to restaurant_employees_path(@restaurant)
@@ -34,12 +37,22 @@ class RestaurantsController < ApplicationController
     end
   end
 
+  def select_primary_photo
+    if @restaurant.update_attributes(params[:restaurant])
+      flash[:notice] = "Successfully updated restaurant"
+      redirect_to restaurant_photos_path(@restaurant)
+    else
+      flash[:error] = "We were unable to update the restaurant"
+      render :template => "photos/edit"
+    end
+  end
+
   private
 
   def find_restaurant
-    @restaurant = Restaurant.find(params[:id])    
-  end  
-  
+    @restaurant = Restaurant.find(params[:id])
+  end
+
   def authenticate
     find_restaurant
     if cannot? :edit, @restaurant

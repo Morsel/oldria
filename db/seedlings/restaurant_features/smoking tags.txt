@@ -1,0 +1,7 @@
+﻿Permitted
+Not permitted
+Bar only
+Outdoors only
+Special area (cigar lounge, etc)
+Hookahs
+Other

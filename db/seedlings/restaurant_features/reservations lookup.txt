@@ -1,0 +1,15 @@
+﻿Not accepted
+Accepted
+Accepted for parties of ( ) or more
+Not accepted for parties of ( ) or more
+Recommended
+Strongly recommended every night
+Monday Tuesday Wednesday Thursday Friday Saturday Sunday
+Required
+Required every night
+Required on following nights:
+Monday Tuesday Wednesday Thursday Friday Saturday Sunday
+Walk-ins welcome
+Credit card required to secure
+Fee for no-shows
+Other

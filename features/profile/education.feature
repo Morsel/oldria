@@ -21,7 +21,6 @@ Feature: Education
     Then I should have 1 culinary school on my profile
     And I should see "Midwest International Food" on my profile page
 
-
   Scenario: Adding a normal school to your profile
   Given I am logged in as a normal user with a profile
     And I am on my profile's edit page

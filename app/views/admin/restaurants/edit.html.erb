@@ -17,10 +17,11 @@
 	<% end -%>
 
 	<% f.inputs :name => 'Other', :class => "span-9 column last" do %>
+        <%= f.input :premium_account %>
 		<%= f.input :manager %>
 		<%= f.input :cuisine %>
-		<%= f.input :facts, :input_html => { :rows => 3 } %>
-	<% end %>
+		<%= f.input :facts, :input_html => { :rows => 3 } %>        
+    <% end %>
 
 	<p class="clear">
 		<%= button_tag "Save", :class => 'positive' %>
@@ -28,9 +29,10 @@
 <% end %>
 
 <p>
-	<%= link_to "Edit Restaurant employees", restaurant_employees_path(@restaurant), :class => 'button' %>
+    <%= link_to "Edit Restaurant employees", restaurant_employees_path(@restaurant), :class => 'button' %>
 </p>
 
 <p>
     <%= link_to "View Restaurant calendar", restaurant_calendars_path(@restaurant), :class => "button" %>
 </p>
+

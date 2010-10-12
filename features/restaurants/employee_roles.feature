@@ -15,7 +15,6 @@ Feature: Employee roles
     Given I am logged in as "mgmt" with password "secret"
     And I have just created a restaurant named "Restaurant du Jour"
 
-
   Scenario: Basic Role Assignment
     Given I have added "betty@example.com" to that restaurant
     And I have added "cole@example.com" to that restaurant

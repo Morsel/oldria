@@ -12,3 +12,15 @@ describe ProfileSpecialty do
     ProfileSpecialty.create!(@valid_attributes)
   end
 end
+
+# == Schema Information
+#
+# Table name: profile_specialties
+#
+#  id           :integer         not null, primary key
+#  profile_id   :integer
+#  specialty_id :integer
+#  created_at   :datetime
+#  updated_at   :datetime
+#
+

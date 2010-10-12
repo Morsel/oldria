@@ -4,7 +4,8 @@ class EmployeesController < ApplicationController
 
   def index
     @restaurant = Restaurant.find(params[:restaurant_id])
-    @employments = @restaurant.employments.all(:include => [:subject_matters, :restaurant_role, :employee])
+    @employments = @restaurant.employments.by_position.all(
+        :include => [:subject_matters, :restaurant_role, :employee])
   end
 
   def new
@@ -18,6 +19,7 @@ class EmployeesController < ApplicationController
     return unless verify_employee
 
     if @employment.save
+      @employment.insert_at
       flash[:notice] = @send_invitation ? "#{@employment.employee.name_or_username} has been sent an invitation and added to your restaurant.<br/>
           Please remind your employee to check their email for instructions on confirming their new account." : 
           "Successfully added #{@employment.employee.name} to this restaurant"

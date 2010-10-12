@@ -31,7 +31,7 @@ class Profile < ActiveRecord::Base
   has_many :nonculinary_enrollments
   has_many :nonculinary_schools, :through => :nonculinary_enrollments
   has_many :awards
-  has_many :accolades
+  has_many :accolades, :as => :accoladable
   has_many :enrollments
   has_many :schools, :through => :enrollments
   has_many :competitions
@@ -79,6 +79,10 @@ class Profile < ActiveRecord::Base
   
   def birthday_year_is_set
     self.errors.add(:birthday, "must specify a year") if self.birthday.present? && self.birthday.year == 1
+  end
+
+  def culinary_schools
+    enrollments
   end
 
 end
