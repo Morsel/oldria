@@ -1,0 +1,242 @@
+// This import applies a global reset to any page that imports this stylesheet.
+@import "blueprint/reset";
+@import "blueprint";
+@import "compass/css3";
+// To configure blueprint, edit the partials/base.sass file.
+@import "partials/base";
+
+// Import all the default blueprint modules so that we can access their mixins.
+
+
+// To generate css equivalent to the blueprint css but with your
+// configuration applied, uncomment:
+// @include blueprint
+
+// But Compass recommends that you scope your blueprint styles
+// So that you can better control what pages use blueprint
+// when stylesheets are concatenated together.
+body{
+  font:normal 12px "Helvetica Neue", Helvetica, Arial, sans-serif;
+	background:$body-bg url(/images/soapbox/bg-site.jpg) repeat-x;
+	color:$font-color;
+}
+
+h1,h2,h3,h4,h5,h6{
+	line-height:1.2;
+	font-weight:bold;
+	margin:0 0 15px;
+}
+
+#container{
+	@include container;
+	position:relative;
+}
+
+#utilities{
+	position:absolute;
+	top:0;
+	right:0;
+	overflow:hidden;
+	a{
+		@include hiddentext;
+		float:left;
+		height:24px;
+		background:url(/images/soapbox/bg-header-tabs.png) no-repeat;
+	}
+	#search-handle{
+		margin-right:8px;
+		width:112px;
+		background-position:0 0;
+		&:hover{
+			background-position:0 -200px;
+		}
+	}
+	#ria-hq{
+		width:61px;
+		background-position:-120px 0;
+		&:hover{
+			background-position:-120px -200px;
+		}
+	}
+}
+
+
+#header{
+	background:url(/images/soapbox/bg-nav.png) no-repeat;
+	margin:40px 0 30px;
+	height:88px;
+	padding:15px;
+}
+
+#logo{
+	@include hiddentext;
+	width:160px;
+	height:73px;
+	background:url(/images/soapbox/logo-soapbox.png) no-repeat;
+	float:left;
+}
+
+#tagline{
+	@include hiddentext;
+	float:left;
+	padding:45px 65px 0 10px;
+	width:117px;
+	height:31px;
+	background:url(/images/soapbox/logo-tagline-soapbox.png) no-repeat 10px 45px;
+}
+
+#main{
+	overflow:hidden;
+}
+
+#content{
+	@include column(18,true);
+	background:url(/images/soapbox/bg-white-opacity-55.png);
+	padding:10px 0 0;
+	
+	#page-title h1{
+		font:normal 21px "Helvetica Neue", Helvetica, Arial, sans-serif;
+		margin:0 0 15px 15px;
+	}
+}
+#page-content{
+	img{
+		float:left;
+		margin:0 10px 10px 0;
+	}
+	#content-title h1{
+		font-size:19px;
+		color:$sienna;
+	}
+	h2{
+		font-size:16px;
+		padding:0 0 5px;
+		border-bottom:1px solid $feedback-border-color;
+	}
+	h3{
+		font-size:14px;
+	}
+	ul, ol{
+		padding:5px 15px;
+		li{
+			margin:0 15px;
+			list-style-type:square;
+			line-height:1.75;
+		}
+	}
+	p{
+		line-height:1.6;
+		margin:0 0 15px;
+	}
+	a{
+		color:$sienna;
+		text-decoration:none;
+		&:visited{
+			
+		}
+		&:hover{
+			text-decoration:underline;
+		}
+	}
+}
+
+#inside{
+	margin:0 10px;
+	padding:15px;
+	background:$inside-bg;
+}
+
+#sidebar{
+	@include column(6,true);
+	margin:20px 0 0;
+}
+
+#recent-activity{
+	background:url(/images/soapbox/bg-sidebar-top-purple.png) no-repeat;
+	padding:0 15px 40px;
+	position:relative;
+	margin:0 0 50px;
+	h1{
+		font-size:16px;
+		line-height:1.2;
+		color:#fff;
+		padding:15px 0 5px;
+		border-bottom:1px solid #fff;
+		text-transform:uppercase;
+	}
+	ol{
+		list-style:none;
+		font-size:14px;
+		font-weight:normal;
+		color:#fff;
+		li{
+			margin:5px 0;
+			padding:5px;
+			border-bottom:1px dashed $x-light-purple;
+			.feed-item-date{
+				display:inline;
+				@include opacity(0.66);
+			}
+			.feed-item-title{
+				display:inline;
+				a{
+					text-shadow:0 1px 0 #333;
+					text-decoration:none;
+					color:#fff;
+				}
+			}
+			.feed-item-reply-count{
+				font-size:11px;
+				@include opacity(0.66);
+				margin:5px 0;
+				a{
+					color:$x-light-purple;
+					text-decoration:none;
+					text-transform:uppercase;
+					.num{
+						display:inline-block;
+						@include border-radius(80px);
+						background:$light-purple;
+						padding:2px 5px;
+					}
+					&:hover, &:hover .num{
+						color:#fff;
+					}
+				}
+				
+			}
+		}
+	}
+} /*recent-activity*/
+
+#activity-chooser{
+	overflow:hidden;
+	a{
+		display:block;
+		width:80px;
+		height:47px;
+		font-size:13px;
+		line-height:1;
+		color:#fff;
+		text-transform:uppercase;
+		text-decoration:none;
+		padding:10px;
+		float:left;
+		background:url(/images/soapbox/bg-sidebar-selector.png) no-repeat -115px -1px;
+		&.selected, &:hover{
+			color:$purple;
+			background-position:-3px -1px;
+		}
+		&:first-child{
+			margin-right:5px;
+		}
+	}
+}
+#feed-bottom{
+	position:absolute;
+	width:100%;
+	height:40px;
+	bottom:-30px;
+	left:0;
+	background:url(/images/soapbox/bg-sidebar-bottom.png) no-repeat;
+}

@@ -34,6 +34,8 @@ Rails::Initializer.run do |config|
   config.gem "facebooker2"
 
   config.gem 'subdomain-fu',          :version => "~> 0.5.4"
+  
+  config.gem 'compass',               :version => "~> 0.10.5"
 
   # Settings in config/environments/* take precedence over those specified here.
   # Application configuration should go into files in config/initializers
