@@ -21,6 +21,10 @@ body{
 	background:$body-bg url(/images/soapbox/bg-site.jpg) repeat-x;
 	color:$font-color;
 }
+#container{
+	@include container;
+	position:relative;
+}
 
 @include sticky-footer(168px,'#container','#sticky-footer-pad','#footer');
 
@@ -30,10 +34,7 @@ h1,h2,h3,h4,h5,h6{
 	margin:0 0 15px;
 }
 
-#container{
-	@include container;
-	position:relative;
-}
+
 
 #utilities{
 	position:absolute;
@@ -94,9 +95,9 @@ h1,h2,h3,h4,h5,h6{
 
 #content{
 	@include column(18,true);
-	background:url(/images/soapbox/bg-white-opacity-55.png);
 	padding:10px 0 0;
-	
+	background:url(/images/soapbox/bg-white-opacity-55.png);
+	background:rgba(255,255,255,0.55);
 	#page-title h1{
 		font:normal 21px "Helvetica Neue", Helvetica, Arial, sans-serif;
 		margin:0 0 15px 15px;
@@ -146,7 +147,7 @@ h1,h2,h3,h4,h5,h6{
 #inside{
 	margin:0 10px;
 	padding:15px;
-	background:$inside-bg;
+	background:#fff;
 }
 
 #sidebar{
@@ -243,6 +244,32 @@ h1,h2,h3,h4,h5,h6{
 	left:0;
 	background:url(/images/soapbox/bg-sidebar-bottom.png) no-repeat;
 }
+#participate{
+	padding:20px 0;
+	.button, span{
+		@include hiddentext;
+		margin:5px auto;
+		width:216px;
+		height:28px;
+		background:url(/images/soapbox/buttons-login-participate.png) no-repeat;
+		&:hover{
+			background-position:-300px 0;
+		}
+	}
+	span{
+		height:30px;
+		background-position:0 -28px;
+		&:hover{
+			background-position:0 -28px;
+		}
+	}
+	#request-invite{
+		background-position:0 -58px;
+		&:hover{
+			background-position:-300px -58px;
+		}
+	}
+}
 
 #footer{
 	background:url(/images/soapbox/bg-footer.png) repeat-x;
@@ -258,7 +285,7 @@ h1,h2,h3,h4,h5,h6{
 
 #footer-container{
 	@include container;
-	padding:20px 0;
+	padding:50px 0 0;
 	overflow:hidden;
 	color:#fff;
 	p{
@@ -277,6 +304,9 @@ h1,h2,h3,h4,h5,h6{
 }
 #legal{
 	@include column(9);
+	a:hover{
+		text-decoration:none;
+	}
 }
 #footer-links{
 	margin:0 0 10px;
@@ -286,5 +316,30 @@ h1,h2,h3,h4,h5,h6{
 		&:first-child{
 			padding-left:0;
 		}
+	}
+}
+#twitter-link{
+	padding:15px 0 15px 57px;
+	background:url(/images/soapbox/icon-footer-twitter.png) no-repeat left;
+	a{
+		display:inline-block;
+		background:rgba(255,255,255,0.33);
+		padding:5px 10px;
+		margin:5px 0 0;
+		font-size:13px;
+		font-weight:bold;
+		@include border-radius(80px);
+		&:hover{
+			background:rgba(255,255,255,0.1);
+		}
+	}
+	
+}
+#facebook-link a{
+	display:block;
+	padding:10px 0 10px 35px;
+	background:url(/images/soapbox/icon-footer-fb.png) no-repeat left;
+	&:hover{
+		text-decoration:none;
 	}
 }
