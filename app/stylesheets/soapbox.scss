@@ -29,7 +29,7 @@ body{
 	position:relative;
 }
 
-@include sticky-footer(158px,'#container','#sticky-footer-pad','#footer');
+@include sticky-footer(175px,'#container','#sticky-footer-pad','#footer');
 
 h1,h2,h3,h4,h5,h6{
 	line-height:1.2;
@@ -123,6 +123,9 @@ h1,h2,h3,h4,h5,h6{
 
 #main{
 	overflow:hidden;
+}
+body,html,#container,#main,#content,#inside{
+	height:100%;
 }
 
 #content{
