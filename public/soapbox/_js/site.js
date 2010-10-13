@@ -11,4 +11,7 @@ $(document).ready(function(){
 	}).each(function(){
 		$(this).height(panelHeight +'px');
 	});
+
+	$('#inside').height($('#sidebar').height() - 50 + 'px');
+	
 });

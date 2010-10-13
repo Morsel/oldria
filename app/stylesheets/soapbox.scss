@@ -31,6 +31,10 @@ body{
 
 @include sticky-footer(175px,'#container','#sticky-footer-pad','#footer');
 
+#container{
+	margin-bottom:-185px;
+}
+
 h1,h2,h3,h4,h5,h6{
 	line-height:1.2;
 	font-weight:bold;
