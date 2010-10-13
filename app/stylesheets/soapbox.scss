@@ -446,14 +446,33 @@ body,html,#container,#main,#content,#inside{
 	&.home{
 		@include museoslabthin;
 		text-transform:uppercase;
+		font-size:17px;
+		line-height:1.1;
 		.button, span{
+			color:#fff;
 			text-indent:0;
-			margin:5px 0;
+			text-shadow:0 1px 0 #333;
+			margin:0;
 			width:auto;
 			height:auto;
 			background:0;
 			span{
 				@include museoslabbold;
+			}
+		}
+		.button{
+			margin:0 0 15px -20px;
+			padding:25px 30px 30px;
+			background:url(/images/soapbox/bg-hp-tab1.png) no-repeat;
+			&:hover{
+				background-position:0 -100px;
+			}
+		}
+		#request-invite{
+			padding-bottom:40px;
+			background:url(/images/soapbox/bg-hp-tab2.png) no-repeat 0 0;
+			&:hover{
+				background-position:0 -100px;
 			}
 		}
 	}
