@@ -233,6 +233,9 @@ body,html,#container,#main,#content,#inside{
 		font-size:14px;
 		font-weight:normal;
 		color:#fff;
+		&.ui-tabs-hide{
+			display:none;
+		}
 		li{
 			margin:5px 0;
 			padding:5px;
@@ -285,15 +288,18 @@ body,html,#container,#main,#content,#inside{
 		text-transform:uppercase;
 		text-decoration:none;
 		padding:10px;
-		float:left;
 		background:url(/images/soapbox/bg-sidebar-selector.png) no-repeat -115px -1px;
-		&.selected, &:hover{
-			color:$purple;
-			background-position:-3px -1px;
-		}
+	}
+	span{
+		display:block;
+		float:left;
 		&:first-child{
 			margin-right:5px;
 		}
+	}
+	.ui-state-active a, a:hover{
+		color:$purple;
+		background-position:-3px -1px;
 	}
 }
 #feed-bottom{

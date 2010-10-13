@@ -72,8 +72,8 @@
           <header>
             <h1>Recently on Soapbox</h1>
             <nav id="activity-chooser">
-              <a href="#trend-questions-feed" class="selected">Trend Questions</a>
-              <a href="#">Questions of the Day</a>
+              <span><a href="#trend-questions-feed">Trend Questions</a></span>
+              <span><a href="#qotd-feed">Questions of the Day</a></span>
             </nav>
           </header>
           <ol id="trend-questions-feed">
@@ -132,6 +132,62 @@
               </aside>
             </li>
           </ol><!-- /activity-feed -->
+          <ol id="qotd-feed">
+            <li>
+              <time class="feed-item-date" datetime="2010-09-24">9/24:</time>
+              <header class="feed-item-title">
+                <a href="#">QOTD Item</a>
+              </header>
+              <aside class="feed-item-reply-count">
+                <a href="#"><span class="num">6</span> replies</a>
+              </aside>
+            </li>
+            <li>
+              <time class="feed-item-date" datetime="2010-09-23">9/23:</time>
+              <header class="feed-item-title">
+                <a href="#">QOTD Item</a>
+              </header>
+              <aside class="feed-item-reply-count">
+                <a href="#"><span class="num">16</span> replies</a>
+              </aside>
+            </li>
+            <li>
+              <time class="feed-item-date" datetime="2010-09-22">9/22:</time>
+              <header class="feed-item-title">
+                <a href="#">QOTD Item</a>
+              </header>
+              <aside class="feed-item-reply-count">
+                <a href="#"><span class="num">14</span> replies</a>
+              </aside>
+            </li>
+            <li>
+              <time class="feed-item-date" datetime="2010-09-21">9/21:</time>
+              <header class="feed-item-title">
+                <a href="#">QOTD Item</a>
+              </header>
+              <aside class="feed-item-reply-count">
+                <a href="#"><span class="num">14</span> replies</a>
+              </aside>
+            </li>
+            <li>
+              <time class="feed-item-date" datetime="2010-09-20">9/20:</time>
+              <header class="feed-item-title">
+                <a href="#">QOTD Item</a>
+              </header>
+              <aside class="feed-item-reply-count">
+                <a href="#"><span class="num">22</span> replies</a>
+              </aside>
+            </li>
+            <li>
+              <time class="feed-item-date" datetime="2010-09-19">9/19:</time>
+              <header class="feed-item-title">
+                <a href="#">QOTD Item</a>
+              </header>
+              <aside class="feed-item-reply-count">
+                <a href="#"><span class="num">22</span> replies</a>
+              </aside>
+            </li>
+          </ol><!-- /activity-feed -->
           <div id="feed-bottom"></div>
         </aside><!-- /recent-activity -->
         <nav id="participate">
@@ -168,8 +224,13 @@
     </div><!-- /footer-container -->
   </footer>
 
-  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
-  <script>!window.jQuery && document.write('<script src="/soapbox/_js/jquery-1.4.2.min.js"><\/script>')</script>
+  <script src="http://google.com/jsapi"></script>
+  <script>
+    google.load('jquery','1.4.2');
+    google.load('jqueryui','1.8.5');
+  </script>
+  <script>!window.jQuery && document.write('<script src="/soapbox/_js/jquery-1.4.2.min.js"><\/script><script src="/soapbox/_js/jquery-ui-1.8.5.min.js"><\/script>')</script>
+  <script src="/soapbox/_js/jquery-ui-1.8.5.tabs.min.js?v=1"></script>
   <script src="/soapbox/_js/site.js?v=1"></script>
 
   <!--[if lt IE 7 ]>
