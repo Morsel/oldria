@@ -21,4 +21,28 @@ $(document).ready(function(){
 	}).each(function(){
 		$(this).height(homePanelHeight +'px');
 	});
+	
+	$('#cycle').cycle({
+		timeout: 8000,
+		fx: 'uncover',
+		easing: 'easeOutCubic',
+		pager: '#pager',
+		pagerAnchorBuilder: buildPager,
+		after: displayInfo
+	});
+
 });
+	
+function buildPager(idx, elem){
+	idx++;
+	return '<a href="#">'+idx+'</a>';
+}
+
+function displayInfo(currSlideElement, nextSlideElement, options, forwardFlag){
+	title = $(nextSlideElement).attr('data-title');
+	caption = $(nextSlideElement).attr('data-caption');
+	url = $(nextSlideElement).attr('data-url');
+	link = '<a href=' + url + '>more&nbsp;&#187;</a>';
+	$('#cycle-title').html(title);
+	$('#cycle-caption').html(caption + link);
+}
