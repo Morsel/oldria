@@ -56,7 +56,9 @@ class ApplicationController < ActionController::Base
   end
 
   def require_account_manager_authorization
-    omniscient = current_user.employments.first && current_user.employments.first.omniscient?
+    @restaurant = Restaurant.find(params[:restaurant_id])
+    employment = current_user.reload.employments.find(:first, :conditions => {:restaurant_id => @restaurant.id})
+    omniscient = employment && employment.omniscient?
     unless omniscient
       flash[:error] = "You don't have permission to access that page"
       redirect_to root_path
