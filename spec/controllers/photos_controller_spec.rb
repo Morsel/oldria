@@ -5,7 +5,11 @@ describe PhotosController do
     let :restaurant do
       restaurant = Factory(:restaurant)
       3.times {restaurant.photos << Factory(:photo)}
-      fake_normal_user
+
+      @user = Factory(:user)
+      controller.stubs(:current_user).returns(@user)
+      controller.stubs(:require_admin).returns(false)
+
       user = @user
       restaurant.additional_managers << user
       employment = restaurant.employments.find_by_employee_id(user.id)

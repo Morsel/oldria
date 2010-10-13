@@ -5,7 +5,19 @@ class ALaMinuteAnswer < ActiveRecord::Base
   validates_presence_of :a_la_minute_question_id
 
   default_scope :order => 'created_at desc', :include => :a_la_minute_question
-  named_scope :newest, :group => :a_la_minute_question_id, :order => 'created_at desc'
+  # named_scope :newest, :group => :a_la_minute_question_id, :order => 'created_at desc'
+
+  def self.newest_for(obj)
+    if obj.is_a?(Restaurant) || obj.is_a?(User)
+      obj.a_la_minute_answers.all(
+          :group => :a_la_minute_question_id,
+          :order => 'created_at desc')
+    else
+      obj.a_la_minute_answers.all(
+          :group => 'responder_id, responder_type',
+          :order => 'created_at desc')
+    end
+  end
 
   def self.public_profile_for(responder)
     responder.a_la_minute_answers.find_all_by_show_as_public(true,

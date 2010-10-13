@@ -5,8 +5,11 @@ Feature: Restaurant Images
   would like to see the restaurant logo and photos
 
   Background:
-    Given a restaurant named "Bourgeois Pig"
-    Given I am logged in as an account manager for "Bourgeois Pig"
+    Given a restaurant named "Piece"
+    And a restaurant named "Bourgeois Pig"
+    And I am logged in as a normal user
+    And the user "normal" is employed by "Piece"
+    And the user "normal" is an account manager for "Bourgeois Pig"
 
   Scenario: Upload a photo
     When I go to the restaurant photo upload page for Bourgeois Pig
@@ -17,7 +20,7 @@ Feature: Restaurant Images
     And I should see the uploaded restaurant photo credit
 
   Scenario: Photo upload page does not display for a non-account manager
-    Given I am logged in as a normal user
+    Given the user "normal" is not employed by "Bourgeois Pig"
     When I go to the restaurant photo upload page for Bourgeois Pig
     And I should see "You don't have permission to access that page"
 

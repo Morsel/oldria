@@ -5,8 +5,11 @@ Feature: Restaurant Menus
   would like to see the restaurant menus
 
   Background:
-    Given a restaurant named "Bourgeois Pig"
-    Given I am logged in as an account manager for "Bourgeois Pig"
+    Given a restaurant named "Piece"
+    And a restaurant named "Bourgeois Pig"
+    And I am logged in as a normal user
+    And the user "normal" is employed by "Piece"
+    And the user "normal" is an account manager for "Bourgeois Pig"
     And the date and time is "now"
 
   Scenario: Upload a menu
@@ -19,7 +22,7 @@ Feature: Restaurant Menus
     Then I should see a link to download the uploaded menu pdf "menu1.pdf"
 
   Scenario: Menu upload page does not display for a non-account manager
-    Given I am logged in as a normal user
+    Given the user "normal" is not employed by "Bourgeois Pig"
     When I go to the restaurant menu upload page for Bourgeois Pig
     And I should see "You don't have permission to access that page"
 
