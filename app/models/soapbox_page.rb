@@ -13,8 +13,6 @@
 
 class SoapboxPage < ActiveRecord::Base
 
-  SPECIAL = %w(about contact)
-
   include PageFeatures
 
   validates_presence_of :title

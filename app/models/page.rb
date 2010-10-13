@@ -11,7 +11,6 @@
 #
 
 class Page < ActiveRecord::Base
-  SPECIAL = %w(about contact welcome_new_user sales home about_media home_media)
 
   include PageFeatures
   

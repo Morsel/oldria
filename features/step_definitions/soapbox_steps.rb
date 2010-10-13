@@ -28,7 +28,9 @@ When /^I create a new soapbox entry for that QOTD with:$/ do |table|
 end
 
 When /^I create a new soapbox page with:$/ do |table|
-  SoapboxPage.create(table.rows_hash)
+  visit new_admin_soapbox_page_path
+  fill_in_form(table.rows_hash)
+  click_button "Save"
 end
 
 Then /^there should be (\d+) QOTDs? on the soapbox landing page$/ do |num|

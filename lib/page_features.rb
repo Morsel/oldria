@@ -1,5 +1,7 @@
 module PageFeatures
 
+  SPECIAL = %w(about contact welcome_new_user sales home about_media home_media)
+
   def generate_slug!
     return slug unless slug.blank?
     self.slug = Slug.normalize(title)

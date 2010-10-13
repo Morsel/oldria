@@ -4,7 +4,7 @@ describe SoapboxPage do
   before(:each) do
     @valid_attributes = {
       :title => "value for title",
-      :slug => "value for slug",
+      :slug => "value-for-slug",
       :content => "value for content"
     }
   end

@@ -1,0 +1,9 @@
+<% javascript 'ckeditor/ckeditor' %>
+<% title "Edit Soapbox Page" %>
+
+<%= render :partial => 'admin/pages/form' %>
+
+<p>
+	<%= link_to "Show", [:admin, @page] %> |
+	<%= link_to "View All", admin_soapbox_pages_path %>
+</p>
