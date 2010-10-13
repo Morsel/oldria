@@ -85,4 +85,8 @@ class Comment < ActiveRecord::Base
     return false unless editable?
     (self.user == person) || self.user.coworkers.include?(person)
   end
+  
+  def show_on_soapbox?
+    self.employment && self.employment.prefers_post_to_soapbox
+  end
 end

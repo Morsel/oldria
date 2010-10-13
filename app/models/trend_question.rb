@@ -70,23 +70,24 @@ class TrendQuestion < ActiveRecord::Base
   end
 
   def reply_count
-    admin_discussions.with_replies.count
+    admin_discussions.with_replies.count + solo_discussions.with_replies.count
   end
 
   def comments_count
-    admin_discussions.sum(:comments_count)
+    admin_discussions.sum(:comments_count) + solo_discussions.sum(:comments_count)
   end
 
   def self.on_soapbox_with_response_from_user(user = nil)
     return [] unless user
-    self.all(:joins => [:soapbox_entry, {:admin_discussions => :comments}], 
+    self.all(:joins => [:soapbox_entry, { :admin_discussions => :comments }, { :solo_discussions => :comments }], 
              :conditions => ['comments.user_id = ?', user.id], 
              :group => 'trend_questions.id')
   end
 
   def comments(deep_includes = false)
-    includes = deep_includes ? {:comments => {:user => :employments}} : :comments
-    admin_discussions.with_replies.all(:include => includes).map(&:comments).flatten
+    includes = deep_includes ? { :comments => { :user => :employments }} : :comments
+    _discussions = admin_discussions.with_replies.all(:include => includes) + solo_discussions.with_replies.all(:include => includes)
+    (_discussions).map(&:comments).flatten
   end
 
   def title
@@ -95,6 +96,10 @@ class TrendQuestion < ActiveRecord::Base
   
   def recipients_can_reply?
     true
+  end
+  
+  def soapbox_comment_count
+    discussions_with_replies.map(&:comments).flatten.select { |c| c.show_on_soapbox? }.size
   end
 
 end

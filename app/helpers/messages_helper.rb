@@ -15,12 +15,17 @@ module MessagesHelper
       holiday_discussion_path(message.holiday_discussion)
     elsif message.respond_to?(:admin_message) # QOTD
       admin_conversation_path(message)
-    elsif message.respond_to?(:discussionable)
+    elsif message.respond_to?(:discussionable) # AdminDiscussion for TrendQuestion or ContentRequest
       admin_discussion_path(message)
     elsif message.respond_to?(:admin_discussions) # TrendQuestion or ContentRequest
-      return "" if current_user.grouped_admin_discussions[message].blank? && current_user.admin?
-      first_discussion_for_user = current_user.grouped_admin_discussions[message].first
-      admin_discussion_path(first_discussion_for_user)
+      if current_user.grouped_admin_discussions[message].blank? # no admin_discussion for this user
+        current_user.admin? ? 
+            "" : 
+            solo_discussion_path(message.solo_discussions.find_by_employment_id(current_user.primary_employment.try(:id)))
+      else
+        first_discussion_for_user = current_user.grouped_admin_discussions[message].first
+        admin_discussion_path(first_discussion_for_user)
+      end
     elsif message.respond_to?(:employment)
       solo_discussion_path(message)
     else

@@ -30,7 +30,7 @@ class SoapboxEntry < ActiveRecord::Base
   end
 
   def comments
-    featured_item.comments(true).select {|c| c.employment && c.employment.prefers_post_to_soapbox }
+    featured_item.comments(true).select {|c| c.show_on_soapbox? }
   end
 
   class << self
