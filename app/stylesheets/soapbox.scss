@@ -37,8 +37,6 @@ h1,h2,h3,h4,h5,h6{
 	margin:0 0 15px;
 }
 
-
-
 #utilities{
 	position:absolute;
 	top:0;
@@ -69,10 +67,10 @@ h1,h2,h3,h4,h5,h6{
 
 
 #header{
-	background:url(/images/soapbox/bg-nav.png) no-repeat;
+	background:url(/images/soapbox/nav.png) no-repeat;
 	margin:40px 0 30px;
 	height:88px;
-	padding:15px;
+	padding:15px 0px 15px 15px;
 }
 
 #logo{
@@ -92,6 +90,37 @@ h1,h2,h3,h4,h5,h6{
 	background:url(/images/soapbox/logo-tagline-soapbox.png) no-repeat 10px 45px;
 }
 
+#nav {
+	a {
+		@include museoslabthin;
+		width: 100px;
+		height: 58px;
+		margin: -20px 10px 0 0;
+		padding: 76px 0 0 13px;
+		float: left;
+		color: #CB4827;
+		text-decoration: none;
+		font-size: 14px;
+		text-transform: uppercase;
+		&:hover {
+			color: #474F80;
+		}
+		&.selected {
+			@include museoslabbold;
+			color: #fff;
+			margin-right: 0;
+			text-shadow: 0px 1px 1px #333;
+			padding: 76px 20px 0px 23px;
+			width:80px;
+			background: url(/images/soapbox/bg-nav-current.png) no-repeat;
+			background-position: 0px -3px;
+		}
+		&.last {
+			margin-right: 0;
+		}
+	}
+}
+
 #main{
 	overflow:hidden;
 }
@@ -102,8 +131,11 @@ h1,h2,h3,h4,h5,h6{
 	background:url(/images/soapbox/bg-white-opacity-55.png);
 	background:rgba(255,255,255,0.55);
 	#page-title h1{
-		font:normal 21px "Helvetica Neue", Helvetica, Arial, sans-serif;
-		margin:0 0 15px 15px;
+		@include museoslabthin;
+		color: #333;
+		font-size: 20px;
+		margin:8px 0 12px 15px;
+		text-shadow: 0px 1px 0px #fff;
 	}
 }
 #page-content{
@@ -115,20 +147,40 @@ h1,h2,h3,h4,h5,h6{
 		font-size:19px;
 		color:$sienna;
 	}
+	h1 {
+		@include museoslabbold;
+		margin: 6px 0 12px 0;
+	}
 	h2{
+		@include museoslabmedium;
 		font-size:16px;
-		padding:0 0 5px;
+		padding:0 0 2px;
+		margin-top: 20px;
+		clear: both;
 		border-bottom:1px solid $feedback-border-color;
 	}
 	h3{
 		font-size:14px;
 	}
-	ul, ol{
-		padding:5px 15px;
+	ul{
+		padding: 0;
+		margin: 10px;
+		list-style: none;
 		li{
-			margin:0 15px;
-			list-style-type:square;
-			line-height:1.75;
+			background: transparent url(/images/soapbox/square.gif) no-repeat 0px 6px;
+			margin:0 8px;
+			padding: 2px 0 4px 12px;
+			line-height: 15px;
+		}
+	}
+	ol {
+		margin: 10px 10px 12px 20px;
+		padding: 0px;
+		list-style-position: inside;
+		list-style: decimal;
+		li {
+			line-height: 15px;
+			padding: 2px 0px 3px;
 		}
 	}
 	p{
@@ -149,7 +201,7 @@ h1,h2,h3,h4,h5,h6{
 
 #inside{
 	margin:0 10px;
-	padding:15px;
+	padding:23px;
 	background:#fff;
 }
 
@@ -164,12 +216,14 @@ h1,h2,h3,h4,h5,h6{
 	position:relative;
 	margin:0 0 50px;
 	h1{
-		font-size:16px;
+		@include museoslabmedium;
+		font-size:14px;
 		line-height:1.2;
 		color:#fff;
-		padding:15px 0 5px;
-		border-bottom:1px solid #fff;
+		padding:25px 0 3px;
+		border-bottom:1px solid #ADB5D8;
 		text-transform:uppercase;
+		text-shadow: 0px 1px 0px #000;
 	}
 	ol{
 		list-style:none;
