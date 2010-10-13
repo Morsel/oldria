@@ -16,6 +16,9 @@
 // But Compass recommends that you scope your blueprint styles
 // So that you can better control what pages use blueprint
 // when stylesheets are concatenated together.
+section,article,header,footer,hgroup,nav,aside{
+	display:block;
+}
 body{
   font:normal 12px "Helvetica Neue", Helvetica, Arial, sans-serif;
 	background:$body-bg url(/images/soapbox/bg-site.jpg) repeat-x;
