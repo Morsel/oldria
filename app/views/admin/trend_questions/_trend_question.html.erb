@@ -3,6 +3,6 @@
 	<p>
 		<%= trend_question.message %>
 		(<%= pluralize trend_question.reply_count, "reply" %> with
-		<%= trend_question.comments_count %> total comments)
+		<%= pluralize trend_question.comments_count, "total comment" %>)
 	</p>
 <% end %>
