@@ -29,7 +29,7 @@ body{
 	position:relative;
 }
 
-@include sticky-footer(168px,'#container','#sticky-footer-pad','#footer');
+@include sticky-footer(158px,'#container','#sticky-footer-pad','#footer');
 
 h1,h2,h3,h4,h5,h6{
 	line-height:1.2;
@@ -100,7 +100,7 @@ h1,h2,h3,h4,h5,h6{
 		float: left;
 		color: #CB4827;
 		text-decoration: none;
-		font-size: 14px;
+		font-size: 15px;
 		text-transform: uppercase;
 		&:hover {
 			color: #474F80;
@@ -133,7 +133,7 @@ h1,h2,h3,h4,h5,h6{
 	#page-title h1{
 		@include museoslabthin;
 		color: #333;
-		font-size: 20px;
+		font-size:20px;
 		margin:8px 0 12px 15px;
 		text-shadow: 0px 1px 0px #fff;
 	}
@@ -141,10 +141,10 @@ h1,h2,h3,h4,h5,h6{
 #page-content{
 	img{
 		float:left;
-		margin:0 10px 10px 0;
+		margin:3px 15px 10px 0;
 	}
 	#content-title h1{
-		font-size:19px;
+		font-size:20px;
 		color:$sienna;
 	}
 	h1 {
@@ -153,21 +153,22 @@ h1,h2,h3,h4,h5,h6{
 	}
 	h2{
 		@include museoslabmedium;
-		font-size:16px;
+		font-size:18px;
 		padding:0 0 2px;
 		margin-top: 20px;
 		clear: both;
 		border-bottom:1px solid $feedback-border-color;
 	}
 	h3{
-		font-size:14px;
+		font-size:15px;
+		margin: 20px 0 10px;
 	}
 	ul{
 		padding: 0;
 		margin: 10px;
 		list-style: none;
 		li{
-			background: transparent url(/images/soapbox/square.gif) no-repeat 0px 6px;
+			background: transparent url(/images/soapbox/square.gif) no-repeat 0px 5px;
 			margin:0 8px;
 			padding: 2px 0 4px 12px;
 			line-height: 15px;
@@ -217,7 +218,7 @@ h1,h2,h3,h4,h5,h6{
 	margin:0 0 50px;
 	h1{
 		@include museoslabmedium;
-		font-size:14px;
+		font-size:15px;
 		line-height:1.2;
 		color:#fff;
 		padding:25px 0 3px;
@@ -233,25 +234,32 @@ h1,h2,h3,h4,h5,h6{
 		li{
 			margin:5px 0;
 			padding:5px;
-			border-bottom:1px dashed $x-light-purple;
+			font-weight: bold;
+			border-bottom:1px dotted #6C769E;
 			.feed-item-date{
 				display:inline;
 				@include opacity(0.66);
+				@include knockout;
+				font-size: 15px;
 			}
 			.feed-item-title{
 				display:inline;
 				a{
-					text-shadow:0 1px 0 #333;
+					text-shadow:0 1px 0 #000;
 					text-decoration:none;
 					color:#fff;
+					padding: 1px;
+					&:hover {
+						background-color: #5FA1C6;
+					}
 				}
 			}
 			.feed-item-reply-count{
 				font-size:11px;
-				@include opacity(0.66);
+				font-weight:normal;
 				margin:5px 0;
 				a{
-					color:$x-light-purple;
+					color:#D6D9E8;
 					text-decoration:none;
 					text-transform:uppercase;
 					.num{
@@ -259,6 +267,8 @@ h1,h2,h3,h4,h5,h6{
 						@include border-radius(80px);
 						background:$light-purple;
 						padding:2px 5px;
+						color: #fff;
+						font-weight: bold;
 					}
 					&:hover, &:hover .num{
 						color:#fff;
@@ -273,19 +283,22 @@ h1,h2,h3,h4,h5,h6{
 #activity-chooser{
 	overflow:hidden;
 	a{
+		float:left;
+		@include knockout;
+		font-size:18px;
 		display:block;
+		padding:10px 8px;
 		width:80px;
 		height:47px;
-		font-size:13px;
-		line-height:1;
+		line-height: 16px;
 		color:#fff;
 		text-transform:uppercase;
 		text-decoration:none;
-		padding:10px;
-		float:left;
+		text-shadow: 0 1px 0 #000;
 		background:url(/images/soapbox/bg-sidebar-selector.png) no-repeat -115px -1px;
 		&.selected, &:hover{
 			color:$purple;
+			text-shadow: 0 0 0 #fff;
 			background-position:-3px -1px;
 		}
 		&:first-child{
@@ -302,7 +315,7 @@ h1,h2,h3,h4,h5,h6{
 	background:url(/images/soapbox/bg-sidebar-bottom.png) no-repeat;
 }
 #participate{
-	padding:20px 0;
+	padding:4px 0 20px;
 	.button, span{
 		@include hiddentext;
 		margin:5px auto;
@@ -330,11 +343,12 @@ h1,h2,h3,h4,h5,h6{
 
 #footer{
 	background:url(/images/soapbox/bg-footer.png) repeat-x;
+	border-bottom: 10px solid #488CAA;
 }
 
 #footer-logo{
 	@include hiddentext;
-	@include column(5);
+	width: 166px;
 	height:88px;
 	background:url(/images/soapbox/icon-footer-logo.png) no-repeat;
 	float:left;
@@ -342,32 +356,39 @@ h1,h2,h3,h4,h5,h6{
 
 #footer-container{
 	@include container;
-	padding:50px 0 0;
+	padding:46px 0 0;
 	overflow:hidden;
 	color:#fff;
+	font-size: 12px;
 	p{
+		color: rgba(255,255,255, .7);
 		margin:0 0 10px;
 	}
 	a{
 		color:#fff;
 	}
 	.social-media-links{
-		@include column(5);
-		&.last{
-			@include column(5,true);
-		}
+		float: left;
+		width: 170px;
+		padding: 10px 25px 0 15px;
+		margin: 0;
+		min-height: 70px;
+		border-left: 1px dotted #aadaef;
 	}
 	
 }
 #legal{
+	margin-top: 10px;
 	@include column(9);
 	a:hover{
 		text-decoration:none;
+		color: #165773;
 	}
 }
 #footer-links{
 	margin:0 0 10px;
 	a{
+			font-size: 11px;
 		display:inline-block;
 		padding:0 10px;
 		&:first-child{
@@ -376,27 +397,32 @@ h1,h2,h3,h4,h5,h6{
 	}
 }
 #twitter-link{
-	padding:15px 0 15px 57px;
-	background:url(/images/soapbox/icon-footer-twitter.png) no-repeat left;
+	padding:0 0 0 56px;
+	background:url(/images/soapbox/icon-footer-twitter.png) no-repeat 0 3px;
 	a{
 		display:inline-block;
 		background:rgba(255,255,255,0.33);
-		padding:5px 10px;
+		padding:5px 20px;
 		margin:5px 0 0;
 		font-size:13px;
 		font-weight:bold;
-		@include border-radius(80px);
+		@include border-radius(20px);
+		text-decoration: none;
+		text-shadow: 0 1px 0 #000;
 		&:hover{
-			background:rgba(255,255,255,0.1);
+			background: #488CAA;
+			color: #fff;
+			text-shadow: 0 1px 0 #000;
 		}
 	}
 	
 }
 #facebook-link a{
 	display:block;
-	padding:10px 0 10px 35px;
-	background:url(/images/soapbox/icon-footer-fb.png) no-repeat left;
+	padding:0px 0 20px 35px;
+	background:url(/images/soapbox/icon-footer-fb.png) no-repeat 0 4px;
 	&:hover{
+		color: #165773;
 		text-decoration:none;
 	}
 }
