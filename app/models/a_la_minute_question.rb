@@ -2,7 +2,7 @@ class ALaMinuteQuestion < ActiveRecord::Base
 
   KINDS = %w(restaurant user)
 
-  has_many :a_la_minute_answers
+  has_many :a_la_minute_answers, :dependent => :destroy
 
   validates_inclusion_of :kind, :in => KINDS
 
