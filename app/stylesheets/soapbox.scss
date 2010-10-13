@@ -150,7 +150,7 @@ body,html,#container,#main,#content,#inside{
 		
 		.panel{
 			background:#fff;
-			@include box-shadow(#999, 1px, 1px, 2px);
+			@include box-shadow(#d5ceca, 0, 0, 3px);
 			section{
 				padding:10px;
 				img{

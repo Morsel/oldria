@@ -351,10 +351,10 @@ body, html, #container, #main, #content, #inside {
 /* line 151, ../../../app/stylesheets/soapbox.scss */
 #content.home .panel {
   background: #fff;
-  -moz-box-shadow: #999999 1px 1px 2px 0;
-  -webkit-box-shadow: #999999 1px 1px 2px 0;
-  -o-box-shadow: #999999 1px 1px 2px 0;
-  box-shadow: #999999 1px 1px 2px 0;
+  -moz-box-shadow: #d5ceca 0 0 3px 0;
+  -webkit-box-shadow: #d5ceca 0 0 3px 0;
+  -o-box-shadow: #d5ceca 0 0 3px 0;
+  box-shadow: #d5ceca 0 0 3px 0;
 }
 /* line 154, ../../../app/stylesheets/soapbox.scss */
 #content.home .panel section {
