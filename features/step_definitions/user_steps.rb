@@ -78,6 +78,17 @@ Given /^I am not logged in$/ do
   Given 'I visit the logout path'
 end
 
+Given /^given that user "([^\"]*)" has just been confirmed$/ do |username|
+  user = User.find_by_username(username)
+  user.confirm!
+end
+
+Given /^"([^\"]*)" has a default employment with the role "([^\"]*)"$/ do |username, role_name|
+  user = User.find_by_username(username)
+  role = Factory(:restaurant_role, :name => role_name)
+  Factory(:default_employment, :employee => user, :restaurant_role => role)
+end
+
 When /^I (?:visit the logout path|logout)$/ do
   visit logout_url
 end
@@ -126,11 +137,6 @@ Then /^"([^\"]*)" should still exist$/ do |username|
   User.find_by_username(username).should_not be_nil
 end
 
-Given /^given that user "([^\"]*)" has just been confirmed$/ do |username|
-  user = User.find_by_username(username)
-  user.confirm!
-end
-
 When /^the user "([^\"]*)" (has|does not have) a premium account$/ do |username, toggle|
   user = User.find_by_username(username)
   user.update_attributes(:premium_account => (toggle == "has"))
@@ -145,4 +151,3 @@ end
 When /^"([^"]*)" should have a "([^"]*)" account on the page$/ do |user_name, account_type|
   response.should have_selector(".user_account_type", :content => account_type)
 end
-

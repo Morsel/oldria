@@ -3,7 +3,7 @@
     <% if admin_discussion.comments_count > 0 %>
       <%= link_to admin_discussion.restaurant.try(:name), admin_discussion %>
     <% else %>
-      <%= admin_discussion.restaurant.try(:name)%>
+      <%= admin_discussion.restaurant.try(:name) %>
     <% end %>
   </td>
   

@@ -181,6 +181,10 @@ Factory.define :employment do |f|
   f.public_profile false
 end
 
+Factory.define :default_employment do |f|
+  f.association :employee, :factory => :user
+end
+
 Factory.define :assigned_employment, :parent => :employment do |f|
   f.subject_matters {|e| [e.association(:subject_matter)] }
   f.restaurant_role {|e|  e.association(:restaurant_role) }
@@ -383,6 +387,11 @@ Factory.define :admin_discussion do |f|
   f.discussionable {|d| d.association :trend_question }
   f.discussionable_type { "TrendQuestion" }
   f.restaurant {|d| d.association :restaurant }
+end
+
+Factory.define :solo_discussion do |f|
+  f.association :employment
+  f.association :trend_question
 end
 
 # == Holidays ==

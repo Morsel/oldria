@@ -20,6 +20,9 @@ class TrendQuestion < ActiveRecord::Base
 
   has_many :admin_discussions, :as => :discussionable, :dependent => :destroy
   has_many :restaurants, :through => :admin_discussions
+  
+  has_many :solo_discussions, :dependent => :destroy
+  has_many :employments, :through => :solo_discussions
 
   has_one :soapbox_entry, :as => :featured_item, :dependent => :destroy
 
@@ -28,8 +31,8 @@ class TrendQuestion < ActiveRecord::Base
 
   named_scope :current, :conditions => ['scheduled_at < ? OR scheduled_at IS NULL', Time.zone.now]
 
-  before_save :update_restaurants_from_search_criteria
-
+  before_save :update_restaurants_and_employments_from_search_criteria
+  
   def self.title
     "Trend Question"
   end
@@ -42,8 +45,9 @@ class TrendQuestion < ActiveRecord::Base
     [subject, body].compact.join(': ')
   end
 
-  def update_restaurants_from_search_criteria
+  def update_restaurants_and_employments_from_search_criteria
     self.restaurant_ids = employment_search.restaurant_ids
+    self.employment_ids = employment_search.solo_employment_ids
   end
 
   def viewable_by?(employment)
@@ -51,6 +55,18 @@ class TrendQuestion < ActiveRecord::Base
     employment.employee == employment.restaurant.try(:manager) ||
     employment.omniscient? ||
     employment_search.employments.include?(employment)
+  end
+
+  def discussions
+    admin_discussions + solo_discussions
+  end
+
+  def discussions_with_replies
+    admin_discussions.with_replies + solo_discussions.with_replies
+  end
+
+  def discussions_without_replies
+    admin_discussions.without_replies + solo_discussions.without_replies
   end
 
   def reply_count
@@ -63,7 +79,9 @@ class TrendQuestion < ActiveRecord::Base
 
   def self.on_soapbox_with_response_from_user(user = nil)
     return [] unless user
-    self.all(:joins => [:soapbox_entry, {:admin_discussions => :comments}], :conditions => ['comments.user_id = ?', user.id], :group => 'trend_questions.id')
+    self.all(:joins => [:soapbox_entry, {:admin_discussions => :comments}], 
+             :conditions => ['comments.user_id = ?', user.id], 
+             :group => 'trend_questions.id')
   end
 
   def comments(deep_includes = false)

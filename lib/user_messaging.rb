@@ -64,6 +64,12 @@ module UserMessaging
   def trend_questions_responded
     TrendQuestion.on_soapbox_with_response_from_user(self)
   end
+  
+  # Solo discussions
+  
+  def unread_solo_discussions
+    solo_discussions.current.reject { |d| d.read_by?(self) }
+  end
 
   # Question of the day
   def unread_qotds
@@ -126,7 +132,8 @@ module UserMessaging
       unread_hdrs,
       unread_qotds,
       unread_pr_tips,
-      unread_announcements
+      unread_announcements,
+      unread_solo_discussions
       ].flatten.sort_by(&:scheduled_at).reverse
   end
 
@@ -136,7 +143,8 @@ module UserMessaging
       accepted_holiday_discussions,
       admin_conversations.current.all, # QOTDs
       Admin::Announcement.current.all,
-      Admin::PrTip.current.all
+      Admin::PrTip.current.all,
+      solo_discussions.current
     ].flatten.sort_by(&:scheduled_at).reverse
   end
 

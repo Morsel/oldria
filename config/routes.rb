@@ -111,6 +111,10 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :admin_discussions, :only => 'show', :member => { :read => :put } do |admin_discussions|
     admin_discussions.resources :comments, :only => [:new, :create, :edit, :update]
   end
+  
+  map.resources :solo_discussions, :only => 'show', :member => { :read => :put } do |admin_discussions|
+    admin_discussions.resources :comments, :only => [:new, :create, :edit, :update]
+  end
 
   map.resources :admin_messages, :only => 'show', :member => { :read => :put }
   map.resources :messages, :collection => {

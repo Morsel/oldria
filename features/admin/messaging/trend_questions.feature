@@ -7,7 +7,6 @@ Feature: Trend questions
   These previously worked as staff-to-individual messages.
   Now they are staff-to-restaurant based. (They will work just like restaurant conversations.)
 
-
   Background:
     Given a restaurant named "Normal Pants" with the following employees:
       | username | password | email            | name      | role      | subject matters |
@@ -19,8 +18,6 @@ Feature: Trend questions
     And the restaurant "Normal Pants" is in the region "Midwest"
     And the restaurant "Fancy Lamb" is in the region "Southwest"
 
-
-
   Scenario: New Trend Question
     Given I am logged in as an admin
     When I create a new trend question with subject "Where's the beef?" with criteria:
@@ -28,7 +25,6 @@ Feature: Trend questions
     Then the trend question with subject "Where's the beef?" should have 1 restaurant
     And "Normal Pants" should have 1 new trend question
     But "Fancy Lamb" should not have any trend questions
-
 
   Scenario: New Restaurants that fit criteria should be added
     Given I am logged in as an admin
@@ -57,7 +53,6 @@ Feature: Trend questions
     Given I am logged in as "jim" with password "secret"
     When I go to my inbox
     Then I should not see "Chefs only"
-
 
   Scenario: Managers can see all the restaurant's trend questions
     Given "sam" is the account manager for "Normal Pants"
@@ -103,6 +98,26 @@ Feature: Trend questions
     Then I should see "Region: Midwest"
     When I go to the list of trend questions
     Then I should see "Region: Midwest"
+    
+  Scenario: A user who is not with a restaurant can receive trend questions
+    Given the following confirmed users:
+      | username | email           | first_name | last_name |
+      | amy      | amy@example.com | Amy        | Testuser  |
+    And "amy" has a default employment with the role "Executive Chef"
+    And I am logged in as an admin
+
+    When I create a new trend question with subject "More chefs only" with criteria:
+      | Role | Executive Chef |
+    Then I should see "Amy Testuser"
+
+    Given I am logged in as "amy" with password "secret"
+    And I go to the RIA messages page
+    Then I should see "More chefs only"
+
+    When I follow "Post"
+    And I fill in "Post" with "Polo!"
+    And I press "Send"
+    Then the discussion for the trend question with subject "More chefs only" should have 1 comment
 
 @emails
   Scenario: New Trend Question notification, user prefers no emails
@@ -133,4 +148,3 @@ Feature: Trend questions
     And I press "Send"
     
     Then "sam@example.com" should have 2 emails
-    
