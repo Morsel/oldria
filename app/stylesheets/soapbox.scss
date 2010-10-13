@@ -144,6 +144,89 @@ body,html,#container,#main,#content,#inside{
 		margin:8px 0 12px 15px;
 		text-shadow: 0px 1px 0px #fff;
 	}
+	
+	&.home{
+		@include column(20);
+		
+		.panel{
+			background:#fff;
+			@include box-shadow(#999, 1px, 1px, 2px);
+			section{
+				padding:10px;
+				img{
+					float:left;
+					margin:0 15px 5px 0;
+					padding:3px;
+					background:#fff;
+					@include box-shadow(#999,1px,1px,2px);
+				}
+				a{
+					color:#333;
+					text-decoration:underline;
+					img{
+						@include box-shadow(transparent,0,0,0);
+						padding:0;
+						background:0;
+					}
+					&:hover{
+						color:$sienna;
+					}
+					&.continue{
+						text-transform:lowercase;
+						text-decoration:none;
+						display:inline-block;
+						background:$sienna;
+						padding:5px 10px;
+						@include border-radius(80px);
+						font-weight:bold;
+						color:#fff;
+						text-shadow:0 1px 0 #333;
+						&:hover{
+							color:#fff;
+							background:#666;
+						}
+					}
+				}
+				p, summary{
+					clear:both;
+					font-size:13px;
+					padding:15px 0;
+					line-height:1.4;
+				}
+			}
+			header{
+				h1{
+					margin:0;
+				}
+				@include museoslabmedium;
+				margin:0 10px 0;
+				padding:10px 0 0;
+				font-size:15px;
+				color:$sienna;
+				border-bottom:1px solid $sienna;
+			}
+		}
+		#home-pulse{
+			@include column(7);
+			section{
+				header{
+					border:0;
+					margin:0 0 10px;
+					padding:0;
+					h1{
+						@include museoslabmedium;
+						color:$purple;
+					}
+				}
+			}
+		}
+		#home-featured-user{
+			@include column(6);
+		}
+		#home-featured-restaurant{
+			@include column(6,true);
+		}
+	}
 }
 #page-content{
 	img{
@@ -211,11 +294,18 @@ body,html,#container,#main,#content,#inside{
 	margin:0 10px;
 	padding:23px;
 	background:#fff;
+	overflow:hidden;
+	&.home{
+		padding:10px;
+	}
 }
 
 #sidebar{
 	@include column(6,true);
 	margin:20px 0 0;
+	&.home{
+		@include column(4,true);
+	}
 }
 
 #recent-activity{
@@ -331,6 +421,7 @@ body,html,#container,#main,#content,#inside{
 	padding:4px 0 20px;
 	.button, span{
 		@include hiddentext;
+		text-decoration:none;
 		margin:5px auto;
 		width:216px;
 		height:28px;
@@ -350,6 +441,20 @@ body,html,#container,#main,#content,#inside{
 		background-position:0 -58px;
 		&:hover{
 			background-position:-300px -58px;
+		}
+	}
+	&.home{
+		@include museoslabthin;
+		text-transform:uppercase;
+		.button, span{
+			text-indent:0;
+			margin:5px 0;
+			width:auto;
+			height:auto;
+			background:0;
+			span{
+				@include museoslabbold;
+			}
 		}
 	}
 }
