@@ -1,4 +1,5 @@
 # == Schema Information
+# Schema version: 20101013222730
 #
 # Table name: attachments
 #
@@ -11,6 +12,8 @@
 #  attachable_type         :string(255)
 #  created_at              :datetime
 #  updated_at              :datetime
+#  credit                  :string(255)
+#  position                :integer
 #
 
 class Attachment < ActiveRecord::Base

@@ -1,16 +1,17 @@
 # == Schema Information
-# Schema version: 20100825200638
+# Schema version: 20101013222730
 #
 # Table name: accolades
 #
-#  id         :integer         not null, primary key
-#  profile_id :integer
-#  name       :string(255)     default(""), not null
-#  media_type :string(255)     default(""), not null
-#  run_date   :date            not null
-#  created_at :datetime
-#  updated_at :datetime
-#  link       :string(255)
+#  id               :integer         not null, primary key
+#  accoladable_id   :integer
+#  name             :string(255)     default(""), not null
+#  media_type       :string(255)     default(""), not null
+#  run_date         :date            not null
+#  created_at       :datetime
+#  updated_at       :datetime
+#  link             :string(255)
+#  accoladable_type :string(255)
 #
 
 class Accolade < ActiveRecord::Base

@@ -9,16 +9,34 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20101006173434) do
+ActiveRecord::Schema.define(:version => 20101013222730) do
+
+  create_table "a_la_minute_answers", :force => true do |t|
+    t.text     "answer"
+    t.integer  "a_la_minute_question_id"
+    t.integer  "responder_id"
+    t.string   "responder_type"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.boolean  "show_as_public"
+  end
+
+  create_table "a_la_minute_questions", :force => true do |t|
+    t.text     "question"
+    t.string   "kind"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "accolades", :force => true do |t|
-    t.integer  "profile_id"
-    t.string   "name",       :default => "", :null => false
-    t.string   "media_type", :default => "", :null => false
-    t.date     "run_date",                   :null => false
+    t.integer  "accoladable_id"
+    t.string   "name",             :default => "", :null => false
+    t.string   "media_type",       :default => "", :null => false
+    t.date     "run_date",                         :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "link"
+    t.string   "accoladable_type"
   end
 
   create_table "admin_conversations", :force => true do |t|
@@ -48,7 +66,6 @@ ActiveRecord::Schema.define(:version => 20101006173434) do
     t.text     "message"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "holiday_id"
     t.string   "display_message"
   end
 
@@ -88,6 +105,8 @@ ActiveRecord::Schema.define(:version => 20101006173434) do
     t.string   "attachable_type"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "credit"
+    t.integer  "position"
   end
 
   add_index "attachments", ["attachable_id", "attachable_type"], :name => "index_attachments_on_attachable_id_and_attachable_type"
@@ -171,19 +190,21 @@ ActiveRecord::Schema.define(:version => 20101006173434) do
   end
 
   create_table "culinary_jobs", :force => true do |t|
-    t.integer  "profile_id",                       :null => false
-    t.string   "title",         :default => "",    :null => false
-    t.string   "city",          :default => "",    :null => false
-    t.string   "state",         :default => "",    :null => false
-    t.date     "date_started",                     :null => false
+    t.integer  "profile_id",                         :null => false
+    t.string   "restaurant_name", :default => "",    :null => false
+    t.string   "title",           :default => "",    :null => false
+    t.string   "city",            :default => "",    :null => false
+    t.string   "state",           :default => "",    :null => false
+    t.string   "country",         :default => "",    :null => false
+    t.date     "date_started",                       :null => false
     t.date     "date_ended"
-    t.string   "chef_name",     :default => "",    :null => false
-    t.boolean  "chef_is_me",    :default => false, :null => false
-    t.text     "cuisine",       :default => "",    :null => false
-    t.text     "notes",         :default => "",    :null => false
+    t.string   "chef_name",       :default => "",    :null => false
+    t.boolean  "chef_is_me",      :default => false, :null => false
+    t.text     "cuisine",         :default => "",    :null => false
+    t.text     "notes",           :default => "",    :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "opening_staff", :default => false
+    t.boolean  "opening_staff",   :default => false
   end
 
   add_index "culinary_jobs", ["profile_id"], :name => "index_profile_restaurants_on_profile_id"
@@ -264,6 +285,8 @@ ActiveRecord::Schema.define(:version => 20101006173434) do
     t.boolean  "omniscient"
     t.boolean  "primary",            :default => false
     t.string   "type"
+    t.boolean  "public_profile"
+    t.integer  "position"
   end
 
   add_index "employments", ["employee_id"], :name => "index_employments_on_employee_id"
@@ -480,6 +503,15 @@ ActiveRecord::Schema.define(:version => 20101006173434) do
   add_index "media_requests", ["sender_id"], :name => "index_media_requests_on_sender_id"
   add_index "media_requests", ["subject_matter_id"], :name => "index_media_requests_on_media_request_type_id"
 
+  create_table "menus", :force => true do |t|
+    t.string   "name"
+    t.string   "change_frequency"
+    t.integer  "pdf_remote_attachment_id"
+    t.integer  "restaurant_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "metropolitan_areas", :force => true do |t|
     t.string   "name"
     t.datetime "created_at"
@@ -563,7 +595,7 @@ ActiveRecord::Schema.define(:version => 20101006173434) do
     t.string   "title"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "position",   :default => 0
+    t.integer  "position"
     t.integer  "chapter_id"
   end
 
@@ -588,6 +620,13 @@ ActiveRecord::Schema.define(:version => 20101006173434) do
   end
 
   add_index "profiles", ["user_id"], :name => "index_profiles_on_user_id", :unique => true
+
+  create_table "question_role_categories", :force => true do |t|
+    t.integer  "restaurant_role_id"
+    t.string   "category"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "question_roles", :force => true do |t|
     t.integer  "profile_question_id"
@@ -614,6 +653,39 @@ ActiveRecord::Schema.define(:version => 20101006173434) do
   add_index "responsibilities", ["employment_id"], :name => "index_responsibilities_on_employment_id"
   add_index "responsibilities", ["subject_matter_id"], :name => "index_responsibilities_on_subject_matter_id"
 
+  create_table "restaurant_feature_categories", :force => true do |t|
+    t.string   "name"
+    t.integer  "restaurant_feature_page_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "restaurant_feature_categories", ["restaurant_feature_page_id"], :name => "restaurant_feature_page_id_index"
+
+  create_table "restaurant_feature_pages", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "restaurant_features", :force => true do |t|
+    t.integer  "restaurant_feature_category_id"
+    t.string   "value"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "restaurant_features", ["restaurant_feature_category_id"], :name => "restaurant_feature_category_id_index"
+
+  create_table "restaurant_features_restaurants", :id => false, :force => true do |t|
+    t.integer "restaurant_id"
+    t.integer "restaurant_feature_id"
+  end
+
+  add_index "restaurant_features_restaurants", ["restaurant_feature_id"], :name => "restaurant_feature_id_index"
+  add_index "restaurant_features_restaurants", ["restaurant_id", "restaurant_feature_id"], :name => "_restaurant_id_restaurant_feature_id_index"
+  add_index "restaurant_features_restaurants", ["restaurant_id"], :name => "restaurant_id_index"
+
   create_table "restaurant_roles", :force => true do |t|
     t.string   "name"
     t.datetime "created_at"
@@ -637,6 +709,19 @@ ActiveRecord::Schema.define(:version => 20101006173434) do
     t.integer  "james_beard_region_id"
     t.integer  "cuisine_id"
     t.datetime "deleted_at"
+    t.string   "description"
+    t.string   "phone_number"
+    t.string   "website"
+    t.string   "twitter_username"
+    t.string   "facebook_page"
+    t.string   "hours"
+    t.integer  "media_contact_id"
+    t.string   "management_company_name"
+    t.string   "management_company_website"
+    t.integer  "logo_id"
+    t.integer  "primary_photo_id"
+    t.date     "opening_date"
+    t.boolean  "premium_account"
   end
 
   add_index "restaurants", ["cuisine_id"], :name => "index_restaurants_on_cuisine_id"
@@ -670,6 +755,22 @@ ActiveRecord::Schema.define(:version => 20101006173434) do
     t.datetime "published_at"
     t.integer  "featured_item_id"
     t.string   "featured_item_type"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "soapbox_pages", :force => true do |t|
+    t.string   "title"
+    t.string   "slug"
+    t.text     "content"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "solo_discussions", :force => true do |t|
+    t.integer  "employment_id"
+    t.integer  "trend_question_id"
+    t.integer  "comments_count",    :default => 0
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -762,6 +863,8 @@ ActiveRecord::Schema.define(:version => 20101006173434) do
     t.string   "facebook_access_token"
     t.string   "facebook_page_id"
     t.string   "facebook_page_token"
+    t.string   "phone_number"
+    t.boolean  "premium_account"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email"

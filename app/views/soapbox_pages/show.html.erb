@@ -1,0 +1,11 @@
+<% title @page.title %>
+
+<div class="page-content">
+  <%= @page.content %>
+</div>
+
+<% if can?(:edit, @page) %>
+	<p>
+		<%#= link_to (image_tag("pencil.png") + "Edit this page"), edit_admin_soapbox_page_path(@page), :class => 'button' %>
+	</p>
+<% end %>

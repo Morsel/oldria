@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20101006173434
+# Schema version: 20101013222730
 #
 # Table name: employments
 #
@@ -12,6 +12,8 @@
 #  omniscient         :boolean
 #  primary            :boolean
 #  type               :string(255)
+#  public_profile     :boolean
+#  position           :integer
 #
 
 class Employment < ActiveRecord::Base

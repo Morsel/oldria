@@ -252,6 +252,12 @@ Factory.define :page do |f|
   f.content {"This is the page content"}
 end
 
+Factory.define :soapbox_page do |f|
+  f.title "Title"
+  f.slug "title-tastic"
+  f.content "Some content here is good"
+end
+
 Factory.define :direct_message do |f|
   f.association :receiver, :factory => :user
   f.association :sender, :factory => :user

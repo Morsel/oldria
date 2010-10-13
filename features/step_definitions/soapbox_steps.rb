@@ -1,4 +1,4 @@
-Given /^there is a QOTD asking "([^"]*)"$/ do |text|
+Given /^there is a QOTD asking "([^\"]*)"$/ do |text|
   @qotd = Factory(:qotd, :message => text)
 end
 
@@ -14,7 +14,6 @@ Given /^that QOTD has the following answers:$/ do |table|
 
     # Add the comment
     conversation.comments.create(:user_id => user.id, :comment => response)
-
   end
 end
 
@@ -26,6 +25,10 @@ When /^I create a new soapbox entry for that QOTD with:$/ do |table|
   end
 
   click_button "Save"
+end
+
+When /^I create a new soapbox page with:$/ do |table|
+  SoapboxPage.create(table.rows_hash)
 end
 
 Then /^there should be (\d+) QOTDs? on the soapbox landing page$/ do |num|

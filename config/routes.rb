@@ -14,7 +14,7 @@ ActionController::Routing::Routes.draw do |map|
     soapbox.root :action => 'index'
   end
 
-  map.resources :soapbox, :only => ['index','show'], :collection => 'directory'
+  map.resources :soapbox, :only => ['index','show'], :collection => 'directory', :as => "front_burner"
 
   map.resource :my_profile, :only => ['create', 'edit', 'update'], :controller => 'profiles' do |p|
     p.resources :culinary_jobs
@@ -150,6 +150,7 @@ ActionController::Routing::Routes.draw do |map|
   end
 
   map.public_page ":id", :controller => 'pages', :action => 'show'
+  map.soapbox_page 'soapbox/:id', :controller => 'soapbox_pages', :action => 'show'
 
   # Default Routes
   map.connect ':controller/:action/:id'
