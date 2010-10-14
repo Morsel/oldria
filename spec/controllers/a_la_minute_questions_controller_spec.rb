@@ -20,7 +20,7 @@ describe ALaMinuteQuestionsController do
       end
 
       it "should set show_as_public to true on all its answers" do
-        post :show_as_public, :restaurant_id => restaurant.id, :id => question.id, :a_la_minute_answer => {:show_as_public => true}
+        post :show_as_public, :restaurant_id => restaurant.id, :id => question.id, :a_la_minute_question => {:show_as_public => true}
         ALaMinuteAnswer.all.each { |answer| answer.show_as_public.should be_true }
       end
     end
