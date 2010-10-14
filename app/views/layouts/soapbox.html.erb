@@ -28,11 +28,11 @@
         <h2 id="tagline">A digital magazine written by chefs</h2>
       </hgroup>
       <nav id="nav">
-        <%= link_to 'Home', '#', :id=>"nav-home" %>
-        <%= link_to 'Pulse', '#', :id=>"nav-pulse" %>
-        <%= link_to 'Directory', directory_path, :id=>"nav-directory" %>
-        <%= link_to 'About', '#', :id=>"nav-about" %>
-        <%= link_to 'Contact', '#', :id=>"nav-contact", :class=>"last" %>
+        <%= link_to 'Home', soapbox_root_path, :id=>"nav-home" %>
+        <%= link_to 'Pulse', soapbox_soapbox_entries_path, :id=>"nav-pulse" %>
+        <%= link_to 'Directory', '/soapbox/directory', :id=>"nav-directory" %>
+        <%= link_to 'About', '/soapbox/about', :id=>"nav-about" %>
+        <%= link_to 'Contact', '/soapbox/contact', :id=>"nav-contact", :class=>"last" %>
       </nav>
     </header>
   
