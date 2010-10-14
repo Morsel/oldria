@@ -1,0 +1,27 @@
+<% title "Accolades for #{@restaurant.name}" %>
+
+<% @restaurant.accolades.by_run_date.all.each do |accolade| %>
+
+  <div id="<%= dom_id(accolade) %>" class="accolade">
+    <h2 class="accolade_name">
+      <% if accolade.link.present? %>
+        <%= link_to h(accolade.name), accolade.link %>
+      <% else %>
+        <%= h(accolade.name) %>
+      <% end %>
+    </h2>
+
+    <% div_if accolade.run_date, :class=> "accolade_date"  do %>
+      <%= accolade.run_date.to_s(:long) %>
+    <% end %>
+
+    <div class="accolade_type">
+      <%= accolade.media_type %>
+    </div>
+  </div>
+
+<% end %>
+
+<div>
+  <% link_to "Return to restaurant page", soapbox_restaurant_path(@restaurant) %>
+</div>

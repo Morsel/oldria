@@ -1,0 +1,7 @@
+<% title "Restaurants with feature #{@feature.breadcrumbs}" %>
+
+<% @restaurants.each do |restaurant| %>
+  <div class="restaurant">
+    <%= link_to h(restaurant.name), soapbox_restaurant_path(restaurant) %>
+  </div>
+<% end %>

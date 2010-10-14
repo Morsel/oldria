@@ -1,0 +1,20 @@
+﻿Breakfast
+Brunch (Sat/Sun)
+Brunch (Sat only)
+Brunch (Sun only)
+Brunch (daily)
+Brunch (ala carte)
+Brunch (buffet)
+Brunch (cart service/dim sum style)
+Brunch (family–style)
+Brunch (stations)
+Brunch (cost if fixed price)
+Lunch
+Dinner
+Tea service
+Late-night
+Bar menu
+Lounge menu
+All day
+Outdoor menu (if different from indoor)
+Other

@@ -17,6 +17,8 @@
 #
 
 class Employment < ActiveRecord::Base
+  acts_as_list :scope => :restaurant
+
   belongs_to :employee, :class_name => "User"
   belongs_to :restaurant
   belongs_to :restaurant_role
@@ -59,6 +61,9 @@ class Employment < ActiveRecord::Base
   named_scope :by_restaurant_name, :order => 'restaurants.name ASC, users.last_name ASC', :include => [:restaurant, :employee]
   named_scope :by_employee_last_name, :order => 'users.last_name ASC', :include => :employee
   named_scope :primary, :order => 'updated_at DESC', :limit => 1, :conditions => { :primary => true }
+
+  named_scope :public_profile_only, :conditions => { :public_profile => true }
+  named_scope :by_position, :order => "position ASC"
 
   ### Preferences ###
   preference :post_to_soapbox, :default => true
@@ -113,3 +118,4 @@ class Employment < ActiveRecord::Base
   end
 
 end
+

@@ -17,6 +17,8 @@
 #
 
 class DefaultEmployment < Employment
+  
+  has_many :solo_discussions, :foreign_key => "employment_id"
 
   def restaurant
     nil

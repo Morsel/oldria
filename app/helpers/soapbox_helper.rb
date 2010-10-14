@@ -18,9 +18,13 @@ module SoapboxHelper
   end
   
   def entry_for_comment(comment)
-    comment.commentable.is_a?(Admin::Conversation) ?
-      comment.commentable.admin_message.soapbox_entry :
+    if comment.commentable.is_a?(Admin::Conversation)
+      comment.commentable.admin_message.soapbox_entry
+    elsif comment.commentable.is_a?(AdminDiscussion)
       comment.commentable.discussionable.soapbox_entry
+    elsif comment.commentable.is_a?(SoloDiscussion)
+      comment.commentable.trend_question.soapbox_entry
+    end
   end
   
   def message(featured_item)

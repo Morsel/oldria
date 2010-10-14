@@ -1,0 +1,114 @@
+﻿African
+Alsatian
+American (New)
+American (Classic)
+American (Contemporary)
+American (Regional)
+American (California)
+American (East Coast)
+American (Gulf States)
+American (Hawaii)
+American (Midwest)
+American (Northeast)
+American (Pacific Northwest)
+American (Soul Food)
+America (South)
+American (Southwest)
+Argentinean
+Armenian
+Asian/Pan-Asian
+Austrian
+Bar Food
+Barbecue
+Belgian
+Brazilian
+Breakfast
+Burgers
+Cajun/Creole
+Charcuterie
+Chinese
+Chinese (Regional)
+Chinese (Cantonese)
+Chinese (Hunan)
+Chinese (Mandarin)
+Chinese (Sichuan)
+Coffeehouse
+Colombian
+Comfort food
+Costa Rican
+Cuban
+Cupcakes
+Deli
+Dessert specialty
+Diner
+Dutch
+Eclectic
+Ethiopian
+European
+Filipino
+Fondue
+French (Classic)
+French (New)
+French (Bistro)
+French (Brasserie)
+French–American
+Fusion
+Gastropub
+Game specialty
+German
+Global
+Greek
+Hot Dogs
+Indian
+Irish
+Italian (Classic)
+Italian (New)
+Italian (Regional)
+Jamaican
+Japanese
+Jewish
+Korean
+Kosher
+Lebanese
+Mediterranean
+Mexican (Classic)
+Mexican (New)
+Mexican (Regional)
+Microbrewery
+Middle Eastern
+Noodles
+Nuevo Latino
+Offal specialty
+Organic (all)
+Organic ingredients
+Pakistani
+Pizza
+Pub food
+Raw bar
+Raw food
+Retail market
+Russian
+Sandwiches
+Scandinavian
+Seafood
+Small plates
+South American
+Spanish (Classic)
+Spanish (New)
+Spanish (Regional)
+Steakhouse
+Street food
+Swedish
+Sushi
+Tacos
+Taiwanese
+Tapas
+Thai
+Turkish
+Vegan (all)
+Vegan options
+Vegetarian (all)
+Vegetarian options
+Vietnamese
+Wine Bar Food
+Other

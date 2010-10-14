@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20100921161540
+# Schema version: 20101013222730
 #
 # Table name: invitations
 #

@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20100721223109
+# Schema version: 20101013222730
 #
 # Table name: media_requests
 #
@@ -114,3 +114,4 @@ class MediaRequest < ActiveRecord::Base
     self.restaurant_ids = employment_search.restaurant_ids if employment_search
   end
 end
+

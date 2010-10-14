@@ -1,0 +1,24 @@
+<% title "Restaurant Features" %>
+
+<h3>Click on page, category, or tag text to edit in place</h3>
+
+<div id="add_page_form">
+  <% form_for :restaurant_feature_page, :url => admin_restaurant_feature_pages_path do |f| %>
+    <%= f.label :name, "Add a new page header" %>
+    <%= f.text_field :name  %>
+    <%= f.submit_tag "Add page" %>
+  <% end %>
+  <br />
+</div>
+
+<%= render :partial => "page_index", :collection => @pages, :as => :page %>
+
+<% content_for :javascript do %>
+  <script type="text/javascript">
+  //<![CDATA[
+  $('.feature_eip').eip("/admin/restaurant_features/edit_in_place");
+  $('.feature_category_eip').eip("/admin/restaurant_feature_categories/edit_in_place");
+  $('.feature_page_eip').eip("/admin/restaurant_feature_pages/edit_in_place");
+  //]]>
+</script>
+<% end %>

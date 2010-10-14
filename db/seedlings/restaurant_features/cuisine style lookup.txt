@@ -1,0 +1,13 @@
+﻿Bar
+Casual
+Casual chef-driven
+Counter-service
+Fast casual
+Fast food 
+Fine dining
+Food truck
+Formal dining
+Neighborhood dining
+Quick service
+Self-serve
+Takeout only
