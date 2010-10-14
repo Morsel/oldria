@@ -1,6 +1,8 @@
 class SoapboxEntriesController < ApplicationController
   before_filter :require_http_authenticated
   before_filter :hide_flashes
+  
+  layout 'soapbox'
 
   def index
     @main_feature = SoapboxEntry.main_feature
