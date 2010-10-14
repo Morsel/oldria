@@ -20,10 +20,6 @@ class Profile < ActiveRecord::Base
   REJECT_ALL_BLANK_PROC = proc { |attributes| attributes.all? { |_, value| value.blank? } }
   REJECT_TITLE_BLANK_PROC = proc { |attributes| attributes['title'].blank? && attributes['name'].blank? }
 
-  validates_uniqueness_of :user_id
-  validates_presence_of :hometown, :current_residence
-  validate :birthday_year_is_set
-  
   belongs_to :user
   
   has_many :culinary_jobs, :order => "date_started DESC"
@@ -43,6 +39,10 @@ class Profile < ActiveRecord::Base
   has_many :profile_specialties
   has_many :specialties, :through => :profile_specialties
 
+  validates_uniqueness_of :user_id
+  validates_presence_of :hometown, :current_residence
+  validate :birthday_year_is_set
+  
   accepts_nested_attributes_for :culinary_jobs, :nonculinary_jobs, :awards, :user, :specialties,
     :reject_if => REJECT_TITLE_BLANK_PROC
     
