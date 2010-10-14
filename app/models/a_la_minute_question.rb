@@ -6,6 +6,8 @@ class ALaMinuteQuestion < ActiveRecord::Base
 
   validates_inclusion_of :kind, :in => KINDS
 
+  attr_accessor :show_as_public
+
   # named_scope :restaurants, :conditions => {:kind => "restaurant"}
   KINDS.each do |kind|
     named_scope :"#{kind.pluralize}", :conditions => {:kind => kind}

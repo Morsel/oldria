@@ -4,15 +4,15 @@ Feature: Manage a_la_minutes
   wants to be able to answer a la minute questions
 
   Background:
-    Given the following a la minute questions:
-      | question                                      |
-      | What's the newest item on your menu?          |
-      | What music is playing in your kitchen?        |
     Given a restaurant named "Steak Knife"
     And that "Steak Knife" has a premium account
     And I am logged in as an admin
 
   Scenario: Questions are displayed for a manager
+    Given the following a la minute questions:
+      | question                                      |
+      | What's the newest item on your menu?          |
+      | What music is playing in your kitchen?        |
     When I go to the restaurant show page for "Steak Knife"
     Then I see a header for a la minute
     And I see the text for each question
@@ -31,7 +31,7 @@ Feature: Manage a_la_minutes
      | What's new?     | Lobster Bisque |
 
     When I go to the restaurant show page for "Steak Knife"
-    And I check "a_la_minute_answer_1"
+    And I check "a_la_minute_question_1_show_as_public"
     And I press "Save"
     And I go to the soapbox restaurant profile for "Steak Knife"
     Then I should see the question "What's new?" with the answer "Lobster Bisque"
