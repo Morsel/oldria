@@ -5,6 +5,7 @@ class Soapbox::SoapboxController < ApplicationController
   layout 'soapbox'
   
   def index
+    @home = true
   end
 
   def directory

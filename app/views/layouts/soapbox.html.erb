@@ -42,19 +42,23 @@
     </nav>
   
     <div id="main">
-      <section id="content">
-        <%- if show_title? -%>
-        <header id="page-title">
-          <h1><%= h yield(:title) %></h1>
-        </header>
+        <%- if @home -%>
+          <%= yield %>
+        <%- else -%>
+        <section id="content">
+            <%- if show_title? -%>
+            <header id="page-title">
+                <h1><%= h yield(:title) %></h1>
+            </header>
+            <%- end -%>
+            <div id="inside">
+                <article id="page-content">
+                    <%= yield %>
+                </article><!-- /page-content -->
+            </div><!-- /inside -->
+        </section><!-- /content -->
+        <%= render :partial => 'soapbox/sidebar' unless @no_sidebar %>
         <%- end -%>
-        <div id="inside">
-          <article id="page-content">
-              <%= yield %>
-          </article><!-- /page-content -->
-        </div><!-- /inside -->
-      </section><!-- /content -->
-      <%= render :partial => 'soapbox/sidebar' %>
     </div><!-- /main -->
     <div id="sticky-footer-pad"></div>
   </div> <!-- end of #container -->

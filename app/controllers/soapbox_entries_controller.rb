@@ -10,6 +10,8 @@ class SoapboxEntriesController < Soapbox::SoapboxController
 
     @secondary_feature = SoapboxEntry.secondary_feature
     @secondary_feature_comments = SoapboxEntry.secondary_feature_comments if @secondary_feature
+    
+    @no_sidebar = true
   end
 
   def show
