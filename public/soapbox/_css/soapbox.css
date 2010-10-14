@@ -1122,24 +1122,25 @@ body, html, #container, #main, #content, #inside {
   text-shadow: 0 1px 0 #333;
   font-weight: bold;
   display: block;
+  background: #d34d3a url(/images/soapbox/bg-criteria-gradient.png) repeat-x;
   background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, color-stop(0%, #be3d2a), color-stop(100%, #d34d3a));
   background-image: -moz-linear-gradient(top, #be3d2a 0%, #d34d3a 100%);
   background-image: linear-gradient(top, #be3d2a 0%, #d34d3a 100%);
   outline: 0 !important;
 }
-/* line 719, ../../../app/stylesheets/soapbox.scss */
+/* line 720, ../../../app/stylesheets/soapbox.scss */
 #criteria_accordion a.options_selected {
   color: #9ecce5;
   text-shadow: none;
   background: #5fa2c7 url(/images/green_check.png) no-repeat right;
 }
-/* line 723, ../../../app/stylesheets/soapbox.scss */
+/* line 724, ../../../app/stylesheets/soapbox.scss */
 #criteria_accordion a.options_selected:hover {
   text-decoration: none;
   color: #fff;
   background-color: #9ecce5;
 }
-/* line 730, ../../../app/stylesheets/soapbox.scss */
+/* line 731, ../../../app/stylesheets/soapbox.scss */
 #criteria_accordion a span {
   display: block;
   padding: 5px 5px 5px 36px;
@@ -1147,41 +1148,41 @@ body, html, #container, #main, #content, #inside {
   margin: -5px 0 0;
   background: url(/images/soapbox/bg-directory-dropdown.png) no-repeat 0 0;
 }
-/* line 736, ../../../app/stylesheets/soapbox.scss */
+/* line 737, ../../../app/stylesheets/soapbox.scss */
 #criteria_accordion a span.ui-icon {
   display: none;
 }
-/* line 740, ../../../app/stylesheets/soapbox.scss */
+/* line 741, ../../../app/stylesheets/soapbox.scss */
 #criteria_accordion a.ui-state-active span {
   background-position: 0 -97px;
 }
-/* line 743, ../../../app/stylesheets/soapbox.scss */
+/* line 744, ../../../app/stylesheets/soapbox.scss */
 #criteria_accordion a:hover {
   text-decoration: none;
   background: #be3d2a;
 }
-/* line 748, ../../../app/stylesheets/soapbox.scss */
+/* line 749, ../../../app/stylesheets/soapbox.scss */
 #criteria_accordion div.loading {
   display: none;
 }
-/* line 751, ../../../app/stylesheets/soapbox.scss */
+/* line 752, ../../../app/stylesheets/soapbox.scss */
 #criteria_accordion .label label {
   display: none;
 }
-/* line 754, ../../../app/stylesheets/soapbox.scss */
+/* line 755, ../../../app/stylesheets/soapbox.scss */
 #criteria_accordion li.check_boxes {
   height: 220px;
   overflow-y: auto;
   padding: 0 10px;
 }
-/* line 758, ../../../app/stylesheets/soapbox.scss */
+/* line 759, ../../../app/stylesheets/soapbox.scss */
 #criteria_accordion li.check_boxes li {
   float: none;
   width: 100%;
 }
 
 /* criteria_accordion */
-/* line 765, ../../../app/stylesheets/soapbox.scss */
+/* line 766, ../../../app/stylesheets/soapbox.scss */
 #employment_criteria legend span {
   display: block;
   clear: both;
@@ -1190,7 +1191,7 @@ body, html, #container, #main, #content, #inside {
   font-size: 15px;
 }
 
-/* line 774, ../../../app/stylesheets/soapbox.scss */
+/* line 775, ../../../app/stylesheets/soapbox.scss */
 .accordion_box {
   background: white url(/images/accordion_box_bg.png) repeat-x bottom;
   border: 1px solid #d4ebf9;
@@ -1203,7 +1204,7 @@ body, html, #container, #main, #content, #inside {
   margin: 5px 0;
 }
 
-/* line 781, ../../../app/stylesheets/soapbox.scss */
+/* line 782, ../../../app/stylesheets/soapbox.scss */
 p.search_filter_hint {
   padding: 0;
   margin: 0;
