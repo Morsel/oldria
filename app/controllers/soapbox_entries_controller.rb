@@ -1,4 +1,4 @@
-class SoapboxController < ApplicationController
+class SoapboxEntriesController < ApplicationController
   before_filter :require_http_authenticated
   before_filter :hide_flashes
 
@@ -19,12 +19,6 @@ class SoapboxController < ApplicationController
     load_past_features
   end
   
-  def directory
-    @restaurants_and_employments = Employment.all(:include => :restaurant, 
-      :order => "restaurants.name ASC").select { |e| e.employee.prefers_publish_profile? }.group_by(&:restaurant)
-    render :template => "directory/index"
-  end
-
   protected
 
   def load_past_features

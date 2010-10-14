@@ -10,7 +10,6 @@ ActionController::Routing::Routes.draw do |map|
 
   map.directory 'directory', :controller => 'directory', :action => 'index'
 
-#  map.with_options :conditions => {:subdomain => 'soapbox'} do |soapbox_subdomain|
   map.namespace(:soapbox) do |soapbox|
     soapbox.resources :restaurants, :only => ['show'] do |restaurants|
       restaurants.resources :feature_pages, :only => ['show']
@@ -19,14 +18,15 @@ ActionController::Routing::Routes.draw do |map|
     end
     soapbox.resources :restaurant_features, :only => ["show"]
     soapbox.resources :a_la_minute_questions, :only => ['index', 'show']
+    soapbox.resources :soapbox_entries, :only => ['index','show'], :as => "front_burner"
+    soapbox.connect 'directory', :controller => 'soapbox', :action => 'directory'
+    soapbox.root :controller => 'soapbox', :action => 'index'
   end
-#  end
+  
   map.with_options :conditions => {:subdomain => 'soapbox'}, :controller => 'soapbox' do |soapbox|
     soapbox.root :action => 'index'
   end
-
-  map.resources :soapbox, :only => ['index','show'], :collection => 'directory', :as => "front_burner"
-
+  
   map.resource :my_profile, :only => ['create', 'edit', 'update'], :controller => 'profiles' do |p|
     p.resources :culinary_jobs
     p.resources :nonculinary_jobs

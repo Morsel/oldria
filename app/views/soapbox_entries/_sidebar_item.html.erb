@@ -1,5 +1,5 @@
 <% div_for sidebar_item, :class => 'sidebar_item' do %>
-  <% link_to soapbox_path(sidebar_item.soapbox_entry) do %>
+  <% link_to soapbox_soapbox_entry_path(sidebar_item.soapbox_entry) do %>
     <%= message(sidebar_item) %>
     <span class="replies">
       <%= pluralize sidebar_item.comments(false).count, "reply" %>

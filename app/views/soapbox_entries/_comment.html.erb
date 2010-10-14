@@ -6,7 +6,7 @@
 <% comment_text_shown = full_text ? comment.comment : truncate(comment.comment, :length => 120) %>
 
 <div class="content">
-  <%= link_to simple_format(comment_text_shown), soapbox_path(entry_for_comment(comment),
+  <%= link_to simple_format(comment_text_shown), soapbox_soapbox_entry_path(entry_for_comment(comment),
     :anchor => dom_id(comment)) %>
 </div>
 

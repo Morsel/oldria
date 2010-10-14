@@ -3,7 +3,7 @@ module Soapbox
     def show
       @restaurant = Restaurant.find_premium(params[:id])
       if @restaurant.nil?
-        redirect_to(soapbox_index_path)
+        redirect_to(soapbox_root_path)
         return
       end
       @questions = ALaMinuteAnswer.public_profile_for(@restaurant)

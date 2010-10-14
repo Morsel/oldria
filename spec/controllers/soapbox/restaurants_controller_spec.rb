@@ -21,7 +21,7 @@ describe Soapbox::RestaurantsController do
       it "redirects to the home page" do
         restaurant.update_attributes(:premium_account => false)
         get :show, :id => restaurant.id
-        response.should redirect_to(soapbox_index_url)
+        response.should redirect_to(soapbox_root_url)
       end
 
     end
