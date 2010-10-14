@@ -11,9 +11,9 @@
   <span class="employee_name">
     <% if employee.premium_account %>
       <%= link_to "#{employee.name}", profile_path(employee.username), 
-          :class => "employee_name" %>
+          :class => "employee_name" %>,
     <% else %>
-      <%= h employee.name %>
+      <%= h employee.name %>,
     <% end %>
   </span>
   <span class="employee_role">

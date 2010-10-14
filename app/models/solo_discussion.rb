@@ -44,5 +44,9 @@ class SoloDiscussion < ActiveRecord::Base
   def recipients_can_reply?
     true
   end
+  
+  def view_on_soapbox?
+    comments.first.employment.prefers_post_to_soapbox?
+  end
 
 end

@@ -4,7 +4,7 @@
 
   <div id="<%= dom_id(accolade) %>" class="accolade">
     <h2 class="accolade_name">
-      <% if accolade.link %>
+      <% if accolade.link.present? %>
         <%= link_to h(accolade.name), accolade.link %>
       <% else %>
         <%= h(accolade.name) %>

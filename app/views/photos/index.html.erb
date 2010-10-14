@@ -1,11 +1,13 @@
 <h2>Photos:</h2>
 <div>
-  <% form_for :photo, :url => restaurant_photos_path(@restaurant), :html => { :multipart => true } do |photo_form| %>
+  <% semantic_form_for :photo, :url => restaurant_photos_path(@restaurant), 
+      :html => { :multipart => true } do |photo_form| %>
+    <% photo_form.inputs "New Photo" do %>
       <%= photo_form.error_messages %>
       <%= photo_form.file_field 'attachment' %>
-      <%= photo_form.label 'credit' %>
-      <%= photo_form.text_field 'credit' %>
+      <%= photo_form.input :credit, :required => true %>
       <%= photo_form.submit 'Upload' %>
+    <% end %>
   <% end %>
 </div>
 
