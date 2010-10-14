@@ -36,6 +36,14 @@ class EmploymentSearch < ActiveRecord::Base
   def restaurant_ids
     employments.all(:group => :restaurant_id).map(&:restaurant_id).uniq
   end
+  
+  def solo_employments
+    employments.select { |e| e.restaurant.nil? }
+  end
+  
+  def solo_employment_ids
+    solo_employments.map(&:id)
+  end
 
   def readable_conditions_hash
     readable_conditions_hash = {}

@@ -12,3 +12,15 @@ describe QuestionRole do
     QuestionRole.create!(@valid_attributes)
   end
 end
+
+# == Schema Information
+#
+# Table name: question_roles
+#
+#  id                  :integer         not null, primary key
+#  profile_question_id :integer
+#  restaurant_role_id  :integer
+#  created_at          :datetime
+#  updated_at          :datetime
+#
+

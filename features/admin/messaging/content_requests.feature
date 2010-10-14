@@ -22,7 +22,7 @@ Feature: Content Requests (Questions from RIA)
     And the last content request for "Normal Pants" should be viewable by "Sam Smith"
     And "sam@example.com" should have no emails
 
-@emails
+@emails 
   Scenario: New Content Request notification, user prefers emails
     Given "sam" prefers to receive direct message alerts
     Given I am logged in as an admin

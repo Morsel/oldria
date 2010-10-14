@@ -71,6 +71,8 @@ class User < ActiveRecord::Base
   has_many :posted_discussions, :class_name => "Discussion", :foreign_key => "poster_id"
 
   has_many :admin_conversations, :class_name => "Admin::Conversation", :foreign_key => 'recipient_id'
+  
+  has_many :solo_discussions, :through => :default_employment, :dependent => :destroy
 
   has_many :feed_subscriptions, :dependent => :destroy
   has_many :feeds, :through => :feed_subscriptions
@@ -148,6 +150,10 @@ class User < ActiveRecord::Base
 
   def has_no_role!(role = nil)
     update_attribute(:role, nil)
+  end
+  
+  def self.find_premium(id)
+    find_by_id_and_premium_account(id, true)
   end
 
   def following?(otheruser)
@@ -315,4 +321,9 @@ class User < ActiveRecord::Base
     profile.present? ? profile.specialties : []
   end
   
+  def account_type
+    if premium_account then "Premium" else "Basic" end
+  end
+  
 end
+

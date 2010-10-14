@@ -1,0 +1,4 @@
+<% content_tag_for(:li, question) do %>
+  <% content_tag_for(:span, question, :eip, :class => :eip, 'data-remote-url' => edit_in_place_admin_a_la_minute_question_url(question)) do %><%= h question.question %><% end %>
+  <%= link_to "Remove", admin_a_la_minute_question_path(question), :method => :delete %>
+<% end %>

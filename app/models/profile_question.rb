@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20100825200638
+# Schema version: 20101013222730
 #
 # Table name: profile_questions
 #
@@ -60,3 +60,4 @@ class ProfileQuestion < ActiveRecord::Base
         ProfileAnswer.new(:profile_question_id => self.id, :user_id => user.id)
   end
 end
+

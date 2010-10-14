@@ -21,6 +21,7 @@
   <thead>
     <tr>
       <th>Name</th>
+      <th>Acct. Type</th>
       <th>Username</th>
       <th>Email</th>
       <th>JBF Region</th>
@@ -33,6 +34,9 @@
     <% @users.each do |user| %>
     <tr id="<%= dom_id(user) %>" class="user <%= user.role %> <%= users_extra_row_class(user) %>">
       <td><%= h user.last_name %>, <%=h user.first_name %></td>
+      <td class="user_account_type">
+        <%= h user.account_type %>
+      </td>
       <td><%= link_to user.username, profile_path(user.username) %></td>
       <td><%= h user.email %></td>
       <td><%= h user.james_beard_region.try(:name) %></td>

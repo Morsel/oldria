@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20101013222730
+# Schema version: 20101011235856
 #
 # Table name: admin_messages
 #

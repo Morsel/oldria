@@ -1,19 +1,3 @@
-# == Schema Information
-# Schema version: 20100721223109
-#
-# Table name: statuses
-#
-#  id                     :integer         not null, primary key
-#  message                :string(255)
-#  created_at             :datetime
-#  updated_at             :datetime
-#  user_id                :integer
-#  twitter_id             :integer
-#  queue_for_social_media :boolean
-#  queue_for_facebook     :boolean
-#  facebook_id            :integer
-#
-
 require 'spec/spec_helper'
 
 describe Status do
@@ -85,3 +69,21 @@ describe Status, "updating Facebook" do
   end
 
 end
+
+# == Schema Information
+#
+# Table name: statuses
+#
+#  id                      :integer         not null, primary key
+#  message                 :string(255)
+#  created_at              :datetime
+#  updated_at              :datetime
+#  user_id                 :integer
+#  twitter_id              :integer
+#  queue_for_social_media  :boolean
+#  queue_for_facebook      :boolean
+#  facebook_id             :integer
+#  queue_for_facebook_page :boolean         default(FALSE)
+#  facebook_page_id        :integer
+#
+

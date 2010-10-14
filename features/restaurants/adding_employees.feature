@@ -4,7 +4,6 @@ Feature: Associating a Restaurant with its employees
   As a Restaurant account manager
   I want to find or invite people to the SpoonFeed Restaurant I am setting up.
 
-
   Background:
     Given the following confirmed users:
       | username | email               | name        | password |
@@ -13,7 +12,6 @@ Feature: Associating a Restaurant with its employees
       | bob      | bob@example.com     | Bob Davy    | secret   |
       | cole     | cole@example.com    | Cole Cal    | secret   |
     Given I am logged in as "mgmt" with password "secret"
-
 
   Scenario Outline: Adding an existing Employee after initial signup
     Given I have just created a restaurant named "Jimmy's Diner"
@@ -40,14 +38,11 @@ Feature: Associating a Restaurant with its employees
     | bob               | Bob Davy    |
     | Bob Davy          | Bob Davy    |
 
-
   Scenario: You can't add an employee twice
     Given I have just created a restaurant named "Jimmy's Diner"
     Then "Jimmy's Diner" should have 1 employee
-
     Given I have added "betty@example.com" to that restaurant
     Then "Jimmy's Diner" should have 2 employees
-
     When I follow "Add employee"
     And I fill in "Employee Email" with "betty@example.com"
     And I press "Submit"
@@ -66,7 +61,7 @@ Feature: Associating a Restaurant with its employees
     And I fill in "Last Name" with "Dinkle"
     And I press "Invite User"
     Then I should see "Thanks for recommending a new member"
-    
+
     When I logout
     And I am logged in as an admin
     And I go to the admin invitations page
@@ -87,3 +82,35 @@ Feature: Associating a Restaurant with its employees
     And "daviddinkle" should be a confirmed user
     And "Duck Soup" should have 2 employees
     And I should be on the complete registration page
+
+  Scenario: Making an employee public on the main page
+    Given I have just created a restaurant named "Jimmy's Diner"
+    And "betty" is an employee of "Jimmy's Diner"
+    When I go to the employees page for "Jimmy's Diner"
+    Then I should see "will not be displayed"
+    When I click to make "betty" public
+    Then I should see that "betty" is public
+    
+  Scenario: The difference between a premium and basic employee
+    Given I have just created a restaurant named "Jimmy's Diner"
+    And that "Jimmy's Diner" has a premium account
+    And "betty" is an employee of "Jimmy's Diner"
+    And "bob" is an employee of "Jimmy's Diner"
+    When I go to the employees page for "Jimmy's Diner"
+    And I click to make "betty" public
+    And I go to the employees page for "Jimmy's Diner"
+    And I click to make "bob" public
+    And the user "betty" has a premium account
+    And the user "bob" does not have a premium account
+    When I go to the soapbox restaurant profile for "Jimmy's Diner" 
+    Then I see an employee named "betty" with a link
+    And I see an employee named "bob" without a link
+
+  Scenario: Sorted Employees
+    Given I have just created a restaurant named "Jimmy's Diner"
+    And that "Jimmy's Diner" has a premium account
+    And "betty" is an employee of "Jimmy's Diner" with public position 3
+    And "bob" is an employee of "Jimmy's Diner" with public position 2
+    When I go to the soapbox restaurant profile for "Jimmy's Diner"
+    Then I should see the employees in the order "Bob Davy, Betty Davis"
+

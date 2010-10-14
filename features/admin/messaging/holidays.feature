@@ -11,7 +11,6 @@ I want to set up holidays, with multiple scheduled reminders
       | john     | secret   | john@example.com | John Doe  | Sommelier | Beer, Wine      |
     And I am logged in as an admin
 
-
   Scenario: Create a new Holiday
     Given I am on the new holiday page
     When I create a holiday with name "Easter" and criteria:
@@ -23,7 +22,6 @@ I want to set up holidays, with multiple scheduled reminders
     Given I am logged in as "sam" with password "secret"
     When I go to my inbox
     Then I should not see "Easter"
-
 
   Scenario: Replying to a Holiday Reminder
     When I create a holiday with name "Christmas" and criteria:

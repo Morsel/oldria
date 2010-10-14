@@ -1,0 +1,3 @@
+<% content_tag_for(:li, answer.responder, :answer_for, :class => 'a_la_minute_answer') do %>
+  <%= link_to h(answer.responder.name), soapbox_restaurant_path(answer.responder) %> says: <%= h answer.answer %>
+<% end %>

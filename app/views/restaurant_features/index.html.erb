@@ -1,0 +1,46 @@
+
+<% if can? :edit, @restaurant %>
+	<% content_for :page_actions do -%>
+	<p class="clearfix">
+    <%= link_to 'Show Restaurant', restaurant_path(@restaurant),
+        :class=>'sf-button' %>
+    <%= link_to 'Edit restaurant', edit_restaurant_path(@restaurant),
+    :class=>'sf-button' %>
+    <%= link_to 'Soapbox Profile', soapbox_restaurant_path(@restaurant),
+        :class=>'sf-button' %>
+	</p>
+	<% end -%>
+<% end -%>
+<% form_tag :url => restaurant_features_path(@restaurant) do %>
+  <div class="restaurant_feature_list ">
+    <% @pages.each do |page| %>
+      <div class="feature_page" id="<%= dom_id(page) %>">
+        <h2>Page: <%= h page.name %></h2>
+        <% page.restaurant_feature_categories.by_name.each do |category| %>
+          <div class="feature_category" id="<%= dom_id(category) %>">
+            <h3 class="feature_category_header">
+              Category: <%= h category.name %>
+            </h3>
+            <% category.restaurant_features.in_groups(2).each do |feature_list| %>
+              <div class="feature span-5" >
+                <% feature_list.compact.each do |feature| %>
+                  <div class="span-4" id="<%= dom_id(feature) %>">
+                    <%= label_tag dom_id(feature, :check), feature.value %>
+                  </div>
+                  <div class="span-1 last">
+                    <%= check_box_tag 'features[]', feature.id,
+                        @restaurant.restaurant_feature_ids.include?(feature.id),
+                        :id => dom_id(feature, :check) %>
+                  </div>
+                <% end %>
+              </div>
+            <% end %>
+            <br clear="all" />
+            <%= submit_tag "Update all features" %>
+          </div>
+
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+<% end %>

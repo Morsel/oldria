@@ -1,3 +1,14 @@
+# == Schema Information
+#
+# Table name: default_employments
+#
+#  id                 :integer         not null, primary key
+#  employee_id        :integer
+#  restaurant_role_id :integer
+#  created_at         :datetime
+#  updated_at         :datetime
+#
+
 require 'spec_helper'
 
 describe DefaultEmployment do

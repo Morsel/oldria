@@ -18,6 +18,7 @@ config.action_mailer.raise_delivery_errors = true
 
 config.gem "rails-footnotes"
 config.gem 'mail_safe'
+config.gem "awesome_print", :lib => "ap"
 
 
 # Turn off asset timestamp appends for development

@@ -12,15 +12,28 @@
 		<%= f.input :city, :input_html => {:class => 'span-3'}, :wrapper_html => {:class => 'span-3 column'}  %>
 		<%= f.input :state, :input_html => {:class => 'span-1'}, :wrapper_html => {:class => 'span-1 column'}   %>
 		<%= f.input :zip, :input_html => {:class => 'span-2'}, :wrapper_html => {:class => 'span-2 column'}   %>
+		<%= f.input :phone_number, :input_html => {:class => 'span-2'}, :wrapper_html => {:class => 'span-2 column'}   %>
 		<%= f.input :metropolitan_area, :wrapper_html => {:class => 'clear'} %>
 		<%= f.input :james_beard_region, :label => "Region" %>
 	<% end -%>
 
 	<% f.inputs :name => 'Other', :class => "span-9 column last" do %>
-		<%= f.input :manager %>
+        <%= f.input :premium_account %>
+		<%= f.input :manager, :collection => @restaurant.employees %>
+		<%= f.input :media_contact, :collection => @restaurant.employees %>
 		<%= f.input :cuisine %>
-		<%= f.input :facts, :input_html => { :rows => 3 } %>
-	<% end %>
+		<%= f.input :description, :as => :text, 
+		    :label => "Tagline or short description",
+		    :input_html => { :rows => 3 } %> 
+    <%= f.input :opening_date %>
+    <%= f.input :hours, :as => :text %>
+    <%= f.input :website %>
+    <%= f.input :twitter_username, :hint => "Not the whole URL, just your username" %>
+    <%= f.input :facebook_page, :hint => "Entire URL of your Facebook page" %>
+    <%= f.input :management_company_name, :hint => "Just the company name" %>
+    <%= f.input :management_company_website, :hint => "Full URL to the company website" %>
+         
+  <% end %>
 
 	<p class="clear">
 		<%= button_tag "Save", :class => 'positive' %>
@@ -28,9 +41,10 @@
 <% end %>
 
 <p>
-	<%= link_to "Edit Restaurant employees", restaurant_employees_path(@restaurant), :class => 'button' %>
+    <%= link_to "Edit Restaurant employees", restaurant_employees_path(@restaurant), :class => 'button' %>
 </p>
 
 <p>
     <%= link_to "View Restaurant calendar", restaurant_calendars_path(@restaurant), :class => "button" %>
 </p>
+

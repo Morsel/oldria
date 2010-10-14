@@ -17,14 +17,22 @@ Feature: Manage users
     Then I should be on the admin users landing page
     And I should see "User was successfully updated"
 
-
   Scenario: Editing admin status of a user
     When I go to the admin edit page for "jimbob"
     And I select "Admin" from "Role"
     And I press "Save"
     Then I should see "User was successfully updated"
     And "jimbob" should be an admin
-
+    And "jimbob" should have a "Basic" account in the list
+    
+  Scenario: Editing the premium status of a user
+    When I go to the admin edit page for "jimbob"
+    And I check "Premium account"
+    And I press "Save"
+    Then I should be on the admin users landing page
+    And "jimbob" should have a "Premium" account in the list
+    When I go to the profile page for "jimbob"
+    And "jimbob" should have a "Premium" account on the page
 
 @preconfirmed
   Scenario: Add a user from the admin interface

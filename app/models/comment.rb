@@ -77,11 +77,16 @@ class Comment < ActiveRecord::Base
   
   def editable?
     commentable.is_a?(Admin::Conversation) || 
-        (commentable.is_a?(AdminDiscussion) && commentable.discussionable.is_a?(TrendQuestion))
+        (commentable.is_a?(AdminDiscussion) && commentable.discussionable.is_a?(TrendQuestion)) ||
+        commentable.is_a?(SoloDiscussion)
   end
   
   def editable_by?(person)
     return false unless editable?
     (self.user == person) || self.user.coworkers.include?(person)
+  end
+  
+  def show_on_soapbox?
+    self.employment && self.employment.prefers_post_to_soapbox
   end
 end

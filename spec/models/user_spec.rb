@@ -1,34 +1,3 @@
-# == Schema Information
-# Schema version: 20100721223109
-#
-# Table name: users
-#
-#  id                    :integer         not null, primary key
-#  username              :string(255)
-#  email                 :string(255)
-#  crypted_password      :string(255)
-#  password_salt         :string(255)
-#  perishable_token      :string(255)
-#  persistence_token     :string(255)     not null
-#  created_at            :datetime
-#  updated_at            :datetime
-#  confirmed_at          :datetime
-#  last_request_at       :datetime
-#  atoken                :string(255)
-#  asecret               :string(255)
-#  avatar_file_name      :string(255)
-#  avatar_content_type   :string(255)
-#  avatar_file_size      :integer
-#  avatar_updated_at     :datetime
-#  first_name            :string(255)
-#  last_name             :string(255)
-#  james_beard_region_id :integer
-#  publication           :string(255)
-#  role                  :string(255)
-#  facebook_id           :integer
-#  facebook_access_token :string(255)
-#
-
 require 'spec/spec_helper'
 
 describe User do
@@ -317,4 +286,54 @@ describe User do
       user.primary_employment.should == e2
     end
   end
+  
+  describe "premium account" do
+    
+    it "finds a premium account" do
+      user = Factory(:user, :premium_account => true)
+      user.account_type.should == "Premium"
+      User.find_premium(user.id).should == user
+    end
+    
+    it "doesn't find a basic account" do
+      user = Factory(:user, :premium_account => false)
+      user.account_type.should == "Basic"
+      User.find_premium(user.id).should be_nil
+    end
+    
+  end
 end
+
+# == Schema Information
+#
+# Table name: users
+#
+#  id                    :integer         not null, primary key
+#  username              :string(255)
+#  email                 :string(255)
+#  crypted_password      :string(255)
+#  password_salt         :string(255)
+#  perishable_token      :string(255)
+#  persistence_token     :string(255)     not null
+#  created_at            :datetime
+#  updated_at            :datetime
+#  confirmed_at          :datetime
+#  last_request_at       :datetime
+#  atoken                :string(255)
+#  asecret               :string(255)
+#  avatar_file_name      :string(255)
+#  avatar_content_type   :string(255)
+#  avatar_file_size      :integer
+#  avatar_updated_at     :datetime
+#  first_name            :string(255)
+#  last_name             :string(255)
+#  james_beard_region_id :integer
+#  publication           :string(255)
+#  role                  :string(255)
+#  facebook_id           :string(255)
+#  facebook_access_token :string(255)
+#  facebook_page_id      :string(255)
+#  facebook_page_token   :string(255)
+#  phone_number          :string(255)
+#
+

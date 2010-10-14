@@ -18,19 +18,17 @@ Feature: Media faceted member search
       | mediaman | secret   |
     And I am logged in as "mediaman" with password "secret"
 
-
   Scenario: Searching by restaurant name, exact match
     Given I am on the media request search page
     When I perform the raw search:
       | restaurant_name_eq | South of the Border |
     Then I should see "at 1 restaurant"
 
-
   Scenario: Searching by city
-    Given "South of the Border" restaurant is in the "Chicago IL" metro region
+    Given "South of the Border" restaurant is in the "New York NY" metro region
     And I am on the media request search page
     When I perform the raw search:
-      | restaurant_metropolitan_area_name_eq | Chicago IL |
+      | restaurant_metropolitan_area_name_eq | New York NY |
     Then I should see "at 1 restaurant"
 
 

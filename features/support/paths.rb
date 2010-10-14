@@ -9,6 +9,11 @@ module NavigationHelpers
     case page_name
     when /^the (?:homepage|dashboard)$/
       '/'
+    when /the new a_la_minute page/
+      new_a_la_minute_path
+    when /the soapbox index page/
+      soapbox_index_path
+
     when /^the coached status updates page$/
       admin_coached_status_updates_path
     when /^the signup page$/
@@ -53,6 +58,14 @@ module NavigationHelpers
       new_restaurant_event_path(:restaurant_id => Restaurant.find_by_name($1).id)
     when /the calendars page for "(.+)"$/
       restaurant_calendars_path(:restaurant_id => Restaurant.find_by_name($1).id)
+    when /the edit restaurant page for "(.+)"$/
+      edit_restaurant_path(Restaurant.find_by_name($1))
+    when /the restaurant show page for "(.+)"$/
+      restaurant_path(Restaurant.find_by_name($1))
+    when /the restaurant feature page for "(.+)"/
+      restaurant_features_path(Restaurant.find_by_name($1))
+    when /^the restaurant menu upload page for (.+)$/
+      restaurant_menus_path(Restaurant.find_by_name($1))
 
     # Media Requests
     when /^the media request discussion page$/
@@ -71,6 +84,8 @@ module NavigationHelpers
       admin_media_requests_path
     when /^the admin edit page for "(.+)"$/
       edit_admin_user_path(User.find_by_username($1))
+    when /^the admin edit restaurant page for (.+)$/
+      edit_admin_restaurant_path(Restaurant.find_by_name($1))
     when /^the admin list static pages page$/
       admin_pages_path
     when /^the admin new user page$/
@@ -101,6 +116,29 @@ module NavigationHelpers
       new_admin_topic_path
     when /^the admin invitations page$/
       admin_invitations_path
+    when /^the restaurant photo upload page for (.+)$/
+      restaurant_photos_path(Restaurant.find_by_name($1))
+    when /^the admin restaurant feature page$/
+      admin_restaurant_features_path
+    when /^the restaurant photo upload page for (.+)$/
+      edit_photos_admin_restaurant_path(Restaurant.find_by_name($1))
+    when /^the admin restaurant feature page$/
+      admin_restaurant_features_path
+    when /^the restaurant photo upload page for (.+)$/
+      edit_photos_restaurant_path(Restaurant.find_by_name($1))
+    when /^the admin restaurant feature page$/
+      admin_restaurant_features_path
+    when /^the admin a la minute questions page$/
+      admin_a_la_minute_questions_path
+
+    # Soapbox
+    when /the soapbox restaurant profile for "(.+)"/
+      soapbox_restaurant_path(Restaurant.find_by_name($1))
+    when /the soapbox feature page for "(.+)"/
+      soapbox_restaurant_feature_path(RestaurantFeature.find_by_value($1))
+    when /the soapbox restaurant feature page for "(.+)" and "(.+)"/
+      soapbox_restaurant_feature_page_path(
+          Restaurant.find_by_name($1), RestaurantFeaturePage.find_by_name($2))
 
     # Direct path
     when /"([^\"]+)"/

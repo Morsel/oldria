@@ -15,12 +15,19 @@ module MessagesHelper
       holiday_discussion_path(message.holiday_discussion)
     elsif message.respond_to?(:admin_message) # QOTD
       admin_conversation_path(message)
-    elsif message.respond_to?(:discussionable)
+    elsif message.respond_to?(:discussionable) # AdminDiscussion for TrendQuestion or ContentRequest
       admin_discussion_path(message)
     elsif message.respond_to?(:admin_discussions) # TrendQuestion or ContentRequest
-      return "" if current_user.grouped_admin_discussions[message].blank? && current_user.admin?
-      first_discussion_for_user = current_user.grouped_admin_discussions[message].first
-      admin_discussion_path(first_discussion_for_user)
+      if current_user.grouped_admin_discussions[message].blank? # no admin_discussion for this user
+        current_user.admin? ? 
+            "" : 
+            solo_discussion_path(message.solo_discussions.find_by_employment_id(current_user.primary_employment.try(:id)))
+      else
+        first_discussion_for_user = current_user.grouped_admin_discussions[message].first
+        admin_discussion_path(first_discussion_for_user)
+      end
+    elsif message.respond_to?(:employment)
+      solo_discussion_path(message)
     else
       ria_messages_path # just in case
     end
@@ -44,19 +51,21 @@ module MessagesHelper
   def read_link_for_message(message, link_text = '<span>read</span>')
     return unless message
 
-    if message.is_a?(HolidayDiscussion)
-      link_path = read_holiday_discussion_path(message)
+    link_path = if message.is_a?(HolidayDiscussion)
+      read_holiday_discussion_path(message)
     elsif message.respond_to?(:holiday)
-      link_path = read_holiday_discussion_reminder_path(message)
+      read_holiday_discussion_reminder_path(message)
     elsif message.respond_to?(:discussionable)
-      link_path = read_admin_discussion_path(message)
+      read_admin_discussion_path(message)
     elsif message.respond_to?(:admin_message)
-      link_path = read_admin_message_path(message.admin_message)
+      read_admin_message_path(message.admin_message)
     elsif message.respond_to?(:admin_discussions) # TrendQuestion or ContentRequest
       first_discussion_for_user = current_user.grouped_admin_discussions[message].first
-      link_path = read_admin_discussion_path(first_discussion_for_user)
+      read_admin_discussion_path(first_discussion_for_user)
+    elsif message.respond_to?(:employment)
+      read_solo_discussion_path(message)
     else
-      link_path = read_admin_message_path(message)
+      read_admin_message_path(message)
     end
 
     link_to(link_text, link_path, :class => 'readit')

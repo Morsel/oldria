@@ -7,6 +7,7 @@ Factory.define :user do |f|
   f.confirmed_at { 1.week.ago }
   f.first_name { |u| u.name.split(' ').first || "John" }
   f.last_name  { |u| u.name.split(' ').last  || "Doe" }
+  f.phone_number "555-1234"
 end
 
 Factory.define :twitter_user, :parent => :user do |f|
@@ -70,7 +71,7 @@ Factory.define :award do |f|
 end
 
 Factory.define :accolade do |f|
-  f.association :profile
+  f.accoladable { |a| a.association(:profile)}
   f.name "The Today Show"
   f.run_date 1.year.ago
   f.media_type "National television exposure"
@@ -147,18 +148,41 @@ Factory.define :restaurant do |f|
   f.city    "Chicago"
   f.state   "IL"
   f.zip     "60606"
+  f.phone_number "3125555555"
+  f.website "http://restaurant.example.com"
+  f.description "This is a great restaurant with good Pizza offerings"
+  f.management_company_name "Lettuce Entertain You"
+  f.management_company_website "http://www.lettuce.com"
+  f.twitter_username "joeblow"
+  f.facebook_page "http://www.facebook.com/joeblow"
+  f.association :metropolitan_area
+  f.hours "Open All Night"
+  f.opening_date 1.year.ago
+  f.association :media_contact, :factory => :user
+  f.association :cuisine
 end
 
-Factory.define :managed_restaurant, :parent => :restaurant do |f|
+Factory.define :photo do |f|
+  f.sequence(:credit) { |n| "Sean Gingerbread #{n}" }
+  f.sequence(:attachment_file_name) { |n| "somefile#{n}.jpg" }
+  f.attachment_content_type "image/jpg"
+  f.attachment_file_size 3000
+  f.attachment_updated_at 2.days.ago
+end
+
+Factory.define :managed_restaurant, :parent => :restaurant do |f|f
   f.association :manager, :factory => :user
-  f.association :cuisine
-  f.association :metropolitan_area
 end
 
 Factory.define :employment do |f|
   f.association :restaurant
   f.association :employee, :factory => :user
   f.primary false
+  f.public_profile false
+end
+
+Factory.define :default_employment do |f|
+  f.association :employee, :factory => :user
 end
 
 Factory.define :assigned_employment, :parent => :employment do |f|
@@ -371,6 +395,11 @@ Factory.define :admin_discussion do |f|
   f.restaurant {|d| d.association :restaurant }
 end
 
+Factory.define :solo_discussion do |f|
+  f.association :employment
+  f.association :trend_question
+end
+
 # == Holidays ==
 Factory.define :holiday do |f|
   f.name "Valentine's Day"
@@ -416,4 +445,16 @@ end
 Factory.define :soapbox_entry do |f|
   f.association :featured_item, :factory => :qotd
   f.published_at Time.now
+end
+
+Factory.define :a_la_minute_question do |f|
+  f.question "What's new?"
+  f.kind 'restaurant'
+end
+
+Factory.define :a_la_minute_answer do |f|
+  f.answer "Nothing"
+  f.show_as_public true
+  f.association :responder, :factory => :restaurant
+  f.association :a_la_minute_question
 end

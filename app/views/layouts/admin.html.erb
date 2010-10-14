@@ -3,104 +3,110 @@
 
 <head>
 
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-	<title><%= h(yield(:title) || "Untitled") %> - Spoonfeed - Restaurant Intelligence Agency</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <title><%= h(yield(:title) || "Untitled") %> - Spoonfeed - Restaurant Intelligence Agency</title>
 
-	<%= stylesheet_link_tag 'blueprint/screen', 'custom' %>
-	<%= stylesheet_link_tag 'blueprint/print', :media => 'print' %>
+  <%= stylesheet_link_tag 'blueprint/screen', 'custom' %>
+  <%= stylesheet_link_tag 'blueprint/print', :media => 'print' %>
 
-	<!--[if lt IE 7]><%= stylesheet_link_tag 'blueprint/ie', 'ie6' %><![endif]-->
+  <!--[if lt IE 7]><%= stylesheet_link_tag 'blueprint/ie', 'ie6' %><![endif]-->
 
-	<%= yield(:head) %>
+  <%= yield(:head) %>
 
-	<%- if protect_against_forgery? -%>
-	<script type='text/javascript'>
-	//<![CDATA[
-	window._auth_token_name = "<%= request_forgery_protection_token %>";
-	window._auth_token = "<%= form_authenticity_token %>";
-	//]]>
-	</script>
-	<%- end -%>
+  <%- if protect_against_forgery? -%>
+  <script type='text/javascript'>
+  //<![CDATA[
+  window._auth_token_name = "<%= request_forgery_protection_token %>";
+  window._auth_token = "<%= form_authenticity_token %>";
+  //]]>
+  </script>
+  <%- end -%>
 
 
 </head>
 
 <body id="<%= RAILS_ENV %>" class="admin_backend">
-	<% if RAILS_ENV == 'staging' %>
-		<div id="staging_bar">
-			<p>Note: You are currently on <strong>STAGING</strong>.
-			You may want to visit the <a href="http://spoonfeed.restaurantintelligenceagency.com/admin" title="">live site &raquo;</a></p>
-		</div>
-	<% end %>
+  <% if RAILS_ENV == 'staging' %>
+    <div id="staging_bar">
+      <p>Note: You are currently on <strong>STAGING</strong>.
+      You may want to visit the <a href="http://spoonfeed.restaurantintelligenceagency.com/admin" title="">live site &raquo;</a></p>
+    </div>
+  <% end %>
 
-	<div id="container" class="clearfix">
-		<div id="header" class="span-18 last">
-			<div id="brand" class="span-6">
-				<a href="/"><img src="/images/ria_logo.png" alt="Restaurant Intelligence Agency" /></a>
-				<h2>Admin</h2>
-			</div><!--#brand-->
+  <div id="container" class="clearfix">
+    <div id="header" class="span-18 last">
+      <div id="brand" class="span-6">
+        <a href="/"><img src="/images/ria_logo.png" alt="Restaurant Intelligence Agency" /></a>
+        <h2>Admin</h2>
+      </div><!--#brand-->
 
-			<div id="navigation" class="span-12 last">
-				<ul>
-					<li><%= link_to "Users", admin_users_path %></li>
-					<li><%= link_to "Restaurants", admin_restaurants_path %></li>
-					<li><%= link_to "Invitations", admin_invitations_path %></li>
-					<li><%= link_to "Private Messages", admin_direct_messages_path %></li>
-					<li><%= link_to "Media Requests", admin_media_requests_path %></li>
-					<li><%= link_to "Coached Status Updates", admin_coached_status_updates_path %></li>
-					<li><%= link_to "Date Ranges", admin_date_ranges_path %></li>
-					<li><%= link_to "Cuisines", admin_cuisines_path %></li>
-					<li><%= link_to "Specialties", admin_specialties_path %></li>
-					<li><%= link_to "Restaurant Roles", admin_restaurant_roles_path %></li>
-					<li><%= link_to "Subject Matters", admin_subject_matters_path %></li>
-					<li><%= link_to "Feeds", admin_feeds_path %></li>
-					<li><%= link_to "Pages", admin_pages_path %></li>
-					<li><%= link_to "Calendars", admin_calendars_path %></li>
-					<li><%= link_to "Admin Messages", admin_messages_path %></li>
-					<li><%= link_to "Holidays", admin_holidays_path %></li>
-					<li><%= link_to "Trend Questions", admin_trend_questions_path %></li>
-					<li><%= link_to "Questions from RIA", admin_content_requests_path %></li>
-					<li><%= link_to "Soapbox", admin_soapbox_entries_path %></li>
-					<li><%= link_to "Q&amp;As", admin_profile_questions_path %></li>
-					<li class="public_home"><%= link_to "Public Home", root_path %></li>
-				</ul>
-			</div><!--#navigation-->
-		</div><!--header-->
+      <div id="navigation" class="span-12 last">
+        <ul>
+          <li><%= link_to "A La Minute Questions", admin_a_la_minute_questions_path %></li>
+          <li><%= link_to "Admin Messages", admin_messages_path %></li>
+          <li><%= link_to "Calendars", admin_calendars_path %></li>
+          <li><%= link_to "Coached Status Updates", admin_coached_status_updates_path %></li>
+          <li><%= link_to "Cuisines", admin_cuisines_path %></li>
+          <li><%= link_to "Date Ranges", admin_date_ranges_path %></li>
+          <li><%= link_to "Feeds", admin_feeds_path %></li>
+          <li><%= link_to "Holidays", admin_holidays_path %></li>
+          <li><%= link_to "Invitations", admin_invitations_path %></li>
+          <li><%= link_to "Media Requests", admin_media_requests_path %></li>
+          <li><%= link_to "Pages", admin_pages_path %></li>
+          <li><%= link_to "Private Messages", admin_direct_messages_path %></li>
+          <li><%= link_to "Q&amp;As", admin_profile_questions_path %></li>
+          <li><%= link_to "Questions from RIA", admin_content_requests_path %></li>
+          <li><%= link_to "Restaurant Roles", admin_restaurant_roles_path %></li>
+          <li><%= link_to "Restaurants", admin_restaurants_path %></li>
+          <li><%= link_to "Soapbox Entries", admin_soapbox_entries_path %></li>
+          <li><%= link_to "Soapbox Pages", admin_soapbox_pages_path %></li>
+          <li><%= link_to "Specialties", admin_specialties_path %></li>
+          <li><%= link_to "Subject Matters", admin_subject_matters_path %></li>
+          <li><%= link_to "Trend Questions", admin_trend_questions_path %></li>
+          <li><%= link_to "Restaurant Tags", admin_restaurant_features_path %></li>
+          <li><%= link_to "Users", admin_users_path %></li>
+
+          <li class="public_home"><%= link_to "Public Home", root_path %></li>
+        </ul>
+      </div><!--#navigation-->
+    </div><!--header-->
 
 
-		<div class="span-18">
-			<div id="flashes" class="">
-				<%- flash.each do |name, msg| -%>
-				<%= content_tag :div, msg, :id => "flash_#{name}" %>
-				<%- end -%>
-			</div>
+    <div class="span-18">
+      <div id="flashes" class="">
+        <%- flash.each do |name, msg| -%>
+        <%= content_tag :div, msg, :id => "flash_#{name}" %>
+        <%- end -%>
+      </div>
 
             <div class="page_actions">
               <%= yield(:page_actions) %>
             </div>
-			<%- if show_title? -%>
-			  <div class="clearfix">
-			    <h1><%=h yield(:title) %></h1>
-			  </div>
-			<%- end -%>
+      <%- if show_title? -%>
+        <div class="clearfix">
+          <h1><%=h yield(:title) %></h1>
+        </div>
+      <%- end -%>
 
-			<%= yield %>
+      <%= yield %>
 
-		</div><!--#leftcolumn-->
+    </div><!--#leftcolumn-->
 
-		<div id="footer" class="clear">
-			<p class="admin-link"><a href="/">Go to Public</a></p>
-			<ul>
-				<li><a href="/">SpoonFeed Home</a></li>
-				<li><%= link_to "Logged in as <strong>#{current_user.username}</strong>", profile_path(current_user.username) %></li>
-				<li><%= link_to "Log out", logout_path %></li>
-			</ul>
-		</div><!--#footer-->
+    <div id="footer" class="clear">
+      <p class="admin-link"><a href="/">Go to Public</a></p>
+      <ul>
+        <li><a href="/">SpoonFeed Home</a></li>
+        <li><%= link_to "Logged in as <strong>#{current_user.username}</strong>", profile_path(current_user.username) %></li>
+        <li><%= link_to "Log out", logout_path %></li>
+      </ul>
+    </div><!--#footer-->
 
-	</div><!--#container-->
-	<%= javascript_include_tag :defaults %>
-	<%= javascript_include_tag 'jquery.ui.accordion','jquery.autocomplete','jquery.autofill', 'jquery.tablesorter.min','jquery.metadata' %>
-	<%= javascript_include_tag 'site' %>
-	<%= yield(:footer) %>
+  </div><!--#container-->
+  <%= javascript_include_tag :defaults %>
+  <%= javascript_include_tag 'jquery.ui.accordion','jquery.autocomplete','jquery.autofill', 'jquery.tablesorter.min','jquery.metadata' %>
+  <%= javascript_include_tag 'site' %>
+  <%= javascript_include_tag 'jeip' %>
+  <%= yield(:footer) %>
 </body>
 </html>
+<%= yield(:javascript) %>

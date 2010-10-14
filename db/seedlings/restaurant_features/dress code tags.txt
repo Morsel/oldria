@@ -1,0 +1,13 @@
+﻿Business casual
+Casual
+Come as you are
+Dressy
+Fashionable
+Funky
+Jacket suggested
+Jacket required
+Jacket and tie suggested
+Jacket and tie required
+Upscale casual
+Upscale
+Other
