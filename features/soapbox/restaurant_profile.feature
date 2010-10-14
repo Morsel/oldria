@@ -5,25 +5,26 @@ Feature: Restaurant profile
   Background:
     Given a restaurant named "Piece"
     And that "Piece" has a premium account
-    And I am logged in as an account manager for "Piece"
+    And I am logged in as a normal user
+    And the user "normal" is an account manager for "Piece"
 
   Scenario: Show basic data
     When I go to the restaurant photo upload page for Piece
-    And I attach the file "/features/images/bourgeoispig.jpg" to "photo_attachment"
+    And I attach the image "/features/images/bourgeoispig.jpg" to "photo_attachment" on S3
     And I fill in "Xavier Zarope" for "Credit"
     And I press "Upload"
     When I go to the edit restaurant page for "Piece"
-    And I attach the file "/features/images/bourgeoispig_logo.gif" to "restaurant_logo_attributes_attachment"
+    And I attach the image "/features/images/bourgeoispig_logo.gif" to "restaurant_logo_attributes_attachment" on S3
     And I press "Save"
     When I go to the restaurant menu upload page for Piece
     And I fill in "January" for "Name"
     And I select "Monthly" from "How often it changes"
-    And I attach the file "/features/images/menu1.pdf" to "menu_pdf_remote_attachment_attributes_attachment"
+    And I attach the file "/features/images/menu1.pdf" to "menu_pdf_remote_attachment_attributes_attachment" on S3
     And I press "Upload"
     When I go to the restaurant menu upload page for Piece
     And I fill in "February" for "Name"
     And I select "Monthly" from "How often it changes"
-    And I attach the file "/features/images/menu1.pdf" to "menu_pdf_remote_attachment_attributes_attachment"
+    And I attach the file "/features/images/menu1.pdf" to "menu_pdf_remote_attachment_attributes_attachment" on S3
     And I press "Upload"
     When I go to the soapbox restaurant profile for "Piece"
     Then I see the restaurant's name as "Piece"
@@ -64,7 +65,7 @@ Feature: Restaurant profile
 
   Scenario: Show primary photo detail view
     When I go to the restaurant photo upload page for Piece
-    And I attach the file "/features/images/bourgeoispig.jpg" to "photo_attachment"
+    And I attach the image "/features/images/bourgeoispig.jpg" to "photo_attachment" on S3
     And I fill in "Xavier Zarope" for "Credit"
     And I press "Upload"
     When I go to the soapbox restaurant profile for "Piece"
@@ -74,13 +75,13 @@ Feature: Restaurant profile
 
   Scenario: Show photo gallery
     When I go to the restaurant photo upload page for Piece
-    And I attach the file "/features/images/bourgeoispig.jpg" to "photo_attachment"
+    And I attach the image "/features/images/bourgeoispig.jpg" to "photo_attachment" on S3
     And I fill in "Xavier Zarope" for "Credit"
     And I press "Upload"
-    And I attach the file "/features/images/bourgeoispig1.jpg" to "photo_attachment"
+    And I attach the image "/features/images/bourgeoispig1.jpg" to "photo_attachment" on S3
     And I fill in "Xavier Zarope I" for "Credit"
     And I press "Upload"
-    And I attach the file "/features/images/bourgeoispig2.jpg" to "photo_attachment"
+    And I attach the image "/features/images/bourgeoispig2.jpg" to "photo_attachment" on S3
     And I fill in "Xavier Zarope II" for "Credit"
     And I press "Upload"
     When I go to the soapbox restaurant profile for "Piece"
