@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20101012005131) do
+ActiveRecord::Schema.define(:version => 20101014141041) do
 
   create_table "a_la_minute_answers", :force => true do |t|
     t.text     "answer"
@@ -848,7 +848,6 @@ ActiveRecord::Schema.define(:version => 20101012005131) do
     t.string   "facebook_access_token"
     t.string   "facebook_page_id"
     t.string   "facebook_page_token"
-    t.string   "phone_number"
     t.boolean  "premium_account"
   end
 

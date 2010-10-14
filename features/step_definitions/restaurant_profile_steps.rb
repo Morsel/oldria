@@ -1,6 +1,7 @@
 Given /^a restaurant named "([^\"]*)"$/ do |name|
   @restaurant = Factory(:managed_restaurant, :name => name)
   employment = Factory(:employment, :restaurant => @restaurant)
+  profile = Factory(:profile, :user => employment.employee)
   @restaurant.update_attributes!(:media_contact => employment.employee)
 end
 
@@ -47,7 +48,7 @@ Then /^I see media contact name, phone, and email$/ do
   media_contact = @restaurant.media_contact
   response.should have_selector("#media_contact_name a",
       :content => media_contact.name,
-      :href => profile_path(media_contact))
+      :href => profile_path(media_contact.username))
   response.should have_selector("#media_contact_phone", :content => media_contact.phone_number)
   response.should have_selector("#media_contact_email a", :content => media_contact.email,
       :href => "mailto:#{media_contact.email}")
@@ -69,7 +70,12 @@ Given /^the restaurant has no media contact$/ do
 end
 
 Given /^the restaurant media contact has no phone number$/ do
-  @restaurant.media_contact.update_attributes(:phone_number => nil)
+  @restaurant.media_contact.profile.update_attributes(:cellnumber => nil)
+end
+
+Given /^the restaurant media contact has a private phone number$/ do
+  @restaurant.media_contact.profile.preferred_display_cell = "private"
+  @restaurant.media_contact.profile.save!
 end
 
 

@@ -1,3 +1,14 @@
+# == Schema Information
+#
+# Table name: a_la_minute_questions
+#
+#  id         :integer         not null, primary key
+#  question   :text
+#  kind       :string(255)
+#  created_at :datetime
+#  updated_at :datetime
+#
+
 class ALaMinuteQuestion < ActiveRecord::Base
 
   KINDS = %w(restaurant user)

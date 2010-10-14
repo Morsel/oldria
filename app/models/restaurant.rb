@@ -30,6 +30,7 @@
 #  logo_id                    :integer
 #  primary_photo_id           :integer
 #  opening_date               :date
+#  premium_account            :boolean
 #
 
 class Restaurant < ActiveRecord::Base

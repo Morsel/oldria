@@ -9,9 +9,10 @@
 #  attachment_updated_at   :datetime
 #  attachable_id           :integer
 #  attachable_type         :string(255)
-#  credit                  :string(255)
 #  created_at              :datetime
 #  updated_at              :datetime
+#  credit                  :string(255)
+#  position                :integer
 #
 
 class Photo < Image

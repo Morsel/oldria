@@ -14,6 +14,14 @@ describe Profile do
   it "exists for a user" do
     Factory(:profile).user.should be_present
   end
+  
+  it "recognizes public preferences" do
+    profile = Factory(:profile)
+    profile.preferred_display_cell = "everyone"
+    profile.should be_display_cell_public
+    profile.preferred_display_cell = "spoonfeed"
+    profile.should_not be_display_cell_public
+  end
 end
 
 # == Schema Information

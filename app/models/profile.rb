@@ -51,6 +51,15 @@ class Profile < ActiveRecord::Base
   preference :display_email, :string, :default => "everyone"
   preference :display_twitter, :string, :default => "everyone"
   preference :display_facebook, :string, :default => "everyone"
+  
+  #def display_cell_public?
+  #  preferred_display_cell == "everyone"
+  #end
+  [:display_cell, :display_email, :display_twitter, :display_facebook].each do |sym|
+    define_method :"#{sym}_public?" do
+      send(:"preferred_#{sym}") == "everyone"
+    end
+  end
 
   def primary_employment
     user.primary_employment

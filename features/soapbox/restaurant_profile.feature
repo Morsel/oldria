@@ -106,6 +106,11 @@ Feature: Restaurant profile
     Given the restaurant media contact has no phone number
     When I go to the soapbox restaurant profile for "Piece"
     And I see media contact name and email, but no phone
+    
+  Scenario: The media contact has a private phone number
+    Given the restaurant media contact has a private phone number
+    When I go to the soapbox restaurant profile for "Piece"
+    And I see media contact name and email, but no phone
 
   Scenario: Only the most recent answer to a question should be shared publicly
     Given I am logged in as an admin
