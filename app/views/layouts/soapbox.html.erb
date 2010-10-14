@@ -25,11 +25,11 @@
         <h2 id="tagline">A digital magazine written by chefs</h2>
       </hgroup>
       <nav id="nav">
-        <a id="nav-home" href="#">Home</a>
-        <a id="nav-pulse" href="#">Pulse</a>
-        <a id="nav-directory" href="#">Directory</a>
-        <a id="nav-about" class="selected" href="#">About</a>
-        <a id="nav-contact" class="last" href="#">Contact</a>
+        <%= link_to 'Home', '#', :id=>"nav-home" %>
+        <%= link_to 'Pulse', '#', :id=>"nav-pulse" %>
+        <%= link_to 'Directory', directory_path, :id=>"nav-directory" %>
+        <%= link_to 'About', '#', :id=>"nav-about" %>
+        <%= link_to 'Contact', '#', :id=>"nav-contact", :class=>"last" %>
       </nav>
     </header>
   
@@ -214,7 +214,8 @@
     google.load('jqueryui','1.8.5');
   </script>
   <script>!window.jQuery && document.write('<script src="/soapbox/_js/jquery-1.4.2.min.js"><\/script><script src="/soapbox/_js/jquery-ui-1.8.5.min.js"><\/script>')</script>
-  <script src="/soapbox/_js/jquery-ui-1.8.5.tabs.min.js?v=1"></script>
+  <script src="/soapbox/_js/jquery-ui-1.8.5.tabs-customized.min.js?v=1"></script>
+  <script src="/javascripts/jquery.ui.accordion.js?v=1"></script>
   <script src="/soapbox/_js/site.js?v=1"></script>
 
   <!--[if lt IE 7 ]>

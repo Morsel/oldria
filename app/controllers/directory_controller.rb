@@ -5,6 +5,7 @@ class DirectoryController < ApplicationController
   def index
     @use_search = true
     search_setup(nil, :include => [:restaurant, :employee, :restaurant_role])
+    render :layout => 'soapbox'
   end
 
   def search
