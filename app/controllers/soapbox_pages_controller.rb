@@ -1,6 +1,6 @@
-class SoapboxPagesController < ApplicationController
+class SoapboxPagesController < Soapbox::SoapboxController
   
-  layout 'soapbox'
+  before_filter :load_past_features, :only => [:show]
   
   def show
     @page = SoapboxPage.find(params[:id])

@@ -33,8 +33,8 @@ When /^I create a new soapbox page with:$/ do |table|
   click_button "Save"
 end
 
-Then /^there should be (\d+) QOTDs? on the soapbox landing page$/ do |num|
-  visit root_url(:subdomain => 'soapbox')
+Then /^there should be (\d+) QOTDs? on the soapbox front burner page$/ do |num|
+  visit url_for(:controller => "soapbox_entries", :action => "index")
   SoapboxEntry.qotd.published.count.should == num.to_i
 end
 
