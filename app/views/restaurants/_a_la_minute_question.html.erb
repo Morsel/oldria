@@ -1,17 +1,10 @@
-<% question = a_la_minute_question %>
-<% answer = question.answer_for(@restaurant) || ALaMinuteAnswer.new %>
-<% question.show_as_public = answer.show_as_public %>
+<% question = answer.a_la_minute_question %>
 <% content_tag_for(:dl, question) do %>
   <dt class="question">
     <%= h question.question %>
-    <% semantic_form_for question, :url => show_as_public_restaurant_a_la_minute_question_path(@restaurant, question),
-          :html => {:method => :post, :class => 'inline'} do |question_form| %>
-      <%= question_form.input :show_as_public, :as => :boolean, :id => "#{dom_id(question)}_show_as_public", :class => "submit_on_change" %>
-      <%= question_form.submit :save, :class => "hidden_with_js" %>
-    <% end %>
+    <%= content_tag(:span, "(Shown on public profile)") if answer.show_as_public %>
   </dt>
   <dd class="answer">
-      <span class="a_la_minute_answer_eip" id="<%= dom_id(question, :eip) %>"
-          data-restaurant-id="<%= @restaurant.id %>"><%= answer.answer ? h(answer.answer) : "Click here to answer" %></span>
+    <%= h answer.answer %>
   </dd>
 <% end %>

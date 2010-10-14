@@ -31,6 +31,3 @@ Feature: Browse a la minute
     And I should see the answer "Steak Knives" for "Steak Knife"
     And I should see the answer "Lobster Bisque" for "Piece"
     And I should see the answer "Pork Chops" for "Bourgeois Pig"
-
-
-

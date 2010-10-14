@@ -86,8 +86,8 @@ ActionController::Routing::Routes.draw do |map|
     restaurant.resource :logo
     restaurant.resources :accolades
     restaurant.resources :employments, :collection => { "reorder" => :post }
-    restaurant.resources :a_la_minute_answers, :collection => {:edit_in_place => :post}
-    restaurant.resources :a_la_minute_questions, :member => {:show_as_public => :post}
+    restaurant.resources :a_la_minute_answers, :collection => { :bulk_update => :put, :bulk_edit => :get } #todo only need these two routes
+    # restaurant.resources :a_la_minute_questions, :member => {:show_as_public => :post}
     restaurant.resources
   end
 
@@ -112,7 +112,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :admin_discussions, :only => 'show', :member => { :read => :put } do |admin_discussions|
     admin_discussions.resources :comments, :only => [:new, :create, :edit, :update]
   end
-  
+
   map.resources :solo_discussions, :only => 'show', :member => { :read => :put } do |admin_discussions|
     admin_discussions.resources :comments, :only => [:new, :create, :edit, :update]
   end

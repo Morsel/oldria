@@ -8,12 +8,13 @@ Feature: Manage a_la_minutes
     And that "Steak Knife" has a premium account
     And I am logged in as an admin
 
+
   Scenario: Questions are displayed for a manager
     Given the following a la minute questions:
       | question                                      |
       | What's the newest item on your menu?          |
       | What music is playing in your kitchen?        |
-    When I go to the restaurant show page for "Steak Knife"
+    When I go to the edit a la minute question page for "Steak Knife"
     Then I see a header for a la minute
     And I see the text for each question
 
@@ -22,7 +23,7 @@ Feature: Manage a_la_minutes
      | question        | answer         |
      | What's new?     | Lobster Bisque |
 
-    When I go to the restaurant show page for "Steak Knife"
+    When I go to the edit a la minute question page for "Steak Knife"
     Then I should see the answer "Lobster Bisque"
 
   Scenario: Answers can be shared publicly
@@ -30,9 +31,9 @@ Feature: Manage a_la_minutes
      | question        | answer         |
      | What's new?     | Lobster Bisque |
 
-    When I go to the restaurant show page for "Steak Knife"
-    And I check "a_la_minute_question_1_show_as_public"
-    And I press "Save"
+    When I go to the edit a la minute question page for "Steak Knife"
+    And I check "a_la_minute_questions_1_show_as_public"
+    And I press "Save Answers"
     And I go to the soapbox restaurant profile for "Steak Knife"
     Then I should see the question "What's new?" with the answer "Lobster Bisque"
 
@@ -49,3 +50,17 @@ Feature: Manage a_la_minutes
     And I should see the question "What's up?" with the answer "Nothing much"
     And I should see the question "Morning?" with the answer "Evening"
     And I should not see the answer "Lobster Bisque"
+
+  Scenario: Answering a question
+    Given the following a la minute questions:
+     | question        |
+     | What's new?     |
+     | What's playing? |
+
+    When I go to the edit a la minute question page for "Steak Knife"
+    And I fill in "a_la_minute_questions_1_answer" with "Salad"
+    And I fill in "a_la_minute_questions_2_answer" with "Creed"
+    And I press "Save Answers"
+    And I go to the restaurant show page for "Steak Knife"
+    Then I should see the question "What's new?" with the answer "Salad"
+    And I should see the question "What's playing?" with the answer "Creed"

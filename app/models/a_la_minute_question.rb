@@ -17,8 +17,6 @@ class ALaMinuteQuestion < ActiveRecord::Base
 
   validates_inclusion_of :kind, :in => KINDS
 
-  attr_accessor :show_as_public
-
   # named_scope :restaurants, :conditions => {:kind => "restaurant"}
   KINDS.each do |kind|
     named_scope :"#{kind.pluralize}", :conditions => {:kind => kind}
@@ -26,7 +24,7 @@ class ALaMinuteQuestion < ActiveRecord::Base
 
 
   def answer_for(restaurant)
-    restaurant.a_la_minute_answers.last(:conditions => {:a_la_minute_question_id => id})
+    restaurant.a_la_minute_answers.first(:conditions => {:a_la_minute_question_id => id})
   end
 
   def answers_for(restaurant)
