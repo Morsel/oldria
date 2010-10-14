@@ -11,6 +11,8 @@
 #  attachable_type         :string(255)
 #  created_at              :datetime
 #  updated_at              :datetime
+#  credit                  :string(255)
+#  position                :integer
 #
 
 class RemoteAttachment < Attachment

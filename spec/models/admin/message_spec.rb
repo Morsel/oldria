@@ -1,3 +1,17 @@
+# == Schema Information
+#
+# Table name: admin_messages
+#
+#  id              :integer         not null, primary key
+#  type            :string(255)
+#  scheduled_at    :datetime
+#  status          :string(255)
+#  message         :text
+#  created_at      :datetime
+#  updated_at      :datetime
+#  display_message :string(255)
+#
+
 require 'spec/spec_helper'
 
 describe Admin::Message do
@@ -30,19 +44,4 @@ describe Admin::Message do
   end
   
 end
-
-# == Schema Information
-#
-# Table name: admin_messages
-#
-#  id              :integer         not null, primary key
-#  type            :string(255)
-#  scheduled_at    :datetime
-#  status          :string(255)
-#  message         :text
-#  created_at      :datetime
-#  updated_at      :datetime
-#  holiday_id      :integer
-#  display_message :string(255)
-#
 

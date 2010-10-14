@@ -1,3 +1,36 @@
+# == Schema Information
+#
+# Table name: users
+#
+#  id                    :integer         not null, primary key
+#  username              :string(255)
+#  email                 :string(255)
+#  crypted_password      :string(255)
+#  password_salt         :string(255)
+#  perishable_token      :string(255)
+#  persistence_token     :string(255)     not null
+#  created_at            :datetime
+#  updated_at            :datetime
+#  confirmed_at          :datetime
+#  last_request_at       :datetime
+#  atoken                :string(255)
+#  asecret               :string(255)
+#  avatar_file_name      :string(255)
+#  avatar_content_type   :string(255)
+#  avatar_file_size      :integer
+#  avatar_updated_at     :datetime
+#  first_name            :string(255)
+#  last_name             :string(255)
+#  james_beard_region_id :integer
+#  publication           :string(255)
+#  role                  :string(255)
+#  facebook_id           :string(255)
+#  facebook_access_token :string(255)
+#  facebook_page_id      :string(255)
+#  facebook_page_token   :string(255)
+#  premium_account       :boolean
+#
+
 require 'spec/spec_helper'
 
 describe User do
@@ -302,38 +335,32 @@ describe User do
     end
     
   end
-end
+  
+  describe "phone numbers" do
+    let(:user) { Factory(:user) }
+    
+    
+    it "returns nil if no profile" do
+      user.phone_number.should be_nil
+    end
+    
+    it "returns number if it exists" do
+      profile = Factory(:profile, :user => user)
+      user.phone_number.should == profile.cellnumber
+    end
+    
+    it "handles public phone number" do
+      profile = Factory(:profile, :user => user)
+      user.public_phone_number.should == profile.cellnumber
+    end
+    
+    it "handles private phone number" do
+      profile = Factory(:profile, :user => user, 
+          :preferred_display_cell => "spoonfeed")
+      user.public_phone_number.should be_nil
+    end
+    
 
-# == Schema Information
-#
-# Table name: users
-#
-#  id                    :integer         not null, primary key
-#  username              :string(255)
-#  email                 :string(255)
-#  crypted_password      :string(255)
-#  password_salt         :string(255)
-#  perishable_token      :string(255)
-#  persistence_token     :string(255)     not null
-#  created_at            :datetime
-#  updated_at            :datetime
-#  confirmed_at          :datetime
-#  last_request_at       :datetime
-#  atoken                :string(255)
-#  asecret               :string(255)
-#  avatar_file_name      :string(255)
-#  avatar_content_type   :string(255)
-#  avatar_file_size      :integer
-#  avatar_updated_at     :datetime
-#  first_name            :string(255)
-#  last_name             :string(255)
-#  james_beard_region_id :integer
-#  publication           :string(255)
-#  role                  :string(255)
-#  facebook_id           :string(255)
-#  facebook_access_token :string(255)
-#  facebook_page_id      :string(255)
-#  facebook_page_token   :string(255)
-#  phone_number          :string(255)
-#
+  end
+end
 

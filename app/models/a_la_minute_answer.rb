@@ -1,3 +1,17 @@
+# == Schema Information
+#
+# Table name: a_la_minute_answers
+#
+#  id                      :integer         not null, primary key
+#  answer                  :text
+#  a_la_minute_question_id :integer
+#  responder_id            :integer
+#  responder_type          :string(255)
+#  created_at              :datetime
+#  updated_at              :datetime
+#  show_as_public          :boolean
+#
+
 class ALaMinuteAnswer < ActiveRecord::Base
   belongs_to :a_la_minute_question
   belongs_to :responder, :polymorphic => true
