@@ -16,7 +16,6 @@ class DirectoryController < ApplicationController
       @use_search = true
       directory_search_setup
     end
-    render :layout => 'soapbox'
   end
 
   def search
