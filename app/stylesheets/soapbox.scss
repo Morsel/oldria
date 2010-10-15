@@ -782,3 +782,32 @@ body,html,#container,#main,#content,#inside{
 p.search_filter_hint {
 	padding:0; margin:0;
 }
+
+
+
+.trend_question{
+	.icon{ 
+		background-color: #0088C1;
+	}
+	.message-title{
+		color: #0088C1;
+		a{
+			color: #0088C1;
+		}
+	}
+}
+
+.admin_qotd{
+	.icon{
+		background-color: #F5911E;
+	}
+	.message-title{
+		color: #F5911E;
+		a{
+			color: #F5911E;
+		}
+	}
+} 
+
+
+/* Front Burner */

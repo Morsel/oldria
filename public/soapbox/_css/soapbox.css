@@ -1209,3 +1209,31 @@ p.search_filter_hint {
   padding: 0;
   margin: 0;
 }
+
+/* line 789, ../../../app/stylesheets/soapbox.scss */
+.trend_question .icon {
+  background-color: #0088C1;
+}
+/* line 792, ../../../app/stylesheets/soapbox.scss */
+.trend_question .message-title {
+  color: #0088C1;
+}
+/* line 794, ../../../app/stylesheets/soapbox.scss */
+.trend_question .message-title a {
+  color: #0088C1;
+}
+
+/* line 801, ../../../app/stylesheets/soapbox.scss */
+.admin_qotd .icon {
+  background-color: #F5911E;
+}
+/* line 804, ../../../app/stylesheets/soapbox.scss */
+.admin_qotd .message-title {
+  color: #F5911E;
+}
+/* line 806, ../../../app/stylesheets/soapbox.scss */
+.admin_qotd .message-title a {
+  color: #F5911E;
+}
+
+/* Front Burner */
