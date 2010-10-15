@@ -1,4 +1,36 @@
 <% title "Soapbox - #{@feature.title}", false %>
+
+<%# sorry, but I need to do markup from scratch for this. %>
+
+<article id="trend-article">
+  <header>
+    <h1>Trend <span>Identified</span></h1>
+    <details>
+      <img src="/images/soapbox/image-60px-sq.png" alt="description of image">
+      <time datetime="2010-09-24">September 24, 2010</time>
+      <h2>Fall is coming, so are warm cocktails.</h2>
+    </details>
+  </header>
+  <section id="fb-question">
+    <p>Behind the scenes: As the temperature continues to dip, appetites for warmer libations continues to rise. Pretty soon, warm cocktails will be moving onto beverage menus in full-force, replacing cooler fare like mojitos and margaritas. Behind your bar: What warm cocktails are you working on? Are you inspired by anything in particular in creating your warm beverages? What ingredients and spirits do you feel best lend themselves to warmth?</p>
+  </section>
+  <section id="fb-comments">
+    <div class="comment" id="comment_0">
+      <details class="comment-author">
+        <img src="/images/soapbox/image-50px-user.png" alt="Nathan Sears' Profile Photo">
+        <a href="#" class="restaurant-name">Vie</a><br>
+        <a href="#" class="user-name">Nathan Sears</a><br>
+        Sous Chef
+      </details>
+      <p>I love using grapes in a savory dish. They can balance the rich and meaty with an slight sweetness and wonderful raw acidity. Right now we have a great fried cotechino sausage served with fresh white seedless grapes, grilled onions, prairie fruits farm "manchego" and arugula.</p>
+    </div>
+  </section>
+</article><!-- /front_burner -->
+
+
+<% if false -%>
+
+
 <div class="span-12">
   <div class="soapbox_item individual">
     <% div_for @feature do %>
@@ -17,3 +49,5 @@
     <% end %>
   </div>
 </div>
+
+<% end -%>

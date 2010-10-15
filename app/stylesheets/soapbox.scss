@@ -117,7 +117,7 @@ h1,h2,h3,h4,h5,h6{
 			color: #fff;
 			margin-right: 0;
 			text-shadow: 0px 1px 1px #333;
-			padding: 66px 20px 0px 23px;
+			padding: 66px 12px 0px 23px;
 			width:80px;
 			background: url(/images/soapbox/bg-nav-current.png) no-repeat;
 			background-position: 0px -3px;
@@ -146,6 +146,9 @@ body,html,#container,#main,#content,#inside{
 		font-size:20px;
 		margin:8px 0 12px 15px;
 		text-shadow: 0px 1px 0px #fff;
+	}
+	&.no-sidebar{
+		@include column(24,true);
 	}
 	
 	&.home{
@@ -402,6 +405,10 @@ body,html,#container,#main,#content,#inside{
 		background:0;
 		padding:0 0 20px;
 	}
+}
+#content.no-sidebar #inside{
+	margin:0;
+	padding:10px;
 }
 
 #sidebar{
@@ -782,9 +789,44 @@ body,html,#container,#main,#content,#inside{
 p.search_filter_hint {
 	padding:0; margin:0;
 }
-
 /* directory stuff ^^ */
 
+#trend-comments{
+	overflow:hidden;
+	.comment{
+		width:206px;
+		padding:10px;
+		@include box-shadow(#999, 0, 0, 3px);
+		margin:10px 5px;
+		float:left;
+		header{
+			@include museoslabthin;
+			font-size:15px;
+			line-height:1.2;
+			margin:0 0 10px;
+			a{
+				@include museoslabbold;
+				color:$darker-blue;
+			}
+		}
+		p{
+			line-height:1.4;
+			img{
+				float:left;
+				padding:3px;
+				margin:0 10px 5px 0;
+				@include box-shadow(#999,0,0,3px);
+			}
+		}
+		&.last{
+			margin-right:0;
+		}
+		
+	}
+}
+
+
+/* Front Burner */
 
 #user_profile_view {
   	color: #333;
@@ -925,7 +967,6 @@ p.search_filter_hint {
 		}
 	}
 }
-
 
 #extended_profile {
 	background: transparent url(/images/soapbox/bg-extended.png) repeat-x 0 100%;
@@ -1170,8 +1211,3 @@ dl.things dt:after {content: ":"}
 		}
 	}
 }
-
-
-
-
-

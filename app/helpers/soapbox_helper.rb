@@ -30,5 +30,9 @@ module SoapboxHelper
   def message(featured_item)
     featured_item.display_message || featured_item.message
   end
+  
+  def active_page?(name)
+    current_page?(name) ? "selected" : ""
+  end
 
 end

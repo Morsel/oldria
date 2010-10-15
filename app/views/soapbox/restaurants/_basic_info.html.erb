@@ -55,14 +55,14 @@
       Media Contact:
       <div id="media_contact_name">
         <%= link_to h(@restaurant.media_contact.name),
-            profile_path(@restaurant.media_contact)  %>
+            profile_path(@restaurant.media_contact.username)  %>
       </div>
       <div id="media_contact_email">
         Email:
         <%= link_to h(@restaurant.media_contact.email),
             "mailto:#{@restaurant.media_contact.email}" %>
       </div>
-      <% div_if @restaurant.media_contact.phone_number.present?,
+      <% div_if @restaurant.media_contact.public_phone_number.present?,
           :id => "media_contact_phone" do %>
         Phone:
         <%= h @restaurant.media_contact.phone_number %>

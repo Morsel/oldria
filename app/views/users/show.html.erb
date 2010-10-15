@@ -180,12 +180,12 @@
 
 
 
-<!--<div id="user_content">
+<% if false %><div id="user_content">
 <hr class="space"/>
   <% unless media? || @latest_statuses.blank? %>
     <%= render :partial => 'recent_statuses', 
         :locals => {:user => @user, :statuses => @latest_statuses } %>
     <%= render :partial => 'followings', :locals => {:user => @user} %>
   <% end %>
-</div>-->
+</div><% end -%>
 <% #end -%>

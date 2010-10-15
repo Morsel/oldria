@@ -10,7 +10,8 @@ Feature: Browse a la minute
     And that "Piece" has a premium account
     And a restaurant named "Bourgeois Pig"
     And that "Bourgeois Pig" has a premium account
-    And I am logged in as an account manager for "Piece"
+    And I am logged in as a normal user
+    And the user "normal" is an account manager for "Piece"
 
   Scenario: Browse other answers to questions on profile pages
     Given "Steak Knife" has answered the following A La Minute questions:
@@ -31,6 +32,3 @@ Feature: Browse a la minute
     And I should see the answer "Steak Knives" for "Steak Knife"
     And I should see the answer "Lobster Bisque" for "Piece"
     And I should see the answer "Pork Chops" for "Bourgeois Pig"
-
-
-

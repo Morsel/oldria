@@ -261,12 +261,12 @@ Given /^the following a la minute questions:$/ do |table|
 end
 
 Then /^I see a header for a la minute$/ do
-  response.should have_selector("#a_la_minute > h3")
+  response.should have_selector("h1", :content => "A La Minute Questions")
 end
 
 Then /^I see the text for each question$/ do
   ALaMinuteQuestion.all.each do |question|
-    response.should have_selector("#a_la_minute .questions ##{dom_id(question)} .question", :content => question.question)
+    response.should have_selector("#a_la_minute_questions .question", :content => question.question)
   end
 end
 
@@ -278,8 +278,7 @@ Given /^"([^"]*)" has answered "([^"]*)" with "([^"]*)"$/ do |restaurant_name, q
 end
 
 Then /^I should see the answer "([^"]*)"$/ do |answer_text|
-  response.should have_selector(".answer",
-      :content => answer_text)
+  response.should have_selector(".answer", :content => answer_text)
 end
 
 Given /^the user "([^\"]*)" is employed by "([^\"]*)"$/ do |username, restaurant_name|
@@ -289,10 +288,10 @@ Given /^the user "([^\"]*)" is employed by "([^\"]*)"$/ do |username, restaurant
 end
 
 Given /^I am logged in as an account manager for "([^\"]*)"$/ do |arg1|
-  account_manager = Factory(:user, :username => 'account_manager', 
+  account_manager = Factory(:user, :username => 'account_manager',
       :password => 'account_manager')
   @restaurant.employees << account_manager
-  account_manager.reload.employments.find(:first, 
+  account_manager.reload.employments.find(:first,
       :conditions => {:restaurant_id => @restaurant.id}).update_attributes!(
           :omniscient => true)
   Given 'I am logged in as "account_manager" with password "account_manager"'

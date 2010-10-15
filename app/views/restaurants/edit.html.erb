@@ -68,3 +68,7 @@
 <p>
     <%= link_to "Manage Photos", restaurant_photos_path(@restaurant), :class => "button" %>
 </p>
+
+<p>
+    <%= link_to "Manage ALM Questions", bulk_edit_restaurant_a_la_minute_answers_path(:restaurant_id => @restaurant.id), :class => "button" %>
+</p>

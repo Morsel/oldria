@@ -7,7 +7,6 @@ Factory.define :user do |f|
   f.confirmed_at { 1.week.ago }
   f.first_name { |u| u.name.split(' ').first || "John" }
   f.last_name  { |u| u.name.split(' ').last  || "Doe" }
-  f.phone_number "555-1234"
 end
 
 Factory.define :twitter_user, :parent => :user do |f|
@@ -35,6 +34,7 @@ Factory.define :profile do |f|
   f.association :user
   f.hometown "Detroit"
   f.current_residence "NYC"
+  f.cellnumber "123-456-7890"
 end
 
 Factory.define :culinary_job do |f|

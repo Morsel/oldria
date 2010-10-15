@@ -5115,11 +5115,11 @@ div.main_feature .comment.last {
   font-size: 1.5em;
 }
 
-.formtastic.a_la_minute_answer li, .formtastic.a_la_minute_answer li label {
+.formtastic.a_la_minute_question li, .formtastic.a_la_minute_question li label {
   display:inline;
 }
 
-.formtastic.a_la_minute_answer {
+.formtastic.a_la_minute_question {
   display:inline;
   margin-left:0.5em;
 }

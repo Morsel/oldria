@@ -29,7 +29,6 @@
 #  facebook_access_token :string(255)
 #  facebook_page_id      :string(255)
 #  facebook_page_token   :string(255)
-#  phone_number          :string(255)
 #  premium_account       :boolean
 #
 
@@ -94,6 +93,9 @@ class User < ActiveRecord::Base
   has_attached_file :avatar,
                     :default_url => "/images/default_avatars/:style.png",
                     :styles => { :small => "100x100>", :thumb => "50x50#" }
+                    
+  validates_attachment_content_type :avatar, :content_type => ["image/jpg", "image/jpeg", "image/png", "image/gif"], 
+      :message => "Please use a valid image type: jpeg, gif, or png", :if => :avatar_file_name
                     
   validates_exclusion_of :publication,
                          :in => %w( freelance Freelance ),
@@ -323,6 +325,15 @@ class User < ActiveRecord::Base
   
   def account_type
     if premium_account then "Premium" else "Basic" end
+  end
+  
+  def phone_number
+    if profile.present? then profile.cellnumber else nil end
+  end
+  
+  def public_phone_number
+    return nil if profile.blank? || !profile.display_cell_public?
+    profile.cellnumber
   end
   
 end

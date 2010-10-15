@@ -1,3 +1,4 @@
+<% title "Home", false %>
 <section id="content" class="home">
     <div id="inside" class="home">
         <div id="jumbotron">
@@ -68,8 +69,8 @@
 
 <aside id="sidebar" class="home">
     <nav id="participate" class="home">
-        <a class="button" id="login-participate" href="#">Login to <span>participate</span></a>
-        <a class="button" id="request-invite" href="#">Request an <span>invitation</span></a>
+        <%= link_to "Login to <span>participate</span>", login_path, :class => "button", :id => "login-participate" %>
+        <%= link_to "Request an <span>invitation</span>", new_invitation_path, :class => "button", :id => "request-invite" %>
     </nav><!-- /participate -->
     <section id="facebook-button">
         <header>
@@ -82,7 +83,7 @@
         <header>
             <h1>Need Help? Have Questions?</h1>
         </header>
-        <p>You can email our support staff anytime at <a href="#">support@soapbox.com</a>.</p>
+        <p>You can email our support staff anytime at <a href="mailto:support@soapbox.com">support@soapbox.com</a>.</p>
         <p>We also have a toll free customer support line available 9am–5pm that can be reached at 1 (800) 111-1111.</p>
     </section><!-- /help-questions -->
 </aside><!-- /sidebar -->
