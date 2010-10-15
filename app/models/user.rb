@@ -93,6 +93,9 @@ class User < ActiveRecord::Base
                     :default_url => "/images/default_avatars/:style.png",
                     :styles => { :small => "100x100>", :thumb => "50x50#" }
                     
+  validates_attachment_content_type :avatar, :content_type => ["image/jpg", "image/jpeg", "image/png", "image/gif"], 
+      :message => "Please use a valid image type: jpeg, gif, or png"
+                    
   validates_exclusion_of :publication,
                          :in => %w( freelance Freelance ),
                          :message => "'{{value}}' is not allowed"
