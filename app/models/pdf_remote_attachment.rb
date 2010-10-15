@@ -1,4 +1,5 @@
 # == Schema Information
+# Schema version: 20101014141041
 #
 # Table name: attachments
 #
@@ -11,9 +12,11 @@
 #  attachable_type         :string(255)
 #  created_at              :datetime
 #  updated_at              :datetime
+#  credit                  :string(255)
+#  position                :integer
 #
 
-class PDFRemoteAttachment < RemoteAttachment
+class PdfRemoteAttachment < RemoteAttachment
   validates_attachment_content_type :attachment, :content_type => "application/pdf", :message => "You need to convert that file to PDF to upload it"
 
   HUMAN_ATTRIBUTES = {
