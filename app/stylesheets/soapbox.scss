@@ -782,7 +782,7 @@ body,html,#container,#main,#content,#inside{
 p.search_filter_hint {
 	padding:0; margin:0;
 }
-
+/* directory stuff ^^ */
 
 
 .trend_question{
@@ -796,7 +796,6 @@ p.search_filter_hint {
 		}
 	}
 }
-
 .admin_qotd{
 	.icon{
 		background-color: #F5911E;
@@ -811,3 +810,199 @@ p.search_filter_hint {
 
 
 /* Front Burner */
+
+#user_profile_view {
+  	background: #f5f5f5;
+  	color: #333;
+  	position: relative;
+  	overflow: visible;
+  	border: solid #ddd;
+  	border-width:1px 1px 0;
+	padding: 16px;
+	h3.headline{
+	  	margin: 0;
+	  	color:#333;
+	  	font:normal 15px "Georgia", Times, serif;
+	}
+	h5	{
+  		color: #808080;
+  		font-weight: normal;
+  		margin: 0;
+  		font-size: 12px;
+	}
+	.user_name {
+	  	color: #40a4cb;
+	  	font-weight: normal;
+	  	font-size: 1.8em;
+	  	line-height: 1.2em;
+	  	padding: 0;
+	  	border: 0;
+	  	margin: 0;
+	}
+	.user_employment {font-size: 1.3em;}
+	.list{font-size: 11px;}
+	dl.user_info {
+	  	font-size: 1em;
+	  	margin: 0;
+	  	padding: 0;
+	  	width: 260px;
+	  	float: left;
+	}
+	dl.user_info.contact {
+	  	width: 340px;
+	}
+
+	dl.user_info dt, dl.user_info dd {
+	  	line-height: 1.5;
+	}
+
+	dl.user_info dt {
+	  	width: 76px;
+	  	float: left;
+	  	clear: left;
+	  	margin: 0 10px 0 0;
+	  	font-weight: normal;
+	}
+
+	dl.user_info dt:after {
+	  	content: ":";
+	}
+
+	dl.user_info dd {
+	  	margin-top: 0;
+	  	margin-left: 80px;
+	}
+	.timestamp {
+		top:10px;
+	  	right:10px;
+	  	position:absolute;
+	  	font:normal 10px "Helvetica Neue", Helvetica, Arial, sans-serif;
+	  	color:#808080;
+	}
+}
+
+#extended_profile_container {
+	.showit {
+  		padding: 8px 16px 8px 26px;
+  		display: block;
+  		outline: none;
+  		font-size: 1em;
+		color: #0087C0;
+  		background: url(../images/arrow-blue.png) no-repeat 5px -47px;
+		&.open {
+			color: red;
+			background-position:5px 10px;
+			em {
+				color: purple;
+			}
+		}
+		&:hover {color: red;}
+		em {
+			color: #0087C0;
+			&:hover {
+				color: pink;
+			}
+		}
+	}
+}
+
+#extended_profile {
+	padding: 16px;
+	h3 {
+	  	font-family: "Hoefler Text", georgia, serif;
+	  	font-weight: normal;
+	  	font-size: 1.5em;
+	  	border-bottom: 1px dotted #999;
+	  	margin-top: 1.2em;
+	  	margin-bottom: 12px;
+	  	padding-bottom: 2px;
+	  	color:#333;
+	}
+	ul {
+	  	list-style: disc;
+	  	border-bottom: 0;
+	  	width:100%;
+		li {
+			line-height: 15px;
+			p {
+				line-height: 15px;
+			}
+		}
+	}
+	.extended_profile_info, .profile_info {
+	  	position:relative;
+	  	overflow:hidden;
+		ul {
+		  	margin: 0;
+		  	padding: 0;
+		  	border: 0;
+		  	list-style: none;
+		  	overflow: hidden;
+			li {
+			  width:30%;
+			  border-bottom: 0;
+			  margin:0 10px 20px 0;
+			  overflow: hidden;
+			  float:left;
+			}
+		}
+	}
+	.timestamp {
+		top:10px;
+	  	right:10px;
+	  	position:absolute;
+	  	top:25px; right:0;
+	  	font:normal 10px "Helvetica Neue", Helvetica, Arial, sans-serif;
+	  	color:#808080;
+	}
+	.employee_role {
+	  	border: 0;
+	}
+	a {
+	  	color: #0087C0;
+	  	text-decoration: none;
+		&:hover {
+			color: #666;
+		}
+	}
+	.name {
+	  	color: #0087C0;
+	  	text-decoration: none;
+	}	
+}
+
+#current_things {
+  	margin: 1em 0;
+  	padding: 5px;
+	dl.things {
+	  	overflow: hidden;
+	  	margin: 0;
+	  	padding: 14px 10px;
+		div {
+		  	margin-right: 20px;
+		  	padding-right: 19px;
+		  	border-right: 1px dotted #ccc;
+		  	width: 172px;
+		  	float: left;
+			&.last {
+				padding-right: 0;
+				border-right: 0;
+				margin-right: 0;
+			}
+		}
+		dt {
+		  	margin: 0 0 1em;
+		  	font-weight: normal;
+			&:after {
+				content: ":"
+				}
+			}
+		dd {
+		  font-weight: bold;
+		  font-size: 1.1em;
+		}
+	}
+}
+
+
+dl.things dt:after {content: ":"}
