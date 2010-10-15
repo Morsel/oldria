@@ -298,7 +298,7 @@ h1, h2, h3, h4, h5, h6 {
   color: #fff;
   margin-right: 0;
   text-shadow: 0px 1px 1px #333;
-  padding: 66px 20px 0px 23px;
+  padding: 66px 12px 0px 23px;
   width: 80px;
   background: url(/images/soapbox/bg-nav-current.png) no-repeat;
   background-position: 0px -3px;
@@ -1211,34 +1211,31 @@ p.search_filter_hint {
 }
 
 /* directory stuff ^^ */
-/* line 789, ../../../app/stylesheets/soapbox.scss */
-.trend_question .icon {
-  background-color: #0088C1;
+/* line 788, ../../../app/stylesheets/soapbox.scss */
+#trend-comments .comment {
+  display: inline;
+  float: left;
+  margin-right: 10px;
+  width: 236px;
 }
-/* line 792, ../../../app/stylesheets/soapbox.scss */
-.trend_question .message-title {
-  color: #0088C1;
+/* line 139, ../../../../../.rvm/gems/ruby-1.8.7-p302@spoonfeed/gems/compass-0.10.5/frameworks/blueprint/stylesheets/blueprint/_grid.scss */
+* html #trend-comments .comment {
+  overflow-x: hidden;
 }
-/* line 794, ../../../app/stylesheets/soapbox.scss */
-.trend_question .message-title a {
-  color: #0088C1;
+/* line 790, ../../../app/stylesheets/soapbox.scss */
+#trend-comments .comment.last {
+  display: inline;
+  float: left;
+  margin-right: 0;
+  width: 236px;
 }
-
-/* line 800, ../../../app/stylesheets/soapbox.scss */
-.admin_qotd .icon {
-  background-color: #F5911E;
-}
-/* line 803, ../../../app/stylesheets/soapbox.scss */
-.admin_qotd .message-title {
-  color: #F5911E;
-}
-/* line 805, ../../../app/stylesheets/soapbox.scss */
-.admin_qotd .message-title a {
-  color: #F5911E;
+/* line 139, ../../../../../.rvm/gems/ruby-1.8.7-p302@spoonfeed/gems/compass-0.10.5/frameworks/blueprint/stylesheets/blueprint/_grid.scss */
+* html #trend-comments .comment.last {
+  overflow-x: hidden;
 }
 
 /* Front Burner */
-/* line 814, ../../../app/stylesheets/soapbox.scss */
+/* line 799, ../../../app/stylesheets/soapbox.scss */
 #user_profile_view {
   background: #f5f5f5;
   color: #333;
@@ -1248,20 +1245,20 @@ p.search_filter_hint {
   border-width: 1px 1px 0;
   padding: 16px;
 }
-/* line 822, ../../../app/stylesheets/soapbox.scss */
+/* line 807, ../../../app/stylesheets/soapbox.scss */
 #user_profile_view h3.headline {
   margin: 0;
   color: #333;
   font: normal 15px "Georgia", Times, serif;
 }
-/* line 827, ../../../app/stylesheets/soapbox.scss */
+/* line 812, ../../../app/stylesheets/soapbox.scss */
 #user_profile_view h5 {
   color: #808080;
   font-weight: normal;
   margin: 0;
   font-size: 12px;
 }
-/* line 833, ../../../app/stylesheets/soapbox.scss */
+/* line 818, ../../../app/stylesheets/soapbox.scss */
 #user_profile_view .user_name {
   color: #40a4cb;
   font-weight: normal;
@@ -1271,15 +1268,15 @@ p.search_filter_hint {
   border: 0;
   margin: 0;
 }
-/* line 842, ../../../app/stylesheets/soapbox.scss */
+/* line 827, ../../../app/stylesheets/soapbox.scss */
 #user_profile_view .user_employment {
   font-size: 1.3em;
 }
-/* line 843, ../../../app/stylesheets/soapbox.scss */
+/* line 828, ../../../app/stylesheets/soapbox.scss */
 #user_profile_view .list {
   font-size: 11px;
 }
-/* line 844, ../../../app/stylesheets/soapbox.scss */
+/* line 829, ../../../app/stylesheets/soapbox.scss */
 #user_profile_view dl.user_info {
   font-size: 1em;
   margin: 0;
@@ -1287,15 +1284,15 @@ p.search_filter_hint {
   width: 260px;
   float: left;
 }
-/* line 851, ../../../app/stylesheets/soapbox.scss */
+/* line 836, ../../../app/stylesheets/soapbox.scss */
 #user_profile_view dl.user_info.contact {
   width: 340px;
 }
-/* line 855, ../../../app/stylesheets/soapbox.scss */
+/* line 840, ../../../app/stylesheets/soapbox.scss */
 #user_profile_view dl.user_info dt, #user_profile_view dl.user_info dd {
   line-height: 1.5;
 }
-/* line 859, ../../../app/stylesheets/soapbox.scss */
+/* line 844, ../../../app/stylesheets/soapbox.scss */
 #user_profile_view dl.user_info dt {
   width: 76px;
   float: left;
@@ -1303,16 +1300,16 @@ p.search_filter_hint {
   margin: 0 10px 0 0;
   font-weight: normal;
 }
-/* line 867, ../../../app/stylesheets/soapbox.scss */
+/* line 852, ../../../app/stylesheets/soapbox.scss */
 #user_profile_view dl.user_info dt:after {
   content: ":";
 }
-/* line 871, ../../../app/stylesheets/soapbox.scss */
+/* line 856, ../../../app/stylesheets/soapbox.scss */
 #user_profile_view dl.user_info dd {
   margin-top: 0;
   margin-left: 80px;
 }
-/* line 875, ../../../app/stylesheets/soapbox.scss */
+/* line 860, ../../../app/stylesheets/soapbox.scss */
 #user_profile_view .timestamp {
   top: 10px;
   right: 10px;
@@ -1321,7 +1318,7 @@ p.search_filter_hint {
   color: #808080;
 }
 
-/* line 885, ../../../app/stylesheets/soapbox.scss */
+/* line 870, ../../../app/stylesheets/soapbox.scss */
 #extended_profile_container .showit {
   padding: 8px 16px 8px 26px;
   display: block;
@@ -1330,33 +1327,33 @@ p.search_filter_hint {
   color: #0087C0;
   background: url(../images/arrow-blue.png) no-repeat 5px -47px;
 }
-/* line 892, ../../../app/stylesheets/soapbox.scss */
+/* line 877, ../../../app/stylesheets/soapbox.scss */
 #extended_profile_container .showit.open {
   color: red;
   background-position: 5px 10px;
 }
-/* line 895, ../../../app/stylesheets/soapbox.scss */
+/* line 880, ../../../app/stylesheets/soapbox.scss */
 #extended_profile_container .showit.open em {
   color: purple;
 }
-/* line 899, ../../../app/stylesheets/soapbox.scss */
+/* line 884, ../../../app/stylesheets/soapbox.scss */
 #extended_profile_container .showit:hover {
   color: red;
 }
-/* line 900, ../../../app/stylesheets/soapbox.scss */
+/* line 885, ../../../app/stylesheets/soapbox.scss */
 #extended_profile_container .showit em {
   color: #0087C0;
 }
-/* line 902, ../../../app/stylesheets/soapbox.scss */
+/* line 887, ../../../app/stylesheets/soapbox.scss */
 #extended_profile_container .showit em:hover {
   color: pink;
 }
 
-/* line 909, ../../../app/stylesheets/soapbox.scss */
+/* line 894, ../../../app/stylesheets/soapbox.scss */
 #extended_profile {
   padding: 16px;
 }
-/* line 911, ../../../app/stylesheets/soapbox.scss */
+/* line 896, ../../../app/stylesheets/soapbox.scss */
 #extended_profile h3 {
   font-family: "Hoefler Text", georgia, serif;
   font-weight: normal;
@@ -1367,26 +1364,26 @@ p.search_filter_hint {
   padding-bottom: 2px;
   color: #333;
 }
-/* line 921, ../../../app/stylesheets/soapbox.scss */
+/* line 906, ../../../app/stylesheets/soapbox.scss */
 #extended_profile ul {
   list-style: disc;
   border-bottom: 0;
   width: 100%;
 }
-/* line 925, ../../../app/stylesheets/soapbox.scss */
+/* line 910, ../../../app/stylesheets/soapbox.scss */
 #extended_profile ul li {
   line-height: 15px;
 }
-/* line 927, ../../../app/stylesheets/soapbox.scss */
+/* line 912, ../../../app/stylesheets/soapbox.scss */
 #extended_profile ul li p {
   line-height: 15px;
 }
-/* line 932, ../../../app/stylesheets/soapbox.scss */
+/* line 917, ../../../app/stylesheets/soapbox.scss */
 #extended_profile .extended_profile_info, #extended_profile .profile_info {
   position: relative;
   overflow: hidden;
 }
-/* line 935, ../../../app/stylesheets/soapbox.scss */
+/* line 920, ../../../app/stylesheets/soapbox.scss */
 #extended_profile .extended_profile_info ul, #extended_profile .profile_info ul {
   margin: 0;
   padding: 0;
@@ -1394,7 +1391,7 @@ p.search_filter_hint {
   list-style: none;
   overflow: hidden;
 }
-/* line 941, ../../../app/stylesheets/soapbox.scss */
+/* line 926, ../../../app/stylesheets/soapbox.scss */
 #extended_profile .extended_profile_info ul li, #extended_profile .profile_info ul li {
   width: 30%;
   border-bottom: 0;
@@ -1402,7 +1399,7 @@ p.search_filter_hint {
   overflow: hidden;
   float: left;
 }
-/* line 950, ../../../app/stylesheets/soapbox.scss */
+/* line 935, ../../../app/stylesheets/soapbox.scss */
 #extended_profile .timestamp {
   top: 10px;
   right: 10px;
@@ -1412,37 +1409,37 @@ p.search_filter_hint {
   font: normal 10px "Helvetica Neue", Helvetica, Arial, sans-serif;
   color: #808080;
 }
-/* line 958, ../../../app/stylesheets/soapbox.scss */
+/* line 943, ../../../app/stylesheets/soapbox.scss */
 #extended_profile .employee_role {
   border: 0;
 }
-/* line 961, ../../../app/stylesheets/soapbox.scss */
+/* line 946, ../../../app/stylesheets/soapbox.scss */
 #extended_profile a {
   color: #0087C0;
   text-decoration: none;
 }
-/* line 964, ../../../app/stylesheets/soapbox.scss */
+/* line 949, ../../../app/stylesheets/soapbox.scss */
 #extended_profile a:hover {
   color: #666;
 }
-/* line 968, ../../../app/stylesheets/soapbox.scss */
+/* line 953, ../../../app/stylesheets/soapbox.scss */
 #extended_profile .name {
   color: #0087C0;
   text-decoration: none;
 }
 
-/* line 974, ../../../app/stylesheets/soapbox.scss */
+/* line 959, ../../../app/stylesheets/soapbox.scss */
 #current_things {
   margin: 1em 0;
   padding: 5px;
 }
-/* line 977, ../../../app/stylesheets/soapbox.scss */
+/* line 962, ../../../app/stylesheets/soapbox.scss */
 #current_things dl.things {
   overflow: hidden;
   margin: 0;
   padding: 14px 10px;
 }
-/* line 981, ../../../app/stylesheets/soapbox.scss */
+/* line 966, ../../../app/stylesheets/soapbox.scss */
 #current_things dl.things div {
   margin-right: 20px;
   padding-right: 19px;
@@ -1450,28 +1447,28 @@ p.search_filter_hint {
   width: 172px;
   float: left;
 }
-/* line 987, ../../../app/stylesheets/soapbox.scss */
+/* line 972, ../../../app/stylesheets/soapbox.scss */
 #current_things dl.things div.last {
   padding-right: 0;
   border-right: 0;
   margin-right: 0;
 }
-/* line 993, ../../../app/stylesheets/soapbox.scss */
+/* line 978, ../../../app/stylesheets/soapbox.scss */
 #current_things dl.things dt {
   margin: 0 0 1em;
   font-weight: normal;
 }
-/* line 996, ../../../app/stylesheets/soapbox.scss */
+/* line 981, ../../../app/stylesheets/soapbox.scss */
 #current_things dl.things dt:after {
   content: ":";
 }
-/* line 1000, ../../../app/stylesheets/soapbox.scss */
+/* line 985, ../../../app/stylesheets/soapbox.scss */
 #current_things dl.things dd {
   font-weight: bold;
   font-size: 1.1em;
 }
 
-/* line 1008, ../../../app/stylesheets/soapbox.scss */
+/* line 993, ../../../app/stylesheets/soapbox.scss */
 dl.things dt:after {
   content: ":";
 }

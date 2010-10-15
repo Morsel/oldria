@@ -117,7 +117,7 @@ h1,h2,h3,h4,h5,h6{
 			color: #fff;
 			margin-right: 0;
 			text-shadow: 0px 1px 1px #333;
-			padding: 66px 20px 0px 23px;
+			padding: 66px 12px 0px 23px;
 			width:80px;
 			background: url(/images/soapbox/bg-nav-current.png) no-repeat;
 			background-position: 0px -3px;
@@ -784,29 +784,14 @@ p.search_filter_hint {
 }
 /* directory stuff ^^ */
 
-
-.trend_question{
-	.icon{ 
-		background-color: #0088C1;
-	}
-	.message-title{
-		color: #0088C1;
-		a{
-			color: #0088C1;
+#trend-comments{
+	.comment{
+		@include column(6);
+		&.last{
+			@include column(6,true);
 		}
 	}
 }
-.admin_qotd{
-	.icon{
-		background-color: #F5911E;
-	}
-	.message-title{
-		color: #F5911E;
-		a{
-			color: #F5911E;
-		}
-	}
-} 
 
 
 /* Front Burner */
