@@ -69,8 +69,8 @@
 
 <aside id="sidebar" class="home">
     <nav id="participate" class="home">
-        <a class="button" id="login-participate" href="#">Login to <span>participate</span></a>
-        <a class="button" id="request-invite" href="#">Request an <span>invitation</span></a>
+        <%= link_to "Login to <span>participate</span>", login_path, :class => "button", :id => "login-participate" %>
+        <%= link_to "Request an <span>invitation</span>", new_invitation_path, :class => "button", :id => "request-invite" %>
     </nav><!-- /participate -->
     <section id="facebook-button">
         <header>
