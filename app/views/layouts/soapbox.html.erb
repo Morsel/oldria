@@ -6,7 +6,7 @@
   <!--[if lt IE 9]>
     <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
   <![endif]-->
-  <title>About Soapbox</title>
+  <title><%= h(yield(:title) || "Untitled") %> - Soapbox - Restaurant Intelligence Agency</title>
   <meta name="description" content="All about Spoonfeed's Soapbox">
   <meta name="author" content="Restaruant Intelligence Agency">
   <link rel="shortcut icon" href="/favicon.ico">
@@ -28,11 +28,11 @@
         <h2 id="tagline">A digital magazine written by chefs</h2>
       </hgroup>
       <nav id="nav">
-        <%= link_to 'Home', soapbox_root_path, :id=>"nav-home" %>
-        <%= link_to 'Front Burner', soapbox_soapbox_entries_path, :id=>"nav-front-burner" %>
-        <%= link_to 'Directory', '/soapbox/directory', :id=>"nav-directory" %>
-        <%= link_to 'About', '/soapbox/about', :id=>"nav-about" %>
-        <%= link_to 'Contact', '/soapbox/contact', :id=>"nav-contact", :class=>"last" %>
+        <%= link_to 'Home', soapbox_root_path, :id => "nav-home", :class => active_page?('/soapbox') %>
+        <%= link_to 'Front Burner', soapbox_soapbox_entries_path, :id => "nav-front-burner", :class => active_page?('/soapbox/front_burner') %>
+        <%= link_to 'Directory', '/soapbox/directory', :id => "nav-directory", :class => active_page?('/soapbox/directory') %>
+        <%= link_to 'About', '/soapbox/about', :id => "nav-about", :class => active_page?('/soapbox/about') %>
+        <%= link_to 'Contact', '/soapbox/contact', :id => "nav-contact", :class => "#{active_page?('/soapbox/contact')} last" %>
       </nav>
     </header>
   
