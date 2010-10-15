@@ -1,0 +1,19 @@
+<% title "A La Minute Questions" %>
+
+<% semantic_form_for :restaurant, :url => bulk_update_restaurant_a_la_minute_answers_url(:restaurant_id => @restaurant.id),
+      :html => {:method => :put} do |form| %>
+  <ul id="a_la_minute_questions">
+  <% @questions.each do |question| %>
+    <li>
+      <%= label_tag "#{dom_id(question)}_answer", h(question.question), :class => "question" %>
+      <% answer = question.answer_for(@restaurant) || ALaMinuteAnswer.new %>
+      <%= text_area_tag "a_la_minute_questions[#{question.id}][answer]", answer.answer, :class => "answer" %>
+      <%= hidden_field_tag "a_la_minute_questions[#{question.id}][old_answer]", answer.answer %>
+      <%= label_tag "#{dom_id(question)}_show_as_public", "Show on public profile?" %>
+      <%= check_box_tag "a_la_minute_questions[#{question.id}][show_as_public]", "1", answer.show_as_public, :class => "show_as_public_toggle" %>
+    </li>
+  <% end %>
+  </ul>
+
+  <%= form.submit "Save Answers" %>
+<% end %>

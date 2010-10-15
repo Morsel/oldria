@@ -190,6 +190,7 @@ ActiveRecord::Schema.define(:version => 20101013222730) do
   end
 
   create_table "culinary_jobs", :force => true do |t|
+<<<<<<< HEAD:db/schema.rb
     t.integer  "profile_id",                       :null => false
     t.string   "title",         :default => "",    :null => false
     t.string   "city",          :default => "",    :null => false
@@ -203,6 +204,23 @@ ActiveRecord::Schema.define(:version => 20101013222730) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "opening_staff", :default => false
+=======
+    t.integer  "profile_id",                         :null => false
+    t.string   "restaurant_name", :default => "",    :null => false
+    t.string   "title",           :default => "",    :null => false
+    t.string   "city",            :default => "",    :null => false
+    t.string   "state",           :default => "",    :null => false
+    t.string   "country",         :default => "",    :null => false
+    t.date     "date_started",                       :null => false
+    t.date     "date_ended"
+    t.string   "chef_name",       :default => "",    :null => false
+    t.boolean  "chef_is_me",      :default => false, :null => false
+    t.text     "cuisine",         :default => "",    :null => false
+    t.text     "notes",           :default => "",    :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.boolean  "opening_staff",   :default => false
+>>>>>>> master:db/schema.rb
   end
 
   add_index "culinary_jobs", ["profile_id"], :name => "index_profile_restaurants_on_profile_id"
@@ -593,7 +611,7 @@ ActiveRecord::Schema.define(:version => 20101013222730) do
     t.string   "title"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "position",   :default => 0
+    t.integer  "position"
     t.integer  "chapter_id"
   end
 
@@ -618,6 +636,13 @@ ActiveRecord::Schema.define(:version => 20101013222730) do
   end
 
   add_index "profiles", ["user_id"], :name => "index_profiles_on_user_id", :unique => true
+
+  create_table "question_role_categories", :force => true do |t|
+    t.integer  "restaurant_role_id"
+    t.string   "category"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "question_roles", :force => true do |t|
     t.integer  "profile_question_id"
@@ -854,7 +879,6 @@ ActiveRecord::Schema.define(:version => 20101013222730) do
     t.string   "facebook_access_token"
     t.string   "facebook_page_id"
     t.string   "facebook_page_token"
-    t.string   "phone_number"
     t.boolean  "premium_account"
   end
 

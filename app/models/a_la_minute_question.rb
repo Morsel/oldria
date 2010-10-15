@@ -25,7 +25,7 @@ class ALaMinuteQuestion < ActiveRecord::Base
 
 
   def answer_for(restaurant)
-    restaurant.a_la_minute_answers.last(:conditions => {:a_la_minute_question_id => id})
+    restaurant.a_la_minute_answers.first(:conditions => {:a_la_minute_question_id => id})
   end
 
   def answers_for(restaurant)
