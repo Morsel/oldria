@@ -21,6 +21,9 @@ config.gem 'mail_safe'
 config.gem "awesome_print", :lib => "ap"
 config.gem 'compass',               :version => "~> 0.10.5"
 
+require 'compass'
+require 'compass/app_integration/rails'
+
 # Turn off asset timestamp appends for development
 ENV['RAILS_ASSET_ID'] = ''
 
