@@ -787,32 +787,58 @@ p.search_filter_hint {
 
 
 #user_profile_view {
-  	background: #f5f5f5;
   	color: #333;
   	position: relative;
   	overflow: visible;
-  	border: solid #ddd;
-  	border-width:1px 1px 0;
-	padding: 16px;
-	h3.headline{
-	  	margin: 0;
+	.edit_profile_link {
+		top:0px;
+	  	right:0px;
+	  	position:absolute;
+		margin: 0 0 10px 0;
+		@include museoslabthin;
+		text-transform: uppercase;
+		a {
+			background-color: $purple;
+			@include border-radius(12px);
+			display: block;
+			padding: 5px 0;
+			text-align: center;
+			width: 130px;
+			height: 14px;
+			color: #fff;
+			&:hover {
+				background-color: $sienna;
+				color: #fff;
+				color: rgba(255,255,255,.6);
+				text-decoration: none;
+			}
+		}
+	}
+	img {
+		float: left;
+		margin: 0 15px 10px 0;
+		border: 1px solid #cdc9c2;
+		padding: 4px;
+		background-color: #fff;
+		@include box-shadow(#999, 0px, 0px, 3px);
+	}
+	h2 {
+		clear: none;
+		margin: 0 0 13px 0;
+		padding: 0;
+		border: 0 none;
+		font-size: 21px;
+	}
+	h3.headline {
+	  	margin: 0 0 12px 0;
 	  	color:#333;
-	  	font:normal 15px "Georgia", Times, serif;
+	  	font-family: 'helvetica neue', helvetica, arial, sans-serif;
+		font-weight: normal;
 	}
-	h5	{
-  		color: #808080;
-  		font-weight: normal;
-  		margin: 0;
-  		font-size: 12px;
-	}
-	.user_name {
-	  	color: #40a4cb;
-	  	font-weight: normal;
-	  	font-size: 1.8em;
-	  	line-height: 1.2em;
-	  	padding: 0;
-	  	border: 0;
-	  	margin: 0;
+	h5 {
+  		color: #333;
+  		@include museoslabbold;
+		margin: 20px 0 5px;
 	}
 	.user_employment {font-size: 1.3em;}
 	.list{font-size: 11px;}
@@ -820,15 +846,10 @@ p.search_filter_hint {
 	  	font-size: 1em;
 	  	margin: 0;
 	  	padding: 0;
-	  	width: 260px;
-	  	float: left;
-	}
-	dl.user_info.contact {
-	  	width: 340px;
 	}
 
 	dl.user_info dt, dl.user_info dd {
-	  	line-height: 1.5;
+	  	line-height: 18px;
 	}
 
 	dl.user_info dt {
@@ -847,58 +868,85 @@ p.search_filter_hint {
 	  	margin-top: 0;
 	  	margin-left: 80px;
 	}
-	.timestamp {
-		top:10px;
-	  	right:10px;
-	  	position:absolute;
-	  	font:normal 10px "Helvetica Neue", Helvetica, Arial, sans-serif;
-	  	color:#808080;
+	.profile_info {
+		overflow: hidden;
+		.profile_header {
+			overflow: hidden;
+			border-bottom: 1px dotted #ccc;
+		}
+		.profile_title_summary {
+			width: 400px;
+			float: left;
+			margin: 15px 15px 0 0;
+			padding: 0 15px 20px 1px;
+			border-right: 1px dotted #ccc;
+			h5.nomargin {margin-top: 0px;}
+		}
+		.profile_contact_info {
+			width: 225px;
+			float: left;
+			overflow: hidden;
+			padding: 0 0 6px 0;
+			margin: 0;
+			p.timestamp_header {
+				margin: 30px 0 0 0;
+				padding: 0;
+				font-size: 10px;
+				color: #777;
+				text-align: right;
+			}
+		}
 	}
 }
 
 #extended_profile_container {
 	.showit {
   		padding: 8px 16px 8px 26px;
+		margin-bottom: 20px;
   		display: block;
   		outline: none;
-  		font-size: 1em;
-		color: #0087C0;
-  		background: url(../images/arrow-blue.png) no-repeat 5px -47px;
-		&.open {
-			color: red;
-			background-position:5px 10px;
-			em {
-				color: purple;
-			}
-		}
-		&:hover {color: red;}
+  		font-size: 13px;
+		@include museoslabbold;
+		color: $sienna;
+		background-color: #fbeae3;
+		background: #fbeae3 url(/images/soapbox/show-arrow.gif) no-repeat 5px 6px;
 		em {
-			color: #0087C0;
-			&:hover {
-				color: pink;
-			}
+			font-style: italic;
+			@include museoslabmedium;
+		}
+		&:hover {
+			background-color: $sienna;
+			color: #fff;
+			text-decoration: none;
+		}
+		&.open {
+			background-position: 5px -100px;
+			background-color: $sienna;
 		}
 	}
 }
 
 
 #extended_profile {
-	padding: 16px;
+	background: transparent url(/images/soapbox/bg-extended.png) repeat-x 0 100%;
+	margin: 10px 0 20px;
+	border-bottom: 1px solid #ddd;
 	h3 {
-	  	font-family: "Hoefler Text", georgia, serif;
+	  	@include museoslabmedium;
 	  	font-weight: normal;
-	  	font-size: 1.5em;
+	  	font-size: 15px;
 	  	border-bottom: 1px dotted #999;
-	  	margin-top: 1.2em;
-	  	margin-bottom: 12px;
+	  	margin-top: 10px;
+	  	margin-bottom: 6px;
 	  	padding-bottom: 2px;
 	  	color:#333;
 	}
 	ul {
-	  	list-style: disc;
+	  	list-style: none;
 	  	border-bottom: 0;
 	  	width:100%;
 		li {
+			background: 0 none;
 			line-height: 15px;
 			p {
 				line-height: 15px;
@@ -908,6 +956,7 @@ p.search_filter_hint {
 	.extended_profile_info, .profile_info {
 	  	position:relative;
 	  	overflow:hidden;
+		padding: 0px 2px;
 		ul {
 		  	margin: 0;
 		  	padding: 0;
@@ -915,19 +964,21 @@ p.search_filter_hint {
 		  	list-style: none;
 		  	overflow: hidden;
 			li {
-			  width:30%;
-			  border-bottom: 0;
-			  margin:0 10px 20px 0;
-			  overflow: hidden;
-			  float:left;
+				width:30%;
+				border-bottom: 0;
+				margin:0 10px 20px 0;
+				overflow: hidden;
+				float:left;
+				padding: 4px 0 0 5px;
+				span.name {
+					color: $sienna;
+				}
 			}
 		}
 	}
 	.timestamp {
-		top:10px;
-	  	right:10px;
 	  	position:absolute;
-	  	top:25px; right:0;
+	  	top:14px; right:0;
 	  	font:normal 10px "Helvetica Neue", Helvetica, Arial, sans-serif;
 	  	color:#808080;
 	}
@@ -982,4 +1033,145 @@ p.search_filter_hint {
 
 
 dl.things dt:after {content: ":"}
+
+
+#recent_soapbox {
+	.recent_actions {
+		overflow: hidden;
+		width: 315px;
+		float: left;
+		margin: 0 20px 0 0;
+		&.last {
+			margin: 0;
+		}
+		h3 {
+			margin: 20px 0 6px;
+		}
+	}
+	#recent_qtod {
+		ul {
+			overflow: hidden;
+			margin: 0;
+			padding: 0;
+			list-style: none;
+			li {
+				background: none;
+				float: left;
+				width: 140px;
+				margin: 0 5px 0 0;
+				padding: 0;
+				a {
+					background-color: $purple;
+					color: #fff;
+					display: block;
+					border-left: 1px dotted $purple;
+					border-right: 1px dotted $purple;
+					border-top: 1px dotted $purple;
+					padding: 10px;
+					margin: 0;
+					&.selected {
+						background-color: #d1d4e6;
+						color: $purple;
+					}
+				}
+			}
+		}
+		#older_qotds_box {
+			border-left: 1px dotted $purple;
+			border-right: 1px dotted $purple;
+			border-bottom: 1px dotted $purple;
+		}
+	}
+	#behindline {
+		ul {
+			border-top: 1px dotted $baby-blue;
+			border-bottom: 1px dotted $baby-blue;
+			margin: 9px 0;
+			padding: 0;
+			list-style: none;
+			li {
+				padding: 0;
+				margin: 0;
+				background-image: none;
+				a {
+					display: block;
+					padding: 10px;
+					color: #333;
+					&:hover {
+						text-decoration: none;
+						background-color: $darker-blue;
+						color: #fff;
+					}
+				}
+				&.even {
+					a {
+						background-color: #f2fbff;
+						&:hover {
+							background-color: $darker-blue;
+							color: #fff;
+						}
+					}
+				}
+				&.odd {
+					border-top: 1px dotted #b9d6e4;
+					border-bottom: 1px dotted #b9d6e4;
+					a {
+						background-color: #e3f4fc;
+						&:hover {
+							background-color: $darker-blue;
+							color: #fff;
+						}
+					}
+				}
+			}
+			h5 {
+				margin: 0;
+				padding: 0;
+				line-height: 15px;
+				span {
+					float: right;
+					font-weight: normal;
+					color: $baby-blue;
+					font-size: 10px;
+				}
+			}
+		}
+
+		.view_all {
+			margin: 10px 0;
+			a {
+				color: $darker-blue;
+				padding: 0 0 0 5px;
+				&:hover {
+					color: $baby-blue;
+				}
+			}
+		}
+    	
+		.edit_profile_link {
+			display: block;
+			margin: 0;
+			padding: 0;
+			a {
+				font-size: 13px;
+				font-weight: bold;
+				display: block;
+				margin: 0;
+				line-height: 14px;
+				padding: 7px 10px;
+				color: #fff;
+				background-color: $baby-blue;
+				text-shadow: 0 1px 0 #000;
+				&:hover {
+					text-decoration: none;
+					background-color: $purple;
+				}
+			}
+		}
+	}
+}
+
+
+
+
 
