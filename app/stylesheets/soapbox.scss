@@ -147,6 +147,9 @@ body,html,#container,#main,#content,#inside{
 		margin:8px 0 12px 15px;
 		text-shadow: 0px 1px 0px #fff;
 	}
+	&.no-sidebar{
+		@include column(24,true);
+	}
 	
 	&.home{
 		@include column(20);
@@ -402,6 +405,10 @@ body,html,#container,#main,#content,#inside{
 		background:0;
 		padding:0 0 20px;
 	}
+}
+#content.no-sidebar #inside{
+	margin:0;
+	padding:10px;
 }
 
 #sidebar{
@@ -785,11 +792,36 @@ p.search_filter_hint {
 /* directory stuff ^^ */
 
 #trend-comments{
+	overflow:hidden;
 	.comment{
-		@include column(6);
-		&.last{
-			@include column(6,true);
+		width:206px;
+		padding:10px;
+		@include box-shadow(#999, 0, 0, 3px);
+		margin:10px 5px;
+		float:left;
+		header{
+			@include museoslabthin;
+			font-size:15px;
+			line-height:1.2;
+			margin:0 0 10px;
+			a{
+				@include museoslabbold;
+				color:$sb-blue;
+			}
 		}
+		p{
+			line-height:1.4;
+			img{
+				float:left;
+				padding:3px;
+				margin:0 10px 5px 0;
+				@include box-shadow(#999,0,0,3px);
+			}
+		}
+		&.last{
+			margin-right:0;
+		}
+		
 	}
 }
 

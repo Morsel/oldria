@@ -45,7 +45,7 @@
         <%- if @home -%>
           <%= yield %>
         <%- else -%>
-        <section id="content">
+        <section id="content" class="<%= 'no-sidebar' if @no_sidebar %>">
             <%- if show_title? -%>
             <header id="page-title">
                 <h1><%= h yield(:title) %></h1>
