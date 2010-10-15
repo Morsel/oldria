@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20101013222730) do
+ActiveRecord::Schema.define(:version => 20101014141041) do
 
   create_table "a_la_minute_answers", :force => true do |t|
     t.text     "answer"
@@ -190,21 +190,6 @@ ActiveRecord::Schema.define(:version => 20101013222730) do
   end
 
   create_table "culinary_jobs", :force => true do |t|
-<<<<<<< HEAD:db/schema.rb
-    t.integer  "profile_id",                       :null => false
-    t.string   "title",         :default => "",    :null => false
-    t.string   "city",          :default => "",    :null => false
-    t.string   "state",         :default => "",    :null => false
-    t.date     "date_started",                     :null => false
-    t.date     "date_ended"
-    t.string   "chef_name",     :default => "",    :null => false
-    t.boolean  "chef_is_me",    :default => false, :null => false
-    t.text     "cuisine",       :default => "",    :null => false
-    t.text     "notes",         :default => "",    :null => false
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.boolean  "opening_staff", :default => false
-=======
     t.integer  "profile_id",                         :null => false
     t.string   "restaurant_name", :default => "",    :null => false
     t.string   "title",           :default => "",    :null => false
@@ -220,7 +205,6 @@ ActiveRecord::Schema.define(:version => 20101013222730) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "opening_staff",   :default => false
->>>>>>> master:db/schema.rb
   end
 
   add_index "culinary_jobs", ["profile_id"], :name => "index_profile_restaurants_on_profile_id"

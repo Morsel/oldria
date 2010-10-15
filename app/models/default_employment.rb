@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20101013222730
+# Schema version: 20101014141041
 #
 # Table name: employments
 #
@@ -10,9 +10,7 @@
 #  updated_at         :datetime
 #  restaurant_role_id :integer
 #  omniscient         :boolean
-#  primary            :boolean         default(FALSE)
-#  public_profile     :boolean
-#  position           :integer
+#  primary            :boolean
 #  type               :string(255)
 #  public_profile     :boolean
 #  position           :integer
