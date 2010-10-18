@@ -1,4 +1,4 @@
-class SoapboxEntriesController < Soapbox::SoapboxController
+class Soapbox::SoapboxEntriesController < Soapbox::SoapboxController
   
   before_filter :require_http_authenticated
   before_filter :hide_flashes

@@ -1,7 +1,7 @@
 class Admin::SoapboxSlidesController < Admin::AdminController
   
   def index
-    @slides = SoapboxSlide.all
+    @slides = SoapboxSlide.all(:order => :position)
   end
   
   def new
