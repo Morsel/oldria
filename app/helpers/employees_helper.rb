@@ -47,5 +47,15 @@ module EmployeesHelper
 
     content_tag(:ul, list_items.join(""), :class => "identity_details #{list_class}")
   end
+  
+  def title_and_restaurant(user)
+    if comment.user.primary_employment
+      if user.restaurants.present?
+        "#{user.primary_employment.restaurant_role.try(:name)} at #{user.primary_employment.restaurant.try(:name)}"
+      else
+        "#{user.primary_employment.restaurant_role.name}"
+      end
+    end
+  end
 
 end

@@ -1,13 +1,9 @@
-<% favor_restaurant = (comment.commentable_type == 'AdminDiscussion') %>
-
-<% div_for(comment, :class => "column clearfix#{cycle(' clear','','',' last', :name => comment.commentable_type)}") do %>
-<%= render 'users/identity', :user => comment.user, :highlight_restaurant =>  favor_restaurant %>
-
-<% comment_text_shown = full_text ? comment.comment : truncate(comment.comment, :length => 120) %>
-
-<div class="content">
-  <%= link_to simple_format(comment_text_shown), soapbox_soapbox_entry_path(entry_for_comment(comment),
-    :anchor => dom_id(comment)) %>
-</div>
-
+<% div_for(comment) do %>
+  <header>
+    <%= link_to comment.user.name_or_username, profile_path(comment.user.username) %>, <%= title_and_restaurant(comment.user) %> said:
+  </header>
+  <p>
+    <%= image_tag(comment.user.avatar.url(:thumb)) %>
+    <%= truncate(comment.comment, :length => 120) %> <%= link_to "more&nbsp;&#187;", soapbox_soapbox_entry_path(entry_for_comment(comment), :anchor => dom_id(comment)) %>
+  </p>
 <% end %>

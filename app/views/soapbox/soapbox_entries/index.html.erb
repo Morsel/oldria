@@ -1,129 +1,19 @@
 <% title "Soapbox", false %>
 
-<%# sorry, but I need to do markup from scratch for this. %>
-
 <section id="trend-identified">
   <header>
-    <h1>Trend <span>Identified</span></h1>
+    <%= soapbox_tabby_title(@main_feature) %>
   </header>
   <article id="trend-question">
     <details>
-      <img src="/images/soapbox/image-60px-sq.png" alt="description of image">
-      <time datetime="2010-09-24">September 24, 2010</time>
-      <h2>Fall is coming, so are warm cocktails.</h2>
+      <time datetime="<%= @main_feature.soapbox_entry.published_at.try(:strftime, "%Y-%b-%e") %>2010-09-24"><%= @main_feature.soapbox_entry.published_at.try(:strftime, "%b %e, %Y") %></time>
+      <h2><%= message(@main_feature) %></h2>
     </details>
-    <p>Behind the scenes: As the temperature continues to dip, appetites for warmer libations continues to rise. Pretty soon, warm cocktails will be moving onto beverage menus in full-force&hellip; <a href="#">more&nbsp;&#187;</a></p>
   </article>
 </section><!-- /trend-identified -->
 
+<% if @main_feature_comments %>
 <section id="trend-comments">
-  <div class="comment" id="comment_0">
-    <header>
-      <a href="#">Jill Barron</a>, Chef at Mana Food Bar said:
-    </header>
-    <p><img src="/images/soapbox/placeholder-headshot.jpg" alt="Jill Barron's Profile Picture">
-    I will be doing a potato and cheese pierogi with brown butter and giant sage (from my garden!) as a special this fall. i love the flavors of it&hellip; <a href="#">more&nbsp;&#187;</a></p>
-  </div>
-  
-  <div class="comment" id="comment_1">
-    <header>
-      <a href="#">Jill Barron</a>, Chef at Mana Food Bar said:
-    </header>
-    <p><img src="/images/soapbox/placeholder-headshot.jpg" alt="Jill Barron's Profile Picture">
-    I will be doing a potato and cheese pierogi with brown butter and giant sage (from my garden!) as a special this fall. i love the flavors of it&hellip; <a href="#">more&nbsp;&#187;</a></p>
-  </div>
-  
-  <div class="comment" id="comment_2">
-    <header>
-      <a href="#">Jill Barron</a>, Chef at Mana Food Bar said:
-    </header>
-    <p><img src="/images/soapbox/placeholder-headshot.jpg" alt="Jill Barron's Profile Picture">
-    I will be doing a potato and cheese pierogi with brown butter and giant sage (from my garden!) as a special this fall. i love the flavors of it&hellip; <a href="#">more&nbsp;&#187;</a></p>
-  </div>
-  
-  <div class="comment last" id="comment_3">
-    <header>
-      <a href="#">Jill Barron</a>, Chef at Mana Food Bar said:
-    </header>
-    <p><img src="/images/soapbox/placeholder-headshot.jpg" alt="Jill Barron's Profile Picture">
-    I will be doing a potato and cheese pierogi with brown butter and giant sage (from my garden!) as a special this fall. i love the flavors of it&hellip; <a href="#">more&nbsp;&#187;</a></p>
-  </div>
-  
-  <div class="comment" id="comment_4">
-    <header>
-      <a href="#">Jill Barron</a>, Chef at Mana Food Bar said:
-    </header>
-    <p><img src="/images/soapbox/placeholder-headshot.jpg" alt="Jill Barron's Profile Picture">
-    I will be doing a potato and cheese pierogi with brown butter and giant sage (from my garden!) as a special this fall. i love the flavors of it&hellip; <a href="#">more&nbsp;&#187;</a></p>
-  </div>
-  
-  <div class="comment" id="comment_5">
-    <header>
-      <a href="#">Jill Barron</a>, Chef at Mana Food Bar said:
-    </header>
-    <p><img src="/images/soapbox/placeholder-headshot.jpg" alt="Jill Barron's Profile Picture">
-    I will be doing a potato and cheese pierogi with brown butter and giant sage (from my garden!) as a special this fall. i love the flavors of it&hellip; <a href="#">more&nbsp;&#187;</a></p>
-  </div>
-  
-  <div class="comment" id="comment_6">
-    <header>
-      <a href="#">Jill Barron</a>, Chef at Mana Food Bar said:
-    </header>
-    <p><img src="/images/soapbox/placeholder-headshot.jpg" alt="Jill Barron's Profile Picture">
-    I will be doing a potato and cheese pierogi with brown butter and giant sage (from my garden!) as a special this fall. i love the flavors of it&hellip; <a href="#">more&nbsp;&#187;</a></p>
-  </div>
-  
-  <div class="comment last" id="comment_7">
-    <header>
-      <a href="#">Jill Barron</a>, Chef at Mana Food Bar said:
-    </header>
-    <p><img src="/images/soapbox/placeholder-headshot.jpg" alt="Jill Barron's Profile Picture">
-    I will be doing a potato and cheese pierogi with brown butter and giant sage (from my garden!) as a special this fall. i love the flavors of it&hellip; <a href="#">more&nbsp;&#187;</a></p>
-  </div>
+    <%= render :partial => 'comment', :collection => @main_feature_comments, :locals => { :full_text => false, :commentable_class => @main_feature.class } %>
 </section><!-- /trend-comments -->
-
-
-<% if false -%>
-  <% if @main_feature %>
-  <div class="soapbox_item main_feature clear">
-    <% div_for @main_feature do %>
-      <h2 class="cufon featured_item_title">
-        <%= soapbox_tabby_title(@main_feature) %>
-      </h2>
-      <div class="question">
-        <h4 class="date"><%= @main_feature.soapbox_entry.published_at.try(:strftime, "%b %e, %Y") %></h4>
-        <%= message(@main_feature) %>
-      </div>
-
-      <% if @main_feature_comments %>
-        <div class="comments clearfix">
-          <%= render :partial => 'comment', :collection => @main_feature_comments, :locals => { :full_text => false, :commentable_class => @main_feature.class } %>
-        </div>
-      <% end %>
-
-    <% end %>
-  </div>
-  <% end %>
-
-  <div class="span-12">
-  <% if @secondary_feature %>
-  <div class="soapbox_item secondary_feature">
-    <% div_for @secondary_feature do %>
-      <h2 class="cufon featured_item_title">
-        <%= soapbox_tabby_title(@secondary_feature) %>
-      </h2>
-      <div class="question">
-        <h4 class="date"><%= @main_feature.soapbox_entry.published_at.try(:strftime, "%b %e, %Y") %></h4>
-        <%= message(@secondary_feature) %>
-      </div>
-
-      <% if @secondary_feature_comments %>
-        <div class="comments clearfix">
-          <%= render :partial => 'comment', :collection => @secondary_feature_comments, :locals => { :full_text => false, :commentable_class => @secondary_feature.class } %>
-        </div>
-      <% end %>
-    <% end %>
-  </div>
-  <% end %>
-  </div>
-<% end -%>
+<% end %>
