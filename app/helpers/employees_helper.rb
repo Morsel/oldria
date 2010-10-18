@@ -49,7 +49,7 @@ module EmployeesHelper
   end
   
   def title_and_restaurant(user)
-    if comment.user.primary_employment
+    if user.primary_employment
       if user.restaurants.present?
         "#{user.primary_employment.restaurant_role.try(:name)} at #{user.primary_employment.restaurant.try(:name)}"
       else
