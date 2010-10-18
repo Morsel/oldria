@@ -3,7 +3,7 @@
 <% div_for(comment) do %>
     <details class="comment-author">
         <%= image_tag(comment.user.avatar.url(:thumb), :alt => "#{comment.user.name}'s Profile Photo") %>
-        <%= link_to comment.user.primary_employment.restaurant.try(:name), soapbox_restaurant_path(comment.user.primary_employment.restaurant), :class =>"restaurant-name" if comment.user.primary_employment && comment.user.primary_employment.restaurant %><br/>
+        <%= comment.user.primary_employment.restaurant.try(:name) %><br/>
         <%= link_to comment.user.name_or_username, profile_path(comment.user.username), :class => "user-name" %><br/>
         <%= comment.user.primary_employment.restaurant_role.name if comment.user.primary_employment %>
     </details>
