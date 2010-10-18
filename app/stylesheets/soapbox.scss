@@ -781,13 +781,17 @@ body,html,#container,#main,#content,#inside{
 	}
 } /* criteria_accordion */
 
+#directory_list{
+	padding:10px 0;
+}
+
 #employment_criteria legend span{
 	display:block;
 	clear:both;
 	float:none;
 	padding:10px 0;
 	font-size:15px;
-	
+	margin:0 0 10px;
 }
 
 .accordion_box{
@@ -1407,6 +1411,7 @@ dl.things dt:after {content: ":"}
 }
 
 #criteria_accordion {
+	padding:10px 0 0;
 	.accordion_box {
 		border: 1px solid #ddd;
 		background: 0 none;
@@ -1435,9 +1440,3 @@ dl.things dt:after {content: ":"}
 		}
 	}
 }
-
-
-
-
-
-
