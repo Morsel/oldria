@@ -404,6 +404,28 @@ body,html,#container,#main,#content,#inside{
 		margin:0;
 		list-style:none;
 	}
+	#user-results {
+		overflow: hidden;
+		h3 {
+			@include museoslabbold; 
+			border-bottom: 1px solid #ddd;
+		}
+		.identity {
+			width: 300px;
+			float: left;
+			margin: 0 15px 10px 0;
+			ul {
+				list-style: none;
+				margin: 0;
+				padding: 0;
+				li {
+					background-image: none;
+					margin: 0;
+					padding: 0;
+				}
+			}
+		}
+	}
 } /* page-content */
 
 #inside{
@@ -781,14 +803,11 @@ body,html,#container,#main,#content,#inside{
 	}
 } /* criteria_accordion */
 
-#employment_criteria legend span{
-	display:block;
-	clear:both;
-	float:none;
+#directory_list{
 	padding:10px 0;
-	font-size:15px;
-	
 }
+
+
 
 .accordion_box{
 	background:#fff url(/images/accordion_box_bg.png) repeat-x bottom;
@@ -802,7 +821,7 @@ p.search_filter_hint {
 }
 /* directory stuff ^^ */
 
-#trend-identified, #question-of-the-day{
+#trend-identified, #question-of-the-day {
 	margin:0 -10px;
 	padding:10px;
 	border-bottom:3px solid $sienna;
@@ -823,7 +842,49 @@ p.search_filter_hint {
 	}
 }
 
-#trend-question, #question-of-the-day-details{
+#trend-article {
+	header h1{
+		@include hiddentext;
+		width:205px;
+		height:100px;
+		background:url(/images/soapbox/label-trend.png) no-repeat;
+		float:left;
+		margin:0 0 0 -32px;
+	}
+	details {
+		margin-left: 190px;
+		clear: none;
+		time {
+			margin: 0;
+			padding: 0;
+		}
+		h2 {
+			clear: none;
+			margin: 5px 0 10px;
+			border: 0;
+		}
+		&.comment-author {
+			margin: 10px 0;
+		}
+	}
+}
+
+#fb-comments {
+	.comment {
+		padding: 6px 10px;
+		background:#fff;
+		@include box-shadow(#d5ceca, 0, 1px, 3px);
+		details {
+			width: 183px;
+			img {
+				padding: 4px;
+				@include box-shadow(#d5ceca, 0, 1px, 3px);
+			}
+		}
+	}
+}
+
+#trend-question, #question-of-the-day {
 	details{
 		margin:0 0 0 188px;
 		time{
@@ -1403,42 +1464,16 @@ dl.things dt:after {content: ":"}
 		span {
 			@include museoslabbold;
 			padding: 0;
+			font-size:15px;
 		}
 	}
 }
 
 #criteria_accordion {
+	padding:10px 0 0;
 	.accordion_box {
 		border: 1px solid #ddd;
 		background: 0 none;
 	}
 }
-
-#user-results {
-	overflow: hidden;
-	h3 {
-		@include museoslabbold; 
-		border-bottom: 1px solid #ddd;
-	}
-	.identity {
-		width: 300px;
-		float: left;
-		margin: 0 15px 10px 0;
-		ul {
-			list-style: none;
-			margin: 0;
-			padding: 0;
-			li {
-				background-image: none;
-				margin: 0;
-				padding: 0;
-			}
-		}
-	}
-}
-
-
-
-
-
 
