@@ -785,14 +785,7 @@ body,html,#container,#main,#content,#inside{
 	padding:10px 0;
 }
 
-#employment_criteria legend span{
-	display:block;
-	clear:both;
-	float:none;
-	padding:10px 0;
-	font-size:15px;
-	margin:0 0 10px;
-}
+
 
 .accordion_box{
 	background:#fff url(/images/accordion_box_bg.png) repeat-x bottom;
@@ -1407,6 +1400,7 @@ dl.things dt:after {content: ":"}
 		span {
 			@include museoslabbold;
 			padding: 0;
+			font-size:15px;
 		}
 	}
 }
