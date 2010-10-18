@@ -12,7 +12,8 @@ class ALaMinuteAnswersController < ApplicationController
 
       # create a new answer if the answer has changed
       unless attributes[:answer] == old_answer
-        @restaurant.a_la_minute_answers.create(attributes.merge(:a_la_minute_question_id => id))
+        @restaurant.a_la_minute_answers.create(
+            attributes.merge(:a_la_minute_question_id => id))
       end
 
       # update all answers for the question to reflect show_as_public state

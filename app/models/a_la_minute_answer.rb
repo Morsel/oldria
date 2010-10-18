@@ -47,5 +47,6 @@ class ALaMinuteAnswer < ActiveRecord::Base
     return true unless responder
     previous_answer = a_la_minute_question.answer_for(responder)
     self.show_as_public = previous_answer.show_as_public if previous_answer
+    true
   end
 end
