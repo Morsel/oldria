@@ -13,7 +13,7 @@
   <% if @main_feature_comments %>
   <section id="trend-comments">
       <%= render :partial => 'comment', :collection => @main_feature_comments, :locals => { :full_text => false, :commentable_class => @main_feature.class } %>
-      <p class="clear"><%= link_to 'View all responses to this trend question &#187;', soapbox_soapbox_entry_path(@main_feature), :class => 'button' %></p>
+      <p class="clear"><%= link_to 'View all responses to this trend question &#187;', soapbox_soapbox_entry_path(@main_feature.soapbox_entry), :class => 'button' %></p>
   </section><!-- /trend-comments -->
   <% end %>
   
@@ -32,7 +32,7 @@
   <% if @secondary_feature_comments %>
   <section id="qotd-comments">
       <%= render :partial => 'comment', :collection => @secondary_feature_comments, :locals => { :full_text => false, :commentable_class => @secondary_feature.class } %>
-      <p class="clear"><%= link_to 'View all responses to this question of the day &#187;', soapbox_soapbox_entry_path(@secondary_feature), :class => 'button' %></p>
+      <p class="clear"><%= link_to 'View all responses to this question of the day &#187;', soapbox_soapbox_entry_path(@secondary_feature.soapbox_entry), :class => 'button' %></p>
   </section><!-- /qotd-comments -->
   <% end %>
 </section><!-- /question-of-the-day -->
@@ -41,70 +41,33 @@
   <div id="recent-trends">
     <h1>Recent Trend Questions</h1>
     <ul id="recent-trends-feed">
-      <li>
-        <a href="#">
-          <time datetime="2010-09-24"><span>SEP</span>18</time>
-          <p><strong>Warm Cocktails:</strong> As the temperature continues to dip, appetites for warmer libations continues to rise&hellip;</p>
-          <span class="reply-count"><span>25</span>replies</span>
-        </a>
-      </li>
-      <li>
-        <a href="#">
-          <time datetime="2010-09-24"><span>SEP</span>18</time>
-          <p><strong>Warm Cocktails:</strong> As the temperature continues to dip, appetites for warmer libations continues to rise&hellip;</p>
-          <span class="reply-count"><span>25</span>replies</span>
-        </a>
-      </li>
-      <li>
-        <a href="#">
-          <time datetime="2010-09-24"><span>SEP</span>18</time>
-          <p><strong>Warm Cocktails:</strong> As the temperature continues to dip, appetites for warmer libations continues to rise&hellip;</p>
-          <span class="reply-count"><span>25</span>replies</span>
-        </a>
-      </li>
-      <li>
-        <a href="#">
-          <time datetime="2010-09-24"><span>SEP</span>18</time>
-          <p><strong>Warm Cocktails:</strong> As the temperature continues to dip, appetites for warmer libations continues to rise&hellip;</p>
-          <span class="reply-count"><span>25</span>replies</span>
-        </a>
-      </li>
-    </ul>
-    <p class="clear"><a href="#" class="button">View all Trend Questions &#187;</a></p>
+        <% for trend_question in @trend_questions %>
+        <li>
+            <% link_to soapbox_soapbox_entry_path(trend_question.soapbox_entry) do %>
+                <% date = trend_question.scheduled_at %>
+                <time datetime="<%= date.try(:strftime, "%Y-%b-%e") %>"><span><%= date.try(:strftime, "%b").upcase %></span><%= date.try(:strftime, "%e") %></time>
+                <p><%= message(trend_question) %></p>
+                <span class="reply-count"><span><%= trend_question.reply_count %></span>replies</span>
+            <% end %>
+        </li>
+        <% end %>
+    <!-- <p class="clear"><a href="#" class="button">View all Trend Questions &#187;</a></p> -->
   </div><!-- /recent-trends -->
   
   <div id="recent-qotds">
     <h1>Recent Questions of the Day</h1>
     <ul id="recent-qotds-feed">
+        <% for qotd in @qotds %>
       <li>
-        <a href="#">
-          <time datetime="2010-09-24"><span>SEP</span>18</time>
-          <p>As the temperature continues to dip, appetites for warmer libations continues to rise&hellip;</p>
-          <span class="reply-count"><span>25</span>replies</span>
-        </a>
+          <% link_to soapbox_soapbox_entry_path(qotd.soapbox_entry) do %>
+              <% date = qotd.scheduled_at %>
+              <time datetime="<%= date.try(:strftime, "%Y-%b-%e") %>"><span><%= date.try(:strftime, "%b").upcase %></span><%= date.try(:strftime, "%e") %></time>
+              <p><%= message(qotd) %></p>
+              <span class="reply-count"><span><%= qotd.reply_count %></span>replies</span>
+          <% end %>
       </li>
-      <li>
-        <a href="#">
-          <time datetime="2010-09-24"><span>SEP</span>18</time>
-          <p>As the temperature continues to dip, appetites for warmer libations continues to rise&hellip;</p>
-          <span class="reply-count"><span>25</span>replies</span>
-        </a>
-      </li>
-      <li>
-        <a href="#">
-          <time datetime="2010-09-24"><span>SEP</span>18</time>
-          <p>As the temperature continues to dip, appetites for warmer libations continues to rise&hellip;</p>
-          <span class="reply-count"><span>25</span>replies</span>
-        </a>
-      </li>
-      <li>
-        <a href="#">
-          <time datetime="2010-09-24"><span>SEP</span>18</time>
-          <p>As the temperature continues to dip, appetites for warmer libations continues to rise&hellip;</p>
-          <span class="reply-count"><span>25</span>replies</span>
-        </a>
-      </li>
+      <% end %>
     </ul>
-    <p class="clear"><a href="#" class="button">View all Questions of the Day &#187;</a></p>
+    <!-- <p class="clear"><a href="#" class="button">View all Questions of the Day &#187;</a></p> -->
   </div><!-- /recent-trends -->
 </section><!-- / recent-questions -->
