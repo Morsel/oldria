@@ -806,7 +806,7 @@ p.search_filter_hint {
 }
 /* directory stuff ^^ */
 
-#trend-identified, #question-of-the-day{
+#trend-identified, #question-of-the-day {
 	margin:0 -10px;
 	padding:10px;
 	border-bottom:3px solid $sienna;
@@ -827,7 +827,49 @@ p.search_filter_hint {
 	}
 }
 
-#trend-question, #question-of-the-day-details{
+#trend-article {
+	header h1{
+		@include hiddentext;
+		width:205px;
+		height:100px;
+		background:url(/images/soapbox/label-trend.png) no-repeat;
+		float:left;
+		margin:0 0 0 -32px;
+	}
+	details {
+		margin-left: 190px;
+		clear: none;
+		time {
+			margin: 0;
+			padding: 0;
+		}
+		h2 {
+			clear: none;
+			margin: 5px 0 10px;
+			border: 0;
+		}
+		&.comment-author {
+			margin: 10px 0;
+		}
+	}
+}
+
+#fb-comments {
+	.comment {
+		padding: 6px 10px;
+		background:#fff;
+		@include box-shadow(#d5ceca, 0, 1px, 3px);
+		details {
+			width: 183px;
+			img {
+				padding: 4px;
+				@include box-shadow(#d5ceca, 0, 1px, 3px);
+			}
+		}
+	}
+}
+
+#trend-question, #question-of-the-day {
 	details{
 		margin:0 0 0 188px;
 		time{
