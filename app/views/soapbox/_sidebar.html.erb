@@ -16,8 +16,8 @@
     <div id="feed-bottom"></div>
   </aside><!-- /recent-activity -->
   <nav id="participate">
-    <a class="button" id="login-participate" href="#">Login to participate</a>
+    <%= link_to "Login to participate", login_path, :class => "button", :id => "login-participate" %>
     <span>or</span>
-    <a class="button" id="request-invite" href="#">Request an invitation</a>
+    <%= link_to "Request an invitation", new_invitation_path, :class => "button", :id => "request-invite" %>
   </nav><!-- /participate -->
 </div><!-- /sidebar -->
