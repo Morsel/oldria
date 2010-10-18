@@ -6,7 +6,7 @@
   </header>
   <article id="trend-question">
     <details>
-      <time datetime="<%= @main_feature.soapbox_entry.published_at.try(:strftime, "%Y-%b-%e") %>2010-09-24"><%= @main_feature.soapbox_entry.published_at.try(:strftime, "%b %e, %Y") %></time>
+      <time datetime="<%= @main_feature.soapbox_entry.published_at.try(:strftime, "%Y-%b-%e") %>"><%= @main_feature.soapbox_entry.published_at.try(:strftime, "%b %e, %Y") %></time>
       <h2><%= message(@main_feature) %></h2>
       <p><b>This is not wired:</b> Behind the scenes: As the temperature continues to dip, appetites for warmer libations continues to rise. Pretty soon, warm cocktails will be moving onto beverage menus in full-force&hellip; <a href="#">more&nbsp;&#187;</a></p>
     </details>
@@ -26,7 +26,7 @@
   </header>
   <article id="question-of-the-day-details">
     <details>
-      <time datetime="<%= @main_feature.soapbox_entry.published_at.try(:strftime, "%Y-%b-%e") %>2010-09-24"><%= @main_feature.soapbox_entry.published_at.try(:strftime, "%b %e, %Y") %></time>
+      <time datetime="<%= @main_feature.soapbox_entry.published_at.try(:strftime, "%Y-%b-%e") %>"><%= @main_feature.soapbox_entry.published_at.try(:strftime, "%b %e, %Y") %></time>
       <p><b>This is not wired:</b> Gratin potatoes. Wedge salad. Baked potatoes. Creamed spinach. These items are no longer refined to your average power lunch steakhouse, as restaurants of all kinds and cuisines embrace and invigorate these kinds of steakhouse-style side dishes with their own signature presentations. In your kitchen: What is your favorite steakhouse-style side dish, and what makes it the ideal accompaniment to a meaty feast? Why do you think these dishes are so endearing to diners? Are you serving any kind of steakhouse-style side or appetizer on your menu?</p>
     </details>
   </article>
@@ -38,3 +38,74 @@
   <% end %>
 </section><!-- /question-of-the-day -->
 
+<section id="recent-questions">
+  <div id="recent-trends">
+    <h1>Recent Trend Questions</h1>
+    <ul id="recent-trends-feed">
+      <li>
+        <a href="#">
+          <time datetime="2010-09-24"><span>SEP</span>18</time>
+          <p><strong>Warm Cocktails:</strong> As the temperature continues to dip, appetites for warmer libations continues to rise&hellip;</p>
+          <span class="reply-count"><span>25</span>replies</span>
+        </a>
+      </li>
+      <li>
+        <a href="#">
+          <time datetime="2010-09-24"><span>SEP</span>18</time>
+          <p><strong>Warm Cocktails:</strong> As the temperature continues to dip, appetites for warmer libations continues to rise&hellip;</p>
+          <span class="reply-count"><span>25</span>replies</span>
+        </a>
+      </li>
+      <li>
+        <a href="#">
+          <time datetime="2010-09-24"><span>SEP</span>18</time>
+          <p><strong>Warm Cocktails:</strong> As the temperature continues to dip, appetites for warmer libations continues to rise&hellip;</p>
+          <span class="reply-count"><span>25</span>replies</span>
+        </a>
+      </li>
+      <li>
+        <a href="#">
+          <time datetime="2010-09-24"><span>SEP</span>18</time>
+          <p><strong>Warm Cocktails:</strong> As the temperature continues to dip, appetites for warmer libations continues to rise&hellip;</p>
+          <span class="reply-count"><span>25</span>replies</span>
+        </a>
+      </li>
+    </ul>
+    <p class="clear"><a href="#" class="button">View all Trend Questions &#187;</a></p>
+  </div><!-- /recent-trends -->
+  
+  <div id="recent-qotds">
+    <h1>Recent Questions of the Day</h1>
+    <ul id="recent-qotds-feed">
+      <li>
+        <a href="#">
+          <time datetime="2010-09-24"><span>SEP</span>18</time>
+          <p>As the temperature continues to dip, appetites for warmer libations continues to rise&hellip;</p>
+          <span class="reply-count"><span>25</span>replies</span>
+        </a>
+      </li>
+      <li>
+        <a href="#">
+          <time datetime="2010-09-24"><span>SEP</span>18</time>
+          <p>As the temperature continues to dip, appetites for warmer libations continues to rise&hellip;</p>
+          <span class="reply-count"><span>25</span>replies</span>
+        </a>
+      </li>
+      <li>
+        <a href="#">
+          <time datetime="2010-09-24"><span>SEP</span>18</time>
+          <p>As the temperature continues to dip, appetites for warmer libations continues to rise&hellip;</p>
+          <span class="reply-count"><span>25</span>replies</span>
+        </a>
+      </li>
+      <li>
+        <a href="#">
+          <time datetime="2010-09-24"><span>SEP</span>18</time>
+          <p>As the temperature continues to dip, appetites for warmer libations continues to rise&hellip;</p>
+          <span class="reply-count"><span>25</span>replies</span>
+        </a>
+      </li>
+    </ul>
+    <p class="clear"><a href="#" class="button">View all Questions of the Day &#187;</a></p>
+  </div><!-- /recent-trends -->
+</section><!-- / recent-questions -->

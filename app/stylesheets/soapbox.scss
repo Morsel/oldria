@@ -886,7 +886,10 @@ p.search_filter_hint {
 			margin-right:0;
 		}
 	}
-	.button{
+}
+
+#trend-comments, #qotd-comments, #recent-questions{
+	a.button{
 		font-size:15px;
 		font-weight:bold;
 		display:inline-block;
@@ -903,6 +906,14 @@ p.search_filter_hint {
 		}
 	}
 }
+#recent-questions #recent-qotds{
+	a.button{
+		background:$purple;
+		&:hover{
+			background:$dark-purple;
+		}
+	}
+}
 
 #qotd-comments{
 	.button{
@@ -912,6 +923,98 @@ p.search_filter_hint {
 		}
 	}
 }
+
+#recent-questions{
+	overflow:hidden;
+	margin:0 -10px;
+	div{
+		padding:10px 0;
+		@include column(12);
+		&#recent-qotds{
+			@include column(12,last);
+			ul li a:hover{
+				text-decoration:none;
+				background:#d9e8ef;
+				background:rgba(114,180,210,0.15);
+				color:$purple;
+				.reply-count{
+					background-position:-400px 0;
+				}
+			}
+		}
+		h1{
+			margin:0 10px 10px;
+			font-size:18px;
+			padding:5px 0 0;
+			border-bottom:1px solid #000;
+		}
+		ul{
+			margin:10px;
+			list-style:none;
+			li{
+				background:none;
+				padding:0;
+				margin:5px 0;
+				a{
+					overflow:hidden;
+					display:block;
+					padding:5px 0 5px 5px;
+					color:#333;
+					time{
+						float:left;
+						margin:0 10px 0 0;
+						font-size:16px;
+						font-weight:bold;
+						color:#000;
+						text-align:center;
+						border:1px solid #ddd;
+						padding:0 0 3px;
+						background:#fff;
+						width:33px;
+						span{
+							font-size:11px;
+							font-weight:normal;
+							display:block;
+							background:#000;
+							color:#fff;
+							padding:3px 0;
+						}
+					}
+					p{
+						float:left;
+						width:345px;
+						margin:0 10px 0 0;
+					}
+					.reply-count{
+						float:left;
+						width:56px;
+						padding:10px 0;
+						margin:-5px 0;
+						background:url(/images/soapbox/bg-comment-arrows.png) no-repeat;
+						text-align:center;
+						color:#333;
+						span{
+							font-size:16px;
+							font-weight:bold;
+							display:block;
+						}
+					}
+					&:hover{
+						text-decoration:none;
+						background:#f7e3de;
+						background:rgba(231,95,61,0.15);
+						color:$sienna;
+						.reply-count{
+							background-position:-200px 0;
+							color:#fff;
+							text-shadow:0 1px 0 #000;
+						}
+					}
+				}
+			}
+		}
+	}
+} /*#recent-questions^^ */
 
 
 /* Front Burner */
