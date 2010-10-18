@@ -837,7 +837,7 @@ p.search_filter_hint {
 			clear:none;
 			color:$sienna;
 			border:0;
-			margin:0;
+			margin:0 0 10px 0;
 		}
 	}
 	p{
@@ -987,12 +987,13 @@ p.search_filter_hint {
 					}
 					.reply-count{
 						float:left;
-						width:56px;
-						padding:10px 0;
+						width:53px;
+						padding:10px 0 10px 3px;
 						margin:-5px 0;
 						background:url(/images/soapbox/bg-comment-arrows.png) no-repeat;
 						text-align:center;
 						color:#333;
+						font-size: 11px;
 						span{
 							font-size:16px;
 							font-weight:bold;
