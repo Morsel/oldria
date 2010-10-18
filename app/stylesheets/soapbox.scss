@@ -92,14 +92,51 @@ h1,h2,h3,h4,h5,h6{
 	@include hiddentext;
 	float:left;
 	padding:45px 65px 0 10px;
-	width:117px;
+	width:110px;
 	height:31px;
 	background:url(/images/soapbox/logo-tagline-soapbox.png) no-repeat 10px 45px;
 }
 
 #nav {
+	padding: 0;
 	a {
-		@include museoslabthin;
+		@include hiddentext;
+		margin: -23px 0 0 0;
+		float: left;
+		width: 122px;
+		height: 115px;
+		text-decoration: none;
+		background: transparent url(/images/soapbox/soapbox-nav.png) no-repeat;
+		&#nav-home {
+			background-position: 0 0;
+			&:hover {background-position: 0 -200px;}
+			&.selected {background-position: 0 -400px;}
+		}
+		&#nav-front-burner {
+			background-position: -122px 0;
+			&:hover {background-position: -122px -200px;}
+			&.selected {background-position: -122px -400px;}
+		}
+		&#nav-directory {
+			background-position: -244px 0;
+			&:hover {background-position: -244px -200px;}
+			&.selected {background-position: -244px -400px;}
+		}
+		&#nav-about {
+			background-position: -366px 0;
+			&:hover {background-position: -366px -200px;}
+			&.selected {background-position: -366px -400px;}
+		}
+		&#nav-contact {
+			background-position: -488px 0;
+			&:hover {background-position: -488px -200px;}
+			&.selected {background-position: -488px -400px;}
+		}
+	}
+}
+
+/*#nav {
+	a {
 		width: 100px;
 		height: 68px;
 		margin: -20px 10px 0 0;
@@ -126,7 +163,7 @@ h1,h2,h3,h4,h5,h6{
 			margin-right: 0;
 		}
 	}
-}
+}*/
 
 #main{
 	overflow:hidden;
