@@ -11,6 +11,8 @@
   <% end %>
 </div>
 
+<h3>Determine the order in which your photos are displayed with drag and drop.</h3>
+
 <% form_for :restaurant, :url => select_primary_photo_restaurant_path(@restaurant) do |restaurant_form| %>
     <table id="photos" data-remote-url="<%= reorder_restaurant_photos_url(@restaurant) %>">
       <thead>
