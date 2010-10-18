@@ -404,6 +404,28 @@ body,html,#container,#main,#content,#inside{
 		margin:0;
 		list-style:none;
 	}
+	#user-results {
+		overflow: hidden;
+		h3 {
+			@include museoslabbold; 
+			border-bottom: 1px solid #ddd;
+		}
+		.identity {
+			width: 300px;
+			float: left;
+			margin: 0 15px 10px 0;
+			ul {
+				list-style: none;
+				margin: 0;
+				padding: 0;
+				li {
+					background-image: none;
+					margin: 0;
+					padding: 0;
+				}
+			}
+		}
+	}
 } /* page-content */
 
 #inside{
@@ -785,14 +807,7 @@ body,html,#container,#main,#content,#inside{
 	padding:10px 0;
 }
 
-#employment_criteria legend span{
-	display:block;
-	clear:both;
-	float:none;
-	padding:10px 0;
-	font-size:15px;
-	margin:0 0 10px;
-}
+
 
 .accordion_box{
 	background:#fff url(/images/accordion_box_bg.png) repeat-x bottom;
@@ -1449,6 +1464,7 @@ dl.things dt:after {content: ":"}
 		span {
 			@include museoslabbold;
 			padding: 0;
+			font-size:15px;
 		}
 	}
 }
@@ -1461,25 +1477,3 @@ dl.things dt:after {content: ":"}
 	}
 }
 
-#user-results {
-	overflow: hidden;
-	h3 {
-		@include museoslabbold; 
-		border-bottom: 1px solid #ddd;
-	}
-	.identity {
-		width: 300px;
-		float: left;
-		margin: 0 15px 10px 0;
-		ul {
-			list-style: none;
-			margin: 0;
-			padding: 0;
-			li {
-				background-image: none;
-				margin: 0;
-				padding: 0;
-			}
-		}
-	}
-}
