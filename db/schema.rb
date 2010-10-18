@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20101014141041) do
+ActiveRecord::Schema.define(:version => 20101015224046) do
 
   create_table "a_la_minute_answers", :force => true do |t|
     t.text     "answer"
@@ -763,6 +763,19 @@ ActiveRecord::Schema.define(:version => 20101014141041) do
     t.string   "title"
     t.string   "slug"
     t.text     "content"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "soapbox_slides", :force => true do |t|
+    t.string   "image_file_name"
+    t.string   "image_content_type"
+    t.integer  "image_file_size"
+    t.integer  "image_updated_at"
+    t.string   "title"
+    t.text     "excerpt"
+    t.string   "link"
+    t.integer  "position"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

@@ -6,6 +6,7 @@ class Soapbox::SoapboxController < ApplicationController
   
   def index
     @home = true
+    @slides = SoapboxSlide.all(:order => "position")
   end
 
   def directory

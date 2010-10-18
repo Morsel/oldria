@@ -644,3 +644,15 @@ function selectCategoryGroup(category) {
   checked = $('#' + category).attr('checked');
   $('#profile_question_restaurant_roles_' + category + '_input input[type=checkbox]').attr('checked', checked);
 }
+
+// Sorting soapbox slides
+
+$('#soapbox_slides tbody').sortable({
+	axis:'y',
+	dropOnEmpty:false,
+	update: function(){
+		$.ajax({ data:$(this).sortable('serialize', { key: 'soapbox_slides[]' }), dataType:'script', type:'post', url:'/admin/soapbox_slides/sort'
+		});
+	}
+});
+

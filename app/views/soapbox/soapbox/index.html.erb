@@ -1,22 +1,22 @@
 <% title "Home", false %>
 <section id="content" class="home">
     <div id="inside" class="home">
+        <%- unless @slides.blank? -%>
         <div id="jumbotron">
             <div id="cycle">
-                <img src="/images/soapbox/jumbotron/temp1.jpg" alt="an desc. of the photo" data-title="Fall is coming, so are warm cocktails." data-caption="Behind the scenes: As the temperature continues to dip, appetites for warmer libations continues to rise. Pretty soon, warm cocktails will be&hellip;" data-url="#">
-                <img src="/images/soapbox/jumbotron/temp2.jpg" alt="an desc. of the photo" data-title="Computer Chips." data-caption="That's right. I got a picture of computer chips. Ed said to use garbage pictures. Garbage it is, then. How do you like that, Ed? I still have room t&hellip;" data-url="#">
-                <img src="/images/soapbox/jumbotron/temp3.jpg" alt="an desc. of the photo" data-title="Okay, kinda creepy." data-caption="What can I say? I did a google image search for 'random'. This is what happens when Ed says 'oh just use garbage images' I hope everyone has a sen&hellip;" data-url="#">
-                <img src="/images/soapbox/jumbotron/temp4.jpg" alt="an desc. of the photo" data-title="This one is just weird." data-caption="No, really. I hope everyone has a sense of humor. If not, you should blame Ed because clearly this is not my fault. Am I right? You hav&hellip;" data-url="#">
+                <% for slide in @slides %>
+                <%= image_tag slide.image.url(:full), "data-title" => slide.title, "data-caption" => truncate(slide.excerpt, :length => 150), "data-url" => slide.link %>
+                <% end %>
             </div>
             <div id="display">
                 <header>
-                    <h1 id="cycle-title">Fall is coming, so are warm cocktails.</h1>
+                    <h1 id="cycle-title"><%= @slides.first.title %></h1>
                 </header>
-                <summary id="cycle-caption">Behind the scenes: As the temperature continues to dip, appetites for warmer libations continues to rise. Pretty soon, warm cocktails will be&hellip;<a href="#">more&nbsp;&#187;</a></summary>
+                <summary id="cycle-caption"><%= truncate(@slides.first.excerpt, :length => 100) %>&nbsp;<%= link_to "more&nbsp;&#187;", @slides.first.link %></summary>
                 <nav id="pager"></nav>
             </div>
-
         </div><!-- /jumbotron -->
+        <%- end -%>
         <article class="panel" id="home-pulse">
             <header>
                 <h1>Pulse</h1>
