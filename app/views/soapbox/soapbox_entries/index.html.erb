@@ -8,12 +8,33 @@
     <details>
       <time datetime="<%= @main_feature.soapbox_entry.published_at.try(:strftime, "%Y-%b-%e") %>2010-09-24"><%= @main_feature.soapbox_entry.published_at.try(:strftime, "%b %e, %Y") %></time>
       <h2><%= message(@main_feature) %></h2>
+      <p><b>This is not wired:</b> Behind the scenes: As the temperature continues to dip, appetites for warmer libations continues to rise. Pretty soon, warm cocktails will be moving onto beverage menus in full-force&hellip; <a href="#">more&nbsp;&#187;</a></p>
     </details>
   </article>
+  <% if @main_feature_comments %>
+  <section id="trend-comments">
+      <%= render :partial => 'comment', :collection => @main_feature_comments, :locals => { :full_text => false, :commentable_class => @main_feature.class } %>
+      <p class="clear"><%= link_to 'View all responses to this trend question &#187;', '#', :class => 'button' %></p>
+  </section><!-- /trend-comments -->
+  <% end %>
+  
 </section><!-- /trend-identified -->
 
-<% if @main_feature_comments %>
-<section id="trend-comments">
-    <%= render :partial => 'comment', :collection => @main_feature_comments, :locals => { :full_text => false, :commentable_class => @main_feature.class } %>
-</section><!-- /trend-comments -->
-<% end %>
+<section id="question-of-the-day">
+  <header>
+    <%= soapbox_tabby_title(@main_feature) %>
+  </header>
+  <article id="question-of-the-day-details">
+    <details>
+      <time datetime="<%= @main_feature.soapbox_entry.published_at.try(:strftime, "%Y-%b-%e") %>2010-09-24"><%= @main_feature.soapbox_entry.published_at.try(:strftime, "%b %e, %Y") %></time>
+      <p><b>This is not wired:</b> Gratin potatoes. Wedge salad. Baked potatoes. Creamed spinach. These items are no longer refined to your average power lunch steakhouse, as restaurants of all kinds and cuisines embrace and invigorate these kinds of steakhouse-style side dishes with their own signature presentations. In your kitchen: What is your favorite steakhouse-style side dish, and what makes it the ideal accompaniment to a meaty feast? Why do you think these dishes are so endearing to diners? Are you serving any kind of steakhouse-style side or appetizer on your menu?</p>
+    </details>
+  </article>
+  <% if @main_feature_comments %>
+  <section id="qotd-comments">
+      <%= render :partial => 'comment', :collection => @main_feature_comments, :locals => { :full_text => false, :commentable_class => @main_feature.class } %>
+      <p class="clear"><%= link_to 'View all responses to this question of the day &#187;', '#', :class => 'button' %></p>
+  </section><!-- /qotd-comments -->
+  <% end %>
+</section><!-- /question-of-the-day -->
+
