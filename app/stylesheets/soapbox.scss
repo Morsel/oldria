@@ -870,16 +870,24 @@ p.search_filter_hint {
 }
 
 #fb-comments {
+	clear: both;
 	.comment {
+		overflow: hidden;
 		padding: 6px 10px;
 		background:#fff;
 		@include box-shadow(#d5ceca, 0, 1px, 3px);
 		details {
+			float: left;
 			width: 183px;
 			img {
+				float: left;
+				margin: 0 10px 5px 0;
 				padding: 4px;
 				@include box-shadow(#d5ceca, 0, 1px, 3px);
 			}
+		}
+		.user_comment {
+			margin: 12px 0 10px 180px;
 		}
 	}
 }
