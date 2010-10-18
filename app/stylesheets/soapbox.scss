@@ -21,6 +21,9 @@
 .clearfix{
 	overflow:hidden;
 }
+.clear{
+	clear:both;
+}
 
 body{
   font:normal 12px "Helvetica Neue", Helvetica, Arial, sans-serif;
@@ -30,6 +33,7 @@ body{
 #container{
 	@include container;
 	position:relative;
+	overflow:hidden;
 }
 
 @include sticky-footer(175px,'#container','#sticky-footer-pad','#footer');
@@ -828,8 +832,61 @@ p.search_filter_hint {
 }
 /* directory stuff ^^ */
 
-#trend-comments{
+#trend-identified, #question-of-the-day{
+	margin:0 -10px;
+	padding:10px;
+	border-bottom:3px solid $sienna;
+	header h1{
+		@include hiddentext;
+		width:198px;
+		height:100px;
+		background:url(/images/soapbox/label-trend.png) no-repeat;
+		float:left;
+		margin:0 0 0 -30px;
+	}
+}
+#question-of-the-day{
+	border-bottom-color:$purple;
+	header h1{
+		width:205px;
+		background:url(/images/soapbox/label-qotd.png) no-repeat;
+	}
+}
+
+#trend-question, #question-of-the-day-details{
+	details{
+		margin:0 0 0 188px;
+		time{
+			display:block;
+			text-transform:uppercase;
+			letter-spacing:3px;
+			@include opacity(0.35);
+			margin:0 0 10px;
+		}
+		h2{
+			clear:none;
+			color:$sienna;
+			border:0;
+			margin:0;
+		}
+	}
+	p{
+		font-size:13px;
+		line-height:1.5;
+	}	
+}
+#question-of-the-day-details{
+	details{
+		p{
+			font-size:15px;
+			line-height:1.3;
+		}
+	}
+}
+
+#trend-comments, #qotd-comments{
 	overflow:hidden;
+	clear:both;
 	.comment{
 		width:206px;
 		padding:10px;
@@ -858,7 +915,31 @@ p.search_filter_hint {
 		&.last{
 			margin-right:0;
 		}
-		
+	}
+	.button{
+		font-size:15px;
+		font-weight:bold;
+		display:inline-block;
+		clear:both;
+		padding:5px 10px;
+		margin:10px 0 0;
+		@include border-radius(120px);
+		color:#fff;
+		text-shadow:0 1px 0 #333;
+		background:$sienna;
+		&:hover{
+			text-decoration:none;
+			background:#99331F;
+		}
+	}
+}
+
+#qotd-comments{
+	.button{
+		background:$purple;
+		&:hover{
+			background:$dark-purple;
+		}
 	}
 }
 
