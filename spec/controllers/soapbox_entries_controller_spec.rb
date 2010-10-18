@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe SoapboxEntriesController do
+describe Soapbox::SoapboxEntriesController do
   before do
     controller.stubs(:require_http_authenticated).returns(true)
   end

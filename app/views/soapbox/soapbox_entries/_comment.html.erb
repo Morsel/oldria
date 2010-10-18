@@ -1,9 +1,25 @@
+<%- if full_text -%>
+
 <% div_for(comment) do %>
-  <header>
-    <%= link_to comment.user.name_or_username, profile_path(comment.user.username) %>, <%= title_and_restaurant(comment.user) %> said:
-  </header>
-  <p>
-    <%= image_tag(comment.user.avatar.url(:thumb)) %>
-    <%= truncate(comment.comment, :length => 120) %> <%= link_to "more&nbsp;&#187;", soapbox_soapbox_entry_path(entry_for_comment(comment), :anchor => dom_id(comment)) %>
-  </p>
+    <details class="comment-author">
+        <%= image_tag(comment.user.avatar.url(:thumb), :alt => "#{comment.user.name}'s Profile Photo") %>
+        <%= link_to comment.user.primary_employment.restaurant.name, soapbox_restaurant_path(comment.user.primary_employment.restaurant), :class =>"restaurant-name" if comment.user.primary_employment %><br/>
+        <%= link_to comment.user.name_or_username, profile_path(comment.user.username), :class => "user-name" %><br/>
+        <%= comment.user.primary_employment.restaurant_role.name if comment.user.primary_employment %>
+    </details>
+    <p><%= comment.comment %></p>
 <% end %>
+
+<%- else -%>
+
+<% div_for(comment) do %>
+    <header>
+        <%= link_to comment.user.name_or_username, profile_path(comment.user.username) %>, <%= title_and_restaurant(comment.user) %> said:
+    </header>
+    <p>
+        <%= image_tag(comment.user.avatar.url(:thumb), :alt => "#{comment.user.name}'s Profile Photo") %>
+        <%= truncate(comment.comment, :length => 120) %> <%= link_to "more&nbsp;&#187;", soapbox_soapbox_entry_path(entry_for_comment(comment), :anchor => dom_id(comment)) %>
+    </p>
+<% end %>
+
+<%- end -%>

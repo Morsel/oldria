@@ -1843,3 +1843,47 @@ dl.things dt:after {
   text-decoration: none;
   background-color: #474f80;
 }
+
+/* line 1217, ../../../app/stylesheets/soapbox.scss */
+#employment_criteria legend span {
+  font-family: 'MuseoSlab700', 'Helvetica Neue', Helvetica, arial, sans-serif;
+  font-weight: normal !important;
+  font-weight: 700;
+  padding: 0;
+}
+
+/* line 1225, ../../../app/stylesheets/soapbox.scss */
+#criteria_accordion .accordion_box {
+  border: 1px solid #ddd;
+  background: 0 none;
+}
+
+/* line 1231, ../../../app/stylesheets/soapbox.scss */
+#user-results {
+  overflow: hidden;
+}
+/* line 1233, ../../../app/stylesheets/soapbox.scss */
+#user-results h3 {
+  font-family: 'MuseoSlab700', 'Helvetica Neue', Helvetica, arial, sans-serif;
+  font-weight: normal !important;
+  font-weight: 700;
+  border-bottom: 1px solid #ddd;
+}
+/* line 1237, ../../../app/stylesheets/soapbox.scss */
+#user-results .identity {
+  width: 300px;
+  float: left;
+  margin: 0 15px 10px 0;
+}
+/* line 1241, ../../../app/stylesheets/soapbox.scss */
+#user-results .identity ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+/* line 1245, ../../../app/stylesheets/soapbox.scss */
+#user-results .identity ul li {
+  background-image: none;
+  margin: 0;
+  padding: 0;
+}
