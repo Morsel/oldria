@@ -12,6 +12,11 @@
 	<% end -%>
 <% end -%>
 
+<h3>
+  You can rearrange the order employees are listed on your restaurant profile 
+  by drag and drop.
+</h3>
+
 <% unless @employments.blank? %>
 <div id="restaurant_employees" data-remote-url="<%= reorder_restaurant_employments_url(@restaurant) %>">
 	<% @employments.each do |group| %>
