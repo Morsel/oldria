@@ -3,7 +3,7 @@
 <% div_for(comment) do %>
     <details class="comment-author">
         <%= image_tag(comment.user.avatar.url(:thumb), :alt => "#{comment.user.name}'s Profile Photo") %>
-        <%= comment.user.primary_employment.restaurant.try(:name) %><br/>
+        <%= comment.restaurant.try(:name) if comment.restaurant.present? %><br/>
         <%= link_to comment.user.name_or_username, profile_path(comment.user.username), :class => "user-name" %><br/>
         <%= comment.user.primary_employment.restaurant_role.name if comment.user.primary_employment %>
     </details>
@@ -14,7 +14,7 @@
 
 <% div_for(comment) do %>
     <header>
-        <%= link_to comment.user.name_or_username, profile_path(comment.user.username) %>, <%= title_and_restaurant(comment.user) %> said:
+        <%= link_to comment.user.name_or_username, profile_path(comment.user.username) %>, <%= title_and_restaurant(comment) %> said:
     </header>
     <p>
         <%= image_tag(comment.user.avatar.url(:thumb), :alt => "#{comment.user.name}'s Profile Photo") %>

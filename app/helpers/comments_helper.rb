@@ -9,4 +9,11 @@ module CommentsHelper
       edit_admin_conversation_comment_path(commentable, comment) : 
       edit_admin_discussion_comment_path(commentable, comment)
   end
+  
+  def title_and_restaurant(comment)
+      comment.restaurant.present? ? 
+        "#{comment.employment.restaurant_role.try(:name)} at #{comment.restaurant.try(:name)}" :
+        "#{comment.employment.restaurant_role.try(:name)}"
+  end
+
 end

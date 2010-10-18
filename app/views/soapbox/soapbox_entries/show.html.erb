@@ -11,7 +11,7 @@
   
   <% if @feature_comments %>
   <section id="fb-comments">
-    <%= render :partial => 'comment', :collection => @feature_comments, :locals => { :full_text => true } %>
+    <%= render :partial => 'comment', :collection => @feature_comments, :locals => { :full_text => true, :commentable_class => @feature.class } %>
   </section>
   <% end %>
 </article><!-- /front_burner -->
