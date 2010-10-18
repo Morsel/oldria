@@ -1,3 +1,63 @@
 <% title "Admin Area" %>
 
 <p>Welcome back to work! Have a great day!</p>
+
+
+
+<h2>Soapbox and Front Burner</h2>
+<ul>
+  <li><%= link_to "Soapbox Entries", admin_soapbox_entries_path %></li>
+	<li><%= link_to "Trend Questions", admin_messages_path %></li>
+	<li><%= link_to "QTODs", admin_trend_questions_path %></li>
+	
+</ul>
+
+
+<h2>Restaurants and Users</h2>
+<ul>
+    <li><%= link_to "Invitations", admin_invitations_path %></li>	
+  	<li><%= link_to "Users", admin_users_path %></li>
+
+	<li><%= link_to "Restaurants", admin_restaurants_path %></li>
+   <li><%= link_to "A La Minute Questions", admin_a_la_minute_questions_path %></li>
+	<li><%= link_to "Restaurant Tags", admin_restaurant_features_path %></li>
+	<li><%= link_to "Restaurant Roles", admin_restaurant_roles_path %></li>
+</ul>
+
+
+<h2>RIA Messages</h2>
+<ul>
+	<li><%= link_to "Admin Messages", admin_messages_path %></li>
+  <li><%= link_to "Content Requests / Questions from RIA", admin_content_requests_path %></li>
+  <li><%= link_to "Private Messages", admin_direct_messages_path %></li>
+  <li><%= link_to "Q&amp;As", admin_profile_questions_path %></li>
+</ul>
+
+<h2>Marketing</h2>
+<ul>
+  <li><%= link_to "Pages", admin_pages_path %></li>
+</ul>
+
+
+
+<h2>Lookup Tables</h2>
+<ul>
+  <li><%= link_to "Cuisines", admin_cuisines_path %></li>
+  <li><%= link_to "Specialties", admin_specialties_path %></li>
+  <li><%= link_to "Coached Status Updates", admin_coached_status_updates_path %></li>
+  <li><%= link_to "Date Ranges for coached status updates", admin_date_ranges_path %></li>
+  <li><%= link_to "Subject Matters", admin_subject_matters_path %></li>
+</ul>
+
+<h2>Future Features</h2>
+<ul>
+  <li><%= link_to "Holidays", admin_holidays_path %></li>
+  <li><%= link_to "Feeds", admin_feeds_path %></li>
+  <li><%= link_to "Calendars", admin_calendars_path %></li>
+  <li><%= link_to "Media Requests", admin_media_requests_path %></li>
+
+	
+</ul>
+
+
+
