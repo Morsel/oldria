@@ -1200,11 +1200,11 @@ p.search_filter_hint {
 
 #extended_profile_container {
 	.showit {
-  		padding: 8px 16px 8px 26px;
+  	padding: 8px 16px 8px 26px;
 		margin-bottom: 20px;
-  		display: block;
-  		outline: none;
-  		font-size: 13px;
+ 		display: block;
+ 		outline: none;
+ 		font-size: 13px;
 		@include museoslabbold;
 		color: $sienna;
 		background-color: #fbeae3;
@@ -1213,14 +1213,13 @@ p.search_filter_hint {
 			font-style: italic;
 			@include museoslabmedium;
 		}
-		&:hover {
+		&:hover, &.open {
 			background-color: $sienna;
 			color: #fff;
 			text-decoration: none;
 		}
 		&.open {
-			background-position: 5px -100px;
-			background-color: $sienna;
+			background-position: 5px -95px;
 		}
 	}
 }
