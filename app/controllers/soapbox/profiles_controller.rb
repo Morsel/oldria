@@ -5,6 +5,7 @@ class Soapbox::ProfilesController < Soapbox::SoapboxController
     # Is the current user following this person?
     @following = current_user.followings.first(:conditions => {:friend_id => @user.id}) if current_user
     @latest_statuses = @user.statuses.all(:limit => 5)
+    load_past_features
     render :template => 'users/show'
   end
 
