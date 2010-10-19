@@ -2,5 +2,5 @@
 @font-face {
   font-family: 'Knockout';
   src: url("/soapbox/_fonts/knockout-htf69-fullliteweight-webfont.eot");
-  src: local("☺"), url("/soapbox/_fonts/knockout-htf69-fullliteweight-webfont.woff") format("woff"), url("/soapbox/_fonts/knockout-htf69-fullliteweight-webfont.ttf") format("truetype"), url("/soapbox/_fonts/knockout-htf69-fullliteweight-webfont.svg#webfont12ihiuej") format("svg");
+  src: local("Knockout"), local("KnockoutHTF69FullLiteweight"), local("☺"), url("/soapbox/_fonts/knockout-htf69-fullliteweight-webfont.woff") format("woff"), url("/soapbox/_fonts/knockout-htf69-fullliteweight-webfont.ttf") format("truetype"), url("/soapbox/_fonts/knockout-htf69-fullliteweight-webfont.svg#webfont12ihiuej") format("svg");
 }
