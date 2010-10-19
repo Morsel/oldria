@@ -79,9 +79,15 @@ class TrendQuestion < ActiveRecord::Base
 
   def self.on_soapbox_with_response_from_user(user = nil)
     return [] unless user
-    self.all(:joins => [:soapbox_entry, { :admin_discussions => :comments }, { :solo_discussions => :comments }], 
-             :conditions => ['comments.user_id = ?', user.id], 
-             :group => 'trend_questions.id')
+    if user.restaurants.present?
+      self.all(:joins => [:soapbox_entry, { :admin_discussions => :comments }], 
+               :conditions => ['comments.user_id = ?', user.id], 
+               :group => 'trend_questions.id')
+    else
+      self.all(:joins => [:soapbox_entry, { :solo_discussions => :comments }], 
+               :conditions => ['comments.user_id = ?', user.id], 
+               :group => 'trend_questions.id')
+    end
   end
 
   def comments(deep_includes = false)
