@@ -388,6 +388,7 @@ body, html, #container, #main, #content, #inside {
 #content #page-title h1 {
   font-family: 'MuseoSlab300', 'Helvetica Neue', Helvetica, arial, sans-serif;
   font-weight: normal !important;
+  font-weight: 300;
   color: #333;
   font-size: 20px;
   margin: 8px 0 12px 15px;
@@ -440,6 +441,7 @@ body, html, #container, #main, #content, #inside {
   color: #cb4827;
   font-family: 'MuseoSlab700', 'Helvetica Neue', Helvetica, arial, sans-serif;
   font-weight: normal !important;
+  font-weight: 700;
   font-size: 22px;
   line-height: 1.2;
   width: 575px;
@@ -482,6 +484,7 @@ body, html, #container, #main, #content, #inside {
   border-radius: 350px;
   font-family: 'MuseoSlab700', 'Helvetica Neue', Helvetica, arial, sans-serif;
   font-weight: normal !important;
+  font-weight: 700;
   font-size: 18px;
   line-height: 0.5;
   text-decoration: none;
@@ -567,6 +570,7 @@ body, html, #container, #main, #content, #inside {
 #content.home .panel header {
   font-family: 'MuseoSlab500', 'Helvetica Neue', Helvetica, arial, sans-serif;
   font-weight: normal !important;
+  font-weight: 500;
   margin: 0 10px 0;
   padding: 10px 0 0;
   font-size: 15px;
@@ -599,6 +603,7 @@ body, html, #container, #main, #content, #inside {
 #content.home #home-pulse section header h1 {
   font-family: 'MuseoSlab500', 'Helvetica Neue', Helvetica, arial, sans-serif;
   font-weight: normal !important;
+  font-weight: 500;
   color: #474f80;
 }
 /* line 306, ../../../app/stylesheets/soapbox.scss */
@@ -679,12 +684,14 @@ body, html, #container, #main, #content, #inside {
 #page-content h1 {
   font-family: 'MuseoSlab700', 'Helvetica Neue', Helvetica, arial, sans-serif;
   font-weight: normal !important;
+  font-weight: 700;
   margin: 6px 0 12px 0;
 }
 /* line 360, ../../../app/stylesheets/soapbox.scss */
 #page-content h2 {
   font-family: 'MuseoSlab500', 'Helvetica Neue', Helvetica, arial, sans-serif;
   font-weight: normal !important;
+  font-weight: 500;
   font-size: 18px;
   padding: 0 0 2px;
   margin-top: 20px;
@@ -748,6 +755,7 @@ body, html, #container, #main, #content, #inside {
 #page-content #user-results h3 {
   font-family: 'MuseoSlab700', 'Helvetica Neue', Helvetica, arial, sans-serif;
   font-weight: normal !important;
+  font-weight: 700;
   border-bottom: 1px solid #ddd;
 }
 /* line 417, ../../../app/stylesheets/soapbox.scss */
@@ -783,6 +791,7 @@ body, html, #container, #main, #content, #inside {
 #page-content #recent_soapbox .recent_actions h3 {
   font-family: 'MuseoSlab700', 'Helvetica Neue', Helvetica, arial, sans-serif;
   font-weight: normal !important;
+  font-weight: 700;
   margin: 20px 0 6px;
 }
 /* line 450, ../../../app/stylesheets/soapbox.scss */
@@ -987,6 +996,7 @@ body, html, #container, #main, #content, #inside {
 #sidebar.home section h1 {
   font-family: 'MuseoSlab700', 'Helvetica Neue', Helvetica, arial, sans-serif;
   font-weight: normal !important;
+  font-weight: 700;
   font-size: 18px;
   color: #474f80;
 }
@@ -1023,6 +1033,7 @@ body, html, #container, #main, #content, #inside {
 #recent-activity h1 {
   font-family: 'MuseoSlab500', 'Helvetica Neue', Helvetica, arial, sans-serif;
   font-weight: normal !important;
+  font-weight: 500;
   font-size: 15px;
   line-height: 1.2;
   color: #fff;
@@ -1057,6 +1068,7 @@ body, html, #container, #main, #content, #inside {
   filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=66);
   font-family: 'Knockout', 'Helvetica Neue', Helvetica, arial, sans-serif;
   font-weight: normal !important;
+  font-weight: 500;
   font-size: 15px;
 }
 /* line 667, ../../../app/stylesheets/soapbox.scss */
@@ -1114,6 +1126,7 @@ body, html, #container, #main, #content, #inside {
 #activity-chooser a {
   font-family: 'Knockout', 'Helvetica Neue', Helvetica, arial, sans-serif;
   font-weight: normal !important;
+  font-weight: 500;
   font-size: 18px;
   display: block;
   padding: 10px 8px;
@@ -1192,6 +1205,7 @@ body, html, #container, #main, #content, #inside {
 #participate.home {
   font-family: 'MuseoSlab300', 'Helvetica Neue', Helvetica, arial, sans-serif;
   font-weight: normal !important;
+  font-weight: 300;
   text-transform: uppercase;
   font-size: 17px;
   line-height: 1.1;
@@ -1211,6 +1225,7 @@ body, html, #container, #main, #content, #inside {
 #participate.home .button span, #participate.home span span {
   font-family: 'MuseoSlab700', 'Helvetica Neue', Helvetica, arial, sans-serif;
   font-weight: normal !important;
+  font-weight: 700;
 }
 /* line 786, ../../../app/stylesheets/soapbox.scss */
 #participate.home .button {
@@ -1607,6 +1622,7 @@ p.search_filter_hint {
 #trend-comments .comment header, #qotd-comments .comment header {
   font-family: 'MuseoSlab300', 'Helvetica Neue', Helvetica, arial, sans-serif;
   font-weight: normal !important;
+  font-weight: 300;
   font-size: 15px;
   line-height: 1.2;
   margin: 0 0 10px;
@@ -1615,6 +1631,7 @@ p.search_filter_hint {
 #trend-comments .comment header a, #qotd-comments .comment header a {
   font-family: 'MuseoSlab700', 'Helvetica Neue', Helvetica, arial, sans-serif;
   font-weight: normal !important;
+  font-weight: 700;
   color: #488ba9;
 }
 /* line 1098, ../../../app/stylesheets/soapbox.scss */
@@ -1817,6 +1834,7 @@ p.search_filter_hint {
   margin: 0 0 10px 0;
   font-family: 'MuseoSlab300', 'Helvetica Neue', Helvetica, arial, sans-serif;
   font-weight: normal !important;
+  font-weight: 300;
   text-transform: uppercase;
 }
 /* line 1256, ../../../app/stylesheets/soapbox.scss */
@@ -1874,6 +1892,7 @@ p.search_filter_hint {
   color: #333;
   font-family: 'MuseoSlab700', 'Helvetica Neue', Helvetica, arial, sans-serif;
   font-weight: normal !important;
+  font-weight: 700;
   margin: 20px 0 5px;
 }
 /* line 1299, ../../../app/stylesheets/soapbox.scss */
@@ -1958,6 +1977,7 @@ p.search_filter_hint {
   font-size: 13px;
   font-family: 'MuseoSlab700', 'Helvetica Neue', Helvetica, arial, sans-serif;
   font-weight: normal !important;
+  font-weight: 700;
   color: #cb4827;
   background-color: #fbeae3;
   background: #fbeae3 url(/images/soapbox/show-arrow.gif) no-repeat 5px 6px;
@@ -1967,6 +1987,7 @@ p.search_filter_hint {
   font-style: italic;
   font-family: 'MuseoSlab500', 'Helvetica Neue', Helvetica, arial, sans-serif;
   font-weight: normal !important;
+  font-weight: 500;
 }
 /* line 1373, ../../../app/stylesheets/soapbox.scss */
 #extended_profile_container .showit:hover, #extended_profile_container .showit.open {
@@ -1989,6 +2010,7 @@ p.search_filter_hint {
 #extended_profile h3 {
   font-family: 'MuseoSlab500', 'Helvetica Neue', Helvetica, arial, sans-serif;
   font-weight: normal !important;
+  font-weight: 500;
   font-weight: normal;
   font-size: 15px;
   border-bottom: 1px dotted #999;
@@ -2115,6 +2137,7 @@ dl.things dt:after {
 #employment_criteria legend span {
   font-family: 'MuseoSlab700', 'Helvetica Neue', Helvetica, arial, sans-serif;
   font-weight: normal !important;
+  font-weight: 700;
   padding: 10px 0;
   font-size: 15px;
 }
