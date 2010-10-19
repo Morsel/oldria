@@ -167,7 +167,7 @@
     	  </div><!--#older_qotds_box-->
 	
     	  <div id="older_tqs_box">
-    	    <% if @user.qotds_responded.present? %>
+    	    <% if @user.trend_questions_responded.present? %>
     	      <%= render :partial => 'users/question', 
     	          :collection => @user.trend_questions_responded, 
     	          :local => {:user => @user} %>
