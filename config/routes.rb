@@ -163,6 +163,7 @@ ActionController::Routing::Routes.draw do |map|
     admin.resources :soapbox_entries
     admin.resources :soapbox_pages
     admin.resources :soapbox_slides
+    admin.resources :soapbox_promos
     admin.resources :profile_questions, :collection => { :sort => :post }
     admin.resources :chapters, :collection => { :select => :post }
     admin.resources :topics

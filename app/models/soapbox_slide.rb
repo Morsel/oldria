@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20101015224046
+# Schema version: 20101019162841
 #
 # Table name: soapbox_slides
 #
@@ -7,6 +7,7 @@
 #  image_file_name    :string(255)
 #  image_content_type :string(255)
 #  image_file_size    :integer
+#  image_updated_at   :integer
 #  title              :string(255)
 #  excerpt            :text
 #  link               :string(255)
