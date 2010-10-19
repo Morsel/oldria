@@ -32,7 +32,7 @@ module EmployeesHelper
           employment.restaurant.name
         end
       else
-        content_tag(:li, :class => "restaurant_name#{' primary' if highlight_restaurant}") do
+        content_tag(:li, :class => "restaurant_name") do
           employment.employee.restaurant_names
         end
       end
@@ -48,14 +48,4 @@ module EmployeesHelper
     content_tag(:ul, list_items.join(""), :class => "identity_details #{list_class}")
   end
   
-  def title_and_restaurant(user)
-    if user.primary_employment
-      if user.restaurants.present?
-        "#{user.primary_employment.restaurant_role.try(:name)} at #{user.primary_employment.restaurant.try(:name)}"
-      else
-        "#{user.primary_employment.restaurant_role.name}"
-      end
-    end
-  end
-
 end

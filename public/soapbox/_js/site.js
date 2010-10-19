@@ -58,6 +58,8 @@ $(document).ready(function(){
 		}).find('.loading').removeClass('loading');
 	}
 	
+	$('.showit').showy();
+	
 });
 	
 function buildPager(idx, elem){

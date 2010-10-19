@@ -102,15 +102,13 @@
 	
 	      <% end %>
 	    </dl><!-- .user_info.extra -->
-	  <p class="timestamp_header">Last updated:<%= @user.profile.try(:updated_at).try(:strftime, "%b %e %Y") %></span>
-  
-		</div><!--.profile_contact_info-->
-		
-	</div><!--.profile_info-->
-        
-	<%= render :partial => 'profile_actions' unless media_or_owner? %>
-  	    
+        <p class="timestamp_header">Last updated:<%= @user.profile.try(:updated_at).try(:strftime, "%b %e %Y") %></span>
 
+        </div><!--.profile_contact_info-->
+
+    </div><!--.profile_info-->
+
+	<%= render :partial => 'users/profile_actions' unless media_or_owner? %>
 
 </div><!-- #user_profile_view -->
   	

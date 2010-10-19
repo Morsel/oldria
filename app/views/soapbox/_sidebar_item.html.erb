@@ -5,7 +5,7 @@
   </header>
   <aside class="feed-item-reply-count">
       <% link_to soapbox_soapbox_entry_path(sidebar_item.soapbox_entry) do %>
-      <span class="num"><%= count = sidebar_item.comments(false).count %></span> <%= count > 1 ? "replies" : "reply" %>
+      <span class="num"><%= count = sidebar_item.soapbox_comment_count %></span> <%= count > 1 ? "replies" : "reply" %>
       <% end %>
   </aside>
 </li>
