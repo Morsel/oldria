@@ -478,9 +478,11 @@ body,html,#container,#main,#content,#inside{
 				.admin_qotd{
 					border-bottom:1px dotted #666;
 					a{
-						display:block;
-						padding:10px;
-						color:#333;
+						color: #333;
+						display: block;
+						font-size: 14px;
+						margin: 0px;
+						padding: 10px;
 						&:hover{
 							background:$dark-purple;
 							color:#fff;
