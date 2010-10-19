@@ -1474,7 +1474,7 @@ dl.things dt:after {content: ":"}
 	legend {
 		span {
 			@include museoslabbold;
-			padding: 0;
+			padding:10px 0;
 			font-size:15px;
 		}
 	}
