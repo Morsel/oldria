@@ -3,22 +3,16 @@
   font-family: 'MuseoSlab700';
   src: url("/soapbox/_fonts/museo_slab_700-webfont.eot");
   src: local("☺"), url("/soapbox/_fonts/museo_slab_700-webfont.woff") format("woff"), url("/soapbox/_fonts/museo_slab_700-webfont.ttf") format("truetype"), url("/soapbox/_fonts/museo_slab_700-webfont.svg#webfontaAKffRlt") format("svg");
-  font-weight: normal;
-  font-style: normal;
 }
 
 @font-face {
   font-family: 'MuseoSlab500';
   src: url("/soapbox/_fonts/museo_slab_500-webfont.eot");
   src: local("☺"), url("/soapbox/_fonts/museo_slab_500-webfont.woff") format("woff"), url("/soapbox/_fonts/museo_slab_500-webfont.ttf") format("truetype"), url("/soapbox/_fonts/museo_slab_500-webfont.svg#webfontdPhVXIfL") format("svg");
-  font-weight: normal;
-  font-style: normal;
 }
 
 @font-face {
   font-family: 'MuseoSlab300';
   src: url("/soapbox/_fonts/museo_slab_300-webfont.eot");
   src: local("☺"), url("/soapbox/_fonts/museo_slab_300-webfont.woff") format("woff"), url("/soapbox/_fonts/museo_slab_300-webfont.ttf") format("truetype"), url("/soapbox/_fonts/museo_slab_300-webfont.svg#webfont9g2DQVeq") format("svg");
-  font-weight: normal;
-  font-style: normal;
 }
