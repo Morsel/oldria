@@ -12,6 +12,6 @@
 
 class SoapboxPromo < ActiveRecord::Base
   
-  validates_prescence_of :title, :body
+  validates_presence_of :title, :body
   
 end
