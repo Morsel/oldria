@@ -1,11 +1,36 @@
 class SubscriptionsController < ApplicationController
   
   def new
-    customer = Braintree::Customer.find("User_#{current_user.id}") rescue nil
-    if customer
-      @tr_data =  Braintree::TransparentRedirect.update_customer_data(
+    @customer = find_braintree_customer
+    @tr_data = braintree_data
+  end
+  
+  def bt_callback
+    @result = confirm_braintree_request
+    if @result.success?
+      @subscription_result = make_subscription_request
+      if @subscription_result.success?
+        current_user.update_attributes(:premium_account => true)
+      end
+    end
+    redirect_to edit_user_path(current_user)
+  end
+  
+  private
+  
+  def braintree_customer_id
+    "User_#{current_user.id}"
+  end
+  
+  def find_braintree_customer
+    Braintree::Customer.find(braintree_customer_id) rescue nil
+  end
+  
+  def braintree_data
+    if @customer
+      Braintree::TransparentRedirect.update_customer_data(
         :redirect_url => bt_callback_subscriptions_url,
-        :customer_id => "User_#{current_user.id}", 
+        :customer_id => braintree_customer_id, 
         :customer => {
             :credit_card => {
               :options => {
@@ -15,28 +40,24 @@ class SubscriptionsController < ApplicationController
           }
       )
     else
-      @tr_data = Braintree::TransparentRedirect.create_customer_data(
+      Braintree::TransparentRedirect.create_customer_data(
         :redirect_url => bt_callback_subscriptions_url,
         :customer => {
-          :id => "User_#{current_user.id}"
+          :id => braintree_customer_id
         }
       )
     end
   end
   
-  def bt_callback
-    result = Braintree::TransparentRedirect.confirm(request.query_string)
-    if result.success?
-      subscription_result = Braintree::Subscription.create(
-        :payment_method_token => result.customer.credit_cards.first.token,
-        :plan_id => "kpw2"
-      )
-      if subscription_result.success?
-        # our stuff
-      end
-    end
-    # ap subscription_result.subscription.next_billing_date
-    redirect_to edit_user_path(current_user)
+  def confirm_braintree_request
+    Braintree::TransparentRedirect.confirm(request.query_string)
+  end
+  
+  def make_subscription_request
+    Braintree::Subscription.create(
+      :payment_method_token => @result.customer.credit_cards.first.token,
+      :plan_id => "kpw2"
+    )
   end
   
 end

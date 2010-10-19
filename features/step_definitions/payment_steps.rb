@@ -36,3 +36,12 @@ Given /^we know that we have valid credit card authorization$/ do
 end
 
 # "hash"=>"9755745ee8d815ff817d5de37c18a2b80cba58a5", "action"=>"bt_callback", "id"=>"7rgx5jjf762nkfbg", "controller"=>"subscriptions", "http_status"=>"200"}
+
+When /^I simulate a successful call from braintree$/ do
+  SubscriptionsController.any_instance.stubs (
+      :confirm_braintree_request => stub(:success? => true))
+  SubscriptionsController.any_instance.stubs (
+      :make_subscription_request => stub(:success? => true))
+  visit(bt_callback_subscriptions_path)
+end
+
