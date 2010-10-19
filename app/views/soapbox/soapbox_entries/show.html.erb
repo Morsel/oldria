@@ -4,7 +4,7 @@
   <header>
     <%= soapbox_tabby_title(@feature) %>
     <details>
-      <time datetime="<%= @feature.soapbox_entry.published_at.try(:strftime, "%Y-%b-%e") %>2010-09-24"><%= @feature.soapbox_entry.published_at.try(:strftime, "%b %e, %Y") %></time>
+      <time datetime="<%= @feature.soapbox_entry.published_at %>"><%= @feature.soapbox_entry.published_at.try(:strftime, "%b %e, %Y") %></time>
       <h2><%= message(@feature) %></h2>
     </details>
   </header>
