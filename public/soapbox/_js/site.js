@@ -81,7 +81,7 @@ function displayInfo(currSlideElement, nextSlideElement, options, forwardFlag){
 	title = $(nextSlideElement).attr('data-title');
 	caption = $(nextSlideElement).attr('data-caption');
 	url = $(nextSlideElement).attr('data-url');
-	link = '<a href=' + url + '>more&nbsp;&#187;</a>';
+	link = '&nbsp;<a href=' + url + '>more&nbsp;&#187;</a>';
 	$('#cycle-title').html(title);
 	$('#cycle-caption').html(caption + link);
 }
