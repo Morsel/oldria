@@ -6,7 +6,7 @@
   </header>
   <article id="trend-question">
     <details>
-      <time datetime="<%= @main_feature.soapbox_entry.published_at.try(:strftime, "%Y-%b-%e") %>"><%= @main_feature.soapbox_entry.published_at.try(:strftime, "%b %e, %Y") %></time>
+      <time datetime="<%= @main_feature.soapbox_entry.published_at %>"><%= @main_feature.soapbox_entry.published_at.try(:strftime, "%b %e, %Y") %></time>
       <h2><%= message(@main_feature) %></h2>
     </details>
   </article>
@@ -25,7 +25,7 @@
   </header>
   <article id="question-of-the-day-details">
     <details>
-      <time datetime="<%= @secondary_feature.soapbox_entry.published_at.try(:strftime, "%Y-%b-%e") %>"><%= @secondary_feature.soapbox_entry.published_at.try(:strftime, "%b %e, %Y") %></time>
+      <time datetime="<%= @secondary_feature.soapbox_entry.published_at %>"><%= @secondary_feature.soapbox_entry.published_at.try(:strftime, "%b %e, %Y") %></time>
       <h2><%= message(@secondary_feature) %></h2>
     </details>
   </article>
@@ -45,7 +45,7 @@
         <li>
             <% link_to soapbox_soapbox_entry_path(trend_question.soapbox_entry) do %>
                 <% date = trend_question.scheduled_at %>
-                <time datetime="<%= date.try(:strftime, "%Y-%b-%e") %>"><span><%= date.try(:strftime, "%b").upcase %></span><%= date.try(:strftime, "%e") %></time>
+                <time datetime="<%= date %>"><span><%= date.try(:strftime, "%b").upcase %></span><%= date.try(:strftime, "%e") %></time>
                 <p><%= message(trend_question) %></p>
                 <span class="reply-count"><span><%= count = trend_question.soapbox_comment_count %></span><%= count > 1 ? "replies" : "reply" %></span>
             <% end %>
@@ -61,7 +61,7 @@
       <li>
           <% link_to soapbox_soapbox_entry_path(qotd.soapbox_entry) do %>
               <% date = qotd.scheduled_at %>
-              <time datetime="<%= date.try(:strftime, "%Y-%b-%e") %>"><span><%= date.try(:strftime, "%b").upcase %></span><%= date.try(:strftime, "%e") %></time>
+              <time datetime="<%= date %>"><span><%= date.try(:strftime, "%b").upcase %></span><%= date.try(:strftime, "%e") %></time>
               <p><%= message(qotd) %></p>
               <span class="reply-count"><span><%= count = qotd.soapbox_comment_count %></span><%= count > 1 ? "replies" : "reply" %></span>
           <% end %>
