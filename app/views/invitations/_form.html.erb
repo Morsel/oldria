@@ -18,7 +18,7 @@
                 <p><em>or</em></p>
               <% end if current_user %>
             
-              <%= f.input :restaurant_name, :label => current_user ? "Name of the restaurant(s) where they work:" : "Name of the restaurant(s) where you work:" %>
+              <%= f.input :restaurant_name, :label => current_user ? "Name of the restaurant(s) where they work:" : "Name of the restaurant(s) where you work:", :hint => 'Type "none" if currently between jobs' %>
               <%= f.input :title, :label => "Job title" %>
             <% end %>
         <% end %>
