@@ -1,5 +1,5 @@
 $(document).ready(function(){
-	var panelHeight = homePanelHeight = 0;
+	var panelHeight = homePanelHeight = tabablePanelHeight = 0;
 	
 	if($('#recent-activity').length > 0){
 	
@@ -59,6 +59,16 @@ $(document).ready(function(){
 	}
 	
 	$('.showit').showy();
+	$('.tabable').tabs({
+		panelTemplate: '<ol></ol>',
+		fx: { duration: 'fast', opacity: 'toggle' }
+	}).find('div').each(function(){	
+		if($(this).height() > tabablePanelHeight){
+			tabablePanelHeight = $(this).height();
+		}
+	}).each(function(){
+		$(this).height(tabablePanelHeight +'px');
+	});;
 	
 });
 	

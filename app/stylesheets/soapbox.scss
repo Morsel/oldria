@@ -429,7 +429,154 @@ body,html,#container,#main,#content,#inside{
 				}
 			}
 		}
-	}
+	}/* directory search - user results */
+	
+	#recent_soapbox {
+		.recent_actions {
+			overflow: hidden;
+			width: 315px;
+			float: left;
+			margin: 0 20px 0 0;
+			&.last {
+				margin: 0;
+			}
+			h3 {
+				@include museoslabbold;
+				margin: 20px 0 6px;
+			}
+		}
+		#recent_qtod {
+
+			nav {
+				overflow: hidden;
+				margin: 0;
+				padding: 0;
+				a {
+					width: 120px;
+					margin: 0 5px 0 0;
+					background-color: $purple;
+					color: #fff;
+					display: block;
+					padding: 10px;
+					float:left;
+				}
+				span.ui-tabs-selected a{
+					background-color: $x-light-purple;
+					color: $purple;
+				}
+			}
+			p{
+				padding:10px;
+			}
+			.ui-tabs-hide{
+				display:none;
+			}
+			.panel-bg{
+				background-color: $x-light-purple;
+			}
+			.ui-tabs-panel{
+				.admin_qotd{
+					border-bottom:1px dotted #666;
+					a{
+						display:block;
+						padding:10px;
+						color:#333;
+						&:hover{
+							background:$dark-purple;
+							color:#fff;
+						}
+					}
+				}
+			}
+		}
+		#behindline {
+			ul {
+				border-top: 1px dotted $baby-blue;
+				border-bottom: 1px dotted $baby-blue;
+				margin: 9px 0;
+				padding: 0;
+				list-style: none;
+				li {
+					padding: 0;
+					margin: 0;
+					background-image: none;
+					a {
+						display: block;
+						padding: 10px;
+						color: #333;
+						&:hover {
+							text-decoration: none;
+							background-color: $darker-blue;
+							color: #fff;
+						}
+					}
+					&.even {
+						a {
+							background-color: #f2fbff;
+							&:hover {
+								background-color: $darker-blue;
+								color: #fff;
+							}
+						}
+					}
+					&.odd {
+						border-top: 1px dotted #b9d6e4;
+						border-bottom: 1px dotted #b9d6e4;
+						a {
+							background-color: #e3f4fc;
+							&:hover {
+								background-color: $darker-blue;
+								color: #fff;
+							}
+						}
+					}
+				}
+				h5 {
+					margin: 0;
+					padding: 0;
+					line-height: 15px;
+					span {
+						float: right;
+						font-weight: normal;
+						color: $baby-blue;
+						font-size: 10px;
+					}
+				}
+			}
+
+			.view_all {
+				margin: 10px 0;
+				a {
+					color: $darker-blue;
+					padding: 0 0 0 5px;
+					&:hover {
+						color: $baby-blue;
+					}
+				}
+			}
+
+			.edit_profile_link {
+				display: block;
+				margin: 0;
+				padding: 0;
+				a {
+					font-size: 13px;
+					font-weight: bold;
+					display: block;
+					margin: 0;
+					line-height: 14px;
+					padding: 7px 10px;
+					color: #fff;
+					background-color: $baby-blue;
+					text-shadow: 0 1px 0 #000;
+					&:hover {
+						text-decoration: none;
+						background-color: $purple;
+					}
+				}
+			}
+		}
+	} /* recent questions in profile */
 } /* page-content */
 
 #inside{
@@ -1340,135 +1487,7 @@ p.search_filter_hint {
 dl.things dt:after {content: ":"}
 
 
-#recent_soapbox {
-	.recent_actions {
-		overflow: hidden;
-		width: 315px;
-		float: left;
-		margin: 0 20px 0 0;
-		&.last {
-			margin: 0;
-		}
-		h3 {
-			margin: 20px 0 6px;
-		}
-	}
-	#recent_qtod {
-		ul {
-			overflow: hidden;
-			margin: 0;
-			padding: 0;
-			list-style: none;
-			li {
-				background: none;
-				float: left;
-				width: 140px;
-				margin: 0 5px 0 0;
-				padding: 0;
-				a {
-					background-color: $purple;
-					color: #fff;
-					display: block;
-					padding: 10px;
-					margin: 0;
-					&.selected {
-						background-color: #d1d4e6;
-						color: $purple;
-					}
-				}
-			}
-		}
-		#older_qotds_box {
-		}
-	}
-	#behindline {
-		ul {
-			border-top: 1px dotted $baby-blue;
-			border-bottom: 1px dotted $baby-blue;
-			margin: 9px 0;
-			padding: 0;
-			list-style: none;
-			li {
-				padding: 0;
-				margin: 0;
-				background-image: none;
-				a {
-					display: block;
-					padding: 10px;
-					color: #333;
-					&:hover {
-						text-decoration: none;
-						background-color: $darker-blue;
-						color: #fff;
-					}
-				}
-				&.even {
-					a {
-						background-color: #f2fbff;
-						&:hover {
-							background-color: $darker-blue;
-							color: #fff;
-						}
-					}
-				}
-				&.odd {
-					border-top: 1px dotted #b9d6e4;
-					border-bottom: 1px dotted #b9d6e4;
-					a {
-						background-color: #e3f4fc;
-						&:hover {
-							background-color: $darker-blue;
-							color: #fff;
-						}
-					}
-				}
-			}
-			h5 {
-				margin: 0;
-				padding: 0;
-				line-height: 15px;
-				span {
-					float: right;
-					font-weight: normal;
-					color: $baby-blue;
-					font-size: 10px;
-				}
-			}
-		}
 
-		.view_all {
-			margin: 10px 0;
-			a {
-				color: $darker-blue;
-				padding: 0 0 0 5px;
-				&:hover {
-					color: $baby-blue;
-				}
-			}
-		}
-    	
-		.edit_profile_link {
-			display: block;
-			margin: 0;
-			padding: 0;
-			a {
-				font-size: 13px;
-				font-weight: bold;
-				display: block;
-				margin: 0;
-				line-height: 14px;
-				padding: 7px 10px;
-				color: #fff;
-				background-color: $baby-blue;
-				text-shadow: 0 1px 0 #000;
-				&:hover {
-					text-decoration: none;
-					background-color: $purple;
-				}
-			}
-		}
-	}
-}
 
 #employment_criteria {
 	legend {

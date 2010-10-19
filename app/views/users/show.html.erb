@@ -119,7 +119,7 @@
 </div><!-- #extended_profile_container -->
 
 
-<div id="recent_soapbox">
+<div id="recent_soapbox" class="clearfix">
   	
 	<%	 if @user.btl_enabled? && (@user == current_user || @user.published_topics.present?) %>
 
@@ -150,40 +150,31 @@
 	<div id="recent_qtod" class="recent_actions last">
 		<h3>Recent responses on Soapbox</h3>
 	
-	  <ul>
-	    <li><a href="#older_qotds_box" class="selected">Questions of the Day</a></li>
-	    <li><a href="#older_tqs_box">Trend Questions</a></li>
-	  </ul>
+	  <div class="tabable">
+  	  <nav>
+  	    <span><a href="#older_qotds_box">Questions of the Day</a></span>
+  	    <span><a href="#older_tqs_box">Trend Questions</a></span>
+  	  </nav>
+	    
+	    <section class="panel-bg">
+    	  <div id="older_qotds_box">
+    	    <% if @user.qotds_responded.present? %>
+    	      <%= render :partial => 'users/question', :collection => @user.qotds_responded, :local => { :user => @user } %>
+    	    <% else %>
+    	      <p><%= @user.name %> hasn't answered any Questions of the Day yet.</p>
+    	    <% end %>
+    	  </div><!--#older_qotds_box-->
 	
-	  <div id="older_qotds_box">
-	    <% if @user.qotds_responded.present? %>
-	      <%= render :partial => 'users/question', :collection => @user.qotds_responded, :local => { :user => @user } %>
-	    <% else %>
-	      <p><%= @user.name %> hasn't answered any Questions of the Day yet.</p>
-	    <% end %>
-	  </div><!--#older_qotds_box-->
-	
-	  <div id="older_tqs_box">
-	    <% if @user.qotds_responded.present? %>
-	      <%= render :partial => 'users/question', 
-	          :collection => @user.trend_questions_responded, 
-	          :local => {:user => @user} %>
-	      <% else %>
-	        <p><%= @user.name %> hasn't answered any Trend Questions yet.</p>
-	      <% end %>
-	  </div><!--#older_tqs_box-->
-	</div><!--recentsoapbox-->
-	
-</div>
-
-
-
-<% if false %><div id="user_content">
-<hr class="space"/>
-  <% unless media? || @latest_statuses.blank? %>
-    <%= render :partial => 'recent_statuses', 
-        :locals => {:user => @user, :statuses => @latest_statuses } %>
-    <%= render :partial => 'followings', :locals => {:user => @user} %>
-  <% end %>
-</div><% end -%>
-<% #end -%>
+    	  <div id="older_tqs_box">
+    	    <% if @user.qotds_responded.present? %>
+    	      <%= render :partial => 'users/question', 
+    	          :collection => @user.trend_questions_responded, 
+    	          :local => {:user => @user} %>
+    	      <% else %>
+    	        <p><%= @user.name %> hasn't answered any Trend Questions yet.</p>
+    	      <% end %>
+    	  </div><!--#older_tqs_box-->
+    	</seciton>
+  	</div><!-- /tabable -->
+	</div><!--recent_qtod-->
+</div><!-- /recent_soapbox -->
