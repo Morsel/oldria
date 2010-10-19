@@ -582,7 +582,7 @@ body, html, #container, #main, #content, #inside {
   margin: 0;
 }
 /* line 291, ../../../app/stylesheets/soapbox.scss */
-#content.home #home-pulse {
+#content.home .panel_0 {
   display: inline;
   float: left;
   margin-right: 10px;
@@ -590,24 +590,24 @@ body, html, #container, #main, #content, #inside {
   margin-right: 15px;
 }
 /* line 139, ../../../../../.rvm/gems/ruby-1.8.7-p302@spoonfeed/gems/compass-0.10.5/frameworks/blueprint/stylesheets/blueprint/_grid.scss */
-* html #content.home #home-pulse {
+* html #content.home .panel_0 {
   overflow-x: hidden;
 }
 /* line 295, ../../../app/stylesheets/soapbox.scss */
-#content.home #home-pulse section header {
+#content.home .panel_0 section header {
   border: 0;
   margin: 0 0 10px;
   padding: 0;
 }
 /* line 299, ../../../app/stylesheets/soapbox.scss */
-#content.home #home-pulse section header h1 {
+#content.home .panel_0 section header h1 {
   font-family: 'MuseoSlab500', 'Helvetica Neue', Helvetica, arial, sans-serif;
   font-weight: normal !important;
   font-weight: 500;
   color: #474f80;
 }
 /* line 306, ../../../app/stylesheets/soapbox.scss */
-#content.home #home-featured-user {
+#content.home .panel_1 {
   display: inline;
   float: left;
   margin-right: 10px;
@@ -615,18 +615,18 @@ body, html, #container, #main, #content, #inside {
   margin-right: 15px;
 }
 /* line 139, ../../../../../.rvm/gems/ruby-1.8.7-p302@spoonfeed/gems/compass-0.10.5/frameworks/blueprint/stylesheets/blueprint/_grid.scss */
-* html #content.home #home-featured-user {
+* html #content.home .panel_1 {
   overflow-x: hidden;
 }
 /* line 310, ../../../app/stylesheets/soapbox.scss */
-#content.home #home-featured-restaurant {
+#content.home .panel_2 {
   display: inline;
   float: left;
   margin-right: 0;
   width: 236px;
 }
 /* line 139, ../../../../../.rvm/gems/ruby-1.8.7-p302@spoonfeed/gems/compass-0.10.5/frameworks/blueprint/stylesheets/blueprint/_grid.scss */
-* html #content.home #home-featured-restaurant {
+* html #content.home .panel_2 {
   overflow-x: hidden;
 }
 /* line 315, ../../../app/stylesheets/soapbox.scss */
