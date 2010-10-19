@@ -27,23 +27,19 @@ $blueprint-grid-width: ($blueprint-container-size + $blueprint-grid-margin) / $b
 @mixin museoslabbold {
 	font-family: 'MuseoSlab700', 'Helvetica Neue', Helvetica, arial, sans-serif;
 	font-weight: normal !important;
-	font-weight: 700;
 }
 
 @mixin museoslabmedium {
 	font-family: 'MuseoSlab500', 'Helvetica Neue', Helvetica, arial, sans-serif;
 	font-weight: normal !important;
-	font-weight: 500;
 }
 
 @mixin museoslabthin {
 	font-family: 'MuseoSlab300', 'Helvetica Neue', Helvetica, arial, sans-serif;
 	font-weight: normal !important;
-	font-weight: 300;
 }
 
 @mixin knockout {
 	font-family: 'Knockout', 'Helvetica Neue', Helvetica, arial, sans-serif;
 	font-weight: normal !important;
-	font-weight: 500;
 }
