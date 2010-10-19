@@ -50,31 +50,34 @@
   
 		</div><!--.profile_title_summary-->
 		
-		<div class="profile_contact_info">
-			<h5>Contact Information</h5>
-      <dl class="user_info clearfix clear contact">
-        <dt>Acct. Type</dt>
-        <dd class="user_account_type"><%= h @user.account_type%></dd>
-        <% if display_cell(@user) %>
-          <dt>Mobile</dt>
-          <dd><%= @user.profile.cellnumber %></dd>
-        <% end %>
-        
-        <%- if display_email(@user) -%>
-          <dt>Email</dt>
-          <dd><%= mail_to(@user.email, truncate(@user.email, :length => 20)) %></dd>
-        <%- end -%>
-      
-        <% if display_twitter(@user) %>
-          <dt>Twitter</dt>
-          <dd><%= link_to @user.twitter_username, "http://twitter.com/#{@user.twitter_username}" %></dd>
-        <% end -%>
-      
-        <% if display_facebook(@user) %>
-          <dt>Facebook</dt>
-          <dd><%= link_to @user.facebook_user.name, @user.facebook_user.link %></dd>
-        <% end %>
-      </dl><!-- .user_info.contact -->
+        <div class="profile_contact_info">
+            <h5>Contact Information</h5>
+            <dl class="user_info clearfix clear contact">
+                <%- unless params[:controller] == 'soapbox/profiles' -%>
+                <dt>Acct. Type</dt>
+                <dd class="user_account_type"><%= h @user.account_type %></dd>
+                <%- end -%>
+                
+                <% if display_cell(@user) %>
+                <dt>Mobile</dt>
+                <dd><%= @user.profile.cellnumber %></dd>
+                <% end %>
+
+                <%- if display_email(@user) -%>
+                <dt>Email</dt>
+                <dd><%= mail_to(@user.email, truncate(@user.email, :length => 20)) %></dd>
+                <%- end -%>
+
+                <% if display_twitter(@user) %>
+                <dt>Twitter</dt>
+                <dd><%= link_to @user.twitter_username, "http://twitter.com/#{@user.twitter_username}" %></dd>
+                <% end -%>
+
+                <% if display_facebook(@user) %>
+                <dt>Facebook</dt>
+                <dd><%= link_to @user.facebook_user.name, @user.facebook_user.link %></dd>
+                <% end %>
+            </dl><!-- .user_info.contact -->
   
 			<h5>More Details</h5>
 	    <dl class="user_info clearfix extra">
