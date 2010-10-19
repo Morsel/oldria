@@ -24,7 +24,6 @@ Feature: User Accounts
     Then I see my account status is premium
     And I see a link to cancel my account
     
-  @wip
   Scenario: A user can enter payment info
     Given I am logged in as "emily" with password "secret"
     And we know that we have valid credit card authorization
@@ -36,10 +35,17 @@ Feature: User Accounts
       | Expiration Month   | 10               |
       | Expiration Year    | 1.year.from_now.year |
      
-  @wip 
   Scenario: Successful response from braintree makes a user premium
     Given I am logged in as "emily" with password "secret"
     When I simulate a successful call from braintree
     Then I should be on the edit page for "emily"
     Then I see my account status is premium
+    
+  @wip
+  Scenario: Unsuccessful response from braintree makes a user premium
+    Given I am logged in as "emily" with password "secret"
+    When I simulate an unsuccessful call from braintree
+    Then I should be on the new subscription page
+    When I go to the edit page for "emily"
+    Then I see my account status is not premium
     

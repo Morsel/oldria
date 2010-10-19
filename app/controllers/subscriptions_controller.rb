@@ -13,7 +13,11 @@ class SubscriptionsController < ApplicationController
         current_user.update_attributes(:premium_account => true)
       end
     end
-    redirect_to edit_user_path(current_user)
+    if @result.success? && @subscription_result.success?
+      redirect_to edit_user_path(current_user)
+    else
+      redirect_to(new_subscription_path)
+    end
   end
   
   private

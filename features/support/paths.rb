@@ -13,6 +13,8 @@ module NavigationHelpers
       new_a_la_minute_path
     when /the soapbox index page/
       soapbox_root_path
+    when /the new subscription page/
+      new_subscription_path
 
     when /^the coached status updates page$/
       admin_coached_status_updates_path
@@ -66,6 +68,7 @@ module NavigationHelpers
       restaurant_features_path(Restaurant.find_by_name($1))
     when /^the restaurant menu upload page for (.+)$/
       restaurant_menus_path(Restaurant.find_by_name($1))
+
 
     # Media Requests
     when /^the media request discussion page$/
