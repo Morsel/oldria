@@ -1,5 +1,5 @@
 <li>
-  <time class="feed-item-date" datetime="<%= sidebar_item.soapbox_entry.published_at %>"><%= sidebar_item.soapbox_entry.published_at.strftime("%m/%d") %>:</time>
+  <time class="feed-item-date" datetime="<%= sidebar_item.soapbox_entry.published_at.strftime('%Y-%m-%d') %>"><%= sidebar_item.soapbox_entry.published_at.strftime("%m/%d") %>:</time>
   <header class="feed-item-title">
       <%= link_to message(sidebar_item), soapbox_soapbox_entry_path(sidebar_item.soapbox_entry) %>
   </header>
