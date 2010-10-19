@@ -18,7 +18,7 @@
 <% end %>
 
 <% unless @user.employments.present? -%>
-<% f.semantic_fields_for :default_employment do |employment_form| %>
+<% f.semantic_fields_for @user.default_employment do |employment_form| %>
   <%= render :partial => "default_employments/form", :locals => { :f => employment_form } %>
 <% end %>
 <%- end %>

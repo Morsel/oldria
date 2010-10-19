@@ -34,6 +34,7 @@ Factory.define :profile do |f|
   f.association :user
   f.hometown "Detroit"
   f.current_residence "NYC"
+  f.cellnumber "123-456-7890"
 end
 
 Factory.define :culinary_job do |f|
@@ -70,7 +71,7 @@ Factory.define :award do |f|
 end
 
 Factory.define :accolade do |f|
-  f.association :profile
+  f.accoladable { |a| a.association(:profile)}
   f.name "The Today Show"
   f.run_date 1.year.ago
   f.media_type "National television exposure"
@@ -138,6 +139,7 @@ Factory.define :invitation do |f|
   f.first_name "Jane"
   f.last_name "Doe"
   f.sequence(:email) { |n| "foo#{n}@example.com" }
+  f.restaurant_name "Name"
 end
 
 # == Restaurants ==
@@ -147,18 +149,41 @@ Factory.define :restaurant do |f|
   f.city    "Chicago"
   f.state   "IL"
   f.zip     "60606"
+  f.phone_number "3125555555"
+  f.website "http://restaurant.example.com"
+  f.description "This is a great restaurant with good Pizza offerings"
+  f.management_company_name "Lettuce Entertain You"
+  f.management_company_website "http://www.lettuce.com"
+  f.twitter_username "joeblow"
+  f.facebook_page "http://www.facebook.com/joeblow"
+  f.association :metropolitan_area
+  f.hours "Open All Night"
+  f.opening_date 1.year.ago
+  f.association :media_contact, :factory => :user
+  f.association :cuisine
 end
 
-Factory.define :managed_restaurant, :parent => :restaurant do |f|
+Factory.define :photo do |f|
+  f.sequence(:credit) { |n| "Sean Gingerbread #{n}" }
+  f.sequence(:attachment_file_name) { |n| "somefile#{n}.jpg" }
+  f.attachment_content_type "image/jpg"
+  f.attachment_file_size 3000
+  f.attachment_updated_at 2.days.ago
+end
+
+Factory.define :managed_restaurant, :parent => :restaurant do |f|f
   f.association :manager, :factory => :user
-  f.association :cuisine
-  f.association :metropolitan_area
 end
 
 Factory.define :employment do |f|
   f.association :restaurant
   f.association :employee, :factory => :user
   f.primary false
+  f.public_profile false
+end
+
+Factory.define :default_employment do |f|
+  f.association :employee, :factory => :user
 end
 
 Factory.define :assigned_employment, :parent => :employment do |f|
@@ -210,7 +235,7 @@ Factory.define :chapter do |f|
 end
 
 Factory.define :profile_question do |f|
-  f.title "Where did you train?"
+  f.sequence(:title) { |n| "Question #{n}" } 
   f.association :chapter
   f.restaurant_roles { [Factory(:restaurant_role), Factory(:restaurant_role) ]}
 end
@@ -250,6 +275,12 @@ Factory.define :page do |f|
   f.title   "Page Title"
   f.slug    {"page-title"}
   f.content {"This is the page content"}
+end
+
+Factory.define :soapbox_page do |f|
+  f.title "Title"
+  f.slug "title-tastic"
+  f.content "Some content here is good"
 end
 
 Factory.define :direct_message do |f|
@@ -365,6 +396,11 @@ Factory.define :admin_discussion do |f|
   f.restaurant {|d| d.association :restaurant }
 end
 
+Factory.define :solo_discussion do |f|
+  f.association :employment
+  f.association :trend_question
+end
+
 # == Holidays ==
 Factory.define :holiday do |f|
   f.name "Valentine's Day"
@@ -388,7 +424,7 @@ Factory.define :holiday_discussion_reminder do |f|
   f.association :holiday_reminder
 end
 
-# == Trend Question ==
+# == Trend Questions and other content ==
 Factory.define :trend_question do |f|
   f.subject "What is the haps?"
   f.body    "Boo-ya"
@@ -410,4 +446,22 @@ end
 Factory.define :soapbox_entry do |f|
   f.association :featured_item, :factory => :qotd
   f.published_at Time.now
+end
+
+Factory.define :soapbox_slide do |f|
+  f.title "Title"
+  f.excerpt "Some text here"
+  f.link "http://linky.com"
+end
+
+Factory.define :a_la_minute_question do |f|
+  f.question "What's new?"
+  f.kind 'restaurant'
+end
+
+Factory.define :a_la_minute_answer do |f|
+  f.answer "Nothing"
+  f.show_as_public true
+  f.association :responder, :factory => :restaurant
+  f.association :a_la_minute_question
 end

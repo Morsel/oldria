@@ -1,0 +1,2 @@
+module SoloDiscussionsHelper
+end

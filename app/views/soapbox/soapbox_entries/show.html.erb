@@ -1,0 +1,23 @@
+<% title "Soapbox - #{@feature.title}", false %>
+
+<article id="trend-article">
+  <!-- AddThis Button BEGIN --> 
+  <div class="addthis_toolbox"> 
+    <a href="http://www.addthis.com/bookmark.php?v=250&amp;username=unpluggedria" class="addthis_button">Share</a> 
+  </div> 
+  <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#username=unpluggedria"></script> 
+  <!-- AddThis Button END -->
+  <header>
+    <%= soapbox_tabby_title(@feature) %>
+    <details>
+      <time datetime="<%= @feature.soapbox_entry.published_at.try(:strftime,'%Y-%m-%d') %>"><%= @feature.soapbox_entry.published_at.try(:strftime, "%b %e, %Y") %></time>
+      <h2><%= message(@feature) %></h2>
+    </details>
+  </header>
+  
+  <% if @feature_comments %>
+  <section id="fb-comments">
+    <%= render :partial => 'comment', :collection => @feature_comments, :locals => { :full_text => true, :commentable_class => @feature.class } %>
+  </section>
+  <% end %>
+</article><!-- /front_burner -->

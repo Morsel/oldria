@@ -120,6 +120,8 @@ When /^(?:|I )choose "([^\"]*)"$/ do |field|
   choose(field)
 end
 
+
+
 # Adds support for validates_attachment_content_type. Without the mime-type getting
 # passed to attach_file() you will get a "Photo file is not one of the allowed file types."
 # error message 
@@ -135,9 +137,41 @@ When /^(?:|I )attach the file "([^\"]*)" to "([^\"]*)"$/ do |path, field|
     type = "image/png" 
   when "gif"
     type = "image/gif"
+  when "pdf"
+    type = "application/pdf"
   end
-  
+  path = File.join(RAILS_ROOT, path)
   attach_file(field, path, type)
+end
+
+# Adds support for validates_attachment_content_type. Without the mime-type getting
+# passed to attach_file() you will get a "Photo file is not one of the allowed file types."
+# error message
+When /^(?:|I )attach the file "([^\"]*)" to "([^\"]*)" on S3$/ do |file_path, field|
+  definition = RemoteAttachment.attachment_definitions[:attachment]
+  path = "http://s3.amazonaws.com/#{definition[:bucket]}/#{definition[:path]}"
+  path.gsub!(':filename', File.basename(file_path))
+  path.gsub!(/:([^\/\.]+)/) do |match|
+    "([^\/\.]+)"
+  end
+  FakeWeb.register_uri(:put, Regexp.new(path), :body => "OK")
+
+  When "I attach the file \"#{file_path}\" to \"#{field}\""
+end
+
+# Adds support for validates_attachment_content_type. Without the mime-type getting
+# passed to attach_file() you will get a "Photo file is not one of the allowed file types."
+# error message
+When /^(?:|I )attach the image "([^\"]*)" to "([^\"]*)" on S3$/ do |file_path, field|
+  definition = Image.attachment_definitions[:attachment]
+  path = "http://s3.amazonaws.com/#{definition[:bucket]}/#{definition[:path]}"
+  path.gsub!(':filename', File.basename(file_path))
+  path.gsub!(/:([^\/\.]+)/) do |match|
+    "([^\/\.]+)"
+  end
+  FakeWeb.register_uri(:put, Regexp.new(path), :body => "OK")
+
+  When "I attach the file \"#{file_path}\" to \"#{field}\""
 end
 
 Then /^(?:|I )should see "([^\"]*)"$/ do |text|

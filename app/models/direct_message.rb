@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20100426230131
+# Schema version: 20101013222730
 #
 # Table name: direct_messages
 #
@@ -106,3 +106,4 @@ class DirectMessage < ActiveRecord::Base
   end
 
 end
+

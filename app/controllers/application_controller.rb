@@ -55,6 +55,18 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def require_account_manager_authorization
+    return true if current_user.admin?
+    @restaurant = Restaurant.find(params[:restaurant_id])
+    employment = current_user.reload.employments.find(:first, 
+        :conditions => {:restaurant_id => @restaurant.id})
+    omniscient = employment && employment.omniscient?
+    unless omniscient
+      flash[:error] = "You don't have permission to access that page"
+      redirect_to root_path
+    end
+  end
+
   def require_user
     unless current_user
       store_location
@@ -144,7 +156,8 @@ class ApplicationController < ActionController::Base
     end
 
     options.reverse_merge!(:include => [:restaurant, :employee], :order => "restaurants.name")
-    @restaurants_and_employments = @search.all(options).group_by(&:restaurant)
+    @solo_users, @restaurants_and_employments = @search.all(options).partition { |e| e.restaurant.nil? }
+    @restaurants_and_employments = @restaurants_and_employments.group_by(&:restaurant)
   end
 
   def save_search
@@ -158,6 +171,14 @@ class ApplicationController < ActionController::Base
   def normalized_search_params
     normalized = params[:search].reject{|k,v| v.blank? }
     normalized.blank? ? {:id => ""} : normalized
+  end
+  
+  def directory_search_setup
+    @search = EmploymentSearch.new(:conditions => params[:search]).employments
+
+    @users = @search.all(:include => [:restaurant, :employee, :restaurant_role], 
+        :order => "users.last_name").map(&:employee).uniq
+    @restaurants = @search.all(:include => [:restaurant], :order => "restaurants.name").group_by(&:restaurant).keys.compact
   end
 
 end

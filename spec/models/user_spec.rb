@@ -1,5 +1,4 @@
 # == Schema Information
-# Schema version: 20100721223109
 #
 # Table name: users
 #
@@ -25,8 +24,11 @@
 #  james_beard_region_id :integer
 #  publication           :string(255)
 #  role                  :string(255)
-#  facebook_id           :integer
+#  facebook_id           :string(255)
 #  facebook_access_token :string(255)
+#  facebook_page_id      :string(255)
+#  facebook_page_token   :string(255)
+#  premium_account       :boolean
 #
 
 require 'spec/spec_helper'
@@ -317,4 +319,48 @@ describe User do
       user.primary_employment.should == e2
     end
   end
+  
+  describe "premium account" do
+    
+    it "finds a premium account" do
+      user = Factory(:user, :premium_account => true)
+      user.account_type.should == "Premium"
+      User.find_premium(user.id).should == user
+    end
+    
+    it "doesn't find a basic account" do
+      user = Factory(:user, :premium_account => false)
+      user.account_type.should == "Basic"
+      User.find_premium(user.id).should be_nil
+    end
+    
+  end
+  
+  describe "phone numbers" do
+    let(:user) { Factory(:user) }
+    
+    
+    it "returns nil if no profile" do
+      user.phone_number.should be_nil
+    end
+    
+    it "returns number if it exists" do
+      profile = Factory(:profile, :user => user)
+      user.phone_number.should == profile.cellnumber
+    end
+    
+    it "handles public phone number" do
+      profile = Factory(:profile, :user => user)
+      user.public_phone_number.should == profile.cellnumber
+    end
+    
+    it "handles private phone number" do
+      profile = Factory(:profile, :user => user, 
+          :preferred_display_cell => "spoonfeed")
+      user.public_phone_number.should be_nil
+    end
+    
+
+  end
 end
+

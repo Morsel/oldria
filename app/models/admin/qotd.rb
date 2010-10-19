@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20100811200806
+# Schema version: 20101011235856
 #
 # Table name: admin_messages
 #
@@ -10,7 +10,6 @@
 #  message         :text
 #  created_at      :datetime
 #  updated_at      :datetime
-#  holiday_id      :integer
 #  display_message :string(255)
 #
 
@@ -35,5 +34,9 @@ class Admin::Qotd < Admin::Message
   
   def recipients_can_reply?
     true
+  end
+  
+  def soapbox_comment_count
+    admin_conversations.with_replies.map(&:comments).flatten.select { |c| c.show_on_soapbox? }.size
   end
 end

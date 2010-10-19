@@ -1,0 +1,10 @@
+<% question = answer.a_la_minute_question %>
+<% content_tag_for(:dl, question) do %>
+  <dt class="question">
+    <%= h question.question %>
+    <%= content_tag(:span, "(Shown on public profile)") if answer.show_as_public %>
+  </dt>
+  <dd class="answer">
+    <%= h answer.answer %>
+  </dd>
+<% end %>

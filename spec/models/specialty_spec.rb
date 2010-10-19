@@ -11,3 +11,15 @@ describe Specialty do
     Specialty.create!(@valid_attributes)
   end
 end
+
+# == Schema Information
+#
+# Table name: specialties
+#
+#  id         :integer         not null, primary key
+#  name       :string(255)
+#  created_at :datetime
+#  updated_at :datetime
+#  position   :integer
+#
+

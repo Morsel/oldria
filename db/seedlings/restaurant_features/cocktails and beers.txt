@@ -1,0 +1,43 @@
+﻿Full Bar
+Full wine list
+Notable wine list
+Boutique wine list
+Limited wine list
+Flights/tasting pours
+Specialty cocktails
+Seasonal cocktails
+Signature cocktail (give names)
+Notable spirits list/s
+ 
+Spirit program highlights
+Small-batch liquors
+Seasonal/craft cocktails
+Organic spirits
+Craft beers
+Draft beers (how many handles?)
+Extensive wine list
+Extensive by-the-glass wine list
+Local spirits
+Vast collections (60 bourbons, 100 beers, 45 premium tequilas)
+ 
+Notable beer list
+Beer brewed on-premise
+Beer/wine only
+Beer only
+Wine only
+Organic beer selections
+Organic wine selections
+Non-alcoholic cocktails
+No alcohol allowed
+ 
+BYO only
+Corkage fee (Y/N)
+How much
+Limits (one per table, etc.)
+ 
+BYO allowed
+Corkage fee (Y/N)
+How much
+Limits (one per table, etc.)
+ 
+Other

@@ -21,8 +21,8 @@ Feature: Admin Messaging: Pr Tips
     And I should see "Be friendly!"
     And "sam" should have 1 PR Tip message
     And "john" should have 1 PR Tip message
-    
-    
+
+
 @emails
   Scenario: New Pr Tip notification, user prefers no emails
   Given there are no Admin Messages in the system

@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20100921161540
+# Schema version: 20101013222730
 #
 # Table name: invitations
 #
@@ -26,6 +26,7 @@ class Invitation < ActiveRecord::Base
   belongs_to :restaurant
   
   validates_presence_of :email, :first_name, :last_name
+#, :restaurant_name
   validates_uniqueness_of :email, :message => "That person has already been invited"
   
   after_create :send_welcome

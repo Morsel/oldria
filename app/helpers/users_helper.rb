@@ -71,5 +71,9 @@ module UsersHelper
   rescue Exception
     false
   end
+  
+  def directory_link(user)
+    params[:controller] == "soapbox/soapbox" ? soapbox_profile_path(user.username) : profile_path(user.username)
+  end
 
 end

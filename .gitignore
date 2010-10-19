@@ -1,3 +1,4 @@
+db/schema.rb
 .DS_Store
 log/*.log
 tmp/**/*
@@ -9,8 +10,12 @@ public/upload/*
 coverage/*
 features_rcov/
 public/system/a*/
+public/system/images/
 mkmf.log
 rerun.txt
 .rake_tasks~
 .cap_tasks~
 tmp/webrat-*
+.idea/
+.rvmrc
+default.gems

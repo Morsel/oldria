@@ -1,0 +1,11 @@
+﻿Beer
+Wine
+Oil
+Vinegar
+Sauces
+Pasta
+Breads/pastries
+Coffee
+Tea
+Prepared foods
+Juices

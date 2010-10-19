@@ -3,75 +3,75 @@
 
 <head>
 
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-	<title><%= h(yield(:title) || "Untitled") %> - <%= current_user && current_user.media? ? "MediaFeed" : "SpoonFeed" %> - Restaurant Intelligence Agency</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <title><%= h(yield(:title) || "Untitled") %> - <%= current_user && current_user.media? ? "MediaFeed" : "SpoonFeed" %> - Restaurant Intelligence Agency</title>
 
-	<%= stylesheet_link_tag 'blueprint/screen', 'custom', :cache => true %>
-	<%= stylesheet_link_tag 'blueprint/print', :media => 'print' %>
+  <%= stylesheet_link_tag 'blueprint/screen', 'custom', :cache => true %>
+  <%= stylesheet_link_tag 'blueprint/print', :media => 'print' %>
 
-	<!--[if lt IE 7]><%= stylesheet_link_tag 'blueprint/ie', 'ie6' %><![endif]-->
+  <!--[if lt IE 7]><%= stylesheet_link_tag 'blueprint/ie', 'ie6' %><![endif]-->
 
-	<%= yield(:head) %>
+  <%= yield(:head) %>
 
-	<%- if protect_against_forgery? -%>
-	<script type='text/javascript'>
-	//<![CDATA[
-	window._auth_token_name = "<%= request_forgery_protection_token %>";
-	window._auth_token = "<%= form_authenticity_token %>";
-	//]]>
-	</script>
-	<%- end -%>
+  <%- if protect_against_forgery? -%>
+  <script type='text/javascript'>
+  //<![CDATA[
+  window._auth_token_name = "<%= request_forgery_protection_token %>";
+  window._auth_token = "<%= form_authenticity_token %>";
+  //]]>
+  </script>
+  <%- end -%>
 
-	<%= render :partial => 'layouts/ga' %>
+  <%= render :partial => 'layouts/ga' %>
 
 </head>
 
 <body id="<%= Rails.env %>">
-	<% if Rails.env.staging? %>
-		<div id="staging_bar">
-			<p>Note: You are currently on <strong>STAGING</strong>.
-			You may want to visit the <a href="http://spoonfeed.restaurantintelligenceagency.com/" title="">live site &raquo;</a></p>
-		</div>
-	<% end %>
+  <% if Rails.env.staging? %>
+    <div id="staging_bar">
+      <p>Note: You are currently on <strong>STAGING</strong>.
+      You may want to visit the <a href="http://spoonfeed.restaurantintelligenceagency.com/" title="">live site &raquo;</a></p>
+    </div>
+  <% end %>
 
-	<div id="container" class="clearfix container">
+  <div id="container" class="clearfix container">
 
-		<div id="header" class="span-18 last">
+    <div id="header" class="span-18 last">
 
-			<div id="brand" class="span-7">
-				<%= image_tag 'logo_ria.png', :class => 'ria_logo' %>
-				<% if mediafeed? -%>
-				  <%= link_to image_tag('mediafeed_logo.png', :alt => "Media Feed"), root_path %>
-				<% else -%>
-				  <%= link_to image_tag('logo_spoonfeed.png', :alt => "Spoon Feed", :width => 163, :height => 61), root_path, :class => 'spoonfeed_logo' %>
-				<% end -%>
-			</div><!--#brand-->
+      <div id="brand" class="span-7">
+        <%= image_tag 'logo_ria.png', :class => 'ria_logo' %>
+        <% if mediafeed? -%>
+          <%= link_to image_tag('mediafeed_logo.png', :alt => "Media Feed"), root_path %>
+        <% else -%>
+          <%= link_to image_tag('logo_spoonfeed.png', :alt => "Spoon Feed", :width => 163, :height => 61), root_path, :class => 'spoonfeed_logo' %>
+        <% end -%>
+      </div><!--#brand-->
 
       <% if current_user && current_user.admin? %>
         <p class="admin-link"><%= link_to "Go to Admin", admin_root_path %></p>
       <% end %>
 
-			<div id="navigation" class="span-11 last">
-			<%- if mediafeed? %>
-				<%= render :partial => 'layouts/nav_media' %>
-			<% elsif current_user %>
-				<%= render :partial => 'layouts/nav_spoonfeed' %>
-			<% else %>
-				<%= render :partial => 'layouts/nav' %>
-			<% end -%>
-			</div><!--#navigation-->
+      <div id="navigation" class="span-11 last">
+      <%- if mediafeed? %>
+        <%= render :partial => 'layouts/nav_media' %>
+      <% elsif current_user %>
+        <%= render :partial => 'layouts/nav_spoonfeed' %>
+      <% else %>
+        <%= render :partial => 'layouts/nav' %>
+      <% end -%>
+      </div><!--#navigation-->
 
-		</div><!--header-->
+    </div><!--header-->
 
 
-		<div id="leftcolumn" class="<%= display_sidebar? ? 'span-12' : 'span-18 last' %>">
-			<% unless @hide_flashes %>
-			<div id="flashes">
-				<%- flash.each do |name, msg| -%>
-				<%= content_tag :div, msg, :id => "flash_#{name}" %>
-				<%- end -%>
-			</div>
-			<% end %>
+    <div id="leftcolumn" class="<%= display_sidebar? ? 'span-12' : 'span-18 last' %>">
+      <% unless @hide_flashes %>
+      <div id="flashes">
+        <%- flash.each do |name, msg| -%>
+        <%= content_tag :div, msg, :id => "flash_#{name}" %>
+        <%- end -%>
+      </div>
+      <% end %>
 
       <div class="clearfix">
         <div class="page_actions">
@@ -82,13 +82,13 @@
         <%- end -%>
       </div>
 
-			<%= yield %>
+      <%= yield %>
 
-		</div><!--#leftcolumn-->
+    </div><!--#leftcolumn-->
 
 <% if display_sidebar? %>
 
-	<div id="sidebar" class="span-6 last">
+  <div id="sidebar" class="span-6 last">
     <%= render :partial => 'shared/userbox' %>
 
     <%= yield :sidebar %>
@@ -97,27 +97,27 @@
       <%= render :partial => 'shared/ria_labs' %>
     <% end -%>
 
-	</div><!--#sidebar-->
+  </div><!--#sidebar-->
 <% end %>
 
-	<div id="footer" class="clear">
-		<ul>
-			<li>Copyright &copy; 2010 Restaurant Intelligence Agency</li>
-			<%- if mediafeed? %>
-				<li><%= link_to 'About', public_page_path('about_media') %></li>
-			<% else %>
-				<li><%= link_to 'About', public_page_path('about') %></li>
-			<% end -%>
+  <div id="footer" class="clear">
+    <ul>
+      <li>Copyright &copy; 2010 Restaurant Intelligence Agency</li>
+      <%- if mediafeed? %>
+        <li><%= link_to 'About', public_page_path('about_media') %></li>
+      <% else %>
+        <li><%= link_to 'About', public_page_path('about') %></li>
+      <% end -%>
 
-			<li><%= link_to 'Contact', public_page_path('contact') %></li>
+      <li><%= link_to 'Contact', public_page_path('contact') %></li>
 
-			<% if mediafeed? %>
-				<li><%= link_to 'Looking for Help?', public_page_path('help_media') %></li>
-			<% else %>
-				<li><%= link_to 'Looking for Help?', public_page_path('help') %></li>
-			<% end -%>
-		</ul>
-	</div><!--#footer-->
+      <% if mediafeed? %>
+        <li><%= link_to 'Looking for Help?', public_page_path('help_media') %></li>
+      <% else %>
+        <li><%= link_to 'Looking for Help?', public_page_path('help') %></li>
+      <% end -%>
+    </ul>
+  </div><!--#footer-->
 
 </div><!--#container-->
 
@@ -126,8 +126,9 @@
 </script>
 
 <%= javascript_include_tag :defaults %>
-<%= javascript_include_tag 'jquery.autocomplete','jquery.autofill','jquery.colorbox-min', 'jquery.form', :cache => 'plugins' %>
-<%= javascript_include_tag 'site' %>
+<%= javascript_include_tag 'jquery.autocomplete', 'jquery.autofill','jquery.colorbox-min', 'jquery.form', :cache => 'plugins' %>
+<%= javascript_include_tag 'showy','site' %>
+<%= javascript_include_tag 'jeip' %>
 
 <%= render :partial => 'layouts/uservoice' %>
 
@@ -136,4 +137,5 @@
 <% end %>
 
 </body>
+<%= yield(:javascript) %>
 </html>

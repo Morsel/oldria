@@ -20,6 +20,9 @@ class TrendQuestion < ActiveRecord::Base
 
   has_many :admin_discussions, :as => :discussionable, :dependent => :destroy
   has_many :restaurants, :through => :admin_discussions
+  
+  has_many :solo_discussions, :dependent => :destroy
+  has_many :employments, :through => :solo_discussions
 
   has_one :soapbox_entry, :as => :featured_item, :dependent => :destroy
 
@@ -28,8 +31,8 @@ class TrendQuestion < ActiveRecord::Base
 
   named_scope :current, :conditions => ['scheduled_at < ? OR scheduled_at IS NULL', Time.zone.now]
 
-  before_save :update_restaurants_from_search_criteria
-
+  before_save :update_restaurants_and_employments_from_search_criteria
+  
   def self.title
     "Trend Question"
   end
@@ -42,8 +45,9 @@ class TrendQuestion < ActiveRecord::Base
     [subject, body].compact.join(': ')
   end
 
-  def update_restaurants_from_search_criteria
+  def update_restaurants_and_employments_from_search_criteria
     self.restaurant_ids = employment_search.restaurant_ids
+    self.employment_ids = employment_search.solo_employment_ids
   end
 
   def viewable_by?(employment)
@@ -53,22 +57,43 @@ class TrendQuestion < ActiveRecord::Base
     employment_search.employments.include?(employment)
   end
 
+  def discussions
+    admin_discussions + solo_discussions
+  end
+
+  def discussions_with_replies
+    admin_discussions.with_replies + solo_discussions.with_replies
+  end
+
+  def discussions_without_replies
+    admin_discussions.without_replies + solo_discussions.without_replies
+  end
+
   def reply_count
-    admin_discussions.with_replies.count
+    admin_discussions.with_replies.count + solo_discussions.with_replies.count
   end
 
   def comments_count
-    admin_discussions.sum(:comments_count)
+    admin_discussions.sum(:comments_count) + solo_discussions.sum(:comments_count)
   end
 
   def self.on_soapbox_with_response_from_user(user = nil)
     return [] unless user
-    self.all(:joins => [:soapbox_entry, {:admin_discussions => :comments}], :conditions => ['comments.user_id = ?', user.id], :group => 'trend_questions.id')
+    if user.restaurants.present?
+      self.all(:joins => [:soapbox_entry, { :admin_discussions => :comments }], 
+               :conditions => ['comments.user_id = ?', user.id], 
+               :group => 'trend_questions.id')
+    else
+      self.all(:joins => [:soapbox_entry, { :solo_discussions => :comments }], 
+               :conditions => ['comments.user_id = ?', user.id], 
+               :group => 'trend_questions.id')
+    end
   end
 
   def comments(deep_includes = false)
-    includes = deep_includes ? {:comments => {:user => :employments}} : :comments
-    admin_discussions.with_replies.all(:include => includes).map(&:comments).flatten
+    includes = deep_includes ? { :comments => { :user => :employments }} : :comments
+    _discussions = admin_discussions.with_replies.all(:include => includes) + solo_discussions.with_replies.all(:include => includes)
+    (_discussions).map(&:comments).flatten
   end
 
   def title
@@ -77,6 +102,10 @@ class TrendQuestion < ActiveRecord::Base
   
   def recipients_can_reply?
     true
+  end
+  
+  def soapbox_comment_count
+    discussions_with_replies.map(&:comments).flatten.select { |c| c.show_on_soapbox? }.size
   end
 
 end

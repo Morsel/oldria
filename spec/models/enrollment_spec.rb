@@ -54,3 +54,19 @@ describe Enrollment do
   end
   
 end
+
+# == Schema Information
+#
+# Table name: enrollments
+#
+#  id              :integer         not null, primary key
+#  school_id       :integer         not null
+#  profile_id      :integer         not null
+#  graduation_date :date
+#  degree          :string(255)     default(""), not null
+#  focus           :text
+#  scholarships    :text
+#  created_at      :datetime
+#  updated_at      :datetime
+#
+

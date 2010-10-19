@@ -116,7 +116,7 @@ end
 
 Then /^the discussion for the trend question with subject "([^\"]*)" should have (\d+) comment$/ do |subject, num|
   trend_question = TrendQuestion.find_by_subject(subject)
-  trend_question.admin_discussions.last.comments_count.should == num.to_i
+  trend_question.discussions.last.comments_count.should == num.to_i
 end
 
 Given /^QOTD "([^\"]*)" has a reply "([^\"]*)"$/ do |qotd_name, reply|

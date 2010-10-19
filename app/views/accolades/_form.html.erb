@@ -5,6 +5,9 @@
     <%= f.input :media_type, :as => :select, :required => true, :collection => Accolade.valid_media_types %>
     <%= f.input :link, :label => "Link (Optional)",
       :hint => "The full URL. You can copy and paste from your browser's Address bar." %>
+    <% if @accoladable.is_a?(Restaurant) %>
+      <%= hidden_field_tag :restaurant_id, @accoladable.id %>
+    <% end %>
   <% end %>
 
   <%= button_tag "Save" %>

@@ -36,18 +36,24 @@ class Topic < ActiveRecord::Base
     
   def previous_for_user(user, is_self = false)
     sort_field = (self.position == 0 ? "id" : "position")
-    topics = is_self ? Topic.answered_for_user(user) : Topic.for_user(user)
-    topics.find(:first, 
-                :conditions => ["topics.#{sort_field} < ?", self.send(sort_field)], 
-                :order => "#{sort_field} DESC")
+    if is_self
+      Topic.for_user(user).first(:conditions => ["topics.#{sort_field} < ?", self.send(sort_field)], 
+                                 :order => "#{sort_field} DESC")
+    else
+      Topic.answered_for_user(user).first(:conditions => ["topics.#{sort_field} < ?", self.send(sort_field)], 
+                                          :order => "#{sort_field} DESC")
+    end
   end
   
   def next_for_user(user, is_self = false)
     sort_field = (self.position == 0 ? "id" : "position")
-    topics = is_self ? Topic.answered_for_user(user) : Topic.for_user(user)
-    topics.find(:first, 
-                :conditions => ["topics.#{sort_field} > ?", self.send(sort_field)], 
-                :order => "#{sort_field} ASC")
+    if is_self
+      Topic.for_user(user).first(:conditions => ["topics.#{sort_field} > ?", self.send(sort_field)], 
+                                 :order => "#{sort_field} ASC")
+    else
+      Topic.answered_for_user(user).first(:conditions => ["topics.#{sort_field} > ?", self.send(sort_field)], 
+                                          :order => "#{sort_field} ASC")
+    end
   end
 
   def question_count_for_user(user)

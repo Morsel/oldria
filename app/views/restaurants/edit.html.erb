@@ -1,32 +1,74 @@
+<% @restaurant.logo ||= Image.new %>
 <% title "Editing Restaurant" %>
 
-<% semantic_form_for(@restaurant) do |f| %>
-	<p>
-		<%= f.label :name %>
-		<%= f.text_field :name, :class => 'title span-8' %>
-	</p>
+<% content_for :head do -%>
+  <%= stylesheet_link_tag 'colorbox' %>
+<% end -%>
 
-	<% f.inputs :name => "Address", :class => "span-8 column" do %>
-		<%= f.input :street1, :label => 'Street Address' %>
-		<%= f.input :street2, :label => 'Street Address Line 2 (Optional)' %>
-		<%= f.input :city, :input_html => {:class => 'span-3'}, :wrapper_html => {:class => 'span-3 column'}  %>
-		<%= f.input :state, :input_html => {:class => 'span-1'}, :wrapper_html => {:class => 'span-1 column'}   %>
-		<%= f.input :zip, :input_html => {:class => 'span-2'}, :wrapper_html => {:class => 'span-2 column'}   %>
-		<%= f.input :metropolitan_area, :wrapper_html => {:class => 'clear'} %>
-		<%= f.input :james_beard_region, :label => "Region" %>
-	<% end -%>
+<% semantic_form_for(@restaurant, :html => { :multipart => true }) do |f| %>
+<%= f.error_messages %>
+  <% f.inputs :name => "Basics", :class => "title span-8" do %>
+    <%= f.input :name %>
+    <%= f.input :description, :as => :text, :label => "Tagline or short description" %>
+  <% end %>
 
-	<% f.inputs :name => 'Other', :class => "span-9 column last" do %>
-		<%= f.input :manager %>
-		<%= f.input :cuisine %>
-		<%= f.input :facts, :input_html => { :rows => 3 } %>
-	<% end %>
+  <% f.inputs :name => "Address", :class => "span-8 column" do %>
+    <%= f.input :street1, :label => 'Street Address' %>
+    <%= f.input :street2, :label => 'Street Address Line 2 (Optional)' %>
+    <%= f.input :city, :input_html => {:class => 'span-3'}, :wrapper_html => {:class => 'span-3 column'}  %>
+    <%= f.input :state, :input_html => {:class => 'span-1'}, :wrapper_html => {:class => 'span-1 column'}   %>
+    <%= f.input :zip, :input_html => {:class => 'span-2'}, :wrapper_html => {:class => 'span-2 column'}   %>
+    <%= f.input :phone_number, :input_html => {:class => 'span-2'}, :wrapper_html => {:class => 'span-2 column'}   %>
+    <%= f.input :metropolitan_area, :wrapper_html => {:class => 'clear'} %>
+    <%= f.input :james_beard_region, :label => "Region" %>
+  <% end -%>
 
-	<p class="clear">
-		<%= button_tag "Save", :class => 'positive' %>
-	</p>
+  <% f.inputs :name => 'Other', :class => "span-9 column last" do %>
+    <%= f.input :hours, :as => :text %>
+    <%= f.input :manager, :collection => @restaurant.employees %>
+    <%= f.input :media_contact, :collection => @restaurant.employees %>
+    <%= f.input :cuisine %>
+    <%= f.input :opening_date %>
+    <%= f.input :website %>
+    <%= f.input :twitter_username, :hint => "Not the whole URL, just your username" %>
+    <%= f.input :facebook_page, :hint => "Entire URL of your Facebook page" %>
+    <%= f.input :management_company_name, :hint => "Just the company name" %>
+    <%= f.input :management_company_website, :hint => "Full URL to the company website" %>
+  <% end %>
+
+    <% f.inputs :name => 'Logo', :class => "span-17 column last clear", :id => "logo" do %>
+
+        <% f.semantic_fields_for :logo do |logo_fields| %>
+            <%= image_tag @restaurant.logo.attachment.url(:medium), :id => "restaurant_logo_image" %>
+            <%= logo_fields.input :attachment, :as => :file %>
+            <%= link_to "Remove", restaurant_logo_path(@restaurant, @restaurant.logo), :method => :delete, :confirm => "Are you sure you want to remove the logo?" %>
+        <% end %>
+    <% end %>
+
+
+  <p class="clear">
+    <%= button_tag "Save", :class => 'positive' %>
+  </p>
 <% end %>
 
+<%= render :partial => 'profiles/extended_profile_section', :locals => {
+        :associated => @restaurant,
+        :association => "accolades",
+        :caption => "Accolades",
+        :form_path => new_restaurant_accolade_path(@restaurant)} %>
+
 <p>
-	<%= link_to "Edit Restaurant employees", restaurant_employees_path(@restaurant), :class => 'button' %>
+  <%= link_to "Edit Restaurant employees", restaurant_employees_path(@restaurant), :class => 'button' %>
+</p>
+
+<p>
+    <%= link_to "Manage Menus", restaurant_menus_path(@restaurant), :class => "button" %>
+</p>
+
+<p>
+    <%= link_to "Manage Photos", restaurant_photos_path(@restaurant), :class => "button" %>
+</p>
+
+<p>
+    <%= link_to "Manage ALM Questions", bulk_edit_restaurant_a_la_minute_answers_path(:restaurant_id => @restaurant.id), :class => "button" %>
 </p>

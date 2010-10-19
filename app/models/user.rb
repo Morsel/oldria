@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20100809212429
+# Schema version: 20101013222730
 #
 # Table name: users
 #
@@ -29,6 +29,7 @@
 #  facebook_access_token :string(255)
 #  facebook_page_id      :string(255)
 #  facebook_page_token   :string(255)
+#  premium_account       :boolean
 #
 
 class User < ActiveRecord::Base
@@ -37,7 +38,7 @@ class User < ActiveRecord::Base
       :message => "'{{value}}' is not allowed. Usernames can only contain letters, numbers, and/or the '-' symbol" }
     c.disable_perishable_token_maintenance = true
   end
-  
+
   include TwitterAuthorization
   include UserMessaging
 
@@ -55,13 +56,13 @@ class User < ActiveRecord::Base
   # Sent, not received media requests
   has_many :media_requests, :foreign_key => 'sender_id'
 
-  has_many :employments, :foreign_key => "employee_id", :dependent => :destroy
+  has_many :employments, :foreign_key => "employee_id", :dependent => :destroy, :conditions => "restaurant_id is not null"
   has_many :restaurants, :through => :employments
   has_many :managed_restaurants, :class_name => "Restaurant", :foreign_key => "manager_id"
   has_many :manager_restaurants, :source => :restaurant, :through => :employments, :conditions => ["employments.omniscient = ?", true]
   has_many :restaurant_roles, :through => :employments
-  
-  has_one :default_employment, :foreign_key => "employee_id", :dependent => :destroy # only used if no restaurant employments
+
+  has_one :default_employment, :foreign_key => "employee_id", :dependent => :destroy
 
   has_many :discussion_seats, :dependent => :destroy
   has_many :discussions, :through => :discussion_seats
@@ -70,6 +71,8 @@ class User < ActiveRecord::Base
 
   has_many :admin_conversations, :class_name => "Admin::Conversation", :foreign_key => 'recipient_id'
 
+  has_many :solo_discussions, :through => :default_employment, :dependent => :destroy
+
   has_many :feed_subscriptions, :dependent => :destroy
   has_many :feeds, :through => :feed_subscriptions
 
@@ -77,7 +80,7 @@ class User < ActiveRecord::Base
 
   has_one :profile
   has_many :profile_answers
-  
+
   has_one :invitation, :foreign_key => "invitee_id"
 
   validates_presence_of :email
@@ -90,27 +93,28 @@ class User < ActiveRecord::Base
   has_attached_file :avatar,
                     :default_url => "/images/default_avatars/:style.png",
                     :styles => { :small => "100x100>", :thumb => "50x50#" }
-                    
+
+  validates_attachment_content_type :avatar, :content_type => ["image/jpg", "image/jpeg", "image/png", "image/gif"],
+      :message => "Please use a valid image type: jpeg, gif, or png", :if => :avatar_file_name
+
   validates_exclusion_of :publication,
                          :in => %w( freelance Freelance ),
                          :message => "'{{value}}' is not allowed"
-                         
+
   validates_acceptance_of :agree_to_contract
 
   validates_presence_of :facebook_page_token, :if => Proc.new { |user| user.facebook_page_id }
   validates_presence_of :facebook_page_id, :if => Proc.new { |user| user.facebook_page_token }
 
-  accepts_nested_attributes_for :default_employment
+  after_create :deliver_invitation_message!, :if => Proc.new { |user| user.send_invitation }
+
+  after_update :mark_replies_as_read, :if => Proc.new { |user| user.confirmed_at && user.confirmed_at > 1.minute.ago }
 
   named_scope :media, :conditions => {:role => 'media'}
   named_scope :admin, :conditions => {:role => 'admin'}
 
   named_scope :for_autocomplete, :select => "first_name, last_name", :order => "last_name ASC", :limit => 15
   named_scope :by_last_name, :order => "LOWER(last_name) ASC"
-  
-  after_create :deliver_invitation_message!, :if => Proc.new { |user| user.send_invitation }
-
-  after_update :mark_replies_as_read, :if => Proc.new { |user| user.confirmed_at && user.confirmed_at > 1.minute.ago }
 
 ### Preferences ###
   preference :hide_help_box, :default => false
@@ -150,6 +154,10 @@ class User < ActiveRecord::Base
     update_attribute(:role, nil)
   end
 
+  def self.find_premium(id)
+    find_by_id_and_premium_account(id, true)
+  end
+
   def following?(otheruser)
     friends.include?(otheruser)
   end
@@ -167,11 +175,11 @@ class User < ActiveRecord::Base
     coworker_ids = restaurants.map(&:employee_ids).flatten.uniq
     User.find(coworker_ids)
   end
-  
+
   def primary_employment
     self.employments.primary.first || self.employments.first || self.default_employment
   end
-  
+
   # do they have the setup needed for Behind the Line (profile questions)?
   def btl_enabled?
     primary_employment && primary_employment.restaurant_role
@@ -180,7 +188,7 @@ class User < ActiveRecord::Base
   def restaurant_names
     return nil if employments.blank?
     return primary_employment.restaurant.name if employments.count == 1
-    employments.all(:order => '"primary" DESC').map(&:restaurant).map(&:name).to_sentence
+    employments.all(:order => '"primary" DESC', :include => :restaurant).map{|e| e.restaurant.name }.to_sentence
   end
 
 ### Convenience methods for getting/setting first and last names ###
@@ -196,6 +204,10 @@ class User < ActiveRecord::Base
 
   def name_or_username
     name.blank? ? username : name
+  end
+
+  def to_label
+    name_or_username
   end
 
   def confirmed?
@@ -294,21 +306,35 @@ class User < ActiveRecord::Base
   def profile_questions
     ProfileQuestion.for_user(self)
   end
-  
+
   def topics
     Topic.for_user(self) || []
   end
-  
+
   def published_topics
     topics.select { |t| t.published?(self) }
   end
-  
+
   def cuisines
     profile.present? ? profile.cuisines : []
   end
-  
+
   def specialties
     profile.present? ? profile.specialties : []
   end
-  
+
+  def account_type
+    if premium_account then "Premium" else "Basic" end
+  end
+
+  def phone_number
+    if profile.present? then profile.cellnumber else nil end
+  end
+
+  def public_phone_number
+    return nil if profile.blank? || !profile.display_cell_public?
+    profile.cellnumber
+  end
+
 end
+

@@ -1,0 +1,22 @@
+<% employee = employment.employee%>
+<li class="public_employee" id="<% dom_id employment %>">
+  <span class="employee_avatar">
+    <% if employee.premium_account %>
+      <%= link_to image_tag(employee.avatar.url(:thumb)),
+          profile_path(employee.username) %>
+    <% else %> 
+      <%= image_tag(employee.avatar.url(:thumb)) %>
+    <% end %>
+  </span>
+  <span class="employee_name">
+    <% if employee.premium_account %>
+      <%= link_to "#{employee.name}", profile_path(employee.username), 
+          :class => "employee_name" %>,
+    <% else %>
+      <%= h employee.name %>,
+    <% end %>
+  </span>
+  <span class="employee_role">
+    <%= employment.restaurant_role.try(:name) %>
+  </span>
+</li>

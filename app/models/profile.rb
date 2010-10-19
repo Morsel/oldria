@@ -20,10 +20,6 @@ class Profile < ActiveRecord::Base
   REJECT_ALL_BLANK_PROC = proc { |attributes| attributes.all? { |_, value| value.blank? } }
   REJECT_TITLE_BLANK_PROC = proc { |attributes| attributes['title'].blank? && attributes['name'].blank? }
 
-  validates_uniqueness_of :user_id
-  validates_presence_of :hometown, :current_residence
-  validate :birthday_year_is_set
-  
   belongs_to :user
   
   has_many :culinary_jobs, :order => "date_started DESC"
@@ -31,7 +27,7 @@ class Profile < ActiveRecord::Base
   has_many :nonculinary_enrollments
   has_many :nonculinary_schools, :through => :nonculinary_enrollments
   has_many :awards
-  has_many :accolades
+  has_many :accolades, :as => :accoladable
   has_many :enrollments
   has_many :schools, :through => :enrollments
   has_many :competitions
@@ -43,6 +39,10 @@ class Profile < ActiveRecord::Base
   has_many :profile_specialties
   has_many :specialties, :through => :profile_specialties
 
+  validates_uniqueness_of :user_id
+  validates_presence_of :hometown, :current_residence
+  validate :birthday_year_is_set
+  
   accepts_nested_attributes_for :culinary_jobs, :nonculinary_jobs, :awards, :user, :specialties,
     :reject_if => REJECT_TITLE_BLANK_PROC
     
@@ -51,6 +51,15 @@ class Profile < ActiveRecord::Base
   preference :display_email, :string, :default => "everyone"
   preference :display_twitter, :string, :default => "everyone"
   preference :display_facebook, :string, :default => "everyone"
+  
+  #def display_cell_public?
+  #  preferred_display_cell == "everyone"
+  #end
+  [:display_cell, :display_email, :display_twitter, :display_facebook].each do |sym|
+    define_method :"#{sym}_public?" do
+      send(:"preferred_#{sym}") == "everyone"
+    end
+  end
 
   def primary_employment
     user.primary_employment
@@ -79,6 +88,10 @@ class Profile < ActiveRecord::Base
   
   def birthday_year_is_set
     self.errors.add(:birthday, "must specify a year") if self.birthday.present? && self.birthday.year == 1
+  end
+
+  def culinary_schools
+    enrollments
   end
 
 end

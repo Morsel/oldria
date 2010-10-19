@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20100913210123
+# Schema version: 20101013222730
 #
 # Table name: culinary_jobs
 #
@@ -35,3 +35,4 @@ class CulinaryJob < ActiveRecord::Base
     end
   end
 end
+

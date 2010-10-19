@@ -1,0 +1,21 @@
+<tr class="admin_discussion_recipient <%= cycle('odd', 'even', :name => 'discussion_row') %>">
+  <td>
+    <% if solo_discussion.comments_count > 0 %>
+      <%= link_to solo_discussion.employee.try(:name), solo_discussion %>
+    <% else %>
+      <%= solo_discussion.employee.try(:name)%>
+    <% end %>
+  </td>
+  
+  <% if solo_discussion.comments_count > 0 %>
+  <td>
+      <%= solo_discussion.view_on_soapbox? ? "[s]" : "&nbsp;" %>
+  </td>
+  <% end %>
+
+  <% if solo_discussion.comments_count > 0 %>
+  <td>
+    <%= link_to pluralize(solo_discussion.comments_count, "comment"), solo_discussion %>
+  </td>
+  <% end %>
+</tr>

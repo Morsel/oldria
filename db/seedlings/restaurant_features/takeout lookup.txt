@@ -1,0 +1,9 @@
+﻿Delivery available
+Takeout available
+Delivery and takeout available
+Drive-through window
+Walk-up window
+Curbside pick-up
+Food truck
+None
+Other (describe)
