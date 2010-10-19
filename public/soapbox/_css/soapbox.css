@@ -1975,37 +1975,45 @@ dl.things dt:after {
 }
 /* line 1352, ../../../app/stylesheets/soapbox.scss */
 #recent_soapbox .recent_actions h3 {
+  font-family: 'MuseoSlab700', 'Helvetica Neue', Helvetica, arial, sans-serif;
+  font-weight: normal !important;
+  font-weight: 700;
   margin: 20px 0 6px;
 }
-/* line 1357, ../../../app/stylesheets/soapbox.scss */
-#recent_soapbox #recent_qtod ul {
+/* line 1359, ../../../app/stylesheets/soapbox.scss */
+#recent_soapbox #recent_qtod nav {
   overflow: hidden;
   margin: 0;
   padding: 0;
-  list-style: none;
 }
-/* line 1362, ../../../app/stylesheets/soapbox.scss */
-#recent_soapbox #recent_qtod ul li {
-  background: none;
-  float: left;
-  width: 140px;
+/* line 1363, ../../../app/stylesheets/soapbox.scss */
+#recent_soapbox #recent_qtod nav a {
+  width: 120px;
   margin: 0 5px 0 0;
-  padding: 0;
-}
-/* line 1368, ../../../app/stylesheets/soapbox.scss */
-#recent_soapbox #recent_qtod ul li a {
   background-color: #474f80;
   color: #fff;
   display: block;
   padding: 10px;
-  margin: 0;
+  float: left;
 }
-/* line 1374, ../../../app/stylesheets/soapbox.scss */
-#recent_soapbox #recent_qtod ul li a.selected {
+/* line 1372, ../../../app/stylesheets/soapbox.scss */
+#recent_soapbox #recent_qtod nav span.ui-tabs-selected a {
   background-color: #d1d4e6;
   color: #474f80;
 }
-/* line 1385, ../../../app/stylesheets/soapbox.scss */
+/* line 1377, ../../../app/stylesheets/soapbox.scss */
+#recent_soapbox #recent_qtod p {
+  padding: 10px;
+}
+/* line 1380, ../../../app/stylesheets/soapbox.scss */
+#recent_soapbox #recent_qtod .ui-tabs-hide {
+  display: none;
+}
+/* line 1383, ../../../app/stylesheets/soapbox.scss */
+#recent_soapbox #recent_qtod .panel-bg {
+  background-color: #d1d4e6;
+}
+/* line 1388, ../../../app/stylesheets/soapbox.scss */
 #recent_soapbox #behindline ul {
   border-top: 1px dotted #72b4d2;
   border-bottom: 1px dotted #72b4d2;
@@ -2013,80 +2021,80 @@ dl.things dt:after {
   padding: 0;
   list-style: none;
 }
-/* line 1391, ../../../app/stylesheets/soapbox.scss */
+/* line 1394, ../../../app/stylesheets/soapbox.scss */
 #recent_soapbox #behindline ul li {
   padding: 0;
   margin: 0;
   background-image: none;
 }
-/* line 1395, ../../../app/stylesheets/soapbox.scss */
+/* line 1398, ../../../app/stylesheets/soapbox.scss */
 #recent_soapbox #behindline ul li a {
   display: block;
   padding: 10px;
   color: #333;
 }
-/* line 1399, ../../../app/stylesheets/soapbox.scss */
+/* line 1402, ../../../app/stylesheets/soapbox.scss */
 #recent_soapbox #behindline ul li a:hover {
   text-decoration: none;
   background-color: #488ba9;
   color: #fff;
 }
-/* line 1406, ../../../app/stylesheets/soapbox.scss */
+/* line 1409, ../../../app/stylesheets/soapbox.scss */
 #recent_soapbox #behindline ul li.even a {
   background-color: #f2fbff;
 }
-/* line 1408, ../../../app/stylesheets/soapbox.scss */
+/* line 1411, ../../../app/stylesheets/soapbox.scss */
 #recent_soapbox #behindline ul li.even a:hover {
   background-color: #488ba9;
   color: #fff;
 }
-/* line 1414, ../../../app/stylesheets/soapbox.scss */
+/* line 1417, ../../../app/stylesheets/soapbox.scss */
 #recent_soapbox #behindline ul li.odd {
   border-top: 1px dotted #b9d6e4;
   border-bottom: 1px dotted #b9d6e4;
 }
-/* line 1417, ../../../app/stylesheets/soapbox.scss */
+/* line 1420, ../../../app/stylesheets/soapbox.scss */
 #recent_soapbox #behindline ul li.odd a {
   background-color: #e3f4fc;
 }
-/* line 1419, ../../../app/stylesheets/soapbox.scss */
+/* line 1422, ../../../app/stylesheets/soapbox.scss */
 #recent_soapbox #behindline ul li.odd a:hover {
   background-color: #488ba9;
   color: #fff;
 }
-/* line 1426, ../../../app/stylesheets/soapbox.scss */
+/* line 1429, ../../../app/stylesheets/soapbox.scss */
 #recent_soapbox #behindline ul h5 {
   margin: 0;
   padding: 0;
   line-height: 15px;
 }
-/* line 1430, ../../../app/stylesheets/soapbox.scss */
+/* line 1433, ../../../app/stylesheets/soapbox.scss */
 #recent_soapbox #behindline ul h5 span {
   float: right;
   font-weight: normal;
   color: #72b4d2;
   font-size: 10px;
 }
-/* line 1439, ../../../app/stylesheets/soapbox.scss */
+/* line 1442, ../../../app/stylesheets/soapbox.scss */
 #recent_soapbox #behindline .view_all {
   margin: 10px 0;
 }
-/* line 1441, ../../../app/stylesheets/soapbox.scss */
+/* line 1444, ../../../app/stylesheets/soapbox.scss */
 #recent_soapbox #behindline .view_all a {
   color: #488ba9;
   padding: 0 0 0 5px;
 }
-/* line 1444, ../../../app/stylesheets/soapbox.scss */
+/* line 1447, ../../../app/stylesheets/soapbox.scss */
 #recent_soapbox #behindline .view_all a:hover {
   color: #72b4d2;
 }
-/* line 1450, ../../../app/stylesheets/soapbox.scss */
+/* line 1453, ../../../app/stylesheets/soapbox.scss */
 #recent_soapbox #behindline .edit_profile_link {
   display: block;
   margin: 0;
   padding: 0;
 }
-/* line 1454, ../../../app/stylesheets/soapbox.scss */
+/* line 1457, ../../../app/stylesheets/soapbox.scss */
 #recent_soapbox #behindline .edit_profile_link a {
   font-size: 13px;
   font-weight: bold;
@@ -2098,13 +2106,13 @@ dl.things dt:after {
   background-color: #72b4d2;
   text-shadow: 0 1px 0 #000;
 }
-/* line 1464, ../../../app/stylesheets/soapbox.scss */
+/* line 1467, ../../../app/stylesheets/soapbox.scss */
 #recent_soapbox #behindline .edit_profile_link a:hover {
   text-decoration: none;
   background-color: #474f80;
 }
 
-/* line 1475, ../../../app/stylesheets/soapbox.scss */
+/* line 1478, ../../../app/stylesheets/soapbox.scss */
 #employment_criteria legend span {
   font-family: 'MuseoSlab700', 'Helvetica Neue', Helvetica, arial, sans-serif;
   font-weight: normal !important;
@@ -2113,11 +2121,11 @@ dl.things dt:after {
   font-size: 15px;
 }
 
-/* line 1483, ../../../app/stylesheets/soapbox.scss */
+/* line 1486, ../../../app/stylesheets/soapbox.scss */
 #criteria_accordion {
   padding: 10px 0 0;
 }
-/* line 1485, ../../../app/stylesheets/soapbox.scss */
+/* line 1488, ../../../app/stylesheets/soapbox.scss */
 #criteria_accordion .accordion_box {
   border: 1px solid #ddd;
   background: 0 none;

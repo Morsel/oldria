@@ -1350,35 +1350,52 @@ dl.things dt:after {content: ":"}
 			margin: 0;
 		}
 		h3 {
+			@include museoslabbold;
 			margin: 20px 0 6px;
 		}
 	}
 	#recent_qtod {
-		ul {
+		
+		nav {
 			overflow: hidden;
 			margin: 0;
 			padding: 0;
-			list-style: none;
-			li {
-				background: none;
-				float: left;
-				width: 140px;
+			a {
+				width: 120px;
 				margin: 0 5px 0 0;
-				padding: 0;
-				a {
-					background-color: $purple;
-					color: #fff;
-					display: block;
-					padding: 10px;
-					margin: 0;
-					&.selected {
-						background-color: #d1d4e6;
-						color: $purple;
+				background-color: $purple;
+				color: #fff;
+				display: block;
+				padding: 10px;
+				float:left;
+			}
+			span.ui-tabs-selected a{
+				background-color: $light-purple;
+				color: $purple;
+			}
+		}
+		p{
+			padding:10px;
+		}
+		.ui-tabs-hide{
+			display:none;
+		}
+		.panel-bg{
+			background-color: $light-purple;
+		}
+		.ui-tabs-panel{
+			.admin_qotd{
+				border-bottom:1px dotted #666;
+				a{
+					display:block;
+					padding:10px;
+					color:#333;
+					&:hover{
+						background:$dark-purple;
+						color:#fff;
 					}
 				}
 			}
-		}
-		#older_qotds_box {
 		}
 	}
 	#behindline {
