@@ -62,7 +62,7 @@ $(document).ready(function(){
 	$('.tabable').tabs({
 		panelTemplate: '<ol></ol>',
 		fx: { duration: 'fast', opacity: 'toggle' }
-	}).find('div').each(function(){	
+	}).find('.ui-tabs-panel').each(function(){	
 		if($(this).height() > tabablePanelHeight){
 			tabablePanelHeight = $(this).height();
 		}
