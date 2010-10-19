@@ -1,5 +1,22 @@
 <% title "Edit Your Account" %>
 
+<div class="fieldset_box" id="plans">
+  <h3>Account Status</h3>
+  
+  <div class="current">
+    Your current account status is <%= @user.account_type %>.
+  </div>
+  
+  <div id="upgrade_link">
+    <% if !@user.premium_account? %>
+      <%= link_to "Upgrade to Premium", new_subscription_path %>
+    <% else %>
+      <%= link_to "Downgrade to basic", "" %>
+    <% end %>
+  </div>
+</div>
+
+  
 
 <% form_for @user, :html => { :multipart => true } do |f| %>
     <fieldset class="headshot">

@@ -31,3 +31,5 @@ config.gem 'mail_safe'
 
 # Enable threaded mode
 # config.threadsafe!
+
+Braintree::Configuration.environment = :sandbox

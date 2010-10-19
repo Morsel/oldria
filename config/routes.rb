@@ -74,6 +74,8 @@ ActionController::Routing::Routes.draw do |map|
     users.resources :default_employments
   end
 
+  map.resources :subscriptions, :collection => { :bt_callback => :get }
+
   map.resources :restaurants,
                 :member => {
                         :edit_logo => :get,

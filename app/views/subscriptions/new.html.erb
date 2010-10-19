@@ -1,0 +1,24 @@
+<% title "Upgrade Account To Premium" %>
+
+<% form_tag Braintree::TransparentRedirect.url do %>
+  
+  <%= hidden_field_tag "tr_data", h(@tr_data) %>
+  
+  <%= label_tag "customer[credit_card][number]", "Credit Card Number" %>
+  <%= text_field_tag "customer[credit_card][number]" %>
+  
+  <%= label_tag "customer[credit_card][expiration_month]", "Expiration Month"%>
+  <%= select_tag 'customer[credit_card][expiration_month]',
+      options_for_select(1 .. 12) %>
+      
+  <%= label_tag "customer[credit_card][expiration_year]", "Expiration Year"%>
+  <%= select_tag 'customer[credit_card][expiration_year]',
+      options_for_select(Date.today.year .. Date.today.year + 10)%>
+  
+  <%= label_tag"customer[credit_card][billing_address][postal_code]", "Billing Zip Code" %>
+  <%= text_field_tag "customer[credit_card][billing_address][postal_code]" %>
+  
+  <br />
+  <%= submit_tag "Upgrade my account" %>
+  
+<% end %>

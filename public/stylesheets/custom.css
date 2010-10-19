@@ -3225,7 +3225,7 @@ td.actions.approve_link a {
 
 /* @group forms -------------------- */
 
-fieldset {
+fieldset, .fieldset_box {
   border: 1px solid #ccc;
   font-family: 'lucida grande', tahoma, arial, sans-serif;
 }
