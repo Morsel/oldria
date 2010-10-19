@@ -1202,12 +1202,13 @@ p.search_filter_hint {
 							padding:3px 0;
 						}
 					}
-					p{
+					span.title{
+						display:block;
 						float:left;
 						width:345px;
 						margin:0 10px 0 0;
 					}
-					.reply-count{
+					span.reply-count{
 						float:left;
 						width:53px;
 						padding:10px 0 10px 3px;
