@@ -828,11 +828,11 @@ body, html, #container, #main, #content, #inside {
   background-color: #cacada;
 }
 /* line 478, ../../../app/stylesheets/soapbox.scss */
-#page-content #recent_soapbox #recent_qtod .ui-tabs-panel .admin_qotd {
+#page-content #recent_soapbox #recent_qtod .ui-tabs-panel .admin_qotd, #page-content #recent_soapbox #recent_qtod .ui-tabs-panel .trend_question {
   border-bottom: 1px dotted #666;
 }
 /* line 480, ../../../app/stylesheets/soapbox.scss */
-#page-content #recent_soapbox #recent_qtod .ui-tabs-panel .admin_qotd a {
+#page-content #recent_soapbox #recent_qtod .ui-tabs-panel .admin_qotd a, #page-content #recent_soapbox #recent_qtod .ui-tabs-panel .trend_question a {
   color: #333;
   display: block;
   font-size: 14px;
@@ -840,7 +840,7 @@ body, html, #container, #main, #content, #inside {
   padding: 10px;
 }
 /* line 486, ../../../app/stylesheets/soapbox.scss */
-#page-content #recent_soapbox #recent_qtod .ui-tabs-panel .admin_qotd a:hover {
+#page-content #recent_soapbox #recent_qtod .ui-tabs-panel .admin_qotd a:hover, #page-content #recent_soapbox #recent_qtod .ui-tabs-panel .trend_question a:hover {
   background: #323b66;
   color: #fff;
 }
