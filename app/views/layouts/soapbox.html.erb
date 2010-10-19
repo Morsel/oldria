@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en" class="no-js">
+<head>
+  <meta charset="utf-8">
+  <!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"><![endif]-->
+  <!--[if lt IE 9]>
+    <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+  <title><%= h(yield(:title) || "Untitled") %> - Soapbox - Restaurant Intelligence Agency</title>
+  <meta name="description" content="All about Spoonfeed's Soapbox">
+  <meta name="author" content="Restaruant Intelligence Agency">
+  <link rel="shortcut icon" href="/favicon.ico">
+  <link rel="stylesheet" href="/soapbox/_css/soapbox.css?v=1">
+  <link rel="stylesheet" href="/soapbox/_css/museoslab/stylesheet.css?v=1">
+  <link rel="stylesheet" href="/soapbox/_css/knockout/stylesheet.css?v=1">
+
+</head>
+<!--[if lt IE 7 ]> <body class="ie6"> <![endif]-->
+<!--[if IE 7 ]>    <body class="ie7"> <![endif]-->
+<!--[if IE 8 ]>    <body class="ie8"> <![endif]-->
+<!--[if IE 9 ]>    <body class="ie9"> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--> <body> <!--<![endif]-->
+
+  <div id="container">    
+    <header id="header">
+      <hgroup>
+        <h1 id="logo"><a href="/soapbox">Soapbox</a></h1>
+        <h2 id="tagline">A digital magazine written by chefs</h2>
+      </hgroup>
+      <nav id="nav">
+        <%= link_to 'Home', soapbox_root_path, :id => "nav-home", :class => active_page?('/soapbox') %>
+        <%= link_to 'Front Burner', soapbox_soapbox_entries_path, :id => "nav-front-burner", :class => active_page?('/soapbox/front_burner') %>
+        <%= link_to 'Directory', '/soapbox/directory', :id => "nav-directory", :class => active_page?('/soapbox/directory') %>
+        <%= link_to 'About', '/soapbox/about', :id => "nav-about", :class => active_page?('/soapbox/about') %>
+        <%= link_to 'Contact', '/soapbox/contact', :id => "nav-contact", :class => "#{active_page?('/soapbox/contact')} last" %>
+      </nav>
+    </header>
+  
+    <nav id="utilities">
+      <a id="search-handle" style="display:none;" title="Pulldown a search interface" href="#">Search the site</a>
+      <a id="ria-hq" title="Head back to RIA's home" href="http://www.restaurantintelligenceagency.com/"><abbr title="Restaurant Intelligence Agency">RIA</abbr> <abbr title="Headquarters">HQ</abbr></a>
+    </nav>
+  
+    <div id="main">
+        <%- if @home -%>
+          <%= yield %>
+        <%- else -%>
+        <section id="content" class="<%= 'no-sidebar' if @no_sidebar %>">
+            <%- if show_title? -%>
+            <header id="page-title">
+                <h1><%= h yield(:title) %></h1>
+            </header>
+            <%- end -%>
+            <div id="inside">
+                <article id="page-content">
+                    <%= yield %>
+                </article><!-- /page-content -->
+            </div><!-- /inside -->
+        </section><!-- /content -->
+        <%= render :partial => 'soapbox/sidebar' unless @no_sidebar %>
+        <%- end -%>
+    </div><!-- /main -->
+    <div id="sticky-footer-pad"></div>
+  </div> <!-- end of #container -->
+  <footer id="footer">
+    <div id="footer-container">
+      <h1 id="footer-logo">
+        Soapbox: Soapbox is a product of RIA
+      </h1>
+      <div id="legal">
+        <p>&copy; 2010 <a href="http://www.restaurantintelligenceagency.com/">Restaurant Intelligence Agency</a>. All Rights Reserved.</p>
+        <nav id="footer-links">
+          <a href="/soapbox/contact">Contact</a>|
+          <a href="http://www.restaurantintelligenceagency.com">RIA HQ</a>|
+          <a href="/soapbox/privacy">Privacy</a>|
+          <a href="/soapbox/about">About</a>|
+          <a href="/soapbox/help">Help</a>
+        </nav>
+        <p>Powered by <a href="http://www.lacolombe.com/">La Columbe Torrefaction</a> <span class="bullet">&bull;</span> Built by <a href="http://neotericdesign.com">Neoteric Design</a></p>
+      </div><!-- /legal -->
+      <div class="social-media-links">
+        <p id="twitter-link">Follow on Twitter <a href="http://twitter.com/TeamRIA">@TeamRIA</a></p>
+      </div>
+      <div class="social-media-links last">
+        <p id="facebook-link"><a href="http://www.facebook.com/RestaurantIntelligenceAgency">Check us out on Facebook</a></p>
+      </div>
+    </div><!-- /footer-container -->
+  </footer>
+
+  <script src="http://google.com/jsapi"></script>
+  <script>
+    google.load('jquery','1.4.2');
+    google.load('jqueryui','1.8.5');
+  </script>
+  <script>!window.jQuery && document.write('<script src="/soapbox/_js/jquery-1.4.2.min.js"><\/script><script src="/soapbox/_js/jquery-ui-1.8.5.min.js"><\/script>')</script>
+  <%= javascript_include_tag '/soapbox/_js/jquery-ui-1.8.5.tabs-customized.min.js', 'jquery.ui.accordion', 'http://cachedcommons.org/cache/jquery-cycle/2.8.6/javascripts/jquery-cycle.js', 'showy', '/soapbox/_js/site' %>
+  <!--[if lt IE 7 ]>
+    <script src="/soapbox/_js/dd_belatedpng.js?v=1"></script>
+  <![endif]-->
+
+  <script>
+   // var _gaq = [['_setAccount', 'UA-XXXXX-X'], ['_trackPageview']]; 
+   // (function(d, t) {
+   //  var g = d.createElement(t), s = d.getElementsByTagName(t)[0];
+   //  g.async = true; g.src = '//www.google-analytics.com/ga.js'; s.parentNode.insertBefore(g, s);
+   // })(document, 'script');
+  </script>
+  
+</body>
+</html>

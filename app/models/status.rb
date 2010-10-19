@@ -1,3 +1,21 @@
+# == Schema Information
+# Schema version: 20101013222730
+#
+# Table name: statuses
+#
+#  id                      :integer         not null, primary key
+#  message                 :string(255)
+#  created_at              :datetime
+#  updated_at              :datetime
+#  user_id                 :integer
+#  twitter_id              :integer
+#  queue_for_social_media  :boolean
+#  queue_for_facebook      :boolean
+#  facebook_id             :integer
+#  queue_for_facebook_page :boolean
+#  facebook_page_id        :integer
+#
+
 class Status < ActiveRecord::Base
   belongs_to :user
   default_scope :order => "created_at DESC"
@@ -36,21 +54,4 @@ class Status < ActiveRecord::Base
   end
   
 end
-
-# == Schema Information
-#
-# Table name: statuses
-#
-#  id                      :integer         not null, primary key
-#  message                 :string(255)
-#  created_at              :datetime
-#  updated_at              :datetime
-#  user_id                 :integer
-#  twitter_id              :integer
-#  queue_for_social_media  :boolean
-#  queue_for_facebook      :boolean
-#  facebook_id             :integer
-#  queue_for_facebook_page :boolean         default(FALSE)
-#  facebook_page_id        :integer
-#
 

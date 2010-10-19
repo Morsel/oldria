@@ -11,9 +11,9 @@ module SoapboxHelper
 
   def soapbox_tabby_title(featured_item)
     if featured_item.is_a?(TrendQuestion)
-      "<em>Trend</em> Question"
+      "<h1>Trend <span>Identified</span></h1>"
     elsif featured_item.is_a?(Admin::Qotd)
-      "<em>Question</em> of the Day"
+      "<h1><span>Question</span> of the Day</h1>"
     end
   end
   
@@ -29,6 +29,10 @@ module SoapboxHelper
   
   def message(featured_item)
     featured_item.display_message || featured_item.message
+  end
+  
+  def active_page?(name)
+    current_page?(name) ? "selected" : ""
   end
 
 end

@@ -12,7 +12,7 @@
 #
 
 class Menu < ActiveRecord::Base
-  belongs_to :pdf_remote_attachment, :class_name => "PDFRemoteAttachment" 
+  belongs_to :pdf_remote_attachment
   belongs_to :restaurant
 
   validates_presence_of :name

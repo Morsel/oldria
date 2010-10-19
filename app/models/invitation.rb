@@ -1,4 +1,5 @@
 # == Schema Information
+# Schema version: 20101013222730
 #
 # Table name: invitations
 #
@@ -7,7 +8,7 @@
 #  last_name          :string(255)
 #  email              :string(255)
 #  title              :string(255)
-#  coworker           :boolean         default(FALSE)
+#  coworker           :boolean
 #  restaurant_id      :integer
 #  restaurant_name    :string(255)
 #  requesting_user_id :integer
@@ -15,7 +16,7 @@
 #  approved_at        :datetime
 #  created_at         :datetime
 #  updated_at         :datetime
-#  archived           :boolean         default(FALSE)
+#  archived           :boolean
 #
 
 class Invitation < ActiveRecord::Base
@@ -24,7 +25,7 @@ class Invitation < ActiveRecord::Base
   belongs_to :invitee, :class_name => "User"
   belongs_to :restaurant
   
-  validates_presence_of :email, :first_name, :last_name
+  validates_presence_of :email, :first_name, :last_name, :restaurant_name
   validates_uniqueness_of :email, :message => "That person has already been invited"
   
   after_create :send_welcome

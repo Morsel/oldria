@@ -139,6 +139,7 @@ Factory.define :invitation do |f|
   f.first_name "Jane"
   f.last_name "Doe"
   f.sequence(:email) { |n| "foo#{n}@example.com" }
+  f.restaurant_name "Name"
 end
 
 # == Restaurants ==
@@ -274,6 +275,12 @@ Factory.define :page do |f|
   f.title   "Page Title"
   f.slug    {"page-title"}
   f.content {"This is the page content"}
+end
+
+Factory.define :soapbox_page do |f|
+  f.title "Title"
+  f.slug "title-tastic"
+  f.content "Some content here is good"
 end
 
 Factory.define :direct_message do |f|
@@ -417,7 +424,7 @@ Factory.define :holiday_discussion_reminder do |f|
   f.association :holiday_reminder
 end
 
-# == Trend Question ==
+# == Trend Questions and other content ==
 Factory.define :trend_question do |f|
   f.subject "What is the haps?"
   f.body    "Boo-ya"
@@ -439,6 +446,12 @@ end
 Factory.define :soapbox_entry do |f|
   f.association :featured_item, :factory => :qotd
   f.published_at Time.now
+end
+
+Factory.define :soapbox_slide do |f|
+  f.title "Title"
+  f.excerpt "Some text here"
+  f.link "http://linky.com"
 end
 
 Factory.define :a_la_minute_question do |f|

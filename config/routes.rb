@@ -10,7 +10,6 @@ ActionController::Routing::Routes.draw do |map|
 
   map.directory 'directory', :controller => 'directory', :action => 'index'
 
-#  map.with_options :conditions => {:subdomain => 'soapbox'} do |soapbox_subdomain|
   map.namespace(:soapbox) do |soapbox|
     soapbox.resources :restaurants, :only => ['show'] do |restaurants|
       restaurants.resources :feature_pages, :only => ['show']
@@ -19,14 +18,18 @@ ActionController::Routing::Routes.draw do |map|
     end
     soapbox.resources :restaurant_features, :only => ["show"]
     soapbox.resources :a_la_minute_questions, :only => ['index', 'show']
+    soapbox.resources :soapbox_entries, :only => ['index','show'], :as => "front_burner"
+    soapbox.connect 'directory', :controller => 'soapbox', :action => 'directory'
+    soapbox.root :controller => 'soapbox', :action => 'index'
   end
-#  end
+  
+  map.soapbox_profile 'soapbox/profile/:username', :controller => 'soapbox/profiles', :action => 'show', 
+      :requirements => { :username => /[a-zA-Z0-9\-\_ ]+/}
+  
   map.with_options :conditions => {:subdomain => 'soapbox'}, :controller => 'soapbox' do |soapbox|
     soapbox.root :action => 'index'
   end
-
-  map.resources :soapbox, :only => ['index','show'], :collection => 'directory'
-
+  
   map.resource :my_profile, :only => ['create', 'edit', 'update'], :controller => 'profiles' do |p|
     p.resources :culinary_jobs
     p.resources :nonculinary_jobs
@@ -158,6 +161,9 @@ ActionController::Routing::Routes.draw do |map|
     admin.resources :calendars
     admin.resources :events
     admin.resources :soapbox_entries
+    admin.resources :soapbox_pages
+    admin.resources :soapbox_slides
+    admin.resources :soapbox_promos
     admin.resources :profile_questions, :collection => { :sort => :post }
     admin.resources :chapters, :collection => { :select => :post }
     admin.resources :topics
@@ -186,6 +192,7 @@ ActionController::Routing::Routes.draw do |map|
   end
 
   map.public_page ":id", :controller => 'pages', :action => 'show'
+  map.soapbox_page 'soapbox/:id', :controller => 'soapbox_pages', :action => 'show'
 
   # Default Routes
   map.connect ':controller/:action/:id'

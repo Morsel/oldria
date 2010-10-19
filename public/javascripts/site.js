@@ -94,32 +94,7 @@ $("a[href$=" + topLevelSection + "]", $navigationList)
 // Use this when you want a link to slidetoggle the element it's href points to:
 //
 //   <a href="#box">Toggles the element with id "box"</a>
-$.fn.showy = function(){
-  return this.each(function(){
-    var hidable = $(this.hash);
 
-    // Just in case it starts out shown, hide it
-    if (hidable.is(":visible")) {
-      hidable.hide();
-      hidable.removeClass('open');
-    }
-
-    $(this).click(function(e) {
-      var link = $(this);
-      hidable.slideToggle(200);
-      link.toggleClass('open');
-      hidable.toggleClass('open');
-      
-      var text = link.text();
-      if (link.hasClass('open')) {
-        link.text(text.replace(/View/, 'Close'));
-      } else {
-        link.text(text.replace(/Close/, 'View'));
-      }
-      return false;
-    });
-  });
-};
 
 $("a.showit").showy();
 
@@ -644,3 +619,15 @@ function selectCategoryGroup(category) {
   checked = $('#' + category).attr('checked');
   $('#profile_question_restaurant_roles_' + category + '_input input[type=checkbox]').attr('checked', checked);
 }
+
+// Sorting soapbox slides
+
+$('#soapbox_slides tbody').sortable({
+	axis:'y',
+	dropOnEmpty:false,
+	update: function(){
+		$.ajax({ data:$(this).sortable('serialize', { key: 'soapbox_slides[]' }), dataType:'script', type:'post', url:'/admin/soapbox_slides/sort'
+		});
+	}
+});
+

@@ -1,4 +1,4 @@
-Given /^there is a QOTD asking "([^"]*)"$/ do |text|
+Given /^there is a QOTD asking "([^\"]*)"$/ do |text|
   @qotd = Factory(:qotd, :message => text)
 end
 
@@ -14,7 +14,6 @@ Given /^that QOTD has the following answers:$/ do |table|
 
     # Add the comment
     conversation.comments.create(:user_id => user.id, :comment => response)
-
   end
 end
 
@@ -28,8 +27,14 @@ When /^I create a new soapbox entry for that QOTD with:$/ do |table|
   click_button "Save"
 end
 
-Then /^there should be (\d+) QOTDs? on the soapbox landing page$/ do |num|
-  visit root_url(:subdomain => 'soapbox')
+When /^I create a new soapbox page with:$/ do |table|
+  visit new_admin_soapbox_page_path
+  fill_in_form(table.rows_hash)
+  click_button "Save"
+end
+
+Then /^there should be (\d+) QOTDs? on the soapbox front burner page$/ do |num|
+  visit url_for(:controller => "soapbox_entries", :action => "index")
   SoapboxEntry.qotd.published.count.should == num.to_i
 end
 

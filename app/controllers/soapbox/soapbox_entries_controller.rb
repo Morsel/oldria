@@ -1,36 +1,27 @@
-class SoapboxController < ApplicationController
+class Soapbox::SoapboxEntriesController < Soapbox::SoapboxController
+  
   before_filter :require_http_authenticated
   before_filter :hide_flashes
-
+  before_filter :load_past_features, :only => [:index, :show]
+  
   def index
     @main_feature = SoapboxEntry.main_feature
     @main_feature_comments = SoapboxEntry.main_feature_comments if @main_feature
 
     @secondary_feature = SoapboxEntry.secondary_feature
     @secondary_feature_comments = SoapboxEntry.secondary_feature_comments if @secondary_feature
-
+    
     load_past_features
+    @no_sidebar = true
   end
 
   def show
     entry = SoapboxEntry.find(params[:id], :include => :featured_item)
     @feature = entry.featured_item
     @feature_comments = entry.comments
-    load_past_features
   end
   
-  def directory
-    @restaurants_and_employments = Employment.all(:include => :restaurant, 
-      :order => "restaurants.name ASC").select { |e| e.employee.prefers_publish_profile? }.group_by(&:restaurant)
-    render :template => "directory/index"
-  end
-
   protected
-
-  def load_past_features
-    @qotds = SoapboxEntry.qotd.published.recent.all(:include => :featured_item).map(&:featured_item)
-    @trend_questions = SoapboxEntry.trend_question.published.recent.all(:include => :featured_item).map(&:featured_item)
-  end
 
   def require_http_authenticated
     if Rails.env.production?

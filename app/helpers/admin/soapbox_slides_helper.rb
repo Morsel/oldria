@@ -1,0 +1,2 @@
+module Admin::SoapboxSlidesHelper
+end

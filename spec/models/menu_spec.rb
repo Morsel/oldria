@@ -15,7 +15,7 @@ require 'spec_helper'
 
 describe Menu do
   before(:each) do
-    pdf_remote_attachment = PDFRemoteAttachment.create!(:attachment_content_type => "application/pdf")
+    pdf_remote_attachment = PdfRemoteAttachment.create!(:attachment_content_type => "application/pdf")
     @valid_attributes = {
       :name => "value for name",
       :change_frequency => "Monthly",

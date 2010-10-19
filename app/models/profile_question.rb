@@ -1,3 +1,16 @@
+# == Schema Information
+# Schema version: 20101013222730
+#
+# Table name: profile_questions
+#
+#  id         :integer         not null, primary key
+#  title      :string(255)
+#  created_at :datetime
+#  updated_at :datetime
+#  position   :integer
+#  chapter_id :integer
+#
+
 class ProfileQuestion < ActiveRecord::Base
 
   belongs_to :chapter
@@ -47,16 +60,4 @@ class ProfileQuestion < ActiveRecord::Base
         ProfileAnswer.new(:profile_question_id => self.id, :user_id => user.id)
   end
 end
-
-# == Schema Information
-#
-# Table name: profile_questions
-#
-#  id         :integer         not null, primary key
-#  title      :string(255)
-#  created_at :datetime
-#  updated_at :datetime
-#  position   :integer         default(0)
-#  chapter_id :integer
-#
 

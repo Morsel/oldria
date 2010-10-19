@@ -1,3 +1,22 @@
+# == Schema Information
+# Schema version: 20101013222730
+#
+# Table name: media_requests
+#
+#  id                   :integer         not null, primary key
+#  sender_id            :integer
+#  message              :text
+#  created_at           :datetime
+#  updated_at           :datetime
+#  due_date             :date
+#  subject_matter_id    :integer
+#  fields               :text
+#  status               :string(255)
+#  publication          :string(255)
+#  admin                :boolean
+#  employment_search_id :integer
+#
+
 class MediaRequest < ActiveRecord::Base
   serialize :fields, Hash
 
@@ -95,22 +114,4 @@ class MediaRequest < ActiveRecord::Base
     self.restaurant_ids = employment_search.restaurant_ids if employment_search
   end
 end
-
-# == Schema Information
-#
-# Table name: media_requests
-#
-#  id                   :integer         not null, primary key
-#  sender_id            :integer
-#  message              :text
-#  created_at           :datetime
-#  updated_at           :datetime
-#  due_date             :date
-#  subject_matter_id    :integer
-#  fields               :text
-#  status               :string(255)
-#  publication          :string(255)
-#  admin                :boolean         default(FALSE)
-#  employment_search_id :integer
-#
 

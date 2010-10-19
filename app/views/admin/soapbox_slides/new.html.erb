@@ -1,0 +1,12 @@
+<% title "New Soapbox Slide" %>
+
+<% semantic_form_for [:admin, @slide], :html => { :multipart => true } do |f| %>
+    <% f.inputs do %>
+        <%= f.input :image %>
+        <%= f.input :title %>
+        <%= f.input :excerpt %>
+        <%= f.input :link %>
+    <% end %>
+    
+	<%= button_tag "Save" %>
+<% end %>

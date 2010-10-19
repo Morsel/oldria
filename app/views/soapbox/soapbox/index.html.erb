@@ -1,0 +1,53 @@
+<% title "Home", false %>
+<section id="content" class="home">
+    <div id="inside" class="home">
+        <%- unless @slides.blank? -%>
+        <div id="jumbotron">
+            <div id="cycle">
+                <% for slide in @slides %>
+                <%= image_tag slide.image.url(:full), "data-title" => slide.title, "data-caption" => truncate(slide.excerpt, :length => 150), "data-url" => slide.link %>
+                <% end %>
+            </div>
+            <div id="display">
+                <header>
+                    <h1 id="cycle-title"><%= @slides.first.title %></h1>
+                </header>
+                <summary id="cycle-caption"><%= truncate(@slides.first.excerpt, :length => 100) %>&nbsp;<%= link_to "more&nbsp;&#187;", @slides.first.link %></summary>
+                <nav id="pager"></nav>
+            </div>
+        </div><!-- /jumbotron -->
+        <%- end -%>
+        
+        <%- @promos.each_with_index do |promo,idx| -%>
+        <article class="panel panel_<%= idx %>" id="home-pulse">
+            <header>
+                <h1><%= promo.title %></h1>
+            </header>
+            <section>
+                <%= promo.body %>
+            </section>
+        </article><!-- /home-pulse -->
+        <%- end if @promos -%>
+    </div><!-- /inside -->
+</section><!-- /content --> 
+
+<aside id="sidebar" class="home">
+    <nav id="participate" class="home">
+        <%= link_to "Login to <span>participate</span>", login_path, :class => "button", :id => "login-participate" %>
+        <%= link_to "Request an <span>invitation</span>", new_invitation_path, :class => "button", :id => "request-invite" %>
+    </nav><!-- /participate -->
+    <section id="facebook-button">
+        <header>
+            <h1>Like us on Facebook</h1>
+        </header>
+        <iframe src="http://www.facebook.com/plugins/like.php?href=http%3A%2F%2Fspoonfeed.restaurantintelligenceagency.com%2Fsoapbox&amp;layout=standard&amp;show_faces=true&amp;width=154&amp;action=like&amp;font=lucida+grande&amp;colorscheme=light&amp;height=80" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:154px; height:80px;" allowTransparency="true"></iframe>
+    </section><!-- /facebook-button -->
+
+    <section id="help-questions">
+        <header>
+            <h1>Need Help? Have Questions?</h1>
+        </header>
+        <p>You can email our support staff anytime at <a href="mailto:support@soapbox.com">support@soapbox.com</a>.</p>
+        <p>We also have a toll free customer support line available 9am–5pm that can be reached at 1 (800) 111-1111.</p>
+    </section><!-- /help-questions -->
+</aside><!-- /sidebar -->

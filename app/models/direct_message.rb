@@ -1,3 +1,18 @@
+# == Schema Information
+# Schema version: 20101013222730
+#
+# Table name: direct_messages
+#
+#  id                     :integer         not null, primary key
+#  body                   :text
+#  sender_id              :integer         not null
+#  receiver_id            :integer         not null
+#  in_reply_to_message_id :integer
+#  created_at             :datetime
+#  updated_at             :datetime
+#  from_admin             :boolean
+#
+
 class DirectMessage < ActiveRecord::Base
   belongs_to :receiver, :class_name => "User", :foreign_key => "receiver_id"
   belongs_to :sender, :class_name => "User"
@@ -91,18 +106,4 @@ class DirectMessage < ActiveRecord::Base
   end
 
 end
-
-# == Schema Information
-#
-# Table name: direct_messages
-#
-#  id                     :integer         not null, primary key
-#  body                   :text
-#  sender_id              :integer         not null
-#  receiver_id            :integer         not null
-#  in_reply_to_message_id :integer
-#  created_at             :datetime
-#  updated_at             :datetime
-#  from_admin             :boolean         default(FALSE)
-#
 

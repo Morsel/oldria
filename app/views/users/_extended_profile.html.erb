@@ -43,7 +43,7 @@
         <div class="extended_profile_info">
           <h3>Awards</h3>
           <ul class="awards">
-              <%= render profile.awards %>
+              <%= render :partial => 'awards/award', :collection => profile.awards %>
           </ul>
           <span class="timestamp">
               Last updated:
@@ -56,7 +56,7 @@
         <div class="extended_profile_info">
           <h3>Accolades</h3>
           <ul class="accolades">
-              <%= render profile.accolades %>
+              <%= render :partial => 'accolades/accolade', :collection => profile.accolades %>
           </ul>
           <span class="timestamp">
               Last updated:
@@ -138,7 +138,7 @@
         <div class="extended_profile_info">
           <h3>Competitions</h3>
           <ul id="competitions">
-              <%= render profile.competitions %>
+              <%= render :partial => 'competitions/competition', :collection => profile.competitions %>
           </ul>
           <span class="timestamp">
               Last updated:
@@ -151,7 +151,7 @@
         <div class="extended_profile_info">
           <h3>Internships</h3>
           <ul id="internships">
-              <%= render profile.internships %>
+              <%= render :partial => 'internships/internship', :collection => profile.internships %>
           </ul>
           <span class="timestamp">
               Last updated:
@@ -164,7 +164,7 @@
         <div class="extended_profile_info">
           <h3>Stages</h3>
           <ul id="stages">
-              <%= render profile.stages %>
+              <%= render :partial => 'stages/stage', :collection => profile.stages %>
           </ul>
           <span class="timestamp">
               Last updated:
@@ -177,7 +177,7 @@
         <div class="extended_profile_info">
           <h3>Apprenticeships</h3>
           <ul id="apprenticeships">
-              <%= render profile.apprenticeships %>
+              <%= render :partial => 'apprenticeships/apprenticeship', :collection => profile.apprenticeships %>
           </ul>
           <span class="timestamp">
               Last updated:

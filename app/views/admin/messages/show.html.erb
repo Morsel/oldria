@@ -20,7 +20,7 @@
 <% if @message.title == "Question of the Day" %>
   <% if @message.soapbox_entry %>
     <div class="clearfix">
-        <%= link_to "View on Soapbox", soapbox_path(@message.soapbox_entry), :class => "button" %>
+        <%= link_to "View on Soapbox", soapbox_soapbox_entry_path(@message.soapbox_entry), :class => "button" %>
     </div>
   <% else %>
     <div class="clearfix">

@@ -1,3 +1,26 @@
+# == Schema Information
+# Schema version: 20101013222730
+#
+# Table name: culinary_jobs
+#
+#  id              :integer         not null, primary key
+#  profile_id      :integer         not null
+#  restaurant_name :string(255)     default(""), not null
+#  title           :string(255)     default(""), not null
+#  city            :string(255)     default(""), not null
+#  state           :string(255)     default(""), not null
+#  country         :string(255)     default(""), not null
+#  date_started    :date            not null
+#  date_ended      :date
+#  chef_name       :string(255)     default(""), not null
+#  chef_is_me      :boolean         not null
+#  cuisine         :text            default(""), not null
+#  notes           :text            default(""), not null
+#  created_at      :datetime
+#  updated_at      :datetime
+#  opening_staff   :boolean
+#
+
 class CulinaryJob < ActiveRecord::Base
   belongs_to :profile
 
@@ -12,26 +35,4 @@ class CulinaryJob < ActiveRecord::Base
     end
   end
 end
-
-# == Schema Information
-#
-# Table name: culinary_jobs
-#
-#  id              :integer         not null, primary key
-#  profile_id      :integer         not null
-#  title           :string(255)     default(""), not null
-#  city            :string(255)     default(""), not null
-#  state           :string(255)     default(""), not null
-#  date_started    :date            not null
-#  date_ended      :date
-#  chef_name       :string(255)     default(""), not null
-#  chef_is_me      :boolean         default(FALSE), not null
-#  cuisine         :text            default(""), not null
-#  notes           :text            default(""), not null
-#  created_at      :datetime
-#  updated_at      :datetime
-#  opening_staff   :boolean         default(FALSE)
-#  restaurant_name :string
-#  country         :string
-#
 

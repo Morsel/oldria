@@ -1,14 +1,23 @@
-<h2 class="soapbox_subhead">Recent Trends and Questions</h2>
-
-<ul>
-  <li><a href="#older_qotds_box">Questions of the Day</a></li>
-  <li><a href="#older_tqs_box">Trend Questions</a></li>
-</ul>
-
-<div id="older_qotds_box">
-  <%= render :partial => 'sidebar_item', :collection => @qotds %>
-</div>
-
-<div id="older_tqs_box">
-  <%= render :partial => 'sidebar_item', :collection => @trend_questions %>
-</div>
+<div id="sidebar">
+  <aside id="recent-activity">
+    <header>
+      <h1>Recently on Soapbox</h1>
+      <nav id="activity-chooser">
+        <span><a href="#trend-questions-feed">Trend Questions</a></span>
+        <span><a href="#qotd-feed">Questions of the Day</a></span>
+      </nav>
+    </header>
+    <ol id="trend-questions-feed">
+      <%= render :partial => 'soapbox/sidebar_item', :collection => @trend_questions %>
+    </ol><!-- /activity-feed -->
+    <ol id="qotd-feed">
+      <%= render :partial => 'soapbox/sidebar_item', :collection => @qotds %>
+    </ol><!-- /activity-feed -->
+    <div id="feed-bottom"></div>
+  </aside><!-- /recent-activity -->
+  <nav id="participate">
+    <%= link_to "Login to participate", login_path, :class => "button", :id => "login-participate" %>
+    <span>or</span>
+    <%= link_to "Request an invitation", new_invitation_path, :class => "button", :id => "request-invite" %>
+  </nav><!-- /participate -->
+</div><!-- /sidebar -->

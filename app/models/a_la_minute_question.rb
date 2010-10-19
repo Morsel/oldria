@@ -1,4 +1,5 @@
 # == Schema Information
+# Schema version: 20101013222730
 #
 # Table name: a_la_minute_questions
 #

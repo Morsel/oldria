@@ -29,7 +29,7 @@
 
 <% if @trend_question.soapbox_entry %>
 <div class="clearfix">
-    <%= link_to "View on Soapbox", soapbox_path(@trend_question.soapbox_entry), :class => "button" %>
+    <%= link_to "View on Soapbox", soapbox_soapbox_entry_path(@trend_question.soapbox_entry), :class => "button" %>
 </div>
 <% else %>
 <div class="clearfix">

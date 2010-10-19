@@ -27,12 +27,10 @@ Rails::Initializer.run do |config|
   config.gem 'preferences',           :version => "~>0.4.1"
   config.gem 'whenever',              :lib => false
   config.gem 'delayed_job',           :version => "~>1.8.4"
-
   config.gem 'hoptoad_notifier',      :version => "~>2.3.2"
   config.gem 'backup',                :version => "~>2.3.1"
   config.gem 'newrelic_rpm',          :version => "~>2.11.2"
   config.gem "facebooker2"
-
   config.gem 'subdomain-fu',          :version => "~> 0.5.4"
 
   # Settings in config/environments/* take precedence over those specified here.
