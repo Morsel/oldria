@@ -39,17 +39,13 @@
       <% end -%>
   
    		<% if @user.profile && @user.profile.specialties.present? %>
-      	<dl>
-      		<dt>Specialties</dt>
-        	<dd><%= @user.profile.specialties.map { |s| link_to s.name, directory_path(:specialty_id => s.id) }.to_sentence %></dd>
-      	</dl>
+    		<h5>Specialties</h5>
+      	<p><%= @user.profile.specialties.map { |s| link_to s.name, directory_path(:specialty_id => s.id) }.to_sentence %></p>
       <% end %>
   
 			<% if @user.profile && @user.profile.cuisines.present? %>
-				<dl>
-					<dt><h5>Cuisine(s)</h5></dt>
-					<dd><%= @user.profile.cuisines.map { |c| link_to c.name, directory_path(:cuisine_id => c.id) }.to_sentence %></dd>
-      	</dl>
+				<h5>Cuisine(s)</h5>
+				<p><%= @user.profile.cuisines.map { |c| link_to c.name, directory_path(:cuisine_id => c.id) }.to_sentence %></p>
 			<% end %>
   
 		</div><!--.profile_title_summary-->
@@ -105,7 +101,7 @@
 	
 	      <% end %>
 	    </dl><!-- .user_info.extra -->
-        <p class="timestamp_header">Last updated:<%= @user.profile.try(:updated_at).try(:strftime, "%b %e %Y") %></span>
+        <p class="timestamp_header">Last updated:<%= @user.profile.try(:updated_at).try(:strftime, "%b %e %Y") %></p>
 
         </div><!--.profile_contact_info-->
 
@@ -142,10 +138,9 @@
 	  	    	<%= truncate(topic.profile_questions.map(&:title).join(" "), :length => 100) %>   
 					<% end %>
 	  	 	</li>
-			<% end %>
-				
-			<p class="view_all"><%= link_to "View all Topics &raquo;", topics_user_questions_path(:user_id => @user.id) %></p>
+			<% end %>			
 		</ul>
+		<p class="view_all"><%= link_to "View all Topics &raquo;", topics_user_questions_path(:user_id => @user.id) %></p>
 	</div><!--#behindline-->
 	
 	<% end %>
@@ -177,7 +172,7 @@
     	        <p><%= @user.name %> hasn't answered any Trend Questions yet.</p>
     	      <% end %>
     	  </div><!--#older_tqs_box-->
-    	</seciton>
+    	</section>
   	</div><!-- /tabable -->
 	</div><!--recent_qtod-->
 </div><!-- /recent_soapbox -->
