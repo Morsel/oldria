@@ -25,7 +25,8 @@ class Invitation < ActiveRecord::Base
   belongs_to :invitee, :class_name => "User"
   belongs_to :restaurant
   
-  validates_presence_of :email, :first_name, :last_name, :restaurant_name
+  validates_presence_of :email, :first_name, :last_name
+#, :restaurant_name
   validates_uniqueness_of :email, :message => "That person has already been invited"
   
   after_create :send_welcome
