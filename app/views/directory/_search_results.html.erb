@@ -24,7 +24,7 @@
     <% for restaurant in @restaurants %>
       <% div_for restaurant, :class => 'clearfix' do %>
         <h2 class="function-bold">
-          <%= link_to restaurant.name, restaurant_path(restaurant) %>
+          <%= link_to_unless (params[:controller] == 'soapbox/soapbox'), restaurant.name, restaurant_path(restaurant) %>
           (<%= restaurant.city %>)
         </h2>
       <% end %>

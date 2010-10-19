@@ -1,0 +1,2 @@
+module Soapbox::ProfilesHelper
+end

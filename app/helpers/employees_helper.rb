@@ -32,7 +32,7 @@ module EmployeesHelper
           employment.restaurant.name
         end
       else
-        content_tag(:li, :class => "restaurant_name#{' primary' if highlight_restaurant}") do
+        content_tag(:li, :class => "restaurant_name") do
           employment.employee.restaurant_names
         end
       end
