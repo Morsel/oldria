@@ -18,8 +18,8 @@
         </div><!-- /jumbotron -->
         <%- end -%>
         
-        <%- for promo in @promos -%>
-        <article class="panel" id="home-pulse">
+        <%- @promos.each_with_index do |promo,idx| -%>
+        <article class="panel panel_<%= idx %>" id="home-pulse">
             <header>
                 <h1><%= promo.title %></h1>
             </header>
