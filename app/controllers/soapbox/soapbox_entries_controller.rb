@@ -1,6 +1,5 @@
 class Soapbox::SoapboxEntriesController < Soapbox::SoapboxController
   
-  before_filter :require_http_authenticated
   before_filter :hide_flashes
   before_filter :load_past_features, :only => [:index, :show]
   
@@ -22,16 +21,6 @@ class Soapbox::SoapboxEntriesController < Soapbox::SoapboxController
   end
   
   protected
-
-  def require_http_authenticated
-    if Rails.env.production?
-      authenticate_or_request_with_http_basic do |username, password|
-        username == "soapbox" && password == "preview"
-      end
-    else
-      true
-    end
-  end
 
   def hide_flashes
     @hide_flashes = true
