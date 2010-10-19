@@ -28,7 +28,7 @@ module SoapboxHelper
   end
   
   def message(featured_item)
-    strip_links(featured_item.display_message || featured_item.message)
+    featured_item.display_message || featured_item.message
   end
   
   def active_page?(name)
