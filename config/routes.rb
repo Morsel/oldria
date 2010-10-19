@@ -26,7 +26,7 @@ ActionController::Routing::Routes.draw do |map|
   map.soapbox_profile 'soapbox/profile/:username', :controller => 'soapbox/profiles', :action => 'show', 
       :requirements => { :username => /[a-zA-Z0-9\-\_ ]+/}
   
-  map.with_options :conditions => {:subdomain => 'soapbox'}, :controller => 'soapbox' do |soapbox|
+  map.with_options :conditions => {:subdomain => 'soapbox'}, :controller => 'soapbox/soapbox' do |soapbox|
     soapbox.root :action => 'index'
   end
   
