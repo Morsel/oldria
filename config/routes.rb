@@ -20,9 +20,9 @@ ActionController::Routing::Routes.draw do |map|
     soapbox.resources :a_la_minute_questions, :only => ['index', 'show']
     soapbox.resources :soapbox_entries, :only => ['index','show'], :as => "front_burner"
     soapbox.resources :users do |users|
-      users.resources :questions, :collection => { :topics => :get, :chapters => :get }, :controller => 'questions'
+      users.resources :questions, :collection => { :topics => :get, :chapters => :get }
     end
-    soapbox.resources :questions, :only => 'show', :controller => 'questions'
+    soapbox.resources :questions, :only => 'show'
     soapbox.connect 'directory', :controller => 'soapbox', :action => 'directory'
     soapbox.root :controller => 'soapbox', :action => 'index'
   end
