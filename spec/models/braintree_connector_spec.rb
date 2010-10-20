@@ -28,7 +28,7 @@ describe BraintreeConnector do
     it "creates subscription requests" do
       connector.stubs(:confirm_request => stub_customer_request)
       Braintree::Subscription.expects(:create).with(
-        :payment_method_token => "abcd", :plan_id => "kpw2")
+        :payment_method_token => "abcd", :plan_id => "user_monthly")
       connector.confirm_request_and_start_subscription(stub(:query_string => "query_string"))
     end
 
@@ -40,7 +40,8 @@ describe BraintreeConnector do
           :customer => {
               :credit_card => {
                 :options => {
-                  :update_existing_token => "abcd"
+                  :update_existing_token => "abcd",
+                  :verify_card => true
                 }
               }
             }
@@ -51,7 +52,16 @@ describe BraintreeConnector do
     it "returns create data if the customer does not exist" do
       connector.stubs(:braintree_customer => nil)
       Braintree::TransparentRedirect.expects(:create_customer_data).with(
-        :redirect_url => "callback", :customer => {:id => "User_500"})
+          :redirect_url => "callback",
+          :customer => {
+              :id => "User_500",
+              :credit_card => {
+                :options => {
+                  :verify_card => true
+                }
+              }
+            }
+          )
       connector.braintree_data
     end
 

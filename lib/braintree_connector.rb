@@ -25,7 +25,8 @@ class BraintreeConnector
         :customer => {
             :credit_card => {
               :options => {
-                :update_existing_token => braintree_customer.credit_cards.first.token
+                :update_existing_token => braintree_customer.credit_cards.first.token,
+                :verify_card => true
               }
             }
           }
@@ -34,7 +35,12 @@ class BraintreeConnector
       Braintree::TransparentRedirect.create_customer_data(
         :redirect_url => callback,
         :customer => {
-          :id => braintree_customer_id
+          :id => braintree_customer_id,
+          :credit_card => {
+            :options => {
+              :verify_card => true
+            }
+          }
         }
       )
     end
@@ -49,7 +55,7 @@ class BraintreeConnector
     return confirmation_result unless confirmation_result.success?
     @subscription_request ||= Braintree::Subscription.create(
       :payment_method_token => confirmation_result.customer.credit_cards.first.token,
-      :plan_id => "kpw2"
+      :plan_id => "user_monthly"
     )
   end
 
