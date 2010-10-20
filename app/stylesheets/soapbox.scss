@@ -450,7 +450,6 @@ body,html,#container,#main,#content,#inside{
 			}
 		}
 		#recent_qtod {
-
 			nav {
 				overflow: hidden;
 				margin: 0;
@@ -463,10 +462,18 @@ body,html,#container,#main,#content,#inside{
 					display: block;
 					padding: 10px;
 					float:left;
+					&:hover {
+						background-color: $baby-blue;
+						text-decoration: none;
+						text-shadow: 0 1px 0 #000;
+					}
 				}
 				span.ui-tabs-selected a{
-					background-color: $x-light-purple;
+					background-color: #E7E8EF;
 					color: $purple;
+					&:hover {
+						text-decoration: none;
+					}
 				}
 			}
 			p{
@@ -476,7 +483,7 @@ body,html,#container,#main,#content,#inside{
 				display:none;
 			}
 			.panel-bg{
-				background-color: $x-light-purple;
+				background-color: #E7E8EF;
 			}
 			.ui-tabs-panel{
 				.admin_qotd, .trend_question{
@@ -576,6 +583,7 @@ body,html,#container,#main,#content,#inside{
 					text-shadow: 0 1px 0 #000;
 					&:hover {
 						text-decoration: none;
+
 						background-color: $purple;
 					}
 				}
