@@ -7,7 +7,7 @@
         <%= f.input :display_message, :hint => "For Soapbox" %>
       </div>
 
-      <% if action_name == 'new' %>
+      <% if @qotd.new_record? %>
         <h3>Message Recipients:</h3>
         <div id="employment_list" class="clearfix">
           <%= render :partial => 'shared/employment_list' %>
@@ -18,8 +18,9 @@
     <% end %>
     <p><%= button_tag "Submit" %></p>
   </div>
+  
   <div class="span-6 last">
-    <% if action_name == 'new' %>
+    <% if @qotd.new_record? %>
       <%= render :partial => 'shared/employment_criteria', :locals => {:f => f} %>
     <% end %>
   </div>
