@@ -18,6 +18,20 @@ class Admin::SoapboxSlidesController < Admin::AdminController
     end
   end
   
+  def edit
+    @slide = SoapboxSlide.find(params[:id])
+  end
+  
+  def update
+    @slide = SoapboxSlide.find(params[:id])
+    if @slide.update_attributes(params[:soapbox_slide])
+      flash[:notice] = "Updated slide \"#{@slide.title}\""
+      redirect_to :action => "index"
+    else
+      render :action => :edit
+    end      
+  end
+  
   def destroy
     @slide = SoapboxSlide.find(params[:id])
     @slide.destroy
