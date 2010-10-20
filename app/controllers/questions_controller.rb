@@ -2,6 +2,7 @@ class QuestionsController < ApplicationController
   
   before_filter :require_user
   before_filter :get_user, :except => :show
+  layout 'soapbox'
   
   def index
     @chapter = Chapter.find(params[:chapter_id])
