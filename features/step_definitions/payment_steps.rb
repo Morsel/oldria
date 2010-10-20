@@ -37,22 +37,18 @@ end
 
 
 When /^I simulate a successful call from braintree$/ do
-  SubscriptionsController.any_instance.stubs(
-      :find_braintree_customer => nil)
-  SubscriptionsController.any_instance.stubs(
-      :confirm_braintree_request => stub(:success? => true))
-  SubscriptionsController.any_instance.stubs(
-      :make_subscription_request => stub(:success? => true))
+  BraintreeConnector.any_instance.stubs(
+      :braintree_customer => nil)
+  BraintreeConnector.any_instance.stubs(
+      :confirm_request_and_start_subscription => stub(:success? => true))
   visit(bt_callback_subscriptions_path)
 end
 
 When /^I simulate an unsuccessful call from braintree$/ do
-  SubscriptionsController.any_instance.stubs(
-      :find_braintree_customer => nil)
-  SubscriptionsController.any_instance.stubs(
-      :confirm_braintree_request => stub(:success? => true))
-  SubscriptionsController.any_instance.stubs(
-      :make_subscription_request => stub(:success? => false))
+  BraintreeConnector.any_instance.stubs(
+      :braintree_customer => nil)
+  BraintreeConnector.any_instance.stubs(
+      :confirm_request_and_start_subscription => stub(:success? => false))
   visit(bt_callback_subscriptions_path)
 end
 

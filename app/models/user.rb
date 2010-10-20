@@ -336,5 +336,9 @@ class User < ActiveRecord::Base
     profile.cellnumber
   end
 
+  def make_premium!
+    update_attributes(:premium_account => true)
+  end
+
 end
 
