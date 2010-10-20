@@ -3230,6 +3230,13 @@ fieldset, .fieldset_box {
   font-family: 'lucida grande', tahoma, arial, sans-serif;
 }
 
+.fieldset_box {
+  border: 1px solid #ccc;
+  font-family: 'lucida grande', tahoma, arial, sans-serif;
+  padding: 1.4em;
+  padding-bottom: 50px;
+}
+
 button.round, .button.round {
   border-radius: 16px;
   -moz-border-radius: 16px;

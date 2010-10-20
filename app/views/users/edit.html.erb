@@ -9,14 +9,17 @@
   
   <div id="upgrade_link">
     <% if !@user.premium_account? %>
-      <%= link_to "Upgrade to Premium", new_subscription_path %>
+      <%= link_to  (image_tag('tick.png') + "Upgrade to Premium"), 
+          new_subscription_path,
+          :class => 'button positive' %>
     <% else %>
-      <%= link_to "Downgrade to basic", "" %>
+      <%= link_to (image_tag('x.png') + "Downgrade to basic"), "",
+          :class => 'button negative' %>
     <% end %>
   </div>
 </div>
 
-  
+<br clear="all"/>
 
 <% form_for @user, :html => { :multipart => true } do |f| %>
     <fieldset class="headshot">
