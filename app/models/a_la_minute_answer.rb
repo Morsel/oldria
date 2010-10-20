@@ -40,14 +40,4 @@ class ALaMinuteAnswer < ActiveRecord::Base
         :order => "created_at desc",
         :limit => 3)
   end
-
-  before_create :set_show_as_public_flag
-
-  private
-  def set_show_as_public_flag
-    return true unless responder
-    previous_answer = a_la_minute_question.answer_for(responder)
-    self.show_as_public = previous_answer.show_as_public if previous_answer
-    true
-  end
 end
