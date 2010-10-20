@@ -29,9 +29,4 @@ class Soapbox::SoapboxController < ApplicationController
     end
   end
 
-  def load_past_features
-    @qotds ||= SoapboxEntry.qotd.published.recent.all(:include => :featured_item).map(&:featured_item)
-    @trend_questions ||= SoapboxEntry.trend_question.published.recent.all(:include => :featured_item).map(&:featured_item)
-  end
-
 end

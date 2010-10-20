@@ -180,5 +180,10 @@ class ApplicationController < ActionController::Base
         :order => "users.last_name").map(&:employee).uniq
     @restaurants = @search.all(:include => [:restaurant], :order => "restaurants.name").group_by(&:restaurant).keys.compact
   end
+  
+  def load_past_features
+    @qotds ||= SoapboxEntry.qotd.published.recent.all(:include => :featured_item).map(&:featured_item)
+    @trend_questions ||= SoapboxEntry.trend_question.published.recent.all(:include => :featured_item).map(&:featured_item)
+  end
 
 end
