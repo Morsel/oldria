@@ -19,13 +19,17 @@ ActionController::Routing::Routes.draw do |map|
     soapbox.resources :restaurant_features, :only => ["show"]
     soapbox.resources :a_la_minute_questions, :only => ['index', 'show']
     soapbox.resources :soapbox_entries, :only => ['index','show'], :as => "front_burner"
+    soapbox.resources :users do |users|
+      users.resources :questions, :collection => { :topics => :get, :chapters => :get }, :controller => 'questions'
+    end
+    soapbox.resources :questions, :only => 'show', :controller => 'questions'
     soapbox.connect 'directory', :controller => 'soapbox', :action => 'directory'
     soapbox.root :controller => 'soapbox', :action => 'index'
   end
   
   map.soapbox_profile 'soapbox/profile/:username', :controller => 'soapbox/profiles', :action => 'show', 
       :requirements => { :username => /[a-zA-Z0-9\-\_ ]+/}
-  
+      
   map.with_options :conditions => { :subdomain => 'soapbox' }, :controller => 'soapbox/soapbox' do |soapbox|
     soapbox.root :action => 'index'
   end

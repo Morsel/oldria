@@ -8,11 +8,11 @@
     <table>
         <% for chapter in @chapters_by_topic[topic] %>
         <tr>
-           <td class="topic_link"><%= link_to chapter.title, user_questions_path(:user_id => @user.id, :chapter_id => chapter.id) %></td>
+           <td class="topic_link"><%= link_to chapter.title, link_for_questions(:user_id => @user.id, :chapter_id => chapter.id) %></td>
            <td class="topic_completeness"><%= chapter.completion_percentage(@user) %>% complete</td> 
         </tr>
         <% end %>
     </table>
-    <%= link_to "View all \"#{topic.title}\" chapters &raquo;", chapters_user_questions_path(:user_id => @user.id, :topic_id => topic.id), :class => 'view_all_chapters' %>
+    <%= link_to "View all \"#{topic.title}\" chapters &raquo;", link_for_chapter(:user_id => @user.id, :topic_id => topic.id), :class => 'view_all_chapters' %>
 </div>
 <%- end -%>

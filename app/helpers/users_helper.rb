@@ -76,4 +76,36 @@ module UsersHelper
     params[:controller] == "soapbox/soapbox" ? soapbox_profile_path(user.username) : profile_path(user.username)
   end
 
+  def link_for_chapter(options = {})
+    if params[:controller].match(/soapbox/)
+      chapters_soapbox_user_questions_path(options)
+    else
+      chapters_user_questions_path(options)
+    end
+  end
+  
+  def link_for_topics(options = {})
+    if params[:controller].match(/soapbox/)
+      topics_soapbox_user_questions_path(options)
+    else
+      topics_user_questions_path(options)
+    end
+  end
+  
+  def link_for_questions(options = {})
+    if params[:controller].match(/soapbox/)
+      soapbox_user_questions_path(options)
+    else
+      user_questions_path(options)
+    end
+  end
+  
+  def link_for_question(options = {})
+    if params[:controller].match(/soapbox/)
+      soapbox_question_path(options)
+    else
+      question_path(options)
+    end
+  end
+  
 end
