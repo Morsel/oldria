@@ -1,6 +1,8 @@
 class Soapbox::QuestionsController < QuestionsController
   # all actions inherit, this is just there to make routing/template selection easier
   
+  layout 'soapbox'
+  
   def index
     super
     render :template => 'questions/index'
