@@ -109,7 +109,7 @@
 
     </div><!--.profile_info-->
 
-    <%= render :partial => 'users/profile_actions' unless media_or_owner? %>
+    <%= render :partial => 'users/profile_actions' if current_user && !media_or_owner? %>
 
 </div><!-- #user_profile_view -->
   	
