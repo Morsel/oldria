@@ -52,5 +52,9 @@ class BraintreeConnector
       :plan_id => "kpw2"
     )
   end
+  
+  def cancel_subscription(subscription)
+    Braintree::Subscription.cancel(subscription.braintree_id)
+  end
 
 end

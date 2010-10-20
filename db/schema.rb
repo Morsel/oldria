@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20101019162841) do
+ActiveRecord::Schema.define(:version => 20101020193814) do
 
   create_table "a_la_minute_answers", :force => true do |t|
     t.text     "answer"
@@ -828,6 +828,18 @@ ActiveRecord::Schema.define(:version => 20101019162841) do
     t.boolean  "general"
     t.string   "fields"
     t.boolean  "private"
+  end
+
+  create_table "subscriptions", :force => true do |t|
+    t.string   "braintree_id"
+    t.date     "start_date"
+    t.integer  "subscriber_id"
+    t.string   "subscriber_type"
+    t.integer  "payer_id"
+    t.string   "payer_type"
+    t.string   "kind"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "topics", :force => true do |t|

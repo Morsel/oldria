@@ -359,8 +359,23 @@ describe User do
           :preferred_display_cell => "spoonfeed")
       user.public_phone_number.should be_nil
     end
-    
-
   end
+  
+  describe "make a subscription" do
+    let(:user) { Factory(:user) }
+    let(:bt_sub) { stub(:id => "abcd") }
+    
+    before(:each) do
+      user.make_premium!(bt_sub)
+    end
+    
+    subject { user.subscription }
+    its(:start_date) { should == Date.today }
+    its(:subscriber) { should == user }
+    its(:payer) { should == user }
+    its(:kind) { should == "User Premium" }
+    its(:braintree_id) { should == "abcd" }
+  end
+  
 end
 

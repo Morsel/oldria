@@ -5,16 +5,23 @@
   
   <div class="current">
     Your current account status is <%= @user.account_type %>.
+    <% if @user.premium_account? %> 
+      <span id="start_date">
+        You have been a premium member 
+        since <%= @user.subscription.start_date.to_s(:long) %>
+      </span>
+    <% end %>
   </div>
   
   <div id="upgrade_link">
-    <% if !@user.premium_account? %>
+    <% if @user.premium_account? %>
+      <%= link_to (image_tag('x.png') + "Downgrade to basic"), 
+          subscription_path(@user.subscription), :method => :delete,
+          :class => 'button negative' %>
+    <% else %>
       <%= link_to  (image_tag('tick.png') + "Upgrade to Premium"), 
           new_subscription_path,
           :class => 'button positive' %>
-    <% else %>
-      <%= link_to (image_tag('x.png') + "Downgrade to basic"), "",
-          :class => 'button negative' %>
     <% end %>
   </div>
 </div>

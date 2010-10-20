@@ -33,5 +33,24 @@ describe SubscriptionsController do
       response.should redirect_to(new_subscription_path)
     end
   end
+  
+  describe "DELETE destroy" do
+    
+    before(:each) do
+      @user = Factory(:user, :email => "fred@flintstone.com", 
+          :username => "fred", :premium_account => true)
+      @user.subscription = Factory(:subscription)
+      @controller.stubs(:current_user).returns(@user)
+    end
+    
+    it "removes the subscription on successful delete" do
+      BraintreeConnector.any_instance.expects(
+          :cancel_subscription).with(@user.subscription).returns(stub(:success? => true))
+      delete :destroy, :id => @user.subscription.id
+      @user.subscription.should be_nil
+      @user.premium_account.should be_false
+    end
+    
+  end
 
 end

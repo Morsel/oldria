@@ -6,8 +6,7 @@ Feature: User Accounts
     Given the following user records:
     | username | password |
     | emily    | secret   |
-
-  @wip
+  
   Scenario: A user can see their account status on their profile page
     Given I am logged in as "emily" with password "secret"
     When I go to the profile page for "emily"
@@ -16,7 +15,6 @@ Feature: User Accounts
     Then I see my account status is not premium
     And I see a link to update my account to premium
 
-  @wip
   Scenario: A premium user can see their account status
     Given user "emily" has a premium account
     Given I am logged in as "emily" with password "secret"
@@ -26,7 +24,6 @@ Feature: User Accounts
     Then I see my account status is premium
     And I see a link to cancel my account
 
-  @wip
   Scenario: A user can enter payment info
     Given I am logged in as "emily" with password "secret"
     And we know that we have valid credit card authorization
@@ -38,17 +35,35 @@ Feature: User Accounts
       | Expiration Month   | 10               |
       | Expiration Year    | 1.year.from_now.year |
 
-  @wip
   Scenario: Successful response from braintree makes a user premium
     Given I am logged in as "emily" with password "secret"
     When I simulate a successful call from braintree
     Then I should be on the edit page for "emily"
     Then I see my account status is premium
+    And I see my account is paid for by myself
 
-  @wip
   Scenario: Unsuccessful response from braintree makes a user premium
     Given I am logged in as "emily" with password "secret"
     When I simulate an unsuccessful call from braintree
     Then I should be on the new subscription page
     When I go to the edit page for "emily"
     Then I see my account status is not premium
+    
+  Scenario: A user can cancel their payment info
+    Given user "emily" has a premium account
+    Given I am logged in as "emily" with password "secret"
+    And I simulate a successful cancel from braintree
+    When I go to the edit page for "emily"
+    And I follow "Downgrade to basic"
+    Then I should be on the edit page for "emily"
+    Then I see my account status is not premium
+    
+  Scenario: An unsuccessful cancel doesn't work
+    Given user "emily" has a premium account
+    Given I am logged in as "emily" with password "secret"
+    And I simulate an unsuccessful cancel from braintree
+    When I go to the edit page for "emily"
+    And I follow "Downgrade to basic"
+    Then I should be on the edit page for "emily"
+    Then I see my account status is premium
+    

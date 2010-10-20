@@ -13,7 +13,7 @@ end
 
 Given /^user "([^"]*)" has a premium account$/ do |username|
   user = User.find_by_username(username)
-  user.update_attributes(:premium_account => true)
+  user.make_premium!(stub(:braintree_id => "abcd"))
 end
 
 Then /^I see a premium badge$/ do
@@ -51,5 +51,22 @@ When /^I simulate an unsuccessful call from braintree$/ do
       :confirm_request_and_start_subscription => stub(:success? => false))
   visit(bt_callback_subscriptions_path)
 end
+
+When /^I simulate a successful cancel from braintree$/ do
+  BraintreeConnector.any_instance.stubs(
+      :cancel_subscription => stub(:success? => true))
+end
+
+When /^I simulate an unsuccessful cancel from braintree$/ do
+  BraintreeConnector.any_instance.stubs(
+      :cancel_subscription => stub(:success? => false))
+end
+
+Then /^I see my account is paid for by myself$/ do
+  response.should_not have_selector(".current", :content => "Complimentary")
+  response.should have_selector(".current #start_date", 
+      :content => "since #{Date.today.to_s(:long)}")
+end
+
 
 

@@ -82,6 +82,7 @@ class User < ActiveRecord::Base
   has_many :profile_answers
 
   has_one :invitation, :foreign_key => "invitee_id"
+  has_one :subscription, :as => :subscriber
 
   validates_presence_of :email
 
@@ -336,8 +337,22 @@ class User < ActiveRecord::Base
     profile.cellnumber
   end
 
-  def make_premium!
-    update_attributes(:premium_account => true)
+  def make_premium!(bt_subscription)
+    User.transaction do 
+      update_attributes(:premium_account => true)
+      self.subscription = Subscription.create(:kind => "User Premium",
+          :payer => self, :start_date => Date.today,
+          :braintree_id => bt_subscription.id)
+      save
+    end
+  end
+  
+  def cancel_subscription
+    User.transaction do 
+      self.subscription.destroy
+      self.subscription = nil
+      update_attributes(:premium_account => false)
+    end
   end
 
 end

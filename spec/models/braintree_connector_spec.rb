@@ -4,7 +4,7 @@ describe BraintreeConnector do
 
   describe "with a user" do
 
-    let(:user) { stub(:id => 500) }
+    let(:user) { stub(:id => 500, :subscription => stub(:braintree_id => "abcd")) }
     let(:connector) { BraintreeConnector.new(user, "callback") }
     let(:stub_customer_request) { stub(:customer => stub(:credit_cards => [stub(:token => "abcd")]),
           :success? => true) }
@@ -53,6 +53,11 @@ describe BraintreeConnector do
       Braintree::TransparentRedirect.expects(:create_customer_data).with(
         :redirect_url => "callback", :customer => {:id => "User_500"})
       connector.braintree_data
+    end
+    
+    it "can delete a subscription" do
+      Braintree::Subscription.expects(:cancel).with("abcd")
+      connector.cancel_subscription(user.subscription)
     end
 
   end

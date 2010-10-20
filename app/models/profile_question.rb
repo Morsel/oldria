@@ -1,5 +1,4 @@
 # == Schema Information
-# Schema version: 20101013222730
 #
 # Table name: profile_questions
 #
@@ -7,7 +6,7 @@
 #  title      :string(255)
 #  created_at :datetime
 #  updated_at :datetime
-#  position   :integer
+#  position   :integer         default(0)
 #  chapter_id :integer
 #
 
