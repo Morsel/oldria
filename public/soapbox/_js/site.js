@@ -1,18 +1,12 @@
 $(document).ready(function(){
-	var panelHeight = homePanelHeight = tabablePanelHeight = 0;
 	
 	if($('#recent-activity').length > 0){
 	
 		$('#recent-activity').tabs({
 			panelTemplate: '<ol></ol>',
 			fx: { duration: 'fast', opacity: 'toggle' }
-		}).find('ol').each(function(){	
-			if($(this).height() > panelHeight){
-				panelHeight = $(this).height();
-			}
-		}).each(function(){
-			$(this).height(panelHeight +'px');
 		});
+		$('#recent-activity ol').equalHeights();
 		
 		if($('#sidebar').height() > $('#inside').not('.home').height()){
 			$('#inside').not('.home').height($('#sidebar').height() + 50 + 'px');
@@ -20,13 +14,7 @@ $(document).ready(function(){
 	}
 	
 	if($('#content.home .panel').length > 1){
-		$('#content.home .panel').each(function(){
-			if($(this).height() > homePanelHeight){
-				homePanelHeight = $(this).height();
-			}
-		}).each(function(){
-			$(this).height(homePanelHeight +'px');
-		});
+		$('#content.home .panel').equalHeights();
 	}
 	
 	if($('#cycle').length > 0){
@@ -62,13 +50,9 @@ $(document).ready(function(){
 	$('.tabable').tabs({
 		panelTemplate: '<ol></ol>',
 		fx: { duration: 'fast', opacity: 'toggle' }
-	}).find('.ui-tabs-panel').each(function(){	
-		if($(this).height() > tabablePanelHeight){
-			tabablePanelHeight = $(this).height();
-		}
-	}).each(function(){
-		$(this).height(tabablePanelHeight +'px');
-	});;
+	});
+	$('.ui-tabs-panel').equalHeights();
+	$('#trend-comments .comment').equalHeights();
 	
 });
 	
