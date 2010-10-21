@@ -586,7 +586,7 @@ body, html, #container, #main, #content, #inside {
 #content.home .panel section p, #content.home .panel section summary {
   clear: both;
   font-size: 13px;
-  padding: 15px 0;
+  padding: 5px 0;
   line-height: 1.4;
 }
 /* line 285, ../../../app/stylesheets/soapbox.scss */
@@ -602,7 +602,7 @@ body, html, #container, #main, #content, #inside {
 }
 /* line 286, ../../../app/stylesheets/soapbox.scss */
 #content.home .panel header h1 {
-  margin: 0;
+  margin: 3px 0 0 0;
 }
 /* line 297, ../../../app/stylesheets/soapbox.scss */
 #content.home .panel_0 {
