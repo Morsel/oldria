@@ -809,7 +809,7 @@ body, html, #container, #main, #content, #inside {
 /* line 442, ../../../app/stylesheets/soapbox.scss */
 #page-content #user-results .identity ul {
   list-style: none;
-  margin: 0;
+  margin: 0 0 0 65px;
   padding: 0;
 }
 /* line 446, ../../../app/stylesheets/soapbox.scss */
