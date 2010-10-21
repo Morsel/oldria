@@ -1221,7 +1221,10 @@ p.search_filter_hint {
 		height:100px;
 		background:url(/images/soapbox/label-trend.png) no-repeat;
 		float:left;
-		margin:0 0 0 -32px;
+		margin:0 0 0 -33px;
+		&.qotd{
+			background-image:url(/images/soapbox/label-qotd.png);
+		}
 	}
 	details {
 		margin-left: 190px;
@@ -1260,7 +1263,8 @@ p.search_filter_hint {
 			}
 		}
 		.user_comment {
-			margin: 12px 0 10px 180px;
+			display:inline-block;
+			margin: 12px 0 10px 193px;
 		}
 	}
 }
