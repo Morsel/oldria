@@ -19,8 +19,8 @@ class Soapbox::SoapboxController < ApplicationController
   end
   
   def directory_search
-    params[:search].merge(:employee_premium_account_equals => true)
     directory_search_setup
+    @users = @users.select { |u| u.premium_account }
     render :partial => "directory/search_results"
   end
 
