@@ -12,7 +12,8 @@ class Admin::QotdsController < Admin::AdminController
       flash[:notice] = "Successfully created Question of the Day"
       redirect_to admin_messages_path
     else
-      render :new
+      search_setup
+      render :action => :new
     end
   end
 

@@ -1081,9 +1081,9 @@ input.checkbox {
 .sender_avatar img {
   margin-bottom: 10px;
   border: 4px solid #fff;
-  box-shadow: 1px 1px 4px #999;
-  -webkit-box-shadow: 1px 1px 4px #999;
-  -moz-box-shadow: 1px 1px 4px #999;
+  box-shadow: 1px 1px 4px #ddd;
+  -webkit-box-shadow: 1px 1px 4px #ddd;
+  -moz-box-shadow: 1px 1px 4px #ddd;
 }
 
 .direct_message.admin, .media_request.admin {
@@ -2081,11 +2081,11 @@ dl.user_info dd {
   float: left;
   display: inline;
   margin: 0px 12px 10px 0px;
-  box-shadow:1px 1px 3px #666;
-  -webkit-box-shadow:1px 1px 3px #666;
-  -moz-box-shadow:1px 1px 3px #666;
-  -o-box-shadow:1px 1px 3px #666;
-  -khtml-box-shadow:1px 1px 3px #666;
+  box-shadow:1px 1px 3px #ddd;
+  -webkit-box-shadow:1px 1px 3px #ddd;
+  -moz-box-shadow:1px 1px 3px #ddd;
+  -o-box-shadow:1px 1px 3px #ddd;
+  -khtml-box-shadow:1px 1px 3px #ddd;
   }
 #user_profile_view .profile_info{
   float: left;
@@ -2316,9 +2316,9 @@ div.topic, div.chapter{
   margin:0 21px 10px 0;
   width:287px;
   border:1px solid #ccc;
-  -webkit-box-shadow: 1px 1px 3px #666;
-  -moz-box-shadow: 1px 1px 3px #666;
-  box-shadow: 1px 1px 3px #666;
+  -webkit-box-shadow: 1px 1px 3px #ddd;
+  -moz-box-shadow: 1px 1px 3px #ddd;
+  box-shadow: 1px 1px 3px #ddd;
   position:relative;
 }
 div.chapter{

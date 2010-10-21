@@ -124,60 +124,60 @@
 
 
 <div id="recent_soapbox" class="clearfix">
+  	
+	<%	 if @user.btl_enabled? && (@user == current_user || @user.published_topics.present?) %>
 
-  <%   if @user.btl_enabled? && (@user == current_user || @user.published_topics.present?) %>
+	<div id="behindline" class="recent_actions">
+		
+		<h3>Behind the Line: <%= @user.name %></h3>
+		<% if current_user == @user %>
+			<div class="edit_profile_link">
+				<%= link_to "<span>Answer more questions!</span>", topics_user_questions_path(:user_id => @user.id) %>
+			</div>
+		<% end %>
+		<ul class="box">  
+			<% for topic in @user == current_user ? @user.topics : @user.published_topics %>
+				<li class="<%= cycle("even", "odd") %>">
+					<% link_to link_for_chapter(:user_id => @user.id, :topic_id => topic.id) do %>
+						<h5><%= topic.title %> <span class="completeness">(<%= topic.completion_percentage(@user) %>% complete)</span></h5>
+	  	    	<%= truncate(topic.profile_questions.map(&:title).join(" "), :length => 100) %>   
+					<% end %>
+	  	 	</li>
+			<% end %>			
+		</ul>
+		<p class="view_all"><%= link_to "View all Topics &raquo;", link_for_topics(:user_id => @user.id) %></p>
+	</div><!--#behindline-->
+	
+	<% end %>
 
-  <div id="behindline" class="recent_actions">
-
-    <h3>Behind the Line: <%= @user.name %></h3>
-    <% if current_user == @user %>
-      <div class="edit_profile_link">
-        <%= link_to "<span>Answer more questions!</span>", topics_user_questions_path(:user_id => @user.id) %>
-      </div>
-    <% end %>
-    <ul class="box">
-      <% for topic in @user == current_user ? @user.topics : @user.published_topics %>
-        <li class="<%= cycle("even", "odd") %>">
-          <% link_to chapters_user_questions_path(:user_id => @user.id, :topic_id => topic.id) do %>
-            <h5><%= topic.title %> <span class="completeness">(<%= topic.completion_percentage(@user) %>% complete)</span></h5>
-            <%= truncate(topic.profile_questions.map(&:title).join(" "), :length => 100) %>
-          <% end %>
-         </li>
-      <% end %>
-    </ul>
-    <p class="view_all"><%= link_to "View all Topics &raquo;", topics_user_questions_path(:user_id => @user.id) %></p>
-  </div><!--#behindline-->
-
-  <% end %>
-
-  <div id="recent_qtod" class="recent_actions last">
-    <h3>Recent responses on Soapbox</h3>
-
-    <div class="tabable">
-      <nav>
-        <span><a href="#older_qotds_box">Questions of the Day</a></span>
-        <span><a href="#older_tqs_box">Trend Questions</a></span>
-      </nav>
-
-      <section class="panel-bg">
-        <div id="older_qotds_box">
-          <% if @user.qotds_responded.present? %>
-            <%= render :partial => 'users/question', :collection => @user.qotds_responded, :local => { :user => @user } %>
-          <% else %>
-            <p><%= @user.name %> hasn't answered any Questions of the Day yet.</p>
-          <% end %>
-        </div><!--#older_qotds_box-->
-
-        <div id="older_tqs_box">
-          <% if @user.trend_questions_responded.present? %>
-            <%= render :partial => 'users/question',
-                :collection => @user.trend_questions_responded,
-                :local => {:user => @user} %>
-            <% else %>
-              <p><%= @user.name %> hasn't answered any Trend Questions yet.</p>
-            <% end %>
-        </div><!--#older_tqs_box-->
-      </section>
-    </div><!-- /tabable -->
-  </div><!--recent_qtod-->
+	<div id="recent_qtod" class="recent_actions last">
+		<h3>Recent responses on Soapbox</h3>
+	
+	  <div class="tabable">
+  	  <nav>
+  	    <span><a href="#older_qotds_box">Questions of the Day</a></span>
+  	    <span><a href="#older_tqs_box">Trend Questions</a></span>
+  	  </nav>
+	    
+	    <section class="panel-bg">
+    	  <div id="older_qotds_box">
+    	    <% if @user.qotds_responded.present? %>
+    	      <%= render :partial => 'users/question', :collection => @user.qotds_responded, :local => { :user => @user } %>
+    	    <% else %>
+    	      <p><%= @user.name %> hasn't answered any Questions of the Day yet.</p>
+    	    <% end %>
+    	  </div><!--#older_qotds_box-->
+	
+    	  <div id="older_tqs_box">
+    	    <% if @user.trend_questions_responded.present? %>
+    	      <%= render :partial => 'users/question', 
+    	          :collection => @user.trend_questions_responded, 
+    	          :local => {:user => @user} %>
+    	      <% else %>
+    	        <p><%= @user.name %> hasn't answered any Trend Questions yet.</p>
+    	      <% end %>
+    	  </div><!--#older_tqs_box-->
+    	</section>
+  	</div><!-- /tabable -->
+	</div><!--recent_qtod-->
 </div><!-- /recent_soapbox -->

@@ -20,5 +20,12 @@ describe Admin::SoapboxSlidesController do
       :link => "http://test.com" }
     response.should be_redirect
   end
+  
+  it "should let an admin update a slide" do
+    slide = Factory(:soapbox_slide)
+    SoapboxSlide.expects(:find).returns(slide)
+    slide.expects(:update_attributes).returns(true)
+    put :update, :id => slide.id, :soapbox_slide => { :link => "http://bettertest.com" }
+  end
 
 end

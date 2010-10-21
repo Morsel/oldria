@@ -1,7 +1,8 @@
 class QuestionsController < ApplicationController
   
-  before_filter :require_user
+  before_filter :require_user_unless_soapbox
   before_filter :get_user, :except => :show
+  layout 'application'
   
   def index
     @chapter = Chapter.find(params[:chapter_id])
@@ -53,10 +54,14 @@ class QuestionsController < ApplicationController
         group_by(&:chapter)
   end
   
-  private
+  protected
 
+  def require_user_unless_soapbox
+    params[:controller].match(/soapbox/) ? true : require_user
+  end
+  
   def get_user
     @user = User.find(params[:user_id])
   end
-
+  
 end

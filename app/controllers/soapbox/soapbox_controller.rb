@@ -12,6 +12,7 @@ class Soapbox::SoapboxController < ApplicationController
   end
 
   def directory
+    params[:search] = { :employee_premium_account_equals => true }
     directory_search_setup
     @use_search = true
     render :template => "directory/index"
@@ -27,11 +28,6 @@ class Soapbox::SoapboxController < ApplicationController
     else
       true
     end
-  end
-
-  def load_past_features
-    @qotds ||= SoapboxEntry.qotd.published.recent.all(:include => :featured_item).map(&:featured_item)
-    @trend_questions ||= SoapboxEntry.trend_question.published.recent.all(:include => :featured_item).map(&:featured_item)
   end
 
 end
