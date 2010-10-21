@@ -1174,6 +1174,7 @@ p.search_filter_hint {
 	.comment {
 		overflow: hidden;
 		padding: 6px 10px;
+		margin: 5px 0;
 		background:#fff;
 		@include box-shadow(#d5ceca, 0, 1px, 3px);
 		details {
@@ -1210,7 +1211,6 @@ p.search_filter_hint {
 		}
 	}
 	p{
-		font-size:13px;
 		line-height:1.5;
 	}	
 }
@@ -1243,7 +1243,7 @@ p.search_filter_hint {
 			}
 		}
 		p{
-			line-height:1.4;
+			line-height:1.5;
 			img{
 				float:left;
 				padding:3px;
@@ -1263,7 +1263,7 @@ p.search_filter_hint {
 		font-weight:bold;
 		display:inline-block;
 		clear:both;
-		padding:5px 10px;
+		padding:4px 15px;
 		margin:10px 0 0;
 		@include border-radius(120px);
 		color:#fff;
