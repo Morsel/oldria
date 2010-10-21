@@ -278,13 +278,13 @@ body,html,#container,#main,#content,#inside{
 				p, summary{
 					clear:both;
 					font-size:13px;
-					padding:15px 0;
+					padding:5px 0;
 					line-height:1.4;
 				}
 			}
 			header{
 				h1{
-					margin:0;
+					margin:3px 0 0 0;
 				}
 				@include museoslabmedium;
 				margin:0 10px 0;
