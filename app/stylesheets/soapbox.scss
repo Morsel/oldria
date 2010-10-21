@@ -410,6 +410,20 @@ body,html,#container,#main,#content,#inside{
 			text-decoration:underline;
 		}
 	}
+	.identity {
+		margin: 0 15px 10px 0;
+		clear: both;
+		ul {
+			list-style: none;
+			margin: 0;
+			padding: 0;
+			li {
+				background-image: none;
+				margin: 0;
+				padding: 0;
+			}
+		}
+	}
 	#directory_search ol{
 		margin:0;
 		list-style:none;
@@ -437,6 +451,13 @@ body,html,#container,#main,#content,#inside{
 		}
 	}/* directory search - user results */
 	
+	.comment {
+		.user_comment {
+			clear: both;
+			display: block;
+		}
+	}
+			
 	#recent_soapbox {
 		.recent_actions {
 			overflow: hidden;
@@ -635,6 +656,36 @@ body,html,#container,#main,#content,#inside{
 			}
 		}
 	}
+	.chapter {
+		width: 300px;
+		min-height: 120px;
+		float: left;
+		padding: 12px 10px;
+		border: 1px solid #eaeaea;
+		@include box-shadow(#ddd, 1px, 2px, 2px);
+		margin: 10px 10px 3px 0;
+		&.last {margin-right: 0;}
+		a {
+			.chapter_answer_count {
+				color: #999;
+				text-transform: uppercase;
+				font-family: 'lucida grande', tahoma, arial,san-serif;
+				font-size: 10px;
+				margin: -25px 0 0 0;
+				float: right;
+			}
+			p {
+				color: #333;
+			}
+			h3 {
+				margin: 0 0 10px 0;
+				padding: 0;
+			}
+			&:hover {
+				h3, p {color: $baby-blue;}
+			}
+		}
+	}
 	.profile_question {
 		border-bottom: 1px dotted #ddd;
 		padding: 0 0 10px 0;
@@ -642,6 +693,7 @@ body,html,#container,#main,#content,#inside{
 		h4 {
 			font-weight: normal;
 			color: #333;
+			margin: 16px 0 8px;
 		}
 		ol {
 			list-style: none;
@@ -691,6 +743,26 @@ body,html,#container,#main,#content,#inside{
 			}
 		}
 	}
+	
+	#chapter_nav {
+		overflow: hidden;
+		margin-bottom: 10px;
+		a{
+			float: left;
+			font-size: 11px;
+			padding: 3px 10px;
+			background-color: #ebe6e3;
+			margin: 0 6px 0 0;
+			color: #847263;
+			@include border-radius (10px);
+			&:hover {
+				color: #fff;
+				background-color: $purple;
+				text-decoration: none;
+			}
+		}
+	}
+		
 	
 	
 	

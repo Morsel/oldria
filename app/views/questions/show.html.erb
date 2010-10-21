@@ -9,6 +9,6 @@
 <% for answer in @answers %>
     <div class="comment">
         <%= render :partial => 'users/identity', :locals => { :user => answer.user } %>
-        <div class="user_comment"><%= answer.answer %></div>
+        <div class="user_comment"><p><%= answer.answer %></p></div>
     </div>
 <% end %>
