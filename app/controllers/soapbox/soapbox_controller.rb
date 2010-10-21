@@ -8,7 +8,7 @@ class Soapbox::SoapboxController < ApplicationController
   def index
     @home = true
     @slides = SoapboxSlide.all(:order => "position", :limit => 4)
-    @promos = SoapboxPromo.all(:order => "created_at DESC", :limit => 3)
+    @promos = SoapboxPromo.all(:order => "position", :limit => 3)
   end
 
   def directory
