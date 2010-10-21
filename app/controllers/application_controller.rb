@@ -178,7 +178,7 @@ class ApplicationController < ActionController::Base
 
     @users = @search.all(:include => [:restaurant, :employee, :restaurant_role], 
         :order => "users.last_name").map(&:employee).uniq
-    @restaurants = @search.all(:include => [:restaurant], :order => "restaurants.name").group_by(&:restaurant).keys.compact
+    # @restaurants = @search.all(:include => [:restaurant], :order => "restaurants.name").group_by(&:restaurant).keys.compact
   end
   
   def load_past_features
