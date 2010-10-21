@@ -25,6 +25,7 @@
             </header>
             <section>
                 <p><%= promo.body %></p>
+                <%= link_to "more&nbsp;&#187;", promo.link if promo.link %>
             </section>
         </article><!-- /home-pulse -->
         <%- end if @promos -%>
