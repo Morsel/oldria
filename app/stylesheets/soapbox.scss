@@ -1222,6 +1222,9 @@ p.search_filter_hint {
 		background:url(/images/soapbox/label-trend.png) no-repeat;
 		float:left;
 		margin:0 0 0 -32px;
+		&.qotd{
+			background-image:url(/images/soapbox/label-qotd.png);
+		}
 	}
 	details {
 		margin-left: 190px;
@@ -1239,10 +1242,6 @@ p.search_filter_hint {
 			margin: 10px 0;
 		}
 	}
-}
-
-#trend-article #question-of-the-day header h1{
-	background:url(/images/soapbox/label-qotd.png) no-repeat;
 }
 
 #fb-comments {
