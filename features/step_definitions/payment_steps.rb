@@ -13,7 +13,14 @@ end
 
 Given /^user "([^"]*)" has a premium account$/ do |username|
   user = User.find_by_username(username)
-  user.make_premium!(stub(:braintree_id => "abcd"))
+  user.make_premium!(stub(:subscription => stub(:id => "abcd")))
+end
+
+Given /^user "([^"]*)" does not have a premium account$/ do |username|
+  user = User.find_by_username(username)
+  user.subscription = nil
+  user.premium_account = false
+  user.save!
 end
 
 Then /^I see a premium badge$/ do
@@ -29,18 +36,12 @@ Then /^I see a link to cancel my account$/ do
       :content => "Downgrade to basic")
 end
 
-Given /^we know that we have valid credit card authorization$/ do
-  FakeWeb.register_uri :post, %r|/merchants/ny23sz9jy8gy38bw/transparent_redirect_requests$|,
-    :status => ["301", "Moved Permanently"],
-    :location => bt_callback_subscriptions_url
-end
-
-
 When /^I simulate a successful call from braintree$/ do
   BraintreeConnector.any_instance.stubs(
       :braintree_customer => nil)
   BraintreeConnector.any_instance.stubs(
-      :confirm_request_and_start_subscription => stub(:success? => true))
+      :confirm_request_and_start_subscription => stub(:success? => true,
+          :subscription => stub(:id => "abcd")))
   visit(bt_callback_subscriptions_path)
 end
 

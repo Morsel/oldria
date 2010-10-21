@@ -363,7 +363,7 @@ describe User do
   
   describe "make a subscription" do
     let(:user) { Factory(:user) }
-    let(:bt_sub) { stub(:id => "abcd") }
+    let(:bt_sub) { stub(:subscription => stub(:id => "abcd")) }
     
     before(:each) do
       user.make_premium!(bt_sub)

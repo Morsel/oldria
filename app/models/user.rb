@@ -342,7 +342,7 @@ class User < ActiveRecord::Base
       update_attributes(:premium_account => true)
       self.subscription = Subscription.create(:kind => "User Premium",
           :payer => self, :start_date => Date.today,
-          :braintree_id => bt_subscription.id)
+          :braintree_id => bt_subscription.subscription.id)
       save
     end
   end
