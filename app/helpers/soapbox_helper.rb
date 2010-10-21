@@ -35,4 +35,8 @@ module SoapboxHelper
     current_page?(name) ? "selected" : ""
   end
 
+  def feature_entry_type(feature)
+    feature.is_a?(TrendQuestion) ? "trend_entry" : "qotd_entry"
+  end
+
 end
