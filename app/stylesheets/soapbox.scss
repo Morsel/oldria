@@ -926,7 +926,7 @@ body,html,#container,#main,#content,#inside{
 	@include hiddentext;
 	width: 166px;
 	height:88px;
-	background:url(/images/soapbox/icon-footer-logo.png) no-repeat;
+	background:url(/images/soapbox/bg-ria-footer.png) no-repeat;
 	float:left;
 }
 
@@ -1174,7 +1174,7 @@ p.search_filter_hint {
 	.comment {
 		overflow: hidden;
 		padding: 6px 10px;
-		margin: 5px 0;
+		margin: 5px 0; 
 		background:#fff;
 		@include box-shadow(#d5ceca, 0, 1px, 3px);
 		details {
