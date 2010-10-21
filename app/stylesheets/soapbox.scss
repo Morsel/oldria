@@ -6,7 +6,6 @@
 // To configure blueprint, edit the partials/base.sass file.
 @import "partials/base";
 @import "compass/layout/sticky-footer";   
-
 // Import all the default blueprint modules so that we can access their mixins.
 
 
@@ -71,7 +70,7 @@ h1,h2,h3,h4,h5,h6{
 			background-color: #982609;
 			color: #f0cac1;
 		}
-		&#search-handle {background-position: 3px 5px;}
+		&#search-handle {display: none;background-position: 3px 5px;}
 		&#ria-hq {background-position: 3px -95px;}
 		&#log-in {background-position: 3px -195px;}
 	}
@@ -278,13 +277,13 @@ body,html,#container,#main,#content,#inside{
 				p, summary{
 					clear:both;
 					font-size:13px;
-					padding:15px 0;
+					padding:5px 0;
 					line-height:1.4;
 				}
 			}
 			header{
 				h1{
-					margin:0;
+					margin:3px 0 0 0;
 				}
 				@include museoslabmedium;
 				margin:0 10px 0;
@@ -410,6 +409,18 @@ body,html,#container,#main,#content,#inside{
 			text-decoration:underline;
 		}
 	}
+	.identity {
+		ul {
+			list-style: none;
+			margin: 0;
+			padding: 0;
+			li {
+				background-image: none;
+				margin: 0;
+				padding: 0;
+			}
+		}
+	}
 	#directory_search ol{
 		margin:0;
 		list-style:none;
@@ -421,7 +432,7 @@ body,html,#container,#main,#content,#inside{
 			border-bottom: 1px solid #ddd;
 		}
 		.identity {
-			width: 300px;
+			width: 183px;
 			float: left;
 			margin: 0 15px 10px 0;
 			ul {
@@ -437,6 +448,16 @@ body,html,#container,#main,#content,#inside{
 		}
 	}/* directory search - user results */
 	
+	.comment {
+		clear:both;
+		padding:10px 0;
+		border-bottom:1px dotted #ccc;
+		.user_comment {
+			display: block;
+			margin: 12px 0 10px 193px;
+		}
+	}
+			
 	#recent_soapbox {
 		.recent_actions {
 			overflow: hidden;
@@ -635,6 +656,36 @@ body,html,#container,#main,#content,#inside{
 			}
 		}
 	}
+	.chapter {
+		width: 300px;
+		min-height: 120px;
+		float: left;
+		padding: 12px 10px;
+		border: 1px solid #eaeaea;
+		@include box-shadow(#ddd, 1px, 2px, 2px);
+		margin: 10px 10px 3px 0;
+		&.last {margin-right: 0;}
+		a {
+			.chapter_answer_count {
+				color: #999;
+				text-transform: uppercase;
+				font-family: 'lucida grande', tahoma, arial,san-serif;
+				font-size: 10px;
+				margin: -25px 0 0 0;
+				float: right;
+			}
+			p {
+				color: #333;
+			}
+			h3 {
+				margin: 0 0 10px 0;
+				padding: 0;
+			}
+			&:hover {
+				h3, p {color: $baby-blue;}
+			}
+		}
+	}
 	.profile_question {
 		border-bottom: 1px dotted #ddd;
 		padding: 0 0 10px 0;
@@ -642,6 +693,7 @@ body,html,#container,#main,#content,#inside{
 		h4 {
 			font-weight: normal;
 			color: #333;
+			margin: 16px 0 8px;
 		}
 		ol {
 			list-style: none;
@@ -691,6 +743,26 @@ body,html,#container,#main,#content,#inside{
 			}
 		}
 	}
+	
+	#chapter_nav {
+		overflow: hidden;
+		margin-bottom: 10px;
+		a{
+			float: left;
+			font-size: 11px;
+			padding: 3px 10px;
+			background-color: #ebe6e3;
+			margin: 0 6px 0 0;
+			color: #847263;
+			@include border-radius (10px);
+			&:hover {
+				color: #fff;
+				background-color: $purple;
+				text-decoration: none;
+			}
+		}
+	}
+		
 	
 	
 	
@@ -926,7 +998,7 @@ body,html,#container,#main,#content,#inside{
 	@include hiddentext;
 	width: 166px;
 	height:88px;
-	background:url(/images/soapbox/icon-footer-logo.png) no-repeat;
+	background:url(/images/soapbox/bg-ria-footer.png) no-repeat;
 	float:left;
 }
 
@@ -1026,13 +1098,13 @@ body,html,#container,#main,#content,#inside{
 		@include linear-gradient(color-stops(#be3d2a,#d34d3a), top);
 		outline:0 !important;
 		&.options_selected{
-			color:#9ecce5;
+			color:#fff;
 			text-shadow:none;
-			background:#5fa2c7 url(/images/green_check.png) no-repeat right;
+			background:#a31803 url(/images/green_check.png) no-repeat right;
 			&:hover{
 				text-decoration:none;
 				color:#fff;
-				background-color:#9ecce5;
+				background-color:#e15844;
 			}
 		}
 
@@ -1149,7 +1221,10 @@ p.search_filter_hint {
 		height:100px;
 		background:url(/images/soapbox/label-trend.png) no-repeat;
 		float:left;
-		margin:0 0 0 -32px;
+		margin:0 0 0 -33px;
+		&.qotd{
+			background-image:url(/images/soapbox/label-qotd.png);
+		}
 	}
 	details {
 		margin-left: 190px;
@@ -1174,6 +1249,7 @@ p.search_filter_hint {
 	.comment {
 		overflow: hidden;
 		padding: 6px 10px;
+		margin: 5px 0; 
 		background:#fff;
 		@include box-shadow(#d5ceca, 0, 1px, 3px);
 		details {
@@ -1185,9 +1261,6 @@ p.search_filter_hint {
 				padding: 4px;
 				@include box-shadow(#d5ceca, 0, 1px, 3px);
 			}
-		}
-		.user_comment {
-			margin: 12px 0 10px 180px;
 		}
 	}
 }
@@ -1210,7 +1283,6 @@ p.search_filter_hint {
 		}
 	}
 	p{
-		font-size:13px;
 		line-height:1.5;
 	}	
 }
@@ -1243,7 +1315,7 @@ p.search_filter_hint {
 			}
 		}
 		p{
-			line-height:1.4;
+			line-height:1.5;
 			img{
 				float:left;
 				padding:3px;
@@ -1263,7 +1335,7 @@ p.search_filter_hint {
 		font-weight:bold;
 		display:inline-block;
 		clear:both;
-		padding:5px 10px;
+		padding:4px 15px;
 		margin:10px 0 0;
 		@include border-radius(120px);
 		color:#fff;

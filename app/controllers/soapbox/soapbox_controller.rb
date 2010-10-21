@@ -12,10 +12,25 @@ class Soapbox::SoapboxController < ApplicationController
   end
 
   def directory
-    params[:search] = { :employee_premium_account_equals => true }
-    directory_search_setup
-    @use_search = true
+    if params[:specialty_id]
+      @specialty = Specialty.find(params[:specialty_id])
+      @users = Profile.specialties_id_eq(params[:specialty_id]).map(&:user).select { |u| u.premium_account }
+    elsif params[:cuisine_id]
+      @cuisine = Cuisine.find(params[:cuisine_id])
+      @users = Profile.cuisines_id_eq(params[:cuisine_id]).map(&:user).select { |u| u.premium_account }
+    else
+      params[:search] = { :employee_premium_account_equals => true }
+      directory_search_setup
+      @use_search = true
+    end
+    
     render :template => "directory/index"
+  end
+  
+  def directory_search
+    directory_search_setup
+    @users = @users.select { |u| u.premium_account }
+    render :partial => "directory/search_results"
   end
 
   protected

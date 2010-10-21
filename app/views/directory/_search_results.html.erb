@@ -1,4 +1,4 @@
-<% if @users.present? && @restaurants.present? %>
+<% if false #@users.present? && @restaurants.present? %>
 <div class="clearfix">
     <%= link_to_function "View User Results", 
         '$("#user-results").show(); $("#restaurant-results").hide(); 
@@ -18,7 +18,7 @@
     <% end %>
 </div>
 
-<% if @restaurants %>
+<% if false #@restaurants %>
 <div id="restaurant-results" style="display:none">
     <h3>Restaurants</h3>
     <% for restaurant in @restaurants %>

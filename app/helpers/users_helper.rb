@@ -73,7 +73,11 @@ module UsersHelper
   end
   
   def directory_link(user)
-    params[:controller] == "soapbox/soapbox" ? soapbox_profile_path(user.username) : profile_path(user.username)
+    params[:controller].match(/soapbox/) ? soapbox_profile_path(user.username) : profile_path(user.username)
+  end
+  
+  def directory_search_link(options = {})
+    params[:controller].match(/soapbox/) ? soapbox_directory_path(options) : directory_path(options)
   end
 
   def link_for_chapter(options = {})

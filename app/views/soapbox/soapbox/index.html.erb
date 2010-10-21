@@ -25,6 +25,7 @@
             </header>
             <section>
                 <p><%= promo.body %></p>
+                <%= link_to "more&nbsp;&#187;", promo.link if promo.link %>
             </section>
         </article><!-- /home-pulse -->
         <%- end if @promos -%>
@@ -33,8 +34,8 @@
 
 <aside id="sidebar" class="home">
     <nav id="participate" class="home">
-        <%= link_to "Report a <span>trend</span>", '/soapbox/report-a-trend', :class => "button", :id => "login-participate" %>
-        <%= link_to "Send chefs your<span> questions</span>", 'soapbox/send-chefs-your-questions', :class => "button", :id => "request-invite" %>
+        <%= link_to "Send your<span> questions</span>", 'soapbox/send-chefs-your-questions', :class => "button", :id => "request-invite" %>
+        <%= link_to "Request an<span>invitation</span>", '/soapbox/request-invitation', :class => "button", :id => "login-participate" %>
     </nav><!-- /participate -->
     <section id="facebook-button">
         <header>
@@ -47,7 +48,7 @@
         <header>
             <h1>Need Help? Have Questions?</h1>
         </header>
-        <p>You can email our support staff anytime at <a href="mailto:support@restaurantintelligenceagency.com">support@ restaurantintelligenceagency.com</a>.</p>
+        <p>You can <a href="mailto:support@restaurantintelligenceagency.com">email our support staff</a> anytime.</p>
         <p>We also have a customer support line available 9am–9pm that can be reached at (312) 307-4457.</p>
     </section><!-- /help-questions -->
 </aside><!-- /sidebar -->

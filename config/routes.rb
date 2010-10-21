@@ -23,12 +23,14 @@ ActionController::Routing::Routes.draw do |map|
       users.resources :questions, :collection => { :topics => :get, :chapters => :get }
     end
     soapbox.resources :questions, :only => 'show'
-    soapbox.connect 'directory', :controller => 'soapbox', :action => 'directory'
+    soapbox.connect 'directory_search', :controller => 'soapbox', :action => 'directory_search'
     soapbox.root :controller => 'soapbox', :action => 'index'
   end
   
   map.soapbox_profile 'soapbox/profile/:username', :controller => 'soapbox/profiles', :action => 'show', 
       :requirements => { :username => /[a-zA-Z0-9\-\_ ]+/}
+      
+  map.soapbox_directory 'soapbox/directory', :controller => 'soapbox/soapbox', :action => 'directory'
       
   map.with_options :conditions => { :subdomain => 'soapbox' }, :controller => 'soapbox/soapbox' do |soapbox|
     soapbox.root :action => 'index'

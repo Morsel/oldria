@@ -764,6 +764,7 @@ ActiveRecord::Schema.define(:version => 20101021155340) do
     t.text     "body"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "link"
   end
 
   create_table "soapbox_slides", :force => true do |t|
