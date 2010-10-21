@@ -1807,7 +1807,7 @@ p.search_filter_hint {
   height: 100px;
   background: url(/images/soapbox/label-trend.png) no-repeat;
   float: left;
-  margin: 0 0 0 -32px;
+  margin: 0 0 0 -33px;
 }
 /* line 1225, ../../../app/stylesheets/soapbox.scss */
 #trend-article header h1.qotd {
