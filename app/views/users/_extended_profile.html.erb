@@ -23,6 +23,7 @@
         </span>
       </div>
       
+      <%- if profile && profile.nonculinary_jobs.present? -%>
       <div class="extended_profile_info">
         <h3>Work Experience: Non-Culinary</h3>
         <ul class="employments clearfix">
@@ -39,6 +40,8 @@
             <%= profile.try(:non_culinary_work_experience_updated_at).try(:strftime, "%b %e %Y") %>
         </span>
       </div>
+      <%- end -%>
+      
         <% if profile && profile.awards.present? %>
         <div class="extended_profile_info">
           <h3>Awards</h3>
