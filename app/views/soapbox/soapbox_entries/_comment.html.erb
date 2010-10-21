@@ -4,21 +4,21 @@
     <details class="comment-author">
         <%= image_tag(comment.user.avatar.url(:thumb), :alt => "#{comment.user.name}'s Profile Photo") %>
         <%= comment.restaurant.try(:name) if comment.restaurant.present? %><br/>
-        <%= link_to comment.user.name_or_username, soapbox_profile_path(comment.user.username), :class => "user-name" %><br/>
+        <%= link_to_if (comment.user.prefers_publish_profile || current_user), comment.user.name_or_username, soapbox_profile_path(comment.user.username), :class => "user-name" %><br/>
         <%= comment.user.primary_employment.restaurant_role.name if comment.user.primary_employment %>
     </details>
-    <div class="user_comment"><%= comment.comment %></div>
+    <div class="user_comment"><%= simple_format(comment.comment) %></div>
 <% end %>
 
 <%- else -%>
 
 <% div_for(comment) do %>
     <header>
-        <%= link_to comment.user.name_or_username, soapbox_profile_path(comment.user.username) %>, <%= title_and_restaurant(comment) %>, said:
+        <%= link_to_if (comment.user.prefers_publish_profile || current_user), comment.user.name_or_username, soapbox_profile_path(comment.user.username) %>, <%= title_and_restaurant(comment) %>, said:
     </header>
     <p>
         <%= image_tag(comment.user.avatar.url(:thumb), :alt => "#{comment.user.name}'s Profile Photo") %>
-        <%= truncate(comment.comment, :length => 120) %> <%= link_to "more&nbsp;&#187;", soapbox_soapbox_entry_path(entry_for_comment(comment), :anchor => dom_id(comment)) %>
+        <%= simple_format(truncate(comment.comment, :length => 120)) %> <%= link_to "more&nbsp;&#187;", soapbox_soapbox_entry_path(entry_for_comment(comment), :anchor => dom_id(comment)) %>
     </p>
 <% end %>
 
