@@ -37,9 +37,9 @@
     </header>
   
     <nav id="utilities">
-      <a id="search-handle" title="Pulldown a search interface" href="#">Search the site</a>
+      <a id="search-handle" style="display:none;" title="Pulldown a search interface" href="#">Search the site</a>
       <a id="ria-hq" title="RIA Home" href="http://www.restaurantintelligenceagency.com/"><abbr title="Restaurant Intelligence Agency">RIA</abbr> <abbr title="Headquarters">HQ</abbr></a>
-			<a id="log-in" title="Log In to Soapbox" href="#">Log In</a>
+			<a id="log-in" title="Log In to Spoonfeed" href="http://spoonfeed.restaurantintelligenceagency.com/">Login</a>
     </nav><!--#utilities-->
   
     <div id="main">
@@ -76,7 +76,7 @@
 	      <a href="http://spoonfeed.restaurantintelligenceagency.com/soapbox/products">Products</a>|
           <a href="/soapbox/privacy">Privacy</a>|
           <a href="/soapbox/help">Help</a>
-          <a href="/soapbox/contact">Contact</a>|
+          <a href="/soapbox/contact">Contact</a>
         </nav>
         <p>Powered by <a href="http://www.lacolombe.com/">La Colombe Torrefaction</a> <span class="bullet">&bull;</span> Built by <a href="http://neotericdesign.com">Neoteric Design</a></p>
       </div><!-- /legal -->
@@ -100,13 +100,21 @@
     <script src="/soapbox/_js/dd_belatedpng.js?v=1"></script>
   <![endif]-->
 
-  <script>
-   // var _gaq = [['_setAccount', 'UA-XXXXX-X'], ['_trackPageview']]; 
-   // (function(d, t) {
-   //  var g = d.createElement(t), s = d.getElementsByTagName(t)[0];
-   //  g.async = true; g.src = '//www.google-analytics.com/ga.js'; s.parentNode.insertBefore(g, s);
-   // })(document, 'script');
-  </script>
+
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-4174638-6']);
+  _gaq.push(['_setDomainName', '.restaurantintelligenceagency.com']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
   
 </body>
 </html>

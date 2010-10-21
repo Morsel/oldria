@@ -282,9 +282,9 @@ ActiveRecord::Schema.define(:version => 20101021162955) do
     t.integer  "restaurant_role_id"
     t.boolean  "omniscient"
     t.boolean  "primary",            :default => false
+    t.string   "type"
     t.boolean  "public_profile"
     t.integer  "position"
-    t.string   "type"
   end
 
   add_index "employments", ["employee_id"], :name => "index_employments_on_employee_id"
