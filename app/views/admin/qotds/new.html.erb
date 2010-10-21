@@ -1,13 +1,5 @@
 <% title "New Question of the Day" %>
 
-<% if @qotd.errors.present? %>
-<div style="background-color: yellow">
-    <h3>Debugging Messages</h3>
-    <p><em><%= @qotd.errors.full_messages.to_sentence %></em></p>
-    <p><em><%= @search.inspect %></em></p>
-</div>
-<% end %>
-
 <%= render :partial => 'form' %>
 
 <p><%= link_to "Back to All Messages", admin_messages_path %></p>
