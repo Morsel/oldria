@@ -6,7 +6,7 @@ Feature: User Accounts
     Given the following user records:
     | username | password |
     | emily    | secret   |
-  
+
   Scenario: A user can see their account status on their profile page
     Given I am logged in as "emily" with password "secret"
     When I go to the profile page for "emily"
@@ -31,10 +31,13 @@ Feature: User Accounts
     When I go to the edit page for "emily"
     And I follow "Upgrade to Premium"
     When I fill in the following:
-      | Credit Card Number | 4111111111111111 |
-      | Billing ZIP        | 60654            |
-      | Expiration Month   | 10               |
-      | Expiration Year    | 1.year.from_now.year |
+      | Credit Card Number                    | 4111111111111111     |
+      | Billing ZIP                           | 60654                |
+      | customer_credit_card_expiration_month | 10                   |
+      | customer_credit_card_expiration_year  | 1.year.from_now.year |
+      | Security Code                         | 123                  |
+
+
 
   Scenario: Successful response from braintree makes a user premium
     Given I am logged in as "emily" with password "secret"
@@ -49,7 +52,7 @@ Feature: User Accounts
     Then I should be on the new subscription page
     When I go to the edit page for "emily"
     Then I see my account status is not premium
-  
+
   Scenario: A user can cancel their payment info
     Given user "emily" has a premium account
     Given I am logged in as "emily" with password "secret"
@@ -58,7 +61,7 @@ Feature: User Accounts
     And I follow "Downgrade to basic"
     Then I should be on the edit page for "emily"
     Then I see my account status is not premium
-  
+
   Scenario: An unsuccessful cancel doesn't work
     Given user "emily" has a premium account
     Given I am logged in as "emily" with password "secret"
@@ -67,4 +70,3 @@ Feature: User Accounts
     And I follow "Downgrade to basic"
     Then I should be on the edit page for "emily"
     Then I see my account status is premium
-    
