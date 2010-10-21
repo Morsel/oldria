@@ -17,7 +17,7 @@
     
       <div class="accordion_box">
         <%= link_to  "<span>Users</span>", "#" %>
-        <div id="user_fields">
+        <div id="user_fields" style="display:none;">
             <%= s.input :employee_id_equals_any,
                         :as => "check_boxes",
                         :collection => params[:controller].match(/soapbox/) ? User.by_last_name.all(:conditions => { :premium_account => true }) : User.by_last_name %>
@@ -25,7 +25,7 @@
       </div>
       <div class="accordion_box">
         <%= link_to "<span>Restaurants</span>", "#" %>
-        <div id="restaurant_fields">
+        <div id="restaurant_fields" style="display:none;">
             <%= s.input :restaurant_id_equals_any,
                         :as => "check_boxes",
                         :collection => Restaurant.all(:order => 'name ASC') %>
@@ -33,7 +33,7 @@
       </div>
       <div class="accordion_box">
         <%= link_to "<span>Cuisine</span>", "#" %>
-        <div id="cuisine_fields" class="loading">
+        <div id="cuisine_fields" class="loading" style="display:none;">
             <%= s.input :restaurant_cuisine_id_equals_any,
                         :as => "check_boxes",
                         :collection => Cuisine.with_restaurants.all %>
@@ -41,7 +41,7 @@
       </div>
       <div class="accordion_box">
         <%= link_to "<span>Role</span>", "#" %>
-        <div id="role_fields" class="loading">
+        <div id="role_fields" class="loading" style="display:none;">
             <%= s.input :restaurant_role_id_equals_any,
                         :as => "check_boxes",
                         :collection => RestaurantRole.with_employments.all %>
@@ -49,7 +49,7 @@
       </div>
       <div class="accordion_box">
         <%= link_to "<span>Region</span>", "#" %>
-        <div id="region_fields" class="loading">
+        <div id="region_fields" class="loading" style="display:none;">
             <%= s.input :restaurant_james_beard_region_id_equals_any,
                         :as => "check_boxes",
                         :collection => JamesBeardRegion.with_restaurants.all %>
@@ -57,7 +57,7 @@
       </div>
       <div class="accordion_box">
         <%= link_to "<span>Metro Area</span>", "#" %>
-        <div id="metro_fields" class="loading">
+        <div id="metro_fields" class="loading" style="display:none;">
             <%= s.input :restaurant_metropolitan_area_id_equals_any,
                         :as => "check_boxes",
                         :collection => MetropolitanArea.with_restaurants.all %>
