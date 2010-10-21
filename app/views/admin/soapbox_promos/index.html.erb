@@ -3,7 +3,8 @@
 <%= link_to "New Promo", new_admin_soapbox_promo_path, :class => "button positive" %>
 
 <% table_for(@promos) do |t| %>
-    <% t.data :actions => [:destroy], :action_prefix => 'admin' do
+    <% t.data :actions => [:edit, :destroy], :action_prefix => 'admin' do
+	    t.cell(:handle, :heading => '', :cell_html => {:class => 'small handle'}) { "[drag]" }
         t.cell(:title)
         t.cell(:body)
         t.cell(:link)
