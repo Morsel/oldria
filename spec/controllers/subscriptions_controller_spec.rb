@@ -38,7 +38,7 @@ describe SubscriptionsController do
     
     before(:each) do
       @user = Factory(:user, :email => "fred@flintstone.com", 
-          :username => "fred", :premium_account => true)
+          :username => "fred")
       @user.subscription = Factory(:subscription)
       @controller.stubs(:current_user).returns(@user)
     end

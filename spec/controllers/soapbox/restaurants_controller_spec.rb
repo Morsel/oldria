@@ -9,7 +9,7 @@ describe Soapbox::RestaurantsController do
     describe "premium" do
 
       it "should work fine" do
-        restaurant.update_attributes(:premium_account => true)
+        restaurant.subscription = Factory(:subscription)
         get :show, :id => restaurant.id
         response.should be_success
       end
@@ -19,7 +19,6 @@ describe Soapbox::RestaurantsController do
     describe "not premium" do
       
       it "redirects to the home page" do
-        restaurant.update_attributes(:premium_account => false)
         get :show, :id => restaurant.id
         response.should redirect_to(soapbox_root_url)
       end

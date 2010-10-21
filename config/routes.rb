@@ -154,7 +154,9 @@ ActionController::Routing::Routes.draw do |map|
 
   map.namespace :admin do |admin|
     admin.root      :controller => 'admin'
-    admin.resources :users
+    admin.resources :users, 
+        :member => { :make_complimentary => :post, 
+                     :cancel_complimentary => :post }
     admin.resources :pages
     admin.resources :feeds, :collection => { :sort => [:post, :put] }
     admin.resources :feed_categories

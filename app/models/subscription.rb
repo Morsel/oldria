@@ -19,4 +19,12 @@ class Subscription < ActiveRecord::Base
   belongs_to :subscriber, :polymorphic => true
   belongs_to :payer, :polymorphic => true
   
+  def premium?
+    true
+  end
+  
+  def complimentary?
+    payer.nil?
+  end
+  
 end

@@ -323,15 +323,23 @@ describe User do
   describe "premium account" do
     
     it "finds a premium account" do
-      user = Factory(:user, :premium_account => true)
+      user = Factory(:user)
+      user.subscription = Factory(:subscription, :payer => user)
       user.account_type.should == "Premium"
       User.find_premium(user.id).should == user
     end
     
     it "doesn't find a basic account" do
-      user = Factory(:user, :premium_account => false)
+      user = Factory(:user)
       user.account_type.should == "Basic"
       User.find_premium(user.id).should be_nil
+    end
+    
+    it "finds a complimentary account" do
+      user = Factory(:user)
+      user.subscription = Factory(:subscription, :payer => nil)
+      user.account_type.should == "Complimentary"
+      User.find_premium(user.id).should == user
     end
     
   end
@@ -375,6 +383,27 @@ describe User do
     its(:payer) { should == user }
     its(:kind) { should == "User Premium" }
     its(:braintree_id) { should == "abcd" }
+    it { should be_premium }
+    it { should_not be_complimentary }
+  end
+  
+  describe "make a complimentary subscription for a user without one" do
+    
+    let(:user) { Factory(:user) }
+    
+    before(:each) do
+      user.make_complimentary!
+    end
+    
+    subject { user.subscription }
+    its(:start_date) { should == Date.today }
+    its(:subscriber) { should == user }
+    its(:payer) { should be_nil }
+    its(:kind) { should == "User Premium" }
+    its(:braintree_id) { should be_nil }
+    it { should be_premium }
+    it { should be_complimentary }
+    
   end
   
 end

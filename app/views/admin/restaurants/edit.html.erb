@@ -18,7 +18,7 @@
 	<% end -%>
 
 	<% f.inputs :name => 'Other', :class => "span-9 column last" do %>
-        <%= f.input :premium_account %>
+    <%# f.input :premium_account %>
 		<%= f.input :manager, :collection => @restaurant.employees %>
 		<%= f.input :media_contact, :collection => @restaurant.employees %>
 		<%= f.input :cuisine %>

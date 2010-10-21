@@ -19,7 +19,6 @@ end
 Given /^user "([^"]*)" does not have a premium account$/ do |username|
   user = User.find_by_username(username)
   user.subscription = nil
-  user.premium_account = false
   user.save!
 end
 

@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20101020193814) do
+ActiveRecord::Schema.define(:version => 20101021155340) do
 
   create_table "a_la_minute_answers", :force => true do |t|
     t.text     "answer"
@@ -714,7 +714,6 @@ ActiveRecord::Schema.define(:version => 20101020193814) do
     t.integer  "logo_id"
     t.integer  "primary_photo_id"
     t.date     "opening_date"
-    t.boolean  "premium_account"
   end
 
   add_index "restaurants", ["cuisine_id"], :name => "index_restaurants_on_cuisine_id"
@@ -888,7 +887,6 @@ ActiveRecord::Schema.define(:version => 20101020193814) do
     t.string   "facebook_access_token"
     t.string   "facebook_page_id"
     t.string   "facebook_page_token"
-    t.boolean  "premium_account"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email"

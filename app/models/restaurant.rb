@@ -91,6 +91,8 @@ class Restaurant < ActiveRecord::Base
       :with => %r{^http://www\.facebook\.com(.*)},
       :allow_blank => true,
       :message => "Facebook page must start with http://www.facebook.com"
+      
+  has_one :subscription, :as => :subscriber
 
   # For pagination
   cattr_reader :per_page
@@ -102,7 +104,8 @@ class Restaurant < ActiveRecord::Base
   end
   
   def self.find_premium(id)
-    find_by_id_and_premium_account(id, true)
+    possibility = find_by_id(id)
+    if possibility.premium_account then possibility else nil end
   end
 
   def name_and_location
@@ -167,6 +170,10 @@ class Restaurant < ActiveRecord::Base
 
   def account_type
     if premium_account then "Premium" else "Basic" end
+  end
+  
+  def premium_account
+    subscription && subscription.premium?
   end
 
   private

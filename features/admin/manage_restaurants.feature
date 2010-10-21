@@ -55,6 +55,7 @@ Feature: Manage restaurants
       | management_company | Lettuce Entertain You               |
       | opening_date       | January 22, 2008                    |
 
+  @wip
   Scenario: Upgrading an account to premium
     Given the following restaurant records:
       | name         | city    | state |

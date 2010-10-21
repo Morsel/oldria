@@ -84,4 +84,17 @@ class Admin::UsersController < Admin::AdminController
       format.js   { head :ok }
     end
   end
+  
+  def make_complimentary
+    @user = User.find(params[:id])
+    @user.make_complimentary!
+    redirect_to edit_admin_user_path(@user)
+  end
+  
+  def cancel_complimentary
+    @user = User.find(params[:id])
+    @user.cancel_subscription
+    redirect_to edit_admin_user_path(@user)
+  end
+  
 end

@@ -154,9 +154,10 @@ class User < ActiveRecord::Base
   def has_no_role!(role = nil)
     update_attribute(:role, nil)
   end
-
+  
   def self.find_premium(id)
-    find_by_id_and_premium_account(id, true)
+    possibility = find_by_id(id)
+    if possibility.premium_account then possibility else nil end
   end
 
   def following?(otheruser)
@@ -325,7 +326,9 @@ class User < ActiveRecord::Base
   end
 
   def account_type
-    if premium_account then "Premium" else "Basic" end
+    return "Complimentary" if complimentary_account?
+    return "Premium" if premium_account?
+    "Basic"
   end
 
   def phone_number
@@ -336,23 +339,36 @@ class User < ActiveRecord::Base
     return nil if profile.blank? || !profile.display_cell_public?
     profile.cellnumber
   end
+  
+  def premium_account
+    premium_account? 
+  end
+  
+  def premium_account?
+    subscription && subscription.premium?
+  end
+  
+  def complimentary_account?
+    subscription && subscription.complimentary?
+  end
 
-  def make_premium!(bt_subscription)
-    User.transaction do 
-      update_attributes(:premium_account => true)
-      self.subscription = Subscription.create(:kind => "User Premium",
-          :payer => self, :start_date => Date.today,
-          :braintree_id => bt_subscription.subscription.id)
-      save
-    end
+  def make_premium!(bt_subscription) 
+    self.subscription = Subscription.create(:kind => "User Premium",
+        :payer => self, :start_date => Date.today,
+        :braintree_id => bt_subscription.subscription.id)
+    save
+  end
+  
+  def make_complimentary!
+    self.subscription = Subscription.create(:kind => "User Premium",
+        :payer => nil, :start_date => Date.today,
+        :braintree_id => nil)
+    save
   end
   
   def cancel_subscription
-    User.transaction do 
-      self.subscription.destroy
-      self.subscription = nil
-      update_attributes(:premium_account => false)
-    end
+    subscription.destroy if subscription.present?
+    self.subscription = nil
   end
 
 end
