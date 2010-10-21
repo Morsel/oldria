@@ -22,6 +22,7 @@ class Soapbox::SoapboxController < ApplicationController
       params[:search] = { :employee_premium_account_equals => true }
       directory_search_setup
       @use_search = true
+      @users_for_search = User.by_last_name.all(:conditions => { :premium_account => true })
     end
     
     render :template => "directory/index"
