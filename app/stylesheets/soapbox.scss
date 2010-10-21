@@ -462,6 +462,11 @@ body,html,#container,#main,#content,#inside{
 			margin: 12px 0 10px 193px;
 		}
 	}
+	#trend-comments, #qotd-comments{
+		.comment{
+			clear:none;
+		}
+	}
 			
 	#recent_soapbox {
 		.recent_actions {
