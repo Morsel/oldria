@@ -20,7 +20,7 @@
         <div id="user_fields">
             <%= s.input :employee_id_equals_any,
                         :as => "check_boxes",
-                        :collection => User.by_last_name %>
+                        :collection => params[:controller].match(/soapbox/) ? User.by_last_name.all(:conditions => { :premium_account => true }) : User.by_last_name %>
         </div>
       </div>
       <div class="accordion_box">
