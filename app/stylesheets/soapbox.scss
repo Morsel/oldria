@@ -411,8 +411,6 @@ body,html,#container,#main,#content,#inside{
 		}
 	}
 	.identity {
-		margin: 0 15px 10px 0;
-		clear: both;
 		ul {
 			list-style: none;
 			margin: 0;
@@ -435,7 +433,7 @@ body,html,#container,#main,#content,#inside{
 			border-bottom: 1px solid #ddd;
 		}
 		.identity {
-			width: 300px;
+			width: 183px;
 			float: left;
 			margin: 0 15px 10px 0;
 			ul {
@@ -452,9 +450,12 @@ body,html,#container,#main,#content,#inside{
 	}/* directory search - user results */
 	
 	.comment {
+		clear:both;
+		padding:10px 0;
+		border-bottom:1px dotted #ccc;
 		.user_comment {
-			clear: both;
 			display: block;
+			margin: 12px 0 10px 193px;
 		}
 	}
 			
@@ -1261,10 +1262,6 @@ p.search_filter_hint {
 				padding: 4px;
 				@include box-shadow(#d5ceca, 0, 1px, 3px);
 			}
-		}
-		.user_comment {
-			display:inline;
-			padding: 12px 0 10px;
 		}
 	}
 }
