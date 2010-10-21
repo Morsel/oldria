@@ -1,7 +1,7 @@
 class Admin::SoapboxPromosController < Admin::AdminController
 
   def index
-    @promos = SoapboxPromo.all(:order => "created_at DESC")
+    @promos = SoapboxPromo.all(:order => :position)
   end
 
   def new
@@ -18,6 +18,20 @@ class Admin::SoapboxPromosController < Admin::AdminController
     end
   end
 
+  def edit
+    @promo = SoapboxPromo.find(params[:id])
+  end
+  
+  def update
+    @promo = SoapboxPromo.find(params[:id])
+    if @promo.update_attributes(params[:soapbox_promo])
+      flash[:notice] = "Updated promo \"#{@promo.title}\""
+      redirect_to :action => "index"
+    else
+      render :action => :edit
+    end      
+  end
+  
   def destroy
     @promo = SoapboxPromo.find(params[:id])
     @promo.destroy
@@ -25,4 +39,13 @@ class Admin::SoapboxPromosController < Admin::AdminController
     redirect_to :action => "index"
   end
 
+  def sort
+    if params[:soapbox_promos]
+      params[:soapbox_promos].each_with_index do |id, index|
+        SoapboxPromo.update_all(['position=?', index+1], ['id=?', id])
+      end      
+    end
+    render :nothing => true
+  end
+  
 end
