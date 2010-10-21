@@ -1,7 +1,3 @@
 <% title "Edit Soapbox Promo" %>
 
-<% semantic_form_for [:admin, @promo] do |f| %>
-    <%= f.inputs %>
-
-	<%= button_tag "Save" %>
-<% end %>
+<%= render :partial => "form" %>
