@@ -17,6 +17,12 @@ class Soapbox::SoapboxController < ApplicationController
     @use_search = true
     render :template => "directory/index"
   end
+  
+  def directory_search
+    params[:search].merge(:employee_premium_account_equals => true)
+    directory_search_setup
+    render :partial => "directory/search_results"
+  end
 
   protected
 
