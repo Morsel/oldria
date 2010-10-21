@@ -1866,8 +1866,8 @@ p.search_filter_hint {
 }
 /* line 1265, ../../../app/stylesheets/soapbox.scss */
 #fb-comments .comment .user_comment {
-  display: inline-block;
-  margin: 12px 0 10px 193px;
+  display: inline;
+  padding: 12px 0 10px;
 }
 
 /* line 1273, ../../../app/stylesheets/soapbox.scss */
