@@ -28,7 +28,7 @@
         <div id="restaurant_fields" style="display:none;">
             <%= s.input :restaurant_id_equals_any,
                         :as => "check_boxes",
-                        :collection => Restaurant.all(:order => 'name ASC') %>
+                        :collection => @restaurants_for_search || Restaurant.all(:order => 'name ASC') %>
         </div>
       </div>
       <div class="accordion_box">
