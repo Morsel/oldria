@@ -31,10 +31,13 @@ Feature: User Accounts
     When I go to the edit page for "emily"
     And I follow "Upgrade to Premium"
     When I fill in the following:
-      | Credit Card Number | 4111111111111111 |
-      | Billing ZIP        | 60654            |
-      | Expiration Month   | 10               |
-      | Expiration Year    | 1.year.from_now.year |
+      | Credit Card Number                    | 4111111111111111     |
+      | Billing ZIP                           | 60654                |
+      | customer_credit_card_expiration_month | 10                   |
+      | customer_credit_card_expiration_year  | 1.year.from_now.year |
+      | Security Code                         | 123                  |
+
+
 
   Scenario: Successful response from braintree makes a user premium
     Given I am logged in as "emily" with password "secret"

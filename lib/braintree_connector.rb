@@ -1,14 +1,22 @@
 class BraintreeConnector
 
-  attr_accessor :user, :callback
+  attr_accessor :payer, :callback
 
-  def initialize(user, callback)
-    @user = user
+  def initialize(payer, callback)
+    @payer = payer
     @callback = callback
   end
 
   def braintree_customer_id
-    "User_#{user.id}"
+    "User_#{payer.id}"
+  end
+
+  def braintree_plan_id
+    "user_monthly"
+  end
+
+  def braintree_contact_email
+    payer.email
   end
 
   def braintree_customer
@@ -23,6 +31,7 @@ class BraintreeConnector
         :redirect_url => callback,
         :customer_id => braintree_customer_id,
         :customer => {
+            :email => braintree_contact_email,
             :credit_card => {
               :options => {
                 :update_existing_token => braintree_customer.credit_cards.first.token,
@@ -36,6 +45,7 @@ class BraintreeConnector
         :redirect_url => callback,
         :customer => {
           :id => braintree_customer_id,
+          :email => braintree_contact_email,
           :credit_card => {
             :options => {
               :verify_card => true
@@ -55,10 +65,10 @@ class BraintreeConnector
     return confirmation_result unless confirmation_result.success?
     @subscription_request ||= Braintree::Subscription.create(
       :payment_method_token => confirmation_result.customer.credit_cards.first.token,
-      :plan_id => "user_monthly"
+      :plan_id => braintree_plan_id
     )
   end
-  
+
   def cancel_subscription(subscription)
     Braintree::Subscription.cancel(subscription.braintree_id)
   end

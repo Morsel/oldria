@@ -4,17 +4,25 @@ describe BraintreeConnector do
 
   describe "with a user" do
 
-    let(:user) { stub(:id => 500, :subscription => stub(:braintree_id => "abcd")) }
+    let(:user) { stub(:id => 500, :subscription => stub(:braintree_id => "abcd"), :email => "fred@flintstone.com") }
     let(:connector) { BraintreeConnector.new(user, "callback") }
     let(:stub_customer_request) { stub(:customer => stub(:credit_cards => [stub(:token => "abcd")]),
           :success? => true) }
 
     it "creates a unique braintree customer id" do
-      connector.braintree_customer_id.should == "User_500"
+      connector.braintree_customer_id.should == "User_#{user.id}"
+    end
+
+    it "derive the correct plan id" do
+      connector.braintree_plan_id.should == "user_monthly"
+    end
+
+    it "should have a contact email" do
+      connector.braintree_contact_email.should == user.email
     end
 
     it "calls braintree customer" do
-      Braintree::Customer.expects(:find).with("User_500")
+      Braintree::Customer.expects(:find).with("User_#{user.id}")
       connector.braintree_customer
     end
 
@@ -38,6 +46,7 @@ describe BraintreeConnector do
           :redirect_url => "callback",
           :customer_id => "User_500",
           :customer => {
+              :email => user.email,
               :credit_card => {
                 :options => {
                   :update_existing_token => "abcd",
@@ -55,6 +64,7 @@ describe BraintreeConnector do
           :redirect_url => "callback",
           :customer => {
               :id => "User_500",
+              :email => user.email,
               :credit_card => {
                 :options => {
                   :verify_card => true
@@ -64,7 +74,7 @@ describe BraintreeConnector do
           )
       connector.braintree_data
     end
-    
+
     it "can delete a subscription" do
       Braintree::Subscription.expects(:cancel).with("abcd")
       connector.cancel_subscription(user.subscription)
