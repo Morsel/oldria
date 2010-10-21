@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20101019162841) do
+ActiveRecord::Schema.define(:version => 20101021162955) do
 
   create_table "a_la_minute_answers", :force => true do |t|
     t.text     "answer"
@@ -282,9 +282,9 @@ ActiveRecord::Schema.define(:version => 20101019162841) do
     t.integer  "restaurant_role_id"
     t.boolean  "omniscient"
     t.boolean  "primary",            :default => false
-    t.string   "type"
     t.boolean  "public_profile"
     t.integer  "position"
+    t.string   "type"
   end
 
   add_index "employments", ["employee_id"], :name => "index_employments_on_employee_id"
@@ -761,6 +761,7 @@ ActiveRecord::Schema.define(:version => 20101019162841) do
     t.text     "body"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "link"
   end
 
   create_table "soapbox_slides", :force => true do |t|

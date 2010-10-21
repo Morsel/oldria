@@ -52,7 +52,7 @@ $(document).ready(function(){
 		fx: { duration: 'fast', opacity: 'toggle' }
 	});
 	$('.ui-tabs-panel').equalHeights();
-	$('#trend-comments .comment').equalHeights();
+	$('#trend-comments .comment, #qotd-comments .comment').equalHeights();
 	
 });
 	

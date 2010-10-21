@@ -1,41 +1,8 @@
 <% title "Soapbox", false %>
 
-<section id="trend-identified">
-  <header>
-    <%= soapbox_tabby_title(@main_feature) %>
-  </header>
-  <article id="trend-question">
-    <details>
-      <time datetime="<%= @main_feature.soapbox_entry.published_at.strftime('%Y-%m-%d') %>"><%= @main_feature.soapbox_entry.published_at.try(:strftime, "%b %e, %Y") %></time>
-      <h2><%= message(@main_feature) %></h2>
-    </details>
-  </article>
-  <% if @main_feature_comments %>
-  <section id="trend-comments">
-      <%= render :partial => 'comment', :collection => @main_feature_comments, :locals => { :full_text => false, :commentable_class => @main_feature.class } %>
-      <p class="clear"><%= link_to 'View all responses to this trend question &#187;', soapbox_soapbox_entry_path(@main_feature.soapbox_entry), :class => 'button' %></p>
-  </section><!-- /trend-comments -->
-  <% end %>
-  
-</section><!-- /trend-identified -->
+<%= render :partial => feature_entry_type(@main_feature), :locals => { :feature => @main_feature, :feature_comments => @main_feature_comments }%>
 
-<section id="question-of-the-day">
-  <header>
-    <%= soapbox_tabby_title(@secondary_feature) %>
-  </header>
-  <article id="question-of-the-day-details">
-    <details>
-      <time datetime="<%= @secondary_feature.soapbox_entry.published_at.strftime('%Y-%m-%d') %>"><%= @secondary_feature.soapbox_entry.published_at.try(:strftime, "%b %e, %Y") %></time>
-      <h2><%= message(@secondary_feature) %></h2>
-    </details>
-  </article>
-  <% if @secondary_feature_comments %>
-  <section id="qotd-comments">
-      <%= render :partial => 'comment', :collection => @secondary_feature_comments, :locals => { :full_text => false, :commentable_class => @secondary_feature.class } %>
-      <p class="clear"><%= link_to 'View all responses to this question of the day &#187;', soapbox_soapbox_entry_path(@secondary_feature.soapbox_entry), :class => 'button' %></p>
-  </section><!-- /qotd-comments -->
-  <% end %>
-</section><!-- /question-of-the-day -->
+<%= render :partial => feature_entry_type(@secondary_feature), :locals => { :feature => @secondary_feature, :feature_comments => @secondary_feature_comments }%>
 
 <section id="recent-questions">
   <div id="recent-trends">
