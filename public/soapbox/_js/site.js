@@ -69,3 +69,23 @@ function displayInfo(currSlideElement, nextSlideElement, options, forwardFlag){
 	$('#cycle-title').html(title);
 	$('#cycle-caption').html(caption + link);
 }
+
+// Directory search
+var $loaderImg       = $('<img class="loader" src="/images/ajax-loader.gif" />').hide();
+var	$directoryList   = $("#directory_list");
+var $directoryInputs = $("#directory_search #employment_criteria input[type=checkbox]");
+
+$directoryList.before($loaderImg);
+
+function updateDirectoryList() {
+	input_string = $directoryInputs.serialize();
+	$loaderImg.show();
+	$directoryList.hide();
+	$directoryList.load('/soapbox/directory_search', input_string, function(responseText, textStatus){
+	  $loaderImg.hide();
+	  $directoryList.fadeIn(300);
+	});
+	// return true;	
+}
+
+$directoryInputs.change(updateDirectoryList);
