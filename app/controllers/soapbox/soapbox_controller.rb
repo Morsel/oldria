@@ -12,6 +12,7 @@ class Soapbox::SoapboxController < ApplicationController
   end
 
   def directory
+    params[:search] = { :employee_premium_account_equals => true }
     directory_search_setup
     @use_search = true
     render :template => "directory/index"
