@@ -870,24 +870,20 @@ body,html,#container,#main,#content,#inside{
 	span{
 		height:30px;
 		background-position:0 -28px;
-		&:hover{
-			background-position:0 -28px;
-		}
+		&:hover{background-position:0 -28px;}
 	}
 	#request-invite{
 		background-position:0 -58px;
-		&:hover{
-			background-position:-300px -58px;
-		}
+		&:hover{background-position:-300px -58px;}
 	}
 	&.home{
 		@include museoslabthin;
 		text-transform:uppercase;
-		font-size:17px;
-		line-height:1.1;
+		font-size:14px;
+		line-height:19px;
 		padding:0;
 		.button, span{
-			color:#fff;
+			color: #c8cce1;
 			text-indent:0;
 			text-shadow:0 1px 0 #333;
 			margin:0;
@@ -895,15 +891,17 @@ body,html,#container,#main,#content,#inside{
 			height:auto;
 			background:0;
 			span{
+				color:#fff;
 				@include museoslabbold;
+				font-size: 19px;
 			}
 		}
 		.button{
-			margin:0 0 15px -25px;
-			padding:25px 30px 30px;
+			margin:0 0 8px -25px;
+			padding:25px 0px 30px 20px;
 			background:url(/images/soapbox/bg-hp-tab1.png) no-repeat right 0;
 			&:hover{
-				background-position:right -100px;
+				background-position:right -301px;
 			}
 		}
 		#request-invite{
@@ -911,7 +909,7 @@ body,html,#container,#main,#content,#inside{
 			margin-bottom:0;
 			background:url(/images/soapbox/bg-hp-tab2.png) no-repeat right 0;
 			&:hover{
-				background-position:right -100px;
+				background-position:right -300px;
 			}
 		}
 	}
