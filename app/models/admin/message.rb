@@ -76,7 +76,8 @@ class Admin::Message < ActiveRecord::Base
 
   def self.on_soapbox_with_response_from_user(user = nil)
     return [] unless user
-    self.all(:joins => [:soapbox_entry, {:admin_conversations => :comments}], :conditions => ['comments.user_id = ?', user.id], :group => 'admin_messages.id')
+    self.all(:joins => [:soapbox_entry, {:admin_conversations => :comments}], 
+        :conditions => ['comments.user_id = ?', user.id], :group => 'admin_messages.id', :limit => 5)
   end
 
   def comments(deep_includes = false)

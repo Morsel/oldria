@@ -82,11 +82,13 @@ class TrendQuestion < ActiveRecord::Base
     if user.restaurants.present?
       self.all(:joins => [:soapbox_entry, { :admin_discussions => :comments }], 
                :conditions => ['comments.user_id = ?', user.id], 
-               :group => 'trend_questions.id')
+               :group => 'trend_questions.id',
+               :limit => 5)
     else
       self.all(:joins => [:soapbox_entry, { :solo_discussions => :comments }], 
                :conditions => ['comments.user_id = ?', user.id], 
-               :group => 'trend_questions.id')
+               :group => 'trend_questions.id',
+               :limit => 5)
     end
   end
 
