@@ -24,6 +24,7 @@ ActionController::Routing::Routes.draw do |map|
     end
     soapbox.resources :questions, :only => 'show'
     soapbox.connect 'directory', :controller => 'soapbox', :action => 'directory'
+    soapbox.connect 'directory_search', :controller => 'soapbox', :action => 'directory_search'
     soapbox.root :controller => 'soapbox', :action => 'index'
   end
   
