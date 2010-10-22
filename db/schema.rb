@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20101022163933) do
+ActiveRecord::Schema.define(:version => 20101022194902) do
 
   create_table "a_la_minute_answers", :force => true do |t|
     t.text     "answer"
@@ -788,6 +788,7 @@ ActiveRecord::Schema.define(:version => 20101022163933) do
     t.integer  "position"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "photo_credit"
   end
 
   create_table "solo_discussions", :force => true do |t|
