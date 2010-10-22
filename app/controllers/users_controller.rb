@@ -21,7 +21,7 @@ class UsersController < ApplicationController
   end
 
   def update
-    employment_params = params[:user].delete(:default_employment)
+    employment_params = params[:user].delete(:default_employment) if params[:user]
     respond_to do |format|
       if @user.update_attributes(params[:user])
         if employment_params
