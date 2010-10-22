@@ -16,6 +16,10 @@ config.action_view.cache_template_loading            = true
 config.log_level = :debug
 
 config.gem 'mail_safe'
+config.gem 'compass', :version => "~> 0.10.5"
+
+require 'compass'
+require 'compass/app_integration/rails'
 
 # Use a different logger for distributed setups
 # config.logger = SyslogLogger.new
