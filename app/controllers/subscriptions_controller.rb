@@ -2,7 +2,7 @@ class SubscriptionsController < ApplicationController
 
   before_filter :init_user
   before_filter :create_braintree_connector
-  
+
   # note: all of these calls require a user id as params[:id], even the
   # ones that traditionally wouldn't in a RESTful service
 
@@ -23,7 +23,7 @@ class SubscriptionsController < ApplicationController
       redirect_to(new_subscription_path(:id => @user.id))
     end
   end
-  
+
   def destroy
     destroy_result = @braintree_connector.cancel_subscription(
         @user.subscription)
@@ -34,23 +34,23 @@ class SubscriptionsController < ApplicationController
   end
 
   private
-  
+
   def init_user
     require_user
     if params[:id].to_i == current_user.id
       @user = current_user
       return
     end
-    if current_user.admin?
-      @user = User.find(params[:id])
-    else
-      redirect_to root_path
-    end
+    # if current_user.admin?
+    #   @user = User.find(params[:user_id])
+    # else
+      @user = current_user
+    # end
   end
 
   def create_braintree_connector
-    @braintree_connector = BraintreeConnector.new(@user, 
-        bt_callback_subscriptions_url(:id => @user.id))
+    @braintree_connector = BraintreeConnector.new(@user,
+        bt_callback_subscriptions_url)
   end
 
 end
