@@ -32,7 +32,7 @@ Rails::Initializer.run do |config|
   config.gem 'newrelic_rpm',          :version => "~>2.11.2"
   config.gem "facebooker2"
   config.gem 'subdomain-fu',          :version => "~> 0.5.4"
-  config.gem 'braintree'
+  config.gem 'braintree',             :version => "2.6.1"
 
   # Settings in config/environments/* take precedence over those specified here.
   # Application configuration should go into files in config/initializers
