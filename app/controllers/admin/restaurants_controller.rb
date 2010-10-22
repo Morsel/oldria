@@ -2,7 +2,7 @@ class Admin::RestaurantsController < Admin::AdminController
   before_filter :find_restaurant, :except => :index
 
   def index
-    @restaurants = Restaurant.find(:all, :include => [:manager, :cuisine], :order => :name)
+    @restaurants = Restaurant.find(:all, :include => [:manager, :cuisine], :order => :sort_name)
   end
 
   def edit

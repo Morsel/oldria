@@ -23,7 +23,7 @@ class Soapbox::SoapboxController < ApplicationController
       directory_search_setup
       @use_search = true
       @users_for_search = User.by_last_name.all(:conditions => { :premium_account => true })
-      @restaurants_for_search = @users_for_search.map(&:restaurants).flatten.compact.uniq
+      @restaurants_for_search = @users_for_search.map(&:restaurants).flatten.compact.uniq.sort(&:sort_name)
     end
     
     render :template => "directory/index"

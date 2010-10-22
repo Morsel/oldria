@@ -47,13 +47,13 @@ Feature: Restaurant Menus
     Then I should not see any menus
     And I should see an error message
 
-  Scenario: Upload a menu fails when file path not specified
-    When I go to the restaurant menu upload page for Bourgeois Pig
-    And I fill in "January" for "Name"
-    And I select "Monthly" from "How often it changes"
-    And I press "Upload"
-    Then I should not see any menus
-    And I should see an error message
+  # Scenario: Upload a menu fails when file path not specified
+  #   When I go to the restaurant menu upload page for Bourgeois Pig
+  #   And I fill in "January" for "Name"
+  #   And I select "Monthly" from "How often it changes"
+  #   And I press "Upload"
+  #   Then I should not see any menus
+  #   And I should see an error message
 
   Scenario: Upload a menu fails when file content type is other than PDF
     When I go to the restaurant menu upload page for Bourgeois Pig
