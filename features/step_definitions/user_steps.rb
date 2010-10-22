@@ -141,6 +141,8 @@ When /^the user "([^\"]*)" (has|does not have) a premium account$/ do |username,
   user = User.find_by_username(username)
   if toggle == "has"
     user.subscription = Factory(:subscription, :payer => user)
+    BraintreeConnector.stubs(:cancel_subscription).with(
+        user.subscription).returns(stub(:success? => true))
   else
     user.subscription = nil
   end
@@ -170,5 +172,9 @@ end
 
 Then /^I should see that the user has a complimentary account$/ do
   response.should have_selector("#account_status", :content => "Complimentary")
+end
+
+When /^I should see that the user has a premium account$/ do
+  response.should have_selector("#account_status", :content => "Premium")
 end
 

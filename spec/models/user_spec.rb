@@ -406,5 +406,34 @@ describe User do
     
   end
   
+  describe "make a complimentary subscription for a user with one" do
+    
+    let(:user) { Factory(:user) }
+    
+    before(:each) do
+      user.subscription = Factory(:subscription, :payer => user)
+      user.save!
+      user.make_complimentary!
+    end
+    
+    specify { Subscription.all.size.should == 1 }
+    
+  end
+  
+  describe "cancel subscription for a user with one" do
+    
+    let(:user) { Factory(:user) }
+    
+    before(:each) do
+      user.subscription = Factory(:subscription, :payer => user)
+      user.save!
+      user.cancel_subscription
+    end
+    
+    specify { user.subscription.should == nil}
+    specify { Subscription.all.size.should == 0 }
+    
+  end
+  
 end
 

@@ -16,6 +16,18 @@ describe Admin::UsersController do
       user.cancel_subscription
       User.stubs(:find).returns(user)
       user.expects(:make_complimentary!)
+      BraintreeConnector.expects(:cancel_subscription).never
+      post :make_complimentary, :id => user.id
+      response.should redirect_to(edit_admin_user_path(user))
+    end
+    
+    it "cancels the braintree subscription if it exists" do
+      user.subscription = Factory(:subscription, :payer => user)
+      user.save!
+      User.stubs(:find).returns(user)
+      user.expects(:make_complimentary!)
+      BraintreeConnector.expects(
+          :cancel_subscription).returns(stub(:success? => true))
       post :make_complimentary, :id => user.id
       response.should redirect_to(edit_admin_user_path(user))
     end
@@ -30,8 +42,19 @@ describe Admin::UsersController do
       user.make_complimentary!
       User.stubs(:find).returns(user)
       user.expects(:cancel_subscription)
+      BraintreeConnector.expects(:cancel_subscription).never
       post :cancel_complimentary, :id => user.id
       response.should redirect_to(edit_admin_user_path(user))
+    end
+    
+    it "cancels the braintree account when canceling a regular account" do
+      user.subscription = Factory(:subscription, :payer => user)
+      user.save!
+      User.stubs(:find).returns(user)
+      user.expects(:cancel_subscription)
+      BraintreeConnector.expects(
+          :cancel_subscription).returns(stub(:success? => true))
+      post :cancel_complimentary, :id => user.id
     end
     
   end

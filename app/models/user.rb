@@ -360,6 +360,7 @@ class User < ActiveRecord::Base
   end
   
   def make_complimentary!
+    subscription.destroy if subscription.present?
     self.subscription = Subscription.create(:kind => "User Premium",
         :payer => nil, :start_date => Date.today,
         :braintree_id => nil)

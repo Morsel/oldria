@@ -87,14 +87,32 @@ class Admin::UsersController < Admin::AdminController
   
   def make_complimentary
     @user = User.find(params[:id])
-    @user.make_complimentary!
+    proceed = cancel_braintree_subscription
+    if proceed
+      @user.make_complimentary!
+    else
+      flash[:notice] = "Error canceling existing subscription"
+    end
     redirect_to edit_admin_user_path(@user)
   end
   
   def cancel_complimentary
     @user = User.find(params[:id])
-    @user.cancel_subscription
+    proceed = cancel_braintree_subscription
+    if proceed
+      @user.cancel_subscription
+    else
+      flash[:notice] = "Error canceling existing subscription"
+    end
     redirect_to edit_admin_user_path(@user)
+  end
+  
+  private
+  
+  def cancel_braintree_subscription
+    return true if (@user.subscription.blank? || @user.subscription.complimentary?)
+    result = BraintreeConnector.cancel_subscription(@user.subscription)
+    proceed = result.success?
   end
   
 end

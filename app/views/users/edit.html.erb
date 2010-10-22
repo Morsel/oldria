@@ -15,11 +15,11 @@
   <div id="upgrade_link">
     <% if @user.premium_account? %>
       <%= link_to (image_tag('x.png') + "Downgrade to basic"), 
-          subscription_path(@user.subscription), :method => :delete,
+          subscription_path(@user), :method => :delete,
           :class => 'button negative' %>
     <% else %>
       <%= link_to  (image_tag('tick.png') + "Upgrade to Premium"), 
-          new_subscription_path,
+          new_subscription_path(:id => @user.id),
           :class => 'button positive' %>
     <% end %>
   </div>
