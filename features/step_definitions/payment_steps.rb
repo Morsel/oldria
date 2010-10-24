@@ -57,6 +57,9 @@ end
 When /^I simulate a successful cancel from braintree$/ do
   BraintreeConnector.any_instance.stubs(
       :cancel_subscription => stub(:success? => true))
+  BraintreeConnector.stubs(:find_subscription).returns(
+          stub(:subscription => 
+              stub(:billing_period_end_date => 1.month.from_now.to_date)))
 end
 
 When /^I simulate an unsuccessful cancel from braintree$/ do
@@ -72,6 +75,16 @@ end
 
 When /^I traverse the delete link for subscriptions for user "([^"]*)"$/ do |username|
   visit(subscription_path(:id => User.find_by_username(username).id), :delete)
+end
+
+Then /^I see that the account for "([^"]*)" lasts until the end of the billing cycle$/ do |username|
+  user = User.find_by_username(username)
+  response.should have_selector("#end_date",
+      :content => user.subscription.end_date.to_s(:long))
+end
+
+Then /^I don't see that the account for "([^"]*)" lasts until the end of the billing cycle$/ do |username|
+  response.should_not have_selector("#end_date")
 end
 
 

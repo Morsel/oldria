@@ -9,6 +9,12 @@
         You have been a premium member 
         since <%= @user.subscription.start_date.to_s(:long) %>
       </span>
+      <% if @user.subscription && @user.subscription.in_overtime? %>
+        <span id="end_date">
+          This account has been canceled and will end 
+          <%= @user.subscription.end_date.to_s(:long)%>
+        </span>
+      <% end %>
     <% end %>
   </div>
   
@@ -18,7 +24,7 @@
           subscription_path(@user), :method => :delete,
           :class => 'button negative' %>
     <% else %>
-      <%= link_to  (image_tag('tick.png') + "Upgrade to Premium"), 
+      <%= link_to (image_tag('tick.png') + "Upgrade to Premium"), 
           new_subscription_path(:id => @user.id),
           :class => 'button positive' %>
     <% end %>

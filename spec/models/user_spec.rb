@@ -1,36 +1,3 @@
-# == Schema Information
-#
-# Table name: users
-#
-#  id                    :integer         not null, primary key
-#  username              :string(255)
-#  email                 :string(255)
-#  crypted_password      :string(255)
-#  password_salt         :string(255)
-#  perishable_token      :string(255)
-#  persistence_token     :string(255)     not null
-#  created_at            :datetime
-#  updated_at            :datetime
-#  confirmed_at          :datetime
-#  last_request_at       :datetime
-#  atoken                :string(255)
-#  asecret               :string(255)
-#  avatar_file_name      :string(255)
-#  avatar_content_type   :string(255)
-#  avatar_file_size      :integer
-#  avatar_updated_at     :datetime
-#  first_name            :string(255)
-#  last_name             :string(255)
-#  james_beard_region_id :integer
-#  publication           :string(255)
-#  role                  :string(255)
-#  facebook_id           :string(255)
-#  facebook_access_token :string(255)
-#  facebook_page_id      :string(255)
-#  facebook_page_token   :string(255)
-#  premium_account       :boolean
-#
-
 require 'spec/spec_helper'
 
 describe User do
@@ -420,20 +387,78 @@ describe User do
     
   end
   
-  describe "cancel subscription for a user with one" do
+  describe "cancel subscription" do
     
     let(:user) { Factory(:user) }
     
     before(:each) do
       user.subscription = Factory(:subscription, :payer => user)
       user.save!
-      user.cancel_subscription
     end
     
-    specify { user.subscription.should == nil}
-    specify { Subscription.all.size.should == 0 }
+    context "with immediate termination" do
+
+      before(:each) do
+        user.cancel_subscription!(:terminate_immediately => true)
+      end
+
+      specify { user.subscription.should == nil }
+      specify { Subscription.all.size.should == 0 }
+
+    end
+    
+    context "with delayed termination" do
+      
+      before(:each) do
+        BraintreeConnector.expects(:find_subscription).with(user.subscription).returns(
+            stub(:subscription => 
+                stub(:billing_period_end_date => 1.month.from_now.to_date)))
+        user.cancel_subscription!(:terminate_immediately => false)
+      end
+      
+      it "correctly manages the user subscription" do
+        user.subscription.end_date.should == 1.month.from_now.to_date
+        Subscription.all.size.should == 1
+      end
+      
+    end
     
   end
   
+  
+  
 end
+
+
+# == Schema Information
+#
+# Table name: users
+#
+#  id                    :integer         not null, primary key
+#  username              :string(255)
+#  email                 :string(255)
+#  crypted_password      :string(255)
+#  password_salt         :string(255)
+#  perishable_token      :string(255)
+#  persistence_token     :string(255)     not null
+#  created_at            :datetime
+#  updated_at            :datetime
+#  confirmed_at          :datetime
+#  last_request_at       :datetime
+#  atoken                :string(255)
+#  asecret               :string(255)
+#  avatar_file_name      :string(255)
+#  avatar_content_type   :string(255)
+#  avatar_file_size      :integer
+#  avatar_updated_at     :datetime
+#  first_name            :string(255)
+#  last_name             :string(255)
+#  james_beard_region_id :integer
+#  publication           :string(255)
+#  role                  :string(255)
+#  facebook_id           :string(255)
+#  facebook_access_token :string(255)
+#  facebook_page_id      :string(255)
+#  facebook_page_token   :string(255)
+#
 

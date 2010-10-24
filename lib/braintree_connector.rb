@@ -76,5 +76,13 @@ class BraintreeConnector
   def cancel_subscription(subscription)
     BraintreeConnector.cancel_subscription(subscription)
   end
+  
+  def self.find_subscription(subscription)
+    Braintree::Subscription.find(subscription.braintree_id)
+  end
+  
+  def find_subscription(subscription)
+    BraintreeConnector.find_subscription(subscription)
+  end
 
 end

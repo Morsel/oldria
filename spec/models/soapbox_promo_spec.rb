@@ -1,14 +1,3 @@
-# == Schema Information
-#
-# Table name: soapbox_promos
-#
-#  id         :integer         not null, primary key
-#  title      :string(255)
-#  body       :text
-#  created_at :datetime
-#  updated_at :datetime
-#
-
 require 'spec_helper'
 
 describe SoapboxPromo do
@@ -23,3 +12,16 @@ describe SoapboxPromo do
     SoapboxPromo.create!(@valid_attributes)
   end
 end
+
+# == Schema Information
+#
+# Table name: soapbox_promos
+#
+#  id         :integer         not null, primary key
+#  title      :string(255)
+#  body       :text
+#  created_at :datetime
+#  updated_at :datetime
+#  link       :string(255)
+#
+

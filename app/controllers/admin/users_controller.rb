@@ -100,7 +100,7 @@ class Admin::UsersController < Admin::AdminController
     @user = User.find(params[:id])
     proceed = cancel_braintree_subscription
     if proceed
-      @user.cancel_subscription
+      @user.cancel_subscription!(:terminate_immediately => true)
     else
       flash[:notice] = "Error canceling existing subscription"
     end
