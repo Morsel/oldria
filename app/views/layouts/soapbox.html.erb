@@ -30,7 +30,7 @@
       <nav id="nav">
         <%= link_to 'Home', soapbox_root_path, :id => "nav-home", :class => active_page?('/soapbox') %>
         <%= link_to 'Front Burner', soapbox_soapbox_entries_path, :id => "nav-front-burner", :class => active_page?('/soapbox/front_burner') %>
-        <%= link_to 'Directory', '/soapbox/directory', :id => "nav-directory", :class => active_page?('/soapbox/directory') %>
+        <%= link_to 'Profiles', '/soapbox/directory', :id => "nav-directory", :class => active_page?('/soapbox/directory') %>
         <%= link_to 'About', '/soapbox/about', :id => "nav-about", :class => active_page?('/soapbox/about') %>
         <%= link_to 'Contact', '/soapbox/contact', :id => "nav-contact", :class => "#{active_page?('/soapbox/contact')} last" %>
       </nav>
