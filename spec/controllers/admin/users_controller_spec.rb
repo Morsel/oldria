@@ -13,7 +13,7 @@ describe Admin::UsersController do
     let(:user) { Factory(:user) }
     
     it "gives a basic user a complimentary account" do
-      user.cancel_subscription
+      user.cancel_subscription!(:terminate_immediately => true)
       User.stubs(:find).returns(user)
       user.expects(:make_complimentary!)
       BraintreeConnector.expects(:cancel_subscription).never
@@ -41,7 +41,7 @@ describe Admin::UsersController do
     it "removes a complimentary account" do
       user.make_complimentary!
       User.stubs(:find).returns(user)
-      user.expects(:cancel_subscription)
+      user.expects(:cancel_subscription!).with(:terminate_immediately => true)
       BraintreeConnector.expects(:cancel_subscription).never
       post :cancel_complimentary, :id => user.id
       response.should redirect_to(edit_admin_user_path(user))
@@ -51,7 +51,7 @@ describe Admin::UsersController do
       user.subscription = Factory(:subscription, :payer => user)
       user.save!
       User.stubs(:find).returns(user)
-      user.expects(:cancel_subscription)
+      user.expects(:cancel_subscription!).with(:terminate_immediately => true)
       BraintreeConnector.expects(
           :cancel_subscription).returns(stub(:success? => true))
       post :cancel_complimentary, :id => user.id

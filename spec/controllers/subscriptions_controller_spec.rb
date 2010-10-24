@@ -77,12 +77,16 @@ describe SubscriptionsController do
       @controller.stubs(:current_user).returns(@user)
     end
     
-    it "removes the subscription on successful delete" do
+    it "puts the subscription in overtime on successful delete" do
+      BraintreeConnector.expects(:find_subscription).with(
+          @user.subscription).returns(stub(:subscription => 
+              stub(:billing_period_end_date => 1.month.from_now.to_date)))
       BraintreeConnector.any_instance.expects(
           :cancel_subscription).with(@user.subscription).returns(stub(:success? => true))
       delete :destroy, :id => @user.id
-      @user.subscription.should be_nil
-      @user.premium_account.should be_false
+      @user.subscription.should be_in_overtime
+      @user.subscription.end_date.should == 1.month.from_now.to_date
+      @user.should be_premium_account
     end
     
   end

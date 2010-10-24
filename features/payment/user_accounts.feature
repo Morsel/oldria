@@ -73,7 +73,6 @@ Feature: User Accounts
     Then I see my account status is premium
     And I don't see that the account for "emily" lasts until the end of the billing cycle
      
-  @wip   
   Scenario: You can't access another user's account
     Given user "emily" has a premium account
     Given I am logged in as "notemily" with password "secret"
@@ -84,7 +83,6 @@ Feature: User Accounts
     When I traverse the delete link for subscriptions for user "emily"
     Then I should be on the root page
     
-  @wip  
   Scenario: An admin can access another user's account
     Given user "emily" has a premium account
     And I am logged in as an admin
@@ -92,4 +90,6 @@ Feature: User Accounts
     When I go to the edit page for "emily"
     And I follow "Downgrade to basic"
     Then I should be on the edit page for "emily"
-    Then I see my account status is not premium
+    Then I see my account status is premium
+    And I see that the account for "emily" lasts until the end of the billing cycle
+    

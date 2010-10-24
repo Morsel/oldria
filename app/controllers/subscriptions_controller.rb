@@ -37,21 +37,21 @@ class SubscriptionsController < ApplicationController
 
   def init_user
     require_user
-    local_id = params[:local_user_id] || params[:id]
+    local_id = params[:user_id] || params[:id]
     if local_id.to_i == current_user.id
       @user = current_user
       return
     end
-    # if current_user.admin?
-    #   @user = User.find(params[:user_id])
-    # else
-    #  @user = current_user
-    # end
+    if current_user.admin?
+      @user = User.find(local_id)
+    else
+      redirect_to root_path
+    end
   end
 
   def create_braintree_connector
     @braintree_connector = BraintreeConnector.new(@user,
-        bt_callback_subscriptions_url(:local_user_id => @user.id))
+        bt_callback_subscriptions_url(:user_id => @user.id))
   end
 
 end
