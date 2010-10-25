@@ -47,7 +47,7 @@ class TrendQuestion < ActiveRecord::Base
 
   def update_restaurants_and_employments_from_search_criteria
     self.restaurant_ids = employment_search.restaurant_ids
-    self.employment_ids = employment_search.solo_employment_ids
+    self.employments = employment_search.solo_employments
   end
 
   def viewable_by?(employment)
