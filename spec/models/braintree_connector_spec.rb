@@ -4,9 +4,12 @@ describe BraintreeConnector do
 
   describe "with a user" do
 
-    let(:user) { stub(:id => 500, :subscription => stub(:braintree_id => "abcd"), :email => "fred@flintstone.com") }
+    let(:user) { Factory(:user, :id => 500, 
+        :subscription => Factory(:subscription, :braintree_id => "abcd"), 
+        :email => "fred@flintstone.com") }
     let(:connector) { BraintreeConnector.new(user, "callback") }
-    let(:stub_customer_request) { stub(:customer => stub(:credit_cards => [stub(:token => "abcd")]),
+    let(:stub_customer_request) { 
+        stub(:customer => stub(:credit_cards => [stub(:token => "abcd")]),
           :success? => true) }
 
     it "creates a unique braintree customer id" do
@@ -85,6 +88,49 @@ describe BraintreeConnector do
       connector.find_subscription(Factory(:subscription))
     end
 
+  end
+  
+  describe "with a restaurant" do
+    
+    let(:restaurant) { Factory(:managed_restaurant, :id => 500, 
+        :subscription => Factory(:subscription, :braintree_id => "abcd"), 
+        :manager => Factory(:user, :email => "fred@flintstone.com")) }
+      
+    let(:connector) { BraintreeConnector.new(restaurant, "callback") }
+  
+    let(:stub_customer_request) { 
+        stub(:customer => stub(:credit_cards => [stub(:token => "abcd")]),
+          :success? => true) }
+
+    it "creates a unique braintree customer id" do
+      connector.braintree_customer_id.should == "Restaurant_#{restaurant.id}"
+    end
+
+    it "derive the correct plan id" do
+      connector.braintree_plan_id.should == "restaurant_monthly"
+    end
+
+    it "should have a contact email" do
+      connector.braintree_contact_email.should == "fred@flintstone.com"
+    end
+  
+    it "returns update data if the customer exists" do
+      connector.stubs(:braintree_customer => stub_customer_request.customer)
+      Braintree::TransparentRedirect.expects(:update_customer_data).with(
+          :redirect_url => "callback",
+          :customer_id => "Restaurant_500",
+          :customer => {
+              :email => "fred@flintstone.com",
+              :credit_card => {
+                :options => {
+                  :update_existing_token => "abcd",
+                  :verify_card => true
+                }
+              }
+            }
+          )
+      connector.braintree_data
+    end
   end
 
 end

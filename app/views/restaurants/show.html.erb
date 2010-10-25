@@ -69,6 +69,10 @@
     <% div_if(@restaurant.description, :class=> "function-bold", :id => "description") do %>
       Description: <%= @restaurant.description %>
     <% end %>
+    
+    <div id="account_status">
+      Account Status: <%= @restaurant.account_type %>
+    </div>
 
     <div>
       Phone Number: <span id="phone_number"><%=h @restaurant.phone_number %></span>

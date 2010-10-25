@@ -2,6 +2,14 @@ Then /^I see my account status is not premium$/ do
   response.should have_selector("#plans .current", :content => "Basic")
 end
 
+Then /^I see that the restaurant's account status is basic$/ do
+  response.should have_selector("#account_status", :content => "Basic")
+end
+
+Then /^I see that the restaurant's account status is premium$/ do
+  response.should have_selector("#account_status", :content => "Premium")
+end
+
 Then /^I do not see a premium badge$/ do
   response.should_not have_selector(".premium_badge")
 end
@@ -42,7 +50,19 @@ When /^I simulate a successful call from braintree for user "([^"]*)"$/ do |user
   BraintreeConnector.any_instance.stubs(
       :confirm_request_and_start_subscription => stub(:success? => true,
           :subscription => stub(:id => "abcd")))
-  visit(bt_callback_subscriptions_path(:id => user.id))
+  visit(bt_callback_subscriptions_path(:customer_id => user.id,
+      :subscriber_type => "user"))
+end
+
+When /^I simulate a successful call from braintree for the restaurant "([^"]*)"$/ do |name|
+  restaurant = Restaurant.find_by_name(name)
+  BraintreeConnector.any_instance.stubs(
+      :braintree_customer => nil)
+  BraintreeConnector.any_instance.stubs(
+      :confirm_request_and_start_subscription => stub(:success? => true,
+          :subscription => stub(:id => "abcd")))
+  visit(bt_callback_subscriptions_path(:customer_id => restaurant.id        ,
+      :subscriber_type => "restaurant"))
 end
 
 When /^I simulate an unsuccessful call from braintree for user "([^"]*)"$/ do |username|
@@ -51,7 +71,18 @@ When /^I simulate an unsuccessful call from braintree for user "([^"]*)"$/ do |u
       :braintree_customer => nil)
   BraintreeConnector.any_instance.stubs(
       :confirm_request_and_start_subscription => stub(:success? => false))
-  visit(bt_callback_subscriptions_path(:id => user.id))
+  visit(bt_callback_subscriptions_path(:customer_id => customer.id, 
+      :subscriber_type => "user"))
+end
+
+When /^I simulate an unsuccessful call from braintree for the restaurant "([^"]*)"$/ do |name|
+  restaurant = Restaurant.find_by_name(name)
+  BraintreeConnector.any_instance.stubs(
+      :braintree_customer => nil)
+  BraintreeConnector.any_instance.stubs(
+      :confirm_request_and_start_subscription => stub(:success? => false))
+  visit(bt_callback_subscriptions_path(:customer_id => restaurant.id,
+      :subscriber_type => "restaurant"))
 end
 
 When /^I simulate a successful cancel from braintree$/ do
@@ -88,6 +119,17 @@ end
 
 Then /^I do not see any account change options$/ do
   response.should_not have_selector("#upgrade_link")
+end
+
+Given /^the restaurant "([^"]*)" has a premium account$/ do |restaurant_name|
+  restaurant = Restaurant.find_by_name(restaurant_name)
+  restaurant.make_premium!(stub(:subscription => stub(:id => "abcd")))
+end
+
+Given /^the restaurant "([^"]*)" does not have a premium account$/ do |restaurant_name|
+  restaurant = Restaurant.find_by_name(restaurant_name)
+  restaurant.subscription = nil
+  restaurant.save!
 end
 
 

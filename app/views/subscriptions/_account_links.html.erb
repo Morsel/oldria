@@ -1,0 +1,20 @@
+<% if subscriber.account_in_overtime? %>
+  <div id="overtime">
+    You can modify your premium account again after the current 
+    subscription expires.
+  </div>
+<% else %>
+  <div id="upgrade_link">
+    <% if subscriber.premium_account? %>
+      <%= link_to (image_tag('x.png') + "Downgrade to basic"), 
+          subscription_path(subscriber), :method => :delete,
+          :confirm => "Do you really want to cancel your premium subscription?",
+          :class => 'button negative' %>
+    <% else %>
+      <%= link_to (image_tag('tick.png') + "Upgrade to Premium"), 
+          new_subscription_path(:id => subscriber.id, 
+              :subscriber_type => subscriber_type),
+          :class => 'button positive' %>
+    <% end %>
+  </div>
+<% end %>

@@ -46,7 +46,7 @@ Feature: User Accounts
     Then I see my account status is premium
     And I see my account is paid for by myself
     
-  Scenario: Unsuccessful response from braintree makes a user premium
+  Scenario: Unsuccessful response from braintree does not make a user premium
     Given I am logged in as "emily" with password "secret"
     When I simulate an unsuccessful call from braintree for user "emily"
     Then I should be on the new subscription page

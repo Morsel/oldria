@@ -3,6 +3,12 @@
 <% semantic_form_for :customer, :url => Braintree::TransparentRedirect.url, :html => {:autocomplete => false} do |form| %>
 
   <%= hidden_field_tag "tr_data", h(@tr_data) %>
+  
+  <p id="payment_blurb">
+    If you are associated with a restaurant, you may pay on your own or ask
+    your restaurant's Spoonfeed account manager to add you to the restaurant
+    account.
+  </p>
 
   <% form.semantic_fields_for :credit_card do |cc_form| %>
     <%= cc_form.input :number, :label => "Credit Card Number" %>

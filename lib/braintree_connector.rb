@@ -6,17 +6,21 @@ class BraintreeConnector
     @payer = payer
     @callback = callback
   end
+  
+  def payer_type
+    if payer.is_a?(User) then "User" else "Restaurant" end
+  end
 
   def braintree_customer_id
-    "User_#{payer.id}"
+    "#{payer_type}_#{payer.id}"
   end
 
   def braintree_plan_id
-    "user_monthly"
+    if payer_type == "User" then "user_monthly" else "restaurant_monthly" end
   end
 
   def braintree_contact_email
-    payer.email
+    if payer_type == "User" then payer.email else payer.manager.email end
   end
 
   def braintree_customer

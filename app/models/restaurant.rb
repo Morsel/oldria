@@ -27,6 +27,7 @@ class Restaurant < ActiveRecord::Base
   has_many :menus
   has_many :accolades, :as => :accoladable
   has_many :a_la_minute_answers, :as => :responder
+  has_subscription
 
   belongs_to :media_contact, :class_name => "User", :foreign_key => 'media_contact_id'
 
@@ -130,14 +131,6 @@ class Restaurant < ActiveRecord::Base
 
   def public_employments
     employments.public_profile_only.by_position
-  end
-
-  def account_type
-    if premium_account then "Premium" else "Basic" end
-  end
-  
-  def premium_account
-    subscription && subscription.premium?
   end
 
   private

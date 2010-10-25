@@ -1,7 +1,20 @@
 <% title "Edit Your Account" %>
 
 <div class="fieldset_box" id="plans">
-  <h3>Account Status</h3>
+  <h3>Personal Account Status</h3>
+  
+  <div id="payment_blurb">
+    Basic accounts allow you to participate in Spoonfeed. If you would
+    like to be included in Soapbox, please upgrade to a Premium Account.
+    A personal premium account is $50/month/
+  </div>
+  <br clear="all" />
+  <div>
+    <%= link_to "More Information...", "/account_types", :class => 'button' %>
+  </div>
+  
+  <br clear="all" />
+  <br clear="all" />
   <div class="current">
     Your current account status is <%= @user.account_type %>.
     <% if @user.premium_account? %> 
@@ -18,25 +31,9 @@
     <% end %>
   </div>
   
-  <% if @user.account_in_overtime? %>
-    <div id="overtime">
-      You can modify your premium account again after the current 
-      subscription expires.
-    </div>
-  <% else %>
-    <div id="upgrade_link">
-      <% if @user.premium_account? %>
-        <%= link_to (image_tag('x.png') + "Downgrade to basic"), 
-            subscription_path(@user), :method => :delete,
-            :confirm => "Do you really want to cancel your premium subscription?",
-            :class => 'button negative' %>
-      <% else %>
-        <%= link_to (image_tag('tick.png') + "Upgrade to Premium"), 
-            new_subscription_path(:id => @user.id),
-            :class => 'button positive' %>
-      <% end %>
-    </div>
-  <% end %>
+  <%= render :partial => 'subscriptions/account_links',
+      :locals => {:subscriber => @user, :subscriber_type => "user"} %>
+
 </div>
 
 <br clear="all"/>

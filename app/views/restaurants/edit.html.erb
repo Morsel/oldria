@@ -6,7 +6,45 @@
 <% end -%>
 
 <% semantic_form_for(@restaurant, :html => { :multipart => true }) do |f| %>
-<%= f.error_messages %>
+  <%= f.error_messages %>
+  
+  <% f.inputs :name => "Account Status", :class => "title span-8" do %>
+    <div id="plans" class="current">
+      <div id="payment_blurb">
+        Basic accounts allow you to participate in Spoonfeed. If you would
+        like to be included in Soapbox, please upgrade to a Premium Account.
+      </div>
+    
+      <br clear="all" />
+    
+      <div>
+        <%= link_to "More Information...", "/account_types", :class => 'button' %>
+      </div>
+
+      <br clear="all" />
+      <br clear="all" />
+    
+      <div id="account_status">
+        Your current account status is <%= @restaurant.account_type %>.
+        <% if @restaurant.premium_account? %> 
+          <span id="start_date">
+            You have been a premium member 
+            since <%= @restaurant.subscription.start_date.to_s(:long) %>
+          </span>
+          <% if @restaurant.account_in_overtime? %>
+            <span id="end_date">
+              This account has been canceled and will end 
+              <%= @restaurant.subscription.end_date.to_s(:long)%>
+            </span>
+          <% end %>
+        <% end %>
+      </div>
+    
+      <%= render :partial => 'subscriptions/account_links',
+          :locals => {:subscriber => @restaurant, :subscriber_type => "restaurant"} %>
+    </div>
+  <% end %>
+  
   <% f.inputs :name => "Basics", :class => "title span-8" do %>
     <%= f.input :name %>
     <%= f.input :description, :as => :text, :label => "Tagline or short description" %>
