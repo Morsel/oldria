@@ -154,7 +154,7 @@ class User < ActiveRecord::Base
   def has_no_role!(role = nil)
     update_attribute(:role, nil)
   end
-  
+
   def self.find_premium(id)
     possibility = find_by_id(id)
     if possibility.premium_account then possibility else nil end
@@ -339,26 +339,30 @@ class User < ActiveRecord::Base
     return nil if profile.blank? || !profile.display_cell_public?
     profile.cellnumber
   end
-  
+
   def premium_account
-    premium_account? 
+    premium_account?
   end
-  
+
   def premium_account?
     subscription && subscription.premium?
   end
-  
+
   def complimentary_account?
     subscription && subscription.complimentary?
   end
 
-  def make_premium!(bt_subscription) 
-    self.subscription = Subscription.create(:kind => "User Premium",
-        :payer => self, :start_date => Date.today,
-        :braintree_id => bt_subscription.subscription.id)
-    save
+  def make_premium!(bt_subscription)
+      if self.subscription
+        self.subscription.update_attributes(:updated_at => Time.now, :braintree_id => bt_subscription.subscription.id)
+      else
+        self.subscription = Subscription.create(:kind => "User Premium",
+          :payer => self, :start_date => Date.today,
+          :braintree_id => bt_subscription.subscription.id)
+      end
+      save
   end
-  
+
   def make_complimentary!
     subscription.destroy if subscription.present?
     self.subscription = Subscription.create(:kind => "User Premium",
@@ -366,7 +370,7 @@ class User < ActiveRecord::Base
         :braintree_id => nil)
     save
   end
-  
+
   def cancel_subscription
     subscription.destroy if subscription.present?
     self.subscription = nil

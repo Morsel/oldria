@@ -34,9 +34,11 @@ describe BraintreeConnector do
     end
 
     it "creates subscription requests" do
+      user.stubs(:subscription => nil)
       connector.stubs(:confirm_request => stub_customer_request)
       Braintree::Subscription.expects(:create).with(
         :payment_method_token => "abcd", :plan_id => "user_monthly")
+      Braintree::Subscription.expects(:update).never
       connector.confirm_request_and_start_subscription(stub(:query_string => "query_string"))
     end
 

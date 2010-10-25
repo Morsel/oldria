@@ -4,21 +4,21 @@
   <h3>Account Status</h3>
   <div class="current">
     Your current account status is <%= @user.account_type %>.
-    <% if @user.premium_account? %> 
+    <% if @user.premium_account? %>
       <span id="start_date">
-        You have been a premium member 
+        You have been a premium member
         since <%= @user.subscription.start_date.to_s(:long) %>
       </span>
     <% end %>
   </div>
-  
+
   <div id="upgrade_link">
     <% if @user.premium_account? %>
-      <%= link_to (image_tag('x.png') + "Downgrade to basic"), 
-          subscription_path(@user), :method => :delete,
-          :class => 'button negative' %>
+      <%= link_to "Update billing information", edit_subscription_path(@user.subscription), :class => 'button positive' %>
+      <span class="button-separator">or <%= link_to ("Downgrade to basic"),
+          subscription_path(@user), :method => :delete %></span>
     <% else %>
-      <%= link_to  (image_tag('tick.png') + "Upgrade to Premium"), 
+      <%= link_to  (image_tag('tick.png') + "Upgrade to Premium"),
           new_subscription_path(:id => @user.id),
           :class => 'button positive' %>
     <% end %>
@@ -34,7 +34,7 @@
         <p><%= f.label :avatar, "Headshot" %> <%= f.file_field :avatar %></p>
         <p>
             <%= button_tag (image_tag('tick.png') + "Upload Headshot"), :class => 'positive' %>
-            <span class="button-separator"> or </span> 
+            <span class="button-separator"> or </span>
             <%= link_to (image_tag('x.png') + "Remove my headshot"), remove_avatar_user_path(@user), :method => :put, :confirm => "Are you sure you want to remove your headshot? You'll have to upload another one later to get it back", :class => 'button negative' %>
         </p>
     </fieldset>

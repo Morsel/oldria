@@ -25,10 +25,11 @@ Feature: User Accounts
     Then I see my account status is premium
     And I see a link to cancel my account
 
+  @wip
   Scenario: A user can enter payment info
     Given I am logged in as "emily" with password "secret"
-    And I simulate a successful call from braintree for user "emily"
     And user "emily" does not have a premium account
+    And I simulate braintree create behavior
     When I go to the edit page for "emily"
     And I follow "Upgrade to Premium"
     When I fill in the following:
@@ -38,14 +39,13 @@ Feature: User Accounts
       | customer_credit_card_expiration_year  | 1.year.from_now.year |
       | Security Code                         | 123                  |
 
-
   Scenario: Successful response from braintree makes a user premium
     Given I am logged in as "emily" with password "secret"
     When I simulate a successful call from braintree for user "emily"
     Then I should be on the edit page for "emily"
     Then I see my account status is premium
     And I see my account is paid for by myself
-    
+
   Scenario: Unsuccessful response from braintree makes a user premium
     Given I am logged in as "emily" with password "secret"
     When I simulate an unsuccessful call from braintree for user "emily"
@@ -70,7 +70,7 @@ Feature: User Accounts
     And I follow "Downgrade to basic"
     Then I should be on the edit page for "emily"
     Then I see my account status is premium
-    
+
   Scenario: You can't access another user's account
     Given user "emily" has a premium account
     Given I am logged in as "notemily" with password "secret"
@@ -80,7 +80,7 @@ Feature: User Accounts
     Then I should be on the root page
     When I traverse the delete link for subscriptions for user "emily"
     Then I should be on the root page
-    
+
   Scenario: An admin can access another user's account
     Given user "emily" has a premium account
     And I am logged in as an admin
@@ -89,3 +89,19 @@ Feature: User Accounts
     And I follow "Downgrade to basic"
     Then I should be on the edit page for "emily"
     Then I see my account status is not premium
+
+  Scenario: A user can update their payment info
+    Given user "emily" has a premium account
+    Given I am logged in as "emily" with password "secret"
+    And I simulate braintree update behavior
+    When I go to the edit page for "emily"
+    When I follow "Update billing information"
+    When I fill in the following:
+      | Credit Card Number                    | 4111111111111111     |
+      | Billing ZIP                           | 60654                |
+      | customer_credit_card_expiration_month | 10                   |
+      | customer_credit_card_expiration_year  | 1.year.from_now.year |
+      | Security Code                         | 123                  |
+    And I simulate a successful call from braintree for user "emily"
+    Then I should be on the edit page for "emily"
+    And I see my account status is premium

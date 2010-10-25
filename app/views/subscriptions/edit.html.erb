@@ -1,10 +1,10 @@
-<% title "Upgrade Account To Premium" %>
+<% title "Update Account Payment Information" %>
 
 <% semantic_form_for :customer, :url => Braintree::TransparentRedirect.url, :html => {:autocomplete => false} do |form| %>
 
   <%= render :partial => 'form_fields', :locals => {:form => form} %>
 
-  <%= hidden_field_tag "custom_fields[action]", :value => "create"%>
-  <%= submit_tag "Upgrade my account" %>
+  <%= hidden_field_tag "custom_fields[action]", :value => "update"%>
+  <%= submit_tag "Update my payment information" %>
 
 <% end %>

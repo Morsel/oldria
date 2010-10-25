@@ -10,17 +10,20 @@ class SubscriptionsController < ApplicationController
     @tr_data = @braintree_connector.braintree_data
   end
 
+  def edit
+    @tr_data = @braintree_connector.braintree_data
+  end
+
   def bt_callback
+    request_kind = request.params[:kind]
     bt_result = @braintree_connector.confirm_request_and_start_subscription(request)
     if bt_result.success?
+      flash[:success] = (request_kind == "update_customer")? "Thanks! Your payment information has been updated." : "Thanks for upgrading to Premium!"
       current_user.make_premium!(bt_result)
       redirect_to edit_user_path(@user)
     else
-      # ap bt_result
-      # ap bt_result.params
       flash[:error] = "Whoops. We couldn't process your credit card with the information you provided. If you continue to experience issues, please contact us."
-      # flash[:error] = bt_result.errors
-      redirect_to(new_subscription_path(:id => @user.id))
+      redirect_to(new_subscription_path(:user_id => @user.id))
     end
   end
 
@@ -37,15 +40,16 @@ class SubscriptionsController < ApplicationController
 
   def init_user
     require_user
-    if params[:id].to_i == current_user.id
+    local_id = params[:user_id] || params[:id]
+    if local_id.to_i == current_user.id
       @user = current_user
       return
     end
-    # if current_user.admin?
-    #   @user = User.find(params[:user_id])
-    # else
-      @user = current_user
-    # end
+    if current_user.admin?
+      @user = User.find(local_id)
+    else
+      redirect_to root_path
+    end
   end
 
   def create_braintree_connector
