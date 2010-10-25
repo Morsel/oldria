@@ -5,7 +5,7 @@
         <div id="jumbotron">
             <div id="cycle">
                 <% for slide in @slides %>
-                <%= image_tag slide.image.url(:full), "data-title" => slide.title, "data-caption" => truncate(slide.excerpt, :length => 150), "data-url" => slide.link %>
+                <%= image_tag slide.image.url(:full), "data-title" => slide.title, "data-caption" => truncate(slide.excerpt, :length => 150), "data-url" => slide.link, "data-credit" => slide.photo_credit %>
                 <% end %>
             </div>
             <div id="display">
@@ -13,6 +13,7 @@
                     <h1 id="cycle-title"><%= @slides.first.title %></h1>
                 </header>
                 <summary id="cycle-caption"><%= truncate(@slides.first.excerpt, :length => 100) %>&nbsp;<%= link_to "go&nbsp;&#187;", @slides.first.link %></summary>
+                <footer id="cycle-footer">Photo Credit: <%= @slides.first.photo_credit %></footer>
                 <nav id="pager"></nav>
             </div>
         </div><!-- /jumbotron -->
