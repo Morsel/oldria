@@ -12,6 +12,11 @@ Then /^the trend question with subject "([^\"]*)" should have (\d+) restaurants?
   trend_question.restaurants.count.should == num.to_i
 end
 
+Then /^the trend question with subject "([^\"]*)" should have (\d+) solo employments?$/ do |subject, num|
+  trend_question = TrendQuestion.find_by_subject(subject)
+  trend_question.employments.count.should == num.to_i
+end
+
 Then /^"([^\"]*)" should have (\d+)(?: new)? trend questions?$/ do |restaurant_name, num|
   Restaurant.find_by_name(restaurant_name).trend_questions.count.should == num.to_i
 end
