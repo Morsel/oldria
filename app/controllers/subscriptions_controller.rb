@@ -10,11 +10,16 @@ class SubscriptionsController < ApplicationController
     @tr_data = @braintree_connector.braintree_data
   end
 
+  def edit
+    @tr_data = @braintree_connector.braintree_data
+  end
+
   def bt_callback
+    request_kind = request.params[:kind]
     bt_result = @braintree_connector.confirm_request_and_start_subscription(request)
     if bt_result.success?
       @braintree_customer.make_premium!(bt_result)
-      flash[:notify] = "Congratulations. Your request has been successful. You should expect an email receipt shortly."
+      flash[:success] = (request_kind == "update_customer")? "Thanks! Your payment information has been updated." : "Thanks for upgrading to Premium!"
       redirect_to customer_edit_redirect
     else
       flash[:error] = "Whoops. We couldn't process your credit card with the information you provided. If you continue to experience issues, please contact us."

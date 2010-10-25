@@ -17,14 +17,14 @@
   <br clear="all" />
   <div class="current">
     Your current account status is <%= @user.account_type %>.
-    <% if @user.premium_account? %> 
+    <% if @user.premium_account? %>
       <span id="start_date">
-        You have been a premium member 
+        You have been a premium member
         since <%= @user.subscription.start_date.to_s(:long) %>
       </span>
       <% if @user.subscription && @user.subscription.in_overtime? %>
         <span id="end_date">
-          This account has been canceled and will end 
+          This account has been canceled and will end
           <%= @user.subscription.end_date.to_s(:long)%>
         </span>
       <% end %>
@@ -33,7 +33,6 @@
   
   <%= render :partial => 'subscriptions/account_links',
       :locals => {:subscriber => @user, :subscriber_type => "user"} %>
-
 </div>
 
 <br clear="all"/>
@@ -45,7 +44,7 @@
         <p><%= f.label :avatar, "Headshot" %> <%= f.file_field :avatar %></p>
         <p>
             <%= button_tag (image_tag('tick.png') + "Upload Headshot"), :class => 'positive' %>
-            <span class="button-separator"> or </span> 
+            <span class="button-separator"> or </span>
             <%= link_to (image_tag('x.png') + "Remove my headshot"), remove_avatar_user_path(@user), :method => :put, :confirm => "Are you sure you want to remove your headshot? You'll have to upload another one later to get it back", :class => 'button negative' %>
         </p>
     </fieldset>

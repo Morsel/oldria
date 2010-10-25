@@ -120,7 +120,7 @@ class User < ActiveRecord::Base
   def has_no_role!(role = nil)
     update_attribute(:role, nil)
   end
-  
+
   def self.find_premium(id)
     possibility = find_by_id(id)
     if possibility.premium_account then possibility else nil end

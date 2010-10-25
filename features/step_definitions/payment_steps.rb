@@ -43,10 +43,19 @@ Then /^I see a link to cancel my account$/ do
       :content => "Downgrade to basic")
 end
 
-When /^I simulate a successful call from braintree for user "([^"]*)"$/ do |username|
-  user = User.find_by_username(username)
+When /^I simulate braintree create behavior$/ do
   BraintreeConnector.any_instance.stubs(
       :braintree_customer => nil)
+end
+
+When /^I simulate braintree update behavior$/ do
+  BraintreeConnector.any_instance.stubs(
+      :braintree_customer => stub(:kind => 'update_customer', :credit_cards => [stub(:token => "token_abcd")])
+      )
+end
+
+When /^I simulate a successful call from braintree for user "([^"]*)"$/ do |username|
+  user = User.find_by_username(username)
   BraintreeConnector.any_instance.stubs(
       :confirm_request_and_start_subscription => stub(:success? => true,
           :subscription => stub(:id => "abcd")))
@@ -99,7 +108,7 @@ end
 
 Then /^I see my account is paid for by myself$/ do
   response.should_not have_selector(".current", :content => "Complimentary")
-  response.should have_selector(".current #start_date", 
+  response.should have_selector(".current #start_date",
       :content => "since #{Date.today.to_s(:long)}")
 end
 

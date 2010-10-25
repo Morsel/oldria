@@ -3,6 +3,7 @@ require 'spec_helper'
 describe SubscriptionsController do
 
   describe "GET new" do
+<<<<<<< HEAD
     
     context "with a user" do
 
@@ -27,6 +28,13 @@ describe SubscriptionsController do
         @restaurant = Factory(:managed_restaurant, :manager => @user)
         @controller.stubs(:current_user).returns(@user)
       end
+=======
+
+    before(:each) do
+      @user = Factory(:user, :email => "fred@flintstone.com", :username => "fred")
+      @controller.stubs(:current_user).returns(@user)
+    end
+>>>>>>> cc274378714891937324e3ad34cbd78e62987725
 
       it "populates the tr data" do
         BraintreeConnector.any_instance.expects(:braintree_data => "data")
@@ -38,28 +46,28 @@ describe SubscriptionsController do
     end
 
   end
-  
+
   describe "find user behavior" do
-    
+
     let(:user) { Factory(:user) }
     let(:admin) { Factory(:admin) }
-    
+
     before(:each) do
       BraintreeConnector.any_instance.stubs(:braintree_data => "data")
     end
-    
+
     it "picks the right user if the current user is not an admin" do
       @controller.stubs(:current_user).returns(user)
       get :new, :id => user.id
       assigns[:braintree_customer].should == user
     end
-    
+
     it "picks the right user if the user is an admin looking at another user" do
       @controller.stubs(:current_user).returns(admin)
       get :new, :id => user.id
       assigns[:braintree_customer].should == user
     end
-    
+
     it "blocks if a regular user tries to look at another user" do
       @controller.stubs(:current_user).returns(user)
       get :new, :id => admin.id
@@ -122,19 +130,17 @@ describe SubscriptionsController do
       
     end
 
-    
-    
   end
-  
+
   describe "DELETE destroy" do
-    
+
     before(:each) do
-      @user = Factory(:user, :email => "fred@flintstone.com", 
+      @user = Factory(:user, :email => "fred@flintstone.com",
           :username => "fred")
       @user.subscription = Factory(:subscription)
       @controller.stubs(:current_user).returns(@user)
     end
-    
+
     it "puts the subscription in overtime on successful delete" do
       BraintreeConnector.expects(:find_subscription).with(
           @user.subscription).returns(
@@ -146,7 +152,7 @@ describe SubscriptionsController do
       @user.subscription.end_date.should == 1.month.from_now.to_date
       @user.should be_premium_account
     end
-    
+
   end
 
 end

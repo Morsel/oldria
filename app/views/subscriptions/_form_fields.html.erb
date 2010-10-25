@@ -1,0 +1,22 @@
+  <%= hidden_field_tag "tr_data", h(@tr_data) %>
+
+  <% form.semantic_fields_for :credit_card do |cc_form| %>
+    <%= cc_form.input :number, :label => "Credit Card Number" %>
+
+    <% content_tag :li,
+            :id => "customer_credit_card_number_expiration_date", :class => "date required" do %>
+      <%= label_tag "customer[credit_card][expiration_month]", "Expiration Date"%>
+      <%= select_tag 'customer[credit_card][expiration_month]',
+         options_for_select(1 .. 12) %>
+      <%= select_tag 'customer[credit_card][expiration_year]',
+         options_for_select(Date.today.year .. Date.today.year + 10)%>
+    <% end %>
+
+    <% cc_form.semantic_fields_for :billing_address do |address_form| %>
+      <%= address_form.input :postal_code, :label => "Billing Zip Code" %>
+    <% end %>
+
+    <%= cc_form.input :cvv, :label => "Security Code" %>
+  <% end %>
+
+  <br />

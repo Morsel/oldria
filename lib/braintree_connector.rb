@@ -65,14 +65,11 @@ class BraintreeConnector
   end
 
   def confirm_request_and_start_subscription(request)
-    confirmation_result = self.confirm_request(request)
-    return confirmation_result unless confirmation_result.success?
-    @subscription_request ||= Braintree::Subscription.create(
-      :payment_method_token => confirmation_result.customer.credit_cards.first.token,
-      :plan_id => braintree_plan_id
-    )
+    @confirmation_result = confirm_request(request)
+    return @confirmation_result unless @confirmation_result.success?
+    @subscription_request ||= (payer.subscription) ? update_subscription : create_subscription
   end
-  
+
   def self.cancel_subscription(subscription)
     Braintree::Subscription.cancel(subscription.braintree_id)
   end
@@ -87,6 +84,20 @@ class BraintreeConnector
   
   def find_subscription(subscription)
     BraintreeConnector.find_subscription(subscription)
+  end
+
+  private
+  def update_subscription
+    Braintree::Subscription.update(payer.subscription.braintree_id,
+      :payment_method_token => @confirmation_result.customer.credit_cards.first.token
+    )
+  end
+
+  def create_subscription
+    Braintree::Subscription.create(
+      :payment_method_token => @confirmation_result.customer.credit_cards.first.token,
+      :plan_id => braintree_plan_id
+    )
   end
 
 end
