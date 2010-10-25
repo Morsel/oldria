@@ -411,8 +411,7 @@ describe User do
       
       before(:each) do
         BraintreeConnector.expects(:find_subscription).with(user.subscription).returns(
-            stub(:subscription => 
-                stub(:billing_period_end_date => 1.month.from_now.to_date)))
+            stub(:billing_period_end_date => 1.month.from_now.to_date))
         user.cancel_subscription!(:terminate_immediately => false)
       end
       

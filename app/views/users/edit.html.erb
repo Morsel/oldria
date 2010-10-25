@@ -18,17 +18,25 @@
     <% end %>
   </div>
   
-  <div id="upgrade_link">
-    <% if @user.premium_account? %>
-      <%= link_to (image_tag('x.png') + "Downgrade to basic"), 
-          subscription_path(@user), :method => :delete,
-          :class => 'button negative' %>
-    <% else %>
-      <%= link_to (image_tag('tick.png') + "Upgrade to Premium"), 
-          new_subscription_path(:id => @user.id),
-          :class => 'button positive' %>
-    <% end %>
-  </div>
+  <% if @user.account_in_overtime? %>
+    <div id="overtime">
+      You can modify your premium account again after the current 
+      subscription expires.
+    </div>
+  <% else %>
+    <div id="upgrade_link">
+      <% if @user.premium_account? %>
+        <%= link_to (image_tag('x.png') + "Downgrade to basic"), 
+            subscription_path(@user), :method => :delete,
+            :confirm => "Do you really want to cancel your premium subscription?",
+            :class => 'button negative' %>
+      <% else %>
+        <%= link_to (image_tag('tick.png') + "Upgrade to Premium"), 
+            new_subscription_path(:id => @user.id),
+            :class => 'button positive' %>
+      <% end %>
+    </div>
+  <% end %>
 </div>
 
 <br clear="all"/>

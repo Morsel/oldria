@@ -79,8 +79,8 @@ describe SubscriptionsController do
     
     it "puts the subscription in overtime on successful delete" do
       BraintreeConnector.expects(:find_subscription).with(
-          @user.subscription).returns(stub(:subscription => 
-              stub(:billing_period_end_date => 1.month.from_now.to_date)))
+          @user.subscription).returns(
+              stub(:billing_period_end_date => 1.month.from_now.to_date))
       BraintreeConnector.any_instance.expects(
           :cancel_subscription).with(@user.subscription).returns(stub(:success? => true))
       delete :destroy, :id => @user.id

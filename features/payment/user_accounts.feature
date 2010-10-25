@@ -62,6 +62,7 @@ Feature: User Accounts
     Then I should be on the edit page for "emily"
     Then I see my account status is premium
     And I see that the account for "emily" lasts until the end of the billing cycle
+    And I do not see any account change options
     
   Scenario: An unsuccessful cancel doesn't work
     Given user "emily" has a premium account

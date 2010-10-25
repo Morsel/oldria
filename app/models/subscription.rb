@@ -27,7 +27,12 @@ class Subscription < ActiveRecord::Base
   
   def set_end_date_from_braintree
     data = braintree_data
-    update_attributes(:end_date => data.subscription.billing_period_end_date)
+    update_attributes(:end_date => data.billing_period_end_date)
+  rescue 
+    # preventing infinite access if something is weird with braintree 
+    # data
+    p $!
+    update_attributes(:end_date => 1.month.from_now)
   end
   
 end

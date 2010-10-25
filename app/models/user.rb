@@ -317,6 +317,10 @@ class User < ActiveRecord::Base
   def complimentary_account?
     subscription && subscription.complimentary?
   end
+  
+  def account_in_overtime?
+    subscription && subscription.in_overtime?
+  end
 
   def make_premium!(bt_subscription) 
     self.subscription = Subscription.create(:kind => "User Premium",

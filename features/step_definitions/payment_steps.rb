@@ -58,8 +58,7 @@ When /^I simulate a successful cancel from braintree$/ do
   BraintreeConnector.any_instance.stubs(
       :cancel_subscription => stub(:success? => true))
   BraintreeConnector.stubs(:find_subscription).returns(
-          stub(:subscription => 
-              stub(:billing_period_end_date => 1.month.from_now.to_date)))
+          stub(:billing_period_end_date => 1.month.from_now.to_date))
 end
 
 When /^I simulate an unsuccessful cancel from braintree$/ do
@@ -85,6 +84,10 @@ end
 
 Then /^I don't see that the account for "([^"]*)" lasts until the end of the billing cycle$/ do |username|
   response.should_not have_selector("#end_date")
+end
+
+Then /^I do not see any account change options$/ do
+  response.should_not have_selector("#upgrade_link")
 end
 
 

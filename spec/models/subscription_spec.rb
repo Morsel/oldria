@@ -55,8 +55,7 @@ describe Subscription do
     
     it "can set end date from braintree" do
       BraintreeConnector.expects(:find_subscription).with(subscription).returns(
-          stub(:subscription => 
-              stub(:billing_period_end_date => 1.month.from_now.to_date)))
+          stub(:billing_period_end_date => 1.month.from_now.to_date))
       subscription.set_end_date_from_braintree
       subscription.end_date.should == 1.month.from_now.to_date
     end
