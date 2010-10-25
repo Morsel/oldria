@@ -63,7 +63,7 @@ Feature: User Accounts
     Then I see my account status is premium
     And I see that the account for "emily" lasts until the end of the billing cycle
     And I do not see any account change options
-    
+
   Scenario: An unsuccessful cancel doesn't work
     Given user "emily" has a premium account
     Given I am logged in as "emily" with password "secret"
@@ -72,12 +72,8 @@ Feature: User Accounts
     And I follow "Downgrade to basic"
     Then I should be on the edit page for "emily"
     Then I see my account status is premium
-<<<<<<< HEAD
-
-=======
     And I don't see that the account for "emily" lasts until the end of the billing cycle
-     
->>>>>>> 501c3d34276c27f1c06f16bbd45c492a55065942
+
   Scenario: You can't access another user's account
     Given user "emily" has a premium account
     Given I am logged in as "notemily" with password "secret"
@@ -95,8 +91,8 @@ Feature: User Accounts
     When I go to the edit page for "emily"
     And I follow "Downgrade to basic"
     Then I should be on the edit page for "emily"
-<<<<<<< HEAD
-    Then I see my account status is not premium
+    Then I see my account status is premium
+    And I see that the account for "emily" lasts until the end of the billing cycle
 
   Scenario: A user can update their payment info
     Given user "emily" has a premium account
@@ -113,8 +109,3 @@ Feature: User Accounts
     And I simulate a successful call from braintree for user "emily"
     Then I should be on the edit page for "emily"
     And I see my account status is premium
-=======
-    Then I see my account status is premium
-    And I see that the account for "emily" lasts until the end of the billing cycle
-    
->>>>>>> 501c3d34276c27f1c06f16bbd45c492a55065942
