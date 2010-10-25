@@ -3,7 +3,6 @@ require 'spec_helper'
 describe SubscriptionsController do
 
   describe "GET new" do
-<<<<<<< HEAD
     
     context "with a user" do
 
@@ -28,13 +27,6 @@ describe SubscriptionsController do
         @restaurant = Factory(:managed_restaurant, :manager => @user)
         @controller.stubs(:current_user).returns(@user)
       end
-=======
-
-    before(:each) do
-      @user = Factory(:user, :email => "fred@flintstone.com", :username => "fred")
-      @controller.stubs(:current_user).returns(@user)
-    end
->>>>>>> cc274378714891937324e3ad34cbd78e62987725
 
       it "populates the tr data" do
         BraintreeConnector.any_instance.expects(:braintree_data => "data")
@@ -132,12 +124,13 @@ describe SubscriptionsController do
 
   end
 
+  #TODO: Destroy a comp account
   describe "DELETE destroy" do
 
     before(:each) do
       @user = Factory(:user, :email => "fred@flintstone.com",
           :username => "fred")
-      @user.subscription = Factory(:subscription)
+      @user.subscription = Factory(:subscription, :payer => @user)
       @controller.stubs(:current_user).returns(@user)
     end
 

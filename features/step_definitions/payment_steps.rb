@@ -80,7 +80,7 @@ When /^I simulate an unsuccessful call from braintree for user "([^"]*)"$/ do |u
       :braintree_customer => nil)
   BraintreeConnector.any_instance.stubs(
       :confirm_request_and_start_subscription => stub(:success? => false))
-  visit(bt_callback_subscriptions_path(:customer_id => customer.id, 
+  visit(bt_callback_subscriptions_path(:customer_id => user.id, 
       :subscriber_type => "user"))
 end
 

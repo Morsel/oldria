@@ -305,7 +305,7 @@ describe User do
     it "finds a complimentary account" do
       user = Factory(:user)
       user.subscription = Factory(:subscription, :payer => nil)
-      user.account_type.should == "Complimentary"
+      user.account_type.should == "Complimentary Premium"
       User.find_premium(user.id).should == user
     end
     

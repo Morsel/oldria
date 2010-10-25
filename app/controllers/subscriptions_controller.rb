@@ -29,10 +29,14 @@ class SubscriptionsController < ApplicationController
   end
 
   def destroy
-    destroy_result = @braintree_connector.cancel_subscription(
-        @braintree_customer.subscription)
-    if destroy_result.success?
+    if @braintree_customer.complimentary_account?
       @braintree_customer.cancel_subscription!(:terminate_immediately => false)
+    else 
+      destroy_result = @braintree_connector.cancel_subscription(
+          @braintree_customer.subscription)
+      if destroy_result.success?
+        @braintree_customer.cancel_subscription!(:terminate_immediately => false)
+      end
     end
     redirect_to edit_user_path(@braintree_customer)
   end

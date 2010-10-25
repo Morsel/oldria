@@ -18,39 +18,39 @@
     <div id="account_status">
       <% if !@user.new_record? %>
         <% if @user.complimentary_account? %>
-          This user has a complimentary premium account.
+          This user has a Complimentary Premium Account.
           <br clear="all"/>
           <br clear="all"/>
           <% link_to cancel_complimentary_admin_user_path(@user), 
               :class => 'button negative', :method => :post, 
               :confirm => "Are you sure you want to make this account basic?" do %>
             <%= image_tag('x.png') %>  
-            Cancel the user's complimentary premium account
+            Cancel the user's Complimentary Premium Account
           <% end %>
         <% elsif @user.premium_account %>
-          This user has a Premium account.
+          This user has a Premium Account.
           <% link_to make_complimentary_admin_user_path(@user), 
               :class => 'button positive', :method => :post,
               :confirm => "Are you sure you want to make this account complimentary?" do %>
             <%= image_tag('tick.png') %>  
-            Convert user's premium account to a complimentary premium account
+            Convert user's premium account to a Complimentary Premium Account
           <% end %>
           <br clear="all" />
           <% link_to cancel_complimentary_admin_user_path(@user), 
               :class => 'button negative', :method => :post, 
               :confirm => "Are you sure you want to make this account basic?" do %>
             <%= image_tag('x.png') %>  
-            Downgrade the user to a basic account
+            Downgrade the user to a Basic Account
           <% end %>
         <% else %>
-          This user has a Basic account.
+          This user has a Basic Account.
           <br clear="all"/>
           <br clear="all"/>
           <% link_to make_complimentary_admin_user_path(@user), 
               :class => 'button positive', :method => :post,
               :confirm => "Are you sure you want to make this account complimentary?" do %>
             <%= image_tag('tick.png') %>  
-            Give user a complimentary premium account
+            Give user a Complimentary Premium Account
           <% end %>
         <% end %>
       <% end %>

@@ -244,7 +244,7 @@ describe Restaurant do
     it "finds a premium account" do
       restaurant = Factory(:restaurant)
       restaurant.subscription = Factory(:subscription)
-      restaurant.account_type.should == "Premium"
+      restaurant.account_type.should == "Complimentary Premium"
       Restaurant.find_premium(restaurant.id).should == restaurant
     end
     

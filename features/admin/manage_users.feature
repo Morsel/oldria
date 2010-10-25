@@ -29,19 +29,19 @@ Feature: Manage users
     Given the user "jimbob" does not have a premium account
     When I go to the admin edit page for "jimbob"
     And I should see that the user has a basic account
-    And I follow "Give user complimentary premium account"
+    And I follow "Give user a Complimentary Premium Account"
     Then I should be on the admin edit page for "jimbob"
     Then I should see that the user has a complimentary account
     When I am on the admin users landing page
     And "jimbob" should have a "Complimentary" account in the list
     When I go to the profile page for "jimbob"
     And "jimbob" should have a "Complimentary" account on the page
-    
+   
   Scenario: Canceling a complimentary account
     Given the user "jimbob" has a complimentary account
     When I go to the admin edit page for "jimbob"
     And I should see that the user has a complimentary account
-    And I follow "Cancel the user's complimentary account"
+    And I follow "Cancel the user's Complimentary Premium Account"
     Then I should be on the admin edit page for "jimbob"
     Then I should see that the user has a basic account
     When I am on the admin users landing page
@@ -53,7 +53,7 @@ Feature: Manage users
     Given the user "jimbob" has a premium account
     When I go to the admin edit page for "jimbob"
     And I should see that the user has a premium account
-    And I follow "Convert user's premium account to complimentary"
+    And I follow "Convert user's premium account to a Complimentary Premium Account"
     Then I should be on the admin edit page for "jimbob"
     Then I should see that the user has a complimentary account
     When I am on the admin users landing page
