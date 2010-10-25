@@ -81,6 +81,11 @@ describe BraintreeConnector do
       Braintree::Subscription.expects(:cancel).with("abcd")
       connector.cancel_subscription(user.subscription)
     end
+    
+    it "finds a subscription when requested" do
+      Braintree::Subscription.expects(:find).with("abcd")
+      connector.find_subscription(Factory(:subscription))
+    end
 
   end
 

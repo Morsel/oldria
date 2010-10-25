@@ -21,7 +21,7 @@ class UsersController < ApplicationController
   end
 
   def update
-    employment_params = params[:user].delete(:default_employment)
+    employment_params = params[:user].delete(:default_employment) if params[:user]
     respond_to do |format|
       if @user.update_attributes(params[:user])
         if employment_params
@@ -155,9 +155,8 @@ class UsersController < ApplicationController
   end
 
   def require_owner_or_admin
-    require_user
     @user = User.find(params[:id])
-    unless (@user == current_user) || current_user.admin?
+    unless (@user == current_user) || (current_user.present? && current_user.admin?)
       flash[:error] = "This is an administrative area. Nothing exciting here at all."
       redirect_to root_url
     end

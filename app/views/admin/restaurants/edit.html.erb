@@ -6,6 +6,10 @@
 		<%= f.text_field :name, :class => 'title span-8' %>
 	</p>
 
+    <% f.inputs do %>
+        <%= f.input :sort_name, :class => 'span-8', :hint => "For example: if the restaurant is The Gage, the sort name should be Gage, The" %>
+	<% end %>
+
 	<% f.inputs :name => "Address", :class => "span-8 column" do %>
 		<%= f.input :street1, :label => 'Street Address' %>
 		<%= f.input :street2, :label => 'Street Address Line 2 (Optional)' %>

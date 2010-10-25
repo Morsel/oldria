@@ -72,7 +72,8 @@ Feature: Manage users
     And "jimbob" should have a "Basic" account in the list
     When I go to the profile page for "jimbob"
     And "jimbob" should have a "Basic" account on the page
-  
+    Then I go to the edit page for "jimbob"
+    And I don't see that the account for "jimbob" lasts until the end of the billing cycle
 
 @preconfirmed 
   Scenario: Add a user from the admin interface

@@ -9,20 +9,33 @@
         You have been a premium member
         since <%= @user.subscription.start_date.to_s(:long) %>
       </span>
+      <% if @user.subscription && @user.subscription.in_overtime? %>
+        <span id="end_date">
+          This account has been canceled and will end
+          <%= @user.subscription.end_date.to_s(:long)%>
+        </span>
+      <% end %>
     <% end %>
   </div>
 
-  <div id="upgrade_link">
-    <% if @user.premium_account? %>
-      <%= link_to "Update billing information", edit_subscription_path(@user.subscription), :class => 'button positive' %>
-      <span class="button-separator">or <%= link_to ("Downgrade to basic"),
-          subscription_path(@user), :method => :delete %></span>
-    <% else %>
-      <%= link_to  (image_tag('tick.png') + "Upgrade to Premium"),
-          new_subscription_path(:id => @user.id),
-          :class => 'button positive' %>
-    <% end %>
-  </div>
+  <% if @user.account_in_overtime? %>
+    <div id="overtime">
+      You can modify your premium account again after the current
+      subscription expires.
+    </div>
+  <% else %>
+    <div id="upgrade_link">
+      <% if @user.premium_account? %>
+        <%= link_to "Update billing information", edit_subscription_path(@user.subscription), :class => 'button positive' %>
+        <span class="button-separator">or <%= link_to ("Downgrade to basic"),
+            subscription_path(@user), :method => :delete, :confirm => "Do you really want to cancel your premium subscription?" %></span>
+      <% else %>
+        <%= link_to (image_tag('tick.png') + "Upgrade to Premium"),
+            new_subscription_path(:id => @user.id),
+            :class => 'button positive' %>
+      <% end %>
+    </div>
+  <% end %>
 </div>
 
 <br clear="all"/>

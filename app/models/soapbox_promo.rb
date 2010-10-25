@@ -1,5 +1,10 @@
+class SoapboxPromo < ActiveRecord::Base
+  
+  validates_presence_of :title, :body
+  
+end
+
 # == Schema Information
-# Schema version: 20101019162841
 #
 # Table name: soapbox_promos
 #
@@ -8,10 +13,6 @@
 #  body       :text
 #  created_at :datetime
 #  updated_at :datetime
+#  link       :string(255)
 #
 
-class SoapboxPromo < ActiveRecord::Base
-  
-  validates_presence_of :title, :body
-  
-end

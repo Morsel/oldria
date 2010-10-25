@@ -8,7 +8,7 @@ class Soapbox::SoapboxController < ApplicationController
   def index
     @home = true
     @slides = SoapboxSlide.all(:order => "position", :limit => 4)
-    @promos = SoapboxPromo.all(:order => "created_at DESC", :limit => 3)
+    @promos = SoapboxPromo.all(:order => "position", :limit => 3)
   end
 
   def directory
@@ -22,6 +22,8 @@ class Soapbox::SoapboxController < ApplicationController
       params[:search] = { :employee_premium_account_equals => true }
       directory_search_setup
       @use_search = true
+      @users_for_search = User.by_last_name.all(:conditions => { :premium_account => true })
+      @restaurants_for_search = @users_for_search.map(&:restaurants).flatten.compact.uniq.sort { |a,b| a.sort_name <=> b.sort_name }
     end
     
     render :template => "directory/index"

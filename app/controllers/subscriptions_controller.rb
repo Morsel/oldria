@@ -31,7 +31,7 @@ class SubscriptionsController < ApplicationController
     destroy_result = @braintree_connector.cancel_subscription(
         @user.subscription)
     if destroy_result.success?
-      @user.cancel_subscription
+      @user.cancel_subscription!(:terminate_immediately => false)
     end
     redirect_to edit_user_path(@user)
   end
@@ -54,7 +54,7 @@ class SubscriptionsController < ApplicationController
 
   def create_braintree_connector
     @braintree_connector = BraintreeConnector.new(@user,
-        bt_callback_subscriptions_url)
+        bt_callback_subscriptions_url(:user_id => @user.id))
   end
 
 end

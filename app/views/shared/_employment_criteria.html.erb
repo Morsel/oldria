@@ -20,7 +20,7 @@
         <div id="user_fields" style="display:none;">
             <%= s.input :employee_id_equals_any,
                         :as => "check_boxes",
-                        :collection => params[:controller].match(/soapbox/) ? User.by_last_name.all(:conditions => { :premium_account => true }) : User.by_last_name %>
+                        :collection => @users_for_search || User.by_last_name %>
         </div>
       </div>
       <div class="accordion_box">
@@ -28,7 +28,7 @@
         <div id="restaurant_fields" style="display:none;">
             <%= s.input :restaurant_id_equals_any,
                         :as => "check_boxes",
-                        :collection => Restaurant.all(:order => 'name ASC') %>
+                        :collection => @restaurants_for_search || Restaurant.all(:order => 'sort_name ASC') %>
         </div>
       </div>
       <div class="accordion_box">

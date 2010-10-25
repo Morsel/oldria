@@ -15,7 +15,9 @@ class InvitationsController < ApplicationController
     @invitation = Invitation.new(params[:invitation])
     if @invitation.save
       flash[:notice] = "Thanks for recommending a new member for Spoonfeed! We’ll shoot them an invitation as soon as our system can accept new members."
-      redirect_to root_path
+      current_user ? 
+        redirect_to(root_path) :
+        redirect_to('/soapbox/request-invitation')
     else
       render :new
     end

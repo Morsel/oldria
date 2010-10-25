@@ -1,37 +1,3 @@
-# == Schema Information
-# Schema version: 20101013222730
-#
-# Table name: users
-#
-#  id                    :integer         not null, primary key
-#  username              :string(255)
-#  email                 :string(255)
-#  crypted_password      :string(255)
-#  password_salt         :string(255)
-#  perishable_token      :string(255)
-#  persistence_token     :string(255)     not null
-#  created_at            :datetime
-#  updated_at            :datetime
-#  confirmed_at          :datetime
-#  last_request_at       :datetime
-#  atoken                :string(255)
-#  asecret               :string(255)
-#  avatar_file_name      :string(255)
-#  avatar_content_type   :string(255)
-#  avatar_file_size      :integer
-#  avatar_updated_at     :datetime
-#  first_name            :string(255)
-#  last_name             :string(255)
-#  james_beard_region_id :integer
-#  publication           :string(255)
-#  role                  :string(255)
-#  facebook_id           :string(255)
-#  facebook_access_token :string(255)
-#  facebook_page_id      :string(255)
-#  facebook_page_token   :string(255)
-#  premium_account       :boolean
-#
-
 class User < ActiveRecord::Base
   acts_as_authentic do |c|
     c.validates_format_of_login_field_options = { :with => /^[a-zA-Z0-9\-\_ ]+$/,
@@ -120,7 +86,7 @@ class User < ActiveRecord::Base
 ### Preferences ###
   preference :hide_help_box, :default => false
   preference :receive_email_notifications, :default => false
-  preference :publish_profile, :default => false
+  preference :publish_profile, :default => true
 
 ### Roles ###
   def admin?
@@ -352,6 +318,10 @@ class User < ActiveRecord::Base
     subscription && subscription.complimentary?
   end
 
+  def account_in_overtime?
+    subscription && subscription.in_overtime?
+  end
+
   def make_premium!(bt_subscription)
       if self.subscription
         self.subscription.update_attributes(:updated_at => Time.now, :braintree_id => bt_subscription.subscription.id)
@@ -371,10 +341,48 @@ class User < ActiveRecord::Base
     save
   end
 
-  def cancel_subscription
-    subscription.destroy if subscription.present?
-    self.subscription = nil
+  def cancel_subscription!(options)
+    raise "Specify a cancel subscription method" if options[:terminate_immediately].nil?
+    if options[:terminate_immediately]
+      subscription.destroy if subscription.present?
+      self.subscription = nil
+    else
+      subscription.set_end_date_from_braintree
+    end
   end
 
 end
+
+
+# == Schema Information
+#
+# Table name: users
+#
+#  id                    :integer         not null, primary key
+#  username              :string(255)
+#  email                 :string(255)
+#  crypted_password      :string(255)
+#  password_salt         :string(255)
+#  perishable_token      :string(255)
+#  persistence_token     :string(255)     not null
+#  created_at            :datetime
+#  updated_at            :datetime
+#  confirmed_at          :datetime
+#  last_request_at       :datetime
+#  atoken                :string(255)
+#  asecret               :string(255)
+#  avatar_file_name      :string(255)
+#  avatar_content_type   :string(255)
+#  avatar_file_size      :integer
+#  avatar_updated_at     :datetime
+#  first_name            :string(255)
+#  last_name             :string(255)
+#  james_beard_region_id :integer
+#  publication           :string(255)
+#  role                  :string(255)
+#  facebook_id           :string(255)
+#  facebook_access_token :string(255)
+#  facebook_page_id      :string(255)
+#  facebook_page_token   :string(255)
+#
 

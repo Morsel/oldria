@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20101021162955) do
+ActiveRecord::Schema.define(:version => 20101022213700) do
 
   create_table "a_la_minute_answers", :force => true do |t|
     t.text     "answer"
@@ -714,6 +714,7 @@ ActiveRecord::Schema.define(:version => 20101021162955) do
     t.integer  "logo_id"
     t.integer  "primary_photo_id"
     t.date     "opening_date"
+    t.string   "sort_name"
   end
 
   add_index "restaurants", ["cuisine_id"], :name => "index_restaurants_on_cuisine_id"
@@ -765,6 +766,7 @@ ActiveRecord::Schema.define(:version => 20101021162955) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "link"
+    t.integer  "position"
   end
 
   create_table "soapbox_slides", :force => true do |t|
@@ -778,6 +780,7 @@ ActiveRecord::Schema.define(:version => 20101021162955) do
     t.integer  "position"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "photo_credit"
   end
 
   create_table "solo_discussions", :force => true do |t|
@@ -840,6 +843,7 @@ ActiveRecord::Schema.define(:version => 20101021162955) do
     t.string   "kind"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.date     "end_date"
   end
 
   create_table "topics", :force => true do |t|
