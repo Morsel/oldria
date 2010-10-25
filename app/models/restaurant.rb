@@ -184,9 +184,7 @@ class Restaurant < ActiveRecord::Base
   end
 
   def update_admin_discussions
-    # this is to trigger the trend question to re-evaluate the restaurants that match its criteria, 
-    # in case this restaurant no longer does
-    trend_questions.find_all(&:touch)
+    TrendQuestion.all.each(&:touch)
   end
 
   def reset_primary_photo_on_add(added_photo)
