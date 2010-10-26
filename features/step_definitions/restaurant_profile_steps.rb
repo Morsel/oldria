@@ -371,6 +371,14 @@ Then /^the show page should be premium$/ do
   response.should have_selector(".premium", :content => "Premium")
 end
 
+Then /^the show page should be basic$/ do
+  response.should have_selector(".premium", :content => "Basic")
+end
+
+Then /^the show page should be complimentary$/ do
+  response.should have_selector(".premium", :content => "Complimentary")
+end
+
 Then /^the show page should not be premium$/ do
   response.should_not have_selector(".premium", :content => "Premium")
 end

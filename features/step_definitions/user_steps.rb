@@ -167,14 +167,14 @@ end
 
 
 When /^I should see that the user has a basic account$/ do
-  response.should have_selector("#account_status", :content => "Basic")
+  response.should have_selector("#account_type", :content => "Basic")
 end
 
 Then /^I should see that the user has a complimentary account$/ do
-  response.should have_selector("#account_status", :content => "Complimentary")
+  response.should have_selector("#account_type", :content => "Complimentary")
 end
 
 When /^I should see that the user has a premium account$/ do
-  response.should have_selector("#account_status", :content => "Premium")
+  response.should have_selector("#account_type", :content => "Premium")
 end
 

@@ -1,0 +1,54 @@
+<div id="account_status">
+  <% if !subscriber.new_record? %>
+    <% if subscriber.complimentary_account? %>
+      <span id="account_type">
+        This <%= subscriber_type %> has a Complimentary Premium Account.
+      </span>
+      <br clear="all"/>
+      <br clear="all"/>
+      <% link_to( 
+          admin_complimentary_accounts_path(
+              :subscriber_id => subscriber.id, :subscriber_type => subscriber_type), 
+          :class => 'button negative', 
+          :method => :delete, 
+          :confirm => "Are you sure you want to make this account basic?") do %>
+        <%= image_tag('x.png') %>  
+        Cancel the <%= subscriber_type %>'s Complimentary Premium Account
+      <% end %>
+    <% elsif subscriber.premium_account %>
+      <span id="account_type">
+        This <%= subscriber_type %> has a Premium Account.
+      </span>
+      <% link_to(admin_complimentary_accounts_path(:subscriber_id => subscriber, 
+          :subscriber_type => subscriber_type), 
+          :class => 'button positive', 
+          :method => :post,
+          :confirm => "Are you sure you want to make this account complimentary?") do %>
+        <%= image_tag('tick.png') %>  
+        Convert <%= subscriber_type %>'s premium account to a Complimentary Premium Account
+      <% end %>
+      <br clear="all" />
+      <% link_to(admin_complimentary_accounts_path(:subscriber_id => subscriber, 
+          :subscriber_type => subscriber_type), 
+          :class => 'button negative', :method => :delete, 
+          :confirm => "Are you sure you want to make this account basic?") do %>
+        <%= image_tag('x.png') %>  
+        Downgrade the <%= subscriber_type %> to a Basic Account
+      <% end %>
+    <% else %>
+      <span id="account_type">
+        This <%= subscriber_type %> has a Basic Account.
+      </span>
+      <br clear="all"/>
+      <br clear="all"/>
+      <% link_to(admin_complimentary_accounts_path(:subscriber_id => subscriber, 
+          :subscriber_type => subscriber_type), 
+          :class => 'button positive', 
+          :method => :post,
+          :confirm => "Are you sure you want to make this account complimentary?") do %>
+        <%= image_tag('tick.png') %>  
+        Give <%= subscriber_type %> a Complimentary Premium Account
+      <% end %>
+    <% end %>
+  <% end %>
+</div>
