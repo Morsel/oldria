@@ -79,7 +79,6 @@ class BraintreeConnector
   end
   
   def self.find_subscription(subscription)
-    ap caller
     Braintree::Subscription.find(subscription.braintree_id)
   end
   

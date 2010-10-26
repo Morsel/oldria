@@ -113,7 +113,7 @@ Then /^I see my account is paid for by myself$/ do
 end
 
 When /^I traverse the delete link for subscriptions for user "([^"]*)"$/ do |username|
-  visit(subscription_path(:customer_id => User.find_by_username(username).id, 
+  visit(subscription_path(:id => User.find_by_username(username).id, 
           :subscriber_type => "customer"), 
       :delete)
 end
