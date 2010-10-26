@@ -18,5 +18,10 @@ class ProfileAnswer < ActiveRecord::Base
   
   validates_presence_of :answer, :profile_question_id, :user_id
   validates_uniqueness_of :profile_question_id, :scope => :user_id
+  
+  named_scope :from_premium_users, lambda {
+    { :joins => :user,
+      :conditions => { :users => { :premium_account => true }} }
+  }
 
 end
