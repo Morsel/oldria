@@ -7,7 +7,7 @@
 @import "partials/base";
 @import "compass/layout/sticky-footer";   
 // Import all the default blueprint modules so that we can access their mixins.
-
+ 
 
 // To generate css equivalent to the blueprint css but with your
 // configuration applied, uncomment:
@@ -209,6 +209,11 @@ body,html,#container,#main,#content,#inside{
 						font-style:italic;
 						text-decoration:none;
 					}
+				}
+				#cycle-footer{
+					color:#fff;
+					font-size:10px;
+					
 				}
 			}
 			#pager{

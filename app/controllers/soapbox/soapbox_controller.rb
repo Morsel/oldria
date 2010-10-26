@@ -1,6 +1,5 @@
 class Soapbox::SoapboxController < ApplicationController
   
-  before_filter :require_http_authenticated
   before_filter :load_past_features, :only => [:index, :directory]
   
   layout 'soapbox'
@@ -33,18 +32,6 @@ class Soapbox::SoapboxController < ApplicationController
     directory_search_setup
     @users = @users.select { |u| u.premium_account }
     render :partial => "directory/search_results"
-  end
-
-  protected
-
-  def require_http_authenticated
-    if Rails.env.production?
-      authenticate_or_request_with_http_basic do |username, password|
-        username == "soapbox" && password == "preview"
-      end
-    else
-      true
-    end
   end
 
 end

@@ -148,6 +148,7 @@ class Restaurant < ActiveRecord::Base
   end
 
   def update_admin_discussions
+    # force trend questions to refresh associated restaurants and discussions
     TrendQuestion.all.each(&:touch)
   end
 

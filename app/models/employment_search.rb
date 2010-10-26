@@ -29,16 +29,16 @@ class EmploymentSearch < ActiveRecord::Base
     employments.map(&:id).uniq
   end
 
-  def restaurants
-    Restaurant.find(restaurant_ids)
-  end
-
   def restaurant_ids
     employments.all(:group => :restaurant_id).map(&:restaurant_id).uniq
   end
   
+  def restaurants
+    Restaurant.find(restaurant_ids)
+  end
+
   def solo_employments
-    employments.select { |e| e.restaurant.nil? }
+    employments.select { |e| e.restaurant.nil? }.uniq
   end
   
   def solo_employment_ids
