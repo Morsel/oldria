@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20101013222730
+# Schema version: 20101022194902
 #
 # Table name: restaurants
 #
@@ -32,6 +32,7 @@
 #  primary_photo_id           :integer
 #  opening_date               :date
 #  premium_account            :boolean
+#  sort_name                  :string(255)
 #
 
 class Restaurant < ActiveRecord::Base
