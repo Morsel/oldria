@@ -59,7 +59,11 @@ module HasSubscription
         subscription.destroy if subscription.present?
         self.subscription = nil
       else
-        subscription.set_end_date_from_braintree
+        if subscription.complimentary?
+          subscription.update_attributes(:end_date => 1.month.from_now.to_date) 
+        else
+          subscription.set_end_date_from_braintree
+        end
       end
     end
     

@@ -1,18 +1,12 @@
 <% title "Upgrade Account To Premium" %>
 
-<% semantic_form_for :customer, :url => Braintree::TransparentRedirect.url, :html => {:autocomplete => false} do |form| %>
-
-<<<<<<< HEAD
-  <%= hidden_field_tag "tr_data", h(@tr_data) %>
-  
+<% semantic_form_for :customer, :url => Braintree::TransparentRedirect.url, :html => {:autocomplete => false} do |form| %>  
   <p id="payment_blurb">
     If you are associated with a restaurant, you may pay on your own or ask
     your restaurant's Spoonfeed account manager to add you to the restaurant
     account.
   </p>
-=======
   <%= render :partial => 'form_fields', :locals => {:form => form} %>
->>>>>>> cc274378714891937324e3ad34cbd78e62987725
 
   <%= hidden_field_tag "custom_fields[action]", :value => "create"%>
   <%= submit_tag "Upgrade my account" %>

@@ -124,27 +124,66 @@ describe SubscriptionsController do
 
   end
 
-  #TODO: Destroy a comp account
   describe "DELETE destroy" do
+    
+    describe "with a user" do
+      before(:each) do
+        @user = Factory(:user, :email => "fred@flintstone.com",
+            :username => "fred")
+        @user.subscription = Factory(:subscription, :payer => @user)
+        @controller.stubs(:current_user).returns(@user)
+      end
 
-    before(:each) do
-      @user = Factory(:user, :email => "fred@flintstone.com",
-          :username => "fred")
-      @user.subscription = Factory(:subscription, :payer => @user)
-      @controller.stubs(:current_user).returns(@user)
+      it "puts the subscription in overtime on successful delete" do
+        BraintreeConnector.expects(:find_subscription).with(
+            @user.subscription).returns(
+                stub(:billing_period_end_date => 1.month.from_now.to_date))
+        BraintreeConnector.any_instance.expects(
+            :cancel_subscription).with(@user.subscription).returns(stub(:success? => true))
+        delete :destroy, :id => @user.id, :subscriber_type => "user"
+        @user.subscription.should be_in_overtime
+        @user.subscription.end_date.should == 1.month.from_now.to_date
+        @user.should be_premium_account
+        response.should redirect_to(edit_user_path(@user))
+      end
+      
+      it "does not call braintree if the subscription is complimentary" do
+        @user.subscription = Factory(:subscription, :payer => nil)
+        BraintreeConnector.any_instance.expects(:cancel_subscription).never
+        delete :destroy, :customer_id => @user.id, :subscriber_type => "user"
+        @user.subscription.should be_in_overtime
+      end
+      
+    end
+    
+    describe "with a restaurant" do
+      
+      before(:each) do
+        @user = Factory(:user, :email => "fred@flintstone.com",
+            :username => "fred")
+        @restaurant = Factory(:managed_restaurant, :manager => @user)
+        @restaurant.subscription = Factory(:subscription, :payer => @restaurant)
+        @controller.stubs(:current_user).returns(@user)
+        @controller.expects(:find_restaurant).returns(@restaurant)
+      end
+      
+      it "puts the subscription in overtime on successful delete" do
+        BraintreeConnector.expects(:find_subscription).with(
+            @restaurant.subscription).returns(
+                stub(:billing_period_end_date => 1.month.from_now.to_date))
+        BraintreeConnector.any_instance.expects(
+            :cancel_subscription).with(@restaurant.subscription).returns(stub(:success? => true))
+        delete :destroy, :customer_id => @restaurant.id, 
+            :subscriber_type => "restaurant"
+        @restaurant.subscription.should be_in_overtime
+        @restaurant.subscription.end_date.should == 1.month.from_now.to_date
+        @restaurant.should be_premium_account
+        response.should redirect_to(edit_restaurant_path(@restaurant))
+      end
+      
     end
 
-    it "puts the subscription in overtime on successful delete" do
-      BraintreeConnector.expects(:find_subscription).with(
-          @user.subscription).returns(
-              stub(:billing_period_end_date => 1.month.from_now.to_date))
-      BraintreeConnector.any_instance.expects(
-          :cancel_subscription).with(@user.subscription).returns(stub(:success? => true))
-      delete :destroy, :id => @user.id
-      @user.subscription.should be_in_overtime
-      @user.subscription.end_date.should == 1.month.from_now.to_date
-      @user.should be_premium_account
-    end
+    
 
   end
 

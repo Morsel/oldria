@@ -25,7 +25,6 @@ Feature: User Accounts
     Then I see my account status is premium
     And I see a link to cancel my account
 
-  @wip
   Scenario: A user can enter payment info
     Given I am logged in as "emily" with password "secret"
     And user "emily" does not have a premium account

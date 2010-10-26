@@ -17,8 +17,12 @@ module NavigationHelpers
       new_subscription_path
     when /the cancel subscription page for "(.+)"/
       subscription_path(:id => User.find_by_username($1).id)
+    when /the new subscription page for the restaurant "(.+)"/
+      new_subscription_path(:customer_id => Restaurant.find_by_name($1).id, 
+          :subscriber_type => "restaurant")
     when /the new subscription page for "(.+)"/
-      new_subscription_path(:id => User.find_by_username($1).id)
+      new_subscription_path(:customer_id => User.find_by_username($1).id, 
+          :subscriber_type => "customer")
 
     when /^the coached status updates page$/
       admin_coached_status_updates_path
