@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20101019162841
+# Schema version: 20101022194902
 #
 # Table name: soapbox_slides
 #
@@ -14,6 +14,7 @@
 #  position           :integer
 #  created_at         :datetime
 #  updated_at         :datetime
+#  photo_credit       :string(255)
 #
 
 class SoapboxSlide < ActiveRecord::Base

@@ -4,7 +4,7 @@
     <details class="comment-author">
         <%= image_tag(comment.user.avatar.url(:thumb), :alt => "#{comment.user.name}'s Profile Photo") %>
         <%= comment.restaurant.try(:name) if comment.restaurant.present? %><br/>
-        <%= link_to_if (comment.user.prefers_publish_profile || current_user), comment.user.name_or_username, soapbox_profile_path(comment.user.username), :class => "user-name" %><br/>
+        <%= link_to_if comment.user.linkable_profile?, comment.user.name_or_username, soapbox_profile_path(comment.user.username), :class => "user-name" %><br/>
         <%= comment.user.primary_employment.restaurant_role.name if comment.user.primary_employment %>
     </details>
     <div class="user_comment"><%= simple_format(comment.comment) %></div>
@@ -14,7 +14,7 @@
 
 <% div_for(comment) do %>
     <header>
-        <%= link_to_if (comment.user.prefers_publish_profile || current_user), comment.user.name_or_username, soapbox_profile_path(comment.user.username) %>, <%= title_and_restaurant(comment) %>, said:
+        <%= link_to_if comment.user.linkable_profile?, comment.user.name_or_username, soapbox_profile_path(comment.user.username) %>, <%= title_and_restaurant(comment) %>, said:
     </header>
     <p>
         <%= image_tag(comment.user.avatar.url(:thumb), :alt => "#{comment.user.name}'s Profile Photo") %>

@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20101019162841
+# Schema version: 20101022194902
 #
 # Table name: soapbox_promos
 #
@@ -8,6 +8,8 @@
 #  body       :text
 #  created_at :datetime
 #  updated_at :datetime
+#  link       :string(255)
+#  position   :integer
 #
 
 class SoapboxPromo < ActiveRecord::Base

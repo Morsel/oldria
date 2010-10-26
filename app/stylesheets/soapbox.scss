@@ -697,7 +697,8 @@ body,html,#container,#main,#content,#inside{
 				padding: 0;
 			}
 			&:hover {
-				h3, p {color: $baby-blue;}
+				text-decoration: none;
+				h3, p {color: $baby-blue;text-decoration: none;}
 			}
 		}
 	}
@@ -1180,7 +1181,7 @@ p.search_filter_hint {
 	margin:0 -10px;
 	padding:10px;
 	border-bottom:3px solid $sienna;
-	header h1{
+	header h1 a{
 		@include hiddentext;
 		width:205px;
 		height:100px;
@@ -1191,7 +1192,7 @@ p.search_filter_hint {
 }
 #question-of-the-day{
 	border-bottom-color:$purple;
-	header h1{
+	header h1 a{
 		width:205px;
 		background:url(/images/soapbox/label-qotd.png) no-repeat;
 	}

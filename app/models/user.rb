@@ -335,6 +335,10 @@ class User < ActiveRecord::Base
     return nil if profile.blank? || !profile.display_cell_public?
     profile.cellnumber
   end
+  
+  def linkable_profile?
+    self.prefers_publish_profile? && self.premium_account
+  end
 
 end
 
