@@ -4,11 +4,11 @@ describe BraintreeConnector do
 
   describe "with a user" do
 
-    let(:user) { Factory(:user, :id => 500, 
-        :subscription => Factory(:subscription, :braintree_id => "abcd"), 
+    let(:user) { Factory(:user, :id => 500,
+        :subscription => Factory(:subscription, :braintree_id => "abcd"),
         :email => "fred@flintstone.com") }
     let(:connector) { BraintreeConnector.new(user, "callback") }
-    let(:stub_customer_request) { 
+    let(:stub_customer_request) {
         stub(:customer => stub(:credit_cards => [stub(:token => "abcd")]),
           :success? => true) }
 
@@ -84,23 +84,23 @@ describe BraintreeConnector do
       Braintree::Subscription.expects(:cancel).with("abcd")
       connector.cancel_subscription(user.subscription)
     end
-    
+
     it "finds a subscription when requested" do
       Braintree::Subscription.expects(:find).with("abcd")
       connector.find_subscription(Factory(:subscription))
     end
 
   end
-  
+
   describe "with a restaurant" do
-    
-    let(:restaurant) { Factory(:managed_restaurant, :id => 500, 
-        :subscription => Factory(:subscription, :braintree_id => "abcd"), 
+
+    let(:restaurant) { Factory(:managed_restaurant, :id => 500,
+        :subscription => Factory(:subscription, :braintree_id => "abcd"),
         :manager => Factory(:user, :email => "fred@flintstone.com")) }
-      
+
     let(:connector) { BraintreeConnector.new(restaurant, "callback") }
-  
-    let(:stub_customer_request) { 
+
+    let(:stub_customer_request) {
         stub(:customer => stub(:credit_cards => [stub(:token => "abcd")]),
           :success? => true) }
 
@@ -115,7 +115,7 @@ describe BraintreeConnector do
     it "should have a contact email" do
       connector.braintree_contact_email.should == "fred@flintstone.com"
     end
-  
+
     it "returns update data if the customer exists" do
       connector.stubs(:braintree_customer => stub_customer_request.customer)
       Braintree::TransparentRedirect.expects(:update_customer_data).with(
@@ -132,6 +132,14 @@ describe BraintreeConnector do
             }
           )
       connector.braintree_data
+    end
+  end
+
+  describe "#past_due_subscriptions" do
+    it "returns a list of past due braintree_subscription_ids" do
+      Braintree::Subscription.expects(:search).yields(stub(:days_past_due)).returns(stub(:ids => [1, 2, 3]))
+      result = BraintreeConnector.past_due_subscriptions
+      result.should == [1, 2, 3]
     end
   end
 
