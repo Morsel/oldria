@@ -3,8 +3,8 @@ class SubscriptionsController < ApplicationController
   before_filter :init_braintree_customer
   before_filter :create_braintree_connector
 
-  # note: all of these calls require a user id as params[:id], even the
-  # ones that traditionally wouldn't in a RESTful service
+  # API expects customer id (restaurant or user) as params[:customer_id] 
+  # or params[:id], and either "restaurant" or "user" as params[:subscriber_type]
 
   def new
     @tr_data = @braintree_connector.braintree_data
@@ -38,7 +38,7 @@ class SubscriptionsController < ApplicationController
         @braintree_customer.cancel_subscription!(:terminate_immediately => false)
       end
     end
-    redirect_to edit_user_path(@braintree_customer)
+    redirect_to customer_edit_redirect
   end
 
   private
@@ -64,7 +64,13 @@ class SubscriptionsController < ApplicationController
   
   # TODO: manager or admin only for restaurants
   def find_restaurant
-    Restaurant.find(local_id)
+    restaurant = Restaurant.find(local_id)
+    if cannot? :edit, restaurant
+      flash[:error] = "You don't have permission to access that page"
+      redirect_to restaurant
+      return
+    end
+    restaurant
   end
   
   def local_id

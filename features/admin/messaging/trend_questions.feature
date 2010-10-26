@@ -37,6 +37,17 @@ Feature: Trend questions
       | guy      | secret   | guy@example.com  | Guy Jones | Chef      | Food            |
     And the restaurant "Newbie McGee" is in the region "Midwest"
     Then the trend question with subject "Are Cucumbers tasty?" should have 2 restaurants
+    
+  Scenario: Solo Employments that fit criteria should be included
+  Given the following confirmed user:
+    | username | first_name | last_name |
+    | neue     | Neue       | User      |
+  And "neue" has a default employment with the role "Baker"
+  And I am logged in as an admin
+  
+  When I create a new trend question with subject "What did you have for breakfast?" with criteria:
+    | Role | Baker |
+  Then the trend question with subject "What did you have for breakfast?" should have 1 solo employment
 
   Scenario: Only applicable employees can see the trend question
     Given I am logged in as an admin

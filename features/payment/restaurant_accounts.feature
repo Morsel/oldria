@@ -12,7 +12,6 @@ Feature: Restaurant Accounts
     Given "emily" is the account manager for "Taco Bell"
     Given I am logged in as "emily" with password "secret"
   
-  @wip  
   Scenario: A restaurant's account status shows on its profile page
     Given I am logged in as "emily" with password "secret"
     When I go to the restaurant show page for "Taco Bell"
@@ -21,7 +20,6 @@ Feature: Restaurant Accounts
     Then I see that the restaurant's account status is basic
     And I see a link to update my account to premium
     
-  @wip
   Scenario: A premium restaurant can see their account status
     Given the restaurant "Taco Bell" has a premium account
     When I go to the restaurant show page for "Taco Bell"
@@ -30,7 +28,6 @@ Feature: Restaurant Accounts
     Then I see that the restaurant's account status is premium
     And I see a link to cancel my account
     
-  @wip  
   Scenario: A restaurant can enter payment info
     And I simulate a successful call from braintree for the restaurant "Taco Bell"
     And the restaurant "Taco Bell" does not have a premium account
@@ -43,17 +40,71 @@ Feature: Restaurant Accounts
       | customer_credit_card_expiration_year  | 1.year.from_now.year |
       | Security Code                         | 123                  |
       
-  @wip
   Scenario: Successful response from braintree makes a user premium
     When I simulate a successful call from braintree for the restaurant "Taco Bell"
     When I go to the edit restaurant page for "Taco Bell"
     Then I see that the restaurant's account status is premium
     And I see my account is paid for by myself
     
-  @wip
   Scenario: Unsuccessful response from braintree does not make a user premium
     When I simulate an unsuccessful call from braintree for the restaurant "Taco Bell"
     Then I should be on the new subscription page
     When I go to the edit restaurant page for "Taco Bell"
     Then I see that the restaurant's account status is basic
+  
+  Scenario: A restaurant can cancel their premium account
+    Given the restaurant "Taco Bell" has a premium account
+    And I simulate a successful cancel from braintree
+    When I go to the edit restaurant page for "Taco Bell"
+    And I follow "Downgrade to basic"
+    Then I should be on the edit restaurant page for "Taco Bell"
+    Then I see that the restaurant's account status is premium
+    And I see that the restaurant account for "Taco Bell" lasts until the end of the billing cycle
+    And I do not see any account change options
+    
+  Scenario: An unsuccessful cancel doesn't work for a restaurant
+    Given the restaurant "Taco Bell" has a premium account
+    And I simulate an unsuccessful cancel from braintree
+    When I go to the edit restaurant page for "Taco Bell"
+    And I follow "Downgrade to basic"
+    Then I should be on the edit restaurant page for "Taco Bell"
+    Then I see that the restaurant's account status is premium
+    And I don't see that the restaurant account for "Taco Bell" lasts until the end of the billing cycle
+  
+  Scenario: You can't access a restaurant unless you are a manager
+    Given I am not logged in
+    Given I am logged in as "sam" with password "secret"
+    When I go to the edit restaurant page for "Taco Bell"
+    Then I should be on the restaurant show page for "Taco Bell"
+    When I go to the new subscription page for the restaurant "Taco Bell"
+    Then I should be on the restaurant show page for "Taco Bell"
+    When I traverse the delete link for subscriptions for the restaurant "Taco Bell"
+    Then I should be on the restaurant show page for "Taco Bell"
+    
+  Scenario: An admin can access any restaurant
+    Given the restaurant "Taco Bell" has a premium account
+    Given I am not logged in
+    And I am logged in as an admin
+    And I simulate a successful cancel from braintree
+    When I go to the edit restaurant page for "Taco Bell"
+    And I follow "Downgrade to basic"
+    Then I should be on the edit restaurant page for "Taco Bell"
+    Then I see that the restaurant's account status is premium
+    And I see that the restaurant account for "Taco Bell" lasts until the end of the billing cycle
+    And I do not see any account change options
+    
+  Scenario: A restaurant can update their payment info
+    Given the restaurant "Taco Bell" has a premium account
+    And I simulate braintree update behavior
+    When I go to the edit restaurant page for "Taco Bell"
+    When I follow "Update billing information"
+    When I fill in the following:
+      | Credit Card Number                    | 4111111111111111     |
+      | Billing ZIP                           | 60654                |
+      | customer_credit_card_expiration_month | 10                   |
+      | customer_credit_card_expiration_year  | 1.year.from_now.year |
+      | Security Code                         | 123                  |
+    And I simulate a successful call from braintree for the restaurant "Taco Bell"
+    Then I should be on the edit restaurant page for "Taco Bell"
+    And I see that the restaurant's account status is premium
     

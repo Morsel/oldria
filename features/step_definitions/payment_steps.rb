@@ -113,7 +113,15 @@ Then /^I see my account is paid for by myself$/ do
 end
 
 When /^I traverse the delete link for subscriptions for user "([^"]*)"$/ do |username|
-  visit(subscription_path(:id => User.find_by_username(username).id), :delete)
+  visit(subscription_path(:id => User.find_by_username(username).id, 
+          :subscriber_type => "customer"), 
+      :delete)
+end
+
+When /^I traverse the delete link for subscriptions for the restaurant "([^"]*)"$/ do |name|
+  visit(subscription_path(:customer_id => Restaurant.find_by_name(name).id,
+          :subscriber_type => "restaurant"), 
+      :delete)
 end
 
 Then /^I see that the account for "([^"]*)" lasts until the end of the billing cycle$/ do |username|
@@ -122,9 +130,21 @@ Then /^I see that the account for "([^"]*)" lasts until the end of the billing c
       :content => user.subscription.end_date.to_s(:long))
 end
 
+Then /^I see that the restaurant account for "([^"]*)" lasts until the end of the billing cycle$/ do |restaurant_name|
+  restaurant = Restaurant.find_by_name(restaurant_name)
+  response.should have_selector("#end_date",
+      :content => restaurant.subscription.end_date.to_s(:long))
+end
+
+
 Then /^I don't see that the account for "([^"]*)" lasts until the end of the billing cycle$/ do |username|
   response.should_not have_selector("#end_date")
 end
+
+Then /^I don't see that the restaurant account for "([^"]*)" lasts until the end of the billing cycle$/ do |arg1|
+  response.should_not have_selector("#end_date")
+end
+
 
 Then /^I do not see any account change options$/ do
   response.should_not have_selector("#upgrade_link")

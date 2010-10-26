@@ -73,6 +73,20 @@ describe HasSubscription do
         specify { Subscription.all.size.should == 0 }
 
       end
+      
+      context "of a complimentary subscription" do
+        
+        before(:each) do
+          user.subscription = Factory(:subscription, :payer => nil)
+          user.subscription.expects(:set_end_date_from_braintree).never
+          user.cancel_subscription!(:terminate_immediately => false)
+        end
+        
+        it "makes a complimentary subscription last one month" do
+          user.subscription.end_date.should == 1.month.from_now.to_date
+        end
+        
+      end
 
       context "with delayed termination" do
 
