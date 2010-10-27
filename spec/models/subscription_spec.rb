@@ -115,6 +115,39 @@ describe Subscription do
     end
 
   end
+  
+  describe "add ons" do
+    
+    describe "create an add on" do
+      let(:restaurant) { Factory(:restaurant) }
+      let(:subscription) { Factory(:subscription, :subscriber => restaurant, :payer => restaurant) }
+      let(:user) { Factory(:user) }
+      
+      it "adds the first payee correctly" do
+        BraintreeConnector.expects(:set_add_ons_for_subscription).with(subscription, 1)
+        subscription.add_payee(user)
+      end
+      
+      it "adds the second payee correctly" do
+        BraintreeConnector.expects(:set_add_ons_for_subscription).with(subscription, 2)
+        user_sub = 
+      end
+      
+      it "does not add a payee if the subscription is a user" do
+        subscription.update_attributes(:payer => Factory(:user))
+        BraintreeConnector.expects(:set_add_ons_for_subscription).never
+        subscription.add_payee(user)
+      end
+      
+      it "does not add a payee if the subscription is past due" do
+        subscription.update_attributes(:end_date => 1.day.ago)
+        BraintreeConnector.expects(:set_add_ons_for_subscription).never
+        subscription.add_payee(user)
+      end
+      
+    end
+    
+  end
 
 end
 

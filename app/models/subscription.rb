@@ -50,6 +50,12 @@ class Subscription < ActiveRecord::Base
   def skip_braintree_cancel?
     complimentary? || in_overtime?
   end
+  
+  def add_payee(user)
+    return if payer.is_a?(User)
+    return if !active?
+    BraintreeConnector.set_add_ons_for_subscription(self, 1)
+  end
 
 end
 

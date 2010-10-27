@@ -1,4 +1,7 @@
 class BraintreeConnector
+  
+  PLANS = {"User" => "user_monthly", "Restaurant" => "restaurant_monthly"}
+  ADD_ON = "user_for_restaurant"
 
   attr_accessor :payer, :callback
 
@@ -16,7 +19,8 @@ class BraintreeConnector
   end
 
   def braintree_plan_id
-    if payer_type == "User" then "user_monthly" else "restaurant_monthly" end
+    PLANS[payer_type]
+    #if payer_type == "User" then "user_monthly" else "restaurant_monthly" end
   end
 
   def braintree_contact_email
@@ -91,6 +95,18 @@ class BraintreeConnector
       search.days_past_due <= 5
     end
     result.ids
+  end
+  
+  # code assumes that a quantity of one implies an add, any other quantity implies
+  # an update
+  def self.set_add_ons_for_subscription(subscription, quantity)
+    if quantity == 1
+      Braintree::Subscription.update(subscription.braintree_id, 
+        :add_ons => {:add => [{:inherited_from_id => ADD_ON, :quantity => quantity}]})
+    else
+      Braintree::Subscription.update(subscription.braintree_id, 
+        :add_ons => {:update => [{:existing_id => ADD_ON, :quantity => quantity}]})
+    end
   end
 
   private

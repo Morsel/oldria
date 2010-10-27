@@ -13,7 +13,6 @@ Feature: Restaurant Accounts
     Given I am logged in as "emily" with password "secret"
   
   Scenario: A restaurant's account status shows on its profile page
-    Given I am logged in as "emily" with password "secret"
     When I go to the restaurant show page for "Taco Bell"
     Then I see that the restaurant's account status is basic
     When I go to the edit restaurant page for "Taco Bell"
