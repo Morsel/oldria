@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20101022194902) do
+ActiveRecord::Schema.define(:version => 20101026213148) do
 
   create_table "a_la_minute_answers", :force => true do |t|
     t.text     "answer"
@@ -190,19 +190,21 @@ ActiveRecord::Schema.define(:version => 20101022194902) do
   end
 
   create_table "culinary_jobs", :force => true do |t|
-    t.integer  "profile_id",                       :null => false
-    t.string   "title",         :default => "",    :null => false
-    t.string   "city",          :default => "",    :null => false
-    t.string   "state",         :default => "",    :null => false
-    t.date     "date_started",                     :null => false
+    t.integer  "profile_id",                         :null => false
+    t.string   "restaurant_name", :default => "",    :null => false
+    t.string   "title",           :default => "",    :null => false
+    t.string   "city",            :default => "",    :null => false
+    t.string   "state",           :default => "",    :null => false
+    t.string   "country",         :default => "",    :null => false
+    t.date     "date_started",                       :null => false
     t.date     "date_ended"
-    t.string   "chef_name",     :default => "",    :null => false
-    t.boolean  "chef_is_me",    :default => false, :null => false
-    t.text     "cuisine",       :default => "",    :null => false
-    t.text     "notes",         :default => "",    :null => false
+    t.string   "chef_name",       :default => "",    :null => false
+    t.boolean  "chef_is_me",      :default => false, :null => false
+    t.text     "cuisine",         :default => "",    :null => false
+    t.text     "notes",           :default => "",    :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "opening_staff", :default => false
+    t.boolean  "opening_staff",   :default => false
   end
 
   add_index "culinary_jobs", ["profile_id"], :name => "index_profile_restaurants_on_profile_id"
@@ -282,9 +284,9 @@ ActiveRecord::Schema.define(:version => 20101022194902) do
     t.integer  "restaurant_role_id"
     t.boolean  "omniscient"
     t.boolean  "primary",            :default => false
+    t.string   "type"
     t.boolean  "public_profile"
     t.integer  "position"
-    t.string   "type"
   end
 
   add_index "employments", ["employee_id"], :name => "index_employments_on_employee_id"
@@ -593,8 +595,9 @@ ActiveRecord::Schema.define(:version => 20101022194902) do
     t.string   "title"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "position",   :default => 0
+    t.integer  "position"
     t.integer  "chapter_id"
+    t.text     "roles_description"
   end
 
   create_table "profile_specialties", :force => true do |t|
@@ -618,6 +621,13 @@ ActiveRecord::Schema.define(:version => 20101022194902) do
   end
 
   add_index "profiles", ["user_id"], :name => "index_profiles_on_user_id", :unique => true
+
+  create_table "question_role_categories", :force => true do |t|
+    t.integer  "restaurant_role_id"
+    t.string   "category"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "question_roles", :force => true do |t|
     t.integer  "profile_question_id"
