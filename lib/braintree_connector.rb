@@ -6,7 +6,7 @@ class BraintreeConnector
     @payer = payer
     @callback = callback
   end
-  
+
   def payer_type
     if payer.is_a?(User) then "User" else "Restaurant" end
   end
@@ -77,13 +77,20 @@ class BraintreeConnector
   def cancel_subscription(subscription)
     BraintreeConnector.cancel_subscription(subscription)
   end
-  
+
   def self.find_subscription(subscription)
     Braintree::Subscription.find(subscription.braintree_id)
   end
-  
+
   def find_subscription(subscription)
     BraintreeConnector.find_subscription(subscription)
+  end
+
+  def self.past_due_subscriptions
+    result = Braintree::Subscription.search do |search|
+      search.days_past_due <= 5
+    end
+    result.ids
   end
 
   private

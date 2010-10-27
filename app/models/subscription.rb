@@ -1,44 +1,56 @@
 class Subscription < ActiveRecord::Base
-  
+
+  module Status
+    PAST_DUE = "past_due"
+  end
+
   belongs_to :subscriber, :polymorphic => true
   belongs_to :payer, :polymorphic => true
-  
+
   def premium?
     true
   end
-  
+
   def complimentary?
     payer.nil?
   end
-  
+
   def active?
     return true if end_date.blank?
     end_date.future?
   end
-  
+
   def in_overtime?
     return false if end_date.blank?
     end_date.future?
   end
-  
+
   def braintree_data
     BraintreeConnector.find_subscription(self)
   end
-  
+
   def set_end_date_from_braintree
     data = braintree_data
     update_attributes(:end_date => data.billing_period_end_date)
-  rescue 
-    # preventing infinite access if something is weird with braintree 
+  rescue
+    # preventing infinite access if something is weird with braintree
     # data
     p $!
     update_attributes(:end_date => 1.month.from_now)
   end
-  
+
+  def past_due!
+    update_attributes(:status => Subscription::Status::PAST_DUE, :end_date => 5.days.from_now.to_date)
+  end
+
+  def self.purge_expired!
+    destroy_all("status = '#{Subscription::Status::PAST_DUE}' AND end_date < '#{Date.today.to_date}'")
+  end
+
   def skip_braintree_cancel?
     complimentary? || in_overtime?
   end
-  
+
 end
 
 # == Schema Information
