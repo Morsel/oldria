@@ -18,8 +18,11 @@
 #
 
 class SoapboxSlide < ActiveRecord::Base
+  
   has_attached_file :image, :styles => { :full => "780x400#", :thumb => "50x50#" }
     
-    validates_attachment_content_type :image, :content_type => ["image/jpg", "image/jpeg", "image/png", "image/gif"], 
+  validates_attachment_content_type :image, :content_type => ["image/jpg", "image/jpeg", "image/png", "image/gif"], 
       :if => :image_file_name
+      
+  validates_length_of :excerpt, :maximum => 140, :too_long => "Please shorten the text to no more than 140 characters"
 end
