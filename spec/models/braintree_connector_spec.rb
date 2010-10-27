@@ -151,5 +151,26 @@ describe BraintreeConnector do
       result.should == [1, 2, 3]
     end
   end
+  
+  describe "add on to subscription" do
+    
+    let(:subscription) { Factory(:subscription) }
+    
+    it "calls add if the quantity is one" do
+      Braintree::Subscription.expects(:update).with("abcd", :add_ons => {:add => [{
+              :inherited_from_id => "user_for_restaurant",
+              :quantity => 1}]})      
+      BraintreeConnector.set_add_ons_for_subscription(subscription, 1)
+    end
+    
+    it "calls update if the quantity is greater than one" do
+      Braintree::Subscription.expects(:update).with("abcd", :add_ons => {:update => [{
+              :existing_id => "user_for_restaurant",
+              :quantity => 2}]})      
+      BraintreeConnector.set_add_ons_for_subscription(subscription, 2)
+    end
+    
+  end
+  
 
 end

@@ -202,3 +202,13 @@ Then /^I should see all of my transaction details$/ do
     end
   end
 end
+
+Then /^I see that "([^"]*)" has a basic account$/ do |username|
+  user = User.find_by_username(username)
+  response.should have_selector(".account_status", :content => "Basic")
+end
+
+Then /^I see that "([^"]*)" has a premium account$/ do |username|
+  user = User.find_by_username(username)
+  response.should have_selector(".account_status", :content => "Premium")
+end

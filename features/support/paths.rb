@@ -73,6 +73,8 @@ module NavigationHelpers
       restaurant_features_path(Restaurant.find_by_name($1))
     when /^the restaurant menu upload page for (.+)$/
       restaurant_menus_path(Restaurant.find_by_name($1))
+    when /^the employee edit page for "(.+)" and "(.+)"$/
+      edit_restaurant_employee_path(Restaurant.find_by_name($1), User.find_by_username($2))
 
 
     # Media Requests

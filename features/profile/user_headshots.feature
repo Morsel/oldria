@@ -10,7 +10,6 @@ Feature: User headshots
     | username | password |
     | emily    | secret   |
 
-
   Scenario: Uploading an image
     Given I am logged in as "emily" with password "secret"
     And "emily" has no headshot
