@@ -54,21 +54,68 @@ Feature: Manage restaurants
       | media_contact      | Fred Mercury                        |
       | management_company | Lettuce Entertain You               |
       | opening_date       | January 22, 2008                    |
-
-  @wip
-  Scenario: Upgrading an account to premium
-    Given the following restaurant records:
-      | name         | city    | state |
-      | Piece        | Chicago | IL    |
+    
+  Scenario: Making a basic restaurant complimentary
+    Given the restaurant "Piece" does not have a premium account
     And I am on the admin restaurants page
-    Then the listing for "Piece" should not be premium
-    When I go to the restaurant show page for "Piece"
-    Then the show page should not be premium
+    Then the listing for "Piece" should be basic
+    When I go to the admin edit restaurant page for Piece
+    And I should see that the restaurant has a basic account
+    And I follow "Give restaurant a Complimentary Premium Account"
+    Then I should be on the admin edit restaurant page for Piece
+    Then I should see that the restaurant has a complimentary account
     When I am on the admin restaurants page
-    When I follow "edit"
-    And I check "Premium Account"
-    And I press "Save"
-    Then I should see "updated restaurant"
-    Then the listing for "Piece" should be premium
+    And the listing for "Piece" should be complimentary
     When I go to the restaurant show page for "Piece"
     Then the show page should be premium
+    
+  Scenario: Canceling a restaurant complimentary account
+    Given the restaurant "Piece" has a complimentary account
+    When I go to the admin edit restaurant page for Piece
+    Then I should see that the restaurant has a complimentary account
+    And I follow "Cancel the restaurant's Complimentary Premium Account"
+    Then I should be on the admin edit restaurant page for Piece
+    Then I should see that the restaurant has a basic account
+    When I am on the admin restaurants page
+    And the listing for "Piece" should be basic
+    When I go to the restaurant show page for "Piece"
+    Then the show page should be basic
+    
+  Scenario: Converting an existing restaurant account to complementary
+    Given the restaurant "Piece" has a premium account
+    When I go to the admin edit restaurant page for Piece
+    Then I should see that the restaurant has a premium account
+    And I follow "Convert restaurant's premium account to a Complimentary Premium Account"
+    Then I should be on the admin edit restaurant page for Piece
+    Then I should see that the restaurant has a complimentary account
+    When I am on the admin restaurants page
+    And the listing for "Piece" should be complimentary
+    When I go to the restaurant show page for "Piece"
+    Then the show page should be complimentary
+    
+  Scenario: Cancel a non-complimentary restaurant premium account
+    Given the restaurant "Piece" has a premium account
+    When I go to the admin edit restaurant page for Piece
+    Then I should see that the restaurant has a premium account
+    And I follow "Downgrade the restaurant to a basic account"
+    Then I should be on the admin edit restaurant page for Piece
+    Then I should see that the restaurant has a basic account
+    When I am on the admin restaurants page
+    And the listing for "Piece" should be basic
+    When I go to the restaurant show page for "Piece"
+    Then the show page should be basic
+  
+  Scenario: Convert an overtime restaurant account to complimentary
+    Given the restaurant "Piece" has an overtime account
+    When I go to the admin edit restaurant page for Piece
+    Then I should see that the restaurant has an overtime account
+    And I follow "Convert restaurant's premium account to a Complimentary Premium Account"
+    Then I should be on the admin edit restaurant page for Piece
+    Then I should see that the restaurant has a complimentary account
+    When I am on the admin restaurants page
+    And the listing for "Piece" should be complimentary
+    When I go to the restaurant show page for "Piece"
+    Then the show page should be complimentary
+  
+  #Scenario: Cancel an overtime restaurant account
+    

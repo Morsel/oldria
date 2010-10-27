@@ -47,6 +47,10 @@ class Subscription < ActiveRecord::Base
     destroy_all("status = '#{Subscription::Status::PAST_DUE}' AND end_date < '#{Date.today.to_date}'")
   end
 
+  def skip_braintree_cancel?
+    complimentary? || in_overtime?
+  end
+
 end
 
 # == Schema Information

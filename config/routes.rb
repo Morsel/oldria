@@ -156,9 +156,7 @@ ActionController::Routing::Routes.draw do |map|
 
   map.namespace :admin do |admin|
     admin.root      :controller => 'admin'
-    admin.resources :users, 
-        :member => { :make_complimentary => :post, 
-                     :cancel_complimentary => :post }
+    admin.resources :users
     admin.resources :pages
     admin.resources :feeds, :collection => { :sort => [:post, :put] }
     admin.resources :feed_categories
@@ -199,6 +197,7 @@ ActionController::Routing::Routes.draw do |map|
 
     admin.resources :content_requests
     admin.resources :trend_questions
+    admin.resource :complimentary_accounts, :only => [:create, :destroy]
   end
 
   map.public_page ":id", :controller => 'pages', :action => 'show'

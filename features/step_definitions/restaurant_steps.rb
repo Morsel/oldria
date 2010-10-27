@@ -349,10 +349,16 @@ Then /^the listing for "([^\"]*)" should be premium$/ do |restaurant_name|
       :content => "Premium")
 end
 
-Then /^the listing for "([^\"]*)" should not be premium$/ do |restaurant_name|
+Then /^the listing for "([^\"]*)" should be complimentary$/ do |restaurant_name|
   restaurant = Restaurant.find_by_name(restaurant_name)
-  response.should_not have_selector("tr##{dom_id(restaurant)} td",
-      :content => "Premium")
+  response.should have_selector("tr##{dom_id(restaurant)} td",
+      :content => "Complimentary")
+end
+
+Then /^the listing for "([^\"]*)" should be basic$/ do |restaurant_name|
+  restaurant = Restaurant.find_by_name(restaurant_name)
+  response.should have_selector("tr##{dom_id(restaurant)} td",
+      :content => "Basic")
 end
 
 Given /^I have created the following A La Minute Questions:$/ do |table|
@@ -376,4 +382,22 @@ end
 Then /^I should see the answer "([^"]*)" for "([^"]*)"$/ do |answer, name|
   responder = Restaurant.find_by_name(name) || User.find_by_name(name)
   response.should have_selector(".a_la_minute_answer", :content => answer)
+end
+
+When /^I should see that the restaurant has a basic account$/ do
+  response.should have_selector("#account_type", :content => "Basic")
+end
+
+Then /^I should see that the restaurant has a complimentary account$/ do
+  response.should have_selector("#account_type", :content => "Complimentary")
+end
+
+When /^I should see that the restaurant has a premium account$/ do
+  response.should have_selector("#account_type", :content => "Premium")
+end
+
+Given /^the restaurant "([^"]*)" has a complimentary account$/ do |name|
+  restaurant = Restaurant.find_by_name(name)
+  restaurant.subscription = Factory(:subscription, :payer => nil)
+  restaurant.save!
 end

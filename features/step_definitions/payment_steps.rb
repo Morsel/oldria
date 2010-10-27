@@ -153,6 +153,16 @@ end
 Given /^the restaurant "([^"]*)" has a premium account$/ do |restaurant_name|
   restaurant = Restaurant.find_by_name(restaurant_name)
   restaurant.make_premium!(stub(:subscription => stub(:id => "abcd")))
+  BraintreeConnector.stubs(:cancel_subscription).with(
+      restaurant.subscription).returns(stub(:success? => true))
+end
+
+Given /^the restaurant "([^"]*)" has an overtime account$/ do |restaurant_name|
+  restaurant = Restaurant.find_by_name(restaurant_name)
+  restaurant.make_premium!(stub(:subscription => stub(:id => "abcd")))
+  restaurant.subscription.update_attributes(:end_date => 1.month.from_now)
+  # The cancel subscription call should never be made
+  BraintreeConnector.stubs(:cancel_subscription).never
 end
 
 Given /^the restaurant "([^"]*)" does not have a premium account$/ do |restaurant_name|

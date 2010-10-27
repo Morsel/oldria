@@ -1,0 +1,114 @@
+require 'spec_helper'
+
+describe Admin::ComplimentaryAccountsController do
+  
+  before(:each) do
+    @admin = Factory.stub(:admin)
+    controller.stubs(:current_user).returns(@admin)
+    controller.stubs(:require_admin).returns(true)
+  end
+  
+  describe "POST create" do
+    
+    describe "with a user" do
+      let(:user) { Factory(:user) }
+
+      it "gives a basic user a complimentary account" do
+        user.cancel_subscription!(:terminate_immediately => true)
+        User.stubs(:find).returns(user)
+        user.expects(:make_complimentary!)
+        BraintreeConnector.expects(:cancel_subscription).never
+        post :create, :subscriber_id => user.id, :subscriber_type => "user"
+        response.should redirect_to(edit_admin_user_path(user))
+      end
+
+      it "cancels the braintree subscription if it exists" do
+        user.subscription = Factory(:subscription, :payer => user)
+        user.save!
+        User.stubs(:find).returns(user)
+        user.expects(:make_complimentary!)
+        BraintreeConnector.expects(
+            :cancel_subscription).returns(stub(:success? => true))
+        post :create, :subscriber_id => user.id, :subscriber_type => "user"
+        response.should redirect_to(edit_admin_user_path(user))
+      end
+    end
+    
+    describe "with a restaurant" do
+      let(:restaurant) { Factory(:restaurant) }
+      
+      it "gives a basic user a complimentary account" do
+        restaurant.cancel_subscription!(:terminate_immediately => true)
+        Restaurant.stubs(:find).returns(restaurant)
+        restaurant.expects(:make_complimentary!)
+        BraintreeConnector.expects(:cancel_subscription).never
+        post :create, :subscriber_id => restaurant.id, :subscriber_type => "restaurant"
+        response.should redirect_to(edit_admin_restaurant_url(restaurant))
+      end
+
+      it "cancels the braintree subscription if it exists" do
+        restaurant.subscription = Factory(:subscription, :payer => restaurant)
+        restaurant.save!
+        Restaurant.stubs(:find).returns(restaurant)
+        restaurant.expects(:make_complimentary!)
+        BraintreeConnector.expects(
+            :cancel_subscription).returns(stub(:success? => true))
+        post :create, :subscriber_id => restaurant.id, :subscriber_type => "restaurant"
+        response.should redirect_to(edit_admin_restaurant_url(restaurant))
+      end
+    end
+  end
+  
+  describe "DELETE destroy" do
+    
+    describe "with a user" do
+      let(:user) { Factory(:user) }
+
+      it "removes a complimentary account" do
+        user.make_complimentary!
+        User.stubs(:find).returns(user)
+        user.expects(:cancel_subscription!).with(:terminate_immediately => true)
+        BraintreeConnector.expects(:cancel_subscription).never
+        delete :destroy, :subscriber_id => user.id, :subscriber_type => "user"
+        response.should redirect_to(edit_admin_user_path(user))
+      end
+
+      it "cancels the braintree account when canceling a regular account" do
+        user.subscription = Factory(:subscription, :payer => user)
+        user.save!
+        User.stubs(:find).returns(user)
+        user.expects(:cancel_subscription!).with(:terminate_immediately => true)
+        BraintreeConnector.expects(
+            :cancel_subscription).returns(stub(:success? => true))
+        delete :destroy, :subscriber_id => user.id, :subscriber_type => "user"
+      end
+    end
+    
+    describe "with a restaurant" do
+      let(:restaurant) { Factory(:restaurant) }
+
+      it "removes a complimentary account" do
+        restaurant.make_complimentary!
+        Restaurant.stubs(:find).returns(restaurant)
+        restaurant.expects(:cancel_subscription!).with(:terminate_immediately => true)
+        BraintreeConnector.expects(:cancel_subscription).never
+        delete :destroy, :subscriber_id => restaurant.id, :subscriber_type => "restaurant"
+        response.should redirect_to(edit_admin_restaurant_path(restaurant))
+      end
+
+      it "cancels the braintree account when canceling a regular account" do
+        restaurant.subscription = Factory(:subscription, :payer => restaurant)
+        restaurant.save!
+        Restaurant.stubs(:find).returns(restaurant)
+        restaurant.expects(:cancel_subscription!).with(:terminate_immediately => true)
+        BraintreeConnector.expects(
+            :cancel_subscription).returns(stub(:success? => true))
+        delete :destroy, :subscriber_id => restaurant.id, :subscriber_type => "restaurant"
+      end
+    end
+    
+    
+    
+  end
+  
+end

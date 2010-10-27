@@ -21,9 +21,7 @@
       </h2>
 
       <div class="premium">
-        <% if @restaurant.premium_account %>
-          <strong>Premium Account</strong>
-        <% end %>
+        Account Type: <%= @restaurant.account_type %>
       </div>
       <div id="address"><%= @restaurant.address_parts.join("<br />") %></div>
 
