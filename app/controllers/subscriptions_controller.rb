@@ -3,7 +3,7 @@ class SubscriptionsController < ApplicationController
   before_filter :init_braintree_customer
   before_filter :create_braintree_connector
 
-  # API expects customer id (restaurant or user) as params[:customer_id] 
+  # API expects customer id (restaurant or user) as params[:customer_id]
   # or params[:id], and either "restaurant" or "user" as params[:subscriber_type]
 
   def new
@@ -31,7 +31,7 @@ class SubscriptionsController < ApplicationController
   def destroy
     if @braintree_customer.complimentary_account?
       @braintree_customer.cancel_subscription!(:terminate_immediately => false)
-    else 
+    else
       destroy_result = @braintree_connector.cancel_subscription(
           @braintree_customer.subscription)
       if destroy_result.success?
@@ -45,9 +45,9 @@ class SubscriptionsController < ApplicationController
 
   def init_braintree_customer
     require_user
-    @braintree_customer = if params[:subscriber_type] == "restaurant" 
-                          then find_restaurant 
-                          else find_user 
+    @braintree_customer = if params[:subscriber_type] == "restaurant"
+                          then find_restaurant
+                          else find_user
                           end
   end
 
@@ -61,7 +61,7 @@ class SubscriptionsController < ApplicationController
       redirect_to root_path
     end
   end
-  
+
   # TODO: manager or admin only for restaurants
   def find_restaurant
     restaurant = Restaurant.find(local_id)
@@ -72,7 +72,7 @@ class SubscriptionsController < ApplicationController
     end
     restaurant
   end
-  
+
   def local_id
     params[:customer_id] || params[:id]
   end
@@ -82,7 +82,7 @@ class SubscriptionsController < ApplicationController
         bt_callback_subscriptions_url(:customer_id => @braintree_customer.id,
             :subscriber_type => params[:subscriber_type]))
   end
-  
+
   def customer_edit_redirect
     if params[:subscriber_type] == "restaurant"
       edit_restaurant_path(@braintree_customer)
