@@ -125,12 +125,15 @@ describe Subscription do
       
       it "adds the first payee correctly" do
         BraintreeConnector.expects(:set_add_ons_for_subscription).with(subscription, 1)
+        subscription.user_subscriptions_for_payer.size == 0
         subscription.add_payee(user)
       end
       
       it "adds the second payee correctly" do
         BraintreeConnector.expects(:set_add_ons_for_subscription).with(subscription, 2)
-        user_sub = 
+        user_sub = Factory(:subscription, :subscriber => Factory(:user), :payer => restaurant)
+        subscription.user_subscriptions_for_payer.size == 1
+        subscription.add_payee(user)
       end
       
       it "does not add a payee if the subscription is a user" do
