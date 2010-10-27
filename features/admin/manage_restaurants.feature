@@ -104,3 +104,18 @@ Feature: Manage restaurants
     And the listing for "Piece" should be basic
     When I go to the restaurant show page for "Piece"
     Then the show page should be basic
+  
+  Scenario: Convert an overtime restaurant account to complimentary
+    Given the restaurant "Piece" has an overtime account
+    When I go to the admin edit restaurant page for Piece
+    Then I should see that the restaurant has an overtime account
+    And I follow "Convert restaurant's premium account to a Complimentary Premium Account"
+    Then I should be on the admin edit restaurant page for Piece
+    Then I should see that the restaurant has a complimentary account
+    When I am on the admin restaurants page
+    And the listing for "Piece" should be complimentary
+    When I go to the restaurant show page for "Piece"
+    Then the show page should be complimentary
+  
+  #Scenario: Cancel an overtime restaurant account
+    

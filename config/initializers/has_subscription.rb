@@ -23,7 +23,7 @@ module HasSubscription
     end
 
     def premium_account?
-      subscription && subscription.premium?
+      subscription && subscription.premium? && subscription.active?
     end
 
     def complimentary_account?

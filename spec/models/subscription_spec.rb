@@ -62,6 +62,28 @@ describe Subscription do
     
   end
   
+  describe "needs braintree cancel" do
+    
+    let(:subscription) { Subscription.new(@valid_attribtes) }
+    
+    it "a regular subscription needs a braintree cancel" do
+      subscription.payer = Factory(:user)
+      subscription.skip_braintree_cancel?.should be_false
+    end
+    
+    it "a complimentary account does not need a braintree cancel" do
+      subscription.payer = nil
+      subscription.skip_braintree_cancel?.should be_true
+    end
+    
+    it "an overtime account does not need a braintree cancel" do
+      subscription.payer = Factory(:user)
+      subscription.end_date = 1.month.from_now
+      subscription.skip_braintree_cancel?.should be_true
+    end
+    
+  end
+  
 end
 
 # == Schema Information

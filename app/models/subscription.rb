@@ -35,6 +35,10 @@ class Subscription < ActiveRecord::Base
     update_attributes(:end_date => 1.month.from_now)
   end
   
+  def skip_braintree_cancel?
+    complimentary? || in_overtime?
+  end
+  
 end
 
 # == Schema Information

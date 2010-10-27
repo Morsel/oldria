@@ -32,7 +32,8 @@ class Admin::ComplimentaryAccountsController < Admin::AdminController
   end
     
   def cancel_braintree_subscription
-    return true if (@subscriber.subscription.blank? || @subscriber.subscription.complimentary?)
+    return true unless @subscriber.subscription 
+    return true if @subscriber.subscription.skip_braintree_cancel?
     result = BraintreeConnector.cancel_subscription(@subscriber.subscription)
     proceed = result.success?
   end
