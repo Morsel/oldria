@@ -6,6 +6,8 @@ class Subscription < ActiveRecord::Base
 
   belongs_to :subscriber, :polymorphic => true
   belongs_to :payer, :polymorphic => true
+  
+  named_scope :user_subscriptions, :conditions => {:subscriber_type => "User"}
 
   def premium?
     true
@@ -54,7 +56,11 @@ class Subscription < ActiveRecord::Base
   def add_payee(user)
     return if payer.is_a?(User)
     return if !active?
-    BraintreeConnector.set_add_ons_for_subscription(self, 1)
+    BraintreeConnector.set_add_ons_for_subscription(self, user_subscriptions_for_payer.size + 1)
+  end
+  
+  def user_subscriptions_for_payer
+    payer.subscriptions.user_subscriptions
   end
 
 end
