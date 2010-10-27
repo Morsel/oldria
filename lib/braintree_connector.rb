@@ -93,6 +93,12 @@ class BraintreeConnector
     result.ids
   end
 
+  def transaction_history
+    Braintree::Transaction.search do |search|
+      search.customer_id.is braintree_customer_id
+    end
+  end
+
   private
   def update_subscription
     Braintree::Subscription.update(payer.subscription.braintree_id,

@@ -90,6 +90,15 @@ describe BraintreeConnector do
       connector.find_subscription(Factory(:subscription))
     end
 
+    describe "#billing_history" do
+      it "should query braintree using the subscriber id" do
+        fake_result = Object.new
+        Braintree::Transaction.expects(:search).yields(stub(:customer_id)).returns(fake_result)
+        result = connector.transaction_history
+        result.should == fake_result
+      end
+    end
+
   end
 
   describe "with a restaurant" do
