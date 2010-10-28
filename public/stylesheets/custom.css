@@ -1928,10 +1928,10 @@ p.editprofile a:hover {
 
 .edit_profile_link {
   position: absolute;
-  width: 27px;
-  height: 62px;
-  top: 15px;
-  left: -27px;
+  width: 62px;
+  height: 27px;
+  top: 0;
+  right: 15px;
   background: url('../images/edit-tab.png') no-repeat;
 }
 

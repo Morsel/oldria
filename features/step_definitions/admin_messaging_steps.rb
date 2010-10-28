@@ -146,3 +146,9 @@ Given /^holiday "([^\"]*)" has a reply "([^\"]*)"$/ do |holidayname, reply|
   Factory(:comment, :commentable => holiday.holiday_discussions.first, :comment => reply)
 end
 
+Given /^"([^\"]*)" is not allowed to post to soapbox$/ do |username|
+  user = User.find_by_username(username)
+  visit edit_restaurant_employee_path(user.primary_employment.restaurant, user)
+  uncheck :employment_post_to_soapbox
+  click_button
+end

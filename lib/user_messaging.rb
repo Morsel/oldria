@@ -149,7 +149,7 @@ module UserMessaging
   end
 
   def ria_message_count
-    if action_required_messages
+    @ria_message_count ||= if action_required_messages
       action_required_messages.size + messages_from_ria.size
     else
       messages_from_ria.size

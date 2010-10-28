@@ -1,4 +1,5 @@
 # == Schema Information
+# Schema version: 20101027233052
 #
 # Table name: employments
 #
@@ -13,6 +14,7 @@
 #  public_profile     :boolean
 #  position           :integer
 #  type               :string(255)
+#  post_to_soapbox    :boolean         default(TRUE)
 #
 
 class DefaultEmployment < Employment

@@ -5,6 +5,7 @@ class SoapboxPromo < ActiveRecord::Base
 end
 
 # == Schema Information
+# Schema version: 20101022194902
 #
 # Table name: soapbox_promos
 #
@@ -14,5 +15,6 @@ end
 #  created_at :datetime
 #  updated_at :datetime
 #  link       :string(255)
+#  position   :integer
 #
 

@@ -1,13 +1,15 @@
 # == Schema Information
+# Schema version: 20101026213148
 #
 # Table name: profile_questions
 #
-#  id         :integer         not null, primary key
-#  title      :string(255)
-#  created_at :datetime
-#  updated_at :datetime
-#  position   :integer         default(0)
-#  chapter_id :integer
+#  id                :integer         not null, primary key
+#  title             :string(255)
+#  created_at        :datetime
+#  updated_at        :datetime
+#  position          :integer
+#  chapter_id        :integer
+#  roles_description :text
 #
 
 class ProfileQuestion < ActiveRecord::Base
@@ -41,6 +43,8 @@ class ProfileQuestion < ActiveRecord::Base
     { :joins => [:chapter, :profile_answers], :conditions => ["chapters.id = ?", chapter_id] }
   }
   
+  before_save :update_roles_description
+  
   def topic
     chapter.topic
   end
@@ -58,5 +62,12 @@ class ProfileQuestion < ActiveRecord::Base
         self.profile_answers.find_by_user_id(user.id) : 
         ProfileAnswer.new(:profile_question_id => self.id, :user_id => user.id)
   end
+  
+  protected
+  
+  def update_roles_description
+    self.roles_description = self.restaurant_roles.map(&:name).to_sentence
+  end
+
 end
 

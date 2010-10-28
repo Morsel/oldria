@@ -1,17 +1,17 @@
 <% title "#{@user.first_name}'s Profile", false %>
 
-<% #if false %>
 <% if params[:controller] == "profiles" %>
   <p>This is a preview view. These changes have not been saved.<%= link_to_function "Go back", "history.go(-1)" %> to edit or save.</p>
 <% end %>
 
 <div id="user_profile_view" class="clearfix">
-    <% if current_user == @user %>
-    <div class="edit_profile_link"><a href="<%= edit_my_profile_path %>"><span>Edit profile</span></a></div>
-    <% end %>
-
+   <% if current_user == @user %>
+	    <div class="edit_profile_link"><a href="<%= edit_my_profile_path %>"><span>Edit profile</span></a></div>
+   <% end %>
     <div class="profile_info">
+        
         <div class="profile_header">
+            
             <div class="profile_picture">
                 <%= image_tag @user.avatar.url(:small), :width=>'72', :class => 'left' %>
             </div><!-- .profile_picture -->

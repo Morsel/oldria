@@ -22,8 +22,8 @@ class Soapbox::ProfilesController < Soapbox::SoapboxController
   
   def check_access
     unless @user.linkable_profile?
-      flash[:error] = "This user doesn't have a published profile yet."
-      redirect_to soapbox_root_path
+      flash[:error] = "#{@user.name_or_username} doesn't have a published profile yet."
+      redirect_to soapbox_directory_path
     end
   end
 

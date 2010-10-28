@@ -158,6 +158,10 @@ class User < ActiveRecord::Base
     return primary_employment.restaurant.name if employments.count == 1
     employments.all(:order => '"primary" DESC', :include => :restaurant).map{|e| e.restaurant.name }.to_sentence
   end
+  
+  def post_to_soapbox?
+    primary_employment && primary_employment.post_to_soapbox
+  end
 
 ### Convenience methods for getting/setting first and last names ###
   def name

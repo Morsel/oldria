@@ -1,4 +1,5 @@
 # == Schema Information
+# Schema version: 20101027233052
 #
 # Table name: employments
 #
@@ -13,6 +14,7 @@
 #  public_profile     :boolean
 #  position           :integer
 #  type               :string(255)
+#  post_to_soapbox    :boolean         default(TRUE)
 #
 
 class Employment < ActiveRecord::Base
@@ -63,9 +65,6 @@ class Employment < ActiveRecord::Base
 
   named_scope :public_profile_only, :conditions => { :public_profile => true }
   named_scope :by_position, :order => "position ASC"
-
-  ### Preferences ###
-  preference :post_to_soapbox, :default => true
 
   def employee_name
     @employee_name ||= employee && employee.name

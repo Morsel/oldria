@@ -7,7 +7,7 @@
 
   <ul class="identity_details user">
       <li class="employee_name primary">
-          <%= link_to_if (user.linkable_profile? || current_user), user.name_or_username, directory_link(user) %>
+          <%= link_to_if (user.linkable_profile? || logged_in_and_not_soapbox), user.name_or_username, directory_link(user) %>
       </li>
       <li class="employee_role"><%= user.primary_employment.try(:restaurant_role).try(:name) %></li>
       <li class="restaurant_name"><%= user.restaurant_names %></li>
