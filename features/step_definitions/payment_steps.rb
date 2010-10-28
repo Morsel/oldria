@@ -80,7 +80,7 @@ When /^I simulate an unsuccessful call from braintree for user "([^"]*)"$/ do |u
       :braintree_customer => nil)
   BraintreeConnector.any_instance.stubs(
       :confirm_request_and_start_subscription => stub(:success? => false))
-  visit(bt_callback_subscriptions_path(:customer_id => user.id, 
+  visit(bt_callback_subscriptions_path(:customer_id => user.id,
       :subscriber_type => "user"))
 end
 
@@ -113,14 +113,14 @@ Then /^I see my account is paid for by myself$/ do
 end
 
 When /^I traverse the delete link for subscriptions for user "([^"]*)"$/ do |username|
-  visit(subscription_path(:id => User.find_by_username(username).id, 
-          :subscriber_type => "customer"), 
+  visit(subscription_path(:id => User.find_by_username(username).id,
+          :subscriber_type => "customer"),
       :delete)
 end
 
 When /^I traverse the delete link for subscriptions for the restaurant "([^"]*)"$/ do |name|
   visit(subscription_path(:customer_id => Restaurant.find_by_name(name).id,
-          :subscriber_type => "restaurant"), 
+          :subscriber_type => "restaurant"),
       :delete)
 end
 
@@ -171,5 +171,38 @@ Given /^the restaurant "([^"]*)" does not have a premium account$/ do |restauran
   restaurant.save!
 end
 
+Given /^I simulate braintree search billing history behavior with the following:$/ do |table|
+  @transactions = []
+  table.hashes.each do |row|
+    @transactions << stub(
+            :id => row['transaction_id'],
+            :amount => row['amount'],
+            :status => row['status'],
+            :created_at => eval(row['date']),
+            :credit_card_details => stub(
+                :last_4 => row['card_number'],
+                :card_type => row['card_type'],
+                :expiration_date => row['expiration_date']
+            ),
+            :class => Braintree::Transaction
+          )
+    # we are simulating a collection of the following braintree transaction objects
+    # <Braintree::Transaction id: "bssvmm", type: "sale", amount: "250.0", status: "submitted_for_settlement", created_at: Wed Oct 27 14:25:10 UTC 2010, credit_card_details: #<token: "5bgy", bin: "411111", last_4: "1111", card_type: "Visa", expiration_date: "01/2011", cardholder_name: "", customer_location: "US">, customer_details: #<id: "Restaurant_35", first_name: nil, last_name: nil, email: "sonia@neotericdesign.com", company: nil, website: nil, phone: nil, fax: nil>, updated_at: Wed Oct 27 14:25:11 UTC 2010>
+  end
+  BraintreeConnector.any_instance.stubs(:transaction_history => @transactions)
+end
 
-
+Then /^I should see all of my transaction details$/ do
+  response.should have_selector("table#transactions")
+  @transactions.each do |transaction|
+    response.should have_selector("tr##{dom_id(transaction)}") do |trans_block|
+      trans_block.should have_selector("td", :content => transaction.id)
+      trans_block.should have_selector("td", :content => transaction.amount)
+      trans_block.should have_selector("td", :content => transaction.status)
+      trans_block.should have_selector("td", :content => transaction.created_at.strftime("%m/%d/%Y"))
+      trans_block.should have_selector("td", :content => transaction.credit_card_details.last_4)
+      trans_block.should have_selector("td", :content => transaction.credit_card_details.card_type)
+      trans_block.should have_selector("td", :content => transaction.credit_card_details.expiration_date)
+    end
+  end
+end

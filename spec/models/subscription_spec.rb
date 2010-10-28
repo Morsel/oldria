@@ -81,14 +81,14 @@ describe Subscription do
   describe "#purge_expired!" do
     before(:each) do
       @expired_subscription = Factory(:subscription,
-          :end_date => 1.day.ago,
+          :end_date => Date.today - 1,
           :status => Subscription::Status::PAST_DUE)
       @past_due_subscription = Factory(:subscription,
           :end_date => Date.today,
           :status => Subscription::Status::PAST_DUE)
     end
 
-    it "should destroy all subscriptions that are more than 5 days past due" do
+    it "should destroy all subscriptions that are past due and ended before today" do
       Subscription.purge_expired!
       Subscription.all.should == [@past_due_subscription]
     end

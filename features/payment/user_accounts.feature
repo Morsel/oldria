@@ -44,7 +44,7 @@ Feature: User Accounts
     Then I should be on the edit page for "emily"
     Then I see my account status is premium
     And I see my account is paid for by myself
-    
+
   Scenario: Unsuccessful response from braintree does not make a user premium
     Given I am logged in as "emily" with password "secret"
     When I simulate an unsuccessful call from braintree for user "emily"
@@ -108,3 +108,17 @@ Feature: User Accounts
     And I simulate a successful call from braintree for user "emily"
     Then I should be on the edit page for "emily"
     And I see my account status is premium
+
+  Scenario: A user can view their billing history
+    Given user "emily" has a premium account
+    And I am logged in as "emily" with password "secret"
+    And I simulate braintree search billing history behavior with the following:
+      | transaction_id | amount | status  | date         | card_type | card_number | expiration_date |
+      | abcd           | 50.00  | settled | 3.months.ago | Visa      | 1111        | 10/2012         |
+      | efgh           | 50.00  | settled | 2.months.ago | Visa      | 1111        | 10/2012         |
+      | ijkl           | 50.00  | settled | 1.months.ago | Visa      | 1111        | 10/2012         |
+
+
+    When I go to the edit page for "emily"
+    And I follow "View billing history"
+    Then I should see all of my transaction details

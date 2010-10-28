@@ -94,7 +94,7 @@ class BraintreeConnector
   end
 
   def transaction_history
-    Braintree::Transaction.search do |search|
+    results = Braintree::Transaction.search do |search|
       search.customer_id.is braintree_customer_id
     end
   end

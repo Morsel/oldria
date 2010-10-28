@@ -1,6 +1,7 @@
 class SubscriptionsController < ApplicationController
+  before_filter :find_customer, :only => :billing_history
+  before_filter :init_braintree_customer, :except => :billing_history
 
-  before_filter :init_braintree_customer
   before_filter :create_braintree_connector
 
   # API expects customer id (restaurant or user) as params[:customer_id]
@@ -39,6 +40,10 @@ class SubscriptionsController < ApplicationController
       end
     end
     redirect_to customer_edit_redirect
+  end
+
+  def billing_history
+    @transactions = @braintree_connector.transaction_history
   end
 
   private
@@ -88,6 +93,14 @@ class SubscriptionsController < ApplicationController
       edit_restaurant_path(@braintree_customer)
     else
       edit_user_path(@braintree_customer)
+    end
+  end
+
+  def find_customer
+    @braintree_customer = if params[:user_id]
+      User.find(params[:user_id])
+    elsif params
+      Restaurant.find(params[:restaurant_id])
     end
   end
 
