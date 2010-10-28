@@ -1,5 +1,5 @@
 --colour
---format nested
+--format progress
 --loadby mtime
 --reverse
 --drb
