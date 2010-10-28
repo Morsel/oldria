@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20101026213148) do
+ActiveRecord::Schema.define(:version => 20101027233052) do
 
   create_table "a_la_minute_answers", :force => true do |t|
     t.text     "answer"
@@ -287,6 +287,7 @@ ActiveRecord::Schema.define(:version => 20101026213148) do
     t.string   "type"
     t.boolean  "public_profile"
     t.integer  "position"
+    t.boolean  "post_to_soapbox",    :default => true
   end
 
   add_index "employments", ["employee_id"], :name => "index_employments_on_employee_id"

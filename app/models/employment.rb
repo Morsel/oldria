@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20101013222730
+# Schema version: 20101027233052
 #
 # Table name: employments
 #
@@ -14,6 +14,7 @@
 #  type               :string(255)
 #  public_profile     :boolean
 #  position           :integer
+#  post_to_soapbox    :boolean         default(TRUE)
 #
 
 class Employment < ActiveRecord::Base

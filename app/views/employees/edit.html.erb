@@ -1,19 +1,21 @@
 <% title "Editing Employee #{@employee.name}" %>
 
-<% semantic_form_for @employment, :url => restaurant_employee_path(@restaurant,@employee) do |f| %>
-	<% f.inputs do %>
-    <%= f.input :position, :as => :hidden %>
-		<%= f.input :omniscient, :label => "Spoonfeed Account Manager?", :hint => "This indicates whether you'd like this employee to be able to administer this restaurant. Note: managers receive all notifications." %>
-    <%= f.input :public_profile, :label => "Display on public profile?",
+<% semantic_form_for @employment, :url => restaurant_employee_path(@restaurant, @employee) do |f| %>
+    <% f.inputs do %>
+        <%= f.input :position, :as => :hidden %>
+        <%= f.input :omniscient, :label => "Spoonfeed Account Manager?", 
+            :hint => "This indicates whether you'd like this employee to be able to administer this restaurant. Note: managers receive all notifications." %>
+        <%= f.input :public_profile, :label => "Display on public profile?",
             :hint => "Check this box if the employee is featured on the public profile page for #{@restaurant.name}." %>		
-    <%= f.input :restaurant_role,
-			:hint => "Which best describes the role that #{@employee.name} has at #{@restaurant.name}?" %>
-      <%= render :partial => 'subject_matter_fields', :locals => {:f => f} %>
-      <%= f.input :prefers_post_to_soapbox, :as => :boolean,
-                  :label => "Is this person authorized to post responses on Soapbox for #{@restaurant.name}?" %>
+        <%= f.input :restaurant_role,
+            :hint => "Which best describes the role that #{@employee.name} has at #{@restaurant.name}?" %>
 
-	<% end %>
+        <%= render :partial => 'subject_matter_fields', :locals => {:f => f} %>
 
-	<p><%= button_tag "Submit", :class => 'positive' %></p>
+        <%= f.input :post_to_soapbox, :as => :boolean, :label => "Is this person authorized to post responses on Soapbox for #{@restaurant.name}?" %>
+
+    <% end %>
+
+<p><%= button_tag "Submit", :class => 'positive' %></p>
 
 <% end %>

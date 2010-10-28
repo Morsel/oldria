@@ -9,7 +9,8 @@ class Admin::QotdsController < Admin::AdminController
     @search = Employment.search(normalized_search_params)
     
     # Users via Employments that can post to soapbox
-    @qotd.recipients = @search.all.select { |e| e.prefers_post_to_soapbox? }.map(&:employee).flatten.uniq
+    @search.post_to_soapbox = true
+    @qotd.recipients = @search.all.map(&:employee).flatten.uniq
 
     if @qotd.save
       flash[:notice] = "Successfully created Question of the Day"

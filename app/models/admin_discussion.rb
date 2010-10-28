@@ -65,7 +65,7 @@ class AdminDiscussion < ActiveRecord::Base
   end
   
   def view_on_soapbox?
-    comments.first.employment.prefers_post_to_soapbox?
+    comments.first.employment.post_to_soapbox
   end
   
   ##
