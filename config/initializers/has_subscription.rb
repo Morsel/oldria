@@ -31,6 +31,14 @@ module HasSubscription
       subscriber_type == "Restaurant"
     end
     
+    def can_be_staff?
+      subscriber_type == "User"
+    end
+    
+    def can_be_payer?
+      subscriber_type == "Restaurant"
+    end
+    
     def premium_account
       premium_account?
     end
@@ -76,6 +84,7 @@ module HasSubscription
         save
       end
       subscription
+
     end
 
     def make_complimentary!
@@ -91,6 +100,7 @@ module HasSubscription
     
     def update_complimentary_with_braintree_id!(braintree_id)
       subscription.update_attributes(:braintree_id => braintree_id)
+
     end
 
     def cancel_subscription!(options)

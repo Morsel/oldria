@@ -2,8 +2,6 @@
 
 <% semantic_form_for @employment, :url => restaurant_employee_path(@restaurant,@employee) do |f| %>
 	<%= render :partial => 'employee_edit_account_status', :locals => {:f => f} %>
-
-	
 	<% f.inputs :name => "Roles" do %>
     <%= f.input :position, :as => :hidden %>
 		<%= f.input :omniscient, :label => "Spoonfeed Account Manager?", :hint => "This indicates whether you'd like this employee to be able to administer this restaurant. Note: managers receive all notifications." %>
