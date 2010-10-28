@@ -3,6 +3,10 @@ class EmployeeAccountsController < ApplicationController
   before_filter :find_and_authorize_restaurant
   
   def create
+    result = @restaurant.subscription.add_staff_account(@employee)
+    if !result
+      flash[:error] = "Whoops. We couldn't process your credit card with the information you provided. If you continue to experience issues, please contact us."
+    end
     redirect_to edit_restaurant_employee_path(@restaurant, @employee)
   end
   
@@ -10,10 +14,13 @@ class EmployeeAccountsController < ApplicationController
   
   def find_and_authorize_restaurant
     @restaurant = Restaurant.find(params[:restaurant_id])
-    @employment = @restaurant.employments.find_by_employee_id(params[:id])
-    @employee = @employement.employee
+    @employee = @restaurant.employees.find(params[:id]) rescue nil
     unauthorized! if @employee.nil?
     unauthorized! if cannot? :edit, @restaurant
+    if !@restaurant.premium_account?
+      flash[:error] = "A restaurant must have a Premium Account to add staff members."
+      redirect_to edit_restaurant_employee_path(@restaurant, @employee)
+    end 
   end
   
 end

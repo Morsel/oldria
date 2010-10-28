@@ -81,10 +81,10 @@ describe Subscription do
   describe "#purge_expired!" do
     before(:each) do
       @expired_subscription = Factory(:subscription,
-          :end_date => 1.day.ago,
+          :end_date => 2.days.ago,
           :status => Subscription::Status::PAST_DUE)
       @past_due_subscription = Factory(:subscription,
-          :end_date => Date.today,
+          :end_date => 1.day.from_now,
           :status => Subscription::Status::PAST_DUE)
     end
 
@@ -126,26 +126,42 @@ describe Subscription do
       it "adds the first payee correctly" do
         BraintreeConnector.expects(:set_add_ons_for_subscription).with(subscription, 1)
         subscription.user_subscriptions_for_payer.size == 0
-        subscription.add_payee(user)
+        subscription.add_staff_account(user)
+      end
+      
+      describe "adding a subscription object to the new user" do
+        
+        before(:each) do
+          BraintreeConnector.expects(:set_add_ons_for_subscription).with(
+              subscription, 1).returns(stub(:success? => true))
+          subscription.add_staff_account(user)
+        end
+        subject { user.subscription }
+        its(:start_date) { should == Date.today }
+        its(:payer) { should == restaurant }
+        its(:kind) { should == "User Premium" }
+        it { should be_staff_account }
+        its(:end_date) { should be_nil }
+        
       end
       
       it "adds the second payee correctly" do
         BraintreeConnector.expects(:set_add_ons_for_subscription).with(subscription, 2)
         user_sub = Factory(:subscription, :subscriber => Factory(:user), :payer => restaurant)
         subscription.user_subscriptions_for_payer.size == 1
-        subscription.add_payee(user)
+        subscription.add_staff_account(user)
       end
       
       it "does not add a payee if the subscription is a user" do
-        subscription.update_attributes(:payer => Factory(:user))
+        subscription.update_attributes(:subscriber => Factory(:user))
         BraintreeConnector.expects(:set_add_ons_for_subscription).never
-        subscription.add_payee(user)
+        subscription.add_staff_account(user)
       end
       
       it "does not add a payee if the subscription is past due" do
         subscription.update_attributes(:end_date => 1.day.ago)
         BraintreeConnector.expects(:set_add_ons_for_subscription).never
-        subscription.add_payee(user)
+        subscription.add_staff_account(user)
       end
       
     end

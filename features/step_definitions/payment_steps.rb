@@ -181,6 +181,10 @@ Then /^I see that "([^"]*)" has a premium account$/ do |username|
   response.should have_selector(".account_status", :content => "Premium")
 end
 
+Given /^I simulate a successful addon response from Braintree$/ do
+  BraintreeConnector.stubs(:set_add_ons_for_subscription).returns(stub(:success? => true))
+end
+
 
 
 

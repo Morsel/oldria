@@ -147,4 +147,36 @@ describe HasSubscription do
     
   end
   
+  describe "make a staff account" do
+    
+    let(:restaurant) { Factory(:restaurant) }
+    let(:user) { Factory(:user) }
+    
+    describe "happy path" do
+      
+      before(:each) {
+        user.make_staff_account!(restaurant)
+      }
+      subject { user.subscription }
+      its(:start_date) { should == Date.today }
+      its(:subscriber) { should == user }
+      its(:payer) { should == restaurant }
+      its(:kind) { should == "User Premium" }
+      it { should be_staff_account }
+      its(:end_date) { should be_nil }
+      
+    end
+    
+    describe "sad paths" do
+      
+      it "blocks if user and restaurant are in the wrong place" do
+        restaurant.make_staff_account!(user).should be_nil
+        restaurant.make_staff_account!(restaurant).should be_nil
+        user.make_staff_account!(user).should be_nil
+      end
+      
+    end
+    
+  end
+  
 end
