@@ -76,7 +76,8 @@ describe SubscriptionsController do
       end
 
       it "updates the user if everything is correct" do
-        BraintreeConnector.any_instance.expects(:confirm_request_and_start_subscription => stub(:success? => true))
+        BraintreeConnector.any_instance.expects(:confirm_request_and_start_subscription).with(
+            anything, {:apply_discount => false}).returns(stub(:success? => true))
         @user.expects(:make_premium!)
         get :bt_callback, :user_id => @user.id
         response.should redirect_to(edit_user_path(@user))
@@ -101,7 +102,8 @@ describe SubscriptionsController do
 
       it "updates the restaurant if everything is correct" do
         BraintreeConnector.any_instance.expects(
-            :confirm_request_and_start_subscription => stub(:success? => true))
+            :confirm_request_and_start_subscription).with(
+                anything, {:apply_discount => false}).returns(stub(:success? => true))
         @restaurant.expects(:make_premium!)
         get :bt_callback, :restaurant_id => @restaurant.id
         response.should redirect_to(edit_restaurant_url(@restaurant))
@@ -114,8 +116,29 @@ describe SubscriptionsController do
         get :bt_callback, :restaurant_id => @restaurant.id
         response.should redirect_to(new_restaurant_subscription_path(@restaurant))
       end
+    end
 
-
+    describe "with a complimentary restaurant" do
+      
+      before(:each) do
+        @user = Factory(:user, :email => "fred@flintstone.com", :username => "fred")
+        @restaurant = Factory(:managed_restaurant, :manager => @user)
+        @restaurant.update_attributes(:subscription => 
+            Factory(:subscription, :payer => nil, :braintree_id => nil))
+        @controller.stubs(:current_user).returns(@user)
+        @controller.expects(:find_restaurant).returns(@restaurant)
+      end
+      
+      it "updates the restaurant if everything is correct" do
+        BraintreeConnector.any_instance.expects(
+            :confirm_request_and_start_subscription).with(
+            anything, {:apply_discount => true}).returns(stub(:success? => true, 
+            :subscription => stub(:id => "abcd")))
+        @restaurant.expects(:update_complimentary_with_braintree_id!).with("abcd")
+        get :bt_callback, :restaurant_id => @restaurant.id
+        response.should redirect_to(edit_restaurant_url(@restaurant))
+      end
+      
     end
 
   end

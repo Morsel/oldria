@@ -32,6 +32,16 @@ Given /^user "([^"]*)" does not have a premium account$/ do |username|
   user.save!
 end
 
+Given /^the restaurant "([^"]*)" has a complimentary premium account$/ do |name|
+  restaurant = Restaurant.find_by_name(name)
+  restaurant.make_complimentary!
+end
+
+Given /^I simulate a successful account creation with discount from Braintree$/ do
+  #pending # express the regexp above with the code you wish you had
+end
+
+
 Then /^I see a premium badge$/ do
   response.should have_selector(".premium_badge")
 end
@@ -82,6 +92,7 @@ When /^I simulate an unsuccessful call from braintree for user "([^"]*)"$/ do |u
       :confirm_request_and_start_subscription => stub(:success? => false))
   visit(bt_callback_subscription_url(user))
 end
+
 
 When /^I simulate an unsuccessful call from braintree for the restaurant "([^"]*)"$/ do |name|
   restaurant = Restaurant.find_by_name(name)
@@ -235,3 +246,12 @@ Given /^user "([^"]*)" has a restaurant staff account from "([^"]*)"$/ do |usern
   restaurant = Restaurant.find_by_name(restaurant_name)
   user.make_staff_account!(restaurant)
 end
+
+Then /^I do not see a link to change the user status$/ do
+  response.should_not have_selector(".account_info .status_change_links")
+end
+
+Then /^I see the information to enter billing$/ do
+  response.should have_selector(".account_info .payment_info_needed")
+end
+

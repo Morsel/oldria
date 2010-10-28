@@ -200,4 +200,24 @@ describe HasSubscription do
     
   end
   
+  describe "update_complimentary_with_braintree_id" do
+    
+    let(:restaurant) { Factory(:restaurant) }
+
+    before(:each) do
+      restaurant.make_complimentary!
+      restaurant.update_complimentary_with_braintree_id!("abcd")
+    end
+    
+    subject { restaurant.subscription }
+    its(:start_date) { should == Date.today }
+    its(:subscriber) { should == restaurant }
+    its(:payer) { should be_nil }
+    its(:kind) { should == "Restaurant Premium" }
+    its(:braintree_id) { should == "abcd" }
+    it { should be_premium }
+    it { should be_complimentary }
+    
+  end
+  
 end

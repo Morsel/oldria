@@ -1,0 +1,30 @@
+<% f.inputs :name => "Account Status" do %>
+ 	<div id="<%= dom_id(@employee) %>" class="account_info">
+		<% if @restaurant.has_braintree_account? %>
+	 		<span class="account_status">
+	 			This employee has a <%= @employee.account_type %> <%= @employee.account_payer_type %> Account.
+	 		</span>
+	 		<% if can_change_user_status? %>
+				<span class="status_change_links">
+					<br style="clear:all" />
+					<div>
+						You can add this user to your restaurant account for $50 per month.
+					</div>
+		   		<%= link_to (image_tag('tick.png') + create_staff_account_link_label(@employee)), 
+		          restaurant_employee_accounts_path(:id => @employee.id, :restaurant_id => @restaurant.id),
+		   				:method => :post,
+		          :class => 'button positive' %>
+				</span>
+	    <% end %>
+		<% else %>
+		  <span class="payment_info_needed">
+		 		In order to add employees to your restaurant account for $50 per month,
+				you will need to enter your billing information. Your current 
+				restaurant account will not be affected.
+				<%= link_to (image_tag('tick.png') + "Enter Billing Information"), 
+	          new_restaurant_subscription_path(:restaurant_id => @restaurant.id),
+	          :class => 'button positive' %>
+		  </span>
+		<% end %>
+ 	</div>
+<% end %>

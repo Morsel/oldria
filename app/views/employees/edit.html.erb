@@ -1,20 +1,8 @@
 <% title "Editing Employee #{@employee.name}" %>
 
 <% semantic_form_for @employment, :url => restaurant_employee_path(@restaurant,@employee) do |f| %>
-	<% f.inputs :name => "Account Status" do %>
-  	<div id="<%= dom_id(@employee) %>">
-  		<span class="account_status">
-  			This employee has a <%= @employee.account_type %> <%= @employee.account_payer_type %> Account.
-  		</span>
-  		<% if (@employee.account_type != "Premium") || (@employee.account_payer_type == "Personal") %>
-    		<br style="clear:all" />
-    		<%= link_to (image_tag('tick.png') + create_staff_account_link_label(@employee)), 
-            restaurant_employee_accounts_path(:id => @employee.id, :restaurant_id => @restaurant.id),
-    				:method => :post,
-            :class => 'button positive' %>
-      <% end %>
-  	</div>
-	<% end %>
+	<%= render :partial => 'employee_edit_account_status', :locals => {:f => f} %>
+
 	
 	<% f.inputs :name => "Roles" do %>
     <%= f.input :position, :as => :hidden %>

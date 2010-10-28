@@ -2,6 +2,7 @@ class BraintreeConnector
   
   PLANS = {"User" => "user_monthly", "Restaurant" => "restaurant_monthly"}
   ADD_ON = "user_for_restaurant"
+  DISCOUNT_ID = "complimentary_restaurant"
 
   attr_accessor :payer, :callback
 
@@ -68,10 +69,10 @@ class BraintreeConnector
     Braintree::TransparentRedirect.confirm(request.query_string)
   end
 
-  def confirm_request_and_start_subscription(request)
+  def confirm_request_and_start_subscription(request, options = {})
     @confirmation_result = confirm_request(request)
     return @confirmation_result unless @confirmation_result.success?
-    @subscription_request ||= (payer.subscription) ? update_subscription : create_subscription
+    @subscription_request ||= (payer.subscription) ? update_subscription : create_subscription(options)
   end
 
   def self.cancel_subscription(subscription)
@@ -122,11 +123,14 @@ class BraintreeConnector
     )
   end
 
-  def create_subscription
-    Braintree::Subscription.create(
-      :payment_method_token => @confirmation_result.customer.credit_cards.first.token,
-      :plan_id => braintree_plan_id
-    )
+  def create_subscription(options = {})
+    create_options = {
+        :payment_method_token => @confirmation_result.customer.credit_cards.first.token,
+        :plan_id => braintree_plan_id}
+    if options[:apply_discount]
+      create_options[:discounts] = {:add => [{:inherited_from_id => DISCOUNT_ID}]}
+    end
+    Braintree::Subscription.create(create_options)
   end
 
 end

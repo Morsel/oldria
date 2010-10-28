@@ -40,11 +40,15 @@ module HasSubscription
     end
 
     def complimentary_account?
-      subscription && subscription.complimentary?
+      subscription.present? && subscription.complimentary?
     end
 
     def account_in_overtime?
-      subscription && subscription.in_overtime?
+      subscription.present? && subscription.in_overtime?
+    end
+    
+    def has_braintree_account?
+      subscription.present? && subscription.has_braintree_info?
     end
 
     def make_premium!(bt_subscription)
@@ -83,6 +87,10 @@ module HasSubscription
           :braintree_id => nil)
       save
       self.subscription
+    end
+    
+    def update_complimentary_with_braintree_id!(braintree_id)
+      subscription.update_attributes(:braintree_id => braintree_id)
     end
 
     def cancel_subscription!(options)

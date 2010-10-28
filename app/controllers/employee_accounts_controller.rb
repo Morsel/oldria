@@ -17,7 +17,7 @@ class EmployeeAccountsController < ApplicationController
     @employee = @restaurant.employees.find(params[:id]) rescue nil
     unauthorized! if @employee.nil?
     unauthorized! if cannot? :edit, @restaurant
-    if !@restaurant.premium_account?
+    if !@restaurant.has_braintree_account?
       flash[:error] = "A restaurant must have a Premium Account to add staff members."
       redirect_to edit_restaurant_employee_path(@restaurant, @employee)
     end 

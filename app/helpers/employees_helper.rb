@@ -57,4 +57,9 @@ module EmployeesHelper
     end
   end
   
+  def can_change_user_status?
+    return false unless @restaurant.premium_account?
+    (@employee.account_type != "Premium") || (@employee.account_payer_type == "Personal") 
+  end
+  
 end

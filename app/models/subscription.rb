@@ -12,6 +12,10 @@ class Subscription < ActiveRecord::Base
   def premium?
     true
   end
+  
+  def has_braintree_info?
+    braintree_id.present?
+  end
 
   def complimentary?
     payer.nil?

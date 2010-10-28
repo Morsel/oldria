@@ -42,7 +42,8 @@ describe BraintreeConnector do
       Braintree::Subscription.expects(:create).with(
         :payment_method_token => "abcd", :plan_id => "user_monthly")
       Braintree::Subscription.expects(:update).never
-      connector.confirm_request_and_start_subscription(stub(:query_string => "query_string"))
+      connector.confirm_request_and_start_subscription(
+          stub(:query_string => "query_string"), :apply_discount => false)
     end
 
     it "returns update data if the customer exists" do
@@ -117,7 +118,7 @@ describe BraintreeConnector do
       connector.braintree_customer_id.should == "Restaurant_#{restaurant.id}"
     end
 
-    it "derive the correct plan id" do
+    it "derives the correct plan id" do
       connector.braintree_plan_id.should == "restaurant_monthly"
     end
 
@@ -142,6 +143,22 @@ describe BraintreeConnector do
           )
       connector.braintree_data
     end
+    
+    describe "create with a discount" do
+      it "creates subscription requests" do
+        restaurant.update_attributes(:subscription => nil)
+        connector.stubs(:confirm_request => stub_customer_request)
+        Braintree::Subscription.expects(:create).with(
+          :payment_method_token => "abcd", 
+          :plan_id => "restaurant_monthly",
+          :discounts => {
+              :add => [{:inherited_from_id => "complimentary_restaurant"}]})
+        Braintree::Subscription.expects(:update).never
+        connector.confirm_request_and_start_subscription(
+            stub(:query_string => "query_string"), :apply_discount => true)
+      end
+    end
+    
   end
 
   describe "#past_due_subscriptions" do

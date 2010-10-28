@@ -18,9 +18,14 @@ class SubscriptionsController < ApplicationController
 
   def bt_callback
     request_kind = request.params[:kind]
-    bt_result = @braintree_connector.confirm_request_and_start_subscription(request)
+    bt_result = @braintree_connector.confirm_request_and_start_subscription(
+        request, :apply_discount => billing_info_for_complimentary_payer?)
     if bt_result.success?
-      @braintree_customer.make_premium!(bt_result)
+      if billing_info_for_complimentary_payer?
+        @braintree_customer.update_complimentary_with_braintree_id!(bt_result.subscription.id)
+      else
+        @braintree_customer.make_premium!(bt_result)
+      end
       flash[:success] = (request_kind == "update_customer")? "Thanks! Your payment information has been updated." : "Thanks for upgrading to Premium!"
       redirect_to customer_edit_path(@braintree_customer)
     else
@@ -47,6 +52,10 @@ class SubscriptionsController < ApplicationController
   end
 
   private
+  
+  def billing_info_for_complimentary_payer?
+    @braintree_customer.can_be_payer? && @braintree_customer.complimentary_account?
+  end
 
   def find_customer
     require_user

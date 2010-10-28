@@ -40,6 +40,7 @@ describe EmployeeAccountsController do
       before(:each) do
         user.make_premium!(bt_sub)
         user.subscription.update_attributes(:start_date => 1.month.ago.to_date)
+        BraintreeConnector.expects(:cancel_subscription).with(user.subscription)
         BraintreeConnector.expects(:set_add_ons_for_subscription).with(
             restaurant.subscription, 1).returns(stub(:success? => true))
         post :create, :restaurant_id => restaurant.id, :id => user.id
@@ -57,7 +58,18 @@ describe EmployeeAccountsController do
         flash[:error].should be_blank
         response.should redirect_to(edit_restaurant_employee_path(restaurant, user))
       end
+    end
+    
+    describe "with a complimentary account and a basic user" do
+      before(:each) do
+        BraintreeConnector.expects(:set_add_ons_for_subscription).never
+        restaurant.subscription.update_attributes(:payer => nil, :braintree_id => nil)
+        post :create, :restaurant_id => restaurant.id, :id => user.id
+      end
       
+      it "shows the credit card from" do
+        response.should redirect_to(edit_restaurant_employee_path(restaurant, user))
+      end
     end
     
     describe "with a braintree failure" do
