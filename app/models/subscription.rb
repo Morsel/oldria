@@ -76,7 +76,11 @@ class Subscription < ActiveRecord::Base
   end
   
   def user_subscriptions_for_payer
-    payer.paid_subscriptions.user_subscriptions
+    if payer 
+      payer.paid_subscriptions.user_subscriptions
+    else
+      subscriber.paid_subscriptions.user_subscriptions
+    end
   end
 
 end

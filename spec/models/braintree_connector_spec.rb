@@ -146,7 +146,7 @@ describe BraintreeConnector do
     
     describe "create with a discount" do
       it "creates subscription requests" do
-        restaurant.update_attributes(:subscription => nil)
+        restaurant.subscription.update_attributes(:payer => nil, :braintree_id => nil)
         connector.stubs(:confirm_request => stub_customer_request)
         Braintree::Subscription.expects(:create).with(
           :payment_method_token => "abcd", 

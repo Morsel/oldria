@@ -72,7 +72,7 @@ class BraintreeConnector
   def confirm_request_and_start_subscription(request, options = {})
     @confirmation_result = confirm_request(request)
     return @confirmation_result unless @confirmation_result.success?
-    @subscription_request ||= (payer.subscription) ? update_subscription : create_subscription(options)
+    @subscription_request ||= (payer.has_braintree_account?) ? update_subscription : create_subscription(options)
   end
 
   def self.cancel_subscription(subscription)
