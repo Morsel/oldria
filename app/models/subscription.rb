@@ -26,6 +26,10 @@ class Subscription < ActiveRecord::Base
     return false if end_date.blank?
     end_date.future?
   end
+  
+  def staff_account?
+    payer && payer.can_be_payer?
+  end
 
   def braintree_data
     BraintreeConnector.find_subscription(self)
@@ -53,14 +57,22 @@ class Subscription < ActiveRecord::Base
     complimentary? || in_overtime?
   end
   
-  def add_payee(user)
-    return if payer.is_a?(User)
+  def add_staff_account(user)
+    return unless subscriber.can_be_payer?
+    return unless user.can_be_staff?
     return if !active?
-    BraintreeConnector.set_add_ons_for_subscription(self, user_subscriptions_for_payer.size + 1)
+    result = BraintreeConnector.set_add_ons_for_subscription(self, 
+        user_subscriptions_for_payer.size + 1)
+    if result.success?
+      user.make_staff_account!(subscriber)
+      subscriber.subscription
+    else
+      nil
+    end
   end
   
   def user_subscriptions_for_payer
-    payer.subscriptions.user_subscriptions
+    payer.paid_subscriptions.user_subscriptions
   end
 
 end

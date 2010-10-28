@@ -2,7 +2,7 @@ module HasSubscription
 
   def has_subscription
     has_one :subscription, :as => :subscriber
-    has_many :subscriptions, :as => :payer
+    has_many :paid_subscriptions, :class_name => "Subscription", :as => :payer
     include InstanceMethods
   end
 
@@ -18,6 +18,14 @@ module HasSubscription
       if self.is_a?(User) then "User" else "Restaurant" end
     end
 
+    def can_be_staff?
+      subscriber_type == "User"
+    end
+    
+    def can_be_payer?
+      subscriber_type == "Restaurant"
+    end
+    
     def premium_account
       premium_account?
     end
@@ -41,6 +49,19 @@ module HasSubscription
           :start_date => Date.today,
           :braintree_id => bt_subscription.subscription.id)
       save
+      self.subscription
+    end
+    
+    def make_staff_account!(payer)
+      return unless can_be_staff?
+      return unless payer.can_be_payer?
+      self.subscription = Subscription.create(
+          :kind => "User Premium",
+          :payer => payer, 
+          :start_date => Date.today,
+          :braintree_id => nil)
+      save
+      self.subscription
     end
 
     def make_complimentary!
@@ -51,6 +72,7 @@ module HasSubscription
           :start_date => Date.today,
           :braintree_id => nil)
       save
+      self.subscription
     end
 
     def cancel_subscription!(options)
