@@ -1,7 +1,22 @@
 <% title "Editing Employee #{@employee.name}" %>
 
 <% semantic_form_for @employment, :url => restaurant_employee_path(@restaurant,@employee) do |f| %>
-	<% f.inputs do %>
+	<% f.inputs :name => "Account Status" do %>
+  	<div id="<%= dom_id(@employee) %>">
+  		<span class="account_status">
+  			This employee has a <%= @employee.account_type %> account.
+  		</span>
+  		<% if @employee.account_type != "Premium" %>
+    		<br style="clear:all" />
+    		<%= link_to (image_tag('tick.png') + "Upgrade employee account to Premium"), 
+            restaurant_employee_accounts_path(:id => @employee.id, :restaurant_id => @restaurant.id),
+    				:method => :post,
+            :class => 'button positive' %>
+      <% end %>
+  	</div>
+	<% end %>
+	
+	<% f.inputs :name => "Roles" do %>
     <%= f.input :position, :as => :hidden %>
 		<%= f.input :omniscient, :label => "Spoonfeed Account Manager?", :hint => "This indicates whether you'd like this employee to be able to administer this restaurant. Note: managers receive all notifications." %>
     <%= f.input :public_profile, :label => "Display on public profile?",
@@ -15,16 +30,5 @@
 	<% end %>
 
 	<p><%= button_tag "Submit", :class => 'positive' %></p>
-	
-	<div id="<%= dom_id(@employee) %>">
-		<span class="account_status">
-			This employee has a <%= @employee.account_type %> account.
-		</span>
-		<br style="clear:all" />
-		<%= link_to (image_tag('tick.png') + "Upgrade employee account to Premium"), 
-        restaurant_employee_accounts_path(:id => @employee.id, :restaurant_id => @restaurant.id),
-				:method => :post,
-        :class => 'button positive' %>
-	</div>
 
 <% end %>

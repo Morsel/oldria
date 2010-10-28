@@ -30,8 +30,7 @@ Feature: Restaurant Accounts
 	Scenario: A complimentary restaurant adds a second user without a premium account
 	
 	Scenario: A premium restaurant adds a user that already has a premium account
-		# user's subscription gets cancelled
-		# add on 
+		
 	
 	Scenario: A restaurant without premium access cannot change user status
 	
@@ -40,4 +39,13 @@ Feature: Restaurant Accounts
 	Scenario: An RIA admin comps a restaurant account with users
 	
 	Scenario: An RIA admin comps a user who is on a restaurant account
+	
+	# cancel notes
+	
+	#Scenario: A user whose account is being paid for cannot cancel or update	
+	
+	# user's subscription gets cancelled
+	# add on
+	
+	
 	
