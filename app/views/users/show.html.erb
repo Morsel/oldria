@@ -5,12 +5,14 @@
 <% end %>
 
 <div id="user_profile_view" class="clearfix">
-    <% if current_user == @user %>
-	  <div class="edit_profile_link"><a href="<%= edit_my_profile_path %>"><span>Edit profile</span></a></div>
-    <% end %>
+   <% if current_user == @user %>
+	    <div class="edit_profile_link"><a href="<%= edit_my_profile_path %>"><span>Edit profile</span></a></div>
+   <% end %>
   
     <div class="profile_info">
+        
         <div class="profile_header">
+            
             <div class="profile_picture">
                 <%= image_tag @user.avatar.url(:small), :width=>'72', :class => 'left' %>
             </div><!-- .profile_picture -->
