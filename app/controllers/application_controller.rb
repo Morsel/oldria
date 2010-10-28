@@ -169,12 +169,12 @@ class ApplicationController < ActionController::Base
   end
 
   def normalized_search_params
-    normalized = params[:search].reject{|k,v| v.blank? }
+    normalized = params[:search].reject{ |k,v| v.blank? }
     normalized.blank? ? {:id => ""} : normalized
   end
   
   def directory_search_setup
-    @search = EmploymentSearch.new(:conditions => params[:search]).employments
+    @search = Employment.search(params[:search])
 
     @users = @search.all(:include => [:employee, :restaurant_role], 
         :order => "users.last_name").map(&:employee).uniq
@@ -184,6 +184,20 @@ class ApplicationController < ActionController::Base
   def load_past_features
     @qotds ||= SoapboxEntry.qotd.published.recent.all(:include => :featured_item).map(&:featured_item)
     @trend_questions ||= SoapboxEntry.trend_question.published.recent.all(:include => :featured_item).map(&:featured_item)
+  end
+  
+  # For use when building the search on a Trend Question or other message
+  def build_search(resource = nil, soapbox_only = false)
+    return false unless resource
+    @search = Employment.search(normalized_search_params)
+    @search.post_to_soapbox = true if soapbox_only
+
+    @employment_search = if resource.employment_search
+      resource.employment_search.conditions = @search.conditions
+      resource.employment_search
+    else
+      resource.build_employment_search(:conditions => @search.conditions)
+    end
   end
 
 end
