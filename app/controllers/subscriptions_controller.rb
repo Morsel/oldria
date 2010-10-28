@@ -67,7 +67,6 @@ class SubscriptionsController < ApplicationController
     end
   end
 
-  # TODO: manager or admin only for restaurants
   def find_restaurant(local_id)
     restaurant = Restaurant.find(local_id)
     if cannot? :edit, restaurant

@@ -167,6 +167,27 @@ describe HasSubscription do
       
     end
     
+    #TODO: What if the cancel fails after the add on has gone through?
+    describe "user already has an account so keep old data" do
+      let(:bt_sub) { stub(:subscription => stub(:id => "abcd")) }
+      
+      before(:each) do
+        BraintreeConnector.expects(:cancel_subscription => stub(:success? => true))
+        user.make_premium!(bt_sub)
+        user.subscription.update_attributes(:start_date => 1.month.ago.to_date)
+        user.make_staff_account!(restaurant)
+      end
+      
+      subject { user.subscription }
+      its(:start_date) { should == 1.month.ago.to_date }
+      its(:subscriber) { should == user }
+      its(:payer) { should == restaurant }
+      its(:kind) { should == "User Premium" }
+      it { should be_staff_account }
+      its(:end_date) { should be_nil }
+      
+    end
+    
     describe "sad paths" do
       
       it "blocks if user and restaurant are in the wrong place" do

@@ -13,6 +13,11 @@ module HasSubscription
       return "Premium" if premium_account?
       "Basic"
     end
+    
+    def account_payer_type
+      return "Personal" unless subscription
+      if subscription.staff_account? then "Staff" else "Personal" end
+    end
 
     def subscriber_type
       if self.is_a?(User) then "User" else "Restaurant" end
@@ -55,13 +60,18 @@ module HasSubscription
     def make_staff_account!(payer)
       return unless can_be_staff?
       return unless payer.can_be_payer?
-      self.subscription = Subscription.create(
-          :kind => "User Premium",
-          :payer => payer, 
-          :start_date => Date.today,
-          :braintree_id => nil)
-      save
-      self.subscription
+      if subscription
+        result = BraintreeConnector.cancel_subscription(subscription)
+        subscription.update_attributes(:payer => payer, :braintree_id => nil)
+      else
+        self.subscription = Subscription.create(
+            :kind => "User Premium",
+            :payer => payer, 
+            :start_date => Date.today,
+            :braintree_id => nil)
+        save
+      end
+      subscription
     end
 
     def make_complimentary!

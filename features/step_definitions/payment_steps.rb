@@ -99,6 +99,13 @@ When /^I simulate a successful cancel from braintree$/ do
           stub(:billing_period_end_date => 1.month.from_now.to_date))
 end
 
+When /^I simulate a required successful cancel from braintree$/ do
+  BraintreeConnector.expects(
+      :cancel_subscription => stub(:success? => true))
+  BraintreeConnector.stubs(:find_subscription).returns(
+          stub(:billing_period_end_date => 1.month.from_now.to_date))
+end
+
 When /^I simulate an unsuccessful cancel from braintree$/ do
   BraintreeConnector.any_instance.stubs(
       :cancel_subscription => stub(:success? => false))
@@ -208,11 +215,23 @@ Then /^I see that "([^"]*)" has a basic account$/ do |username|
   response.should have_selector(".account_status", :content => "Basic")
 end
 
-Then /^I see that "([^"]*)" has a premium account$/ do |username|
+Then /^I see that "([^"]*)" has a premium account paid for by the restaurant$/ do |username|
   user = User.find_by_username(username)
-  response.should have_selector(".account_status", :content => "Premium")
+  response.should have_selector(".account_status", :content => "Premium Staff Account")
 end
 
-Given /^I simulate a successful addon response from Braintree$/ do
-  BraintreeConnector.stubs(:set_add_ons_for_subscription).returns(stub(:success? => true))
+Then /^I see that "([^"]*)" has a premium account of his own$/ do |username|
+  user = User.find_by_username(username)
+  response.should have_selector(".account_status", :content => "Premium Personal Account")
+end
+
+Given /^I simulate a successful addon response from Braintree with (\d+)$/ do |count|
+  BraintreeConnector.stubs(:set_add_ons_for_subscription).with(
+      instance_of(Subscription), count.to_i).returns(stub(:success? => true))
+end
+
+Given /^user "([^"]*)" has a restaurant staff account from "([^"]*)"$/ do |username, restaurant_name|
+  user = User.find_by_username(username)
+  restaurant = Restaurant.find_by_name(restaurant_name)
+  user.make_staff_account!(restaurant)
 end

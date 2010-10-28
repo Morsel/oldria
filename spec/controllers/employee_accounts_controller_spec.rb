@@ -34,6 +34,32 @@ describe EmployeeAccountsController do
       end
     end
     
+    describe "with a premium account and a premium user" do
+      let(:bt_sub) { stub(:subscription => stub(:id => "abcd")) }
+      
+      before(:each) do
+        user.make_premium!(bt_sub)
+        user.subscription.update_attributes(:start_date => 1.month.ago.to_date)
+        BraintreeConnector.expects(:set_add_ons_for_subscription).with(
+            restaurant.subscription, 1).returns(stub(:success? => true))
+        post :create, :restaurant_id => restaurant.id, :id => user.id
+      end
+      
+      it "should create the correct user account" do
+        restaurant.should have(2).paid_subscriptions
+        user.reload
+        user.subscription.should be_staff_account
+        user.subscription.start_date.should == 1.month.ago.to_date
+        user.subscription.braintree_id.should be_nil
+      end
+      
+      it "redirects back to the employee edit page" do
+        flash[:error].should be_blank
+        response.should redirect_to(edit_restaurant_employee_path(restaurant, user))
+      end
+      
+    end
+    
     describe "with a braintree failure" do
       
       before(:each) do
