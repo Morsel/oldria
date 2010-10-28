@@ -78,10 +78,10 @@ ActionController::Routing::Routes.draw do |map|
     users.resources :direct_messages, :member => { :reply => :get }
     users.resources :questions, :collection => { :topics => :get, :chapters => :get }
     users.resources :default_employments
-    users.billing_history 'billing_history', :controller => 'subscriptions', :action => 'billing_history'
+    users.resource :subscription, :collection => { :bt_callback => :get, :billing_history => :get }, :controller => 'subscriptions'
   end
 
-  map.resources :subscriptions, :collection => { :bt_callback => :get }
+  # map.resources :subscriptions, :collection => { :bt_callback => :get }
 
   map.resources :restaurants,
                 :member => {
@@ -100,7 +100,7 @@ ActionController::Routing::Routes.draw do |map|
     restaurant.resources :employments, :collection => { "reorder" => :post }
     #todo only need these two routes
     restaurant.resources :a_la_minute_answers, :collection => { :bulk_update => :put, :bulk_edit => :get }
-    restaurant.billing_history 'billing_history', :controller => 'subscriptions', :action => 'billing_history'
+    restaurant.resource :subscription, :collection => { :bt_callback => :get, :billing_history => :get }, :controller => 'subscriptions'
     restaurant.resources
   end
 

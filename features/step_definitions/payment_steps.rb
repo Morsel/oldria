@@ -1,3 +1,5 @@
+include SubscriptionsControllerHelper
+
 Then /^I see my account status is not premium$/ do
   response.should have_selector("#plans .current", :content => "Basic")
 end
@@ -59,8 +61,7 @@ When /^I simulate a successful call from braintree for user "([^"]*)"$/ do |user
   BraintreeConnector.any_instance.stubs(
       :confirm_request_and_start_subscription => stub(:success? => true,
           :subscription => stub(:id => "abcd")))
-  visit(bt_callback_subscriptions_path(:customer_id => user.id,
-      :subscriber_type => "user"))
+  visit(bt_callback_subscription_url(user))
 end
 
 When /^I simulate a successful call from braintree for the restaurant "([^"]*)"$/ do |name|
@@ -70,8 +71,7 @@ When /^I simulate a successful call from braintree for the restaurant "([^"]*)"$
   BraintreeConnector.any_instance.stubs(
       :confirm_request_and_start_subscription => stub(:success? => true,
           :subscription => stub(:id => "abcd")))
-  visit(bt_callback_subscriptions_path(:customer_id => restaurant.id        ,
-      :subscriber_type => "restaurant"))
+  visit(bt_callback_subscription_url(restaurant))
 end
 
 When /^I simulate an unsuccessful call from braintree for user "([^"]*)"$/ do |username|
@@ -80,8 +80,7 @@ When /^I simulate an unsuccessful call from braintree for user "([^"]*)"$/ do |u
       :braintree_customer => nil)
   BraintreeConnector.any_instance.stubs(
       :confirm_request_and_start_subscription => stub(:success? => false))
-  visit(bt_callback_subscriptions_path(:customer_id => user.id,
-      :subscriber_type => "user"))
+  visit(bt_callback_subscription_url(user))
 end
 
 When /^I simulate an unsuccessful call from braintree for the restaurant "([^"]*)"$/ do |name|
@@ -90,8 +89,7 @@ When /^I simulate an unsuccessful call from braintree for the restaurant "([^"]*
       :braintree_customer => nil)
   BraintreeConnector.any_instance.stubs(
       :confirm_request_and_start_subscription => stub(:success? => false))
-  visit(bt_callback_subscriptions_path(:customer_id => restaurant.id,
-      :subscriber_type => "restaurant"))
+  visit(bt_callback_subscription_url(restaurant))
 end
 
 When /^I simulate a successful cancel from braintree$/ do
@@ -113,14 +111,12 @@ Then /^I see my account is paid for by myself$/ do
 end
 
 When /^I traverse the delete link for subscriptions for user "([^"]*)"$/ do |username|
-  visit(subscription_path(:id => User.find_by_username(username).id,
-          :subscriber_type => "customer"),
+  visit(user_subscription_path(User.find_by_username(username).id),
       :delete)
 end
 
 When /^I traverse the delete link for subscriptions for the restaurant "([^"]*)"$/ do |name|
-  visit(subscription_path(:customer_id => Restaurant.find_by_name(name).id,
-          :subscriber_type => "restaurant"),
+  visit(restaurant_subscription_path(Restaurant.find_by_name(name)),
       :delete)
 end
 

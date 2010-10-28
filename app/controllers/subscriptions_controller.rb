@@ -1,6 +1,7 @@
 class SubscriptionsController < ApplicationController
-  before_filter :find_customer, :only => :billing_history
-  before_filter :init_braintree_customer, :except => :billing_history
+  include SubscriptionsControllerHelper
+
+  before_filter :find_customer
 
   before_filter :create_braintree_connector
 
@@ -21,11 +22,10 @@ class SubscriptionsController < ApplicationController
     if bt_result.success?
       @braintree_customer.make_premium!(bt_result)
       flash[:success] = (request_kind == "update_customer")? "Thanks! Your payment information has been updated." : "Thanks for upgrading to Premium!"
-      redirect_to customer_edit_redirect
+      redirect_to customer_edit_path(@braintree_customer)
     else
       flash[:error] = "Whoops. We couldn't process your credit card with the information you provided. If you continue to experience issues, please contact us."
-      redirect_to(new_subscription_path(:customer_id => @braintree_customer.id,
-          :subscriber_type => params[:subscriber_type]))
+      redirect_to(new_subscription_path(@braintree_customer))
     end
   end
 
@@ -39,7 +39,7 @@ class SubscriptionsController < ApplicationController
         @braintree_customer.cancel_subscription!(:terminate_immediately => false)
       end
     end
-    redirect_to customer_edit_redirect
+    redirect_to customer_edit_path(@braintree_customer)
   end
 
   def billing_history
@@ -48,16 +48,16 @@ class SubscriptionsController < ApplicationController
 
   private
 
-  def init_braintree_customer
+  def find_customer
     require_user
-    @braintree_customer = if params[:subscriber_type] == "restaurant"
-                          then find_restaurant
-                          else find_user
-                          end
+    @braintree_customer = if params[:user_id]
+      find_user(params[:user_id])
+    elsif params
+      find_restaurant(params[:restaurant_id])
+    end
   end
 
-  def find_user
-    require_user
+  def find_user(local_id)
     if local_id.to_i == current_user.id
       return current_user
     elsif current_user.admin?
@@ -68,7 +68,7 @@ class SubscriptionsController < ApplicationController
   end
 
   # TODO: manager or admin only for restaurants
-  def find_restaurant
+  def find_restaurant(local_id)
     restaurant = Restaurant.find(local_id)
     if cannot? :edit, restaurant
       flash[:error] = "You don't have permission to access that page"
@@ -78,30 +78,9 @@ class SubscriptionsController < ApplicationController
     restaurant
   end
 
-  def local_id
-    params[:customer_id] || params[:id]
-  end
 
   def create_braintree_connector
     @braintree_connector = BraintreeConnector.new(@braintree_customer,
-        bt_callback_subscriptions_url(:customer_id => @braintree_customer.id,
-            :subscriber_type => params[:subscriber_type]))
+        bt_callback_subscription_url(@braintree_customer))
   end
-
-  def customer_edit_redirect
-    if params[:subscriber_type] == "restaurant"
-      edit_restaurant_path(@braintree_customer)
-    else
-      edit_user_path(@braintree_customer)
-    end
-  end
-
-  def find_customer
-    @braintree_customer = if params[:user_id]
-      User.find(params[:user_id])
-    elsif params
-      Restaurant.find(params[:restaurant_id])
-    end
-  end
-
 end

@@ -48,7 +48,7 @@ Feature: User Accounts
   Scenario: Unsuccessful response from braintree does not make a user premium
     Given I am logged in as "emily" with password "secret"
     When I simulate an unsuccessful call from braintree for user "emily"
-    Then I should be on the new subscription page
+    Then I should be on the new subscription page for "emily"
     When I go to the edit page for "emily"
     Then I see my account status is not premium
 
@@ -117,7 +117,6 @@ Feature: User Accounts
       | abcd           | 50.00  | settled | 3.months.ago | Visa      | 1111        | 10/2012         |
       | efgh           | 50.00  | settled | 2.months.ago | Visa      | 1111        | 10/2012         |
       | ijkl           | 50.00  | settled | 1.months.ago | Visa      | 1111        | 10/2012         |
-
 
     When I go to the edit page for "emily"
     And I follow "View billing history"

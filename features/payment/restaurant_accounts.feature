@@ -46,9 +46,10 @@ Feature: Restaurant Accounts
     Then I see that the restaurant's account status is premium
     And I see my account is paid for by myself
 
+  @wip
   Scenario: Unsuccessful response from braintree does not make a user premium
     When I simulate an unsuccessful call from braintree for the restaurant "Taco Bell"
-    Then I should be on the new subscription page
+    Then I should be on the new subscription page for the restaurant "Taco Bell"
     When I go to the edit restaurant page for "Taco Bell"
     Then I see that the restaurant's account status is basic
 
@@ -108,7 +109,6 @@ Feature: Restaurant Accounts
     Then I should be on the edit restaurant page for "Taco Bell"
     And I see that the restaurant's account status is premium
 
-  @wip
   Scenario: A restaurant can view their billing history
     Given the restaurant "Taco Bell" has a premium account
     And I simulate braintree search billing history behavior with the following:

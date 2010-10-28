@@ -15,7 +15,7 @@ module ApplicationHelper
 
   def fb_login_link(url=root_path)
     link_to_function image_tag("connect.gif"),
-        "FB.login(function() {	window.location.href='#{url}'},{perms: 'offline_access,publish_stream,email,friends_status,manage_pages'});",
+        "FB.login(function() {  window.location.href='#{url}'},{perms: 'offline_access,publish_stream,email,friends_status,manage_pages'});",
         :class => "facebook_login"
   end
 
@@ -36,4 +36,5 @@ module ApplicationHelper
         :class => "delete_link", :id => dom_id(deletable_object, :delete_link)
   end
 
+  include SubscriptionsControllerHelper
 end

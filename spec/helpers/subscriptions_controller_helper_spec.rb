@@ -11,20 +11,73 @@ describe SubscriptionsControllerHelper do
 
   context "when subscriber is a user" do
     let(:subscriber) { Factory(:user) }
-    describe "#billing_history_path" do
+
+    describe "#subscription_path" do
       it "should return user billing history path" do
-        billing_history_path(subscriber).should == user_billing_history_path(subscriber)
+        subscription_path(subscriber).should == user_subscription_path(subscriber)
       end
     end
+
+    describe "#edit_subscription_path" do
+      it "should return edit user subscription path" do
+        edit_subscription_path(subscriber).should == edit_user_subscription_path(subscriber)
+      end
+    end
+
+    describe "#new_subscription_path" do
+      it "should return new user subscription path" do
+        new_subscription_path(subscriber).should == new_user_subscription_path(subscriber)
+      end
+    end
+
+    describe "#billing_history_subscription_path" do
+      it "should return user billing history path" do
+        billing_history_subscription_path(subscriber).should == billing_history_user_subscription_path(subscriber)
+      end
+    end
+
+    describe "#bt_callback_subscription_url" do
+      it "should return user bt callback url" do
+        bt_callback_subscription_url(subscriber).should == bt_callback_user_subscription_url(subscriber)
+      end
+    end
+
+
   end
 
   context "when subscriber is a restaurant" do
     let(:subscriber) { Factory(:restaurant) }
-    describe "#billing_history_path" do
+
+    describe "#subscription_path" do
       it "should return restaurant billing history path" do
-        billing_history_path(subscriber).should == restaurant_billing_history_path(subscriber)
+        subscription_path(subscriber).should == restaurant_subscription_path(subscriber)
       end
     end
+
+    describe "#edit_subscription_path" do
+      it "should return restaurant edit user subscription path" do
+        edit_subscription_path(subscriber).should == edit_restaurant_subscription_path(subscriber)
+      end
+    end
+
+    describe "#new_subscription_path" do
+      it "should return new restaurant subscription path" do
+        new_subscription_path(subscriber).should == new_restaurant_subscription_path(subscriber)
+      end
+    end
+
+    describe "#billing_history_path" do
+      it "should return restaurant billing history path" do
+        billing_history_subscription_path(subscriber).should == billing_history_restaurant_subscription_path(subscriber)
+      end
+    end
+
+    describe "#bt_callback_subscription_url" do
+      it "should return restaurant bt callback url" do
+        bt_callback_subscription_url(subscriber).should == bt_callback_restaurant_subscription_url(subscriber)
+      end
+    end
+
   end
 
   describe "#obscure_credit_card_number" do
