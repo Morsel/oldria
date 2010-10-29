@@ -84,16 +84,15 @@ Feature: Restaurant Accounts
     Then I see my account status is a premium staff account
     And I do not see any account change options
 	  
-	@wip
 	Scenario: An RIA admin comps a restaurant account with users
 	  Given the restaurant "Taco Bell" has a premium account
 	  And user "emily" has a staff account for the restaurant "Taco Bell"
-	  And I simulate a successful braintree update with the complimentary discount
+	  And I simulate a successful braintree update for "Taco Bell" with the complimentary discount
 	  And I am not logged in
 	  And I am logged in as an admin
 	  When I go to the admin edit restaurant page for Taco Bell
-    And I follow "Give restaurant a Complimentary Premium Account"
-    Then I should be on the admin edit restaurant page for Piece
+    And I follow "Convert restaurant's premium account to a Complimentary Premium Account"
+    Then I should be on the admin edit restaurant page for Taco Bell
     Then I should see that the restaurant has a complimentary account
 	
 	Scenario: An RIA admin comps a user who is on a restaurant account

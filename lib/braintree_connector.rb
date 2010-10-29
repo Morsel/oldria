@@ -109,6 +109,11 @@ class BraintreeConnector
         :add_ons => {:update => [{:existing_id => ADD_ON, :quantity => quantity}]})
     end
   end
+  
+  def self.update_subscription_with_discount(subscription)
+    Braintree::Subscription.update(subscription.braintree_id, 
+      :discounts => {:add => [{:inherited_from_id => DISCOUNT_ID}]})
+  end
 
   def transaction_history
     results = Braintree::Transaction.search do |search|

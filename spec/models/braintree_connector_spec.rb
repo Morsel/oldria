@@ -187,5 +187,17 @@ describe BraintreeConnector do
     
   end
   
+  describe "add discount to subscription" do
+    
+    let(:subscription) { Factory(:subscription) }
+    
+    it "calls the braintree subscription for creating a discount" do
+      Braintree::Subscription.expects(:update).with("abcd", 
+          :discounts => {:add => [{:inherited_from_id => "complimentary_restaurant"}]})
+      BraintreeConnector.update_subscription_with_discount(subscription)
+    end
+    
+  end
+  
 
 end

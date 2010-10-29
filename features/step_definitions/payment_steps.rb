@@ -271,3 +271,9 @@ Then /^I see the information to enter billing$/ do
   response.should have_selector(".account_info .payment_info_needed")
 end
 
+Given /^I simulate a successful braintree update for "([^"]*)" with the complimentary discount$/ do |name|
+  restaurant = Restaurant.find_by_name(name)
+  BraintreeConnector.expects(:update_subscription_with_discount).with(
+      restaurant.subscription).returns(stub(:success? => true))
+end
+

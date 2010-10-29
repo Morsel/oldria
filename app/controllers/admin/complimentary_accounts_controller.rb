@@ -3,15 +3,14 @@ class Admin::ComplimentaryAccountsController < Admin::AdminController
   before_filter :find_subscriber
   
   def create
-    proceed = cancel_braintree_subscription
-    if proceed
-      @subscriber.make_complimentary!
-    else
+    subscription = @subscriber.make_complimentary!
+    unless subscription
       flash[:notice] = "Error canceling existing subscription"
     end
     redirect_to customer_edit_redirect
   end
   
+  #TODO factor so that the cancel is all inside the has_subscription module
   def destroy
     proceed = cancel_braintree_subscription
     if proceed

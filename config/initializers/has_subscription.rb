@@ -19,6 +19,10 @@ module HasSubscription
       "Basic"
     end
     
+    def staff_subscriptions
+      paid_subscriptions.user_subscriptions
+    end
+    
     def account_payer_type
       return "Personal" unless subscription
       if subscription.staff_account? then "Staff" else "Personal" end
@@ -97,21 +101,53 @@ module HasSubscription
     end
 
     def make_complimentary!
-      subscription.destroy if subscription.present?
-      self.subscription = Subscription.create(
-          :kind => "#{subscriber_type} Premium",
-          :payer => nil,
-          :start_date => Date.today,
-          :braintree_id => nil)
-      save
-      self.subscription
+      if can_make_complimentary_with_discount?
+        make_complimentary_with_discount!
+      else
+        make_complimentary_with_cancel!
+      end
+    end
+
+    def can_make_complimentary_with_discount?
+      subscription.present? && can_be_payer? && staff_subscriptions.present?
+    end
+    
+    def make_complimentary_with_discount!
+      result = BraintreeConnector.update_subscription_with_discount(subscription)
+      if result.success?
+        subscription.update_attributes(:payer => nil)
+      end
+      subscription
+    end
+    
+    def make_complimentary_with_cancel!
+      success = cancel_subscription_from_braintree!
+      if success
+        update_attributes(:subscription => Subscription.create(
+            :kind => "#{subscriber_type} Premium",
+            :payer => nil,
+            :start_date => (subscription && subscription.start_date) || Date.today,
+            :braintree_id => nil))
+      end
+      subscription
+    end
+    
+    def cancel_subscription_from_braintree!
+      return true if subscription.blank?
+      return true if subscription.skip_braintree_cancel?
+      return true if subscription.braintree_id.blank?
+      result = BraintreeConnector.cancel_subscription(subscription)
+      if result.success?
+        subscription.destroy
+      end
+      result.success?
     end
     
     def update_complimentary_with_braintree_id!(braintree_id)
       subscription.update_attributes(:braintree_id => braintree_id)
-
     end
 
+    # note this version doesn't manage the braintree part of this...
     def cancel_subscription!(options)
       raise "Specify a cancel subscription method" if options[:terminate_immediately].nil?
       if options[:terminate_immediately]
