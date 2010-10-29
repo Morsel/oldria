@@ -8,9 +8,7 @@ describe BraintreeConnector do
         :subscription => Factory(:subscription, :braintree_id => "abcd"),
         :email => "fred@flintstone.com") }
     let(:connector) { BraintreeConnector.new(user, "callback") }
-    let(:stub_customer_request) {
-        stub(:customer => stub(:credit_cards => [stub(:token => "abcd")]),
-          :success? => true) }
+    
 
     it "creates a unique braintree customer id" do
       connector.braintree_customer_id.should == "User_#{user.id}"

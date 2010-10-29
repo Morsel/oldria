@@ -5,10 +5,9 @@ describe HasSubscription do
   describe "with a user" do
     describe "make a subscription" do
       let(:user) { Factory(:user) }
-      let(:bt_sub) { stub(:subscription => stub(:id => "abcd")) }
 
       before(:each) do
-        user.make_premium!(bt_sub)
+        user.make_premium!(subscription_response_stub)
       end
 
       subject { user.subscription }
@@ -110,10 +109,9 @@ describe HasSubscription do
     
     describe "make a subscription" do
       let(:restaurant) { Factory(:restaurant) }
-      let(:bt_sub) { stub(:subscription => stub(:id => "abcd")) }
-
+  
       before(:each) do
-        restaurant.make_premium!(bt_sub)
+        restaurant.make_premium!(subscription_response_stub)
       end
 
       subject { restaurant.subscription }
@@ -169,11 +167,10 @@ describe HasSubscription do
     
     #TODO: What if the cancel fails after the add on has gone through?
     describe "user already has an account so keep old data" do
-      let(:bt_sub) { stub(:subscription => stub(:id => "abcd")) }
       
       before(:each) do
-        BraintreeConnector.expects(:cancel_subscription => stub(:success? => true))
-        user.make_premium!(bt_sub)
+        BraintreeConnector.expects(:cancel_subscription => success_stub)
+        user.make_premium!(subscription_response_stub)
         user.subscription.update_attributes(:start_date => 1.month.ago.to_date)
         user.make_staff_account!(restaurant)
       end

@@ -32,7 +32,7 @@ class Subscription < ActiveRecord::Base
   end
   
   def staff_account?
-    payer && payer.can_be_payer?
+    payer && payer.can_be_payer? && subscriber.can_be_staff?
   end
 
   def braintree_data

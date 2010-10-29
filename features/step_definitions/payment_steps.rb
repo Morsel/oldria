@@ -32,6 +32,17 @@ Given /^user "([^"]*)" does not have a premium account$/ do |username|
   user.save!
 end
 
+Given /^user "([^"]*)" has a complimentary premium account$/ do |name|
+  user = User.find_by_username(name)
+  user.make_complimentary!
+end
+
+Given /^user "([^"]*)" has a staff account for the restaurant "([^"]*)"$/ do |username, restaurant_name|
+  user = User.find_by_username(username)
+  restaurant = Restaurant.find_by_name(restaurant_name)
+  user.make_staff_account!(restaurant)
+end
+
 Given /^the restaurant "([^"]*)" has a complimentary premium account$/ do |name|
   restaurant = Restaurant.find_by_name(name)
   restaurant.make_complimentary!
@@ -49,6 +60,11 @@ end
 Then /^I see my account status is premium$/ do
   response.should have_selector("#plans .current", :content => "Premium")
 end
+
+Then /^I see my account status is a premium staff account$/ do
+  response.should have_selector("#plans .current", :content => "Premium Staff")
+end
+
 
 Then /^I see a link to cancel my account$/ do
   response.should have_selector("#plans #upgrade_link a",

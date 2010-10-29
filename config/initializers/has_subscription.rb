@@ -44,6 +44,10 @@ module HasSubscription
       subscriber_type == "Restaurant"
     end
     
+    def staff_account?
+      subscription && subscription.staff_account?
+    end
+    
     def premium_account
       premium_account?
     end
