@@ -61,9 +61,30 @@ When /^I simulate braintree create behavior$/ do
 end
 
 When /^I simulate braintree update behavior$/ do
+  @credit_card = {
+    :last_4 => "1111",
+    :expiration_month => "05",
+    :expiration_year => "2015",
+    :billing_address => {
+      :postal_code => "11111"
+    }
+  }
   BraintreeConnector.any_instance.stubs(
-      :braintree_customer => stub(:kind => 'update_customer', :credit_cards => [stub(:token => "token_abcd")])
+      :braintree_customer => stub(
+        :kind => 'update_customer',
+        :credit_cards => [
+          stub(
+            :token => "token_abcd",
+            :last_4 => @credit_card[:last_4],
+            :expiration_month => @credit_card[:expiration_month],
+            :expiration_year => @credit_card[:expiration_year],
+            :billing_address => stub(
+              :postal_code => @credit_card[:billing_address][:postal_code]
+            )
+          )
+        ]
       )
+    )
 end
 
 When /^I simulate a successful call from braintree for user "([^"]*)"$/ do |username|
@@ -255,3 +276,38 @@ Then /^I see the information to enter billing$/ do
   response.should have_selector(".account_info .payment_info_needed")
 end
 
+Given /^I have a credit card on file with braintree$/ do
+  @credit_card = {
+    :last_4 => "1111",
+    :expiration_month => "05",
+    :expiration_year => "2015",
+    :billing_address => {
+      :postal_code => "11111"
+    }
+  }
+  BraintreeConnector.any_instance.stubs(
+      :braintree_customer => stub(
+        :credit_cards => [
+          stub(
+            :last_4 => @credit_card[:last_4],
+            :expiration_month => @credit_card[:expiration_month],
+            :expiration_year => @credit_card[:expiration_year],
+            :billing_address => stub(
+              :postal_code => @credit_card[:billing_address][:postal_code]
+            )
+          )
+        ]
+      )
+    )
+  # we're mocking the return of the customer object with a credit card record that looks like this:
+  # [#<Braintree::CreditCard token: "6cgp", billing_address: #<Braintree::Address:0x105e4a830 @region=nil, @first_name=nil, @id="7h", @country_code_alpha2=nil, @country_name=nil, @postal_code="11111", @extended_address=nil, @updated_at=Thu Oct 28 19:17:51 UTC 2010, @company=nil, @locality=nil, @customer_id="User_208", @country_code_numeric=nil, @street_address=nil, @gateway=#<Braintree::Gateway:0x1061cd070 @config=#<Braintree::Configuration:0x1061c7788 @merchant_id="ny23sz9jy8gy38bw", @environment=:sandbox, @private_key="w8kw3smb2g2m6mds", @logger=#<Logger:0x1061ccfd0 @formatter=#<Logger::SimpleFormatter:0x1061b3e90 @datetime_format=nil>, @level=1, @default_formatter=#<Logger::Formatter:0x1061ccf80 @datetime_format=nil>, @progname=nil, @logdev=#<Logger::LogDevice:0x1061ccf30 @dev=#<IO:0x1001b4aa8>, @shift_size=nil, @shift_age=nil, @filename=nil, @mutex=#<Logger::LogDevice::LogDeviceMutex:0x1061cceb8 @mon_waiting_queue=[], @mon_entering_queue=[], @mon_count=0, @mon_owner=nil>>>, @public_key="n77z2dvd56jy4j9n", @custom_user_agent=nil>>, @last_name=nil, @country_code_alpha3=nil, @created_at=Thu Oct 28 19:17:51 UTC 2010>, bin: "411111", card_type: "Visa", cardholder_name: "", created_at: Fri Oct 22 20:05:45 UTC 2010, customer_id: "User_208", expiration_month: "01", expiration_year: "2011", last_4: "1111", updated_at: Thu Oct 28 19:17:51 UTC 2010>]
+
+end
+
+Then /^I should see my credit card information populated$/ do
+  response.should have_selector("input", :value => "#{"*"*12}#{@credit_card[:last_4]}")
+  response.should have_selector("input", :value => @credit_card[:billing_address][:postal_code])
+  response.should have_selector("select[name*=expiration_month] option[selected]", :content => @credit_card[:expiration_month])
+  response.should have_selector("select[name*=expiration_year] option[selected]", :value => @credit_card[:expiration_year])
+
+end

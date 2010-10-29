@@ -91,12 +91,14 @@ Feature: User Accounts
     Then I see my account status is premium
     And I see that the account for "emily" lasts until the end of the billing cycle
 
+
   Scenario: A user can update their payment info
     Given user "emily" has a premium account
     Given I am logged in as "emily" with password "secret"
     And I simulate braintree update behavior
     When I go to the edit page for "emily"
     When I follow "Update billing information"
+    Then I should see my credit card information populated
     When I fill in the following:
       | Credit Card Number                    | 4111111111111111     |
       | Billing ZIP                           | 60654                |
