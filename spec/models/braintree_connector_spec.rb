@@ -8,9 +8,7 @@ describe BraintreeConnector do
         :subscription => Factory(:subscription, :braintree_id => "abcd"),
         :email => "fred@flintstone.com") }
     let(:connector) { BraintreeConnector.new(user, "callback") }
-    let(:stub_customer_request) {
-        stub(:customer => stub(:credit_cards => [stub(:token => "abcd")]),
-          :success? => true) }
+    
 
     it "creates a unique braintree customer id" do
       connector.braintree_customer_id.should == "User_#{user.id}"
@@ -185,6 +183,18 @@ describe BraintreeConnector do
               :existing_id => "user_for_restaurant",
               :quantity => 2}]})      
       BraintreeConnector.set_add_ons_for_subscription(subscription, 2)
+    end
+    
+  end
+  
+  describe "add discount to subscription" do
+    
+    let(:subscription) { Factory(:subscription) }
+    
+    it "calls the braintree subscription for creating a discount" do
+      Braintree::Subscription.expects(:update).with("abcd", 
+          :discounts => {:add => [{:inherited_from_id => "complimentary_restaurant"}]})
+      BraintreeConnector.update_subscription_with_discount(subscription)
     end
     
   end

@@ -2,7 +2,7 @@
  	<div id="<%= dom_id(@employee) %>" class="account_info">
 		<% if @restaurant.has_braintree_account? %>
 	 		<span class="account_status">
-	 			This employee has a <%= @employee.account_type %> <%= @employee.account_payer_type %> Account.
+	 			This employee has a <%= @employee.public_account_type %> <%= @employee.account_payer_type %> Account.
 	 		</span>
 	 		<% if can_change_user_status? %>
 				<span class="status_change_links">
@@ -15,6 +15,13 @@
 		   				:method => :post,
 		          :class => 'button positive' %>
 				</span>
+			<% else %>
+			  <% if @employee.complimentary_account? %>
+			    <div>
+			      This employee already has a complimentary premium account. 
+			      You do not need to add this employee to your restaurant account.
+			    </div>
+			  <% end %>
 	    <% end %>
 		<% else %>
 		  <span class="payment_info_needed">

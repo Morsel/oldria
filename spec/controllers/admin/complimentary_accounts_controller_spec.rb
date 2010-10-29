@@ -26,7 +26,7 @@ describe Admin::ComplimentaryAccountsController do
         user.subscription = Factory(:subscription, :payer => user)
         user.save!
         User.stubs(:find).returns(user)
-        user.expects(:make_complimentary!)
+        BraintreeConnector.expects(:update_subscription_with_discount).never
         BraintreeConnector.expects(
             :cancel_subscription).returns(stub(:success? => true))
         post :create, :subscriber_id => user.id, :subscriber_type => "user"
@@ -37,25 +37,38 @@ describe Admin::ComplimentaryAccountsController do
     describe "with a restaurant" do
       let(:restaurant) { Factory(:restaurant) }
       
-      it "gives a basic user a complimentary account" do
+      it "gives a basic restaurant a complimentary account" do
         restaurant.cancel_subscription!(:terminate_immediately => true)
         Restaurant.stubs(:find).returns(restaurant)
-        restaurant.expects(:make_complimentary!)
         BraintreeConnector.expects(:cancel_subscription).never
+        BraintreeConnector.expects(:update_subscription_with_discount).never
         post :create, :subscriber_id => restaurant.id, :subscriber_type => "restaurant"
         response.should redirect_to(edit_admin_restaurant_url(restaurant))
       end
 
-      it "cancels the braintree subscription if it exists" do
+      it "adds a discount to the braintree subscription if it exists" do
         restaurant.subscription = Factory(:subscription, :payer => restaurant)
         restaurant.save!
+        user = Factory(:user)
+        user.make_staff_account!(restaurant)
         Restaurant.stubs(:find).returns(restaurant)
-        restaurant.expects(:make_complimentary!)
-        BraintreeConnector.expects(
-            :cancel_subscription).returns(stub(:success? => true))
+        BraintreeConnector.expects(:cancel_subscription).never
+        BraintreeConnector.expects(:update_subscription_with_discount).returns(
+            stub(:success? => true))
         post :create, :subscriber_id => restaurant.id, :subscriber_type => "restaurant"
         response.should redirect_to(edit_admin_restaurant_url(restaurant))
       end
+      
+      it "cancels the account if the restaurant has no staff accounts" do
+        restaurant.subscription = Factory(:subscription, :payer => restaurant)
+        restaurant.save!
+        BraintreeConnector.expects(:cancel_subscription).returns(stub(:success? => true))
+        BraintreeConnector.expects(:update_subscription_with_discount).never
+        post :create, :subscriber_id => restaurant.id, :subscriber_type => "restaurant"
+        response.should redirect_to(edit_admin_restaurant_url(restaurant))
+      end
+      
+      
     end
   end
   

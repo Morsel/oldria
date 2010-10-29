@@ -69,12 +69,31 @@ Feature: Restaurant Accounts
     When I go to the employees page for "Taco Bell"
 		When I follow the edit role link for "Sam Smith"
 		Then I should see "Upgrade employee account to Premium"
-	
-	Scenario: A complimentary restaurant adds a second user without a premium account
 		
 	Scenario: A restaurant cannot change the status of a complimentary user
+	  Given the restaurant "Taco Bell" has a premium account
+	  And user "sam" has a complimentary premium account
+	  When I go to the employees page for "Taco Bell"
+		And I follow the edit role link for "Sam Smith"
+		And I do not see a link to change the user status
 	
+	Scenario: A user who is a staff account can't change status
+	  Given the restaurant "Taco Bell" has a premium account
+	  And user "emily" has a staff account for the restaurant "Taco Bell"
+	  When I go to the edit page for "emily"
+    Then I see my account status is a premium staff account
+    And I do not see any account change options
+	  
 	Scenario: An RIA admin comps a restaurant account with users
+	  Given the restaurant "Taco Bell" has a premium account
+	  And user "emily" has a staff account for the restaurant "Taco Bell"
+	  And I simulate a successful braintree update for "Taco Bell" with the complimentary discount
+	  And I am not logged in
+	  And I am logged in as an admin
+	  When I go to the admin edit restaurant page for Taco Bell
+    And I follow "Convert restaurant's premium account to a Complimentary Premium Account"
+    Then I should be on the admin edit restaurant page for Taco Bell
+    Then I should see that the restaurant has a complimentary account
 	
 	Scenario: An RIA admin comps a user who is on a restaurant account
 	

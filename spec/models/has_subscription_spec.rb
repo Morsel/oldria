@@ -5,20 +5,20 @@ describe HasSubscription do
   describe "with a user" do
     describe "make a subscription" do
       let(:user) { Factory(:user) }
-      let(:bt_sub) { stub(:subscription => stub(:id => "abcd")) }
 
       before(:each) do
-        user.make_premium!(bt_sub)
+        user.make_premium!(subscription_response_stub)
       end
-
-      subject { user.subscription }
-      its(:start_date) { should == Date.today }
-      its(:subscriber) { should == user }
-      its(:payer) { should == user }
-      its(:kind) { should == "User Premium" }
-      its(:braintree_id) { should == "abcd" }
-      it { should be_premium }
-      it { should_not be_complimentary }
+      
+      it "creates the right subscription" do
+        user.subscription.start_date.should == Date.today
+        user.subscription.subscriber.should == user
+        user.subscription.payer.should == user
+        user.subscription.kind.should == "User Premium"
+        user.subscription.braintree_id.should == "abcd"
+        user.subscription.should be_premium
+        user.subscription.should_not be_complimentary
+      end
     end
 
     describe "make a complimentary subscription for a user without one" do
@@ -26,26 +26,32 @@ describe HasSubscription do
       let(:user) { Factory(:user) }
 
       before(:each) do
+        BraintreeConnector.expects(:update_subscription_with_discount).never
+        BraintreeConnector.expects(:cancel_subscription).never
         user.make_complimentary!
       end
-
-      subject { user.subscription }
-      its(:start_date) { should == Date.today }
-      its(:subscriber) { should == user }
-      its(:payer) { should be_nil }
-      its(:kind) { should == "User Premium" }
-      its(:braintree_id) { should be_nil }
-      it { should be_premium }
-      it { should be_complimentary }
+      
+      it "creates the right subscription" do
+        user.subscription.start_date.should == Date.today
+        user.subscription.subscriber.should == user
+        user.subscription.payer.should be_nil
+        user.subscription.kind.should == "User Premium"
+        user.subscription.braintree_id.should be_nil
+        user.subscription.should be_premium
+        user.subscription.should be_complimentary
+      end
 
     end
 
-    describe "make a complimentary subscription for a user with one" do
+    describe "make a complimentary subscription for a user with a paid one" do
 
       let(:user) { Factory(:user) }
 
       before(:each) do
+        BraintreeConnector.expects(:update_subscription_with_discount).never
         user.subscription = Factory(:subscription, :payer => user)
+        BraintreeConnector.expects(:cancel_subscription).with(
+            user.subscription).returns(success_stub)
         user.save!
         user.make_complimentary!
       end
@@ -110,20 +116,20 @@ describe HasSubscription do
     
     describe "make a subscription" do
       let(:restaurant) { Factory(:restaurant) }
-      let(:bt_sub) { stub(:subscription => stub(:id => "abcd")) }
-
+  
       before(:each) do
-        restaurant.make_premium!(bt_sub)
+        restaurant.make_premium!(subscription_response_stub)
       end
-
-      subject { restaurant.subscription }
-      its(:start_date) { should == Date.today }
-      its(:subscriber) { should == restaurant }
-      its(:payer) { should == restaurant }
-      its(:kind) { should == "Restaurant Premium" }
-      its(:braintree_id) { should == "abcd" }
-      it { should be_premium }
-      it { should_not be_complimentary }
+      
+      it "creates the right subscription" do
+        restaurant.subscription.start_date.should == Date.today
+        restaurant.subscription.subscriber.should == restaurant
+        restaurant.subscription.payer.should == restaurant
+        restaurant.subscription.kind.should == "Restaurant Premium"
+        restaurant.subscription.braintree_id.should == "abcd"
+        restaurant.subscription.should be_premium
+        restaurant.subscription.should_not be_complimentary
+      end
     end
     
     describe "make a complimentary subscription for a restaurant without one" do
@@ -131,18 +137,75 @@ describe HasSubscription do
       let(:restaurant) { Factory(:restaurant) }
 
       before(:each) do
+        BraintreeConnector.expects(:update_subscription_with_discount).never
+        BraintreeConnector.expects(:cancel_subscription).never
         restaurant.make_complimentary!
       end
+      
+      it "creates the right subscription" do
+        restaurant.subscription.start_date.should == Date.today
+        restaurant.subscription.subscriber.should == restaurant
+        restaurant.subscription.payer.should be_nil
+        restaurant.subscription.kind.should == "Restaurant Premium"
+        restaurant.subscription.braintree_id.should be_nil
+        restaurant.subscription.should be_premium
+        restaurant.subscription.should be_complimentary
+      end
 
-      subject { restaurant.subscription }
-      its(:start_date) { should == Date.today }
-      its(:subscriber) { should == restaurant }
-      its(:payer) { should be_nil }
-      its(:kind) { should == "Restaurant Premium" }
-      its(:braintree_id) { should be_nil }
-      it { should be_premium }
-      it { should be_complimentary }
-
+    end
+    
+    describe "make a complimentary account for a restaurant with a paid one and staff accounts" do
+      
+      let(:restaurant) { Factory(:restaurant) }
+      let(:user) { Factory(:user) }
+      
+      before(:each) do
+        user.make_staff_account!(restaurant)
+        restaurant.update_attributes(
+            :subscription => Factory(:subscription, :payer => restaurant,
+                :start_date => 1.month.ago.to_date, :kind => "Restaurant Premium"))
+        BraintreeConnector.expects(:update_subscription_with_discount).with(
+            restaurant.subscription).returns(success_stub)
+        BraintreeConnector.expects(:cancel_subscription).never
+        restaurant.make_complimentary!
+      end
+      
+      it "creates the right subscription" do
+        restaurant.subscription.start_date.should == 1.month.ago.to_date
+        restaurant.subscription.subscriber.should == restaurant
+        restaurant.subscription.payer.should be_nil
+        restaurant.subscription.kind.should == "Restaurant Premium"
+        restaurant.subscription.braintree_id.should == "abcd"
+        restaurant.subscription.should be_premium
+        restaurant.subscription.should be_complimentary
+      end
+    
+    end
+    
+    describe "make a complimentary account for a restaurant with a paid one and no staff accounts" do
+      
+      let(:restaurant) { Factory(:restaurant) }
+      
+      before(:each) do
+        restaurant.update_attributes(
+            :subscription => Factory(:subscription, :payer => restaurant,
+                :start_date => 1.month.ago.to_date, :kind => "Restaurant Premium"))
+        BraintreeConnector.expects(:update_subscription_with_discount).never
+        BraintreeConnector.expects(:cancel_subscription).with(
+            restaurant.subscription).returns(success_stub)
+        restaurant.make_complimentary!
+      end
+      
+      it "creates the right subscription" do
+        restaurant.subscription.start_date.should == 1.month.ago.to_date
+        restaurant.subscription.subscriber.should == restaurant
+        restaurant.subscription.payer.should be_nil
+        restaurant.subscription.kind.should == "Restaurant Premium"
+        restaurant.subscription.braintree_id.should be_nil
+        restaurant.subscription.should be_premium
+        restaurant.subscription.should be_complimentary
+      end
+    
     end
     
   end
@@ -157,34 +220,38 @@ describe HasSubscription do
       before(:each) {
         user.make_staff_account!(restaurant)
       }
-      subject { user.subscription }
-      its(:start_date) { should == Date.today }
-      its(:subscriber) { should == user }
-      its(:payer) { should == restaurant }
-      its(:kind) { should == "User Premium" }
-      it { should be_staff_account }
-      its(:end_date) { should be_nil }
+      
+      it "creates the right subscription" do
+        user.subscription.start_date.should == Date.today
+        user.subscription.subscriber.should == user
+        user.subscription.payer.should == restaurant
+        user.subscription.kind.should == "User Premium"
+        user.subscription.braintree_id.should be_nil
+        user.subscription.end_date.should be_nil
+        user.subscription.should be_staff_account
+      end
       
     end
     
     #TODO: What if the cancel fails after the add on has gone through?
     describe "user already has an account so keep old data" do
-      let(:bt_sub) { stub(:subscription => stub(:id => "abcd")) }
       
       before(:each) do
-        BraintreeConnector.expects(:cancel_subscription => stub(:success? => true))
-        user.make_premium!(bt_sub)
+        BraintreeConnector.expects(:cancel_subscription => success_stub)
+        user.make_premium!(subscription_response_stub)
         user.subscription.update_attributes(:start_date => 1.month.ago.to_date)
         user.make_staff_account!(restaurant)
       end
       
-      subject { user.subscription }
-      its(:start_date) { should == 1.month.ago.to_date }
-      its(:subscriber) { should == user }
-      its(:payer) { should == restaurant }
-      its(:kind) { should == "User Premium" }
-      it { should be_staff_account }
-      its(:end_date) { should be_nil }
+      it "creates the right subscription" do
+        user.subscription.start_date.should == 1.month.ago.to_date
+        user.subscription.subscriber.should == user
+        user.subscription.payer.should == restaurant
+        user.subscription.kind.should == "User Premium"
+        user.subscription.braintree_id.should be_nil
+        user.subscription.should be_premium
+        user.subscription.should be_staff_account
+      end
       
     end
     
@@ -209,14 +276,15 @@ describe HasSubscription do
       restaurant.update_complimentary_with_braintree_id!("abcd")
     end
     
-    subject { restaurant.subscription }
-    its(:start_date) { should == Date.today }
-    its(:subscriber) { should == restaurant }
-    its(:payer) { should be_nil }
-    its(:kind) { should == "Restaurant Premium" }
-    its(:braintree_id) { should == "abcd" }
-    it { should be_premium }
-    it { should be_complimentary }
+    it "creates the right subscription" do
+      restaurant.subscription.start_date == Date.today
+      restaurant.subscription.subscriber.should == restaurant
+      restaurant.subscription.payer.should be_nil
+      restaurant.subscription.kind.should == "Restaurant Premium"
+      restaurant.subscription.braintree_id.should == "abcd"
+      restaurant.subscription.should be_premium
+      restaurant.subscription.should be_complimentary
+    end
     
   end
   

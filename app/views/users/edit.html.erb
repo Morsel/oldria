@@ -16,23 +16,30 @@
   <br clear="all" />
   <br clear="all" />
   <div class="current">
-    Your current account status is <%= @user.public_account_type %>.
+    Your current account status is 
+    <%= @user.public_account_type %> <%= @user.account_payer_type %>.
     <% if @user.premium_account? %>
-      <span id="start_date">
+      <div id="start_date">
         You have been a premium member
         since <%= @user.subscription.start_date.to_s(:long) %>
-      </span>
+      </div>
       <% if @user.subscription && @user.subscription.in_overtime? %>
-        <span id="end_date">
+        <div id="end_date">
           This account has been canceled and will end
           <%= @user.subscription.end_date.to_s(:long)%>
-        </span>
+        </div>
       <% end %>
     <% end %>
   </div>
   
-  <%= render :partial => 'subscriptions/account_links',
-      :locals => {:subscriber => @user, :subscriber_type => "user"} %>
+  <% if @user.staff_account? %>
+    <div>
+      Your account is managed by <%= h @user.subscription.payer.name %>.
+    </div>
+  <% else %>
+    <%= render :partial => 'subscriptions/account_links',
+        :locals => {:subscriber => @user, :subscriber_type => "user"} %>
+  <% end %>
 </div>
 
 <br clear="all"/>
