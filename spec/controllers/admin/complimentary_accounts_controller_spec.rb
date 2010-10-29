@@ -12,6 +12,7 @@ describe Admin::ComplimentaryAccountsController do
     
     describe "with a user" do
       let(:user) { Factory(:user) }
+      let(:restaurant) { Factory(:restaurant) }
 
       it "gives a basic user a complimentary account" do
         user.cancel_subscription!(:terminate_immediately => true)
@@ -29,6 +30,21 @@ describe Admin::ComplimentaryAccountsController do
         BraintreeConnector.expects(:update_subscription_with_discount).never
         BraintreeConnector.expects(
             :cancel_subscription).returns(stub(:success? => true))
+        post :create, :subscriber_id => user.id, :subscriber_type => "user"
+        response.should redirect_to(edit_admin_user_path(user))
+      end
+      
+      it "updates the restaurant account if the user is a staff account" do
+        restaurant.subscription = Factory(:subscription, :payer => restaurant)
+        restaurant.save!
+        user.subscription = Factory(:subscription, :payer => restaurant, 
+            :braintree_id => nil)
+        user.save!
+        User.stubs(:find).returns(user)
+        BraintreeConnector.expects(:update_subscription_with_discount).never
+        BraintreeConnector.expects(:cancel_subscription).never
+        BraintreeConnector.expects(:set_add_ons_for_subscription).with(
+            restaurant.subscription, 0).returns(stub(:success? => true))
         post :create, :subscriber_id => user.id, :subscriber_type => "user"
         response.should redirect_to(edit_admin_user_path(user))
       end

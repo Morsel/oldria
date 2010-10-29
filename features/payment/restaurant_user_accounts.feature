@@ -96,11 +96,19 @@ Feature: Restaurant Accounts
     Then I should see that the restaurant has a complimentary account
 	
 	Scenario: An RIA admin comps a user who is on a restaurant account
+	  Given the restaurant "Taco Bell" has a premium account
+	  And I simulate a successful addon response from Braintree with 1
+	  And user "emily" has a staff account for the restaurant "Taco Bell"
+	  And user "sam" has a staff account for the restaurant "Taco Bell"
+	  And I am not logged in
+	  And I am logged in as an admin
+	  When I go to the admin edit page for "sam"
+    And I follow "Convert user's premium account to a Complimentary Premium Account"
+    Then I should be on the admin edit page for "sam"
+    Then I should see that the user has a complimentary account
 	
-	# cancel notes
 	
-	#Scenario: A user whose account is being paid for cannot cancel or update	
-	
+	# cancel notes	
 	# user's subscription gets cancelled
 	# add on
 	

@@ -169,7 +169,9 @@ describe BraintreeConnector do
   
   describe "add on to subscription" do
     
-    let(:subscription) { Factory(:subscription) }
+    let(:restaurant) { Factory(:restaurant) }
+    let(:subscription) { Factory(:subscription, 
+        :payer => restaurant, :subscriber => restaurant) }
     
     it "calls add if the quantity is one" do
       Braintree::Subscription.expects(:update).with("abcd", :add_ons => {:add => [{
@@ -179,10 +181,27 @@ describe BraintreeConnector do
     end
     
     it "calls update if the quantity is greater than one" do
+      Factory(:subscription, :payer => restaurant, :subscriber => Factory(:user))
       Braintree::Subscription.expects(:update).with("abcd", :add_ons => {:update => [{
               :existing_id => "user_for_restaurant",
               :quantity => 2}]})      
       BraintreeConnector.set_add_ons_for_subscription(subscription, 2)
+    end
+    
+    it "calls update if the quantity is decremented to one" do
+      Factory(:subscription, :payer => restaurant, :subscriber => Factory(:user))
+      Factory(:subscription, :payer => restaurant, :subscriber => Factory(:user))
+      Braintree::Subscription.expects(:update).with("abcd", :add_ons => {:update => [{
+              :existing_id => "user_for_restaurant",
+              :quantity => 1}]})      
+      BraintreeConnector.set_add_ons_for_subscription(subscription, 1)
+    end
+    
+    it "calls remove if the quantity is zero" do
+      Factory(:subscription, :payer => restaurant, :subscriber => Factory(:user))
+      Braintree::Subscription.expects(:update).with("abcd", 
+          :add_ons => {:remove => ["user_for_restaurant"]})      
+      BraintreeConnector.set_add_ons_for_subscription(subscription, 0)
     end
     
   end

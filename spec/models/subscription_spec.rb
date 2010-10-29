@@ -167,6 +167,24 @@ describe Subscription do
     end
     
   end
+  
+  describe "payer count " do
+    
+    let(:restaurant) { Factory(:restaurant) }
+    let(:subscription) { Factory(:subscription, 
+        :payer => restaurant, :subscriber => restaurant) }
+        
+    it "calculates the pay load count" do
+      s1 = Factory(:subscription, :payer => restaurant, :subscriber => Factory(:user))
+      s2 = Factory(:subscription, :payer => restaurant, :subscriber => Factory(:user))
+      s1.user_subscriptions_for_payer.should have(2).items
+      subscription.user_subscriptions_for_payer.should have(2).items
+      s1.update_attributes(:payer => nil)
+      subscription.user_subscriptions_for_payer.should have(1).item
+      s2.user_subscriptions_for_payer.should have(1).item
+    end
+    
+  end
 
 end
 

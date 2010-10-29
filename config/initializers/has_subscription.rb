@@ -103,6 +103,8 @@ module HasSubscription
     def make_complimentary!
       if can_make_complimentary_with_discount?
         make_complimentary_with_discount!
+      elsif can_make_complimentary_with_add_on?
+        make_complimentary_with_add_on!
       else
         make_complimentary_with_cancel!
       end
@@ -110,6 +112,20 @@ module HasSubscription
 
     def can_make_complimentary_with_discount?
       subscription.present? && can_be_payer? && staff_subscriptions.present?
+    end
+    
+    def can_make_complimentary_with_add_on?
+      subscription.present? && can_be_staff? && staff_account?
+    end
+    
+    def make_complimentary_with_add_on!
+      result = BraintreeConnector.set_add_ons_for_subscription(
+          subscription.payer.subscription, 
+          subscription.user_subscriptions_for_payer.size - 1)
+      if result.success?
+        subscription.update_attributes(:payer => nil)
+      end
+      subscription
     end
     
     def make_complimentary_with_discount!

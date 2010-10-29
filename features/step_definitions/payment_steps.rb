@@ -274,7 +274,7 @@ Then /^I see that "([^"]*)" has a premium account of his own$/ do |username|
 end
 
 Given /^I simulate a successful addon response from Braintree with (\d+)$/ do |count|
-  BraintreeConnector.stubs(:set_add_ons_for_subscription).with(
+  BraintreeConnector.expects(:set_add_ons_for_subscription).with(
       instance_of(Subscription), count.to_i).returns(stub(:success? => true))
 end
 
