@@ -4780,6 +4780,7 @@ h2.primary_title{
 
 #criteria_accordion .check_boxes li{
   float:none;
+	list-style: none;
   width:100%;
 }
 
