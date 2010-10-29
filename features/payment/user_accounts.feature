@@ -19,8 +19,6 @@ Feature: User Accounts
   Scenario: A premium user can see their account status
     Given user "emily" has a premium account
     Given I am logged in as "emily" with password "secret"
-    When I go to the profile page for "emily"
-    Then I see a premium badge
     When I go to the edit page for "emily"
     Then I see my account status is premium
     And I see a link to cancel my account

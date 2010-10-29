@@ -14,6 +14,11 @@ module HasSubscription
       "Basic"
     end
     
+    def public_account_type
+      return "Premium" if premium_account?
+      "Basic"
+    end
+    
     def account_payer_type
       return "Personal" unless subscription
       if subscription.staff_account? then "Staff" else "Personal" end

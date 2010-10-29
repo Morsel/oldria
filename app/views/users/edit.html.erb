@@ -16,7 +16,7 @@
   <br clear="all" />
   <br clear="all" />
   <div class="current">
-    Your current account status is <%= @user.account_type %>.
+    Your current account status is <%= @user.public_account_type %>.
     <% if @user.premium_account? %>
       <span id="start_date">
         You have been a premium member

@@ -91,7 +91,7 @@ Feature: Manage restaurants
     When I am on the admin restaurants page
     And the listing for "Piece" should be complimentary
     When I go to the restaurant show page for "Piece"
-    Then the show page should be complimentary
+    Then the show page should be premium
     
   Scenario: Cancel a non-complimentary restaurant premium account
     Given the restaurant "Piece" has a premium account
@@ -104,7 +104,7 @@ Feature: Manage restaurants
     And the listing for "Piece" should be basic
     When I go to the restaurant show page for "Piece"
     Then the show page should be basic
-  
+    
   Scenario: Convert an overtime restaurant account to complimentary
     Given the restaurant "Piece" has an overtime account
     When I go to the admin edit restaurant page for Piece
@@ -115,7 +115,7 @@ Feature: Manage restaurants
     When I am on the admin restaurants page
     And the listing for "Piece" should be complimentary
     When I go to the restaurant show page for "Piece"
-    Then the show page should be complimentary
+    Then the show page should be premium
   
   #Scenario: Cancel an overtime restaurant account
     

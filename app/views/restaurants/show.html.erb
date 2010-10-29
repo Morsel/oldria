@@ -20,9 +20,9 @@
         <%= @restaurant.name %>
       </h2>
 
-      <div class="premium">
-        Account Type: <%= @restaurant.account_type %>
-      </div>
+      <% div_if @restaurant.premium_account?, :class => "premium" do %>
+        Account Type: Premium
+      <% end %>
       <div id="address"><%= @restaurant.address_parts.join("<br />") %></div>
 
       <div>

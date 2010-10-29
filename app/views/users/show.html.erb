@@ -19,10 +19,7 @@
             <% if @user.profile && @user.profile.headline %>
               <h3 class="headline"><%= @user.profile.try(:headline) %></h3>
             <% end %>
-            <% div_if @user.premium_account? && !@user.complimentary_account?, 
-                :class => "premium_badge" do %>
-              <h3 class="headline">Premium User</h3>
-            <% end %>
+            
         </div><!--.profile_header-->
 
         <div class="profile_title_summary">
