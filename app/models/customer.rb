@@ -2,14 +2,14 @@ class Customer
   attr_accessor :credit_card
 
   def initialize
-    @credit_card = CreditCard.new
+    self.credit_card = CreditCard.new
   end
 
   class CreditCard
-    attr_accessor :name, :cvv, :expiration_month, :expiration_year, :billing_address
+    attr_accessor :number, :cvv, :expiration_month, :expiration_year, :billing_address
 
     def initialize
-      @billing_address = BillingAddress.new
+      self.billing_address = BillingAddress.new
     end
 
     class BillingAddress

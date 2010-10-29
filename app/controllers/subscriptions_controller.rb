@@ -10,9 +10,19 @@ class SubscriptionsController < ApplicationController
 
   def new
     @tr_data = @braintree_connector.braintree_data
+    @customer = Customer.new
   end
 
   def edit
+    bt_customer = @braintree_connector.braintree_customer
+
+    @customer = Customer.new
+    credit_card = bt_customer.credit_cards.first
+    @customer.credit_card.number = "#{'*'*12}#{credit_card.last_4}"
+    @customer.credit_card.expiration_month = credit_card.expiration_month
+    @customer.credit_card.expiration_year = credit_card.expiration_year
+    @customer.credit_card.billing_address.postal_code = credit_card.billing_address.postal_code
+
     @tr_data = @braintree_connector.braintree_data
   end
 

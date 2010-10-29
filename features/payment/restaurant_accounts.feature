@@ -97,6 +97,7 @@ Feature: Restaurant Accounts
     And I simulate braintree update behavior
     When I go to the edit restaurant page for "Taco Bell"
     When I follow "Update billing information"
+    Then I should see my credit card information populated
     When I fill in the following:
       | Credit Card Number                    | 4111111111111111     |
       | Billing ZIP                           | 60654                |
