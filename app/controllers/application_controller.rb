@@ -194,7 +194,11 @@ class ApplicationController < ActionController::Base
 
   def directory_search_setup
     @search = User.search(params[:search])
-    @users = @search.all(:order => "users.last_name").uniq
+    if params[:controller].match(/soapbox/)
+      @users = @search.all(:order => "users.last_name", :conditions => { :premium_account => true }).uniq
+    else
+      @users = @search.all(:order => "users.last_name").uniq
+    end      
   end
   
 end

@@ -32,10 +32,6 @@ class Soapbox::SoapboxController < ApplicationController
   end
   
   def directory_search
-    params[:search].present? ? 
-        params[:search].merge(:premium_account_equals => true) : 
-        params[:search] = { :premium_account_equals => true }
-    
     directory_search_setup
     render :partial => "directory/search_results"
   end
