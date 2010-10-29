@@ -4,8 +4,8 @@
 
 <% if @use_search %>
 <div id="directory_search">
-    <% semantic_form_for EmploymentSearch.new, :url => employment_search_path do |f| %>
-        <%= render :partial => 'shared/employment_criteria', :locals => { :f => f, :hide_subject_matter => true } %>
+    <% form_tag do |f| %>
+        <%= render :partial => 'directory/search_criteria', :locals => { :f => f } %>
     <% end %>
 </div>
 <% end %>

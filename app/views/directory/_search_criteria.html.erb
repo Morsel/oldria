@@ -1,0 +1,125 @@
+<fieldset name="Find People" id="employment_criteria">
+    <legend><span>Filter Your Search</span></legend>
+    <ol>
+        <div id="criteria_accordion">
+            <div class="accordion_box">
+                <%= link_to "<span>Users</span>", "#" %>
+                <div id="user_fields" style="display:none;">
+                    <li id="search_id_equals_any_input" class="check_boxes optional">
+                        <fieldset>
+                            <legend class="label">
+                                <label for="search_id_equals_any">Id equals any</label>
+                            </legend>
+                            <ol>
+                                <% for user in @users_for_search || User.by_last_name %>
+                                <li><label for="search_id_equals_any_<%= user.id %>">
+                                    <%= check_box_tag "search[id_equals_any][]", user.id, false, :id => "search_id_equals_any_#{user.id}" %>
+                                    <%= user.to_label %>
+                                </label></li>
+                                <% end %>
+                            </ol>
+                        </fieldset>
+                    </li>
+                </div>
+            </div>
+            <div class="accordion_box">
+                <%= link_to "<span>Restaurants</span>", "#" %>
+                <div id="restaurant_fields" style="display:none;">
+                    <li id="search_employments_restaurant_id_equals_any_input" class="check_boxes optional">
+                        <fieldset>
+                            <legend class="label">
+                                <label for="search_employments_restaurant_id_equals_any">Restaurant id equals any</label>
+                            </legend>
+                            <ol>
+                                <% for restaurant in @restaurants_for_search || Restaurant.all(:order => 'sort_name ASC') %>
+                                <li><label for="search_employments_restaurant_id_equals_any_<%= restaurant.id %>">
+                                    <%= check_box_tag "search[employments_restaurant_id_equals_any][]", restaurant.id, false, :id => "search_employments_restaurant_id_equals_any_#{restaurant.id}" %>
+                                    <%= restaurant.name %>
+                                </label></li>
+                                <% end %>
+                            </ol>
+                        </fieldset>
+                    </li>
+                </div>
+            </div>
+            <div class="accordion_box">
+                <%= link_to "<span>Cuisine</span>", "#" %>
+                <div id="cuisine_fields" class="loading" style="display:none;">
+                    <li id="search_profile_cuisines_id_eq_any_input" class="check_boxes optional">
+                        <fieldset>
+                            <legend class="label">
+                                <label for="search_profile_cuisines_id_eq_any">Profile cuisine ids equals any</label>
+                            </legend>
+                            <ol>
+                                <% for cuisine in Cuisine.with_profiles %>
+                                <li><label for="search_profile_cuisines_id_eq_any_<%= cuisine.id %>">
+                                    <%= check_box_tag "search[profile_cuisines_id_eq_any][]", cuisine.id, false, :id => "search_profile_cuisines_id_eq_any_#{cuisine.id}" %>
+                                    <%= cuisine.name %>
+                                </label></li>
+                                <% end %>
+                            </ol>
+                        </fieldset>
+                    </li>
+                </div>
+            </div>
+            <div class="accordion_box">
+                <%= link_to "<span>Specialty</span>", "#" %>
+                <div id="specialty_fields" class="loading" style="display:none;">
+                    <li id="search_profile_specialities_id_eq_any_input" class="check_boxes optional">
+                        <fieldset>
+                            <legend class="label">
+                                <label for="search_profile_specialities_id_eq_any">Profile speciality ids equals any</label>
+                            </legend>
+                            <ol>
+                                <% for specialty in Specialty.with_profiles %>
+                                <li><label for="search_profile_specialties_id_eq_any_<%= specialty.id %>">
+                                    <%= check_box_tag "search[profile_specialties_id_eq_any][]", specialty.id, false, :id => "search_profile_specialties_id_eq_any_#{specialty.id}" %>
+                                    <%= specialty.name %>
+                                </label></li>
+                                <% end %>
+                            </ol>
+                        </fieldset>
+                    </li>
+                </div>
+            </div>
+            <div class="accordion_box">
+                <%= link_to "<span>Role</span>", "#" %>
+                <div id="role_fields" class="loading" style="display:none;">
+                    <li id="search_all_employments_restaurant_role_id_eq_any_input" class="check_boxes optional">
+                        <fieldset>
+                            <legend class="label">
+                                <label for="search_all_employments_restaurant_role_id_eq_any">Employments restaurant role ids equals any</label>
+                            </legend>
+                            <ol>
+                                <% for role in RestaurantRole.with_employments %>
+                                <li><label for="search_all_employments_restaurant_role_id_eq_any_<%= role.id %>">
+                                    <%= check_box_tag "search[all_employments_restaurant_role_id_eq_any][]", role.id, false, :id => "search_all_employments_restaurant_role_id_eq_any_#{role.id}" %>
+                                    <%= role.name %>
+                                </label></li>
+                                <% end %>
+                            </ol>
+                        </fieldset>
+                    </li>
+                </div>
+            </div>
+            <% if false %>
+            <div class="accordion_box">
+                <%= link_to "<span>Region</span>", "#" %>
+                <div id="region_fields" class="loading" style="display:none;">
+                    <%= s.input :restaurant_james_beard_region_id_equals_any,
+                    :as => "check_boxes",
+                    :collection => JamesBeardRegion.with_restaurants.all %>
+                </div>
+            </div>
+            <div class="accordion_box">
+                <%= link_to "<span>Metro Area</span>", "#" %>
+                <div id="metro_fields" class="loading" style="display:none;">
+                    <%= s.input :restaurant_metropolitan_area_id_equals_any,
+                    :as => "check_boxes",
+                    :collection => MetropolitanArea.with_restaurants.all %>
+                </div>
+            </div>
+            <% end %>
+        </div>
+    </ol>
+</fieldset>

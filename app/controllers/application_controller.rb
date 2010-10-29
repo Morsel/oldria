@@ -141,6 +141,11 @@ class ApplicationController < ActionController::Base
     @media_requests_count = current_user.try(:viewable_media_request_discussions).try(:size)
   end
 
+  def load_past_features
+    @qotds ||= SoapboxEntry.qotd.published.recent.all(:include => :featured_item).map(&:featured_item)
+    @trend_questions ||= SoapboxEntry.trend_question.published.recent.all(:include => :featured_item).map(&:featured_item)
+  end
+  
   ##
   # Employment saved-search methods
   def search_setup(resource = nil, options = {})
@@ -173,19 +178,6 @@ class ApplicationController < ActionController::Base
     normalized.blank? ? {:id => ""} : normalized
   end
   
-  def directory_search_setup
-    @search = Employment.search(params[:search])
-
-    @users = @search.all(:include => [:employee, :restaurant_role], 
-        :order => "users.last_name").map(&:employee).uniq
-    # @restaurants = @search.all(:include => [:restaurant], :order => "restaurants.name").group_by(&:restaurant).keys.compact
-  end
-  
-  def load_past_features
-    @qotds ||= SoapboxEntry.qotd.published.recent.all(:include => :featured_item).map(&:featured_item)
-    @trend_questions ||= SoapboxEntry.trend_question.published.recent.all(:include => :featured_item).map(&:featured_item)
-  end
-  
   # For use when building the search on a Trend Question or other message
   def build_search(resource = nil, soapbox_only = false)
     return false unless resource
@@ -200,4 +192,9 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def directory_search_setup
+    @search = User.search(params[:search])
+    @users = @search.all(:order => "users.last_name").uniq
+  end
+  
 end

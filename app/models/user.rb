@@ -63,6 +63,7 @@ class User < ActiveRecord::Base
   has_many :restaurant_roles, :through => :employments
 
   has_one :default_employment, :foreign_key => "employee_id", :dependent => :destroy
+  has_many :all_employments, :foreign_key => "employee_id", :class_name => "Employment" # for search
 
   has_many :discussion_seats, :dependent => :destroy
   has_many :discussions, :through => :discussion_seats
