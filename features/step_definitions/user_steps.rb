@@ -162,6 +162,7 @@ Then /^"([^"]*)" should have a "([^"]*)" account in the list$/ do |username, acc
 end
 
 When /^"([^"]*)" should have a "([^"]*)" account on the page$/ do |user_name, account_type|
+  account_type = "Premium" if account_type == "Complimentary" 
   response.should have_selector(".user_account_type", :content => account_type)
 end
 
