@@ -131,7 +131,7 @@
                                 <label for="search_profile_metropolitan_area_id_eq_any">Profile metro area id equals any</label>
                             </legend>
                             <ol>
-                                <% for metro in MetropolitanArea.with_profiles %>
+                                <% for metro in metros_for_search %>
                                 <li><label for="search_profile_metropolitan_area_id_eq_any_<%= metro.id %>">
                                     <%= check_box_tag "search[profile_metropolitan_area_id_eq_any][]", metro.id, false, :id => "search_profile_metropolitan_area_id_eq_any_#{region.id}" %>
                                     <%= metro.name %>
