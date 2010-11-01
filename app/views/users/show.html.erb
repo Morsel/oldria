@@ -25,12 +25,21 @@
         <div class="profile_title_summary">
             <% if @user.employments.any? %>
             <h5 class="nomargin">Title(s)</h5>
-            <p>
+            <div>
                 <%= @user.primary_employment.try(:restaurant_role).try(:name) %>, 
                 <%= link_to_unless (params[:controller] == 'soapbox/profiles'),
-                @user.primary_employment.try(:restaurant).try(:name), 
-                @user.primary_employment.try(:restaurant) %>
-            </p>
+                    @user.primary_employment.try(:restaurant).try(:name), 
+                    @user.primary_employment.try(:restaurant) %>
+            </div>
+            <% for employment in @user.nonprimary_employments %>
+            <div>
+                <%= employment.try(:restaurant_role).try(:name) %>, 
+                <%= link_to_unless (params[:controller] == 'soapbox/profiles'),
+                    employment.try(:restaurant).try(:name), 
+                    employment.try(:restaurant) %>
+            </div>
+            <% end %>
+
             <% end %>
   
             <% if @user.profile && @user.profile.summary.present? -%>
