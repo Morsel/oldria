@@ -126,7 +126,7 @@ When /^I simulate an unsuccessful call from braintree for user "([^"]*)"$/ do |u
   BraintreeConnector.any_instance.stubs(
       :braintree_customer => nil)
   BraintreeConnector.any_instance.stubs(
-      :confirm_request_and_start_subscription => stub(:success? => false))
+      :confirm_request_and_start_subscription => stub(:success? => false, :message => "message"))
   visit(bt_callback_subscription_url(user))
 end
 
@@ -136,7 +136,7 @@ When /^I simulate an unsuccessful call from braintree for the restaurant "([^"]*
   BraintreeConnector.any_instance.stubs(
       :braintree_customer => nil)
   BraintreeConnector.any_instance.stubs(
-      :confirm_request_and_start_subscription => stub(:success? => false))
+      :confirm_request_and_start_subscription => stub(:success? => false, :message => "message"))
   visit(bt_callback_subscription_url(restaurant))
 end
 

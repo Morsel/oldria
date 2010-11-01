@@ -13,16 +13,16 @@ module HasSubscription
       return "Premium" if premium_account?
       "Basic"
     end
-    
+
     def public_account_type
       return "Premium" if premium_account?
       "Basic"
     end
-    
+
     def staff_subscriptions
       paid_subscriptions.user_subscriptions
     end
-    
+
     def account_payer_type
       return "Personal" unless subscription
       if subscription.staff_account? then "Staff" else "Personal" end
@@ -35,23 +35,23 @@ module HasSubscription
     def can_be_staff?
       subscriber_type == "User"
     end
-    
+
     def can_be_payer?
       subscriber_type == "Restaurant"
     end
-    
+
     def can_be_staff?
       subscriber_type == "User"
     end
-    
+
     def can_be_payer?
       subscriber_type == "Restaurant"
     end
-    
+
     def staff_account?
       subscription && subscription.staff_account?
     end
-    
+
     def premium_account
       premium_account?
     end
@@ -67,7 +67,7 @@ module HasSubscription
     def account_in_overtime?
       subscription.present? && subscription.in_overtime?
     end
-    
+
     def has_braintree_account?
       subscription.present? && subscription.has_braintree_info?
     end
@@ -81,7 +81,13 @@ module HasSubscription
       save
       self.subscription
     end
-    
+
+    def update_premium!(bt_subscription)
+      self.subscription.update_attributes(
+          :payer => self,
+          :braintree_id => bt_subscription.subscription.id)
+    end
+
     def make_staff_account!(payer)
       return unless can_be_staff?
       return unless payer.can_be_payer?
@@ -91,7 +97,7 @@ module HasSubscription
       else
         self.subscription = Subscription.create(
             :kind => "User Premium",
-            :payer => payer, 
+            :payer => payer,
             :start_date => Date.today,
             :braintree_id => nil)
         save
@@ -113,21 +119,21 @@ module HasSubscription
     def can_make_complimentary_with_discount?
       subscription.present? && can_be_payer? && staff_subscriptions.present?
     end
-    
+
     def can_make_complimentary_with_add_on?
       subscription.present? && can_be_staff? && staff_account?
     end
-    
+
     def make_complimentary_with_add_on!
       result = BraintreeConnector.set_add_ons_for_subscription(
-          subscription.payer.subscription, 
+          subscription.payer.subscription,
           subscription.user_subscriptions_for_payer.size - 1)
       if result.success?
         subscription.update_attributes(:payer => nil)
       end
       subscription
     end
-    
+
     def make_complimentary_with_discount!
       result = BraintreeConnector.update_subscription_with_discount(subscription)
       if result.success?
@@ -135,7 +141,7 @@ module HasSubscription
       end
       subscription
     end
-    
+
     def make_complimentary_with_cancel!
       success = cancel_subscription_from_braintree!
       if success
@@ -147,7 +153,7 @@ module HasSubscription
       end
       subscription
     end
-    
+
     def cancel_subscription_from_braintree!
       return true if subscription.blank?
       return true if subscription.skip_braintree_cancel?
@@ -158,7 +164,7 @@ module HasSubscription
       end
       result.success?
     end
-    
+
     def update_complimentary_with_braintree_id!(braintree_id)
       subscription.update_attributes(:braintree_id => braintree_id)
     end
