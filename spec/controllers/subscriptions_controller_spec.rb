@@ -75,19 +75,34 @@ describe SubscriptionsController do
         @controller.stubs(:current_user).returns(@user)
       end
 
-      it "updates the user if everything is correct" do
+      it "makes the user premium if everything is correct" do
         BraintreeConnector.any_instance.expects(:confirm_request_and_start_subscription).with(
             anything, {:apply_discount => false}).returns(stub(:success? => true))
         @user.expects(:make_premium!)
-        get :bt_callback, :user_id => @user.id
+        get :bt_callback, :user_id => @user.id, :kind => 'create_customer'
         response.should redirect_to(edit_user_path(@user))
       end
 
-      it "does not update the user if braintree has problem" do
-        BraintreeConnector.any_instance.expects(:confirm_request_and_start_subscription => stub(:success? => false))
+      it "does not make the user premium if braintree has problem" do
+        BraintreeConnector.any_instance.expects(:confirm_request_and_start_subscription => stub(:success? => false, :message => "message"))
         @user.expects(:make_premium!).never
-        get :bt_callback, :user_id => @user.id
+        get :bt_callback, :user_id => @user.id, :kind => 'create_customer'
         response.should redirect_to(new_user_subscription_path(@user))
+      end
+
+      it "updates the user subscription if everything is correct" do
+        BraintreeConnector.any_instance.expects(:confirm_request_and_start_subscription).with(
+            anything, {:apply_discount => false}).returns(stub(:success? => true))
+        @user.expects(:update_premium!)
+        get :bt_callback, :user_id => @user.id, :kind => 'update_customer'
+        response.should redirect_to(edit_user_path(@user))
+      end
+
+      it "does not udate the user's subscription if braintree has problem" do
+        BraintreeConnector.any_instance.expects(:confirm_request_and_start_subscription => stub(:success? => false, :message => "message"))
+        @user.expects(:update_premium!).never
+        get :bt_callback, :user_id => @user.id, :kind => 'update_customer'
+        response.should redirect_to(edit_user_subscription_path(@user))
       end
     end
 
@@ -100,45 +115,62 @@ describe SubscriptionsController do
         @controller.expects(:find_restaurant).returns(@restaurant)
       end
 
-      it "updates the restaurant if everything is correct" do
+      it "makes the restaurant premium if everything is correct" do
         BraintreeConnector.any_instance.expects(
             :confirm_request_and_start_subscription).with(
                 anything, {:apply_discount => false}).returns(stub(:success? => true))
         @restaurant.expects(:make_premium!)
-        get :bt_callback, :restaurant_id => @restaurant.id
+        get :bt_callback, :restaurant_id => @restaurant.id, :kind => 'create_customer'
         response.should redirect_to(edit_restaurant_url(@restaurant))
       end
 
-      it "does not update the user if braintree has problem" do
+      it "does not make the restaurant premium if braintree has problem" do
         BraintreeConnector.any_instance.expects(
-            :confirm_request_and_start_subscription => stub(:success? => false))
+            :confirm_request_and_start_subscription => stub(:success? => false, :message => "message"))
         @restaurant.expects(:make_premium!).never
-        get :bt_callback, :restaurant_id => @restaurant.id
+        get :bt_callback, :restaurant_id => @restaurant.id, :kind => 'create_customer'
         response.should redirect_to(new_restaurant_subscription_path(@restaurant))
+      end
+
+      it "updates the restaurant subscription if everything is correct" do
+        BraintreeConnector.any_instance.expects(
+            :confirm_request_and_start_subscription).with(
+                anything, {:apply_discount => false}).returns(stub(:success? => true))
+        @restaurant.expects(:update_premium!)
+        get :bt_callback, :restaurant_id => @restaurant.id, :kind => 'update_customer'
+        response.should redirect_to(edit_restaurant_url(@restaurant))
+      end
+
+      it "does not update the restaurant subscription if braintree has problem" do
+        BraintreeConnector.any_instance.expects(
+            :confirm_request_and_start_subscription => stub(:success? => false, :message => "message"))
+        @restaurant.expects(:update_premium!).never
+        get :bt_callback, :restaurant_id => @restaurant.id, :kind => 'update_customer'
+        response.should redirect_to(edit_restaurant_subscription_path(@restaurant))
       end
     end
 
     describe "with a complimentary restaurant" do
-      
+
       before(:each) do
         @user = Factory(:user, :email => "fred@flintstone.com", :username => "fred")
         @restaurant = Factory(:managed_restaurant, :manager => @user)
-        @restaurant.update_attributes(:subscription => 
+        @restaurant.update_attributes(:subscription =>
             Factory(:subscription, :payer => nil, :braintree_id => nil))
         @controller.stubs(:current_user).returns(@user)
         @controller.expects(:find_restaurant).returns(@restaurant)
       end
-      
+
       it "updates the restaurant if everything is correct" do
         BraintreeConnector.any_instance.expects(
             :confirm_request_and_start_subscription).with(
-            anything, {:apply_discount => true}).returns(stub(:success? => true, 
+            anything, {:apply_discount => true}).returns(stub(:success? => true,
             :subscription => stub(:id => "abcd")))
         @restaurant.expects(:update_complimentary_with_braintree_id!).with("abcd")
         get :bt_callback, :restaurant_id => @restaurant.id
         response.should redirect_to(edit_restaurant_url(@restaurant))
       end
-      
+
     end
 
   end
