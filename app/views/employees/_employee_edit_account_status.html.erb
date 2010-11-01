@@ -4,8 +4,8 @@
 	 		<span class="account_status">
 	 			This employee has a <%= @employee.public_account_type %> <%= @employee.account_payer_type %> Account.
 	 		</span>
-	 		<% if can_change_user_status? %>
-				<span class="status_change_links">
+	 		<% if can_add_user?  %>
+ 		    <span class="status_change_links">
 					<br style="clear:all" />
 					<div>
 						You can add this user to your restaurant account for $50 per month.
@@ -21,7 +21,16 @@
 			      This employee already has a complimentary premium account. 
 			      You do not need to add this employee to your restaurant account.
 			    </div>
-			  <% end %>
+			  <% elsif @employee.staff_account? %>
+	 		    <div class="status_change_links">
+  					<br style="clear:all" />
+  		   		<%= link_to "Cancel user Premium Account immediately",
+                restaurant_employee_accounts_path(:id => @employee.id, 
+                    :restaurant_id => @restaurant.id),
+                :method => :delete,
+                :confirm => "Do you really want to cancel your premium subscription?" %>
+  				</div>
+  			<% end %>
 	    <% end %>
 		<% else %>
 		  <span class="payment_info_needed">

@@ -75,6 +75,20 @@ class Subscription < ActiveRecord::Base
     end
   end
   
+  def remove_staff_account(user)
+    return unless subscriber.can_be_payer?
+    return unless user.can_be_staff?
+    return if !active?
+    result = BraintreeConnector.set_add_ons_for_subscription(self, 
+        user_subscriptions_for_payer.size - 1)
+    if result.success?
+      user.cancel_subscription!(:terminate_immediately => true)
+      self
+    else
+      nil
+    end
+  end
+  
   def user_subscriptions_for_payer
     if payer 
       payer.paid_subscriptions.user_subscriptions

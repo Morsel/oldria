@@ -49,7 +49,6 @@ module EmployeesHelper
   end
   
   def create_staff_account_link_label(employee)
-    ap employee.subscription
     if employee.subscription
       "Add employee Premium Account to your account"
     else
@@ -57,7 +56,7 @@ module EmployeesHelper
     end
   end
   
-  def can_change_user_status?
+  def can_add_user?
     return false if @employee.complimentary_account?
     return false unless @restaurant.premium_account?
     (@employee.account_type != "Premium") || (@employee.account_payer_type == "Personal") 
