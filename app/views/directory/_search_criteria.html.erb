@@ -111,7 +111,7 @@
                                 <label for="search_profile_james_beard_region_id_eq_any">Profile region id equals any</label>
                             </legend>
                             <ol>
-                                <% for region in JamesBeardRegion.with_profiles %>
+                                <% for region in regions_for_search %>
                                 <li><label for="search_profile_james_beard_region_id_eq_any_<%= region.id %>">
                                     <%= check_box_tag "search[profile_james_beard_region_id_eq_any][]", region.id, false, :id => "search_profile_jasmes_beard_region_id_eq_any_#{region.id}" %>
                                     <%= region.to_label %>

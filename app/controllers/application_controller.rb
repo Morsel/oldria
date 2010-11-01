@@ -201,6 +201,9 @@ class ApplicationController < ActionController::Base
     if params[:search].try(:[], :profile_cuisines_id_eq_any)
       extra_params[:restaurants_cuisine_id_eq_any] = params[:search][:profile_cuisines_id_eq_any]
     end
+    if params[:search].try(:[], :profile_james_beard_region_id_eq_any)
+      extra_params[:restaurants_james_beard_region_id_eq_any] = params[:search][:profile_james_beard_region_id_eq_any]
+    end
     
     if params[:controller].match(/soapbox/)
       extra_search_results = User.search(extra_params).all(:conditions => { :premium_account => true }) if extra_params.present?
