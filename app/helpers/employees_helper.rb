@@ -49,7 +49,6 @@ module EmployeesHelper
   end
   
   def create_staff_account_link_label(employee)
-    ap employee.subscription
     if employee.subscription
       "Add employee Premium Account to your account"
     else
