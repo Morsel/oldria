@@ -118,14 +118,16 @@ describe Subscription do
   
   describe "add ons" do
     
+    let(:restaurant) { Factory(:restaurant) }
+    let(:subscription) { Factory(:subscription, :subscriber => restaurant, 
+        :payer => restaurant) }
+    let(:user) { Factory(:user) }
+    
     describe "create an add on" do
-      let(:restaurant) { Factory(:restaurant) }
-      let(:subscription) { Factory(:subscription, :subscriber => restaurant, :payer => restaurant) }
-      let(:user) { Factory(:user) }
       
       it "adds the first payee correctly" do
         BraintreeConnector.expects(:set_add_ons_for_subscription).with(subscription, 1)
-        subscription.user_subscriptions_for_payer.size == 0
+        subscription.user_subscriptions_for_payer.size.should == 0
         subscription.add_staff_account(user)
       end
       
@@ -148,7 +150,7 @@ describe Subscription do
       it "adds the second payee correctly" do
         BraintreeConnector.expects(:set_add_ons_for_subscription).with(subscription, 2)
         user_sub = Factory(:subscription, :subscriber => Factory(:user), :payer => restaurant)
-        subscription.user_subscriptions_for_payer.size == 1
+        subscription.user_subscriptions_for_payer.size.should == 1
         subscription.add_staff_account(user)
       end
       
@@ -166,6 +168,65 @@ describe Subscription do
       
     end
     
+    describe "remove an add on" do
+
+      it "drops from three to two correctly" do
+        subscription.update_attributes(:end_date => 2.weeks.from_now)
+        user.update_attributes(:subscription => Factory(:subscription,
+            :payer => restaurant, :start_date => 1.month.ago))
+        user2 = Factory(:user)
+        user2.update_attributes(:subscription => Factory(:subscription,
+            :payer => restaurant))
+        user3 = Factory(:user)
+        user3.update_attributes(:subscription => Factory(:subscription,
+            :payer => restaurant))
+        Subscription.all.size.should == 4
+        subscription.should have(3).user_subscriptions_for_payer
+        Braintree::Subscription.expects(:update).with("abcd", 
+            :add_ons => {:update => 
+                [{:existing_id => "user_for_restaurant", :quantity => 2}]}).returns(
+                success_stub)     
+        subscription.remove_staff_account(user)
+        subscription.should have(2).user_subscriptions_for_payer
+        user.subscription.should == nil
+        Subscription.all.size.should == 3
+      end
+      
+      it "drops from two to one correctly" do
+        subscription.update_attributes(:end_date => 2.weeks.from_now)
+        user.update_attributes(:subscription => Factory(:subscription,
+            :payer => restaurant, :start_date => 1.month.ago))
+        user2 = Factory(:user)
+        user2.update_attributes(:subscription => Factory(:subscription,
+            :payer => restaurant))
+        Subscription.all.size.should == 3
+        subscription.should have(2).user_subscriptions_for_payer
+        Braintree::Subscription.expects(:update).with("abcd", 
+            :add_ons => {:update => 
+                [{:existing_id => "user_for_restaurant", :quantity => 1}]}).returns(
+                success_stub)     
+        subscription.remove_staff_account(user)
+        subscription.should have(1).user_subscriptions_for_payer
+        user.subscription.should == nil
+        Subscription.all.size.should == 2
+      end
+
+      it "drops from one to zero correctly" do
+        subscription.update_attributes(:end_date => 2.weeks.from_now)
+        user.update_attributes(:subscription => Factory(:subscription,
+            :payer => restaurant, :start_date => 1.month.ago))
+        Subscription.all.size.should == 2
+        subscription.should have(1).user_subscriptions_for_payer
+        Braintree::Subscription.expects(:update).with("abcd", 
+            :add_ons => {:remove => ["user_for_restaurant"]}).returns(
+                success_stub)     
+        subscription.remove_staff_account(user)
+        subscription.should have(0).user_subscriptions_for_payer
+        user.subscription.should == nil
+        Subscription.all.size.should == 1
+      end
+    end
+  
   end
   
   describe "payer count " do

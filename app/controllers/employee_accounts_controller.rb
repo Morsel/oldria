@@ -10,6 +10,14 @@ class EmployeeAccountsController < ApplicationController
     redirect_to edit_restaurant_employee_path(@restaurant, @employee)
   end
   
+  def destroy
+    result = @restaurant.subscription.remove_staff_account(@employee)
+    if !result
+      flash[:error] = "Whoops. We couldn't process that account change. If you continue to experience issues, please contact us."
+    end
+    redirect_to edit_restaurant_employee_path(@restaurant, @employee)
+  end
+  
   private
   
   def find_and_authorize_restaurant

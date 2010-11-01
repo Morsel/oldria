@@ -30,7 +30,17 @@ Feature: Restaurant Accounts
 		Then I see that "sam" has a basic account
 		When I follow "Upgrade employee account to premium"
 		Then I should be on the employee edit page for "Taco Bell" and "sam"
-		And I see that "sam" has a premium account paid for by the restaurant	
+		And I see that "sam" has a premium account paid for by the restaurant
+		
+  Scenario: A premium restaurant cancels a user with a staff account
+    Given I simulate a successful addon response from Braintree with 1
+    And user "john" has a restaurant staff account from "Taco Bell"
+    And user "sam" has a restaurant staff account from "Taco Bell"
+    When I go to the employees page for "Taco Bell"
+		And I follow the edit role link for "Sam Smith"
+		And I follow "Cancel user Premium Account immediately"
+		Then I should be on the employee edit page for "Taco Bell" and "sam"
+		And I see that "sam" does not have a premium account paid for by the restaurant
 		
 	Scenario: A premium restaurant adds a user that already has a premium account
 		Given I simulate a successful addon response from Braintree with 1

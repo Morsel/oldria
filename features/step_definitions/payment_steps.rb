@@ -268,6 +268,12 @@ Then /^I see that "([^"]*)" has a premium account paid for by the restaurant$/ d
   response.should have_selector(".account_status", :content => "Premium Staff Account")
 end
 
+Then /^I see that "([^"]*)" does not have a premium account paid for by the restaurant$/ do |username|
+  user = User.find_by_username(username)
+  response.should have_selector(".account_status", :content => "Basic Personal Account")
+end
+
+
 Then /^I see that "([^"]*)" has a premium account of his own$/ do |username|
   user = User.find_by_username(username)
   response.should have_selector(".account_status", :content => "Premium Personal Account")
