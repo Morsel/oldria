@@ -38,6 +38,14 @@ class Subscription < ActiveRecord::Base
   def braintree_data
     BraintreeConnector.find_subscription(self)
   end
+  
+  def calculate_end_date
+    return 1.month_from_now unless has_braintree_info?
+    data = braintree_data
+    data.billing_period_end_date
+  rescue
+    1.month.from_now
+  end
 
   def set_end_date_from_braintree
     data = braintree_data

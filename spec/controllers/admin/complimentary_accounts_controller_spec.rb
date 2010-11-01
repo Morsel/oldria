@@ -96,7 +96,7 @@ describe Admin::ComplimentaryAccountsController do
       it "removes a complimentary account" do
         user.make_complimentary!
         User.stubs(:find).returns(user)
-        user.expects(:cancel_subscription!).with(:terminate_immediately => true)
+        user.expects(:admin_cancel)
         BraintreeConnector.expects(:cancel_subscription).never
         delete :destroy, :subscriber_id => user.id, :subscriber_type => "user"
         response.should redirect_to(edit_admin_user_path(user))
@@ -106,9 +106,7 @@ describe Admin::ComplimentaryAccountsController do
         user.subscription = Factory(:subscription, :payer => user)
         user.save!
         User.stubs(:find).returns(user)
-        user.expects(:cancel_subscription!).with(:terminate_immediately => true)
-        BraintreeConnector.expects(
-            :cancel_subscription).returns(stub(:success? => true))
+        BraintreeConnector.expects(:cancel_subscription).returns(stub(:success? => true))
         delete :destroy, :subscriber_id => user.id, :subscriber_type => "user"
       end
     end
@@ -119,7 +117,7 @@ describe Admin::ComplimentaryAccountsController do
       it "removes a complimentary account" do
         restaurant.make_complimentary!
         Restaurant.stubs(:find).returns(restaurant)
-        restaurant.expects(:cancel_subscription!).with(:terminate_immediately => true)
+        restaurant.expects(:admin_cancel)
         BraintreeConnector.expects(:cancel_subscription).never
         delete :destroy, :subscriber_id => restaurant.id, :subscriber_type => "restaurant"
         response.should redirect_to(edit_admin_restaurant_path(restaurant))
@@ -129,7 +127,6 @@ describe Admin::ComplimentaryAccountsController do
         restaurant.subscription = Factory(:subscription, :payer => restaurant)
         restaurant.save!
         Restaurant.stubs(:find).returns(restaurant)
-        restaurant.expects(:cancel_subscription!).with(:terminate_immediately => true)
         BraintreeConnector.expects(
             :cancel_subscription).returns(stub(:success? => true))
         delete :destroy, :subscriber_id => restaurant.id, :subscriber_type => "restaurant"

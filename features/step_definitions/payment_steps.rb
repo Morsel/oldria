@@ -61,8 +61,16 @@ Then /^I see my account status is premium$/ do
   response.should have_selector("#plans .current", :content => "Premium")
 end
 
+Then /^I see my account status is basic$/ do
+  response.should have_selector("#plans .current", :content => "Basic")
+end
+
 Then /^I see my account status is a premium staff account$/ do
   response.should have_selector("#plans .current", :content => "Premium Staff")
+end
+
+Then /^I see my account status is complimentary$/ do
+  response.should have_selector("#plans .current", :content => "Premium")
 end
 
 
@@ -173,8 +181,8 @@ end
 When /^I traverse the delete link for subscriptions for the restaurant "([^"]*)"$/ do |name|
   visit(restaurant_subscription_path(Restaurant.find_by_name(name)),
       :delete)
-end
 
+end
 Then /^I see that the account for "([^"]*)" lasts until the end of the billing cycle$/ do |username|
   user = User.find_by_username(username)
   response.should have_selector("#end_date",
