@@ -166,7 +166,7 @@ ActionController::Routing::Routes.draw do |map|
     admin.resources :holidays
     admin.resources :calendars
     admin.resources :events
-    admin.resources :soapbox_entries
+    admin.resources :soapbox_entries, :member => { :toggle_status => :post }
     admin.resources :soapbox_pages
     admin.resources :soapbox_slides
     admin.resources :soapbox_promos

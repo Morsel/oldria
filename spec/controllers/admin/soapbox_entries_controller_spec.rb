@@ -106,5 +106,25 @@ describe Admin::SoapboxEntriesController do
       it { response.should render_template(:edit) }
     end
   end
+  
+  describe "status changes" do
+    
+    it "should unpublish an entry" do
+      entry = Factory(:soapbox_entry)
+      SoapboxEntry.stubs(:find).returns(entry)
+      entry.expects(:update_attribute).with(:published, false)
+      
+      post :toggle_status, :id => entry.id
+    end
 
+    it "should publish an entry" do
+      entry = Factory(:soapbox_entry, :published => false)
+      SoapboxEntry.stubs(:find).returns(entry)
+      entry.expects(:update_attribute).with(:published, true)
+      
+      post :toggle_status, :id => entry.id
+    end
+
+  end
+  
 end
