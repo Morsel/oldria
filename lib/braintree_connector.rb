@@ -98,10 +98,13 @@ class BraintreeConnector
     result.ids
   end
   
-  # code assumes that a quantity of one implies an add, any other quantity implies
-  # an update
+  # TODO: possible refactor because quantity is redundent with
+  # user_subscriptions_for_payer 
   def self.set_add_ons_for_subscription(subscription, quantity)
-    if quantity == 1
+    if quantity == 0 
+      Braintree::Subscription.update(subscription.braintree_id, 
+        :add_ons => {:remove => [ADD_ON]})
+    elsif subscription.user_subscriptions_for_payer.size == 0
       Braintree::Subscription.update(subscription.braintree_id, 
         :add_ons => {:add => [{:inherited_from_id => ADD_ON, :quantity => quantity}]})
     else
