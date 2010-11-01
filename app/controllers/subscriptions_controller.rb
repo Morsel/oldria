@@ -39,6 +39,7 @@ class SubscriptionsController < ApplicationController
       flash[:success] = (request_kind == "update_customer")? "Thanks! Your payment information has been updated." : "Thanks for upgrading to Premium!"
       redirect_to customer_edit_path(@braintree_customer)
     else
+      Rails.logger.info "[Braintree Error Message] #{bt_result.message}"
       flash[:error] = "Whoops. We couldn't process your credit card with the information you provided. If you continue to experience issues, please contact us."
       redirect_to(new_subscription_path(@braintree_customer))
     end
@@ -62,7 +63,7 @@ class SubscriptionsController < ApplicationController
   end
 
   private
-  
+
   def billing_info_for_complimentary_payer?
     @braintree_customer.can_be_payer? && @braintree_customer.complimentary_account?
   end
