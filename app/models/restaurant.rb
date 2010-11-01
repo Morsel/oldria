@@ -43,6 +43,7 @@ class Restaurant < ActiveRecord::Base
   belongs_to :metropolitan_area
   belongs_to :james_beard_region
   belongs_to :cuisine
+
   has_many :employments, :dependent => :destroy
   has_many :employees, :through => :employments
   has_many :additional_managers,

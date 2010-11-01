@@ -7,4 +7,8 @@ module DirectoryHelper
       "<h2>Cuisine: #{@cuisine.name}</h2>"
     end
   end
+  
+  def cuisines_for_search
+    (Cuisine.with_profiles + Cuisine.with_restaurants).uniq.sort_by(&:name)
+  end
 end

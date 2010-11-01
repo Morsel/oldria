@@ -51,7 +51,7 @@
                                 <label for="search_profile_cuisines_id_eq_any">Profile cuisine ids equals any</label>
                             </legend>
                             <ol>
-                                <% for cuisine in Cuisine.with_profiles %>
+                                <% for cuisine in cuisines_for_search %>
                                 <li><label for="search_profile_cuisines_id_eq_any_<%= cuisine.id %>">
                                     <%= check_box_tag "search[profile_cuisines_id_eq_any][]", cuisine.id, false, :id => "search_profile_cuisines_id_eq_any_#{cuisine.id}" %>
                                     <%= cuisine.name %>
