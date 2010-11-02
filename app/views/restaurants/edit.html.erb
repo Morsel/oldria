@@ -6,7 +6,6 @@
 <% end -%>
 
 <% semantic_form_for(@restaurant, :html => { :multipart => true }) do |f| %>
-<%= f.error_messages %>
   <% f.inputs :name => "Basics", :class => "title span-8" do %>
     <%= f.input :name %>
     <%= f.input :description, :as => :text, :label => "Tagline or short description" %>
@@ -41,8 +40,8 @@
         <% f.semantic_fields_for :logo do |logo_fields| %>
             <%= image_tag @restaurant.logo.attachment.url(:medium), :id => "restaurant_logo_image" %>
             <%= logo_fields.input :attachment, :as => :file %>
-            <%= link_to "Remove", restaurant_logo_path(@restaurant, @restaurant.logo), :method => :delete, :confirm => "Are you sure you want to remove the logo?" %>
         <% end %>
+        <p><%= link_to "Remove", restaurant_logo_path(@restaurant, @restaurant.logo), :method => :delete, :confirm => "Are you sure you want to remove the logo?", :class => "button negative" %></p>
     <% end %>
 
 
@@ -57,18 +56,12 @@
         :caption => "Accolades",
         :form_path => new_restaurant_accolade_path(@restaurant)} %>
 
-<p>
+<div class="clear">
   <%= link_to "Edit Restaurant employees", restaurant_employees_path(@restaurant), :class => 'button' %>
-</p>
+</div>
 
-<p>
+<div class="clear">
     <%= link_to "Manage Menus", restaurant_menus_path(@restaurant), :class => "button" %>
-</p>
-
-<p>
     <%= link_to "Manage Photos", restaurant_photos_path(@restaurant), :class => "button" %>
-</p>
-
-<p>
     <%= link_to "Manage ALM Questions", bulk_edit_restaurant_a_la_minute_answers_path(:restaurant_id => @restaurant.id), :class => "button" %>
-</p>
+</div>

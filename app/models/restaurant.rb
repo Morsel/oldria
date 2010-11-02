@@ -83,7 +83,7 @@ class Restaurant < ActiveRecord::Base
   validates_presence_of :name, :street1, :city, :state, :zip, :phone_number,
       :metropolitan_area, :website, :media_contact, :hours, :cuisine, :opening_date
 
-  validates_format_of :website, :with => URI::regexp(%w(http https)), :message => "Needs to be a valid URL"
+  validates_format_of :website, :with => URI::regexp(%w(http https)), :message => "needs to be a valid URL that starts with http"
   validates_format_of :management_company_website,
       :with => URI::regexp(%w(http https)),
       :message => "Needs to be a valid URL",
