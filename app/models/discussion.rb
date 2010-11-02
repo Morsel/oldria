@@ -16,8 +16,7 @@
 class Discussion < ActiveRecord::Base
   acts_as_commentable
   acts_as_readable
-  has_many :attachments, :as => :attachable, :class_name => '::Attachment', :dependent => :destroy
-  accepts_nested_attributes_for :comments, :attachments
+  accepts_nested_attributes_for :comments
 
   default_scope :order => "#{table_name}.created_at DESC"
 
