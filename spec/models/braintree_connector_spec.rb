@@ -48,6 +48,7 @@ describe BraintreeConnector do
               :email => user.email,
               :first_name => user.first_name,
               :last_name => user.last_name,
+              :company => "NA",
               :credit_card => {
                 :options => {
                   :update_existing_token => "abcd",
@@ -68,6 +69,7 @@ describe BraintreeConnector do
               :email => user.email,
               :first_name => user.first_name,
               :last_name => user.last_name,
+              :company => "NA",
               :credit_card => {
                 :options => {
                   :verify_card => true

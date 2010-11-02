@@ -83,8 +83,8 @@ class BraintreeConnector
     params = {
       :email => payer.braintree_contact.email,
       :last_name => payer.braintree_contact.last_name,
-      :first_name => payer.braintree_contact.first_name }
-    params[:company] = payer.name if payer.is_a? Restaurant
+      :first_name => payer.braintree_contact.first_name,
+      :company => (payer.is_a? Restaurant) ? payer.name : "NA" }
     params
   end
 
