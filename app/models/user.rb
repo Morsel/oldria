@@ -191,9 +191,13 @@ class User < ActiveRecord::Base
   end
 
   def restaurant_names
-    return nil if employments.blank?
-    return primary_employment.restaurant.name if employments.count == 1
-    employments.all(:order => '"primary" DESC', :include => :restaurant).map{|e| e.restaurant.name }.to_sentence
+    if employments.blank?
+      primary_employment.try(:solo_restaurant_name)
+    elsif employments.count == 1
+      primary_employment.restaurant.name
+    else
+      employments.all(:order => '"primary" DESC', :include => :restaurant).map{|e| e.restaurant.name }.to_sentence
+    end
   end
   
   def post_to_soapbox?

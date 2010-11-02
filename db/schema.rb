@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20101102162645) do
+ActiveRecord::Schema.define(:version => 20101102202312) do
 
   create_table "a_la_minute_answers", :force => true do |t|
     t.text     "answer"
@@ -284,11 +284,12 @@ ActiveRecord::Schema.define(:version => 20101102162645) do
     t.datetime "updated_at"
     t.integer  "restaurant_role_id"
     t.boolean  "omniscient"
-    t.boolean  "primary",            :default => false
+    t.boolean  "primary",              :default => false
     t.string   "type"
     t.boolean  "public_profile"
     t.integer  "position"
-    t.boolean  "post_to_soapbox",    :default => true
+    t.boolean  "post_to_soapbox",      :default => true
+    t.string   "solo_restaurant_name"
   end
 
   add_index "employments", ["employee_id"], :name => "index_employments_on_employee_id"
