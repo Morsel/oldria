@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20101101205324) do
+ActiveRecord::Schema.define(:version => 20101102162645) do
 
   create_table "a_la_minute_answers", :force => true do |t|
     t.text     "answer"
@@ -136,7 +136,8 @@ ActiveRecord::Schema.define(:version => 20101101205324) do
     t.string   "title"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "position",   :default => 0
+    t.integer  "position",    :default => 0
+    t.string   "description"
   end
 
   create_table "coached_status_updates", :force => true do |t|
@@ -851,6 +852,7 @@ ActiveRecord::Schema.define(:version => 20101101205324) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "position"
+    t.string   "description"
   end
 
   create_table "trend_questions", :force => true do |t|

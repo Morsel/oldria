@@ -227,11 +227,13 @@ end
 
 Factory.define :topic do |f|
   f.sequence(:title) { |n| "Background #{n}" }
+  f.description "Interesting topic"
 end
 
 Factory.define :chapter do |f|
   f.sequence(:title) { |n| "Career #{n}" }
   f.association :topic
+  f.description "Interesting chapter"
 end
 
 Factory.define :profile_question do |f|
