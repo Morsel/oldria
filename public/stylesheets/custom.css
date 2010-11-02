@@ -1966,11 +1966,6 @@ p.editprofile a:hover {
   font-size: 1.4em;
 }
 
-/* These are being hidden for now */
-#following, #followers, #user_content, .user_profile_actions {
-  display: none;
-}
-
 #user_profile_view {
   background: #f5f5f5;
   color: #333;
