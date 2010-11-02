@@ -223,7 +223,7 @@ describe Restaurant do
 
       restaurant.photos.delete(restaurant.photos.last)
       restaurant = Restaurant.find(restaurant.id)
-      
+
       restaurant.primary_photo.should == primary_photo
     end
   end
@@ -238,24 +238,32 @@ describe Restaurant do
       restaurant.public_employments.should == [public_employment]
     end
   end
-  
+
   describe "premium account" do
-    
+
     it "finds a premium account" do
       restaurant = Factory(:restaurant)
       restaurant.subscription = Factory(:subscription)
       restaurant.account_type.should == "Complimentary Premium"
       Restaurant.find_premium(restaurant.id).should == restaurant
     end
-    
+
     it "doesn't find a basic account" do
       restaurant = Factory(:restaurant)
       restaurant.account_type.should == "Basic"
       Restaurant.find_premium(restaurant.id).should be_nil
     end
-    
+
   end
-  
+
+  describe "braintree_contact" do
+    let(:restaurant) { Factory(:managed_restaurant) }
+
+    it "should return manager" do
+      restaurant.braintree_contact == restaurant.manager
+    end
+  end
+
 end
 
 

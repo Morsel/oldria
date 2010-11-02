@@ -163,6 +163,57 @@ describe HasSubscription do
       end
 
     end
+
+    describe "updates braintree customer data" do
+
+      let(:user) { Factory(:user, :email => "fred@flintstone.com", :first_name => "Fred", :last_name => "Flintstone") }
+      let(:subscription) { Factory(:subscription, :payer => user) }
+
+      before(:each) do
+        user.subscription = subscription
+        user.save
+        BraintreeConnector.expects(:update_customer).with(user).returns(stub(:success? => true))
+      end
+
+      context "when name changes" do
+        it "should update braintree" do
+          user.update_attributes(:first_name => "Barney", :last_name => "Rubble")
+        end
+      end
+
+      context "when email address changes" do
+        it "should update braintree" do
+          user.update_attributes(:email => "barney@rubble.com")
+        end
+      end
+
+    end
+
+    describe "doesn't update braintree customer data" do
+      let(:user) { Factory(:user, :email => "fred@flintstone.com", :first_name => "Fred", :last_name => "Flintstone") }
+
+      before(:each) do
+        BraintreeConnector.expects(:update_customer).never
+      end
+
+      context "when other fields change" do
+
+        let(:subscription) { Factory(:subscription, :payer => user) }
+
+        before(:each) do
+          user.subscription = subscription
+          user.save
+
+        end
+
+        specify { user.update_attributes(:username => "new_name") }
+      end
+
+      context "when user doesn't have a subscription" do
+        specify { user.update_attributes(:username => "new_name")}
+      end
+    end
+
   end
 
   describe "with a restaurant" do
@@ -234,7 +285,7 @@ describe HasSubscription do
       end
 
     end
-    
+
     describe "cancel a staff account if the restaurant is cancelled" do
       let(:restaurant) { Factory(:restaurant) }
       let(:user) { Factory(:user) }
@@ -248,7 +299,7 @@ describe HasSubscription do
             stub(:billing_period_end_date => 1.month.from_now.to_date))
         restaurant.cancel_subscription!(:terminate_immediately => false)
       end
-      
+
       it "puts the user account in overtime" do
         restaurant.subscription.should be_in_overtime
         restaurant.subscription.end_date.to_date.should == 1.month.from_now.to_date
@@ -282,6 +333,70 @@ describe HasSubscription do
       end
 
     end
+
+    describe "updates braintree customer data" do
+
+      let(:restaurant) { Factory(:managed_restaurant, :name => "Taco Bell") }
+      let(:subscription) { Factory(:subscription, :payer => restaurant) }
+
+      before(:each) do
+        restaurant.subscription = subscription
+        restaurant.save
+        BraintreeConnector.expects(:update_customer).with(restaurant).returns(stub(:success? => true))
+      end
+
+      context "when restaurant name changes" do
+        it "should update braintree" do
+          restaurant.update_attributes(:name => "Chipotle")
+        end
+      end
+
+      context "when manager name changes" do
+        it "should update braintree" do
+          restaurant.manager.update_attributes(:first_name => "Barney", :last_name => "Rubble")
+        end
+      end
+
+      context "when manager changes" do
+        let(:new_manager) { Factory(:user) }
+        it "should update braintree" do
+          restaurant.manager = new_manager
+          restaurant.save
+        end
+      end
+
+      context "when manager email address changes" do
+        it "should update braintree" do
+          restaurant.manager.update_attributes(:email => "barney@rubble.com")
+        end
+      end
+
+    end
+
+    # describe "doesn't update braintree customer data" do
+    #       let(:user) { Factory(:user, :email => "fred@flintstone.com", :first_name => "Fred", :last_name => "Flintstone") }
+    #
+    #       before(:each) do
+    #         BraintreeConnector.expects(:update_customer).never
+    #       end
+    #
+    #       context "when other fields change" do
+    #
+    #         let(:subscription) { Factory(:subscription, :payer => user) }
+    #
+    #         before(:each) do
+    #           user.subscription = subscription
+    #           user.save
+    #
+    #         end
+    #
+    #         specify { user.update_attributes(:username => "new_name") }
+    #       end
+    #
+    #       context "when user doesn't have a subscription" do
+    #         specify { user.update_attributes(:username => "new_name")}
+    #       end
+    #     end
 
   end
 
@@ -362,38 +477,38 @@ describe HasSubscription do
     end
 
   end
-  
+
   describe "admin cancel" do
-    
+
     let(:restaurant) { Factory(:restaurant) }
     let(:user) { Factory(:user) }
-    
+
     it "deletes a a complimentary restaurant account" do
       BraintreeConnector.expects(:cancel_subscription).never
       restaurant.make_complimentary!
       restaurant.admin_cancel
       restaurant.subscription.should be_nil
     end
-    
+
     it "deletes a complimentary user account" do
       BraintreeConnector.expects(:cancel_subscription).never
       user.make_complimentary!
       user.admin_cancel
       user.subscription.should be_nil
     end
-    
+
     it "deletes a paid user account" do
-      user.update_attributes(:subscription => Factory(:subscription, 
+      user.update_attributes(:subscription => Factory(:subscription,
           :payer => user))
       BraintreeConnector.expects(:cancel_subscription).with(user.subscription).returns(success_stub)
       user.admin_cancel
       user.subscription.should be_nil
     end
-    
+
     it "correctly deletes a paid staff account" do
-      restaurant.update_attributes(:subscription => Factory(:subscription, 
+      restaurant.update_attributes(:subscription => Factory(:subscription,
           :payer => restaurant))
-      user.update_attributes(:subscription => Factory(:subscription, 
+      user.update_attributes(:subscription => Factory(:subscription,
           :payer => restaurant, :braintree_id => nil))
       BraintreeConnector.expects(:cancel_subscription).never
       BraintreeConnector.expects(:set_add_ons_for_subscription).with(
@@ -403,19 +518,19 @@ describe HasSubscription do
       restaurant.subscription.should_not be_nil
       restaurant.should have(1).paid_subscription
     end
-    
+
     it "deletes a paid restaurant account" do
-      restaurant.update_attributes(:subscription => Factory(:subscription, 
+      restaurant.update_attributes(:subscription => Factory(:subscription,
           :payer => restaurant))
       BraintreeConnector.expects(:cancel_subscription).with(restaurant.subscription).returns(success_stub)
       restaurant.admin_cancel
       restaurant.subscription.should be_nil
     end
-    
+
     it "deletes a paid restaurant account with staff" do
-      restaurant.update_attributes(:subscription => Factory(:subscription, 
+      restaurant.update_attributes(:subscription => Factory(:subscription,
           :payer => restaurant))
-      user.update_attributes(:subscription => Factory(:subscription, 
+      user.update_attributes(:subscription => Factory(:subscription,
           :payer => restaurant, :braintree_id => nil))
       BraintreeConnector.expects(:cancel_subscription).with(restaurant.subscription).returns(success_stub)
       BraintreeConnector.expects(:set_add_ons_for_subscription).never
@@ -423,11 +538,5 @@ describe HasSubscription do
       user.reload.subscription.should be_nil
       restaurant.subscription.should be_nil
     end
-    
-    
-    
   end
-
-  
-
 end

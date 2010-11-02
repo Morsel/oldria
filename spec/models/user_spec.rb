@@ -259,25 +259,25 @@ describe User do
       @user.announcements.should == [@announcement]
     end
   end
-  
+
   context "updating replies after confirmed" do
-    
+
     it "should mark message replies as read for recently confirmed user" do
       user = Factory(:user, :confirmed_at => nil)
       user.expects(:mark_replies_as_read)
       user.confirm!
-    end   
+    end
   end
-  
+
   context "primary employment" do
-    
+
     it "should choose the user's first employment as the primary employment if not otherwise specified" do
       user = Factory(:user)
       user.restaurants << Factory(:restaurant)
       user.primary_employment.should == user.employments.first
       user.restaurants.count.should == 1
     end
-    
+
     it "should allow a new primary employment to be set" do
       user = Factory(:user)
       e1 = Factory(:employment, :employee => user)
@@ -286,57 +286,64 @@ describe User do
       user.primary_employment.should == e2
     end
   end
-  
+
   describe "premium account" do
-    
+
     it "finds a premium account" do
       user = Factory(:user)
       user.subscription = Factory(:subscription, :payer => user)
       user.account_type.should == "Premium"
       User.find_premium(user.id).should == user
     end
-    
+
     it "doesn't find a basic account" do
       user = Factory(:user)
       user.account_type.should == "Basic"
       User.find_premium(user.id).should be_nil
     end
-    
+
     it "finds a complimentary account" do
       user = Factory(:user)
       user.subscription = Factory(:subscription, :payer => nil)
       user.account_type.should == "Complimentary Premium"
       User.find_premium(user.id).should == user
     end
-    
+
   end
-  
+
   describe "phone numbers" do
     let(:user) { Factory(:user) }
-    
-    
+
+
     it "returns nil if no profile" do
       user.phone_number.should be_nil
     end
-    
+
     it "returns number if it exists" do
       profile = Factory(:profile, :user => user)
       user.phone_number.should == profile.cellnumber
     end
-    
+
     it "handles public phone number" do
       profile = Factory(:profile, :user => user)
       user.public_phone_number.should == profile.cellnumber
     end
-    
+
     it "handles private phone number" do
-      profile = Factory(:profile, :user => user, 
+      profile = Factory(:profile, :user => user,
           :preferred_display_cell => "spoonfeed")
       user.public_phone_number.should be_nil
     end
   end
 
-  
+  describe "braintree_contact" do
+    let(:user) { Factory(:user) }
+
+    it "should return self" do
+      user.braintree_contact == user
+    end
+  end
+
 end
 
 

@@ -93,7 +93,7 @@ class Restaurant < ActiveRecord::Base
       :with => %r{^http://www\.facebook\.com(.*)},
       :allow_blank => true,
       :message => "Facebook page must start with http://www.facebook.com"
-      
+
   has_one :subscription, :as => :subscriber
 
   # For pagination
@@ -104,7 +104,7 @@ class Restaurant < ActiveRecord::Base
     Restaurant.all(:include => :restaurant_features,
         :conditions => ['restaurant_features_restaurants.restaurant_feature_id = ?', feature.id])
   end
-  
+
   def self.find_premium(id)
     possibility = find_by_id(id)
     if possibility.premium_account then possibility else nil end
@@ -168,6 +168,11 @@ class Restaurant < ActiveRecord::Base
 
   def public_employments
     employments.public_profile_only.by_position
+  end
+
+  def braintree_contact
+    # need to get this fresh, in case it's being called from a callback
+    User.find(self.manager_id)
   end
 
   private

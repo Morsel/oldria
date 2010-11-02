@@ -3,10 +3,15 @@ module HasSubscription
   def has_subscription
     has_one :subscription, :as => :subscriber
     has_many :paid_subscriptions, :class_name => "Subscription", :as => :payer
+    after_update :update_braintree_contact_info
+
     include InstanceMethods
   end
 
   module InstanceMethods
+    def braintree_customer_id
+      "#{self.class}_#{self.id}"
+    end
 
     def account_type
       return "Complimentary Premium" if complimentary_account?
@@ -22,7 +27,7 @@ module HasSubscription
     def staff_subscriptions
       paid_subscriptions.user_subscriptions
     end
-    
+
     def payer
       return nil unless subscription
       subscription.payer
@@ -187,28 +192,28 @@ module HasSubscription
         cancel_and_terminate_gracefully
       end
     end
-    
+
     def cancel_and_terminate_immediately
       subscription.destroy if subscription.present?
       if can_be_payer?
-        subscription.user_subscriptions_for_payer.each do |sub| 
+        subscription.user_subscriptions_for_payer.each do |sub|
           sub.subscriber.subscription = nil
           sub.destroy
         end
       end
       self.subscription = nil
     end
-    
+
     def cancel_and_terminate_gracefully
       new_end_date = subscription.calculate_end_date
       subscription.update_attributes(:end_date => new_end_date)
       if can_be_payer?
-        subscription.user_subscriptions_for_payer.each do |sub| 
+        subscription.user_subscriptions_for_payer.each do |sub|
           sub.update_attributes(:end_date => new_end_date)
         end
       end
     end
-    
+
     def admin_cancel
       if staff_account?
         success = payer.subscription.remove_staff_account(self)
@@ -217,11 +222,36 @@ module HasSubscription
       end
       success
     end
-    
 
+    private
+    def update_braintree_contact_info
+      if self.is_a? User
+        if self.email_changed? || self.last_name_changed? || self.first_name_changed?
+          if self.subscription
+            update_braintree_customer(self)
+          end
 
+          unless self.managed_restaurants.empty?
+            self.managed_restaurants.each do |restaurant|
+              update_braintree_customer(restaurant)
+            end
+          end
+        end
+      end
+
+      if self.is_a? Restaurant
+        if self.name_changed? || self.manager_id_changed?
+          update_braintree_customer(self)
+        end
+      end
+    end
+
+    def update_braintree_customer(customer)
+      if customer.subscription
+        BraintreeConnector.update_customer(customer)
+      end
+    end
   end
-
 end
 
 ActiveRecord::Base.extend(HasSubscription)

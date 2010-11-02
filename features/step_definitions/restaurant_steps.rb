@@ -30,6 +30,7 @@ Given /^a restaurant named "([^\"]*)" with manager "([^\"]*)"$/ do |name, userna
 end
 
 Given /^"([^"]*)" is a manager for "([^"]*)"$/ do |username, restaurantname|
+  BraintreeConnector.stubs(:update_customer)
   user = User.find_by_username!(username)
   restaurant = Restaurant.find_by_name!(restaurantname)
 

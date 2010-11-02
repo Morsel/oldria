@@ -24,7 +24,7 @@ Feature: Manage users
     Then I should see "User was successfully updated"
     And "jimbob" should be an admin
     And "jimbob" should have a "Basic" account in the list
-    
+
   Scenario: Making a basic user complimentary
     Given the user "jimbob" does not have a premium account
     When I go to the admin edit page for "jimbob"
@@ -36,7 +36,7 @@ Feature: Manage users
     And "jimbob" should have a "Complimentary" account in the list
     When I go to the profile page for "jimbob"
     And "jimbob" should have a "Complimentary" account on the page
-   
+
   Scenario: Canceling a complimentary account
     Given the user "jimbob" has a complimentary account
     When I go to the admin edit page for "jimbob"
@@ -48,7 +48,7 @@ Feature: Manage users
     And "jimbob" should have a "Basic" account in the list
     When I go to the profile page for "jimbob"
     And "jimbob" should have a "Basic" account on the page
-    
+
   Scenario: Converting an existing account to complementary
     Given the user "jimbob" has a premium account
     When I go to the admin edit page for "jimbob"
@@ -60,7 +60,7 @@ Feature: Manage users
     And "jimbob" should have a "Complimentary" account in the list
     When I go to the profile page for "jimbob"
     And "jimbob" should have a "Complimentary" account on the page
-    
+
   Scenario: Cancel a non-complimentary premium account
     Given the user "jimbob" has a premium account
     When I go to the admin edit page for "jimbob"
@@ -75,7 +75,7 @@ Feature: Manage users
     Then I go to the edit page for "jimbob"
     And I don't see that the account for "jimbob" lasts until the end of the billing cycle
 
-@preconfirmed 
+@preconfirmed
   Scenario: Add a user from the admin interface
     Given I am on the admin new user page
     When I fill in "Email" with "joesak.com@gmail.com"
