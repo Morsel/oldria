@@ -9,9 +9,8 @@ describe BraintreeConnector do
         :email => "fred@flintstone.com") }
     let(:connector) { BraintreeConnector.new(user, "callback") }
 
-
     it "creates a unique braintree customer id" do
-      connector.braintree_customer_id.should == "User_#{user.id}"
+      connector.braintree_customer_id.should match /User_#{user.id}$/
     end
 
     it "derive the correct plan id" do
@@ -19,7 +18,7 @@ describe BraintreeConnector do
     end
 
     it "calls braintree customer" do
-      Braintree::Customer.expects(:find).with("User_#{user.id}")
+      Braintree::Customer.expects(:find).with(BraintreeConnector.braintree_customer_id(user))
       connector.braintree_customer
     end
 
@@ -44,7 +43,7 @@ describe BraintreeConnector do
       connector.stubs(:braintree_customer => stub_customer_request.customer)
       Braintree::TransparentRedirect.expects(:update_customer_data).with(
           :redirect_url => "callback",
-          :customer_id => "User_500",
+          :customer_id => BraintreeConnector.braintree_customer_id(user),
           :customer => {
               :email => user.email,
               :first_name => user.first_name,
@@ -65,7 +64,7 @@ describe BraintreeConnector do
       Braintree::TransparentRedirect.expects(:create_customer_data).with(
           :redirect_url => "callback",
           :customer => {
-              :id => "User_500",
+              :id => BraintreeConnector.braintree_customer_id(user),
               :email => user.email,
               :first_name => user.first_name,
               :last_name => user.last_name,
@@ -100,7 +99,7 @@ describe BraintreeConnector do
 
     it "updates customer information" do
       Braintree::Customer.expects(:update).with(
-          user.braintree_customer_id,
+          BraintreeConnector.braintree_customer_id(user),
           has_entries(
               :first_name => user.first_name,
               :last_name => user.last_name,
@@ -123,7 +122,7 @@ describe BraintreeConnector do
           :success? => true) }
 
     it "creates a unique braintree customer id" do
-      connector.braintree_customer_id.should == "Restaurant_#{restaurant.id}"
+      connector.braintree_customer_id.should match /Restaurant_#{restaurant.id}$/
     end
 
     it "derives the correct plan id" do
@@ -134,7 +133,7 @@ describe BraintreeConnector do
       connector.stubs(:braintree_customer => stub_customer_request.customer)
       Braintree::TransparentRedirect.expects(:update_customer_data).with(
           :redirect_url => "callback",
-          :customer_id => "Restaurant_500",
+          :customer_id => BraintreeConnector.braintree_customer_id(restaurant),
           :customer => {
               :email => restaurant.manager.email,
               :first_name => restaurant.manager.first_name,
@@ -168,7 +167,7 @@ describe BraintreeConnector do
 
     it "updates restaurant information" do
       Braintree::Customer.expects(:update).with(
-          restaurant.braintree_customer_id,
+          BraintreeConnector.braintree_customer_id(restaurant),
           has_entries(
               :first_name => restaurant.manager.first_name,
               :last_name => restaurant.manager.last_name,

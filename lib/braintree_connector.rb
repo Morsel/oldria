@@ -17,7 +17,15 @@ class BraintreeConnector
   end
 
   def braintree_customer_id
-    "#{payer_type}_#{payer.id}"
+    self.class.braintree_customer_id(payer)
+  end
+
+  def self.braintree_customer_id(payer)
+    "#{braintree_prefix}#{payer.braintree_customer_id}"
+  end
+
+  def self.braintree_prefix
+    Rails.env.production? ? "" : "#{Rails.env}_"
   end
 
   def braintree_plan_id
@@ -33,7 +41,7 @@ class BraintreeConnector
 
   def self.update_customer(payer)
     Rails.logger.info "Updating customer \"#{payer.braintree_customer_id}\" with #{braintree_customer_params(payer).inspect}"
-    result = Braintree::Customer.update(payer.braintree_customer_id,
+    result = Braintree::Customer.update(self.braintree_customer_id(payer),
       braintree_customer_params(payer))
   end
 
