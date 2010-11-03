@@ -20,5 +20,9 @@ class Cuisine < ActiveRecord::Base
     :joins => :restaurants,
     :conditions => 'restaurants.deleted_at IS NULL',
     :group => "#{table_name}.id"
+    
+  named_scope :with_profiles,
+    :joins => :profiles,
+    :group => "#{table_name}.id"
 
 end

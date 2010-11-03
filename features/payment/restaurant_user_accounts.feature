@@ -160,10 +160,25 @@ Feature: Restaurant Accounts
     And I follow "Downgrade the user to a Basic Account"
     Then I should be on the admin edit page for "sam"
     Then I should see that the user has a basic account
-
-
-  # cancel notes
-  # user's subscription gets cancelled
-  # add on
-
-
+    
+  Scenario: A user at multiple restaurants only is staff at one of them
+    Given the restaurant "Taco Bell" has a premium account
+    And user "emily" has a staff account for the restaurant "Taco Bell"
+    And a restaurant named "Burger King" with the following employees:
+      | username | password | email            | name      | role      |
+      | king     | secret   | king@example.com | king      | Manager   |
+    Given the restaurant "Burger King" has a premium account
+    Given "king" is a manager for "Burger King"
+    Given "king" is the account manager for "Burger King"
+    And "emily" is an employee of "Burger King"
+    When I go to the employees page for "Taco Bell"
+    When I follow the edit role link for "Emily Emily"
+    And I see that "emily" has a premium account paid for by the restaurant
+    And I am not logged in
+    Given I am logged in as "king" with password "secret"
+    When I go to the employees page for "Burger King"
+    When I follow the edit role link for "Emily Emily"
+    And I see that "emily" has a premium account paid for by a different restaurant
+    And I do not see a link to change the user status
+    
+    

@@ -49,6 +49,7 @@
         <h3>Headshot</h3>
         <p><%= image_tag @user.avatar.url(:thumb), :class => 'thumbnail' %></p>
         <p><%= f.label :avatar, "Headshot" %> <%= f.file_field :avatar %></p>
+        <p class="inline-hints">Please upload a jpeg, gif, or png</p>
         <p>
             <%= button_tag (image_tag('tick.png') + "Upload Headshot"), :class => 'positive' %>
             <span class="button-separator"> or </span>

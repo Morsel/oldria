@@ -416,6 +416,7 @@ body,html,#container,#main,#content,#inside{
 	}
 	.identity {
 		width: 183px;
+		min-height: 90px;
 		float: left;
 		margin: 0 15px 10px 0;
 		ul {
@@ -909,7 +910,7 @@ body,html,#container,#main,#content,#inside{
 #activity-chooser{
 	overflow:hidden;
 	a{
-		@include knockout;
+		font-family: 'KnockoutHTF69FullLiteweight', Impact, Helvetica, arial, sans-serif;
 		font-size:18px;
 		display:block;
 		padding:10px 8px;
@@ -1316,6 +1317,7 @@ p.search_filter_hint {
 	.comment{
 		width:206px;
 		padding:10px;
+		border:1px solid #999;
 		@include box-shadow(#999, 0, 0, 3px);
 		margin:10px 5px;
 		float:left;
@@ -1637,6 +1639,7 @@ p.search_filter_hint {
 		li {
 			background: 0 none;
 			line-height: 15px;
+			
 			p {
 				line-height: 15px;
 			}
@@ -1654,13 +1657,15 @@ p.search_filter_hint {
 		  	overflow: hidden;
 			li {
 				width:30%;
+				min-height: 60px;
 				border-bottom: 0;
 				margin:0 10px 20px 0;
 				overflow: hidden;
 				float:left;
 				padding: 4px 0 0 5px;
 				span.name {
-					color: $sienna;
+					color: #333;
+					font-weight:bold;
 				}
 			}
 		}

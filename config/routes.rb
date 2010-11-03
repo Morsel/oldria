@@ -120,11 +120,11 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :holiday_discussion_reminders, :member => { :read => :put }
 
   map.resources :admin_conversations, :only => 'show' do |admin_conversations|
-    admin_conversations.resources :comments, :only => [:new, :create, :edit, :update]
+    admin_conversations.resources :comments, :only => [:new, :create, :edit, :update, :destroy]
   end
 
   map.resources :admin_discussions, :only => 'show', :member => { :read => :put } do |admin_discussions|
-    admin_discussions.resources :comments, :only => [:new, :create, :edit, :update]
+    admin_discussions.resources :comments, :only => [:new, :create, :edit, :update, :destroy]
   end
 
   map.resources :solo_discussions, :only => 'show', :member => { :read => :put } do |admin_discussions|
@@ -171,7 +171,7 @@ ActionController::Routing::Routes.draw do |map|
     admin.resources :holidays
     admin.resources :calendars
     admin.resources :events
-    admin.resources :soapbox_entries
+    admin.resources :soapbox_entries, :member => { :toggle_status => :post }
     admin.resources :soapbox_pages
     admin.resources :soapbox_slides
     admin.resources :soapbox_promos
