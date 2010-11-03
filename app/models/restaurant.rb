@@ -49,7 +49,7 @@ class Restaurant < ActiveRecord::Base
   has_many :additional_managers,
            :through => :employments,
            :source => :employee,
-           :conditions => {:employments => {:omniscient => true}}
+           :conditions => { :employments => { :omniscient => true }}
   has_many :media_request_discussions
   has_many :media_requests, :through => :media_request_discussions
   has_many :admin_discussions, :dependent => :destroy
