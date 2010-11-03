@@ -1398,9 +1398,7 @@ body, html, #container, #main, #content, #inside {
 }
 /* line 912, ../../../app/stylesheets/soapbox.scss */
 #activity-chooser a {
-  font-family: 'KnockoutHTF69FullLiteweight', 'Helvetica Neue', Helvetica, arial, sans-serif;
-  font-weight: normal !important;
-  font-weight: 500;
+  font-family: 'KnockoutHTF69FullLiteweight', Impact, Helvetica, arial, sans-serif;
   font-size: 18px;
   display: block;
   padding: 10px 8px;
