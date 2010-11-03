@@ -343,6 +343,25 @@ describe User do
       user.braintree_contact == user
     end
   end
+  
+  describe "find premiums via rspec" do
+    
+    before(:each) do |variable|
+      @basic = Factory(:user, :name => "Basic") 
+      @premium = Factory(:user, :name => "Premium", 
+          :subscription => Factory(:subscription))
+      @expired = Factory(:user, :name => "Expired",
+              :subscription => Factory(:subscription, :end_date => 1.month.ago))
+      @overtime = Factory(:user, :name => "Overtime",
+              :subscription => Factory(:subscription, :end_date => 2.weeks.from_now))
+    end
+    
+    it "finds the right users" do
+      User.premium_account.all.should =~ [@premium, @overtime]
+    end
+    
+    
+  end
 
 end
 
