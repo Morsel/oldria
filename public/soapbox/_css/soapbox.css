@@ -2348,17 +2348,17 @@ p.search_filter_hint {
   background: 0 none;
   line-height: 15px;
 }
-/* line 1642, ../../../app/stylesheets/soapbox.scss */
+/* line 1643, ../../../app/stylesheets/soapbox.scss */
 #extended_profile ul li p {
   line-height: 15px;
 }
-/* line 1647, ../../../app/stylesheets/soapbox.scss */
+/* line 1648, ../../../app/stylesheets/soapbox.scss */
 #extended_profile .extended_profile_info, #extended_profile .profile_info {
   position: relative;
   overflow: hidden;
   padding: 0px 2px;
 }
-/* line 1651, ../../../app/stylesheets/soapbox.scss */
+/* line 1652, ../../../app/stylesheets/soapbox.scss */
 #extended_profile .extended_profile_info ul, #extended_profile .profile_info ul {
   margin: 0;
   padding: 0;
@@ -2366,20 +2366,21 @@ p.search_filter_hint {
   list-style: none;
   overflow: hidden;
 }
-/* line 1657, ../../../app/stylesheets/soapbox.scss */
+/* line 1658, ../../../app/stylesheets/soapbox.scss */
 #extended_profile .extended_profile_info ul li, #extended_profile .profile_info ul li {
   width: 30%;
+  min-height: 60px;
   border-bottom: 0;
   margin: 0 10px 20px 0;
   overflow: hidden;
   float: left;
   padding: 4px 0 0 5px;
 }
-/* line 1664, ../../../app/stylesheets/soapbox.scss */
+/* line 1666, ../../../app/stylesheets/soapbox.scss */
 #extended_profile .extended_profile_info ul li span.name, #extended_profile .profile_info ul li span.name {
   color: #cb4827;
 }
-/* line 1670, ../../../app/stylesheets/soapbox.scss */
+/* line 1672, ../../../app/stylesheets/soapbox.scss */
 #extended_profile .timestamp {
   position: absolute;
   top: 14px;
@@ -2387,37 +2388,37 @@ p.search_filter_hint {
   font: normal 10px "Helvetica Neue", Helvetica, Arial, sans-serif;
   color: #808080;
 }
-/* line 1676, ../../../app/stylesheets/soapbox.scss */
+/* line 1678, ../../../app/stylesheets/soapbox.scss */
 #extended_profile .employee_role {
   border: 0;
 }
-/* line 1679, ../../../app/stylesheets/soapbox.scss */
+/* line 1681, ../../../app/stylesheets/soapbox.scss */
 #extended_profile a {
   color: #0087C0;
   text-decoration: none;
 }
-/* line 1682, ../../../app/stylesheets/soapbox.scss */
+/* line 1684, ../../../app/stylesheets/soapbox.scss */
 #extended_profile a:hover {
   color: #666;
 }
-/* line 1686, ../../../app/stylesheets/soapbox.scss */
+/* line 1688, ../../../app/stylesheets/soapbox.scss */
 #extended_profile .name {
   color: #0087C0;
   text-decoration: none;
 }
 
-/* line 1692, ../../../app/stylesheets/soapbox.scss */
+/* line 1694, ../../../app/stylesheets/soapbox.scss */
 #current_things {
   margin: 1em 0;
   padding: 5px;
 }
-/* line 1695, ../../../app/stylesheets/soapbox.scss */
+/* line 1697, ../../../app/stylesheets/soapbox.scss */
 #current_things dl.things {
   overflow: hidden;
   margin: 0;
   padding: 14px 10px;
 }
-/* line 1699, ../../../app/stylesheets/soapbox.scss */
+/* line 1701, ../../../app/stylesheets/soapbox.scss */
 #current_things dl.things div {
   margin-right: 20px;
   padding-right: 19px;
@@ -2425,33 +2426,33 @@ p.search_filter_hint {
   width: 172px;
   float: left;
 }
-/* line 1705, ../../../app/stylesheets/soapbox.scss */
+/* line 1707, ../../../app/stylesheets/soapbox.scss */
 #current_things dl.things div.last {
   padding-right: 0;
   border-right: 0;
   margin-right: 0;
 }
-/* line 1711, ../../../app/stylesheets/soapbox.scss */
+/* line 1713, ../../../app/stylesheets/soapbox.scss */
 #current_things dl.things dt {
   margin: 0 0 1em;
   font-weight: normal;
 }
-/* line 1714, ../../../app/stylesheets/soapbox.scss */
+/* line 1716, ../../../app/stylesheets/soapbox.scss */
 #current_things dl.things dt:after {
   content: ":";
 }
-/* line 1718, ../../../app/stylesheets/soapbox.scss */
+/* line 1720, ../../../app/stylesheets/soapbox.scss */
 #current_things dl.things dd {
   font-weight: bold;
   font-size: 1.1em;
 }
 
-/* line 1726, ../../../app/stylesheets/soapbox.scss */
+/* line 1728, ../../../app/stylesheets/soapbox.scss */
 dl.things dt:after {
   content: ":";
 }
 
-/* line 1733, ../../../app/stylesheets/soapbox.scss */
+/* line 1735, ../../../app/stylesheets/soapbox.scss */
 #employment_criteria legend span {
   font-family: 'MuseoSlab700', 'Helvetica Neue', Helvetica, arial, sans-serif;
   font-weight: normal !important;
@@ -2460,11 +2461,11 @@ dl.things dt:after {
   font-size: 15px;
 }
 
-/* line 1741, ../../../app/stylesheets/soapbox.scss */
+/* line 1743, ../../../app/stylesheets/soapbox.scss */
 #criteria_accordion {
   padding: 10px 0 0;
 }
-/* line 1743, ../../../app/stylesheets/soapbox.scss */
+/* line 1745, ../../../app/stylesheets/soapbox.scss */
 #criteria_accordion .accordion_box {
   border: 1px solid #ddd;
   background: 0 none;
