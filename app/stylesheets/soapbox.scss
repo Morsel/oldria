@@ -1317,6 +1317,7 @@ p.search_filter_hint {
 	.comment{
 		width:206px;
 		padding:10px;
+		border:1px solid #999;
 		@include box-shadow(#999, 0, 0, 3px);
 		margin:10px 5px;
 		float:left;
