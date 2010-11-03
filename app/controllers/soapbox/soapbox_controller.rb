@@ -13,18 +13,16 @@ class Soapbox::SoapboxController < ApplicationController
   def directory
     if params[:specialty_id]
       @specialty = Specialty.find(params[:specialty_id])
-      @users = User.profile_specialties_id_eq(params[:specialty_id]).all(:order => "users.last_name", 
-        :conditions => { :premium_account => true }).uniq
+      @users = User.profile_specialties_id_eq(params[:specialty_id]).premium_account.all(:order => "users.last_name").uniq
     elsif params[:cuisine_id]
       @cuisine = Cuisine.find(params[:cuisine_id])
-      @users = User.profile_cuisines_id_eq(params[:cuisine_id]).all(:order => "users.last_name", 
-        :conditions => { :premium_account => true }).uniq
+      @users = User.profile_cuisines_id_eq(params[:cuisine_id]).premium_account.all(:order => "users.last_name").uniq
     else
       params[:search] = { :premium_account_equals => true }
       directory_search_setup
       
       @use_search = true
-      @users_for_search = User.by_last_name.all(:conditions => { :premium_account => true })
+      @users_for_search = User.by_last_name.premium_account.all
       @restaurants_for_search = @users_for_search.map(&:restaurants).flatten.compact.uniq.sort { |a,b| a.sort_name <=> b.sort_name }
     end
     

@@ -209,10 +209,9 @@ class ApplicationController < ActionController::Base
     end
     
     if params[:controller].match(/soapbox/)
-      extra_search_results = User.search(extra_params).all(:conditions => { :premium_account => true }) if extra_params.present?
+      extra_search_results = User.search(extra_params).premium_account.all if extra_params.present?
       
-      @users = [@search.all(:conditions => { :premium_account => true }), 
-        extra_search_results].flatten.compact.uniq.sort_by(&:last_name)
+      @users = [@search.premium_account.all, extra_search_results].flatten.compact.uniq.sort_by(&:last_name)
     else
       extra_search_results = User.search(extra_params).all if extra_params.present?
 
