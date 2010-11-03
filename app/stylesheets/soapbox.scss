@@ -1665,7 +1665,8 @@ p.search_filter_hint {
 				float:left;
 				padding: 4px 0 0 5px;
 				span.name {
-					color: $sienna;
+					color: #333;
+					font-weight:bold;
 				}
 			}
 		}
