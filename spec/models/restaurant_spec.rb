@@ -57,12 +57,14 @@ describe Restaurant do
       restaurant2.manager.should == user
     end
 
-    it "should add the manager as an employee on create" do
+    it "should add the manager as an omniscient employee on create" do
       manager = Factory(:user, :name => "Jim John")
       restaurant = Factory.build(:restaurant, :manager => manager)
       restaurant.employees.should be_empty
       restaurant.save
+      restaurant.employees.count.should == 1
       restaurant.employees.first.should == manager
+      restaurant.employments.first.omniscient.should be_true
     end
   end
 

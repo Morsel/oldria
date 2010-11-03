@@ -51,7 +51,7 @@ class Restaurant < ActiveRecord::Base
   has_many :employments, :dependent => :destroy
   has_many :employees, :through => :employments
   
-  # all account managers should be omniscient (WIP)
+  # all account managers should be omniscient
   has_many :managers,
            :through => :employments,
            :source => :employee,
@@ -98,6 +98,7 @@ class Restaurant < ActiveRecord::Base
       :message => "Facebook page must start with http://www.facebook.com"
 
   after_validation_on_create :add_manager_as_employee
+  after_create :update_manager
 
   after_save :update_admin_discussions
 
@@ -182,6 +183,10 @@ class Restaurant < ActiveRecord::Base
 
   def add_manager_as_employee
     self.employees << manager if manager
+  end
+  
+  def update_manager
+    self.employments.first.update_attribute(:omniscient, true)
   end
 
   def handled_subject_matter_ids
