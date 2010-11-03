@@ -285,9 +285,9 @@ ActiveRecord::Schema.define(:version => 20101102202312) do
     t.integer  "restaurant_role_id"
     t.boolean  "omniscient"
     t.boolean  "primary",              :default => false
-    t.string   "type"
     t.boolean  "public_profile"
     t.integer  "position"
+    t.string   "type"
     t.boolean  "post_to_soapbox",      :default => true
     t.string   "solo_restaurant_name"
   end
