@@ -26,14 +26,24 @@ describe HasSubscription do
       let(:start_date) { 1.month.ago }
       let(:subscription) { Factory(:subscription, :braintree_id => 'efgh', :payer => user, :start_date => start_date, :created_at => start_date) }
 
-      before(:each) do
+      it "updates the right subscription" do
         user.subscription = subscription
         user.save!
         user.update_premium!(subscription_response_stub)
-      end
-
-      it "updates the right subscription" do
         user.subscription.start_date.should == start_date
+        user.subscription.subscriber.should == user
+        user.subscription.payer.should == user
+        user.subscription.kind.should == "User Premium"
+        user.subscription.braintree_id.should == "abcd"
+        user.subscription.should be_premium
+        user.subscription.should_not be_complimentary
+      end
+      
+      it "updates even if the sub is not there" do
+        user.subscription = nil
+        user.save!
+        user.update_premium!(subscription_response_stub)
+        user.subscription.start_date.should == Date.today.to_date
         user.subscription.subscriber.should == user
         user.subscription.payer.should == user
         user.subscription.kind.should == "User Premium"

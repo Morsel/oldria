@@ -93,6 +93,7 @@ module HasSubscription
     end
 
     def update_premium!(bt_subscription)
+      return make_premium!(bt_subscription) unless subscription.present?
       self.subscription.update_attributes(
           :payer => self,
           :braintree_id => bt_subscription.subscription.id)
