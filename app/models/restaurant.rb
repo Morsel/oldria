@@ -39,17 +39,22 @@ class Restaurant < ActiveRecord::Base
   apply_addresslogic
   default_scope :conditions => {:deleted_at => nil}
 
+  # primary account manager
   belongs_to :manager, :class_name => "User", :foreign_key => 'manager_id'
+
   belongs_to :metropolitan_area
   belongs_to :james_beard_region
   belongs_to :cuisine
 
   has_many :employments, :dependent => :destroy
   has_many :employees, :through => :employments
-  has_many :additional_managers,
+  
+  # all account managers should be omniscient (WIP)
+  has_many :managers,
            :through => :employments,
            :source => :employee,
            :conditions => { :employments => { :omniscient => true }}
+
   has_many :media_request_discussions
   has_many :media_requests, :through => :media_request_discussions
   has_many :admin_discussions, :dependent => :destroy
