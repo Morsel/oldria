@@ -203,6 +203,9 @@ end
 Then /^I should see an error message$/ do
   response.should have_selector("#errorExplanation")
 end
+Then /^I should see a flash error message$/ do
+  response.should have_selector("#flash_error")
+end
 
 Given /^"([^\"]*)" is an employee of "([^\"]*)"$/ do |username, restaurant_name|
   user = User.find_by_username(username)
@@ -326,6 +329,13 @@ Given /^"([^"]*)" has answered the following A La Minute questions:$/ do |restau
     answer_params[:updated_at] = eval(row['created_at']) if row['created_at']
 
     answer = Factory(:a_la_minute_answer, answer_params)
+  end
+end
+
+When /^I check "([^"]*)" for "([^"]*)"$/ do |label, question_text|
+  question = ALaMinuteQuestion.find_by_question(question_text)
+  within("##{dom_id(question)}") do |content|
+    check("a_la_minute_questions[#{question.id}][show_as_public]")
   end
 end
 
