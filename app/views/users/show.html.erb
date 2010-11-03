@@ -25,12 +25,22 @@
         <div class="profile_title_summary">
             <% if @user.employments.any? %>
             <h5 class="nomargin">Title(s)</h5>
-            <p>
-                <%= @user.primary_employment.try(:restaurant_role).try(:name) %>,
+
+            <div>
+                <%= @user.primary_employment.try(:restaurant_role).try(:name) %>, 
                 <%= link_to_unless (params[:controller] == 'soapbox/profiles'),
-                @user.primary_employment.try(:restaurant).try(:name),
-                @user.primary_employment.try(:restaurant) %>
-            </p>
+                    @user.primary_employment.try(:restaurant).try(:name), 
+                    @user.primary_employment.try(:restaurant) %>
+            </div>
+            <% for employment in @user.nonprimary_employments %>
+            <div>
+                <%= employment.try(:restaurant_role).try(:name) %>, 
+                <%= link_to_unless (params[:controller] == 'soapbox/profiles'),
+                    employment.try(:restaurant).try(:name), 
+                    employment.try(:restaurant) %>
+            </div>
+            <% end %>
+
             <% end %>
 
             <% if @user.profile && @user.profile.summary.present? -%>
@@ -110,7 +120,7 @@
 
     </div><!--.profile_info-->
 
-    <%= render :partial => 'users/profile_actions' if current_user && !media_or_owner? %>
+    <%= render :partial => 'users/profile_actions' if !media_or_owner? %>
 
 </div><!-- #user_profile_view -->
 
@@ -138,7 +148,7 @@
 				<li class="<%= cycle("even", "odd") %>">
 					<% link_to link_for_chapter(:user_id => @user.id, :topic_id => topic.id) do %>
 						<h5><%= topic.title %> <span class="completeness">(<%= topic.completion_percentage(@user) %>% complete)</span></h5>
-	  	    	<%= truncate(topic.profile_questions.map(&:title).join(" "), :length => 100) %>   
+	  	    	        <%= topic.description %>   
 					<% end %>
 	  	 	</li>
 			<% end %>			

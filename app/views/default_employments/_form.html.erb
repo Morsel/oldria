@@ -1,6 +1,7 @@
 <% f.inputs :name => "Work Details" do %>
     <%= f.input :type, :as => :hidden %>
     <%= f.input :restaurant_role, :label => "Role", :as => :select, :collection => RestaurantRole.all %>
+    <%= f.input :solo_restaurant_name, :label => "Restaurant name", :hint => "Leave blank if not applicable" %>
 
     <h4>Area(s) of expertise</h4>
     <%= f.input :subject_matters,

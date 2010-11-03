@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20100721223109
+# Schema version: 20101101205324
 #
 # Table name: soapbox_entries
 #
@@ -9,6 +9,7 @@
 #  featured_item_type :string(255)
 #  created_at         :datetime
 #  updated_at         :datetime
+#  published          :boolean         default(TRUE)
 #
 
 class SoapboxEntry < ActiveRecord::Base
@@ -19,7 +20,9 @@ class SoapboxEntry < ActiveRecord::Base
   named_scope :qotd, :conditions => { :featured_item_type => 'Admin::Qotd' }
   named_scope :trend_question, :conditions => { :featured_item_type => 'TrendQuestion' }
 
-  named_scope :published, lambda {{ :conditions => ['published_at <= ?', Time.zone.now] }}
+  named_scope :published, lambda {
+    { :conditions => ['published_at <= ? AND published = ?', Time.zone.now, true] }
+  }
 
   named_scope :recent,
               :limit => 5,
@@ -31,6 +34,10 @@ class SoapboxEntry < ActiveRecord::Base
 
   def comments
     featured_item.comments(true).select {|c| c.show_on_soapbox? }
+  end
+  
+  def published?
+    published == true && published_at <= Time.zone.now
   end
 
   class << self
