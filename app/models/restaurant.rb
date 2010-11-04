@@ -186,7 +186,7 @@ class Restaurant < ActiveRecord::Base
   end
   
   def update_manager
-    self.employments.first.update_attribute(:omniscient, true)
+    self.employments.first.update_attribute(:omniscient, true) if employments.any?
   end
 
   def handled_subject_matter_ids
