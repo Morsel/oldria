@@ -17,6 +17,7 @@ Feature: Managing Restaurants
   Scenario: I can edit the employees of restaurants I manage
     Given I am on the dashboard
     When I follow "Jimmy's Diner"
+    When I follow "Edit Restaurant"
     And I follow "Manage employees"
     Then I should see "Employees at Jimmy's Diner"
 

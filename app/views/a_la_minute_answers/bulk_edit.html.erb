@@ -1,5 +1,14 @@
 <% title "A La Minute Questions" %>
 
+<% if can? :edit, @restaurant %>
+  <% content_for :page_actions do -%>
+  <p class="clearfix">
+    <%= link_to 'Edit restaurant', edit_restaurant_path(@restaurant),
+        :class=>'sf-button' %>
+  </p>
+  <% end -%>
+<% end -%>
+
 <% semantic_form_for :restaurant, :url => bulk_update_restaurant_a_la_minute_answers_url(:restaurant_id => @restaurant.id),
       :html => {:method => :put} do |form| %>
   <ul id="a_la_minute_questions">

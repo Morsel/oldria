@@ -12,6 +12,19 @@
 	<% end -%>
 <% end -%>
 
+<% if can? :edit, @restaurant %>
+	<p class="clearfix">
+		<%= link_to "Add employee", new_restaurant_employee_path(@restaurant), :class => 'positive button' %>
+	</p>
+
+	<% unless @restaurant.media_requests.blank? %>
+		<hr />
+		<h4>
+			Your restaurant has <%= link_to "#{@restaurant.media_requests.size} media requests", restaurant_media_requests_path(@restaurant) %>
+		</h4>
+	<% end %>
+<% end %>
+
 <h3>
   You can rearrange the order employees are listed on your restaurant profile 
   by drag and drop.
@@ -24,22 +37,6 @@
 	<% end -%>
 </div>
 <% end -%>
-
-
-<% if can? :edit, @restaurant %>
-	<h3 class="clear">Add Employees to your Restaurant</h3>
-
-	<p class="clearfix">
-		<%= link_to "Add employee", new_restaurant_employee_path(@restaurant), :class => 'positive button' %>
-	</p>
-
-	<% unless @restaurant.media_requests.blank? %>
-		<hr />
-		<h4>
-			Your restaurant has <%= link_to "#{@restaurant.media_requests.size} media requests", restaurant_media_requests_path(@restaurant) %>
-		</h4>
-	<% end %>
-<% end %>
 
 <% content_for :javascript do %>
 

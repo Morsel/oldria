@@ -16,20 +16,21 @@ Feature: Associate Restaurant features
 
   Scenario: Initial navigation
     When I go to the restaurant show page for "Piece"
+    And I follow "Edit restaurant"
     And I follow "Edit restaurant features"
     Then I am on the restaurant feature page for "Piece"
-    And I see the page headers
-    And I see the category headers
-    And I see the category values
+    And I see the page header for "Cuisine"
+    And I see the category headers for "Cuisine"
+    And I see the category values for "Cuisine"
 
   Scenario: Selecting a checkbox should persist
-    When I go to the restaurant feature page for "Piece"
+    When I go to the restaurant feature page for "Piece" 
     And I check "Casual"
-    And I check "Ugly"
+    And I check "Buffet"
     And I press "Update all features"
     Then the "Casual" checkbox should be checked
-    And the "Ugly" checkbox should be checked
-    And the "Buffet" checkbox should not be checked
+    And the "Buffet" checkbox should be checked
+    And the "Armenian" checkbox should not be checked
 
   Scenario: Selecting a checkbox should display the page and tag on the home page
     When I go to the restaurant feature page for "Piece"
