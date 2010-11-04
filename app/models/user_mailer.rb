@@ -27,22 +27,6 @@ class UserMailer < ActionMailer::Base
     body       :request => request_discussion.media_request, :discussion => request_discussion
   end
 
-  def employee_invitation(user, invitation_sender = nil)
-    from          'accounts@restaurantintelligenceagency.com'
-    recipients    user.email
-    sent_on       Time.now
-    subject       "SpoonFeed: You're invited"
-    body          :user => user, :invitation_sender => invitation_sender
-  end
-  
-  def employee_request(restaurant, user)
-    from          'accounts@restaurantintelligenceagency.com'    
-    recipients    restaurant.manager.email
-    sent_on       Time.now
-    subject       "SpoonFeed: a new employee has joined"
-    body          :recipient => restaurant.manager, :user => user, :restaurant => restaurant
-  end
-
   def discussion_notification(discussion, user)
     from        'notifications@restaurantintelligenceagency.com'
     recipients  user.email
@@ -51,6 +35,7 @@ class UserMailer < ActionMailer::Base
     body        :discussion => discussion, :user => user
   end
   
+  # sent to users who request an invite for themselves
   def invitation_welcome(invite)
     from        'notifications@restaurantintelligenceagency.com'
     recipients  invite.email
@@ -59,6 +44,33 @@ class UserMailer < ActionMailer::Base
     body        :invitation => invite
   end
   
+  # sent to admins to let them know a new invite has been requested
+  def admin_invitation_notice(invite)
+    from        'notifications@restaurantintelligenceagency.com'
+    recipients  'info@restaurantintelligenceagency.com'
+    sent_on     Time.now
+    subject     'A new invitation has been requested'
+    body        :invitation => invite
+  end
+  
+  # sent to all users after their invite is accepted by an admin
+  def employee_invitation(user, invitation_sender = nil)
+    from          'accounts@restaurantintelligenceagency.com'
+    recipients    user.email
+    sent_on       Time.now
+    subject       "SpoonFeed: You're invited"
+    body          :user => user, :invitation_sender => invitation_sender
+  end
+  
+  # sent to the restaurant manager after a user joins and requests to be added to the restaurant as an employee
+  def employee_request(restaurant, user)
+    from          'accounts@restaurantintelligenceagency.com'    
+    recipients    restaurant.manager.email
+    sent_on       Time.now
+    subject       "SpoonFeed: a new employee has joined"
+    body          :recipient => restaurant.manager, :user => user, :restaurant => restaurant
+  end
+
   ##
   # Generic message: could be one of DirectMessage, etc.
   def message_notification(message, recipient, sender = nil)
