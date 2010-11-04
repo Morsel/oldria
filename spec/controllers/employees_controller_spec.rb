@@ -195,7 +195,7 @@ describe EmployeesController do
         put :update, :id => @employee.id, :restaurant_id => @restaurant2.id, :employment => {}
       end
 
-      it { should redirect_to(restaurant_employees_path(@restaurant2))}
+      it { should render_template(:edit) }
 
       it "should set a flash error" do
         flash[:error].should_not be_nil
