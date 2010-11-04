@@ -24,6 +24,12 @@
   <div class="message-body">
       <%= auto_link(simple_format(@discussionable.body)) %>
   </div>
+  
+  <% if @discussionable.soapbox_entry.try(:published?) %>
+  <div>
+      This has been <%= link_to 'published on soapbox', soapbox_soapbox_entry_path(@discussionable.soapbox_entry), :popup => true %>.
+  </div>
+  <% end %>
 
   <div class="message-comments clearfix">
     <% if @comments.present? %>
