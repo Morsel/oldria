@@ -18,6 +18,10 @@
     <div>
         This has been <%= link_to 'published on soapbox', soapbox_soapbox_entry_path(admin_message.soapbox_entry), :popup => true %>.
     </div>
+    <% elsif admin_message.soapbox_entry.try(:upcoming?) %>
+    <div>
+        This will be published in <%= distance_of_time_in_words(Time.now, admin_message.soapbox_entry.published_at) %>
+    </div>
     <% end %>
 
     <div class="message-comments clearfix">

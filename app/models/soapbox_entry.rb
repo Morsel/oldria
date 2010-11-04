@@ -39,6 +39,10 @@ class SoapboxEntry < ActiveRecord::Base
   def published?
     published == true && published_at <= Time.zone.now
   end
+  
+  def upcoming?
+    published == true && published_at > Time.zone.now
+  end
 
   class << self
     def secondary_feature
