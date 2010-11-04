@@ -8,7 +8,7 @@ Feature: Manage restaurants
   Background:
     Given I am logged in as an admin
     And a restaurant named "Piece"
-    And the following media users:
+    And the following users:
       | username | password | first_name | last_name |
       | fred     | secret   | Fred       | Mercury   |
       | betty    | secret   | Betty      | Rubble    |
@@ -33,7 +33,7 @@ Feature: Manage restaurants
       | Management Company Name      | Lettuce Entertain You          |
       | Management Company Website   | http://www.lettuce.com      |
     And I select "Fred Mercury" from "Media contact"
-    When I select "Janaury 22, 2008" as the date
+    When I select "January 22, 2008" as the date
     And I press "Save"
     And I should be on the admin restaurants page
     And I should see "NeoPiece"

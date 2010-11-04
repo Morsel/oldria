@@ -37,25 +37,31 @@
 
 class Restaurant < ActiveRecord::Base
   apply_addresslogic
+  
   default_scope :conditions => {:deleted_at => nil}
 
+  # primary account manager
   belongs_to :manager, :class_name => "User", :foreign_key => 'manager_id'
+  belongs_to :media_contact, :class_name => "User", :foreign_key => 'media_contact_id'
+
   belongs_to :metropolitan_area
   belongs_to :james_beard_region
   belongs_to :cuisine
 
   has_many :employments, :dependent => :destroy
   has_many :employees, :through => :employments
-  has_many :additional_managers,
+  
+  # all account managers should be omniscient
+  has_many :managers,
            :through => :employments,
            :source => :employee,
-           :conditions => {:employments => {:omniscient => true}}
+           :conditions => { :employments => { :omniscient => true }}
+
   has_many :media_request_discussions
   has_many :media_requests, :through => :media_request_discussions
   has_many :admin_discussions, :dependent => :destroy
   has_many :holiday_discussions, :dependent => :destroy
   has_many :holidays, :through => :holiday_discussions
-
   has_many :trend_questions, :through => :admin_discussions,
            :source => :discussionable, :source_type => 'TrendQuestion'
   has_many :content_requests, :through => :admin_discussions,
@@ -66,11 +72,6 @@ class Restaurant < ActiveRecord::Base
   has_many :accolades, :as => :accoladable
   has_many :a_la_minute_answers, :as => :responder
   has_subscription
-
-  belongs_to :media_contact, :class_name => "User", :foreign_key => 'media_contact_id'
-
-  after_validation_on_create :add_manager_as_employee
-  after_save :update_admin_discussions
 
   has_and_belongs_to_many :restaurant_features,
       :include => {:restaurant_feature_category => :restaurant_feature_page}
@@ -84,10 +85,12 @@ class Restaurant < ActiveRecord::Base
   validates_presence_of :name, :street1, :city, :state, :zip, :phone_number,
       :metropolitan_area, :website, :media_contact, :hours, :cuisine, :opening_date
 
-  validates_format_of :website, :with => URI::regexp(%w(http https)), :message => "needs to be a valid URL that starts with http"
+  validates_format_of :website, :with => URI::regexp(%w(http https)), 
+      :message => "needs to be a valid URL that starts with http"
+
   validates_format_of :management_company_website,
       :with => URI::regexp(%w(http https)),
-      :message => "Needs to be a valid URL",
+      :message => "needs to be a valid URL that starts with http",
       :allow_blank => true
 
   validates_format_of :facebook_page,
@@ -96,6 +99,10 @@ class Restaurant < ActiveRecord::Base
       :message => "Facebook page must start with http://www.facebook.com"
 
   has_one :subscription, :as => :subscriber
+  after_validation_on_create :add_manager_as_employee
+  after_create :update_manager
+
+  after_save :update_admin_discussions
 
   # For pagination
   cattr_reader :per_page
@@ -180,6 +187,10 @@ class Restaurant < ActiveRecord::Base
 
   def add_manager_as_employee
     self.employees << manager if manager
+  end
+  
+  def update_manager
+    self.employments.first.update_attribute(:omniscient, true)
   end
 
   def handled_subject_matter_ids
