@@ -12,5 +12,5 @@
 #  position   :integer
 #
 
-class SoapboxPromo < Promo
+class SfPromo < Promo
 end

@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20101104182252) do
+ActiveRecord::Schema.define(:version => 20101104213542) do
 
   create_table "a_la_minute_answers", :force => true do |t|
     t.text     "answer"
@@ -627,6 +627,16 @@ ActiveRecord::Schema.define(:version => 20101104182252) do
 
   add_index "profiles", ["user_id"], :name => "index_profiles_on_user_id", :unique => true
 
+  create_table "promos", :force => true do |t|
+    t.string   "title"
+    t.text     "body"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "link"
+    t.integer  "position"
+    t.string   "type"
+  end
+
   create_table "question_role_categories", :force => true do |t|
     t.integer  "restaurant_role_id"
     t.string   "category"
@@ -788,15 +798,6 @@ ActiveRecord::Schema.define(:version => 20101104182252) do
     t.text     "content"
     t.datetime "created_at"
     t.datetime "updated_at"
-  end
-
-  create_table "soapbox_promos", :force => true do |t|
-    t.string   "title"
-    t.text     "body"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.string   "link"
-    t.integer  "position"
   end
 
   create_table "solo_discussions", :force => true do |t|

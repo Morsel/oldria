@@ -648,3 +648,12 @@ $('#soapbox_promos tbody').sortable({
 		});
 	}
 });
+
+$('#sf_promos tbody').sortable({
+	axis:'y',
+	dropOnEmpty:false,
+	update: function(){
+		$.ajax({ data:$(this).sortable('serialize', { key: 'sf_promos[]' }), dataType:'script', type:'post', url:'/admin/sf_promos/sort'
+		});
+	}
+});

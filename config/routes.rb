@@ -169,7 +169,7 @@ ActionController::Routing::Routes.draw do |map|
     admin.resources :soapbox_entries, :member => { :toggle_status => :post }
     admin.resources :soapbox_pages
     admin.resources :soapbox_slides
-    admin.resources :soapbox_promos
+    admin.resources :soapbox_promos, :collection => { :sort => :post }
     admin.resources :profile_questions, :collection => { :sort => :post }
     admin.resources :chapters, :collection => { :select => :post }
     admin.resources :topics
@@ -185,6 +185,7 @@ ActionController::Routing::Routes.draw do |map|
     admin.resources :restaurant_feature_categories, :only => [:create,  :destroy],
         :collection => {:edit_in_place => :post}
     admin.resources :sf_slides, :collection => { :sort => :post }
+    admin.resources :sf_promos, :collection => { :sort => :post }
 
     # Admin Messaging
     exclusive_routes = [:index, :show, :destroy]

@@ -12,5 +12,8 @@
 #  position   :integer
 #
 
-class SoapboxPromo < Promo
+class Promo < ActiveRecord::Base
+  
+  validates_presence_of :title, :body
+  
 end
