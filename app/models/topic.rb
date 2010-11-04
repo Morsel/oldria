@@ -1,13 +1,14 @@
 # == Schema Information
-# Schema version: 20100825200638
+# Schema version: 20101104182252
 #
 # Table name: topics
 #
-#  id         :integer         not null, primary key
-#  title      :string(255)
-#  created_at :datetime
-#  updated_at :datetime
-#  position   :integer
+#  id          :integer         not null, primary key
+#  title       :string(255)
+#  created_at  :datetime
+#  updated_at  :datetime
+#  position    :integer
+#  description :string(255)
 #
 
 class Topic < ActiveRecord::Base
