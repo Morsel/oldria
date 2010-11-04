@@ -456,6 +456,12 @@ Factory.define :soapbox_slide do |f|
   f.link "http://linky.com"
 end
 
+Factory.define :sf_slide do |f|
+  f.title "Title"
+  f.excerpt "Some text here"
+  f.link "http://linky.com"
+end
+
 Factory.define :a_la_minute_question do |f|
   f.question "What's new?"
   f.kind 'restaurant'

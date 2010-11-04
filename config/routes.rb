@@ -184,6 +184,7 @@ ActionController::Routing::Routes.draw do |map|
         :collection => {:edit_in_place => :post}
     admin.resources :restaurant_feature_categories, :only => [:create,  :destroy],
         :collection => {:edit_in_place => :post}
+    admin.resources :sf_slides, :collection => { :sort => :post }
 
     # Admin Messaging
     exclusive_routes = [:index, :show, :destroy]
