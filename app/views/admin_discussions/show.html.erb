@@ -25,6 +25,7 @@
       <%= auto_link(simple_format(@discussionable.body)) %>
   </div>
   
+  <% if @discussionable.is_a?(TrendQuestion) %>
   <% if @discussionable.soapbox_entry.try(:published?) %>
   <div>
       This has been <%= link_to 'published on soapbox', soapbox_soapbox_entry_path(@discussionable.soapbox_entry), :popup => true %>.
@@ -33,6 +34,7 @@
   <div>
       This will be published in <%= distance_of_time_in_words(Time.now, @discussionable.soapbox_entry.published_at) %>
   </div>
+  <% end %>
   <% end %>
 
   <div class="message-comments clearfix">
