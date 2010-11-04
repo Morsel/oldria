@@ -8,7 +8,7 @@ Feature: Manage restaurants
   Background:
     Given I am logged in as an admin
     And a restaurant named "Piece"
-    And the following users:
+    And the following confirmed users:
       | username | password | first_name | last_name |
       | fred     | secret   | Fred       | Mercury   |
       | betty    | secret   | Betty      | Rubble    |
