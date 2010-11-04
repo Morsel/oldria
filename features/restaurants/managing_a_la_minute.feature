@@ -36,11 +36,11 @@ Feature: Manage a_la_minutes
     And I press "Save Answers"
     And I go to the soapbox restaurant profile for "Steak Knife"
     Then I should see the question "What's new?" with the answer "Lobster Bisque"
-
+@wip
   Scenario: Only the 3 most recently created answers should be shown
     Given "Steak Knife" has answered the following A La Minute questions:
     | question         | answer                  | public | created_at     |
-    | What's new?      | Lobster Bisque          | true   | 3.hours.ago    |
+    | What's new?      | Lobster Bisque          | false   | 3.hours.ago    |
     | What's changing? | Adding sidewalk seating | true   | 2.hours.ago    |
     | What's up?       | Nothing much            | true   | 30.minutes.ago |
     | Morning?         | Evening                 | true   | 10.minutes.ago |
@@ -64,3 +64,17 @@ Feature: Manage a_la_minutes
     And I go to the restaurant show page for "Steak Knife"
     Then I should see the question "What's new?" with the answer "Salad"
     And I should see the question "What's playing?" with the answer "Creed"
+@wip
+  Scenario: Manager tries to select more than 3 answers to be public
+    Given "Steak Knife" has answered the following A La Minute questions:
+    | question         | answer                  | public | created_at     |
+    | What's new?      | Lobster Bisque          | true   | 3.hours.ago    |
+    | What's changing? | Adding sidewalk seating | true   | 2.hours.ago    |
+    | What's up?       | Nothing much            | true   | 30.minutes.ago |
+    | Morning?         | Evening                 | false   | 10.minutes.ago |
+
+    And I go to the edit a la minute question page for "Steak Knife"
+    And show me the page
+    When I check "Show on public profile?" for "Morning?"
+    And I press "Save Answers"
+    Then I should see a flash error message

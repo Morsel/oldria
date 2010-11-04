@@ -6,23 +6,31 @@ class ALaMinuteAnswersController < ApplicationController
 
   def bulk_update
     @restaurant = Restaurant.find(params[:restaurant_id])
-    params[:a_la_minute_questions].each do |id, attributes|
-      question = ALaMinuteQuestion.find(id)
-      old_answer = attributes.delete(:old_answer)
 
-      # create a new answer if the answer has changed
-      unless attributes[:answer] == old_answer
-        @restaurant.a_la_minute_answers.create(
-            attributes.merge(:a_la_minute_question_id => id))
+    if show_as_public_count_valid?
+      params[:a_la_minute_questions].each do |id, attributes|
+        question = ALaMinuteQuestion.find(id)
+        old_answer = attributes.delete(:old_answer)
+
+        # create a new answer if the answer has changed
+        unless attributes[:answer] == old_answer
+          @restaurant.a_la_minute_answers.create(
+              attributes.merge(:a_la_minute_question_id => id))
+        end
+
+        # update all answers for the question to reflect show_as_public state
+        question.answers_for(@restaurant).each do |answer|
+          answer.update_attributes(:show_as_public => attributes[:show_as_public].present?)
+        end
+
       end
-
-      # update all answers for the question to reflect show_as_public state
-      question.answers_for(@restaurant).each do |answer|
-        answer.update_attributes(:show_as_public => attributes[:show_as_public].present?)
-      end
-
+      redirect_to :action => :bulk_edit
+    else
+      flash.now[:error] = "Sorry, only 3 answers can be displayed on your Soapbox Profile page."
+      @questions = ALaMinuteQuestion.restaurants
+      render :bulk_edit
     end
-    redirect_to :action => :bulk_edit
+
   end
 
   # sent from the eip javascript function
@@ -42,5 +50,11 @@ class ALaMinuteAnswersController < ApplicationController
       render :text => {:is_error => true, :error_text => "Error updating answer",
           :html => params[:orig_value]}.to_json
     end
+  end
+
+  private
+
+  def show_as_public_count_valid?
+    params[:a_la_minute_questions].select{|id, attributes| attributes[:show_as_public].present? }.length <= 3
   end
 end
