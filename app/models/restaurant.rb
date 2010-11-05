@@ -75,7 +75,8 @@ class Restaurant < ActiveRecord::Base
   has_and_belongs_to_many :restaurant_features,
       :include => {:restaurant_feature_category => :restaurant_feature_page}
 
-  has_many :photos, :class_name => "Photo", :as => :attachable, :order => "position ASC", :dependent => :destroy, :after_add => :reset_primary_photo_on_add, :after_remove => :reset_primary_photo_on_remove
+  has_many :photos, :class_name => "Photo", :as => :attachable, :order => "position ASC", :dependent => :destroy, 
+    :after_add => :reset_primary_photo_on_add, :after_remove => :reset_primary_photo_on_remove
   belongs_to :primary_photo, :class_name => "Photo", :dependent => :destroy
   belongs_to :logo, :class_name => "Image", :dependent => :destroy
 
@@ -216,7 +217,8 @@ class Restaurant < ActiveRecord::Base
     self.employments.each do |employment|
       user = employment.employee
       if user.employments.count == 0
-        user.create_default_employment(:restaurant_role => employment.restaurant_role, :subject_matters => employment.subject_matters)
+        user.create_default_employment(:restaurant_role => employment.restaurant_role, 
+          :subject_matters => employment.subject_matters, :admin_messages => employment.admin_messages)
       end
     end
   end
