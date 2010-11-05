@@ -20,7 +20,7 @@ class EmploymentSearch < ActiveRecord::Base
   validates_presence_of :conditions
 
   before_save :clean_up_conditions
-
+  
   def employments
     Employment.search(conditions) # searchlogic
   end
@@ -70,7 +70,7 @@ class EmploymentSearch < ActiveRecord::Base
 
   def clean_up_conditions
     conditions.each do |k,v|
-      v = v.reject(&:blank?)
+      v = v.reject(&:blank?) if v.is_a?(Enumerable)
       if v.blank?
         conditions.delete(k)
       else

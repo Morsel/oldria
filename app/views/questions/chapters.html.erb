@@ -17,7 +17,7 @@
       <% link_to link_for_questions(:user_id => @user.id, :chapter_id => chapter.id) do %>
           <h3><%= chapter.title %></h3>
           <p class="chapter_answer_count"><%= chapter.answer_count_for_user(@user) %> of <%= chapter.question_count_for_user(@user) %></p>
-          <p><%= truncate(@questions_by_chapter[chapter].map(&:title).to_sentence, :length => 100) %></p>
+          <p><%= chapter.description || truncate(@questions_by_chapter[chapter].map(&:title).to_sentence, :length => 100) %></p>
           <p><%= chapter.published?(@user) ? "Published" : "Not published" %></p>
       <% end %>
   <% end -%>

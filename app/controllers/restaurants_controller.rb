@@ -7,6 +7,17 @@ class RestaurantsController < ApplicationController
     @restaurant = current_user.managed_restaurants.build
   end
 
+  def create
+    @restaurant = current_user.managed_restaurants.build(params[:restaurant])
+    @restaurant.media_contact = current_user
+    if @restaurant.save
+      flash[:notice] = "Successfully created restaurant."
+      redirect_to restaurant_employees_path(@restaurant)
+    else
+      render :new
+    end
+  end
+
   def show
     find_restaurant
     @employments = @restaurant.employments.by_position.all(
@@ -23,17 +34,6 @@ class RestaurantsController < ApplicationController
     else
       flash[:error] = "We were unable to update the restaurant"
       render :edit
-    end
-  end
-
-  def create
-    @restaurant = current_user.managed_restaurants.build(params[:restaurant])
-    @restaurant.media_contact = current_user
-    if @restaurant.save
-      flash[:notice] = "Successfully created restaurant."
-      redirect_to restaurant_employees_path(@restaurant)
-    else
-      render :new
     end
   end
 

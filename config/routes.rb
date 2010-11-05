@@ -120,11 +120,11 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :holiday_discussion_reminders, :member => { :read => :put }
 
   map.resources :admin_conversations, :only => 'show' do |admin_conversations|
-    admin_conversations.resources :comments, :only => [:new, :create, :edit, :update]
+    admin_conversations.resources :comments, :only => [:new, :create, :edit, :update, :destroy]
   end
 
   map.resources :admin_discussions, :only => 'show', :member => { :read => :put } do |admin_discussions|
-    admin_discussions.resources :comments, :only => [:new, :create, :edit, :update]
+    admin_discussions.resources :comments, :only => [:new, :create, :edit, :update, :destroy]
   end
 
   map.resources :solo_discussions, :only => 'show', :member => { :read => :put } do |admin_discussions|
@@ -139,6 +139,8 @@ ActionController::Routing::Routes.draw do |map|
                               :staff_discussions => :get,
                               :media_requests => :get
                             }
+  map.connect 'front_burner', :controller => 'front_burner', :action => 'index'
+
   map.resources :timelines, :collection => {
                               :people_you_follow => :get,
                               :twitter => :get,
@@ -171,10 +173,10 @@ ActionController::Routing::Routes.draw do |map|
     admin.resources :holidays
     admin.resources :calendars
     admin.resources :events
-    admin.resources :soapbox_entries
+    admin.resources :soapbox_entries, :member => { :toggle_status => :post }
     admin.resources :soapbox_pages
     admin.resources :soapbox_slides
-    admin.resources :soapbox_promos
+    admin.resources :soapbox_promos, :collection => { :sort => :post }
     admin.resources :profile_questions, :collection => { :sort => :post }
     admin.resources :chapters, :collection => { :select => :post }
     admin.resources :topics
@@ -189,6 +191,8 @@ ActionController::Routing::Routes.draw do |map|
         :collection => {:edit_in_place => :post}
     admin.resources :restaurant_feature_categories, :only => [:create,  :destroy],
         :collection => {:edit_in_place => :post}
+    admin.resources :sf_slides, :collection => { :sort => :post }
+    admin.resources :sf_promos, :collection => { :sort => :post }
 
     # Admin Messaging
     exclusive_routes = [:index, :show, :destroy]

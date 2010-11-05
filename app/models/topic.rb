@@ -1,13 +1,14 @@
 # == Schema Information
-# Schema version: 20100825200638
+# Schema version: 20101104182252
 #
 # Table name: topics
 #
-#  id         :integer         not null, primary key
-#  title      :string(255)
-#  created_at :datetime
-#  updated_at :datetime
-#  position   :integer
+#  id          :integer         not null, primary key
+#  title       :string(255)
+#  created_at  :datetime
+#  updated_at  :datetime
+#  position    :integer
+#  description :string(255)
 #
 
 class Topic < ActiveRecord::Base
@@ -17,6 +18,7 @@ class Topic < ActiveRecord::Base
 
   validates_presence_of :title
   validates_uniqueness_of :title, :case_sensitive => false
+  validates_length_of :description, :maximum => 100
   
   default_scope :order => "topics.position ASC, topics.title ASC"
   

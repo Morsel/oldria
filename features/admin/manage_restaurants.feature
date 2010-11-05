@@ -4,16 +4,12 @@ Feature: Manage restaurants
   As an RIA Staff Member
   I want to be able to manage all restaurants and their information
 
-
   Background:
     Given I am logged in as an admin
-    And a restaurant named "Piece"
-    And the following media users:
-      | username | password | first_name | last_name |
-      | fred     | secret   | Fred       | Mercury   |
-      | betty    | secret   | Betty      | Rubble    |
-    And "fred" is an employee of "Piece"
-    And "betty" is an employee of "Piece"
+    Given a restaurant named "Piece" with the following employees:
+      | username | password | email             | name           | role      |    
+      | fred     | secret   | fred@testing.com  | Fred Mercury   | Chef      |
+      | betty    | secret   | betty@testing.com | Betty Cobalt   | Sous chef |
     
   Scenario: I enter complete, valid data
     When I go to the admin edit restaurant page for Piece
@@ -30,15 +26,17 @@ Feature: Manage restaurants
       | Twitter Username             | piece                               |
       | Facebook Page                | http://www.facebook.com/piece       |
       | Hours                        | Mon-Sat 5-11pm                      |
-      | Management Company Name      | Lettuce Entertain You          |
-      | Management Company Website   | http://www.lettuce.com      |
+      | Management Company Name      | Lettuce Entertain You               |
+      | Management Company Website   | http://www.lettuce.com              |
     And I select "Fred Mercury" from "Media contact"
-    When I select "Janaury 22, 2008" as the date
+    And I select "January 22, 2008" as the date
     And I press "Save"
-    And I should be on the admin restaurants page
+    
+    Then I should be on the admin restaurants page
     And I should see "NeoPiece"
-    And I go to the restaurant show page for "NeoPiece"
-    And I see the following restaurant fields:
+    
+    When I go to the restaurant show page for "NeoPiece"
+    Then I see the following restaurant fields:
       | name               | NeoPiece                            |
       | description        | This is a modern cuisine restaurant |
       | address            | 123 Sesame Street                   |
@@ -118,4 +116,12 @@ Feature: Manage restaurants
     Then the show page should be premium
   
   #Scenario: Cancel an overtime restaurant account
-    
+        
+  Scenario: Deleting a restaurant
+    When I go to the admin restaurants page
+    And I follow "destroy"
+  
+    Then I should see "Successfully removed restaurant"
+    # Ensure users are converted to default (solo) employments
+    # And "fred" should have a primary employment with role "Chef"
+    # And "betty" should have a primary employment with role "Sous chef"

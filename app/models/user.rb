@@ -29,6 +29,7 @@ class User < ActiveRecord::Base
   has_many :restaurant_roles, :through => :employments
 
   has_one :default_employment, :foreign_key => "employee_id", :dependent => :destroy
+  has_many :all_employments, :foreign_key => "employee_id", :class_name => "Employment" # for search
 
   has_many :discussion_seats, :dependent => :destroy
   has_many :discussions, :through => :discussion_seats
@@ -86,7 +87,7 @@ class User < ActiveRecord::Base
 ### Preferences ###
   preference :hide_help_box, :default => false
   preference :receive_email_notifications, :default => false
-  preference :publish_profile, :default => true
+  preference :publish_profile, :default => false
 
 ### Roles ###
   def admin?
@@ -147,6 +148,10 @@ class User < ActiveRecord::Base
   def primary_employment
     self.employments.primary.first || self.employments.first || self.default_employment
   end
+  
+  def nonprimary_employments
+    employments - [primary_employment]
+  end
 
   # do they have the setup needed for Behind the Line (profile questions)?
   def btl_enabled?
@@ -154,9 +159,13 @@ class User < ActiveRecord::Base
   end
 
   def restaurant_names
-    return nil if employments.blank?
-    return primary_employment.restaurant.name if employments.count == 1
-    employments.all(:order => '"primary" DESC', :include => :restaurant).map{|e| e.restaurant.name }.to_sentence
+    if employments.blank?
+      primary_employment.try(:solo_restaurant_name)
+    elsif employments.count == 1
+      primary_employment.restaurant.name
+    else
+      employments.all(:order => '"primary" DESC', :include => :restaurant).map{|e| e.restaurant.name }.to_sentence
+    end
   end
   
   def post_to_soapbox?

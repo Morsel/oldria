@@ -227,11 +227,13 @@ end
 
 Factory.define :topic do |f|
   f.sequence(:title) { |n| "Background #{n}" }
+  f.description "Interesting topic"
 end
 
 Factory.define :chapter do |f|
   f.sequence(:title) { |n| "Career #{n}" }
   f.association :topic
+  f.description "Interesting chapter"
 end
 
 Factory.define :profile_question do |f|
@@ -449,6 +451,12 @@ Factory.define :soapbox_entry do |f|
 end
 
 Factory.define :soapbox_slide do |f|
+  f.title "Title"
+  f.excerpt "Some text here"
+  f.link "http://linky.com"
+end
+
+Factory.define :sf_slide do |f|
   f.title "Title"
   f.excerpt "Some text here"
   f.link "http://linky.com"

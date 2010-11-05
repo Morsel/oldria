@@ -139,6 +139,13 @@ Then /^"([^\"]*)" should have a primary employment$/ do |username|
   User.find_by_username(username).primary_employment.should_not be_nil
 end
 
+Then /^"([^\"]*)" should have a primary employment with role "([^\"]*)"$/ do |username, rolename|
+  employment = User.find_by_username(username).primary_employment
+  role = RestaurantRole.find_by_name(rolename)
+  employment.should_not be_nil
+  employment.restaurant_role.should == role
+end
+
 When /^I remove optional information from the restaurant$/ do
   @restaurant.update_attributes(:twitter_username => nil,
       :facebook_page => nil, :management_company_name => nil,

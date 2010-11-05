@@ -83,7 +83,7 @@ Then /^I should not see media contact info$/ do
   response.should_not have_selector("#media_contact")
 end
 
-Given /^the restaurant has no website for it's management company$/ do
+Given /^the restaurant has no website for its management company$/ do
   @restaurant.update_attributes(:management_company_website => nil)
 end
 

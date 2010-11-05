@@ -28,7 +28,7 @@ class Invitation < ActiveRecord::Base
 #, :restaurant_name
   validates_uniqueness_of :email, :message => "That person has already been invited"
   
-  after_create :send_welcome
+  after_create :send_welcome_and_notify_admins
   
   def name
     [first_name, last_name].join(' ')
@@ -38,8 +38,9 @@ class Invitation < ActiveRecord::Base
     first_name.downcase + last_name.downcase
   end
   
-  def send_welcome
+  def send_welcome_and_notify_admins
     UserMailer.deliver_invitation_welcome(self) unless requesting_user_id
+    UserMailer.deliver_admin_invitation_notice(self)
   end
 
 end

@@ -141,6 +141,11 @@ class ApplicationController < ActionController::Base
     @media_requests_count = current_user.try(:viewable_media_request_discussions).try(:size)
   end
 
+  def load_past_features
+    @qotds ||= SoapboxEntry.qotd.published.recent.all(:include => :featured_item).map(&:featured_item)
+    @trend_questions ||= SoapboxEntry.trend_question.published.recent.all(:include => :featured_item).map(&:featured_item)
+  end
+  
   ##
   # Employment saved-search methods
   def search_setup(resource = nil, options = {})
@@ -169,21 +174,50 @@ class ApplicationController < ActionController::Base
   end
 
   def normalized_search_params
-    normalized = params[:search].reject{|k,v| v.blank? }
+    normalized = params[:search].reject{ |k,v| v.blank? }
     normalized.blank? ? {:id => ""} : normalized
   end
   
-  def directory_search_setup
-    @search = EmploymentSearch.new(:conditions => params[:search]).employments
+  # For use when building the search on a Trend Question or other message
+  def build_search(resource = nil, soapbox_only = false)
+    return false unless resource
+    @search = Employment.search(normalized_search_params)
+    @search.post_to_soapbox = true if soapbox_only
 
-    @users = @search.all(:include => [:employee, :restaurant_role], 
-        :order => "users.last_name").map(&:employee).uniq
-    # @restaurants = @search.all(:include => [:restaurant], :order => "restaurants.name").group_by(&:restaurant).keys.compact
+    @employment_search = if resource.employment_search
+      resource.employment_search.conditions = @search.conditions
+      resource.employment_search
+    else
+      resource.build_employment_search(:conditions => @search.conditions)
+    end
+  end
+
+  # Directory (profile) search
+  def directory_search_setup      
+    @search = User.search(params[:search])
+    
+    # We want to repeat some of the searches through the users' restaurants
+    extra_params = {}
+    if params[:search].try(:[], :profile_cuisines_id_eq_any)
+      extra_params[:restaurants_cuisine_id_eq_any] = params[:search][:profile_cuisines_id_eq_any]
+    end
+    if params[:search].try(:[], :profile_james_beard_region_id_eq_any)
+      extra_params[:restaurants_james_beard_region_id_eq_any] = params[:search][:profile_james_beard_region_id_eq_any]
+    end
+    if params[:search].try(:[], :profile_metropolitan_area_id_eq_any)
+      extra_params[:restaurants_metropolitan_area_id_eq_any] = params[:search][:profile_metropolitan_area_id_eq_any]
+    end
+    
+    if params[:controller].match(/soapbox/)
+      extra_search_results = User.search(extra_params).all(:conditions => { :premium_account => true }) if extra_params.present?
+      
+      @users = [@search.all(:conditions => { :premium_account => true }), 
+        extra_search_results].flatten.compact.uniq.sort_by(&:last_name)
+    else
+      extra_search_results = User.search(extra_params).all if extra_params.present?
+
+      @users = [@search.all(:order => "users.last_name"), extra_search_results].flatten.compact.uniq.sort_by(&:last_name)
+    end      
   end
   
-  def load_past_features
-    @qotds ||= SoapboxEntry.qotd.published.recent.all(:include => :featured_item).map(&:featured_item)
-    @trend_questions ||= SoapboxEntry.trend_question.published.recent.all(:include => :featured_item).map(&:featured_item)
-  end
-
 end

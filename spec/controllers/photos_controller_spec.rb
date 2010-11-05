@@ -11,7 +11,7 @@ describe PhotosController do
       controller.stubs(:require_admin).returns(false)
 
       user = @user
-      restaurant.additional_managers << user
+      restaurant.managers << user
       employment = restaurant.employments.find_by_employee_id(user.id)
       employment.update_attribute(:omniscient, true)
       restaurant

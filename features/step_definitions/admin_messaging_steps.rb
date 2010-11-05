@@ -152,3 +152,9 @@ Given /^"([^\"]*)" is not allowed to post to soapbox$/ do |username|
   uncheck :employment_post_to_soapbox
   click_button
 end
+
+Then /^the trend question "([^\"]*)" should not be viewable by "([^\"]*)"$/ do |qname, username|
+  trendq = TrendQuestion.find_by_subject(qname)
+  user = User.find_by_username(username)
+  trendq.viewable_by?(user.primary_employment).should == false
+end

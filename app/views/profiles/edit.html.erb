@@ -22,17 +22,23 @@
   <% end %>
 
   <% unless @profile.new_record? %>
-    <% f.inputs :name => "Specialties" do %>
+    <% f.inputs :name => "Cuisines, Specialties, and Places" do %>
       <%= f.input :specialties, :as => :check_boxes, :collection => Specialty.all %>
 
       <div class="cuisines ajaxdelete">
-        <label>What Cuisines Are Your Specialty?</label>
+        <label><h4>What Cuisines Are Your Specialty?</h4></label>
         <ul id="cuisines">
           <%= render @profile.cuisines %>
         </ul>
         <% link_to new_my_profile_profile_cuisine_path, :class => 'positive button colorbox' do %>
           <img src="/images/plus.png"/> Add
         <% end %>
+      </div>
+      
+      <div class="clear">
+          <h4>Metro and Region for search</h4>
+          <%= f.input :metropolitan_area %>
+          <%= f.input :james_beard_region, :label => "Region" %>
       </div>
     <% end %>
 

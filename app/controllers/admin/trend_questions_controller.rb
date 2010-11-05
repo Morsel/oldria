@@ -1,4 +1,5 @@
 class Admin::TrendQuestionsController < Admin::AdminController
+
   def index
     @trend_questions = ::TrendQuestion.by_scheduled_date.by_subject.all(:include => :employment_search)
   end
@@ -15,8 +16,8 @@ class Admin::TrendQuestionsController < Admin::AdminController
 
   def create
     @trend_question = ::TrendQuestion.new(params[:trend_question])
-    search_setup(@trend_question)
-    save_search
+    build_search(@trend_question, true)
+    @employment_search.save
     if @trend_question.save
       flash[:notice] = "Successfully created trend question."
       redirect_to([:admin, @trend_question])
@@ -32,8 +33,8 @@ class Admin::TrendQuestionsController < Admin::AdminController
 
   def update
     @trend_question = ::TrendQuestion.find(params[:id])
-    search_setup(@trend_question)
-    save_search
+    build_search(@trend_question, true)
+    @employment_search.save
     if @trend_question.update_attributes(params[:trend_question])
       flash[:notice] = "Successfully updated trend question."
       redirect_to([:admin, @trend_question])

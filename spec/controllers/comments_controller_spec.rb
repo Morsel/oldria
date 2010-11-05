@@ -23,4 +23,14 @@ describe CommentsController do
       response.should redirect_to( admin_discussion_path(assigns[:parent]) )
     end
   end
+  
+  describe "destroy" do
+    
+    it "should delete the comment" do
+      comment = Factory(:comment)
+      Comment.expects(:find).returns(comment)
+      comment.expects(:destroy).returns(true)
+      delete :destroy, :id => comment.id
+    end
+  end
 end

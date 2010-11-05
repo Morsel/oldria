@@ -1,0 +1,14 @@
+<% title "Spoonfeed Slides" %>
+
+<%= link_to "New Slide", new_admin_sf_slide_path, :class => "button positive" %>
+
+<% table_for(@slides) do |t| %>
+    <% t.data :actions => [:edit, :destroy], :action_prefix => 'admin' do
+	    t.cell(:handle, :heading => '', :cell_html => {:class => 'small handle'}) { "[drag]" }
+	    t.cell(:image) { |c| image_tag c.image.url(:thumb) }
+        t.cell(:photo_credit)
+        t.cell(:title)
+        t.cell(:excerpt)
+        t.cell(:link)
+	end %>
+<% end %>

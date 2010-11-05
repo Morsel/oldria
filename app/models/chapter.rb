@@ -1,14 +1,15 @@
 # == Schema Information
-# Schema version: 20100802191740
+# Schema version: 20101104182252
 #
 # Table name: chapters
 #
-#  id         :integer         not null, primary key
-#  topic_id   :integer
-#  title      :string(255)
-#  created_at :datetime
-#  updated_at :datetime
-#  position   :integer         default(0)
+#  id          :integer         not null, primary key
+#  topic_id    :integer
+#  title       :string(255)
+#  created_at  :datetime
+#  updated_at  :datetime
+#  position    :integer         default(0)
+#  description :string(255)
 #
 
 class Chapter < ActiveRecord::Base
@@ -18,6 +19,7 @@ class Chapter < ActiveRecord::Base
   
   validates_presence_of :title, :topic_id
   validates_uniqueness_of :title, :scope => :topic_id, :case_sensitive => false
+  validates_length_of :description, :maximum => 100
   
   default_scope :joins => :topic, :order => "topics.title ASC, chapters.title ASC"
   
