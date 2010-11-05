@@ -5,6 +5,28 @@
   <%= stylesheet_link_tag 'colorbox' %>
 <% end -%>
 
+<% if can? :edit, @restaurant %>
+  <% content_for :page_actions do -%>
+    <p class="clearfix">
+      <%= link_to 'Manage employees', restaurant_employees_path(@restaurant),
+          :class=> 'sf-button' %>
+      <%= link_to 'Edit restaurant features', restaurant_features_path(@restaurant),
+          :class=> 'sf-button' %>
+      <%= link_to "Edit a la Minute Questions", 
+          bulk_edit_restaurant_a_la_minute_answers_path(:restaurant_id => @restaurant),
+          :class => 'sf-button' %>
+    </p>
+    <p class="clearfix">
+      <%= link_to "Manage Menus", restaurant_menus_path(@restaurant), 
+          :class => "sf-button" %>
+      <%= link_to "Manage Photos", restaurant_photos_path(@restaurant), 
+          :class => "sf-button" %>
+      <%= link_to "Add Accolade", new_restaurant_accolade_path(@restaurant), 
+          :class => "sf-button" %>
+    </p>
+  <% end -%>
+<% end -%>
+
 <% semantic_form_for(@restaurant, :html => { :multipart => true }) do |f| %>
   
   <% f.inputs :name => "Account Status", :class => "title span-8" do %>
@@ -42,6 +64,16 @@
     
       <%= render :partial => 'subscriptions/account_links',
           :locals => {:subscriber => @restaurant, :subscriber_type => "restaurant"} %>
+          
+      <br clear="all" />    
+      <div>
+        If you would like to upgrade any of your restaurant staff to a Premium 
+        User account, click the button below.
+        To upgrade each employee, simply click the pencil for the person.
+        <br /> 
+        <%= link_to "Update Employee Status", restaurant_employees_path(@restaurant),
+            :class => "button"%>
+      </div>    
     </div>
   <% end %>
   
@@ -95,12 +127,3 @@
         :caption => "Accolades",
         :form_path => new_restaurant_accolade_path(@restaurant)} %>
 
-<div class="clear">
-  <%= link_to "Edit Restaurant employees", restaurant_employees_path(@restaurant), :class => 'button' %>
-</div>
-
-<div class="clear">
-    <%= link_to "Manage Menus", restaurant_menus_path(@restaurant), :class => "button" %>
-    <%= link_to "Manage Photos", restaurant_photos_path(@restaurant), :class => "button" %>
-    <%= link_to "Manage ALM Questions", bulk_edit_restaurant_a_la_minute_answers_path(:restaurant_id => @restaurant.id), :class => "button" %>
-</div>

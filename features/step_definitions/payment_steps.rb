@@ -61,8 +61,16 @@ Then /^I see my account status is premium$/ do
   response.should have_selector("#plans .current", :content => "Premium")
 end
 
+Then /^I see my account status is basic$/ do
+  response.should have_selector("#plans .current", :content => "Basic")
+end
+
 Then /^I see my account status is a premium staff account$/ do
   response.should have_selector("#plans .current", :content => "Premium Staff")
+end
+
+Then /^I see my account status is complimentary$/ do
+  response.should have_selector("#plans .current", :content => "Premium")
 end
 
 
@@ -173,8 +181,8 @@ end
 When /^I traverse the delete link for subscriptions for the restaurant "([^"]*)"$/ do |name|
   visit(restaurant_subscription_path(Restaurant.find_by_name(name)),
       :delete)
-end
 
+end
 Then /^I see that the account for "([^"]*)" lasts until the end of the billing cycle$/ do |username|
   user = User.find_by_username(username)
   response.should have_selector("#end_date",
@@ -266,6 +274,8 @@ end
 Then /^I see that "([^"]*)" has a premium account paid for by the restaurant$/ do |username|
   user = User.find_by_username(username)
   response.should have_selector(".account_status", :content => "Premium Staff Account")
+  response.should_not have_selector(".account_status", 
+      :content => "This account is paid for by a different restaurant.")
 end
 
 Then /^I see that "([^"]*)" does not have a premium account paid for by the restaurant$/ do |username|
@@ -273,6 +283,13 @@ Then /^I see that "([^"]*)" does not have a premium account paid for by the rest
   response.should have_selector(".account_status", :content => "Basic Personal Account")
 end
 
+When /^I see that "([^"]*)" has a premium account paid for by a different restaurant$/ do |username|
+  user = User.find_by_username(username)
+  response.should have_selector(".account_status", 
+      :content => "Premium Staff Account")
+  response.should have_selector(".account_status", 
+      :content => "This account is paid for by a different restaurant.")
+end
 
 Then /^I see that "([^"]*)" has a premium account of his own$/ do |username|
   user = User.find_by_username(username)

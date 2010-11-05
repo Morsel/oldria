@@ -101,7 +101,7 @@ ActionController::Routing::Routes.draw do |map|
     #todo only need these two routes
     restaurant.resources :a_la_minute_answers, :collection => { :bulk_update => :put, :bulk_edit => :get }
     restaurant.resource :subscription, :collection => { :bt_callback => :get, :billing_history => :get }, :controller => 'subscriptions'
-		restaurant.resource :employee_accounts, :only => [:create, :destroy]
+    restaurant.resource :employee_accounts, :only => [:create, :destroy]
     restaurant.resources
   end
 

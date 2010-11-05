@@ -199,7 +199,7 @@ describe SubscriptionsController do
       end
 
       it "does not call braintree if the subscription is complimentary" do
-        @user.subscription = Factory(:subscription, :payer => nil)
+        @user.subscription = Factory(:subscription, :payer => nil, :braintree_id => nil)
         BraintreeConnector.any_instance.expects(:cancel_subscription).never
         delete :destroy, :user_id => @user.id
         @user.subscription.should be_in_overtime
@@ -229,6 +229,20 @@ describe SubscriptionsController do
         @restaurant.subscription.end_date.should == 1.month.from_now.to_date
         @restaurant.should be_premium_account
         response.should redirect_to(edit_restaurant_path(@restaurant))
+      end
+      
+      it "puts staff subscriptions in overtime on successful delete" do
+        @user.update_attributes(:subscription => Factory(:subscription, 
+            :payer => @restaurant))
+        BraintreeConnector.expects(:find_subscription).with(
+            @restaurant.subscription).returns(
+                stub(:billing_period_end_date => 2.weeks.from_now.to_date))
+        BraintreeConnector.any_instance.expects(
+            :cancel_subscription).with(@restaurant.subscription).returns(stub(:success? => true))
+        delete :destroy, :restaurant_id => @restaurant.id
+        @user.reload.subscription.should be_in_overtime
+        @user.reload.subscription.end_date.should == 2.weeks.from_now.to_date
+        @user.reload.should be_premium_account  
       end
 
     end

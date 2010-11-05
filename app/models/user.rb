@@ -167,7 +167,7 @@ class User < ActiveRecord::Base
       employments.all(:order => '"primary" DESC', :include => :restaurant).map{|e| e.restaurant.name }.to_sentence
     end
   end
-  
+
   def post_to_soapbox?
     primary_employment && primary_employment.post_to_soapbox
   end
@@ -312,9 +312,13 @@ class User < ActiveRecord::Base
     return nil if profile.blank? || !profile.display_cell_public?
     profile.cellnumber
   end
-  
+
   def linkable_profile?
     self.prefers_publish_profile? && self.premium_account
+  end
+
+  def braintree_contact
+    self
   end
 
 end
@@ -351,4 +355,5 @@ end
 #  facebook_page_id      :string(255)
 #  facebook_page_token   :string(255)
 #
+
 

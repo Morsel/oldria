@@ -3226,7 +3226,7 @@ fieldset, .fieldset_box {
 }
 
 .restaurant_box {
-  
+
 }
 
 .fieldset_box {
@@ -4786,7 +4786,7 @@ h2.primary_title{
 
 #criteria_accordion .check_boxes li{
   float:none;
-	list-style: none;
+  list-style: none;
   width:100%;
 }
 
@@ -5130,6 +5130,32 @@ div.main_feature .comment.last {
   display:inline;
   margin-left:0.5em;
 }
+
+div.a_la_minute_question {
+  border:1px solid #ccc;
+  margin-bottom:10px;
+  padding:1em;
+}
+
+div.a_la_minute_question label.question {
+  font-weight:bold;
+  font-size:1em;
+}
+
+label.inline {
+  display:inline;
+}
+
+div.a_la_minute_question input.new.answer {
+  width:400px;
+  padding:0.5em 0.25em;
+}
+
+div.a_la_minute_question .archive {
+  margin-top:2em;
+}
+
+
 
 /* @end */
 

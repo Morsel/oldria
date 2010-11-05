@@ -10,12 +10,8 @@ class Admin::ComplimentaryAccountsController < Admin::AdminController
     redirect_to customer_edit_redirect
   end
   
-  #TODO factor so that the cancel is all inside the has_subscription module
   def destroy
-    proceed = cancel_braintree_subscription
-    if proceed
-      @subscriber.cancel_subscription!(:terminate_immediately => true)
-    else
+    unless @subscriber.admin_cancel
       flash[:notice] = "Error canceling existing subscription"
     end
     redirect_to customer_edit_redirect
@@ -28,13 +24,6 @@ class Admin::ComplimentaryAccountsController < Admin::AdminController
                   then Restaurant.find(params[:subscriber_id])
                   else User.find(params[:subscriber_id])
                   end
-  end
-    
-  def cancel_braintree_subscription
-    return true unless @subscriber.subscription 
-    return true if @subscriber.subscription.skip_braintree_cancel?
-    result = BraintreeConnector.cancel_subscription(@subscriber.subscription)
-    proceed = result.success?
   end
   
   def customer_edit_redirect

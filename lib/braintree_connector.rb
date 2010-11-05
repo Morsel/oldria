@@ -1,5 +1,5 @@
 class BraintreeConnector
-  
+
   PLANS = {"User" => "user_monthly", "Restaurant" => "restaurant_monthly"}
   ADD_ON = "user_for_restaurant"
   DISCOUNT_ID = "complimentary_restaurant"
@@ -7,6 +7,7 @@ class BraintreeConnector
   attr_accessor :payer, :callback
 
   def initialize(payer, callback)
+    raise NotImplementedError.new("#braintree_contact") unless payer.respond_to?(:braintree_contact)
     @payer = payer
     @callback = callback
   end
@@ -16,16 +17,20 @@ class BraintreeConnector
   end
 
   def braintree_customer_id
-    "#{payer_type}_#{payer.id}"
+    self.class.braintree_customer_id(payer)
+  end
+
+  def self.braintree_customer_id(payer)
+    "#{braintree_prefix}#{payer.braintree_customer_id}"
+  end
+
+  def self.braintree_prefix
+    Rails.env.production? ? "" : "#{Rails.env}_"
   end
 
   def braintree_plan_id
     PLANS[payer_type]
     #if payer_type == "User" then "user_monthly" else "restaurant_monthly" end
-  end
-
-  def braintree_contact_email
-    if payer_type == "User" then payer.email else payer.manager.email end
   end
 
   def braintree_customer
@@ -34,35 +39,53 @@ class BraintreeConnector
     end
   end
 
+  def self.update_customer(payer)
+    Rails.logger.info "Updating customer \"#{payer.braintree_customer_id}\" with #{braintree_customer_params(payer).inspect}"
+    result = Braintree::Customer.update(self.braintree_customer_id(payer),
+      braintree_customer_params(payer))
+  end
+
   def braintree_data
-    if braintree_customer
-      Braintree::TransparentRedirect.update_customer_data(
+    tr_params = {:customer => braintree_customer_params}.deep_merge({
         :redirect_url => callback,
+        :customer => {
+          :credit_card => {
+            :options => { :verify_card => true }
+          }
+        }
+      })
+
+    if braintree_customer
+      update_params = tr_params.deep_merge({
         :customer_id => braintree_customer_id,
         :customer => {
-            :email => braintree_contact_email,
-            :credit_card => {
-              :options => {
-                :update_existing_token => braintree_customer.credit_cards.first.token,
-                :verify_card => true
-              }
-            }
-          }
-      )
-    else
-      Braintree::TransparentRedirect.create_customer_data(
-        :redirect_url => callback,
-        :customer => {
-          :id => braintree_customer_id,
-          :email => braintree_contact_email,
           :credit_card => {
             :options => {
-              :verify_card => true
+              :update_existing_token => braintree_customer.credit_cards.first.token
             }
           }
         }
-      )
+      })
+      Braintree::TransparentRedirect.update_customer_data(update_params)
+    else
+      create_params = tr_params.deep_merge({
+        :customer => { :id => braintree_customer_id }
+      })
+      Braintree::TransparentRedirect.create_customer_data(create_params)
     end
+  end
+
+  def braintree_customer_params
+    BraintreeConnector.braintree_customer_params(payer)
+  end
+
+  def self.braintree_customer_params(payer)
+    params = {
+      :email => payer.braintree_contact.email,
+      :last_name => payer.braintree_contact.last_name,
+      :first_name => payer.braintree_contact.first_name,
+      :company => (payer.is_a? Restaurant) ? payer.name : "NA" }
+    params
   end
 
   def confirm_request(request)
@@ -97,24 +120,24 @@ class BraintreeConnector
     end
     result.ids
   end
-  
+
   # TODO: possible refactor because quantity is redundent with
-  # user_subscriptions_for_payer 
+  # user_subscriptions_for_payer
   def self.set_add_ons_for_subscription(subscription, quantity)
-    if quantity == 0 
-      Braintree::Subscription.update(subscription.braintree_id, 
+    if quantity == 0
+      Braintree::Subscription.update(subscription.braintree_id,
         :add_ons => {:remove => [ADD_ON]})
     elsif subscription.user_subscriptions_for_payer.size == 0
-      Braintree::Subscription.update(subscription.braintree_id, 
+      Braintree::Subscription.update(subscription.braintree_id,
         :add_ons => {:add => [{:inherited_from_id => ADD_ON, :quantity => quantity}]})
     else
-      Braintree::Subscription.update(subscription.braintree_id, 
+      Braintree::Subscription.update(subscription.braintree_id,
         :add_ons => {:update => [{:existing_id => ADD_ON, :quantity => quantity}]})
     end
   end
-  
+
   def self.update_subscription_with_discount(subscription)
-    Braintree::Subscription.update(subscription.braintree_id, 
+    Braintree::Subscription.update(subscription.braintree_id,
       :discounts => {:add => [{:inherited_from_id => DISCOUNT_ID}]})
   end
 

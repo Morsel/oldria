@@ -59,6 +59,7 @@ module EmployeesHelper
   def can_add_user?
     return false if @employee.complimentary_account?
     return false unless @restaurant.premium_account?
+    return false if (@employee.staff_account? && @employee.subscription.payer != @restaurant)
     (@employee.account_type != "Premium") || (@employee.account_payer_type == "Personal") 
   end
   

@@ -31,6 +31,7 @@
                     @user.primary_employment.try(:restaurant).try(:name), 
                     @user.primary_employment.try(:restaurant) %>
             </div>
+            
             <% for employment in @user.nonprimary_employments %>
             <div>
                 <%= employment.try(:restaurant_role).try(:name) %>, 

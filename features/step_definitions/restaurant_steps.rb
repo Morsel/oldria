@@ -30,6 +30,7 @@ Given /^a restaurant named "([^\"]*)" with manager "([^\"]*)"$/ do |name, userna
 end
 
 Given /^"([^"]*)" is a manager for "([^"]*)"$/ do |username, restaurantname|
+  BraintreeConnector.stubs(:update_customer)
   user = User.find_by_username!(username)
   restaurant = Restaurant.find_by_name!(restaurantname)
 
@@ -209,6 +210,9 @@ end
 Then /^I should see an error message$/ do
   response.should have_selector("#errorExplanation")
 end
+Then /^I should see a flash error message$/ do
+  response.should have_selector("#flash_error")
+end
 
 Given /^"([^\"]*)" is an employee of "([^\"]*)"$/ do |username, restaurant_name|
   user = User.find_by_username(username)
@@ -335,6 +339,13 @@ Given /^"([^"]*)" has answered the following A La Minute questions:$/ do |restau
   end
 end
 
+When /^I check "([^"]*)" for "([^"]*)"$/ do |label, question_text|
+  question = ALaMinuteQuestion.find_by_question(question_text)
+  within("##{dom_id(question)}") do |content|
+    check("a_la_minute_questions[#{question.id}][show_as_public]")
+  end
+end
+
 Then /^I should see the question "([^"]*)" with the answer "([^"]*)"$/ do |question_text, answer_text|
   answer = @restaurant.a_la_minute_answers.find_by_answer(answer_text)
   response.should have_selector("##{dom_id(answer.a_la_minute_question)} .question", :content => question_text)
@@ -384,6 +395,11 @@ end
 When /^I follow "([^"]*)" for "([^"]*)"$/ do |link, question_text|
   question = ALaMinuteQuestion.find_by_question(question_text)
   click_link_within("##{dom_id(question)}", link)
+end
+
+When /^I follow "([^"]*)" for the answer "([^"]*)"$/ do |link, answer_text|
+  answer = ALaMinuteAnswer.find_by_answer(answer_text)
+  click_link_within("##{dom_id(answer)}", link)
 end
 
 Then /^I should see the answer "([^"]*)" for "([^"]*)"$/ do |answer, name|

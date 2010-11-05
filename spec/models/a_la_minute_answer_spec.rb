@@ -30,20 +30,6 @@ describe ALaMinuteAnswer do
     ALaMinuteAnswer.create!(@valid_attributes)
   end
 
-  it "should reflect the show_as_public state of any previous answer for the same question" do
-    restaurant = Factory(:restaurant)
-    question = Factory(:a_la_minute_question)
-    previous_answer = Factory(:a_la_minute_answer, :a_la_minute_question => question, :responder => restaurant, :show_as_public => true)
-
-    new_answer = ALaMinuteAnswer.create!({
-      :answer => "value for answer",
-      :a_la_minute_question => question,
-      :responder => restaurant
-    })
-
-    new_answer.show_as_public.should be_true
-  end
-
   describe "#show_as_public" do
     it "should only find public answers" do
       public_answer = ALaMinuteAnswer.create!(@valid_attributes.merge(:show_as_public => true))
@@ -90,6 +76,17 @@ describe ALaMinuteAnswer do
       ans_4 = ALaMinuteAnswer.create!(@valid_attributes.merge(:show_as_public => true, :a_la_minute_question => q4, :created_at => 2.days.ago))
       @responder.a_la_minute_answers = [ans_1, ans_2, ans_3, ans_4]
       ALaMinuteAnswer.public_profile_for(@responder).should == [ans_2, ans_4, ans_3]
+    end
+  end
+
+  describe "#archived_for" do
+    it "should return all archived answers for the question" do
+      q1 = Factory(:a_la_minute_question)
+      ans_1 = Factory(:a_la_minute_answer, :a_la_minute_question => q1, :created_at => 1.day.ago)
+      ans_2 = Factory(:a_la_minute_answer, :a_la_minute_question => q1, :created_at => 3.day.ago)
+      ans_3 = Factory(:a_la_minute_answer, :a_la_minute_question => q1, :created_at => 2.day.ago)
+      ans_4 = Factory(:a_la_minute_answer, :a_la_minute_question => q1, :created_at => 1.hour.ago)
+      ALaMinuteAnswer.archived_for(q1).should == [ans_1, ans_3, ans_2]
     end
   end
 end
