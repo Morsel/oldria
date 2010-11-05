@@ -6,7 +6,7 @@ module HasSubscription
     after_update :update_braintree_contact_info
     
     named_scope :premium_account, {:include => :subscription, 
-      :conditions => ["subscriptions.id NOT NULL AND (subscriptions.end_date IS NULL OR subscriptions.end_date >= ?)",
+      :conditions => ["subscriptions.id IS NOT NULL AND (subscriptions.end_date IS NULL OR subscriptions.end_date >= ?)",
           Date.today]}
 
     include InstanceMethods
