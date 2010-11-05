@@ -6,13 +6,10 @@ Feature: Manage restaurants
 
   Background:
     Given I am logged in as an admin
-    Given a restaurant named "Piece"
-    And the following confirmed users:
-      | username | password | first_name | last_name |
-      | fred     | secret   | Fred       | Mercury   |
-      | betty    | secret   | Betty      | Rubble    |
-    And "fred" is an employee of "Piece"
-    And "betty" is an employee of "Piece"
+    Given a restaurant named "Piece" with the following employees:
+      | username | password | email             | name           | role      |    
+      | fred     | secret   | fred@testing.com  | Fred Mercury   | Chef      |
+      | betty    | secret   | betty@testing.com | Betty Cobalt   | Sous chef |
     
   Scenario: I enter complete, valid data
     When I go to the admin edit restaurant page for Piece
@@ -39,7 +36,7 @@ Feature: Manage restaurants
     And I should see "NeoPiece"
     
     When I go to the restaurant show page for "NeoPiece"
-    Then I should see the following restaurant fields:
+    Then I see the following restaurant fields:
       | name               | NeoPiece                            |
       | description        | This is a modern cuisine restaurant |
       | address            | 123 Sesame Street                   |
@@ -62,13 +59,29 @@ Feature: Manage restaurants
       | Piece        | Chicago | IL    |
     And I am on the admin restaurants page
     Then the listing for "Piece" should not be premium
+    
     When I go to the restaurant show page for "Piece"
     Then the show page should not be premium
+    
     When I am on the admin restaurants page
     When I follow "edit"
     And I check "Premium Account"
+    # Otherwise the restaurant won't be valid to save
+    And I select "Fred Mercury" from "Media contact"
     And I press "Save"
+    
     Then I should see "updated restaurant"
-    Then the listing for "Piece" should be premium
+    And the listing for "Piece" should be premium
+    
     When I go to the restaurant show page for "Piece"
     Then the show page should be premium
+    
+  Scenario: Deleting a restaurant
+    When I go to the admin restaurants page
+    And I follow "destroy"
+  
+    Then I should see "Successfully removed restaurant"
+    # Ensure users are converted to default (solo) employments
+    # And "fred" should have a primary employment with role "Chef"
+    # And "betty" should have a primary employment with role "Sous chef"
+  
