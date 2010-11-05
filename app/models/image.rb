@@ -18,7 +18,7 @@
 
 class Image < Attachment
   validates_attachment_content_type :attachment, :content_type => ["image/jpg", "image/jpeg", "image/png", "image/gif"], 
-    :if => :attachment_file_name
+    :if => :attachment_file_name, :message => "Please upload a valid image type: jpeg, gif, or png"
 
   has_attached_file :attachment,
     :storage => :s3,

@@ -40,7 +40,11 @@
                     employment.try(:restaurant) %>
             </div>
             <% end %>
-
+            <% elsif @user.default_employment %>
+            <div>
+                <%= @user.primary_employment.try(:restaurant_role).try(:name) %>, 
+                <%= @user.primary_employment.try(:solo_restaurant_name) %>
+            </div>
             <% end %>
 
             <% if @user.profile && @user.profile.summary.present? -%>
