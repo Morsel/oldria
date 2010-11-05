@@ -18,7 +18,7 @@ class Soapbox::SoapboxController < ApplicationController
       @cuisine = Cuisine.find(params[:cuisine_id])
       @users = User.profile_cuisines_id_eq(params[:cuisine_id]).premium_account.all(:order => "users.last_name").uniq
     else
-      params[:search] = { :premium_account_equals => true }
+      #params[:search] = { :premium_account_equals => true }
       directory_search_setup
       
       @use_search = true
