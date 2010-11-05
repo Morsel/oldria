@@ -84,7 +84,7 @@ Feature: Restaurant Accounts
     When I go to the employees page for "Taco Bell"
     When I follow the edit role link for "Sam Smith"
     Then I see the information to enter billing
-    When I follow "Enter Billing Information"
+    When I follow "Upgrade to Restaurant Account"
     Then I should be on the new subscription page for the restaurant "Taco Bell"
     When I fill in the following:
           | Credit Card Number                    | 4111111111111111     |
