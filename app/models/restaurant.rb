@@ -101,6 +101,8 @@ class Restaurant < ActiveRecord::Base
   after_create :update_manager
 
   after_save :update_admin_discussions
+  
+  before_destroy :migrate_employees_to_default_employment
 
   # For pagination
   cattr_reader :per_page
@@ -210,6 +212,14 @@ class Restaurant < ActiveRecord::Base
     update_attributes!(:primary_photo => photos.first) unless photos.include?(primary_photo)
   end
 
+  def migrate_employees_to_default_employment
+    self.employments.each do |employment|
+      user = employment.employee
+      if user.employments.count == 0
+        user.create_default_employment(:restaurant_role => employment.restaurant_role, :subject_matters => employment.subject_matters)
+      end
+    end
+  end
 
 end
 

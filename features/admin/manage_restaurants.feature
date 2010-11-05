@@ -81,7 +81,8 @@ Feature: Manage restaurants
     And I follow "destroy"
   
     Then I should see "Successfully removed restaurant"
+    And I should not see "Piece"
     # Ensure users are converted to default (solo) employments
-    # And "fred" should have a primary employment with role "Chef"
-    # And "betty" should have a primary employment with role "Sous chef"
+    And "fred" should have a primary employment with role "Chef"
+    And "betty" should have a primary employment with role "Sous chef"
   
