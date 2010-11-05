@@ -22,6 +22,7 @@ class ALaMinuteAnswer < ActiveRecord::Base
 
   default_scope :order => 'created_at desc', :include => :a_la_minute_question
   # named_scope :newest, :group => :a_la_minute_question_id, :order => 'created_at desc'
+  named_scope :for_question, lambda { |question| {:conditions => {:a_la_minute_question_id => question.id}} }
 
   def self.newest_for(obj)
     ids = []
@@ -36,6 +37,12 @@ class ALaMinuteAnswer < ActiveRecord::Base
 
   def self.public_profile_for(responder)
     responder.a_la_minute_answers.find_all_by_show_as_public(true, :group => :a_la_minute_question_id, :order => "created_at desc", :limit => 3)
+  end
+
+  def self.archived_for(question)
+    answers = self.for_question(question)
+    answers.shift
+    answers
   end
 
   attr_writer :old_answer

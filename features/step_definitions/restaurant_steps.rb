@@ -390,6 +390,11 @@ When /^I follow "([^"]*)" for "([^"]*)"$/ do |link, question_text|
   click_link_within("##{dom_id(question)}", link)
 end
 
+When /^I follow "([^"]*)" for the answer "([^"]*)"$/ do |link, answer_text|
+  answer = ALaMinuteAnswer.find_by_answer(answer_text)
+  click_link_within("##{dom_id(answer)}", link)
+end
+
 Then /^I should see the answer "([^"]*)" for "([^"]*)"$/ do |answer, name|
   responder = Restaurant.find_by_name(name) || User.find_by_name(name)
   response.should have_selector(".a_la_minute_answer", :content => answer)

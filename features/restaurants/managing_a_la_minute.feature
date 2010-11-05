@@ -8,7 +8,6 @@ Feature: Manage a_la_minutes
     And that "Steak Knife" has a premium account
     And I am logged in as an admin
 
-
   Scenario: Questions are displayed for a manager
     Given the following a la minute questions:
       | question                                      |
@@ -33,10 +32,10 @@ Feature: Manage a_la_minutes
 
     When I go to the edit a la minute question page for "Steak Knife"
     And I check "a_la_minute_questions_1_show_as_public"
-    And I press "Save Answers"
+    And I press "Change Answers"
     And I go to the soapbox restaurant profile for "Steak Knife"
     Then I should see the question "What's new?" with the answer "Lobster Bisque"
-@wip
+
   Scenario: Only the 3 most recently created answers should be shown
     Given "Steak Knife" has answered the following A La Minute questions:
     | question         | answer                  | public | created_at     |
@@ -60,21 +59,45 @@ Feature: Manage a_la_minutes
     When I go to the edit a la minute question page for "Steak Knife"
     And I fill in "a_la_minute_questions_1_answer" with "Salad"
     And I fill in "a_la_minute_questions_2_answer" with "Creed"
-    And I press "Save Answers"
+    And I press "Change Answers"
     And I go to the restaurant show page for "Steak Knife"
     Then I should see the question "What's new?" with the answer "Salad"
     And I should see the question "What's playing?" with the answer "Creed"
-@wip
+
   Scenario: Manager tries to select more than 3 answers to be public
     Given "Steak Knife" has answered the following A La Minute questions:
     | question         | answer                  | public | created_at     |
     | What's new?      | Lobster Bisque          | true   | 3.hours.ago    |
     | What's changing? | Adding sidewalk seating | true   | 2.hours.ago    |
     | What's up?       | Nothing much            | true   | 30.minutes.ago |
-    | Morning?         | Evening                 | false   | 10.minutes.ago |
+    | Morning?         | Evening                 | false  | 10.minutes.ago |
 
     And I go to the edit a la minute question page for "Steak Knife"
-    And show me the page
     When I check "Show on public profile?" for "Morning?"
-    And I press "Save Answers"
+    And I press "Change Answers"
     Then I should see a flash error message
+
+  Scenario: Manager should see archived answers under each question
+    Given "Steak Knife" has answered the following A La Minute questions:
+      | question    | answer               | public | created_at     |
+      | What's new? | Lobster Bisque       | true   | 3.hours.ago    |
+      | What's new? | Something newer      | true   | 2.hours.ago    |
+      | What's new? | Something even newer | true   | 30.minutes.ago |
+
+    When I go to the edit a la minute question page for "Steak Knife"
+    Then I should see the question "What's new?" with the answer "Something even newer"
+    And I should see the question "What's new?" with the answer "Something newer"
+    And I should see the question "What's new?" with the answer "Lobster Bisque"
+
+
+  Scenario: Manager should be able to remove an answer
+    Given "Steak Knife" has answered the following A La Minute questions:
+      | question    | answer               | public | created_at     |
+      | What's new? | Lobster Bisque       | true   | 3.hours.ago    |
+      | What's new? | Something newer      | true   | 2.hours.ago    |
+      | What's new? | Something even newer | true   | 30.minutes.ago |
+    And I go to the edit a la minute question page for "Steak Knife"
+    When I follow "Remove" for the answer "Something newer"
+    Then I should see the question "What's new?" with the answer "Something even newer"
+    And I should see the question "What's new?" with the answer "Lobster Bisque"
+

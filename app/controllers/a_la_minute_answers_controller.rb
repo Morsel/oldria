@@ -1,4 +1,16 @@
 class ALaMinuteAnswersController < ApplicationController
+  def destroy
+    @restaurant = Restaurant.find(params[:restaurant_id])
+    @restaurant.a_la_minute_answers.destroy(params[:id])
+
+    if request.xhr?
+      render :nothing => true
+    else
+      flash[:success] = "Answer removed."
+      redirect_to :action => :bulk_edit
+    end
+  end
+
   def bulk_edit
     @restaurant = Restaurant.find(params[:restaurant_id])
     @questions = ALaMinuteQuestion.restaurants
@@ -22,7 +34,7 @@ class ALaMinuteAnswersController < ApplicationController
         question.answers_for(@restaurant).each do |answer|
           answer.update_attributes(:show_as_public => attributes[:show_as_public].present?)
         end
-
+        flash[:success] = "Your changes have been saved."
       end
       redirect_to :action => :bulk_edit
     else
