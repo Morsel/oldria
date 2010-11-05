@@ -17,4 +17,10 @@ namespace :subscriptions do
       end
     end
   end
+  
+  desc "convert premium accounts"
+  task "convert premium" do
+    User.find_by_premium_account(true).each { |u| u.make_complimentary! }
+    Restaurant.find_by_premium_account(true).each { |r| r.make_complimentary! }
+  end
 end
