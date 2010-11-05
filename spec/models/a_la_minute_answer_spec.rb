@@ -78,4 +78,15 @@ describe ALaMinuteAnswer do
       ALaMinuteAnswer.public_profile_for(@responder).should == [ans_2, ans_4, ans_3]
     end
   end
+
+  describe "#archived_for" do
+    it "should return all archived answers for the question" do
+      q1 = Factory(:a_la_minute_question)
+      ans_1 = Factory(:a_la_minute_answer, :a_la_minute_question => q1, :created_at => 1.day.ago)
+      ans_2 = Factory(:a_la_minute_answer, :a_la_minute_question => q1, :created_at => 3.day.ago)
+      ans_3 = Factory(:a_la_minute_answer, :a_la_minute_question => q1, :created_at => 2.day.ago)
+      ans_4 = Factory(:a_la_minute_answer, :a_la_minute_question => q1, :created_at => 1.hour.ago)
+      ALaMinuteAnswer.archived_for(q1).should == [ans_1, ans_3, ans_2]
+    end
+  end
 end
