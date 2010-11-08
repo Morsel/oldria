@@ -19,3 +19,6 @@ tmp/webrat-*
 .idea/
 .rvmrc
 default.gems
+
+public/soapbox/
+public/spoonfeed.css
