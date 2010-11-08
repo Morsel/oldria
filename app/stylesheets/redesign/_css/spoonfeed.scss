@@ -481,6 +481,7 @@ body{
 		color:$orange;
 		border:solid #a89d76;
 		border-width:1px 1px 0;
+		@include transition;
 		&:hover{
 			background:$orange;
 			color:#fff;
