@@ -73,15 +73,13 @@
 			
 			<nav id="primary_nav">
 			  <% if current_user -%>
-          <%= render :partial => 'layouts/nav_spoonfeed' %>
-        <% else -%>
-          <%= render :partial => 'layouts/nav' %>
-        <% end -%>
-        
-        <% if current_user && current_user.admin? %>
-          <p class="admin-link"><%= link_to "Go to Admin", admin_root_path %></p>
-        <% end %>
-			</nav>
+	          	<%= render :partial => 'layouts/nav_spoonfeed' %>
+	          <% else -%>
+	          	<%= render :partial => 'layouts/nav' %>
+	        <% end -%>   
+			</nav><!--#main -->
+	        
+	
 			
 			<div id="content">
         <% unless @hide_flashes %>
@@ -105,6 +103,10 @@
 				<div id="sidebar_content">
 				  
 				  <%= yield :sidebar %>
+					
+					<% if current_user && current_user.admin? %>
+			          <%= link_to "Go to Admin", admin_root_path, :cass => "promo" %>
+			        <% end %>
 					
 					<%= link_to "Send an Invitation", new_invitation_path, :id => "invitation", :class => "promo" %>
 					
