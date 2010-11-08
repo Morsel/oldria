@@ -68,7 +68,7 @@ class Employment < ActiveRecord::Base
   named_scope :by_position, :order => "position ASC"
 
   ### Preferences ###
-  preference :post_to_soapbox, :default => true
+  preference :post_to_soapbox, :default => true # FIXME deprecated: remove after spoonfeed deploy
 
   def employee_name
     @employee_name ||= employee && employee.name
