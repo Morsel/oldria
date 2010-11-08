@@ -201,8 +201,8 @@ ActiveRecord::Schema.define(:version => 20101104213542) do
     t.date     "date_ended"
     t.string   "chef_name",       :default => "",    :null => false
     t.boolean  "chef_is_me",      :default => false, :null => false
-    t.text     "cuisine",         :default => "",    :null => false
-    t.text     "notes",           :default => "",    :null => false
+    t.text     "cuisine",                            :null => false
+    t.text     "notes",                              :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "opening_staff",   :default => false
@@ -285,9 +285,9 @@ ActiveRecord::Schema.define(:version => 20101104213542) do
     t.integer  "restaurant_role_id"
     t.boolean  "omniscient"
     t.boolean  "primary",              :default => false
-    t.string   "type"
     t.boolean  "public_profile"
     t.integer  "position"
+    t.string   "type"
     t.boolean  "post_to_soapbox",      :default => true
     t.string   "solo_restaurant_name"
   end
@@ -297,7 +297,7 @@ ActiveRecord::Schema.define(:version => 20101104213542) do
   add_index "employments", ["restaurant_role_id"], :name => "index_employments_on_restaurant_role_id"
 
   create_table "enrollments", :force => true do |t|
-    t.integer  "school_id",                       :null => false
+    t.integer  "school_id"
     t.integer  "profile_id",                      :null => false
     t.date     "graduation_date"
     t.string   "degree",          :default => "", :null => false
@@ -541,8 +541,8 @@ ActiveRecord::Schema.define(:version => 20101104213542) do
     t.string   "country",            :default => "", :null => false
     t.date     "date_started",                       :null => false
     t.date     "date_ended"
-    t.text     "responsibilities",   :default => "", :null => false
-    t.text     "reason_for_leaving", :default => "", :null => false
+    t.text     "responsibilities",                   :null => false
+    t.text     "reason_for_leaving",                 :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -598,7 +598,7 @@ ActiveRecord::Schema.define(:version => 20101104213542) do
     t.string   "title"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "position"
+    t.integer  "position",          :default => 0
     t.integer  "chapter_id"
     t.text     "roles_description"
   end
@@ -618,7 +618,7 @@ ActiveRecord::Schema.define(:version => 20101104213542) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "headline",              :default => ""
-    t.text     "summary",               :default => ""
+    t.text     "summary"
     t.string   "hometown"
     t.string   "current_residence"
     t.integer  "metropolitan_area_id"
@@ -635,13 +635,6 @@ ActiveRecord::Schema.define(:version => 20101104213542) do
     t.string   "link"
     t.integer  "position"
     t.string   "type"
-  end
-
-  create_table "question_role_categories", :force => true do |t|
-    t.integer  "restaurant_role_id"
-    t.string   "category"
-    t.datetime "created_at"
-    t.datetime "updated_at"
   end
 
   create_table "question_roles", :force => true do |t|
@@ -737,7 +730,6 @@ ActiveRecord::Schema.define(:version => 20101104213542) do
     t.integer  "logo_id"
     t.integer  "primary_photo_id"
     t.date     "opening_date"
-    t.boolean  "premium_account"
     t.string   "sort_name"
   end
 
@@ -848,6 +840,20 @@ ActiveRecord::Schema.define(:version => 20101104213542) do
     t.boolean  "general"
     t.string   "fields"
     t.boolean  "private"
+  end
+
+  create_table "subscriptions", :force => true do |t|
+    t.string   "braintree_id"
+    t.date     "start_date"
+    t.integer  "subscriber_id"
+    t.string   "subscriber_type"
+    t.integer  "payer_id"
+    t.string   "payer_type"
+    t.string   "kind"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.date     "end_date"
+    t.string   "status"
   end
 
   create_table "topics", :force => true do |t|

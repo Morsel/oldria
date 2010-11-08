@@ -101,7 +101,7 @@
 				  
 				  <%= yield :sidebar %>
 					
-					<a class="promo" id="invitation">Send an Invitation</a>
+					<%= link_to "Send an Invitation", new_invitation_path, :id => "invitation", :class => "promo" %>
 					
 					<aside class="promo" id="btl_game">
 						<a href="#" class="new_question">new question</a>
@@ -113,12 +113,18 @@
 						<button>Post</button>
 						<p class="disclaimer">Your answers are viewable on your public profile</p>
 					</aside><!--#btl_game-->
-					
+
+
 					<aside class="promo" id="manuals">
-						<a id="marketing_manual" href="#">Marketing Manual</a>
-						<a id="help_questions" href="#">Help / Questions</a>
+
+						<%= link_to "Marketing Manual", public_page_path('introduction-marketing-workbook'), :id => 'marketing_manual' %>
+						<p>some marketing manual text goes here</p>
+
+						<a id="help_questions" href="#">Help / Questions?</a>
+						<p>Some helpful text goes here</p>
+
 					</aside><!--.promo-->
-					
+										
 					<%- if current_user && !current_user.media? %>
             <%= render :partial => 'shared/ria_labs' %>
           <% end -%>
