@@ -466,3 +466,32 @@ body{
 	}
 }
 
+#profile-options{
+	margin:15px 0 0;
+	padding:0 10px;
+	overflow:hidden;
+	a{
+		letter-spacing:2px;
+		text-transform:uppercase;
+		display:block;
+		float:left;
+		padding:5px 10px;
+		margin-right:10px;
+		@include brandongrotesquebold;
+		color:$orange;
+		border:solid #a89d76;
+		border-width:1px 1px 0;
+		&:hover{
+			background:$orange;
+			color:#fff;
+			text-shadow:0 1px 0 #333;
+			border-color:$orange;
+		}
+	}
+	.ui-tabs-selected a{
+		background:$orange;
+		border-color:$orange;
+		color:#fff;
+		text-shadow:0 1px 0 #333;
+	}
+}
