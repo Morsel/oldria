@@ -366,8 +366,70 @@ body{
 	height: 150px;
 	footer {
 		width: 974px;
-		margin: 0 auto;
+		margin: 25px auto;
+		padding: 0;
+		font-weight: 300;
 		color: #fff;
+		#footer_branding {
+			@include column(8);
+		}
+		#footer_links {
+			@include column(10);
+			p {
+				margin: 8px 0 10px 0;
+				color: #aaa;
+				a {
+					color: #fff;
+					&:hover {
+						text-decoration: underline;
+					}
+				}
+			}
+			nav {
+				margin: 0 0 10px 0;
+				a {
+					background: transparent url(/images/redesign/line-footer.gif) no-repeat;
+					background-position: 88% 2px;
+					padding: 0 15px 0 0;
+					color: #fff;
+					&.last {background-image: none;}
+					&:hover {text-decoration: underline;}
+				}
+			}
+			ul {
+				li {
+					display: inline;
+					color: #aaa;
+					a {
+						color: #fff;
+						&:hover {text-decoration: underline;}
+					}
+				}
+			}
+		}
+		#footer_social {
+			@include column(6, true);
+			a {
+				display: block;
+				padding: 0;
+				margin: 0 0 15px 0;
+				color: #fff;
+				&.fb {
+					padding: 0 0 0 32px;
+					background: transparent url(/images/redesign/icon-25-fb.png) no-repeat 0 2px;
+					&:hover {background-position: 0 -98px;}
+				}
+				&.twitter {
+					padding: 0 0 0 32px;
+					background: transparent url(/images/redesign/icon-25-twitter.png) no-repeat 0 2px;
+					&:hover {background-position: 0 -98px;}
+				}
+				&:hover {
+					color: #aaa;
+					text-decoration: underline;
+				}
+			}
+		}
 	}
 }
 
