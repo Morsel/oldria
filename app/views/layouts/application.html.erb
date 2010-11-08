@@ -51,7 +51,7 @@
 				
 				<section class="profile top_promo">
 					<% if current_user -%>
-					 <%= link_to image_tag(current_user.avatar.url(:tiny)), profile_path(current_user.username) %>
+					 <%= link_to image_tag(current_user.avatar.url(:tiny), :width => '20', :height => '20'), profile_path(current_user.username) %>
   					<ul>
   						<li>Welcome <%= link_to current_user.first_name, profile_path(current_user.username) %> | </li>
   						<li><%= link_to 'Log out', logout_path %></li>
