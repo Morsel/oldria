@@ -21,4 +21,4 @@ tmp/webrat-*
 default.gems
 
 public/soapbox/
-public/spoonfeed.css
+public/redesign/_css/

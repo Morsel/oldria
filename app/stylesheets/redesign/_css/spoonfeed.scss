@@ -370,3 +370,25 @@ body{
 		color: #fff;
 	}
 }
+
+#flashes div{
+	border: 2px solid #DDD;
+	margin-bottom: 1em;
+	padding: 0.8em;
+	&#flash_error{
+		background: #FBE3E4;
+		border-color: #FBC2C4;
+		color: #8A1F11;
+	}
+	&#flash_notice{
+		background: #FFF6BF;
+		border-color: #FFD324;
+		color: #514721;
+	}
+	&#flash_success{
+		background: #E6EFC2;
+		border-color: #C6D880;
+		color: #264409;
+	}
+}
+
