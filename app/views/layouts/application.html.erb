@@ -77,10 +77,6 @@
         <% else -%>
           <%= render :partial => 'layouts/nav' %>
         <% end -%>
-        
-        <% if current_user && current_user.admin? %>
-          <p class="admin-link"><%= link_to "Go to Admin", admin_root_path %></p>
-        <% end %>
 			</nav>
 			
 			<div id="content">

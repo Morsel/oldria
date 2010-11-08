@@ -70,7 +70,7 @@ body{
 			&.profile {
 				padding: 0 0 0 8px;
 				a {
-					word-wrap:nowrap;
+					white-space:nowrap;
 					img {
 						border: 1px solid $orange;
 						margin: -4px 10px 0 0;
@@ -81,12 +81,12 @@ body{
 					}
 				}
 				ul {
-					height: 30px;
+					min-height: 30px;
 					border-bottom: 1px dotted #ccc;
 					margin: 14px 0 8px;
 					padding: 0;
 					li {
-						display: inline;
+						display: inline-block;
 						padding: 4px 5px 4px 0;
 						a {
 							padding: 0 5px 0 0;
