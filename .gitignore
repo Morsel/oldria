@@ -20,5 +20,5 @@ tmp/webrat-*
 .rvmrc
 default.gems
 
-public/soapbox/
-public/redesign/_css/
+public/soapbox/*
+public/redesign/_css/*
