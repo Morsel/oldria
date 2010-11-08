@@ -122,6 +122,26 @@ body{
 					}
 				}
 			}
+			&.invite {
+				a {
+					display: block;
+					background: transparent url(/images/redesign/icon-32-mail.png) no-repeat;
+					background-position: 8px 0;
+					padding: 0 10px 15px 50px;
+					font-family: 'Hoefler Text', Georgia, Serif;
+					font-weight: bold;
+					font-size: 14px;
+					text-transform: uppercase;
+					letter-spacing: 0.1em;
+					line-height: 17px;
+					margin: 20px 0 0 0;
+					border-bottom: 1px dotted #ccc;
+					&:hover {
+						color: $brown;
+						background-position: 8px -100px;
+					}
+				}
+			}
 	 	}
 	}
 } /* ## END OF header ------------------- */
@@ -129,7 +149,9 @@ body{
 
 #primary_nav {
 	width: 974px;
-	background: #fff url(/images/redesign/nav-bg.gif) repeat-x;
+	position: relative;
+	z-index: 100;
+	background: transparent url(/images/redesign/nav-bg.gif) repeat-x;
 	height: 60px;
 	overflow:hidden;
 	a {
@@ -182,6 +204,124 @@ body{
 	}
 }
 
+#alternate_nav {
+	width: 974px;
+	position: relative;
+	z-index: 100;
+	height: 60px;
+	a {
+		float: left;
+		height: 60px;
+		width: 164px;
+		background: transparent url(/images/redesign/nav-alt.png) no-repeat;
+		@include hiddentext;
+		&#nav_home {
+			background-position: 0 0;
+			&:hover {background-position: 0 -100px;}
+			&.selected {background-position: 0 -200px;}
+		}
+		&#nav_about {
+			background-position: -164px 0;
+			&:hover {background-position: -164px -100px;}
+			&.selected {background-position: -164px -200px;}
+		}
+		&#nav_overview {
+			background-position: -328px 0;
+			&:hover {background-position: -328px -100px;}
+			&.selected {background-position:-328px -200px;}
+		}
+		&#nav_invitations {
+			background-position: -492px 0;
+			&:hover {background-position: -492px -100px;}
+			&.selected {background-position:-492px -200px;}
+		}
+		&#nav_contact_alt {
+			background-position: -656px 0;
+			&:hover {background-position: -656px -100px;}
+			&.selected {background-position:-656px -200px;}
+		}
+		&#nav_login {
+			width: 154px;
+			background-position: -820px 0;
+			&:hover {background-position: -820px -100px;}
+			&.selected {background-position:-820px -200px;}
+		}
+	}
+}
+
+#jumbotron {
+	@include column(24, true);
+	height: 400px;
+	background: $brown url(/images/redesign/jumbo1.jpg) no-repeat;
+	margin: -10px 0 20px 0;
+	position: relative;
+	z-index: 10;
+	#jumbo_content {
+		margin: 25px 0px 0px 25px;
+		h1 {
+			font-size: 44px;
+			font-style: italic;
+			font-family: "Hoefler Text", Georgia, Times, serif;
+			font-weight: bold;
+			color: #fff;
+			text-shadow: 0px 2px 2px #000;
+			margin: 0 0 10px 0;
+		}
+		p {
+			width: 320px;
+			font-size: 15px;
+			font-family: 'helvetica neue', helvetica, arial, sans-serif;
+			color: #fff;
+			color: rgba(255,255,255,.8);
+			a {
+				color: #fff;
+				&:hover {
+					color: #fff;
+					color: rgba(255,255,255,.6);
+					text-decoration: none;
+				}
+			}
+		}
+	}
+}
+
+#jumbotron_controller {
+	height: 42px;
+	margin: 0;
+	position: absolute;
+	width: 974px;
+	top: 408px;
+	z-index: 1000;
+	background: transparent url(/images/redesign/bg-controller.png) no-repeat 0 100%;
+	nav {
+		width: 110px;
+		height: 16px;
+		padding: 10px 20px;
+		background: transparent url(/images/redesign/bg-25percent-black.png) repeat;
+		position: relative;
+		a {
+			position: relative;
+			margin: 2px 16px 0 0;
+			float: left;
+			width: 14px;
+			height: 14px;
+			background: #fff;
+			background-color: rgba(255,255,255,.66);
+			@include border-radius(20px);
+			@include box-shadow(#333,0px,2px,2px);
+			@include hiddentext;
+			&.selected {background-color: $orange;}
+			&.last {
+				padding-right: 0;
+				margin-right: 0;
+			}
+			&:hover {
+				background-color: $brown;
+			}
+		}
+	}
+}
+
 
 #main {
 	background: #fff;
@@ -189,6 +329,42 @@ body{
 	margin: 0 0 0px 0;
 	z-index: 500;
 	background: transparent url(/images/redesign/bg-fauxcolumn.gif) repeat-y;
+	&.hp {
+		position: relative;
+		background: none;
+		@include box-shadow(none);
+	}
+}
+
+#content {
+	&.hp {
+		@include column(24);
+		background: transparent url(/images/redesign/bg-steps.png) no-repeat;
+		section {
+			padding: 0 10px;
+			margin: 0 10px 0 0;
+			h1 {
+				margin: 10px 0 20px 0;
+			}
+			&#whos_on {
+				float: left;
+				width: 298px;
+			}
+			&#what_it_takes {
+				float: left;
+				width: 216px;
+			}
+			&#what_you_get {
+				float: left;
+				width: 216px;
+			}
+			&#how_to_join {
+				float: left;
+				width:130px;
+				margin-right: 0;
+			}
+		}
+	}
 }
 
 #content {
