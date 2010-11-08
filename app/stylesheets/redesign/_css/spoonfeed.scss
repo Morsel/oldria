@@ -176,7 +176,6 @@ body{
 
 
 #main {
-	min-height:500px;
 	background: #fff;
 	@include box-shadow(#ddd,0px,2px,5px);
 	margin: 0 0 0px 0;
@@ -250,6 +249,7 @@ body{
 				&:hover {
 					background-position: 10px -90px;
 					color: #999;
+					background-color: #f2f2f2;
 				}
 			}
 			&#btl_game {
@@ -260,6 +260,97 @@ body{
 					width: 25px;
 					height: 25px;
 					background-image: url(/images/redesign/icon-refresh.png);
+					background-position: 0 0;
+					&:hover {
+						background-position: 0 -100px;
+					}
+				}
+				h1 {
+					background: transparent url(/images/redesign/title-behindtheline-red.png) no-repeat;
+					height: 16px;
+					@include hiddentext;
+					margin: 0 0 10px 0;
+				}
+				h2 {
+					font-family: "Hoefler Text", Georgia, serif;
+					font-size: 18px;
+					color: #333;
+					margin: 15px 0 7px;
+					font-style: italic;
+					font-weight: bold;
+				}
+				.chapter {
+					margin: 0 0 10px 0;
+				}
+				h3 {
+					background: transparent url(/images/redesign/line-arrow.png) no-repeat;
+					padding: 16px 0 6px 0;
+					color: $orange;
+					font-size: 13px;
+				}
+				textarea {
+					width: 180px;
+					height: 60px;
+					background-color: #fff;
+					border: 1px solid #ccc;
+					@include box-shadow(#ddd, 0px,1px,2px);
+					margin: 0 0 10px 0;
+				}
+				button {
+					float: left;
+					margin: 2px 10px 10px 0;
+					border: 1px solid #ddd;
+					font-family: helvetica, arial, sans-serif;
+					font-weight: bold;
+					color: #333;
+					font-size: 13px;
+					text-shadow: 0 1px 0 #fff;
+					background: #e3e3e3 url(/images/redesign/bg-button.png) repeat-x;
+					padding: 4px 12px;
+					@include border-radius(20px);
+					&:hover {
+						background-color: $orange;
+						border: 1px solid $orange;
+						color: #fff;
+						text-shadow: 0 1px 0 #333;
+						background-image: none;
+					}
+				}
+				.disclaimer {
+					font-size: 10px;
+					color: #777;
+					color: rgba(0,0,0,.5);
+					font-family: "lucida grande", arial, sans-serif;
+				}
+			}
+			&#manuals {
+				a {
+					display: block;
+					font-family: "Hoefler Text", Georgia, serif;
+					font-weight: bold;
+					font-size: 18px;
+					font-style: italic;
+					margin: 0 0 5px;
+					padding-left: 25px;
+					&#marketing_manual {
+						background: transparent url(/images/redesign/icon-16-manual.png) no-repeat;
+						&:hover {
+							color: $brown;
+							background-position: 0 -100px;
+						}
+					}
+					&#help_questions {
+						background: transparent url(/images/redesign/icon-16-question.png) no-repeat;
+						&:hover {
+							color: $brown;
+							background-position: 0 -100px;
+						}
+					}
+
+				}
+				p {
+					margin: 0 0 10px 0;
+					color: #888;
 				}
 			}
 		}

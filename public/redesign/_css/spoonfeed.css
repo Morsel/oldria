@@ -422,7 +422,6 @@ body {
 
 /* line 178, ../../../app/stylesheets/redesign/_css/spoonfeed.scss */
 #main {
-  min-height: 500px;
   background: #fff;
   -moz-box-shadow: #dddddd 0px 2px 5px 0;
   -webkit-box-shadow: #dddddd 0px 2px 5px 0;
@@ -433,7 +432,7 @@ body {
   background: transparent url(/images/redesign/bg-fauxcolumn.gif) repeat-y;
 }
 
-/* line 187, ../../../app/stylesheets/redesign/_css/spoonfeed.scss */
+/* line 186, ../../../app/stylesheets/redesign/_css/spoonfeed.scss */
 #content {
   display: inline;
   float: left;
@@ -444,19 +443,19 @@ body {
 * html #content {
   overflow-x: hidden;
 }
-/* line 189, ../../../app/stylesheets/redesign/_css/spoonfeed.scss */
+/* line 188, ../../../app/stylesheets/redesign/_css/spoonfeed.scss */
 #content header {
   padding: 5px 15px;
   margin: 0;
   border-bottom: 1px dotted #ddd;
 }
-/* line 193, ../../../app/stylesheets/redesign/_css/spoonfeed.scss */
+/* line 192, ../../../app/stylesheets/redesign/_css/spoonfeed.scss */
 #content header .user_actions {
   float: right;
   display: block;
   width: 230px;
 }
-/* line 197, ../../../app/stylesheets/redesign/_css/spoonfeed.scss */
+/* line 196, ../../../app/stylesheets/redesign/_css/spoonfeed.scss */
 #content header .user_actions a {
   display: block;
   padding: 10px;
@@ -468,32 +467,32 @@ body {
   font-weight: bold;
   background-color: #faeae4;
 }
-/* line 207, ../../../app/stylesheets/redesign/_css/spoonfeed.scss */
+/* line 206, ../../../app/stylesheets/redesign/_css/spoonfeed.scss */
 #content header .user_actions a.private_message {
   background: #faeae4 url(/images/redesign/icon-16-bubble.png) no-repeat;
   background-position: 10px 10px;
   padding-left: 32px;
 }
-/* line 211, ../../../app/stylesheets/redesign/_css/spoonfeed.scss */
+/* line 210, ../../../app/stylesheets/redesign/_css/spoonfeed.scss */
 #content header .user_actions a.private_message:hover {
   color: #897a55;
   background-color: #f7f6f2;
   background-position: 10px -90px;
 }
-/* line 217, ../../../app/stylesheets/redesign/_css/spoonfeed.scss */
+/* line 216, ../../../app/stylesheets/redesign/_css/spoonfeed.scss */
 #content header .user_actions a.follow_user {
   background: #faeae4 url(/images/redesign/icon-16-follow.png) no-repeat;
   background-position: 10px 10px;
   padding-left: 32px;
 }
-/* line 221, ../../../app/stylesheets/redesign/_css/spoonfeed.scss */
+/* line 220, ../../../app/stylesheets/redesign/_css/spoonfeed.scss */
 #content header .user_actions a.follow_user:hover {
   color: #897a55;
   background-color: #f7f6f2;
   background-position: 10px -90px;
 }
 
-/* line 232, ../../../app/stylesheets/redesign/_css/spoonfeed.scss */
+/* line 231, ../../../app/stylesheets/redesign/_css/spoonfeed.scss */
 #sidebar_b {
   display: inline;
   float: left;
@@ -504,11 +503,11 @@ body {
 * html #sidebar_b {
   overflow-x: hidden;
 }
-/* line 234, ../../../app/stylesheets/redesign/_css/spoonfeed.scss */
+/* line 233, ../../../app/stylesheets/redesign/_css/spoonfeed.scss */
 #sidebar_b #sidebar_content {
   margin: 0 8px 0 6px;
 }
-/* line 236, ../../../app/stylesheets/redesign/_css/spoonfeed.scss */
+/* line 235, ../../../app/stylesheets/redesign/_css/spoonfeed.scss */
 #sidebar_b #sidebar_content .promo {
   display: block;
   border: 1px solid #ddd;
@@ -519,7 +518,7 @@ body {
   -o-box-shadow: #eeeeee 0px 1px 0px 0;
   box-shadow: #eeeeee 0px 1px 0px 0;
 }
-/* line 242, ../../../app/stylesheets/redesign/_css/spoonfeed.scss */
+/* line 241, ../../../app/stylesheets/redesign/_css/spoonfeed.scss */
 #sidebar_b #sidebar_content .promo#invitation {
   font-family: 'Hoefler Text', Georgia, serif;
   font-style: italic;
@@ -529,10 +528,11 @@ body {
   background-position: 10px 10px;
   padding-left: 50px;
 }
-/* line 250, ../../../app/stylesheets/redesign/_css/spoonfeed.scss */
+/* line 249, ../../../app/stylesheets/redesign/_css/spoonfeed.scss */
 #sidebar_b #sidebar_content .promo#invitation:hover {
   background-position: 10px -90px;
   color: #999;
+  background-color: #f2f2f2;
 }
 /* line 255, ../../../app/stylesheets/redesign/_css/spoonfeed.scss */
 #sidebar_b #sidebar_content .promo#btl_game {
@@ -547,9 +547,122 @@ body {
   width: 25px;
   height: 25px;
   background-image: url(/images/redesign/icon-refresh.png);
+  background-position: 0 0;
+}
+/* line 264, ../../../app/stylesheets/redesign/_css/spoonfeed.scss */
+#sidebar_b #sidebar_content .promo#btl_game .new_question:hover {
+  background-position: 0 -100px;
+}
+/* line 268, ../../../app/stylesheets/redesign/_css/spoonfeed.scss */
+#sidebar_b #sidebar_content .promo#btl_game h1 {
+  background: transparent url(/images/redesign/title-behindtheline-red.png) no-repeat;
+  height: 16px;
+  display: block;
+  outline: 0;
+  text-indent: -9999px;
+  margin: 0 0 10px 0;
+}
+/* line 274, ../../../app/stylesheets/redesign/_css/spoonfeed.scss */
+#sidebar_b #sidebar_content .promo#btl_game h2 {
+  font-family: "Hoefler Text", Georgia, serif;
+  font-size: 18px;
+  color: #333;
+  margin: 15px 0 7px;
+  font-style: italic;
+  font-weight: bold;
+}
+/* line 282, ../../../app/stylesheets/redesign/_css/spoonfeed.scss */
+#sidebar_b #sidebar_content .promo#btl_game .chapter {
+  margin: 0 0 10px 0;
+}
+/* line 285, ../../../app/stylesheets/redesign/_css/spoonfeed.scss */
+#sidebar_b #sidebar_content .promo#btl_game h3 {
+  background: transparent url(/images/redesign/line-arrow.png) no-repeat;
+  padding: 16px 0 6px 0;
+  color: #d8531e;
+  font-size: 13px;
+}
+/* line 291, ../../../app/stylesheets/redesign/_css/spoonfeed.scss */
+#sidebar_b #sidebar_content .promo#btl_game textarea {
+  width: 180px;
+  height: 60px;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  -moz-box-shadow: #dddddd 0px 1px 2px 0;
+  -webkit-box-shadow: #dddddd 0px 1px 2px 0;
+  -o-box-shadow: #dddddd 0px 1px 2px 0;
+  box-shadow: #dddddd 0px 1px 2px 0;
+  margin: 0 0 10px 0;
+}
+/* line 299, ../../../app/stylesheets/redesign/_css/spoonfeed.scss */
+#sidebar_b #sidebar_content .promo#btl_game button {
+  float: left;
+  margin: 2px 10px 10px 0;
+  border: 1px solid #ddd;
+  font-family: helvetica, arial, sans-serif;
+  font-weight: bold;
+  color: #333;
+  font-size: 13px;
+  text-shadow: 0 1px 0 #fff;
+  background: #e3e3e3 url(/images/redesign/bg-button.png) repeat-x;
+  padding: 4px 12px;
+  -moz-border-radius: 20px;
+  -webkit-border-radius: 20px;
+  -o-border-radius: 20px;
+  -ms-border-radius: 20px;
+  -khtml-border-radius: 20px;
+  border-radius: 20px;
+}
+/* line 311, ../../../app/stylesheets/redesign/_css/spoonfeed.scss */
+#sidebar_b #sidebar_content .promo#btl_game button:hover {
+  background-color: #d8531e;
+  border: 1px solid #d8531e;
+  color: #fff;
+  text-shadow: 0 1px 0 #333;
+  background-image: none;
+}
+/* line 319, ../../../app/stylesheets/redesign/_css/spoonfeed.scss */
+#sidebar_b #sidebar_content .promo#btl_game .disclaimer {
+  font-size: 10px;
+  color: #777;
+  color: rgba(0, 0, 0, 0.5);
+  font-family: "lucida grande", arial, sans-serif;
+}
+/* line 327, ../../../app/stylesheets/redesign/_css/spoonfeed.scss */
+#sidebar_b #sidebar_content .promo#manuals a {
+  display: block;
+  font-family: "Hoefler Text", Georgia, serif;
+  font-weight: bold;
+  font-size: 18px;
+  font-style: italic;
+  margin: 0 0 5px;
+  padding-left: 25px;
+}
+/* line 335, ../../../app/stylesheets/redesign/_css/spoonfeed.scss */
+#sidebar_b #sidebar_content .promo#manuals a#marketing_manual {
+  background: transparent url(/images/redesign/icon-16-manual.png) no-repeat;
+}
+/* line 337, ../../../app/stylesheets/redesign/_css/spoonfeed.scss */
+#sidebar_b #sidebar_content .promo#manuals a#marketing_manual:hover {
+  color: #897a55;
+  background-position: 0 -100px;
+}
+/* line 342, ../../../app/stylesheets/redesign/_css/spoonfeed.scss */
+#sidebar_b #sidebar_content .promo#manuals a#help_questions {
+  background: transparent url(/images/redesign/icon-16-question.png) no-repeat;
+}
+/* line 344, ../../../app/stylesheets/redesign/_css/spoonfeed.scss */
+#sidebar_b #sidebar_content .promo#manuals a#help_questions:hover {
+  color: #897a55;
+  background-position: 0 -100px;
+}
+/* line 351, ../../../app/stylesheets/redesign/_css/spoonfeed.scss */
+#sidebar_b #sidebar_content .promo#manuals p {
+  margin: 0 0 10px 0;
+  color: #888;
 }
 
-/* line 269, ../../../app/stylesheets/redesign/_css/spoonfeed.scss */
+/* line 360, ../../../app/stylesheets/redesign/_css/spoonfeed.scss */
 #footer_container {
   position: relative;
   display: block;
@@ -558,7 +671,7 @@ body {
   background-color: #333;
   height: 150px;
 }
-/* line 276, ../../../app/stylesheets/redesign/_css/spoonfeed.scss */
+/* line 367, ../../../app/stylesheets/redesign/_css/spoonfeed.scss */
 #footer_container footer {
   width: 974px;
   margin: 0 auto;
