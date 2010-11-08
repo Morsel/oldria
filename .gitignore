@@ -21,4 +21,4 @@ tmp/webrat-*
 default.gems
 
 public/soapbox/*
-public/redesign/_css/*.css
+public/redesign/_css/*
