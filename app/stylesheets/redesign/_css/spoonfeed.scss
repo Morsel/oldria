@@ -4,14 +4,278 @@
 @import "blueprint";
 @import "compass/css3";
 // To configure blueprint, edit the partials/base.sass file.
-@import "partials/base";
+@import "../partials/base";
 @import "compass/layout/sticky-footer";
 
 @include reset-html5;
 
-.clearfix{
-	overflow:hidden;
+.clearfix{overflow:hidden;}
+.clear{clear:both;}
+a {text-decoration: none;color: $orange;}
+
+body{
+ 	font:normal 12px "Helvetica Neue", Helvetica, Arial, sans-serif;
+	background:#fff url(/images/redesign/bg-strip.gif) repeat-x;
+	color:#333;
 }
-.clear{
-	clear:both;
+
+#container{
+	width: 974px;
+	margin: 0 auto;
+	*zoom: 1;
+	position:relative;
+}
+
+#site_header {
+	display: block;
+	height: 140px;
+	.branding {
+		@include column(18);
+		h1#logo {
+			background: transparent url(/images/redesign/sf-logo.png) no-repeat;
+			background-position: -3px 0px;
+			display: block;
+			width: 735px;
+			height: 123px;
+			@include hiddentext;
+		}
+	}
+	.header_right {
+		@include column(6,true);
+		img {
+			float: left;
+			display: inline;
+			margin: 0 10px 0 0;
+		}
+	 	a#search {
+	 		display: block;
+	 		@include brandongrotesquebold;
+	 		text-align:right;
+	 		text-transform: uppercase;
+	 		letter-spacing: 0.2em;
+	 		padding: 6px 10px;
+	 		color: #777;
+	 		color: $brown;
+	 		text-shadow: 0 1px 0 #fff;
+	 		&:hover {color: $orange;}
+	 		span {
+	 			padding-left: 16px;
+	 			background: transparent url(/images/redesign/icon-10-magnify.png) no-repeat;
+	 			background-position: 0 4px;
+				&:hover {background-position: 0 -96px;}
+	 		}
+		}
+		.top_promo {
+			display: block;
+			&.profile {
+				padding: 0 0 0 8px;
+				a {
+					img {
+						border: 1px solid $orange;
+						margin: -4px 10px 0 0;
+						&:hover {
+							border: 1px solid #000;
+							@include box-shadow(#aaa,1px,1px,1px);
+						}
+					}
+				}
+				ul {
+					height: 30px;
+					border-bottom: 1px dotted #ccc;
+					margin: 14px 0 8px;
+					padding: 0;
+					li {
+						display: inline;
+						padding: 4px 5px 4px 0;
+						a {
+							padding: 0 5px 0 0;
+							color: $orange;
+							&:hover {
+								text-decoration: underline;
+								color: $brown;
+							}
+						}
+					}
+				}
+			}
+			&.restaurant_promo {
+				padding: 0 0 0 8px; 
+			 	a {
+					display: block;
+					background: transparent url(/images/redesign/icon-30-restaurant.png) no-repeat;
+					background-position: 0 0;
+					padding: 0 0 0 36px;
+					font-family: 'Hoefler Text', Georgia, Serif;
+					font-weight: bold;
+					font-size: 14px;
+					line-height: 17px;
+					&:hover {
+						color: $brown;
+						background-position: 0 -100px;
+					}
+				}
+			}
+	 	}
+	}
+} /* ## END OF header ------------------- */
+
+
+#primary_nav {
+	width: 974px;
+	background: #fff url(/images/redesign/nav-bg.gif) repeat-x;
+	height: 60px;
+	a {
+		float: left;
+		@include hiddentext;
+		height: 60px;
+		background: transparent url(/images/redesign/nav.png) no-repeat;
+		&#nav_dashboard {
+			width: 132px;
+			background-position: 0 0;
+			&:hover {background-position: 0 -100px;}
+			&.selected {background-position: 0 -200px;}
+		}
+		&#nav_myprofile {
+			width: 130px;
+			background-position: -132px 0;
+			&:hover {background-position: -132px -100px;}
+			&.selected {background-position: -132px -200px;}
+		}
+		&#nav_myrestaurants {
+			width: 175px;
+			background-position: -262px 0;
+			&:hover {background-position: -262px -100px;}
+			&.selected {background-position:-262px -200px;}
+		}
+		&#nav_frontburner {
+			width: 159px;
+			background-position: -437px 0;
+			&:hover {background-position: -437px -100px;}
+			&.selected {background-position:-437px -200px;}
+		}
+		&#nav_messages {
+			width: 119px;
+			background-position: -596px 0;
+			&:hover {background-position: -596px -100px;}
+			&.selected {background-position:-596px -200px;}
+		}
+		&#nav_socialmedia {
+			width: 150px;
+			background-position: -715px 0;
+			&:hover {background-position: -715px -100px;}
+			&.selected {background-position:-715px -200px;}
+		}
+		&#nav_contact {
+			width: 108px;
+			background-position: -865px 0;
+			&:hover {background-position: -865px -100px;}
+			&.selected {background-position:-865px -200px;}
+		}
+	}
+}
+
+
+#main {
+	min-height:500px;
+	background: #fff;
+	@include box-shadow(#ddd,0px,2px,5px);
+	margin: 0 0 0px 0;
+	z-index: 500;
+	background: transparent url(/images/redesign/bg-fauxcolumn.gif) repeat-y;
+}
+
+#content {
+	@include column(18);
+	header {
+		padding: 5px 15px;
+		margin: 0;
+		border-bottom: 1px dotted #ddd;
+		.user_actions {
+			float: right;
+			display: block;
+			width: 230px;
+			a {
+				display: block;
+				padding: 10px;
+				margin: 0 0 10px 0;
+				font-family: 'Hoefler Text', Georgia, Serif;
+				text-transform: uppercase;
+				text-shadow: 0 1px 0 #fff;
+				letter-spacing: 0.2em;
+				font-weight: bold;
+				background-color: $trans-orange;
+				&.private_message {
+					background: $trans-orange url(/images/redesign/icon-16-bubble.png) no-repeat;
+					background-position: 10px 10px;
+					padding-left: 32px;
+					&:hover {
+						color: $brown;
+						background-color: $trans-brown;
+						background-position: 10px -90px;
+					}
+				}
+				&.follow_user {
+					background: $trans-orange url(/images/redesign/icon-16-follow.png) no-repeat;
+					background-position: 10px 10px;
+					padding-left: 32px;
+					&:hover {
+						color: $brown;
+						background-color: $trans-brown;
+						background-position: 10px -90px;
+					}
+				}
+			}
+		}
+	}
+}
+
+#sidebar_b {
+	@include column(6, true);
+	#sidebar_content {
+		margin: 0 8px 0 6px;
+		.promo {
+			display: block;
+			border: 1px solid #ddd;
+			margin: 0 0 10px 0;
+			padding: 13px 10px;
+			@include box-shadow(#eee,0px, 1px,0px);
+			&#invitation {
+				font-family: 'Hoefler Text', Georgia, serif;
+				font-style: italic;
+				font-weight: bold;
+				font-size: 18px;
+				background: transparent url(/images/redesign/icon-32-mailarrow.png) no-repeat;
+				background-position: 10px 10px;
+				padding-left: 50px;
+				&:hover {
+					background-position: 10px -90px;
+					color: #999;
+				}
+			}
+			&#btl_game {
+				background-color: $trans-brown;
+				.new_question {
+					@include hiddentext;
+					float: right;
+					width: 25px;
+					height: 25px;
+					background-image: url(/images/redesign/icon-refresh.png);
+				}
+			}
+		}
+	}
+}
+
+#footer_container {
+	position: relative;
+	display: block;
+	border-top: 10px solid #000;
+	z-index: 1000;
+	background-color: #333;
+	height: 150px;
+	footer {
+		width: 974px;
+		margin: 0 auto;
+		color: #fff;
+	}
 }

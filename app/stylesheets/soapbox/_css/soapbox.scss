@@ -4,7 +4,7 @@
 @import "blueprint";
 @import "compass/css3";
 // To configure blueprint, edit the partials/base.sass file.
-@import "../../partials/base";
+@import "../partials/base";
 @import "compass/layout/sticky-footer";
 
 // Import all the default blueprint modules so that we can access their mixins.
@@ -21,6 +21,7 @@ body{
 	background:$body-bg url(/images/soapbox/bg-site.jpg) repeat-x;
 	color:$font-color;
 }
+
 #container{
 	@include container;
 	position:relative;

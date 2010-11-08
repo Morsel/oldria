@@ -151,12 +151,416 @@ article, aside, canvas, details, figcaption, figure, footer, header, hgroup, men
   overflow: hidden;
 }
 
-/* line 15, ../../../app/stylesheets/redesign/_css/spoonfeed.scss */
+/* line 13, ../../../app/stylesheets/redesign/_css/spoonfeed.scss */
 .clear {
   clear: both;
 }
 
-/* line 19, ../../../app/stylesheets/redesign/_css/spoonfeed.scss */
+/* line 14, ../../../app/stylesheets/redesign/_css/spoonfeed.scss */
+a {
+  text-decoration: none;
+  color: #d8531e;
+}
+
+/* line 16, ../../../app/stylesheets/redesign/_css/spoonfeed.scss */
 body {
-  font: normal 10px "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font: normal 12px "Helvetica Neue", Helvetica, Arial, sans-serif;
+  background: white url(/images/redesign/bg-strip.gif) repeat-x;
+  color: #333;
+}
+
+/* line 22, ../../../app/stylesheets/redesign/_css/spoonfeed.scss */
+#container {
+  width: 974px;
+  margin: 0 auto;
+  *zoom: 1;
+  position: relative;
+}
+
+/* line 29, ../../../app/stylesheets/redesign/_css/spoonfeed.scss */
+#site_header {
+  display: block;
+  height: 140px;
+}
+/* line 32, ../../../app/stylesheets/redesign/_css/spoonfeed.scss */
+#site_header .branding {
+  display: inline;
+  float: left;
+  margin-right: 10px;
+  width: 728px;
+}
+/* line 139, ../../../../../../.rvm/gems/ruby-1.8.7-p302@spoonfeed/gems/compass-0.10.5/frameworks/blueprint/stylesheets/blueprint/_grid.scss */
+* html #site_header .branding {
+  overflow-x: hidden;
+}
+/* line 34, ../../../app/stylesheets/redesign/_css/spoonfeed.scss */
+#site_header .branding h1#logo {
+  background: transparent url(/images/redesign/sf-logo.png) no-repeat;
+  background-position: -3px 0px;
+  display: block;
+  width: 735px;
+  height: 123px;
+  display: block;
+  outline: 0;
+  text-indent: -9999px;
+}
+/* line 43, ../../../app/stylesheets/redesign/_css/spoonfeed.scss */
+#site_header .header_right {
+  display: inline;
+  float: left;
+  margin-right: 0;
+  width: 236px;
+}
+/* line 139, ../../../../../../.rvm/gems/ruby-1.8.7-p302@spoonfeed/gems/compass-0.10.5/frameworks/blueprint/stylesheets/blueprint/_grid.scss */
+* html #site_header .header_right {
+  overflow-x: hidden;
+}
+/* line 45, ../../../app/stylesheets/redesign/_css/spoonfeed.scss */
+#site_header .header_right img {
+  float: left;
+  display: inline;
+  margin: 0 10px 0 0;
+}
+/* line 50, ../../../app/stylesheets/redesign/_css/spoonfeed.scss */
+#site_header .header_right a#search {
+  display: block;
+  font-family: 'BrandonGrotesqueBold', 'Helvetica Neue', Helvetica, arial, sans-serif;
+  font-weight: normal !important;
+  text-align: right;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  padding: 6px 10px;
+  color: #777;
+  color: #897a55;
+  text-shadow: 0 1px 0 #fff;
+}
+/* line 60, ../../../app/stylesheets/redesign/_css/spoonfeed.scss */
+#site_header .header_right a#search:hover {
+  color: #d8531e;
+}
+/* line 61, ../../../app/stylesheets/redesign/_css/spoonfeed.scss */
+#site_header .header_right a#search span {
+  padding-left: 16px;
+  background: transparent url(/images/redesign/icon-10-magnify.png) no-repeat;
+  background-position: 0 4px;
+}
+/* line 65, ../../../app/stylesheets/redesign/_css/spoonfeed.scss */
+#site_header .header_right a#search span:hover {
+  background-position: 0 -96px;
+}
+/* line 68, ../../../app/stylesheets/redesign/_css/spoonfeed.scss */
+#site_header .header_right .top_promo {
+  display: block;
+}
+/* line 70, ../../../app/stylesheets/redesign/_css/spoonfeed.scss */
+#site_header .header_right .top_promo.profile {
+  padding: 0 0 0 8px;
+}
+/* line 73, ../../../app/stylesheets/redesign/_css/spoonfeed.scss */
+#site_header .header_right .top_promo.profile a img {
+  border: 1px solid #d8531e;
+  margin: -4px 10px 0 0;
+}
+/* line 76, ../../../app/stylesheets/redesign/_css/spoonfeed.scss */
+#site_header .header_right .top_promo.profile a img:hover {
+  border: 1px solid #000;
+  -moz-box-shadow: #aaaaaa 1px 1px 1px 0;
+  -webkit-box-shadow: #aaaaaa 1px 1px 1px 0;
+  -o-box-shadow: #aaaaaa 1px 1px 1px 0;
+  box-shadow: #aaaaaa 1px 1px 1px 0;
+}
+/* line 82, ../../../app/stylesheets/redesign/_css/spoonfeed.scss */
+#site_header .header_right .top_promo.profile ul {
+  height: 30px;
+  border-bottom: 1px dotted #ccc;
+  margin: 14px 0 8px;
+  padding: 0;
+}
+/* line 87, ../../../app/stylesheets/redesign/_css/spoonfeed.scss */
+#site_header .header_right .top_promo.profile ul li {
+  display: inline;
+  padding: 4px 5px 4px 0;
+}
+/* line 90, ../../../app/stylesheets/redesign/_css/spoonfeed.scss */
+#site_header .header_right .top_promo.profile ul li a {
+  padding: 0 5px 0 0;
+  color: #d8531e;
+}
+/* line 93, ../../../app/stylesheets/redesign/_css/spoonfeed.scss */
+#site_header .header_right .top_promo.profile ul li a:hover {
+  text-decoration: underline;
+  color: #897a55;
+}
+/* line 101, ../../../app/stylesheets/redesign/_css/spoonfeed.scss */
+#site_header .header_right .top_promo.restaurant_promo {
+  padding: 0 0 0 8px;
+}
+/* line 103, ../../../app/stylesheets/redesign/_css/spoonfeed.scss */
+#site_header .header_right .top_promo.restaurant_promo a {
+  display: block;
+  background: transparent url(/images/redesign/icon-30-restaurant.png) no-repeat;
+  background-position: 0 0;
+  padding: 0 0 0 36px;
+  font-family: 'Hoefler Text', Georgia, Serif;
+  font-weight: bold;
+  font-size: 14px;
+  line-height: 17px;
+}
+/* line 112, ../../../app/stylesheets/redesign/_css/spoonfeed.scss */
+#site_header .header_right .top_promo.restaurant_promo a:hover {
+  color: #897a55;
+  background-position: 0 -100px;
+}
+
+/* ## END OF header ------------------- */
+/* line 123, ../../../app/stylesheets/redesign/_css/spoonfeed.scss */
+#primary_nav {
+  width: 974px;
+  background: white url(/images/redesign/nav-bg.gif) repeat-x;
+  height: 60px;
+}
+/* line 127, ../../../app/stylesheets/redesign/_css/spoonfeed.scss */
+#primary_nav a {
+  float: left;
+  display: block;
+  outline: 0;
+  text-indent: -9999px;
+  height: 60px;
+  background: transparent url(/images/redesign/nav.png) no-repeat;
+}
+/* line 132, ../../../app/stylesheets/redesign/_css/spoonfeed.scss */
+#primary_nav a#nav_dashboard {
+  width: 132px;
+  background-position: 0 0;
+}
+/* line 135, ../../../app/stylesheets/redesign/_css/spoonfeed.scss */
+#primary_nav a#nav_dashboard:hover {
+  background-position: 0 -100px;
+}
+/* line 136, ../../../app/stylesheets/redesign/_css/spoonfeed.scss */
+#primary_nav a#nav_dashboard.selected {
+  background-position: 0 -200px;
+}
+/* line 138, ../../../app/stylesheets/redesign/_css/spoonfeed.scss */
+#primary_nav a#nav_myprofile {
+  width: 130px;
+  background-position: -132px 0;
+}
+/* line 141, ../../../app/stylesheets/redesign/_css/spoonfeed.scss */
+#primary_nav a#nav_myprofile:hover {
+  background-position: -132px -100px;
+}
+/* line 142, ../../../app/stylesheets/redesign/_css/spoonfeed.scss */
+#primary_nav a#nav_myprofile.selected {
+  background-position: -132px -200px;
+}
+/* line 144, ../../../app/stylesheets/redesign/_css/spoonfeed.scss */
+#primary_nav a#nav_myrestaurants {
+  width: 175px;
+  background-position: -262px 0;
+}
+/* line 147, ../../../app/stylesheets/redesign/_css/spoonfeed.scss */
+#primary_nav a#nav_myrestaurants:hover {
+  background-position: -262px -100px;
+}
+/* line 148, ../../../app/stylesheets/redesign/_css/spoonfeed.scss */
+#primary_nav a#nav_myrestaurants.selected {
+  background-position: -262px -200px;
+}
+/* line 150, ../../../app/stylesheets/redesign/_css/spoonfeed.scss */
+#primary_nav a#nav_frontburner {
+  width: 159px;
+  background-position: -437px 0;
+}
+/* line 153, ../../../app/stylesheets/redesign/_css/spoonfeed.scss */
+#primary_nav a#nav_frontburner:hover {
+  background-position: -437px -100px;
+}
+/* line 154, ../../../app/stylesheets/redesign/_css/spoonfeed.scss */
+#primary_nav a#nav_frontburner.selected {
+  background-position: -437px -200px;
+}
+/* line 156, ../../../app/stylesheets/redesign/_css/spoonfeed.scss */
+#primary_nav a#nav_messages {
+  width: 119px;
+  background-position: -596px 0;
+}
+/* line 159, ../../../app/stylesheets/redesign/_css/spoonfeed.scss */
+#primary_nav a#nav_messages:hover {
+  background-position: -596px -100px;
+}
+/* line 160, ../../../app/stylesheets/redesign/_css/spoonfeed.scss */
+#primary_nav a#nav_messages.selected {
+  background-position: -596px -200px;
+}
+/* line 162, ../../../app/stylesheets/redesign/_css/spoonfeed.scss */
+#primary_nav a#nav_socialmedia {
+  width: 150px;
+  background-position: -715px 0;
+}
+/* line 165, ../../../app/stylesheets/redesign/_css/spoonfeed.scss */
+#primary_nav a#nav_socialmedia:hover {
+  background-position: -715px -100px;
+}
+/* line 166, ../../../app/stylesheets/redesign/_css/spoonfeed.scss */
+#primary_nav a#nav_socialmedia.selected {
+  background-position: -715px -200px;
+}
+/* line 168, ../../../app/stylesheets/redesign/_css/spoonfeed.scss */
+#primary_nav a#nav_contact {
+  width: 108px;
+  background-position: -865px 0;
+}
+/* line 171, ../../../app/stylesheets/redesign/_css/spoonfeed.scss */
+#primary_nav a#nav_contact:hover {
+  background-position: -865px -100px;
+}
+/* line 172, ../../../app/stylesheets/redesign/_css/spoonfeed.scss */
+#primary_nav a#nav_contact.selected {
+  background-position: -865px -200px;
+}
+
+/* line 178, ../../../app/stylesheets/redesign/_css/spoonfeed.scss */
+#main {
+  min-height: 500px;
+  background: #fff;
+  -moz-box-shadow: #dddddd 0px 2px 5px 0;
+  -webkit-box-shadow: #dddddd 0px 2px 5px 0;
+  -o-box-shadow: #dddddd 0px 2px 5px 0;
+  box-shadow: #dddddd 0px 2px 5px 0;
+  margin: 0 0 0px 0;
+  z-index: 500;
+  background: transparent url(/images/redesign/bg-fauxcolumn.gif) repeat-y;
+}
+
+/* line 187, ../../../app/stylesheets/redesign/_css/spoonfeed.scss */
+#content {
+  display: inline;
+  float: left;
+  margin-right: 10px;
+  width: 728px;
+}
+/* line 139, ../../../../../../.rvm/gems/ruby-1.8.7-p302@spoonfeed/gems/compass-0.10.5/frameworks/blueprint/stylesheets/blueprint/_grid.scss */
+* html #content {
+  overflow-x: hidden;
+}
+/* line 189, ../../../app/stylesheets/redesign/_css/spoonfeed.scss */
+#content header {
+  padding: 5px 15px;
+  margin: 0;
+  border-bottom: 1px dotted #ddd;
+}
+/* line 193, ../../../app/stylesheets/redesign/_css/spoonfeed.scss */
+#content header .user_actions {
+  float: right;
+  display: block;
+  width: 230px;
+}
+/* line 197, ../../../app/stylesheets/redesign/_css/spoonfeed.scss */
+#content header .user_actions a {
+  display: block;
+  padding: 10px;
+  margin: 0 0 10px 0;
+  font-family: 'Hoefler Text', Georgia, Serif;
+  text-transform: uppercase;
+  text-shadow: 0 1px 0 #fff;
+  letter-spacing: 0.2em;
+  font-weight: bold;
+  background-color: #faeae4;
+}
+/* line 207, ../../../app/stylesheets/redesign/_css/spoonfeed.scss */
+#content header .user_actions a.private_message {
+  background: #faeae4 url(/images/redesign/icon-16-bubble.png) no-repeat;
+  background-position: 10px 10px;
+  padding-left: 32px;
+}
+/* line 211, ../../../app/stylesheets/redesign/_css/spoonfeed.scss */
+#content header .user_actions a.private_message:hover {
+  color: #897a55;
+  background-color: #f7f6f2;
+  background-position: 10px -90px;
+}
+/* line 217, ../../../app/stylesheets/redesign/_css/spoonfeed.scss */
+#content header .user_actions a.follow_user {
+  background: #faeae4 url(/images/redesign/icon-16-follow.png) no-repeat;
+  background-position: 10px 10px;
+  padding-left: 32px;
+}
+/* line 221, ../../../app/stylesheets/redesign/_css/spoonfeed.scss */
+#content header .user_actions a.follow_user:hover {
+  color: #897a55;
+  background-color: #f7f6f2;
+  background-position: 10px -90px;
+}
+
+/* line 232, ../../../app/stylesheets/redesign/_css/spoonfeed.scss */
+#sidebar_b {
+  display: inline;
+  float: left;
+  margin-right: 0;
+  width: 236px;
+}
+/* line 139, ../../../../../../.rvm/gems/ruby-1.8.7-p302@spoonfeed/gems/compass-0.10.5/frameworks/blueprint/stylesheets/blueprint/_grid.scss */
+* html #sidebar_b {
+  overflow-x: hidden;
+}
+/* line 234, ../../../app/stylesheets/redesign/_css/spoonfeed.scss */
+#sidebar_b #sidebar_content {
+  margin: 0 8px 0 6px;
+}
+/* line 236, ../../../app/stylesheets/redesign/_css/spoonfeed.scss */
+#sidebar_b #sidebar_content .promo {
+  display: block;
+  border: 1px solid #ddd;
+  margin: 0 0 10px 0;
+  padding: 13px 10px;
+  -moz-box-shadow: #eeeeee 0px 1px 0px 0;
+  -webkit-box-shadow: #eeeeee 0px 1px 0px 0;
+  -o-box-shadow: #eeeeee 0px 1px 0px 0;
+  box-shadow: #eeeeee 0px 1px 0px 0;
+}
+/* line 242, ../../../app/stylesheets/redesign/_css/spoonfeed.scss */
+#sidebar_b #sidebar_content .promo#invitation {
+  font-family: 'Hoefler Text', Georgia, serif;
+  font-style: italic;
+  font-weight: bold;
+  font-size: 18px;
+  background: transparent url(/images/redesign/icon-32-mailarrow.png) no-repeat;
+  background-position: 10px 10px;
+  padding-left: 50px;
+}
+/* line 250, ../../../app/stylesheets/redesign/_css/spoonfeed.scss */
+#sidebar_b #sidebar_content .promo#invitation:hover {
+  background-position: 10px -90px;
+  color: #999;
+}
+/* line 255, ../../../app/stylesheets/redesign/_css/spoonfeed.scss */
+#sidebar_b #sidebar_content .promo#btl_game {
+  background-color: #f7f6f2;
+}
+/* line 257, ../../../app/stylesheets/redesign/_css/spoonfeed.scss */
+#sidebar_b #sidebar_content .promo#btl_game .new_question {
+  display: block;
+  outline: 0;
+  text-indent: -9999px;
+  float: right;
+  width: 25px;
+  height: 25px;
+  background-image: url(/images/redesign/icon-refresh.png);
+}
+
+/* line 269, ../../../app/stylesheets/redesign/_css/spoonfeed.scss */
+#footer_container {
+  position: relative;
+  display: block;
+  border-top: 10px solid #000;
+  z-index: 1000;
+  background-color: #333;
+  height: 150px;
+}
+/* line 276, ../../../app/stylesheets/redesign/_css/spoonfeed.scss */
+#footer_container footer {
+  width: 974px;
+  margin: 0 auto;
+  color: #fff;
 }
