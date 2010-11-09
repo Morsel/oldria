@@ -884,10 +884,10 @@ body{
 }
 
 #flashes {
-	margin-left: 15px;
+	clear:both;
+	margin:15px;
 	div{
 		border: 2px solid #DDD;
-		margin:15px 0;
 		padding: 0.8em;
 		&#flash_error{
 			background: #FBE3E4;
