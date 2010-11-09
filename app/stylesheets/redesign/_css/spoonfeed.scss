@@ -345,6 +345,33 @@ body{
 		min-height:0;
 		@include column(24);
 		background: transparent url(/images/redesign/bg-steps.png) no-repeat;
+		position:relative;
+		a#request_an_invitation {
+			display: block;
+			font-size: 16px;
+			font-weight: bold;
+			text-transform: uppercase;
+			text-align: center;
+			position:absolute;
+			bottom:0;
+			right:0;
+			padding: 15px 0 0 0;
+			height: 70px;
+			background: transparent url(/images/redesign/ticket.png) no-repeat;
+			font-family: 'Hoefler Text', Georgia, serif;
+			color: #fff;
+			line-height: 21px;
+			text-shadow: 0 1px 0 #333;
+			width:134px;
+			&:hover {
+				background-position: -200px 3px;
+				padding: 18px 0 0 0;
+				height: 67px;
+				@include box-shadow(#ccc,3px,3px,3px);
+				color: rgba(255,255,255,.5);
+				text-shadow: none;
+			}
+		}
 		section {
 			padding: 0 10px;
 			margin: 0 10px 20px 0;
@@ -393,30 +420,6 @@ body{
 				width:134px;
 				margin: 0;
 				padding-right: 0;
-				a#request_an_invitation {
-					display: block;
-					font-size: 16px;
-					font-weight: bold;
-					text-transform: uppercase;
-					text-align: center;
-					margin: 20px 0 0;
-					padding: 15px 0 0 0;
-					height: 70px;
-					background: transparent url(/images/redesign/ticket.png) no-repeat;
-					font-family: 'Hoefler Text', Georgia, serif;
-					color: #fff;
-					line-height: 21px;
-					text-shadow: 0 1px 0 #333;
-					
-					&:hover {
-						background-position: -200px 3px;
-						padding: 18px 0 0 0;
-						height: 67px;
-						@include box-shadow(#ccc,3px,3px,3px);
-						color: rgba(255,255,255,.5);
-						text-shadow: none;
-					}
-				}
 			}
 		}
 	}
