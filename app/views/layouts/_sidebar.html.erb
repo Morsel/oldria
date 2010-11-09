@@ -5,9 +5,15 @@
 		  
   		  <%= yield :sidebar %>
 			
+<<<<<<< HEAD
+			<% if current_user && current_user.admin? %>
+	          <%= link_to "Go to Admin", admin_root_path, :class => "promo go_to_admin" %>
+	        <% end %>
+=======
   			<% if current_user && current_user.admin? %>
   	          <%= link_to "Go to Admin", admin_root_path, :cass => "promo" %>
   	        <% end %>
+>>>>>>> 51a5cefe8ccb78a1cbfc58598cd2ab53c274ec55
 			
   			<%= link_to "Send an Invitation", new_invitation_path, :id => "invitation", :class => "promo" %>
 			
