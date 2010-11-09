@@ -6,6 +6,8 @@ class WelcomeController < ApplicationController
       set_up_dashboard
       render :dashboard
     else
+      @sf_slides = SfSlide.all(:limit => 4)
+      @sf_promos = SfPromo.all(:limit => 4)
       render :layout => 'home'
     end
   end
