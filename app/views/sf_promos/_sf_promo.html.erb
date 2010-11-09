@@ -1,4 +1,7 @@
-<section id="<%= sf_promo.title.paramaterize %>">
-	<h1><%= sf_promo.title %></h1>
-	<%= sf_promo.body %>
-</section><!--#<%= sf_promo.title.paramaterize %>-->
+<section class="hp_promo <%= 'first' if sf_promo == @sf_promos.first %> <%= 'last' if sf_promo == @sf_promos.last %>">
+  <h1><%= sf_promo.title %></h1>
+	<%= simple_format sf_promo.body %>
+	<% if sf_promo == @sf_promos.last -%>
+	  <%= link_to "Request an invitation", new_invitation_path, :id => "request_an_invitation" %>
+	<% end -%>
+</section>
