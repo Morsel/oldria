@@ -1,14 +1,5 @@
-# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
-
-one:
-  braintree_id: MyString
-  start_date: 2010-10-20
-
-two:
-  braintree_id: MyString
-  start_date: 2010-10-20
-
 # == Schema Information
+# Schema version: 20101104213542
 #
 # Table name: subscriptions
 #
@@ -23,5 +14,16 @@ two:
 #  created_at      :datetime
 #  updated_at      :datetime
 #  end_date        :date
+#  status          :string(255)
 #
+
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  braintree_id: MyString
+  start_date: 2010-10-20
+
+two:
+  braintree_id: MyString
+  start_date: 2010-10-20
 

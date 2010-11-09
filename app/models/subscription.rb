@@ -1,3 +1,22 @@
+# == Schema Information
+# Schema version: 20101104213542
+#
+# Table name: subscriptions
+#
+#  id              :integer         not null, primary key
+#  braintree_id    :string(255)
+#  start_date      :date
+#  subscriber_id   :integer
+#  subscriber_type :string(255)
+#  payer_id        :integer
+#  payer_type      :string(255)
+#  kind            :string(255)
+#  created_at      :datetime
+#  updated_at      :datetime
+#  end_date        :date
+#  status          :string(255)
+#
+
 class Subscription < ActiveRecord::Base
 
   module Status
@@ -106,21 +125,4 @@ class Subscription < ActiveRecord::Base
   end
 
 end
-
-# == Schema Information
-#
-# Table name: subscriptions
-#
-#  id              :integer         not null, primary key
-#  braintree_id    :string(255)
-#  start_date      :date
-#  subscriber_id   :integer
-#  subscriber_type :string(255)
-#  payer_id        :integer
-#  payer_type      :string(255)
-#  kind            :string(255)
-#  created_at      :datetime
-#  updated_at      :datetime
-#  end_date        :date
-#
 

@@ -1,4 +1,5 @@
 # == Schema Information
+# Schema version: 20101104213542
 #
 # Table name: invitations
 #
@@ -7,7 +8,7 @@
 #  last_name          :string(255)
 #  email              :string(255)
 #  title              :string(255)
-#  coworker           :boolean         default(FALSE)
+#  coworker           :boolean
 #  restaurant_id      :integer
 #  restaurant_name    :string(255)
 #  requesting_user_id :integer
@@ -15,7 +16,7 @@
 #  approved_at        :datetime
 #  created_at         :datetime
 #  updated_at         :datetime
-#  archived           :boolean         default(FALSE)
+#  archived           :boolean
 #
 
 class Invitation < ActiveRecord::Base
