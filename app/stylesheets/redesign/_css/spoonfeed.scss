@@ -292,7 +292,7 @@ body{
 	margin: 0;
 	position: absolute;
 	width: 974px;
-	top: 413px;
+	top: 408px;
 	z-index: 1000;
 	background: transparent url(/images/redesign/bg-controller.png) no-repeat 0 100%;
 	nav {
@@ -342,12 +342,15 @@ body{
 #content {
 	min-height: 500px;
 	&.hp {
+		min-height:0;
 		@include column(24);
 		background: transparent url(/images/redesign/bg-steps.png) no-repeat;
 		section {
 			padding: 0 10px;
 			margin: 0 10px 20px 0;
 			&.hp_promo {
+				float: left;
+				width: 216px;
 				p {
 					font-weight: 300;
 					font-size: 16px;
@@ -364,8 +367,7 @@ body{
 				color: $orange;
 				text-shadow: 0 1px 0 #fff;
 			}
-			&#whos_on {
-				float: left;
+			&.first {
 				width: 298px;
 				h1 {
 					color: #fff;
@@ -387,16 +389,7 @@ body{
 					margin: 10px 0;
 				}
 			}
-			&#what_it_takes {
-				float: left;
-				width: 216px;
-			}
-			&#what_you_get {
-				float: left;
-				width: 216px;
-			}
-			&#how_to_join {
-				float: left;
+			&.last {
 				width:134px;
 				margin: 0;
 				padding-right: 0;

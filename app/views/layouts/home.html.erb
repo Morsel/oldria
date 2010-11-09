@@ -18,25 +18,7 @@
 		
 		<%= render 'layouts/flashes' %>
 		<div id="content" class="hp">
-      <section id="whos_on">
-				<h1>Who's On</h1>
-				<img src="/images/redesign/user-45-paul.jpg" alt="Paul Kahan" title="Paul Kahan" />
-				<p><a href="#">Paul Kahan</a>, Executive Chef + Owner: Publican, Blackbird, Avec, Big Star</p>
-				<p class="user_quote">"Using Spoonfeed is the quickest way I know to live up to my responsibilities as spokesperson for the restaurant so I can get back to cooking</p>
-			</section><!--#whos_on-->
-			<section id="what_it_takes" class="hp_promo">
-				<h1>What it Takes</h1>
-				<p>The willingness to share your food, your philosophies, and your inspirations–all in your own words.</p>
-			</section>
-			<section id="what_you_get" class="hp_promo">
-				<h1>What you Get</h1>
-				<p>Spoonfeed gives you the chance to be available to the media even when you don’t have time to answer their calls.</p>
-			</section><!--#what_you_get-->
-			<section id="how_to_join" class="hp_promo">
-				<h1>How to Join</h1>
-				<p>Spoonfeed offers a free social network for the restaurant industry.</p>
-				<a href="#" id="request_an_invitation"><span>Request an</span> invitation</a>
-			</section><!--#how_to_join-->
+      <%= render @sf_promos %>
     </div><!-- /content -->
     <div class="clear"></div>
   </div><!-- /main -->
