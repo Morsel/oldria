@@ -74,6 +74,7 @@ body{
 				padding: 0 0 0 8px;
 				a {
 					white-space:nowrap;
+					color: #aaa;
 					img {
 						border: 1px solid $orange;
 						margin: -4px 10px 0 0;
@@ -471,6 +472,201 @@ body{
 			}
 		}
 	}
+} /* ## END OF #content ------------------- */
+
+#page_content {
+	padding: 5px 14px 20px 18px;
+	h1 {
+		font-family: 'Hoefler Text', Georgia, serif;
+		font-weight: bold;
+		font-style: italic;
+		font-size: 24px;
+		color: #333;
+		line-height: 30px;
+		padding: 0;
+		margin: 5px 0 12px 0;
+		&.pg_title {margin: 0 0 15px 0;}
+		a {
+			color: $orange;
+			text-decoration: none;
+			&:hover {
+				color: $brown;
+			}
+		}
+	}
+	h2 {
+		font-family: 'Hoefler Text', Georgia, serif;
+		font-weight: bold;
+		font-style: italic;
+		font-size: 21px;
+		color: #333;
+		line-height: 28px;
+		padding: 0;
+		margin: 5px 0 12px 0;
+		a {
+			color: $orange;
+			text-decoration: none;
+			&:hover {
+				color: $brown;
+				text-decoration: none;
+			}
+		}
+	}
+	h3 {
+		font-family: Georgia, Times, serif;
+		font-size: 14px;
+		font-weight: bold;
+		color: #333;
+		margin: 10px 0;
+		a {
+			color: $orange;
+			text-decoration: none;
+			&:hover {
+				color: $brown;
+				text-decoration: none;
+			}
+		}
+	}
+	h4 {
+		font-family: 'Hoefler Text', Georgia, Times, serif;
+		font-size: 12px;
+		font-weight: bold;
+		color:#333;
+		letter-spacing: 0.1em;
+		margin: 8px 0;
+		text-transform: uppercase;
+		line-height: 18px;
+		a {
+			color: $brown;
+			&:hover {
+				text-decoration: underline;
+				color: $orange;
+			}
+		}
+	}
+	h5 {
+		font-weight: 300;
+		font-size: 14px;
+		font-family: "helvetica neue", helvetica, arial, sans-serif;
+		text-transform: uppercase;
+		letter-spacing: 0.1em;
+		color: #333;
+		a {
+			color: $brown;
+			&:hover {
+				color: $orange;
+				text-decoration: underline;
+			}
+		}
+	}
+	h6 {
+		font-size: 11px;
+		a {
+			color: $orange;
+			&:hover {
+				color: $brown;
+			}
+		}
+	}
+	p {
+		font-size: 12px;
+		color: #333;
+		margin: 5px 0 15px;
+		padding: 0;
+		line-height: 18px;
+		a {
+			color: $orange;
+			text-decoration: none;
+			&:hover {
+				color: $brown;
+				text-decoration: underline;
+			}
+			&.button {
+				font-weight: 300;
+				letter-spacing: 0.1em;
+				text-transform: uppercase;
+				padding: 4px 12px;
+				border: 1px solid #ecd2c8;
+				background-color: $trans-orange;
+				color: $orange;
+				@include border-radius(20px);
+				img {
+					margin-right: 2px;}
+				&:hover {
+					background-color: $orange;
+					color: #fff;
+					text-decoration: none;
+					border: 1px solid $orange;
+					text-shadow: 0 1px 0 #333;
+				}
+			}
+		}
+	}
+	blockquote {
+		float: left;
+		width: 262px;
+		margin: 2px 15px 10px 0;
+		padding: 10px 15px;
+		border: 1px solid #e2dfd2;
+		background: $trans-brown;
+		p {
+			font-family:"Hoefler Text", Georgia, Times, serif;
+			font-size: 18px;
+			font-weight: normal;
+			font-style: italic;
+			color: $brown;
+			text-shadow: 0 1px 0 #fff;
+			line-height: 24px;
+			margin: 0;
+			padding: 0;
+		}
+	}
+	ul {
+		margin: 5px 0 15px 0;
+		padding: 0;
+		list-style: none;
+		li {
+			padding: 3px 0 3px 20px;
+			background: transparent url(/images/redesign/square.gif) no-repeat 10px 5px;
+			line-height: 16px;
+			a {
+				color: $orange;
+				text-decoration: none;
+				&:hover {
+					color: $brown;
+					text-decoration: underline;
+				}
+			}
+		}
+	}	
+	ol {
+		margin: 5px 0 15px 18px;
+		padding: 0;
+		list-style: decimal;
+		list-style-position: outside;
+		li {
+			padding: 3px 0;
+			background: none;
+			line-height: 16px;
+			a {
+				color: $orange;
+				text-decoration: none;
+				&:hover {
+					color: $brown;
+					text-decoration: underline;
+				}
+			}
+		}
+	}
+	dl {
+		dd {
+			font-weight: bold;
+			color: #333;
+		}
+		dt {
+			margin: 0 0 10px 0;
+		}
+	}
 }
 
 #sidebar_b {
@@ -484,18 +680,24 @@ body{
 			padding: 13px 10px;
 			@include box-shadow(#eee,0px, 1px,0px);
 			@include transition;
+			&.go_to_admin {
+				font-family: 'Hoefler Text', Georgia, serif;
+				font-style: italic;
+				font-weight: bold;
+				font-size: 18px;
+				&:hover {
+					color: #fff;
+					background-color: $brown;
+				}
+			}
 			&#invitation {
 				font-family: 'Hoefler Text', Georgia, serif;
 				font-style: italic;
 				font-weight: bold;
 				font-size: 18px;
-				background: transparent url(/images/redesign/icon-32-mailarrow.png) no-repeat;
-				background-position: 10px 10px;
-				padding-left: 50px;
 				&:hover {
-					background-position: 10px -90px;
-					color: #999;
-					background-color: #f2f2f2;
+					color: #fff;
+					background-color: $brown;
 				}
 			}
 			&#btl_game {
@@ -681,24 +883,27 @@ body{
 	}
 }
 
-#flashes div{
-	border: 2px solid #DDD;
-	margin-bottom: 1em;
-	padding: 0.8em;
-	&#flash_error{
-		background: #FBE3E4;
-		border-color: #FBC2C4;
-		color: #8A1F11;
-	}
-	&#flash_notice{
-		background: #FFF6BF;
-		border-color: #FFD324;
-		color: #514721;
-	}
-	&#flash_success{
-		background: #E6EFC2;
-		border-color: #C6D880;
-		color: #264409;
+#flashes {
+	margin-left: 15px;
+	div{
+		border: 2px solid #DDD;
+		margin-bottom: 1em;
+		padding: 0.8em;
+		&#flash_error{
+			background: #FBE3E4;
+			border-color: #FBC2C4;
+			color: #8A1F11;
+		}
+		&#flash_notice{
+			background: #FFF6BF;
+			border-color: #FFD324;
+			color: #514721;
+		}
+		&#flash_success{
+			background: #E6EFC2;
+			border-color: #C6D880;
+			color: #264409;
+		}
 	}
 }
 
