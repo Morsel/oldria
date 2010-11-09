@@ -13,7 +13,7 @@
 			
 			<% if @btl_question %>
             <aside class="promo" id="btl_game">
-              <%= render :partial => "shared/btl_game" %>
+              <%= render :partial => "shared/btl_game", :locals => { :question => @btl_question } %>
             </aside><!--#btl_game-->
             <% end %>
 

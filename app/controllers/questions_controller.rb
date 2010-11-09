@@ -55,8 +55,8 @@ class QuestionsController < ApplicationController
   end
   
   def refresh
-    load_random_btl_question
-    render :partial => "shared/btl_game"
+    @btl_question = ProfileQuestion.for_user(current_user).random.reject { |q| q.answered_by?(current_user) }.first
+    render :partial => "shared/btl_game", :locals => { :question => @btl_question }
   end
   
   protected
