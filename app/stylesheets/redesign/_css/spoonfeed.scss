@@ -344,7 +344,7 @@ body{
 #content {
 	min-height: 500px;
 	&.hp {
-		min-height:0;
+		min-height:120px;
 		@include column(24);
 		background: transparent url(/images/redesign/bg-steps.png) no-repeat;
 		position:relative;
@@ -1024,26 +1024,49 @@ body{
 		letter-spacing: 0.1em;
 		margin: 0 0 10px 0;
 		padding: 0;
+		text-transform: uppercase;
 	}
 	.comment_date {
 		float: right;
 		font-family: "Hoefler Text", Georgia, serif;
 		font-size: 12px;
-		margin: -24px 0 0 15px;
+		margin: -25px 8px 0 0;
 		color: $orange;
 		font-size: 12px;
 		font-weight: bold;
 		letter-spacing: 0.1em;
 	}
+	.identity {
+		.avatar {
+			float: left;
+			width: 25px;
+			height: 25px;
+			margin: 8px 10px 10px 0;
+			img {
+				display: block;
+				width: 25px;
+				height: 25px;
+				border: 1px solid $brown;
+			}
+		}	
+		ul {
+			margin: 8px 0;
+			padding: 0;
+			li {
+				background: none;
+			}
+		}
+	}
 	.admin_conversation, .admin_discussion {
 		overflow: hidden;
+		background: transparent url(/images/redesign/bg-hp-left.png) no-repeat;
+		margin-bottom: 8px;
 		border-bottom: 1px dotted #ccc;
 		.activity_header {
 			float: left;
 			padding: 12px 15px;
 			width: 273px;
 			min-height: 56px;
-			background: transparent url(/images/redsign/bg-hp-left.png) no-repeat;
 		}
 		.comment {
 			margin-left: 315px;
@@ -1054,6 +1077,8 @@ body{
 #flashes {
 	clear:both;
 	margin: 15px 0;
+	font-family: Gotham, "helvetica neue", arial, sans-serif;
+	font-size: 13px;
 	div{
 		border: 1px solid #ddd;
 		padding: 10px 15px;
