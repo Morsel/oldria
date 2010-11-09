@@ -1,11 +1,11 @@
-<% content_tag_for :li, internship do %>
-  <span class="name"><%= internship.establishment %></span><br />
+<% content_tag_for :li, internship, :class => cycle('odd','even') do %>
+  <span class="extended-title"><%= internship.establishment %></span>
   <%= internship.supervisor %><br />
   <% if internship.end_date %>
   <%= internship.start_date.strftime("%m/%d/%y") %> - <%= internship.end_date.strftime("%m/%d/%y") %>
   <% else %>
   <%= internship.start_date.strftime("%Y") %>
-  <% end %>
+  <% end %><br>
   
   <% if action_name != 'show' %>
     <%= link_to "Edit", edit_my_profile_internship_path(internship), :class => 'colorbox' %>

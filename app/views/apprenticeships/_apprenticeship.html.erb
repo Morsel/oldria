@@ -1,5 +1,6 @@
-<% content_tag_for :li, apprenticeship do %>
-  <span class="name"><%= apprenticeship.establishment %></span><br /><%= apprenticeship.supervisor %><br /><%= apprenticeship.year %>
+<% content_tag_for :li, apprenticeship, :class => cycle('odd','even') do %>
+  <span class="extended-title"><%= apprenticeship.establishment %></span>
+  <%= apprenticeship.supervisor %><br /><%= apprenticeship.year %><br>
   <% if action_name != 'show' %>
     <%= link_to "Edit", edit_my_profile_apprenticeship_path(apprenticeship), :class => 'colorbox' %>
     <%= link_to "Destroy", my_profile_apprenticeship_path(apprenticeship), :method => :delete, :class => 'delete' %>

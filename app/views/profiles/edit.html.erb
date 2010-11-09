@@ -152,9 +152,7 @@
           <ul id="nonculinary_enrollments">
               <%= render @profile.nonculinary_enrollments %>
           </ul>
-          <% link_to new_my_profile_nonculinary_enrollment_path, :class => 'positive button colorbox' do %>
-          <img src="/images/plus.png"/> Add
-          <% end %>
+          <%= link_to "add another", new_my_profile_nonculinary_enrollment_path, :class => 'add_extended colorbox'%>
       </div>
 
       <%= render :partial => 'extended_profile_section', :locals => {
