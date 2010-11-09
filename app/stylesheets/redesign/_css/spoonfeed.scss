@@ -127,21 +127,16 @@ body{
 			&.invite {
 				a {
 					display: block;
-					background: transparent url(/images/redesign/icon-32-mail.png) no-repeat;
-					background-position: 8px 0;
-					padding: 0 10px 15px 50px;
+					padding: 0 10px 12px 10px;
 					font-family: 'Hoefler Text', Georgia, Serif;
 					font-weight: bold;
 					font-size: 14px;
 					text-transform: uppercase;
 					letter-spacing: 0.1em;
 					line-height: 17px;
-					margin: 20px 0 0 0;
+					margin: 15px 0 0 0;
 					border-bottom: 1px dotted #ccc;
-					&:hover {
-						color: $brown;
-						background-position: 8px -100px;
-					}
+					&:hover {color: $brown;}
 				}
 			}
 	 	}
@@ -489,6 +484,7 @@ body{
 
 #page_content {
 	padding: 5px 14px 20px 18px;
+	header {margin-bottom: 15px;}
 	h1 {
 		font-family: 'Hoefler Text', Georgia, serif;
 		font-weight: bold;
@@ -507,7 +503,6 @@ body{
 			}
 		}
 	}
-	
 	h2 {
 		font-family: 'Hoefler Text', Georgia, serif;
 		font-weight: bold;
@@ -1037,25 +1032,40 @@ body{
 		letter-spacing: 0.1em;
 	}
 	.identity {
+		min-height: 50px;
+		margin: 0 0 15px 0;
 		.avatar {
 			float: left;
-			width: 25px;
-			height: 25px;
-			margin: 8px 10px 10px 0;
+			width: 32px;
+			height: 32px;
+			margin: 4px 10px 10px 0;
 			img {
 				display: block;
-				width: 25px;
-				height: 25px;
+				width: 32px;
+				height: 32px;
 				border: 1px solid $brown;
+				color: #999;
 			}
 		}	
 		ul {
-			margin: 8px 0;
+			margin: 8px 0 0 42px;
 			padding: 0;
 			li {
+				font-size: 13px;
 				background: none;
+				margin: 0;
+				padding: 0;
+				line-height: 16px;
+				a {
+					color:$orange;
+					font-weight: bold;
+				}
 			}
 		}
+	}
+	.user_comment {
+		font-size: 13px;
+		line-height: 20px;
 	}
 	.admin_conversation, .admin_discussion {
 		overflow: hidden;
@@ -1067,6 +1077,9 @@ body{
 			padding: 12px 15px;
 			width: 273px;
 			min-height: 56px;
+			p {
+				font-size: 13px;
+			}
 		}
 		.comment {
 			margin-left: 315px;
@@ -1074,33 +1087,12 @@ body{
 	}
 }
 
-#flashes {
-	clear:both;
-	margin: 15px 0;
-	font-family: Gotham, "helvetica neue", arial, sans-serif;
-	font-size: 13px;
-	div{
-		border: 1px solid #ddd;
-		padding: 10px 15px;
-		@include border-radius(30px);
-		@include box-shadow(#f1f1f1,0px,2px,2px);
-		&#flash_error{
-			background: $trans-orange;
-			border-color: $orange;
-			color: $orange;
-		}
-		&#flash_notice{
-			background: #fffbe0;
-			border-color: #FFD324;
-			color: #766833;
-		}
-		&#flash_success{
-			background: #edf5d0;
-			border-color: #abbc66;
-			color: #365816;
-		}
-	}
+#profile-account {
+	float: right;
+	width: 228px;
+	margin-left: 15px;
 }
+
 
 #profile-options{
 	margin:15px 0;
@@ -1147,6 +1139,35 @@ body{
 	border:solid #FFD324;
 	border-width:0 2px 2px 0;
 	color: #514721;
+}
+
+
+#flashes {
+	clear:both;
+	margin: 15px 0;
+	font-family: Gotham, "helvetica neue", arial, sans-serif;
+	font-size: 13px;
+	div{
+		border: 1px solid #ddd;
+		padding: 10px 15px;
+		@include border-radius(30px);
+		@include box-shadow(#f1f1f1,0px,2px,2px);
+		&#flash_error{
+			background: $trans-orange;
+			border-color: $orange;
+			color: $orange;
+		}
+		&#flash_notice{
+			background: #fffbe0;
+			border-color: #FFD324;
+			color: #766833;
+		}
+		&#flash_success{
+			background: #edf5d0;
+			border-color: #abbc66;
+			color: #365816;
+		}
+	}
 }
 
 
