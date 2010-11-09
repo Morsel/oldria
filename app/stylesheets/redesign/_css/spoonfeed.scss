@@ -792,9 +792,83 @@ body{
 			margin:10px 0;
 		}
 	}
-	
-	
 } /* ## end of page_content --------------------- */
+
+#directory_search {
+	form {
+		display: block;
+		legend {
+			display: block;
+			margin: 10px 0;
+			padding: 10px 0;
+			span {
+				font-family: 'Hoefler Text', Georgia, serif !important;
+				font-size: 12px;
+				text-transform: uppercase;
+				font-weight: bold;
+				letter-spacing: 0.3em;
+				color: #333;
+				margin: 0 0 10px 0;
+			}
+		}
+	}
+} /* ## directory search ------------------ */
+
+#user-results {
+	h3 {
+		font-family: 'Hoefler Text', Georgia, serif !important;
+		font-size: 12px;
+		text-transform: uppercase;
+		font-weight: bold;
+		letter-spacing: 0.3em;
+		color: #333;
+		margin: 35px 0 10px 0;
+	}
+	.identity {
+		float: left;
+		width: 315px;
+		margin: 10px 20px 10px 0;
+		min-height: 70px;
+		border-bottom: 1px dotted #ddd;
+		.avatar {
+			float: left;
+			width: 50px;
+			margin: 0px 10px 10px 0;
+			img {
+				border: 1px solid $brown;
+			}
+		}
+		ul {
+			margin: 0;
+			padding: 0;
+			li {
+				background: none;
+				margin: 0;
+				padding: 0;
+				line-height: 16px;
+			}
+		}
+	}
+} /* ## user-results ---------------------- */
+
+#criteria_accordion .accordion_box a {
+	display: block;
+	font-size: 13px;
+	text-shadow: 0 1px 0 #fff;
+	border: 1px solid #ece8d7;
+	color: #897a55;
+	font-weight: bold;
+	@include border-radius(4px);
+	padding: 8px 12px;
+	width: 600px;
+	margin: 0 0 7px 0;
+	background: #f7f6f2 url(/images/redesign/button_bg.png) repeat-x;
+	&:hover {
+		background-color: #faeae4;
+		color: #d8531e;
+		border: 1px solid #f2d1c4;
+	}
+} /* ## accordion -------------------- */
 
 #sidebar_b {
 	@include column(6, true);
