@@ -11,17 +11,18 @@
 			
   			<%= link_to "Send an Invitation", new_invitation_path, :id => "invitation", :class => "promo" %>
 			
-  			<aside class="promo" id="btl_game">
-  				<a href="#" class="new_question">new question</a>
-  				<h1>Behind the Line</h1>
-  				<h2>A little bit of fun</h2>
-  				<p>All the Write Stuff: You're the king of all media! So what do you do now?</p>
-  				<h3>What do you feel is the most underrated industry publication/blog?</h3>
-  				<textarea></textarea>
-  				<button>Post</button>
-  				<p class="disclaimer">Your answers are viewable on your public profile</p>
-  			</aside><!--#btl_game-->
-
+			<% if current_user && current_user.btl_enabled? %>
+			<aside class="promo" id="btl_game">
+				<a href="#" class="new_question">new question</a>
+				<h1>Behind the Line</h1>
+				<h2><%= @question.topic.title %></h2>
+				<p><%= @question.chapter.title %></p>
+				<h3><%= @question.title %></h3>
+				<textarea></textarea>
+				<button>Post</button>
+				<p class="disclaimer">Your answers are viewable on your public profile</p>
+			</aside><!--#btl_game-->
+            <% end %>
 
   			<aside class="promo" id="manuals">
 
