@@ -64,7 +64,6 @@ body{
 	 			padding-left: 16px;
 	 			background: transparent url(/images/redesign/icon-10-magnify.png) no-repeat;
 	 			background-position: 0 4px;
-				@include transition;
 				&:hover {background-position: 0 -96px;}
 	 		}
 		}
@@ -116,7 +115,6 @@ body{
 					font-weight: bold;
 					font-size: 14px;
 					line-height: 17px;
-					@include transition;
 					&:hover {
 						color: $brown;
 						background-position: 0 -100px;
@@ -137,7 +135,6 @@ body{
 					line-height: 17px;
 					margin: 20px 0 0 0;
 					border-bottom: 1px dotted #ccc;
-					@include transition;
 					&:hover {
 						color: $brown;
 						background-position: 8px -100px;
@@ -292,7 +289,7 @@ body{
 	margin: 0;
 	position: absolute;
 	width: 974px;
-	top: 408px;
+	top: 413px;
 	z-index: 1000;
 	background: transparent url(/images/redesign/bg-controller.png) no-repeat 0 100%;
 	nav {
@@ -448,7 +445,6 @@ body{
 				letter-spacing: 0.2em;
 				font-weight: bold;
 				background-color: $trans-orange;
-				@include transition;
 				&.private_message {
 					background: $trans-orange url(/images/redesign/icon-16-bubble.png) no-repeat;
 					background-position: 10px 10px;
@@ -679,6 +675,7 @@ body{
 			margin: 0 0 10px 0;
 			padding: 13px 10px;
 			@include box-shadow(#eee,0px, 1px,0px);
+<<<<<<< HEAD
 			@include transition;
 			&.go_to_admin {
 				font-family: 'Hoefler Text', Georgia, serif;
@@ -690,6 +687,8 @@ body{
 					background-color: $brown;
 				}
 			}
+=======
+>>>>>>> 51a5cefe8ccb78a1cbfc58598cd2ab53c274ec55
 			&#invitation {
 				font-family: 'Hoefler Text', Georgia, serif;
 				font-style: italic;
@@ -883,6 +882,7 @@ body{
 	}
 }
 
+<<<<<<< HEAD
 #flashes {
 	margin-left: 15px;
 	div{
@@ -904,6 +904,27 @@ body{
 			border-color: #C6D880;
 			color: #264409;
 		}
+=======
+#flashes div{
+	clear:both;
+	border: 2px solid #DDD;
+	margin:15px 0;
+	padding: 0.8em;
+	&#flash_error{
+		background: #FBE3E4;
+		border-color: #FBC2C4;
+		color: #8A1F11;
+	}
+	&#flash_notice{
+		background: #FFF6BF;
+		border-color: #FFD324;
+		color: #514721;
+	}
+	&#flash_success{
+		background: #E6EFC2;
+		border-color: #C6D880;
+		color: #264409;
+>>>>>>> 51a5cefe8ccb78a1cbfc58598cd2ab53c274ec55
 	}
 }
 
