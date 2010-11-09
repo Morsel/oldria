@@ -18,8 +18,11 @@
   				<h2><%= @question.topic.title %></h2>
   				<p><%= @question.chapter.title %></p>
   				<h3><%= @question.title %></h3>
-  				<textarea></textarea>
-  				<button>Post</button>
+  				<% form_for @question.find_or_build_answer_for(current_user) do |f| %>
+  				    <%= f.hidden_field :profile_question_id %>
+  				    <%= f.text_area :answer %>
+    				<button>Post</button>
+  				<% end %>
   				<p class="disclaimer">Your answers are viewable on your public profile</p>
   			</aside><!--#btl_game-->
       <% end %>
