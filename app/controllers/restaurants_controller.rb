@@ -46,6 +46,9 @@ class RestaurantsController < ApplicationController
       render :template => "photos/edit"
     end
   end
+  
+  def mine
+  end
 
   private
 
