@@ -1,9 +1,9 @@
 <% if current_user -%>
   <section class="restaurant_promo top_promo">
-    <a href="#">Upgrade your account to build a restaurant profile!</a>
+	<%= link_to 'Upgrade your account and share even more!', public_page_path('account_types') %>
   </section><!-- .restaurant_promo -->
 <% else -%>
   <section class="invite top_promo">
-  	<a href="#">Request an invitation</a>
+	<%= link_to 'Request an invitation', public_page_path('request-invitation') %>  </section><!-- .restaurant_promo -->
   </section><!-- .invite -->
 <% end -%>
