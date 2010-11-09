@@ -1,9 +1,9 @@
-<% associated ||= @profile %>
+<% associated ||= @profile -%>
+<% reset_cycle('default') -%>
 <div class="<%= association %> ajaxdelete clearfix">
   <h2><%= caption %></h2>
   <ul id="<%= association %>">
     <%= render associated.send(association) %>
-    <% reset_cycle('default') -%>
   </ul>
   <%= link_to "add another", form_path, :class => 'add_extended colorbox'%>
 </div>

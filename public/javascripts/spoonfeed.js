@@ -36,7 +36,6 @@ $(document).ready(function(){
 	  $('.colorbox').colorbox({
 	      initialWidth: 420,
 	      maxWidth: 450,
-	      maxHeight: 580,
 	      onComplete: colorboxOnComplete,
 	      onClosed: function() {
 	        bindAjaxDeleters();
