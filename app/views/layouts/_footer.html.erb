@@ -42,7 +42,7 @@ window.current_user_id = '<%= current_user ? current_user.id : "null" %>';
   google.load('jquery','1.4.2');
   google.load('jqueryui','1.8.5');
 </script>
-<%= javascript_include_tag "http://cachedcommons.org/cache/jquery-cycle/2.8.6/javascripts/jquery-cycle.js", 'spoonfeed' %>
+<%= javascript_include_tag "http://cachedcommons.org/cache/jquery-cycle/2.8.6/javascripts/jquery-cycle.js", 'jquery.equalheights', 'spoonfeed' %>
 <%= yield(:javascript) %>
 </body>
 </html>
