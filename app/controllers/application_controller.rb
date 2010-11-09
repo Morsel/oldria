@@ -10,7 +10,8 @@ class ApplicationController < ActionController::Base
   # Scrub sensitive parameters from your log
   filter_parameter_logging :password
 
-  before_filter :preload_resources
+  # before_filter :preload_resources
+  before_filter :load_random_btl_question
 
   helper_method :current_user
   helper_method :mediafeed?
@@ -113,6 +114,7 @@ class ApplicationController < ActionController::Base
     error_list
   end
 
+### Content for layout
   def preload_resources
     load_random_coached_update
     load_current_user_statuses
@@ -128,6 +130,17 @@ class ApplicationController < ActionController::Base
     @current_user_recent_statuses = current_user.statuses.all(:limit => 2)
   end
 
+  def load_past_features
+    @qotds ||= SoapboxEntry.qotd.published.recent.all(:include => :featured_item).map(&:featured_item)
+    @trend_questions ||= SoapboxEntry.trend_question.published.recent.all(:include => :featured_item).map(&:featured_item)
+  end
+  
+  def load_random_btl_question
+    return unless current_user && !params[:controller].match(/soapbox/)
+    @question = ProfileQuestion.for_user(current_user).random.first
+  end
+  
+### Messaging helpers
   def archived_view?
     return @archived_view if defined?(@archived_view)
     @archived_view = params[:view_all] ? true : false
@@ -141,11 +154,6 @@ class ApplicationController < ActionController::Base
     @media_requests_count = current_user.try(:viewable_media_request_discussions).try(:size)
   end
 
-  def load_past_features
-    @qotds ||= SoapboxEntry.qotd.published.recent.all(:include => :featured_item).map(&:featured_item)
-    @trend_questions ||= SoapboxEntry.trend_question.published.recent.all(:include => :featured_item).map(&:featured_item)
-  end
-  
   ##
   # Employment saved-search methods
   def search_setup(resource = nil, options = {})
