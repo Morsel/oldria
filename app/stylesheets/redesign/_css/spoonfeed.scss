@@ -102,6 +102,9 @@ body{
 							}
 						}
 					}
+					&.logged_out{
+						margin:32px 0 0;
+					}
 				}
 			}
 			&.restaurant_promo {
@@ -333,7 +336,7 @@ body{
 	background: transparent url(/images/redesign/bg-fauxcolumn.gif) repeat-y;
 	&.hp {
 		position: relative;
-		background: #f00;
+		background: none;
 		@include box-shadow(none);
 	}
 }
@@ -946,4 +949,14 @@ body{
 		color:#fff;
 		text-shadow:0 1px 0 #333;
 	}
+}
+
+#staging_bar{
+	position:absolute;
+	z-index:10000;
+	padding:10px;
+	background: #FFF6BF;
+	border:solid #FFD324;
+	border-width:0 2px 2px 0;
+	color: #514721;
 }
