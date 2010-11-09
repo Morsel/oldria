@@ -250,12 +250,16 @@ body{
 #jumbotron {
 	@include column(24, true);
 	height: 400px;
-	background: $brown url(/images/redesign/jumbo1.jpg) no-repeat;
+	overflow:hidden;
+	background:$brown;
 	margin: -10px 0 20px 0;
 	position: relative;
 	z-index: 10;
-	#jumbo_content {
-		margin: 25px 0px 0px 25px;
+	.jumbo_content {
+		background:url(/images/redesign/jumbo1.jpg) no-repeat;
+		height: 400px;
+		width: 974px;
+		padding: 25px 0px 0px 25px;
 		h1 {
 			font-size: 44px;
 			font-style: italic;
@@ -292,9 +296,9 @@ body{
 	z-index: 1000;
 	background: transparent url(/images/redesign/bg-controller.png) no-repeat 0 100%;
 	nav {
-		width: 110px;
+		width: 126px;
 		height: 16px;
-		padding: 10px 20px;
+		padding: 10px 0 10px 20px;
 		background: transparent url(/images/redesign/bg-25percent-black.png) repeat;
 		position: relative;
 		a {
@@ -309,13 +313,13 @@ body{
 			@include box-shadow(#333,0px,2px,2px);
 			@include hiddentext;
 			@include transition;
-			&.selected {background-color: $orange;}
+			&:hover {
+				background-color: $brown;
+			}
+			&.activeSlide {background-color: $orange !important;}
 			&.last {
 				padding-right: 0;
 				margin-right: 0;
-			}
-			&:hover {
-				background-color: $brown;
 			}
 		}
 	}
