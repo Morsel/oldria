@@ -54,6 +54,11 @@ class QuestionsController < ApplicationController
         group_by(&:chapter)
   end
   
+  def refresh
+    load_random_btl_question
+    render :partial => "shared/btl_game"
+  end
+  
   protected
 
   def require_user_unless_soapbox

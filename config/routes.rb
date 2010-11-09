@@ -77,7 +77,7 @@ ActionController::Routing::Routes.draw do |map|
   }, :shallow => true do |users|
     users.resources :statuses
     users.resources :direct_messages, :member => { :reply => :get }
-    users.resources :questions, :collection => { :topics => :get, :chapters => :get }
+    users.resources :questions, :collection => { :topics => :get, :chapters => :get, :refresh => :post }
     users.resources :default_employments
   end
 

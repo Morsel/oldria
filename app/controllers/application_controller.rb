@@ -138,7 +138,7 @@ class ApplicationController < ActionController::Base
   def load_random_btl_question
     return unless current_user && current_user.btl_enabled?
     return unless !params[:controller].match(/soapbox/)
-    @sidebar_question = ProfileQuestion.for_user(current_user).random.reject { |q| q.answered_by?(current_user) }.first
+    @btl_question = ProfileQuestion.for_user(current_user).random.reject { |q| q.answered_by?(current_user) }.first
   end
   
 ### Messaging helpers

@@ -1,0 +1,12 @@
+    <%= link_to_remote "new question", :url => refresh_user_questions_path(current_user), :update => "btl_game", 
+        :html => { :class => "new_question" } %>
+	<h1>Behind the Line</h1>
+	<h2><%= @btl_question.topic.title %></h2>
+	<p><%= @btl_question.chapter.title %></p>
+	<h3><%= @btl_question.title %></h3>
+	<% form_for @btl_question.find_or_build_answer_for(current_user) do |f| %>
+	    <%= f.hidden_field :profile_question_id %>
+	    <%= f.text_area :answer %>
+		<button>Post</button>
+	<% end %>
+	<p class="disclaimer">Your answers are viewable on your public profile</p>
