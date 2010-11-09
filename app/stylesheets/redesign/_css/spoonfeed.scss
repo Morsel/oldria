@@ -269,10 +269,11 @@ body{
 		}
 		p {
 			width: 320px;
-			font-size: 15px;
+			font-size: 18px;
+			line-height: 24px;
 			font-family: 'helvetica neue', helvetica, arial, sans-serif;
 			color: #fff;
-			color: rgba(255,255,255,.8);
+			color: rgba(255,255,255,.9);
 			a {
 				color: #fff;
 				&:hover {
