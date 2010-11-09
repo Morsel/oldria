@@ -1,40 +1,44 @@
-<% if display_sidebar? %>
+<% if display_sidebar? -%>
 	<div id="sidebar_b">
-		<div id="sidebar_content">
+	  <% if current_user -%>
+		  <div id="sidebar_content">
 		  
-		  <%= yield :sidebar %>
+  		  <%= yield :sidebar %>
 			
-			<% if current_user && current_user.admin? %>
-	          <%= link_to "Go to Admin", admin_root_path, :cass => "promo" %>
-	        <% end %>
+  			<% if current_user && current_user.admin? %>
+  	          <%= link_to "Go to Admin", admin_root_path, :cass => "promo" %>
+  	        <% end %>
 			
-			<%= link_to "Send an Invitation", new_invitation_path, :id => "invitation", :class => "promo" %>
+  			<%= link_to "Send an Invitation", new_invitation_path, :id => "invitation", :class => "promo" %>
 			
-			<aside class="promo" id="btl_game">
-				<a href="#" class="new_question">new question</a>
-				<h1>Behind the Line</h1>
-				<h2>A little bit of fun</h2>
-				<p>All the Write Stuff: You're the king of all media! So what do you do now?</p>
-				<h3>What do you feel is the most underrated industry publication/blog?</h3>
-				<textarea></textarea>
-				<button>Post</button>
-				<p class="disclaimer">Your answers are viewable on your public profile</p>
-			</aside><!--#btl_game-->
+  			<aside class="promo" id="btl_game">
+  				<a href="#" class="new_question">new question</a>
+  				<h1>Behind the Line</h1>
+  				<h2>A little bit of fun</h2>
+  				<p>All the Write Stuff: You're the king of all media! So what do you do now?</p>
+  				<h3>What do you feel is the most underrated industry publication/blog?</h3>
+  				<textarea></textarea>
+  				<button>Post</button>
+  				<p class="disclaimer">Your answers are viewable on your public profile</p>
+  			</aside><!--#btl_game-->
 
 
-			<aside class="promo" id="manuals">
+  			<aside class="promo" id="manuals">
 
-				<%= link_to "Marketing Manual", public_page_path('introduction-marketing-workbook'), :id => 'marketing_manual' %>
-				<p>Built to answer your marketing questions.  It's in progress: tell us what you need, and we'll cover it.</p>
+  				<%= link_to "Marketing Manual", public_page_path('introduction-marketing-workbook'), :id => 'marketing_manual' %>
+  				<p>Built to answer your marketing questions.  It's in progress: tell us what you need, and we'll cover it.</p>
 
-				<%= link_to "Help / Questions?", public_page_path('help-marketing-workbook'), :id => 'help_questions' %>
-				<p>We're building this for you, so don't be shy—ask us questions and give us suggestions!</p>
+  				<%= link_to "Help / Questions?", public_page_path('help-marketing-workbook'), :id => 'help_questions' %>
+  				<p>We're building this for you, so don't be shy—ask us questions and give us suggestions!</p>
 
-			</aside><!--.promo-->
+  			</aside><!--.promo-->
 								
-			<%- if current_user && !current_user.media? %>
-        <%# disabling the ria labs for now: render :partial => 'shared/ria_labs' %>
-      <% end -%>
-		</div><!-- #sidebar_content-->
+  			<%- if current_user && !current_user.media? %>
+          <%# disabling the ria labs for now: render :partial => 'shared/ria_labs' %>
+        <% end -%>
+  		</div><!-- #sidebar_content-->
+  	<% else -%>
+  	  &nbsp;
+  	<% end -%>
 	</div><!--#sidebar_b-->
 <% end -%>

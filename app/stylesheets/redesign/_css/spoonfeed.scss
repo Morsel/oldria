@@ -64,7 +64,6 @@ body{
 	 			padding-left: 16px;
 	 			background: transparent url(/images/redesign/icon-10-magnify.png) no-repeat;
 	 			background-position: 0 4px;
-				@include transition;
 				&:hover {background-position: 0 -96px;}
 	 		}
 		}
@@ -115,7 +114,6 @@ body{
 					font-weight: bold;
 					font-size: 14px;
 					line-height: 17px;
-					@include transition;
 					&:hover {
 						color: $brown;
 						background-position: 0 -100px;
@@ -136,7 +134,6 @@ body{
 					line-height: 17px;
 					margin: 20px 0 0 0;
 					border-bottom: 1px dotted #ccc;
-					@include transition;
 					&:hover {
 						color: $brown;
 						background-position: 8px -100px;
@@ -447,7 +444,6 @@ body{
 				letter-spacing: 0.2em;
 				font-weight: bold;
 				background-color: $trans-orange;
-				@include transition;
 				&.private_message {
 					background: $trans-orange url(/images/redesign/icon-16-bubble.png) no-repeat;
 					background-position: 10px 10px;
@@ -483,7 +479,6 @@ body{
 			margin: 0 0 10px 0;
 			padding: 13px 10px;
 			@include box-shadow(#eee,0px, 1px,0px);
-			@include transition;
 			&#invitation {
 				font-family: 'Hoefler Text', Georgia, serif;
 				font-style: italic;
