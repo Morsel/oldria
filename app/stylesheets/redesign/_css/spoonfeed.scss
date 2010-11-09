@@ -680,7 +680,72 @@ body{
 			margin: 0 0 10px 0;
 		}
 	}
-}
+	#qotd_column, #trend_column {
+		float:left;
+		width: 335px;
+		.col_title {
+			@include brandongrotesquebold;
+			font-size: 15px;
+			text-transform: uppercase;
+			color: $orange;
+			letter-spacing: 0.1em;
+			line-height: 18px;
+			font-style: normal;
+			border-bottom: 2px solid $orange;
+		}
+		.admin_conversation, .admin_discussion {
+			padding: 12px;
+			background: #fff;
+			border: 1px solid #eaeaea;
+			margin: 0 0 16px;
+			@include box-shadow(#f2f2f2,0px,1px,2px);
+			.icon {
+				width: 16px;
+				height: 16px;
+				float:right;
+				display: block;
+				background: transparent url(/images/redesign/x.png) no-repeat;
+				margin: -5px -5px 0 0;
+				&:hover {
+					background-position: 0 -100px;
+				}
+			}
+			.button {
+				float: left;
+				display: block;
+				border: 1px solid #ddd;
+				background-color: #f2f2f2;
+				@include linear-gradient(color-stops(#f4f4f4,#eaeaea ), top);
+				color: #333;
+				@include border-radius(20px);
+				padding: 5px 12px;
+				font-weight: bold;
+				&:hover {
+					background: #bbb08c;
+					color: #fff;
+					text-shadow: 0 1px 0 #444;
+					border: 1px solid #a6996c;
+				}
+			}
+			.message-details {
+				.readit {display: none;}
+				p {
+					font-size: 13px;
+					margin: 0 0 10px 0;
+					&:before {
+						color: #c1b690;
+						font-weight: bold;
+						content: "Q: ";
+					}
+				}
+			}
+			.message-header {display: none;}
+		}
+	}
+	#qotd_column {
+		margin-right: 20px;
+	}
+} /* ## end of page_content --------------------- */
 
 #sidebar_b {
 	@include column(6, true);
@@ -740,8 +805,8 @@ body{
 					font-style: italic;
 					font-weight: bold;
 				}
-				.chapter {
-					margin: 0 0 10px 0;
+				p {
+					margin-bottom: 8px;
 				}
 				h3 {
 					background: transparent url(/images/redesign/line-arrow.png) no-repeat;
@@ -783,6 +848,7 @@ body{
 					color: #777;
 					color: rgba(0,0,0,.5);
 					font-family: "lucida grande", arial, sans-serif;
+					margin-bottom: 0;
 				}
 			}
 			&#manuals {
@@ -896,32 +962,69 @@ body{
 	}
 }
 
+#recently {
+	h3 {
+		color: $orange;
+		font-size: 12px;
+		font-weight: bold;
+		letter-spacing: 0.1em;
+		margin: 0 0 10px 0;
+		padding: 0;
+	}
+	.comment_date {
+		float: right;
+		font-family: "Hoefler Text", Georgia, serif;
+		font-size: 12px;
+		margin: -24px 0 0 15px;
+		color: $orange;
+		font-size: 12px;
+		font-weight: bold;
+		letter-spacing: 0.1em;
+	}
+	.admin_conversation, .admin_discussion {
+		overflow: hidden;
+		border-bottom: 1px dotted #ccc;
+		.activity_header {
+			float: left;
+			padding: 12px 15px;
+			width: 273px;
+			min-height: 56px;
+			background: transparent url(/images/redsign/bg-hp-left.png) no-repeat;
+		}
+		.comment {
+			margin-left: 315px;
+		}
+	}
+}
+
 #flashes {
 	clear:both;
-	margin:15px;
+	margin: 15px 0;
 	div{
-		border: 2px solid #DDD;
-		padding: 0.8em;
+		border: 1px solid #ddd;
+		padding: 10px 15px;
+		@include border-radius(30px);
+		@include box-shadow(#f1f1f1,0px,2px,2px);
 		&#flash_error{
-			background: #FBE3E4;
-			border-color: #FBC2C4;
-			color: #8A1F11;
+			background: $trans-orange;
+			border-color: $orange;
+			color: $orange;
 		}
 		&#flash_notice{
-			background: #FFF6BF;
+			background: #fffbe0;
 			border-color: #FFD324;
-			color: #514721;
+			color: #766833;
 		}
 		&#flash_success{
-			background: #E6EFC2;
-			border-color: #C6D880;
-			color: #264409;
+			background: #edf5d0;
+			border-color: #abbc66;
+			color: #365816;
 		}
 	}
 }
 
 #profile-options{
-	margin:15px 0 0;
+	margin:15px 0;
 	padding:0 10px 0 0;
 	overflow:hidden;
 	a{
