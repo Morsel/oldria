@@ -1,7 +1,7 @@
 <div id="recently">
     <h2>Recently on Spoonfeed</h2>
     
-    <% for comment in @recent_comments %>
+    <% for comment in @recent_comments[0..2] %>
     <% if comment.is_a?(ProfileAnswer) %><%# profile answers are not really a comment so they get their own block %>
     <% div_for comment do %>
         <div class="activity_header">
