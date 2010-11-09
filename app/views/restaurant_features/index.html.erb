@@ -1,22 +1,22 @@
 
 <% if can? :edit, @restaurant %>
-	<% content_for :page_actions do -%>
-	  <p class="clearfix">
+  <% content_for :page_actions do -%>
+    <p class="clearfix">
       <%= link_to 'Show Restaurant', restaurant_path(@restaurant),
           :class=>'sf-button' %>
       <%= link_to 'Edit restaurant', edit_restaurant_path(@restaurant),
       :class=>'sf-button' %>
       <%= link_to 'Soapbox Profile', soapbox_restaurant_path(@restaurant),
           :class=>'sf-button' %>
-  	</p>
+    </p>
     <p class="clearfix">
       <% @pages.each do |page| %>
-        <%= link_to "Features for #{page.name}", 
+        <%= link_to "Features for #{page.name}",
             restaurant_features_path(@restaurant, :page_id => page.id),
             :class => 'sf-button' %>
       <% end %>
     </p>
-	<% end -%>
+  <% end -%>
 <% end -%>
 
 <% form_tag restaurant_features_path(@restaurant, :page_id => @page.id) do %>

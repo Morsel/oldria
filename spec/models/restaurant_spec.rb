@@ -107,7 +107,7 @@ describe Restaurant do
 
     it "should reset features if features change" do
       restaurant.restaurant_features = [features[1], features[3]]
-      restaurant.reset_features([features[0].id])
+      restaurant.reset_features([features[0].id], [features[1].id, features[3].id])
       restaurant.restaurant_features.should =~ [features[0]]
     end
 

@@ -5,12 +5,18 @@ class RestaurantFeaturesController < ApplicationController
   before_filter :load_page
 
   def index
-    
+
   end
 
   def create
-    @restaurant.reset_features(params[:features])
-    render :action => :index  
+    # all feature ids
+    all_features_for_page = @page.restaurant_feature_categories.map { |fc| fc.restaurant_features.map(&:id) }.flatten.map(&:to_s)
+
+    # remove any that aren't in params[:features]
+    unchecked_features_for_page = all_features_for_page - params[:features]
+
+    @restaurant.reset_features(params[:features], unchecked_features_for_page)
+    render :action => :index
   end
 
   private
@@ -24,10 +30,10 @@ class RestaurantFeaturesController < ApplicationController
     @restaurant = Restaurant.find(params[:restaurant_id],
         :include => {:restaurant_features => :restaurant_feature_category})
   end
-  
+
   def load_page
-    @page = if params[:page_id] 
-            then RestaurantFeaturePage.find(params[:page_id])
+    @page = if params[:page_id]
+            then RestaurantFeaturePage.find(params[:page_id], :include => {:restaurant_feature_categories => :restaurant_features })
             else @pages.first
             end
   end
