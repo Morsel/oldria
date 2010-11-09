@@ -246,6 +246,60 @@ body{
 	}
 }
 
+form#new_user_session {
+	p {
+		overflow: hidden;
+		button {
+			float: left;
+			font-family: "helvetica neue", arial, sans-serif;
+			font-weight: bold;
+			font-size: 13px;
+			display: block;
+			padding: 4px 16px 6px;
+			@include border-radius(20px);
+			border: 1px solid #eaeaea;
+			background: #f2f2f2;
+			color: #333;
+			text-shadow: 0 1px 0 #fff;
+			clear: both;
+			img {
+				margin-right: 6px;
+			}
+			&:hover {
+				background-color: $trans-orange;
+				color: $orange;
+				text-shadow: 0 1px 0 #fff;
+				border: 1px solid #f3bca7;
+			}
+		}
+	}
+	.fb {
+		clear: both;
+	}
+		
+	.optional {
+		label {
+			font-family:"Hoefler Text", Georgia, Times, serif;
+			font-size: 12px;
+			letter-spacing: 0.2em;
+			display: block;
+			margin: 14px 0 2px;
+			text-transform: uppercase;
+		}
+		input {
+			font-size: 13px;
+			padding: 3px;
+			border: 1px solid #ccc;
+			width: 350px;
+			@include box-shadow(#eaeaea,0px,1px,2px);
+		}
+	}
+	.forgot {
+		font-size: 11px;
+		text-transform: uppercase;
+	}
+}
+
 #jumbotron {
 	@include column(24, true);
 	height: 400px;
