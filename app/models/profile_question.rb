@@ -43,7 +43,7 @@ class ProfileQuestion < ActiveRecord::Base
     { :joins => [:chapter, :profile_answers], :conditions => ["chapters.id = ?", chapter_id] }
   }
   
-  named_scope :random, :order => RANDOM_SQL_STRING, :limit => 1
+  named_scope :random, :order => RANDOM_SQL_STRING
   
   before_save :update_roles_description
   
