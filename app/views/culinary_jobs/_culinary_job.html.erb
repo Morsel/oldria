@@ -1,6 +1,6 @@
-<% content_tag_for :li, culinary_job do %>
-  <%= culinary_job.title %>: <%= culinary_job.restaurant_name %>, 
-  <%= culinary_job.city %> <%= culinary_job.state %> <%= culinary_job.country %><br/>
+<% content_tag_for :li, culinary_job, :class => cycle('odd','even') do %>
+  <span class="extended-title"><%= culinary_job.title %></span>
+  <%= culinary_job.restaurant_name %>, <%= culinary_job.city %> <%= culinary_job.state %> <%= culinary_job.country %><br/>
   <% if culinary_job.date_ended %>
   <%= culinary_job.date_started.strftime("%m/%d/%y") %> - <%= culinary_job.date_ended.strftime("%m/%d/%y") %><br/>
   <% else %>

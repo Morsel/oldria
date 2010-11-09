@@ -9,7 +9,7 @@
 
 <section id="profile-tabs">
   <nav id="profile-options">
-    <span><a href="#profile-account">Account</a></span>
+    <span><a href="#profile-edit-account">Account</a></span>
     <span><a href="#profile-messages">Messages</a></span>
     <span><a href="#profile-summary">Profile Summary</a></span>
     <span><a href="#profile-extended">Extended Profile</a></span>
@@ -18,7 +18,7 @@
 
 
 <% semantic_form_for @profile, :url => my_profile_path do |f| %>
-<section id="profile-account">
+<section id="profile-edit-account">
 
   <% f.inputs :name => "Preferences", :for => :user do |user_form| %>
     <%= user_form.input :prefers_publish_profile, :as => :boolean, :label => 'Publish your profile for other users to view?' %>
@@ -146,15 +146,13 @@
           :association => "culinary_schools",
           :caption => "Education (Culinary)",
           :form_path => new_my_profile_enrollment_path} %>
-
+<% reset_cycle('default') -%>
       <div class="nonculinary_enrollments nonculinary_schools clear ajaxdelete">
           <h2>Education (Other)</h2>
           <ul id="nonculinary_enrollments">
               <%= render @profile.nonculinary_enrollments %>
           </ul>
-          <% link_to new_my_profile_nonculinary_enrollment_path, :class => 'positive button colorbox' do %>
-          <img src="/images/plus.png"/> Add
-          <% end %>
+          <%= link_to "add another", new_my_profile_nonculinary_enrollment_path, :class => 'add_extended colorbox'%>
       </div>
 
       <%= render :partial => 'extended_profile_section', :locals => {

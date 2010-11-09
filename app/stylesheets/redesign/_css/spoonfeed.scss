@@ -269,10 +269,11 @@ body{
 		}
 		p {
 			width: 320px;
-			font-size: 15px;
+			font-size: 18px;
+			line-height: 24px;
 			font-family: 'helvetica neue', helvetica, arial, sans-serif;
 			color: #fff;
-			color: rgba(255,255,255,.8);
+			color: rgba(255,255,255,.9);
 			a {
 				color: #fff;
 				&:hover {
@@ -747,54 +748,177 @@ body{
 	#qotd_column {
 		margin-right: 20px;
 	}
-	
-	form{
-		ul, ol, li{
-			margin:0;
-			padding:0;
-			list-style:none;
-		}
+
+} /* ## end of page_content --------------------- */
+
+
+form, #page_content form{
+	ul, ol, li{
+		margin:0;
+		padding:0;
+		list-style:none;
+	}
+	label{
+		font-weight:bold;
+	}
+	.string, .text, .country{
 		label{
-			font-weight:bold;
+			display:block;
+			margin:5px 0 0;
 		}
-		.string, .text, .country{
-			label{
-				display:block;
-				margin:5px 0 0;
-			}
+	}
+	.string, .text{
+		input, textarea{
+			padding:5px;
+			border:1px solid #ccc;
+			font:bold 13px;
+			color:#333;
 		}
-		.string, .text{
-			input, textarea{
-				padding:5px;
-				border:1px solid #ccc;
-				font:bold 13px;
-				color:#333;
-			}
-		}
-		.date{
-			ol, ul{
-				overflow:hidden;
-				li{
-					float:left;
-					margin:0 10px 0 0;
-					label{
-						display:block;
-					}
+	}
+	.date{
+		ol, ul{
+			overflow:hidden;
+			li{
+				float:left;
+				margin:0 10px 0 0;
+				label{
+					display:block;
 				}
 			}
 		}
-		p.inline-hints{
-			margin:0 0 10px;
-			font-style:italic;
-			color:#666;
-		}
-		fieldset{
-			margin:10px 0;
+	}
+
+	p.inline-hints{
+		margin:0 0 10px;
+		font-style:italic;
+		color:#666;
+	}
+	fieldset{
+		margin:10px 0;
+	}
+	.error{
+		padding:5px;
+		border:2px solid $orange;
+		background: $trans-orange;
+		color: $orange;
+		margin:5px 0;
+	}
+}
+
+
+
+#directory_search {
+	form {
+		display: block;
+		legend {
+			display: block;
+			margin: 10px 0;
+			padding: 10px 0;
+			span {
+				font-family: 'Hoefler Text', Georgia, serif !important;
+				font-size: 12px;
+				text-transform: uppercase;
+				font-weight: bold;
+				letter-spacing: 0.3em;
+				color: #333;
+				margin: 0 0 10px 0;
+			}
 		}
 	}
-	
-	
-} /* ## end of page_content --------------------- */
+} /* ## directory search ------------------ */
+
+#user-results {
+	h3 {
+		font-family: 'Hoefler Text', Georgia, serif !important;
+		font-size: 12px;
+		text-transform: uppercase;
+		font-weight: bold;
+		letter-spacing: 0.3em;
+		color: #333;
+		margin: 35px 0 10px 0;
+	}
+	.identity {
+		float: left;
+		width: 315px;
+		margin: 10px 20px 10px 0;
+		min-height: 70px;
+		border-bottom: 1px dotted #ddd;
+		.avatar {
+			float: left;
+			width: 50px;
+			margin: 0px 10px 10px 0;
+			img {
+				border: 1px solid $brown;
+			}
+		}
+		ul {
+			margin: 0;
+			padding: 0;
+			li {
+				background: none;
+				margin: 0;
+				padding: 0;
+				line-height: 16px;
+			}
+		}
+	}
+} /* ## user-results ---------------------- */
+
+#criteria_accordion {
+	.accordion_box {
+		a {
+			display: block;
+			font-size: 13px;
+			text-shadow: 0 1px 0 #fff;
+			border: 1px solid #ece8d7;
+			color: #897a55;
+			font-weight: bold;
+			@include border-radius(4px);
+			padding: 8px 12px;
+			width: 600px;
+			margin: 0 0 7px 0;
+			background: #f7f6f2 url(/images/redesign/button_bg.png) repeat-x;
+			&:hover {
+				background-color: #faeae4;
+				color: #d8531e;
+				border: 1px solid #f2d1c4;
+			}
+			span{
+			  display:block;
+			  padding-left:15px;
+			  background:url(/images/blue_arrow.png) no-repeat 3px -23px;
+			}
+			&.options_selected{
+			  background:#e6f3df url(/images/green_check.png) no-repeat right;
+			}
+			&.ui-state-active span{
+			  background-position:3px 5px;
+			}
+			&.ui-state-active, &.ui-state-active.options_selected{
+			  background-color:transparent;
+			}
+		}
+	}
+	li.check_boxes{
+		height:220px;
+	  overflow-y:auto;
+	  padding:0 10px;
+		li{
+	  	float:none;
+			list-style: none;
+		  width:100%;
+		}
+		legend{
+			display:none;
+		}
+	}
+	.label label, div.loading{
+	  display:none;
+	}
+}
+p.search_filter_hint {
+  padding:0; margin:0;
+}
 
 #sidebar_b {
 	@include column(6, true);
@@ -1067,6 +1191,25 @@ body{
 		font-size: 13px;
 		line-height: 20px;
 	}
+	.avatar {
+		float: left;
+		width: 25px;
+		height: 25px;
+		margin: 8px 10px 10px 0;
+		img {
+			display: block;
+			width: 25px;
+			height: 25px;
+			border: 1px solid $brown;
+		}
+	}	
+	ul {
+		margin: 8px 0;
+		padding: 0;
+		li {
+			background: none;
+		}
+	}
 	.admin_conversation, .admin_discussion {
 		overflow: hidden;
 		background: transparent url(/images/redesign/bg-hp-left.png) no-repeat;
@@ -1086,11 +1229,37 @@ body{
 		}
 	}
 }
-
 #profile-account {
 	float: right;
 	width: 228px;
 	margin-left: 15px;
+}
+#flashes {
+	clear:both;
+	margin: 15px 0;
+	font-family: Gotham, "helvetica neue", arial, sans-serif;
+	font-size: 13px;
+	div{
+		border: 1px solid #ddd;
+		padding: 10px 15px;
+		@include border-radius(30px);
+		@include box-shadow(#f1f1f1,0px,2px,2px);
+		&#flash_error{
+			background: $trans-orange;
+			border-color: $orange;
+			color: $orange;
+		}
+		&#flash_notice{
+			background: #fffbe0;
+			border-color: #FFD324;
+			color: #766833;
+		}
+		&#flash_success{
+			background: #edf5d0;
+			border-color: #abbc66;
+			color: #365816;
+		}
+	}
 }
 
 
@@ -1170,5 +1339,92 @@ body{
 	}
 }
 
+
+#profile-extended{
+	div.ajaxdelete{
+		border-bottom:1px solid $brown;
+		padding:10px 0;
+	}
+	ul{
+		list-style:none;
+		padding:10px;
+		margin:0 10px;
+		overflow:hidden;
+		li{
+			margin:0;
+			padding:10px;
+			width:297px;
+			float:left;
+			background:0;
+			&.odd{
+				border-right:1px dotted #ccc;
+			}
+			.extended-title{
+				display:block;
+				margin:15px 0 5px;
+				font-weight:bold;
+				font-size:15px;
+				span{
+					font-weight:normal;
+					font-size:11px;
+				}
+			}
+			a{
+				clear:both;
+				display:inline-block;
+				margin:0 5px 0 0;
+				padding:5px 10px 5px 20px;
+				color:$orange;
+				font:normal 10px "Lucida Grande", Arial, sans-serif;
+				text-transform:uppercase;
+				background:$trans-orange;
+				background-repeat:no-repeat;
+				background-position:left center;
+				@include transition;
+				&.colorbox{
+					background-image:url(/images/redesign/icon-16-pencil.png);
+				}
+				&.delete{
+					background-image:url(/images/redesign/icon-16-delete.png);
+				}
+				&:hover{
+					text-decoration:none;
+					background-color:$med-brown;
+					color:#333;
+				}
+				&.unstyled{
+					margin:0 0 15px;
+					text-transform:none;
+					padding:0;
+					background:0;
+					color:$orange;
+					&:hover{
+						text-decoration:underline;
+						color:$orange;
+					}
+				}
+			}
+		}
+	}
+}
+
+.add_extended{
+	display:inline-block;
+	padding:5px 10px 5px 20px;
+	@include border-radius(80px);
+	background:#EAEAEA url(/images/redesign/icon-16-plus.png) no-repeat left;
+	color:#333;
+	@include transition;
+	img{
+		margin:5px 0 0;
+	}
+	&:hover{
+		background-color:$med-brown;
+	}
+}
+
+#cboxLoadedContent{
+	padding:10px;
+}
 
 

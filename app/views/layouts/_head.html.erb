@@ -9,7 +9,7 @@
   <title><%= h(yield(:title) || "Untitled") %> :: <%= current_user && current_user.media? ? "MediaFeed" : "SpoonFeed" %> :: Restaurant Intelligence Agency</title>
   <meta name="author" content="Restaruant Intelligence Agency">
   <link rel="shortcut icon" href="/favicon.ico">
-	<%= stylesheet_link_tag '/redesign/brandonbold/stylesheet', '/redesign/_css/spoonfeed'  %>
+	<%= stylesheet_link_tag 'colorbox', '/redesign/brandonbold/stylesheet', '/redesign/_css/spoonfeed'  %>
 	<%= yield(:head) %>
 
   <%- if protect_against_forgery? -%>
