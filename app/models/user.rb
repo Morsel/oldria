@@ -296,6 +296,8 @@ class User < ActiveRecord::Base
     UserMailer.deliver_employee_invitation!(self, invitation_sender)
   end
 
+  # Facebook !!!
+  
   def connect_to_facebook_user(fb_id)
     update_attributes(:facebook_id => fb_id)
   end
@@ -318,6 +320,8 @@ class User < ActiveRecord::Base
     @page ||= Mogli::Page.new(:id => facebook_page_id, :client => Mogli::Client.new(facebook_page_token))
   end
 
+  # Behind the line
+
   def profile_questions
     ProfileQuestion.for_user(self)
   end
@@ -329,6 +333,8 @@ class User < ActiveRecord::Base
   def published_topics
     topics.select { |t| t.published?(self) }
   end
+  
+  # Profile elements
 
   def cuisines
     profile.present? ? profile.cuisines : []
@@ -353,6 +359,10 @@ class User < ActiveRecord::Base
 
   def braintree_contact
     self
+  end
+
+  def recently_upgraded?
+    self.subscription.try(:start_date).try(:>, 1.week.ago.to_date)
   end
 
 end
