@@ -1,11 +1,9 @@
-<%= link_to "Dashboard", root_url, :id => "nav_dashboard" %>
-<%= link_to "My Profile", profile_path(current_user.username), :id => "nav_myprofile" %>
-
-<a href="#" id="nav_myrestaurants">My Restaurants</a></li>
-
-<%= link_to "Front Burner", '/front_burner', :id => "nav_frontburner" %>
-<%= link_to "Messages", messages_path, :id => "nav_messages" %>
-
-<%= link_to 'Social Media', social_media_path, :id => "nav_socialmedia" %>
-
-<%= link_to "Contact", '/contact', :id => "nav_contact" %>
+<nav id="primary_nav">
+  <%= link_to "Dashboard", root_url, :id => "nav_dashboard" %>
+  <%= link_to "My Profile", profile_path(current_user.username), :id => "nav_myprofile" %>
+  <a href="#" id="nav_myrestaurants">My Restaurants</a></li>
+  <%= link_to "Front Burner", '/front_burner', :id => "nav_frontburner" %>
+  <%= link_to "Messages", messages_path, :id => "nav_messages" %>
+  <%= link_to 'Social Media', social_media_path, :id => "nav_socialmedia" %>
+  <%= link_to "Contact", '/contact', :id => "nav_contact" %>
+</nav>

@@ -1,186 +1,25 @@
-<!doctype html>
-<html lang="en" class="no-js">
-<head>
-  <meta charset="utf-8">
-  <!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"><![endif]-->
-  <!--[if lt IE 9]>
-    <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-  <![endif]-->
-  <title><%= h(yield(:title) || "Untitled") %> :: <%= current_user && current_user.media? ? "MediaFeed" : "SpoonFeed" %> :: Restaurant Intelligence Agency</title>
-  <meta name="author" content="Restaruant Intelligence Agency">
-  <link rel="shortcut icon" href="/favicon.ico">
-	<%= stylesheet_link_tag '/redesign/brandonbold/stylesheet', '/redesign/_css/spoonfeed'  %>
-	<%= yield(:head) %>
-
-  <%- if protect_against_forgery? -%>
-  <script type='text/javascript'>
-  //<![CDATA[
-  window._auth_token_name = "<%= request_forgery_protection_token %>";
-  window._auth_token = "<%= form_authenticity_token %>";
-  //]]>
-  </script>
-  <%- end -%>
-
-  <%= render :partial => 'layouts/ga' %>
-
-</head>
-
-<!--[if lt IE 7 ]> <body id="<%= Rails.env %>" class="ie6"> <![endif]-->
-<!--[if IE 7 ]>    <body id="<%= Rails.env %>" class="ie7"> <![endif]-->
-<!--[if IE 8 ]>    <body id="<%= Rails.env %>" class="ie8"> <![endif]-->
-<!--[if IE 9 ]>    <body id="<%= Rails.env %>" class="ie9"> <![endif]-->
-<!--[if (gt IE 9)|!(IE)]>
-	
-<!--><body id="<%= Rails.env %>"> <!--<![endif]-->
-<% if Rails.env.staging? %>
-  <div id="staging_bar">
-    <p>Note: You are currently on <strong>STAGING</strong>.
-    You may want to visit the <a href="http://spoonfeed.restaurantintelligenceagency.com/" title="">live site &raquo;</a></p>
-  </div>
-<% end %>
-
-
-	<div id="container">
-		
-		<header id="site_header">
-			<div class="branding">
-				<h1 id="logo"><a href="/">Spoonfeed</a></h1>
-			</div><!--.branding-->
-			<div class="header_right">
-				<%= link_to "<span>Search the Site</span>", directory_path, :id => "search", :class => "header_promo "%>
-				
-				<section class="profile top_promo">
-					<% if current_user -%>
-					 <%= link_to image_tag(current_user.avatar.url(:tiny), :width => '20', :height => '20'), profile_path(current_user.username) %>
-  					<ul>
-  						<li>Welcome <%= link_to current_user.first_name, profile_path(current_user.username) %> | </li>
-  						<li><%= link_to 'Log out', logout_path %></li>
-  					</ul>
-  				<% else -%>
-  				  <ul>
-  						<li><%= link_to 'Login', login_path %></li>
-  					</ul>
-  				<% end -%>
-  				<div class="clear"></div>
-				</section><!-- .profile -->
-				<section class="restaurant_promo top_promo">
-					<a href="#">Upgrade your account to build a restaurant profile!</a>
-				</section><!-- .restaurant_promo -->
-			</div><!-- .header_right -->
-		</header>
-		
-		<div id="main">
-			
-			<nav id="primary_nav">
-			  <% if current_user -%>
-          <%= render :partial => 'layouts/nav_spoonfeed' %>
-        <% else -%>
-          <%= render :partial => 'layouts/nav' %>
-        <% end -%>
-			</nav>
-			
-			<div id="content">
-        <% unless @hide_flashes %>
-          <div id="flashes">
-            <%- flash.each do |name, msg| -%>
-            <%= content_tag :div, msg, :id => "flash_#{name}" %>
-            <%- end -%>
-          </div>
-        <% end %>
-
-
-        <%- if show_title? -%>
-          
-        <%- end -%>
-
-        <%= yield %>
-
+<%= render 'layouts/head' %>
+<%= render 'layouts/staging_bar' %>
+<div id="container">
+  <header id="site_header">
+    <%= render 'layouts/logo' %>
+    <div class="header_right">
+      <%= render 'layouts/search' %>				
+      <%= render 'layouts/userbox' %>
+      <section class="restaurant_promo top_promo">
+        <a href="#">Upgrade your account to build a restaurant profile!</a>
+      </section><!-- .restaurant_promo -->
+    </div><!-- .header_right -->
+  </header>
+  <div id="main">
+    <%= render 'layouts/nav_logic' %>
+    <div id="content">
+      <%= render 'layouts/flashes' %>
+      <%- if show_title? -%><%- end -%>
+      <%= yield %>
     </div><!--#content-->
-    <% if display_sidebar? %>
-			<div id="sidebar_b">
-				<div id="sidebar_content">
-				  
-				  <%= yield :sidebar %>
-					
-					<% if current_user && current_user.admin? %>
-			          <%= link_to "Go to Admin", admin_root_path, :cass => "promo" %>
-			        <% end %>
-					
-					<%= link_to "Send an Invitation", new_invitation_path, :id => "invitation", :class => "promo" %>
-					
-					<aside class="promo" id="btl_game">
-						<a href="#" class="new_question">new question</a>
-						<h1>Behind the Line</h1>
-						<h2>A little bit of fun</h2>
-						<p>All the Write Stuff: You're the king of all media! So what do you do now?</p>
-						<h3>What do you feel is the most underrated industry publication/blog?</h3>
-						<textarea></textarea>
-						<button>Post</button>
-						<p class="disclaimer">Your answers are viewable on your public profile</p>
-					</aside><!--#btl_game-->
-
-
-					<aside class="promo" id="manuals">
-
-						<%= link_to "Marketing Manual", public_page_path('introduction-marketing-workbook'), :id => 'marketing_manual' %>
-						<p>some marketing manual text goes here</p>
-
-						<a id="help_questions" href="#">Help / Questions?</a>
-						<p>Some helpful text goes here</p>
-
-					</aside><!--.promo-->
-										
-					<%- if current_user && !current_user.media? %>
-            <%# disabling the ria labs for now: render :partial => 'shared/ria_labs' %>
-          <% end -%>
-				</div><!-- #sidebar_content-->
-			</div><!--#sidebar_b-->
-		<% end -%>
-		<div class="clear"></div>
-		</div><!-- #main -->
-	</div><!-- #container -->
-
-
-	<div id="footer_container"> 
-		
-		<footer>
-			<div id="footer_branding">
-				<a href="http://www.restaurantintelligenceagency.com/"><img src="/images/redesign/footer-ria-logo.png" alt="RIA: Restaurant Intelligency Agency" title="RIA: Restaurant Intelligency Agency" /></a>
-			</div><!--#footer_branding-->
-			
-			<div id="footer_links">
-				<p>&copy; <%= Time.now.strftime('%Y') %> <a href="http://www.restaurantintelligenceagency.com/">Restaurant Intelligency Agency</a>. All Rights Reserved.</p>
-				<nav>
-					<%= link_to 'Contact', public_page_path('contact') %>
-					<%= link_to 'RIA HQ', 'http://www.restaurantintelligenceagency.com' %>
-					<%= link_to 'Privacy', public_page_path('privacy') %>
-					<%= link_to 'About', public_page_path('about') %>
-					<%= link_to 'Products', public_page_path('products') %>
-					<%= link_to 'Help', public_page_path('help') , :class => 'last' %>
-				</nav>
-				<ul>
-					<li>Powered by <a href="http://www.lacolombe.com/">La Colombe Torrefaction</a> </li>
-					<li>Built by <a href="http://www.neotericdesign.com/">Neoteric Design</a></li>
-				</ul>	
-			</div><!--#footer_links-->
-			
-			<div id="footer_social">
-				<a class="fb" href="http://www.facebook.com/RestaurantIntelligenceAgency">Check us out<br/>on Facebook</a>
-				<a class="twitter" href="http://twitter.com/TeamRIA">Follow on Twitter<br/>@TeamRIA</a>
-			</div><!--#social_links-->
-		</footer>
-		
-	</div><!-- #footer_container-->
-
-
-	<script type="text/javascript">
-    window.current_user_id = '<%= current_user ? current_user.id : "null" %>';
-  </script>
-  
-	<% fb_connect_async_js do %>
-    <%= yield :facebook_js %>
-  <% end %>
-  
-	<%= yield(:javascript) %>
-	</body>
-</html>
+    <%= render 'layouts/sidebar' %>
+    <div class="clear"></div>
+  </div><!-- #main -->
+</div><!-- #container -->
+<%= render 'layouts/footer' %>

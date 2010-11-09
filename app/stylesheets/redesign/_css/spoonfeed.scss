@@ -136,6 +136,7 @@ body{
 					line-height: 17px;
 					margin: 20px 0 0 0;
 					border-bottom: 1px dotted #ccc;
+					@include transition;
 					&:hover {
 						color: $brown;
 						background-position: 8px -100px;
@@ -310,6 +311,7 @@ body{
 			@include border-radius(20px);
 			@include box-shadow(#333,0px,2px,2px);
 			@include hiddentext;
+			@include transition;
 			&.selected {background-color: $orange;}
 			&.last {
 				padding-right: 0;
@@ -410,6 +412,7 @@ body{
 					color: #fff;
 					line-height: 21px;
 					text-shadow: 0 1px 0 #333;
+					
 					&:hover {
 						background-position: -200px 3px;
 						padding: 18px 0 0 0;
