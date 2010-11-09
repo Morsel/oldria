@@ -187,7 +187,7 @@ class User < ActiveRecord::Base
 
   # do they have the setup needed for Behind the Line (profile questions)?
   def btl_enabled?
-    primary_employment && primary_employment.restaurant_role
+    primary_employment.present? && primary_employment.restaurant_role.present?
   end
 
   def restaurant_names
