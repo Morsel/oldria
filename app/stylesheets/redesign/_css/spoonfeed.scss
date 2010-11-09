@@ -786,9 +786,7 @@ form, #page_content form{
 			}
 		}
 	}
-<<<<<<< HEAD
-} /* ## end of page_content --------------------- */
-=======
+
 	p.inline-hints{
 		margin:0 0 10px;
 		font-style:italic;
@@ -807,7 +805,6 @@ form, #page_content form{
 }
 
 
->>>>>>> d39e578c3de4d2b184b0cba8fad324331ad7e797
 
 #directory_search {
 	form {
@@ -1156,6 +1153,25 @@ form, #page_content form{
 		font-size: 13px;
 		line-height: 20px;
 	}
+	.avatar {
+		float: left;
+		width: 25px;
+		height: 25px;
+		margin: 8px 10px 10px 0;
+		img {
+			display: block;
+			width: 25px;
+			height: 25px;
+			border: 1px solid $brown;
+		}
+	}	
+	ul {
+		margin: 8px 0;
+		padding: 0;
+		li {
+			background: none;
+		}
+	}
 	.admin_conversation, .admin_discussion {
 		overflow: hidden;
 		background: transparent url(/images/redesign/bg-hp-left.png) no-repeat;
@@ -1175,11 +1191,37 @@ form, #page_content form{
 		}
 	}
 }
-
 #profile-account {
 	float: right;
 	width: 228px;
 	margin-left: 15px;
+}
+#flashes {
+	clear:both;
+	margin: 15px 0;
+	font-family: Gotham, "helvetica neue", arial, sans-serif;
+	font-size: 13px;
+	div{
+		border: 1px solid #ddd;
+		padding: 10px 15px;
+		@include border-radius(30px);
+		@include box-shadow(#f1f1f1,0px,2px,2px);
+		&#flash_error{
+			background: $trans-orange;
+			border-color: $orange;
+			color: $orange;
+		}
+		&#flash_notice{
+			background: #fffbe0;
+			border-color: #FFD324;
+			color: #766833;
+		}
+		&#flash_success{
+			background: #edf5d0;
+			border-color: #abbc66;
+			color: #365816;
+		}
+	}
 }
 
 
