@@ -6,7 +6,12 @@ $('#jumbotron').cycle({
 	pagerBuilder: jumbotronController
 });
 
-$('.hp_promo').equalHeights();
+$('.hp_promo').equalHeights({
+	panelTemplate: '<section></section>',
+	fx: { duration: 'fast', opacity: 'toggle' }
+});
+
+$('#profile-tabs').tabs();
 
 function jumbotronController(idx, elem){
 	idx++;

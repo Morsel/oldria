@@ -507,6 +507,7 @@ body{
 			}
 		}
 	}
+	
 	h2 {
 		font-family: 'Hoefler Text', Georgia, serif;
 		font-weight: bold;
@@ -524,6 +525,12 @@ body{
 				text-decoration: none;
 			}
 		}
+	}
+	#profile-tabs h2{
+		font-size:12px;
+		font-style:normal;
+		text-transform:uppercase;
+		margin:5px 0 0;
 	}
 	h3 {
 		font-family: Georgia, Times, serif;
@@ -745,6 +752,53 @@ body{
 	#qotd_column {
 		margin-right: 20px;
 	}
+	
+	form{
+		ul, ol, li{
+			margin:0;
+			padding:0;
+			list-style:none;
+		}
+		label{
+			font-weight:bold;
+		}
+		.string, .text, .country{
+			label{
+				display:block;
+				margin:5px 0 0;
+			}
+		}
+		.string, .text{
+			input, textarea{
+				padding:5px;
+				border:1px solid #ccc;
+				font:bold 13px;
+				color:#333;
+			}
+		}
+		.date{
+			ol, ul{
+				overflow:hidden;
+				li{
+					float:left;
+					margin:0 10px 0 0;
+					label{
+						display:block;
+					}
+				}
+			}
+		}
+		p.inline-hints{
+			margin:0 0 10px;
+			font-style:italic;
+			color:#666;
+		}
+		fieldset{
+			margin:10px 0;
+		}
+	}
+	
+	
 } /* ## end of page_content --------------------- */
 
 #sidebar_b {
@@ -1053,6 +1107,12 @@ body{
 		text-shadow:0 1px 0 #333;
 	}
 }
+.ui-tabs-panel{ 
+	background:#f7f6f2;
+	padding:10px;
+	margin:-15px 0 0;
+}
+.ui-tabs-hide{ display:none; }
 
 #staging_bar{
 	position:absolute;
@@ -1063,3 +1123,6 @@ body{
 	border-width:0 2px 2px 0;
 	color: #514721;
 }
+
+
+

@@ -19,12 +19,111 @@
 	<div class="clear"></div>
 </header>
 
-<nav id="profile-options">
-  <span class="ui-tabs-selected"><a href="#">Account</a></span>
-  <span><a href="#">Messages</a></span>
-  <span><a href="#">Profile Summary</a></span>
-  <span><a href="#">Extended Profile</a></span>
-</nav><!-- /profile_options -->
+
+
+  <section id="profile-account">
+      <h5>Contact Information</h5>
+      <dl class="user_info clearfix clear contact">
+          <%- unless params[:controller] == 'soapbox/profiles' -%>
+          <dt>Acct. Type</dt>
+          <dd class="user_account_type"><%= h @user.account_type %></dd>
+          <%- end -%>
+
+          <% if display_cell(@user) %>
+          <dt>Mobile</dt>
+          <dd><%= @user.profile.cellnumber %></dd>
+          <% end %>
+
+          <%- if display_email(@user) -%>
+          <dt>Email</dt>
+          <dd><%= mail_to(@user.email, truncate(@user.email, :length => 20)) %></dd>
+          <%- end -%>
+
+          <% if display_twitter(@user) %>
+          <dt>Twitter</dt>
+          <dd><%= link_to @user.twitter_username, "http://twitter.com/#{@user.twitter_username}" %></dd>
+          <% end -%>
+
+          <% if display_facebook(@user) %>
+          <dt>Facebook</dt>
+          <dd><%= link_to @user.facebook_user.name, @user.facebook_user.link %></dd>
+          <% end %>
+      </dl><!-- .user_info.contact -->
+
+  <h5>More Details</h5>
+      <dl class="user_info clearfix extra">
+          <% if @user.profile %>
+          <% if @user.profile.job_start.present? %>
+          <dt>Job Start</dt>
+          <dd><%= @user.profile.job_start.try(:strftime, '%B %d, %Y') %></dd>
+          <% end %>
+
+          <% if @user.profile.birthday.present? %>
+          <dt>Age</dt>
+          <dd><%= age(@user.profile.birthday) %></dd>
+          <% end %>
+
+          <% if @user.profile.hometown.present? %>
+          <dt>Hometown</dt>
+          <dd><%= @user.profile.hometown %></dd>
+          <% end %>
+
+          <% if @user.profile.current_residence.present? %>
+          <dt>Current City</dt>
+          <dd><%= @user.profile.current_residence %></dd>
+          <% end %>
+
+          <% end %>
+      </dl><!-- .user_info.extra -->
+      <p class="timestamp_header">Last updated:<%= @user.profile.try(:updated_at).try(:strftime, "%b %e %Y") %></p>
+
+  </section><!--/profile-account-->
+
+
+  <section id="profile-summary">
+      <% if @user.employments.any? %>
+      <h5 class="nomargin">Title(s)</h5>
+      <div>
+          <%= @user.primary_employment.try(:restaurant_role).try(:name) %>, 
+          <%= link_to_unless (params[:controller] == 'soapbox/profiles'),
+              @user.primary_employment.try(:restaurant).try(:name), 
+              @user.primary_employment.try(:restaurant) %>
+      </div>
+      <% for employment in @user.nonprimary_employments %>
+      <div>
+          <%= employment.try(:restaurant_role).try(:name) %>, 
+          <%= link_to_unless (params[:controller] == 'soapbox/profiles'),
+              employment.try(:restaurant).try(:name), 
+              employment.try(:restaurant) %>
+      </div>
+      <% end %>
+      <% elsif @user.default_employment %>
+      <div>
+          <%= @user.primary_employment.try(:restaurant_role).try(:name) %>, 
+          <%= @user.primary_employment.try(:solo_restaurant_name) %>
+      </div>
+      <% end %>
+
+      <% if @user.profile && @user.profile.summary.present? -%>
+        <h5>Summary</h5>
+        <p><%= @user.profile.try(:summary) %></p>
+      <% end -%>
+
+      <% if @user.profile && @user.profile.specialties.present? %>
+        <h5>Specialties</h5>
+        <p><%= @user.profile.specialties.map { |s| link_to s.name, directory_search_link(:specialty_id => s.id) }.to_sentence %></p>
+      <% end %>
+
+      <% if @user.profile && @user.profile.cuisines.present? %>
+        <h5>Cuisine(s)</h5>
+        <p><%= @user.profile.cuisines.map { |c| link_to c.name, directory_search_link(:cuisine_id => c.id) }.to_sentence %></p>
+      <% end %>
+
+  </section><!--/profile-summary-->
+
+  <section id="profile-extended">
+  	<%= render 'users/extended_profile', :user => @user, :profile => @user.profile %>
+  </section><!-- #profile-extended -->
 
 
 <% if false -%>
@@ -46,104 +145,9 @@
                         <% end %>
                     </div><!--.profile_header-->
 
-                    <div class="profile_title_summary">
-                        <% if @user.employments.any? %>
-                        <h5 class="nomargin">Title(s)</h5>
-                        <div>
-                            <%= @user.primary_employment.try(:restaurant_role).try(:name) %>, 
-                            <%= link_to_unless (params[:controller] == 'soapbox/profiles'),
-                                @user.primary_employment.try(:restaurant).try(:name), 
-                                @user.primary_employment.try(:restaurant) %>
-                        </div>
-                        <% for employment in @user.nonprimary_employments %>
-                        <div>
-                            <%= employment.try(:restaurant_role).try(:name) %>, 
-                            <%= link_to_unless (params[:controller] == 'soapbox/profiles'),
-                                employment.try(:restaurant).try(:name), 
-                                employment.try(:restaurant) %>
-                        </div>
-                        <% end %>
-                        <% elsif @user.default_employment %>
-                        <div>
-                            <%= @user.primary_employment.try(:restaurant_role).try(:name) %>, 
-                            <%= @user.primary_employment.try(:solo_restaurant_name) %>
-                        </div>
-                        <% end %>
-  
-                        <% if @user.profile && @user.profile.summary.present? -%>
-                          <h5>Summary</h5>
-                          <p><%= @user.profile.try(:summary) %></p>
-                        <% end -%>
-
-                        <% if @user.profile && @user.profile.specialties.present? %>
-                          <h5>Specialties</h5>
-                          <p><%= @user.profile.specialties.map { |s| link_to s.name, directory_search_link(:specialty_id => s.id) }.to_sentence %></p>
-                        <% end %>
-
-                        <% if @user.profile && @user.profile.cuisines.present? %>
-                          <h5>Cuisine(s)</h5>
-                          <p><%= @user.profile.cuisines.map { |c| link_to c.name, directory_search_link(:cuisine_id => c.id) }.to_sentence %></p>
-                        <% end %>
-
-                    </div><!--.profile_title_summary-->
+                    
 		
-                    <div class="profile_contact_info">
-                        <h5>Contact Information</h5>
-                        <dl class="user_info clearfix clear contact">
-                            <%- unless params[:controller] == 'soapbox/profiles' -%>
-                            <dt>Acct. Type</dt>
-                            <dd class="user_account_type"><%= h @user.account_type %></dd>
-                            <%- end -%>
-                
-                            <% if display_cell(@user) %>
-                            <dt>Mobile</dt>
-                            <dd><%= @user.profile.cellnumber %></dd>
-                            <% end %>
-
-                            <%- if display_email(@user) -%>
-                            <dt>Email</dt>
-                            <dd><%= mail_to(@user.email, truncate(@user.email, :length => 20)) %></dd>
-                            <%- end -%>
-
-                            <% if display_twitter(@user) %>
-                            <dt>Twitter</dt>
-                            <dd><%= link_to @user.twitter_username, "http://twitter.com/#{@user.twitter_username}" %></dd>
-                            <% end -%>
-
-                            <% if display_facebook(@user) %>
-                            <dt>Facebook</dt>
-                            <dd><%= link_to @user.facebook_user.name, @user.facebook_user.link %></dd>
-                            <% end %>
-                        </dl><!-- .user_info.contact -->
-  
-            			<h5>More Details</h5>
-                        <dl class="user_info clearfix extra">
-                            <% if @user.profile %>
-                            <% if @user.profile.job_start.present? %>
-                            <dt>Job Start</dt>
-                            <dd><%= @user.profile.job_start.try(:strftime, '%B %d, %Y') %></dd>
-                            <% end %>
-
-                            <% if @user.profile.birthday.present? %>
-                            <dt>Age</dt>
-                            <dd><%= age(@user.profile.birthday) %></dd>
-                            <% end %>
-
-                            <% if @user.profile.hometown.present? %>
-                            <dt>Hometown</dt>
-                            <dd><%= @user.profile.hometown %></dd>
-                            <% end %>
-
-                            <% if @user.profile.current_residence.present? %>
-                            <dt>Current City</dt>
-                            <dd><%= @user.profile.current_residence %></dd>
-                            <% end %>
-
-                            <% end %>
-                        </dl><!-- .user_info.extra -->
-                        <p class="timestamp_header">Last updated:<%= @user.profile.try(:updated_at).try(:strftime, "%b %e %Y") %></p>
-
-                    </div><!--.profile_contact_info-->
+                    
 
                 </div><!--.profile_info-->
 
@@ -151,11 +155,7 @@
 
             </div><!-- #user_profile_view -->
   	
-            <div id="extended_profile_container">
-            	<a href="#extended_profile" class="showit">View Extended Profile <em>(Education, Experience, Awards, etc)</em></a>
-  	
-            	<%= render 'users/extended_profile', :user => @user, :profile => @user.profile %>
-            </div><!-- #extended_profile_container -->
+            
 
 
             <div id="recent_soapbox" class="clearfix">
