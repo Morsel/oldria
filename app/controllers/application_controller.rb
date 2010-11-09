@@ -136,7 +136,8 @@ class ApplicationController < ActionController::Base
   end
   
   def load_random_btl_question
-    return unless current_user && !params[:controller].match(/soapbox/)
+    return unless current_user && current_user.btl_enabled?
+    return unless !params[:controller].match(/soapbox/)
     @question = ProfileQuestion.for_user(current_user).random.first
   end
   
