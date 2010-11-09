@@ -288,7 +288,7 @@ body{
 	margin: 0;
 	position: absolute;
 	width: 974px;
-	top: 408px;
+	top: 413px;
 	z-index: 1000;
 	background: transparent url(/images/redesign/bg-controller.png) no-repeat 0 100%;
 	nav {
@@ -677,8 +677,9 @@ body{
 }
 
 #flashes div{
+	clear:both;
 	border: 2px solid #DDD;
-	margin-bottom: 1em;
+	margin:15px 0;
 	padding: 0.8em;
 	&#flash_error{
 		background: #FBE3E4;
