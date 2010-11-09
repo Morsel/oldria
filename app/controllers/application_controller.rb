@@ -10,7 +10,7 @@ class ApplicationController < ActionController::Base
   # Scrub sensitive parameters from your log
   filter_parameter_logging :password
 
-  before_filter :preload_resources
+  # before_filter :preload_resources
 
   helper_method :current_user
   helper_method :mediafeed?
