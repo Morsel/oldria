@@ -679,7 +679,6 @@ body{
 			margin: 0 0 10px 0;
 			padding: 13px 10px;
 			@include box-shadow(#eee,0px, 1px,0px);
-<<<<<<< HEAD
 			@include transition;
 			&.go_to_admin {
 				font-family: 'Hoefler Text', Georgia, serif;
@@ -691,8 +690,6 @@ body{
 					background-color: $brown;
 				}
 			}
-=======
->>>>>>> 51a5cefe8ccb78a1cbfc58598cd2ab53c274ec55
 			&#invitation {
 				font-family: 'Hoefler Text', Georgia, serif;
 				font-style: italic;
@@ -886,12 +883,11 @@ body{
 	}
 }
 
-<<<<<<< HEAD
 #flashes {
 	margin-left: 15px;
 	div{
 		border: 2px solid #DDD;
-		margin-bottom: 1em;
+		margin:15px 0;
 		padding: 0.8em;
 		&#flash_error{
 			background: #FBE3E4;
@@ -908,27 +904,6 @@ body{
 			border-color: #C6D880;
 			color: #264409;
 		}
-=======
-#flashes div{
-	clear:both;
-	border: 2px solid #DDD;
-	margin:15px 0;
-	padding: 0.8em;
-	&#flash_error{
-		background: #FBE3E4;
-		border-color: #FBC2C4;
-		color: #8A1F11;
-	}
-	&#flash_notice{
-		background: #FFF6BF;
-		border-color: #FFD324;
-		color: #514721;
-	}
-	&#flash_success{
-		background: #E6EFC2;
-		border-color: #C6D880;
-		color: #264409;
->>>>>>> 51a5cefe8ccb78a1cbfc58598cd2ab53c274ec55
 	}
 }
 
