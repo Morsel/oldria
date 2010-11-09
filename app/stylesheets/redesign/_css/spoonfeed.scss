@@ -342,13 +342,46 @@ body{
 		background: transparent url(/images/redesign/bg-steps.png) no-repeat;
 		section {
 			padding: 0 10px;
-			margin: 0 10px 0 0;
+			margin: 0 10px 20px 0;
+			&.hp_promo {
+				p {
+					font-weight: 300;
+					font-size: 16px;
+					line-height: 24px;
+				}
+			}
 			h1 {
 				margin: 10px 0 20px 0;
+				font-family: 'Hoefler Text', Georgia, serif;
+				font-weight: bold;
+				font-size: 13px;
+				letter-spacing: 0.15em;
+				text-transform: uppercase;
+				color: $orange;
+				text-shadow: 0 1px 0 #fff;
 			}
 			&#whos_on {
 				float: left;
 				width: 298px;
+				h1 {
+					color: #fff;
+					text-shadow: 0 1px 0 #333;
+				}
+				img {
+					float: left;
+					margin: 0 10px 15px 0;
+					@include box-shadow(#ddd,0px,2px,2px);
+				}
+				p.user_quote {
+					display: block;
+					font-family: 'Hoefler Text', Georgia, serif;
+					font-weight: normal;
+					font-style: italic;
+					font-size: 18px;
+					line-height: 24px;
+					clear: both;
+					margin: 10px 0;
+				}
 			}
 			&#what_it_takes {
 				float: left;
@@ -360,8 +393,32 @@ body{
 			}
 			&#how_to_join {
 				float: left;
-				width:130px;
-				margin-right: 0;
+				width:134px;
+				margin: 0;
+				padding-right: 0;
+				a#request_an_invitation {
+					display: block;
+					font-size: 16px;
+					font-weight: bold;
+					text-transform: uppercase;
+					text-align: center;
+					margin: 20px 0 0;
+					padding: 15px 0 0 0;
+					height: 70px;
+					background: transparent url(/images/redesign/ticket.png) no-repeat;
+					font-family: 'Hoefler Text', Georgia, serif;
+					color: #fff;
+					line-height: 21px;
+					text-shadow: 0 1px 0 #333;
+					&:hover {
+						background-position: -200px 3px;
+						padding: 18px 0 0 0;
+						height: 67px;
+						@include box-shadow(#ccc,3px,3px,3px);
+						color: rgba(255,255,255,.5);
+						text-shadow: none;
+					}
+				}
 			}
 		}
 	}
@@ -561,7 +618,7 @@ body{
 			@include column(8);
 		}
 		#footer_links {
-			@include column(10);
+			@include column(12);
 			p {
 				margin: 8px 0 10px 0;
 				color: #aaa;
@@ -596,7 +653,7 @@ body{
 			}
 		}
 		#footer_social {
-			@include column(6, true);
+			@include column(4, true);
 			a {
 				display: block;
 				padding: 0;
