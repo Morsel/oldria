@@ -3,8 +3,7 @@
   <h2><%= caption %></h2>
   <ul id="<%= association %>">
     <%= render associated.send(association) %>
+    <% reset_cycle('default') -%>
   </ul>
-  <% link_to form_path, :class => 'positive button colorbox' do %>
-    <img src="/images/plus.png"/> Add
-  <% end %>
+  <%= link_to "add another", form_path, :class => 'add_extended colorbox'%>
 </div>
