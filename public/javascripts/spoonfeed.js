@@ -31,6 +31,22 @@ var colorboxOnComplete = function(){
   });
 };
 
+$('#criteria_accordion').accordion({
+	autoHeight: false,
+	collapsible: true,
+	active: false,
+	header: '.accordion_box a',
+	change: function() {
+		$('.accordion_box').each(function(){
+			if($(this).find('input:checked').length > 0){
+				$(this).find('a').addClass('options_selected');
+			} else {
+				$(this).find('a').removeClass('options_selected');
+			}
+		});
+	}
+}).find('.loading').removeClass('loading');
+
 $(document).ready(function(){
 	var bindColorbox = function() {
 	  $('.colorbox').colorbox({
