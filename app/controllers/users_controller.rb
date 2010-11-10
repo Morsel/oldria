@@ -16,8 +16,7 @@ class UsersController < ApplicationController
   end
 
   def edit
-    @user.build_default_employment unless @user.employments.present? || @user.default_employment
-    @fb_user = current_facebook_user.fetch if current_facebook_user && @user.facebook_authorized?
+    redirect_to edit_my_profile_path
   end
 
   def update
