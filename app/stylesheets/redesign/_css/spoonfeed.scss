@@ -849,6 +849,11 @@ form#new_user_session {
 				}	
 				ol {
 					li {
+						.cuisines {
+							.colorbox {
+								background: $trans-orange;
+							}
+						}
 						&.show_this_to {
 							background: transparent url(/images/redesign/bg-show-to.png) no-repeat 0 100%;
 							padding: 12px;
