@@ -24,7 +24,10 @@ body{
 	margin: 0 auto;
 	*zoom: 1;
 	position:relative;
+	padding:0 0 20px;
 }
+
+@include sticky-footer(160px, "#container", "#padding", "#footer_container");
 
 #site_header {
 	display: block;
@@ -1459,11 +1462,13 @@ p.search_filter_hint {
 #footer_container {
 	position: relative;
 	display: block;
-	border-top: 10px solid #000;
 	z-index: 1000;
 	background-color: #333;
-	height: 150px;
-	footer {
+	#foot-wrap{
+		height: 150px;
+		border-top: 10px solid #000;
+	}
+	footer {	
 		width: 974px;
 		margin: 25px auto;
 		padding: 0;
