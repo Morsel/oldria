@@ -981,7 +981,7 @@ form#new_user_session {
 		}
 	} /* behind the line stuff */
 	
-	.last_updated, .timestamp_header {
+	.last_updated, .timestamp_header, .timestamp {
 		font-size: 10px;
 		margin: 5px 0;
 		padding: 0;
@@ -1635,12 +1635,37 @@ p.search_filter_hint {
 	}
 }
 
-#extended_profile {
-	background-color: $trans-brown;
-}
-
 
 #profile-extended{
+	overflow: hidden;
+	#extended_profile {
+		padding: 5px 8px;
+		background-color: $trans-brown;
+		.extended_profile_info {
+			border-bottom: 1px solid #ddd;
+			padding-bottom: 20px;
+			h3 {
+				font-weight: bold;
+				font-family: "Hoefler Text", Georgia, sans-serif;
+				font-size: 12px; 
+				color: #333;
+				text-transform: uppercase;
+				letter-spacing: 0.2em;
+			}
+			ul {
+				margin: 0;
+				padding: 0;
+				li {
+					.name {
+						font-weight: bold;
+						color: #333;
+						font-size: 15px;
+					}
+				}
+			}
+		}
+	}
+
 	div.ajaxdelete{
 		border-bottom:1px solid #e0ddd5;
 		padding:12px 0;
@@ -1661,7 +1686,7 @@ p.search_filter_hint {
 			}
 			.extended-title{
 				display:block;
-				margin:15px 0 5px;
+				margin:5px 0;
 				font-weight:bold;
 				font-size:15px;
 				span{

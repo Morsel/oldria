@@ -21,7 +21,7 @@
 
 
 
-  <section id="profile-account">
+  <section id="profile-account" class="equal-height">
       <h5>Contact Information</h5>
       <dl class="user_info clearfix clear contact">
           <%- unless params[:controller] == 'soapbox/profiles' -%>
@@ -80,7 +80,7 @@
   </section><!--/profile-account-->
 
 
-  <section id="profile-summary">
+  <section id="profile-summary" class="equal-height">
       <% if @user.employments.any? %>
       <h5 class="nomargin">Title(s)</h5>
       <div>
