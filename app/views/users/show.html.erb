@@ -5,13 +5,15 @@
 <% end %>
 
 <header>
-  <% if current_user == @user %>
-	    <div class="edit_profile_link"><a href="<%= edit_my_profile_path %>"><span>Edit profile</span></a></div>
-   <% end %>
+  
    
 	<aside class="user_actions">
-		<a class="private_message" href="#">Private Message</a>
-		<a class="follow_user" href="#">Follow User</a>
+	  <% if current_user == @user -%>
+  	    <%= link_to 'Edit profile', edit_my_profile_path %>
+    <% else -%>
+		  <a class="private_message" href="#">Private Message</a>
+  		<a class="follow_user" href="#">Follow User</a>
+  	<% end -%>
 	</aside>
 	 <%= image_tag @user.avatar.url(:small), :width=>'72' %>
 	<h1><%= @user.name %></h1>
