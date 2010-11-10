@@ -1,3 +1,4 @@
+@profile
 Feature: Update information
   So that I can change my twitter account, my name, or other details about my account,
   As a SF member,
@@ -14,7 +15,6 @@ Feature: Update information
     And I fill in "Username" with "leslie"
     And I press "Save"
     Then I should see "Successfully updated your profile"
-    And I should see "Logged in as leslie"
 
 
   Scenario: Updating password
