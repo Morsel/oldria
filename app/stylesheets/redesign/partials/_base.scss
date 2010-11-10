@@ -33,6 +33,4 @@ $blueprint-grid-width: ($blueprint-container-size + $blueprint-grid-margin) / $b
 
 @mixin hoeflerbolditalic {
 	font-family: 'HoeflerTextBoldItalic', 'Hoefler Text Italic', Georgia, Times, serif;
-	font-weight: normal !important;
-	font-style: normal !important;
 }
