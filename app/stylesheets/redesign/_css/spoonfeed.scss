@@ -314,9 +314,7 @@ form#new_user_session {
 		padding: 25px 0px 0px 25px;
 		h1 {
 			font-size: 44px;
-			font-style: italic;
-			font-family: "Hoefler Text", Georgia, Times, serif;
-			font-weight: bold;
+			@include hoeflerbolditalic;
 			color: #fff;
 			text-shadow: 0px 2px 2px #000;
 			margin: 0 0 10px 0;
@@ -541,10 +539,8 @@ form#new_user_session {
 	padding: 5px 14px 20px 18px;
 	header {margin-bottom: 15px;}
 	h1 {
-		font-family: 'Hoefler Text', Georgia, serif;
-		font-weight: bold;
-		font-style: italic;
-		font-size: 24px;
+		@include hoeflerbolditalic;
+		font-size: 25px;
 		color: #333;
 		line-height: 30px;
 		padding: 0;
@@ -559,9 +555,7 @@ form#new_user_session {
 		}
 	}
 	h2 {
-		font-family: 'Hoefler Text', Georgia, serif;
-		font-weight: bold;
-		font-style: italic;
+		@include hoeflerbolditalic;
 		font-size: 21px;
 		color: #333;
 		line-height: 28px;
