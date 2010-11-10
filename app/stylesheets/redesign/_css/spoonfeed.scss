@@ -790,7 +790,9 @@ form#new_user_session {
 			}
 			.message-header {display: none;}
 		}
-	}
+	} /*qotd && trend columns */
+	
+	
 	#qotd_column {
 		margin-right: 20px;
 	}
@@ -918,8 +920,45 @@ form#new_user_session {
 				}
 			}
 		}
-	}
+	} /* profile tabs */
 
+
+	.chapter{
+		width:314px;
+		padding:10px;
+		border:1px solid #ccc;
+		float:left;
+		margin:0 10px 10px 0;
+		position:relative;
+		@include box-shadow(#aaa,1px,1px,3px);
+		&.last{
+			margin-right:0;
+		}
+		
+		h3{
+			@include hoeflerbolditalic;
+			color:$orange;
+			font-size:21px;
+			font-weight:normal;
+			line-height:1.2;
+			padding:0 40px 5px 0;
+			margin:0 0 10px;
+			border-bottom:1px dotted #aaa;
+		}
+		.chapter_answer_count{
+			position:absolute;
+			top:5px;
+			right:5px;
+			color:#979797;
+			text-transform:uppercase;
+			font:normal 10px "Lucida Grande", Arial, sans-serif;
+		}
+		&:hover{
+			cursor:pointer;
+			text-decoration:none;
+			background:rgba(216,83,30,0.08);
+		}
+	} /* behind the line stuff */
 	
 
 } /* ## end of page_content --------------------- */
@@ -1191,12 +1230,20 @@ p.search_filter_hint {
 					padding: 4px 12px;
 					@include border-radius(20px);
 					@include transition;
+					
 					&:hover {
 						background-color: $orange;
 						border: 1px solid $orange;
 						color: #fff;
 						text-shadow: 0 1px 0 #333;
 						background-image: none;
+					}
+					&[disabled]{
+						background: #e3e3e3 url(/images/redesign/bg-button.png) repeat-x !important;
+						border: 1px solid #ddd;
+						text-shadow: 0 1px 0 #fff !important;
+						color: #333 !important;
+						cursor:normal !important;
 					}
 				}
 				.disclaimer {
@@ -1747,10 +1794,8 @@ p.search_filter_hint {
 					text-decoration:none;
 					h5{
 						color:#333;
-						text-shadow:0 1px 0 #fff;
 						.completeness{
 							color:#333;
-							text-shadow:none !important;
 						}
 					}
 				}
@@ -1761,4 +1806,5 @@ p.search_filter_hint {
 #recent_qtod{
 	@include column(8,true);
 }
+
 
