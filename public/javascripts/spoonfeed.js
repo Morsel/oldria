@@ -17,9 +17,6 @@ $('.internship').equalHeights();
 $('.stage').equalHeights();
 $('.apprenticeship').equalHeights();
 
-if($('.extended_profile_info ul li').length > 1){
-	$('.extended_profile_info ul li').equalHeights();
-}
 
 
 
