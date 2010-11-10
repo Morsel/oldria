@@ -1557,3 +1557,72 @@ p.search_filter_hint {
 }
 
 
+#behindline{
+	@include column(9);
+	#btl-title{
+		color:#666;
+		text-transform: capitalize;
+		font:200 16px "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, sans-serif;
+		padding:0 0 5px;
+		margin:0 0 10px;
+		border-bottom:1px solid #ccc;
+		span{
+			@include hiddentext;
+			display:inline-block;
+			background:url(/images/redesign/bg-btl-title.png) no-repeat;
+			width:123px;
+			height:18px;
+		}
+	}
+	ul{
+		margin:10px 0;
+		padding:0;
+		li{
+			padding:0;
+			margin:0;
+			background:0;
+			&.even{
+				a{
+					background:#DFDBCC;
+				}
+			}
+			a{
+				display:block;
+				padding:10px;
+				position:relative;
+				color:#333;
+				h5{
+					font-family: "Hoefler Text", Georgia, serif;
+					color:$brown;
+					width:200px;
+					line-height:1.1;
+					margin:0 0 10px;
+					.completeness{
+						position:absolute;
+						top:5px;
+						right:5px;
+						color:#808080;
+						font:normal 9px "Lucida Grande", Arial, sans-serif;
+					}
+				}
+				&:hover{
+					background:$med-brown;
+					color:#fff;
+					text-decoration:none;
+					h5{
+						color:#333;
+						text-shadow:0 1px 0 #fff;
+						.completeness{
+							color:#333;
+							text-shadow:none !important;
+						}
+					}
+				}
+			}
+		}
+	}
+}
+#recent_qtod{
+	@include column(8,true);
+}
+
