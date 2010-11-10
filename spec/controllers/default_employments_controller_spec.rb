@@ -14,6 +14,7 @@ describe DefaultEmploymentsController do
         "default_employment" => {"post_to_soapbox" => "1", 
                                  "restaurant_role_id" => role.id, 
                                  "subject_matter_ids" => [subject_matter.id]}
+    @user.reload
     @user.default_employment.should_not be_nil
     @user.primary_employment.should_not be_nil
   end

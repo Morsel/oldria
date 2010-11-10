@@ -184,6 +184,7 @@ end
 
 Factory.define :default_employment do |f|
   f.association :employee, :factory => :user
+  f.association :restaurant_role
 end
 
 Factory.define :assigned_employment, :parent => :employment do |f|

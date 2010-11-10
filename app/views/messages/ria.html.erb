@@ -2,26 +2,24 @@
 
 <%= render 'nav' %>
 
-<div class="span-9 last">
-  <%= render :partial => 'new_or_old_nav' %>
+<%= render :partial => 'new_or_old_nav' %>
 
-  <div id="read_messages">
-    <% unless archived_view? %>
-      <%= render :partial => 'message', :collection => @action_required_messages %>
+<div id="read_messages">
+  <% unless archived_view? %>
+    <%= render :partial => 'message', :collection => @action_required_messages %>
 
-      <% if use_replies_header? -%><span class="latest">The latest from RIA</span><%- end %>
-    <% end %>
+    <% if use_replies_header? -%><span class="latest">The latest from RIA</span><%- end %>
+  <% end %>
 
-    <%= render :partial => 'message', :collection => @messages %>
-    
-    <% if @messages.blank? %>
-    <div id="no-messages" class="clear">
-        <p>You don't have any new messages at the moment.</p>
-    </div>
-    <% end %>
+  <%= render :partial => 'message', :collection => @messages %>
+  
+  <% if @messages.blank? %>
+  <div id="no-messages" class="clear">
+      <p>You don't have any new messages at the moment.</p>
+  </div>
+  <% end %>
 
-  </div><!-- /messages -->
-</div>
+</div><!-- /messages -->
 
 
 <% content_for :head do -%>

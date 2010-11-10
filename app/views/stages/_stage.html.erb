@@ -1,11 +1,12 @@
-<% content_tag_for :li, stage do %>
-  <span class="name"><%= stage.establishment %></span> with <%= stage.expert %><br />
+<% content_tag_for :li, stage, :class => cycle('odd','even') do %>
+  <span class="extended-title"><%= stage.establishment %></span>
+  with <%= stage.expert %><br />
   <% if stage.end_date %>
-  <%= stage.start_date.strftime("%m/%d/%y") %> - <%= stage.end_date.strftime("%m/%d/%y") %>
+  <%= stage.start_date.strftime("%m/%d/%y") %> &ndash; <%= stage.end_date.strftime("%m/%d/%y") %>
   <% else %>
   <%= stage.start_date.strftime("%Y") %>
   <% end %>
-  
+  <br>
   <% if action_name != 'show' %>
     <%= link_to "Edit", edit_my_profile_stage_path(stage), :class => 'colorbox' %>
     <%= link_to "Destroy", my_profile_stage_path(stage), :method => :delete, :class => 'delete' %>

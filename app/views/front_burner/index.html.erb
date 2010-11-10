@@ -1,7 +1,14 @@
-<% title "Front Burner" %>
+<% title "Front Burner" %>	
 
-<h2>Questions of the Day</h2>
-<%= render :partial => 'messages/message', :collection => @qotds %>
+<%= link_to "New", front_burner_path %>
+<%= link_to "All", front_burner_path(:all => true) %>
 
-<h2>Trend Questions</h2>
-<%= render :partial => 'messages/message', :collection => @trend_questions %>
+<div id="qotd_column">
+	<h2 class="col_title">Questions of the Day</h2>
+	<%= render :partial => 'messages/message', :collection => @qotds %>
+</div><!--#qotd_column-->
+
+<div id="trend_column">
+	<h2 class="col_title">Trend Questions</h2>
+	<%= render :partial => 'messages/message', :collection => @trend_questions %>
+</div><!--#trend_column-->

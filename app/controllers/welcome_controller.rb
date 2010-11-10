@@ -1,16 +1,14 @@
 class WelcomeController < ApplicationController
+  
   def index
     if current_user
       @user = current_user
-      if @user.media?
-        @media_requests_by_type = @user.media_requests.for_dashboard.all(:include => [:subject_matter, :restaurants]).group_by(&:subject_matter)
-        render :mediahome
-      else
-        set_up_dashboard
-        render :dashboard
-      end
+      set_up_dashboard
+      render :dashboard
     else
-      @page = Page.find_by_slug(slug_for_home_page)
+      @sf_slides = SfSlide.all(:limit => 4)
+      @sf_promos = SfPromo.all(:limit => 4)
+      render :layout => 'home'
     end
   end
 

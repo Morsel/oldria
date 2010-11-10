@@ -1,0 +1,4 @@
+<section class="hp_promo <%= 'first' if sf_promo == @sf_promos.first %> <%= 'last' if sf_promo == @sf_promos.last %>">
+  <h1><%= sf_promo.title %></h1>
+  <%= sf_promo == @sf_promos.first ? sf_promo.body : simple_format(sf_promo.body) %>
+</section>

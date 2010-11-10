@@ -3,7 +3,9 @@ ActionController::Routing::Routes.draw do |map|
   map.logout 'logout', :controller => 'user_sessions', :action => 'destroy'
   map.confirm 'confirm/:id', :controller => 'users', :action => 'confirm'
   map.fb_login 'facebook_login', :controller => 'user_sessions', :action => 'create_from_facebook'
-
+  map.social_media 'social_media', :controller => 'social_media', :action => 'index'
+  map.my_restaurants 'my_restaurants', :controller => 'restaurants', :action => 'mine'
+  
   map.resources :invitations, :only => ['new', 'create', 'show']
   map.resource :complete_registration, :only => [:show, :update],
     :collection => { :find_restaurant => :any, :contact_restaurant => :post }
@@ -76,7 +78,7 @@ ActionController::Routing::Routes.draw do |map|
   }, :shallow => true do |users|
     users.resources :statuses
     users.resources :direct_messages, :member => { :reply => :get }
-    users.resources :questions, :collection => { :topics => :get, :chapters => :get }
+    users.resources :questions, :collection => { :topics => :get, :chapters => :get, :refresh => :post }
     users.resources :default_employments
     users.resource :subscription, :collection => { :bt_callback => :get, :billing_history => :get }, :controller => 'subscriptions'
   end
@@ -139,7 +141,7 @@ ActionController::Routing::Routes.draw do |map|
                               :staff_discussions => :get,
                               :media_requests => :get
                             }
-  map.connect 'front_burner', :controller => 'front_burner', :action => 'index'
+  map.front_burner 'front_burner', :controller => 'front_burner', :action => 'index'
 
   map.resources :timelines, :collection => {
                               :people_you_follow => :get,

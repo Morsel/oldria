@@ -1,0 +1,48 @@
+<div id="footer_container"> 
+
+<footer>
+	<div id="footer_branding">
+		<a href="http://www.restaurantintelligenceagency.com/"><img src="/images/redesign/footer-ria-logo.png" alt="RIA: Restaurant Intelligency Agency" title="RIA: Restaurant Intelligency Agency" /></a>
+	</div><!--#footer_branding-->
+	
+	<div id="footer_links">
+		<p>&copy; <%= Time.now.strftime('%Y') %> <a href="http://www.restaurantintelligenceagency.com/">Restaurant Intelligency Agency</a>. All Rights Reserved.</p>
+		<nav>
+			<%= link_to 'Contact', public_page_path('contact') %>
+			<%= link_to 'RIA HQ', 'http://www.restaurantintelligenceagency.com' %>
+			<%= link_to 'Privacy', public_page_path('privacy') %>
+			<%= link_to 'About', public_page_path('about') %>
+			<%= link_to 'Products', public_page_path('products') %>
+			<%= link_to 'Help', public_page_path('help') , :class => 'last' %>
+		</nav>
+		<ul>
+			<li>Powered by <a href="http://www.lacolombe.com/">La Colombe Torrefaction</a> </li>
+			<li>Built by <a href="http://www.neotericdesign.com/">Neoteric Design</a></li>
+		</ul>	
+	</div><!--#footer_links-->
+	
+	<div id="footer_social">
+		<a class="fb" href="http://www.facebook.com/RestaurantIntelligenceAgency">Check us out<br/>on Facebook</a>
+		<a class="twitter" href="http://twitter.com/TeamRIA">Follow on Twitter<br/>@TeamRIA</a>
+	</div><!--#social_links-->
+</footer>
+
+</div><!-- #footer_container-->
+
+
+<script type="text/javascript">
+window.current_user_id = '<%= current_user ? current_user.id : "null" %>';
+</script>
+
+<% fb_connect_async_js do %>
+<%= yield :facebook_js %>
+<% end %>
+<script src="http://www.google.com/jsapi"></script>
+<script>
+  google.load('jquery','1.4.2');
+  google.load('jqueryui','1.8.5');
+</script>
+<%= javascript_include_tag 'http://cachedcommons.org/cache/jquery-form/2.4.3/javascripts/jquery-form-min.js', 'http://cachedcommons.org/cache/jquery-colorbox/1.3.9/javascripts/jquery-colorbox-min.js', "http://cachedcommons.org/cache/jquery-easing/1.3.0/javascripts/jquery-easing-min.js", "http://cachedcommons.org/cache/jquery-cycle/2.8.6/javascripts/jquery-cycle-min.js", 'jquery.equalheights', 'jquery.ui.tabs-customized', 'spoonfeed' %>
+<%= yield(:javascript) %>
+</body>
+</html>

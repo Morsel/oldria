@@ -19,3 +19,7 @@ tmp/webrat-*
 .idea/
 .rvmrc
 default.gems
+
+public/soapbox/*
+public/redesign/_css/*
+public/redesign/brandonbold/*

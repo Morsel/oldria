@@ -32,8 +32,10 @@ describe WelcomeController do
       end
 
       it "should render the mediahome template" do
-        get :index
-        response.should render_template(:mediahome)
+        pending "mediafeed" do
+          get :index
+          response.should render_template(:mediahome)
+        end
       end
     end
   end

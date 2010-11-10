@@ -1,7 +1,8 @@
-<% content_tag_for :li, nonculinary_enrollment do %>
-  <%= nonculinary_enrollment.nonculinary_school.try :name %>,
-  <%= nonculinary_enrollment.graduation_date.try(:year) || "Did not graduate" %><br/>
-  <%= nonculinary_enrollment.degree %> <%= nonculinary_enrollment.field_of_study %> <%= nonculinary_enrollment.achievements %><br/>
+<% content_tag_for :li, nonculinary_enrollment, :class => cycle('odd','even') do %>
+  <span class="extended-title"><%= nonculinary_enrollment.nonculinary_school.try :name %> <span>(<%= nonculinary_enrollment.graduation_date.try(:year) || "Did not graduate" %>)</span></span>
+  <%= nonculinary_enrollment.degree %><br>
+  <%= nonculinary_enrollment.field_of_study %><br>
+  <%= nonculinary_enrollment.achievements %><br/>
   <%= link_to "Edit", edit_my_profile_nonculinary_enrollment_path(nonculinary_enrollment), :class => 'colorbox' %>
   <%= link_to "Destroy", my_profile_nonculinary_enrollment_path(nonculinary_enrollment), :method => :delete, :class => 'delete' %>
 <% end %>
