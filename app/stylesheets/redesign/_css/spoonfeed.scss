@@ -550,11 +550,12 @@ form#new_user_session {
 		}
 		p {
 			@include brandongrotesquebold;
-			font-size: 14px;g
+			font-size: 14px;
 			&.view_your_messages {
 				margin: 10px 0 0 0;
 				font-family: 'helvetica neue', helvetica, arial, sans-serif;
 				padding: 0;
+				font-size: 12px;
 				a {
 					color: $orange;
 					&:hover {
