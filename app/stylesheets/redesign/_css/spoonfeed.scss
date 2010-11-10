@@ -1652,6 +1652,21 @@ p.search_filter_hint {
 
 #profile-extended, #extended_profile_container {
 	overflow: hidden;
+	.showit {
+		display: block;
+		border-bottom: 1px solid #d7d4c4;
+		padding: 6px 10px 6px 30px;
+		background: #ebe9df url(/images/redesign/bg-extend.png) no-repeat;
+		color: $brown;
+		@include brandongrotesquebold;
+		text-shadow: 0 1px 0 #fff;
+		font-size: 14px;
+		letter-spacing: 0.1em;
+		text-transform: uppercase;
+		&:hover {
+			background-position: 0 -300px;
+		}
+	}
 	#extended_profile {
 		padding: 5px 8px;
 		background-color: $trans-brown;
