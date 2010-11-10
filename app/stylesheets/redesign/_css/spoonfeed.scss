@@ -559,6 +559,7 @@ form#new_user_session {
 	}
 	h2 {
 		@include hoeflerbolditalic;
+		font-weight: normal;
 		font-size: 21px;
 		color: #333;
 		line-height: 28px;
@@ -572,12 +573,6 @@ form#new_user_session {
 				text-decoration: none;
 			}
 		}
-	}
-	#profile-tabs h2{
-		font-size:12px;
-		font-style:normal;
-		text-transform:uppercase;
-		margin:5px 0 0;
 	}
 	h3 {
 		font-family: Georgia, Times, serif;
@@ -799,8 +794,148 @@ form#new_user_session {
 	#qotd_column {
 		margin-right: 20px;
 	}
+	#profile-tabs {
+		.ui-tabs-panel {
+			p {display: block;overflow:hidden;}
+			button {
+				float: left;
+				height: 36px;
+				display: block;
+				border: 1px solid #ddd;
+				margin: 0 10px 0 0;
+				font-size: 12px;
+				font-family: 'helvetica neue', helvetica, arial, sans-serif;
+				background-color: #f2f2f2;
+				@include linear-gradient(color-stops(#f4f4f4,#eaeaea ), top);
+				@include border-radius(20px);
+				color: #333;
+				padding: 5px 12px;
+				font-weight: bold;
+				&:hover {
+					background: #bbb08c;
+					color: #fff;
+					text-shadow: 0 1px 0 #444;
+					border: 1px solid #a6996c;
+				}
+				&.positive {
+					border: 1px solid #90d284;
+					@include linear-gradient(color-stops(#f7f7f7,#bfe9b8 ), top);
+					&:hover {
+						background: #5aa252;
+						color: #fff;
+						text-shadow: 0 1px 0 #444;
+						border: 1px solid #397d33;
+					}
+				}
+			}	
+		 	.inputs {
+				display: block;
+				margin: 10px 0;
+				padding: 10px 0;
+				border-bottom: 1px solid #dad8d1;
+				legend {
+					margin: 0;
+					padding: 0;
+					span {
+						font-family: "Hoefler Text", Georgia, serif;
+						font-size: 12px;
+						font-weight: bold;
+						color: #333;
+						text-transform: uppercase;
+						margin: 0;
+						padding: 0;
+						letter-spacing: 0.2em;
+					}
+				}	
+				ol {
+					li {
+						.cuisines {
+							.colorbox {
+								background: $trans-orange;
+							}
+						}
+						&.show_this_to {
+							background: transparent url(/images/redesign/bg-show-to.png) no-repeat 0 100%;
+							padding: 12px;
+							margin: 5px 0;
+							fieldset ol li {
+								margin: 0;
+								padding: 0;
+								label {
+									font-size: 12px;
+									text-transform: capitalize;
+									margin: 0;
+									padding: 0;
+									input {
+										margin: 5px 0 0;
+										padding: 0;
+									}
+								}
+							}
+						}
+						fieldset ol li label {
+							font-size: 10px;
+							text-transform: uppercase;
+						}
+					}
+				}
+				textarea {
+					height: 100px;
+					font-family: 'lucida grande', tahoma, arial, sans-serif;
+					font-size: 12px;
+					line-height: 16px;
+					color: #444;
+				}
+				label {
+					display: block;
+					margin: 2px 0;
+					font-weight: normal;
+					font-size: 12px;
+				}
+				input {
+					font-family: 'lucida grande', tahoma, arial, sans-serif;
+					font-size: 12px;
+					line-height: 16px;
+					color: #444;
+					margin: 2px 0 15px;
+					&#profile_user_attributes_prefers_publish_profile {
+						margin-right: 6px;
+					}
+				}
+				p.inline-hints {
+					font-family: 'lucida grande', tahoma, verdana, arial, sans-serif;
+					font-size: 11px; 
+					color: #777;
+					font-style: normal;
+					margin: 0 0 15px 0;
+				}
+				ol {
+					li {
+						fieldset {
+							margin: 2px 0 12px;
+						}
+					}
+				}
+			}
+		}
+	}
+
+	
 
 } /* ## end of page_content --------------------- */
+
+#profile-tabs {
+	form {
+		h2 {
+			font-size: 12px;
+			font-weight: bold;
+			font-family: 'Hoefler Text', Georgia, serif;
+			color: #333;
+			letter-spacing: 0.2em;
+			text-transform: uppercase;
+		}
+	}
+}
 
 
 form, #page_content form{
@@ -1319,10 +1454,10 @@ p.search_filter_hint {
 		display:block;
 		float:left;
 		padding:5px 10px;
-		margin-right:10px;
+		margin-right:6px;
 		@include brandongrotesquebold;
 		color:$orange;
-		border:solid #a89d76;
+		border:solid #dad8d1;
 		border-width:1px 1px 0;
 		@include transition;
 		&:hover{
@@ -1341,7 +1476,7 @@ p.search_filter_hint {
 }
 .ui-tabs-panel{ 
 	background:#f7f6f2;
-	padding:10px;
+	padding:12px;
 	margin:-15px 0 0;
 }
 .ui-tabs-hide{ display:none; }
@@ -1355,6 +1490,7 @@ p.search_filter_hint {
 	border-width:0 2px 2px 0;
 	color: #514721;
 }
+
 
 
 #flashes {
@@ -1388,8 +1524,8 @@ p.search_filter_hint {
 
 #profile-extended{
 	div.ajaxdelete{
-		border-bottom:1px solid $brown;
-		padding:10px 0;
+		border-bottom:1px solid #e0ddd5;
+		padding:12px 0;
 	}
 	ul{
 		list-style:none;
