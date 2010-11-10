@@ -1509,7 +1509,7 @@ p.search_filter_hint {
 			background: none;
 		}
 	}
-	.admin_conversation, .admin_discussion {
+	.admin_conversation, .admin_discussion, .profile_answer {
 		overflow: hidden;
 		background: transparent url(/images/redesign/bg-hp-left.png) no-repeat;
 		margin-bottom: 8px;
@@ -1527,7 +1527,7 @@ p.search_filter_hint {
 			margin-left: 315px;
 		}
 	}
-}
+} /* ## DDDDDDDashboard -------------------- */
 
 #flashes {
 	clear:both;
@@ -1633,6 +1633,10 @@ p.search_filter_hint {
 			color: #365816;
 		}
 	}
+}
+
+#extended_profile {
+	background-color: $trans-brown;
 }
 
 

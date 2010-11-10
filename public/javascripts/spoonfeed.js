@@ -16,7 +16,6 @@ $('.competition').equalHeights();
 $('.internship').equalHeights();
 $('.stage').equalHeights();
 $('.apprenticeship').equalHeights();
-$('#profile-account, #profile-summary').equalHeights();
 
 $('#profile-tabs').tabs({
 	panelTemplate: '<section></section>',
