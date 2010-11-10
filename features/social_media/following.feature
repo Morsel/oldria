@@ -18,7 +18,7 @@ Feature: Follow a SpoonFeed member, See who's following me
 
   Scenario: Find someone and follow them
     Given I am on the profile page for "otherguy"
-    When I follow "follow this user"
+    When I follow "Follow User"
     Then I should see "You are now following Sarah Cooper"
     And "friendly" should be following 1 user
 
@@ -33,7 +33,7 @@ Feature: Follow a SpoonFeed member, See who's following me
 
   Scenario: You can't follow yourself
     Given I am on the profile page for "friendly"
-    Then I should not see "follow this user"
+    Then I should not see "Follow User"
 
   # The new profile page makes this defunct for now
   #

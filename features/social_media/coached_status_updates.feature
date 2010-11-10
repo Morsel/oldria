@@ -17,12 +17,12 @@ Feature: Coached Status Updates
 
   Scenario: Seeing a Coached Status during the specified time
     Given the current date is "2009-12-20"
-    And I am on the dashboard
+    And I am on the social media page
     Then I should see "Christmas Menu coming up?"
 
   Scenario: Not displaying message out of date range
     Given the current date is "2009-10-02"
-    And I am on the dashboard
+    And I am on the social media page
     Then I should not see "Christmas Menu coming up?"
 
 

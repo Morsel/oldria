@@ -16,6 +16,9 @@ $('.competition').equalHeights();
 $('.internship').equalHeights();
 $('.stage').equalHeights();
 $('.apprenticeship').equalHeights();
+$('.extended_profile_info ul li').equalHeights();
+
+
 
 $('#profile-tabs').tabs({
 	panelTemplate: '<section></section>',
@@ -96,6 +99,7 @@ $(document).ready(function(){
   bindColorbox();
 
 	$('#colorbox form.stage, #colorbox form.apprenticeship, #colorbox form.nonculinary_enrollment, #colorbox form.award, #colorbox form.culinary_job, #colorbox form.nonculinary_job, #colorbox form.accolade, #colorbox form.enrollment, #colorbox form.competition, #colorbox form.internship').live('submit', colorboxForm);
+	$("a.showit").showy();
 });
 
 var colorboxForm = function(){
