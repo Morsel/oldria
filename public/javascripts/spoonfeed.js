@@ -16,7 +16,10 @@ $('.competition').equalHeights();
 $('.internship').equalHeights();
 $('.stage').equalHeights();
 $('.apprenticeship').equalHeights();
-$('.extended_profile_info ul li').equalHeights();
+
+if($('.extended_profile_info ul li').length > 1){
+	$('.extended_profile_info ul li').equalHeights();
+}
 
 
 
