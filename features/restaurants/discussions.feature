@@ -14,7 +14,8 @@ Feature: Discussions
 
   Scenario: Create a new Discussion
     Given I am logged in as "wendy" with password "secret"
-    When I follow "Arabian Nights"
+    When I follow "My Restaurants"
+    And I follow "Arabian Nights"
     And I follow "Start a discussion"
     And I fill in "Subject" with "Where should we eat?"
     And I check "Sam Smith"
@@ -23,7 +24,8 @@ Feature: Discussions
 
   Scenario: Discussion notifications
     Given I am logged in as "wendy" with password "secret"
-    When I follow "Arabian Nights"
+    When I follow "My Restaurants"
+    And I follow "Arabian Nights"
     And I follow "Start a discussion"
     And I fill in "Subject" with "Where should we eat?"
     And I check "Sam Smith"
@@ -50,7 +52,8 @@ Feature: Discussions
 @allow-rescue
   Scenario: Lockdown
     Given I am logged in as "wendy" with password "secret"
-    When I follow "Arabian Nights"
+    When I follow "My Restaurants"
+    And I follow "Arabian Nights"
     And I follow "Start a discussion"
     And I fill in "Subject" with "Where should we eat?"
     And I check "Sam Smith"
