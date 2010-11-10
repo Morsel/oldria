@@ -1,8 +1,9 @@
 class SubscriptionsController < ApplicationController
   include SubscriptionsControllerHelper
 
-  before_filter :find_customer
+  ssl_required :new, :edit if Rails.env.production?
 
+  before_filter :find_customer
   before_filter :create_braintree_connector
 
   # API expects customer id (restaurant or user) as params[:customer_id]

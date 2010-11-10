@@ -6,6 +6,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery # See ActionController::RequestForgeryProtection for details
 
   include Facebooker2::Rails::Controller
+  include SslRequirement
 
   # Scrub sensitive parameters from your log
   filter_parameter_logging :password
@@ -59,7 +60,7 @@ class ApplicationController < ActionController::Base
   def require_account_manager_authorization
     return true if current_user.admin?
     @restaurant = Restaurant.find(params[:restaurant_id])
-    employment = current_user.reload.employments.find(:first, 
+    employment = current_user.reload.employments.find(:first,
         :conditions => {:restaurant_id => @restaurant.id})
     omniscient = employment && employment.omniscient?
     unless omniscient
@@ -134,13 +135,13 @@ class ApplicationController < ActionController::Base
     @qotds ||= SoapboxEntry.qotd.published.recent.all(:include => :featured_item).map(&:featured_item)
     @trend_questions ||= SoapboxEntry.trend_question.published.recent.all(:include => :featured_item).map(&:featured_item)
   end
-  
+
   def load_random_btl_question
     return unless current_user && current_user.btl_enabled?
     return unless !params[:controller].match(/soapbox/)
     @btl_question = ProfileQuestion.for_user(current_user).random.reject { |q| q.answered_by?(current_user) }.first
   end
-  
+
 ### Messaging helpers
   def archived_view?
     return @archived_view if defined?(@archived_view)
@@ -186,7 +187,7 @@ class ApplicationController < ActionController::Base
     normalized = params[:search].reject{ |k,v| v.blank? }
     normalized.blank? ? {:id => ""} : normalized
   end
-  
+
   # For use when building the search on a Trend Question or other message
   def build_search(resource = nil, soapbox_only = false)
     return false unless resource
@@ -202,9 +203,9 @@ class ApplicationController < ActionController::Base
   end
 
   # Directory (profile) search
-  def directory_search_setup     
+  def directory_search_setup
     @search = User.search(params[:search])
-    
+
     # We want to repeat some of the searches through the users' restaurants
     extra_params = {}
     if params[:search].try(:[], :profile_cuisines_id_eq_any)
@@ -216,7 +217,7 @@ class ApplicationController < ActionController::Base
     if params[:search].try(:[], :profile_metropolitan_area_id_eq_any)
       extra_params[:restaurants_metropolitan_area_id_eq_any] = params[:search][:profile_metropolitan_area_id_eq_any]
     end
-    
+
     if params[:controller].match(/soapbox/)
       @search = User.premium_account.search(params[:search]).all
       extra_search_results = User.search(extra_params).premium_account.all if extra_params.present?
@@ -225,7 +226,7 @@ class ApplicationController < ActionController::Base
       extra_search_results = User.search(extra_params).all if extra_params.present?
 
       @users = [@search.all(:order => "users.last_name"), extra_search_results].flatten.compact.uniq.sort_by(&:last_name)
-    end      
+    end
   end
-  
+
 end

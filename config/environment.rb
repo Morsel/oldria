@@ -33,6 +33,7 @@ Rails::Initializer.run do |config|
   config.gem "facebooker2"
   config.gem 'subdomain-fu',          :version => "~> 0.5.4"
   config.gem 'braintree',             :version => "2.6.1"
+  config.gem 'ssl_requirement',       :version => "~> 0.1.0"
 
   # Settings in config/environments/* take precedence over those specified here.
   # Application configuration should go into files in config/initializers
