@@ -1833,15 +1833,13 @@ p.search_filter_hint {
 	form {
 		padding: 10px;
 		label {
-			letter-spacing: 0.2em;
 			display: block;
-			font-family: "Hoefler Text", Georgia, serif;
-			text-transform: uppercase;
+			font-family: 'helvetica neue', helvetica, arial, sans-serif;
+			fontw-weight: normal;
 			font-size: 12px;
 			margin: 0;
 		}
-		input {
-			display: block;
+		input#status_message {
 			width: 320px;
 		}
 		button {
