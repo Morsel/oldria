@@ -795,6 +795,34 @@ form#new_user_session {
 		margin-right: 20px;
 	}
 	#profile-tabs {
+		#extended_profile_fields {
+			ul {
+				li {
+					span {
+						margin: 0;
+						padding: 0;
+					}
+					.colorbox {
+						background-color: #eae6d5;
+						background-position: 3px 3px;
+						&:hover {
+							background-color: #dfd9c3;
+							color: $brown;
+							text-shadow: 0 1px 0 #fff;
+						}
+					}
+					.delete {
+						background-color: $trans-orange;
+						background-position: 3px 3px;
+						&:hover {
+							background-color: $orange;
+							color: #fff;
+							text-shadow: 0 1px 0 #333;
+						}
+					}
+				}
+			}
+		}
 		.ui-tabs-panel {
 			p {display: block;overflow:hidden;}
 			button {
@@ -1671,14 +1699,16 @@ p.search_filter_hint {
 	display:inline-block;
 	padding:5px 10px 5px 20px;
 	@include border-radius(80px);
-	background:#EAEAEA url(/images/redesign/icon-16-plus.png) no-repeat left;
+	background:#f0ede0 url(/images/redesign/icon-16-plus.png) no-repeat 3px 5px;
 	color:#333;
 	@include transition;
 	img{
 		margin:5px 0 0;
 	}
 	&:hover{
-		background-color:$med-brown;
+		background-color:#e7e1ca;
+		color: $brown;
+		text-shadow: 0 1px 0 #fff;
 	}
 }
 

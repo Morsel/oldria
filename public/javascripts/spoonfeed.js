@@ -6,12 +6,21 @@ $('#jumbotron').cycle({
 	pagerBuilder: jumbotronController
 });
 
-$('.hp_promo').equalHeights({
+$('.hp_promo, .chapter').equalHeights();
+$('.culinary_job').equalHeights();
+$('.nonculinary_job').equalHeights();
+$('.award').equalHeights();
+$('.accolade').equalHeights();
+$('.enrollment').equalHeights();
+$('.competition').equalHeights();
+$('.internship').equalHeights();
+$('.stage').equalHeights();
+$('.apprenticeship').equalHeights();
+
+$('#profile-tabs').tabs({
 	panelTemplate: '<section></section>',
 	fx: { duration: 'fast', opacity: 'toggle' }
 });
-
-$('#profile-tabs').tabs();
 
 $('.new_question').live('click', function(){
 	$(this).css({
