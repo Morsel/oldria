@@ -10,7 +10,8 @@ Feature: Twitter Authentication
     | username | password |
     | johnny   | secret   |
     And I am logged in as "johnny" with password "secret"
-    When I follow "Edit My Account"
+    When I follow "My Profile"
+    And I follow "Edit profile"
     And I follow "Setup Twitter"
     And Twitter authorizes "johnny"
     Then I should see "Twitter"
@@ -22,7 +23,8 @@ Feature: Twitter Authentication
     | username | password |
     | stevie   | secret   |
     Given I am logged in as "stevie" with password "secret"
-    When I follow "Edit My Account"
+    When I follow "My Profile"
+    And I follow "Edit profile"
     And I follow "Read Twitter Timeline"
 
     ## From a fixture file ##
