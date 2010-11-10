@@ -120,11 +120,11 @@
                 <div class="clear">
                     <%= f.input :prefers_display_twitter, :as => :radio, :collection => privacy_options, :label => "Show this to:", :wrapper_html => { :class => "show_this_to" } %>
                     <div class="span-6 last">Your Twitter account: <%= @profile.user.twitter_username %>
-                        <p>(<%= link_to "Need to change your Twitter settings?", edit_my_profile_path(@profile.user, :anchor => "twitter") %>)</p>
+                        <p>(<%= link_to "Need to change your Twitter settings?", edit_my_profile_path(:anchor => "twitter") %>)</p>
                     </div>
                 </div>
                 <%- else -%>
-                  <p><%= link_to "Set up Twitter", edit_my_profile_path(@profile.user, :anchor => "twitter") %></p>
+                  <p><%= link_to "Set up Twitter", edit_my_profile_path(:anchor => "twitter") %></p>
                 <%- end -%>
 
                 <%- if @fb_user -%>
@@ -132,11 +132,11 @@
                     <%= f.input :prefers_display_facebook, :as => :radio, :collection => privacy_options, :label => "Show this to:", :wrapper_html => { :class => "show_this_to" } %>
                     <div class="span-6 last">
                         Your Facebook account: <%= @fb_user.name %>
-                        <p>(<%= link_to "Need to change your Facebook settings?", edit_my_profile_path(@profile.user, :anchor => "facebook") %>)</p>
+                        <p>(<%= link_to "Need to change your Facebook settings?", edit_my_profile_path(:anchor => "facebook") %>)</p>
                     </div>
                 </div>
                 <%- else -%>
-                  <p><%= link_to "Set up Facebook", edit_my_profile_path(@profile.user, :anchor => "facebook") %></p>
+                  <p><%= link_to "Set up Facebook", edit_my_profile_path(:anchor => "facebook") %></p>
                 <%- end -%>
             <% end %><!-- Contact information -->
 
@@ -222,6 +222,14 @@
   </section><!-- /profile-extended -->
   
   <section id="profile-messages">
+    <% semantic_form_for @user do |f| %>
 
+        <% f.inputs :name => 'Preferences' do %>
+            <%= f.input :prefers_receive_email_notifications, :as => :boolean, :label => 'Receive email notifications?' %>
+        <% end %>
+        
+        <p><%= button_tag "Save", :class => 'positive' %></p>
+
+    <% end %>
   </section><!-- /profile-messages -->
 </section><!-- /profile-tabs -->
