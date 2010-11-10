@@ -279,12 +279,10 @@ form#new_user_session {
 		
 	.optional {
 		label {
-			font-family:"Hoefler Text", Georgia, Times, serif;
+			font-family: 'helvetica neue', helvetica, arial, sans-serif;
 			font-size: 12px;
-			letter-spacing: 0.2em;
 			display: block;
 			margin: 14px 0 2px;
-			text-transform: uppercase;
 		}
 		input {
 			font-size: 13px;
@@ -540,7 +538,7 @@ form#new_user_session {
 			float: left;
 			@include brandongrotesquebold;
 			background: $orange;
-			padding: 10px;
+			padding: 3px 10px;
 			font-size: 14px;
 			@include border-radius(20px);
 		}
