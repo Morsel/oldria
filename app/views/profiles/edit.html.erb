@@ -11,8 +11,10 @@
   <nav id="profile-options">
     <span><a href="#profile-edit-account">Account</a></span>
     <span><a href="#profile-messages">Messages</a></span>
-    <span><a href="#profile-summary">Profile Summary</a></span>
-    <span><a href="#profile-extended">Extended Profile</a></span>
+    <% unless @profile.new_record? %>
+      <span><a href="#profile-summary">Profile Summary</a></span> 
+      <span><a href="#profile-extended">Extended Profile</a></span>
+    <% end -%>
   </nav><!-- /profile_options -->
 
 
@@ -20,105 +22,105 @@
 <% semantic_form_for @profile, :url => my_profile_path do |f| %>
 <section id="profile-edit-account">
 
-  <% f.inputs :name => "Preferences", :for => :user do |user_form| %>
-    <%= user_form.input :prefers_publish_profile, :as => :boolean, :label => 'Publish your profile for other users to view?' %>
-  <% end %>
-  <% unless @profile.new_record? %>
-     
-     <% f.inputs :name => "Contact Information" do %>
-       <div class="clear">
-         <%= f.input :prefers_display_cell, :as => :radio, :collection => privacy_options, :label => "Show this to:", :wrapper_html => { :class => "span-4" } %>
-         <%= f.input :cellnumber, :label => "Cellphone", :wrapper_html => { :class => "span-6 last" } %>
-       </div>
+    <% f.inputs :name => "Preferences", :for => :user do |user_form| %>
+      <%= user_form.input :prefers_publish_profile, :as => :boolean, :label => 'Publish your profile for other users to view?' %>
+    
+    <% end %>
+  
+    <% f.inputs :name => 'Basics' do %>
+      <%= f.input :birthday, :end_year => 1930, :start_year => Date.today.year, :selected => nil %>
+      <%= f.input :job_start, :end_year => 1930, :start_year => Date.today.year, :selected => nil %>
+      <%= f.input :headline %>
+      <%= f.input :summary, :hint => "Keep it under 1000 characters" %>
+      <%= f.input :hometown %>
+      <%= f.input :current_residence, :label => "Currently residing in" %>
+    <% end %>
 
-       <div class="clear">
-         <%= f.input :prefers_display_email, :as => :radio, :collection => privacy_options, :label => "Show this to:", :wrapper_html => { :class => "span-4" } %>
-         <% f.semantic_fields_for :user do |user| %>
-           <%= user.input :email, :wrapper_html => { :class => "span-6 last" } %>
-         <% end %>
-       </div>
-
-       <%- if @profile.user.twitter_authorized? -%>
-         <div class="clear">
-           <%= f.input :prefers_display_twitter, :as => :radio, :collection => privacy_options, :label => "Show this to:", :wrapper_html => { :class => "span-4" } %>
-           <div class="span-6 last">Your Twitter account: <%= @profile.user.twitter_username %>
-             <p>(<%= link_to "Need to change your Twitter settings?", edit_user_path(@profile.user, :anchor => "twitter") %>)</p>
-           </div>
-         </div>
-       <%- else -%>
-         <p><%= link_to "Set up Twitter", edit_user_path(@profile.user, :anchor => "twitter") %></p>
-       <%- end -%>
-
-       <%- if @fb_user -%>
-         <div class="clear">
-           <%= f.input :prefers_display_facebook, :as => :radio, :collection => privacy_options, :label => "Show this to:", :wrapper_html => { :class => "span-4" } %>
-           <div class="span-6 last">
-             Your Facebook account: <%= @fb_user.name %>
-             <p>(<%= link_to "Need to change your Facebook settings?", edit_user_path(@profile.user, :anchor => "facebook") %>)</p>
-           </div>
-         </div>
-       <%- else -%>
-         <p><%= link_to "Set up Facebook", edit_user_path(@profile.user, :anchor => "facebook") %></p>
-       <%- end -%>
-     <% end %>
-
-     <% f.inputs :name => "Current Employment" do %>
-       <label>Select your primary job role:</label>
-       <ul class="primary-employment">
-         <% for employment in @profile.user.employments %>
-           <li><%= radio_button_tag "profile[primary_employment][]", employment.id, primary?(employment) %> <%= employment.restaurant_role.try(:name) %> at <%= employment.restaurant.name %>
-         <% end %>
-       </ul>
-     <% end %>
-
-   <% end %><%# unless new_record? %>
+    
+  
+ 
    <p class="clear">
      <% button_tag :class => 'positive' do %><img src="/images/tick.png"/> Save<% end %>
      <%= button_tag "Preview", :name => "preview" %>
    </p>
   
 </section><!-- /profile-account -->
-<section id="profile-summary">
-  <% f.inputs :name => 'Basics' do %>
-    <%= f.input :birthday, :end_year => 1930, :start_year => Date.today.year, :selected => nil %>
-    <%= f.input :job_start, :end_year => 1930, :start_year => Date.today.year, :selected => nil %>
-    <%= f.input :headline %>
-    <%= f.input :summary, :hint => "Keep it under 1000 characters" %>
-    <%= f.input :hometown %>
-    <%= f.input :current_residence, :label => "Currently residing in" %>
-  <% end %>
-  
-  <% f.inputs :name => "Cuisines, Specialties, and Places" do %>
-     <%= f.input :specialties, :as => :check_boxes, :collection => Specialty.all %>
 
-     <div class="cuisines ajaxdelete">
-       <label><h4>What Cuisines Are Your Specialty?</h4></label>
-       <ul id="cuisines">
-         <%= render @profile.cuisines %>
-       </ul>
-       <% link_to new_my_profile_profile_cuisine_path, :class => 'positive button colorbox' do %>
-         <img src="/images/plus.png"/> Add
+  <% unless @profile.new_record? %>
+    <section id="profile-summary">
+      <% f.inputs :name => "Contact Information" do %>
+        <div class="clear">
+          <%= f.input :prefers_display_cell, :as => :radio, :collection => privacy_options, :label => "Show this to:", :wrapper_html => { :class => "span-4" } %>
+          <%= f.input :cellnumber, :label => "Cellphone", :wrapper_html => { :class => "span-6 last" } %>
+        </div>
+
+        <div class="clear">
+          <%= f.input :prefers_display_email, :as => :radio, :collection => privacy_options, :label => "Show this to:", :wrapper_html => { :class => "span-4" } %>
+          <% f.semantic_fields_for :user do |user| %>
+            <%= user.input :email, :wrapper_html => { :class => "span-6 last" } %>
+          <% end %>
+        </div>
+
+        <%- if @profile.user.twitter_authorized? -%>
+          <div class="clear">
+            <%= f.input :prefers_display_twitter, :as => :radio, :collection => privacy_options, :label => "Show this to:", :wrapper_html => { :class => "span-4" } %>
+            <div class="span-6 last">Your Twitter account: <%= @profile.user.twitter_username %>
+              <p>(<%= link_to "Need to change your Twitter settings?", edit_user_path(@profile.user, :anchor => "twitter") %>)</p>
+            </div>
+          </div>
+        <%- else -%>
+          <p><%= link_to "Set up Twitter", edit_user_path(@profile.user, :anchor => "twitter") %></p>
+        <%- end -%>
+
+        <%- if @fb_user -%>
+          <div class="clear">
+            <%= f.input :prefers_display_facebook, :as => :radio, :collection => privacy_options, :label => "Show this to:", :wrapper_html => { :class => "span-4" } %>
+            <div class="span-6 last">
+              Your Facebook account: <%= @fb_user.name %>
+              <p>(<%= link_to "Need to change your Facebook settings?", edit_user_path(@profile.user, :anchor => "facebook") %>)</p>
+            </div>
+          </div>
+        <%- else -%>
+          <p><%= link_to "Set up Facebook", edit_user_path(@profile.user, :anchor => "facebook") %></p>
+        <%- end -%>
+      <% end %>
+
+      <% f.inputs :name => "Current Employment" do %>
+        <label>Select your primary job role:</label>
+        <ul class="primary-employment">
+          <% for employment in @profile.user.employments %>
+            <li><%= radio_button_tag "profile[primary_employment][]", employment.id, primary?(employment) %> <%= employment.restaurant_role.try(:name) %> at <%= employment.restaurant.name %>
+          <% end %>
+        </ul>
+      <% end %>
+      
+      <% f.inputs :name => "Cuisines, Specialties, and Places" do %>
+         <%= f.input :specialties, :as => :check_boxes, :collection => Specialty.all %>
+
+         <div class="cuisines ajaxdelete">
+           <label><h4>What Cuisines Are Your Specialty?</h4></label>
+           <ul id="cuisines">
+             <%= render @profile.cuisines %>
+           </ul>
+           <% link_to new_my_profile_profile_cuisine_path, :class => 'positive button colorbox' do %>
+             <img src="/images/plus.png"/> Add
+           <% end %>
+         </div>
+
+         <div class="clear">
+             <h4>Metro and Region for search</h4>
+             <%= f.input :metropolitan_area %>
+             <%= f.input :james_beard_region, :label => "Region" %>
+         </div>
        <% end %>
-     </div>
 
-     <div class="clear">
-         <h4>Metro and Region for search</h4>
-         <%= f.input :metropolitan_area %>
-         <%= f.input :james_beard_region, :label => "Region" %>
-     </div>
-   <% end %>
+  
    <p class="clear">
      <% button_tag :class => 'positive' do %><img src="/images/tick.png"/> Save<% end %>
      <%= button_tag "Preview", :name => "preview" %>
    </p>
- 
-</section><!-- /profile-summary -->
-  
+ </section><!-- /profile-summary -->
 
-
-<% end %>
-
-<% unless @profile.new_record? %>
   <section id="profile-extended">
     <div id="extended_profile_fields">
 
@@ -177,6 +179,7 @@
     
     </div><!-- #extended_profile_fields -->
   </section><!-- /profile-extended -->
+  <% end %><%# /form %>
 <% end %><%# unless new_record? %>
   
 </section><!-- /profile-tabs -->
