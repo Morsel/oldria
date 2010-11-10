@@ -549,10 +549,11 @@ form#new_user_session {
 			}
 		}
 		p {
-			font-family: 'helvetica neue', helvetica, arial, sans-serif;
+			@include brandongrotesquebold;
+			font-size: 14px;
 			&.view_your_messages {
 				margin: 10px 0 0 0;
-				@include brandongrotesquebold;
+				font-family: 'helvetica neue', helvetica, arial, sans-serif;
 				padding: 0;
 				a {
 					color: $orange;
