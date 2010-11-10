@@ -6,12 +6,12 @@ $('#jumbotron').cycle({
 	pagerBuilder: jumbotronController
 });
 
-$('.hp_promo').equalHeights({
+$('.hp_promo, .chapter').equalHeights();
+
+$('#profile-tabs').tabs({
 	panelTemplate: '<section></section>',
 	fx: { duration: 'fast', opacity: 'toggle' }
 });
-
-$('#profile-tabs').tabs();
 
 $('.new_question').live('click', function(){
 	$(this).css({
@@ -21,8 +21,11 @@ $('.new_question').live('click', function(){
 	})
 })
 $('#profile_answer_submit').live('click', function(){
-	$(this).val('posting...')
+	$(this).val('posting...').attr('disabled','disabled');
 })
+$('#new_quick_reply button').live('click', function(){
+	$(this).text('posting...').attr('disabled','disabled');
+});
 
 function jumbotronController(idx, elem){
 	idx++;
@@ -75,10 +78,6 @@ $(document).ready(function(){
   }
 
   $('.close').live('click', close_box);
-
-  $('#new_quick_reply button').live('click', function(){
-  	$(this).text('posting...');
-  });
 
   function post_reply_text(){
     $('#new_quick_reply button').text('Post Reply');
