@@ -543,10 +543,25 @@ form#new_user_session {
 			font-size: 15px;
 			@include border-radius(20px);
 			margin: 0 10px 0 0;
+			span {
+				color: #fff;
+				text-shadow: 0 1px 0 #333;
+			}
 		}
-		p.view_your_messages {
-			margin: 10px 0 0 0;
-			padding: 0;
+		p {
+			font-family: 'helvetica neue', helvetica, arial, sans-serif;
+			&.view_your_messages {
+				margin: 10px 0 0 0;
+				@include brandongrotesquebold;
+				padding: 0;
+				a {
+					color: $orange;
+					&:hover {
+						color: #333;
+						text-decoration: none;
+					}
+				}
+			}
 		}
 	}
 }
