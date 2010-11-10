@@ -550,7 +550,7 @@ form#new_user_session {
 		}
 		p {
 			@include brandongrotesquebold;
-			font-size: 14px;
+			font-size: 14px;g
 			&.view_your_messages {
 				margin: 10px 0 0 0;
 				font-family: 'helvetica neue', helvetica, arial, sans-serif;
@@ -1212,6 +1212,12 @@ form, #page_content form{
 
 #criteria_accordion {
 	.accordion_box {
+		.ui-accordion-content {
+			width: 625px;
+			label {
+				font-weight: normal;
+			}
+		}
 		a {
 			display: block;
 			font-size: 13px;
@@ -1222,7 +1228,7 @@ form, #page_content form{
 			@include border-radius(4px);
 			padding: 8px 12px;
 			width: 600px;
-			margin: 0 0 7px 0;
+			margin: 7px 0 0 0;
 			background: #f7f6f2 url(/images/redesign/button_bg.png) repeat-x;
 			&:hover {
 				background-color: #faeae4;
