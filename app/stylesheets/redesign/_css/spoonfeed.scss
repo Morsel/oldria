@@ -24,7 +24,6 @@ body{
 	margin: 0 auto;
 	*zoom: 1;
 	position:relative;
-	padding:0 0 20px;
 }
 
 @include sticky-footer(160px, "#container", "#padding", "#footer_container");
