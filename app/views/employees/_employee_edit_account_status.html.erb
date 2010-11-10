@@ -1,0 +1,68 @@
+<% f.inputs :name => "Account Status" do %>
+ 	<div id="<%= dom_id(@employee) %>" class="account_info">
+ 	  
+ 	  <div class="account_status">
+ 			This employee has a 
+ 			<%= @employee.public_account_type %> <%= @employee.account_payer_type %> Account.
+ 			<% if @employee.staff_account? && @employee.subscription.payer != @restaurant %>
+ 			  This account is paid for by a different restaurant.
+ 			<% end %>
+ 		</div>
+ 	  <br />
+		<% if @restaurant.has_braintree_account? %>
+	 		
+	 		<% if can_add_user? %>
+ 		    <span class="status_change_links">
+					<br style="clear:all" />
+					<div>
+						You can add this user to your restaurant account for $50 per month.
+					</div>
+		   		
+		   		<%= link_to (image_tag('tick.png') + create_staff_account_link_label(@employee)), 
+		          restaurant_employee_accounts_path(:id => @employee.id, :restaurant_id => @restaurant.id),
+		   				:method => :post,
+		          :class => 'button positive' %>
+				</span>
+			
+			<% else %>
+			  
+			  <% if @employee.complimentary_account? %>
+			    <div>
+			      This employee already has a complimentary premium account. 
+			      You do not need to add this employee to your restaurant account.
+			    </div>
+			  
+			  <% elsif @employee.staff_account? && @employee.subscription.payer == @restaurant %>
+	 		    <div class="status_change_links">
+  					<br style="clear:all" />
+  		   		<%= link_to "Cancel user Premium Account immediately",
+                restaurant_employee_accounts_path(:id => @employee.id, 
+                    :restaurant_id => @restaurant.id),
+                :method => :delete,
+                :confirm => "Do you really want to cancel your premium subscription?" %>
+  				</div>
+  			
+  			<% end %>
+	    <% end %>
+		<% else %>
+		  
+		  <span class="payment_info_needed">
+		    To upgrade this employee through the restaurant account, you must have 
+		    a Premium Restaurant Account, which is $250/month. 
+		    To upgrade your Restaurant Account Status, please click below:
+		    
+		    <div>
+          <%= link_to "More Information...", "/account_types", :class => 'button' %>
+        </div>
+
+        <br clear="all" />
+        <br clear="all" />
+        
+        <%= link_to (image_tag('tick.png') + "Upgrade to Restaurant Account"),
+            new_subscription_path(@restaurant),
+            :class => 'button positive' %>
+		  </span>
+		
+		<% end %>
+ 	</div>
+<% end %>

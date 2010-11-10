@@ -28,16 +28,16 @@ ActionController::Routing::Routes.draw do |map|
     soapbox.connect 'directory_search', :controller => 'soapbox', :action => 'directory_search'
     soapbox.root :controller => 'soapbox', :action => 'index'
   end
-  
-  map.soapbox_profile 'soapbox/profile/:username', :controller => 'soapbox/profiles', :action => 'show', 
+
+  map.soapbox_profile 'soapbox/profile/:username', :controller => 'soapbox/profiles', :action => 'show',
       :requirements => { :username => /[a-zA-Z0-9\-\_ ]+/}
-      
+
   map.soapbox_directory 'soapbox/directory', :controller => 'soapbox/soapbox', :action => 'directory'
-      
+
   map.with_options :conditions => { :subdomain => 'soapbox' }, :controller => 'soapbox/soapbox' do |soapbox|
     soapbox.root :action => 'index'
   end
-  
+
   map.resource :my_profile, :only => ['create', 'edit', 'update'], :controller => 'profiles' do |p|
     p.resources :culinary_jobs
     p.resources :nonculinary_jobs
@@ -80,12 +80,15 @@ ActionController::Routing::Routes.draw do |map|
     users.resources :direct_messages, :member => { :reply => :get }
     users.resources :questions, :collection => { :topics => :get, :chapters => :get, :refresh => :post }
     users.resources :default_employments
+    users.resource :subscription, :collection => { :bt_callback => :get, :billing_history => :get }, :controller => 'subscriptions'
   end
+
+  # map.resources :subscriptions, :collection => { :bt_callback => :get }
 
   map.resources :restaurants,
                 :member => {
                         :edit_logo => :get,
-                        :select_primary_photo => :post
+                        :select_primary_photo => :post,
                 } do |restaurant|
     restaurant.media_requests 'media_requests', :controller => 'media_requests', :action => 'index'
     restaurant.resources :employees, :except => [:show]
@@ -97,8 +100,10 @@ ActionController::Routing::Routes.draw do |map|
     restaurant.resource :logo
     restaurant.resources :accolades
     restaurant.resources :employments, :collection => { "reorder" => :post }
-    restaurant.resources :a_la_minute_answers, :collection => { :bulk_update => :put, :bulk_edit => :get } #todo only need these two routes
-    # restaurant.resources :a_la_minute_questions, :member => {:show_as_public => :post}
+    #todo only need these two routes
+    restaurant.resources :a_la_minute_answers, :collection => { :bulk_update => :put, :bulk_edit => :get }
+    restaurant.resource :subscription, :collection => { :bt_callback => :get, :billing_history => :get }, :controller => 'subscriptions'
+    restaurant.resource :employee_accounts, :only => [:create, :destroy]
     restaurant.resources
   end
 
@@ -201,6 +206,7 @@ ActionController::Routing::Routes.draw do |map|
 
     admin.resources :content_requests
     admin.resources :trend_questions
+    admin.resource :complimentary_accounts, :only => [:create, :destroy]
   end
 
   map.public_page ":id", :controller => 'pages', :action => 'show'

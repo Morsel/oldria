@@ -13,6 +13,12 @@ module NavigationHelpers
       new_a_la_minute_path
     when /the soapbox index page/
       soapbox_root_path
+    when /the cancel subscription page for "(.+)"/
+      subscription_path(:id => User.find_by_username($1).id)
+    when /the new subscription page for the restaurant "(.+)"/
+      new_restaurant_subscription_path(Restaurant.find_by_name($1))
+    when /the new subscription page for "(.+)"/
+      new_user_subscription_path(User.find_by_username($1))
 
     when /^the coached status updates page$/
       admin_coached_status_updates_path
@@ -41,6 +47,7 @@ module NavigationHelpers
     when "the new invitation page"
       new_invitation_path
 
+
     # Media-users
     when /^the media( user)? signup page$/
       new_media_user_path
@@ -66,6 +73,9 @@ module NavigationHelpers
       restaurant_features_path(Restaurant.find_by_name($1))
     when /^the restaurant menu upload page for (.+)$/
       restaurant_menus_path(Restaurant.find_by_name($1))
+    when /^the employee edit page for "(.+)" and "(.+)"$/
+      edit_restaurant_employee_path(Restaurant.find_by_name($1), User.find_by_username($2))
+
 
     # Media Requests
     when /^the media request discussion page$/

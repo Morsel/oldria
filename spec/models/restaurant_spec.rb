@@ -1,38 +1,3 @@
-# == Schema Information
-#
-# Table name: restaurants
-#
-#  id                         :integer         not null, primary key
-#  name                       :string(255)
-#  street1                    :string(255)
-#  street2                    :string(255)
-#  city                       :string(255)
-#  state                      :string(255)
-#  zip                        :string(255)
-#  country                    :string(255)
-#  facts                      :text
-#  created_at                 :datetime
-#  updated_at                 :datetime
-#  manager_id                 :integer
-#  metropolitan_area_id       :integer
-#  james_beard_region_id      :integer
-#  cuisine_id                 :integer
-#  deleted_at                 :datetime
-#  description                :string(255)
-#  phone_number               :string(255)
-#  website                    :string(255)
-#  twitter_username           :string(255)
-#  facebook_page              :string(255)
-#  hours                      :string(255)
-#  media_contact_id           :integer
-#  management_company_name    :string(255)
-#  management_company_website :string(255)
-#  logo_id                    :integer
-#  primary_photo_id           :integer
-#  opening_date               :date
-#  premium_account            :boolean
-#
-
 require 'spec/spec_helper'
 
 describe Restaurant do
@@ -142,7 +107,7 @@ describe Restaurant do
 
     it "should reset features if features change" do
       restaurant.restaurant_features = [features[1], features[3]]
-      restaurant.reset_features([features[0].id])
+      restaurant.reset_features([features[0].id], [features[1].id, features[3].id])
       restaurant.restaurant_features.should =~ [features[0]]
     end
 
@@ -260,7 +225,7 @@ describe Restaurant do
 
       restaurant.photos.delete(restaurant.photos.last)
       restaurant = Restaurant.find(restaurant.id)
-      
+
       restaurant.primary_photo.should == primary_photo
     end
   end
@@ -275,22 +240,66 @@ describe Restaurant do
       restaurant.public_employments.should == [public_employment]
     end
   end
-  
+
   describe "premium account" do
-    
+
     it "finds a premium account" do
-      restaurant = Factory(:restaurant, :premium_account => true)
-      restaurant.account_type.should == "Premium"
+      restaurant = Factory(:restaurant)
+      restaurant.subscription = Factory(:subscription)
+      restaurant.account_type.should == "Complimentary Premium"
       Restaurant.find_premium(restaurant.id).should == restaurant
     end
-    
+
     it "doesn't find a basic account" do
-      restaurant = Factory(:restaurant, :premium_account => false)
+      restaurant = Factory(:restaurant)
       restaurant.account_type.should == "Basic"
       Restaurant.find_premium(restaurant.id).should be_nil
     end
-    
+
   end
-  
+
+  describe "braintree_contact" do
+    let(:restaurant) { Factory(:managed_restaurant) }
+
+    it "should return manager" do
+      restaurant.braintree_contact == restaurant.manager
+    end
+  end
+
 end
+
+
+# == Schema Information
+#
+# Table name: restaurants
+#
+#  id                         :integer         not null, primary key
+#  name                       :string(255)
+#  street1                    :string(255)
+#  street2                    :string(255)
+#  city                       :string(255)
+#  state                      :string(255)
+#  zip                        :string(255)
+#  country                    :string(255)
+#  facts                      :text
+#  created_at                 :datetime
+#  updated_at                 :datetime
+#  manager_id                 :integer
+#  metropolitan_area_id       :integer
+#  james_beard_region_id      :integer
+#  cuisine_id                 :integer
+#  deleted_at                 :datetime
+#  description                :string(255)
+#  phone_number               :string(255)
+#  website                    :string(255)
+#  twitter_username           :string(255)
+#  facebook_page              :string(255)
+#  hours                      :string(255)
+#  media_contact_id           :integer
+#  management_company_name    :string(255)
+#  management_company_website :string(255)
+#  logo_id                    :integer
+#  primary_photo_id           :integer
+#  opening_date               :date
+#
 

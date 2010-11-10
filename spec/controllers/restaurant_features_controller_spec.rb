@@ -13,7 +13,7 @@ describe RestaurantFeaturesController do
 
     it "passes values to the restaurant and displays back to the index" do
       Restaurant.stubs(:find => @restaurant)
-      @restaurant.expects(:reset_features).with([1, 2, 3, 4])
+      @restaurant.expects(:reset_features).with([1, 2, 3, 4], nil)
       put :create, :features => [1, 2, 3, 4], :restaurant_id => @restaurant.id
       response.should render_template(:index)
     end

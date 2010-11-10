@@ -18,34 +18,41 @@
 
 
 <table id="admin_users_list" cellspacing="0" class="tablesorter">
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Acct. Type</th>
-      <th>Username</th>
-      <th>Email</th>
-      <th>JBF Region</th>
-      <th>Last Action at</th>
-      <th class="{sorter: false}"></th>
-      <th class="{sorter: false}"></th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @users.each do |user| %>
-    <tr id="<%= dom_id(user) %>" class="user <%= user.role %> <%= users_extra_row_class(user) %>">
-      <td><%= h user.last_name %>, <%=h user.first_name %></td>
-      <td class="user_account_type">
-        <%= h user.account_type %>
-      </td>
-      <td><%= link_to user.username, profile_path(user.username) %></td>
-      <td><%= h user.email %></td>
-      <td><%= h user.james_beard_region.try(:name) %></td>
-      <td><%= user.last_request_at.try(:to_s,:long) %></td>
-      <td class="actions edit_link">
-        <%= link_to 'Edit', edit_admin_user_path(user) %>
-      </td>
-      <td class="actions destroy_link"><%= link_to 'Destroy', admin_user_path(user), :confirm => 'Are you sure? This action CANNOT be undone', :method => :delete %></td>
-    </tr>
-    <% end %>
-  </tbody>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Acct. Type</th>
+            <th>Username</th>
+            <th>Email</th>
+            <th>JBF Region</th>
+            <th>Last Action at</th>
+            <th>Sub. Date</th>
+            <th class="{sorter: false}"></th>
+            <th class="{sorter: false}"></th>
+        </tr>
+    </thead>
+    <tbody>
+      <% @users.each do |user| %>
+        <tr id="<%= dom_id(user) %>" class="user <%= user.role %> <%= users_extra_row_class(user) %>">
+            <td><%= h user.last_name %>, <%=h user.first_name %></td>
+            <td class="user_account_type">
+                <%= h user.account_type %>
+            </td>
+            <td><%= link_to user.username, profile_path(user.username) %></td>
+            <td><%= h user.email %></td>
+            <td><%= h user.james_beard_region.try(:name) %></td>
+            <td><%= user.last_request_at.try(:to_s,:long) %></td>
+            <td class="<%= user.recently_upgraded? ? "highlight" : "plain" %>">
+                <%= user.subscription.try(:start_date).try(:to_s, :long) %>
+            </td>
+            <td class="actions edit_link">
+                <%= link_to 'Edit', edit_admin_user_path(user) %>
+            </td>
+            <td class="actions destroy_link">
+                <%= link_to 'Destroy', admin_user_path(user), :confirm => 'Are you sure? This action CANNOT be undone', 
+                    :method => :delete %>
+            </td>
+        </tr>
+      <% end %>
+    </tbody>
 </table>

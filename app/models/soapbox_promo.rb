@@ -10,6 +10,7 @@
 #  updated_at :datetime
 #  link       :string(255)
 #  position   :integer
+#  type       :string(255)
 #
 
 class SoapboxPromo < Promo

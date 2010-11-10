@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20101013222730
+# Schema version: 20101104213542
 #
 # Table name: users
 #
@@ -83,6 +83,7 @@ class User < ActiveRecord::Base
   has_many :profile_answers
 
   has_one :invitation, :foreign_key => "invitee_id"
+  has_subscription
 
   validates_presence_of :email
 
@@ -156,7 +157,8 @@ class User < ActiveRecord::Base
   end
 
   def self.find_premium(id)
-    find_by_id_and_premium_account(id, true)
+    possibility = find_by_id(id)
+    if possibility.premium_account then possibility else nil end
   end
 
   def following?(otheruser)
@@ -199,7 +201,7 @@ class User < ActiveRecord::Base
       employments.all(:order => '"primary" DESC', :include => :restaurant).map{|e| e.restaurant.name }.to_sentence
     end
   end
-  
+
   def post_to_soapbox?
     primary_employment && primary_employment.post_to_soapbox
   end
@@ -294,6 +296,8 @@ class User < ActiveRecord::Base
     UserMailer.deliver_employee_invitation!(self, invitation_sender)
   end
 
+  # Facebook !!!
+  
   def connect_to_facebook_user(fb_id)
     update_attributes(:facebook_id => fb_id)
   end
@@ -316,6 +320,8 @@ class User < ActiveRecord::Base
     @page ||= Mogli::Page.new(:id => facebook_page_id, :client => Mogli::Client.new(facebook_page_token))
   end
 
+  # Behind the line
+
   def profile_questions
     ProfileQuestion.for_user(self)
   end
@@ -327,6 +333,8 @@ class User < ActiveRecord::Base
   def published_topics
     topics.select { |t| t.published?(self) }
   end
+  
+  # Profile elements
 
   def cuisines
     profile.present? ? profile.cuisines : []
@@ -334,10 +342,6 @@ class User < ActiveRecord::Base
 
   def specialties
     profile.present? ? profile.specialties : []
-  end
-
-  def account_type
-    if premium_account then "Premium" else "Basic" end
   end
 
   def phone_number
@@ -348,10 +352,17 @@ class User < ActiveRecord::Base
     return nil if profile.blank? || !profile.display_cell_public?
     profile.cellnumber
   end
-  
+
   def linkable_profile?
     self.prefers_publish_profile? && self.premium_account
   end
 
-end
+  def braintree_contact
+    self
+  end
 
+  def recently_upgraded?
+    self.subscription.try(:start_date).try(:>, 1.week.ago.to_date)
+  end
+
+end

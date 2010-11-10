@@ -1,4 +1,3 @@
-db/schema.rb
 .DS_Store
 log/*.log
 tmp/**/*
@@ -21,5 +20,6 @@ tmp/webrat-*
 default.gems
 
 public/soapbox/*
+public/soapbox/_css/*
 public/redesign/_css/*
 public/redesign/brandonbold/*

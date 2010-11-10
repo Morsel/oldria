@@ -48,4 +48,19 @@ module EmployeesHelper
     content_tag(:ul, list_items.join(""), :class => "identity_details #{list_class}")
   end
   
+  def create_staff_account_link_label(employee)
+    if employee.subscription
+      "Add employee Premium Account to your account"
+    else
+      "Upgrade employee account to Premium"
+    end
+  end
+  
+  def can_add_user?
+    return false if @employee.complimentary_account?
+    return false unless @restaurant.premium_account?
+    return false if (@employee.staff_account? && @employee.subscription.payer != @restaurant)
+    (@employee.account_type != "Premium") || (@employee.account_payer_type == "Personal") 
+  end
+  
 end

@@ -84,4 +84,6 @@ class Admin::UsersController < Admin::AdminController
       format.js   { head :ok }
     end
   end
+
+  
 end

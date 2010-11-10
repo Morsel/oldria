@@ -37,7 +37,7 @@
 
 class Restaurant < ActiveRecord::Base
   apply_addresslogic
-  
+
   default_scope :conditions => {:deleted_at => nil}
 
   # primary account manager
@@ -50,7 +50,7 @@ class Restaurant < ActiveRecord::Base
 
   has_many :employments, :dependent => :destroy
   has_many :employees, :through => :employments
-  
+
   # all account managers should be omniscient
   has_many :managers,
            :through => :employments,
@@ -71,11 +71,12 @@ class Restaurant < ActiveRecord::Base
   has_many :menus
   has_many :accolades, :as => :accoladable
   has_many :a_la_minute_answers, :as => :responder
+  has_subscription
 
   has_and_belongs_to_many :restaurant_features,
       :include => {:restaurant_feature_category => :restaurant_feature_page}
 
-  has_many :photos, :class_name => "Photo", :as => :attachable, :order => "position ASC", :dependent => :destroy, 
+  has_many :photos, :class_name => "Photo", :as => :attachable, :order => "position ASC", :dependent => :destroy,
     :after_add => :reset_primary_photo_on_add, :after_remove => :reset_primary_photo_on_remove
   belongs_to :primary_photo, :class_name => "Photo", :dependent => :destroy
   belongs_to :logo, :class_name => "Image", :dependent => :destroy
@@ -85,7 +86,7 @@ class Restaurant < ActiveRecord::Base
   validates_presence_of :name, :street1, :city, :state, :zip, :phone_number,
       :metropolitan_area, :website, :media_contact, :hours, :cuisine, :opening_date
 
-  validates_format_of :website, :with => URI::regexp(%w(http https)), 
+  validates_format_of :website, :with => URI::regexp(%w(http https)),
       :message => "needs to be a valid URL that starts with http://"
 
   validates_format_of :management_company_website,
@@ -98,11 +99,12 @@ class Restaurant < ActiveRecord::Base
       :allow_blank => true,
       :message => "Facebook page must start with http://www.facebook.com"
 
+  has_one :subscription, :as => :subscriber
   after_validation_on_create :add_manager_as_employee
   after_create :update_manager
 
   after_save :update_admin_discussions
-  
+
   before_destroy :migrate_employees_to_default_employment
 
   # For pagination
@@ -113,9 +115,10 @@ class Restaurant < ActiveRecord::Base
     Restaurant.all(:include => :restaurant_features,
         :conditions => ['restaurant_features_restaurants.restaurant_feature_id = ?', feature.id])
   end
-  
+
   def self.find_premium(id)
-    find_by_id_and_premium_account(id, true)
+    possibility = find_by_id(id)
+    if possibility.premium_account then possibility else nil end
   end
 
   def name_and_location
@@ -150,8 +153,9 @@ class Restaurant < ActiveRecord::Base
     self.with_exclusive_scope(&block)
   end
 
-  def reset_features(feature_ids)
-    self.restaurant_feature_ids = feature_ids
+  def reset_features(add_ids, remove_ids = [])
+    self.restaurant_feature_ids = ((self.restaurant_feature_ids - remove_ids.map(&:to_i)) + add_ids.map(&:to_i)).uniq.sort
+    self.restaurant_feature_ids
   end
 
   def feature_categories
@@ -178,8 +182,9 @@ class Restaurant < ActiveRecord::Base
     employments.public_profile_only.by_position
   end
 
-  def account_type
-    if premium_account then "Premium" else "Basic" end
+  def braintree_contact
+    # need to get this fresh, in case it's being called from a callback
+    User.find(self.manager_id)
   end
 
   private
@@ -187,7 +192,7 @@ class Restaurant < ActiveRecord::Base
   def add_manager_as_employee
     self.employees << manager if manager
   end
-  
+
   def update_manager
     self.employments.first.update_attribute(:omniscient, true) if employments.any?
   end
@@ -217,11 +222,10 @@ class Restaurant < ActiveRecord::Base
     self.employments.each do |employment|
       user = employment.employee
       if user.employments.count == 0
-        user.create_default_employment(:restaurant_role => employment.restaurant_role, 
+        user.create_default_employment(:restaurant_role => employment.restaurant_role,
           :subject_matters => employment.subject_matters, :admin_messages => employment.admin_messages)
       end
     end
   end
 
 end
-

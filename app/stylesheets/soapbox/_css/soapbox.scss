@@ -4,9 +4,14 @@
 @import "blueprint";
 @import "compass/css3";
 // To configure blueprint, edit the partials/base.sass file.
+<<<<<<< HEAD:app/stylesheets/soapbox.scss
+@import "partials/base";
+@import "compass/layout/sticky-footer";   
+=======
 @import "../partials/base";
 @import "compass/layout/sticky-footer";
 
+>>>>>>> master:app/stylesheets/soapbox/_css/soapbox.scss
 // Import all the default blueprint modules so that we can access their mixins.
 @include reset-html5;
 .clearfix{

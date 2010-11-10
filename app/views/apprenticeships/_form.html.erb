@@ -1,3 +1,4 @@
+<%= "<h1>#{yield :title}</h1>" if request.xhr? %>
 <% semantic_form_for [:my_profile, @apprenticeship] do |f| %>
   <% f.inputs :class => "apprenticeships" do %>
     <%= f.input :establishment, :label => "Name of establishment", :hint => "restaurant, winery, brewery" %>

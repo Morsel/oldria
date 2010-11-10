@@ -15,7 +15,6 @@ Feature: Associating a Restaurant with its employees
 
   Scenario Outline: Adding an existing Employee after initial signup
     Given I have just created a restaurant named "Jimmy's Diner"
-    Then I should see "Add Employees to your Restaurant"
     And "Jimmy's Diner" should have 1 employee
 
     When I follow "Add employee"

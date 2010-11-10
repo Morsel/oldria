@@ -78,7 +78,12 @@ end
 
 When /^that "([^\"]*)" (has|does not have) a premium account$/ do |restaurant_name, toggle|
   restaurant = Restaurant.find_by_name(restaurant_name)
-  restaurant.update_attributes(:premium_account => toggle == "has")
+  if toggle == "has"
+    restaurant.subscription = Factory(:subscription)
+  else
+    restaurant.subscription = nil
+  end
+  restaurant.save!
 end
 
 Then /^I see an employee named "([^"]*)" with a link$/ do |username|

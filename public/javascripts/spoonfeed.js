@@ -13,6 +13,17 @@ $('.hp_promo').equalHeights({
 
 $('#profile-tabs').tabs();
 
+$('.new_question').live('click', function(){
+	$(this).css({
+		backgroundRepeat: 'no-repeat',
+		backgroundPosition: 'center center',
+		backgroundImage: 'url(/images/redesign/ajax-loader.gif)'
+	})
+})
+$('#profile_answer_submit').live('click', function(){
+	$(this).val('posting...')
+})
+
 function jumbotronController(idx, elem){
 	idx++;
 	return html+='<a href="#">'+idx+'</a>';
@@ -50,8 +61,7 @@ $('#criteria_accordion').accordion({
 $(document).ready(function(){
 	var bindColorbox = function() {
 	  $('.colorbox').colorbox({
-	      initialWidth: 420,
-	      maxWidth: 450,
+	      initialWidth: 450,
 	      onComplete: colorboxOnComplete,
 	      onClosed: function() {
 	        bindAjaxDeleters();
