@@ -298,6 +298,9 @@ form#new_user_session {
 		font-size: 11px;
 		text-transform: uppercase;
 	}
+	button[type=submit]{
+		cursor:pointer;
+	}
 }
 
 #jumbotron {
@@ -1039,7 +1042,8 @@ p.search_filter_hint {
 					@include box-shadow(#ddd, 0px,1px,2px);
 					margin: 0 0 10px 0;
 				}
-				button {
+				input[type=submit] {
+					cursor:pointer;
 					float: left;
 					margin: 2px 10px 10px 0;
 					border: 1px solid #ddd;

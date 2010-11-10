@@ -7,6 +7,6 @@
 	<% remote_form_for question.find_or_build_answer_for(current_user), :update => "btl_game" do |f| %>
 	    <%= f.hidden_field :profile_question_id %>
 	    <%= f.text_area :answer %>
-		<button>Post</button>
+		  <%= f.submit 'Post', :disable_with => 'posting&hellip;' %>
 	<% end %>
 	<p class="disclaimer">Your answers are viewable on your public profile</p>
