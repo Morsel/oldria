@@ -534,6 +534,7 @@ form#new_user_session {
 		border: 1px solid #EAD1CA;
 		padding: 12px;
 		background-color: $trans-orange;
+		margin-bottom: 20px;
 		.mail_count {
 			float: left;
 			@include brandongrotesquebold;
