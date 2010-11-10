@@ -121,9 +121,12 @@
 
   </section><!--/profile-summary-->
 
-  <section id="profile-extended">
-  	<%= render 'users/extended_profile', :user => @user, :profile => @user.profile %>
-  </section><!-- #profile-extended -->
+<div id="extended_profile_container">
+  <a href="#extended_profile" class="showit">View Extended Profile <em>(Education, Experience, Awards, etc)</em></a>
+  <%= render 'users/extended_profile', :user => @user, :profile => @user.profile %>
+</div><!-- #extended_profile_container -->
+
+
 
    <div id="recent_soapbox" class="clear clearfix">
 
