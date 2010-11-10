@@ -528,13 +528,6 @@ form#new_user_session {
 			margin: 0;
 			text-transform: capitalize;
 		}
-		.last_updated {
-			font-size: 10px;
-			margin: 5px 0;
-			padding: 0;
-			color: #888;
-			font-family: "lucida grande", verdana, sans-serif;
-		}
 	}
 } /* ## END OF #content ------------------- */
 
@@ -988,6 +981,13 @@ form#new_user_session {
 		}
 	} /* behind the line stuff */
 	
+	.last_updated, .timestamp_header {
+		font-size: 10px;
+		margin: 5px 0;
+		padding: 0;
+		color: #888;
+		font-family: "lucida grande", verdana, sans-serif;
+	}
 
 } /* ## end of page_content --------------------- */
 
@@ -1056,6 +1056,49 @@ form, #page_content form{
 		color: $orange;
 		margin:5px 0;
 	}
+} /* ## forms universal styles ------------------ */
+
+#profile-account, #profile-summary {
+	h5 {
+		font-family: "Hoefler Text", Georgia, serif;
+		font-size: 12px;
+		font-weight: bold;
+		margin: 0 0 5px;
+		padding: 10px 0 0 0;
+		color: #333;
+		letter-spacing: 0.15em;
+		text-transform: uppercase;
+	}
+	p {
+		font-size: 13px;
+	}
+	dl {
+		overflow: hidden;
+		dt {
+			float: left;
+			width: 60px;
+			margin: 0 10px 0 0;
+			line-height: 18px;
+			&:after {
+				content: ":";
+			}
+		}
+		dd {
+			line-height: 18px;
+			padding: 2px 0;
+			font-weight: normal;
+		}
+	}
+}
+
+#profile-account {
+	float: right;
+	width: 213px;
+	margin-left: 15px;
+	padding-left: 15px;
+	border-left: 1px dotted #ddd;
+}
+#profile-summary {
 }
 
 
@@ -1485,11 +1528,7 @@ p.search_filter_hint {
 		}
 	}
 }
-#profile-account {
-	float: right;
-	width: 228px;
-	margin-left: 15px;
-}
+
 #flashes {
 	clear:both;
 	margin: 15px 0;
