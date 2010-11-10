@@ -314,9 +314,7 @@ form#new_user_session {
 		padding: 25px 0px 0px 25px;
 		h1 {
 			font-size: 44px;
-			font-style: italic;
-			font-family: "Hoefler Text", Georgia, Times, serif;
-			font-weight: bold;
+			@include hoeflerbolditalic;
 			color: #fff;
 			text-shadow: 0px 2px 2px #000;
 			margin: 0 0 10px 0;
@@ -541,10 +539,8 @@ form#new_user_session {
 	padding: 5px 14px 20px 18px;
 	header {margin-bottom: 15px;}
 	h1 {
-		font-family: 'Hoefler Text', Georgia, serif;
-		font-weight: bold;
-		font-style: italic;
-		font-size: 24px;
+		@include hoeflerbolditalic;
+		font-size: 25px;
 		color: #333;
 		line-height: 30px;
 		padding: 0;
@@ -559,9 +555,7 @@ form#new_user_session {
 		}
 	}
 	h2 {
-		font-family: 'Hoefler Text', Georgia, serif;
-		font-weight: bold;
-		font-style: italic;
+		@include hoeflerbolditalic;
 		font-size: 21px;
 		color: #333;
 		line-height: 28px;
@@ -996,9 +990,7 @@ p.search_filter_hint {
 				}
 			}
 			&#invitation {
-				font-family: 'Hoefler Text', Georgia, serif;
-				font-style: italic;
-				font-weight: bold;
+				@include hoeflerbolditalic;
 				font-size: 18px;
 				&:hover {
 					color: #fff;
@@ -1025,12 +1017,10 @@ p.search_filter_hint {
 					margin: 0 0 10px 0;
 				}
 				h2 {
-					font-family: "Hoefler Text", Georgia, serif;
+					@include hoeflerbolditalic;
 					font-size: 18px;
 					color: #333;
 					margin: 15px 0 7px;
-					font-style: italic;
-					font-weight: bold;
 				}
 				p {
 					margin-bottom: 8px;
@@ -1081,17 +1071,15 @@ p.search_filter_hint {
 			&#manuals {
 				a {
 					display: block;
-					font-family: "Hoefler Text", Georgia, serif;
-					font-weight: bold;
+					@include hoeflerbolditalic;
 					font-size: 18px;
-					font-style: italic;
 					margin: 0 0 5px;
 					padding-left: 25px;
 					&#marketing_manual {
-						background: transparent url(/images/redesign/icon-16-manual.png) no-repeat;
+						background: transparent url(/images/redesign/icon-16-manual.png) no-repeat 0 2px;
 						&:hover {
 							color: $brown;
-							background-position: 0 -100px;
+							background-position: 0 -98px;
 						}
 					}
 					&#help_questions {
@@ -1456,6 +1444,83 @@ p.search_filter_hint {
 						text-decoration:underline;
 						color:$orange;
 					}
+				}
+			}
+		}
+	}
+}
+
+#status_update {
+	border: 1px solid #ddd;
+	@include box-shadow(#eaeaea,0px,2px,1px);
+	padding: 10px;
+	#coached {
+		background: $trans-brown;
+		border-bottom: 1px dotted #ddd;
+		padding: 12px 10px 8px;
+		margin: 0 0 10px;
+		p {
+			@include brandongrotesquebold;
+			text-shadow: 0 1px 0 #fff;
+			font-weight: normal;
+			font-weight: 300;
+			margin: 0;
+			color: $brown;
+			padding: 0;
+			font-size: 16px;		
+			span {
+				color: #888;
+				font-size: 12px;
+				text-transform: uppercase;
+			}
+		}
+	}
+	form {
+		padding: 10px;
+		label {
+			letter-spacing: 0.2em;
+			display: block;
+			font-family: "Hoefler Text", Georgia, serif;
+			text-transform: uppercase;
+			font-size: 12px;
+			margin: 0;
+		}
+		input {
+			display: block;
+			width: 320px;
+		}
+		button {
+			float: left;
+			display: block;
+			border: 1px solid #ddd;
+			margin: 0 10px 0 0;
+			font-size: 12px;
+			font-family: 'helvetica neue', helvetica, arial, sans-serif;
+			background-color: #f2f2f2;
+			@include linear-gradient(color-stops(#f4f4f4,#eaeaea ), top);
+			@include border-radius(20px);
+			color: #333;
+			padding: 5px 12px;
+			font-weight: bold;
+			&:hover {
+				background: #bbb08c;
+				color: #fff;
+				text-shadow: 0 1px 0 #444;
+				border: 1px solid #a6996c;
+			}
+		}
+		.and_twitter {
+			a {
+				background-color: $trans-orange;
+				color: $orange;
+				float:left;
+				display: block;
+				padding: 2px 5px;
+				margin: 3px 10px 0 0;
+				&:hover {
+					background-color: $trans-brown;
+					color: $brown;
+					text-decoration: none;
 				}
 			}
 		}

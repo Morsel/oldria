@@ -1,13 +1,14 @@
-<div id="status_update" class="sidebar_section">
-  <h3 class="section_header">Status Update</h3>
+<h1>Status Update</h1>
+
+<div id="status_update">
 
   <% unless (@coached_message ||= CoachedStatusUpdate.current.random.first).blank? %>
   <div id="coached">
-    <p><strong>Ideas:</strong> <%= @coached_message.message %></p>
+    <p><span>Ideas:</span> <%= @coached_message.message %></p>
   </div>
   <% end %>
 
   <div class="section_body">
     <%= render :partial => 'statuses/form' %>
   </div>
-</div>
+</div><!--#status_update-->
