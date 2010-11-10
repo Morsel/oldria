@@ -26,6 +26,8 @@ body{
 	position:relative;
 }
 
+@include sticky-footer(160px, "#container", "#padding", "#footer_container");
+
 #site_header {
 	display: block;
 	height: 140px;
@@ -604,13 +606,14 @@ form#new_user_session {
 				text-decoration: none;
 			}
 		}
+		
 		&#topic_title{
-			font:normal 14px "Helvetica Neue", Helvetica, Arial, sans-serif;
-			margin:0 0 5px;
-			padding:0;
-			color:$med-brown;
-			text-transform:uppercase;
-		}
+					font:normal 14px "Helvetica Neue", Helvetica, Arial, sans-serif;
+					margin:0 0 5px;
+					padding:0;
+					color:$med-brown;
+					text-transform:uppercase;
+				}
 	}
 	h3 {
 		font-family: 'Hoefler Text', Georgia, Times, serif;
@@ -996,7 +999,7 @@ form#new_user_session {
 		float:left;
 		margin:0 10px 10px 0;
 		position:relative;
-		@include box-shadow(#ddd,1px,1px,3px);
+		@include box-shadow(#aaa,1px,1px,3px);
 		&.last{
 			margin-right:0;
 		}
@@ -1025,31 +1028,31 @@ form#new_user_session {
 			background:rgba(216,83,30,0.08);
 		}
 		table{
-			table-layout:fixed;
-			width:314px;
-			margin:0 0 15px;
-			tr{
-				td{
-					a{
-						display:block;
-						padding:5px;
+					table-layout:fixed;
+					width:314px;
+					margin:0 0 15px;
+					tr{
+						td{
+							a{
+								display:block;
+								padding:5px;
+							}
+						}
+						&:hover{
+							td{
+								background:rgba(216,83,30,0.08);
+							}
+						}
+						td.topic_completeness{
+							padding:5px;
+							text-align:right;
+							color:#979797;
+							text-transform:uppercase;
+							font:normal 10px "Lucida Grande", Arial, sans-serif;
+						}
 					}
 				}
-				&:hover{
-					td{
-						background:rgba(216,83,30,0.08);
-					}
-				}
-				td.topic_completeness{
-					padding:5px;
-					text-align:right;
-					color:#979797;
-					text-transform:uppercase;
-					font:normal 10px "Lucida Grande", Arial, sans-serif;
-				}
-			}
-		}
-	}
+	} 
 	.topic {
 		h3{
 			padding-right:0;
@@ -1059,6 +1062,7 @@ form#new_user_session {
 			background:#fff;
 		}
 	} /* behind the line stuff */
+
 	
 	.last_updated, .timestamp_header, .timestamp {
 		font-size: 10px;
@@ -1285,6 +1289,8 @@ form, #page_content form{
 			}
 			&.options_selected{
 			  background:#e6f3df url(/images/green_check.png) no-repeat right;
+				border: 1px solid #cbe3be;
+				color: #579437;
 			}
 			&.ui-state-active span{
 			  background-position:3px 5px;
@@ -1459,11 +1465,13 @@ p.search_filter_hint {
 #footer_container {
 	position: relative;
 	display: block;
-	border-top: 10px solid #000;
 	z-index: 1000;
 	background-color: #333;
-	height: 150px;
-	footer {
+	#foot-wrap{
+		height: 150px;
+		border-top: 10px solid #000;
+	}
+	footer {	
 		width: 974px;
 		margin: 25px auto;
 		padding: 0;
@@ -1634,6 +1642,7 @@ p.search_filter_hint {
 		.comment {
 			margin-left: 315px;
 		}
+		
 	}
 } /* ## recently -------------------- */
 
@@ -1667,7 +1676,7 @@ p.search_filter_hint {
 
 
 #profile-options{
-	margin:15px 0;
+	margin:15px 0 0;
 	padding:0 10px 0 0;
 	overflow:hidden;
 	a{
@@ -1699,7 +1708,7 @@ p.search_filter_hint {
 .ui-tabs-panel{ 
 	background:#f7f6f2;
 	padding:12px;
-	margin:-15px 0 0;
+	margin:0;
 }
 .ui-tabs-hide{ display:none; }
 
@@ -1763,6 +1772,7 @@ p.search_filter_hint {
 		}
 	}
 	#extended_profile {
+		display:none;
 		padding: 5px 8px;
 		background-color: $trans-brown;
 		.extended_profile_info {
@@ -1929,6 +1939,9 @@ p.search_filter_hint {
 					text-decoration: none;
 				}
 			}
+			label {
+				display: inline;
+			}
 		}
 	}
 }
@@ -1995,6 +2008,7 @@ p.search_filter_hint {
 		}
 	}
 }
+
 
 #behindline{
 	@include column(9);
@@ -2074,5 +2088,4 @@ p.search_filter_hint {
 		}
 	}
 }
-
 
