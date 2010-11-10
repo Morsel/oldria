@@ -1,14 +1,9 @@
-<% title "Behind the Line" %>
+<% title "Behind the Line", false %>
+<h1 id="btl-title" class="btl"><span class="btl-art">Behind the Line:</span> <span class="name"><%= @user.name %></span></h1>
+<h2 id="topic_title">Topic: <%= @topic.title %></h2>
+<%= render :partial => 'topic_nav', :locals => { :next_topic => @next, :prev_topic => @previous } %>
 
-<h2 id="topic_title"><%= @topic.title %></h2>
 
-<nav id="topic_nav" class="clearfix">
-    <%= link_to "<span>Next:</span> #{truncate(@next.title, :length => 20, :omission=>'&hellip;')}", link_for_chapter(:user_id => @user.id, :topic_id => @next.id), :class => "button round" if @next %>
-
-    <%= link_to "All Topics", link_for_topics(:user_id => @user.id), :class => "button round" %>
-    
-    <%= link_to "<span>Prev:</span> #{truncate(@previous.title, :length => 20, :omission=>'&hellip;')}", link_for_chapter(:user_id => @user.id, :topic_id => @previous.id), :class => "button round" if @previous %>
-</nav>
 <div class="clear"></div>
 
 <% for chapter in @questions_by_chapter.keys %>
