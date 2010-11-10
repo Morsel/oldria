@@ -75,7 +75,7 @@
 
           <% end %>
       </dl><!-- .user_info.extra -->
-      <p class="timestamp_header">Last updated:<%= @user.profile.try(:updated_at).try(:strftime, "%b %e %Y") %></p>
+      <p class="timestamp_header">Last updated: <%= @user.profile.try(:updated_at).try(:strftime, "%b %e %Y") %></p>
 
   </section><!--/profile-account-->
 
