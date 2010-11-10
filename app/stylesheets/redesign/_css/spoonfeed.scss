@@ -1547,7 +1547,13 @@ p.search_filter_hint {
 }
 
 #cboxLoadedContent{
-	padding:10px;
+	form{
+		padding:10px;
+	}
+	h1{
+		@include hoeflerbolditalic;
+		font-size:18px;
+	}
 }
 
 

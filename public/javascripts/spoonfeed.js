@@ -61,8 +61,7 @@ $('#criteria_accordion').accordion({
 $(document).ready(function(){
 	var bindColorbox = function() {
 	  $('.colorbox').colorbox({
-	      initialWidth: 420,
-	      maxWidth: 450,
+	      initialWidth: 450,
 	      onComplete: colorboxOnComplete,
 	      onClosed: function() {
 	        bindAjaxDeleters();
