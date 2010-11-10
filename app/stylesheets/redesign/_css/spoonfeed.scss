@@ -539,8 +539,14 @@ form#new_user_session {
 			@include brandongrotesquebold;
 			background: $orange;
 			padding: 3px 10px;
-			font-size: 14px;
+			color: #fff;
+			font-size: 15px;
 			@include border-radius(20px);
+			margin: 0 10px 0 0;
+		}
+		p.view_your_messages {
+			margin: 10px 0 0 0;
+			padding: 0;
 		}
 	}
 }
