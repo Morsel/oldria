@@ -1,0 +1,5 @@
+<nav id="topic_nav" class="topic-nav clearfix">
+    <%= link_to "<span>Next:</span> #{truncate(@next.title, :length => 20, :omission=>'&hellip;')}", link_for_chapter(:user_id => @user.id, :topic_id => next_topic.id), :class => "next" if next_topic %>
+    <%= link_to "All Topics", link_for_topics(:user_id => @user.id), :class => "all-topics" %>
+    <%= link_to "<span>Prev:</span> #{truncate(@previous.title, :length => 20, :omission=>'&hellip;')}", link_for_chapter(:user_id => @user.id, :topic_id => prev_topic.id), :class => "prev" if prev_topic %>
+</nav>

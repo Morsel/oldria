@@ -134,7 +134,7 @@
 
     	<div id="behindline" class="recent_actions">
 
-    		<h3 id="btl-title"><span>Behind the Line:</span> <%= @user.name %></h3>
+    		<h3 id="btl-title"><span class="btl-art">Behind the Line:</span> <%= @user.name %></h3>
     		<% if current_user == @user %>
     			<div class="edit_profile_link">
     				<%= link_to "<span>Answer more questions!</span>", topics_user_questions_path(:user_id => @user.id) %>

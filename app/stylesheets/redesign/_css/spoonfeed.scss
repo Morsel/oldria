@@ -604,6 +604,13 @@ form#new_user_session {
 				text-decoration: none;
 			}
 		}
+		&#topic_title{
+			font:normal 14px "Helvetica Neue", Helvetica, Arial, sans-serif;
+			margin:0 0 5px;
+			padding:0;
+			color:$med-brown;
+			text-transform:uppercase;
+		}
 	}
 	h3 {
 		font-family: 'Hoefler Text', Georgia, Times, serif;
@@ -982,14 +989,14 @@ form#new_user_session {
 	} /* profile tabs */
 
 
-	.chapter{
+	.chapter, .topic{
 		width:314px;
 		padding:10px;
 		border:1px solid #ccc;
 		float:left;
 		margin:0 10px 10px 0;
 		position:relative;
-		@include box-shadow(#aaa,1px,1px,3px);
+		@include box-shadow(#ddd,1px,1px,3px);
 		&.last{
 			margin-right:0;
 		}
@@ -1016,6 +1023,40 @@ form#new_user_session {
 			cursor:pointer;
 			text-decoration:none;
 			background:rgba(216,83,30,0.08);
+		}
+		table{
+			table-layout:fixed;
+			width:314px;
+			margin:0 0 15px;
+			tr{
+				td{
+					a{
+						display:block;
+						padding:5px;
+					}
+				}
+				&:hover{
+					td{
+						background:rgba(216,83,30,0.08);
+					}
+				}
+				td.topic_completeness{
+					padding:5px;
+					text-align:right;
+					color:#979797;
+					text-transform:uppercase;
+					font:normal 10px "Lucida Grande", Arial, sans-serif;
+				}
+			}
+		}
+	}
+	.topic {
+		h3{
+			padding-right:0;
+		}
+		&:hover{
+			cursor:normal;
+			background:#fff;
 		}
 	} /* behind the line stuff */
 	
@@ -1581,6 +1622,14 @@ p.search_filter_hint {
 			p {
 				font-size: 13px;
 			}
+			.topic{
+				width:auto !important;
+				border:0 !important;
+				@include box-shadow(transparent,0,0,0,0);
+				margin:0 !important;
+				padding:0 !important;
+				float:none !important;
+			}
 		}
 		.comment {
 			margin-left: 315px;
@@ -1697,6 +1746,7 @@ p.search_filter_hint {
 
 #profile-extended, #extended_profile_container {
 	overflow: hidden;
+	margin:0 0 15px;
 	.showit {
 		display: block;
 		border-bottom: 1px solid #d7d4c4;
@@ -1910,24 +1960,45 @@ p.search_filter_hint {
 	}
 }
 
+#btl-title{
+	color:#666;
+	text-transform: capitalize;
+	font:200 16px "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, sans-serif !important;
+	padding:0 0 5px;
+	margin:0 0 10px;
+	border-bottom:1px solid #ccc;
+	span.btl-art{
+		@include hiddentext;
+		display:inline-block;
+		background:url(/images/redesign/title-behindtheline.png) no-repeat;
+		width:123px;
+		height:19px;
+	}
+	&.btl{
+		overflow:hidden;
+		display:inline-block;
+		padding:10px 20px 0 5px;
+		margin:0 0 15px -18px;
+		border:0;
+		height:33px;
+		color:#fff;
+		background:#d9531e url(/images/redesign/red-divot.gif) no-repeat right;
+		span{
+			float:left;
+			margin:0 5px 0 0;
+			&.btl-art{
+				background:url(/images/redesign/btl-white.png) no-repeat left;
+			}
+			&.name{
+				padding-top:3px;
+			}
+		}
+	}
+}
 
 #behindline{
 	@include column(9);
-	#btl-title{
-		color:#666;
-		text-transform: capitalize;
-		font:200 16px "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, sans-serif;
-		padding:0 0 5px;
-		margin:0 0 10px;
-		border-bottom:1px solid #ccc;
-		span{
-			@include hiddentext;
-			display:inline-block;
-			background:url(/images/redesign/bg-btl-title.png) no-repeat;
-			width:123px;
-			height:18px;
-		}
-	}
+	
 	ul{
 		margin:10px 0;
 		padding:0;
@@ -1978,14 +2049,30 @@ p.search_filter_hint {
 	@include column(8,true);
 }
 
-#topic_nav{
+.topic-nav{
 	overflow:hidden;
+	padding:10px 0 10px 10px;
 	a{
 		display:block;
-		padding:5px 10px;
-		background:rgba(216,83,30,0.08);
+		padding:5px 10px 5px 20px;
+		background-color:rgba(216,83,30,0.08);
+		background-repeat:no-repeat;
+		background-position:left;
 		float:right;
-		margin:0 0 0 5px;
+		margin:0 0 0 10px;
+		&.next{
+			padding-left:10px;
+			padding-right:20px;
+			background-image:url(/images/redesign/bg-orange-arrow-next.png);
+			background-position:right;
+		}
+		&.prev{
+			background-image:url(/images/redesign/bg-orange-arrow-prev.png);
+		}
+		&.all-topics{
+			background-image:url(/images/redesign/bg-home.png);
+		}
 	}
 }
+
 

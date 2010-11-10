@@ -6,7 +6,7 @@ $('#jumbotron').cycle({
 	pagerBuilder: jumbotronController
 });
 
-$('.hp_promo, .chapter').equalHeights();
+$('.hp_promo, .chapter, .topic').equalHeights();
 $('.culinary_job').equalHeights();
 $('.nonculinary_job').equalHeights();
 $('.award').equalHeights();
