@@ -30,8 +30,11 @@ $('.new_question').live('click', function(){
 	})
 })
 $('#profile_answer_submit').live('click', function(){
-	$(this).val('posting...')
+	$(this).val('posting...').attr('disabled','disabled');
 })
+$('#new_quick_reply button').live('click', function(){
+	$(this).text('posting...').attr('disabled','disabled');
+});
 
 function jumbotronController(idx, elem){
 	idx++;
@@ -84,10 +87,6 @@ $(document).ready(function(){
   }
 
   $('.close').live('click', close_box);
-
-  $('#new_quick_reply button').live('click', function(){
-  	$(this).text('posting...');
-  });
 
   function post_reply_text(){
     $('#new_quick_reply button').text('Post Reply');
