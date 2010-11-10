@@ -988,6 +988,20 @@ form#new_user_session {
 		color: #888;
 		font-family: "lucida grande", verdana, sans-serif;
 	}
+	
+	.new_all {
+		float: right;
+		margin: -30px 0 0 0;
+		a {
+			float: left;
+			width: 40px;
+			height: 18px;
+			background-color: $trans-orange;
+			margin-left: 5px;
+			text-align: center;
+			padding: 3px 0 0 0;
+		}
+	}
 
 } /* ## end of page_content --------------------- */
 
@@ -1656,6 +1670,7 @@ p.search_filter_hint {
 				margin: 0;
 				padding: 0;
 				li {
+					border
 					.name {
 						font-weight: bold;
 						color: #333;
