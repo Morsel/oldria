@@ -19,7 +19,8 @@ tmp/webrat-*
 .rvmrc
 default.gems
 
-public/soapbox/*
 public/soapbox/_css/*
+public/soapbox/knockout/*
+public/soapbox/museoslab/*
 public/redesign/_css/*
 public/redesign/brandonbold/*
