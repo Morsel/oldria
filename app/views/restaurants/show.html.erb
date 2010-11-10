@@ -1,11 +1,9 @@
 <% title @restaurant.name -%>
 <% if can? :edit, @restaurant %>
-  <% content_for :page_actions do -%>
   <p class="clearfix">
     <%= link_to 'Edit restaurant', edit_restaurant_path(@restaurant),
         :class=>'sf-button' %>
   </p>
-  <% end -%>
 <% end -%>
 
 <div id="restaurant_profile_view" class="box clear clearfix">
