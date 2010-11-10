@@ -995,7 +995,7 @@ form#new_user_session {
 		a {
 			float: left;
 			width: 40px;
-			height: 18px;
+			height: 18gpx;
 			background-color: $trans-orange;
 			margin-left: 5px;
 			text-align: center;
@@ -1650,7 +1650,7 @@ p.search_filter_hint {
 }
 
 
-#profile-extended{
+#profile-extended, #extended_profile_container {
 	overflow: hidden;
 	#extended_profile {
 		padding: 5px 8px;
@@ -1670,7 +1670,7 @@ p.search_filter_hint {
 				margin: 0;
 				padding: 0;
 				li {
-					border
+					background: none;
 					.name {
 						font-weight: bold;
 						color: #333;
@@ -1746,7 +1746,7 @@ p.search_filter_hint {
 			}
 		}
 	}
-}
+} /* ## profile_extended ----------------- */
 
 #status_update {
 	border: 1px solid #ddd;
