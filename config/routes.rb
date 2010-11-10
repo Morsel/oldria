@@ -136,7 +136,7 @@ ActionController::Routing::Routes.draw do |map|
                               :staff_discussions => :get,
                               :media_requests => :get
                             }
-  map.connect 'front_burner', :controller => 'front_burner', :action => 'index'
+  map.front_burner 'front_burner', :controller => 'front_burner', :action => 'index'
 
   map.resources :timelines, :collection => {
                               :people_you_follow => :get,
