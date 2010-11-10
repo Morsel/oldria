@@ -279,12 +279,10 @@ form#new_user_session {
 		
 	.optional {
 		label {
-			font-family:"Hoefler Text", Georgia, Times, serif;
+			font-family: 'helvetica neue', helvetica, arial, sans-serif;
 			font-size: 12px;
-			letter-spacing: 0.2em;
 			display: block;
 			margin: 14px 0 2px;
-			text-transform: uppercase;
 		}
 		input {
 			font-size: 13px;
@@ -427,7 +425,7 @@ form#new_user_session {
 		}
 		section {
 			padding: 0 10px;
-			margin: 0 10px 20px 0;
+			margin: 0 10px 50px 0;
 			&.hp_promo {
 				float: left;
 				width: 216px;
@@ -531,6 +529,22 @@ form#new_user_session {
 	}
 } /* ## END OF #content ------------------- */
 
+#dashboard {
+	#admin_messages {
+		border: 1px solid #EAD1CA;
+		padding: 12px;
+		background-color: $trans-orange;
+		.mail_count {
+			float: left;
+			@include brandongrotesquebold;
+			background: $orange;
+			padding: 3px 10px;
+			font-size: 14px;
+			@include border-radius(20px);
+		}
+	}
+}
+
 #page_content {
 	padding: 5px 14px 20px 18px;
 	header {margin-bottom: 15px;}
@@ -568,7 +582,7 @@ form#new_user_session {
 		}
 	}
 	h3 {
-		font-family: Georgia, Times, serif;
+		font-family: 'Hoefler Text', Georgia, Times, serif;
 		font-size: 14px;
 		font-weight: bold;
 		color: #333;
@@ -1541,7 +1555,7 @@ p.search_filter_hint {
 			margin-left: 315px;
 		}
 	}
-} /* ## DDDDDDDashboard -------------------- */
+} /* ## recently -------------------- */
 
 #flashes {
 	clear:both;
