@@ -21,7 +21,7 @@ class ProfileAnswer < ActiveRecord::Base
   
   named_scope :from_premium_users, lambda {
     {:include => {:user => :subscription},
-     :conditions => ["subscriptions.id NOT NULL AND (subscriptions.end_date IS NULL OR subscriptions.end_date >= ?)",
+     :conditions => ["subscriptions.id IS NOT NULL AND (subscriptions.end_date IS NULL OR subscriptions.end_date >= ?)",
           Date.today]}
   }
 
