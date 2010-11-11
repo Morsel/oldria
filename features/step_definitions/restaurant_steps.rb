@@ -241,7 +241,7 @@ When /^I remove the restaurant photo with the file "([^"]*)"$/ do |filename|
 end
 
 When /^I remove the restaurant logo$/ do
-  click_link_within("#logo", "Remove")
+  click_link_within("#delete-logo", "Remove")
 end
 
 Then /^I see no restaurant photos$/ do
