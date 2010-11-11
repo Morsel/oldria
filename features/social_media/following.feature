@@ -9,43 +9,32 @@ Feature: Follow a SpoonFeed member, See who's following me
   I want to see a list of folks who are following me
 
   Background:
-    And the following user records:
-    | username | email              | name           | password |
-    | friendly | friend@example.com | John Appleseed | secret   |
-    | otherguy | otherguy@msn.com   | Sarah Cooper   | secret   |
+    Given the following user records:
+      | username | email              | name           | password |
+      | friendly | friend@example.com | John Appleseed | secret   |
+      | otherguy | otherguy@msn.com   | Sarah Cooper   | secret   |
     Given I am logged in as "friendly" with password "secret"
-
 
   Scenario: Find someone and follow them
     Given I am on the profile page for "otherguy"
-    When I follow "Follow User"
+    When I follow "Follow This User"
     Then I should see "You are now following Sarah Cooper"
     And "friendly" should be following 1 user
-
 
   Scenario: Unfollow someone
     Given "friendly" is following "otherguy"
     When I am on the profile page for "otherguy"
     And I follow "Stop following this user"
-    Then I should see "you aren't following them anymore"
+    Then I should see "you aren't following Sarah Cooper anymore"
     And "friendly" should be following 0 users
-
 
   Scenario: You can't follow yourself
     Given I am on the profile page for "friendly"
-    Then I should not see "Follow User"
+    Then I should not see "Follow This User"
 
-  # The new profile page makes this defunct for now
-  #
-  # Scenario: Listing followers
-  #   Given "friendly" is following "otherguy"
-  #   When I am on the profile page for "otherguy"
-  #   Then I should see "John Appleseed"
-
-
-  Scenario: Viewing Friends Activity
-    Given I am following "otherguy"
-    And "otherguy" has the following status messages:
-      | message        |
-      | I just ate     |
-      | I ate too much |
+  # Scenario: Viewing Friends Activity
+  #   Given I am following "otherguy"
+  #   And "otherguy" has the following status messages:
+  #     | message        |
+  #     | I just ate     |
+  #     | I ate too much |

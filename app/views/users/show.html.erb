@@ -4,21 +4,26 @@
   <p>This is a preview view. These changes have not been saved.<%= link_to_function "Go back", "history.go(-1)" %> to edit or save.</p>
 <% end %>
 
-<header>
-  
-   
+<header>   
 	<aside class="user_actions">
-	  <% if current_user == @user -%>
-  	    <%= link_to 'Edit profile', edit_my_profile_path %>
-    <% else -%>
-		  <a class="private_message" href="#">Private Message</a>
-  		<a class="follow_user" href="#">Follow User</a>
-  	<% end -%>
-	</aside>
-	 <%= image_tag @user.avatar.url(:small), :width=>'72' %>
-	<h1><%= @user.name %></h1>
-	<p class="last_updated">Last updated: <%= @user.updated_at.strftime('%b %d, %Y') %> </p>
-	<div class="clear"></div>
+        <% if current_user == @user -%>
+          <%= link_to 'Edit profile', edit_my_profile_path %>
+        <% elsif current_user -%>
+          <%= link_to "Private Message", new_user_direct_message_path(@user), :class => 'private_message' %>
+          <% if @following %>
+            <%= link_to "Stop following this user", following_path(@following.id), 
+                :method => :delete, :class => 'follow_user' %>
+          <% else %>
+            <%= link_to "Follow this user", followings_path(:friend_id => @user), 
+                :method => :post, :class => 'follow_user' %>
+          <% end %>
+        <% end -%>
+    </aside>
+    
+    <%= image_tag @user.avatar.url(:small), :width=>'72' %>
+    <h1><%= @user.name %></h1>
+    <p class="last_updated">Last updated: <%= @user.updated_at.strftime('%b %d, %Y') %> </p>
+    <div class="clear"></div>
 </header>
 
 
@@ -215,7 +220,6 @@
 
                 </div><!--.profile_info-->
 
-                <%= render :partial => 'users/profile_actions' if !media_or_owner? %>
 
             </div><!-- #user_profile_view -->
   	

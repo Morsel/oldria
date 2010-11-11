@@ -116,7 +116,7 @@
             <%= image_tag @restaurant.logo.attachment.url(:medium), :id => "restaurant_logo_image" %>
             <%= logo_fields.input :attachment, :as => :file, :hint => "Please upload a jpeg, gif, or png" %>
         <% end %>
-        <p><%= link_to "Remove", restaurant_logo_path(@restaurant, @restaurant.logo), :method => :delete, :confirm => "Are you sure you want to remove the logo?", :class => "button negative" %></p>
+        <p id="delete-logo"><%= link_to "Remove", restaurant_logo_path(@restaurant, @restaurant.logo), :method => :delete, :confirm => "Are you sure you want to remove the logo?", :class => "button negative" %></p>
     <% end %>
 
 
