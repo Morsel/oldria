@@ -29,3 +29,8 @@ config.action_view.cache_template_loading            = true
 
 # Enable threaded mode
 # config.threadsafe!
+
+Braintree::Configuration.environment = :production
+Braintree::Configuration.merchant_id = "3fb27hjyr2pj4mkh"
+Braintree::Configuration.public_key = "8prvwthxmkmtcpt7"
+Braintree::Configuration.private_key = "2xkncs7ptjyytgqd"
