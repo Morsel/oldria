@@ -17,17 +17,17 @@ default_run_options[:pty] = true
 #   cap deploy
 #
 # Default to staging
-set :server_ip, '174.132.251.233'
+set :server_ip, 'dh03172010.highlandgroupinc.com'
 set :stage, 'staging'
 role :web, server_ip
 role :app, server_ip
 role :db, server_ip, :primary => true
 
 set :rails_env, :staging
-set :deploy_to, "/home/ria/staging"
+set :deploy_to, "/srv/httpd/staging/"
 
-ssh_options[:port] = 7822
-set :user, "ria"
+ssh_options[:port] = nil
+set :user, "deployer"
 
 ##
 # == Production environment
