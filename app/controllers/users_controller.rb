@@ -37,7 +37,8 @@ class UsersController < ApplicationController
         end
         format.js   { head :ok }
       else
-        format.html { render :edit }
+        @profile = @user.profile || @user.build_profile
+        format.html { render :template => 'profiles/edit' }
         format.js   { render :json => @user.errors, :status => :unprocessable_entity }
       end
 

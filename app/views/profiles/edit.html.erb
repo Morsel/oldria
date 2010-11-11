@@ -200,27 +200,27 @@
   <section id="profile-extended">
     <div id="extended_profile_fields">
 
-      <%= render :partial => 'extended_profile_section', :locals => {
+      <%= render :partial => 'profiles/extended_profile_section', :locals => {
           :association => "culinary_jobs",
           :caption => "Work Experience - Restaurants",
           :form_path => new_my_profile_culinary_job_path} %>
 
-      <%= render :partial => 'extended_profile_section', :locals => {
+      <%= render :partial => 'profiles/extended_profile_section', :locals => {
           :association => "nonculinary_jobs",
           :caption => "Work Experience - Nonculinary",
           :form_path => new_my_profile_nonculinary_job_path} %>
 
-      <%= render :partial => 'extended_profile_section', :locals => {
+      <%= render :partial => 'profiles/extended_profile_section', :locals => {
           :association => "awards",
           :caption => "Awards",
           :form_path => new_my_profile_award_path} %>
 
-      <%= render :partial => 'extended_profile_section', :locals => {
+      <%= render :partial => 'profiles/extended_profile_section', :locals => {
           :association => "accolades",
           :caption => "Accolades",
           :form_path => new_my_profile_accolade_path} %>
 
-      <%= render :partial => 'extended_profile_section', :locals => {
+      <%= render :partial => 'profiles/extended_profile_section', :locals => {
           :association => "culinary_schools",
           :caption => "Education (Culinary)",
           :form_path => new_my_profile_enrollment_path} %>
@@ -234,22 +234,22 @@
           <%= link_to "add another", new_my_profile_nonculinary_enrollment_path, :class => 'add_extended colorbox'%>
       </div>
 
-      <%= render :partial => 'extended_profile_section', :locals => {
+      <%= render :partial => 'profiles/extended_profile_section', :locals => {
           :association => "competitions",
           :caption => "Competitions",
           :form_path => new_my_profile_competition_path} %>
 
-      <%= render :partial => 'extended_profile_section', :locals => {
+      <%= render :partial => 'profiles/extended_profile_section', :locals => {
           :association => "internships",
           :caption => "Internships",
           :form_path => new_my_profile_internship_path} %>
 
-      <%= render :partial => 'extended_profile_section', :locals => {
+      <%= render :partial => 'profiles/extended_profile_section', :locals => {
           :association => "stages",
           :caption => "Stages",
           :form_path => new_my_profile_stage_path} %>
 
-      <%= render :partial => 'extended_profile_section', :locals => {
+      <%= render :partial => 'profiles/extended_profile_section', :locals => {
           :association => "apprenticeships",
           :caption => "Apprenticeships",
           :form_path => new_my_profile_apprenticeship_path} %>
