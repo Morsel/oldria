@@ -6,6 +6,10 @@
 <% end -%>
 
 <% if can? :edit, @restaurant %>
+<p class="clearfix">
+  <%= link_to 'Manage employees', restaurant_employees_path(@restaurant),
+      :class=> 'sf-button' %>
+</p>
   <% content_for :page_actions do -%>
     <p class="clearfix">
       <%= link_to 'Manage employees', restaurant_employees_path(@restaurant),
