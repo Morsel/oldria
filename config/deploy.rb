@@ -19,12 +19,13 @@ default_run_options[:pty] = true
 # Default to staging
 set :server_ip, 'dh03172010.highlandgroupinc.com'
 set :stage, 'staging'
+set :nickname, (ENV["NICKNAME"] || 'cashew')
 role :web, server_ip
 role :app, server_ip
 role :db, server_ip, :primary => true
 
 set :rails_env, :staging
-set :deploy_to, "/srv/httpd/staging/"
+set :deploy_to, "/srv/httpd/staging/#{nickname}/"
 
 ssh_options[:port] = nil
 set :user, "deployer"
