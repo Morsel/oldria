@@ -354,7 +354,7 @@ class User < ActiveRecord::Base
   end
 
   def linkable_profile?
-    self.prefers_publish_profile? && self.premium_account
+    self.prefers_publish_profile? && self.premium_account?
   end
 
   def braintree_contact

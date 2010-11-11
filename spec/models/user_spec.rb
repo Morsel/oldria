@@ -357,7 +357,7 @@ describe User do
     end
     
     it "finds the right users" do
-      User.premium_account.all.should =~ [@premium, @overtime]
+      User.with_premium_account.all.should =~ [@premium, @overtime]
     end
     
     
