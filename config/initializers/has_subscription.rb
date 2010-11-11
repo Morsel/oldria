@@ -252,7 +252,7 @@ module HasSubscription
     end
 
     def update_braintree_customer(customer)
-      if customer.subscription
+      if customer.subscription && customer.subscription.has_braintree_info?
         BraintreeConnector.update_customer(customer)
       end
     end
