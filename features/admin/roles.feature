@@ -44,5 +44,5 @@ Feature: Member roles
   Examples:
     | page                         |
     | the admin landing page       |
-    | the edit page for "jimmy"    |
+    | the profile edit page for "jimmy"    |
 
