@@ -56,7 +56,7 @@ Feature: users can be invited to join Spoonfeed by registered SF users, restaura
     When I follow "I am not associated with a restaurant on spoonfeed"
     And I select "Chef" from "Role"
     And I check "Food"
-    And I check "default_employment_prefers_post_to_soapbox"
+    And I check "default_employment_post_to_soapbox"
     And I press "Submit"
     Then I should see "Enjoy SpoonFeed!"
     And "mcarpenter" should have a primary employment

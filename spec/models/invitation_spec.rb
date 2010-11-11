@@ -28,4 +28,9 @@ describe Invitation do
   it "should create a new instance given valid attributes" do
     Invitation.create!(@valid_attributes)
   end
+  
+  it "should send admins an email after creation" do
+    UserMailer.expects(:deliver_admin_invitation_notice).returns(true)
+    Invitation.create!(@valid_attributes)
+  end
 end

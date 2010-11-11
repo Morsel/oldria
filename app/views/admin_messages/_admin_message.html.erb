@@ -14,6 +14,16 @@
         <%= auto_link(simple_format(admin_message.message)) %>
     </div>
     
+    <% if admin_message.soapbox_entry.try(:published?) %>
+    <div>
+        This has been <%= link_to 'published on soapbox', soapbox_soapbox_entry_path(admin_message.soapbox_entry), :popup => true %>.
+    </div>
+    <% elsif admin_message.soapbox_entry.try(:upcoming?) %>
+    <div>
+        This will be published in <%= distance_of_time_in_words(Time.now, admin_message.soapbox_entry.published_at) %>
+    </div>
+    <% end %>
+
     <div class="message-comments clearfix">
         <% if admin_message.recipients_can_reply? %>
         <%= render :partial => 'comments', :locals => {:message => admin_message}  %>

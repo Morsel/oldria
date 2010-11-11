@@ -43,3 +43,8 @@ config.gem "awesome_print", :lib => "ap"
 config.gem "accept_values_for", :version => "0.3.1"
 config.gem "rails_best_practices", :version => "0.3.16"
 config.gem "metric_fu", :version => "1.5.1", :lib => "metric_fu"
+
+Braintree::Configuration.environment = :sandbox
+Braintree::Configuration.merchant_id = "ny23sz9jy8gy38bw" 
+Braintree::Configuration.public_key = "n77z2dvd56jy4j9n" 
+Braintree::Configuration.private_key = "w8kw3smb2g2m6mds"

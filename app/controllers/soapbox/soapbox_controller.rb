@@ -6,22 +6,23 @@ class Soapbox::SoapboxController < ApplicationController
   
   def index
     @home = true
-    @slides = SoapboxSlide.all(:order => "position", :limit => 4)
-    @promos = SoapboxPromo.all(:order => "position", :limit => 3)
+    @slides = SoapboxSlide.all(:order => "position", :limit => 4, :conditions => "position is not null")
+    @promos = SoapboxPromo.all(:order => "position", :limit => 3, :conditions => "position is not null")
   end
 
   def directory
     if params[:specialty_id]
       @specialty = Specialty.find(params[:specialty_id])
-      @users = Profile.specialties_id_eq(params[:specialty_id]).map(&:user).select { |u| u.premium_account }
+      @users = User.profile_specialties_id_eq(params[:specialty_id]).premium_account.all(:order => "users.last_name").uniq
     elsif params[:cuisine_id]
       @cuisine = Cuisine.find(params[:cuisine_id])
-      @users = Profile.cuisines_id_eq(params[:cuisine_id]).map(&:user).select { |u| u.premium_account }
+      @users = User.profile_cuisines_id_eq(params[:cuisine_id]).premium_account.all(:order => "users.last_name").uniq
     else
-      params[:search] = { :employee_premium_account_equals => true }
+      #params[:search] = { :premium_account_equals => true }
       directory_search_setup
+      
       @use_search = true
-      @users_for_search = User.by_last_name.all(:conditions => { :premium_account => true })
+      @users_for_search = User.by_last_name.premium_account.all
       @restaurants_for_search = @users_for_search.map(&:restaurants).flatten.compact.uniq.sort { |a,b| a.sort_name <=> b.sort_name }
     end
     
@@ -30,7 +31,6 @@ class Soapbox::SoapboxController < ApplicationController
   
   def directory_search
     directory_search_setup
-    @users = @users.select { |u| u.premium_account }
     render :partial => "directory/search_results"
   end
 

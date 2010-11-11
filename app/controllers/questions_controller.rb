@@ -54,6 +54,11 @@ class QuestionsController < ApplicationController
         group_by(&:chapter)
   end
   
+  def refresh
+    @btl_question = ProfileQuestion.for_user(current_user).random.reject { |q| q.answered_by?(current_user) }.first
+    render :partial => "shared/btl_game", :locals => { :question => @btl_question }
+  end
+  
   protected
 
   def require_user_unless_soapbox

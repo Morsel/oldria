@@ -17,6 +17,7 @@ Spork.prefork do
 
   require "email_spec/helpers"
   require "email_spec/matchers"
+  require "support/braintree_spec_helper"
 
   require "authlogic/test_case"
 

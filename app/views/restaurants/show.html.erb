@@ -1,15 +1,9 @@
 <% title @restaurant.name -%>
 <% if can? :edit, @restaurant %>
-  <% content_for :page_actions do -%>
   <p class="clearfix">
-    <%= link_to 'Manage employees', restaurant_employees_path(@restaurant),
-        :class=>'sf-button' %>
     <%= link_to 'Edit restaurant', edit_restaurant_path(@restaurant),
         :class=>'sf-button' %>
-    <%= link_to 'Edit restaurant features', restaurant_features_path(@restaurant),
-        :class=>'sf-button' %>
   </p>
-  <% end -%>
 <% end -%>
 
 <div id="restaurant_profile_view" class="box clear clearfix">
@@ -20,11 +14,9 @@
         <%= @restaurant.name %>
       </h2>
 
-      <div class="premium">
-        <% if @restaurant.premium_account %>
-          <strong>Premium Account</strong>
-        <% end %>
-      </div>
+      <% div_if @restaurant.premium_account?, :class => "premium" do %>
+        Account Type: Premium
+      <% end %>
       <div id="address"><%= @restaurant.address_parts.join("<br />") %></div>
 
       <div>
@@ -69,6 +61,10 @@
     <% div_if(@restaurant.description, :class=> "function-bold", :id => "description") do %>
       Description: <%= @restaurant.description %>
     <% end %>
+    
+    <div id="account_status">
+      Account Status: <%= @restaurant.account_type %>
+    </div>
 
     <div>
       Phone Number: <span id="phone_number"><%=h @restaurant.phone_number %></span>

@@ -37,12 +37,15 @@ class EmployeesController < ApplicationController
 
   def update
     @employment = @restaurant.employments.find_by_employee_id(params[:id])
+    
     if @employment.update_attributes(params[:employment])
       flash[:notice] = "Successfully updated employee"
+      redirect_to restaurant_employees_path(@restaurant)
     else
+      @employee = @employment.employee
       flash[:error] = "We were unable to update that employee"
+      render :action => "edit"
     end
-    redirect_to restaurant_employees_path(@restaurant)
   end
 
   def destroy

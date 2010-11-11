@@ -1,19 +1,21 @@
 # == Schema Information
-# Schema version: 20101013222730
+# Schema version: 20101104182252
 #
 # Table name: employments
 #
-#  id                 :integer         not null, primary key
-#  employee_id        :integer
-#  restaurant_id      :integer
-#  created_at         :datetime
-#  updated_at         :datetime
-#  restaurant_role_id :integer
-#  omniscient         :boolean
-#  primary            :boolean
-#  type               :string(255)
-#  public_profile     :boolean
-#  position           :integer
+#  id                   :integer         not null, primary key
+#  employee_id          :integer
+#  restaurant_id        :integer
+#  created_at           :datetime
+#  updated_at           :datetime
+#  restaurant_role_id   :integer
+#  omniscient           :boolean
+#  primary              :boolean
+#  type                 :string(255)
+#  public_profile       :boolean
+#  position             :integer
+#  post_to_soapbox      :boolean         default(TRUE)
+#  solo_restaurant_name :string(255)
 #
 
 class Employment < ActiveRecord::Base
@@ -66,7 +68,7 @@ class Employment < ActiveRecord::Base
   named_scope :by_position, :order => "position ASC"
 
   ### Preferences ###
-  preference :post_to_soapbox, :default => true
+  preference :post_to_soapbox, :default => true # FIXME deprecated: remove after spoonfeed deploy
 
   def employee_name
     @employee_name ||= employee && employee.name

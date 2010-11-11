@@ -1,3 +1,4 @@
+@profile
 Feature: Update information
   So that I can change my twitter account, my name, or other details about my account,
   As a SF member,
@@ -9,11 +10,11 @@ Feature: Update information
     | username | password |
     | lestor   | secret   |
     And I am logged in as "lestor" with password "secret"
-    When I follow "Edit My Account"
+    When I follow "My Profile"
+    And I follow "Edit profile"
     And I fill in "Username" with "leslie"
     And I press "Save"
     Then I should see "Successfully updated your profile"
-    And I should see "Logged in as leslie"
 
 
   Scenario: Updating password
@@ -21,7 +22,8 @@ Feature: Update information
     | username | password |
     | manny    | secret   |
     And I am logged in as "manny" with password "secret"
-    When I follow "Edit My Account"
+    When I follow "My Profile"
+    And I follow "Edit profile"
     And I fill in "Password" with "betterpassword"
     And I fill in "Password Confirmation" with "betterpassword"
     And I press "Save"
@@ -40,7 +42,8 @@ Feature: Update information
     | username | password |
     | horatio  | secret   |
     And I am logged in as "horatio" with password "secret"
-    When I follow "Edit My Account"
+    When I follow "My Profile"
+    And I follow "Edit profile"
     And I fill in "Password" with "betterpassword"
     And I fill in "Password Confirmation" with "better"
     And I press "Save"
@@ -52,7 +55,8 @@ Feature: Update information
     | username | password |
     | sammy    | secret   |
     And I am logged in as "sammy" with password "secret"
-    When I follow "Edit My Account"
+    When I follow "My Profile"
+    And I follow "Edit profile"
     And I follow "Remove Twitter Information"
     Then I should see "Your Twitter Account was disassociated with your SpoonFeed Account"
     And "sammy" should not have Twitter linked to his account

@@ -1928,10 +1928,10 @@ p.editprofile a:hover {
 
 .edit_profile_link {
   position: absolute;
-  width: 27px;
-  height: 62px;
-  top: 15px;
-  left: -27px;
+  width: 62px;
+  height: 27px;
+  top: 0;
+  right: 15px;
   background: url('../images/edit-tab.png') no-repeat;
 }
 
@@ -1964,11 +1964,6 @@ p.editprofile a:hover {
   font-weight: normal;
   font-family: "Hoefler Text", georgia, serif;
   font-size: 1.4em;
-}
-
-/* These are being hidden for now */
-#following, #followers, #user_content, .user_profile_actions {
-  display: none;
 }
 
 #user_profile_view {
@@ -3225,9 +3220,20 @@ td.actions.approve_link a {
 
 /* @group forms -------------------- */
 
-fieldset {
+fieldset, .fieldset_box {
   border: 1px solid #ccc;
   font-family: 'lucida grande', tahoma, arial, sans-serif;
+}
+
+.restaurant_box {
+
+}
+
+.fieldset_box {
+  border: 1px solid #ccc;
+  font-family: 'lucida grande', tahoma, arial, sans-serif;
+  padding: 1.4em;
+  padding-bottom: 50px;
 }
 
 button.round, .button.round {
@@ -4780,6 +4786,7 @@ h2.primary_title{
 
 #criteria_accordion .check_boxes li{
   float:none;
+  list-style: none;
   width:100%;
 }
 
@@ -5123,6 +5130,32 @@ div.main_feature .comment.last {
   display:inline;
   margin-left:0.5em;
 }
+
+div.a_la_minute_question {
+  border:1px solid #ccc;
+  margin-bottom:10px;
+  padding:1em;
+}
+
+div.a_la_minute_question label.question {
+  font-weight:bold;
+  font-size:1em;
+}
+
+label.inline {
+  display:inline;
+}
+
+div.a_la_minute_question input.new.answer {
+  width:400px;
+  padding:0.5em 0.25em;
+}
+
+div.a_la_minute_question .archive {
+  margin-top:2em;
+}
+
+
 
 /* @end */
 

@@ -30,6 +30,13 @@ class Admin::SoapboxEntriesController < Admin::AdminController
       render :edit
     end
   end
+  
+  def toggle_status
+    @soapbox_entry = SoapboxEntry.find(params[:id])
+    @soapbox_entry.update_attribute(:published, !@soapbox_entry.published)
+    flash[:notice] = "Updated #{@soapbox_entry.title} entry"
+    redirect_to admin_soapbox_entries_path
+  end
 
   private
 

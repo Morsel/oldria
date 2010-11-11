@@ -5,8 +5,78 @@
   <%= stylesheet_link_tag 'colorbox' %>
 <% end -%>
 
+<% if can? :edit, @restaurant %>
+  <% content_for :page_actions do -%>
+    <p class="clearfix">
+      <%= link_to 'Manage employees', restaurant_employees_path(@restaurant),
+          :class=> 'sf-button' %>
+      <%= link_to 'Edit restaurant features', restaurant_features_path(@restaurant),
+          :class=> 'sf-button' %>
+      <%= link_to "Edit a la Minute Questions", 
+          bulk_edit_restaurant_a_la_minute_answers_path(:restaurant_id => @restaurant),
+          :class => 'sf-button' %>
+    </p>
+    <p class="clearfix">
+      <%= link_to "Manage Menus", restaurant_menus_path(@restaurant), 
+          :class => "sf-button" %>
+      <%= link_to "Manage Photos", restaurant_photos_path(@restaurant), 
+          :class => "sf-button" %>
+      <%= link_to "Add Accolade", new_restaurant_accolade_path(@restaurant), 
+          :class => "sf-button" %>
+    </p>
+  <% end -%>
+<% end -%>
+
 <% semantic_form_for(@restaurant, :html => { :multipart => true }) do |f| %>
-<%= f.error_messages %>
+  
+  <% f.inputs :name => "Account Status", :class => "title span-8" do %>
+    <div id="plans" class="current">
+      <div id="payment_blurb">
+        Basic accounts allow you to participate in Spoonfeed. If you would
+        like to be included in Soapbox, please upgrade to a Premium Account.
+        A restaurant premium account is $250/month.
+      </div>
+    
+      <br clear="all" />
+    
+      <div>
+        <%= link_to "More Information...", "/account_types", :class => 'button' %>
+      </div>
+
+      <br clear="all" />
+      <br clear="all" />
+    
+      <div id="account_status">
+        Your current account status is <%= @restaurant.account_type %>.
+        <% if @restaurant.premium_account? %> 
+          <span id="start_date">
+            You have been a premium member 
+            since <%= @restaurant.subscription.start_date.to_s(:long) %>
+          </span>
+          <% if @restaurant.account_in_overtime? %>
+            <span id="end_date">
+              This account has been canceled and will end 
+              <%= @restaurant.subscription.end_date.to_s(:long)%>
+            </span>
+          <% end %>
+        <% end %>
+      </div>
+    
+      <%= render :partial => 'subscriptions/account_links',
+          :locals => {:subscriber => @restaurant, :subscriber_type => "restaurant"} %>
+          
+      <br clear="all" />    
+      <div>
+        If you would like to upgrade any of your restaurant staff to a Premium 
+        User account, click the button below.
+        To upgrade each employee, simply click the pencil for the person.
+        <br /> 
+        <%= link_to "Update Employee Status", restaurant_employees_path(@restaurant),
+            :class => "button"%>
+      </div>    
+    </div>
+  <% end %>
+  
   <% f.inputs :name => "Basics", :class => "title span-8" do %>
     <%= f.input :name %>
     <%= f.input :description, :as => :text, :label => "Tagline or short description" %>
@@ -25,24 +95,24 @@
 
   <% f.inputs :name => 'Other', :class => "span-9 column last" do %>
     <%= f.input :hours, :as => :text %>
-    <%= f.input :manager, :collection => @restaurant.employees %>
+    <%= f.input :manager, :label => "Primary Account Manager", :collection => @restaurant.managers %>
     <%= f.input :media_contact, :collection => @restaurant.employees %>
     <%= f.input :cuisine %>
     <%= f.input :opening_date %>
-    <%= f.input :website %>
-    <%= f.input :twitter_username, :hint => "Not the whole URL, just your username" %>
-    <%= f.input :facebook_page, :hint => "Entire URL of your Facebook page" %>
+    <%= f.input :website, :hint => "The full URL, starting with http://" %>
+    <%= f.input :twitter_username, :hint => "Just your username" %>
+    <%= f.input :facebook_page, :hint => "Full URL of your Facebook page" %>
     <%= f.input :management_company_name, :hint => "Just the company name" %>
-    <%= f.input :management_company_website, :hint => "Full URL to the company website" %>
+    <%= f.input :management_company_website, :hint => "The full URL to the company website, starting with http://" %>
   <% end %>
 
     <% f.inputs :name => 'Logo', :class => "span-17 column last clear", :id => "logo" do %>
 
         <% f.semantic_fields_for :logo do |logo_fields| %>
             <%= image_tag @restaurant.logo.attachment.url(:medium), :id => "restaurant_logo_image" %>
-            <%= logo_fields.input :attachment, :as => :file %>
-            <%= link_to "Remove", restaurant_logo_path(@restaurant, @restaurant.logo), :method => :delete, :confirm => "Are you sure you want to remove the logo?" %>
+            <%= logo_fields.input :attachment, :as => :file, :hint => "Please upload a jpeg, gif, or png" %>
         <% end %>
+        <p><%= link_to "Remove", restaurant_logo_path(@restaurant, @restaurant.logo), :method => :delete, :confirm => "Are you sure you want to remove the logo?", :class => "button negative" %></p>
     <% end %>
 
 
@@ -57,18 +127,3 @@
         :caption => "Accolades",
         :form_path => new_restaurant_accolade_path(@restaurant)} %>
 
-<p>
-  <%= link_to "Edit Restaurant employees", restaurant_employees_path(@restaurant), :class => 'button' %>
-</p>
-
-<p>
-    <%= link_to "Manage Menus", restaurant_menus_path(@restaurant), :class => "button" %>
-</p>
-
-<p>
-    <%= link_to "Manage Photos", restaurant_photos_path(@restaurant), :class => "button" %>
-</p>
-
-<p>
-    <%= link_to "Manage ALM Questions", bulk_edit_restaurant_a_la_minute_answers_path(:restaurant_id => @restaurant.id), :class => "button" %>
-</p>

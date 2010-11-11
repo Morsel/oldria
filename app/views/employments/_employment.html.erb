@@ -6,6 +6,7 @@
 
     <% if can? :edit, employment.restaurant %>
       <%= restaurant_role_and_link(employment) %>
+      <% if employment.omniscient? -%><p>Account Manager</p><%- end %>
     <% end %>
 
     <% if employment.subject_matters.present? %>
@@ -14,21 +15,25 @@
 
     <div class="public_profile">
       <% if employment.public_profile %>
-        <span class="public">
+        <p class="public">
           This employee will be displayed on the public profile.
           <%= link_to "Click to make private",
               restaurant_employment_path(@restaurant, employment, :employment => {:public_profile => false}),
-              :method => :put %>
-        </span>
+              :method => :put %>.
+        </p>
       <% else %>
-        <span class="private">
+        <p class="private">
           This employee will not be displayed on the public profile.
           <%= link_to "Click to make public",
               restaurant_employment_path(@restaurant, employment, :employment => {:public_profile => true}),
-              :method => :put %>
-        </span>
-
+              :method => :put %>.
+        </p>
       <% end %>
     </div>
+    
+    <div class="account_status">
+			This employee has a <%= employment.employee.public_account_type %> 
+			<%= employment.employee.account_payer_type %> Account.
+		</div>
   <% end %>
 <% end -%>

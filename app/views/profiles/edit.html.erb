@@ -4,148 +4,268 @@
   <%= stylesheet_link_tag 'colorbox' %>
 <% end -%>
 
-<%= "<h3>Fill in your basic profile to get started</h3>" if @profile.new_record? %>
+<section id="profile-tabs">
+    <nav id="profile-options">
+        <span><a href="#profile-edit-account">Account</a></span>
+        <span><a href="#profile-summary">Profile Summary</a></span> 
+        <span><a href="#profile-extended">Extended Profile</a></span>
+        <span><a href="#profile-messages">Messages</a></span>
+    </nav><!-- /profile_options -->
 
-<% semantic_form_for @profile, :url => my_profile_path do |f| %>
+    <section id="profile-edit-account">
+        <div class="fieldset" id="plans">
+            <h3>Personal Account Status</h3>
 
-  <% f.inputs :name => "Preferences", :for => :user do |user_form| %>
-    <%= user_form.input :prefers_publish_profile, :as => :boolean, :label => 'Publish your profile for other users to view?' %>
-  <% end %>
+            <div id="payment_blurb">
+                Basic accounts allow you to participate in Spoonfeed. If you would like to be included in Soapbox, please upgrade to a Premium Account. A personal premium account is $50/month.
+            </div>
 
-  <% f.inputs :name => 'Basics' do %>
-    <%= f.input :birthday, :end_year => 1930, :start_year => Date.today.year, :selected => nil %>
-    <%= f.input :job_start, :end_year => 1930, :start_year => Date.today.year, :selected => nil %>
-    <%= f.inputs :headline, :summary, :class => "plain" %>
-    <%= f.input :hometown %>
-    <%= f.input :current_residence, :label => "Currently residing in" %>
-  <% end %>
+            <div>
+                <%= link_to "More Information...", "/account_types", :class => 'button' %>
+            </div>
 
-  <% unless @profile.new_record? %>
-    <% f.inputs :name => "Specialties" do %>
-      <%= f.input :specialties, :as => :check_boxes, :collection => Specialty.all %>
+            <div class="current">
+                Your current account status is 
+                <%= @user.public_account_type %> <%= @user.account_payer_type %>.
+                <% if @user.premium_account? %>
+                <div id="start_date">
+                    You have been a premium member since <%= @user.subscription.start_date.to_s(:long) %>
+                </div>
+                <% if @user.subscription && @user.subscription.in_overtime? %>
+                <div id="end_date">
+                    This account has been canceled and will end
+                    <%= @user.subscription.end_date.to_s(:long)%>
+                </div>
+                <% end %>
+                <% end %>
+            </div>
 
-      <div class="cuisines ajaxdelete">
-        <label>What Cuisines Are Your Specialty?</label>
-        <ul id="cuisines">
-          <%= render @profile.cuisines %>
-        </ul>
-        <% link_to new_my_profile_profile_cuisine_path, :class => 'positive button colorbox' do %>
-          <img src="/images/plus.png"/> Add
-        <% end %>
-      </div>
-    <% end %>
-
-    <% f.inputs :name => "Contact Information" do %>
-      <div class="clear">
-        <%= f.input :prefers_display_cell, :as => :radio, :collection => privacy_options, :label => "Show this to:", :wrapper_html => { :class => "span-4" } %>
-        <%= f.input :cellnumber, :label => "Cellphone", :wrapper_html => { :class => "span-6 last" } %>
-      </div>
-
-      <div class="clear">
-        <%= f.input :prefers_display_email, :as => :radio, :collection => privacy_options, :label => "Show this to:", :wrapper_html => { :class => "span-4" } %>
-        <% f.semantic_fields_for :user do |user| %>
-          <%= user.input :email, :wrapper_html => { :class => "span-6 last" } %>
-        <% end %>
-      </div>
-
-      <%- if @profile.user.twitter_authorized? -%>
-        <div class="clear">
-          <%= f.input :prefers_display_twitter, :as => :radio, :collection => privacy_options, :label => "Show this to:", :wrapper_html => { :class => "span-4" } %>
-          <div class="span-6 last">Your Twitter account: <%= @profile.user.twitter_username %>
-            <p>(<%= link_to "Need to change your Twitter settings?", edit_user_path(@profile.user, :anchor => "twitter") %>)</p>
-          </div>
+            <% if @user.staff_account? %>
+            <div>
+                Your account is managed by <%= h @user.subscription.payer.name %>.
+            </div>
+            <% else %>
+              <%= render :partial => 'subscriptions/account_links', :locals => {:subscriber => @user, :subscriber_type => "user"} %>
+            <% end %>
         </div>
-      <%- else -%>
-        <p><%= link_to "Set up Twitter", edit_user_path(@profile.user, :anchor => "twitter") %></p>
-      <%- end -%>
 
-      <%- if @fb_user -%>
-        <div class="clear">
-          <%= f.input :prefers_display_facebook, :as => :radio, :collection => privacy_options, :label => "Show this to:", :wrapper_html => { :class => "span-4" } %>
-          <div class="span-6 last">
-            Your Facebook account: <%= @fb_user.name %>
-            <p>(<%= link_to "Need to change your Facebook settings?", edit_user_path(@profile.user, :anchor => "facebook") %>)</p>
-          </div>
-        </div>
-      <%- else -%>
-        <p><%= link_to "Set up Facebook", edit_user_path(@profile.user, :anchor => "facebook") %></p>
-      <%- end -%>
-    <% end %>
-
-    <% f.inputs :name => "Current Employment" do %>
-      <label>Select your primary job role:</label>
-      <ul class="primary-employment">
-        <% for employment in @profile.user.employments %>
-          <li><%= radio_button_tag "profile[primary_employment][]", employment.id, primary?(employment) %> <%= employment.restaurant_role.try(:name) %> at <%= employment.restaurant.name %>
+        <%= render :partial => 'users/form' %>
+        
+        <% form_for @user, :html => { :multipart => true } do |f| %>
+            <fieldset class="headshot">
+                <h3>Headshot</h3>
+                <p><%= image_tag @user.avatar.url(:thumb), :class => 'thumbnail' %></p>
+                <p><%= f.label :avatar, "Headshot" %> <%= f.file_field :avatar %></p>
+                <p class="inline-hints">Please upload a jpeg, gif, or png</p>
+                <p>
+                    <%= button_tag (image_tag('tick.png') + "Upload Headshot"), :class => 'positive' %>
+                    <span class="button-separator"> or </span> 
+                    <%= link_to (image_tag('x.png') + "Remove my headshot"), remove_avatar_user_path(@user), :method => :put, :confirm => "Are you sure you want to remove your headshot? You'll have to upload another one later to get it back", :class => 'button negative' %>
+                </p>
+            </fieldset>
         <% end %>
-      </ul>
-    <% end %>
 
-  <% end %><%# unless new_record? %>
+        <fieldset id="twitter">
+            <h3>Twitter</h3>
+            <hr />
+            <p><%= link_to "Help?  Read our Twitter 101 introduction in the Marketing Manual.", public_page_path('twitter_101_introduction') %></p>
 
-  <p class="clear">
-    <% button_tag :class => 'positive' do %><img src="/images/tick.png"/> Save<% end %>
-    <%= button_tag "Preview", :name => "preview" %>
-  </p>
-<% end %>
+            <% if @user.twitter_authorized? -%>
+            <p>
+                You currently have your Twitter account set up as <em><%= @user.twitter_username %></em>. To change which Twitter account you want your SpoonFeed account linked with, you can remove the Twitter credentials below, and then setup Twitter again.<br/>
+                <%= link_to (image_tag('x.png') + "Remove Twitter Information"), remove_twitter_user_path(@user), :confirm => "Are you sure you want to unlink your Twitter account? This action cannot be undone.", :method => :put, :class => 'button negative' %>
+                <%= link_to 'Read Twitter Timeline', twitter_timelines_path, :class=>'button positive' %>
+            </p>
+            <% elsif @user.twitter_allowed? -%>
+            <%= link_to "Setup Twitter", new_twitter_authorization_url, :class=>'sf-button' %>
+            <% end -%>
+        </fieldset>
 
-<% unless @profile.new_record? %>
-  <div id="extended_profile_fields">
+        <fieldset id="facebook">
+            <h3>Facebook</h3>
+            <hr/>
+            <p><%= link_to "Help?  Read everything you need to know about Facebook in the Marketing Manual.", public_page_path('facebook_101_introduction') %></p>
 
-    <%= render :partial => 'extended_profile_section', :locals => {
-        :association => "culinary_jobs",
-        :caption => "Work Experience - Restaurants",
-        :form_path => new_my_profile_culinary_job_path} %>
+            <%- if @fb_user -%>
+              <p>
+                  You are currently linked to your Facebook account <em>"<%= @fb_user.name %>"</em>. You can connect to a different Facebook profile by disconnecting below, then setting up Facebook again.<br/>
+                  <%= fb_logout_link "#{image_tag('x.png')} Disconnect", fb_deauth_user_path(@user), :class => 'button negative' %>
+              </p>
+              <% unless @fb_user.accounts.blank? %>
+                <div class="clear" style="padding-top: 1em;">
+                    <p>Configure a page to post status updates to:</p>
+                    <% form_tag fb_page_auth_user_path(@user) do %>
+                        <%= select_tag "facebook_page", "<option>&nbsp;</option>" + options_from_collection_for_select(@fb_user.accounts, :id, :name, @user.facebook_page_id.to_s) %>
+                        <%= submit_tag "Save" %>
+                    <% end %>
+                </div>
+              <% end %>
 
-    <%= render :partial => 'extended_profile_section', :locals => {
-        :association => "nonculinary_jobs",
-        :caption => "Work Experience - Nonculinary",
-        :form_path => new_my_profile_nonculinary_job_path} %>
+            <%- else -%>
+              <%= link_to "Setup Facebook", fb_auth_user_path(@user), :class => 'sf-button' %>
+            <%- end -%>
+        </fieldset>
 
-    <%= render :partial => 'extended_profile_section', :locals => {
-        :association => "awards",
-        :caption => "Awards",
-        :form_path => new_my_profile_award_path} %>
+    </section><!-- /profile-account -->
 
-    <%= render :partial => 'extended_profile_section', :locals => {
-        :association => "accolades",
-        :caption => "Accolades",
-        :form_path => new_my_profile_accolade_path} %>
+    <section id="profile-summary">
+        <% semantic_form_for @profile, :url => my_profile_path do |f| %>
+            <% f.inputs :name => "Preferences", :for => :user do |user_form| %>
+                <%= user_form.input :prefers_publish_profile, :as => :boolean, :label => 'Publish your profile for other users to view?' %>
+            <% end %>
 
-    <%= render :partial => 'extended_profile_section', :locals => {
-        :association => "culinary_schools",
-        :caption => "Education (Culinary)",
-        :form_path => new_my_profile_enrollment_path} %>
+            <% f.inputs :name => 'Basics' do %>
+                <%= f.input :birthday, :end_year => 1930, :start_year => Date.today.year, :selected => nil %>
+                <%= f.input :job_start, :end_year => 1930, :start_year => Date.today.year, :selected => nil %>
+                <%= f.input :headline %>
+                <%= f.input :summary, :hint => "Keep it under 1000 characters" %>
+                <%= f.input :hometown %>
+                <%= f.input :current_residence, :label => "Currently residing in" %>
+            <% end %>
 
-    <div class="nonculinary_enrollments nonculinary_schools clear ajaxdelete">
-        <h2>Education (Other)</h2>
-        <ul id="nonculinary_enrollments">
-            <%= render @profile.nonculinary_enrollments %>
-        </ul>
-        <% link_to new_my_profile_nonculinary_enrollment_path, :class => 'positive button colorbox' do %>
-        <img src="/images/plus.png"/> Add
+            <% f.inputs :name => "Metro and Region for search" do %>
+                <%= f.input :metropolitan_area %>
+                <%= f.input :james_beard_region, :label => "Region" %>
+            <% end %>
+
+            <% f.inputs :name => "Current Employment" do %>
+                <label>Select your primary job role:</label>
+                <ul class="primary-employment">
+                    <% for employment in @profile.user.employments %>
+                    <li><%= radio_button_tag "profile[primary_employment][]", employment.id, primary?(employment) %> <%= employment.restaurant_role.try(:name) %> at <%= employment.restaurant.name %></li>
+                    <% end %>
+                </ul>
+            <% end %>
+
+            <% f.inputs :name => "Contact Information" do %>
+                <div class="clear">
+                    <%= f.input :prefers_display_cell, :as => :radio, :collection => privacy_options, 
+                        :label => "Show this to:", :wrapper_html => { :class => "show_this_to" } %>
+                    <%= f.input :cellnumber, :label => "Cellphone", :wrapper_html => { :class => "span-6 last" } %>
+                </div>
+
+                <div class="clear">
+                    <%= f.input :prefers_display_email, :as => :radio, :collection => privacy_options, 
+                        :label => "Show this to:", :wrapper_html => { :class => "show_this_to" } %>
+                    <% f.semantic_fields_for :user do |user| %>
+                        <%= user.input :email, :wrapper_html => { :class => "span-6 last" } %>
+                    <% end %>
+                </div>
+
+                <%- if @profile.user.twitter_authorized? -%>
+                <div class="clear">
+                    <%= f.input :prefers_display_twitter, :as => :radio, :collection => privacy_options, :label => "Show this to:", :wrapper_html => { :class => "show_this_to" } %>
+                    <div class="span-6 last">Your Twitter account: <%= @profile.user.twitter_username %>
+                        <p>(<%= link_to "Need to change your Twitter settings?", edit_my_profile_path(:anchor => "twitter") %>)</p>
+                    </div>
+                </div>
+                <%- else -%>
+                  <p><%= link_to "Set up Twitter", edit_my_profile_path(:anchor => "twitter") %></p>
+                <%- end -%>
+
+                <%- if @fb_user -%>
+                <div class="clear">
+                    <%= f.input :prefers_display_facebook, :as => :radio, :collection => privacy_options, :label => "Show this to:", :wrapper_html => { :class => "show_this_to" } %>
+                    <div class="span-6 last">
+                        Your Facebook account: <%= @fb_user.name %>
+                        <p>(<%= link_to "Need to change your Facebook settings?", edit_my_profile_path(:anchor => "facebook") %>)</p>
+                    </div>
+                </div>
+                <%- else -%>
+                  <p><%= link_to "Set up Facebook", edit_my_profile_path(:anchor => "facebook") %></p>
+                <%- end -%>
+            <% end %><!-- Contact information -->
+
+            <% f.inputs :name => "Cuisines and Specialties" do %>
+                <%= f.input :specialties, :as => :check_boxes, :collection => Specialty.all %>
+
+                <div class="cuisines ajaxdelete">
+                    <label><h4>What Cuisines Are Your Specialty?</h4></label>
+                    <ul id="cuisines">
+                        <%= render @profile.cuisines %>
+                    </ul>
+                    <% link_to new_my_profile_profile_cuisine_path, :class => 'positive button colorbox' do %>
+                    <img src="/images/plus.png"/> Add
+                    <% end %>
+                </div>
+            <% end %><!-- Cuisines and specialties -->
+
+            <p class="clear">
+                <% button_tag :class => 'positive' do %><img src="/images/tick.png"/> Save<% end %>
+                <%= button_tag "Preview", :name => "preview" %>
+            </p>
         <% end %>
-    </div>
+    </section><!-- /profile-summary -->
 
-    <%= render :partial => 'extended_profile_section', :locals => {
-        :association => "competitions",
-        :caption => "Competitions",
-        :form_path => new_my_profile_competition_path} %>
+  <section id="profile-extended">
+    <div id="extended_profile_fields">
 
-    <%= render :partial => 'extended_profile_section', :locals => {
-        :association => "internships",
-        :caption => "Internships",
-        :form_path => new_my_profile_internship_path} %>
+      <%= render :partial => 'profiles/extended_profile_section', :locals => {
+          :association => "culinary_jobs",
+          :caption => "Work Experience - Restaurants",
+          :form_path => new_my_profile_culinary_job_path} %>
 
-    <%= render :partial => 'extended_profile_section', :locals => {
-        :association => "stages",
-        :caption => "Stages",
-        :form_path => new_my_profile_stage_path} %>
+      <%= render :partial => 'profiles/extended_profile_section', :locals => {
+          :association => "nonculinary_jobs",
+          :caption => "Work Experience - Nonculinary",
+          :form_path => new_my_profile_nonculinary_job_path} %>
 
-    <%= render :partial => 'extended_profile_section', :locals => {
-        :association => "apprenticeships",
-        :caption => "Apprenticeships",
-        :form_path => new_my_profile_apprenticeship_path} %>
+      <%= render :partial => 'profiles/extended_profile_section', :locals => {
+          :association => "awards",
+          :caption => "Awards",
+          :form_path => new_my_profile_award_path} %>
+
+      <%= render :partial => 'profiles/extended_profile_section', :locals => {
+          :association => "accolades",
+          :caption => "Accolades",
+          :form_path => new_my_profile_accolade_path} %>
+
+      <%= render :partial => 'profiles/extended_profile_section', :locals => {
+          :association => "culinary_schools",
+          :caption => "Education (Culinary)",
+          :form_path => new_my_profile_enrollment_path} %>
+
+      <% reset_cycle('default') -%>
+      <div class="nonculinary_enrollments nonculinary_schools clear ajaxdelete">
+          <h2>Education (Other)</h2>
+          <ul id="nonculinary_enrollments">
+              <%= render @profile.nonculinary_enrollments %>
+          </ul>
+          <%= link_to "add another", new_my_profile_nonculinary_enrollment_path, :class => 'add_extended colorbox'%>
+      </div>
+
+      <%= render :partial => 'profiles/extended_profile_section', :locals => {
+          :association => "competitions",
+          :caption => "Competitions",
+          :form_path => new_my_profile_competition_path} %>
+
+      <%= render :partial => 'profiles/extended_profile_section', :locals => {
+          :association => "internships",
+          :caption => "Internships",
+          :form_path => new_my_profile_internship_path} %>
+
+      <%= render :partial => 'profiles/extended_profile_section', :locals => {
+          :association => "stages",
+          :caption => "Stages",
+          :form_path => new_my_profile_stage_path} %>
+
+      <%= render :partial => 'profiles/extended_profile_section', :locals => {
+          :association => "apprenticeships",
+          :caption => "Apprenticeships",
+          :form_path => new_my_profile_apprenticeship_path} %>
     
-  </div><!-- #extended_profile_fields -->
-<% end %><%# unless new_record? %>
+    </div><!-- #extended_profile_fields -->
+  </section><!-- /profile-extended -->
+  
+  <section id="profile-messages">
+    <% semantic_form_for @user do |f| %>
+
+        <% f.inputs :name => 'Preferences' do %>
+            <%= f.input :prefers_receive_email_notifications, :as => :boolean, :label => 'Receive email notifications?' %>
+        <% end %>
+        
+        <p><%= button_tag "Save", :class => 'positive' %></p>
+
+    <% end %>
+  </section><!-- /profile-messages -->
+</section><!-- /profile-tabs -->

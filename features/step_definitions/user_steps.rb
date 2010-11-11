@@ -139,7 +139,20 @@ end
 
 When /^the user "([^\"]*)" (has|does not have) a premium account$/ do |username, toggle|
   user = User.find_by_username(username)
-  user.update_attributes(:premium_account => (toggle == "has"))
+  if toggle == "has"
+    user.subscription = Factory(:subscription, :payer => user)
+    BraintreeConnector.stubs(:cancel_subscription).with(
+        user.subscription).returns(stub(:success? => true))
+  else
+    user.subscription = nil
+  end
+  user.save!
+end
+
+Given /^the user "([^"]*)" has a complimentary account$/ do |username|
+  user = User.find_by_username(username)
+  user.subscription = Factory(:subscription, :payer => nil)
+  user.save!
 end
 
 Then /^"([^"]*)" should have a "([^"]*)" account in the list$/ do |username, account_type|
@@ -149,5 +162,20 @@ Then /^"([^"]*)" should have a "([^"]*)" account in the list$/ do |username, acc
 end
 
 When /^"([^"]*)" should have a "([^"]*)" account on the page$/ do |user_name, account_type|
+  account_type = "Premium" if account_type == "Complimentary" 
   response.should have_selector(".user_account_type", :content => account_type)
 end
+
+
+When /^I should see that the user has a basic account$/ do
+  response.should have_selector("#account_type", :content => "Basic")
+end
+
+Then /^I should see that the user has a complimentary account$/ do
+  response.should have_selector("#account_type", :content => "Complimentary")
+end
+
+When /^I should see that the user has a premium account$/ do
+  response.should have_selector("#account_type", :content => "Premium")
+end
+

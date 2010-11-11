@@ -7,6 +7,17 @@ class RestaurantsController < ApplicationController
     @restaurant = current_user.managed_restaurants.build
   end
 
+  def create
+    @restaurant = current_user.managed_restaurants.build(params[:restaurant])
+    @restaurant.media_contact = current_user
+    if @restaurant.save
+      flash[:notice] = "Successfully created restaurant."
+      redirect_to restaurant_employees_path(@restaurant)
+    else
+      render :new
+    end
+  end
+
   def show
     find_restaurant
     @employments = @restaurant.employments.by_position.all(
@@ -26,17 +37,6 @@ class RestaurantsController < ApplicationController
     end
   end
 
-  def create
-    @restaurant = current_user.managed_restaurants.build(params[:restaurant])
-    @restaurant.media_contact = current_user
-    if @restaurant.save
-      flash[:notice] = "Successfully created restaurant."
-      redirect_to restaurant_employees_path(@restaurant)
-    else
-      render :new
-    end
-  end
-
   def select_primary_photo
     if @restaurant.update_attributes(params[:restaurant])
       flash[:notice] = "Successfully updated restaurant"
@@ -45,6 +45,9 @@ class RestaurantsController < ApplicationController
       flash[:error] = "We were unable to update the restaurant"
       render :template => "photos/edit"
     end
+  end
+  
+  def mine
   end
 
   private

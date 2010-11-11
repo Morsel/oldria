@@ -1,19 +1,21 @@
 # == Schema Information
-# Schema version: 20100903165039
+# Schema version: 20101029192806
 #
 # Table name: profiles
 #
-#  id                :integer         not null, primary key
-#  user_id           :integer         not null
-#  birthday          :date
-#  job_start         :date
-#  cellnumber        :string(255)
-#  created_at        :datetime
-#  updated_at        :datetime
-#  headline          :string(255)     default("")
-#  summary           :text            default("")
-#  hometown          :string(255)
-#  current_residence :string(255)
+#  id                    :integer         not null, primary key
+#  user_id               :integer         not null
+#  birthday              :date
+#  job_start             :date
+#  cellnumber            :string(255)
+#  created_at            :datetime
+#  updated_at            :datetime
+#  headline              :string(255)     default("")
+#  summary               :text            default("")
+#  hometown              :string(255)
+#  current_residence     :string(255)
+#  metropolitan_area_id  :integer
+#  james_beard_region_id :integer
 #
 
 class Profile < ActiveRecord::Base
@@ -39,9 +41,13 @@ class Profile < ActiveRecord::Base
   has_many :profile_specialties
   has_many :specialties, :through => :profile_specialties
 
+  belongs_to :metropolitan_area
+  belongs_to :james_beard_region
+
   validates_uniqueness_of :user_id
   validates_presence_of :hometown, :current_residence
   validate :birthday_year_is_set
+  validates_length_of :summary, :maximum => 1000
   
   accepts_nested_attributes_for :culinary_jobs, :nonculinary_jobs, :awards, :user, :specialties,
     :reject_if => REJECT_TITLE_BLANK_PROC
@@ -52,9 +58,6 @@ class Profile < ActiveRecord::Base
   preference :display_twitter, :string, :default => "everyone"
   preference :display_facebook, :string, :default => "everyone"
   
-  #def display_cell_public?
-  #  preferred_display_cell == "everyone"
-  #end
   [:display_cell, :display_email, :display_twitter, :display_facebook].each do |sym|
     define_method :"#{sym}_public?" do
       send(:"preferred_#{sym}") == "everyone"

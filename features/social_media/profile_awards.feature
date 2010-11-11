@@ -16,4 +16,4 @@ Feature: Profile - Awards
       | Year Won       | 2009     |
       | Year Nominated | 2008     |
     Then I should have 1 award on my profile
-    And I should see "Top Chef2009" on my profile page
+    And I should see "Top Chef (2009)" on my profile page

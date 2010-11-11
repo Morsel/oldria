@@ -11,8 +11,7 @@
           :collection => SubjectMatter.general.all,
           :label => "I am comfortable answering questions and speaking to the media about the following topics:" %>
 
-        <%= f.input :prefers_post_to_soapbox, :as => :boolean,
-                    :label => "Do you want your posts to appear on the public Soapbox site?" %>
+        <%= f.input :post_to_soapbox, :label => "Do you want your posts to appear on the public Soapbox site?" %>
                 
     <% end %>
     

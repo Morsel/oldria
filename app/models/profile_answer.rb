@@ -20,8 +20,9 @@ class ProfileAnswer < ActiveRecord::Base
   validates_uniqueness_of :profile_question_id, :scope => :user_id
   
   named_scope :from_premium_users, lambda {
-    { :joins => :user,
-      :conditions => { :users => { :premium_account => true }} }
+    {:include => {:user => :subscription},
+     :conditions => ["subscriptions.id NOT NULL AND (subscriptions.end_date IS NULL OR subscriptions.end_date >= ?)",
+          Date.today]}
   }
 
 end

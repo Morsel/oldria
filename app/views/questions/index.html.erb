@@ -1,18 +1,14 @@
-<% title "Behind the Line" %>
-
-<h2 id="topic_title"><%= @chapter.topic.title %></h2>
-<div id="topic_nav" class="clearfix">
-    <%= link_to "Next: #{truncate(@next_topic.title, :length=>20, :omission=>'&hellip;')}", link_for_chapter(:user_id => @user.id, :topic_id => @next_topic.id), :class => "button round" if @next_topic %>
-    <%= link_to "All Topics", link_for_topics(:user_id => @user.id), :class => "button round" %>
-    <%= link_to "Prev: #{truncate(@previous_topic.title, :length=>20, :omission=>'&hellip;')}", link_for_chapter(:user_id => @user.id, :topic_id => @previous_topic.id), :class => "button round" if @previous_topic %>
-</div>
+<% title "Behind the Line", false %>
+<h1 id="btl-title" class="btl"><span class="btl-art">Behind the Line:</span> <span class="name"><%= @user.name %></span></h1>
+<h2 id="topic_title">Topic: <%= @chapter.topic.title %></h2>
+<%= render :partial => 'topic_nav', :locals => { :next_topic => @next_topic, :prev_topic => @previous_topic } %>
 
 <div id="chapter_title" class="clear clearfix">
   <h3><%= @chapter.title %></h3>
-  <div id="chapter_nav" style="clearfix">
-      <%= link_to "Next: #{truncate(@next.title, :length => 20, :omission => '&hellip;')}", link_for_questions(:user_id => @user.id, :chapter_id => @next.id), :class => 'next_chapter' if @next %>
-      <%= link_to "Prev: #{truncate(@previous.title, :length => 20, :omission => '&hellip;')}", link_for_questions(:user_id => @user.id, :chapter_id => @previous.id), :class => 'prev_chapter' if @previous %>
-  </div>
+  <nav id="chapter_nav" class="topic-nav clearfix">
+      <%= link_to "Next: #{truncate(@next.title, :length => 20, :omission => '&hellip;')}", link_for_questions(:user_id => @user.id, :chapter_id => @next.id), :class => 'next' if @next %>
+      <%= link_to "Prev: #{truncate(@previous.title, :length => 20, :omission => '&hellip;')}", link_for_questions(:user_id => @user.id, :chapter_id => @previous.id), :class => 'prev' if @previous %>
+  </nav>
 </div>
 
 <% if @user == current_user %><%# let's edit these answers %>

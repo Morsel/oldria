@@ -1,0 +1,26 @@
+<%= render 'layouts/head' %>
+<%= render 'layouts/staging_bar' %>
+<div id="container">
+	<header id="site_header">
+	  <%= render 'layouts/logo' %>
+		<div class="header_right">
+			<%= render 'layouts/search' %>			
+			<%= render 'layouts/userbox' %>
+			<%= render 'layouts/top_promo' %>
+		</div><!-- .header_right -->
+	</header>
+	<div id="main" class="hp">		
+	  <%= render 'layouts/nav_logic' %>
+	  <div id="jumbotron">
+			<%= render @sf_slides %>
+		</div><!--#jumbotron-->
+		<div id="jumbotron_controller"><nav></nav></div><!--#jumbotron_controller-->
+		
+		<%= render 'layouts/flashes' %>
+		<div id="content" class="hp">
+      <%= render @sf_promos %>
+      <%# link_to "Request an invitation", new_invitation_path, :id => "request_an_invitation" %>
+    </div><!-- /content -->
+    <div class="clear"></div>
+  </div><!-- /main -->
+<%= render 'layouts/footer' %>

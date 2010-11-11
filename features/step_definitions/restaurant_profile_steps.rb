@@ -83,7 +83,7 @@ Then /^I should not see media contact info$/ do
   response.should_not have_selector("#media_contact")
 end
 
-Given /^the restaurant has no website for it's management company$/ do
+Given /^the restaurant has no website for its management company$/ do
   @restaurant.update_attributes(:management_company_website => nil)
 end
 
@@ -135,6 +135,17 @@ Then /^I see the page headers$/ do
   end
 end
 
+Then /^I see the page header for "([^\"]*)"$/ do |page_name|
+  selected_page = RestaurantFeaturePage.find_by_name(page_name)
+  RestaurantFeaturePage.all.each do |page|
+    if page == selected_page
+      response.should have_selector(".feature_page", :content => page.name)
+    else 
+      response.should_not have_selector(".feature_page", :content => page.name)
+    end
+  end
+end
+
 Then /^I see the category headers$/ do
   RestaurantFeatureCategory.all.each do |category|
      response.should have_selector(".feature_category", :content => category.name) 
@@ -144,6 +155,28 @@ end
 Then /^I see the category values$/ do
   RestaurantFeature.all.each do |feature|
     response.should have_selector(".feature_category ##{dom_id(feature)}") 
+  end
+end
+
+Then /^I see the category headers for "([^\"]*)"$/ do |page_name|
+  selected_page = RestaurantFeaturePage.find_by_name(page_name)
+  RestaurantFeatureCategory.all.each do |category|
+    if category.restaurant_feature_page == selected_page
+      response.should have_selector(".feature_category", :content => category.name) 
+    else
+      response.should_not have_selector(".feature_category", :content => category.name) 
+    end
+  end
+end
+
+Then /^I see the category values for "([^\"]*)"$/ do |page_name|
+  selected_page = RestaurantFeaturePage.find_by_name(page_name)
+  RestaurantFeature.all.each do |feature|
+    if feature.restaurant_feature_page == selected_page
+      response.should have_selector(".feature_category ##{dom_id(feature)}") 
+    else
+      response.should_not have_selector(".feature_category ##{dom_id(feature)}") 
+    end
   end
 end
 
@@ -371,6 +404,18 @@ Then /^the show page should be premium$/ do
   response.should have_selector(".premium", :content => "Premium")
 end
 
+Then /^the show page should be basic$/ do
+  response.should_not have_selector(".premium")
+end
+
+Then /^the show page should be complimentary$/ do
+  response.should have_selector(".premium", :content => "Complimentary")
+end
+
 Then /^the show page should not be premium$/ do
   response.should_not have_selector(".premium", :content => "Premium")
+end
+
+Given /^I should see that the restaurant has an overtime account$/ do
+  response.should have_selector("#account_type", :content => "cancelled")
 end

@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20101013222730
+# Schema version: 20101104213542
 #
 # Table name: users
 #
@@ -63,6 +63,7 @@ class User < ActiveRecord::Base
   has_many :restaurant_roles, :through => :employments
 
   has_one :default_employment, :foreign_key => "employee_id", :dependent => :destroy
+  has_many :all_employments, :foreign_key => "employee_id", :class_name => "Employment" # for search
 
   has_many :discussion_seats, :dependent => :destroy
   has_many :discussions, :through => :discussion_seats
@@ -82,6 +83,7 @@ class User < ActiveRecord::Base
   has_many :profile_answers
 
   has_one :invitation, :foreign_key => "invitee_id"
+  has_subscription
 
   validates_presence_of :email
 
@@ -92,7 +94,7 @@ class User < ActiveRecord::Base
 
   has_attached_file :avatar,
                     :default_url => "/images/default_avatars/:style.png",
-                    :styles => { :small => "100x100>", :thumb => "50x50#" }
+                    :styles => { :small => "100x100>", :thumb => "50x50#", :tiny => "20x20#" }
 
   validates_attachment_content_type :avatar, :content_type => ["image/jpg", "image/jpeg", "image/png", "image/gif", "image/pjpeg"],
       :message => "Please upload a valid image type: jpeg, gif, or png", :if => :avatar_file_name
@@ -119,7 +121,7 @@ class User < ActiveRecord::Base
 ### Preferences ###
   preference :hide_help_box, :default => false
   preference :receive_email_notifications, :default => false
-  preference :publish_profile, :default => true
+  preference :publish_profile, :default => false
 
 ### Roles ###
   def admin?
@@ -155,7 +157,8 @@ class User < ActiveRecord::Base
   end
 
   def self.find_premium(id)
-    find_by_id_and_premium_account(id, true)
+    possibility = find_by_id(id)
+    if possibility.premium_account then possibility else nil end
   end
 
   def following?(otheruser)
@@ -179,16 +182,28 @@ class User < ActiveRecord::Base
   def primary_employment
     self.employments.primary.first || self.employments.first || self.default_employment
   end
+  
+  def nonprimary_employments
+    employments - [primary_employment]
+  end
 
   # do they have the setup needed for Behind the Line (profile questions)?
   def btl_enabled?
-    primary_employment && primary_employment.restaurant_role
+    primary_employment.present? && primary_employment.restaurant_role.present?
   end
 
   def restaurant_names
-    return nil if employments.blank?
-    return primary_employment.restaurant.name if employments.count == 1
-    employments.all(:order => '"primary" DESC', :include => :restaurant).map{|e| e.restaurant.name }.to_sentence
+    if employments.blank?
+      primary_employment.try(:solo_restaurant_name)
+    elsif employments.count == 1
+      primary_employment.restaurant.name
+    else
+      employments.all(:order => '"primary" DESC', :include => :restaurant).map{|e| e.restaurant.name }.to_sentence
+    end
+  end
+
+  def post_to_soapbox?
+    primary_employment && primary_employment.post_to_soapbox
   end
 
 ### Convenience methods for getting/setting first and last names ###
@@ -281,6 +296,8 @@ class User < ActiveRecord::Base
     UserMailer.deliver_employee_invitation!(self, invitation_sender)
   end
 
+  # Facebook !!!
+  
   def connect_to_facebook_user(fb_id)
     update_attributes(:facebook_id => fb_id)
   end
@@ -303,6 +320,8 @@ class User < ActiveRecord::Base
     @page ||= Mogli::Page.new(:id => facebook_page_id, :client => Mogli::Client.new(facebook_page_token))
   end
 
+  # Behind the line
+
   def profile_questions
     ProfileQuestion.for_user(self)
   end
@@ -314,6 +333,8 @@ class User < ActiveRecord::Base
   def published_topics
     topics.select { |t| t.published?(self) }
   end
+  
+  # Profile elements
 
   def cuisines
     profile.present? ? profile.cuisines : []
@@ -321,10 +342,6 @@ class User < ActiveRecord::Base
 
   def specialties
     profile.present? ? profile.specialties : []
-  end
-
-  def account_type
-    if premium_account then "Premium" else "Basic" end
   end
 
   def phone_number
@@ -335,10 +352,17 @@ class User < ActiveRecord::Base
     return nil if profile.blank? || !profile.display_cell_public?
     profile.cellnumber
   end
-  
+
   def linkable_profile?
     self.prefers_publish_profile? && self.premium_account
   end
 
-end
+  def braintree_contact
+    self
+  end
 
+  def recently_upgraded?
+    self.subscription.try(:start_date).try(:>, 1.week.ago.to_date)
+  end
+
+end

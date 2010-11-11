@@ -87,6 +87,6 @@ class Comment < ActiveRecord::Base
   end
   
   def show_on_soapbox?
-    self.employment && self.employment.prefers_post_to_soapbox
+    self.employment && self.employment.post_to_soapbox
   end
 end

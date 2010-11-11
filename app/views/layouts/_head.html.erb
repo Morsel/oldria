@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en" class="no-js">
+<head>
+  <meta charset="utf-8">
+  <!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"><![endif]-->
+  <!--[if lt IE 9]>
+    <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+  <title><%= h(yield(:title) || "") %> <%= current_user && current_user.media? ? "MediaFeed" : " :: Spoonfeed" %> :: Restaurant Intelligence Agency</title>
+  <meta name="author" content="Restaruant Intelligence Agency">
+  <link rel="shortcut icon" href="/favicon.ico">
+	<%= stylesheet_link_tag 'colorbox', '/redesign/brandonbold/stylesheet', '/redesign/hoeflerbolditalic/stylesheet', '/redesign/_css/spoonfeed'  %>
+	<%= yield(:head) %>
+
+  <%- if protect_against_forgery? -%>
+  <script type='text/javascript'>
+  //<![CDATA[
+  window._auth_token_name = "<%= request_forgery_protection_token %>";
+  window._auth_token = "<%= form_authenticity_token %>";
+  //]]>
+  </script>
+  <%- end -%>
+
+  <%= render :partial => 'layouts/ga' %>
+
+</head>
+
+<!--[if lt IE 7 ]> <body id="<%= Rails.env %>" class="ie6"> <![endif]-->
+<!--[if IE 7 ]>    <body id="<%= Rails.env %>" class="ie7"> <![endif]-->
+<!--[if IE 8 ]>    <body id="<%= Rails.env %>" class="ie8"> <![endif]-->
+<!--[if IE 9 ]>    <body id="<%= Rails.env %>" class="ie9"> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]>
+	
+<!--><body id="<%= Rails.env %>"> <!--<![endif]-->

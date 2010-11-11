@@ -184,6 +184,7 @@ end
 
 Factory.define :default_employment do |f|
   f.association :employee, :factory => :user
+  f.association :restaurant_role
 end
 
 Factory.define :assigned_employment, :parent => :employment do |f|
@@ -227,11 +228,13 @@ end
 
 Factory.define :topic do |f|
   f.sequence(:title) { |n| "Background #{n}" }
+  f.description "Interesting topic"
 end
 
 Factory.define :chapter do |f|
   f.sequence(:title) { |n| "Career #{n}" }
   f.association :topic
+  f.description "Interesting chapter"
 end
 
 Factory.define :profile_question do |f|
@@ -454,6 +457,12 @@ Factory.define :soapbox_slide do |f|
   f.link "http://linky.com"
 end
 
+Factory.define :sf_slide do |f|
+  f.title "Title"
+  f.excerpt "Some text here"
+  f.link "http://linky.com"
+end
+
 Factory.define :a_la_minute_question do |f|
   f.question "What's new?"
   f.kind 'restaurant'
@@ -464,4 +473,10 @@ Factory.define :a_la_minute_answer do |f|
   f.show_as_public true
   f.association :responder, :factory => :restaurant
   f.association :a_la_minute_question
+end
+
+Factory.define :subscription do |f|
+  f.kind "User Premium"
+  f.start_date Date.today
+  f.braintree_id "abcd"
 end

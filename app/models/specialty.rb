@@ -17,4 +17,8 @@ class Specialty < ActiveRecord::Base
 
   validates_presence_of :name
 
+  named_scope :with_profiles,
+    :joins => :profiles,
+    :group => "#{table_name}.id"
+
 end

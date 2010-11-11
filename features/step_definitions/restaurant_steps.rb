@@ -30,6 +30,7 @@ Given /^a restaurant named "([^\"]*)" with manager "([^\"]*)"$/ do |name, userna
 end
 
 Given /^"([^"]*)" is a manager for "([^"]*)"$/ do |username, restaurantname|
+  BraintreeConnector.stubs(:update_customer)
   user = User.find_by_username!(username)
   restaurant = Restaurant.find_by_name!(restaurantname)
 
@@ -139,6 +140,13 @@ Then /^"([^\"]*)" should have a primary employment$/ do |username|
   User.find_by_username(username).primary_employment.should_not be_nil
 end
 
+Then /^"([^\"]*)" should have a primary employment with role "([^\"]*)"$/ do |username, rolename|
+  employment = User.find_by_username(username).primary_employment
+  role = RestaurantRole.find_by_name(rolename)
+  employment.should_not be_nil
+  employment.restaurant_role.should == role
+end
+
 When /^I remove optional information from the restaurant$/ do
   @restaurant.update_attributes(:twitter_username => nil,
       :facebook_page => nil, :management_company_name => nil,
@@ -201,6 +209,9 @@ Then /^I should not see any menus$/ do
 end
 Then /^I should see an error message$/ do
   response.should have_selector("#errorExplanation")
+end
+Then /^I should see a flash error message$/ do
+  response.should have_selector("#flash_error")
 end
 
 Given /^"([^\"]*)" is an employee of "([^\"]*)"$/ do |username, restaurant_name|
@@ -328,6 +339,13 @@ Given /^"([^"]*)" has answered the following A La Minute questions:$/ do |restau
   end
 end
 
+When /^I check "([^"]*)" for "([^"]*)"$/ do |label, question_text|
+  question = ALaMinuteQuestion.find_by_question(question_text)
+  within("##{dom_id(question)}") do |content|
+    check("a_la_minute_questions[#{question.id}][show_as_public]")
+  end
+end
+
 Then /^I should see the question "([^"]*)" with the answer "([^"]*)"$/ do |question_text, answer_text|
   answer = @restaurant.a_la_minute_answers.find_by_answer(answer_text)
   response.should have_selector("##{dom_id(answer.a_la_minute_question)} .question", :content => question_text)
@@ -349,10 +367,16 @@ Then /^the listing for "([^\"]*)" should be premium$/ do |restaurant_name|
       :content => "Premium")
 end
 
-Then /^the listing for "([^\"]*)" should not be premium$/ do |restaurant_name|
+Then /^the listing for "([^\"]*)" should be complimentary$/ do |restaurant_name|
   restaurant = Restaurant.find_by_name(restaurant_name)
-  response.should_not have_selector("tr##{dom_id(restaurant)} td",
-      :content => "Premium")
+  response.should have_selector("tr##{dom_id(restaurant)} td",
+      :content => "Complimentary")
+end
+
+Then /^the listing for "([^\"]*)" should be basic$/ do |restaurant_name|
+  restaurant = Restaurant.find_by_name(restaurant_name)
+  response.should have_selector("tr##{dom_id(restaurant)} td",
+      :content => "Basic")
 end
 
 Given /^I have created the following A La Minute Questions:$/ do |table|
@@ -373,7 +397,30 @@ When /^I follow "([^"]*)" for "([^"]*)"$/ do |link, question_text|
   click_link_within("##{dom_id(question)}", link)
 end
 
+When /^I follow "([^"]*)" for the answer "([^"]*)"$/ do |link, answer_text|
+  answer = ALaMinuteAnswer.find_by_answer(answer_text)
+  click_link_within("##{dom_id(answer)}", link)
+end
+
 Then /^I should see the answer "([^"]*)" for "([^"]*)"$/ do |answer, name|
   responder = Restaurant.find_by_name(name) || User.find_by_name(name)
   response.should have_selector(".a_la_minute_answer", :content => answer)
+end
+
+When /^I should see that the restaurant has a basic account$/ do
+  response.should have_selector("#account_type", :content => "Basic")
+end
+
+Then /^I should see that the restaurant has a complimentary account$/ do
+  response.should have_selector("#account_type", :content => "Complimentary")
+end
+
+When /^I should see that the restaurant has a premium account$/ do
+  response.should have_selector("#account_type", :content => "Premium")
+end
+
+Given /^the restaurant "([^"]*)" has a complimentary account$/ do |name|
+  restaurant = Restaurant.find_by_name(name)
+  restaurant.subscription = Factory(:subscription, :payer => nil)
+  restaurant.save!
 end

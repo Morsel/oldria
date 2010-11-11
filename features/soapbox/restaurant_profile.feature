@@ -43,7 +43,7 @@ Feature: Restaurant profile
     And I see the opening date
 
   Scenario: Show management data without link if no link specified
-    Given the restaurant has no website for it's management company
+    Given the restaurant has no website for its management company
     When I go to the soapbox restaurant profile for "Piece"
     Then I see the management company name without a link
 
@@ -107,7 +107,7 @@ Feature: Restaurant profile
     Given the restaurant media contact has no phone number
     When I go to the soapbox restaurant profile for "Piece"
     And I see media contact name and email, but no phone
-    
+
   Scenario: The media contact has a private phone number
     Given the restaurant media contact has a private phone number
     When I go to the soapbox restaurant profile for "Piece"

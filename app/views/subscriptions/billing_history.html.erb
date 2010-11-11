@@ -1,0 +1,16 @@
+<table id="transactions">
+  <thead>
+    <tr>
+      <th>Transaction #</th>
+      <th>Amount</th>
+      <th>Status</th>
+      <th>Transaction Date</th>
+      <th>Card Type</th>
+      <th>Card #</th>
+      <th>Exp. Date</th>
+    </tr>
+  </thead>
+  <tbody>
+    <%= render :partial => 'transaction', :collection => @transactions %>
+  </tbody>
+</table>

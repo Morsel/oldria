@@ -620,7 +620,7 @@ function selectCategoryGroup(category) {
   $('#profile_question_restaurant_roles_' + category + '_input input[type=checkbox]').attr('checked', checked);
 }
 
-// Sorting soapbox slides & promos
+// Sorting slides & promos
 
 $('#soapbox_slides tbody').sortable({
 	axis:'y',
@@ -631,11 +631,29 @@ $('#soapbox_slides tbody').sortable({
 	}
 });
 
+$('#sf_slides tbody').sortable({
+	axis:'y',
+	dropOnEmpty:false,
+	update: function(){
+		$.ajax({ data:$(this).sortable('serialize', { key: 'sf_slides[]' }), dataType:'script', type:'post', url:'/admin/sf_slides/sort'
+		});
+	}
+});
+
 $('#soapbox_promos tbody').sortable({
 	axis:'y',
 	dropOnEmpty:false,
 	update: function(){
 		$.ajax({ data:$(this).sortable('serialize', { key: 'soapbox_promos[]' }), dataType:'script', type:'post', url:'/admin/soapbox_promos/sort'
+		});
+	}
+});
+
+$('#sf_promos tbody').sortable({
+	axis:'y',
+	dropOnEmpty:false,
+	update: function(){
+		$.ajax({ data:$(this).sortable('serialize', { key: 'sf_promos[]' }), dataType:'script', type:'post', url:'/admin/sf_promos/sort'
 		});
 	}
 });

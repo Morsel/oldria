@@ -18,6 +18,15 @@ class Admin::RestaurantsController < Admin::AdminController
     end
   end
 
+  def destroy
+    @restaurant.destroy
+    flash[:notice] = "Successfully removed restaurant"
+    respond_to do |format|
+      format.html { redirect_to admin_restaurants_path }
+      format.js   { render :text => '' }
+    end
+  end
+
   def upload_photo
     @restaurant.photos << Image.create!(params[:image])
     @restaurant.update_attributes!(:primary_photo => @restaurant.photos.last) unless @restaurant.primary_photo
@@ -41,15 +50,6 @@ class Admin::RestaurantsController < Admin::AdminController
   end
 
   def edit_photos
-  end
-
-  def destroy
-    @restaurant.destroy
-    flash[:notice] = "Successfully removed restaurant"
-    respond_to do |format|
-      format.html { redirect_to admin_restaurants_path }
-      format.js   { render :text => '' }
-    end
   end
 
   private

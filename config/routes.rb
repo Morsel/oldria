@@ -3,7 +3,9 @@ ActionController::Routing::Routes.draw do |map|
   map.logout 'logout', :controller => 'user_sessions', :action => 'destroy'
   map.confirm 'confirm/:id', :controller => 'users', :action => 'confirm'
   map.fb_login 'facebook_login', :controller => 'user_sessions', :action => 'create_from_facebook'
-
+  map.social_media 'social_media', :controller => 'social_media', :action => 'index'
+  map.my_restaurants 'my_restaurants', :controller => 'restaurants', :action => 'mine'
+  
   map.resources :invitations, :only => ['new', 'create', 'show']
   map.resource :complete_registration, :only => [:show, :update],
     :collection => { :find_restaurant => :any, :contact_restaurant => :post }
@@ -26,16 +28,16 @@ ActionController::Routing::Routes.draw do |map|
     soapbox.connect 'directory_search', :controller => 'soapbox', :action => 'directory_search'
     soapbox.root :controller => 'soapbox', :action => 'index'
   end
-  
-  map.soapbox_profile 'soapbox/profile/:username', :controller => 'soapbox/profiles', :action => 'show', 
+
+  map.soapbox_profile 'soapbox/profile/:username', :controller => 'soapbox/profiles', :action => 'show',
       :requirements => { :username => /[a-zA-Z0-9\-\_ ]+/}
-      
+
   map.soapbox_directory 'soapbox/directory', :controller => 'soapbox/soapbox', :action => 'directory'
-      
+
   map.with_options :conditions => { :subdomain => 'soapbox' }, :controller => 'soapbox/soapbox' do |soapbox|
     soapbox.root :action => 'index'
   end
-  
+
   map.resource :my_profile, :only => ['create', 'edit', 'update'], :controller => 'profiles' do |p|
     p.resources :culinary_jobs
     p.resources :nonculinary_jobs
@@ -76,14 +78,17 @@ ActionController::Routing::Routes.draw do |map|
   }, :shallow => true do |users|
     users.resources :statuses
     users.resources :direct_messages, :member => { :reply => :get }
-    users.resources :questions, :collection => { :topics => :get, :chapters => :get }
+    users.resources :questions, :collection => { :topics => :get, :chapters => :get, :refresh => :post }
     users.resources :default_employments
+    users.resource :subscription, :collection => { :bt_callback => :get, :billing_history => :get }, :controller => 'subscriptions'
   end
+
+  # map.resources :subscriptions, :collection => { :bt_callback => :get }
 
   map.resources :restaurants,
                 :member => {
                         :edit_logo => :get,
-                        :select_primary_photo => :post
+                        :select_primary_photo => :post,
                 } do |restaurant|
     restaurant.media_requests 'media_requests', :controller => 'media_requests', :action => 'index'
     restaurant.resources :employees, :except => [:show]
@@ -95,8 +100,10 @@ ActionController::Routing::Routes.draw do |map|
     restaurant.resource :logo
     restaurant.resources :accolades
     restaurant.resources :employments, :collection => { "reorder" => :post }
-    restaurant.resources :a_la_minute_answers, :collection => { :bulk_update => :put, :bulk_edit => :get } #todo only need these two routes
-    # restaurant.resources :a_la_minute_questions, :member => {:show_as_public => :post}
+    #todo only need these two routes
+    restaurant.resources :a_la_minute_answers, :collection => { :bulk_update => :put, :bulk_edit => :get }
+    restaurant.resource :subscription, :collection => { :bt_callback => :get, :billing_history => :get }, :controller => 'subscriptions'
+    restaurant.resource :employee_accounts, :only => [:create, :destroy]
     restaurant.resources
   end
 
@@ -115,11 +122,11 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :holiday_discussion_reminders, :member => { :read => :put }
 
   map.resources :admin_conversations, :only => 'show' do |admin_conversations|
-    admin_conversations.resources :comments, :only => [:new, :create, :edit, :update]
+    admin_conversations.resources :comments, :only => [:new, :create, :edit, :update, :destroy]
   end
 
   map.resources :admin_discussions, :only => 'show', :member => { :read => :put } do |admin_discussions|
-    admin_discussions.resources :comments, :only => [:new, :create, :edit, :update]
+    admin_discussions.resources :comments, :only => [:new, :create, :edit, :update, :destroy]
   end
 
   map.resources :solo_discussions, :only => 'show', :member => { :read => :put } do |admin_discussions|
@@ -134,6 +141,8 @@ ActionController::Routing::Routes.draw do |map|
                               :staff_discussions => :get,
                               :media_requests => :get
                             }
+  map.front_burner 'front_burner', :controller => 'front_burner', :action => 'index'
+
   map.resources :timelines, :collection => {
                               :people_you_follow => :get,
                               :twitter => :get,
@@ -166,10 +175,10 @@ ActionController::Routing::Routes.draw do |map|
     admin.resources :holidays
     admin.resources :calendars
     admin.resources :events
-    admin.resources :soapbox_entries
+    admin.resources :soapbox_entries, :member => { :toggle_status => :post }
     admin.resources :soapbox_pages
     admin.resources :soapbox_slides
-    admin.resources :soapbox_promos
+    admin.resources :soapbox_promos, :collection => { :sort => :post }
     admin.resources :profile_questions, :collection => { :sort => :post }
     admin.resources :chapters, :collection => { :select => :post }
     admin.resources :topics
@@ -184,6 +193,8 @@ ActionController::Routing::Routes.draw do |map|
         :collection => {:edit_in_place => :post}
     admin.resources :restaurant_feature_categories, :only => [:create,  :destroy],
         :collection => {:edit_in_place => :post}
+    admin.resources :sf_slides, :collection => { :sort => :post }
+    admin.resources :sf_promos, :collection => { :sort => :post }
 
     # Admin Messaging
     exclusive_routes = [:index, :show, :destroy]
@@ -195,6 +206,7 @@ ActionController::Routing::Routes.draw do |map|
 
     admin.resources :content_requests
     admin.resources :trend_questions
+    admin.resource :complimentary_accounts, :only => [:create, :destroy]
   end
 
   map.public_page ":id", :controller => 'pages', :action => 'show'

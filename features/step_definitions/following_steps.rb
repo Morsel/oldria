@@ -4,7 +4,7 @@ end
 
 Given /^I am following "([^\"]*)"$/ do |username|
   visit profile_path(username)
-  click_link "follow this user"
+  click_link "Follow User"
 end
 
 Then /^"([^\"]*)" should be following ([0-9]+) users?$/ do |username,num|

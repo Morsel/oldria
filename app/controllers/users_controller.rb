@@ -16,8 +16,7 @@ class UsersController < ApplicationController
   end
 
   def edit
-    @user.build_default_employment unless @user.employments.present? || @user.default_employment
-    @fb_user = current_facebook_user.fetch if current_facebook_user && @user.facebook_authorized?
+    redirect_to edit_my_profile_path
   end
 
   def update
@@ -38,7 +37,8 @@ class UsersController < ApplicationController
         end
         format.js   { head :ok }
       else
-        format.html { render :edit }
+        @profile = @user.profile || @user.build_profile
+        format.html { render :template => 'profiles/edit' }
         format.js   { render :json => @user.errors, :status => :unprocessable_entity }
       end
 

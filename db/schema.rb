@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20101026213148) do
+ActiveRecord::Schema.define(:version => 20101110011650) do
 
   create_table "a_la_minute_answers", :force => true do |t|
     t.text     "answer"
@@ -136,7 +136,8 @@ ActiveRecord::Schema.define(:version => 20101026213148) do
     t.string   "title"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "position",   :default => 0
+    t.integer  "position",    :default => 0
+    t.string   "description"
   end
 
   create_table "coached_status_updates", :force => true do |t|
@@ -283,10 +284,12 @@ ActiveRecord::Schema.define(:version => 20101026213148) do
     t.datetime "updated_at"
     t.integer  "restaurant_role_id"
     t.boolean  "omniscient"
-    t.boolean  "primary",            :default => false
+    t.boolean  "primary",              :default => false
     t.string   "type"
     t.boolean  "public_profile"
     t.integer  "position"
+    t.boolean  "post_to_soapbox",      :default => true
+    t.string   "solo_restaurant_name"
   end
 
   add_index "employments", ["employee_id"], :name => "index_employments_on_employee_id"
@@ -608,19 +611,31 @@ ActiveRecord::Schema.define(:version => 20101026213148) do
   end
 
   create_table "profiles", :force => true do |t|
-    t.integer  "user_id",                           :null => false
+    t.integer  "user_id",                               :null => false
     t.date     "birthday"
     t.date     "job_start"
     t.string   "cellnumber"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "headline",          :default => ""
-    t.text     "summary",           :default => ""
+    t.string   "headline",              :default => ""
+    t.text     "summary",               :default => ""
     t.string   "hometown"
     t.string   "current_residence"
+    t.integer  "metropolitan_area_id"
+    t.integer  "james_beard_region_id"
   end
 
   add_index "profiles", ["user_id"], :name => "index_profiles_on_user_id", :unique => true
+
+  create_table "promos", :force => true do |t|
+    t.string   "title"
+    t.text     "body"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "link"
+    t.integer  "position"
+    t.string   "type"
+  end
 
   create_table "question_role_categories", :force => true do |t|
     t.integer  "restaurant_role_id"
@@ -741,6 +756,21 @@ ActiveRecord::Schema.define(:version => 20101026213148) do
     t.datetime "updated_at"
   end
 
+  create_table "slides", :force => true do |t|
+    t.string   "image_file_name"
+    t.string   "image_content_type"
+    t.integer  "image_file_size"
+    t.datetime "image_updated_at"
+    t.string   "title"
+    t.text     "excerpt"
+    t.string   "link"
+    t.integer  "position"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "photo_credit"
+    t.string   "type"
+  end
+
   create_table "slugs", :force => true do |t|
     t.string   "name"
     t.integer  "sluggable_id"
@@ -759,6 +789,7 @@ ActiveRecord::Schema.define(:version => 20101026213148) do
     t.string   "featured_item_type"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "published",          :default => true
   end
 
   create_table "soapbox_pages", :force => true do |t|
@@ -767,29 +798,6 @@ ActiveRecord::Schema.define(:version => 20101026213148) do
     t.text     "content"
     t.datetime "created_at"
     t.datetime "updated_at"
-  end
-
-  create_table "soapbox_promos", :force => true do |t|
-    t.string   "title"
-    t.text     "body"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.string   "link"
-    t.integer  "position"
-  end
-
-  create_table "soapbox_slides", :force => true do |t|
-    t.string   "image_file_name"
-    t.string   "image_content_type"
-    t.integer  "image_file_size"
-    t.integer  "image_updated_at"
-    t.string   "title"
-    t.text     "excerpt"
-    t.string   "link"
-    t.integer  "position"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.string   "photo_credit"
   end
 
   create_table "solo_discussions", :force => true do |t|
@@ -842,11 +850,26 @@ ActiveRecord::Schema.define(:version => 20101026213148) do
     t.boolean  "private"
   end
 
+  create_table "subscriptions", :force => true do |t|
+    t.string   "braintree_id"
+    t.date     "start_date"
+    t.integer  "subscriber_id"
+    t.string   "subscriber_type"
+    t.integer  "payer_id"
+    t.string   "payer_type"
+    t.string   "kind"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.date     "end_date"
+    t.string   "status"
+  end
+
   create_table "topics", :force => true do |t|
     t.string   "title"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "position"
+    t.string   "description"
   end
 
   create_table "trend_questions", :force => true do |t|

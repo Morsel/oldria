@@ -1,36 +1,3 @@
-# == Schema Information
-#
-# Table name: users
-#
-#  id                    :integer         not null, primary key
-#  username              :string(255)
-#  email                 :string(255)
-#  crypted_password      :string(255)
-#  password_salt         :string(255)
-#  perishable_token      :string(255)
-#  persistence_token     :string(255)     not null
-#  created_at            :datetime
-#  updated_at            :datetime
-#  confirmed_at          :datetime
-#  last_request_at       :datetime
-#  atoken                :string(255)
-#  asecret               :string(255)
-#  avatar_file_name      :string(255)
-#  avatar_content_type   :string(255)
-#  avatar_file_size      :integer
-#  avatar_updated_at     :datetime
-#  first_name            :string(255)
-#  last_name             :string(255)
-#  james_beard_region_id :integer
-#  publication           :string(255)
-#  role                  :string(255)
-#  facebook_id           :string(255)
-#  facebook_access_token :string(255)
-#  facebook_page_id      :string(255)
-#  facebook_page_token   :string(255)
-#  premium_account       :boolean
-#
-
 require 'spec/spec_helper'
 
 describe User do
@@ -292,25 +259,25 @@ describe User do
       @user.announcements.should == [@announcement]
     end
   end
-  
+
   context "updating replies after confirmed" do
-    
+
     it "should mark message replies as read for recently confirmed user" do
       user = Factory(:user, :confirmed_at => nil)
       user.expects(:mark_replies_as_read)
       user.confirm!
-    end   
+    end
   end
-  
+
   context "primary employment" do
-    
+
     it "should choose the user's first employment as the primary employment if not otherwise specified" do
       user = Factory(:user)
       user.restaurants << Factory(:restaurant)
       user.primary_employment.should == user.employments.first
       user.restaurants.count.should == 1
     end
-    
+
     it "should allow a new primary employment to be set" do
       user = Factory(:user)
       e1 = Factory(:employment, :employee => user)
@@ -319,48 +286,115 @@ describe User do
       user.primary_employment.should == e2
     end
   end
-  
+
   describe "premium account" do
-    
+
     it "finds a premium account" do
-      user = Factory(:user, :premium_account => true)
+      user = Factory(:user)
+      user.subscription = Factory(:subscription, :payer => user)
       user.account_type.should == "Premium"
       User.find_premium(user.id).should == user
     end
-    
+
     it "doesn't find a basic account" do
-      user = Factory(:user, :premium_account => false)
+      user = Factory(:user)
       user.account_type.should == "Basic"
       User.find_premium(user.id).should be_nil
     end
-    
+
+    it "finds a complimentary account" do
+      user = Factory(:user)
+      user.subscription = Factory(:subscription, :payer => nil)
+      user.account_type.should == "Complimentary Premium"
+      User.find_premium(user.id).should == user
+    end
+
   end
-  
+
   describe "phone numbers" do
     let(:user) { Factory(:user) }
-    
-    
+
+
     it "returns nil if no profile" do
       user.phone_number.should be_nil
     end
-    
+
     it "returns number if it exists" do
       profile = Factory(:profile, :user => user)
       user.phone_number.should == profile.cellnumber
     end
-    
+
     it "handles public phone number" do
       profile = Factory(:profile, :user => user)
       user.public_phone_number.should == profile.cellnumber
     end
-    
+
     it "handles private phone number" do
-      profile = Factory(:profile, :user => user, 
+      profile = Factory(:profile, :user => user,
           :preferred_display_cell => "spoonfeed")
       user.public_phone_number.should be_nil
     end
-    
-
   end
+
+  describe "braintree_contact" do
+    let(:user) { Factory(:user) }
+
+    it "should return self" do
+      user.braintree_contact == user
+    end
+  end
+  
+  describe "find premiums via rspec" do
+    
+    before(:each) do |variable|
+      @basic = Factory(:user, :name => "Basic") 
+      @premium = Factory(:user, :name => "Premium", 
+          :subscription => Factory(:subscription))
+      @expired = Factory(:user, :name => "Expired",
+              :subscription => Factory(:subscription, :end_date => 1.month.ago))
+      @overtime = Factory(:user, :name => "Overtime",
+              :subscription => Factory(:subscription, :end_date => 2.weeks.from_now))
+    end
+    
+    it "finds the right users" do
+      User.premium_account.all.should =~ [@premium, @overtime]
+    end
+    
+    
+  end
+
 end
+
+
+# == Schema Information
+#
+# Table name: users
+#
+#  id                    :integer         not null, primary key
+#  username              :string(255)
+#  email                 :string(255)
+#  crypted_password      :string(255)
+#  password_salt         :string(255)
+#  perishable_token      :string(255)
+#  persistence_token     :string(255)     not null
+#  created_at            :datetime
+#  updated_at            :datetime
+#  confirmed_at          :datetime
+#  last_request_at       :datetime
+#  atoken                :string(255)
+#  asecret               :string(255)
+#  avatar_file_name      :string(255)
+#  avatar_content_type   :string(255)
+#  avatar_file_size      :integer
+#  avatar_updated_at     :datetime
+#  first_name            :string(255)
+#  last_name             :string(255)
+#  james_beard_region_id :integer
+#  publication           :string(255)
+#  role                  :string(255)
+#  facebook_id           :string(255)
+#  facebook_access_token :string(255)
+#  facebook_page_id      :string(255)
+#  facebook_page_token   :string(255)
+#
 

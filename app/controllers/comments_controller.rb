@@ -1,6 +1,6 @@
 class CommentsController < ApplicationController
   before_filter :require_user
-  before_filter :find_parent
+  before_filter :find_parent, :only => [:create]
 
   def create
     @comment = @parent.comments.build(params[:comment])
@@ -27,6 +27,13 @@ class CommentsController < ApplicationController
     else
       render :action => "edit"
     end
+  end
+  
+  def destroy
+    @comment = Comment.find(params[:id])
+    @comment.destroy
+    flash[:notice] = "Deleted comment"
+    redirect_to ria_messages_path
   end
 
   private
