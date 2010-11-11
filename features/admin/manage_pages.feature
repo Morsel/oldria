@@ -34,10 +34,10 @@ Feature: Manage pages
 
 
   Scenario: Non-logged-in user page
-    Given the special "home" page exists
-    When I update the "home" page with:
+    Given the special "about" page exists
+    When I update the "about" page with:
       | Title   | Welcome                 |
       | Content | You've finally made it! |
     And I logout
-    And I go to the homepage
+    And I go to "/about"
     Then I should see "You've finally made it!"
