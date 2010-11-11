@@ -47,7 +47,7 @@ class Profile < ActiveRecord::Base
   validates_uniqueness_of :user_id
   validates_presence_of :hometown, :current_residence
   validate :birthday_year_is_set
-  validates_length_of :summary, :maximum => 1000
+  validates_length_of :summary, :maximum => 1000, :allow_blank => true
   
   accepts_nested_attributes_for :culinary_jobs, :nonculinary_jobs, :awards, :user, :specialties,
     :reject_if => REJECT_TITLE_BLANK_PROC

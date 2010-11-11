@@ -219,12 +219,11 @@ class ApplicationController < ActionController::Base
     end
 
     if params[:controller].match(/soapbox/)
-      @search = User.premium_account.search(params[:search]).all
-      extra_search_results = User.search(extra_params).premium_account.all if extra_params.present?
+      @search = User.with_premium_account.search(params[:search]).all
+      extra_search_results = User.with_premium_account.search(extra_params).all if extra_params.present?
       @users = [@search, extra_search_results].flatten.compact.uniq.sort_by(&:last_name)
     else
       extra_search_results = User.search(extra_params).all if extra_params.present?
-
       @users = [@search.all(:order => "users.last_name"), extra_search_results].flatten.compact.uniq.sort_by(&:last_name)
     end
   end

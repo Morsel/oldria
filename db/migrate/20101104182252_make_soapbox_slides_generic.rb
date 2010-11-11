@@ -3,6 +3,7 @@ class MakeSoapboxSlidesGeneric < ActiveRecord::Migration
     rename_table :soapbox_slides, :slides
     add_column :slides, :type, :string
     change_column :slides, :image_updated_at, :datetime
+    Slide.all(:conditions => { :type => nil }).each { |s| s.update_attribute(:type, "SoapboxSlide") }
   end
 
   def self.down
