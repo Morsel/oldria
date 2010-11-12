@@ -69,9 +69,14 @@ class Profile < ActiveRecord::Base
   end
 
   def primary_employment=(ids)
-    unless user.primary_employment && (user.primary_employment.id == ids.first.to_i)
-      user.primary_employment.update_attribute(:primary, false)
+    if user.nil? # no profile created yet
       Employment.find(ids).first.update_attribute(:primary, true)
+    else
+      # skip if the primary employment hasn't changed
+      unless user.primary_employment && (user.primary_employment.id == ids.first.to_i)
+        user.primary_employment.update_attribute(:primary, false)
+        Employment.find(ids).first.update_attribute(:primary, true)
+      end
     end
   end
   
