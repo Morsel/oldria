@@ -11,7 +11,7 @@
                                 <label for="search_id_equals_any">Id equals any</label>
                             </legend>
                             <ol>
-                                <% for user in @users_for_search || User.by_last_name %>
+                                <% for user in @users_for_search || User.active.by_last_name %>
                                 <li><label for="search_id_equals_any_<%= user.id %>">
                                     <%= check_box_tag "search[id_equals_any][]", user.id, false, :id => "search_id_equals_any_#{user.id}" %>
                                     <%= user.to_label %>
