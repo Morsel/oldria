@@ -808,7 +808,8 @@ body,html,#container,#main,#content,#inside{
 		}
 	}
 	
-	header {
+	.soapbox_profile_header {
+		border-bottom: 1px dotted #ddd;
 		img {
 			border: 1px solid #ddd;
 		}
@@ -1517,12 +1518,12 @@ p.search_filter_hint {
 
 #profile-account, #profile-summary {
 	h5 {
-		@include museoslabthin;
+		@include museoslabmedium;
 		font-size: 12px;
 		font-weight: bold;
 		margin: 10px 0 8px;
 		padding: 10px 0 0 0;
-		color: #333;
+		color: $purple;
 		letter-spacing: 0.15em;
 		text-transform: uppercase;
 	}

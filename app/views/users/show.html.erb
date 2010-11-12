@@ -4,7 +4,7 @@
   <p>This is a preview view. These changes have not been saved.<%= link_to_function "Go back", "history.go(-1)" %> to edit or save.</p>
 <% end %>
 
-<header>   
+<header class="soapbox_profile_header">   
 	<aside class="user_actions">
         <% if current_user == @user -%>
           <%= link_to 'Edit profile', edit_my_profile_path %>
