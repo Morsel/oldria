@@ -14,7 +14,7 @@ Feature: Profile questions
     And I press "Save"
     Then I should see "Created new topic named Management"
 
-  Scenario: viewing all profile questions for restaurant
+  Scenario: viewing profile questions for restaurant
     Given the following restaurant chapters:
       | title    | topic   |
       | Early on | History |
@@ -63,17 +63,18 @@ Feature: Profile questions
     Then I should see "Early on"
     And I should see "Career building"
 
-  # Scenario: creating a new chapter
-  #   When I go to the chapters page
-  #   And fill in "Title" with "Mentoring"
-  #   And I press "Save"
-  #   Then I should see "Created new chapter named Mentoring"
-  #
-  # Scenario: creating a new topic
-  #   When I go to the new topic page
-  #   And fill in "Title" with "Work Experience"
-  #   And I press "Save Topic"
-  #   Then I should see "Created new topic named Work Experience"
-
-
+@wip
+  Scenario: creating a restaurant profile question
+    Given the following restaurant chapters:
+      | title    | topic   |
+      | Early on | History |
+    And a restaurant feature page named "Other"
+    When I go to the new restaurant profile question page
+    And fill in "Your question" with "Who was your first employee?"
+    And I select "History" from "Topic"
+    And I select "Early on" from "Chapter"
+    And I check "Other"
+    And I press "Save Question"
+    Then I should be on the admin restaurant profile questions page
+    Then I should see "Added new profile question"
 
