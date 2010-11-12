@@ -149,10 +149,14 @@ When /^the user "([^\"]*)" (has|does not have) a premium account$/ do |username,
   user.save!
 end
 
-Given /^the user "([^"]*)" has a complimentary account$/ do |username|
+Given /^"([^"]*)" has a complimentary premium account$/ do |username|
   user = User.find_by_username(username)
   user.subscription = Factory(:subscription, :payer => nil)
   user.save!
+end
+
+Given /^the user "([^\"]*)" has a complimentary account$/ do |username|
+  Given %Q|"#{username}" has a complimentary premium account|
 end
 
 Then /^"([^"]*)" should have a "([^"]*)" account in the list$/ do |username, account_type|

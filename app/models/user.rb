@@ -117,6 +117,8 @@ class User < ActiveRecord::Base
 
   named_scope :for_autocomplete, :select => "first_name, last_name", :order => "last_name ASC", :limit => 15
   named_scope :by_last_name, :order => "LOWER(last_name) ASC"
+  
+  named_scope :active, :conditions => "last_request_at IS NOT NULL"
 
 ### Preferences ###
   preference :hide_help_box, :default => false

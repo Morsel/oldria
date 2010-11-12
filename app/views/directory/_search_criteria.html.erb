@@ -133,7 +133,7 @@
                             <ol>
                                 <% for metro in metros_for_search %>
                                 <li><label for="search_profile_metropolitan_area_id_eq_any_<%= metro.id %>">
-                                    <%= check_box_tag "search[profile_metropolitan_area_id_eq_any][]", metro.id, false, :id => "search_profile_metropolitan_area_id_eq_any_#{region.id}" %>
+                                    <%= check_box_tag "search[profile_metropolitan_area_id_eq_any][]", metro.id, false, :id => "search_profile_metropolitan_area_id_eq_any_#{metro.id}" %>
                                     <%= metro.name %>
                                 </label></li>
                                 <% end %>

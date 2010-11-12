@@ -204,8 +204,6 @@ class ApplicationController < ActionController::Base
 
   # Directory (profile) search
   def directory_search_setup
-    @search = User.search(params[:search])
-
     # We want to repeat some of the searches through the users' restaurants
     extra_params = {}
     if params[:search].try(:[], :profile_cuisines_id_eq_any)
@@ -219,12 +217,15 @@ class ApplicationController < ActionController::Base
     end
 
     if params[:controller].match(/soapbox/)
-      @search = User.with_premium_account.search(params[:search]).all
-      extra_search_results = User.with_premium_account.search(extra_params).all if extra_params.present?
-      @users = [@search, extra_search_results].flatten.compact.uniq.sort_by(&:last_name)
+      search = User.active.with_premium_account.search(params[:search]).all
+      extra_search_results = User.active.with_premium_account.search(extra_params).all if extra_params.present?
+      
+      @users = [search, extra_search_results].flatten.compact.uniq.sort_by(&:last_name)
     else
-      extra_search_results = User.search(extra_params).all if extra_params.present?
-      @users = [@search.all(:order => "users.last_name"), extra_search_results].flatten.compact.uniq.sort_by(&:last_name)
+      search = User.active.search(params[:search]).all
+      extra_search_results = User.active.search(extra_params).all if extra_params.present?
+      
+      @users = [search, extra_search_results].flatten.compact.uniq.sort_by(&:last_name)
     end
   end
 
