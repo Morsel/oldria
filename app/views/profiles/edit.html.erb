@@ -13,30 +13,26 @@
     </nav><!-- /profile_options -->
 
     <section id="profile-edit-account">
-        <div class="fieldset" id="plans">
-            <h3>Personal Account Status</h3>
+        <fieldset class="inputs">
+            <legend><span>Account Status</span></legend>
 
             <div id="payment_blurb">
-                Basic accounts allow you to participate in Spoonfeed. If you would like to be included in Soapbox, please upgrade to a Premium Account. A personal premium account is $50/month.
-            </div>
-
-            <div>
-                <%= link_to "More Information...", "/account_types", :class => 'button' %>
+                Basic accounts allow you to participate in Spoonfeed. If you would like to be included in Soapbox, please upgrade to a Premium Account. A personal <%= link_to "premium account", "/account_types", :class => 'button' %> is $50/month. <%= link_to "More Information...", "/account_types", :class => 'button' %>
             </div>
 
             <div class="current">
                 Your current account status is 
                 <%= @user.public_account_type %> <%= @user.account_payer_type %>.
                 <% if @user.premium_account? %>
-                <div id="start_date">
-                    You have been a premium member since <%= @user.subscription.start_date.to_s(:long) %>
-                </div>
-                <% if @user.subscription && @user.subscription.in_overtime? %>
-                <div id="end_date">
-                    This account has been canceled and will end
-                    <%= @user.subscription.end_date.to_s(:long)%>
-                </div>
-                <% end %>
+                  <div id="start_date">
+                      You have been a premium member since <%= @user.subscription.start_date.to_s(:long) %>
+                  </div>
+                  <% if @user.subscription && @user.subscription.in_overtime? %>
+                    <div id="end_date">
+                        This account has been canceled and will end
+                        <%= @user.subscription.end_date.to_s(:long)%>
+                    </div>
+                  <% end %>
                 <% end %>
             </div>
 
@@ -47,45 +43,44 @@
             <% else %>
               <%= render :partial => 'subscriptions/account_links', :locals => {:subscriber => @user, :subscriber_type => "user"} %>
             <% end %>
-        </div>
-
-        <%= render :partial => 'users/form' %>
+        </fieldset>
         
         <% form_for @user, :html => { :multipart => true } do |f| %>
-            <fieldset class="headshot">
-                <h3>Headshot</h3>
-                <p><%= image_tag @user.avatar.url(:thumb), :class => 'thumbnail' %></p>
-                <p><%= f.label :avatar, "Headshot" %> <%= f.file_field :avatar %></p>
-                <p class="inline-hints">Please upload a jpeg, gif, or png</p>
-                <p>
-                    <%= button_tag (image_tag('tick.png') + "Upload Headshot"), :class => 'positive' %>
-                    <span class="button-separator"> or </span> 
-                    <%= link_to (image_tag('x.png') + "Remove my headshot"), remove_avatar_user_path(@user), :method => :put, :confirm => "Are you sure you want to remove your headshot? You'll have to upload another one later to get it back", :class => 'button negative' %>
-                </p>
+            <fieldset class="headshot inputs">
+                <legend><span>Profile Photo</span></legend>
+                
+                <div>
+                    <%= image_tag @user.avatar.url(:thumb), :class => 'thumbnail' %>
+                    <div class="headshot_fields">
+                      <%= f.label :avatar, "Upload a headshot" %><br><%= f.file_field :avatar %>
+                      <p class="clearfix">
+                        <%= button_tag "Upload Headshot", :class => 'positive' %>
+                        <span class="button-separator"></span> 
+                        <%= link_to "Remove my headshot", remove_avatar_user_path(@user), :method => :put, :confirm => "Are you sure you want to remove your headshot? You'll have to upload another one later to get it back" %>
+                      </p>
+                    </div>
+                </div>
             </fieldset>
         <% end %>
-
-        <fieldset id="twitter">
-            <h3>Twitter</h3>
-            <hr />
-            <p><%= link_to "Help?  Read our Twitter 101 introduction in the Marketing Manual.", public_page_path('twitter_101_introduction') %></p>
-
+        
+        <fieldset id="twitter-fieldset" class="inputs">
+            <legend><span>Twitter</span></legend>
+            
             <% if @user.twitter_authorized? -%>
             <p>
                 You currently have your Twitter account set up as <em><%= @user.twitter_username %></em>. To change which Twitter account you want your SpoonFeed account linked with, you can remove the Twitter credentials below, and then setup Twitter again.<br/>
-                <%= link_to (image_tag('x.png') + "Remove Twitter Information"), remove_twitter_user_path(@user), :confirm => "Are you sure you want to unlink your Twitter account? This action cannot be undone.", :method => :put, :class => 'button negative' %>
+                <%= link_to "Remove Twitter Information", remove_twitter_user_path(@user), :confirm => "Are you sure you want to unlink your Twitter account? This action cannot be undone.", :method => :put %>
                 <%= link_to 'Read Twitter Timeline', twitter_timelines_path, :class=>'button positive' %>
             </p>
             <% elsif @user.twitter_allowed? -%>
             <%= link_to "Setup Twitter", new_twitter_authorization_url, :class=>'sf-button' %>
             <% end -%>
+            <p><%= link_to "Need Help?  Read our Twitter 101 introduction in the Marketing Manual.", public_page_path('twitter_101_introduction') %></p>
+            
         </fieldset>
 
-        <fieldset id="facebook">
-            <h3>Facebook</h3>
-            <hr/>
-            <p><%= link_to "Help?  Read everything you need to know about Facebook in the Marketing Manual.", public_page_path('facebook_101_introduction') %></p>
-
+        <fieldset id="facebook-fieldset" class="inputs">
+            <legend><span>Facebook</span></legend>
             <%- if @fb_user -%>
               <p>
                   You are currently linked to your Facebook account <em>"<%= @fb_user.name %>"</em>. You can connect to a different Facebook profile by disconnecting below, then setting up Facebook again.<br/>
@@ -104,7 +99,13 @@
             <%- else -%>
               <%= link_to "Setup Facebook", fb_auth_user_path(@user), :class => 'sf-button' %>
             <%- end -%>
+            <p><%= link_to "Need Help?  Read everything you need to know about Facebook in the Marketing Manual.", public_page_path('facebook_101_introduction') %></p>
         </fieldset>
+        <div class="clear"></div>
+        <hr style="margin-right:25px;">
+        
+        <%= render :partial => 'users/form' %>
+      
 
     </section><!-- /profile-account -->
 

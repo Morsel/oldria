@@ -684,19 +684,19 @@ form#new_user_session {
 				text-decoration: underline;
 			}
 			&.button {
+				float:left;
 				font-weight: 300;
 				letter-spacing: 0.1em;
 				text-transform: uppercase;
 				padding: 4px 12px;
-				border: 1px solid #ecd2c8;
-				background-color: $trans-orange;
-				color: $orange;
+				background: #dd630c;
+				color: #fff;
 				@include border-radius(20px);
 				img {
 					margin-right: 2px;}
 				&:hover {
-					background-color: $orange;
-					color: #fff;
+					background-color: $trans-orange;
+					color: #333;
 					text-decoration: none;
 					border: 1px solid $orange;
 					text-shadow: 0 1px 0 #333;
@@ -869,32 +869,26 @@ form#new_user_session {
 			p {display: block;overflow:hidden;}
 			button {
 				float: left;
-				height: 36px;
 				display: block;
-				border: 1px solid #ddd;
 				margin: 0 10px 0 0;
 				font-size: 12px;
 				font-family: 'helvetica neue', helvetica, arial, sans-serif;
-				background-color: #f2f2f2;
-				@include linear-gradient(color-stops(#f4f4f4,#eaeaea ), top);
+				background-color: $orange;
 				@include border-radius(20px);
-				color: #333;
+				color: #fff;
 				padding: 5px 12px;
 				font-weight: bold;
+				text-shadow:0 1px 0 #444;
+				border:0;
 				&:hover {
 					background: #bbb08c;
 					color: #fff;
-					text-shadow: 0 1px 0 #444;
-					border: 1px solid #a6996c;
 				}
 				&.positive {
-					border: 1px solid #90d284;
-					@include linear-gradient(color-stops(#f7f7f7,#bfe9b8 ), top);
 					&:hover {
-						background: #5aa252;
-						color: #fff;
-						text-shadow: 0 1px 0 #444;
-						border: 1px solid #397d33;
+						background: $trans-orange;
+						color: #333;
+						text-shadow:none;
 					}
 				}
 			}	
@@ -987,6 +981,28 @@ form#new_user_session {
 					}
 				}
 			}
+		}
+		#twitter-fieldset, #facebook-fieldset{
+			width:308px;
+			padding:10px;
+			float:left;
+			a{
+				color:#333;
+				&.sf-button{
+					font-weight:normal;
+					background:#eceded;
+					color:$orange;
+					padding:5px 10px;
+					border:1px solid #ccc;
+					@include border-radius(80px);
+					&:hover{
+						background:#ddd;
+					}
+				}
+			}
+		}
+		#twitter-fieldset{
+			border-right:1px dotted #ccc;
 		}
 	} /* profile tabs */
 
@@ -2186,6 +2202,43 @@ p.search_filter_hint {
 		&.all-topics{
 			background-image:url(/images/redesign/bg-home.png);
 		}
+	}
+}
+
+
+#profile-edit-account{
+	font:normal 13px "Helvetica Neue", Helvetica, Arial, sans-serif;
+	line-height:1.4;
+	.current{
+		background-color:#efede5;
+		background:rgba(223,219,204,0.33) url(/images/redesign/bg-current.png) no-repeat 10px center;
+		margin:10px 0;
+		padding:10px 10px 10px 52px;
+		@include border-radius(10px);
+		border:1px solid $med-brown;
+		color:$orange;
+	}
+}
+
+.button-separator{
+	float:left;
+	border-right:1px solid #ccc;
+	margin:0 5px;
+	display:inline-block;
+	height:30px;
+}
+
+.headshot img.thumbnail{
+	float:left;
+	padding:10px;
+	border-right:1px dotted #ccc;
+}
+
+.headshot_fields{
+	margin-left:100px;
+	padding:0 20px;
+	p{
+		margin:10px 0 0;
 	}
 }
 
