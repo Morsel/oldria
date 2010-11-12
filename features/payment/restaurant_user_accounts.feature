@@ -65,10 +65,10 @@ Feature: Restaurant Accounts
     And I do not see any account change options
     And I am not logged in
     And I am logged in as an admin
-    When I go to the edit profile page for "john"
+    When I go to the edit page for "john"
     Then I see my account status is premium
     And I see that the account for "john" lasts until the end of the billing cycle
-    When I go to the edit profile page for "sam"
+    When I go to the edit page for "sam"
     Then I see my account status is complimentary
     And I don't see that the account for "john" lasts until the end of the billing cycle
 
