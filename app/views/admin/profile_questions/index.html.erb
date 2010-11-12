@@ -14,10 +14,16 @@
 <%- end -%>
 
 <% table_for @questions[chapter] do |t| %>
-	<% t.data :actions => [:edit, :destroy], :action_prefix => 'admin' do
-      t.cell(:handle, :heading => '', :cell_html => {:class => 'small handle'}) { "[drag]" }
-		t.cell(:title)
-		t.cell(:roles) { |c| c.roles_description }
+  <% t.data do
+        t.cell(:handle, :heading => '', :cell_html => {:class => 'small handle'}) { "[drag]" }
+        t.cell(:title)
+        t.cell(:roles) { |c| c.roles_description }
+        t.cell(:edit_link, :heading => '', :cell_html => {:class => 'actions edit_link'}) { |c|
+          link_to('Edit', edit_admin_profile_question_url(:id => c.id, :responder_type => params[:responder_type]))
+        }
+        t.cell(:destroy_link, :heading => '', :cell_html => {:class => 'actions destroy_link'}) { |c|
+          link_to('Destroy', admin_profile_question_url(:id => c.id, :responder_type => params[:responder_type]), :method => :destroy)
+        }
   end %>
 <% end %>
 

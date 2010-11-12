@@ -118,12 +118,18 @@ module NavigationHelpers
       new_admin_event_path
     when /^the new profile question page$/
       new_admin_profile_question_path
+    when /^the admin restaurant profile questions page$/
+      admin_profile_questions_path(:responder_type => 'Restaurant')
     when /^the admin profile questions page$/
       admin_profile_questions_path
     when /^the chapters page$/
       admin_chapters_path
     when /^the new topic page$/
-      new_admin_topic_path
+      new_admin_topic_path(:responder_type => 'user')
+    when /^the new restaurant topic page$/
+      new_admin_topic_path(:responder_type => 'restaurant')
+    when /^the restaurant topic page$/
+      admin_topics_path(:responder_type => 'restaurant')
     when /^the admin invitations page$/
       admin_invitations_path
     when /^the restaurant photo upload page for (.+)$/

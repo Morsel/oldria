@@ -2,6 +2,7 @@
     <% f.inputs do %>
         <%= f.input :title %>
         <%= f.input :description %>
+        <%= f.input :responder_type, :as => :hidden, :value => params[:responder_type]%>
     <% end %>
     <p><%= button_tag "Save Topic" %></p>
 <% end %>

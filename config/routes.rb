@@ -1,11 +1,11 @@
-ActionController::Routing::Routes.draw do |map|
+                     ActionController::Routing::Routes.draw do |map|
   map.login  'login',  :controller => 'user_sessions', :action => 'new'
   map.logout 'logout', :controller => 'user_sessions', :action => 'destroy'
   map.confirm 'confirm/:id', :controller => 'users', :action => 'confirm'
   map.fb_login 'facebook_login', :controller => 'user_sessions', :action => 'create_from_facebook'
   map.social_media 'social_media', :controller => 'social_media', :action => 'index'
   map.my_restaurants 'my_restaurants', :controller => 'restaurants', :action => 'mine'
-  
+
   map.resources :invitations, :only => ['new', 'create', 'show']
   map.resource :complete_registration, :only => [:show, :update],
     :collection => { :user_details => :get, :find_restaurant => :any, :contact_restaurant => :post }
@@ -174,6 +174,15 @@ ActionController::Routing::Routes.draw do |map|
 
   map.namespace :admin do |admin|
     admin.root      :controller => 'admin'
+
+    # the BTL routes need to be above the users and restaurants routes to prevent path conflicts
+    admin.with_options :path_prefix => '/admin/:responder_type',
+        :requirements => { :responder_type => /user|restaurant/ } do |btl|
+      btl.resources :profile_questions, :collection => { :sort => :post }
+      btl.resources :chapters, :collection => { :select => :post }
+      btl.resources :topics
+    end
+
     admin.resources :users
     admin.resources :pages
     admin.resources :feeds, :collection => { :sort => [:post, :put] }
@@ -191,9 +200,7 @@ ActionController::Routing::Routes.draw do |map|
     admin.resources :hq_pages
     admin.resources :soapbox_slides
     admin.resources :soapbox_promos, :collection => { :sort => :post }
-    admin.resources :profile_questions, :collection => { :sort => :post }
-    admin.resources :chapters, :collection => { :select => :post }
-    admin.resources :topics
+
     admin.resources :question_roles
     admin.resources :schools
     admin.resources :specialties, :collection => { :sort => :post }
