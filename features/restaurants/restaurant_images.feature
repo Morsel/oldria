@@ -57,7 +57,7 @@ Feature: Restaurant Images
     And I press "Save"
     When I go to the edit restaurant page for "Bourgeois Pig"
     Then I see the restaurant logo
-@wip
+
   Scenario: Upload logo fails when content type is not an image
     When I go to the edit restaurant page for "Bourgeois Pig"
     And I attach the image "/features/images/menu1.pdf" to "restaurant[logo_attributes][attachment]" on S3
