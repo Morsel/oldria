@@ -51,7 +51,8 @@
                 
                 <div>
                     <%= image_tag @user.avatar.url(:thumb), :class => 'thumbnail' %>
-                    <div class="headshot_fields">
+
+                    <div class="clearfix headshot_fields">
                       <%= f.label :avatar, "Upload a headshot" %><br><%= f.file_field :avatar %>
                       <p class="clearfix">
                         <%= button_tag "Upload Headshot", :class => 'positive' %>
