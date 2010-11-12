@@ -348,6 +348,13 @@ body,html,#container,#main,#content,#inside{
 	
 } /*content */
 #page-content{
+	.last_updated, .timestamp_header, .timestamp {
+		font-size: 10px;
+		margin: 5px 0;
+		padding: 0;
+		color: #888;
+		font-family: "lucida grande", verdana, sans-serif;
+	}
 	img{
 		float:left;
 		margin:3px 15px 10px 0;
@@ -485,9 +492,9 @@ body,html,#container,#main,#content,#inside{
 				margin: 0;
 				padding: 0;
 				a {
-					width: 120px;
 					margin: 0 5px 0 0;
 					background-color: $purple;
+					@include museoslabmedium;
 					color: #fff;
 					display: block;
 					padding: 10px;
@@ -495,37 +502,48 @@ body,html,#container,#main,#content,#inside{
 					&:hover {
 						background-color: $baby-blue;
 						text-decoration: none;
-						text-shadow: 0 1px 0 #000;
+
 					}
 				}
 				span.ui-tabs-selected a{
-					background-color: #E7E8EF;
+					background-color: #f0f1f8;
+					border-left: 1px solid #e7e8ef;
+					border-right: 1px solid #e7e8ef;
+					border-top: 1px solid #e7e8ef;
 					color: $purple;
 					&:hover {
 						text-decoration: none;
 					}
 				}
 			}
-			p{
+			p {
 				padding:10px;
 			}
-			.ui-tabs-hide{
+			.ui-tabs-hide {
 				display:none;
 			}
-			.panel-bg{
-				background-color: #E7E8EF;
-			}
-			.ui-tabs-panel{
-				.admin_qotd, .trend_question{
-					border-bottom:1px dotted #666;
-					a{
-						color: #333;
-						display: block;
-						margin: 0px;
-						padding: 10px;
-						&:hover{
-							background:$dark-purple;
-							color:#fff;
+			.panel-bg {
+				background: #f0f1f8;
+				border-left: 1px solid #e7e8ef;
+				border-right: 1px solid #e7e8ef;
+				border-bottom: 1px solid #e7e8ef;
+				.ui-tabs-panel{
+					background: #f0f1f8;
+					padding: 6px 0;
+					.admin_qotd, .trend_question{
+						border-bottom:1px dotted #B0B5CC;
+						background: #f0f1f8;
+						a{
+							color: #333;
+							display: block;
+							margin: 3px 0;
+							padding: 8px 10px;
+							&:hover{
+								background:$baby-blue;
+								text-shadow: 0 1px 0 #333;
+								color:#fff;
+								text-decoration: none;
+							}
 						}
 					}
 				}
@@ -548,6 +566,7 @@ body,html,#container,#main,#content,#inside{
 						color: #333;
 						&:hover {
 							text-decoration: none;
+							text-shadow: 0 1px 0 #333;
 							background-color: $darker-blue;
 							color: #fff;
 						}
@@ -771,9 +790,32 @@ body,html,#container,#main,#content,#inside{
 		}
 	}
 		
+	.user_actions {
+		float: right;
+		@include museoslabmedium;
+		text-transform: uppercase;
+		a {
+			float: left;
+			background-color: $sienna;
+			text-shadow: 0 1px 0 #333;
+			color: #fff;
+			padding: 8px 20px;
+			@include border-radius(20px);
+			&:hover {
+				background-color: $purple;
+				text-decoration: none;
+			}
+		}
+	}
 	
-	
-	
+	header {
+		img {
+			border: 1px solid #ddd;
+		}
+		h1 {
+			font-size: 24px;
+		}
+	}
 	
 	
 } /* page-content */
@@ -883,14 +925,19 @@ body,html,#container,#main,#content,#inside{
 					text-transform:uppercase;
 					.num{
 						display:inline-block;
+						min-width: 10px;
+						text-align: center;
 						@include border-radius(80px);
 						background:$light-purple;
 						padding:2px 5px;
 						color: #fff;
 						font-weight: bold;
 					}
-					&:hover, &:hover .num{
-						color:#fff;
+					&:hover {
+						color: #fff;
+						.num{
+							background-color: $baby-blue;
+						}
 					}
 				}
 				
@@ -1468,6 +1515,52 @@ p.search_filter_hint {
 } /*#recent-questions^^ */
 
 
+#profile-account, #profile-summary {
+	h5 {
+		@include museoslabthin;
+		font-size: 12px;
+		font-weight: bold;
+		margin: 10px 0 8px;
+		padding: 10px 0 0 0;
+		color: #333;
+		letter-spacing: 0.15em;
+		text-transform: uppercase;
+	}
+	p {
+		font-size: 13px;
+	}
+	dl {
+		overflow: hidden;
+		margin: 0 0 10px;
+		dt {
+			float: left;
+			width: 60px;
+			margin: 0 10px 0 0;
+			line-height: 18px;
+			&:after {
+				content: ":";
+			}
+		}
+		dd {
+			line-height: 18px;
+			padding: 2px 0;
+			font-weight: normal;
+		}
+	}
+}
+
+#profile-account {
+	float: right;
+	width: 213px;
+	margin-left: 15px;
+	padding-left: 15px;
+	border-left: 1px dotted #ddd;
+}
+#profile-summary {
+	margin-right: 244px;
+}
+
+
 /* Front Burner */
 
 #user_profile_view {
@@ -1636,8 +1729,8 @@ p.search_filter_hint {
 		}
 	}
 	.extended_profile_info, .profile_info {
-	  	position:relative;
-	  	overflow:hidden;
+	  position:relative;
+	  overflow:hidden;
 		padding: 0px 2px;
 		ul {
 		  	margin: 0;
@@ -1659,10 +1752,11 @@ p.search_filter_hint {
 		}
 	}
 	.timestamp {
-	  	position:absolute;
-	  	top:14px; right:0;
-	  	font:normal 10px "Helvetica Neue", Helvetica, Arial, sans-serif;
-	  	color:#808080;
+	  position:absolute;
+	  top:8px;
+		right:0;
+	  font:normal 10px "Helvetica Neue", Helvetica, Arial, sans-serif;
+	  color:#808080;
 	}
 	.employee_role {
 	  	border: 0;
