@@ -16,7 +16,7 @@ class UsersController < ApplicationController
   end
 
   def edit
-    redirect_to edit_my_profile_path
+    redirect_to edit_my_profile_path unless current_user.admin?
   end
 
   def update

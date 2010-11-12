@@ -3,12 +3,44 @@
 <section id="profile-tabs">
   <nav id="profile-options">
     <span><a href="#profile-account">Account</a></span>
-    <span><a href="#profile-messages">Messages</a></span>
-    <span><a href="#profile-summary">Profile Summary</a></span>
-    <span><a href="#profile-extended">Extended Profile</a></span>
   </nav><!-- /profile_options -->
 
   <section id="profile-account">
+      <div class="fieldset" id="plans">
+          <h3>Personal Account Status</h3>
+
+          <div id="payment_blurb">
+              Basic accounts allow you to participate in Spoonfeed. If you would like to be included in Soapbox, please upgrade to a Premium Account. A personal premium account is $50/month.
+          </div>
+
+          <div>
+              <%= link_to "More Information...", "/account_types", :class => 'button' %>
+          </div>
+
+          <div class="current">
+              Your current account status is 
+              <%= @user.public_account_type %> <%= @user.account_payer_type %>.
+              <% if @user.premium_account? %>
+              <div id="start_date">
+                  You have been a premium member since <%= @user.subscription.start_date.to_s(:long) %>
+              </div>
+              <% if @user.subscription && @user.subscription.in_overtime? %>
+              <div id="end_date">
+                  This account has been canceled and will end
+                  <%= @user.subscription.end_date.to_s(:long)%>
+              </div>
+              <% end %>
+              <% end %>
+          </div>
+
+          <% if @user.staff_account? %>
+          <div>
+              Your account is managed by <%= h @user.subscription.payer.name %>.
+          </div>
+          <% else %>
+            <%= render :partial => 'subscriptions/account_links', :locals => {:subscriber => @user, :subscriber_type => "user"} %>
+          <% end %>
+      </div>
   </section><!-- /profile-account -->
 
 </section><!-- /profile-tabs -->

@@ -75,7 +75,7 @@ Feature: User Accounts
     Given user "emily" has a premium account
     Given I am logged in as "notemily" with password "secret"
     # No route to access other users' profile edit pages
-    # When I go to the profile edit page for "emily"
+    # When I go to the edit profile page for "emily"
     # Then I should be on the root page
     When I go to the new subscription page for "emily"
     Then I should be on the root page
@@ -86,9 +86,9 @@ Feature: User Accounts
     Given user "emily" has a premium account
     And I am logged in as an admin
     And I simulate a successful cancel from braintree
-    When I go to the profile edit page for "emily"
+    When I go to the edit page for "emily"
     And I follow "Downgrade to basic"
-    Then I should be on the profile edit page for "emily"
+    Then I should be on the edit page for "emily"
     Then I see my account status is premium
     And I see that the account for "emily" lasts until the end of the billing cycle
 

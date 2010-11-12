@@ -21,7 +21,7 @@ class Soapbox::SoapboxController < ApplicationController
       directory_search_setup
       
       @use_search = true
-      @users_for_search = User.by_last_name.with_premium_account.all
+      @users_for_search = User.active.by_last_name.with_premium_account.all
       @restaurants_for_search = @users_for_search.map(&:restaurants).flatten.compact.uniq.sort { |a,b| a.sort_name <=> b.sort_name }
     end
     
