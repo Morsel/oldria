@@ -2,7 +2,7 @@ class Admin::ProfileQuestionsController < Admin::AdminController
 
   def index
     @questions = ProfileQuestion.all(
-        :conditions => {:responder_type => h(params[:responder_type])},
+        :conditions => ["topics.responder_type = ?", h(params[:responder_type])],
         :include => { :chapter => :topic },
         :order => "topics.title ASC, chapters.title ASC, profile_questions.position ASC"
       ).group_by(&:chapter)

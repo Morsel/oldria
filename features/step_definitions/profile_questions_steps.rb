@@ -33,13 +33,19 @@ end
 Given /^the following restaurant chapters:$/ do |table|
   table.hashes.each do |row|
     topic = Factory(:topic, :title => row['topic'], :responder_type => 'restaurant')
-    Factory(:chapter, :title => row['title'], :topic => topic, :responder_type => 'restaurant')
+    Factory(:chapter, :title => row['title'], :topic => topic)
+  end
+end
+
+Given /^the following (.+) topics:$/ do |responder_type, table|
+  table.hashes.each do |row|
+    topic = Factory(:topic, :title => row['topic'], :responder_type => responder_type)
   end
 end
 
 Given /^I have created the following restaurant profile questions:$/ do |table|
   table.hashes.each do |row|
-    question = Factory(:profile_question, :title => row['question'], :chapter => Chapter.find_by_title(row['chapter']), :responder_type => 'restaurant')
+    question = Factory(:profile_question, :title => row['question'], :chapter => Chapter.find_by_title(row['chapter']))
   end
 end
 
