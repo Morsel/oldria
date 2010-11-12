@@ -23,7 +23,7 @@ class CommentsController < ApplicationController
     @comment = Comment.find(params[:id])
     if @comment.update_attributes(params[:comment].merge(:user_id => current_user.id))
       flash[:notice] = "Updated comment"
-      redirect_to ria_messages_path
+      redirect_to front_burner_path
     else
       render :action => "edit"
     end
@@ -33,7 +33,7 @@ class CommentsController < ApplicationController
     @comment = Comment.find(params[:id])
     @comment.destroy
     flash[:notice] = "Deleted comment"
-    redirect_to ria_messages_path
+    redirect_to front_burner_path
   end
 
   private
