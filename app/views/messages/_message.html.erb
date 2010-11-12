@@ -1,9 +1,11 @@
 <% div_for message, :class => classes(message) do %>
-  <%= render 'messages/message_details', :message => message %>
+    <%= render 'messages/message_details', :message => message %>
 
-  <% if message.respond_to?(:recipients_can_reply?) and message.recipients_can_reply? %>
+    <% if message.respond_to?(:recipients_can_reply?) and message.recipients_can_reply? %>
     <div class="message-actions">
-      <%= render 'messages/message_actions', :message => message %>
+        <%= render 'messages/message_actions', :message => message %>
     </div>
-  <% end %>
+    <% end %>
+
+    <% if false %><%= render 'messages/soapbox_details', :message => message %><% end %>
 <% end %>
