@@ -29,18 +29,20 @@
 
 <h2>Restaurants and Users</h2>
 <ul>
-    <li><%= link_to "Invitations", admin_invitations_path %></li>
-    <li><%= link_to "Users", admin_users_path %></li>
+  <li><%= link_to "Invitations", admin_invitations_path %></li>
+  <li><%= link_to "Users", admin_users_path %></li>
 
   <li><%= link_to "Restaurants", admin_restaurants_path %></li>
   <li><%= link_to "Restaurant Tags", admin_restaurant_features_path %></li>
 
-    <li><%= link_to "A La Minute Questions", admin_a_la_minute_questions_path %></li>
-  <li><%= link_to "Restaurants: Behind the Line: Topics, Chapters, Questions",
-              admin_profile_questions_path(:responder_type => 'restaurant') %></li>
+  <li><%= link_to "A La Minute Questions", admin_a_la_minute_questions_path %></li>
+
   <li><%= link_to "Users: Behind the Line: Topics, Chapters, Questions",
               admin_profile_questions_path(:responder_type => 'user') %></li>
   <li><%= link_to "Users: Behind the Line: Restaurant Role Assignments", admin_restaurant_roles_path %></li>
+
+  <li><%= link_to "Restaurants: Behind the Line: Topics, Chapters, Questions",
+              admin_profile_questions_path(:responder_type => 'restaurant') %></li>
 </ul>
 
 
