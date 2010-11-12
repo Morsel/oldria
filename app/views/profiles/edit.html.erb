@@ -111,22 +111,27 @@
 
     <section id="profile-summary">
         <% semantic_form_for @profile, :url => my_profile_path do |f| %>
-            <% f.inputs :name => "Preferences", :for => :user do |user_form| %>
+            <% f.inputs :name => "Public Profile View", :for => :user do |user_form| %>
                 <%= user_form.input :prefers_publish_profile, :as => :boolean, :label => 'Publish your profile for other users to view?' %>
+				<% button_tag :class => 'positive' do %><img src="/images/tick.png"/> Save changes to public profile view<% end %>
             <% end %>
 
-            <% f.inputs :name => 'Basics' do %>
+            <% f.inputs :name => 'Basic Information' do %>
                 <%= f.input :birthday, :end_year => 1930, :start_year => Date.today.year, :selected => nil %>
                 <%= f.input :job_start, :end_year => 1930, :start_year => Date.today.year, :selected => nil %>
                 <%= f.input :headline %>
                 <%= f.input :summary, :hint => "Keep it under 1000 characters" %>
                 <%= f.input :hometown %>
                 <%= f.input :current_residence, :label => "Currently residing in" %>
+				<% button_tag :class => 'positive' do %><img src="/images/tick.png"/> Save changes to basic information<% end %>
+
             <% end %>
 
             <% f.inputs :name => "Metro and Region for search" do %>
                 <%= f.input :metropolitan_area %>
                 <%= f.input :james_beard_region, :label => "Region" %>
+				<% button_tag :class => 'positive' do %><img src="/images/tick.png"/> Save changes for search<% end %>
+
             <% end %>
 
             <% f.inputs :name => "Current Employment" do %>
@@ -136,6 +141,8 @@
                     <li><%= radio_button_tag "profile[primary_employment][]", employment.id, primary?(employment) %> <%= employment.restaurant_role.try(:name) %> at <%= employment.restaurant.name %></li>
                     <% end %>
                 </ul>
+				<% button_tag :class => 'positive' do %><img src="/images/tick.png"/> Save changes to employment<% end %>
+
             <% end %>
 
             <% f.inputs :name => "Contact Information" do %>
@@ -175,6 +182,9 @@
                 <%- else -%>
                   <p><%= link_to "Set up Facebook", edit_my_profile_path(:anchor => "facebook") %></p>
                 <%- end -%>
+
+				<% button_tag :class => 'positive' do %><img src="/images/tick.png"/> Save changes to contact information<% end %>
+
             <% end %><!-- Contact information -->
 
             <% f.inputs :name => "Cuisines and Specialties" do %>
@@ -188,10 +198,14 @@
                     <% link_to new_my_profile_profile_cuisine_path, :class => 'positive button colorbox' do %>
                     <img src="/images/plus.png"/> Add
                     <% end %>
+					
+
                 </div>
+<br />
+					<% button_tag :class => 'positive' do %><img src="/images/tick.png"/> Save changes to cuisines and specialties<% end %>
             <% end %><!-- Cuisines and specialties -->
 
-            <p class="clear">
+            <p class="clear" style="display:none"><!-- removed by nick 11/12 -->
                 <% button_tag :class => 'positive' do %><img src="/images/tick.png"/> Save<% end %>
                 <%= button_tag "Preview", :name => "preview" %>
             </p>
