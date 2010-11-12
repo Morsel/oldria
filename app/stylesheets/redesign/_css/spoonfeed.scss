@@ -552,8 +552,7 @@ form#new_user_session {
 			}
 		}
 		p {
-			@include brandongrotesquebold;
-			font-size: 14px;
+			font-size: 15px;
 		}
 		p.view_your_messages {
 			margin: 10px 0 0 0;
@@ -1007,6 +1006,7 @@ form#new_user_session {
 		h3{
 			@include hoeflerbolditalic;
 			color:$orange;
+			text-shadow: 0 1px 0 #fff;
 			font-size:21px;
 			font-weight:normal;
 			line-height:1.2;
@@ -1024,8 +1024,10 @@ form#new_user_session {
 		}
 		&:hover{
 			cursor:pointer;
+			color: $orange;
 			text-decoration:none;
-			background:rgba(216,83,30,0.08);
+			background-color: none;
+			background: none;
 		}
 		table{
 					table-layout:fixed;
@@ -1056,10 +1058,6 @@ form#new_user_session {
 	.topic {
 		h3{
 			padding-right:0;
-		}
-		&:hover{
-			cursor:normal;
-			background:#fff;
 		}
 	} /* behind the line stuff */
 
@@ -1347,7 +1345,8 @@ p.search_filter_hint {
 				font-size: 18px;
 				&:hover {
 					color: #fff;
-					background-color: $brown;
+					@include linear-gradient(color-stops(#ce4600,#df680e ), left);
+					text-shadow: 0 1px 0 #333;
 				}
 			}
 			&#btl_game {
@@ -1578,7 +1577,7 @@ p.search_filter_hint {
 			}
 		}	
 		ul {
-			margin: 8px 0 0 42px;
+			margin: 8px 0 0 65px;
 			padding: 0;
 			li {
 				font-size: 13px;
@@ -1641,6 +1640,7 @@ p.search_filter_hint {
 		}
 		.comment {
 			margin-left: 315px;
+			padding-bottom: 10px;
 		}
 		
 	}
@@ -2012,7 +2012,40 @@ p.search_filter_hint {
 
 #behindline{
 	@include column(9);
-	
+	.view_all {
+		text-transform: uppercase;
+		font-family: "Hoefler Text", Georgia, serif;
+		font-weight: bold;
+		font-weight: 700;
+		font-size: 12px;
+		letter-spacing: 0.1em;
+		a {
+			color: #333;
+			&:hover {
+				color: $orange;
+			}
+		}
+	}
+	.edit_profile_link {
+		a {
+			background-image: url(/images/redesign/pencil.png);
+			background-repeat: no-repeat;
+			background-position: 5px 6px;
+			@include brandongrotesquebold;
+			text-shadow: 0 1px 0 #333;
+			font-size: 13px;
+			text-transform: uppercase;
+			display: block;
+			color: #fff;
+			background-color: $orange;
+			padding: 7px 10px 7px 20px;
+			&:hover {
+				background-color: $trans-orange;
+				color: $orange;
+				text-shadow: 0 1px 0 #fff;
+			}
+		}
+	}
 	ul{
 		margin:10px 0;
 		padding:0;
@@ -2022,7 +2055,7 @@ p.search_filter_hint {
 			background:0;
 			&.even{
 				a{
-					background:#DFDBCC;
+					background:#f2f0e9;
 				}
 			}
 			a{
@@ -2032,15 +2065,20 @@ p.search_filter_hint {
 				color:#333;
 				h5{
 					font-family: "Hoefler Text", Georgia, serif;
+					font-weight: bold;
+					font-weight: 700;
+					font-size: 12px;
+					letter-spacing: 0.1em;
 					color:$brown;
 					width:200px;
 					line-height:1.1;
-					margin:0 0 10px;
+					margin:0 0 6px;
 					.completeness{
 						position:absolute;
-						top:5px;
-						right:5px;
+						top:10px;
+						right:10px;
 						color:#808080;
+						letter-spacing: 0em;
 						font:normal 9px "Lucida Grande", Arial, sans-serif;
 					}
 				}
@@ -2048,8 +2086,10 @@ p.search_filter_hint {
 					background:$med-brown;
 					color:#fff;
 					text-decoration:none;
+					text-shadow: 0 1px 0 #333;
 					h5{
 						color:#333;
+						text-shadow: none;
 						.completeness{
 							color:#333;
 						}
@@ -2061,6 +2101,66 @@ p.search_filter_hint {
 }
 #recent_qtod{
 	@include column(8,true);
+	h3 {
+		font-family: 'helvetica neue', helvetica, arial, sans-serif;
+		font-weight: normal;
+		font-weight: 300;
+		font-size: 16px;
+		border-bottom: 1px solid #ccc;
+		padding-bottom: 5px;
+	}
+	.tabable {
+		nav {
+			@include brandongrotesquebold;
+			font-size: 13px;
+			text-transform: uppercase;
+			line-height: 18px;
+			a {
+				float:left;
+				margin: 0px 6px 7px 0;
+				height: 23px;
+				padding: 7px 10px 3px;
+				background-color: $trans-orange;
+				background-image: none;
+				text-shadow: 0 1px 0 #fff;
+				&.selected {
+					height: 30px;
+					margin-bottom: 0;
+					background: transparent url(/images/redesign/bg-tabable.png) no-repeat 0 100%;
+					text-shadow: 0 1px 0 #333;
+					color: #fff;
+				}
+				&:hover {
+					background-color: $trans-brown;
+					color: $brown;
+				}
+			}
+		}
+	}	
+	.panel-bg {
+		display: block;
+		clear: both;
+		margin: 4px 0;
+		.admin_qotd, .trend_question {
+			a {
+				color: #333;
+				display: block;
+				padding: 8px 10px;
+				border-bottom: 1px dotted #f4a379;
+				margin: 0;
+				&:before {
+					color: $orange;;
+					font-weight: bold;
+					content: "Q: ";
+				}
+				&:hover {
+					background-color: $trans-orange;
+					color: $orange;
+					text-shadow: 0 1px 0 #fff;
+				}
+			}
+		}
+	}	
 }
 
 .topic-nav{
