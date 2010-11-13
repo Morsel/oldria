@@ -15,6 +15,7 @@ class ProfilesController < ApplicationController
       flash[:notice] = "Successfully created profile."
       redirect_to profile_path(@profile.user.username)
     else
+      @user = current_user
       render :edit
     end
   end

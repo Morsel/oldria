@@ -25,6 +25,8 @@ $('#profile-tabs').tabs({
 	fx: { duration: 'fast', opacity: 'toggle' }
 });
 
+$('.tabable').tabs();
+
 $('.new_question').live('click', function(){
 	$(this).css({
 		backgroundRepeat: 'no-repeat',

@@ -552,8 +552,7 @@ form#new_user_session {
 			}
 		}
 		p {
-			@include brandongrotesquebold;
-			font-size: 14px;
+			font-size: 15px;
 		}
 		p.view_your_messages {
 			margin: 10px 0 0 0;
@@ -685,19 +684,19 @@ form#new_user_session {
 				text-decoration: underline;
 			}
 			&.button {
+				float:left;
 				font-weight: 300;
 				letter-spacing: 0.1em;
 				text-transform: uppercase;
 				padding: 4px 12px;
-				border: 1px solid #ecd2c8;
-				background-color: $trans-orange;
-				color: $orange;
+				background: #dd630c;
+				color: #fff;
 				@include border-radius(20px);
 				img {
 					margin-right: 2px;}
 				&:hover {
-					background-color: $orange;
-					color: #fff;
+					background-color: $trans-orange;
+					color: #333;
 					text-decoration: none;
 					border: 1px solid $orange;
 					text-shadow: 0 1px 0 #333;
@@ -870,32 +869,26 @@ form#new_user_session {
 			p {display: block;overflow:hidden;}
 			button {
 				float: left;
-				height: 36px;
 				display: block;
-				border: 1px solid #ddd;
 				margin: 0 10px 0 0;
 				font-size: 12px;
 				font-family: 'helvetica neue', helvetica, arial, sans-serif;
-				background-color: #f2f2f2;
-				@include linear-gradient(color-stops(#f4f4f4,#eaeaea ), top);
+				background-color: $orange;
 				@include border-radius(20px);
-				color: #333;
+				color: #fff;
 				padding: 5px 12px;
 				font-weight: bold;
+				text-shadow:0 1px 0 #444;
+				border:0;
 				&:hover {
 					background: #bbb08c;
 					color: #fff;
-					text-shadow: 0 1px 0 #444;
-					border: 1px solid #a6996c;
 				}
 				&.positive {
-					border: 1px solid #90d284;
-					@include linear-gradient(color-stops(#f7f7f7,#bfe9b8 ), top);
 					&:hover {
-						background: #5aa252;
-						color: #fff;
-						text-shadow: 0 1px 0 #444;
-						border: 1px solid #397d33;
+						background: $trans-orange;
+						color: #333;
+						text-shadow:none;
 					}
 				}
 			}	
@@ -989,6 +982,28 @@ form#new_user_session {
 				}
 			}
 		}
+		#twitter-fieldset, #facebook-fieldset{
+			width:308px;
+			padding:10px;
+			float:left;
+			a{
+				color:#333;
+				&.sf-button{
+					font-weight:normal;
+					background:#eceded;
+					color:$orange;
+					padding:5px 10px;
+					border:1px solid #ccc;
+					@include border-radius(80px);
+					&:hover{
+						background:#ddd;
+					}
+				}
+			}
+		}
+		#twitter-fieldset{
+			border-right:1px dotted #ccc;
+		}
 	} /* profile tabs */
 
 
@@ -1007,6 +1022,7 @@ form#new_user_session {
 		h3{
 			@include hoeflerbolditalic;
 			color:$orange;
+			text-shadow: 0 1px 0 #fff;
 			font-size:21px;
 			font-weight:normal;
 			line-height:1.2;
@@ -1024,8 +1040,10 @@ form#new_user_session {
 		}
 		&:hover{
 			cursor:pointer;
+			color: $orange;
 			text-decoration:none;
-			background:rgba(216,83,30,0.08);
+			background-color: none;
+			background: none;
 		}
 		table{
 					table-layout:fixed;
@@ -1056,10 +1074,6 @@ form#new_user_session {
 	.topic {
 		h3{
 			padding-right:0;
-		}
-		&:hover{
-			cursor:normal;
-			background:#fff;
 		}
 	} /* behind the line stuff */
 
@@ -1205,7 +1219,7 @@ form, #page_content form{
 		display: block;
 		legend {
 			display: block;
-			margin: 10px 0;
+			margin: 0;
 			padding: 10px 0;
 			span {
 				font-family: 'Hoefler Text', Georgia, serif !important;
@@ -1259,28 +1273,31 @@ form, #page_content form{
 
 #criteria_accordion {
 	.accordion_box {
+		width: 620px;
+		border: 1px solid #ece8d7;
+		@include border-radius(4px);
+		background: #f7f6f2 url(/images/redesign/button_bg.png) repeat-x;
+		margin: 5px 0 0 0;
 		.ui-accordion-content {
-			width: 625px;
-			label {
-				font-weight: normal;
+			li {
+				background-color: #fff;
+				label {
+					display: block;
+					margin: 5px 0;
+					font-weight: normal;
+				}
 			}
 		}
 		a {
 			display: block;
 			font-size: 13px;
 			text-shadow: 0 1px 0 #fff;
-			border: 1px solid #ece8d7;
 			color: #897a55;
 			font-weight: bold;
-			@include border-radius(4px);
 			padding: 8px 12px;
-			width: 600px;
-			margin: 7px 0 0 0;
-			background: #f7f6f2 url(/images/redesign/button_bg.png) repeat-x;
+			margin: 0;
 			&:hover {
-				background-color: #faeae4;
 				color: #d8531e;
-				border: 1px solid #f2d1c4;
 			}
 			span{
 			  display:block;
@@ -1288,9 +1305,8 @@ form, #page_content form{
 			  background:url(/images/blue_arrow.png) no-repeat 3px -23px;
 			}
 			&.options_selected{
-			  background:#e6f3df url(/images/green_check.png) no-repeat right;
-				border: 1px solid #cbe3be;
-				color: #579437;
+			  background:$trans-orange url(/images/green_check.png) no-repeat right;
+				color: $orange;
 			}
 			&.ui-state-active span{
 			  background-position:3px 5px;
@@ -1347,7 +1363,8 @@ p.search_filter_hint {
 				font-size: 18px;
 				&:hover {
 					color: #fff;
-					background-color: $brown;
+					@include linear-gradient(color-stops(#ce4600,#df680e ), left);
+					text-shadow: 0 1px 0 #333;
 				}
 			}
 			&#btl_game {
@@ -1357,6 +1374,7 @@ p.search_filter_hint {
 					float: right;
 					width: 25px;
 					height: 25px;
+					margin-top: -5px;
 					background-image: url(/images/redesign/icon-refresh.png);
 					background-position: 0 0;
 					&:hover {
@@ -1578,7 +1596,7 @@ p.search_filter_hint {
 			}
 		}	
 		ul {
-			margin: 8px 0 0 42px;
+			margin: 8px 0 0 65px;
 			padding: 0;
 			li {
 				font-size: 13px;
@@ -1641,6 +1659,7 @@ p.search_filter_hint {
 		}
 		.comment {
 			margin-left: 315px;
+			padding-bottom: 10px;
 		}
 		
 	}
@@ -2012,7 +2031,40 @@ p.search_filter_hint {
 
 #behindline{
 	@include column(9);
-	
+	.view_all {
+		text-transform: uppercase;
+		font-family: "Hoefler Text", Georgia, serif;
+		font-weight: bold;
+		font-weight: 700;
+		font-size: 12px;
+		letter-spacing: 0.1em;
+		a {
+			color: #333;
+			&:hover {
+				color: $orange;
+			}
+		}
+	}
+	.edit_profile_link {
+		a {
+			background-image: url(/images/redesign/pencil.png);
+			background-repeat: no-repeat;
+			background-position: 5px 6px;
+			@include brandongrotesquebold;
+			text-shadow: 0 1px 0 #333;
+			font-size: 13px;
+			text-transform: uppercase;
+			display: block;
+			color: #fff;
+			background-color: $orange;
+			padding: 7px 10px 7px 20px;
+			&:hover {
+				background-color: $trans-orange;
+				color: $orange;
+				text-shadow: 0 1px 0 #fff;
+			}
+		}
+	}
 	ul{
 		margin:10px 0;
 		padding:0;
@@ -2022,7 +2074,7 @@ p.search_filter_hint {
 			background:0;
 			&.even{
 				a{
-					background:#DFDBCC;
+					background:#f2f0e9;
 				}
 			}
 			a{
@@ -2032,15 +2084,20 @@ p.search_filter_hint {
 				color:#333;
 				h5{
 					font-family: "Hoefler Text", Georgia, serif;
+					font-weight: bold;
+					font-weight: 700;
+					font-size: 12px;
+					letter-spacing: 0.1em;
 					color:$brown;
 					width:200px;
 					line-height:1.1;
-					margin:0 0 10px;
+					margin:0 0 6px;
 					.completeness{
 						position:absolute;
-						top:5px;
-						right:5px;
+						top:10px;
+						right:10px;
 						color:#808080;
+						letter-spacing: 0em;
 						font:normal 9px "Lucida Grande", Arial, sans-serif;
 					}
 				}
@@ -2048,8 +2105,10 @@ p.search_filter_hint {
 					background:$med-brown;
 					color:#fff;
 					text-decoration:none;
+					text-shadow: 0 1px 0 #333;
 					h5{
 						color:#333;
+						text-shadow: none;
 						.completeness{
 							color:#333;
 						}
@@ -2061,6 +2120,66 @@ p.search_filter_hint {
 }
 #recent_qtod{
 	@include column(8,true);
+	h3 {
+		font-family: 'helvetica neue', helvetica, arial, sans-serif;
+		font-weight: normal;
+		font-weight: 300;
+		font-size: 16px;
+		border-bottom: 1px solid #ccc;
+		padding-bottom: 5px;
+	}
+	.tabable {
+		nav {
+			@include brandongrotesquebold;
+			font-size: 13px;
+			text-transform: uppercase;
+			line-height: 18px;
+			a {
+				float:left;
+				margin: 0px 6px 7px 0;
+				height: 23px;
+				padding: 7px 10px 3px;
+				background-color: $trans-orange;
+				background-image: none;
+				text-shadow: 0 1px 0 #fff;
+				&.selected {
+					height: 30px;
+					margin-bottom: 0;
+					background: transparent url(/images/redesign/bg-tabable.png) no-repeat 0 100%;
+					text-shadow: 0 1px 0 #333;
+					color: #fff;
+				}
+				&:hover {
+					background-color: $trans-brown;
+					color: $brown;
+				}
+			}
+		}
+	}	
+	.panel-bg {
+		display: block;
+		clear: both;
+		margin: 4px 0;
+		.admin_qotd, .trend_question {
+			a {
+				color: #333;
+				display: block;
+				padding: 8px 10px;
+				border-bottom: 1px dotted #f4a379;
+				margin: 0;
+				&:before {
+					color: $orange;;
+					font-weight: bold;
+					content: "Q: ";
+				}
+				&:hover {
+					background-color: $trans-orange;
+					color: $orange;
+					text-shadow: 0 1px 0 #fff;
+				}
+			}
+		}
+	}	
 }
 
 .topic-nav{
@@ -2086,6 +2205,43 @@ p.search_filter_hint {
 		&.all-topics{
 			background-image:url(/images/redesign/bg-home.png);
 		}
+	}
+}
+
+
+#profile-edit-account{
+	font:normal 13px "Helvetica Neue", Helvetica, Arial, sans-serif;
+	line-height:1.4;
+	.current{
+		background-color:#efede5;
+		background:rgba(223,219,204,0.33) url(/images/redesign/bg-current.png) no-repeat 10px center;
+		margin:10px 0;
+		padding:10px 10px 10px 52px;
+		@include border-radius(10px);
+		border:1px solid $med-brown;
+		color:$orange;
+	}
+}
+
+.button-separator{
+	float:left;
+	border-right:1px solid #ccc;
+	margin:0 5px;
+	display:inline-block;
+	height:30px;
+}
+
+.headshot img.thumbnail{
+	float:left;
+	padding:10px;
+	border-right:1px dotted #ccc;
+}
+
+.headshot_fields{
+	margin-left:100px;
+	padding:0 20px;
+	p{
+		margin:10px 0 0;
 	}
 }
 
