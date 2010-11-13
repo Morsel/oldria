@@ -1,7 +1,7 @@
 include SubscriptionsControllerHelper
 
 Then /^I see my account status is not premium$/ do
-  response.should have_selector("#plans .current", :content => "Basic")
+  response.should have_selector(".current", :content => "Basic")
 end
 
 Then /^I see that the restaurant's account status is basic$/ do
@@ -17,8 +17,7 @@ Then /^I do not see a premium badge$/ do
 end
 
 Then /^I see a link to update my account to premium$/ do
-  response.should have_selector("#plans #upgrade_link a",
-      :content => "Upgrade to Premium")
+  response.should have_selector("#upgrade_link a", :content => "Upgrade to Premium")
 end
 
 Given /^user "([^"]*)" has a premium account$/ do |username|
@@ -58,25 +57,24 @@ Then /^I see a premium badge$/ do
 end
 
 Then /^I see my account status is premium$/ do
-  response.should have_selector("#plans .current", :content => "Premium")
+  response.should have_selector(".current", :content => "Premium")
 end
 
 Then /^I see my account status is basic$/ do
-  response.should have_selector("#plans .current", :content => "Basic")
+  response.should have_selector(".current", :content => "Basic")
 end
 
 Then /^I see my account status is a premium staff account$/ do
-  response.should have_selector("#plans .current", :content => "Premium Staff")
+  response.should have_selector(".current", :content => "Premium Staff")
 end
 
 Then /^I see my account status is complimentary$/ do
-  response.should have_selector("#plans .current", :content => "Premium")
+  response.should have_selector(".current", :content => "Premium")
 end
 
 
 Then /^I see a link to cancel my account$/ do
-  response.should have_selector("#plans #upgrade_link a",
-      :content => "Downgrade to basic")
+  response.should have_selector("#upgrade_link a", :content => "Downgrade to basic")
 end
 
 When /^I simulate braintree create behavior$/ do

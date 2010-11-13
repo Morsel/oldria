@@ -15,7 +15,7 @@ Feature: User headshots
     And "emily" has no headshot
     When I follow "My Profile"
     And I follow "Edit profile"
-    And I attach an avatar "headshot.jpg" to "Headshot"
+    And I attach an avatar "headshot.jpg" to "Upload a Headshot"
     And I press "Upload Headshot"
     Then I should see "Successfully updated your profile"
     And "emily" should have a headshot
