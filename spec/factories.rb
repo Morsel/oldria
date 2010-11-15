@@ -228,6 +228,7 @@ end
 
 Factory.define :topic do |f|
   f.sequence(:title) { |n| "Background #{n}" }
+  f.responder_type "user"
   f.description "Interesting topic"
 end
 
@@ -238,9 +239,13 @@ Factory.define :chapter do |f|
 end
 
 Factory.define :profile_question do |f|
-  f.sequence(:title) { |n| "Question #{n}" } 
+  f.sequence(:title) { |n| "Question #{n}" }
   f.association :chapter
-  f.restaurant_roles { [Factory(:restaurant_role), Factory(:restaurant_role) ]}
+  f.question_roles { [Factory(:question_role), Factory(:question_role) ]}
+end
+
+Factory.define :question_role do |f|
+  f.responder { Factory(:restaurant_role) }
 end
 
 Factory.define :profile_answer do |f|

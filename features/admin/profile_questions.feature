@@ -21,9 +21,6 @@ Feature: Profile questions
     Then I should see "Added new profile question"
 
   Scenario: creating a new chapter
-    Given the following user topics:
-      | topic           |
-      | Career Building |
     When I go to the user chapters page
     And fill in "Title" with "Mentoring"
     And I press "Save"

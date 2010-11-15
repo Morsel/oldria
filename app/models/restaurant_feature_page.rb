@@ -1,5 +1,7 @@
 class RestaurantFeaturePage < ActiveRecord::Base
   has_many :restaurant_feature_categories
+  has_many :question_roles, :as => :responder, :dependent => :destroy
+  has_many :profile_questions, :through => :question_roles
 
   validates_presence_of :name
   validates_uniqueness_of :name

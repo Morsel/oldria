@@ -21,8 +21,8 @@ Feature: Admin Messaging: Announcements
     And I should see "We've got Direct Messages!"
     And "sam" should have 1 Announcement message
     And "john" should have 1 Announcement message
-    
-    
+
+
 @emails
   Scenario: New Announcement notification, user prefers no emails
   Given there are no Admin Messages in the system
