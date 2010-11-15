@@ -23,8 +23,8 @@ class Topic < ActiveRecord::Base
   default_scope :order => "topics.position ASC, topics.title ASC"
 
   named_scope :for_user, lambda { |user|
-    { :joins => { :chapters => { :profile_questions => :restaurant_roles }},
-    :conditions => ["restaurant_roles.id = ?", user.primary_employment.restaurant_role.id],
+    { :joins => { :chapters => { :profile_questions => :question_roles }},
+      :conditions => ["question_roles.responder_id = ? AND question_roles.responder_type = ?", user.primary_employment.restaurant_role.id, user.primary_employment.restaurant_role.class.name],
     :select => "distinct topics.*",
     :order => :position }
   }

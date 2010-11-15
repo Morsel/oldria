@@ -24,10 +24,10 @@ class Chapter < ActiveRecord::Base
   default_scope :joins => :topic, :order => "topics.title ASC, chapters.title ASC"
 
   named_scope :for_user, lambda { |user|
-    { :joins => { :profile_questions => :restaurant_roles },
-    :conditions => ["restaurant_roles.id = ?", user.primary_employment.restaurant_role.id],
-    :select => "distinct chapters.*",
-    :order => :position }
+    { :joins => { :profile_questions => :question_roles },
+      :conditions => ["question_roles.responder_id = ? AND question_roles.responder_type = ?", user.primary_employment.restaurant_role.id, user.primary_employment.restaurant_role.class.name],
+      :select => "distinct chapters.*",
+      :order => :position }
   }
 
   named_scope :answered_for_user, lambda { |user|

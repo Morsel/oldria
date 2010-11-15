@@ -63,7 +63,6 @@ Feature: Profile questions
     Then I should see "Early on"
     And I should see "Career building"
 
-@wip
   Scenario: creating a restaurant profile question
     Given the following restaurant chapters:
       | title    | topic   |
