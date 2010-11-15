@@ -18,8 +18,10 @@ Feature: Soapbox
   
     Given I am not logged in
     And I am logged in as "chris"
-  
     # "bob" has not logged in yet
+    
+    And "mgmt" has a published profile
+    And "chris" has a published profile
   
   Scenario: Featuring a QOTD on the soapbox
     Given I am not logged in
