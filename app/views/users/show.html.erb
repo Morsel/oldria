@@ -33,7 +33,7 @@
       <dl class="user_info clearfix clear contact">
           <%- unless params[:controller] == 'soapbox/profiles' -%>
           <dt>Acct. Type</dt>
-          <dd class="user_account_type"><%= h @user.account_type %></dd>
+          <dd class="user_account_type"><%= h @user.public_account_type %></dd>
           <%- end -%>
 
           <% if display_cell(@user) %>

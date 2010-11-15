@@ -1,0 +1,187 @@
+/* spoonfeed print style */
+
+#container {
+	width: 700px;
+	margin: 0 auto;
+}
+
+h1#logo {
+	font-family: 'Hoefler Text', Georgia, Times, serif;
+	font-size: 30px;
+	text-transform: uppercase;
+	font-weight: normal;
+	letter-spacing: 0.2em;
+	a {
+		color: #333;
+		margin: 20px 0;
+		text-decoration: none;
+	}
+}
+
+.header_right {display: none;}
+nav {display: none;}
+#footnotes_debug {display: none;}
+#footer_social {display: none;}
+#sidebar_b {display: none;}
+.user_actions {display: none;}
+
+h2 {
+	font-family: 'Hoefler Text', Georgia, Times, serif;
+	font-size: 22px;
+	font-style: italic;
+	font-weight: normal;
+}
+
+#recently .admin_conversation, #recently .admin_discussion, #recently .profile_answer {
+	margin: 0 0 20px;
+	border-bottom: 1px dotted #aaa;
+	padding: 5px 0;
+	clear: both;
+	overflow: hidden;
+}
+
+#get_started {
+	border: 1px solid #ddd;
+	padding: 10px 15px;
+	margin: 10px 0;
+	h3 {
+		font-family: 'helvetica neue', helvetica, arial, sans-serif;
+		font-size: 18px;
+		text-transform: capitalize;
+		letter-spacing: 0;
+	}
+}
+
+h3 {
+	font-family: 'Hoefler Text', Georgia, Times, serif;
+	font-size: 15px;
+	text-transform: uppercase;
+	font-weight: normal;
+	letter-spacing: 0.2em;
+	margin: 0;
+	padding: 0;
+}
+
+.user_comment {
+	min-height: 40px;
+}
+
+.identity {
+	border: 1px solid #ddd;
+	float: left;
+	width: 250px;
+	padding: 12px;
+	margin: 0 15px 10px 0;
+}
+
+#footer_container {
+	overflow: hidden;
+	width: 660px;
+	margin: 0 auto;
+	padding: 10px 20px;
+	background-color: #333;
+	footer {
+		overflow: hidden;
+		p, a, li {
+			color: #fff;
+			font-size: 13px;
+			text-decoration: none;
+		}
+		ul {
+			list-style: none;
+			margin: 0;
+			padding: 0;
+		}
+		img {
+			float: left;
+			display: inline;
+			margin: 0 10px 10px 0;
+		}
+	}
+}
+
+h5 {
+	font-family: 'helvetica neue', helvetica, arial, sans-serif;
+	font-size: 14px;
+	text-transform: uppercase;
+	font-weight: 300;
+}
+
+.timestamp, .last_updated, .timestamp_header {
+	font-size: 10px;
+	font-family: 'lucida grande', arial, sans-serif;
+	text-transform: uppercase;
+	display: block;
+	margin: 0 0 20px 0;
+}
+
+a img {border: 0;}
+
+/* user profiles */
+#page_content {
+	overflow: hidden;
+	h1.pg_title {
+		font-size: 28px;
+		margin: 30px 0;
+	}
+	.soapbox_profile_header {
+		border-bottom: 1px solid #aaa;
+		overflow: hidden;
+		img {
+			float: left;
+			margin: 0 10px 10px 0;
+		}
+		h1 {
+			font-family: "hoefler text", georgia, times, serif;
+			font-weight: bold;
+			font-style: italic;
+			text-transform: capitalize;
+			font-size: 27px;
+			margin: 0 0 5px;
+			padding: 0;
+		}
+	}
+	#profile-account {
+		width: 200px;
+		float: right;
+		margin: 0 0 10px 20px;
+		dl {
+			font-size: 13px;
+			dt {
+				display: block;
+				margin: 4px 0px;
+				font-weight: bold;
+			}
+			dd {
+				display: block;
+				margin: 0 0 10px 0;
+				padding: 0;
+			}
+		}
+	}		
+}
+
+#extended_profile_container {
+	display: block;
+	clear: both;
+	width: 700px;
+	margin: 30px 0;
+	.showit {
+		display: block;
+		text-decoration: none;
+		padding: 10px;
+		border-bottom: 1px solid #aaa;
+	}
+	h3 {
+		margin: 20px 0 4px 0;
+	}
+}
+
+
+
+
+
+
+
+
+

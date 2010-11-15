@@ -159,46 +159,46 @@ body{
 		height: 60px;
 		background: transparent url(/images/redesign/nav.png) no-repeat;
 		&#nav_dashboard {
-			width: 132px;
+			width: 135px;
 			background-position: 0 0;
 			&:hover {background-position: 0 -100px;}
 			&.selected {background-position: 0 -200px;}
 		}
 		&#nav_myprofile {
-			width: 130px;
-			background-position: -132px 0;
-			&:hover {background-position: -132px -100px;}
-			&.selected {background-position: -132px -200px;}
+			width: 129px;
+			background-position: -135px 0;
+			&:hover {background-position: -135px -100px;}
+			&.selected {background-position: -135px -200px;}
 		}
 		&#nav_myrestaurants {
-			width: 175px;
-			background-position: -262px 0;
-			&:hover {background-position: -262px -100px;}
-			&.selected {background-position:-262px -200px;}
+			width: 169px;
+			background-position: -264px 0;
+			&:hover {background-position: -264px -100px;}
+			&.selected {background-position:-264px -200px;}
 		}
 		&#nav_frontburner {
-			width: 159px;
-			background-position: -437px 0;
-			&:hover {background-position: -437px -100px;}
-			&.selected {background-position:-437px -200px;}
+			width: 155px;
+			background-position: -433px 0;
+			&:hover {background-position: -433px -100px;}
+			&.selected {background-position:-433px -200px;}
 		}
 		&#nav_messages {
-			width: 119px;
-			background-position: -596px 0;
-			&:hover {background-position: -596px -100px;}
-			&.selected {background-position:-596px -200px;}
+			width: 114px;
+			background-position: -588px 0;
+			&:hover {background-position: -588px -100px;}
+			&.selected {background-position:-588px -200px;}
+		}
+		&#nav_directory {
+			width: 125px;
+			background-position: -702px 0;
+			&:hover {background-position: -702px -100px;}
+			&.selected {background-position:-702px -200px;}
 		}
 		&#nav_socialmedia {
-			width: 150px;
-			background-position: -715px 0;
-			&:hover {background-position: -715px -100px;}
-			&.selected {background-position:-715px -200px;}
-		}
-		&#nav_contact {
-			width: 108px;
-			background-position: -865px 0;
-			&:hover {background-position: -865px -100px;}
-			&.selected {background-position:-865px -200px;}
+			width: 147px;
+			background-position: -827px 0;
+			&:hover {background-position: -827px -100px;}
+			&.selected {background-position:-827px -200px;}
 		}
 	}
 }
