@@ -8,6 +8,18 @@ module DirectoryHelper
     end
   end
   
+  def users_for_search
+    if on_soapbox
+      User.in_soapbox_directory
+    else
+      User.in_spoonfeed_directory
+    end
+  end
+  
+  def restaurants_for_search
+    users_for_search.map(&:restaurants).flatten.compact.uniq.sort_by(&:sort_name)
+  end
+  
   def cuisines_for_search
     (Cuisine.with_profiles + Cuisine.with_restaurants).uniq.sort_by(&:name)
   end

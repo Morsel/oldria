@@ -11,7 +11,7 @@
                                 <label for="search_id_equals_any">Id equals any</label>
                             </legend>
                             <ol>
-                                <% for user in @users_for_search || User.active.by_last_name %>
+                                <% for user in users_for_search %>
                                 <li><label for="search_id_equals_any_<%= user.id %>">
                                     <%= check_box_tag "search[id_equals_any][]", user.id, false, :id => "search_id_equals_any_#{user.id}" %>
                                     <%= user.to_label %>
@@ -31,7 +31,7 @@
                                 <label for="search_employments_restaurant_id_equals_any">Restaurant id equals any</label>
                             </legend>
                             <ol>
-                                <% for restaurant in @restaurants_for_search || Restaurant.all(:order => 'sort_name ASC') %>
+                                <% for restaurant in restaurants_for_search %>
                                 <li><label for="search_employments_restaurant_id_equals_any_<%= restaurant.id %>">
                                     <%= check_box_tag "search[employments_restaurant_id_equals_any][]", restaurant.id, false, :id => "search_employments_restaurant_id_equals_any_#{restaurant.id}" %>
                                     <%= restaurant.name %>

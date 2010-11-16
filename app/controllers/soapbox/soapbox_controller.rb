@@ -19,10 +19,7 @@ class Soapbox::SoapboxController < ApplicationController
       @users = User.in_soapbox_directory.profile_cuisines_id_eq(params[:cuisine_id]).all(:order => "users.last_name").uniq
     else
       directory_search_setup
-      
       @use_search = true
-      @users_for_search = User.in_soapbox_directory
-      @restaurants_for_search = @users_for_search.map(&:restaurants).flatten.compact.uniq.sort { |a,b| a.sort_name <=> b.sort_name }
     end
     
     render :template => "directory/index"
