@@ -22,11 +22,18 @@ class ProfileQuestion < ActiveRecord::Base
   validates_presence_of :title, :chapter_id
   validates_uniqueness_of :title, :scope => :chapter_id, :case_sensitive => false
 
-  named_scope :for_user, lambda { |user|
-    { :joins => :question_roles,
-      :conditions => ["question_roles.responder_id = ? AND question_roles.responder_type = ?", user.primary_employment.restaurant_role.id, user.primary_employment.restaurant_role.class.name],
-    :include => :chapter,
-    :order => "chapters.position, profile_questions.position" }
+  named_scope :for_subject, lambda { |subject|
+    if subject.is_a? User
+      { :joins => :question_roles,
+        :conditions => ["question_roles.responder_id = ? AND question_roles.responder_type = ?", subject.primary_employment.restaurant_role.id, subject.primary_employment.restaurant_role.class.name],
+        :include => :chapter,
+        :order => "chapters.position, profile_questions.position" }
+    else
+      { :joins => { :chapter => :topic },
+        :conditions => ["topics.responder_type = ?", 'restaurant'],
+        :include => :chapter,
+        :order => "chapters.position, profile_questions.position" }
+    end
   }
 
   named_scope :for_chapter, lambda { |chapter_id|
@@ -35,8 +42,8 @@ class ProfileQuestion < ActiveRecord::Base
 
   named_scope :answered, :joins => :profile_answers
 
-  named_scope :answered_for_user, lambda { |user|
-    { :joins => :profile_answers, :conditions => ["profile_answers.user_id = ?", user.id] }
+  named_scope :answered_for_subject, lambda { |subject|
+    { :joins => :profile_answers, :conditions => ["profile_answers.responder_id = ? AND profile_answers.responder_type = ?", subject.id, subject.class.name] }
   }
 
   named_scope :answered_for_chapter, lambda { |chapter_id|
@@ -52,17 +59,17 @@ class ProfileQuestion < ActiveRecord::Base
   end
 
   def answered_by?(user)
-    self.profile_answers.exists?(:user_id => user.id)
+    self.profile_answers.exists?(:responder_id => user.id, :responder_type => user.class.name)
   end
 
   def answer_for(user)
-    self.profile_answers.find_by_user_id(user.id)
+    self.profile_answers.find(:conditions => {:responder => user})
   end
 
   def find_or_build_answer_for(user)
     self.answered_by?(user) ?
-        self.profile_answers.find_by_user_id(user.id) :
-        ProfileAnswer.new(:profile_question_id => self.id, :user_id => user.id)
+        self.profile_answers.first(:conditions => ['"profile_answers".responder_id = ? AND "profile_answers".responder_type = ?', user.id, user.class.name]) :
+        ProfileAnswer.new(:profile_question_id => self.id, :responder => user)
   end
 
   def responders=(responder_ids)

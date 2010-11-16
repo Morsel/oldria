@@ -31,6 +31,16 @@ Given /^several profile questions matching employment roles for "([^\"]*)"$/ do 
       :chapter => Factory(:chapter, :title => "Free Time", :topic => topic))
 end
 
+Given /^the following (.+) profile questions:$/ do |responder_type, table|
+  table.hashes.each do |row|
+    topic = Topic.find_by_title(row['topic']) || Factory(:topic, :title => row['topic'], :responder_type => responder_type)
+    chapter = Chapter.find_by_title(row['chapter']) || Factory(:chapter, :topic => topic, :title => row['chapter'])
+    responder = RestaurantFeaturePage.find_by_name(row['page']) || Factory(:restaurant_feature_page, :name => row['page'])
+    question = Factory(:profile_question, :title => row['question'], :chapter => chapter, :question_roles => [Factory(:question_role, :responder => responder)])
+  end
+end
+
+
 Given /^the following restaurant chapters:$/ do |table|
   table.hashes.each do |row|
     topic = Factory(:topic, :title => row['topic'], :responder_type => 'restaurant')
