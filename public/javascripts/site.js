@@ -368,6 +368,7 @@ function updateDirectoryList() {
 	$directoryList.load('/directory/search', input_string, function(responseText, textStatus){
 	  $loaderImg.hide();
 	  $directoryList.fadeIn(300);
+		$('.identity').equalHeights();
 	});
 	// return true;	
 }
@@ -556,6 +557,16 @@ $('#user_email').blur(function() {
   this.value = jQuery.trim(this.value);
 });
 
+$('.identity').equalHeights();
+$('.culinary').equalHeights();
+$('.nonculinary_job').equalHeights();
+$('.award').equalHeights();
+$('.accolade').equalHeights();
+$('.enrollment').equalHeights();
+$('.competition').equalHeights();
+$('.internship').equalHeights();
+$('.stage').equalHeights();
+$('.apprenticeship').equalHeights();
 
 $('.soapbox_sidebar').tabs();
 $('.tabable').tabs();

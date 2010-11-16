@@ -1,7 +1,7 @@
 <div class="identity">
   <% if user.avatar? %>
     <div class="avatar">
-      <%= image_tag(user.avatar.url(:thumb)) %>
+      <%= image_tag(user.avatar.url(:thumb), :width => 50, :height => 50) %>
     </div>
   <% end %>
 
