@@ -557,17 +557,6 @@ $('#user_email').blur(function() {
   this.value = jQuery.trim(this.value);
 });
 
-$('.identity').equalHeights();
-$('.culinary').equalHeights();
-$('.nonculinary_job').equalHeights();
-$('.award').equalHeights();
-$('.accolade').equalHeights();
-$('.enrollment').equalHeights();
-$('.competition').equalHeights();
-$('.internship').equalHeights();
-$('.stage').equalHeights();
-$('.apprenticeship').equalHeights();
-
 $('.soapbox_sidebar').tabs();
 $('.tabable').tabs();
 
