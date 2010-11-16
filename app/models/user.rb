@@ -54,7 +54,7 @@ class User < ActiveRecord::Base
   has_many :direct_messages, :foreign_key => "receiver_id", :dependent => :destroy
   has_many :sent_direct_messages, :class_name => "DirectMessage", :foreign_key => "sender_id", :dependent => :destroy
 
-  # Sent, not received media requests
+  ## Sent, not received media requests
   has_many :media_requests, :foreign_key => 'sender_id'
 
   has_many :employments, :foreign_key => "employee_id", :dependent => :destroy, :conditions => "restaurant_id is not null"
@@ -64,7 +64,10 @@ class User < ActiveRecord::Base
   has_many :restaurant_roles, :through => :employments
 
   has_one :default_employment, :foreign_key => "employee_id", :dependent => :destroy
-  has_many :all_employments, :foreign_key => "employee_id", :class_name => "Employment" # for search
+
+  ## For search
+  has_many :all_employments, :foreign_key => "employee_id", :class_name => "Employment"
+  has_many :all_restaurant_roles, :through => :all_employments, :source => "restaurant_role"
 
   has_many :discussion_seats, :dependent => :destroy
   has_many :discussions, :through => :discussion_seats
@@ -356,6 +359,14 @@ class User < ActiveRecord::Base
   def specialties
     profile.present? ? profile.specialties : []
   end
+  
+  def james_beard_region
+    profile.present? ? profile.james_beard_region : nil
+  end
+  
+  def metropolitan_area
+    profile.present? ? profile.metropolitan_area : nil
+  end
 
   def phone_number
     if profile.present? then profile.cellnumber else nil end
@@ -370,6 +381,7 @@ class User < ActiveRecord::Base
     self.prefers_publish_profile? && self.premium_account?
   end
 
+  ## Subscriptions
   def braintree_contact
     self
   end

@@ -71,7 +71,7 @@
                                 <label for="search_profile_specialities_id_eq_any">Profile speciality ids equals any</label>
                             </legend>
                             <ol>
-                                <% for specialty in Specialty.with_profiles %>
+                                <% for specialty in specialties_for_search %>
                                 <li><label for="search_profile_specialties_id_eq_any_<%= specialty.id %>">
                                     <%= check_box_tag "search[profile_specialties_id_eq_any][]", specialty.id, false, :id => "search_profile_specialties_id_eq_any_#{specialty.id}" %>
                                     <%= specialty.name %>
@@ -91,7 +91,7 @@
                                 <label for="search_all_employments_restaurant_role_id_eq_any">Employments restaurant role ids equals any</label>
                             </legend>
                             <ol>
-                                <% for role in RestaurantRole.with_employments %>
+                                <% for role in roles_for_search %>
                                 <li><label for="search_all_employments_restaurant_role_id_eq_any_<%= role.id %>">
                                     <%= check_box_tag "search[all_employments_restaurant_role_id_eq_any][]", role.id, false, :id => "search_all_employments_restaurant_role_id_eq_any_#{role.id}" %>
                                     <%= role.name %>
