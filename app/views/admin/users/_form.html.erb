@@ -17,12 +17,13 @@
   <% f.inputs :name => 'Account Permissions' do %>
     <%= render :partial => 'account_status', 
         :locals => {:subscriber => @user, :subscriber_type => :user}%>
-
     <br clear="all"/>
     <%= f.input :role, :as => :select, :label => 'Role',
         :collection => { "Media" => "media", "Admin" => "admin" } %>
     <%= f.input :publication, :label => "Affiliated Publication", 
         :hint => "This only matters for 'media' users." %>
+    <br clear="all"/>
+    <%= f.input :visible, :label => "Display this user in the directory?" %>    
   <% end %>
 
   <% f.inputs :name => 'Username/Password' do %>

@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20101104213542
+# Schema version: 20101115213854
 #
 # Table name: users
 #
@@ -30,6 +30,7 @@
 #  facebook_page_id      :string(255)
 #  facebook_page_token   :string(255)
 #  premium_account       :boolean
+#  visible               :boolean         default(TRUE)
 #
 
 class User < ActiveRecord::Base
