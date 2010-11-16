@@ -1,6 +1,5 @@
 class DirectoryController < ApplicationController
   before_filter :require_user
-  skip_before_filter :preload_resources, :only => :search
 
   def index
     if params[:specialty_id]

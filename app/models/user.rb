@@ -296,6 +296,10 @@ class User < ActiveRecord::Base
   def self.in_soapbox_directory
     active.with_premium_account.with_preferences(:publish_profile => true).by_last_name
   end
+  
+  def self.in_spoonfeed_directory
+    active.by_last_name
+  end
 
   def deliver_invitation_message!
     @send_invitation = nil
