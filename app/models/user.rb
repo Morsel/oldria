@@ -82,6 +82,7 @@ class User < ActiveRecord::Base
   has_many :feeds, :through => :feed_subscriptions
 
   has_many :readings, :dependent => :destroy
+  has_many :comments, :dependent => :destroy
 
   has_one :profile
   has_many :profile_answers
