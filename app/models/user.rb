@@ -125,7 +125,7 @@ class User < ActiveRecord::Base
 
   named_scope :for_autocomplete, :select => "first_name, last_name", :order => "last_name ASC", :limit => 15
   named_scope :by_last_name, :order => "LOWER(last_name) ASC"
-  
+
   named_scope :active, :conditions => "last_request_at IS NOT NULL"
   named_scope :visible, :conditions => { :visible => true }
 
@@ -194,7 +194,7 @@ class User < ActiveRecord::Base
   def primary_employment
     self.employments.primary.first || self.employments.first || self.default_employment
   end
-  
+
   def nonprimary_employments
     employments - [primary_employment]
   end
@@ -317,7 +317,7 @@ class User < ActiveRecord::Base
   end
 
   # Facebook !!!
-  
+
   def connect_to_facebook_user(fb_id)
     update_attributes(:facebook_id => fb_id)
   end
@@ -343,17 +343,17 @@ class User < ActiveRecord::Base
   # Behind the line
 
   def profile_questions
-    ProfileQuestion.for_user(self)
+    ProfileQuestion.for_subject(self)
   end
 
   def topics
-    Topic.for_user(self) || []
+    Topic.for_subject(self) || []
   end
 
   def published_topics
     topics.select { |t| t.published?(self) }
   end
-  
+
   # Profile elements
 
   def cuisines

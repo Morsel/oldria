@@ -1,4 +1,4 @@
-                     ActionController::Routing::Routes.draw do |map|
+ActionController::Routing::Routes.draw do |map|
   map.login  'login',  :controller => 'user_sessions', :action => 'new'
   map.logout 'logout', :controller => 'user_sessions', :action => 'destroy'
   map.confirm 'confirm/:id', :controller => 'users', :action => 'confirm'
@@ -64,7 +64,6 @@
   end
 
   map.profile 'profile/:username', :controller => 'users', :action => 'show', :requirements => { :username => /[a-zA-Z0-9\-\_ ]+/}
-  map.resources :profile_answers, :only => [:create, :update, :destroy]
 
   map.resources :quick_replies
   map.resources :media_users, :except => [:index, :show]
@@ -90,6 +89,7 @@
     users.resources :statuses
     users.resources :direct_messages, :member => { :reply => :get }
     users.resources :questions, :collection => { :topics => :get, :chapters => :get, :refresh => :post }
+    users.resources :profile_answers, :only => [:create, :update, :destroy]
     users.resources :default_employments
     users.resource :subscription, :collection => { :bt_callback => :get, :billing_history => :get }, :controller => 'subscriptions'
   end
@@ -110,6 +110,8 @@
     restaurant.resources :photos, :collection => { "reorder" => :post }
     restaurant.resource :logo
     restaurant.resources :accolades
+    restaurant.resources :questions, :collection => { :topics => :get, :chapters => :get, :refresh => :post }
+    restaurant.resources :profile_answers, :only => [:create, :update, :destroy]
     restaurant.resources :employments, :collection => { "reorder" => :post }
     #todo only need these two routes
     restaurant.resources :a_la_minute_answers, :collection => { :bulk_update => :put, :bulk_edit => :get }

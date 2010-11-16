@@ -250,7 +250,7 @@ end
 
 Factory.define :profile_answer do |f|
   f.association :profile_question
-  f.association :user
+  f.association :responder, :factory => :user
   f.answer "Awesomeland!"
 end
 
@@ -484,4 +484,8 @@ Factory.define :subscription do |f|
   f.kind "User Premium"
   f.start_date Date.today
   f.braintree_id "abcd"
+end
+
+Factory.define :restaurant_feature_page do |f|
+  f.sequence(:name) { |n| "Page #{n}" }
 end

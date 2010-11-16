@@ -28,7 +28,7 @@ describe QuestionsController do
       4.times do
         question_role = Factory(:question_role, :responder => role)
         question = Factory(:profile_question, :question_roles => [question_role])
-        Factory(:profile_answer, :profile_question => question, :user => profile_user)
+        Factory(:profile_answer, :profile_question => question, :responder => profile_user)
       end
 
       get :topics, :user_id => profile_user.id

@@ -141,7 +141,8 @@ class ApplicationController < ActionController::Base
     return if params[:controller].match(/soapbox/)
     return if params[:controller].match(/admin/)
     return if ["create", "update", "destroy"].include? params[:action]
-    @btl_question = ProfileQuestion.for_user(current_user).random.reject { |q| q.answered_by?(current_user) }.first
+    @subject = current_user
+    @btl_question = ProfileQuestion.for_subject(@subject).random.reject { |q| q.answered_by? (@subject) }.first
   end
 
 ### Messaging helpers
@@ -224,12 +225,12 @@ class ApplicationController < ActionController::Base
     if params[:controller].match(/soapbox/)
       search = User.in_soapbox_directory.search(params[:search]).all
       extra_search_results = User.in_soapbox_directory.search(extra_params).all if extra_params.present?
-      
+
       @users = [search, extra_search_results].flatten.compact.uniq.sort_by(&:last_name)
     else
       search = User.in_spoonfeed_directory.search(params[:search]).all
       extra_search_results = User.in_spoonfeed_directory.search(extra_params).all if extra_params.present?
-      
+
       @users = [search, extra_search_results].flatten.compact.uniq.sort_by(&:last_name)
     end
   end

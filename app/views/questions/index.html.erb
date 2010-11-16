@@ -1,5 +1,5 @@
-<% title "#{@chapter.title} - #{@user.name} - Behind The Line", false %>
-<h1 id="btl-title" class="btl"><span class="btl-art">Behind the Line:</span> <span class="name"><%= @user.name %></span></h1>
+<% title "#{@chapter.title} - #{@subject.name} - Behind The Line", false %>
+<h1 id="btl-title" class="btl"><span class="btl-art">Behind the Line:</span> <span class="name"><%= @subject.name %></span></h1>
 <h2 id="topic_title">Topic: <%= @chapter.topic.title %></h2>
 <%= render :partial => 'questions/topic_nav', :locals => { :next_topic => @next_topic, :prev_topic => @previous_topic } %>
 
@@ -8,31 +8,30 @@
     <h3><%= @chapter.title %></h3>
   </div>
 
-  <% if @user == current_user %><%# let's edit these answers %>
+<% if can_edit_profile_questions(@subject) %><%# let's edit these answers %>
 
   <% form_tag profile_answers_path do %>
-  <% for question in @questions %>
-    <% div_for question do %>
-        <h4>Q: <%= question.title %></h4>
-        <%= render :partial => "profile_answers/form", :locals => { :answer => question.find_or_build_answer_for(current_user) } %>
+    <% for question in @questions %>
+      <% div_for question do %>
+          <h4>Q: <%= question.title %></h4>
+          <%= render :partial => "profile_answers/form", :locals => { :answer => question.find_or_build_answer_for(current_user) } %>
+      <% end %>
     <% end %>
-  <% end %>
   <% end %><%# end form %>
 
   <p class="clear">Answers to your questions will be posted on your profile and can be used by Restaurant Intelligence Agency to increase traffic to the site.</p>
 
-  <% else -%><%# no editing by other users %>
-
+<% else -%><%# no editing by other users %>
 
   <% for question in @questions -%>
     <% div_for question do %>
-        <h4><span class="letter-q">Q:</span> <%= link_to question.title, link_for_question(question) %></h4>
-        <% if answer = question.answer_for(@user) %>
-          <p><%= answer.answer %></p>
-          <span class="timestamp">Last updated: <%= answer.try(:updated_at).try(:strftime, "%b %e %Y") %></span>
-        <% else %>
-          <p>Not answered yet.</p>
-        <% end %>
+      <h4><span class="letter-q">Q:</span> <%= link_to question.title, link_for_question(question) %></h4>
+      <% if answer = question.answer_for(@subject) %>
+        <p><%= answer.answer %></p>
+        <span class="timestamp">Last updated: <%= answer.try(:updated_at).try(:strftime, "%b %e %Y") %></span>
+      <% else %>
+        <p>Not answered yet.</p>
+      <% end %>
     <% end -%>
   <% end -%>
 </div>

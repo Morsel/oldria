@@ -23,16 +23,23 @@ class Chapter < ActiveRecord::Base
 
   default_scope :joins => :topic, :order => "topics.title ASC, chapters.title ASC"
 
-  named_scope :for_user, lambda { |user|
-    { :joins => { :profile_questions => :question_roles },
-      :conditions => ["question_roles.responder_id = ? AND question_roles.responder_type = ?", user.primary_employment.restaurant_role.id, user.primary_employment.restaurant_role.class.name],
-      :select => "distinct chapters.*",
-      :order => :position }
+  named_scope :for_subject, lambda { |subject|
+    if subject.is_a? User
+      { :joins => { :profile_questions => :question_roles },
+        :conditions => ["question_roles.responder_id = ? AND question_roles.responder_type = ?", subject.primary_employment.restaurant_role.id, subject.primary_employment.restaurant_role.class.name],
+        :select => "distinct chapters.*",
+        :order => :position }
+    else
+      { :joins => :topic,
+        :conditions => ["topics.responder_type = 'restaurant'"],
+        :select => "distinct chapters.*",
+        :order => :position }
+    end
   }
 
-  named_scope :answered_for_user, lambda { |user|
+  named_scope :answered_for_subject, lambda { |subject|
     { :joins => { :profile_questions => :profile_answers },
-      :conditions => ["profile_answers.user_id = ?", user.id],
+      :conditions => ["profile_answers.responder_id = ? AND profile_answers.responder_type = ?", subject.id, subject.class.name],
       :select => "distinct chapters.*",
       :order => :position }
   }
@@ -41,43 +48,43 @@ class Chapter < ActiveRecord::Base
     "#{topic.title} - #{title}"
   end
 
-  def previous_for_user(user, is_self = false)
+  def previous_for_subject(subject, is_self = false)
     sort_field = (self.position == 0 ? "id" : "position")
     if is_self
-      self.topic.chapters.for_user(user).first(:conditions => ["chapters.#{sort_field} < ?", self.send(sort_field)],
+      self.topic.chapters.for_subject(subject).first(:conditions => ["chapters.#{sort_field} < ?", self.send(sort_field)],
                                                :order => "#{sort_field} DESC")
     else
-      self.topic.chapters.answered_for_user(user).first(:conditions => ["chapters.#{sort_field} < ?", self.send(sort_field)],
+      self.topic.chapters.answered_for_subject(subject).first(:conditions => ["chapters.#{sort_field} < ?", self.send(sort_field)],
                                                         :order => "#{sort_field} DESC")
     end
   end
 
-  def next_for_user(user, is_self = false)
+  def next_for_subject(subject, is_self = false)
     sort_field = (self.position == 0 ? "id" : "position")
-    chapters = is_self ? self.topic.chapters.for_user(user) : self.topic.chapters.answered_for_user(user)
+    chapters = is_self ? self.topic.chapters.for_subject(subject) : self.topic.chapters.answered_for_subject(subject)
     chapters.find(:first,
                   :conditions => ["chapters.#{sort_field} > ?", self.send(sort_field)],
                   :order => "#{sort_field} ASC")
   end
 
-  def question_count_for_user(user)
-    self.profile_questions.for_user(user).count
+  def question_count_for_subject(subject)
+    self.profile_questions.for_subject(subject).count
   end
 
-  def answer_count_for_user(user)
-    self.profile_questions.answered_for_user(user).count
+  def answer_count_for_subject(subject)
+    self.profile_questions.answered_for_subject(subject).count
   end
 
-  def completion_percentage(user)
-    if question_count_for_user(user) > 0
-      ((answer_count_for_user(user).to_f / question_count_for_user(user).to_f) * 100).to_i
+  def completion_percentage(subject)
+    if question_count_for_subject(subject) > 0
+      ((answer_count_for_subject(subject).to_f / question_count_for_subject(subject).to_f) * 100).to_i
     else
       0
     end
   end
 
-  def published?(user)
-    completion_percentage(user) >= 5
+  def published?(subject)
+    completion_percentage(subject) >= 5
   end
 
 end

@@ -187,6 +187,20 @@ class Restaurant < ActiveRecord::Base
     User.find(self.manager_id)
   end
 
+  # Behind the line
+
+  def profile_questions
+    ProfileQuestion.for_subject(self)
+  end
+
+  def topics
+    Topic.for_subject(self) || []
+  end
+
+  def published_topics
+    topics.select { |t| t.published?(self) }
+  end
+
   private
 
   def add_manager_as_employee

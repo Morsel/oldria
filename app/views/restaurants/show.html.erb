@@ -61,7 +61,7 @@
     <% div_if(@restaurant.description, :class=> "function-bold", :id => "description") do %>
       Description: <%= @restaurant.description %>
     <% end %>
-    
+
     <div id="account_status">
       Account Status: <%= @restaurant.account_type %>
     </div>
@@ -110,6 +110,8 @@
 <div class="restaurant_employees employments">
   <%= render :partial => 'employment', :collection => @employments %>
 </div>
+
+<%= render :partial => 'profile_questions/behind_the_line', :locals => { :subject => @restaurant } %>
 
 <div id="a_la_minute">
   <h3>A La Minute Questions</h3> <%= link_to "edit answers", bulk_edit_restaurant_a_la_minute_answers_path(:restaurant_id => @restaurant) %>
