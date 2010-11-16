@@ -168,6 +168,7 @@ class User < ActiveRecord::Base
     friends.include?(otheruser)
   end
 
+  ## Employment things
   def restaurants_where_manager
     [managed_restaurants.all, manager_restaurants.all].compact.flatten.uniq
   end
@@ -290,6 +291,10 @@ class User < ActiveRecord::Base
 
   def self.receive_email_notifications
     Preference.all(:conditions => "value = 't' AND name = 'receive_email_notifications'").map(&:owner)
+  end
+  
+  def self.in_soapbox_directory
+    active.with_premium_account.with_preferences(:publish_profile => true).by_last_name
   end
 
   def deliver_invitation_message!
