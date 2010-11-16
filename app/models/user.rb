@@ -120,6 +120,7 @@ class User < ActiveRecord::Base
   named_scope :by_last_name, :order => "LOWER(last_name) ASC"
   
   named_scope :active, :conditions => "last_request_at IS NOT NULL"
+  named_scope :visible, :conditions => { :visible => true }
 
 ### Preferences ###
   preference :hide_help_box, :default => false
@@ -294,11 +295,11 @@ class User < ActiveRecord::Base
   end
   
   def self.in_soapbox_directory
-    active.with_premium_account.with_preferences(:publish_profile => true).by_last_name
+    active.visible.with_premium_account.with_preferences(:publish_profile => true).by_last_name
   end
   
   def self.in_spoonfeed_directory
-    active.by_last_name
+    active.visible.by_last_name
   end
 
   def deliver_invitation_message!
