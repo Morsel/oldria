@@ -89,6 +89,12 @@ Given /^"([^\"]*)" has a default employment with the role "([^\"]*)"$/ do |usern
   Factory(:default_employment, :employee => user, :restaurant_role => role)
 end
 
+Given /^"([^\"]*)" has a published profile$/ do |username|
+  user = User.find_by_username(username)
+  user.prefers_publish_profile = true
+  user.save
+end
+
 When /^I (?:visit the logout path|logout)$/ do
   visit logout_url
 end

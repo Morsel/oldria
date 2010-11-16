@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20101110011650) do
+ActiveRecord::Schema.define(:version => 20101115213854) do
 
   create_table "a_la_minute_answers", :force => true do |t|
     t.text     "answer"
@@ -297,7 +297,7 @@ ActiveRecord::Schema.define(:version => 20101110011650) do
   add_index "employments", ["restaurant_role_id"], :name => "index_employments_on_restaurant_role_id"
 
   create_table "enrollments", :force => true do |t|
-    t.integer  "school_id"
+    t.integer  "school_id",                       :null => false
     t.integer  "profile_id",                      :null => false
     t.date     "graduation_date"
     t.string   "degree",          :default => "", :null => false
@@ -328,8 +328,6 @@ ActiveRecord::Schema.define(:version => 20101110011650) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
-
-  add_index "feed_categories", ["id"], :name => "index_feed_categories_on_id", :unique => true
 
   create_table "feed_entries", :force => true do |t|
     t.string   "title"
@@ -730,8 +728,8 @@ ActiveRecord::Schema.define(:version => 20101110011650) do
     t.integer  "logo_id"
     t.integer  "primary_photo_id"
     t.date     "opening_date"
-    t.string   "sort_name"
     t.boolean  "premium_account"
+    t.string   "sort_name"
   end
 
   add_index "restaurants", ["cuisine_id"], :name => "index_restaurants_on_cuisine_id"
@@ -791,6 +789,29 @@ ActiveRecord::Schema.define(:version => 20101110011650) do
     t.text     "content"
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "soapbox_promos", :force => true do |t|
+    t.string   "title"
+    t.text     "body"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "link"
+    t.integer  "position"
+  end
+
+  create_table "soapbox_slides", :force => true do |t|
+    t.string   "image_file_name"
+    t.string   "image_content_type"
+    t.integer  "image_file_size"
+    t.integer  "image_updated_at"
+    t.string   "title"
+    t.text     "excerpt"
+    t.string   "link"
+    t.integer  "position"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "photo_credit"
   end
 
   create_table "solo_discussions", :force => true do |t|
@@ -884,7 +905,7 @@ ActiveRecord::Schema.define(:version => 20101110011650) do
     t.string   "crypted_password"
     t.string   "password_salt"
     t.string   "perishable_token"
-    t.string   "persistence_token",     :null => false
+    t.string   "persistence_token",                       :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.datetime "confirmed_at"
@@ -905,6 +926,7 @@ ActiveRecord::Schema.define(:version => 20101110011650) do
     t.string   "facebook_page_id"
     t.string   "facebook_page_token"
     t.boolean  "premium_account"
+    t.boolean  "visible",               :default => true
   end
 
   add_index "users", ["email"], :name => "index_users_on_email"

@@ -19,7 +19,6 @@ $('.apprenticeship').equalHeights();
 
 
 
-
 $('#profile-tabs').tabs({
 	panelTemplate: '<section></section>',
 	fx: { duration: 'fast', opacity: 'toggle' }

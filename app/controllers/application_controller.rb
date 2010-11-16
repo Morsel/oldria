@@ -217,13 +217,13 @@ class ApplicationController < ActionController::Base
     end
 
     if params[:controller].match(/soapbox/)
-      search = User.active.with_premium_account.search(params[:search]).all
-      extra_search_results = User.active.with_premium_account.search(extra_params).all if extra_params.present?
+      search = User.in_soapbox_directory.search(params[:search]).all
+      extra_search_results = User.in_soapbox_directory.search(extra_params).all if extra_params.present?
       
       @users = [search, extra_search_results].flatten.compact.uniq.sort_by(&:last_name)
     else
-      search = User.active.search(params[:search]).all
-      extra_search_results = User.active.search(extra_params).all if extra_params.present?
+      search = User.in_spoonfeed_directory.search(params[:search]).all
+      extra_search_results = User.in_spoonfeed_directory.search(extra_params).all if extra_params.present?
       
       @users = [search, extra_search_results].flatten.compact.uniq.sort_by(&:last_name)
     end

@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20101104213542
+# Schema version: 20101115213854
 #
 # Table name: users
 #
@@ -30,6 +30,7 @@
 #  facebook_page_id      :string(255)
 #  facebook_page_token   :string(255)
 #  premium_account       :boolean
+#  visible               :boolean         default(TRUE)
 #
 
 class User < ActiveRecord::Base
@@ -53,7 +54,7 @@ class User < ActiveRecord::Base
   has_many :direct_messages, :foreign_key => "receiver_id", :dependent => :destroy
   has_many :sent_direct_messages, :class_name => "DirectMessage", :foreign_key => "sender_id", :dependent => :destroy
 
-  # Sent, not received media requests
+  ## Sent, not received media requests
   has_many :media_requests, :foreign_key => 'sender_id'
 
   has_many :employments, :foreign_key => "employee_id", :dependent => :destroy, :conditions => "restaurant_id is not null"
@@ -63,7 +64,10 @@ class User < ActiveRecord::Base
   has_many :restaurant_roles, :through => :employments
 
   has_one :default_employment, :foreign_key => "employee_id", :dependent => :destroy
-  has_many :all_employments, :foreign_key => "employee_id", :class_name => "Employment" # for search
+
+  ## For search
+  has_many :all_employments, :foreign_key => "employee_id", :class_name => "Employment"
+  has_many :all_restaurant_roles, :through => :all_employments, :source => "restaurant_role"
 
   has_many :discussion_seats, :dependent => :destroy
   has_many :discussions, :through => :discussion_seats
@@ -119,6 +123,7 @@ class User < ActiveRecord::Base
   named_scope :by_last_name, :order => "LOWER(last_name) ASC"
   
   named_scope :active, :conditions => "last_request_at IS NOT NULL"
+  named_scope :visible, :conditions => { :visible => true }
 
 ### Preferences ###
   preference :hide_help_box, :default => false
@@ -167,6 +172,7 @@ class User < ActiveRecord::Base
     friends.include?(otheruser)
   end
 
+  ## Employment things
   def restaurants_where_manager
     [managed_restaurants.all, manager_restaurants.all].compact.flatten.uniq
   end
@@ -290,6 +296,14 @@ class User < ActiveRecord::Base
   def self.receive_email_notifications
     Preference.all(:conditions => "value = 't' AND name = 'receive_email_notifications'").map(&:owner)
   end
+  
+  def self.in_soapbox_directory
+    active.visible.with_premium_account.with_preferences(:publish_profile => true).by_last_name
+  end
+  
+  def self.in_spoonfeed_directory
+    active.visible.by_last_name
+  end
 
   def deliver_invitation_message!
     @send_invitation = nil
@@ -345,6 +359,14 @@ class User < ActiveRecord::Base
   def specialties
     profile.present? ? profile.specialties : []
   end
+  
+  def james_beard_region
+    profile.present? ? profile.james_beard_region : nil
+  end
+  
+  def metropolitan_area
+    profile.present? ? profile.metropolitan_area : nil
+  end
 
   def phone_number
     if profile.present? then profile.cellnumber else nil end
@@ -359,6 +381,7 @@ class User < ActiveRecord::Base
     self.prefers_publish_profile? && self.premium_account?
   end
 
+  ## Subscriptions
   def braintree_contact
     self
   end
