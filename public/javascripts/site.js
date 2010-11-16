@@ -368,6 +368,7 @@ function updateDirectoryList() {
 	$directoryList.load('/directory/search', input_string, function(responseText, textStatus){
 	  $loaderImg.hide();
 	  $directoryList.fadeIn(300);
+		$('.identity').equalHeights();
 	});
 	// return true;	
 }
@@ -555,7 +556,6 @@ setupProfileProgressbar('#profile_completeness_progressbar');
 $('#user_email').blur(function() {
   this.value = jQuery.trim(this.value);
 });
-
 
 $('.soapbox_sidebar').tabs();
 $('.tabable').tabs();

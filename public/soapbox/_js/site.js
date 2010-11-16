@@ -1,5 +1,16 @@
 $(document).ready(function(){
 	
+	$('.identity').equalHeights();
+	$('.culinary').equalHeights();
+	$('.nonculinary_job').equalHeights();
+	$('.award').equalHeights();
+	$('.accolade').equalHeights();
+	$('.enrollment').equalHeights();
+	$('.competition').equalHeights();
+	$('.internship').equalHeights();
+	$('.stage').equalHeights();
+	$('.apprenticeship').equalHeights();
+	
 	if($('#recent-activity').length > 0){
 	
 		$('#recent-activity').tabs({
