@@ -8,10 +8,6 @@
 <div class="publish_date upcoming">
     This will be published in <%= distance_of_time_in_words(Time.now, message.soapbox_entry.published_at) %>
 </div>
-<% else %>
-<div class="publish_date upcoming">
-    This post will be scheduled soon.
-</div>
 <% end %>
 
 <% end %>
