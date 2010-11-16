@@ -1,15 +1,15 @@
 <% if message.is_a?(Admin::Conversation) || message.is_a?(TrendQuestion) %>
 
 <% if message.soapbox_entry.try(:published?) %>
-<div>
+<div class="publish_date">
     This has been <%= link_to 'published on soapbox', soapbox_soapbox_entry_path(message.soapbox_entry), :popup => true %>.
 </div>
 <% elsif message.soapbox_entry.try(:upcoming?) %>
-<div>
+<div class="publish_date upcoming">
     This will be published in <%= distance_of_time_in_words(Time.now, message.soapbox_entry.published_at) %>
 </div>
 <% else %>
-<div>
+<div class="publish_date upcoming">
     This post will be scheduled soon.
 </div>
 <% end %>
