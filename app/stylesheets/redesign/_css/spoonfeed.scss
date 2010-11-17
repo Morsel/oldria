@@ -19,6 +19,17 @@ body{
 	color:#333;
 }
 
+hr.edit_block {
+	margin-right: 10px;
+	border-top: 1px solid #e1d9c4;
+	border-left: 0px none none;
+	border-right: 0px none none;
+	border-bottom: 0px none none;
+	background: none;
+	background-color: none;
+	color: #ddd;
+}
+
 strong, b{
 	font-weight:bold;
 }
@@ -307,6 +318,12 @@ form#new_user_session {
 	}
 	button[type=submit]{
 		cursor:pointer;
+	}
+}
+
+#profile_summary_input {
+	.inline-hints {
+		margin: 0 0 10px 0;
 	}
 }
 
@@ -878,7 +895,11 @@ form#new_user_session {
 	#profile-tabs {
 		#extended_profile_fields {
 			ul {
+				margin: 0;
+				padding: 0;
 				li {
+					margin: 0;
+					padding: 4px 20px 4px 5px;
 					span {
 						margin: 0;
 						padding: 0;
@@ -925,7 +946,7 @@ form#new_user_session {
 				}
 				&.positive {
 					&:hover {
-						background: $trans-orange;
+						background: #e1d9c4;
 						color: #333;
 						text-shadow:none;
 					}
@@ -934,8 +955,26 @@ form#new_user_session {
 		 	.inputs {
 				display: block;
 				margin: 10px 0;
-				padding: 10px 0;
-				border-bottom: 1px solid #dad8d1;
+				padding: 12px 0 20px;
+				border-bottom: 1px solid #ddd;
+				.cuisines {
+					.colorbox {
+						display: block;
+						text-align: center;
+						width: 40px;
+						@include border-radius(30px);
+						text-shadow: 0 1px 0 #fff;
+						padding: 2px 10px;
+						margin: 10px 0;
+						background: #e1d9c4;
+						clear: both;
+						&:hover {
+							background: $brown;
+							color: #fff;
+							text-shadow: 0 1px 0 #333;
+						}
+					}
+				}
 				legend {
 					margin: 0;
 					padding: 0;
@@ -1007,10 +1046,15 @@ form#new_user_session {
 				}
 				p.inline-hints {
 					font-family: 'lucida grande', tahoma, verdana, arial, sans-serif;
-					font-size: 11px; 
+					font-size: 10px; 
 					color: #777;
 					font-style: normal;
-					margin: 0 0 15px 0;
+					margin: -10px 0 15px 0;
+				}
+				#profile_summary_input {
+					.inline-hints {
+						margin: 0 0 10px 0;
+					}
 				}
 				ol {
 					li {
@@ -1025,23 +1069,45 @@ form#new_user_session {
 			width:308px;
 			padding:10px;
 			float:left;
+			border-bottom: 0;
 			a{
 				color:#333;
 				&.sf-button{
+					display: inline-block;
+					text-align: center;
+					margin: 8px 0;
 					font-weight:normal;
-					background:#eceded;
 					color:$orange;
 					padding:5px 10px;
 					border:1px solid #ccc;
+					background:#eceded;
+					@include linear-gradient(color-stops(#f9f9f9,#ddd ), top);
 					@include border-radius(80px);
 					&:hover{
 						background:#ddd;
+						@include linear-gradient(color-stops(#fff,#ffe1d5 ), top);
+						border: 1px solid #ffe1d5;
+						text-shadow: 0 1px 0 #fff;
 					}
+				}
+				&.remove_twitter {
+					display: block;
+					margin: 6px 0;
+					color: $orange;
+				}
+				&.read_twitter {
+					display: block;
+					margin: 6px 0;
+					color: $orange;
 				}
 			}
 		}
 		#twitter-fieldset{
 			border-right:1px dotted #ccc;
+			padding-left: 0;
+		}
+		#facebook-fieldset {
+			padding-left: 16px;
 		}
 	} /* profile tabs */
 
@@ -1797,7 +1863,15 @@ p.search_filter_hint {
 	color: #514721;
 }
 
-
+#page_content #profile-tabs .ui-tabs-panel .inputs { 
+	#profile_specialties_input li {
+		padding: 2px 0;
+		margin: 2px 0;
+		float: left;
+		width: 200px;
+		height: 25px;
+	}
+}
 
 #flashes {
 	clear:both;
@@ -1848,7 +1922,7 @@ p.search_filter_hint {
 	}
 	#extended_profile {
 		display:none;
-		padding: 5px 8px;
+		padding: 5px 16px;
 		background-color: $trans-brown;
 		.extended_profile_info {
 			border-bottom: 1px solid #ddd;
@@ -1866,6 +1940,8 @@ p.search_filter_hint {
 				padding: 0;
 				li {
 					background: none;
+					padding: 10px 0;
+					margin: 0 10px 0 0;
 					.name {
 						font-weight: bold;
 						color: #333;
@@ -1882,7 +1958,7 @@ p.search_filter_hint {
 	}
 	ul{
 		list-style:none;
-		padding:10px;
+		padding:0;
 		margin:0 10px;
 		overflow:hidden;
 		li{
@@ -1908,24 +1984,26 @@ p.search_filter_hint {
 				clear:both;
 				display:inline-block;
 				margin:0 5px 0 0;
-				padding:5px 10px 5px 20px;
+				padding:3px 12px 3px 22px;
 				color:$orange;
 				font:normal 10px "Lucida Grande", Arial, sans-serif;
 				text-transform:uppercase;
 				background:$trans-orange;
 				background-repeat:no-repeat;
-				background-position:left center;
-				@include transition;
+				background-position: 10px -2px;
+				@include border-radius(20px);
 				&.colorbox{
 					background-image:url(/images/redesign/icon-16-pencil.png);
+					color: $brown;
+					background-position: 10px -2px;
 				}
 				&.delete{
 					background-image:url(/images/redesign/icon-16-delete.png);
 				}
 				&:hover{
 					text-decoration:none;
-					background-color:$med-brown;
-					color:#333;
+					background-color:$brown;
+					color:#fff;
 				}
 				&.unstyled{
 					margin:0 0 15px;
@@ -1942,6 +2020,17 @@ p.search_filter_hint {
 		}
 	}
 } /* ## profile_extended ----------------- */
+
+#page_content #profile-tabs #extended_profile_fields .ajaxdelete ul li .colorbox {
+	background-position: 6px 0px;
+}
+#page_content #profile-tabs #extended_profile_fields .ajaxdelete ul li .delete {
+	background-position: 6px 0px;
+}
+
+#page_content #profile-tabs #user_prefers_receive_email_notifications {
+	margin-right: 10px;
+}
 
 #status_update {
 	border: 1px solid #ddd;
@@ -2271,11 +2360,11 @@ p.search_filter_hint {
 	line-height:1.4;
 	.current{
 		background-color:#efede5;
-		background:rgba(223,219,204,0.33) url(/images/redesign/bg-current.png) no-repeat 10px center;
+		background:rgba(223,219,204,0.33) url(/images/redesign/bg-current.png) no-repeat 10px 10px;
 		margin:10px 0;
 		padding:10px 10px 10px 52px;
 		@include border-radius(10px);
-		border:1px solid $med-brown;
+		border:1px solid #e1d9c5;
 		color:$orange;
 	}
 }
@@ -2291,14 +2380,21 @@ p.search_filter_hint {
 .headshot img.thumbnail{
 	float:left;
 	padding:10px;
-	border-right:1px dotted #ccc;
 }
 
 .headshot_fields{
-	margin-left:100px;
-	padding:0 20px;
+	margin-left:80px;
+	padding:0 10px;
+	label {
+		margin: 0;
+		padding: 0;
+	}
 	p{
 		margin:10px 0 0;
+		a {
+			float: left;
+			margin: 3px 0 0;
+		}
 	}
 }
 
