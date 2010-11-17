@@ -2192,23 +2192,24 @@ p.search_filter_hint {
 			line-height: 18px;
 			a {
 				float:left;
-				margin: 0px 6px 7px 0;
-				height: 23px;
+				margin: 0px 0 7px 6px;
+				height: 30px;
 				padding: 7px 10px 3px;
-				background-color: $trans-orange;
-				background-image: none;
+				background-color: #fcf7f3;
+				color: $brown;
 				text-shadow: 0 1px 0 #fff;
-				&.selected {
-					height: 30px;
-					margin-bottom: 0;
-					background: transparent url(/images/redesign/bg-tabable.png) no-repeat 0 100%;
-					text-shadow: 0 1px 0 #333;
-					color: #fff;
-				}
 				&:hover {
 					background-color: $trans-brown;
-					color: $brown;
 				}
+			}
+			span:first-child a{
+				margin-left:0;
+			}
+			.ui-tabs-selected a{
+				margin-bottom: 0;
+				background: $trans-orange;
+				color:$orange;
+				text-shadow: 0 1px 0 #fff;
 			}
 		}
 	}	

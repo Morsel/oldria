@@ -24,7 +24,10 @@ $('#profile-tabs').tabs({
 	fx: { duration: 'fast', opacity: 'toggle' }
 });
 
-$('.tabable').tabs();
+$('.tabable').tabs({
+	panelTemplate: '<section></section>',
+	fx: { duration: 'fast', opacity: 'toggle' }
+});
 
 $('.new_question').live('click', function(){
 	$(this).css({
