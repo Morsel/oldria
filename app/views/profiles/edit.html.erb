@@ -45,7 +45,7 @@
             <% end %>
         </fieldset>
         
-        <% form_for @user, :html => { :multipart => true } do |f| %>
+        <% semantic_form_for @user, :html => { :multipart => true } do |f| %>
             <fieldset class="headshot inputs">
                 <legend><span>Profile Photo</span></legend>
                 
@@ -53,12 +53,12 @@
                     <%= image_tag @user.avatar.url(:thumb), :class => 'thumbnail' %>
 
                     <div class="clearfix headshot_fields">
-                      <%= f.label :avatar, "Upload a headshot" %><br><%= f.file_field :avatar %>
-                      <p class="clearfix">
-                        <%= button_tag "Upload Headshot", :class => 'positive' %>
-                        <span class="button-separator"></span> 
-                        <%= link_to "Remove my headshot", remove_avatar_user_path(@user), :method => :put, :confirm => "Are you sure you want to remove your headshot? You'll have to upload another one later to get it back" %>
-                      </p>
+                        <%= f.input :avatar, :as => "file", :label => "Upload a headshot" %>
+                        <p class="clearfix">
+                            <%= button_tag "Upload Headshot", :class => 'positive' %>
+                            <span class="button-separator"></span> 
+                            <%= link_to "Remove my headshot", remove_avatar_user_path(@user), :method => :put, :confirm => "Are you sure you want to remove your headshot? You'll have to upload another one later to get it back" %>
+                        </p>
                     </div>
                 </div>
             </fieldset>
