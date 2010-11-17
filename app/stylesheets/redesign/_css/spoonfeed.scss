@@ -925,6 +925,12 @@ form#new_user_session {
 				}
 			}
 		}
+		section{
+			display:none;
+			&.ui-tabs-selected{
+				display:block;
+			}
+		}
 		.ui-tabs-panel {
 			p {display: block;overflow:hidden;}
 			button {
