@@ -19,7 +19,7 @@ class QuestionsController < ApplicationController
     @next_topic = @chapter.topic.next_for_subject(@subject, is_self)
 
     @questions = is_self ?
-        @subject.profile_questions.for_chapter(params[:chapter_id]) :
+        @chapter.profile_questions.for_subject(@subject) :
         ProfileQuestion.answered_for_subject(@subject).for_chapter(params[:chapter_id])
   end
 

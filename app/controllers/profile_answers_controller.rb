@@ -28,7 +28,7 @@ class ProfileAnswersController < ApplicationController
         @question = @answer.profile_question
 
         if @answer.save
-          new_question = ProfileQuestion.for_user(current_user).random.reject { |q| q.answered_by?(current_user) }.first
+          new_question = ProfileQuestion.for_subject(@responder).random.reject { |q| q.answered_by?(@responder) }.first
           render :partial => "shared/btl_game", :locals => { :question => new_question } and return
         else
           render :partial => "shared/btl_game", :locals => { :question => @question } and return
@@ -58,7 +58,7 @@ class ProfileAnswersController < ApplicationController
     @user = @answer.responder
     flash[:notice] = "Your answer has been deleted"
     @answer.destroy
-    redirect_to send("#{@user.class.name.downcase}_questions_path", "#{@user.class.name.downcase}_id".to_sym => @user.id,
+    redirect_to send("#{@responder.class.name.downcase}_questions_path", "#{@responder.class.name.downcase}_id".to_sym => @responder.id,
                                     :chapter_id => @question.chapter.id,
                                     :anchor => "profile_question_#{@question.id}")
   end
