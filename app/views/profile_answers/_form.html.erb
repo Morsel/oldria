@@ -9,6 +9,6 @@
 </fieldset>
 
 <div class="clearfix">
-    <%= button_tag "Post" %>
-    <%= link_to "Delete this answer", profile_answer_path(answer), :method => "delete", :class => "button negative" unless answer.new_record? %>
+  <%= button_tag "Post" %>
+  <%= link_to "Delete this answer", send("#{@subject.class.name.downcase}_profile_answer_path", "#{@subject.class.name.downcase}_id".to_sym => @subject, :id => answer.id), :method => "delete", :class => "button negative" unless answer.new_record? %>
 </div>

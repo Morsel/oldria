@@ -33,7 +33,6 @@ Feature: Restaurant Profile - Behind the Line (aka Q&A)
     And I follow "Inspirations"
     Then I should see "What restaurants inspired you to open?"
 
-@wip
   Scenario: Answering a question
     Given I am on the restaurant show page for "The Chef"
     When I follow "View all Topics" within "#behindline"
@@ -42,3 +41,4 @@ Feature: Restaurant Profile - Behind the Line (aka Q&A)
     And I fill in "profile_answer_answer" with "A great answer for this"
     And I press "Post"
     Then I should see "Your answer has been saved"
+
