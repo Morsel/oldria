@@ -6,7 +6,7 @@
         <%= f.input :james_beard_region, :label => 'Region', :wrapper_html => {:class => 'bottom'} %>
     <% end %>
     
-    <p><%= button_tag "Save", :class => 'positive' %></p>
+    <p class="save_end"><%= button_tag "Save", :class => 'positive' %></p>
 
     <% f.inputs :name => 'Login Information' do %>
         <%= f.input :username, :hint => 'Change your username, if you like, by entering a new one here' %>
@@ -20,5 +20,5 @@
       <% end %>
     <%- end %>
 
-    <p><%= button_tag "Save", :class => 'positive' %></p>
+    <p class="save_end"><%= button_tag "Save", :class => 'positive' %></p>
 <% end %>
