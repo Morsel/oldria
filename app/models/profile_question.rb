@@ -58,18 +58,17 @@ class ProfileQuestion < ActiveRecord::Base
     chapter.topic
   end
 
-  def answered_by?(user)
-    self.profile_answers.exists?(:responder_id => user.id, :responder_type => user.class.name)
+  def answered_by?(subject)
+    self.profile_answers.exists?(:responder_id => subject.id, :responder_type => subject.class.name)
   end
 
-  def answer_for(user)
-    self.profile_answers.find(:conditions => {:responder => user})
+  def answer_for(subject)
+    self.profile_answers.select { |a| a.responder == subject }.first
   end
 
-  def find_or_build_answer_for(user)
-    self.answered_by?(user) ?
-        self.profile_answers.first(:conditions => ['"profile_answers".responder_id = ? AND "profile_answers".responder_type = ?', user.id, user.class.name]) :
-        ProfileAnswer.new(:profile_question_id => self.id, :responder => user)
+  def find_or_build_answer_for(subject)
+    answer = self.answered_by?(subject) ?
+        self.answer_for(subject) : self.profile_answers.build(:responder => subject)
   end
 
   def responders=(responder_ids)

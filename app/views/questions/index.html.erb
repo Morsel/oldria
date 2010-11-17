@@ -11,10 +11,10 @@
 <% if can_edit_profile_questions(@subject) %><%# let's edit these answers %>
 
   <% form_tag profile_answers_path do %>
-    <% for question in @questions %>
+    <% @questions.each do |question| %>
       <% div_for question do %>
           <h4>Q: <%= question.title %></h4>
-          <%= render :partial => "profile_answers/form", :locals => { :answer => question.find_or_build_answer_for(current_user) } %>
+          <%= render :partial => "profile_answers/form", :locals => { :answer => question.find_or_build_answer_for(@subject) } %>
       <% end %>
     <% end %>
   <% end %><%# end form %>
