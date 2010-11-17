@@ -927,8 +927,11 @@ form#new_user_session {
 		}
 		section{
 			display:none;
-			&.ui-tabs-selected{
+			&.ui-tabs-panel{
 				display:block;
+				&.ui-tabs-hide{
+					display:none;
+				}
 			}
 		}
 		.ui-tabs-panel {
