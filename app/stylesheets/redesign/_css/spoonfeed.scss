@@ -161,7 +161,7 @@ em, i{
 			}
 	 	}
 	}
-} /* ## END OF header ------------------- */
+} /* ## END OF #site_header ------------------- */
 
 
 #primary_nav {
@@ -219,7 +219,7 @@ em, i{
 			&.selected {background-position:-827px -200px;}
 		}
 	}
-}
+} /* ## end of #primary_nav ------------------------ */
 
 #alternate_nav {
 	width: 974px;
@@ -264,7 +264,7 @@ em, i{
 			&.selected {background-position:-820px -200px;}
 		}
 	}
-}
+} /* ## end of alternate_nav -------------------------------- */
 
 form#new_user_session {
 	p {
@@ -319,7 +319,7 @@ form#new_user_session {
 	button[type=submit]{
 		cursor:pointer;
 	}
-}
+} /* ## end of form#new_user_session ------------------------ */
 
 #profile_summary_input {
 	.inline-hints {
@@ -401,7 +401,7 @@ form#new_user_session {
 			}
 		}
 	}
-}
+} /* end of JUMBOTRON -------------------------------- */
 
 
 #main {
@@ -500,7 +500,7 @@ form#new_user_session {
 			}
 		}
 	}
-}
+} /* end of #content.hp -------------------------------- */
 
 #content {
 	@include column(18);
@@ -555,6 +555,227 @@ form#new_user_session {
 	}
 } /* ## END OF #content ------------------- */
 
+
+#messages_nav {
+	width: 150px;
+	float: left;
+	nav {
+		margin: 30px 0 0;
+		font-size: 13px;
+		a {
+			display: block;
+			padding: 8px 3px 8px 8px;
+			margin: 10px 0 0;
+			background-color: #E7E4D8;
+			color: #555;
+			text-shadow: 0 1px 0 #fff;
+			&:hover {
+				@include linear-gradient(color-stops(#cfc6aa,#e1d9c4), left);
+				color: #333;
+			}
+			&.here {
+				@include linear-gradient(color-stops(#ce4600,#df680e), left);
+				color: #fff;
+				text-shadow: 0 1px 0 #333;
+			}
+		}
+	}
+}
+
+#new_or_old_messages {
+	position: absolute;
+	top: 25px;
+	text-align: right;
+	right: 20px;
+	font-family: gotham, helvetica, arial, sans-serif;
+	text-transform: uppercase;
+	font-size: 11px;
+	height: 15px;
+	padding: 5px 0px;
+	a {
+		font-weight: bold;
+		color: $orange;
+		font-size: 12px;
+		height: 25px;
+		padding: 5px 12px 3px;
+		background: #fff url(/images/redesign/bg-newall-2.gif) no-repeat 50% 100%;
+		margin-left: 5px;
+		text-align: center;
+		&.selected {
+			color: $orange;
+			background: #fff url(/images/redesign/bg-newall-1.gif) no-repeat 50% 100%;
+			text-shadow: 0 1px 0 #fff;
+			&:hover {
+				color: $orange;
+				text-shadow: none;
+			}
+		}
+		&:hover {
+			color: #fff;
+			text-shadow: 0 1px 0 #999;
+		}
+	}
+}
+
+#read_messages {
+	float: left;
+	border: 1px solid #eee;
+	@include box-shadow(#ddd,0,2px,5px);
+	width: 510px;
+	padding: 0 16px 16px;
+	margin: 40px 0 0;
+	min-height: 200px;
+	.latest {
+		display: block;
+		margin: 30px 0 10px;
+		font-family: 'Hoefler Text', Georgia, Times, serif;
+		letter-spacing: 0.2em;
+		line-height: 17px;
+		font-weight: bold;
+		color: #333;
+		text-transform: uppercase;
+		border-bottom: 1px dotted #ddd;
+	}
+	#no-messages {
+		background-color: $trans-orange;
+		border: 1px solid #f5dcd2;
+		padding: 10px;
+		p {
+			margin: 0;
+			padding: 0;
+			line-height: 18px;
+			font-style: italic;
+			color: #826a60;
+			font-size: 14px;
+		}
+	}
+	.direct_message {
+		header {
+			padding: 16px 0 0px;
+			h1 {
+				font-family: 'helvetica neue', helvetica, arial, sans-serif;
+				font-weight: normal;
+				font-size: 13px;
+				margin: 0;
+				padding: 0;
+				a {
+					color: $orange;
+					&:hover {
+						color: $brown;
+					}
+				}
+			}
+			.sender_avatar {
+				float: left;
+				img {
+					width: 50px;
+					height: 50px;
+					background-color: $trans-brown;
+				}
+			}
+		}
+		.message_body {
+			a {
+				color: #222;
+				&:hover {
+					color: $orange;
+					text-decoration: none;
+				}
+			}
+		}
+		.timestamp {
+			text-transform: uppercase;
+		}
+		.actions {
+			a {
+				@include linear-gradient(color-stops(#f4f4f4,#eaeaea), top);
+				border: 1px solid #ddd;
+				color: #333;
+				text-shadow: 0 1px 0 #fff;
+				font-weight: bold;
+				&:hover{
+					background:#ddd;
+					@include linear-gradient(color-stops(#fff,#ffe1d5 ), top);
+					border: 1px solid #ffe1d5;
+					text-shadow: 0 1px 0 #fff;
+					color: $orange;
+				}
+			}
+		}
+	}
+	.inbox_message {
+		border-bottom: 1px dotted #ddd;
+		.icon {
+		}
+		.message-details {
+			header {
+				border: 0;
+				margin: 0;
+				padding: 0;
+				h1 {
+					font-family: 'helvetica neue', helvetica, arial, sans-serif;
+					font-weight: bold;
+					margin: 16px 0 0;
+					font-size: 18px;
+					line-height: 21px;
+					a {
+						color: #333;
+						&:hover {
+							color: $orange;
+						}
+					}
+				}
+				.timestamp {
+					text-transform: uppercase;
+					margin: 5px 0 15px;
+					padding: 0;
+				}	
+			}
+			.message-body {
+				p {
+					font-size: 13px;
+					line-height: 18px;
+				}
+			}
+			.readit {
+				display: block;
+				margin: -5px 0 16px;
+				span {
+					background-color: $trans-orange;
+					color: $orange;
+					padding: 2px 10px;
+					@include border-radius(12px);
+					&:hover {
+						color: #fff;
+						background-color: $orange;
+						text-shadow: 0 1px 0 #333;
+					}
+				}
+			}
+		}
+		.message-actions {
+			p {
+				a {
+					color: $orange;
+					span {
+						background-color: $orange;
+						color: #fff;
+						padding: 2px 6px;
+						@include border-radius(15px);
+						text-shadow: 0 1px 0 #333;
+					}
+					&:hover {
+						text-decoration: none;
+						color: $brown;
+						span {background: $brown;}
+					}
+				}
+			}
+		}
+	}
+}
+	
+
 #dashboard {
 	#admin_messages {
 		border: 1px solid #EAD1CA;
@@ -592,12 +813,16 @@ form#new_user_session {
 			}
 		}
 	}
-}
+} /* end of #dashboard --------------------------- */
 
 #page_content {
 	padding: 5px 14px 20px 18px;
 	overflow: hidden;
+	position: relative;
 	header {margin-bottom: 15px;}
+	
+	/* -- base styles for the site -- */
+	
 	h1 {
 		@include hoeflerbolditalic;
 		font-size: 25px;
@@ -793,7 +1018,9 @@ form#new_user_session {
 		dt {
 			margin: 0 0 10px 0;
 		}
-	}
+	}/* ## END of base styles for the site -- */
+	
+	
 	#qotd_column, #trend_column {
 		float:left;
 		width: 335px;
@@ -860,7 +1087,7 @@ form#new_user_session {
 				display: block;
 				border: 1px solid #ddd;
 				background-color: #f2f2f2;
-				@include linear-gradient(color-stops(#f4f4f4,#eaeaea ), top);
+				@include linear-gradient(color-stops(#f4f4f4,#eaeaea), top);
 				color: #333;
 				@include border-radius(20px);
 				padding: 5px 12px;
@@ -886,12 +1113,12 @@ form#new_user_session {
 			}
 			.message-header {display: none;}
 		}
-	} /*qotd && trend columns */
-	
-	
+	} 
 	#qotd_column {
 		margin-right: 20px;
-	}
+	} /* ## qotd && trend columns -------------------------- */
+	
+	
 	#profile-tabs {
 		#extended_profile_fields {
 			ul {
@@ -1109,7 +1336,7 @@ form#new_user_session {
 		#facebook-fieldset {
 			padding-left: 16px;
 		}
-	} /* profile tabs */
+	} /* ## end of #profile-tabs ----------------------- */
 
 
 	.chapter, .topic{
@@ -1180,7 +1407,7 @@ form#new_user_session {
 		h3{
 			padding-right:0;
 		}
-	} /* behind the line stuff */
+	} /* ## end of .chapter + .topic ----------------- */
 
 	
 	.last_updated, .timestamp_header, .timestamp {
@@ -1322,7 +1549,7 @@ form, #page_content form{
 			font-weight: normal;
 		}
 	}
-}
+} 	
 
 #profile-account {
 	float: right;
@@ -1330,9 +1557,9 @@ form, #page_content form{
 	margin-left: 15px;
 	padding-left: 15px;
 	border-left: 1px dotted #ddd;
-}
-#profile-summary {
-}
+} /* ## end #profile_account + #profile-summary ----------------------- */
+
+
 
 
 
@@ -1454,7 +1681,9 @@ form, #page_content form{
 	.label label, div.loading{
 	  display:none;
 	}
-}
+} /* ## end of accordion ------------------------ */
+
+
 p.search_filter_hint {
   padding:0; margin:0;
 }
@@ -1600,86 +1829,9 @@ p.search_filter_hint {
 			}
 		}
 	}
-}
+} /* ## end of sidebar_b ------------------------ */
 
-#footer_container {
-	position: relative;
-	display: block;
-	z-index: 1000;
-	background-color: #333;
-	#foot-wrap{
-		height: 150px;
-		border-top: 10px solid #000;
-	}
-	footer {	
-		width: 974px;
-		margin: 25px auto;
-		padding: 0;
-		font-weight: 300;
-		color: #fff;
-		#footer_branding {
-			@include column(8);
-		}
-		#footer_links {
-			@include column(12);
-			p {
-				margin: 8px 0 10px 0;
-				color: #aaa;
-				position:relative;
-				a {
-					color: #fff;
-					&:hover {
-						text-decoration: underline;
-					}
-				}
-			}
-			nav {
-				margin: 0 0 10px 0;
-				a {
-					background: transparent url(/images/redesign/line-footer.gif) no-repeat;
-					background-position: 88% 2px;
-					padding: 0 15px 0 0;
-					color: #fff;
-					&.last {background-image: none;}
-					&:hover {text-decoration: underline;}
-				}
-			}
-			ul {
-				li {
-					display: inline;
-					color: #aaa;
-					a {
-						color: #fff;
-						&:hover {text-decoration: underline;}
-					}
-				}
-			}
-		}
-		#footer_social {
-			@include column(4, true);
-			a {
-				display: block;
-				padding: 0;
-				margin: 0 0 15px 0;
-				color: #fff;
-				&.fb {
-					padding: 0 0 0 32px;
-					background: transparent url(/images/redesign/icon-25-fb.png) no-repeat 0 2px;
-					&:hover {background-position: 0 -98px;}
-				}
-				&.twitter {
-					padding: 0 0 0 32px;
-					background: transparent url(/images/redesign/icon-25-twitter.png) no-repeat 0 2px;
-					&:hover {background-position: 0 -98px;}
-				}
-				&:hover {
-					color: #aaa;
-					text-decoration: underline;
-				}
-			}
-		}
-	}
-}
+
 
 #recently {
 	h3 {
@@ -1787,34 +1939,6 @@ p.search_filter_hint {
 	}
 } /* ## recently -------------------- */
 
-#flashes {
-	clear:both;
-	margin: 15px 0;
-	font-family: Gotham, "helvetica neue", arial, sans-serif;
-	font-size: 13px;
-	div{
-		border: 1px solid #ddd;
-		padding: 10px 15px;
-		@include border-radius(30px);
-		@include box-shadow(#f1f1f1,0px,2px,2px);
-		&#flash_error{
-			background: $trans-orange;
-			border-color: $orange;
-			color: $orange;
-		}
-		&#flash_notice{
-			background: #fffbe0;
-			border-color: #FFD324;
-			color: #766833;
-		}
-		&#flash_success{
-			background: #edf5d0;
-			border-color: #abbc66;
-			color: #365816;
-		}
-	}
-}
-
 
 #profile-options{
 	margin:15px 0 0;
@@ -1845,7 +1969,9 @@ p.search_filter_hint {
 		color:#fff;
 		text-shadow:0 1px 0 #333;
 	}
-}
+} /* ## profile-options -------------------- */
+
+
 .ui-tabs-panel{ 
 	background:#f7f6f2;
 	padding:12px;
@@ -1873,33 +1999,7 @@ p.search_filter_hint {
 	}
 }
 
-#flashes {
-	clear:both;
-	margin: 15px 0;
-	font-family: Gotham, "helvetica neue", arial, sans-serif;
-	font-size: 13px;
-	div{
-		border: 1px solid #ddd;
-		padding: 10px 15px;
-		@include border-radius(30px);
-		@include box-shadow(#f1f1f1,0px,2px,2px);
-		&#flash_error{
-			background: $trans-orange;
-			border-color: $orange;
-			color: $orange;
-		}
-		&#flash_notice{
-			background: #fffbe0;
-			border-color: #FFD324;
-			color: #766833;
-		}
-		&#flash_success{
-			background: #edf5d0;
-			border-color: #abbc66;
-			color: #365816;
-		}
-	}
-}
+
 
 
 #profile-extended, #extended_profile_container {
@@ -2019,7 +2119,7 @@ p.search_filter_hint {
 			}
 		}
 	}
-} /* ## profile_extended ----------------- */
+}
 
 #page_content #profile-tabs #extended_profile_fields .ajaxdelete ul li .colorbox {
 	background-position: 6px 0px;
@@ -2030,7 +2130,9 @@ p.search_filter_hint {
 
 #page_content #profile-tabs #user_prefers_receive_email_notifications {
 	margin-right: 10px;
-}
+} /* ## profile_extended + extended_profile_container ----------------- */
+
+
 
 #status_update {
 	border: 1px solid #ddd;
@@ -2108,7 +2210,7 @@ p.search_filter_hint {
 			}
 		}
 	}
-}
+} /* ## status_update ----------------------- */
 
 .add_extended{
 	display:inline-block;
@@ -2174,7 +2276,7 @@ p.search_filter_hint {
 }
 
 
-#behindline{
+#behindline {
 	@include column(9);
 	.view_all {
 		text-transform: uppercase;
@@ -2262,8 +2364,11 @@ p.search_filter_hint {
 			}
 		}
 	}
-}
-#recent_qtod{
+} /* end of #behindline ----------------------------- */
+
+
+
+#recent_qtod {
 	@include column(8,true);
 	h3 {
 		font-family: 'helvetica neue', helvetica, arial, sans-serif;
@@ -2326,7 +2431,7 @@ p.search_filter_hint {
 			}
 		}
 	}	
-}
+} /* end of #recent_qotd ----------------------------- */
 
 .topic-nav{
 	overflow:hidden;
@@ -2352,7 +2457,7 @@ p.search_filter_hint {
 			background-image:url(/images/redesign/bg-home.png);
 		}
 	}
-}
+} /* end of .topic-nav ----------------------------- */
 
 
 #profile-edit-account{
@@ -2397,4 +2502,114 @@ p.search_filter_hint {
 		}
 	}
 }
+
+
+
+#flashes {
+	clear:both;
+	margin: 15px 0;
+	font-family: Gotham, "helvetica neue", arial, sans-serif;
+	font-size: 13px;
+	div{
+		border: 1px solid #ddd;
+		padding: 10px 15px;
+		@include border-radius(30px);
+		@include box-shadow(#f1f1f1,0px,2px,2px);
+		&#flash_error{
+			background: $trans-orange;
+			border-color: $orange;
+			color: $orange;
+		}
+		&#flash_notice{
+			background: #fffbe0;
+			border-color: #FFD324;
+			color: #766833;
+		}
+		&#flash_success{
+			background: #edf5d0;
+			border-color: #abbc66;
+			color: #365816;
+		}
+	}
+} /* ## end of flashes ----------------------------- */
+
+
+#footer_container {
+	position: relative;
+	display: block;
+	z-index: 1000;
+	background-color: #333;
+	#foot-wrap{
+		height: 150px;
+		border-top: 10px solid #000;
+	}
+	footer {	
+		width: 974px;
+		margin: 25px auto;
+		padding: 0;
+		font-weight: 300;
+		color: #fff;
+		#footer_branding {
+			@include column(8);
+		}
+		#footer_links {
+			@include column(12);
+			p {
+				margin: 8px 0 10px 0;
+				color: #aaa;
+				position:relative;
+				a {
+					color: #fff;
+					&:hover {
+						text-decoration: underline;
+					}
+				}
+			}
+			nav {
+				margin: 0 0 10px 0;
+				a {
+					background: transparent url(/images/redesign/line-footer.gif) no-repeat;
+					background-position: 88% 2px;
+					padding: 0 15px 0 0;
+					color: #fff;
+					&.last {background-image: none;}
+					&:hover {text-decoration: underline;}
+				}
+			}
+			ul {
+				li {
+					display: inline;
+					color: #aaa;
+					a {
+						color: #fff;
+						&:hover {text-decoration: underline;}
+					}
+				}
+			}
+		}
+		#footer_social {
+			@include column(4, true);
+			a {
+				display: block;
+				padding: 0;
+				margin: 0 0 15px 0;
+				color: #fff;
+				&.fb {
+					padding: 0 0 0 32px;
+					background: transparent url(/images/redesign/icon-25-fb.png) no-repeat 0 2px;
+					&:hover {background-position: 0 -98px;}
+				}
+				&.twitter {
+					padding: 0 0 0 32px;
+					background: transparent url(/images/redesign/icon-25-twitter.png) no-repeat 0 2px;
+					&:hover {background-position: 0 -98px;}
+				}
+				&:hover {
+					color: #aaa;
+					text-decoration: underline;
+				}
+			}
+		}
+	}
+} /* ## end of #footer_container ---------------------- */
 

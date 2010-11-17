@@ -5,6 +5,5 @@
       <span class="latest">The latest from RIA</span>
     <% end %>
     <%= link_to "New", {:view_all => nil}, :class => "#{archived_view? ? '' : 'active'}" %>
-    <span class="separator">|</span>
     <%= link_to "All", {:view_all => true }, :class => "#{archived_view? ? 'active' : ''}" %>
 </div>

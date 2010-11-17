@@ -1,14 +1,10 @@
-<div class="icon">
-</div>
+<div class="icon"></div>
+
 <div class="message-details">
-  <div class="message-header clearfix">
-    <h4 class="message-title">
-      <%= title_link_for_message(message) %>
-      <span class="message-date">
-        <%= message.scheduled_at.try(:strftime, "%B %d, %Y at %I:%M%p") %>
-      </span>
-    </h4>
-  </div>
+  <header>
+    <h1><%= title_link_for_message(message) %></h1>
+		<p class="timestamp"><%= message.scheduled_at.try(:strftime, "%B %d, %Y at %I:%M%p") %></p>
+  </header>
   <div class="message-body">
     <%= auto_link(simple_format(message.message)) %>
   </div>
@@ -20,4 +16,4 @@
   <% unless message.read_by?(current_user) %>
     <%= read_link_for_message(message) %>
   <% end %>
-</div>
+</div><!--.message-details-->
