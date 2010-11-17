@@ -20,6 +20,11 @@ module DirectoryHelper
     users_for_search.map(&:restaurants).flatten.compact.uniq.sort_by(&:sort_name)
   end
   
+  def restaurant_names_for_search
+    (restaurants_for_search.map(&:name) + 
+        users_for_search.map(&:default_employment).compact.map(&:solo_restaurant_name).reject(&:blank?)).uniq.sort
+  end
+  
   def cuisines_for_search
     (users_for_search.map(&:cuisines) + restaurants_for_search.map(&:cuisine)).flatten.compact.uniq.sort_by(&:name)
   end

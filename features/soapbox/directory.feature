@@ -29,3 +29,19 @@ Feature: Soapbox
     Then I should see "Mgmt Joe"
     And I should not see "Chef Bob"
     And I should not see "Chris Xu"
+
+  Scenario: Searching for solo users
+    Given the following confirmed user:
+      | username | password | email      | name            |
+      | annalena | secret   | a@aqua.com | Annalena Kruger |
+    And "annalena" has a default employment with role "Executive Chef" and restaurant name "Aquavit"
+    And "annalena" has a complimentary premium account
+    And "annalena" has a published profile
+    
+    Given I am logged in as "annalena"
+    And I go to the soapbox directory page
+    Then I should see "Aquavit"
+    And I should see "Annalena"
+    
+    When I check "Aquavit"
+    Then I should see "Annalena" within "#user-results"

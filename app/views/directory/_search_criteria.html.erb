@@ -25,16 +25,16 @@
             <div class="accordion_box">
                 <%= link_to "<span>Restaurants</span>", "#" %>
                 <div id="restaurant_fields" style="display:none;">
-                    <li id="search_employments_restaurant_id_equals_any_input" class="check_boxes optional">
+                    <li id="search_employments_restaurant_name_eq_any_input" class="check_boxes optional">
                         <fieldset>
                             <legend class="label">
-                                <label for="search_employments_restaurant_id_equals_any">Restaurant id equals any</label>
+                                <label for="search_employments_restaurant_name_eq_any">Restaurant name equals any</label>
                             </legend>
                             <ol>
-                                <% for restaurant in restaurants_for_search %>
-                                <li><label for="search_employments_restaurant_id_equals_any_<%= restaurant.id %>">
-                                    <%= check_box_tag "search[employments_restaurant_id_equals_any][]", restaurant.id, false, :id => "search_employments_restaurant_id_equals_any_#{restaurant.id}" %>
-                                    <%= restaurant.name %>
+                                <% for name in restaurant_names_for_search %>
+                                <li><label for="search_employments_restaurant_name_eq_any_<%= name %>">
+                                    <%= check_box_tag "search[employments_restaurant_name_eq_any][]", name, false, :id => "search_employments_restaurant_name_eq_any_#{name}" %>
+                                    <%= name %>
                                 </label></li>
                                 <% end %>
                             </ol>

@@ -215,6 +215,9 @@ class ApplicationController < ActionController::Base
     if params[:search].try(:[], :profile_metropolitan_area_id_eq_any)
       extra_params[:restaurants_metropolitan_area_id_eq_any] = params[:search][:profile_metropolitan_area_id_eq_any]
     end
+    if params[:search].try(:[], :employments_restaurant_name_eq_any)
+      extra_params[:default_employment_solo_restaurant_name_eq_any] = params[:search][:employments_restaurant_name_eq_any]
+    end
 
     if params[:controller].match(/soapbox/)
       search = User.in_soapbox_directory.search(params[:search]).all
