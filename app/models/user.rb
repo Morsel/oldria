@@ -101,7 +101,8 @@ class User < ActiveRecord::Base
                     :default_url => "/images/default_avatars/:style.png",
                     :styles => { :small => "100x100>", :thumb => "50x50#", :tiny => "20x20#" }
 
-  validates_attachment_content_type :avatar, :content_type => ["image/jpg", "image/jpeg", "image/png", "image/gif", "image/pjpeg"],
+  validates_attachment_content_type :avatar, 
+      :content_type => ["image/jpg", "image/jpeg", "image/png", "image/gif", "image/pjpeg", "image/x-png"],
       :message => "Please upload a valid image type: jpeg, gif, or png", :if => :avatar_file_name
 
   validates_exclusion_of :publication,
