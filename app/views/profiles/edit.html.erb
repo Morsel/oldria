@@ -8,7 +8,9 @@
     <nav id="profile-options">
         <span><a href="#profile-edit-account">Account</a></span>
         <span><a href="#profile-summary">Profile Summary</a></span> 
+        <% unless @profile.new_record? %>
         <span><a href="#profile-extended">Extended Profile</a></span>
+        <% end %>
         <span><a href="#profile-messages">Messages</a></span>
     </nav><!-- /profile_options -->
 
@@ -128,6 +130,7 @@
 
             <% end %>
 
+            <% unless @profile.new_record? %>
             <% f.inputs :name => "Metro and Region for search" do %>
                 <%= f.input :metropolitan_area %>
                 <%= f.input :james_beard_region, :label => "Region" %>
@@ -207,10 +210,7 @@
 					<% button_tag :class => 'positive' do %>Save changes to cuisines and specialties<% end %>
             <% end %><!-- Cuisines and specialties -->
 
-            <p class="clear" style="display:none"><!-- removed by nick 11/12 -->
-                <% button_tag :class => 'positive' do %>Save<% end %>
-                <%= button_tag "Preview", :name => "preview" %>
-            </p>
+            <% end %><%# non-basic details %>
         <% end %>
     </section><!-- /profile-summary -->
 
