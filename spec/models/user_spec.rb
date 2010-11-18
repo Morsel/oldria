@@ -13,6 +13,7 @@ describe User do
   should_have_many :posted_discussions, :class_name => 'Discussion', :foreign_key => 'poster_id'
   should_have_many :feed_subscriptions
   should_have_many :feeds, :through => :feed_subscriptions
+  should_have_many :comments
 
   should_validate_presence_of :email
   should_validate_acceptance_of :agree_to_contract

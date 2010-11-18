@@ -35,4 +35,4 @@ Feature: Profile - Behind the Line (aka Q&A)
     And I follow "Education"
     And I fill in "profile_answer_answer" with "A great answer for this"
     And I press "Post"
-    Then I should see "Your answer has been saved"
+    Then I should see "Your answers have been saved"

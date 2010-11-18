@@ -59,7 +59,6 @@ Given /^I am logged in as a media member$/ do
   Given 'I am logged in as "media" with password "normal"'
 end
 
-
 Given /^I am logged in as "([^\"]*)" with password "([^\"]*)"$/ do |username, password|
   unless username.blank?
     visit login_url
@@ -93,6 +92,12 @@ Given /^"([^\"]*)" has a published profile$/ do |username|
   user = User.find_by_username(username)
   user.prefers_publish_profile = true
   user.save
+end
+
+Given /^"([^\"]*)" has a default employment with role "([^\"]*)" and restaurant name "([^\"]*)"$/ do |username, rolename, restoname|
+  user = User.find_by_username(username)
+  role = Factory(:restaurant_role, :name => rolename)
+  Factory(:default_employment, :employee => user, :restaurant_role => role, :solo_restaurant_name => restoname)
 end
 
 When /^I (?:visit the logout path|logout)$/ do

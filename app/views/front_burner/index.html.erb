@@ -1,6 +1,6 @@
 <div class="new_all">
-	<%= link_to "New", front_burner_path %>
-	<%= link_to "All", front_burner_path(:all => true) %>
+	<%= link_to "New", front_burner_path, :class => selected?("New") %>
+	<%= link_to "All", front_burner_path(:all => true), :class => selected?("All") %>
 </div><!--.new_all-->
 
 <% title "Front Burner" %>	

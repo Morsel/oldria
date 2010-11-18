@@ -12,9 +12,12 @@ describe ProfileAnswersController do
   it "should create a new answer" do
     question = Factory(:profile_question)
     answer = Factory.build(:profile_answer)
-    ProfileAnswer.expects(:new).returns(answer)
+
+    ProfileQuestion.expects(:find).with(question.id).returns(question)
+    question.expects(:find_or_build_answer_for).returns(answer)
     answer.expects(:save).returns(true)
-    post :create, :profile_answer => { :profile_question_id => question.id, :answer => "Something!" }, :format => "html"
+
+    post :create, :profile_question => { question.id => { :answer => "Something!" }}, :format => "html"
     response.should be_redirect
   end
   

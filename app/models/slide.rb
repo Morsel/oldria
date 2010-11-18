@@ -19,6 +19,7 @@
 #
 
 class Slide < ActiveRecord::Base
+  default_scope :order => 'position ASC'
 
   has_attached_file :image, :styles => { :full => "780x400#", :thumb => "50x50#", :spoonfeed => "974x400#" }
     

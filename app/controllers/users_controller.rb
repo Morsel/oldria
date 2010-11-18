@@ -16,13 +16,16 @@ class UsersController < ApplicationController
   end
 
   def edit
-    redirect_to edit_my_profile_path unless current_user.admin?
+    redirect_to edit_my_profile_path
   end
 
   def update
     employment_params = params[:user].delete(:default_employment) if params[:user]
+    
     respond_to do |format|
       if @user.update_attributes(params[:user])
+        
+        # update default employment
         if employment_params
           if @user.default_employment.present?
             @user.default_employment.update_attributes(employment_params)
@@ -89,7 +92,7 @@ class UsersController < ApplicationController
     @user.asecret = nil
     if @user.save
       flash[:message] = "Your Twitter Account was disassociated with your SpoonFeed Account"
-      redirect_to edit_user_path(@user)
+      redirect_to edit_my_profile_path
     else
       render :edit
     end
@@ -99,7 +102,7 @@ class UsersController < ApplicationController
     @user.avatar = nil
     if @user.save
       flash[:message] = "Got it! We’ve removed your headshot from your account"
-      redirect_to edit_user_path(@user)
+      redirect_to edit_my_profile_path
     else
       render :edit
     end
@@ -111,7 +114,7 @@ class UsersController < ApplicationController
   def fb_deauth
     @user.update_attribute(:facebook_access_token, nil)
     flash[:notice] = "Your Facebook account has been disconnected"
-    redirect_to :action => "edit", :id => @user.id
+    redirect_to edit_my_profile_path
   end
 
   def fb_connect
@@ -122,7 +125,7 @@ class UsersController < ApplicationController
       end
       flash[:notice] = "Your Facebook account has been connected to your spoonfeed account"
     end
-    redirect_to :action => "edit", :id => @user.id
+    redirect_to edit_my_profile_path
   end
 
   def fb_page_auth
@@ -136,7 +139,7 @@ class UsersController < ApplicationController
       flash[:notice] = "Cleared the Facebook page settings from your account"
     end
 
-    redirect_to :action => "edit", :id => @user.id
+    redirect_to edit_my_profile_path
   end
 
   private
