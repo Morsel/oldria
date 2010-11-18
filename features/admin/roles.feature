@@ -42,7 +42,7 @@ Feature: Member roles
     Then I should be on <page>
 
   Examples:
-    | page                         |
-    | the admin landing page       |
-    | the edit page for "jimmy"    |
+    | page                            |
+    | the admin landing page          |
+    | the admin edit page for "jimmy" |
 
