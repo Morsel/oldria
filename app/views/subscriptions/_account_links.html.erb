@@ -18,9 +18,7 @@
               :confirm => "Do you really want to cancel your premium subscription?", 
               :class => 'sf-button' %>
     <% else %>
-      <%= link_to (image_tag('tick.png') + "Upgrade to Premium"),
-          new_subscription_path(subscriber),
-          :class => 'sf-button' %>
+      <%= link_to "Upgrade to Premium", new_subscription_path(subscriber), :class => 'sf-button' %>
     <% end %>
   </div>
 <% end %>
