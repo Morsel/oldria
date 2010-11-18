@@ -5,18 +5,6 @@ class ProfileAnswersController < ApplicationController
   
   def create
     respond_to do |format|
-      format.js do 
-        @answer = ProfileAnswer.new(params[:profile_answer].merge(:user_id => current_user.id))
-        @question = @answer.profile_question
-
-        if @answer.save
-          new_question = ProfileQuestion.for_user(current_user).random.reject { |q| q.answered_by?(current_user) }.first
-          render :partial => "shared/btl_game", :locals => { :question => new_question } and return
-        else
-          render :partial => "shared/btl_game", :locals => { :question => @question } and return
-        end
-      end
-      
       format.html do
         # the regular form submits a hash of question ids with their answers
         for id in params[:profile_question].keys
@@ -30,6 +18,19 @@ class ProfileAnswersController < ApplicationController
           redirect_to user_questions_path(:user_id => current_user.id, 
                                           :chapter_id => @question.chapter.id)
       end
+
+      format.js do 
+        @answer = ProfileAnswer.new(params[:profile_answer].merge(:user_id => current_user.id))
+        @question = @answer.profile_question
+
+        if @answer.save
+          new_question = ProfileQuestion.for_user(current_user).random.reject { |q| q.answered_by?(current_user) }.first
+          render :partial => "shared/btl_game", :locals => { :question => new_question } and return
+        else
+          render :partial => "shared/btl_game", :locals => { :question => @question } and return
+        end
+      end
+      
     end
   end
   
