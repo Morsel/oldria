@@ -2,6 +2,8 @@ class QuestionsController < ApplicationController
   
   before_filter :require_user_unless_soapbox
   before_filter :get_user, :except => :show
+  skip_before_filter :load_random_btl_question, :only => [:refresh]
+  
   layout 'application'
   
   def index
