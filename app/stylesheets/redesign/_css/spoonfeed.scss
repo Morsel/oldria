@@ -2418,3 +2418,19 @@ p.search_filter_hint {
 	}
 }
 
+#get_started{
+	padding:10px;
+	border:1px solid #ccc;
+	margin:10px 0;
+	position:relative;
+	#hide_help_box {
+  	width: 16px;
+	  height: 16px;
+	  background: url('/images/x.png');
+	  cursor: pointer;
+	  position: absolute;
+	  top: 7px;
+	  right: 8px;
+	}
+}
+
