@@ -1,6 +1,3 @@
-    <%= link_to_remote "new question", :url => refresh_user_questions_path(current_user), :update => "btl_game", 
-        :html => { :class => "new_question" } %>
-	<h1>Behind the Line</h1>
 	<h2><%= question.topic.title %></h2>
 	<p><%= question.chapter.title %></p>
 	<h3><%= question.title %></h3>

@@ -40,12 +40,30 @@ $('.tabable').tabs({
 	fx: { duration: 'fast', opacity: 'toggle' }
 });
 
+
+height = $('#btl_game').height();
+$('#btl_game').height(height);
+
 $('.new_question').live('click', function(){
+	$('#btl_game_content').fadeOut();
 	$(this).css({
 		backgroundRepeat: 'no-repeat',
 		backgroundPosition: 'center center',
 		backgroundImage: 'url(/images/redesign/ajax-loader.gif)'
-	})
+	});
+	$.ajax({
+		data:'authenticity_token=' + encodeURIComponent($(this).attr('data-auth')),
+	 	success:function(request){
+			$('#btl_game_content').html(request).fadeIn();
+			$('.new_question').css({
+				backgroundImage: 'url(/images/redesign/icon-refresh.png)',
+				backgroundPosition: '0 0'
+			})
+		},
+		type:'post', 
+		url:'/users/'+$(this).attr('data-user-id')+'/questions/refresh'
+	}); 
+	return false;
 })
 $('#profile_answer_submit').live('click', function(){
 	$(this).val('posting...').attr('disabled','disabled');
