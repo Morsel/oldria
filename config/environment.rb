@@ -14,7 +14,7 @@ Rails::Initializer.run do |config|
   config.gem 'addresslogic',          :version => "~>1.2.1"
   config.gem 'cancan',                :version => "~>1.0.1"
   config.gem 'paperclip',             :version => "~>2.3.3"
-  config.gem 'moomerman-twitter_oauth', :lib => 'twitter_oauth', :source => "http://gems.github.com"
+  config.gem 'twitter_oauth', :lib => 'twitter_oauth', :source => "http://gemcutter.org"
   config.gem 'jackdempsey-acts_as_commentable', :lib => 'acts_as_commentable', :source => "http://gems.github.com"
   config.gem 'acts_as_list',          :version => "~>0.1.2"
   config.gem 'aasm',                  :version => "~>2.1.5"
