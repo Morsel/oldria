@@ -17,6 +17,17 @@ $('.internship').equalHeights();
 $('.stage').equalHeights();
 $('.apprenticeship').equalHeights();
 
+$('#profile_user_attributes_prefers_publish_profile').live('click',function(){
+	if(!$(this).is(':checked')){
+		return;
+	}
+	answer = confirm('Are you sure? Is your profile filled out yet?\n\nMake sure your profile is filled out a good amount before sharing it with the public!');
+	if (answer){
+		$(this).attr('checked','checked');
+	}	else{
+		$(this).removeAttr('checked');
+	}
+})
 
 
 $('#profile-tabs').tabs({
