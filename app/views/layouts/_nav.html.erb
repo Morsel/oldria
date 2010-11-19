@@ -1,8 +1,8 @@
 <nav id="alternate_nav">
-  <%= link_to "Home", root_url, :id => 'nav_home' %>
-  <%= link_to "About", public_page_path("about"), :id => 'nav_about' %>
-  <%= link_to "Overview", public_page_path("overview"), :id => 'nav_overview' %>
-  <%= link_to "Pricing", public_page_path("account_types"), :id => 'nav_pricing' %>
-  <%= link_to "Contact", public_page_path("contact"), :id => 'nav_contact_alt' %>
-  <%= link_to "Login", login_path, :id => 'nav_login' %>
+  <%= active_link_to "Home", root_path, :id => 'nav_home' %>
+  <%= active_link_to "About", public_page_path("about"), :id => 'nav_about' %>
+  <%= active_link_to "Overview", public_page_path("overview"), :id => 'nav_overview' %>
+  <%= active_link_to "Pricing", public_page_path("account_types"), :id => 'nav_pricing' %>
+  <%= active_link_to "Contact", public_page_path("contact"), :id => 'nav_contact_alt' %>
+  <%= active_link_to "Login", login_path, :id => 'nav_login' %>
 </nav>
