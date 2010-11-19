@@ -2,7 +2,7 @@ class AddResponderTypeToTopics < ActiveRecord::Migration
   def self.up
     add_column :topics, :responder_type, :string
 
-    Topics.all.each do |t|
+    Topic.all.each do |t|
       t.update_attribute(:responder_type, 'user')
     end
   end
