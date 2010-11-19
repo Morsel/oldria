@@ -193,10 +193,10 @@
             <% end %><!-- Contact information -->
 
             <% f.inputs :name => "Cuisines and Specialties" do %>
-                <%= f.input :specialties, :as => :check_boxes, :collection => Specialty.all %>
+                <%= f.input :specialties, :as => :check_boxes, :collection => Specialty.all, :label => "What are your specialties?" %>
 
                 <div class="cuisines ajaxdelete">
-                    <label><h4>What Cuisines Are Your Specialty?</h4></label>
+                    <legend class="label"><label>Cuisines you are most known for:</label></legend>
                     <ul id="cuisines">
                         <%= render @profile.cuisines %>
                     </ul>

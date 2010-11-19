@@ -20,6 +20,7 @@ $('.apprenticeship').equalHeights();
 
 
 $('#profile-tabs').tabs({
+	cookie: { expires: 1 },
 	panelTemplate: '<section></section>',
 	fx: { duration: 'fast', opacity: 'toggle' }
 });
