@@ -40,7 +40,7 @@ describe UserMailer do
       @receiver = Factory(:user, :name => "Hambone Johnson", :email => "hambone@example.com", :username => "hambone")
       @receiver.stubs(:restaurants).returns([@restaurant])
       @receiver.reset_perishable_token!
-      @email = UserMailer.create_employee_invitation(@receiver)
+      @email = UserMailer.create_new_user_invitation(@receiver)
     end
 
     it "should be set to be delivered to the email passed in" do

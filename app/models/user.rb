@@ -311,7 +311,7 @@ class User < ActiveRecord::Base
     @send_invitation = nil
     reset_perishable_token!
     logger.info( "Delivering invitation email to #{email}" )
-    UserMailer.deliver_employee_invitation!(self, invitation_sender)
+    UserMailer.deliver_new_user_invitation!(self, invitation_sender)
   end
 
   # Facebook !!!
