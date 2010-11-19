@@ -54,6 +54,7 @@ $('.new_question').live('click', function(){
 	$.ajax({
 		data:'authenticity_token=' + encodeURIComponent($(this).attr('data-auth')),
 	 	success:function(request){
+		alert(request);
 			$('#btl_game_content').html(request).fadeIn();
 			$('.new_question').css({
 				backgroundImage: 'url(/images/redesign/icon-refresh.png)',
