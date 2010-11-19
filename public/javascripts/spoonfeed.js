@@ -41,6 +41,21 @@ $('.tabable').tabs({
 });
 
 
+if (window.current_user_id) {
+  var $hideHelpBox = $('<div id="hide_help_box"/>');
+  $("#get_started").append($hideHelpBox);
+  $hideHelpBox.click(function(){
+    $.post("/users/" + window.current_user_id, {
+        _method: 'put',
+        'user[preferred_hide_help_box]': '1'
+      }, function(data){
+         $hideHelpBox.parent().fadeOut();
+      }, "js"
+    );
+  });
+}
+
+
 height = $('#btl_game').height();
 $('#btl_game').height(height);
 
