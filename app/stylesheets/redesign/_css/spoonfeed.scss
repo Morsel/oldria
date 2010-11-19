@@ -1256,13 +1256,13 @@ form, #page_content form{
 	label{
 		font-weight:bold;
 	}
-	.string, .text, .country{
+	.string, .text, .country, .password{
 		label{
 			display:block;
 			margin:5px 0 0;
 		}
 	}
-	.string, .text{
+	.string, .text, .password{
 		input, textarea{
 			padding:5px;
 			border:1px solid #ccc;

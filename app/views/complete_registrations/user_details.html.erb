@@ -1,0 +1,23 @@
+<% title "Set up your profile details" %>
+
+<% semantic_form_for(@user, :url => complete_registration_path, :html => { :method => :put }) do |f| %>
+    <%= f.input :id, :as => :hidden %>
+    <%= hidden_field_tag 'step', 2 %>
+
+    <% f.semantic_fields_for :default_employment do |employment| %>
+        <%= render :partial => "default_employments/form", :locals => { :f => employment } %>
+    <% end %>
+
+    <% f.semantic_fields_for :profile do |profile| %>
+        <% profile.inputs :name => 'Profile Details' do %>
+            <%= profile.input :hometown %>
+            <%= profile.input :current_residence, :label => "Currently residing in" %>
+        <% end %>
+        <% profile.inputs :name => "Metro and Region for search" do %>
+            <%= profile.input :metropolitan_area %>
+            <%= profile.input :james_beard_region, :label => "Region" %>
+        <% end %>
+    <% end %>
+
+    <p><%= button_tag "Save", :class => 'positive' %></p>
+<% end %>

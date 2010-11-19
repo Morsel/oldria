@@ -2,7 +2,7 @@
 
 <p>You've been invited to SpoonFeed. All we need now is to know if the information we have is correct.</p>
 
-<p>Also, you should choose a password for SpoonFeed.</p>
+<p>Also, you should choose new password to use when you login again.</p>
 
 <% semantic_form_for(@user, :url => complete_registration_path, :html => { :method => :put }) do |f| %>
 
@@ -11,6 +11,7 @@
     <%= f.input :last_name, :input_html => {:class => 'span-4'}, :wrapper_html => {:class => 'span-4 column'} %>
     <%= f.input :email, :wrapper_html => {:class => 'clear'}, :input_html => { :disabled => true } %>
     <%= f.input :id, :as => :hidden %>
+    <%= hidden_field_tag 'step', 1 %>
   <% end %>
 
   <% f.inputs :name => 'Desired Login Information' do %>
@@ -23,5 +24,5 @@
     <%= f.input :agree_to_contract, :label => "I have read and agree to the #{link_to 'privacy policy', '/privacy', :popup => true} and #{link_to 'terms of service', '/terms', :popup => true} for spoonfeed", :as => :boolean, :required => true %>
   <% end %>
 
-  <p><%= button_tag "Save", :class => 'positive' %></p>
+  <p><%= button_tag "Next", :class => 'positive' %></p>
 <% end %>
