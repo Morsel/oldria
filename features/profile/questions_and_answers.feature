@@ -28,7 +28,7 @@ Feature: Profile - Behind the Line (aka Q&A)
     And I follow "Education"
     Then I should see "Title 1"
 
-@wip
+
   Scenario: Answering a question
     Given I am on the profile page for "punkrock"
     When I follow "View all Topics" within "#behindline"
