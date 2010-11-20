@@ -70,10 +70,7 @@ Feature: Associating a Restaurant with its employees
 
     When I logout
     And "dinkle@example.com" opens the email with subject "SpoonFeed: You're invited"
-    Then I should see "David Dinkle" in the email body
-
-    # Show the name of the inviter in the email
-    And I should see "Jim Jones" in the email body
+    Then I should see "Thank you for your interest" in the email body
 
     And I should see an invitation URL in the email body
     When I click the first link in the email

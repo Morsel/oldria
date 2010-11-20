@@ -56,7 +56,7 @@ Feature: users can be invited to join Spoonfeed by registered SF users, restaura
     When I fill in "Restaurant name" with "My Private Restaurant"
     And I select "Chef" from "Role"
     And I check "Food"
-    And I check "Do you want your posts to appear on the public Soapbox site?"
+    And I check "user_default_employment_attributes_post_to_soapbox"
 
     And I fill in "Hometown" with "nowhere"
     And I fill in "Currently residing in" with "Seattle, WA"
