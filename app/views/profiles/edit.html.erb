@@ -11,7 +11,7 @@
         <% unless @profile.new_record? %>
         <span><a href="#profile-extended">Extended Profile</a></span>
         <% end %>
-        <span><a href="#profile-messages">Messages</a></span>
+        <span><a href="#profile-messages">Notifications</a></span>
     </nav><!-- /profile_options -->
 
     <section id="profile-edit-account">
@@ -193,17 +193,18 @@
             <% end %><!-- Contact information -->
 
             <% f.inputs :name => "Cuisines and Specialties" do %>
-                <%= f.input :specialties, :as => :check_boxes, :collection => Specialty.all %>
+                <%= f.input :specialties, :as => :check_boxes, :collection => Specialty.all, :label => "What are your specialties?" %>
 
                 <div class="cuisines ajaxdelete">
-                    <label><h4>What Cuisines Are Your Specialty?</h4></label>
-                    <ul id="cuisines">
-                        <%= render @profile.cuisines %>
-                    </ul>
-                    <% link_to new_my_profile_profile_cuisine_path, :class => 'positive button colorbox' do %>
-                    <img src="/images/plus.png"/> Add
-                    <% end %>
-					
+					<fieldset>
+						<legend class="label"><label>Cuisines you are most known for:</label></legend>
+						<ul id="cuisines">
+							<%= render @profile.cuisines %>
+						</ul>
+						<% link_to new_my_profile_profile_cuisine_path, :class => 'positive button colorbox' do %>
+						<img src="/images/plus.png"/> Add
+						<% end %>
+					</fieldset>
 
                 </div>
 <br />

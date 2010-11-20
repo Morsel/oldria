@@ -362,6 +362,14 @@ form#new_user_session {
 				}
 			}
 		}
+		.photo_credit {
+			bottom: 30px;
+			font-size: 9px;
+			position: absolute;
+			right: -170px;
+			text-shadow: 1px 1px 1px #000;
+			z-index: 100;
+		}
 	}
 }
 
@@ -997,6 +1005,9 @@ form#new_user_session {
 						padding: 0;
 						letter-spacing: 0.2em;
 					}
+					label {
+						font-weight: bold;
+					}
 				}	
 				ol {
 					li {
@@ -1318,7 +1329,7 @@ form, #page_content form{
 		overflow: hidden;
 		dt {
 			float: left;
-			width: 60px;
+			width: 75px;
 			margin: 0 10px 0 0;
 			line-height: 18px;
 			&:after {
@@ -2404,6 +2415,22 @@ p.search_filter_hint {
 			float: left;
 			margin: 3px 0 0;
 		}
+	}
+}
+
+#get_started{
+	padding:10px;
+	border:1px solid #ccc;
+	margin:10px 0;
+	position:relative;
+	#hide_help_box {
+  	width: 16px;
+	  height: 16px;
+	  background: url('/images/x.png');
+	  cursor: pointer;
+	  position: absolute;
+	  top: 7px;
+	  right: 8px;
 	}
 }
 
