@@ -12,7 +12,7 @@ class CookbooksController < ApplicationController
       if @cookbook.save
         wants.html { redirect_to edit_my_profile_path }
         wants.json do render :json => {
-            :html => render_to_string(:partial => '/cookbooks/cookbook.html.erb', :locals => {:cookbook => @cookbook}),
+            :html => render_to_string(:partial => '/cookbooks/cookbook', :locals => {:cookbook => @cookbook}),
             :cookbook => @cookbook.to_json
           }
         end
