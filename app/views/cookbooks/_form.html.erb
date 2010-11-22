@@ -1,0 +1,9 @@
+<%= "<h1>#{yield :title}</h1>" if request.xhr? %>
+<% semantic_form_for [:my_profile, @cookbook] do |f| %>
+  <% f.inputs :class => "cookbooks" do %>
+    <%= f.input :title, :hint => "Include books you have authored or contributed to" %>
+    <%= f.input :publisher %>
+    <%= f.input :published_on, :as => :date %>
+  <% end %>
+  <%= button_tag "Save" %>
+<% end %>
