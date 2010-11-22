@@ -171,6 +171,26 @@ em, i{
 	background: transparent url(/images/redesign/nav-bg.gif) repeat-x;
 	height: 60px;
 	overflow:hidden;
+	> span {
+	  position: relative;
+	  span {
+	    position: absolute;
+  	  right: 3px;
+  	  top: 3px;
+	    color: #D8531E;
+	    font-weight: bold;
+	    background: #fff;
+	    font-size: 12px;
+	    padding: 2px 6px;
+	    @include border-radius(10px);
+	    @include box-shadow(#d3d3ce, 0, 2px, 0, 0);
+	  }
+	.selected {
+	  + span {
+      @include box-shadow(#ab4218, 0, 2px, 0, 0);
+    }
+	}
+	}
 	a {
 		float: left;
 		@include hiddentext;
