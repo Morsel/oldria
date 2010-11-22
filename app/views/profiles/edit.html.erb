@@ -271,6 +271,11 @@
           :association => "apprenticeships",
           :caption => "Apprenticeships",
           :form_path => new_my_profile_apprenticeship_path} %>
+          
+      <%= render :partial => 'profiles/extended_profile_section', :locals => {
+          :association => "cookbooks",
+          :caption => "Cookbooks",
+          :form_path => new_my_profile_cookbook_path} %>
     
     </div><!-- #extended_profile_fields -->
   </section><!-- /profile-extended -->

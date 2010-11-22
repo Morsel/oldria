@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20101115213854) do
+ActiveRecord::Schema.define(:version => 20101122185850) do
 
   create_table "a_la_minute_answers", :force => true do |t|
     t.text     "answer"
@@ -183,6 +183,15 @@ ActiveRecord::Schema.define(:version => 20101115213854) do
   end
 
   add_index "content_requests", ["employment_search_id"], :name => "index_content_requests_on_employment_search_id"
+
+  create_table "cookbooks", :force => true do |t|
+    t.string   "title"
+    t.string   "publisher"
+    t.datetime "published_on"
+    t.integer  "profile_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "cuisines", :force => true do |t|
     t.string   "name"

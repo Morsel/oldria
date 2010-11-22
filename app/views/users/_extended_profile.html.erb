@@ -188,4 +188,17 @@
           </span>
         </div>
         <% end %>
+        
+        <% if profile && profile.cookbooks.present? %>
+        <div class="extended_profile_info">
+          <h3>Cookbooks</h3>
+          <ul id="cookbooks">
+              <%= render :partial => 'cookbooks/cookbook', :collection => profile.cookbooks %>
+          </ul>
+          <span class="timestamp">
+              Last updated:
+              <%= profile.section_updated_at(profile.cookbooks).try(:strftime, "%b %e %Y") %>
+          </span>
+        </div>
+        <% end %>
 </div>
