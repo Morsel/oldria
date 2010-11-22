@@ -8,3 +8,125 @@
 @import "compass/layout/sticky-footer";
 
 @include reset-html5;
+
+.clearfix{overflow:hidden;}
+.clear{clear:both;}
+a {text-decoration: none;color: $green;}
+
+body{
+ 	font:normal 12px "Helvetica Neue", Helvetica, Arial, sans-serif;
+	background:#fff url(/images/ria/bg.gif) repeat-x;
+	color:#333;
+}
+
+strong, b{font-weight:bold;}
+em, i{font-style:italic;}
+
+#container{
+	width: 974px;
+	margin: 0 auto;
+	*zoom: 1;
+	position:relative;
+}
+
+@include sticky-footer(160px, "#container", "#padding", "#footer_container");
+
+
+
+#site_header {
+	width: 974px;
+	height: 100px;
+	#logo {
+		position: absolute;
+		margin-top: 12px;
+		margin-left: -12px;
+		width: 166px;
+		height: 167px;
+		background: transparent url(/images/ria/ria-logo.png) no-repeat;
+		@include hiddentext;
+	}
+	nav {
+		float: right;
+		height: 68px;
+		a {
+			float: left;
+			margin-right: 15px;
+			height: 68px;
+			background-image: url(/images/ria/nav.png);
+			@include hiddentext;
+			&#navhome {
+				margin-left: 96px;
+				width: 73px;
+				background-position: -97px 0;
+				&:hover {background-position: -97px -100px;}
+				&.selected {background-position: -97px -200px;}	
+			}
+			&#navabout {
+				width: 83px;
+				background-position: -185px 0;
+				&:hover {background-position: -185px -100px;}
+				&.selected {background-position: -185px -200px;}
+			}
+			&#navproducts {
+				width: 113px;
+				background-position: -283px 0;
+				&:hover {background-position: -283px -100px;}
+				&.selected {background-position: -283px -200px;}
+			}
+			&#navunplugged {
+				width: 124px;
+				background-position: -411px 0;
+				&:hover {background-position: -411px -100px;}
+				&.selected {background-position: -411px -200px;}
+			}
+			&#navtestimonials {
+				width: 144px;
+				background-position: -550px 0;
+				&:hover {background-position: -550px -100px;}
+				&.selected {background-position: -550px -200px;}
+			}
+			&#navcontact {
+				width: 102px;
+				margin-right: 0;
+				background-position: -708px 0;
+				&:hover {background-position: -708px -100px;}
+				&.selected {background-position: -708px -200px;}
+			}
+		}	
+	}
+	#site_login {
+		width: 71px;
+		height: 21px;
+		float: right;
+		margin: 0;
+		background: transparent url(/images/ria/icon-login.png) no-repeat;
+		@include hiddentext;
+		&:hover {
+			background-position: 0 -100px;
+		}
+	}
+}
+		
+#sidebar_a {
+	@include column(4);
+	margin-top: 100px;
+}
+
+#page_content {
+	@include column(16);
+}
+
+#sidebar_b {
+	@include column(4, last);
+}
+
+
+
+
+
+
+
+#footer_container {
+	background-color: #000;
+}
+

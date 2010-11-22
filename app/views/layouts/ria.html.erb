@@ -1,1 +1,77 @@
-<%= yield %>
+<!doctype html>
+<html lang="en" class="no-js">
+<head>
+	
+  <meta charset="utf-8">
+  <!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"><![endif]-->
+  <!--[if lt IE 9]>
+    <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+  <title><%= h(yield(:title) || "Untitled") %> - Restaurant Intelligence Agency</title>
+  <meta name="description" content="Restaurant Intelligence Agency website">
+  <meta name="author" content="Restaruant Intelligence Agency">
+  <link rel="shortcut icon" href="/favicon-ria.ico">
+  <link rel="stylesheet" href="/hq/_css/ria_hq.css?v=1">
+
+</head>
+
+<!--[if lt IE 7 ]> <body class="ie6"> <![endif]-->
+<!--[if IE 7 ]>    <body class="ie7"> <![endif]-->
+<!--[if IE 8 ]>    <body class="ie8"> <![endif]-->
+<!--[if IE 9 ]>    <body class="ie9"> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--> 
+	
+<body> <!--<![endif]-->
+
+	<div id="container">    
+
+  	<header id="site_header">
+		
+			<h1 id="logo"><a href="#">RIA: Restaurant Intelligence Agency</a></h1>
+			
+			<nav>
+				<a href="#" id="navhome" class="selected">Home</a>
+				<a href="#" id="navabout">About</a>
+				<a href="#" id="navproducts">Products</a>
+				<a href="#" id="navunplugged">Unplugged</a>
+				<a href="#" id="navtestimonials">Testimonials</a>
+				<a href="#" id="navcontact">Contact</a>
+			</nav>
+			<br clear="all" />
+			<a id="site_login" href="#">Login</a>
+			<br clear="all" />
+		</header><!--#site_header-->
+		
+		<aside id="sidebar_a">
+			<header>
+				<h1>Testimonials</h1>
+			</header>
+			<section>
+				<p>"If anyone has any question of whether they should do this, tell them to call me and I will give them my full endorsement personally."</p>
+				<p class="who">Donnie Madia<br/>
+				Blackbird, avec, The Publican, Sonotheque, the Violet Hour</p>
+			</section>
+		</aside><!-- #sidebar_a-->
+		
+		<div id="page_content">
+			<h1>This is page content</h1>
+		</div>
+		
+		<aside id="sidebar_b">
+			<h1>sidebar b</h1>
+		</aside><!--#sidebar_b-->
+		
+		<div id="padding"></div>
+		
+	</div><!--#container-->
+	
+	<div id="footer_container">
+		
+		<footer>
+		</footer>
+	</div><!--#footer_container-->
+
+</script>
+  
+</body>
+</html>
