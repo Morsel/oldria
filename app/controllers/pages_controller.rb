@@ -1,5 +1,5 @@
 class PagesController < ApplicationController
-  use_layout :ria_or_spoonfeed
+  layout :ria_or_spoonfeed
   
   def show
     @page = Page.find(params[:id])
