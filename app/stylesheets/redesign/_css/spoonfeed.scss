@@ -95,11 +95,12 @@ em, i{
 					white-space:nowrap;
 					color: #aaa;
 					img {
-						border: 1px solid $orange;
+						border: 1px solid #d1ccb7;
 						margin: -4px 10px 0 0;
+						padding: 2px;
 						@include transition;
 						&:hover {
-							border: 1px solid #000;
+							border: 1px solid $orange;
 							@include box-shadow(#aaa,1px,1px,1px);
 						}
 					}
@@ -133,7 +134,7 @@ em, i{
 					display: block;
 					background: transparent url(/images/redesign/icon-30-restaurant.png) no-repeat;
 					background-position: 0 0;
-					padding: 0 0 0 36px;
+					padding: 0 0 0 43px;
 					font-family: 'Hoefler Text', Georgia, Serif;
 					font-weight: bold;
 					font-size: 14px;
@@ -180,7 +181,7 @@ em, i{
 	    color: #D8531E;
 	    font-weight: bold;
 	    background: #fff;
-	    font-size: 12px;
+	    font-size: 11px;
 	    padding: 2px 6px;
 	    @include border-radius(10px);
 	    @include box-shadow(#d3d3ce, 0, 2px, 0, 0);
@@ -2228,8 +2229,9 @@ p.search_filter_hint {
 #btl_answers {
   background: #FAFAF7;
   padding: 10px; 
+  @include box-shadow(#eaeaea, 0px, 3px, 3px);
   > h3 {
-    border-bottom: 1px dotted #AA9C74;
+    border-bottom: 1px dotted #ded8c8;
     font-size: 21px;
     font-style: italic;
     font-weight: normal;
@@ -2240,6 +2242,7 @@ p.search_filter_hint {
     font-weight: bold;
     text-transform: none;
     letter-spacing: 0;
+    margin: 20px 0;
     .letter-q {
       font-size: 18px;
       color: #A1A1A4;
@@ -2248,6 +2251,7 @@ p.search_filter_hint {
   }
   .comment {
     overflow: auto;
+    margin: 20px 0;
     .identity {
       @include column(6);
       .avatar {
