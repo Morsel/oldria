@@ -162,6 +162,8 @@ $(document).ready(function(){
 	
 	bindAjaxDeleters();
 	
+	
+	
 	var bindColorbox = function() {
 	  $('.colorbox').colorbox({
 	      initialWidth: 450,
@@ -189,6 +191,32 @@ $(document).ready(function(){
 	$('#colorbox form.stage, #colorbox form.apprenticeship, #colorbox form.nonculinary_enrollment, #colorbox form.award, #colorbox form.culinary_job, #colorbox form.nonculinary_job, #colorbox form.accolade, #colorbox form.enrollment, #colorbox form.competition, #colorbox form.internship').live('submit', colorboxForm);
 	$("a.showit").showy();
 });
+
+$.fn.ajaxDestroyLink = function(options){
+  var config = {
+    confirmMessage: "Are you sure you want to PERMANENTLY delete this?",
+    containerSelector: 'tr:first'
+  };
+  
+  if(options) $.extend(config, options);
+  
+  return this.each(function(){
+    var $this = $(this);
+    $this.removeAttr('onclick');
+    $this.unbind();
+    $this.click(function(){
+      if (confirm(config.confirmMessage)) {
+        $.post(this.href+".js", {_method: 'delete'}, function(data, status){
+          var container = $this.parents(config.containerSelector);
+          container.fadeOut(200,function(){
+            container.remove();
+          });
+        });
+      }
+      return false;
+    });
+  });
+};
 
 var colorboxForm = function(){
   var $form = $(this);
