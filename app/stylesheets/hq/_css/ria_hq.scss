@@ -29,7 +29,7 @@ em, i{font-style:italic;}
 	position:relative;
 }
 
-@include sticky-footer(160px, "#container", "#padding", "#footer_container");
+@include sticky-footer(148px, "#container", "#padding", "#footer_container");
 
 
 
@@ -110,16 +110,189 @@ em, i{font-style:italic;}
 #sidebar_a {
 	@include column(4);
 	margin-top: 100px;
-}
-
-#page_content {
-	@include column(16);
+	margin-bottom: 30px;
+	.promo {
+		h1 {
+			@include gotham;
+			text-transform: uppercase;
+			font-weight: normal;
+			font-size: 14px;
+			margin: 0 0 10px;
+		}
+		.quotation {
+			@include gotham;
+			line-height: 17px;
+			background: transparent url(/images/ria/bg-quote.png) no-repeat 0 100%;
+			padding: 8px 10px 16px;
+			color: $medgreen;
+			text-shadow: 0 1px 0 #fff;
+			font-style: italic;
+			font-size: 12px;
+		}
+		.who {
+			@include gotham;
+			color: #777;
+			margin: 6px 0;
+			font-size: 11px;
+			line-height: 15px;
+		}
+	}
 }
 
 #sidebar_b {
 	@include column(4, last);
+	margin-top: 34px;
+	margin-bottom: 30px;
+	.promo {
+		padding: 10px;
+		margin: 0 0 10px;
+		.more {
+			@include gotham;
+			color: #333;
+			&:hover {
+				color: $green;
+			}
+		}
+		&.clickable {
+			display: block;
+			@include linear-gradient(color-stops(#b2a289,#9c907a), left);
+			@include gotham;
+			font-weight: bold;
+			font-size: 14px;
+			text-shadow: 0 1px 0 #000;
+			color: #fff;
+			border: 1px solid #b2a289;
+			line-height: 18px;
+			&:hover {
+				background-color: #8f8066;
+				background-image: none;
+				color: #f6f4f0;
+			}
+		}
+		&#page_actions {
+			border-top: 1px dotted #ccc;
+			border-bottom: 1px dotted #ccc;
+			padding: 10px 0;
+			margin: 8px 0;
+			background-color: #fff;
+			nav {
+				padding: 10px;
+				background-color: $tan;
+				a {
+					display: block;
+					margin: 0 0 10px;
+					&:hover {
+						color: #777;
+						text-shadow: 0 1px 0 #fff;
+					}
+					&.share {
+						background: transparent url(/images/ria/icon-16-share.png) no-repeat 0 0;
+						padding: 1px 0 0 22px;
+						&:hover {background-position: 0 -100px;}
+					}
+					&.print {
+						background: transparent url(/images/ria/icon-16-print.png) no-repeat 0 0;
+						padding: 1px 0 0 22px;
+						&:hover {background-position: 0 -100px;}
+					}
+					&.last {
+						margin-bottom: 0;
+					}
+				}
+			}
+		}
+		&#fromtheblog {
+			padding: 0;
+			ul {
+				li {
+					display: block;
+					a {
+						display: block;
+						background: $tan;
+						margin: 0 0 6px;
+						padding: 10px;
+						font-weight: bold;
+						font-size: 14px;
+						color: #555;
+						line-height: 16px;
+						text-shadow: 0 1px 0 #fff;
+						span {
+							display: block;
+							font-size: 11px;
+							@include gotham;
+							font-weight: normal;
+							color: #777;
+							margin: 2px 0 0;
+						}
+						&:hover {
+							@include linear-gradient(color-stops($green,$medgreen), left);
+							text-shadow: 0 1px 0 #000;
+							color: #fff;
+							span {
+								color: #fff;
+								color: rgba(255,255,255,.8);
+								text-shadow: none;
+							}
+						}
+					}
+				}
+			}
+		}
+	}
 }
 
+
+
+#main_content {
+	@include column(16);
+}
+
+#page_content {
+	padding: 0 15px;
+	margin-bottom: 30px;
+	#pg_title {
+		font-size: 24px;
+		@include gotham;
+		font-weight: bold;
+		color: $green;
+		border-bottom: 1px solid #ccc;
+		line-height: 30px;
+		padding: 0 0 4px;
+		margin: 0 0 20px;
+	}
+	h2 {
+		@include gotham;
+		font-weight: bold;
+		color: $brown;
+		text-transform: uppercase;
+		font-size: 18px;
+		margin: 0 0 2px;
+		padding: 0;
+		a {
+			color: $brown;
+			&:hover {
+				color: $green;
+			}
+		}
+	}
+	h3 {
+		font-size: 14px;
+		margin: 0 0 12px 0;
+		color: #333;
+		@include gotham;
+		font-weight: normal;
+		text-transform: uppercase;
+	}
+	img {
+		float: left;
+		margin: 2px 15px 10px 0;
+	}
+	p {
+		font-size: 13px;
+		line-height: 19px;
+		margin: 5px 0 16px;
+	}
+}
 
 
 
@@ -127,6 +300,77 @@ em, i{font-style:italic;}
 
 
 #footer_container {
-	background-color: #000;
+	background: #1e1e1e url(/images/ria/bg-footer.png) repeat-x;
+	footer {
+		width: 974px;
+		margin: 0 auto;
+		#footer_logo {
+			@include column(6);
+			margin-top: 46px;
+			h2 {
+				@include hiddentext;
+				width: 204px;
+				height: 40px;
+				background: transparent url(/images/ria/logo-footer-ria2.png) no-repeat;
+			}
+		}
+		#copyright {
+			@include column(14);
+			p {
+				color: #eaeaea;
+				margin: 44px 0 10px;
+				font-weight: 300;
+			}
+			nav {
+				margin: 0;
+				padding: 0;
+				a {
+					float: left;
+					font-weight: 300;
+					margin: 0 20px 0 0;
+					padding: 0;
+					color: #eaeaea;
+					text-decoration: underline;
+					&:hover {
+						color: $green;
+						text-decoration: none;
+					}
+				}
+			}
+		}
+		#social {
+			@include column(4, true);
+			ul {
+				margin: 20px 0 0;
+				li {
+					display: block;
+					font-weight: 300;
+					a {
+						display: block;
+						color: #fff;
+						padding: 10px 10px 10px 40px;
+						&.fb {
+							background: transparent url(/images/ria/icons-social.png) no-repeat 8px 12px;
+							&:hover {
+								@include border-radius(6px);
+								background-color: #222;
+								background-position: 8px -88px;
+								color: #ccc;
+							}
+						}
+						&.tw {
+							background: transparent url(/images/ria/icons-social.png) no-repeat -392px 12px;
+							&:hover {
+								@include border-radius(6px);
+								background-color: #222;
+								background-position: -392px -88px;
+								color: #ccc;
+							}
+						}
+					}
+				}
+			}
+		}
+	}
 }
 

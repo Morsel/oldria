@@ -12,6 +12,7 @@ $green: #6CB33F;
 $tomato: #D9531E;
 $brown: #968463;
 $darkgreen: #4F8E25;
+$medgreen: #5da430;
 $tan: #F7F5F3;
 
 
@@ -25,3 +26,6 @@ $blueprint-grid-width: ($blueprint-container-size + $blueprint-grid-margin) / $b
 	outline:0;
 	text-indent:-9999px;
 }
+
+@mixin gotham {font-family: Gotham, 'Helvetica Neue', Helvetica, arial, sans-serif;}
+@mixin neue {font-family: 'Helvetica Neue', Helvetica, arial, sans-serif;}
