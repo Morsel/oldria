@@ -293,6 +293,7 @@ form#new_user_session {
 	p {
 		overflow: hidden;
 		button {
+			cursor:pointer;
 			float: left;
 			font-family: "helvetica neue", arial, sans-serif;
 			font-weight: bold;
@@ -732,6 +733,9 @@ form#new_user_session {
 		margin: 5px 0 15px;
 		padding: 0;
 		line-height: 18px;
+		&.save_end{
+			margin:15px 0 10px;
+		}
 		a {
 			color: $orange;
 			text-decoration: none;
@@ -975,6 +979,7 @@ form#new_user_session {
 		.ui-tabs-panel {
 			p {display: block;overflow:hidden;}
 			button {
+				cursor:pointer;
 				float: left;
 				display: block;
 				margin: 0 10px 0 0;
@@ -998,11 +1003,15 @@ form#new_user_session {
 						text-shadow:none;
 					}
 				}
+				&.clear{
+					float:none;
+					margin:10px 0;
+				}
 			}	
 		 	.inputs {
 				display: block;
 				margin: 10px 0;
-				padding: 12px 0 20px;
+				padding: 12px 0 0;
 				border-bottom: 1px solid #ddd;
 				.cuisines {
 					.colorbox {
@@ -1123,22 +1132,7 @@ form#new_user_session {
 			a{
 				color:#333;
 				&.sf-button{
-					display: inline-block;
-					text-align: center;
-					margin: 8px 0;
-					font-weight:normal;
 					color:$orange;
-					padding:5px 10px;
-					border:1px solid #ccc;
-					background:#eceded;
-					@include linear-gradient(color-stops(#f9f9f9,#ddd ), top);
-					@include border-radius(80px);
-					&:hover{
-						background:#ddd;
-						@include linear-gradient(color-stops(#fff,#ffe1d5 ), top);
-						border: 1px solid #ffe1d5;
-						text-shadow: 0 1px 0 #fff;
-					}
 				}
 				&.remove_twitter {
 					display: block;
@@ -1268,6 +1262,26 @@ form#new_user_session {
 			&:hover {
 				color: #fff;
 				text-shadow: 0 1px 0 #999;
+			}
+		}
+	}
+	a{
+		&.sf-button{
+			display: inline-block;
+			text-align: center;
+			margin: 8px 0;
+			font-weight:normal;
+			color:$orange;
+			padding:5px 10px;
+			border:1px solid #ccc;
+			background:#eceded;
+			@include linear-gradient(color-stops(#f9f9f9,#ddd ), top);
+			@include border-radius(80px);
+			&:hover{
+				background:#ddd;
+				@include linear-gradient(color-stops(#fff,#ffe1d5 ), top);
+				border: 1px solid #ffe1d5;
+				text-shadow: 0 1px 0 #fff;
 			}
 		}
 	}
@@ -2120,6 +2134,7 @@ p.search_filter_hint {
 			width: 320px;
 		}
 		button {
+			cursor:pointer;
 			float: left;
 			display: block;
 			border: 1px solid #ddd;
@@ -2410,7 +2425,7 @@ p.search_filter_hint {
 	line-height:1.4;
 	.current{
 		background-color:#efede5;
-		background:rgba(223,219,204,0.33) url(/images/redesign/bg-current.png) no-repeat 10px 10px;
+		background:rgba(223,219,204,0.33) url(/images/redesign/bg-current.png) no-repeat 10px center;
 		margin:10px 0;
 		padding:10px 10px 10px 52px;
 		@include border-radius(10px);
