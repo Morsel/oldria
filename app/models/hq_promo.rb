@@ -1,2 +1,2 @@
-class HqPromo < Pormo
+class HqPromo < Promo
 end

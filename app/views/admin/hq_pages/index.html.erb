@@ -7,7 +7,7 @@
 			t.cell :title
 			t.cell :slug
 			t.cell :view_live, :heading => "", :cell_html => {:class => 'actions'} do |p|
-				link_to "Live", shq_page_path(p)
+				link_to "Live", hq_page_path(p)
 			end
 			t.cell :edit, :heading => "", :cell_html => {:class => 'actions edit_link'} do |p|
 				link_to "Edit", edit_admin_hq_page_path(p)
