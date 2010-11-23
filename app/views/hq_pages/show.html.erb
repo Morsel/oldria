@@ -3,7 +3,7 @@
 <div id="main_content">
 	<% if can?(:edit, @page) %>
 		<p>
-			<%= link_to (image_tag("pencil.png") + "Edit this page"), edit_admin_hq_page_path(@page), :class => 'button' %>
+			<%= link_to "Edit this page", edit_admin_hq_page_path(@page), :class => 'edit_button' %>
 		</p>
 	<% end %>
 	<section id="page_content">
