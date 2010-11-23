@@ -38,7 +38,7 @@
 			  <%= link_to 'Contact', hq_page_path('contact'), :id => 'navcontact', :class => active_page?('/hq/contact') %>
 			</nav>
 			<br clear="all" />
-			<a id="site_login" href="#">Login</a>
+			<a id="site_login" href="/login">Login</a>
 			<br clear="all" />
 		</header><!--#site_header-->	
 		<%= yield :sidebar_a %>
@@ -59,17 +59,17 @@
 			<section id="copyright">
 				<p>&copy; 2010 Restaurant Intelligence Agency. All Rights Reserved.</p>
 				<nav>
-					<a href="#">Contact</a>
-					<a href="#">Privacy</a>
-					<a href="#">About</a>
-					<a href="#">Help</a>
+					<a href="/hq/contact">Contact</a>
+					<a href="/hq/privacy">Privacy</a>
+					<a href="/hq/about">About</a>
+					<a href="/hq/help">Help</a>
 				</nav>
 			</section><!--#copyright-->
 			
 			<section id="social">
 				<ul>
-					<li><a href="#" class="fb">Check us out on Facebook</a></li>
-					<li><a href="#" class="tw">Follow on Twitter @TeamRIA</a></li>
+					<li><a href="http://www.facebook.com/RestaurantIntelligenceAgency" class="fb">Check us out on Facebook</a></li>
+					<li><a href="http://twitter.com/TeamRIA" class="tw">Follow on Twitter @TeamRIA</a></li>
 				</ul>
 			</section><!--#social-->
 		</footer>
@@ -85,7 +85,7 @@
 	  google.load('jqueryui','1.8.5');
 	</script>
 	
-	<%= javascript_include_tag 'jquery.equalheights', 'ria' %>
+	<%= javascript_include_tag 'jquery-easing-min.js', 'jquery-cycle-min.js', 'jquery.equalheights', 'ria' %>
 
 </body>
 </html>

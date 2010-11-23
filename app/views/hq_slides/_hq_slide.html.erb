@@ -1,5 +1,1 @@
-<div class="jumbo_content" style="background: url(<%= hq_slide.image.url(:spoonfeed) %>) no-repeat;">
-	<h1><%= hq_slide.title %></h1>
-	<p><%= hq_slide.excerpt %>&hellip;&nbsp;<%= link_to "learn&nbsp;more&nbsp;&#187;", hq_slide.link %></p>
-	<p class="photo_credit"><%= hq_slide.photo_credit %></p>
-</div>
+<article style="background:url(<%= hq_slide.image.url(:hq_slide) %>);" title="<%= hq_slide.title %>" data-url="<%= hq_slide.link %>" data-caption="<%= hq_slide.excerpt %>&hellip;" data-photo-credit="<%= hq_slide.photo_credit %>"></article>
