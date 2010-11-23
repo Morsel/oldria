@@ -5,7 +5,7 @@
 </div>
 
 <% if can?(:edit, @page) %>
-	<p>
-		<%= link_to (image_tag("pencil.png") + "Edit this page"), edit_admin_page_path(@page), :class => 'button' %>
-	</p>
+    <p>
+        <%= link_to "Edit this page", edit_admin_page_path(@page), :class => 'edit_button' %>
+    </p>
 <% end %>

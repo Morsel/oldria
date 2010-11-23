@@ -18,7 +18,7 @@
     </header>
     <p>
         <%= image_tag(comment.user.avatar.url(:thumb), :alt => "#{comment.user.name}'s Profile Photo") %>
-        <%= simple_format(truncate(comment.comment, :length => 120)) %> <%= link_to "more&nbsp;&#187;", soapbox_soapbox_entry_path(entry_for_comment(comment), :anchor => dom_id(comment)) %>
+        <%= truncate(comment.comment, :length => 120) %> <%= link_to "more&nbsp;&#187;", soapbox_soapbox_entry_path(entry_for_comment(comment), :anchor => dom_id(comment)) %>
     </p>
 <% end %>
 

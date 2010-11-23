@@ -6,6 +6,10 @@
   <% else %>
   <%= stage.start_date.strftime("%Y") %>
   <% end %>
+  <% if stage.location.present? -%>
+    <br>
+    <%= stage.location %>
+  <% end -%>
   <br>
   <% if action_name != 'show' %>
     <%= link_to "Edit", edit_my_profile_stage_path(stage), :class => 'colorbox' %>

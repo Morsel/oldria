@@ -1,0 +1,37 @@
+<% title "RIA HQ" -%>
+
+<div id="jumbotron_wrapper">
+	<div id="jumbotron">
+		<%= render @hq_slides %>
+	</div><!--#jumbotron-->
+	
+	<div id="jumbo_promo">
+		<h1><%= link_to @hq_slides.first.try(:title), @hq_slides.first.try(:link) %></h1>
+		<p><%= @hq_slides.first.try(:excerpt) %>&hellip;&nbsp;<%= link_to "learn&nbsp;more&nbsp;&#187;", @hq_slides.first.try(:link) %></p>
+	</div><!--#jumbo_promo-->
+	<nav id="controller"></nav>
+</div><!--#jumbotron_wrapper-->
+
+<div id="audiences">
+	<nav>
+		<a href="#">
+			<h1>Chefs</h1>
+			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+		</a>
+		<a href="#">
+			<h1>Media</h1>
+			<p>Vestibulum lectus leo, lobortis eget molestie non, laoreet eget felis.</p>
+		</a>
+		<a href="#">
+			<h1>Diners</h1>
+			<p>Mauris eu tortor a sem consectetur luctus.</p>
+		</a>
+	</nav>
+</div><!--#audiences-->
+
+<br clear="all" />
+
+<section id="bottom_promos">
+	<%= render @hq_promos %>
+</section><!--#bottom_promos-->
+

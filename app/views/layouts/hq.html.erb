@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en" class="no-js">
+<head>
+	
+  <meta charset="utf-8">
+  <!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"><![endif]-->
+  <!--[if lt IE 9]>
+    <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+  <title><%= h(yield(:title) || "Untitled") %> - Restaurant Intelligence Agency</title>
+  <meta name="description" content="Restaurant Intelligence Agency website">
+  <meta name="author" content="Restaruant Intelligence Agency">
+  <link rel="shortcut icon" href="/favicon-ria.ico">
+  <link rel="stylesheet" href="/hq/_css/ria_hq.css?v=1">
+
+</head>
+
+<!--[if lt IE 7 ]> <body class="ie6"> <![endif]-->
+<!--[if IE 7 ]>    <body class="ie7"> <![endif]-->
+<!--[if IE 8 ]>    <body class="ie8"> <![endif]-->
+<!--[if IE 9 ]>    <body class="ie9"> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--> 
+	
+<body> <!--<![endif]-->
+  <%= render 'layouts/staging_bar' %>
+	<div id="container">    
+
+  	<header id="site_header">
+		
+			<h1 id="logo"><a href="#">RIA: Restaurant Intelligence Agency</a></h1>
+			<img id="print_only" src="/images/ria/logo-print.png" />
+			
+			<nav>
+			  <%= link_to 'Home', hq_root_path, :id => 'navhome', :class => active_page?('/hq') %>
+			  <%= link_to 'About', hq_page_path('about'), :id => 'navabout', :class => active_page?('/hq/about') %>
+			  <%= link_to 'Products', hq_page_path('products'), :id => 'navproducts', :class => active_page?('/hq/products') %>
+			  <%= link_to 'Unplugged', 'http://unplugged.restaurantintelligenceagency.com', :id => 'navunplugged' %>
+			  <%= link_to 'Testimonials', hq_page_path('testimonials'), :id => 'navtestimonials', :class => active_page?('/hq/testimonials') %>
+			  <%= link_to 'Contact', hq_page_path('contact'), :id => 'navcontact', :class => active_page?('/hq/contact') %>
+			</nav>
+			<br clear="all" />
+			<a id="site_login" href="/login">Login</a>
+			<br clear="all" />
+		</header><!--#site_header-->	
+		<%= yield :sidebar_a %>
+		<%= yield %>
+		<%= yield :sidebar_b %>
+		<div id="padding"></div>
+		
+	</div><!--#container-->
+	
+	<div id="footer_container">
+		
+		<footer>
+			
+			<section id="footer_logo">
+				<h2>RIA: Restaurant Intelligence Agency</h2>
+			</section><!--#footer_logo-->
+			
+			<section id="copyright">
+				<p>&copy; 2010 Restaurant Intelligence Agency. All Rights Reserved.</p>
+				<nav>
+					<a href="/hq/contact">Contact</a>
+					<a href="/hq/privacy">Privacy</a>
+					<a href="/hq/about">About</a>
+					<a href="/hq/help">Help</a>
+				</nav>
+			</section><!--#copyright-->
+			
+			<section id="social">
+				<ul>
+					<li><a href="http://www.facebook.com/RestaurantIntelligenceAgency" class="fb">Check us out on Facebook</a></li>
+					<li><a href="http://twitter.com/TeamRIA" class="tw">Follow on Twitter @TeamRIA</a></li>
+				</ul>
+			</section><!--#social-->
+		</footer>
+	</div><!--#footer_container-->
+	
+	<script type="text/javascript">
+	var googlejsapiHost = ("https:" == document.location.protocol) ? "https://www.google.com" : "http://www.google.com";
+	document.write(unescape("%3Cscript src='" + googlejsapiHost + "/jsapi' type='text/javascript'%3E%3C/script%3E"))
+	</script>
+	
+	<script>
+	  google.load('jquery','1.4.2');
+	  google.load('jqueryui','1.8.5');
+	</script>
+	
+	<%= javascript_include_tag 'jquery-easing-min.js', 'jquery-cycle-min.js', 'jquery.equalheights', 'ria' %>
+
+</body>
+</html>

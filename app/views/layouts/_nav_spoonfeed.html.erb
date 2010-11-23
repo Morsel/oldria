@@ -1,9 +1,19 @@
 <nav id="primary_nav">
-  <%= active_link_to "Dashboard", root_path, :id => "nav_dashboard" %>
+  <%= active_link_to "Dashboard", root_path, :id => "nav_dashboard" %> 
   <%= active_link_to "My Profile", profile_path(current_user.username), :id => "nav_myprofile" %>
   <%= active_link_to "My Restaurants", my_restaurants_path, :id => "nav_myrestaurants" %>
-  <%= active_link_to "Front Burner", '/front_burner', :id => "nav_frontburner" %>
-  <%= active_link_to "Messages", messages_path, :id => "nav_messages" %>
+  <span>
+    <%= active_link_to "Front Burner", '/front_burner', :id => "nav_frontburner" %>
+    <% if current_user.admin_conversations.current.size > 0 -%>
+      <%= link_to current_user.admin_conversations.current.size, '/front_burner', :class => 'count' %>
+    <% end -%>
+  </span>
+  <span>
+    <%= active_link_to "Messages", messages_path, :id => "nav_messages" %>
+    <% if current_user.try(:ria_message_count) > 0 -%>
+      <%= link_to current_user.try(:ria_message_count), messages_path, :class => 'count' %>
+    <% end -%>
+  </span>
   <%= active_link_to "Directory", '/directory', :id => "nav_directory" %>
   <%= active_link_to "Social Media", user_statuses_path(current_user), :id => "nav_socialmedia" %>
 </nav>
