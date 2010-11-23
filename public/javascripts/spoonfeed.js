@@ -1,3 +1,5 @@
+var already_equalized = false;
+
 $('#jumbotron').cycle({
 	fx: 'scrollHorz',
 	timeout: 8000,
@@ -7,15 +9,7 @@ $('#jumbotron').cycle({
 });
 
 $('.hp_promo, .chapter, .topic').equalHeights();
-$('.culinary_job').equalHeights();
-$('.nonculinary_job').equalHeights();
-$('.award').equalHeights();
-$('.accolade').equalHeights();
-$('.enrollment').equalHeights();
-$('.competition').equalHeights();
-$('.internship').equalHeights();
-$('.stage').equalHeights();
-$('.apprenticeship').equalHeights();
+
 
 // == Inbox for RIA messages
 $(".inbox_message .readit").live('click', function(){
@@ -54,7 +48,23 @@ $('#profile_user_attributes_prefers_publish_profile').live('click',function(){
 
 $('#profile-tabs').tabs({
 	panelTemplate: '<section></section>',
-	fx: { duration: 'fast', opacity: 'toggle' }
+	fx: { duration: 'fast', opacity: 'toggle' },
+	show: function(event, ui) { 
+		console.log(ui.panel.id == 'profile-extended' && !already_equalized);
+		if(ui.panel.id == 'profile-extended' && !already_equalized){
+			already_equalized = true;
+			$('.culinary_job').equalHeights();
+			$('.nonculinary_job').equalHeights();
+			$('.award').equalHeights();
+			$('.accolade').equalHeights();
+			$('.enrollment').equalHeights();
+			$('.competition').equalHeights();
+			$('.internship').equalHeights();
+			$('.stage').equalHeights();
+			$('.apprenticeship').equalHeights();
+			$('.cookbook').equalHeights(); 
+		}
+	}
 });
 
 $('.tabable').tabs({
