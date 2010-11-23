@@ -169,11 +169,10 @@
                 <div class="clear">
                     <%= f.input :prefers_display_twitter, :as => :radio, :collection => privacy_options, :label => "Show this to:", :wrapper_html => { :class => "show_this_to" } %>
                     <div class="span-6 last">Your Twitter account: <%= @profile.user.twitter_username %>
-                        <p>(<%= link_to "Need to change your Twitter settings?", edit_my_profile_path(:anchor => "twitter") %>)</p>
                     </div>
                 </div>
                 <%- else -%>
-                  <p><%= link_to "Set up Twitter", edit_my_profile_path(:anchor => "twitter") %></p>
+                  <p><%= link_to "Setup Twitter", new_twitter_authorization_url, :class=>'sf-button' %></p>
                 <%- end -%>
 
                 <%- if @fb_user -%>
@@ -181,11 +180,10 @@
                     <%= f.input :prefers_display_facebook, :as => :radio, :collection => privacy_options, :label => "Show this to:", :wrapper_html => { :class => "show_this_to" } %>
                     <div class="span-6 last">
                         Your Facebook account: <%= @fb_user.name %>
-                        <p>(<%= link_to "Need to change your Facebook settings?", edit_my_profile_path(:anchor => "facebook") %>)</p>
                     </div>
                 </div>
                 <%- else -%>
-                  <p><%= link_to "Set up Facebook", edit_my_profile_path(:anchor => "facebook") %></p>
+                  <p><%= link_to "Setup Facebook", fb_auth_user_path(@user), :class => 'sf-button' %></p>
                 <%- end -%>
 
 				<% button_tag :class => 'positive' do %>Save changes to contact information<% end %>
