@@ -9,7 +9,7 @@ class Admin::HqSlidesController < Admin::AdminController
   end
   
   def create
-    @slide = HqSlide.new(params[:sf_slide])
+    @slide = HqSlide.new(params[:hq_slide])
     if @slide.save
       flash[:notice] = "Created new slide \"#{@slide.title}\""
       redirect_to :action => "index"
