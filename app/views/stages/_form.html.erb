@@ -7,6 +7,7 @@
       :end_year => 1930, :start_year => Date.today.year %>
     <%= f.input :end_date, :hint => "Optional; exclude if you'd like only the year to display", :selected => nil,
       :end_year => 1930, :start_year => Date.today.year %>
+    <%= f.input :location, :hint => "City, State, Country" %>
     <%= f.input :comments, :label => "Anything you’d like to share on that?" %>
   <% end %>
   <%= button_tag "Save" %>
