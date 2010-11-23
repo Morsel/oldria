@@ -882,6 +882,13 @@ form#new_user_session {
 				display: block;
 				background: transparent url(/images/redesign/x.png) no-repeat;
 				margin: -5px -5px 0 0;
+				.readit{
+					display:block;
+					text-indent:-9999px;
+					outline:0;
+					width:16px;
+					height:16px;
+				}
 				&:hover {
 					background-position: 0 -100px;
 				}

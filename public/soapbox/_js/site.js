@@ -65,6 +65,9 @@ $(document).ready(function(){
 	$('.ui-tabs-panel').equalHeights();
 	$('#trend-comments .comment, #qotd-comments .comment').equalHeights();
 	
+
+	
+	
 });
 	
 function buildPager(idx, elem){
