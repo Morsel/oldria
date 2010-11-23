@@ -1,0 +1,9 @@
+<% javascript 'ckeditor/ckeditor' %>
+<% title "Edit HQ Page" %>
+
+<%= render :partial => 'admin/pages/form' %>
+
+<p>
+	<%= link_to "Show", [:admin, @page] %> |
+	<%= link_to "View All", admin_hq_pages_path %>
+</p>

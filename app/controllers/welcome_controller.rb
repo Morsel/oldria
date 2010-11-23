@@ -5,12 +5,10 @@ class WelcomeController < ApplicationController
       @user = current_user
       set_up_dashboard
       render :dashboard
-    elsif request.subdomains.include?('spoonfeed')
+    else
       @sf_slides = SfSlide.all(:limit => 4)
       @sf_promos = SfPromo.all(:limit => 4)
       render :layout => 'home'
-    else
-      render :ria_hq, :layout => 'ria'
     end
   end
 

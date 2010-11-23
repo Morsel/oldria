@@ -28,6 +28,8 @@ ActionController::Routing::Routes.draw do |map|
     soapbox.connect 'directory_search', :controller => 'soapbox', :action => 'directory_search'
     soapbox.root :controller => 'soapbox', :action => 'index'
   end
+  
+  
 
   map.soapbox_profile 'soapbox/profile/:username', :controller => 'soapbox/profiles', :action => 'show',
       :requirements => { :username => /[a-zA-Z0-9\-\_ ]+/}
@@ -36,6 +38,14 @@ ActionController::Routing::Routes.draw do |map|
 
   map.with_options :conditions => { :subdomain => 'soapbox' }, :controller => 'soapbox/soapbox' do |soapbox|
     soapbox.root :action => 'index'
+  end
+  
+  map.namespace(:hq) do |hq|
+    hq.root :controller => 'hq', :action => 'index'
+  end
+  
+  map.with_options :conditions => { :subdomain => 'hq' }, :controller => 'hq/hq' do |hq|
+    hq.root :action => 'index'
   end
 
   map.resource :my_profile, :only => ['create', 'edit', 'update'], :controller => 'profiles' do |p|
@@ -212,6 +222,7 @@ ActionController::Routing::Routes.draw do |map|
 
   map.public_page ":id", :controller => 'pages', :action => 'show'
   map.soapbox_page 'soapbox/:id', :controller => 'soapbox_pages', :action => 'show'
+  map.soapbox_page 'hq/:id', :controller => 'hq_pages', :action => 'show'
 
   # Default Routes
   map.connect ':controller/:action/:id'

@@ -1,0 +1,6 @@
+<section class="hp_promo <%= 'first' if hq_promo == @hq_promos.first %> <%= 'last' if hq_promo == @hq_promos.last %>">
+  <h1><%= hq_promo.title %></h1>
+  <%= simple_format(hq_promo.body) %>
+  <%= link_to "more&nbsp;&#187;", hq_promo.link if hq_promo.link.present? %>
+
+</section>

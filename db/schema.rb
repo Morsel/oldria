@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20101122185850) do
+ActiveRecord::Schema.define(:version => 20101123204547) do
 
   create_table "a_la_minute_answers", :force => true do |t|
     t.text     "answer"
@@ -444,6 +444,24 @@ ActiveRecord::Schema.define(:version => 20101122185850) do
 
   add_index "holidays", ["employment_search_id"], :name => "index_holidays_on_employment_search_id"
 
+  create_table "hq_pages", :force => true do |t|
+    t.string   "title"
+    t.string   "slug"
+    t.text     "content"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "hq_promos", :force => true do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "hq_slides", :force => true do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "internships", :force => true do |t|
     t.string   "establishment"
     t.string   "supervisor"
@@ -800,6 +818,29 @@ ActiveRecord::Schema.define(:version => 20101122185850) do
     t.text     "content"
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "soapbox_promos", :force => true do |t|
+    t.string   "title"
+    t.text     "body"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "link"
+    t.integer  "position"
+  end
+
+  create_table "soapbox_slides", :force => true do |t|
+    t.string   "image_file_name"
+    t.string   "image_content_type"
+    t.integer  "image_file_size"
+    t.integer  "image_updated_at"
+    t.string   "title"
+    t.text     "excerpt"
+    t.string   "link"
+    t.integer  "position"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "photo_credit"
   end
 
   create_table "solo_discussions", :force => true do |t|

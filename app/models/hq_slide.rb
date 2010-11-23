@@ -1,0 +1,2 @@
+class HqSlide < Slide
+end
