@@ -199,9 +199,7 @@
 						<ul id="cuisines">
 							<%= render @profile.cuisines %>
 						</ul>
-						<% link_to new_my_profile_profile_cuisine_path, :class => 'positive button colorbox' do %>
-						<img src="/images/plus.png"/> Add
-						<% end %>
+						<%= link_to "Add Cuisine", new_my_profile_profile_cuisine_path, :class => 'sf-button colorbox' %>
 					</fieldset>
 
                 </div>
