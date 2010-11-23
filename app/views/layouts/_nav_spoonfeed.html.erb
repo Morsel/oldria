@@ -10,8 +10,8 @@
   </span>
   <span>
     <%= active_link_to "Messages", messages_path, :id => "nav_messages" %>
-    <% if current_user.ria_message_count > 0 -%>
-      <%= link_to current_user.ria_message_count, messages_path, :class => 'count' %>
+    <% if current_user.try(:ria_message_count) > 0 -%>
+      <%= link_to current_user.try(:ria_message_count), messages_path, :class => 'count' %>
     <% end -%>
   </span>
   <%= active_link_to "Directory", '/directory', :id => "nav_directory" %>
