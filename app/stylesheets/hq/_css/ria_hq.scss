@@ -480,11 +480,31 @@ em, i{font-style:italic;}
 
 #main_content {
 	@include column(16);
+	position: relative;
+	a.button {
+		position: absolute;
+		padding: 4px 10px 4px 5px;
+		background: #e8f4e2;
+		&:hover {
+			background: $green;
+			color: #fff;
+			text-shadow: 0 1px 0 #333;
+		}
+	}
 }
 
 #page_content {
 	padding: 0 15px;
 	margin-bottom: 30px;
+	h1 {
+		font-size: 24px;
+		@include gotham;
+		font-weight: bold;
+		color: $green;
+		line-height: 30px;
+		padding: 0;
+		margin: 5px 0 14px;
+	}
 	#pg_title {
 		font-size: 24px;
 		@include gotham;
