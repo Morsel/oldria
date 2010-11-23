@@ -2215,7 +2215,59 @@ p.search_filter_hint {
 		}
 	}
 }
-
+#topic_title {
+  letter-spacing: 2px;
+}
+#btl_answers {
+  background: #FAFAF7;
+  padding: 10px; 
+  > h3 {
+    border-bottom: 1px dotted #AA9C74;
+    font-size: 21px;
+    font-style: italic;
+    font-weight: normal;
+  }
+  h4 {
+    font-size: 13px;
+    font-family: Georgia, "Times New Roman", Times, serif;
+    font-weight: bold;
+    text-transform: none;
+    letter-spacing: 0;
+    .letter-q {
+      font-size: 18px;
+      color: #A1A1A4;
+      font-style: italic;
+    }
+  }
+  .comment {
+    overflow: auto;
+    .identity {
+      @include column(6);
+      .avatar {
+        float: left;
+      }
+      .identity_details {
+        width: 186px;
+        float: left;
+      }
+      li {
+        background: none;
+        padding: 0 0 0 20px;
+      }
+      .employee_name {
+        font-family: "Hoefler Text", Georgia, "Times New Roman", Times, serif;
+        font-size: 20px;
+        font-style: italic;
+      }
+    }
+    .user_comment {
+      @include column(10);
+      background: url(/images/redesign/bg-divot.png) top left no-repeat;
+      padding-left: 20px;
+    }
+  }
+  
+}
 
 #behindline{
 	@include column(9);
