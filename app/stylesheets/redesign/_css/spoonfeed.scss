@@ -95,11 +95,12 @@ em, i{
 					white-space:nowrap;
 					color: #aaa;
 					img {
-						border: 1px solid $orange;
+						border: 1px solid #d1ccb7;
 						margin: -4px 10px 0 0;
+						padding: 2px;
 						@include transition;
 						&:hover {
-							border: 1px solid #000;
+							border: 1px solid $orange;
 							@include box-shadow(#aaa,1px,1px,1px);
 						}
 					}
@@ -133,7 +134,7 @@ em, i{
 					display: block;
 					background: transparent url(/images/redesign/icon-30-restaurant.png) no-repeat;
 					background-position: 0 0;
-					padding: 0 0 0 36px;
+					padding: 0 0 0 43px;
 					font-family: 'Hoefler Text', Georgia, Serif;
 					font-weight: bold;
 					font-size: 14px;
@@ -171,6 +172,24 @@ em, i{
 	background: transparent url(/images/redesign/nav-bg.gif) repeat-x;
 	height: 60px;
 	overflow:hidden;
+	> span {
+	  position: relative;
+	  a.count {
+	    position: absolute;
+  	  right: 3px;
+  	  top: 3px;
+	    color: #D8531E;
+	    font-weight: bold;
+	    background: #fff;
+	    font-size: 11px;
+	    padding: 2px 6px;
+	    @include border-radius(10px);
+	    @include box-shadow(#d3d3ce, 0, 2px, 0, 0);
+			float:none;
+			height:auto;
+			text-indent:0;
+	  }
+	}
 	a {
 		float: left;
 		@include hiddentext;
@@ -217,6 +236,11 @@ em, i{
 			background-position: -827px 0;
 			&:hover {background-position: -827px -100px;}
 			&.selected {background-position:-827px -200px;}
+		}
+		&.selected {
+		  + a.count {
+	      @include box-shadow(#ab4218, 0, 2px, 0, 0);
+	    }
 		}
 	}
 }
@@ -270,6 +294,7 @@ form#new_user_session {
 	p {
 		overflow: hidden;
 		button {
+			cursor:pointer;
 			float: left;
 			font-family: "helvetica neue", arial, sans-serif;
 			font-weight: bold;
@@ -709,6 +734,9 @@ form#new_user_session {
 		margin: 5px 0 15px;
 		padding: 0;
 		line-height: 18px;
+		&.save_end{
+			margin:15px 0 10px;
+		}
 		a {
 			color: $orange;
 			text-decoration: none;
@@ -859,6 +887,13 @@ form#new_user_session {
 				display: block;
 				background: transparent url(/images/redesign/x.png) no-repeat;
 				margin: -5px -5px 0 0;
+				.readit{
+					display:block;
+					text-indent:-9999px;
+					outline:0;
+					width:16px;
+					height:16px;
+				}
 				&:hover {
 					background-position: 0 -100px;
 				}
@@ -945,6 +980,7 @@ form#new_user_session {
 		.ui-tabs-panel {
 			p {display: block;overflow:hidden;}
 			button {
+				cursor:pointer;
 				float: left;
 				display: block;
 				margin: 0 10px 0 0;
@@ -962,36 +998,23 @@ form#new_user_session {
 					color: #fff;
 				}
 				&.positive {
+					margin:0 0 10px;
 					&:hover {
 						background: #e1d9c4;
 						color: #333;
 						text-shadow:none;
 					}
 				}
+				&.clear{
+					float:none;
+					margin:10px 0;
+				}
 			}	
 		 	.inputs {
 				display: block;
 				margin: 10px 0;
-				padding: 12px 0 20px;
+				padding: 12px 0 0;
 				border-bottom: 1px solid #ddd;
-				.cuisines {
-					.colorbox {
-						display: block;
-						text-align: center;
-						width: 40px;
-						@include border-radius(30px);
-						text-shadow: 0 1px 0 #fff;
-						padding: 2px 10px;
-						margin: 10px 0;
-						background: #e1d9c4;
-						clear: both;
-						&:hover {
-							background: $brown;
-							color: #fff;
-							text-shadow: 0 1px 0 #333;
-						}
-					}
-				}
 				legend {
 					margin: 0;
 					padding: 0;
@@ -1093,22 +1116,7 @@ form#new_user_session {
 			a{
 				color:#333;
 				&.sf-button{
-					display: inline-block;
-					text-align: center;
-					margin: 8px 0;
-					font-weight:normal;
 					color:$orange;
-					padding:5px 10px;
-					border:1px solid #ccc;
-					background:#eceded;
-					@include linear-gradient(color-stops(#f9f9f9,#ddd ), top);
-					@include border-radius(80px);
-					&:hover{
-						background:#ddd;
-						@include linear-gradient(color-stops(#fff,#ffe1d5 ), top);
-						border: 1px solid #ffe1d5;
-						text-shadow: 0 1px 0 #fff;
-					}
 				}
 				&.remove_twitter {
 					display: block;
@@ -1238,6 +1246,26 @@ form#new_user_session {
 			&:hover {
 				color: #fff;
 				text-shadow: 0 1px 0 #999;
+			}
+		}
+	}
+	a{
+		&.sf-button{
+			display: inline-block;
+			text-align: center;
+			margin: 8px 0;
+			font-weight:normal;
+			color:$orange;
+			padding:5px 10px;
+			border:1px solid #ccc;
+			background:#eceded;
+			@include linear-gradient(color-stops(#f9f9f9,#ddd ), top);
+			@include border-radius(80px);
+			&:hover{
+				background:#ddd;
+				@include linear-gradient(color-stops(#fff,#ffe1d5 ), top);
+				border: 1px solid #ffe1d5;
+				text-shadow: 0 1px 0 #fff;
 			}
 		}
 	}
@@ -2090,6 +2118,7 @@ p.search_filter_hint {
 			width: 320px;
 		}
 		button {
+			cursor:pointer;
 			float: left;
 			display: block;
 			border: 1px solid #ddd;
@@ -2192,7 +2221,62 @@ p.search_filter_hint {
 		}
 	}
 }
-
+#topic_title {
+  letter-spacing: 2px;
+}
+#btl_answers {
+  background: #FAFAF7;
+  padding: 10px; 
+  @include box-shadow(#eaeaea, 0px, 3px, 3px);
+  > h3 {
+    border-bottom: 1px dotted #ded8c8;
+    font-size: 21px;
+    font-style: italic;
+    font-weight: normal;
+  }
+  h4 {
+    font-size: 13px;
+    font-family: Georgia, "Times New Roman", Times, serif;
+    font-weight: bold;
+    text-transform: none;
+    letter-spacing: 0;
+    margin: 20px 0;
+    .letter-q {
+      font-size: 18px;
+      color: #A1A1A4;
+      font-style: italic;
+    }
+  }
+  .comment {
+    overflow: auto;
+    margin: 20px 0;
+    .identity {
+      @include column(6);
+      .avatar {
+        float: left;
+      }
+      .identity_details {
+        width: 186px;
+        float: left;
+      }
+      li {
+        background: none;
+        padding: 0 0 0 20px;
+      }
+      .employee_name {
+        font-family: "Hoefler Text", Georgia, "Times New Roman", Times, serif;
+        font-size: 20px;
+        font-style: italic;
+      }
+    }
+    .user_comment {
+      @include column(10);
+      background: url(/images/redesign/bg-divot.png) top left no-repeat;
+      padding-left: 20px;
+    }
+  }
+  
+}
 
 #behindline{
 	@include column(9);
@@ -2380,7 +2464,7 @@ p.search_filter_hint {
 	line-height:1.4;
 	.current{
 		background-color:#efede5;
-		background:rgba(223,219,204,0.33) url(/images/redesign/bg-current.png) no-repeat 10px 10px;
+		background:rgba(223,219,204,0.33) url(/images/redesign/bg-current.png) no-repeat 10px center;
 		margin:10px 0;
 		padding:10px 10px 10px 52px;
 		@include border-radius(10px);
