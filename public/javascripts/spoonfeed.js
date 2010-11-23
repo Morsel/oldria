@@ -154,6 +154,14 @@ $('#criteria_accordion').accordion({
 }).find('.loading').removeClass('loading');
 
 $(document).ready(function(){
+	var bindAjaxDeleters = function(){
+	  $('a.delete').ajaxDestroyLink({
+	    containerSelector: 'li:first'
+	  });
+	};
+	
+	bindAjaxDeleters();
+	
 	var bindColorbox = function() {
 	  $('.colorbox').colorbox({
 	      initialWidth: 450,
