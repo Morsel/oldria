@@ -144,6 +144,7 @@ em, i{font-style:italic;}
 		height: 240px;
 		padding: 15px;
 		background: transparent url(/images/ria/bg-tomato-86.png) repeat;
+		z-index: 100;
 		h1 {
 			@include gotham;
 			font-weight: bold;
