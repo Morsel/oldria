@@ -199,7 +199,7 @@ em, i{font-style:italic;}
 			height: 14px;
 			@include border-radius(20px);
 			@include hiddentext;
-			&.selected {
+			&.activeSlide {
 				background-color: #fff;
 				@include box-shadow(#000, 0, 1px, 0);
 				&:hover {
