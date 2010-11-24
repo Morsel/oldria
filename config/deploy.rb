@@ -169,23 +169,6 @@ namespace :compass do
   # Generate all the stylesheets manually (from their Sass templates) before each restart.
 end
 
-namespace :delayed_job do 
-    desc "Start the delayed_job process"
-    task :start, :roles => :app do
-        run "cd #{current_path}; RAILS_ENV=#{rails_env} script/delayed_job start"
-    end
-    
-    desc "Stop the delayed_job process"
-    task :stop, :roles => :app do
-        run "cd #{current_path}; RAILS_ENV=#{rails_env} script/delayed_job stop"
-    end
-    
-    desc "Restart the delayed_job process"
-    task :restart, :roles => :app do
-        run "cd #{current_path}; RAILS_ENV=#{rails_env} script/delayed_job restart"
-    end
-end
-
 task :logs, :roles => :app do 
   run "cd #{current_path}; RAILS_ENV=#{rails_env} tail -f log/#{rails_env}.log"
 end
@@ -198,6 +181,7 @@ after 'deploy:update_code', 'deploy:symlink_shared'
 after "deploy:stop",    "delayed_job:stop"
 after "deploy:update_code",   "delayed_job:start"
 after "deploy:restart", "delayed_job:restart"
+# in lib/recipes/delayed_job.rb
 
 
 Dir[File.join(File.dirname(__FILE__), '..', 'vendor', 'gems', 'hoptoad_notifier-*')].each do |vendored_notifier|
