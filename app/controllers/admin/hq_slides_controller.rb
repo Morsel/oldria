@@ -42,7 +42,7 @@ class Admin::HqSlidesController < Admin::AdminController
   def sort
     if params[:hq_slides]
       params[:hq_slides].each_with_index do |id, index|
-        SfSlide.update_all(['position = ?', index + 1], ['id = ?', id])
+        HqSlide.update_all(['position = ?', index + 1], ['id = ?', id])
       end      
     end
     render :nothing => true
