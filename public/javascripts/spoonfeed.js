@@ -50,7 +50,6 @@ $('#profile-tabs').tabs({
 	panelTemplate: '<section></section>',
 	fx: { duration: 'fast', opacity: 'toggle' },
 	show: function(event, ui) { 
-		console.log(ui.panel.id == 'profile-extended' && !already_equalized);
 		if(ui.panel.id == 'profile-extended' && !already_equalized){
 			already_equalized = true;
 			$('.culinary_job').equalHeights();
