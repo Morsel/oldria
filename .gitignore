@@ -17,6 +17,7 @@ rerun.txt
 tmp/webrat-*
 .idea/
 .rvmrc
+.project
 default.gems
 
 public/soapbox/_css/*
