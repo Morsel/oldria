@@ -9,8 +9,8 @@ shared_path = ENV['SHARED_PATH']
     w.interval = 30.seconds
     w.start    = "rake -f #{rails_root}/Rakefile #{rails_env} jobs:work"
     w.log = "#{shared_path}/log/god.log"
-    w.uid = 'ria'
-    w.gid = 'ria'
+    w.uid = 'deployer'
+    w.gid = 'deployer'
 
     # retart if memory gets too high
     w.transition(:up, :restart) do |on|
