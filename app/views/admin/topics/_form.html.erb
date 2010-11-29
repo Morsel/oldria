@@ -1,4 +1,4 @@
-<% semantic_form_for [:admin, topic] do |f| %>
+<% semantic_form_for [:admin, topic], :url => edit_admin_topic_path(:responder_type => params[:responder_type], :id => topic.id) do |f| %>
     <% f.inputs do %>
         <%= f.input :title %>
         <%= f.input :description %>
