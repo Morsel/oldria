@@ -20,7 +20,9 @@ class QuestionsController < ApplicationController
 
     @questions = is_self ?
         @chapter.profile_questions.for_subject(@subject) :
-        ProfileQuestion.answered_for_subject(@subject).for_chapter(params[:chapter_id])
+        @subject.is_a?(RestaurantFeaturePage) ?
+            ProfileQuestion.answered_for_page(@subject, @restaurant).for_chapter(params[:chapter_id]) :
+            ProfileQuestion.answered_for_subject(@subject).for_chapter(params[:chapter_id])
   end
 
   def show
@@ -36,9 +38,13 @@ class QuestionsController < ApplicationController
       end
       @chapters_by_topic = chapters.flatten.group_by(&:topic)
     else
-      @topics = Topic.answered_for_subject(@subject)
+      @topics = @subject.is_a?(RestaurantFeaturePage) ?
+                  Topic.answered_for_page(@subject, @restaurant) :
+                  Topic.answered_for_subject(@subject)
       chapters = @topics.collect do |topic|
-        topic.chapters.answered_for_subject(@subject).all(:limit => 3)
+        @subject.is_a?(RestaurantFeaturePage) ?
+          topic.chapters.answered_for_page(@subject, @restaurant).all(:limit => 3) :
+          topic.chapters.answered_for_subject(@subject).all(:limit => 3)
       end
       @chapters_by_topic = chapters.flatten.group_by(&:topic)
     end
@@ -70,6 +76,9 @@ class QuestionsController < ApplicationController
   def get_subject
     if params[:user_id]
       @subject = User.find(params[:user_id])
+    elsif params[:feature_page_id]
+      @subject = RestaurantFeaturePage.find(params[:feature_page_id])
+      @restaurant = Restaurant.find(params[:restaurant_id])
     else
       @subject = Restaurant.find(params[:restaurant_id])
     end

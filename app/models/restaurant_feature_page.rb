@@ -11,6 +11,21 @@ class RestaurantFeaturePage < ActiveRecord::Base
   def deletable?
     restaurant_feature_categories.empty?
   end
+
+  # Behind the line
+
+  def profile_questions
+    ProfileQuestion.for_subject(self)
+  end
+
+  def topics
+    Topic.for_subject(self) || []
+  end
+
+  def published_topics(secondary_subject = nil)
+    topics.select { |t| t.published?(self, secondary_subject) }
+  end
+
 end
 # == Schema Information
 #

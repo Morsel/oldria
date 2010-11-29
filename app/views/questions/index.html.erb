@@ -1,5 +1,5 @@
 <% title "Behind the Line", false %>
-<h1 id="btl-title" class="btl"><span class="btl-art">Behind the Line:</span> <span class="name"><%= @subject.name %></span></h1>
+<h1 id="btl-title" class="btl"><span class="btl-art">Behind the Line:</span> <span class="name"><%= btl_title_for(@subject) %></span></h1>
 <h2 id="topic_title">Topic: <%= @chapter.topic.title %></h2>
 <%= render :partial => 'questions/topic_nav', :locals => { :next_topic => @next_topic, :prev_topic => @previous_topic } %>
 
@@ -8,9 +8,9 @@
     <h3><%= @chapter.title %></h3>
   </div>
 
-<% if can_edit_profile_questions(@subject) %><%# let's edit these answers %>
+<% if can_edit_profile_questions(@subject) && !params[:controller].match(/soapbox/) %><%# let's edit these answers %>
 
-  <% form_tag send("#{@subject.class.name.downcase}_profile_answers_path") do %>
+  <% form_tag send("#{@subject.class.name.underscore}_profile_answers_path") do %>
     <% @questions.each do |question| %>
       <% div_for question do %>
           <h4>Q: <%= question.title %></h4>

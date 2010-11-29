@@ -14,7 +14,9 @@ ActionController::Routing::Routes.draw do |map|
 
   map.namespace(:soapbox) do |soapbox|
     soapbox.resources :restaurants, :only => ['show'] do |restaurants|
-      restaurants.resources :feature_pages, :only => ['show']
+      restaurants.resources :feature_pages, :only => ['show'] do |pages|
+        pages.resources :questions, :collection => { :topics => :get, :chapters => :get, :refresh => :post }
+      end
       restaurants.resources :photos, :only => ['show', 'index']
       restaurants.resources :accolades, :only => ['index']
     end
@@ -28,8 +30,8 @@ ActionController::Routing::Routes.draw do |map|
     soapbox.connect 'directory_search', :controller => 'soapbox', :action => 'directory_search'
     soapbox.root :controller => 'soapbox', :action => 'index'
   end
-  
-  
+
+
 
   map.soapbox_profile 'soapbox/profile/:username', :controller => 'soapbox/profiles', :action => 'show',
       :requirements => { :username => /[a-zA-Z0-9\-\_ ]+/}
@@ -39,11 +41,11 @@ ActionController::Routing::Routes.draw do |map|
   map.with_options :conditions => { :subdomain => 'soapbox' }, :controller => 'soapbox/soapbox' do |soapbox|
     soapbox.root :action => 'index'
   end
-  
+
   map.namespace(:hq) do |hq|
     hq.root :controller => 'hq', :action => 'index'
   end
-  
+
   map.with_options :conditions => { :subdomain => 'hq' }, :controller => 'hq/hq' do |hq|
     hq.root :action => 'index'
   end
@@ -216,7 +218,7 @@ ActionController::Routing::Routes.draw do |map|
         :collection => {:edit_in_place => :post}
     admin.resources :sf_slides, :collection => { :sort => :post }
     admin.resources :sf_promos, :collection => { :sort => :post }
-    
+
     admin.resources :hq_slides, :collection => { :sort => :post }
     admin.resources :hq_promos, :collection => { :sort => :post }
 

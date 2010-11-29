@@ -28,7 +28,12 @@ class ProfileQuestion < ActiveRecord::Base
         :conditions => ["question_roles.responder_id = ? AND question_roles.responder_type = ?", subject.primary_employment.restaurant_role.id, subject.primary_employment.restaurant_role.class.name],
         :include => :chapter,
         :order => "chapters.position, profile_questions.position" }
-    else
+    elsif subject.is_a? RestaurantFeaturePage
+      { :joins => :question_roles,
+        :conditions => ["question_roles.responder_id = ? AND question_roles.responder_type = ?", subject.id, subject.class.name],
+        :include => :chapter,
+        :order => "chapters.position, profile_questions.position" }
+    elsif subject.is_a? Restaurant
       { :joins => { :chapter => :topic },
         :conditions => ["topics.responder_type = ?", 'restaurant'],
         :include => :chapter,
@@ -44,6 +49,11 @@ class ProfileQuestion < ActiveRecord::Base
 
   named_scope :answered_for_subject, lambda { |subject|
     { :joins => :profile_answers, :conditions => ["profile_answers.responder_id = ? AND profile_answers.responder_type = ?", subject.id, subject.class.name] }
+  }
+
+  named_scope :answered_for_page, lambda { |page, restaurant|
+    { :joins => [:profile_answers, :question_roles],
+      :conditions => ["profile_answers.responder_id = ? AND profile_answers.responder_type = ? AND question_roles.responder_id = ? AND question_roles.responder_type = ?", restaurant.id, restaurant.class.name, page.id, page.class.name] }
   }
 
   named_scope :answered_for_chapter, lambda { |chapter_id|

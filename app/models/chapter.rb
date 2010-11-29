@@ -29,7 +29,12 @@ class Chapter < ActiveRecord::Base
         :conditions => ["question_roles.responder_id = ? AND question_roles.responder_type = ?", subject.primary_employment.restaurant_role.id, subject.primary_employment.restaurant_role.class.name],
         :select => "distinct chapters.*",
         :order => :position }
-    else
+    elsif subject.is_a? RestaurantFeaturePage
+      { :joins => { :profile_questions => :question_roles },
+        :conditions => ["question_roles.responder_id = ? AND question_roles.responder_type = ?", subject.id, subject.class.name],
+        :select => "distinct chapters.*",
+        :order => :position }
+    elsif subject.is_a? Restaurant
       { :joins => :topic,
         :conditions => ["topics.responder_type = 'restaurant'"],
         :select => "distinct chapters.*",
@@ -44,6 +49,13 @@ class Chapter < ActiveRecord::Base
       :order => :position }
   }
 
+  named_scope :answered_for_page, lambda { |page, restaurant|
+    { :joins => { :profile_questions => [:profile_answers, :question_roles] },
+      :conditions => ["profile_answers.responder_id = ? AND profile_answers.responder_type = ? AND question_roles.responder_id = ? AND question_roles.responder_type = ?", restaurant.id, restaurant.class.name, page.id, page.class.name],
+      :select => "distinct chapters.*",
+      :order => :position }
+  }
+
   def title_with_topic
     "#{topic.title} - #{title}"
   end
@@ -51,11 +63,13 @@ class Chapter < ActiveRecord::Base
   def previous_for_subject(subject, is_self = false)
     sort_field = (self.position == 0 ? "id" : "position")
     if is_self
-      self.topic.chapters.for_subject(subject).first(:conditions => ["chapters.#{sort_field} < ?", self.send(sort_field)],
-                                               :order => "#{sort_field} DESC")
+      self.topic.chapters.for_subject(subject).first(
+        :conditions => ["chapters.#{sort_field} < ?", self.send(sort_field)],
+        :order => "#{sort_field} DESC")
     else
-      self.topic.chapters.answered_for_subject(subject).first(:conditions => ["chapters.#{sort_field} < ?", self.send(sort_field)],
-                                                        :order => "#{sort_field} DESC")
+      self.topic.chapters.answered_for_subject(subject).first(
+        :conditions => ["chapters.#{sort_field} < ?", self.send(sort_field)],
+        :order => "#{sort_field} DESC")
     end
   end
 
@@ -71,20 +85,24 @@ class Chapter < ActiveRecord::Base
     self.profile_questions.for_subject(subject).count
   end
 
-  def answer_count_for_subject(subject)
-    self.profile_questions.answered_for_subject(subject).count
+  def answer_count_for_subject(subject, secondary_subject = nil)
+    if secondary_subject
+      self.profile_questions.answered_for_page(subject, secondary_subject).count
+    else
+      self.profile_questions.answered_for_subject(subject).count
+    end
   end
 
-  def completion_percentage(subject)
+  def completion_percentage(subject, secondary_subject = nil)
     if question_count_for_subject(subject) > 0
-      ((answer_count_for_subject(subject).to_f / question_count_for_subject(subject).to_f) * 100).to_i
+      ((answer_count_for_subject(subject, secondary_subject).to_f / question_count_for_subject(subject).to_f) * 100).to_i
     else
       0
     end
   end
 
-  def published?(subject)
-    completion_percentage(subject) >= 5
+  def published?(subject, secondary_subject = nil)
+    completion_percentage(subject, secondary_subject) >= 5
   end
 
 end
