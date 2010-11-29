@@ -11,6 +11,7 @@ class Admin::ProfileQuestionsController < Admin::AdminController
   def new
     @question = ProfileQuestion.new
     @roles = RestaurantRole.all.group_by(&:category)
+    @topics = Topic.all(:conditions => { :responder_type => params[:responder_type] })
   end
 
   def create
