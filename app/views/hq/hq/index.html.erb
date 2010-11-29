@@ -7,7 +7,7 @@
 	
 	<div id="jumbo_promo">
 		<h1><%= link_to @hq_slides.first.try(:title), @hq_slides.first.try(:link) %></h1>
-		<p><%= @hq_slides.first.try(:excerpt) %>&hellip;&nbsp;<%= link_to "learn&nbsp;more&nbsp;&#187;", @hq_slides.first.try(:link) %></p>
+		<p><%= @hq_slides.first.try(:excerpt) %><% if @hq_slides.first.link.present? -%><%= link_to "learn&nbsp;more&nbsp;&#187;", @hq_slides.first.try(:link) %><% end -%></p>
 	</div><!--#jumbo_promo-->
 	<nav id="controller"></nav>
 </div><!--#jumbotron_wrapper-->
