@@ -6,8 +6,12 @@
 	</div><!--#jumbotron-->
 	
 	<div id="jumbo_promo">
-		<h1><%= link_to @hq_slides.first.try(:title), @hq_slides.first.try(:link) %></h1>
-		<p><%= @hq_slides.first.try(:excerpt) %><% unless  @hq_slides.first.link.blank? -%><%= link_to "learn&nbsp;more&nbsp;&#187;", @hq_slides.first.try(:link) %><% end -%></p>
+		<% unless @hq_slides.first.try(:link).blank? -%>
+		  <h1><%= link_to @hq_slides.first.try(:title), @hq_slides.first.try(:link) %></h1>
+		<% else -%>
+		  <h1><%= @hq_slides.first.try(:title) %></h1>
+		<% end -%>
+		<p><%= @hq_slides.first.try(:excerpt) %><% unless @hq_slides.first.try(:link).blank? -%><%= link_to "learn&nbsp;more&nbsp;&#187;", @hq_slides.first.try(:link) %><% end -%></p>
 	</div><!--#jumbo_promo-->
 	<nav id="controller"></nav>
 </div><!--#jumbotron_wrapper-->
