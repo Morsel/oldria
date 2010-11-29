@@ -176,7 +176,7 @@ end
 namespace :god do
   desc 'Start god daemon'
   task :start, :roles => :app do
-    run "RAILS_ROOT=#{current_path} RAILS_ENV=#{rails_env} god -c #{latest_release}/config/dj.god -D"
+    run "RAILS_ROOT=#{latest_release} SHARED_PATH=#{shared_path} RAILS_ENV=#{rails_env} god -c #{latest_release}/config/dj.god -D"
   end
 end
 

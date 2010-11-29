@@ -1,5 +1,6 @@
 rails_root = ENV['RAILS_ROOT']
 rails_env = ENV['RAILS_ENV']
+shared_path = ENV['SHARED_PATH']
 
 20.times do |num|
   God.watch do |w|
@@ -7,7 +8,7 @@ rails_env = ENV['RAILS_ENV']
     w.group    = 'dj'
     w.interval = 30.seconds
     w.start    = "rake -f #{rails_root}/Rakefile #{rails_env} jobs:work"
-    w.log = "#{rails_root}/log/god.log"
+    w.log = "#{shared_path}/log/god.log"
     w.uid = 'deployer'
     w.gid = 'deployer'
 
