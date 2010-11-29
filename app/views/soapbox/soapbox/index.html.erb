@@ -1,7 +1,7 @@
 <% title "Home", false %>
 <section id="content" class="home">
     <div id="inside" class="home">
-        <%- unless @slides.blank? -%>
+        <%- if @slides.any? -%>
         <div id="jumbotron">
             <div id="cycle">
                 <% for slide in @slides %>
@@ -26,10 +26,10 @@
             </header>
             <section>
                 <p><%= promo.body %></p>
-                <%= link_to "more&nbsp;&#187;", promo.link if promo.link.present? %>
+                <%= link_to "more&nbsp;&#187;", promo.link unless promo.link.blank? %>
             </section>
         </article><!-- /home-pulse -->
-        <%- end if @promos -%>
+        <%- end if @promos.any? -%>
     </div><!-- /inside -->
 </section><!-- /content --> 
 
