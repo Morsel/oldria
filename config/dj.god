@@ -7,7 +7,7 @@ rails_env = ENV['RAILS_ENV']
     w.group    = 'dj'
     w.interval = 30.seconds
     w.start    = "rake -f #{rails_root}/Rakefile #{rails_env} jobs:work"
-
+    w.log = "#{rails_root}/log/god.log"
     w.uid = 'deployer'
     w.gid = 'deployer'
 
