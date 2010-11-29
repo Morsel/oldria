@@ -20,7 +20,7 @@ Feature: Associating a Restaurant with its employees
     When I follow "Add employee"
     And I fill in "Employee Email" with "<inputfield>"
     And I press "Submit"
-    Then I should see "Is this who you were looking for?"
+    Then I should see "Is this user an employee at your restaurant?"
     Then I should see "<name>"
 
     When I press "Yes"
@@ -75,9 +75,8 @@ Feature: Associating a Restaurant with its employees
     And I should see an invitation URL in the email body
     When I click the first link in the email
     Then I should see "Successfully logged in"
-    And "daviddinkle" should be a confirmed user
-    And "Duck Soup" should have 2 employees
-    And I should be on the complete registration page
+
+    # the rest of this workflow is covered in invitations.feature
 
   Scenario: Making an employee public on the main page
     Given I have just created a restaurant named "Jimmy's Diner"

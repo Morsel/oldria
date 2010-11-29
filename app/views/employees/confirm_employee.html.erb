@@ -12,7 +12,7 @@
 	<% end -%>
 
 	<% if @employee %>
-		<p>Is this who you were looking for?</p>
+		<p>Is this user an employee at your restaurant?</p>
 		<%= render @employee %>
 		<p><%= button_tag "Yes", :class => 'nofloat positive' %> or <%= link_to "No", :action => :new %></p>
 	<% else %>

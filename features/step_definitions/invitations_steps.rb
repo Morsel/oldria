@@ -5,7 +5,7 @@ Given /^there are the following invitations:$/ do |table|
     if restaurant
       Factory(:invitation, hash.merge(:restaurant_id => restaurant.id))
     else
-      Factory(:invitation, hash)
+      Factory(:invitation, hash.merge(:restaurant_name => restaurant_name))
     end
   end
 end

@@ -66,7 +66,7 @@ describe EmployeesController do
       it { assigns[:employee].should == @employee }
 
       it "should include confirmation message" do
-        response.should contain("Is this who you were looking for?")
+        response.should contain("Is this user an employee at your restaurant?")
       end
 
       it "should have a form to POST create action with hidden employee_id" do
