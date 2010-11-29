@@ -1,4 +1,4 @@
-rails_root = "/srv/httpd/spoonfeed.restaurantintelligenceagency.com/current"
+rails_root = ENV['RAILS_ROOT']
 rails_env = ENV['RAILS_ENV']
 
 20.times do |num|
