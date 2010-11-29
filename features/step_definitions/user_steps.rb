@@ -194,3 +194,6 @@ When /^I should see that the user has a premium account$/ do
   response.should have_selector("#account_type", :content => "Premium")
 end
 
+Then /^"([^\"]*)" should not have a default employment$/ do |username|
+  User.find_by_username(username).default_employment.should be_nil
+end

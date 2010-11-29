@@ -11,6 +11,9 @@ Feature: Associating a Restaurant with its employees
       | betty    | betty@example.com   | Betty Davis | secret   |
       | bob      | bob@example.com     | Bob Davy    | secret   |
       | cole     | cole@example.com    | Cole Cal    | secret   |
+    And "betty" has a default employment with the role "Chef"
+    And "bob" has a default employment with the role "Barista"
+    And "cole" has a default employment with the role "Sous Chef"
     Given I am logged in as "mgmt" with password "secret"
 
   Scenario Outline: Adding an existing Employee after initial signup
@@ -25,17 +28,19 @@ Feature: Associating a Restaurant with its employees
 
     When I press "Yes"
     Then I should see "<name>"
-    # The manager plus the new person
+    # The manager plus the new person get email
     And "Jimmy's Diner" should have 2 employees
+    And "<username>" should not have a default employment
 
   Examples:
-    | inputfield        | name        |
-    | betty@example.com | Betty Davis |
-    | betty             | Betty Davis |
-    | Betty Davis       | Betty Davis |
-    | B Davis           | Betty Davis |
-    | bob               | Bob Davy    |
-    | Bob Davy          | Bob Davy    |
+    | inputfield        | name        | username |
+    | betty@example.com | Betty Davis | betty    |
+    | betty             | Betty Davis | betty    |
+    | Betty Davis       | Betty Davis | betty    |
+    | B Davis           | Betty Davis | betty    |
+    | bob               | Bob Davy    | bob      |
+    | Bob Davy          | Bob Davy    | bob      |
+    | cole              | Cole Cal    | cole     |
 
   Scenario: You can't add an employee twice
     Given I have just created a restaurant named "Jimmy's Diner"

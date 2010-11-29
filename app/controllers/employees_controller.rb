@@ -20,6 +20,7 @@ class EmployeesController < ApplicationController
 
     if @employment.save
       @employment.insert_at
+      @employment.employee.default_employment.try(:destroy) # Get rid of user-set employment details
       flash[:notice] = @send_invitation ? "#{@employment.employee.name_or_username} has been sent an invitation and added to your restaurant.<br/>
           Please remind your employee to check their email for instructions on confirming their new account." : 
           "Successfully added #{@employment.employee.name} to this restaurant"

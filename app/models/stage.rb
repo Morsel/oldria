@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20100826190657
+# Schema version: 20101124215652
 #
 # Table name: stages
 #
@@ -12,6 +12,7 @@
 #  profile_id    :integer
 #  created_at    :datetime
 #  updated_at    :datetime
+#  location      :string(255)
 #
 
 class Stage < ActiveRecord::Base
