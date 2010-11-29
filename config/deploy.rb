@@ -173,6 +173,13 @@ task :logs, :roles => :app do
   run "cd #{current_path}; RAILS_ENV=#{rails_env} tail -f log/#{rails_env}.log"
 end
 
+namespace :god do
+  desc 'Start god daemon'
+  task :start, :roles => :app do
+    run "RAILS_ENV=#{rails_env} god -c #{latest_release}/config/dj.god -D"
+  end
+end
+
 before 'deploy:restart', 'compass:compile'
 after "deploy:symlink", "deploy:update_crontab"
 after 'deploy:update_code', 'deploy:symlink_shared'
@@ -180,7 +187,9 @@ after 'deploy:update_code', 'deploy:symlink_shared'
 # Delayed Job callbacks:
 after "deploy:stop",    "delayed_job:stop"
 after "deploy:update_code",   "delayed_job:start"
+after "deploy:update_code",   "god:start"
 after "deploy:restart", "delayed_job:restart"
+after "deploy:restart", "god:start"
 # in lib/recipes/delayed_job.rb
 
 

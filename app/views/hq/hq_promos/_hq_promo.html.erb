@@ -8,6 +8,8 @@
 		  <% end -%>
 		</h1>
 		<%= simple_format(hq_promo.body) %>
-		<h3><%= link_to "more&nbsp;&#187;", hq_promo.link if hq_promo.link.present? %></h3>
+		<% if hq_promo.link.present? -%>
+		  <h3><%= link_to "#{hq_promo.try(:link_text)}&nbsp;&#187;", hq_promo.link %></h3>
+		<% end -%>
 	</section><!--.sb-->
 </article>

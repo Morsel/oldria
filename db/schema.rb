@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20101124215652) do
+ActiveRecord::Schema.define(:version => 20101129220914) do
 
   create_table "a_la_minute_answers", :force => true do |t|
     t.text     "answer"
@@ -664,6 +664,7 @@ ActiveRecord::Schema.define(:version => 20101124215652) do
     t.string   "link"
     t.integer  "position"
     t.string   "type"
+    t.string   "link_text"
   end
 
   create_table "question_role_categories", :force => true do |t|
