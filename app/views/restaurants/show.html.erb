@@ -35,7 +35,7 @@
     <% div_if @restaurant.manager, :id => "manager" do %>
       Manager:
       <span>
-        <%= link_to h(@restaurant.manager.name), profile_path(@restaurant.manager) %>
+        <%= link_to h(@restaurant.manager.name), profile_path(:username => @restaurant.manager.username) %>
       </span>
     <% end %>
 
@@ -43,7 +43,7 @@
       Media Contact:
       <span>
         <%= link_to h(@restaurant.media_contact.name),
-            profile_path(@restaurant.media_contact) %>
+            profile_path(:username => @restaurant.media_contact.username) %>
       </span>
     <% end %>
 
