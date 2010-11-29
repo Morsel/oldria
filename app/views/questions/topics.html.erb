@@ -1,5 +1,5 @@
 <% title "Behind the Line", false %>
-<h1 id="btl-title" class="btl"><span class="btl-art">Behind the Line:</span> <span class="name"><%= @subject.name %></span></h1>
+<h1 id="btl-title" class="btl"><span class="btl-art">Behind the Line:</span> <span class="name"><%= btl_title_for(@subject) %></span></h1>
 <h2 id="topic_title">Topics</h2>
 
 <%- @topics.each do |topic| -%>
@@ -9,7 +9,7 @@
         <% @chapters_by_topic[topic].each do |chapter| %>
         <tr>
            <td class="topic_link"><%= link_to chapter.title, link_for_questions(:subject => @subject, :chapter_id => chapter.id) %></td>
-           <td class="topic_completeness"><%= chapter.completion_percentage(@subject) %>% complete</td>
+           <td class="topic_completeness"><%= chapter.completion_percentage(@subject, @restaurant) %>% complete</td>
         </tr>
         <% end if @chapters_by_topic[topic] %>
     </table>

@@ -82,31 +82,47 @@ module UsersHelper
 
   def link_for_chapter(options = {})
     subject = options.delete(:subject)
-    options.merge!({"#{subject.class.name.downcase}_id".to_sym => subject.id})
-    if params[:controller].match(/soapbox/)
-      send("chapters_soapbox_#{subject.class.name.downcase}_questions_path".to_sym, options)
+    if subject.is_a? RestaurantFeaturePage
+      options.merge!({:restaurant_id => params[:restaurant_id]})
+      options.merge!({:feature_page_id => subject.id})
     else
-      send("chapters_#{subject.class.name.downcase}_questions_path", options)
+      options.merge!({"#{subject.class.name.underscore}_id".to_sym => subject.id})
+    end
+    puts "options => #{options.inspect}"
+    if params[:controller].match(/soapbox/)
+      send("chapters_soapbox_#{subject.class.name.underscore}_questions_path".to_sym, options)
+    else
+      send("chapters_#{subject.class.name.underscore}_questions_path", options)
     end
   end
 
   def link_for_topics(options = {})
     subject = options.delete(:subject)
-    options.merge!({"#{subject.class.name.downcase}_id".to_sym => subject.id})
-    if params[:controller].match(/soapbox/)
-      send("topics_soapbox_#{subject.class.name.downcase}_questions_path", options)
+    if subject.is_a? RestaurantFeaturePage
+      options.merge!({:restaurant_id => params[:restaurant_id]})
+      options.merge!({:feature_page_id => subject.id})
     else
-      send("topics_#{subject.class.name.downcase}_questions_path", options)
+      options.merge!({"#{subject.class.name.underscore}_id".to_sym => subject.id})
+    end
+    if params[:controller].match(/soapbox/)
+      send("topics_soapbox_#{subject.class.name.underscore}_questions_path", options)
+    else
+      send("topics_#{subject.class.name.underscore}_questions_path", options)
     end
   end
 
   def link_for_questions(options = {})
     subject = options.delete(:subject)
-    options.merge!({"#{subject.class.name.downcase}_id".to_sym => subject.id})
-    if params[:controller].match(/soapbox/)
-      send("soapbox_#{subject.class.name.downcase}_questions_path", options)
+    if subject.is_a? RestaurantFeaturePage
+      options.merge!({:restaurant_id => params[:restaurant_id]})
+      options.merge!({:feature_page_id => subject.id})
     else
-      send("#{subject.class.name.downcase}_questions_path", options)
+      options.merge!({"#{subject.class.name.underscore}_id".to_sym => subject.id})
+    end
+    if params[:controller].match(/soapbox/)
+      send("soapbox_#{subject.class.name.underscore}_questions_path", options)
+    else
+      send("#{subject.class.name.underscore}_questions_path", options)
     end
   end
 

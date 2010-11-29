@@ -3,7 +3,12 @@ module QuestionsHelper
     if can_edit_profile_questions(subject)
       subject.topics
     else
-      subject.published_topics
+      if subject.is_a? RestaurantFeaturePage
+        subject.published_topics(Restaurant.find(params[:restaurant_id]))
+      else
+        subject.published_topics
+      end
+
     end
   end
 
@@ -13,5 +18,13 @@ module QuestionsHelper
     else
       can?(:manage, subject)
     end
+  end
+
+  def btl_title_for(subject)
+    if subject.is_a? RestaurantFeaturePage
+      restaurant = Restaurant.find(params[:restaurant_id])
+      return "#{restaurant.name} - #{subject.name}"
+    end
+    subject.name
   end
 end
