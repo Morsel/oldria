@@ -100,7 +100,7 @@ class ApplicationController < ActionController::Base
   def require_admin
     return false if !require_user
     unless current_user.admin?
-      flash[:error] = "Oops, you don't have access to the admin area. Nothing exciting there anyways."
+      flash[:error] = "Oops, you don't have access to the admin area. Nothing exciting there anyway."
       redirect_to root_url
       return false
     end

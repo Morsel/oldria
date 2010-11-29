@@ -1,0 +1,13 @@
+<article class="hp_promo <%= 'last' if hq_promo == @hq_promos.last %>">
+	<section class="sb">
+		<h1>
+		  <% if hq_promo.link.present? -%>
+		    <%= link_to hq_promo.title, hq_promo.link %>
+		  <% else -%>
+		    <%= hq_promo.title %>
+		  <% end -%>
+		</h1>
+		<%= simple_format(hq_promo.body) %>
+		<h3><%= link_to "more&nbsp;&#187;", hq_promo.link if hq_promo.link.present? %></h3>
+	</section><!--.sb-->
+</article>

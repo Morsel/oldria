@@ -657,3 +657,22 @@ $('#sf_promos tbody').sortable({
 		});
 	}
 });
+
+
+$('#hq_slides tbody').sortable({
+	axis:'y',
+	dropOnEmpty:false,
+	update: function(){
+		$.ajax({ data:$(this).sortable('serialize', { key: 'hq_slides[]' }), dataType:'script', type:'post', url:'/admin/hq_slides/sort'
+		});
+	}
+});
+
+$('#hq_promos tbody').sortable({
+	axis:'y',
+	dropOnEmpty:false,
+	update: function(){
+		$.ajax({ data:$(this).sortable('serialize', { key: 'hq_promos[]' }), dataType:'script', type:'post', url:'/admin/hq_promos/sort'
+		});
+	}
+});
