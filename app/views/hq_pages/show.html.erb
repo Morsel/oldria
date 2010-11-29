@@ -27,21 +27,27 @@
 <% content_for :sidebar_b do -%>
 	<div id="sidebar_b">
 
-		<a class="promo clickable" href="#">Request an invite to Spoonfeed</a>
-		<a class="promo clickable" href="#">View the latest on Soapbox</a>
+		<a class="promo clickable" href="/invitations/new">Request an invite to Spoonfeed</a>
+		<a class="promo clickable" href="/soapbox">View the latest on Soapbox</a>
 		<aside class="promo" id="page_actions">
 			<nav>
-				<a href="#" class="share">Share</a>
-				<a href="#" class="print last">Print</a>
+				<!-- AddThis Button BEGIN --> 
+        <div class="addthis_toolbox"> 
+          <a href="http://www.addthis.com/bookmark.php?v=250&amp;username=unpluggedria" class="addthis_button share">Share</a> 
+        </div> 
+        <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#username=unpluggedria"></script> 
+        <!-- AddThis Button END -->
+				<a href="javascript:window.print();" class="print last">Print</a>
 			</nav>
 		</aside>
+		<p><%= image_tag 'redesign/title-unplugged.jpg', :alt => 'RIA Unplugged Logo' %></p>
 		<aside class="promo" id="fromtheblog">
 			<ul>
 				<li><a href="#">Influence, the media and you <span>November 18th</span></a></li>
 				<li><a href="#">If a chef blogs in the forest... <span>November 17th</span></a></li>
 				<li><a href="#">Knit One, Hurl Two <span>November 16th</span></a></li>
 			</ul>
-			<a class="more" href="#">More from the blog&nbsp;&#187;</a>
+			<a class="more" href="http://unplugged.restaurantintelligenceagency.com">More from the blog&nbsp;&#187;</a>
 		</aside>
 
 	</div><!--#sidebar_b-->
