@@ -8,8 +8,8 @@ rails_env = ENV['RAILS_ENV']
     w.interval = 30.seconds
     w.start    = "rake -f #{rails_root}/Rakefile #{rails_env} jobs:work"
 
-    w.uid = 'git'
-    w.gid = 'git'
+    w.uid = 'deployer'
+    w.gid = 'deployer'
 
     # retart if memory gets too high
     w.transition(:up, :restart) do |on|
