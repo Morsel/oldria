@@ -12,7 +12,7 @@
                 <header>
                     <h1 id="cycle-title"><%= @slides.first.title %></h1>
                 </header>
-                <summary id="cycle-caption"><%= truncate(@slides.first.excerpt, :length => 100) %>&nbsp;<%= link_to "go&nbsp;&#187;", @slides.first.link %></summary>
+                <summary id="cycle-caption"><%= truncate(@slides.first.excerpt, :length => 100) %>&nbsp;<% unless @slides.first.link.blank? -%><%= link_to "go&nbsp;&#187;", @slides.first.link %><% end -%></summary>
                 <footer id="cycle-footer">Photo Credit: <%= @slides.first.photo_credit %></footer>
                 <nav id="pager"></nav>
             </div>
