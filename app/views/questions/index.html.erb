@@ -5,21 +5,18 @@
 
 <div id="chapter_title" class="clear clearfix">
   <h3><%= @chapter.title %></h3>
-  <nav id="chapter_nav" class="topic-nav clearfix">
-      <%= link_to "Next: #{truncate(@next.title, :length => 20, :omission => '&hellip;')}", link_for_questions(:user_id => @user.id, :chapter_id => @next.id), :class => 'next' if @next %>
-      <%= link_to "Prev: #{truncate(@previous.title, :length => 20, :omission => '&hellip;')}", link_for_questions(:user_id => @user.id, :chapter_id => @previous.id), :class => 'prev' if @previous %>
-  </nav>
 </div>
 
 <% if @user == current_user %><%# let's edit these answers %>
 
+<% form_tag profile_answers_path do %>
 <% for question in @questions %>
   <% div_for question do %>
       <h4>Q: <%= question.title %></h4>
-
       <%= render :partial => "profile_answers/form", :locals => { :answer => question.find_or_build_answer_for(current_user) } %>
   <% end %>
 <% end %>
+<% end %><%# end form %>
 
 <p class="clear">Answers to your questions will be posted on your profile and can be used by Restaurant Intelligence Agency to increase traffic to the site.</p>
 

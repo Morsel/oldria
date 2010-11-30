@@ -20,5 +20,7 @@ tmp/webrat-*
 default.gems
 
 public/soapbox/_css/*
+public/hq/_css/*
 public/redesign/_css/*
+public/hq/_css/*
 public/redesign/brandonbold/*

@@ -197,7 +197,7 @@ describe User do
     it "should send from UserMailer" do
       user = Factory(:user)
       user.send_invitation = true
-      UserMailer.expects(:deliver_employee_invitation!).returns(true)
+      UserMailer.expects(:deliver_new_user_invitation!).returns(true)
       user.deliver_invitation_message!
       user.send_invitation.should be_nil
     end

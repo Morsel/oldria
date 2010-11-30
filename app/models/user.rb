@@ -96,6 +96,8 @@ class User < ActiveRecord::Base
 
   # Attributes that should not be updated from a form or mass-assigned
   attr_protected :crypted_password, :password_salt, :perishable_token, :persistence_token, :confirmed_at, :admin=, :admin
+  
+  accepts_nested_attributes_for :profile, :default_employment
 
   has_attached_file :avatar,
                     :default_url => "/images/default_avatars/:style.png",
@@ -311,7 +313,7 @@ class User < ActiveRecord::Base
     @send_invitation = nil
     reset_perishable_token!
     logger.info( "Delivering invitation email to #{email}" )
-    UserMailer.deliver_employee_invitation!(self, invitation_sender)
+    UserMailer.deliver_new_user_invitation!(self, invitation_sender)
   end
 
   # Facebook !!!

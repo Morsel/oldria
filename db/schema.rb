@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20101115213854) do
+ActiveRecord::Schema.define(:version => 20101129220914) do
 
   create_table "a_la_minute_answers", :force => true do |t|
     t.text     "answer"
@@ -184,6 +184,15 @@ ActiveRecord::Schema.define(:version => 20101115213854) do
 
   add_index "content_requests", ["employment_search_id"], :name => "index_content_requests_on_employment_search_id"
 
+  create_table "cookbooks", :force => true do |t|
+    t.string   "title"
+    t.string   "publisher"
+    t.datetime "published_on"
+    t.integer  "profile_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "cuisines", :force => true do |t|
     t.string   "name"
     t.datetime "created_at"
@@ -297,7 +306,7 @@ ActiveRecord::Schema.define(:version => 20101115213854) do
   add_index "employments", ["restaurant_role_id"], :name => "index_employments_on_restaurant_role_id"
 
   create_table "enrollments", :force => true do |t|
-    t.integer  "school_id",                       :null => false
+    t.integer  "school_id"
     t.integer  "profile_id",                      :null => false
     t.date     "graduation_date"
     t.string   "degree",          :default => "", :null => false
@@ -328,6 +337,8 @@ ActiveRecord::Schema.define(:version => 20101115213854) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "feed_categories", ["id"], :name => "index_feed_categories_on_id", :unique => true
 
   create_table "feed_entries", :force => true do |t|
     t.string   "title"
@@ -432,6 +443,26 @@ ActiveRecord::Schema.define(:version => 20101115213854) do
   end
 
   add_index "holidays", ["employment_search_id"], :name => "index_holidays_on_employment_search_id"
+
+  create_table "hq_pages", :force => true do |t|
+    t.string   "title"
+    t.string   "slug"
+    t.text     "content"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "hq_promos", :force => true do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "position"
+  end
+
+  create_table "hq_slides", :force => true do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "position"
+  end
 
   create_table "internships", :force => true do |t|
     t.string   "establishment"
@@ -633,6 +664,7 @@ ActiveRecord::Schema.define(:version => 20101115213854) do
     t.string   "link"
     t.integer  "position"
     t.string   "type"
+    t.string   "link_text"
   end
 
   create_table "question_roles", :force => true do |t|
@@ -728,8 +760,8 @@ ActiveRecord::Schema.define(:version => 20101115213854) do
     t.integer  "logo_id"
     t.integer  "primary_photo_id"
     t.date     "opening_date"
-    t.boolean  "premium_account"
     t.string   "sort_name"
+    t.boolean  "premium_account"
   end
 
   add_index "restaurants", ["cuisine_id"], :name => "index_restaurants_on_cuisine_id"
@@ -838,6 +870,7 @@ ActiveRecord::Schema.define(:version => 20101115213854) do
     t.integer  "profile_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "location"
   end
 
   create_table "statuses", :force => true do |t|

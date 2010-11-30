@@ -37,6 +37,7 @@ class Profile < ActiveRecord::Base
   has_many :stages
   has_many :apprenticeships
   has_many :profile_cuisines
+  has_many :cookbooks
   has_many :cuisines, :through => :profile_cuisines
   has_many :profile_specialties
   has_many :specialties, :through => :profile_specialties

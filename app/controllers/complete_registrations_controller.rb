@@ -12,20 +12,26 @@ class CompleteRegistrationsController < ApplicationController
   # PUT /complete_registration
   def update
     @user = User.find(params[:user].delete(:id))
-    force_password_reset
+    force_password_reset unless params[:step] == '2'
     if @user.update_attributes(params[:user])
-      @user.reset_perishable_token!
-      if @user.employments.present?
-        UserMailer.deliver_employee_request(@user.primary_employment.restaurant, @user)
+      @user.reset_perishable_token! unless params[:step] == '2'
+      if @user.primary_employment.present?
+        UserMailer.deliver_employee_request(@user.primary_employment.restaurant, @user) if @user.primary_employment.restaurant
         
         flash[:notice] = "Thanks for updating your account. Enjoy SpoonFeed!"
         redirect_to(root_path)
       else
-        redirect_to(:action => "find_restaurant")
+        redirect_to(:action => "user_details")
       end
     else
       render :show
     end
+  end
+  
+  def user_details
+    @user = current_user
+    @user.build_profile
+    @user.build_default_employment
   end
   
   def find_restaurant

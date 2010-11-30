@@ -1,0 +1,54 @@
+<% title @page.title %>
+
+<div id="main_content">
+	<% if can?(:edit, @page) %>
+		<p>
+			<%= link_to "Edit this page", edit_admin_hq_page_path(@page), :class => 'edit_button' %>
+		</p>
+	<% end %>
+	<section id="page_content">
+
+		<%= @page.content %>
+
+	</section><!--#page_content-->
+</div><!--#main_content-->
+
+<% content_for :sidebar_a do -%>
+	<aside id="sidebar_a">
+		<section class="promo quote">
+			<h1>Testimonials</h1>
+			<p class="quotation">"If anyone has any question of whether they should do this, tell them to call me and I will give them my full endorsement personally."</p>
+			<p class="who">Donnie Madia<br/>
+			Blackbird, avec, The Publican, Sonotheque, the Violet Hour</p>
+		</section>
+	</aside><!-- #sidebar_a-->
+<% end -%>
+
+<% content_for :sidebar_b do -%>
+	<div id="sidebar_b">
+
+		<a class="promo clickable" href="/invitations/new">Request an invite to Spoonfeed</a>
+		<a class="promo clickable" href="/soapbox">View the latest on Soapbox</a>
+		<aside class="promo" id="page_actions">
+			<nav>
+				<!-- AddThis Button BEGIN --> 
+        <div class="addthis_toolbox"> 
+          <a href="http://www.addthis.com/bookmark.php?v=250&amp;username=unpluggedria" class="addthis_button share">Share</a> 
+        </div> 
+        <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#username=unpluggedria"></script> 
+        <!-- AddThis Button END -->
+				<a href="javascript:window.print();" class="print last">Print</a>
+			</nav>
+		</aside>
+		<p><%= link_to image_tag('redesign/title-unplugged.jpg', :alt => 'RIA Unplugged Logo'), "http://unplugged.restaurantintelligenceagency.com" %></p>
+		<aside class="promo" id="fromtheblog">
+			<ul>
+				<li><a href="#">Influence, the media and you <span>November 18th</span></a></li>
+				<li><a href="#">If a chef blogs in the forest... <span>November 17th</span></a></li>
+				<li><a href="#">Knit One, Hurl Two <span>November 16th</span></a></li>
+			</ul>
+			<a class="more" href="http://unplugged.restaurantintelligenceagency.com">More from the blog&nbsp;&#187;</a>
+		</aside>
+
+	</div><!--#sidebar_b-->
+<% end -%>

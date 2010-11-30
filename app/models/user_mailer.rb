@@ -54,7 +54,7 @@ class UserMailer < ActionMailer::Base
   end
   
   # sent to all users after their invite is accepted by an admin
-  def employee_invitation(user, invitation_sender = nil)
+  def new_user_invitation(user, invitation_sender = nil)
     from          'accounts@restaurantintelligenceagency.com'
     recipients    user.email
     sent_on       Time.now

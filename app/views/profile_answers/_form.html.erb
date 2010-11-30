@@ -1,11 +1,14 @@
-<% semantic_form_for answer do |f| %>
-    <% f.inputs :class => "plain" do %>
-        <%= f.input :profile_question_id, :as => :hidden %>
-        <%= f.input :answer, :hint => answer.new_record? ? "" : "This answer is viewable by others", :label => false %>
-    <% end %>
-    
-    <div class="clearfix">
-      <%= button_tag "Post" %>
-      <%= link_to "Delete this answer", profile_answer_path(answer), :method => "delete", :class => "button negative" unless answer.new_record? %>
-    </div>
-<% end %>
+<fieldset class="plain">
+<ol>
+    <li class="hidden optional"><%= hidden_field_tag :profile_question_id, answer.profile_question.id %></li>
+    <li class="text required">
+        <%= text_area_tag "profile_question[#{answer.profile_question.id}]answer", answer.answer, 
+            :rows => 20, :cols => 50, :id => "profile_question_#{answer.profile_question.id}_answer" %>
+        <p class="inline-hints"><%= answer.new_record? ? "" : "This answer is viewable by others" %></p>
+    </li>
+</fieldset>
+
+<div class="clearfix">
+    <%= button_tag "Post" %>
+    <%= link_to "Delete this answer", profile_answer_path(answer), :method => "delete", :class => "button negative" unless answer.new_record? %>
+</div>

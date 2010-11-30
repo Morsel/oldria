@@ -1,18 +1,15 @@
 <div id="account_status">
   <% if !subscriber.new_record? %>
+    <span id="account_type" class="current">This <%= subscriber_type %> has a <%= subscriber.account_type %> Account.</span>
     
     <% if subscriber.complimentary_account? %>
-      <span id="account_type">
-        This <%= subscriber_type %> has a Complimentary Premium Account.
-      </span>
-      <br clear="all"/>
-      <br clear="all"/>
-      <% link_to( 
-          admin_complimentary_accounts_path(
-              :subscriber_id => subscriber.id, :subscriber_type => subscriber_type), 
+      <div id="start_date">
+          They have been a premium member since <%= subscriber.subscription.start_date.to_s(:long) %>
+      </div>
+      <% link_to admin_complimentary_accounts_path(:subscriber_id => subscriber.id, :subscriber_type => subscriber_type), 
           :class => 'button negative', 
           :method => :delete, 
-          :confirm => "Are you sure you want to make this account basic?") do %>
+          :confirm => "Are you sure you want to make this account basic?" do %>
         <%= image_tag('x.png') %>  
         Cancel the <%= subscriber_type %>'s Complimentary Premium Account
       <% end %>
@@ -21,13 +18,15 @@
       <% if subscriber.account_in_overtime? %>
         <span id="account_type">
           This <%= subscriber_type %> has cancelled their Premium Account.
-          The account will end on 
-          <%= subscriber.subscription.end_date.to_s(:long)%>.
+          <span id="end_date">The account will end on <%= subscriber.subscription.end_date.to_s(:long) %>.</span>
         </span>
       <% else %>
         <span id="account_type">
           This <%= subscriber_type %> has a Premium Account.
         </span>
+        <div id="start_date">
+            They have been a premium member since <%= subscriber.subscription.start_date.to_s(:long) %>
+        </div>
       <% end %>
       <% link_to(admin_complimentary_accounts_path(:subscriber_id => subscriber, 
           :subscriber_type => subscriber_type), 

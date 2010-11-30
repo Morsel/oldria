@@ -22,10 +22,10 @@ describe CompleteRegistrationsController do
       response.should render_template(:show)
     end
 
-    it "should redirect to the find restaurant page when data is valid and the user has no restaurants" do
+    it "should redirect to the details page when data is valid" do
       User.any_instance.stubs(:valid?).returns(true)
       put :update, :user => { :id => 1 }
-      response.should redirect_to(find_restaurant_complete_registration_path)
+      response.should redirect_to(user_details_complete_registration_path)
     end
 
     it "should redirect to the dashboard when data is valid and the user has restaurants" do
@@ -38,25 +38,25 @@ describe CompleteRegistrationsController do
 
   end
   
-  describe "finding and contacting one's employer" do
-
-    it "should allow a user to search for their restaurant" do
-      User.any_instance.stubs(:restaurants).returns([])
-      
-      restaurant = Factory(:restaurant, :name => "Some Pig")
-      Restaurant.expects(:find).returns([restaurant])
-      
-      post :find_restaurant, :restaurant_name => restaurant.name
-      assigns[:restaurants].should == [restaurant]
-    end
-
-    it "should allow a user to contact their restaurant to be added" do
-      restaurant = Factory(:restaurant, :name => "Some Pig")
-      UserMailer.expects(:deliver_employee_request).with(restaurant, controller.current_user).returns(true)
-      post :contact_restaurant, :restaurant_id => restaurant.id
-      response.should be_redirect
-    end
-
-  end
+  # describe "finding and contacting one's employer" do
+  # 
+  #   it "should allow a user to search for their restaurant" do
+  #     User.any_instance.stubs(:restaurants).returns([])
+  #     
+  #     restaurant = Factory(:restaurant, :name => "Some Pig")
+  #     Restaurant.expects(:find).returns([restaurant])
+  #     
+  #     post :find_restaurant, :restaurant_name => restaurant.name
+  #     assigns[:restaurants].should == [restaurant]
+  #   end
+  # 
+  #   it "should allow a user to contact their restaurant to be added" do
+  #     restaurant = Factory(:restaurant, :name => "Some Pig")
+  #     UserMailer.expects(:deliver_employee_request).with(restaurant, controller.current_user).returns(true)
+  #     post :contact_restaurant, :restaurant_id => restaurant.id
+  #     response.should be_redirect
+  #   end
+  # 
+  # end
   
 end

@@ -1,3 +1,5 @@
+var already_equalized = false;
+
 $('#jumbotron').cycle({
 	fx: 'scrollHorz',
 	timeout: 8000,
@@ -7,21 +9,61 @@ $('#jumbotron').cycle({
 });
 
 $('.hp_promo, .chapter, .topic').equalHeights();
-$('.culinary_job').equalHeights();
-$('.nonculinary_job').equalHeights();
-$('.award').equalHeights();
-$('.accolade').equalHeights();
-$('.enrollment').equalHeights();
-$('.competition').equalHeights();
-$('.internship').equalHeights();
-$('.stage').equalHeights();
-$('.apprenticeship').equalHeights();
 
+
+// == Inbox for RIA messages
+$(".inbox_message .readit").live('click', function(){
+  var $message = $(this).parents('.inbox_message');
+  $.post(this.href, "_method=put", function(){
+    $message.fadeOut(300, function(){
+      $message.remove();
+    });
+  },null);  
+  return false;
+});
+
+$('.direct_message .readit').click(function(){
+  var $message = $(this).parents('.direct_message');
+  var messageId = $message.attr('id').match(/\d+$/g);
+  $.post("/direct_messages/" + messageId + "/read", "_method=put", function(){
+    $message.fadeOut(300, function(){
+      $message.remove();
+    });
+  },null);  
+  return false;
+});
+
+$('#profile_user_attributes_prefers_publish_profile').live('click',function(){
+	if(!$(this).is(':checked')){
+		return;
+	}
+	answer = confirm('Are you sure? Is your profile filled out yet?\n\nMake sure your profile is filled out a good amount before sharing it with the public!');
+	if (answer){
+		$(this).attr('checked','checked');
+	}	else{
+		$(this).removeAttr('checked');
+	}
+})
 
 
 $('#profile-tabs').tabs({
 	panelTemplate: '<section></section>',
-	fx: { duration: 'fast', opacity: 'toggle' }
+	fx: { duration: 'fast', opacity: 'toggle' },
+	show: function(event, ui) { 
+		if(ui.panel.id == 'profile-extended' && !already_equalized){
+			already_equalized = true;
+			$('.culinary_job').equalHeights();
+			$('.nonculinary_job').equalHeights();
+			$('.award').equalHeights();
+			$('.accolade').equalHeights();
+			$('.enrollment').equalHeights();
+			$('.competition').equalHeights();
+			$('.internship').equalHeights();
+			$('.stage').equalHeights();
+			$('.apprenticeship').equalHeights();
+			$('.cookbook').equalHeights(); 
+		}
+	}
 });
 
 $('.tabable').tabs({
@@ -29,12 +71,45 @@ $('.tabable').tabs({
 	fx: { duration: 'fast', opacity: 'toggle' }
 });
 
+
+if (window.current_user_id) {
+  var $hideHelpBox = $('<div id="hide_help_box"/>');
+  $("#get_started").append($hideHelpBox);
+  $hideHelpBox.click(function(){
+    $.post("/users/" + window.current_user_id, {
+        _method: 'put',
+        'user[preferred_hide_help_box]': '1'
+      }, function(data){
+         $hideHelpBox.parent().fadeOut();
+      }, "js"
+    );
+  });
+}
+
+
+height = $('#btl_game').height();
+$('#btl_game').height(height);
+
 $('.new_question').live('click', function(){
+	$('#btl_game_content').fadeOut();
 	$(this).css({
 		backgroundRepeat: 'no-repeat',
 		backgroundPosition: 'center center',
 		backgroundImage: 'url(/images/redesign/ajax-loader.gif)'
-	})
+	});
+	$.ajax({
+		data:'authenticity_token=' + encodeURIComponent($(this).attr('data-auth')),
+	 	success:function(request){
+			$('#btl_game_content').html(request).fadeIn();
+			$('.new_question').css({
+				backgroundImage: 'url(/images/redesign/icon-refresh.png)',
+				backgroundPosition: '0 0'
+			})
+		},
+		type:'post', 
+		url:'/users/'+$(this).attr('data-user-id')+'/questions/refresh'
+	}); 
+	return false;
 })
 $('#profile_answer_submit').live('click', function(){
 	$(this).val('posting...').attr('disabled','disabled');
@@ -78,6 +153,16 @@ $('#criteria_accordion').accordion({
 }).find('.loading').removeClass('loading');
 
 $(document).ready(function(){
+	var bindAjaxDeleters = function(){
+	  $('a.delete').ajaxDestroyLink({
+	    containerSelector: 'li:first'
+	  });
+	};
+	
+	bindAjaxDeleters();
+	
+	
+	
 	var bindColorbox = function() {
 	  $('.colorbox').colorbox({
 	      initialWidth: 450,
@@ -105,6 +190,32 @@ $(document).ready(function(){
 	$('#colorbox form.stage, #colorbox form.apprenticeship, #colorbox form.nonculinary_enrollment, #colorbox form.award, #colorbox form.culinary_job, #colorbox form.nonculinary_job, #colorbox form.accolade, #colorbox form.enrollment, #colorbox form.competition, #colorbox form.internship').live('submit', colorboxForm);
 	$("a.showit").showy();
 });
+
+$.fn.ajaxDestroyLink = function(options){
+  var config = {
+    confirmMessage: "Are you sure you want to PERMANENTLY delete this?",
+    containerSelector: 'tr:first'
+  };
+  
+  if(options) $.extend(config, options);
+  
+  return this.each(function(){
+    var $this = $(this);
+    $this.removeAttr('onclick');
+    $this.unbind();
+    $this.click(function(){
+      if (confirm(config.confirmMessage)) {
+        $.post(this.href+".js", {_method: 'delete'}, function(data, status){
+          var container = $this.parents(config.containerSelector);
+          container.fadeOut(200,function(){
+            container.remove();
+          });
+        });
+      }
+      return false;
+    });
+  });
+};
 
 var colorboxForm = function(){
   var $form = $(this);

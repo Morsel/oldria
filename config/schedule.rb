@@ -32,4 +32,6 @@ end
 every 1.day, :at => '2:30am' do
   rake "backup:run trigger='backup-files-to-s3'"
   rake "backup:run trigger='backup-db-to-s3'"
+  rake "subscriptions:mark_past_due"
+  rake "subscriptions:purge_expired"
 end

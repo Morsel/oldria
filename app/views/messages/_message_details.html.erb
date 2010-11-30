@@ -1,5 +1,8 @@
-<div class="icon"></div>
-
+<% unless message.read_by?(current_user) %>
+  <div class="icon">
+    <%= read_link_for_message(message) %>
+  </div>
+<% end -%>
 <div class="message-details">
   <header>
     <h1><%= title_link_for_message(message) %></h1>
@@ -13,7 +16,4 @@
       <%= render message.attachments %>
   </div>
   <% end %>
-  <% unless message.read_by?(current_user) %>
-    <%= read_link_for_message(message) %>
-  <% end %>
-</div><!--.message-details-->
+</div>

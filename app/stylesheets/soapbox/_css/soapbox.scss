@@ -95,7 +95,7 @@ h1,h2,h3,h4,h5,h6{
 	padding:0;
 	float:left;
 }
-
+#printlogo {display: none;}
 #tagline{
 	@include hiddentext;
 	float:left;
@@ -428,7 +428,7 @@ body,html,#container,#main,#content,#inside{
 		ul {
 			list-style: none;
 			margin: 0;
-			padding: 0;
+			padding: 0 0 0 70px;
 			li {
 				background-image: none;
 				margin: 0;
@@ -1542,7 +1542,7 @@ p.search_filter_hint {
 		margin: 0 0 10px;
 		dt {
 			float: left;
-			width: 60px;
+			width: 75px;
 			margin: 0 10px 0 0;
 			line-height: 18px;
 			&:after {
@@ -1836,6 +1836,33 @@ dl.things dt:after {content: ":"}
 	.accordion_box {
 		border: 1px solid #ddd;
 		background: 0 none;
+	}
+}
+
+
+.topic-nav{
+	overflow:hidden;
+	padding:10px 0 10px 10px;
+	a{
+		display:block;
+		padding:5px 10px 5px 20px;
+		background-color:rgba(216,83,30,0.08);
+		background-repeat:no-repeat;
+		background-position:left;
+		float:right;
+		margin:0 0 0 10px;
+		&.next{
+			padding-left:10px;
+			padding-right:20px;
+			background-image:url(/images/redesign/bg-orange-arrow-next.png);
+			background-position:right;
+		}
+		&.prev{
+			background-image:url(/images/redesign/bg-orange-arrow-prev.png);
+		}
+		&.all-topics{
+			background-image:url(/images/redesign/bg-home.png);
+		}
 	}
 }
 

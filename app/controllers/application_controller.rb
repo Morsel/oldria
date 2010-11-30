@@ -100,7 +100,7 @@ class ApplicationController < ActionController::Base
   def require_admin
     return false if !require_user
     unless current_user.admin?
-      flash[:error] = "Oops, you don't have access to the admin area. Nothing exciting there anyways."
+      flash[:error] = "Oops, you don't have access to the admin area. Nothing exciting there anyway."
       redirect_to root_url
       return false
     end
@@ -138,7 +138,9 @@ class ApplicationController < ActionController::Base
 
   def load_random_btl_question
     return unless current_user && current_user.btl_enabled?
-    return unless !params[:controller].match(/soapbox/)
+    return if params[:controller].match(/soapbox/)
+    return if params[:controller].match(/admin/)
+    return if ["create", "update", "destroy"].include? params[:action]
     @btl_question = ProfileQuestion.for_user(current_user).random.reject { |q| q.answered_by?(current_user) }.first
   end
 

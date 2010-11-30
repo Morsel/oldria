@@ -8,8 +8,10 @@
     <nav id="profile-options">
         <span><a href="#profile-edit-account">Account</a></span>
         <span><a href="#profile-summary">Profile Summary</a></span> 
+        <% unless @profile.new_record? %>
         <span><a href="#profile-extended">Extended Profile</a></span>
-        <span><a href="#profile-messages">Messages</a></span>
+        <% end %>
+        <span><a href="#profile-messages">Notifications</a></span>
     </nav><!-- /profile_options -->
 
     <section id="profile-edit-account">
@@ -70,7 +72,7 @@
             
             <% if @user.twitter_authorized? -%>
             <p>You currently have your Twitter account set up as <em><%= @user.twitter_username %></em>. To change which Twitter account you want your SpoonFeed account linked with, you can remove the Twitter credentials below, and then setup Twitter again.<br/>
-                <%= link_to "Remove Twitter Information", remove_twitter_user_path(@user), :confirm => "Are you sure you want to unlink your Twitter account? This action cannot be undone.", :class => 'remove_twitter', :method => :put %>
+                <%= link_to "Disconnect Twitter", remove_twitter_user_path(@user), :confirm => "Are you sure you want to unlink your Twitter account? This action cannot be undone.", :class => 'sf-button', :method => :put %>
                 <%= link_to 'Read Twitter Timeline', twitter_timelines_path, :class=>'read_twitter' %>
             </p>
             <% elsif @user.twitter_allowed? -%>
@@ -84,15 +86,15 @@
             <legend><span>Facebook</span></legend>
             <%- if @fb_user -%>
               <p>
-                  You are currently linked to your Facebook account <em>"<%= @fb_user.name %>"</em>. You can connect to a different Facebook profile by disconnecting below, then setting up Facebook again.<br/>
-                  <%= fb_logout_link "#{image_tag('x.png')} Disconnect", fb_deauth_user_path(@user), :class => 'button negative' %>
+                  You are currently linked to your Facebook account <em>"<%= @fb_user.name %>"</em>. You can connect to a different Facebook profile by disconnecting below, then setting up Facebook again.
+                  <%= fb_logout_link "Disconnect Facebook", fb_deauth_user_path(@user), :class => 'sf-button negative' %>
               </p>
               <% unless @fb_user.accounts.blank? %>
-                <div class="clear" style="padding-top: 1em;">
-                    <p>Configure a page to post status updates to:</p>
+                <div class="clear">
                     <% form_tag fb_page_auth_user_path(@user) do %>
-                        <%= select_tag "facebook_page", "<option>&nbsp;</option>" + options_from_collection_for_select(@fb_user.accounts, :id, :name, @user.facebook_page_id.to_s) %>
-                        <%= submit_tag "Save" %>
+                      <p>Configure a page to post status updates to:<br>
+                        <%= select_tag "facebook_page", "<option>&nbsp;</option>" + options_from_collection_for_select(@fb_user.accounts, :id, :name, @user.facebook_page_id.to_s) %><br>
+                        <%= button_tag "Save Facebook Page", :class => 'clear' %></p>
                     <% end %>
                 </div>
               <% end %>
@@ -128,6 +130,7 @@
 
             <% end %>
 
+            <% unless @profile.new_record? %>
             <% f.inputs :name => "Metro and Region for search" do %>
                 <%= f.input :metropolitan_area %>
                 <%= f.input :james_beard_region, :label => "Region" %>
@@ -166,11 +169,10 @@
                 <div class="clear">
                     <%= f.input :prefers_display_twitter, :as => :radio, :collection => privacy_options, :label => "Show this to:", :wrapper_html => { :class => "show_this_to" } %>
                     <div class="span-6 last">Your Twitter account: <%= @profile.user.twitter_username %>
-                        <p>(<%= link_to "Need to change your Twitter settings?", edit_my_profile_path(:anchor => "twitter") %>)</p>
                     </div>
                 </div>
                 <%- else -%>
-                  <p><%= link_to "Set up Twitter", edit_my_profile_path(:anchor => "twitter") %></p>
+                  <p><%= link_to "Setup Twitter", new_twitter_authorization_url, :class=>'sf-button' %></p>
                 <%- end -%>
 
                 <%- if @fb_user -%>
@@ -178,11 +180,10 @@
                     <%= f.input :prefers_display_facebook, :as => :radio, :collection => privacy_options, :label => "Show this to:", :wrapper_html => { :class => "show_this_to" } %>
                     <div class="span-6 last">
                         Your Facebook account: <%= @fb_user.name %>
-                        <p>(<%= link_to "Need to change your Facebook settings?", edit_my_profile_path(:anchor => "facebook") %>)</p>
                     </div>
                 </div>
                 <%- else -%>
-                  <p><%= link_to "Set up Facebook", edit_my_profile_path(:anchor => "facebook") %></p>
+                  <p><%= link_to "Setup Facebook", fb_auth_user_path(@user), :class => 'sf-button' %></p>
                 <%- end -%>
 
 				<% button_tag :class => 'positive' do %>Save changes to contact information<% end %>
@@ -190,27 +191,23 @@
             <% end %><!-- Contact information -->
 
             <% f.inputs :name => "Cuisines and Specialties" do %>
-                <%= f.input :specialties, :as => :check_boxes, :collection => Specialty.all %>
+                <%= f.input :specialties, :as => :check_boxes, :collection => Specialty.all, :label => "What are your specialties?" %>
 
                 <div class="cuisines ajaxdelete">
-                    <label><h4>What Cuisines Are Your Specialty?</h4></label>
-                    <ul id="cuisines">
-                        <%= render @profile.cuisines %>
-                    </ul>
-                    <% link_to new_my_profile_profile_cuisine_path, :class => 'positive button colorbox' do %>
-                    <img src="/images/plus.png"/> Add
-                    <% end %>
-					
+					<fieldset>
+						<legend class="label"><label>Cuisines you are most known for:</label></legend>
+						<ul id="cuisines">
+							<%= render @profile.cuisines %>
+						</ul>
+						<p><%= link_to "Add Cuisine", new_my_profile_profile_cuisine_path, :class => 'sf-button colorbox' %></p>
+					</fieldset>
 
                 </div>
 <br />
 					<% button_tag :class => 'positive' do %>Save changes to cuisines and specialties<% end %>
             <% end %><!-- Cuisines and specialties -->
 
-            <p class="clear" style="display:none"><!-- removed by nick 11/12 -->
-                <% button_tag :class => 'positive' do %>Save<% end %>
-                <%= button_tag "Preview", :name => "preview" %>
-            </p>
+            <% end %><%# non-basic details %>
         <% end %>
     </section><!-- /profile-summary -->
 
@@ -270,6 +267,11 @@
           :association => "apprenticeships",
           :caption => "Apprenticeships",
           :form_path => new_my_profile_apprenticeship_path} %>
+          
+      <%= render :partial => 'profiles/extended_profile_section', :locals => {
+          :association => "cookbooks",
+          :caption => "Cookbooks",
+          :form_path => new_my_profile_cookbook_path} %>
     
     </div><!-- #extended_profile_fields -->
   </section><!-- /profile-extended -->
@@ -281,7 +283,7 @@
             <%= f.input :prefers_receive_email_notifications, :as => :boolean, :label => 'Receive email notifications?' %>
         <% end %>
         
-        <p><%= button_tag "Save", :class => 'positive' %></p>
+        <p><%= button_tag "Save Messages Preferences", :class => 'positive' %></p>
 
     <% end %>
   </section><!-- /profile-messages -->
