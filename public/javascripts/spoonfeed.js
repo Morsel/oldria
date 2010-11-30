@@ -33,6 +33,28 @@ $('.direct_message .readit').click(function(){
   return false;
 });
 
+// == Inbox for RIA messages
+$(".inbox_message .readit").live('click', function(){
+  var $message = $(this).parents('.inbox_message');
+  $.post(this.href, "_method=put", function(){
+    $message.fadeOut(300, function(){
+      $message.remove();
+    });
+  },null);  
+  return false;
+});
+
+$('.direct_message .readit').click(function(){
+  var $message = $(this).parents('.direct_message');
+  var messageId = $message.attr('id').match(/\d+$/g);
+  $.post("/direct_messages/" + messageId + "/read", "_method=put", function(){
+    $message.fadeOut(300, function(){
+      $message.remove();
+    });
+  },null);  
+  return false;
+});
+
 $('#profile_user_attributes_prefers_publish_profile').live('click',function(){
 	if(!$(this).is(':checked')){
 		return;
