@@ -37,15 +37,13 @@
 			  <%= link_to 'Unplugged', 'http://unplugged.restaurantintelligenceagency.com', :id => 'navunplugged' %>
 			  <%= link_to 'Testimonials', hq_page_path('testimonials'), :id => 'navtestimonials', :class => active_page?('/hq/testimonials') %>
 			  <%= link_to 'Contact', hq_page_path('contact'), :id => 'navcontact', :class => active_page?('/hq/contact') %>
-			</nav>
-			<br clear="all" />
-			<a id="site_login" href="/login">Login</a>
-			<br clear="all" />
+			</nav>			
+			<a id="site_login" class="clear" href="/login">Login</a>
 		</header><!--#site_header-->	
 		<%= yield :sidebar_a %>
 		<%= yield %>
 		<%= yield :sidebar_b %>
-		<div id="padding"></div>
+		<div id="padding" class="clear"></div>
 		
 	</div><!--#container-->
 	
