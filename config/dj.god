@@ -2,7 +2,7 @@ rails_root = ENV['RAILS_ROOT']
 rails_env = ENV['RAILS_ENV']
 shared_path = ENV['SHARED_PATH']
 
-20.times do |num|
+5.times do |num|
   God.watch do |w|
     w.name     = "dj-#{num}"
     w.group    = 'dj'
