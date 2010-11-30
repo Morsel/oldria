@@ -38,7 +38,7 @@
 			  <%= link_to 'Testimonials', hq_page_path('testimonials'), :id => 'navtestimonials', :class => active_page?('/hq/testimonials') %>
 			  <%= link_to 'Contact', hq_page_path('contact'), :id => 'navcontact', :class => active_page?('/hq/contact') %>
 			</nav>			
-			<a id="site_login" class="clear" href="/login">Login</a>
+			<%= link_to "Login", login_path, :id => 'site_login', :class => 'clear' %>
 		</header><!--#site_header-->	
 		<%= yield :sidebar_a %>
 		<%= yield %>
