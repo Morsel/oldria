@@ -40,14 +40,16 @@ Feature: Trend questions
     
   Scenario: Solo Employments that fit criteria should be included
     Given the following confirmed user:
-      | username | first_name | last_name |
-      | neue     | Neue       | User      |
+      | username | first_name | last_name | email         |
+      | neue     | Neue       | User      | neue@mail.com |
     And "neue" has a default employment with the role "Baker"
+    And "neue" prefers to receive direct message alerts
     And I am logged in as an admin
 
     When I create a new trend question with subject "What did you have for breakfast?" with criteria:
       | Role | Baker |
     Then the trend question with subject "What did you have for breakfast?" should have 1 solo employment
+    And "neue@mail.com" should have 1 email
 
   Scenario: Only applicable employees can see the trend question
     Given I am logged in as an admin
