@@ -2453,8 +2453,24 @@ p.search_filter_hint {
 #btl_answers {
   background: #FAFAF7;
   padding: 10px; 
+  &.btl-my-answers {
+    .profile_question {
+      padding: 10px;
+      margin-bottom: 10px;
+      &:hover {
+        background: white;
+        @include box-shadow(#eaeaea, 2px, 2px, 2px);
+      }
+      h4 {
+        margin-top: 0;
+      }
+      p {
+        font-size: 13px;
+      }
+    }
+  }
   @include box-shadow(#eaeaea, 0px, 3px, 3px);
-  > h3 {
+  h3 {
     border-bottom: 1px dotted #ded8c8;
     font-size: 21px;
     font-style: italic;
@@ -2467,9 +2483,16 @@ p.search_filter_hint {
     text-transform: none;
     letter-spacing: 0;
     margin: 20px 0;
+    a {
+      color: #333;
+      &:hover {
+        color: #AA9C74;
+        text-decoration: none;
+      }
+    }
     .letter-q {
       font-size: 18px;
-      color: #A1A1A4;
+      color: $orange;
       font-style: italic;
     }
   }
