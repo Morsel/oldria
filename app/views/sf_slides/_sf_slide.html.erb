@@ -1,5 +1,5 @@
 <div class="jumbo_content" style="background: url(<%= sf_slide.image.url(:spoonfeed) %>) no-repeat;">
 	<h1><%= sf_slide.title %></h1>
-	<p><%= sf_slide.excerpt %>&hellip;&nbsp;<%= link_to "learn&nbsp;more&nbsp;&#187;", sf_slide.link %></p>
+	<p><%= sf_slide.excerpt %>&hellip;&nbsp;<% unless sf_slide.link.blank? -%><%= link_to "learn&nbsp;more&nbsp;&#187;", sf_slide.link %><% end -%></p>
 	<p class="photo_credit"><%= sf_slide.photo_credit %></p>
 </div>

@@ -1,7 +1,7 @@
 <% title "Home", false %>
 <section id="content" class="home">
     <div id="inside" class="home">
-        <%- unless @slides.blank? -%>
+        <%- if @slides.any? -%>
         <div id="jumbotron">
             <div id="cycle">
                 <% for slide in @slides %>
@@ -12,7 +12,7 @@
                 <header>
                     <h1 id="cycle-title"><%= @slides.first.title %></h1>
                 </header>
-                <summary id="cycle-caption"><%= truncate(@slides.first.excerpt, :length => 100) %>&nbsp;<%= link_to "go&nbsp;&#187;", @slides.first.link %></summary>
+                <summary id="cycle-caption"><%= truncate(@slides.first.excerpt, :length => 100) %>&nbsp;<% unless @slides.first.link.blank? -%><%= link_to "go&nbsp;&#187;", @slides.first.link %><% end -%></summary>
                 <footer id="cycle-footer">Photo Credit: <%= @slides.first.photo_credit %></footer>
                 <nav id="pager"></nav>
             </div>
@@ -26,10 +26,10 @@
             </header>
             <section>
                 <p><%= promo.body %></p>
-                <%= link_to "more&nbsp;&#187;", promo.link if promo.link.present? %>
+                <%= link_to "more&nbsp;&#187;", promo.link unless promo.link.blank? %>
             </section>
         </article><!-- /home-pulse -->
-        <%- end if @promos -%>
+        <%- end if @promos.any? -%>
     </div><!-- /inside -->
 </section><!-- /content --> 
 

@@ -6,25 +6,31 @@
 	</div><!--#jumbotron-->
 	
 	<div id="jumbo_promo">
-		<h1><%= link_to @hq_slides.first.try(:title), @hq_slides.first.try(:link) %></h1>
-		<p><%= @hq_slides.first.try(:excerpt) %>&hellip;&nbsp;<%= link_to "learn&nbsp;more&nbsp;&#187;", @hq_slides.first.try(:link) %></p>
+	  <% if @hq_slides.any? -%>
+  		<% unless @hq_slides.first.link.blank? -%>
+  		  <h1><%= link_to @hq_slides.first.title, @hq_slides.first.link %></h1>
+  		<% else -%>
+  		  <h1><%= @hq_slides.first.title %></h1>
+  		<% end -%>
+  		<p><%= @hq_slides.first.excerpt %><% unless @hq_slides.first.link.blank? -%><%= link_to "learn&nbsp;more&nbsp;&#187;", @hq_slides.first.try(:link) %><% end -%></p>
+  	<% end -%>
 	</div><!--#jumbo_promo-->
 	<nav id="controller"></nav>
 </div><!--#jumbotron_wrapper-->
 
 <div id="audiences">
 	<nav>
-		<a href="#">
-			<h1>Chefs</h1>
-			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+		<a href="/invitations/new">
+			<h1>Restaurant Personnel</h1>
+			<p>To get started, request an invitation on Spoonfeed.</p>
+		</a>
+		<a href="/soapbox">
+			<h1>Diners</h1>
+			<p>Check out Soapbox, our digital magazine written by chefs.</p>
 		</a>
 		<a href="#">
 			<h1>Media</h1>
-			<p>Vestibulum lectus leo, lobortis eget molestie non, laoreet eget felis.</p>
-		</a>
-		<a href="#">
-			<h1>Diners</h1>
-			<p>Mauris eu tortor a sem consectetur luctus.</p>
+			<p>Coming soon! Mediafeed, your portal to the country's most inspiring chefs.</p>
 		</a>
 	</nav>
 </div><!--#audiences-->

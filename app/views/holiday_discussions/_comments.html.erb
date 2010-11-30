@@ -1,22 +1,21 @@
-<div class="comments span-9">
-<% unless @comments.blank? %>
-  <hr />
-  <h3>Replies for <%= @discussion.holiday.try(:name) %></h3>
-  <%= render @comments %>
-<% end %>
-<hr class="space"/>
+<div id="message_comments" class="comments">
+	<% unless @comments.blank? %>
+		<header>
+  		<h1>Replies for <%= @discussion.holiday.try(:name) %></h1>
+		</header>
+  	<%= render @comments %>
+	<% end %>
 
-<% semantic_form_for @comment_resource, :html => { :multipart => true } do |f| %>
-  <% f.inputs do %>
-    <%= f.input :comment, :label => 'Reply', :input_html => { :rows => 8 } %>
+	<% semantic_form_for @comment_resource, :html => { :multipart => true } do |f| %>
+  	<% f.inputs do %>
+    	<%= f.input :comment, :label => 'Reply', :input_html => { :rows => 8 } %>
 
-    <% f.fields_for :attachments do |child_form| -%>
-      <h3 class="attachments-header">Attach files</h3>
-      <p class="attachfield"><%= child_form.file_field :attachment %></p>
-    <% end -%>
+    	<% f.fields_for :attachments do |child_form| -%>
+      	<p class="attach">Attach files</p>
+      	<p class="attachfield"><%= child_form.file_field :attachment %></p>
+    	<% end -%>
 
-    <p class="clearfix"><%= button_tag "Send", :class => 'submit' %></p>
-  <% end %>
-
-<% end %>
-</div>
+    	<%= button_tag "Send", :class => 'submit' %>
+  	<% end %>
+	<% end %>
+</div><!-- /#message_comments -->

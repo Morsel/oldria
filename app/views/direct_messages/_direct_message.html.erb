@@ -1,9 +1,10 @@
 <% div_for direct_message, :class => css_classes_for_direct_message(direct_message) do %>
-  <div class="sender_avatar">
-    <%= image_tag direct_message.sender.avatar.url(:thumb) %>
-  </div>
-
-  <h4 class="message_title column"><%= title_for_direct_message(direct_message) %></h4>
+	<header>
+  	<div class="sender_avatar">
+    	<%= image_tag direct_message.sender.avatar.url(:thumb) %>
+  	</div>
+		<h1><%= title_for_direct_message(direct_message) %></h1>
+	</header>
 
   <p class="message_body">
     <%= link_to truncate(direct_message.body, :length => 100), direct_message_path(direct_message) %>
@@ -11,11 +12,10 @@
 
   <%= render direct_message.attachments %>
 
-  <p class="meta date"><%= direct_message.created_at.to_s(:message_meta) %></p>
+  <p class="timestamp"><%= direct_message.created_at.to_s(:message_meta) %></p>
 
   <p class="actions message_actions">
-      <%= link_to "reply", direct_message, :class => 'button utility round' %>
-      <span class="separator"></span>
+      <%= link_to "reply", direct_message, :class => 'button' %>
       <%= link_to "Go to message", direct_message %>
   </p>
 
