@@ -1,5 +1,6 @@
 class InvitationsController < ApplicationController
   before_filter :find_user_from_params, :only => [:show]
+  before_filter :require_no_user, :only => [:new, :create]
   
   def new
     if params[:invitation]
@@ -46,6 +47,18 @@ class InvitationsController < ApplicationController
       flash[:error] = "We could not locate your account."
       redirect_to login_path, :user_id => params[:user_id]
     end
+  end
+  
+  def recommend
+  end
+  
+  def submit_recommendation
+    for email in params[:emails].split(/\n/)
+      UserMailer.deliver_signup_recommendation(email, current_user)
+    end
+    
+    flash[:notice] = "Thanks for recommending new members!"
+    redirect_to :action => "recommend"
   end
 
   private

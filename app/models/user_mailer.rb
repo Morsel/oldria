@@ -35,6 +35,15 @@ class UserMailer < ActionMailer::Base
     body        :discussion => discussion, :user => user
   end
   
+  # sent to people recommended by another user
+  def signup_recommendation(email, referring_user)
+    from        'notifications@restaurantintelligenceagency.com'
+    recipients  email
+    sent_on     Time.now
+    subject     "#{referring_user.name} invites you to check out Spoonfeed"
+    body        :referring_user => referring_user
+  end
+  
   # sent to users who request an invite for themselves
   def invitation_welcome(invite)
     from        'notifications@restaurantintelligenceagency.com'

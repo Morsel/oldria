@@ -9,13 +9,11 @@ Feature: users can be invited to join Spoonfeed by registered SF users, restaura
   And I am logged in as "sam"
 
   Scenario: a regular restaurant employee wants to invite a friend
-    Given I am on the new invitation page
-    And I fill in "First name" with "Mary Anne"
-    And I fill in "Last name" with "Smith"
-    And I fill in "Email" with "ma@email.com"
-    And I press "Invite User"
-    Then I should see "Thanks for recommending a new member"
-    # And "ma@email.com" should have 1 email
+    Given I am on the new invitation recommendation page
+    And I fill in "emails" with "ma@email.com"
+    And I press "Send Now"
+    Then I should see "Thanks for recommending new members!"
+    And "ma@email.com" should have 1 email
     
   Scenario: an invite is approved and the user wants to log in and update their info (not a restaurant employee)
     Given there are the following invitations:

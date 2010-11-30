@@ -1,0 +1,11 @@
+<h2>SHARE THE LOVE: Invite your friends to join!</h2>
+
+<p>Spoonfeed is a network, the more people that are on, the more fun it will be for you and, more importantly, the more the media and diners will rely on this site to find out about the chefs, mixologists and sommeliers that matter.</p>
+
+<p>Go ahead, get crazy, invite all the chefs, sommeliers and mixologists you admire:</p>
+
+<% form_tag submit_recommendation_invitations_path do %>
+    <p><%= text_area_tag "emails", "", :size => "40x5" %></p>
+    <p class="inline-hint">One email address per line, please</p>
+    <p><%= submit_tag "Send now" %></p>
+<% end %>
