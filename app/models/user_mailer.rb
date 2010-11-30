@@ -40,7 +40,7 @@ class UserMailer < ActionMailer::Base
     from        'notifications@restaurantintelligenceagency.com'
     recipients  email
     sent_on     Time.now
-    subject     "#{referring_user.name} invites you to check out Spoonfeed"
+    subject     "#{referring_user.name} wants you to check out Spoonfeed!"
     body        :referring_user => referring_user
   end
   
