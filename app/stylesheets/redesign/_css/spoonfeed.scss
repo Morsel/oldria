@@ -711,7 +711,7 @@ form#new_user_session {
 	position: absolute;
 	top: 25px;
 	text-align: right;
-	right: 20px;
+	right: 15px;
 	font-family: gotham, helvetica, arial, sans-serif;
 	text-transform: uppercase;
 	font-size: 11px;
@@ -720,24 +720,22 @@ form#new_user_session {
 	a {
 		font-weight: bold;
 		color: $orange;
-		font-size: 12px;
 		height: 25px;
-		padding: 5px 12px 3px;
-		background: #fff url(/images/redesign/bg-newall-2.gif) no-repeat 50% 100%;
+		padding: 5px 10px 10px;
+		background: #fff url(/images/redesign/bg-newall.gif) repeat-x;
 		margin-left: 5px;
 		text-align: center;
+		&:hover {
+			color: $brown;
+		}
 		&.selected {
 			color: $orange;
-			background: #fff url(/images/redesign/bg-newall-1.gif) no-repeat 50% 100%;
 			text-shadow: 0 1px 0 #fff;
+			background: #fff url(/images/redesign/bg-newall-1.gif) no-repeat 50% 100%;
 			&:hover {
-				color: $orange;
+				color: #fff;
 				text-shadow: none;
 			}
-		}
-		&:hover {
-			color: #fff;
-			text-shadow: 0 1px 0 #999;
 		}
 	}
 }
@@ -765,6 +763,7 @@ form#new_user_session {
 		background-color: $trans-orange;
 		border: 1px solid #f5dcd2;
 		padding: 10px;
+		margin: 15px 0 0 0;
 		p {
 			margin: 0;
 			padding: 0;
@@ -1871,9 +1870,7 @@ p.search_filter_hint {
 			@include box-shadow(#eee,0px, 1px,0px);
 			@include transition;
 			&.go_to_admin {
-				font-family: 'Hoefler Text', Georgia, serif;
-				font-style: italic;
-				font-weight: bold;
+				@include hoeflerbolditalic;
 				font-size: 18px;
 				&:hover {
 					color: #fff;
