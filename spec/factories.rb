@@ -140,6 +140,8 @@ Factory.define :invitation do |f|
   f.last_name "Doe"
   f.sequence(:email) { |n| "foo#{n}@example.com" }
   f.restaurant_name "Name"
+  f.association :restaurant_role
+  f.subject_matters { [Factory(:subject_matter)] }
 end
 
 # == Restaurants ==

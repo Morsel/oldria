@@ -13,11 +13,9 @@
     	t.cell(:first_name)
     	t.cell(:last_name)
     	t.cell(:email)
-    	t.cell(:title)
     	t.cell(:restaurant) { |c| c.restaurant || c.restaurant_name }
     	t.cell(:restaurant_role)
     	t.cell(:subject_matters) { |c| c.subject_matters.map(&:name).join(", ") }
-    	t.cell(:requesting_user, :heading => "Invited by") { |c| c.requesting_user.try(:name) }
     	t.cell(:requested) { |c| c.created_at.try(:strftime, "%m/%d/%y") }
     	
     	if params[:archived]

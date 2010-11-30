@@ -30,7 +30,7 @@ class Invitation < ActiveRecord::Base
   has_many :invite_responsibilities, :dependent => :destroy
   has_many :subject_matters, :through => :invite_responsibilities
   
-  validates_presence_of :email, :first_name, :last_name
+  validates_presence_of :email, :first_name, :last_name, :restaurant_role, :restaurant_name, :subject_matters
   validates_uniqueness_of :email, :message => "That person has already been invited"
   
   after_create :send_welcome_and_notify_admins
