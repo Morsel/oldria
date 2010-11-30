@@ -32,7 +32,7 @@ module SoapboxHelper
   end
   
   def active_page?(name)
-    current_page?(name) || request.subdomains.include?(name.gsub('/','')) ? "selected" : ""
+    current_page?(name) || (name == '/hq' && request.subdomains.include?(name.gsub('/',''))) ? "selected" : ""
   end
 
   def feature_entry_type(feature)
