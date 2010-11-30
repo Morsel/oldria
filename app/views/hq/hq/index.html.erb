@@ -12,7 +12,7 @@
   		<% else -%>
   		  <h1><%= @hq_slides.first.title %></h1>
   		<% end -%>
-  		<p><%= @hq_slides.first.excerpt %><% unless @hq_slides.first.link.blank? -%><%= link_to "learn&nbsp;more&nbsp;&#187;", @hq_slides.first.try(:link) %><% end -%></p>
+  		<p><%= @hq_slides.first.excerpt %><% unless @hq_slides.first.link.blank? -%> <%= link_to "learn&nbsp;more&nbsp;&#187;", @hq_slides.first.try(:link) %><% end -%></p>
   	<% end -%>
 	</div><!--#jumbo_promo-->
 	<nav id="controller"></nav>
