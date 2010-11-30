@@ -82,8 +82,7 @@ describe EmployeesController do
         get :new, :restaurant_id => @restaurant.id, :employment => {:employee_email => "sam@example.com"}
       end
       it { response.should be_redirect }
-      it { response.should redirect_to(new_invitation_url(:restaurant => true, 
-          :invitation => { :restaurant_id => @restaurant.id, :email => "sam@example.com" }))}
+      it { response.should redirect_to(recommend_invitations_url(:emails => "sam@example.com" )) }
     end
   end
 
