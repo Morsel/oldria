@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20101104213542
+# Schema version: 20101130003744
 #
 # Table name: invitations
 #
@@ -17,6 +17,7 @@
 #  created_at         :datetime
 #  updated_at         :datetime
 #  archived           :boolean
+#  restaurant_role_id :integer
 #
 
 class Invitation < ActiveRecord::Base
@@ -24,9 +25,12 @@ class Invitation < ActiveRecord::Base
   belongs_to :requesting_user, :class_name => "User"
   belongs_to :invitee, :class_name => "User"
   belongs_to :restaurant
+  belongs_to :restaurant_role
+
+  has_many :invite_responsibilities, :dependent => :destroy
+  has_many :subject_matters, :through => :invite_responsibilities
   
   validates_presence_of :email, :first_name, :last_name
-#, :restaurant_name
   validates_uniqueness_of :email, :message => "That person has already been invited"
   
   after_create :send_welcome_and_notify_admins

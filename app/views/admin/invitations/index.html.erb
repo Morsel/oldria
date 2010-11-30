@@ -15,11 +15,15 @@
     	t.cell(:email)
     	t.cell(:title)
     	t.cell(:restaurant) { |c| c.restaurant || c.restaurant_name }
-    	t.cell(:coworker)
+    	t.cell(:restaurant_role)
+    	t.cell(:subject_matters) { |c| c.subject_matters.map(&:name).join(", ") }
     	t.cell(:requesting_user, :heading => "Invited by") { |c| c.requesting_user.try(:name) }
     	t.cell(:requested) { |c| c.created_at.try(:strftime, "%m/%d/%y") }
-    	t.cell(:approved) { |c| c.approved_at.try(:strftime, "%m/%d/%y") } if params[:archived]
-    	t.cell(:logged_in) { |c| c.invitee.last_request_at.try(:strftime, "%m/%d/%y") } if params[:archived]
-    	t.cell(:invitee) { |c| link_to c.name, profile_path(c.username) } if params[:archived]
+    	
+    	if params[:archived]
+    	  t.cell(:approved) { |c| c.approved_at.try(:strftime, "%m/%d/%y") }
+    	  t.cell(:logged_in) { |c| c.invitee.last_request_at.try(:strftime, "%m/%d/%y") }
+    	  t.cell(:invitee) { |c| link_to c.name, profile_path(c.username) }
+	    end
     end %>
 <% end %>

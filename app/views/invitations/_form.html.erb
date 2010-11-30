@@ -2,26 +2,20 @@
         <%= f.input :first_name %>
         <%= f.input :last_name %>
         <%= f.input :email %>
+        
         <% f.inputs :name => "Work details" do %>
-            <% if params[:restaurant] %>
-              <%= f.input :coworker, :label => "This person is my employee", :selected => true %>
-              <%= f.input :restaurant, :as => :select, :collection => current_user.restaurants, :selected => params[:invitation][:restaurant_id].to_i %>              
-            <% else %>
-              <% if current_user.admin? %>
-                <%= f.input :coworker, :label => "This person is a spoonfeed member's coworker" %>
-                <%= f.input :restaurant, :as => :select, :collection => Restaurant.all %>
-                <p><em>or</em></p>
-              <% elsif current_user.employments.present? %>
-                <%= f.input :coworker, :label => "This person is my coworker" %>
-                <%= f.input :restaurant, :as => :select, :collection => current_user.restaurants, 
-                    :label => "We work together at:" %>
-                <p><em>or</em></p>
-              <% end if current_user %>
-            
-              <%= f.input :restaurant_name, :label => current_user ? "Name of the restaurant(s) where they work:" : "Name of the restaurant(s) where you work:", :hint => 'Type "none" if currently between jobs' %>
-              <%= f.input :title, :label => "Job title" %>
-            <% end %>
+            <%= f.input :restaurant_name, :label => "Name of the restaurant(s) where you work:", :hint => 'Type "none" if currently between jobs' %>
+            <%= f.input :title, :label => "Job title" %>
+            <%= f.input :restaurant_role, :label => "Role", :as => :select, :collection => RestaurantRole.all %>
+
+            <h4>Area(s) of expertise</h4>
+            <%= f.input :subject_matters,
+                :as => :check_boxes,
+                :wrapper_html => { :class => 'checkall', :id => "employment_general_subject_matters" },
+                :collection => SubjectMatter.general.all,
+                :label => "I am comfortable answering questions and speaking to the media about the following topics:" %>
         <% end %>
+        
         <% if @invitation.new_record? %>
           <%= f.input :requesting_user_id, :as => "hidden" %>
         <% end %>
