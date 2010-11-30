@@ -76,12 +76,12 @@ class EmployeesController < ApplicationController
         { :email => email } : 
         { :first_name => email.split(" ").first, :last_name => email.split(" ").last }
       if current_user.admin?
-        flash.now[:notice] = "We couldn't find them in our system. You can invite this person."
+        flash.now[:notice] = "We couldn't find them in our system. You can add this person."
         @employee = @restaurant.employees.build(identifier)
         render :new_employee
       else
         flash[:notice] = "We couldn't find them in our system. You can invite this person."
-        redirect_to new_invitation_path(:restaurant => true, :invitation => identifier.merge(:restaurant_id => @restaurant.id))
+        redirect_to recommend_invitations_path(:emails => email)
       end
     end
   end

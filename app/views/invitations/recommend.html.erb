@@ -5,7 +5,7 @@
 <p>Go ahead, get crazy, invite all the chefs, sommeliers and mixologists you admire:</p>
 
 <% form_tag submit_recommendation_invitations_path do %>
-    <p><%= text_area_tag "emails", "", :size => "40x5" %></p>
+    <p><%= text_area_tag "emails", params[:emails], :size => "40x5" %></p>
     <p class="inline-hint">One email address per line, please</p>
     <p><%= submit_tag "Send now" %></p>
 <% end %>
