@@ -15,12 +15,14 @@
 
 <% content_for :sidebar_a do -%>
 	<aside id="sidebar_a">
-		<section class="promo quote">
-			<h1>Testimonials</h1>
-			<p class="quotation">"If anyone has any question of whether they should do this, tell them to call me and I will give them my full endorsement personally."</p>
-			<p class="who">Donnie Madia<br/>
-			Blackbird, avec, The Publican, Sonotheque, the Violet Hour</p>
-		</section>
+		<% if false -%>
+		  <section class="promo quote">
+  			<h1>Testimonials</h1>
+  			<p class="quotation">"If anyone has any question of whether they should do this, tell them to call me and I will give them my full endorsement personally."</p>
+  			<p class="who">Donnie Madia<br/>
+  			Blackbird, avec, The Publican, Sonotheque, the Violet Hour</p>
+  		</section>
+  	<% end -%>
 	</aside><!-- #sidebar_a-->
 <% end -%>
 
@@ -41,14 +43,20 @@
 			</nav>
 		</aside>
 		<p><%= link_to image_tag('redesign/title-unplugged.jpg', :alt => 'RIA Unplugged Logo'), "http://unplugged.restaurantintelligenceagency.com" %></p>
-		<aside class="promo" id="fromtheblog">
-			<ul>
-				<li><a href="#">Influence, the media and you <span>November 18th</span></a></li>
-				<li><a href="#">If a chef blogs in the forest... <span>November 17th</span></a></li>
-				<li><a href="#">Knit One, Hurl Two <span>November 16th</span></a></li>
-			</ul>
-			<a class="more" href="http://unplugged.restaurantintelligenceagency.com">More from the blog&nbsp;&#187;</a>
-		</aside>
+		<% if @feed.present? and @feed.entries.any? -%>
+  		<aside class="promo" id="fromtheblog">
+  			<ul>
+  			  <% @feed.entries[0..2].each do |entry| -%>
+  				  <li>
+  				    <% link_to entry.url do -%>
+  				      <%= entry.title %> <span><%= entry.published.strftime('%B %d') %></span>
+  				    <% end -%>
+  				  </li>
+  				<% end -%>
+  			</ul>
+  			<%= link_to "More from the blog&nbsp;&#187;", @feed.url, :class => 'more' %>
+  		</aside>
+		<% end -%>
 
 	</div><!--#sidebar_b-->
 <% end -%>

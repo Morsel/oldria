@@ -57,7 +57,7 @@ Feature: Update information
     And I am logged in as "sammy" with password "secret"
     When I follow "My Profile"
     And I follow "Edit profile"
-    And I follow "Remove Twitter Information"
+    And I follow "Disconnect Twitter"
     Then I should see "Your Twitter Account was disassociated with your SpoonFeed Account"
     And "sammy" should not have Twitter linked to his account
     And I should not see "Remove Twitter Information"
