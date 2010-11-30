@@ -30,7 +30,7 @@ class CompleteRegistrationsController < ApplicationController
         redirect_to(:action => "user_details")
       end
     else
-      render :show
+      params[:step] == '2' ? render(:action => 'user_details') : render(:show)
     end
   end
   
