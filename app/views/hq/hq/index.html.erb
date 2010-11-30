@@ -12,7 +12,7 @@
   		<% else -%>
   		  <h1><%= @hq_slides.first.title %></h1>
   		<% end -%>
-  		<p><%= @hq_slides.first.excerpt %><% unless @hq_slides.first.link.blank? -%><%= link_to "learn&nbsp;more&nbsp;&#187;", @hq_slides.first.try(:link) %><% end -%></p>
+  		<p><%= @hq_slides.first.excerpt %><% unless @hq_slides.first.link.blank? -%> <%= link_to "learn&nbsp;more&nbsp;&#187;", @hq_slides.first.try(:link) %><% end -%></p>
   	<% end -%>
 	</div><!--#jumbo_promo-->
 	<nav id="controller"></nav>
@@ -20,18 +20,18 @@
 
 <div id="audiences">
 	<nav>
-		<a href="/invitations/new">
+		<% link_to new_invitation_path do -%>
 			<h1>Restaurant Personnel</h1>
 			<p>To get started, request an invitation on Spoonfeed.</p>
-		</a>
-		<a href="/soapbox">
+		<% end -%>
+		<% link_to soapbox_root_path do -%>
 			<h1>Diners</h1>
 			<p>Check out Soapbox, our digital magazine written by chefs.</p>
-		</a>
-		<a href="#">
+		<% end -%>
+	  <% link_to hq_page_path('media_flag') do -%>
 			<h1>Media</h1>
 			<p>Coming soon! Mediafeed, your portal to the country's most inspiring chefs.</p>
-		</a>
+		<% end -%>
 	</nav>
 </div><!--#audiences-->
 

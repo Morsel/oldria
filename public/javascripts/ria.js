@@ -15,11 +15,11 @@ function jumbotronController(idx, elem){
 }
 
 function displayInfo(currSlideElement, nextSlideElement, options, forwardFlag){
-	title = $(nextSlideElement).attr('title');
+	credit = 'Photo Credit: ' + $(nextSlideElement).attr('data-credit');
 	caption = $(nextSlideElement).attr('data-caption');
 	url = $(nextSlideElement).attr('data-url');
-	credit = 'Photo Credit: ' + $(nextSlideElement).attr('data-credit');
-	link = url.length > 0 ? '<a href=' + url + '>learn&nbsp;more&nbsp;&#187;</a>' : '';
+	title = url.length > 0 ? '<a href="' + url + '">' + $(nextSlideElement).attr('title') + '</a>' : $(nextSlideElement).attr('title');
+	link = url.length > 0 ? ' <a href="' + url + '">learn&nbsp;more&nbsp;&#187;</a>' : '';
 	$('#jumbo_promo h1').html(title);
 	$('#jumbo_promo p').html(caption + link);
 }
