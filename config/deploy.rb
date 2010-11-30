@@ -177,28 +177,6 @@ before 'deploy:restart', 'compass:compile'
 after "deploy:symlink", "deploy:update_crontab"
 after 'deploy:update_code', 'deploy:symlink_shared'
 
-after "deploy:update" do 
-  bluepill.quit 
-  bluepill.start 
-end 
-
-namespace :bluepill do 
-  desc "Stop processes that bluepill is monitoring and quit bluepill" 
-  task :quit, :roles => :app do 
-    sudo 'bluepill stop' 
-    sudo 'bluepill quit' 
-    sleep 5 
-  end 
-  desc "Load bluepill configuration and start it" 
-  task :start, :roles => :app do 
-    sudo "bluepill load #{current_path}/config/bluepill/ 
-#{rails_env}.pill" 
-  end 
-  desc "Prints bluepills monitored processes statuses" 
-  task :status, :roles => :app do 
-    run "sudo bluepill status" 
-  end 
-end
 
 # Delayed Job callbacks:
 # after "deploy:stop",    "delayed_job:stop"
