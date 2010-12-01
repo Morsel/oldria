@@ -88,7 +88,6 @@ module UsersHelper
     else
       options.merge!({"#{subject.class.name.underscore}_id".to_sym => subject.id})
     end
-    puts "options => #{options.inspect}"
     if params[:controller].match(/soapbox/)
       send("chapters_soapbox_#{subject.class.name.underscore}_questions_path".to_sym, options)
     else
