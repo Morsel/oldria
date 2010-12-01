@@ -1,10 +1,14 @@
 class RestaurantFeaturesController < ApplicationController
   before_filter :require_user
   before_filter :authenticate
-  before_filter :load_pages
-  before_filter :load_page
+  before_filter :load_pages, :only => [:index, :show]
+  before_filter :load_page, :only => [:show, :create]
 
   def index
+    redirect_to :action => :show, :id => @pages.first.id
+  end
+
+  def show
 
   end
 
@@ -32,10 +36,7 @@ class RestaurantFeaturesController < ApplicationController
   end
 
   def load_page
-    @page = if params[:page_id]
-            then RestaurantFeaturePage.find(params[:page_id], :include => {:restaurant_feature_categories => :restaurant_features })
-            else @pages.first
-            end
+    @page = RestaurantFeaturePage.find(params[:id], :include => {:restaurant_feature_categories => :restaurant_features }) if params[:id]
   end
 
   def authenticate
