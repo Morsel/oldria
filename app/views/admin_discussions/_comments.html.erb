@@ -1,13 +1,10 @@
 <div class="comments">
     <% if @comments.blank? || message.is_a?(ContentRequest) %>
       <%= render @comments %>
-      <hr class="space"/>
-      
       <% semantic_form_for @comment_resource, :html => { :multipart => true } do |f| %>
         <% f.inputs do %>
             <%= f.input :comment, :label => 'Post', :input_html => { :rows => 8 }, :hint => soapbox_notice(message) %>
-
-            <p class="clearfix"><%= button_tag "Send", :class => 'submit' %></p>
+            <%= button_tag "Send", :class => 'submit button' %></p>
         <% end %>
 
      <% end %>
