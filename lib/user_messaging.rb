@@ -127,8 +127,6 @@ module UserMessaging
 
   def messages_from_ria
     @messages_from_ria ||= [ unread_grouped_admin_discussions.keys,
-      unread_hdrs,
-      unread_qotds,
       unread_pr_tips,
       unread_announcements,
       unread_solo_discussions
@@ -137,8 +135,6 @@ module UserMessaging
 
   def all_messages
     @all_messages ||= [ grouped_admin_discussions.keys,
-      solo_discussions.current, # Solo trend qs
-      admin_conversations.current.all, # QOTDs
       Admin::Announcement.current.all,
       Admin::PrTip.current.all
     ].flatten.sort_by(&:scheduled_at).reverse

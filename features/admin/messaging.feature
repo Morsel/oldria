@@ -14,7 +14,7 @@ Feature: Admin Messaging
     Given I am logged in as "johndoe"
     And "johndoe" has a QOTD message with:
       | message | Are lazy cakes cool? |
-    When I go to my inbox
+    When I go to the front burner page
     And I follow "Post"
     Then I should see "Are lazy cakes cool?"
   
@@ -28,7 +28,7 @@ Feature: Admin Messaging
     And "johndoe" has a QOTD message with:
       | message | Are lazy cakes cool? |
     And "johndoe" has commented on "Are lazy cakes cool?" with "Yes!"
-    When I go to my inbox
+    When I go to the front burner page
     And I follow "View your post"
     And I follow "Edit"
     And I fill in "Comment" with "Yes! They are totally cool."
@@ -63,12 +63,12 @@ Feature: Admin Messaging
     And "johndoe" has a QOTD message with:
       | message      | This is a QOTD      |
       | scheduled_at | 2012-06-04 11:30:00 |
-    When I go to my inbox
+    When I go to the front burner page
     Then I should not see "Question of the Day"
     And I should not see "This is a QOTD"
 
     When the date and time is "2012-06-04 11:45:00"
-    And I go to my inbox
+    When I go to the front burner page
     Then I should see "This is a QOTD"
     
 # New user woes
@@ -93,7 +93,7 @@ Feature: Admin Messaging
     And holiday "Day Off" has a reply "A reply for all holidays"
     And given that user "cleopatra" has just been confirmed
     And I am logged in as "cleopatra"
-    When I go to my inbox
+    When I go to the front burner page
     Then I should see "This is a new QOTD"
     And I should not see "This is an old QOTD"
     And I should not see "This is an old trend question"
