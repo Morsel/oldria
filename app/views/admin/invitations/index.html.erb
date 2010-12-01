@@ -20,7 +20,7 @@
     	
     	if params[:archived]
     	  t.cell(:approved) { |c| c.approved_at.try(:strftime, "%m/%d/%y") }
-    	  t.cell(:logged_in) { |c| c.invitee.last_request_at.try(:strftime, "%m/%d/%y") }
+    	  t.cell(:logged_in) { |c| c.invitee.try(:last_request_at).try(:strftime, "%m/%d/%y") }
     	  t.cell(:invitee) { |c| link_to c.name, profile_path(c.username) }
 	    end
     end %>
