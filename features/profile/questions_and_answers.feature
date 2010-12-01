@@ -43,3 +43,7 @@ Feature: Profile - Behind the Line (aka Q&A)
     When I follow "View all Topics" within "#behindline"
     When I follow "SeoTopic"
     And I should see "SeoTopic - John Smith" within "title"
+
+  Scenario: Question page should contain question name in title
+    Given I am on the question page with title "Title 1"
+    And I should see "Title 1 - Behind The Line" within "title"
