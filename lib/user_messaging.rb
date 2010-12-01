@@ -151,6 +151,10 @@ module UserMessaging
       messages_from_ria.size
     end
   end
+  
+  def front_burner_unread_count
+    unread_qotds.count + unread_grouped_admin_discussions.keys.size + unread_solo_discussions.count
+  end
 
   def mark_replies_as_read
     action_required_messages.each { |m| m.read_by! self }
