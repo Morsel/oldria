@@ -1,11 +1,7 @@
-<%
-  form_params = if topic.new_record?
-    {:url => admin_topics_path(:responder_type => params[:responder_type]), :method => :post }
-  else
-    {:url => admin_topic_path(:responder_type => params[:responder_type], :id => topic.id), :method => :put}
-  end %>
+<% topic_url = topic.new_record? ? admin_topics_path(:responder_type => params[:responder_type]) :
+    admin_topic_path(:responder_type => params[:responder_type], :id => topic.id) %>
 
-<% semantic_form_for [:admin, topic], form_params do |f| %>
+<% semantic_form_for [:admin, topic], :url => topic_url do |f| %>
     <% f.inputs do %>
         <%= f.input :title %>
         <%= f.input :description %>
