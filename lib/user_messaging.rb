@@ -73,7 +73,7 @@ module UserMessaging
 
   # Question of the day
   def unread_qotds
-    messages = admin_conversations.current.recent.unread_by(self)
+    admin_conversations.current.recent.find_unread_by(self)
   end
 
   def qotds_responded
