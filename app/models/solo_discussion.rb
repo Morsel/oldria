@@ -65,10 +65,10 @@ class SoloDiscussion < ActiveRecord::Base
   ##
   # Should only be called from an external observer.
   def notify_recipients
-    self.send_at(scheduled_at, :send_email_notification_to_each_employee)
+    self.send_at(scheduled_at, :send_email_notification)
   end
 
-  def send_email_notification_to_each_employee
+  def send_email_notification
     if employee.prefers_receive_email_notifications
       UserMailer.deliver_message_notification(self, employee)
     end
