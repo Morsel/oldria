@@ -1,15 +1,14 @@
 <% div_for discussion, :class => css_classes_for_discussion(discussion) do %>
+<header>
   <div class="sender_avatar">
     <%= image_tag discussion.poster.avatar.url(:thumb) %>
   </div>
-
-  <h4 class="message_title column">
-    <%= link_to discussion.poster.name, discussion.poster %> started a discussion
-  </h4>
+  <h1><%= link_to discussion.poster.name, discussion.poster %> started a discussion</h1>
+</header>
 
   <p class="message_body"><%= link_to discussion.title, discussion %></p>
 
-  <p class="meta date"><%= discussion.created_at.to_s(:message_meta) %></p>
+  <p class="timestamp"><%= discussion.created_at.to_s(:message_meta) %></p>
 
   <p class="message-actions">
     <% link_to discussion, :class => 'replies' do %>
