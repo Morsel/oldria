@@ -1,15 +1,13 @@
 <% media_request = media_request_discussion.media_request %>
 <% div_for media_request_discussion, :class => 'inbox_message' do %>
   <div class="message-details">
-    <div class="message-header">
-      <h4 class="message-title">
-        <%= link_to media_request.inbox_title, media_request_discussion %>
-        <span class="message-date"><%= media_request.created_at.to_s(:sentence) %></span>
-      </h4>
-    </div>
+    <header>
+      <h1><%= link_to media_request.inbox_title, media_request_discussion %></h1>
+      <p class="timestamp"><%= media_request.created_at.to_s(:sentence) %></p>
+   	</header>
 
-    <p>To <%= media_request_discussion.restaurant.try(:name) %></p>
-    <p>Due by <%= media_request.due_date.try(:to_s, :long_ordinal) %></p>
+    <p>To: <%= media_request_discussion.restaurant.try(:name) %><br/>
+			Due by: <%= media_request.due_date.try(:to_s, :long_ordinal) %></p>
 
     <div class="message-body">
       <%= simple_format(media_request.message) %>
@@ -17,15 +15,15 @@
   </div>
 
   <div class="message-actions">
-    <% link_to media_request_discussion, :class => 'replies' do %>
-      <% if media_request_discussion.comments_count > 0 %>
-          <span class="unread_comments_count"><%= media_request_discussion.comments_count %></span>
+    <p><% link_to media_request_discussion, :class => 'replies' do %>	
+      	<% if media_request_discussion.comments_count > 0 %>
+					<span class="unread_comments_count"><%= media_request_discussion.comments_count %></span>
           <%= media_request_discussion.comments_count == 1 ? 'reply' : 'replies' %>
           for <%= media_request_discussion.restaurant.name %>. Read &amp;
-      <% else %>
-        No one has responded yet.
+      	<% else %>
+        	No one has responded yet.
       <% end -%>
-       Reply &raquo;
-    <% end %>
+ 				Reply &raquo;
+    <% end %></p>
   </div>
 <% end %>

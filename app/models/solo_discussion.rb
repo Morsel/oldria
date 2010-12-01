@@ -51,7 +51,7 @@ class SoloDiscussion < ActiveRecord::Base
   end
   
   def employee
-    employment.employee
+    employment.try(:employee)
   end
   
   def recipients_can_reply?
@@ -60,6 +60,18 @@ class SoloDiscussion < ActiveRecord::Base
   
   def view_on_soapbox?
     comments.first.employment.post_to_soapbox
+  end
+  
+  ##
+  # Should only be called from an external observer.
+  def notify_recipients
+    self.send_at(scheduled_at, :send_email_notification)
+  end
+
+  def send_email_notification
+    if employee.prefers_receive_email_notifications
+      UserMailer.deliver_message_notification(self, employee)
+    end
   end
 
 end

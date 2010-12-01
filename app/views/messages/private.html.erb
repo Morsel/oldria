@@ -1,17 +1,16 @@
 <% title "Private Messages", false -%>
 
 <%= render 'nav' %>
-<div class="span-9 last">
+<div>
   <%= render :partial => 'new_or_old_nav' %>
 
   <div id="read_messages">
     <%= render @messages %>
+		<% if @messages.blank? %>
+	  <div id="no-messages" class="clear">
+	      <p>You don't have any new messages at the moment.</p>
+	  </div>
+	  <% end %>
   </div>
-  
-  <% if @messages.blank? %>
-  <div id="no-messages">
-      <p>You don't have any new messages at the moment.</p>
-  </div>
-  <% end %>
 
 </div>

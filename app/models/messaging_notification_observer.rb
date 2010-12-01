@@ -7,7 +7,7 @@
 #
 class MessagingNotificationObserver < ActiveRecord::Observer
   observe DirectMessage, AdminDiscussion, Comment, Admin::Conversation, HolidayDiscussionReminder, Discussion, 
-      Admin::Announcement, Admin::PrTip
+      Admin::Announcement, Admin::PrTip, SoloDiscussion
 
   def after_create(message_record)
     if message_record.respond_to?(:notify_recipients)
