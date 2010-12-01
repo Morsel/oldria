@@ -89,7 +89,7 @@ class ProfileQuestion < ActiveRecord::Base
     else
       RestaurantRole.find(responder_ids.compact)
     end
-    responders.collect do |responder|
+    self.question_roles = responders.collect do |responder|
       self.question_roles.build(:responder => responder)
     end
   end
