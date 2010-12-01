@@ -48,7 +48,7 @@ module MessagesHelper
     end
   end
 
-  def read_link_for_message(message, link_text = '<span>View message</span>')
+  def read_link_for_message(message, link_text = '<span>Read message</span>')
     return unless message
 
     link_path = if message.is_a?(HolidayDiscussion)
