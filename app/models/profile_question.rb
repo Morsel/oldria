@@ -95,13 +95,13 @@ class ProfileQuestion < ActiveRecord::Base
   end
 
   def responders
-    self.question_roles.collect(&:responder)
+    self.question_roles.collect(&:responder).collect(&:id)
   end
 
   protected
 
   def update_roles_description
-    self.roles_description = self.responders.map(&:name).to_sentence
+    self.roles_description = self.question_roles.collect(&:responder).map(&:name).to_sentence
   end
 
 end
