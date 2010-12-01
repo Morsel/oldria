@@ -1,4 +1,9 @@
-<% semantic_form_for [:admin, @question] do |f| %>
+<% question_url = @question.new_record? ?
+                  admin_profile_questions_path(:responder_type => params[:responder_type]) :
+                  admin_profile_question_path(:responder_type => params[:responder_type],
+                    :id => @question.id) %>
+
+<% semantic_form_for [:admin, @question], :url => question_url do |f| %>
     <% f.inputs do %>
         <%= f.input :title, :label => "Your question" %>
 

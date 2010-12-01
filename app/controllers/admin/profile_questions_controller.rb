@@ -28,6 +28,7 @@ class Admin::ProfileQuestionsController < Admin::AdminController
   def edit
     @question = ProfileQuestion.find(params[:id])
     @roles = RestaurantRole.all.group_by(&:category)
+    @topics = Topic.all(:conditions => { :responder_type => params[:responder_type] })
   end
 
   def update
