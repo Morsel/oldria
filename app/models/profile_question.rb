@@ -15,9 +15,8 @@
 class ProfileQuestion < ActiveRecord::Base
 
   belongs_to :chapter
-  has_many :question_roles
-  # has_many :responders, :through => :question_roles
-  has_many :profile_answers
+  has_many :question_roles, :dependent => :destroy
+  has_many :profile_answers, :dependent => :destroy
 
   validates_presence_of :title, :chapter_id
   validates_uniqueness_of :title, :scope => :chapter_id, :case_sensitive => false
