@@ -1,0 +1,12 @@
+<div class="identity<% unless user.logo.attachment? -%> no_avatar<% end -%>">
+    <div class="avatar">
+      <% if user.logo.attachment? -%>
+        <%= image_tag(user.logo.attachment.url(:thumb), :width => 50, :height => 50) %>
+      <% end -%>
+    </div>
+  <ul class="identity_details restaurant">
+    <li class="employee_name primary">
+        <%= link_to user.name, restaurant_path(user) %>
+    </li>
+  </ul>
+</div>
