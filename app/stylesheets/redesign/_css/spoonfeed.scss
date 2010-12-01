@@ -1873,6 +1873,15 @@ form, #page_content form{
 				line-height: 16px;
 			}
 		}
+		&.no_avatar{
+			ul{
+				margin-left:0;
+			}
+			.avatar{
+				width:0;
+				margin:0;
+			}
+		}
 	}
 } /* ## user-results ---------------------- */
 
@@ -2136,6 +2145,15 @@ p.search_filter_hint {
 					color:$orange;
 					font-weight: bold;
 				}
+			}
+		}
+		&.no_avatar{
+			ul{
+				margin-left:0;
+			}
+			.avatar{
+				width:0;
+				margin:0;
 			}
 		}
 	}
