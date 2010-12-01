@@ -1,4 +1,13 @@
 
+<ul class="pages">
+  <% @pages.each do |page| %>
+    <% tab_class = (page == @page) ? "current" : "" %>
+    <% content_tag_for(:li, page, :class => tab_class) do %>
+      <%= link_to h(page.name), restaurant_feature_path(@restaurant, page) %>
+    <% end %>
+  <% end %>
+</ul>
+
 <% if can? :edit, @restaurant %>
   <% content_for :page_actions do -%>
     <p class="clearfix">
