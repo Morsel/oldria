@@ -5,8 +5,8 @@ Feature: Profile - Behind the Line (aka Q&A)
   
   Background:
   Given the following confirmed users:
-    | username    | password |
-    | punkrock    | secret   |
+    | username    | password | first_name | last_name |
+    | punkrock    | secret   | John       | Smith     |
   And several profile questions matching employment roles for "punkrock"
   And I am logged in as "punkrock"
   
@@ -20,6 +20,7 @@ Feature: Profile - Behind the Line (aka Q&A)
     When I follow "View all Topics" within "#behindline"
     And I follow "View all"
     Then I should see "Education"
+    And I should see "Background 1 - John Smith" within "title"
 
   Scenario: Viewing questions in a chapter
     Given I am on the profile page for "punkrock"
