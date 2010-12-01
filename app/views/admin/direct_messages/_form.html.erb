@@ -6,7 +6,7 @@
 
   <% if action_name == 'new' %>
     <% f.fields_for :attachments do |child_form| -%>
-      <h3 class="attachments-header">Attach files</h3>
+      <p class="attach">Attach files</p>
       <p class="attachfield"><%= child_form.file_field :attachment %></p>
     <% end -%>
   <% end %>
