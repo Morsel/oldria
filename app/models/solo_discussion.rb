@@ -51,7 +51,7 @@ class SoloDiscussion < ActiveRecord::Base
   end
   
   def employee
-    employment.employee
+    employment.try(:employee)
   end
   
   def recipients_can_reply?
