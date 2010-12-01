@@ -122,9 +122,7 @@ module UserMessaging
   # Collections for display
 
   def action_required_messages
-    [action_required_admin_discussions,
-      action_required_holidays
-    ].flatten.sort { |a, b| b.comments.last.created_at <=> a.comments.last.created_at }
+    action_required_admin_discussions.sort { |a, b| b.comments.last.created_at <=> a.comments.last.created_at }
   end
 
   def messages_from_ria
@@ -139,12 +137,10 @@ module UserMessaging
 
   def all_messages
     @all_messages ||= [ grouped_admin_discussions.keys,
-      holiday_discussion_reminders,
-      accepted_holiday_discussions,
+      solo_discussions.current, # Solo trend qs
       admin_conversations.current.all, # QOTDs
       Admin::Announcement.current.all,
-      Admin::PrTip.current.all,
-      solo_discussions.current
+      Admin::PrTip.current.all
     ].flatten.sort_by(&:scheduled_at).reverse
   end
 
