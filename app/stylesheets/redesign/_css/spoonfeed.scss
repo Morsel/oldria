@@ -2141,6 +2141,16 @@ p.search_filter_hint {
 					margin-bottom: 0;
 				}
 			}
+			&#gotosoapbox {
+			  @include hoeflerbolditalic;
+				font-size: 18px;
+				line-height: 20px;
+			  &:hover {
+					color: #fff;
+					@include linear-gradient(color-stops(#ce4600,#df680e ), left);
+					text-shadow: 0 1px 0 #333;
+				}
+			}
 			&#manuals {
 				a {
 					display: block;
@@ -2161,8 +2171,23 @@ p.search_filter_hint {
 							color: $brown;
 							background-position: 0 -100px;
 						}
-					}
-
+					} 
+				}
+				.staff_contacts {
+				  margin: 0;
+				  padding: 0;
+				  li {
+				    a {
+				      //display: inline;
+				      font-size: 14px;
+              font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+              padding-left: 0;
+              &:hover {
+                text-decoration: underline;
+              }
+            }
+            
+				  }
 				}
 				p {
 					margin: 0 0 10px 0;
