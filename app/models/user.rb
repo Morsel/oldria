@@ -75,6 +75,7 @@ class User < ActiveRecord::Base
   has_many :posted_discussions, :class_name => "Discussion", :foreign_key => "poster_id"
 
   has_many :admin_conversations, :class_name => "Admin::Conversation", :foreign_key => 'recipient_id'
+  has_many :qotds, :through => :admin_conversations, :source => :admin_message
 
   has_many :solo_discussions, :through => :default_employment, :dependent => :destroy
 
