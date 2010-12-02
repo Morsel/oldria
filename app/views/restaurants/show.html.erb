@@ -2,7 +2,7 @@
 	<%= link_to 'Edit Restaurant', edit_restaurant_path(@restaurant), :class=>'edit_restaurant' %>
 <% end -%>
 
-<div id="restaurant_profile_view" class="box clear clearfix">
+<div id="restaurant_profile_view" class="clear clearfix">
   <header>
     <%= image_tag 'avatar_restaurant.gif', :width=>'100' %>
     <h1><%= @restaurant.name %></h1>
@@ -21,7 +21,7 @@
 		Region:
 		<span><%=h @restaurant.james_beard_region.try(:name) %></span>
 	</div>
-</div>
+</div><!-- #restaurant_profile_view -->
 
 <div class="manager_and_facts">
 	
@@ -81,7 +81,6 @@
         <%= h(@restaurant.management_company_name) %>
       <% end %>
     <% end %>
-  </div>
 </div><!-- .account_details -->
 
 <h3>Restaurant Staff</h3>
