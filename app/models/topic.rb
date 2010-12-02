@@ -49,10 +49,10 @@ class Topic < ActiveRecord::Base
 
   named_scope :answered_for_page, lambda { |page, restaurant|
     { :joins => { :chapters => { :profile_questions => [:profile_answers, :question_roles] } },
-      :conditions => { "profile_answers.responder_id" => restaurant.id,
-                       "profile_answers.responder_type" => restaurant.class.name,
-                       "question_roles.responder_id" => page.id,
-                       "question_roles.responder_type"  => page.class.name },
+      :conditions => { "`profile_answers`.responder_id" => restaurant.id,
+                       "`profile_answers`.responder_type" => restaurant.class.name,
+                       "`question_roles`.responder_id" => page.id,
+                       "`question_roles`.responder_type"  => page.class.name],
       :select => "distinct topics.*",
       :order => :position }
   }
