@@ -107,7 +107,10 @@ ActionController::Routing::Routes.draw do |map|
     restaurant.resources :employees, :except => [:show]
     restaurant.resources :calendars, :collection => { "ria" => :get }
     restaurant.resources :events, :member => { "ria_details" => :get, "transfer" => :post }
-    restaurant.resources :features, :controller => "restaurant_features" do |features|
+    restaurant.resources :features, :controller => "restaurant_features",
+                         :member => {
+                            :add => :post
+                          } do |features|
       features.resources :questions, :collection => { :topics => :get, :chapters => :get, :refresh => :post }
       features.resources :profile_answers, :only => [:create, :update, :destroy]
     end
@@ -139,7 +142,7 @@ ActionController::Routing::Routes.draw do |map|
 
   map.resources :holiday_discussion_reminders, :member => { :read => :put }
 
-  map.resources :admin_conversations, :only => 'show' do |admin_conversations|
+  map.resources :admin_conversations, :only => 'show', :member => { :read => :put } do |admin_conversations|
     admin_conversations.resources :comments, :only => [:new, :create, :edit, :update, :destroy]
   end
 

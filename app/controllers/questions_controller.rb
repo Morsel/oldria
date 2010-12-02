@@ -79,7 +79,10 @@ class QuestionsController < ApplicationController
     elsif params[:feature_page_id] || params[:feature_id]
       id = params[:feature_page_id] || params[:feature_id]
       @subject = RestaurantFeaturePage.find(id)
-      @restaurant = Restaurant.find(id)
+      @restaurant = Restaurant.find(params[:restaurant_id])
+
+      ap @subject
+      ap @restaurant
     else
       @subject = Restaurant.find(params[:restaurant_id])
     end
