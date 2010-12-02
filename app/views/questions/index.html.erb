@@ -26,7 +26,7 @@
   <% for question in @questions -%>
     <% div_for question do %>
       <h4><span class="letter-q">Q:</span> <%= link_to question.title, link_for_question(question) %></h4>
-      <% if answer = question.answer_for(@subject) %>
+      <% if answer = answer_for(@subject, question) %>
         <p><%= answer.answer %></p>
         <span class="timestamp">Last updated: <%= answer.try(:updated_at).try(:strftime, "%b %e %Y") %></span>
       <% else %>

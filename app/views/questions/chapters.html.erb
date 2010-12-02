@@ -11,10 +11,11 @@
   <% div_for chapter, :class => cycle('', ' last') do -%>
       <% link_to link_for_questions(:subject => @subject, :chapter_id => chapter.id) do %>
           <h3><%= chapter.title %></h3>
-          <p class="chapter_answer_count"><%= chapter.answer_count_for_subject(@subject) %> of <%= chapter.question_count_for_subject(@subject) %></p>
+
+          <p class="chapter_answer_count"><%= answer_count_for(@subject, chapter) %> of <%= question_count_for(@subject, chapter) %></p>
           <p><%= chapter.description || truncate(@questions_by_chapter[chapter].map(&:title).to_sentence, :length => 100) %></p>
           <% if can_edit_profile_questions(@subject) %>
-          <p><%= chapter.published?(@subject) ? "Published" : "Not published" %></p>
+          <p><%= published_for(@subject, chapter) ? "Published" : "Not published" %></p>
           <% end %>
       <% end %>
   <% end -%>

@@ -9,7 +9,7 @@
         <% @chapters_by_topic[topic].each do |chapter| %>
         <tr>
            <td class="topic_link"><%= link_to chapter.title, link_for_questions(:subject => @subject, :chapter_id => chapter.id) %></td>
-           <td class="topic_completeness"><%= chapter.completion_percentage(@subject, @restaurant) %>% complete</td>
+           <td class="topic_completeness"><%= completion_percentage_for(@subject, chapter) %>% complete</td>
         </tr>
         <% end if @chapters_by_topic[topic] %>
     </table>
