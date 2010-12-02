@@ -23,7 +23,7 @@ Given /^that QOTD has the following answers:$/ do |table|
 end
 
 Given /^that QOTD is featured on the soapbox$/ do
-  @soapbox_entry = Factory(:soapbox_entry, :featured_item => @qotd) 
+  @soapbox_entry = Factory(:soapbox_entry, :featured_item => @qotd)
 end
 
 Given /^that Trend Question is featured on the soapbox$/ do
@@ -121,4 +121,9 @@ end
 
 Then /^I should see addThis button$/ do
   response.should have_selector(".addthis_button", :content =>"Share")
+end
+
+Then /^I should see two addThis buttons$/ do
+  response.should have_selector("#qotd") 
+  response.should have_selector("#trend")
 end
