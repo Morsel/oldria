@@ -23,7 +23,7 @@ Feature: Soapbox
     When I selected corresponding soapbox entry
     Then I should see "Trend Questions" within "aside"
     And I should see "Questions of the Day" within "aside"
-    And I should see "All Questions" within "aside"
+    And I should see "View all" within "aside"
 
   Scenario: Viewing the addThis button
     Given the following published users:
