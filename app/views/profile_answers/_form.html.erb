@@ -10,5 +10,5 @@
 
 <div class="clearfix">
   <%= button_tag "Post" %>
-  <%= link_to "Delete this answer", send("#{@subject.class.name.downcase}_profile_answer_path", "#{@subject.class.name.downcase}_id".to_sym => @subject, :id => answer.id), :method => "delete", :class => "button negative" unless answer.new_record? %>
+  <%= link_to "Delete this answer", link_for_profile_answer(answer, :subject => @subject), :method => "delete", :class => "button negative" unless answer.new_record? %>
 </div>

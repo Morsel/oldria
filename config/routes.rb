@@ -109,6 +109,7 @@ ActionController::Routing::Routes.draw do |map|
     restaurant.resources :events, :member => { "ria_details" => :get, "transfer" => :post }
     restaurant.resources :features, :controller => "restaurant_features" do |features|
       features.resources :questions, :collection => { :topics => :get, :chapters => :get, :refresh => :post }
+      features.resources :profile_answers, :only => [:create, :update, :destroy]
     end
     restaurant.resources :menus
     restaurant.resources :photos, :collection => { "reorder" => :post }

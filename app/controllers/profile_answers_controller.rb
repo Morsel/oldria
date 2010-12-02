@@ -1,7 +1,9 @@
 class ProfileAnswersController < ApplicationController
+  include BehindTheLineHelper
 
   before_filter :require_user
   before_filter :require_responder
+  before_filter :require_subject
 
   skip_before_filter :load_random_btl_question
 
@@ -18,9 +20,7 @@ class ProfileAnswersController < ApplicationController
         end
 
         flash[:notice] = "Your answers have been saved"
-        redirect_to send("#{@responder.class.name.downcase}_questions_path".to_sym,
-            "#{@responder.class.name.downcase}_id".to_sym => @responder.id,
-            :chapter_id => @question.chapter.id)
+        redirect_to link_for_questions(:subject => @subject, :chapter_id => @question.chapter.id)
       end
 
       format.js do
@@ -43,10 +43,9 @@ class ProfileAnswersController < ApplicationController
     @question = @answer.profile_question
     if @answer.update_attributes(params[:profile_answer])
       flash[:notice] = "Your answer has been saved"
-      redirect_to send("#{@answer.responder.class.name.downcase}_questions_path",
-                      "#{@answer.responder.class.name.downcase}_id".to_sym => @answer.responder_id,
-                      :chapter_id => @question.chapter.id,
-                      :anchor => "profile_question_#{@question.id}")
+      redirect_to link_for_questions(:subject => @subject,
+                    :chapter_id => @question.chapter.id,
+                    :anchor => "profile_question_#{@question.id}")
     else
       render :template => "profile_answers/new"
     end
@@ -58,9 +57,9 @@ class ProfileAnswersController < ApplicationController
     @user = @answer.responder
     flash[:notice] = "Your answer has been deleted"
     @answer.destroy
-    redirect_to send("#{@responder.class.name.downcase}_questions_path", "#{@responder.class.name.downcase}_id".to_sym => @responder.id,
-                                    :chapter_id => @question.chapter.id,
-                                    :anchor => "profile_question_#{@question.id}")
+    redirect_to link_for_questions(:subject => @subject,
+                  :chapter_id => @question.chapter.id,
+                  :anchor => "profile_question_#{@question.id}")
   end
 
   private
@@ -70,6 +69,18 @@ class ProfileAnswersController < ApplicationController
       @responder = Restaurant.find(params[:restaurant_id])
     else
       @responder = current_user
+    end
+  end
+
+  def require_subject
+    if params[:user_id]
+      @subject = User.find(params[:user_id])
+    elsif params[:feature_page_id] || params[:feature_id]
+      id = params[:feature_page_id] || params[:feature_id]
+      @subject = RestaurantFeaturePage.find(id)
+      @restaurant = Restaurant.find(id)
+    else
+      @subject = Restaurant.find(params[:restaurant_id])
     end
   end
 end

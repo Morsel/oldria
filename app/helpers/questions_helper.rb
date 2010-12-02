@@ -21,10 +21,10 @@ module QuestionsHelper
   end
 
   def btl_title_for(subject)
+    title_text = subject.name
     if subject.is_a? RestaurantFeaturePage
       restaurant = Restaurant.find(params[:restaurant_id])
-      return "#{restaurant.name} - #{subject.name}"
+      title_text = "#{restaurant.name} - #{title_text}"
     end
-    subject.name
   end
 end

@@ -75,9 +75,14 @@ class ProfileQuestion < ActiveRecord::Base
     self.profile_answers.select { |a| a.responder == subject }.first
   end
 
-  def find_or_build_answer_for(subject)
-    answer = self.answered_by?(subject) ?
-        self.answer_for(subject) : self.profile_answers.build(:responder => subject)
+  def find_or_build_answer_for(subject, secondary_subject = nil)
+    if subject.is_a? RestaurantFeaturePage
+      answer = self.answered_by?(secondary_subject) ?
+          self.answer_for(secondary_subject) : self.profile_answers.build(:responder => secondary_subject)
+    else
+      answer = self.answered_by?(subject) ?
+          self.answer_for(subject) : self.profile_answers.build(:responder => subject)
+    end
   end
 
   def responders=(responder_ids)
