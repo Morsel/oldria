@@ -47,3 +47,11 @@ Feature: Profile - Behind the Line (aka Q&A)
   Scenario: Question page should contain question name in title
     Given I am on the question page with title "Title 1"
     And I should see "Title 1 - Behind The Line" within "title"
+
+  Scenario: Chapter questions page should contain chapter title and chief name in title
+    Given I am on the profile page for "punkrock"
+    When I follow "View all Topics" within "#behindline"
+    And I follow "View all"
+    And I follow "Education"
+    Then I should see "Education - John Smith - Behind The Line" within "title"
+    
