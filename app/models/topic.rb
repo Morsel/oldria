@@ -52,7 +52,7 @@ class Topic < ActiveRecord::Base
       :conditions => { "`profile_answers`.responder_id" => restaurant.id,
                        "`profile_answers`.responder_type" => restaurant.class.name,
                        "`question_roles`.responder_id" => page.id,
-                       "`question_roles`.responder_type"  => page.class.name],
+                       "`question_roles`.responder_type"  => page.class.name},
       :select => "distinct topics.*",
       :order => :position }
   }
