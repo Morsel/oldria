@@ -3200,3 +3200,63 @@ p.search_filter_hint {
 	}
 }
 
+
+
+#restaurant_pages {
+  @include column(16, true);
+  
+  nav {
+    @include column(16, true);
+    
+    ul {
+      list-style-type: none;
+      
+      li {
+        float: left;
+        display: inline;
+        padding: 0;
+        margin-right: 5px;
+        background: {
+          image: none;
+          color: #F4F3ED;
+          position: 0 0;
+        }
+
+        a {
+          font-family: 'HoeflerTextBoldItalic','Hoefler Text Italic',Georgia,Times,serif;
+          font-size: 14px;
+          display: block;
+          float: left;
+          padding: 10px 20px;
+          color: $brown;
+          
+          &:hover {
+            text-decoration: none;
+            color: $orange;
+          }
+        }
+        
+        &.current {
+          a {
+            color: #fff;
+            background-color: $orange;
+          }
+        }
+      }
+    }
+  }
+  
+  #restaurant_pages_content {
+    @include column(16, true);
+    padding: 20px 24px;
+    border: 1px solid #F4F3ED;
+  }
+  
+  #restaurant_features {
+    @include column(8);
+  }
+  
+  #behindline {
+    @include column(8, true);
+  }  
+}
