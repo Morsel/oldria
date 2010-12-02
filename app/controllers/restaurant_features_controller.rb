@@ -16,10 +16,11 @@ class RestaurantFeaturesController < ApplicationController
     # all feature ids
     all_features_for_page = @page.restaurant_feature_categories.map { |fc| fc.restaurant_features.map(&:id) }.flatten.map(&:to_s)
 
+    new_features = params[:features] || []
     # remove any that aren't in params[:features]
-    unchecked_features_for_page = all_features_for_page - params[:features]
+    unchecked_features_for_page = all_features_for_page - new_features
 
-    @restaurant.reset_features(params[:features], unchecked_features_for_page)
+    @restaurant.reset_features(new_features, unchecked_features_for_page)
     redirect_to restaurant_feature_path(@restaurant, @page)
   end
 
