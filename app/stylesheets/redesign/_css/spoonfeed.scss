@@ -11,7 +11,7 @@
 
 .clearfix{overflow:hidden;}
 .clear{clear:both;}
-a {text-decoration: none;color: $orange;}
+a {text-decoration: none;color: $orange;outline: none;}
 
 body{
  	font:normal 12px "Helvetica Neue", Helvetica, Arial, sans-serif;
@@ -99,9 +99,10 @@ em, i{
 						margin: -4px 10px 0 0;
 						padding: 2px;
 						@include transition;
+						@include hiddentext;
 						&:hover {
 							border: 1px solid $orange;
-							@include box-shadow(#aaa,1px,1px,1px);
+							@include box-shadow(#ccc,0px,0px,1px);
 						}
 					}
 				}
@@ -635,50 +636,53 @@ form#new_user_session {
 			}
 		}
 	}
-	#new_comment {
-		label {
-			display: block;
-			font-weight: normal;
-			font-family: 'helvetica neue', helvetica, arial, sans-serif;
-			font-size: 12px;
-			margin: 10px 0 2px;
-		}
-		textarea {
-			@include border-radius(3px);
-			height: 80px;
-			@include box-shadow(#ddd,0px, 2px, 1px);	
-			margin: 0 0 10px 0;
-		}
-		p.attach {
-			margin: 10px 0 2px 0;
-			padding: 0;
-		}
-		p.attachfield {
-			margin: 0;
-			padding: 0;
-		}
-		button {
-			float: left;
-			display: block;
-			font-size: 14px;
-			border: 1px solid #a2956b;
-			background-color: #a99d75;
-			@include linear-gradient(color-stops(#bbb08c,#a99d75), top);
-			color: #fff;
-			text-shadow: 0 1px 0 #333;
-			@include border-radius(20px);
-			padding: 5px 12px;
-			font-weight: bold;
-			margin: 10px 0;
-			&:hover {
-				background: #7c6d3c;
-				color: #f4edd8;
-				text-shadow: none;
-				border: 1px solid #736433;
-			}
+}
+
+#new_comment {
+	label {
+		display: block;
+		font-weight: normal;
+		font-family: 'helvetica neue', helvetica, arial, sans-serif;
+		font-size: 12px;
+		margin: 10px 0 2px;
+	}
+	textarea {
+		@include border-radius(3px);
+		height: 80px;
+		@include box-shadow(#ddd,0px, 1px, 1px);	
+		margin: 0 0 10px 0;
+		border: 1px solid #ccc;
+	}
+	p.attach {
+		margin: 10px 0 2px 0;
+		padding: 0;
+	}
+	p.attachfield {
+		margin: 0;
+		padding: 0;
+	}
+	button {
+		float: left;
+		font-family: 'helvetica neue', helvetica, arial, sans-serif;
+		display: block;
+		font-size: 13px;
+		border: 1px solid #a2956b;
+		background-color: #a99d75;
+		@include linear-gradient(color-stops(#bbb08c,#a99d75), top);
+		color: #fff;
+		text-shadow: 0 1px 0 #333;
+		@include border-radius(20px);
+		padding: 5px 12px;
+		font-weight: bold;
+		margin: 10px 0;
+		&:hover {
+			background: #7c6d3c;
+			color: #f4edd8;
+			text-shadow: none;
+			border: 1px solid #736433;
 		}
 	}
-}
+} /* -- #new_comment ---------------------- */
 
 
 #messages_nav {
@@ -750,6 +754,14 @@ form#new_user_session {
 	padding: 0 16px 16px;
 	margin: 40px 0 0;
 	min-height: 200px;
+	.top_message {
+		margin: 15px 0 10px;
+		h2 {
+			color: #888;
+			margin: 0;
+			padding: 0;
+		}
+	}
 	.reply_form {
 		border-top: 3px double #ddd;
 		label {
@@ -851,7 +863,9 @@ form#new_user_session {
 		img {
 			width: 50px;
 			height: 50px;
-			background-color: $trans-brown;
+			background-color: #f4f4f4;
+			border: 1px solid #ccc;
+			@include hiddentext;
 		}
 	}
 	.direct_message {
@@ -918,30 +932,30 @@ form#new_user_session {
 				background-position: 0 -100px;
 			}
 		}
-		.message-details {
-			header {
-				border: 0;
-				margin: 0;
-				padding: 0;
-				h1 {
-					font-family: 'helvetica neue', helvetica, arial, sans-serif;
-					font-weight: bold;
-					margin: 16px 0 0;
-					font-size: 18px;
-					line-height: 21px;
-					a {
-						color: #333;
-						&:hover {
-							color: $orange;
-						}
+		header {
+			border: 0;
+			margin: 0;
+			padding: 0;
+			h1 {
+				font-family: 'helvetica neue', helvetica, arial, sans-serif;
+				font-weight: bold;
+				margin: 16px 0 0;
+				font-size: 18px;
+				line-height: 21px;
+				a {
+					color: #333;
+					&:hover {
+						color: $orange;
 					}
 				}
-				.timestamp {
-					text-transform: uppercase;
-					margin: 5px 0 15px;
-					padding: 0;
-				}	
 			}
+			.timestamp {
+				text-transform: uppercase;
+				margin: 5px 0 15px;
+				padding: 0;
+			}	
+		}
+		.message-details {
 			.message-body {
 				p {
 					font-size: 13px;
@@ -982,6 +996,17 @@ form#new_user_session {
 					}
 				}
 			}
+		}
+	}
+	.all_discussions {
+		margin: 15px 0 10px;
+		h1 {
+			font-family: 'Hoefler Text', Georgia, serif;
+			font-size: 13px;
+			font-weight: bold;
+			letter-spacing: 0.2em;
+			text-transform: uppercase;
+			font-style: normal;
 		}
 	}
 }
@@ -1912,6 +1937,7 @@ form, #page_content form{
 			margin: 0px 10px 10px 0;
 			img {
 				border: 1px solid $brown;
+				@include hiddentext;
 			}
 		}
 		ul {
@@ -2014,18 +2040,20 @@ p.search_filter_hint {
 			margin: 0 0 10px 0;
 			padding: 13px 10px;
 			@include box-shadow(#eee,0px, 1px,0px);
-			@include transition;
 			&.go_to_admin {
-				@include hoeflerbolditalic;
-				font-size: 18px;
+				background: $trans-brown url(/images/redesign/go-to-admin.png) no-repeat 12px 12px;
+				@include hiddentext;
+				padding: 12px 15px;
 				&:hover {
-					color: #fff;
-					background-color: $brown;
+					background-color: #ded5be;
+					background-position: 12px -88px;
+					border: 1px solid #d5cab0;
 				}
 			}
 			&#invitation {
 				@include hoeflerbolditalic;
 				font-size: 18px;
+				line-height: 20px;
 				&:hover {
 					color: #fff;
 					@include linear-gradient(color-stops(#ce4600,#df680e ), left);
@@ -2181,6 +2209,7 @@ p.search_filter_hint {
 				height: 50px;
 				border: 1px solid $brown;
 				color: #999;
+				@include hiddentext;
 			}
 		}	
 		ul {
@@ -2326,7 +2355,139 @@ p.search_filter_hint {
 	}
 }
 
+#new_discussion .inputs {
+	ol {
+		li {
+			input {
+				margin: 5px 0 15px;
+			}
+			&#discussion_users_input {
+				legend {
+					display: block;
+					width: 500px;
+					label {
+						display: block;
+						font-size: 15px;
+						font-weight: normal;
+						margin: 15px 0 10px;
+						border-bottom: 1px solid #ddd;
+					}
+				}
+				ol {
+					li {
+						margin: 0;
+						padding: 0;
+						line-height: 15px;
+						label {font-weight: normal;}
+					}
+				}
+			}
+		}
+	}
+	p.attach {
+		margin: 15px 0 0;
+		font-weight: bold;
+	}
+} /* -- end #new_discussion ------------------- */
 
+#past_messages {
+	a {
+		display: inline-block;
+		background-color: $orange;
+		color: #fff !important;
+		text-shadow: 0 1px 0 #333;
+		@include border-radius(30px);
+		padding: 5px 12px;
+		&:hover {
+			background-color: $brown;
+			text-decoration: none !important;
+		}
+	}
+}
+
+#page_content #read_messages .discussion header h1 {
+	font-size: 15px;
+	font-weight: normal;
+	font-weight: 300;
+	a {
+		font-weight: bold;
+	}
+}
+#page_content .discussion {
+	border-bottom: 3px double #ddd;
+	position: relative;
+	.discussion_body {
+		p {
+			font-size: 13px;
+			line-height: 18px;
+		}
+	}
+	.message_body {
+		font-size: 14px;
+		margin: 10px 0 15px;
+	}
+	.readit {
+		position: absolute;
+		top: 0;
+		right: 0;
+		background: transparent url(/images/redesign/x.png) no-repeat;
+		width: 16px;
+		height: 16px;
+		@include hiddentext;
+		&:hover {
+			background-position: 0 -100px;
+		}
+	}
+	header {
+		padding-bottom: 10px;
+		h1 {
+			margin: 10px 0 20px;
+		}
+		.avatar {
+			float: left;
+			color: #999;
+			display: inline;
+			font-size: 9px;
+			img {
+				@include hiddentext;
+				width: 50px;
+				border: 1px solid #ccc;
+				background-color: #f2f2f2;
+			}
+		}
+		.who_when {
+			margin: 0;
+			padding: 0;
+		}
+	}
+	.attachment {
+		margin: 10px 0 20px;
+	}
+} /* -- end of discussion view -------------------- */
+
+#page_content .comments {
+	h2 {
+		margin: 20px 0;
+		span {
+			font-size: 10px;
+			color: #999;
+			font-family: 'lucida grande', arial, sans-serif;
+		}
+	}
+	.avatar {
+    float: left;
+		margin: 0 13px 10px 0;
+		img {
+			background-color: #f2f2f2;
+			border: 1px solid #ccc;
+			width: 30px;
+			@include hiddentext;
+		}
+  }
+	.comment {
+		border-bottom: 1px dotted #ccc;
+	}
+} /* -- end of comments within a discussion -------------------- */
 
 
 #profile-extended, #extended_profile_container {
@@ -2919,7 +3080,6 @@ p.search_filter_hint {
 	div{
 		border: 1px solid #ddd;
 		padding: 10px 15px;
-		@include border-radius(30px);
 		@include box-shadow(#f1f1f1,0px,2px,2px);
 		&#flash_error{
 			background: $trans-orange;
@@ -3019,9 +3179,11 @@ p.search_filter_hint {
 	}
 } /* ## end of #footer_container ---------------------- */
 #get_started{
-	padding:10px;
-	border:1px solid #ccc;
-	margin:10px 0;
+	padding:10px 15px;
+	border:1px solid #ddd;
+	@include border-radius(4px);
+	background: #fff url(/images/message_bg.png) repeat-x 0 100%;
+	margin:10px 0 20px;
 	position:relative;
 	#hide_help_box {
   	width: 16px;
@@ -3031,6 +3193,10 @@ p.search_filter_hint {
 	  position: absolute;
 	  top: 7px;
 	  right: 8px;
+	}
+	li {
+		font-size: 14px;
+		font-weight: 300;
 	}
 }
 

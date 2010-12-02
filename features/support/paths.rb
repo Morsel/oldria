@@ -153,6 +153,10 @@ module NavigationHelpers
       soapbox_restaurant_feature_page_path(
           Restaurant.find_by_name($1), RestaurantFeaturePage.find_by_name($2))
 
+    # Question
+    when /^the question page with title "(.+)"$/
+      question_path(ProfileQuestion.find_by_title($1).id)
+
     # Direct path
     when /"([^\"]+)"/
       $1

@@ -132,7 +132,7 @@ ActionController::Routing::Routes.draw do |map|
 
   map.resources :holiday_discussion_reminders, :member => { :read => :put }
 
-  map.resources :admin_conversations, :only => 'show' do |admin_conversations|
+  map.resources :admin_conversations, :only => 'show', :member => { :read => :put } do |admin_conversations|
     admin_conversations.resources :comments, :only => [:new, :create, :edit, :update, :destroy]
   end
 
