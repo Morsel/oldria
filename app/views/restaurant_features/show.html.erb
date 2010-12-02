@@ -11,7 +11,7 @@
   </nav>
   <div id="restaurant_pages_content">
     <div id="restaurant_features">
-      <% form_tag restaurant_features_path(@restaurant, :page_id => @page.id) do %>
+      <% form_tag add_restaurant_feature_path(@restaurant) do %>
         <div class="restaurant_feature_list ">
           <div class="feature_page" id="<%= dom_id(@page) %>">
             <% @page.restaurant_feature_categories.by_name.each do |category| %>

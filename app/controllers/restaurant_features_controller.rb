@@ -2,7 +2,7 @@ class RestaurantFeaturesController < ApplicationController
   before_filter :require_user
   before_filter :authenticate
   before_filter :load_pages, :only => [:index, :show]
-  before_filter :load_page, :only => [:show, :create]
+  before_filter :load_page, :only => [:show, :add]
 
   def index
     redirect_to :action => :show, :id => @pages.first.id
@@ -12,7 +12,7 @@ class RestaurantFeaturesController < ApplicationController
 
   end
 
-  def create
+  def add
     # all feature ids
     all_features_for_page = @page.restaurant_feature_categories.map { |fc| fc.restaurant_features.map(&:id) }.flatten.map(&:to_s)
 
@@ -20,7 +20,7 @@ class RestaurantFeaturesController < ApplicationController
     unchecked_features_for_page = all_features_for_page - params[:features]
 
     @restaurant.reset_features(params[:features], unchecked_features_for_page)
-    render :action => :index
+    redirect_to restaurant_feature_path(@restaurant, @page)
   end
 
   private
