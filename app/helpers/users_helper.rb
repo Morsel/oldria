@@ -84,14 +84,18 @@ module UsersHelper
     subject = options.delete(:subject)
     if subject.is_a? RestaurantFeaturePage
       options.merge!({:restaurant_id => params[:restaurant_id]})
-      options.merge!({:feature_page_id => subject.id})
+      options.merge!({:feature_id => subject.id})
     else
       options.merge!({"#{subject.class.name.underscore}_id".to_sym => subject.id})
     end
+
+    path_model_name = (subject.is_a? RestaurantFeaturePage) ?
+                    "restaurant_feature" : subject.class.name.underscore
+
     if params[:controller].match(/soapbox/)
-      send("chapters_soapbox_#{subject.class.name.underscore}_questions_path".to_sym, options)
+      send("chapters_soapbox_#{path_model_name}_questions_path".to_sym, options)
     else
-      send("chapters_#{subject.class.name.underscore}_questions_path", options)
+      send("chapters_#{path_model_name}_questions_path", options)
     end
   end
 
@@ -99,14 +103,18 @@ module UsersHelper
     subject = options.delete(:subject)
     if subject.is_a? RestaurantFeaturePage
       options.merge!({:restaurant_id => params[:restaurant_id]})
-      options.merge!({:feature_page_id => subject.id})
+      options.merge!({:feature_id => subject.id})
     else
       options.merge!({"#{subject.class.name.underscore}_id".to_sym => subject.id})
     end
+
+    path_model_name = (subject.is_a? RestaurantFeaturePage) ?
+                    "restaurant_feature" : subject.class.name.underscore
+
     if params[:controller].match(/soapbox/)
-      send("topics_soapbox_#{subject.class.name.underscore}_questions_path", options)
+      send("topics_soapbox_#{path_model_name}_questions_path", options)
     else
-      send("topics_#{subject.class.name.underscore}_questions_path", options)
+      send("topics_#{path_model_name}_questions_path", options)
     end
   end
 
@@ -118,10 +126,14 @@ module UsersHelper
     else
       options.merge!({"#{subject.class.name.underscore}_id".to_sym => subject.id})
     end
+
+    path_model_name = (subject.is_a? RestaurantFeaturePage) ?
+                    "restaurant_feature" : subject.class.name.underscore
+
     if params[:controller].match(/soapbox/)
-      send("soapbox_#{subject.class.name.underscore}_questions_path", options)
+      send("soapbox_#{path_model_name}_questions_path", options)
     else
-      send("#{subject.class.name.underscore}_questions_path", options)
+      send("#{path_model_name}_questions_path", options)
     end
   end
 

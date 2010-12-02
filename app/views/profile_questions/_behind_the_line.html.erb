@@ -3,9 +3,7 @@
   <h3 id="btl-title"><span class="btl-art">Behind the Line:</span> <%= btl_title_for(subject) %></h3>
   <% if can_edit_profile_questions(subject) && !params[:controller].match(/soapbox/)%>
     <div class="edit_profile_link">
-      <%= link_to "<span>Answer more questions!</span>",
-              send("topics_#{subject.class.name.underscore}_questions_path",
-                      "#{subject.class.name.underscore}_id".to_sym => subject) %>
+      <%= link_to "<span>Answer more questions!</span>", link_for_topics(:subject => subject) %>
     </div>
   <% end %>
   <ul class="box">

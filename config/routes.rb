@@ -107,7 +107,9 @@ ActionController::Routing::Routes.draw do |map|
     restaurant.resources :employees, :except => [:show]
     restaurant.resources :calendars, :collection => { "ria" => :get }
     restaurant.resources :events, :member => { "ria_details" => :get, "transfer" => :post }
-    restaurant.resources :features, :controller => "restaurant_features"
+    restaurant.resources :features, :controller => "restaurant_features" do |features|
+      features.resources :questions, :collection => { :topics => :get, :chapters => :get, :refresh => :post }
+    end
     restaurant.resources :menus
     restaurant.resources :photos, :collection => { "reorder" => :post }
     restaurant.resource :logo
