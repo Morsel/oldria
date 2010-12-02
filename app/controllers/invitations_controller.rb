@@ -1,6 +1,7 @@
 class InvitationsController < ApplicationController
   before_filter :find_user_from_params, :only => [:show]
-  before_filter :require_no_user, :only => [:new, :create]
+  before_filter :logout_if_requested, :only => [:new]
+  before_filter :require_no_user, :only => [:create]
   
   def new
     if params[:invitation]
@@ -62,6 +63,14 @@ class InvitationsController < ApplicationController
   end
 
   private
+  
+  def logout_if_requested
+    if params[:logout]
+      logout_current_user
+    else
+      require_no_user
+    end
+  end
 
   def logout_current_user
     @current_user_session.destroy if current_user_session

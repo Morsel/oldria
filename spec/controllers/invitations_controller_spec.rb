@@ -3,6 +3,21 @@ require 'spec/spec_helper'
 describe InvitationsController do
   integrate_views
   
+  describe "accessing the new invite form" do
+    
+    it "should redirect the logged in user" do
+      fake_normal_user
+      get :new
+      response.should be_redirect
+    end
+    
+    it "should log out the current user when requested" do
+      fake_normal_user
+      get :new, :logout => "true"
+      response.should render_template('invitations/new')
+    end
+  end
+  
   describe "creating a new invite" do
     
     it "should create an invite from a valid form submit" do
