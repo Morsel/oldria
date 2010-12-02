@@ -3263,31 +3263,126 @@ p.search_filter_hint {
 	}
 } /* end of #my_restaurants -------------------- */
 
-#page_content .edit_restaurant {
-	@include hoeflerbolditalic;
-	position: absolute;
-	top: 20px;
-	right: 10px;
-	font-size: 16px;
-	padding: 5px 20px 5px 30px;
-	float: right;
-	background: $trans-orange url(/images/redesign/rest_edit.png) no-repeat 10px 7px;
-	color: $orange;
-	text-shadow: 0 1px 0 #fff;
-	border: 1px solid $trans-orange;
-	&:hover {
-		background-color: $orange;
-		color: #fff;
-		text-shadow: 0 1px 0 #333;
-		border: 1px solid #c6420e;
-	}
-}
-
 #restaurant_profile_view {
-	
-	
-	
-	
+	a {
+		color: $orange;
+		&:hover {
+			color: $brown;
+		}
+	}
+	header {
+		border-bottom: 1px dotted #ccc;
+		clear: both;
+		img {border: 1px solid #ccc;}
+		#restaurant_actions {
+			width: 200px;
+			float: right;
+			a {
+				@include hoeflerbolditalic;
+				display: block;
+				font-size: 16px;
+				padding: 5px 20px 5px 30px;
+				background-color: $trans-orange;
+				color: $orange;
+				text-shadow: 0 1px 0 #fff;
+				border: 1px solid $trans-orange;
+				margin: 0 0 10px;
+				&.edit_restaurant {
+					background: $trans-orange url(/images/redesign/rest_edit.png) no-repeat 10px 7px;
+					&:hover {
+						background-color: $orange;
+						color: #fff;
+						text-shadow: 0 1px 0 #333;
+						border: 1px solid #c6420e;
+					}
+				}
+				&.start_discussion {
+					background: $trans-orange url(/images/redesign/start_discussion.png) no-repeat 10px 7px;
+					&:hover {
+						background-color: $orange;
+						color: #fff;
+						text-shadow: 0 1px 0 #333;
+						border: 1px solid #c6420e;
+					}
+				}
+			}
+		}
+	}
+	.manager_and_facts {
+		float: left;
+		width: 320px;
+		margin: 0 20px 20px 0;
+	}
+	.account_details {
+		float: left;
+		width: 320px;
+		margin: 0 0 20px;
+	}
+	.list_item {
+		padding: 3px 0;
+	}
+	.rest_staff {
+		clear: both;
+		overflow: hidden;
+		margin: 10px 0;
+		border-top: 1px dotted #ccc;
+		padding: 10px 0;
+		.restaurant_employees {
+			clear: both;
+			.employment {
+				width: 207px;
+				margin: 0 20px 10px 0;
+				padding: 0 0 4px 0;
+				float: left;
+				border-bottom: 1px dotted #ddd;
+				header {
+					border: 0;
+					overflow: hidden;
+					margin: 0 0 5px;
+					padding: 4px 0 0 0;
+					img {
+						@include hiddentext;
+						width: 32px;
+						height: 32px;
+						background-color: #f2f2f2;
+						margin: 0 10px 5px 0;
+					}
+					h3 {
+						margin: 0;
+						line-height: 15px;
+						text-transform: capitalize;
+					}
+					p {
+						margin: 0;
+						padding: 0;
+					}
+				}
+				.employee_section {
+					p {
+						font-size: 11px;
+						color: #333;
+						line-height: 13px;
+						margin: 0 0 5px;
+						padding: 0;
+					}
+					&.emp_actions {
+						a {
+							color: #333;
+							background: transparent url(/images/redesign/icon-arrow.gif) no-repeat 0 4px;
+							padding: 0 0 0 10px;
+							margin: 0 0 4px;
+							display: block;
+							font-size: 11px;
+							&:hover {
+								color: $orange;
+								background: transparent url(/images/redesign/icon-arrow.gif) no-repeat 0 -96px;
+							}
+						}
+					}
+				}
+			}
+		}
+	}
 } /* -- end of #restaurant_profile_view ------------------- */
 
 #restaurant_pages {

@@ -1,5 +1,5 @@
 <% user = employment.employee %>
-<% div_for employment, :class => 'user box clearfix employment_box' do %>
+<% div_for employment, :class => 'user clearfix employment_box' do %>
   <% div_for user do %>
     <%= link_to image_tag(user.avatar.url(:thumb)), profile_path(user.username) %>
     <h3><%= user.name %></h3>

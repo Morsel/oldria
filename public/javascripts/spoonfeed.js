@@ -8,7 +8,7 @@ $('#jumbotron').cycle({
 	pagerBuilder: jumbotronController
 });
 
-$('.hp_promo, .chapter, .topic').equalHeights();
+$('.hp_promo, .chapter, .topic, .rest_staff .employment').equalHeights();
 
 
 // == Inbox for RIA messages
