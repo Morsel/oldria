@@ -1310,6 +1310,45 @@ form#new_user_session {
 	}/* ## END of base styles for the site -- */
 	
 	
+	.edit_profile_link {
+		a {
+			background-image: url(/images/redesign/pencil.png);
+			background-repeat: no-repeat;
+			background-position: 5px 6px;
+			@include brandongrotesquebold;
+			text-shadow: 0 1px 0 #333;
+			font-size: 13px;
+			text-transform: uppercase;
+			display: block;
+			color: #fff;
+			background-color: $orange;
+			padding: 7px 10px 7px 20px;
+			&:hover {
+				background-color: $trans-orange;
+				color: $orange;
+				text-shadow: 0 1px 0 #fff;
+			}
+		}
+	}
+	
+	.view_all {
+		border-top: 1px solid #ddd;
+		padding-top: 4px;
+		text-transform: uppercase;
+		font-family: "Hoefler Text", Georgia, serif;
+		font-weight: bold;
+		font-weight: 700;
+		font-size: 12px;
+		letter-spacing: 0.1em;
+		a {
+			color: #333;
+			&:hover {
+				color: $orange;
+			}
+		}
+	}
+	
+	
 	#qotd_column, #trend_column {
 		float:left;
 		width: 335px;
@@ -2843,40 +2882,6 @@ p.search_filter_hint {
 
 #behindline {
 	@include column(9);
-	.view_all {
-		text-transform: uppercase;
-		font-family: "Hoefler Text", Georgia, serif;
-		font-weight: bold;
-		font-weight: 700;
-		font-size: 12px;
-		letter-spacing: 0.1em;
-		a {
-			color: #333;
-			&:hover {
-				color: $orange;
-			}
-		}
-	}
-	.edit_profile_link {
-		a {
-			background-image: url(/images/redesign/pencil.png);
-			background-repeat: no-repeat;
-			background-position: 5px 6px;
-			@include brandongrotesquebold;
-			text-shadow: 0 1px 0 #333;
-			font-size: 13px;
-			text-transform: uppercase;
-			display: block;
-			color: #fff;
-			background-color: $orange;
-			padding: 7px 10px 7px 20px;
-			&:hover {
-				background-color: $trans-orange;
-				color: $orange;
-				text-shadow: 0 1px 0 #fff;
-			}
-		}
-	}
 	ul{
 		margin:10px 0;
 		padding:0;
@@ -3264,6 +3269,7 @@ p.search_filter_hint {
 } /* end of #my_restaurants -------------------- */
 
 #restaurant_profile_view {
+	overflow: hidden;
 	a {
 		color: $orange;
 		&:hover {
@@ -3383,6 +3389,33 @@ p.search_filter_hint {
 			}
 		}
 	}
+	#a_la_minute {
+		float: left;
+		width: 313px;
+		#alm-title {
+			@include hiddentext;
+			border-bottom: 1px solid #ccc;
+			background: transparent url(/images/redesign/title-alaminute.png) no-repeat;
+			padding-bottom: 5px;
+		}
+		.questions {
+			dl {
+				margin: 10px 0;
+				dt {
+					font-weight: bold;
+					color: #333;
+					margin: 0;
+					padding: 0;
+				}
+				dd {
+					font-weight: normal;
+					color: #666;
+					margin: 0;
+					padding: 0;
+				}
+			}
+		}
+	}
 } /* -- end of #restaurant_profile_view ------------------- */
 
 #restaurant_pages {
@@ -3437,3 +3470,10 @@ p.search_filter_hint {
     @include column(8, true);
   }  
 } /* ## end of #restaurant_pages -------------------- */
+
+
+
+
+
+
+
