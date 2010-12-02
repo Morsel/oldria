@@ -2,6 +2,11 @@ Given /^there is a QOTD asking "([^\"]*)"$/ do |text|
   @qotd = Factory(:qotd, :message => text)
 end
 
+Given /^there is a Trend Question "([^\"]*)"$/ do |text|
+  subject, body = text.split(": ")
+  @trend_question = Factory(:trend_question, :subject => subject, :body => body)
+end
+
 Given /^that QOTD has the following answers:$/ do |table|
   @qotd ||= Admin::Qotd.last
   table.rows_hash.each do |name, response|
@@ -15,6 +20,14 @@ Given /^that QOTD has the following answers:$/ do |table|
     # Add the comment
     conversation.comments.create(:user_id => user.id, :comment => response)
   end
+end
+
+Given /^that QOTD is featured on the soapbox$/ do
+  @soapbox_entry = Factory(:soapbox_entry, :featured_item => @qotd) 
+end
+
+Given /^that Trend Question is featured on the soapbox$/ do
+  @soapbox_entry = Factory(:soapbox_entry, :featured_item => @trend_question) 
 end
 
 When /^I create a new soapbox entry for that QOTD with:$/ do |table|
@@ -32,6 +45,11 @@ When /^I create a new soapbox page with:$/ do |table|
   fill_in_form(table.rows_hash)
   click_button "Save"
 end
+
+When /^I selected corresponding soapbox entry$/ do
+  visit soapbox_soapbox_entry_path(:id => @soapbox_entry.to_param)
+end
+
 
 Then /^there should be (\d+) QOTDs? on the soapbox front burner page$/ do |num|
   visit url_for(:controller => "soapbox_entries", :action => "index")

@@ -19,7 +19,8 @@ tmp/webrat-*
 .rvmrc
 .project
 default.gems
-
+*.swp
+*.swo
 public/soapbox/_css/*
 public/hq/_css/*
 public/redesign/_css/*
