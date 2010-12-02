@@ -10,11 +10,11 @@
 
 <% if can_edit_profile_questions(@subject) && !params[:controller].match(/soapbox/) %><%# let's edit these answers %>
 
-  <% form_tag send("#{@subject.class.name.underscore}_profile_answers_path") do %>
+  <% form_tag link_for_profile_answers(:subject => @subject) do %>
     <% @questions.each do |question| %>
       <% div_for question do %>
           <h4>Q: <%= question.title %></h4>
-          <%= render :partial => "profile_answers/form", :locals => { :answer => question.find_or_build_answer_for(@subject) } %>
+          <%= render :partial => "profile_answers/form", :locals => { :answer => find_answer_for(question, @subject) } %>
       <% end %>
     <% end %>
   <% end %><%# end form %>
