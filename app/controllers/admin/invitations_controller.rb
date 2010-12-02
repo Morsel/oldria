@@ -38,6 +38,13 @@ class Admin::InvitationsController < Admin::AdminController
       redirect_to :action => "index"
     end
   end
+  
+  def resend
+    invitation = Invitation.find(params[:id])
+    invitation.invitee.deliver_invitation_message!
+    flash[:notice] = "We sent a new acceptance email to #{invitation.name}"
+    redirect_to :action => "index", :archived => true
+  end
 
   def archive
     @invitation.update_attribute(:archived, true)

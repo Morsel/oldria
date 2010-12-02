@@ -1,6 +1,7 @@
 class InvitationsController < ApplicationController
   before_filter :find_user_from_params, :only => [:show]
   before_filter :require_no_user, :only => [:create]
+  before_filter :require_user, :only => [:recommend, :submit_recommendation]
   
   def new
     logout_current_user

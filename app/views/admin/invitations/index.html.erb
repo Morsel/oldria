@@ -22,6 +22,7 @@
     	  t.cell(:approved) { |c| c.approved_at.try(:strftime, "%m/%d/%y") }
     	  t.cell(:logged_in) { |c| c.invitee.try(:last_request_at).try(:strftime, "%m/%d/%y") }
     	  t.cell(:invitee) { |c| link_to c.name, profile_path(c.username) }
+    	  t.cell(:resend_email) { |c| link_to "Resend", resend_admin_invitation_path(c) }
 	    end
     end %>
 <% end %>

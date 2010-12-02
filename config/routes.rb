@@ -197,7 +197,7 @@ ActionController::Routing::Routes.draw do |map|
     admin.resources :question_roles
     admin.resources :schools
     admin.resources :specialties, :collection => { :sort => :post }
-    admin.resources :invitations, :member => { :accept => :get, :archive => :get }
+    admin.resources :invitations, :member => { :accept => :get, :archive => :get, :resend => :get }
     admin.resources :a_la_minute_questions, :member => {:edit_in_place => :post}
     admin.resources :restaurant_features, :only => [:index, :create, :destroy],
         :collection => {:edit_in_place => :post}
