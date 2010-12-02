@@ -14,5 +14,12 @@ Feature: Soapbox
     When I create a new soapbox entry for that QOTD with:
       | Published at | 2010-05-10 |
     Then there should be 1 QOTD on the soapbox front burner page
+    
+  Scenario: Viewing the addThis button
+    Given the following published users:
+    | username    | password |
+    | punkrock    | secret   |
+    And I am on the profile page for "punkrock"
+    Then I should see addThis button
 
 
