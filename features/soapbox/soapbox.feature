@@ -14,7 +14,17 @@ Feature: Soapbox
     When I create a new soapbox entry for that QOTD with:
       | Published at | 2010-05-10 |
     Then there should be 1 QOTD on the soapbox front burner page
-    
+
+  Scenario: Featuring links to other questions on the question page within the soapbox front burner
+    Given there is a QOTD asking "Where do you buy flowers"
+    And that QOTD is featured on the soapbox
+    And there is a Trend Question "What is the haps?: Boo-ya"
+    And that Trend Question is featured on the soapbox
+    When I selected corresponding soapbox entry
+    Then I should see "Trend Questions" within "aside"
+    And I should see "Questions of the Day" within "aside"
+    And I should see "All Questions" within "aside"
+
   Scenario: Viewing the addThis button
     Given the following published users:
     | username    | password |
@@ -33,4 +43,8 @@ Feature: Soapbox
     And that Trend Question is featured on the soapbox
     When I selected corresponding soapbox entry
     Then I should see "What is the haps?: Boo-ya - Soapbox Trend" within "title"
+
+
+
+
 
