@@ -5,15 +5,11 @@ describe InvitationsController do
   
   describe "accessing the new invite form" do
     
-    it "should redirect the logged in user" do
-      fake_normal_user
+    it "should log out the current user" do
+      activate_authlogic
+      UserSession.create(Factory(:user))
+      UserSession.any_instance.expects(:destroy)
       get :new
-      response.should be_redirect
-    end
-    
-    it "should log out the current user when requested" do
-      fake_normal_user
-      get :new, :logout => "true"
       response.should render_template('invitations/new')
     end
   end

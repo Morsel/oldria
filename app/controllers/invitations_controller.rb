@@ -1,16 +1,10 @@
 class InvitationsController < ApplicationController
   before_filter :find_user_from_params, :only => [:show]
-  before_filter :logout_if_requested, :only => [:new]
   before_filter :require_no_user, :only => [:create]
   
   def new
-    if params[:invitation]
-      @invitation = current_user ? 
-        Invitation.new(params[:invitation].merge(:requesting_user_id => current_user.id)) : 
-        Invitation.new(params[:invitation])
-    else
-      @invitation = current_user ? Invitation.new(:requesting_user_id => current_user.id) : Invitation.new
-    end
+    logout_current_user
+    @invitation = Invitation.new
   end
   
   def create
@@ -64,14 +58,6 @@ class InvitationsController < ApplicationController
 
   private
   
-  def logout_if_requested
-    if params[:logout]
-      logout_current_user
-    else
-      require_no_user
-    end
-  end
-
   def logout_current_user
     @current_user_session.destroy if current_user_session
   end

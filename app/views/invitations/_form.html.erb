@@ -15,7 +15,4 @@
                 :label => "I am comfortable answering questions and speaking to the media about the following topics:" %>
         <% end %>
         
-        <% if @invitation.new_record? %>
-          <%= f.input :requesting_user_id, :as => "hidden" %>
-        <% end %>
     <% end %>
