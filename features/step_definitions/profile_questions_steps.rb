@@ -29,3 +29,13 @@ Given /^several profile questions matching employment roles for "([^\"]*)"$/ do 
   Factory(:profile_question, :title => "Title 3", :restaurant_roles => [role], 
       :chapter => Factory(:chapter, :title => "Free Time"))
 end
+
+Given /^profile question matching employment role with static topic name for "([^\"]*)"$/ do |username|
+  user = User.find_by_username(username)
+  role = Factory(:restaurant_role)
+  topic = Factory(:topic, :title => "SeoTopic")
+  Factory(:employment, :employee => user, :primary => true, :restaurant_role => role)
+  Factory(:profile_question, :title => "QTitle 1", :restaurant_roles => [role], 
+          :chapter => Factory(:chapter, :title => "Education", :topic => topic))
+end
+

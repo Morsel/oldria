@@ -5,8 +5,8 @@ Feature: Profile - Behind the Line (aka Q&A)
   
   Background:
   Given the following confirmed users:
-    | username    | password |
-    | punkrock    | secret   |
+    | username    | password | first_name | last_name |
+    | punkrock    | secret   | John       | Smith     |
   And several profile questions matching employment roles for "punkrock"
   And I am logged in as "punkrock"
   
@@ -36,3 +36,22 @@ Feature: Profile - Behind the Line (aka Q&A)
     And I fill in "profile_answer_answer" with "A great answer for this"
     And I press "Post"
     Then I should see "Your answers have been saved"
+
+  Scenario: Should contain topic name and chief name in title
+    Given I am on the profile page for "punkrock"
+    And profile question matching employment role with static topic name for "punkrock"
+    When I follow "View all Topics" within "#behindline"
+    When I follow "SeoTopic"
+    And I should see "SeoTopic - John Smith" within "title"
+
+  Scenario: Question page should contain question name in title
+    Given I am on the question page with title "Title 1"
+    And I should see "Title 1 - Behind The Line" within "title"
+
+  Scenario: Chapter questions page should contain chapter title and chief name in title
+    Given I am on the profile page for "punkrock"
+    When I follow "View all Topics" within "#behindline"
+    And I follow "View all"
+    And I follow "Education"
+    Then I should see "Education - John Smith - Behind The Line" within "title"
+    
