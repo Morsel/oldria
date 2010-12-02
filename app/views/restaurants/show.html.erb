@@ -1,105 +1,90 @@
-<% title @restaurant.name -%>
 <% if can? :edit, @restaurant %>
-  <p class="clearfix">
-    <%= link_to 'Edit restaurant', edit_restaurant_path(@restaurant),
-        :class=>'sf-button' %>
-  </p>
+	<%= link_to 'Edit Restaurant', edit_restaurant_path(@restaurant), :class=>'edit_restaurant' %>
 <% end -%>
 
 <div id="restaurant_profile_view" class="box clear clearfix">
-  <div class="name_and_pic clearfix span-7">
+  <header>
     <%= image_tag 'avatar_restaurant.gif', :width=>'100' %>
-    <div class="user_info">
-      <h2 class="function-bold" id="name">
-        <%= @restaurant.name %>
-      </h2>
+    <h1><%= @restaurant.name %></h1>
+		<% div_if @restaurant.premium_account?, :class => "premium" do %>
+			<p>Account Type: Premium</p>
+		<% end %>
+    <address><%= @restaurant.address_parts.join("<br />") %></address>
+	</header>
+	
+	<div>
+		Metropolitan Area:
+		<span><%=h @restaurant.metropolitan_area.try(:name) %></span>
+	</div>
 
-      <% div_if @restaurant.premium_account?, :class => "premium" do %>
-        Account Type: Premium
-      <% end %>
-      <div id="address"><%= @restaurant.address_parts.join("<br />") %></div>
+	<div>
+		Region:
+		<span><%=h @restaurant.james_beard_region.try(:name) %></span>
+	</div>
+</div>
 
-      <div>
-        Metropolitan Area:
-        <span><%=h @restaurant.metropolitan_area.try(:name) %></span>
-      </div>
+<div class="manager_and_facts">
+	
+	<% div_if @restaurant.manager, :id => "manager" do %>
+		Manager: <span><%= link_to h(@restaurant.manager.name), profile_path(:username => @restaurant.manager.username) %></span>
+	<% end %>
 
-      <div>
-        Region:
-        <span><%=h @restaurant.james_beard_region.try(:name) %></span>
-      </div>
-    </div>
-  </div><!-- .name_and_pic -->
+	<% div_if @restaurant.media_contact, :id => "media_contact" do %>
+		Media Contact: <span><%= link_to h(@restaurant.media_contact.name), profile_path(:username => @restaurant.media_contact.username) %></span>
+	<% end %>
 
-  <div class="manager_and_facts span-4 last">
-    <% div_if @restaurant.manager, :id => "manager" do %>
-      Manager:
-      <span>
-        <%= link_to h(@restaurant.manager.name), profile_path(:username => @restaurant.manager.username) %>
-      </span>
-    <% end %>
+	<div>
+		Cuisine: <span><%=h @restaurant.cuisine.try(:name) %></span>
+	</div>
+	<% div_if(@restaurant.opening_date) do %>
+  	Opening Date: <span id="opening_date"><%= @restaurant.opening_date.to_s(:long) %></span>
+  <% end %>
 
-    <% div_if @restaurant.media_contact, :id => "media_contact" do %>
-      Media Contact:
-      <span>
-        <%= link_to h(@restaurant.media_contact.name),
-            profile_path(:username => @restaurant.media_contact.username) %>
-      </span>
-    <% end %>
+</div><!-- .manager_and_facts -->
 
-    <div>Cuisine: <span><%=h @restaurant.cuisine.try(:name) %></span></div>
 
-    <% div_if(@restaurant.opening_date) do %>
-      Opening Date: <span id="opening_date"><%= @restaurant.opening_date.to_s(:long) %></span>
-    <% end %>
 
-  </div><!-- .manager_and_facts -->
+<div class="account_details">
+	<% div_if(@restaurant.description, :class=> "function-bold", :id => "description") do %>
+		Description: <%= @restaurant.description %>
+	<% end %>
 
-  <hr clear="all" />
+	<div id="account_status">
+		Account Status: <%= @restaurant.account_type %>
+	</div>
 
-  <div class="span-11 last">
-    <% div_if(@restaurant.description, :class=> "function-bold", :id => "description") do %>
-      Description: <%= @restaurant.description %>
-    <% end %>
+	<div>
+		Phone Number: <span id="phone_number"><%=h @restaurant.phone_number %></span>
+	</div>
 
-    <div id="account_status">
-      Account Status: <%= @restaurant.account_type %>
-    </div>
+	<% div_if(@restaurant.website.present?, :id => "website") do %>
+		Website: <%= link_to h(@restaurant.website), @restaurant.website%>
+	<% end %>
 
-    <div>
-      Phone Number: <span id="phone_number"><%=h @restaurant.phone_number %></span>
-    </div>
+	<% div_if(@restaurant.twitter_username.present?, :id => "twitter_username") do %>
+		Twitter: <%= link_to h(@restaurant.twitter_username), "http://twitter.com/#{@restaurant.twitter_username}"%>
+  <% end %>
 
-    <% div_if(@restaurant.website.present?, :id => "website") do %>
-       Website: <%= link_to h(@restaurant.website), @restaurant.website%>
-    <% end %>
+  <% div_if(@restaurant.facebook_page.present?, :id => "facebook_page") do %>
+		Facebook Page: <%= link_to h(@restaurant.facebook_page), @restaurant.facebook_page%>
+	<% end %>
 
-    <% div_if(@restaurant.twitter_username.present?, :id => "twitter_username") do %>
-      Twitter: <%= link_to h(@restaurant.twitter_username),
-          "http://twitter.com/#{@restaurant.twitter_username}"%>
-    <% end %>
+	<div id="hours">
+		Hours: <%= h @restaurant.hours %>
+	</div>
 
-    <% div_if(@restaurant.facebook_page.present?, :id => "facebook_page") do %>
-      Facebook Page: <%= link_to h(@restaurant.facebook_page), @restaurant.facebook_page%>
-    <% end %>
-
-    <div id="hours">
-      Hours: <%= h @restaurant.hours %>
-    </div>
-
-    <% div_if(@restaurant.management_company_name.present?, :id => "management_company") do %>
-      Management Company:
-      <% if @restaurant.management_company_website.present? %>
-        <%= link_to h(@restaurant.management_company_name),
-            @restaurant.management_company_website %>
-      <% else %>em
+	<% div_if(@restaurant.management_company_name.present?, :id => "management_company") do %>
+		Management Company:
+		<% if @restaurant.management_company_website.present? %>
+			<%= link_to h(@restaurant.management_company_name), @restaurant.management_company_website %>
+      <% else %>
         <%= h(@restaurant.management_company_name) %>
       <% end %>
     <% end %>
   </div>
-</div>
+</div><!-- .account_details -->
 
-<h3 class="function-bold">Restaurant Staff</h3>
+<h3>Restaurant Staff</h3>
 
 <div class="discussion_actions">
   <p class="new_discussion">
