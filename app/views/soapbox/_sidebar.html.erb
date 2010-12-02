@@ -14,6 +14,11 @@
       <%= render :partial => 'soapbox/sidebar_item', :collection => @qotds %>
     </ol><!-- /activity-feed -->
     <div id="feed-bottom"></div>
+    <footer>
+      <nav id="activity-chooser">
+        <span><a href="#">View all</a></span>
+      </nav>
+    </footer>
   </aside><!-- /recent-activity -->
   <nav id="participate">
     <%= link_to "Login to participate", login_path, :class => "button", :id => "login-participate" %>
