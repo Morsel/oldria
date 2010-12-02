@@ -5,7 +5,7 @@ ActionController::Routing::Routes.draw do |map|
   map.fb_login 'facebook_login', :controller => 'user_sessions', :action => 'create_from_facebook'
   map.social_media 'social_media', :controller => 'social_media', :action => 'index'
   map.my_restaurants 'my_restaurants', :controller => 'restaurants', :action => 'mine'
-  
+
   map.resources :invitations, :only => ['new', 'create', 'show']
   map.resource :complete_registration, :only => [:show, :update],
     :collection => { :user_details => :get, :find_restaurant => :any, :contact_restaurant => :post }
@@ -20,7 +20,7 @@ ActionController::Routing::Routes.draw do |map|
     end
     soapbox.resources :restaurant_features, :only => ["show"]
     soapbox.resources :a_la_minute_questions, :only => ['index', 'show']
-    soapbox.resources :soapbox_entries, :only => ['index','show'], :as => "front_burner"
+    soapbox.resources :soapbox_entries, :only => ['index','all','show'], :as => "front_burner", :collection => { :all => :get }
     soapbox.resources :users do |users|
       users.resources :questions, :collection => { :topics => :get, :chapters => :get }
     end
@@ -28,8 +28,8 @@ ActionController::Routing::Routes.draw do |map|
     soapbox.connect 'directory_search', :controller => 'soapbox', :action => 'directory_search'
     soapbox.root :controller => 'soapbox', :action => 'index'
   end
-  
-  
+
+
 
   map.soapbox_profile 'soapbox/profile/:username', :controller => 'soapbox/profiles', :action => 'show',
       :requirements => { :username => /[a-zA-Z0-9\-\_ ]+/}
@@ -39,11 +39,11 @@ ActionController::Routing::Routes.draw do |map|
   map.with_options :conditions => { :subdomain => 'soapbox' }, :controller => 'soapbox/soapbox' do |soapbox|
     soapbox.root :action => 'index'
   end
-  
+
   map.namespace(:hq) do |hq|
     hq.root :controller => 'hq', :action => 'index'
   end
-  
+
   map.with_options :conditions => { :subdomain => 'hq' }, :controller => 'hq/hq' do |hq|
     hq.root :action => 'index'
   end
@@ -207,7 +207,7 @@ ActionController::Routing::Routes.draw do |map|
         :collection => {:edit_in_place => :post}
     admin.resources :sf_slides, :collection => { :sort => :post }
     admin.resources :sf_promos, :collection => { :sort => :post }
-    
+
     admin.resources :hq_slides, :collection => { :sort => :post }
     admin.resources :hq_promos, :collection => { :sort => :post }
 
