@@ -1,10 +1,10 @@
 class InvitationsController < ApplicationController
-  before_filter :find_user_from_params, :only => [:show]
-  before_filter :require_no_user, :only => [:create]
   before_filter :require_user, :only => [:recommend, :submit_recommendation]
+  before_filter :logout_current_user, :only => [:new, :show]
+  before_filter :require_no_user, :only => [:create]
+  before_filter :find_user_from_params, :only => [:show]
   
   def new
-    logout_current_user
     @invitation = Invitation.new
   end
   
@@ -22,7 +22,6 @@ class InvitationsController < ApplicationController
 
   def show
     if @user
-      logout_current_user
       @user.confirm! unless @user.confirmed?
       UserSession.create(@user)
       flash[:notice] = "Successfully logged in. Please take a moment and update your account information."
@@ -60,7 +59,8 @@ class InvitationsController < ApplicationController
   private
   
   def logout_current_user
-    @current_user_session.destroy if current_user_session
+    session = UserSession.find
+    session.destroy
   end
 
   def find_user_from_params
