@@ -1,4 +1,4 @@
-<% title "Behind the Line", false %>
+<% title "#{@chapter.title} - #{@user.name} - Behind The Line", false %>
 <h1 id="btl-title" class="btl"><span class="btl-art">Behind the Line:</span> <span class="name"><%= @user.name %></span></h1>
 <h2 id="topic_title">Topic: <%= @chapter.topic.title %></h2>
 <%= render :partial => 'questions/topic_nav', :locals => { :next_topic => @next_topic, :prev_topic => @previous_topic } %>
