@@ -22,4 +22,15 @@ Feature: Soapbox
     And I am on the profile page for "punkrock"
     Then I should see addThis button
 
+  Scenario: Viewing a QOTD soapbox entry title
+    Given there is a QOTD asking "Where do you buy flowers"
+    And that QOTD is featured on the soapbox
+    When I selected corresponding soapbox entry
+    Then I should see "Where do you buy flowers - Soapbox Question of the Day" within "title"
+
+  Scenario: Viewing a Trend Question soapbox entry title
+    Given there is a Trend Question "What is the haps?: Boo-ya"
+    And that Trend Question is featured on the soapbox
+    When I selected corresponding soapbox entry
+    Then I should see "What is the haps?: Boo-ya - Soapbox Trend" within "title"
 
