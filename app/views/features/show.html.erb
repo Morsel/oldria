@@ -1,0 +1,6 @@
+<% title "Restaurants with the feature: #{@feature.name}" %>
+<ul>
+  <% @feature.restaurants.each do |restaurant| -%>
+    <li><%= link_to restaurant.name, restaurant %></li>
+  <% end -%>
+</ul>
