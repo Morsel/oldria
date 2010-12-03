@@ -2752,7 +2752,7 @@ p.search_filter_hint {
 	padding:5px 10px 5px 20px;
 	@include border-radius(80px);
 	background:#f0ede0 url(/images/redesign/icon-16-plus.png) no-repeat 3px 5px;
-	color:#333;
+	color:$brown;
 	@include transition;
 	img{
 		margin:5px 0 0;
@@ -3427,6 +3427,59 @@ p.search_filter_hint {
 			color: rgba(255,255,255,.8);
 		}
 	}
+	.accolades {
+		h2 {
+			font-family: 'Hoefler Text', Georgia, Times, serif;
+			font-size: 14px;
+			font-weight: bold;
+			color: #333;
+			padding: 0;
+			margin-bottom: 5px;
+		}
+		ul#accolades {
+			margin: 0;
+			padding: 0;
+			li {
+				float: left;
+				width: 300px;
+				padding: 10px;
+				border: 1px solid #ddd;
+				background: none;
+				margin: 0 15px 10px 0;
+				.extended-title {
+					display:  block;
+					font-size: 13px;
+					margin: 2px 0;
+					font-weight: bold;
+				}	
+			}
+		}
+	}
+	.colorbox {
+		margin: 3px 3px 3px 0;
+		background: #eae6d5 url(/images/redesign/icon-16-pencil.png) no-repeat 3px 1px;
+		display: inline-block;
+		padding: 1px 5px 1px 18px;
+		color: $brown;
+		&:hover {
+			background-color: $brown;
+			color: #fff;
+			text-shadow: 0 1px 0 #333;
+			text-decoration: none;
+		}
+	}
+	.delete {
+		margin: 3px 3px 3px 0;
+		background: $trans-orange url(/images/redesign/icon-16-delete.png) no-repeat 3px 1px;
+		display: inline-block;
+		padding: 1px 5px 1px 18px;
+		&:hover {
+			background-color: $orange;
+			color: #fff;
+			text-shadow: 0 1px 0 #333;
+			text-decoration: none;
+		}
+	}
 	#restaurant_opening_date_input fieldset {
 		legend {
 			font-family: 'helvetica neue', helvetica, arial, sans-serif;
@@ -3441,7 +3494,7 @@ p.search_filter_hint {
 			line-height: 12px;
 		}
 	}
-}
+} /* ----- #editing_restaurant --------------------- */
 		
 
 #restaurant_profile_view {
