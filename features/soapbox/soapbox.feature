@@ -43,6 +43,14 @@ Feature: Soapbox
     And that Trend Question is featured on the soapbox
     When I selected corresponding soapbox entry
     Then I should see "What is the haps?: Boo-ya - Soapbox Trend" within "title"
+    
+  Scenario: Viewing the addThis button on front_burner page
+    Given there is a QOTD asking "Where do you buy flowers"
+    And that QOTD is featured on the soapbox
+    And there is a Trend Question "What is the haps?: Boo-ya"
+    And that Trend Question is featured on the soapbox
+    When Visit to front_burner
+    Then I should see two addThis buttons
 
 
 
