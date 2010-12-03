@@ -27,7 +27,7 @@ class BraintreeConnector
   def self.braintree_prefix
     prefixes = []
     prefixes << Rails.env unless Rails.env.production?
-    prefixes << Rails.root.to_s.split("/")[4] if Rails.env.staging?
+    # prefixes << Rails.root.to_s.split("/")[4] if Rails.env.staging?
     prefixes.join "_"
   end
 
