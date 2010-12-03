@@ -4,8 +4,8 @@
         <%= f.input :email %>
         
         <% f.inputs :name => "Work details" do %>
-            <%= f.input :restaurant_name, :label => "Name of the restaurant(s) where you work:", :hint => 'Type "none" if currently between jobs' %>
-            <%= f.input :restaurant_role, :label => "Role", :as => :select, :collection => RestaurantRole.all, :hint => "Select the role that best describes you" %>
+            <%= f.input :restaurant_name, :label => "Name of the restaurant(s) where you work:", :hint => 'Enter your restaurant name or your employment status e.g., student, between jobs, retired, time off' %>
+            <%= f.input :restaurant_role, :label => "Role", :as => :select, :collection => RestaurantRole.all, :hint => 'You role helps the media find you when they are looking for sources for stories.  If you are "chef/owner" select that and not "owner": you will receive more opportunities!' %>
 
             <h4>Area(s) of expertise</h4>
             <%= f.input :subject_matters,
