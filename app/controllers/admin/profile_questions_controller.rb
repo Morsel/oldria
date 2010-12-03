@@ -21,6 +21,7 @@ class Admin::ProfileQuestionsController < Admin::AdminController
       redirect_to :action => "index"
     else
       @roles = RestaurantRole.all.group_by(&:category)
+      @topics = Topic.all(:conditions => { :responder_type => params[:responder_type] })
       render :action => "new"
     end
   end
@@ -38,6 +39,7 @@ class Admin::ProfileQuestionsController < Admin::AdminController
       redirect_to :action => "index"
     else
       @roles = RestaurantRole.all.group_by(&:category)
+      @topics = Topic.all(:conditions => { :responder_type => params[:responder_type] })
       render :action => "edit"
     end
   end

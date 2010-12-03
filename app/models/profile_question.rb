@@ -21,6 +21,8 @@ class ProfileQuestion < ActiveRecord::Base
   validates_presence_of :title, :chapter_id
   validates_uniqueness_of :title, :scope => :chapter_id, :case_sensitive => false
 
+  attr_accessor :responder_type
+
   named_scope :for_subject, lambda { |subject|
     if subject.is_a? User
       { :joins => :question_roles,
@@ -87,7 +89,6 @@ class ProfileQuestion < ActiveRecord::Base
 
   def responders=(responder_ids)
     responder_ids = responder_ids.select { |id| id.present? }
-    responder_type = self.topic.responder_type
     responders = if responder_type == 'restaurant'
       RestaurantFeaturePage.find(responder_ids.compact)
     else
