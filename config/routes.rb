@@ -5,7 +5,8 @@ ActionController::Routing::Routes.draw do |map|
   map.fb_login 'facebook_login', :controller => 'user_sessions', :action => 'create_from_facebook'
   map.social_media 'social_media', :controller => 'social_media', :action => 'index'
   map.my_restaurants 'my_restaurants', :controller => 'restaurants', :action => 'mine'
-
+  map.feature '/features/:id', :controller => 'features', :action => 'show'
+  
   map.resources :invitations, :only => ['new', 'create', 'show']
   map.resource :complete_registration, :only => [:show, :update],
     :collection => { :user_details => :get, :find_restaurant => :any, :contact_restaurant => :post }
@@ -97,7 +98,8 @@ ActionController::Routing::Routes.draw do |map|
   end
 
   # map.resources :subscriptions, :collection => { :bt_callback => :get }
-
+  
+  
   map.resources :restaurants,
                 :member => {
                         :edit_logo => :get,

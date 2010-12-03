@@ -1,1 +1,16 @@
-<% title "#{@restaurant.name}'s Features in #{@page.name}" %>
+<% title "#{@page.name} details for #{@restaurant.name}" %>
+
+<div id="restaurant_profile_view" class="clear clearfix">
+  <%= render 'restaurants/restaurant_header' %>
+  <% @restaurant.categories_for_page(@page).each do |category| %>
+    <% div_for category do -%>
+      <h2><%= category.name %></h2>
+      <ul>
+        <% @restaurant.features_for_category(category).each do |feature| %>
+          <li><%= link_to h(feature.value), feature_path(feature) %></li>
+        <% end -%>
+      </ul>
+    <% end -%>
+  <% end %>
+
+</div>
