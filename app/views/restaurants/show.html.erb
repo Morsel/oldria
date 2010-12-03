@@ -50,6 +50,13 @@
 		<% div_if(@restaurant.opening_date, :class => "list_item") do %>
 	  	Opening Date: <span id="opening_date"><%= @restaurant.opening_date.to_s(:long) %></span>
 	  <% end %>
+	  
+	  <% div_if(@restaurant.menus.any?, :class => "list_item", :id => "menus") do %>
+			Menus:
+			<ul>
+			  <%= render @restaurant.menus %>
+			</ul>
+		<% end %>
 	
 	</div><!-- .manager_and_facts -->
 
@@ -80,7 +87,6 @@
 		<div id="hours" class="list_item">
 			Hours: <%= h @restaurant.hours %>
 		</div>
-
 		
 	</div><!-- .account_details -->
 
