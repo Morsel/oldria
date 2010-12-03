@@ -21,6 +21,7 @@ end
 When /^I create a holiday with name "([^\"]*)" and criteria:$/ do |name, table|
   visit new_admin_holiday_path
   fill_in :name, :with => name
+  fill_in "holiday_date_1i", :with => Date.today
   table.rows_hash.each do |field, value|
     check value
   end
