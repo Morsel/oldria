@@ -12,12 +12,14 @@ class ProfileAnswersController < ApplicationController
       format.html do
         # the regular form submits a hash of question ids with their answers
         if params[:profile_question]
-          params[:profile_question].each do |id, answer|
+          params[:profile_question].each do |id, answer_params|
             @question = ProfileQuestion.find(id)
             answer = @question.find_or_build_answer_for(@responder)
-            answer.answer = answer[:answer]
+            answer.answer = answer_params[:answer]
             answer.responder = @responder
-            answer.save # if it doesn't save, the answer was blank, and we can ignore it
+            unless answer.save # if it doesn't save, the answer was blank, and we can ignore it
+              Rails.logger.error answer.error_messages
+            end
           end
         end
 

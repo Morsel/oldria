@@ -20,7 +20,7 @@ tmp/webrat-*
 .project
 default.gems
 TAGS
-config/rvm_passenger_load_paths.rb
+config/setup_load_paths.rb
 
 public/soapbox/_css/*
 public/hq/_css/*
