@@ -1425,7 +1425,7 @@ p.search_filter_hint {
 	}
 }
 
-#trend-comments, #qotd-comments, #recent-questions{
+#trend-comments, #qotd-comments, #recent-questions, #all-questions{
 	a.button{
 		font-size:15px;
 		font-weight:bold;
@@ -1443,7 +1443,7 @@ p.search_filter_hint {
 		}
 	}
 }
-#recent-questions #recent-qotds{
+#recent-questions #recent-qotds #all-questions{
 	a.button{
 		background:$purple;
 		&:hover{
@@ -1460,8 +1460,8 @@ p.search_filter_hint {
 		}
 	}
 }
-
-#recent-questions{
+ 
+#recent-questions, #all-questions{
 	overflow:hidden;
 	margin:0 -10px;
 	div{
@@ -1554,6 +1554,15 @@ p.search_filter_hint {
 		}
 	}
 } /*#recent-questions^^ */
+
+#all-questions{
+	div{
+		@include column(24);
+		ul li a span.title {
+		      width: 838px;
+		}
+	}
+}
 
 
 #profile-account, #profile-summary {
