@@ -27,6 +27,11 @@ class Admin::InvitationsController < Admin::AdminController
   end
   
   def accept
+    if @invitation.invitee.present?
+      flash[:error] = "This invitation has already been accepted"
+      redirect_to :action => "index", :archived => "true" and return
+    end
+    
     token = Authlogic::Random.friendly_token
     @user = User.new(:first_name => @invitation.first_name, :last_name => @invitation.last_name, 
         :username => @invitation.username, :password => token, :password_confirmation => token, :email => @invitation.email, 
