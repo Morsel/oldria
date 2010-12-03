@@ -14,5 +14,31 @@ Feature: Soapbox
     When I create a new soapbox entry for that QOTD with:
       | Published at | 2010-05-10 |
     Then there should be 1 QOTD on the soapbox front burner page
+    
+  Scenario: Viewing the addThis button
+    Given the following published users:
+    | username    | password |
+    | punkrock    | secret   |
+    And I am on the profile page for "punkrock"
+    Then I should see addThis button
 
+  Scenario: Viewing a QOTD soapbox entry title
+    Given there is a QOTD asking "Where do you buy flowers"
+    And that QOTD is featured on the soapbox
+    When I selected corresponding soapbox entry
+    Then I should see "Where do you buy flowers - Soapbox Question of the Day" within "title"
+
+  Scenario: Viewing a Trend Question soapbox entry title
+    Given there is a Trend Question "What is the haps?: Boo-ya"
+    And that Trend Question is featured on the soapbox
+    When I selected corresponding soapbox entry
+    Then I should see "What is the haps?: Boo-ya - Soapbox Trend" within "title"
+    
+  Scenario: Viewing the addThis button on front_burner page
+    Given there is a QOTD asking "Where do you buy flowers"
+    And that QOTD is featured on the soapbox
+    And there is a Trend Question "What is the haps?: Boo-ya"
+    And that Trend Question is featured on the soapbox
+    When Visit to front_burner
+    Then I should see two addThis buttons
 

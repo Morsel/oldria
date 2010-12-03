@@ -8,6 +8,15 @@
     <h3><%= @chapter.title %></h3>
   </div>
 
+  <div id="trend-article">
+    <!-- AddThis Button BEGIN --> 
+    <div class="addthis_toolbox"> 
+      <a href="http://www.addthis.com/bookmark.php?v=250&username=unpluggedria" class="addthis_button">Share</a> 
+    </div> 
+    <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#username=unpluggedria"></script> 
+    <!-- AddThis Button END -->
+  </div>
+
   <% if @user == current_user %><%# let's edit these answers %>
 
   <% form_tag profile_answers_path do %>
