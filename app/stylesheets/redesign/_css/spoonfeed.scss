@@ -1698,30 +1698,30 @@ form#new_user_session {
 			background: none;
 		}
 		table{
-					table-layout:fixed;
-					width:314px;
-					margin:0 0 15px;
-					tr{
-						td{
-							a{
-								display:block;
-								padding:5px;
-							}
-						}
-						&:hover{
-							td{
-								background:rgba(216,83,30,0.08);
-							}
-						}
-						td.topic_completeness{
-							padding:5px;
-							text-align:right;
-							color:#979797;
-							text-transform:uppercase;
-							font:normal 10px "Lucida Grande", Arial, sans-serif;
-						}
+			table-layout:fixed;
+			width:314px;
+			margin:0 0 15px;
+			tr{
+				td{
+					a{
+						display:block;
+						padding:5px;
 					}
 				}
+				&:hover{
+					td{
+						background:rgba(216,83,30,0.08);
+					}
+				}
+				td.topic_completeness{
+					padding:5px;
+					text-align:right;
+					color:#979797;
+					text-transform:uppercase;
+					font:normal 10px "Lucida Grande", Arial, sans-serif;
+				}
+			}
+		}
 	} 
 	.topic {
 		h3{
@@ -1817,7 +1817,31 @@ form#new_user_session {
 			}
 		}
 	}
-
+	table{
+		table-layout:fixed;
+		width:314px;
+		margin:0 0 15px;
+		tr{
+			td{
+				a{
+					display:block;
+					padding:5px;
+				}
+			}
+			&:hover{
+				td{
+					background:rgba(216,83,30,0.08);
+				}
+			}
+			td.topic_completeness{
+				padding:5px;
+				text-align:right;
+				color:#979797;
+				text-transform:uppercase;
+				font:normal 10px "Lucida Grande", Arial, sans-serif;
+			}
+		}
+	}
 } /* ## end of page_content --------------------- */
 
 #profile-tabs {
@@ -1830,6 +1854,15 @@ form#new_user_session {
 			letter-spacing: 0.2em;
 			text-transform: uppercase;
 		}
+	}
+}
+
+table#menus {
+	background-color: #f4f4f4;
+	width: 500px;
+	td {
+		width: 25%;
+		border-bottom: 1px solid #eaeaea;
 	}
 }
 
@@ -3359,35 +3392,43 @@ p.search_filter_hint {
 	.edit_block {
 		border-bottom: 1px dotted #ccc;
 	}
+	ol li {
+		label {
+			font-weight: normal;
+		}
+		input {
+			margin: 3px 0 12px;
+			@include box-shadow(#eaeaea, 0px, 1px, 1px);
+		}
+		select {
+			display: block;
+			margin: 3px 0 12px;
+		}
+		textarea {
+			width: 350px;
+			height: 75px;
+			border: 1px solid #ccc;
+			@include box-shadow(#eaeaea, 0px, 1px, 1px);
+			margin: 3px 0 12px;
+		}
+		.inline-hints {
+			margin: -8px 0 10px;
+			color: #888;
+			font-size: 11px;
+			font-style: normal;
+		}
+	}
+	#menu_pdf_remote_attachment_attributes_attachment_input {
+		label {
+			display: block;
+		}
+		input {
+			@include box-shadow(none);
+		}
+	}
 	.editing {
 		border-bottom: 1px dotted #ccc;
 		margin-top: 20px;
-		ol li {
-			label {
-				font-weight: normal;
-			}
-			input {
-				margin: 3px 0 12px;
-				@include box-shadow(#eaeaea, 0px, 1px, 1px);
-			}
-			select {
-				display: block;
-				margin: 3px 0 12px;
-			}
-			textarea {
-				width: 350px;
-				height: 75px;
-				border: 1px solid #ccc;
-				@include box-shadow(#eaeaea, 0px, 1px, 1px);
-				margin: 3px 0 12px;
-			}
-			.inline-hints {
-				margin: -8px 0 10px;
-				color: #888;
-				font-size: 11px;
-				font-style: normal;
-			}
-		}
 		button {
 			cursor:pointer;
 			float: left;
