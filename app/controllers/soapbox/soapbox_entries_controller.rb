@@ -1,15 +1,15 @@
 class Soapbox::SoapboxEntriesController < Soapbox::SoapboxController
-  
+
   before_filter :hide_flashes
   before_filter :load_past_features, :only => [:index, :show]
-  
+
   def index
     @main_feature = SoapboxEntry.main_feature
     @main_feature_comments = SoapboxEntry.main_feature_comments if @main_feature
 
     @secondary_feature = SoapboxEntry.secondary_feature
     @secondary_feature_comments = SoapboxEntry.secondary_feature_comments if @secondary_feature
-    
+
     load_past_features
     @no_sidebar = true
   end
@@ -19,7 +19,20 @@ class Soapbox::SoapboxEntriesController < Soapbox::SoapboxController
     @feature = entry.featured_item
     @feature_comments = entry.comments
   end
-  
+
+  def all
+    if params[:q] == 'qotd'
+      @question_type = 'qotd'
+      @questions = SoapboxEntry.qotd.published.paginate(:page => params[:page], :include => :featured_item)
+    else
+      @question_type = 'trend'
+      @questions = SoapboxEntry.trend_question.published.paginate(:page => params[:page], :include => :featured_item)
+    end
+
+    @featured_items = @questions.map(&:featured_item)
+    @no_sidebar = true
+  end
+
   protected
 
   def hide_flashes
