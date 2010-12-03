@@ -16,7 +16,7 @@ module SoapboxHelper
       "<h1 class='qotd'>#{link_to 'Question of the Day', soapbox_soapbox_entry_path(featured_item.soapbox_entry)}</h1>"
     end
   end
-  
+
   def entry_for_comment(comment)
     if comment.commentable.is_a?(Admin::Conversation)
       comment.commentable.admin_message.soapbox_entry
@@ -29,6 +29,15 @@ module SoapboxHelper
   
   def message(featured_item)
     featured_item.display_message || featured_item.message
+  end
+
+  def soapbox_title(featured_item)    
+    "#{message(featured_item)} - Soapbox " + 
+    if featured_item.is_a?(TrendQuestion)
+      "Trend"
+    elsif featured_item.is_a?(Admin::Qotd)
+      "Question of the Day"
+    end
   end
   
   def active_page?(name)

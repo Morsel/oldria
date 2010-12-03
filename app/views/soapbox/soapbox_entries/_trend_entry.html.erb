@@ -1,3 +1,17 @@
+<div class="share" id="trend">
+  <!-- AddThis Button BEGIN -->
+  <div class="addthis_toolbox">
+    <script type="text/javascript">
+        var addthis_share = {
+            url: '<%= soapbox_soapbox_entry_url(feature.soapbox_entry) %>',
+            title: 'Trend Identified'
+        }
+    </script>
+    <a href="http://www.addthis.com/bookmark.php?v=250&amp;username=unpluggedria" class="addthis_button">Share</a>
+  </div>
+  <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#username=unpluggedria"></script>
+  <!-- AddThis Button END -->
+</div>
 <section id="trend-identified">
   <header>
     <%= soapbox_tabby_title(feature) %>
@@ -11,7 +25,7 @@
   <% if feature_comments %>
   <section id="trend-comments">
       <%= render :partial => 'comment', :collection => feature_comments, :locals => { :full_text => false, :commentable_class => feature.class } %>
-      <p class="clear"><%= link_to 'View all responses to this trend question &#187;', soapbox_soapbox_entry_path(feature.soapbox_entry), :class => 'button' %></p>
+      <p class="clear"><%= link_to 'View more responses &#187;', soapbox_soapbox_entry_path(feature.soapbox_entry), :class => 'button' %></p>
   </section><!-- /trend-comments -->
   <% end %>
   
