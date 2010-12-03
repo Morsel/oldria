@@ -2,38 +2,42 @@
 <% div_for employment, :class => 'user clearfix employment_box' do %>
   <% div_for user do %>
     <%= link_to image_tag(user.avatar.url(:thumb)), profile_path(user.username) %>
-    <h3><%= user.name %></h3>
+		<div class="profile_meta">
+    	<h3><%= user.name %></h3>
 
-    <% if can? :edit, employment.restaurant %>
-      <%= restaurant_role_and_link(employment) %>
-      <% if employment.omniscient? -%><p>Account Manager</p><%- end %>
-    <% end %>
+    	<% if can? :edit, employment.restaurant %>
+      	<%= restaurant_role_and_link(employment) %>
+      	<% if employment.omniscient? -%><p>Account Manager</p><%- end %>
+    	<% end %>
 
-    <% if employment.subject_matters.present? %>
-      <p class="responsibilities">Handles <%= employment.subject_matters.compact.map(&:name).to_sentence %></p>
-    <% end %>
+    	<% if employment.subject_matters.present? %>
+      	<p class="responsibilities">Handles <%= employment.subject_matters.compact.map(&:name).to_sentence %></p>
+    	<% end %>
+		</div><!--.profile_meta-->
 
-    <div class="public_profile">
-      <% if employment.public_profile %>
-        <p class="public">
-          This employee will be displayed on the public profile.
-          <%= link_to "Click to make private",
-              restaurant_employment_path(@restaurant, employment, :employment => {:public_profile => false}),
-              :method => :put %>.
-        </p>
-      <% else %>
-        <p class="private">
-          This employee will not be displayed on the public profile.
-          <%= link_to "Click to make public",
-              restaurant_employment_path(@restaurant, employment, :employment => {:public_profile => true}),
-              :method => :put %>.
-        </p>
-      <% end %>
-    </div>
-    
-    <div class="account_status">
-			This employee has a <%= employment.employee.public_account_type %> 
-			<%= employment.employee.account_payer_type %> Account.
-		</div>
+		<div class="profile_public_meta">
+    	<div class="public_profile">
+    		<% if employment.public_profile %>
+    	  	<p class="public">
+    	    	This employee will be displayed on the public profile.
+    	    	<%= link_to "Click to make private",
+    	        restaurant_employment_path(@restaurant, employment, :employment => {:public_profile => false}),
+    	        :method => :put %>.
+    	  	</p>
+    		<% else %>
+    	  	<p class="private">
+    	    	This employee will not be displayed on the public profile.
+    	    	<%= link_to "Click to make public",
+    	        	restaurant_employment_path(@restaurant, employment, :employment => {:public_profile => true}),
+    	        	:method => :put %>.
+    	  	</p>
+    		<% end %>
+    	</div>
+    	
+    	<div class="account_status">
+				This employee has a <%= employment.employee.public_account_type %> 
+				<%= employment.employee.account_payer_type %> Account.
+			</div>
+		</div><!--.profile_public_meta-->
   <% end %>
 <% end -%>
