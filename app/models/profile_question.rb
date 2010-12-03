@@ -87,7 +87,7 @@ class ProfileQuestion < ActiveRecord::Base
 
   def responders=(responder_ids)
     responder_ids = responder_ids.select { |id| id.present? }
-    responder_type = self.chapter.topic.responder_type
+    responder_type = self.topic.responder_type
     responders = if responder_type == 'restaurant'
       RestaurantFeaturePage.find(responder_ids.compact)
     else

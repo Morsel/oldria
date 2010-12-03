@@ -114,6 +114,7 @@ ActionController::Routing::Routes.draw do |map|
       features.resources :questions, :collection => { :topics => :get, :chapters => :get, :refresh => :post }
       features.resources :profile_answers, :only => [:create, :update, :destroy]
     end
+    restaurant.resources :feature_pages
     restaurant.resources :menus
     restaurant.resources :photos, :collection => { "reorder" => :post }
     restaurant.resource :logo

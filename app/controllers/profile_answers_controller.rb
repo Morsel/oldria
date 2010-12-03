@@ -11,12 +11,16 @@ class ProfileAnswersController < ApplicationController
     respond_to do |format|
       format.html do
         # the regular form submits a hash of question ids with their answers
-        for id in params[:profile_question].keys
-          @question = ProfileQuestion.find(id)
-          answer = @question.find_or_build_answer_for(@responder)
-          answer.answer = params[:profile_question][id][:answer]
-          answer.responder = @responder
-          answer.save # if it doesn't save, the answer was blank, and we can ignore it
+        if params[:profile_question]
+          params[:profile_question].each do |id, answer_params|
+            @question = ProfileQuestion.find(id)
+            answer = @question.find_or_build_answer_for(@responder)
+            answer.answer = answer_params[:answer]
+            answer.responder = @responder
+            unless answer.save # if it doesn't save, the answer was blank, and we can ignore it
+              Rails.logger.error answer.error_messages
+            end
+          end
         end
 
         flash[:notice] = "Your answers have been saved"

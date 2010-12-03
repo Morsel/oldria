@@ -20,9 +20,11 @@ tmp/webrat-*
 .project
 default.gems
 TAGS
+config/setup_load_paths.rb
 
 public/soapbox/_css/*
 public/hq/_css/*
 public/redesign/_css/*
 public/hq/_css/*
 public/redesign/brandonbold/*
+
