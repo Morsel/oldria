@@ -15,6 +15,7 @@
 		</div><!-- .restaurant_employees -->
 	
 	  <% content_for :sidebar do -%>
+			<h2 class="edit_title">Edit options</h2>
 	    <%= link_to 'Manage Employees', restaurant_employees_path(@restaurant),
 	        :class=> 'promo editor emp' %>
 	    <%= link_to 'Manage Restaurant Features', restaurant_features_path(@restaurant),
@@ -26,8 +27,8 @@
 	        :class => 'promo editor menus' %>
 	    <%= link_to "Manage Photos", restaurant_photos_path(@restaurant),
 	        :class => 'promo editor photos' %>
-	    <%= link_to "Add Accolade", new_restaurant_accolade_path(@restaurant),
-	        :class => 'promo editor acco' %>
+	    <% if false %><%= link_to "Add Accolade", new_restaurant_accolade_path(@restaurant),
+	        :class => 'promo editor acco' %><% end %>
 	  <% end -%>
 	<% end -%>
 	
@@ -44,7 +45,7 @@
 	  	<% end %>
 			<%= render :partial => 'subscriptions/account_links', :locals => {:subscriber => @restaurant, :subscriber_type => "restaurant"} %>
 			
-			<p><strong>Employee Statusess</strong><br/>
+			<p><strong>Employee Statuses</strong><br/>
 				If you would like to upgrade any of your restaurant staff to a Premium User account, click the button below. To upgrade each employee, simply click the pencil for the person.<p>
 	  	<%= link_to "Update Employee Status", restaurant_employees_path(@restaurant),:class => "sf-button"%>
 	  <% end %>
