@@ -60,7 +60,8 @@ class InvitationsController < ApplicationController
   
   def logout_current_user
     session = UserSession.find
-    session.destroy
+    session.destroy if session
+    @current_user = nil
   end
 
   def find_user_from_params
