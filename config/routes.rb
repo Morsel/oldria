@@ -28,8 +28,6 @@ ActionController::Routing::Routes.draw do |map|
     soapbox.connect 'directory_search', :controller => 'soapbox', :action => 'directory_search'
     soapbox.root :controller => 'soapbox', :action => 'index'
   end
-  
-  
 
   map.soapbox_profile 'soapbox/profile/:username', :controller => 'soapbox/profiles', :action => 'show',
       :requirements => { :username => /[a-zA-Z0-9\-\_ ]+/}

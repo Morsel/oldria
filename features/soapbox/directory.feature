@@ -23,7 +23,7 @@ Feature: Soapbox
     And "mgmt" has a published profile
     And "chris" has a published profile
   
-  Scenario: Featuring a QOTD on the soapbox
+  Scenario: Viewing users in the directory
     Given I am not logged in
     And I go to the soapbox directory page
     Then I should see "Mgmt Joe"
@@ -45,3 +45,10 @@ Feature: Soapbox
     
     When I check "Aquavit"
     Then I should see "Annalena" within "#user-results"
+    
+  Scenario: Viewing addThis on user profiles
+    Given the following published users:
+      | username    | password |
+      | punkrock    | secret   |
+    And I go to the profile page for "punkrock"
+    Then I should see addThis button

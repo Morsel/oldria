@@ -4,9 +4,8 @@ Feature: Soapbox
   As a public user of the site
   I want to see QOTD and TRENDS as a public stream.
 
-
   Scenario: Featuring a QOTD on the soapbox
-    Given there is a QOTD asking "Where do you buy flowers"
+    Given there is a QOTD asking "Where do you buy flowers?"
     And that QOTD has the following answers:
       | John Doeface  | I like to get them at the store |
       | Patty Wallace | Hand-picked, all the way!       |
@@ -15,13 +14,6 @@ Feature: Soapbox
       | Published at | 2010-05-10 |
     Then there should be 1 QOTD on the soapbox front burner page
     
-  Scenario: Viewing the addThis button
-    Given the following published users:
-    | username    | password |
-    | punkrock    | secret   |
-    And I am on the profile page for "punkrock"
-    Then I should see addThis button
-
   Scenario: Viewing a QOTD soapbox entry title
     Given there is a QOTD asking "Where do you buy flowers"
     And that QOTD is featured on the soapbox
@@ -39,6 +31,5 @@ Feature: Soapbox
     And that QOTD is featured on the soapbox
     And there is a Trend Question "What is the haps?: Boo-ya"
     And that Trend Question is featured on the soapbox
-    When Visit to front_burner
+    When I go to Front Burner
     Then I should see two addThis buttons
-
