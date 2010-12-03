@@ -31,13 +31,6 @@ class Admin::Conversation < ActiveRecord::Base
   belongs_to :recipient, :class_name => "User"
   belongs_to :admin_message, :foreign_key => 'admin_message_id', :class_name => 'Admin::Message'
 
-  named_scope :unread_by, lambda { |user|
-     { :joins => "LEFT OUTER JOIN readings ON #{table_name}.id = readings.readable_id
-       AND readings.readable_type = '#{self.to_s}'
-       AND readings.user_id = #{user.id}",
-       :conditions => 'readings.user_id IS NULL' }
-  }
-
   def inbox_title
     admin_message.inbox_title
   end

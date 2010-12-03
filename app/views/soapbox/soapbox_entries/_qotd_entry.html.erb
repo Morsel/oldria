@@ -23,10 +23,9 @@
     </details>
   </article>
   <% if feature_comments %>
-      <section id="qotd-comments">
-        <%= render :partial => 'comment', :collection => feature_comments, :locals => { :full_text => false, :commentable_class => feature.class } %>
-        <p class="clear"><%= link_to 'View all responses to this question of the day &#187;', soapbox_soapbox_entry_path(feature.soapbox_entry), :class => 'button' %></p>
-      </section>
-      <!-- /qotd-comments -->
+  <section id="qotd-comments">
+      <%= render :partial => 'comment', :collection => feature_comments, :locals => { :full_text => false, :commentable_class => feature.class } %>
+      <p class="clear"><%= link_to 'View more responses &#187;', soapbox_soapbox_entry_path(feature.soapbox_entry), :class => 'button' %></p>
+  </section><!-- /qotd-comments -->
   <% end %>
 </section><!-- /question-of-the-day -->

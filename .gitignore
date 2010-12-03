@@ -22,6 +22,8 @@ default.gems
 *.swp
 *.swo
 TAGS
+*.swp
+*.swo
 
 public/soapbox/_css/*
 public/hq/_css/*
