@@ -60,9 +60,7 @@
 	
 	</div><!-- .manager_and_facts -->
 
-
-
-	<div class="account_details equal-height">
+  <div class="account_details equal-height">
 		
 		<div id="account_status" class="list_item">
 			Account Status: <%= @restaurant.account_type %>
@@ -89,7 +87,7 @@
 		</div>
 		
 	</div><!-- .account_details -->
-
+	
 	<div class="rest_staff clearfix">
 		
 		<h2>Restaurant Staff</h2>
@@ -98,6 +96,11 @@
 		</div><!-- .employments -->
 		
 	</div><!--.rest_staff-->
+
+  <% div_if(@restaurant.feature_pages.any?, :class => "clear clearfix", :id => "feature_pages") do %>
+		<h2>See more about:</h2>
+		<%= render @restaurant.feature_pages %>
+	<% end %>
 
 	<%= render :partial => 'profile_questions/behind_the_line', :locals => { :subject => @restaurant } %>
 
