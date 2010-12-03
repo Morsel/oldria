@@ -44,6 +44,8 @@ module NavigationHelpers
       edit_my_profile_path
     when "the new invitation page"
       new_invitation_path
+    when "the new invitation recommendation page"
+      recommend_invitations_path
     when "Front Burner"
       front_burner_path
 

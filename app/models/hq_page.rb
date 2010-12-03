@@ -1,3 +1,16 @@
+# == Schema Information
+# Schema version: 20101124215652
+#
+# Table name: hq_pages
+#
+#  id         :integer         not null, primary key
+#  title      :string(255)
+#  slug       :string(255)
+#  content    :text
+#  created_at :datetime
+#  updated_at :datetime
+#
+
 class HqPage < ActiveRecord::Base
   include PageFeatures
 

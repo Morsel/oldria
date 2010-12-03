@@ -16,22 +16,33 @@ class CompleteRegistrationsController < ApplicationController
     if @user.update_attributes(params[:user])
       @user.reset_perishable_token! unless params[:step] == '2'
       if @user.primary_employment.present?
-        UserMailer.deliver_employee_request(@user.primary_employment.restaurant, @user) if @user.primary_employment.restaurant
         
-        flash[:notice] = "Thanks for updating your account. Enjoy SpoonFeed!"
-        redirect_to(root_path)
+        # if restaurant name matches an existing one, go to the find_restaurant workflow
+        if @user.primary_employment.solo_restaurant_name.present? && 
+            Restaurant.exists?(["name like ?", "%#{@user.primary_employment.solo_restaurant_name}%"])
+          redirect_to :action => "find_restaurant", :restaurant_name => @user.primary_employment.solo_restaurant_name
+        else
+          flash[:notice] = "Thanks for updating your account. Enjoy SpoonFeed!"
+          redirect_to(root_path)
+        end
+        
       else
         redirect_to(:action => "user_details")
       end
     else
-      render :show
+      params[:step] == '2' ? render(:action => 'user_details') : render(:show)
     end
   end
   
   def user_details
     @user = current_user
+    invitation = @user.invitation
+    solo_restaurant_name = invitation.restaurant_id ? 
+        Restaurant.find(invitation.restaurant_id).name :
+        invitation.restaurant_name
+    @user.build_default_employment(:solo_restaurant_name => solo_restaurant_name, 
+        :restaurant_role => invitation.restaurant_role, :subject_matters => invitation.subject_matters)
     @user.build_profile
-    @user.build_default_employment
   end
   
   def find_restaurant
@@ -47,6 +58,11 @@ class CompleteRegistrationsController < ApplicationController
       flash[:notice] = "We've contacted the restaurant manager. Thanks for setting up your account, and enjoy SpoonFeed!"
       redirect_to root_path
     end
+  end
+  
+  def finish_without_contact
+    flash[:notice] = "Thanks for updating your account. Enjoy SpoonFeed!"
+    redirect_to root_path
   end
 
   private

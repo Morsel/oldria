@@ -3,6 +3,17 @@ require 'spec/spec_helper'
 describe InvitationsController do
   integrate_views
   
+  describe "accessing the new invite form" do
+    
+    it "should log out the current user" do
+      activate_authlogic
+      UserSession.create(Factory(:user))
+      UserSession.any_instance.expects(:destroy)
+      get :new
+      response.should render_template('invitations/new')
+    end
+  end
+  
   describe "creating a new invite" do
     
     it "should create an invite from a valid form submit" do

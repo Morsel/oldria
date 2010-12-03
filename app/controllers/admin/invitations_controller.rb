@@ -27,17 +27,28 @@ class Admin::InvitationsController < Admin::AdminController
   end
   
   def accept
+    if @invitation.invitee.present?
+      flash[:error] = "This invitation has already been accepted"
+      redirect_to :action => "index", :archived => "true" and return
+    end
+    
     token = Authlogic::Random.friendly_token
     @user = User.new(:first_name => @invitation.first_name, :last_name => @invitation.last_name, 
         :username => @invitation.username, :password => token, :password_confirmation => token, :email => @invitation.email, 
         :agree_to_contract => "1", :send_invitation => true, :invitation_sender => @invitation.requesting_user)
-    @user.restaurants << Restaurant.find(@invitation.restaurant_id) if @invitation.restaurant_id
     if @user.save
       @user.confirm!
       @invitation.update_attributes(:archived => true, :invitee_id => @user.id, :approved_at => Time.now)
       flash[:notice] = "Sent invitation to #{@invitation.email}"
       redirect_to :action => "index"
     end
+  end
+  
+  def resend
+    invitation = Invitation.find(params[:id])
+    invitation.invitee.deliver_invitation_message!
+    flash[:notice] = "We sent a new acceptance email to #{invitation.name}"
+    redirect_to :action => "index", :archived => true
   end
 
   def archive

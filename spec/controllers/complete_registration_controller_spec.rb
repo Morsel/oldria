@@ -28,10 +28,9 @@ describe CompleteRegistrationsController do
       response.should redirect_to(user_details_complete_registration_path)
     end
 
-    it "should redirect to the dashboard when data is valid and the user has restaurants" do
+    it "should redirect to the dashboard when data is valid and the user has a default employment" do
       @user.stubs(:valid?).returns(true)
-      @user.stubs(:primary_employment).returns(Factory(:employment, :employee => @user, 
-          :restaurant => Factory(:managed_restaurant)))
+      @user.stubs(:primary_employment).returns(Factory(:default_employment, :employee => @user))
       put :update, :user => { :id => 1 }
       response.should redirect_to(root_url)
     end

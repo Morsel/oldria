@@ -1,14 +1,11 @@
 class InvitationsController < ApplicationController
+  before_filter :require_user, :only => [:recommend, :submit_recommendation]
+  before_filter :logout_current_user, :only => [:new, :show]
+  before_filter :require_no_user, :only => [:create]
   before_filter :find_user_from_params, :only => [:show]
   
   def new
-    if params[:invitation]
-      @invitation = current_user ? 
-        Invitation.new(params[:invitation].merge(:requesting_user_id => current_user.id)) : 
-        Invitation.new(params[:invitation])
-    else
-      @invitation = current_user ? Invitation.new(:requesting_user_id => current_user.id) : Invitation.new
-    end
+    @invitation = Invitation.new
   end
   
   def create
@@ -25,7 +22,6 @@ class InvitationsController < ApplicationController
 
   def show
     if @user
-      logout_current_user
       @user.confirm! unless @user.confirmed?
       UserSession.create(@user)
       flash[:notice] = "Successfully logged in. Please take a moment and update your account information."
@@ -47,11 +43,25 @@ class InvitationsController < ApplicationController
       redirect_to login_path, :user_id => params[:user_id]
     end
   end
+  
+  def recommend
+  end
+  
+  def submit_recommendation
+    for email in params[:emails].split(/\n/)
+      UserMailer.deliver_signup_recommendation(email, current_user)
+    end
+    
+    flash[:notice] = "Thanks for recommending new members!"
+    redirect_to :action => "recommend"
+  end
 
   private
-
+  
   def logout_current_user
-    @current_user_session.destroy if current_user_session
+    session = UserSession.find
+    session.destroy if session
+    @current_user = nil
   end
 
   def find_user_from_params
