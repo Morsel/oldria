@@ -18,7 +18,7 @@ class ProfileAnswersController < ApplicationController
             answer.answer = answer_params[:answer]
             answer.responder = @responder
             unless answer.save # if it doesn't save, the answer was blank, and we can ignore it
-              Rails.logger.error answer.error_messages
+              Rails.logger.error answer.errors.full_messages
             end
           end
         end

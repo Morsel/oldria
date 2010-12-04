@@ -34,10 +34,13 @@ end
 Given /^profile question matching employment role with static topic name for "([^\"]*)"$/ do |username|
   user = User.find_by_username(username)
   role = Factory(:restaurant_role)
-  topic = Factory(:topic, :title => "SeoTopic")
+  topic = Factory(:topic, :title => "SeoTopic", :responder_type => 'user')
+  chapter = Factory(:chapter, :title => "Education", :topic => topic)
   Factory(:employment, :employee => user, :primary => true, :restaurant_role => role)
-  Factory(:profile_question, :title => "QTitle 1", :restaurant_roles => [role],
-          :chapter => Factory(:chapter, :title => "Education", :topic => topic))
+  Factory(:profile_question,
+          :title => "QTitle 1",
+          :question_roles => [Factory(:question_role, :responder => role)],
+          :chapter => chapter)
 end
 
 Given /^the following (.+) profile questions:$/ do |responder_type, table|
