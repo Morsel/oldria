@@ -183,7 +183,7 @@ When /^I traverse the delete link for subscriptions for the restaurant "([^"]*)"
 end
 Then /^I see that the account for "([^"]*)" lasts until the end of the billing cycle$/ do |username|
   user = User.find_by_username(username)
-  response.should have_selector("fieldset.account .alert",
+  response.should have_selector("#end_date",
       :content => user.subscription.end_date.to_s(:long))
 end
 
@@ -195,7 +195,7 @@ end
 
 
 Then /^I don't see that the account for "([^"]*)" lasts until the end of the billing cycle$/ do |username|
-  response.should_not have_selector("fieldset.account .alert")
+  response.should_not have_selector("#end_date")
 end
 
 Then /^I don't see that the restaurant account for "([^"]*)" lasts until the end of the billing cycle$/ do |arg1|
