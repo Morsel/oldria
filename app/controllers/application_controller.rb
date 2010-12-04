@@ -141,8 +141,7 @@ class ApplicationController < ActionController::Base
     return if params[:controller].match(/soapbox/)
     return if params[:controller].match(/admin/)
     return if ["create", "update", "destroy"].include? params[:action]
-    @subject = current_user
-    @btl_question = ProfileQuestion.for_subject(@subject).random.reject { |q| q.answered_by? (@subject) }.first
+    @btl_question = ProfileQuestion.for_subject(current_user).random.reject { |q| q.answered_by?(current_user) }.first
   end
 
 ### Messaging helpers
