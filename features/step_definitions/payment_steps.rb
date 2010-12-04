@@ -5,11 +5,11 @@ Then /^I see my account status is not premium$/ do
 end
 
 Then /^I see that the restaurant's account status is basic$/ do
-  response.should have_selector("#account_status", :content => "Basic")
+  response.should have_selector(".account .currently", :content => "Basic")
 end
 
 Then /^I see that the restaurant's account status is premium$/ do
-  response.should have_selector("#account_status", :content => "Premium")
+  response.should have_selector(".account .currently", :content => "Premium")
 end
 
 Then /^I do not see a premium badge$/ do
@@ -167,7 +167,7 @@ end
 
 Then /^I see my account is paid for by myself$/ do
   response.should_not have_selector(".current", :content => "Complimentary")
-  response.should have_selector(".current #start_date",
+  response.should have_selector("fieldset.account",
       :content => "since #{Date.today.to_s(:long)}")
 end
 
@@ -183,23 +183,23 @@ When /^I traverse the delete link for subscriptions for the restaurant "([^"]*)"
 end
 Then /^I see that the account for "([^"]*)" lasts until the end of the billing cycle$/ do |username|
   user = User.find_by_username(username)
-  response.should have_selector("#end_date",
+  response.should have_selector("fieldset.account .alert",
       :content => user.subscription.end_date.to_s(:long))
 end
 
 Then /^I see that the restaurant account for "([^"]*)" lasts until the end of the billing cycle$/ do |restaurant_name|
   restaurant = Restaurant.find_by_name(restaurant_name)
-  response.should have_selector("#end_date",
+  response.should have_selector("fieldset.account .alert",
       :content => restaurant.subscription.end_date.to_s(:long))
 end
 
 
 Then /^I don't see that the account for "([^"]*)" lasts until the end of the billing cycle$/ do |username|
-  response.should_not have_selector("#end_date")
+  response.should_not have_selector("fieldset.account .alert")
 end
 
 Then /^I don't see that the restaurant account for "([^"]*)" lasts until the end of the billing cycle$/ do |arg1|
-  response.should_not have_selector("#end_date")
+  response.should_not have_selector("fieldset.account .alert")
 end
 
 
@@ -272,7 +272,7 @@ end
 Then /^I see that "([^"]*)" has a premium account paid for by the restaurant$/ do |username|
   user = User.find_by_username(username)
   response.should have_selector(".account_status", :content => "Premium Staff Account")
-  response.should_not have_selector(".account_status", 
+  response.should_not have_selector(".account_status",
       :content => "This account is paid for by a different restaurant.")
 end
 
@@ -283,9 +283,9 @@ end
 
 When /^I see that "([^"]*)" has a premium account paid for by a different restaurant$/ do |username|
   user = User.find_by_username(username)
-  response.should have_selector(".account_status", 
+  response.should have_selector(".account_status",
       :content => "Premium Staff Account")
-  response.should have_selector(".account_status", 
+  response.should have_selector(".account_status",
       :content => "This account is paid for by a different restaurant.")
 end
 
