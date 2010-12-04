@@ -115,7 +115,7 @@ end
 
 Then /^I see the following restaurant fields:$/ do |fields|
   fields.rows_hash.each do |field, name|
-    response.should have_selector("##{field}", :content => name)
+    response.should have_selector("#restaurant_profile_view", :content => name)
   end
 end
 
@@ -131,7 +131,7 @@ end
 
 Then /^I see the page headers$/ do
   RestaurantFeaturePage.all.each do |page|
-     response.should have_selector(".feature_page", :content => page.name) 
+     response.should have_selector(".feature_page", :content => page.name)
   end
 end
 
@@ -140,7 +140,7 @@ Then /^I see the page header for "([^\"]*)"$/ do |page_name|
   RestaurantFeaturePage.all.each do |page|
     if page == selected_page
       response.should have_selector(".feature_page", :content => page.name)
-    else 
+    else
       response.should_not have_selector(".feature_page", :content => page.name)
     end
   end
@@ -148,13 +148,13 @@ end
 
 Then /^I see the category headers$/ do
   RestaurantFeatureCategory.all.each do |category|
-     response.should have_selector(".feature_category", :content => category.name) 
+     response.should have_selector(".feature_category", :content => category.name)
   end
 end
 
 Then /^I see the category values$/ do
   RestaurantFeature.all.each do |feature|
-    response.should have_selector(".feature_category ##{dom_id(feature)}") 
+    response.should have_selector(".feature_category ##{dom_id(feature)}")
   end
 end
 
@@ -162,9 +162,9 @@ Then /^I see the category headers for "([^\"]*)"$/ do |page_name|
   selected_page = RestaurantFeaturePage.find_by_name(page_name)
   RestaurantFeatureCategory.all.each do |category|
     if category.restaurant_feature_page == selected_page
-      response.should have_selector(".feature_category", :content => category.name) 
+      response.should have_selector(".feature_category", :content => category.name)
     else
-      response.should_not have_selector(".feature_category", :content => category.name) 
+      response.should_not have_selector(".feature_category", :content => category.name)
     end
   end
 end
@@ -173,25 +173,25 @@ Then /^I see the category values for "([^\"]*)"$/ do |page_name|
   selected_page = RestaurantFeaturePage.find_by_name(page_name)
   RestaurantFeature.all.each do |feature|
     if feature.restaurant_feature_page == selected_page
-      response.should have_selector(".feature_category ##{dom_id(feature)}") 
+      response.should have_selector(".feature_category ##{dom_id(feature)}")
     else
-      response.should_not have_selector(".feature_category ##{dom_id(feature)}") 
+      response.should_not have_selector(".feature_category ##{dom_id(feature)}")
     end
   end
 end
 
 Then /^I see a tag named "([^\"]*)" in the category "([^\"]*)"$/ do |feature, category_name|
   category = RestaurantFeatureCategory.find_by_name(category_name)
-  response.should have_selector("##{dom_id(category)} .feature", :content => feature) 
+  response.should have_selector("##{dom_id(category)} .feature", :content => feature)
 end
 
 Then /^I see a category named "([^\"]*)" in the page "([^\"]*)"$/ do |category, page_name|
   page = RestaurantFeaturePage.find_by_name(page_name)
-  response.should have_selector("##{dom_id(page)} .feature_category", :content => category) 
+  response.should have_selector("##{dom_id(page)} .feature_category", :content => category)
 end
 
 When /^I see a page named "([^\"]*)"$/ do |page|
-  response.should have_selector(".feature_page", :content => page) 
+  response.should have_selector(".feature_page", :content => page)
 end
 
 Then /^I see the restaurant's website$/ do
@@ -222,7 +222,7 @@ end
 
 When /^I see the primary photo$/ do
   response.should have_selector("#primary_photo img")
-  response.body.should include("http://spoonfeed.s3.amazonaws.com/cucumber/images/#{@restaurant.reload.primary_photo.id}/medium/bourgeoispig.jpg")  
+  response.body.should include("http://spoonfeed.s3.amazonaws.com/cucumber/images/#{@restaurant.reload.primary_photo.id}/medium/bourgeoispig.jpg")
 end
 
 When /^I browse to the the primary photo detail view$/ do
@@ -232,7 +232,7 @@ end
 
 Then /^I should see the primary photo detail view$/ do
   response.should have_selector("#photo_#{@restaurant.reload.primary_photo.id} img")
-  response.body.should include("http://spoonfeed.s3.amazonaws.com/cucumber/images/#{@restaurant.primary_photo.id}/original/bourgeoispig.jpg")    
+  response.body.should include("http://spoonfeed.s3.amazonaws.com/cucumber/images/#{@restaurant.primary_photo.id}/original/bourgeoispig.jpg")
 end
 
 Then /^I should see the restaurant photo gallery$/ do
