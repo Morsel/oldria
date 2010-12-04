@@ -33,7 +33,7 @@ Feature: Profile - Behind the Line (aka Q&A)
     When I follow "View all Topics" within "#behindline"
     And I follow "View all"
     And I follow "Education"
-    And I fill in "profile_answer_answer" with "A great answer for this"
+    And I fill in "profile_question_1_answer" with "A great answer for this"
     And I press "Post"
     Then I should see "Your answers have been saved"
 
