@@ -18,7 +18,7 @@
 
     <% @questions.each do |question| %>
       <% div_for question do %>
-        <% answer = answer_for(question) %>
+        <% answer = alm_answer_for(question) %>
         <div class="field">
           <%= label_tag "#{dom_id(question)}_answer", h(question.question), :class => "question" %>
           <%= text_field_tag "a_la_minute_questions[#{question.id}][answer]", answer.answer, :class => "new answer" %>
