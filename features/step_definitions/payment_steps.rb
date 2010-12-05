@@ -167,7 +167,7 @@ end
 
 Then /^I see my account is paid for by myself$/ do
   response.should_not have_selector(".current", :content => "Complimentary")
-  response.should have_selector("fieldset.account",
+  response.should have_selector("#start_date",
       :content => "since #{Date.today.to_s(:long)}")
 end
 
