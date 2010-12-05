@@ -23,14 +23,14 @@ Feature: Managing Restaurants
     When I follow "Edit Restaurant"
     And I follow "Manage employees"
     Then I should see "Employees at Jimmy's Diner"
-    
+
   Scenario: I can add restaurant managers
     Given I have added "jane@sample.com" to that restaurant
     When I follow "edit"
     And I check "employment_omniscient"
     And I press "Submit"
     Then I should see "Account Manager"
-    
+
   Scenario: I cannot edit the employees of restaurants I do not manage
     Given a restaurant named "Avec" with the following employees:
       | username | password | email            | name      | role      |
@@ -46,4 +46,4 @@ Feature: Managing Restaurants
     When I follow "My Restaurants"
     And I follow "Jimmy's Diner"
     And I follow "Edit restaurant"
-    Then I should see "Editing Restaurant"
+    Then I should see "Edit your restaurant"
