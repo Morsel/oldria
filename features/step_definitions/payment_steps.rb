@@ -171,6 +171,12 @@ Then /^I see my account is paid for by myself$/ do
       :content => "since #{Date.today.to_s(:long)}")
 end
 
+Then /^I see my restaurant account is paid for by myself$/ do
+  response.should_not have_selector(".current", :content => "Complimentary")
+  response.should have_selector(".account",
+      :content => "since #{Date.today.to_s(:long)}")
+end
+
 When /^I traverse the delete link for subscriptions for user "([^"]*)"$/ do |username|
   visit(user_subscription_path(User.find_by_username(username).id),
       :delete)

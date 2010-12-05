@@ -62,7 +62,7 @@ Feature: Restaurant Images
     When I go to the edit restaurant page for "Bourgeois Pig"
     And I attach the image "/features/images/menu1.pdf" to "restaurant[logo_attributes][attachment]" on S3
     And I press "Save"
-    Then I should see an error message
+    Then I should see a flash error message
 
   Scenario: Select Primary Photo
     When I go to the restaurant photo upload page for Bourgeois Pig
