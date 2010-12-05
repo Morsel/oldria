@@ -35,7 +35,7 @@ Given /^profile question matching employment role with static topic name for "([
   user = User.find_by_username(username)
   role = Factory(:restaurant_role)
   topic = Factory(:topic, :title => "SeoTopic", :responder_type => 'user')
-  chapter = Factory(:chapter, :title => "Education", :topic => topic)
+  chapter = Factory(:chapter, :title => "Education2", :topic => topic)
   Factory(:employment, :employee => user, :primary => true, :restaurant_role => role)
   Factory(:profile_question,
           :title => "QTitle 1",
