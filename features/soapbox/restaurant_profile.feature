@@ -17,12 +17,12 @@ Feature: Restaurant profile
     And I attach the image "/features/images/bourgeoispig_logo.gif" to "restaurant_logo_attributes_attachment" on S3
     And I press "Save"
     When I go to the restaurant menu upload page for Piece
-    And I fill in "January" for "Name"
+    And I fill in "January" for "Menu name"
     And I select "Monthly" from "How often it changes"
     And I attach the file "/features/images/menu1.pdf" to "menu_pdf_remote_attachment_attributes_attachment" on S3
     And I press "Upload"
     When I go to the restaurant menu upload page for Piece
-    And I fill in "February" for "Name"
+    And I fill in "February" for "Menu name"
     And I select "Monthly" from "How often it changes"
     And I attach the file "/features/images/menu1.pdf" to "menu_pdf_remote_attachment_attributes_attachment" on S3
     And I press "Upload"
