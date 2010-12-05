@@ -17,7 +17,7 @@ Feature: Restaurant Permissions
     When I go to the employees page for "Crazy Eights"
     Then I should see "Employees at Crazy Eights"
     And I <should_see_or_not> "Add employee"
-    And I <should_see_or_not> "edit"
+    And I <should_see_or_not> "Edit"
 
   Examples:
     | username | should_see_or_not |
