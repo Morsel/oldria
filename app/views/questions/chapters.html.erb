@@ -1,16 +1,12 @@
 <% title "#{@topic.title} - #{@user.name} Behind the Line", false %>
 <div class="share">
-  <!-- AddThis Button BEGIN --> 
-  <div class="addthis_toolbox"> 
-    <a href="http://www.addthis.com/bookmark.php?v=250&amp;username=unpluggedria" class="addthis_button">Share</a> 
-  </div> 
-  <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#username=unpluggedria"></script> 
+  <!-- AddThis Button BEGIN -->
+  <div class="addthis_toolbox">
+    <a href="http://www.addthis.com/bookmark.php?v=250&amp;username=unpluggedria" class="addthis_button">Share</a>
+  </div>
+  <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#username=unpluggedria"></script>
   <!-- AddThis Button END -->
 </div>
-<<<<<<< HEAD
-=======
-
->>>>>>> 50d9aa3dc31f2476393cd4945c053b4c0564e314
 <h1 id="btl-title" class="btl"><span class="btl-art">Behind the Line:</span> <span class="name"><%= @user.name %></span></h1>
 <h2 id="topic_title">Topic: <%= @topic.title %></h2>
 <%= render :partial => 'questions/topic_nav', :locals => { :next_topic => @next, :prev_topic => @previous } %>
