@@ -1,9 +1,5 @@
 @charset "UTF-8";
-<<<<<<< HEAD
 /* line 4, ../../../../../../../.rvm/gems/ruby-1.8.7-p302@ria/gems/compass-0.10.6/frameworks/blueprint/stylesheets/blueprint/reset/_utilities.scss */
-=======
-/* line 4, ../../../../../.rvm/gems/ree-1.8.7-2010.02/gems/compass-0.10.6/frameworks/blueprint/stylesheets/blueprint/reset/_utilities.scss */
->>>>>>> 50d9aa3dc31f2476393cd4945c053b4c0564e314
 html, body {
   margin: 0;
   padding: 0;
@@ -15,20 +11,12 @@ html, body {
   vertical-align: baseline;
 }
 
-<<<<<<< HEAD
 /* line 6, ../../../../../../../.rvm/gems/ruby-1.8.7-p302@ria/gems/compass-0.10.6/frameworks/blueprint/stylesheets/blueprint/reset/_utilities.scss */
-=======
-/* line 6, ../../../../../.rvm/gems/ree-1.8.7-2010.02/gems/compass-0.10.6/frameworks/blueprint/stylesheets/blueprint/reset/_utilities.scss */
->>>>>>> 50d9aa3dc31f2476393cd4945c053b4c0564e314
 html {
   font-size: 100.01%;
 }
 
-<<<<<<< HEAD
 /* line 16, ../../../../../../../.rvm/gems/ruby-1.8.7-p302@ria/gems/compass-0.10.6/frameworks/blueprint/stylesheets/blueprint/reset/_utilities.scss */
-=======
-/* line 16, ../../../../../.rvm/gems/ree-1.8.7-2010.02/gems/compass-0.10.6/frameworks/blueprint/stylesheets/blueprint/reset/_utilities.scss */
->>>>>>> 50d9aa3dc31f2476393cd4945c053b4c0564e314
 div, span, object, iframe, h1, h2, h3, h4, h5, h6, p,
 pre, a, abbr, acronym, address, code, del, dfn, em, img,
 dl, dt, dd, ol, ul, li, fieldset, form, label, legend, caption, tbody, tfoot, thead, tr {
@@ -42,11 +30,7 @@ dl, dt, dd, ol, ul, li, fieldset, form, label, legend, caption, tbody, tfoot, th
   vertical-align: baseline;
 }
 
-<<<<<<< HEAD
 /* line 18, ../../../../../../../.rvm/gems/ruby-1.8.7-p302@ria/gems/compass-0.10.6/frameworks/blueprint/stylesheets/blueprint/reset/_utilities.scss */
-=======
-/* line 18, ../../../../../.rvm/gems/ree-1.8.7-2010.02/gems/compass-0.10.6/frameworks/blueprint/stylesheets/blueprint/reset/_utilities.scss */
->>>>>>> 50d9aa3dc31f2476393cd4945c053b4c0564e314
 blockquote, q {
   margin: 0;
   padding: 0;
@@ -58,20 +42,12 @@ blockquote, q {
   vertical-align: baseline;
   quotes: "" "";
 }
-<<<<<<< HEAD
 /* line 45, ../../../../../../../.rvm/gems/ruby-1.8.7-p302@ria/gems/compass-0.10.6/frameworks/blueprint/stylesheets/blueprint/reset/_utilities.scss */
-=======
-/* line 45, ../../../../../.rvm/gems/ree-1.8.7-2010.02/gems/compass-0.10.6/frameworks/blueprint/stylesheets/blueprint/reset/_utilities.scss */
->>>>>>> 50d9aa3dc31f2476393cd4945c053b4c0564e314
 blockquote:before, blockquote:after, q:before, q:after {
   content: "";
 }
 
-<<<<<<< HEAD
 /* line 20, ../../../../../../../.rvm/gems/ruby-1.8.7-p302@ria/gems/compass-0.10.6/frameworks/blueprint/stylesheets/blueprint/reset/_utilities.scss */
-=======
-/* line 20, ../../../../../.rvm/gems/ree-1.8.7-2010.02/gems/compass-0.10.6/frameworks/blueprint/stylesheets/blueprint/reset/_utilities.scss */
->>>>>>> 50d9aa3dc31f2476393cd4945c053b4c0564e314
 th, td, caption {
   margin: 0;
   padding: 0;
@@ -86,11 +62,7 @@ th, td, caption {
   vertical-align: middle;
 }
 
-<<<<<<< HEAD
 /* line 22, ../../../../../../../.rvm/gems/ruby-1.8.7-p302@ria/gems/compass-0.10.6/frameworks/blueprint/stylesheets/blueprint/reset/_utilities.scss */
-=======
-/* line 22, ../../../../../.rvm/gems/ree-1.8.7-2010.02/gems/compass-0.10.6/frameworks/blueprint/stylesheets/blueprint/reset/_utilities.scss */
->>>>>>> 50d9aa3dc31f2476393cd4945c053b4c0564e314
 table {
   margin: 0;
   padding: 0;
@@ -105,20 +77,12 @@ table {
   vertical-align: middle;
 }
 
-<<<<<<< HEAD
 /* line 24, ../../../../../../../.rvm/gems/ruby-1.8.7-p302@ria/gems/compass-0.10.6/frameworks/blueprint/stylesheets/blueprint/reset/_utilities.scss */
-=======
-/* line 24, ../../../../../.rvm/gems/ree-1.8.7-2010.02/gems/compass-0.10.6/frameworks/blueprint/stylesheets/blueprint/reset/_utilities.scss */
->>>>>>> 50d9aa3dc31f2476393cd4945c053b4c0564e314
 a img {
   border: none;
 }
 
-<<<<<<< HEAD
 /* line 14, ../../../../../../../.rvm/gems/ruby-1.8.7-p302@ria/gems/compass-0.10.6/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
-=======
-/* line 14, ../../../../../.rvm/gems/ree-1.8.7-2010.02/gems/compass-0.10.6/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
->>>>>>> 50d9aa3dc31f2476393cd4945c053b4c0564e314
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
@@ -138,79 +102,47 @@ table, caption, tbody, tfoot, thead, tr, th, td {
   vertical-align: baseline;
 }
 
-<<<<<<< HEAD
 /* line 17, ../../../../../../../.rvm/gems/ruby-1.8.7-p302@ria/gems/compass-0.10.6/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
-=======
-/* line 17, ../../../../../.rvm/gems/ree-1.8.7-2010.02/gems/compass-0.10.6/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
->>>>>>> 50d9aa3dc31f2476393cd4945c053b4c0564e314
 body {
   line-height: 1;
   color: black;
   background: white;
 }
 
-<<<<<<< HEAD
 /* line 19, ../../../../../../../.rvm/gems/ruby-1.8.7-p302@ria/gems/compass-0.10.6/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
-=======
-/* line 19, ../../../../../.rvm/gems/ree-1.8.7-2010.02/gems/compass-0.10.6/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
->>>>>>> 50d9aa3dc31f2476393cd4945c053b4c0564e314
 ol, ul {
   list-style: none;
 }
 
-<<<<<<< HEAD
 /* line 21, ../../../../../../../.rvm/gems/ruby-1.8.7-p302@ria/gems/compass-0.10.6/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
-=======
-/* line 21, ../../../../../.rvm/gems/ree-1.8.7-2010.02/gems/compass-0.10.6/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
->>>>>>> 50d9aa3dc31f2476393cd4945c053b4c0564e314
 table {
   border-collapse: separate;
   border-spacing: 0;
   vertical-align: middle;
 }
 
-<<<<<<< HEAD
 /* line 23, ../../../../../../../.rvm/gems/ruby-1.8.7-p302@ria/gems/compass-0.10.6/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
-=======
-/* line 23, ../../../../../.rvm/gems/ree-1.8.7-2010.02/gems/compass-0.10.6/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
->>>>>>> 50d9aa3dc31f2476393cd4945c053b4c0564e314
 caption, th, td {
   text-align: left;
   font-weight: normal;
   vertical-align: middle;
 }
 
-<<<<<<< HEAD
 /* line 25, ../../../../../../../.rvm/gems/ruby-1.8.7-p302@ria/gems/compass-0.10.6/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
 q, blockquote {
   quotes: "" "";
 }
 /* line 96, ../../../../../../../.rvm/gems/ruby-1.8.7-p302@ria/gems/compass-0.10.6/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
-=======
-/* line 25, ../../../../../.rvm/gems/ree-1.8.7-2010.02/gems/compass-0.10.6/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
-q, blockquote {
-  quotes: "" "";
-}
-/* line 96, ../../../../../.rvm/gems/ree-1.8.7-2010.02/gems/compass-0.10.6/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
->>>>>>> 50d9aa3dc31f2476393cd4945c053b4c0564e314
 q:before, q:after, blockquote:before, blockquote:after {
   content: "";
 }
 
-<<<<<<< HEAD
 /* line 27, ../../../../../../../.rvm/gems/ruby-1.8.7-p302@ria/gems/compass-0.10.6/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
-=======
-/* line 27, ../../../../../.rvm/gems/ree-1.8.7-2010.02/gems/compass-0.10.6/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
->>>>>>> 50d9aa3dc31f2476393cd4945c053b4c0564e314
 a img {
   border: none;
 }
 
-<<<<<<< HEAD
 /* line 108, ../../../../../../../.rvm/gems/ruby-1.8.7-p302@ria/gems/compass-0.10.6/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
-=======
-/* line 108, ../../../../../.rvm/gems/ree-1.8.7-2010.02/gems/compass-0.10.6/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
->>>>>>> 50d9aa3dc31f2476393cd4945c053b4c0564e314
 article, aside, canvas, details, figcaption, figure, footer, header, hgroup, menu, nav, section, summary {
   margin: 0;
   padding: 0;
@@ -256,20 +188,12 @@ em, i {
   overflow: hidden;
 }
 
-<<<<<<< HEAD
 /* line 10, ../../../../../../../.rvm/gems/ruby-1.8.7-p302@ria/gems/compass-0.10.6/frameworks/compass/stylesheets/compass/layout/_sticky-footer.scss */
-=======
-/* line 10, ../../../../../.rvm/gems/ree-1.8.7-2010.02/gems/compass-0.10.6/frameworks/compass/stylesheets/compass/layout/_sticky-footer.scss */
->>>>>>> 50d9aa3dc31f2476393cd4945c053b4c0564e314
 html, body {
   height: 100%;
 }
 
-<<<<<<< HEAD
 /* line 12, ../../../../../../../.rvm/gems/ruby-1.8.7-p302@ria/gems/compass-0.10.6/frameworks/compass/stylesheets/compass/layout/_sticky-footer.scss */
-=======
-/* line 12, ../../../../../.rvm/gems/ree-1.8.7-2010.02/gems/compass-0.10.6/frameworks/compass/stylesheets/compass/layout/_sticky-footer.scss */
->>>>>>> 50d9aa3dc31f2476393cd4945c053b4c0564e314
 #container {
   clear: both;
   min-height: 100%;
@@ -277,20 +201,12 @@ html, body {
   height: 100%;
   margin-bottom: -175px;
 }
-<<<<<<< HEAD
 /* line 18, ../../../../../../../.rvm/gems/ruby-1.8.7-p302@ria/gems/compass-0.10.6/frameworks/compass/stylesheets/compass/layout/_sticky-footer.scss */
-=======
-/* line 18, ../../../../../.rvm/gems/ree-1.8.7-2010.02/gems/compass-0.10.6/frameworks/compass/stylesheets/compass/layout/_sticky-footer.scss */
->>>>>>> 50d9aa3dc31f2476393cd4945c053b4c0564e314
 #container #sticky-footer-pad {
   height: 175px;
 }
 
-<<<<<<< HEAD
 /* line 20, ../../../../../../../.rvm/gems/ruby-1.8.7-p302@ria/gems/compass-0.10.6/frameworks/compass/stylesheets/compass/layout/_sticky-footer.scss */
-=======
-/* line 20, ../../../../../.rvm/gems/ree-1.8.7-2010.02/gems/compass-0.10.6/frameworks/compass/stylesheets/compass/layout/_sticky-footer.scss */
->>>>>>> 50d9aa3dc31f2476393cd4945c053b4c0564e314
 #footer {
   clear: both;
   position: relative;
@@ -502,11 +418,7 @@ body, html, #container, #main, #content, #inside {
   background: rgba(255, 255, 255, 0.55);
   /* .restaurant */
 }
-<<<<<<< HEAD
 /* line 138, ../../../../../../../.rvm/gems/ruby-1.8.7-p302@ria/gems/compass-0.10.6/frameworks/blueprint/stylesheets/blueprint/_grid.scss */
-=======
-/* line 138, ../../../../../.rvm/gems/ree-1.8.7-2010.02/gems/compass-0.10.6/frameworks/blueprint/stylesheets/blueprint/_grid.scss */
->>>>>>> 50d9aa3dc31f2476393cd4945c053b4c0564e314
 * html #content {
   overflow-x: hidden;
 }
@@ -527,11 +439,7 @@ body, html, #container, #main, #content, #inside {
   margin-right: 0;
   width: 974px;
 }
-<<<<<<< HEAD
 /* line 138, ../../../../../../../.rvm/gems/ruby-1.8.7-p302@ria/gems/compass-0.10.6/frameworks/blueprint/stylesheets/blueprint/_grid.scss */
-=======
-/* line 138, ../../../../../.rvm/gems/ree-1.8.7-2010.02/gems/compass-0.10.6/frameworks/blueprint/stylesheets/blueprint/_grid.scss */
->>>>>>> 50d9aa3dc31f2476393cd4945c053b4c0564e314
 * html #content.no-sidebar {
   overflow-x: hidden;
 }
@@ -543,11 +451,7 @@ body, html, #container, #main, #content, #inside {
   width: 810px;
   /*jumbotron */
 }
-<<<<<<< HEAD
 /* line 138, ../../../../../../../.rvm/gems/ruby-1.8.7-p302@ria/gems/compass-0.10.6/frameworks/blueprint/stylesheets/blueprint/_grid.scss */
-=======
-/* line 138, ../../../../../.rvm/gems/ree-1.8.7-2010.02/gems/compass-0.10.6/frameworks/blueprint/stylesheets/blueprint/_grid.scss */
->>>>>>> 50d9aa3dc31f2476393cd4945c053b4c0564e314
 * html #content.home {
   overflow-x: hidden;
 }
@@ -734,11 +638,7 @@ body, html, #container, #main, #content, #inside {
   width: 277px;
   margin-right: 15px;
 }
-<<<<<<< HEAD
 /* line 138, ../../../../../../../.rvm/gems/ruby-1.8.7-p302@ria/gems/compass-0.10.6/frameworks/blueprint/stylesheets/blueprint/_grid.scss */
-=======
-/* line 138, ../../../../../.rvm/gems/ree-1.8.7-2010.02/gems/compass-0.10.6/frameworks/blueprint/stylesheets/blueprint/_grid.scss */
->>>>>>> 50d9aa3dc31f2476393cd4945c053b4c0564e314
 * html #content.home .panel_0 {
   overflow-x: hidden;
 }
@@ -763,11 +663,7 @@ body, html, #container, #main, #content, #inside {
   width: 236px;
   margin-right: 15px;
 }
-<<<<<<< HEAD
 /* line 138, ../../../../../../../.rvm/gems/ruby-1.8.7-p302@ria/gems/compass-0.10.6/frameworks/blueprint/stylesheets/blueprint/_grid.scss */
-=======
-/* line 138, ../../../../../.rvm/gems/ree-1.8.7-2010.02/gems/compass-0.10.6/frameworks/blueprint/stylesheets/blueprint/_grid.scss */
->>>>>>> 50d9aa3dc31f2476393cd4945c053b4c0564e314
 * html #content.home .panel_1 {
   overflow-x: hidden;
 }
@@ -778,11 +674,7 @@ body, html, #container, #main, #content, #inside {
   margin-right: 0;
   width: 236px;
 }
-<<<<<<< HEAD
 /* line 138, ../../../../../../../.rvm/gems/ruby-1.8.7-p302@ria/gems/compass-0.10.6/frameworks/blueprint/stylesheets/blueprint/_grid.scss */
-=======
-/* line 138, ../../../../../.rvm/gems/ree-1.8.7-2010.02/gems/compass-0.10.6/frameworks/blueprint/stylesheets/blueprint/_grid.scss */
->>>>>>> 50d9aa3dc31f2476393cd4945c053b4c0564e314
 * html #content.home .panel_2 {
   overflow-x: hidden;
 }
@@ -1437,11 +1329,7 @@ body, html, #container, #main, #content, #inside {
   width: 236px;
   margin: 20px 0 0;
 }
-<<<<<<< HEAD
 /* line 138, ../../../../../../../.rvm/gems/ruby-1.8.7-p302@ria/gems/compass-0.10.6/frameworks/blueprint/stylesheets/blueprint/_grid.scss */
-=======
-/* line 138, ../../../../../.rvm/gems/ree-1.8.7-2010.02/gems/compass-0.10.6/frameworks/blueprint/stylesheets/blueprint/_grid.scss */
->>>>>>> 50d9aa3dc31f2476393cd4945c053b4c0564e314
 * html #sidebar {
   overflow-x: hidden;
 }
@@ -1452,11 +1340,7 @@ body, html, #container, #main, #content, #inside {
   margin-right: 0;
   width: 154px;
 }
-<<<<<<< HEAD
 /* line 138, ../../../../../../../.rvm/gems/ruby-1.8.7-p302@ria/gems/compass-0.10.6/frameworks/blueprint/stylesheets/blueprint/_grid.scss */
-=======
-/* line 138, ../../../../../.rvm/gems/ree-1.8.7-2010.02/gems/compass-0.10.6/frameworks/blueprint/stylesheets/blueprint/_grid.scss */
->>>>>>> 50d9aa3dc31f2476393cd4945c053b4c0564e314
 * html #sidebar.home {
   overflow-x: hidden;
 }
@@ -1598,11 +1482,11 @@ body, html, #container, #main, #content, #inside {
 
 /*recent-activity*/
 /* line 957, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
-#activity-chooser {
+#activity-chooser, #activity-chooser-all {
   overflow: hidden;
 }
 /* line 959, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
-#activity-chooser a {
+#activity-chooser a, #activity-chooser-all a {
   font-family: 'KnockoutHTF69FullLiteweight', 'Helvetica Neue', Helvetica, arial, sans-serif;
   font-weight: normal !important;
   font-weight: 500;
@@ -1619,16 +1503,16 @@ body, html, #container, #main, #content, #inside {
   background: url(/images/soapbox/bg-sidebar-selector.png) no-repeat -115px -1px;
 }
 /* line 973, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
-#activity-chooser span {
+#activity-chooser span, #activity-chooser-all span {
   display: block;
   float: left;
 }
 /* line 976, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
-#activity-chooser span:first-child {
+#activity-chooser span:first-child, #activity-chooser-all span:first-child {
   margin-right: 5px;
 }
 /* line 980, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
-#activity-chooser .ui-state-active a, #activity-chooser a:hover {
+#activity-chooser .ui-state-active a, #activity-chooser a:hover, #activity-chooser-all .ui-state-active a, #activity-chooser-all a:hover {
   color: #474f80;
   text-shadow: 0 0 0 #fff;
   background-position: -3px -1px;
@@ -1785,11 +1669,7 @@ body, html, #container, #main, #content, #inside {
   margin-right: 10px;
   width: 359px;
 }
-<<<<<<< HEAD
 /* line 138, ../../../../../../../.rvm/gems/ruby-1.8.7-p302@ria/gems/compass-0.10.6/frameworks/blueprint/stylesheets/blueprint/_grid.scss */
-=======
-/* line 138, ../../../../../.rvm/gems/ree-1.8.7-2010.02/gems/compass-0.10.6/frameworks/blueprint/stylesheets/blueprint/_grid.scss */
->>>>>>> 50d9aa3dc31f2476393cd4945c053b4c0564e314
 * html #legal {
   overflow-x: hidden;
 }
@@ -1989,30 +1869,30 @@ p.search_filter_hint {
 }
 
 /* line 1247, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
-.share {
+#page-content .share {
   padding: 3px;
   position: relative;
 }
 /* line 1250, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
-.share .addthis_toolbox {
+#page-content .share .addthis_toolbox {
   position: absolute;
   right: 0;
   background: url(/images/soapbox/bg-sienna-opacity-10.png);
   background: rgba(215, 82, 30, 0.1);
 }
 /* line 1255, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
-.share .addthis_toolbox:hover {
+#page-content .share .addthis_toolbox:hover {
   background: #cb4827;
 }
 /* line 1257, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
-.share .addthis_toolbox:hover a {
+#page-content .share .addthis_toolbox:hover a {
   color: #fff;
   background-position: 2px -28px;
   text-decoration: none;
   text-shadow: none;
 }
 /* line 1264, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
-.share .addthis_toolbox a {
+#page-content .share .addthis_toolbox a {
   display: block;
   padding: 5px 10px 2px 20px;
   font-size: 12px;
@@ -2025,7 +1905,7 @@ p.search_filter_hint {
   color: #cb4827;
 }
 /* line 1273, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
-.share .addthis_toolbox a:hover {
+#page-content .share .addthis_toolbox a:hover {
   backgground-position: 2px -28px;
   text-decoration: none;
   text-shadow: none;
@@ -2224,11 +2104,7 @@ p.search_filter_hint {
 }
 
 /* line 1429, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
-<<<<<<< HEAD
 #trend-comments a.button, #qotd-comments a.button, #recent-questions a.button, #all-questions a.button {
-=======
-#trend-comments a.button, #qotd-comments a.button, #recent-questions a.button {
->>>>>>> 50d9aa3dc31f2476393cd4945c053b4c0564e314
   font-size: 15px;
   font-weight: bold;
   display: inline-block;
@@ -2246,29 +2122,17 @@ p.search_filter_hint {
   background: #cb4827;
 }
 /* line 1440, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
-<<<<<<< HEAD
 #trend-comments a.button:hover, #qotd-comments a.button:hover, #recent-questions a.button:hover, #all-questions a.button:hover {
-=======
-#trend-comments a.button:hover, #qotd-comments a.button:hover, #recent-questions a.button:hover {
->>>>>>> 50d9aa3dc31f2476393cd4945c053b4c0564e314
   text-decoration: none;
   background: #99331F;
 }
 
 /* line 1447, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
-<<<<<<< HEAD
 #recent-questions #recent-qotds #all-questions a.button {
   background: #474f80;
 }
 /* line 1449, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
 #recent-questions #recent-qotds #all-questions a.button:hover {
-=======
-#recent-questions #recent-qotds a.button {
-  background: #474f80;
-}
-/* line 1449, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
-#recent-questions #recent-qotds a.button:hover {
->>>>>>> 50d9aa3dc31f2476393cd4945c053b4c0564e314
   background: #323b66;
 }
 
@@ -2282,121 +2146,71 @@ p.search_filter_hint {
 }
 
 /* line 1464, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
-<<<<<<< HEAD
 #recent-questions, #all-questions {
-=======
-#recent-questions {
->>>>>>> 50d9aa3dc31f2476393cd4945c053b4c0564e314
   overflow: hidden;
   margin: 0 -10px;
 }
 /* line 1467, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
-<<<<<<< HEAD
 #recent-questions div, #all-questions div {
-=======
-#recent-questions div {
->>>>>>> 50d9aa3dc31f2476393cd4945c053b4c0564e314
   padding: 10px 0;
   display: inline;
   float: left;
   margin-right: 10px;
   width: 482px;
 }
-<<<<<<< HEAD
 /* line 138, ../../../../../../../.rvm/gems/ruby-1.8.7-p302@ria/gems/compass-0.10.6/frameworks/blueprint/stylesheets/blueprint/_grid.scss */
 * html #recent-questions div, * html #all-questions div {
   overflow-x: hidden;
 }
 /* line 1470, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
 #recent-questions div#recent-qotds, #all-questions div#recent-qotds {
-=======
-/* line 138, ../../../../../.rvm/gems/ree-1.8.7-2010.02/gems/compass-0.10.6/frameworks/blueprint/stylesheets/blueprint/_grid.scss */
-* html #recent-questions div {
-  overflow-x: hidden;
-}
-/* line 1470, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
-#recent-questions div#recent-qotds {
->>>>>>> 50d9aa3dc31f2476393cd4945c053b4c0564e314
   display: inline;
   float: left;
   margin-right: 0;
   width: 482px;
 }
-<<<<<<< HEAD
 /* line 138, ../../../../../../../.rvm/gems/ruby-1.8.7-p302@ria/gems/compass-0.10.6/frameworks/blueprint/stylesheets/blueprint/_grid.scss */
 * html #recent-questions div#recent-qotds, * html #all-questions div#recent-qotds {
   overflow-x: hidden;
 }
 /* line 1472, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
 #recent-questions div#recent-qotds ul li a:hover, #all-questions div#recent-qotds ul li a:hover {
-=======
-/* line 138, ../../../../../.rvm/gems/ree-1.8.7-2010.02/gems/compass-0.10.6/frameworks/blueprint/stylesheets/blueprint/_grid.scss */
-* html #recent-questions div#recent-qotds {
-  overflow-x: hidden;
-}
-/* line 1472, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
-#recent-questions div#recent-qotds ul li a:hover {
->>>>>>> 50d9aa3dc31f2476393cd4945c053b4c0564e314
   text-decoration: none;
   background: #d9e8ef;
   background: rgba(114, 180, 210, 0.15);
   color: #474f80;
 }
 /* line 1477, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
-<<<<<<< HEAD
 #recent-questions div#recent-qotds ul li a:hover .reply-count, #all-questions div#recent-qotds ul li a:hover .reply-count {
   background-position: -400px 0;
 }
 /* line 1482, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
 #recent-questions div h1, #all-questions div h1 {
-=======
-#recent-questions div#recent-qotds ul li a:hover .reply-count {
-  background-position: -400px 0;
-}
-/* line 1482, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
-#recent-questions div h1 {
->>>>>>> 50d9aa3dc31f2476393cd4945c053b4c0564e314
   margin: 0 10px 10px;
   font-size: 18px;
   padding: 5px 0 0;
   border-bottom: 1px solid #000;
 }
 /* line 1488, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
-<<<<<<< HEAD
 #recent-questions div ul, #all-questions div ul {
-=======
-#recent-questions div ul {
->>>>>>> 50d9aa3dc31f2476393cd4945c053b4c0564e314
   margin: 10px;
   list-style: none;
 }
 /* line 1491, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
-<<<<<<< HEAD
 #recent-questions div ul li, #all-questions div ul li {
-=======
-#recent-questions div ul li {
->>>>>>> 50d9aa3dc31f2476393cd4945c053b4c0564e314
   background: none;
   padding: 0;
   margin: 5px 0;
 }
 /* line 1495, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
-<<<<<<< HEAD
 #recent-questions div ul li a, #all-questions div ul li a {
-=======
-#recent-questions div ul li a {
->>>>>>> 50d9aa3dc31f2476393cd4945c053b4c0564e314
   overflow: hidden;
   display: block;
   padding: 5px 0 5px 5px;
   color: #333;
 }
 /* line 1500, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
-<<<<<<< HEAD
 #recent-questions div ul li a time, #all-questions div ul li a time {
-=======
-#recent-questions div ul li a time {
->>>>>>> 50d9aa3dc31f2476393cd4945c053b4c0564e314
   float: left;
   margin: 0 10px 0 0;
   font-size: 16px;
@@ -2409,11 +2223,7 @@ p.search_filter_hint {
   width: 33px;
 }
 /* line 1511, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
-<<<<<<< HEAD
 #recent-questions div ul li a time span, #all-questions div ul li a time span {
-=======
-#recent-questions div ul li a time span {
->>>>>>> 50d9aa3dc31f2476393cd4945c053b4c0564e314
   font-size: 11px;
   font-weight: normal;
   display: block;
@@ -2422,22 +2232,14 @@ p.search_filter_hint {
   padding: 3px 0;
 }
 /* line 1520, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
-<<<<<<< HEAD
 #recent-questions div ul li a span.title, #all-questions div ul li a span.title {
-=======
-#recent-questions div ul li a span.title {
->>>>>>> 50d9aa3dc31f2476393cd4945c053b4c0564e314
   display: block;
   float: left;
   width: 345px;
   margin: 0 10px 0 0;
 }
 /* line 1526, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
-<<<<<<< HEAD
 #recent-questions div ul li a span.reply-count, #all-questions div ul li a span.reply-count {
-=======
-#recent-questions div ul li a span.reply-count {
->>>>>>> 50d9aa3dc31f2476393cd4945c053b4c0564e314
   float: left;
   width: 53px;
   padding: 10px 0 10px 3px;
@@ -2448,39 +2250,26 @@ p.search_filter_hint {
   font-size: 11px;
 }
 /* line 1535, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
-<<<<<<< HEAD
 #recent-questions div ul li a span.reply-count span, #all-questions div ul li a span.reply-count span {
-=======
-#recent-questions div ul li a span.reply-count span {
->>>>>>> 50d9aa3dc31f2476393cd4945c053b4c0564e314
   font-size: 16px;
   font-weight: bold;
   display: block;
 }
 /* line 1541, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
-<<<<<<< HEAD
 #recent-questions div ul li a:hover, #all-questions div ul li a:hover {
-=======
-#recent-questions div ul li a:hover {
->>>>>>> 50d9aa3dc31f2476393cd4945c053b4c0564e314
   text-decoration: none;
   background: #f7e3de;
   background: rgba(231, 95, 61, 0.15);
   color: #cb4827;
 }
 /* line 1546, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
-<<<<<<< HEAD
 #recent-questions div ul li a:hover .reply-count, #all-questions div ul li a:hover .reply-count {
-=======
-#recent-questions div ul li a:hover .reply-count {
->>>>>>> 50d9aa3dc31f2476393cd4945c053b4c0564e314
   background-position: -200px 0;
   color: #fff;
   text-shadow: 0 1px 0 #000;
 }
 
 /*#recent-questions^^ */
-<<<<<<< HEAD
 /* line 1559, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
 #all-questions div {
   display: inline;
@@ -2498,9 +2287,6 @@ p.search_filter_hint {
 }
 
 /* line 1569, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
-=======
-/* line 1560, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
->>>>>>> 50d9aa3dc31f2476393cd4945c053b4c0564e314
 #profile-account h5, #profile-summary h5 {
   font-family: 'MuseoSlab500', 'Helvetica Neue', Helvetica, arial, sans-serif;
   font-weight: normal !important;
@@ -2513,58 +2299,34 @@ p.search_filter_hint {
   letter-spacing: 0.15em;
   text-transform: uppercase;
 }
-<<<<<<< HEAD
 /* line 1579, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
 #profile-account p, #profile-summary p {
   font-size: 13px;
 }
 /* line 1582, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
-=======
-/* line 1570, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
-#profile-account p, #profile-summary p {
-  font-size: 13px;
-}
-/* line 1573, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
->>>>>>> 50d9aa3dc31f2476393cd4945c053b4c0564e314
 #profile-account dl, #profile-summary dl {
   overflow: hidden;
   margin: 0 0 10px;
 }
-<<<<<<< HEAD
 /* line 1585, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
-=======
-/* line 1576, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
->>>>>>> 50d9aa3dc31f2476393cd4945c053b4c0564e314
 #profile-account dl dt, #profile-summary dl dt {
   float: left;
   width: 75px;
   margin: 0 10px 0 0;
   line-height: 18px;
 }
-<<<<<<< HEAD
 /* line 1590, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
 #profile-account dl dt:after, #profile-summary dl dt:after {
   content: ":";
 }
 /* line 1594, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
-=======
-/* line 1581, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
-#profile-account dl dt:after, #profile-summary dl dt:after {
-  content: ":";
-}
-/* line 1585, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
->>>>>>> 50d9aa3dc31f2476393cd4945c053b4c0564e314
 #profile-account dl dd, #profile-summary dl dd {
   line-height: 18px;
   padding: 2px 0;
   font-weight: normal;
 }
 
-<<<<<<< HEAD
 /* line 1602, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
-=======
-/* line 1593, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
->>>>>>> 50d9aa3dc31f2476393cd4945c053b4c0564e314
 #profile-account {
   float: right;
   width: 213px;
@@ -2573,31 +2335,19 @@ p.search_filter_hint {
   border-left: 1px dotted #ddd;
 }
 
-<<<<<<< HEAD
 /* line 1609, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
-=======
-/* line 1600, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
->>>>>>> 50d9aa3dc31f2476393cd4945c053b4c0564e314
 #profile-summary {
   margin-right: 244px;
 }
 
 /* Front Burner */
-<<<<<<< HEAD
 /* line 1616, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
-=======
-/* line 1607, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
->>>>>>> 50d9aa3dc31f2476393cd4945c053b4c0564e314
 #user_profile_view {
   color: #333;
   position: relative;
   overflow: visible;
 }
-<<<<<<< HEAD
 /* line 1620, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
-=======
-/* line 1611, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
->>>>>>> 50d9aa3dc31f2476393cd4945c053b4c0564e314
 #user_profile_view .edit_profile_link {
   top: 0px;
   right: 0px;
@@ -2608,11 +2358,7 @@ p.search_filter_hint {
   font-weight: 300;
   text-transform: uppercase;
 }
-<<<<<<< HEAD
 /* line 1627, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
-=======
-/* line 1618, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
->>>>>>> 50d9aa3dc31f2476393cd4945c053b4c0564e314
 #user_profile_view .edit_profile_link a {
   background-color: #474f80;
   -moz-border-radius: 12px;
@@ -2628,22 +2374,14 @@ p.search_filter_hint {
   height: 14px;
   color: #fff;
 }
-<<<<<<< HEAD
 /* line 1636, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
-=======
-/* line 1627, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
->>>>>>> 50d9aa3dc31f2476393cd4945c053b4c0564e314
 #user_profile_view .edit_profile_link a:hover {
   background-color: #cb4827;
   color: #fff;
   color: rgba(255, 255, 255, 0.6);
   text-decoration: none;
 }
-<<<<<<< HEAD
 /* line 1644, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
-=======
-/* line 1635, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
->>>>>>> 50d9aa3dc31f2476393cd4945c053b4c0564e314
 #user_profile_view img {
   float: left;
   margin: 0 15px 10px 0;
@@ -2655,11 +2393,7 @@ p.search_filter_hint {
   -o-box-shadow: #999999 0px 0px 3px 0;
   box-shadow: #999999 0px 0px 3px 0;
 }
-<<<<<<< HEAD
 /* line 1652, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
-=======
-/* line 1643, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
->>>>>>> 50d9aa3dc31f2476393cd4945c053b4c0564e314
 #user_profile_view h2 {
   clear: none;
   margin: 0 0 13px 0;
@@ -2667,22 +2401,14 @@ p.search_filter_hint {
   border: 0 none;
   font-size: 21px;
 }
-<<<<<<< HEAD
 /* line 1659, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
-=======
-/* line 1650, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
->>>>>>> 50d9aa3dc31f2476393cd4945c053b4c0564e314
 #user_profile_view h3.headline {
   margin: 0 0 12px 0;
   color: #333;
   font-family: 'helvetica neue', helvetica, arial, sans-serif;
   font-weight: normal;
 }
-<<<<<<< HEAD
 /* line 1665, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
-=======
-/* line 1656, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
->>>>>>> 50d9aa3dc31f2476393cd4945c053b4c0564e314
 #user_profile_view h5 {
   color: #333;
   font-family: 'MuseoSlab700', 'Helvetica Neue', Helvetica, arial, sans-serif;
@@ -2690,7 +2416,6 @@ p.search_filter_hint {
   font-weight: 700;
   margin: 20px 0 5px;
 }
-<<<<<<< HEAD
 /* line 1670, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
 #user_profile_view .user_employment {
   font-size: 1.3em;
@@ -2700,35 +2425,16 @@ p.search_filter_hint {
   font-size: 11px;
 }
 /* line 1672, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
-=======
-/* line 1661, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
-#user_profile_view .user_employment {
-  font-size: 1.3em;
-}
-/* line 1662, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
-#user_profile_view .list {
-  font-size: 11px;
-}
-/* line 1663, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
->>>>>>> 50d9aa3dc31f2476393cd4945c053b4c0564e314
 #user_profile_view dl.user_info {
   font-size: 1em;
   margin: 0;
   padding: 0;
 }
-<<<<<<< HEAD
 /* line 1678, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
 #user_profile_view dl.user_info dt, #user_profile_view dl.user_info dd {
   line-height: 18px;
 }
 /* line 1682, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
-=======
-/* line 1669, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
-#user_profile_view dl.user_info dt, #user_profile_view dl.user_info dd {
-  line-height: 18px;
-}
-/* line 1673, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
->>>>>>> 50d9aa3dc31f2476393cd4945c053b4c0564e314
 #user_profile_view dl.user_info dt {
   width: 76px;
   float: left;
@@ -2736,45 +2442,25 @@ p.search_filter_hint {
   margin: 0 10px 0 0;
   font-weight: normal;
 }
-<<<<<<< HEAD
 /* line 1690, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
 #user_profile_view dl.user_info dt:after {
   content: ":";
 }
 /* line 1694, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
-=======
-/* line 1681, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
-#user_profile_view dl.user_info dt:after {
-  content: ":";
-}
-/* line 1685, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
->>>>>>> 50d9aa3dc31f2476393cd4945c053b4c0564e314
 #user_profile_view dl.user_info dd {
   margin-top: 0;
   margin-left: 80px;
 }
-<<<<<<< HEAD
 /* line 1698, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
 #user_profile_view .profile_info {
   overflow: hidden;
 }
 /* line 1700, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
-=======
-/* line 1689, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
-#user_profile_view .profile_info {
-  overflow: hidden;
-}
-/* line 1691, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
->>>>>>> 50d9aa3dc31f2476393cd4945c053b4c0564e314
 #user_profile_view .profile_info .profile_header {
   overflow: hidden;
   border-bottom: 1px dotted #ccc;
 }
-<<<<<<< HEAD
 /* line 1704, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
-=======
-/* line 1695, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
->>>>>>> 50d9aa3dc31f2476393cd4945c053b4c0564e314
 #user_profile_view .profile_info .profile_title_summary {
   width: 400px;
   float: left;
@@ -2782,19 +2468,11 @@ p.search_filter_hint {
   padding: 0 15px 20px 1px;
   border-right: 1px dotted #ccc;
 }
-<<<<<<< HEAD
 /* line 1710, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
 #user_profile_view .profile_info .profile_title_summary h5.nomargin {
   margin-top: 0px;
 }
 /* line 1712, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
-=======
-/* line 1701, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
-#user_profile_view .profile_info .profile_title_summary h5.nomargin {
-  margin-top: 0px;
-}
-/* line 1703, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
->>>>>>> 50d9aa3dc31f2476393cd4945c053b4c0564e314
 #user_profile_view .profile_info .profile_contact_info {
   width: 225px;
   float: left;
@@ -2802,11 +2480,7 @@ p.search_filter_hint {
   padding: 0 0 6px 0;
   margin: 0;
 }
-<<<<<<< HEAD
 /* line 1718, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
-=======
-/* line 1709, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
->>>>>>> 50d9aa3dc31f2476393cd4945c053b4c0564e314
 #user_profile_view .profile_info .profile_contact_info p.timestamp_header {
   margin: 30px 0 0 0;
   padding: 0;
@@ -2815,11 +2489,7 @@ p.search_filter_hint {
   text-align: right;
 }
 
-<<<<<<< HEAD
 /* line 1730, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
-=======
-/* line 1721, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
->>>>>>> 50d9aa3dc31f2476393cd4945c053b4c0564e314
 #extended_profile_container .showit {
   padding: 8px 16px 8px 26px;
   margin-bottom: 20px;
@@ -2833,51 +2503,31 @@ p.search_filter_hint {
   background-color: #fbeae3;
   background: #fbeae3 url(/images/soapbox/show-arrow.gif) no-repeat 5px 6px;
 }
-<<<<<<< HEAD
 /* line 1740, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
-=======
-/* line 1731, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
->>>>>>> 50d9aa3dc31f2476393cd4945c053b4c0564e314
 #extended_profile_container .showit em {
   font-style: italic;
   font-family: 'MuseoSlab500', 'Helvetica Neue', Helvetica, arial, sans-serif;
   font-weight: normal !important;
   font-weight: 500;
 }
-<<<<<<< HEAD
 /* line 1744, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
-=======
-/* line 1735, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
->>>>>>> 50d9aa3dc31f2476393cd4945c053b4c0564e314
 #extended_profile_container .showit:hover, #extended_profile_container .showit.open {
   background-color: #cb4827;
   color: #fff;
   text-decoration: none;
 }
-<<<<<<< HEAD
 /* line 1749, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
-=======
-/* line 1740, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
->>>>>>> 50d9aa3dc31f2476393cd4945c053b4c0564e314
 #extended_profile_container .showit.open {
   background-position: 5px -95px;
 }
 
-<<<<<<< HEAD
 /* line 1755, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
-=======
-/* line 1746, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
->>>>>>> 50d9aa3dc31f2476393cd4945c053b4c0564e314
 #extended_profile {
   background: transparent url(/images/soapbox/bg-extended.png) repeat-x 0 100%;
   margin: 10px 0 20px;
   border-bottom: 1px solid #ddd;
 }
-<<<<<<< HEAD
 /* line 1759, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
-=======
-/* line 1750, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
->>>>>>> 50d9aa3dc31f2476393cd4945c053b4c0564e314
 #extended_profile h3 {
   font-family: 'MuseoSlab500', 'Helvetica Neue', Helvetica, arial, sans-serif;
   font-weight: normal !important;
@@ -2890,48 +2540,28 @@ p.search_filter_hint {
   padding-bottom: 2px;
   color: #333;
 }
-<<<<<<< HEAD
 /* line 1769, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
-=======
-/* line 1760, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
->>>>>>> 50d9aa3dc31f2476393cd4945c053b4c0564e314
 #extended_profile ul {
   list-style: none;
   border-bottom: 0;
   width: 100%;
 }
-<<<<<<< HEAD
 /* line 1773, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
-=======
-/* line 1764, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
->>>>>>> 50d9aa3dc31f2476393cd4945c053b4c0564e314
 #extended_profile ul li {
   background: 0 none;
   line-height: 15px;
 }
-<<<<<<< HEAD
 /* line 1776, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
 #extended_profile ul li p {
   line-height: 15px;
 }
 /* line 1781, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
-=======
-/* line 1767, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
-#extended_profile ul li p {
-  line-height: 15px;
-}
-/* line 1772, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
->>>>>>> 50d9aa3dc31f2476393cd4945c053b4c0564e314
 #extended_profile .extended_profile_info, #extended_profile .profile_info {
   position: relative;
   overflow: hidden;
   padding: 0px 2px;
 }
-<<<<<<< HEAD
 /* line 1785, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
-=======
-/* line 1776, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
->>>>>>> 50d9aa3dc31f2476393cd4945c053b4c0564e314
 #extended_profile .extended_profile_info ul, #extended_profile .profile_info ul {
   margin: 0;
   padding: 0;
@@ -2939,11 +2569,7 @@ p.search_filter_hint {
   list-style: none;
   overflow: hidden;
 }
-<<<<<<< HEAD
 /* line 1791, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
-=======
-/* line 1782, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
->>>>>>> 50d9aa3dc31f2476393cd4945c053b4c0564e314
 #extended_profile .extended_profile_info ul li, #extended_profile .profile_info ul li {
   width: 30%;
   border-bottom: 0;
@@ -2952,19 +2578,11 @@ p.search_filter_hint {
   float: left;
   padding: 4px 0 0 5px;
 }
-<<<<<<< HEAD
 /* line 1798, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
 #extended_profile .extended_profile_info ul li span.name, #extended_profile .profile_info ul li span.name {
   color: #cb4827;
 }
 /* line 1804, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
-=======
-/* line 1789, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
-#extended_profile .extended_profile_info ul li span.name, #extended_profile .profile_info ul li span.name {
-  color: #cb4827;
-}
-/* line 1795, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
->>>>>>> 50d9aa3dc31f2476393cd4945c053b4c0564e314
 #extended_profile .timestamp {
   position: absolute;
   top: 8px;
@@ -2972,65 +2590,37 @@ p.search_filter_hint {
   font: normal 10px "Helvetica Neue", Helvetica, Arial, sans-serif;
   color: #808080;
 }
-<<<<<<< HEAD
 /* line 1811, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
 #extended_profile .employee_role {
   border: 0;
 }
 /* line 1814, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
-=======
-/* line 1802, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
-#extended_profile .employee_role {
-  border: 0;
-}
-/* line 1805, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
->>>>>>> 50d9aa3dc31f2476393cd4945c053b4c0564e314
 #extended_profile a {
   color: #0087C0;
   text-decoration: none;
 }
-<<<<<<< HEAD
 /* line 1817, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
 #extended_profile a:hover {
   color: #666;
 }
 /* line 1821, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
-=======
-/* line 1808, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
-#extended_profile a:hover {
-  color: #666;
-}
-/* line 1812, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
->>>>>>> 50d9aa3dc31f2476393cd4945c053b4c0564e314
 #extended_profile .name {
   color: #0087C0;
   text-decoration: none;
 }
 
-<<<<<<< HEAD
 /* line 1827, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
-=======
-/* line 1818, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
->>>>>>> 50d9aa3dc31f2476393cd4945c053b4c0564e314
 #current_things {
   margin: 1em 0;
   padding: 5px;
 }
-<<<<<<< HEAD
 /* line 1830, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
-=======
-/* line 1821, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
->>>>>>> 50d9aa3dc31f2476393cd4945c053b4c0564e314
 #current_things dl.things {
   overflow: hidden;
   margin: 0;
   padding: 14px 10px;
 }
-<<<<<<< HEAD
 /* line 1834, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
-=======
-/* line 1825, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
->>>>>>> 50d9aa3dc31f2476393cd4945c053b4c0564e314
 #current_things dl.things div {
   margin-right: 20px;
   padding-right: 19px;
@@ -3038,57 +2628,33 @@ p.search_filter_hint {
   width: 172px;
   float: left;
 }
-<<<<<<< HEAD
 /* line 1840, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
-=======
-/* line 1831, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
->>>>>>> 50d9aa3dc31f2476393cd4945c053b4c0564e314
 #current_things dl.things div.last {
   padding-right: 0;
   border-right: 0;
   margin-right: 0;
 }
-<<<<<<< HEAD
 /* line 1846, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
-=======
-/* line 1837, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
->>>>>>> 50d9aa3dc31f2476393cd4945c053b4c0564e314
 #current_things dl.things dt {
   margin: 0 0 1em;
   font-weight: normal;
 }
-<<<<<<< HEAD
 /* line 1849, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
 #current_things dl.things dt:after {
   content: ":";
 }
 /* line 1853, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
-=======
-/* line 1840, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
-#current_things dl.things dt:after {
-  content: ":";
-}
-/* line 1844, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
->>>>>>> 50d9aa3dc31f2476393cd4945c053b4c0564e314
 #current_things dl.things dd {
   font-weight: bold;
   font-size: 1.1em;
 }
 
-<<<<<<< HEAD
 /* line 1861, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
-=======
-/* line 1852, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
->>>>>>> 50d9aa3dc31f2476393cd4945c053b4c0564e314
 dl.things dt:after {
   content: ":";
 }
 
-<<<<<<< HEAD
 /* line 1868, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
-=======
-/* line 1859, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
->>>>>>> 50d9aa3dc31f2476393cd4945c053b4c0564e314
 #employment_criteria legend span {
   font-family: 'MuseoSlab700', 'Helvetica Neue', Helvetica, arial, sans-serif;
   font-weight: normal !important;
@@ -3097,38 +2663,22 @@ dl.things dt:after {
   font-size: 15px;
 }
 
-<<<<<<< HEAD
 /* line 1876, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
 #criteria_accordion {
   padding: 10px 0 0;
 }
 /* line 1878, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
-=======
-/* line 1867, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
-#criteria_accordion {
-  padding: 10px 0 0;
-}
-/* line 1869, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
->>>>>>> 50d9aa3dc31f2476393cd4945c053b4c0564e314
 #criteria_accordion .accordion_box {
   border: 1px solid #ddd;
   background: 0 none;
 }
 
-<<<<<<< HEAD
 /* line 1885, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
-=======
-/* line 1876, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
->>>>>>> 50d9aa3dc31f2476393cd4945c053b4c0564e314
 .topic-nav {
   overflow: hidden;
   padding: 10px 0 10px 10px;
 }
-<<<<<<< HEAD
 /* line 1888, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
-=======
-/* line 1879, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
->>>>>>> 50d9aa3dc31f2476393cd4945c053b4c0564e314
 .topic-nav a {
   display: block;
   padding: 5px 10px 5px 20px;
@@ -3138,30 +2688,18 @@ dl.things dt:after {
   float: right;
   margin: 0 0 0 10px;
 }
-<<<<<<< HEAD
 /* line 1896, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
-=======
-/* line 1887, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
->>>>>>> 50d9aa3dc31f2476393cd4945c053b4c0564e314
 .topic-nav a.next {
   padding-left: 10px;
   padding-right: 20px;
   background-image: url(/images/redesign/bg-orange-arrow-next.png);
   background-position: right;
 }
-<<<<<<< HEAD
 /* line 1902, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
 .topic-nav a.prev {
   background-image: url(/images/redesign/bg-orange-arrow-prev.png);
 }
 /* line 1905, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
-=======
-/* line 1893, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
-.topic-nav a.prev {
-  background-image: url(/images/redesign/bg-orange-arrow-prev.png);
-}
-/* line 1896, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
->>>>>>> 50d9aa3dc31f2476393cd4945c053b4c0564e314
 .topic-nav a.all-topics {
   background-image: url(/images/redesign/bg-home.png);
 }

@@ -105,3 +105,9 @@ function updateDirectoryList() {
 }
 
 $directoryInputs.change(updateDirectoryList);
+
+function show_all_questions_linker() {
+	tabs = $('#sidebar').tabs();
+	$('#view-all-questions').attr('href', SOAPBOX_ENTRIES_URLS[tabs.tabs('option', 'selected')]);
+	return true;
+}

@@ -20,17 +20,22 @@ class Soapbox::SoapboxEntriesController < Soapbox::SoapboxController
     @feature_comments = entry.comments
   end
 
-  def all
-    if params[:q] == 'qotd'
-      @question_type = 'qotd'
-      @questions = SoapboxEntry.qotd.published.paginate(:page => params[:page], :include => :featured_item)
-    else
-      @question_type = 'trend'
-      @questions = SoapboxEntry.trend_question.published.paginate(:page => params[:page], :include => :featured_item)
-    end
+  def trend
+    @question_type = 'trend'
+    @questions = SoapboxEntry.trend_question.published.paginate(:page => params[:page], :include => :featured_item)
 
     @featured_items = @questions.map(&:featured_item)
     @no_sidebar = true
+    render 'soapbox/soapbox_entries/all'
+  end
+
+  def qotd
+    @question_type = 'qotd'
+    @questions = SoapboxEntry.qotd.published.paginate(:page => params[:page], :include => :featured_item)
+
+    @featured_items = @questions.map(&:featured_item)
+    @no_sidebar = true
+    render 'soapbox/soapbox_entries/all'
   end
 
   protected

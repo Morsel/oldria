@@ -15,16 +15,10 @@
     </ol><!-- /activity-feed -->
     <div id="feed-bottom"></div>
     <footer>
-      <nav id="activity-chooser">
-        <span><%= link_to "View all", all_soapbox_soapbox_entries_path, :id => "view-all-questions", :onClick => "show_all_questions();" %></span>
+      <nav id="activity-chooser-all">
+        <span><%= link_to "View all", "#", :id => "view-all-questions", :onClick => "show_all_questions_linker();" %></span>
         <% javascript_tag do %>
-          show_all_questions = function () {
-              var link = {'0':"trend", '1':"qotd"};
-              tabs = $('#sidebar').tabs();
-              url = $('#view-all-questions').attr('href') + '?q=' + link[tabs.tabs('option', 'selected')];
-              $('#view-all-questions').attr('href', url);
-              return true;
-          };
+          SOAPBOX_ENTRIES_URLS = ["<%= trend_soapbox_soapbox_entries_path %>", "<%= qotd_soapbox_soapbox_entries_path %>"];
         <% end %>
       </nav>
     </footer>
