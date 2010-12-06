@@ -32,6 +32,6 @@ class PhotosController < ApplicationController
   private
 
   def find_restaurant
-    @restaurant = Restaurant.find(params[:restaurant_id])
+    @restaurant = Restaurant.find(params[:restaurant_id], :include => :photos)
   end
 end
