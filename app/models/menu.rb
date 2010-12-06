@@ -20,12 +20,16 @@ class Menu < ActiveRecord::Base
 
   accepts_nested_attributes_for :pdf_remote_attachment
 
+  default_scope :order => :position
+
+  named_scope :by_position, :order => :position
+
   def self.change_frequencies
     @change_frequencies ||= begin
       File.read(File.join(RAILS_ROOT, 'db/seedlings/restaurant_features/menu change tags.txt')).split("\r\n")
     end
   end
-  validates_inclusion_of :change_frequency, :in => Menu.change_frequencies, 
+  validates_inclusion_of :change_frequency, :in => Menu.change_frequencies,
       :message => "must be selected"
 
 
