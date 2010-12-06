@@ -27,9 +27,17 @@ class Employment < ActiveRecord::Base
 
   has_many :responsibilities, :dependent => :destroy
   has_many :subject_matters, :through => :responsibilities
+  
+  # QOTDs
   has_many :admin_conversations, :class_name => 'Admin::Conversation', :foreign_key => 'recipient_id'
+  
+  # Trend questions and content requests
   has_many :admin_discussions, :through => :restaurant
+  
+  # Announcement and PR Tips
   has_many :admin_messages, :through => :admin_conversations, :class_name => 'Admin::Message'
+  
+  # Holidays
   has_many :holiday_conversations, :foreign_key => 'recipient_id', :dependent => :destroy
   has_many :holidays, :through => :holiday_conversations
 
@@ -106,9 +114,27 @@ class Employment < ActiveRecord::Base
   end
 
   def current_viewable_admin_discussions
-    viewable_admin_discussions.select {|discussion| discussion.scheduled_at < Time.now }
+    viewable_admin_discussions.select { |discussion| discussion.scheduled_at <= Time.now }
+  end
+  
+  # Trend questions only
+  def viewable_trend_discussions
+    omniscient? ? admin_discussions.for_trends : filter_only_viewable(admin_discussions.for_trends)
+  end
+  
+  def current_viewable_trend_discussions
+    viewable_trend_discussions.select { |discussion| discussion.scheduled_at <= Time.now }
+  end
+  
+  # Content requests only
+  def viewable_request_discussions
+    omniscient? ? admin_discussions.for_content_requests : filter_only_viewable(admin_discussions.for_content_requests)
   end
 
+  def current_viewable_request_discussions
+    viewable_request_discussions.select { |discussion| discussion.scheduled_at <= Time.now }
+  end
+  
   private
 
   def all_media_requests(find_options = {})

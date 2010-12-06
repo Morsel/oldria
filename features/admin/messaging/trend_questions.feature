@@ -60,11 +60,11 @@ Feature: Trend questions
     But the last trend question for "Normal Pants" should not be viewable by "Jim Smith"
 
     Given I am logged in as "sam" with password "secret"
-    When I go to my inbox
+    When I go to Front Burner
     Then I should see "Chefs only"
 
     Given I am logged in as "jim" with password "secret"
-    When I go to my inbox
+    When I go to Front Burner
     Then I should not see "Chefs only"
 
   Scenario: Managers can see all the restaurant's trend questions
@@ -85,11 +85,11 @@ Feature: Trend questions
     And the trend question "Where's the chicken?" should not be viewable by "jim"
 
     Given I am logged in as "sam" with password "secret"
-    When I go to my inbox
+    When I go to Front Burner
     Then I should see "Where's the chicken?"
     
     Given I am logged in as "jim" with password "secret"
-    When I go to my inbox
+    When I go to Front Burner
     Then I should not see "Where's the chicken?"
 
   Scenario: Restaurant folks can respond to trend questions
@@ -98,7 +98,7 @@ Feature: Trend questions
       | Region | Midwest (IN IL OH) |
   
     Given I am logged in as "sam" with password "secret"
-    And I go to the RIA messages page
+    When I go to Front Burner
     Then I should see "My river runs blue"
   
     When I follow "Post"
@@ -113,7 +113,7 @@ Feature: Trend questions
     And trend question "Microbiology!" has a reply "Really?" by "sam"
     
     Given I am logged in as "sam" with password "secret"
-    And I go to the RIA messages page
+    When I go to Front Burner
     And I follow "View your post"
     And I follow "Edit" within "div.comments"
     And I fill in "Comment" with "Yes! It is green."
@@ -140,7 +140,7 @@ Feature: Trend questions
     Then I should see "Amy Testuser"
 
     Given I am logged in as "amy" with password "secret"
-    And I go to the RIA messages page
+    When I go to Front Burner
     Then I should see "More chefs only"
 
     When I follow "Post"
@@ -171,7 +171,7 @@ Feature: Trend questions
 
     Given "jim" is the account manager for "Normal Pants"
     And I am logged in as "jim" with password "secret"
-    When I go to my inbox
+    When I go to Front Burner
     And I follow "Post"
     And I fill in "Post" with "But my river is green"
     And I press "Send"

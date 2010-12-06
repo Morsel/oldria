@@ -15,13 +15,18 @@
 class AdminDiscussion < ActiveRecord::Base
   belongs_to :restaurant
   belongs_to :discussionable, :polymorphic => true
+
   acts_as_readable
   acts_as_commentable
+
   validates_uniqueness_of :restaurant_id, :scope => [:discussionable_id, :discussionable_type]
 
   named_scope :with_replies, :conditions => "#{table_name}.comments_count > 0"
   named_scope :without_replies, :conditions => "#{table_name}.comments_count = 0"
-
+  
+  named_scope :for_trends, :conditions => { :discussionable_type => "TrendQuestion" }
+  named_scope :for_content_requests, :conditions => { :discussionable_type => "ContentRequest" }
+  
   def message
     [discussionable.subject, discussionable.body].reject(&:blank?).join(": ")
   end
