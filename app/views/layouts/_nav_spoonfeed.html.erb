@@ -4,8 +4,8 @@
   <span><%= active_link_to "My Restaurants", my_restaurants_path, :id => "nav_myrestaurants" %></span>
   <span>
     <%= active_link_to "Front Burner", '/front_burner', :id => "nav_frontburner" %>
-    <% if current_user.admin_conversations.current.size > 0 -%>
-      <%= link_to current_user.admin_conversations.current.size, '/front_burner', :class => 'count' %>
+    <% if current_user.front_burner_unread_count > 0 -%>
+      <%= link_to current_user.front_burner_unread_count, '/front_burner', :class => 'count' %>
     <% end -%>
   </span>
   <span>

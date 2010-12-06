@@ -1,3 +1,17 @@
+# == Schema Information
+# Schema version: 20101124215652
+#
+# Table name: cookbooks
+#
+#  id           :integer         not null, primary key
+#  title        :string(255)
+#  publisher    :string(255)
+#  published_on :datetime
+#  profile_id   :integer
+#  created_at   :datetime
+#  updated_at   :datetime
+#
+
 class Cookbook < ActiveRecord::Base
   belongs_to :profile
   

@@ -16,7 +16,7 @@
 
   <p class="actions message_actions">
       <%= link_to "reply", direct_message, :class => 'button' %>
-      <%= link_to "Go to message", direct_message %>
+      <%= link_to "Go to message", direct_message, :class => 'message_link' %>
   </p>
 
   <% unless direct_message.responses.blank? %>

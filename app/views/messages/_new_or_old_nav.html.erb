@@ -4,6 +4,6 @@
     <% elsif ria_messages? %>
       <span class="latest">The latest from RIA</span>
     <% end %>
-    <%= link_to "New", {:view_all => nil}, :class => "#{archived_view? ? '' : 'active'}" %>
-    <%= link_to "All", {:view_all => true }, :class => "#{archived_view? ? 'active' : ''}" %>
+    <%= link_to "New", {:view_all => nil}, :class => "#{archived_view? ? '' : 'selected'}" %>
+    <%= link_to "All", {:view_all => true }, :class => "#{archived_view? ? 'selected' : ''}" %>
 </div>

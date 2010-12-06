@@ -25,6 +25,13 @@ Factory.define :admin, :parent => :user do |f|
   f.role 'admin'
 end
 
+Factory.define :published_user, :parent => :user do |f|
+  f.role 'admin'
+  f.visible '1'
+  f.prefers_publish_profile true
+  f.premium_account '1'
+end
+
 Factory.define :media_user, :parent => :user do |f|
   f.publication "The Times"
   f.role 'media'
@@ -140,6 +147,8 @@ Factory.define :invitation do |f|
   f.last_name "Doe"
   f.sequence(:email) { |n| "foo#{n}@example.com" }
   f.restaurant_name "Name"
+  f.association :restaurant_role
+  f.subject_matters { [Factory(:subject_matter)] }
 end
 
 # == Restaurants ==

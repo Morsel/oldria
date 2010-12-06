@@ -1,25 +1,16 @@
 <% title @trend_question.subject, false %>
 
 <% div_for @trend_question, :class => 'discussion inbox_message individual' do %>
-  <div class="icon">
-  </div>
-  <div class="message-header clearfix">
-      <h4 class="message-title">
-          <%= title_link_for_message(@trend_question) %>
-          <span class="message-date">
-              <%= @trend_question.scheduled_at.try(:strftime, "%B %d, %Y at %I:%M%p") %>
-          </span>
-      </h4>
-  </div>
-  <div class="message-header clearfix">
-      <h1><%=h @trend_question.try(:subject) %></h1>
 
-      <p class="meta">
-          <span class="meta_label">To:</span> <%= @discussion.employee.try(:name) %>
-      </p>
-  </div>
+  <header>
+  	<h1><%= title_link_for_message(@trend_question) %></h1>
+  	<p class="timestamp"><%= @trend_question.scheduled_at.try(:strftime, "%B %d, %Y at %I:%M%p") %></p>
+  </header>
+  <section class="clear">
+  	<h1><%=h @trend_question.try(:subject) %></h1>
+		<p class="employee_name">To: <%= @discussion.employee.try(:name) %></p>
+  </section>
 
-  <hr/>
   <div class="message-body">
       <%= auto_link(simple_format(@trend_question.body)) %>
   </div>

@@ -48,7 +48,7 @@ module MessagesHelper
     end
   end
 
-  def read_link_for_message(message, link_text = '<span>View message</span>')
+  def read_link_for_message(message, link_text = '<span>Read message</span>')
     return unless message
 
     link_path = if message.is_a?(HolidayDiscussion)
@@ -57,8 +57,8 @@ module MessagesHelper
       read_holiday_discussion_reminder_path(message)
     elsif message.respond_to?(:discussionable)
       read_admin_discussion_path(message)
-    elsif message.respond_to?(:admin_message)
-      read_admin_message_path(message.admin_message)
+    elsif message.respond_to?(:admin_message) # QOTD
+      read_admin_conversation_path(message)
     elsif message.respond_to?(:admin_discussions) # TrendQuestion or ContentRequest
       first_discussion_for_user = current_user.grouped_admin_discussions[message].first
       read_admin_discussion_path(first_discussion_for_user)

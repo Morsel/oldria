@@ -6,9 +6,11 @@ ActionController::Routing::Routes.draw do |map|
   map.social_media 'social_media', :controller => 'social_media', :action => 'index'
   map.my_restaurants 'my_restaurants', :controller => 'restaurants', :action => 'mine'
   
-  map.resources :invitations, :only => ['new', 'create', 'show']
+  map.resources :invitations, :only => ['new', 'create', 'show'], 
+      :collection => { :recommend => :get, :submit_recommendation => :post }
   map.resource :complete_registration, :only => [:show, :update],
-    :collection => { :user_details => :get, :find_restaurant => :any, :contact_restaurant => :post }
+    :collection => { :user_details => :get, :find_restaurant => :any, :contact_restaurant => :post, 
+      :finish_without_contact => :get }
 
   map.directory 'directory', :controller => 'directory', :action => 'index'
 
@@ -28,8 +30,6 @@ ActionController::Routing::Routes.draw do |map|
     soapbox.connect 'directory_search', :controller => 'soapbox', :action => 'directory_search'
     soapbox.root :controller => 'soapbox', :action => 'index'
   end
-  
-  
 
   map.soapbox_profile 'soapbox/profile/:username', :controller => 'soapbox/profiles', :action => 'show',
       :requirements => { :username => /[a-zA-Z0-9\-\_ ]+/}
@@ -132,7 +132,7 @@ ActionController::Routing::Routes.draw do |map|
 
   map.resources :holiday_discussion_reminders, :member => { :read => :put }
 
-  map.resources :admin_conversations, :only => 'show' do |admin_conversations|
+  map.resources :admin_conversations, :only => 'show', :member => { :read => :put } do |admin_conversations|
     admin_conversations.resources :comments, :only => [:new, :create, :edit, :update, :destroy]
   end
 
@@ -197,7 +197,7 @@ ActionController::Routing::Routes.draw do |map|
     admin.resources :question_roles
     admin.resources :schools
     admin.resources :specialties, :collection => { :sort => :post }
-    admin.resources :invitations, :member => { :accept => :get, :archive => :get }
+    admin.resources :invitations, :member => { :accept => :get, :archive => :get, :resend => :get }
     admin.resources :a_la_minute_questions, :member => {:edit_in_place => :post}
     admin.resources :restaurant_features, :only => [:index, :create, :destroy],
         :collection => {:edit_in_place => :post}

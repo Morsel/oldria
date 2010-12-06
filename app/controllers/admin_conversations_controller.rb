@@ -7,6 +7,15 @@ class AdminConversationsController < ApplicationController
     build_comment
   end
 
+  ##
+  # PUT /admin_conversations/1/read
+  # This is meant to be called via AJAX
+  def read
+    @conversation = current_user.admin_conversations.find(params[:id])
+    @conversation.read_by!(current_user)
+    render :nothing => true
+  end
+
   private
 
   def build_comment

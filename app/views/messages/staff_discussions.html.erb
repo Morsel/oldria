@@ -1,27 +1,26 @@
 <% title "Staff Discussions", false -%>
 
 <%= render 'nav' %>
-<div class="span-9 last">
-    <%= render :partial => 'new_or_old_nav' %>
-    <div id="read_messages">
-        <% if @messages.blank? && @messages_with_replies.blank? %>
-          <p>You don't have any discussions right now. You can <%= link_to "start a discussion", new_discussion_path %> if you'd like.</p>
-        <% else %>
+<%= render :partial => 'new_or_old_nav' %>
+	<div id="read_messages">
+		<% if @messages.blank? && @messages_with_replies.blank? %>
+			<div id="no-messages" class="clear">
+				<p>You don't have any discussions right now. You can <%= link_to "start a discussion", new_discussion_path %> if you'd like.</p>
+			</div><!--#no-messages-->
+		<% else %>
+		
+			<% unless @messages_with_replies.blank? %>
+				<div class="top_message clearfix"><h2>You have replies</h2></div>
+				<%= render @messages_with_replies %>
+			<% end %>
+       
+      <% unless @messages.blank? %>
+				<div class="top_message clearfix"><h2>Discussions</h2></div>
+				<%= render @messages %>
+      <% end %>
+		<% end %>
 
-          <% unless @messages_with_replies.blank? %>
-            <div class="clearfix"><span class="discussion_replies">You have replies</span></div>
-            <%= render @messages_with_replies %>
-          <% end %>
-
-          <% unless @messages.blank? %>
-            <div class="clearfix"><span class="latest">Discussions</span></div>
-            <%= render @messages %>
-          <% end %>
-        <% end %>
-
-        <% unless archived_view? %>
-          <p id="past_messages"><%= link_to "All Discussions", staff_discussions_messages_path(:view_all => true) %></p>
-        <% end %>
-
-    </div><!-- /messages -->
-</div>
+		<% unless archived_view? %>
+			<p id="past_messages"><%= link_to "All Discussions", staff_discussions_messages_path(:view_all => true) %></p>
+		<% end %>
+	</div><!-- #read_messages -->
