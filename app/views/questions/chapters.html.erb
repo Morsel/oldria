@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <% title "#{@topic.title} - #{@user.name} Behind the Line", false %>
 <div class="share">
   <!-- AddThis Button BEGIN --> 
@@ -7,6 +8,9 @@
   <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#username=unpluggedria"></script> 
   <!-- AddThis Button END -->
 </div>
+=======
+<% title "#{@topic.title} - #{@user.name} - Behind the Line", false %>
+>>>>>>> master
 <h1 id="btl-title" class="btl"><span class="btl-art">Behind the Line:</span> <span class="name"><%= @user.name %></span></h1>
 <h2 id="topic_title">Topic: <%= @topic.title %></h2>
 <%= render :partial => 'questions/topic_nav', :locals => { :next_topic => @next, :prev_topic => @previous } %>

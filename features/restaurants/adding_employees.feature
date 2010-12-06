@@ -11,6 +11,9 @@ Feature: Associating a Restaurant with its employees
       | betty    | betty@example.com   | Betty Davis | secret   |
       | bob      | bob@example.com     | Bob Davy    | secret   |
       | cole     | cole@example.com    | Cole Cal    | secret   |
+    And "betty" has a default employment with the role "Chef"
+    And "bob" has a default employment with the role "Barista"
+    And "cole" has a default employment with the role "Sous Chef"
     Given I am logged in as "mgmt" with password "secret"
 
   Scenario Outline: Adding an existing Employee after initial signup
@@ -20,22 +23,24 @@ Feature: Associating a Restaurant with its employees
     When I follow "Add employee"
     And I fill in "Employee Email" with "<inputfield>"
     And I press "Submit"
-    Then I should see "Is this who you were looking for?"
+    Then I should see "Is this user an employee at your restaurant?"
     Then I should see "<name>"
 
     When I press "Yes"
     Then I should see "<name>"
-    # The manager plus the new person
+    # The manager plus the new person get email
     And "Jimmy's Diner" should have 2 employees
+    And "<username>" should not have a default employment
 
   Examples:
-    | inputfield        | name        |
-    | betty@example.com | Betty Davis |
-    | betty             | Betty Davis |
-    | Betty Davis       | Betty Davis |
-    | B Davis           | Betty Davis |
-    | bob               | Bob Davy    |
-    | Bob Davy          | Bob Davy    |
+    | inputfield        | name        | username |
+    | betty@example.com | Betty Davis | betty    |
+    | betty             | Betty Davis | betty    |
+    | Betty Davis       | Betty Davis | betty    |
+    | B Davis           | Betty Davis | betty    |
+    | bob               | Bob Davy    | bob      |
+    | Bob Davy          | Bob Davy    | bob      |
+    | cole              | Cole Cal    | cole     |
 
   Scenario: You can't add an employee twice
     Given I have just created a restaurant named "Jimmy's Diner"
@@ -54,30 +59,11 @@ Feature: Associating a Restaurant with its employees
     When I follow "Add employee"
     And I fill in "Employee Email" with "dinkle@example.com"
     And I press "Submit"
-    Then I should see "invite this person"
+    Then I should see "invite"
 
-    When I fill in "First Name" with "David"
-    And I fill in "Last Name" with "Dinkle"
-    And I press "Invite User"
-    Then I should see "Thanks for recommending a new member"
-
-    When I logout
-    And I am logged in as an admin
-    And I go to the admin invitations page
-    And I follow "accept"
-    Then "daviddinkle" should be a confirmed user
+    When I press "Send now"
+    Then I should see "Thanks for recommending new members!"
     And "dinkle@example.com" should have 1 email
-
-    When I logout
-    And "dinkle@example.com" opens the email with subject "SpoonFeed: You're invited"
-    Then I should see "Thank you for your interest" in the email body
-
-    And I should see an invitation URL in the email body
-    When I click the first link in the email
-    Then I should see "Successfully logged in"
-    And "daviddinkle" should be a confirmed user
-    And "Duck Soup" should have 2 employees
-    And I should be on the complete registration page
 
   Scenario: Making an employee public on the main page
     Given I have just created a restaurant named "Jimmy's Diner"

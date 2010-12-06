@@ -49,7 +49,7 @@ Feature: Trend questions
     When I create a new trend question with subject "What did you have for breakfast?" with criteria:
       | Role | Baker |
     Then the trend question with subject "What did you have for breakfast?" should have 1 solo employment
-    And "neue@mail.com" should have 1 email
+    And "neue@mail.com" should receive 1 email
 
   Scenario: Only applicable employees can see the trend question
     Given I am logged in as an admin
