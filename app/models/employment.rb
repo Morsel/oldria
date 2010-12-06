@@ -125,7 +125,16 @@ class Employment < ActiveRecord::Base
   def current_viewable_trend_discussions
     viewable_trend_discussions.select { |discussion| discussion.scheduled_at <= Time.now }
   end
+  
+  # Content requests only
+  def viewable_request_discussions
+    omniscient? ? admin_discussions.for_content_requests : filter_only_viewable(admin_discussions.for_content_requests)
+  end
 
+  def current_viewable_request_discussions
+    viewable_request_discussions.select { |discussion| discussion.scheduled_at <= Time.now }
+  end
+  
   private
 
   def all_media_requests(find_options = {})

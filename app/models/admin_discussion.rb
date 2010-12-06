@@ -25,6 +25,7 @@ class AdminDiscussion < ActiveRecord::Base
   named_scope :without_replies, :conditions => "#{table_name}.comments_count = 0"
   
   named_scope :for_trends, :conditions => { :discussionable_type => "TrendQuestion" }
+  named_scope :for_content_requests, :conditions => { :discussionable_type => "ContentRequest" }
   
   def message
     [discussionable.subject, discussionable.body].reject(&:blank?).join(": ")
