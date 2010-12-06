@@ -5,11 +5,11 @@ class FrontBurnerController < ApplicationController
   def index
     if params[:all]
       @qotds = current_user.admin_conversations.current
-      resto_trends = current_user.grouped_admin_discussions.keys
+      resto_trends = current_user.grouped_trend_questions.keys
       @trend_questions = resto_trends.present? ? resto_trends : current_user.solo_discussions.current
     else
       @qotds = current_user.unread_qotds
-      resto_trends = current_user.unread_grouped_admin_discussions.keys
+      resto_trends = current_user.unread_grouped_trend_questions.keys
       @trend_questions = resto_trends.present? ? resto_trends : current_user.unread_solo_discussions
     end
   end

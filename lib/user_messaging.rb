@@ -60,6 +60,23 @@ module UserMessaging
       discussionable.read_by?(self) || (discussionable.scheduled_at < 2.weeks.ago)
     end
   end
+  
+  # Trend questions
+  
+  def trend_questions
+    employments.map(&:current_viewable_trend_discussions).flatten
+  end
+  
+  def grouped_trend_questions
+    @grouped_trend_questions ||= trend_questions.group_by(&:discussionable)
+  end
+  
+  def unread_grouped_trend_questions
+    @unread_grouped_trend_questions ||= grouped_trend_questions
+    @unread_grouped_trend_questions.reject! do |discussionable, trends|
+      discussionable.read_by?(self) || (discussionable.scheduled_at < 2.weeks.ago)
+    end
+  end
 
   def trend_questions_responded
     TrendQuestion.on_soapbox_with_response_from_user(self)
