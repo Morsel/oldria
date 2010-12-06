@@ -22,7 +22,11 @@ namespace :bluepill do
 
   desc "Load bluepill configuration and start it"
   task :start, :roles => [:app] do
-    sudo "STAGE_ENV=#{nickname} bluepill load #{current_path}/config/#{rails_env}.pill"
+    if rails_env == 'production'
+      sudo "bluepill load #{current_path}/config/#{rails_env}.pill"
+    else
+      sudo "bluepill load #{current_path}/config/#{nickname}.pill"
+    end
   end
 
   desc "Prints bluepills monitored processes statuses"
