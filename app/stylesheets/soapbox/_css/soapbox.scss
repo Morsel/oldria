@@ -1244,7 +1244,8 @@ p.search_filter_hint {
 		background:url(/images/soapbox/label-qotd.png) no-repeat;
 	}
 }
-.share{
+#page-content .share{
+	height: 20px;
 	padding: 3px;
 	position:relative;
 	.addthis_toolbox{
