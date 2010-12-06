@@ -19,8 +19,6 @@ tmp/webrat-*
 .rvmrc
 .project
 default.gems
-*.swp
-*.swo
 TAGS
 *.swp
 *.swo

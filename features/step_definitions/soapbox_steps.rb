@@ -40,6 +40,16 @@ When /^I create a new soapbox entry for that QOTD with:$/ do |table|
   click_button "Save"
 end
 
+When /^I create a new soapbox entry for that Trend Question with:$/ do |table|
+  visit new_admin_soapbox_entry_path(:trend_question_id => @trend_question.to_param)
+
+  table.rows_hash.each do |field, value|
+    fill_in field, :with => value
+  end
+
+  click_button "Save"
+end
+
 When /^I create a new soapbox page with:$/ do |table|
   visit new_admin_soapbox_page_path
   fill_in_form(table.rows_hash)
@@ -50,9 +60,8 @@ When /^I selected corresponding soapbox entry$/ do
   visit soapbox_soapbox_entry_path(:id => @soapbox_entry.to_param)
 end
 
-
 Then /^there should be (\d+) QOTDs? on the soapbox front burner page$/ do |num|
-  visit url_for(:controller => "soapbox_entries", :action => "index")
+  visit url_for(:controller => "soapbox/soapbox_entries", :action => "index")
   SoapboxEntry.qotd.published.count.should == num.to_i
 end
 
@@ -115,7 +124,7 @@ Then /^I see an employee named "([^"]*)" without a link$/ do |username|
   response.should_not have_selector(".employee_name a", :content => user.name)
 end
 
-Then /^I should see the heading "([^"]*)"$/ do |text|
+Then /^I should see the heading "([^\"]*)"$/ do |text|
   response.should have_selector("h2", :content => text)
 end
 
@@ -124,7 +133,6 @@ Then /^I should see addThis button$/ do
 end
 
 Then /^I should see two addThis buttons$/ do
-  response.should have_selector("#qotd") 
-  response.should have_selector("#trend")
+  response.should have_selector('#qotd') 
+  response.should have_selector('#trend')
 end
-   

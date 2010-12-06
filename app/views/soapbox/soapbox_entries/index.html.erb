@@ -1,8 +1,8 @@
-<% title "Soapbox", false %>
+<% title "Front Burner - Soapbox", false %>
 
 <%= render :partial => feature_entry_type(@main_feature), :locals => { :feature => @main_feature, :feature_comments => @main_feature_comments }%>
 
-<%= render :partial => feature_entry_type(@secondary_feature), :locals => { :feature => @secondary_feature, :feature_comments => @secondary_feature_comments }%>
+<%= render :partial => feature_entry_type(@secondary_feature), :locals => { :feature => @secondary_feature, :feature_comments => @secondary_feature_comments } if @secondary_feature.present? %>
 
 <section id="recent-questions">
   <div id="recent-trends">

@@ -11,8 +11,6 @@ module NavigationHelpers
       '/'
     when /the new a_la_minute page/
       new_a_la_minute_path
-    when /the soapbox index page/
-      soapbox_root_path
     when /the cancel subscription page for "(.+)"/
       subscription_path(:id => User.find_by_username($1).id)
     when /the new subscription page for the restaurant "(.+)"/
@@ -46,7 +44,10 @@ module NavigationHelpers
       edit_my_profile_path
     when "the new invitation page"
       new_invitation_path
-
+    when "the new invitation recommendation page"
+      recommend_invitations_path
+    when "Front Burner"
+      front_burner_path
 
     # Media-users
     when /^the media( user)? signup page$/
@@ -144,6 +145,10 @@ module NavigationHelpers
       bulk_edit_restaurant_a_la_minute_answers_path(:restaurant_id => Restaurant.find_by_name($1).id)
 
     # Soapbox
+    when /the soapbox index page/
+      soapbox_root_path
+    when /the soapbox front burner page/
+      soapbox_soapbox_entries_path
     when /the soapbox restaurant profile for "(.+)"/
       soapbox_restaurant_path(Restaurant.find_by_name($1))
     when /the soapbox feature page for "(.+)"/

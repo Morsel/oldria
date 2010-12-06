@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20101104213542
+# Schema version: 20101130003744
 #
 # Table name: promos
 #
@@ -11,6 +11,7 @@
 #  link       :string(255)
 #  position   :integer
 #  type       :string(255)
+#  link_text  :string(255)
 #
 
 class SfPromo < Promo

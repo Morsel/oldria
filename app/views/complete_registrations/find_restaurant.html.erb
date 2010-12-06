@@ -1,16 +1,10 @@
 <% title "Find your restaurant" %>
 
-<% form_tag do %>
-    <%= label_tag "restaurant_name", "Restaurant name" %>
-    <%= text_field_tag "restaurant_name" %>
-
-    <p><%= button_tag "Search" %></p>
-<% end %>
-
 <% if @restaurants %>
+<h2>Is this your restaurant?</h2>
 <% table_for @restaurants do |t| %>
     <% t.data do
-        t.cell(:name)
+        t.cell(:name_and_location)
         t.cell(:contact) { |c| link_to "Request to be added", 
                                contact_restaurant_complete_registration_path(:restaurant_id => c.id), :method => :post }
     end %>
@@ -18,6 +12,5 @@
 <% end %>
 
 <p>
-    <%= link_to "I am not associated with a restaurant on spoonfeed", 
-            new_user_default_employment_path(:user_id => current_user.id) %>
+    <%= link_to "I don't see my restaurant listed", finish_without_contact_complete_registration_path %>
 </p>
