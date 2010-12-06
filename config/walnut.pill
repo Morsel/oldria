@@ -8,7 +8,7 @@ RAILS_ENV  = 'staging'
 RUBY_EXEC  = '/opt/ruby-enterprise-1.8.7-2010.01/bin/ruby'
 
 
-Bluepill.application("ria", :log_file => "#{APP_ROOT}/shared/log/bluepill.log") do |app|
+Bluepill.application("walnut", :log_file => "#{APP_ROOT}/shared/log/bluepill.log") do |app|
   app.process("delayed_job") do |process|
     process.working_dir = RAILS_ROOT
 
