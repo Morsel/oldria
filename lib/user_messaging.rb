@@ -73,7 +73,7 @@ module UserMessaging
 
   # Question of the day
   def unread_qotds
-    messages = admin_conversations.current.recent.unread_by(self)
+    admin_conversations.current.recent.find_unread_by(self)
   end
 
   def qotds_responded
@@ -122,15 +122,11 @@ module UserMessaging
   # Collections for display
 
   def action_required_messages
-    [action_required_admin_discussions,
-      action_required_holidays
-    ].flatten.sort { |a, b| b.comments.last.created_at <=> a.comments.last.created_at }
+    action_required_admin_discussions.sort { |a, b| b.comments.last.created_at <=> a.comments.last.created_at }
   end
 
   def messages_from_ria
     @messages_from_ria ||= [ unread_grouped_admin_discussions.keys,
-      unread_hdrs,
-      unread_qotds,
       unread_pr_tips,
       unread_announcements,
       unread_solo_discussions
@@ -139,12 +135,8 @@ module UserMessaging
 
   def all_messages
     @all_messages ||= [ grouped_admin_discussions.keys,
-      holiday_discussion_reminders,
-      accepted_holiday_discussions,
-      admin_conversations.current.all, # QOTDs
       Admin::Announcement.current.all,
-      Admin::PrTip.current.all,
-      solo_discussions.current
+      Admin::PrTip.current.all
     ].flatten.sort_by(&:scheduled_at).reverse
   end
 
@@ -154,6 +146,10 @@ module UserMessaging
     else
       messages_from_ria.size
     end
+  end
+  
+  def front_burner_unread_count
+    unread_qotds.count + unread_grouped_admin_discussions.keys.size + unread_solo_discussions.count
   end
 
   def mark_replies_as_read

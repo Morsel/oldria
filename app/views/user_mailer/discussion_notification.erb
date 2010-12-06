@@ -5,7 +5,7 @@
 
 <p id="messagemessage" style="font-size: 14px;">
       <img src="http://<%= DEFAULT_HOST %>/images/bubble_large.png" align="left" alt="" style="margin-bottom:30px;margin-right:10px;float:left">
-  <%= @discussion.poster.try(:name) %> has invited you to a discussion on the subject "<%= @discussion.title %>."
+  <%= @discussion.poster.try(:name) %> has invited you to a discussion on the subject "<b><%= @discussion.title %></b>."
 </p>
 
 <p id="messagelink" style="clear: both; font-size: 16px;">
