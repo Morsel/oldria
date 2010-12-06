@@ -2,6 +2,7 @@ class MenusController < ApplicationController
   before_filter :require_user
   before_filter :require_account_manager_authorization
   before_filter :find_restaurant
+  before_filter :find_menu, :only => [:edit, :update]
 
   def index
     @menu = Menu.new(:restaurant => @restaurant)
@@ -15,6 +16,19 @@ class MenusController < ApplicationController
       render :action => :index
     else
       redirect_to restaurant_menus_path
+    end
+  end
+
+  def edit
+  end
+
+  def update
+    if @menu.update_attributes(params[:menu])
+      flash[:success] = "Your changes have been saved."
+      redirect_to edit_restaurant_menu_path(@restaurant, @menu)
+    else
+      @menu.pdf_remote_attachment = PdfRemoteAttachment.new(params[:menu][:pdf_remote_attachment_attributes])
+      render :action => :edit
     end
   end
 
@@ -37,5 +51,9 @@ class MenusController < ApplicationController
 
   def find_restaurant
     @restaurant = Restaurant.find(params[:restaurant_id], :include => :menus)
+  end
+
+  def find_menu
+    @menu = @restaurant.menus.find(params[:id])
   end
 end
