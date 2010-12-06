@@ -1,6 +1,6 @@
     <h2>Photos:</h2>
 <div>
-  <% semantic_form_for :photo, :url => restaurant_photos_path(@restaurant), 
+  <% semantic_form_for :photo, :url => restaurant_photos_path(@restaurant),
       :html => { :multipart => true } do |photo_form| %>
     <% photo_form.inputs "New Photo" do %>
       <%= photo_form.error_messages %>
@@ -25,12 +25,12 @@
       </thead>
       <tbody>
       <% @photos.each do |photo| %>
-        <tr id="<%= dom_id(photo) %>">
+        <% content_tag_for(:tr, photo) do %>
           <td><%= image_tag photo.attachment.url(:medium), :class => "restaurant_photo" %></td>
           <td class="restaurant_photo_credit"><%= photo.credit %></td>
           <td><%= restaurant_form.radio_button :primary_photo_id, photo.id %></td>
           <td><%= link_to "Remove", restaurant_photo_path(@restaurant, photo), :method => :delete, :confirm => "Are you sure you want to remove the photo?" %></td>
-        </tr>
+        <% end %>
       <% end %>
       </tbody>
     </table>
@@ -50,7 +50,7 @@
       axis: 'y',
       dropOnEmpty:false,
       cursor: 'crosshair',
-      items: 'tbody tr',
+      items: '.photo',
       opacity: 0.4,
       scroll: true,
       update: function(event, ui){
