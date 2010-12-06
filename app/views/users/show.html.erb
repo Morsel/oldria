@@ -4,12 +4,16 @@
   <p>This is a preview view. These changes have not been saved.<%= link_to_function "Go back", "history.go(-1)" %> to edit or save.</p>
 <% end %>
 
+
   <div id="trend-article">
     <!-- AddThis Button BEGIN --> 
     <div class="addthis_toolbox"> 
-      <a href="http://www.addthis.com/bookmark.php?v=250&amp;username=unpluggedria" class="addthis_button">Share</a> 
+      <%= link_to "Share", 
+                 @user.premium_account? ? "http://www.addthis.com/bookmark.php?v=250&amp;username=unpluggedria" : new_user_subscription_path(@user),
+                 :confirm => @user.premium_account? ? nil : "Account is not premium. Would you like to upgrade it?", 
+                 :class => "addthis_button" %>
     </div> 
-    <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#username=unpluggedria"></script> 
+    <%= javascript_include_tag "http://s7.addthis.com/js/250/addthis_widget.js#username=unpluggedria" if @user.premium_account? %>
     <!-- AddThis Button END -->
   </div>
 
