@@ -133,13 +133,6 @@ Then /^I should see addThis button$/ do
 end
 
 Then /^I should see two addThis buttons$/ do
-<<<<<<< HEAD
-  response.should have_selector("#qotd") 
-  response.should have_selector("#trend")
-end
-=======
   response.should have_selector('#qotd') 
   response.should have_selector('#trend')
 end
-   
->>>>>>> master
