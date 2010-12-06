@@ -1,5 +1,7 @@
 module Soapbox
   class RestaurantsController < ApplicationController
+    layout 'soapbox'
+
     def show
       @restaurant = Restaurant.find_premium(params[:id])
       if @restaurant.nil?

@@ -1,6 +1,9 @@
 require 'spec/spec_helper'
 
 describe Soapbox::RestaurantsController do
+  describe "layout" do
+    it { should use_layout("soapbox") }
+  end
 
   describe "GET show" do
 
@@ -17,7 +20,7 @@ describe Soapbox::RestaurantsController do
     end
 
     describe "not premium" do
-      
+
       it "redirects to the home page" do
         get :show, :id => restaurant.id
         response.should redirect_to(soapbox_root_url)
