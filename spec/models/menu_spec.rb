@@ -49,5 +49,15 @@ describe Menu do
       Menu.all.should == [menu_b, menu_c, menu_a]
     end
   end
+
+  describe "by_position scope" do
+    it "should sort by position" do
+      menu_a = Menu.create!(@valid_attributes.merge({:name => "menu_a", :position => 2}))
+      menu_b = Menu.create!(@valid_attributes.merge({:name => "menu_b", :position => 0}))
+      menu_c = Menu.create!(@valid_attributes.merge({:name => "menu_c", :position => 1}))
+
+      Menu.by_position.should == [menu_b, menu_c, menu_a]
+    end
+  end
 end
 

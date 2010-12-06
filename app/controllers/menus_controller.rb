@@ -19,9 +19,12 @@ class MenusController < ApplicationController
   end
 
   def reorder
-    params[:menus].each_with_index do |menu_id, index|
-      @restaurant.menus.find(menu_id).update_attribute(:position, index + 1)
+    Rails.logger.info params[:menu].inspect
+    params[:menu].each_with_index do |menu_id, index|
+      menu = @restaurant.menus.find(menu_id)
+      menu.update_attribute(:position, index + 1)
     end
+    Rails.logger.info @restaurant.menus.reload.inspect
     render :text => ""
   end
 

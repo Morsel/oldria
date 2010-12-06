@@ -22,6 +22,8 @@ class Menu < ActiveRecord::Base
 
   default_scope :order => :position
 
+  named_scope :by_position, :order => :position
+
   def self.change_frequencies
     @change_frequencies ||= begin
       File.read(File.join(RAILS_ROOT, 'db/seedlings/restaurant_features/menu change tags.txt')).split("\r\n")

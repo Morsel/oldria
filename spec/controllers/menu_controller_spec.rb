@@ -15,7 +15,7 @@ describe MenusController do
 
     it "should reorder based on ids" do
       post :reorder, :restaurant_id => restaurant.id,
-          :menus => [@menu_b.id, @menu_c.id, @menu_a.id]
+          :menu => [@menu_b.id, @menu_c.id, @menu_a.id]
       restaurant.reload.menus.should == [@menu_b, @menu_c, @menu_a]
     end
 
