@@ -1,8 +1,4 @@
-<<<<<<< HEAD:config/staging.pill
-APP_ROOT   = '/srv/httpd/staging/cashew'
-=======
 APP_ROOT   = '/srv/httpd/staging/walnut'
->>>>>>> c7216b7... Pills for each staging env:config/walnut.pill
 RAILS_ROOT = "#{APP_ROOT}/current"
 RAILS_ENV  = 'staging'
 RUBY_EXEC  = '/opt/ruby-enterprise-1.8.7-2010.01/bin/ruby'
