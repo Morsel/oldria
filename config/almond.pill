@@ -1,0 +1,22 @@
+APP_ROOT   = '/srv/httpd/staging/almond'
+RAILS_ROOT = "#{APP_ROOT}/current"
+RAILS_ENV  = 'staging'
+RUBY_EXEC  = '/opt/ruby-enterprise-1.8.7-2010.01/bin/ruby'
+
+
+Bluepill.application("ria", :log_file => "#{APP_ROOT}/shared/log/bluepill.log") do |app|
+  app.process("delayed_job") do |process|
+    process.working_dir = RAILS_ROOT
+
+    process.start_grace_time    = 15.seconds
+    process.stop_grace_time     = 15.seconds
+    process.restart_grace_time  = 15.seconds
+
+    process.start_command = "which ruby; /usr/bin/env RAILS_ENV=#{RAILS_ENV} #{RUBY_EXEC} #{RAILS_ROOT}/script/delayed_job start"
+    process.stop_command  = "which ruby; /usr/bin/env RAILS_ENV=#{RAILS_ENV} #{RUBY_EXEC} #{RAILS_ROOT}/script/delayed_job stop"
+
+    process.pid_file = "#{APP_ROOT}/shared/pids/delayed_job.pid"
+    process.uid = "deployer"
+    process.gid = "deployer"
+  end
+end
