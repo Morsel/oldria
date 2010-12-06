@@ -16,7 +16,7 @@ after "deploy:update",  "bluepill:start"
 namespace :bluepill do
   desc "Stop processes that bluepill is monitoring and quit bluepill"
   task :quit, :roles => [:app] do
-    if rails_env == 'production'
+    if rails_env == :production
       sudo "bluepill stop #{rails_env}"
     else
       sudo "bluepill stop #{nickname}"
@@ -26,7 +26,7 @@ namespace :bluepill do
 
   desc "Load bluepill configuration and start it"
   task :start, :roles => [:app] do
-    if rails_env == 'production'
+    if rails_env == :production
       sudo "bluepill load #{current_path}/config/#{rails_env}.pill"
     else
       sudo "bluepill load #{current_path}/config/#{nickname}.pill"
