@@ -25,6 +25,33 @@ Feature: Soapbox
     And I should see "Questions of the Day" within "aside"
     And I should see "View all" within "aside"
 
+  Scenario: Featuring all QOTDs on a separate page
+    Given there is a QOTD asking "How do you boil ketchup"
+    And that QOTD has the following answers:
+      | Archibald Goodwill | I like to get them at the store |
+    And I am logged in as an admin
+    When I create a new soapbox entry for that QOTD with:
+      | Published at | 2010-12-06 |
+    Given there is a QOTD asking "How do you freeze ketchup"
+    And that QOTD has the following answers:
+      | Andrew Gotzky | I like to move it |
+    When I create a new soapbox entry for that QOTD with:
+      | Published at | 2010-12-06 |
+    And I go to the all of the qotd questions listing page
+    Then I should see "Questions of the Day" within "#all-questions"
+    And I should see "How do you boil ketchup" within "#all-questions-feed"
+    And I should see "How do you freeze ketchup" within "#all-questions-feed"
+
+  Scenario: Featuring all Trends on a separate page
+    Given there is a Trend Question "The best ketchup in the world"
+    And that Trend Question is featured on the soapbox
+    Given there is a Trend Question "Hot water supplier"
+    And that Trend Question is featured on the soapbox
+    When I go to the all of the trend questions listing page
+    Then I should see "Trend Questions" within "#all-questions"
+    And I should see "The best ketchup in the world" within "#all-questions-feed"
+    And I should see "Hot water supplier" within "#all-questions-feed"
+
   Scenario: Viewing the addThis button
     Given the following published users:
     | username    | password |
@@ -43,7 +70,7 @@ Feature: Soapbox
     And that Trend Question is featured on the soapbox
     When I selected corresponding soapbox entry
     Then I should see "What is the haps?: Boo-ya - Soapbox Trend" within "title"
-    
+
   Scenario: Viewing the addThis button on front_burner page
     Given there is a QOTD asking "Where do you buy flowers"
     And that QOTD is featured on the soapbox
