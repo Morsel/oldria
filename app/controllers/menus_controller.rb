@@ -18,6 +18,13 @@ class MenusController < ApplicationController
     end
   end
 
+  def reorder
+    params[:menus].each_with_index do |menu_id, index|
+      @restaurant.menus.find(menu_id).update_attribute(:position, index + 1)
+    end
+    render :text => ""
+  end
+
   def destroy
     Menu.find(params[:id]).destroy
     redirect_to restaurant_menus_path
