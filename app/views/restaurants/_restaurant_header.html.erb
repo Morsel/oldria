@@ -9,11 +9,14 @@
 
   <%= image_tag 'avatar_restaurant.gif', :width=>'100' %>
   <h1><%= @restaurant.name %></h1>
-  <% div_if @restaurant.premium_account?, :class => "premium" do %>
+  
+  <div id="restaurant_meta">
+    <% div_if @restaurant.premium_account?, :class => "premium" do %>
     <p>Account Type: Premium</p>
   <% end %>
-  <p class="address"><%= @restaurant.address_parts.join("<br />") %><br/>
-  Metropolitan Area: <%=h @restaurant.metropolitan_area.try(:name) %><br/>
-  Region: <%=h @restaurant.james_beard_region.try(:name) %></p>
+    <p class="address"><%= @restaurant.address_parts.join("<br />") %><br/>
+    Metropolitan Area: <%=h @restaurant.metropolitan_area.try(:name) %><br/>
+    Region: <%=h @restaurant.james_beard_region.try(:name) %></p>
+  </div>
 
 </header>
