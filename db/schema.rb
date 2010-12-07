@@ -210,8 +210,8 @@ ActiveRecord::Schema.define(:version => 20101207003441) do
     t.date     "date_ended"
     t.string   "chef_name",       :default => "",    :null => false
     t.boolean  "chef_is_me",      :default => false, :null => false
-    t.text     "cuisine",         :default => "",    :null => false
-    t.text     "notes",           :default => "",    :null => false
+    t.text     "cuisine",                            :null => false
+    t.text     "notes",                              :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "opening_staff",   :default => false
@@ -294,9 +294,9 @@ ActiveRecord::Schema.define(:version => 20101207003441) do
     t.integer  "restaurant_role_id"
     t.boolean  "omniscient"
     t.boolean  "primary",              :default => false
-    t.string   "type"
     t.boolean  "public_profile"
     t.integer  "position"
+    t.string   "type"
     t.boolean  "post_to_soapbox",      :default => true
     t.string   "solo_restaurant_name"
   end
@@ -306,7 +306,7 @@ ActiveRecord::Schema.define(:version => 20101207003441) do
   add_index "employments", ["restaurant_role_id"], :name => "index_employments_on_restaurant_role_id"
 
   create_table "enrollments", :force => true do |t|
-    t.integer  "school_id",                       :null => false
+    t.integer  "school_id"
     t.integer  "profile_id",                      :null => false
     t.date     "graduation_date"
     t.string   "degree",          :default => "", :null => false
@@ -579,8 +579,8 @@ ActiveRecord::Schema.define(:version => 20101207003441) do
     t.string   "country",            :default => "", :null => false
     t.date     "date_started",                       :null => false
     t.date     "date_ended"
-    t.text     "responsibilities",   :default => "", :null => false
-    t.text     "reason_for_leaving", :default => "", :null => false
+    t.text     "responsibilities",                   :null => false
+    t.text     "reason_for_leaving",                 :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -622,7 +622,8 @@ ActiveRecord::Schema.define(:version => 20101207003441) do
     t.text     "answer"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "user_id"
+    t.integer  "responder_id"
+    t.string   "responder_type"
   end
 
   create_table "profile_cuisines", :force => true do |t|
@@ -636,7 +637,7 @@ ActiveRecord::Schema.define(:version => 20101207003441) do
     t.string   "title"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "position"
+    t.integer  "position",          :default => 0
     t.integer  "chapter_id"
     t.text     "roles_description"
   end
@@ -656,7 +657,7 @@ ActiveRecord::Schema.define(:version => 20101207003441) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "headline",              :default => ""
-    t.text     "summary",               :default => ""
+    t.text     "summary"
     t.string   "hometown"
     t.string   "current_residence"
     t.integer  "metropolitan_area_id"
@@ -676,18 +677,13 @@ ActiveRecord::Schema.define(:version => 20101207003441) do
     t.string   "link_text"
   end
 
-  create_table "question_role_categories", :force => true do |t|
-    t.integer  "restaurant_role_id"
-    t.string   "category"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "question_roles", :force => true do |t|
     t.integer  "profile_question_id"
-    t.integer  "restaurant_role_id"
+    t.integer  "responder_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "responder_type"
+    t.integer  "restaurant_role_id"
   end
 
   create_table "readings", :force => true do |t|
@@ -776,8 +772,8 @@ ActiveRecord::Schema.define(:version => 20101207003441) do
     t.integer  "logo_id"
     t.integer  "primary_photo_id"
     t.date     "opening_date"
-    t.boolean  "premium_account"
     t.string   "sort_name"
+    t.boolean  "premium_account"
   end
 
   add_index "restaurants", ["cuisine_id"], :name => "index_restaurants_on_cuisine_id"
@@ -837,6 +833,29 @@ ActiveRecord::Schema.define(:version => 20101207003441) do
     t.text     "content"
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "soapbox_promos", :force => true do |t|
+    t.string   "title"
+    t.text     "body"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "link"
+    t.integer  "position"
+  end
+
+  create_table "soapbox_slides", :force => true do |t|
+    t.string   "image_file_name"
+    t.string   "image_content_type"
+    t.integer  "image_file_size"
+    t.integer  "image_updated_at"
+    t.string   "title"
+    t.text     "excerpt"
+    t.string   "link"
+    t.integer  "position"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "photo_credit"
   end
 
   create_table "solo_discussions", :force => true do |t|
@@ -910,6 +929,7 @@ ActiveRecord::Schema.define(:version => 20101207003441) do
     t.datetime "updated_at"
     t.integer  "position"
     t.string   "description"
+    t.string   "responder_type"
   end
 
   create_table "trend_questions", :force => true do |t|
