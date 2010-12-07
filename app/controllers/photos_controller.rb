@@ -47,6 +47,10 @@ class PhotosController < ApplicationController
     render :nothing => true
   end
 
+  def show_sizes
+    @photo = @restaurant.photos.find(params[:id])
+  end
+
   private
 
   def find_restaurant

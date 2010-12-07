@@ -118,7 +118,7 @@ ActionController::Routing::Routes.draw do |map|
     end
     restaurant.resources :feature_pages
     restaurant.resources :menus, :collection => { "reorder" => :post }
-    restaurant.resources :photos, :collection => { "reorder" => :post, "bulk_edit" => :get }
+    restaurant.resources :photos, :collection => { "reorder" => :post, "bulk_edit" => :get }, :member => { "show_sizes" => :get }
     restaurant.resource :logo
     restaurant.resources :accolades
     restaurant.resources :questions, :collection => { :topics => :get, :chapters => :get, :refresh => :post }
