@@ -28,10 +28,13 @@
 <% content_for :javascript do %>
   <script type="text/javascript">
     //<![CDATA[
-    $(".toggle_new_menu").click(function() {
-      $(".current_menu_pdf_remote_attachment").toggle();
-      $(".new_menu_pdf_remote_attachment").toggle();
-      $("#menu_pdf_remote_attachment_attributes_attachment").val("");
+    jQuery(function($) {
+      $(".toggle_new_menu").click(function(e) {
+        e.preventDefault();
+        $(".current_menu_pdf_remote_attachment").toggle();
+        $(".new_menu_pdf_remote_attachment").toggle();
+        $("#menu_pdf_remote_attachment_attributes_attachment").val("");
+      });
     });
     //]]>
   </script>

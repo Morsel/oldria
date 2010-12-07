@@ -29,7 +29,9 @@
           <td><%= image_tag photo.attachment.url(:medium), :class => "restaurant_photo" %></td>
           <td class="restaurant_photo_credit"><%= photo.credit %></td>
           <td><%= restaurant_form.radio_button :primary_photo_id, photo.id %></td>
-          <td><%= link_to "Remove", restaurant_photo_path(@restaurant, photo), :method => :delete, :confirm => "Are you sure you want to remove the photo?" %></td>
+          <td>
+            <%= link_to "Remove", restaurant_photo_path(@restaurant, photo), :method => :delete, :confirm => "Are you sure you want to remove the photo?" %>
+            <%= link_to "Edit", edit_restaurant_photo_path(@restaurant, photo) %></td>
         <% end %>
       <% end %>
       </tbody>
