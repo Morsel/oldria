@@ -35,6 +35,7 @@ I want to set up holidays, with multiple scheduled reminders
 
 @emails
   Scenario: New Holiday Reminder notification, user prefers no emails
+  Given "sam" prefers to not receive direct message alerts
   When I create a holiday with name "Christmas" and criteria:
     | Restaurant | Eight Ball |
   When I create a new reminder for holiday "Christmas" with:

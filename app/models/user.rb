@@ -131,7 +131,7 @@ class User < ActiveRecord::Base
 
 ### Preferences ###
   preference :hide_help_box, :default => false
-  preference :receive_email_notifications, :default => false
+  preference :receive_email_notifications, :default => true
   preference :publish_profile, :default => false
 
 ### Roles ###
@@ -298,7 +298,7 @@ class User < ActiveRecord::Base
   end
 
   def self.receive_email_notifications
-    Preference.all(:conditions => "value = 't' AND name = 'receive_email_notifications'").map(&:owner)
+    User.with_preferences(:receive_email_notifications => true)
   end
   
   def self.in_soapbox_directory

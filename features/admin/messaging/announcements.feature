@@ -26,6 +26,7 @@ Feature: Admin Messaging: Announcements
 @emails
   Scenario: New Announcement notification, user prefers no emails
   Given there are no Admin Messages in the system
+  And "sam" prefers to not receive direct message alerts
   And I am on the new Announcement page
   When I fill in "Message" with "Today is party day!"
   And I press "Save"
