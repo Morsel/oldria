@@ -21,22 +21,4 @@ describe Soapbox::SoapboxEntriesController do
     end
   end
 
-  describe 'showing all trends questions' do
-    it 'should find questions' do
-      Factory(:trend_question)
-      get :trend
-      assign[:questions].should_not be_nil
-    end
-  end
-  
-  describe 'showing all qotds questions' do
-    it 'should find questions' do
-      Factory(:qotd)
-      get :trend
-      assign[:questions].should_not be_nil
-    end
-  end
-
-    
-
 end
