@@ -225,12 +225,12 @@ class ApplicationController < ActionController::Base
       search = User.in_soapbox_directory.search(params[:search]).all
       extra_search_results = User.in_soapbox_directory.search(extra_params).all if extra_params.present?
       
-      @users = [search, extra_search_results].flatten.compact.uniq.sort_by(&:last_name)
+      @users = [search, extra_search_results].flatten.compact.uniq.sort { |a,b| a.last_name.downcase <=> b.last_name.downcase }
     else
       search = User.in_spoonfeed_directory.search(params[:search]).all
       extra_search_results = User.in_spoonfeed_directory.search(extra_params).all if extra_params.present?
       
-      @users = [search, extra_search_results].flatten.compact.uniq.sort_by(&:last_name)
+      @users = [search, extra_search_results].flatten.compact.uniq.sort { |a,b| a.last_name.downcase <=> b.last_name.downcase }
     end
   end
 
