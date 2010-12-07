@@ -622,8 +622,7 @@ ActiveRecord::Schema.define(:version => 20101207221226) do
     t.text     "answer"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "responder_id"
-    t.string   "responder_type"
+    t.integer  "user_id"
   end
 
   create_table "profile_cuisines", :force => true do |t|
@@ -679,11 +678,9 @@ ActiveRecord::Schema.define(:version => 20101207221226) do
 
   create_table "question_roles", :force => true do |t|
     t.integer  "profile_question_id"
-    t.integer  "responder_id"
+    t.integer  "restaurant_role_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "responder_type"
-    t.integer  "restaurant_role_id"
   end
 
   create_table "readings", :force => true do |t|
@@ -929,7 +926,6 @@ ActiveRecord::Schema.define(:version => 20101207221226) do
     t.datetime "updated_at"
     t.integer  "position"
     t.string   "description"
-    t.string   "responder_type"
   end
 
   create_table "trend_questions", :force => true do |t|
