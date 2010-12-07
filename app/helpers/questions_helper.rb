@@ -26,5 +26,6 @@ module QuestionsHelper
       restaurant = Restaurant.find(params[:restaurant_id])
       title_text = "#{restaurant.name} - #{title_text}"
     end
+    title_text
   end
 end
