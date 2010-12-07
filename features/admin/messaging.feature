@@ -5,23 +5,39 @@ Feature: Admin Messaging
 
   Background:
   Given a restaurant named "No Man's Land" with the following employees:
-    | username | name     | role | subject matters |
-    | johndoe  | John Doe | Chef | Food, Pastry    |
+    | username | name     | role | subject matters | email            |
+    | johndoe  | John Doe | Chef | Food, Pastry    | johndoe@test.com |
 
 # Replying to messages
 
-  Scenario: Replying to a QOTD
+ 
+ Scenario: Replying to a QOTD
+   Given I am logged in as "johndoe"
+   And "johndoe" has a QOTD message with:
+     | message | Are lazy cakes cool? |
+   When I go to the front burner page
+   And I follow "Post"
+   Then I should see "Are lazy cakes cool?"
+   When I fill in "Post" with "Why, yes, they are quite cool!"
+   And I press "Send"
+   Then I should see "Why, yes, they are quite cool!"
+   And I should see "Successfully created"
+
+
+  Scenario: Replying to a QOTD and posting to facebook
     Given I am logged in as "johndoe"
+    And Facebook is functioning
+    And given that user "johndoe" has facebook connection
     And "johndoe" has a QOTD message with:
       | message | Are lazy cakes cool? |
     When I go to the front burner page
     And I follow "Post"
-    Then I should see "Are lazy cakes cool?"
-  
+
     When I fill in "Post" with "Why, yes, they are quite cool!"
+    And I should see "Post to Facebook"
+    And I check "Post to Facebook?"
     And I press "Send"
-    Then I should see "Why, yes, they are quite cool!"
-    And I should see "Successfully created"
+    Then message to facebook is sent 
     
   Scenario: Editing a QOTD reply
     Given I am logged in as "johndoe"

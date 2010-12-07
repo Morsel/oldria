@@ -88,6 +88,11 @@ Given /^given that user "([^\"]*)" has just been confirmed$/ do |username|
   user.confirm!
 end
 
+Given /^given that user "([^\"]*)" has facebook connection$/ do |username|
+  user = User.find_by_username(username)
+  user.update_attributes :facebook_id => 1234567, :facebook_access_token => 'foobar' 
+end
+
 Given /^"([^\"]*)" has a default employment with the role "([^\"]*)"$/ do |username, role_name|
   user = User.find_by_username(username)
   role = Factory(:restaurant_role, :name => role_name)

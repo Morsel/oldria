@@ -27,7 +27,10 @@ class Comment < ActiveRecord::Base
     :conditions => ["user_id != ?", user.id]
   }}
 
+  attr_accessor :post_to_facebook
+
   before_create :clear_read_status
+  after_save  :post_to_facebook
 
   def clear_read_status
     if self.commentable.respond_to?(:action_required?)
@@ -88,5 +91,9 @@ class Comment < ActiveRecord::Base
   
   def show_on_soapbox?
     self.employment && self.employment.post_to_soapbox
+  end
+
+  def post_to_facebook
+    response = self.user.facebook_user.feed_create(Mogli::Post.new(:message => self.comment)) if @post_to_facebook.to_s == "1"
   end
 end
