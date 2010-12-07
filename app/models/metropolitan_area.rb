@@ -1,4 +1,5 @@
 # == Schema Information
+# Schema version: 20101207003441
 #
 # Table name: metropolitan_areas
 #
@@ -6,11 +7,14 @@
 #  name       :string(255)
 #  created_at :datetime
 #  updated_at :datetime
+#  state      :string(255)
 #
 
 class MetropolitanArea < ActiveRecord::Base
   has_many :restaurants
   has_many :profiles
+  
+  validates_presence_of :name
   
   default_scope :order => "LOWER(#{table_name}.name) ASC"
 
