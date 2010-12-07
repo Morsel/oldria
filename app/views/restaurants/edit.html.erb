@@ -25,7 +25,7 @@
           :class => 'promo editor alm' %>
       <%= link_to "Manage Menus", restaurant_menus_path(@restaurant),
           :class => 'promo editor menus' %>
-      <%= link_to "Manage Photos", restaurant_photos_path(@restaurant),
+      <%= link_to "Manage Photos", bulk_edit_restaurant_photos_path(@restaurant),
           :class => 'promo editor photos' %>
       <% if false %><%= link_to "Add Accolade", new_restaurant_accolade_path(@restaurant),
           :class => 'promo editor acco' %><% end %>

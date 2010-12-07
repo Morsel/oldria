@@ -7,13 +7,17 @@ class PhotosController < ApplicationController
     @photos = @restaurant.photos
   end
 
+  def bulk_edit
+    @photos = @restaurant.photos
+  end
+
   def create
     @photo = @restaurant.photos.create(params[:photo])
     if @photo.valid?
-      redirect_to restaurant_photos_path(@restaurant)
+      redirect_to bulk_edit_restaurant_photos_path(@restaurant)
     else
       @photos = @restaurant.photos.reload
-      render :action => :index
+      render :action => :bulk_edit
     end
   end
 
