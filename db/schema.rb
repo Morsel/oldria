@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20101207003441) do
+ActiveRecord::Schema.define(:version => 20101207221226) do
 
   create_table "a_la_minute_answers", :force => true do |t|
     t.text     "answer"
@@ -944,7 +944,6 @@ ActiveRecord::Schema.define(:version => 20101207003441) do
     t.datetime "avatar_updated_at"
     t.string   "first_name"
     t.string   "last_name"
-    t.integer  "james_beard_region_id"
     t.string   "publication"
     t.string   "role"
     t.string   "facebook_id"
@@ -957,7 +956,6 @@ ActiveRecord::Schema.define(:version => 20101207003441) do
 
   add_index "users", ["email"], :name => "index_users_on_email"
   add_index "users", ["id"], :name => "index_users_on_id", :unique => true
-  add_index "users", ["james_beard_region_id"], :name => "index_users_on_james_beard_region_id"
   add_index "users", ["username"], :name => "index_users_on_username"
 
 end

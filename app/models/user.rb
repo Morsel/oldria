@@ -43,7 +43,6 @@ class User < ActiveRecord::Base
   include TwitterAuthorization
   include UserMessaging
 
-  belongs_to :james_beard_region
   has_many :statuses, :dependent => :destroy
 
   has_many :followings, :foreign_key => 'follower_id', :dependent => :destroy
