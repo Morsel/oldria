@@ -1,10 +1,6 @@
 require 'spec/spec_helper'
 
 describe Soapbox::RestaurantsController do
-  describe "layout" do
-    it { should use_layout("soapbox") }
-  end
-
   describe "GET show" do
 
     let(:restaurant) { Factory(:restaurant) }
