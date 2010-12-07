@@ -28,7 +28,11 @@ module ApplicationHelper
     return "" unless boolean
     content_tag(:div, options, &block)
   end
-
+  def dl_if(boolean, options={}, &block)
+    return "" unless boolean
+    content_tag(:dl, options, &block)
+  end
+  
   def delete_link_for(deletable_object, path)
     return "" unless deletable_object.deletable?
     link_to "[x]", path, :method => :delete,

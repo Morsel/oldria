@@ -3716,14 +3716,23 @@ p.search_filter_hint {
 			}
 		}
 	}
-	.manager_and_facts {
-		float: left;
-		width: 320px;
+	.manager_and_facts, .account_contact, .account_social {
+	  float: left;
+		width: 218px;
 		margin: 0 20px 20px 0;
+	  dt {
+	    margin-bottom: 2px;
+	    font-weight: bold;
+	  }
+	  dd {
+	    margin-bottom: 5px;
+	    font-weight: normal;
+	    ul {
+	      margin: 0;
+	    }
+	  }
 	}
-	.account_details {
-		float: left;
-		width: 320px;
+	.account_social {
 		margin: 0 0 20px;
 	}
 	.list_item {
