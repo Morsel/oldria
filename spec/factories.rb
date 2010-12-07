@@ -445,6 +445,13 @@ Factory.define :trend_question do |f|
   f.association :employment_search
 end
 
+Factory.define :qotd do |f|
+  f.subject "What is the haps?"
+  f.body    "Boo-ya"
+  f.scheduled_at { 2.days.ago }
+  f.association :employment_search
+end
+
 Factory.define :employment_search do |f|
   f.conditions "--- \n:restaurant_name_like: neo\n"
 end
