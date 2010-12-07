@@ -48,8 +48,8 @@ Feature: Soapbox
       | Published at | 2010-12-06 |
     And I go to the all of the qotd questions listing page
     Then I should see "Questions of the Day" within "#all-questions"
-    And I should see "How do you boil ketchup" within "#all-questions-feed"
-    And I should see "How do you freeze ketchup" within "#all-questions-feed"
+    And I should see "How do you boil ketchup" within "#all-questions-feed-qotd"
+    And I should see "How do you freeze ketchup" within "#all-questions-feed-qotd"
 
   Scenario: Featuring all Trends on a separate page
     Given there is a Trend Question "The best ketchup in the world"
@@ -60,6 +60,19 @@ Feature: Soapbox
     Then I should see "Trend Questions" within "#all-questions"
     And I should see "The best ketchup in the world" within "#all-questions-feed"
     And I should see "Hot water supplier" within "#all-questions-feed"
+
+  Scenario: Featuring links to all trend questions and all questions of the day on the front burner
+    Given there is a QOTD asking "How do you boil ketchup"
+    And that QOTD has the following answers:
+      | Archibald Goodwill | I like to get them at the store |
+    And I am logged in as an admin
+    When I create a new soapbox entry for that QOTD with:
+      | Published at | 2010-12-06 |
+    Given there is a Trend Question "The best ketchup in the world"
+    And that Trend Question is featured on the soapbox
+    When I go to the soapbox front burner page
+    And I should see "View previous Trend Questions" within "#recent-trends"
+    And I should see "View previous Questions of the Day" within "#recent-qotds"      
 
   Scenario: Viewing the addThis button
     Given the following published users:
