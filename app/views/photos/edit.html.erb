@@ -7,7 +7,7 @@
       <li id="photo_attachment_input" class="file optional">
         <label for="photo_attachment">Attachment</label>
         <span class="current_photo_attachment">
-          <%= image_tag @photo.attachment.url %>
+          <%= image_tag @photo.attachment.url(:medium) %>
           <%= link_to 'Change', '#', :class => 'toggle_new_photo' %>
         </span>
         <span class="new_photo_attachment" style="display:none">
