@@ -77,7 +77,7 @@ class Chapter < ActiveRecord::Base
   end
   
   def published?(user)
-    completion_percentage(user) >= 5
+    completion_percentage(user) > 0
   end
   
 end
