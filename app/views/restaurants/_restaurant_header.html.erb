@@ -7,7 +7,7 @@
     <%= link_to 'Start a discussion', new_discussion_path(:restaurant_id => @restaurant.id), :class => 'start_discussion' %>
   </div><!--#restaurant_actions-->
 
-  <%= image_tag 'avatar_restaurant.gif', :width=>'100' %>
+  <%= image_tag logo_for(@restaurant).attachment.url(:small), :width=>'100' %>
   <h1><%= @restaurant.name %></h1>
   
   <div id="restaurant_meta">

@@ -33,5 +33,6 @@ class Image < Attachment
     :path => "#{RAILS_ENV}/images/:id/:style/:filename",
     :bucket => "spoonfeed",
     :url => ':s3_domain_url',
-    :whiny => false
+    :whiny => false,
+    :default_url => '/images/avatar_restaurant.gif'
 end
