@@ -1,4 +1,8 @@
 module BehindTheLineHelper
+  def roles_heading
+    params[:responder_type] == 'restaurant' ? "Page" : "Roles"
+  end
+
   def find_answer_for(question, subject)
     if subject.is_a? RestaurantFeaturePage
       subject = Restaurant.find(params[:restaurant_id])
