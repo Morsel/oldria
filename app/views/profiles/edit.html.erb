@@ -8,9 +8,7 @@
     <nav id="profile-options">
         <span><a href="#profile-edit-account">Account</a></span>
         <span><a href="#profile-summary">Profile Summary</a></span> 
-        <% unless @profile.new_record? %>
         <span><a href="#profile-extended">Extended Profile</a></span>
-        <% end %>
         <span><a href="#profile-messages">Notifications</a></span>
     </nav><!-- /profile_options -->
 
@@ -212,8 +210,12 @@
     </section><!-- /profile-summary -->
 
   <section id="profile-extended">
+      <% if @profile.new_record? %>
+      <div>
+          Please fill in your <%= link_to "profile summary information", edit_my_profile_path(:anchor => "profile-summary") %> (including hometown and current city) before continuing with this section.
+      </div>
+      <% else %>
     <div id="extended_profile_fields">
-
       <%= render :partial => 'profiles/extended_profile_section', :locals => {
           :association => "culinary_jobs",
           :caption => "Work Experience - Restaurants",
@@ -274,6 +276,7 @@
           :form_path => new_my_profile_cookbook_path} %>
     
     </div><!-- #extended_profile_fields -->
+    <% end %>
   </section><!-- /profile-extended -->
   
   <section id="profile-messages">
