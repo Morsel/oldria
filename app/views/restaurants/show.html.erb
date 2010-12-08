@@ -79,7 +79,7 @@
     <% dl_if(@restaurant.twitter_username.present?, :class => "list_item", :id => "twitter_username") do %>
       <dt>Twitter:</dt> 
       <dd>
-        <%= link_to h(@restaurant.twitter_username), "http://twitter.com/#{@restaurant.twitter_username}"%>
+        <%= link_to "@#{h(@restaurant.twitter_username)}", "http://twitter.com/#{@restaurant.twitter_username}"%>
       </dd>
     <% end %>
 
