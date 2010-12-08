@@ -1,14 +1,14 @@
 class RestaurantFeaturesController < ApplicationController
   before_filter :require_user
   before_filter :authenticate
-  before_filter :load_pages, :only => [:index, :show]
-  before_filter :load_page, :only => [:show, :add]
+  before_filter :load_pages, :only => [:index, :bulk_edit]
+  before_filter :load_page, :only => [:bulk_edit, :add]
 
   def index
-    redirect_to :action => :show, :id => @pages.first.id
+    redirect_to bulk_edit_restaurant_feature_path(@restaurant, @pages.first)
   end
 
-  def show
+  def bulk_edit
 
   end
 

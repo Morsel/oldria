@@ -5,31 +5,16 @@
   <%= stylesheet_link_tag 'colorbox' %>
 <% end -%>
 
-<div id="editing_restaurant">
+<div id="restaurant_profile_view" class="edit clear clearfix">
+
+  <%= render 'restaurants/restaurant_header' %>
 
   <% if can? :edit, @restaurant %>
     <div class="restaurant_employees edit_block clearfix">
       <h3>Employees</h3>
       <div class="placeholder">This should display a list of employees probably? Or should this just be removed since the right sidebar has "Manage Employees" as a button...</div><!--.placeholder-->
       <%= link_to 'Manage employees', restaurant_employees_path(@restaurant), :class=> 'sf-button' %>
-    </div><!-- .restaurant_employees -->
-
-    <% content_for :sidebar do -%>
-      <h2 class="edit_title">Edit options</h2>
-      <%= link_to 'Manage Employees', restaurant_employees_path(@restaurant),
-          :class=> 'promo editor emp' %>
-      <%= link_to 'Manage Restaurant Features', restaurant_features_path(@restaurant),
-          :class=> 'promo editor features' %>
-      <%= link_to "Manage A La Minute Questions",
-          bulk_edit_restaurant_a_la_minute_answers_path(:restaurant_id => @restaurant),
-          :class => 'promo editor alm' %>
-      <%= link_to "Manage Menus", restaurant_menus_path(@restaurant),
-          :class => 'promo editor menus' %>
-      <%= link_to "Manage Photos", bulk_edit_restaurant_photos_path(@restaurant),
-          :class => 'promo editor photos' %>
-      <% if false %><%= link_to "Add Accolade", new_restaurant_accolade_path(@restaurant),
-          :class => 'promo editor acco' %><% end %>
-    <% end -%>
+    </div><!-- .restaurant_employees -->   
   <% end -%>
 
   <% semantic_form_for(@restaurant, :html => { :multipart => true }) do |f| %>
@@ -105,5 +90,5 @@
           :caption => "Accolades",
           :form_path => new_restaurant_accolade_path(@restaurant)} %>
 
-</div><!-- #editing_restaurant -->
+</div><!-- #restaurant_profile_view -->
 

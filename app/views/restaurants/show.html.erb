@@ -1,6 +1,6 @@
 <div id="restaurant_profile_view" class="clear clearfix">
 
-  <%= render 'restaurant_header' %>
+  <%= render 'restaurants/restaurant_header' %>
   
   <h2>Details</h2>
   <div class="manager_and_facts equal-height">
@@ -45,7 +45,7 @@
       <dt>Menus:</dt>
       <dd>
         <ul>
-          <%= render @restaurant.menus %>
+          <%= render :partial => 'menus/menu', :collection => @restaurant.menus %>
         </ul>
       </dd>
     <% end %>
@@ -89,14 +89,14 @@
 
     <h2>Restaurant Staff</h2>
     <div class="restaurant_employees employments clearfix">
-      <%= render :partial => 'employment', :collection => @employments %>
+      <%= render :partial => 'restaurants/employment', :collection => @employments %>
     </div><!-- .employments -->
 
   </div><!--.rest_staff-->
 
   <% div_if(@restaurant.feature_pages.any?, :class => "clear clearfix", :id => "feature_pages") do %>
     <h2>See more about:</h2>
-    <%= render @restaurant.feature_pages %>
+    <%= render :partial => 'restaurant_feature_pages/restaurant_feature_page', :collection => @restaurant.feature_pages %>
   <% end %>
 
   <%= render :partial => 'profile_questions/behind_the_line', :locals => { :subject => @restaurant } %>
@@ -108,7 +108,7 @@
     </div>
 
     <div class="questions">
-      <%= render :partial => "a_la_minute_question",
+      <%= render :partial => "restaurants/a_la_minute_question",
               :collection => ALaMinuteAnswer.newest_for(@restaurant), :as => :answer %>
     </div>
     <p class="view_all"><a href="#">View all answers &raquo;</a></p>
