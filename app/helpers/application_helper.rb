@@ -57,4 +57,8 @@ module ApplicationHelper
   def logo_for(obj)
     obj.logo || Image.new
   end
+  
+  def editing?
+    params[:action] =~ /edit/
+  end
 end

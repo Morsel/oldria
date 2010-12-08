@@ -1,6 +1,6 @@
 <div id="restaurant_profile_view" class="clear clearfix">
 
-  <%= render 'restaurant_header' %>
+  <%= render 'restaurants/restaurant_header' %>
   
   <div class="media clear clearfix">
     <div class="photos">
@@ -76,7 +76,7 @@
       <dt>Menus:</dt>
       <dd>
         <ul>
-          <%= render @restaurant.menus %>
+          <%= render :partial => 'menus/menu', :collection => @restaurant.menus %>
         </ul>
       </dd>
     <% end %>
@@ -110,7 +110,7 @@
     <% dl_if(@restaurant.twitter_username.present?, :class => "list_item", :id => "twitter_username") do %>
       <dt>Twitter:</dt> 
       <dd>
-        <%= link_to h(@restaurant.twitter_username), "http://twitter.com/#{@restaurant.twitter_username}"%>
+        <%= link_to "@#{h(@restaurant.twitter_username)}", "http://twitter.com/#{@restaurant.twitter_username}"%>
       </dd>
     <% end %>
 
@@ -120,7 +120,7 @@
 
     <h2>Restaurant Staff</h2>
     <div class="restaurant_employees employments clearfix">
-      <%= render :partial => 'employment', :collection => @employments %>
+      <%= render :partial => 'restaurants/employment', :collection => @employments %>
     </div><!-- .employments -->
 
   </div><!--.rest_staff-->
@@ -134,7 +134,7 @@
   
   <% div_if(@restaurant.feature_pages.any?, :class => "clear clearfix", :id => "feature_pages") do %>
     <h2>See more about:</h2>
-    <%= render @restaurant.feature_pages %>
+    <%= render :partial => 'restaurant_feature_pages/restaurant_feature_page', :collection => @restaurant.feature_pages %>
   <% end %>
 
   <div id="a_la_minute">
@@ -144,7 +144,7 @@
     </div>
 
     <div class="questions">
-      <%= render :partial => "a_la_minute_question",
+      <%= render :partial => "restaurants/a_la_minute_question",
               :collection => ALaMinuteAnswer.newest_for(@restaurant), :as => :answer %>
     </div>
     <p class="view_all"><a href="#">View all answers &raquo;</a></p>

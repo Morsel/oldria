@@ -41,12 +41,12 @@ class Admin::RestaurantsController < Admin::AdminController
   def select_primary_photo
     if @restaurant.update_attributes(params[:restaurant])
       flash[:notice] = "Successfully updated restaurant"
-      redirect_to edit_photos_admin_restaurant_path(@restaurant)
+      redirect_to bulk_edit_restaurant_photos_path(@restaurant)
     else
       flash[:error] = "We were unable to update the restaurant"
       render :edit_photos
     end
-    redirect_to edit_photos_admin_restaurant_path(@restaurant)
+    redirect_to bulk_edit_restaurant_photos_path(@restaurant)
   end
 
   def edit_photos

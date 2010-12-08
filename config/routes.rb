@@ -18,6 +18,7 @@ ActionController::Routing::Routes.draw do |map|
       restaurants.resources :feature_pages, :only => ['show'] do |pages|
         pages.resources :questions, :collection => { :topics => :get, :chapters => :get, :refresh => :post }
       end
+      restaurants.resources :questions, :collection => { :topics => :get, :chapters => :get, :refresh => :post }
       restaurants.resources :photos, :only => ['show', 'index']
       restaurants.resources :accolades, :only => ['index']
     end
@@ -111,7 +112,8 @@ ActionController::Routing::Routes.draw do |map|
     restaurant.resources :events, :member => { "ria_details" => :get, "transfer" => :post }
     restaurant.resources :features, :controller => "restaurant_features",
                          :member => {
-                            :add => :post
+                            :add => :post,
+                            :bulk_edit => :get
                           } do |features|
       features.resources :questions, :collection => { :topics => :get, :chapters => :get, :refresh => :post }
       features.resources :profile_answers, :only => [:create, :update, :destroy]

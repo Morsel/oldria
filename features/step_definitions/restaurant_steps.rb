@@ -173,7 +173,7 @@ Then /^I see the restaurant logo$/ do
 end
 
 Then /^I should not see the restaurant logo$/ do
-  filename = "missing.png"
+  filename = "avatar_restaurant.gif"
   response.should have_selector("img#restaurant_logo_image[src*=\"#{filename}\"]")
 end
 
