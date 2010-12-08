@@ -1,4 +1,5 @@
 class SoloDiscussionsController < ApplicationController
+  before_filter :require_user
   
   def show
     @discussion = SoloDiscussion.find(params[:id])
