@@ -114,7 +114,7 @@ class Employment < ActiveRecord::Base
   end
 
   def current_viewable_admin_discussions
-    viewable_admin_discussions.select { |discussion| discussion.scheduled_at <= Time.now }
+    viewable_admin_discussions.select { |discussion| Time.now >= discussion.scheduled_at }
   end
   
   # Trend questions only
@@ -123,7 +123,7 @@ class Employment < ActiveRecord::Base
   end
   
   def current_viewable_trend_discussions
-    viewable_trend_discussions.select { |discussion| discussion.scheduled_at <= Time.now }
+    viewable_trend_discussions.select { |discussion| Time.now >= discussion.scheduled_at  }
   end
   
   # Content requests only
@@ -132,7 +132,7 @@ class Employment < ActiveRecord::Base
   end
 
   def current_viewable_request_discussions
-    viewable_request_discussions.select { |discussion| discussion.scheduled_at <= Time.now }
+    viewable_request_discussions.select { |discussion| Time.now >= discussion.scheduled_at }
   end
   
   private
