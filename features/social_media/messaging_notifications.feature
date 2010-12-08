@@ -13,6 +13,7 @@ Feature: Messaging notifications preferences
 
   Scenario: Private Message to No-Email preferring user
     Given I am logged in as "albert" with password "secret"
+    And "zeke" prefers to not receive direct message alerts
     When I send a direct message to "zeke" with:
       | body                       |
       | I'm sending you a message! |

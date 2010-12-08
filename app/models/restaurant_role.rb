@@ -17,7 +17,8 @@ class RestaurantRole < ActiveRecord::Base
   
   validates_presence_of :name
   
-  default_scope :order => "#{table_name}.name ASC"
+  default_scope :order => "#{table_name}.category ASC, #{table_name}.name ASC"
+
   named_scope :with_employments, :joins => :employments, :group => "#{table_name}.id"
   
   def self.categories

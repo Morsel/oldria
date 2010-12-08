@@ -1,0 +1,8 @@
+<% title "Metropolitan Areas" %>
+
+<% table_for @metros do |t| %>
+    <% t.data :actions => [:edit], :action_prefix => 'admin' do
+	  t.cell(:name)
+	  t.cell(:state)
+	end %>
+<% end %>

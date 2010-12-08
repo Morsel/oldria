@@ -4,7 +4,7 @@
   <p>This is a preview view. These changes have not been saved.<%= link_to_function "Go back", "history.go(-1)" %> to edit or save.</p>
 <% end %>
 
-  <div class="share">
+<div class="share">
     <!-- AddThis Button BEGIN --> 
     <div class="addthis_toolbox"> 
       <%= link_to "Share", 
@@ -14,7 +14,7 @@
     </div> 
     <%= javascript_include_tag "http://s7.addthis.com/js/250/addthis_widget.js#username=unpluggedria" if @user.premium_account? %>
     <!-- AddThis Button END -->
-  </div>
+</div>
 
 <header class="soapbox_profile_header">   
 	<aside class="user_actions">
@@ -43,11 +43,6 @@
   <section id="profile-account" class="equal-height">
       <h5>Contact Information</h5>
       <dl class="user_info clearfix clear contact">
-          <%- unless params[:controller] == 'soapbox/profiles' -%>
-          <dt>Acct. Type</dt>
-          <dd class="user_account_type"><%= h @user.public_account_type %></dd>
-          <%- end -%>
-
           <% if display_cell(@user) %>
           <dt>Mobile</dt>
           <dd><%= @user.profile.cellnumber %></dd>
@@ -71,6 +66,11 @@
 
   <h5>More Details</h5>
       <dl class="user_info clearfix extra">
+          <%- if !on_soapbox && can?(:edit,@user) -%>
+          <dt>Acct. Type</dt>
+          <dd class="user_account_type"><%= h @user.public_account_type %></dd>
+          <%- end -%>
+          
           <% if @user.profile %>
           <% if @user.profile.job_start.present? %>
           <dt>Job Start</dt>
@@ -225,19 +225,12 @@
                           <h3 class="headline"><%= @user.profile.try(:headline) %></h3>
                         <% end %>
                     </div><!--.profile_header-->
-
-                    
-		
                     
 
                 </div><!--.profile_info-->
 
 
             </div><!-- #user_profile_view -->
-  	
-            
-
-
            
 
 <% end -%>
