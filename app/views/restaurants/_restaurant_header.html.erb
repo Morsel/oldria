@@ -1,11 +1,13 @@
 <header class="clearfix">
 
-  <div id="restaurant_actions">
-    <% if can? :edit, @restaurant %>
-      <%= link_to 'Edit Restaurant', edit_restaurant_path(@restaurant), :class=>'edit_restaurant' %>
-    <% end -%>
-    <%= link_to 'Start a discussion', new_discussion_path(:restaurant_id => @restaurant.id), :class => 'start_discussion' %>
-  </div><!--#restaurant_actions-->
+  <% unless editing? -%>
+    <div id="restaurant_actions">
+      <% if can? :edit, @restaurant %>
+        <%= link_to 'Edit Restaurant', edit_restaurant_path(@restaurant), :class=>'edit_restaurant' %>
+      <% end -%>
+      <%= link_to 'Start a discussion', new_discussion_path(:restaurant_id => @restaurant.id), :class => 'start_discussion' %>
+    </div><!--#restaurant_actions-->
+  <% end -%>
 
   <%= image_tag logo_for(@restaurant).attachment.url(:small), :width=>'100' %>
   <h1><%= @restaurant.name %></h1>
@@ -20,3 +22,23 @@
   </div>
 
 </header>
+
+<% if editing? and can?(:edit, @restaurant) -%>
+  <nav id="edit_resto_menu">
+    <%= link_to 'Details', restaurant_employees_path(@restaurant),
+        :class=> 'promo editor details' %>
+    <%= link_to 'Features', restaurant_features_path(@restaurant),
+        :class=> 'promo editor features' %>
+    <%= link_to "Photos", bulk_edit_restaurant_photos_path(@restaurant),
+        :class => 'promo editor photos' %>
+    <%= link_to "Menus", restaurant_menus_path(@restaurant),
+        :class => 'promo editor menus' %>
+    <%= link_to 'Top Tags', restaurant_employees_path(@restaurant),
+        :class=> 'promo editor emp' %>
+    <%= link_to 'Staff', restaurant_employees_path(@restaurant),
+        :class=> 'promo editor emp' %>
+    <%= link_to "A La Minute",
+        bulk_edit_restaurant_a_la_minute_answers_path(:restaurant_id => @restaurant),
+        :class => 'promo editor alm' %>
+  </nav>
+<% end -%>
