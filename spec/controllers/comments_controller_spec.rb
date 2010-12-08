@@ -22,6 +22,11 @@ describe CommentsController do
       post :create, :admin_discussion_id => @parent.id, :comment => {}
       response.should redirect_to( admin_discussion_path(assigns[:parent]) )
     end
+    
+    it "should mark the parent as read" do
+      @parent.expects(:read_by!).with(@user)
+      post :create, :admin_discussion_id => @parent.id, :comment => { :comment => "yay!" }
+    end
   end
   
   describe "destroy" do
