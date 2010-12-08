@@ -1409,9 +1409,15 @@ form#new_user_session {
 					&:before {
 						color: #c1b690;
 						font-weight: bold;
-						content: "Q: ";
 					}
 				}
+			}
+			.message-body {
+			  p {
+			    &:before {
+			      content: "Q: ";
+			    }
+			  }
 			}
 			.message-header {display: none;}
 		}
