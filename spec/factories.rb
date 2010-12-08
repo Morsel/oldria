@@ -489,3 +489,17 @@ end
 Factory.define :restaurant_feature_page do |f|
   f.sequence(:name) { |n| "Page #{n}" }
 end
+
+Factory.define :pdf_remote_attachment do |f|
+  f.sequence(:attachment_file_name) { |n| "menu#{n}.pdf" }
+  f.attachment_content_type "application/pdf"
+  f.attachment_file_size 3000
+  f.attachment_updated_at 2.days.ago
+end
+
+Factory.define :menu do |f|
+  f.sequence(:name) { |n| "Menu #{n}"}
+  f.change_frequency "Monthly"
+  f.association :pdf_remote_attachment
+  f.association :restaurant
+end

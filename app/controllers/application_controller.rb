@@ -8,6 +8,8 @@ class ApplicationController < ActionController::Base
   include Facebooker2::Rails::Controller
   include SslRequirement
 
+  layout :site_layout
+
   # Scrub sensitive parameters from your log
   filter_parameter_logging :password
 
@@ -28,6 +30,10 @@ class ApplicationController < ActionController::Base
   end
 
   private
+
+  def site_layout
+    params[:controller].match(/soapbox/) ? 'soapbox' : 'application'
+  end
 
   def mediafeed?
     return @is_mediafeed if defined?(@is_mediafeed)

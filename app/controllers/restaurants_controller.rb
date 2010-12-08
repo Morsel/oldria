@@ -10,6 +10,7 @@ class RestaurantsController < ApplicationController
   def create
     @restaurant = current_user.managed_restaurants.build(params[:restaurant])
     @restaurant.media_contact = current_user
+    @restaurant.sort_name = params[:restaurant][:name]
     if @restaurant.save
       flash[:notice] = "Successfully created restaurant."
       redirect_to restaurant_employees_path(@restaurant)
@@ -46,7 +47,7 @@ class RestaurantsController < ApplicationController
       render :template => "photos/edit"
     end
   end
-  
+
   def mine
   end
 

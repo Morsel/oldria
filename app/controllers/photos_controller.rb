@@ -7,19 +7,37 @@ class PhotosController < ApplicationController
     @photos = @restaurant.photos
   end
 
+  def edit
+    @photo = @restaurant.photos.find(params[:id])
+  end
+
+  def update
+    @photo = @restaurant.photos.find(params[:id])
+    if @photo.update_attributes(params[:photo])
+      flash[:success] = "Your changes have been saved."
+      redirect_to bulk_edit_restaurant_photos_path(@restaurant)
+    else
+      render :action => :edit
+    end
+  end
+
+  def bulk_edit
+    @photos = @restaurant.photos
+  end
+
   def create
     @photo = @restaurant.photos.create(params[:photo])
     if @photo.valid?
-      redirect_to restaurant_photos_path(@restaurant)
+      redirect_to bulk_edit_restaurant_photos_path(@restaurant)
     else
       @photos = @restaurant.photos.reload
-      render :action => :index
+      render :action => :bulk_edit
     end
   end
 
   def destroy
     @restaurant.photos.delete(Photo.find(params[:id]))
-    redirect_to restaurant_photos_path(@restaurant)
+    redirect_to bulk_edit_restaurant_photos_path(@restaurant)
   end
 
   def reorder
@@ -27,6 +45,10 @@ class PhotosController < ApplicationController
       @restaurant.photos.find(photo_id).update_attribute(:position, index + 1)
     end
     render :nothing => true
+  end
+
+  def show_sizes
+    @photo = @restaurant.photos.find(params[:id])
   end
 
   private

@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20101129220914) do
+ActiveRecord::Schema.define(:version => 20101206205555) do
 
   create_table "a_la_minute_answers", :force => true do |t|
     t.text     "answer"
@@ -489,6 +489,14 @@ ActiveRecord::Schema.define(:version => 20101129220914) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "archived",           :default => false
+    t.integer  "restaurant_role_id"
+  end
+
+  create_table "invite_responsibilities", :force => true do |t|
+    t.integer  "invitation_id"
+    t.integer  "subject_matter_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "james_beard_regions", :force => true do |t|
@@ -542,6 +550,7 @@ ActiveRecord::Schema.define(:version => 20101129220914) do
     t.integer  "restaurant_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "position"
   end
 
   create_table "metropolitan_areas", :force => true do |t|
@@ -823,29 +832,6 @@ ActiveRecord::Schema.define(:version => 20101129220914) do
     t.text     "content"
     t.datetime "created_at"
     t.datetime "updated_at"
-  end
-
-  create_table "soapbox_promos", :force => true do |t|
-    t.string   "title"
-    t.text     "body"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.string   "link"
-    t.integer  "position"
-  end
-
-  create_table "soapbox_slides", :force => true do |t|
-    t.string   "image_file_name"
-    t.string   "image_content_type"
-    t.integer  "image_file_size"
-    t.integer  "image_updated_at"
-    t.string   "title"
-    t.text     "excerpt"
-    t.string   "link"
-    t.integer  "position"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.string   "photo_credit"
   end
 
   create_table "solo_discussions", :force => true do |t|

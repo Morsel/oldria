@@ -264,9 +264,9 @@ em, i{
 			&.selected {background-position: 0 -200px;}
 		}
 		&#nav_about {
-			background-position: -154px 0;
-			&:hover {background-position: -154px -100px;}
-			&.selected {background-position: -154px -200px;}
+			background-position: -164px 0;
+			&:hover {background-position: -164px -100px;}
+			&.selected {background-position: -164px -200px;}
 		}
 		&#nav_overview {
 			background-position: -328px 0;
@@ -1035,6 +1035,12 @@ form#new_user_session {
 		}
 		.message-comments {
 			border-top: 1px solid #ccc;
+			.comment {
+				padding: 10px;
+				.avatar {
+					 margin: 5px 0 0 0;
+				}
+			}
 			textarea {
 				height: 70px;
 			}
@@ -1050,6 +1056,7 @@ form#new_user_session {
 				@include border-radius(20px);
 				padding: 5px 12px;
 				font-weight: bold;
+				text-shadow: 0 1px 0 #fff;
 				&:hover {
 					background: #bbb08c;
 					color: #fff;
@@ -1348,6 +1355,10 @@ form#new_user_session {
 		}
 	}
 	
+	.trend_question header .timestamp {
+		margin: 0;
+		padding: 0;
+	}
 	
 	#qotd_column, #trend_column {
 		float:left;
@@ -1393,6 +1404,7 @@ form#new_user_session {
 				}
 			}
 		}
+
 		.admin_conversation, .admin_discussion, .trend_question, .solo_discussion {
 			padding: 12px;
 			background: #fff;
@@ -1434,6 +1446,7 @@ form#new_user_session {
 					border: 1px solid #a6996c;
 				}
 			}
+			
 			.message-details {
 				.readit {display: none;}
 				p {
@@ -3702,15 +3715,27 @@ p.search_filter_hint {
 				}
 			}
 		}
+		#restaurant_meta {
+		  float: left;
+		}
 	}
-	.manager_and_facts {
-		float: left;
-		width: 320px;
+	.manager_and_facts, .account_contact, .account_social {
+	  float: left;
+		width: 218px;
 		margin: 0 20px 20px 0;
+	  dt {
+	    margin-bottom: 2px;
+	    font-weight: bold;
+	  }
+	  dd {
+	    margin-bottom: 5px;
+	    font-weight: normal;
+	    ul {
+	      margin: 0;
+	    }
+	  }
 	}
-	.account_details {
-		float: left;
-		width: 320px;
+	.account_social {
 		margin: 0 0 20px;
 	}
 	.list_item {

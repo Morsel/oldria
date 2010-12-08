@@ -6,7 +6,7 @@ ActionController::Routing::Routes.draw do |map|
   map.social_media 'social_media', :controller => 'social_media', :action => 'index'
   map.my_restaurants 'my_restaurants', :controller => 'restaurants', :action => 'mine'
   map.feature '/features/:id', :controller => 'features', :action => 'show'
-  
+
   map.resources :invitations, :only => ['new', 'create', 'show']
   map.resource :complete_registration, :only => [:show, :update],
     :collection => { :user_details => :get, :find_restaurant => :any, :contact_restaurant => :post }
@@ -98,8 +98,8 @@ ActionController::Routing::Routes.draw do |map|
   end
 
   # map.resources :subscriptions, :collection => { :bt_callback => :get }
-  
-  
+
+
   map.resources :restaurants,
                 :member => {
                         :edit_logo => :get,
@@ -117,8 +117,8 @@ ActionController::Routing::Routes.draw do |map|
       features.resources :profile_answers, :only => [:create, :update, :destroy]
     end
     restaurant.resources :feature_pages
-    restaurant.resources :menus
-    restaurant.resources :photos, :collection => { "reorder" => :post }
+    restaurant.resources :menus, :collection => { "reorder" => :post }
+    restaurant.resources :photos, :collection => { "reorder" => :post, "bulk_edit" => :get }, :member => { "show_sizes" => :get }
     restaurant.resource :logo
     restaurant.resources :accolades
     restaurant.resources :questions, :collection => { :topics => :get, :chapters => :get, :refresh => :post }

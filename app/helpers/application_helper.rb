@@ -28,6 +28,10 @@ module ApplicationHelper
     return "" unless boolean
     content_tag(:div, options, &block)
   end
+  def dl_if(boolean, options={}, &block)
+    return "" unless boolean
+    content_tag(:dl, options, &block)
+  end
 
   def delete_link_for(deletable_object, path)
     return "" unless deletable_object.deletable?
@@ -35,7 +39,7 @@ module ApplicationHelper
         :confirm => "Are you sure you want to permanently delete #{deletable_object.name}?",
         :class => "delete_link", :id => dom_id(deletable_object, :delete_link)
   end
-  
+
   def on_soapbox
     params[:controller].match(/soapbox/)
   end
@@ -43,10 +47,14 @@ module ApplicationHelper
   def not_soapbox
     !on_soapbox
   end
-  
+
   def logged_in_and_not_soapbox
     not_soapbox && current_user
   end
 
   include SubscriptionsControllerHelper
+
+  def logo_for(obj)
+    obj.logo || Image.new
+  end
 end
