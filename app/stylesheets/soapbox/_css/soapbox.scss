@@ -1867,3 +1867,142 @@ dl.things dt:after {content: ":"}
 	}
 }
 
+
+#restaurant_profile_view {
+	position: relative;
+	header {
+		#restaurant_actions {
+			width: 166px;
+			float: right;
+			a {
+				font-size: 13px;
+				display: block;
+				background-color: $sienna;
+				padding: 8px 20px 8px 30px;
+				@include border-radius(30px);
+				color: #fff;
+				@include museoslabbold;
+				margin: 0 0 6px;
+				text-shadow: 0 1px 0 #333;
+				&.edit_restaurant {
+					background: $sienna url(/images/redesign/rest_edit.png) no-repeat scroll 10px 7px;
+				}
+				&.start_discussion {
+					background: $sienna url(/images/redesign/start_discussion.png) no-repeat scroll 10px 7px;
+				}
+				&:hover {
+					background-color: $purple;
+					text-decoration: none;
+				}
+			}
+		}
+		img {
+			width: 100px;
+			height: 100px;
+			border: 1px solid #ddd;
+			background-color: #f5f4f2;
+			@include hiddentext;
+		}
+		h1 {
+			font-size: 24px;
+			color: #333;
+		}
+		#restaurant_meta {
+			margin-left: 115px;
+			.premium {
+				z-index: 1000;
+				margin: -15px 0 10px 0;
+				padding: 0;
+				p {
+					display: inline-block;
+					font-size: 10px;
+					font-family: verdana, arial, sans-serif;
+					margin: 0;
+					padding: 1px 5px;
+					background-color:#f5f4f2;
+					color: #8e8366;
+				}
+			}
+		}
+	}
+	.manager_and_facts, .account_contact, .account_social {
+	  float: left;
+		width: 200px;
+		margin: 0 20px 20px 0;
+	  dt {
+	    margin-bottom: 2px;
+	    font-weight: bold;
+	  }
+	  dd {
+	    margin-bottom: 5px;
+	    font-weight: normal;
+	    ul {
+	      margin: 0;
+	    }
+	  }
+	}
+	.rest_staff {
+		clear: both;
+		.restaurant_employees {
+			clear: both;
+			.employment {
+				width: 200px;
+				margin: 0 20px 10px 0;
+				padding: 0 0 4px 0;
+				float: left;
+				border-bottom: 1px dotted #ddd;
+				header {
+					border: 0;
+					overflow: hidden;
+					margin: 0 0 5px;
+					padding: 4px 0 0 0;
+					img {
+						@include hiddentext;
+						width: 32px;
+						height: 32px;
+						background-color: #f2f2f2;
+						margin: 0 10px 5px 0;
+					}
+					h3 {
+						margin: 0;
+						line-height: 15px;
+						text-transform: capitalize;
+					}
+					p {
+						margin: 0;
+						padding: 0;
+					}
+				}
+				.employee_section {
+					p {
+						font-size: 11px;
+						color: #333;
+						line-height: 13px;
+						margin: 0 0 5px;
+						padding: 0;
+					}
+					&.emp_actions {
+						a {
+							color: #333;
+							background: transparent url(/images/redesign/icon-arrow.gif) no-repeat 0 4px;
+							padding: 0 0 0 10px;
+							margin: 0 0 4px;
+							display: block;
+							font-size: 11px;
+							&:hover {
+								color: $sienna;
+								background: transparent url(/images/redesign/icon-arrow.gif) no-repeat 0 -96px;
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+
+
+
+
+

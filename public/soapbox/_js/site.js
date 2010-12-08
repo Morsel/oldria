@@ -10,6 +10,7 @@ $(document).ready(function(){
 	$('.internship').equalHeights();
 	$('.stage').equalHeights();
 	$('.apprenticeship').equalHeights();
+	$('.rest_staff .employment').equalHeights();
 	
 	if($('#recent-activity').length > 0){
 	

@@ -113,7 +113,8 @@
 
     <h2>Restaurant Staff</h2>
     <div class="restaurant_employees employments clearfix">
-      <%= render :partial => 'restaurants/employment', :collection => @employments %>
+      <%= render :partial => 'restaurants/employment', :collection => @restaurant.employments.by_position.all(
+	        :include => [:subject_matters, :restaurant_role, :employee]) %>
     </div><!-- .employments -->
 
   </div><!--.rest_staff-->
@@ -121,7 +122,7 @@
   <div class="accolades clearfix">
     <h2>Accolades</h2>
     <ul>
-      <%= render @restaurant.accolades %>
+      <%= render :partial => 'accolades/accolade', :collection => @restaurant.accolades %>
     </ul>
   </div><!-- #accolades -->
   

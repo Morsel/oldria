@@ -1,4 +1,4 @@
-<header class="clearfix">
+<header class="">
   
     <div id="restaurant_actions">
       <% unless editing? -%>
@@ -16,7 +16,7 @@
   <%= image_tag logo_for(@restaurant).attachment.url(:small), :width=>'100' %>
   <h1><%= link_to @restaurant.name, @restaurant %></h1>
   
-  <div id="restaurant_meta" class="clearfix">
+  <div id="restaurant_meta" class="">
     <% div_if @restaurant.premium_account?, :class => "premium" do %>
     <p>Account Type: Premium</p>
   <% end %>

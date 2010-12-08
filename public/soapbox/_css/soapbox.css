@@ -2640,3 +2640,166 @@ dl.things dt:after {
 .topic-nav a.all-topics {
   background-image: url(/images/redesign/bg-home.png);
 }
+
+/* line 1871, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+#restaurant_profile_view {
+  position: relative;
+}
+/* line 1874, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+#restaurant_profile_view header #restaurant_actions {
+  width: 166px;
+  float: right;
+}
+/* line 1877, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+#restaurant_profile_view header #restaurant_actions a {
+  font-size: 13px;
+  display: block;
+  background-color: #cb4827;
+  padding: 8px 20px 8px 30px;
+  -moz-border-radius: 30px;
+  -webkit-border-radius: 30px;
+  -o-border-radius: 30px;
+  -ms-border-radius: 30px;
+  -khtml-border-radius: 30px;
+  border-radius: 30px;
+  color: #fff;
+  font-family: 'MuseoSlab700', 'Helvetica Neue', Helvetica, arial, sans-serif;
+  font-weight: normal !important;
+  font-weight: 700;
+  margin: 0 0 6px;
+  text-shadow: 0 1px 0 #333;
+}
+/* line 1887, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+#restaurant_profile_view header #restaurant_actions a.edit_restaurant {
+  background: #cb4827 url(/images/redesign/rest_edit.png) no-repeat scroll 10px 7px;
+}
+/* line 1890, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+#restaurant_profile_view header #restaurant_actions a.start_discussion {
+  background: #cb4827 url(/images/redesign/start_discussion.png) no-repeat scroll 10px 7px;
+}
+/* line 1893, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+#restaurant_profile_view header #restaurant_actions a:hover {
+  background-color: #474f80;
+  text-decoration: none;
+}
+/* line 1899, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+#restaurant_profile_view header img {
+  width: 100px;
+  height: 100px;
+  border: 1px solid #ddd;
+  background-color: #f5f4f2;
+  display: block;
+  outline: 0;
+  text-indent: -9999px;
+}
+/* line 1906, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+#restaurant_profile_view header h1 {
+  font-size: 24px;
+  color: #333;
+}
+/* line 1910, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+#restaurant_profile_view header #restaurant_meta {
+  margin-left: 115px;
+}
+/* line 1912, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+#restaurant_profile_view header #restaurant_meta .premium {
+  z-index: 1000;
+  margin: -15px 0 10px 0;
+  padding: 0;
+}
+/* line 1916, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+#restaurant_profile_view header #restaurant_meta .premium p {
+  display: inline-block;
+  font-size: 10px;
+  font-family: verdana, arial, sans-serif;
+  margin: 0;
+  padding: 1px 5px;
+  background-color: #f5f4f2;
+  color: #8e8366;
+}
+/* line 1928, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+#restaurant_profile_view .manager_and_facts, #restaurant_profile_view .account_contact, #restaurant_profile_view .account_social {
+  float: left;
+  width: 200px;
+  margin: 0 20px 20px 0;
+}
+/* line 1932, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+#restaurant_profile_view .manager_and_facts dt, #restaurant_profile_view .account_contact dt, #restaurant_profile_view .account_social dt {
+  margin-bottom: 2px;
+  font-weight: bold;
+}
+/* line 1936, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+#restaurant_profile_view .manager_and_facts dd, #restaurant_profile_view .account_contact dd, #restaurant_profile_view .account_social dd {
+  margin-bottom: 5px;
+  font-weight: normal;
+}
+/* line 1939, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+#restaurant_profile_view .manager_and_facts dd ul, #restaurant_profile_view .account_contact dd ul, #restaurant_profile_view .account_social dd ul {
+  margin: 0;
+}
+/* line 1944, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+#restaurant_profile_view .rest_staff {
+  clear: both;
+}
+/* line 1946, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+#restaurant_profile_view .rest_staff .restaurant_employees {
+  clear: both;
+}
+/* line 1948, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+#restaurant_profile_view .rest_staff .restaurant_employees .employment {
+  width: 200px;
+  margin: 0 20px 10px 0;
+  padding: 0 0 4px 0;
+  float: left;
+  border-bottom: 1px dotted #ddd;
+}
+/* line 1954, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+#restaurant_profile_view .rest_staff .restaurant_employees .employment header {
+  border: 0;
+  overflow: hidden;
+  margin: 0 0 5px;
+  padding: 4px 0 0 0;
+}
+/* line 1959, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+#restaurant_profile_view .rest_staff .restaurant_employees .employment header img {
+  display: block;
+  outline: 0;
+  text-indent: -9999px;
+  width: 32px;
+  height: 32px;
+  background-color: #f2f2f2;
+  margin: 0 10px 5px 0;
+}
+/* line 1966, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+#restaurant_profile_view .rest_staff .restaurant_employees .employment header h3 {
+  margin: 0;
+  line-height: 15px;
+  text-transform: capitalize;
+}
+/* line 1971, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+#restaurant_profile_view .rest_staff .restaurant_employees .employment header p {
+  margin: 0;
+  padding: 0;
+}
+/* line 1977, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+#restaurant_profile_view .rest_staff .restaurant_employees .employment .employee_section p {
+  font-size: 11px;
+  color: #333;
+  line-height: 13px;
+  margin: 0 0 5px;
+  padding: 0;
+}
+/* line 1985, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+#restaurant_profile_view .rest_staff .restaurant_employees .employment .employee_section.emp_actions a {
+  color: #333;
+  background: transparent url(/images/redesign/icon-arrow.gif) no-repeat 0 4px;
+  padding: 0 0 0 10px;
+  margin: 0 0 4px;
+  display: block;
+  font-size: 11px;
+}
+/* line 1992, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+#restaurant_profile_view .rest_staff .restaurant_employees .employment .employee_section.emp_actions a:hover {
+  color: #cb4827;
+  background: transparent url(/images/redesign/icon-arrow.gif) no-repeat 0 -96px;
+}
