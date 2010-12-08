@@ -2962,7 +2962,8 @@ p.search_filter_hint {
 }
 
 #behindline {
-	@include column(9);
+  @include column(9, true);
+  float: left;
 	ul{
 		margin:10px 0;
 		padding:0;
@@ -3678,6 +3679,31 @@ p.search_filter_hint {
 			color: $brown;
 		}
 	}
+	.tricol {
+	  float: left;
+    margin: 0px 20px 20px 0px;
+    width: 218px;
+  }
+  .tags {
+    float: left;
+    li {
+      padding: 0;
+      margin: 0px 0px 4px 2px;
+      float: left;
+      background: none;
+      a {
+        @include border-radius(25px);
+        display: block;
+        background: $trans-orange;
+        padding: 5px 12px;
+        &:hover {
+          background: $orange;
+          color: #fff;
+          text-decoration: none;
+        }
+      }
+    }
+  }
 	header {
 		border-bottom: 1px dotted #ccc;
 		clear: both;
@@ -3695,34 +3721,56 @@ p.search_filter_hint {
 				text-shadow: 0 1px 0 #fff;
 				border: 1px solid $trans-orange;
 				margin: 0 0 10px;
+				
 				&.edit_restaurant {
-					background: $trans-orange url(/images/redesign/rest_edit.png) no-repeat 10px 7px;
+					background: $trans-orange url(/images/redesign/rest_edit.png) no-repeat 10px 7px;	
 					&:hover {
-						background-color: $orange;
-						color: #fff;
-						text-shadow: 0 1px 0 #333;
-						border: 1px solid #c6420e;
-					}
+  					background-color: $orange;
+  					color: #fff;
+  					text-shadow: 0 1px 0 #333;
+  					border: 1px solid #c6420e;
+  				}
 				}
 				&.start_discussion {
 					background: $trans-orange url(/images/redesign/start_discussion.png) no-repeat 10px 7px;
 					&:hover {
-						background-color: $orange;
-						color: #fff;
-						text-shadow: 0 1px 0 #333;
-						border: 1px solid #c6420e;
-					}
+  					background-color: $orange;
+  					color: #fff;
+  					text-shadow: 0 1px 0 #333;
+  					border: 1px solid #c6420e;
+  				}
+				}
+				&.share_profile {
+					background: $trans-orange url(/images/redesign/share-arrow.gif) no-repeat 10px 7px;
+					&:hover {
+  					background-color: $orange;
+  					color: #fff;
+  					text-shadow: 0 1px 0 #333;
+  					border: 1px solid #c6420e;
+  				}
 				}
 			}
 		}
 		#restaurant_meta {
 		  float: left;
 		}
+		#restaurant_features {
+		  span {
+		    float: left;
+		  }
+      .tags {
+        margin: 0 0 0 10px;
+        width: 62%;
+        li {
+          a {
+            font-weight: bold;
+            padding: 3px 9px;
+          }
+        }
+      }
+		}
 	}
 	.manager_and_facts, .account_contact, .account_social {
-	  float: left;
-		width: 218px;
-		margin: 0 20px 20px 0;
 	  dt {
 	    margin-bottom: 2px;
 	    font-weight: bold;
@@ -3741,6 +3789,71 @@ p.search_filter_hint {
 	.list_item {
 		padding: 3px 0;
 	}
+	.media {
+	  border-bottom: 1px dotted #CCC;
+	  margin: 10px 0;
+	  .photos {
+	    float: left;
+	    @include column(8);
+	    small {
+	      margin-top: 10px;
+	      display: block;
+	    }
+	  }
+	  .menus {
+	    float: left;
+	    margin-left: 10px;
+	    width: 357px;
+	    li {
+	      background: none;
+	      padding: 0;
+	      a {
+	        @include border-radius(4px);
+	        @include text-shadow(#fff, 0, 1px, 0);
+	        background: url(/images/redesign/icon-menu.png) 15px center no-repeat $trans-brown;
+	        color: $brown;
+	        display: block;
+	        padding: 8px 10px 8px 50px;
+	        margin-bottom: 8px;
+	        .timestamp {
+	          display: block;
+	          text-transform: uppercase;
+	          margin: 0;
+	        }
+	        &:hover {
+	          text-decoration: none;
+	          label {
+	            text-shadow: none;
+  	          text-decoration: underline;
+	          }
+	        }
+	      }
+	    }
+	  }
+	}
+	.top-tags {
+	  border-bottom: 1px dotted #CCC;
+	  margin: 10px 0;
+	}
+	.accolades {
+	  border-top: 1px dotted #CCC;
+	  margin: 10px 0;
+	  padding: 10px 0;
+	  ul {
+	    li {
+	      list-style: none;
+	      float: left;
+        width: 218px;
+        margin: 0 20px 20px 0;
+        background: none;
+        padding: 0;
+        > span {
+          font-weight: bold;
+          display: block;
+        }
+	    }
+	  }
+	}
 	.rest_staff {
 		clear: both;
 		overflow: hidden;
@@ -3750,11 +3863,12 @@ p.search_filter_hint {
 		.restaurant_employees {
 			clear: both;
 			.employment {
-				width: 207px;
+				width: 190px;
 				margin: 0 20px 10px 0;
-				padding: 0 0 4px 0;
+				padding: 10px;
 				float: left;
-				border-bottom: 1px dotted #ddd;
+			  border: 1px solid #eaeaea;
+			  @include box-shadow(#eaeaea, 1px, 2px, 2px);
 				header {
 					border: 0;
 					overflow: hidden;
@@ -3787,14 +3901,13 @@ p.search_filter_hint {
 					}
 					&.emp_actions {
 						a {
-							color: #333;
+							color: $orange;
 							background: transparent url(/images/redesign/icon-arrow.gif) no-repeat 0 4px;
 							padding: 0 0 0 10px;
 							margin: 0 0 4px;
 							display: block;
 							font-size: 11px;
 							&:hover {
-								color: $orange;
 								background: transparent url(/images/redesign/icon-arrow.gif) no-repeat 0 -96px;
 							}
 						}
@@ -3804,7 +3917,7 @@ p.search_filter_hint {
 		}
 	}
 	#a_la_minute {
-		float: left;
+	  @include column(9);
 		width: 313px;
 		#alm-title {
 			@include hiddentext;

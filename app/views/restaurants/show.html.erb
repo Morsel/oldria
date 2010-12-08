@@ -2,8 +2,39 @@
 
   <%= render 'restaurant_header' %>
   
+  <div class="media clear clearfix">
+    <div class="photos">
+      <h2>Photos</h2>
+      <img src="http://placehold.it/318x200" width="318" height="200" alt="" />
+      <small><a href="#">View all photos &nbsp;&raquo;</a></small>
+    </div><!-- .photos -->
+    <div class="menus">
+      <h2>Menus</h2>
+      <ul>
+        <li><a href="#"><label>Neoteric Dinner Menu</label> <span class="timestamp">Updated 12/1/2010</span></a></li>
+        <li><a href="#"><label>Neoteric Dinner Menu</label> <span class="timestamp">Updated 12/1/2010</span></a></li>
+        <li><a href="#"><label>Neoteric Dinner Menu</label> <span class="timestamp">Updated 12/1/2010</span></a></li>
+        <li><a href="#"><label>Neoteric Dinner Menu</label> <span class="timestamp">Updated 12/1/2010</span></a></li>
+      </ul>
+    </div><!-- .menus -->
+  </div><!-- .media -->
+  
+  <div class="top-tags clear clearfix">
+    <h2>Top 15 Tags</h2>
+    <ul class="tags">
+      <li><a href="#">Pork</a></li>
+      <li><a href="#">Barbeque</a></li>
+      <li><a href="#">slow Roasted</a></li>
+      <li><a href="#">Cajun</a></li>
+      <li><a href="#">Texas</a></li>
+      <li><a href="#">Baby Back Ribs</a></li>
+      <li><a href="#">Guinness Stout</a></li>
+      <li><a href="#">Fire pit</a></li>
+    </ul>
+  </div><!-- .top-tags -->
+  
   <h2>Details</h2>
-  <div class="manager_and_facts equal-height">
+  <div class="manager_and_facts equal-height tricol">
     <% dl_if(@restaurant.description, :class => "list_item", :id => "description") do %>
       <dt>Description:</dt> 
       <dd><%= @restaurant.description %></dd>
@@ -35,7 +66,7 @@
 
   </div><!-- .manager_and_facts -->
   
-  <div class="account_contact equal-height">
+  <div class="account_contact equal-height tricol">
     <% dl_if(@restaurant.opening_date, :class => "list_item") do %>
       <dt>Opening Date:</dt> 
       <dd id="opening_date"><%= @restaurant.opening_date.to_s(:long) %></dd>
@@ -65,7 +96,7 @@
     <% end %>
   </div><!-- .account_contact -->
   
-  <div class="account_social equal-height">
+  <div class="account_social equal-height tricol">
     <% dl_if(@restaurant.website.present?, :class => "list_item", :id => "website") do %>
       <dt>Website:</dt> 
       <dd><%= link_to h(@restaurant.website), @restaurant.website%></dd>
@@ -94,12 +125,17 @@
 
   </div><!--.rest_staff-->
 
+  <div class="accolades clearfix">
+    <h2>Accolades</h2>
+    <ul>
+      <%= render @restaurant.accolades %>
+    </ul>
+  </div><!-- #accolades -->
+  
   <% div_if(@restaurant.feature_pages.any?, :class => "clear clearfix", :id => "feature_pages") do %>
     <h2>See more about:</h2>
     <%= render @restaurant.feature_pages %>
   <% end %>
-
-  <%= render :partial => 'profile_questions/behind_the_line', :locals => { :subject => @restaurant } %>
 
   <div id="a_la_minute">
     <h3 id="alm-title">A La Minute Questions</h3>
@@ -113,8 +149,9 @@
     </div>
     <p class="view_all"><a href="#">View all answers &raquo;</a></p>
   </div><!--#a_la_minute-->
-
+  <%= render :partial => 'profile_questions/behind_the_line', :locals => { :subject => @restaurant } %>
 </div><!-- #restaurant_profile_view -->
+
 
 
 <% content_for :javascript do %>
