@@ -1,3 +1,7 @@
+<div id="restaurant_profile_view" class="edit clear clearfix">
+
+  <%= render 'restaurants/restaurant_header' %>
+  
     <h2>Photos:</h2>
 <div>
   <% semantic_form_for :photo, :url => restaurant_photos_path(@restaurant),
@@ -39,9 +43,8 @@
     <%= restaurant_form.submit 'Save Primary Selection' %>
 <% end %>
 
-<p>
-  <%= link_to "Back To Restaurant", edit_restaurant_path(@restaurant), :class => "button" %>
-</p>
+</div><!-- /restaurant_profile_view -->
+
 
 <% content_for :javascript do %>
 

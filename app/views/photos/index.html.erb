@@ -1,10 +1,16 @@
-<h2>Photos</h2>
+<div id="restaurant_profile_view" class="edit clear clearfix">
 
-<div id="photos">
-  <% @photos.each do |photo| %>
-    <% content_tag_for(:div, photo) do %>
-      <%= image_tag photo.attachment.url(:medium), :class => "restaurant_photo" %>
-      <p class="credit">Credit: <%= photo.credit %></p>
+  <%= render 'restaurants/restaurant_header' %>
+
+  <h2>Photos</h2>
+
+  <div id="photos">
+    <% @photos.each do |photo| %>
+      <% content_tag_for(:div, photo) do %>
+        <%= image_tag photo.attachment.url(:medium), :class => "restaurant_photo" %>
+        <p class="credit">Credit: <%= photo.credit %></p>
+      <% end %>
     <% end %>
-  <% end %>
+  </div>
+
 </div>

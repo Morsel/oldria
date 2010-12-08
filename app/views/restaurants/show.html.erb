@@ -3,20 +3,21 @@
   <%= render 'restaurants/restaurant_header' %>
   
   <div class="media clear clearfix">
-    <div class="photos">
-      <h2>Photos</h2>
-      <img src="http://placehold.it/318x200" width="318" height="200" alt="" />
-      <small><a href="#">View all photos &nbsp;&raquo;</a></small>
-    </div><!-- .photos -->
-    <div class="menus">
-      <h2>Menus</h2>
-      <ul>
-        <li><a href="#"><label>Neoteric Dinner Menu</label> <span class="timestamp">Updated 12/1/2010</span></a></li>
-        <li><a href="#"><label>Neoteric Dinner Menu</label> <span class="timestamp">Updated 12/1/2010</span></a></li>
-        <li><a href="#"><label>Neoteric Dinner Menu</label> <span class="timestamp">Updated 12/1/2010</span></a></li>
-        <li><a href="#"><label>Neoteric Dinner Menu</label> <span class="timestamp">Updated 12/1/2010</span></a></li>
-      </ul>
-    </div><!-- .menus -->
+    <% if @restaurant.photos.any? -%>
+      <div class="photos">
+        <h2>Photos</h2>
+        <%= link_to image_tag(@restaurant.primary_photo.attachment.url(:medium), :alt => ''), restaurant_photos_path(@restaurant) %>
+        <small><%= link_to 'View all photos &nbsp;&raquo;', restaurant_photos_path(@restaurant) %></small>
+      </div><!-- .photos -->
+    <% end -%>
+    <% if @restaurant.menus.any? -%>
+      <div class="menus">
+        <h2>Menus</h2>
+        <ul>
+          <%= render :partial => 'menus/menu', :collection => @restaurant.menus %>
+        </ul>
+      </div><!-- .menus -->
+    <% end -%>
   </div><!-- .media -->
   
   <div class="top-tags clear clearfix">
@@ -72,14 +73,6 @@
       <dd id="opening_date"><%= @restaurant.opening_date.to_s(:long) %></dd>
     <% end %>
 
-    <% dl_if(@restaurant.menus.any?, :class => "list_item", :id => "menus") do %>
-      <dt>Menus:</dt>
-      <dd>
-        <ul>
-          <%= render :partial => 'menus/menu', :collection => @restaurant.menus %>
-        </ul>
-      </dd>
-    <% end %>
     <% dl_if(@restaurant.account_type, :class => "list_item account", :id => "account_status") do %>
       <dt>Account Status:</dt> 
       <dd class="currently"><%= @restaurant.account_type %></dd>
