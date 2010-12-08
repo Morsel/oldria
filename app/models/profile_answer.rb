@@ -18,6 +18,9 @@ class ProfileAnswer < ActiveRecord::Base
   
   validates_presence_of :answer, :profile_question_id, :user_id
   validates_uniqueness_of :profile_question_id, :scope => :user_id
+
+  attr_accessor :post_to_facebook
+  after_save    :post_to_facebook
   
   named_scope :from_premium_users, lambda {
     { :joins => { :user => :subscription },
@@ -25,4 +28,8 @@ class ProfileAnswer < ActiveRecord::Base
           Date.today]}
   }
 
+  def post_to_facebook
+    facebook_status = self.profile_question.title.to_s + "?  -" + self.answer.to_s
+    response = self.user.facebook_user.feed_create(Mogli::Post.new(:message => facebook_status)) if @post_to_facebook.to_s == "1"
+  end
 end

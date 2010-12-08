@@ -11,6 +11,7 @@ class ProfileAnswersController < ApplicationController
           @question = ProfileQuestion.find(id)
           answer = @question.find_or_build_answer_for(current_user)
           answer.answer = params[:profile_question][id][:answer]
+          answer.post_to_facebook = params[:profile_question][id][:post_to_facebook]
           answer.save # if it doesn't save, the answer was blank, and we can ignore it
         end
 

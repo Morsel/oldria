@@ -12,6 +12,7 @@ Given /^Facebook is functioning$/ do
 
   StatusesController.any_instance.stubs(:current_facebook_user).returns(user)
   AdminConversationsController.any_instance.stubs(:current_facebook_user).returns(user)
+  QuestionsController.any_instance.stubs(:current_facebook_user).returns(user)
 end
 
 Then /^message to facebook is sent$/ do
