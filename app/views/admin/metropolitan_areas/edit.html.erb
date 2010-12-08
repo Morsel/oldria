@@ -1,0 +1,10 @@
+<% title "Editing Metro Area" %>
+
+<% semantic_form_for [:admin, @metro] do |f| %>
+    <% f.inputs do %>
+        <%= f.input :name %>
+        <%= f.input :state, :hint => "For sorting purposes only - not displayed to users" %>
+        
+        <%= submit_tag "Save" %>
+    <% end %>
+<% end %>

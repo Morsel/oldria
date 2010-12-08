@@ -29,15 +29,14 @@ module UserMessaging
     Admin::PrTip.current.recent.find_unread_by( self )
   end
 
-  # Admin discussions - includes content request, trend question
+  # Admin discussions
   def admin_discussions
     return @admin_discussions if defined?(@admin_discussions)
     @admin_discussions = employments.map(&:viewable_admin_discussions).flatten
   end
 
   def current_admin_discussions
-    return @current_admin_discussions if defined?(@current_admin_discussions)
-    @current_admin_discussions = employments.map(&:current_viewable_admin_discussions).flatten
+    @current_admin_discussions ||= employments.map(&:current_viewable_admin_discussions).flatten
   end
 
   def unread_admin_discussions
@@ -45,7 +44,7 @@ module UserMessaging
   end
 
   def action_required_admin_discussions
-    unread_admin_discussions.select { |d| d.comments_count > 0 && d.comments.last.user != self }.reject { |d| d.discussionable.is_a?(TrendQuestion) }
+    unread_admin_discussions.select { |d| d.comments_count > 0 && d.comments.last.user != self }
   end
   
   def grouped_admin_discussions
@@ -60,15 +59,46 @@ module UserMessaging
       discussionable.read_by?(self) || (discussionable.scheduled_at < 2.weeks.ago)
     end
   end
+  
+  # Trend questions
+  def trend_questions
+    employments.map(&:current_viewable_trend_discussions).flatten
+  end
+  
+  def grouped_trend_questions
+    @grouped_trend_questions ||= trend_questions.group_by(&:discussionable)
+  end
+  
+  def unread_grouped_trend_questions
+    @unread_grouped_trend_questions ||= grouped_trend_questions
+    @unread_grouped_trend_questions.reject! do |discussionable, trends|
+      discussionable.read_by?(self) || (discussionable.scheduled_at < 2.weeks.ago)
+    end
+  end
 
   def trend_questions_responded
     TrendQuestion.on_soapbox_with_response_from_user(self)
   end
   
   # Solo discussions
-  
   def unread_solo_discussions
     solo_discussions.current.reject { |d| d.read_by?(self) }
+  end
+  
+  # Content requests
+  def content_requests
+    employments.map(&:current_viewable_request_discussions).flatten
+  end
+
+  def grouped_content_requests
+    @grouped_content_requests ||= content_requests.group_by(&:discussionable)
+  end
+  
+  def unread_grouped_content_requests
+    @unread_grouped_content_requests ||= grouped_content_requests
+    @unread_grouped_content_requests.reject! do |discussionable, request|
+      discussionable.read_by?(self) || (discussionable.scheduled_at < 2.weeks.ago)
+    end
   end
 
   # Question of the day
@@ -126,30 +156,25 @@ module UserMessaging
   end
 
   def messages_from_ria
-    @messages_from_ria ||= [ unread_grouped_admin_discussions.keys,
+    @messages_from_ria ||= [ unread_grouped_content_requests.keys,
       unread_pr_tips,
-      unread_announcements,
-      unread_solo_discussions
+      unread_announcements
       ].flatten.sort_by(&:scheduled_at).reverse
   end
 
   def all_messages
-    @all_messages ||= [ grouped_admin_discussions.keys,
+    @all_messages ||= [ grouped_content_requests.keys,
       Admin::Announcement.current.all,
       Admin::PrTip.current.all
     ].flatten.sort_by(&:scheduled_at).reverse
   end
 
   def ria_message_count
-    @ria_message_count ||= if action_required_messages
-      action_required_messages.size + messages_from_ria.size
-    else
-      messages_from_ria.size
-    end
+    @ria_message_count ||= messages_from_ria.size
   end
   
   def front_burner_unread_count
-    unread_qotds.count + unread_grouped_admin_discussions.keys.size + unread_solo_discussions.count
+    unread_qotds.count + unread_grouped_trend_questions.keys.size + unread_solo_discussions.count
   end
 
   def mark_replies_as_read

@@ -28,7 +28,7 @@ module SoapboxHelper
   end
   
   def message(featured_item)
-    featured_item.display_message || featured_item.message
+    featured_item.display_message.present? ? featured_item.display_message : featured_item.message
   end
 
   def soapbox_title(featured_item)    
