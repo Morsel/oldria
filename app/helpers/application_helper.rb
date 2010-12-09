@@ -57,8 +57,16 @@ module ApplicationHelper
   def logo_for(obj)
     obj.logo || Image.new
   end
-  
+
   def editing?
     params[:action] =~ /edit/
+  end
+
+  def restaurant_feature_page_link(restaurant, page)
+    if on_soapbox
+      soapbox_restaurant_feature_page_path(restaurant, page)
+    else
+      restaurant_feature_page_path(restaurant, page)
+    end
   end
 end

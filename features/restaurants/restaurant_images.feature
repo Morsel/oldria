@@ -11,7 +11,6 @@ Feature: Restaurant Images
     And the user "normal" is employed by "Piece"
     And the user "normal" is an account manager for "Bourgeois Pig"
 
-@wip
   Scenario: Upload a photo
     When I go to the restaurant photo upload page for Bourgeois Pig
     And I attach the file "/features/images/bourgeoispig.jpg" to "photo_attachment" on S3
@@ -20,19 +19,16 @@ Feature: Restaurant Images
     Then I see the uploaded restaurant photo
     And I should see the uploaded restaurant photo credit
 
-@wip
   Scenario: Photo upload page does not display for a non-account manager
     Given the user "normal" is not employed by "Bourgeois Pig"
     When I go to the restaurant photo upload page for Bourgeois Pig
     And I should see "You don't have permission to access that page"
 
-@wip
   Scenario: Photo upload page does not display for a logged out user
     Given I am not logged in
     When I go to the restaurant photo upload page for Bourgeois Pig
     And I should see "You must be logged in to access this page"
 
-@wip
   Scenario: Upload a photo fails when no file specified
     When I go to the restaurant photo upload page for Bourgeois Pig
     And I fill in "Xavier Zarope" for "Credit"
@@ -40,7 +36,6 @@ Feature: Restaurant Images
     Then I see no restaurant photos
     And I should see an error message
 
-@wip
   Scenario: Upload a photo fails when content type is not an image
     When I go to the restaurant photo upload page for Bourgeois Pig
     And I attach the image "/features/images/menu1.pdf" to "photo_attachment" on S3
@@ -49,7 +44,6 @@ Feature: Restaurant Images
     Then I see no restaurant photos
     And I should see an error message
 
-@wip
   Scenario: Upload a photo fails when credit is not filled in
     When I go to the restaurant photo upload page for Bourgeois Pig
     And I attach the image "/features/images/bourgeoispig.jpg" to "photo_attachment" on S3
@@ -57,7 +51,6 @@ Feature: Restaurant Images
     Then I see no restaurant photos
     And I should see an error message
 
-@wip
   Scenario: Upload logo
     When I go to the edit restaurant page for "Bourgeois Pig"
     And I attach the image "/features/images/bourgeoispig_logo.gif" to "restaurant_logo_attributes_attachment" on S3
@@ -65,14 +58,12 @@ Feature: Restaurant Images
     When I go to the edit restaurant page for "Bourgeois Pig"
     Then I see the restaurant logo
 
-@wip
   Scenario: Upload logo fails when content type is not an image
     When I go to the edit restaurant page for "Bourgeois Pig"
     And I attach the image "/features/images/menu1.pdf" to "restaurant[logo_attributes][attachment]" on S3
     And I press "Save"
     Then I should see a flash error message
 
-@wip
   Scenario: Select Primary Photo
     When I go to the restaurant photo upload page for Bourgeois Pig
     And I attach the image "/features/images/bourgeoispig.jpg" to "photo_attachment" on S3
@@ -92,7 +83,6 @@ Feature: Restaurant Images
     When I go to the restaurant photo upload page for Bourgeois Pig
     Then I see the 2nd photo selected as the primary photo
 
-@wip
   Scenario: First Photo Uploaded Is Automatically Selected As Primary Photo
     When I go to the restaurant photo upload page for Bourgeois Pig
     And I attach the image "/features/images/bourgeoispig.jpg" to "photo_attachment" on S3
@@ -101,7 +91,6 @@ Feature: Restaurant Images
     When I go to the restaurant photo upload page for Bourgeois Pig
     Then I see the 1st photo selected as the primary photo
 
-@wip
   Scenario: Remove a restaurant photo
     When I go to the restaurant photo upload page for Bourgeois Pig
     And I attach the image "/features/images/bourgeoispig.jpg" to "photo_attachment" on S3
@@ -123,7 +112,6 @@ Feature: Restaurant Images
     Then I should have a photo with the file "bourgeoispig.jpg"
     Then I should have a photo with the file "bourgeoispig2.jpg"
 
-@wip
   Scenario: Remove the restaurant logo
     When I go to the edit restaurant page for "Bourgeois Pig"
     And I attach the image "/features/images/bourgeoispig_logo.gif" to "restaurant_logo_attributes_attachment" on S3
@@ -132,7 +120,6 @@ Feature: Restaurant Images
     And I remove the restaurant logo
     Then I should not see the restaurant logo
 
-@wip
   Scenario: Remove a restaurant photo that is the primary photo with other photos existing
     When I go to the restaurant photo upload page for Bourgeois Pig
     And I attach the image "/features/images/bourgeoispig.jpg" to "photo_attachment" on S3
@@ -152,7 +139,6 @@ Feature: Restaurant Images
     When I remove the restaurant photo with the file "bourgeoispig1.jpg"
     Then I see the 1st photo selected as the primary photo
 
-@wip
   Scenario: Remove a restaurant photo that is the primary photo and first photo in multiple
     When I go to the restaurant photo upload page for Bourgeois Pig
     And I attach the image "/features/images/bourgeoispig.jpg" to "photo_attachment" on S3
@@ -172,7 +158,6 @@ Feature: Restaurant Images
     When I remove the restaurant photo with the file "bourgeoispig1.jpg"
     Then I see the 1st photo selected as the primary photo
 
-@wip
   Scenario: Remove a restaurant photo that is the primary photo and only photo
     When I go to the restaurant photo upload page for Bourgeois Pig
     And I attach the image "/features/images/bourgeoispig.jpg" to "photo_attachment" on S3

@@ -1,5 +1,5 @@
 <header id="restaurant_header">
-  
+
     <div id="restaurant_actions">
       <% unless editing? -%>
         <% if can? :edit, @restaurant %>
@@ -11,11 +11,11 @@
         <%= link_to 'Back to public view', restaurant_path(@restaurant), :class => 'backtopublic' %>
       <% end -%>
     </div><!--#restaurant_actions-->
- 
-  
+
+
   <%= image_tag logo_for(@restaurant).attachment.url(:small), :width=>'100' %>
   <h1 id="name"><%= link_to @restaurant.name, @restaurant %></h1>
-  
+
   <div id="restaurant_meta" class="">
     <% div_if @restaurant.premium_account?, :class => "premium" do %>
     <p>Account Type: Premium</p>
@@ -30,8 +30,8 @@
     <div id="restaurant_features" class="clear clearfix">
       <span>Features: </span>
       <ul class="tags clearfix">
-        <% @restaurant.restaurant_features.each do |feature| -%>
-          <li><%= link_to feature.name, feature_path(feature) %></li>
+        <% @restaurant.feature_pages.each do |page| -%>
+          <li><%= link_to page.name, restaurant_feature_page_link(@restaurant, page) %></li>
         <% end -%>
       </ul>
     </div><!-- /restaurant_features -->

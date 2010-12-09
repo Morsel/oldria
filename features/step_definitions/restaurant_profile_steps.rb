@@ -199,18 +199,18 @@ end
 Then /^I see headers for feature categories for "([^\"]*)"$/ do |page_name|
   page = RestaurantFeaturePage.find_by_name(page_name)
   @restaurant.categories_for_page(page).each do |category|
-    response.should have_selector(".category_header", :content => category.name)
+    response.should have_selector(".restaurant_feature_category h2", :content => category.name)
   end
   missing = page.restaurant_feature_categories - @restaurant.categories_for_page(page)
   missing.each do |category|
-    response.should_not have_selector(".category_header", :content => category.name)
+    response.should_not have_selector(".restaurant_feature_category h2", :content => category.name)
   end
 end
 
 Then /^I see "([^\"]*)" links for "([^\"]*)"$/ do |category_name, tags|
   category = RestaurantFeatureCategory.find_by_name(category_name)
   tags.split(",").each do |tag|
-    response.should have_selector("##{dom_id(category)} .feature", :content => tag.strip)
+    response.should have_selector("##{dom_id(category)}", :content => tag.strip)
   end
 end
 
@@ -251,7 +251,7 @@ Given /^"([^\"]*)" is tagged with "([^\"]*)"$/ do |restaurant_name, tags|
 end
 
 Then /^I see the restaurant "([^\"]*)"$/ do |restaurant_name|
-  response.should have_tag(".restaurant", :content => restaurant_name)
+  response.should have_selector(".restaurant", :content => restaurant_name)
 end
 
 Then /^I see the restaurant logo for the profile$/ do

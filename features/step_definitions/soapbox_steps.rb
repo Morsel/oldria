@@ -39,11 +39,11 @@ Then /^there should be (\d+) QOTDs? on the soapbox front burner page$/ do |num|
 end
 
 Then /^I see a navigation link for "([^\"]*)"$/ do |header_name|
-  response.should have_selector(".page_nav_link a", :content => header_name)
+  response.should have_selector("#restaurant_features a", :content => header_name)
 end
 
 Then /^I do not see a navigation link for "([^\"]*)"$/ do |header_name|
-  response.should_not have_selector(".page_nav_link a", :content => header_name)
+  response.should_not have_selector("#restaurant_features a", :content => header_name)
 end
 
 Then /^I see a page header for "([^\"]*)" with "([^\"]*)"$/ do |page, tags|
