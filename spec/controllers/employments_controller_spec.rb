@@ -8,7 +8,8 @@ describe EmploymentsController do
 
     before(:each) do
       fake_admin_user
-      @employment_a = Factory(:employment, :position => 1, :restaurant => restaurant)
+      @employment_a = restaurant.employments.first # the manager
+      @employment_a.update_attribute(:position, 1)
       @employment_b = Factory(:employment, :position => 2, :restaurant => restaurant)
       @employment_c = Factory(:employment, :position => 3, :restaurant => restaurant)
     end
@@ -18,7 +19,6 @@ describe EmploymentsController do
           :employment => [@employment_b.id, @employment_c.id, @employment_a.id]
       restaurant.reload.employments.by_position.should == [@employment_b, @employment_c, @employment_a]
     end
-
 
   end
 

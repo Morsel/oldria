@@ -259,7 +259,7 @@ describe Restaurant do
   end
 
   describe "braintree_contact" do
-    let(:restaurant) { Factory(:managed_restaurant) }
+    let(:restaurant) { Factory(:restaurant) }
 
     it "should return manager" do
       restaurant.braintree_contact == restaurant.manager
