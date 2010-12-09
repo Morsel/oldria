@@ -4060,7 +4060,7 @@ p.search_filter_hint {
     padding: 9px 10px;
     font-size: 14px;
     color: #333;
-    .selected {
+    &.selected {
       @include linear-gradient(color-stops($orange,#e3602c ), bottom);
       text-shadow: 0 1px 1px #555;
       color: #fff;
@@ -4082,9 +4082,9 @@ p.search_filter_hint {
 			margin-bottom: 3px;
 			width: 77%;
 			padding: 7px 10px;
-			&:hover, .selected {
+			&:hover, &.selected {
 			  color: #fff;
-			  background: $orange url(/images/redesign/active_arrow_right.png) right no-repeat;
+			  background: $orange url(/images/redesign/active_arrow_right.png) top right no-repeat;
 			  width: auto;
 			}
 		}
@@ -4108,6 +4108,9 @@ p.search_filter_hint {
 		  margin-bottom: 30px;
 		  p {
 		    margin: 5px 0;
+		    input[type="checkbox"] {
+		      margin-bottom: 0;
+		    }
 		  }
 		}
 		form label {
