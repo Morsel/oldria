@@ -3365,7 +3365,8 @@ p.search_filter_hint {
 	border: 1px solid #eaeaea;
 	input[type="password"], input[type="url"], input[type="text"], input[type="number"], textarea {
 	  border: 1px solid #ccc;
-    @include box-shadow(#DDD, 1px, 1px, 2px, 0px);
+    //@include box-shadow(#DDD, 1px, 1px, 2px, 0px);
+    @include box-shadow(#eaeaea, 0px, 1px, 1px);
     width: 55%;
 	}
 	.media_requests {
@@ -3426,23 +3427,20 @@ p.search_filter_hint {
 		label {
 			font-weight: normal;
 		}
-		input {
-			margin: 3px 0 12px;
-			@include box-shadow(#eaeaea, 0px, 1px, 1px);
-		}
+    // input {
+    //  margin: 3px 0 12px;
+    //  @include box-shadow(#eaeaea, 0px, 1px, 1px);
+    // }
 		select {
 			display: block;
 			margin: 3px 0 12px;
+			width: 55%;
 		}
-		textarea {
-			width: 350px;
-			height: 75px;
-			border: 1px solid #ccc;
-			@include box-shadow(#eaeaea, 0px, 1px, 1px);
-			margin: 3px 0 12px;
+		ol select {
+		  width: auto;
 		}
 		.inline-hints {
-			margin: -8px 0 10px;
+			margin: -4px 0 10px;
 			color: #888;
 			font-size: 11px;
 			font-style: normal;
@@ -3459,6 +3457,7 @@ p.search_filter_hint {
 	.editing {
 		border-bottom: 1px dotted #ccc;
 		margin-top: 20px;
+		padding-bottom: 10px;
 		button {
 			cursor:pointer;
 			float: left;
@@ -3552,6 +3551,9 @@ p.search_filter_hint {
 		}
 	}
 	.accolades {
+	  border-top: none;
+	  margin: 0;
+	  padding: 0;
 		h2 {
 			font-family: 'Hoefler Text', Georgia, Times, serif;
 			font-size: 14px;
