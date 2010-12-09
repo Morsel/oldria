@@ -23,6 +23,7 @@ class RestaurantsController < ApplicationController
     find_restaurant
     @employments = @restaurant.employments.by_position.all(
         :include => [:subject_matters, :restaurant_role, :employee])
+    @questions = ALaMinuteAnswer.newest_for(@restaurant)
   end
 
   def edit

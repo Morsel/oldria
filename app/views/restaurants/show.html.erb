@@ -3,21 +3,25 @@
   <%= render 'restaurants/restaurant_header' %>
   
   <div class="media clear clearfix">
-    <% if @restaurant.photos.any? -%>
-      <div class="photos">
-        <h2>Photos</h2>
+    <div id="primary_photo" class="photos">
+      <h2>Photos</h2>
+      <% if @restaurant.photos.any? -%>
         <%= link_to image_tag(@restaurant.primary_photo.attachment.url(:medium), :alt => ''), restaurant_photos_path(@restaurant) %>
-        <small><%= link_to 'View all photos &nbsp;&raquo;', restaurant_photos_path(@restaurant) %></small>
-      </div><!-- .photos -->
-    <% end -%>
-    <% if @restaurant.menus.any? -%>
-      <div class="menus">
-        <h2>Menus</h2>
+        <small><%= link_to 'View all photos&nbsp;&#187;', restaurant_photos_path(@restaurant) %></small>
+      <% else -%>
+        <p>There are no photos for this restaurant yet.</p>
+      <% end -%>
+    </div><!-- .photos -->
+    <div class="menus">
+      <h2>Menus</h2>
+      <% if @restaurant.menus.any? -%>
         <ul>
           <%= render :partial => 'menus/menu', :collection => @restaurant.menus %>
         </ul>
-      </div><!-- .menus -->
-    <% end -%>
+      <% else -%>
+        <p>There are no menus available at this time.</p>
+      <% end -%>
+    </div><!-- /menus -->
   </div><!-- .media -->
   
   <div class="top-tags clear clearfix">
@@ -53,7 +57,11 @@
 
     <% dl_if @restaurant.media_contact, :class => "list_item", :id => "media_contact" do %>
       <dt>Media Contact:</dt> 
-      <dd><%= link_to h(@restaurant.media_contact.name), profile_path(:username => @restaurant.media_contact.username) %></dd>
+      <dd>
+        <%= link_to h(@restaurant.media_contact.name), profile_path(:username => @restaurant.media_contact.username) %>
+        <%= "<br>#{@restaurant.media_contact.phone_number}" if @restaurant.media_contact.phone_number.present? -%>
+        <%= "<br>#{mail_to @restaurant.media_contact.email}" if @restaurant.media_contact.email.present? -%>
+      </dd>
     <% end %>
 
     <% dl_if(@restaurant.management_company_name.present?, :class => "list_item", :id => "management_company") do %>
@@ -134,7 +142,7 @@
 
     <div class="questions">
       <%= render :partial => "restaurants/a_la_minute_question",
-              :collection => ALaMinuteAnswer.newest_for(@restaurant), :as => :answer %>
+              :collection => @questions, :as => :answer %>
     </div>
     <p class="view_all"><a href="#">View all answers &raquo;</a></p>
   </div><!--#a_la_minute-->
