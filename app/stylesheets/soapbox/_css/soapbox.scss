@@ -1869,15 +1869,47 @@ dl.things dt:after {content: ":"}
 
 
 #restaurant_profile_view {
-	position: relative;
+	a:hover {text-decoration: none;}
+	h2 {
+		font-size: 14px;
+		text-transform: uppercase;
+		border: none;
+		margin: 15px 0 5px;
+	}
+	ul.tags {
+		float: left;
+		margin: 0;
+		padding: 0;
+		li {
+			display: inline-block;
+			background: none;
+			padding: 0;
+			margin: 0;
+			a {
+				background-color: #f5f4f2;
+				display: inline-block;
+				padding: 2px 10px;
+				@include border-radius(30px);
+				&:hover {
+					background-color: $sienna;
+					color: #fff;
+					text-shadow: 0 1px 0 #333;
+				}
+			}
+		}
+	}
 	header {
+		border-bottom: 1px dotted #ddd;
+		padding: 0 0 10px 0;
 		#restaurant_actions {
 			width: 166px;
 			float: right;
 			a {
 				font-size: 13px;
 				display: block;
+				background-image: url(/images/soapbox/share-actions.png);
 				background-color: $sienna;
+				background-repeat: no-repeat;
 				padding: 8px 20px 8px 30px;
 				@include border-radius(30px);
 				color: #fff;
@@ -1885,15 +1917,38 @@ dl.things dt:after {content: ":"}
 				margin: 0 0 6px;
 				text-shadow: 0 1px 0 #333;
 				&.edit_restaurant {
-					background: $sienna url(/images/redesign/rest_edit.png) no-repeat scroll 10px 7px;
+					background-position: -188px 9px;
+					&:hover {
+						background-color: $purple;
+						background-position: -188px -91px;
+						text-decoration: none;
+					}
 				}
 				&.start_discussion {
-					background: $sienna url(/images/redesign/start_discussion.png) no-repeat scroll 10px 7px;
+					background-position: 12px 9px;
+					&:hover {
+						background-color: $purple;
+						background-position: 12px -91px;
+						text-decoration: none;
+					}
 				}
-				&:hover {
-					background-color: $purple;
-					text-decoration: none;
+				&.share_profile {
+					background-position: -388px 11px;
+					&:hover {
+						background-color: $purple;
+						background-position: -388px -89px;
+						text-decoration: none;
+					}
 				}
+			}
+		}
+		#restaurant_features {
+			clear: both;
+			overflow: hidden;
+			span {
+				float: left;
+				margin: 2px 6px 2px 0;
+				padding: 0;
 			}
 		}
 		img {
@@ -1909,6 +1964,9 @@ dl.things dt:after {content: ":"}
 		}
 		#restaurant_meta {
 			margin-left: 115px;
+			.address {
+				line-height: 17px;
+			}
 			.premium {
 				z-index: 1000;
 				margin: -15px 0 10px 0;
@@ -1960,13 +2018,17 @@ dl.things dt:after {content: ":"}
 						@include hiddentext;
 						width: 32px;
 						height: 32px;
-						background-color: #f2f2f2;
+						background-color: #f5f4f2;
 						margin: 0 10px 5px 0;
 					}
 					h3 {
 						margin: 0;
 						line-height: 15px;
 						text-transform: capitalize;
+						a {
+							color: $sienna;
+							&:hover {color: $purple;}
+						}
 					}
 					p {
 						margin: 0;
@@ -1996,6 +2058,268 @@ dl.things dt:after {content: ":"}
 						}
 					}
 				}
+			}
+		}
+	}
+	.media {
+		.photos {
+			width: 322px;
+			margin: 0 10px 0 0;
+			float: left;
+			img {
+				display: block;
+				margin: 0 0 5px;
+				padding: 0;
+				border: 1px solid #ccc;
+			}
+			small {
+				display: block;
+				margin: 10px 0;
+				a {
+					color: $sienna;
+					&:hover {
+						color: $purple;
+					}
+				}
+			}
+		}
+		.menus {
+			@include column(8, last);
+			ul {
+				margin: 0;
+				padding: 0;
+				li {
+					display: block;
+					background: none;
+					margin: 0;
+					padding: 0;
+					a {
+						display: block;
+						margin: 0 0 6px;
+						padding: 8px 12px 8px 42px;
+						background: #f5f4f2 url(/images/soapbox/icon-menu.png) no-repeat 9px 9px;					
+						label {
+							display: block;
+							font-size: 14px;
+							text-transform: capitalize;
+							@include museoslabmedium;
+						}
+						&:hover {
+							background-color: $sienna;
+							color: #fff;
+							label {
+								text-shadow: 0 1px 0 #333;
+							}
+							time {
+								color: #fff;
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	.top-tags {
+		border-top: 1px dotted #ddd;
+		border-bottom: 1px dotted #ddd;
+		padding: 20px 0;
+		h2 {
+			margin: 0 0 10px 0;
+			padding: 0;
+		}
+	}
+	
+	.accolades {
+		margin: 0;
+		padding: 10px 0;
+		ul {
+			margin: 0;
+			padding: 0;
+			li {
+				border: 1px solid #eee;
+				overflow: hidden;
+				width: 178px;
+				float: left;
+				margin: 0 20px 10px 0;
+				padding: 10px;
+				background: none;
+				display: block;
+				@include box-shadow(#eaeaea,0,1px, 3px);
+				font-size: 11px;
+				span {
+					@include museoslabmedium;
+					font-size: 13px;
+					display: block;
+					margin: 0 0 2px;
+				}
+			}
+		}
+	}
+	.tricol {
+		a {
+			color: $sienna;
+			&:hover {
+				color: $purple;
+				text-decoration: underline;
+			}
+		}
+	}
+	
+		
+	.edit_profile_link {
+		a {
+			background-image: url(/images/redesign/pencil.png);
+			background-repeat: no-repeat;
+			background-position: 5px 6px;
+			@include museoslabmedium;
+			text-shadow: 0 1px 0 #333;
+			font-size: 13px;
+			text-transform: uppercase;
+			display: block;
+			color: #fff;
+			background-color: $sienna;
+			padding: 7px 10px 7px 20px;
+			&:hover {
+				background-color: #f5f4f2;
+				color: $sienna;
+				text-shadow: 0 1px 0 #fff;
+			}
+		}
+	}
+	.view_all {
+		border-top: 1px solid #ddd;
+		padding-top: 4px;
+		text-transform: uppercase;
+		font-family: helvetica neue, helvetica, arial, sans-serif;
+		font-size: 12px;
+		letter-spacing: 0.1em;
+		a {
+			color: #333;
+			&:hover {
+				color: $sienna;
+			}
+		}
+	}
+	
+} /* ## ---- end of restaurant_profile_view ----- */
+
+#a_la_minute {
+  @include column(9);
+	width: 313px;
+	#alm-title {
+		@include hiddentext;
+		border-bottom: 1px solid #ccc;
+		background: transparent url(/images/redesign/title-alaminute.png) no-repeat;
+		padding-bottom: 5px;
+	}
+	.questions {
+		dl {
+			margin: 10px 0;
+			dt {
+				font-weight: bold;
+				color: #333;
+				margin: 0;
+				padding: 0;
+			}
+			dd {
+				font-weight: normal;
+				color: #666;
+				margin: 0;
+				padding: 0;
+			}
+		}
+	}
+}
+
+#behindline {
+  @include column(8, true);
+  float: left;
+	ul{
+		margin:10px 0;
+		padding:0;
+		min-height: 100px;
+		li{
+			padding:0;
+			margin:0;
+			background:0;
+			&.even{
+				a{
+					background:#f2f0e9;
+				}
+			}
+			a{
+				display:block;
+				padding:10px;
+				position:relative;
+				color:#333;
+				h5{
+					font-family: "Hoefler Text", Georgia, serif;
+					font-weight: bold;
+					font-weight: 700;
+					font-size: 12px;
+					letter-spacing: 0.1em;
+					color:$sienna;
+					width:200px;
+					line-height:1.1;
+					margin:0 0 6px;
+					.completeness{
+						position:absolute;
+						top:10px;
+						right:10px;
+						color:#808080;
+						letter-spacing: 0em;
+						font:normal 9px "Lucida Grande", Arial, sans-serif;
+					}
+				}
+				&:hover{
+					background:$purple;
+					color:#fff;
+					text-decoration:none;
+					text-shadow: 0 1px 0 #333;
+					h5{
+						color:#333;
+						text-shadow: none;
+						.completeness{
+							color:#333;
+						}
+					}
+				}
+			}
+		}
+	}
+} /* end of #behindline ----------------------------- */
+
+#btl-title{
+	color:#666;
+	text-transform: capitalize;
+	font:200 16px "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, sans-serif !important;
+	padding:0 0 3px;
+	margin:0 0 10px;
+	border-bottom:1px solid #ccc;
+	span.btl-art{
+		@include hiddentext;
+		display:inline-block;
+		background:url(/images/redesign/title-behindtheline.png) no-repeat;
+		width:123px;
+		height:19px;
+	}
+	&.btl{
+		overflow:hidden;
+		display:inline-block;
+		padding:10px 20px 0 5px;
+		margin:0 0 15px -18px;
+		border:0;
+		height:33px;
+		color:#fff;
+		background:#d9531e url(/images/redesign/red-divot.gif) no-repeat right;
+		span{
+			float:left;
+			margin:0 5px 0 0;
+			&.btl-art{
+				background:url(/images/redesign/btl-white.png) no-repeat left;
+			}
+			&.name{
+				padding-top:3px;
 			}
 		}
 	}
