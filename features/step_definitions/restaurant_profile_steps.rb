@@ -397,7 +397,7 @@ Then /^"([^\"]*)" should be marked as the primary accolade$/ do |accolade_name|
 end
 
 Then /^I should see the accolades in order: "([^"]*)"$/ do |accolade_names|
-  expected_names = tableish(".accolade", ".accolade_name")
+  expected_names = tableish(".accolade", ".extended-title")
   expected_names.flatten.should == accolade_names.split(",").map(&:strip)
 end
 

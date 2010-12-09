@@ -21,7 +21,7 @@ Feature: Managing Restaurants
     When I follow "My Restaurants"
     And I follow "Jimmy's Diner"
     When I follow "Edit Restaurant"
-    And I follow "Manage employees"
+    And I follow "Staff"
     Then I should see "Employees at Jimmy's Diner"
 
   Scenario: I can add restaurant managers
