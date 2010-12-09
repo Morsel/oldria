@@ -16,7 +16,6 @@ Feature: Managing Restaurants
     And I follow "Jimmy's Diner"
     Then I should not see "Your Digital Dashboard"
 
-@wip
   Scenario: I can edit the employees of restaurants I manage
     Given I am on the dashboard
     When I follow "My Restaurants"

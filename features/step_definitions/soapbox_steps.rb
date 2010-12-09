@@ -72,7 +72,6 @@ end
 
 Then /^I should see the employees in the order "([^"]*)"$/ do |employee_names|
   expected_names = tableish(".employment", "h3")
-  ap expected_names
   expected_names = expected_names.flatten.map { |n| n.gsub(",", "") }
   expected_names.should == employee_names.split(",").map(&:strip)
 end
