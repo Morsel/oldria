@@ -104,8 +104,9 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :restaurants,
                 :member => {
                         :edit_logo => :get,
-                        :select_primary_photo => :post,
+                        :select_primary_photo => :post
                 } do |restaurant|
+    restaurant.resource :fact_sheet, :controller => "restaurant_fact_sheets"
     restaurant.media_requests 'media_requests', :controller => 'media_requests', :action => 'index'
     restaurant.resources :employees, :except => [:show]
     restaurant.resources :calendars, :collection => { "ria" => :get }

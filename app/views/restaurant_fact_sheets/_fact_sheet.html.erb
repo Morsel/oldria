@@ -1,0 +1,235 @@
+<div id="extended_profile" class="clearfix">
+  <div class="extended_profile_info">
+    <h3>Parking and Directions</h3>
+    <ul class="location_info clearfix">
+      <% content_tag(:li) do %>
+        <b>Venue:</b>
+        <%=h fact_sheet.venue %>
+      <% end unless fact_sheet.venue.blank? %>
+
+      <% content_tag(:li) do %>
+        <b>Intersection:</b>
+        <%=h fact_sheet.intersection %>
+      <% end unless fact_sheet.intersection.blank? %>
+
+      <% content_tag(:li) do %>
+        <b>Neighborhood:</b>
+        <%=h fact_sheet.neighborhood %>
+      <% end unless fact_sheet.neighborhood.blank? %>
+
+      <% content_tag(:li) do %>
+        <b>Parking:</b>
+        <%=h fact_sheet.parking %>
+      <% end unless fact_sheet.parking.blank? %>
+
+      <% content_tag(:li) do %>
+        <b>Public transit:</b>
+        <%=h fact_sheet.public_transit %>
+      <% end unless fact_sheet.public_transit.blank? %>
+    </ul>
+    <span class="timestamp">
+        Last updated:
+        <%= fact_sheet.try(:parking_and_directions_updated_at).try(:strftime, "%b %e %Y") %>
+    </span>
+  </div>
+
+  <div class="extended_profile_info">
+    <h3>Pricing</h3>
+    <ul class="pricing_info clearfix">
+      <% content_tag(:li) do %>
+        <b>Dinner average price:</b>
+        <%=price fact_sheet.dinner_average_price %>
+      <% end unless fact_sheet.dinner_average_price.blank? %>
+
+      <% content_tag(:li) do %>
+        <b>Lunch average price:</b>
+        <%=price fact_sheet.lunch_average_price %>
+      <% end unless fact_sheet.lunch_average_price.blank? %>
+
+      <% content_tag(:li) do %>
+        <b>Brunch average price:</b>
+        <%=price fact_sheet.brunch_average_price %>
+      <% end unless fact_sheet.brunch_average_price.blank? %>
+
+      <% content_tag(:li) do %>
+        <b>Breakfast average price:</b>
+        <%=price fact_sheet.breakfast_average_price %>
+      <% end unless fact_sheet.breakfast_average_price.blank? %>
+
+      <% content_tag(:li) do %>
+        <b>Children average price:</b>
+        <%=price fact_sheet.children_average_price %>
+      <% end unless fact_sheet.children_average_price.blank? %>
+
+      <% content_tag(:li) do %>
+        <b>Appetizer/Small Plate:</b>
+        <%= price_range(fact_sheet.small_plate_min_price, fact_sheet.small_plate_max_price) %>
+      <% end unless fact_sheet.small_plate_min_price.blank? && fact_sheet.small_plate_max_price.blank?  %>
+
+      <% content_tag(:li) do %>
+        <b>Entree/Large Plate:</b>
+        <%= price_range(fact_sheet.large_plate_min_price, fact_sheet.large_plate_max_price) %>
+      <% end unless fact_sheet.large_plate_min_price.blank? && fact_sheet.large_plate_max_price.blank?  %>
+
+      <% content_tag(:li) do %>
+        <b>Dessert Plate:</b>
+        <%= price_range(fact_sheet.dessert_plate_min_price, fact_sheet.dessert_plate_max_price) %>
+      <% end unless fact_sheet.dessert_plate_min_price.blank? && fact_sheet.dessert_plate_max_price.blank?  %>
+
+      <% content_tag(:li) do %>
+        <b>Wine by the Glass count:</b>
+        <%=h fact_sheet.wine_by_the_glass_count %>
+      <% end unless fact_sheet.wine_by_the_glass_count.blank? %>
+
+      <% content_tag(:li) do %>
+        <b>Wine by the Glass:</b>
+        <%= price_range(fact_sheet.wine_by_the_glass_min_price, fact_sheet.wine_by_the_glass_max_price) %>
+      <% end unless fact_sheet.wine_by_the_glass_min_price.blank? && fact_sheet.wine_by_the_glass_max_price.blank?  %>
+
+      <% content_tag(:li) do %>
+        <b>Wine by the Bottle count:</b>
+        <%=h fact_sheet.wine_by_the_bottle_count %>
+      <% end unless fact_sheet.wine_by_the_bottle_count.blank? %>
+
+      <% content_tag(:li) do %>
+        <b>Wine by the Bottle:</b>
+        <%= price_range(fact_sheet.wine_by_the_bottle_max_price, fact_sheet.wine_by_the_bottle_max_price) %>
+      <% end unless fact_sheet.wine_by_the_bottle_max_price.blank? && fact_sheet.wine_by_the_bottle_max_price.blank?  %>
+
+      <% content_tag(:li) do %>
+        <b>Wine by the bottle details:</b>
+        <%=h fact_sheet.wine_by_the_bottle_details %>
+      <% end unless fact_sheet.wine_by_the_bottle_details.blank? %>
+    </ul>
+    <span class="timestamp">
+        Last updated:
+        <%= fact_sheet.try(:pricing_updated_at).try(:strftime, "%b %e %Y") %>
+    </span>
+  </div>
+
+<div class="extended_profile_info">
+  <h3>Guest Relations</h3>
+  <ul class="guest_relations_info clearfix">
+    <% content_tag(:li) do %>
+      <b>Reservations:</b>
+      <%=h fact_sheet.reservations %>
+    <% end unless fact_sheet.reservations.blank? %>
+
+    <% content_tag(:li) do %>
+      <b>Cancellation policy:</b>
+      <%=h fact_sheet.cancellation_policy %>
+    <% end unless fact_sheet.cancellation_policy.blank? %>
+
+    <% content_tag(:li) do %>
+      <b>Payment methods:</b>
+      <%=h fact_sheet.payment_methods %>
+    <% end unless fact_sheet.payment_methods.blank? %>
+
+    <% content_tag(:li) do %>
+      <b>Byob allowed:</b>
+      <%=h fact_sheet.byob_allowed %>
+    <% end unless fact_sheet.byob_allowed.blank? %>
+
+    <% content_tag(:li) do %>
+      <b>Corkage fee:</b>
+      <%=h fact_sheet.corkage_fee %>
+    <% end unless fact_sheet.corkage_fee.blank? %>
+
+    <% content_tag(:li) do %>
+      <b>Dress code:</b>
+      <%=h fact_sheet.dress_code %>
+    <% end unless fact_sheet.dress_code.blank? %>
+
+    <% content_tag(:li) do %>
+      <b>Delivery:</b>
+      <%=h fact_sheet.delivery %>
+    <% end unless fact_sheet.delivery.blank? %>
+  </ul>
+  <span class="timestamp">
+      Last updated:
+      <%= fact_sheet.try(:guest_relations_updated_at).try(:strftime, "%b %e %Y") %>
+  </span>
+</div>
+
+<div class="extended_profile_info">
+  <h3>Design</h3>
+  <ul class="design_info clearfix">
+    <% content_tag(:li) do %>
+      <b>Architect name:</b>
+      <%=h fact_sheet.architect_name %>
+    <% end unless fact_sheet.architect_name.blank? %>
+
+    <% content_tag(:li) do %>
+      <b>Graphic designer:</b>
+      <%=h fact_sheet.graphic_designer %>
+    <% end unless fact_sheet.graphic_designer.blank? %>
+
+    <% content_tag(:li) do %>
+      <b>Furniture designer:</b>
+      <%=h fact_sheet.furniture_designer %>
+    <% end unless fact_sheet.furniture_designer.blank? %>
+
+    <% content_tag(:li) do %>
+      <b>Furniture manufacturer:</b>
+      <%=h fact_sheet.furniture_manufacturer %>
+    <% end unless fact_sheet.furniture_manufacturer.blank? %>
+
+    <% content_tag(:li) do %>
+      <b>Flooring:</b>
+      <%=h fact_sheet.flooring %>
+    <% end unless fact_sheet.flooring.blank? %>
+
+    <% content_tag(:li) do %>
+      <b>Millwork:</b>
+      <%=h fact_sheet.millwork %>
+    <% end unless fact_sheet.millwork.blank? %>
+
+    <% content_tag(:li) do %>
+      <b>China:</b>
+      <%=h fact_sheet.china %>
+    <% end unless fact_sheet.china.blank? %>
+
+    <% content_tag(:li) do %>
+      <b>Kitchen equipment:</b>
+      <%=h fact_sheet.kitchen_equipment %>
+    <% end unless fact_sheet.kitchen_equipment.blank? %>
+
+    <% content_tag(:li) do %>
+      <b>Lighting:</b>
+      <%=h fact_sheet.lighting %>
+    <% end unless fact_sheet.lighting.blank? %>
+
+    <% content_tag(:li) do %>
+      <b>Draperies:</b>
+      <%=h fact_sheet.draperies %>
+    <% end unless fact_sheet.draperies.blank? %>
+
+    <% content_tag(:li) do %>
+      <b>Square footage:</b>
+      <%=h fact_sheet.square_footage %>
+    <% end unless fact_sheet.square_footage.blank? %>
+  </ul>
+  <span class="timestamp">
+      Last updated:
+      <%= fact_sheet.try(:design_updated_at).try(:strftime, "%b %e %Y") %>
+  </span>
+</div>
+
+<div class="extended_profile_info">
+  <h3>Other Information</h3>
+  <ul class="other_info clearfix">
+    <% content_tag(:li) do %>
+      <b>Wheelchair access:</b>
+      <%=h fact_sheet.wheelchair_access %>
+    <% end unless fact_sheet.wheelchair_access.blank? %>
+
+    <% content_tag(:li) do %>
+      <b>Smoking:</b>
+      <%=h fact_sheet.smoking %>
+    <% end unless fact_sheet.smoking.blank? %>
+  </ul>
+  <span class="timestamp">
+      Last updated:
+      <%= fact_sheet.try(:other_updated_at).try(:strftime, "%b %e %Y") %>
+  </span>
+</div>

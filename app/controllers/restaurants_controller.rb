@@ -1,7 +1,7 @@
 class RestaurantsController < ApplicationController
   before_filter :require_user
   before_filter :authenticate, :only => [:edit, :update]
-  before_filter :find_restaurant, :only => [:select_primary_photo]
+  before_filter :find_restaurant, :only => [:select_primary_photo, :fact_sheet]
 
   def new
     @restaurant = current_user.managed_restaurants.build

@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20101206205555) do
+ActiveRecord::Schema.define(:version => 20101209225304) do
 
   create_table "a_la_minute_answers", :force => true do |t|
     t.text     "answer"
@@ -200,21 +200,21 @@ ActiveRecord::Schema.define(:version => 20101206205555) do
   end
 
   create_table "culinary_jobs", :force => true do |t|
-    t.integer  "profile_id",                         :null => false
-    t.string   "restaurant_name", :default => "",    :null => false
-    t.string   "title",           :default => "",    :null => false
-    t.string   "city",            :default => "",    :null => false
-    t.string   "state",           :default => "",    :null => false
-    t.string   "country",         :default => "",    :null => false
-    t.date     "date_started",                       :null => false
+    t.integer  "profile_id",                                        :null => false
+    t.string   "title",                          :default => "",    :null => false
+    t.string   "city",                           :default => "",    :null => false
+    t.string   "state",                          :default => "",    :null => false
+    t.date     "date_started",                                      :null => false
     t.date     "date_ended"
-    t.string   "chef_name",       :default => "",    :null => false
-    t.boolean  "chef_is_me",      :default => false, :null => false
-    t.text     "cuisine",                            :null => false
-    t.text     "notes",                              :null => false
+    t.string   "chef_name",                      :default => "",    :null => false
+    t.boolean  "chef_is_me",                     :default => false, :null => false
+    t.text     "cuisine",                        :default => "",    :null => false
+    t.text     "notes",                          :default => "",    :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "opening_staff",   :default => false
+    t.boolean  "opening_staff",                  :default => false
+    t.string   "restaurant_name", :limit => nil
+    t.string   "country",         :limit => nil
   end
 
   add_index "culinary_jobs", ["profile_id"], :name => "index_profile_restaurants_on_profile_id"
@@ -306,7 +306,7 @@ ActiveRecord::Schema.define(:version => 20101206205555) do
   add_index "employments", ["restaurant_role_id"], :name => "index_employments_on_restaurant_role_id"
 
   create_table "enrollments", :force => true do |t|
-    t.integer  "school_id"
+    t.integer  "school_id",                       :null => false
     t.integer  "profile_id",                      :null => false
     t.date     "graduation_date"
     t.string   "degree",          :default => "", :null => false
@@ -489,14 +489,6 @@ ActiveRecord::Schema.define(:version => 20101206205555) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "archived",           :default => false
-    t.integer  "restaurant_role_id"
-  end
-
-  create_table "invite_responsibilities", :force => true do |t|
-    t.integer  "invitation_id"
-    t.integer  "subject_matter_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
   end
 
   create_table "james_beard_regions", :force => true do |t|
@@ -579,8 +571,8 @@ ActiveRecord::Schema.define(:version => 20101206205555) do
     t.string   "country",            :default => "", :null => false
     t.date     "date_started",                       :null => false
     t.date     "date_ended"
-    t.text     "responsibilities",                   :null => false
-    t.text     "reason_for_leaving",                 :null => false
+    t.text     "responsibilities",   :default => "", :null => false
+    t.text     "reason_for_leaving", :default => "", :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -657,7 +649,7 @@ ActiveRecord::Schema.define(:version => 20101206205555) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "headline",              :default => ""
-    t.text     "summary"
+    t.text     "summary",               :default => ""
     t.string   "hometown"
     t.string   "current_residence"
     t.integer  "metropolitan_area_id"
@@ -702,6 +694,60 @@ ActiveRecord::Schema.define(:version => 20101206205555) do
 
   add_index "responsibilities", ["employment_id"], :name => "index_responsibilities_on_employment_id"
   add_index "responsibilities", ["subject_matter_id"], :name => "index_responsibilities_on_subject_matter_id"
+
+  create_table "restaurant_fact_sheets", :force => true do |t|
+    t.string   "venue"
+    t.string   "intersection"
+    t.string   "neighborhood"
+    t.string   "parking"
+    t.string   "public_transit"
+    t.string   "dinner_average_price"
+    t.string   "lunch_average_price"
+    t.string   "brunch_average_price"
+    t.string   "breakfast_average_price"
+    t.string   "children_average_price"
+    t.string   "small_plate_min_price"
+    t.string   "small_plate_max_price"
+    t.string   "large_plate_min_price"
+    t.string   "large_plate_max_price"
+    t.string   "dessert_plate_min_price"
+    t.string   "dessert_plate_max_price"
+    t.string   "wine_by_the_glass_count"
+    t.string   "wine_by_the_glass_min_price"
+    t.string   "wine_by_the_glass_max_price"
+    t.string   "wine_by_the_bottle_count"
+    t.string   "wine_by_the_bottle_min_price"
+    t.string   "wine_by_the_bottle_max_price"
+    t.text     "wine_by_the_bottle_details"
+    t.string   "reservations"
+    t.text     "cancellation_policy"
+    t.string   "payment_methods"
+    t.boolean  "byob_allowed"
+    t.string   "corkage_fee"
+    t.string   "dress_code"
+    t.string   "delivery"
+    t.string   "wheelchair_access"
+    t.string   "smoking"
+    t.string   "architect_name"
+    t.string   "graphic_designer"
+    t.string   "furniture_designer"
+    t.string   "furniture_manufacturer"
+    t.text     "flooring"
+    t.text     "millwork"
+    t.text     "china"
+    t.text     "kitchen_equipment"
+    t.text     "lighting"
+    t.text     "draperies"
+    t.string   "square_footage"
+    t.integer  "restaurant_id"
+    t.datetime "parking_and_directions_updated_at"
+    t.datetime "pricing_updated_at"
+    t.datetime "guest_relations_updated_at"
+    t.datetime "design_updated_at"
+    t.datetime "other_updated_at"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "restaurant_feature_categories", :force => true do |t|
     t.string   "name"
@@ -772,7 +818,6 @@ ActiveRecord::Schema.define(:version => 20101206205555) do
     t.integer  "primary_photo_id"
     t.date     "opening_date"
     t.string   "sort_name"
-    t.boolean  "premium_account"
   end
 
   add_index "restaurants", ["cuisine_id"], :name => "index_restaurants_on_cuisine_id"
@@ -786,6 +831,13 @@ ActiveRecord::Schema.define(:version => 20101206205555) do
     t.string   "city",       :default => "", :null => false
     t.string   "state",      :default => "", :null => false
     t.string   "country",    :default => "", :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "seating_areas", :force => true do |t|
+    t.string   "name"
+    t.integer  "occupancy"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -899,6 +951,14 @@ ActiveRecord::Schema.define(:version => 20101206205555) do
     t.string   "status"
   end
 
+  create_table "tasting_menus", :force => true do |t|
+    t.string   "name"
+    t.string   "price"
+    t.string   "wine_supplement_price"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "topics", :force => true do |t|
     t.string   "title"
     t.datetime "created_at"
@@ -947,7 +1007,6 @@ ActiveRecord::Schema.define(:version => 20101206205555) do
     t.string   "facebook_access_token"
     t.string   "facebook_page_id"
     t.string   "facebook_page_token"
-    t.boolean  "premium_account"
     t.boolean  "visible",               :default => true
   end
 
