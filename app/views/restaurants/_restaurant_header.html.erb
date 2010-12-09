@@ -21,6 +21,7 @@
     Region: <%=h @restaurant.james_beard_region.try(:name) %></p>
   </div>
 
+  <% unless editing? -%>
   <div id="restaurant_features" class="clear">
     <span>Features: </span>
     <ul class="tags">
@@ -37,6 +38,7 @@
        <li><a href="#">Beverage</a></li>
     </ul>
   </div>
+  <% end %>
 </header>
 
 <% if editing? and can?(:edit, @restaurant) -%>

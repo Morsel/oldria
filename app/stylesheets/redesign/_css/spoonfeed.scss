@@ -3670,9 +3670,20 @@ p.search_filter_hint {
 	}
 } /* ----- #editing_restaurant --------------------- */
 		
-
+#edit_resto_menu {
+  a {
+    background: $trans-brown;
+    color: #333;
+    padding: 5px;
+    margin: 0 2px;
+  }
+}
 #restaurant_profile_view {
-	overflow: hidden;
+	#restaurant_edit_profile {
+	  padding: 20px;
+  	overflow: hidden;
+  	border: 1px solid #eaeaea;
+	}
 	a {
 		color: $orange;
 		&:hover {
