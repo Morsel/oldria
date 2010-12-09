@@ -1,44 +1,41 @@
-<header class="clearfix">
-  <% unless editing? -%>
+<header class="">
+  
     <div id="restaurant_actions">
-      <% if can? :edit, @restaurant %>
-        <%= link_to 'Edit Restaurant', edit_restaurant_path(@restaurant), :class=>'edit_restaurant' %>
+      <% unless editing? -%>
+        <% if can? :edit, @restaurant %>
+          <%= link_to 'Edit Restaurant', edit_restaurant_path(@restaurant), :class=>'edit_restaurant' %>
+        <% end -%>
+        <%= link_to 'Start a discussion', new_discussion_path(:restaurant_id => @restaurant.id), :class => 'start_discussion' %>
+        <%= link_to 'Share Profile', new_discussion_path(:restaurant_id => @restaurant.id), :class => 'share_profile' %>
+      <% else -%>
+        <%= link_to 'Back to public view', restaurant_path(@restaurant), :class => 'share_profile' %>
       <% end -%>
-      <%= link_to 'Start a discussion', new_discussion_path(:restaurant_id => @restaurant.id), :class => 'start_discussion' %>
-      <%= link_to 'Share Profile', new_discussion_path(:restaurant_id => @restaurant.id), :class => 'share_profile' %>
     </div><!--#restaurant_actions-->
-  <% end -%>
+ 
   
   <%= image_tag logo_for(@restaurant).attachment.url(:small), :width=>'100' %>
-  <h1><%= @restaurant.name %></h1>
+  <h1><%= link_to @restaurant.name, @restaurant %></h1>
   
-  <div id="restaurant_meta" class="clearfix">
+  <div id="restaurant_meta" class="">
     <% div_if @restaurant.premium_account?, :class => "premium" do %>
     <p>Account Type: Premium</p>
   <% end %>
     <p class="address"><%= @restaurant.address_parts.join("<br />") %><br/>
     Metropolitan Area: <%=h @restaurant.metropolitan_area.try(:name) %><br/>
     Region: <%=h @restaurant.james_beard_region.try(:name) %></p>
-  </div>
+  </div><!-- /restaurant_meta -->
 
-  <% unless editing? -%>
-  <div id="restaurant_features" class="clear">
-    <span>Features: </span>
-    <ul class="tags">
-       <li><a href="#">Architecture</a></li>
-       <li><a href="#">Architecture</a></li>
-       <li><a href="#">Architecture</a></li>
-       <li><a href="#">Architecture</a></li>
-       <li><a href="#">Architecture</a></li>
-       <li><a href="#">Beverage</a></li>
-       <li><a href="#">Beverage</a></li>
-       <li><a href="#">Beverage</a></li>
-       <li><a href="#">Beverage</a></li>
-       <li><a href="#">Beverage</a></li>
-       <li><a href="#">Beverage</a></li>
-    </ul>
-  </div>
-  <% end %>
+
+  <% unless editing? or @restaurant.restaurant_features.blank? -%>
+    <div id="restaurant_features" class="clear">
+      <span>Features: </span>
+      <ul class="tags">
+        <% @restaurant.restaurant_features.each do |feature| -%>
+          <li><%= link_to feature.name, feature_path(feature) %></li>
+        <% end -%>
+      </ul>
+    </div><!-- /restaurant_features -->
+  <% end -%>
 </header>
 
 <% if editing? and can?(:edit, @restaurant) -%>

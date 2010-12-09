@@ -1834,6 +1834,14 @@ form#new_user_session {
 		table-layout:fixed;
 		width:314px;
 		margin:0 0 15px;
+		&.ui-sortable{
+			table-layout:auto;
+			width:100%;
+			th{
+				padding:5px 10px;
+				font-weight:bold;
+			}
+		}
 		tr{
 			td{
 				a{
