@@ -41,7 +41,7 @@
 <% if editing? and can?(:edit, @restaurant) -%>
   <nav id="edit_resto_menu">
     <%= link_to 'Details', restaurant_employees_path(@restaurant),
-        :class=> 'promo editor details' %>
+        :class=> 'promo editor details selected' %>
     <%= link_to 'Features', restaurant_features_path(@restaurant),
         :class=> 'promo editor features' %>
     <%= link_to "Photos", bulk_edit_restaurant_photos_path(@restaurant),
