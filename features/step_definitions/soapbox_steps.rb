@@ -58,12 +58,12 @@ Then /^I do not see a page header for "([^\"]*)"$/ do |page|
   response.should_not have_selector(".feature_page_header", :content => page)
 end
 
-Then /^I should see an accolade link$/ do
-  response.should have_selector(".accolade_link")
+Then /^I should see an accolades section$/ do
+  response.should have_selector(".accolades")
 end
 
-Then /^I should not see an accolade link$/ do
-  response.should_not have_selector(".accolade_link")
+Then /^I should not see an accolades section$/ do
+  response.should_not have_selector(".accolades")
 end
 
 Then /^I should see an employee named "([^\"]*)"$/ do |name|

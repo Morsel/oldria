@@ -27,20 +27,20 @@ Feature: Adding accolades to a restaurant
     And I click on the "Edit" link within "Best Restaurant"
     Then I should see the accolade form correctly
 
-  Scenario: Accolade link display
+    Scenario: Accolades display
     Given an accolade for "Restaurant" named "Best Restaurant"
     When I go to the soapbox restaurant profile for "Restaurant"
-    Then I should see an accolade link
+    Then I should see an accolades section
 
-  Scenario: Accolade link non-display
+    Scenario: Accolade link non-display
     When I go to the soapbox restaurant profile for "Restaurant"
-    Then I should not see an accolade link
+    Then I should not see an accolades section
 
-  Scenario: Accolade interior page display
+    Scenario: Accolade interior page display
     Given an accolade for "Restaurant" named "Best Restaurant" dated "September 2, 2009"
     Given an accolade for "Restaurant" named "Extra Yummy" dated "September 10, 2010"
     When I go to the soapbox restaurant profile for "Restaurant"
-    And I follow "See accolades"
+    And show me the page
     Then I should see the accolades in order: "Extra Yummy, Best Restaurant"
 
 

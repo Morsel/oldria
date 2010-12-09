@@ -1,7 +1,7 @@
 <div id="restaurant_profile_view" class="clear clearfix">
 
   <%= render 'restaurants/restaurant_header' %>
-  
+
   <div class="media clear clearfix">
     <div id="primary_photo" class="photos">
       <h2>Photos</h2>
@@ -23,7 +23,7 @@
       <% end -%>
     </div><!-- /menus -->
   </div><!-- .media -->
-  
+
   <div class="top-tags clear clearfix">
     <h2>Top 15 Tags</h2>
     <ul class="tags">
@@ -37,26 +37,26 @@
       <li><a href="#">Fire pit</a></li>
     </ul>
   </div><!-- .top-tags -->
-  
+
   <h2>Details</h2>
   <div class="manager_and_facts equal-height tricol">
     <% dl_if(@restaurant.description, :class => "list_item", :id => "description") do %>
-      <dt>Description:</dt> 
+      <dt>Description:</dt>
       <dd><%= @restaurant.description %></dd>
     <% end %>
-    
+
     <% dl_if(@restaurant.cuisine, :class => "list_item", :id => "cuisine") do %>
-      <dt>Cuisine:</dt> 
+      <dt>Cuisine:</dt>
       <dd><%=h @restaurant.cuisine.try(:name) %></dd>
     <% end %>
 
     <% dl_if @restaurant.manager, :class => "list_item", :id => "manager" do %>
-      <dt>Manager:</dt> 
+      <dt>Manager:</dt>
       <dd><%= link_to h(@restaurant.manager.name), profile_path(:username => @restaurant.manager.username) %></dd>
     <% end %>
 
     <% dl_if @restaurant.media_contact, :class => "list_item", :id => "media_contact" do %>
-      <dt>Media Contact:</dt> 
+      <dt>Media Contact:</dt>
       <dd>
         <%= link_to h(@restaurant.media_contact.name), profile_path(:username => @restaurant.media_contact.username) %>
         <%= "<br>#{@restaurant.media_contact.phone_number}" if @restaurant.media_contact.phone_number.present? -%>
@@ -74,42 +74,42 @@
     <% end %>
 
   </div><!-- .manager_and_facts -->
-  
+
   <div class="account_contact equal-height tricol">
     <% dl_if(@restaurant.opening_date, :class => "list_item") do %>
-      <dt>Opening Date:</dt> 
+      <dt>Opening Date:</dt>
       <dd id="opening_date"><%= @restaurant.opening_date.to_s(:long) %></dd>
     <% end %>
 
     <% dl_if(@restaurant.account_type, :class => "list_item account", :id => "account_status") do %>
-      <dt>Account Status:</dt> 
+      <dt>Account Status:</dt>
       <dd class="currently"><%= @restaurant.account_type %></dd>
     <% end %>
-    
+
     <% dl_if(@restaurant.phone_number, :class => "list_item", :id => "phone_number") do %>
-      <dt>Phone Number:</dt> 
+      <dt>Phone Number:</dt>
       <dd id="phone_number"><%=h @restaurant.phone_number %></dd>
     <% end %>
-    
+
     <% dl_if(@restaurant.hours, :class => "list_item", :id => "hours") do %>
-      <dt>Hours:</dt> 
+      <dt>Hours:</dt>
       <dd><%= h @restaurant.hours %></dd>
     <% end %>
   </div><!-- .account_contact -->
-  
+
   <div class="account_social equal-height tricol">
     <% dl_if(@restaurant.website.present?, :class => "list_item", :id => "website") do %>
-      <dt>Website:</dt> 
+      <dt>Website:</dt>
       <dd><%= link_to h(@restaurant.website), @restaurant.website%></dd>
     <% end %>
 
     <% dl_if(@restaurant.facebook_page.present?, :class => "list_item", :id => "facebook_page") do %>
-      <dt>Facebook Page:</dt> 
+      <dt>Facebook Page:</dt>
       <dd><%= link_to h(@restaurant.facebook_page), @restaurant.facebook_page%></dd>
     <% end %>
-    
+
     <% dl_if(@restaurant.twitter_username.present?, :class => "list_item", :id => "twitter_username") do %>
-      <dt>Twitter:</dt> 
+      <dt>Twitter:</dt>
       <dd>
         <%= link_to "@#{h(@restaurant.twitter_username)}", "http://twitter.com/#{@restaurant.twitter_username}"%>
       </dd>
@@ -122,17 +122,19 @@
     <h2>Restaurant Staff</h2>
     <div class="restaurant_employees employments clearfix">
       <%= render :partial => 'restaurants/employment', :collection => @restaurant.employments.by_position.all(
-	        :include => [:subject_matters, :restaurant_role, :employee]) %>
+          :include => [:subject_matters, :restaurant_role, :employee]) %>
     </div><!-- .employments -->
 
   </div><!--.rest_staff-->
 
+  <% unless @restaurant.accolades.empty? %>
   <div class="accolades clearfix">
     <h2>Accolades</h2>
     <ul>
-      <%= render :partial => 'accolades/accolade', :collection => @restaurant.accolades %>
+      <%= render :partial => 'accolades/accolade', :collection => @restaurant.accolades.by_run_date %>
     </ul>
   </div><!-- #accolades -->
+  <% end %>
 
   <div id="a_la_minute">
     <h3 id="alm-title">A La Minute Questions</h3>
