@@ -3677,20 +3677,16 @@ p.search_filter_hint {
 		}
 	}
 } /* ----- #editing_restaurant --------------------- */
-		
-#edit_resto_menu {
-  a {
-    background: $trans-brown;
-    color: #333;
-    padding: 5px;
-    margin: 0 2px;
-  }
-}
 #restaurant_profile_view {
 	#restaurant_edit_profile {
 	  padding: 20px;
   	overflow: hidden;
   	border: 1px solid #eaeaea;
+  	input[type="password"], input[type="url"], input[type="text"], input[type="number"], textarea {
+  	  border: 1px solid #ccc;
+      @include box-shadow(#DDD, 1px, 1px, 2px, 0px);
+      width: 55%;
+  	}
 	}
 	a {
 		color: $orange;
@@ -3725,6 +3721,7 @@ p.search_filter_hint {
   }
 	header {
 		border-bottom: 1px dotted #ccc;
+		overflow: hidden;
 		clear: both;
 		img {border: 1px solid #ccc;}
 		#restaurant_actions {
@@ -3962,7 +3959,26 @@ p.search_filter_hint {
 			}
 		}
 	}
-} /* -- end of #restaurant_profile_view ------------------- */
+} 
+#edit_resto_menu {
+  overflow: auto;
+  a {
+    background: $trans-brown;
+    color: #333;
+    margin: 0 2px;
+    float: left;
+    display: block;
+    padding: 9px 10px;
+    font-size: 14px;
+    color: #333;
+    .selected, &:first-child {
+      @include linear-gradient(color-stops($orange,#e3602c ), bottom);
+      text-shadow: 0 1px 1px #555;
+      color: #fff;
+    }
+  }
+}
+/* -- end of #restaurant_profile_view ------------------- */
 
 
 /* ## Restaurant Features Editing --------------------------------------------- */
