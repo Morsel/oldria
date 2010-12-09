@@ -171,6 +171,7 @@ Factory.define :restaurant do |f|
   f.opening_date 1.year.ago
   f.association :media_contact, :factory => :user
   f.association :cuisine
+  f.association :manager, :factory => :user
 end
 
 Factory.define :photo do |f|
@@ -179,10 +180,6 @@ Factory.define :photo do |f|
   f.attachment_content_type "image/jpg"
   f.attachment_file_size 3000
   f.attachment_updated_at 2.days.ago
-end
-
-Factory.define :managed_restaurant, :parent => :restaurant do |f|f
-  f.association :manager, :factory => :user
 end
 
 Factory.define :employment do |f|

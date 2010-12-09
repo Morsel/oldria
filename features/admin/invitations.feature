@@ -6,7 +6,6 @@ Feature: RIA admins can review invitations, approve and archive them
   And there are the following invitations:
     | first_name  | last_name | email                | restaurant_name |
     | Mariah      | Carpenter | mc@restaurants.com   | Fin             |
-    | Andrew      | Ruth      | ruth@anothercook.com | Feather         |
   
   Scenario: viewing invitation requests
   Given I go to the admin invitations page

@@ -18,9 +18,9 @@ describe EmploymentSearch do
 
   before(:each) do
     @r1 = Factory(:restaurant, :name => "Megan's Place")
-    @e1 = Factory(:employment, :restaurant => @r1)
+    @e1 = @r1.employments.first
     @r2 = Factory(:restaurant, :name => "Joe's Diner")
-    @e2 = Factory(:employment, :restaurant => @r2)
+    @e2 = @r2.employments.first
   end
 
   it "should search employments" do

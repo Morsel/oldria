@@ -1,32 +1,35 @@
 Given /^a restaurant named "([^\"]*)" with the following employees:$/ do |restaurantname, table|
-  restaurant = Restaurant.find_by_name(restaurantname) || Factory(:restaurant, :name => restaurantname)
-  table.hashes.each do |userhash|
-    role = RestaurantRole.find_or_create_by_name(userhash['role'])
-    # subjectmatters = userhash.delete('subject matters')
-    #   subjects = nil
-    userhash.delete('role')
-
+  restaurant = Restaurant.find_by_name(restaurantname) || Factory.build(:restaurant, :name => restaurantname, :manager => nil)
+  
+  table.hashes.each do |row|
+    role = RestaurantRole.find_or_create_by_name(row.delete('role'))
+    
     subjectmatters = []
-
-    if subjects = userhash.delete('subject matters')
+    if subjects = row.delete('subject matters')
       subjects.split(",").each do |subject|
         subjectmatters << Factory(:subject_matter, :name => subject.strip)
       end
     end
 
-    user = Factory(:user, userhash)
-
-    restaurant.employments.build(:employee => user, :restaurant_role => role, :subject_matters => subjectmatters)
-
+    user = Factory(:user, row)
+    
+    # New restaurant setup
+    if restaurant.manager.present?
+      restaurant.employments.build(:employee => user, :restaurant_role => role, :subject_matters => subjectmatters)
+    else
+      restaurant.manager = user
+      restaurant.save
+      restaurant.employments.first.update_attributes(:restaurant_role => role, :subject_matters => subjectmatters)
+    end
   end
-  restaurant.manager = restaurant.employees.first
+
   restaurant.save!
   restaurant
 end
 
 Given /^a restaurant named "([^\"]*)" with manager "([^\"]*)"$/ do |name, username|
   user = Factory(:user, :username => username, :email => "#{username}@testsite.com")
-  restaurant = Factory(:managed_restaurant, :name => name, :manager => user)
+  restaurant = Factory(:restaurant, :name => name, :manager => user)
 end
 
 Given /^"([^"]*)" is a manager for "([^"]*)"$/ do |username, restaurantname|

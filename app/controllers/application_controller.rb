@@ -12,7 +12,9 @@ class ApplicationController < ActionController::Base
   filter_parameter_logging :password
 
   # before_filter :preload_resources
-  before_filter :load_random_btl_question
+  
+  # Disabled until we restore btl_game in the sidebar
+  # before_filter :load_random_btl_question
 
   helper_method :current_user
   helper_method :mediafeed?

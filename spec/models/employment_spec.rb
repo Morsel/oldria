@@ -70,16 +70,16 @@ describe Employment do
       another_user = Factory(:user, :name => "John Hammond", :email => "hammond@rd.com")
       @employment.employee_email = "hammond@rd.com"
       @employment.save
-      Employment.first.employee.should == another_user
+      @employment.should be_valid
+      @employment.employee.should == another_user
     end
   end
 
   describe "unique users" do
     before do
       @user = Factory(:user)
-      restaurant2 = Factory(:restaurant, :name => "What?")
-      @employment1 = Factory(:employment, :employee => @user)
-      @employment2 = Factory(:employment, :employee => @user, :restaurant => restaurant2)
+      Factory(:restaurant, :name => "What?", :manager => @user)
+      Factory(:restaurant, :name => "Where?", :manager => @user)
     end
 
     it "should be able to find unique users, even if employed multiple places" do
@@ -91,11 +91,10 @@ describe Employment do
   describe "multiple selection search" do
     before do
       @restaurant = Factory(:restaurant)
-      @employment = Factory(:employment, :restaurant => @restaurant)
     end
     
     it "should return the right items for the search" do
-      Employment.search({"restaurant_id_equals_any"=>["1", "2"]}).all.should == [@employment]
+      Employment.search({"restaurant_id_equals_any"=>["1", "2"]}).all.should == @restaurant.employments
     end  
   end
   

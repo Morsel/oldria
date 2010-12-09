@@ -20,13 +20,12 @@ describe MediaRequestDiscussion do
 
   it "should know its employments" do
     restaurant = Factory(:restaurant)
-    employment = Factory(:employment, :restaurant => restaurant, :omniscient => true)
 
     search = EmploymentSearch.new(:conditions => {:restaurant_id_eq => restaurant.id.to_s})
     media_request = Factory(:media_request, :employment_search => search)
 
     discussion = media_request.discussion_with_restaurant(restaurant)
-    discussion.employments.should == [employment]
+    discussion.employments.should == restaurant.employments
   end
 
 end
