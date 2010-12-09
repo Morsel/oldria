@@ -64,8 +64,6 @@ module EmployeesHelper
   end
 
   def employee_link(employee)
-    ap employee
-    ap employee.linkable_profile?
     if on_soapbox && !employee.premium_account?
       employee.try(:name)
     else
