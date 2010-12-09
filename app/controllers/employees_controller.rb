@@ -55,6 +55,10 @@ class EmployeesController < ApplicationController
     @employment = @restaurant.employments.find_by_employee_id(params[:id])
     employee = @employment.employee
 
+    if employee == @restaurant.manager
+      redirect_to new_manager_needed_restaurant_path(@restaurant) and return
+    end
+
     if @employment.destroy
       flash[:notice] = employee.name_or_username + ' was removed from ' + @restaurant.name
     else
@@ -62,7 +66,6 @@ class EmployeesController < ApplicationController
     end
     redirect_to restaurant_employees_path(@restaurant)
   end
-
 
   private
 

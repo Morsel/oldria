@@ -187,6 +187,10 @@ class Restaurant < ActiveRecord::Base
     User.find(self.manager_id)
   end
 
+  def additional_managers
+    self.managers - [self.manager]
+  end
+
   private
 
   def add_manager_as_employee

@@ -102,6 +102,8 @@ ActionController::Routing::Routes.draw do |map|
                 :member => {
                         :edit_logo => :get,
                         :select_primary_photo => :post,
+                        :new_manager_needed => :get,
+                        :replace_manager => :post
                 } do |restaurant|
     restaurant.media_requests 'media_requests', :controller => 'media_requests', :action => 'index'
     restaurant.resources :employees, :except => [:show]
