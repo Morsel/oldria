@@ -71,7 +71,8 @@ Then /^I should see an employee named "([^\"]*)"$/ do |name|
 end
 
 Then /^I should see the employees in the order "([^"]*)"$/ do |employee_names|
-  expected_names = tableish(".public_employee", ".employee_name")
+  expected_names = tableish(".employment", "h3")
+  ap expected_names
   expected_names = expected_names.flatten.map { |n| n.gsub(",", "") }
   expected_names.should == employee_names.split(",").map(&:strip)
 end
@@ -88,13 +89,13 @@ end
 
 Then /^I see an employee named "([^"]*)" with a link$/ do |username|
   user = User.find_by_username(username)
-  response.should have_selector(".employee_name a", :content => user.name)
+  response.should have_selector(".employment a", :content => user.name)
 end
 
 Then /^I see an employee named "([^"]*)" without a link$/ do |username|
   user = User.find_by_username(username)
-  response.should have_selector(".employee_name", :content => user.name)
-  response.should_not have_selector(".employee_name a", :content => user.name)
+  response.should have_selector(".employment", :content => user.name)
+  response.should_not have_selector(".employment a", :content => user.name)
 end
 
 Then /^I should see the heading "([^"]*)"$/ do |text|
