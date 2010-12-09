@@ -3362,11 +3362,13 @@ p.search_filter_hint {
   padding: 20px;
 	overflow: hidden;
 	border: 1px solid #eaeaea;
-	input[type="password"], input[type="url"], input[type="text"], input[type="number"], textarea {
-	  border: 1px solid #ccc;
-    //@include box-shadow(#DDD, 1px, 1px, 2px, 0px);
-    @include box-shadow(#eaeaea, 0px, 1px, 1px);
-    width: 55%;
+	input {
+    margin-bottom: 12px;
+    &[type="password"], &[type="url"], &[type="text"], &[type="number"], textarea {
+      border: 1px solid #ccc;
+      @include box-shadow(#eaeaea, 0px, 1px, 1px);
+      width: 55%;
+    }
 	}
 	button, input[type="submit"] {
 		cursor:pointer;
@@ -3466,7 +3468,7 @@ p.search_filter_hint {
 		  width: auto;
 		}
 		.inline-hints {
-			margin: -2px 0 10px;
+			margin: -8px 0 10px;
 			color: #888;
 			font-size: 11px;
 			font-style: normal;
