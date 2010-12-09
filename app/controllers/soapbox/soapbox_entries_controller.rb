@@ -38,6 +38,14 @@ class Soapbox::SoapboxEntriesController < Soapbox::SoapboxController
     render 'soapbox/soapbox_entries/all'
   end
 
+  def search
+    key = params[:query]
+    @qotds = Admin::Qotd.soapbox_entry_published.message_like_or_display_message_like(key).all(:include => :soapbox_entry)
+    @trend_questions = TrendQuestion.soapbox_entry_published.subject_like_or_display_message_like(key).all(:include => :soapbox_entry)
+    @comments
+    
+  end
+
   protected
 
   def hide_flashes
