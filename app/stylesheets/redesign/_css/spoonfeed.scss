@@ -3360,6 +3360,14 @@ p.search_filter_hint {
 
 
 #page_content #editing_restaurant {
+  padding: 20px;
+	overflow: hidden;
+	border: 1px solid #eaeaea;
+	input[type="password"], input[type="url"], input[type="text"], input[type="number"], textarea {
+	  border: 1px solid #ccc;
+    @include box-shadow(#DDD, 1px, 1px, 2px, 0px);
+    width: 55%;
+	}
 	.media_requests {
 		font-family: 'helvetica neue', helvetica, arial, sans-serif;
 		font-weight: normal;
@@ -3678,16 +3686,15 @@ p.search_filter_hint {
 	}
 } /* ----- #editing_restaurant --------------------- */
 #restaurant_profile_view {
-	#restaurant_edit_profile {
-	  padding: 20px;
-  	overflow: hidden;
-  	border: 1px solid #eaeaea;
-  	input[type="password"], input[type="url"], input[type="text"], input[type="number"], textarea {
-  	  border: 1px solid #ccc;
-      @include box-shadow(#DDD, 1px, 1px, 2px, 0px);
-      width: 55%;
-  	}
-	}
+  .standout {
+    border: 1px solid #ddd;
+    @include box-shadow(#DDD, 1px, 1px, 2px, 0px);
+    padding: 15px;
+    width: 150px;
+    float: left;
+    margin-right: 20px;
+    font-size: 15px;
+  }
 	a {
 		color: $orange;
 		&:hover {
@@ -3758,6 +3765,15 @@ p.search_filter_hint {
 				}
 				&.share_profile {
 					background: $trans-orange url(/images/redesign/share-arrow.gif) no-repeat 10px 7px;
+					&:hover {
+  					background-color: $orange;
+  					color: #fff;
+  					text-shadow: 0 1px 0 #333;
+  					border: 1px solid #c6420e;
+  				}
+				}
+				&.backtopublic {
+					background: $trans-orange url(/images/icon-back.png) no-repeat 10px 7px;
 					&:hover {
   					background-color: $orange;
   					color: #fff;
