@@ -3467,7 +3467,7 @@ p.search_filter_hint {
 		  width: auto;
 		}
 		.inline-hints {
-			margin: -4px 0 10px;
+			margin: -2px 0 10px;
 			color: #888;
 			font-size: 11px;
 			font-style: normal;
@@ -3533,6 +3533,39 @@ p.search_filter_hint {
 			input {
 				@include box-shadow(none);
 			}
+		}
+		table {
+			clear: both;
+			background-color: #fff;
+			form {
+				margin-bottom: 6px;
+			}
+			.photo {
+				background-color: #fff;
+				&:hover {
+					background-color: #fbf2f2;
+				}
+			}
+			th {
+				background-color: #f4f3ee;
+				text-shadow: 0 1px 0 #fff;
+				color: #838280;
+				font-size: 13px;
+				font-weight: normal;
+				padding: 6px 10px;
+			}
+			td {
+				border-bottom: 1px solid #ddd;
+				padding: 2px 10px;
+				img {
+					width: 100px;
+					@include hiddentext;
+				}
+				a.delete, a.colorbox {
+					width:50px;
+					font-size: 11px;
+				}
+			}	
 		}
 	}
 	.negative {
@@ -3682,7 +3715,38 @@ p.search_filter_hint {
 			}
 		}
 	}
+	.upload_photo {
+		@include linear-gradient(color-stops(#fff,#f4f4f4 ), top);
+		border: 1px solid #ddd;
+		padding: 10px 15px;
+		margin: 0 0 20px;
+		fieldset {
+			margin: 0;
+			padding: 0;
+			legend {
+				font-size: 13px;
+				margin: 0 0 8px;
+				padding: 0;
+				color: #777;
+			}
+			ol {
+				li {
+					label {
+						display: block;
+					}
+				}
+				button.positive {
+					display: inline-block;
+					margin: 6px 0 0;
+				}
+			}
+		}
+	}
 } /* ----- #editing_restaurant --------------------- */
+
+
+
+
 #restaurant_profile_view {
   .standout {
     border: 1px solid #ddd;

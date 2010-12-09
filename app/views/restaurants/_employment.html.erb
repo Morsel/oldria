@@ -1,24 +1,24 @@
 <% div_for employment, :class => 'clearfix' do %>
-	<header>
-		<%= link_to image_tag(employment.employee.avatar.url(:thumb)), profile_path(employment.employee.username), :class => 'avatar' %>
-		<h3><%=link_to employment.employee.try(:name), profile_path(employment.employee.username) %></h3>
-		<p><%=h employment.restaurant_role.try(:name) %></p>
-	</header>
+  <header>
+    <%= link_to image_tag(employment.employee.avatar.url(:thumb)), profile_path(employment.employee.username), :class => 'avatar' %>
+    <h3><%= employee_link(employment.employee) %></h3>
+    <p><%=h employment.restaurant_role.try(:name) %></p>
+  </header>
 
-	<article class="employee_section">
-		<% if !employment.subject_matters.blank? %>
-		<p class="responsibilities">
-			Areas:
-			<%=h employment.subject_matters.all.map(&:name).to_sentence %>
-		</p>
-		<% end %>
-	</article>
+  <article class="employee_section">
+    <% if !employment.subject_matters.blank? %>
+    <p class="responsibilities">
+      Areas:
+      <%=h employment.subject_matters.all.map(&:name).to_sentence %>
+    </p>
+    <% end %>
+  </article>
 
-	<article class="employee_section emp_actions">
-		<%= link_to "Private Message", new_user_direct_message_path(employment.employee), :class => 'pm' %>
-		<%- if can? :edit, employment.restaurant %>
-			<%= link_to "Edit Employee", edit_restaurant_employee_path(employment.restaurant, employment.employee), :class => 'edit_emp' %>
-		<% end -%>
-	</article>
+  <article class="employee_section emp_actions">
+    <%= link_to "Private Message", new_user_direct_message_path(employment.employee), :class => 'pm' %>
+    <%- if can? :edit, employment.restaurant %>
+      <%= link_to "Edit Employee", edit_restaurant_employee_path(employment.restaurant, employment.employee), :class => 'edit_emp' %>
+    <% end -%>
+  </article>
 
 <% end -%>

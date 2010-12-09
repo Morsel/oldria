@@ -166,6 +166,5 @@ Feature: Restaurant Images
     When I go to the restaurant photo upload page for Bourgeois Pig
     And I select the 1nd photo as the primary photo
     And I press "Save"
-    And show me the page
     When I remove the restaurant photo with the file "bourgeoispig.jpg"
     Then I see no restaurant photos

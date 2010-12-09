@@ -223,7 +223,7 @@ end
 Given /^"([^"]*)" is an employee of "([^"]*)" with public position (\d+)$/ do |username, restaurant_name, position|
   user = User.find_by_username(username)
   restaurant = Restaurant.find_by_name(restaurant_name)
-  user.restaurants << restaurant
+  user.restaurants << restaurant unless user.restaurants.include? restaurant
   restaurant.employments.find_by_employee_id(user.id).update_attributes(
       :position => position, :public_profile => true)
 end
