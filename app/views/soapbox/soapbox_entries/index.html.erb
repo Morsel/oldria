@@ -1,5 +1,8 @@
 <% title "Front Burner - Soapbox", false %>
-
+<% form_tag search_soapbox_soapbox_entries_path, :method => :get do %>
+  <%= text_field_tag "query" %>
+  <%= submit_tag "Find" %>
+<% end %>
 <%= render :partial => feature_entry_type(@main_feature), :locals => { :feature => @main_feature, :feature_comments => @main_feature_comments }%>
 
 <%= render :partial => feature_entry_type(@secondary_feature), :locals => { :feature => @secondary_feature, :feature_comments => @secondary_feature_comments } if @secondary_feature.present? %>
@@ -21,7 +24,7 @@
       </ul>
     <p class="clear"><%= link_to 'View previous Trend Questions &#187;', trend_soapbox_soapbox_entries_path, :class => :button %></p>
   </div><!-- /recent-trends -->
-  
+
   <div id="recent-qotds">
     <h1>Recent Questions of the Day</h1>
     <ul id="recent-qotds-feed">
