@@ -5,11 +5,11 @@ Then /^I see my account status is not premium$/ do
 end
 
 Then /^I see that the restaurant's account status is basic$/ do
-  response.should have_selector(".account .currently", :content => "Basic")
+  response.should have_selector(".account", :content => "Basic")
 end
 
 Then /^I see that the restaurant's account status is premium$/ do
-  response.should have_selector(".account .currently", :content => "Premium")
+  response.should have_selector(".account", :content => "Premium")
 end
 
 Then /^I do not see a premium badge$/ do
