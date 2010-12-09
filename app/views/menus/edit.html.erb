@@ -1,29 +1,41 @@
-<% semantic_form_for @menu,
-    :url => restaurant_menu_path(@restaurant, @menu),
-    :html => { :multipart => true, :method => :put } do |menu_form| %>
-  <%= menu_form.error_messages %>
-  <% menu_form.inputs :class => "clear" do %>
-    <%= menu_form.input :name, :label => "Menu name" %>
-    <%= menu_form.input :change_frequency, :label => "How often it changes",
-        :as => :select, :collection => Menu.change_frequencies,
-        :required => true %>
+<div id="restaurant_profile_view" class="edit clear clearfix">
 
-    <% menu_form.semantic_fields_for :pdf_remote_attachment do |pdf_remote_attachment| %>
-    <li id="menu_pdf_remote_attachment_attributes_attachment_input" class="file optional">
-      <label for="menu_pdf_remote_attachment_attributes_attachment">Attachment</label>
-      <span class="current_menu_pdf_remote_attachment">
-        <%= link_to h(@menu.pdf_remote_attachment.attachment_file_name), @menu.pdf_remote_attachment.attachment.url %>
-        <%= link_to 'Change', '#', :class => 'toggle_new_menu' %>
-      </span>
-      <span class="new_menu_pdf_remote_attachment" style="display:none">
-        <%= pdf_remote_attachment.file_field :attachment %>
-        <%= link_to 'Cancel', '#', :class => 'toggle_new_menu' %>
-      </span>
-    </li>
-    <% end %>
-    <%= menu_form.submit 'Upload', :class => 'clear sf-button' %>
-  <% end %>
-<% end %>
+	<%= render 'restaurants/restaurant_header' %>
+
+	<div id="editing_restaurant">
+
+		<div class="editing">
+			<h3>Edit Menu</h3>
+			<% semantic_form_for @menu,
+    	:url => restaurant_menu_path(@restaurant, @menu),
+    	:html => { :multipart => true, :method => :put } do |menu_form| %>
+  			<%= menu_form.error_messages %>
+  			<% menu_form.inputs :class => "clear" do %>
+   				<%= menu_form.input :name, :label => "Menu name" %>
+    			<%= menu_form.input :change_frequency, :label => "How often it changes",
+    	    :as => :select, :collection => Menu.change_frequencies,
+    	    :required => true %>
+					<% menu_form.semantic_fields_for :pdf_remote_attachment do |pdf_remote_attachment| %>
+    				<li id="menu_pdf_remote_attachment_attributes_attachment_input" class="file optional">
+    	  			<label for="menu_pdf_remote_attachment_attributes_attachment">Attachment</label>
+    	  			<span class="current_menu_pdf_remote_attachment">
+    	    			<%= link_to h(@menu.pdf_remote_attachment.attachment_file_name), @menu.pdf_remote_attachment.attachment.url %>
+    	    			<%= link_to 'Change', '#', :class => 'toggle_new_menu' %>
+    	  			</span>
+    	  			<span class="new_menu_pdf_remote_attachment" style="display:none">
+    	    			<%= pdf_remote_attachment.file_field :attachment %>
+    	    			<%= link_to 'Cancel', '#', :class => 'toggle_new_menu' %>
+    	  			</span>
+    				</li>
+    			<% end %>
+    			<%= menu_form.submit 'Upload', :class => 'clear sf-button' %>
+  			<% end %>
+			<% end %>
+		</div><!--.editing-->
+	
+	</div><!--#editing_restaurant-->
+
+</div><!--#restaurant_profile_view -->
 
 <% content_for :javascript do %>
   <script type="text/javascript">
