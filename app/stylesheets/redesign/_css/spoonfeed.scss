@@ -3788,7 +3788,11 @@ p.search_filter_hint {
 		border-bottom: 1px dotted #ccc;
 		overflow: hidden;
 		clear: both;
-		img {border: 1px solid #ccc;}
+		img {
+			border: 1px solid #ccc;
+			height: 100px;
+			@include hiddentext;
+		}
 		#restaurant_actions {
 			width: 200px;
 			float: right;
@@ -3843,6 +3847,15 @@ p.search_filter_hint {
 		}
 		#restaurant_meta {
 		  float: left;
+			.premium {
+				p {
+					display: inline-block;
+					background-color: $trans-brown;
+					font-size: 11px;
+					padding: 1px 5px;
+					color: $brown;
+				}
+			}
 		}
 		#restaurant_features {
 		  span {

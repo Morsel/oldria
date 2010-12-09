@@ -4,7 +4,7 @@ class MenusController < ApplicationController
   before_filter :find_restaurant
   before_filter :find_menu, :only => [:edit, :update]
 
-  def index
+  def bulk_edit
     @menu = Menu.new(:restaurant => @restaurant)
     @menu.pdf_remote_attachment = PdfRemoteAttachment.new
   end
