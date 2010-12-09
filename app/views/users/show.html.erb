@@ -27,7 +27,7 @@
     <%= image_tag @user.avatar.url(:small), :width=>'72' %>
     <h1><%= @user.name %></h1>
     <p class="last_updated">Last updated: <%= @user.updated_at.strftime('%b %d, %Y') %> </p>
-    <% if @user.premium_account %>
+    <% if @user.premium_account && on_soapbox %>
     <!-- AddThis Button BEGIN --> 
     <div class="addthis_toolbox"> 
       <a href="http://www.addthis.com/bookmark.php?v=250&amp;username=unpluggedria" class="addthis_button">Share</a> 
