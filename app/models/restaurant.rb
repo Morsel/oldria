@@ -102,10 +102,13 @@ class Restaurant < ActiveRecord::Base
   has_one :subscription, :as => :subscriber
   after_validation_on_create :add_manager_as_employee
   after_create :update_manager
-
   after_save :update_admin_discussions
 
+
   before_destroy :migrate_employees_to_default_employment
+
+  has_one :fact_sheet, :class_name => "RestaurantFactSheet"
+  after_create :add_fact_sheet
 
   # For pagination
   cattr_reader :per_page
@@ -242,6 +245,10 @@ class Restaurant < ActiveRecord::Base
           :subject_matters => employment.subject_matters, :admin_messages => employment.admin_messages)
       end
     end
+  end
+
+  def add_fact_sheet
+    self.fact_sheet = RestaurantFactSheet.create
   end
 
 end

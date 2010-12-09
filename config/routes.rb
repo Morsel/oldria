@@ -5,10 +5,10 @@ ActionController::Routing::Routes.draw do |map|
   map.fb_login 'facebook_login', :controller => 'user_sessions', :action => 'create_from_facebook'
   map.social_media 'social_media', :controller => 'social_media', :action => 'index'
   map.feature '/features/:id', :controller => 'features', :action => 'show'
-  map.resources :invitations, :only => ['new', 'create', 'show'], 
+  map.resources :invitations, :only => ['new', 'create', 'show'],
         :collection => { :recommend => :get, :submit_recommendation => :post }
   map.resource :complete_registration, :only => [:show, :update],
-    :collection => { :user_details => :get, :find_restaurant => :any, :contact_restaurant => :post, 
+    :collection => { :user_details => :get, :find_restaurant => :any, :contact_restaurant => :post,
       :finish_without_contact => :get }
 
   map.directory 'directory', :controller => 'directory', :action => 'index'
@@ -94,7 +94,7 @@ ActionController::Routing::Routes.draw do |map|
     users.resources :default_employments
     users.resource :subscription, :collection => { :bt_callback => :get, :billing_history => :get }, :controller => 'subscriptions'
   end
-  
+
   map.resources :users do |users|
     users.resources :profile_answers, :only => [:create, :update, :destroy]
   end
@@ -109,6 +109,7 @@ ActionController::Routing::Routes.draw do |map|
                         :new_manager_needed => :get,
                         :replace_manager => :post
                 } do |restaurant|
+    restaurant.resource :fact_sheet, :controller => "restaurant_fact_sheets"
     restaurant.media_requests 'media_requests', :controller => 'media_requests', :action => 'index'
     restaurant.resources :employees, :collection => { :bulk_edit => :get }, :except => [:show, :index]
     restaurant.resources :calendars, :collection => { "ria" => :get }
@@ -230,13 +231,13 @@ ActionController::Routing::Routes.draw do |map|
         :collection => {:edit_in_place => :post}
     admin.resources :restaurant_feature_categories, :only => [:create,  :destroy],
         :collection => {:edit_in_place => :post}
-        
+
     admin.resources :sf_slides, :collection => { :sort => :post }
     admin.resources :sf_promos, :collection => { :sort => :post }
 
     admin.resources :hq_slides, :collection => { :sort => :post }
     admin.resources :hq_promos, :collection => { :sort => :post }
-    
+
     admin.resources :metropolitan_areas, :only => [:index, :edit, :update]
 
     # Admin Messaging
@@ -248,7 +249,7 @@ ActionController::Routing::Routes.draw do |map|
     admin.resources :holiday_reminders, :except => exclusive_routes
     admin.resources :content_requests
     admin.resources :trend_questions
-    
+
     admin.resource :complimentary_accounts, :only => [:create, :destroy]
   end
 

@@ -6,9 +6,6 @@ class RestaurantsController < ApplicationController
   def index
   end
 
-  def index
-  end
-
   def new
     @restaurant = current_user.managed_restaurants.build
   end
@@ -56,18 +53,18 @@ class RestaurantsController < ApplicationController
 
   def new_manager_needed
   end
-  
+
   def replace_manager
     old_manager = @restaurant.manager
     old_manager_employment = @restaurant.employments.find_by_employee_id(@restaurant.manager_id)
     new_manager = User.find(params[:manager])
-    
+
     if @restaurant.update_attribute(:manager_id, new_manager.id) && old_manager_employment.destroy
       flash[:notice] = "Updated account manager to #{new_manager.name}. #{old_manager.name} is no longer an employee."
     else
       flash[:error] = "Something went wrong. Our worker bees will look into it."
     end
-    
+
     redirect_to bulk_edit_restaurant_employees_path(@restaurant)
   end
 
