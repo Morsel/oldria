@@ -5,8 +5,8 @@ Given /^a restaurant named "([^\"]*)"$/ do |name|
   @restaurant.update_attributes!(:media_contact => employment.employee)
 end
 
-Then /^I see the restaurant's name as "([^\"]*)"$/ do |name|
-  response.should have_selector("#name", :content => name)
+Then /^I see the restaurant's name linked as "([^\"]*)"$/ do |name|
+  response.should have_selector("#name a", :content => name)
 end
 
 Then /^I see the restaurant's description$/ do
@@ -14,11 +14,9 @@ Then /^I see the restaurant's description$/ do
 end
 
 When /^I see the address$/ do
-  response.should have_selector("#street1", :content => @restaurant.street1)
-  response.should have_selector("#street2", :content => @restaurant.street2)
-  response.should have_selector("#city", :content => @restaurant.city)
-  response.should have_selector("#state", :content => @restaurant.state)
-  response.should have_selector("#zip", :content => @restaurant.zip)
+  @restaurant.address_parts.each do |address_part|
+    response.should have_selector(".address", :content => address_part)
+  end
 end
 
 Then /^I see the phone number$/ do
@@ -46,18 +44,18 @@ end
 
 Then /^I see media contact name, phone, and email$/ do
   media_contact = @restaurant.media_contact
-  response.should have_selector("#media_contact_name a",
+  response.should have_selector("#media_contact a",
       :content => media_contact.name,
       :href => profile_path(media_contact.username))
-  response.should have_selector("#media_contact_phone", :content => media_contact.phone_number)
-  response.should have_selector("#media_contact_email a", :content => media_contact.email,
-      :href => "mailto:#{media_contact.email}")
-  response.should have_selector("#media_contact_email", :content => media_contact.email)
+  response.should have_selector("#media_contact", :content => media_contact.phone_number)
+  response.should have_selector("#media_contact a", :content => media_contact.email,
+        :href => "mailto:#{media_contact.email}")
+  response.should have_selector("#media_contact", :content => media_contact.email)
 end
 
 When /^I see media contact name and email, but no phone$/ do
   media_contact = @restaurant.media_contact
-  response.should have_selector("#media_contact_name", :content => media_contact.name)
+  response.should have_selector("#media_contact", :content => media_contact.name)
   response.should_not have_selector("#media_contact_phone")
 end
 
@@ -222,7 +220,7 @@ end
 
 When /^I see the primary photo$/ do
   response.should have_selector("#primary_photo img")
-  response.body.should include("http://spoonfeed.s3.amazonaws.com/cucumber/images/#{@restaurant.reload.primary_photo.id}/medium/bourgeoispig.jpg")
+  response.body.should include("bourgeoispig.jpg")
 end
 
 When /^I browse to the the primary photo detail view$/ do
@@ -232,13 +230,13 @@ end
 
 Then /^I should see the primary photo detail view$/ do
   response.should have_selector("#photo_#{@restaurant.reload.primary_photo.id} img")
-  response.body.should include("http://spoonfeed.s3.amazonaws.com/cucumber/images/#{@restaurant.primary_photo.id}/original/bourgeoispig.jpg")
+  response.body.should include("bourgeoispig.jpg")
 end
 
 Then /^I should see the restaurant photo gallery$/ do
   @restaurant.reload.photos.each do |photo|
     response.should have_selector("#photo_#{photo.id} img")
-    response.body.should include("http://spoonfeed.s3.amazonaws.com/cucumber/images/#{photo.id}/medium/#{photo.attachment_file_name}")
+    response.body.should include("#{photo.attachment_file_name}")
     response.body.should include(photo.credit)
   end
 end
@@ -257,18 +255,21 @@ Then /^I see the restaurant "([^\"]*)"$/ do |restaurant_name|
 end
 
 Then /^I see the restaurant logo for the profile$/ do
-  response.should have_selector("#logo img")
-  response.body.should include("http://spoonfeed.s3.amazonaws.com/cucumber/images/#{@restaurant.reload.logo.id}/medium/bourgeoispig_logo.gif")
+  response.should have_selector("#restaurant_header img")
+  response.body.should include("bourgeoispig_logo.gif")
 end
 
 Then /^I see the restaurant menus$/ do
-  response.should have_selector("#menus")
+  response.should have_selector(".menus")
 
   @restaurant.menus.each do |menu|
-    response.should have_selector(".menu_name", :content => menu.name)
-    response.should have_selector(".menu_change_frequency", :content => menu.change_frequency)
-    response.should have_selector(".menu_date", :content => menu.created_at.to_s(:standard))
+    response.should have_selector(".menu_item", :content => menu.name)
+    response.should have_selector(".menu_item", :content => menu.updated_at.strftime("%m/%d/%Y"))
   end
+end
+
+Then /^I should not see any photos$/ do
+  response.should_not have_selector("#primary_photo img")
 end
 
 Given /^a restaurant feature page named "([^\"]*)"$/ do |name|
