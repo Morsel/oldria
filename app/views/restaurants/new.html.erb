@@ -1,74 +1,75 @@
-<% title "New Restaurant" %>
+<div id="editing_restaurant">
+  <% title "New Restaurant" %>
 
-<% form_for @restaurant do |f| %>
-<%= f.error_messages %>
-	<p>
-		<%= f.label :name, "Restaurant Name" %>
-		<%= f.text_field :name, :class => 'title span-8' %>
-	</p>
+  <% form_for @restaurant do |f| %>
+  <%= f.error_messages %>
+  	<p>
+  		<%= f.label :name, "Restaurant Name" %>
+  		<%= f.text_field :name, :class => 'title span-8' %>
+  	</p>
 
-<fieldset>
-	<legend>Address</legend>
-	<p>
-		<%= f.label :street1, "Street Address" %>
-		<%= f.text_field :street1, :class => 'text' %>
-	</p>
-	<p>
-		<%= f.label :street2, "Street Address, Line 2 (optional)" %>
-		<%= f.text_field :street2, :class => 'text' %>
-	</p>
-	<p class="span-3 column">
-		<%= f.label :city %>
-		<%= f.text_field :city, :class => 'text span-3' %>
-	</p>
-	<p class="span-1 column">
-		<%= f.label :state %>
-		<%= f.text_field :state, :maxlength => 2, :class => 'text span-1' %>
-	</p>
-	<p class="span-2 column">
-		<%= f.label :zip %>
-		<%= f.text_field :zip, :class => 'text span-2' %>
-	</p>
-  <p class="span-2 column">
-		<%= f.label :phone_number %>
-		<%= f.text_field :phone_number, :class => 'text span-2' %>
-	</p>
-</fieldset>
+  <fieldset>
+  	<legend>Address</legend>
+  	<p>
+  		<%= f.label :street1, "Street Address" %>
+  		<%= f.text_field :street1, :class => 'text' %>
+  	</p>
+  	<p>
+  		<%= f.label :street2, "Street Address, Line 2 (optional)" %>
+  		<%= f.text_field :street2, :class => 'text' %>
+  	</p>
+  	<p class="span-3 column">
+  		<%= f.label :city %>
+  		<%= f.text_field :city, :class => 'text span-3' %>
+  	</p>
+  	<p class="span-1 column">
+  		<%= f.label :state %>
+  		<%= f.text_field :state, :maxlength => 2, :class => 'text span-1' %>
+  	</p>
+  	<p class="span-2 column">
+  		<%= f.label :zip %>
+  		<%= f.text_field :zip, :class => 'text span-2' %>
+  	</p>
+    <p class="span-2 column">
+  		<%= f.label :phone_number %>
+  		<%= f.text_field :phone_number, :class => 'text span-2' %>
+  	</p>
+  </fieldset>
 
-<fieldset>
-	<legend>Details</legend>
-  <p>
-		<%= f.label :website %>
-		<%= f.text_field :website, :class => 'text' %>
-	</p>
+  <fieldset>
+  	<legend>Details</legend>
+    <p>
+  		<%= f.label :website %>
+  		<%= f.text_field :website, :class => 'text' %>
+  	</p>
 
-  <p>
-		<%= f.label :hours %>
-		<%= f.text_field :hours, :class => 'text' %>
-	</p>
-	<p class="span-3 column">
-		<%= f.label :metropolitan_area_id %>
-		<%= f.collection_select :metropolitan_area_id, MetropolitanArea.all, :id, :name %>
-	</p>
-	<p class="span-5 column">
-		<%= f.label :james_beard_region_id, "Region" %>
-		<%= f.collection_select :james_beard_region_id, JamesBeardRegion.all, :id, :name_and_description %>
-	</p>
-	<p class="clear">
-		<%= f.label :cuisine_id %>
-		<%= f.collection_select :cuisine_id, Cuisine.all, :id, :name %>
-	</p>
-  <p class="clear">
-    <%= f.label :opening_date %>
-    <%= f.date_select :opening_date %>
-  </p>
-	<p class="clear">
-		<%= f.label :facts %>
-		<%= f.text_area :facts, :rows => 3 %>
-	</p>
-</fieldset>
+    <p>
+  		<%= f.label :hours %>
+  		<%= f.text_field :hours, :class => 'text' %>
+  	</p>
+  	<p class="span-3 column">
+  		<%= f.label :metropolitan_area_id %>
+  		<%= f.collection_select :metropolitan_area_id, MetropolitanArea.all, :id, :name %>
+  	</p>
+  	<p class="span-5 column">
+  		<%= f.label :james_beard_region_id, "Region" %>
+  		<%= f.collection_select :james_beard_region_id, JamesBeardRegion.all, :id, :name_and_description %>
+  	</p>
+  	<p class="clear">
+  		<%= f.label :cuisine_id %>
+  		<%= f.collection_select :cuisine_id, Cuisine.all, :id, :name %>
+  	</p>
+    <p class="clear">
+      <%= f.label :opening_date %>
+      <%= f.date_select :opening_date %>
+    </p>
+  	<p class="clear">
+  		<%= f.label :facts %>
+  		<%= f.text_area :facts, :rows => 3 %>
+  	</p>
+  </fieldset>
 
-	<p><%= button_tag "Submit", :class => 'positive' %></p>
+  	<p><%= button_tag "Submit", :class => 'positive' %></p>
 
-<%- end -%>
-
+  <%- end -%>
+</div><!-- #editing_restaurant -->
