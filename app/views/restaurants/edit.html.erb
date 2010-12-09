@@ -9,6 +9,10 @@
 
   <%= render 'restaurants/restaurant_header' %>
 
+  <% if editing? %>
+    <div id="restaurant_edit_profile">
+  <% end %>
+  
   <% if can? :edit, @restaurant %>
     <div class="restaurant_employees edit_block clearfix">
       <h3>Employees</h3>
@@ -90,5 +94,8 @@
           :caption => "Accolades",
           :form_path => new_restaurant_accolade_path(@restaurant)} %>
 
+  <% if editing? %>
+    </div><!-- #restaurant_edit_profile -->
+  <% end %>
 </div><!-- #restaurant_profile_view -->
 

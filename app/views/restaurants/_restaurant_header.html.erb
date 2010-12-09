@@ -25,10 +25,11 @@
     Region: <%=h @restaurant.james_beard_region.try(:name) %></p>
   </div><!-- /restaurant_meta -->
 
+
   <% unless editing? or @restaurant.restaurant_features.blank? -%>
-    <div id="restaurant_features" class="clear">
+    <div id="restaurant_features" class="clear clearfix">
       <span>Features: </span>
-      <ul class="tags">
+      <ul class="tags clearfix">
         <% @restaurant.restaurant_features.each do |feature| -%>
           <li><%= link_to feature.name, feature_path(feature) %></li>
         <% end -%>
