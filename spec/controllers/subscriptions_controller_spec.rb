@@ -24,7 +24,7 @@ describe SubscriptionsController do
 
       before(:each) do
         @user = Factory(:user, :email => "fred@flintstone.com", :username => "fred")
-        @restaurant = Factory(:managed_restaurant, :manager => @user)
+        @restaurant = Factory(:restaurant, :manager => @user)
         @controller.stubs(:current_user).returns(@user)
       end
 
@@ -110,7 +110,7 @@ describe SubscriptionsController do
 
       before(:each) do
         @user = Factory(:user, :email => "fred@flintstone.com", :username => "fred")
-        @restaurant = Factory(:managed_restaurant, :manager => @user)
+        @restaurant = Factory(:restaurant, :manager => @user)
         @controller.stubs(:current_user).returns(@user)
         @controller.expects(:find_restaurant).returns(@restaurant)
       end
@@ -154,7 +154,7 @@ describe SubscriptionsController do
 
       before(:each) do
         @user = Factory(:user, :email => "fred@flintstone.com", :username => "fred")
-        @restaurant = Factory(:managed_restaurant, :manager => @user)
+        @restaurant = Factory(:restaurant, :manager => @user)
         @restaurant.update_attributes(:subscription =>
             Factory(:subscription, :payer => nil, :braintree_id => nil))
         @controller.stubs(:current_user).returns(@user)
@@ -212,7 +212,7 @@ describe SubscriptionsController do
       before(:each) do
         @user = Factory(:user, :email => "fred@flintstone.com",
             :username => "fred")
-        @restaurant = Factory(:managed_restaurant, :manager => @user)
+        @restaurant = Factory(:restaurant, :manager => @user)
         @restaurant.subscription = Factory(:subscription, :payer => @restaurant)
         @controller.stubs(:current_user).returns(@user)
         @controller.expects(:find_restaurant).returns(@restaurant)

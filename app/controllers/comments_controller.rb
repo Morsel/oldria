@@ -7,6 +7,7 @@ class CommentsController < ApplicationController
     @comment.user_id ||= current_user.id
 
     if @comment.save
+      @parent.read_by!(@comment.user) if front_burner_content
       flash[:notice] = "Successfully created comment."
       redirect_to @parent
     else
@@ -23,7 +24,7 @@ class CommentsController < ApplicationController
     @comment = Comment.find(params[:id])
     if @comment.update_attributes(params[:comment].merge(:user_id => current_user.id))
       flash[:notice] = "Updated comment"
-      redirect_to front_burner_path
+      redirect_to front_burner_content ? front_burner_path : messages_path
     else
       render :action => "edit"
     end
@@ -52,5 +53,9 @@ class CommentsController < ApplicationController
     elsif params[:solo_discussion_id]
       @parent = SoloDiscussion.find(params[:solo_discussion_id])
     end
+  end
+  
+  def front_burner_content
+    @parent.is_a?(AdminDiscussion) || @parent.is_a?(SoloDiscussion) || @parent.is_a?(Admin::Conversation)
   end
 end

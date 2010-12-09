@@ -25,7 +25,8 @@ Feature: Admin Messaging: Question of the Day
 
 @emails
   Scenario: New QOTD notification, user prefers no emails
-    Given I am on the new QOTD page
+    Given "sam" prefers to not receive direct message alerts
+    And I am on the new QOTD page
     When I check "Eight Ball"
     And I fill in "Message" with "What is your favorite pie?"
     And I press "Submit"

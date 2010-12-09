@@ -798,6 +798,7 @@ body,html,#container,#main,#content,#inside{
 	}
 		
 	.user_actions {
+	  margin-top: 30px;
 		float: right;
 		@include museoslabmedium;
 		text-transform: uppercase;
@@ -807,6 +808,7 @@ body,html,#container,#main,#content,#inside{
 			text-shadow: 0 1px 0 #333;
 			color: #fff;
 			padding: 8px 20px;
+			margin-left: 10px;
 			@include border-radius(20px);
 			&:hover {
 				background-color: $purple;

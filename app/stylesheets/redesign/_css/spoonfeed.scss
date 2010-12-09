@@ -547,6 +547,12 @@ form#new_user_session {
 			float: left;
 			margin: 0 14px 10px 0;
 		}
+		.addthis_toolbox {
+		  float: left;
+      font-family: 'Hoefler Text', Georgia, serif;
+      font-size: 14px;
+      font-weight: bold;
+		}
 		.user_actions {
 			float: right;
 			display: block;
@@ -1403,9 +1409,15 @@ form#new_user_session {
 					&:before {
 						color: #c1b690;
 						font-weight: bold;
-						content: "Q: ";
 					}
 				}
+			}
+			.message-body {
+			  p {
+			    &:before {
+			      content: "Q: ";
+			    }
+			  }
 			}
 			.message-header {display: none;}
 		}

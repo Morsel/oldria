@@ -45,10 +45,13 @@ Feature: Soapbox
     
     When I check "Aquavit"
     Then I should see "Annalena" within "#user-results"
-    
+
+@addthis
   Scenario: Viewing addThis on user profiles
     Given the following published users:
       | username    | password |
       | punkrock    | secret   |
-    And I go to the profile page for "punkrock"
+    And "punkrock" has a default employment with role "Executive Chef" and restaurant name "Aquavit"
+    And "punkrock" has a complimentary premium account
+    And I go to the soapbox profile page for "punkrock"
     Then I should see addThis button

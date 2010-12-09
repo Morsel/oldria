@@ -10,9 +10,9 @@
 #
 
 class JamesBeardRegion < ActiveRecord::Base
-  has_many :users
   has_many :restaurants
   has_many :profiles
+  has_many :users, :through => :profiles
 
   validates_presence_of :name
   validates_presence_of :description

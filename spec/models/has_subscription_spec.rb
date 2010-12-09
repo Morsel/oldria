@@ -346,7 +346,7 @@ describe HasSubscription do
 
     describe "updates braintree customer data" do
 
-      let(:restaurant) { Factory(:managed_restaurant, :name => "Taco Bell") }
+      let(:restaurant) { Factory(:restaurant, :name => "Taco Bell") }
       let(:subscription) { Factory(:subscription, :payer => restaurant) }
 
       before(:each) do

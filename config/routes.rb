@@ -100,6 +100,8 @@ ActionController::Routing::Routes.draw do |map|
                 :member => {
                         :edit_logo => :get,
                         :select_primary_photo => :post,
+                        :new_manager_needed => :get,
+                        :replace_manager => :post
                 } do |restaurant|
     restaurant.media_requests 'media_requests', :controller => 'media_requests', :action => 'index'
     restaurant.resources :employees, :except => [:show]
@@ -205,11 +207,14 @@ ActionController::Routing::Routes.draw do |map|
         :collection => {:edit_in_place => :post}
     admin.resources :restaurant_feature_categories, :only => [:create,  :destroy],
         :collection => {:edit_in_place => :post}
+        
     admin.resources :sf_slides, :collection => { :sort => :post }
     admin.resources :sf_promos, :collection => { :sort => :post }
     
     admin.resources :hq_slides, :collection => { :sort => :post }
     admin.resources :hq_promos, :collection => { :sort => :post }
+    
+    admin.resources :metropolitan_areas, :only => [:index, :edit, :update]
 
     # Admin Messaging
     exclusive_routes = [:index, :show, :destroy]
@@ -218,9 +223,9 @@ ActionController::Routing::Routes.draw do |map|
     admin.resources :announcements, :except => exclusive_routes
     admin.resources :pr_tips, :except => exclusive_routes
     admin.resources :holiday_reminders, :except => exclusive_routes
-
     admin.resources :content_requests
     admin.resources :trend_questions
+    
     admin.resource :complimentary_accounts, :only => [:create, :destroy]
   end
 

@@ -151,6 +151,7 @@ Feature: Trend questions
 @emails
   Scenario: New Trend Question notification, user prefers no emails
     Given I am logged in as an admin
+    And "sam" prefers to not receive direct message alerts
     When I create a new trend question with subject "Chef Surprise" with criteria:
       | Region | Midwest (IN IL OH) |
       | Role   | Chef               |

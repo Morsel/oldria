@@ -5,12 +5,7 @@
 <% end %>
 
   <div id="trend-article">
-    <!-- AddThis Button BEGIN --> 
-    <div class="addthis_toolbox"> 
-      <a href="http://www.addthis.com/bookmark.php?v=250&amp;username=unpluggedria" class="addthis_button">Share</a> 
-    </div> 
-    <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#username=unpluggedria"></script> 
-    <!-- AddThis Button END -->
+    
   </div>
 
 <header class="soapbox_profile_header">   
@@ -32,6 +27,14 @@
     <%= image_tag @user.avatar.url(:small), :width=>'72' %>
     <h1><%= @user.name %></h1>
     <p class="last_updated">Last updated: <%= @user.updated_at.strftime('%b %d, %Y') %> </p>
+    <% if @user.premium_account && on_soapbox %>
+    <!-- AddThis Button BEGIN --> 
+    <div class="addthis_toolbox"> 
+      <a href="http://www.addthis.com/bookmark.php?v=250&amp;username=unpluggedria" class="addthis_button">Share</a> 
+    </div> 
+    <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#username=unpluggedria"></script> 
+    <!-- AddThis Button END -->
+    <% end %>
     <div class="clear"></div>
 </header>
 

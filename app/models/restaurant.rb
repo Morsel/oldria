@@ -84,7 +84,7 @@ class Restaurant < ActiveRecord::Base
   accepts_nested_attributes_for :logo
 
   validates_presence_of :name, :street1, :city, :state, :zip, :phone_number,
-      :metropolitan_area, :website, :media_contact, :hours, :cuisine, :opening_date
+      :metropolitan_area, :website, :media_contact, :hours, :cuisine, :opening_date, :manager
 
   validates_format_of :website, :with => URI::regexp(%w(http https)),
       :message => "needs to be a valid URL that starts with http://"
@@ -185,6 +185,10 @@ class Restaurant < ActiveRecord::Base
   def braintree_contact
     # need to get this fresh, in case it's being called from a callback
     User.find(self.manager_id)
+  end
+
+  def additional_managers
+    self.managers - [self.manager]
   end
 
   private
