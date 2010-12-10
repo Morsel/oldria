@@ -73,7 +73,7 @@ module NavigationHelpers
     when /the restaurant feature page for "(.+)"/
       restaurant_features_path(Restaurant.find_by_name($1))
     when /^the restaurant menu upload page for (.+)$/
-      bulk_edit_restaurant_menus(Restaurant.find_by_name($1))
+      bulk_edit_restaurant_menus_path(Restaurant.find_by_name($1))
     when /^the employee edit page for "(.+)" and "(.+)"$/
       edit_restaurant_employee_path(Restaurant.find_by_name($1), User.find_by_username($2))
 
