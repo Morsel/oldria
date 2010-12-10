@@ -75,6 +75,17 @@
         <b>Dessert Plate:</b>
         <%= price_range(fact_sheet.dessert_plate_min_price, fact_sheet.dessert_plate_max_price) %>
       <% end unless fact_sheet.dessert_plate_min_price.blank? && fact_sheet.dessert_plate_max_price.blank?  %>
+      <% fact_sheet.tasting_menus.each do |tasting_menu| %>
+        <% content_tag_for(:li, tasting_menu) do %>
+          <dl>
+            <dt><%=h tasting_menu.name %></dt>
+            <dd>Price: <%=price tasting_menu.price %></dd>
+            <% unless tasting_menu.wine_supplement_price.blank? %>
+              <dd>Wine Supplement: <%=price tasting_menu.wine_supplement_price %></dd>
+            <% end %>
+          </dl>
+        <% end %>
+      <% end %>
 
       <% content_tag(:li) do %>
         <b>Wine by the Glass count:</b>
@@ -103,7 +114,7 @@
     </ul>
     <span class="timestamp">
         Last updated:
-        <%= fact_sheet.try(:pricing_updated_at).try(:strftime, "%b %e %Y") %>
+        <%= fact_sheet.try(:pricing_section_updated_at).try(:strftime, "%b %e %Y") %>
     </span>
   </div>
 
@@ -208,10 +219,18 @@
       <b>Square footage:</b>
       <%=h fact_sheet.square_footage %>
     <% end unless fact_sheet.square_footage.blank? %>
+
+    <% fact_sheet.seating_areas.each do |seating_area| %>
+      <% content_tag(:li) do %>
+        <b><%=h seating_area.name %>:</b>
+        <%=h seating_area.occupancy %>
+      <% end %>
+    <% end %>
+
   </ul>
   <span class="timestamp">
       Last updated:
-      <%= fact_sheet.try(:design_updated_at).try(:strftime, "%b %e %Y") %>
+      <%= fact_sheet.try(:design_section_updated_at).try(:strftime, "%b %e %Y") %>
   </span>
 </div>
 

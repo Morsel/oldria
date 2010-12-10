@@ -1,6 +1,6 @@
 <h1>Editing restaurant_fact_sheet</h1>
 
-<% semantic_form_for @restaurant_fact_sheet, :url => restaurant_fact_sheet_path(@restaurant), :html => { :method => :put } do |f| %>
+<% semantic_form_for @restaurant_fact_sheet, :url => restaurant_fact_sheet_path(@restaurant), :html => { :method => :put, :id => "restaurant_fact_sheet" } do |f| %>
   <%= f.error_messages %>
   <% f.inputs :name => "Parking and Directions" do %>
     <%= f.input :venue %>
@@ -22,6 +22,15 @@
     <%= f.input :large_plate_max_price %>
     <%= f.input :dessert_plate_min_price %>
     <%= f.input :dessert_plate_max_price %>
+    <li id="tasting_menus">
+      <h3>Tasting Menus</h3>
+      <ol>
+      <% f.fields_for :tasting_menus do |tasting_menu_form| %>
+        <%= render "tasting_menu_fields", :f => tasting_menu_form %>
+      <% end %>
+      </ol>
+      <%= link_to_add_fields("Add a tasting menu", f, :tasting_menus, :class => "add_fields_for") %>
+    </li>
     <%= f.input :wine_by_the_glass_count %>
     <%= f.input :wine_by_the_glass_min_price %>
     <%= f.input :wine_by_the_glass_max_price %>
@@ -55,6 +64,15 @@
     <%= f.input :kitchen_equipment, :as => :text %>
     <%= f.input :lighting, :as => :text %>
     <%= f.input :draperies, :as => :text %>
+    <li id="seating_areas">
+      <h3>Seating Areas</h3>
+      <ol>
+      <% f.fields_for :seating_areas do |seating_area_form| %>
+        <%= render 'seating_area_fields', :f => seating_area_form %>
+      <% end %>
+      </ol>
+      <%= link_to_add_fields("Add a seating area", f, :seating_areas, :class => "add_fields_for") %>
+    </li>
     <%= f.input :square_footage %>
   <% end %>
 
@@ -66,4 +84,29 @@
   <% f.buttons do %>
     <%= button_tag 'Update' %>
   <% end %>
+<% end %>
+
+<% content_for :javascript do %>
+
+  <script type="text/javascript">
+    //<![CDATA[
+    jQuery(function($) {
+      $(".add_fields_for").click(function(e) {
+        e.preventDefault();
+        var association = $(this).attr("data-association");
+        var fields = $(this).attr("data-fields");
+        var new_id = new Date().getTime();
+        $(this).before($(fields.replace(new RegExp("new_" + association, "g"), new_id)));
+      });
+
+      $("#restaurant_fact_sheet").delegate(".destroy_nested", "click", function(e) {
+        e.preventDefault();
+        var $fields = $(this).closest(".fields");
+        debugger;
+        $fields.find("input[type=hidden][name*=destroy]").val("1")
+        $fields.hide();
+      });
+    });
+    //]]>
+  </script>
 <% end %>
