@@ -210,8 +210,8 @@ ActiveRecord::Schema.define(:version => 20101207221226) do
     t.date     "date_ended"
     t.string   "chef_name",       :default => "",    :null => false
     t.boolean  "chef_is_me",      :default => false, :null => false
-    t.text     "cuisine",                            :null => false
-    t.text     "notes",                              :null => false
+    t.text     "cuisine",         :default => "",    :null => false
+    t.text     "notes",           :default => "",    :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "opening_staff",   :default => false
@@ -294,9 +294,9 @@ ActiveRecord::Schema.define(:version => 20101207221226) do
     t.integer  "restaurant_role_id"
     t.boolean  "omniscient"
     t.boolean  "primary",              :default => false
+    t.string   "type"
     t.boolean  "public_profile"
     t.integer  "position"
-    t.string   "type"
     t.boolean  "post_to_soapbox",      :default => true
     t.string   "solo_restaurant_name"
   end
@@ -306,7 +306,7 @@ ActiveRecord::Schema.define(:version => 20101207221226) do
   add_index "employments", ["restaurant_role_id"], :name => "index_employments_on_restaurant_role_id"
 
   create_table "enrollments", :force => true do |t|
-    t.integer  "school_id"
+    t.integer  "school_id",                       :null => false
     t.integer  "profile_id",                      :null => false
     t.date     "graduation_date"
     t.string   "degree",          :default => "", :null => false
@@ -580,8 +580,8 @@ ActiveRecord::Schema.define(:version => 20101207221226) do
     t.string   "country",            :default => "", :null => false
     t.date     "date_started",                       :null => false
     t.date     "date_ended"
-    t.text     "responsibilities",                   :null => false
-    t.text     "reason_for_leaving",                 :null => false
+    t.text     "responsibilities",   :default => "", :null => false
+    t.text     "reason_for_leaving", :default => "", :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -638,7 +638,7 @@ ActiveRecord::Schema.define(:version => 20101207221226) do
     t.string   "title"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "position",          :default => 0
+    t.integer  "position"
     t.integer  "chapter_id"
     t.text     "roles_description"
   end
@@ -658,7 +658,7 @@ ActiveRecord::Schema.define(:version => 20101207221226) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "headline",              :default => ""
-    t.text     "summary"
+    t.text     "summary",               :default => ""
     t.string   "hometown"
     t.string   "current_residence"
     t.integer  "metropolitan_area_id"
@@ -676,6 +676,13 @@ ActiveRecord::Schema.define(:version => 20101207221226) do
     t.integer  "position"
     t.string   "type"
     t.string   "link_text"
+  end
+
+  create_table "question_role_categories", :force => true do |t|
+    t.integer  "restaurant_role_id"
+    t.string   "category"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "question_roles", :force => true do |t|
@@ -772,8 +779,8 @@ ActiveRecord::Schema.define(:version => 20101207221226) do
     t.integer  "logo_id"
     t.integer  "primary_photo_id"
     t.date     "opening_date"
-    t.string   "sort_name"
     t.boolean  "premium_account"
+    t.string   "sort_name"
   end
 
   add_index "restaurants", ["cuisine_id"], :name => "index_restaurants_on_cuisine_id"
