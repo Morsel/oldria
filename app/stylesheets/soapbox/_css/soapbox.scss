@@ -1428,7 +1428,7 @@ p.search_filter_hint {
 	}
 }
 
-#trend-comments, #qotd-comments, #recent-questions, #all-questions{
+#trend-comments, #qotd-comments, #recent-questions, #questions-list{
 	a.button{
 		font-size:15px;
 		font-weight:bold;
@@ -1446,7 +1446,7 @@ p.search_filter_hint {
 		}
 	}
 }
-#recent-questions #recent-qotds, #all-questions #all-questions-feed-qotd{
+#recent-questions #recent-qotds, #qustions-list #questions-list-feed-qotd{
 	a.button{
 		background:$purple;
 		&:hover{
@@ -1464,7 +1464,7 @@ p.search_filter_hint {
 	}
 }
  
-#recent-questions, #all-questions{
+#recent-questions, #questions-list{
 	overflow:hidden;
 	margin:0 -10px;
 	div{
@@ -1558,10 +1558,10 @@ p.search_filter_hint {
 	}
 } /*#recent-questions^^ */
 
-#all-questions{
+#questions-list{
 	div{
 		@include column(24);
-		&#all-questions-feed-qotd{
+		&#questions-list-feed-qotd{
 			@include column(24,last);
 			ul li a:hover{
 				text-decoration:none;

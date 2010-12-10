@@ -21,21 +21,26 @@ class Soapbox::SoapboxEntriesController < Soapbox::SoapboxController
   end
 
   def trend
-    @question_type = 'trend'
     @questions = SoapboxEntry.trend_question.published.paginate(:page => params[:page], :include => :featured_item)
 
     @featured_items = @questions.map(&:featured_item)
     @no_sidebar = true
-    render 'soapbox/soapbox_entries/all'
   end
 
   def qotd
-    @question_type = 'qotd'
     @questions = SoapboxEntry.qotd.published.paginate(:page => params[:page], :include => :featured_item)
 
     @featured_items = @questions.map(&:featured_item)
     @no_sidebar = true
-    render 'soapbox/soapbox_entries/all'
+  end
+
+  def search
+    @key = params[:query]
+    @qotds = Admin::Qotd.soapbox_entry_published.message_like_or_display_message_like(@key).all(:include => :soapbox_entry)
+    @trend_questions = TrendQuestion.soapbox_entry_published.subject_like_or_display_message_like(@key).all(:include => :soapbox_entry)
+    @comments
+
+    @no_sidebar = true
   end
 
   protected

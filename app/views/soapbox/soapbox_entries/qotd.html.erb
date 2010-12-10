@@ -1,0 +1,9 @@
+<% title "Soapbox", false %>
+
+<section id="questions-list">
+  <div id="questions-list-feed-qotd">
+    <h1>Questions of the Day</h1>
+    <%= render :partial => 'qotd_list', :locals => {:questions => @featured_items} %>
+    <%= will_paginate(@questions) %>
+  </div><!-- /recent-trends -->
+</section><!-- / recent-questions -->

@@ -41,7 +41,6 @@ Given /^"([^"]*)" is a manager for "([^"]*)"$/ do |username, restaurantname|
   employment.update_attribute(:omniscient, true)
 end
 
-
 Given /^"([^\"]*)" is the account manager for "([^\"]*)"$/ do |username, restaurantname|
   user = User.find_by_username!(username)
   restaurant = Restaurant.find_by_name!(restaurantname)
@@ -194,25 +193,32 @@ Then /^I should see a menu with the name "([^\"]*)" and change frequency "([^\"]
   response.should have_selector(".menu_change_frequency", :content => change_frequency)
   response.should have_selector(".menu_date", :content => Chronic.parse(date).to_s(:standard))
 end
+
 Then /^I should see a link to download the uploaded menu pdf "([^\"]*)"$/ do |file_name|
   response.body.should include("http://spoonfeed.s3.amazonaws.com/cucumber/attachments/#{@restaurant.reload.menus.last.id}/#{file_name}")
 end
+
 When /^I delete the menu with the name "([^"]*)"$/ do |name|
   menu = Menu.find_by_name(name)
   click_link_within("#menu_#{menu.id}", "Remove")
 end
+
 Then /^I should not have a menu with the name "([^"]*)" and change frequency "([^"]*)"$/ do |name, change_frequency|
   Menu.first(:conditions => {:name => name, :change_frequency => change_frequency}).should be_nil
 end
+
 Then /^I should have a menu with the name "([^"]*)" and change frequency "([^"]*)"$/ do |name, change_frequency|
   Menu.first(:conditions => {:name => name, :change_frequency => change_frequency}).should_not be_nil
 end
+
 Then /^I should not see any menus$/ do
   response.should_not have_selector("table#menus tr")
 end
+
 Then /^I should see an error message$/ do
   response.should have_selector("#errorExplanation")
 end
+
 Then /^I should see a flash error message$/ do
   response.should have_selector("#flash_error")
 end
@@ -231,13 +237,14 @@ Given /^"([^"]*)" is an employee of "([^"]*)" with public position (\d+)$/ do |u
       :position => position, :public_profile => true)
 end
 
-
 Then /^I should have a photo with the file "([^"]*)"$/ do |filename|
   response.should have_selector("img.restaurant_photo[src*=\"#{filename}\"]")
 end
+
 Then /^I should not have a photo with the file "([^"]*)"$/ do |filename|
   response.should_not have_selector("img.restaurant_photo[src*=\"#{filename}\"]")
 end
+
 When /^I remove the restaurant photo with the file "([^"]*)"$/ do |filename|
   photo = @restaurant.photos.find_by_attachment_file_name(filename)
   click_link_within("#photo_#{photo.id}", "Remove")
@@ -316,6 +323,7 @@ Given /^the user "([^\"]*)" is not employed by "([^\"]*)"$/ do |username, restau
   restaurant = Restaurant.find_by_name(restaurant_name)
   restaurant.employees.delete(user)
 end
+
 Given /^the user "([^\"]*)" is an account manager for "([^\"]*)"$/ do |username, restaurant_name|
   user = User.find_by_username(username)
   restaurant = Restaurant.find_by_name(restaurant_name)
@@ -422,8 +430,13 @@ When /^I should see that the restaurant has a premium account$/ do
   response.should have_selector("#account_type", :content => "Premium")
 end
 
-Given /^the restaurant "([^"]*)" has a complimentary account$/ do |name|
+Given /^the restaurant "([^\"]*)" has a complimentary account$/ do |name|
   restaurant = Restaurant.find_by_name(name)
   restaurant.subscription = Factory(:subscription, :payer => nil)
   restaurant.save!
+end
+
+When /^I delete the account manager for "([^\"]*)"$/ do |name|
+  restaurant = Restaurant.find_by_name(name)
+  click_link_within("#user_#{restaurant.manager_id}", "Delete")
 end
