@@ -3,6 +3,9 @@ class RestaurantsController < ApplicationController
   before_filter :authenticate, :only => [:edit, :update]
   before_filter :find_restaurant, :only => [:select_primary_photo]
 
+  def index
+  end
+
   def new
     @restaurant = current_user.managed_restaurants.build
   end
@@ -47,9 +50,6 @@ class RestaurantsController < ApplicationController
       flash[:error] = "We were unable to update the restaurant"
       render :template => "photos/edit"
     end
-  end
-
-  def mine
   end
 
   private

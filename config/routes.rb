@@ -4,7 +4,6 @@ ActionController::Routing::Routes.draw do |map|
   map.confirm 'confirm/:id', :controller => 'users', :action => 'confirm'
   map.fb_login 'facebook_login', :controller => 'user_sessions', :action => 'create_from_facebook'
   map.social_media 'social_media', :controller => 'social_media', :action => 'index'
-  map.my_restaurants 'my_restaurants', :controller => 'restaurants', :action => 'mine'
   map.feature '/features/:id', :controller => 'features', :action => 'show'
 
   map.resources :invitations, :only => ['new', 'create', 'show']
@@ -107,7 +106,7 @@ ActionController::Routing::Routes.draw do |map|
                         :select_primary_photo => :post,
                 } do |restaurant|
     restaurant.media_requests 'media_requests', :controller => 'media_requests', :action => 'index'
-    restaurant.resources :employees, :except => [:show]
+    restaurant.resources :employees, :collection => { :bulk_edit => :get }, :except => [:show, :index]
     restaurant.resources :calendars, :collection => { "ria" => :get }
     restaurant.resources :events, :member => { "ria_details" => :get, "transfer" => :post }
     restaurant.resources :features, :controller => "restaurant_features",
