@@ -200,21 +200,21 @@ ActiveRecord::Schema.define(:version => 20101210222931) do
   end
 
   create_table "culinary_jobs", :force => true do |t|
-    t.integer  "profile_id",                                        :null => false
-    t.string   "title",                          :default => "",    :null => false
-    t.string   "city",                           :default => "",    :null => false
-    t.string   "state",                          :default => "",    :null => false
-    t.date     "date_started",                                      :null => false
+    t.integer  "profile_id",                         :null => false
+    t.string   "restaurant_name", :default => "",    :null => false
+    t.string   "title",           :default => "",    :null => false
+    t.string   "city",            :default => "",    :null => false
+    t.string   "state",           :default => "",    :null => false
+    t.string   "country",         :default => "",    :null => false
+    t.date     "date_started",                       :null => false
     t.date     "date_ended"
-    t.string   "chef_name",                      :default => "",    :null => false
-    t.boolean  "chef_is_me",                     :default => false, :null => false
-    t.text     "cuisine",                        :default => "",    :null => false
-    t.text     "notes",                          :default => "",    :null => false
+    t.string   "chef_name",       :default => "",    :null => false
+    t.boolean  "chef_is_me",      :default => false, :null => false
+    t.text     "cuisine",                            :null => false
+    t.text     "notes",                              :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "opening_staff",                  :default => false
-    t.string   "restaurant_name", :limit => nil
-    t.string   "country",         :limit => nil
+    t.boolean  "opening_staff",   :default => false
   end
 
   add_index "culinary_jobs", ["profile_id"], :name => "index_profile_restaurants_on_profile_id"
@@ -306,7 +306,7 @@ ActiveRecord::Schema.define(:version => 20101210222931) do
   add_index "employments", ["restaurant_role_id"], :name => "index_employments_on_restaurant_role_id"
 
   create_table "enrollments", :force => true do |t|
-    t.integer  "school_id",                       :null => false
+    t.integer  "school_id"
     t.integer  "profile_id",                      :null => false
     t.date     "graduation_date"
     t.string   "degree",          :default => "", :null => false
@@ -571,7 +571,6 @@ ActiveRecord::Schema.define(:version => 20101210222931) do
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "state"
   end
 
   create_table "nonculinary_enrollments", :force => true do |t|
@@ -594,8 +593,8 @@ ActiveRecord::Schema.define(:version => 20101210222931) do
     t.string   "country",            :default => "", :null => false
     t.date     "date_started",                       :null => false
     t.date     "date_ended"
-    t.text     "responsibilities",   :default => "", :null => false
-    t.text     "reason_for_leaving", :default => "", :null => false
+    t.text     "responsibilities",                   :null => false
+    t.text     "reason_for_leaving",                 :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -672,7 +671,7 @@ ActiveRecord::Schema.define(:version => 20101210222931) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "headline",              :default => ""
-    t.text     "summary",               :default => ""
+    t.text     "summary"
     t.string   "hometown"
     t.string   "current_residence"
     t.integer  "metropolitan_area_id"
@@ -841,6 +840,7 @@ ActiveRecord::Schema.define(:version => 20101210222931) do
     t.integer  "primary_photo_id"
     t.date     "opening_date"
     t.string   "sort_name"
+    t.boolean  "premium_account"
   end
 
   add_index "restaurants", ["cuisine_id"], :name => "index_restaurants_on_cuisine_id"
@@ -1025,17 +1025,20 @@ ActiveRecord::Schema.define(:version => 20101210222931) do
     t.datetime "avatar_updated_at"
     t.string   "first_name"
     t.string   "last_name"
+    t.integer  "james_beard_region_id"
     t.string   "publication"
     t.string   "role"
     t.string   "facebook_id"
     t.string   "facebook_access_token"
     t.string   "facebook_page_id"
     t.string   "facebook_page_token"
+    t.boolean  "premium_account"
     t.boolean  "visible",               :default => true
   end
 
   add_index "users", ["email"], :name => "index_users_on_email"
   add_index "users", ["id"], :name => "index_users_on_id", :unique => true
+  add_index "users", ["james_beard_region_id"], :name => "index_users_on_james_beard_region_id"
   add_index "users", ["username"], :name => "index_users_on_username"
 
 end

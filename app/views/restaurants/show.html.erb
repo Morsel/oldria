@@ -3,6 +3,7 @@
   <%= render 'restaurants/restaurant_header' %>
 
   <div class="media clear clearfix">
+
     <div id="primary_photo" class="photos">
       <h2>Photos</h2>
       <% if @restaurant.photos.any? -%>
@@ -12,6 +13,7 @@
         <p>There are no photos for this restaurant yet.</p>
       <% end -%>
     </div><!-- .photos -->
+
     <div class="menus">
       <h2>Menus</h2>
       <% if @restaurant.menus.any? -%>
@@ -21,7 +23,8 @@
       <% else -%>
         <p>There are no menus available at this time.</p>
       <% end -%>
-    </div><!-- /menus -->
+    </div><!-- .menus -->
+
   </div><!-- .media -->
 <% if false -%>
   <div class="top-tags clear clearfix">
@@ -72,7 +75,6 @@
         <dd><%= h(@restaurant.management_company_name) %><dd>
       <% end %>
     <% end %>
-
   </div><!-- .manager_and_facts -->
 
   <div class="account_contact equal-height tricol">
@@ -114,17 +116,14 @@
         <%= link_to "@#{h(@restaurant.twitter_username)}", "http://twitter.com/#{@restaurant.twitter_username}"%>
       </dd>
     <% end %>
-
   </div><!-- .account_details -->
 
   <div class="rest_staff clearfix">
-
     <h2>Restaurant Staff</h2>
     <div class="restaurant_employees employments clearfix">
       <%= render :partial => 'restaurants/employment', :collection => @restaurant.employments.by_position.all(
           :include => [:subject_matters, :restaurant_role, :employee]) %>
     </div><!-- .employments -->
-
   </div><!--.rest_staff-->
 
   <% unless @restaurant.accolades.empty? %>
@@ -133,7 +132,7 @@
     <ul>
       <%= render :partial => 'accolades/accolade', :collection => @restaurant.accolades.by_run_date %>
     </ul>
-  </div><!-- #accolades -->
+  </div><!-- .accolades -->
   <% end %>
 
   <div id="extended_profile_container" class="clear">
