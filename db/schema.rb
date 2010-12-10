@@ -489,6 +489,14 @@ ActiveRecord::Schema.define(:version => 20101209225304) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "archived",           :default => false
+    t.integer  "restaurant_role_id"
+  end
+
+  create_table "invite_responsibilities", :force => true do |t|
+    t.integer  "invitation_id"
+    t.integer  "subject_matter_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "james_beard_regions", :force => true do |t|
@@ -549,6 +557,7 @@ ActiveRecord::Schema.define(:version => 20101209225304) do
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "state"
   end
 
   create_table "nonculinary_enrollments", :force => true do |t|
@@ -838,6 +847,7 @@ ActiveRecord::Schema.define(:version => 20101209225304) do
   create_table "seating_areas", :force => true do |t|
     t.string   "name"
     t.integer  "occupancy"
+    t.integer  "restaurant_fact_sheet_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -955,6 +965,7 @@ ActiveRecord::Schema.define(:version => 20101209225304) do
     t.string   "name"
     t.string   "price"
     t.string   "wine_supplement_price"
+    t.integer  "restaurant_fact_sheet_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -1000,7 +1011,6 @@ ActiveRecord::Schema.define(:version => 20101209225304) do
     t.datetime "avatar_updated_at"
     t.string   "first_name"
     t.string   "last_name"
-    t.integer  "james_beard_region_id"
     t.string   "publication"
     t.string   "role"
     t.string   "facebook_id"
@@ -1012,7 +1022,6 @@ ActiveRecord::Schema.define(:version => 20101209225304) do
 
   add_index "users", ["email"], :name => "index_users_on_email"
   add_index "users", ["id"], :name => "index_users_on_id", :unique => true
-  add_index "users", ["james_beard_region_id"], :name => "index_users_on_james_beard_region_id"
   add_index "users", ["username"], :name => "index_users_on_username"
 
 end

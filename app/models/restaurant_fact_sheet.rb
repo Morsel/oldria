@@ -5,6 +5,11 @@ class RestaurantFactSheet < ActiveRecord::Base
   MONEY_FORMAT = /^\d+??(?:\.\d{0,2})?$/
 
   belongs_to :restaurant
+  has_many :seating_areas, :dependent => :destroy
+  has_many :tasting_menus, :dependent => :destroy
+
+  accepts_nested_attributes_for :seating_areas, :reject_if => lambda{|a| a[:name].blank? }, :allow_destroy => true
+  accepts_nested_attributes_for :tasting_menus, :reject_if => lambda{|a| a[:name].blank? }, :allow_destroy => true
 
   before_save :update_timestamps
 
@@ -40,6 +45,14 @@ class RestaurantFactSheet < ActiveRecord::Base
   validates_format_of :wine_by_the_bottle_min_price, :with => MONEY_FORMAT
   validates_format_of :wine_by_the_bottle_max_price, :with => MONEY_FORMAT
   validates_numericality_of :square_footage, :integer_only => true, :allow_nil => true, :allow_blank => true
+
+  def design_section_updated_at
+    [design_updated_at, seating_areas.collect(&:updated_at)].flatten.max
+  end
+
+  def pricing_section_updated_at
+    [pricing_updated_at, tasting_menus.collect(&:updated_at)].flatten.max
+  end
 
   private
 
