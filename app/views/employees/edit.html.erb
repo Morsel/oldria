@@ -3,11 +3,15 @@
 <% semantic_form_for @employment, :url => restaurant_employee_path(@restaurant, @employee) do |f| %>
 	<%= render :partial => 'employee_edit_account_status', :locals => {:f => f} %>
 	<% f.inputs :name => "Roles" do %>
-    <%= f.input :position, :as => :hidden %>
+        <%= f.input :position, :as => :hidden %>
 		<%= f.input :omniscient, 
 		    :label => "Spoonfeed Account Manager?", 
 		    :hint => "This indicates whether you'd like this employee to be able to administer this restaurant. Note: managers receive all notifications.", 
 		    :input_html => { :disabled => (@restaurant.manager == @employee ? true : false) } %>
+		<% if @employee == @restaurant.manager %>
+		  <p><%= @employee.name %> is the primary account manager. Go to <%= link_to 'the restaurant page', edit_restaurant_path(@restaurant) %> to change this.</p>
+		<% end %>
+		
         <%= f.input :public_profile, :label => "Display on public profile?",
             :hint => "Check this box if the employee is featured on the public profile page for #{@restaurant.name}." %>		
         <%= f.input :restaurant_role,
@@ -19,6 +23,6 @@
             :label => "Is this person authorized to receive and post responses to Questions Of the Day and Trend Questions on Front Burner for #{@restaurant.name}?" %>
     <% end %>
 
-<p><%= button_tag "Submit", :class => 'positive' %></p>
+    <p><%= button_tag "Submit", :class => 'positive' %></p>
 
 <% end %>
