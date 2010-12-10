@@ -550,6 +550,7 @@ ActiveRecord::Schema.define(:version => 20101207221226) do
     t.integer  "restaurant_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "position"
   end
 
   create_table "metropolitan_areas", :force => true do |t|
@@ -622,7 +623,8 @@ ActiveRecord::Schema.define(:version => 20101207221226) do
     t.text     "answer"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "user_id"
+    t.integer  "responder_id"
+    t.string   "responder_type"
   end
 
   create_table "profile_cuisines", :force => true do |t|
@@ -678,9 +680,10 @@ ActiveRecord::Schema.define(:version => 20101207221226) do
 
   create_table "question_roles", :force => true do |t|
     t.integer  "profile_question_id"
-    t.integer  "restaurant_role_id"
+    t.integer  "responder_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "responder_type"
   end
 
   create_table "readings", :force => true do |t|
@@ -832,29 +835,6 @@ ActiveRecord::Schema.define(:version => 20101207221226) do
     t.datetime "updated_at"
   end
 
-  create_table "soapbox_promos", :force => true do |t|
-    t.string   "title"
-    t.text     "body"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.string   "link"
-    t.integer  "position"
-  end
-
-  create_table "soapbox_slides", :force => true do |t|
-    t.string   "image_file_name"
-    t.string   "image_content_type"
-    t.integer  "image_file_size"
-    t.integer  "image_updated_at"
-    t.string   "title"
-    t.text     "excerpt"
-    t.string   "link"
-    t.integer  "position"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.string   "photo_credit"
-  end
-
   create_table "solo_discussions", :force => true do |t|
     t.integer  "employment_id"
     t.integer  "trend_question_id"
@@ -926,6 +906,7 @@ ActiveRecord::Schema.define(:version => 20101207221226) do
     t.datetime "updated_at"
     t.integer  "position"
     t.string   "description"
+    t.string   "responder_type"
   end
 
   create_table "trend_questions", :force => true do |t|

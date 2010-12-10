@@ -58,11 +58,11 @@ Then /^there should be (\d+) QOTDs? on the soapbox front burner page$/ do |num|
 end
 
 Then /^I see a navigation link for "([^\"]*)"$/ do |header_name|
-  response.should have_selector(".page_nav_link a", :content => header_name)
+  response.should have_selector("#restaurant_features a", :content => header_name)
 end
 
 Then /^I do not see a navigation link for "([^\"]*)"$/ do |header_name|
-  response.should_not have_selector(".page_nav_link a", :content => header_name)
+  response.should_not have_selector("#restaurant_features a", :content => header_name)
 end
 
 Then /^I see a page header for "([^\"]*)" with "([^\"]*)"$/ do |page, tags|
@@ -77,12 +77,12 @@ Then /^I do not see a page header for "([^\"]*)"$/ do |page|
   response.should_not have_selector(".feature_page_header", :content => page)
 end
 
-Then /^I should see an accolade link$/ do
-  response.should have_selector(".accolade_link")
+Then /^I should see an accolades section$/ do
+  response.should have_selector(".accolades")
 end
 
-Then /^I should not see an accolade link$/ do
-  response.should_not have_selector(".accolade_link")
+Then /^I should not see an accolades section$/ do
+  response.should_not have_selector(".accolades")
 end
 
 Then /^I should see an employee named "([^\"]*)"$/ do |name|
@@ -90,7 +90,7 @@ Then /^I should see an employee named "([^\"]*)"$/ do |name|
 end
 
 Then /^I should see the employees in the order "([^"]*)"$/ do |employee_names|
-  expected_names = tableish(".public_employee", ".employee_name")
+  expected_names = tableish(".employment", "h3")
   expected_names = expected_names.flatten.map { |n| n.gsub(",", "") }
   expected_names.should == employee_names.split(",").map(&:strip)
 end
@@ -107,13 +107,13 @@ end
 
 Then /^I see an employee named "([^"]*)" with a link$/ do |username|
   user = User.find_by_username(username)
-  response.should have_selector(".employee_name a", :content => user.name)
+  response.should have_selector(".employment a", :content => user.name)
 end
 
 Then /^I see an employee named "([^"]*)" without a link$/ do |username|
   user = User.find_by_username(username)
-  response.should have_selector(".employee_name", :content => user.name)
-  response.should_not have_selector(".employee_name a", :content => user.name)
+  response.should have_selector(".employment", :content => user.name)
+  response.should_not have_selector(".employment a", :content => user.name)
 end
 
 Then /^I should see the heading "([^\"]*)"$/ do |text|

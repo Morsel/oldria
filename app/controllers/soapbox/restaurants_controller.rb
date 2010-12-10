@@ -7,6 +7,7 @@ module Soapbox
         return
       end
       @questions = ALaMinuteAnswer.public_profile_for(@restaurant)
+      render :template => 'restaurants/show'
     end
   end
 end

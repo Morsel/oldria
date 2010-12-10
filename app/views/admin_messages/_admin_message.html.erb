@@ -1,14 +1,11 @@
 <% div_for admin_message, :class => 'discussion inbox_message individual' do %>
     <div class="icon">
     </div>
-    <div class="message-header clearfix">
-        <h4 class="message-title">
-            <%= admin_message.inbox_title %>
-            <span class="message-date">
-                <%= date_for_admin_message(admin_message) %>
-            </span>
-        </h4>
-    </div>
+    <header>
+			<h1><%= admin_message.inbox_title %></h1>
+      <p class="timestamp"><%= date_for_admin_message(admin_message) %>
+      </p>
+    </header>
 
     <div class="message-body">
         <%= auto_link(simple_format(admin_message.message)) %>

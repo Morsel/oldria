@@ -17,17 +17,22 @@
 #
 
 class Image < Attachment
-  validates_attachment_content_type :attachment, :content_type => ["image/jpg", "image/jpeg", "image/png", "image/gif"],
-    :if => :attachment_file_name, :message => "Please upload a valid image type: .jpg, .png, .gif"
+  validates_attachment_content_type :attachment,
+    :content_type => ["image/jpg", "image/jpeg", "image/png", "image/gif"],
+    :if => :attachment_file_name,
+    :message => "Please upload a valid image type: .jpg, .png, .gif"
 
   has_attached_file :attachment,
     :storage => :s3,
     :styles => {
-      :medium => "300x300>"
+      :medium => "320x320>",
+      :small => "100x100>",
+      :thumbnail => "40x40>"
     },
     :s3_credentials => "#{RAILS_ROOT}/config/environments/#{RAILS_ENV}/amazon_s3.yml",
     :path => "#{RAILS_ENV}/images/:id/:style/:filename",
     :bucket => "spoonfeed",
     :url => ':s3_domain_url',
-    :whiny => false
+    :whiny => false,
+    :default_url => '/images/avatar_restaurant.gif'
 end

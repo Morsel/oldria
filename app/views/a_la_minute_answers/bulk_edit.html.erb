@@ -1,76 +1,81 @@
+<div id="restaurant_profile_view" class="edit clear clearfix">
 
-<div id="a_la_minute_questions">
-  <% title "A La Minute Questions" %>
+  <%= render 'restaurants/restaurant_header' %>
+  <div id="editing_restaurant">
+    <div id="a_la_minute_questions">
+      <% title "A La Minute Questions" %>
 
-  <% if can? :edit, @restaurant %>
-    <% content_for :page_actions do -%>
-    <p class="clearfix">
-      <%= link_to 'Edit restaurant', edit_restaurant_path(@restaurant),
-          :class=>'sf-button' %>
-    </p>
-    <% end -%>
-  <% end -%>
+      <% if can? :edit, @restaurant %>
+        <% content_for :page_actions do -%>
+        <p class="clearfix">
+          <%= link_to 'Edit restaurant', edit_restaurant_path(@restaurant),
+              :class=>'sf-button' %>
+        </p>
+        <% end -%>
+      <% end -%>
 
-  <p>You can select up to 3 answers to be featured on your Soapbox Restaurant Profile. The rest of your answers will be displayed in the A La Minute Question directory.</p>
+      <p>You can select up to 3 answers to be featured on your Soapbox Restaurant Profile. The rest of your answers will be displayed in the A La Minute Question directory.</p>
 
-  <% semantic_form_for :restaurant, :url => bulk_update_restaurant_a_la_minute_answers_url(:restaurant_id => @restaurant.id),
-        :html => {:method => :put} do |form| %>
+      <% semantic_form_for :restaurant, :url => bulk_update_restaurant_a_la_minute_answers_url(:restaurant_id => @restaurant.id),
+            :html => {:method => :put} do |form| %>
 
-    <% @questions.each do |question| %>
-      <% div_for question do %>
-        <% answer = answer_for(question) %>
-        <div class="field">
-          <%= label_tag "#{dom_id(question)}_answer", h(question.question), :class => "question" %>
-          <%= text_field_tag "a_la_minute_questions[#{question.id}][answer]", answer.answer, :class => "new answer" %>
-          <%= hidden_field_tag "a_la_minute_questions[#{question.id}][old_answer]", answer.old_answer %>
-        </div>
-        <div class="field">
-          <%= check_box_tag "a_la_minute_questions[#{question.id}][show_as_public]", "1", answer.show_as_public, :class => "show_as_public_toggle" %>
-          <%= label_tag "#{dom_id(question)}_show_as_public", "Show on Soapbox profile?", :class => 'inline' %>
-        </div>
+        <% @questions.each do |question| %>
+          <% div_for question do %>
+            <% answer = alm_answer_for(question) %>
+            <div class="field">
+              <%= label_tag "#{dom_id(question)}_answer", h(question.question), :class => "question" %>
+              <%= text_field_tag "a_la_minute_questions[#{question.id}][answer]", answer.answer, :class => "new answer" %>
+              <%= hidden_field_tag "a_la_minute_questions[#{question.id}][old_answer]", answer.old_answer %>
+            </div>
+            <div class="field">
+              <%= check_box_tag "a_la_minute_questions[#{question.id}][show_as_public]", "1", answer.show_as_public, :class => "show_as_public_toggle" %>
+              <%= label_tag "#{dom_id(question)}_show_as_public", "Show on Soapbox profile?", :class => 'inline' %>
+            </div>
 
 
-        <ul class="archive">
-          <% @restaurant.a_la_minute_answers.for_question(question).each_with_index do |archived_answer, index| %>
-            <% content_tag_for(:li, archived_answer, :class => "answer hidden") do %>
-              <%= archived_answer.answer %>
-              <% if index == 0 %>
-                <small>(current)</small>
+            <ul class="archive">
+              <% @restaurant.a_la_minute_answers.for_question(question).each_with_index do |archived_answer, index| %>
+                <% content_tag_for(:li, archived_answer, :class => "answer hidden") do %>
+                  <%= archived_answer.answer %>
+                  <% if index == 0 %>
+                    <small>(current)</small>
+                  <% end %>
+                  <%= link_to 'Remove', restaurant_a_la_minute_answer_path(@restaurant, archived_answer), :method => :delete, :class => 'remove_link' %>
+                <% end %>
               <% end %>
-              <%= link_to 'Remove', restaurant_a_la_minute_answer_path(@restaurant, archived_answer), :method => :delete, :class => 'remove_link' %>
-            <% end %>
+            </ul>
+            <%= link_to 'Show archived answers', '#', :class => 'show_all_link' %>
           <% end %>
-        </ul>
-        <%= link_to 'Show archived answers', '#', :class => 'show_all_link' %>
+        <% end %>
+
+        <%= button_tag "Change Answers", :class => 'positive' %>
       <% end %>
-    <% end %>
+    </div>
+  </div><!-- /editing_restaurant -->
+</div><!-- /restaurant_profile_view -->
 
-    <%= button_tag "Change Answers", :class => 'positive' %>
-  <% end %>
-</div>
+  <% content_for :javascript do %>
+    <script type="text/javascript">
+    //<![CDATA[
+    jQuery(function($) {
+      $('.archive').find('li a.remove_link').click(function(e) {
+        e.preventDefault();
+        var href = $(this).attr('href');
+        $.post(href, {"_method": "delete"}, function() {
+          $("a[href$=" + this.url + "]").closest("li").remove();
+        });
+      }).removeAttr("onclick");
 
-<% content_for :javascript do %>
-  <script type="text/javascript">
-  //<![CDATA[
-  jQuery(function($) {
-    $('.archive').find('li a.remove_link').click(function(e) {
-      e.preventDefault();
-      var href = $(this).attr('href');
-      $.post(href, {"_method": "delete"}, function() {
-        $("a[href$=" + this.url + "]").closest("li").remove();
+      $(".show_all_link").toggle(function(e) {
+        e.preventDefault();
+        $(this).closest("div.a_la_minute_question").find(".archive li").removeClass("hidden");
+        $(this).html("Hide archived answers");
+      }, function(e) {
+        e.preventDefault();
+        $(this).closest("div.a_la_minute_question").find(".archive li").addClass("hidden");
+        $(this).html("Show archived answers");
       });
-    }).removeAttr("onclick");
-
-    $(".show_all_link").toggle(function(e) {
-      e.preventDefault();
-      $(this).closest("div.a_la_minute_question").find(".archive li").removeClass("hidden");
-      $(this).html("Hide archived answers");
-    }, function(e) {
-      e.preventDefault();
-      $(this).closest("div.a_la_minute_question").find(".archive li").addClass("hidden");
-      $(this).html("Show archived answers");
     });
-  });
-  //]]>
-</script>
-<% end %>
+    //]]>
+  </script>
+  <% end %>

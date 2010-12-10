@@ -2,7 +2,7 @@ class EmployeesController < ApplicationController
   before_filter :require_user
   before_filter :find_and_authorize_restaurant, :except => :index
 
-  def index
+  def bulk_edit
     @restaurant = Restaurant.find(params[:restaurant_id])
     @employments = @restaurant.employments.by_position.all(
         :include => [:subject_matters, :restaurant_role, :employee])

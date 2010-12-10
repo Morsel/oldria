@@ -1,4 +1,4 @@
-@restaurant_profile
+@restaurant_profile @joesak
 Feature: Restaurant profile
   So that a restaurant can see their profile
 
@@ -17,17 +17,17 @@ Feature: Restaurant profile
     And I attach the image "/features/images/bourgeoispig_logo.gif" to "restaurant_logo_attributes_attachment" on S3
     And I press "Save"
     When I go to the restaurant menu upload page for Piece
-    And I fill in "January" for "Name"
+    And I fill in "January" for "Menu name"
     And I select "Monthly" from "How often it changes"
     And I attach the file "/features/images/menu1.pdf" to "menu_pdf_remote_attachment_attributes_attachment" on S3
     And I press "Upload"
     When I go to the restaurant menu upload page for Piece
-    And I fill in "February" for "Name"
+    And I fill in "February" for "Menu name"
     And I select "Monthly" from "How often it changes"
     And I attach the file "/features/images/menu1.pdf" to "menu_pdf_remote_attachment_attributes_attachment" on S3
     And I press "Upload"
     When I go to the soapbox restaurant profile for "Piece"
-    Then I see the restaurant's name as "Piece"
+    Then I see the restaurant's name linked as "Piece"
     And I see the restaurant's description
     And I see the address
     And I see the phone number
@@ -85,13 +85,13 @@ Feature: Restaurant profile
     And I fill in "Xavier Zarope II" for "Credit"
     And I press "Upload"
     When I go to the soapbox restaurant profile for "Piece"
-    And I follow "photo_gallery"
+    And I follow "View all photos"
     Then I should see the restaurant photo gallery
 
   Scenario: Display message about no photos available when photo gallery is empty
     When I go to the soapbox restaurant profile for "Piece"
-    And I follow "photo_gallery"
-    Then I should see no restaurant photos
+    Then I should not see any photos
+    And I should see "There are no photos for this restaurant yet."
 
   Scenario: Show the public A La Minute Answers
     And "Piece" has answered the following A La Minute questions:

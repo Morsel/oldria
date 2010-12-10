@@ -1,5 +1,7 @@
 class RestaurantFeaturePage < ActiveRecord::Base
   has_many :restaurant_feature_categories
+  has_many :question_roles, :as => :responder, :dependent => :destroy
+  has_many :profile_questions, :through => :question_roles
 
   validates_presence_of :name
   validates_uniqueness_of :name
@@ -9,6 +11,21 @@ class RestaurantFeaturePage < ActiveRecord::Base
   def deletable?
     restaurant_feature_categories.empty?
   end
+
+  # Behind the line
+
+  def profile_questions
+    ProfileQuestion.for_subject(self)
+  end
+
+  def topics
+    Topic.for_subject(self) || []
+  end
+
+  def published_topics(secondary_subject = nil)
+    topics.select { |t| t.published?(self, secondary_subject) }
+  end
+
 end
 # == Schema Information
 #

@@ -1,134 +1,168 @@
-<% title @restaurant.name -%>
-<% if can? :edit, @restaurant %>
-  <p class="clearfix">
-    <%= link_to 'Edit restaurant', edit_restaurant_path(@restaurant),
-        :class=>'sf-button' %>
-  </p>
+<div id="restaurant_profile_view" class="clear clearfix">
+
+  <%= render 'restaurants/restaurant_header' %>
+
+  <div class="media clear clearfix">
+    <div id="primary_photo" class="photos">
+      <h2>Photos</h2>
+      <% if @restaurant.photos.any? -%>
+        <%= link_to image_tag(@restaurant.primary_photo.attachment.url(:medium), :alt => ''), restaurant_photos_path(@restaurant) %>
+        <small><%= link_to 'View all photos&nbsp;&#187;', restaurant_photos_path(@restaurant) %></small>
+      <% else -%>
+        <p>There are no photos for this restaurant yet.</p>
+      <% end -%>
+    </div><!-- .photos -->
+    <div class="menus">
+      <h2>Menus</h2>
+      <% if @restaurant.menus.any? -%>
+        <ul>
+          <%= render :partial => 'menus/menu', :collection => @restaurant.menus %>
+        </ul>
+      <% else -%>
+        <p>There are no menus available at this time.</p>
+      <% end -%>
+    </div><!-- /menus -->
+  </div><!-- .media -->
+<% if false -%>
+  <div class="top-tags clear clearfix">
+    <h2>Top 15 Tags</h2>
+    <ul class="tags">
+      <li><a href="#">Pork</a></li>
+      <li><a href="#">Barbeque</a></li>
+      <li><a href="#">slow Roasted</a></li>
+      <li><a href="#">Cajun</a></li>
+      <li><a href="#">Texas</a></li>
+      <li><a href="#">Baby Back Ribs</a></li>
+      <li><a href="#">Guinness Stout</a></li>
+      <li><a href="#">Fire pit</a></li>
+    </ul>
+  </div><!-- .top-tags -->
 <% end -%>
+  <h2>Details</h2>
+  <div class="manager_and_facts equal-height tricol">
+    <% dl_if(@restaurant.description, :class => "list_item", :id => "description") do %>
+      <dt>Description:</dt>
+      <dd><%= @restaurant.description %></dd>
+    <% end %>
 
-<div id="restaurant_profile_view" class="box clear clearfix">
-  <div class="name_and_pic clearfix span-7">
-    <%= image_tag 'avatar_restaurant.gif', :width=>'100' %>
-    <div class="user_info">
-      <h2 class="function-bold" id="name">
-        <%= @restaurant.name %>
-      </h2>
+    <% dl_if(@restaurant.cuisine, :class => "list_item", :id => "cuisine") do %>
+      <dt>Cuisine:</dt>
+      <dd><%=h @restaurant.cuisine.try(:name) %></dd>
+    <% end %>
 
-      <% div_if @restaurant.premium_account?, :class => "premium" do %>
-        Account Type: Premium
+    <% dl_if @restaurant.manager, :class => "list_item", :id => "manager" do %>
+      <dt>Manager:</dt>
+      <dd><%= link_to h(@restaurant.manager.name), profile_path(:username => @restaurant.manager.username) %></dd>
+    <% end %>
+
+    <% dl_if @restaurant.media_contact, :class => "list_item", :id => "media_contact" do %>
+      <dt>Media Contact:</dt>
+      <dd>
+        <%= link_to h(@restaurant.media_contact.name), profile_path(:username => @restaurant.media_contact.username) %>
+        <%= "<br>#{@restaurant.media_contact.phone_number}" if @restaurant.media_contact.phone_number.present? -%>
+        <%= "<br>#{mail_to @restaurant.media_contact.email}" if @restaurant.media_contact.email.present? -%>
+      </dd>
+    <% end %>
+
+    <% dl_if(@restaurant.management_company_name.present?, :class => "list_item", :id => "management_company") do %>
+      <dt>Management Company:</dt>
+      <% if @restaurant.management_company_website.present? %>
+        <dd><%= link_to h(@restaurant.management_company_name), @restaurant.management_company_website %></dd>
+      <% else %>
+        <dd><%= h(@restaurant.management_company_name) %><dd>
       <% end %>
-      <div id="address"><%= @restaurant.address_parts.join("<br />") %></div>
-
-      <div>
-        Metropolitan Area:
-        <span><%=h @restaurant.metropolitan_area.try(:name) %></span>
-      </div>
-
-      <div>
-        Region:
-        <span><%=h @restaurant.james_beard_region.try(:name) %></span>
-      </div>
-    </div>
-  </div><!-- .name_and_pic -->
-
-  <div class="manager_and_facts span-4 last">
-    <% div_if @restaurant.manager, :id => "manager" do %>
-      Manager:
-      <span>
-        <%= link_to h(@restaurant.manager.name), profile_path(@restaurant.manager) %>
-      </span>
-    <% end %>
-
-    <% div_if @restaurant.media_contact, :id => "media_contact" do %>
-      Media Contact:
-      <span>
-        <%= link_to h(@restaurant.media_contact.name),
-            profile_path(@restaurant.media_contact) %>
-      </span>
-    <% end %>
-
-    <div>Cuisine: <span><%=h @restaurant.cuisine.try(:name) %></span></div>
-
-    <% div_if(@restaurant.opening_date) do %>
-      Opening Date: <span id="opening_date"><%= @restaurant.opening_date.to_s(:long) %></span>
     <% end %>
 
   </div><!-- .manager_and_facts -->
 
-  <hr clear="all" />
-
-  <div class="span-11 last">
-    <% div_if(@restaurant.description, :class=> "function-bold", :id => "description") do %>
-      Description: <%= @restaurant.description %>
+  <div class="account_contact equal-height tricol">
+    <% dl_if(@restaurant.opening_date, :class => "list_item") do %>
+      <dt>Opening Date:</dt>
+      <dd id="opening_date"><%= @restaurant.opening_date.to_s(:long) %></dd>
     <% end %>
-    
-    <div id="account_status">
-      Account Status: <%= @restaurant.account_type %>
+
+    <% dl_if(@restaurant.account_type, :class => "list_item account", :id => "account_status") do %>
+      <dt>Account Status:</dt>
+      <dd class="currently"><%= @restaurant.account_type %></dd>
+    <% end %>
+
+    <% dl_if(@restaurant.phone_number, :class => "list_item", :id => "phone_number") do %>
+      <dt>Phone Number:</dt>
+      <dd id="phone_number"><%=h @restaurant.phone_number %></dd>
+    <% end %>
+
+    <% dl_if(@restaurant.hours, :class => "list_item", :id => "hours") do %>
+      <dt>Hours:</dt>
+      <dd><%= h @restaurant.hours %></dd>
+    <% end %>
+  </div><!-- .account_contact -->
+
+  <div class="account_social equal-height tricol">
+    <% dl_if(@restaurant.website.present?, :class => "list_item", :id => "website") do %>
+      <dt>Website:</dt>
+      <dd><%= link_to h(@restaurant.website), @restaurant.website%></dd>
+    <% end %>
+
+    <% dl_if(@restaurant.facebook_page.present?, :class => "list_item", :id => "facebook_page") do %>
+      <dt>Facebook Page:</dt>
+      <dd><%= link_to h(@restaurant.facebook_page), @restaurant.facebook_page%></dd>
+    <% end %>
+
+    <% dl_if(@restaurant.twitter_username.present?, :class => "list_item", :id => "twitter_username") do %>
+      <dt>Twitter:</dt>
+      <dd>
+        <%= link_to "@#{h(@restaurant.twitter_username)}", "http://twitter.com/#{@restaurant.twitter_username}"%>
+      </dd>
+    <% end %>
+
+  </div><!-- .account_details -->
+
+  <div class="rest_staff clearfix">
+
+    <h2>Restaurant Staff</h2>
+    <div class="restaurant_employees employments clearfix">
+      <%= render :partial => 'restaurants/employment', :collection => @restaurant.employments.by_position.all(
+          :include => [:subject_matters, :restaurant_role, :employee]) %>
+    </div><!-- .employments -->
+
+  </div><!--.rest_staff-->
+
+  <% unless @restaurant.accolades.empty? %>
+  <div class="accolades clearfix">
+    <h2>Accolades</h2>
+    <ul>
+      <%= render :partial => 'accolades/accolade', :collection => @restaurant.accolades.by_run_date %>
+    </ul>
+  </div><!-- #accolades -->
+  <% end %>
+
+  <div id="a_la_minute">
+    <h3 id="alm-title">A La Minute Questions</h3>
+    <div class="edit_profile_link">
+      <%= link_to "edit your answers", bulk_edit_restaurant_a_la_minute_answers_path(:restaurant_id => @restaurant) %>
     </div>
 
-    <div>
-      Phone Number: <span id="phone_number"><%=h @restaurant.phone_number %></span>
+    <div class="questions">
+      <%= render :partial => "restaurants/a_la_minute_question",
+              :collection => @questions, :as => :answer %>
     </div>
+    <p class="view_all"><a href="#">View all answers &raquo;</a></p>
+  </div><!--#a_la_minute-->
+  <%= render :partial => 'profile_questions/behind_the_line', :locals => { :subject => @restaurant } %>
+</div><!-- #restaurant_profile_view -->
 
-    <% div_if(@restaurant.website.present?, :id => "website") do %>
-       Website: <%= link_to h(@restaurant.website), @restaurant.website%>
-    <% end %>
 
-    <% div_if(@restaurant.twitter_username.present?, :id => "twitter_username") do %>
-      Twitter: <%= link_to h(@restaurant.twitter_username),
-          "http://twitter.com/#{@restaurant.twitter_username}"%>
-    <% end %>
-
-    <% div_if(@restaurant.facebook_page.present?, :id => "facebook_page") do %>
-      Facebook Page: <%= link_to h(@restaurant.facebook_page), @restaurant.facebook_page%>
-    <% end %>
-
-    <div id="hours">
-      Hours: <%= h @restaurant.hours %>
-    </div>
-
-    <% div_if(@restaurant.management_company_name.present?, :id => "management_company") do %>
-      Management Company:
-      <% if @restaurant.management_company_website.present? %>
-        <%= link_to h(@restaurant.management_company_name),
-            @restaurant.management_company_website %>
-      <% else %>em
-        <%= h(@restaurant.management_company_name) %>
-      <% end %>
-    <% end %>
-  </div>
-</div>
-
-<h3 class="function-bold">Restaurant Staff</h3>
-
-<div class="discussion_actions">
-  <p class="new_discussion">
-    <%= link_to image_tag('quotebubble.png') + "Start a discussion", new_discussion_path(:restaurant_id => @restaurant.id), :class => 'sf-button alt' %>
-  </p>
-</div>
-
-<div class="restaurant_employees employments">
-  <%= render :partial => 'employment', :collection => @employments %>
-</div>
-
-<div id="a_la_minute">
-  <h3>A La Minute Questions</h3> <%= link_to "edit answers", bulk_edit_restaurant_a_la_minute_answers_path(:restaurant_id => @restaurant) %>
-
-  <div class="questions">
-    <%= render :partial => "a_la_minute_question",
-            :collection => ALaMinuteAnswer.newest_for(@restaurant), :as => :answer %>
-  </div>
-</div>
 
 <% content_for :javascript do %>
-<script type="text/javascript">
-  //<![CDATA[
-  $('.a_la_minute_answer_eip').eip("/a_la_minute_answers/edit_in_place", {
-      data: "restaurant_id=" + $(".a_la_minute_answer_eip").attr("data-restaurant-id") } );
-  $('.hidden_with_js').hide();
-  $('.submit_on_change').change(function() {
-    $(this).closest("form").ajaxSubmit();
-  });
-  //]]>
-</script>
+  <script type="text/javascript">
+    //<![CDATA[
+    $('.a_la_minute_answer_eip').eip("/a_la_minute_answers/edit_in_place", {
+        data: "restaurant_id=" + $(".a_la_minute_answer_eip").attr("data-restaurant-id") } );
+    $('.hidden_with_js').hide();
+    $('.submit_on_change').change(function() {
+      $(this).closest("form").ajaxSubmit();
+    });
+    //]]>
+  </script>
 <% end %>
+

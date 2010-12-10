@@ -15,12 +15,12 @@ describe EmployeesController do
     controller.stubs(:preload_resources)
   end
 
-  describe "GET index" do
+  describe "GET bulk_edit" do
     before(:each) do
       @employments = @restaurant.employments
       @employment = @employments.first
       @restaurant.stubs(:employments).returns(@employments)
-      get :index, :restaurant_id => @restaurant.id
+      get :bulk_edit, :restaurant_id => @restaurant.id
     end
 
     it { response.should be_success }

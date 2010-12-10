@@ -21,11 +21,14 @@ class BraintreeConnector
   end
 
   def self.braintree_customer_id(payer)
-    "#{braintree_prefix}#{payer.braintree_customer_id}"
+    [braintree_prefix, payer.braintree_customer_id].join "_"
   end
 
   def self.braintree_prefix
-    Rails.env.production? ? "" : "#{Rails.env}_"
+    prefixes = []
+    prefixes << Rails.env unless Rails.env.production?
+    # prefixes << Rails.root.to_s.split("/")[4] if Rails.env.staging?
+    prefixes.join "_"
   end
 
   def braintree_plan_id

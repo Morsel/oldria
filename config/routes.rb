@@ -4,10 +4,9 @@ ActionController::Routing::Routes.draw do |map|
   map.confirm 'confirm/:id', :controller => 'users', :action => 'confirm'
   map.fb_login 'facebook_login', :controller => 'user_sessions', :action => 'create_from_facebook'
   map.social_media 'social_media', :controller => 'social_media', :action => 'index'
-  map.my_restaurants 'my_restaurants', :controller => 'restaurants', :action => 'mine'
-  
+  map.feature '/features/:id', :controller => 'features', :action => 'show'
   map.resources :invitations, :only => ['new', 'create', 'show'], 
-      :collection => { :recommend => :get, :submit_recommendation => :post }
+        :collection => { :recommend => :get, :submit_recommendation => :post }
   map.resource :complete_registration, :only => [:show, :update],
     :collection => { :user_details => :get, :find_restaurant => :any, :contact_restaurant => :post, 
       :finish_without_contact => :get }
@@ -16,7 +15,10 @@ ActionController::Routing::Routes.draw do |map|
 
   map.namespace(:soapbox) do |soapbox|
     soapbox.resources :restaurants, :only => ['show'] do |restaurants|
-      restaurants.resources :feature_pages, :only => ['show']
+      restaurants.resources :feature_pages, :only => ['show'] do |pages|
+        pages.resources :questions, :collection => { :topics => :get, :chapters => :get, :refresh => :post }
+      end
+      restaurants.resources :questions, :collection => { :topics => :get, :chapters => :get, :refresh => :post }
       restaurants.resources :photos, :only => ['show', 'index']
       restaurants.resources :accolades, :only => ['index']
     end
@@ -39,11 +41,11 @@ ActionController::Routing::Routes.draw do |map|
   map.with_options :conditions => { :subdomain => 'soapbox' }, :controller => 'soapbox/soapbox' do |soapbox|
     soapbox.root :action => 'index'
   end
-  
+
   map.namespace(:hq) do |hq|
     hq.root :controller => 'hq', :action => 'index'
   end
-  
+
   map.with_options :conditions => { :subdomain => 'hq' }, :controller => 'hq/hq' do |hq|
     hq.root :action => 'index'
   end
@@ -64,7 +66,6 @@ ActionController::Routing::Routes.draw do |map|
   end
 
   map.profile 'profile/:username', :controller => 'users', :action => 'show', :requirements => { :username => /[a-zA-Z0-9\-\_ ]+/}
-  map.resources :profile_answers, :only => [:create, :update, :destroy]
 
   map.resources :quick_replies
   map.resources :media_users, :except => [:index, :show]
@@ -90,11 +91,13 @@ ActionController::Routing::Routes.draw do |map|
     users.resources :statuses
     users.resources :direct_messages, :member => { :reply => :get }
     users.resources :questions, :collection => { :topics => :get, :chapters => :get, :refresh => :post }
+    users.resources :profile_answers, :only => [:create, :update, :destroy]
     users.resources :default_employments
     users.resource :subscription, :collection => { :bt_callback => :get, :billing_history => :get }, :controller => 'subscriptions'
   end
 
   # map.resources :subscriptions, :collection => { :bt_callback => :get }
+
 
   map.resources :restaurants,
                 :member => {
@@ -104,14 +107,24 @@ ActionController::Routing::Routes.draw do |map|
                         :replace_manager => :post
                 } do |restaurant|
     restaurant.media_requests 'media_requests', :controller => 'media_requests', :action => 'index'
-    restaurant.resources :employees, :except => [:show]
+    restaurant.resources :employees, :collection => { :bulk_edit => :get }, :except => [:show, :index]
     restaurant.resources :calendars, :collection => { "ria" => :get }
     restaurant.resources :events, :member => { "ria_details" => :get, "transfer" => :post }
-    restaurant.resources :features, :controller => "restaurant_features"
-    restaurant.resources :menus
-    restaurant.resources :photos, :collection => { "reorder" => :post }
+    restaurant.resources :features, :controller => "restaurant_features",
+                         :member => {
+                            :add => :post,
+                            :bulk_edit => :get
+                          } do |features|
+      features.resources :questions, :collection => { :topics => :get, :chapters => :get, :refresh => :post }
+      features.resources :profile_answers, :only => [:create, :update, :destroy]
+    end
+    restaurant.resources :feature_pages
+    restaurant.resources :menus, :collection => { "reorder" => :post, :bulk_edit => :get }
+    restaurant.resources :photos, :collection => { "reorder" => :post, "bulk_edit" => :get }, :member => { "show_sizes" => :get }
     restaurant.resource :logo
     restaurant.resources :accolades
+    restaurant.resources :questions, :collection => { :topics => :get, :chapters => :get, :refresh => :post }
+    restaurant.resources :profile_answers, :only => [:create, :update, :destroy]
     restaurant.resources :employments, :collection => { "reorder" => :post }
     #todo only need these two routes
     restaurant.resources :a_la_minute_answers, :collection => { :bulk_update => :put, :bulk_edit => :get }
@@ -176,6 +189,15 @@ ActionController::Routing::Routes.draw do |map|
 
   map.namespace :admin do |admin|
     admin.root      :controller => 'admin'
+
+    # the BTL routes need to be above the users and restaurants routes to prevent path conflicts
+    admin.with_options :path_prefix => '/admin/:responder_type',
+        :requirements => { :responder_type => /user|restaurant/ } do |btl|
+      btl.resources :profile_questions, :collection => { :sort => :post }
+      btl.resources :chapters, :collection => { :select => :post }
+      btl.resources :topics
+    end
+
     admin.resources :users
     admin.resources :pages
     admin.resources :feeds, :collection => { :sort => [:post, :put] }
@@ -193,9 +215,7 @@ ActionController::Routing::Routes.draw do |map|
     admin.resources :hq_pages
     admin.resources :soapbox_slides
     admin.resources :soapbox_promos, :collection => { :sort => :post }
-    admin.resources :profile_questions, :collection => { :sort => :post }
-    admin.resources :chapters, :collection => { :select => :post }
-    admin.resources :topics
+
     admin.resources :question_roles
     admin.resources :schools
     admin.resources :specialties, :collection => { :sort => :post }
@@ -210,7 +230,7 @@ ActionController::Routing::Routes.draw do |map|
         
     admin.resources :sf_slides, :collection => { :sort => :post }
     admin.resources :sf_promos, :collection => { :sort => :post }
-    
+
     admin.resources :hq_slides, :collection => { :sort => :post }
     admin.resources :hq_promos, :collection => { :sort => :post }
     
