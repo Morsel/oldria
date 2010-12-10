@@ -181,7 +181,7 @@ describe EmployeesController do
         put :update, :id => @employee.id, :restaurant_id => @restaurant2.id, :employment => {}
       end
 
-      it { should redirect_to(restaurant_employees_path(@restaurant2))}
+      it { should redirect_to(bulk_edit_restaurant_employees_path(@restaurant2))}
 
       it "should set a flash message" do
         flash[:notice].should_not be_nil

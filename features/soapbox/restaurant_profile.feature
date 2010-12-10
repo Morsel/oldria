@@ -1,4 +1,4 @@
-@restaurant_profile @joesak
+@restaurant_profile
 Feature: Restaurant profile
   So that a restaurant can see their profile
 

@@ -50,7 +50,7 @@ end
 
 Given /^I am an employee of "([^\"]*)"$/ do |restaurantname|
   restaurant = Restaurant.find_by_name(restaurantname)
-  visit restaurant_employees_path(restaurant)
+  visit bulk_edit_restaurant_employees_path(restaurant)
   click_link "Add employee"
   fill_in "Employee Email", :with => current_user.email
   click_button "Submit"
@@ -66,7 +66,7 @@ end
 
 Given /^I have just created a restaurant named "([^\"]*)"$/ do |restaurantname|
   @restaurant = Factory(:restaurant, :name => restaurantname, :manager => @current_user)
-  visit restaurant_employees_path(@restaurant)
+  visit bulk_edit_restaurant_employees_path(@restaurant)
 end
 
 Given /^the restaurant "([^\"]*)" is in the region "([^\"]*)"$/ do |restaurantname, regionname|

@@ -19,7 +19,7 @@ class RestaurantsController < ApplicationController
     @restaurant.sort_name = params[:restaurant][:name]
     if @restaurant.save
       flash[:notice] = "Successfully created restaurant."
-      redirect_to restaurant_employees_path(@restaurant)
+      redirect_to bulk_edit_restaurant_employees_path(@restaurant)
     else
       render :new
     end
@@ -68,7 +68,7 @@ class RestaurantsController < ApplicationController
       flash[:error] = "Something went wrong. Our worker bees will look into it."
     end
     
-    redirect_to restaurant_employees_path(@restaurant)
+    redirect_to bulk_edit_restaurant_employees_path(@restaurant)
   end
 
   private

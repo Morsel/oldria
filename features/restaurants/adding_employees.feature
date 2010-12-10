@@ -25,7 +25,6 @@ Feature: Associating a Restaurant with its employees
     And I press "Submit"
     Then I should see "Is this user an employee at your restaurant?"
     Then I should see "<name>"
-
     When I press "Yes"
     Then I should see "<name>"
     # The manager plus the new person get email

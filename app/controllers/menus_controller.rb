@@ -13,9 +13,9 @@ class MenusController < ApplicationController
     @menu = Menu.from_params(params[:menu].merge(:restaurant => @restaurant))
     if @menu.invalid?
       @menu.pdf_remote_attachment = PdfRemoteAttachment.new(params[:menu][:pdf_remote_attachment_attributes])
-      render :action => :index
+      render :action => :bulk_edit
     else
-      redirect_to restaurant_menus_path
+      redirect_to bulk_edit_restaurant_menus_path(@restaurant)
     end
   end
 
@@ -44,7 +44,7 @@ class MenusController < ApplicationController
 
   def destroy
     Menu.find(params[:id]).destroy
-    redirect_to restaurant_menus_path
+    redirect_to bulk_edit_restaurant_menus_path(@restaurant)
   end
 
   private
