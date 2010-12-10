@@ -317,3 +317,7 @@ end
 Then /^show me the page$/ do
   save_and_open_page
 end
+
+Then /^I can`t share this profile$/ do
+  response.should have_selector(".addthis_button", :href =>"#")
+end
