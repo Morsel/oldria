@@ -6,6 +6,9 @@ class RestaurantsController < ApplicationController
   def index
   end
 
+  def index
+  end
+
   def new
     @restaurant = current_user.managed_restaurants.build
   end

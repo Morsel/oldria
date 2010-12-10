@@ -1,8 +1,7 @@
-    <% f.inputs do %>
-        <%= f.input :first_name %>
-        <%= f.input :last_name %>
-        <%= f.input :email %>
-        
+    <% f.inputs :class => "editing basics requestinvite" do %>
+        <%= f.input :first_name, :as => :string %>
+        <%= f.input :last_name, :as => :string %>
+        <%= f.input :email, :as => :string %>
         <% f.inputs :name => "Work details" do %>
             <%= f.input :restaurant_name, :label => "Name of the restaurant(s) where you work:", :hint => 'Enter your restaurant name or your employment status e.g., student, between jobs, retired, time off' %>
             <%= f.input :restaurant_role, :label => "Role", :as => :select, :collection => RestaurantRole.all, :hint => 'You role helps the media find you when they are looking for sources for stories.  If you are "chef/owner" select that and not "owner": you will receive more opportunities!' %>

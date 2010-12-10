@@ -1731,6 +1731,7 @@ form#new_user_session {
 					a{
 						display:block;
 						padding:5px;
+<<<<<<< HEAD
 					}
 				}
 				&:hover{
@@ -1738,6 +1739,15 @@ form#new_user_session {
 						background:rgba(216,83,30,0.08);
 					}
 				}
+=======
+					}
+				}
+				&:hover{
+					td{
+						background:rgba(216,83,30,0.08);
+					}
+				}
+>>>>>>> 0d885de0232c39edf669051605144e91740fac7d
 				td.topic_completeness{
 					padding:5px;
 					text-align:right;
@@ -3523,6 +3533,17 @@ p.search_filter_hint {
 		border-bottom: 1px dotted #ccc;
 		margin-top: 20px;
 		padding-bottom: 10px;
+<<<<<<< HEAD
+=======
+		.question {
+		  input {
+		    margin-top: -5px;
+		  }
+		  label {
+		    font-weight: normal;
+		  }
+		}
+>>>>>>> 0d885de0232c39edf669051605144e91740fac7d
 		p {
 			margin: 5px 0 15px;
 			&.currently {
@@ -3780,6 +3801,13 @@ p.search_filter_hint {
 			}
 		}
 	}
+<<<<<<< HEAD
+=======
+	.requestinvite {
+		margin: 0 0 15px;
+		padding: 0;
+	}
+>>>>>>> 0d885de0232c39edf669051605144e91740fac7d
 } /* ----- #editing_restaurant --------------------- */
 
 #restaurant_profile_view {
@@ -4184,3 +4212,43 @@ p.search_filter_hint {
 }
 
 /* ## END of restaurant FEATURES editing --------------------------------------------- */
+<<<<<<< HEAD
+=======
+
+/* ## A La Minute Editing --------------------------------------------- */
+#a_la_minute_questions {
+  .archive {
+    display: none;
+    margin: 10px 0;
+    li {
+      background: none;
+      .remove_link {
+        font-weight: bold;
+        font-size: 11px;
+        margin-left: 5px;
+      }
+      small {
+        font-size: small;
+        color: #aaa;
+      }
+    }
+  }
+  .show_all_link {
+    background: #f1f1f1 url(/images/redesign/arrow-dropdown.png) no-repeat 8px 7px;
+    border: 1px solid #DDD;
+    @include border-radius(30px);
+    color: #333;
+    display: inline-block;
+    font-weight: bold;
+    padding: 4px 14px 4px 21px;
+    text-shadow: #fff 0px 1px 0px;
+    &.open {
+      border-color: $trans-orange;
+      color: $orange;
+      background-color: $trans-orange;
+      background-position: 8px -93px;
+    }
+  }
+}
+/* ## END of A La Minute editing --------------------------------------------- */
+>>>>>>> 0d885de0232c39edf669051605144e91740fac7d

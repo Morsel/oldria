@@ -22,8 +22,13 @@ Feature: Soapbox
 
     And "mgmt" has a published profile
     And "chris" has a published profile
+<<<<<<< HEAD
   
   Scenario: Viewing users in the directory
+=======
+
+  Scenario: Featuring a QOTD on the soapbox
+>>>>>>> 0d885de0232c39edf669051605144e91740fac7d
     Given I am not logged in
     When I go to the soapbox directory page
     Then I should see "Mgmt Joe"

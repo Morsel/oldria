@@ -54,6 +54,7 @@ Feature: Profile - Behind the Line (aka Q&A)
     And I follow "View all"
     And I follow "Education"
     Then I should see "Education - John Smith - Behind The Line" within "title"
+<<<<<<< HEAD
 
   Scenario: Chapter questions page should contain AddThis UI feature
     Given I am on the profile page for "punkrock"
@@ -65,3 +66,5 @@ Feature: Profile - Behind the Line (aka Q&A)
   Scenario: Question page should AddThis UI feature
     Given I am on the question page with title "Title 1"
     Then I should see addThis button
+=======
+>>>>>>> 0d885de0232c39edf669051605144e91740fac7d
