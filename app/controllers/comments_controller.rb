@@ -8,7 +8,7 @@ class CommentsController < ApplicationController
 
     if @comment.save
       if front_burner_content
-        @parent.read_by!(@comment.user) 
+        @parent.read_by!(@comment.user)
         flash[:notice] = "Successfully created comment. This message has been archived in your 'all' messages view."
       else
         flash[:notice] = "Successfully created comment."
@@ -39,7 +39,7 @@ class CommentsController < ApplicationController
     @comment = Comment.find(params[:id])
     @comment.destroy
     flash[:notice] = "Deleted comment"
-    redirect_to front_burner_path
+    redirect_to front_burner_content ? front_burner_path : messages_path
   end
 
   private
