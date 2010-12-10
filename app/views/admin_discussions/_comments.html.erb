@@ -5,12 +5,29 @@
         <% f.inputs do %>
             <%= f.input :comment, :label => 'Post', :input_html => { :rows => 8 }, :hint => soapbox_notice(message) %>
             <%= button_tag "Send", :class => 'submit button' %></p>
-        <% end %>
+          <% end %>
 
-     <% end %>
-
+          <% if @discussionable.soapbox_entry.try(:published?) %>
+          <p class="clear clearfix">
+            <span class="and_twitter">
+              <% if current_facebook_user && current_user.facebook_authorized? -%>
+                <%= f.input :post_to_facebook, :as => :boolean, :class => 'checkbox' , :label => "Post to Facebook?"  %>
+              <% else %>
+                <%= link_to "Setup Facebook to post there too!", fb_auth_user_path(current_user) %>
+              <% end -%>
+            </span>
+          </p>
+         <% end %>
+      <% end %>
     <% else %>
-      <%= render @comments %>    
+      <%= render @comments %>     
+      <% if @discussionable.soapbox_entry.try(:published?) %>
+        <%  answer =  @comments.last %>
+        <%= render(:partial => "shared/facebook_dialog",
+                   :locals => { :caption => "Check out more about \"#{@discussionable.display_message}\"", 
+                                :message => answer.comment,
+                                :link    => soapbox_soapbox_entry_url(@discussionable.soapbox_entry)  } ) if params[:post_to_facebook] %>
+      <% end %>
     <% end %>
 </div>
 
