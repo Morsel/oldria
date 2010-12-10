@@ -1,0 +1,71 @@
+<% title "Employees at #{@restaurant.name}" %>
+
+<div id="restaurant_profile_view" class="edit clear clearfix">
+
+  <%= render 'restaurants/restaurant_header' %>
+
+  <div id="editing_restaurant">
+
+  	<% if can? :edit, @restaurant %>
+  		<% unless @restaurant.media_requests.blank? %>
+  			<h3 class="media_requests">Your restaurant has <%= link_to "#{@restaurant.media_requests.size} media requests", restaurant_media_requests_path(@restaurant) %></h3>
+  		<% end %>
+  		<p>So that your media requests go to the correct person, please also check what type of questions this employee should answer. We recommend that each role actually has <strong>at least one person assigned to it</strong>. You can have multiple employees with the same role, just make sure that one person is for sure responsible for answering the question.</p>
+	
+  		<% unless @restaurant.missing_subject_matters.empty? %>
+  			<p class="error">
+  			  <strong>No one is assigned for the following subjects:</strong><br />
+  				<%= @restaurant.missing_subject_matters.map(&:name).to_sentence %>
+  			</p>
+  		<% end -%>
+  	<% end -%>
+	
+  	<% if can? :edit, @restaurant %>
+  		<p class="clearfix">
+  			<%= link_to "Add employee", new_restaurant_employee_path(@restaurant), :class => 'sf-button positive' %>
+  		</p>
+		
+  	<% end %>
+	
+  	<h3 class="rearrange">Rearrange the order employees are listed on your restaurant profile by drag and drop.</h3>
+	
+  	<% unless @employments.blank? %>
+  	<div id="restaurant_employees" data-remote-url="<%= reorder_restaurant_employments_url(@restaurant) %>">
+  		<% @employments.each do |group| %>
+  		  <%= render group %> <%# employments/_employment.html.erb %>
+  		<% end -%>
+  	</div>
+  	<% end -%>
+	
+  	<% content_for :javascript do %>
+	
+  	  <script type="text/javascript">
+  	    //<![CDATA[
+  	    $('#restaurant_employees').sortable(
+  	    {
+  	      axis: 'y',
+  	      dropOnEmpty:false,
+  	      cursor: 'crosshair',
+  	      items: '.employment_box',
+  	      opacity: 0.4,
+  	      scroll: true,
+  	      update: function(event, ui){
+  	        var url = $("#restaurant_employees").attr("data-remote-url");
+  	        $.ajax({
+  	          type: 'post',
+  	          data: $('#restaurant_employees').sortable('serialize') + '&restaurant_id=<%= @restaurant.id -%>',
+  	          dataType: 'script',
+  	          complete: function(request){
+  	            $('#restaurant_employees').effect('highlight');
+  	          },
+  	          url: url})
+  	      }
+  	    })
+  	    //]]>
+  	  </script>
+	
+  	<% end %>
+	
+  </div><!-- #editing_restaurant -->
+
+</div><!-- /restaurant_profile_view -->
