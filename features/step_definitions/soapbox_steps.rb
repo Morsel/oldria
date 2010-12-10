@@ -7,6 +7,15 @@ Given /^there is a Trend Question "([^\"]*)"$/ do |text|
   @trend_question = Factory(:trend_question, :subject => subject, :body => body)
 end
 
+Given /^that QOTD was sent to "([^\"]*)"$/ do |username|
+  user = User.find_by_username(username)
+  Factory(:admin_conversation, :admin_message => @qotd, :recipient => user)    
+end
+
+Given /^that Trend Question was sent to "([^\"]*)"$/ do |restaurantname|
+  Factory(:admin_discussion, :discussionable => @trend_question, :restaurant => Restaurant.find_by_name(restaurantname) ) 
+end
+
 Given /^that QOTD has the following answers:$/ do |table|
   @qotd ||= Admin::Qotd.last
   table.rows_hash.each do |name, response|

@@ -9,7 +9,11 @@ class CommentsController < ApplicationController
     if @comment.save
       @parent.read_by!(@comment.user) if front_burner_content
       flash[:notice] = "Successfully created comment."
-      redirect_to @parent
+      case @parent.class.to_s
+        when "Admin::Conversation" then redirect_to admin_conversation_path(@parent, :post_to_facebook => @comment.post_to_facebook)
+        when "AdminDiscussion" then redirect_to admin_discussion_path(@parent, :post_to_facebook => @comment.post_to_facebook)
+        else redirect_to @parent
+      end
     else
       flash[:error] = "Your comment couldn't be saved."
       redirect_to :back

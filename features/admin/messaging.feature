@@ -24,12 +24,13 @@ Feature: Admin Messaging
    And I should see "Successfully created"
 
 
-  Scenario: Replying to a QOTD and posting to facebook
+  Scenario: Replying to a published QOTD give a possibility to post on facebook
     Given I am logged in as "johndoe"
     And Facebook is functioning
     And given that user "johndoe" has facebook connection
-    And "johndoe" has a QOTD message with:
-      | message | Are lazy cakes cool? |
+    And there is a QOTD asking "Are lazy cakes cool?"
+    And that QOTD is featured on the soapbox    
+    And that QOTD was sent to "johndoe"
     When I go to the front burner page
     And I follow "Post"
 
@@ -37,8 +38,25 @@ Feature: Admin Messaging
     And I should see "Post to Facebook"
     And I check "Post to Facebook?"
     And I press "Send"
-    Then message to facebook is sent 
-    
+    Then I should see Facebook Share Popup
+ 
+  Scenario: Replying to a published Trend question give a possibility to post on facebook
+    Given I am logged in as "johndoe"
+    And Facebook is functioning
+    And given that user "johndoe" has facebook connection
+    And there is a Trend Question "Are cold cakes cool?"
+    And that Trend Question is featured on the soapbox    
+    And that Trend Question was sent to "No Man's Land"
+    When I go to the front burner page
+    And I follow "Post"
+
+    When I fill in "Post" with "Why, yes, they are quite cool!"
+    And I should see "Post to Facebook"
+    And I check "Post to Facebook?"
+    And I press "Send"
+    Then I should see Facebook Share Popup
+
+
   Scenario: Editing a QOTD reply
     Given I am logged in as "johndoe"
     And "johndoe" has a QOTD message with:
