@@ -16,7 +16,7 @@ class MetropolitanArea < ActiveRecord::Base
   
   validates_presence_of :name
   
-  default_scope :order => "LOWER(#{table_name}.name) ASC"
+  default_scope :order => "#{table_name}.state ASC, LOWER(#{table_name}.name) ASC"
 
   named_scope :with_restaurants,
     :joins => :restaurants,

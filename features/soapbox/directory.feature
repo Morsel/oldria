@@ -53,5 +53,5 @@ Feature: Soapbox
       | punkrock    | secret   |
     And "punkrock" has a default employment with role "Executive Chef" and restaurant name "Aquavit"
     And "punkrock" has a complimentary premium account
-    And I go to the profile page for "punkrock"
+    And I go to the soapbox profile page for "punkrock"
     Then I should see addThis button
