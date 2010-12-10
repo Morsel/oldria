@@ -3795,6 +3795,11 @@ p.search_filter_hint {
 			height: 100px;
 			@include hiddentext;
 		}
+		#name {
+			margin: 0;
+			padding: 0;
+			line-height: 23px;
+		}
 		#restaurant_actions {
 			width: 200px;
 			float: right;
@@ -3849,27 +3854,45 @@ p.search_filter_hint {
 		}
 		#restaurant_meta {
 		  float: left;
+			p {
+				font-size: 12px;
+				line-height: 16px;
+			}
 			.premium {
+				margin: 5px 0;
+				padding: 0;
 				p {
+					font-size: 11px;
 					display: inline-block;
 					background-color: $trans-brown;
-					font-size: 11px;
 					padding: 1px 5px;
+					margin: 0;
 					color: $brown;
 				}
+			}
+			.address {
+				margin: 0;
+				padding: 0;
 			}
 		}
 		#restaurant_features {
 		  span {
 		    float: left;
+				margin-top: 3px;
 		  }
       .tags {
-        margin: 0 0 0 10px;
+        margin: 0 0 0 7px;
         width: 62%;
         li {
           a {
             font-weight: bold;
             padding: 3px 9px;
+						text-shadow: 0 1px 0 #fff;
+						&:hover {
+							background-color: $orange;
+							text-shadow: 0 1px 0 #333;
+							color: #fff;
+						}
           }
         }
       }
