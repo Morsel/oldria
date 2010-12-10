@@ -76,11 +76,11 @@
       $(".show_all_link").toggle(function(e) {
         e.preventDefault();
         $(this).closest("div.a_la_minute_question").find(".archive li").removeClass("hidden");
-        $(this).html("Hide archived answers");
+        $(this).html("Hide past answers");
       }, function(e) {
         e.preventDefault();
         $(this).closest("div.a_la_minute_question").find(".archive li").addClass("hidden");
-        $(this).html("Show archived answers");
+        $(this).html("Show past answers");
       });
     });
     //]]>

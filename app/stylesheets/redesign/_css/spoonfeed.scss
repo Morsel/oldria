@@ -4179,14 +4179,20 @@ p.search_filter_hint {
     }
   }
   .show_all_link {
-    background: url(/images/redesign/arrow-dropdown.png) left no-repeat #f1f1f1;
+    background: #f1f1f1 url(/images/redesign/arrow-dropdown.png) no-repeat 8px 7px;
     border: 1px solid #DDD;
     @include border-radius(30px);
     color: #333;
     display: inline-block;
     font-weight: bold;
-    padding: 4px 14px;
-    text-shadow: #fff 0px 1px 0px;    
+    padding: 4px 14px 4px 21px;
+    text-shadow: #fff 0px 1px 0px;
+    &.open {
+      border-color: $trans-orange;
+      color: $orange;
+      background-color: $trans-orange;
+      background-position: 8px -93px;
+    }
   }
 }
 /* ## END of A La Minute editing --------------------------------------------- */
