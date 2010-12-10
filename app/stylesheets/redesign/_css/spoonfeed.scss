@@ -2063,13 +2063,26 @@ p.search_filter_hint {
 				}
 			}
 			&#invitation {
-				@include hoeflerbolditalic;
-				font-size: 18px;
-				line-height: 20px;
+				line-height: 17px;
+				color: #fff;
+				@include linear-gradient(color-stops(#ce4600,#df680e ), top);
+			  h2 {
+			    background: url(/images/redesign/arrow-44percent.png) no-repeat left;
+			    @include hoeflerbolditalic;
+  				font-size: 20px;
+  				text-shadow: 0 1px 0 #333;
+  				padding-left: 22px;
+  				margin-bottom: 9px;
+			  }
+			  p {
+			    font-size: 13px;
+			    @include opacity(.8);
+			  }
 				&:hover {
-					color: #fff;
-					@include linear-gradient(color-stops(#ce4600,#df680e ), left);
-					text-shadow: 0 1px 0 #333;
+				  @include linear-gradient(color-stops(#AF380E,#ce4600 ), top);
+				  h2, p {					  
+					  @include opacity(.66);
+					}
 				}
 			}
 			&#btl_game {
