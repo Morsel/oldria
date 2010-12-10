@@ -1,5 +1,9 @@
 <% title "Employees at #{@restaurant.name}" %>
 
+<div id="restaurant_profile_view" class="edit clear clearfix">
+  
+<%= render 'restaurants/restaurant_header' %>
+
 <div id="editing_restaurant">
 
 	<% if can? :edit, @restaurant %>
@@ -63,3 +67,4 @@
 	<% end %>
 	
 </div><!-- #editing_restaurant -->
+</div><!-- #restaurant_profile_view -->

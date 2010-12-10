@@ -4084,7 +4084,7 @@ p.search_filter_hint {
 			padding: 7px 10px;
 			&:hover, &.selected {
 			  color: #fff;
-			  background: $orange url(/images/redesign/active_arrow_right.png) top right no-repeat;
+			  background: url(/images/redesign/active_arrow_right.png) top right no-repeat $orange;
 			  width: auto;
 			}
 		}
