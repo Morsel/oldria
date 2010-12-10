@@ -359,8 +359,8 @@ end
 
 Then /^I should see the question "([^"]*)" with the answer "([^"]*)"$/ do |question_text, answer_text|
   answer = @restaurant.a_la_minute_answers.find_by_answer(answer_text)
-  response.should have_selector("##{dom_id(answer.a_la_minute_question)} .question", :content => question_text)
-  response.should have_selector("##{dom_id(answer.a_la_minute_question)} .answer", :content => answer_text)
+  response.should have_selector(".question", :content => question_text)
+  response.should have_selector(".answer", :content => answer_text)
 end
 
 Then /^I should not see the question "([^"]*)" with the answer "([^"]*)"$/ do |question_text, answer_text|

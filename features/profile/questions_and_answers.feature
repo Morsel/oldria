@@ -1,4 +1,4 @@
-@profile @joesak
+@profile
 Feature: Profile - Behind the Line (aka Q&A)
   SF users should be able to answer questions specific to their employment roles
   These questions will be organized into a series of topics and chapters
