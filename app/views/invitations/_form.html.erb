@@ -1,7 +1,7 @@
-    <% f.inputs do %>
-        <%= f.input :first_name %>
-        <%= f.input :last_name %>
-        <%= f.input :email %>
+    <% f.inputs :class => "editing basics requestinvite" do %>
+        <%= f.input :first_name, :as => :string %>
+        <%= f.input :last_name, :as => :string %>
+        <%= f.input :email, :as => :string %>
         <% f.inputs :name => "Work details" do %>
             <% if params[:restaurant] %>
               <%= f.input :coworker, :label => "This person is my employee", :selected => true %>
