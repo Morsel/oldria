@@ -3486,6 +3486,14 @@ p.search_filter_hint {
 		border-bottom: 1px dotted #ccc;
 		margin-top: 20px;
 		padding-bottom: 10px;
+		.question {
+		  input {
+		    margin-top: -5px;
+		  }
+		  label {
+		    font-weight: normal;
+		  }
+		}
 		p {
 			margin: 5px 0 15px;
 			&.currently {
@@ -4124,3 +4132,34 @@ p.search_filter_hint {
 }
 
 /* ## END of restaurant FEATURES editing --------------------------------------------- */
+
+/* ## A La Minute Editing --------------------------------------------- */
+#a_la_minute_questions {
+  .archive {
+    display: none;
+    margin: 10px 0;
+    li {
+      background: none;
+      .remove_link {
+        font-weight: bold;
+        font-size: 11px;
+        margin-left: 5px;
+      }
+      small {
+        font-size: small;
+        color: #aaa;
+      }
+    }
+  }
+  .show_all_link {
+    background: url(/images/redesign/arrow-dropdown.png) left no-repeat #f1f1f1;
+    border: 1px solid #DDD;
+    @include border-radius(30px);
+    color: #333;
+    display: inline-block;
+    font-weight: bold;
+    padding: 4px 14px;
+    text-shadow: #fff 0px 1px 0px;    
+  }
+}
+/* ## END of A La Minute editing --------------------------------------------- */
