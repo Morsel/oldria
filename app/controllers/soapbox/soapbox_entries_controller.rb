@@ -36,9 +36,23 @@ class Soapbox::SoapboxEntriesController < Soapbox::SoapboxController
 
   def search
     @key = params[:query]
-    @qotds = Admin::Qotd.soapbox_entry_published.message_like_or_display_message_like(@key).all(:include => :soapbox_entry)
-    @trend_questions = TrendQuestion.soapbox_entry_published.subject_like_or_display_message_like(@key).all(:include => :soapbox_entry)
-    @comments
+    @qotds_found = Admin::Qotd.soapbox_entry_published.message_like_or_display_message_like(@key).all(:include => :soapbox_entry)
+    @trend_questions_found = TrendQuestion.soapbox_entry_published.subject_like_or_display_message_like(@key).all(:include => :soapbox_entry)
+
+    @comments = []
+
+    Comment.commentable_type_is("Admin::Conversation").comment_like_or_title_like(@key).
+      all(:include => { :commentable => { :admin_message => :soapbox_entry }}).each do |c|
+      @comments<<[c, c.commentable.admin_message]
+    end
+    Comment.commentable_type_is("AdminDiscussion").
+      comment_like_or_title_like(@key).all(:include => {:commentable => { :discussionable => :soapbox_entry }}).each do |c|
+      @comments<<[c, c.commentable.discussionable]
+    end
+    Comment.commentable_type_is("SoloDiscussion").
+      comment_like_or_title_like(@key).all(:include => {:commentable => { :trend_question => :soapbox_entry }}).each do |c|
+      @comments<<[c, c.commentable.trend_question]
+    end
 
     @no_sidebar = true
   end
