@@ -91,9 +91,12 @@ ActionController::Routing::Routes.draw do |map|
     users.resources :statuses
     users.resources :direct_messages, :member => { :reply => :get }
     users.resources :questions, :collection => { :topics => :get, :chapters => :get, :refresh => :post }
-    users.resources :profile_answers, :only => [:create, :update, :destroy]
     users.resources :default_employments
     users.resource :subscription, :collection => { :bt_callback => :get, :billing_history => :get }, :controller => 'subscriptions'
+  end
+  
+  map.resources :users do |users|
+    users.resources :profile_answers, :only => [:create, :update, :destroy]
   end
 
   # map.resources :subscriptions, :collection => { :bt_callback => :get }
