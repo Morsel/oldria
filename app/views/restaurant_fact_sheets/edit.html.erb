@@ -1,6 +1,6 @@
 <h1>Editing restaurant_fact_sheet</h1>
 
-<% semantic_form_for @restaurant_fact_sheet, :url => restaurant_fact_sheet_path(@restaurant), :html => { :method => :put, :id => "restaurant_fact_sheet" } do |f| %>
+<% semantic_form_for @fact_sheet, :url => restaurant_fact_sheet_path(@restaurant), :html => { :method => :put, :id => "restaurant_fact_sheet" } do |f| %>
   <%= f.error_messages %>
   <% f.inputs :name => "Parking and Directions" do %>
     <%= f.input :venue %>
@@ -41,6 +41,21 @@
   <% end %>
 
   <% f.inputs :name => "Hours" do %>
+    <li id="hours">
+      <% Meal::DAYS.each do |day| %>
+      <h3><%= day.capitalize %></h3>
+        <% content_tag(:div, :id => "#{day}_meals") do %>
+          <ol>
+            <% @fact_sheet.meals.for_day(day).each do |meal| %>
+              <% f.fields_for :meals, meal do |meal_form| %>
+                <%= render "meal_fields", :f => meal_form, :day_value => day.downcase %>
+              <% end %>
+            <% end %>
+          </ol>
+          <%= link_to_add_fields("Add hours", f, :meals, :class => "add_fields_for", :form_options => {:day_value => day}) %>
+        <% end %>
+      <% end %>
+    </li>
   <% end %>
 
   <% f.inputs :name => "Guest Services" do %>

@@ -7,9 +7,11 @@ class RestaurantFactSheet < ActiveRecord::Base
   belongs_to :restaurant
   has_many :seating_areas, :dependent => :destroy
   has_many :tasting_menus, :dependent => :destroy
+  has_many :meals, :dependent => :destroy
 
   accepts_nested_attributes_for :seating_areas, :reject_if => lambda{|a| a[:name].blank? }, :allow_destroy => true
   accepts_nested_attributes_for :tasting_menus, :reject_if => lambda{|a| a[:name].blank? }, :allow_destroy => true
+  accepts_nested_attributes_for :meals, :reject_if => lambda{|a| a[:name].blank? }, :allow_destroy => true
 
   before_save :update_timestamps
 
@@ -52,6 +54,10 @@ class RestaurantFactSheet < ActiveRecord::Base
 
   def pricing_section_updated_at
     [pricing_updated_at, tasting_menus.collect(&:updated_at)].flatten.max
+  end
+
+  def hours_updated_at
+    meals.collect(&:updated_at).max
   end
 
   private
