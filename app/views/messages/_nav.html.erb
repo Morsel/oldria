@@ -5,13 +5,13 @@
     <%= active_link_to "Private Messages (#{@private_message_count})", private_messages_path %>
 
    <% unless current_user.restaurants.blank? -%>
-    <%= active_link_to "Staff Discussions (#{@discussions_count})", staff_discussions_messages_path, :class => class_for_replies(@messages_with_replies) %>
+    <%= active_link_to "Discussions (#{@discussions_count})", staff_discussions_messages_path, :class => class_for_replies(@messages_with_replies) %>
    <% end -%>
    <% unless Rails.env.production? %>
    	<%= active_link_to "Media Requests (#{@media_requests_count})", media_requests_messages_path %>
    <% end %>
-		<a href="#" class="nav_button">Create Private Message</a>
-		<a href="#" class="nav_button">Start Staff Discussion</a>
-		<a href="#" class="nav_button">Start Member Discussion</a>
+		<a href="#" class="first nav_button">Create Private Message</a>
+		<a href="#" class="nav_button">New Staff Discussion</a>
+		<a href="#" class="nav_button">New Member Discussion</a>
   </nav>
 </div><!-- /messages_nav -->

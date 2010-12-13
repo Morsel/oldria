@@ -700,7 +700,7 @@ form#new_user_session {
 			font-size: 13px;
 			display: block;
 			padding: 8px 3px 8px 8px;
-			margin: 10px 0 0;
+			margin: 0 0 2px;
 			background-color: #E7E4D8;
 			color: #555;
 			text-shadow: 0 1px 0 #fff;
@@ -715,14 +715,18 @@ form#new_user_session {
 			}
 			&.nav_button {
 				font-size: 11px;
-				background-color: $trans-orange;
+				background: $trans-orange url(/images/redesign/plus.png) no-repeat 4px 10px;
+				padding-left: 15px;
 				color: $orange;
+				margin: 0 0 2px;
 				&:hover {
 					background-color: $orange;
-					background-image: none;
 					color: #fff;
-					text-shadow: 0 1px 0 #333;
+					text-shadow: 0 1px 0 #b63502;
 				}
+			}
+			&.first {
+				margin-top: 10px;
 			}
 		}
 	}
