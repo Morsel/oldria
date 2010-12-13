@@ -10,5 +10,8 @@
    <% unless Rails.env.production? %>
    	<%= active_link_to "Media Requests (#{@media_requests_count})", media_requests_messages_path %>
    <% end %>
+		<a href="#" class="nav_button">Create Private Message</a>
+		<a href="#" class="nav_button">Start Staff Discussion</a>
+		<a href="#" class="nav_button">Start Member Discussion</a>
   </nav>
 </div><!-- /messages_nav -->
