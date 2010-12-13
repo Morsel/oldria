@@ -5,7 +5,7 @@ describe EmployeeAccountsController do
   describe "POST create" do
     
     let(:user) { Factory(:user) }
-    let(:restaurant) { Factory(:managed_restaurant, :manager => user) }
+    let(:restaurant) { Factory(:restaurant, :manager => user) }
     let(:employee) { Factory(:user) }
     
     before(:each) do
@@ -137,7 +137,7 @@ describe EmployeeAccountsController do
   describe "DELETE destroy" do
     
     let(:user) { Factory(:user) }
-    let(:restaurant) { Factory(:managed_restaurant, :manager => user) }
+    let(:restaurant) { Factory(:restaurant, :manager => user) }
     let(:employee) { Factory(:user) }
     
     before(:each) do

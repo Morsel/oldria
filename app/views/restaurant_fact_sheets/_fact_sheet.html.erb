@@ -118,138 +118,159 @@
     </span>
   </div><!--.extended_profile_info-->
 
-	<div class="extended_profile_info">
-  	<h3>Guest Relations</h3>
-  	<ul class="guest_relations_info clearfix">
-  	  <% content_tag(:li) do %>
-  	    <b>Reservations:</b>
-  	    <%=h fact_sheet.reservations %>
-  	  <% end unless fact_sheet.reservations.blank? %>
-  	
-  	  <% content_tag(:li) do %>
-  	    <b>Cancellation policy:</b>
-  	    <%=h fact_sheet.cancellation_policy %>
-  	  <% end unless fact_sheet.cancellation_policy.blank? %>
-  	
-  	  <% content_tag(:li) do %>
-  	    <b>Payment methods:</b>
-  	    <%=h fact_sheet.payment_methods %>
-  	  <% end unless fact_sheet.payment_methods.blank? %>
-  	
-  	  <% content_tag(:li) do %>
-  	    <b>Byob allowed:</b>
-  	    <%=h fact_sheet.byob_allowed %>
-  	  <% end unless fact_sheet.byob_allowed.blank? %>
-  	
-  	  <% content_tag(:li) do %>
-  	    <b>Corkage fee:</b>
-  	    <%=h fact_sheet.corkage_fee %>
-  	  <% end unless fact_sheet.corkage_fee.blank? %>
-  	
-  	  <% content_tag(:li) do %>
-  	    <b>Dress code:</b>
-  	    <%=h fact_sheet.dress_code %>
-  	  <% end unless fact_sheet.dress_code.blank? %>
-  	
-  	  <% content_tag(:li) do %>
-  	    <b>Delivery:</b>
-  	    <%=h fact_sheet.delivery %>
-  	  <% end unless fact_sheet.delivery.blank? %>
-  	</ul>
-  	<span class="timestamp">
-  	    Last updated:
-  	    <%= fact_sheet.try(:guest_relations_updated_at).try(:strftime, "%b %e %Y") %>
-  	</span>
-	</div><!--.extended_profile_info-->
+  <div class="extended_profile_info">
+    <h3>Hours</h3>
+    <ul class="hours_info clearfix">
+      <% Meal::DAYS.each do |day| %>
+        <li>
+          <b><%= day.capitalize %></b>
+            <ul>
+          <% fact_sheet.meals.for_day(day).each do |meal| %>
+              <li><%= meal.name %> from <%= meal.open_at %> to <%= meal.closed_at %></li>
+          <% end %>
+            </ul>
+        </li>
+      <% end %>
+    </ul>
+    <span class="timestamp">
+        Last updated:
+        <%= fact_sheet.try(:hours_updated_at).try(:strftime, "%b %e %Y") %>
+    </span>
+  </div><!--.extended_profile_info-->
 
-	<div class="extended_profile_info">
-  	<h3>Design</h3>
-	  <ul class="design_info clearfix">
-	    <% content_tag(:li) do %>
-	      <b>Architect name:</b>
-	      <%=h fact_sheet.architect_name %>
-	    <% end unless fact_sheet.architect_name.blank? %>
+  <div class="extended_profile_info">
+    <h3>Guest Relations</h3>
+    <ul class="guest_relations_info clearfix">
+      <% content_tag(:li) do %>
+        <b>Reservations:</b>
+        <%=h fact_sheet.reservations %>
+      <% end unless fact_sheet.reservations.blank? %>
 
-	    <% content_tag(:li) do %>
-	      <b>Graphic designer:</b>
-	      <%=h fact_sheet.graphic_designer %>
-	    <% end unless fact_sheet.graphic_designer.blank? %>
+      <% content_tag(:li) do %>
+        <b>Cancellation policy:</b>
+        <%=h fact_sheet.cancellation_policy %>
+      <% end unless fact_sheet.cancellation_policy.blank? %>
 
-	    <% content_tag(:li) do %>
-	      <b>Furniture designer:</b>
-	      <%=h fact_sheet.furniture_designer %>
-	    <% end unless fact_sheet.furniture_designer.blank? %>
+      <% content_tag(:li) do %>
+        <b>Payment methods:</b>
+        <%=h fact_sheet.payment_methods %>
+      <% end unless fact_sheet.payment_methods.blank? %>
 
-	    <% content_tag(:li) do %>
-	      <b>Furniture manufacturer:</b>
-	      <%=h fact_sheet.furniture_manufacturer %>
-	    <% end unless fact_sheet.furniture_manufacturer.blank? %>
+      <% content_tag(:li) do %>
+        <b>Byob allowed:</b>
+        <%=h fact_sheet.byob_allowed %>
+      <% end unless fact_sheet.byob_allowed.blank? %>
 
-	    <% content_tag(:li) do %>
-	      <b>Flooring:</b>
-	      <%=h fact_sheet.flooring %>
-	    <% end unless fact_sheet.flooring.blank? %>
+      <% content_tag(:li) do %>
+        <b>Corkage fee:</b>
+        <%=h fact_sheet.corkage_fee %>
+      <% end unless fact_sheet.corkage_fee.blank? %>
 
-	    <% content_tag(:li) do %>
-	      <b>Millwork:</b>
-	      <%=h fact_sheet.millwork %>
-	    <% end unless fact_sheet.millwork.blank? %>
+      <% content_tag(:li) do %>
+        <b>Dress code:</b>
+        <%=h fact_sheet.dress_code %>
+      <% end unless fact_sheet.dress_code.blank? %>
 
-	    <% content_tag(:li) do %>
-	      <b>China:</b>
-	      <%=h fact_sheet.china %>
-	    <% end unless fact_sheet.china.blank? %>
+      <% content_tag(:li) do %>
+        <b>Delivery:</b>
+        <%=h fact_sheet.delivery %>
+      <% end unless fact_sheet.delivery.blank? %>
+    </ul>
+    <span class="timestamp">
+        Last updated:
+        <%= fact_sheet.try(:guest_relations_updated_at).try(:strftime, "%b %e %Y") %>
+    </span>
+  </div><!--.extended_profile_info-->
 
-	    <% content_tag(:li) do %>
-	      <b>Kitchen equipment:</b>
-	      <%=h fact_sheet.kitchen_equipment %>
-	    <% end unless fact_sheet.kitchen_equipment.blank? %>
+  <div class="extended_profile_info">
+    <h3>Design</h3>
+    <ul class="design_info clearfix">
+      <% content_tag(:li) do %>
+        <b>Architect name:</b>
+        <%=h fact_sheet.architect_name %>
+      <% end unless fact_sheet.architect_name.blank? %>
 
-	    <% content_tag(:li) do %>
-	      <b>Lighting:</b>
-	      <%=h fact_sheet.lighting %>
-	    <% end unless fact_sheet.lighting.blank? %>
+      <% content_tag(:li) do %>
+        <b>Graphic designer:</b>
+        <%=h fact_sheet.graphic_designer %>
+      <% end unless fact_sheet.graphic_designer.blank? %>
 
-	    <% content_tag(:li) do %>
-	      <b>Draperies:</b>
-	      <%=h fact_sheet.draperies %>
-	    <% end unless fact_sheet.draperies.blank? %>
+      <% content_tag(:li) do %>
+        <b>Furniture designer:</b>
+        <%=h fact_sheet.furniture_designer %>
+      <% end unless fact_sheet.furniture_designer.blank? %>
 
-	    <% content_tag(:li) do %>
-	      <b>Square footage:</b>
-	      <%=h fact_sheet.square_footage %>
-	    <% end unless fact_sheet.square_footage.blank? %>
+      <% content_tag(:li) do %>
+        <b>Furniture manufacturer:</b>
+        <%=h fact_sheet.furniture_manufacturer %>
+      <% end unless fact_sheet.furniture_manufacturer.blank? %>
 
-	    <% fact_sheet.seating_areas.each do |seating_area| %>
-	      <% content_tag(:li) do %>
-	        <b><%=h seating_area.name %>:</b>
-	        <%=h seating_area.occupancy %>
-	      <% end %>
-	    <% end %>
+      <% content_tag(:li) do %>
+        <b>Flooring:</b>
+        <%=h fact_sheet.flooring %>
+      <% end unless fact_sheet.flooring.blank? %>
 
-	  </ul>
-	  <span class="timestamp">
-	      Last updated:
-	      <%= fact_sheet.try(:design_section_updated_at).try(:strftime, "%b %e %Y") %>
-  	</span>
-	</div><!--.extended_profile_info-->
+      <% content_tag(:li) do %>
+        <b>Millwork:</b>
+        <%=h fact_sheet.millwork %>
+      <% end unless fact_sheet.millwork.blank? %>
 
-	<div class="extended_profile_info">
-  	<h3>Other Information</h3>
-  	<ul class="other_info clearfix">
-  	  <% content_tag(:li) do %>
-  	    <b>Wheelchair access:</b>
-  	    <%=h fact_sheet.wheelchair_access %>
-  	  <% end unless fact_sheet.wheelchair_access.blank? %>
-  	
-  	  <% content_tag(:li) do %>
-  	    <b>Smoking:</b>
-  	    <%=h fact_sheet.smoking %>
-  	  <% end unless fact_sheet.smoking.blank? %>
-  	</ul>
-  	<span class="timestamp">
-  	    Last updated:
-  	    <%= fact_sheet.try(:other_updated_at).try(:strftime, "%b %e %Y") %>
-  	</span>
-	</div><!--.extended_profile_info-->
+      <% content_tag(:li) do %>
+        <b>China:</b>
+        <%=h fact_sheet.china %>
+      <% end unless fact_sheet.china.blank? %>
+
+      <% content_tag(:li) do %>
+        <b>Kitchen equipment:</b>
+        <%=h fact_sheet.kitchen_equipment %>
+      <% end unless fact_sheet.kitchen_equipment.blank? %>
+
+      <% content_tag(:li) do %>
+        <b>Lighting:</b>
+        <%=h fact_sheet.lighting %>
+      <% end unless fact_sheet.lighting.blank? %>
+
+      <% content_tag(:li) do %>
+        <b>Draperies:</b>
+        <%=h fact_sheet.draperies %>
+      <% end unless fact_sheet.draperies.blank? %>
+
+      <% content_tag(:li) do %>
+        <b>Square footage:</b>
+        <%=h fact_sheet.square_footage %>
+      <% end unless fact_sheet.square_footage.blank? %>
+
+      <% fact_sheet.seating_areas.each do |seating_area| %>
+        <% content_tag(:li) do %>
+          <b><%=h seating_area.name %>:</b>
+          <%=h seating_area.occupancy %>
+        <% end %>
+      <% end %>
+
+    </ul>
+    <span class="timestamp">
+        Last updated:
+        <%= fact_sheet.try(:design_section_updated_at).try(:strftime, "%b %e %Y") %>
+    </span>
+  </div><!--.extended_profile_info-->
+
+  <div class="extended_profile_info">
+    <h3>Other Information</h3>
+    <ul class="other_info clearfix">
+      <% content_tag(:li) do %>
+        <b>Wheelchair access:</b>
+        <%=h fact_sheet.wheelchair_access %>
+      <% end unless fact_sheet.wheelchair_access.blank? %>
+
+      <% content_tag(:li) do %>
+        <b>Smoking:</b>
+        <%=h fact_sheet.smoking %>
+      <% end unless fact_sheet.smoking.blank? %>
+    </ul>
+    <span class="timestamp">
+        Last updated:
+        <%= fact_sheet.try(:other_updated_at).try(:strftime, "%b %e %Y") %>
+    </span>
+  </div><!--.extended_profile_info-->
+>>>>>>> b5d5ea2989e84e8b553de40fb5209f9af2941e70
 </div>

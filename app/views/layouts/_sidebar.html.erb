@@ -9,9 +9,9 @@
           <%= link_to "Go to Admin", admin_root_path, :class => "promo go_to_admin" %>
       <% end %>
 			
-			<%= link_to "Share the love:<br />invite your friends to join", new_invitation_path, :id => "invitation", :class => "promo" %>
+			<%= link_to "<h2>Grow the network</h2><p>Invite other chefs, mixologists, sommeliers</p>", recommend_invitations_path, :id => "invitation", :class => "promo" %>
 			
-			<% if @btl_question %>
+			<% if false #@btl_question %>
             <aside class="promo" id="btl_game">
               <%= link_to "new question", '#', :"data-auth" => form_authenticity_token.inspect, :"data-user-id" => current_user.id, :class => "new_question" %>
               <h1>Behind the Line</h1>
@@ -20,7 +20,9 @@
               </div>
             </aside><!--#btl_game-->
             <% end %>
-
+            
+        <%= link_to "Go to Soapbox &rarr;", "http://soapbox.restaurantintelligenceagency.com", :id => "gotosoapbox", :class => "promo", :target => "_blank" %>
+        
   			<aside class="promo" id="manuals">
 
   				<%= link_to "Marketing Manual", public_page_path('introduction-marketing-workbook'), :id => 'marketing_manual' %>
@@ -28,7 +30,11 @@
 
   				<%= link_to "Help / Questions?", public_page_path('help'), :id => 'help_questions' %>
   				<p>We're building this for you, so don't be shy—ask us questions and give us suggestions!</p>
-
+          <ul class="staff_contacts">
+            <li><a href="/users/357/direct_messages/new"><b>Tech Questions:</b> Contact Lauren</a></li>
+             <li><a href="/users/183/direct_messages/new"><b>General Inquiries:</b> Contact GJ</a></li>
+            <li><a href="/users/9/direct_messages/new"><b>Escalate to the Top:</b> Contact Ellen</a></li>            
+          </ul>
   			</aside><!--.promo-->
 								
   			<%- if current_user && !current_user.media? %>

@@ -4,12 +4,12 @@ ActionController::Routing::Routes.draw do |map|
   map.confirm 'confirm/:id', :controller => 'users', :action => 'confirm'
   map.fb_login 'facebook_login', :controller => 'user_sessions', :action => 'create_from_facebook'
   map.social_media 'social_media', :controller => 'social_media', :action => 'index'
-  map.my_restaurants 'my_restaurants', :controller => 'restaurants', :action => 'mine'
   map.feature '/features/:id', :controller => 'features', :action => 'show'
-
-  map.resources :invitations, :only => ['new', 'create', 'show']
+  map.resources :invitations, :only => ['new', 'create', 'show'],
+        :collection => { :recommend => :get, :submit_recommendation => :post }
   map.resource :complete_registration, :only => [:show, :update],
-    :collection => { :user_details => :get, :find_restaurant => :any, :contact_restaurant => :post }
+    :collection => { :user_details => :get, :find_restaurant => :any, :contact_restaurant => :post,
+      :finish_without_contact => :get }
 
   map.directory 'directory', :controller => 'directory', :action => 'index'
 
@@ -32,8 +32,6 @@ ActionController::Routing::Routes.draw do |map|
     soapbox.connect 'directory_search', :controller => 'soapbox', :action => 'directory_search'
     soapbox.root :controller => 'soapbox', :action => 'index'
   end
-
-
 
   map.soapbox_profile 'soapbox/profile/:username', :controller => 'soapbox/profiles', :action => 'show',
       :requirements => { :username => /[a-zA-Z0-9\-\_ ]+/}
@@ -93,9 +91,12 @@ ActionController::Routing::Routes.draw do |map|
     users.resources :statuses
     users.resources :direct_messages, :member => { :reply => :get }
     users.resources :questions, :collection => { :topics => :get, :chapters => :get, :refresh => :post }
-    users.resources :profile_answers, :only => [:create, :update, :destroy]
     users.resources :default_employments
     users.resource :subscription, :collection => { :bt_callback => :get, :billing_history => :get }, :controller => 'subscriptions'
+  end
+
+  map.resources :users do |users|
+    users.resources :profile_answers, :only => [:create, :update, :destroy]
   end
 
   # map.resources :subscriptions, :collection => { :bt_callback => :get }
@@ -104,11 +105,13 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :restaurants,
                 :member => {
                         :edit_logo => :get,
-                        :select_primary_photo => :post
+                        :select_primary_photo => :post,
+                        :new_manager_needed => :get,
+                        :replace_manager => :post
                 } do |restaurant|
     restaurant.resource :fact_sheet, :controller => "restaurant_fact_sheets"
     restaurant.media_requests 'media_requests', :controller => 'media_requests', :action => 'index'
-    restaurant.resources :employees, :except => [:show]
+    restaurant.resources :employees, :collection => { :bulk_edit => :get }, :except => [:show, :index]
     restaurant.resources :calendars, :collection => { "ria" => :get }
     restaurant.resources :events, :member => { "ria_details" => :get, "transfer" => :post }
     restaurant.resources :features, :controller => "restaurant_features",
@@ -120,7 +123,7 @@ ActionController::Routing::Routes.draw do |map|
       features.resources :profile_answers, :only => [:create, :update, :destroy]
     end
     restaurant.resources :feature_pages
-    restaurant.resources :menus, :collection => { "reorder" => :post }
+    restaurant.resources :menus, :collection => { "reorder" => :post, :bulk_edit => :get }
     restaurant.resources :photos, :collection => { "reorder" => :post, "bulk_edit" => :get }, :member => { "show_sizes" => :get }
     restaurant.resource :logo
     restaurant.resources :accolades
@@ -220,7 +223,7 @@ ActionController::Routing::Routes.draw do |map|
     admin.resources :question_roles
     admin.resources :schools
     admin.resources :specialties, :collection => { :sort => :post }
-    admin.resources :invitations, :member => { :accept => :get, :archive => :get }
+    admin.resources :invitations, :member => { :accept => :get, :archive => :get, :resend => :get }
     admin.resources :a_la_minute_questions, :member => {:edit_in_place => :post}
     admin.resources :restaurant_features, :only => [:index, :create, :destroy],
         :collection => {:edit_in_place => :post}
@@ -228,11 +231,14 @@ ActionController::Routing::Routes.draw do |map|
         :collection => {:edit_in_place => :post}
     admin.resources :restaurant_feature_categories, :only => [:create,  :destroy],
         :collection => {:edit_in_place => :post}
+
     admin.resources :sf_slides, :collection => { :sort => :post }
     admin.resources :sf_promos, :collection => { :sort => :post }
 
     admin.resources :hq_slides, :collection => { :sort => :post }
     admin.resources :hq_promos, :collection => { :sort => :post }
+
+    admin.resources :metropolitan_areas, :only => [:index, :edit, :update]
 
     # Admin Messaging
     exclusive_routes = [:index, :show, :destroy]
@@ -241,9 +247,9 @@ ActionController::Routing::Routes.draw do |map|
     admin.resources :announcements, :except => exclusive_routes
     admin.resources :pr_tips, :except => exclusive_routes
     admin.resources :holiday_reminders, :except => exclusive_routes
-
     admin.resources :content_requests
     admin.resources :trend_questions
+
     admin.resource :complimentary_accounts, :only => [:create, :destroy]
   end
 

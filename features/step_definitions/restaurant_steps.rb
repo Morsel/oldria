@@ -1,32 +1,35 @@
 Given /^a restaurant named "([^\"]*)" with the following employees:$/ do |restaurantname, table|
-  restaurant = Restaurant.find_by_name(restaurantname) || Factory(:restaurant, :name => restaurantname)
-  table.hashes.each do |userhash|
-    role = RestaurantRole.find_or_create_by_name(userhash['role'])
-    # subjectmatters = userhash.delete('subject matters')
-    #   subjects = nil
-    userhash.delete('role')
-
+  restaurant = Restaurant.find_by_name(restaurantname) || Factory.build(:restaurant, :name => restaurantname, :manager => nil)
+  
+  table.hashes.each do |row|
+    role = RestaurantRole.find_or_create_by_name(row.delete('role'))
+    
     subjectmatters = []
-
-    if subjects = userhash.delete('subject matters')
+    if subjects = row.delete('subject matters')
       subjects.split(",").each do |subject|
         subjectmatters << Factory(:subject_matter, :name => subject.strip)
       end
     end
 
-    user = Factory(:user, userhash)
-
-    restaurant.employments.build(:employee => user, :restaurant_role => role, :subject_matters => subjectmatters)
-
+    user = Factory(:user, row)
+    
+    # New restaurant setup
+    if restaurant.manager.present?
+      restaurant.employments.build(:employee => user, :restaurant_role => role, :subject_matters => subjectmatters)
+    else
+      restaurant.manager = user
+      restaurant.save
+      restaurant.employments.first.update_attributes(:restaurant_role => role, :subject_matters => subjectmatters)
+    end
   end
-  restaurant.manager = restaurant.employees.first
+
   restaurant.save!
   restaurant
 end
 
 Given /^a restaurant named "([^\"]*)" with manager "([^\"]*)"$/ do |name, username|
   user = Factory(:user, :username => username, :email => "#{username}@testsite.com")
-  restaurant = Factory(:managed_restaurant, :name => name, :manager => user)
+  restaurant = Factory(:restaurant, :name => name, :manager => user)
 end
 
 Given /^"([^"]*)" is a manager for "([^"]*)"$/ do |username, restaurantname|
@@ -38,7 +41,6 @@ Given /^"([^"]*)" is a manager for "([^"]*)"$/ do |username, restaurantname|
   employment.update_attribute(:omniscient, true)
 end
 
-
 Given /^"([^\"]*)" is the account manager for "([^\"]*)"$/ do |username, restaurantname|
   user = User.find_by_username!(username)
   restaurant = Restaurant.find_by_name!(restaurantname)
@@ -48,7 +50,7 @@ end
 
 Given /^I am an employee of "([^\"]*)"$/ do |restaurantname|
   restaurant = Restaurant.find_by_name(restaurantname)
-  visit restaurant_employees_path(restaurant)
+  visit bulk_edit_restaurant_employees_path(restaurant)
   click_link "Add employee"
   fill_in "Employee Email", :with => current_user.email
   click_button "Submit"
@@ -64,7 +66,7 @@ end
 
 Given /^I have just created a restaurant named "([^\"]*)"$/ do |restaurantname|
   @restaurant = Factory(:restaurant, :name => restaurantname, :manager => @current_user)
-  visit restaurant_employees_path(@restaurant)
+  visit bulk_edit_restaurant_employees_path(@restaurant)
 end
 
 Given /^the restaurant "([^\"]*)" is in the region "([^\"]*)"$/ do |restaurantname, regionname|
@@ -191,25 +193,32 @@ Then /^I should see a menu with the name "([^\"]*)" and change frequency "([^\"]
   response.should have_selector(".menu_change_frequency", :content => change_frequency)
   response.should have_selector(".menu_date", :content => Chronic.parse(date).to_s(:standard))
 end
+
 Then /^I should see a link to download the uploaded menu pdf "([^\"]*)"$/ do |file_name|
   response.body.should include("http://spoonfeed.s3.amazonaws.com/cucumber/attachments/#{@restaurant.reload.menus.last.id}/#{file_name}")
 end
+
 When /^I delete the menu with the name "([^"]*)"$/ do |name|
   menu = Menu.find_by_name(name)
   click_link_within("#menu_#{menu.id}", "Remove")
 end
+
 Then /^I should not have a menu with the name "([^"]*)" and change frequency "([^"]*)"$/ do |name, change_frequency|
   Menu.first(:conditions => {:name => name, :change_frequency => change_frequency}).should be_nil
 end
+
 Then /^I should have a menu with the name "([^"]*)" and change frequency "([^"]*)"$/ do |name, change_frequency|
   Menu.first(:conditions => {:name => name, :change_frequency => change_frequency}).should_not be_nil
 end
+
 Then /^I should not see any menus$/ do
   response.should_not have_selector("table#menus tr")
 end
+
 Then /^I should see an error message$/ do
   response.should have_selector("#errorExplanation")
 end
+
 Then /^I should see a flash error message$/ do
   response.should have_selector("#flash_error")
 end
@@ -228,13 +237,14 @@ Given /^"([^"]*)" is an employee of "([^"]*)" with public position (\d+)$/ do |u
       :position => position, :public_profile => true)
 end
 
-
 Then /^I should have a photo with the file "([^"]*)"$/ do |filename|
   response.should have_selector("img.restaurant_photo[src*=\"#{filename}\"]")
 end
+
 Then /^I should not have a photo with the file "([^"]*)"$/ do |filename|
   response.should_not have_selector("img.restaurant_photo[src*=\"#{filename}\"]")
 end
+
 When /^I remove the restaurant photo with the file "([^"]*)"$/ do |filename|
   photo = @restaurant.photos.find_by_attachment_file_name(filename)
   click_link_within("#photo_#{photo.id}", "Remove")
@@ -313,6 +323,7 @@ Given /^the user "([^\"]*)" is not employed by "([^\"]*)"$/ do |username, restau
   restaurant = Restaurant.find_by_name(restaurant_name)
   restaurant.employees.delete(user)
 end
+
 Given /^the user "([^\"]*)" is an account manager for "([^\"]*)"$/ do |username, restaurant_name|
   user = User.find_by_username(username)
   restaurant = Restaurant.find_by_name(restaurant_name)
@@ -348,8 +359,8 @@ end
 
 Then /^I should see the question "([^"]*)" with the answer "([^"]*)"$/ do |question_text, answer_text|
   answer = @restaurant.a_la_minute_answers.find_by_answer(answer_text)
-  response.should have_selector("##{dom_id(answer.a_la_minute_question)} .question", :content => question_text)
-  response.should have_selector("##{dom_id(answer.a_la_minute_question)} .answer", :content => answer_text)
+  response.should have_selector(".question", :content => question_text)
+  response.should have_selector(".answer", :content => answer_text)
 end
 
 Then /^I should not see the question "([^"]*)" with the answer "([^"]*)"$/ do |question_text, answer_text|
@@ -419,8 +430,13 @@ When /^I should see that the restaurant has a premium account$/ do
   response.should have_selector("#account_type", :content => "Premium")
 end
 
-Given /^the restaurant "([^"]*)" has a complimentary account$/ do |name|
+Given /^the restaurant "([^\"]*)" has a complimentary account$/ do |name|
   restaurant = Restaurant.find_by_name(name)
   restaurant.subscription = Factory(:subscription, :payer => nil)
   restaurant.save!
+end
+
+When /^I delete the account manager for "([^\"]*)"$/ do |name|
+  restaurant = Restaurant.find_by_name(name)
+  click_link_within("#user_#{restaurant.manager_id}", "Delete")
 end

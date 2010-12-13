@@ -15,6 +15,7 @@ Feature: Content Requests (Questions from RIA)
 @emails
   Scenario: New Content Request notification, user prefers no emails
     Given I am logged in as an admin
+    And "sam" prefers to not receive direct message alerts
     When I create a new content request with subject "Need Your Menu" with criteria:
       | Region | Midwest (IN IL OH) |
       | Role   | Chef               |

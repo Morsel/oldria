@@ -36,14 +36,13 @@
 class User < ActiveRecord::Base
   acts_as_authentic do |c|
     c.validates_format_of_login_field_options = { :with => /^[a-zA-Z0-9\-\_ ]+$/,
-      :message => "'{{value}}' is not allowed. Usernames can only contain letters, numbers, and/or the '-' symbol" }
+      :message => "'%{value}' is not allowed. Usernames can only contain letters, numbers, and/or the '-' symbol" }
     c.disable_perishable_token_maintenance = true
   end
 
   include TwitterAuthorization
   include UserMessaging
 
-  belongs_to :james_beard_region
   has_many :statuses, :dependent => :destroy
 
   has_many :followings, :foreign_key => 'follower_id', :dependent => :destroy
@@ -109,7 +108,7 @@ class User < ActiveRecord::Base
 
   validates_exclusion_of :publication,
                          :in => %w( freelance Freelance ),
-                         :message => "'{{value}}' is not allowed"
+                         :message => "'%{value}' is not allowed"
 
   validates_acceptance_of :agree_to_contract
 
@@ -131,7 +130,7 @@ class User < ActiveRecord::Base
 
 ### Preferences ###
   preference :hide_help_box, :default => false
-  preference :receive_email_notifications, :default => false
+  preference :receive_email_notifications, :default => true
   preference :publish_profile, :default => false
 
 ### Roles ###
@@ -298,7 +297,7 @@ class User < ActiveRecord::Base
   end
 
   def self.receive_email_notifications
-    Preference.all(:conditions => "value = 't' AND name = 'receive_email_notifications'").map(&:owner)
+    User.with_preferences(:receive_email_notifications => true)
   end
   
   def self.in_soapbox_directory

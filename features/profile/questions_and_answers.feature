@@ -1,4 +1,4 @@
-@profile
+@profile @joesak
 Feature: Profile - Behind the Line (aka Q&A)
   SF users should be able to answer questions specific to their employment roles
   These questions will be organized into a series of topics and chapters
@@ -33,7 +33,7 @@ Feature: Profile - Behind the Line (aka Q&A)
     When I follow "View all Topics" within "#behindline"
     And I follow "View all"
     And I follow "Education"
-    And I fill in "profile_answer_answer" with "A great answer for this"
+    And I fill in "profile_question_1_answer" with "A great answer for this"
     And I press "Post"
     Then I should see "Your answers have been saved"
 
@@ -54,3 +54,14 @@ Feature: Profile - Behind the Line (aka Q&A)
     And I follow "View all"
     And I follow "Education"
     Then I should see "Education - John Smith - Behind The Line" within "title"
+
+  Scenario: Chapter questions page should contain AddThis UI feature
+    Given I am on the profile page for "punkrock"
+    When I follow "View all Topics" within "#behindline"
+    And I follow "View all"
+    And I follow "Education"
+    Then I should see addThis button
+          
+  Scenario: Question page should AddThis UI feature
+    Given I am on the question page with title "Title 1"
+    Then I should see addThis button

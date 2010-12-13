@@ -1,7 +1,10 @@
 class RestaurantsController < ApplicationController
   before_filter :require_user
   before_filter :authenticate, :only => [:edit, :update]
-  before_filter :find_restaurant, :only => [:select_primary_photo, :fact_sheet]
+  before_filter :find_restaurant, :only => [:show, :select_primary_photo, :new_manager_needed, :replace_manager]
+
+  def index
+  end
 
   def new
     @restaurant = current_user.managed_restaurants.build
@@ -13,14 +16,13 @@ class RestaurantsController < ApplicationController
     @restaurant.sort_name = params[:restaurant][:name]
     if @restaurant.save
       flash[:notice] = "Successfully created restaurant."
-      redirect_to restaurant_employees_path(@restaurant)
+      redirect_to bulk_edit_restaurant_employees_path(@restaurant)
     else
       render :new
     end
   end
 
   def show
-    find_restaurant
     @employments = @restaurant.employments.by_position.all(
         :include => [:subject_matters, :restaurant_role, :employee])
     @questions = ALaMinuteAnswer.newest_for(@restaurant)
@@ -49,7 +51,21 @@ class RestaurantsController < ApplicationController
     end
   end
 
-  def mine
+  def new_manager_needed
+  end
+
+  def replace_manager
+    old_manager = @restaurant.manager
+    old_manager_employment = @restaurant.employments.find_by_employee_id(@restaurant.manager_id)
+    new_manager = User.find(params[:manager])
+
+    if @restaurant.update_attribute(:manager_id, new_manager.id) && old_manager_employment.destroy
+      flash[:notice] = "Updated account manager to #{new_manager.name}. #{old_manager.name} is no longer an employee."
+    else
+      flash[:error] = "Something went wrong. Our worker bees will look into it."
+    end
+
+    redirect_to bulk_edit_restaurant_employees_path(@restaurant)
   end
 
   private

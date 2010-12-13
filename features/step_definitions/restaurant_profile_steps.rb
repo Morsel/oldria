@@ -1,5 +1,5 @@
 Given /^a restaurant named "([^\"]*)"$/ do |name|
-  @restaurant = Factory(:managed_restaurant, :name => name)
+  @restaurant = Factory(:restaurant, :name => name)
   employment = Factory(:employment, :restaurant => @restaurant)
   profile = Factory(:profile, :user => employment.employee)
   @restaurant.update_attributes!(:media_contact => employment.employee)

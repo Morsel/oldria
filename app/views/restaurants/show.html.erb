@@ -3,7 +3,7 @@
   <%= render 'restaurants/restaurant_header' %>
 
   <div class="media clear clearfix">
-	
+
     <div id="primary_photo" class="photos">
       <h2>Photos</h2>
       <% if @restaurant.photos.any? -%>
@@ -26,8 +26,8 @@
     </div><!-- .menus -->
 
   </div><!-- .media -->
-
-  <!--<div class="top-tags clear clearfix">
+<% if false -%>
+  <div class="top-tags clear clearfix">
     <h2>Top 15 Tags</h2>
     <ul class="tags">
       <li><a href="#">Pork</a></li>
@@ -39,8 +39,8 @@
       <li><a href="#">Guinness Stout</a></li>
       <li><a href="#">Fire pit</a></li>
     </ul>
-  </div>-->
-
+  </div><!-- .top-tags -->
+<% end -%>
   <h2>Details</h2>
   <div class="manager_and_facts equal-height tricol">
     <% dl_if(@restaurant.description, :class => "list_item", :id => "description") do %>

@@ -1,0 +1,83 @@
+<div id="restaurant_profile_view" class="edit clear clearfix">
+	
+	<%= render 'restaurants/restaurant_header' %>
+
+	<div id="editing_restaurant">
+		
+		<h2>Edit Menus</h2>
+		<div class="upload_photo editing">
+	  	<% semantic_form_for :menu, @menu,
+	  	    :url => restaurant_menus_path(@restaurant),
+	  	    :html => { :multipart => true } do |menu_form| %>
+	  	  <%= menu_form.error_messages %>
+	  	  <% menu_form.inputs :class => "clear" do %>
+	  	    <%= menu_form.input :name, :label => "Menu name" %>
+	  	    <%= menu_form.input :change_frequency, :label => "How often it changes",
+	  	        :as => :select, :collection => Menu.change_frequencies,
+	  	        :required => true %>
+	  	    <% menu_form.semantic_fields_for :pdf_remote_attachment do |pdf_remote_attachment| %>
+	  	      <%= pdf_remote_attachment.input :attachment, :as => :file %>
+	  	    <% end %>
+	  	    <%= button_tag 'Upload', :class => 'positive clear' %>
+	  	  <% end %>
+	  	<% end %>
+		</div><!--.upload_photo-->
+	
+	  <h3>Uploaded Menus</h3>
+		<div class="editing clearfix clear">
+	  	<table id="menus" data-remote-url="<%= reorder_restaurant_menus_url(@restaurant) %>">
+				<thead>
+  	      <tr>
+  	        <th>Menu name</th>
+  	        <th>Date uploaded</th>
+  	        <th>How often it changes</th>
+  	        <th>Actions</th>
+  	      </tr>
+  	  	</thead>
+				<tbody>
+	  	  	<% @restaurant.menus.by_position.each do |menu| %>
+	  	  	  <% content_tag_for(:tr, menu) do %>
+	  	  	    <td class="menu_name"><%= link_to h(menu.name), menu.pdf_remote_attachment.attachment.url %></td>
+	  	  	    <td class="menu_date"><%=h menu.created_at.to_s(:standard) %></td>
+	  	  	    <td class="menu_change_frequency"><%=h menu.change_frequency %></td>
+	  	  	    <td><%= link_to "Remove", restaurant_menu_path(@restaurant, menu), :method => :delete, :confirm => "Are you sure you want to remove the menu #{menu.name}?", :class => 'delete' %><%= link_to "Edit", edit_restaurant_menu_path(@restaurant, menu), :class => 'colorbox' %></td>
+	  	  	  <% end %>
+	  	  	<% end %>
+				</tbody>
+	  	</table>
+		</div>
+		
+	</div><!--#editing_restaurant-->
+	
+</div><!--#restaurant_profile_view-->
+	
+<% content_for :javascript do %>
+
+  <script type="text/javascript">
+    //<![CDATA[
+    $('#menus').sortable(
+    {
+      axis: 'y',
+      dropOnEmpty:false,
+      cursor: 'crosshair',
+      items: '.menu',
+      opacity: 0.4,
+      scroll: true,
+      update: function(event, ui){
+        var url = $("#menus").attr("data-remote-url");
+        $.ajax({
+          type: 'post',
+          data: $('#menus').sortable('serialize') + '&restaurant_id=<%= @restaurant.id -%>',
+          dataType: 'script',
+          complete: function(request){
+            $('#menus').effect('highlight');
+          },
+          url: url})
+      }
+    })
+    //]]>
+  </script>
+
+<% end %>
+
+

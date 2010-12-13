@@ -2,7 +2,7 @@ class EmployeesController < ApplicationController
   before_filter :require_user
   before_filter :find_and_authorize_restaurant, :except => :index
 
-  def index
+  def bulk_edit
     @restaurant = Restaurant.find(params[:restaurant_id])
     @employments = @restaurant.employments.by_position.all(
         :include => [:subject_matters, :restaurant_role, :employee])
@@ -20,6 +20,7 @@ class EmployeesController < ApplicationController
 
     if @employment.save
       @employment.insert_at
+      @employment.employee.default_employment.try(:destroy) # Get rid of user-set employment details
       flash[:notice] = @send_invitation ? "#{@employment.employee.name_or_username} has been sent an invitation and added to your restaurant.<br/>
           Please remind your employee to check their email for instructions on confirming their new account." : 
           "Successfully added #{@employment.employee.name} to this restaurant"
@@ -40,7 +41,7 @@ class EmployeesController < ApplicationController
     
     if @employment.update_attributes(params[:employment])
       flash[:notice] = "Successfully updated employee"
-      redirect_to restaurant_employees_path(@restaurant)
+      redirect_to bulk_edit_restaurant_employees_path(@restaurant)
     else
       @employee = @employment.employee
       flash[:error] = "We were unable to update that employee"
@@ -53,14 +54,17 @@ class EmployeesController < ApplicationController
     @employment = @restaurant.employments.find_by_employee_id(params[:id])
     employee = @employment.employee
 
+    if employee == @restaurant.manager
+      redirect_to new_manager_needed_restaurant_path(@restaurant) and return
+    end
+
     if @employment.destroy
       flash[:notice] = employee.name_or_username + ' was removed from ' + @restaurant.name
     else
       flash[:error] = "Something went wrong. Our worker bees will look into it."
     end
-    redirect_to restaurant_employees_path(@restaurant)
+    redirect_to bulk_edit_restaurant_employees_path(@restaurant)
   end
-
 
   private
 
@@ -75,12 +79,12 @@ class EmployeesController < ApplicationController
         { :email => email } : 
         { :first_name => email.split(" ").first, :last_name => email.split(" ").last }
       if current_user.admin?
-        flash.now[:notice] = "We couldn't find them in our system. You can invite this person."
+        flash.now[:notice] = "We couldn't find them in our system. You can add this person."
         @employee = @restaurant.employees.build(identifier)
         render :new_employee
       else
         flash[:notice] = "We couldn't find them in our system. You can invite this person."
-        redirect_to new_invitation_path(:restaurant => true, :invitation => identifier.merge(:restaurant_id => @restaurant.id))
+        redirect_to recommend_invitations_path(:emails => email)
       end
     end
   end

@@ -5,12 +5,6 @@
 <%= render :partial => 'new_or_old_nav' %>
 
 <div id="read_messages">
-  <% unless archived_view? %>
-    <%= render :partial => 'message', :collection => @action_required_messages %>
-
-    <% if use_replies_header? -%><span class="latest">The latest from RIA</span><%- end %>
-  <% end %>
-
   <%= render :partial => 'message', :collection => @messages %>
   
   <% if @messages.blank? %>

@@ -23,6 +23,14 @@
     <%= image_tag @user.avatar.url(:small), :width=>'72' %>
     <h1><%= @user.name %></h1>
     <p class="last_updated">Last updated: <%= @user.updated_at.strftime('%b %d, %Y') %> </p>
+    <% if @user.premium_account && on_soapbox %>
+    <!-- AddThis Button BEGIN --> 
+    <div class="addthis_toolbox"> 
+      <a href="http://www.addthis.com/bookmark.php?v=250&amp;username=unpluggedria" class="addthis_button">Share</a> 
+    </div> 
+    <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#username=unpluggedria"></script> 
+    <!-- AddThis Button END -->
+    <% end %>
     <div class="clear"></div>
 </header>
 
@@ -31,11 +39,6 @@
   <section id="profile-account" class="equal-height">
       <h5>Contact Information</h5>
       <dl class="user_info clearfix clear contact">
-          <%- unless params[:controller] == 'soapbox/profiles' -%>
-          <dt>Acct. Type</dt>
-          <dd class="user_account_type"><%= h @user.public_account_type %></dd>
-          <%- end -%>
-
           <% if display_cell(@user) %>
           <dt>Mobile</dt>
           <dd><%= @user.profile.cellnumber %></dd>
@@ -59,6 +62,11 @@
 
   		<h5>More Details</h5>
       <dl class="user_info clearfix extra">
+          <%- if !on_soapbox && can?(:edit,@user) -%>
+          <dt>Acct. Type</dt>
+          <dd class="user_account_type"><%= h @user.public_account_type %></dd>
+          <%- end -%>
+          
           <% if @user.profile %>
           <% if @user.profile.job_start.present? %>
           <dt>Job Start</dt>

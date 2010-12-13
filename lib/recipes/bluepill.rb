@@ -16,13 +16,21 @@ after "deploy:update",  "bluepill:start"
 namespace :bluepill do
   desc "Stop processes that bluepill is monitoring and quit bluepill"
   task :quit, :roles => [:app] do
-    sudo "bluepill stop"
+    if rails_env == :production
+      sudo "bluepill stop #{rails_env}"
+    else
+      sudo "bluepill stop #{nickname}"
+    end
     sudo "bluepill quit"
   end
 
   desc "Load bluepill configuration and start it"
   task :start, :roles => [:app] do
-    sudo "STAGE_ENV=#{nickname} bluepill load #{current_path}/config/#{rails_env}.pill"
+    if rails_env == :production
+      sudo "bluepill load #{current_path}/config/#{rails_env}.pill"
+    else
+      sudo "bluepill load #{current_path}/config/#{nickname}.pill"
+    end
   end
 
   desc "Prints bluepills monitored processes statuses"

@@ -19,9 +19,11 @@ module RestaurantFactSheetsHelper
   end
 
   def link_to_add_fields(name, f, association, options = {})
+    form_options = options.delete(:form_options) || {}
     new_object = f.object.class.reflect_on_association(association).klass.new
     fields = f.fields_for(association, new_object, :child_index => "new_#{association}") do |builder|
-      render(association.to_s.singularize + "_fields", :f => builder)
+      form_options.merge!({:f => builder})
+      render(association.to_s.singularize + "_fields", form_options)
     end
     options.merge!({:"data-association" => association, :"data-fields" => fields})
     link_to(name, '#', options)

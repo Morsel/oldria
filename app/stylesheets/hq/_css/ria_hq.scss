@@ -232,6 +232,7 @@ a img{ border:0; }
 			margin-bottom: 10px;
 			padding: 12px 0;
 			color: #fff;
+			background:#5da430;
 			@include linear-gradient(color-stops(#6CB33F,#5da430), left);
 			border-top: 1px solid $medgreen;
 			border-bottom: 1px solid $medgreen;
@@ -250,6 +251,7 @@ a img{ border:0; }
 				line-height: 17px;
 			}
 			&:hover {
+				background:#eb6835;
 				@include linear-gradient(color-stops(#D9531E,#eb6835), left);
 				border-top: 1px solid #a32e00;
 				border-bottom: 1px solid #a32e00;
@@ -395,6 +397,7 @@ a img{ border:0; }
 		}
 		&.clickable {
 			display: block;
+			background:#9c907a;
 			@include linear-gradient(color-stops(#b2a289,#9c907a), left);
 			@include gotham;
 			font-weight: bold;
@@ -465,6 +468,7 @@ a img{ border:0; }
 							margin: 2px 0 0;
 						}
 						&:hover {
+							background:$medgreen;
 							@include linear-gradient(color-stops($green,$medgreen), left);
 							text-shadow: 0 1px 0 #000;
 							color: #fff;
@@ -540,7 +544,8 @@ a img{ border:0; }
 		font-weight: bold;
 		color: #333;
 		font-size: 18px;
-		margin: 10px 0;
+		line-height: 24px;
+		margin: 10px 0 5px;
 		padding: 0;
 		a {
 			color: $brown;
@@ -550,7 +555,7 @@ a img{ border:0; }
 		}
 	}
 	h3 {
-		font-size: 14px;
+		font-size: 16px;
 		margin: 6px 0;
 		padding: 4px 0 0;
 		color: #333;
@@ -563,11 +568,12 @@ a img{ border:0; }
 	}
 	h4 {
 		font-size: 14px;
-		margin: 0 0 12px 0;
+		margin: 0 0 16px 0;
 		line-height: 20px;
 		color: #333;
-		@include neue;
+		@include gotham;
 		font-weight: normal;
+		font-weight: 300;
 	}
 	h5 {
 		font-size: 13px;
@@ -586,7 +592,7 @@ a img{ border:0; }
 	p {
 		font-size: 13px;
 		line-height: 19px;
-		margin: 5px 0 16px;
+		margin: 3px 0 16px;
 		a {
 			color: $medgreen;
 			&:hover {color: $brown;text-decoration: underline;}
@@ -596,6 +602,7 @@ a img{ border:0; }
 		float: left;
 		width: 240px;
 		margin: 0 15px 10px 0;
+		background:$darkgreen;
 		@include linear-gradient(color-stops($green,$darkgreen), top);
 		p {
 			padding: 13px 15px;

@@ -25,6 +25,13 @@ Factory.define :admin, :parent => :user do |f|
   f.role 'admin'
 end
 
+Factory.define :published_user, :parent => :user do |f|
+  f.role 'admin'
+  f.visible '1'
+  f.prefers_publish_profile true
+  f.premium_account '1'
+end
+
 Factory.define :media_user, :parent => :user do |f|
   f.publication "The Times"
   f.role 'media'
@@ -140,6 +147,8 @@ Factory.define :invitation do |f|
   f.last_name "Doe"
   f.sequence(:email) { |n| "foo#{n}@example.com" }
   f.restaurant_name "Name"
+  f.association :restaurant_role
+  f.subject_matters { [Factory(:subject_matter)] }
 end
 
 # == Restaurants ==
@@ -161,6 +170,7 @@ Factory.define :restaurant do |f|
   f.opening_date 1.year.ago
   f.association :media_contact, :factory => :user
   f.association :cuisine
+  f.association :manager, :factory => :user
 end
 
 Factory.define :photo do |f|
@@ -169,10 +179,6 @@ Factory.define :photo do |f|
   f.attachment_content_type "image/jpg"
   f.attachment_file_size 3000
   f.attachment_updated_at 2.days.ago
-end
-
-Factory.define :managed_restaurant, :parent => :restaurant do |f|f
-  f.association :manager, :factory => :user
 end
 
 Factory.define :employment do |f|

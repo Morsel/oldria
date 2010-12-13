@@ -14,13 +14,4 @@ Feature: Restaurant Permissions
 
   Scenario Outline: Only manager can see "Add Employee" and edit buttons
     Given I am logged in as "<username>" with password "secret"
-    When I go to the employees page for "Crazy Eights"
-    Then I should see "Employees at Crazy Eights"
-    And I <should_see_or_not> "Add employee"
-    And I <should_see_or_not> "Edit"
-
-  Examples:
-    | username | should_see_or_not |
-    | mgmt     | should see        |
-    | sam      | should not see    |
-    | john     | should not see    |
+    Then I cannot go to the employees page for "Crazy Eights"

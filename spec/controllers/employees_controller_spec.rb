@@ -15,12 +15,12 @@ describe EmployeesController do
     controller.stubs(:preload_resources)
   end
 
-  describe "GET index" do
+  describe "GET bulk_edit" do
     before(:each) do
       @employments = @restaurant.employments
       @employment = @employments.first
       @restaurant.stubs(:employments).returns(@employments)
-      get :index, :restaurant_id => @restaurant.id
+      get :bulk_edit, :restaurant_id => @restaurant.id
     end
 
     it { response.should be_success }
@@ -66,7 +66,7 @@ describe EmployeesController do
       it { assigns[:employee].should == @employee }
 
       it "should include confirmation message" do
-        response.should contain("Is this who you were looking for?")
+        response.should contain("Is this user an employee at your restaurant?")
       end
 
       it "should have a form to POST create action with hidden employee_id" do
@@ -82,8 +82,7 @@ describe EmployeesController do
         get :new, :restaurant_id => @restaurant.id, :employment => {:employee_email => "sam@example.com"}
       end
       it { response.should be_redirect }
-      it { response.should redirect_to(new_invitation_url(:restaurant => true, 
-          :invitation => { :restaurant_id => @restaurant.id, :email => "sam@example.com" }))}
+      it { response.should redirect_to(recommend_invitations_url(:emails => "sam@example.com" )) }
     end
   end
 
@@ -182,7 +181,7 @@ describe EmployeesController do
         put :update, :id => @employee.id, :restaurant_id => @restaurant2.id, :employment => {}
       end
 
-      it { should redirect_to(restaurant_employees_path(@restaurant2))}
+      it { should redirect_to(bulk_edit_restaurant_employees_path(@restaurant2))}
 
       it "should set a flash message" do
         flash[:notice].should_not be_nil

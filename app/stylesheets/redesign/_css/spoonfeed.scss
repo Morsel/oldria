@@ -547,6 +547,12 @@ form#new_user_session {
 			float: left;
 			margin: 0 14px 10px 0;
 		}
+		.addthis_toolbox {
+		  float: left;
+      font-family: 'Hoefler Text', Georgia, serif;
+      font-size: 14px;
+      font-weight: bold;
+		}
 		.user_actions {
 			float: right;
 			display: block;
@@ -1455,9 +1461,15 @@ form#new_user_session {
 					&:before {
 						color: #c1b690;
 						font-weight: bold;
-						content: "Q: ";
 					}
 				}
+			}
+			.message-body {
+			  p {
+			    &:before {
+			      content: "Q: ";
+			    }
+			  }
 			}
 			.message-header {display: none;}
 		}
@@ -2162,13 +2174,26 @@ p.search_filter_hint {
 				}
 			}
 			&#invitation {
-				@include hoeflerbolditalic;
-				font-size: 18px;
-				line-height: 20px;
+				line-height: 17px;
+				color: #fff;
+				@include linear-gradient(color-stops(#ce4600,#df680e ), top);
+			  h2 {
+			    background: url(/images/redesign/arrow-44percent.png) no-repeat left;
+			    @include hoeflerbolditalic;
+  				font-size: 20px;
+  				text-shadow: 0 1px 0 #333;
+  				padding-left: 22px;
+  				margin-bottom: 9px;
+			  }
+			  p {
+			    font-size: 13px;
+			    @include opacity(.8);
+			  }
 				&:hover {
-					color: #fff;
-					@include linear-gradient(color-stops(#ce4600,#df680e ), left);
-					text-shadow: 0 1px 0 #333;
+				  @include linear-gradient(color-stops(#AF380E,#ce4600 ), top);
+				  h2, p {					  
+					  @include opacity(.66);
+					}
 				}
 			}
 			&#btl_game {
@@ -2251,6 +2276,16 @@ p.search_filter_hint {
 					margin-bottom: 0;
 				}
 			}
+			&#gotosoapbox {
+			  @include hoeflerbolditalic;
+				font-size: 18px;
+				line-height: 20px;
+			  &:hover {
+					color: #fff;
+					@include linear-gradient(color-stops(#ce4600,#df680e ), left);
+					text-shadow: 0 1px 0 #333;
+				}
+			}
 			&#manuals {
 				a {
 					display: block;
@@ -2271,8 +2306,23 @@ p.search_filter_hint {
 							color: $brown;
 							background-position: 0 -100px;
 						}
-					}
-
+					} 
+				}
+				.staff_contacts {
+				  margin: 0;
+				  padding: 0;
+				  li {
+				    a {
+				      //display: inline;
+				      font-size: 12px;
+              font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+              padding-left: 0;
+              &:hover {
+                text-decoration: underline;
+              }
+            }
+            
+				  }
 				}
 				p {
 					margin: 0 0 10px 0;
@@ -3358,16 +3408,48 @@ p.search_filter_hint {
 	}
 } /* end of #my_restaurants -------------------- */
 
-
 #page_content #editing_restaurant {
   padding: 20px;
 	overflow: hidden;
 	border: 1px solid #eaeaea;
-	input[type="password"], input[type="url"], input[type="text"], input[type="number"], textarea {
-	  border: 1px solid #ccc;
-    //@include box-shadow(#DDD, 1px, 1px, 2px, 0px);
-    @include box-shadow(#eaeaea, 0px, 1px, 1px);
-    width: 55%;
+	input {
+    margin-bottom: 12px;
+    &[type="password"], &[type="url"], &[type="text"], &[type="number"], textarea {
+      border: 1px solid #ccc;
+      @include box-shadow(#eaeaea, 0px, 1px, 1px);
+      width: 55%;
+    }
+	}
+	button, input[type="submit"] {
+		cursor:pointer;
+		float: left;
+		display: block;
+		margin: 0 10px 0 0;
+		font-size: 12px;
+		font-family: 'helvetica neue', helvetica, arial, sans-serif;
+		background-color: $orange;
+		@include border-radius(20px);
+		color: #fff;
+		padding: 5px 12px;
+		font-weight: bold;
+		text-shadow:0 1px 0 #444;
+		border:0;
+		&:hover {
+			background: #bbb08c;
+			color: #fff;
+		}
+		&.positive {
+			margin:0 0 10px;
+			&:hover {
+				background: #e1d9c4;
+				color: #333;
+				text-shadow:none;
+			}
+		}
+		&.clear{
+			float:none;
+			margin:10px 0;
+		}
 	}
 	.media_requests {
 		font-family: 'helvetica neue', helvetica, arial, sans-serif;
@@ -3436,7 +3518,7 @@ p.search_filter_hint {
 		  width: auto;
 		}
 		.inline-hints {
-			margin: -2px 0 10px;
+			margin: -8px 0 10px;
 			color: #888;
 			font-size: 11px;
 			font-style: normal;
@@ -3454,36 +3536,13 @@ p.search_filter_hint {
 		border-bottom: 1px dotted #ccc;
 		margin-top: 20px;
 		padding-bottom: 10px;
-		button {
-			cursor:pointer;
-			float: left;
-			display: block;
-			margin: 4px 10px 0 0;
-			font-size: 12px;
-			font-family: 'helvetica neue', helvetica, arial, sans-serif;
-			background-color: $orange;
-			@include border-radius(20px);
-			color: #fff;
-			padding: 5px 12px;
-			font-weight: bold;
-			text-shadow:0 1px 0 #444;
-			border:0;
-			&:hover {
-				background: #bbb08c;
-				color: #fff;
-			}
-			&.positive {
-				margin:0 0 10px;
-				&:hover {
-					background: #e1d9c4;
-					color: #333;
-					text-shadow:none;
-				}
-			}
-			&.clear{
-				float:none;
-				margin:10px 0;
-			}
+		.question {
+		  input {
+		    margin-top: -5px;
+		  }
+		  label {
+		    font-weight: normal;
+		  }
 		}
 		p {
 			margin: 5px 0 15px;
@@ -3742,20 +3801,21 @@ p.search_filter_hint {
 			}
 		}
 	}
+	.requestinvite {
+		margin: 0 0 15px;
+		padding: 0;
+	}
 } /* ----- #editing_restaurant --------------------- */
-
-
-
 
 #restaurant_profile_view {
   .standout {
     border: 1px solid #ddd;
     @include box-shadow(#DDD, 1px, 1px, 2px, 0px);
-    padding: 15px;
-    width: 150px;
+    padding: 12px;
+    font-size: 13px;
+    width: 155px;
     float: left;
     margin-right: 20px;
-    font-size: 15px;
   }
 	a {
 		color: $orange;
@@ -3792,7 +3852,16 @@ p.search_filter_hint {
 		border-bottom: 1px dotted #ccc;
 		overflow: hidden;
 		clear: both;
-		img {border: 1px solid #ccc;}
+		img {
+			border: 1px solid #ccc;
+			height: 100px;
+			@include hiddentext;
+		}
+		#name {
+			margin: 0;
+			padding: 0;
+			line-height: 23px;
+		}
 		#restaurant_actions {
 			width: 200px;
 			float: right;
@@ -3847,18 +3916,45 @@ p.search_filter_hint {
 		}
 		#restaurant_meta {
 		  float: left;
+			p {
+				font-size: 12px;
+				line-height: 16px;
+			}
+			.premium {
+				margin: 5px 0;
+				padding: 0;
+				p {
+					font-size: 11px;
+					display: inline-block;
+					background-color: $trans-brown;
+					padding: 1px 5px;
+					margin: 0;
+					color: $brown;
+				}
+			}
+			.address {
+				margin: 0;
+				padding: 0;
+			}
 		}
 		#restaurant_features {
 		  span {
 		    float: left;
+				margin-top: 3px;
 		  }
       .tags {
-        margin: 0 0 0 10px;
+        margin: 0 0 0 7px;
         width: 62%;
         li {
           a {
             font-weight: bold;
             padding: 3px 9px;
+						text-shadow: 0 1px 0 #fff;
+						&:hover {
+							background-color: $orange;
+							text-shadow: 0 1px 0 #333;
+							color: #fff;
+						}
           }
         }
       }
@@ -4049,7 +4145,7 @@ p.search_filter_hint {
     padding: 9px 10px;
     font-size: 14px;
     color: #333;
-    .selected, &:first-child {
+    &.selected {
       @include linear-gradient(color-stops($orange,#e3602c ), bottom);
       text-shadow: 0 1px 1px #555;
       color: #fff;
@@ -4063,10 +4159,47 @@ p.search_filter_hint {
 
 #restaurant_pages {
 	#restaurant_feature_nav{
-		@include column(4);
-		a{
-			display:block;
-			padding:5px 10px;
+		@include column(3);
+		a {
+		  color: #333;
+			display: block;
+			background: $trans-orange;
+			margin-bottom: 3px;
+			width: 77%;
+			padding: 7px 10px;
+			&:hover, &.selected {
+			  color: #fff;
+			  background: url(/images/redesign/active_arrow_right.png) top right no-repeat $orange;
+			  width: auto;
+			}
+		}
+	}
+	#restaurant_features{
+	  > h2 {
+			font-family: 'Hoefler Text', Georgia, Serif;
+			font-weight: bold;
+			font-style: italic;
+			font-size: 22px;
+			line-height: 17px;
+	  }
+	  .feature_category_header {
+	    font-family: "helvetica neue", arial, sans-serif;
+		  border-bottom: 1px solid #ddd;
+		  font-style: normal;
+		  font-weight: normal;
+		  padding: 4px 0;
+		}
+		.feature_category {
+		  margin-bottom: 30px;
+		  p {
+		    margin: 5px 0;
+		    input[type="checkbox"] {
+		      margin-bottom: 0;
+		    }
+		  }
+		}
+		form label {
+		  font-weight: normal;
 		}
 	}
 	
@@ -4076,3 +4209,40 @@ p.search_filter_hint {
 }
 
 /* ## END of restaurant FEATURES editing --------------------------------------------- */
+
+/* ## A La Minute Editing --------------------------------------------- */
+#a_la_minute_questions {
+  .archive {
+    display: none;
+    margin: 10px 0;
+    li {
+      background: none;
+      .remove_link {
+        font-weight: bold;
+        font-size: 11px;
+        margin-left: 5px;
+      }
+      small {
+        font-size: small;
+        color: #aaa;
+      }
+    }
+  }
+  .show_all_link {
+    background: #f1f1f1 url(/images/redesign/arrow-dropdown.png) no-repeat 8px 7px;
+    border: 1px solid #DDD;
+    @include border-radius(30px);
+    color: #333;
+    display: inline-block;
+    font-weight: bold;
+    padding: 4px 14px 4px 21px;
+    text-shadow: #fff 0px 1px 0px;
+    &.open {
+      border-color: $trans-orange;
+      color: $orange;
+      background-color: $trans-orange;
+      background-position: 8px -93px;
+    }
+  }
+}
+/* ## END of A La Minute editing --------------------------------------------- */

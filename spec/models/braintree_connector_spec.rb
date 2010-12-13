@@ -113,7 +113,7 @@ describe BraintreeConnector do
 
   describe "with a restaurant" do
 
-    let(:restaurant) { Factory(:managed_restaurant, :id => 500,
+    let(:restaurant) { Factory(:restaurant, :id => 500,
         :subscription => Factory(:subscription, :braintree_id => "abcd"),
         :manager => Factory(:user, :email => "fred@flintstone.com")) }
 

@@ -22,8 +22,8 @@ Feature: Soapbox
 
     And "mgmt" has a published profile
     And "chris" has a published profile
-
-  Scenario: Featuring a QOTD on the soapbox
+  
+  Scenario: Viewing users in the directory
     Given I am not logged in
     When I go to the soapbox directory page
     Then I should see "Mgmt Joe"
@@ -43,3 +43,13 @@ Feature: Soapbox
     And I should see "Annalena"
     When I check "Aquavit"
     Then I should see "Annalena" within "#user-results"
+
+@addthis
+  Scenario: Viewing addThis on user profiles
+    Given the following published users:
+      | username    | password |
+      | punkrock    | secret   |
+    And "punkrock" has a default employment with role "Executive Chef" and restaurant name "Aquavit"
+    And "punkrock" has a complimentary premium account
+    And I go to the soapbox profile page for "punkrock"
+    Then I should see addThis button

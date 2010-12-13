@@ -48,6 +48,15 @@ module MessagesHelper
     end
   end
 
+  def unread_message?(message, user)
+    if message.respond_to?(:admin_discussions) # TrendQuestion or ContentRequest
+      first_discussion_for_user = current_user.grouped_admin_discussions[message].first
+      !first_discussion_for_user.read_by?(user)
+    else
+      !message.read_by?(user)
+    end
+  end
+
   def read_link_for_message(message, link_text = '<span>Read message</span>')
     return unless message
 
@@ -135,7 +144,8 @@ module MessagesHelper
   end
   
   def use_replies_header?
-    !archived_view? && show_replies? && @action_required_messages.present?
+    false
+    # !archived_view? && show_replies? && @action_required_messages.present?
   end
   
   def ria_messages?

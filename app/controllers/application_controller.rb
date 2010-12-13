@@ -14,7 +14,9 @@ class ApplicationController < ActionController::Base
   filter_parameter_logging :password
 
   # before_filter :preload_resources
-  before_filter :load_random_btl_question
+  
+  # Disabled until we restore btl_game in the sidebar
+  # before_filter :load_random_btl_question
 
   helper_method :current_user
   helper_method :mediafeed?
@@ -230,7 +232,6 @@ class ApplicationController < ActionController::Base
     if params[:controller].match(/soapbox/)
       search = User.in_soapbox_directory.search(params[:search]).all
       extra_search_results = User.in_soapbox_directory.search(extra_params).all if extra_params.present?
-
       @users = [search, extra_search_results].flatten.compact.uniq.sort_by(&:last_name)
     else
       search = User.in_spoonfeed_directory.search(params[:search]).all
