@@ -2,7 +2,7 @@
 
 <section id="questions-list">
   <% if @trend_questions_found.empty? && @qotds_found.empty? &&
-         @qotd_comments_found.empty? && @trend_questions_comments_found.empty? %>
+         @qotd_comments_found.empty? && @trend_question_comments_found.empty? %>
     <p>Nothing found.</p>
   <% else %>
     <% unless @trend_questions_found.empty? %>
@@ -22,14 +22,14 @@
     <% unless @qotd_comments_found.empty? %>
       <div id="comments-list-feed-qotd">
         <h1>Questions of the Day Answers</h1>
-        <%= render :partial => 'comments_list', :locals => {:comments => @qotd_comments_found} %>
+        <%= render :partial => 'comment_list', :locals => {:comments => @qotd_comments_found} %>
       </div>
     <% end %>
 
-    <% unless @trend_question_comment_found.empty? %>
+    <% unless @trend_question_comments_found.empty? %>
       <div id="comments-list-feed-qotd">
         <h1>Trend Questions Answers</h1>
-        <%= render :partial => 'comments_list', :locals => {:comments => @trend_question_comment_found} %>
+        <%= render :partial => 'comment_list', :locals => {:comments => @trend_question_comments_found} %>
       </div>
     <% end %>
   <% end %>

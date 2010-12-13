@@ -40,7 +40,7 @@ class Soapbox::SoapboxEntriesController < Soapbox::SoapboxController
     @trend_questions_found = TrendQuestion.soapbox_entry_published.subject_like_or_display_message_like(@key).all(:include => :soapbox_entry)
 
     @qotd_comments_found = Comment.search_qotd_comments(@key)
-    @trend_question_comments_found = Comment.search_trend_questions_comments(@key)
+    @trend_question_comments_found = Comment.search_trend_question_comments(@key)
 
     @no_sidebar = true
   end
