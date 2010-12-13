@@ -12,7 +12,6 @@
 #
 
 class ProfileAnswer < ActiveRecord::Base
-  include ActionController::UrlWriter
 
   belongs_to :profile_question
   belongs_to :user
