@@ -116,11 +116,9 @@ class Comment < ActiveRecord::Base
       admin_discussions_comments_comment_like(keyword).
       all(:select => selector)
 
-    discussions = TrendQuestion.soapbox_entry_published.
+    discussions + TrendQuestion.soapbox_entry_published.
       solo_discussions_comments_comment_like(keyword).
       all(:select => selector)
-
-    restaurant_discussions + solo_discussions
   end
 
 end
