@@ -1,7 +1,8 @@
 <% title "Search for \"#{truncate(@key, :length => 35)}\"", true %>
 
 <section id="questions-list">
-  <% if @trend_questions_found.empty? && @qotds_found.empty? && @comments.empty? %>
+  <% if @trend_questions_found.empty? && @qotds_found.empty? &&
+         @qotd_comments_found.empty? && @trend_questions_comments_found.empty? %>
     <p>Nothing found.</p>
   <% else %>
     <% unless @trend_questions_found.empty? %>
@@ -18,23 +19,18 @@
       </div>
     <% end %>
 
-    <% unless @comments.empty? %>
-      <div>
-        <h1>Comments</h1>
-        <ul>
-          <% @comments.each do |comment, question| %>
-            <li>
-              <% link_to soapbox_soapbox_entry_path(question.soapbox_entry) do %>
-                <% date = question.scheduled_at %>
-                <time datetime="<%= date.try(:strftime,'%Y-%m-%d') %>"><span><%= date.try(:strftime, "%b").upcase %></span><%= date.try(:strftime, "%e") %></time>
-                <span class="title"><%= comment.comment %></span>
-                <span class="reply-count"><span><%= count = question.soapbox_comment_count %></span><%= count > 1 ? "replies" : "reply" %></span>
-              <% end %>
-            </li>
-          <% end %>
-        </ul>
+    <% unless @qotd_comments_found.empty? %>
+      <div id="comments-list-feed-qotd">
+        <h1>Questions of the Day Answers</h1>
+        <%= render :partial => 'comments_list', :locals => {:comments => @qotd_comments_found} %>
       </div>
     <% end %>
 
+    <% unless @trend_question_comment_found.empty? %>
+      <div id="comments-list-feed-qotd">
+        <h1>Trend Questions Answers</h1>
+        <%= render :partial => 'comments_list', :locals => {:comments => @trend_question_comment_found} %>
+      </div>
+    <% end %>
   <% end %>
 </section>

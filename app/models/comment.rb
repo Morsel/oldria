@@ -76,20 +76,51 @@ class Comment < ActiveRecord::Base
     return [] unless resource && user
     self.all(:conditions => ['commentable_type = ? AND commentable_id = ? AND user_id = ?', resource.class.to_s, resource.id, user.id])
   end
-  
+
   def editable?
-    commentable.is_a?(Admin::Conversation) || 
+    commentable.is_a?(Admin::Conversation) ||
         (commentable.is_a?(AdminDiscussion) && commentable.discussionable.is_a?(TrendQuestion)) ||
         commentable.is_a?(SoloDiscussion)
   end
-  
+
   def editable_by?(person)
     return false unless editable?
     (self.user == person) || self.user.coworkers.include?(person)
   end
-  
+
   def show_on_soapbox?
     self.employment && self.employment.post_to_soapbox
+  end
+
+  # find all soapbox published qotds comments containing the keyboard
+  def self.search_qotd_comments(keyword)
+    Admin::Qotd.soapbox_entry_published.admin_conversations_comments_comment_like(keyword).
+      all(:select => 'comments.id as comment_id,
+               comments.comment as comment_comment,
+               comments.updated_at as comment_at,
+               admin_messages.display_message as question_display_message,
+               admin_messages.message as question_short_message,
+               soapbox_entries.id as soapbox_entry_id')
+  end
+
+  # find all soapbox published trend questions comments containing the keyboard
+  def self.search_trend_question_comments(keyword)
+    selector = 'comments.id as comment_id,
+               comments.comment as comment_comment,
+               comments.updated_at as comment_at,
+               trend_questions.display_message as question_display_message,
+               trend_questions.subject as question_short_message,
+               soapbox_entries.id as soapbox_entry_id'
+
+    discussions = TrendQuestion.soapbox_entry_published.
+      admin_discussions_comments_comment_like(keyword).
+      all(:select => selector)
+
+    discussions = TrendQuestion.soapbox_entry_published.
+      solo_discussions_comments_comment_like(keyword).
+      all(:select => selector)
+
+    restaurant_discussions + solo_discussions
   end
 
 end
