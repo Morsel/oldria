@@ -47,5 +47,13 @@ module SoapboxHelper
   def feature_entry_type(feature)
     feature.is_a?(TrendQuestion) ? "trend_entry" : "qotd_entry"
   end
+  
+  def link_if_soapbox(question)
+    if on_soapbox
+      link_to question.question, soapbox_a_la_minute_question_path(question)
+    else
+      question.question
+    end
+  end
 
 end

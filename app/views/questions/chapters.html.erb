@@ -1,5 +1,5 @@
-<% title "#{@topic.title} - #{@user.name} - Behind the Line", false %>
-<h1 id="btl-title" class="btl"><span class="btl-art">Behind the Line:</span> <span class="name"><%= @user.name %></span></h1>
+<% title "#{@topic.title} - #{@subject.name} Behind the Line", false %>
+<h1 id="btl-title" class="btl"><span class="btl-art">Behind the Line:</span> <span class="name"><%= btl_title_for(@subject) %></span></h1>
 <h2 id="topic_title">Topic: <%= @topic.title %></h2>
 <%= render :partial => 'questions/topic_nav', :locals => { :next_topic => @next, :prev_topic => @previous } %>
 
@@ -7,14 +7,15 @@
 <div class="clear"></div>
 
 <% for chapter in @questions_by_chapter.keys %>
-<%- if @user == current_user || chapter.published?(@user) -%>
+<%- if can_edit_profile_questions(@subject) || chapter.published?(@subject) -%>
   <% div_for chapter, :class => cycle('', ' last') do -%>
-      <% link_to link_for_questions(:user_id => @user.id, :chapter_id => chapter.id) do %>
+      <% link_to link_for_questions(:subject => @subject, :chapter_id => chapter.id) do %>
           <h3><%= chapter.title %></h3>
-          <p class="chapter_answer_count"><%= chapter.answer_count_for_user(@user) %> of <%= chapter.question_count_for_user(@user) %></p>
+
+          <p class="chapter_answer_count"><%= answer_count_for(@subject, chapter) %> of <%= question_count_for(@subject, chapter) %></p>
           <p><%= chapter.description || truncate(@questions_by_chapter[chapter].map(&:title).to_sentence, :length => 100) %></p>
-          <% if @user == current_user %>
-          <p><%= chapter.published?(@user) ? "Published" : "Not published" %></p>
+          <% if can_edit_profile_questions(@subject) %>
+          <p><%= published_for(@subject, chapter) ? "Published" : "Not published" %></p>
           <% end %>
       <% end %>
   <% end -%>

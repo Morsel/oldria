@@ -1,7 +1,11 @@
-<% semantic_form_for [:admin, topic] do |f| %>
+<% topic_url = topic.new_record? ? admin_topics_path(:responder_type => params[:responder_type]) :
+    admin_topic_path(:responder_type => params[:responder_type], :id => topic.id) %>
+
+<% semantic_form_for [:admin, topic], :url => topic_url do |f| %>
     <% f.inputs do %>
         <%= f.input :title %>
         <%= f.input :description %>
+        <%= f.input :responder_type, :as => :hidden, :value => params[:responder_type]%>
     <% end %>
     <p><%= button_tag "Save Topic" %></p>
 <% end %>

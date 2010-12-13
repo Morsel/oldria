@@ -116,7 +116,6 @@ Feature: Manage restaurants
     Then the show page should be premium
   
   #Scenario: Cancel an overtime restaurant account
-        
   Scenario: Deleting the restaurant's primary manager (and selecting a new one)
     Given "fred" is a manager for "Piece"
     And "betty" is a manager for "Piece"

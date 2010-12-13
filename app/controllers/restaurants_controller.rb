@@ -3,6 +3,12 @@ class RestaurantsController < ApplicationController
   before_filter :authenticate, :only => [:edit, :update]
   before_filter :find_restaurant, :only => [:show, :select_primary_photo, :new_manager_needed, :replace_manager]
 
+  def index
+  end
+
+  def index
+  end
+
   def new
     @restaurant = current_user.managed_restaurants.build
   end
@@ -10,9 +16,10 @@ class RestaurantsController < ApplicationController
   def create
     @restaurant = current_user.managed_restaurants.build(params[:restaurant])
     @restaurant.media_contact = current_user
+    @restaurant.sort_name = params[:restaurant][:name]
     if @restaurant.save
       flash[:notice] = "Successfully created restaurant."
-      redirect_to restaurant_employees_path(@restaurant)
+      redirect_to bulk_edit_restaurant_employees_path(@restaurant)
     else
       render :new
     end
@@ -21,6 +28,7 @@ class RestaurantsController < ApplicationController
   def show
     @employments = @restaurant.employments.by_position.all(
         :include => [:subject_matters, :restaurant_role, :employee])
+    @questions = ALaMinuteAnswer.newest_for(@restaurant)
   end
 
   def edit
@@ -39,16 +47,13 @@ class RestaurantsController < ApplicationController
   def select_primary_photo
     if @restaurant.update_attributes(params[:restaurant])
       flash[:notice] = "Successfully updated restaurant"
-      redirect_to restaurant_photos_path(@restaurant)
+      redirect_to bulk_edit_restaurant_photos_path(@restaurant)
     else
       flash[:error] = "We were unable to update the restaurant"
       render :template => "photos/edit"
     end
   end
-  
-  def mine
-  end
-  
+
   def new_manager_needed
   end
   
@@ -63,7 +68,7 @@ class RestaurantsController < ApplicationController
       flash[:error] = "Something went wrong. Our worker bees will look into it."
     end
     
-    redirect_to restaurant_employees_path(@restaurant)
+    redirect_to bulk_edit_restaurant_employees_path(@restaurant)
   end
 
   private

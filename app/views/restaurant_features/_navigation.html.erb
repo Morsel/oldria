@@ -1,0 +1,5 @@
+<nav id="restaurant_feature_nav">
+  <% @pages.each do |page| %>
+    <%= active_link_to h(page.name), bulk_edit_restaurant_feature_path(@restaurant, page) %>
+  <% end %>
+</nav>

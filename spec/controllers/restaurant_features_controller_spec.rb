@@ -6,16 +6,17 @@ describe RestaurantFeaturesController do
     @user = Factory(:admin)
     @user.stubs(:update).returns(true)
     controller.stubs(:current_user).returns(@user)
+    @page = Factory(:restaurant_feature_page)
     @restaurant = Factory(:restaurant)
   end
 
   describe "put create" do
 
-    it "passes values to the restaurant and displays back to the index" do
+    it "passes values to the restaurant and displays back to the bulk edit" do
       Restaurant.stubs(:find => @restaurant)
-      @restaurant.expects(:reset_features).with([1, 2, 3, 4], nil)
-      put :create, :features => [1, 2, 3, 4], :restaurant_id => @restaurant.id
-      response.should render_template(:index)
+      @restaurant.expects(:reset_features).with([1, 2, 3, 4], [])
+      put :add, :features => [1, 2, 3, 4], :restaurant_id => @restaurant.id, :id => @page.id
+      response.should redirect_to(bulk_edit_restaurant_feature_path(@restaurant, @page))
     end
 
   end

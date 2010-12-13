@@ -160,7 +160,7 @@ Feature: Restaurant Accounts
     And I follow "Downgrade the user to a Basic Account"
     Then I should be on the admin edit page for "sam"
     Then I should see that the user has a basic account
-    
+
   Scenario: A user at multiple restaurants only is staff at one of them
     Given the restaurant "Taco Bell" has a premium account
     And user "emily" has a staff account for the restaurant "Taco Bell"
@@ -180,5 +180,5 @@ Feature: Restaurant Accounts
     When I follow the edit role link for "Emily Emily"
     And I see that "emily" has a premium account paid for by a different restaurant
     And I do not see a link to change the user status
-    
-    
+
+

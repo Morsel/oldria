@@ -25,7 +25,7 @@ Feature: Associate Restaurant features
   #   And I see the category values for "Cuisine"
 
   Scenario: Selecting a checkbox should persist
-    When I go to the restaurant feature page for "Piece" 
+    When I go to the restaurant feature page for "Piece"
     And I check "Casual"
     And I check "Buffet"
     And I press "Update all features"
@@ -41,8 +41,6 @@ Feature: Associate Restaurant features
     And I go to the soapbox restaurant profile for "Piece"
     Then I see a navigation link for "Cuisine"
     And I do not see a navigation link for "Design"
-    And I see a page header for "Cuisine" with "Casual, Buffet"
-    And I do not see a page header for "Design"
 
   Scenario: Clicking on the detail link takes you to the interior page
     When I go to the restaurant feature page for "Piece"
@@ -50,7 +48,7 @@ Feature: Associate Restaurant features
     And I check "Buffet"
     And I press "Update all features"
     And I go to the soapbox restaurant profile for "Piece"
-    And I follow "Cuisine Details"
+    And I follow "Cuisine"
     Then I am on the soapbox restaurant feature page for "Piece" and "Cuisine"
     And I see headers for feature categories for "Cuisine"
     And I see "Cuisine" links for "Buffet"
@@ -62,8 +60,7 @@ Feature: Associate Restaurant features
     And "Piece" is tagged with "Buffet, Casual"
     And "Gino's East" is tagged with "Buffet, Ugly"
     And I go to the soapbox restaurant profile for "Piece"
+    And I follow "Cuisine"
     And I follow "Buffet"
-    Then I am on the soapbox feature page for "Buffet"
-    And I see the restaurant "Pierce"
+    And I see the restaurant "Piece"
     And I see the restaurant "Gino's East"
-

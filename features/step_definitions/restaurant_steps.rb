@@ -50,7 +50,7 @@ end
 
 Given /^I am an employee of "([^\"]*)"$/ do |restaurantname|
   restaurant = Restaurant.find_by_name(restaurantname)
-  visit restaurant_employees_path(restaurant)
+  visit bulk_edit_restaurant_employees_path(restaurant)
   click_link "Add employee"
   fill_in "Employee Email", :with => current_user.email
   click_button "Submit"
@@ -66,7 +66,7 @@ end
 
 Given /^I have just created a restaurant named "([^\"]*)"$/ do |restaurantname|
   @restaurant = Factory(:restaurant, :name => restaurantname, :manager => @current_user)
-  visit restaurant_employees_path(@restaurant)
+  visit bulk_edit_restaurant_employees_path(@restaurant)
 end
 
 Given /^the restaurant "([^\"]*)" is in the region "([^\"]*)"$/ do |restaurantname, regionname|
@@ -175,7 +175,7 @@ Then /^I see the restaurant logo$/ do
 end
 
 Then /^I should not see the restaurant logo$/ do
-  filename = "missing.png"
+  filename = "avatar_restaurant.gif"
   response.should have_selector("img#restaurant_logo_image[src*=\"#{filename}\"]")
 end
 
@@ -232,7 +232,7 @@ end
 Given /^"([^"]*)" is an employee of "([^"]*)" with public position (\d+)$/ do |username, restaurant_name, position|
   user = User.find_by_username(username)
   restaurant = Restaurant.find_by_name(restaurant_name)
-  user.restaurants << restaurant
+  user.restaurants << restaurant unless user.restaurants.include? restaurant
   restaurant.employments.find_by_employee_id(user.id).update_attributes(
       :position => position, :public_profile => true)
 end
@@ -359,8 +359,8 @@ end
 
 Then /^I should see the question "([^"]*)" with the answer "([^"]*)"$/ do |question_text, answer_text|
   answer = @restaurant.a_la_minute_answers.find_by_answer(answer_text)
-  response.should have_selector("##{dom_id(answer.a_la_minute_question)} .question", :content => question_text)
-  response.should have_selector("##{dom_id(answer.a_la_minute_question)} .answer", :content => answer_text)
+  response.should have_selector(".question", :content => question_text)
+  response.should have_selector(".answer", :content => answer_text)
 end
 
 Then /^I should not see the question "([^"]*)" with the answer "([^"]*)"$/ do |question_text, answer_text|

@@ -1,9 +1,7 @@
 class Soapbox::SoapboxController < ApplicationController
-  
+
   before_filter :load_past_features, :only => [:index, :directory]
-  
-  layout 'soapbox'
-  
+
   def index
     @home = true
     @slides = SoapboxSlide.all(:order => "position", :limit => 4, :conditions => "position is not null")
@@ -21,10 +19,10 @@ class Soapbox::SoapboxController < ApplicationController
       directory_search_setup
       @use_search = true
     end
-    
+
     render :template => "directory/index"
   end
-  
+
   def directory_search
     directory_search_setup
     render :partial => "directory/search_results"

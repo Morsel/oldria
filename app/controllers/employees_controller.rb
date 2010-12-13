@@ -2,7 +2,7 @@ class EmployeesController < ApplicationController
   before_filter :require_user
   before_filter :find_and_authorize_restaurant, :except => :index
 
-  def index
+  def bulk_edit
     @restaurant = Restaurant.find(params[:restaurant_id])
     @employments = @restaurant.employments.by_position.all(
         :include => [:subject_matters, :restaurant_role, :employee])
@@ -41,7 +41,7 @@ class EmployeesController < ApplicationController
     
     if @employment.update_attributes(params[:employment])
       flash[:notice] = "Successfully updated employee"
-      redirect_to restaurant_employees_path(@restaurant)
+      redirect_to bulk_edit_restaurant_employees_path(@restaurant)
     else
       @employee = @employment.employee
       flash[:error] = "We were unable to update that employee"
@@ -63,7 +63,7 @@ class EmployeesController < ApplicationController
     else
       flash[:error] = "Something went wrong. Our worker bees will look into it."
     end
-    redirect_to restaurant_employees_path(@restaurant)
+    redirect_to bulk_edit_restaurant_employees_path(@restaurant)
   end
 
   private

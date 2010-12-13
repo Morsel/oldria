@@ -190,6 +190,18 @@ class Restaurant < ActiveRecord::Base
   def additional_managers
     self.managers - [self.manager]
   end
+  
+  def profile_questions
+    ProfileQuestion.for_subject(self)
+  end
+
+  def topics
+    Topic.for_subject(self) || []
+  end
+
+  def published_topics
+    topics.select { |t| t.published?(self) }
+  end
 
   private
 

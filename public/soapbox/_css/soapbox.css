@@ -1,4 +1,3 @@
-@charset "UTF-8";
 /* line 4, ../../../../../.rvm/gems/ruby-1.8.7-p302@spoonfeed/gems/compass-0.10.6/frameworks/blueprint/stylesheets/blueprint/reset/_utilities.scss */
 html, body {
   margin: 0;
@@ -142,6 +141,7 @@ a img {
   border: none;
 }
 
+@charset "UTF-8";
 /* line 108, ../../../../../.rvm/gems/ruby-1.8.7-p302@spoonfeed/gems/compass-0.10.6/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
 article, aside, canvas, details, figcaption, figure, footer, header, hgroup, menu, nav, section, summary {
   margin: 0;
@@ -418,7 +418,7 @@ body, html, #container, #main, #content, #inside {
   background: rgba(255, 255, 255, 0.55);
   /* .restaurant */
 }
-/* line 138, ../../../../../.rvm/gems/ruby-1.8.7-p302@spoonfeed/gems/compass-0.10.6/frameworks/blueprint/stylesheets/blueprint/_grid.scss */
+/* line 139, ../../../../../.rvm/gems/ruby-1.8.7-p302@spoonfeed/gems/compass-0.10.6/frameworks/blueprint/stylesheets/blueprint/_grid.scss */
 * html #content {
   overflow-x: hidden;
 }
@@ -439,7 +439,7 @@ body, html, #container, #main, #content, #inside {
   margin-right: 0;
   width: 974px;
 }
-/* line 138, ../../../../../.rvm/gems/ruby-1.8.7-p302@spoonfeed/gems/compass-0.10.6/frameworks/blueprint/stylesheets/blueprint/_grid.scss */
+/* line 139, ../../../../../.rvm/gems/ruby-1.8.7-p302@spoonfeed/gems/compass-0.10.6/frameworks/blueprint/stylesheets/blueprint/_grid.scss */
 * html #content.no-sidebar {
   overflow-x: hidden;
 }
@@ -451,7 +451,7 @@ body, html, #container, #main, #content, #inside {
   width: 810px;
   /*jumbotron */
 }
-/* line 138, ../../../../../.rvm/gems/ruby-1.8.7-p302@spoonfeed/gems/compass-0.10.6/frameworks/blueprint/stylesheets/blueprint/_grid.scss */
+/* line 139, ../../../../../.rvm/gems/ruby-1.8.7-p302@spoonfeed/gems/compass-0.10.6/frameworks/blueprint/stylesheets/blueprint/_grid.scss */
 * html #content.home {
   overflow-x: hidden;
 }
@@ -638,7 +638,7 @@ body, html, #container, #main, #content, #inside {
   width: 277px;
   margin-right: 15px;
 }
-/* line 138, ../../../../../.rvm/gems/ruby-1.8.7-p302@spoonfeed/gems/compass-0.10.6/frameworks/blueprint/stylesheets/blueprint/_grid.scss */
+/* line 139, ../../../../../.rvm/gems/ruby-1.8.7-p302@spoonfeed/gems/compass-0.10.6/frameworks/blueprint/stylesheets/blueprint/_grid.scss */
 * html #content.home .panel_0 {
   overflow-x: hidden;
 }
@@ -663,7 +663,7 @@ body, html, #container, #main, #content, #inside {
   width: 236px;
   margin-right: 15px;
 }
-/* line 138, ../../../../../.rvm/gems/ruby-1.8.7-p302@spoonfeed/gems/compass-0.10.6/frameworks/blueprint/stylesheets/blueprint/_grid.scss */
+/* line 139, ../../../../../.rvm/gems/ruby-1.8.7-p302@spoonfeed/gems/compass-0.10.6/frameworks/blueprint/stylesheets/blueprint/_grid.scss */
 * html #content.home .panel_1 {
   overflow-x: hidden;
 }
@@ -674,7 +674,7 @@ body, html, #container, #main, #content, #inside {
   margin-right: 0;
   width: 236px;
 }
-/* line 138, ../../../../../.rvm/gems/ruby-1.8.7-p302@spoonfeed/gems/compass-0.10.6/frameworks/blueprint/stylesheets/blueprint/_grid.scss */
+/* line 139, ../../../../../.rvm/gems/ruby-1.8.7-p302@spoonfeed/gems/compass-0.10.6/frameworks/blueprint/stylesheets/blueprint/_grid.scss */
 * html #content.home .panel_2 {
   overflow-x: hidden;
 }
@@ -1331,7 +1331,7 @@ body, html, #container, #main, #content, #inside {
   width: 236px;
   margin: 20px 0 0;
 }
-/* line 138, ../../../../../.rvm/gems/ruby-1.8.7-p302@spoonfeed/gems/compass-0.10.6/frameworks/blueprint/stylesheets/blueprint/_grid.scss */
+/* line 139, ../../../../../.rvm/gems/ruby-1.8.7-p302@spoonfeed/gems/compass-0.10.6/frameworks/blueprint/stylesheets/blueprint/_grid.scss */
 * html #sidebar {
   overflow-x: hidden;
 }
@@ -1342,7 +1342,7 @@ body, html, #container, #main, #content, #inside {
   margin-right: 0;
   width: 154px;
 }
-/* line 138, ../../../../../.rvm/gems/ruby-1.8.7-p302@spoonfeed/gems/compass-0.10.6/frameworks/blueprint/stylesheets/blueprint/_grid.scss */
+/* line 139, ../../../../../.rvm/gems/ruby-1.8.7-p302@spoonfeed/gems/compass-0.10.6/frameworks/blueprint/stylesheets/blueprint/_grid.scss */
 * html #sidebar.home {
   overflow-x: hidden;
 }
@@ -1671,7 +1671,7 @@ body, html, #container, #main, #content, #inside {
   margin-right: 10px;
   width: 359px;
 }
-/* line 138, ../../../../../.rvm/gems/ruby-1.8.7-p302@spoonfeed/gems/compass-0.10.6/frameworks/blueprint/stylesheets/blueprint/_grid.scss */
+/* line 139, ../../../../../.rvm/gems/ruby-1.8.7-p302@spoonfeed/gems/compass-0.10.6/frameworks/blueprint/stylesheets/blueprint/_grid.scss */
 * html #legal {
   overflow-x: hidden;
 }
@@ -2160,7 +2160,7 @@ p.search_filter_hint {
   margin-right: 10px;
   width: 482px;
 }
-/* line 138, ../../../../../.rvm/gems/ruby-1.8.7-p302@spoonfeed/gems/compass-0.10.6/frameworks/blueprint/stylesheets/blueprint/_grid.scss */
+/* line 139, ../../../../../.rvm/gems/ruby-1.8.7-p302@spoonfeed/gems/compass-0.10.6/frameworks/blueprint/stylesheets/blueprint/_grid.scss */
 * html #recent-questions div {
   overflow-x: hidden;
 }
@@ -2171,7 +2171,7 @@ p.search_filter_hint {
   margin-right: 0;
   width: 482px;
 }
-/* line 138, ../../../../../.rvm/gems/ruby-1.8.7-p302@spoonfeed/gems/compass-0.10.6/frameworks/blueprint/stylesheets/blueprint/_grid.scss */
+/* line 139, ../../../../../.rvm/gems/ruby-1.8.7-p302@spoonfeed/gems/compass-0.10.6/frameworks/blueprint/stylesheets/blueprint/_grid.scss */
 * html #recent-questions div#recent-qotds {
   overflow-x: hidden;
 }
@@ -2688,4 +2688,589 @@ dl.things dt:after {
 /* line 1898, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
 .topic-nav a.all-topics {
   background-image: url(/images/redesign/bg-home.png);
+}
+
+/* line 1906, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+#restaurant_profile_view a:hover {
+  text-decoration: none;
+}
+/* line 1907, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+#restaurant_profile_view h2 {
+  font-size: 14px;
+  text-transform: uppercase;
+  border: none;
+  margin: 15px 0 5px;
+}
+/* line 1913, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+#restaurant_profile_view ul.tags {
+  float: left;
+  margin: 0;
+  padding: 0;
+}
+/* line 1917, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+#restaurant_profile_view ul.tags li {
+  display: inline-block;
+  background: none;
+  padding: 0;
+  margin: 0;
+}
+/* line 1922, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+#restaurant_profile_view ul.tags li a {
+  background-color: #f5f4f2;
+  display: inline-block;
+  padding: 2px 10px;
+  -moz-border-radius: 30px;
+  -webkit-border-radius: 30px;
+  -o-border-radius: 30px;
+  -ms-border-radius: 30px;
+  -khtml-border-radius: 30px;
+  border-radius: 30px;
+}
+/* line 1927, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+#restaurant_profile_view ul.tags li a:hover {
+  background-color: #cb4827;
+  color: #fff;
+  text-shadow: 0 1px 0 #333;
+}
+/* line 1935, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+#restaurant_profile_view header {
+  border-bottom: 1px dotted #ddd;
+  padding: 0 0 10px 0;
+}
+/* line 1938, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+#restaurant_profile_view header #restaurant_actions {
+  width: 166px;
+  float: right;
+}
+/* line 1941, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+#restaurant_profile_view header #restaurant_actions a {
+  font-size: 13px;
+  display: block;
+  background-image: url(/images/soapbox/share-actions.png);
+  background-color: #cb4827;
+  background-repeat: no-repeat;
+  padding: 8px 20px 8px 30px;
+  -moz-border-radius: 30px;
+  -webkit-border-radius: 30px;
+  -o-border-radius: 30px;
+  -ms-border-radius: 30px;
+  -khtml-border-radius: 30px;
+  border-radius: 30px;
+  color: #fff;
+  font-family: 'MuseoSlab700', 'Helvetica Neue', Helvetica, arial, sans-serif;
+  font-weight: normal !important;
+  font-weight: 700;
+  margin: 0 0 6px;
+  text-shadow: 0 1px 0 #333;
+}
+/* line 1953, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+#restaurant_profile_view header #restaurant_actions a.edit_restaurant {
+  background-position: -188px 9px;
+}
+/* line 1955, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+#restaurant_profile_view header #restaurant_actions a.edit_restaurant:hover {
+  background-color: #474f80;
+  background-position: -188px -91px;
+  text-decoration: none;
+}
+/* line 1961, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+#restaurant_profile_view header #restaurant_actions a.start_discussion {
+  background-position: 12px 9px;
+}
+/* line 1963, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+#restaurant_profile_view header #restaurant_actions a.start_discussion:hover {
+  background-color: #474f80;
+  background-position: 12px -91px;
+  text-decoration: none;
+}
+/* line 1969, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+#restaurant_profile_view header #restaurant_actions a.share_profile {
+  background-position: -388px 11px;
+}
+/* line 1971, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+#restaurant_profile_view header #restaurant_actions a.share_profile:hover {
+  background-color: #474f80;
+  background-position: -388px -89px;
+  text-decoration: none;
+}
+/* line 1979, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+#restaurant_profile_view header #restaurant_features {
+  clear: both;
+  overflow: hidden;
+}
+/* line 1982, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+#restaurant_profile_view header #restaurant_features span {
+  float: left;
+  margin: 2px 6px 2px 0;
+  padding: 0;
+}
+/* line 1988, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+#restaurant_profile_view header img {
+  width: 100px;
+  height: 100px;
+  border: 1px solid #ddd;
+  background-color: #f5f4f2;
+  display: block;
+  outline: 0;
+  text-indent: -9999px;
+}
+/* line 1995, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+#restaurant_profile_view header h1 {
+  font-size: 24px;
+  color: #333;
+}
+/* line 1999, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+#restaurant_profile_view header #restaurant_meta {
+  margin-left: 115px;
+}
+/* line 2001, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+#restaurant_profile_view header #restaurant_meta .address {
+  line-height: 17px;
+}
+/* line 2004, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+#restaurant_profile_view header #restaurant_meta .premium {
+  z-index: 1000;
+  margin: -15px 0 10px 0;
+  padding: 0;
+}
+/* line 2008, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+#restaurant_profile_view header #restaurant_meta .premium p {
+  display: inline-block;
+  font-size: 10px;
+  font-family: verdana, arial, sans-serif;
+  margin: 0;
+  padding: 1px 5px;
+  background-color: #f5f4f2;
+  color: #8e8366;
+}
+/* line 2020, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+#restaurant_profile_view .manager_and_facts, #restaurant_profile_view .account_contact, #restaurant_profile_view .account_social {
+  float: left;
+  width: 200px;
+  margin: 0 20px 20px 0;
+}
+/* line 2024, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+#restaurant_profile_view .manager_and_facts dt, #restaurant_profile_view .account_contact dt, #restaurant_profile_view .account_social dt {
+  margin-bottom: 2px;
+  font-weight: bold;
+}
+/* line 2028, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+#restaurant_profile_view .manager_and_facts dd, #restaurant_profile_view .account_contact dd, #restaurant_profile_view .account_social dd {
+  margin-bottom: 5px;
+  font-weight: normal;
+}
+/* line 2031, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+#restaurant_profile_view .manager_and_facts dd ul, #restaurant_profile_view .account_contact dd ul, #restaurant_profile_view .account_social dd ul {
+  margin: 0;
+}
+/* line 2036, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+#restaurant_profile_view .rest_staff {
+  clear: both;
+  border-top: 1px dotted #ddd;
+}
+/* line 2039, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+#restaurant_profile_view .rest_staff .restaurant_employees {
+  clear: both;
+}
+/* line 2041, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+#restaurant_profile_view .rest_staff .restaurant_employees .employment {
+  width: 200px;
+  margin: 0 20px 10px 0;
+  padding: 0 0 4px 0;
+  float: left;
+  border-bottom: 1px dotted #ddd;
+}
+/* line 2047, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+#restaurant_profile_view .rest_staff .restaurant_employees .employment header {
+  border: 0;
+  overflow: hidden;
+  margin: 0 0 5px;
+  padding: 4px 0 0 0;
+}
+/* line 2052, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+#restaurant_profile_view .rest_staff .restaurant_employees .employment header img {
+  display: block;
+  outline: 0;
+  text-indent: -9999px;
+  width: 32px;
+  height: 32px;
+  background-color: #f5f4f2;
+  margin: 0 10px 5px 0;
+}
+/* line 2059, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+#restaurant_profile_view .rest_staff .restaurant_employees .employment header h3 {
+  margin: 0;
+  line-height: 15px;
+  text-transform: capitalize;
+}
+/* line 2063, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+#restaurant_profile_view .rest_staff .restaurant_employees .employment header h3 a {
+  color: #cb4827;
+}
+/* line 2065, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+#restaurant_profile_view .rest_staff .restaurant_employees .employment header h3 a:hover {
+  color: #474f80;
+}
+/* line 2068, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+#restaurant_profile_view .rest_staff .restaurant_employees .employment header p {
+  margin: 0;
+  padding: 0;
+}
+/* line 2074, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+#restaurant_profile_view .rest_staff .restaurant_employees .employment .employee_section p {
+  font-size: 11px;
+  color: #333;
+  line-height: 13px;
+  margin: 0 0 5px;
+  padding: 0;
+}
+/* line 2082, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+#restaurant_profile_view .rest_staff .restaurant_employees .employment .employee_section.emp_actions a {
+  color: #333;
+  background: transparent url(/images/redesign/icon-arrow.gif) no-repeat 0 4px;
+  padding: 0 0 0 10px;
+  margin: 0 0 4px;
+  display: block;
+  font-size: 11px;
+}
+/* line 2089, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+#restaurant_profile_view .rest_staff .restaurant_employees .employment .employee_section.emp_actions a:hover {
+  color: #cb4827;
+  background: transparent url(/images/redesign/icon-arrow.gif) no-repeat 0 -96px;
+}
+/* line 2100, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+#restaurant_profile_view .media .photos {
+  width: 322px;
+  margin: 0 10px 0 0;
+  float: left;
+}
+/* line 2104, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+#restaurant_profile_view .media .photos img {
+  display: block;
+  margin: 0 0 5px;
+  padding: 0;
+  border: 1px solid #ccc;
+}
+/* line 2110, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+#restaurant_profile_view .media .photos small {
+  display: block;
+  margin: 10px 0;
+}
+/* line 2113, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+#restaurant_profile_view .media .photos small a {
+  color: #cb4827;
+}
+/* line 2115, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+#restaurant_profile_view .media .photos small a:hover {
+  color: #474f80;
+}
+/* line 2121, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+#restaurant_profile_view .media .menus {
+  display: inline;
+  float: left;
+  margin-right: 0;
+  width: 318px;
+}
+/* line 139, ../../../../../.rvm/gems/ruby-1.8.7-p302@spoonfeed/gems/compass-0.10.6/frameworks/blueprint/stylesheets/blueprint/_grid.scss */
+* html #restaurant_profile_view .media .menus {
+  overflow-x: hidden;
+}
+/* line 2123, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+#restaurant_profile_view .media .menus ul {
+  margin: 0;
+  padding: 0;
+}
+/* line 2126, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+#restaurant_profile_view .media .menus ul li {
+  display: block;
+  background: none;
+  margin: 0;
+  padding: 0;
+}
+/* line 2131, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+#restaurant_profile_view .media .menus ul li a {
+  display: block;
+  margin: 0 0 6px;
+  padding: 8px 12px 8px 42px;
+  background: #f5f4f2 url(/images/soapbox/icon-menu.png) no-repeat 9px 9px;
+}
+/* line 2136, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+#restaurant_profile_view .media .menus ul li a label {
+  display: block;
+  font-size: 14px;
+  text-transform: capitalize;
+  font-family: 'MuseoSlab500', 'Helvetica Neue', Helvetica, arial, sans-serif;
+  font-weight: normal !important;
+  font-weight: 500;
+}
+/* line 2142, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+#restaurant_profile_view .media .menus ul li a:hover {
+  background-color: #cb4827;
+  color: #fff;
+}
+/* line 2145, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+#restaurant_profile_view .media .menus ul li a:hover label {
+  text-shadow: 0 1px 0 #333;
+}
+/* line 2148, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+#restaurant_profile_view .media .menus ul li a:hover time {
+  color: #fff;
+}
+/* line 2157, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+#restaurant_profile_view .top-tags {
+  border-top: 1px dotted #ddd;
+  border-bottom: 1px dotted #ddd;
+  padding: 20px 0;
+}
+/* line 2161, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+#restaurant_profile_view .top-tags h2 {
+  margin: 0 0 10px 0;
+  padding: 0;
+}
+/* line 2167, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+#restaurant_profile_view .accolades {
+  margin: 0;
+  padding: 10px 0;
+}
+/* line 2170, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+#restaurant_profile_view .accolades h2 {
+  margin: 0 0 5px;
+  padding: 0;
+}
+/* line 2174, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+#restaurant_profile_view .accolades ul {
+  margin: 0;
+  padding: 0;
+}
+/* line 2177, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+#restaurant_profile_view .accolades ul li {
+  border: 1px solid #eee;
+  overflow: hidden;
+  width: 178px;
+  float: left;
+  margin: 0 20px 10px 0;
+  padding: 10px;
+  background: none;
+  display: block;
+  -moz-box-shadow: #eaeaea 0 1px 3px 0;
+  -webkit-box-shadow: #eaeaea 0 1px 3px 0;
+  -o-box-shadow: #eaeaea 0 1px 3px 0;
+  box-shadow: #eaeaea 0 1px 3px 0;
+  font-size: 11px;
+}
+/* line 2188, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+#restaurant_profile_view .accolades ul li span {
+  font-family: 'MuseoSlab500', 'Helvetica Neue', Helvetica, arial, sans-serif;
+  font-weight: normal !important;
+  font-weight: 500;
+  font-size: 13px;
+  display: block;
+  margin: 0 0 2px;
+}
+/* line 2198, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+#restaurant_profile_view .tricol a {
+  color: #cb4827;
+}
+/* line 2200, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+#restaurant_profile_view .tricol a:hover {
+  color: #474f80;
+  text-decoration: underline;
+}
+/* line 2209, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+#restaurant_profile_view .edit_profile_link a {
+  background-image: url(/images/redesign/pencil.png);
+  background-repeat: no-repeat;
+  background-position: 5px 6px;
+  font-family: 'MuseoSlab500', 'Helvetica Neue', Helvetica, arial, sans-serif;
+  font-weight: normal !important;
+  font-weight: 500;
+  text-shadow: 0 1px 0 #333;
+  font-size: 13px;
+  text-transform: uppercase;
+  display: block;
+  color: #fff;
+  background-color: #cb4827;
+  padding: 7px 10px 7px 20px;
+}
+/* line 2221, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+#restaurant_profile_view .edit_profile_link a:hover {
+  background-color: #f5f4f2;
+  color: #cb4827;
+  text-shadow: 0 1px 0 #fff;
+}
+/* line 2228, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+#restaurant_profile_view .view_all {
+  border-top: 1px solid #ddd;
+  padding-top: 4px;
+  text-transform: uppercase;
+  font-family: helvetica neue, helvetica, arial, sans-serif;
+  font-size: 12px;
+  letter-spacing: 0.1em;
+}
+/* line 2235, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+#restaurant_profile_view .view_all a {
+  color: #333;
+}
+/* line 2237, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+#restaurant_profile_view .view_all a:hover {
+  color: #cb4827;
+}
+
+/* ## ---- end of restaurant_profile_view ----- */
+/* line 2245, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+#a_la_minute {
+  display: inline;
+  float: left;
+  margin-right: 10px;
+  width: 359px;
+  width: 313px;
+}
+/* line 139, ../../../../../.rvm/gems/ruby-1.8.7-p302@spoonfeed/gems/compass-0.10.6/frameworks/blueprint/stylesheets/blueprint/_grid.scss */
+* html #a_la_minute {
+  overflow-x: hidden;
+}
+/* line 2248, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+#a_la_minute #alm-title {
+  display: block;
+  outline: 0;
+  text-indent: -9999px;
+  border-bottom: 1px solid #ccc;
+  background: transparent url(/images/redesign/title-alaminute.png) no-repeat;
+  padding-bottom: 5px;
+}
+/* line 2255, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+#a_la_minute .questions dl {
+  margin: 10px 0;
+}
+/* line 2257, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+#a_la_minute .questions dl dt {
+  font-weight: bold;
+  color: #333;
+  margin: 0;
+  padding: 0;
+}
+/* line 2263, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+#a_la_minute .questions dl dd {
+  font-weight: normal;
+  color: #666;
+  margin: 0;
+  padding: 0;
+}
+
+/* line 2273, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+#behindline {
+  display: inline;
+  float: left;
+  margin-right: 0;
+  width: 318px;
+  float: left;
+}
+/* line 139, ../../../../../.rvm/gems/ruby-1.8.7-p302@spoonfeed/gems/compass-0.10.6/frameworks/blueprint/stylesheets/blueprint/_grid.scss */
+* html #behindline {
+  overflow-x: hidden;
+}
+/* line 2276, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+#behindline ul {
+  margin: 10px 0;
+  padding: 0;
+  min-height: 100px;
+}
+/* line 2280, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+#behindline ul li {
+  padding: 0;
+  margin: 0;
+  background: 0;
+}
+/* line 2285, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+#behindline ul li.even a {
+  background: #f2f0e9;
+}
+/* line 2289, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+#behindline ul li a {
+  display: block;
+  padding: 10px;
+  position: relative;
+  color: #333;
+}
+/* line 2294, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+#behindline ul li a h5 {
+  font-family: "Hoefler Text", Georgia, serif;
+  font-weight: bold;
+  font-weight: 700;
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  color: #cb4827;
+  width: 200px;
+  line-height: 1.1;
+  margin: 0 0 6px;
+}
+/* line 2304, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+#behindline ul li a h5 .completeness {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  color: #808080;
+  letter-spacing: 0em;
+  font: normal 9px "Lucida Grande", Arial, sans-serif;
+}
+/* line 2313, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+#behindline ul li a:hover {
+  background: #474f80;
+  color: #fff;
+  text-decoration: none;
+  text-shadow: 0 1px 0 #333;
+}
+/* line 2318, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+#behindline ul li a:hover h5 {
+  color: #333;
+  text-shadow: none;
+}
+/* line 2321, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+#behindline ul li a:hover h5 .completeness {
+  color: #333;
+}
+
+/* end of #behindline ----------------------------- */
+/* line 2331, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+#btl-title {
+  color: #666;
+  text-transform: capitalize;
+  font: 200 16px "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, sans-serif !important;
+  padding: 0 0 3px;
+  margin: 0 0 10px;
+  border-bottom: 1px solid #ccc;
+}
+/* line 2338, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+#btl-title span.btl-art {
+  display: block;
+  outline: 0;
+  text-indent: -9999px;
+  display: inline-block;
+  background: url(/images/redesign/title-behindtheline.png) no-repeat;
+  width: 123px;
+  height: 19px;
+}
+/* line 2345, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+#btl-title.btl {
+  overflow: hidden;
+  display: inline-block;
+  padding: 10px 20px 0 5px;
+  margin: 0 0 15px -18px;
+  border: 0;
+  height: 33px;
+  color: #fff;
+  background: #d9531e url(/images/redesign/red-divot.gif) no-repeat right;
+}
+/* line 2354, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+#btl-title.btl span {
+  float: left;
+  margin: 0 5px 0 0;
+}
+/* line 2357, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+#btl-title.btl span.btl-art {
+  background: url(/images/redesign/btl-white.png) no-repeat left;
+}
+/* line 2360, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+#btl-title.btl span.name {
+  padding-top: 3px;
 }
