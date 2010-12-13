@@ -3522,6 +3522,7 @@ p.search_filter_hint {
 	}
 	ol li {
 		label {
+		  font-size: 13px;
 			font-weight: normal;
 		}
 		select {
@@ -4227,6 +4228,11 @@ p.search_filter_hint {
 
 /* ## A La Minute Editing --------------------------------------------- */
 #a_la_minute_questions {
+  .a_la_minute_question {
+    label {
+      font-weight: normal;
+    }
+  }
   .archive {
     display: none;
     margin: 10px 0;
@@ -4248,8 +4254,8 @@ p.search_filter_hint {
     border: 1px solid #DDD;
     @include border-radius(30px);
     color: #333;
+    font-weight: normal;
     display: inline-block;
-    font-weight: bold;
     padding: 4px 14px 4px 21px;
     text-shadow: #fff 0px 1px 0px;
     &.open {
