@@ -2,8 +2,9 @@
   <% link_to soapbox_soapbox_entry_path(comment_list_entry.soapbox_entry_id) do %>
     <% date = Time.parse(comment_list_entry.comment_at) %>
     <time datetime="<%= date.try(:strftime,'%Y-%m-%d') %>"><span><%= date.try(:strftime, "%b").upcase %></span><%= date.try(:strftime, "%e") %></time>
-    <span><%= comment_list_entry.question_display_message || comment_list_entry.question_short_message %></span>
-    <span class="title"><%= comment_list_entry.comment_comment %></span>
+    <span class="title"><%= comment_list_entry.question_display_message || comment_list_entry.question_short_message %><br/>
+      <%= comment_list_entry.comment_comment %>
+    </span>
     <span class="reply-count"><span><%= count = 5 %></span><%= count > 1 ? "replies" : "reply" %></span>
   <% end %>
 </li>
