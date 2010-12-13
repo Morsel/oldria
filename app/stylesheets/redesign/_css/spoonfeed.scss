@@ -3429,12 +3429,18 @@ p.search_filter_hint {
 	border: 1px solid #eaeaea;
 	input {
     margin-bottom: 12px;
-    &[type="password"], &[type="url"], &[type="text"], &[type="number"], textarea {
+    &[type="password"], &[type="url"], &[type="text"], &[type="number"] {
       border: 1px solid #ccc;
       @include box-shadow(#eaeaea, 0px, 1px, 1px);
       width: 55%;
     }
 	}
+	textarea {
+    border: 1px solid #ccc;
+    @include box-shadow(#eaeaea, 0px, 1px, 1px);
+    width: 55%;
+    height: 80px;
+  }
 	button, input[type="submit"] {
 		cursor:pointer;
 		float: left;

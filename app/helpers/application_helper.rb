@@ -1,5 +1,8 @@
 # Methods added to this helper will be available to all templates in the application.
 module ApplicationHelper
+
+  include SubscriptionsControllerHelper
+
   def button_tag(content = "Submit", options = {}, escape = true, &block)
     options.reverse_merge!(:type => 'submit')
     content_tag(:button, content, options, escape, &block)
@@ -19,7 +22,6 @@ module ApplicationHelper
         :class => "facebook_login"
   end
 
-
   def display_sidebar?
     controller_name != "soapbox"
   end
@@ -28,6 +30,7 @@ module ApplicationHelper
     return "" unless boolean
     content_tag(:div, options, &block)
   end
+
   def dl_if(boolean, options={}, &block)
     return "" unless boolean
     content_tag(:dl, options, &block)
@@ -52,8 +55,6 @@ module ApplicationHelper
     not_soapbox && current_user
   end
 
-  include SubscriptionsControllerHelper
-
   def logo_for(obj)
     obj.logo || Image.new
   end
@@ -67,6 +68,14 @@ module ApplicationHelper
       soapbox_restaurant_feature_page_path(restaurant, page)
     else
       restaurant_feature_page_path(restaurant, page)
+    end
+  end
+  
+  def btl_profile_link(commenter)
+    if commenter.is_a?(User)
+      profile_path(commenter.username)
+    elsif commenter.is_a?(Restaurant)
+      restaurant_path(commenter)
     end
   end
 end
