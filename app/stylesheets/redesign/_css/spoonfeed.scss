@@ -2193,11 +2193,10 @@ p.search_filter_hint {
 				color: #fff;
 				@include linear-gradient(color-stops(#ce4600,#df680e ), top);
 			  h2 {
-			    background: url(/images/redesign/arrow-44percent.png) no-repeat left;
 			    @include hoeflerbolditalic;
   				font-size: 20px;
   				text-shadow: 0 1px 0 #333;
-  				padding-left: 22px;
+  				padding-left: 0;
   				margin-bottom: 9px;
 			  }
 			  p {
