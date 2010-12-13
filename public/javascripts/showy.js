@@ -14,11 +14,11 @@ $.fn.showy = function(){
       link.toggleClass('open');
       hidable.toggleClass('open');
       
-      var text = link.text();
+      var text = link.html();
       if (link.hasClass('open')) {
-        link.text(text.replace(/View/, 'Close'));
+        link.html(text.replace(/View/, 'Close'));
       } else {
-        link.text(text.replace(/Close/, 'View'));
+        link.html(text.replace(/Close/, 'View'));
       }
       return false;
     });

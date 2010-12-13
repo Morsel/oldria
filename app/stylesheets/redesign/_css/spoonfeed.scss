@@ -2680,6 +2680,11 @@ p.search_filter_hint {
 		font-size: 14px;
 		letter-spacing: 0.1em;
 		text-transform: uppercase;
+		em {
+			font-family: 'helvetica neue', helvetica, arial, sans-serif;
+			font-style: normal;
+			font-size: 11px;
+		}
 		&:hover {
 			background-position: 0 -300px;
 		}
@@ -2710,6 +2715,16 @@ p.search_filter_hint {
 						font-weight: bold;
 						color: #333;
 						font-size: 15px;
+					}
+				}
+			}
+			&.resto {
+				h3 {
+					color: $brown;
+				}
+				ul {
+					li {
+						padding: 5px 0;
 					}
 				}
 			}
