@@ -539,6 +539,22 @@ form#new_user_session {
 
 #content {
 	@include column(18);
+	.addthis_toolbox {
+	  a {
+      font-family: 'Hoefler Text', Georgia, serif;
+      font-size: 14px;
+      font-weight: bold;
+      background: url(/images/redesign/share-arrow.gif) no-repeat 0 5px $trans-orange;
+      display: block;
+      float: left;
+      margin: 0px 0px 0px 10px;
+      padding: 3px 10px 3px 20px;
+      &:hover {
+        background: url(/images/redesign/share-arrow.gif) no-repeat 0 -27px $orange;
+        color: #fff;
+      }
+    }
+	}
 	header {
 		padding: 5px 0;
 		margin: 0;
@@ -546,12 +562,6 @@ form#new_user_session {
 		img {
 			float: left;
 			margin: 0 14px 10px 0;
-		}
-		.addthis_toolbox {
-		  float: left;
-      font-family: 'Hoefler Text', Georgia, serif;
-      font-size: 14px;
-      font-weight: bold;
 		}
 		.user_actions {
 			float: right;
