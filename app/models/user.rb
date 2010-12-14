@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20101115213854
+# Schema version: 20101207221226
 #
 # Table name: users
 #
@@ -22,7 +22,6 @@
 #  avatar_updated_at     :datetime
 #  first_name            :string(255)
 #  last_name             :string(255)
-#  james_beard_region_id :integer
 #  publication           :string(255)
 #  role                  :string(255)
 #  facebook_id           :string(255)

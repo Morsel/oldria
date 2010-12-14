@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20100913210123
+# Schema version: 20101207221226
 #
 # Table name: profile_answers
 #
@@ -8,7 +8,8 @@
 #  answer              :text
 #  created_at          :datetime
 #  updated_at          :datetime
-#  user_id             :integer
+#  responder_id        :integer
+#  responder_type      :string(255)
 #
 
 class ProfileAnswer < ActiveRecord::Base

@@ -23,10 +23,24 @@ class RestaurantFeaturesController < ApplicationController
     @restaurant.reset_features(new_features, unchecked_features_for_page)
     redirect_to bulk_edit_restaurant_feature_path(@restaurant, @page)
   end
+  
+  def edit_top
+    @features = @restaurant.restaurant_features.group_by(&:restaurant_feature_category)
+  end
+  
+  def update_top
+    @restaurant.restaurant_feature_items.each do |item|
+      item.update_attribute(:top_tag, params[:restaurant_features].include?(item.restaurant_feature_id.to_s))
+    end
+
+    flash[:notice] = "Updated top tags for #{@restaurant.name}"
+    redirect_to :action => "edit_top", :restaurant_id => @restaurant.id
+  end
 
   private
 
   def load_pages
+    # Load initial @pages content by running rake db:seeds
     @pages = RestaurantFeaturePage.by_name.all(
         :include => {:restaurant_feature_categories => :restaurant_features})
   end
@@ -47,6 +61,5 @@ class RestaurantFeaturesController < ApplicationController
       redirect_to @restaurant
     end
   end
-
 
 end
