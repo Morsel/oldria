@@ -1,0 +1,236 @@
+/* line 1, ../../../app/stylesheets/mediafeed/_css/print.scss */
+#container, #footer_container {
+  width: 700px;
+  margin: 0 auto;
+}
+
+/* line 6, ../../../app/stylesheets/mediafeed/_css/print.scss */
+#logo {
+  display: none;
+}
+
+/* line 7, ../../../app/stylesheets/mediafeed/_css/print.scss */
+#site_login {
+  display: none;
+}
+
+/* line 8, ../../../app/stylesheets/mediafeed/_css/print.scss */
+nav {
+  display: none;
+}
+
+/* line 9, ../../../app/stylesheets/mediafeed/_css/print.scss */
+.edit_button {
+  display: none;
+}
+
+/* line 10, ../../../app/stylesheets/mediafeed/_css/print.scss */
+#sidebar_a {
+  display: none;
+}
+
+/* line 11, ../../../app/stylesheets/mediafeed/_css/print.scss */
+#sidebar_b {
+  display: none;
+}
+
+/* line 12, ../../../app/stylesheets/mediafeed/_css/print.scss */
+#footnotes_debug {
+  display: none;
+}
+
+/* line 13, ../../../app/stylesheets/mediafeed/_css/print.scss */
+.fb {
+  display: none;
+}
+
+/* line 17, ../../../app/stylesheets/mediafeed/_css/print.scss */
+#page_content {
+  padding: 0 15px;
+  margin-bottom: 30px;
+}
+/* line 20, ../../../app/stylesheets/mediafeed/_css/print.scss */
+#page_content a {
+  color: #000;
+}
+/* line 23, ../../../app/stylesheets/mediafeed/_css/print.scss */
+#page_content h1 {
+  font-size: 24px;
+  font-family: gotham, helvetica, arial, sans-serif;
+  font-weight: bold;
+  color: #333;
+  line-height: 30px;
+  padding: 0;
+  margin: 12px 0 16px;
+}
+/* line 31, ../../../app/stylesheets/mediafeed/_css/print.scss */
+#page_content h1 a {
+  color: #000;
+}
+/* line 33, ../../../app/stylesheets/mediafeed/_css/print.scss */
+#page_content #pg_title {
+  font-size: 24px;
+  font-family: gotham, helvetica, arial, sans-serif;
+  font-weight: bold;
+  color: #000;
+  border-bottom: 1px solid #ccc;
+  line-height: 30px;
+  padding: 0 0 4px;
+  margin: 0 0 20px;
+}
+/* line 43, ../../../app/stylesheets/mediafeed/_css/print.scss */
+#page_content h2 {
+  font-family: gotham, helvetica, arial, sans-serif;
+  font-weight: bold;
+  color: #333;
+  font-size: 18px;
+  margin: 10px 0;
+  padding: 0;
+}
+/* line 50, ../../../app/stylesheets/mediafeed/_css/print.scss */
+#page_content h2 a {
+  color: #000;
+}
+/* line 52, ../../../app/stylesheets/mediafeed/_css/print.scss */
+#page_content h3 {
+  font-size: 14px;
+  margin: 6px 0;
+  padding: 4px 0 0;
+  color: #333;
+  font-family: gotham, helvetica, arial, sans-serif;
+  font-weight: bold;
+}
+/* line 59, ../../../app/stylesheets/mediafeed/_css/print.scss */
+#page_content h3 a {
+  color: #000;
+}
+/* line 61, ../../../app/stylesheets/mediafeed/_css/print.scss */
+#page_content h4 {
+  font-size: 14px;
+  margin: 0 0 12px 0;
+  line-height: 20px;
+  color: #333;
+  font-weight: normal;
+}
+/* line 68, ../../../app/stylesheets/mediafeed/_css/print.scss */
+#page_content h5 {
+  font-size: 13px;
+  margin: 4px 0 8px 0;
+  color: #333;
+  font-weight: bold;
+}
+/* line 74, ../../../app/stylesheets/mediafeed/_css/print.scss */
+#page_content h6 {
+  font-size: 11px;
+  margin: 10px 0;
+}
+/* line 78, ../../../app/stylesheets/mediafeed/_css/print.scss */
+#page_content img {
+  float: left;
+  margin: 2px 15px 10px 0;
+}
+/* line 82, ../../../app/stylesheets/mediafeed/_css/print.scss */
+#page_content p {
+  font-size: 13px;
+  line-height: 19px;
+  margin: 5px 0 16px;
+}
+/* line 86, ../../../app/stylesheets/mediafeed/_css/print.scss */
+#page_content p a {
+  color: #000;
+}
+/* line 88, ../../../app/stylesheets/mediafeed/_css/print.scss */
+#page_content blockquote {
+  float: left;
+  width: 240px;
+  margin: 0 15px 10px 0;
+  border: 1px solid #ccc;
+}
+/* line 93, ../../../app/stylesheets/mediafeed/_css/print.scss */
+#page_content blockquote p {
+  padding: 13px 15px;
+  color: #333;
+  font-size: 18px;
+  font-weight: normal;
+  font-weight: 300;
+  line-height: 26px;
+  font-family: gotham, helvetica, arial, sans-serif;
+  margin: 0;
+}
+/* line 104, ../../../app/stylesheets/mediafeed/_css/print.scss */
+#page_content ul {
+  margin: 5px 0 15px 20px;
+  padding: 0;
+  list-style: disc;
+}
+/* line 108, ../../../app/stylesheets/mediafeed/_css/print.scss */
+#page_content ul li {
+  font-size: 13px;
+  padding: 3px 0 3px 5px;
+  line-height: 16px;
+}
+/* line 114, ../../../app/stylesheets/mediafeed/_css/print.scss */
+#page_content ol {
+  margin: 5px 0 15px 18px;
+  padding: 0;
+  list-style: decimal;
+  list-style-position: outside;
+}
+/* line 119, ../../../app/stylesheets/mediafeed/_css/print.scss */
+#page_content ol li {
+  font-size: 13px;
+  padding: 3px 0;
+  background: none;
+  line-height: 16px;
+}
+/* line 126, ../../../app/stylesheets/mediafeed/_css/print.scss */
+#page_content dl {
+  font-size: 13px;
+  margin: 10px 0;
+  padding: 0;
+}
+/* line 130, ../../../app/stylesheets/mediafeed/_css/print.scss */
+#page_content dl dd {
+  font-weight: bold;
+  color: #333;
+  margin: 10px 0 0;
+  padding: 0;
+}
+/* line 136, ../../../app/stylesheets/mediafeed/_css/print.scss */
+#page_content dl dt {
+  margin: 0 0 10px 0;
+  padding: 0;
+  line-height: 18px;
+}
+
+/* line 144, ../../../app/stylesheets/mediafeed/_css/print.scss */
+#footer_container footer {
+  display: block;
+  margin: 20px 0 0;
+  padding: 20px 0;
+  border-top: 3px double #ccc;
+}
+/* line 149, ../../../app/stylesheets/mediafeed/_css/print.scss */
+#footer_container footer h2 {
+  font-family: gotham, helvetica, arial, sans-serif;
+  font-size: 15px;
+  text-transform: uppercase;
+  font-weight: normal;
+}
+/* line 155, ../../../app/stylesheets/mediafeed/_css/print.scss */
+#footer_container footer p {
+  font-size: 12px;
+  margin: 10px 0;
+}
+/* line 159, ../../../app/stylesheets/mediafeed/_css/print.scss */
+#footer_container footer ul {
+  list-style: none;
+  margin: 10px 0;
+  padding: 0;
+}
+/* line 163, ../../../app/stylesheets/mediafeed/_css/print.scss */
+#footer_container footer ul li {
+  font-size: 12px;
+  margin: 0;
+  padding: 0;
+}

@@ -15,6 +15,7 @@ $('.rest_staff .employment').equalHeights();
 $('#accolades li').equalHeights();
 
 
+
 // == Inbox for RIA messages
 $(".inbox_message .readit").live('click', function(){
   var $message = $(this).parents('.inbox_message');

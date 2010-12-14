@@ -1,0 +1,11 @@
+<nav id="primary_nav">
+  <span><%= active_link_to "Explore", root_path, :id => "nav_explore" %></span>
+  <span>
+    <%= active_link_to "Media Requests", messages_path, :id => "nav_requests" %>
+    <% if current_user.try(:ria_message_count) > 0 -%>
+      <%= link_to current_user.try(:ria_message_count), messages_path, :class => 'count' %>
+    <% end -%>
+  </span>
+  <span><%= active_link_to "Account Profile", '/profile', :id => "nav_profile" %></span>
+  <span><%= active_link_to "Contact", user_statuses_path(current_user), :id => "nav_contact" %></span>
+</nav>

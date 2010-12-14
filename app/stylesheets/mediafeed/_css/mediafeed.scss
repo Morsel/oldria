@@ -11,4 +11,488 @@
 
 .clearfix{overflow:hidden;}
 .clear{clear:both;}
-a {text-decoration: none;color: $medgreen;}
+a {text-decoration: none;color: $orange;outline: none;}
+
+body{
+ 	font:normal 12px "Helvetica Neue", Helvetica, Arial, sans-serif;
+	background:#fff url(/images/mediafeed/body-bg.gif) repeat-x;
+	color:#333;
+}
+
+hr.edit_block {
+	margin-right: 10px;
+	border-top: 1px solid #e1d9c4;
+	border-left: 0px none none;
+	border-right: 0px none none;
+	border-bottom: 0px none none;
+	background: none;
+	background-color: none;
+	color: #ddd;
+}
+
+strong, b{
+	font-weight:bold;
+}
+em, i{
+	font-style:italic;
+}
+
+#container{
+	width: 974px;
+	margin: 0 auto;
+	*zoom: 1;
+	position:relative;
+}
+
+@include sticky-footer(160px, "#container", "#padding", "#footer_container");
+
+#site_header {
+	display: block;
+	height: 135px;
+	overflow: hidden;
+	.branding {
+		@include column(10);
+		h1#logo {
+			a{
+				background: transparent url(/images/mediafeed/logo-mediafeed.png) no-repeat;
+				background-position: -3px 0px;
+				width: 735px;
+				height: 123px;
+				@include hiddentext;
+			}
+		}
+	}
+	#header_right {
+		@include column(14,true);
+		overflow: hidden;
+		#tagline {
+			margin: 12px 0;
+			h2 {
+				@include gotham;
+				margin: 0;
+				font-size: 18px;
+				font-weight: bold;
+				font-weight: 500;
+				color: $orange;
+				letter-spacing: 0.1em;
+				text-shadow: 0 -1px 0 $trans-brown;
+			}
+		}
+		#header_promos {
+			display: block;
+			margin: 12px 0;
+			height: 68px;
+			.header_promo {
+				@include column(3);
+				float: right;
+				display: block;
+				margin: 16px 0 0 10px;
+				padding: 7px 12px;
+				border: 1px solid $tan;
+				@include gotham;
+				font-weight: normal;
+				font-weigth: 300;
+				color: $gray;
+				font-size: 13px;
+				text-transform: uppercase;
+				line-height: 18px;
+				span {
+					display: block;
+					font-weight :bold;
+					font-weight: 700;
+					color: $orange;
+					font-size: 16px;
+				}
+				&:hover {
+					background-color: $orange;
+					color: #fff;
+					color: rgba(255,255,255,.7);
+					border: 1px solid #cb4712;
+					@include box-shadow(#eaeaea, 2px, 2px, 2px);
+					span {
+						color: #fff;
+						text-shadow: 0 1px 0 #333;
+					}
+				}
+			}
+		}
+	}
+} /* ## END OF #site_header ------------------- */
+
+
+#main {
+	@include box-shadow(#ddd,0px,2px,5px);
+	margin: 0 0 0px 0;
+	z-index: 500;
+	background: transparent url(/images/mediafeed/bg-fauxcolumn.gif) repeat-y;
+	&.hp {
+		position: relative;
+		background: none;
+		@include box-shadow(none);
+	}
+}
+
+#primary_nav {
+	width: 974px;
+	position: relative;
+	z-index: 100;
+	background: transparent url(/images/mediafeed/nav-bg.png) repeat-x;
+	height: 55px;
+	> span {
+	  position: relative;
+		display:block;
+		float: left;
+	  a.count {
+	    position: absolute;
+  	  right: 3px;
+  	  top: 3px;
+	    color: #D8531E;
+	    font-weight: bold;
+	    background: #fff;
+	    font-size: 11px;
+	    padding: 2px 6px;
+	    @include border-radius(10px);
+	    @include box-shadow(#d3d3ce, 0, 2px, 0, 0);
+			float:none;
+			height:auto;
+			text-indent:0;
+	  }
+	}
+	a {
+		@include hiddentext;
+		height: 50px;
+		width: 194px;
+		float: left;
+		background: transparent url(/images/mediafeed/nav.png) no-repeat;
+		&#nav_home {
+			background-position: 0 0;
+			&:hover {background-position: 0 -100px;}
+			&.selected {background-position: 0 -200px;}
+		}
+		&#nav_about {
+			background-position: -194px 0;
+			&:hover {background-position: -194px -100px;}
+			&.selected {background-position: -194px -200px;}
+		}
+		&#nav_overview {
+			width: 195px;
+			background-position: -389px 0;
+			&:hover {background-position: -389px -100px;}
+			&.selected {background-position:-389px -200px;}
+		}
+		&#nav_contact {
+			width: 195px;
+			background-position: -583px 0;
+			&:hover {background-position: -583px -100px;}
+			&.selected {background-position:-583px -200px;}
+		}
+		&#nav_login {
+			width: 196px;
+			background-position: -776px 0;
+			&:hover {background-position: -776px -100px;}
+			&.selected {background-position:-776px -200px;}
+		}
+		&.selected {
+		  + a.count {
+	      @include box-shadow(#ab4218, 0, 2px, 0, 0);
+	    }
+		}
+	}
+} /* ## end of #primary_nav ------------------------ */
+
+#alternate_nav {
+	width: 974px;
+	position: relative;
+	z-index: 100;
+	height: 60px;
+	a {
+		float: left;
+		height: 60px;
+		width: 164px;
+		background: transparent url(/images/redesign/nav-alt.png) no-repeat;
+		@include hiddentext;
+		&#nav_home {
+			background-position: 0 0;
+			&:hover {background-position: 0 -100px;}
+			&.selected {background-position: 0 -200px;}
+		}
+		&#nav_about {
+			background-position: -164px 0;
+			&:hover {background-position: -164px -100px;}
+			&.selected {background-position: -164px -200px;}
+		}
+		&#nav_overview {
+			background-position: -328px 0;
+			&:hover {background-position: -328px -100px;}
+			&.selected {background-position:-328px -200px;}
+		}
+		&#nav_pricing {
+			background-position: -492px 0;
+			&:hover {background-position: -492px -100px;}
+			&.selected {background-position:-492px -200px;}
+		}
+		&#nav_contact_alt {
+			background-position: -656px 0;
+			&:hover {background-position: -656px -100px;}
+			&.selected {background-position:-656px -200px;}
+		}
+		&#nav_login {
+			width: 154px;
+			background-position: -820px 0;
+			&:hover {background-position: -820px -100px;}
+			&.selected {background-position:-820px -200px;}
+		}
+	}
+} /* ## end of alternate_nav -------------------------------- */
+
+#jumbotron {
+	@include column(24, true);
+	height: 395px;
+	overflow:hidden;
+	background:$brown;
+	margin: -10px 0 20px 0;
+	position: relative;
+	z-index: 10;
+	.jumbo_content {
+		height: 400px;
+		width: 974px;
+		padding: 25px 0px 0px 25px;
+		h1 {
+			font-size: 44px;
+			@include gotham;
+			color: #fff;
+			text-shadow: 0px 2px 3px #333;
+			margin: 0 0 10px 0;
+			font-weight: normal;
+			a {
+				color: #fff;
+				&:hover {
+					color: $tan;
+				}
+			}
+		}
+		p {
+			width: 340px;
+			font-size: 20px;
+			line-height: 25px;
+			font-weight: 300;
+			@include neue;
+			color: #fff;
+			text-shadow: 0px 1px 0px #333;
+			a {
+				color: #fff;
+				font-weight: 500;
+				&:hover {
+					color: $orange;
+					text-decoration: none;
+				}
+			}
+		}
+		.photo_credit {
+			bottom: 12px;
+			right: -200px;
+			font-size: 9px;
+			position: absolute;
+			@include gotham;
+			text-shadow: 1px 1px 1px #000;
+			z-index: 100;
+		}
+	}
+} /* ## END of jumbotron ----------------- */
+
+#jumbotron_controller {
+	height: 42px;
+	margin: 0;
+	position: absolute;
+	width: 974px;
+	top: 398px;
+	z-index: 1000;
+	background: transparent url(/images/redesign/bg-controller.png) no-repeat 0 100%;
+	nav {
+		width: 126px;
+		height: 16px;
+		padding: 10px 0 10px 20px;
+		background: transparent url(/images/redesign/bg-25percent-black.png) repeat;
+		position: relative;
+		a {
+			position: relative;
+			margin: 2px 16px 0 0;
+			float: left;
+			width: 14px;
+			height: 14px;
+			background-color: $tan;
+			@include border-radius(20px);
+			@include hiddentext;
+			@include transition;
+			border: 1px solid $trans-brown;
+			&:hover {
+				background-color: $brown;
+			}
+			&.activeSlide {
+				background-color: $orange !important;
+				border: 1px solid #f07e50 !important;
+			}
+			&.last {
+				padding-right: 0;
+				margin-right: 0;
+			}
+		}
+	}
+} /* end of JUMBOTRON -------------------------------- */
+
+
+#content {
+	min-height: 500px;
+	margin-bottom: 30px;
+	&.hp {
+		min-height:120px;
+		@include column(24);
+		position:relative;
+		.hp_promo {
+			width: 286px;
+			float: left;
+			margin: 15px 10px 15px 0;
+			border: 1px solid #ddd;
+			padding: 15px;
+			&.last {
+				margin-right: 0;
+			}
+			h1 {
+				@include gotham;
+				margin: 5px 0 10px;
+				font-size: 18px;
+				font-weight: bold;
+				font-weight: 800;
+				color: $orange;
+				text-shadow: 0 1px 0 #fff;
+			}
+			p {
+				font-weight: 300;
+				font-size: 14px;
+				line-height: 21px;
+				a {
+					color: $orange;
+					&:hover {
+						text-decoration: underline;
+						color: $brown;
+					}
+				}
+			}
+			&.last {
+				margin-right: 0;
+			}
+		}
+	}
+} /* end of #content.hp -------------------------------- */
+
+
+
+
+
+#flashes {
+	clear:both;
+	margin: 15px 0;
+	font-family: Gotham, "helvetica neue", arial, sans-serif;
+	font-size: 13px;
+	position: relative;
+	div{
+		border: 1px solid #ddd;
+		padding: 10px 15px;
+		@include box-shadow(#f1f1f1,0px,2px,2px);
+		&#flash_error{
+			background: $tan;
+			border-color: $orange;
+			color: $orange;
+		}
+		&#flash_notice{
+			background: #fffbe0;
+			border-color: #FFD324;
+			color: #766833;
+		}
+		&#flash_success{
+			background: #edf5d0;
+			border-color: #abbc66;
+			color: #365816;
+		}
+	}
+} /* ## end of flashes ----------------------------- */
+
+
+#footer_container {
+	position: relative;
+	display: block;
+	z-index: 1000;
+	background-color: #333;
+	#foot-wrap{
+		height: 150px;
+		border-top: 10px solid #000;
+	}
+	footer {	
+		width: 974px;
+		margin: 25px auto;
+		padding: 0;
+		font-weight: 300;
+		color: #fff;
+		#footer_branding {
+			@include column(8);
+		}
+		#footer_links {
+			@include column(12);
+			p {
+				margin: 8px 0 10px 0;
+				color: #aaa;
+				position:relative;
+				a {
+					color: #fff;
+					&:hover {
+						text-decoration: underline;
+					}
+				}
+			}
+			nav {
+				margin: 0 0 10px 0;
+				a {
+					background: transparent url(/images/redesign/line-footer.gif) no-repeat;
+					background-position: 88% 2px;
+					padding: 0 15px 0 0;
+					color: #fff;
+					&.last {background-image: none;}
+					&:hover {text-decoration: underline;}
+				}
+			}
+			ul {
+				li {
+					display: inline;
+					color: #aaa;
+					a {
+						color: #fff;
+						&:hover {text-decoration: underline;}
+					}
+				}
+			}
+		}
+		#footer_social {
+			@include column(4, true);
+			a {
+				display: block;
+				padding: 0;
+				margin: 0 0 15px 0;
+				color: #fff;
+				&.fb {
+					padding: 0 0 0 32px;
+					background: transparent url(/images/redesign/icon-25-fb.png) no-repeat 0 2px;
+					&:hover {background-position: 0 -98px;}
+				}
+				&.twitter {
+					padding: 0 0 0 32px;
+					background: transparent url(/images/redesign/icon-25-twitter.png) no-repeat 0 2px;
+					&:hover {background-position: 0 -98px;}
+				}
+				&:hover {
+					color: #aaa;
+					text-decoration: underline;
+				}
+			}
+		}
+	}
+} /* ## end of #footer_container ---------------------- */
