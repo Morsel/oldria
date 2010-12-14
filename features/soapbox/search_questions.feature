@@ -18,3 +18,15 @@ Feature: Search question
     When I go to the questions search page searching for "water"
     Then I should see "water" within "#questions-list"
 
+  Scenario: Finding a QOTD comment
+    Given there is a QOTD asking "Is alloy mug fancy?"
+    And that QOTD has the following answers:
+      | Alec Lable | Please, drink from a plastic one |
+    And I am logged in as an admin
+    When I create a new soapbox entry for that QOTD with:
+      | Published at | 2010-05-10 |
+    And I go to the questions search page searching for "plastic"
+    Then I should see "Please, drink from a plastic one" within "#questions-list"
+
+
+
