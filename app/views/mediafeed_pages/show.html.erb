@@ -1,0 +1,26 @@
+<% title @page.title %>
+
+<div id="main_content">
+	<% if can?(:edit, @page) %>
+		<p>
+			<%= link_to "Edit this page", edit_admin_mediafeed_page_path(@page), :class => 'edit_button' %>
+		</p>
+	<% end %>
+	<section id="page_content">
+
+		<%= auto_link @page.content %>
+
+	</section><!--#page_content-->
+</div><!--#main_content-->
+
+<% content_for :sidebar_a do -%>
+	<aside id="sidebar_a">
+		
+	</aside><!-- #sidebar_a-->
+<% end -%>
+
+<% content_for :sidebar_b do -%>
+	<div id="sidebar_b">
+
+	</div><!--#sidebar_b-->
+<% end -%>
