@@ -49,6 +49,14 @@ ActionController::Routing::Routes.draw do |map|
   map.with_options :conditions => { :subdomain => 'hq' }, :controller => 'hq/hq' do |hq|
     hq.root :action => 'index'
   end
+  
+  map.namespace(:media_feed) do |media_feed|
+    media_feed.root :controller => 'media_feed', :action => 'index'
+  end
+
+  map.with_options :conditions => { :subdomain => 'mediafeed' }, :controller => 'media_feed/media_feed' do |media_feed|
+    media_feed.root :action => 'index'
+  end
 
   map.resource :my_profile, :only => ['create', 'edit', 'update'], :controller => 'profiles' do |p|
     p.resources :culinary_jobs

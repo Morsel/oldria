@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en" class="no-js">
+<head>
+	
+  <meta charset="utf-8">
+  <!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"><![endif]-->
+  <!--[if lt IE 9]>
+    <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+  <title><%= h(yield(:title) || "Media Feed") %> - Restaurant Intelligence Agency</title>
+  <meta name="description" content="Restaurant Intelligence Agency Media Feed">
+  <meta name="author" content="Restaurant Intelligence Agency">
+  <link rel="shortcut icon" href="/favicon-ria.ico">
+  <link rel="stylesheet" href="/media_feed/_css/media_feed.css?v=1">
+
+</head>
+
+<!--[if lt IE 7 ]> <body class="ie6"> <![endif]-->
+<!--[if IE 7 ]>    <body class="ie7"> <![endif]-->
+<!--[if IE 8 ]>    <body class="ie8"> <![endif]-->
+<!--[if IE 9 ]>    <body class="ie9"> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--> 
+	
+<body class="media_feed"> <!--<![endif]-->
+  <%= render 'layouts/staging_bar' %>
+	<div id="container">    
+
+  	<header id="site_header">
+					
+		</header><!--#site_header-->	
+		<%= yield :sidebar_a %>
+		<%= yield %>
+		<%= yield :sidebar_b %>
+		<div id="padding" class="clear"></div>
+		
+	</div><!--#container-->
+	
+	<div id="footer_container">
+		
+		<footer>
+			
+		</footer>
+	</div><!--#footer_container-->
+	
+	<%= javascript_include_tag 'https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js', 'https://ajax.googleapis.com/ajax/libs/jquery/1/jquery-ui.min.js' %>
+	<%= javascript_include_tag 'jquery-easing-min.js', 'jquery-cycle-min.js', 'jquery.equalheights', 'media_feed' %>
+
+</body>
+</html>
