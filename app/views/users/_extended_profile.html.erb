@@ -13,7 +13,7 @@
           <li class="culinary equalheights">
               <span class="name"><%= job.restaurant_name %></span><br />
               <span class="employee_title">Title: <%= job.title %></span><br />
-              <span class="chef_name">Chef: <%= job.chef_name %></span><br />
+              <span class="chef_name">Chef: <%= (job.chef_name == user.name) ? "Myself" : job.chef_name %></span><br />
               <span class="cuisine">Cuisine: <%= job.cuisine %></span><br />
               <span class="notes">Notes: <%= job.notes %></span><br />
               <span class="opening_staff"><%= "Was on opening staff<br/>" if job.opening_staff? %></span><br />
