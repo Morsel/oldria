@@ -41,8 +41,9 @@
 			
 		</header><!--#site_header-->
 		
-		<div id="main" class="hp">		
+		<div id="main">		
 		
+			<!-- this is the navigation for a NON-LOGGED-IN USER ******** -->
 			<!--<nav id="alternate_nav">
 				<a href="#" id="nav_home">Home</a>
 				<a href="#" id="nav_about">About</a>
@@ -51,13 +52,16 @@
 				<a href="#" id="nav_login">Login</a>
 			</nav>#mf_nav"-->
 			
+			<!-- this is the navigation for a LOGGED-IN USER ******** -->
 			<nav id="primary_nav">
-				<a href="#" id="nav_explore">Explore</a>
-				<a href="#" id="nav_requests">Media Requests</a>
-				<a href="#" id="nav_account">Account Profile</a>
-				<a href="#" id="nav_contact">Contact</a>
+				<span><a href="#" id="nav_explore">Explore</a></span>
+				<span><a href="#" id="nav_requests">Media Requests</a></span>
+				<span><a href="#" id="nav_account">Account Profile</a></span>
+				<span><a href="#" id="nav_contact">Contact</a></span>
 			</nav>
-			<%= yield %>		
+			<%= yield :sidebar_a %>
+			<%= yield %>	
+			<%= yield :sidebar_b %>	
 		  <div class="clear"></div>
       
 		</div><!--#main-->
