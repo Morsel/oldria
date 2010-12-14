@@ -127,6 +127,7 @@ class User < ActiveRecord::Base
   
   named_scope :active, :conditions => "last_request_at IS NOT NULL"
   named_scope :visible, :conditions => { :visible => true }
+  
 
 ### Preferences ###
   preference :hide_help_box, :default => false
