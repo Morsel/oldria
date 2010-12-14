@@ -1,23 +1,23 @@
 <div id="extended_profile" class="clearfix">
       <div class="extended_profile_info">
         <h3>Work Experience: Culinary</h3>
-        <ul class="employments clearfix">
+        <ul class="employments clearfix ">
             <% for employment in user.employments %>
-            <li class="culinary">
+            <li class="culinary equalheights">
                 <span class="name"><%= employment.restaurant.name %></span><br />
-                <span class="employee_title"><%= employment.restaurant_role.try(:name) %></span><br />
-                <span class="date_range">Current</span>
+                <span class="employee_title">Title: <%= employment.restaurant_role.try(:name) %></span><br />
+                <span class="date_range">Employment: Current</span>
             </li>
             <% end %>
           <% profile && profile.culinary_jobs.each do |job| %>          
-          <li class="culinary">
+          <li class="culinary equalheights">
               <span class="name"><%= job.restaurant_name %></span><br />
-              <span class="employee_title"><%= job.title %></span><br />
-              <span class="chef_name"><%= job.chef_name %></span><br />
-              <span class="cuisine"><%= job.cuisine %></span><br />
-              <span class="notes"><%= job.notes %></span><br />
+              <span class="employee_title">Title: <%= job.title %></span><br />
+              <span class="chef_name">Chef: <%= job.chef_name %></span><br />
+              <span class="cuisine">Cuisine: <%= job.cuisine %></span><br />
+              <span class="notes">Notes: <%= job.notes %></span><br />
               <span class="opening_staff"><%= "Was on opening staff<br/>" if job.opening_staff? %></span><br />
-              <span class="date_range"><%= date_range(job) %></span>
+              <span class="date_range">Employment: <%= date_range(job) %></span>
           </li>
           <% end %>
         </ul>
@@ -32,12 +32,12 @@
         <h3>Work Experience: Non-Culinary</h3>
         <ul class="employments clearfix">
           <% profile && profile.nonculinary_jobs.each do |job| %>
-          <li class="nonculinary">
+          <li class="nonculinary equalheights">
               <span class="name"><%= job.company %></span><br />
-              <span class="employee_title"><%= job.title %></span><br />
-              <span class="responsibilities"><%= job.responsibilities %></span><br />
-              <span class="reason_for_leaving"><%= job.reason_for_leaving %></span><br />
-              <span class="date_range"><%= date_range(job) %></span>
+              <span class="employee_title">Title: <%= job.title %></span><br />
+              <span class="responsibilities">Responsibilities: <%= job.responsibilities %></span><br />
+              <span class="reason_for_leaving">Reason for leaving: <%= job.reason_for_leaving %></span><br />
+              <span class="date_range">Employment: <%= date_range(job) %></span>
           </li>    
           <% end %>
         </ul>

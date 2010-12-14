@@ -13,7 +13,7 @@ $('.chapter').equalHeights();
 $('.topic').equalHeights();
 $('.rest_staff .employment').equalHeights();
 $('#accolades li').equalHeights();
-
+$('#extended_profile .equalheights').equalHeights(160);
 
 // == Inbox for RIA messages
 $(".inbox_message .readit").live('click', function(){
