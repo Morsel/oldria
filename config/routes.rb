@@ -81,7 +81,7 @@ ActionController::Routing::Routes.draw do |map|
 
   map.resources :conversations
 
-  map.resources :users, :collection => { :resend_confirmation => :any }, :member => {
+  map.resources :users, :collection => { :resend_confirmation => :any, :search => :get }, :member => {
     :remove_twitter => :put,
     :remove_avatar => :put,
     :fb_auth => :get,
