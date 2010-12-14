@@ -12,3 +12,9 @@ Feature: Search question
     And I go to the questions search page searching for "mug"
     Then I should see "Is alloy mug fancy?" within "#questions-list"
 
+  Scenario: Finding a Trend Question
+    Given there is a Trend Question "How much water do you pour into milk?"
+    And that Trend Question is featured on the soapbox
+    When I go to the questions search page searching for "water"
+    Then I should see "water" within "#questions-list"
+
