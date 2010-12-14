@@ -1,4 +1,4 @@
-@fired  
+@restaurant @fired  
 Feature: Fire an employee
   So that I can manage my accounts / restaurants,
   As an owner who has an employee who quit,
