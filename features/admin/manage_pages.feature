@@ -41,3 +41,8 @@ Feature: Manage pages
     And I logout
     And I go to "/about"
     Then I should see "You've finally made it!"
+
+@mediafeed    
+  Scenario: Able to create a media feed page
+    When I go to the admin landing page
+    Then I should see "Mediafeed Pages" as a link
