@@ -93,32 +93,34 @@ class Comment < ActiveRecord::Base
   end
 
   # find all soapbox published qotds comments containing the keyboard
-  def self.search_qotd_comments(keyword)
-    Admin::Qotd.soapbox_entry_published.admin_conversations_comments_comment_like(keyword).
-      all(:select => 'comments.id as comment_id,
+  def self.search_qotd_comments(keyword, page = nil)
+    select_params = { :select => 'comments.id as comment_id,
                comments.comment as comment_comment,
                comments.updated_at as comment_at,
                admin_messages.display_message as question_display_message,
                admin_messages.message as question_short_message,
-               soapbox_entries.id as soapbox_entry_id')
+               soapbox_entries.id as soapbox_entry_id' }
+
+    Admin::Qotd.soapbox_entry_published.admin_conversations_comments_comment_like(keyword).
+      all(select_params)
   end
 
   # find all soapbox published trend questions comments containing the keyboard
-  def self.search_trend_question_comments(keyword)
-    selector = 'comments.id as comment_id,
+  def self.search_trend_question_comments(keyword, page = nil)
+    select_params = { :select => 'comments.id as comment_id,
                comments.comment as comment_comment,
                comments.updated_at as comment_at,
                trend_questions.display_message as question_display_message,
                trend_questions.subject as question_short_message,
-               soapbox_entries.id as soapbox_entry_id'
+               soapbox_entries.id as soapbox_entry_id' }
 
-    discussions = TrendQuestion.soapbox_entry_published.
+    d_comments = TrendQuestion.soapbox_entry_published.
       admin_discussions_comments_comment_like(keyword).
-      all(:select => selector)
+      all(select_params)
 
-    discussions + TrendQuestion.soapbox_entry_published.
+    d_comments + TrendQuestion.soapbox_entry_published.
       solo_discussions_comments_comment_like(keyword).
-      all(:select => selector)
+      all(select_params)
   end
 
 end

@@ -6,28 +6,28 @@
     <p>Nothing found.</p>
   <% else %>
     <% unless @trend_questions_found.empty? %>
-      <div id="questions-list-feed-trend">
+      <div class="questions-list-feed-trend">
         <h1>Trend Questions</h1>
         <%= render :partial => 'trend_list', :locals => {:questions => @trend_questions_found} %>
       </div>
     <% end %>
 
     <% unless @qotds_found.empty? %>
-      <div id="questions-list-feed-qotd">
+      <div class="questions-list-feed-qotd">
         <h1>Questions of the Day</h1>
         <%= render :partial => 'qotd_list', :locals => {:questions => @qotds_found} %>
       </div>
     <% end %>
 
     <% unless @qotd_comments_found.empty? %>
-      <div id="comments-list-feed-qotd">
+      <div class="questions-list-feed-qotd">
         <h1>Questions of the Day Answers</h1>
         <%= render :partial => 'comment_list', :locals => {:comments => @qotd_comments_found} %>
       </div>
     <% end %>
 
     <% unless @trend_question_comments_found.empty? %>
-      <div id="comments-list-feed-qotd">
+      <div class="questions-list-feed-trend">
         <h1>Trend Questions Answers</h1>
         <%= render :partial => 'comment_list', :locals => {:comments => @trend_question_comments_found} %>
       </div>
