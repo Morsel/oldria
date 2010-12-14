@@ -199,11 +199,11 @@ end
 Then /^I see headers for feature categories for "([^\"]*)"$/ do |page_name|
   page = RestaurantFeaturePage.find_by_name(page_name)
   @restaurant.categories_for_page(page).each do |category|
-    response.should have_selector(".restaurant_feature_category h2", :content => category.name)
+    response.should have_selector(".restaurant_feature_category h3", :content => category.name)
   end
   missing = page.restaurant_feature_categories - @restaurant.categories_for_page(page)
   missing.each do |category|
-    response.should_not have_selector(".restaurant_feature_category h2", :content => category.name)
+    response.should_not have_selector(".restaurant_feature_category h3", :content => category.name)
   end
 end
 

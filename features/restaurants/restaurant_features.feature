@@ -42,6 +42,7 @@ Feature: Associate Restaurant features
     Then I see a navigation link for "Cuisine"
     And I do not see a navigation link for "Design"
 
+@joesak
   Scenario: Clicking on the detail link takes you to the interior page
     When I go to the restaurant feature page for "Piece"
     And I check "Casual"
