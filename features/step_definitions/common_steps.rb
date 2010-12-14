@@ -42,3 +42,7 @@ Then /^I should see a table of resources$/ do
     tbody.should have_selector("tr")
   end
 end
+
+Then /^I should see "([^\"]*)" as a link$/ do |text|
+  response.should have_selector("a", :content => text)
+end
