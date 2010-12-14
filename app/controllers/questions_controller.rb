@@ -27,7 +27,7 @@ class QuestionsController < ApplicationController
 
   def show
     @question = ProfileQuestion.find(params[:id])
-    @answers = @question.profile_answers.from_premium_subjects.all(:order => "profile_answers.created_at DESC").select { |a| a.responder.prefers_publish_profile? }
+    @answers = @question.profile_answers.from_premium_subjects.all(:order => "profile_answers.created_at DESC").select { |a| a.responder.try(:prefers_publish_profile?) }
   end
 
   def topics
