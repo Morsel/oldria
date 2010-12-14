@@ -225,6 +225,7 @@ ActionController::Routing::Routes.draw do |map|
     admin.resources :soapbox_entries, :member => { :toggle_status => :post }
     admin.resources :soapbox_pages
     admin.resources :hq_pages
+    admin.resources :mediafeed_pages
     admin.resources :soapbox_slides
     admin.resources :soapbox_promos, :collection => { :sort => :post }
 
@@ -264,6 +265,7 @@ ActionController::Routing::Routes.draw do |map|
   map.public_page ":id", :controller => 'pages', :action => 'show'
   map.soapbox_page 'soapbox/:id', :controller => 'soapbox_pages', :action => 'show'
   map.hq_page 'hq/:id', :controller => 'hq_pages', :action => 'show'
+  map.mediafeed_page 'mediafeed/:id', :controller => 'mediafeed_pages', :action => 'show'
 
   # Default Routes
   map.connect ':controller/:action/:id'

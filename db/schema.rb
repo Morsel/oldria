@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20101210222931) do
+ActiveRecord::Schema.define(:version => 20101214220857) do
 
   create_table "a_la_minute_answers", :force => true do |t|
     t.text     "answer"
@@ -557,6 +557,14 @@ ActiveRecord::Schema.define(:version => 20101210222931) do
   add_index "media_requests", ["sender_id"], :name => "index_media_requests_on_sender_id"
   add_index "media_requests", ["subject_matter_id"], :name => "index_media_requests_on_media_request_type_id"
 
+  create_table "mediafeed_pages", :force => true do |t|
+    t.string   "title"
+    t.string   "slug"
+    t.text     "content"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "menus", :force => true do |t|
     t.string   "name"
     t.string   "change_frequency"
@@ -909,6 +917,29 @@ ActiveRecord::Schema.define(:version => 20101210222931) do
     t.text     "content"
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "soapbox_promos", :force => true do |t|
+    t.string   "title"
+    t.text     "body"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "link"
+    t.integer  "position"
+  end
+
+  create_table "soapbox_slides", :force => true do |t|
+    t.string   "image_file_name"
+    t.string   "image_content_type"
+    t.integer  "image_file_size"
+    t.integer  "image_updated_at"
+    t.string   "title"
+    t.text     "excerpt"
+    t.string   "link"
+    t.integer  "position"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "photo_credit"
   end
 
   create_table "solo_discussions", :force => true do |t|
