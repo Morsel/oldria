@@ -37,4 +37,20 @@ describe Soapbox::SoapboxEntriesController do
     end
   end
 
+  describe "search for questions and comments" do
+    it "should find trend question" do
+      entry = Factory(:soapbox_entry, :featured_item => Factory(:trend_question))
+      get :search, :query => entry.featured_item.subject
+      assigns[:trend_questions_found].should == [entry.featured_item]
+    end
+
+    it "should find question of the day" do
+      pending "should have Admin::Qotd in featured_item_type" do
+        entry = Factory(:soapbox_entry)
+        get :search, :query => "question"
+        assigns[:qotds_found].should == [entry.featured_item]
+      end
+    end
+  end
+
 end

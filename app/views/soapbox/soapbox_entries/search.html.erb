@@ -19,17 +19,17 @@
       </div>
     <% end %>
 
-    <% unless @qotd_comments_found.empty? %>
-      <div class="questions-list-feed-qotd">
-        <h1>Questions of the Day Answers</h1>
-        <%= render :partial => 'comment_list', :locals => {:comments => @qotd_comments_found} %>
-      </div>
-    <% end %>
-
     <% unless @trend_question_comments_found.empty? %>
       <div class="questions-list-feed-trend">
         <h1>Trend Questions Answers</h1>
         <%= render :partial => 'comment_list', :locals => {:comments => @trend_question_comments_found} %>
+      </div>
+    <% end %>
+
+    <% unless @qotd_comments_found.empty? %>
+      <div class="questions-list-feed-qotd">
+        <h1>Questions of the Day Answers</h1>
+        <%= render :partial => 'comment_list', :locals => {:comments => @qotd_comments_found} %>
       </div>
     <% end %>
   <% end %>
