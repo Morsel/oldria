@@ -1,4 +1,5 @@
 # == Schema Information
+# Schema version: 20101207221226
 #
 # Table name: menus
 #
@@ -9,6 +10,7 @@
 #  restaurant_id            :integer
 #  created_at               :datetime
 #  updated_at               :datetime
+#  position                 :integer
 #
 
 class Menu < ActiveRecord::Base

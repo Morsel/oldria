@@ -4246,7 +4246,16 @@ p.search_filter_hint {
 /* ## END of restaurant FEATURES editing --------------------------------------------- */
 
 /* ## A La Minute Editing --------------------------------------------- */
-#a_la_minute_questions {
+#editing_restaurant #a_la_minute_questions {
+ 	.editing {
+ 		ol li {
+ 			.ala {
+ 				font-size: 16px;
+ 				font-family: 'Hoefler Text', georgia, serif;
+ 				margin-bottom: 3px;
+ 			}
+ 		}
+	}
   .a_la_minute_question {
     label {
       font-weight: normal;
