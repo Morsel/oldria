@@ -50,12 +50,12 @@ ActionController::Routing::Routes.draw do |map|
     hq.root :action => 'index'
   end
   
-  map.namespace(:media_feed) do |media_feed|
-    media_feed.root :controller => 'media_feed', :action => 'index'
+  map.namespace(:mediafeed) do |mediafeed|
+    mediafeed.root :controller => 'mediafeed', :action => 'index'
   end
 
-  map.with_options :conditions => { :subdomain => 'mediafeed' }, :controller => 'media_feed/media_feed' do |media_feed|
-    media_feed.root :action => 'index'
+  map.with_options :conditions => { :subdomain => 'mediafeed' }, :controller => 'mediafeed/mediafeed' do |mediafeed|
+    mediafeed.root :action => 'index'
   end
 
   map.resource :my_profile, :only => ['create', 'edit', 'update'], :controller => 'profiles' do |p|

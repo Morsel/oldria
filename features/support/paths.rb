@@ -166,7 +166,7 @@ module NavigationHelpers
     # media feed
     
     when /the media feed homepage/
-      media_feed_root_path
+      mediafeed_root_path
 
     # Add more mappings here.
     # Here is an example that pulls values out of the Regexp:
