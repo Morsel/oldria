@@ -161,6 +161,48 @@ em, i{
 	a {
 		@include hiddentext;
 		height: 50px;
+		width: 243px;
+		float: left;
+		background: transparent url(/images/mediafeed/nav-loggedin.png) no-repeat;
+		&#nav_explore {
+			background-position: 0 0;
+			&:hover {background-position: 0 -100px;}
+			&.selected {background-position: 0 -200px;}
+		}
+		&#nav_requests {
+			width: 244px;
+			background-position: -244px 0;
+			&:hover {background-position: -244px -100px;}
+			&.selected {background-position: -244px -200px;}
+		}
+		&#nav_account {
+			width: 244px;
+			background-position: -490px 0;
+			&:hover {background-position: -490px -100px;}
+			&.selected {background-position:-490px -200px;}
+		}
+		&#nav_contact {
+			background-position: -734px 0;
+			&:hover {background-position: -734px -100px;}
+			&.selected {background-position:-734px -200px;}
+		}
+		&.selected {
+		  + a.count {
+	      @include box-shadow(#ab4218, 0, 2px, 0, 0);
+	    }
+		}
+	}
+} /* ## end of #primary_nav ------------------------ */
+
+#alternate_nav {
+	width: 974px;
+	position: relative;
+	z-index: 100;
+	background: transparent url(/images/mediafeed/nav-bg.png) repeat-x;
+	height: 55px;
+	a {
+		@include hiddentext;
+		height: 50px;
 		width: 194px;
 		float: left;
 		background: transparent url(/images/mediafeed/nav.png) no-repeat;
@@ -199,51 +241,6 @@ em, i{
 		}
 	}
 } /* ## end of #primary_nav ------------------------ */
-
-#alternate_nav {
-	width: 974px;
-	position: relative;
-	z-index: 100;
-	height: 60px;
-	a {
-		float: left;
-		height: 60px;
-		width: 164px;
-		background: transparent url(/images/redesign/nav-alt.png) no-repeat;
-		@include hiddentext;
-		&#nav_home {
-			background-position: 0 0;
-			&:hover {background-position: 0 -100px;}
-			&.selected {background-position: 0 -200px;}
-		}
-		&#nav_about {
-			background-position: -164px 0;
-			&:hover {background-position: -164px -100px;}
-			&.selected {background-position: -164px -200px;}
-		}
-		&#nav_overview {
-			background-position: -328px 0;
-			&:hover {background-position: -328px -100px;}
-			&.selected {background-position:-328px -200px;}
-		}
-		&#nav_pricing {
-			background-position: -492px 0;
-			&:hover {background-position: -492px -100px;}
-			&.selected {background-position:-492px -200px;}
-		}
-		&#nav_contact_alt {
-			background-position: -656px 0;
-			&:hover {background-position: -656px -100px;}
-			&.selected {background-position:-656px -200px;}
-		}
-		&#nav_login {
-			width: 154px;
-			background-position: -820px 0;
-			&:hover {background-position: -820px -100px;}
-			&.selected {background-position:-820px -200px;}
-		}
-	}
-} /* ## end of alternate_nav -------------------------------- */
 
 #jumbotron {
 	@include column(24, true);
