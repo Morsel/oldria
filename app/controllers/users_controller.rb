@@ -141,6 +141,11 @@ class UsersController < ApplicationController
 
     redirect_to edit_my_profile_path
   end
+  
+  def search
+    @users = User.premium_account.visible.profile_headline_or_profile_summary_like(params[:query]).all(:include => :profile)
+    @users.reject! { |user| ! user.prefers_publish_profile? }
+  end
 
   private
 

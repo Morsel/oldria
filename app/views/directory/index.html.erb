@@ -3,6 +3,14 @@
 <%= title_for_search %>
 
 <% if @use_search %>
+  <div id="user-search">
+
+    <% form_tag search_users_path, :method => :get do %>
+        <span>User search:</span>
+        <%= text_field_tag :query %>
+ 	    <%= submit_tag 'Search' %>
+    <% end %>
+  </div>
 <div id="directory_search">
     <% form_tag do |f| %>
         <%= render :partial => 'directory/search_criteria', :locals => { :f => f } %>
