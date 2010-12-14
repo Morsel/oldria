@@ -58,42 +58,9 @@
 				<a href="#" id="nav_contact">Contact</a>
 				<a href="#" id="nav_login">Login</a>
 			</nav>-->
-			
-			<div id="jumbotron">
-				<div class="jumbo_content" style="background: url(/images/mediafeed/fish.jpg) no-repeat;">
-					<h1><a href="#">Speak for Yourself</a></h1>
-					<p>We've built a platform so you can rise up above the crowd and be heard&hellip; <a href="#">Learn&nbsp;more&nbsp;&#187;</a></p>
-					<p class="photo_credit">Photo: Edward Blake</p>
-				</div><!--.jumbo_content-->
-			</div><!--#jumbotron-->
-			<div id="jumbotron_controller">
-				<nav id="controller">
-					<a href="#" class="">1</a>
-					<a href="#" class="">2</a>
-					<a href="#" class="activeSlide">3</a>
-				</nav>
-			</div><!--#jumbotron_controller-->
-			
-			<%= render 'layouts/flashes' %>
-			
-			<div id="content" class="hp clear clearfix">
-	      <section class="hp_promo">
-					<h1>Lorem ipsum dolor sit amet</h1>
-					<p>Mauris varius, eros id viverra aliquam, urna lorem tincidunt nisi, eu fringilla purus quam sed elit. Integer vehicula est dapibus lectus porta consectetur. Nulla facilisi. Aliquam erat volutpat. Quisque ultricies neque quis dolor vulputate porttitor... <a href="#">read&nbsp;more&nbsp;&#187;</a></p>
-				</section>
-				<section class="hp_promo">
-					<h1>Curabitur viverra</h1>
-					<p>Praesent tincidunt dolor turpis, quis porta purus. Morbi tempus dapibus ante ut cursus. Quisque eu nulla at elit molestie porta. Duis quis massa quis sem pellentesque... <a href="#">read&nbsp;more&nbsp;&#187;</a></p>
-				</section>
-				<section class="hp_promo last">
-					<h1>Ut vulputate leo at lectus ultricies tempus feugiat</h1>
-					<p>Peu rutrum massa leo ut dolor. Aliquam lacinia enim et diam lobortis ut convallis turpis tincidunt. Quisque venenatis elit et ligula mattis dictum. Liquam erat volutpat. In a diam urna... <a href="#">read&nbsp;more&nbsp;&#187;</a></p>
-				</section>
-	    </div><!-- /content -->
-	    <div class="clear"></div>
-	  </div><!-- /main -->
-		
-		
+			<%= yield %>		
+		  <div class="clear"></div>
+      
 		</div><!--#main-->
 		
 		<div id="padding"></div>
