@@ -1446,7 +1446,7 @@ p.search_filter_hint {
 		}
 	}
 }
-#recent-questions #recent-qotds, #qustions-list #questions-list-feed-qotd{
+.questions-list-feed-qotd, #recent-questions #recent-qotds, #qustions-list #questions-list-feed-qotd{
 	a.button{
 		background:$purple;
 		&:hover{
@@ -1573,6 +1573,18 @@ p.search_filter_hint {
 				}
 			}
 		}
+		&.questions-list-feed-qotd{
+      @include column(24,last);
+      ul li a:hover{
+        text-decoration:none;
+        background:#d9e8ef;
+        background:rgba(114,180,210,0.15);
+        color:$purple;
+        .reply-count{
+          background-position:-400px 0;
+        }
+      }
+    }
 		ul li a span.title {
 		      width: 838px;
 		}
