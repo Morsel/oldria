@@ -396,7 +396,7 @@ class User < ActiveRecord::Base
   def recieve_front_burner?
     return false unless self.post_to_soapbox?
     return false if self.employments.count > 0 && 
-                    self.employments.select {|empl| empl.restaurant_role }.count == 0
+                    !self.employments.first(:conditions => 'restaurant_role_id IS NOT NULL')
     true
   end
 end
