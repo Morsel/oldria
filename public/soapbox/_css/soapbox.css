@@ -1920,7 +1920,7 @@ p.search_filter_hint {
 /* line 1285, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
 #trend-article .addthis_toolbox {
   position: absolute;
-  top: -10px;
+  top: -40px;
   right: 0;
   background: url(/images/soapbox/bg-sienna-opacity-10.png);
   background: rgba(215, 82, 30, 0.1);

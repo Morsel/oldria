@@ -26,18 +26,6 @@ Feature: Trend questions
     And "Normal Pants" should have 1 new trend question
     But "Fancy Lamb" should not have any trend questions
 
-  Scenario: New Restaurants that fit criteria should be added
-    Given I am logged in as an admin
-    When I create a new trend question with subject "Are Cucumbers tasty?" with criteria:
-      | Region | Midwest (IN IL OH) |
-    Then the trend question with subject "Are Cucumbers tasty?" should have 1 restaurant
-
-    Given a restaurant named "Newbie McGee" with the following employees:
-      | username | password | email            | name      | role      | subject matters |
-      | guy      | secret   | guy@example.com  | Guy Jones | Chef      | Food            |
-    And the restaurant "Newbie McGee" is in the region "Midwest"
-    Then the trend question with subject "Are Cucumbers tasty?" should have 2 restaurants
-    
   Scenario: Solo Employments that fit criteria should be included
     Given the following confirmed user:
       | username | first_name | last_name | email         |

@@ -1,4 +1,4 @@
-@profile
+@restaurant @btl
 Feature: Restaurant Profile - Behind the Line (aka Q&A)
   SF restaurant managers should be able to answer questions specific to their restaurant
   These questions will be organized into a series of topics and chapters

@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20100913210123
+# Schema version: 20101207221226
 #
 # Table name: profile_answers
 #
@@ -8,7 +8,8 @@
 #  answer              :text
 #  created_at          :datetime
 #  updated_at          :datetime
-#  user_id             :integer
+#  responder_id        :integer
+#  responder_type      :string(255)
 #
 
 class ProfileAnswer < ActiveRecord::Base
@@ -20,8 +21,8 @@ class ProfileAnswer < ActiveRecord::Base
   validates_uniqueness_of :profile_question_id, :scope => [:responder_id, :responder_type]
 
   named_scope :from_premium_subjects, lambda {
-    { :joins => 'INNER JOIN subscriptions ON "subscriptions".subscriber_id = responder_id AND "subscriptions".subscriber_type = responder_type',
-      :conditions => ['"subscriptions".id IS NOT NULL AND ("subscriptions".end_date IS NULL OR "subscriptions".end_date >= ?)',
+    { :joins => 'INNER JOIN subscriptions ON `subscriptions`.subscriber_id = responder_id AND `subscriptions`.subscriber_type = responder_type',
+      :conditions => ['`subscriptions`.id IS NOT NULL AND (`subscriptions`.end_date IS NULL OR `subscriptions`.end_date >= ?)',
           Date.today]}
   }
 

@@ -789,6 +789,16 @@ ActiveRecord::Schema.define(:version => 20101214220857) do
 
   add_index "restaurant_feature_categories", ["restaurant_feature_page_id"], :name => "restaurant_feature_page_id_index"
 
+  create_table "restaurant_feature_items", :force => true do |t|
+    t.integer "restaurant_id"
+    t.integer "restaurant_feature_id"
+    t.boolean "top_tag",               :default => false
+  end
+
+  add_index "restaurant_feature_items", ["restaurant_feature_id"], :name => "restaurant_feature_id_index"
+  add_index "restaurant_feature_items", ["restaurant_id", "restaurant_feature_id"], :name => "_restaurant_id_restaurant_feature_id_index"
+  add_index "restaurant_feature_items", ["restaurant_id"], :name => "restaurant_id_index"
+
   create_table "restaurant_feature_pages", :force => true do |t|
     t.string   "name"
     t.datetime "created_at"
@@ -803,15 +813,6 @@ ActiveRecord::Schema.define(:version => 20101214220857) do
   end
 
   add_index "restaurant_features", ["restaurant_feature_category_id"], :name => "restaurant_feature_category_id_index"
-
-  create_table "restaurant_features_restaurants", :id => false, :force => true do |t|
-    t.integer "restaurant_id"
-    t.integer "restaurant_feature_id"
-  end
-
-  add_index "restaurant_features_restaurants", ["restaurant_feature_id"], :name => "restaurant_feature_id_index"
-  add_index "restaurant_features_restaurants", ["restaurant_id", "restaurant_feature_id"], :name => "_restaurant_id_restaurant_feature_id_index"
-  add_index "restaurant_features_restaurants", ["restaurant_id"], :name => "restaurant_id_index"
 
   create_table "restaurant_roles", :force => true do |t|
     t.string   "name"
@@ -917,6 +918,29 @@ ActiveRecord::Schema.define(:version => 20101214220857) do
     t.text     "content"
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "soapbox_promos", :force => true do |t|
+    t.string   "title"
+    t.text     "body"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "link"
+    t.integer  "position"
+  end
+
+  create_table "soapbox_slides", :force => true do |t|
+    t.string   "image_file_name"
+    t.string   "image_content_type"
+    t.integer  "image_file_size"
+    t.integer  "image_updated_at"
+    t.string   "title"
+    t.text     "excerpt"
+    t.string   "link"
+    t.integer  "position"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "photo_credit"
   end
 
   create_table "solo_discussions", :force => true do |t|

@@ -107,9 +107,6 @@ ActionController::Routing::Routes.draw do |map|
     users.resources :profile_answers, :only => [:create, :update, :destroy]
   end
 
-  # map.resources :subscriptions, :collection => { :bt_callback => :get }
-
-
   map.resources :restaurants,
                 :member => {
                         :edit_logo => :get,
@@ -123,10 +120,8 @@ ActionController::Routing::Routes.draw do |map|
     restaurant.resources :calendars, :collection => { "ria" => :get }
     restaurant.resources :events, :member => { "ria_details" => :get, "transfer" => :post }
     restaurant.resources :features, :controller => "restaurant_features",
-                         :member => {
-                            :add => :post,
-                            :bulk_edit => :get
-                          } do |features|
+                                    :member => { :add => :post, :bulk_edit => :get }, 
+                                    :collection => { :edit_top => :get, :update_top => :post } do |features|
       features.resources :questions, :collection => { :topics => :get, :chapters => :get, :refresh => :post }
       features.resources :profile_answers, :only => [:create, :update, :destroy]
     end

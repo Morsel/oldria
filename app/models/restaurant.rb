@@ -73,7 +73,8 @@ class Restaurant < ActiveRecord::Base
   has_many :a_la_minute_answers, :as => :responder
   has_subscription
 
-  has_and_belongs_to_many :restaurant_features,
+  has_many :restaurant_feature_items
+  has_many :restaurant_features, :through => :restaurant_feature_items,
       :include => {:restaurant_feature_category => :restaurant_feature_page}
 
   has_many :photos, :class_name => "Photo", :as => :attachable, :order => "position ASC", :dependent => :destroy,
@@ -102,9 +103,6 @@ class Restaurant < ActiveRecord::Base
   has_one :subscription, :as => :subscriber
   after_validation_on_create :add_manager_as_employee
   after_create :update_manager
-  after_save :update_admin_discussions
-
-
   before_destroy :migrate_employees_to_default_employment
 
   has_one :fact_sheet, :class_name => "RestaurantFactSheet"
@@ -114,14 +112,18 @@ class Restaurant < ActiveRecord::Base
   cattr_reader :per_page
   @@per_page = 15
 
-  def self.with_feature(feature)
-    Restaurant.all(:include => :restaurant_features,
-        :conditions => ['restaurant_features_restaurants.restaurant_feature_id = ?', feature.id])
-  end
-
   def self.find_premium(id)
     possibility = find_by_id(id)
     if possibility.premium_account then possibility else nil end
+  end
+
+  def self.with_feature(feature)
+    Restaurant.all(:joins => :restaurant_feature_items, 
+                   :conditions => ['restaurant_feature_items.restaurant_feature_id = ?', feature.id])
+  end
+  
+  def top_tags
+    restaurant_feature_items.all(:limit => 15, :conditions => { :top_tag => true }).map(&:restaurant_feature)
   end
 
   def name_and_location
@@ -222,11 +224,6 @@ class Restaurant < ActiveRecord::Base
 
   def missing_subject_matter_ids
     (SubjectMatter.general.all(:select => :id).map(&:id) - handled_subject_matter_ids)
-  end
-
-  def update_admin_discussions
-    # force trend questions to refresh associated restaurants and discussions
-    TrendQuestion.all.each(&:touch)
   end
 
   def reset_primary_photo_on_add(added_photo)

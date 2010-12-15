@@ -1,0 +1,31 @@
+<div id="restaurant_profile_view" class="edit clear clearfix">
+
+    <%= render 'restaurants/restaurant_header' %>
+
+    <div id="editing_restaurant">
+        <div id="restaurant_pages" class="clearfix">
+            <div id="restaurant_pages_content">
+                <h2>Select feature tags to display on your profile</h2>
+                <!-- <p><span id="count">15</span> remaining</p> -->
+                <% form_tag update_top_restaurant_features_path(@restaurant) do %>
+                <%= hidden_field_tag :restaurant_id, @restaurant.id %>
+                <ul>
+                    <% for category in @features.keys %>
+                        <li><%= category.name %></li>
+                        <ul>
+                            <% for tag in @features[category] %>
+                            <li>
+                                <%= check_box_tag "restaurant_features[]", tag.id, tag.top_tag?(@restaurant), :id => "restaurant_features_#{tag.id}" %> 
+                                <%= label_tag "restaurant_features_#{tag.id}", tag.name %>
+                            </li>
+                            <% end %>
+                        </ul>
+                    <% end %>
+                </ul>
+                <p><%= submit_tag "Save" %></p>
+                <% end %>
+            </div>
+        </div>
+
+    </div> 
+</div><!-- #restaurant_profile_view -->
