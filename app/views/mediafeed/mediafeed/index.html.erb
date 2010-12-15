@@ -1,17 +1,25 @@
 <div id="jumbotron">
-	<div class="jumbo_content" style="background: url(/images/mediafeed/fish.jpg) no-repeat;">
-		<h1><a href="#">Speak for Yourself</a></h1>
-		<p>We've built a platform so you can rise up above the crowd and be heard&hellip; <a href="#">Learn&nbsp;more&nbsp;&#187;</a></p>
-		<p class="photo_credit">Photo: Edward Blake</p>
-	</div><!--.jumbo_content-->
+  <div id="jumbo_promo">
+    <% if @mediafeed_slides.any? -%>
+  		<% if (slide = @mediafeed_slides.first).link.present? -%>
+  		  <h1><%= link_to slide.title, slide.link %></h1>
+  		<% else -%>
+  		  <h1><%= slide.title %></h1>
+  		<% end -%>
+  		<p id="excerpt"><%= slide.excerpt %><% unless slide.link.blank? -%> <%= link_to "Learn&nbsp;more&nbsp;&#187;", slide.link %><% end -%></p>
+  		<p id="photo_credit">Photo Credit: <%= slide.photo_credit %></p>
+  	<% end -%>
+  </div><!--#jumbo_promo-->
+  <% if @mediafeed_slides.any? -%>
+    <div id="jumbotron-cycle">
+  	  <%= render @mediafeed_slides %>
+  	</div>
+	<% end -%>
 </div><!--#jumbotron-->
+
 <div id="jumbotron_controller">
-	<nav id="controller">
-		<a href="#" class="">1</a>
-		<a href="#" class="">2</a>
-		<a href="#" class="activeSlide">3</a>
-	</nav>
-</div><!--#jumbotron_controller-->
+  <nav></nav>
+</div>
 
 <%= render 'layouts/flashes' %>
 

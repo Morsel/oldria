@@ -13,7 +13,7 @@ Feature: Media Feed Routing
   Scenario: Visiting /mediafeed
     Given I am not logged in
     And I am on the homepage
-    When I go to the media feed homepage
+    When I go to the mediafeed home page
     Then I should see the media feed layout
     
   Scenario: Viewing the Media Feed about page
@@ -22,7 +22,7 @@ Feature: Media Feed Routing
     And I should see "About MediaFeed"
     
   Scenario: Mediafeed Homepage has an "hp" class on the #main div
-    Given I am on the media feed homepage
+    Given I am on the mediafeed home page
     Then the "main" div should have the class "hp"
     When I go to "mediafeed/about"
     Then the "main" div should not have the class "hp"

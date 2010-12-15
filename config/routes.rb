@@ -221,7 +221,7 @@ ActionController::Routing::Routes.draw do |map|
     admin.resources :soapbox_pages
     admin.resources :hq_pages
     admin.resources :mediafeed_pages
-    admin.resources :soapbox_slides
+    admin.resources :soapbox_slides, :collection => { :sort => :post }
     admin.resources :soapbox_promos, :collection => { :sort => :post }
 
     admin.resources :question_roles
@@ -241,6 +241,8 @@ ActionController::Routing::Routes.draw do |map|
 
     admin.resources :hq_slides, :collection => { :sort => :post }
     admin.resources :hq_promos, :collection => { :sort => :post }
+    
+    admin.resources :mediafeed_slides, :collection => { :sort => :post }
 
     admin.resources :metropolitan_areas, :only => [:index, :edit, :update]
 

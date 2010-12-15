@@ -37,6 +37,10 @@ When /^I follow "([^\"]*)" within the "([^\"]*)" section$/ do |link, relselector
   end
 end
 
+When /^I attach an image "([^\"]*)" to "([^\"]*)"$/ do |attachment, field|
+  attach_file(field, RAILS_ROOT + "/features/support/paperclip/image/#{attachment}", "image/jpg")
+end
+
 Then /^I should see a table of resources$/ do
   response.should have_selector("tbody") do |tbody|
     tbody.should have_selector("tr")
@@ -47,6 +51,11 @@ Then /^I should see "([^\"]*)" as a link$/ do |text|
   response.should have_selector("a", :content => text)
 end
 
+Then /^I should see "([^\"]*)" as a link to "([^\"]*)"$/ do |text, link|
+  response.should have_selector("a", :href => link, :content => text)
+end
+
+
 Then /^the "([^\"]*)" div should have the class "([^\"]*)"$/ do |div_id, css_class|
   response.should have_selector("div", :id => div_id, :class => css_class)
 end
@@ -54,4 +63,9 @@ end
 Then /^the "([^\"]*)" div should not have the class "([^\"]*)"$/ do |div_id, css_class|
   response.should_not have_selector("div", :id => div_id, :class => css_class)
 end
+
+Then /^I should see an article with the "([^\"]*)" "([^\"]*)"$/ do |attribute, text|
+  response.should have_selector("article", attribute.to_sym => text)
+end
+
 

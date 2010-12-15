@@ -250,7 +250,11 @@ em, i{
 	margin: -10px 0 20px 0;
 	position: relative;
 	z-index: 10;
-	.jumbo_content {
+	#jumbo_promo {
+		position:absolute;
+		top:0;
+		left:0;
+		z-index:1000;
 		height: 400px;
 		width: 974px;
 		padding: 25px 0px 0px 25px;
@@ -268,7 +272,7 @@ em, i{
 				}
 			}
 		}
-		p {
+		#excerpt {
 			width: 340px;
 			font-size: 20px;
 			line-height: 25px;
@@ -285,7 +289,7 @@ em, i{
 				}
 			}
 		}
-		.photo_credit {
+		#photo_credit {
 			bottom: 12px;
 			right: -200px;
 			font-size: 9px;
