@@ -22,6 +22,7 @@ Feature: AddThis sharing feature
     When I follow "View all Topics" within "#behindline"
     When I follow "SeoTopic"
     Then I should see addThis button
+    And addThis button should have public link
 
   Scenario: Chapter questions page should contain AddThis UI feature
     Given I am on the profile page for "john"
@@ -29,6 +30,7 @@ Feature: AddThis sharing feature
     And I follow "View all"
     And I follow "Education"
     Then I should see addThis button
+    And addThis button should have public link
           
   Scenario: Viewing addThis on user profiles
     Given the following published users:
