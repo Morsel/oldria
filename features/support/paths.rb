@@ -169,6 +169,8 @@ module NavigationHelpers
       mediafeed_root_path
     when /the new mediafeed slide admin page/
       new_admin_mediafeed_slide_path
+    when /the new mediafeed promo admin page/
+      new_admin_mediafeed_promo_path
 
     # Add more mappings here.
     # Here is an example that pulls values out of the Regexp:

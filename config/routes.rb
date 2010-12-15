@@ -243,6 +243,7 @@ ActionController::Routing::Routes.draw do |map|
     admin.resources :hq_promos, :collection => { :sort => :post }
     
     admin.resources :mediafeed_slides, :collection => { :sort => :post }
+    admin.resources :mediafeed_promos, :collection => { :sort => :post }
 
     admin.resources :metropolitan_areas, :only => [:index, :edit, :update]
 
