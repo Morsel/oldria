@@ -22,13 +22,13 @@ ActionController::Routing::Routes.draw do |map|
     end
     soapbox.resources :restaurant_features, :only => ["show"]
     soapbox.resources :a_la_minute_questions, :only => ['index', 'show']
-    soapbox.resources :soapbox_entries, :only => ['index', 'show', 'qotd', 'trend', 'search'], :as => "front_burner", 
+    soapbox.resources :soapbox_entries, :only => ['index', 'show', 'qotd', 'trend', 'search'], :as => "front_burner",
                       :collection => { :qotd => :get, :trend => :get, :search => :get }
 
     soapbox.resources :users do |users|
       users.resources :questions, :collection => { :topics => :get, :chapters => :get }
     end
-    soapbox.resources :questions, :only => 'show'
+    soapbox.resources :questions, :only => ['show', 'search']
     soapbox.connect 'directory_search', :controller => 'soapbox', :action => 'directory_search'
     soapbox.root :controller => 'soapbox', :action => 'index'
   end
@@ -209,13 +209,13 @@ ActionController::Routing::Routes.draw do |map|
         :collection => {:edit_in_place => :post}
     admin.resources :restaurant_feature_categories, :only => [:create,  :destroy],
         :collection => {:edit_in_place => :post}
-        
+
     admin.resources :sf_slides, :collection => { :sort => :post }
     admin.resources :sf_promos, :collection => { :sort => :post }
 
     admin.resources :hq_slides, :collection => { :sort => :post }
     admin.resources :hq_promos, :collection => { :sort => :post }
-    
+
     admin.resources :metropolitan_areas, :only => [:index, :edit, :update]
 
     # Admin Messaging
@@ -227,7 +227,7 @@ ActionController::Routing::Routes.draw do |map|
     admin.resources :holiday_reminders, :except => exclusive_routes
     admin.resources :content_requests
     admin.resources :trend_questions
-    
+
     admin.resource :complimentary_accounts, :only => [:create, :destroy]
   end
 
