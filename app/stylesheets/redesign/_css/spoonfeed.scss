@@ -540,22 +540,24 @@ form#new_user_session {
 #content {
 	@include column(18);
 	.addthis_toolbox {
+	  overflow: auto;
 	  a {
-      font-family: 'Hoefler Text', Georgia, serif;
-      font-size: 14px;
-      font-weight: bold;
-      background: url(/images/redesign/share-arrow.gif) no-repeat 0 5px $trans-orange;
+      font-family: 'Helvetica Neue', Helvetica, arial, sans-serif;;
+      font-size: 12px;
+      text-transform: uppercase;
+      background: url(/images/redesign/share-arrow.gif) no-repeat 2px 2px $trans-orange;
       display: block;
-      float: left;
-      margin: 0px 0px 0px 10px;
+      float: right;
+      margin-bottom: 10px;
       padding: 3px 10px 3px 20px;
       &:hover {
-        background: url(/images/redesign/share-arrow.gif) no-repeat 0 -27px $orange;
+        background: url(/images/redesign/share-arrow.gif) no-repeat 2px -29px $orange;
         color: #fff;
       }
     }
 	}
 	header {
+
 		padding: 5px 0;
 		margin: 0;
 		border-bottom: 1px dotted #ddd;
@@ -3049,7 +3051,7 @@ p.search_filter_hint {
 
 .topic-nav{
 	overflow:hidden;
-	padding:10px 0 10px 10px;
+	padding: 0px 0 10px 10px;
 	a{
 		display:block;
 		padding:5px 10px 5px 20px;

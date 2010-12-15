@@ -6,16 +6,15 @@
 <div id="btl_answers" class="btl-my-answers">
   <div id="" class="clear clearfix">
     <h3><%= @chapter.title %></h3>
+    <% javascript_tag do %>
+      var addthis_share = {
+        url: '<%= soapbox_user_questions_url(@user, :chapter_id => @chapter.id) %>'
+      }
+    <% end %>
+    <%= render 'shared/add_this' %>
     <nav id="chapter_nav" class="topic-nav clearfix">
       <%= link_to "Next: #{truncate(@next.title, :length => 20, :omission => '&hellip;')}", link_for_questions(:user_id => @user.id, :chapter_id => @next.id), :class => 'next' if @next %>
       <%= link_to "Prev: #{truncate(@previous.title, :length => 20, :omission => '&hellip;')}", link_for_questions(:user_id => @user.id, :chapter_id => @previous.id), :class => 'prev' if @previous %>
-
-      <% javascript_tag do %>
-        var addthis_share = {
-          url: '<%= soapbox_user_questions_url(@user, :chapter_id => @chapter.id) %>'
-        }
-      <% end %>
-      <%= render 'shared/add_this' %>
     </nav>
   </div>
 
