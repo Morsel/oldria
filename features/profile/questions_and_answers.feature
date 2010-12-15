@@ -44,13 +44,6 @@ Feature: Profile - Behind the Line (aka Q&A)
     When I follow "SeoTopic"
     And I should see "SeoTopic - John Smith" within "title"
     
-  Scenario: Topic should contain button addThis
-    Given I am on the profile page for "punkrock"
-    And profile question matching employment role with static topic name for "punkrock"
-    When I follow "View all Topics" within "#behindline"
-    When I follow "SeoTopic"
-    Then I should see addThis button
-
   Scenario: Question page should contain question name in title
     Given I am on the question page with title "Title 1"
     And I should see "Title 1 - Behind The Line" within "title"
@@ -61,17 +54,6 @@ Feature: Profile - Behind the Line (aka Q&A)
     And I follow "View all"
     And I follow "Education"
     Then I should see "Education - John Smith - Behind The Line" within "title"
-
-  Scenario: Chapter questions page should contain AddThis UI feature
-    Given I am on the profile page for "punkrock"
-    When I follow "View all Topics" within "#behindline"
-    And I follow "View all"
-    And I follow "Education"
-    Then I should see addThis button
-          
-  Scenario: Question page should AddThis UI feature
-    Given I am on the question page with title "Title 1"
-    Then I should see addThis button
 
   Scenario: User answers a Behind The Line question and post to facebook
     Given "punkrock" has a complimentary premium account
