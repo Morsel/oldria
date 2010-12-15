@@ -42,11 +42,6 @@
   		<%= f.label :website %>
   		<%= f.text_field :website, :class => 'text' %>
   	</p>
-
-    <p class="string">
-  		<%= f.label :hours %>
-  		<%= f.text_field :hours, :class => 'text' %>
-  	</p>
   	<p class="string">
   		<%= f.label :metropolitan_area_id %>
   		<%= f.collection_select :metropolitan_area_id, MetropolitanArea.all, :id, :name %>
@@ -63,10 +58,6 @@
       <%= f.label :opening_date %>
       <%= f.date_select :opening_date %>
     </p>
-  	<p class="text">
-  		<%= f.label :facts %>
-  		<%= f.text_area :facts, :rows => 3 %>
-  	</p>
   </fieldset>
 
   	<p><%= button_tag "Submit", :class => 'positive' %></p>
