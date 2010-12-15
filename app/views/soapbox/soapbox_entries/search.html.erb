@@ -1,10 +1,5 @@
-<% title "Search for \"#{truncate(@key, :length => 35)}\"", true %>
-
 <section id="questions-list">
-  <% if @trend_questions_found.empty? && @qotds_found.empty? &&
-         @qotd_comments_found.empty? && @trend_question_comments_found.empty? %>
-    <p>Nothing found.</p>
-  <% else %>
+  <% unless @no_results  %>
     <% unless @trend_questions_found.empty? %>
       <div class="questions-list-feed-trend">
         <h1>Trend Questions</h1>

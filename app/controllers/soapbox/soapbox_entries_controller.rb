@@ -43,6 +43,11 @@ class Soapbox::SoapboxEntriesController < Soapbox::SoapboxController
     @trend_question_comments_found = Comment.search_trend_question_comments(@key)
 
     @no_sidebar = true
+
+    @no_results = @trend_questions_found.empty? && @qotds_found.empty? &&
+         @qotd_comments_found.empty? && @trend_question_comments_found.empty?
+
+    render 'soapbox/soapbox_entries/search', :layout => 'soapbox_search_results'
   end
 
   protected
