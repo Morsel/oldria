@@ -34,7 +34,7 @@ Then /^I see the restaurant's Twitter username$/ do
 end
 
 Then /^I see the restaurant's Facebook page$/ do
-  response.should have_selector("#facebook_page a", :content => @restaurant.facebook_page,
+  response.should have_selector("#facebook_page a", :content => @restaurant.name,
       :href => @restaurant.facebook_page)
 end
 
@@ -113,7 +113,11 @@ end
 
 Then /^I see the following restaurant fields:$/ do |fields|
   fields.rows_hash.each do |field, name|
-    response.should have_selector("#restaurant_profile_view", :content => name)
+    if name.match(/^http/)
+      response.should have_selector("a", :href => name)
+    else
+      response.should have_selector("#restaurant_profile_view", :content => name)
+    end
   end
 end
 
