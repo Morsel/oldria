@@ -113,4 +113,15 @@ describe UsersController do
     
   end
 
+  describe "search" do
+    it "Should find one user" do
+      user = Factory(:user, :premium_account => true)
+      user.prefers_publish_profile = true
+      Factory(:profile, :summary => "The toys", :user => user)
+      get :search, :query => "toys"
+      assigns[:users].should == [user]
+    end
+
+  end
+
 end
