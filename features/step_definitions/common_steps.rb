@@ -46,3 +46,12 @@ end
 Then /^I should see "([^\"]*)" as a link$/ do |text|
   response.should have_selector("a", :content => text)
 end
+
+Then /^the "([^\"]*)" div should have the class "([^\"]*)"$/ do |div_id, css_class|
+  response.should have_selector("div", :id => div_id, :class => css_class)
+end
+
+Then /^the "([^\"]*)" div should not have the class "([^\"]*)"$/ do |div_id, css_class|
+  response.should_not have_selector("div", :id => div_id, :class => css_class)
+end
+
