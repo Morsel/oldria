@@ -220,7 +220,7 @@ $(document).ready(function(){
 	// Update top tags remaining on load
 	var max = 15;
 	var remaining = max-$('#restaurant_tags input:checkbox:checked').length;
-	$('#tags_remaining').html((remaining)+" left");
+	$('#tags_remaining').html(remaining+" left");
 	if (remaining == 0) {
 	  $('#restaurant_tags input:checkbox').not(':checked').attr('disabled', true).next('label').css('color', 'gray');
 	}
