@@ -104,8 +104,6 @@ class Restaurant < ActiveRecord::Base
   after_validation_on_create :add_manager_as_employee
   after_create :update_manager
 
-  after_save :update_admin_discussions
-
   before_destroy :migrate_employees_to_default_employment
 
   # For pagination
@@ -224,11 +222,6 @@ class Restaurant < ActiveRecord::Base
 
   def missing_subject_matter_ids
     (SubjectMatter.general.all(:select => :id).map(&:id) - handled_subject_matter_ids)
-  end
-
-  def update_admin_discussions
-    # force trend questions to refresh associated restaurants and discussions
-    TrendQuestion.all.each(&:touch)
   end
 
   def reset_primary_photo_on_add(added_photo)
