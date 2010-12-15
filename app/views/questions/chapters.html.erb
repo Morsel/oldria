@@ -1,5 +1,10 @@
 <% title "#{@topic.title} - #{@user.name} Behind the Line", false %>
 <div class="share">
+  <% javascript_tag do %>
+    var addthis_share = {
+      url: '<%= chapters_soapbox_user_questions_url(current_user, :topic_id => @topic.id) %>'
+    }
+  <% end %>
   <%= render 'shared/add_this' %>
 </div>
 <h1 id="btl-title" class="btl"><span class="btl-art">Behind the Line:</span> <span class="name"><%= @user.name %></span></h1>
