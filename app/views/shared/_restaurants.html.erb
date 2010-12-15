@@ -1,5 +1,5 @@
 <% title "My Restaurants" -%>
-<div id="my_restaurants" rel="My Restaurants" class="sibebar_section restaurants clearfix">
+<div id="my_restaurants" rel="My Restaurants" class="sidebar_section restaurants clearfix">
   <div class="employers">
   	<% if current_user.employments.blank? -%>
     	<p class="none">You aren't associated with any restaurants.</p>
@@ -12,7 +12,8 @@
 					</li>
 				<% end %>
 			</ul>
-      <p class="start_discussion"><%= link_to "Start a discussion", new_discussion_path %></p>
+            <p class="start_discussion"><%= link_to "Start a discussion", new_discussion_path %></p>
 		<% end %>
   </div>
 </div><!-- #my_restaurants -->
+<p><%= link_to "Add a restaurant", new_restaurant_path, :class => "button" %></p>
