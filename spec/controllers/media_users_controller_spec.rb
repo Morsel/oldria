@@ -1,6 +1,6 @@
 require 'spec/spec_helper'
 
-describe MediaUsersController do
+describe Mediafeed::MediaUsersController do
   integrate_views
 
   before(:each) do
@@ -15,7 +15,7 @@ describe MediaUsersController do
 
     it "should render a form to /media_users" do
       get :new
-      response.should have_selector("form", :action => "/media_users")
+      response.should have_selector("form", :action => "/mediafeed/media_users")
     end
   end
 

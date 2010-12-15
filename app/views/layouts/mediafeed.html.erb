@@ -35,7 +35,7 @@
 					<h2>Connect direct to chefs.</h2>
 				</div><!--#tagline-->
 				<div id="header_promos">
-					<a id="request_an_invitation" class="header_promo" href="#">Request an <span>Invitation</span></a>
+					<%= link_to "Request an <span>Invitation</span>", new_mediafeed_media_user_path, :class => "header_promo", :id => "request_an_invitation" %>
 				</div><!--#header_promos-->
 			</div><!--#header_right-->
 			
@@ -43,22 +43,23 @@
 		
 		<div id="main" class="<%= media_feed_css_class_if_home %>">		
 		
-			<!-- this is the navigation for a NON-LOGGED-IN USER ******** -->
-			<!--<nav id="alternate_nav">
+            <% if current_user %>
+			<nav id="primary_nav">
+				<span><%= link_to "Explore", mediafeed_root_path, :id => "nav_explore" %></span>
+				<span><a href="#" id="nav_requests">Media Requests</a></span>
+				<span><%= link_to "Account Profile", edit_mediafeed_media_user_path(current_user), :id => "nav_account" %></span>
+				<span><a href="#" id="nav_contact">Contact</a></span>
+			</nav>
+			<% else %>
+			<nav id="alternate_nav">
 				<a href="#" id="nav_home">Home</a>
 				<a href="#" id="nav_about">About</a>
 				<a href="#" id="nav_overview">Overview</a>
 				<a href="#" id="nav_contact">Contact</a>
 				<a href="#" id="nav_login">Login</a>
-			</nav>#mf_nav"-->
-			
-			<!-- this is the navigation for a LOGGED-IN USER ******** -->
-			<nav id="primary_nav">
-				<span><a href="#" id="nav_explore">Explore</a></span>
-				<span><a href="#" id="nav_requests">Media Requests</a></span>
-				<span><a href="#" id="nav_account">Account Profile</a></span>
-				<span><a href="#" id="nav_contact">Contact</a></span>
 			</nav>
+			<% end %>
+
 			<%= yield :sidebar_a %>
 			<%= yield %>	
 			<%= yield :sidebar_b %>	

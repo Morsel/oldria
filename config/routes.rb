@@ -52,6 +52,7 @@ ActionController::Routing::Routes.draw do |map|
   
   map.namespace(:mediafeed) do |mediafeed|
     mediafeed.root :controller => 'mediafeed', :action => 'index'
+    mediafeed.resources :media_users, :except => [:index, :show]
   end
 
   map.with_options :conditions => { :subdomain => 'mediafeed' }, :controller => 'mediafeed/mediafeed' do |mediafeed|
@@ -76,7 +77,6 @@ ActionController::Routing::Routes.draw do |map|
   map.profile 'profile/:username', :controller => 'users', :action => 'show', :requirements => { :username => /[a-zA-Z0-9\-\_ ]+/}
 
   map.resources :quick_replies
-  map.resources :media_users, :except => [:index, :show]
   map.resources :media_requests, :except => [:index]
   map.resources :media_request_discussions, :only => [:show, :update] do |mrc|
     mrc.resources :comments, :only => [:new, :create]

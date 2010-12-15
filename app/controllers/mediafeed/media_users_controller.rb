@@ -1,4 +1,4 @@
-class MediaUsersController < ApplicationController
+class Mediafeed::MediaUsersController < Mediafeed::MediafeedController
   before_filter :require_media_user, :only => [:edit, :update]
 
   def new
