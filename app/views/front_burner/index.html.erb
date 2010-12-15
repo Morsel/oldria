@@ -1,4 +1,4 @@
-<% if current_user.post_to_soapbox? %>
+<% if current_user.recieve_front_burner? %>
   <div class="new_all">
     <%= link_to "New", front_burner_path, :class => selected?("New") %>
     <%= link_to "All", front_burner_path(:all => true), :class => selected?("All") %>
