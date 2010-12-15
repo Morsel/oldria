@@ -218,15 +218,13 @@ $(document).ready(function(){
 	
 	
 	// Update top tags remaining on load
-	var remaining = 12-$('#restaurant_tags input:checkbox:checked').length;
+	var max = 15;
+	var remaining = max-$('#restaurant_tags input:checkbox:checked').length;
 	$('#tags_remaining').html((remaining)+" left");
 	if (remaining == 0) {
 	  $('#restaurant_tags input:checkbox').not(':checked').attr('disabled', true).next('label').css('color', 'gray');
 	}
-	
-  // Top tags (limit 12)
-  $('#restaurant_tags input:checkbox').click(function() {
-    var max = 12;
+  $('#restaurant_tags input:checkbox').click(function() {    
     var $checkbox = $('#restaurant_tags input:checkbox');
     var total = $(":checkbox:checked").length; 
     var remaining = (max-total) + " left";
@@ -239,7 +237,6 @@ $(document).ready(function(){
       $checkbox.not(':checked').attr('disabled', true).next('label').css('color', 'gray');
     } 
   });
-  
   // Enable all the checkboxes on submit
   $('#restaurant_tags form').submit(function() {
      $('#restaurant_tags form:checkbox').not(':checked').removeAttr('disabled');
