@@ -2,6 +2,8 @@ class WelcomeController < ApplicationController
 
   def index
     if current_user
+      redirect_to mediafeed_root_path and return if current_user.media?
+
       @user = current_user
       set_up_dashboard
       render :dashboard
@@ -13,10 +15,6 @@ class WelcomeController < ApplicationController
   end
 
   private
-
-  def slug_for_home_page
-    mediafeed? ? 'home_media' : 'home'
-  end
 
   def set_up_dashboard
     soapbox_comments = SoapboxEntry.published.all(:limit => 10, :order => "published_at DESC").map(&:comments)
