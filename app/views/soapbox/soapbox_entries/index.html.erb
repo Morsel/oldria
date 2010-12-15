@@ -1,5 +1,6 @@
 <% title "Front Burner - Soapbox", false %>
 <% form_tag search_soapbox_soapbox_entries_path, :method => :get, :id => 'question-search-form' do %>
+  <%= label_tag "Search questions:" %>
   <%= text_field_tag "query" %>
   <%= submit_tag "Find" %>
 <% end %>
