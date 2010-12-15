@@ -4,7 +4,7 @@
 <div class="share">
   <% javascript_tag do %>
     var addthis_share = {
-      url: '<%= topics_soapbox_user_questions_url(current_user) %>'
+      url: '<%= topics_soapbox_user_questions_url(@user) %>'
     }
   <% end %>
 

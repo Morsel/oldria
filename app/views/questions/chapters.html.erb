@@ -2,7 +2,7 @@
 <div class="share">
   <% javascript_tag do %>
     var addthis_share = {
-      url: '<%= chapters_soapbox_user_questions_url(current_user, :topic_id => @topic.id) %>'
+      url: '<%= chapters_soapbox_user_questions_url(@user, :topic_id => @topic.id) %>'
     }
   <% end %>
   <%= render 'shared/add_this' %>

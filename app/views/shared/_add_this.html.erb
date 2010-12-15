@@ -1,5 +1,4 @@
 <!-- AddThis Button BEGIN --> 
-    <% @user = current_user unless @user %>
     <div class="addthis_toolbox"> 
       <%= link_to "Share", 
                  @user.premium_account? ? "http://www.addthis.com/bookmark.php?v=250&amp;username=unpluggedria" : '#',
