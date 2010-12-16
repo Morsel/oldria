@@ -35,7 +35,7 @@ class Soapbox::SoapboxEntriesController < Soapbox::SoapboxController
   end
 
   def search
-    @key = params[:query].try(:strip)
+    @key = params[:query].try(:strip) || ""
     @all_entries = []
 
     unless @key.empty?

@@ -1,3 +1,5 @@
-<div id="directory_list">
+<% unless @no_results  %>
+  <div id="directory_list">
     <%= render :partial => 'directory/search_results' %>
-</div>
+  </div>
+<% end %>

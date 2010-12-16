@@ -6,7 +6,7 @@
   <div id="user-search">
 
     <% form_tag search_users_path, :method => :get do %>
-        <span>User search:</span>
+        <%= label_tag :query, "Find user profile:" %>
         <%= text_field_tag :query %>
  	    <%= submit_tag 'Search', :name => nil %>
     <% end %>

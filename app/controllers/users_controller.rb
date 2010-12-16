@@ -144,9 +144,14 @@ class UsersController < ApplicationController
   end
 
   def search
-    @key = params[:query].try(:strip)
-    @users = User.premium_account.visible.profile_headline_or_profile_summary_like(params[:query]).all(:include => :profile)
-    @users.reject! { |user| ! user.prefers_publish_profile? }
+    @key = params[:query].try(:strip) || ""
+
+    unless @key.empty?
+      @users = User.premium_account.visible.profile_headline_or_profile_summary_like(@key).all(:include => :profile)
+      @users.reject! { |user| ! user.prefers_publish_profile? }
+    end
+
+    @no_results = @users.empty?
     render :layout => 'soapbox_search_results'
   end
 
