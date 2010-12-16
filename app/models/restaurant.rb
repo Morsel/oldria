@@ -205,6 +205,10 @@ class Restaurant < ActiveRecord::Base
   def published_topics
     topics.select { |t| t.published?(self) }
   end
+  
+  def linkable_profile?
+    self.premium_account?
+  end
 
   private
 
