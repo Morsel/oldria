@@ -24,3 +24,40 @@ function displayInfo(currSlideElement, nextSlideElement, options, forwardFlag){
 	$('#photo_credit').html(credit);
 	$('#excerpt').html(caption + link);
 }
+
+$('#criteria_accordion').accordion({
+	autoHeight: false,
+	collapsible: true,
+	active: false,
+	header: '.accordion_box a',
+	change: function() {
+		$('.accordion_box').each(function(){
+			if($(this).find('input:checked').length > 0){
+				$(this).find('a').addClass('options_selected');
+			} else {
+				$(this).find('a').removeClass('options_selected');
+			}
+		});
+	}
+}).find('.loading').removeClass('loading');
+
+// == Dynamic Updates for Employment Searching
+var	$employmentsList  = $("#employment_list");
+var $employmentInputs = $("#employment_criteria input[type=checkbox]");
+var $loaderImg =        $('<img class="loader" src="/images/ajax-loader.gif" />').hide();
+
+// load the image load indicator, hidden
+$employmentsList.before($loaderImg);
+
+function updateEmploymentsList() {
+	input_string = $employmentInputs.serialize();
+	$loaderImg.show();
+	$employmentsList.hide();
+	$employmentsList.load('/employment_search', input_string, function(responseText, textStatus){
+	  $loaderImg.hide();
+	  $employmentsList.fadeIn(300);
+	});
+	// return true;	
+}
+
+$employmentInputs.change(updateEmploymentsList);

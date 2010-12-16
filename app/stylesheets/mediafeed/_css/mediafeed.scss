@@ -761,6 +761,68 @@ em, i{
 	}
 } /* ## end of flashes ----------------------------- */
 
+#criteria_accordion {
+	.accordion_box {
+		width: 620px;
+		border: 1px solid #ece8d7;
+		@include border-radius(4px);
+		background: #f7f6f2 url(/images/redesign/button_bg.png) repeat-x;
+		margin: 5px 0 0 0;
+		.ui-accordion-content {
+			li {
+				background-color: #fff;
+				label {
+					display: block;
+					margin: 5px 0;
+					font-weight: normal;
+				}
+			}
+		}
+		a {
+			display: block;
+			font-size: 13px;
+			text-shadow: 0 1px 0 #fff;
+			color: #897a55;
+			font-weight: bold;
+			padding: 8px 12px;
+			margin: 0;
+			&:hover {
+				color: #d8531e;
+			}
+			span{
+			  display:block;
+			  padding-left:15px;
+			  background:url(/images/blue_arrow.png) no-repeat 3px -23px;
+			}
+			&.options_selected{
+			  background:$trans-orange url(/images/green_check.png) no-repeat right;
+				color: $orange;
+			}
+			&.ui-state-active span{
+			  background-position:3px 5px;
+			}
+			&.ui-state-active, &.ui-state-active.options_selected{
+			  background-color:transparent;
+			}
+		}
+	}
+	li.check_boxes{
+		height:220px;
+	  overflow-y:auto;
+	  padding:0 10px;
+		li{
+	  	float:none;
+			list-style: none;
+		  width:100%;
+		}
+		legend{
+			display:none;
+		}
+	}
+	.label label, div.loading{
+	  display:none;
+	}
+} /* ## end of accordion ------------------------ */
 
 #footer_container {
 	position: relative;
