@@ -145,8 +145,9 @@ class UsersController < ApplicationController
 
   def search
     @key = params[:query].try(:strip) || ""
+    @users = []
 
-    unless @key.empty?
+    unless @key.blank?
       @users = User.premium_account.visible.profile_headline_or_profile_summary_like(@key).all(:include => :profile)
       @users.reject! { |user| ! user.prefers_publish_profile? }
       @users = @users.paginate(:page => params[:page])

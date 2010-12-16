@@ -62,10 +62,10 @@ class QuestionsController < ApplicationController
   end
 
   def search
-    @key = params[:query].try(:strip) || ""
+    @key = params[:query].try(:strip)
     @all_entries = []
 
-    unless @key.empty?
+    unless @key.blank?
       ProfileQuestion.answered.title_like(@key).each do |entry|
         @all_entries << [entry, :question]
       end
@@ -73,9 +73,10 @@ class QuestionsController < ApplicationController
       ProfileAnswer.answer_like(@key).all(:include => :profile_question).each do |entry|
         @all_entries << [entry, :answer]
       end
+
+      @all_entries = @all_entries.paginate(:page => params[:page])
     end
 
-    @all_entries      = @all_entries.paginate(:page => params[:page])
     @questions_found  = @all_entries.select {|res, type| type == :question }.map(&:first)
     @answers_found    = @all_entries.select {|res, type| type == :answer }.map(&:first)
 
