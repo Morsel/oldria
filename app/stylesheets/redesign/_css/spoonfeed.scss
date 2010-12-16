@@ -4248,7 +4248,13 @@ p.search_filter_hint {
   #restaurant_pages_content {
     @include column(12, true);
   }
-
+  #restaurant_features_content {
+    @include column(7);
+    + #behindline {
+      @include column(6, true);
+      margin-top: 6px;
+    }
+  }
 }
 
 /* ## END of restaurant FEATURES editing --------------------------------------------- */
