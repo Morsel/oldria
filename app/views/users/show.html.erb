@@ -11,7 +11,8 @@
       }
     <% end %>
   <%= render :partial => 'shared/add_this', :locals => {:user => @user} %>
-	<aside class="user_actions">
+
+  <aside class="user_actions">
         <% if current_user == @user -%>
           <%= link_to 'Edit profile', edit_my_profile_path %>
         <% elsif current_user -%>
@@ -29,6 +30,8 @@
     <%= image_tag @user.avatar.url(:small), :width=>'72' %>
     <h1><%= @user.name %></h1>
     <p class="last_updated">Last updated: <%= @user.updated_at.strftime('%b %d, %Y') %> </p>
+    <% if @user.premium_account && on_soapbox %>
+    <% end %>
     <div class="clear"></div>
 </header>
 

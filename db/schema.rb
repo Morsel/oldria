@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20101213225737) do
+ActiveRecord::Schema.define(:version => 20101207221226) do
 
   create_table "a_la_minute_answers", :force => true do |t|
     t.text     "answer"
@@ -550,7 +550,6 @@ ActiveRecord::Schema.define(:version => 20101213225737) do
     t.integer  "restaurant_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "position"
   end
 
   create_table "metropolitan_areas", :force => true do |t|
@@ -623,8 +622,7 @@ ActiveRecord::Schema.define(:version => 20101213225737) do
     t.text     "answer"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "responder_id"
-    t.string   "responder_type"
+    t.integer  "user_id"
   end
 
   create_table "profile_cuisines", :force => true do |t|
@@ -680,10 +678,9 @@ ActiveRecord::Schema.define(:version => 20101213225737) do
 
   create_table "question_roles", :force => true do |t|
     t.integer  "profile_question_id"
-    t.integer  "responder_id"
+    t.integer  "restaurant_role_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "responder_type"
   end
 
   create_table "readings", :force => true do |t|
@@ -737,6 +734,15 @@ ActiveRecord::Schema.define(:version => 20101213225737) do
   end
 
   add_index "restaurant_features", ["restaurant_feature_category_id"], :name => "restaurant_feature_category_id_index"
+
+  create_table "restaurant_features_restaurants", :id => false, :force => true do |t|
+    t.integer "restaurant_id"
+    t.integer "restaurant_feature_id"
+  end
+
+  add_index "restaurant_features_restaurants", ["restaurant_feature_id"], :name => "restaurant_feature_id_index"
+  add_index "restaurant_features_restaurants", ["restaurant_id", "restaurant_feature_id"], :name => "_restaurant_id_restaurant_feature_id_index"
+  add_index "restaurant_features_restaurants", ["restaurant_id"], :name => "restaurant_id_index"
 
   create_table "restaurant_roles", :force => true do |t|
     t.string   "name"
@@ -907,7 +913,6 @@ ActiveRecord::Schema.define(:version => 20101213225737) do
     t.datetime "updated_at"
     t.integer  "position"
     t.string   "description"
-    t.string   "responder_type"
   end
 
   create_table "trend_questions", :force => true do |t|

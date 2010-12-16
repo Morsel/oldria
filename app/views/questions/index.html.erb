@@ -1,5 +1,12 @@
-<% title "#{@chapter.title} - #{@user.name} - Behind The Line", false %>
-<h1 id="btl-title" class="btl"><span class="btl-art">Behind the Line:</span> <span class="name"><%= @user.name %></span></h1>
+<% title "#{@chapter.title} - #{@subject.name} - Behind The Line", false %>
+<!-- AddThis Button BEGIN --> 
+<div class="addthis_toolbox"> 
+  <a href="http://www.addthis.com/bookmark.php?v=250&username=unpluggedria" class="addthis_button">Share</a> 
+</div> 
+<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#username=unpluggedria"></script> 
+<!-- AddThis Button END -->
+
+<h1 id="btl-title" class="btl"><span class="btl-art">Behind the Line:</span> <span class="name"><%= btl_title_for(@subject) %></span></h1>
 <h2 id="topic_title">Topic: <%= @chapter.topic.title %></h2>
 <%= render :partial => 'questions/topic_nav', :locals => { :next_topic => @next_topic, :prev_topic => @previous_topic } %>
 
@@ -18,9 +25,6 @@
     </nav>
   </div>
 
-  <div id="trend-article">
-    
-  </div>
 
 <% if @user == current_user %><%# let's edit these answers %>
 
@@ -29,6 +33,13 @@
     <% div_for question do %>
         <h4>Q:<%= question.title %></h4>
         <%= render :partial => "profile_answers/form", :locals => { :answer => question.find_or_build_answer_for(current_user) } %>
+<% if can_edit_profile_questions(@subject) && !params[:controller].match(/soapbox/) %><%# let's edit these answers %>
+  <% form_tag link_for_profile_answers(:subject => @subject) do %>
+    <% @questions.each do |question| %>
+      <% div_for question do %>
+          <h4>Q: <%= question.title %></h4>
+          <%= render :partial => "profile_answers/form", :locals => { :answer => find_answer_for(question, @subject) } %>
+      <% end %>
     <% end %>
   <% end %>
   <% end %><%# end form %>
