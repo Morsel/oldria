@@ -5,7 +5,7 @@
 <% end %>
 
 <header class="soapbox_profile_header">   
-  <%= render 'shared/add_this' %>
+  <%= render :partial => 'shared/add_this', :locals => {:user => @user} %>
 	<aside class="user_actions">
         <% if current_user == @user -%>
           <%= link_to 'Edit profile', edit_my_profile_path %>

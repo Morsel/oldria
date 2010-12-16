@@ -8,7 +8,7 @@
     url: '<%= topics_soapbox_user_questions_url(@user) %>'
   }
 <% end %>
-<%= render 'shared/add_this' %>
+<%= render :partial => 'shared/add_this', :locals => {:user => @user} %>
 
 <%- for topic in @topics -%>
 <div class="topic <%= cycle '',' last' %>" id="<%= dom_id topic %>">
