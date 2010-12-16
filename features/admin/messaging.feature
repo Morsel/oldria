@@ -21,7 +21,7 @@ Feature: Admin Messaging
     When I fill in "Post" with "Why, yes, they are quite cool!"
     And I press "Send"
     Then I should see "Why, yes, they are quite cool!"
-    And I should see "Successfully created"
+    And I should see "your answer has been saved"
     
   Scenario: Editing a QOTD reply
     Given I am logged in as "johndoe"
