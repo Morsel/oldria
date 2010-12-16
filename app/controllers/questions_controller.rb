@@ -1,7 +1,7 @@
 class QuestionsController < ApplicationController
 
   before_filter :require_user_unless_soapbox
-  before_filter :get_user, :except => :show
+  before_filter :get_user, :except => [:show, :search]
   skip_before_filter :load_random_btl_question, :only => [:refresh]
 
   layout 'application'
@@ -62,7 +62,7 @@ class QuestionsController < ApplicationController
   end
 
   def search
-    @key = params[:query].strip
+    @key = params[:query].try(:strip)
     @all_entries = []
 
     unless @key.empty?
