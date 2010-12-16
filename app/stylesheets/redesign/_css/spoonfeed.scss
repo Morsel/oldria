@@ -539,19 +539,31 @@ form#new_user_session {
 
 #content {
 	@include column(18);
+	.addthis_toolbox {
+	  overflow: auto;
+	  a {
+      font-family: 'Helvetica Neue', Helvetica, arial, sans-serif;;
+      font-size: 12px;
+      text-transform: uppercase;
+      background: url(/images/redesign/share-arrow.gif) no-repeat 2px 2px $trans-orange;
+      display: block;
+      float: right;
+      margin-bottom: 10px;
+      padding: 3px 10px 3px 20px;
+      &:hover {
+        background: url(/images/redesign/share-arrow.gif) no-repeat 2px -29px $orange;
+        color: #fff;
+      }
+    }
+	}
 	header {
+
 		padding: 5px 0;
 		margin: 0;
 		border-bottom: 1px dotted #ddd;
 		img {
 			float: left;
 			margin: 0 14px 10px 0;
-		}
-		.addthis_toolbox {
-		  float: left;
-      font-family: 'Hoefler Text', Georgia, serif;
-      font-size: 14px;
-      font-weight: bold;
 		}
 		.user_actions {
 			float: right;
@@ -3039,7 +3051,7 @@ p.search_filter_hint {
 
 .topic-nav{
 	overflow:hidden;
-	padding:10px 0 10px 10px;
+	padding: 0px 0 10px 10px;
 	a{
 		display:block;
 		padding:5px 10px 5px 20px;

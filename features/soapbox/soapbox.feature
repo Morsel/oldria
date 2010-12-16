@@ -74,12 +74,6 @@ Feature: Soapbox
     And I should see "View previous Trend Questions" within "#recent-trends"
     And I should see "View previous Questions of the Day" within "#recent-qotds"      
 
-  Scenario: Viewing the addThis button
-    Given the following published users:
-    | username    | password |
-    | punkrock    | secret   |
-    And I am on the profile page for "punkrock"
-    Then I should see addThis button
 
   Scenario: Viewing a QOTD soapbox entry title
     Given there is a QOTD asking "Where do you buy flowers"
@@ -99,16 +93,3 @@ Feature: Soapbox
     And I follow "What is the haps?: Boo-ya"
     Then I should see "What is the haps?: Boo-ya - Soapbox Trend" within "title"
 
-  Scenario: Viewing the addThis button on front_burner page
-    Given there is a QOTD asking "Where do you buy flowers?"
-    And I am logged in as an admin
-    When I create a new soapbox entry for that QOTD with:
-      | Published at | 2010-05-10 |
-    And there is a Trend Question "What is the haps?: Boo-ya"
-    When I create a new soapbox entry for that Trend Question with:
-      | Published at | 2010-05-10 |
-
-    When I go to the soapbox front burner page
-    Then I should see "Where do you buy flowers?"
-    And I should see "What is the haps?: Boo-ya"
-    And I should see two addThis buttons

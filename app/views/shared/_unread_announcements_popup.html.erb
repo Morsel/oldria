@@ -1,0 +1,19 @@
+<% if @announcements.count > 0 %>
+  <div id="unread_announcements_content" style="display:none" >
+    <% @announcements.each do |announcement| %>
+      <%= render 'messages/message_details', :message => announcement %>
+    <% end %>
+  </div>
+  <% javascript_tag do %>
+      $(document).ready(function(){
+        $.colorbox({
+          innerWidth: 360,
+          innerHeight: 320,
+          open: true,
+          html : function (){
+            return $('#unread_announcements_content').html();
+          }
+        });
+      });
+  <% end %>
+<% end %>

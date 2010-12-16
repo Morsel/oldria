@@ -6,6 +6,12 @@
 <div id="btl_answers" class="btl-my-answers">
   <div id="" class="clear clearfix">
     <h3><%= @chapter.title %></h3>
+    <% javascript_tag do %>
+      var addthis_share = {
+        url: '<%= soapbox_user_questions_url(@user, :chapter_id => @chapter.id) %>'
+      }
+    <% end %>
+    <%= render :partial => 'shared/add_this', :locals => {:user => @user} %>
     <nav id="chapter_nav" class="topic-nav clearfix">
       <%= link_to "Next: #{truncate(@next.title, :length => 20, :omission => '&hellip;')}", link_for_questions(:user_id => @user.id, :chapter_id => @next.id), :class => 'next' if @next %>
       <%= link_to "Prev: #{truncate(@previous.title, :length => 20, :omission => '&hellip;')}", link_for_questions(:user_id => @user.id, :chapter_id => @previous.id), :class => 'prev' if @previous %>
@@ -13,24 +19,15 @@
   </div>
 
   <div id="trend-article">
-    <%= render 'shared/add_this' %>
+    
   </div>
 
-  <div id="trend-article">
-    <!-- AddThis Button BEGIN --> 
-    <div class="addthis_toolbox"> 
-      <a href="http://www.addthis.com/bookmark.php?v=250&username=unpluggedria" class="addthis_button">Share</a> 
-    </div> 
-    <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#username=unpluggedria"></script> 
-    <!-- AddThis Button END -->
-  </div>
-
-  <% if @user == current_user %><%# let's edit these answers %>
+<% if @user == current_user %><%# let's edit these answers %>
 
   <% form_tag profile_answers_path do %>
   <% for question in @questions %>
     <% div_for question do %>
-        <h4>Q: <%= question.title %></h4>
+        <h4>Q:<%= question.title %></h4>
         <%= render :partial => "profile_answers/form", :locals => { :answer => question.find_or_build_answer_for(current_user) } %>
     <% end %>
   <% end %>
@@ -52,6 +49,8 @@
         <% end %>
     <% end -%>
   <% end -%>
+  
+<% end -%>
 </div>
 
-<% end -%>
+

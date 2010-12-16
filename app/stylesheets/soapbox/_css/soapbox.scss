@@ -956,7 +956,7 @@ body,html,#container,#main,#content,#inside{
 	}
 } /*recent-activity*/
 
-#activity-chooser, #activity-chooser-all{
+#activity-chooser, #activity-chooser-all {
 	overflow:hidden;
 	a{
 		@include knockout;
@@ -971,6 +971,21 @@ body,html,#container,#main,#content,#inside{
 		text-decoration:none;
 		text-shadow: 0 1px 0 #000;
 		background:url(/images/soapbox/bg-sidebar-selector.png) no-repeat -115px -1px;
+	}
+	#view-all-questions {
+	 background: none; 
+	 font-size: 12px;
+	 font-family: "helvetica neue", helvetica, arial, sans-serif;
+	 text-transform: none;
+	 text-shadow: none;
+	 height: auto;
+	 padding: 5px 0;
+	 width: auto;
+	 &:hover {
+	   text-decoration: underline;
+	   color: #fff;
+	   background: none;
+	 }
 	}
 	span{
 		display:block;

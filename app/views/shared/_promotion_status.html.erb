@@ -1,0 +1,16 @@
+  <% if current_user.premium_account? %>
+    <% if current_user.prefers_publish_profile %>
+      <%= link_to "Hide my profile on Soapbox", toggle_publish_profile_my_profile_path( :prefers_publish_profile => 0),
+                                                :class => "promo",
+                                                :onclick => "toggleMyProfileOnSoapbox(this.href);return false;"  %>
+      <p>Just a reminder: your profile is live in Soapbox so media can see it.<br/> If you are in job transition and need to do some updates, you can hide it here</p>
+    <% else %>
+      <%= link_to "Display my profile on Soapbox", toggle_publish_profile_my_profile_path( :prefers_publish_profile => 1),
+                                                   :class => "promo",
+                                                   :onclick => "toggleMyProfileOnSoapbox(this.href);return false;"  %>
+    <% end %>
+  <% else %>
+    <p>Want media to see your profile?</p>
+    <p>Click <%= link_to "here", new_user_subscription_path(current_user) %> to upgrade to Premium and your profile will be included on Soapbox</p>
+  <% end %>
+

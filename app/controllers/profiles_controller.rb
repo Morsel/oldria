@@ -44,4 +44,11 @@ class ProfilesController < ApplicationController
     end
   end
   
+  def toggle_publish_profile
+    if current_user.update_attributes(:prefers_publish_profile => params[:prefers_publish_profile])
+      render :partial => "shared/promotion_status"
+    else
+      render :partial => "shared/ajax_error" 
+    end
+  end
 end

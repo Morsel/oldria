@@ -319,5 +319,5 @@ Then /^show me the page$/ do
 end
 
 Then /^I can`t share this profile$/ do
-  response.should have_selector(".addthis_button", :href =>"#")
+  response.should have_selector(".not_premium_colorbox")
 end

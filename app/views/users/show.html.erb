@@ -4,11 +4,13 @@
   <p>This is a preview view. These changes have not been saved.<%= link_to_function "Go back", "history.go(-1)" %> to edit or save.</p>
 <% end %>
 
-<div class="share">
-    <%= render 'shared/add_this' %>
-</div>
-
 <header class="soapbox_profile_header">
+    <% javascript_tag do %>
+      var addthis_share = {
+        url: '<%= soapbox_profile_url(@user.username) %>'
+      }
+    <% end %>
+  <%= render :partial => 'shared/add_this', :locals => {:user => @user} %>
         <aside class="user_actions">
         <% if current_user == @user -%>
           <%= link_to 'Edit profile', edit_my_profile_path %>

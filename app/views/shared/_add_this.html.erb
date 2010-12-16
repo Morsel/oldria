@@ -1,9 +1,18 @@
 <!-- AddThis Button BEGIN --> 
     <div class="addthis_toolbox"> 
       <%= link_to "Share", 
-                 @user.premium_account? ? "http://www.addthis.com/bookmark.php?v=250&amp;username=unpluggedria" : '#',
-                 :onclick => @user.premium_account? ? nil : "alert(\"This user does not have a premium account. You cannot share this profile.\"); return false", 
-                 :class => "addthis_button" %>
+                 user.premium_account? ? "http://www.addthis.com/bookmark.php?v=250&amp;username=unpluggedria" : '#',
+                 :class   => user.premium_account? ? "addthis_button" : "not_premium_colorbox" %>
     </div> 
-    <%= javascript_include_tag "http://s7.addthis.com/js/250/addthis_widget.js#username=unpluggedria" if @user.premium_account? %>
+    <%= javascript_include_tag "http://s7.addthis.com/js/250/addthis_widget.js#username=unpluggedria" if user.premium_account? %>
     <!-- AddThis Button END -->
+    <% javascript_tag do -%>
+      $(document).ready(function(){
+        $('.not_premium_colorbox').colorbox({
+          innerWidth: 360,
+          innerHeight: 120,
+          html: "<p style='padding:20px'><strong>Oops, you need a Premium account to share your profile on Facebook and Twitter.</strong><br/> It is a handy service, but it'll cost you &mdash; thankfully not too much! Upgrade today!</p>"
+        });
+      });
+    <% end -%>   
+

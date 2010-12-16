@@ -50,7 +50,9 @@ ActionController::Routing::Routes.draw do |map|
     hq.root :action => 'index'
   end
 
-  map.resource :my_profile, :only => ['create', 'edit', 'update'], :controller => 'profiles' do |p|
+  map.resource :my_profile, :only => ['create', 'edit', 'update'],
+               :controller => 'profiles',
+               :collection => { :toggle_publish_profile => :get } do |p|
     p.resources :culinary_jobs
     p.resources :nonculinary_jobs
     p.resources :awards

@@ -76,6 +76,11 @@ Then(/^"([^\"]*)" should have (\d+) Announcement messages?$/) do |username, num|
   user.announcements.count.should == num.to_i
 end
 
+Then(/^"([^\"]*)" should have (\d+) Unread Announcement messages?$/) do |username, num|
+  user = User.find_by_username(username)
+  user.unread_announcements.count.should == num.to_i
+end
+
 Then(/^"([^\"]*)" should have (\d+) PR Tip messages?$/) do |username, num|
   user = User.find_by_username(username)
   user.pr_tips.count.should == num.to_i
@@ -158,4 +163,10 @@ Then /^the trend question "([^\"]*)" should not be viewable by "([^\"]*)"$/ do |
   trendq = TrendQuestion.find_by_subject(qname)
   user = User.find_by_username(username)
   trendq.viewable_by?(user.primary_employment).should == false
+end
+
+Given /^the following announcements:$/ do |table|
+  table.hashes.each do |row|
+    Factory(:announcement, :message => row['message'], :scheduled_at => Time.now)
+  end
 end

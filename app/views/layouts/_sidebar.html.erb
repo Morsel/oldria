@@ -40,6 +40,23 @@
   			<%- if current_user && !current_user.media? %>
           <%# disabling the ria labs for now: render :partial => 'shared/ria_labs' %>
         <% end -%>
+
+        <% javascript_tag do %>
+          function toggleMyProfileOnSoapbox(url){
+            $.ajax({
+               type: "GET",
+               url:  url,
+               beforeSend:  function(){ $('#promotion_status').html('<img src="/images/ajax-loader.gif" />'); },
+               error:       function(){ alert("Error"); },
+               complete:    function(response){ $('#promotion_status').html(response.responseText); }
+            });
+          }          
+        <% end %>
+        <%- if current_user %>
+          <aside class="promo" id="promotion_status">
+          <%= render "shared/promotion_status" %>
+          </aside><!--.promo-->
+        <% end -%>
   		</div><!-- #sidebar_content-->
   	<% else -%>
   	  &nbsp;
