@@ -7,7 +7,7 @@
 <header class="soapbox_profile_header">
     <% javascript_tag do %>
       var addthis_share = {
-        url: '<%= soapbox_profile_url(@user) %>'
+        url: '<%= soapbox_profile_url(@user.username) %>'
       }
     <% end %>
   <%= render :partial => 'shared/add_this', :locals => {:user => @user} %>
