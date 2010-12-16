@@ -51,9 +51,9 @@ module NavigationHelpers
 
     # Media-users
     when /^the media( user)? signup page$/
-      new_media_user_path
+      new_mediafeed_media_user_path
     when /^the media request search page$/
-      new_media_request_path
+      new_mediafeed_media_request_path
 
     # Restaurants
     when /^the new restaurant page$/

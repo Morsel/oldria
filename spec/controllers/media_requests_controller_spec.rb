@@ -1,6 +1,6 @@
 require 'spec/spec_helper'
 
-describe MediaRequestsController do
+describe Mediafeed::MediaRequestsController do
   integrate_views
 
   before(:each) do
@@ -35,7 +35,7 @@ describe MediaRequestsController do
         post :create
       end
 
-      it { response.should redirect_to(media_request_path(@media_request))}
+      it { response.should redirect_to(mediafeed_media_request_path(@media_request))}
     end
 
     context "with invalid media request" do

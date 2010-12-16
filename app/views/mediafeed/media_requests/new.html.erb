@@ -1,5 +1,5 @@
 <% title "New Media Request" %>
-<% semantic_form_for @media_request, :html => {:multipart => true} do |f| %>
+<% semantic_form_for [:mediafeed, @media_request], :html => {:multipart => true} do |f| %>
     <% f.inputs :name => "General Info" do %>
       <li>
         <%= label_tag 'name', "Your Name" %>
