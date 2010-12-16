@@ -7,8 +7,6 @@ class QuestionsController < ApplicationController
 
   skip_before_filter :load_random_btl_question, :only => [:refresh]
 
-  layout 'application'
-
   def index
     @chapter = Chapter.find(params[:chapter_id])
 
