@@ -66,10 +66,12 @@ class QuestionsController < ApplicationController
     @all_entries = []
 
     unless @key.blank?
+      # TODO filter with premium answers
       ProfileQuestion.answered.title_like(@key).each do |entry|
         @all_entries << [entry, :question]
       end
 
+      # TODO filter answered by premium
       ProfileAnswer.answer_like(@key).all(:include => :profile_question).each do |entry|
         @all_entries << [entry, :answer]
       end

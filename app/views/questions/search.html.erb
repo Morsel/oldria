@@ -1,6 +1,11 @@
-<section id="questions-list">
+<div id="recently">
   <% unless @no_results  %>
     <% unless @questions_found.empty? %>
+      <h2>Questions</h2>
+    <% end %>
+
+    <% unless @answers_found.empty? %>
+      <h2>Comments</h2>
     <% end %>
     <% @answers_found.each do |answer| %>
       <% div_for answer do %>
@@ -12,10 +17,10 @@
         <div class="user_comment">
           <%= render :partial => 'users/identity', :locals => { :user => answer.user } %>
           <div class="user_comment"><%= truncate(answer.answer, :length => 200) %>
-            <% if answer.answer.size > 200 -%><%= link_to "more &raquo;", profile_path(answer.user.username) %><%- end %></div>
+            <% if answer.answer.size > 200 -%><%= link_to "more &raquo;", soapbox_question_path(answer.profile_question) %><%- end %></div>
         </div>
       <% end %>
     <% end %>
   <% end %>
   <%= will_paginate(@all_entries) %>
-</section>
+</div>
