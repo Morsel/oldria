@@ -46,6 +46,17 @@ em, i{
 
 @include sticky-footer(160px, "#container", "#padding", "#footer_container");
 
+#staging_bar{
+	position:absolute;
+	z-index:10000;
+	padding:10px;
+	background: #FFF6BF;
+	border:solid #FFD324;
+	border-width:0 2px 2px 0;
+	color: #514721;
+}
+
+
 #site_header {
 	display: block;
 	height: 135px;
