@@ -153,6 +153,7 @@ class UsersController < ApplicationController
       @users = @users.paginate(:page => params[:page])
     end
 
+    @no_sidebar = true
     @no_results = @users.empty?
     render :layout => 'soapbox_search_results'
   end
