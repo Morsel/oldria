@@ -1,6 +1,7 @@
+# -*- coding: utf-8 -*-
 class UsersController < ApplicationController
   before_filter :require_visibility, :only => [:show]
-  before_filter :require_owner_or_admin, :only => [:edit, :update, :remove_twitter, :remove_avatar, 
+  before_filter :require_owner_or_admin, :only => [:edit, :update, :remove_twitter, :remove_avatar,
     :fb_auth, :fb_deauth, :fb_connect, :fb_page_auth]
 
   def index
@@ -21,10 +22,10 @@ class UsersController < ApplicationController
 
   def update
     employment_params = params[:user].delete(:default_employment) if params[:user]
-    
+
     respond_to do |format|
       if @user.update_attributes(params[:user])
-        
+
         # update default employment
         if employment_params
           if @user.default_employment.present?
@@ -33,7 +34,7 @@ class UsersController < ApplicationController
             @user.create_default_employment(employment_params)
           end
         end
-        
+
         format.html do
           flash[:notice] = "Successfully updated your profile."
           redirect_to user_path(@user)
@@ -141,9 +142,9 @@ class UsersController < ApplicationController
 
     redirect_to edit_my_profile_path
   end
-  
+
   def search
-    @key = params[:query]
+    @key = params[:query].try(:strip)
     @users = User.premium_account.visible.profile_headline_or_profile_summary_like(params[:query]).all(:include => :profile)
     @users.reject! { |user| ! user.prefers_publish_profile? }
     render :layout => 'soapbox_search_results'
