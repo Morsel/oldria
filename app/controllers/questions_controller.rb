@@ -62,7 +62,7 @@ class QuestionsController < ApplicationController
   end
 
   def search
-    @key = params[:query].try(:strip)
+    @key = params[:query].try(:strip) || ""
     @all_entries = []
 
     unless @key.empty?
@@ -82,7 +82,7 @@ class QuestionsController < ApplicationController
     @no_sidebar = true
     @no_results = @questions_found.empty? && @answers_found.empty?
 
-    render :layout => 'soapbox_search_results'
+    render 'questions/search', :layout => 'soapbox_search_results'
   end
 
   protected
