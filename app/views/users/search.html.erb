@@ -1,6 +1,7 @@
 <% unless @no_results  %>
   <div id="directory_list">
     <%= render :partial => 'directory/search_results' %>
+    <%= will_paginate(@all_entries) %>
   </div>
 <% end %>
 
