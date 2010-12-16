@@ -5,6 +5,12 @@
 <% end %>
 
 <header class="soapbox_profile_header">
+  <!-- AddThis Button BEGIN --> 
+  <div class="addthis_toolbox"> 
+    <a href="http://www.addthis.com/bookmark.php?v=250&amp;username=unpluggedria" class="addthis_button">Share</a> 
+  </div> 
+  <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#username=unpluggedria"></script> 
+  <!-- AddThis Button END -->
   <aside class="user_actions">
         <% if current_user == @user -%>
           <%= link_to 'Edit profile', edit_my_profile_path %>
@@ -24,12 +30,6 @@
     <h1><%= @user.name %></h1>
     <p class="last_updated">Last updated: <%= @user.updated_at.strftime('%b %d, %Y') %> </p>
     <% if @user.premium_account && on_soapbox %>
-    <!-- AddThis Button BEGIN --> 
-    <div class="addthis_toolbox"> 
-      <a href="http://www.addthis.com/bookmark.php?v=250&amp;username=unpluggedria" class="addthis_button">Share</a> 
-    </div> 
-    <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#username=unpluggedria"></script> 
-    <!-- AddThis Button END -->
     <% end %>
     <div class="clear"></div>
 </header>
