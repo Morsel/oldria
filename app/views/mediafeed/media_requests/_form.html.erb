@@ -1,13 +1,7 @@
 <% semantic_form_for [:mediafeed, @media_request], :html => { :multipart => true } do |f| %>
     <% f.inputs :name => "General Info" do %>
-      <li>
-        <%= label_tag 'name', "Your Name" %>
-        <%= text_field_tag 'name', current_user.name, :class => 'text' %>
-      </li>
-      <li>
-        <%= label_tag 'email', "Your Email" %>
-        <%= text_field_tag 'email', current_user.email, :class => 'text'  %>
-      </li>
+      <p>Your name: <%= current_user.name %></p>
+      <p>Email: <%= current_user.email %></p>
       <%= f.input :publication, :label => "For whom are you writing this?", :input_html => {:value => current_user.publication} %>
       <li>
         <label>
@@ -16,25 +10,11 @@
       </li>
     <% end %>
 
-    <% f.inputs :name => 'Advanced Criteria', :id => 'employment_criteria' do %>
-      <% semantic_fields_for @search do |s| %>
-      <div id="criteria_accordion">
-    	<p class="search_filter_hint">Select a subject matter:</p>
-          <div class="accordion_box">
-            <%= link_to "<span>Subject Matter</span>", "#" %>
-            <div id="subject_fields" class="loading">
-                <%= s.input :subject_matters_id_equals_any,
-                            :as => "check_boxes",
-                            :collection => SubjectMatter.all %>
-            </div>
-          </div>
-    	<p class="search_filter_hint">Filter using these criteria, if you like:</p>
-      <% end %>
+    <%= render :partial => "shared/employment_criteria", :locals => { :f => f } %>
 
-      <div id="employment_list">
+    <div id="employment_list">
         <%= render :partial => 'shared/employment_list' %>
-      </div>
-    <% end %>
+    </div>
 
     <% f.inputs :name => 'Your Request' do %>
 
