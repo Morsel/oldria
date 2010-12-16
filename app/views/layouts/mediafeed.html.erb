@@ -46,7 +46,7 @@
             <% if current_user %>
 			<nav id="primary_nav">
 				<span><%= link_to "Explore", mediafeed_root_path, :id => "nav_explore" %></span>
-				<span><%= link_to "Media Requests", new_mediafeed_media_request_path, :id => "nav_requests" %></span>
+				<span><%= link_to "Media Requests", mediafeed_media_requests_path, :id => "nav_requests" %></span>
 				<span><%= link_to "Account Profile", edit_mediafeed_media_user_path(current_user), :id => "nav_account" %></span>
 				<span><a href="#" id="nav_contact">Contact</a></span>
 			</nav>

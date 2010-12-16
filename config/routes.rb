@@ -53,7 +53,7 @@ ActionController::Routing::Routes.draw do |map|
   map.namespace(:mediafeed) do |mediafeed|
     mediafeed.root :controller => 'mediafeed', :action => 'index'
     mediafeed.resources :media_users, :except => [:index, :show]
-    mediafeed.resources :media_requests, :except => [:index]
+    mediafeed.resources :media_requests
   end
 
   map.with_options :conditions => { :subdomain => 'mediafeed' }, :controller => 'mediafeed/mediafeed' do |mediafeed|
