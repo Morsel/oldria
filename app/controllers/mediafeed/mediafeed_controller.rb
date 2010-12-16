@@ -11,4 +11,13 @@ class Mediafeed::MediafeedController < ApplicationController
     end
   end
 
+  protected
+
+  def require_media_user
+    unless current_user && (current_user.media? || current_user.admin?)
+      flash[:message] = "Please log in first"
+      redirect_to root_url
+    end
+  end
+
 end

@@ -27,7 +27,7 @@ Given /^the following media users?:?$/ do |table|
 end
 
 Given /^a media user "([^\"]*)" has just signed up$/ do |username|
-  visit new_media_user_path
+  visit new_mediafeed_media_user_path
 
   When 'I sign up with:', table(%Q{
     | username    | email        | password |

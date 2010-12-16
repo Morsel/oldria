@@ -31,12 +31,4 @@ class Mediafeed::MediaUsersController < Mediafeed::MediafeedController
     end
   end
 
-  private
-
-  def require_media_user
-    unless current_user && current_user.media?
-      flash[:message] = "Please log in first"
-      redirect_to root_url
-    end
-  end
 end

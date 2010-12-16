@@ -1,5 +1,6 @@
-class MediaRequestsController < ApplicationController
-  before_filter :require_user
+class Mediafeed::MediaRequestsController < Mediafeed::MediafeedController
+  before_filter :require_user, :only => [:index, :show]
+  before_filter :require_media_user, :except => [:index, :show]
 
   def index
     # These are always scoped by restaurant!

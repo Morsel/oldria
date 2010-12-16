@@ -66,7 +66,7 @@ Given /^there are no media requests$/ do
 end
 
 When /^I create a media request with message "([^\"]*)" and criteria:$/ do |message, criteria|
-  visit new_media_request_path
+  visit new_mediafeed_media_request_path
   fill_in :message, :with => message
   criteria.rows_hash.each do |field, value|
     if field =~ /(Subject Matter|Type of Request)/i
@@ -106,7 +106,7 @@ Then /^I should see a list of media requests$/ do
 end
 
 When /^I perform the raw search:$/ do |table|
-  visit new_media_request_path(:search => table.rows_hash)
+  visit new_mediafeed_media_request_path(:search => table.rows_hash)
 end
 
 When "I perform the search:" do |table|
