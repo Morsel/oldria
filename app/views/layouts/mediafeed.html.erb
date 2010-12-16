@@ -43,22 +43,7 @@
 		
 		<div id="main" class="<%= media_feed_css_class_if_home %>">		
 		
-            <% if current_user %>
-			<nav id="primary_nav">
-				<span><%= link_to "Explore", mediafeed_root_path, :id => "nav_explore" %></span>
-				<span><%= link_to "Media Requests", new_mediafeed_media_request_path, :id => "nav_requests" %></span>
-				<span><%= link_to "Account Profile", edit_mediafeed_media_user_path(current_user), :id => "nav_account" %></span>
-				<span><a href="#" id="nav_contact">Contact</a></span>
-			</nav>
-			<% else %>
-			<nav id="alternate_nav">
-				<a href="#" id="nav_home">Home</a>
-				<a href="#" id="nav_about">About</a>
-				<a href="#" id="nav_overview">Overview</a>
-				<a href="#" id="nav_contact">Contact</a>
-				<a href="#" id="nav_login">Login</a>
-			</nav>
-			<% end %>
+      <%= render 'layouts/mediafeed_nav_logic' %>
 
 			<%= yield :sidebar_a %>
 			<%= yield %>	
