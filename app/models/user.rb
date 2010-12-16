@@ -393,7 +393,7 @@ class User < ActiveRecord::Base
     self.subscription.try(:start_date).try(:>, 1.week.ago.to_date)
   end
 
-  def recieve_front_burner?
+  def receive_front_burner?
     return false unless self.post_to_soapbox?
     return false if self.employments.count > 0 && 
                     !self.employments.first(:conditions => 'restaurant_role_id IS NOT NULL')
