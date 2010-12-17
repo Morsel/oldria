@@ -1,3 +1,22 @@
+# == Schema Information
+# Schema version: 20101214220857
+#
+# Table name: meals
+#
+#  id                       :integer         not null, primary key
+#  name                     :string(255)
+#  day                      :string(255)
+#  open_at_hours            :string(255)
+#  open_at_minutes          :string(255)
+#  open_at_am_pm            :string(255)
+#  closed_at_hours          :string(255)
+#  closed_at_minutes        :string(255)
+#  closed_at_am_pm          :string(255)
+#  restaurant_fact_sheet_id :integer
+#  created_at               :datetime
+#  updated_at               :datetime
+#
+
 class Meal < ActiveRecord::Base
   DAYS = ["sunday", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday"]
   named_scope :for_day, lambda { |day|

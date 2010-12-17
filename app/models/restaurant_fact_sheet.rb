@@ -1,3 +1,62 @@
+# == Schema Information
+# Schema version: 20101214220857
+#
+# Table name: restaurant_fact_sheets
+#
+#  id                                :integer         not null, primary key
+#  venue                             :string(255)
+#  intersection                      :string(255)
+#  neighborhood                      :string(255)
+#  parking                           :string(255)
+#  public_transit                    :string(255)
+#  dinner_average_price              :string(255)
+#  lunch_average_price               :string(255)
+#  brunch_average_price              :string(255)
+#  breakfast_average_price           :string(255)
+#  children_average_price            :string(255)
+#  small_plate_min_price             :string(255)
+#  small_plate_max_price             :string(255)
+#  large_plate_min_price             :string(255)
+#  large_plate_max_price             :string(255)
+#  dessert_plate_min_price           :string(255)
+#  dessert_plate_max_price           :string(255)
+#  wine_by_the_glass_count           :string(255)
+#  wine_by_the_glass_min_price       :string(255)
+#  wine_by_the_glass_max_price       :string(255)
+#  wine_by_the_bottle_count          :string(255)
+#  wine_by_the_bottle_min_price      :string(255)
+#  wine_by_the_bottle_max_price      :string(255)
+#  wine_by_the_bottle_details        :text
+#  reservations                      :string(255)
+#  cancellation_policy               :text
+#  payment_methods                   :string(255)
+#  byob_allowed                      :boolean
+#  corkage_fee                       :string(255)
+#  dress_code                        :string(255)
+#  delivery                          :string(255)
+#  wheelchair_access                 :string(255)
+#  smoking                           :string(255)
+#  architect_name                    :string(255)
+#  graphic_designer                  :string(255)
+#  furniture_designer                :string(255)
+#  furniture_manufacturer            :string(255)
+#  flooring                          :text
+#  millwork                          :text
+#  china                             :text
+#  kitchen_equipment                 :text
+#  lighting                          :text
+#  draperies                         :text
+#  square_footage                    :string(255)
+#  restaurant_id                     :integer
+#  parking_and_directions_updated_at :datetime
+#  pricing_updated_at                :datetime
+#  guest_relations_updated_at        :datetime
+#  design_updated_at                 :datetime
+#  other_updated_at                  :datetime
+#  created_at                        :datetime
+#  updated_at                        :datetime
+#
+
 class RestaurantFactSheet < ActiveRecord::Base
   PARKING_OPTIONS = ["garage", "valet", "street", "lot"]
   RESERVATIONS_OPTIONS = ["accepted", "not accepted", "required", "recommended"]
