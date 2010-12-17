@@ -1,5 +1,5 @@
 <% semantic_form_for [:mediafeed, @media_request], :html => { :multipart => true } do |f| %>
-    <% f.inputs :name => "General Info" do %>
+    <% f.inputs :name => "General Info", :class => 'editing basic' do %>
       <p>Your name: <%= current_user.name %></p>
       <p>Email: <%= current_user.email %></p>
       <%= f.input :publication, :label => "For whom are you writing this?", :input_html => {:value => current_user.publication} %>
@@ -16,7 +16,7 @@
         <%= render :partial => 'shared/employment_list' %>
     </div>
 
-    <% f.inputs :name => 'Your Request' do %>
+    <% f.inputs :name => 'Your Request', :class => 'editing basic' do %>
 
       <%= render 'subject_matters', :f => f %>
 
@@ -27,8 +27,8 @@
         <%= child_form.label :attachment, "Attachment(s)" %>
         <p class="attachfield"><%= child_form.file_field :attachment %></p>
       <% end -%>
-
+      <p><%= button_tag "Submit" %></p>
     <% end %>
 
-    <p><%= button_tag "Submit" %></p>
+    
 <% end %>
