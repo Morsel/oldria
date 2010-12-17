@@ -22,9 +22,11 @@ module LayoutHelper
   end
 
   def active_link_to text, path, options = {}
-    css_class = (request.path == path || request.path.split('/').include?(path.split('/')[1])) ? ' selected' : ''
+    selected = (path == root_path) ? request.path == path : (request.path == path || request.path =~ /^#{path}/)
+    css_class = selected ? ' selected' : ''
     options[:class] ||= ""
     options[:class] << css_class
     link_to text, path, options
   end
+  
 end

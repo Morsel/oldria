@@ -20,12 +20,12 @@ Given /^"([^\"]*)" has a media request from a media member with:$/ do |username,
   Given %Q{"#{username}" has a media request from "media" with:}, table
 end
 
-Given /^subject matter "([^"]*)" is general$/ do |name|
+Given /^subject matter "([^\"]*)" is general$/ do |name|
   s = SubjectMatter.find_or_create_by_name(name)
   s.update_attribute(:general, true)
 end
 
-Given /^"([^"]*)" handles the subject matter "([^"]*)" for "([^"]*)"$/ do |username, subject, restname|
+Given /^"([^\"]*)" handles the subject matter "([^"]*)" for "([^"]*)"$/ do |username, subject, restname|
   r = Restaurant.find_by_name(restname)
   u = User.find_by_username(username)
   subject_matter = SubjectMatter.find_or_create_by_name(subject)
@@ -34,7 +34,7 @@ Given /^"([^"]*)" handles the subject matter "([^"]*)" for "([^"]*)"$/ do |usern
   employment.save
 end
 
-Given /^"([^"]*)" does not handle the subject matter "([^"]*)" for "([^"]*)"$/ do |username, subject, restname|
+Given /^"([^\"]*)" does not handle the subject matter "([^"]*)" for "([^"]*)"$/ do |username, subject, restname|
   r = Restaurant.find_by_name(restname)
   u = User.find_by_username(username)
   employment = u.employments.find_by_restaurant_id(r.id)
@@ -61,12 +61,11 @@ Given /^"([^\"]*)" has a media request$/ do |username|
   @media_request.approve!
 end
 
-
 Given /^there are no media requests$/ do
   MediaRequest.destroy_all
 end
 
-When /^I create a media request with message "([^"]*)" and criteria:$/ do |message, criteria|
+When /^I create a media request with message "([^\"]*)" and criteria:$/ do |message, criteria|
   visit new_media_request_path
   fill_in :message, :with => message
   criteria.rows_hash.each do |field, value|
@@ -79,7 +78,6 @@ When /^I create a media request with message "([^"]*)" and criteria:$/ do |messa
   click_button :submit
   @media_request = MediaRequest.last
 end
-
 
 When /^I create a new media request with:$/ do |table|
   media_request_from_hash(table.rows_hash)
@@ -122,7 +120,6 @@ When "I perform the search:" do |table|
   end
   click_button "Search"
 end
-
 
 When /^I approve the media request$/ do
   click_link "edit"

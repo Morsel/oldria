@@ -19,9 +19,10 @@ tmp/webrat-*
 .rvmrc
 .project
 default.gems
-TAGS
 *.swp
 *.swo
+TAGS
+config/setup_load_paths.rb
 
 public/soapbox/_css/*
 public/hq/_css/*

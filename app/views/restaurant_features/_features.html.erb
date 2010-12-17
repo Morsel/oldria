@@ -1,0 +1,21 @@
+<div id="restaurant_features">
+  <h2><%= @page.name %></h2>
+  <% form_tag add_restaurant_feature_path(@restaurant) do %>
+    <% @page.restaurant_feature_categories.by_name.each do |category| %>
+      <div class="feature_category" id="<%= dom_id(category) %>">
+        <h3 class="feature_category_header"><%= h category.name %></h3>
+        <% category.restaurant_features.in_groups(2).each do |feature_list| %>
+          <div class="feature" >
+            <% feature_list.compact.each do |feature| %>
+                <p><%= check_box_tag 'features[]', feature.id,
+                    @restaurant.restaurant_feature_ids.include?(feature.id),
+                    :id => dom_id(feature, :check) %>
+                <%= label_tag dom_id(feature, :check), feature.value, :class => 'inline' %></p>
+            <% end %>
+          </div>
+        <% end %>
+        <%= submit_tag "Update all features", :class => 'clear' %>
+      </div>
+    <% end %>
+  <% end %>
+</div>

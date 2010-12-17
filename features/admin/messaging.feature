@@ -39,6 +39,8 @@ Feature: Admin Messaging
     And I check "Post to Facebook?"
     And I press "Send"
     Then I should see Facebook Share Popup
+    And I should see "Why, yes, they are quite cool!"
+    And I should see "your answer has been saved"
  
   Scenario: Replying to a published Trend question give a possibility to post on facebook
     Given I am logged in as "johndoe"

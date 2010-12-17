@@ -6,18 +6,30 @@ describe RestaurantFeaturesController do
     @user = Factory(:admin)
     @user.stubs(:update).returns(true)
     controller.stubs(:current_user).returns(@user)
+    @page = Factory(:restaurant_feature_page)
     @restaurant = Factory(:restaurant)
+    Restaurant.stubs(:find => @restaurant)
   end
 
   describe "put create" do
 
-    it "passes values to the restaurant and displays back to the index" do
-      Restaurant.stubs(:find => @restaurant)
-      @restaurant.expects(:reset_features).with([1, 2, 3, 4], nil)
-      put :create, :features => [1, 2, 3, 4], :restaurant_id => @restaurant.id
-      response.should render_template(:index)
+    it "passes values to the restaurant and displays back to the bulk edit" do
+      @restaurant.expects(:reset_features).with([1, 2, 3, 4], [])
+      put :add, :features => [1, 2, 3, 4], :restaurant_id => @restaurant.id, :id => @page.id
+      response.should redirect_to(bulk_edit_restaurant_feature_path(@restaurant, @page))
     end
 
+  end
+  
+  describe "updating top tags" do
+    
+    it "should update the new top restaurant features for the restaurant" do
+      i1 = Factory(:restaurant_feature_item, :restaurant => @restaurant)
+      i2 = Factory(:restaurant_feature_item, :restaurant => @restaurant)
+      post :update_top, :restaurant_id => @restaurant.id, :restaurant_features => ["2"]
+      i1.restaurant_feature.top_tag?(@restaurant).should == false
+      i2.restaurant_feature.top_tag?(@restaurant).should == true
+    end
   end
 
 end

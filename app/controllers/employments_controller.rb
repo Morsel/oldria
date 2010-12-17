@@ -5,7 +5,7 @@ class EmploymentsController < ApplicationController
   def update
     @employment = @restaurant.employments.find(params[:id])
     @employment.update_attributes(params[:employment])
-    redirect_to restaurant_employees_path(@restaurant)
+    redirect_to bulk_edit_restaurant_employees_path(@restaurant)
   end
 
   def reorder

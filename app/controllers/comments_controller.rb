@@ -7,8 +7,12 @@ class CommentsController < ApplicationController
     @comment.user_id ||= current_user.id
 
     if @comment.save
-      @parent.read_by!(@comment.user) if front_burner_content
-      flash[:notice] = "Successfully created comment."
+      if front_burner_content
+        @parent.read_by!(@comment.user)
+        flash[:notice] = "Thanks: your answer has been saved. The question has been archived and can be found under the \"all\" tab."
+      else
+        flash[:notice] = "Thanks: your answer has been saved."
+      end
       case @parent.class.to_s
         when "Admin::Conversation" then redirect_to admin_conversation_path(@parent, :post_to_facebook => @comment.post_to_facebook)
         when "AdminDiscussion" then redirect_to admin_discussion_path(@parent, :post_to_facebook => @comment.post_to_facebook)

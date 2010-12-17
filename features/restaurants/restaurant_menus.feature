@@ -14,11 +14,11 @@ Feature: Restaurant Menus
 
   Scenario: Upload a menu
     When I go to the restaurant menu upload page for Bourgeois Pig
-    And I fill in "January" for "Name"
+    And I fill in "January" for "Menu name"
     And I select "Monthly" from "How often it changes"
     And I attach the file "/features/images/menu1.pdf" to "menu_pdf_remote_attachment_attributes_attachment" on S3
     And I press "Upload"
-    Then I should see a menu with the name "January" and change frequency "Monthly" and uploaded at date "now" 
+    Then I should see a menu with the name "January" and change frequency "Monthly" and uploaded at date "now"
     Then I should see a link to download the uploaded menu pdf "menu1.pdf"
 
   Scenario: Menu upload page does not display for a non-account manager
@@ -41,7 +41,7 @@ Feature: Restaurant Menus
 
   Scenario: Upload a menu fails when change_frequency not specified
     When I go to the restaurant menu upload page for Bourgeois Pig
-    And I fill in "January" for "Name"
+    And I fill in "January" for "Menu name"
     And I attach the file "/features/images/menu1.pdf" to "menu_pdf_remote_attachment_attributes_attachment" on S3
     And I press "Upload"
     Then I should not see any menus
@@ -49,7 +49,7 @@ Feature: Restaurant Menus
 
   Scenario: Upload a menu fails when file path not specified
     When I go to the restaurant menu upload page for Bourgeois Pig
-    And I fill in "January" for "Name"
+    And I fill in "January" for "Menu name"
     And I select "Monthly" from "How often it changes"
     And I press "Upload"
     Then I should not see any menus
@@ -57,7 +57,7 @@ Feature: Restaurant Menus
 
   Scenario: Upload a menu fails when file content type is other than PDF
     When I go to the restaurant menu upload page for Bourgeois Pig
-    And I fill in "January" for "Name"
+    And I fill in "January" for "Menu name"
     And I select "Monthly" from "How often it changes"
     And I attach the file "/features/images/bourgeoispig.jpg" to "menu_pdf_remote_attachment_attributes_attachment" on S3
     And I press "Upload"
@@ -66,7 +66,7 @@ Feature: Restaurant Menus
 
   Scenario: Remove a menu
     When I go to the restaurant menu upload page for Bourgeois Pig
-    And I fill in "January" for "Name"
+    And I fill in "January" for "Menu name"
     And I select "Monthly" from "How often it changes"
     And I attach the file "/features/images/menu1.pdf" to "menu_pdf_remote_attachment_attributes_attachment" on S3
     And I press "Upload"

@@ -1,133 +1,86 @@
 <% @restaurant.logo ||= Image.new %>
-<% title "Editing Restaurant" %>
+<% title "Edit your restaurant" %>
 
 <% content_for :head do -%>
   <%= stylesheet_link_tag 'colorbox' %>
 <% end -%>
 
-<% if can? :edit, @restaurant %>
-<p class="clearfix">
-  <%= link_to 'Manage employees', restaurant_employees_path(@restaurant),
-      :class=> 'sf-button' %>
-</p>
-  <% content_for :page_actions do -%>
-    <p class="clearfix">
-      <%= link_to 'Manage employees', restaurant_employees_path(@restaurant),
-          :class=> 'sf-button' %>
-      <%= link_to 'Edit restaurant features', restaurant_features_path(@restaurant),
-          :class=> 'sf-button' %>
-      <%= link_to "Edit a la Minute Questions", 
-          bulk_edit_restaurant_a_la_minute_answers_path(:restaurant_id => @restaurant),
-          :class => 'sf-button' %>
-    </p>
-    <p class="clearfix">
-      <%= link_to "Manage Menus", restaurant_menus_path(@restaurant), 
-          :class => "sf-button" %>
-      <%= link_to "Manage Photos", restaurant_photos_path(@restaurant), 
-          :class => "sf-button" %>
-      <%= link_to "Add Accolade", new_restaurant_accolade_path(@restaurant), 
-          :class => "sf-button" %>
-    </p>
-  <% end -%>
-<% end -%>
+<div id="restaurant_profile_view" class="edit clear clearfix">
 
-<% semantic_form_for(@restaurant, :html => { :multipart => true }) do |f| %>
-  
-  <% f.inputs :name => "Account Status", :class => "title span-8" do %>
-    <div id="plans" class="current">
-      <div id="payment_blurb">
-        Basic accounts allow you to participate in Spoonfeed. If you would
-        like to be included in Soapbox, please upgrade to a Premium Account.
-        A restaurant premium account is $250/month.
-      </div>
-    
-      <br clear="all" />
-    
-      <div>
-        <%= link_to "More Information...", "/account_types", :class => 'button' %>
-      </div>
+  <%= render 'restaurants/restaurant_header' %>
 
-      <br clear="all" />
-      <br clear="all" />
-    
-      <div id="account_status">
-        Your current account status is <%= @restaurant.account_type %>.
-        <% if @restaurant.premium_account? %> 
-          <span id="start_date">
-            You have been a premium member 
-            since <%= @restaurant.subscription.start_date.to_s(:long) %>
-          </span>
-          <% if @restaurant.account_in_overtime? %>
-            <span id="end_date">
-              This account has been canceled and will end 
-              <%= @restaurant.subscription.end_date.to_s(:long)%>
-            </span>
-          <% end %>
-        <% end %>
-      </div>
-    
-      <%= render :partial => 'subscriptions/account_links',
-          :locals => {:subscriber => @restaurant, :subscriber_type => "restaurant"} %>
-          
-      <br clear="all" />    
-      <div>
-        If you would like to upgrade any of your restaurant staff to a Premium 
-        User account, click the button below.
-        To upgrade each employee, simply click the pencil for the person.
-        <br /> 
-        <%= link_to "Update Employee Status", restaurant_employees_path(@restaurant),
-            :class => "button"%>
-      </div>    
-    </div>
-  <% end %>
-  
-  <% f.inputs :name => "Basics", :class => "title span-8" do %>
-    <%= f.input :name %>
-    <%= f.input :description, :as => :text, :label => "Tagline or short description" %>
-  <% end %>
+  <div id="editing_restaurant">
 
-  <% f.inputs :name => "Address", :class => "span-8 column" do %>
-    <%= f.input :street1, :label => 'Street Address' %>
-    <%= f.input :street2, :label => 'Street Address Line 2 (Optional)' %>
-    <%= f.input :city, :input_html => {:class => 'span-3'}, :wrapper_html => {:class => 'span-3 column'}  %>
-    <%= f.input :state, :input_html => {:class => 'span-1'}, :wrapper_html => {:class => 'span-1 column'}   %>
-    <%= f.input :zip, :input_html => {:class => 'span-2'}, :wrapper_html => {:class => 'span-2 column'}   %>
-    <%= f.input :phone_number, :input_html => {:class => 'span-2'}, :wrapper_html => {:class => 'span-2 column'}   %>
-    <%= f.input :metropolitan_area, :wrapper_html => {:class => 'clear'} %>
-    <%= f.input :james_beard_region, :label => "Region" %>
-  <% end -%>
+  <% semantic_form_for(@restaurant, :html => { :multipart => true }) do |f| %>
 
-  <% f.inputs :name => 'Other', :class => "span-9 column last" do %>
-    <%= f.input :hours, :as => :text %>
-    <%= f.input :manager, :label => "Primary Account Manager", :collection => @restaurant.managers %>
-    <%= f.input :media_contact, :collection => @restaurant.employees %>
-    <%= f.input :cuisine %>
-    <%= f.input :opening_date %>
-    <%= f.input :website, :hint => "The full URL, starting with http://" %>
-    <%= f.input :twitter_username, :hint => "Just your username" %>
-    <%= f.input :facebook_page, :hint => "Full URL of your Facebook page" %>
-    <%= f.input :management_company_name, :hint => "Just the company name" %>
-    <%= f.input :management_company_website, :hint => "The full URL to the company website, starting with http://" %>
-  <% end %>
+    <% f.inputs :name => "Account Status", :class => "editing account" do %>
+      <div class="standout">Your current account status is <strong><%= @restaurant.account_type %></strong>.</div>
+      <p>Basic accounts allow you to participate in Spoonfeed. If you would like to be included in Soapbox, please upgrade to a Premium Account. A restaurant premium account is $250/month... <%= link_to "More account information&nbsp;&#187;", "/account_types" %></p>
+      <% if @restaurant.premium_account? %>
+        <p>You have been a premium member since <%= @restaurant.subscription.start_date.to_s(:long) %></p>
+      <% end %>
+      <% if @restaurant.account_in_overtime? %>
+        <p class="alert">This account has been canceled and will end <%= @restaurant.subscription.end_date.to_s(:long)%></p>
+      <% end %>
+      <%= render :partial => 'subscriptions/account_links', :locals => {:subscriber => @restaurant, :subscriber_type => "restaurant"} %>
 
-    <% f.inputs :name => 'Logo', :class => "span-17 column last clear", :id => "logo" do %>
-
-        <% f.semantic_fields_for :logo do |logo_fields| %>
-            <%= image_tag @restaurant.logo.attachment.url(:medium), :id => "restaurant_logo_image" %>
-            <%= logo_fields.input :attachment, :as => :file, :hint => "Please upload a jpeg, gif, or png" %>
-        <% end %>
-        <p id="delete-logo"><%= link_to "Remove", restaurant_logo_path(@restaurant, @restaurant.logo), :method => :delete, :confirm => "Are you sure you want to remove the logo?", :class => "button negative" %></p>
     <% end %>
 
 
-  <p class="clear">
-    <%= button_tag "Save", :class => 'positive' %>
-  </p>
-<% end %>
 
-<%= render :partial => 'profiles/extended_profile_section', :locals => {
-        :associated => @restaurant,
-        :association => "accolades",
-        :caption => "Accolades",
-        :form_path => new_restaurant_accolade_path(@restaurant)} %>
+    <% f.inputs :name => "Basics", :class => "editing basics" do %>
+      <%= f.input :name %>
+      <%= f.input :description, :as => :text, :label => "Tagline or short description" %>
+      <% button_tag :class => 'positive' do %>Save changes to basic information<% end %>
+    <% end %>
+
+
+
+    <% f.inputs :name => "Address", :class => "editing address" do %>
+      <%= f.input :street1, :label => 'Street Address' %>
+      <%= f.input :street2, :label => 'Street Address Line 2 (Optional)' %>
+      <%= f.input :city %>
+      <%= f.input :state %>
+      <%= f.input :zip %>
+      <%= f.input :phone_number %>
+      <%= f.input :metropolitan_area %>
+      <%= f.input :james_beard_region, :label => "Region" %>
+      <% button_tag :class => 'positive' do %>Save changes to address<% end %>
+    <% end -%>
+
+
+
+    <% f.inputs :name => 'Other', :class => "editing other" do %>
+      <%= f.input :hours, :as => :text %>
+      <%= f.input :manager, :label => "Primary Account Manager", :collection => @restaurant.managers %>
+      <%= f.input :media_contact, :collection => @restaurant.employees %>
+      <%= f.input :cuisine %>
+      <%= f.input :opening_date, :class => "opening_date" %>
+      <%= f.input :website %>
+      <%= f.input :twitter_username, :hint => "Just your username" %>
+      <%= f.input :facebook_page %>
+      <%= f.input :management_company_name %>
+      <%= f.input :management_company_website %>
+      <% button_tag :class => 'positive' do %>Save changes<% end %>
+    <% end %>
+
+    <% f.inputs :name => 'Logo', :class => "editing", :id => "logo_image" do %>
+
+      <% f.semantic_fields_for :logo do |logo_fields| %>
+        <%= image_tag @restaurant.logo.attachment.url(:medium), :id => "restaurant_logo_image" %>
+          <%= logo_fields.input :attachment, :as => :file, :hint => "Please upload a jpeg, gif, or png" %>
+        <% end %>
+        <p id="delete-logo"><%= link_to "Remove restaurant logo", restaurant_logo_path(@restaurant, @restaurant.logo), :method => :delete, :confirm => "Are you sure you want to remove the logo?", :class => "negative" %></p>
+        <% button_tag :class => 'positive' do %>Save logo changes<% end %>
+    <% end %>
+  <% end %>
+
+  <%= render :partial => 'profiles/extended_profile_section', :locals => {
+          :associated => @restaurant,
+          :association => "accolades",
+          :caption => "Accolades",
+          :form_path => new_restaurant_accolade_path(@restaurant)} %>
+
+    </div><!-- #editing_restaurant -->
+</div><!-- #restaurant_profile_view -->
 

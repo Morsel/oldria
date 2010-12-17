@@ -2,7 +2,7 @@
 
 <%= render :partial => 'shared/add_this', :locals => {:user => @user} %>
 
-<h1 id="btl-title" class="btl"><span class="btl-art">Behind the Line:</span> <span class="name"><%= @user.name %></span></h1>
+<h1 id="btl-title" class="btl"><span class="btl-art">Behind the Line:</span> <span class="name"><%= btl_title_for(@subject) %></span></h1>
 <h2 id="topic_title">Topics</h2>
 <% javascript_tag do %>
   var addthis_share = {
@@ -10,18 +10,17 @@
   }
 <% end %>
 
-
-<%- for topic in @topics -%>
+<%- @topics.each do |topic| -%>
 <div class="topic <%= cycle '',' last' %>" id="<%= dom_id topic %>">
     <h3><%= topic.title %></h3>
     <table>
-        <% for chapter in @chapters_by_topic[topic] %>
+        <% @chapters_by_topic[topic].each do |chapter| %>
         <tr>
-           <td class="topic_link"><%= link_to chapter.title, link_for_questions(:user_id => @user.id, :chapter_id => chapter.id) %></td>
-           <td class="topic_completeness"><%= chapter.completion_percentage(@user) %>% complete</td> 
+           <td class="topic_link"><%= link_to chapter.title, link_for_questions(:subject => @subject, :chapter_id => chapter.id) %></td>
+           <td class="topic_completeness"><%= completion_percentage_for(@subject, chapter) %>% complete</td>
         </tr>
-        <% end %>
+        <% end if @chapters_by_topic[topic] %>
     </table>
-    <%= link_to "View all \"#{topic.title}\" chapters &raquo;", link_for_chapter(:user_id => @user.id, :topic_id => topic.id), :class => 'view_all_chapters' %>
+    <%= link_to "View all \"#{topic.title}\" chapters &raquo;", link_for_chapter(:subject => @subject, :topic_id => topic.id), :class => 'view_all_chapters' %>
 </div>
 <%- end -%>

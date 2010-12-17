@@ -1,6 +1,10 @@
 <% title "Request an invitation" %>
 
+<div id="editing_restaurant">
+
 <% semantic_form_for @invitation do |f| %>
     <%= render :partial => "form", :locals => { :f => f } %>
-    <%= submit_tag "Request Invite" %>
+    <%= submit_tag current_user ? "Invite User" : "Request Invite" %>
 <% end %>
+
+</div>

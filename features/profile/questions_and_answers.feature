@@ -1,8 +1,8 @@
-@profile
+@profile @btl
 Feature: Profile - Behind the Line (aka Q&A)
   SF users should be able to answer questions specific to their employment roles
   These questions will be organized into a series of topics and chapters
-  
+
   Background:
   Given the following confirmed users:
     | username    | password | first_name | last_name |
@@ -10,11 +10,14 @@ Feature: Profile - Behind the Line (aka Q&A)
   And several profile questions matching employment roles for "punkrock"
   And I am logged in as "punkrock"
   
+  Given "punkrock" has a complimentary premium account
+  And "punkrock" has a published profile
+
   Scenario: Viewing my topics
     Given I am on the profile page for "punkrock"
     When I follow "View all Topics" within "#behindline"
     Then I should see "Topics"
-    
+
   Scenario: Viewing chapters for a topic
     Given I am on the profile page for "punkrock"
     When I follow "View all Topics" within "#behindline"
@@ -27,7 +30,7 @@ Feature: Profile - Behind the Line (aka Q&A)
     And I follow "View all"
     And I follow "Education"
     Then I should see "Title 1"
-    
+
   Scenario: Answering a question
     Given I am on the profile page for "punkrock"
     When I follow "View all Topics" within "#behindline"
@@ -36,6 +39,9 @@ Feature: Profile - Behind the Line (aka Q&A)
     And I fill in "profile_question_1_answer" with "A great answer for this"
     And I press "Post"
     Then I should see "Your answers have been saved"
+    
+    When I go to the question page with title "Title 1"
+    Then I should see "A great answer for this"
 
   Scenario: Should contain topic name and chief name in title
     Given I am on the profile page for "punkrock"
@@ -68,5 +74,4 @@ Feature: Profile - Behind the Line (aka Q&A)
     And I check "Post to Facebook?"
     And I press "Post"
     Then message to facebook is sent 
-
 

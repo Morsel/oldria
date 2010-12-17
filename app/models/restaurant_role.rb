@@ -12,15 +12,14 @@
 
 class RestaurantRole < ActiveRecord::Base
   has_many :employments
-  has_many :question_roles, :dependent => :destroy
+  has_many :question_roles, :as => :responder, :dependent => :destroy
   has_many :profile_questions, :through => :question_roles
-  
-  validates_presence_of :name
-  
-  default_scope :order => "#{table_name}.category ASC, #{table_name}.name ASC"
 
+  validates_presence_of :name
+
+  default_scope :order => "#{table_name}.name ASC"
   named_scope :with_employments, :joins => :employments, :group => "#{table_name}.id"
-  
+
   def self.categories
     all.map(&:category).uniq.reject { |c| c.blank? }
   end

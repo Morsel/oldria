@@ -1,9 +1,10 @@
 <fieldset class="plain">
-  <ol>
+<ol>
     <li class="hidden optional"><%= hidden_field_tag :profile_question_id, answer.profile_question.id %></li>
     <li class="text required">
-      <%= text_area_tag "profile_question[#{answer.profile_question.id}]answer", answer.answer, :rows => 20, :cols => 50, :id => "profile_question_#{answer.profile_question.id}_answer" %>
-      <p class="inline-hints"><%= answer.new_record? ? "" : "This answer is viewable by others" %></p>
+        <%= text_area_tag "profile_question[#{answer.profile_question.id}]answer", answer.answer,
+            :rows => 20, :cols => 50, :id => "profile_question_#{answer.profile_question.id}_answer" %>
+        <p class="inline-hints"><%= answer.new_record? ? "" : "This answer is viewable by others" %></p>
     </li>
   </ol>
 </fieldset>
@@ -21,6 +22,6 @@
 
 
 <div class="clearfix">
-    <%= button_tag "Post" %>
-    <%= link_to "Delete this answer", profile_answer_path(answer), :method => "delete", :class => "button negative" unless answer.new_record? %>
+  <%= button_tag "Post" %>
+  <%= link_to "Delete this answer", link_for_profile_answer(answer, :subject => @subject), :method => "delete", :class => "button negative" unless answer.new_record? %>
 </div>
