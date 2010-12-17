@@ -393,14 +393,19 @@ class User < ActiveRecord::Base
     self.subscription.try(:start_date).try(:>, 1.week.ago.to_date)
   end
 
+  # check if user is individual 
+  # or associated with a restaurants
   def individual?
     employments.blank?
   end
 
+  # check if user associated with restaurants
+  # has at least one filled role 
   def has_restaurant_role? 
-    self.employments.first(:conditions => 'restaurant_role_id IS NOT NULL')
+    !self.employments.first(:conditions => 'restaurant_role_id IS NOT NULL').nil?
   end
 
+  # user permission for receiving front burner content
   def receive_front_burner
     return :individual_denied if !self.post_to_soapbox? && self.individual?
     return :restaurant_denied if !self.individual? && ( !self.post_to_soapbox? || !self.has_restaurant_role?)
