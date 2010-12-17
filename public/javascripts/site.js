@@ -649,6 +649,15 @@ $('#mediafeed_slides tbody').sortable({
 	}
 });
 
+$('#mediafeed_promos tbody').sortable({
+	axis:'y',
+	dropOnEmpty:false,
+	update: function(){
+		$.ajax({ data:$(this).sortable('serialize', { key: 'mediafeed_promos[]' }), dataType:'script', type:'post', url:'/admin/mediafeed_promos/sort'
+		});
+	}
+});
+
 $('#soapbox_promos tbody').sortable({
 	axis:'y',
 	dropOnEmpty:false,
