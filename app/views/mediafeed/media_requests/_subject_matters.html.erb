@@ -19,5 +19,6 @@
 <div id="fields_for_general" class="fieldsets">
   <%= f.input :subject_matter,
               :include_blank => false,
-              :collection => SubjectMatter.media_viewable.general.all %>
+              :collection => SubjectMatter.media_viewable.general.all,
+              :label => "Primary Subject Matter" %>
 </div>

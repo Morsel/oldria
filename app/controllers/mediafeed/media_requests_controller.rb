@@ -4,7 +4,7 @@ class Mediafeed::MediaRequestsController < Mediafeed::MediafeedController
 
   def index
     if current_user.media?
-      @media_requests_by_type = [] #placeholder to make the view work
+      @media_requests_by_type = current_user.media_requests.for_dashboard.all(:include => [:subject_matter, :restaurants])#.group_by(&:subject_matter)
     else
       # These are always scoped by restaurant!
       @restaurant = Restaurant.find(params[:restaurant_id])
