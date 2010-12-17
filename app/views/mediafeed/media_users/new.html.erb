@@ -1,4 +1,19 @@
 <% title "Sign up for a Media account" %>
-<p>Once you've signed up, you can make requests to our large database of clients</p>
 
-<%= render :partial => 'form' %>
+<div id="content">
+  <div id="editing_restaurant">
+    <p>Once you've signed up, you can make requests to our large database of clients</p>
+	  <%= render :partial => 'form' %>
+	</div>
+</div><!--#content-->
+
+<% content_for :sidebar_b do -%>
+	<div id="sidebar_b">
+		<div id="sidebar_content">
+
+			<a class="promo media_request" href="/invitations/new">Create a Media Request</a>
+			<a class="promo go_to_soapbox" href="/soapbox">Go to Soapbox</a>
+			
+		</div>
+	</div><!--#sidebar_b-->
+<% end -%>
