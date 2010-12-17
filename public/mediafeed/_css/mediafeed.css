@@ -439,16 +439,16 @@ html, body {
   background-position: -244px -200px;
 }
 /* line 189, ../../../app/stylesheets/mediafeed/_css/mediafeed.scss */
-#primary_nav a#nav_account {
+#primary_nav a#nav_profile {
   width: 244px;
   background-position: -490px 0;
 }
 /* line 192, ../../../app/stylesheets/mediafeed/_css/mediafeed.scss */
-#primary_nav a#nav_account:hover {
+#primary_nav a#nav_profile:hover {
   background-position: -490px -100px;
 }
 /* line 193, ../../../app/stylesheets/mediafeed/_css/mediafeed.scss */
-#primary_nav a#nav_account.selected {
+#primary_nav a#nav_profile.selected {
   background-position: -490px -200px;
 }
 /* line 195, ../../../app/stylesheets/mediafeed/_css/mediafeed.scss */

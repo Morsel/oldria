@@ -17,5 +17,5 @@ Feature: Media accounts
   Scenario: Media layout
     Given a media user "mediaman" has just signed up
     When I confirm my account
-    Then I should see "MediaFeed"
+    Then I should see "Mediafeed"
     But I should not see "spoonfeed"
