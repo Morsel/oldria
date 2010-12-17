@@ -1,4 +1,4 @@
-@media @signup
+@media @signup @joesak
 Feature: Media accounts
   In order to make requests
   As a Journalist or other member of the media
@@ -17,8 +17,7 @@ Feature: Media accounts
   Scenario: Media layout
     Given a media user "mediaman" has just signed up
     When I confirm my account
-    Then I should see "Mediafeed"
-    But I should not see "spoonfeed"
+    Then I should see the media feed layout
     
   Scenario: Logging in
     Given a media user "newsy" has just signed up
@@ -31,4 +30,4 @@ Feature: Media accounts
     And "journo" has just been confirmed
     And I am logged in as "journo"
     When I logout
-    Then I should be on the Mediafeed home page
+    Then I should be on the mediafeed home page

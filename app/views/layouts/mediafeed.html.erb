@@ -47,10 +47,17 @@
 		
 		<div id="main" class="<%= media_feed_css_class_if_home %>">		
 		
-            <%= render 'layouts/mediafeed_nav_logic' %>
-
-			<%= yield :sidebar_a %>
-			<%= yield %>	
+      <%= render 'layouts/mediafeed_nav_logic' %>
+      <div id="content" class="<%= media_feed_css_class_if_home %>">
+        <div class="inner_content">
+          <%= render 'layouts/flashes' %>          
+          <%= yield %>
+          <%= render 'mediafeed/shared/mediafeed_sidebar' unless request.path == mediafeed_root_path %>
+        </div><!-- /inner_content -->
+      </div><!-- /content -->
+      
+			
+			
 			<%= yield :sidebar_b %>	
 		  <div class="clear"></div>
       
