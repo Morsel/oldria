@@ -29,8 +29,9 @@ class ProfileAnswer < ActiveRecord::Base
   }
 
   def post_to_facebook
+    name = self.responder.respond_to?(:name) ? self.responder.name : ""
     post = { :message => self.profile_question.title.to_s + " - " + self.answer.to_s,
-             :caption => self.user.name + ":: Behind The Line :: Topic: Background",
+             :caption => name + ":: Behind The Line :: Topic: Background",
              :link    => @share_url }
     response = self.user.facebook_user.feed_create(Mogli::Post.new(:message => post[:message],
                                                                    :link    => post[:link],
