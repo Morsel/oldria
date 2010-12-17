@@ -39,7 +39,7 @@ class ApplicationController < ActionController::Base
 
   def mediafeed?
     return @is_mediafeed if defined?(@is_mediafeed)
-    @is_mediafeed = (current_subdomain =~ /^mediafeed/) || (current_user && current_user.media?)
+    @is_mediafeed = (current_subdomain =~ /^mediafeed/) || params[:controller].match(/mediafeed/) || (current_user && current_user.media?)
   end
 
   def find_user_feeds(dashboard = false)

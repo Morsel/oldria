@@ -54,6 +54,10 @@ module NavigationHelpers
       new_mediafeed_media_user_path
     when /^the media request search page$/
       new_mediafeed_media_request_path
+    when /^the Mediafeed home page$/
+      mediafeed_root_path
+    when /^the Mediafeed login page$/
+      mediafeed_login_path
 
     # Restaurants
     when /^the new restaurant page$/

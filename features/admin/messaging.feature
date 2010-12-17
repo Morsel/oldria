@@ -91,7 +91,7 @@ Feature: Admin Messaging
       | message      | Don't bother to call in sick |
       | scheduled_at | 2010-06-02 12:00:00          |
     And holiday "Day Off" has a reply "A reply for all holidays"
-    And given that user "cleopatra" has just been confirmed
+    And "cleopatra" has just been confirmed
     And I am logged in as "cleopatra"
     When I go to the front burner page
     Then I should see "This is a new QOTD"

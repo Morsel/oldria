@@ -52,6 +52,7 @@ ActionController::Routing::Routes.draw do |map|
   
   map.namespace(:mediafeed) do |mediafeed|
     mediafeed.root :controller => 'mediafeed', :action => 'index'
+    mediafeed.login 'login', :controller => 'mediafeed', :action => 'login'
     mediafeed.resources :media_users, :except => [:index, :show]
     mediafeed.resources :media_requests
   end
