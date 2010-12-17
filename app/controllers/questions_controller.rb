@@ -66,19 +66,15 @@ class QuestionsController < ApplicationController
     @all_entries = []
 
     unless @key.blank?
-      ProfileQuestion.answered_by_premium_users.title_like(@key).each do |entry|
-        @all_entries << [entry, :question]
-      end
+      @all_entries = ProfileQuestion.answered_by_premium_users.title_like(@key).all
 
-      ProfileAnswer.from_premium_users.answer_like(@key).all(:include => :profile_question).each do |entry|
-        @all_entries << [entry, :answer]
-      end
+      @all_entries += ProfileAnswer.from_premium_users.answer_like(@key).all(:include => :profile_question)
 
       @all_entries = @all_entries.paginate(:page => params[:page])
     end
 
-    @questions_found  = @all_entries.select {|res, type| type == :question }.map(&:first)
-    @answers_found    = @all_entries.select {|res, type| type == :answer }.map(&:first)
+    @questions_found = @all_entries.select {|res| res.is_a? ProfileQuestion }
+    @answers_found = @all_entries.select {|res| res.is_a? ProfileAnswer }
 
     @no_sidebar = true
     @no_results = @questions_found.empty? && @answers_found.empty?
