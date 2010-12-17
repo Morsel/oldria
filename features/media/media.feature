@@ -19,3 +19,16 @@ Feature: Media accounts
     When I confirm my account
     Then I should see "Mediafeed"
     But I should not see "spoonfeed"
+    
+  Scenario: Logging in
+    Given a media user "newsy" has just signed up
+    And "newsy" has just been confirmed
+    When I go to the Mediafeed login page
+    Then I should see "Login to Mediafeed"
+  
+  Scenario: Logging out
+    Given a media user "journo" has just signed up
+    And "journo" has just been confirmed
+    And I am logged in as "journo"
+    When I logout
+    Then I should be on the Mediafeed home page

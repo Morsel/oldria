@@ -83,7 +83,7 @@ Given /^I am not logged in$/ do
   Given 'I visit the logout path'
 end
 
-Given /^given that user "([^\"]*)" has just been confirmed$/ do |username|
+Given /^"([^\"]*)" has just been confirmed$/ do |username|
   user = User.find_by_username(username)
   user.confirm!
 end

@@ -6,6 +6,6 @@
       <%= link_to current_user.try(:ria_message_count), mediafeed_media_requests_path, :class => 'count' %>
     <% end -%><%# FIXME - ria_message_count is probably not the right method here %>
   </span>
-  <span><%= active_link_to "Account Profile", mediafeed_media_user_path(current_user), :id => "nav_profile" %></span>
+  <span><%= active_link_to "Account Profile", edit_mediafeed_media_user_path(current_user), :id => "nav_profile" %></span>
   <span><%= active_link_to "Contact", mediafeed_page_path("contact"), :id => "nav_contact" %></span>
 </nav>

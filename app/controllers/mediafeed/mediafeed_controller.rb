@@ -9,6 +9,11 @@ class Mediafeed::MediafeedController < ApplicationController
       @mediafeed_promos = MediafeedPromo.all
     end
   end
+  
+  def login
+    @user_session = UserSession.new(params[:user_session])
+    render :template => 'user_sessions/new'
+  end
 
   protected
 
