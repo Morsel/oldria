@@ -26,9 +26,10 @@ class UserSessionsController < ApplicationController
 
   def destroy
     @user_session = UserSession.find(params[:id])
+    user = @user_session.user
     @user_session.destroy
     flash[:notice] = "Successfully logged out."
-    redirect_to root_url
+    redirect_to user.media? ? mediafeed_root_url : root_url
   end
 
   protected
