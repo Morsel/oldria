@@ -17,6 +17,7 @@ body{
  	font:normal 12px "Helvetica Neue", Helvetica, Arial, sans-serif;
 	background:#fff url(/images/redesign/bg-strip.gif) repeat-x;
 	color:#333;
+
 }
 
 hr.edit_block {
@@ -409,11 +410,11 @@ form#new_user_session {
 	z-index: 1000;
 	background: transparent url(/images/redesign/bg-controller.png) no-repeat 0 100%;
 	nav {
-		width: 126px;
 		height: 16px;
 		padding: 10px 0 10px 20px;
 		background: transparent url(/images/redesign/bg-25percent-black.png) repeat;
 		position: relative;
+		float: left;
 		a {
 			position: relative;
 			margin: 2px 16px 0 0;
@@ -4220,7 +4221,7 @@ p.search_filter_hint {
 			clear: both;
 			.employment {
 				width: 190px;
-				margin: 0 20px 10px 0;
+				margin: 0 20px 10px -1px;
 				padding: 10px;
 				float: left;
 			  border: 1px solid #eaeaea;
