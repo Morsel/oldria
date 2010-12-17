@@ -10,8 +10,7 @@ class Mediafeed::MediaUsersController < Mediafeed::MediafeedController
     @media_user.has_role! :media
     if @media_user.save
       UserMailer.deliver_signup(@media_user)
-      flash[:notice] = "Just to make sure you are who you say you are, we sent you a secret coded message to your email account. Once you check that, we’ll give you your fancy credentials to log on."
-      redirect_to root_url
+      redirect_to mediafeed_user_confirmation_path
     else
       render :new
     end
@@ -24,8 +23,8 @@ class Mediafeed::MediaUsersController < Mediafeed::MediafeedController
   def update
     @media_user = User.find(params[:id])
     if @media_user.update_attributes(params[:user])
-      flash[:notice] = "Successfully updated media user."
-      redirect_to root_url
+      flash[:notice] = "Successfully updated your profile."
+      redirect_to edit_mediafeed_media_user_path(@media_user)
     else
       render :edit
     end

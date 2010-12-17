@@ -60,6 +60,8 @@ ActionController::Routing::Routes.draw do |map|
   map.with_options :conditions => { :subdomain => 'mediafeed' }, :controller => 'mediafeed/mediafeed' do |mediafeed|
     mediafeed.root :action => 'index'
   end
+  
+  map.mediafeed_directory 'mediafeed/directory', :controller => 'mediafeed/mediafeed', :action => 'directory'
 
   map.resource :my_profile, :only => ['create', 'edit', 'update'], :controller => 'profiles' do |p|
     p.resources :culinary_jobs
