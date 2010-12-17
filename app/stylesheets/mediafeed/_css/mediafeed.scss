@@ -438,9 +438,10 @@ em, i{
 		@include column(24);
 		position:relative;
 		.hp_promo {
-			width: 286px;
+	    @include box-sizing('border-box'); // fix for firefox zoom 1px bug
+			width: 318px;
 			float: left;
-			margin: 15px 10px 15px -1px;
+			margin: 15px 10px 15px 0px;
 			border: 1px solid #ddd;
 			padding: 15px;
 			&.last {
