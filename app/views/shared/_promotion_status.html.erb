@@ -5,7 +5,7 @@
                                                 :class => "promo",
                                                 :onclick => "toggleMyProfileOnSoapbox(this.href);return false;"  %>
       <p>
-        Just a reminder: <%= link_to "your profile", soapbox_profile_path(@user.username) %> is live in Soapbox so media can see it.
+        Just a reminder: <%= link_to "your profile", soapbox_profile_path(current_user.username) %> is live in Soapbox so media can see it.
       </p>
     <% else %>
       <%= link_to "Display my profile on Soapbox", toggle_publish_profile_my_profile_path( :prefers_publish_profile => 1),
