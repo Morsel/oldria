@@ -1,12 +1,12 @@
 <% title "Behind the Line", false %>
 
-<%= render :partial => 'shared/add_this', :locals => {:user => @user} %>
+<%= render :partial => 'shared/add_this', :locals => {:responder => @responder} %>
 
 <h1 id="btl-title" class="btl"><span class="btl-art">Behind the Line:</span> <span class="name"><%= btl_title_for(@subject) %></span></h1>
 <h2 id="topic_title">Topics</h2>
 <% javascript_tag do %>
   var addthis_share = {
-    url: '<%= topics_soapbox_user_questions_url(@user) %>'
+    url: '<%= url_to_responder_topics(@responder) %>'
   }
 <% end %>
 

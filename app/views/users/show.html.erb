@@ -10,7 +10,7 @@
         url: '<%= soapbox_profile_url(@user.username) %>'
       }
     <% end %>
-  <%= render :partial => 'shared/add_this', :locals => {:user => @user} %>
+  <%= render :partial => 'shared/add_this', :locals => {:responder => @responder} %>
 
   <aside class="user_actions">
         <% if current_user == @user -%>
