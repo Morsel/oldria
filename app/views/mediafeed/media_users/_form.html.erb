@@ -1,3 +1,4 @@
+<% button_text = @media_user.new_record? ? "Signup" : "Save" -%>
 <% semantic_form_for @media_user, :url => mediafeed_media_users_path do |f| %>
 
 <% f.inputs :name => 'Your Information', :class => 'editing basics' do %>
@@ -12,7 +13,7 @@
 	<%= f.input :password %>
 	<%= f.input :password_confirmation %>
 	<p>
-  	<%= button_tag "Signup", :class => 'positive' %>
+  	<%= button_tag button_text, :class => 'positive' %>
   </p>
 <% end %>
 

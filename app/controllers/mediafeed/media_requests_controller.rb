@@ -5,7 +5,6 @@ class Mediafeed::MediaRequestsController < Mediafeed::MediafeedController
   def index
     if current_user.media?
       @media_requests_by_type = [] #placeholder to make the view work
-      render :template => "welcome/mediahome.html" # TODO - move this view template to somewhere more useful
     else
       # These are always scoped by restaurant!
       @restaurant = Restaurant.find(params[:restaurant_id])
