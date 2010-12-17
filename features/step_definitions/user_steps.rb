@@ -116,7 +116,7 @@ When /^I sign up with:$/ do |table|
     fill_in "user[#{field}]", :with => value
   end
   fill_in "user[password_confirmation]", :with => user_data["password"] if user_data["password"]
-  click_button :submit
+  click_button :signup
 end
 
 When /^I confirm my account$/ do

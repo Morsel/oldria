@@ -1,6 +1,5 @@
 <% title "Compose Media Request" %>
-<div id="content">
-  <div class="inner_content">
+
     <h4>
     To:
     <% @restaurants.each do |restaurant| %>
@@ -64,6 +63,3 @@
 
     	<p class="clearfix"><%= button_tag "Submit", :class => 'positive' %></p>
     <% end %>
-  </div><!-- /inner_content -->
-</div><!-- /content -->
-<%= render 'mediafeed/shared/mediafeed_sidebar' %>

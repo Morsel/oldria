@@ -1,4 +1,4 @@
-@mediarequest @media
+@mediarequest @media @joesak
 Feature: Media requests
   In order to find out valuable information
   As a Media member

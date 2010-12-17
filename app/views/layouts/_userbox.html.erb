@@ -1,7 +1,7 @@
 <% logging_in = mediafeed? ? mediafeed_login_path : login_path -%>
 <section class="profile top_promo">
 	<% if current_user -%>
-    <% users_path = mediafeed? ? mediafeed_media_user_path(current_user.username) : profile_path(current_user.username) -%>
+    <% users_path = mediafeed? ? edit_mediafeed_media_user_path(current_user) : profile_path(current_user.username) -%>
     <%= link_to image_tag(current_user.avatar.url(:tiny), :width => '20', :height => '20'), users_path %>
     <ul>
 			<li>Welcome <%= link_to current_user.first_name, users_path %> | </li>
