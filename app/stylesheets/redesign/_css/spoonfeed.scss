@@ -4252,7 +4252,9 @@ p.search_filter_hint {
     @include column(7);
     + #behindline {
       @include column(6, true);
-      margin-top: 6px;
+      h3 {
+        margin-top: 0;
+      }
     }
   }
 }
