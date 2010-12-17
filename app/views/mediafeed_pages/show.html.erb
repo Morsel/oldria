@@ -13,16 +13,4 @@
 	</section><!--#page_content-->
 </div><!--#content-->
 
-<% content_for :sidebar_a do -%>
-<% end -%>
-
-<% content_for :sidebar_b do -%>
-	<div id="sidebar_b">
-		<div id="sidebar_content">
-
-			<a class="promo media_request" href="/invitations/new">Create a Media Request</a>
-			<a class="promo go_to_soapbox" href="/soapbox">Go to Soapbox</a>
-			
-		</div>
-	</div><!--#sidebar_b-->
-<% end -%>
+<%= render 'mediafeed/shared/mediafeed_sidebar' %>

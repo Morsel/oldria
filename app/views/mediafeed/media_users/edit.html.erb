@@ -1,3 +1,10 @@
-<% title "Edit Media User" %>
+<% title "Edit Your Media account" %>
 
-<%= render :partial => 'form' %>
+<div id="content">
+  <div id="editing_restaurant">
+    <h1><%= yield :title %></h1>
+	  <%= render :partial => 'form' %>
+	</div>
+</div><!--#content-->
+
+<%= render 'mediafeed/shared/mediafeed_sidebar' %>
