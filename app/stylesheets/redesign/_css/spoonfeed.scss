@@ -17,6 +17,7 @@ body{
  	font:normal 12px "Helvetica Neue", Helvetica, Arial, sans-serif;
 	background:#fff url(/images/redesign/bg-strip.gif) repeat-x;
 	color:#333;
+
 }
 
 hr.edit_block {
@@ -4220,7 +4221,7 @@ p.search_filter_hint {
 			clear: both;
 			.employment {
 				width: 190px;
-				margin: 0 20px 10px 0;
+				margin: 0 20px 10px -1px;
 				padding: 10px;
 				float: left;
 			  border: 1px solid #eaeaea;
