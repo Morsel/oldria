@@ -393,7 +393,7 @@ class User < ActiveRecord::Base
     self.subscription.try(:start_date).try(:>, 1.week.ago.to_date)
   end
 
-  def invividual?
+  def individual?
     employments.blank?
   end
 
@@ -403,7 +403,7 @@ class User < ActiveRecord::Base
 
   def receive_front_burner
     return :individual_denied if !self.post_to_soapbox? && self.individual?
-    return :restaurant_denied if !self.individual && ( !self.post_to_soapbox? || !self.has_restaurant_role?)
+    return :restaurant_denied if !self.individual? && ( !self.post_to_soapbox? || !self.has_restaurant_role?)
     :granted
   end
 end
