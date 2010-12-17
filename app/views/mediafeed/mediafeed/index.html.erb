@@ -21,4 +21,6 @@
   <nav></nav>
 </div>
 
-  <%= render @mediafeed_promos if @mediafeed_promos.any? %>
+<%= render 'layouts/flashes' %>
+
+<%= render @mediafeed_promos if @mediafeed_promos.any? %>

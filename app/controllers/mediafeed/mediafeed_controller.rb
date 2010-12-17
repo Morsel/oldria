@@ -2,6 +2,7 @@ class Mediafeed::MediafeedController < ApplicationController
   layout 'mediafeed'
   
   def index
+    @mediafeed_home_page = true
     if current_user && current_user.media?
       render :template => "mediafeed/mediafeed/directory"
     else

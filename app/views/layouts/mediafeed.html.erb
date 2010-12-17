@@ -49,11 +49,11 @@
 		
       <%= render 'layouts/mediafeed_nav_logic' %>
       <div id="content" class="<%= media_feed_css_class_if_home %>">
-        <div class="inner_content">
-          <%= render 'layouts/flashes' %>          
+        <% unless @mediafeed_home_page -%><div class="inner_content"><% end -%>
+          <%= render 'layouts/flashes' unless @mediafeed_home_page %>          
           <%= yield %>
-          <%= render 'mediafeed/shared/mediafeed_sidebar' unless request.path == mediafeed_root_path %>
-        </div><!-- /inner_content -->
+          <%= render 'mediafeed/shared/mediafeed_sidebar' unless @mediafeed_home_page %>
+        <% unless @mediafeed_home_page -%></div><!-- /inner_content --><% end -%>
       </div><!-- /content -->
       
 			

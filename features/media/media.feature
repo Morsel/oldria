@@ -1,4 +1,4 @@
-@media @signup @joesak
+@media @signup
 Feature: Media accounts
   In order to make requests
   As a Journalist or other member of the media
