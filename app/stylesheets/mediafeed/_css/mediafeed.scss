@@ -126,6 +126,55 @@ em, i{
 					}
 				}
 			}
+			.top_promo {
+				display: block;
+				&.profile {
+					padding: 0 0 0 8px;
+					position:absolute;
+					top:10px;
+					right:0;
+					width:200px;
+					a {
+						white-space:nowrap;
+						color: #aaa;
+						
+						img {
+							border: 1px solid #d1ccb7;
+							margin: -4px 10px 0 0;
+							padding: 2px;
+							float:left;
+							@include transition;
+							@include hiddentext;
+							&:hover {
+								border: 1px solid $orange;
+								@include box-shadow(#ccc,0px,0px,1px);
+							}
+						}
+					}
+					ul {
+						min-height: 30px;
+						margin: 0 0 8px;
+						padding: 0;
+						li {
+							display: inline-block;
+							padding: 4px 5px 4px 0;
+							a {
+								padding: 0 5px 0 0;
+								color: $orange;
+								@include transition;
+								&:hover {
+									text-decoration: underline;
+									color: $brown;
+								}
+							}
+						}
+						&.logged_out{
+							margin:0;
+							text-align:right;
+						}
+					}
+				}
+			}
 		}
 	}
 } /* ## END OF #site_header ------------------- */
