@@ -3,9 +3,14 @@ class Mediafeed::MediaRequestsController < Mediafeed::MediafeedController
   before_filter :require_media_user, :except => [:index, :show]
 
   def index
-    # These are always scoped by restaurant!
-    @restaurant = Restaurant.find(params[:restaurant_id])
-    @media_requests = @restaurant.media_requests.all(:include => [:sender, :conversations_with_comments])
+    if current_user.media?
+      @media_requests_by_type = [] #placeholder to make the view work
+      render :template => "welcome/mediahome.html" # TODO - move this view template to somewhere more useful
+    else
+      # These are always scoped by restaurant!
+      @restaurant = Restaurant.find(params[:restaurant_id])
+      @media_requests = @restaurant.media_requests.all(:include => [:sender, :conversations_with_comments])
+    end
   end
 
   def show
