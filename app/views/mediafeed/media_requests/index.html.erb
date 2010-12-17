@@ -9,7 +9,9 @@
 				From: <%= media_request.sender.name %>
 				(<%= media_request.publication || media_request.sender.publication %>)
 			</p>
-			<p>To: <%#= media_request.recipients.map(&:employee_name).uniq.try(:to_sentence) %></p>
+			<% if media_request.employment_search.present? %>
+			<p>To: <%= media_request.employment_search.try(:employments).map(&:employee_name).uniq.try(:to_sentence) %></p>
+			<% end %>
 			<p>Due by <%= media_request.due_date.try(:to_s, :long_ordinal) %></p>
 			<p>Sent: <%= media_request.created_at.to_s(:sentence) %></p>
 
@@ -17,8 +19,8 @@
 
 			<ul class="responses">
 			<% if media_request.reply_count > 0 %>
-				<% for conversation in media_request.conversations_with_comments %>
-					<% if comment = conversation.comments.not_user(current_user).last %>
+				<% for discussion in media_request.discussions_with_comments %>
+					<% if comment = discussion.comments.not_user(current_user).last %>
 					<li class="response">
 						<%= last_comment_and_date_span(comment) %>
 					</li>
