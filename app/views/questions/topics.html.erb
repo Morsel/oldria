@@ -1,18 +1,15 @@
 <% title "Behind the Line", false %>
 <h1 id="btl-title" class="btl"><span class="btl-art">Behind the Line:</span> <span class="name"><%= @user.name %></span></h1>
 
-<div class="share">
-  <% javascript_tag do %>
-    var addthis_share = {
-      url: '<%= topics_soapbox_user_questions_url(current_user) %>'
-    }
-  <% end %>
-
-    <%= render 'shared/add_this' %>
-</div>
-
 
 <h2 id="topic_title">Topics</h2>
+<% javascript_tag do %>
+  var addthis_share = {
+    url: '<%= topics_soapbox_user_questions_url(@user) %>'
+  }
+<% end %>
+<%= render :partial => 'shared/add_this', :locals => {:user => @user} %>
+
 <%- for topic in @topics -%>
 <div class="topic <%= cycle '',' last' %>" id="<%= dom_id topic %>">
     <h3><%= topic.title %></h3>

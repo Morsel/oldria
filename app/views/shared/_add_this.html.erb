@@ -1,11 +1,10 @@
 <!-- AddThis Button BEGIN --> 
-    <% @user = current_user unless @user %>
     <div class="addthis_toolbox"> 
       <%= link_to "Share", 
-                 @user.premium_account? ? "http://www.addthis.com/bookmark.php?v=250&amp;username=unpluggedria" : '#',
-                 :class   => @user.premium_account? ? "addthis_button" : "not_premium_colorbox" %>
+                 user.premium_account? ? "http://www.addthis.com/bookmark.php?v=250&amp;username=unpluggedria" : '#',
+                 :class   => user.premium_account? ? "addthis_button" : "not_premium_colorbox" %>
     </div> 
-    <%= javascript_include_tag "http://s7.addthis.com/js/250/addthis_widget.js#username=unpluggedria" if @user.premium_account? %>
+    <%= javascript_include_tag "http://s7.addthis.com/js/250/addthis_widget.js#username=unpluggedria" if user.premium_account? %>
     <!-- AddThis Button END -->
     <% javascript_tag do -%>
       $(document).ready(function(){
