@@ -3,6 +3,8 @@ class UserSessionsController < ApplicationController
 
   def new
     @user_session = UserSession.new(params[:user_session])
+    @is_mediafeed = mediafeed?
+    layout mediafeed? ? 'mediafeed' : 'application'
   end
 
   def create

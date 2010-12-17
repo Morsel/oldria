@@ -29,5 +29,8 @@ class Mediafeed::MediaUsersController < Mediafeed::MediafeedController
       render :edit
     end
   end
+  
+  def confirmation
+  end
 
 end
