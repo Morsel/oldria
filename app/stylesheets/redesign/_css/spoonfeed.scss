@@ -410,11 +410,11 @@ form#new_user_session {
 	z-index: 1000;
 	background: transparent url(/images/redesign/bg-controller.png) no-repeat 0 100%;
 	nav {
-		width: 126px;
 		height: 16px;
 		padding: 10px 0 10px 20px;
 		background: transparent url(/images/redesign/bg-25percent-black.png) repeat;
 		position: relative;
+		float: left;
 		a {
 			position: relative;
 			margin: 2px 16px 0 0;
