@@ -22,11 +22,17 @@ module LayoutHelper
   end
 
   def active_link_to text, path, options = {}
-    selected = (path == root_path) ? request.path == path : (request.path == path || request.path =~ /^#{path}/)
+    selected = (root_paths.include? path) ? request.path == path : (request.path == path || request.path =~ /^#{path}/)
     css_class = selected ? ' selected' : ''
     options[:class] ||= ""
     options[:class] << css_class
     link_to text, path, options
+  end
+  
+  private
+  
+  def root_paths
+    [root_path, mediafeed_root_path, soapbox_root_path, hq_root_path]
   end
   
 end

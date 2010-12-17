@@ -409,7 +409,9 @@ em, i{
 	overflow: hidden;
 	position: relative;
 	header {margin-bottom: 15px;}
-	
+	.inner_content{
+		padding:0 10px;
+	}
 	/* -- base styles for the site -- */
 	.edit_button {
 		position: relative;
