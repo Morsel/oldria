@@ -1,75 +1,27 @@
 <div id="editing_restaurant">
-  <% title "New Restaurant" %>
+    <% title "New Restaurant" %>
 
-  <% form_for @restaurant do |f| %>
-  <%= f.error_messages %>
-  	<p class="string">
-  		<%= f.label :name, "Restaurant Name" %>
-  		<%= f.text_field :name, :class => 'title span-8' %>
-  	</p>
+    <% semantic_form_for @restaurant do |f| %>
+        <% f.inputs do %>
+            <%= f.input :name, :label => "Restaurant name", :input_html => { :class => 'title span-8' } %>
+        <% end %>
 
-  <fieldset class="editing">
-  	<legend>Address</legend>
-  	<p class="string">
-  		<%= f.label :street1, "Street Address" %>
-  		<%= f.text_field :street1, :class => 'text' %>
-  	</p>
-  	<p class="string">
-  		<%= f.label :street2, "Street Address, Line 2 (optional)" %>
-  		<%= f.text_field :street2, :class => 'text' %>
-  	</p>
-  	<p class="string">
-  		<%= f.label :city %>
-  		<%= f.text_field :city, :class => 'text span-3' %>
-  	</p>
-  	<p class="string">
-  		<%= f.label :state %>
-  		<%= f.text_field :state, :maxlength => 2, :class => 'text span-1' %>
-  	</p>
-  	<p class="string">
-  		<%= f.label :zip %>
-  		<%= f.text_field :zip, :class => 'text span-2' %>
-  	</p>
-    <p class="string">
-  		<%= f.label :phone_number %>
-  		<%= f.text_field :phone_number, :class => 'text span-2' %>
-  	</p>
-  </fieldset>
+        <% f.inputs :name => "Address", :class => 'editing' do %>
+            <%= f.input :street1, :label => "Street address" %>
+            <%= f.input :street2, :label => "Street address, line 2 (optional)" %>
+            <%= f.inputs :city, :state, :zip %>
+            <%= f.input :phone_number %>
+        <% end %>
 
-  <fieldset class="editing">
-  	<legend>Details</legend>
-    <p class="string">
-  		<%= f.label :website %>
-  		<%= f.text_field :website, :class => 'text' %>
-  	</p>
+        <% f.inputs :name => "Details", :class=> "editing" do %>
+            <%= f.input :website, :hint => "Include the full URL starting with http://" %>
+            <%= f.input :metropolitan_area, :as => :select, :collection => MetropolitanArea.all %>
+            <%= f.input :james_beard_region, :as => :select, :collection => JamesBeardRegion.all %>
+            <%= f.input :cuisine, :as => :select, :collection => Cuisine.all %>
+            <%= f.input :opening_date %>
+        <% end %>
 
-    <p class="string">
-  		<%= f.label :hours %>
-  		<%= f.text_field :hours, :class => 'text' %>
-  	</p>
-  	<p class="string">
-  		<%= f.label :metropolitan_area_id %>
-  		<%= f.collection_select :metropolitan_area_id, MetropolitanArea.all, :id, :name %>
-  	</p>
-  	<p class="string">
-  		<%= f.label :james_beard_region_id, "Region" %>
-  		<%= f.collection_select :james_beard_region_id, JamesBeardRegion.all, :id, :name_and_description %>
-  	</p>
-  	<p class="string">
-  		<%= f.label :cuisine_id %>
-  		<%= f.collection_select :cuisine_id, Cuisine.all, :id, :name %>
-  	</p>
-    <p class="string">
-      <%= f.label :opening_date %>
-      <%= f.date_select :opening_date %>
-    </p>
-  	<p class="text">
-  		<%= f.label :facts %>
-  		<%= f.text_area :facts, :rows => 3 %>
-  	</p>
-  </fieldset>
+        <p><%= button_tag "Submit", :class => 'positive' %></p>
 
-  	<p><%= button_tag "Submit", :class => 'positive' %></p>
-
-  <%- end -%>
+    <%- end -%>
 </div><!-- #editing_restaurant -->

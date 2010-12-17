@@ -9,9 +9,9 @@ class CommentsController < ApplicationController
     if @comment.save
       if front_burner_content
         @parent.read_by!(@comment.user)
-        flash[:notice] = "Successfully created comment. This message has been archived in your 'all' messages view."
+        flash[:notice] = "Thanks: your answer has been saved. The question has been archived and can be found under the \"all\" tab."
       else
-        flash[:notice] = "Successfully created comment."
+        flash[:notice] = "Thanks: your answer has been saved."
       end
       
       redirect_to @parent

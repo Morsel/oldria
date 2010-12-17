@@ -4342,7 +4342,13 @@ p.search_filter_hint {
 			}
 		}
 	}
-	#restaurant_features{
+	#restaurant_features, #restaurant_tags {
+	  #tags_remaining {
+	    font-weight: bold;
+			font-size: 18px;
+			float: right;
+			margin-top: -34px;
+	  }
 	  > h2 {
 			font-family: 'Hoefler Text', Georgia, Serif;
 			font-weight: bold;
@@ -4350,14 +4356,14 @@ p.search_filter_hint {
 			font-size: 22px;
 			line-height: 17px;
 	  }
-	  .feature_category_header {
+	  .feature_category_header, .tag_category_header {
 	    font-family: "helvetica neue", arial, sans-serif;
 		  border-bottom: 1px solid #ddd;
 		  font-style: normal;
 		  font-weight: normal;
 		  padding: 4px 0;
 		}
-		.feature_category {
+		.feature_category, .tag_category {
 		  margin-bottom: 30px;
 		  p {
 		    margin: 5px 0;
@@ -4373,6 +4379,13 @@ p.search_filter_hint {
 	
   #restaurant_pages_content {
     @include column(12, true);
+  }
+  #restaurant_features_content {
+    @include column(7);
+    + #behindline {
+      @include column(6, true);
+      margin-top: 6px;
+    }
   }
 }
 
