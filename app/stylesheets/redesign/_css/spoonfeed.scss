@@ -3834,10 +3834,10 @@ p.search_filter_hint {
 
 #restaurant_profile_view {
 	#features {
+	  @include column(7);
 		background-color: $trans-brown;
 		float: left;
 		padding: 10px 15px;
-		width: 290px;
 		margin: 0 15px 15px 0;
 		h3 {
 			margin-bottom: 0;
