@@ -1,6 +1,6 @@
 <% title "Media Requests" %>
 
-	<h3><%= @media_requests_by_type.size %> Media Requests</h3>
+	<h3><%= pluralize(@media_requests_by_type.size, 'Media Request') %></h3>
 
 	<% @media_requests_by_type.each do |media_request| %>
 		<% div_for media_request, :class => 'clearfix summary' do %>
