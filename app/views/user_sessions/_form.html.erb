@@ -1,16 +1,17 @@
 
 <% semantic_form_for @user_session do |f| %>
+    <% f.inputs do %>
+        <%= f.input :username, :hint => 'You can use your <strong>username</strong> or <strong>email address.</strong>' %>
+        <%= f.input :password %>
+        <p class="clear forgot"><%= link_to "Forgot your password?", new_password_reset_path %></p>
+        <li>
+            <label><%= f.check_box :remember_me %> Remember me?</label>
+        </li>
 
-  <% f.inputs do %>
-  	<%= f.input :username, :hint => 'You can use your <strong>username</strong> or <strong>email address.</strong>' %>
-  	<%= f.input :password %>
-    <p class="clear forgot"><%= link_to "Forgot your password?", new_password_reset_path %></p>
-    <li>
-      <label><%= f.check_box :remember_me %> Remember me?</label>
-    </li>
-     <p><%= button_tag image_tag('key.png') + "Login", :name => 'submit' %></p>
-  <% end %>
+        <%- if mediafeed? -%><%= hidden_field_tag "mediafeed", "true" %><%- end -%>
 
+        <p><%= button_tag image_tag('key.png') + "Login", :name => 'submit' %></p>
+    <% end %>
 <% end %>
 
 <% unless mediafeed? %>
