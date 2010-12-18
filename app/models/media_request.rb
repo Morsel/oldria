@@ -21,14 +21,20 @@ class MediaRequest < ActiveRecord::Base
   serialize :fields, Hash
 
   belongs_to :sender, :class_name => 'User'
+  belongs_to :employment_search
+  
+  # This is the 'Type of Request' topic, not the same as an employee 'responsibility' type subject matter
   belongs_to :subject_matter
+
   has_many :media_request_discussions, :dependent => :destroy
   has_many :restaurants, :through => :media_request_discussions
-  belongs_to :employment_search
+
+  has_many :solo_media_discussions, :dependent => :destroy
+  has_many :employments, :through => :solo_media_discussions
 
   has_many :attachments, :as => :attachable, :class_name => '::Attachment', :dependent => :destroy
-  validates_presence_of :sender_id
-  validates_presence_of :restaurant_ids, :on => :create
+
+  validates_presence_of :sender_id, :employment_search, :message
 
   accepts_nested_attributes_for :attachments
 
@@ -39,7 +45,6 @@ class MediaRequest < ActiveRecord::Base
 
   include AASM
 
-  before_validation :build_employment_search_if_needed
   before_validation :update_restaurants_from_search_criteria
 
   aasm_column :status
@@ -106,12 +111,9 @@ class MediaRequest < ActiveRecord::Base
     self.publication.blank? ? "" : " from #{self.publication}"
   end
 
-  def build_employment_search_if_needed
-    build_employment_search(:conditions => {}) if self.employment_search.blank?
-  end
-
   def update_restaurants_from_search_criteria
-    self.restaurant_ids = employment_search.restaurant_ids if employment_search
+    self.restaurant_ids = employment_search.restaurant_ids
+    self.employments = employment_search.solo_employments if employment_search.solo_employments.present?
   end
 end
 

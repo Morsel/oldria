@@ -106,6 +106,13 @@ Given /^"([^\"]*)" has a default employment with role "([^\"]*)" and restaurant 
   Factory(:default_employment, :employee => user, :restaurant_role => role, :solo_restaurant_name => restoname)
 end
 
+Given /^"([^\"]*)" has a default employment with the role "([^\"]*)" and subject matter "([^\"]*)"$/ do |username, rolename, subject|
+  user = User.find_by_username(username)
+  role = Factory(:restaurant_role, :name => rolename)
+  subjectmatter = Factory(:subject_matter, :name => subject)
+  Factory(:default_employment, :employee => user, :restaurant_role => role, :subject_matters => [subjectmatter])
+end
+
 When /^I (?:visit the logout path|logout)$/ do
   visit logout_url
 end
