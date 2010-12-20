@@ -3430,6 +3430,10 @@ p.search_filter_hint {
   padding: 20px;
 	overflow: hidden;
 	border: 1px solid #eaeaea;
+	.btl-art {
+	  display: block;
+	  margin-bottom: 5px;
+	}
 	input {
     margin-bottom: 12px;
     &[type="password"], &[type="url"], &[type="text"], &[type="number"] {
