@@ -144,7 +144,7 @@ class UsersController < ApplicationController
   end
 
   def search
-    @key = params[:query].try(:strip) || ""
+    @key = params[:query].try(:strip)
     @users = []
 
     unless @key.blank?
