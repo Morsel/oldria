@@ -8,7 +8,7 @@
     </p>
   </div>
   <div class="user_comment">
-    <%= render :partial => 'users/identity', :locals => { :user => profile_answer.user } %>
+    <%= render :partial => 'users/identity', :locals => { :user => profile_answer.responder } %>
     <div class="user_comment"><%= truncate(profile_answer.answer, :length => 200) %>
       <% if profile_answer.answer.size > 200 -%>
         <%= link_to "more &raquo;", soapbox_question_path(profile_answer.profile_question) %>

@@ -2,7 +2,7 @@ class QuestionsController < ApplicationController
   include QuestionsHelper
 
   before_filter :require_user_unless_soapbox
-  before_filter :get_subject, :except => :show
+  before_filter :get_subject, :except => [:show, :search]
   before_filter :get_profile, :only => :topics
 
   skip_before_filter :load_random_btl_question, :only => [:refresh]
@@ -70,9 +70,9 @@ class QuestionsController < ApplicationController
     @all_entries = []
 
     unless @key.blank?
-      @all_entries = ProfileQuestion.answered_by_premium_users.title_like(@key).all
+      @all_entries = ProfileQuestion.answered_by_premium_subjects.title_like(@key).all
 
-      @all_entries += ProfileAnswer.from_premium_users.answer_like(@key).all(:include => :profile_question)
+      @all_entries += ProfileAnswer.from_premium_subjects.answer_like(@key).all(:include => :profile_question)
 
       @all_entries = @all_entries.paginate(:page => params[:page])
     end
