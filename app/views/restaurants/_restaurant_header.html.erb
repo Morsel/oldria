@@ -17,11 +17,6 @@
   <h1 id="name"><%= link_to @restaurant.name, @restaurant %></h1>
 
   <div id="restaurant_meta" class="">
-    <% if @restaurant.description %>
-      <p>
-        <%= @restaurant.description %>
-      </p>
-    <% end %>
     <% div_if @restaurant.premium_account?, :class => "premium" do %>
     <p>Account Type: Premium</p>
   <% end %>
