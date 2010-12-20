@@ -17,16 +17,8 @@ class Mediafeed::MediafeedController < ApplicationController
   end
   
   def directory
-    if params[:specialty_id]
-      @specialty = Specialty.find(params[:specialty_id])
-      @users = User.in_soapbox_directory.profile_specialties_id_eq(params[:specialty_id]).all(:order => "users.last_name").uniq
-    elsif params[:cuisine_id]
-      @cuisine = Cuisine.find(params[:cuisine_id])
-      @users = User.in_soapbox_directory.profile_cuisines_id_eq(params[:cuisine_id]).all(:order => "users.last_name").uniq
-    else
-      directory_search_setup
-      @use_search = true
-    end
+    directory_search_setup
+    @use_search = true
 
     render :template => "directory/index"
   end
