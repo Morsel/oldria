@@ -70,6 +70,7 @@ class UsersController < ApplicationController
 
   def resend_confirmation
     require_no_user unless current_user && current_user.admin?
+    @is_mediafeed = params[:mediafeed]
     if request.post?
       if user = User.find_by_email(params[:email])
         UserMailer.deliver_signup user
@@ -79,10 +80,11 @@ class UsersController < ApplicationController
           redirect_to admin_users_path
         else
           flash[:notice] = "We just sent you a new confirmation email. Click the link in the email and you'll be ready to go!"
-          redirect_to user.media? ? mediafeed_root_path : root_path
+          redirect_to mediafeed? ? mediafeed_root_path : root_path
         end
       else
         flash[:error] = "Sorry, we can't find a user with that email address. Try again?"
+        render :layout => (mediafeed? ? 'mediafeed' : 'application')
       end
     end
   end
