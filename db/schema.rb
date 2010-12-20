@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20101220184855) do
+ActiveRecord::Schema.define(:version => 20101220214928) do
 
   create_table "a_la_minute_answers", :force => true do |t|
     t.text     "answer"
@@ -946,7 +946,7 @@ ActiveRecord::Schema.define(:version => 20101220184855) do
   create_table "solo_media_discussions", :force => true do |t|
     t.integer  "media_request_id"
     t.integer  "employment_id"
-    t.integer  "comments_count"
+    t.integer  "comments_count",   :default => 0
     t.datetime "created_at"
     t.datetime "updated_at"
   end
