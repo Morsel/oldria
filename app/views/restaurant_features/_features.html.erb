@@ -3,10 +3,7 @@
   <% form_tag add_restaurant_feature_path(@restaurant) do %>
     <% @page.restaurant_feature_categories.by_name.each do |category| %>
       <div class="feature_category" id="<%= dom_id(category) %>">
-        <h3 class="feature_category_header">
-          <%= h category.name %>
-          
-        </h3>
+        <h3 class="feature_category_header"><%= h category.name %></h3>
         <% category.restaurant_features.in_groups(2).each do |feature_list| %>
           <div class="feature" >
             <% feature_list.compact.each do |feature| %>

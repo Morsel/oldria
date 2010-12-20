@@ -48,8 +48,10 @@
         :class => 'promo editor photos' %>
     <%= active_link_to "Menus", bulk_edit_restaurant_menus_path(@restaurant),
         :class => 'promo editor menus' %>
-    <%#= active_link_to 'Top Tags', bulk_edit_restaurant_employees_path(@restaurant),
-        false, :class=> 'promo editor emp' %>
+    <% if @restaurant.restaurant_features.any? %>
+    <%= active_link_to 'Top Tags', edit_top_restaurant_features_path(@restaurant),
+        :class=> 'promo editor tags' %>
+    <% end %>
     <%= active_link_to 'Staff', bulk_edit_restaurant_employees_path(@restaurant),
         :class=> 'promo editor emp' %>
     <%= active_link_to "A La Minute", bulk_edit_restaurant_a_la_minute_answers_path(:restaurant_id => @restaurant),

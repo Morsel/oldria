@@ -1,33 +1,15 @@
 <div id="restaurant_profile_view" class="edit clear clearfix">
 
-  <%= render 'restaurants/restaurant_header' %>
-<div id="editing_restaurant">
-  <div id="restaurant_pages" class="clearfix">
-    <%= render 'restaurant_features/navigation' %>
-    
-    <div id="restaurant_pages_content">
-      <%= render 'restaurant_features/features' %>
-    </div>
-  </div>
+    <%= render 'restaurants/restaurant_header' %>
+    <div id="editing_restaurant">
+        <div id="restaurant_pages" class="clearfix">
+            <%= render 'restaurant_features/navigation' %>
 
-  <% if can? :edit, @restaurant %>
-    <% content_for :page_actions do -%>
-      <p class="clearfix">
-        <%= link_to 'Show Restaurant', restaurant_path(@restaurant),
-            :class=>'sf-button' %>
-        <%= link_to 'Edit restaurant', edit_restaurant_path(@restaurant),
-        :class=>'sf-button' %>
-        <%= link_to 'Soapbox Profile', soapbox_restaurant_path(@restaurant),
-            :class=>'sf-button' %>
-      </p>
-      <p class="clearfix">
-        <% @pages.each do |page| %>
-          <%= link_to "Features for #{page.name}",
-              restaurant_features_path(@restaurant, :page_id => page.id),
-              :class => 'sf-button' %>
-        <% end %>
-      </p>
-    <% end -%>
-  <% end -%>
-  </div> 
+            <div id="restaurant_features_content">
+                <%= render 'restaurant_features/features' %>
+            </div>
+            
+            <%= render :partial => 'profile_questions/behind_the_line', :locals => {:subject => @page} %>
+        </div>
+    </div> 
 </div><!-- #restaurant_profile_view -->

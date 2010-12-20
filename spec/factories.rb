@@ -496,6 +496,15 @@ Factory.define :restaurant_feature_page do |f|
   f.sequence(:name) { |n| "Page #{n}" }
 end
 
+Factory.define :restaurant_feature do |f|
+  f.sequence(:value) { |n| "Feature#{n}" }
+end
+
+Factory.define :restaurant_feature_item do |f|
+  f.association :restaurant_feature
+  f.association :restaurant
+end
+
 Factory.define :pdf_remote_attachment do |f|
   f.sequence(:attachment_file_name) { |n| "menu#{n}.pdf" }
   f.attachment_content_type "application/pdf"

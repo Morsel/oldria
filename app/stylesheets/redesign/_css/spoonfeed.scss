@@ -2705,6 +2705,9 @@ p.search_filter_hint {
 		.extended_profile_info {
 			border-bottom: 1px solid #ddd;
 			padding-bottom: 20px;
+			.employments li {
+			  border-bottom: 1px dotted #dcdcdc;
+			}
 			h3 {
 				font-weight: bold;
 				font-family: "Hoefler Text", Georgia, sans-serif;
@@ -3034,7 +3037,7 @@ p.search_filter_hint {
 }
 
 #behindline {
-  @include column(9, true);
+  @include column(9);
   float: left;
 	ul{
 		margin:10px 0;
@@ -3831,10 +3834,10 @@ p.search_filter_hint {
 
 #restaurant_profile_view {
 	#features {
+	  @include column(7);
 		background-color: $trans-brown;
 		float: left;
 		padding: 10px 15px;
-		width: 290px;
 		margin: 0 15px 15px 0;
 		h3 {
 			margin-bottom: 0;
@@ -3948,6 +3951,7 @@ p.search_filter_hint {
 		}
 		#restaurant_meta {
 		  float: left;
+		  width: 350px;
 			p {
 				font-size: 12px;
 				line-height: 16px;
@@ -4206,7 +4210,13 @@ p.search_filter_hint {
 			}
 		}
 	}
-	#restaurant_features{
+	#restaurant_features, #restaurant_tags {
+	  #tags_remaining {
+	    font-weight: bold;
+			font-size: 18px;
+			float: right;
+			margin-top: -34px;
+	  }
 	  > h2 {
 			font-family: 'Hoefler Text', Georgia, Serif;
 			font-weight: bold;
@@ -4214,14 +4224,14 @@ p.search_filter_hint {
 			font-size: 22px;
 			line-height: 17px;
 	  }
-	  .feature_category_header {
+	  .feature_category_header, .tag_category_header {
 	    font-family: "helvetica neue", arial, sans-serif;
 		  border-bottom: 1px solid #ddd;
 		  font-style: normal;
 		  font-weight: normal;
 		  padding: 4px 0;
 		}
-		.feature_category {
+		.feature_category, .tag_category {
 		  margin-bottom: 30px;
 		  p {
 		    margin: 5px 0;
@@ -4237,6 +4247,15 @@ p.search_filter_hint {
 	
   #restaurant_pages_content {
     @include column(12, true);
+  }
+  #restaurant_features_content {
+    @include column(7);
+    + #behindline {
+      @include column(6, true);
+      h3 {
+        margin-top: 0;
+      }
+    }
   }
 }
 
