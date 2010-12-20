@@ -37,7 +37,7 @@ describe Mediafeed::MediaUsersController do
       User.any_instance.stubs(:save).returns @user
       User.any_instance.stubs(:valid?).returns(true)
       post :create
-      response.should redirect_to(root_url)
+      response.should redirect_to(mediafeed_user_confirmation_path)
     end
   end
 
@@ -54,7 +54,7 @@ describe Mediafeed::MediaUsersController do
       controller.stubs(:current_user).returns @user
       User.any_instance.stubs(:update_attributes).returns(true)
       put :update, :id => User.first
-      response.should redirect_to(root_url)
+      response.should redirect_to(edit_mediafeed_media_user_path(User.first))
     end
 
     it "update action should render edit template when model is invalid" do
