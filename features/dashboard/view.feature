@@ -19,3 +19,12 @@ Feature: Using dashboard
     Then I am on the dashboard
     And I should not see unread announcement popup
 
+  Scenario: Show links more
+    Given We have answers with long text
+    And I am logged in as an admin
+    When I go to the dashboard
+    Then I see more link to the answer's expanded view
+    
+
+    
+

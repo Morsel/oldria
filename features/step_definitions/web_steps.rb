@@ -321,3 +321,9 @@ end
 Then /^I can`t share this profile$/ do
   response.should have_selector(".not_premium_colorbox")
 end
+
+Then /^I see more link to the answer's expanded view$/ do
+  link = soapbox_user_questions_url(@profile_answer.responder, :chapter_id => @profile_answer.profile_question.chapter.id,
+             :anchor => "profile_question_#{@profile_answer.profile_question_id}")
+  response.should have_selector("a", :href => link)
+end

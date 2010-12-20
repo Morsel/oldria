@@ -12,7 +12,10 @@
         <div class="user_comment">
             <%= render :partial => "#{comment.responder.class.name.underscore.pluralize}/identity", :locals => { :user => comment.responder } %>
             <div class="user_comment"><%= truncate(comment.answer, :length => 200) %>
-            <% if comment.answer.size > 200 -%><%= link_to "more &raquo;", btl_profile_link(comment.responder) %><%- end %></div>
+                <% if comment.answer.size > 200 -%>
+                      <%= link_to "more &raquo;", url_to_responder_question(comment.responder, comment.profile_question.chapter.id, comment.profile_question.id) %>
+                <%- end %>
+            </div>
         </div>
     <% end %>
 
