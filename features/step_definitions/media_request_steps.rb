@@ -69,7 +69,7 @@ When /^I create a media request with message "([^\"]*)" and criteria:$/ do |mess
   visit new_mediafeed_media_request_path
   fill_in :message, :with => message
   criteria.rows_hash.each do |field, value|
-    if field =~ /(Subject Matter|Type of Request)/i
+    if field =~ /(Type of Request)/i
       select value, :from => field
     else
       check value

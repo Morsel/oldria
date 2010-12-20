@@ -1,11 +1,8 @@
 <% title "Media Request" %>
 
-<div id="content">
-  <div class="inner_content">
+
     <% unless @media_request.blank? %>
     	<%= render :partial => 'media_request_long' %>
     <% end -%>
-  </div>
-</div>
+  
 
-<%= render 'mediafeed/shared/mediafeed_sidebar' %>

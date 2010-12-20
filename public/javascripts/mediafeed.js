@@ -62,6 +62,7 @@ function updateEmploymentsList() {
 
 $employmentInputs.change(updateEmploymentsList);
 
+
 //$('#new_media_request .column').equalHeights();
 
 // == Hidden fieldsets
@@ -81,3 +82,23 @@ $("#media_request_request_types").bind('change', function(){
 		$("#fields_for_" + val).fadeIn();
 	} 
 }).change();
+
+// Directory search
+var $loaderImg       = $('<img class="loader" src="/images/ajax-loader.gif" />').hide();
+var	$directoryList   = $("#directory_list");
+var $directoryInputs = $("#directory_search #employment_criteria input[type=checkbox]");
+
+$directoryList.before($loaderImg);
+
+function updateDirectoryList() {
+	input_string = $directoryInputs.serialize();
+	$loaderImg.show();
+	$directoryList.hide();
+	$directoryList.load('/mediafeed/directory_search', input_string, function(responseText, textStatus){
+	  $loaderImg.hide();
+	  $directoryList.fadeIn(300);
+	});
+	// return true;	
+}
+
+$directoryInputs.change(updateDirectoryList);

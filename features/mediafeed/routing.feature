@@ -23,6 +23,6 @@ Feature: Media Feed Routing
     
   Scenario: Mediafeed Homepage has an "hp" class on the #main div
     Given I am on the mediafeed home page
-    Then the "main" div should have the class "hp"
+    Then the "main" div should have the class "hp clear clearfix"
     When I go to "mediafeed/about"
-    Then the "main" div should not have the class "hp"
+    Then the "main" div should not have the class "hp clear clearfix"

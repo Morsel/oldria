@@ -366,7 +366,7 @@ em, i{
 	margin: 0;
 	position: absolute;
 	width: 974px;
-	top: 398px;
+	top: 348px;
 	z-index: 1000;
 	background: transparent url(/images/redesign/bg-controller.png) no-repeat 0 100%;
 	nav {
@@ -411,6 +411,7 @@ em, i{
 	header {margin-bottom: 15px;}
 	.inner_content{
 		padding:0 10px;
+		overflow: hidden;
 	}
 	/* -- base styles for the site -- */
 	.edit_button {

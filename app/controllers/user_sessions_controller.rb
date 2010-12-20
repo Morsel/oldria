@@ -44,12 +44,18 @@ class UserSessionsController < ApplicationController
         Please check your email for instructions or <a href='#{resend_confirmation_users_path}'>click here</a> to request the confirmation email again."
       elsif @user_session.errors.on(:username) || @user_session.errors.on(:password)
         error_message = "Oops, you entered the wrong username or password.<br/>
-        It coulda been a minor error, so just try again&mdash;or, could it be you tried to log into spoonfeed with your RIA login credentials?"
+        It coulda been a minor error, so just try again&mdash;or, 
+        could it be you tried to log into #{params[:mediafeed] ? 'Mediafeed' : 'Spoonfeed'} with your RIA login credentials?"
       else
         error_message = "Sorry, but we couldn't log you in"
       end
-      flash.now[:error] = error_message
-      render :new
+      if params[:mediafeed]
+        flash[:error] = error_message
+        redirect_to mediafeed_login_path
+      else
+        flash.now[:error] = error_message
+        render :new
+      end
     end
   end
 end

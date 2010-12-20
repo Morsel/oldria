@@ -1,16 +1,9 @@
 <% title @page.title %>
 
-<div id="content">
 	<% if can?(:edit, @page) %>
 		<p>
 			<%= link_to "Edit this page", edit_admin_mediafeed_page_path(@page), :class => 'edit_button' %>
 		</p>
 	<% end %>
-	<section id="page_content">
+	<%= auto_link @page.content %>
 
-		<%= auto_link @page.content %>
-
-	</section><!--#page_content-->
-</div><!--#content-->
-
-<%= render 'mediafeed/shared/mediafeed_sidebar' %>

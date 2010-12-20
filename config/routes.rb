@@ -55,11 +55,14 @@ ActionController::Routing::Routes.draw do |map|
     mediafeed.login 'login', :controller => 'mediafeed', :action => 'login'
     mediafeed.resources :media_users, :except => [:index, :show]
     mediafeed.resources :media_requests
+    mediafeed.user_confirmation 'confirmation', :controller => 'media_users', :action => 'confirmation'
   end
 
   map.with_options :conditions => { :subdomain => 'mediafeed' }, :controller => 'mediafeed/mediafeed' do |mediafeed|
     mediafeed.root :action => 'index'
   end
+  
+  map.mediafeed_directory 'mediafeed/directory', :controller => 'mediafeed/mediafeed', :action => 'directory'
 
   map.resource :my_profile, :only => ['create', 'edit', 'update'], :controller => 'profiles' do |p|
     p.resources :culinary_jobs
