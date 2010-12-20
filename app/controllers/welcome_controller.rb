@@ -1,5 +1,10 @@
 class WelcomeController < ApplicationController
-  
+ 
+  # cache dashboard for logged in users 
+  caches_action :index,
+                :if =>  Proc.new {|controller| controller.cache_key }, 
+                :expires_in => 5.minutes,
+                :cache_path => Proc.new { |controller| controller.cache_key }
   def index
     if current_user
       @user = current_user
@@ -10,6 +15,11 @@ class WelcomeController < ApplicationController
       @sf_promos = SfPromo.all(:limit => 4)
       render :layout => 'home'
     end
+  end
+
+  # generate cache key for logged in users
+  def cache_key
+    current_user ? "#{controller_name}_#{action_name}_#{current_user.id.to_s}" : nil
   end
 
   private
