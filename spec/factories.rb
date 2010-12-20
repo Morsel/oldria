@@ -335,6 +335,12 @@ Factory.define :media_request_discussion do |f|
   f.comments_count 0
 end
 
+Factory.define :solo_media_discussion do |f|
+  f.association :media_request
+  f.association :employment
+  f.comments_count 0
+end
+
 # == Feeds ==
 Factory.define :feed do |f|
   f.title "Example Blog RSS"
