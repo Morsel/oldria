@@ -42,3 +42,10 @@ Then /^I should see a table of resources$/ do
     tbody.should have_selector("tr")
   end
 end
+
+When /^I save and open page$/ do
+  puts "*" * 60
+  puts ProfileAnswer.all.size
+  puts ProfileAnswer.last.inspect
+  # save_and_open_page
+end
