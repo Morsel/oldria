@@ -1722,7 +1722,9 @@ form, #content form{
 	    }
 	  }
 	  .message_headers {
-	    color: gray;
+	    li {
+	      padding: 2px 0;
+	    }
 	  }
 	  .message {
 	    font-size: 14px;
