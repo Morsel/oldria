@@ -701,6 +701,10 @@ form, #content form{
 			color:#333;
 		}
 	}
+	.wider{
+		width:250px;
+		padding:5px;
+	}
 	.date{
 		ol, ul{
 			overflow:hidden;
@@ -1462,6 +1466,9 @@ form, #content form{
 			border-color: #abbc66;
 			color: #365816;
 		}
+	}
+	a{
+		text-decoration:underline;
 	}
 } /* ## end of flashes ----------------------------- */
 

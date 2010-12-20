@@ -41,7 +41,7 @@ class UserSessionsController < ApplicationController
     else
       if @user_session.errors.on_base == "Your account is not confirmed"
         error_message = "Your account is not confirmed.<br/>
-        Please check your email for instructions or <a href='#{resend_confirmation_users_path}'>click here</a> to request the confirmation email again."
+        Please check your email for instructions or  <a href='#{params[:mediafeed] ? mediafeed_resend_user_confirmation_path : resend_confirmation_users_path}'>request the confirmation email</a> again."
       elsif @user_session.errors.on(:username) || @user_session.errors.on(:password)
         error_message = "Oops, you entered the wrong username or password.<br/>
         It coulda been a minor error, so just try again&mdash;or, 

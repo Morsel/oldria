@@ -32,5 +32,9 @@ class Mediafeed::MediaUsersController < Mediafeed::MediafeedController
   
   def confirmation
   end
+  
+  def resend_confirmation
+    render :template => 'users/resend_confirmation', :layout => 'mediafeed'
+  end
 
 end

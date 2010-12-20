@@ -79,7 +79,7 @@ class UsersController < ApplicationController
           redirect_to admin_users_path
         else
           flash[:notice] = "We just sent you a new confirmation email. Click the link in the email and you'll be ready to go!"
-          redirect_to root_path
+          redirect_to mediafeed? ? mediafeed_root_path : root_path
         end
       else
         flash[:error] = "Sorry, we can't find a user with that email address. Try again?"
