@@ -12,11 +12,8 @@
 
     <%= render :partial => "shared/employment_criteria", :locals => { :f => f } %>
 
-    <div id="employment_list">
-        <%= render :partial => 'shared/employment_list' %>
-    </div>
 
-    <% f.inputs :name => 'Your Request', :class => 'editing basic' do %>
+    <% f.inputs :name => 'Your Request', :class => 'editing' do %>
 
       <%= render 'subject_matters', :f => f %>
 

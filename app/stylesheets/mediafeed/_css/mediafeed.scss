@@ -731,7 +731,7 @@ form, #content form{
 	}
 } /* ## forms universal styles ------------------ */
 
-#editing_restaurant {
+.editing_restaurant {
 	overflow: hidden;
 	padding:10px;
 	input {
@@ -1605,3 +1605,36 @@ form, #content form{
 		}
 	}
 } /* ## end of #footer_container ---------------------- */
+
+#new_media_request {
+  form label {
+    font-weight: normal;
+    input[type="checkbox"] {
+      margin-bottom: 0;
+    }
+  }
+  #employment_list {
+    margin: 10px 0;
+    padding: 10px;
+//    background: #f7f6f2;
+    .column:nth-child(even) {
+      background: #f1efe7;
+    }
+  }
+  #criteria_accordion {
+    .search_filter_hint {
+      margin: 10px 0 5px;
+    }
+    .accordion_box {
+      width: auto;
+    }
+  }
+/*  .column {
+    margin: 10px;
+    padding: 10px;
+    width: 187px;
+    float: left;
+    border: 1px solid #ccc;
+    @include box-shadow(#eaeaea, 2px, 2px, 2px);
+  }*/
+} /* ## end of #new_media_request ---------------------- */

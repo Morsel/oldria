@@ -8,7 +8,7 @@
 <% SubjectMatter.media_viewable.nongeneral.each do |subject_matter| %>
 <div id="fields_for_<%= subject_matter.id %>" class="fieldsets">
   <% subject_matter.fieldset.each do |field| %>
-  <li>
+  <li class="string">
     <%= label_tag "media_request[fields][#{field}]", field.humanize %>
     <%= text_field_tag "media_request[fields][#{field}]", @media_request.fields[field], :class => 'text' %>
   </li>
