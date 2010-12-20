@@ -4339,9 +4339,12 @@ p.search_filter_hint {
 #colorbox {
 	.message-details {
 		padding: 14px 14px 7px 14px;
-		border-bottom: 1px dotted #ddd;
+		border-bottom: 1px dotted #ccc;
 		header {
 			margin: 0 0 10px;
+			h1 {
+				font-size: 20px;
+			}
 			p.timestamp {
 				font-size: 11px;
 			}
