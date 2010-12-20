@@ -19,6 +19,10 @@ body{
 	color:#333;
 }
 
+#printlogo {
+	display: none;
+}
+
 hr.edit_block {
 	margin-right: 10px;
 	border-top: 1px solid #e1d9c4;
@@ -107,6 +111,9 @@ em, i{
 				font-size: 13px;
 				text-transform: uppercase;
 				line-height: 18px;
+				&#request_an_invitation {
+					width: 155px;
+				}
 				span {
 					display: block;
 					font-weight :bold;
