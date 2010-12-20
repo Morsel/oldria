@@ -21,7 +21,7 @@
         <div id="user_fields" style="display:none;">
             <%= s.input :employee_id_equals_any,
                         :as => "check_boxes",
-                        :collection => @users_for_search || User.by_last_name %>
+                        :collection => User.by_last_name %>
         </div>
       </div>
       <div class="accordion_box">
@@ -29,7 +29,7 @@
         <div id="restaurant_fields" style="display:none;">
             <%= s.input :restaurant_id_equals_any,
                         :as => "check_boxes",
-                        :collection => @restaurants_for_search || Restaurant.all(:order => 'sort_name ASC') %>
+                        :collection => Restaurant.all(:order => 'sort_name ASC') %>
         </div>
       </div>
       <%- end -%>
@@ -38,7 +38,7 @@
         <div id="cuisine_fields" class="loading" style="display:none;">
             <%= s.input :restaurant_cuisine_id_equals_any,
                         :as => "check_boxes",
-                        :collection => Cuisine.with_restaurants.all %>
+                        :collection => Cuisine.with_restaurants %>
         </div>
       </div>
       <%- unless mediafeed? -%>
