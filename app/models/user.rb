@@ -89,6 +89,8 @@ class User < ActiveRecord::Base
   has_subscription
 
   validates_presence_of :email
+  
+  has_and_belongs_to_many :metropolitan_areas
 
   attr_accessor :send_invitation, :agree_to_contract, :invitation_sender, :password_reset_required
 
