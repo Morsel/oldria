@@ -23,7 +23,6 @@
     <% end %>
   <% end %>
 <% else %>
-  <hr />
   <h3>Response for this <%= message.class.try(:title) %></h3>
   <%= render @comments.first %>
   <% if admin_message.soapbox_entry.try(:published?) && params[:post_to_facebook] %>

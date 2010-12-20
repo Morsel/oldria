@@ -1,0 +1,15 @@
+<div id="restaurant_profile_view" class="edit clear clearfix">
+
+    <%= render 'restaurants/restaurant_header' %>
+    <div id="editing_restaurant">
+        <div id="restaurant_pages" class="clearfix">
+            <%= render 'restaurant_features/navigation' %>
+
+            <div id="restaurant_features_content">
+                <%= render 'restaurant_features/features' %>
+            </div>
+            
+            <%= render :partial => 'profile_questions/behind_the_line', :locals => {:subject => @page} %>
+        </div>
+    </div> 
+</div><!-- #restaurant_profile_view -->

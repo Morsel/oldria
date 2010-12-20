@@ -1,71 +1,16 @@
-    <h2>Photos:</h2>
-<div>
-  <% semantic_form_for :photo, :url => restaurant_photos_path(@restaurant), 
-      :html => { :multipart => true } do |photo_form| %>
-    <% photo_form.inputs "New Photo" do %>
-      <%= photo_form.error_messages %>
-      <%= photo_form.input 'attachment', :as => 'file', :hint => "Please upload a jpeg, gif, or png" %>
-      <%= photo_form.input :credit, :required => true %>
-      <%= photo_form.submit 'Upload' %>
-    <% end %>
-  <% end %>
-</div>
+<div id="restaurant_profile_view" class="edit clear clearfix">
 
-<h3>Determine the order in which your photos are displayed with drag and drop.</h3>
+  <%= render 'restaurants/restaurant_header' %>
 
-<% form_for :restaurant, :url => select_primary_photo_restaurant_path(@restaurant) do |restaurant_form| %>
-    <table id="photos" data-remote-url="<%= reorder_restaurant_photos_url(@restaurant) %>">
-      <thead>
-          <tr>
-            <th>Photo</th>
-            <th>Credit</th>
-            <th>Primary</th>
-            <th></th>
-          </tr>
-      </thead>
-      <tbody>
-      <% @photos.each do |photo| %>
-        <tr id="<%= dom_id(photo) %>">
-          <td><%= image_tag photo.attachment.url(:medium), :class => "restaurant_photo" %></td>
-          <td class="restaurant_photo_credit"><%= photo.credit %></td>
-          <td><%= restaurant_form.radio_button :primary_photo_id, photo.id %></td>
-          <td><%= link_to "Remove", restaurant_photo_path(@restaurant, photo), :method => :delete, :confirm => "Are you sure you want to remove the photo?" %></td>
-        </tr>
+  <h2>Photos</h2>
+
+  <div id="photos">
+    <% @photos.each do |photo| %>
+      <% content_tag_for(:div, photo) do %>
+        <%= image_tag photo.attachment.url(:medium), :class => "restaurant_photo" %>
+        <p class="credit">Credit: <%= photo.credit %></p>
       <% end %>
-      </tbody>
-    </table>
-    <%= restaurant_form.submit 'Save Primary Selection' %>
-<% end %>
+    <% end %>
+  </div>
 
-<p>
-  <%= link_to "Back To Restaurant", edit_restaurant_path(@restaurant), :class => "button" %>
-</p>
-
-<% content_for :javascript do %>
-
-  <script type="text/javascript">
-    //<![CDATA[
-    $('#photos').sortable(
-    {
-      axis: 'y',
-      dropOnEmpty:false,
-      cursor: 'crosshair',
-      items: 'tbody tr',
-      opacity: 0.4,
-      scroll: true,
-      update: function(event, ui){
-        var url = $("#photos").attr("data-remote-url");
-        $.ajax({
-          type: 'post',
-          data: $('#photos').sortable('serialize') + '&restaurant_id=<%= @restaurant.id -%>',
-          dataType: 'script',
-          complete: function(request){
-            $('#photos').effect('highlight');
-          },
-          url: url})
-      }
-    })
-    //]]>
-  </script>
-
-<% end %>
+</div>

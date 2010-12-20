@@ -73,7 +73,7 @@ Feature: Manage a_la_minutes
     | Morning?         | Evening                 | false  | 10.minutes.ago |
 
     And I go to the edit a la minute question page for "Steak Knife"
-    When I check "Show on public profile?" for "Morning?"
+    When I check "Show on Soapbox profile?" for "Morning?"
     And I press "Change Answers"
     Then I should see a flash error message
 

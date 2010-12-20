@@ -235,6 +235,7 @@ end
 
 Factory.define :topic do |f|
   f.sequence(:title) { |n| "Background #{n}" }
+  f.responder_type "user"
   f.description "Interesting topic"
 end
 
@@ -245,14 +246,18 @@ Factory.define :chapter do |f|
 end
 
 Factory.define :profile_question do |f|
-  f.sequence(:title) { |n| "Question #{n}" } 
+  f.sequence(:title) { |n| "Question #{n}" }
   f.association :chapter
-  f.restaurant_roles { [Factory(:restaurant_role), Factory(:restaurant_role) ]}
+  f.question_roles { [Factory(:question_role), Factory(:question_role) ]}
+end
+
+Factory.define :question_role do |f|
+  f.responder { Factory(:restaurant_role) }
 end
 
 Factory.define :profile_answer do |f|
   f.association :profile_question
-  f.association :user
+  f.association :responder, :factory => :user
   f.answer "Awesomeland!"
 end
 
@@ -486,4 +491,31 @@ Factory.define :subscription do |f|
   f.kind "User Premium"
   f.start_date Date.today
   f.braintree_id "abcd"
+end
+
+Factory.define :restaurant_feature_page do |f|
+  f.sequence(:name) { |n| "Page #{n}" }
+end
+
+Factory.define :restaurant_feature do |f|
+  f.sequence(:value) { |n| "Feature#{n}" }
+end
+
+Factory.define :restaurant_feature_item do |f|
+  f.association :restaurant_feature
+  f.association :restaurant
+end
+
+Factory.define :pdf_remote_attachment do |f|
+  f.sequence(:attachment_file_name) { |n| "menu#{n}.pdf" }
+  f.attachment_content_type "application/pdf"
+  f.attachment_file_size 3000
+  f.attachment_updated_at 2.days.ago
+end
+
+Factory.define :menu do |f|
+  f.sequence(:name) { |n| "Menu #{n}"}
+  f.change_frequency "Monthly"
+  f.association :pdf_remote_attachment
+  f.association :restaurant
 end

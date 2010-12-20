@@ -1,10 +1,17 @@
+class Output
+  def puts(message)
+  end
+end
+
+output = Rails.env.test? ? Output.new : STDOUT
+
 namespace :subscriptions do
   desc "queries braintree for past due accounts and marks them"
   task :mark_past_due do
     braintree_ids = BraintreeConnector.past_due_subscriptions
     past_due_subscriptions = Subscription.find(braintree_ids)
     past_due_subscriptions.each{|s| s.past_due!}
-    puts "Found #{past_due_subscriptions.length} subscriptions that are past due."
+    output.puts "Found #{past_due_subscriptions.length} subscriptions that are past due."
   end
 
   desc "cancels past due accounts from braintree"
@@ -17,7 +24,7 @@ namespace :subscriptions do
       end
     end
   end
-  
+
   desc "convert premium accounts"
   task :convert_premium => :environment do
     User.find_all_by_premium_account(true).each { |u| u.make_complimentary! }

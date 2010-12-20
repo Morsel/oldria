@@ -7,23 +7,24 @@ class CommentsController < ApplicationController
     @comment.user_id ||= current_user.id
 
     if @comment.save
-      @parent.read_by!(@comment.user) if front_burner_content
-      flash[:notice] = "Successfully created comment."
-      case @parent.class.to_s
-        when "Admin::Conversation" then redirect_to admin_conversation_path(@parent, :post_to_facebook => @comment.post_to_facebook)
-        when "AdminDiscussion" then redirect_to admin_discussion_path(@parent, :post_to_facebook => @comment.post_to_facebook)
-        else redirect_to @parent
+      if front_burner_content
+        @parent.read_by!(@comment.user)
+        flash[:notice] = "Thanks: your answer has been saved. The question has been archived and can be found under the \"all\" tab."
+      else
+        flash[:notice] = "Thanks: your answer has been saved."
       end
+
+      redirect_to @parent
     else
       flash[:error] = "Your comment couldn't be saved."
       redirect_to :back
     end
   end
-  
+
   def edit
     @comment = Comment.find(params[:id])
   end
-  
+
   def update
     @comment = Comment.find(params[:id])
     if @comment.update_attributes(params[:comment].merge(:user_id => current_user.id))
@@ -33,12 +34,12 @@ class CommentsController < ApplicationController
       render :action => "edit"
     end
   end
-  
+
   def destroy
     @comment = Comment.find(params[:id])
     @comment.destroy
     flash[:notice] = "Deleted comment"
-    redirect_to front_burner_path
+    redirect_to front_burner_content ? front_burner_path : messages_path
   end
 
   private
@@ -58,7 +59,7 @@ class CommentsController < ApplicationController
       @parent = SoloDiscussion.find(params[:solo_discussion_id])
     end
   end
-  
+
   def front_burner_content
     @parent.is_a?(AdminDiscussion) || @parent.is_a?(SoloDiscussion) || @parent.is_a?(Admin::Conversation)
   end

@@ -1,0 +1,37 @@
+<div>
+  <% semantic_form_for :photo, :url => restaurant_photo_path(@restaurant, @photo),
+      :html => { :multipart => true, :method => :put } do |photo_form| %>
+    <% photo_form.inputs "New Photo" do %>
+      <%= photo_form.error_messages %>
+
+      <li id="photo_attachment_input" class="file optional">
+        <label for="photo_attachment">Attachment</label>
+        <span class="current_photo_attachment">
+          <%= image_tag @photo.attachment.url(:medium) %>
+          <%= link_to 'Change', '#', :class => 'toggle_new_photo' %>
+        </span>
+        <span class="new_photo_attachment" style="display:none">
+          <%= photo_form.file_field :attachment %>
+          <%= link_to 'Cancel', '#', :class => 'toggle_new_photo' %>
+        </span>
+      </li>
+      <%= photo_form.input :credit, :required => true %>
+      <%= photo_form.submit 'Upload' %>
+    <% end %>
+  <% end %>
+</div>
+
+<% content_for :javascript do %>
+  <script type="text/javascript">
+    //<![CDATA[
+    jQuery(function($) {
+      $(".toggle_new_photo").click(function(e) {
+        e.preventDefault();
+        $(".current_photo_attachment").toggle();
+        $(".new_photo_attachment").toggle();
+        $("#photo_attachment").val("");
+      });
+    });
+    //]]>
+  </script>
+<% end %>

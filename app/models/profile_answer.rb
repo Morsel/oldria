@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20100913210123
+# Schema version: 20101207221226
 #
 # Table name: profile_answers
 #
@@ -8,23 +8,21 @@
 #  answer              :text
 #  created_at          :datetime
 #  updated_at          :datetime
-#  user_id             :integer
+#  responder_id        :integer
+#  responder_type      :string(255)
 #
 
 class ProfileAnswer < ActiveRecord::Base
 
   belongs_to :profile_question
-  belongs_to :user
-  
-  validates_presence_of :answer, :profile_question_id, :user_id
-  validates_uniqueness_of :profile_question_id, :scope => :user_id
+  belongs_to :responder, :polymorphic => true
 
-  attr_accessor :post_to_facebook, :share_url
-  after_save    :post_to_facebook
-  
-  named_scope :from_premium_users, lambda {
-    { :joins => { :user => :subscription },
-      :conditions => ["subscriptions.id IS NOT NULL AND (subscriptions.end_date IS NULL OR subscriptions.end_date >= ?)",
+  validates_presence_of :answer, :profile_question_id, :responder_id, :responder_type
+  validates_uniqueness_of :profile_question_id, :scope => [:responder_id, :responder_type]
+
+  named_scope :from_premium_subjects, lambda {
+    { :joins => 'INNER JOIN subscriptions ON `subscriptions`.subscriber_id = responder_id AND `subscriptions`.subscriber_type = responder_type',
+      :conditions => ['`subscriptions`.id IS NOT NULL AND (`subscriptions`.end_date IS NULL OR `subscriptions`.end_date >= ?)',
           Date.today]}
   }
 

@@ -59,7 +59,7 @@ module NavigationHelpers
     when /^the new restaurant page$/
       new_restaurant_path
     when /^the employees page for "(.+)"$/
-      restaurant_employees_path(Restaurant.find_by_name($1))
+      bulk_edit_restaurant_employees_path(Restaurant.find_by_name($1))
     when "the RIA messages page"
       ria_messages_path
     when /^the new event page for "(.+)"$/
@@ -73,7 +73,7 @@ module NavigationHelpers
     when /the restaurant feature page for "(.+)"/
       restaurant_features_path(Restaurant.find_by_name($1))
     when /^the restaurant menu upload page for (.+)$/
-      restaurant_menus_path(Restaurant.find_by_name($1))
+      bulk_edit_restaurant_menus_path(Restaurant.find_by_name($1))
     when /^the employee edit page for "(.+)" and "(.+)"$/
       edit_restaurant_employee_path(Restaurant.find_by_name($1), User.find_by_username($2))
 
@@ -117,26 +117,22 @@ module NavigationHelpers
       admin_calendars_path
     when /^the new admin event page$/
       new_admin_event_path
-    when /^the new profile question page$/
-      new_admin_profile_question_path
-    when /^the admin profile questions page$/
-      admin_profile_questions_path
+    when /^the new (.+) profile question page$/
+      new_admin_profile_question_path(:responder_type => $1.downcase)
+    when /^the admin (.+) profile questions page$/
+      admin_profile_questions_path(:responder_type => $1.downcase)
     when /^the chapters page$/
       admin_chapters_path
-    when /^the new topic page$/
-      new_admin_topic_path
+    when /^the new (.+) topic page$/
+      new_admin_topic_path(:responder_type => $1.downcase)
+    when /^the (.+) topics page$/
+      admin_topics_path(:responder_type => $1.downcase)
+    when /^the (.+) chapters page$/
+      admin_chapters_path(:responder_type => $1.downcase)
     when /^the admin invitations page$/
       admin_invitations_path
     when /^the restaurant photo upload page for (.+)$/
-      restaurant_photos_path(Restaurant.find_by_name($1))
-    when /^the admin restaurant feature page$/
-      admin_restaurant_features_path
-    when /^the restaurant photo upload page for (.+)$/
-      edit_photos_admin_restaurant_path(Restaurant.find_by_name($1))
-    when /^the admin restaurant feature page$/
-      admin_restaurant_features_path
-    when /^the restaurant photo upload page for (.+)$/
-      edit_photos_restaurant_path(Restaurant.find_by_name($1))
+      bulk_edit_restaurant_photos_path(Restaurant.find_by_name($1))
     when /^the admin restaurant feature page$/
       admin_restaurant_features_path
     when /^the admin a la minute questions page$/
@@ -154,7 +150,7 @@ module NavigationHelpers
     when /the soapbox restaurant profile for "(.+)"/
       soapbox_restaurant_path(Restaurant.find_by_name($1))
     when /the soapbox feature page for "(.+)"/
-      soapbox_restaurant_feature_path(RestaurantFeature.find_by_value($1))
+      soapbox_restaurant_feature_page_path(RestaurantFeature.find_by_value($1))
     when /the soapbox restaurant feature page for "(.+)" and "(.+)"/
       soapbox_restaurant_feature_page_path(
           Restaurant.find_by_name($1), RestaurantFeaturePage.find_by_name($2))

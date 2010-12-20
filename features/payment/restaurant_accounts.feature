@@ -43,7 +43,7 @@ Feature: Restaurant Accounts
     When I simulate a successful call from braintree for the restaurant "Taco Bell"
     When I go to the edit restaurant page for "Taco Bell"
     Then I see that the restaurant's account status is premium
-    And I see my account is paid for by myself
+    And I see my restaurant account is paid for by myself
 
   Scenario: Unsuccessful response from braintree does not make a user premium
     When I simulate an unsuccessful call from braintree for the restaurant "Taco Bell"

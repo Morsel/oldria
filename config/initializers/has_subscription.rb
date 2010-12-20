@@ -4,8 +4,8 @@ module HasSubscription
     has_one :subscription, :as => :subscriber
     has_many :paid_subscriptions, :class_name => "Subscription", :as => :payer
     after_update :update_braintree_contact_info
-    
-    named_scope :with_premium_account, {:include => :subscription, 
+
+    named_scope :with_premium_account, {:include => :subscription,
       :conditions => ["subscriptions.id IS NOT NULL AND (subscriptions.end_date IS NULL OR subscriptions.end_date >= ?)",
           Date.today]}
 
@@ -176,7 +176,9 @@ module HasSubscription
         result = true
       else
         braintree_result = BraintreeConnector.cancel_subscription(subscription)
-        result = braintree_result.success?
+        # 81905 => braintree code for the subscription is already cancelled
+
+        result = braintree_result.success? || braintree_result.errors.collect(&:code).include?("81905")
       end
       if result
         cancel_and_terminate_immediately

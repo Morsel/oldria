@@ -65,15 +65,16 @@ module UserMessaging
     employments.map(&:current_viewable_trend_discussions).flatten
   end
   
+  def unread_trend_questions
+    trend_questions.reject { |t| t.read_by?(self) || (t.scheduled_at < 2.weeks.ago) }
+  end
+  
   def grouped_trend_questions
     @grouped_trend_questions ||= trend_questions.group_by(&:discussionable)
   end
   
   def unread_grouped_trend_questions
-    @unread_grouped_trend_questions ||= grouped_trend_questions
-    @unread_grouped_trend_questions.reject! do |discussionable, trends|
-      discussionable.read_by?(self) || (discussionable.scheduled_at < 2.weeks.ago)
-    end
+    @unread_grouped_trend_questions ||= unread_trend_questions.group_by(&:discussionable)
   end
 
   def trend_questions_responded

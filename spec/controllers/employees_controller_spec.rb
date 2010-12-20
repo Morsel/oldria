@@ -15,12 +15,12 @@ describe EmployeesController do
     controller.stubs(:preload_resources)
   end
 
-  describe "GET index" do
+  describe "GET bulk_edit" do
     before(:each) do
       @employments = @restaurant.employments
       @employment = @employments.first
       @restaurant.stubs(:employments).returns(@employments)
-      get :index, :restaurant_id => @restaurant.id
+      get :bulk_edit, :restaurant_id => @restaurant.id
     end
 
     it { response.should be_success }
@@ -181,7 +181,7 @@ describe EmployeesController do
         put :update, :id => @employee.id, :restaurant_id => @restaurant2.id, :employment => {}
       end
 
-      it { should redirect_to(restaurant_employees_path(@restaurant2))}
+      it { should redirect_to(bulk_edit_restaurant_employees_path(@restaurant2))}
 
       it "should set a flash message" do
         flash[:notice].should_not be_nil
