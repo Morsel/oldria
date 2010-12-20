@@ -19,8 +19,10 @@ Feature: Media requests
 
   Scenario: A new media request is held for approval
     Given I am logged in as "mediaman" with password "secret"
+    And a subject matter "Beer"
+    
     When I create a media request with message "Are cucumbers good in salad?" and criteria:
-      | Restaurant | Eight Ball |
+      | Subject Matter | Beer |
     Then that media request should be pending
     And there should be 1 media request in the system
 
