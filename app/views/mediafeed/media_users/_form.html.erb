@@ -7,6 +7,7 @@
 	<%= f.input :last_name, :input_html => {:class => 'span-4'}, :wrapper_html => {:class => 'span-4'} %>
 	<%= f.input :email, :wrapper_html => {:class => 'clear'} %>
 	<%= f.input :publication, :label => "Affiliated Publication", :hint => "If you are <em>freelance</em>, please put your primary publication" %>
+	<%= f.input :metropolitan_areas, :as => :check_boxes, :label => 'Location(s) that I write for:' %>
 <% end %>
 
 <% f.inputs :name => 'Desired Login Information', :class => 'editing basics' do %>

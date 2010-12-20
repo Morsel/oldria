@@ -727,6 +727,17 @@ form, #content form{
 		margin:10px 0;
 		padding:10px;
 	}
+	#user_metropolitan_areas_input fieldset{
+		padding:0;
+		ol{
+			margin:10px 0;
+			padding:5px;
+			border:1px solid #ccc;
+			overflow:auto;
+			width:50%;
+			height:200px;
+		}
+	}
 	.error{
 		padding:5px;
 		border:2px solid $orange;
