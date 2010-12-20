@@ -1,12 +1,12 @@
 # == Schema Information
-# Schema version: 20101217230311
+# Schema version: 20101220214928
 #
 # Table name: solo_media_discussions
 #
 #  id               :integer         not null, primary key
 #  media_request_id :integer
 #  employment_id    :integer
-#  comments_count   :integer
+#  comments_count   :integer         default(0)
 #  created_at       :datetime
 #  updated_at       :datetime
 #
