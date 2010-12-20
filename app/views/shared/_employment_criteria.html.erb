@@ -15,6 +15,7 @@
 	<p class="search_filter_hint">Filter using these criteria, if you like:</p>
     <%- end -%>
     
+      <%- unless mediafeed? -%>
       <div class="accordion_box">
         <%= link_to  "<span>Users</span>", "#" %>
         <div id="user_fields" style="display:none;">
@@ -31,6 +32,7 @@
                         :collection => @restaurants_for_search || Restaurant.all(:order => 'sort_name ASC') %>
         </div>
       </div>
+      <%- end -%>
       <div class="accordion_box">
         <%= link_to "<span>Cuisine</span>", "#" %>
         <div id="cuisine_fields" class="loading" style="display:none;">
@@ -39,6 +41,7 @@
                         :collection => Cuisine.with_restaurants.all %>
         </div>
       </div>
+      <%- unless mediafeed? -%>
       <div class="accordion_box">
         <%= link_to "<span>Role</span>", "#" %>
         <div id="role_fields" class="loading" style="display:none;">
@@ -47,6 +50,7 @@
                         :collection => RestaurantRole.with_employments.all %>
         </div>
       </div>
+      <%- end -%>
       <div class="accordion_box">
         <%= link_to "<span>Region</span>", "#" %>
         <div id="region_fields" class="loading" style="display:none;">
