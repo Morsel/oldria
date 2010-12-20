@@ -4253,9 +4253,9 @@ p.search_filter_hint {
     @include column(12, true);
   }
   #restaurant_features_content {
-    @include column(7);
+    @include column(6);
     + #behindline {
-      @include column(6, true);
+      @include column(7, true);
       h3 {
         margin-top: 0;
       }
