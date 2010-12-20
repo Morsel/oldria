@@ -42,8 +42,8 @@ describe QuestionsController do
       @profile_user = Factory(:published_user, :subscription => Factory(:subscription))
       role = Factory(:restaurant_role)
       @profile_user.stubs(:primary_employment).returns(Factory(:employment, :restaurant_role => role, :employee => @profile_user))
-      @question = Factory(:profile_question, :restaurant_roles => [role])
-      @answer = Factory(:profile_answer, :profile_question => @question, :user => @profile_user)
+      @question = Factory(:profile_question)
+      @answer = Factory(:profile_answer, :profile_question => @question, :responder => @profile_user)
     end
 
     it "should find question" do
