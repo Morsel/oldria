@@ -29,8 +29,8 @@ Feature: Member roles
   
   Examples:
     | page                         | action                        |
-    | the admin landing page       | be on the Mediafeed home page |
-    | the edit page for "jimmy"    | be on the Mediafeed home page |
+    | the admin landing page       | be on the mediafeed directory page |
+    | the edit page for "jimmy"    | be on the mediafeed directory page |
 
 
   Scenario Outline: Admin members access
