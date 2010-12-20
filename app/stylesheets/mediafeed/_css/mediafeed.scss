@@ -718,7 +718,7 @@ form, #content form{
 			li{
 				float:left;
 				margin:0 10px 0 0;
-				label{
+				label, .label {
 					display:block;
 				}
 			}
@@ -846,7 +846,7 @@ form, #content form{
 		border-bottom: 1px dotted #ccc;
 	}
 	ol li {
-		label {
+		label, .label {
 		  font-size: 13px;
 			font-weight: normal;
 		}
@@ -872,7 +872,7 @@ form, #content form{
 		  input {
 		    margin-top: -5px;
 		  }
-		  label {
+		  label, .label {
 		    font-weight: normal;
 		  }
 		}
@@ -918,7 +918,7 @@ form, #content form{
 				margin: 0 15px 10px 0;
 				@include hiddentext;
 			}
-			label {
+			label, .label {
 				display: block;
 			}
 			input {
@@ -1108,7 +1108,7 @@ form, #content form{
 			}
 			ol {
 				li {
-					label {
+					label, .label {
 						display: block;
 					}
 				}
@@ -1489,7 +1489,7 @@ form, #content form{
 		.ui-accordion-content {
 			li {
 				background-color: #fff;
-				label {
+				label, .label {
 					display: block;
 					margin: 5px 0;
 					font-weight: normal;
@@ -1622,6 +1622,14 @@ form, #content form{
 } /* ## end of #footer_container ---------------------- */
 
 #new_media_request {
+  li fieldset  {
+    margin: 0;
+    padding: 0;
+    .label {
+      font-weight: normal;
+      font-family: "helvetica neue", "helvetica", "arial";
+    } 
+  }
   form label {
     font-weight: normal;
     input[type="checkbox"] {
@@ -1631,10 +1639,7 @@ form, #content form{
   #employment_list {
     margin: 10px 0;
     padding: 10px;
-//    background: #f7f6f2;
-    .column:nth-child(even) {
-      background: #f1efe7;
-    }
+    background: #f7f6f2;
   }
   #criteria_accordion {
     .search_filter_hint {
@@ -1644,12 +1649,4 @@ form, #content form{
       width: auto;
     }
   }
-/*  .column {
-    margin: 10px;
-    padding: 10px;
-    width: 187px;
-    float: left;
-    border: 1px solid #ccc;
-    @include box-shadow(#eaeaea, 2px, 2px, 2px);
-  }*/
 } /* ## end of #new_media_request ---------------------- */
