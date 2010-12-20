@@ -4333,3 +4333,31 @@ p.search_filter_hint {
   }
 }
 /* ## END of A La Minute editing --------------------------------------------- */
+
+
+
+#colorbox {
+	.message-details {
+		padding: 14px 14px 7px 14px;
+		border-bottom: 1px dotted #ddd;
+		header {
+			margin: 0 0 10px;
+			p.timestamp {
+				font-size: 11px;
+			}
+		}
+		.message-body {
+			p {
+				font-size: 13px;
+				margin: 0 0 5px;
+				line-height: 18px;
+			}
+		}
+	}
+}
+
+
+
+
+
+
