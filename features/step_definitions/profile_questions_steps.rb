@@ -77,3 +77,25 @@ Given /^I have created the following restaurant topics:$/ do |table|
   end
 end
 
+
+Given /^the following profile questions with chapters, topics and answers for "([^\"]*)":$/ do |username, table|
+  user = User.find_by_username(username)
+  role = Factory(:restaurant_role, :name => "UniqueRole", :category => "UniqueCategory")
+  Factory(:employment, :employee => user, :primary => true, :restaurant_role => role)
+  table.hashes.each do |row|
+    topic = Topic.find_by_title(row['topic']) || Factory(:topic,
+                                                         :title => row['topic'],
+                                                         :responder_type => 'user')
+    chapter = topic.chapters.first(:conditions => {:title => row['chapter']}) || Factory(:chapter,
+                                                                                         :title => row['chapter'],
+                                                                                         :topic => topic)
+    question = Factory(:profile_question,
+                       :title => row['title'],
+                       :question_roles => [Factory(:question_role, :responder => role)],
+                       :chapter =>  chapter)
+    Factory(:profile_answer,
+            :profile_question => question,
+            :responder => user,
+            :answer => row['answer']) unless row['answer'].blank?
+  end
+end
