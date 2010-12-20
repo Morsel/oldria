@@ -2,7 +2,7 @@ class WelcomeController < ApplicationController
  
   # cache dashboard for logged in users 
   caches_action :index,
-                :if =>  Proc.new {|controller| controller.cache_key }, 
+                :if =>  Proc.new {|controller| controller.cache? }, 
                 :expires_in => 5.minutes,
                 :cache_path => Proc.new { |controller| controller.cache_key }
   def index
@@ -14,6 +14,12 @@ class WelcomeController < ApplicationController
       @sf_slides = SfSlide.all(:limit => 4)
       @sf_promos = SfPromo.all(:limit => 4)
       render :layout => 'home'
+    end
+  end
+
+  def cache?
+    case action_name
+    when :index then current_user && current_user.unread_announcements.blank?
     end
   end
 
