@@ -73,7 +73,9 @@ module UsersHelper
   end
 
   def directory_link(user)
-    params[:controller].match(/soapbox/) ? soapbox_profile_path(user.username) : profile_path(user.username)
+    (params[:controller].match(/soapbox/) || params[:controller].match(/mediafeed/)) ? 
+        soapbox_profile_path(user.username) : 
+        profile_path(user.username)
   end
 
   def directory_search_link(options = {})
