@@ -28,7 +28,7 @@
 
     <%= image_tag @user.avatar.url(:small), :width=>'72' %>
     <h1><%= @user.name %></h1>
-    <%= @user.profile.headline %>
+    <%= @user.profile.try(:headline) %>
     <p class="last_updated">Last updated: <%= @user.updated_at.strftime('%b %d, %Y') %> </p>
     <% if @user.premium_account && on_soapbox %>
     <% end %>
