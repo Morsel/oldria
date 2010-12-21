@@ -8,25 +8,18 @@
           <ul class="message_headers">
             <li>
               <h4><%= media_request.subject_matter.name %></h4>
-              <p>
                Due by <%= media_request.due_date.try(:to_s, :long_ordinal) %>
-              </p>
+               <% unless media_request.publication.empty? || media_request.sender.publication.empty? %>
+       				(<%= media_request.publication || media_request.sender.publication %>)
+       				<% end %>
             </li>
-      			<li>
-      				<% unless media_request.publication.empty? || media_request.sender.publication.empty? %>
-      				(<%= media_request.publication || media_request.sender.publication %>)
-      				<% end %>
-      			</li>
       			<% if media_request.employment_search.present? %>
-      			<li>
-      			  To: <%= truncate(names = media_request.employment_search.try(:employments).map(&:employee_name).uniq.try(:to_sentence), :length => 85) %>
-      			  <% if names.length > 90 %>
-      			  <a class="showit" href="#more_<%= media_request.id %>">View all</a>
-      			  <div id="more_<%= media_request.id %>">
-      			   <%= names %>
-      			  </div><!-- #more -->
-      			  <% end %>
+      			<li id="shorten_<%= media_request.id %>">
+      			  To: <%= names = media_request.employment_search.try(:employments).map(&:employee_name).uniq.try(:to_sentence) %>
       			</li>
+      			<% if names.length > 85 %>
+      			<a class="shorten" href="#shorten_<%= media_request.id %>">View all</a>
+      			<% end %>
       			<% end %>
     			
     			</ul>
@@ -34,14 +27,14 @@
     			<p class="message"><%= truncate(media_request.message, :length => 100) %></p>
 
     			<ul class="responses">
-    			  <li>
+    			  <li class="sent_on">
       			  <% if media_request.sender == current_user %>
       			  You sent this on <%= media_request.created_at.strftime('%m/%d/%y %I:%M%p') %>
       			  <% end %>
       			</li>
     			
     			<% if (count = media_request.reply_count) > 0 %>
-    			  <li><%= pluralize count, "reply" %></li>
+    			  <li class="reply_count"><%= pluralize count, "reply" %></li>
     				<% for discussion in media_request.discussions_with_comments %>
     					<% if comment = discussion.comments.not_user(current_user).last %>
     					<li class="response">
@@ -57,9 +50,9 @@
     	<% end %>
     <% else #if no media requests to show -%>
       <% if params[:view_all] -%>
-        <p>You have not created any media requests.</p>
+        <p class="thread">You have not created any media requests.</p>
       <% else -%>
-        <p>You do not have any media requests with replies, or you have not created any media requests.</p>
+        <p class="thread">You do not have any media requests with replies, or you have not created any media requests.</p>
       <% end -%>
     <% end -%>
   </div>
