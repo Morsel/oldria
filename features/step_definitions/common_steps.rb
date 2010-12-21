@@ -44,8 +44,5 @@ Then /^I should see a table of resources$/ do
 end
 
 When /^I save and open page$/ do
-  puts "*" * 60
-  puts ProfileAnswer.all.size
-  puts ProfileAnswer.last.inspect
-  # save_and_open_page
+  save_and_open_page
 end
