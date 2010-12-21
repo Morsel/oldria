@@ -1,5 +1,6 @@
 <% hide_subject_matter ||= false %>
-<% f.inputs :name => 'Find People', :id => 'employment_criteria', :class => 'editing' do %>
+<% f.inputs :name => 'Select Recipients', :id => 'employment_criteria', :class => 'editing' do %>
+<span class="hint">You may send your media request to any member.</span>
   <% semantic_fields_for @search do |s| %>
   <div id="criteria_accordion">
     <%- unless hide_subject_matter -%>
@@ -7,12 +8,12 @@
       <div class="accordion_box">
         <%= link_to "<span>Subject Matter</span>", "#" %>
         <div id="subject_fields" class="loading">
-            <%= s.input :subject_matters_id_equals_any,
+            <%= s.input :subject_matters_id_equals_any, 
                         :as => "check_boxes",
                         :collection => SubjectMatter.all %>
         </div>
       </div>
-	<p class="search_filter_hint">Filter using these criteria, if you like:</p>
+	<p class="search_filter_hint">Filter further using these criteria, if you like:</p>
     <%- end -%>
     
       <%- unless mediafeed? -%>

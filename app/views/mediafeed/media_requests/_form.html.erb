@@ -1,12 +1,18 @@
 <% semantic_form_for [:mediafeed, @media_request], :html => { :multipart => true } do |f| %>
-    <% f.inputs :name => "General Info", :class => 'editing basic' do %>
-      <p>Your name: <%= current_user.name %></p>
-      <p>Email: <%= current_user.email %></p>
+    <% f.inputs :name => "About You", :class => 'editing basic' do %>
+      <p>
+        Your name: <%= current_user.name %> <br />
+        Email: <%= current_user.email %>
+      </p>
       <%= f.input :publication, :label => "For whom are you writing this?", :input_html => {:value => current_user.publication} %>
       <li>
         <label>
-          <%= check_box_tag 'private' %> While all requests go directly to the email inbox of restaurant personnel, (no other media can see your request), I would like to make this media request anonymous
+          <%= check_box_tag 'private' %> I would like to make this media request anonymous.
+          
         </label>
+        <p class="hint">
+          Note: all requests go directly to the inbox of restaurant personnel and no other media can see your request.
+        </p>
       </li>
     <% end %>
 
