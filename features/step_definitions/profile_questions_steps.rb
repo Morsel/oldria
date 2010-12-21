@@ -77,3 +77,7 @@ Given /^I have created the following restaurant topics:$/ do |table|
   end
 end
 
+When /^I fill in question titled "([^\"]*)" with answer "([^\"]*)"$/ do |title, answer|
+  question = ProfileQuestion.find_by_title(title)
+  When "I fill in \"profile_question_#{question.id}_answer\" with \"#{answer}\""
+end
