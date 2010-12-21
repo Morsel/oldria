@@ -55,7 +55,7 @@ class UsersController < ApplicationController
       @user_session = UserSession.new(@user)
       if @user_session.save
         @message = "Welcome aboard! Your account has been confirmed."
-        redirect_to root_path if @user.media?
+        redirect_to mediafeed_root_path if @user.media?
       else
         @message = "Could not log you in. Please contact us for assistance."
       end
