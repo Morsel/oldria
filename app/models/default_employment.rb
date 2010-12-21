@@ -20,8 +20,8 @@
 
 class DefaultEmployment < Employment
   
-  has_many :solo_discussions, :foreign_key => "employment_id"
-  has_many :solo_media_discussions, :foreign_key => "employment_id"
+  has_many :solo_discussions, :foreign_key => "employment_id", :dependent => :destroy
+  has_many :solo_media_discussions, :foreign_key => "employment_id", :dependent => :destroy
 
   def restaurant
     nil
