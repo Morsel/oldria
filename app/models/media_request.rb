@@ -70,16 +70,16 @@ class MediaRequest < ActiveRecord::Base
     "A journalist/blogger" + from_publication
   end
 
-  def reply_count
-    @reply_count ||= media_request_discussions.count(:conditions => 'comments_count > 0')
-  end
-
   def inbox_title
     subject_matter.present? ? subject_matter.name : "Media Request"
   end
 
   def discussions_with_comments
-    media_request_discussions.all(:conditions => 'comments_count > 0')
+    media_request_discussions.with_comments + solo_media_discussions.with_comments
+  end
+
+  def reply_count
+    @reply_count ||= media_request_discussions.with_comments.count + solo_media_discussions.with_comments.count
   end
 
   def message_with_fields(before_key = '', after_key = ': ')

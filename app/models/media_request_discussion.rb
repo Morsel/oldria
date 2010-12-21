@@ -17,6 +17,8 @@ class MediaRequestDiscussion < ActiveRecord::Base
   belongs_to :restaurant
   
   default_scope :order => "#{table_name}.created_at DESC"
+  
+  named_scope :with_comments, :conditions => "#{table_name}.comments_count > 0"
 
   def employments
     restaurant.employments.select { |e| self.viewable_by?(e) }
