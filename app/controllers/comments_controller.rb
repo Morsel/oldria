@@ -57,6 +57,8 @@ class CommentsController < ApplicationController
       @parent = AdminDiscussion.find(params[:admin_discussion_id])
     elsif params[:solo_discussion_id]
       @parent = SoloDiscussion.find(params[:solo_discussion_id])
+    elsif params[:solo_media_discussion_id]
+      @parent = SoloMediaDiscussion.find(params[:solo_media_discussion_id])
     end
   end
   

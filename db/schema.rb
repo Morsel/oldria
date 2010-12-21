@@ -962,7 +962,7 @@ ActiveRecord::Schema.define(:version => 20101220233408) do
   create_table "solo_media_discussions", :force => true do |t|
     t.integer  "media_request_id"
     t.integer  "employment_id"
-    t.integer  "comments_count"
+    t.integer  "comments_count",   :default => 0
     t.datetime "created_at"
     t.datetime "updated_at"
   end

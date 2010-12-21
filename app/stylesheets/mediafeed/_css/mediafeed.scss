@@ -1204,7 +1204,6 @@ form, #content form{
 } /* ## END OF #content ------------------- */
 
 
-
 #sidebar_b {
 	@include column(6, true);
 	#sidebar_content {
@@ -1661,3 +1660,343 @@ form, #content form{
     }
   }
 } /* ## end of #new_media_request ---------------------- */
+
+#messages_nav {
+  font-family: 'helvetica neue', helvetica, arial, sans-serif;
+	width: 150px;
+	float: left;
+	nav {
+		margin: 30px 0 0;
+		a {
+			font-size: 13px;
+			display: block;
+			padding: 8px 3px 8px 8px;
+			margin: 0 0 2px;
+			background-color: #E7E4D8;
+			color: #555;
+			text-shadow: 0 1px 0 #fff;
+			&:hover {
+				@include linear-gradient(color-stops(#cfc6aa,#e1d9c4), left);
+				color: #333;
+			}
+			&.here {
+				@include linear-gradient(color-stops(#ce4600,#df680e), left);
+				color: #fff;
+				text-shadow: 0 1px 0 #333;
+			}
+			&.nav_button {
+				font-size: 11px;
+				background: $trans-orange url(/images/redesign/plus.png) no-repeat 4px 10px;
+				padding-left: 15px;
+				color: $orange;
+				margin: 0 0 2px;
+				&:hover {
+					background-color: $orange;
+					color: #fff;
+					text-shadow: 0 1px 0 #b63502;
+				}
+			}
+			&.first {
+				margin-top: 10px;
+			}
+		}
+	}
+}
+#read_messages {
+	float: left;
+  min-height: 320px;
+  margin: 40px 0 0;
+	width: 558px;
+	.thread {
+	  border: 1px solid #eee;
+  	@include box-shadow(#ddd,0,2px,5px);
+  	padding: 16px;
+  	margin-bottom: 10px;
+	  ul {
+	    margin: 0;
+	    padding: 0;
+	    li {
+	      padding: 0;
+	      background: none;
+  	    list-style: none;
+	    }
+	  }
+	  .message_headers {
+	    li {
+	      padding: 2px 0;
+	    }
+	  }
+	  .message {
+	    font-size: 14px;
+	  }
+	  .noone {
+	    color: gray;
+	  }
+	  .response {
+	    background: $trans-brown;
+	    padding: 10px;
+	    margin-bottom: 6px;
+	    .commentdate {
+	      color: gray;
+	    }
+	  }
+	}
+	.top_message {
+		margin: 15px 0 10px;
+		h2 {
+			color: #888;
+			margin: 0;
+			padding: 0;
+		}
+	}
+	.reply_form {
+		border-top: 3px double #ddd;
+		label {
+			display: block;
+			font-weight: normal;
+			font-family: 'helvetica neue', helvetica, arial, sans-serif;
+			font-size: 12px;
+			margin: 10px 0 2px;
+		}
+		textarea {
+			@include border-radius(3px);
+			height: 80px;
+			@include box-shadow(#ddd,0px, 2px, 1px);	
+			margin: 0 0 10px 0;
+		}
+		p.attach {
+			margin: 10px 0 2px 0;
+			padding: 0;
+		}
+		p.attachfield {
+			margin: 0;
+			padding: 0;
+		}
+		button {
+			float: left;
+			display: block;
+			font-size: 14px;
+			border: 1px solid #a2956b;
+			background-color: #a99d75;
+			@include linear-gradient(color-stops(#bbb08c,#a99d75), top);
+			color: #fff;
+			text-shadow: 0 1px 0 #333;
+			@include border-radius(20px);
+			padding: 5px 12px;
+			font-weight: bold;
+			margin: 10px 0;
+			&:hover {
+				background: #7c6d3c;
+				color: #f4edd8;
+				text-shadow: none;
+				border: 1px solid #736433;
+			}
+		}
+	}
+	.latest {
+		display: block;
+		margin: 30px 0 10px;
+		font-family: 'Hoefler Text', Georgia, Times, serif;
+		letter-spacing: 0.2em;
+		line-height: 17px;
+		font-weight: bold;
+		color: #333;
+		text-transform: uppercase;
+		border-bottom: 1px dotted #ddd;
+	}
+	.button {
+		display: inline-block;
+		@include linear-gradient(color-stops(#f4f4f4,#eaeaea), top);
+		border: 1px solid #ddd;
+		padding: 4px 14px;
+		@include border-radius(30px);
+		color: #333;
+		text-shadow: 0 1px 0 #fff;
+		font-weight: bold;
+		&:hover{
+			background:#ddd;
+			@include linear-gradient(color-stops(#fff,#ffe1d5 ), top);
+			border: 1px solid #ffe1d5;
+			text-shadow: 0 1px 0 #fff;
+			color: $orange;
+		}
+	}
+	.publish_date {
+		display: block;
+		margin: 5px 0 0;
+		padding: 2px 8px 6px;
+		@include linear-gradient(color-stops(#fff,$trans-brown), top);
+		font-size: 10px;
+		font-family: 'lucida grande', verdana, arial, sans-serif;
+		text-transform: uppercase;
+		color: $brown;
+	}
+	#no-messages {
+		background-color: $trans-orange;
+		border: 1px solid #f5dcd2;
+		padding: 10px;
+		margin: 15px 0 0 0;
+		p {
+			margin: 0;
+			padding: 0;
+			line-height: 18px;
+			font-style: italic;
+			color: #826a60;
+			font-size: 14px;
+		}
+	}
+	.sender_avatar {
+		float: left;
+		img {
+			width: 50px;
+			height: 50px;
+			background-color: #f4f4f4;
+			border: 1px solid #ccc;
+			@include hiddentext;
+		}
+	}
+	.direct_message {
+		border-bottom: 1px dotted #ccc;
+		position: relative;
+		header {
+			padding: 16px 0 0px;
+			h1 {
+				font-family: 'helvetica neue', helvetica, arial, sans-serif;
+				font-weight: normal;
+				font-size: 13px;
+				text-transform: none;
+				margin: 0;
+				padding: 0;
+				a {
+					color: $orange;
+					&:hover {color: $brown;}
+				}
+			}
+		}
+		.readit {
+			position: absolute;
+			top: 15px;
+			right: 0px;
+			background: transparent url(/images/redesign/x.png) no-repeat;
+			width: 16px;
+			height: 16px;
+			@include hiddentext;
+			&:hover {
+				background-position: 0 -100px;
+			}
+		}
+		.message_body {
+			a {
+				color: #222;
+				&:hover {
+					color: $orange;
+					text-decoration: none;
+				}
+			}
+		}
+		.timestamp {
+			text-transform: uppercase;
+		}
+		.actions {
+			.message_link {
+				display: inline-block;
+				margin: 5px 0 5px 10px;
+			}
+		}
+	}
+	.inbox_message {
+		border-bottom: 1px dotted #ccc;
+		padding-bottom: 5px;
+		.icon {
+			float: right;
+			width: 16px;
+			height: 16px;
+			margin-top: 15px;
+			cursor: pointer;
+			background: transparent url(/images/redesign/x.png) no-repeat;
+			@include hiddentext;
+			&:hover {
+				background-position: 0 -100px;
+			}
+		}
+		header {
+			border: 0;
+			margin: 0;
+			padding: 0;
+			h1 {
+				font-family: 'helvetica neue', helvetica, arial, sans-serif;
+				font-weight: bold;
+				margin: 16px 0 0;
+				font-size: 18px;
+				line-height: 21px;
+				a {
+					color: #333;
+					&:hover {
+						color: $orange;
+					}
+				}
+			}
+			.timestamp {
+				text-transform: uppercase;
+				margin: 5px 0 15px;
+				padding: 0;
+			}	
+		}
+		.message-details {
+			.message-body {
+				p {
+					font-size: 13px;
+					line-height: 18px;
+				}
+			}
+			.readit {
+				display: block;
+				margin: -5px 0 16px;
+				span {
+					background-color: $trans-orange;
+					color: $orange;
+					padding: 2px 10px;
+					@include border-radius(12px);
+					&:hover {
+						color: #fff;
+						background-color: $orange;
+						text-shadow: 0 1px 0 #333;
+					}
+				}
+			}
+		}
+		.message-actions {
+			p {
+				a {
+					color: $orange;
+					span {
+						background-color: $orange;
+						color: #fff;
+						padding: 2px 6px;
+						@include border-radius(15px);
+						text-shadow: 0 1px 0 #333;
+					}
+					&:hover {
+						text-decoration: none;
+						color: $brown;
+						span {background: $brown;}
+					}
+				}
+			}
+		}
+	}
+	.all_discussions {
+		margin: 15px 0 10px;
+		h1 {
+			font-family: 'Hoefler Text', Georgia, serif;
+			font-size: 13px;
+			font-weight: bold;
+			letter-spacing: 0.2em;
+			text-transform: uppercase;
+			font-style: normal;
+		}
+	}
+}
+
+/* ## end of #messages_nav ---------------------- */
+
