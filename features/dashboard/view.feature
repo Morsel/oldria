@@ -10,12 +10,12 @@ Feature: Using dashboard
 
     Given the following confirmed users:
       | username | password | email           |
-      | joemsak  | secret   | joe@sample.com  |
+      | joe298   | secret   | joe298@sample.com  |
   Scenario: Show user popup with new announcements once
-    Given "joemsak" should have 2 Unread Announcement message
-    And  I am logged in as "joemsak" with password "secret"
+    Given "joe298" should have 2 Unread Announcement message
+    And  I am logged in as "joe298" with password "secret"
     Then I should see unread announcement popup
-    And "joemsak" should have 0 Unread Announcement message
+    And "joe298" should have 0 Unread Announcement message
     Then I am on the dashboard
     And I should not see unread announcement popup
 
