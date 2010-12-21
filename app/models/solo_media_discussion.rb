@@ -26,7 +26,7 @@ class SoloMediaDiscussion < ActiveRecord::Base
   end
   
   def employee
-    employment.employee
+    employment.try(:employee)
   end
 
   def deliver_notifications
@@ -34,7 +34,7 @@ class SoloMediaDiscussion < ActiveRecord::Base
   end
   
   def recipient_name
-    employee.name
+    employee.try(:name)
   end
 
 end
