@@ -2,14 +2,10 @@
 
   <% title "Login to Mediafeed" %>
     <h1><%= yield :title %></h1>
-    <p>Welcome to MediaFeed, our new portal for you to reach chefs, mixologists, sommeliers and other restaurant staffers directly.</p>
+    <h5>Welcome to MediaFeed, our new portal for you to reach chefs, mixologists, sommeliers and other restaurant staffers directly.</h5>
     <p>If you are used to RIA's Media Request feature, you'll notice we have made a lot of improvements and plan on making many more (as well as adding a lot more people for you to query!) in the coming months. If you are new to RIA, welcome to the first draft of our vision of the future of restaurant media relations.</p>
-    <p>
-      Please log in using your RIA credentials<br />
-      (if you do not yet have an account with RIA,
-      you can <%= link_to "sign up now", new_mediafeed_media_user_path %>.
-      You will be activated shortly.)
-    </p>
+    <h5>Please log in using your RIA credentials</h5>
+    <p>If you do not yet have an account with RIA, you can <%= link_to "sign up now", new_mediafeed_media_user_path %>. You will be activated shortly.</p>
     <%= render :partial => 'user_sessions/form' %>
 <% else %>
 
