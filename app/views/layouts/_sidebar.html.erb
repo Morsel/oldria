@@ -47,7 +47,7 @@
                type: "GET",
                url:  url,
                beforeSend:  function(){ $('#promotion_status').html('<img src="/images/ajax-loader.gif" />'); },
-               error:       function(){ alert("Error"); },
+               error:       function(){ alert("Server connection error. Please try again later."); },
                complete:    function(response){ $('#promotion_status').html(response.responseText); }
             });
           }          
