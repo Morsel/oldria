@@ -10,7 +10,7 @@
 	<p>&nbsp;</p>
 	<h3>Location(s) that I write for:</h3>
 	<p><%= f.input :national, :label => 'I cover a national selection of restaurants and personnel.' %></p>
-	<%= f.input :metropolitan_areas, :as => :check_boxes, :label => 'Specific locations' %>
+	<%= f.input :metropolitan_areas, :as => :check_boxes, :label => 'I cover the following specific metro areas' %>
 <% end %>
 <% f.inputs :name => 'Desired Login Information', :class => 'editing basics' do %>
 	<%= f.input :username, :input_html => {:autocomplete => "off"} %>
