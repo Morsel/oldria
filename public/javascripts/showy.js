@@ -24,3 +24,32 @@ $.fn.showy = function(){
     });
   });
 }
+
+$.fn.shorten = function(){
+  var shorten = $(this).attr('href');
+  var text = $(shorten).text().trim();
+  var max = 85
+  function trunc(text) {
+    var shortText = text
+        .substring(0, max)
+        .split(" ")
+        .slice(0, -1)         
+        .join(" ") + "...";
+    $(shorten).html(shortText).addClass('shortened');
+  }
+  
+  if (!$(shorten).hasClass('shortened')) {
+    trunc(text);
+  }
+  $(this).click(function() {
+    if ($(shorten).hasClass('shortened')) { // show all
+      $(shorten).html(text).removeClass('shortened');
+       $(this).html($(this).text().replace(/View/, 'Close'));
+    } else {
+      trunc(text);
+       $(this).html($(this).text().replace(/Close/, 'View'));
+    }
+    return false;
+  });
+}
+
