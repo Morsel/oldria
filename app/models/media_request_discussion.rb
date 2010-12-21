@@ -42,5 +42,9 @@ class MediaRequestDiscussion < ActiveRecord::Base
       UserMailer.deliver_media_request_notification(self, employment.employee)
     end
   end
+  
+  def recipient_name
+    restaurant.name
+  end
 
 end
