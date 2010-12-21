@@ -26,30 +26,34 @@ $.fn.showy = function(){
 }
 
 $.fn.shorten = function(){
-  var shorten = $(this).attr('href');
-  var text = $(shorten).text().trim();
-  var max = 85
-  function trunc(text) {
-    var shortText = text
-        .substring(0, max)
-        .split(" ")
-        .slice(0, -1)         
-        .join(" ") + "...";
-    $(shorten).html(shortText).addClass('shortened');
-  }
-  
-  if (!$(shorten).hasClass('shortened')) {
-    trunc(text);
-  }
-  $(this).click(function() {
-    if ($(shorten).hasClass('shortened')) { // show all
-      $(shorten).html(text).removeClass('shortened');
-       $(this).html($(this).text().replace(/View/, 'Close'));
-    } else {
-      trunc(text);
-       $(this).html($(this).text().replace(/Close/, 'View'));
+  return this.each(function() {
+    var shorten = $(this).attr('href');
+    var text = $(shorten).text().trim();
+    var max = 85
+    // DRY
+    function trunc(text) {
+      if (text.length > max) {
+        var shortText = text.substring(0, max).split(" ").slice(0, -1).join(" ") + "...";
+        $(shorten).html(shortText).addClass('shortened');  
+      }
     }
-    return false;
-  });
+    
+    // Truncate on load
+    if (!$(shorten).hasClass('shortened')) {
+      trunc(text);
+    }
+    
+    // Truncate on click
+    $(this).click(function() {
+      if ($(shorten).hasClass('shortened')) { // show all
+        $(shorten).html(text).removeClass('shortened');
+         $(this).html($(this).text().replace(/View all/, 'Hide extra'));
+      } else {
+        trunc(text);
+         $(this).html($(this).text().replace(/Hide extra/, 'View all'));
+      }
+      return false;
+    });
+  });  
 }
 

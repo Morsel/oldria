@@ -815,7 +815,7 @@ form, #content form{
 	}
 } /* ## forms universal styles ------------------ */
 
-#editing_restaurant {
+.editing_restaurant {
 	overflow: hidden;
 	padding: 0;
 	h5 {
@@ -1699,6 +1699,9 @@ form, #content form{
 } /* ## end of #footer_container ---------------------- */
 
 #new_media_request {
+  .editing {
+    padding: 0;
+  }
   li fieldset  {
     margin: 0;
     padding: 0;
@@ -1714,10 +1717,10 @@ form, #content form{
     }
   }
   #employment_list {
+    background: $trans-orange;
     margin: 10px 0;
-    padding: 10px;
-    border: 1px solid #eee;
-  	@include box-shadow(#ddd,0,2px,5px);    
+    padding: 5px 10px 15px 10px;
+  	@include box-shadow(#aaa,0,2px,5px);    
     h3 {
       margin: 10px 0 5px;
     }

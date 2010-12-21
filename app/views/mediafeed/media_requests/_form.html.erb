@@ -1,9 +1,9 @@
 <% semantic_form_for [:mediafeed, @media_request], :html => { :multipart => true } do |f| %>
     <% f.inputs :name => "About You", :class => 'editing basic' do %>
-      <p>
+      <li>
         Your name: <%= current_user.name %> <br />
         Email: <%= current_user.email %>
-      </p>
+      </li>
       <%= f.input :publication, :label => "For whom are you writing this?", :input_html => {:value => current_user.publication} %>
       <li>
         <label>
