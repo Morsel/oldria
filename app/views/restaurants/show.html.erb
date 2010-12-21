@@ -23,6 +23,8 @@
       <% end -%>
     </div><!-- /menus -->
   </div><!-- .media -->
+  
+  <% if @restaurant.top_tags.any? %>
   <div class="top-tags clear clearfix">
     <h2>Top 15 Tags</h2>
     <ul class="tags">
@@ -31,6 +33,8 @@
         <% end %>
     </ul>
   </div><!-- .top-tags -->
+  <% end %>
+  
   <h2>Details</h2>
   <div class="manager_and_facts equal-height tricol">
     <% dl_if(@restaurant.description, :class => "list_item", :id => "description") do %>

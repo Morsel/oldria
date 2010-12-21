@@ -3454,6 +3454,10 @@ p.search_filter_hint {
   padding: 20px;
 	overflow: hidden;
 	border: 1px solid #eaeaea;
+	.btl-art {
+	  display: block;
+	  margin-bottom: 5px;
+	}
 	input {
     margin-bottom: 12px;
     &[type="password"], &[type="url"], &[type="text"], &[type="number"] {
@@ -3858,10 +3862,10 @@ p.search_filter_hint {
 
 #restaurant_profile_view {
 	#features {
+	  @include column(7);
 		background-color: $trans-brown;
 		float: left;
 		padding: 10px 15px;
-		width: 290px;
 		margin: 0 15px 15px 0;
 		h3 {
 			margin-bottom: 0;
@@ -4273,10 +4277,12 @@ p.search_filter_hint {
     @include column(12, true);
   }
   #restaurant_features_content {
-    @include column(7);
+    @include column(6);
     + #behindline {
-      @include column(6, true);
-      margin-top: 6px;
+      @include column(7, true);
+      h3 {
+        margin-top: 0;
+      }
     }
   }
 }
