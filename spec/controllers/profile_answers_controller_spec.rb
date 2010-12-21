@@ -1,7 +1,8 @@
 require 'spec_helper'
+include ProfileAnswersHelper
+include BehindTheLineHelper
 
 describe ProfileAnswersController do
-
   before(:each) do
     @user = Factory(:user)
     controller.stubs(:current_user).returns @user
@@ -12,7 +13,7 @@ describe ProfileAnswersController do
   it "should create a new answer" do
     question = Factory(:profile_question)
     answer = Factory.build(:profile_answer)
-
+    
     ProfileQuestion.expects(:find).with(question.id).returns(question)
     question.expects(:find_or_build_answer_for).returns(answer)
     answer.expects(:save).returns(true)
