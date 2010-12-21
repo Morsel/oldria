@@ -58,9 +58,9 @@ class MediaRequest < ActiveRecord::Base
   end
 
   def deliver_notifications
-    media_request_discussions.each {|d| d.deliver_notifications }
+    media_request_discussions.each { |d| d.send_later(:deliver_notifications) }
+    solo_media_discussions.each { |d| d.send_later(:deliver_notifications) }
   end
-  #handle_asynchronously :deliver_notifications # Use delayed_job to send
 
   def discussion_with_restaurant(restaurant)
     media_request_discussions.first(:conditions => {:restaurant_id => restaurant.id})
@@ -70,16 +70,16 @@ class MediaRequest < ActiveRecord::Base
     "A journalist/blogger" + from_publication
   end
 
-  def reply_count
-    @reply_count ||= media_request_discussions.count(:conditions => 'comments_count > 0')
-  end
-
   def inbox_title
     subject_matter.present? ? subject_matter.name : "Media Request"
   end
 
   def discussions_with_comments
-    media_request_discussions.all(:conditions => 'comments_count > 0')
+    media_request_discussions.with_comments + solo_media_discussions.with_comments
+  end
+
+  def reply_count
+    @reply_count ||= media_request_discussions.with_comments.count + solo_media_discussions.with_comments.count
   end
 
   def message_with_fields(before_key = '', after_key = ': ')
