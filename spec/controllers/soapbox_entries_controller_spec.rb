@@ -24,16 +24,16 @@ describe Soapbox::SoapboxEntriesController do
   describe "showing all questions" do
     it "should show questions of the day" do
       entry = Factory(:soapbox_entry)
+      entry.reload
+      entry.update_attributes("featured_item_type" => "Admin::Qotd")
       get :qotd
       assigns[:questions].should == [entry]
-      response.should render_template(:all)
     end
 
     it "should show trend questions" do
       entry = Factory(:soapbox_entry, :featured_item => Factory(:trend_question))
       get :trend
       assigns[:questions].should == [entry]
-      response.should render_template(:all)
     end
   end
 
