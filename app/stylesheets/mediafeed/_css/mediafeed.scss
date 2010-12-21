@@ -1820,7 +1820,9 @@ form, #content form{
 	    padding: 10px;
 	    margin-bottom: 6px;
 	    .commentdate {
+	      display: block;
 	      color: gray;
+	      font-size: 11px;
 	    }
 	  }
 	}

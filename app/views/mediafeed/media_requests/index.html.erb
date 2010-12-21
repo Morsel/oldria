@@ -2,44 +2,64 @@
   <%= render 'nav' %>
   
   <div id="read_messages">
-	  <!-- <h3><%= pluralize(@media_requests.size, 'Media Request') %></h3> -->
-  	<% @media_requests.each do |media_request| %>
-  		<% div_for media_request, :class => 'clearfix summary thread' do %>
-        <ul class="message_headers">
-    			<li>
-    				From: <%= media_request.sender.name %>
-    				<% unless media_request.publication.empty? || media_request.sender.publication.empty? %>
-    				(<%= media_request.publication || media_request.sender.publication %>)
-    				<% end %>
-    			</li>
-    			<% if media_request.employment_search.present? %>
-    			<li>
-    			  To: <%= media_request.employment_search.try(:employments).map(&:employee_name).uniq.try(:to_sentence) %>
-    			</li>
-    			<% end %>
-    			<li>
-    			  Due by <%= media_request.due_date.try(:to_s, :long_ordinal) %>
-    			</li>
-    			<li>
-    			  Sent: <%= media_request.created_at.to_s(:sentence) %>
-    			</li>
-  			</ul>
+    <% if @media_requests.size > 0 -%>
+    	<% @media_requests.each do |media_request| %>
+    		<% div_for media_request, :class => 'clearfix summary thread' do %>
+          <ul class="message_headers">
+            <li>
+              <h4><%= media_request.subject_matter.name %></h4>
+              <p>
+               Due by <%= media_request.due_date.try(:to_s, :long_ordinal) %>
+              </p>
+            </li>
+      			<li>
+      				<% unless media_request.publication.empty? || media_request.sender.publication.empty? %>
+      				(<%= media_request.publication || media_request.sender.publication %>)
+      				<% end %>
+      			</li>
+      			<% if media_request.employment_search.present? %>
+      			<li>
+      			  To: <%= truncate(names = media_request.employment_search.try(:employments).map(&:employee_name).uniq.try(:to_sentence), :length => 85) %>
+      			  <% if names.length > 90 %>
+      			  <a class="showit" href="#more_<%= media_request.id %>">View all</a>
+      			  <div id="more_<%= media_request.id %>">
+      			   <%= names %>
+      			  </div><!-- #more -->
+      			  <% end %>
+      			</li>
+      			<% end %>
+    			
+    			</ul>
   			
-  			<p class="message"><%= truncate(media_request.message, :length => 100) %></p>
+    			<p class="message"><%= truncate(media_request.message, :length => 100) %></p>
 
-  			<ul class="responses">
-  			<% if media_request.reply_count > 0 %>
-  				<% for discussion in media_request.discussions_with_comments %>
-  					<% if comment = discussion.comments.not_user(current_user).last %>
-  					<li class="response">
-  						<%= last_comment_and_date_span(comment) %>
-  					</li>
-  					<% end -%>
-  				<% end %>
-  			<% else %>
-  				<li class="noone">No one has responded yet</li>
-  			<% end %>
-  			</ul>
-  		<% end # div -%>
-  	<% end %>
+    			<ul class="responses">
+    			  <li>
+      			  <% if media_request.sender == current_user %>
+      			  You sent this on <%= media_request.created_at.strftime('%m/%d/%y %I:%M%p') %>
+      			  <% end %>
+      			</li>
+    			
+    			<% if (count = media_request.reply_count) > 0 %>
+    			  <li><%= pluralize count, "reply" %></li>
+    				<% for discussion in media_request.discussions_with_comments %>
+    					<% if comment = discussion.comments.not_user(current_user).last %>
+    					<li class="response">
+    						<%= last_comment_and_date_span(comment) %>
+    					</li>
+    					<% end -%>
+    				<% end %>
+    			<% else %>
+    				<li class="noone">No one has responded yet</li>
+    			<% end %>
+    			</ul>
+    		<% end # div -%>
+    	<% end %>
+    <% else #if no media requests to show -%>
+      <% if params[:view_all] -%>
+        <p>You have not created any media requests.</p>
+      <% else -%>
+        <p>You do not have any media requests with replies, or you have not created any media requests.</p>
+      <% end -%>
+    <% end -%>
   </div>
