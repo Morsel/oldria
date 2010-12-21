@@ -55,7 +55,7 @@ describe Mediafeed::MediaRequestsController do
       MediaRequest.stubs(:find).returns(@media_request)
     end
 
-    it "should render new template" do
+    it "should render edit template" do
       get :edit, :id => @media_request.id
       response.should render_template(:edit)
     end
