@@ -99,7 +99,7 @@ class Employment < ActiveRecord::Base
   end
 
   def viewable_media_request_discussions
-    restaurant.media_request_discussions.select { |d| d.viewable_by?(self) && d.media_request.status == "approved" }
+    restaurant.media_request_discussions.select { |d| d.viewable_by?(self) && d.media_request.status == "approved" }.sort { |a, b| b.created_at <=> a.created_at }
   end
 
   def viewable_admin_discussions
