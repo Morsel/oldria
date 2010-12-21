@@ -1649,7 +1649,15 @@ form, #content form{
   #employment_list {
     margin: 10px 0;
     padding: 10px;
-    background: #f7f6f2;
+    border: 1px solid #eee;
+  	@include box-shadow(#ddd,0,2px,5px);    
+    h3 {
+      margin: 10px 0 5px;
+    }
+    h4 {
+      letter-spacing: 0;
+      text-transform: none;
+    }
   }
   #criteria_accordion {
     .search_filter_hint {
@@ -1657,6 +1665,14 @@ form, #content form{
     }
     .accordion_box {
       width: auto;
+    }
+  }
+  .hint {
+    color: gray;
+  }
+  #employment_criteria {
+    ol {
+      margin-top: -10px;
     }
   }
 } /* ## end of #new_media_request ---------------------- */
