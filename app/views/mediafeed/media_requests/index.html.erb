@@ -2,8 +2,8 @@
   <%= render 'nav' %>
   
   <div id="read_messages">
-	  <!-- <h3><%= pluralize(@media_requests_by_type.size, 'Media Request') %></h3> -->
-  	<% @media_requests_by_type.each do |media_request| %>
+	  <!-- <h3><%= pluralize(@media_requests.size, 'Media Request') %></h3> -->
+  	<% @media_requests.each do |media_request| %>
   		<% div_for media_request, :class => 'clearfix summary thread' do %>
         <ul class="message_headers">
     			<li>
