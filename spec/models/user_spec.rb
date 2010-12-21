@@ -186,7 +186,7 @@ describe User do
 
     it "should be able to see media requests" do
       search = EmploymentSearch.new(:conditions => {:restaurant_id_is => "#{@restaurant.id}"})
-      request = Factory(:media_request, :employment_search => search)
+      request = Factory(:media_request, :employment_search => search, :status => "approved")
       discussion = request.discussion_with_restaurant(@restaurant)
       @user.viewable_media_request_discussions.should == [discussion]
     end
