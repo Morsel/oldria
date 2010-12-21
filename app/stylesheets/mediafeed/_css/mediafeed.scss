@@ -417,8 +417,68 @@ em, i{
 	position: relative;
 	header {margin-bottom: 15px;}
 	.inner_content{
-		padding:0 10px;
+		padding:10px 20px;
 		overflow: hidden;
+		button, input[type="submit"] {
+			cursor:pointer;
+			float: left;
+			display: block;
+			margin: 0 10px 0 0;
+			font-size: 12px;
+			font-family: 'helvetica neue', helvetica, arial, sans-serif;
+			background-color: $orange;
+			@include border-radius(20px);
+			color: #fff;
+			padding: 5px 12px;
+			font-weight: bold;
+			text-shadow:0 1px 0 #444;
+			border:0;
+			&:hover {
+				background: #bbb08c;
+				color: #fff;
+			}
+			&.positive {
+				margin:0 0 10px;
+				&:hover {
+					background: #e1d9c4;
+					color: #333;
+					text-shadow:none;
+				}
+			}
+			&.clear{
+				float:none;
+				margin:10px 0;
+			}
+		}
+		h5 {
+			font-size: 15px;
+			text-transform: none;
+			letter-spacing: 0;
+			margin: 0 0 12px;
+		}
+		#new_user_session {
+			margin: 0;
+			padding: 12px 15px;
+			background-color: $trans-brown;
+			width: 400px;
+			border: 1px solid #e5e3db;
+			fieldset {
+				margin: 0;
+				padding: 0;
+				.inline-hints {
+					font-style: normal;
+					font-size: 11px;
+				}
+				.forgot {
+					margin: 10px 0;
+				}
+				p {
+					button {
+						margin: 7px 0 0;
+					}
+				}
+			}
+		}
 	}
 	/* -- base styles for the site -- */
 	.edit_button {
@@ -691,7 +751,6 @@ form, #content form{
 		list-style:none;
 	}
 	label{
-		font-weight:bold;
 		display:block;
 	}
 	.string, .text, .country, .password{
@@ -726,8 +785,10 @@ form, #content form{
 	}
 
 	p.inline-hints{
+		width: 400px;
 		margin:0 0 10px;
 		font-style:italic;
+		line-height: 15px;
 		color:#666;
 	}
 	fieldset{
@@ -754,9 +815,13 @@ form, #content form{
 	}
 } /* ## forms universal styles ------------------ */
 
-.editing_restaurant {
+#editing_restaurant {
 	overflow: hidden;
-	padding:10px;
+	padding: 0;
+	h5 {
+		text-transform: none;
+		letter-spacing: 0;
+	}
 	input {
     margin-bottom: 12px;
     &[type="password"], &[type="url"], &[type="text"], &[type="number"] {
@@ -878,7 +943,8 @@ form, #content form{
 	}
 	.editing {
 		border-bottom: 1px dotted #ccc;
-		margin:10px;
+		margin: 10px 0;
+		padding: 0;
 		.question {
 		  input {
 		    margin-top: -5px;
@@ -906,13 +972,14 @@ form, #content form{
 			}
 		}
 		legend {
-			font-family: 'Hoefler Text', Georgia, Times, serif;
+			font-family: 'Gotham', 'Gotham HTF', 'helvetica neue', helvetica, arial, sans-serif;
 			font-size: 14px;
 			font-weight: bold;
 			color: #333;
 			padding: 0;
 			span {
-				margin: 0;
+				display: inline-block;
+				margin: 10px 0;
 				padding: 0;
 			}
 		}
