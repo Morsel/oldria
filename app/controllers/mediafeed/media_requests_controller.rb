@@ -1,12 +1,13 @@
 class Mediafeed::MediaRequestsController < Mediafeed::MediafeedController
   before_filter :require_user, :only => [:index, :show]
   before_filter :require_media_user, :except => [:index, :show]
+  before_filter :get_reply_count
 
   def index
     if current_user.media?
       @media_requests = params[:view_all] ? 
           current_user.media_requests.all(:include => [:subject_matter, :restaurants]) :
-          current_user.media_requests.all(:include => [:subject_matter, :restaurants]).select { |m| m.discussions_with_comments.present? }
+          @media_requests_with_replies #set in :get_reply_count
     else
       # These are always scoped by restaurant!
       @restaurant = Restaurant.find(params[:restaurant_id])
@@ -58,5 +59,14 @@ class Mediafeed::MediaRequestsController < Mediafeed::MediafeedController
     @media_request.destroy
     flash[:notice] = "Successfully destroyed media request."
     redirect_to media_requests_url
+  end
+  
+  protected
+  
+  def get_reply_count
+    if mediafeed?
+      @media_requests_with_replies = current_user.media_requests.all(:include => [:subject_matter, :restaurants]).select { |m| m.discussions_with_comments.present? }
+      @media_requests_with_replies_count = @media_requests_with_replies.size
+    end
   end
 end

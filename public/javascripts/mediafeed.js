@@ -102,3 +102,5 @@ function updateDirectoryList() {
 }
 
 $directoryInputs.change(updateDirectoryList);
+
+$("a.showit").showy();

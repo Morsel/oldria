@@ -1,7 +1,7 @@
 <div id="messages_nav">
     <h1 class="pg_title">Messages</h1>
     <nav>
-        <%= active_link_to "With Replies (N)", mediafeed_media_requests_path %>
+        <%= active_link_to "With Replies (#{@media_requests_with_replies_count})", mediafeed_media_requests_path %>
         <%= active_link_to "All Media Requests", mediafeed_media_requests_path(:view_all => true) %>
     </nav>
 </div><!-- /messages_nav -->
