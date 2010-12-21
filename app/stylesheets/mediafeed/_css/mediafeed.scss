@@ -137,14 +137,12 @@ em, i{
 				display: block;
 				&.profile {
 					padding: 0 0 0 8px;
-					position:absolute;
-					top:10px;
-					right:0;
-					width:200px;
+					width: 230px;
+					margin-top: 30px;
+					float: right;
 					a {
 						white-space:nowrap;
 						color: #aaa;
-						
 						img {
 							border: 1px solid #d1ccb7;
 							margin: -4px 10px 0 0;
