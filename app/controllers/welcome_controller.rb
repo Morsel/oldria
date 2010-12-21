@@ -22,6 +22,7 @@ class WelcomeController < ApplicationController
     soapbox_comments = SoapboxEntry.published.all(:limit => 10, :order => "published_at DESC").map(&:comments)
     answers = ProfileAnswer.all(:limit => 10, :order => "created_at DESC")
 
+    @announcements   = current_user.unread_announcements.each { |announcement| announcement.read_by!(current_user) }
     @recent_comments = [soapbox_comments, answers].flatten.sort { |a,b| b.created_at <=> a.created_at }[0..9]
   end
 end

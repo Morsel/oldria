@@ -38,8 +38,26 @@ Feature: Admin Messaging
     And I should see "Post to Facebook"
     And I check "Post to Facebook?"
     And I press "Send"
-    Then I should see "Why, yes, they are quite cool!"
+    Then I should see Facebook Share Popup
+    And I should see "Why, yes, they are quite cool!"
     And I should see "your answer has been saved"
+
+  Scenario: Replying to a published Trend question give a possibility to post on facebook
+    Given I am logged in as "johndoe"
+    And Facebook is functioning
+    And given that user "johndoe" has facebook connection
+    And there is a Trend Question "Are cold cakes cool?"
+    And that Trend Question is featured on the soapbox
+    And that Trend Question was sent to "No Man's Land"
+    When I go to the front burner page
+    And I follow "Post"
+
+    When I fill in "Post" with "Why, yes, they are quite cool!"
+    And I should see "Post to Facebook"
+    And I check "Post to Facebook?"
+    And I press "Send"
+    Then I should see Facebook Share Popup
+
 
   Scenario: Editing a QOTD reply
     Given I am logged in as "johndoe"

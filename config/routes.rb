@@ -8,7 +8,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :invitations, :only => ['new', 'create', 'show'],
         :collection => { :recommend => :get, :submit_recommendation => :post }
   map.resource :complete_registration, :only => [:show, :update],
-    :collection => { :user_details => :get, :find_restaurant => :any, :contact_restaurant => :post,
+    :collection => { :user_details => :get, :find_restaurant => :any, :contact_restaurant => :post, 
       :finish_without_contact => :get }
 
   map.directory 'directory', :controller => 'directory', :action => 'index'

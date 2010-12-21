@@ -6,7 +6,7 @@ class ProfilesController < ApplicationController
     @profile = current_user.build_profile(params[:profile])
 
     if params[:preview]
-      @user = current_user
+      @user = @responder =current_user
       @user.profile.attributes = params[:profile]
       render :template => "users/show" and return
     end
@@ -30,7 +30,7 @@ class ProfilesController < ApplicationController
     @profile = current_user.profile
 
     if params[:preview]
-      @user = current_user
+      @user = @responder = current_user      
       @user.profile.attributes = params[:profile]
       render :template => "users/show" and return
     end

@@ -13,8 +13,11 @@ class CommentsController < ApplicationController
       else
         flash[:notice] = "Thanks: your answer has been saved."
       end
-
-      redirect_to @parent
+      case @parent.class.to_s
+        when "Admin::Conversation" then redirect_to admin_conversation_path(@parent, :post_to_facebook => @comment.post_to_facebook)
+        when "AdminDiscussion" then redirect_to admin_discussion_path(@parent, :post_to_facebook => @comment.post_to_facebook)
+        else redirect_to @parent
+      end
     else
       flash[:error] = "Your comment couldn't be saved."
       redirect_to :back
@@ -39,7 +42,7 @@ class CommentsController < ApplicationController
     @comment = Comment.find(params[:id])
     @comment.destroy
     flash[:notice] = "Deleted comment"
-    redirect_to front_burner_content ? front_burner_path : messages_path
+    redirect_to front_burner_path
   end
 
   private

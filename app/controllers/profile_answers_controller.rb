@@ -1,27 +1,25 @@
 class ProfileAnswersController < ApplicationController
-  include BehindTheLineHelper
 
   before_filter :require_user
-  before_filter :require_responder
-  before_filter :require_subject
-
   skip_before_filter :load_random_btl_question
 
   def create
     respond_to do |format|
       format.html do
         # the regular form submits a hash of question ids with their answers
-        if params[:profile_question]
+       if params[:profile_question]
           params[:profile_question].each do |id, answer_params|
             @question = ProfileQuestion.find(id)
             answer = @question.find_or_build_answer_for(@responder)
             answer.answer = answer_params[:answer]
+            answer.post_to_facebook = answer_params[:post_to_facebook]
+            answer.share_url = url_to_responder_question(answer.responder, answer.profile_question.chapter.id)
             answer.responder = @responder
             unless answer.save # if it doesn't save, the answer was blank, and we can ignore it
               Rails.logger.error answer.errors.full_messages
             end
           end
-        end
+       end
 
         flash[:notice] = "Your answers have been saved"
         redirect_to link_for_questions(:subject => @subject, :chapter_id => @question.chapter.id)

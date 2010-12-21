@@ -2190,6 +2190,18 @@ p.search_filter_hint {
 			margin: 0 0 10px 0;
 			padding: 13px 10px;
 			@include box-shadow(#eee,0px, 1px,0px);
+			&#promotion_status {
+			  h3 {
+			    @include hoeflerbolditalic;
+					font-size: 18px;
+					margin-bottom: 10px;
+					padding-left: 25px;
+					background: url(/images/redesign/user.png) 0 3px no-repeat;
+			  }
+			  p {
+			    margin: 5px 0;
+			  }
+			}
 			&.go_to_admin {
 				background: $trans-brown url(/images/redesign/go-to-admin.png) no-repeat 12px 12px;
 				@include hiddentext;
@@ -4323,3 +4335,34 @@ p.search_filter_hint {
   }
 }
 /* ## END of A La Minute editing --------------------------------------------- */
+
+
+
+#colorbox {
+	.message-details {
+		padding: 14px 14px 7px 14px;
+		border-bottom: 1px dotted #ccc;
+		header {
+			margin: 0 0 10px;
+			h1 {
+				font-size: 20px;
+			}
+			p.timestamp {
+				font-size: 11px;
+			}
+		}
+		.message-body {
+			p {
+				font-size: 13px;
+				margin: 0 0 5px;
+				line-height: 18px;
+			}
+		}
+	}
+}
+
+
+
+
+
+

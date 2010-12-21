@@ -94,7 +94,7 @@ class QuestionsController < ApplicationController
 
   def get_subject
     if params[:user_id]
-      @subject = User.find(params[:user_id])
+      @subject = User.find(params[:user_id])      
     elsif params[:feature_page_id] || params[:feature_id]
       id = params[:feature_page_id] || params[:feature_id]
       @subject = RestaurantFeaturePage.find(id)
@@ -102,6 +102,7 @@ class QuestionsController < ApplicationController
     else
       @subject = Restaurant.find(params[:restaurant_id])
     end
+    @responder = @restaurant || @subject
   end
 
   def get_profile

@@ -5,12 +5,13 @@
 <% end %>
 
 <header class="soapbox_profile_header">
-  <!-- AddThis Button BEGIN -->
-  <div class="addthis_toolbox">
-    <a href="http://www.addthis.com/bookmark.php?v=250&amp;username=unpluggedria" class="addthis_button">Share</a>
-  </div>
-  <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#username=unpluggedria"></script>
-  <!-- AddThis Button END -->
+    <% javascript_tag do %>
+      var addthis_share = {
+        url: '<%= soapbox_profile_url(@user.username) %>'
+      }
+    <% end %>
+  <%= render :partial => 'shared/add_this', :locals => {:responder => @responder} %>
+
   <aside class="user_actions">
         <% if current_user == @user -%>
           <%= link_to 'Edit profile', edit_my_profile_path %>

@@ -1,5 +1,10 @@
 <% title "#{@question.title} - Behind The Line", false %>
 
+<% javascript_tag do %>
+  var addthis_share = {
+    url: '<%= soapbox_question_url(@question) %>'
+  }
+<% end %>
 <!-- AddThis Button BEGIN -->
 <div class="addthis_toolbox">
   <a href="http://www.addthis.com/bookmark.php?v=250&username=unpluggedria" class="addthis_button">Share</a>

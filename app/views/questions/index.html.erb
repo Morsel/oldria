@@ -1,10 +1,11 @@
 <% title "#{@chapter.title} - #{@subject.name} - Behind The Line", false %>
-<!-- AddThis Button BEGIN -->
-<div class="addthis_toolbox">
-  <a href="http://www.addthis.com/bookmark.php?v=250&username=unpluggedria" class="addthis_button">Share</a>
-</div>
-<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#username=unpluggedria"></script>
-<!-- AddThis Button END -->
+
+<%= render :partial => 'shared/add_this', :locals => {:responder => @responder} %>
+<% javascript_tag do %>
+  var addthis_share = {
+    url: '<%= url_to_responder_question(@responder, @chapter.id) %>'
+  }
+<% end %>
 <h1 id="btl-title" class="btl"><span class="btl-art">Behind the Line:</span> <span class="name"><%= btl_title_for(@subject) %></span></h1>
 <h2 id="topic_title">Topic: <%= @chapter.topic.title %></h2>
 <%= render :partial => 'questions/topic_nav', :locals => { :next_topic => @next_topic, :prev_topic => @previous_topic } %>
@@ -50,4 +51,8 @@
     <% end -%>
   <% end -%>
 <% end -%>
+<<<<<<< HEAD
 </div>
+=======
+</div>
+>>>>>>> social_media

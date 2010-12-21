@@ -1,5 +1,5 @@
 <fieldset class="plain">
-  <ol>
+<ol>
     <li class="hidden optional"><%= hidden_field_tag :profile_question_id, answer.profile_question.id %></li>
     <li class="text required">
         <%= text_area_tag "profile_question[#{answer.profile_question.id}]answer", answer.answer,

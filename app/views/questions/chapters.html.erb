@@ -1,20 +1,15 @@
 <% title "#{@topic.title} - #{@subject.name} Behind the Line", false %>
 
-<!-- AddThis Button BEGIN -->
-<div class="addthis_toolbox">
-  <a href="http://www.addthis.com/bookmark.php?v=250&username=unpluggedria" class="addthis_button">Share</a>
-</div>
-<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#username=unpluggedria"></script>
-<!-- AddThis Button END -->
+<%= render :partial => 'shared/add_this', :locals => {:responder => @responder} %>
 
 <h1 id="btl-title" class="btl"><span class="btl-art">Behind the Line:</span> <span class="name"><%= btl_title_for(@subject) %></span></h1>
 <h2 id="topic_title">Topic: <%= @topic.title %></h2>
 <% javascript_tag do %>
   var addthis_share = {
-    url: '<%= chapters_soapbox_user_questions_url(@user, :topic_id => @topic.id) %>'
+    url: '<%= url_to_responder_chapters(@responder, :topic_id => @topic.id) %>'
   }
 <% end %>
-<%= render :partial => 'shared/add_this', :locals => {:user => @user} %>
+
 <%= render :partial => 'questions/topic_nav', :locals => { :next_topic => @next, :prev_topic => @previous } %>
 
 
