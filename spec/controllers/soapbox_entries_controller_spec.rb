@@ -45,11 +45,11 @@ describe Soapbox::SoapboxEntriesController do
     end
 
     it "should find question of the day" do
-      pending "should have Admin::Qotd in featured_item_type" do
-        entry = Factory(:soapbox_entry)
-        get :search, :query => "question"
-        assigns[:qotds_found].should == [entry.featured_item]
-      end
+      entry = Factory(:soapbox_entry)
+      entry.reload
+      entry.update_attributes("featured_item_type" => "Admin::Qotd")
+      get :search, :query => "question"
+      assigns[:qotds_found].should == [entry.featured_item]
     end
   end
 
