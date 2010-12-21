@@ -3446,6 +3446,10 @@ p.search_filter_hint {
   padding: 20px;
 	overflow: hidden;
 	border: 1px solid #eaeaea;
+	.btl-art {
+	  display: block;
+	  margin-bottom: 5px;
+	}
 	input {
     margin-bottom: 12px;
     &[type="password"], &[type="url"], &[type="text"], &[type="number"] {
@@ -4381,9 +4385,9 @@ p.search_filter_hint {
     @include column(12, true);
   }
   #restaurant_features_content {
-    @include column(7);
+    @include column(6);
     + #behindline {
-      @include column(6, true);
+      @include column(7, true);
       h3 {
         margin-top: 0;
       }

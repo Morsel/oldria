@@ -18,13 +18,23 @@ class SoloMediaDiscussion < ActiveRecord::Base
   belongs_to :employment
   
   default_scope :order => "#{table_name}.created_at DESC"
-  
+
+  named_scope :with_comments, :conditions => "#{table_name}.comments_count > 0"
+
   def viewable_by?(_employment)
     _employment == employment
   end
   
   def employee
     employment.employee
+  end
+
+  def deliver_notifications
+    UserMailer.deliver_media_request_notification(self, employment.employee)
+  end
+  
+  def recipient_name
+    employee.name
   end
 
 end
