@@ -18,10 +18,12 @@ namespace :bluepill do
   task :quit, :roles => [:app] do
     if rails_env == :production
       sudo "bluepill #{rails_env} stop"
+      sudo "bluepill #{rails_env} quit"
     else
       sudo "bluepill #{nickname} stop"
+      sudo "bluepill #{nickname} quit"
     end
-    sudo "bluepill quit"
+    
   end
 
   desc "Load bluepill configuration and start it"
