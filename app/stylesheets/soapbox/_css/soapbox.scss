@@ -2438,7 +2438,114 @@ dl.things dt:after {content: ":"}
 	}
 }
 
+#search-title {
+	overflow:hidden;
+	height: 90px;
+	h1 {
+		float: left;
+		width: 152px;
+		height: 37px;
+		padding: 20px 30px;
+		color: #fff;
+		background: transparent url(/images/soapbox/search-bg.png) no-repeat;
+		@include museoslabbold;
+		font-size: 40px;
+		text-shadow: 0 2px 0 #333;
+	}
+	#question-search-form {
+		float: left;
+		margin: 20px 0 0 20px;
+		padding: 0;
+		#query {
+			width: 300px;
+			height: 34px;
+			font-size: 16px;
+			font-family: 'lucida grande', helvetica, arial,sans-serif;
+			padding: 3px 6px 3px 36px;
+			@include border-radius(3px);
+			border: 1px solid #ddd;
+			margin-right: 5px;
+			background-image: url(/images/soapbox/search-large.png);
+			background-repeat: no-repeat;
+			background-position: 6px 10px;
+		}
+		.positive {
+			background-color:$purple;
+			@include museoslabbold;
+			font-size: 20px;
+			border: 0px;
+			@include border-radius(3px);
+			color: #fff;
+			padding: 6px 12px;
+			&:hover {
+				background-color: $baby-blue;
+			}
+		}
+	}
+}
 
+#page-content .search_results {
+	overflow: hidden;
+	margin-bottom: 50px;
+	#questions-list {
+		margin: 0 0 100px;
+		padding: 0 16px;
+		width:900px;
+		.subtitle {
+			width: 800px;
+			h1 {
+				font-size: 16px;
+				color: #888;
+				border-bottom: 1px dotted #ccc;
+				margin: 0;
+				padding: 0;
+			}
+			ul {
+				display: block;
+				margin: 0 0 30px;
+				padding: 0;
+				li {
+					display: block;
+					margin: 0;
+					padding: 0;
+					a {
+						display: block;
+						margin: 10px 0;
+						time {
+							display: block;
+							text-transform: capitalize;
+							background: none;
+							width: auto;
+							font-size: 11px;
+							font-weight: normal;
+							color: #666;
+							border: 0;
+							span {
+								text-transform: capitalize;
+								color: #666;
+								background: none;
+								display: inline;
+								padding-right: 5px;
+								width: auto;
+								font-size: 12px;
+							}
+						}
+						.title {
+							color: $sienna;
+							width: 800px;
+							display: block;
+							font-size: 14px;
+							font-family: 'helvetica neue', helvetica, arial, sans-serif;
+							font-weight:normal;
+							line-height: 21px;
+						}
+						.reply-count {display: none;}
+					}
+				}
+			}
+		}
+	}
+}
 
 
 

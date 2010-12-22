@@ -1,58 +1,62 @@
 <% unless @no_results  %>
+<div class="search_results">
   <section id="questions-list">
     <% unless @trend_questions_found.empty? %>
-      <div class="questions-list-feed-trend">
+      <div class="subtitle">
         <h1>Trend Questions</h1>
         <%= render :partial => 'trend_list', :locals => {:questions => @trend_questions_found} %>
       </div>
     <% end %>
 
     <% unless @qotds_found.empty? %>
-      <div class="questions-list-feed-qotd">
+      <div class="subtitle">
         <h1>Questions of the Day</h1>
         <%= render :partial => 'qotd_list', :locals => {:questions => @qotds_found} %>
       </div>
     <% end %>
 
     <% unless @trend_question_comments_found.empty? %>
-      <div class="questions-list-feed-trend">
+      <div class="subtitle">
         <h1>Trend Questions Answers</h1>
         <%= render :partial => 'comment_list', :locals => {:comments => @trend_question_comments_found} %>
       </div>
     <% end %>
 
     <% unless @qotd_comments_found.empty? %>
-      <div class="questions-list-feed-qotd">
+      <div class="subtitle">
         <h1>Questions of the Day Answers</h1>
         <%= render :partial => 'comment_list', :locals => {:comments => @qotd_comments_found} %>
       </div>
     <% end %>
   </section>
-  <div id="recently">
-    <% unless @no_results  %>
-      <% unless @btl_questions_found.empty? %>
-        <h2>Behind The Line Questions</h2>
-        <div id="questions-list">
-          <div class="questions-list-feed-trend">
-            <ul>
-              <%= render :partial => 'questions/btl_question', :collection => @btl_questions_found %>
-            </ul>
-          </div>
-        </div>
-      <% end %>
+</div>
 
-      <% unless @btl_answers_found.empty? %>
-        <h2>Behind The Line Comments</h2>
-      <% end %>
+
+<div class="search_results">
+<% unless @no_results  %>
+ 	<% unless @btl_questions_found.empty? %>
+		<div class="subtitle">
+			<h1>Behind The Line Questions</h1>
+    	<ul>
+				<%= render :partial => 'questions/btl_question', :collection => @btl_questions_found %>
+			</ul>
+		</div>
+	<% end %>
+	
+	<% unless @btl_answers_found.empty? %>
+  	<div class="subtitle">
+			<h1>Behind The Line Comments</h1>
+ 		<% end %>
       <%= render :partial => 'questions/profile_answer', :collection => @btl_answers_found %>
     <% end %>
-  </div>
-  <div id="user-results">
-    <h2>Users</h2>
+		</div>
+  <div class="subtitle">
+    <h1>Users</h1>
     <% @users_found.each do |user| %>
       <%= render :partial => 'users/identity', :locals => { :user => user } %>
     <% end %>
   </div>
   <%= will_paginate(@all_entries) %>
 <% end %>
+</div><!--.search-results-->
 

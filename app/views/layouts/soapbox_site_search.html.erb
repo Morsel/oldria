@@ -52,22 +52,23 @@
 
     <div id="main">
         <section id="content" class="no-sidebar">
-            <header id="page-title">
-              <h1>SEARCH</h1>
+            <header id="search-title">
+              <h1>Search</h1>
               <% form_tag soapbox_search_path, :method => :get, :id => 'question-search-form' do %>
-                <%= text_field_tag "query", @key %>
-                <%= submit_tag "Search", :name => nil %>
+                <%= text_field_tag "query", @key, :class => 'big_search' %>
+                <%= submit_tag "Search", :class => 'button positive' , :name => nil %>
               <% end %>
             </header>
-            <div id="inside">
-                <article id="page-content">
-                  <% if @no_results %>
-                    <p>No results found</p>
-                  <% else %>
-                    <%= yield %>
-                  <% end unless @no_key %>
-                </article><!-- /page-content -->
-            </div><!-- /inside -->
+            <article id="page-content">
+							
+            		<% if @no_results %>
+             		<h3>No results found</h3>
+              	<% else %>
+								<div id="inside">
+              	 		<%= yield %>
+             			<% end unless @no_key %>
+							</div>	
+            </article><!-- /page-content -->
         </section><!-- /content -->
     </div><!-- /main -->
     <div id="sticky-footer-pad"></div>
