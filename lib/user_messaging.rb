@@ -174,6 +174,14 @@ module UserMessaging
     @ria_message_count ||= messages_from_ria.size
   end
   
+  def discussions_count
+    @_discussions_count ||= unread_discussions.size + discussions.with_comments_unread_by(self).size
+  end
+  
+  def message_inbox_count
+    @message_inbox_count ||= @ria_message_count + viewable_media_request_discussions.size + discussions_count
+  end
+  
   def front_burner_unread_count
     unread_qotds.count + unread_grouped_trend_questions.keys.size + unread_solo_discussions.count
   end
