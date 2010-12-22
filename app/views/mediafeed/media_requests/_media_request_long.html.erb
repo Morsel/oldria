@@ -1,29 +1,41 @@
-<% div_for @media_request, :class => 'clearfix box extended' do %>
-
-	<h3>Original Request</h3>
-	<h4>From: <%= @media_request.sender.try(:name) %></h4>
-
-	<% unless @media_request.try(:attachments).blank? %>
-	<div class="attachments box">
-		<h4>Attached files:</h4>
-		<ul>
-			<% for attachment in @media_request.attachments %>
-			<li><%= attachment_link(attachment) %></li>
-			<% end %>
+<div id="read_messages">
+  <% div_for @media_request, :class => 'clearfix box extended thread', :id => "media_request_long" do %>
+    <ul class="message_headers">
+      <li>
+        <h4><%= @media_request.subject_matter.try(:name) %> (Original request)</h4>
+         Due by <%= @media_request.due_date.try(:to_s, :long_ordinal) %>
+         <% unless @media_request.publication.empty? || @media_request.sender.publication.empty? %>
+ 				  (<%= @media_request.publication || @media_request.sender.publication %>)
+ 				 <% end %>
+      </li>
 		</ul>
-	</div>
-	<% end %>
+		<p class="message">
+		  <%= simple_format @media_request.message %>
+		</p>
+		<%= formatted_fields @media_request %>
+		
+		<ul class="responses">
+		  <li class="sent_on">
+			  <% if @media_request.sender == current_user %>
+			    You sent this on
+			  <% else %>
+			    <%= @media_request.sender.name %> sent this on
+			  <% end %>
+			  <%= @media_request.created_at.try(:to_s, :sentence) %>
+			</li>
+		</ul>
+		
 
-	<h4><%= @media_request.subject_matter.try(:name) %></h4>
+  	<% unless @media_request.try(:attachments).blank? %>
+  	<div class="attachments box">
+  		<h4>Attached files:</h4>
+  		<ul>
+  			<% for attachment in @media_request.attachments %>
+  			<li><%= attachment_link(attachment) %></li>
+  			<% end %>
+  		</ul>
+  	</div>
+  	<% end %>
 
-	<p>
-		<strong>Due by:</strong> <%= @media_request.due_date.try(:to_s, :long_ordinal) %><br/>
-		<strong>Sent:</strong> <%= @media_request.created_at.try(:to_s, :sentence) %>
-	</p>
-
-	<%= formatted_fields @media_request %>
-
-	<p class="messagelabel bottom"><strong>Message:</strong></p>
-	<div class="message"><%= simple_format @media_request.message %></div>
-
-<% end -%>
+  <% end -%>
+</div><!-- #read_messages -->
