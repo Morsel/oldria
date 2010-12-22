@@ -1,16 +1,16 @@
 
 <div class="comments">
-<h2>Comments <span>(note: most recent listed first)</span></h2>
+<h2>Replies <span>(note: most recent listed first)</span></h2>
 
 <% if !@comments.blank? %>
 
 <%= render @comments %>
 
 <%- else %>
-<p>No comments yet</p>
+<p>No replies yet</p>
 <% end -%>
 
-<h2>Leave a Comment</h2>
+<h2>Leave a Reply</h2>
 
 <%= render :partial => 'comments/form' %>
 

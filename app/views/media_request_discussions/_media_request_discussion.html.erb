@@ -14,16 +14,5 @@
     </div>
   </div>
 
-  <div class="message-actions">
-    <p><% link_to media_request_discussion, :class => 'replies' do %>	
-      	<% if media_request_discussion.comments_count > 0 %>
-					<span class="unread_comments_count"><%= media_request_discussion.comments_count %></span>
-          <%= media_request_discussion.comments_count == 1 ? 'reply' : 'replies' %>
-          for <%= media_request_discussion.restaurant.name %>. Read &amp;
-      	<% else %>
-        	No one has responded yet.
-      <% end -%>
- 				Reply &raquo;
-    <% end %></p>
-  </div>
+  <%= render :partial => 'media_request_discussions/media_request_replies', :locals => { :media_request_discussion => media_request_discussion } %>
 <% end %>

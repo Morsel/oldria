@@ -1,7 +1,7 @@
 <% div_for @media_request, :class => 'clearfix box extended' do %>
 
 	<h3>Original Request</h3>
-	<h4>From: <%= @media_request.sender.name %></h4>
+	<h4>From: <%= @media_request.sender.try(:name) %></h4>
 
 	<% unless @media_request.try(:attachments).blank? %>
 	<div class="attachments box">

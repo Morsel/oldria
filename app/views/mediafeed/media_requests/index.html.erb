@@ -24,14 +24,15 @@
     			<ul class="responses">
     			  <li class="sent_on">
       			  <% if media_request.sender == current_user %>
-      			  You sent this on <%= media_request.created_at.strftime('%m/%d/%y %I:%M%p') %>
+      			    You sent this on <%= media_request.created_at.strftime('%m/%d/%y %I:%M%p') %>
       			  <% end %>
       			</li>
     			
     			<% if (count = media_request.reply_count) > 0 %>
-    			  <li class="reply_count"><%= pluralize count, "reply" %></li>
+    			 
     				<% for discussion in media_request.discussions_with_comments %>
-    					<% if comment = discussion.comments.not_user(current_user).last %>
+    				  <li class="reply_count"><%= pluralize count, "reply" %></li>
+    					<% for comment in discussion.comments.not_user(current_user) %>
     					<li class="response">
     						<%= last_comment_and_date_span(comment) %>
     					</li>
@@ -40,6 +41,7 @@
     			<% else %>
     				<li class="noone">No one has responded yet</li>
     			<% end %>
+    			<%= link_to "Reply &#187;", mediafeed_media_request_path(media_request), :class => 'replies' %>
     			</ul>
     		<% end # div -%>
     	<% end %>
