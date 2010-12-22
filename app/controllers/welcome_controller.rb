@@ -1,5 +1,8 @@
 class WelcomeController < ApplicationController
- 
+  # preload classes which may be used while caching
+  # to prevent "undefined class/module"
+  before_filter :preload_classes
+
   # cache dashboard for logged in users 
   caches_action :index,
                 :if =>  Proc.new {|controller| controller.cache? }, 
@@ -17,15 +20,23 @@ class WelcomeController < ApplicationController
     end
   end
 
+  # check if we need action cache for current action
   def cache?
-    case action_name
+    case action_name.to_sym
     when :index then current_user && current_user.unread_announcements.blank?
     end
   end
 
   # generate cache key for logged in users
+  # ex "welcome_index_205"
   def cache_key
     current_user ? "#{controller_name}_#{action_name}_#{current_user.id.to_s}" : nil
+  end
+
+  # recent comments cache key 
+  # common for all userActionController::Base  s
+  def comments_cache_key
+    "#{controller_name}_#{action_name}_comments"
   end
 
   private
@@ -35,10 +46,25 @@ class WelcomeController < ApplicationController
   end
 
   def set_up_dashboard
-    soapbox_comments = SoapboxEntry.published.all(:limit => 10, :order => "published_at DESC").map(&:comments)
-    answers = ProfileAnswer.all(:limit => 10, :order => "created_at DESC")
- 
+    @recent_comments = load_recent_comments
     @announcements   = current_user.unread_announcements.each { |announcement| announcement.read_by!(current_user) } 
-    @recent_comments = [soapbox_comments, answers].flatten.sort { |a,b| b.created_at <=> a.created_at }[0..9]
+  end
+
+  # load recent comments for dashboard
+  # this data is common for all users
+  def load_recent_comments
+    if Rails.cache.exist?(comments_cache_key) && self.perform_caching
+      Rails.cache.read comments_cache_key
+    else
+      soapbox_comments = SoapboxEntry.published.all(:limit => 10, :order => "published_at DESC").map(&:comments)
+      answers = ProfileAnswer.all(:limit => 10, :order => "created_at DESC") 
+      recent_comments = [soapbox_comments, answers].flatten.sort { |a,b| b.created_at <=> a.created_at }[0..9]
+      Rails.cache.write(comments_cache_key, recent_comments, :expires_in => 5.minutes)
+      recent_comments
+    end
+  end
+
+  def preload_classes
+    ProfileAnswer
   end
 end
