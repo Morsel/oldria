@@ -136,10 +136,12 @@ em, i{
 			.top_promo {
 				display: block;
 				&.profile {
+				  position: absolute;
+          right: 0;
+				  top: -18px;
 					padding: 0 0 0 8px;
 					width: 230px;
 					margin-top: 30px;
-					float: right;
 					a {
 						white-space:nowrap;
 						color: #aaa;
@@ -812,6 +814,53 @@ form, #content form{
 		margin:5px 0;
 	}
 } /* ## forms universal styles ------------------ */
+
+#user-results {
+	h3 {
+		font-family: 'Gotham', 'Gotham HTF', 'helvetica neue', helvetica, arial, sans-serif;
+		font-size: 12px;
+		text-transform: uppercase;
+		font-weight: bold;
+		letter-spacing: 0.3em;
+		color: #333;
+		margin: 35px 0 10px 0;
+	}
+	.identity {
+		float: left;
+		width: 315px;
+		margin: 10px 20px 10px 0;
+		min-height: 70px;
+		border-bottom: 1px dotted #ddd;
+		.avatar {
+			float: left;
+			width: 50px;
+			margin: 0px 10px 10px 0;
+			img {
+				border: 1px solid $brown;
+				@include hiddentext;
+			}
+		}
+		ul {
+			margin: 0;
+			padding: 0 0 0 70px;
+			li {
+				background: none;
+				margin: 0;
+				padding: 0;
+				line-height: 16px;
+			}
+		}
+		&.no_avatar{
+			ul{
+				margin-left:0;
+			}
+			.avatar{
+				width:0;
+				margin:0;
+			}
+		}
+	}
+} /* ## user-results ---------------------- */
 
 .editing_restaurant {
 	overflow: hidden;
