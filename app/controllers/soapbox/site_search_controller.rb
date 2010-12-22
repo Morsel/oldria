@@ -66,9 +66,7 @@ class Soapbox::SiteSearchController < ApplicationController
   end
 
   def search_users
-    users = User.premium_account.visible.profile_headline_or_profile_summary_like(@key).all(:include => :profile)
-    users.reject! { |user| ! user.prefers_publish_profile? }
-    users.each do |entry|
+    User.extended_find(@key).each do |entry|
       @all_entries << [entry, :user]
     end
   end

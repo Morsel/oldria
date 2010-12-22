@@ -94,14 +94,14 @@ class User < ActiveRecord::Base
 
   # Attributes that should not be updated from a form or mass-assigned
   attr_protected :crypted_password, :password_salt, :perishable_token, :persistence_token, :confirmed_at, :admin=, :admin
-  
+
   accepts_nested_attributes_for :profile, :default_employment
 
   has_attached_file :avatar,
                     :default_url => "/images/default_avatars/:style.png",
                     :styles => { :small => "100x100>", :thumb => "50x50#", :tiny => "20x20#" }
 
-  validates_attachment_content_type :avatar, 
+  validates_attachment_content_type :avatar,
       :content_type => ["image/jpg", "image/jpeg", "image/png", "image/gif", "image/pjpeg", "image/x-png"],
       :message => "Please upload a valid image type: jpeg, gif, or png", :if => :avatar_file_name
 
@@ -126,7 +126,7 @@ class User < ActiveRecord::Base
 
   named_scope :active, :conditions => "last_request_at IS NOT NULL"
   named_scope :visible, :conditions => { :visible => true }
-  
+
 
 ### Preferences ###
   preference :hide_help_box, :default => false
@@ -299,11 +299,11 @@ class User < ActiveRecord::Base
   def self.receive_email_notifications
     User.with_preferences(:receive_email_notifications => true)
   end
-  
+
   def self.in_soapbox_directory
     active.visible.with_premium_account.with_preferences(:publish_profile => true).by_last_name
   end
-  
+
   def self.in_spoonfeed_directory
     active.visible.by_last_name
   end
@@ -362,11 +362,11 @@ class User < ActiveRecord::Base
   def specialties
     profile.present? ? profile.specialties : []
   end
-  
+
   def james_beard_region
     profile.present? ? profile.james_beard_region : nil
   end
-  
+
   def metropolitan_area
     profile.present? ? profile.metropolitan_area : nil
   end
@@ -393,15 +393,15 @@ class User < ActiveRecord::Base
     self.subscription.try(:start_date).try(:>, 1.week.ago.to_date)
   end
 
-  # check if user is individual 
+  # check if user is individual
   # or associated with a restaurants
   def individual?
     employments.blank?
   end
 
   # check if user associated with restaurants
-  # has at least one filled role 
-  def has_restaurant_role? 
+  # has at least one filled role
+  def has_restaurant_role?
     !self.employments.first(:conditions => 'restaurant_role_id IS NOT NULL').nil?
   end
 
@@ -410,5 +410,37 @@ class User < ActiveRecord::Base
     return :individual_denied if !self.post_to_soapbox? && self.individual?
     return :restaurant_denied if !self.individual? && ( !self.post_to_soapbox? || !self.has_restaurant_role?)
     :granted
+  end
+
+  def self.extended_find(keyword)
+    # user fields: first_name, last_name, role
+    users = User.premium_account.visible.first_name_or_last_name_or_role_like(keyword).all(:include => :profile)
+    # profile fields: headline, summary, hometown, current_residence
+    users += User.premium_account.visible.
+      profile_headline_or_profile_summary_or_profile_hometown_or_profile_current_residence_like(keyword).
+      id_not_in(users.map(&:id))
+      all(:include => :profile)
+    # metropolitan_area name
+    users += User.premium_account.visible.profile_metropolitan_area_name_like(keyword).
+      id_not_in(users.map(&:id))
+      all(:include => :profile)
+    # james_beard_region name
+    users += User.premium_account.visible.profile_james_beard_region_name_like(keyword).
+      id_not_in(users.map(&:id))
+      all(:include => :profile)
+    # cuisines name
+    users += User.premium_account.visible.profile_cuisines_name_like(keyword).
+      id_not_in(users.map(&:id))
+      all(:include => :profile)
+    # specialties name
+    users += User.premium_account.visible.profile_specialties_name_like(keyword).
+      id_not_in(users.map(&:id))
+      all(:include => :profile)
+    # restaurant name
+    users += User.premium_account.visible.restaurants_name_like(keyword).
+      id_not_in(users.map(&:id))
+      all(:include => :profile)
+
+    users.reject { |user| ! user.prefers_publish_profile? }
   end
 end
