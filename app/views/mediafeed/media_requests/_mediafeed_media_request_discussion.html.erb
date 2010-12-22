@@ -1,10 +1,13 @@
 <ul class="responses">
   <% if @media_request_discussion.present? -%>
-    <li><%= pluralize (comments = @media_request_discussion.comments.reject { |c| c.new_record? }).size, "reply" %></li>
+    <li class="reply_count"><%= pluralize (comments = @media_request_discussion.comments.reject { |c| c.new_record? }).size, "reply" %></li>
   	<% for comment in comments -%>
   	  <li class="reply">
 		    <h3><%= comment.user.name %></h3>
 		    <p><%= comment.comment %></p>
+		    <% if (file = comment.attachments.first).present? -%>
+		      <%= render :partial => 'attachments/attachment', :locals => { :attachment => file } %>
+		    <% end -%>
 			</li>
   	<% end -%>
   <% else -%>

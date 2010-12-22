@@ -1911,6 +1911,10 @@ form, #content form{
 	  }
 	  .reply_count {
 	    margin-bottom: 5px;
+			padding:5px 0;
+			border-bottom:1px solid #ccc;
+			font-weight:bold;
+			font-size:15px;
 	  }
 	  .response {
 	    background: $trans-brown;
@@ -1931,11 +1935,11 @@ form, #content form{
 			padding: 0;
 		}
 	}
-	.reply_form {
+	.new_comment {
 		border-top: 3px double #ddd;
 		label {
 			display: block;
-			font-weight: normal;
+			font-weight: bold;
 			font-family: 'helvetica neue', helvetica, arial, sans-serif;
 			font-size: 12px;
 			margin: 10px 0 2px;
@@ -1944,10 +1948,10 @@ form, #content form{
 			@include border-radius(3px);
 			height: 80px;
 			@include box-shadow(#ddd,0px, 2px, 1px);	
-			margin: 0 0 10px 0;
+			margin: 0;
 		}
 		p.attach {
-			margin: 10px 0 2px 0;
+			margin: 0 0 2px 0;
 			padding: 0;
 		}
 		p.attachfield {
