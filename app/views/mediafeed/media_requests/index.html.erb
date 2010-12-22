@@ -19,33 +19,20 @@
         			</li>
     			  <% end %>
     			</ul>
-    			<p class="message"><%= truncate(media_request.message, :length => 100) %></p>
-
+    			<p class="message"><%= link_to truncate(media_request.message, :length => 75), "#" %></p>
+            
     			<ul class="responses">
-    			  <li class="sent_on">
-      			  <% if media_request.sender == current_user %>
-      			    You sent this on <%= media_request.created_at.strftime('%m/%d/%y %I:%M%p') %>
-      			  <% end %>
-      			</li>
-    			
-    			<% if (count = media_request.reply_count) > 0 %>
-    			 
-    				<% for discussion in media_request.discussions_with_comments %>
-    				  <li class="reply_count"><%= pluralize count, "reply" %></li>
-    					<% for comment in discussion.comments.not_user(current_user) %>
-    					<li class="response">
-    						<%= last_comment_and_date_span(comment) %>
-    					</li>
-    					<li>
-    					 <%= link_to "Reply", "#reply", :class => 'action' %>
-    					</li>
-    					<% end -%>
-    				<% end %>
-    			<% else %>
-    				<li class="noone">No one has responded yet</li>
-    			<% end %>
-    			<%= link_to "Reply &#187;", mediafeed_media_request_path(media_request), :class => 'replies' %>
+      			<% if (count = media_request.reply_count) > 0 %>
+    				  <%= link_to (pluralize count, "reply")+"&nbsp;&#187;", mediafeed_media_request_path(media_request), :class => 'replies' %>
+      			<% else %>
+      				<li class="noone">No one has responded yet</li>
+      			<% end %>
     			</ul>
+    			<p class="sent_on">
+            <% if media_request.sender == current_user %>
+    			  You sent this on <%= media_request.created_at.strftime('%m/%d/%y %I:%M%p') %>
+    			  <% end %>
+          </p>
     		<% end # div -%>
     	<% end %>
     <% else #if no media requests to show -%>
