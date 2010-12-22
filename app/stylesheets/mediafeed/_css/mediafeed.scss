@@ -415,6 +415,26 @@ em, i{
 	padding: 5px 0 20px;
 	overflow: hidden;
 	position: relative;
+	a.action {
+	  margin: 5px 0;
+	  display: block;
+	  float: left;
+	  border: 1px solid #bbb;
+	  @include border-radius(15px);
+	  @include linear-gradient(color-stops(#eee, #d4d4d4), top);
+	  padding: 5px 10px;
+	  color: black;
+	  font-weight: bold;
+	  &:hover {
+	    color: black;
+	    text-decoration: none;
+	    border: 1px solid gray;
+	    @include linear-gradient(color-stops(#eee, #d4d4d4), top);
+	  }
+	  &:active {
+	    @include linear-gradient(color-stops(#eee, #d4d4d4), bottom);
+	  }
+	}
 	header {margin-bottom: 15px;}
 	.inner_content{
 		padding:10px 20px;
