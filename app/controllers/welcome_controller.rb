@@ -34,7 +34,7 @@ class WelcomeController < ApplicationController
   end
 
   # recent comments cache key 
-  # common for all userActionController::Base  s
+  # common for all users
   def comments_cache_key
     "#{controller_name}_#{action_name}_comments"
   end
