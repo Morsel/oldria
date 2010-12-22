@@ -2,7 +2,7 @@ class QuestionsController < ApplicationController
   include QuestionsHelper
 
   before_filter :require_user_unless_soapbox
-  before_filter :get_subject, :except => [:show, :search]
+  before_filter :get_subject, :except => [:show]
   before_filter :get_profile, :only => :topics
 
   skip_before_filter :load_random_btl_question, :only => [:refresh]
@@ -65,27 +65,6 @@ class QuestionsController < ApplicationController
     render :partial => "shared/btl_game", :locals => { :question => @btl_question }
   end
 
-  def search
-    @key = params[:query].try(:strip)
-    @all_entries = []
-
-    unless @key.blank?
-      @all_entries = ProfileQuestion.answered_by_premium_subjects.title_like(@key).all
-
-      @all_entries += ProfileAnswer.from_premium_subjects.answer_like(@key).all(:include => :profile_question)
-
-      @all_entries = @all_entries.paginate(:page => params[:page])
-    end
-
-    @questions_found = @all_entries.select {|res| res.is_a? ProfileQuestion }
-    @answers_found = @all_entries.select {|res| res.is_a? ProfileAnswer }
-
-    @no_sidebar = true
-    @no_results = @questions_found.empty? && @answers_found.empty?
-
-    render 'questions/search', :layout => 'soapbox_search_results'
-  end
-
   protected
 
   def require_user_unless_soapbox
@@ -94,7 +73,7 @@ class QuestionsController < ApplicationController
 
   def get_subject
     if params[:user_id]
-      @subject = User.find(params[:user_id])      
+      @subject = User.find(params[:user_id])
     elsif params[:feature_page_id] || params[:feature_id]
       id = params[:feature_page_id] || params[:feature_id]
       @subject = RestaurantFeaturePage.find(id)

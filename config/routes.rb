@@ -30,7 +30,7 @@ ActionController::Routing::Routes.draw do |map|
     soapbox.resources :users do |users|
       users.resources :questions, :collection => { :topics => :get, :chapters => :get }
     end
-    soapbox.resources :questions, :only => ['show', 'search'], :collection => { :search => :get}
+    soapbox.resources :questions, :only => ['show']
     soapbox.connect 'directory_search', :controller => 'soapbox', :action => 'directory_search'
     soapbox.resource :search, :controller => 'site_search', :only => ['show']
     soapbox.root :controller => 'soapbox', :action => 'index'

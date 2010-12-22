@@ -28,5 +28,24 @@
       </div>
     <% end %>
   <% end %>
-  <%= will_paginate(@all_entries) %>
 </section>
+<div id="recently">
+  <% unless @no_results  %>
+    <% unless @btl_questions_found.empty? %>
+      <h2>Behind The Line Questions</h2>
+      <div id="questions-list">
+        <div class="questions-list-feed-trend">
+          <ul>
+            <%= render :partial => 'questions/btl_question', :collection => @btl_questions_found %>
+          </ul>
+        </div>
+      </div>
+    <% end %>
+
+    <% unless @btl_answers_found.empty? %>
+      <h2>Behind The Line Comments</h2>
+    <% end %>
+    <%= render :partial => 'questions/profile_answer', :collection => @btl_answers_found %>
+  <% end %>
+</div>
+<%= will_paginate(@all_entries) %>
