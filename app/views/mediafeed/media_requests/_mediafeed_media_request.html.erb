@@ -19,7 +19,7 @@
 	<% else -%>
   	<p class="message"><%= truncate(mediafeed_media_request.message, :length => 75) %></p>
   <% end -%>
-  	<%= render :partial => 'mediafeed_media_request_discussion', :locals => { :mediafeed_media_request => mediafeed_media_request } %>
+  	<%= render :partial => 'mediafeed/media_requests/mediafeed_media_request_discussion', :locals => { :mediafeed_media_request => mediafeed_media_request } %>
 	<p class="sent_on">
     <% if mediafeed_media_request.sender == current_user %>
 	    You sent this on <%= mediafeed_media_request.created_at.strftime('%m/%d/%y %I:%M%p') %>

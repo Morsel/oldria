@@ -17,11 +17,6 @@ class Mediafeed::MediaRequestsController < Mediafeed::MediafeedController
 
   def show
     @media_request = MediaRequest.find(params[:id])
-    @comments = []
-    @media_request.discussions_with_comments.each do |discussion|
-      @comments << discussion.comments.not_user(current_user).all(:include => [:user, :attachments], :order => 'created_at DESC').reject(&:new_record?)
-    end
-    build_comment
   end
 
   def new
