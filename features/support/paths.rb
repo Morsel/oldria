@@ -166,17 +166,8 @@ module NavigationHelpers
       trend_soapbox_soapbox_entries_path
 
     # searching for qotds and trends
-    when /^the questions search page searching for "(.+)"$/
-      search_soapbox_soapbox_entries_path(:query => $1)
-
-    # searching users
-    when /^the users search page searching for "(.+)"$/
-      search_users_path(:query => $1)
-
-    # searching for  qotds and trends
-    when /^the behind the line questions search page searching for "(.+)"$/
-      search_soapbox_questions_path(:query => $1)
-
+    when /^the soapbox search page searching for "(.+)"$/
+      soapbox_search_path(:query => $1)
 
     # Direct path
     when /"([^\"]+)"/
