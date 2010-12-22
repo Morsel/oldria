@@ -45,13 +45,13 @@
     </header>
 
     <nav id="utilities">
-      <a id="search-handle" style="display:none;" title="Pulldown a search interface" href="#">Search the site</a>
+      <a id="search-handle" title="Search interface" href="#">Search the site</a>
       <a id="ria-hq" title="RIA Home" href="http://www.restaurantintelligenceagency.com/"><abbr title="Restaurant Intelligence Agency">RIA</abbr> <abbr title="Headquarters">HQ</abbr></a>
                         <a id="log-in" title="Log In to Spoonfeed" href="http://spoonfeed.restaurantintelligenceagency.com/">Login</a>
     </nav><!--#utilities-->
 
     <div id="main">
-        <section id="content" class="<%= 'no-sidebar' if @no_sidebar %>">
+        <section id="content" class="no-sidebar">
             <header id="page-title">
                 <h1><%= h title %></h1>
             </header>
@@ -64,7 +64,6 @@
                 </article><!-- /page-content -->
             </div><!-- /inside -->
         </section><!-- /content -->
-        <%= render :partial => 'soapbox/sidebar' unless @no_sidebar %>
     </div><!-- /main -->
     <div id="sticky-footer-pad"></div>
   </div> <!-- end of #container -->
