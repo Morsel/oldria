@@ -22,6 +22,14 @@ describe WelcomeController do
         get :index
         response.should render_template(:dashboard)
       end
+
+      it "should see link see more" do
+        11.times do |i|
+          Factory(:profile_answer)
+        end
+        get :index
+        assigns[:has_see_more].should == true
+      end
     end
 
     context "for logged in media users" do
