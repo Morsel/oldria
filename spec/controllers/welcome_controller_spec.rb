@@ -2,6 +2,7 @@ require 'spec/spec_helper'
 
 describe WelcomeController do
   integrate_views
+  enable_memcache_stub
 
   describe "GET index" do
     context "for anonymous users" do
@@ -15,6 +16,7 @@ describe WelcomeController do
       before do
         @user = Factory.stub(:user)
         @user.stubs(:update).returns(true)
+        Rails.cache.clear
         controller.stubs(:current_user).returns(@user)
       end
 
@@ -22,13 +24,33 @@ describe WelcomeController do
         get :index
         response.should render_template(:dashboard)
       end
-
+      
       it "should see link see more" do
         11.times do |i|
           Factory(:profile_answer)
         end
         get :index
         assigns[:has_see_more].should == true
+      end
+
+      it "should cache action if no unread announcement exists" do
+        @user.stubs(:unread_announcements).returns([])
+        get :index
+        response.should render_template(:dashboard)
+        Rails.cache.exist?("views/" + controller.cache_key).should be_true
+      end
+
+      it "should not cache action if unread announcement exists" do
+        @user.stubs(:unread_announcements).returns([Factory(:announcement)])
+        get :index
+        response.should render_template(:dashboard)
+        Rails.cache.exist?("views/" + controller.cache_key).should be_false
+      end
+
+      it "should cache recent_comments" do
+        get :index
+        response.should render_template(:dashboard)
+        Rails.cache.exist?(controller.comments_cache_key).should be_true
       end
     end
 
