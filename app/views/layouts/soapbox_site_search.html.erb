@@ -1,6 +1,6 @@
 <!doctype html>
 <html lang="en" class="no-js">
-<% unless @key.empty? %>
+<% unless @key.blank? %>
   <% title = "Search for \"#{h(truncate(@key, :length => 35))}\"" %>
 <% else %>
   <% title = "Empty search keyword" %>
@@ -53,14 +53,19 @@
     <div id="main">
         <section id="content" class="no-sidebar">
             <header id="page-title">
-                <h1><%= h title %></h1>
+              <h1>SEARCH</h1>
+              <% form_tag soapbox_search_path, :method => :get, :id => 'question-search-form' do %>
+                <%= text_field_tag "query", @key %>
+                <%= submit_tag "Search", :name => nil %>
+              <% end %>
             </header>
             <div id="inside">
                 <article id="page-content">
                   <% if @no_results %>
                     <p>No results found</p>
+                  <% else %>
+                    <%= yield %>
                   <% end %>
-                  <%= yield %>
                 </article><!-- /page-content -->
             </div><!-- /inside -->
         </section><!-- /content -->
