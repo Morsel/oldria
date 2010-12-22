@@ -1,0 +1,87 @@
+<fieldset name="Find Restaurants" id="restaurant_criteria">
+    <legend><span>Filter Your Search</span></legend>
+    <ol>
+        <div id="criteria_accordion">
+            <div class="accordion_box">
+                <%= link_to "<span>Restaurants</span>", "#" %>
+                <div id="restaurant_fields" style="display:none;">
+                    <li id="name_eq_input" class="check_boxes optional">
+                        <fieldset>
+                            <legend class="label">
+                                <label for="name_eq">Restaurant name equals</label>
+                            </legend>
+                            <ol>
+                                <% for name in restaurant_names_for_search %>
+                                <li><label for="name_eq_<%= name %>">
+                                    <%= check_box_tag "search[name_eq][]", name, false, :id => "name_eq_#{name}" %>
+                                    <%= name %>
+                                </label></li>
+                                <% end %>
+                            </ol>
+                        </fieldset>
+                    </li>
+                </div>
+            </div>
+            <div class="accordion_box">
+                <%= link_to "<span>Cuisine</span>", "#" %>
+                <div id="cuisine_fields" class="loading" style="display:none;">
+                    <li id="search_cuisine_id_eq_input" class="check_boxes optional">
+                        <fieldset>
+                            <legend class="label">
+                                <label for="search_cuisine_id_eq">Cuisine id equals</label>
+                            </legend>
+                            <ol>
+                                <% for cuisine in cuisines_for_search %>
+                                <li><label for="search_cuisine_id_eq_<%= cuisine.id %>">
+                                    <%= check_box_tag "search[cuisine_id_eq][]", cuisine.id, false, :id => "search_cuisine_id_eq_#{cuisine.id}" %>
+                                    <%= cuisine.name %>
+                                </label></li>
+                                <% end %>
+                            </ol>
+                        </fieldset>
+                    </li>
+                </div>
+            </div>
+            <div class="accordion_box">
+                <%= link_to "<span>Region</span>", "#" %>
+                <div id="region_fields" class="loading" style="display:none;">
+                    <li id="search_james_beard_region_id_eq_input" class="check_boxes optional">
+                        <fieldset>
+                            <legend class="label">
+                                <label for="search_james_beard_region_id_eq">Region id equals</label>
+                            </legend>
+                            <ol>
+                                <% for region in regions_for_search %>
+                                <li><label for="search_james_beard_region_id_eq_<%= region.id %>">
+                                    <%= check_box_tag "search[search_james_beard_region_id_eq][]", region.id, false, :id => "search_james_beard_region_id_eq_#{region.id}" %>
+                                    <%= region.to_label %>
+                                </label></li>
+                                <% end %>
+                            </ol>
+                        </fieldset>
+                    </li>
+                </div>
+            </div>
+            <div class="accordion_box">
+                <%= link_to "<span>Metro Area</span>", "#" %>
+                <div id="metro_fields" class="loading" style="display:none;">
+                    <li id="search_metropolitan_area_id_eq_input" class="check_boxes optional">
+                        <fieldset>
+                            <legend class="label">
+                                <label for="search_metropolitan_area_id_eq">Metro area id equals</label>
+                            </legend>
+                            <ol>
+                                <% for metro in metros_for_search %>
+                                <li><label for="search_metropolitan_area_id_eq_<%= metro.id %>">
+                                    <%= check_box_tag "search[metropolitan_area_id_eq][]", metro.id, false, :id => "search_metropolitan_area_id_eq_#{metro.id}" %>
+                                    <%= metro.name %>
+                                </label></li>
+                                <% end %>
+                            </ol>
+                        </fieldset>
+                    </li>
+                </div>
+            </div>
+        </div>
+    </ol>
+</fieldset>

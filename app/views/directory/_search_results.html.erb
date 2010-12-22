@@ -17,17 +17,3 @@
       <%= render :partial => 'users/identity', :locals => { :user => user } %>
     <% end %>
 </div>
-
-<% if false #@restaurants %>
-<div id="restaurant-results" style="display:none">
-    <h3>Restaurants</h3>
-    <% for restaurant in @restaurants %>
-      <% div_for restaurant, :class => 'clearfix' do %>
-        <h2 class="function-bold">
-          <%= link_to_unless (params[:controller] == 'soapbox/soapbox'), restaurant.name, restaurant_path(restaurant) %>
-          (<%= restaurant.city %>)
-        </h2>
-      <% end %>
-    <% end %>
-</div>
-<% end %>

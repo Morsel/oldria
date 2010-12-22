@@ -1,0 +1,14 @@
+<% title "Restaurants" %>
+
+<div id="directory_search">
+    <% form_tag do %>
+        <%= render :partial => 'directory/restaurant_search_criteria' %>
+    <% end %>
+</div>
+
+<div id="restaurant-results">
+    <h3>Restaurants</h3>
+    <% for restaurant in @restaurants %>
+      <%= render :partial => 'restaurants/identity', :locals => { :user => restaurant } %>
+    <% end %>
+</div>
