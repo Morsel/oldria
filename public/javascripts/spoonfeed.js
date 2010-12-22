@@ -12,7 +12,6 @@ $('.hp_promo').equalHeights();
 $('.chapter').equalHeights();
 $('.topic').equalHeights();
 $('.rest_staff .employment').equalHeights();
-$('#accolades li').equalHeights();
 $('#extended_profile .equalheights').equalHeights(160);
 
 
@@ -92,6 +91,10 @@ $('#profile-tabs').tabs({
 		}
 	}
 });
+
+$('#open-profile-summary').click(function(){
+	$('#profile-tabs').tabs('select',1);
+})
 
 $('.tabable').tabs({
 	panelTemplate: '<section></section>',
