@@ -6,9 +6,6 @@
     <% end %>
 </div>
 
-<div id="restaurant-results">
-    <h3>Restaurants</h3>
-    <% for restaurant in @restaurants %>
-      <%= render :partial => 'restaurants/identity', :locals => { :user => restaurant } %>
-    <% end %>
+<div id="restaurant_directory_list">
+    <%= render :partial => 'directory/restaurant_search_results' %>
 </div>
