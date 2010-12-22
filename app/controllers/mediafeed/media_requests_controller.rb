@@ -1,7 +1,7 @@
 class Mediafeed::MediaRequestsController < Mediafeed::MediafeedController
   before_filter :require_user, :only => [:index, :show]
   before_filter :require_media_user, :except => [:index, :show]
-  before_filter :get_reply_count, :only => [:index, :show]
+  before_filter :get_reply_count, :only => [:index, :show, :discussion]
 
   def index
     if current_user.media?
@@ -17,6 +17,11 @@ class Mediafeed::MediaRequestsController < Mediafeed::MediafeedController
 
   def show
     @media_request = MediaRequest.find(params[:id])
+    @comments = []
+    @media_request.discussions_with_comments.each do |discussion|
+      @comments << discussion.comments.not_user(current_user).all(:include => [:user, :attachments], :order => 'created_at DESC').reject(&:new_record?)
+    end
+    build_comment
   end
 
   def new
@@ -71,6 +76,13 @@ class Mediafeed::MediaRequestsController < Mediafeed::MediafeedController
     @media_request.destroy
     flash[:notice] = "Successfully destroyed media request."
     redirect_to media_requests_url
+  end
+  
+  def discussion
+    collection = params[:discussion_type]
+    @media_request = MediaRequest.find(params[:id])
+    @media_request_discussion = @media_request.send(collection.to_sym).find(params[:discussion_id])
+    build_comment
   end
   
   protected

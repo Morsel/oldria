@@ -1,59 +1,17 @@
 <% title "Media Requests" %>
   <%= render 'nav' %>
-  
-  <div id="read_messages">
-    <% if @media_requests.size > 0 -%>
-    	<% @media_requests.each do |media_request| %>
-    		<% div_for media_request, :class => 'clearfix summary thread' do %>
-          <ul class="message_headers">
-            <li>
-              <h4><%= media_request.subject_matter.name %></h4>
-               Due by <%= media_request.due_date.try(:to_s, :long_ordinal) %>
-               <% unless media_request.publication.empty? || media_request.sender.publication.empty? %>
-       				  (<%= media_request.publication || media_request.sender.publication %>)
-       				 <% end %>
-            </li>
-      			<% if media_request.employment_search.present? %>
-      			  <li id="shorten_<%= media_request.id %>">
-        			  To: <%= names = media_request.employment_search.try(:employments).map(&:employee_name).uniq.try(:to_sentence) %>&nbsp;<%= link_to "View all", "#shorten_#{media_request.id}", :class => "shorten" if names.length > 85 %>
-        			</li>
-    			  <% end %>
-    			</ul>
-    			<p class="message"><%= truncate(media_request.message, :length => 100) %></p>
 
-    			<ul class="responses">
-    			  <li class="sent_on">
-      			  <% if media_request.sender == current_user %>
-      			  You sent this on <%= media_request.created_at.strftime('%m/%d/%y %I:%M%p') %>
-      			  <% end %>
-      			</li>
-    			
-    			<% if (count = media_request.reply_count) > 0 %>
-    			  <li class="reply_count"><%= pluralize count, "reply" %></li>
-    				<% for discussion in media_request.discussions_with_comments %>
-    					<% if comment = discussion.comments.not_user(current_user).last %>
-    					<li class="response">
-    						<%= last_comment_and_date_span(comment) %>
-    					</li>
-    					<li>
-    					 <%= link_to "Reply", "#reply", :class => 'action' %>
-    					</li>
-    					<% end -%>
-    				<% end %>
-    			<% else %>
-    				<li class="noone">No one has responded yet</li>
-    			<% end %>
-    			</ul>
-    		<% end # div -%>
-    	<% end %>
-    <% else #if no media requests to show -%>
-      <section class="thread">
-        <% if params[:view_all] -%>
-          <p>You have not created any media requests.</p>
-        <% else -%>
-          <p>You do not have any media requests with replies.</p>
-        <% end -%>
-        <p>You can <%= link_to "start creating media requests", new_mediafeed_media_request_path %> right away!</p>
-      </section>
-    <% end -%>
-  </div>
+<div id="read_messages">
+  <% if @media_requests.any? -%>
+  	<%= render :partial => 'mediafeed/media_requests/mediafeed_media_request', :collection => @media_requests %>
+  <% else #if no media requests to show -%>
+    <section class="thread">
+      <% if params[:view_all] -%>
+        <p>You have not created any media requests.</p>
+      <% else -%>
+        <p>You do not have any media requests with replies.</p>
+      <% end -%>
+      <p>You can <%= link_to "start creating media requests", new_mediafeed_media_request_path %> right away!</p>
+    </section>
+  <% end -%>
+</div><!-- /read_messages -->

@@ -5,7 +5,7 @@ class CommentsController < ApplicationController
   def create
     @comment = @parent.comments.build(params[:comment])
     @comment.user_id ||= current_user.id
-
+    @is_mediafeed = params[:mediafeed]
     if @comment.save
       if front_burner_content
         @parent.read_by!(@comment.user)
@@ -14,7 +14,7 @@ class CommentsController < ApplicationController
         flash[:notice] = "Thanks: your answer has been saved."
       end
       
-      redirect_to @parent
+      redirect_to mediafeed? ? mediafeed_discussion_path(@parent.media_request, @parent.class.name.pluralize.underscore.downcase, @parent) : @parent
     else
       flash[:error] = "Your comment couldn't be saved."
       redirect_to :back
