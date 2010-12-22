@@ -37,24 +37,4 @@ describe QuestionsController do
 
   end
 
-  describe "search for btl questions and comments" do
-    before(:each) do
-      @profile_user = Factory(:published_user, :subscription => Factory(:subscription))
-      role = Factory(:restaurant_role)
-      @profile_user.stubs(:primary_employment).returns(Factory(:employment, :restaurant_role => role, :employee => @profile_user))
-      @question = Factory(:profile_question)
-      @answer = Factory(:profile_answer, :profile_question => @question, :responder => @profile_user)
-    end
-
-    it "should find question" do
-      get :search, :query => @question.title
-      assigns[:questions_found].should == [@question]
-    end
-
-    it "should find question answer" do
-      get :search, :query => @answer.answer
-      assigns[:answers_found].should == [@answer]
-    end
-  end
-
 end

@@ -29,13 +29,13 @@ describe UsersController do
       before(:each) do
         controller.stubs(:current_user).returns nil
       end
-      
+
       it "should redirect to the login page if the profile is not visible" do
         @user.prefers_publish_profile = false; @user.save
         get :show, :id => 3
         response.should redirect_to(login_url)
       end
-      
+
       it "should show the profile if it is visible" do
         @user.prefers_publish_profile = true; @user.save
         get :show, :id => 3
@@ -81,18 +81,18 @@ describe UsersController do
     end
 
   end
-  
+
   describe "editing" do
-    
+
     it "should render the edit page" do
       user = Factory(:user)
       controller.stubs(:current_user).returns(user)
       get :edit, :id => user.id
       response.should redirect_to(edit_my_profile_path)
     end
-    
+
   end
-  
+
   describe "updating user attributes" do
 
     before(:each) do
@@ -100,26 +100,15 @@ describe UsersController do
       controller.stubs(:current_user).returns(@user)
       User.expects(:find).returns(@user)
     end
-    
+
     it "should update the user" do
       @user.expects(:update_attributes).with("username" => "Hammy").returns(true)
       put :update, :id => @user.id, :user => { :username => "Hammy" }
     end
-    
+
     it "should create a default employment" do
       @user.expects(:create_default_employment).with("restaurant_role_id" => 1).returns(true)
       put :update, :id => @user.id, :user => { :username => "Hammy", :default_employment => { :restaurant_role_id => 1 } }
-    end
-    
-  end
-
-  describe "search" do
-    it "Should find one user" do
-      user = Factory(:user, :premium_account => true)
-      user.prefers_publish_profile = true
-      Factory(:profile, :summary => "The toys", :user => user)
-      get :search, :query => "toys"
-      assigns[:users].should == [user]
     end
 
   end
