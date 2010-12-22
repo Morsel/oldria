@@ -185,6 +185,10 @@ module UserMessaging
   def front_burner_unread_count
     unread_qotds.count + unread_grouped_trend_questions.keys.size + unread_solo_discussions.count
   end
+  
+  def mediafeed_discussions_with_replies_count
+    media_requests.map(&:discussions_with_comments).flatten.size
+  end
 
   def mark_replies_as_read
     action_required_messages.each { |m| m.read_by! self }
