@@ -32,7 +32,7 @@ describe Mediafeed::MediaRequestsController do
     context "with valid media request" do
       before(:each) do
         @media_request.stubs(:valid?).returns(true)
-        post :create
+        post :create, :search => { :subject_matters_id_equals_any => ["1"] }, :media_request => {}
       end
 
       it { response.should redirect_to(mediafeed_media_request_path(@media_request))}
@@ -47,6 +47,9 @@ describe Mediafeed::MediaRequestsController do
       it { response.should render_template(:new) }
       it { response.flash[:error].should_not be_nil }
     end
+    
+    it "should require the user to submit a search with subject matter"
+
   end
 
   describe "GET edit" do

@@ -28,11 +28,23 @@ class Mediafeed::MediaRequestsController < Mediafeed::MediafeedController
   def create
     @media_request = current_user.media_requests.build(params[:media_request])
     search_setup(@media_request)
+
+    # Step 1: Media requests must include a subject matter in the criteria
+    unless params[:search][:subject_matters_id_equals_any].compact.any?
+      @media_request.errors.add_to_base("Please begin by selecting a subject matter")
+      flash.now[:error] = @media_request.errors.full_messages.to_sentence
+      render :new and return
+    end
+
     if @media_request.save
       flash[:notice] = "Thank you! Your query is fast on its way to the recipients you selected. You’ll be alerted that answers have arrived (shortly, we hope!) via an email sent to your email inbox. For your convenience, then, everything will be privately and securely stored here for you. Thanks again, and please do give us feedback!"
       redirect_to [:mediafeed, @media_request]
     else
-      flash.now[:error] = "Oops! No one would get the media request based on your criteria. Are you sure you checked the boxes? Please retry your search, broadening your criteria if necessary."
+      if @employment_search.employments.blank?
+        flash.now[:error] = "Oops! No one would get the media request based on your criteria. Are you sure you checked the boxes? Please retry your search, broadening your criteria if necessary."
+      else
+        flash.now[:error] = @media_request.errors.full_messages.to_sentence
+      end
       render :new
     end
   end
