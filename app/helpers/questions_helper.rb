@@ -13,6 +13,8 @@ module QuestionsHelper
   end
 
   def can_edit_profile_questions(subject)
+    # FIXME - this check breaks if the subject is a RestaurantFeaturePage and you are a restaurant manager
+    # the manager should be able to edit profile questions in the context of the RestaurantFeaturePage
     if subject.is_a? User
       current_user == subject
     else
