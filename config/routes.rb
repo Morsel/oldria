@@ -59,7 +59,7 @@ ActionController::Routing::Routes.draw do |map|
     mediafeed.resend_user_confirmation 'resend_confirmation', :controller => 'media_users', :action => 'resend_confirmation'
     mediafeed.forgot_password 'forgot_password', :controller => 'media_users', :action => 'forgot_password'
     mediafeed.connect 'directory_search', :controller => 'mediafeed', :action => 'directory_search'
-    mediafeed.discussion ':media_request_id/discussions/:id', :controller => 'mediafeed/media_requests', :action => 'discussion'
+    mediafeed.discussion 'media_requests/:id/:discussion_type/:discussion_id', :controller => 'media_requests', :action => 'discussion'
   end
 
   map.with_options :conditions => { :subdomain => 'mediafeed' }, :controller => 'mediafeed/mediafeed' do |mediafeed|

@@ -1,7 +1,7 @@
 class Mediafeed::MediaRequestsController < Mediafeed::MediafeedController
   before_filter :require_user, :only => [:index, :show]
   before_filter :require_media_user, :except => [:index, :show]
-  before_filter :get_reply_count, :only => [:index, :show]
+  before_filter :get_reply_count, :only => [:index, :show, :discussion]
 
   def index
     if current_user.media?
@@ -67,6 +67,10 @@ class Mediafeed::MediaRequestsController < Mediafeed::MediafeedController
   end
   
   def discussion
+    collection = params[:discussion_type]
+    @media_request = MediaRequest.find(params[:id])
+    @media_request_discussion = @media_request.send(collection.to_sym).find(params[:discussion_id])
+    build_comment
   end
   
   protected

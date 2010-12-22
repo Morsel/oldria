@@ -1,0 +1,27 @@
+<ul class="responses">
+  <% if @media_request_discussion.present? -%>
+    <li><%= pluralize (comments = @media_request_discussion.comments.reject { |c| c.new_record? }).size, "reply" %></li>
+  	<% for comment in comments -%>
+  	  <li class="reply">
+		    <h3><%= comment.user.name %></h3>
+		    <p><%= comment.comment %></p>
+			</li>
+  	<% end -%>
+  <% else -%>
+    <% if (discussions = mediafeed_media_request.discussions_with_comments).any? %> 
+  		<% for discussion in discussions %>
+  		  <li class="reply_count">
+  		    <h3><%= discussion.recipient_name %></h3>
+  		    <p><%= pluralize discussion.comments.size, "reply" %><br>
+  		      <%= link_to "Read &amp; Reply &#187;", mediafeed_discussion_path(mediafeed_media_request, discussion.class.name.pluralize.underscore.downcase, discussion), :class => 'replies' %></p>
+  			</li>
+  		<% end %>
+  	<% else #there are no discussions with comments %>
+  		<li class="noone">No one has responded yet</li>
+  	<% end #if any discussions have comments %>
+  <% end -%>
+</ul>
+
+<% if @media_request_discussion.present? -%>
+  <%= render 'comments/form' %>
+<% end -%>

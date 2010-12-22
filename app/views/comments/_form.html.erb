@@ -1,6 +1,9 @@
 <% form_for @comment_resource, :html => { :multipart => true } do |f| %>
 <%= f.error_messages %>
 <%= f.hidden_field :user_id %>
+<% if mediafeed? -%>
+  <%- if mediafeed? -%><%= hidden_field_tag "mediafeed", "true" %><%- end -%>
+<% end -%>
 <p>
 	<%= f.label :comment, 'Reply' %>
 	<%= f.text_area :comment, :style => 'height:auto', :rows => 4 %>
