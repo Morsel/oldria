@@ -1,14 +1,4 @@
 <% title "Front Burner - Soapbox", false %>
-<% form_tag search_soapbox_soapbox_entries_path, :method => :get, :id => 'question-search-form' do %>
-  <%= label_tag "query", "Find questions:" %>
-  <%= text_field_tag "query" %>
-  <%= submit_tag "Search" %>
-<% end %>
-<% form_tag search_soapbox_questions_path, :method => :get, :id => 'btl-question-search-form' do %>
-  <%= label_tag "query", "Find btl questions:" %>
-  <%= text_field_tag "query" %>
-  <%= submit_tag "Search" %>
-<% end %>
 <%= render :partial => feature_entry_type(@main_feature), :locals => { :feature => @main_feature, :feature_comments => @main_feature_comments }%>
 
 <%= render :partial => feature_entry_type(@secondary_feature), :locals => { :feature => @secondary_feature, :feature_comments => @secondary_feature_comments } if @secondary_feature.present? %>

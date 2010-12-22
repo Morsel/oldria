@@ -3,14 +3,6 @@
 <%= title_for_search %>
 
 <% if @use_search %>
-  <div id="user-search">
-
-    <% form_tag search_users_path, :method => :get do %>
-        <%= label_tag :query, "Find user profile:" %>
-        <%= text_field_tag :query %>
- 	    <%= submit_tag 'Search', :name => nil %>
-    <% end %>
-  </div>
 <div id="directory_search">
     <% form_tag do %>
         <%= render :partial => 'directory/search_criteria' %>

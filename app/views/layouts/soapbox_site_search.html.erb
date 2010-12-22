@@ -65,7 +65,7 @@
                     <p>No results found</p>
                   <% else %>
                     <%= yield %>
-                  <% end %>
+                  <% end unless @no_key %>
                 </article><!-- /page-content -->
             </div><!-- /inside -->
         </section><!-- /content -->

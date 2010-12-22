@@ -1,5 +1,5 @@
-<section id="questions-list">
-  <% unless @no_results  %>
+<% unless @no_results  %>
+  <section id="questions-list">
     <% unless @trend_questions_found.empty? %>
       <div class="questions-list-feed-trend">
         <h1>Trend Questions</h1>
@@ -27,25 +27,32 @@
         <%= render :partial => 'comment_list', :locals => {:comments => @qotd_comments_found} %>
       </div>
     <% end %>
-  <% end %>
-</section>
-<div id="recently">
-  <% unless @no_results  %>
-    <% unless @btl_questions_found.empty? %>
-      <h2>Behind The Line Questions</h2>
-      <div id="questions-list">
-        <div class="questions-list-feed-trend">
-          <ul>
-            <%= render :partial => 'questions/btl_question', :collection => @btl_questions_found %>
-          </ul>
+  </section>
+  <div id="recently">
+    <% unless @no_results  %>
+      <% unless @btl_questions_found.empty? %>
+        <h2>Behind The Line Questions</h2>
+        <div id="questions-list">
+          <div class="questions-list-feed-trend">
+            <ul>
+              <%= render :partial => 'questions/btl_question', :collection => @btl_questions_found %>
+            </ul>
+          </div>
         </div>
-      </div>
-    <% end %>
+      <% end %>
 
-    <% unless @btl_answers_found.empty? %>
-      <h2>Behind The Line Comments</h2>
+      <% unless @btl_answers_found.empty? %>
+        <h2>Behind The Line Comments</h2>
+      <% end %>
+      <%= render :partial => 'questions/profile_answer', :collection => @btl_answers_found %>
     <% end %>
-    <%= render :partial => 'questions/profile_answer', :collection => @btl_answers_found %>
-  <% end %>
-</div>
-<%= will_paginate(@all_entries) %>
+  </div>
+  <div id="user-results">
+    <h2>Users</h2>
+    <% @users_found.each do |user| %>
+      <%= render :partial => 'users/identity', :locals => { :user => user } %>
+    <% end %>
+  </div>
+  <%= will_paginate(@all_entries) %>
+<% end %>
+

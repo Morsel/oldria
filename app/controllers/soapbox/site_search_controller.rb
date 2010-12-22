@@ -4,11 +4,16 @@ class Soapbox::SiteSearchController < ApplicationController
 
   def show
     @key = params[:query].try(:strip)
+    @no_key = params[:query].nil?
+    @no_results = true
     @all_entries = []
+
+    return if @no_key
 
     unless @key.blank?
       search_qotds_and_trends_entities
       search_btl_entities
+      search_users
 
       @all_entries = @all_entries.paginate(:page => params[:page])
 
@@ -20,11 +25,13 @@ class Soapbox::SiteSearchController < ApplicationController
       @btl_questions_found = @all_entries.select {|res, type| type == :btl_question }.map(&:first)
       @btl_answers_found = @all_entries.select {|res, type| type == :btl_answer }.map(&:first)
 
+      @users_found = @all_entries.select {|res, type| type == :user }.map(&:first)
+
       @no_results = @trend_questions_found.empty? && @qotds_found.empty? &&
         @qotd_comments_found.empty? && @trend_question_comments_found.empty? &&
-        @btl_questions_found.empty? && @btl_answers_found.empty?
+        @btl_questions_found.empty? && @btl_answers_found.empty? &&
+        @users_found.empty?
     end
-
   end
 
   private
@@ -59,7 +66,11 @@ class Soapbox::SiteSearchController < ApplicationController
   end
 
   def search_users
-
+    users = User.premium_account.visible.profile_headline_or_profile_summary_like(@key).all(:include => :profile)
+    users.reject! { |user| ! user.prefers_publish_profile? }
+    users.each do |entry|
+      @all_entries << [entry, :user]
+    end
   end
 
 end

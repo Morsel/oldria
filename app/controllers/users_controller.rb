@@ -144,21 +144,6 @@ class UsersController < ApplicationController
     redirect_to edit_my_profile_path
   end
 
-  def search
-    @key = params[:query].try(:strip)
-    @users = []
-
-    unless @key.blank?
-      @users = User.premium_account.visible.profile_headline_or_profile_summary_like(@key).all(:include => :profile)
-      @users.reject! { |user| ! user.prefers_publish_profile? }
-      @users = @users.paginate(:page => params[:page])
-    end
-
-    @no_sidebar = true
-    @no_results = @users.empty?
-    render :layout => 'soapbox_search_results'
-  end
-
   private
 
   def get_user
