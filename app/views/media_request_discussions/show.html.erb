@@ -3,5 +3,5 @@
 <%= render 'messages/nav' %>
 
 <% unless @media_request.blank? %>
-	<%= render :partial => 'mediafeed/media_requests/media_request_long' %>
+	<%= render :partial => 'mediafeed/media_requests/mediafeed_media_request', :locals => { :mediafeed_media_request => @media_request } %>
 <% end -%>
