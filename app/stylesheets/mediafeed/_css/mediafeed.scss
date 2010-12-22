@@ -1590,8 +1590,6 @@ form, #content form{
 }
 
 
-
-
 #flashes {
 	clear:both;
 	margin: 15px 0;
@@ -1874,10 +1872,20 @@ form, #content form{
   	    list-style: none;
 	    }
 	  }
+	  .fields {
+	    span {
+	      display: block;
+	      font-weight: bold;
+	    }
+	  }
 	  .limit {
 	    .src {
 	      display: none;
 	    }
+	  }
+	  .attachments {
+	    border-top: 1px dotted silver;
+	    padding-top: 5px;
 	  }
 	  .message_headers {
 	    padding-bottom: 5px;
