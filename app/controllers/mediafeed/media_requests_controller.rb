@@ -66,6 +66,9 @@ class Mediafeed::MediaRequestsController < Mediafeed::MediafeedController
     redirect_to media_requests_url
   end
   
+  def discussion
+  end
+  
   protected
   
   def get_reply_count

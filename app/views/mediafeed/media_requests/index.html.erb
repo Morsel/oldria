@@ -22,19 +22,25 @@
     			<p class="message"><%= link_to truncate(media_request.message, :length => 75), "#" %></p>
             
     			<ul class="responses">
-      			<% if (count = media_request.reply_count) > 0 %>
-    				  <%= link_to (pluralize count, "reply")+"&nbsp;&#187;", mediafeed_media_request_path(media_request), :class => 'replies' %>
-      			<% else %>
+      			<% if (discussions = media_request.discussions_with_comments).size > 0 %> 
+      				<% for discussion in discussions %>
+      				  <li class="reply_count">
+      				    <h3><%= discussion.recipient_name %></h3>
+      				    <p><%= pluralize discussion.comments.size, "reply" %><br>
+      				    <%= link_to "Read &amp; Reply &#187;", discussion, :class => 'replies' %></p>
+          			</li>
+      				<% end %>
+      			<% else #there are no discussions with comments %>
       				<li class="noone">No one has responded yet</li>
-      			<% end %>
+      			<% end #if any discussions have comments %>
     			</ul>
     			<p class="sent_on">
             <% if media_request.sender == current_user %>
     			  You sent this on <%= media_request.created_at.strftime('%m/%d/%y %I:%M%p') %>
     			  <% end %>
           </p>
-    		<% end # div -%>
-    	<% end %>
+   		  <% end #div_for media_request -%>
+    	<% end #each media_request %>
     <% else #if no media requests to show -%>
       <section class="thread">
         <% if params[:view_all] -%>
@@ -45,4 +51,4 @@
         <p>You can <%= link_to "start creating media requests", new_mediafeed_media_request_path %> right away!</p>
       </section>
     <% end -%>
-  </div>
+  </div><!-- /read_messages -->
