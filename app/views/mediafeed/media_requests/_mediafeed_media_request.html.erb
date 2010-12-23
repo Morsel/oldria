@@ -1,4 +1,4 @@
-<% div_for mediafeed_media_request, :class => 'clearfix summary thread' do %>
+<% div_for mediafeed_media_request, :class => 'clearfix box extended discussion' do %>
   <ul class="message_headers">
     <li>
       <h4><%= mediafeed_media_request.subject_matter.name %></h4>
@@ -8,18 +8,25 @@
 			 <% end %>
     </li>
 		<% if mediafeed_media_request.employment_search.present? %>
+		  <% names = mediafeed_media_request.employment_search.try(:employments).map(&:employee_name).uniq.try(:to_sentence) -%>
+		  <% unless mediafeed? -%>
+		    <% names = @media_request_discussion.recipient_name %>
+		  <% end -%>
 		  <li id="shorten_<%= mediafeed_media_request.id %>">
-			  To: <%= names = mediafeed_media_request.employment_search.try(:employments).map(&:employee_name).uniq.try(:to_sentence) %>&nbsp;<%= link_to "View all", "#shorten_#{mediafeed_media_request.id}", :class => "shorten" if names.length > 85 %>
+			  To: <%= names %>&nbsp;<%= link_to "View all", "#shorten_#{mediafeed_media_request.id}", :class => "shorten" if names.length > 85 %>
 			</li>
 	  <% end %>
 	</ul>
 	
 	<% if @media_request_discussion.present? %>
-	  <p class="message"><%= mediafeed_media_request.message %></p>
+	  <%= simple_format mediafeed_media_request.message %>
 	<% else -%>
   	<p class="message"><%= truncate(mediafeed_media_request.message, :length => 75) %></p>
   <% end -%>
+  
   	<%= render :partial => 'mediafeed/media_requests/mediafeed_media_request_discussion', :locals => { :mediafeed_media_request => mediafeed_media_request } %>
+
+  	
 	<p class="sent_on">
     <% if mediafeed_media_request.sender == current_user %>
 	    You sent this on <%= mediafeed_media_request.created_at.strftime('%m/%d/%y %I:%M%p') %>

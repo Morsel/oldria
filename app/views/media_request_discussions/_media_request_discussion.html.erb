@@ -1,6 +1,5 @@
-
   <% media_request = media_request_discussion.media_request %>
-  <% div_for media_request_discussion, :class => 'inbox_message' do %>
+  <% div_for media_request_discussion, :class => 'inbox_message discussion' do %>
     <div class="message-details">
       <header>
         <h1><%= link_to media_request.inbox_title, media_request_discussion %></h1>
@@ -12,8 +11,7 @@
 
       <div class="message-body">
         <%= simple_format(media_request.message) %>
-      </div>
+      </div>		
     </div>
-
   <%= render :partial => 'media_request_discussions/media_request_replies', :locals => { :media_request_discussion => media_request_discussion } %>
 <% end %>
