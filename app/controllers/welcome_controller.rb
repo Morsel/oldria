@@ -5,7 +5,7 @@ class WelcomeController < ApplicationController
 
   # cache dashboard for logged in users 
   caches_action :index,
-                :if =>  Proc.new {|controller| controller.cache? }, 
+                :if =>  Proc.new {|controller| controller.cache? && !controller.params[:is_more] }, 
                 :expires_in => 5.minutes,
                 :cache_path => Proc.new { |controller| controller.cache_key }
   def index
@@ -35,12 +35,6 @@ class WelcomeController < ApplicationController
     current_user ? "#{controller_name}_#{action_name}_#{current_user.id.to_s}" : nil
   end
 
-  # recent comments cache key 
-  # common for all users
-  def comments_cache_key
-    "#{controller_name}_#{action_name}_comments"
-  end
-
   private
 
   def slug_for_home_page
@@ -48,9 +42,20 @@ class WelcomeController < ApplicationController
   end
 
   def set_up_dashboard
-    @recent_comments = load_recent_comments
+    @recent_comments = cache_or_get(:load_recent_comments)
     #there yet?
-    @has_more = has_more?
+    @has_more = cache_or_get(:has_more?)
+  end
+
+  # get result from cache with method name as key.
+  # if no key found it calls passed method for result
+  def cache_or_get(method_name)
+    method_name = method_name.to_s unless method_name.is_a?(String)
+    unless self.perform_caching && (result = Rails.cache.read(method_name))
+      result = send(method_name)
+      Rails.cache.write(method_name, result, :expires_in => 5.minutes) if self.perform_caching
+    end
+    result
   end
   
   def set_up_dashboard_with_pagination
@@ -67,20 +72,14 @@ class WelcomeController < ApplicationController
     @has_pagination = true
   end
   
-   # load recent comments for dashboard
+  # load recent comments for dashboard
   # this data is common for all users
   def load_recent_comments
-    if Rails.cache.exist?(comments_cache_key) && self.perform_caching
-      Rails.cache.read comments_cache_key
-    else
-      soapbox_comments = SoapboxEntry.published.all(:limit => @per_page, :order => "published_at DESC").map(&:comments)
-      answers = ProfileAnswer.all(:limit => @per_page, :order => "created_at DESC") 
-      recent_comments = [soapbox_comments, answers].flatten.sort { |a,b| b.created_at <=> a.created_at }[0..(@per_page - 1)]
-      Rails.cache.write(comments_cache_key, recent_comments, :expires_in => 5.minutes)
-      recent_comments
-    end
+    soapbox_comments = SoapboxEntry.published.all(:limit => @per_page, :order => "published_at DESC").map(&:comments)
+    answers = ProfileAnswer.all(:limit => @per_page, :order => "created_at DESC") 
+    [soapbox_comments, answers].flatten.sort { |a,b| b.created_at <=> a.created_at }[0..(@per_page - 1)]
   end
-  
+ 
   def has_more?
     recent_answers = ProfileAnswer.count(:conditions => ["created_at > ?", 2.weeks.ago])
     recent_answers > @per_page ||
