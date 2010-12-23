@@ -11,7 +11,17 @@ Then /^addThis button should have public link$/ do
   response.should have_selector("script", :content =>"soapbox" + current_url)
 end
 
-Given /^We have answers with long text$/ do
+Then /^I should see link \"see more\"$/ do
+  response.should have_selector(".see_more_link", :href =>"/dashboard_more")
+end
+
+Given /^answers with long text$/ do
   @profile_answer = Factory(:profile_answer, :answer => "some text "*50)
+end
+
+Given /^11 comments in dashboard$/ do
+  11.times do
+    Factory(:profile_answer)
+  end
 end
 

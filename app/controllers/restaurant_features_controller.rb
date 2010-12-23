@@ -29,6 +29,7 @@ class RestaurantFeaturesController < ApplicationController
   end
   
   def update_top
+    params[:restaurant_features] ||= []
     @restaurant.restaurant_feature_items.each do |item|
       item.update_attribute(:top_tag, params[:restaurant_features].include?(item.restaurant_feature_id.to_s))
     end

@@ -17,11 +17,13 @@ namespace :bluepill do
   desc "Stop processes that bluepill is monitoring and quit bluepill"
   task :quit, :roles => [:app] do
     if rails_env == :production
-      sudo "bluepill stop #{rails_env}"
+      sudo "bluepill #{rails_env} stop"
+      sudo "bluepill #{rails_env} quit"
     else
-      sudo "bluepill stop #{nickname}"
+      sudo "bluepill #{nickname} stop"
+      sudo "bluepill #{nickname} quit"
     end
-    sudo "bluepill quit"
+    
   end
 
   desc "Load bluepill configuration and start it"

@@ -12,6 +12,7 @@ ActionController::Routing::Routes.draw do |map|
       :finish_without_contact => :get }
 
   map.directory 'directory', :controller => 'directory', :action => 'index'
+  map.restaurant_directory 'directory/restaurants', :controller => 'directory', :action => 'restaurants'
 
   map.namespace(:soapbox) do |soapbox|
     soapbox.resources :restaurants, :only => ['show'] do |restaurants|
@@ -189,6 +190,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resource :search, :only => 'show'
 
   map.root :controller => 'welcome'
+  map.dashboard_more 'dashboard_more', :controller => 'welcome', :action => 'index', :is_more => true
 
   map.namespace :admin do |admin|
     admin.root      :controller => 'admin'

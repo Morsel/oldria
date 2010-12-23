@@ -102,7 +102,7 @@ class Chapter < ActiveRecord::Base
   end
 
   def published?(subject, secondary_subject = nil)
-    completion_percentage(subject, secondary_subject) >= 5
+    completion_percentage(subject, secondary_subject) > 0
   end
 
 end
