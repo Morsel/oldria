@@ -8,8 +8,9 @@
 				<%= image_tag(@discussion.poster.avatar.url(:thumb)) %>
 			<% end %>
 		</div>
-		<p class="who_when">From: <%= @discussion.poster.try(:name) %><br />
-			Date: <%= @discussion.created_at.strftime("%B %e") %></p>
+		<p class="who_when">From: <%= @discussion.poster.try(:name) %></p>
+        <p class="who_when">To: <%= @discussion.users.map(&:name).to_sentence %></p>
+        <p>Date: <%= @discussion.created_at.strftime("%B %e") %></p>
 	</header>
 
 	<article class="discussion_body">
