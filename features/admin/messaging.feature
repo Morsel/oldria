@@ -21,7 +21,7 @@ Feature: Admin Messaging
    When I fill in "Post" with "Why, yes, they are quite cool!"
    And I press "Send"
    Then I should see "Why, yes, they are quite cool!"
-   And I should see "Successfully created"
+   And I should see "Thanks: your answer has been saved"
 
 
   Scenario: Replying to a published QOTD give a possibility to post on facebook
