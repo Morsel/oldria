@@ -9,11 +9,11 @@ end
 
 Given /^that QOTD was sent to "([^\"]*)"$/ do |username|
   user = User.find_by_username(username)
-  Factory(:admin_conversation, :admin_message => @qotd, :recipient => user)    
+  Factory(:admin_conversation, :admin_message => @qotd, :recipient => user)
 end
 
 Given /^that Trend Question was sent to "([^\"]*)"$/ do |restaurantname|
-  Factory(:admin_discussion, :discussionable => @trend_question, :restaurant => Restaurant.find_by_name(restaurantname) ) 
+  Factory(:admin_discussion, :discussionable => @trend_question, :restaurant => Restaurant.find_by_name(restaurantname) )
 end
 
 Given /^that QOTD has the following answers:$/ do |table|
@@ -33,10 +33,12 @@ end
 
 Given /^that QOTD is featured on the soapbox$/ do
   @soapbox_entry = Factory(:soapbox_entry, :featured_item => @qotd)
+  @soapbox_entry.reload
+  @soapbox_entry.update_attributes("featured_item_type" => "Admin::Qotd")
 end
 
 Given /^that Trend Question is featured on the soapbox$/ do
-  @soapbox_entry = Factory(:soapbox_entry, :featured_item => @trend_question) 
+  @soapbox_entry = Factory(:soapbox_entry, :featured_item => @trend_question)
 end
 
 When /^I create a new soapbox entry for that QOTD with:$/ do |table|
