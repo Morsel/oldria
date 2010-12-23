@@ -14,13 +14,13 @@ Feature: Search question
     When I create a new soapbox entry for that QOTD with:
       | Published at | 2010-05-10 |
     And I go to the soapbox search page searching for "mug"
-    Then I should see "Is alloy mug fancy?" within "#questions-list"
+    Then I should see "Is alloy mug fancy?" within ".search-results"
 
   Scenario: Finding a Trend Question
     Given there is a Trend Question "How much water do you pour into milk?"
     And that Trend Question is featured on the soapbox
     When I go to the soapbox search page searching for "water"
-    Then I should see "water" within "#questions-list"
+    Then I should see "water" within ".search-results"
 
   Scenario: Finding a QOTD comment
     Given there is a QOTD asking "Is alloy mug fancy?"
@@ -30,11 +30,11 @@ Feature: Search question
     When I create a new soapbox entry for that QOTD with:
       | Published at | 2010-05-10 |
     And I go to the soapbox search page searching for "plastic"
-    Then I should see "Please, drink from a plastic one" within "#questions-list"
+    Then I should see "Please, drink from a plastic one" within ".search-results"
 
   Scenario: Finding user profile
     When I go to the soapbox search page searching for "ketchup"
-    Then I should see "Bob Ichvinstone" within "#user-results"
+    Then I should see "Bob Ichvinstone" within ".search-results"
 
   Scenario: Finding BTL quesiton
     Given I am logged in as "searchable" with password "searchable"
@@ -45,7 +45,7 @@ Feature: Search question
     And I fill in question titled "Title 1" with answer "A dumb answer"
     And I press "Post"
     When I go to the soapbox search page searching for "Title 1"
-    Then I should see "Title 1" within "#recently"
+    Then I should see "Title 1" within ".search-results"
 
   Scenario: Finding BTL answer
     Given I am logged in as "searchable" with password "searchable"
@@ -56,6 +56,4 @@ Feature: Search question
     And I fill in question titled "Title 1" with answer "A great answer for this"
     And I press "Post"
     When I go to the soapbox search page searching for "great answer"
-    Then I should see "A great answer for this" within "#recently"
-
-
+    Then I should see "A great answer for this" within ".search-results"

@@ -33,6 +33,11 @@ Factory.define :published_user, :parent => :user do |f|
   f.premium_account '1'
 end
 
+Factory.define :published_real_user_with_subscription, :parent => :published_user do |f|
+  f.association :subscription
+  f.last_request_at Time.now
+end
+
 Factory.define :media_user, :parent => :user do |f|
   f.publication "The Times"
   f.role 'media'
