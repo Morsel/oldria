@@ -28,6 +28,8 @@ class CommentsController < ApplicationController
 
       if mediafeed?
         redirect_to mediafeed_discussion_path(@parent.media_request, @parent.class.name.pluralize.underscore.downcase, @parent)
+      elsif front_burner_content
+        redirect_to front_burner_path
       else
         redirect_to @parent
       end
