@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20101220233408) do
+ActiveRecord::Schema.define(:version => 20101213225737) do
 
   create_table "a_la_minute_answers", :force => true do |t|
     t.text     "answer"
@@ -506,20 +506,6 @@ ActiveRecord::Schema.define(:version => 20101220233408) do
     t.datetime "updated_at"
   end
 
-  create_table "meals", :force => true do |t|
-    t.string   "name"
-    t.string   "day"
-    t.string   "open_at_hours"
-    t.string   "open_at_minutes"
-    t.string   "open_at_am_pm"
-    t.string   "closed_at_hours"
-    t.string   "closed_at_minutes"
-    t.string   "closed_at_am_pm"
-    t.integer  "restaurant_fact_sheet_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "media_request_discussions", :force => true do |t|
     t.integer  "media_request_id"
     t.integer  "restaurant_id"
@@ -557,14 +543,6 @@ ActiveRecord::Schema.define(:version => 20101220233408) do
   add_index "media_requests", ["sender_id"], :name => "index_media_requests_on_sender_id"
   add_index "media_requests", ["subject_matter_id"], :name => "index_media_requests_on_media_request_type_id"
 
-  create_table "mediafeed_pages", :force => true do |t|
-    t.string   "title"
-    t.string   "slug"
-    t.text     "content"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "menus", :force => true do |t|
     t.string   "name"
     t.string   "change_frequency"
@@ -581,14 +559,6 @@ ActiveRecord::Schema.define(:version => 20101220233408) do
     t.datetime "updated_at"
     t.string   "state"
   end
-
-  create_table "metropolitan_areas_users", :id => false, :force => true do |t|
-    t.integer "user_id"
-    t.integer "metropolitan_area_id"
-  end
-
-  add_index "metropolitan_areas_users", ["metropolitan_area_id"], :name => "index_metropolitan_areas_users_on_metropolitan_area_id"
-  add_index "metropolitan_areas_users", ["user_id"], :name => "index_metropolitan_areas_users_on_user_id"
 
   create_table "nonculinary_enrollments", :force => true do |t|
     t.integer  "nonculinary_school_id"
@@ -734,60 +704,6 @@ ActiveRecord::Schema.define(:version => 20101220233408) do
   add_index "responsibilities", ["employment_id"], :name => "index_responsibilities_on_employment_id"
   add_index "responsibilities", ["subject_matter_id"], :name => "index_responsibilities_on_subject_matter_id"
 
-  create_table "restaurant_fact_sheets", :force => true do |t|
-    t.string   "venue"
-    t.string   "intersection"
-    t.string   "neighborhood"
-    t.string   "parking"
-    t.string   "public_transit"
-    t.string   "dinner_average_price"
-    t.string   "lunch_average_price"
-    t.string   "brunch_average_price"
-    t.string   "breakfast_average_price"
-    t.string   "children_average_price"
-    t.string   "small_plate_min_price"
-    t.string   "small_plate_max_price"
-    t.string   "large_plate_min_price"
-    t.string   "large_plate_max_price"
-    t.string   "dessert_plate_min_price"
-    t.string   "dessert_plate_max_price"
-    t.string   "wine_by_the_glass_count"
-    t.string   "wine_by_the_glass_min_price"
-    t.string   "wine_by_the_glass_max_price"
-    t.string   "wine_by_the_bottle_count"
-    t.string   "wine_by_the_bottle_min_price"
-    t.string   "wine_by_the_bottle_max_price"
-    t.text     "wine_by_the_bottle_details"
-    t.string   "reservations"
-    t.text     "cancellation_policy"
-    t.string   "payment_methods"
-    t.boolean  "byob_allowed"
-    t.string   "corkage_fee"
-    t.string   "dress_code"
-    t.string   "delivery"
-    t.string   "wheelchair_access"
-    t.string   "smoking"
-    t.string   "architect_name"
-    t.string   "graphic_designer"
-    t.string   "furniture_designer"
-    t.string   "furniture_manufacturer"
-    t.text     "flooring"
-    t.text     "millwork"
-    t.text     "china"
-    t.text     "kitchen_equipment"
-    t.text     "lighting"
-    t.text     "draperies"
-    t.string   "square_footage"
-    t.integer  "restaurant_id"
-    t.datetime "parking_and_directions_updated_at"
-    t.datetime "pricing_updated_at"
-    t.datetime "guest_relations_updated_at"
-    t.datetime "design_updated_at"
-    t.datetime "other_updated_at"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "restaurant_feature_categories", :force => true do |t|
     t.string   "name"
     t.integer  "restaurant_feature_page_id"
@@ -821,6 +737,15 @@ ActiveRecord::Schema.define(:version => 20101220233408) do
   end
 
   add_index "restaurant_features", ["restaurant_feature_category_id"], :name => "restaurant_feature_category_id_index"
+
+  create_table "restaurant_features_restaurants", :id => false, :force => true do |t|
+    t.integer "restaurant_id"
+    t.integer "restaurant_feature_id"
+  end
+
+  add_index "restaurant_features_restaurants", ["restaurant_feature_id"], :name => "restaurant_feature_id_index"
+  add_index "restaurant_features_restaurants", ["restaurant_id", "restaurant_feature_id"], :name => "_restaurant_id_restaurant_feature_id_index"
+  add_index "restaurant_features_restaurants", ["restaurant_id"], :name => "restaurant_id_index"
 
   create_table "restaurant_roles", :force => true do |t|
     t.string   "name"
@@ -876,14 +801,6 @@ ActiveRecord::Schema.define(:version => 20101220233408) do
     t.datetime "updated_at"
   end
 
-  create_table "seating_areas", :force => true do |t|
-    t.string   "name"
-    t.integer  "occupancy"
-    t.integer  "restaurant_fact_sheet_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "slides", :force => true do |t|
     t.string   "image_file_name"
     t.string   "image_content_type"
@@ -932,14 +849,6 @@ ActiveRecord::Schema.define(:version => 20101220233408) do
     t.integer  "employment_id"
     t.integer  "trend_question_id"
     t.integer  "comments_count",    :default => 0
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "solo_media_discussions", :force => true do |t|
-    t.integer  "media_request_id"
-    t.integer  "employment_id"
-    t.integer  "comments_count",   :default => 0
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -1001,15 +910,6 @@ ActiveRecord::Schema.define(:version => 20101220233408) do
     t.string   "status"
   end
 
-  create_table "tasting_menus", :force => true do |t|
-    t.string   "name"
-    t.string   "price"
-    t.string   "wine_supplement_price"
-    t.integer  "restaurant_fact_sheet_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "topics", :force => true do |t|
     t.string   "title"
     t.datetime "created_at"
@@ -1059,7 +959,6 @@ ActiveRecord::Schema.define(:version => 20101220233408) do
     t.string   "facebook_page_token"
     t.boolean  "premium_account"
     t.boolean  "visible",               :default => true
-    t.boolean  "national"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email"

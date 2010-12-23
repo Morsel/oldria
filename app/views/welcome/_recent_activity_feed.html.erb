@@ -1,6 +1,10 @@
 <div id="recently">
     <h2>Fresh from Spoonfeed</h2>
 
+    <% if @has_more %>
+        <div class="dashboard_header"><%= link_to 'See more &raquo;', :dashboard_more, :class => 'see_more_link' %></div>
+    <% end %>
+
     <% for comment in @recent_comments %>
     <% if comment.is_a?(ProfileAnswer) %><%# profile answers are not really a comment so they get their own block %>
     <% div_for comment do %>
@@ -39,5 +43,7 @@
     <% end %>
 
     <% end %>
+
+        <%= will_paginate @recent_comments if @has_pagination %>
 
 </div>

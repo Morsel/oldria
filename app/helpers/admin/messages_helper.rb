@@ -14,7 +14,7 @@ module Admin::MessagesHelper
     link_to("#{conversation_date} #{title}", conversation)
   end
 
-  def link_for_message(message)
+  def admin_link_for_message(message)
     message_type = message.class.title
     message_date = date_for_admin_message(message)
     link_to("#{message_date} #{message_type}", admin_message_path(message))

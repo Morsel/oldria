@@ -3507,4 +3507,5 @@ dl.things dt:after {
 /* line 2550, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
 .btl-answer-author {
   float: left;
+  color: #888;
 }

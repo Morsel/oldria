@@ -219,7 +219,7 @@
   <section id="profile-extended">
       <% if @profile.new_record? %>
       <div>
-          Please fill in your <%= link_to "profile summary information", edit_my_profile_path(:anchor => "profile-summary") %> (including hometown and current city) before continuing with this section.
+          Please fill in your <%= link_to "profile summary information", edit_my_profile_path(:anchor => "profile-summary"), :id => 'open-profile-summary' %> (including hometown and current city) before continuing with this section.
       </div>
       <% else %>
     <div id="extended_profile_fields">
