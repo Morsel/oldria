@@ -57,8 +57,8 @@ Feature: Manage a_la_minutes
      | What's playing? |
 
     When I go to the edit a la minute question page for "Steak Knife"
-    And I fill in "a_la_minute_questions_1_answer" with "Salad"
-    And I fill in "a_la_minute_questions_2_answer" with "Creed"
+    And I fill in a la minute question titled "What's new?" with answer "Salad"
+    And I fill in a la minute question titled "What's playing?" with answer "Creed"
     And I press "Change Answers"
     And I go to the restaurant show page for "Steak Knife"
     Then I should see the question "What's new?" with the answer "Salad"
