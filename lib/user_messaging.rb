@@ -2,7 +2,7 @@ module UserMessaging
 
   # Received Media requests
   def viewable_media_request_discussions
-    all_employments.map(&:viewable_media_request_discussions).flatten
+    @viewable_media_request_discussions ||= all_employments.map(&:viewable_media_request_discussions).flatten
   end
 
   def viewable_media_requests
@@ -174,21 +174,24 @@ module UserMessaging
     @ria_message_count ||= messages_from_ria.size
   end
   
-  def discussions_count
-    @_discussions_count ||= unread_discussions.size + discussions.with_comments_unread_by(self).size
-  end
-  
   def message_inbox_count
-    @message_inbox_count ||= @ria_message_count + viewable_media_request_discussions.size + discussions_count
+    @message_inbox_count ||= (messages_from_ria + 
+        unread_discussions + discussions.with_comments_unread_by(self) + 
+        viewable_media_request_discussions).size
   end
   
   def front_burner_unread_count
     unread_qotds.count + unread_grouped_trend_questions.keys.size + unread_solo_discussions.count
   end
   
-  def mediafeed_discussions_with_replies_count
-    media_requests.map(&:discussions_with_comments).flatten.size
-  end
+  # def mediafeed_discussions_with_replies_count
+  #   FIXME MediaRequestsController tests are breaking
+  #   if media_requests.present?
+  #     media_requests.map(&:discussions_with_comments).flatten.size
+  #   else
+  #     0
+  #   end
+  # end
 
   def mark_replies_as_read
     action_required_messages.each { |m| m.read_by! self }

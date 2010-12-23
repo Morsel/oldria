@@ -85,7 +85,7 @@ class Mediafeed::MediaRequestsController < Mediafeed::MediafeedController
   def get_reply_count
     if mediafeed?
       @media_requests_with_replies = current_user.media_requests.all(:include => [:subject_matter, :restaurants]).select { |m| m.discussions_with_comments.present? }
-      @media_requests_with_replies_count = current_user.mediafeed_discussions_with_replies_count
+      @media_requests_with_replies_count = @media_requests_with_replies.size
     end
   end
 end
