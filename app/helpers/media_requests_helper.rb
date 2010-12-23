@@ -29,10 +29,11 @@ module MediaRequestsHelper
   end
 
   def last_comment_and_date_span(comment)
+     "#{comment.user.name} said, &ldquo;#{comment.comment}&rdquo;"+
      "<span class=\"commentdate\">" +
      time_ago_in_words(comment.created_at) +
-     " ago</span> " +
-     "#{comment.user.name} said, &ldquo;#{comment.comment}&rdquo;"
+     " ago</span> "
+    
   end
 
   def multiple_checkbox_search(collection, search_method)

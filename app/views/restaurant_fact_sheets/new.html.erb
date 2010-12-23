@@ -1,0 +1,183 @@
+<h1>New restaurant_fact_sheet</h1>
+
+<% form_for(@restaurant_fact_sheet) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :venue %><br />
+    <%= f.text_field :venue %>
+  </p>
+  <p>
+    <%= f.label :intersection %><br />
+    <%= f.text_field :intersection %>
+  </p>
+  <p>
+    <%= f.label :neighborhood %><br />
+    <%= f.text_field :neighborhood %>
+  </p>
+  <p>
+    <%= f.label :parking %><br />
+    <%= f.text_field :parking %>
+  </p>
+  <p>
+    <%= f.label :public_transit %><br />
+    <%= f.text_field :public_transit %>
+  </p>
+  <p>
+    <%= f.label :dinner_average_price %><br />
+    <%= f.text_field :dinner_average_price %>
+  </p>
+  <p>
+    <%= f.label :lunch_average_price %><br />
+    <%= f.text_field :lunch_average_price %>
+  </p>
+  <p>
+    <%= f.label :brunch_average_price %><br />
+    <%= f.text_field :brunch_average_price %>
+  </p>
+  <p>
+    <%= f.label :breakfast_average_price %><br />
+    <%= f.text_field :breakfast_average_price %>
+  </p>
+  <p>
+    <%= f.label :children_average_price %><br />
+    <%= f.text_field :children_average_price %>
+  </p>
+  <p>
+    <%= f.label :small_plate_min_price %><br />
+    <%= f.text_field :small_plate_min_price %>
+  </p>
+  <p>
+    <%= f.label :small_plate_max_price %><br />
+    <%= f.text_field :small_plate_max_price %>
+  </p>
+  <p>
+    <%= f.label :large_plate_min_price %><br />
+    <%= f.text_field :large_plate_min_price %>
+  </p>
+  <p>
+    <%= f.label :large_plate_max_price %><br />
+    <%= f.text_field :large_plate_max_price %>
+  </p>
+  <p>
+    <%= f.label :dessert_plate_min_price %><br />
+    <%= f.text_field :dessert_plate_min_price %>
+  </p>
+  <p>
+    <%= f.label :dessert_plate_max_price %><br />
+    <%= f.text_field :dessert_plate_max_price %>
+  </p>
+  <p>
+    <%= f.label :wine_by_the_glass_count %><br />
+    <%= f.text_field :wine_by_the_glass_count %>
+  </p>
+  <p>
+    <%= f.label :wine_by_the_glass_min_price %><br />
+    <%= f.text_field :wine_by_the_glass_min_price %>
+  </p>
+  <p>
+    <%= f.label :wine_by_the_glass_max_price %><br />
+    <%= f.text_field :wine_by_the_glass_max_price %>
+  </p>
+  <p>
+    <%= f.label :wine_by_the_bottle_count %><br />
+    <%= f.text_field :wine_by_the_bottle_count %>
+  </p>
+  <p>
+    <%= f.label :wine_by_the_bottle_min_price %><br />
+    <%= f.text_field :wine_by_the_bottle_min_price %>
+  </p>
+  <p>
+    <%= f.label :wine_by_the_bottle_max_price %><br />
+    <%= f.text_field :wine_by_the_bottle_max_price %>
+  </p>
+  <p>
+    <%= f.label :wine_by_the_bottle_details %><br />
+    <%= f.text_area :wine_by_the_bottle_details %>
+  </p>
+  <p>
+    <%= f.label :reservations %><br />
+    <%= f.text_field :reservations %>
+  </p>
+  <p>
+    <%= f.label :cancellation_policy %><br />
+    <%= f.text_area :cancellation_policy %>
+  </p>
+  <p>
+    <%= f.label :payment_methods %><br />
+    <%= f.text_field :payment_methods %>
+  </p>
+  <p>
+    <%= f.label :byob_allowed %><br />
+    <%= f.check_box :byob_allowed %>
+  </p>
+  <p>
+    <%= f.label :corkage_fee %><br />
+    <%= f.text_field :corkage_fee %>
+  </p>
+  <p>
+    <%= f.label :dress_code %><br />
+    <%= f.text_field :dress_code %>
+  </p>
+  <p>
+    <%= f.label :delivery %><br />
+    <%= f.text_field :delivery %>
+  </p>
+  <p>
+    <%= f.label :wheelchair_access %><br />
+    <%= f.text_field :wheelchair_access %>
+  </p>
+  <p>
+    <%= f.label :smoking %><br />
+    <%= f.text_field :smoking %>
+  </p>
+  <p>
+    <%= f.label :architect_name %><br />
+    <%= f.text_field :architect_name %>
+  </p>
+  <p>
+    <%= f.label :graphic_designer %><br />
+    <%= f.text_field :graphic_designer %>
+  </p>
+  <p>
+    <%= f.label :furniture_designer %><br />
+    <%= f.text_field :furniture_designer %>
+  </p>
+  <p>
+    <%= f.label :furniture_manufacturer %><br />
+    <%= f.text_field :furniture_manufacturer %>
+  </p>
+  <p>
+    <%= f.label :flooring %><br />
+    <%= f.text_area :flooring %>
+  </p>
+  <p>
+    <%= f.label :millwork %><br />
+    <%= f.text_area :millwork %>
+  </p>
+  <p>
+    <%= f.label :china %><br />
+    <%= f.text_area :china %>
+  </p>
+  <p>
+    <%= f.label :kitchen_equipment %><br />
+    <%= f.text_area :kitchen_equipment %>
+  </p>
+  <p>
+    <%= f.label :lighting %><br />
+    <%= f.text_area :lighting %>
+  </p>
+  <p>
+    <%= f.label :draperies %><br />
+    <%= f.text_area :draperies %>
+  </p>
+  <p>
+    <%= f.label :square_footage %><br />
+    <%= f.text_field :square_footage %>
+  </p>
+  <p>
+    <%= f.submit 'Create' %>
+  </p>
+<% end %>
+
+<%= link_to 'Back', restaurant_fact_sheets_path %>

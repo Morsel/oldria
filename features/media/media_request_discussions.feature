@@ -3,6 +3,7 @@ Feature: Media request discussions
   So that I can can converse about an MR
   As a Media user or recipient of a media request
   I want to see a dated comment box with attachments on the MR conversation page, most recent on top
+  And fill in comments in response
 
 
   Background:
@@ -20,6 +21,15 @@ Feature: Media request discussions
       | Message | Do you like cheesy potatoes? |
       | Status  | approved                     |
     And I am logged in as "sam" with password "secret"
-    Given I am on the media request discussion page
-    When I leave a comment with "Of course I love cheesy potatoes!"
-    Then the media request should have 1 comment
+    When I visit the media request discussion page for "Do you like cheesy potatoes?"
+    And I leave a comment with "Of course I love cheesy potatoes!"
+    Then I should see "Thanks: your answer has been saved"
+    And the media request should have 1 comment
+
+    Given I am logged in as "mediaguy" with password "secret"
+    When I visit the Mediafeed media request discussion page for "Do you like cheesy potatoes?"
+    Then I should see "Of course I love cheesy potatoes!"
+    And I leave a comment with "Thanks for your quick response, Sam"
+    # And I fill in "comment_comment" with "Thanks for your quick response, Sam"
+    # And I press "Post Comment"
+    Then the media request should have 2 comments

@@ -26,6 +26,8 @@ class Comment < ActiveRecord::Base
   named_scope :not_user, lambda { |user| {
     :conditions => ["user_id != ?", user.id]
   }}
+  
+  #validates_presence_of :comment
 
   before_create :clear_read_status
 

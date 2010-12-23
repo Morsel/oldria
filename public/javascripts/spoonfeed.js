@@ -12,8 +12,8 @@ $('.hp_promo').equalHeights();
 $('.chapter').equalHeights();
 $('.topic').equalHeights();
 $('.rest_staff .employment').equalHeights();
-$('#accolades li').equalHeights();
 $('#extended_profile .equalheights').equalHeights(160);
+
 
 // == Inbox for RIA messages
 $(".inbox_message .readit").live('click', function(){
@@ -91,6 +91,10 @@ $('#profile-tabs').tabs({
 		}
 	}
 });
+
+$('#open-profile-summary').click(function(){
+	$('#profile-tabs').tabs('select',1);
+})
 
 $('.tabable').tabs({
 	panelTemplate: '<section></section>',
@@ -339,3 +343,22 @@ function updateDirectoryList() {
 }
 
 $directoryInputs.change(updateDirectoryList);
+
+// Restaurant directory search
+var	$restoDirectoryList  = $("#restaurant_directory_list");
+var $restoDirectoryInputs = $("#directory_search #restaurant_criteria input[type=checkbox]");
+
+$restoDirectoryList.before($loaderImg);
+
+function updateRestoDirectoryList() {
+	input_string = $restoDirectoryInputs.serialize();
+	$loaderImg.show();
+	$restoDirectoryList.hide();
+	$restoDirectoryList.load('/directory/restaurant_search', input_string, function(responseText, textStatus){
+	  $loaderImg.hide();
+	  $restoDirectoryList.fadeIn(300);
+	});
+	// return true;
+}
+
+$restoDirectoryInputs.change(updateRestoDirectoryList);

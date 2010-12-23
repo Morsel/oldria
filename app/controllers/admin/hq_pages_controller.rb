@@ -30,7 +30,7 @@ class Admin::HqPagesController < Admin::AdminController
     @page = HqPage.find(params[:id])
     if @page.update_attributes(params[:hq_page])
       flash[:notice] = "Successfully updated page."
-      redirect_to admin_hq_pages_path(:anchor => "soapbox_page_#{@page.id}")
+      redirect_to admin_hq_pages_path(:anchor => "hq_page_#{@page.id}")
     else
       render :edit
     end
@@ -40,7 +40,7 @@ class Admin::HqPagesController < Admin::AdminController
     @page = HqPage.find(params[:id])
     @page.destroy
     flash[:notice] = "Successfully destroyed page."
-    redirect_to admin_pages_path
+    redirect_to admin_hq_pages_path
   end
 
 end

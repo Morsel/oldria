@@ -55,6 +55,10 @@ module ApplicationHelper
     not_soapbox && current_user
   end
 
+  def on_mediafeed
+    mediafeed?
+  end
+
   def logo_for(obj)
     obj.logo || Image.new
   end

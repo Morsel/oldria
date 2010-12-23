@@ -7,8 +7,10 @@
   </header>
   <section class="clear">
   	<h1><%=h @discussionable.try(:subject) %></h1>
-		<p class="employee_name">To:</span> <%= @admin_discussion.restaurant.try(:name) %>
-          (<%= @admin_discussion.employees.map(&:name_or_username).to_sentence %>)</p>
+	<p class="employee_name">
+	    To: <%= @admin_discussion.restaurant.try(:name) %>
+        (<%= @admin_discussion.employees.map(&:name_or_username).to_sentence %>)
+    </p>
   </section>
 
   <div class="message-body">

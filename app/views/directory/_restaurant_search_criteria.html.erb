@@ -1,0 +1,87 @@
+<fieldset name="Find Restaurants" id="restaurant_criteria">
+    <legend><span>Filter Your Search</span></legend>
+    <ol>
+        <div id="criteria_accordion">
+            <div class="accordion_box">
+                <%= link_to "<span>Restaurants</span>", "#" %>
+                <div id="restaurant_fields" style="display:none;">
+                    <li id="id_eq_any_input" class="check_boxes optional">
+                        <fieldset>
+                            <legend class="label">
+                                <label for="id_eq_any">Restaurant id equals any</label>
+                            </legend>
+                            <ol>
+                                <% for restaurant in Restaurant.all %>
+                                <li><label for="id_eq_any_<%= restaurant.id %>">
+                                    <%= check_box_tag "search[id_eq_any][]", restaurant.id, false, :id => "id_eq_any_#{restaurant.id}" %>
+                                    <%= restaurant.name %>
+                                </label></li>
+                                <% end %>
+                            </ol>
+                        </fieldset>
+                    </li>
+                </div>
+            </div>
+            <div class="accordion_box">
+                <%= link_to "<span>Cuisine</span>", "#" %>
+                <div id="cuisine_fields" class="loading" style="display:none;">
+                    <li id="search_cuisine_id_eq_any_input" class="check_boxes optional">
+                        <fieldset>
+                            <legend class="label">
+                                <label for="search_cuisine_id_eq_any">Cuisine id equals any</label>
+                            </legend>
+                            <ol>
+                                <% for cuisine in Cuisine.with_restaurants %>
+                                <li><label for="search_cuisine_id_eq_any_<%= cuisine.id %>">
+                                    <%= check_box_tag "search[cuisine_id_eq_any][]", cuisine.id, false, :id => "search_cuisine_id_eq_any_#{cuisine.id}" %>
+                                    <%= cuisine.name %>
+                                </label></li>
+                                <% end %>
+                            </ol>
+                        </fieldset>
+                    </li>
+                </div>
+            </div>
+            <div class="accordion_box">
+                <%= link_to "<span>Region</span>", "#" %>
+                <div id="region_fields" class="loading" style="display:none;">
+                    <li id="search_james_beard_region_id_eq_any_input" class="check_boxes optional">
+                        <fieldset>
+                            <legend class="label">
+                                <label for="search_james_beard_region_id_eq_any">Region id equals any</label>
+                            </legend>
+                            <ol>
+                                <% for region in JamesBeardRegion.with_restaurants %>
+                                <li><label for="search_james_beard_region_id_eq_any_<%= region.id %>">
+                                    <%= check_box_tag "search[james_beard_region_id_eq_any][]", region.id, false, :id => "search_james_beard_region_id_eq_any_#{region.id}" %>
+                                    <%= region.to_label %>
+                                </label></li>
+                                <% end %>
+                            </ol>
+                        </fieldset>
+                    </li>
+                </div>
+            </div>
+            <div class="accordion_box">
+                <%= link_to "<span>Metro Area</span>", "#" %>
+                <div id="metro_fields" class="loading" style="display:none;">
+                    <li id="search_metropolitan_area_id_eq_any_input" class="check_boxes optional">
+                        <fieldset>
+                            <legend class="label">
+                                <label for="search_metropolitan_area_id_eq_any">Metro area id equals any</label>
+                            </legend>
+                            <ol>
+                                <% for metro in MetropolitanArea.with_restaurants %>
+                                <li><label for="search_metropolitan_area_id_eq_any_<%= metro.id %>">
+                                    <%= check_box_tag "search[metropolitan_area_id_eq_any][]", metro.id, false, :id => "search_metropolitan_area_id_eq_any_#{metro.id}" %>
+                                    <%= metro.name %>
+                                </label></li>
+                                <% end %>
+                            </ol>
+                        </fieldset>
+                    </li>
+                </div>
+            </div>
+        </div>
+    </ol>
+</fieldset>

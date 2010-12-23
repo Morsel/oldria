@@ -1,0 +1,15 @@
+<% semantic_form_for [:admin, @slide], :html => { :multipart => true } do |f| %>
+    <% f.inputs do %>
+        <% unless @slide.new_record? %>
+        Current image:
+        <%= image_tag(@slide.image.url(:thumb)) %>
+        <% end %>
+        <%= f.input :image %>
+        <%= f.input :photo_credit %>
+        <%= f.input :title %>
+        <%= f.input :excerpt, :hint => "Keep this under 140 characters" %>
+        <%= f.input :link %>
+    <% end %>
+    
+	<%= button_tag "Save" %>
+<% end %>

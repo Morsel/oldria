@@ -12,25 +12,25 @@ Feature: Member roles
     # And I should not see "Media Portal"
 
 
-  # Scenario: Media members
-  #   Given I am logged in as a media member
-  #   When I am on the dashboard
-  #   Then I should see "Media Portal"
-  #   And I should not see "Status"
-  # 
-  # @allow-rescue
-  # Scenario Outline: Media members access
-  #   Given the following confirmed users:
-  #     | username | email             |
-  #     | jimmy    | jimmy@example.com |
-  #   And I am logged in as a media member
-  #   When I try to visit <page>
-  #   Then I should <action>
-  # 
-  # Examples:
-  #   | page                         | action                       |
-  #   | the admin landing page       | be on the homepage           |
-  #   | the edit page for "jimmy"    | be on the homepage           |
+  Scenario: Media members
+    Given I am logged in as a media member
+    When I am on the dashboard
+    Then I should see "Mediafeed"
+    And I should not see "Dashboard"
+  
+  @allow-rescue
+  Scenario Outline: Media members access
+    Given the following confirmed users:
+      | username | email             |
+      | jimmy    | jimmy@example.com |
+    And I am logged in as a media member
+    When I try to visit <page>
+    Then I should <action>
+  
+  Examples:
+    | page                         | action                        |
+    | the admin landing page       | be on the mediafeed directory page |
+    | the edit page for "jimmy"    | be on the mediafeed directory page |
 
 
   Scenario Outline: Admin members access

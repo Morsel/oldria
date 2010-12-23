@@ -27,7 +27,7 @@ Given /^the following media users?:?$/ do |table|
 end
 
 Given /^a media user "([^\"]*)" has just signed up$/ do |username|
-  visit new_media_user_path
+  visit new_mediafeed_media_user_path
 
   When 'I sign up with:', table(%Q{
     | username    | email        | password |
@@ -83,7 +83,7 @@ Given /^I am not logged in$/ do
   Given 'I visit the logout path'
 end
 
-Given /^given that user "([^\"]*)" has just been confirmed$/ do |username|
+Given /^"([^\"]*)" has just been confirmed$/ do |username|
   user = User.find_by_username(username)
   user.confirm!
 end
@@ -106,6 +106,13 @@ Given /^"([^\"]*)" has a default employment with role "([^\"]*)" and restaurant 
   Factory(:default_employment, :employee => user, :restaurant_role => role, :solo_restaurant_name => restoname)
 end
 
+Given /^"([^\"]*)" has a default employment with the role "([^\"]*)" and subject matter "([^\"]*)"$/ do |username, rolename, subject|
+  user = User.find_by_username(username)
+  role = Factory(:restaurant_role, :name => rolename)
+  subjectmatter = Factory(:subject_matter, :name => subject)
+  Factory(:default_employment, :employee => user, :restaurant_role => role, :subject_matters => [subjectmatter])
+end
+
 When /^I (?:visit the logout path|logout)$/ do
   visit logout_url
 end
@@ -116,7 +123,7 @@ When /^I sign up with:$/ do |table|
     fill_in "user[#{field}]", :with => value
   end
   fill_in "user[password_confirmation]", :with => user_data["password"] if user_data["password"]
-  click_button :submit
+  click_button :signup
 end
 
 When /^I confirm my account$/ do

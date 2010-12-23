@@ -14,6 +14,8 @@ class MetropolitanArea < ActiveRecord::Base
   has_many :restaurants
   has_many :profiles
   
+  has_and_belongs_to_many :users
+  
   validates_presence_of :name
   
   default_scope :order => "#{table_name}.state ASC, LOWER(#{table_name}.name) ASC"

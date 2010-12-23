@@ -285,6 +285,11 @@ Factory.define :subject_matter do |f|
   f.general true
 end
 
+Factory.define :type_of_request, :parent => :subject_matter do |f|
+  f.name "General Request"
+  f.general false
+end
+
 Factory.define :page do |f|
   f.title   "Page Title"
   f.slug    {"page-title"}
@@ -310,10 +315,10 @@ end
 # == Media Requests ==
 Factory.define :media_request do |f|
   f.association :sender, :factory => :media_user
-  f.association :subject_matter
+  f.association :subject_matter, :factory => :type_of_request
   f.message "This is a media request message"
   f.due_date 2.days.from_now
-  f.restaurants {|mr| [mr.association(:restaurant)]}
+  f.association :employment_search
 end
 
 Factory.define :sent_media_request, :parent => :media_request do |f|
@@ -324,10 +329,15 @@ Factory.define :pending_media_request, :parent => :media_request do |f|
   f.association :employment_search
 end
 
-
 Factory.define :media_request_discussion do |f|
   f.association :media_request
   f.association :restaurant
+  f.comments_count 0
+end
+
+Factory.define :solo_media_discussion do |f|
+  f.association :media_request
+  f.association :employment
   f.comments_count 0
 end
 

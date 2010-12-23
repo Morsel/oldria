@@ -1,5 +1,5 @@
 <% if current_user.admin? %>
-    <h4>Users and restaurants included:</h4>
+    <h2>Your media request will be received by:</h2>
     <p>(a line through the name means they do not have permission to post to soapbox)</p>
     
     <% if @solo_users.present? %>
@@ -15,6 +15,21 @@
         <%= employments.map { |e| "<span style='#{e.post_to_soapbox ? "" : "text-decoration: line-through"}'>#{e.employee_name}</span>" }.to_sentence %>
       </div>
     <% end %>
+<% elsif current_user.media? %>
+    <h2>Your media request will be received by:</h2>
+
+    <% if @solo_users.present? %>
+    <div class="clear">
+        <h3>Individuals:</h3> 
+        <%= @solo_users.map { |e| "<span style='#{e.post_to_soapbox ? "" : "text-decoration: line-through"}'>#{e.employee_name}</span>" }.to_sentence %>
+    </div>
+    <% end %>
+    
+    <div class="clear">
+        <h3>Restaurant Personnel from:</h3>
+        <%= @restaurants_and_employments.keys.map { |r| "#{r.name}" }.to_sentence %>
+    </div>
+
 <% else %>
     <p class="restaurant_employments_count">
       Currently, this will be seen by <span class="number"><%= @search.size %></span> employees
