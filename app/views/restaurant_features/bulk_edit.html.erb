@@ -9,7 +9,7 @@
                 <%= render 'restaurant_features/features' %>
             </div>
             
-            <%= render :partial => 'profile_questions/behind_the_line', :locals => {:subject => @page} %>
+            <%= render :partial => 'profile_questions/behind_the_line', :locals => {:subject => @page} if topics_for(@page).present? %>
         </div>
     </div> 
 </div><!-- #restaurant_profile_view -->
