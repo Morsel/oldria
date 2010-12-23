@@ -30,7 +30,7 @@ describe WelcomeController do
           Factory(:profile_answer)
         end
         get :index
-        assigns[:has_see_more].should == true
+        assigns[:has_more].should == true
       end
 
       it "should cache action if no unread announcement exists" do
@@ -50,7 +50,7 @@ describe WelcomeController do
       it "should cache recent_comments" do
         get :index
         response.should render_template(:dashboard)
-        Rails.cache.exist?(controller.comments_cache_key).should be_true
+        Rails.cache.exist?("load_recent_comments").should be_true
       end
     end
 
