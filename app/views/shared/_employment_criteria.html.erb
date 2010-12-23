@@ -14,7 +14,7 @@
         <div id="subject_fields" class="loading">
             <%= s.input :subject_matters_id_equals_any, 
                         :as => "check_boxes",
-                        :collection => SubjectMatter.all %>
+                        :collection => SubjectMatter.general.all %>
         </div>
       </div>
 	<p class="search_filter_hint">Filter further using these criteria, if you like:</p>

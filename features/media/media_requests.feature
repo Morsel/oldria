@@ -28,13 +28,14 @@ Feature: Media requests
 
   Scenario: Media Requests go to the assigned subject matters
     Given a subject matter "Beer"
+    And a non-general subject matter "Recipe Request"
     And "john" handles the subject matter "Beer" for "Eight Ball"
     And "sam" does not handle the subject matter "Beer" for "Eight Ball"
 
     Given I am logged in as "mediaman" with password "secret"
     When I create a media request with message "Are cucumbers good in salad?" and criteria:
        | Subject Matter  | Beer                |
-       | Type of Request | General Information |
+       | Type of Request | Recipe Request      |
     And that media request is approved
     Then "sam" should have 0 media requests
     But "john" should have 1 media request

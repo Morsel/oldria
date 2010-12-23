@@ -25,6 +25,10 @@ Given /^subject matter "([^\"]*)" is general$/ do |name|
   s.update_attribute(:general, true)
 end
 
+Given /^a non\-general subject matter "([^\"]*)"$/ do |name|
+  Factory(:subject_matter, :name => name, :general => false)
+end
+
 Given /^"([^\"]*)" handles the subject matter "([^"]*)" for "([^"]*)"$/ do |username, subject, restname|
   r = Restaurant.find_by_name(restname)
   u = User.find_by_username(username)
