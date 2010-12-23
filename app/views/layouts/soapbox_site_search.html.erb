@@ -1,6 +1,8 @@
 <!doctype html>
 <html lang="en" class="no-js">
-<% unless @key.blank? %>
+<% if @no_key %>
+  <% title = "Search The Site" %>
+<% elsif !@key.blank? %>
   <% title = "Search for \"#{h(truncate(@key, :length => 35))}\"" %>
 <% else %>
   <% title = "Empty search keyword" %>
@@ -60,13 +62,13 @@
               <% end %>
             </header>
             <article id="page-content">
-              <% if @no_results %>
-                <h3>No results found</h3>
-              <% else %>
-                <div id="inside">
+              <div id="inside">
+                <% if @no_results %>
+                  <h2>No results found</h2>
+                <% else %>
                   <%= yield %>
-                </div>
-              <% end unless @no_key %>
+                <% end unless @no_key %>
+              </div>
             </article><!-- /page-content -->
         </section><!-- /content -->
     </div><!-- /main -->
