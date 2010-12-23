@@ -53,7 +53,7 @@ class WelcomeController < ApplicationController
     method_name = method_name.to_s unless method_name.is_a?(String)
     unless self.perform_caching && (result = Rails.cache.read(method_name))
       result = send(method_name)
-      Rails.cache.write(method_name, result, :expires_in => 5.minutes)
+      Rails.cache.write(method_name, result, :expires_in => 5.minutes) if self.perform_caching
     end
     result
   end
