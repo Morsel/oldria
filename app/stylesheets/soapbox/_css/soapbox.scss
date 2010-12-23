@@ -2484,7 +2484,7 @@ dl.things dt:after {content: ":"}
 	}
 }
 
-#page-content .search_results {
+#page-content .search-results {
 	overflow: hidden;
 	margin-bottom: 50px;
 	#questions-list {
@@ -2547,5 +2547,7 @@ dl.things dt:after {content: ":"}
 	}
 }
 
-
+.btl-answer-author {
+  float: left;
+}
 

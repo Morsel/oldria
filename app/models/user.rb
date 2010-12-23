@@ -414,33 +414,33 @@ class User < ActiveRecord::Base
 
   def self.extended_find(keyword)
     # user fields: first_name, last_name, role
-    users = User.premium_account.visible.first_name_or_last_name_or_role_like(keyword).all(:include => :profile)
+    users = User.in_soapbox_directory.first_name_or_last_name_or_role_like(keyword).all(:include => :profile)
     # profile fields: headline, summary, hometown, current_residence
-    users += User.premium_account.visible.
+    users += User.in_soapbox_directory.
       profile_headline_or_profile_summary_or_profile_hometown_or_profile_current_residence_like(keyword).
       id_not_in(users.map(&:id))
       all(:include => :profile)
     # metropolitan_area name
-    users += User.premium_account.visible.profile_metropolitan_area_name_like(keyword).
+    users += User.in_soapbox_directory.profile_metropolitan_area_name_like(keyword).
       id_not_in(users.map(&:id))
       all(:include => :profile)
     # james_beard_region name
-    users += User.premium_account.visible.profile_james_beard_region_name_like(keyword).
+    users += User.in_soapbox_directory.profile_james_beard_region_name_like(keyword).
       id_not_in(users.map(&:id))
       all(:include => :profile)
     # cuisines name
-    users += User.premium_account.visible.profile_cuisines_name_like(keyword).
+    users += User.in_soapbox_directory.profile_cuisines_name_like(keyword).
       id_not_in(users.map(&:id))
       all(:include => :profile)
     # specialties name
-    users += User.premium_account.visible.profile_specialties_name_like(keyword).
+    users += User.in_soapbox_directory.profile_specialties_name_like(keyword).
       id_not_in(users.map(&:id))
       all(:include => :profile)
     # restaurant name
-    users += User.premium_account.visible.restaurants_name_like(keyword).
+    users += User.in_soapbox_directory.restaurants_name_like(keyword).
       id_not_in(users.map(&:id))
       all(:include => :profile)
 
-    users.reject { |user| ! user.prefers_publish_profile? }
+    users
   end
 end

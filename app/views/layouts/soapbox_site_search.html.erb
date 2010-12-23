@@ -60,14 +60,13 @@
               <% end %>
             </header>
             <article id="page-content">
-							
-            		<% if @no_results %>
-             		<h3>No results found</h3>
-              	<% else %>
-								<div id="inside">
-              	 		<%= yield %>
-             			<% end unless @no_key %>
-							</div>	
+              <% if @no_results %>
+                <h3>No results found</h3>
+              <% else %>
+                <div id="inside">
+                  <%= yield %>
+                </div>
+              <% end unless @no_key %>
             </article><!-- /page-content -->
         </section><!-- /content -->
     </div><!-- /main -->

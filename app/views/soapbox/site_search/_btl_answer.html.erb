@@ -1,0 +1,15 @@
+<li>
+  <% link_to soapbox_question_path(btl_answer.profile_question) do %>
+    <% date = btl_answer.created_at %>
+    <time datetime="<%= date.try(:strftime,'%Y-%m-%d') %>"><span><%= date.try(:strftime, "%b").upcase %></span><%= date.try(:strftime, "%e") %></time>
+    <span class="title">
+      <strong><em><%= "#{btl_answer.profile_question.chapter.title_with_topic}:" %></em></strong> <em><%= "#{btl_answer.profile_question.title}" %></em><br/>
+      <%= truncate(btl_answer.answer, :length => 200) %>
+    </span>
+    <span class="btl-answer-author">
+      by <%= [btl_answer.responder.name_or_username,
+              btl_answer.responder.primary_employment.try(:restaurant_role).try(:name),
+              btl_answer.responder.restaurant_names].reject(&:blank?).join(", ") %>
+    </span>
+  <% end %>
+</li>
