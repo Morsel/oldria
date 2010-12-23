@@ -1,0 +1,11 @@
+<% title "Restaurants" %>
+
+<div id="directory_search">
+    <% form_tag do %>
+        <%= render :partial => 'directory/restaurant_search_criteria' %>
+    <% end %>
+</div>
+
+<div id="restaurant_directory_list">
+    <%= render :partial => 'directory/restaurant_search_results' %>
+</div>

@@ -38,7 +38,7 @@
 class Restaurant < ActiveRecord::Base
   apply_addresslogic
 
-  default_scope :conditions => {:deleted_at => nil}
+  default_scope :conditions => {:deleted_at => nil}, :order => "#{table_name}.sort_name"
 
   # primary account manager
   belongs_to :manager, :class_name => "User", :foreign_key => 'manager_id'

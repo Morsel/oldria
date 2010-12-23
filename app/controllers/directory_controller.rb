@@ -18,5 +18,14 @@ class DirectoryController < ApplicationController
     directory_search_setup
     render :partial => "search_results"
   end
+  
+  def restaurants
+    @restaurants = Restaurant.all
+  end
+  
+  def restaurant_search
+    @restaurants = Restaurant.search(params[:search]).all
+    render :partial => "restaurant_search_results"
+  end
 
 end
