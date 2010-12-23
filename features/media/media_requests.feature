@@ -64,23 +64,6 @@ Feature: Media requests
     And that media request is approved
     Then "neue" should have 1 media requests
 
-  Scenario: Responding to a media request and conversations
-    Given "sam" has a media request from "mediaman" with:
-      | Message   | Do you like cheese? |
-      | Due date  | 2009-10-02          |
-      | Status    | approved            |
-    And I am logged in as "sam" with password "secret"
-    When I go to the media request discussion page
-    And I fill in "Comment" with "I love cheese!"
-    And I press "Post Comment"
-    Then the media request should have 1 comment
-
-    Given I am logged in as "mediaman" with password "secret"
-    Given I am on the media request discussion page
-    And I fill in "Comment" with "Thanks for your quick response, Sam"
-    And I press "Post Comment"
-    Then the media request should have 2 comments
-
   Scenario: Approved media requests notifications are emailed to recipients
     Given "sam" handles the subject matter "Beer" for "Eight Ball"
     And "john" does not handle the subject matter "Beer" for "Eight Ball"

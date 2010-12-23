@@ -95,6 +95,16 @@ When /^I create a new admin media request with:$/ do |table|
   @media_request = MediaRequest.last
 end
 
+When /^I visit the media request discussion page for "([^\"]*)"$/ do |message|
+  media_request = MediaRequest.find_by_message(message)
+  visit media_request_discussion_path(media_request.media_request_discussions.first)
+end
+
+When /^I visit the Mediafeed media request discussion page for "([^\"]*)"$/ do |message|
+  media_request = MediaRequest.find_by_message(message)
+  visit mediafeed_discussion_path(media_request, 'media_request_discussions', media_request.media_request_discussions.first)
+end
+
 Given /^an admin has approved the media request from "([^\"]*)"$/ do |username|
   Given("I am logged in as an admin")
   visit admin_media_requests_path
@@ -158,7 +168,7 @@ Then(/^there should be (\d+) media requests?(?: in the system)?$/) do |num|
 end
 
 Then /^the media request should have ([0-9]+) comments?$/ do |num|
-  MediaRequestDiscussion.last.comments.count.should == num.to_i
+  MediaRequest.last.media_request_discussions.last.comments_count.should == num.to_i
 end
 
 Then /^I should see an admin media request$/ do

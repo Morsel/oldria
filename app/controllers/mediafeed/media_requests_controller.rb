@@ -88,4 +88,12 @@ class Mediafeed::MediaRequestsController < Mediafeed::MediafeedController
       @media_requests_with_replies_count = @media_requests_with_replies.size
     end
   end
+
+  def build_comment
+    @comment = @media_request_discussion.comments.build
+    @comment.attachments.build
+    @comment.user = current_user
+    @comment_resource = [@media_request_discussion, @comment]
+  end
+
 end

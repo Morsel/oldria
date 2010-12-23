@@ -59,6 +59,23 @@ module NavigationHelpers
     when /^the Mediafeed login page$/
       mediafeed_login_path
 
+    # Media Requests
+    when /^the media request discussion page$/
+      media_request_discussion_path(MediaRequestDiscussion.last)
+    when /^the Mediafeed media request discussion page$/
+      media_request = MediaRequest.last
+      mediafeed_discussion_path(media_request, 'media_request_discussions', media_request.media_request_discussions.first)
+
+    # media feed
+    when /the mediafeed home page/
+      mediafeed_root_path
+    when /the new mediafeed slide admin page/
+      new_admin_mediafeed_slide_path
+    when /the new mediafeed promo admin page/
+      new_admin_mediafeed_promo_path
+    when /the mediafeed directory page/
+      mediafeed_directory_path
+
     # Restaurants
     when /^the new restaurant page$/
       new_restaurant_path
@@ -80,11 +97,6 @@ module NavigationHelpers
       bulk_edit_restaurant_menus_path(Restaurant.find_by_name($1))
     when /^the employee edit page for "(.+)" and "(.+)"$/
       edit_restaurant_employee_path(Restaurant.find_by_name($1), User.find_by_username($2))
-
-
-    # Media Requests
-    when /^the media request discussion page$/
-      media_request_discussion_path(MediaRequestDiscussion.last)
 
     # Admin pages
     when /^the admin landing page$/
@@ -167,17 +179,6 @@ module NavigationHelpers
     when /"([^\"]+)"/
       $1
       
-    # media feed
-    
-    when /the mediafeed home page/
-      mediafeed_root_path
-    when /the new mediafeed slide admin page/
-      new_admin_mediafeed_slide_path
-    when /the new mediafeed promo admin page/
-      new_admin_mediafeed_promo_path
-    when /the mediafeed directory page/
-      mediafeed_directory_path
-
     # Add more mappings here.
     # Here is an example that pulls values out of the Regexp:
     #
