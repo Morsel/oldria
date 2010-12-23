@@ -64,6 +64,10 @@ Feature: Restaurant Menus
   #   Then I should not see any menus
   #   And I should see an error message
 
+  Scenario: Menu file upload validations are not working in cucumber
+    When I fix the above commented out specs
+    # awesomeness results
+
   Scenario: Remove a menu
     When I go to the restaurant menu upload page for Bourgeois Pig
     And I fill in "January" for "Menu name"
@@ -73,4 +77,3 @@ Feature: Restaurant Menus
     Then I should have a menu with the name "January" and change frequency "Monthly"
     When I delete the menu with the name "January"
     Then I should not have a menu with the name "January" and change frequency "Monthly"
-
