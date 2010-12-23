@@ -31,7 +31,7 @@ Feature: Manage a_la_minutes
      | What's new?     | Lobster Bisque |
 
     When I go to the edit a la minute question page for "Steak Knife"
-    And I check "a_la_minute_questions_1_show_as_public"
+    And I check a la minute question titled "What's new?" as public
     And I press "Change Answers"
     And I go to the soapbox restaurant profile for "Steak Knife"
     Then I should see the question "What's new?" with the answer "Lobster Bisque"
