@@ -48,7 +48,11 @@ describe Mediafeed::MediaRequestsController do
       it { response.flash[:error].should_not be_nil }
     end
     
-    it "should require the user to submit a search with subject matter"
+    it "should require the user to submit a search with subject matter" do
+      post :create, :search => { :subject_matters_id_equals_any => [] }, :media_request => {}
+      response.should render_template(:new)
+      response.flash[:error].should_not be_nil
+    end
 
   end
 
