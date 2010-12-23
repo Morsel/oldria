@@ -137,6 +137,7 @@
 
             <% end %>
 
+            <% if @profile.user.employments.present? %>
             <% f.inputs :name => "Current Employment" do %>
                 <label>Select your primary job role:</label>
                 <ul class="primary-employment">
@@ -146,6 +147,7 @@
                 </ul>
 				<% button_tag :class => 'positive' do %>Save changes to employment<% end %>
 
+            <% end %>
             <% end %>
 
             <% f.inputs :name => "Contact Information" do %>
