@@ -20,7 +20,7 @@
       <% end %>
     <% else %>
       <%= render @comments %>     
-      <% if @@discussionable.respond_to?(:sopabox_entry) && discussionable.soapbox_entry.try(:published?) %>
+      <% if @discussionable.respond_to?(:sopabox_entry) && @discussionable.soapbox_entry.try(:published?) %>
         <%  answer =  @comments.last %>
         <%= render(:partial => "shared/facebook_dialog",
                    :locals => { :caption => "Check out more about \"#{@discussionable.display_message}\"", 
