@@ -28,4 +28,14 @@ class Soapbox::SoapboxController < ApplicationController
     render :partial => "directory/search_results"
   end
 
+  def restaurant_directory
+    @restaurants = Restaurant.with_premium_account
+    render :template => "directory/restaurants"
+  end
+
+  def restaurant_search
+    @restaurants = Restaurant.with_premium_account.search(params[:search]).all
+    render :partial => "directory/restaurant_search_results"
+  end
+
 end
