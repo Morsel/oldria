@@ -1,0 +1,2 @@
+module SoloMediaDiscussionsHelper
+end

@@ -38,6 +38,6 @@ class SubjectMatter < ActiveRecord::Base
   end
 
   def self.for_select
-    self.media_viewable.nongeneral.all.map{|sm| [sm.name, sm.id]} << ["General Information", ""]
+    self.media_viewable.nongeneral.all.map { |sm| [sm.name, sm.id] }
   end
 end

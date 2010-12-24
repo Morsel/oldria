@@ -20,10 +20,15 @@
 
 class DefaultEmployment < Employment
   
-  has_many :solo_discussions, :foreign_key => "employment_id"
+  has_many :solo_discussions, :foreign_key => "employment_id", :dependent => :destroy
+  has_many :solo_media_discussions, :foreign_key => "employment_id", :dependent => :destroy
 
   def restaurant
     nil
+  end
+  
+  def viewable_media_request_discussions
+    solo_media_discussions.select { |d| d.media_request.status == "approved" }
   end
 
 end

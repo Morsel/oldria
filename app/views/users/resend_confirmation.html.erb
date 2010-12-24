@@ -9,8 +9,9 @@
 <% form_tag resend_confirmation_users_path do %>
   <p>
     <%= label_tag "email", "Email" %>
-    <%= text_field_tag "email", params[:email], :class => 'text' %>
+    <%= text_field_tag "email", params[:email], :class => 'text wider' %>
   </p>
+  <%- if mediafeed? -%><%= hidden_field_tag "mediafeed", "true" %><%- end -%>
   <p>
     <%= button_tag "Resend Email" %>
   </p>

@@ -23,7 +23,7 @@ class UserMailer < ActionMailer::Base
     from       'notifications@restaurantintelligenceagency.com'
     recipients user.email
     sent_on    request_discussion.created_at
-    subject    "SpoonFeed: #{request_discussion.publication_string} has a question for #{request_discussion.restaurant.name}"
+    subject    "SpoonFeed: #{request_discussion.publication_string} has a question for #{request_discussion.recipient_name}"
     body       :request => request_discussion.media_request, :discussion => request_discussion
   end
 

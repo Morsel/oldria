@@ -99,18 +99,11 @@ class Employment < ActiveRecord::Base
   end
 
   def viewable_media_request_discussions
-    if omniscient?
-      conditions = {}
-    else
-      conditions = {:media_requests => {:subject_matter_id => subject_matter_ids}}
-    end
-
-    restaurant.media_request_discussions.all(:joins => :media_request,
-      :conditions => conditions, :order => 'media_requests.created_at DESC')
+    restaurant.media_request_discussions.select { |d| d.viewable_by?(self) && d.media_request.status == "approved" }.sort { |a, b| b.created_at <=> a.created_at }
   end
 
   def viewable_admin_discussions
-    omniscient? ? all_media_requests : filter_only_viewable(all_media_requests)
+    omniscient? ? all_discussions : filter_only_viewable(all_discussions)
   end
 
   def current_viewable_admin_discussions
@@ -137,7 +130,7 @@ class Employment < ActiveRecord::Base
   
   private
 
-  def all_media_requests(find_options = {})
+  def all_discussions(find_options = {})
     restaurant.admin_discussions.all({:include => :discussionable}.merge(find_options)).select(&:discussionable)
   end
 

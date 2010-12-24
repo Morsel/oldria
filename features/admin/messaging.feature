@@ -10,7 +10,6 @@ Feature: Admin Messaging
 
 # Replying to messages
 
- 
  Scenario: Replying to a QOTD
    Given I am logged in as "johndoe"
    And "johndoe" has a QOTD message with:
@@ -20,9 +19,7 @@ Feature: Admin Messaging
    Then I should see "Are lazy cakes cool?"
    When I fill in "Post" with "Why, yes, they are quite cool!"
    And I press "Send"
-   Then I should see "Why, yes, they are quite cool!"
-   And I should see "Thanks: your answer has been saved"
-
+   Then I should see "Thanks: your answer has been saved"
 
   Scenario: Replying to a published QOTD give a possibility to post on facebook
     Given I am logged in as "johndoe"
@@ -39,7 +36,6 @@ Feature: Admin Messaging
     And I check "Post to Facebook?"
     And I press "Send"
     Then I should see Facebook Share Popup
-    And I should see "Why, yes, they are quite cool!"
     And I should see "your answer has been saved"
  
   Scenario: Replying to a published Trend question give a possibility to post on facebook
@@ -57,7 +53,6 @@ Feature: Admin Messaging
     And I check "Post to Facebook?"
     And I press "Send"
     Then I should see Facebook Share Popup
-
 
   Scenario: Editing a QOTD reply
     Given I am logged in as "johndoe"
@@ -127,7 +122,7 @@ Feature: Admin Messaging
       | message      | Don't bother to call in sick |
       | scheduled_at | 2010-06-02 12:00:00          |
     And holiday "Day Off" has a reply "A reply for all holidays"
-    And given that user "cleopatra" has just been confirmed
+    And "cleopatra" has just been confirmed
     And I am logged in as "cleopatra"
     When I go to the front burner page
     Then I should see "This is a new QOTD"

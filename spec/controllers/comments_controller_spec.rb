@@ -17,10 +17,10 @@ describe CommentsController do
   end
 
   describe "POST create" do
-    it "should redirect to parent" do
+    it "should redirect to front burner when commenting on a FB post" do
       Comment.any_instance.stubs(:valid?).returns(true)
       post :create, :admin_discussion_id => @parent.id, :comment => {}
-      response.should redirect_to( admin_discussion_path(assigns[:parent]) )
+      response.should redirect_to(front_burner_path)
     end
     
     it "should mark the parent as read" do

@@ -1,5 +1,7 @@
 <fieldset name="Find People" id="employment_criteria">
-    <legend><span>Filter Your Search</span></legend>
+    <% if !on_soapbox %>
+    <legend><span>Explore our Premium Soapbox Member Profiles</span></legend>
+    <% end %>
     <ol>
         <div id="criteria_accordion">
             <div class="accordion_box">
@@ -7,9 +9,6 @@
                 <div id="user_fields" style="display:none;">
                     <li id="search_id_equals_any_input" class="check_boxes optional">
                         <fieldset>
-                            <legend class="label">
-                                <label for="search_id_equals_any">Id equals any</label>
-                            </legend>
                             <ol>
                                 <% for user in users_for_search %>
                                 <li><label for="search_id_equals_any_<%= user.id %>">
@@ -27,9 +26,6 @@
                 <div id="restaurant_fields" style="display:none;">
                     <li id="search_employments_restaurant_name_eq_any_input" class="check_boxes optional">
                         <fieldset>
-                            <legend class="label">
-                                <label for="search_employments_restaurant_name_eq_any">Restaurant name equals any</label>
-                            </legend>
                             <ol>
                                 <% for name in restaurant_names_for_search %>
                                 <li><label for="search_employments_restaurant_name_eq_any_<%= name %>">
@@ -47,9 +43,6 @@
                 <div id="cuisine_fields" class="loading" style="display:none;">
                     <li id="search_profile_cuisines_id_eq_any_input" class="check_boxes optional">
                         <fieldset>
-                            <legend class="label">
-                                <label for="search_profile_cuisines_id_eq_any">Profile cuisine ids equals any</label>
-                            </legend>
                             <ol>
                                 <% for cuisine in cuisines_for_search %>
                                 <li><label for="search_profile_cuisines_id_eq_any_<%= cuisine.id %>">
@@ -67,9 +60,6 @@
                 <div id="specialty_fields" class="loading" style="display:none;">
                     <li id="search_profile_specialities_id_eq_any_input" class="check_boxes optional">
                         <fieldset>
-                            <legend class="label">
-                                <label for="search_profile_specialities_id_eq_any">Profile speciality ids equals any</label>
-                            </legend>
                             <ol>
                                 <% for specialty in specialties_for_search %>
                                 <li><label for="search_profile_specialties_id_eq_any_<%= specialty.id %>">
@@ -87,9 +77,6 @@
                 <div id="role_fields" class="loading" style="display:none;">
                     <li id="search_all_employments_restaurant_role_id_eq_any_input" class="check_boxes optional">
                         <fieldset>
-                            <legend class="label">
-                                <label for="search_all_employments_restaurant_role_id_eq_any">Employments restaurant role ids equals any</label>
-                            </legend>
                             <ol>
                                 <% for role in roles_for_search %>
                                 <li><label for="search_all_employments_restaurant_role_id_eq_any_<%= role.id %>">
@@ -107,9 +94,6 @@
                 <div id="region_fields" class="loading" style="display:none;">
                     <li id="search_profile_james_beard_region_id_eq_any_input" class="check_boxes optional">
                         <fieldset>
-                            <legend class="label">
-                                <label for="search_profile_james_beard_region_id_eq_any">Profile region id equals any</label>
-                            </legend>
                             <ol>
                                 <% for region in regions_for_search %>
                                 <li><label for="search_profile_james_beard_region_id_eq_any_<%= region.id %>">
@@ -127,9 +111,6 @@
                 <div id="metro_fields" class="loading" style="display:none;">
                     <li id="search_profile_metropolitan_area_id_eq_any_input" class="check_boxes optional">
                         <fieldset>
-                            <legend class="label">
-                                <label for="search_profile_metropolitan_area_id_eq_any">Profile metro area id equals any</label>
-                            </legend>
                             <ol>
                                 <% for metro in metros_for_search %>
                                 <li><label for="search_profile_metropolitan_area_id_eq_any_<%= metro.id %>">
