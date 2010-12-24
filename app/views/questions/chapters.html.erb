@@ -6,7 +6,8 @@
 <h2 id="topic_title">Topic: <%= @topic.title %></h2>
 <% javascript_tag do %>
   var addthis_share = {
-    url: '<%= url_to_responder_chapters(@responder, @topic.id) %>'
+    url: '<%= url_to_responder_chapters(@responder, @topic.id) %>',
+    title: $('title').text().replace('Spoonfeed','Soapbox')
   }
 <% end %>
 
