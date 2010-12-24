@@ -40,6 +40,6 @@ class MessagesController < ApplicationController
   ##
   # GET /messages/media_requests
   def media_requests
-    @messages = current_user.viewable_media_request_discussions
+    @messages = current_user.viewable_media_request_discussions.sort { |a, b| b.created_at <=> a.created_at }
   end
 end

@@ -1,0 +1,7 @@
+<% title "Respond to a Media Request Discussion" %>
+
+<%= render 'nav' %>
+
+<div id="read_messages">
+  <%= render :partial => 'mediafeed/media_requests/mediafeed_media_request', :locals => { :mediafeed_media_request => @media_request } %>
+</div><!-- /read_messages -->

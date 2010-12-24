@@ -61,11 +61,9 @@ describe WelcomeController do
         controller.stubs(:current_user).returns(@user)
       end
 
-      it "should render the mediahome template" do
-        pending "mediafeed" do
-          get :index
-          response.should render_template(:mediahome)
-        end
+      it "should redirect to mediahome" do
+        get :index
+        response.should redirect_to(mediafeed_root_path)
       end
     end
   end

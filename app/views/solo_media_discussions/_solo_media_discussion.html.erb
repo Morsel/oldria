@@ -1,0 +1,28 @@
+<% media_request = solo_media_discussion.media_request %>
+<% div_for solo_media_discussion, :class => 'inbox_message discussion' do %>
+  <div class="message-details">
+    <header>
+      <h1><%= link_to media_request.inbox_title, solo_media_discussion %></h1>
+      <p class="timestamp"><%= media_request.created_at.to_s(:sentence) %></p>
+   	</header>
+
+    <p>To: <%= solo_media_discussion.employee.try(:name) %><br/>
+			Due by: <%= media_request.due_date.try(:to_s, :long_ordinal) %></p>
+
+    <div class="message-body">
+      <%= simple_format(media_request.message) %>
+    </div>
+  </div>
+
+  <div class="message-actions">
+    <p><% link_to solo_media_discussion, :class => 'replies' do %>	
+      	<% if solo_media_discussion.comments_count > 0 %>
+					<span class="unread_comments_count"><%= solo_media_discussion.comments_count %></span>
+          <%= solo_media_discussion.comments_count == 1 ? 'reply' : 'replies' %>. Read &amp;
+      	<% else %>
+        	You haven't responded yet.
+      <% end -%>
+ 				Reply &raquo;
+    <% end %></p>
+  </div>
+<% end %>

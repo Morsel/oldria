@@ -14,6 +14,7 @@ $('.topic').equalHeights();
 $('.rest_staff .employment').equalHeights();
 $('#extended_profile .equalheights').equalHeights(160);
 
+
 // == Inbox for RIA messages
 $(".inbox_message .readit").live('click', function(){
   var $message = $(this).parents('.inbox_message');

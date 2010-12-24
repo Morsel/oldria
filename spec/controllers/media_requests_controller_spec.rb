@@ -1,6 +1,6 @@
 require 'spec/spec_helper'
 
-describe MediaRequestsController do
+describe Mediafeed::MediaRequestsController do
   integrate_views
 
   before(:each) do
@@ -32,10 +32,10 @@ describe MediaRequestsController do
     context "with valid media request" do
       before(:each) do
         @media_request.stubs(:valid?).returns(true)
-        post :create
+        post :create, :search => { :subject_matters_id_equals_any => ["1"] }, :media_request => {}
       end
 
-      it { response.should redirect_to(media_request_path(@media_request))}
+      it { response.should redirect_to(mediafeed_media_request_path(@media_request))}
     end
 
     context "with invalid media request" do
@@ -47,6 +47,13 @@ describe MediaRequestsController do
       it { response.should render_template(:new) }
       it { response.flash[:error].should_not be_nil }
     end
+    
+    it "should require the user to submit a search with subject matter" do
+      post :create, :search => { :subject_matters_id_equals_any => [] }, :media_request => {}
+      response.should render_template(:new)
+      response.flash[:error].should_not be_nil
+    end
+
   end
 
   describe "GET edit" do
@@ -55,7 +62,7 @@ describe MediaRequestsController do
       MediaRequest.stubs(:find).returns(@media_request)
     end
 
-    it "should render new template" do
+    it "should render edit template" do
       get :edit, :id => @media_request.id
       response.should render_template(:edit)
     end

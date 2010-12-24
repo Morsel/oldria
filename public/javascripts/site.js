@@ -640,6 +640,24 @@ $('#sf_slides tbody').sortable({
 	}
 });
 
+$('#mediafeed_slides tbody').sortable({
+	axis:'y',
+	dropOnEmpty:false,
+	update: function(){
+		$.ajax({ data:$(this).sortable('serialize', { key: 'mediafeed_slides[]' }), dataType:'script', type:'post', url:'/admin/mediafeed_slides/sort'
+		});
+	}
+});
+
+$('#mediafeed_promos tbody').sortable({
+	axis:'y',
+	dropOnEmpty:false,
+	update: function(){
+		$.ajax({ data:$(this).sortable('serialize', { key: 'mediafeed_promos[]' }), dataType:'script', type:'post', url:'/admin/mediafeed_promos/sort'
+		});
+	}
+});
+
 $('#soapbox_promos tbody').sortable({
 	axis:'y',
 	dropOnEmpty:false,

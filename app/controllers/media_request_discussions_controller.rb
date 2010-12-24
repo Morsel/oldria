@@ -18,16 +18,16 @@ class MediaRequestDiscussionsController < ApplicationController
 
   private
 
+  def find_media_request_discussion
+    @media_request_discussion = MediaRequestDiscussion.find(params[:id])
+    @media_request = @media_request_discussion.media_request
+  end
+
   def build_comment
     @comment = @media_request_discussion.comments.build
     @comment.attachments.build
     @comment.user = current_user
     @comment_resource = [@media_request_discussion, @comment]
-  end
-
-  def find_media_request_discussion
-    @media_request_discussion = MediaRequestDiscussion.find(params[:id])
-    @media_request = @media_request_discussion.media_request
   end
 
 end

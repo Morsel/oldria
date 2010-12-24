@@ -11,6 +11,8 @@ class WelcomeController < ApplicationController
   def index
     if current_user
       @per_page = 10
+      redirect_to mediafeed_root_path and return if current_user.media?
+
       @user = current_user
       @announcements   = current_user.unread_announcements.each { |announcement| announcement.read_by!(current_user) }
       params[:is_more] ? set_up_dashboard_with_pagination : set_up_dashboard
@@ -36,10 +38,6 @@ class WelcomeController < ApplicationController
   end
 
   private
-
-  def slug_for_home_page
-    mediafeed? ? 'home_media' : 'home'
-  end
 
   def set_up_dashboard
     @recent_comments = cache_or_get(:load_recent_comments)

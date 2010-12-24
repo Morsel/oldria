@@ -1,0 +1,9 @@
+<% title @page.title %>
+
+	<% if can?(:edit, @page) %>
+		<p>
+			<%= link_to "Edit this page", edit_admin_mediafeed_page_path(@page), :class => 'edit_button' %>
+		</p>
+	<% end %>
+	<%= auto_link @page.content %>
+
