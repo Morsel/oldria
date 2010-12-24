@@ -25,14 +25,7 @@ class CommentsController < ApplicationController
       else
         flash[:notice] = success
       end
-
-      if mediafeed?
-        redirect_to mediafeed_discussion_path(@parent.media_request, @parent.class.name.pluralize.underscore.downcase, @parent)
-      elsif front_burner_content
-        redirect_to front_burner_path
-      else
-        redirect_to @parent
-      end
+      return redirect_after_save
     else
       flash[:error] = "Your comment couldn't be saved."
       redirect_to :back
@@ -66,11 +59,13 @@ class CommentsController < ApplicationController
     if params[:media_request_discussion_id]
       @parent = MediaRequestDiscussion.find(params[:media_request_discussion_id])
     elsif params[:discussion_id]
+
       @parent = Discussion.find(params[:discussion_id])
     elsif params[:admin_conversation_id]
       @parent = Admin::Conversation.find(params[:admin_conversation_id])
     elsif params[:holiday_discussion_id]
       @parent = HolidayDiscussion.find(params[:holiday_discussion_id])
+
     elsif params[:admin_discussion_id]
       @parent = AdminDiscussion.find(params[:admin_discussion_id])
     elsif params[:solo_discussion_id]
@@ -82,5 +77,15 @@ class CommentsController < ApplicationController
   
   def front_burner_content
     @parent.is_a?(AdminDiscussion) || @parent.is_a?(SoloDiscussion) || @parent.is_a?(Admin::Conversation)
+  end
+
+  def redirect_after_save
+    if mediafeed?
+      redirect_to mediafeed_discussion_path(@parent.media_request, @parent.class.name.pluralize.underscore.downcase, @parent)
+    elsif front_burner_content
+      redirect_to front_burner_path(:post_to_facebook => @comment.post_to_facebook, :comment_id => @comment.id)
+    else
+      redirect_to @parent
+    end
   end
 end
