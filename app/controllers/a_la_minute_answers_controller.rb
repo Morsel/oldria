@@ -1,4 +1,6 @@
 class ALaMinuteAnswersController < ApplicationController
+  before_filter :require_restaurant_employee, :only => [:bulk_edit, :bulk_update]
+
   def destroy
     @restaurant = Restaurant.find(params[:restaurant_id])
     @restaurant.a_la_minute_answers.destroy(params[:id])
@@ -58,6 +60,22 @@ class ALaMinuteAnswersController < ApplicationController
   end
 
   private
+
+  def require_restaurant_employee
+    unless current_user
+      store_location
+      flash[:notice] = "You must be logged in to access this page"
+      redirect_to login_url
+      return false
+    end
+    restaurant = Restaurant.find(params[:restaurant_id])
+    unless restaurant.employees.include? current_user
+      flash[:notice] = "You must be an employee of #{restaurant.name} to answer questions"
+      redirect_to restaurants_url
+      return false
+    end
+    true
+  end
 
   def show_as_public_count_valid?
     params[:a_la_minute_questions].select{|id, attributes| attributes[:show_as_public].present? }.length <= 3
