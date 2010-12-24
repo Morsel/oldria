@@ -1,0 +1,14 @@
+<section class="hp_promo<%= ' last' if mediafeed_promo == @mediafeed_promos.last %>">
+	<h1>
+	  <% if mediafeed_promo.link.present? -%>
+	    <%= link_to mediafeed_promo.title, mediafeed_promo.link %>
+	  <% else -%>
+	    <%= mediafeed_promo.title %>
+	  <% end -%>
+	</h1>
+	<%= simple_format(mediafeed_promo.body) %>
+	<% unless mediafeed_promo.link.blank? -%>
+	<% text = mediafeed_promo.link_text.present? ? mediafeed_promo.link_text : 'Learn&nbsp;more' %>
+	  <p><%= link_to "#{text}&nbsp;&#187;", mediafeed_promo.link %></p>
+	<% end -%>
+</section><!--.hp_promo-->

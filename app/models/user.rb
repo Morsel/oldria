@@ -89,6 +89,8 @@ class User < ActiveRecord::Base
   has_subscription
 
   validates_presence_of :email
+  
+  has_and_belongs_to_many :metropolitan_areas
 
   attr_accessor :send_invitation, :agree_to_contract, :invitation_sender, :password_reset_required
 
@@ -120,12 +122,12 @@ class User < ActiveRecord::Base
 
   named_scope :media, :conditions => {:role => 'media'}
   named_scope :admin, :conditions => {:role => 'admin'}
-
+  
   named_scope :for_autocomplete, :select => "first_name, last_name", :order => "last_name ASC", :limit => 15
   named_scope :by_last_name, :order => "LOWER(last_name) ASC"
 
   named_scope :active, :conditions => "last_request_at IS NOT NULL"
-  named_scope :visible, :conditions => { :visible => true }
+  named_scope :visible, :conditions => ['visible = ? AND (role != ? OR role IS NULL)', true, 'media']
 
 
 ### Preferences ###

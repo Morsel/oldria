@@ -78,6 +78,7 @@ end
 
 Then(/^"([^\"]*)" should have (\d+) Unread Announcement messages?$/) do |username, num|
   user = User.find_by_username(username)
+  sleep 1
   user.unread_announcements.count.should == num.to_i
 end
 

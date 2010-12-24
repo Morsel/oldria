@@ -15,13 +15,13 @@ class MediaRequestDiscussion < ActiveRecord::Base
   acts_as_commentable
   belongs_to :media_request
   belongs_to :restaurant
+  
+  default_scope :order => "#{table_name}.created_at DESC"
+  
+  named_scope :with_comments, :conditions => "#{table_name}.comments_count > 0"
 
   def employments
-    restaurant.employments.handling_subject_matter_id(subject_matter_id)
-  end
-
-  def subject_matter_id
-    media_request.subject_matter_id
+    restaurant.employments.select { |e| self.viewable_by?(e) }
   end
 
   def employment_ids
@@ -29,7 +29,10 @@ class MediaRequestDiscussion < ActiveRecord::Base
   end
 
   def viewable_by?(employment)
-    employments.include?(employment)
+    return false unless employment
+    employment.employee == employment.restaurant.try(:manager) ||
+      employment.omniscient? ||
+      media_request.employment_search.employments.include?(employment)
   end
 
   def publication_string
@@ -40,6 +43,10 @@ class MediaRequestDiscussion < ActiveRecord::Base
     employments.each do |employment|
       UserMailer.deliver_media_request_notification(self, employment.employee)
     end
+  end
+  
+  def recipient_name
+    restaurant.name
   end
 
 end

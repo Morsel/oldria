@@ -25,6 +25,10 @@ Given /^subject matter "([^\"]*)" is general$/ do |name|
   s.update_attribute(:general, true)
 end
 
+Given /^a non\-general subject matter "([^\"]*)"$/ do |name|
+  Factory(:subject_matter, :name => name, :general => false)
+end
+
 Given /^"([^\"]*)" handles the subject matter "([^"]*)" for "([^"]*)"$/ do |username, subject, restname|
   r = Restaurant.find_by_name(restname)
   u = User.find_by_username(username)
@@ -48,8 +52,9 @@ Given /^"([^\"]*)" has a media request from "([^\"]*)" with:$/ do |username, med
   Factory(:employment, :employee => user) if user.restaurants.blank?
   sender = User.find_by_username(mediauser)
   publication = table.rows_hash['Publication'] || sender.publication
-  search = EmploymentSearch.new(:conditions => {})
-  @media_request = Factory(:media_request, :employment_search => search, :sender => sender, :message => message, :status => status, :publication => publication)
+  search = EmploymentSearch.new(:conditions => { :id_eq => user.primary_employment })
+  @media_request = Factory(:media_request, :employment_search => search, :sender => sender, :message => message, 
+      :status => status, :publication => publication)
 end
 
 Given /^"([^\"]*)" has a media request$/ do |username|
@@ -66,10 +71,10 @@ Given /^there are no media requests$/ do
 end
 
 When /^I create a media request with message "([^\"]*)" and criteria:$/ do |message, criteria|
-  visit new_media_request_path
+  visit new_mediafeed_media_request_path
   fill_in :message, :with => message
   criteria.rows_hash.each do |field, value|
-    if field =~ /(Subject Matter|Type of Request)/i
+    if field =~ /(Type of Request)/i
       select value, :from => field
     else
       check value
@@ -94,6 +99,16 @@ When /^I create a new admin media request with:$/ do |table|
   @media_request = MediaRequest.last
 end
 
+When /^I visit the media request discussion page for "([^\"]*)"$/ do |message|
+  media_request = MediaRequest.find_by_message(message)
+  visit media_request_discussion_path(media_request.media_request_discussions.first)
+end
+
+When /^I visit the Mediafeed media request discussion page for "([^\"]*)"$/ do |message|
+  media_request = MediaRequest.find_by_message(message)
+  visit mediafeed_discussion_path(media_request, 'media_request_discussions', media_request.media_request_discussions.first)
+end
+
 Given /^an admin has approved the media request from "([^\"]*)"$/ do |username|
   Given("I am logged in as an admin")
   visit admin_media_requests_path
@@ -106,7 +121,7 @@ Then /^I should see a list of media requests$/ do
 end
 
 When /^I perform the raw search:$/ do |table|
-  visit new_media_request_path(:search => table.rows_hash)
+  visit new_mediafeed_media_request_path(:search => table.rows_hash)
 end
 
 When "I perform the search:" do |table|
@@ -157,7 +172,7 @@ Then(/^there should be (\d+) media requests?(?: in the system)?$/) do |num|
 end
 
 Then /^the media request should have ([0-9]+) comments?$/ do |num|
-  MediaRequestDiscussion.last.comments.count.should == num.to_i
+  MediaRequest.last.media_request_discussions.last.comments_count.should == num.to_i
 end
 
 Then /^I should see an admin media request$/ do

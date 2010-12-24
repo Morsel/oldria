@@ -39,7 +39,10 @@ class ApplicationController < ActionController::Base
 
   def mediafeed?
     return @is_mediafeed if defined?(@is_mediafeed)
-    @is_mediafeed = (current_subdomain =~ /^mediafeed/) || (current_user && current_user.media?)
+    @is_mediafeed = (current_subdomain =~ /^mediafeed/) || 
+        params[:controller].match(/mediafeed/) || 
+        (current_user && current_user.media?) || 
+        request.path.match(/mediafeed/)
   end
 
   def find_user_feeds(dashboard = false)
@@ -229,7 +232,7 @@ class ApplicationController < ActionController::Base
       extra_params[:default_employment_solo_restaurant_name_eq_any] = params[:search][:employments_restaurant_name_eq_any]
     end
 
-    if params[:controller].match(/soapbox/)
+    if params[:controller].match(/soapbox/) or params[:controller].match(/mediafeed/)
       search = User.in_soapbox_directory.search(params[:search]).all
       extra_search_results = User.in_soapbox_directory.search(extra_params).all if extra_params.present?
       @users = [search, extra_search_results].flatten.compact.uniq.sort_by(&:last_name)
@@ -240,5 +243,5 @@ class ApplicationController < ActionController::Base
       @users = [search, extra_search_results].flatten.compact.uniq.sort_by(&:last_name)
     end
   end
-
+  
 end

@@ -3,5 +3,11 @@
 <%= render 'nav' %>
 
 <div id="read_messages">
-  <%= render @messages %>
+  <% unless @messages.empty? %>
+    <%= render @messages %>
+  <% else %>
+    <div id="no-messages" class="clear">
+        <p>You don't have any pending media requests.</p>
+    </div>
+  <% end%>
 </div>

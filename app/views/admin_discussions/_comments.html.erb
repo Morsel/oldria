@@ -5,9 +5,8 @@
         <% f.inputs do %>
             <%= f.input :comment, :label => 'Post', :input_html => { :rows => 8 }, :hint => soapbox_notice(message) %>
             <%= button_tag "Send", :class => 'submit button' %></p>
-          <% end %>
-
-          <% if @discussionable.soapbox_entry.try(:published?) %>
+        <% end %>
+        <% if @discussionable.respond_to?(:sopabox_entry) &&  @discussionable.soapbox_entry.try(:published?) %>
           <p class="clear clearfix">
             <span class="and_twitter">
               <% if current_facebook_user && current_user.facebook_authorized? -%>
@@ -17,11 +16,11 @@
               <% end -%>
             </span>
           </p>
-         <% end %>
+       <% end %>
       <% end %>
     <% else %>
       <%= render @comments %>     
-      <% if @discussionable.soapbox_entry.try(:published?) %>
+      <% if @discussionable.respond_to?(:sopabox_entry) && @discussionable.soapbox_entry.try(:published?) %>
         <%  answer =  @comments.last %>
         <%= render(:partial => "shared/facebook_dialog",
                    :locals => { :caption => "Check out more about \"#{@discussionable.display_message}\"", 

@@ -3,12 +3,14 @@ require 'spec/spec_helper'
 describe MediaRequest do
   include DelayedJobSpecHelper
   should_belong_to :sender, :class_name => 'User'
-  should_validate_presence_of :sender_id
+  should_validate_presence_of :sender_id, :employment_search, :message
 
   should_belong_to :subject_matter
   should_belong_to :employment_search
   should_have_many :media_request_discussions
   should_have_many :restaurants, :through => :media_request_discussions
+  should_have_many :solo_media_discussions
+  should_have_many :employments, :through => :solo_media_discussions
   should_have_many :attachments, :as => :attachable, :class_name => '::Attachment', :dependent => :destroy
 
   before(:each) do
@@ -19,7 +21,8 @@ describe MediaRequest do
   end
 
   describe "senders and receivers" do
-    it "should build conversations with other folks" do
+
+    it "should build discussions with other folks" do
       mr = Factory(:media_request, :employment_search => @employment_search)
       mr.media_request_discussions.first.restaurant.should == @restaurant
       @restaurant.media_request_discussions.first.media_request.should == mr
@@ -134,27 +137,6 @@ describe MediaRequest do
       UserMailer.expects(:deliver_media_request_notification)
       @request.deliver_notifications
       perform_delayed_jobs
-    end
-  end
-
-  describe "brand new request" do
-    before do
-      @subject_matter = Factory(:subject_matter, :name => "Ham")
-      @employment2 = Factory(:assigned_employment, :subject_matters => [@subject_matter], :restaurant => @restaurant)
-      sender = Factory(:media_user)
-      @request = Factory.build(:media_request, :sender => sender)
-    end
-
-    it "should be invalid when no restaurants are found" do
-      @employment_search = EmploymentSearch.create(:conditions => {:restaurant_id_is => "9999"})
-      @request.employment_search = @employment_search
-      @request.should_not be_valid
-    end
-
-    it "should be valid with restaurants" do
-      @employment_search = EmploymentSearch.create(:conditions => {:restaurant_id_is => "#{@restaurant.id}"})
-      @request.employment_search = @employment_search
-      @request.should be_valid
     end
   end
 

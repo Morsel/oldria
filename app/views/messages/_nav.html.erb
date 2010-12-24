@@ -10,11 +10,8 @@
           :class => class_for_replies(@messages_with_replies) %>
     <% end -%>
 
-    <% unless Rails.env.production? %>
-   	  <%= active_link_to "Media Requests (#{@media_requests_count})", media_requests_messages_path %>
-    <% end %>
+   	<%= active_link_to "Media Requests (#{@media_requests_count})", media_requests_messages_path %>
 
-	<%#= link_to "Create Private Message", "", :class => "first nav_button" %>
 	<%= link_to "New Staff Discussion", new_discussion_path, :class => "first nav_button" if current_user.restaurants.present? %>
 	<%= link_to "New Member Discussion", new_conversation_path, :class => "nav_button" %>
   </nav>

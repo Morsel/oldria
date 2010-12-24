@@ -1,6 +1,6 @@
 require 'spec/spec_helper'
 
-describe MediaUsersController do
+describe Mediafeed::MediaUsersController do
   integrate_views
 
   before(:each) do
@@ -15,7 +15,7 @@ describe MediaUsersController do
 
     it "should render a form to /media_users" do
       get :new
-      response.should have_selector("form", :action => "/media_users")
+      response.should have_selector("form", :action => "/mediafeed/media_users")
     end
   end
 
@@ -37,7 +37,7 @@ describe MediaUsersController do
       User.any_instance.stubs(:save).returns @user
       User.any_instance.stubs(:valid?).returns(true)
       post :create
-      response.should redirect_to(root_url)
+      response.should redirect_to(mediafeed_user_confirmation_path)
     end
   end
 
@@ -54,7 +54,7 @@ describe MediaUsersController do
       controller.stubs(:current_user).returns @user
       User.any_instance.stubs(:update_attributes).returns(true)
       put :update, :id => User.first
-      response.should redirect_to(root_url)
+      response.should redirect_to(edit_mediafeed_media_user_path(User.first))
     end
 
     it "update action should render edit template when model is invalid" do

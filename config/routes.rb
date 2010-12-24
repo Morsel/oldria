@@ -54,6 +54,24 @@ ActionController::Routing::Routes.draw do |map|
     hq.root :action => 'index'
   end
 
+  map.namespace(:mediafeed) do |mediafeed|
+    mediafeed.root :controller => 'mediafeed', :action => 'index'
+    mediafeed.login 'login', :controller => 'mediafeed', :action => 'login'
+    mediafeed.resources :media_users, :except => [:index, :show]
+    mediafeed.resources :media_requests
+    mediafeed.user_confirmation 'confirmation', :controller => 'media_users', :action => 'confirmation'
+    mediafeed.resend_user_confirmation 'resend_confirmation', :controller => 'media_users', :action => 'resend_confirmation'
+    mediafeed.forgot_password 'forgot_password', :controller => 'media_users', :action => 'forgot_password'
+    mediafeed.connect 'directory_search', :controller => 'mediafeed', :action => 'directory_search'
+    mediafeed.discussion 'media_requests/:id/:discussion_type/:discussion_id', :controller => 'media_requests', :action => 'discussion'
+  end
+
+  map.with_options :conditions => { :subdomain => 'mediafeed' }, :controller => 'mediafeed/mediafeed' do |mediafeed|
+    mediafeed.root :action => 'index'
+  end
+
+  map.mediafeed_directory 'mediafeed/directory', :controller => 'mediafeed/mediafeed', :action => 'directory'
+
   map.resource :my_profile, :only => ['create', 'edit', 'update'],
                :controller => 'profiles',
                :collection => { :toggle_publish_profile => :get } do |p|
@@ -74,10 +92,12 @@ ActionController::Routing::Routes.draw do |map|
   map.profile 'profile/:username', :controller => 'users', :action => 'show', :requirements => { :username => /[a-zA-Z0-9\-\_ ]+/}
 
   map.resources :quick_replies
-  map.resources :media_users, :except => [:index, :show]
-  map.resources :media_requests, :except => [:index]
   map.resources :media_request_discussions, :only => [:show, :update] do |mrc|
     mrc.resources :comments, :only => [:new, :create]
+  end
+
+  map.resources :solo_media_discussions, :only => [:show, :update] do |smd|
+    smd.resources :comments, :only => [:new, :create]
   end
 
   map.resources :discussions, :member => { :read => :put } do |discussions|
@@ -112,6 +132,7 @@ ActionController::Routing::Routes.draw do |map|
                         :new_manager_needed => :get,
                         :replace_manager => :post
                 } do |restaurant|
+    restaurant.resource :fact_sheet, :controller => "restaurant_fact_sheets"
     restaurant.media_requests 'media_requests', :controller => 'media_requests', :action => 'index'
     restaurant.resources :employees, :collection => { :bulk_edit => :get }, :except => [:show, :index]
     restaurant.resources :calendars, :collection => { "ria" => :get }
@@ -218,7 +239,8 @@ ActionController::Routing::Routes.draw do |map|
     admin.resources :soapbox_entries, :member => { :toggle_status => :post }
     admin.resources :soapbox_pages
     admin.resources :hq_pages
-    admin.resources :soapbox_slides
+    admin.resources :mediafeed_pages
+    admin.resources :soapbox_slides, :collection => { :sort => :post }
     admin.resources :soapbox_promos, :collection => { :sort => :post }
 
     admin.resources :question_roles
@@ -239,6 +261,9 @@ ActionController::Routing::Routes.draw do |map|
     admin.resources :hq_slides, :collection => { :sort => :post }
     admin.resources :hq_promos, :collection => { :sort => :post }
 
+    admin.resources :mediafeed_slides, :collection => { :sort => :post }
+    admin.resources :mediafeed_promos, :collection => { :sort => :post }
+
     admin.resources :metropolitan_areas, :only => [:index, :edit, :update]
 
     # Admin Messaging
@@ -257,6 +282,7 @@ ActionController::Routing::Routes.draw do |map|
   map.public_page ":id", :controller => 'pages', :action => 'show'
   map.soapbox_page 'soapbox/:id', :controller => 'soapbox_pages', :action => 'show'
   map.hq_page 'hq/:id', :controller => 'hq_pages', :action => 'show'
+  map.mediafeed_page 'mediafeed/:id', :controller => 'mediafeed_pages', :action => 'show'
 
   # Default Routes
   map.connect ':controller/:action/:id'

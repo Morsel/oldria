@@ -5,10 +5,10 @@ describe MediaRequestDiscussionsController do
 
   before(:each) do
     @employee = Factory(:user)
-    @employee.stubs(:update).returns(true)
     @recipient = Factory(:employment, :employee => @employee)
     @mrc = Factory(:media_request_discussion, :restaurant => @recipient.restaurant)
     MediaRequestDiscussion.stubs(:find).returns(@mrc)
+    @employee.stubs(:viewable_media_request_discussions).returns [@mrc.media_request]
     controller.stubs(:current_user).returns(@employee)
   end
 

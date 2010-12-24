@@ -1,0 +1,17 @@
+<% title "Media Requests" %>
+  <%= render 'nav' %>
+
+<div id="read_messages">
+  <% if @media_requests.any? -%>
+  	<%= render :partial => 'mediafeed/media_requests/mediafeed_media_request', :collection => @media_requests %>
+  <% else #if no media requests to show -%>
+    <section class="thread">
+      <% if params[:view_all] -%>
+        <p>You have not created any media requests.</p>
+      <% else -%>
+        <p>You do not have any media requests with replies.</p>
+      <% end -%>
+      <p>You can <%= link_to "start creating media requests", new_mediafeed_media_request_path %> right away!</p>
+    </section>
+  <% end -%>
+</div><!-- /read_messages -->

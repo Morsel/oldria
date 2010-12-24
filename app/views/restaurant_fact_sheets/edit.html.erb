@@ -1,0 +1,133 @@
+<%= render 'restaurants/restaurant_header' %>
+<div id="editing_restaurant" class="clear clearfix">
+	<h1>Edit Restaurant Fact Sheet</h1>
+	
+	<% semantic_form_for @fact_sheet, :url => restaurant_fact_sheet_path(@restaurant), :html => { :method => :put, :id => "restaurant_fact_sheet" } do |f| %>
+	  <%= f.error_messages %>
+	  <% f.inputs :name => "Parking and Directions", :class => "editing parking_directions" do %>
+	    <%= f.input :venue %>
+	    <%= f.input :intersection %>
+	    <%= f.input :neighborhood %>
+	    <%= f.input :parking, :as => :select, :collection => parking_options %>
+	    <%= f.input :public_transit %>
+	  <% end %>
+	
+	  <% f.inputs :name => "Pricing", :class => "editing pricing" do %>
+	    <%= f.input :dinner_average_price %>
+	    <%= f.input :lunch_average_price %>
+	    <%= f.input :brunch_average_price %>
+	    <%= f.input :breakfast_average_price %>
+	    <%= f.input :children_average_price %>
+	    <%= f.input :small_plate_min_price %>
+	    <%= f.input :small_plate_max_price %>
+	    <%= f.input :large_plate_min_price %>
+	    <%= f.input :large_plate_max_price %>
+	    <%= f.input :dessert_plate_min_price %>
+	    <%= f.input :dessert_plate_max_price %>
+	    <li id="tasting_menus">
+	      <h3>Tasting Menus</h3>
+	      <ol>
+	      <% f.fields_for :tasting_menus do |tasting_menu_form| %>
+	        <%= render "tasting_menu_fields", :f => tasting_menu_form %>
+	      <% end %>
+	      </ol>
+	      <%= link_to_add_fields("Add a tasting menu", f, :tasting_menus, :class => "add_fields_for") %>
+	    </li>
+	    <%= f.input :wine_by_the_glass_count %>
+	    <%= f.input :wine_by_the_glass_min_price %>
+	    <%= f.input :wine_by_the_glass_max_price %>
+	    <%= f.input :wine_by_the_bottle_count %>
+	    <%= f.input :wine_by_the_bottle_min_price %>
+	    <%= f.input :wine_by_the_bottle_max_price %>
+	    <%= f.input :wine_by_the_bottle_details, :as => :text %>
+	  <% end %>
+	
+	  <% f.inputs :name => "Hours", :class => "editing hours" do %>
+	    <li id="hours">
+	      <% Meal::DAYS.each do |day| %>
+	      <h3><%= day.capitalize %></h3>
+	        <% content_tag(:div, :id => "#{day}_meals") do %>
+	          <ol>
+	            <% @fact_sheet.meals.for_day(day).each do |meal| %>
+	              <% f.fields_for :meals, meal do |meal_form| %>
+	                <%= render "meal_fields", :f => meal_form, :day_value => day.downcase %>
+	              <% end %>
+	            <% end %>
+	          </ol>
+	          <%= link_to_add_fields("Add hours", f, :meals, :class => "add_fields_for", :form_options => {:day_value => day}) %>
+	        <% end %>
+	      <% end %>
+	    </li>
+	  <% end %>
+	
+	  <% f.inputs :name => "Guest Services", :class => "editing guest_services" do %>
+	    <%= f.input :reservations, :as => :select, :collection => reservation_options %>
+	    <%= f.input :cancellation_policy, :as => :text %>
+	    <%= f.input :payment_methods %>
+	    <%= f.input :byob_allowed, :as => :radio, :collection => [["Yes", true], ["No", false]] %>
+	    <%= f.input :corkage_fee %>
+	    <%= f.input :dress_code %>
+	    <%= f.input :delivery %>
+	  <% end %>
+	
+	  <% f.inputs :name => "Design", :class => "editing design" do %>
+	    <%= f.input :architect_name %>
+	    <%= f.input :graphic_designer %>
+	    <%= f.input :furniture_designer %>
+	    <%= f.input :furniture_manufacturer %>
+	    <%= f.input :flooring, :as => :text %>
+	    <%= f.input :millwork, :as => :text %>
+	    <%= f.input :china, :as => :text %>
+	    <%= f.input :kitchen_equipment, :as => :text %>
+	    <%= f.input :lighting, :as => :text %>
+	    <%= f.input :draperies, :as => :text %>
+	    <li id="seating_areas">
+	      <h3>Seating Areas</h3>
+	      <ol>
+	      <% f.fields_for :seating_areas do |seating_area_form| %>
+	        <%= render 'seating_area_fields', :f => seating_area_form %>
+	      <% end %>
+	      </ol>
+	      <%= link_to_add_fields("Add a seating area", f, :seating_areas, :class => "add_fields_for") %>
+	    </li>
+	    <%= f.input :square_footage %>
+	  <% end %>
+	
+	  <% f.inputs :name => "Miscellaneous", :class => "editing misc" do %>
+	    <%= f.input :wheelchair_access %>
+	    <%= f.input :smoking, :as => :select, :collection => smoking_options %>
+	  <% end %>
+	
+	  <% f.buttons do %>
+	    <%= button_tag 'Update' %>
+	  <% end %>
+	<% end %>
+	
+	</div><!--#editing_restaurant-->
+	
+	<% content_for :javascript do %>
+	
+
+
+  <script type="text/javascript">
+    //<![CDATA[
+    jQuery(function($) {
+      $(".add_fields_for").click(function(e) {
+        e.preventDefault();
+        var association = $(this).attr("data-association");
+        var fields = $(this).attr("data-fields");
+        var new_id = new Date().getTime();
+        $(this).before($(fields.replace(new RegExp("new_" + association, "g"), new_id)));
+      });
+
+      $("#restaurant_fact_sheet").delegate(".destroy_nested", "click", function(e) {
+        e.preventDefault();
+        var $fields = $(this).closest(".fields");
+        debugger;
+        $fields.find("input[type=hidden][name*=destroy]").val("1")
+        $fields.hide();
+      });
+    });
+    //]]>
+  </script>
+<% end %>
