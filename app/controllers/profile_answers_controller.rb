@@ -1,4 +1,5 @@
 class ProfileAnswersController < ApplicationController
+  include ProfileAnswersHelper, BehindTheLineHelper
 
   before_filter :require_user
   before_filter :require_responder
