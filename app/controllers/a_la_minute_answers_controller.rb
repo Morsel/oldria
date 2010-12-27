@@ -1,8 +1,7 @@
 class ALaMinuteAnswersController < ApplicationController
-  before_filter :require_restaurant_employee, :only => [:bulk_edit, :bulk_update]
+  before_filter :require_restaurant_employee, :only => [:destroy, :bulk_edit, :bulk_update]
 
   def destroy
-    @restaurant = Restaurant.find(params[:restaurant_id])
     @restaurant.a_la_minute_answers.destroy(params[:id])
 
     if request.xhr?
@@ -14,13 +13,10 @@ class ALaMinuteAnswersController < ApplicationController
   end
 
   def bulk_edit
-    @restaurant = Restaurant.find(params[:restaurant_id])
     @questions = ALaMinuteQuestion.restaurants
   end
 
   def bulk_update
-    @restaurant = Restaurant.find(params[:restaurant_id])
-
     params[:a_la_minute_questions].each do |id, attributes|
       question = ALaMinuteQuestion.find(id)
       old_answer = attributes.delete(:old_answer)
@@ -62,15 +58,15 @@ class ALaMinuteAnswersController < ApplicationController
   private
 
   def require_restaurant_employee
+    @restaurant = Restaurant.find(params[:restaurant_id])
     unless current_user
       store_location
       flash[:notice] = "You must be logged in to access this page"
       redirect_to login_url
       return false
     end
-    restaurant = Restaurant.find(params[:restaurant_id])
-    unless restaurant.employees.include? current_user
-      flash[:notice] = "You must be an employee of #{restaurant.name} to answer questions"
+    unless @restaurant.employees.include? current_user
+      flash[:notice] = "You must be an employee of #{restaurant.name} to answer and edit questions"
       redirect_to restaurants_url
       return false
     end
