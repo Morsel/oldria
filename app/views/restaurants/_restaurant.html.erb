@@ -1,7 +1,7 @@
 <% employments ||= restaurant.employments %>
 <% div_for restaurant, :class => 'clearfix' do %>
   <h2>
-    <%= restaurant.name %>
+    <%= restaurant_link(restaurant) %>
     (<%= restaurant.city %>)
   </h2>
 

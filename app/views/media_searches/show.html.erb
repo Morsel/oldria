@@ -42,7 +42,7 @@
 	<% form_for MediaRequest.new, :url => new_media_request_path, :html => {:method => :get} do |f| %>
 		<% @restaurants_and_employees.each do |restaurant, employments| %>
 			<% div_for restaurant do %>
-				<h3><%= restaurant.name %></h3>
+				<h3><%= restaurant_link(restaurant) %></h3>
 				<%= render :partial => 'employment', :collection => employments %>
 			<% end -%>
 		<% end -%>

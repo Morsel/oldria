@@ -11,7 +11,7 @@
                                 <label for="id_eq_any">Restaurant id equals any</label>
                             </legend>
                             <ol>
-                                <% for restaurant in Restaurant.all %>
+                                <% for restaurant in (on_soapbox ? Restaurant.with_premium_account : Restaurant.all) %>
                                 <li><label for="id_eq_any_<%= restaurant.id %>">
                                     <%= check_box_tag "search[id_eq_any][]", restaurant.id, false, :id => "id_eq_any_#{restaurant.id}" %>
                                     <%= restaurant.name %>

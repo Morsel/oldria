@@ -22,7 +22,8 @@
       <% else %>
         <% current_user.employments.each do |employment| %>
           <div class="<%= dom_class(employment.restaurant) %>">
-            <%= link_to h(employment.restaurant_name), employment.restaurant %>
+            <%#= link_to h(employment.restaurant_name), employment.restaurant %>
+            <%= restaurant_link(employment.restaurant) %>
             <% if employment.omniscient? %><span class="restaurant_admin">Admin</span><% end %>
           </div>
         <% end %>

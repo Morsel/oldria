@@ -2,7 +2,7 @@
 <ul>
   <% @feature.restaurants.each do |restaurant| -%>
     <% content_tag_for(:li, restaurant) do %>
-      <%= link_to restaurant.name, restaurant %>
+      <%= restaurant_link(restaurant) %>
     <% end %>
   <% end -%>
 </ul>
