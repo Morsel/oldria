@@ -33,6 +33,7 @@ ActionController::Routing::Routes.draw do |map|
     end
     soapbox.resources :questions, :only => 'show'
     soapbox.connect 'directory_search', :controller => 'soapbox', :action => 'directory_search'
+    soapbox.connect 'restaurant_search', :controller => 'soapbox', :action => 'restaurant_search'
     soapbox.root :controller => 'soapbox', :action => 'index'
   end
 
@@ -40,6 +41,8 @@ ActionController::Routing::Routes.draw do |map|
       :requirements => { :username => /[a-zA-Z0-9\-\_ ]+/}
 
   map.soapbox_directory 'soapbox/directory', :controller => 'soapbox/soapbox', :action => 'directory'
+  map.soapbox_restaurant_directory 'soapbox/directory/restaurants', 
+    :controller => 'soapbox/soapbox', :action => 'restaurant_directory'
 
   map.with_options :conditions => { :subdomain => 'soapbox' }, :controller => 'soapbox/soapbox' do |soapbox|
     soapbox.root :action => 'index'

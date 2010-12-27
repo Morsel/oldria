@@ -4354,6 +4354,31 @@ p.search_filter_hint {
     }
   }
 }
+.photos {
+  h2 {
+    .inline-hint {
+      font-size: 12px;
+      font-family: "Helvetica Neue", "Helvetica", Arial, sans-serif;
+      color: gray;
+      font-style: normal;
+    }
+  }
+  #photos {
+    .photo {
+      width: 320px;
+      min-height: 200px;
+      background: $trans-brown;
+      float: left;
+      margin-right: 25px;
+      margin-bottom: 25px;
+      .credit {
+        background: white;
+        margin: 0;
+        padding: 5px 0 15px;
+      }
+    }
+  }
+}
 /* -- end of #restaurant_profile_view ------------------- */
 
 
