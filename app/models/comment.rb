@@ -26,7 +26,7 @@ class Comment < ActiveRecord::Base
   named_scope :not_user, lambda { |user| {
     :conditions => ["user_id != ?", user.id]
   }}
-  
+
   #validates_presence_of :comment
 
   attr_accessor :post_to_facebook
@@ -125,4 +125,12 @@ class Comment < ActiveRecord::Base
       all(select_params)
   end
 
+  def commentable_title
+    target = self.commentable
+    case true
+    when target.respond_to?(:admin_message)  then target.admin_message.try(:message)
+    when target.respond_to?(:discussionable) then target.discussionable.try(:subject)
+    else raise "Wrong commentable item"
+    end
+  end
 end

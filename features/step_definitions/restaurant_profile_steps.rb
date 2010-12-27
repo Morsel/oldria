@@ -5,6 +5,13 @@ Given /^a restaurant named "([^\"]*)"$/ do |name|
   @restaurant.update_attributes!(:media_contact => employment.employee)
 end
 
+Given /^that "([^\"]*)" has an employee "([^\"]*)"$/ do |restaurant_name, employee_name|
+  restaurant = Restaurant.find_by_name(restaurant_name)
+  employment = Factory(:employment, :restaurant => restaurant,
+                       :employee => Factory(:user, :username => employee_name, :password => 'secret') )
+end
+
+
 Then /^I see the restaurant's name linked as "([^\"]*)"$/ do |name|
   response.should have_selector("#name a", :content => name)
 end

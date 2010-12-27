@@ -6,7 +6,8 @@ Feature: Manage a_la_minutes
   Background:
     Given a restaurant named "Steak Knife"
     And that "Steak Knife" has a premium account
-    And I am logged in as an admin
+    And that "Steak Knife" has an employee "stoneh"
+    And I am logged in as "stoneh"
 
   Scenario: Questions are displayed for a manager
     Given the following a la minute questions:
@@ -63,19 +64,6 @@ Feature: Manage a_la_minutes
     And I go to the restaurant show page for "Steak Knife"
     Then I should see the question "What's new?" with the answer "Salad"
     And I should see the question "What's playing?" with the answer "Creed"
-
-  Scenario: Manager tries to select more than 3 answers to be public
-    Given "Steak Knife" has answered the following A La Minute questions:
-    | question         | answer                  | public | created_at     |
-    | What's new?      | Lobster Bisque          | true   | 3.hours.ago    |
-    | What's changing? | Adding sidewalk seating | true   | 2.hours.ago    |
-    | What's up?       | Nothing much            | true   | 30.minutes.ago |
-    | Morning?         | Evening                 | false  | 10.minutes.ago |
-
-    And I go to the edit a la minute question page for "Steak Knife"
-    When I check "Show on Soapbox profile?" for "Morning?"
-    And I press "Change Answers"
-    Then I should see a flash error message
 
   Scenario: Manager should see archived answers under each question
     Given "Steak Knife" has answered the following A La Minute questions:
