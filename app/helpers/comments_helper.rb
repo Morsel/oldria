@@ -18,7 +18,7 @@ module CommentsHelper
   
   def title_and_restaurant(comment)
       comment.restaurant.present? ? 
-        "#{comment.employment.restaurant_role.try(:name)} at #{comment.restaurant.try(:name)}" :
+        "#{comment.employment.restaurant_role.try(:name)} at #{restaurant_link(comment.restaurant)}" :
         "#{comment.employment.restaurant_role.try(:name)}"
   end
 
