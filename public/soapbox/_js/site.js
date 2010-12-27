@@ -112,3 +112,22 @@ function show_all_questions_linker() {
 	$('#view-all-questions').attr('href', SOAPBOX_ENTRIES_URLS[tabs.tabs('option', 'selected')]);
 	return true;
 }
+
+// Restaurant directory search
+var	$restoDirectoryList  = $("#restaurant_directory_list");
+var $restoDirectoryInputs = $("#directory_search #restaurant_criteria input[type=checkbox]");
+
+$restoDirectoryList.before($loaderImg);
+
+function updateRestoDirectoryList() {
+	input_string = $restoDirectoryInputs.serialize();
+	$loaderImg.show();
+	$restoDirectoryList.hide();
+	$restoDirectoryList.load('/soapbox/restaurant_search', input_string, function(responseText, textStatus){
+	  $loaderImg.hide();
+	  $restoDirectoryList.fadeIn(300);
+	});
+	// return true;
+}
+
+$restoDirectoryInputs.change(updateRestoDirectoryList);
