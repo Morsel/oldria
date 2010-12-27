@@ -1,5 +1,5 @@
 <tr class="admin_discussion_recipient <%= cycle('odd', 'even', :name => 'discussion_row') %>">
   <td>
-      <%= link_to event.restaurant.name, restaurant_path(event.restaurant) %>
+      <%= restaurant_link(event.restaurant) %>
   </td>
 </tr>

@@ -4,7 +4,7 @@
         <ul class="employments clearfix ">
             <% for employment in user.employments %>
             <li class="culinary equalheights">
-                <span class="name"><%= employment.restaurant.name %></span><br />
+                <span class="name"><%= restaurant_link(employment.restaurant) %></span><br />
                 <span class="employee_title">Title: <%= employment.restaurant_role.try(:name) %></span><br />
                 <span class="date_range">Employment: Current</span>
             </li>
