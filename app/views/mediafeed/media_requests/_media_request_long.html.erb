@@ -1,4 +1,6 @@
-<div id="read_messages">
+<% if on_mediafeed %>
+  <div id="read_messages">
+<% end %>
 <% div_for @media_request, :class => 'clearfix box extended discussion thread', :id => "media_request_long" do %>
   <ul class="message_headers">
     <li>
@@ -38,4 +40,6 @@
 	<% end %>
 
 <% end -%>
-</div>
+<% if on_mediafeed %>
+  </div>
+<% end %>
