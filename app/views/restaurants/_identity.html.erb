@@ -9,5 +9,15 @@
     <li class="employee_name primary">
         <%= link_to_if (user.linkable_profile? || logged_in_and_not_soapbox), restaurant.name, restaurant_path(restaurant) %>
     </li>
+    <li class="cuisine">
+      <%= restaurant.cuisine.name %>
+    </li>
+    <li class="region">
+      <%= restaurant.james_beard_region.name %>
+    </li>
+    <li class="metro_area">
+      <%= restaurant.metropolitan_area.name %>
+    </li>
+    
   </ul>
 </div>
