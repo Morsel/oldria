@@ -11,7 +11,7 @@
     
     <% @restaurants_and_employments.each do |restaurant, employments| %>
       <div class="restaurant_and_employees span-5 column">
-        <h3><%= restaurant.name %>:</h3>
+        <h3><%= restaurant_link(restaurant) %>:</h3>
         <%= employments.map { |e| "<span style='#{e.post_to_soapbox ? "" : "text-decoration: line-through"}'>#{e.employee_name}</span>" }.to_sentence %>
       </div>
     <% end %>
