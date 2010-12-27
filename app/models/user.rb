@@ -89,7 +89,7 @@ class User < ActiveRecord::Base
   has_subscription
 
   validates_presence_of :email
-  
+
   has_and_belongs_to_many :metropolitan_areas
 
   attr_accessor :send_invitation, :agree_to_contract, :invitation_sender, :password_reset_required
@@ -122,7 +122,7 @@ class User < ActiveRecord::Base
 
   named_scope :media, :conditions => {:role => 'media'}
   named_scope :admin, :conditions => {:role => 'admin'}
-  
+
   named_scope :for_autocomplete, :select => "first_name, last_name", :order => "last_name ASC", :limit => 15
   named_scope :by_last_name, :order => "LOWER(last_name) ASC"
 
@@ -416,32 +416,48 @@ class User < ActiveRecord::Base
 
   def self.extended_find(keyword)
     # user fields: first_name, last_name, role
-    users = User.in_soapbox_directory.first_name_or_last_name_or_role_like(keyword).all(:include => :profile)
+    users = User.in_soapbox_directory.first_name_or_last_name_or_role_like(keyword)
     # profile fields: headline, summary, hometown, current_residence
     users += User.in_soapbox_directory.
       profile_headline_or_profile_summary_or_profile_hometown_or_profile_current_residence_like(keyword).
       id_not_in(users.map(&:id))
-      all(:include => :profile)
     # metropolitan_area name
     users += User.in_soapbox_directory.profile_metropolitan_area_name_like(keyword).
       id_not_in(users.map(&:id))
-      all(:include => :profile)
     # james_beard_region name
     users += User.in_soapbox_directory.profile_james_beard_region_name_like(keyword).
       id_not_in(users.map(&:id))
-      all(:include => :profile)
     # cuisines name
     users += User.in_soapbox_directory.profile_cuisines_name_like(keyword).
       id_not_in(users.map(&:id))
-      all(:include => :profile)
     # specialties name
     users += User.in_soapbox_directory.profile_specialties_name_like(keyword).
       id_not_in(users.map(&:id))
-      all(:include => :profile)
     # restaurant name
     users += User.in_soapbox_directory.restaurants_name_like(keyword).
       id_not_in(users.map(&:id))
-      all(:include => :profile)
+    # USER -> EMPLOYMENT -> RESTAURANT_ROLE: name
+    users += User.in_soapbox_directory.employments_restaurant_role_name_like(keyword).
+      id_not_in(users.map(&:id))
+    # USER -> PROFILE -> CULINARY_JOB: restaurant_name, title, chef_name, cuisine, notes
+    users += User.in_soapbox_directory.profile_culinary_jobs_restaurant_name_like(keyword).
+      id_not_in(users.map(&:id))
+    users += User.in_soapbox_directory.profile_culinary_jobs_title_like(keyword).
+      id_not_in(users.map(&:id))
+    users += User.in_soapbox_directory.profile_culinary_jobs_chef_name_like(keyword).
+      id_not_in(users.map(&:id))
+    users += User.in_soapbox_directory.profile_culinary_jobs_cuisine_like(keyword).
+      id_not_in(users.map(&:id))
+    users += User.in_soapbox_directory.profile_culinary_jobs_notes_like(keyword).
+      id_not_in(users.map(&:id))
+    # USER -> PROFILE -> NONCULINARY_JOB: company, title, chef_name, cuisine, notes
+    users += User.in_soapbox_directory.profile_nonculinary_jobs_company_like(keyword).
+      id_not_in(users.map(&:id))
+    users += User.in_soapbox_directory.profile_nonculinary_jobs_title_like(keyword).
+      id_not_in(users.map(&:id))
+    users += User.in_soapbox_directory.profile_nonculinary_jobs_responsibilities_like(keyword).
+      id_not_in(users.map(&:id))
+
 
     users
   end
