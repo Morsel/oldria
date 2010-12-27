@@ -147,9 +147,8 @@
 
     <div class="questions">
       <%= render :partial => "restaurants/a_la_minute_question",
-              :collection => @questions, :as => :answer %>
+              :collection => @questions, :as => :answer, :locals => { :restaurant => @restaurant } %>
     </div>
-    <p class="view_all"><a href="#">View all answers &raquo;</a></p>
   </div><!--#a_la_minute-->
 
   <%= render :partial => 'profile_questions/behind_the_line', :locals => { :subject => @restaurant } if topics_for(@restaurant).present? %>
