@@ -1,4 +1,5 @@
-<% div_for @media_request, :class => 'clearfix box extended discussion', :id => "media_request_long" do %>
+<div id="read_messages">
+<% div_for @media_request, :class => 'clearfix box extended discussion thread', :id => "media_request_long" do %>
   <ul class="message_headers">
     <li>
       <h4><%= @media_request.subject_matter.try(:name) %> (Original request)</h4>
@@ -37,3 +38,4 @@
 	<% end %>
 
 <% end -%>
+</div>
