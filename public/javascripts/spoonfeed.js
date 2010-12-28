@@ -140,10 +140,13 @@ $('.new_question').live('click', function(){
 		url:'/users/'+$(this).attr('data-user-id')+'/questions/refresh'
 	}); 
 	return false;
-})
+});
 $('#profile_answer_submit').live('click', function(){
-	$(this).val('posting...').attr('disabled','disabled');
-})
+    var rthis = this;
+    setTimeout(function(){
+        $(rthis).val('posting...').attr('disabled','disabled');
+    }, 0);
+});
 $('#new_quick_reply button').live('click', function(){
 	$(this).text('posting...').attr('disabled','disabled');
 });
