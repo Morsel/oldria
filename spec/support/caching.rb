@@ -16,8 +16,12 @@ class FakeMemCacheStore
     @data = {}
   end
 
+  def delete(key, options = nil)
+    @data.delete(key) if @data.key?(key)
+  end
+
   def method_missing(m, *args, &block)  
-    raise "FakeMemCacheStore object!"
+    raise "FakeMemCacheStore object! MethodName: #{m.to_s}"
   end
 end
 

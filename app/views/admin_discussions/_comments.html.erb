@@ -4,19 +4,19 @@
       <% semantic_form_for @comment_resource, :html => { :multipart => true } do |f| %>
         <% f.inputs do %>
             <%= f.input :comment, :label => 'Post', :input_html => { :rows => 8 }, :hint => soapbox_notice(message) %>
+            <% if @discussionable.respond_to?(:soapbox_entry) &&  @discussionable.soapbox_entry.try(:published?) %>
+              <p class="clear clearfix">
+                <span class="and_twitter">
+                  <% if current_facebook_user && current_user.facebook_authorized? -%>
+                    <%= f.input :post_to_facebook, :as => :boolean, :class => 'checkbox' , :label => "Post to Facebook?"  %>
+                  <% else %>
+                    <%= link_to "Setup Facebook to post there too!", fb_auth_user_path(current_user) %>
+                  <% end -%>
+                </span>
+              </p>
+           <% end %>
             <%= button_tag "Send", :class => 'submit button' %></p>
         <% end %>
-        <% if @discussionable.respond_to?(:soapbox_entry) &&  @discussionable.soapbox_entry.try(:published?) %>
-          <p class="clear clearfix">
-            <span class="and_twitter">
-              <% if current_facebook_user && current_user.facebook_authorized? -%>
-                <%= f.input :post_to_facebook, :as => :boolean, :class => 'checkbox' , :label => "Post to Facebook?"  %>
-              <% else %>
-                <%= link_to "Setup Facebook to post there too!", fb_auth_user_path(current_user) %>
-              <% end -%>
-            </span>
-          </p>
-       <% end %>
       <% end %>
     <% else %>
       <%= render @comments %>     

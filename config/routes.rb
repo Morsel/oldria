@@ -215,6 +215,7 @@ ActionController::Routing::Routes.draw do |map|
 
   map.root :controller => 'welcome'
   map.dashboard_more 'dashboard_more', :controller => 'welcome', :action => 'index', :is_more => true
+  map.refresh_dashboard 'dashboard/refresh', :controller => 'welcome', :action => 'refresh'
 
   map.namespace :admin do |admin|
     admin.root      :controller => 'admin'
