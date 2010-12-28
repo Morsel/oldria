@@ -420,7 +420,7 @@ class User < ActiveRecord::Base
     # USER->PROFILE: headline, summary, hometown, current_residence
     users += User.in_soapbox_directory.
       profile_headline_or_profile_summary_or_profile_hometown_or_profile_current_residence_like(keyword).
-      id_not_in(users.map(&:id))
+      id_not_in(users.map(&:id)).all(:group => "users.id")
     # USER->PROFILE->METROPOLITAN AREA: name
     users += User.in_soapbox_directory.profile_metropolitan_area_name_like(keyword).
       id_not_in(users.map(&:id))
