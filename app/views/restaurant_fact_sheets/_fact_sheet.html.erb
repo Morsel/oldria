@@ -79,9 +79,9 @@
         <% content_tag_for(:li, tasting_menu) do %>
           <dl>
             <dt><%=h tasting_menu.name %></dt>
-            <dd>Price: <%=price tasting_menu.price %></dd>
+            <dd>Price: <strong><%=price tasting_menu.price %></strong></dd>
             <% unless tasting_menu.wine_supplement_price.blank? %>
-              <dd>Wine Supplement: <%=price tasting_menu.wine_supplement_price %></dd>
+              <dd>Wine Supplement: <strong><%=price tasting_menu.wine_supplement_price %></strong></dd>
             <% end %>
           </dl>
         <% end %>
@@ -237,13 +237,13 @@
 
       <% content_tag(:li) do %>
         Square footage:
-        <strong><%=h fact_sheet.square_footage %></strong>
+        <strong><%=h fact_sheet.square_footage %> sq. ft.</strong>
       <% end unless fact_sheet.square_footage.blank? %>
 
       <% fact_sheet.seating_areas.each do |seating_area| %>
         <% content_tag(:li) do %>
           <%=h seating_area.name %>:
-          <%=h seating_area.occupancy %>
+          <strong><%=h seating_area.occupancy %> seats</strong>
         <% end %>
       <% end %>
 
