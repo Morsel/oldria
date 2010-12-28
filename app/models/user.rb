@@ -415,31 +415,31 @@ class User < ActiveRecord::Base
   end
 
   def self.extended_find(keyword)
-    # user fields: first_name, last_name, role
+    # USER: first_name, last_name, role
     users = User.in_soapbox_directory.first_name_or_last_name_or_role_like(keyword)
-    # profile fields: headline, summary, hometown, current_residence
+    # USER->PROFILE: headline, summary, hometown, current_residence
     users += User.in_soapbox_directory.
       profile_headline_or_profile_summary_or_profile_hometown_or_profile_current_residence_like(keyword).
       id_not_in(users.map(&:id))
-    # metropolitan_area name
+    # USER->PROFILE->METROPOLITAN AREA: name
     users += User.in_soapbox_directory.profile_metropolitan_area_name_like(keyword).
       id_not_in(users.map(&:id))
-    # james_beard_region name
-    users += User.in_soapbox_directory.profile_james_beard_region_name_like(keyword).
-      id_not_in(users.map(&:id))
-    # cuisines name
+    # USER->PROFILE->CUISINES: name
     users += User.in_soapbox_directory.profile_cuisines_name_like(keyword).
       id_not_in(users.map(&:id))
-    # specialties name
+    # USER->PROFILE->SPECIALTIES: name
     users += User.in_soapbox_directory.profile_specialties_name_like(keyword).
       id_not_in(users.map(&:id))
-    # restaurant name
+    # USER->RESAURANTS: name
     users += User.in_soapbox_directory.restaurants_name_like(keyword).
       id_not_in(users.map(&:id))
-    # USER -> EMPLOYMENT -> RESTAURANT_ROLE: name
+    # USER->PROFILE->AWARDS: name
+    users += User.in_soapbox_directory.profile_awards_name_like(keyword).
+      id_not_in(users.map(&:id))
+    # USER->EMPLOYMENT->RESTAURANT_ROLE: name
     users += User.in_soapbox_directory.employments_restaurant_role_name_like(keyword).
       id_not_in(users.map(&:id))
-    # USER -> PROFILE -> CULINARY_JOB: restaurant_name, title, chef_name, cuisine, notes
+    # USER->PROFILE->CULINARY_JOB: restaurant_name, title, chef_name, cuisine, notes
     users += User.in_soapbox_directory.profile_culinary_jobs_restaurant_name_like(keyword).
       id_not_in(users.map(&:id))
     users += User.in_soapbox_directory.profile_culinary_jobs_title_like(keyword).
@@ -450,14 +450,57 @@ class User < ActiveRecord::Base
       id_not_in(users.map(&:id))
     users += User.in_soapbox_directory.profile_culinary_jobs_notes_like(keyword).
       id_not_in(users.map(&:id))
-    # USER -> PROFILE -> NONCULINARY_JOB: company, title, chef_name, cuisine, notes
+    # USER->PROFILE->NONCULINARY_JOB: company, title, chef_name, cuisine, notes
     users += User.in_soapbox_directory.profile_nonculinary_jobs_company_like(keyword).
       id_not_in(users.map(&:id))
     users += User.in_soapbox_directory.profile_nonculinary_jobs_title_like(keyword).
       id_not_in(users.map(&:id))
     users += User.in_soapbox_directory.profile_nonculinary_jobs_responsibilities_like(keyword).
       id_not_in(users.map(&:id))
-
+    # USER->PROFILE->ENROLLMENTS->SCHOOLS: name
+    users += User.in_soapbox_directory.profile_schools_name_like(keyword).
+      id_not_in(users.map(&:id))
+    # USER->PROFILE->ENROLLMENTS: degree, focus, scholarships
+    users += User.in_soapbox_directory.profile_enrollments_degree_like(keyword).
+      id_not_in(users.map(&:id))
+    users += User.in_soapbox_directory.profile_enrollments_focus_like(keyword).
+      id_not_in(users.map(&:id))
+    users += User.in_soapbox_directory.profile_enrollments_scholarships_like(keyword).
+      id_not_in(users.map(&:id))
+    # USER->PROFILE->NONCULINARY_ENROLLMENTS->SCHOOLS: name
+    users += User.in_soapbox_directory.profile_nonculinary_schools_name_like(keyword).
+      id_not_in(users.map(&:id))
+    # USER->PROFILE->NONCULINARY_ENROLLMENTS: degree, field_of_study, achievements
+    users += User.in_soapbox_directory.profile_nonculinary_enrollments_degree_like(keyword).
+      id_not_in(users.map(&:id))
+    users += User.in_soapbox_directory.profile_nonculinary_enrollments_field_of_study_like(keyword).
+      id_not_in(users.map(&:id))
+    users += User.in_soapbox_directory.profile_nonculinary_enrollments_achievements_like(keyword).
+      id_not_in(users.map(&:id))
+    # USER->PROFILE->COMPETITION: name
+    users += User.in_soapbox_directory.profile_competitions_name_like(keyword).
+      id_not_in(users.map(&:id))
+    # USER->PROFILE->INTERNSHIPS: establishment, supervisor, comments
+    users += User.in_soapbox_directory.profile_internships_establishment_like(keyword).
+      id_not_in(users.map(&:id))
+    users += User.in_soapbox_directory.profile_internships_supervisor_like(keyword).
+      id_not_in(users.map(&:id))
+    users += User.in_soapbox_directory.profile_internships_comments_like(keyword).
+      id_not_in(users.map(&:id))
+    # USER->PROFILE->STAGES: establishment, expert, comments
+    users += User.in_soapbox_directory.profile_stages_establishment_like(keyword).
+      id_not_in(users.map(&:id))
+    users += User.in_soapbox_directory.profile_stages_expert_like(keyword).
+      id_not_in(users.map(&:id))
+    users += User.in_soapbox_directory.profile_stages_comments_like(keyword).
+      id_not_in(users.map(&:id))
+    # USER->PROFILE->APPRENTICESHIPS: establishment, supervisor, comments
+    users += User.in_soapbox_directory.profile_apprenticeships_establishment_like(keyword).
+      id_not_in(users.map(&:id))
+    users += User.in_soapbox_directory.profile_apprenticeships_supervisor_like(keyword).
+      id_not_in(users.map(&:id))
+    users += User.in_soapbox_directory.profile_apprenticeships_comments_like(keyword).
+      id_not_in(users.map(&:id))
 
     users
   end
