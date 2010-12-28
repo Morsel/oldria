@@ -11,7 +11,7 @@
 			
 			<%= link_to "<h2>Grow the network</h2><p>Invite other chefs, mixologists, sommeliers</p>", recommend_invitations_path, :id => "invitation", :class => "promo" %>
 			
-			<% if false #@btl_question %>
+			<% if @btl_question %>
             <aside class="promo" id="btl_game">
               <%= link_to "new question", '#', :"data-auth" => form_authenticity_token.inspect, :"data-user-id" => current_user.id, :class => "new_question" %>
               <h1>Behind the Line</h1>

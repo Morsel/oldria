@@ -15,6 +15,10 @@ Then /^I should see link \"see more\"$/ do
   response.should have_selector(".see_more_link", :href =>"/dashboard_more")
 end
 
+Then /^I should see btl_game$/ do
+  response.should have_selector("#btl_game")
+end
+
 Given /^answers with long text$/ do
   @profile_answer = Factory(:profile_answer, :answer => "some text "*50)
 end

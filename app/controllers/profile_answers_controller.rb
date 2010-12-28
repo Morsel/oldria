@@ -30,11 +30,11 @@ class ProfileAnswersController < ApplicationController
       end
 
       format.js do
-        @answer = ProfileAnswer.new(params[:profile_answer].merge(:user_id => current_user.id))
+        @answer = ProfileAnswer.new(params[:profile_answer].merge(:responder => current_user))
         @question = @answer.profile_question
 
         if @answer.save
-          new_question = ProfileQuestion.for_subject(@responder).random.reject { |q| q.answered_by?(@responder) }.first
+          new_question = ProfileQuestion.for_lsubject(@responder).random.reject { |q| q.answered_by?(@responder) }.first
           render :partial => "shared/btl_game", :locals => { :question => new_question } and return
         else
           render :partial => "shared/btl_game", :locals => { :question => @question } and return
