@@ -18,8 +18,9 @@ describe WelcomeController do
         @user.stubs(:update).returns(true)
         Rails.cache.clear
         controller.stubs(:current_user).returns(@user)
+        @key = controller.action_cache_key(controller.dashboard_cache_key)
       end
-
+ 
       it "should render the dashboard template" do
         get :index
         response.should render_template(:dashboard)
@@ -37,14 +38,14 @@ describe WelcomeController do
         @user.stubs(:unread_announcements).returns([])
         get :index
         response.should render_template(:dashboard)
-        Rails.cache.exist?("views/" + controller.cache_key).should be_true
+        Rails.cache.exist?(@key).should be_true
       end
 
       it "should not cache action if unread announcement exists" do
         @user.stubs(:unread_announcements).returns([Factory(:announcement)])
         get :index
         response.should render_template(:dashboard)
-        Rails.cache.exist?("views/" + controller.cache_key).should be_false
+        Rails.cache.exist?(@key).should be_false
       end
 
       it "should cache recent_comments" do
@@ -64,6 +65,32 @@ describe WelcomeController do
       it "should redirect to mediahome" do
         get :index
         response.should redirect_to(mediafeed_root_path)
+      end
+    end
+  end
+
+  describe "GET refresh" do
+    context "for logged in spoonfeed users" do
+      before do
+        @user = Factory.stub(:user)
+        @user.stubs(:update).returns(true)
+        Rails.cache.clear
+        controller.stubs(:current_user).returns(@user)
+        @key = controller.action_cache_key(controller.dashboard_cache_key)
+      end
+
+      it "should clear action cache for dashboard" do
+        get :index
+        Rails.cache.exist?(@key).should be_true
+
+        get :refresh
+        Rails.cache.exist?(@key).should be_false
+      end
+
+      it "should create fresh cache for recent comments" do
+        Rails.cache.exist?("load_recent_comments").should be_false
+        get :refresh
+        Rails.cache.exist?("load_recent_comments").should be_true
       end
     end
   end

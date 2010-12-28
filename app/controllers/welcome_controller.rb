@@ -1,16 +1,24 @@
 class WelcomeController < ApplicationController
+  include RiaCaching
+
   # preload classes which may be used while caching
   # to prevent "undefined class/module"
   before_filter :preload_classes
+  before_filter :require_user, :only => [:refresh]
 
   # cache dashboard for logged in users 
   caches_action :index,
                 :if =>  Proc.new {|controller| controller.cache? && !controller.params[:is_more] }, 
                 :expires_in => 5.minutes,
-                :cache_path => Proc.new { |controller| controller.cache_key }
+                :cache_path => Proc.new { |controller| controller.dashboard_cache_key }
+
+  def initialize
+    @per_page = 10
+  end
+
+  # GET /welcome/index
   def index
     if current_user
-      @per_page = 10
       redirect_to mediafeed_root_path and return if current_user.media?
 
       @user = current_user
@@ -24,17 +32,26 @@ class WelcomeController < ApplicationController
     end
   end
 
+  # GET /welcome/refresh
+  # GET /dashboard/refresh
+  # refresh cache for dashboard
+  def refresh
+    expire_action_by_key(dashboard_cache_key) 
+    @recent_comments = cache_or_get(:load_recent_comments, true)
+    @has_more = cache_or_get(:has_more?, true)
+
+    redirect_to :action => :index
+  end
+
+  def dashboard_cache_key
+    cache_key(controller_name, :index, current_user.id.to_s)
+  end
+
   # check if we need action cache for current action
   def cache?
     case action_name.to_sym
     when :index then current_user && current_user.unread_announcements.blank?
     end
-  end
-
-  # generate cache key for logged in users
-  # ex "welcome_index_205"
-  def cache_key
-    current_user ? "#{controller_name}_#{action_name}_#{current_user.id.to_s}" : nil
   end
 
   private
@@ -43,17 +60,6 @@ class WelcomeController < ApplicationController
     @recent_comments = cache_or_get(:load_recent_comments)
     #there yet?
     @has_more = cache_or_get(:has_more?)
-  end
-
-  # get result from cache with method name as key.
-  # if no key found it calls passed method for result
-  def cache_or_get(method_name)
-    method_name = method_name.to_s unless method_name.is_a?(String)
-    unless self.perform_caching && (result = Rails.cache.read(method_name))
-      result = send(method_name)
-      Rails.cache.write(method_name, result, :expires_in => 5.minutes) if self.perform_caching
-    end
-    result
   end
   
   def set_up_dashboard_with_pagination
@@ -84,8 +90,4 @@ class WelcomeController < ApplicationController
        recent_answers + SoapboxEntry.published.all(:limit => @per_page + 1,
                                   :conditions => ["created_at > ?", 2.weeks.ago]).map(&:comments).flatten.size > @per_page
   end
-  
-   def preload_classes
-    ProfileAnswer
-   end
 end
