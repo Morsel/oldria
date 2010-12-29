@@ -11,31 +11,23 @@
         </div>
       <% end %>
 
-      <% unless @trend_questions_found.empty? %>
+      <% unless @trend_questions_found.empty? && @trend_question_comments_found.empty? %>
         <div class="subtitle">
           <h1>Trend Questions</h1>
-          <%= render :partial => 'trend_list', :locals => {:questions => @trend_questions_found} %>
+          <ul>
+            <%= render :partial => 'trend_list_entry', :collection => @trend_questions_found unless @trend_questions_found.empty? %>
+            <%= render :partial => 'comment_list_entry', :collection => @trend_question_comments_found unless @trend_question_comments_found.empty? %>
+          </ul>
         </div>
       <% end %>
 
-      <% unless @qotds_found.empty? %>
+      <% unless @qotds_found.empty? && @qotd_comments_found.empty? %>
         <div class="subtitle">
           <h1>Questions of the Day</h1>
-          <%= render :partial => 'qotd_list', :locals => {:questions => @qotds_found} %>
-        </div>
-      <% end %>
-
-      <% unless @trend_question_comments_found.empty? %>
-        <div class="subtitle">
-          <h1>Trend Questions Answers</h1>
-          <%= render :partial => 'comment_list', :locals => {:comments => @trend_question_comments_found} %>
-        </div>
-      <% end %>
-
-      <% unless @qotd_comments_found.empty? %>
-        <div class="subtitle">
-          <h1>Questions of the Day Answers</h1>
-          <%= render :partial => 'comment_list', :locals => {:comments => @qotd_comments_found} %>
+          <ul>
+            <%= render :partial => 'qotd_list_entry', :collection => @qotds_found unless @qotds_found.empty? %>
+            <%= render :partial => 'comment_list_entry', :collection => @qotd_comments_found unless @qotd_comments_found.empty? %>
+          </ul>
         </div>
       <% end %>
 

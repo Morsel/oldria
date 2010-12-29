@@ -6,10 +6,10 @@
       <%= truncate(comment_list_entry.comment_comment, :length => 120) %>
     </span>
     <span class="btl-answer-author">
-      <% user = User.find(comment_list_entry.comment_user_id) %>
+      <% user = User.find_by_id(comment_list_entry.comment_user_id) %>
       by <%= [user.name_or_username,
               user.primary_employment.try(:restaurant_role).try(:name),
-              user.restaurant_names].reject(&:blank?).join(", ") %>
+              user.restaurant_names].reject(&:blank?).join(", ") unless user.nil? %>
     </span>
   <% end %>
 </li>
