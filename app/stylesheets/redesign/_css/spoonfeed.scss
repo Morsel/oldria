@@ -3462,11 +3462,10 @@ p.search_filter_hint {
   padding: 20px;
 	overflow: hidden;
 	border: 1px solid #eaeaea;
-	.group {
-	  margin-bottom: 10px;
-	  padding-left: 10px;
-//	  border-bottom: 1px dashed #ddd;
-    border-left: 3px solid $orange;
+	#hours, #seating_areas, #tasting_menus {
+	  .fields {
+	    margin-bottom: 20px;
+	  }
 	}
 	.btl-art {
 	  display: block;
