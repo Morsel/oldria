@@ -1937,13 +1937,13 @@ form, #page_content form{
 	label{
 		font-weight:bold;
 	}
-	.string, .text, .country, .password{
+	.string, .text, .country, .password, .numeric {
 		label{
 			display:block;
 			margin:5px 0 0;
 		}
 	}
-	.string, .text, .password{
+	.string, .text, .password, .numeric {
 		input, textarea{
 			padding:5px;
 			border:1px solid #ccc;
@@ -2764,6 +2764,16 @@ p.search_filter_hint {
 						color: #333;
 						font-size: 15px;
 					}
+					dl {
+					  dt {
+					    margin: 0;
+					  }
+  				  dd {
+  				    font-weight: normal;
+  				    padding-left: 10px;
+  				    background: url(/images/icon-indent.png) top left no-repeat;
+  				  }
+  				}
 				}
 			}
 			&.resto {
@@ -3476,6 +3486,12 @@ p.search_filter_hint {
   padding: 20px;
 	overflow: hidden;
 	border: 1px solid #eaeaea;
+	.group {
+	  margin-bottom: 10px;
+	  padding-left: 10px;
+//	  border-bottom: 1px dashed #ddd;
+    border-left: 3px solid $orange;
+	}
 	.btl-art {
 	  display: block;
 	  margin-bottom: 5px;
@@ -3581,6 +3597,7 @@ p.search_filter_hint {
 	}
 	ol li {
 		label {
+		  display: block;
 		  font-size: 13px;
 			font-weight: normal;
 		}
@@ -3591,6 +3608,7 @@ p.search_filter_hint {
 		}
 		ol select {
 		  width: auto;
+		  display: inline;
 		}
 		.inline-hints {
 			margin: -8px 0 10px;
