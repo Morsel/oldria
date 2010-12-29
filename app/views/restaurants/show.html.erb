@@ -40,7 +40,7 @@
 
   <h2>Details</h2>
   <div class="manager_and_facts equal-height tricol">
-    <% dl_if(@restaurant.description, :class => "list_item", :id => "description") do %>
+    <% dl_if(!@restaurant.description.empty?, :class => "list_item", :id => "description") do %>
       <dt>Description:</dt>
       <dd><%= @restaurant.description %></dd>
     <% end %>

@@ -1842,12 +1842,30 @@ p.search_filter_hint {
 			li {
 				width:30%;
 				border-bottom: 0;
-				margin:0 10px 20px 0;
+				margin:0 10px 5px 0;
 				overflow: hidden;
 				float:left;
 				padding: 4px 0 0 5px;
 				span.name {
 					color: $sienna;
+				}
+				strong {
+				  display: block;
+				}
+				ul {
+				  li {
+				    width: 100%;
+				    padding: 0;
+				  }
+				}
+				dl {
+				  dd {
+				    padding-left: 10px;
+				    background: url(/images/icon-indent.png) top left no-repeat;
+				    strong {
+				      display: inline;
+				    }
+				  }
 				}
 			}
 		}
