@@ -2510,6 +2510,9 @@ dl.things dt:after {content: ":"}
 		}
 	}
 }
+.soapbox-search-results {
+  min-height: 400px;
+}
 
 #page-content .search-results {
 	overflow: hidden;
