@@ -6,7 +6,7 @@
     <% div_for comment do %>
         <div class="activity_header">
             <h3>Behind the Line</h3>
-            <p class="comment_date"><%= comment.created_at.strftime("%m/%d") %></p>
+            
             <p class="topic"><%= "#{comment.profile_question.chapter.title_with_topic}: #{comment.profile_question.title}" %> </p>
         </div>
         <div class="user_comment">

@@ -28,7 +28,7 @@
 	      <%= f.input :dessert_plate_min_price %>
 	      <%= f.input :dessert_plate_max_price %>
 	    <li id="tasting_menus">
-	      <h3>Tasting Menus</h3>
+	      <h4>Tasting Menus</h4>
 	      <ol>
 	      <% f.fields_for :tasting_menus do |tasting_menu_form| %>
 	        <%= render "tasting_menu_fields", :f => tasting_menu_form %>
@@ -36,6 +36,7 @@
 	      </ol>
 	      <%= link_to_add_fields("Add a tasting menu", f, :tasting_menus, :class => "sf-button add_fields_for") %>
 	    </li>
+	    <h4>Wine Pricing</h4>
 	    <%= f.input :wine_by_the_glass_count %>
 	    <%= f.input :wine_by_the_glass_min_price %>
 	    <%= f.input :wine_by_the_glass_max_price %>
@@ -89,7 +90,7 @@
 	    <h4>Design Facts</h4>
 	    <%= f.input :square_footage, :hint => "Numbers should not contain a comma, e.g. 10000 not 10,000" %>
 	    <li id="seating_areas">
-	      <h3>Seating Areas</h3>
+	      <h4>Seating Areas</h4>
 	      <ol>
 	      <% f.fields_for :seating_areas do |seating_area_form| %>
 	        <%= render 'seating_area_fields', :f => seating_area_form %>
