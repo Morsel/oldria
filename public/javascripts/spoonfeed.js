@@ -116,10 +116,6 @@ if (window.current_user_id) {
   });
 }
 
-
-height = $('#btl_game').height();
-$('#btl_game').height(height);
-
 $('.new_question').live('click', function(){
 	$('#btl_game_content').fadeOut();
 	$(this).css({

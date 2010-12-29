@@ -88,6 +88,7 @@ class User < ActiveRecord::Base
   has_one :invitation, :foreign_key => "invitee_id"
   has_subscription
 
+
   validates_presence_of :email
 
   has_and_belongs_to_many :metropolitan_areas
@@ -506,5 +507,10 @@ class User < ActiveRecord::Base
       all(:conditions => ["users.id NOT in (?)", [0] + users.map(&:id)])
 
     users
+
+  # conditions hash for mediafeed visible users only
+  # Ex. Employment.all(User.mediafeed_only_condition)
+  def self.mediafeed_only_condition
+    options = { :conditions => { :users => { :mediafeed_visible => true} } }
   end
 end
