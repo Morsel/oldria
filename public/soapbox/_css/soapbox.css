@@ -2652,7 +2652,7 @@ p.search_filter_hint {
 #extended_profile .extended_profile_info ul li, #extended_profile .profile_info ul li {
   width: 30%;
   border-bottom: 0;
-  margin: 0 10px 20px 0;
+  margin: 0 10px 5px 0;
   overflow: hidden;
   float: left;
   padding: 4px 0 0 5px;
@@ -2661,7 +2661,25 @@ p.search_filter_hint {
 #extended_profile .extended_profile_info ul li span.name, #extended_profile .profile_info ul li span.name {
   color: #cb4827;
 }
-/* line 1876, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+/* line 1873, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+#extended_profile .extended_profile_info ul li strong, #extended_profile .profile_info ul li strong {
+  display: block;
+}
+/* line 1877, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+#extended_profile .extended_profile_info ul li ul li, #extended_profile .profile_info ul li ul li {
+  width: 100%;
+  padding: 0;
+}
+/* line 1883, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+#extended_profile .extended_profile_info ul li dl dd, #extended_profile .profile_info ul li dl dd {
+  padding-left: 10px;
+  background: url(/images/icon-indent.png) top left no-repeat;
+}
+/* line 1886, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+#extended_profile .extended_profile_info ul li dl dd strong, #extended_profile .profile_info ul li dl dd strong {
+  display: inline;
+}
+/* line 1894, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
 #extended_profile .timestamp {
   position: absolute;
   top: 8px;
@@ -2669,37 +2687,37 @@ p.search_filter_hint {
   font: normal 10px "Helvetica Neue", Helvetica, Arial, sans-serif;
   color: #808080;
 }
-/* line 1883, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+/* line 1901, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
 #extended_profile .employee_role {
   border: 0;
 }
-/* line 1886, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+/* line 1904, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
 #extended_profile a {
   color: #0087C0;
   text-decoration: none;
 }
-/* line 1889, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+/* line 1907, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
 #extended_profile a:hover {
   color: #666;
 }
-/* line 1893, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+/* line 1911, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
 #extended_profile .name {
   color: #0087C0;
   text-decoration: none;
 }
 
-/* line 1899, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+/* line 1917, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
 #current_things {
   margin: 1em 0;
   padding: 5px;
 }
-/* line 1902, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+/* line 1920, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
 #current_things dl.things {
   overflow: hidden;
   margin: 0;
   padding: 14px 10px;
 }
-/* line 1906, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+/* line 1924, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
 #current_things dl.things div {
   margin-right: 20px;
   padding-right: 19px;
@@ -2707,33 +2725,33 @@ p.search_filter_hint {
   width: 172px;
   float: left;
 }
-/* line 1912, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+/* line 1930, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
 #current_things dl.things div.last {
   padding-right: 0;
   border-right: 0;
   margin-right: 0;
 }
-/* line 1918, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+/* line 1936, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
 #current_things dl.things dt {
   margin: 0 0 1em;
   font-weight: normal;
 }
-/* line 1921, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+/* line 1939, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
 #current_things dl.things dt:after {
   content: ":";
 }
-/* line 1925, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+/* line 1943, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
 #current_things dl.things dd {
   font-weight: bold;
   font-size: 1.1em;
 }
 
-/* line 1933, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+/* line 1951, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
 dl.things dt:after {
   content: ":";
 }
 
-/* line 1940, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+/* line 1958, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
 #employment_criteria legend span {
   font-family: 'MuseoSlab700', 'Helvetica Neue', Helvetica, arial, sans-serif;
   font-weight: normal !important;
@@ -2742,22 +2760,22 @@ dl.things dt:after {
   font-size: 15px;
 }
 
-/* line 1948, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+/* line 1966, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
 #criteria_accordion {
   padding: 10px 0 0;
 }
-/* line 1950, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+/* line 1968, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
 #criteria_accordion .accordion_box {
   border: 1px solid #ddd;
   background: 0 none;
 }
 
-/* line 1957, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+/* line 1975, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
 .topic-nav {
   overflow: hidden;
   padding: 10px 0 10px 10px;
 }
-/* line 1960, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+/* line 1978, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
 .topic-nav a {
   display: block;
   padding: 5px 10px 5px 20px;
@@ -2767,52 +2785,52 @@ dl.things dt:after {
   float: right;
   margin: 0 0 0 10px;
 }
-/* line 1968, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+/* line 1986, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
 .topic-nav a.next {
   padding-left: 10px;
   padding-right: 20px;
   background-image: url(/images/redesign/bg-orange-arrow-next.png);
   background-position: right;
 }
-/* line 1974, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+/* line 1992, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
 .topic-nav a.prev {
   background-image: url(/images/redesign/bg-orange-arrow-prev.png);
 }
-/* line 1977, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+/* line 1995, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
 .topic-nav a.all-topics {
   background-image: url(/images/redesign/bg-home.png);
 }
 
-/* line 1983, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+/* line 2001, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
 #user-search {
   margin-bottom: 20px;
 }
 
-/* line 1989, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+/* line 2007, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
 #restaurant_profile_view a:hover {
   text-decoration: none;
 }
-/* line 1990, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+/* line 2008, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
 #restaurant_profile_view h2 {
   font-size: 14px;
   text-transform: uppercase;
   border: none;
   margin: 15px 0 5px;
 }
-/* line 1996, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+/* line 2014, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
 #restaurant_profile_view ul.tags {
   float: left;
   margin: 0;
   padding: 0;
 }
-/* line 2000, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+/* line 2018, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
 #restaurant_profile_view ul.tags li {
   display: inline-block;
   background: none;
   padding: 0;
   margin: 0;
 }
-/* line 2005, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+/* line 2023, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
 #restaurant_profile_view ul.tags li a {
   background-color: #f5f4f2;
   display: inline-block;
@@ -2824,23 +2842,23 @@ dl.things dt:after {
   -khtml-border-radius: 30px;
   border-radius: 30px;
 }
-/* line 2010, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+/* line 2028, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
 #restaurant_profile_view ul.tags li a:hover {
   background-color: #cb4827;
   color: #fff;
   text-shadow: 0 1px 0 #333;
 }
-/* line 2018, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+/* line 2036, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
 #restaurant_profile_view header {
   border-bottom: 1px dotted #ddd;
   padding: 0 0 10px 0;
 }
-/* line 2021, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+/* line 2039, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
 #restaurant_profile_view header #restaurant_actions {
   width: 166px;
   float: right;
 }
-/* line 2024, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+/* line 2042, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
 #restaurant_profile_view header #restaurant_actions a {
   font-size: 13px;
   display: block;
@@ -2861,48 +2879,48 @@ dl.things dt:after {
   margin: 0 0 6px;
   text-shadow: 0 1px 0 #333;
 }
-/* line 2036, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+/* line 2054, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
 #restaurant_profile_view header #restaurant_actions a.edit_restaurant {
   background-position: -188px 9px;
 }
-/* line 2038, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+/* line 2056, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
 #restaurant_profile_view header #restaurant_actions a.edit_restaurant:hover {
   background-color: #474f80;
   background-position: -188px -91px;
   text-decoration: none;
 }
-/* line 2044, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+/* line 2062, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
 #restaurant_profile_view header #restaurant_actions a.start_discussion {
   background-position: 12px 9px;
 }
-/* line 2046, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+/* line 2064, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
 #restaurant_profile_view header #restaurant_actions a.start_discussion:hover {
   background-color: #474f80;
   background-position: 12px -91px;
   text-decoration: none;
 }
-/* line 2052, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+/* line 2070, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
 #restaurant_profile_view header #restaurant_actions a.share_profile {
   background-position: -388px 11px;
 }
-/* line 2054, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+/* line 2072, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
 #restaurant_profile_view header #restaurant_actions a.share_profile:hover {
   background-color: #474f80;
   background-position: -388px -89px;
   text-decoration: none;
 }
-/* line 2062, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+/* line 2080, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
 #restaurant_profile_view header #restaurant_features {
   clear: both;
   overflow: hidden;
 }
-/* line 2065, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+/* line 2083, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
 #restaurant_profile_view header #restaurant_features span {
   float: left;
   margin: 2px 6px 2px 0;
   padding: 0;
 }
-/* line 2071, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+/* line 2089, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
 #restaurant_profile_view header img {
   width: 100px;
   height: 100px;
@@ -2912,26 +2930,26 @@ dl.things dt:after {
   outline: 0;
   text-indent: -9999px;
 }
-/* line 2078, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+/* line 2096, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
 #restaurant_profile_view header h1 {
   font-size: 24px;
   color: #333;
 }
-/* line 2082, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+/* line 2100, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
 #restaurant_profile_view header #restaurant_meta {
   margin-left: 115px;
 }
-/* line 2084, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+/* line 2102, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
 #restaurant_profile_view header #restaurant_meta .address {
   line-height: 17px;
 }
-/* line 2087, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+/* line 2105, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
 #restaurant_profile_view header #restaurant_meta .premium {
   z-index: 1000;
   margin: -15px 0 10px 0;
   padding: 0;
 }
-/* line 2091, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+/* line 2109, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
 #restaurant_profile_view header #restaurant_meta .premium p {
   display: inline-block;
   font-size: 10px;
@@ -2941,36 +2959,36 @@ dl.things dt:after {
   background-color: #f5f4f2;
   color: #8e8366;
 }
-/* line 2103, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+/* line 2121, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
 #restaurant_profile_view .manager_and_facts, #restaurant_profile_view .account_contact, #restaurant_profile_view .account_social {
   float: left;
   width: 200px;
   margin: 0 20px 20px 0;
 }
-/* line 2107, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+/* line 2125, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
 #restaurant_profile_view .manager_and_facts dt, #restaurant_profile_view .account_contact dt, #restaurant_profile_view .account_social dt {
   margin-bottom: 2px;
   font-weight: bold;
 }
-/* line 2111, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+/* line 2129, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
 #restaurant_profile_view .manager_and_facts dd, #restaurant_profile_view .account_contact dd, #restaurant_profile_view .account_social dd {
   margin-bottom: 5px;
   font-weight: normal;
 }
-/* line 2114, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+/* line 2132, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
 #restaurant_profile_view .manager_and_facts dd ul, #restaurant_profile_view .account_contact dd ul, #restaurant_profile_view .account_social dd ul {
   margin: 0;
 }
-/* line 2119, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+/* line 2137, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
 #restaurant_profile_view .rest_staff {
   clear: both;
   border-top: 1px dotted #ddd;
 }
-/* line 2122, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+/* line 2140, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
 #restaurant_profile_view .rest_staff .restaurant_employees {
   clear: both;
 }
-/* line 2124, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+/* line 2142, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
 #restaurant_profile_view .rest_staff .restaurant_employees .employment {
   width: 200px;
   margin: 0 20px 10px 0;
@@ -2978,14 +2996,14 @@ dl.things dt:after {
   float: left;
   border-bottom: 1px dotted #ddd;
 }
-/* line 2130, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+/* line 2148, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
 #restaurant_profile_view .rest_staff .restaurant_employees .employment header {
   border: 0;
   overflow: hidden;
   margin: 0 0 5px;
   padding: 4px 0 0 0;
 }
-/* line 2135, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+/* line 2153, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
 #restaurant_profile_view .rest_staff .restaurant_employees .employment header img {
   display: block;
   outline: 0;
@@ -2995,26 +3013,26 @@ dl.things dt:after {
   background-color: #f5f4f2;
   margin: 0 10px 5px 0;
 }
-/* line 2142, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+/* line 2160, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
 #restaurant_profile_view .rest_staff .restaurant_employees .employment header h3 {
   margin: 0;
   line-height: 15px;
   text-transform: capitalize;
 }
-/* line 2146, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+/* line 2164, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
 #restaurant_profile_view .rest_staff .restaurant_employees .employment header h3 a {
   color: #cb4827;
 }
-/* line 2148, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+/* line 2166, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
 #restaurant_profile_view .rest_staff .restaurant_employees .employment header h3 a:hover {
   color: #474f80;
 }
-/* line 2151, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+/* line 2169, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
 #restaurant_profile_view .rest_staff .restaurant_employees .employment header p {
   margin: 0;
   padding: 0;
 }
-/* line 2157, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+/* line 2175, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
 #restaurant_profile_view .rest_staff .restaurant_employees .employment .employee_section p {
   font-size: 11px;
   color: #333;
@@ -3022,7 +3040,7 @@ dl.things dt:after {
   margin: 0 0 5px;
   padding: 0;
 }
-/* line 2165, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+/* line 2183, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
 #restaurant_profile_view .rest_staff .restaurant_employees .employment .employee_section.emp_actions a {
   color: #333;
   background: transparent url(/images/redesign/icon-arrow.gif) no-repeat 0 4px;
@@ -3031,38 +3049,38 @@ dl.things dt:after {
   display: block;
   font-size: 11px;
 }
-/* line 2172, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+/* line 2190, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
 #restaurant_profile_view .rest_staff .restaurant_employees .employment .employee_section.emp_actions a:hover {
   color: #cb4827;
   background: transparent url(/images/redesign/icon-arrow.gif) no-repeat 0 -96px;
 }
-/* line 2183, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+/* line 2201, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
 #restaurant_profile_view .media .photos {
   width: 322px;
   margin: 0 10px 0 0;
   float: left;
 }
-/* line 2187, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+/* line 2205, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
 #restaurant_profile_view .media .photos img {
   display: block;
   margin: 0 0 5px;
   padding: 0;
   border: 1px solid #ccc;
 }
-/* line 2193, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+/* line 2211, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
 #restaurant_profile_view .media .photos small {
   display: block;
   margin: 10px 0;
 }
-/* line 2196, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+/* line 2214, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
 #restaurant_profile_view .media .photos small a {
   color: #cb4827;
 }
-/* line 2198, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+/* line 2216, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
 #restaurant_profile_view .media .photos small a:hover {
   color: #474f80;
 }
-/* line 2204, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+/* line 2222, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
 #restaurant_profile_view .media .menus {
   display: inline;
   float: left;
@@ -3073,26 +3091,26 @@ dl.things dt:after {
 * html #restaurant_profile_view .media .menus {
   overflow-x: hidden;
 }
-/* line 2206, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+/* line 2224, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
 #restaurant_profile_view .media .menus ul {
   margin: 0;
   padding: 0;
 }
-/* line 2209, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+/* line 2227, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
 #restaurant_profile_view .media .menus ul li {
   display: block;
   background: none;
   margin: 0;
   padding: 0;
 }
-/* line 2214, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+/* line 2232, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
 #restaurant_profile_view .media .menus ul li a {
   display: block;
   margin: 0 0 6px;
   padding: 8px 12px 8px 42px;
   background: #f5f4f2 url(/images/soapbox/icon-menu.png) no-repeat 9px 9px;
 }
-/* line 2219, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+/* line 2237, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
 #restaurant_profile_view .media .menus ul li a label {
   display: block;
   font-size: 14px;
@@ -3101,46 +3119,46 @@ dl.things dt:after {
   font-weight: normal !important;
   font-weight: 500;
 }
-/* line 2225, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+/* line 2243, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
 #restaurant_profile_view .media .menus ul li a:hover {
   background-color: #cb4827;
   color: #fff;
 }
-/* line 2228, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+/* line 2246, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
 #restaurant_profile_view .media .menus ul li a:hover label {
   text-shadow: 0 1px 0 #333;
 }
-/* line 2231, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+/* line 2249, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
 #restaurant_profile_view .media .menus ul li a:hover time {
   color: #fff;
 }
-/* line 2240, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+/* line 2258, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
 #restaurant_profile_view .top-tags {
   border-top: 1px dotted #ddd;
   border-bottom: 1px dotted #ddd;
   padding: 20px 0;
 }
-/* line 2244, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+/* line 2262, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
 #restaurant_profile_view .top-tags h2 {
   margin: 0 0 10px 0;
   padding: 0;
 }
-/* line 2250, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+/* line 2268, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
 #restaurant_profile_view .accolades {
   margin: 0;
   padding: 10px 0;
 }
-/* line 2253, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+/* line 2271, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
 #restaurant_profile_view .accolades h2 {
   margin: 0 0 5px;
   padding: 0;
 }
-/* line 2257, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+/* line 2275, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
 #restaurant_profile_view .accolades ul {
   margin: 0;
   padding: 0;
 }
-/* line 2260, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+/* line 2278, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
 #restaurant_profile_view .accolades ul li {
   border: 1px solid #eee;
   overflow: hidden;
@@ -3156,7 +3174,7 @@ dl.things dt:after {
   box-shadow: #eaeaea 0 1px 3px 0;
   font-size: 11px;
 }
-/* line 2271, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+/* line 2289, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
 #restaurant_profile_view .accolades ul li span {
   font-family: 'MuseoSlab500', 'Helvetica Neue', Helvetica, arial, sans-serif;
   font-weight: normal !important;
@@ -3165,16 +3183,16 @@ dl.things dt:after {
   display: block;
   margin: 0 0 2px;
 }
-/* line 2281, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+/* line 2299, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
 #restaurant_profile_view .tricol a {
   color: #cb4827;
 }
-/* line 2283, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+/* line 2301, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
 #restaurant_profile_view .tricol a:hover {
   color: #474f80;
   text-decoration: underline;
 }
-/* line 2292, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+/* line 2310, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
 #restaurant_profile_view .edit_profile_link a {
   background-image: url(/images/redesign/pencil.png);
   background-repeat: no-repeat;
@@ -3190,13 +3208,13 @@ dl.things dt:after {
   background-color: #cb4827;
   padding: 7px 10px 7px 20px;
 }
-/* line 2304, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+/* line 2322, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
 #restaurant_profile_view .edit_profile_link a:hover {
   background-color: #f5f4f2;
   color: #cb4827;
   text-shadow: 0 1px 0 #fff;
 }
-/* line 2311, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+/* line 2329, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
 #restaurant_profile_view .view_all {
   border-top: 1px solid #ddd;
   padding-top: 4px;
@@ -3205,17 +3223,17 @@ dl.things dt:after {
   font-size: 12px;
   letter-spacing: 0.1em;
 }
-/* line 2318, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+/* line 2336, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
 #restaurant_profile_view .view_all a {
   color: #333;
 }
-/* line 2320, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+/* line 2338, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
 #restaurant_profile_view .view_all a:hover {
   color: #cb4827;
 }
 
 /* ## ---- end of restaurant_profile_view ----- */
-/* line 2328, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+/* line 2346, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
 #a_la_minute {
   display: inline;
   float: left;
@@ -3227,7 +3245,7 @@ dl.things dt:after {
 * html #a_la_minute {
   overflow-x: hidden;
 }
-/* line 2331, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+/* line 2349, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
 #a_la_minute #alm-title {
   display: block;
   outline: 0;
@@ -3236,18 +3254,18 @@ dl.things dt:after {
   background: transparent url(/images/redesign/title-alaminute.png) no-repeat;
   padding-bottom: 5px;
 }
-/* line 2338, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+/* line 2356, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
 #a_la_minute .questions dl {
   margin: 10px 0;
 }
-/* line 2340, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+/* line 2358, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
 #a_la_minute .questions dl dt {
   font-weight: bold;
   color: #333;
   margin: 0;
   padding: 0;
 }
-/* line 2346, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+/* line 2364, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
 #a_la_minute .questions dl dd {
   font-weight: normal;
   color: #666;
@@ -3255,7 +3273,7 @@ dl.things dt:after {
   padding: 0;
 }
 
-/* line 2356, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+/* line 2374, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
 #behindline {
   display: inline;
   float: left;
@@ -3267,30 +3285,30 @@ dl.things dt:after {
 * html #behindline {
   overflow-x: hidden;
 }
-/* line 2359, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+/* line 2377, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
 #behindline ul {
   margin: 10px 0;
   padding: 0;
   min-height: 100px;
 }
-/* line 2363, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+/* line 2381, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
 #behindline ul li {
   padding: 0;
   margin: 0;
   background: 0;
 }
-/* line 2368, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+/* line 2386, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
 #behindline ul li.even a {
   background: #f2f0e9;
 }
-/* line 2372, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+/* line 2390, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
 #behindline ul li a {
   display: block;
   padding: 10px;
   position: relative;
   color: #333;
 }
-/* line 2377, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+/* line 2395, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
 #behindline ul li a h5 {
   font-family: "Hoefler Text", Georgia, serif;
   font-weight: bold;
@@ -3302,7 +3320,7 @@ dl.things dt:after {
   line-height: 1.1;
   margin: 0 0 6px;
 }
-/* line 2387, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+/* line 2405, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
 #behindline ul li a h5 .completeness {
   position: absolute;
   top: 10px;
@@ -3311,25 +3329,25 @@ dl.things dt:after {
   letter-spacing: 0em;
   font: normal 9px "Lucida Grande", Arial, sans-serif;
 }
-/* line 2396, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+/* line 2414, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
 #behindline ul li a:hover {
   background: #474f80;
   color: #fff;
   text-decoration: none;
   text-shadow: 0 1px 0 #333;
 }
-/* line 2401, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+/* line 2419, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
 #behindline ul li a:hover h5 {
   color: #333;
   text-shadow: none;
 }
-/* line 2404, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+/* line 2422, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
 #behindline ul li a:hover h5 .completeness {
   color: #333;
 }
 
 /* end of #behindline ----------------------------- */
-/* line 2414, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+/* line 2432, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
 #btl-title {
   color: #666;
   text-transform: capitalize;
@@ -3338,7 +3356,7 @@ dl.things dt:after {
   margin: 0 0 10px;
   border-bottom: 1px solid #ccc;
 }
-/* line 2421, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+/* line 2439, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
 #btl-title span.btl-art {
   display: block;
   outline: 0;
@@ -3348,7 +3366,7 @@ dl.things dt:after {
   width: 123px;
   height: 19px;
 }
-/* line 2428, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+/* line 2446, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
 #btl-title.btl {
   overflow: hidden;
   display: inline-block;
@@ -3359,26 +3377,26 @@ dl.things dt:after {
   color: #fff;
   background: #d9531e url(/images/redesign/red-divot.gif) no-repeat right;
 }
-/* line 2437, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+/* line 2455, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
 #btl-title.btl span {
   float: left;
   margin: 0 5px 0 0;
 }
-/* line 2440, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+/* line 2458, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
 #btl-title.btl span.btl-art {
   background: url(/images/redesign/btl-white.png) no-repeat left;
 }
-/* line 2443, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+/* line 2461, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
 #btl-title.btl span.name {
   padding-top: 3px;
 }
 
-/* line 2450, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+/* line 2468, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
 #search-title {
   overflow: hidden;
   height: 90px;
 }
-/* line 2453, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+/* line 2471, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
 #search-title h1 {
   float: left;
   width: 152px;
@@ -3392,13 +3410,13 @@ dl.things dt:after {
   font-size: 40px;
   text-shadow: 0 2px 0 #333;
 }
-/* line 2464, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+/* line 2482, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
 #search-title #question-search-form {
   float: left;
   margin: 20px 0 0 20px;
   padding: 0;
 }
-/* line 2468, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+/* line 2486, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
 #search-title #question-search-form #query {
   width: 300px;
   height: 34px;
@@ -3417,7 +3435,7 @@ dl.things dt:after {
   background-repeat: no-repeat;
   background-position: 6px 10px;
 }
-/* line 2481, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+/* line 2499, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
 #search-title #question-search-form .positive {
   background-color: #474f80;
   font-family: 'MuseoSlab700', 'Helvetica Neue', Helvetica, arial, sans-serif;
@@ -3434,27 +3452,27 @@ dl.things dt:after {
   color: #fff;
   padding: 6px 12px;
 }
-/* line 2489, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+/* line 2507, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
 #search-title #question-search-form .positive:hover {
   background-color: #72b4d2;
 }
 
-/* line 2496, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+/* line 2514, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
 #page-content .search-results {
   overflow: hidden;
   margin-bottom: 50px;
 }
-/* line 2499, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+/* line 2517, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
 #page-content .search-results #questions-list {
   margin: 0 0 100px;
   padding: 0 16px;
   width: 900px;
 }
-/* line 2503, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+/* line 2521, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
 #page-content .search-results #questions-list .subtitle {
   width: 800px;
 }
-/* line 2505, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+/* line 2523, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
 #page-content .search-results #questions-list .subtitle h1 {
   font-size: 16px;
   color: #888;
@@ -3462,24 +3480,24 @@ dl.things dt:after {
   margin: 0;
   padding: 0;
 }
-/* line 2512, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+/* line 2530, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
 #page-content .search-results #questions-list .subtitle ul {
   display: block;
   margin: 0 0 30px;
   padding: 0;
 }
-/* line 2516, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+/* line 2534, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
 #page-content .search-results #questions-list .subtitle ul li {
   display: block;
   margin: 0;
   padding: 0;
 }
-/* line 2520, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+/* line 2538, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
 #page-content .search-results #questions-list .subtitle ul li a {
   display: block;
   margin: 10px 0;
 }
-/* line 2523, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+/* line 2541, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
 #page-content .search-results #questions-list .subtitle ul li a time {
   display: block;
   text-transform: capitalize;
@@ -3490,7 +3508,7 @@ dl.things dt:after {
   color: #666;
   border: 0;
 }
-/* line 2532, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+/* line 2550, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
 #page-content .search-results #questions-list .subtitle ul li a time span {
   text-transform: capitalize;
   color: #666;
@@ -3500,7 +3518,7 @@ dl.things dt:after {
   width: auto;
   font-size: 12px;
 }
-/* line 2542, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+/* line 2560, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
 #page-content .search-results #questions-list .subtitle ul li a .title {
   color: #cb4827;
   width: 800px;
@@ -3510,12 +3528,12 @@ dl.things dt:after {
   font-weight: normal;
   line-height: 21px;
 }
-/* line 2551, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+/* line 2569, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
 #page-content .search-results #questions-list .subtitle ul li a .reply-count {
   display: none;
 }
 
-/* line 2559, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+/* line 2577, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
 .btl-answer-author {
   float: left;
   color: #888;

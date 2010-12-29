@@ -61,7 +61,7 @@ class QuestionsController < ApplicationController
   end
 
   def refresh
-    @btl_question = ProfileQuestion.for_subject(@subject).random.reject { |q| q.answered_by?(@subject) }.first
+    @btl_question = ProfileQuestion.for_subject(@subject).all({:order => RANDOM_SQL_STRING}).reject { |q| q.answered_by?(@subject) }.first
     render :partial => "shared/btl_game", :locals => { :question => @btl_question }
   end
 
