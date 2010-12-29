@@ -99,6 +99,7 @@ class Comment < ActiveRecord::Base
     select_params = { :select => 'comments.id as comment_id,
                comments.comment as comment_comment,
                comments.updated_at as comment_at,
+               comments.user_id as comment_user_id,
                admin_messages.display_message as question_display_message,
                admin_messages.message as question_short_message,
                soapbox_entries.id as soapbox_entry_id' }
@@ -112,6 +113,7 @@ class Comment < ActiveRecord::Base
     select_params = { :select => 'comments.id as comment_id,
                comments.comment as comment_comment,
                comments.updated_at as comment_at,
+               comments.user_id as comment_user_id,
                trend_questions.display_message as question_display_message,
                trend_questions.subject as question_short_message,
                soapbox_entries.id as soapbox_entry_id' }

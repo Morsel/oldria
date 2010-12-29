@@ -5,6 +5,11 @@
     <span class="title"><em><%= comment_list_entry.question_display_message || comment_list_entry.question_short_message %></em><br/>
       <%= truncate(comment_list_entry.comment_comment, :length => 120) %>
     </span>
-    <span class="reply-count"><span><%= count = 5 %></span><%= count > 1 ? "replies" : "reply" %></span>
+    <span class="btl-answer-author">
+      <% user = User.find(comment_list_entry.comment_user_id) %>
+      by <%= [user.name_or_username,
+              user.primary_employment.try(:restaurant_role).try(:name),
+              user.restaurant_names].reject(&:blank?).join(", ") %>
+    </span>
   <% end %>
 </li>
