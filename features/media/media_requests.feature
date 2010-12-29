@@ -75,3 +75,20 @@ Feature: Media requests
     And that media request is approved
     Then "sam@example.com" should have 1 email
     And "john@example.com" should have 0 emails
+
+  Scenario: Hidden users should not receive media requests
+    Given the following confirmed user:
+      | username | first_name | last_name | email         | mediafeed_visible |
+      | keue     | Keue       | User      | keue@mail.com | true              |
+      | leue     | Leue       | User      | leue@mail.com | false             |
+    And "keue" has a default employment with the role "Baker" and subject matter "Food"
+    And "leue" has a default employment with the role "Baker" and subject matter "Food"
+
+    Given I am logged in as "mediaman" with password "secret"
+    When I create a media request with message "What can I make with this stuff?" and criteria:
+       | Subject Matter | Food |
+    And that media request is approved
+
+    Then "keue" should have 1 media requests
+    Then "leue" should have 0 media requests
+
