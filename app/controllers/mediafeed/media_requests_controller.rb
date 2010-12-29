@@ -22,12 +22,12 @@ class Mediafeed::MediaRequestsController < Mediafeed::MediafeedController
   def new
     @media_request = current_user.media_requests.build(params[:media_request])
     @media_request.attachments.build
-    search_setup(@media_request)
+    search_setup(@media_request, User.mediafeed_only_condition)
   end
 
   def create
     @media_request = current_user.media_requests.build(params[:media_request])
-    search_setup(@media_request)
+    search_setup(@media_request, User.mediafeed_only_condition)
 
     # Step 1: Media requests must include a subject matter in the criteria
     unless params[:search][:subject_matters_id_equals_any].compact.any?

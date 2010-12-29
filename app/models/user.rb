@@ -88,6 +88,7 @@ class User < ActiveRecord::Base
   has_one :invitation, :foreign_key => "invitee_id"
   has_subscription
 
+
   validates_presence_of :email
   
   has_and_belongs_to_many :metropolitan_areas
@@ -411,5 +412,11 @@ class User < ActiveRecord::Base
     return :individual_denied if !self.post_to_soapbox? && self.individual?
     return :restaurant_denied if !self.individual? && ( !self.post_to_soapbox? || !self.has_restaurant_role?)
     :granted
+  end
+
+  # conditions hash for mediafeed visible users only
+  # Ex. Employment.all(User.mediafeed_only_condition) 
+  def self.mediafeed_only_condition
+    options = { :conditions => { :users => { :mediafeed_visible => true} } }
   end
 end
