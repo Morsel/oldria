@@ -1,6 +1,16 @@
 <% unless @no_results  %>
   <div class="search-results">
     <section id="questions-list">
+      <% unless @btl_questions_found.empty? && @btl_answers_found.empty? %>
+        <div class="subtitle">
+          <h1>Behind The Line Questions</h1>
+          <ul>
+            <%= render :partial => 'btl_question', :collection => @btl_questions_found unless @btl_questions_found.empty? %>
+            <%= render :partial => 'btl_answer', :collection => @btl_answers_found unless @btl_answers_found.empty? %>
+          </ul>
+        </div>
+      <% end %>
+
       <% unless @trend_questions_found.empty? %>
         <div class="subtitle">
           <h1>Trend Questions</h1>
@@ -26,25 +36,6 @@
         <div class="subtitle">
           <h1>Questions of the Day Answers</h1>
           <%= render :partial => 'comment_list', :locals => {:comments => @qotd_comments_found} %>
-        </div>
-      <% end %>
-
-
-      <% unless @btl_questions_found.empty? %>
-        <div class="subtitle">
-          <h1>Behind The Line Questions</h1>
-          <ul>
-            <%= render :partial => 'btl_question', :collection => @btl_questions_found %>
-          </ul>
-        </div>
-      <% end %>
-
-      <% unless @btl_answers_found.empty? %>
-        <div class="subtitle">
-          <h1>Behind The Line Comments</h1>
-          <ul>
-            <%= render :partial => 'btl_answer', :collection => @btl_answers_found %>
-          </ul>
         </div>
       <% end %>
 
