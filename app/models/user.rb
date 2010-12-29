@@ -507,6 +507,7 @@ class User < ActiveRecord::Base
       all(:conditions => ["users.id NOT in (?)", [0] + users.map(&:id)])
 
     users
+  end
 
   # conditions hash for mediafeed visible users only
   # Ex. Employment.all(User.mediafeed_only_condition)
