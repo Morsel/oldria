@@ -6,10 +6,10 @@
 	  <%= f.error_messages %>
 	  <% f.inputs :name => "Parking and Directions", :class => "editing parking_directions" do %>
 	    <%= f.input :venue %>
-	    <%= f.input :intersection, :hint => "eg, State and Main" %>
+	    <%= f.input :intersection, :hint => "e.g., State and Main" %>
 	    <%= f.input :neighborhood %>
 	    <%= f.input :parking, :as => :select, :collection => parking_options %>
-	    <%= f.input :public_transit, :hint => "One block north of Brown line Chicago stop, or 1 block north of bus route 66." %>
+	    <%= f.input :public_transit, :hint => "e.g., One block north of Brown line Chicago stop, or 1 block north of bus route 66." %>
 	  <% end %>
 	
 	  <% f.inputs :name => "Pricing", :class => "editing pricing" do %>
@@ -19,12 +19,13 @@
   	    <%= f.input :brunch_average_price %>
   	    <%= f.input :breakfast_average_price %>
   	    <%= f.input :children_average_price %>
-	      <h4>Check Max</h4>
+	      <h4>Small Plate Pricing</h4>
   	    <%= f.input :small_plate_min_price %>
   	    <%= f.input :small_plate_max_price %>
+  	    <h4>Large Plate Pricing</h4>
   	    <%= f.input :large_plate_min_price %>
   	    <%= f.input :large_plate_max_price %>
-	      <h4>Check Min</h4>
+	      <h4>Desert Pricing</h4>
 	      <%= f.input :dessert_plate_min_price %>
 	      <%= f.input :dessert_plate_max_price %>
 	    <li id="tasting_menus">
@@ -66,21 +67,23 @@
 	
 	  <% f.inputs :name => "Guest Services", :class => "editing guest_services" do %>
 	    <%= f.input :reservations, :as => :select, :collection => reservation_options %>
-	    <%= f.input :cancellation_policy, :as => :text, :hint => "eg, 72 hours, 24 hours, no cancellation policy" %>
-	    <%= f.input :payment_methods, :hint => "Amex, Visa, Mastercard" %>
+	    <%= f.input :cancellation_policy, :as => :text, :hint => "e.g., 72 hours, 24 hours, no cancellation policy" %>
+	    <%= f.input :payment_methods, :hint => "e.g., Amex, Visa, Mastercard" %>
 	    <%= f.input :byob_allowed, :as => :radio, :collection => [["Yes", true], ["No", false]] %>
-	    <%= f.input :corkage_fee, :hint => "$25, no corkage fee" %>
-	    <%= f.input :dress_code, :hint= => "casual, business casual" %>
-	    <%= f.input :delivery, :hint => "yes, not available, takeout only" %>
+	    <%= f.input :corkage_fee, :hint => "e.g., $25, no corkage fee" %>
+	    <%= f.input :dress_code, :hint= => "e.g., casual, business casual" %>
+	    <%= f.input :delivery, :hint => "e.g., yes, not available, takeout only" %>
 	  <% end %>
 	
 	  <% f.inputs :name => "Design", :class => "editing design" do %>
 	    <h4>Design Team</h4>
+	    <p class="inline-hint">Please include name or company name for the following</p>
 	    <%= f.input :architect_name %>
 	    <%= f.input :graphic_designer %>
 	    <%= f.input :furniture_designer %>
 	    <%= f.input :furniture_manufacturer %>
 	    <h4>Design Details</h4>
+	    <p class="inline-hint">Provide any notable facts, such as custom manufacturer or unique installation, brief description, etc</p>
 	    <%= f.input :flooring, :as => :text %>
 	    <%= f.input :millwork, :as => :text %>
 	    <%= f.input :china, :as => :text %>
@@ -88,7 +91,7 @@
 	    <%= f.input :lighting, :as => :text %>
 	    <%= f.input :draperies, :as => :text %>
 	    <h4>Design Facts</h4>
-	    <%= f.input :square_footage, :hint => "Numbers should not contain a comma, e.g. 10000 not 10,000" %>
+	    <%= f.input :square_footage, :hint => "Numbers should not contain a comma, e.g., 10000 not 10,000" %>
 	    <li id="seating_areas">
 	      <h4>Seating Areas</h4>
 	      <ol>
@@ -102,7 +105,7 @@
 	  <% end %>
 	
 	  <% f.inputs :name => "Miscellaneous", :class => "editing misc" do %>
-	    <%= f.input :wheelchair_access, :hint => "Yes/no" %>
+	    <%= f.input :wheelchair_access, :hint => "e.g., Yes/no" %>
 	    <%= f.input :smoking, :as => :select, :collection => smoking_options %>
 	  <% end %>
 	
