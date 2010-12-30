@@ -31,11 +31,13 @@ module QuestionsHelper
     title_text
   end
 
-  def btl_description_for_fb(question, answers)
-    output = truncate(question.title, :length => 100) + "\n"
-    answers.each do |answer|
-      output << truncate(answer.answer, :length => 30) + "\n"
+  def btl_description_for_fb(answers)
+    output = []
+    unless answers.nil?
+      answers.first(5).each do |answer|
+        output << truncate(answer.answer, :length => 25)
+      end
     end
-    output
+    output.join(' | ')
   end
 end
