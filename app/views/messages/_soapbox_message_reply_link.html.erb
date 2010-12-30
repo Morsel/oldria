@@ -4,5 +4,5 @@
     <% else %>
       <%= link_to 'View your post', link_for_message(message), :class => 'button utility round' %>
     <% end %>
-    &nbsp;&nbsp;for <%= restaurant(message).name %>
+    &nbsp;&nbsp;for <%= restaurant_link(restaurant(message)) %>
 </div>
