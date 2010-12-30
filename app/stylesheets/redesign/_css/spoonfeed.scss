@@ -3486,11 +3486,10 @@ p.search_filter_hint {
   padding: 20px;
 	overflow: hidden;
 	border: 1px solid #eaeaea;
-	.group {
-	  margin-bottom: 10px;
-	  padding-left: 10px;
-//	  border-bottom: 1px dashed #ddd;
-    border-left: 3px solid $orange;
+	#hours, #seating_areas, #tasting_menus {
+	  .fields {
+	    margin-bottom: 20px;
+	  }
 	}
 	.btl-art {
 	  display: block;
@@ -3949,6 +3948,7 @@ p.search_filter_hint {
 			&.share_profile {
 				background: $trans-orange url(/images/redesign/share-arrow.gif) no-repeat 10px 7px;
 				&:hover {
+				  background-position: 10px -25px;
 					background-color: $orange;
 					color: #fff;
 					text-shadow: 0 1px 0 #333;
