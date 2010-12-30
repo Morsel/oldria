@@ -30,7 +30,7 @@ describe SubscriptionsController do
 
       it "populates the tr data" do
         BraintreeConnector.any_instance.expects(:braintree_data => "data")
-        get :new, :restaurant_id => @user.id
+        get :new, :restaurant_id => @restaurant.id
         assigns[:braintree_customer].should == @restaurant
         assigns[:tr_data].should == "data"
       end
