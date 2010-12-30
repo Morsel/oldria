@@ -26,7 +26,7 @@ describe RestaurantFeaturesController do
     it "should update the new top restaurant features for the restaurant" do
       i1 = Factory(:restaurant_feature_item, :restaurant => @restaurant)
       i2 = Factory(:restaurant_feature_item, :restaurant => @restaurant)
-      post :update_top, :restaurant_id => @restaurant.id, :restaurant_features => ["2"]
+      post :update_top, :restaurant_id => @restaurant.id, :restaurant_features => [i2.restaurant_feature.id.to_s]
       i1.restaurant_feature.top_tag?(@restaurant).should == false
       i2.restaurant_feature.top_tag?(@restaurant).should == true
     end
