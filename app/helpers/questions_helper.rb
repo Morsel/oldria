@@ -30,4 +30,12 @@ module QuestionsHelper
     end
     title_text
   end
+
+  def btl_description_for_fb(question, answers)
+    output = truncate(question.title, :length => 100) + "\n"
+    answers.each do |answer|
+      output << truncate(answer.answer, :length => 30) + "\n"
+    end
+    output
+  end
 end
