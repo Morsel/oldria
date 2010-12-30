@@ -38,10 +38,10 @@ describe Employment do
   should_belong_to :restaurant_role
   should_have_many :responsibilities
   should_have_many :subject_matters, :through => :responsibilities
-  
+
   should_have_many :admin_conversations
   should_have_many :admin_messages, :through => :admin_conversations
-  
+
   should_have_many :holiday_conversations
   should_have_many :holidays, :through => :holiday_conversations
 
@@ -87,17 +87,17 @@ describe Employment do
       Employment.unique_users.first.employee.should == @user
     end
   end
-  
+
   describe "multiple selection search" do
     before do
       @restaurant = Factory(:restaurant)
     end
-    
+
     it "should return the right items for the search" do
-      Employment.search({"restaurant_id_equals_any"=>["1", "2"]}).all.should == @restaurant.employments
-    end  
+      Employment.search({"restaurant_id_equals_any" => [@restaurant.id, 1, 2, 3] }).all.should == @restaurant.employments
+    end
   end
-  
+
   it "should have many viewable media requests" do
     employment = Factory(:employment)
     employment.viewable_media_request_discussions.should == []
