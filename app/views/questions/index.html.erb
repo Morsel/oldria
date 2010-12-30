@@ -17,10 +17,10 @@
     <% if @next.present? or @previous.present? -%>
       <nav id="chapter_nav" class="topic-nav clearfix">
         <% if @next.present? -%>
-          <%= link_to "Next: #{truncate(@next.title, :length => 20, :omission => '&hellip;')}", link_for_questions(:subject => @subject, :chapter => @next), :class => 'next' %>
+          <%= link_to "Next: #{truncate(@next.title, :length => 20, :omission => '&hellip;')}", link_for_questions(:subject => @subject, :chapter_id => @next), :class => 'next' %>
         <% end -%>
         <% if @previous.present? -%>
-          <%= link_to "Prev: #{truncate(@previous.title, :length => 20, :omission => '&hellip;')}", link_for_questions(:subject => @subject, :chapter => @previous), :class => 'prev' %>
+          <%= link_to "Prev: #{truncate(@previous.title, :length => 20, :omission => '&hellip;')}", link_for_questions(:subject => @subject, :chapter_id => @previous), :class => 'prev' %>
         <% end -%>
       </nav>
     <% end -%>

@@ -30,7 +30,7 @@ describe SubscriptionsController do
 
       it "populates the tr data" do
         BraintreeConnector.any_instance.expects(:braintree_data => "data")
-        get :new, :restaurant_id => @user.id
+        get :new, :restaurant_id => @restaurant.id
         assigns[:braintree_customer].should == @restaurant
         assigns[:tr_data].should == "data"
       end
@@ -230,9 +230,9 @@ describe SubscriptionsController do
         @restaurant.should be_premium_account
         response.should redirect_to(edit_restaurant_path(@restaurant))
       end
-      
+
       it "puts staff subscriptions in overtime on successful delete" do
-        @user.update_attributes(:subscription => Factory(:subscription, 
+        @user.update_attributes(:subscription => Factory(:subscription,
             :payer => @restaurant))
         BraintreeConnector.expects(:find_subscription).with(
             @restaurant.subscription).returns(
@@ -242,7 +242,7 @@ describe SubscriptionsController do
         delete :destroy, :restaurant_id => @restaurant.id
         @user.reload.subscription.should be_in_overtime
         @user.reload.subscription.end_date.should == 2.weeks.from_now.to_date
-        @user.reload.should be_premium_account  
+        @user.reload.should be_premium_account
       end
 
     end

@@ -65,7 +65,7 @@ describe ALaMinuteAnswer do
   end
 
   describe "#public_profile_for=" do
-    it "should show the most recent 3 public answers for a given responder" do
+    it "should show all public answers for a given responder" do
       q1 = Factory(:a_la_minute_question)
       q2 = Factory(:a_la_minute_question)
       q3 = Factory(:a_la_minute_question)
@@ -75,7 +75,7 @@ describe ALaMinuteAnswer do
       ans_3 = ALaMinuteAnswer.create!(@valid_attributes.merge(:show_as_public => true, :a_la_minute_question => q3, :created_at => 3.days.ago))
       ans_4 = ALaMinuteAnswer.create!(@valid_attributes.merge(:show_as_public => true, :a_la_minute_question => q4, :created_at => 2.days.ago))
       @responder.a_la_minute_answers = [ans_1, ans_2, ans_3, ans_4]
-      ALaMinuteAnswer.public_profile_for(@responder).should == [ans_2, ans_4, ans_3]
+      ALaMinuteAnswer.public_profile_for(@responder).should == [ans_2, ans_4, ans_3, ans_1]
     end
   end
 

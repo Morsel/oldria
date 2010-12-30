@@ -117,8 +117,7 @@ if (window.current_user_id) {
 }
 
 $('.new_question').live('click', function(){
-	$('#btl_game_content').fadeOut();
-	$(this).css({
+    $(this).css({
 		backgroundRepeat: 'no-repeat',
 		backgroundPosition: 'center center',
 		backgroundImage: 'url(/images/redesign/ajax-loader.gif)'
@@ -126,7 +125,7 @@ $('.new_question').live('click', function(){
 	$.ajax({
 		data:'authenticity_token=' + encodeURIComponent($(this).attr('data-auth')),
 	 	success:function(request){
-			$('#btl_game_content').html(request).fadeIn();
+			$('#btl_game_content').html(request);
 			$('.new_question').css({
 				backgroundImage: 'url(/images/redesign/icon-refresh.png)',
 				backgroundPosition: '0 0'

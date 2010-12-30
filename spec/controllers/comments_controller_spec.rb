@@ -11,7 +11,8 @@ describe CommentsController do
   before(:each) do
     @parent = Factory(:admin_discussion)
     AdminDiscussion.stubs(:find).returns(@parent)
-    @user = Factory.stub(:user, :id => 1)
+    # @user = Factory.stub(:user, :id => 1)
+    @user = Factory(:user, :id => 1)
     @user.stubs(:update).returns(true)
     controller.stubs(:current_user).returns(@user)
   end
@@ -20,7 +21,8 @@ describe CommentsController do
     it "should redirect to front burner when commenting on a FB post" do
       Comment.any_instance.stubs(:valid?).returns(true)
       post :create, :admin_discussion_id => @parent.id, :comment => {}
-      response.should redirect_to(front_burner_path)
+      response.should be_redirect
+      response.redirect_url.should match(front_burner_path)
     end
     
     it "should mark the parent as read" do

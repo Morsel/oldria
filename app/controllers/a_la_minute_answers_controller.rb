@@ -47,7 +47,7 @@ class ALaMinuteAnswersController < ApplicationController
       return false
     end
     unless @restaurant.employees.include? current_user
-      flash[:notice] = "You must be an employee of #{restaurant.name} to answer and edit questions"
+      flash[:notice] = "You must be an employee of #{@restaurant.name} to answer and edit questions"
       redirect_to restaurants_url
       return false
     end
