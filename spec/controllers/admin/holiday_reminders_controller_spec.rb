@@ -6,7 +6,7 @@ describe Admin::HolidayRemindersController do
   before(:each) do
     fake_admin_user
     @holiday = Factory(:holiday)
-    Factory(:holiday_reminder, :holiday => @holiday)
+    @holiday_reminder = Factory(:holiday_reminder, :holiday => @holiday)
   end
 
   describe "GET 'new'" do
@@ -18,7 +18,7 @@ describe Admin::HolidayRemindersController do
 
   describe "GET 'edit'" do
     it "should be successful" do
-      get :edit, :id => 1
+      get :edit, :id => @holiday_reminder 
       response.should be_success
     end
   end
