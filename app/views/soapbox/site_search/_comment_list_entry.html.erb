@@ -1,12 +1,17 @@
 <li>
   <% link_to soapbox_soapbox_entry_path(comment_list_entry.soapbox_entry_id, :anchor => "comment_#{comment_list_entry.comment_id}") do %>
     <% date = Time.parse(comment_list_entry.comment_at) %>
+    <% user = User.find_by_id(comment_list_entry.comment_user_id) %>
+    <div class="avatar">
+      <% if user.avatar? -%>
+        <%= image_tag(user.avatar.url(:thumb), :width => 50, :height => 50) %>
+      <% end -%>
+    </div>
     <time datetime="<%= date.try(:strftime,'%Y-%m-%d') %>"><span><%= date.try(:strftime, "%b").upcase %></span><%= date.try(:strftime, "%e") %></time>
     <span class="title"><em><%= comment_list_entry.question_display_message || comment_list_entry.question_short_message %></em><br/>
       <%= truncate(comment_list_entry.comment_comment, :length => 120) %>
     </span>
     <span class="btl-answer-author">
-      <% user = User.find_by_id(comment_list_entry.comment_user_id) %>
       by <%= [user.name_or_username,
               user.primary_employment.try(:restaurant_role).try(:name),
               user.restaurant_names].reject(&:blank?).join(", ") unless user.nil? %>
