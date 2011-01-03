@@ -1375,6 +1375,22 @@ form, #content form{
 					border: 1px solid $tan;
 				}
 			}
+			&.soapbox_directory {
+			  @include gotham;
+				font-size: 14px;
+				line-height: 20px;
+				h1 {
+				  font-size: 15px;
+				  font-weight: bold;
+				  text-transform: uppercase;
+				}
+			  &:hover {
+					color: $brown;
+					text-shadow: 0 1px 0 #fff;
+					background-color: $trans-brown;
+					border: 1px solid $tan;
+				}
+			}
 		}
 	}
 
@@ -1912,7 +1928,7 @@ form, #content form{
 	  .reply_count {
 	    margin-bottom: 5px;
 			padding:5px 0;
-			border-bottom:1px solid #ccc;
+			border-bottom:1px dotted #ccc;
 			font-weight:bold;
 			font-size:15px;
 	  }

@@ -1925,13 +1925,13 @@ form, #page_content form{
 	label{
 		font-weight:bold;
 	}
-	.string, .text, .country, .password{
+	.string, .text, .country, .password, .numeric {
 		label{
 			display:block;
 			margin:5px 0 0;
 		}
 	}
-	.string, .text, .password{
+	.string, .text, .password, .numeric {
 		input, textarea{
 			padding:5px;
 			border:1px solid #ccc;
@@ -2034,7 +2034,7 @@ form, #page_content form{
 	}
 } /* ## directory search ------------------ */
 
-#user-results {
+#user-results, #restaurant_directory_list {
 	h3 {
 		font-family: 'Hoefler Text', Georgia, serif !important;
 		font-size: 12px;
@@ -2740,6 +2740,16 @@ p.search_filter_hint {
 						color: #333;
 						font-size: 15px;
 					}
+					dl {
+					  dt {
+					    margin: 0;
+					  }
+  				  dd {
+  				    font-weight: normal;
+  				    padding-left: 10px;
+  				    background: url(/images/icon-indent.png) top left no-repeat;
+  				  }
+  				}
 				}
 			}
 			&.resto {
@@ -3452,6 +3462,11 @@ p.search_filter_hint {
   padding: 20px;
 	overflow: hidden;
 	border: 1px solid #eaeaea;
+	#hours, #seating_areas, #tasting_menus {
+	  .fields {
+	    margin-bottom: 20px;
+	  }
+	}
 	.btl-art {
 	  display: block;
 	  margin-bottom: 5px;
@@ -3557,6 +3572,7 @@ p.search_filter_hint {
 	}
 	ol li {
 		label {
+		  display: block;
 		  font-size: 13px;
 			font-weight: normal;
 		}
@@ -3567,6 +3583,7 @@ p.search_filter_hint {
 		}
 		ol select {
 		  width: auto;
+		  display: inline;
 		}
 		.inline-hints {
 			margin: -8px 0 10px;
@@ -3907,6 +3924,7 @@ p.search_filter_hint {
 			&.share_profile {
 				background: $trans-orange url(/images/redesign/share-arrow.gif) no-repeat 10px 7px;
 				&:hover {
+				  background-position: 10px -25px;
 					background-color: $orange;
 					color: #fff;
 					text-shadow: 0 1px 0 #333;
@@ -4327,6 +4345,27 @@ p.search_filter_hint {
       @include linear-gradient(color-stops($orange,#e3602c ), bottom);
       text-shadow: 0 1px 1px #555;
       color: #fff;
+    }
+  }
+}
+.photos {
+  h2 {
+    .inline-hint {
+      font-size: 12px;
+      font-family: "Helvetica Neue", "Helvetica", Arial, sans-serif;
+      color: gray;
+      font-style: normal;
+    }
+  }
+  #photos {
+    .photo {
+			width:320px;
+      margin:0 25px 0 0;
+      .credit {
+        background: white;
+        margin: 0;
+        padding: 5px 0 15px;
+      }
     }
   }
 }

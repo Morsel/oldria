@@ -1,5 +1,5 @@
 <ol class="fields">
-  <%= f.input :name %>
-  <%= f.input :occupancy %>
+  <%= f.input :name, :label => "Seating Area Name", :hint => "e.g., dining room, bar, lounge, private dining room" %>
+  <%= f.input :occupancy, :hint => "e.g., 50 seats" %>
   <%= render "remove_field_link", :f => f %>
 </ol>

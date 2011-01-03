@@ -1,13 +1,13 @@
-<div id="restaurant_profile_view" class="edit clear clearfix">
+<div id="restaurant_profile_view" class="edit clear clearfix photos">
 
   <%= render 'restaurants/restaurant_header' %>
 
-  <h2>Photos</h2>
+  <h2>Photos <span class="inline-hint">(Click to view full sized. Alt-click to download.)</span></h2>
 
   <div id="photos">
     <% @photos.each do |photo| %>
       <% content_tag_for(:div, photo) do %>
-        <%= image_tag photo.attachment.url(:medium), :class => "restaurant_photo" %>
+        <%= link_to image_tag(photo.attachment.url(:medium), :class => "restaurant_photo", :width => photo.attachment.width, :height => photo.attachment.height), photo.attachment.url, :class => 'colorbox' %>
         <p class="credit">Credit: <%= photo.credit %></p>
       <% end %>
     <% end %>

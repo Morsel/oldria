@@ -21,7 +21,7 @@ $(document).ready(function(){
 		$('#recent-activity ol').equalHeights();
 		
 		if($('#sidebar').height() > $('#inside').not('.home').height()){
-			$('#inside').not('.home').height($('#sidebar').height() + 50 + 'px');
+			$('#inside').not('.home').css('min-height', $('#sidebar').height() + 50 + 'px');
 		}
 	}
 	
@@ -106,3 +106,22 @@ function updateDirectoryList() {
 }
 
 $directoryInputs.change(updateDirectoryList);
+
+// Restaurant directory search
+var	$restoDirectoryList  = $("#restaurant_directory_list");
+var $restoDirectoryInputs = $("#directory_search #restaurant_criteria input[type=checkbox]");
+
+$restoDirectoryList.before($loaderImg);
+
+function updateRestoDirectoryList() {
+	input_string = $restoDirectoryInputs.serialize();
+	$loaderImg.show();
+	$restoDirectoryList.hide();
+	$restoDirectoryList.load('/soapbox/restaurant_search', input_string, function(responseText, textStatus){
+	  $loaderImg.hide();
+	  $restoDirectoryList.fadeIn(300);
+	});
+	// return true;
+}
+
+$restoDirectoryInputs.change(updateRestoDirectoryList);

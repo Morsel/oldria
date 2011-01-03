@@ -6,33 +6,38 @@
 	  <%= f.error_messages %>
 	  <% f.inputs :name => "Parking and Directions", :class => "editing parking_directions" do %>
 	    <%= f.input :venue %>
-	    <%= f.input :intersection %>
+	    <%= f.input :intersection, :hint => "e.g., State and Main" %>
 	    <%= f.input :neighborhood %>
 	    <%= f.input :parking, :as => :select, :collection => parking_options %>
-	    <%= f.input :public_transit %>
+	    <%= f.input :public_transit, :hint => "e.g., One block north of Brown line Chicago stop, or 1 block north of bus route 66." %>
 	  <% end %>
 	
 	  <% f.inputs :name => "Pricing", :class => "editing pricing" do %>
-	    <%= f.input :dinner_average_price %>
-	    <%= f.input :lunch_average_price %>
-	    <%= f.input :brunch_average_price %>
-	    <%= f.input :breakfast_average_price %>
-	    <%= f.input :children_average_price %>
-	    <%= f.input :small_plate_min_price %>
-	    <%= f.input :small_plate_max_price %>
-	    <%= f.input :large_plate_min_price %>
-	    <%= f.input :large_plate_max_price %>
-	    <%= f.input :dessert_plate_min_price %>
-	    <%= f.input :dessert_plate_max_price %>
+	      <h4>Check Average</h4>
+	      <%= f.input :dinner_average_price %>
+	      <%= f.input :lunch_average_price %>
+  	    <%= f.input :brunch_average_price %>
+  	    <%= f.input :breakfast_average_price %>
+  	    <%= f.input :children_average_price %>
+	      <h4>Small Plate Pricing</h4>
+  	    <%= f.input :small_plate_min_price %>
+  	    <%= f.input :small_plate_max_price %>
+  	    <h4>Large Plate Pricing</h4>
+  	    <%= f.input :large_plate_min_price %>
+  	    <%= f.input :large_plate_max_price %>
+	      <h4>Desert Pricing</h4>
+	      <%= f.input :dessert_plate_min_price %>
+	      <%= f.input :dessert_plate_max_price %>
 	    <li id="tasting_menus">
-	      <h3>Tasting Menus</h3>
+	      <h4>Tasting Menus</h4>
 	      <ol>
 	      <% f.fields_for :tasting_menus do |tasting_menu_form| %>
 	        <%= render "tasting_menu_fields", :f => tasting_menu_form %>
 	      <% end %>
 	      </ol>
-	      <%= link_to_add_fields("Add a tasting menu", f, :tasting_menus, :class => "add_fields_for") %>
+	      <%= link_to_add_fields("Add a tasting menu", f, :tasting_menus, :class => "sf-button add_fields_for") %>
 	    </li>
+	    <h4>Wine Pricing</h4>
 	    <%= f.input :wine_by_the_glass_count %>
 	    <%= f.input :wine_by_the_glass_min_price %>
 	    <%= f.input :wine_by_the_glass_max_price %>
@@ -45,7 +50,7 @@
 	  <% f.inputs :name => "Hours", :class => "editing hours" do %>
 	    <li id="hours">
 	      <% Meal::DAYS.each do |day| %>
-	      <h3><%= day.capitalize %></h3>
+	      <h4><%= day.capitalize %></h4>
 	        <% content_tag(:div, :id => "#{day}_meals") do %>
 	          <ol>
 	            <% @fact_sheet.meals.for_day(day).each do |meal| %>
@@ -54,7 +59,7 @@
 	              <% end %>
 	            <% end %>
 	          </ol>
-	          <%= link_to_add_fields("Add hours", f, :meals, :class => "add_fields_for", :form_options => {:day_value => day}) %>
+	          <%= link_to_add_fields("Add hours", f, :meals, :class => "add_fields_for sf-button", :form_options => {:day_value => day}) %>
 	        <% end %>
 	      <% end %>
 	    </li>
@@ -62,39 +67,45 @@
 	
 	  <% f.inputs :name => "Guest Services", :class => "editing guest_services" do %>
 	    <%= f.input :reservations, :as => :select, :collection => reservation_options %>
-	    <%= f.input :cancellation_policy, :as => :text %>
-	    <%= f.input :payment_methods %>
+	    <%= f.input :cancellation_policy, :as => :text, :hint => "e.g., 72 hours, 24 hours, no cancellation policy" %>
+	    <%= f.input :payment_methods, :hint => "e.g., Amex, Visa, Mastercard" %>
 	    <%= f.input :byob_allowed, :as => :radio, :collection => [["Yes", true], ["No", false]] %>
-	    <%= f.input :corkage_fee %>
-	    <%= f.input :dress_code %>
-	    <%= f.input :delivery %>
+	    <%= f.input :corkage_fee, :hint => "e.g., $25, no corkage fee" %>
+	    <%= f.input :dress_code, :hint= => "e.g., casual, business casual" %>
+	    <%= f.input :delivery, :hint => "e.g., yes, not available, takeout only" %>
 	  <% end %>
 	
 	  <% f.inputs :name => "Design", :class => "editing design" do %>
+	    <h4>Design Team</h4>
+	    <p class="inline-hint">Please include name or company name for the following</p>
 	    <%= f.input :architect_name %>
 	    <%= f.input :graphic_designer %>
 	    <%= f.input :furniture_designer %>
 	    <%= f.input :furniture_manufacturer %>
+	    <h4>Design Details</h4>
+	    <p class="inline-hint">Provide any notable facts, such as custom manufacturer or unique installation, brief description, etc</p>
 	    <%= f.input :flooring, :as => :text %>
 	    <%= f.input :millwork, :as => :text %>
 	    <%= f.input :china, :as => :text %>
 	    <%= f.input :kitchen_equipment, :as => :text %>
 	    <%= f.input :lighting, :as => :text %>
 	    <%= f.input :draperies, :as => :text %>
+	    <h4>Design Facts</h4>
+	    <%= f.input :square_footage, :hint => "Numbers should not contain a comma, e.g., 10000 not 10,000" %>
 	    <li id="seating_areas">
-	      <h3>Seating Areas</h3>
+	      <h4>Seating Areas</h4>
 	      <ol>
 	      <% f.fields_for :seating_areas do |seating_area_form| %>
 	        <%= render 'seating_area_fields', :f => seating_area_form %>
 	      <% end %>
 	      </ol>
-	      <%= link_to_add_fields("Add a seating area", f, :seating_areas, :class => "add_fields_for") %>
+	      <%= link_to_add_fields("Add a seating area", f, :seating_areas, :class => "sf-button add_fields_for") %>
 	    </li>
-	    <%= f.input :square_footage %>
+	    
 	  <% end %>
 	
 	  <% f.inputs :name => "Miscellaneous", :class => "editing misc" do %>
-	    <%= f.input :wheelchair_access %>
+	    <%= f.input :wheelchair_access, :hint => "e.g., Yes/no" %>
 	    <%= f.input :smoking, :as => :select, :collection => smoking_options %>
 	  <% end %>
 	

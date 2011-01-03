@@ -2,6 +2,13 @@
 
 <%= title_for_search %>
 
+<% if false %>
+<div class="clearfix">
+    <%= link_to "Search Users", directory_path %>
+    <%= link_to "Search Restaurants", restaurant_directory_path %>
+</div>
+<% end %>
+
 <% if @use_search %>
 <div id="directory_search">
     <% form_tag do %>
