@@ -3,7 +3,7 @@
     <section id="questions-list">
       <% unless @btl_questions_found.empty? && @btl_answers_found.empty? %>
         <div class="subtitle">
-          <h1>Behind The Line Questions</h1>
+          <h1>Behind The Line</h1>
           <ul>
             <%= render :partial => 'btl_question', :collection => @btl_questions_found unless @btl_questions_found.empty? %>
             <%= render :partial => 'btl_answer', :collection => @btl_answers_found unless @btl_answers_found.empty? %>

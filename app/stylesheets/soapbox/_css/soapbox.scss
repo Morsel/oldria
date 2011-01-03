@@ -1539,7 +1539,7 @@ p.search_filter_hint {
 			li{
 				background:none;
 				padding:0;
-				margin:5px 0;
+				margin:2px 0;
 				a{
 					overflow:hidden;
 					display:block;
@@ -1588,8 +1588,7 @@ p.search_filter_hint {
 					}
 					&:hover{
 						text-decoration:none;
-						background:#f7e3de;
-						background:rgba(231,95,61,0.15);
+						background:#fff3f0;
 						color:$sienna;
 						.reply-count{
 							background-position:-200px 0;
@@ -1631,7 +1630,7 @@ p.search_filter_hint {
       }
     }
 		ul li a span.title {
-		      width: 838px;
+		      width: 600px;
 		}
 	}
 }
@@ -2522,13 +2521,22 @@ dl.things dt:after {content: ":"}
 		padding: 0 16px;
 		width:900px;
 		.subtitle {
-			width: 800px;
+			width: 900px;
 			h1 {
 				font-size: 16px;
 				color: #888;
-				border-bottom: 1px dotted #ccc;
+				border-bottom: 1px solid #ddd;
 				margin: 0;
 				padding: 0;
+			}
+			time {
+				border: 0;
+				background: #f7f6f4;
+				padding-bottom: 4px;
+				span {
+					background: $sienna;
+					margin: 0 0 3px;
+				}
 			}
 			ul {
 				display: block;
@@ -2538,38 +2546,58 @@ dl.things dt:after {content: ":"}
 					display: block;
 					margin: 0;
 					padding: 0;
+					border-bottom: 1px dotted #ddd;
 					a {
 						display: block;
-						margin: 10px 0;
-						time {
-							display: block;
-							text-transform: capitalize;
-							background: none;
-							width: auto;
-							font-size: 11px;
-							font-weight: normal;
-							color: #666;
-							border: 0;
-							span {
-								text-transform: capitalize;
-								color: #666;
-								background: none;
+						margin: 4px 0;
+						.avatar {
+							float: left;
+							display: inline;
+							width: 50px;
+							padding: 0;
+							background-color: #f2f2f2;
+							img {
 								display: inline;
-								padding-right: 5px;
-								width: auto;
-								font-size: 12px;
+								margin: 0;
+								@include hiddentext;
 							}
 						}
 						.title {
-							color: $sienna;
-							width: 800px;
+							width: 600px;
 							display: block;
 							font-size: 14px;
 							font-family: 'helvetica neue', helvetica, arial, sans-serif;
 							font-weight:normal;
 							line-height: 21px;
+							color: #555;
+							margin-bottom: 12px;
+							strong {
+								color: $sienna;
+							}
 						}
-						.reply-count {display: none;}
+						.btl_answer {
+							display: block;
+							clear: both;
+							margin: 25px 6px 5px 0px;
+							padding: 3px 10px;
+							font-family: Georgia, Tahoma, 'lucida grande', sans-serif;
+							font-size: 15px;
+							color: #333;
+							background-color: #f2f2f2;
+						}
+						.btl-answer-author {
+							display: block;
+							clear: both;
+							font-size: 11px;
+						}
+						.reply-count {
+							display: none;
+						}
+						&:hover {
+							.btl_answer {
+								background: #fff3f0;
+							}
+						}
 					}
 				}
 			}

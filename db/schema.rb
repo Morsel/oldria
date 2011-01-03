@@ -822,15 +822,6 @@ ActiveRecord::Schema.define(:version => 20101229130317) do
 
   add_index "restaurant_features", ["restaurant_feature_category_id"], :name => "restaurant_feature_category_id_index"
 
-  create_table "restaurant_features_restaurants", :id => false, :force => true do |t|
-    t.integer "restaurant_id"
-    t.integer "restaurant_feature_id"
-  end
-
-  add_index "restaurant_features_restaurants", ["restaurant_feature_id"], :name => "restaurant_feature_id_index"
-  add_index "restaurant_features_restaurants", ["restaurant_id", "restaurant_feature_id"], :name => "_restaurant_id_restaurant_feature_id_index"
-  add_index "restaurant_features_restaurants", ["restaurant_id"], :name => "restaurant_id_index"
-
   create_table "restaurant_roles", :force => true do |t|
     t.string   "name"
     t.datetime "created_at"
