@@ -28,9 +28,8 @@ Feature: Basic Restaurant Data
       | Website                      | http://www.restaurant.example.com   |
       | Twitter Username             | piece                               |
       | Facebook Page                | http://www.facebook.com/piece       |
-      | Hours                        | Mon-Sat 5-11pm                      |
-      | Management Company Name      | Lettuce Entertain You          |
-      | Management Company Website   | http://www.lettuce.com      |
+      | Management Company Name      | Lettuce Entertain You               |
+      | Management Company Website   | http://www.lettuce.com              |
     And I select "Fred Mercury" from "Media contact"
     When I select "Janaury 22, 2008" as the date
     And I press "Save"
@@ -46,7 +45,6 @@ Feature: Basic Restaurant Data
       | website            | http://www.restaurant.example.com   |
       | twitter_username   | piece                               |
       | facebook_page      | http://www.facebook.com/piece       |
-      | hours              | Mon-Sat 5-11pm                      |
       | media_contact      | Fred Mercury                        |
       | management_company | Lettuce Entertain You               |
       | opening_date       | January 22, 2008                    |
