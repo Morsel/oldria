@@ -1,7 +1,7 @@
 <li>
   <% link_to soapbox_soapbox_entry_path(comment_list_entry.soapbox_entry_id, :anchor => "comment_#{comment_list_entry.comment_id}") do %>
     <% date = Time.parse(comment_list_entry.comment_at) %>
-    <% user = User.find_by_id(comment_list_entry.comment_user_id) %>
+    <% user = User.find(comment_list_entry.comment_user_id) %>
     
     <time datetime="<%= date.try(:strftime,'%Y-%m-%d') %>"><span><%= date.try(:strftime, "%b").upcase %></span><%= date.try(:strftime, "%e") %></time>
 		
