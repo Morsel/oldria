@@ -345,7 +345,6 @@ body,html,#container,#main,#content,#inside{
 	.restaurant {
 		margin-bottom: 1em;
 		padding-bottom: 1em;
-		border-bottom: 1px dotted #ddd;
 		.employees {
 			margin: 1em 0 0 1em;
 		}
@@ -445,6 +444,15 @@ body,html,#container,#main,#content,#inside{
 		width: 183px;
 		float: left;
 		margin: 0 15px 10px 0;
+		border-bottom: 1px dotted #ddd;
+		padding-bottom: 4px;
+		.avatar {
+			background-color: #f2f2f2;
+			@include hiddentext;
+			img {
+				background-color: #f2f2f2;
+			}
+		}
 		ul {
 			list-style: none;
 			margin: 0;
@@ -1193,6 +1201,7 @@ body,html,#container,#main,#content,#inside{
 		color:#fff;
 		text-shadow:0 1px 0 #333;
 		font-weight:bold;
+
 		display:block;
 		background:#d34d3a url(/images/soapbox/bg-criteria-gradient.png) repeat-x;
 		@include linear-gradient(color-stops(#be3d2a,#d34d3a), top);
@@ -1943,7 +1952,6 @@ dl.things dt:after {content: ":"}
 }
 
 #criteria_accordion {
-	padding:10px 0 0;
 	.accordion_box {
 		border: 1px solid #ddd;
 		background: 0 none;
@@ -2440,6 +2448,28 @@ dl.things dt:after {content: ":"}
 	}
 }
 
+#page-content a.directory_switch {
+	position: absolute;
+	top: 200px;
+	right: 280px;
+	background-color: $x-light-purple;
+	color: $purple;
+	padding: 6px 14px 6px 30px;
+	background-image: url(/images/soapbox/left.png);
+	background-repeat: no-repeat;
+	background-position: 13px 8px;
+	@include border-radius(24px);
+	font-weight: bold;
+	text-shadow: 0 1px 0 #fff;
+	font-size: 13px;
+	font-family: 'helvetica neue', helvetica, arial, sans-serif;
+	&:hover {
+		background-color: $sienna;
+		text-decoration: none;
+		color: #fff;
+		text-shadow: 0 1px 0 #333;
+	}
+}
 
 
 
