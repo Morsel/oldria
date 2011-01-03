@@ -1,4 +1,4 @@
-<div id="my_restaurants" rel="My Restaurants" class="sibebar_section restaurants clearfix">
+<div id="my_restaurants" rel="My Restaurants" class="sidebar_section restaurants clearfix">
   <h3 class="section_header">
     <%= current_user.employments.blank? ? "Promote your Restaurant on Soapbox!" : "My Restaurants" %>
   </h3>
@@ -30,3 +30,4 @@
     </div>
   </div>
 </div>
+<p><%= link_to "Add a restaurant", new_restaurant_path, :class => "button" %></p>
