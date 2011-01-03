@@ -266,6 +266,14 @@ describe Restaurant do
     end
   end
 
+  describe "extended_find" do
+    it "find a restaurant by name" do
+      restaurant = Factory(:restaurant, :name => "Vodka pub")
+      restaurant.subscription = Factory(:subscription)
+      found = Restaurant.extended_find("odka")
+      found.should == [restaurant]
+    end
+  end
 end
 
 
