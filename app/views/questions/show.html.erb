@@ -1,4 +1,5 @@
 <% title "#{@question.title} - Behind The Line", false %>
+<% content_for(:fb_description, btl_description_for_fb(@answers)) %>
 
 <% javascript_tag do %>
   var addthis_share = {
