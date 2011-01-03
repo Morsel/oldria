@@ -89,11 +89,6 @@
       <dt>Phone Number:</dt>
       <dd id="phone_number"><%=h @restaurant.phone_number %></dd>
     <% end %>
-
-    <% dl_if(@restaurant.hours, :class => "list_item", :id => "hours") do %>
-      <dt>Hours:</dt>
-      <dd><%= h @restaurant.hours %></dd>
-    <% end %>
   </div><!-- .account_contact -->
 
   <div class="account_social equal-height tricol">
