@@ -6,7 +6,7 @@
   <!--[if lt IE 9]>
     <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
   <![endif]-->
-  <title><%= h(yield(:title) || "Untitled") %> - Soapbox - Restaurant Intelligence Agency</title>
+  <title><%= h(yield(:title) || "Untitled") %> - Soapbox<%= @append || "" %> - Restaurant Intelligence Agency</title>
   <meta name="description" content="All about Spoonfeed's Soapbox">
   <meta name="author" content="Restaurant Intelligence Agency">
   <meta property="og:description" content="<%= h(yield(:fb_description) || "")  %>" />

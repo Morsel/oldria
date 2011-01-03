@@ -28,8 +28,8 @@ Feature: Basic Restaurant Data
       | Website                      | http://www.restaurant.example.com   |
       | Twitter Username             | piece                               |
       | Facebook Page                | http://www.facebook.com/piece       |
-      | Management Company Name      | Lettuce Entertain You          |
-      | Management Company Website   | http://www.lettuce.com      |
+      | Management Company Name      | Lettuce Entertain You               |
+      | Management Company Website   | http://www.lettuce.com              |
     And I select "Fred Mercury" from "Media contact"
     When I select "Janaury 22, 2008" as the date
     And I press "Save"

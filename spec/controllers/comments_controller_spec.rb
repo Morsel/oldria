@@ -11,8 +11,7 @@ describe CommentsController do
   before(:each) do
     @parent = Factory(:admin_discussion)
     AdminDiscussion.stubs(:find).returns(@parent)
-    # @user = Factory.stub(:user, :id => 1)
-    @user = Factory(:user, :id => 1)
+    @user = Factory(:user)
     @user.stubs(:update).returns(true)
     controller.stubs(:current_user).returns(@user)
   end
