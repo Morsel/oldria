@@ -2024,7 +2024,27 @@ form, #page_content form{
 
 
 
-
+#page_content a.directory_switch {
+	float: right;
+	background-color: $trans-brown;
+	color: $brown;
+	padding: 9px 16px 9px 30px;
+	background-image: url(/images/redesign/switch.png);
+	background-repeat: no-repeat;
+	background-position: 13px 11px;
+	@include border-radius(24px);
+	font-weight: bold;
+	text-shadow: 0 1px 0 #fff;
+	margin: -42px 0 0;
+	font-size: 13px;
+	font-family: 'helvetica neue', helvetica, arial, sans-serif;
+	border: 1px solid #ECE8D7;
+	&:hover {
+		background-color: $brown;
+		color: #fff;
+		text-shadow: 0 1px 0 #333;
+	}
+}
 
 #directory_search {
 	form {
@@ -2044,15 +2064,26 @@ form, #page_content form{
 			}
 		}
 	}
+	h3 {
+		font-family: 'Hoefler Text', Georgia, serif !important;
+		font-size: 14px;
+		font-weight: bold;
+		text-transform: none;
+		letter-spacing: 0;
+		border-bottom: 1px dotted #ddd;
+		color: #333;
+		margin: 10px 0 10px 0;
+	}
 } /* ## directory search ------------------ */
 
 #user-results, #restaurant_directory_list {
 	h3 {
 		font-family: 'Hoefler Text', Georgia, serif !important;
-		font-size: 12px;
-		text-transform: uppercase;
+		font-size: 14px;
 		font-weight: bold;
-		letter-spacing: 0.3em;
+		text-transform: none;
+		letter-spacing: 0;
+		border-bottom: 1px dotted #ddd;
 		color: #333;
 		margin: 35px 0 10px 0;
 	}
