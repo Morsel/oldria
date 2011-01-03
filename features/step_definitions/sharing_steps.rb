@@ -29,3 +29,7 @@ Given /^11 comments in dashboard$/ do
   end
 end
 
+Then /^I should see facebook description tag with "([^\"]*)" within content$/ do |content|
+  response.should have_xpath("//meta[attribute::property='og:description'andattribute::content='#{content}']")
+end
+
