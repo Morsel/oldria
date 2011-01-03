@@ -21,7 +21,7 @@ $(document).ready(function(){
 		$('#recent-activity ol').equalHeights();
 		
 		if($('#sidebar').height() > $('#inside').not('.home').height()){
-			$('#inside').not('.home').height($('#sidebar').height() + 50 + 'px');
+			$('#inside').not('.home').css('min-height', $('#sidebar').height() + 50 + 'px');
 		}
 	}
 	
