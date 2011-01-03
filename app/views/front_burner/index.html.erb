@@ -20,7 +20,7 @@
        if @comment && (params[:post_to_facebook].to_s == "1") %>
         <%= render(:partial => "shared/facebook_dialog",
                    :locals => { :caption => "Check out more about \"#{@comment.commentable_title}\"", 
-                                :message => @comment.comment,
+                                :message => truncate(@comment.comment),
                                 :link    => soapbox_soapbox_entry_url(@comment.commentable.soapbox_entry)  } )  %>
     <% end %>
   <% when :individual_denied %>
