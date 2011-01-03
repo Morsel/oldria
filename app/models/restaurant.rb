@@ -212,6 +212,50 @@ class Restaurant < ActiveRecord::Base
     self.premium_account?
   end
 
+  def self.extended_find(keyword)
+    # when searchlogic will be updated, instead of all(:conditions => ["restaurants.id NOT in (?)", [0] + restaurants.map(&:id)])
+    # one can use id_not_in(restaurants.map(&:id))
+
+    premiums = Restaurant.subscription_is_active
+
+    # RESTAURANT: name, city, state, management_company_name
+    restaurants = premiums.name_or_city_or_state_or_management_company_name_like(keyword)
+    # RESTAURANT->CUISINE: name
+    restaurants += premiums.cuisine_name_like(keyword).
+      all(:conditions => ["restaurants.id NOT in (?)", [0] + restaurants.map(&:id)])
+    # RESTAURANT->METROPOLITAN AREA: name
+    restaurants += premiums.metropolitan_area_name_like(keyword).
+      all(:conditions => ["restaurants.id NOT in (?)", [0] + restaurants.map(&:id)])
+    # RESTAURANT->ACCOLADE: name
+    restaurants += premiums.accolades_name_like(keyword).
+      all(:conditions => ["restaurants.id NOT in (?)", [0] + restaurants.map(&:id)])
+    # RESTAURANT->RESTAURANT FEATURES->RESTAURANT FEATURE CATEGORY: name
+    restaurants += Restaurant.restaurant_features_restaurant_feature_category_name_like(keyword).
+      all(:conditions => ["restaurants.id NOT in (?)", [0] + restaurants.map(&:id)])
+    # RESTAURANT->MENUS: name
+    restaurants += premiums.menus_name_like(keyword).
+      all(:conditions => ["restaurants.id NOT in (?)", [0] + restaurants.map(&:id)])
+    # RESTAURANT->RESTAURANT FACT SHEETS:
+    #      venue, neighborhood, wine_by_the_bottle_details, reservations, dress_code, delivery
+    #      architect_name, graphic_designer, furniture_designer, flooring, millwork, china
+    #      kitchen_equipment, lighting, draperies, smoking
+    restaurants += premiums.
+      fact_sheet_venue_or_fact_sheet_neighborhood_or_fact_sheet_wine_by_the_bottle_details_or_fact_sheet_reservations_like(keyword).
+      all(:conditions => ["restaurants.id NOT in (?)", [0] + restaurants.map(&:id)])
+    restaurants += premiums.
+      fact_sheet_dress_code_or_fact_sheet_delivery_or_fact_sheet_architect_name_or_fact_sheet_graphic_designer_like(keyword).
+      all(:conditions => ["restaurants.id NOT in (?)", [0] + restaurants.map(&:id)])
+    restaurants += premiums.
+      fact_sheet_furniture_designer_or_fact_sheet_flooring_or_fact_sheet_millwork_or_fact_sheet_china_like(keyword).
+      all(:conditions => ["restaurants.id NOT in (?)", [0] + restaurants.map(&:id)])
+    restaurants += premiums.
+      fact_sheet_kitchen_equipment_or_fact_sheet_lighting_or_fact_sheet_draperies_or_fact_sheet_smoking_like(keyword).
+      all(:conditions => ["restaurants.id NOT in (?)", [0] + restaurants.map(&:id)])
+
+    restaurants
+  end
+
+
   private
 
   def add_manager_as_employee
