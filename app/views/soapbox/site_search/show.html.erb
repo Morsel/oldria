@@ -40,6 +40,15 @@
         </div>
       <% end %>
 
+      <% unless @restaurants_found.empty? %>
+        <div class="subtitle">
+          <h1>Restaurants</h1>
+        </div>
+        <div>
+          <%= render :partial => 'restaurant_list_entry', :collection => @restaurants_found %>
+        </div>
+      <% end %>
+
       <%= will_paginate(@all_entries) %>
     </section>
   </div><!--.search-results-->
