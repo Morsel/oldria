@@ -20,7 +20,7 @@
 
 		<div class="editing clearfix clear">
 			<% form_for :restaurant, :url => select_primary_photo_restaurant_path(@restaurant) do |restaurant_form| %>
-    		<table id="photos" data-remote-url="<%= reorder_restaurant_photos_url(@restaurant) %>">
+    		<table id="photos" data-remote-url="<%= reorder_restaurant_photos_url(@restaurant) %>" class="clearfix">
     	  	<thead>
     	      <tr>
     	        <th>Photo</th>
@@ -40,7 +40,7 @@
     	  		<% end %>
     	  	</tbody>
     		</table>
-				<%= button_tag 'Save Primary Selection', :class => 'positive' %>
+				<p class="clear"><%= button_tag 'Save Primary Selection', :class => 'positive' %></p>
 			<% end %>
 		</div><!--.editing-->
 		
