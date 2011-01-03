@@ -5,6 +5,14 @@ Given /^a restaurant named "([^\"]*)"$/ do |name|
   @restaurant.update_attributes!(:media_contact => employment.employee)
 end
 
+Given /^a premium restaurant named "([^\"]*)"$/ do |name|
+  @restaurant = Factory(:restaurant, :name => name)
+  @restaurant.subscription = Factory(:subscription)
+  employment = Factory(:employment, :restaurant => @restaurant)
+  profile = Factory(:profile, :user => employment.employee)
+  @restaurant.update_attributes!(:media_contact => employment.employee)
+end
+
 Given /^that "([^\"]*)" has an employee "([^\"]*)"$/ do |restaurant_name, employee_name|
   restaurant = Restaurant.find_by_name(restaurant_name)
   employment = Factory(:employment, :restaurant => restaurant,
