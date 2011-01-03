@@ -34,6 +34,6 @@ Then /^I should see facebook description tag with "([^\"]*)" within content$/ do
 end
 
 Then /^I should see facebook description tag containing "([^\"]*)" within content$/ do |content|
-  response.should have_xpath("//meta[contains(@content,'Hand')and@property='og:description']")
+  response.should have_xpath("//meta[contains(@content,'#{content}')and@property='og:description']")
 end
 
