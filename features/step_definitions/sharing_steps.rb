@@ -30,6 +30,10 @@ Given /^11 comments in dashboard$/ do
 end
 
 Then /^I should see facebook description tag with "([^\"]*)" within content$/ do |content|
-  response.should have_xpath("//meta[attribute::property='og:description'andattribute::content='#{content}']")
+  response.should have_xpath("//meta[@property='og:description'and@content='#{content}']")
+end
+
+Then /^I should see facebook description tag containing "([^\"]*)" within content$/ do |content|
+  response.should have_xpath("//meta[contains(@content,'Hand')and@property='og:description']")
 end
 
