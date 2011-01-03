@@ -2550,18 +2550,6 @@ dl.things dt:after {content: ":"}
 					a {
 						display: block;
 						margin: 4px 0;
-						.avatar {
-							float: left;
-							display: inline;
-							width: 50px;
-							padding: 0;
-							background-color: #f2f2f2;
-							img {
-								display: inline;
-								margin: 0;
-								@include hiddentext;
-							}
-						}
 						.title {
 							width: 600px;
 							display: block;
@@ -2570,32 +2558,45 @@ dl.things dt:after {content: ":"}
 							font-weight:normal;
 							line-height: 21px;
 							color: #555;
-							margin-bottom: 12px;
+							margin-bottom: 5px;
+							clear: right;
 							strong {
 								color: $sienna;
 							}
 						}
-						.btl_answer {
+						.user-answer {
 							display: block;
 							clear: both;
-							margin: 25px 6px 5px 0px;
-							padding: 3px 10px;
-							font-family: Georgia, Tahoma, 'lucida grande', sans-serif;
-							font-size: 15px;
-							color: #333;
-							background-color: #f2f2f2;
-						}
-						.btl-answer-author {
-							display: block;
-							clear: both;
-							font-size: 11px;
-						}
-						.reply-count {
-							display: none;
-						}
-						&:hover {
+							background-color: #f7f6f4;
+							padding: 5px;
+							margin: 5px 0 0;
+							.avatar {
+								float: left;
+								display: inline;
+								width: 50px;
+								height: 50px;
+								padding: 0;
+								img {
+									margin: 0;
+									background-color:  #f1eee9;
+									@include hiddentext;
+								}
+							}
 							.btl_answer {
-								background: #fff3f0;
+								margin: 0;
+								padding: 0;
+								font-family: Georgia, Tahoma, 'lucida grande', sans-serif;
+								font-size: 15px;
+								color: #333;
+							}
+							.btl-answer-author {
+								font-size: 11px;
+							}
+						}
+						.reply-count {display: none;}
+						&:hover {
+							.user-answer {
+								background: #fdece7;
 							}
 						}
 					}

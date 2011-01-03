@@ -1,9 +1,9 @@
 <div class="identity<% unless user_list_entry.avatar? -%> no_avatar<% end -%>">
-    <div class="avatar">
-      <% if user_list_entry.avatar? -%>
-        <%= image_tag(user_list_entry.avatar.url(:thumb), :width => 50, :height => 50) %>
-      <% end -%>
-    </div>
+	<div class="avatar">
+		<% if user_list_entry.avatar? -%>
+			<%= image_tag(user_list_entry.avatar.url(:thumb), :width => 50, :height => 50) %>
+		<% end -%>
+	</div>
   <ul class="identity_details user_list_entry">
       <li class="employee_name primary">
           <%= link_to_if (user_list_entry.linkable_profile? || logged_in_and_not_soapbox), user_list_entry.name_or_username, directory_link(user_list_entry) %>
