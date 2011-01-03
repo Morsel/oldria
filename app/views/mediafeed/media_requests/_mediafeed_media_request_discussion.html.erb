@@ -1,7 +1,7 @@
 <ul class="responses">
   <% if @media_request_discussion.present? -%>
     <li class="reply_count"><%= pluralize (comments = @media_request_discussion.comments.reject { |c| c.new_record? }).size, "reply" %></li>
-  	<% for comment in comments -%>
+  	<% for comment in comments.reverse -%>
   	  <li class="reply">
 		    <h3><%= comment.user.name %></h3>
 		    <p><%= comment.comment %></p>
