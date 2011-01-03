@@ -90,6 +90,16 @@ Feature: Restaurant Images
     And I press "Upload"
     When I go to the restaurant photo upload page for Bourgeois Pig
     Then I see the 1st photo selected as the primary photo
+    When I go to the restaurant show page for "Bourgeois Pig"
+    Then I should see that photo
+  
+  Scenario: Visit the photos page
+    When I go to the restaurant photo upload page for Bourgeois Pig
+    And I attach the image "/features/images/bourgeoispig.jpg" to "photo_attachment" on S3
+    And I fill in "Xavier Zarope" for "Credit"
+    And I press "Upload"
+    When I go to the restaurant photos page for Bourgeois Pig
+    Then I should see that photo
 
   Scenario: Remove a restaurant photo
     When I go to the restaurant photo upload page for Bourgeois Pig

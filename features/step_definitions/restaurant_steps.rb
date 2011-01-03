@@ -188,6 +188,10 @@ When /^I see the (\d+)(st|nd|th) photo selected as the primary photo$/ do |photo
   response.should have_selector("input", :type => "radio", :value => @restaurant.reload.photos[photo_order.to_i - 1].id.to_s, :checked => "checked")
 end
 
+Then /^I should see that photo$/ do
+  response.should have_selector("img", :src => @restaurant.reload.photos.last.attachment.url(:medium))
+end
+
 Then /^I should see a menu with the name "([^\"]*)" and change frequency "([^\"]*)" and uploaded at date "([^\"]*)"$/ do |name, change_frequency, date|
   response.should have_selector(".menu_name", :content => name)
   response.should have_selector(".menu_change_frequency", :content => change_frequency)

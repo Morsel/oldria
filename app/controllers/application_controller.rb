@@ -20,6 +20,7 @@ class ApplicationController < ActionController::Base
 
   helper_method :current_user
   helper_method :mediafeed?
+  helper_method :soapbox?
 
   rescue_from CanCan::AccessDenied do
     if current_user
@@ -43,6 +44,13 @@ class ApplicationController < ActionController::Base
         params[:controller].match(/mediafeed/) || 
         (current_user && current_user.media?) || 
         request.path.match(/mediafeed/)
+  end
+  
+  def soapbox?
+    return @is_soapbox if defined?(@is_soapbox)
+    @is_soapbox = (current_subdomain =~ /^soapbox/) || 
+        params[:controller].match(/soapbox/) || 
+        request.path.match(/soapbox/)
   end
 
   def find_user_feeds(dashboard = false)
