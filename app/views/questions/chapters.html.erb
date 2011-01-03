@@ -1,6 +1,6 @@
 <% title "#{@topic.title} - #{@subject.name} Behind the Line", false %>
 <% content_for :fb_description do %>
-    Check out <%= @subject.name %>'s full profile
+    Check out <%= @subject.name %>\'s full profile
 <% end %>
 
 <%= render :partial => 'shared/add_this', :locals => {:responder => @responder} %>

@@ -14,6 +14,7 @@ class Soapbox::SiteSearchController < ApplicationController
       search_qotds_and_trends_entities
       search_btl_entities
       search_users
+      search_restaurants
 
       @all_entries = @all_entries.paginate(:page => params[:page])
 
@@ -27,10 +28,12 @@ class Soapbox::SiteSearchController < ApplicationController
 
       @users_found = @all_entries.select {|res, type| type == :user }.map(&:first)
 
+      @restaurants_found = @all_entries.select {|res, type| type == :restaurant }.map(&:first)
+
       @no_results = @trend_questions_found.empty? && @qotds_found.empty? &&
         @qotd_comments_found.empty? && @trend_question_comments_found.empty? &&
         @btl_questions_found.empty? && @btl_answers_found.empty? &&
-        @users_found.empty?
+        @users_found.empty? && @restaurants_found.empty?
     end
   end
 
@@ -68,6 +71,12 @@ class Soapbox::SiteSearchController < ApplicationController
   def search_users
     User.extended_find(@key).each do |entry|
       @all_entries << [entry, :user]
+    end
+  end
+
+  def search_restaurants
+    Restaurant.extended_find(@key).each do |entry|
+      @all_entries << [entry, :restaurant]
     end
   end
 

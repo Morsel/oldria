@@ -6,6 +6,7 @@ Feature: Search question
 
   Background:
   Given There is a searchable user with a communicative profile
+  And a premium restaurant named "Whisky House"
   And several profile questions matching employment roles for "searchable"
 
   Scenario: Finding a QOTD
@@ -35,6 +36,10 @@ Feature: Search question
   Scenario: Finding user profile
     When I go to the soapbox search page searching for "ketchup"
     Then I should see "Bob Ichvinstone" within ".search-results"
+
+  Scenario: Finding restaurant profile
+    When I go to the soapbox search page searching for "whisky house"
+    Then I should see "Whisky House" within ".search-results"
 
   Scenario: Finding BTL quesiton
     Given I am logged in as "searchable" with password "searchable"
