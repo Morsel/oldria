@@ -1,11 +1,11 @@
 module Paperclip
   class Attachment
     def width
-      Paperclip::Geometry.from_file(self.url).width
+      Paperclip::Geometry.from_file(self.url.gsub(' ','+')).width
     end
 
     def height
-      Paperclip::Geometry.from_file(self.url).height
+      Paperclip::Geometry.from_file(self.url.gsub(' ','+')).height
     end
     
     def image?(style = default_style)
