@@ -3,7 +3,7 @@ class SoloDiscussionsController < ApplicationController
   
   def show
     @discussion = SoloDiscussion.find(params[:id])
-    @trend_question = @discussion.trend_question
+    @trend_question = @discussionable = @discussion.trend_question
     @comments = @discussion.comments.reject(&:new_record?)
     build_comment
   end

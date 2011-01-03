@@ -122,13 +122,8 @@ if (window.current_user_id) {
   });
 }
 
-
-height = $('#btl_game').height();
-$('#btl_game').height(height);
-
 $('.new_question').live('click', function(){
-	$('#btl_game_content').fadeOut();
-	$(this).css({
+    $(this).css({
 		backgroundRepeat: 'no-repeat',
 		backgroundPosition: 'center center',
 		backgroundImage: 'url(/images/redesign/ajax-loader.gif)'
@@ -136,7 +131,7 @@ $('.new_question').live('click', function(){
 	$.ajax({
 		data:'authenticity_token=' + encodeURIComponent($(this).attr('data-auth')),
 	 	success:function(request){
-			$('#btl_game_content').html(request).fadeIn();
+			$('#btl_game_content').html(request);
 			$('.new_question').css({
 				backgroundImage: 'url(/images/redesign/icon-refresh.png)',
 				backgroundPosition: '0 0'
@@ -146,10 +141,13 @@ $('.new_question').live('click', function(){
 		url:'/users/'+$(this).attr('data-user-id')+'/questions/refresh'
 	}); 
 	return false;
-})
+});
 $('#profile_answer_submit').live('click', function(){
-	$(this).val('posting...').attr('disabled','disabled');
-})
+    var rthis = this;
+    setTimeout(function(){
+        $(rthis).val('posting...').attr('disabled','disabled');
+    }, 0);
+});
 $('#new_quick_reply button').live('click', function(){
 	$(this).text('posting...').attr('disabled','disabled');
 });

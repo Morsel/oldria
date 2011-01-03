@@ -9,7 +9,7 @@ Feature: Profile - Behind the Line (aka Q&A)
     | punkrock    | secret   | John       | Smith     |
   And several profile questions matching employment roles for "punkrock"
   And I am logged in as "punkrock"
-  
+
   Given "punkrock" has a complimentary premium account
   And "punkrock" has a published profile
 
@@ -36,10 +36,10 @@ Feature: Profile - Behind the Line (aka Q&A)
     When I follow "View all Topics" within "#behindline"
     And I follow "View all"
     And I follow "Education"
-    And I fill in "profile_question_1_answer" with "A great answer for this"
+    And I fill in question titled "Title 1" with answer "A great answer for this"
     And I press "Post"
     Then I should see "Your answers have been saved"
-    
+
     When I go to the question page with title "Title 1"
     Then I should see "A great answer for this"
 
@@ -61,13 +61,17 @@ Feature: Profile - Behind the Line (aka Q&A)
     And I follow "Education"
     Then I should see "Education - John Smith - Behind The Line" within "title"
 
-  Scenario: Chapter questions page should contain AddThis UI feature
-    Given I am on the profile page for "punkrock"
+  Scenario: User answers a Behind The Line question and post to facebook
+    Given "punkrock" has a complimentary premium account
+    And Facebook is functioning
+    And given that user "punkrock" has facebook connection
+    And I am on the profile page for "punkrock"
     When I follow "View all Topics" within "#behindline"
     And I follow "View all"
     And I follow "Education"
-    Then I should see addThis button
-          
-  Scenario: Question page should AddThis UI feature
-    Given I am on the question page with title "Title 1"
-    Then I should see addThis button
+    And I fill in question titled "Title 1" with answer "A great answer for this"
+    And I should see "Post to Facebook"
+    And I check "Post to Facebook?"
+    And I press "Post"
+    Then message to facebook is sent
+

@@ -175,6 +175,13 @@ module NavigationHelpers
     when /^the question page with title "(.+)"$/
       question_path(ProfileQuestion.find_by_title($1).id)
 
+    # all qotds and trends pages
+    when /^the all of the qotd questions listing page$/
+      qotd_soapbox_soapbox_entries_path
+    when /^the all of the trend questions listing page$/
+      trend_soapbox_soapbox_entries_path
+
+
     # Direct path
     when /"([^\"]+)"/
       $1

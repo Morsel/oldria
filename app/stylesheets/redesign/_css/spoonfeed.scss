@@ -540,19 +540,31 @@ form#new_user_session {
 
 #content {
 	@include column(18);
+	.addthis_toolbox {
+	  overflow: auto;
+	  a {
+      font-family: 'Helvetica Neue', Helvetica, arial, sans-serif;;
+      font-size: 12px;
+      text-transform: uppercase;
+      background: url(/images/redesign/share-arrow.gif) no-repeat 2px 2px $trans-orange;
+      display: block;
+      float: right;
+      margin-bottom: 10px;
+      padding: 3px 10px 3px 20px;
+      &:hover {
+        background: url(/images/redesign/share-arrow.gif) no-repeat 2px -29px $orange;
+        color: #fff;
+      }
+    }
+	}
 	header {
+
 		padding: 5px 0;
 		margin: 0;
 		border-bottom: 1px dotted #ddd;
 		img {
 			float: left;
 			margin: 0 14px 10px 0;
-		}
-		.addthis_toolbox {
-		  float: left;
-      font-family: 'Hoefler Text', Georgia, serif;
-      font-size: 14px;
-      font-weight: bold;
 		}
 		.user_actions {
 			float: right;
@@ -2179,6 +2191,18 @@ p.search_filter_hint {
 			margin: 0 0 10px 0;
 			padding: 13px 10px;
 			@include box-shadow(#eee,0px, 1px,0px);
+			&#promotion_status {
+			  h3 {
+			    @include hoeflerbolditalic;
+					font-size: 18px;
+					margin-bottom: 10px;
+					padding-left: 25px;
+					background: url(/images/redesign/user.png) 0 3px no-repeat;
+			  }
+			  p {
+			    margin: 5px 0;
+			  }
+			}
 			&.go_to_admin {
 				background: $trans-brown url(/images/redesign/go-to-admin.png) no-repeat 12px 12px;
 				@include hiddentext;
@@ -3195,7 +3219,7 @@ p.search_filter_hint {
 
 .topic-nav{
 	overflow:hidden;
-	padding:10px 0 10px 10px;
+	padding: 0px 0 10px 10px;
 	a{
 		display:block;
 		padding:5px 10px 5px 20px;
@@ -4492,3 +4516,51 @@ p.search_filter_hint {
   }
 }
 /* ## END of A La Minute editing --------------------------------------------- */
+
+
+
+#colorbox {
+	.message-details {
+		padding: 14px 14px 7px 14px;
+		border-bottom: 1px dotted #ccc;
+		header {
+			margin: 0 0 10px;
+			h1 {
+				font-size: 20px;
+			}
+			p.timestamp {
+				font-size: 11px;
+			}
+		}
+		.message-body {
+			p {
+				font-size: 13px;
+				margin: 0 0 5px;
+				line-height: 18px;
+			}
+		}
+	}
+}
+
+.dashboard_header{
+    text-align: right;
+    .see_more_link {
+        font-size: 120%;
+    }
+}
+
+
+
+aside.dashboard_actions {
+  a { 
+      background-color: #FAEAE4;
+      display: block;
+      font-family: 'Hoefler Text',Georgia,Serif;
+      font-weight: bold;
+      letter-spacing: 0.2em;
+      margin: 0 0 10px;
+      padding: 10px;
+      text-shadow: 0 1px 0 #FFFFFF;
+      text-transform: uppercase;
+  }
+}

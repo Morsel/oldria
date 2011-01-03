@@ -6,7 +6,20 @@
             :rows => 20, :cols => 50, :id => "profile_question_#{answer.profile_question.id}_answer" %>
         <p class="inline-hints"><%= answer.new_record? ? "" : "This answer is viewable by others" %></p>
     </li>
+  </ol>
 </fieldset>
+
+  <p class="clear clearfix">
+    <span class="and_twitter">  
+      <% if current_facebook_user && current_user.facebook_authorized? -%>
+        <%= check_box_tag "profile_question[#{answer.profile_question.id}]post_to_facebook", 1, false, :class => 'checkbox'  %>
+        <%= label_tag "profile_question[#{answer.profile_question.id}]post_to_facebook", "Post to Facebook?" %>
+      <% else %>
+        <%= link_to "Setup Facebook to post there too!", fb_auth_user_path(current_user) %>
+      <% end -%>
+    </span>
+  </p>
+
 
 <div class="clearfix">
   <%= button_tag "Post" %>

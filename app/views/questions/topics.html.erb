@@ -1,14 +1,15 @@
 <% title "Behind the Line", false %>
 
-<!-- AddThis Button BEGIN --> 
-<div class="addthis_toolbox"> 
-  <a href="http://www.addthis.com/bookmark.php?v=250&username=unpluggedria" class="addthis_button">Share</a> 
-</div> 
-<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#username=unpluggedria"></script> 
-<!-- AddThis Button END -->
+<%= render :partial => 'shared/add_this', :locals => {:responder => @responder} %>
 
 <h1 id="btl-title" class="btl"><span class="btl-art">Behind the Line:</span> <span class="name"><%= btl_title_for(@subject) %></span></h1>
 <h2 id="topic_title">Topics</h2>
+<% javascript_tag do %>
+  var addthis_share = {
+    url: '<%= url_to_responder_topics(@responder) %>',
+    title: $('title').text().replace('Spoonfeed','Soapbox')
+  }
+<% end %>
 
 <%- @topics.each do |topic| -%>
 <div class="topic <%= cycle '',' last' %>" id="<%= dom_id topic %>">

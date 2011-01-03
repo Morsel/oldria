@@ -37,7 +37,7 @@ class ALaMinuteAnswer < ActiveRecord::Base
 
   def self.public_profile_for(responder)
     ids = responder.a_la_minute_answers.maximum(:created_at, :group => :a_la_minute_question_id, :select => :id, :conditions => { :show_as_public => true }).collect{|k,v|v}
-    responder.a_la_minute_answers.find(ids, :order => "created_at desc", :limit => 3)
+    responder.a_la_minute_answers.find(ids, :order => "created_at desc")
   end
 
   def self.archived_for(question)

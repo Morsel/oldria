@@ -17,6 +17,7 @@ class EmployeesController < ApplicationController
     @employment = @restaurant.employments.build(params[:employment])
     # If the new user isn't valid, halt the whole action
     return unless verify_employee
+    return if employment_duplicated? 
 
     if @employment.save
       @employment.insert_at
@@ -110,5 +111,21 @@ class EmployeesController < ApplicationController
   def find_and_authorize_restaurant
     @restaurant = Restaurant.find(params[:restaurant_id])
     unauthorized! if cannot? :edit, @restaurant
+  end
+
+  # For passing cucumber features/restaurants/adding_employees.feature:40
+  #
+  # check if employment already exist in restaurant.
+  # after build from params we get duplicate employment.
+  # to prevent duplicate - look for 2 employment 
+  # with same employee 
+  def employment_duplicated?
+    employments = @restaurant.employments.select { | employment | employment.employee == @employment.employee }
+    if employments.size > 1
+      flash[:error] = "Employee is already associated with that restaurant"
+      render :new
+    else
+      return false
+    end
   end
 end

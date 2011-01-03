@@ -1,5 +1,12 @@
 <div id="recently">
     <h2>Fresh from Spoonfeed</h2>
+    <aside class="dashboard_actions">
+    <%= link_to "REFRESH", refresh_dashboard_path %>
+    </aside>
+
+    <% if @has_more %>
+        <div class="dashboard_header"><%= link_to 'See more &raquo;', :dashboard_more, :class => 'see_more_link' %></div>
+    <% end %>
 
     <% for comment in @recent_comments %>
     <% if comment.is_a?(ProfileAnswer) %><%# profile answers are not really a comment so they get their own block %>
@@ -10,9 +17,12 @@
             <p class="topic"><%= "#{comment.profile_question.chapter.title_with_topic}: #{comment.profile_question.title}" %> </p>
         </div>
         <div class="user_comment">
-            <%= render :partial => "#{comment.responder.class.name.underscore.pluralize}/identity", :locals => { :user => comment.responder } %>
+            <%= render :partial => "#{comment.responder.class.name.underscore.pluralize}/identity", :locals => { :user => comment.responder } if comment.responder %>
             <div class="user_comment"><%= truncate(comment.answer, :length => 200) %>
-            <% if comment.answer.size > 200 -%><%= link_to "more &raquo;", btl_profile_link(comment.responder) %><%- end %></div>
+                <% if comment.answer.size > 200 -%>
+                      <%= link_to "more &raquo;", url_to_responder_question(comment.responder, comment.profile_question.chapter.id, comment.profile_question.id) %>
+                <%- end %>
+            </div>
         </div>
     <% end %>
 
@@ -35,5 +45,7 @@
     <% end %>
 
     <% end %>
+
+        <%= will_paginate @recent_comments if @has_pagination %>
 
 </div>

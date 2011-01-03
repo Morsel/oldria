@@ -29,6 +29,8 @@ class Comment < ActiveRecord::Base
   
   #validates_presence_of :comment
 
+  attr_accessor :post_to_facebook
+
   before_create :clear_read_status
 
   def clear_read_status
@@ -90,5 +92,14 @@ class Comment < ActiveRecord::Base
   
   def show_on_soapbox?
     self.employment && self.employment.post_to_soapbox
+  end
+
+  def commentable_title
+    target = self.commentable
+    case true
+    when target.respond_to?(:admin_message)  then target.admin_message.try(:message)
+    when target.respond_to?(:discussionable) then target.discussionable.try(:subject)
+    else raise "Wrong commentable item"
+    end
   end
 end

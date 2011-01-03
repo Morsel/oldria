@@ -1,4 +1,5 @@
 class UserMailer < ActionMailer::Base
+  helper :mailer
   default_url_options[:host] = DEFAULT_HOST
 
   def signup(user = nil, sent_at = Time.now)

@@ -440,3 +440,13 @@ When /^I delete the account manager for "([^\"]*)"$/ do |name|
   restaurant = Restaurant.find_by_name(name)
   click_link_within("#user_#{restaurant.manager_id}", "Delete")
 end
+
+When /^I fill in a la minute question titled "([^\"]*)" with answer "([^\"]*)"$/ do |title, answer|
+  question = ALaMinuteQuestion.find_by_question(title)
+  When "I fill in \"a_la_minute_questions_#{question.id}_answer\" with \"#{answer}\""
+end
+
+When /^I check a la minute question titled "([^\"]*)" as public$/ do |title|
+  question = ALaMinuteQuestion.find_by_question(title)
+  When "I check \"a_la_minute_questions_#{question.id}_show_as_public\""
+end

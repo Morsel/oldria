@@ -114,14 +114,14 @@ class Restaurant < ActiveRecord::Base
 
   def self.find_premium(id)
     possibility = find_by_id(id)
-    if possibility.premium_account then possibility else nil end
+    possibility.try(:premium_account) ? possibility : nil
   end
 
   def self.with_feature(feature)
-    Restaurant.all(:joins => :restaurant_feature_items, 
+    Restaurant.all(:joins => :restaurant_feature_items,
                    :conditions => ['restaurant_feature_items.restaurant_feature_id = ?', feature.id])
   end
-  
+
   def top_tags
     restaurant_feature_items.all(:limit => 15, :conditions => { :top_tag => true }).map(&:restaurant_feature)
   end
@@ -195,7 +195,7 @@ class Restaurant < ActiveRecord::Base
   def additional_managers
     self.managers - [self.manager]
   end
-  
+
   def profile_questions
     ProfileQuestion.for_subject(self)
   end
@@ -207,7 +207,7 @@ class Restaurant < ActiveRecord::Base
   def published_topics
     topics.select { |t| t.published?(self) }
   end
-  
+
   def linkable_profile?
     self.premium_account?
   end

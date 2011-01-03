@@ -1,6 +1,13 @@
 <% title "#{@question.title} - Behind The Line", false %>
+<% content_for(:fb_description, btl_description_for_fb(@answers)) %>
 
-<!-- AddThis Button BEGIN --> 
+<% javascript_tag do %>
+  var addthis_share = {
+    url: '<%= soapbox_question_url(@question) %>',
+    title: $('title').text().replace('Spoonfeed','Soapbox')
+  }
+<% end %>
+<!-- AddThis Button BEGIN -->
 <div class="addthis_toolbox"> 
   <a href="http://www.addthis.com/bookmark.php?v=250&username=unpluggedria" class="addthis_button">Share</a> 
 </div> 

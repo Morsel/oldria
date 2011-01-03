@@ -16,7 +16,7 @@ class ApplicationController < ActionController::Base
   # before_filter :preload_resources
   
   # Disabled until we restore btl_game in the sidebar
-  # before_filter :load_random_btl_question
+  before_filter :load_random_btl_question
 
   helper_method :current_user
   helper_method :mediafeed?
@@ -152,7 +152,7 @@ class ApplicationController < ActionController::Base
     return if params[:controller].match(/soapbox/)
     return if params[:controller].match(/admin/)
     return if ["create", "update", "destroy"].include? params[:action]
-    @btl_question = ProfileQuestion.for_subject(current_user).random.reject { |q| q.answered_by?(current_user) }.first
+    @btl_question = ProfileQuestion.for_subject(current_user).all({:order => RANDOM_SQL_STRING}).reject { |q| q.answered_by?(current_user) }.first
   end
 
 ### Messaging helpers

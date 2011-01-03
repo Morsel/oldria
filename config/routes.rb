@@ -25,7 +25,9 @@ ActionController::Routing::Routes.draw do |map|
     end
     soapbox.resources :restaurant_features, :only => ["show"]
     soapbox.resources :a_la_minute_questions, :only => ['index', 'show']
-    soapbox.resources :soapbox_entries, :only => ['index','show'], :as => "front_burner"
+    soapbox.resources :soapbox_entries, :only => ['index', 'show', 'qotd', 'trend', 'search'], :as => "front_burner", 
+                      :collection => { :qotd => :get, :trend => :get, :search => :get }
+
     soapbox.resources :users do |users|
       users.resources :questions, :collection => { :topics => :get, :chapters => :get }
     end
@@ -72,7 +74,9 @@ ActionController::Routing::Routes.draw do |map|
   
   map.mediafeed_directory 'mediafeed/directory', :controller => 'mediafeed/mediafeed', :action => 'directory'
 
-  map.resource :my_profile, :only => ['create', 'edit', 'update'], :controller => 'profiles' do |p|
+  map.resource :my_profile, :only => ['create', 'edit', 'update'],
+               :controller => 'profiles',
+               :collection => { :toggle_publish_profile => :get } do |p|
     p.resources :culinary_jobs
     p.resources :nonculinary_jobs
     p.resources :awards
@@ -209,6 +213,8 @@ ActionController::Routing::Routes.draw do |map|
   map.resource :search, :only => 'show'
 
   map.root :controller => 'welcome'
+  map.dashboard_more 'dashboard_more', :controller => 'welcome', :action => 'index', :is_more => true
+  map.refresh_dashboard 'dashboard/refresh', :controller => 'welcome', :action => 'refresh'
 
   map.namespace :admin do |admin|
     admin.root      :controller => 'admin'

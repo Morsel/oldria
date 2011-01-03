@@ -1,24 +1,36 @@
+<% admin_message = @admin_conversation.admin_message %>
 <div class="comments">
 <% if @comments.blank? %>
-
-<% semantic_form_for @comment_resource, :html => { :multipart => true } do |f| %>
-  <% f.inputs do %>
-    <%= f.input :comment, :label => 'Post', :input_html => { :rows => 8 }, :hint => soapbox_notice(message) %>
-
-    <% f.fields_for :attachments do |child_form| -%>
-      <p class="attach">Attach files</p>
-      <p class="attachfield"><%= child_form.file_field :attachment %></p>
-    <% end -%>
-
-    <p class="clearfix"><%= button_tag "Send", :class => 'submit' %></p>
+  <% semantic_form_for @comment_resource, :html => { :multipart => true } do |f| %>
+    <% f.inputs do %>
+      <%= f.input :comment, :label => 'Post', :input_html => { :rows => 8 }, :hint => soapbox_notice(message) %>
+      <% f.fields_for :attachments do |child_form| -%>
+        <p class="attach">Attach files</p>
+        <p class="attachfield"><%= child_form.file_field :attachment %></p>
+      <% end -%>
+      <% if admin_message.soapbox_entry.try(:published?) %>
+        <p class="clear clearfix">
+        <span class="and_twitter">
+              <% if current_facebook_user && current_user.facebook_authorized? -%>
+                <%= f.input :post_to_facebook, :as => :boolean, :class => 'checkbox' , :label => "Post to Facebook?"  %>
+              <% else %>
+                <%= link_to "Setup Facebook to post there too!", fb_auth_user_path(current_user) %>
+              <% end -%>
+            </span>
+        </p>
+      <% end %>
+      <p class="clearfix"><%= button_tag "Send", :class => 'submit' %></p>
+    <% end %>
   <% end %>
-
-<% end %>
 <% else %>
   <h3>Response for this <%= message.class.try(:title) %></h3>
   <%= render @comments.first %>
+  <% if admin_message.soapbox_entry.try(:published?) && params[:post_to_facebook] %>
+    <%= render(:partial => "shared/facebook_dialog",
+               :locals => { :caption => "Check out more about \"#{admin_message.message}\"", 
+                            :message => @comments.first.comment,
+                            :link    => soapbox_soapbox_entry_url(admin_message.soapbox_entry)   } ) %>
+  <% end %>
 <% end %>
 <hr class="space"/>
-
 </div>
-

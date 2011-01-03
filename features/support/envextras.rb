@@ -7,6 +7,9 @@ require 'ap'
 
 include ActionView::Helpers::RecordIdentificationHelper
 
+# include controller helpers required by some tests 
+include ProfileAnswersHelper
+include BehindTheLineHelper
 
 #### NOTE -- this is a patched workaround for an issue with webrat and
 ### formtastic for date selects and steps of the type

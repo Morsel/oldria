@@ -5,23 +5,55 @@ Feature: Admin Messaging
 
   Background:
   Given a restaurant named "No Man's Land" with the following employees:
-    | username | name     | role | subject matters |
-    | johndoe  | John Doe | Chef | Food, Pastry    |
+    | username | name     | role | subject matters | email            |
+    | johndoe  | John Doe | Chef | Food, Pastry    | johndoe@test.com |
 
 # Replying to messages
 
-  Scenario: Replying to a QOTD
+ Scenario: Replying to a QOTD
+   Given I am logged in as "johndoe"
+   And "johndoe" has a QOTD message with:
+     | message | Are lazy cakes cool? |
+   When I go to the front burner page
+   And I follow "Post"
+   Then I should see "Are lazy cakes cool?"
+   When I fill in "Post" with "Why, yes, they are quite cool!"
+   And I press "Send"
+   Then I should see "Thanks: your answer has been saved"
+
+  Scenario: Replying to a published QOTD give a possibility to post on facebook
     Given I am logged in as "johndoe"
-    And "johndoe" has a QOTD message with:
-      | message | Are lazy cakes cool? |
+    And Facebook is functioning
+    And given that user "johndoe" has facebook connection
+    And there is a QOTD asking "Are lazy cakes cool?"
+    And that QOTD is featured on the soapbox    
+    And that QOTD was sent to "johndoe"
     When I go to the front burner page
     And I follow "Post"
-    Then I should see "Are lazy cakes cool?"
-  
+
     When I fill in "Post" with "Why, yes, they are quite cool!"
+    And I should see "Post to Facebook"
+    And I check "Post to Facebook?"
     And I press "Send"
-    Then I should see "your answer has been saved"
-    
+    Then I should see Facebook Share Popup
+    And I should see "your answer has been saved"
+ 
+  Scenario: Replying to a published Trend question give a possibility to post on facebook
+    Given I am logged in as "johndoe"
+    And Facebook is functioning
+    And given that user "johndoe" has facebook connection
+    And there is a Trend Question "Are cold cakes cool?"
+    And that Trend Question is featured on the soapbox    
+    And that Trend Question was sent to "No Man's Land"
+    When I go to the front burner page
+    And I follow "Post"
+
+    When I fill in "Post" with "Why, yes, they are quite cool!"
+    And I should see "Post to Facebook"
+    And I check "Post to Facebook?"
+    And I press "Send"
+    Then I should see Facebook Share Popup
+
   Scenario: Editing a QOTD reply
     Given I am logged in as "johndoe"
     And "johndoe" has a QOTD message with:

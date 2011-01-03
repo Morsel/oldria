@@ -61,7 +61,7 @@ class QuestionsController < ApplicationController
   end
 
   def refresh
-    @btl_question = ProfileQuestion.for_subject(@subject).random.reject { |q| q.answered_by?(@subject) }.first
+    @btl_question = ProfileQuestion.for_subject(@subject).all({:order => RANDOM_SQL_STRING}).reject { |q| q.answered_by?(@subject) }.first
     render :partial => "shared/btl_game", :locals => { :question => @btl_question }
   end
 
@@ -73,7 +73,7 @@ class QuestionsController < ApplicationController
 
   def get_subject
     if params[:user_id]
-      @subject = User.find(params[:user_id])
+      @subject = User.find(params[:user_id])      
     elsif params[:feature_page_id] || params[:feature_id]
       id = params[:feature_page_id] || params[:feature_id]
       @subject = RestaurantFeaturePage.find(id)
@@ -81,6 +81,7 @@ class QuestionsController < ApplicationController
     else
       @subject = Restaurant.find(params[:restaurant_id])
     end
+    @responder = @restaurant || @subject
   end
 
   def get_profile

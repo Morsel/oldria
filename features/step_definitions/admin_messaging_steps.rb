@@ -21,6 +21,7 @@ end
 When /^I create a holiday with name "([^\"]*)" and criteria:$/ do |name, table|
   visit new_admin_holiday_path
   fill_in :name, :with => name
+  fill_in "holiday_date_1i", :with => Date.today
   table.rows_hash.each do |field, value|
     check value
   end
@@ -73,6 +74,12 @@ end
 Then(/^"([^\"]*)" should have (\d+) Announcement messages?$/) do |username, num|
   user = User.find_by_username(username)
   user.announcements.count.should == num.to_i
+end
+
+Then(/^"([^\"]*)" should have (\d+) Unread Announcement messages?$/) do |username, num|
+  user = User.find_by_username(username)
+  sleep 1
+  user.unread_announcements.count.should == num.to_i
 end
 
 Then(/^"([^\"]*)" should have (\d+) PR Tip messages?$/) do |username, num|
@@ -157,4 +164,10 @@ Then /^the trend question "([^\"]*)" should not be viewable by "([^\"]*)"$/ do |
   trendq = TrendQuestion.find_by_subject(qname)
   user = User.find_by_username(username)
   trendq.viewable_by?(user.primary_employment).should == false
+end
+
+Given /^the following announcements:$/ do |table|
+  table.hashes.each do |row|
+    Factory(:announcement, :message => row['message'], :scheduled_at => Time.now)
+  end
 end

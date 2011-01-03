@@ -54,6 +54,18 @@ Given /^I am logged in as a normal user with a profile$/ do
   Given 'I am logged in as "normal" with password "normal"'
 end
 
+Given /^I am logged in as user with btl enabled$/ do
+  user = Factory(:user, :username => 'valera', :password => 'secret')
+  role = Factory(:restaurant_role)
+  Factory(:employment, :employee => user, :restaurant_role => role)
+
+  chapter = Factory(:chapter, :title => "title1")
+  qr = Factory(:question_role, :responder => role)
+  Factory(:profile_question, :chapter => chapter, :question_roles => [qr])
+
+  Given 'I am logged in as "valera" with password "secret"'
+end
+
 Given /^I am logged in as a spoonfeed member$/ do
   Given("I am logged in as a normal user")
 end
@@ -86,6 +98,11 @@ end
 Given /^"([^\"]*)" has just been confirmed$/ do |username|
   user = User.find_by_username(username)
   user.confirm!
+end
+
+Given /^given that user "([^\"]*)" has facebook connection$/ do |username|
+  user = User.find_by_username(username)
+  user.update_attributes :facebook_id => 1234567, :facebook_access_token => 'foobar' 
 end
 
 Given /^"([^\"]*)" has a default employment with the role "([^\"]*)"$/ do |username, role_name|

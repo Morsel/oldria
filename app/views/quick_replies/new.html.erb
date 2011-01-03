@@ -21,7 +21,7 @@
 <% if discussions.size == 1 %>
   <% restaurant = discussions.first.restaurant %>
   <%= hidden_field_tag 'quick_reply[restaurant_ids][]', restaurant.id %>
-  <p>You are replying for <%= restaurant.name %></p>
+  <p>You are replying for <%= restaurant_link(restaurant) %></p>
 <% else %>
   <p>Check all of the restaurants that you'll be replying for:</p>
   <fieldset class="checkall">

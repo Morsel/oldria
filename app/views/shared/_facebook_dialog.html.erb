@@ -1,0 +1,20 @@
+<% javascript_tag  do -%>
+
+window.onload = function(){
+  FB.ui(
+     {
+       <%= "link: '#{link}'," if defined?(link) %>
+       <%= "caption: '#{caption}'," if defined?(caption) %>
+       <%= "message: '#{message}'," if defined?(message) %>
+       method: 'feed'
+     },
+     function(response) {
+       if (response && response.post_id) {
+         alert('Post was published.');
+       } else {
+         alert('Post was not published.');
+       }
+     }
+   );
+}
+<% end %>

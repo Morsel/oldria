@@ -1,4 +1,4 @@
-// This import applies a global reset to any page that imports this stylesheet.
+ // This import applies a global reset to any page that imports this stylesheet.
 @import "blueprint/reset";
 @import "compass/reset";
 @import "blueprint";
@@ -185,7 +185,7 @@ body,html,#container,#main,#content,#inside{
 	&.no-sidebar{
 		@include column(24,true);
 	}
-	
+
 	&.home{
 		@include column(20);
 		#jumbotron{
@@ -233,7 +233,7 @@ body,html,#container,#main,#content,#inside{
 				#cycle-footer{
 					color:#fff;
 					font-size:10px;
-					
+
 				}
 			}
 			#pager{
@@ -341,7 +341,7 @@ body,html,#container,#main,#content,#inside{
 			@include column(6,true);
 		}
 	}
-	
+
 	.restaurant {
 		margin-bottom: 1em;
 		padding-bottom: 1em;
@@ -372,7 +372,7 @@ body,html,#container,#main,#content,#inside{
 
 		}
 	}/* .restaurant */
-	
+
 } /*content */
 #page-content{
 	.last_updated, .timestamp_header, .timestamp {
@@ -435,7 +435,7 @@ body,html,#container,#main,#content,#inside{
 		color:$sienna;
 		text-decoration:none;
 		&:visited{
-			
+
 		}
 		&:hover{
 			text-decoration:underline;
@@ -463,7 +463,7 @@ body,html,#container,#main,#content,#inside{
 	#user-results {
 		overflow: hidden;
 		h3 {
-			@include museoslabbold; 
+			@include museoslabbold;
 			border-bottom: 1px solid #ddd;
 		}
 		.identity {
@@ -482,7 +482,7 @@ body,html,#container,#main,#content,#inside{
 			}
 		}
 	}/* directory search - user results */
-	
+
 	.comment {
 		overflow:hidden;
 		clear:both;
@@ -498,7 +498,7 @@ body,html,#container,#main,#content,#inside{
 			clear:none;
 		}
 	}
-			
+
 	#recent_soapbox {
 		.recent_actions {
 			overflow: hidden;
@@ -666,7 +666,7 @@ body,html,#container,#main,#content,#inside{
 			}
 		}
 	} /* recent questions in profile */
-	
+
 	#topic_title {margin: 0;}
 	.topic {
 		width: 300px;
@@ -777,7 +777,7 @@ body,html,#container,#main,#content,#inside{
 			}
 		}
 	}
-	
+
 	#topic_title {margin: 0;}
 	#topic_nav {
 		float: right;
@@ -797,14 +797,14 @@ body,html,#container,#main,#content,#inside{
 			}
 		}
 	}
-	
+
 	#chapter_nav {
 		overflow: hidden;
 		margin-bottom: 10px;
 		a{
-			float: left;
+			float: right;
 			font-size: 11px;
-			padding: 3px 10px;
+			padding: 3px 15px;
 			background-color: #ebe6e3;
 			margin: 0 6px 0 0;
 			color: #847263;
@@ -816,7 +816,7 @@ body,html,#container,#main,#content,#inside{
 			}
 		}
 	}
-		
+
 	.user_actions {
 	  margin-top: 8px;
 		float: right;
@@ -836,7 +836,7 @@ body,html,#container,#main,#content,#inside{
 			}
 		}
 	}
-	
+
 	.soapbox_profile_header {
 		border-bottom: 1px dotted #ddd;
 		img {
@@ -846,8 +846,8 @@ body,html,#container,#main,#content,#inside{
 			font-size: 24px;
 		}
 	}
-	
-	
+
+
 } /* page-content */
 
 #inside{
@@ -970,13 +970,13 @@ body,html,#container,#main,#content,#inside{
 						}
 					}
 				}
-				
+
 			}
 		}
 	}
 } /*recent-activity*/
 
-#activity-chooser{
+#activity-chooser, #activity-chooser-all {
 	overflow:hidden;
 	a{
 		@include knockout;
@@ -991,6 +991,21 @@ body,html,#container,#main,#content,#inside{
 		text-decoration:none;
 		text-shadow: 0 1px 0 #000;
 		background:url(/images/soapbox/bg-sidebar-selector.png) no-repeat -115px -1px;
+	}
+	#view-all-questions {
+	 background: none;
+	 font-size: 12px;
+	 font-family: "helvetica neue", helvetica, arial, sans-serif;
+	 text-transform: none;
+	 text-shadow: none;
+	 height: auto;
+	 padding: 5px 0;
+	 width: auto;
+	 &:hover {
+	   text-decoration: underline;
+	   color: #fff;
+	   background: none;
+	 }
 	}
 	span{
 		display:block;
@@ -1108,7 +1123,7 @@ body,html,#container,#main,#content,#inside{
 		min-height: 70px;
 		border-left: 1px dotted #aadaef;
 	}
-	
+
 }
 #legal{
 	margin-top: 10px;
@@ -1148,7 +1163,7 @@ body,html,#container,#main,#content,#inside{
 			text-shadow: 0 1px 0 #000;
 		}
 	}
-	
+
 }
 #facebook-link a{
 	display:block;
@@ -1165,7 +1180,7 @@ body,html,#container,#main,#content,#inside{
 	.pagination {
 		margin-bottom: 1em;
 		text-align: center;
-	}	
+	}
 } /* directory */
 
 
@@ -1266,6 +1281,7 @@ p.search_filter_hint {
 		background:url(/images/soapbox/label-qotd.png) no-repeat;
 	}
 }
+
 /*.share{
   padding: 3px;
   position:relative;
@@ -1276,7 +1292,7 @@ p.search_filter_hint {
     background:rgba(215,82,30,0.10);
     &:hover{
       background:$sienna;
-      a{  
+      a{
         color:#fff;
         background-position:2px -28px;
         text-decoration:none;
@@ -1310,7 +1326,7 @@ p.search_filter_hint {
 	   background:rgba(215,82,30,0.10);
 	   &:hover{
 	     background:$sienna;
-	     a{  
+	     a{
 	       color:#fff;
 	       background-position:2px -28px;
 	       text-decoration:none;
@@ -1333,6 +1349,7 @@ p.search_filter_hint {
 	     }
 	   }
 	 }*/
+
 	header h1{
 		@include hiddentext;
 		width:205px;
@@ -1367,7 +1384,7 @@ p.search_filter_hint {
 	.comment {
 		overflow: hidden;
 		padding: 6px 10px;
-		margin: 5px 0; 
+		margin: 5px 0;
 		background:#fff;
 		@include box-shadow(#d5ceca, 0, 1px, 3px);
 		details {
@@ -1402,7 +1419,7 @@ p.search_filter_hint {
 	}
 	p{
 		line-height:1.5;
-	}	
+	}
 }
 #question-of-the-day-details{
 	details{
@@ -1447,7 +1464,7 @@ p.search_filter_hint {
 	}
 }
 
-#trend-comments, #qotd-comments, #recent-questions{
+#trend-comments, #qotd-comments, #recent-questions, #questions-list{
 	a.button{
 		font-size:15px;
 		font-weight:bold;
@@ -1465,7 +1482,7 @@ p.search_filter_hint {
 		}
 	}
 }
-#recent-questions #recent-qotds{
+#recent-questions #recent-qotds, #qustions-list #questions-list-feed-qotd{
 	a.button{
 		background:$purple;
 		&:hover{
@@ -1483,7 +1500,7 @@ p.search_filter_hint {
 	}
 }
 
-#recent-questions{
+#recent-questions, #questions-list{
 	overflow:hidden;
 	margin:0 -10px;
 	div{
@@ -1576,6 +1593,27 @@ p.search_filter_hint {
 		}
 	}
 } /*#recent-questions^^ */
+
+#questions-list{
+	div{
+		@include column(24);
+		&#questions-list-feed-qotd{
+			@include column(24,last);
+			ul li a:hover{
+				text-decoration:none;
+				background:#d9e8ef;
+				background:rgba(114,180,210,0.15);
+				color:$purple;
+				.reply-count{
+					background-position:-400px 0;
+				}
+			}
+		}
+		ul li a span.title {
+		      width: 838px;
+		}
+	}
+}
 
 
 #profile-account, #profile-summary {
@@ -1852,7 +1890,7 @@ p.search_filter_hint {
 	.name {
 	  	color: #0087C0;
 	  	text-decoration: none;
-	}	
+	}
 }
 
 #current_things {
@@ -2170,7 +2208,7 @@ dl.things dt:after {content: ":"}
 						display: block;
 						margin: 0 0 6px;
 						padding: 8px 12px 8px 42px;
-						background: #f5f4f2 url(/images/soapbox/icon-menu.png) no-repeat 9px 9px;					
+						background: #f5f4f2 url(/images/soapbox/icon-menu.png) no-repeat 9px 9px;
 						label {
 							display: block;
 							font-size: 14px;
@@ -2201,7 +2239,7 @@ dl.things dt:after {content: ":"}
 			padding: 0;
 		}
 	}
-	
+
 	.accolades {
 		margin: 0;
 		padding: 10px 0;
@@ -2241,8 +2279,8 @@ dl.things dt:after {content: ":"}
 			}
 		}
 	}
-	
-		
+
+
 	.edit_profile_link {
 		a {
 			background-image: url(/images/redesign/pencil.png);
@@ -2277,7 +2315,7 @@ dl.things dt:after {content: ":"}
 			}
 		}
 	}
-	
+
 } /* ## ---- end of restaurant_profile_view ----- */
 
 #a_la_minute {
@@ -2401,7 +2439,6 @@ dl.things dt:after {content: ":"}
 		}
 	}
 }
-
 
 
 
