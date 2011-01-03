@@ -1,4 +1,7 @@
 <% title "#{@topic.title} - #{@subject.name} Behind the Line", false %>
+<% content_for :fb_description do %>
+    Check out <%= @subject.name %>\'s full profile
+<% end %>
 
 <%= render :partial => 'shared/add_this', :locals => {:responder => @responder} %>
 
@@ -7,8 +10,7 @@
 <% javascript_tag do %>
   var addthis_share = {
     url: '<%= url_to_responder_chapters(@responder, @topic.id) %>',
-    title: $('title').text().replace('Spoonfeed','Soapbox'),
-    description: 'Check out <%= @subject.name %>\'s full profile'
+    title: $('title').text().replace('Spoonfeed','Soapbox')
   }
 <% end %>
 
