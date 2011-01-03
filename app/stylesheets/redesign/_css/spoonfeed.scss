@@ -4359,12 +4359,8 @@ p.search_filter_hint {
   }
   #photos {
     .photo {
-      width: 320px;
-      min-height: 200px;
-      background: $trans-brown;
-      float: left;
-      margin-right: 25px;
-      margin-bottom: 25px;
+			width:320px;
+      margin:0 25px 0 0;
       .credit {
         background: white;
         margin: 0;

@@ -7,7 +7,7 @@
   <div id="photos">
     <% @photos.each do |photo| %>
       <% content_tag_for(:div, photo) do %>
-        <%= image_tag photo.attachment.url(:medium), :class => "restaurant_photo" %>
+        <%= image_tag photo.attachment.url(:medium), :class => "restaurant_photo", :width => photo.attachment.width, :height => photo.attachment.height  %>
         <p class="credit">Credit: <%= photo.credit %></p>
       <% end %>
     <% end %>
