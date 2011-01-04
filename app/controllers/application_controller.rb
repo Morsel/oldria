@@ -35,7 +35,7 @@ class ApplicationController < ActionController::Base
   private
 
   def site_layout
-    params[:controller].match(/soapbox/) ? 'soapbox' : 'application'
+    soapbox? ? 'soapbox' : 'application'
   end
 
   def mediafeed?
