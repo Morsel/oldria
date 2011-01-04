@@ -10,7 +10,7 @@
     		<% photo_form.inputs "New Photo" do %>
       		<%= photo_form.error_messages %>
       		<%= photo_form.input 'attachment', :as => 'file', :hint => "Please upload a jpeg, gif, or png" %>
-      		<%= photo_form.input :credit, :required => true %>
+      		<%= photo_form.input :credit, :required => true, :label => 'Caption' %>
       		<%= button_tag 'Upload', :class => 'positive' %>
     		<% end %>
   		<% end %>
@@ -24,7 +24,7 @@
     	  	<thead>
     	      <tr>
     	        <th>Photo</th>
-    	        <th>Credit</th>
+    	        <th>Caption</th>
     	        <th>Primary</th>
     	        <th>Actions</th>
     	      </tr>
