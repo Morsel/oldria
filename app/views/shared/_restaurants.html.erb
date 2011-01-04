@@ -1,33 +1,31 @@
+<%= title current_user.employments.blank? ? "Promote your Restaurant on Soapbox!" : "My Restaurants" %>
 <div id="my_restaurants" rel="My Restaurants" class="sidebar_section restaurants clearfix">
-  <h3 class="section_header">
-    <%= current_user.employments.blank? ? "Promote your Restaurant on Soapbox!" : "My Restaurants" %>
-  </h3>
-  <div class="section_body">
-    <div class="my_employers">
-      <% if current_user.employments.blank? -%>
-        <p class="none">
-          You've all heard that today's news is tomorrow's bird-cage liner. 
-          We'd like to add that the conventional press kit is garbage before it's even sent out the door. 
-          Press kits aren't searchable, they aren't complete, and, there's no way to update the information once it is out the door. 
-          We think a restaurant deserves better.
-        </p>
-        <p class="none">
-          Soapbox restaurant profiles are specifically crafted to help you share all the information media 
-          need and are designed to be flexible, searchable, update-able and comprehensive marketing platforms for our members. 
-        </p>
-        <p class="none">
-          So add your restaurant to Spoonfeed, start filling out the details and upgrade to Soapbox — 
-          you'll connect to diners as well as media, building traffic to your restaurant with our affordable, easy system.
-        </p>
-      <% else %>
-        <% current_user.employments.each do |employment| %>
-          <div class="<%= dom_class(employment.restaurant) %>">
-            <%= restaurant_link(employment.restaurant) %>
-            <% if employment.omniscient? %><span class="restaurant_admin">Admin</span><% end %>
-          </div>
-        <% end %>
-      <% end %>
-    </div>
+  <div class="employers">
+  	<% if current_user.employments.blank? -%>
+      <p class="none">
+        You've all heard that today's news is tomorrow's bird-cage liner. 
+        We'd like to add that the conventional press kit is garbage before it's even sent out the door. 
+        Press kits aren't searchable, they aren't complete, and, there's no way to update the information once it is out the door. 
+        We think a restaurant deserves better.
+      </p>
+      <p class="none">
+        Soapbox restaurant profiles are specifically crafted to help you share all the information media 
+        need and are designed to be flexible, searchable, update-able and comprehensive marketing platforms for our members. 
+      </p>
+      <p class="none">
+        So add your restaurant to Spoonfeed, start filling out the details and upgrade to Soapbox — 
+        you'll connect to diners as well as media, building traffic to your restaurant with our affordable, easy system.
+      </p>
+		<% else %>
+			<ul>
+				<% current_user.employments.each do |employment| %>
+					<li class="<%= dom_class(employment.restaurant) %>">
+						<%= link_to h(employment.restaurant_name), employment.restaurant %>
+						<% if employment.omniscient? %><span>(Admin)</span><% end %>
+					</li>
+				<% end %>
+			</ul>
+		<% end %>
   </div>
-</div>
+</div><!-- #my_restaurants -->
 <p><%= link_to "Add a restaurant", new_restaurant_path, :class => "button" %></p>
