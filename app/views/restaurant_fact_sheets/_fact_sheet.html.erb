@@ -284,6 +284,11 @@
         Concept:
         <strong><%=h fact_sheet.concept %></strong>
       <% end unless fact_sheet.concept.blank? %>
+
+      <% content_tag(:li) do %>
+        Entertainment:
+        <strong><%=h fact_sheet.entertainments.map(&:downcase).join(", ") %></strong>
+      <% end unless fact_sheet.entertainments.blank? %>
     </ul>
     <span class="timestamp">
         Last updated:

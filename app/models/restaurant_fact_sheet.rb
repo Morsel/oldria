@@ -64,6 +64,7 @@ class RestaurantFactSheet < ActiveRecord::Base
   CONCEPT_OPTIONS = ["bar", "casual", "casual chef-driven", "chef driven", "counter-service",
                      "fast casual", "fast food", "fine dining", "food truck", "formal dining",
                      "neighborhood dining", "quick service", "self-serve", "takeout only", "retail"]
+  ENTERTAINMENT_OPTIONS = ["Live Music", "Dancing", "DJ", "Performers", "Piano bar", "Karaoke", "Special appearances"]
   MONEY_FORMAT = /^\d+??(?:\.\d{0,2})?$/
 
   belongs_to :restaurant
@@ -103,7 +104,7 @@ class RestaurantFactSheet < ActiveRecord::Base
   validates_format_of :large_plate_max_price, :with => MONEY_FORMAT
   validates_format_of :dessert_plate_min_price, :with => MONEY_FORMAT
   validates_format_of :dessert_plate_max_price, :with => MONEY_FORMAT
-  validates_numericality_of :wine_by_the_glass_count, :integer_only => true, :allow_nil => true, :allow_blank => true
+  validates_numericality_of :wine_by_the_glass_count, :integer_only => true, :alllow_nil => true, :allow_blank => true
   validates_format_of :wine_by_the_glass_min_price, :with => MONEY_FORMAT
   validates_format_of :wine_by_the_glass_max_price, :with => MONEY_FORMAT
   validates_numericality_of :wine_by_the_bottle_count, :integer_only => true, :allow_nil => true, :allow_blank => true
@@ -132,6 +133,14 @@ class RestaurantFactSheet < ActiveRecord::Base
     info_exists
   end
 
+  def entertainments=(values)
+    self.entertainment = Marshal.dump(values.reject {|v| v.blank?})
+  end
+
+  def entertainments
+    Marshal.load(entertainment)
+  end
+
   private
 
   def update_timestamps
@@ -149,6 +158,6 @@ class RestaurantFactSheet < ActiveRecord::Base
     :pricing => [:dinner_average_price, :lunch_average_price, :brunch_average_price, :breakfast_average_price, :children_average_price, :small_plate_min_price, :small_plate_max_price, :large_plate_min_price, :large_plate_max_price, :dessert_plate_min_price, :dessert_plate_max_price, :wine_by_the_glass_count, :wine_by_the_glass_min_price, :wine_by_the_glass_max_price, :wine_by_the_bottle_count, :wine_by_the_bottle_min_price, :wine_by_the_bottle_max_price, :wine_by_the_bottle_details],
     :guest_relations => [:reservations, :cancellation_policy, :payment_methods, :byob_allowed, :corkage_fee, :dress_code, :delivery],
     :design => [:architect_name, :graphic_designer, :furniture_designer, :furniture_manufacturer, :flooring, :millwork, :china, :kitchen_equipment, :lighting, :draperies, :square_footage],
-    :other => [:wheelchair_access, :smoking, :concept]
+    :other => [:wheelchair_access, :smoking, :concept, :entertainment]
   }
 end
