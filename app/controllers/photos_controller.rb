@@ -9,6 +9,10 @@ class PhotosController < ApplicationController
 
   def edit
     @photo = @restaurant.photos.find(params[:id])
+    respond_to do |format|
+      format.html
+      format.js   { render :action => :edit, :layout => false }
+    end
   end
 
   def update
@@ -37,7 +41,10 @@ class PhotosController < ApplicationController
 
   def destroy
     @restaurant.photos.delete(Photo.find(params[:id]))
-    redirect_to bulk_edit_restaurant_photos_path(@restaurant)
+     respond_to do |format|
+       format.html { redirect_to bulk_edit_restaurant_photos_path(@restaurant) }
+       format.js   { render :nothing  => true }
+     end
   end
 
   def reorder

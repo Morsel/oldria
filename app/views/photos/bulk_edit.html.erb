@@ -35,7 +35,9 @@
     	      	<td><%= image_tag photo.attachment.url(:medium), :class => "restaurant_photo" %></td>
     	      	<td class="restaurant_photo_credit"><%= photo.credit %></td>
     	      	<td><%= restaurant_form.radio_button :primary_photo_id, photo.id %></td>
-    	      	<td><%= link_to "Remove", restaurant_photo_path(@restaurant, photo), :method => :delete, :confirm => "Are you sure you want to remove the photo?", :class => 'delete' %><%= link_to "Edit", edit_restaurant_photo_path(@restaurant, photo), :class => 'colorbox' %></td>
+                <td>
+                  <%= link_to "Remove", restaurant_photo_path(@restaurant, photo), :method => :delete, :confirm => "Are you sure you want to remove the photo?", :class => 'delete' %>
+                  <%= link_to "Edit", edit_restaurant_photo_path(@restaurant, photo), :class => ['colorbox', ' edit-link'] %></td>
     	    		<% end %>
     	  		<% end %>
     	  	</tbody>
@@ -47,12 +49,20 @@
 	</div><!--#editing_restaurant-->
 
 </div><!-- /restaurant_profile_view -->
-
-
 <% content_for :javascript do %>
 
   <script type="text/javascript">
     //<![CDATA[
+    
+   jQuery(document).ready(function($) {
+      // set tr as container selector for delete link
+      $('.editing a.delete').ajaxDestroyLink({ containerSelector: 'tr:first' });
+      // add js format for "edit photo" link
+      $('.editing a.edit-link').attr('href', function() {
+        return (this.href + '.js');
+      });
+    });
+
     $('#photos').sortable(
     {
       axis: 'y',
