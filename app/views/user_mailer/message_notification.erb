@@ -9,7 +9,7 @@
 </p>
 <p id="messagelink" style="clear: both; font-size: 16px;">
   <% if title == "Announcement" -%>
-    <a href="http://spoonfeed.restaurantintelligenceagency.com/dashboard/refresh" style="color: #cc6632; font-weight: bold; text-decoration: none;">Read the Announcement &#187;</a>
+    <%= link_to "Read the Announcement &#187;", dashboard_url, :style => "color: #cc6632; font-weight: bold; text-decoration: none;" %>
   <% else -%>
     <a href="<%= @message.respond_to?(:admin_message) ? admin_conversation_url(@message) : polymorphic_url(@message) %>" style="color: #cc6632; font-weight: bold; text-decoration: none;">Respond to the <%= title %> &#187;</a>
   <% end -%>
