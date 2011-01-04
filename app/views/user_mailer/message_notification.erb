@@ -7,13 +7,9 @@
       <img src="http://spoonfeed.restaurantintelligenceagency.com/images/bubble_large.png" align="left" alt="" style="margin-bottom:30px;margin-right:10px;float:left">
       You've received <%= indefenite_article(title) %> <%= title %><%= " from #{@sender.name}" if @sender %>.
 </p>
-<p>
-  <%= title %><br>
-  <%= title == "Announcement" %>
-</p>
 <p id="messagelink" style="clear: both; font-size: 16px;">
   <% if title == "Announcement" -%>
-    <a href="http://spoonfeed.restaurantintelligenceagency.com/dashboard/refresh">Read the Announcement &#187;</a>
+    <a href="http://spoonfeed.restaurantintelligenceagency.com/dashboard/refresh" style="color: #cc6632; font-weight: bold; text-decoration: none;">Read the Announcement &#187;</a>
   <% else -%>
     <a href="<%= @message.respond_to?(:admin_message) ? admin_conversation_url(@message) : polymorphic_url(@message) %>" style="color: #cc6632; font-weight: bold; text-decoration: none;">Respond to the <%= title %> &#187;</a>
   <% end -%>
