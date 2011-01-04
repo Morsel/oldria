@@ -138,7 +138,14 @@ class RestaurantFactSheet < ActiveRecord::Base
   end
 
   def entertainments
-    Marshal.load(entertainment)
+    result = []
+
+    begin
+      result = Marshal.load(entertainment)
+    rescue
+    end unless entertainment.blank?
+
+    result
   end
 
   private
