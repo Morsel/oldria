@@ -1,265 +1,528 @@
 ---
 metroregions:
-- Abilene TX
-- Akron OH
-- Albuquerque NM
-- Alexandria VA
-- Allentown PA
-- Amarillo TX
-- Anaheim CA
-- Anchorage AK
-- Ann Arbor Mi
-- Arlington TX
-- Arlington VA
-- Arvada CO
-- Athens GA
-- Atlanta GA
-- Augusta GA
-- Aurora CO
-- Aurora IL
-- Austin TX
-- Bakersfield Ca
-- Baltimore MD
-- Baton Rouge LA
-- Beaumont TX
-- Bellevue WA
-- Berkeley CA
-- Billings MT
-- Birmingham AL
-- Boise ID
-- Boston MA
-- Bridgeport CT
-- Brownsville TX
-- Buffalo NY
-- Burbank CA
-- Cambridge MA
-- Cape Coral FL
-- Carrollton TX
-- Cary NC
-- Cedar Rapids IA
-- Chandler AZ
-- Charleston SC
-- Charlotte NC
-- Chattanooga TN
-- Chesapeake VA
-- Chicago IL
-- Chula Vista CA
-- Cincinnati OH
-- Clarksville TN
-- Clearwater FL
-- Cleveland OH
-- Colorado Springs CO
-- Columbia SC
-- Columbus OH
-- Columbus GA
-- Concord CA
-- Coral Springs FL
-- Corona CA
-- Corpus Christi TX
-- Costa Mesa CA
-- Dallas TX
-- Daly City CA
-- Dayton OH
-- Denton TX
-- Denver CO
-- Des Moines IA
-- Detroit MI
-- Downey CA
-- Durham NC
-- El Monte CA
-- El Paso TX
-- Elgin Illinois
-- Elizabeth NJ
-- Elk Grove CA
-- Erie PA
-- Escondido CA
-- Eugene OR
-- Evansville IN
-- Fairfield CA
-- Fayetteville NC
-- Flint MI
-- Fontana CA
-- Fort Collins CO
-- Fort Lauderdale FL
-- Fort Wayne IN
-- Fort Worth TX
-- Fremont CA
-- Fresno CA
-- Fullerton CA
-- Gainesville FL
-- Garden Grove CA
-- Garland TX
-- Gilbert AZ
-- Glendale AZ
-- Glendale CA
-- Grand Prairie TX
-- Grand Rapids MI
-- Green Bay WI
-- Greensboro NC
-- Hampton VA
-- Hartford CT
-- Hayward CA
-- Henderson NV
-- Hialeah FL
-- High Point NC
-- Hollywood FL
-- Honolulu HI
-- Houston TX
-- Huntington Beach CA
-- Huntsville AL
-- Independence MO
-- Indianapolis IN
-- Inglewood CA
-- Irvine CA
-- Irving TX
-- Jackson MS
-- Jacksonville FL
-- Jersey City NJ
-- Joliet IL
-- Kansas City KS
-- Kansas City MO
-- Killeen TX
-- Knoxville TN
-- Lafayette LA
-- Lakewood CO
-- Lancaster CA
-- Lansing MI
-- Laredo TX
-- Las Vegas NV
-- Lexington KY
-- Lincoln NE
-- Little Rock AR
-- Long Beach CA
-- Los Angeles CA
-- Louisville KY
-- Lowell MA
-- Lubbock TX
-- Madison WI
-- Manchester NH
-- McAllen TX
-- McKinney TX
-- Memphis TN
-- Mesa AZ
-- Mesquite TX
-- Miami Gardens FL
-- Miami FL
-- Midland TX
-- Milwaukee WI
-- Minneapolis MN
-- Miramar FL
-- Mobile AL
-- Modesto CA
-- Montgomery AL
-- Moreno Valley CA
-- Naperville IL
-- Nashville TN
-- New Haven CT
-- New Orleans LA
-- New York City NY
-- Newark NJ
-- Newport News VA
-- Norfolk VA
-- Norman OK
-- North Las Vegas NV
-- Norwalk CA
-- Oakland CA
-- Oceanside CA
-- Oklahoma City OK
-- Olathe KS
-- Omaha NE
-- Ontario CA
-- Orange CA
-- Orlando FL
-- Overland Park KS
-- Oxnard CA
-- Palm Bay FL
-- Palmdale CA
-- Pasadena TX
-- Pasadena CA
-- Paterson NJ
-- Pembroke Pines FL
-- Peoria AZ
-- Peoria IL
-- Philadelphia PA
-- Phoenix AZ
-- Pittsburgh PA
-- Plano TX
-- Pomona CA
-- Pompano Beach FL
-- Port St. Lucie FL
-- Portland OR
-- Portsmouth VA
-- Providence RI
-- Provo UT
-- Pueblo CO
-- Raleigh NC
-- Rancho Cucamonga CA
-- Reno NV
-- Richmond CA
-- Richmond VA
-- Riverside CA
-- Rochester NY
-- Rockford IL
-- Roseville CA
-- Sacramento CA
-- Salem OR
-- Salinas CA
-- Salt Lake City UT
-- San Antonio TX
-- San Bernardino CA
-- San Buenaventura CA
-- San Diego CA
-- San Francisco CA
-- San Jose CA
-- Santa Ana CA
-- Santa Clara CA
-- Santa Clarita CA
-- Santa Rosa CA
-- Savannah GA
-- Scottsdale AZ
-- Seattle WA
-- Shreveport LA
-- Simi Valley CA
-- Sioux Falls SD
-- South Bend IN
-- Spokane WA
-- Springfield MOi
-- Springfield IL
-- Springfield MA
-- St. Louis MO
-- St. Paul MN
-- St. Petersburg FL
-- Stamford CT
-- Sterling Heights MI
-- Stockton CA
-- Sunnyvale CA
-- Syracuse NY
-- Tacoma WA
-- Tallahassee FL
-- Tampa FL
-- Tempe AZ
-- Thornton CO
-- Thousand Oaks CA
-- Toledo OH
-- Topeka KS
-- Torrance CA
-- Tucson AZ
-- Tulsa OK
-- Vallejo CA
-- Vancouver WA
-- Victorville CA
-- Virginia Beach VA
-- Visalia CA
-- Waco TX
-- Warren MI
-- Washington DC
-- Waterbury CT
-- West Covina CA
-- West Jordan UT
-- West Valley City UT
-- Westminster CO
-- Wichita KS
-- Wichita Falls TX
-- Winston-Salem NC
-- Worcester MA
-- Yonkers NY
+- name: Abilene
+  state: Texas
+- name: Akron
+  state: Ohio
+- name: Albuquerque
+  state: New Mexico
+- name: Alexandria
+  state: Virginia
+- name: Allentown
+  state: Pennsylvania
+- name: Amarillo
+  state: Texas
+- name: Anaheim
+  state: California
+- name: Anchorage
+  state: Alaska
+- name: Ann Arbor
+  state: Michican
+- name: Arlington
+  state: Texas
+- name: Arlington
+  state: Virginia
+- name: Arvada
+  state: Colorado
+- name: Athens
+  state: Georgia
+- name: Atlanta
+  state: Georgia
+- name: Augusta
+  state: Georgia
+- name: Aurora
+  state: Colorado
+- name: Aurora
+  state: Illinois
+- name: Austin
+  state: Texas
+- name: Bakersfield
+  state: California
+- name: Baltimore
+  state: Maryland
+- name: Baton Rouge
+  state: Louisiana
+- name: Beaumont
+  state: Texas
+- name: Bellevue
+  state: Washington
+- name: Berkeley
+  state: California
+- name: Billings
+  state: Montana
+- name: Birmingham
+  state: Alabama
+- name: Boise
+  state: Idaho
+- name: Boston
+  state: Massachusetts
+- name: Bridgeport
+  state: Connecticut
+- name: Brownsville
+  state: Texas
+- name: Buffalo
+  state: New York
+- name: Burbank
+  state: California
+- name: Cambridge
+  state: Massachusetts
+- name: Cape Coral
+  state: Florida
+- name: Carrollton
+  state: Texas
+- name: Cary
+  state: North Carolina
+- name: Cedar Rapids
+  state: Iowa
+- name: Chandler
+  state: Arizona
+- name: Charleston
+  state: South Carolina
+- name: Charlotte
+  state: North Carolina
+- name: Chattanooga
+  state: Tennessee
+- name: Chesapeake
+  state: Virginia
+- name: Chicago
+  state: Illinois
+- name: Chula Vista
+  state: California
+- name: Cincinnati
+  state: Ohio
+- name: Clarksville
+  state: Tennessee
+- name: Clearwater
+  state: Florida
+- name: Cleveland
+  state: Ohio
+- name: Colorado Springs
+  state: Colorado
+- name: Columbia
+  state: South Carolina
+- name: Columbus
+  state: Ohio
+- name: Columbus
+  state: Georgia
+- name: Concord
+  state: California
+- name: Coral Springs
+  state: Florida
+- name: Corona
+  state: California
+- name: Corpus Christi
+  state: Texas
+- name: Costa Mesa
+  state: California
+- name: Dallas
+  state: Texas
+- name: Daly City
+  state: California
+- name: Dayton
+  state: Ohio
+- name: Denton
+  state: Texas
+- name: Denver
+  state: Colorado
+- name: Des Moines
+  state: Iowa
+- name: Detroit
+  state: Michican
+- name: Downey
+  state: California
+- name: Durham
+  state: North Carolina
+- name: El Monte
+  state: California
+- name: El Paso
+  state: Texas
+- name: Elgin
+  state: Illinois
+- name: Elizabeth
+  state: New Jersey
+- name: Elk Grove
+  state: California
+- name: Erie
+  state: Pennsylvania
+- name: Escondido
+  state: California
+- name: Eugene
+  state: Oregon
+- name: Evansville
+  state: Indiana
+- name: Fairfield
+  state: California
+- name: Fayetteville
+  state: North Carolina
+- name: Flint
+  state: Michican
+- name: Fontana
+  state: California
+- name: Fort Collins
+  state: Colorado
+- name: Fort Lauderdale
+  state: Florida
+- name: Fort Wayne
+  state: Indiana
+- name: Fort Worth
+  state: Texas
+- name: Fremont
+  state: California
+- name: Fresno
+  state: California
+- name: Fullerton
+  state: California
+- name: Gainesville
+  state: Florida
+- name: Garden Grove
+  state: California
+- name: Garland
+  state: Texas
+- name: Gilbert
+  state: Arizona
+- name: Glendale
+  state: Arizona
+- name: Glendale
+  state: California
+- name: Grand Prairie
+  state: Texas
+- name: Grand Rapids
+  state: Michican
+- name: Green Bay
+  state: Wisconsin
+- name: Greensboro
+  state: North Carolina
+- name: Hampton
+  state: Virginia
+- name: Hartford
+  state: Connecticut
+- name: Hayward
+  state: California
+- name: Henderson
+  state: Nevada
+- name: Hialeah
+  state: Florida
+- name: High Point
+  state: North Carolina
+- name: Hollywood
+  state: Florida
+- name: Honolulu
+  state: Hawaii
+- name: Houston
+  state: Texas
+- name: Huntington Beach
+  state: California
+- name: Huntsville
+  state: Alabama
+- name: Independence
+  state: Missouri
+- name: Indianapolis
+  state: Indiana
+- name: Inglewood
+  state: California
+- name: Irvine
+  state: California
+- name: Irving
+  state: Texas
+- name: Jackson
+  state: Mississippi
+- name: Jacksonville
+  state: Florida
+- name: Jersey City
+  state: New Jersey
+- name: Joliet
+  state: Illinois
+- name: Kansas City
+  state: Kansas
+- name: Kansas City
+  state: Missouri
+- name: Killeen
+  state: Texas
+- name: Knoxville
+  state: Tennessee
+- name: Lafayette
+  state: Louisiana
+- name: Lakewood
+  state: Colorado
+- name: Lancaster
+  state: California
+- name: Lansing
+  state: Michican
+- name: Laredo
+  state: Texas
+- name: Las Vegas
+  state: Nevada
+- name: Lexington
+  state: Kentucky
+- name: Lincoln
+  state: Nebraska
+- name: Little Rock
+  state: Arkansas
+- name: Long Beach
+  state: California
+- name: Los Angeles
+  state: California
+- name: Louisville
+  state: Kentucky
+- name: Lowell
+  state: Massachusetts
+- name: Lubbock
+  state: Texas
+- name: Madison
+  state: Wisconsin
+- name: Manchester
+  state: New Hampshire
+- name: McAllen
+  state: Texas
+- name: McKinney
+  state: Texas
+- name: Memphis
+  state: Tennessee
+- name: Mesa
+  state: Arizona
+- name: Mesquite
+  state: Texas
+- name: Miami Gardens
+  state: Florida
+- name: Miami
+  state: Florida
+- name: Midland
+  state: Texas
+- name: Milwaukee
+  state: Wisconsin
+- name: Minneapolis
+  state: Minnesota
+- name: Miramar
+  state: Florida
+- name: Mobile
+  state: Alabama
+- name: Modesto
+  state: California
+- name: Montgomery
+  state: Alabama
+- name: Moreno Valley
+  state: California
+- name: Naperville
+  state: Illinois
+- name: Nashville
+  state: Tennessee
+- name: New Haven
+  state: Connecticut
+- name: New Orleans
+  state: Louisiana
+- name: New York City
+  state: New York
+- name: Newark
+  state: New Jersey
+- name: Newport News
+  state: Virginia
+- name: Norfolk
+  state: Virginia
+- name: Norman
+  state: Alaska
+- name: North Las Vegas
+  state: Nevada
+- name: Norwalk
+  state: California
+- name: Oakland
+  state: California
+- name: Oceanside
+  state: California
+- name: Oklahoma City
+  state: Alaska
+- name: Olathe
+  state: Kansas
+- name: Omaha
+  state: Nebraska
+- name: Ontario
+  state: California
+- name: Orange
+  state: California
+- name: Orlando
+  state: Florida
+- name: Overland Park
+  state: Kansas
+- name: Oxnard
+  state: California
+- name: Palm Bay
+  state: Florida
+- name: Palmdale
+  state: California
+- name: Pasadena
+  state: Texas
+- name: Pasadena
+  state: California
+- name: Paterson
+  state: New Jersey
+- name: Pembroke Pines
+  state: Florida
+- name: Peoria
+  state: Arizona
+- name: Peoria
+  state: Illinois
+- name: Philadelphia
+  state: Pennsylvania
+- name: Phoenix
+  state: Arizona
+- name: Pittsburgh
+  state: Pennsylvania
+- name: Plano
+  state: Texas
+- name: Pomona
+  state: California
+- name: Pompano Beach
+  state: Florida
+- name: Port St. Lucie
+  state: Florida
+- name: Portland
+  state: Oregon
+- name: Portsmouth
+  state: Virginia
+- name: Providence
+  state: Rhode Island
+- name: Provo
+  state: Utah
+- name: Pueblo
+  state: Colorado
+- name: Raleigh
+  state: North Carolina
+- name: Rancho Cucamonga
+  state: California
+- name: Reno
+  state: Nevada
+- name: Richmond
+  state: California
+- name: Richmond
+  state: Virginia
+- name: Riverside
+  state: California
+- name: Rochester
+  state: New York
+- name: Rockford
+  state: Illinois
+- name: Roseville
+  state: California
+- name: Sacramento
+  state: California
+- name: Salem
+  state: Oregon
+- name: Salinas
+  state: California
+- name: Salt Lake City
+  state: Utah
+- name: San Antonio
+  state: Texas
+- name: San Bernardino
+  state: California
+- name: San Buenaventura
+  state: California
+- name: San Diego
+  state: California
+- name: San Francisco
+  state: California
+- name: San Jose
+  state: California
+- name: Santa Ana
+  state: California
+- name: Santa Clara
+  state: California
+- name: Santa Clarita
+  state: California
+- name: Santa Rosa
+  state: California
+- name: Savannah
+  state: Georgia
+- name: Scottsdale
+  state: Arizona
+- name: Seattle
+  state: Washington
+- name: Shreveport
+  state: Louisiana
+- name: Simi Valley
+  state: California
+- name: Sioux Falls
+  state: South Dakota
+- name: South Bend
+  state: Indiana
+- name: Spokane
+  state: Washington
+- name: Springfield
+  state: Missourii
+- name: Springfield
+  state: Illinois
+- name: Springfield
+  state: Massachusetts
+- name: St. Louis
+  state: Missouri
+- name: St. Paul
+  state: Minnesota
+- name: St. Petersburg
+  state: Florida
+- name: Stamford
+  state: Connecticut
+- name: Sterling Heights
+  state: Michican
+- name: Stockton
+  state: California
+- name: Sunnyvale
+  state: California
+- name: Syracuse
+  state: New York
+- name: Tacoma
+  state: Washington
+- name: Tallahassee
+  state: Florida
+- name: Tampa
+  state: Florida
+- name: Tempe
+  state: Arizona
+- name: Thornton
+  state: Colorado
+- name: Thousand Oaks
+  state: California
+- name: Toledo
+  state: Ohio
+- name: Topeka
+  state: Kansas
+- name: Torrance
+  state: California
+- name: Tucson
+  state: Arizona
+- name: Tulsa
+  state: Alaska
+- name: Vallejo
+  state: California
+- name: Vancouver
+  state: Washington
+- name: Victorville
+  state: California
+- name: Virginia Beach
+  state: Virginia
+- name: Visalia
+  state: California
+- name: Waco
+  state: Texas
+- name: Warren
+  state: Michican
+- name: Washington
+  state: D.C.
+- name: Waterbury
+  state: Connecticut
+- name: West Covina
+  state: California
+- name: West Jordan
+  state: Utah
+- name: West Valley City
+  state: Utah
+- name: Westminster
+  state: Colorado
+- name: Wisconsinchita
+  state: Kansas
+- name: Wisconsinchita Falls
+  state: Texas
+- name: Wisconsinnston-Salem
+  state: North Carolina
+- name: Worcester
+  state: Massachusetts
+- name: Yonkers
+  state: New York
