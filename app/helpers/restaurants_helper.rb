@@ -20,4 +20,8 @@ module RestaurantsHelper
       user.employments.all(:order => '"primary" DESC', :include => :restaurant).map{|e| restaurant_link(e.restaurant) }.to_sentence
     end
   end
+  
+  def correct_restaurant_photos_path restaurant
+     soapbox? ? soapbox_restaurant_photos_path(restaurant) : restaurant_photos_path(restaurant)
+  end
 end
