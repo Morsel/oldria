@@ -111,6 +111,7 @@
           <% f.inputs :name => "Miscellaneous", :class => "editing misc" do %>
             <%= f.input :wheelchair_access, :hint => "e.g., Yes/no" %>
             <%= f.input :smoking, :as => :select, :collection => smoking_options %>
+            <%= f.input :concept, :as => :select, :collection => concept_options %>
           <% end %>
 
           <% f.buttons do %>

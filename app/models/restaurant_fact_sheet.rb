@@ -61,6 +61,9 @@ class RestaurantFactSheet < ActiveRecord::Base
   PARKING_OPTIONS = ["garage", "valet", "street", "lot"]
   RESERVATIONS_OPTIONS = ["accepted", "not accepted", "required", "recommended"]
   SMOKING_OPTIONS = ["not allowed", "outdoors only", "lounge only", "bar only", "hookahs"]
+  CONCEPT_OPTIONS = ["bar", "casual", "casual chef-driven", "chef driven", "counter-service",
+                     "fast casual", "fast food", "fine dining", "food truck", "formal dining",
+                     "neighborhood dining", "quick service", "self-serve", "takeout only", "retail"]
   MONEY_FORMAT = /^\d+??(?:\.\d{0,2})?$/
 
   belongs_to :restaurant
@@ -77,6 +80,7 @@ class RestaurantFactSheet < ActiveRecord::Base
   validates_inclusion_of :parking, :in => PARKING_OPTIONS, :message => "extension %s is not included in the list", :allow_blank => true, :allow_nil => true
   validates_inclusion_of :reservations, :in => RESERVATIONS_OPTIONS, :message => "extension %s is not included in the list", :allow_blank => true, :allow_nil => true
   validates_inclusion_of :smoking, :in => SMOKING_OPTIONS, :message => "extension %s is not included in the list", :allow_blank => true, :allow_nil => true
+  validates_inclusion_of :concept, :in => CONCEPT_OPTIONS, :message => "extension %s is not included in the list", :allow_blank => true, :allow_nil => true
   validates_presence_of :small_plate_min_price, :message => "can't be blank", :if => proc { |obj| obj.small_plate_max_price? }
   validates_presence_of :small_plate_max_price, :message => "can't be blank", :if => proc { |obj| obj.small_plate_min_price? }
   validates_presence_of :large_plate_min_price, :message => "can't be blank", :if => proc { |obj| obj.large_plate_max_price? }
@@ -118,7 +122,7 @@ class RestaurantFactSheet < ActiveRecord::Base
   def hours_updated_at
     meals.collect(&:updated_at).max
   end
-  
+
   def info_exists?
     info_exists = false
     [:parking_and_directions, :pricing, :guest_relations, :design, :other].each do |field_set|
@@ -145,6 +149,6 @@ class RestaurantFactSheet < ActiveRecord::Base
     :pricing => [:dinner_average_price, :lunch_average_price, :brunch_average_price, :breakfast_average_price, :children_average_price, :small_plate_min_price, :small_plate_max_price, :large_plate_min_price, :large_plate_max_price, :dessert_plate_min_price, :dessert_plate_max_price, :wine_by_the_glass_count, :wine_by_the_glass_min_price, :wine_by_the_glass_max_price, :wine_by_the_bottle_count, :wine_by_the_bottle_min_price, :wine_by_the_bottle_max_price, :wine_by_the_bottle_details],
     :guest_relations => [:reservations, :cancellation_policy, :payment_methods, :byob_allowed, :corkage_fee, :dress_code, :delivery],
     :design => [:architect_name, :graphic_designer, :furniture_designer, :furniture_manufacturer, :flooring, :millwork, :china, :kitchen_equipment, :lighting, :draperies, :square_footage],
-    :other => [:wheelchair_access, :smoking]
+    :other => [:wheelchair_access, :smoking, :concept]
   }
 end

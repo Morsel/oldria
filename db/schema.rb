@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110104100119) do
+ActiveRecord::Schema.define(:version => 20110104110612) do
 
   create_table "a_la_minute_answers", :force => true do |t|
     t.text     "answer"
@@ -788,6 +788,7 @@ ActiveRecord::Schema.define(:version => 20110104100119) do
     t.datetime "updated_at"
     t.string   "days_closed"
     t.string   "holidays_closed"
+    t.string   "concept"
   end
 
   create_table "restaurant_feature_categories", :force => true do |t|

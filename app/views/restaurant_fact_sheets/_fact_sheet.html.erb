@@ -279,6 +279,11 @@
         Smoking:
         <strong><%=h fact_sheet.smoking %></strong>
       <% end unless fact_sheet.smoking.blank? %>
+
+      <% content_tag(:li) do %>
+        Concept:
+        <strong><%=h fact_sheet.concept %></strong>
+      <% end unless fact_sheet.concept.blank? %>
     </ul>
     <span class="timestamp">
         Last updated:
