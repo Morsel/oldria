@@ -4,7 +4,7 @@ class WelcomeController < ApplicationController
   # preload classes which may be used while caching
   # to prevent "undefined class/module"
   before_filter :preload_classes
-  before_filter :require_user, :only => [:refresh]
+  before_filter :require_user, :only => [:refresh, :require_login]
 
   # cache dashboard for logged in users
   caches_action :index,
@@ -30,6 +30,10 @@ class WelcomeController < ApplicationController
       @sf_promos = SfPromo.all(:limit => 4)
       render :layout => 'home'
     end
+  end
+  
+  def require_login
+    redirect_to :action => :index
   end
 
   # GET /welcome/refresh
