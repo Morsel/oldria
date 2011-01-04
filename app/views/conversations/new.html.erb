@@ -1,5 +1,4 @@
-<% title "New Conversation" %>
-
+<% title "New Conversation" -%>
 <% semantic_form_for(@discussion, :html => { :multipart => true }) do |f| %>
 <div>
   <% f.inputs :class => "plain" do %>
@@ -9,17 +8,11 @@
       <p class="attach">Attach files</p>
       <p class="attachfield"><%= child_form.file_field :attachment %></p>
     <% end -%>
-    
-    <h3 class="form-header discussion-recipients-header">Conversation recipients</h3>
-    <div id="employment_list" class="clearfix">
-      <%= render :partial => 'shared/employment_list' %>
-    </div>
-
     <p><%= button_tag "Post", :class => 'submit' %></p>
 </div>
+<h3 class="form-header discussion-recipients-header">Conversation recipients</h3> 
 <div>
   <%= render :partial => 'shared/employment_criteria', :locals => {:f => f} %>
 </div>
-
   <% end -%>
 <% end %>
