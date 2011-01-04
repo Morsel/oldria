@@ -25,6 +25,7 @@ class Image < Attachment
   has_attached_file :attachment,
     :storage => :s3,
     :styles => {
+      :large => "640x640>",
       :medium => "320x320>",
       :small => "100x100>",
       :thumbnail => "40x40>"
