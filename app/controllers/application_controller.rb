@@ -15,11 +15,11 @@ class ApplicationController < ActionController::Base
 
   # before_filter :preload_resources
   
-  # Disabled until we restore btl_game in the sidebar
   before_filter :load_random_btl_question
 
   helper_method :current_user
   helper_method :mediafeed?
+  helper_method :soapbox?
 
   rescue_from CanCan::AccessDenied do
     if current_user
@@ -34,7 +34,7 @@ class ApplicationController < ActionController::Base
   private
 
   def site_layout
-    params[:controller].match(/soapbox/) ? 'soapbox' : 'application'
+    soapbox? ? 'soapbox' : 'application'
   end
 
   def mediafeed?
@@ -43,6 +43,13 @@ class ApplicationController < ActionController::Base
         params[:controller].match(/mediafeed/) || 
         (current_user && current_user.media?) || 
         request.path.match(/mediafeed/)
+  end
+  
+  def soapbox?
+    return @is_soapbox if defined?(@is_soapbox)
+    @is_soapbox = (current_subdomain =~ /^soapbox/) || 
+        params[:controller].match(/soapbox/) || 
+        request.path.match(/soapbox/)
   end
 
   def find_user_feeds(dashboard = false)
@@ -235,12 +242,12 @@ class ApplicationController < ActionController::Base
     if params[:controller].match(/soapbox/) or params[:controller].match(/mediafeed/)
       search = User.in_soapbox_directory.search(params[:search]).all
       extra_search_results = User.in_soapbox_directory.search(extra_params).all if extra_params.present?
-      @users = [search, extra_search_results].flatten.compact.uniq.sort_by(&:last_name)
+      @users = [search, extra_search_results].flatten.compact.uniq.sort { |a,b| a.last_name.downcase <=> b.last_name.downcase }
     else
       search = User.in_spoonfeed_directory.search(params[:search]).all
       extra_search_results = User.in_spoonfeed_directory.search(extra_params).all if extra_params.present?
 
-      @users = [search, extra_search_results].flatten.compact.uniq.sort_by(&:last_name)
+      @users = [search, extra_search_results].flatten.compact.uniq.sort { |a,b| a.last_name.downcase <=> b.last_name.downcase }
     end
   end
   

@@ -6,7 +6,7 @@
   </header>
 
   <article class="employee_section">
-    <% if !employment.subject_matters.blank? %>
+    <% if !employment.subject_matters.blank? && !soapbox? %>
     <p class="responsibilities">
       Areas:
       <%=h employment.subject_matters.all.map(&:name).to_sentence %>
@@ -15,7 +15,7 @@
   </article>
 
   <article class="employee_section emp_actions">
-    <%= link_to "Private Message", new_user_direct_message_path(employment.employee), :class => 'pm' %>
+    <%= link_to "Private Message", new_user_direct_message_path(employment.employee), :class => 'pm' unless soapbox? %>
     <%- if can? :edit, employment.restaurant %>
       <%= link_to "Edit Employee", edit_restaurant_employee_path(employment.restaurant, employment.employee), :class => 'edit_emp' %>
     <% end -%>

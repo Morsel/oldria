@@ -11,6 +11,10 @@ module RestaurantFactSheetsHelper
     options_for(RestaurantFactSheet::SMOKING_OPTIONS)
   end
 
+  def concept_options
+    options_for(RestaurantFactSheet::CONCEPT_OPTIONS)
+  end
+
   def price(val)
     "$#{h(val)}"
   end
