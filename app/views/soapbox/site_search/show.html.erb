@@ -44,9 +44,9 @@
         <div class="subtitle">
           <h1>Restaurants</h1>
         </div>
-        <div>
-          <%= render :partial => 'restaurant_list_entry', :collection => @restaurants_found %>
-        </div>
+				<div class="resto_search">
+        	<%= render :partial => 'restaurant_list_entry', :collection => @restaurants_found %>
+				</div><!-- .resto_search-->
       <% end %>
 
       <%= will_paginate(@all_entries) %>

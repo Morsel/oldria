@@ -7,8 +7,8 @@
       <h4><%= @media_request.subject_matter.try(:name) %> (Original request)</h4>
        Due by <%= @media_request.due_date.try(:to_s, :long_ordinal) %>
        <% unless @media_request.publication.empty? || @media_request.sender.publication.empty? %>
-				  (<%= @media_request.publication || @media_request.sender.publication %>)
-				 <% end %>
+			  (<%= @media_request.publication || @media_request.sender.publication %>)
+        <% end %>
     </li>
 	</ul>
 	<p class="message">

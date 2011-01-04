@@ -21,9 +21,7 @@
   <% end %>
 </div>
 
-<% content_for :javascript do %>
-  <script type="text/javascript">
-    //<![CDATA[
+<% javascript_tag do %>
     jQuery(function($) {
       $(".toggle_new_photo").click(function(e) {
         e.preventDefault();
@@ -32,6 +30,4 @@
         $("#photo_attachment").val("");
       });
     });
-    //]]>
-  </script>
 <% end %>

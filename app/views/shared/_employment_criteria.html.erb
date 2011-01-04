@@ -7,9 +7,9 @@
 	<p class="search_filter_hint">Select a subject matter:</p>
       <div class="accordion_box">
         <%- if mediafeed? -%>
-        <%= link_to "<span>Subject Matter *</span>", "#" %>
+          <%= link_to "<span>Subject Matter *</span>", "#" %>
         <%- else -%>
-        <%= link_to "<span>Subject Matter</span>", "#" %>
+          <%= link_to "<span>Subject Matter</span>", "#" %>
         <%- end -%>
         <div id="subject_fields" class="loading">
             <%= s.input :subject_matters_id_equals_any, 

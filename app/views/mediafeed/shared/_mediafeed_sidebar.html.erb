@@ -4,7 +4,7 @@
 		  <% if current_user -%>
   			<%= link_to 'Create a Media Request', new_mediafeed_media_request_path, :class => 'promo media_request' %>
         <%= link_to 'Go to Soapbox', soapbox_root_path, :class => 'promo go_to_soapbox' %>
-        <%= link_to 'View the <h1>restaurant directory</h1> on Soapbox!', soapbox_restaurant_directory_path, :class => 'promo soapbox_directory', :target => "_blank" %>
+        <%= link_to 'View the <strong>restaurant directory</strong> on Soapbox!', soapbox_restaurant_directory_path, :class => 'promo soapbox_directory', :target => "_blank" %>
       <% else -%>
         &nbsp;
       <% end -%>

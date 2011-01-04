@@ -97,6 +97,8 @@ module NavigationHelpers
       bulk_edit_restaurant_menus_path(Restaurant.find_by_name($1))
     when /^the employee edit page for "(.+)" and "(.+)"$/
       edit_restaurant_employee_path(Restaurant.find_by_name($1), User.find_by_username($2))
+    when /^the restaurant photos page for (.+)$/
+      restaurant_photos_path(Restaurant.find_by_name($1))
 
     # Admin pages
     when /^the admin landing page$/
