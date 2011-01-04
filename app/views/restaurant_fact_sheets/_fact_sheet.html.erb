@@ -86,7 +86,7 @@
           </dl>
         <% end %>
       <% end %>
-      
+
       <% content_tag(:li) do %>
         Wine by the Glass count:
         <strong><%=h fact_sheet.wine_by_the_glass_count %></strong>
@@ -132,6 +132,19 @@
         </li>
       <% end %>
     </ul>
+    <% unless fact_sheet.days_closed.blank? && fact_sheet.holidays_closed.blank? %>
+      <h4>Closed</h4>
+      <ul class="hours_closed_info clearfix">
+        <% content_tag(:li) do %>
+          Days closed:
+          <strong><%=h fact_sheet.days_closed %></strong>
+        <% end unless fact_sheet.days_closed.blank? %>
+        <% content_tag(:li) do %>
+          Holidays closed:
+          <strong><%=h fact_sheet.holidays_closed %></strong>
+        <% end unless fact_sheet.holidays_closed.blank? %>
+      </ul>
+    <% end %>
     <span class="timestamp">
         Last updated:
         <%= fact_sheet.try(:hours_updated_at).try(:strftime, "%b %e %Y") %>

@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20101229130317) do
+ActiveRecord::Schema.define(:version => 20110104100119) do
 
   create_table "a_la_minute_answers", :force => true do |t|
     t.text     "answer"
@@ -786,6 +786,8 @@ ActiveRecord::Schema.define(:version => 20101229130317) do
     t.datetime "other_updated_at"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "days_closed"
+    t.string   "holidays_closed"
   end
 
   create_table "restaurant_feature_categories", :force => true do |t|
@@ -821,6 +823,15 @@ ActiveRecord::Schema.define(:version => 20101229130317) do
   end
 
   add_index "restaurant_features", ["restaurant_feature_category_id"], :name => "restaurant_feature_category_id_index"
+
+  create_table "restaurant_features_restaurants", :id => false, :force => true do |t|
+    t.integer "restaurant_id"
+    t.integer "restaurant_feature_id"
+  end
+
+  add_index "restaurant_features_restaurants", ["restaurant_feature_id"], :name => "restaurant_feature_id_index"
+  add_index "restaurant_features_restaurants", ["restaurant_id", "restaurant_feature_id"], :name => "_restaurant_id_restaurant_feature_id_index"
+  add_index "restaurant_features_restaurants", ["restaurant_id"], :name => "restaurant_id_index"
 
   create_table "restaurant_roles", :force => true do |t|
     t.string   "name"
@@ -926,29 +937,6 @@ ActiveRecord::Schema.define(:version => 20101229130317) do
     t.text     "content"
     t.datetime "created_at"
     t.datetime "updated_at"
-  end
-
-  create_table "soapbox_promos", :force => true do |t|
-    t.string   "title"
-    t.text     "body"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.string   "link"
-    t.integer  "position"
-  end
-
-  create_table "soapbox_slides", :force => true do |t|
-    t.string   "image_file_name"
-    t.string   "image_content_type"
-    t.integer  "image_file_size"
-    t.integer  "image_updated_at"
-    t.string   "title"
-    t.text     "excerpt"
-    t.string   "link"
-    t.integer  "position"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.string   "photo_credit"
   end
 
   create_table "solo_discussions", :force => true do |t|
