@@ -25,7 +25,7 @@ class MenusController < ApplicationController
   def update
     if @menu.update_attributes(params[:menu])
       flash[:success] = "Your changes have been saved."
-      redirect_to edit_restaurant_menu_path(@restaurant, @menu)
+      redirect_to bulk_edit_restaurant_menus_path(@restaurant)
     else
       @menu.pdf_remote_attachment = PdfRemoteAttachment.new(params[:menu][:pdf_remote_attachment_attributes])
       render :action => :edit

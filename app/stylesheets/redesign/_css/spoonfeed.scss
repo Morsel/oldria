@@ -2852,7 +2852,7 @@ p.search_filter_hint {
 				clear:both;
 				display:inline-block;
 				margin:0 5px 0 0;
-				padding:3px 12px 3px 22px;
+				padding:3px 12px 5px 22px;
 				color:$orange;
 				font:normal 10px "Lucida Grande", Arial, sans-serif;
 				text-transform:uppercase;
@@ -2860,7 +2860,7 @@ p.search_filter_hint {
 				background-repeat:no-repeat;
 				background-position: 10px -2px;
 				@include border-radius(20px);
-				&.colorbox{
+				&.edit{
 					background-image:url(/images/redesign/icon-16-pencil.png);
 					color: $brown;
 					background-position: 10px -2px;
@@ -3792,8 +3792,12 @@ p.search_filter_hint {
 			}
 		}
 	}
-	.colorbox {
-		margin: 3px 3px 3px 0;
+	.editing_label{
+		color:#333;
+		text-decoration:underline;
+	}
+	.edit {
+		margin: 3px 3px 5px 0;
 		background: #eae6d5 url(/images/redesign/icon-16-pencil.png) no-repeat 3px 1px;
 		display: inline-block;
 		padding: 1px 5px 1px 18px;

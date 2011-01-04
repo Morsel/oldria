@@ -188,7 +188,7 @@ $('#criteria_accordion').accordion({
 
 $(document).ready(function(){
 	var bindAjaxDeleters = function(){
-	  $('a.delete').ajaxDestroyLink({
+	  $('#profile-tabs a.delete').ajaxDestroyLink({
 	    containerSelector: 'li:first'
 	  });
 	};
@@ -263,7 +263,7 @@ $.fn.ajaxDestroyLink = function(options){
     var $this = $(this);
     $this.removeAttr('onclick');
     $this.unbind();
-    $this.click(function(){
+    $this.live('click',function(){
       if (confirm(config.confirmMessage)) {
         $.post(this.href+".js", {_method: 'delete'}, function(data, status){
           var container = $this.parents(config.containerSelector);
