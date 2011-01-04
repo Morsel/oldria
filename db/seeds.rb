@@ -57,7 +57,8 @@ end
 model_count_before_and_after(MetropolitanArea) do
   metroareas = YAML.load_file(@seedling_path + '/metroregions.yml')['metroregions']
   metroareas.each do |ma|
-    MetropolitanArea.find_or_create_by_name(ma)
+    next if MetropolitanArea.find_by_name(ma['name'])
+    MetropolitanArea.create!(ma)
   end
 end
 
