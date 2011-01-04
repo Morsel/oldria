@@ -54,6 +54,6 @@ module DirectoryHelper
   end
   
   def correct_restaurant_path restaurant
-    soapbox? ? soapbox_restaurant_path(restaurant) : restaurants_path(restaurant)
+    soapbox? ? soapbox_restaurant_path(restaurant) : restaurant_path(restaurant)
   end
 end
