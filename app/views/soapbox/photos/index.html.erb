@@ -1,17 +1,16 @@
-<% if @photos.empty? %>
-    <div id="no_photos_available">
-      No photos are available at this time.
-    </div>
-<% end %>
-<% @photos.each do |photo| %>
-    <div id="photo_<%= photo.id%>">
-        <%= image_tag photo.attachment.url(:medium) %>
-        <div class="photo_credit">
-            <span class="photo_credit_label">Photo Credit: </span><%= photo.credit %>
-        </div>
-    </div>
-<% end %>
+<div id="restaurant_profile_view" class="edit clear clearfix photos">
 
-<p>
-  <%= link_to "Back To Restaurant", soapbox_restaurant_path(@restaurant), :class => "button" %>
-</p>
+  <%= render 'restaurants/restaurant_header' %>
+
+  <h2>Photos <span class="inline-hint">(Click to view full sized. Alt-click to download.)</span></h2>
+
+  <div id="photos">
+    <% @photos.each do |photo| %>
+      <% content_tag_for(:div, photo) do %>
+        <%= link_to image_tag(photo.attachment.url(:medium), :class => "restaurant_photo", :width => photo.attachment.width, :height => photo.attachment.height), photo.attachment.url(:large), :class => 'colorbox', :rel => 'restaurant_photo', :title => "#{photo.credit}" %>
+        <p class="credit"><%= photo.credit %></p>
+      <% end %>
+    <% end %>
+  </div>
+
+</div>
