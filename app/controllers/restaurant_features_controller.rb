@@ -21,6 +21,7 @@ class RestaurantFeaturesController < ApplicationController
     unchecked_features_for_page = all_features_for_page - new_features
 
     @restaurant.reset_features(new_features, unchecked_features_for_page)
+    flash[:notice] = "Updated features for #{@restaurant.name}"
     redirect_to bulk_edit_restaurant_feature_path(@restaurant, @page)
   end
   
