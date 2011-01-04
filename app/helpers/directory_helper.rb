@@ -44,4 +44,16 @@ module DirectoryHelper
   def metros_for_search
     (users_for_search.map(&:metropolitan_area) + restaurants_for_search.map(&:metropolitan_area)).flatten.compact.uniq.sort_by(&:name)
   end
+  
+  def correct_restaurant_directory_path
+    soapbox? ? soapbox_restaurant_directory_path : restaurant_directory_path
+  end
+  
+  def correct_profile_directory_path
+    soapbox? ? soapbox_directory_path : directory_path
+  end
+  
+  def correct_restaurant_path restaurant
+    soapbox? ? soapbox_restaurant_path(restaurant) : restaurants_path(restaurant)
+  end
 end
