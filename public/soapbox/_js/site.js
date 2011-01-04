@@ -29,6 +29,10 @@ $(document).ready(function(){
 		$('#content.home .panel').equalHeights();
 	}
 	
+	$('.colorbox').colorbox({
+			current: ''
+  });
+	
 	if($('#cycle').length > 0){
 		$('#cycle').cycle({
 			timeout: 8000,
