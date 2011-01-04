@@ -118,6 +118,15 @@ class RestaurantFactSheet < ActiveRecord::Base
   def hours_updated_at
     meals.collect(&:updated_at).max
   end
+  
+  def info_exists?
+    info_exists = false
+    [:parking_and_directions, :pricing, :guest_relations, :design, :other].each do |field_set|
+      info_exists = send("#{field_set.to_s}_updated_at").present?
+      break if info_exists
+    end
+    info_exists
+  end
 
   private
 
