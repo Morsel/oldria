@@ -70,7 +70,16 @@ h1,h2,h3,h4,h5,h6{
 			background-color: #982609;
 			color: #f0cac1;
 		}
-		&#search-handle {display: none;background-position: 3px 5px;}
+		&#search-handle-inactive {
+      background-color: #474F80;
+      background-position: 3px 5px;
+      text-shadow: 0px 1px 0px darkblue;
+      &:hover { 
+        color: white;
+        cursor: default; 
+      }
+    }
+		&#search-handle {background-position: 3px 5px;}
 		&#ria-hq {background-position: 3px -95px;}
 		&#log-in {background-position: 3px -195px;}
 	}
@@ -478,14 +487,39 @@ body,html,#container,#main,#content,#inside{
 			width: 183px;
 			float: left;
 			margin: 0 15px 10px 0;
+			.avatar {
+				margin: 0;
+				padding: 0;
+				img {
+					border: 1px solid #ddd;
+					margin: 0;
+					padding: 0;
+					@include hiddentext;
+					background-color: #f7f6f4;
+				}
+			}
 			ul {
 				list-style: none;
-				margin: 0 0 0 65px;
+				margin: 0 0 0 66px;
 				padding: 0;
 				li {
 					background-image: none;
 					margin: 0;
 					padding: 0;
+					font-size: 11px;
+					line-height: 15px;
+					&.primary {
+						text-transform: capitalize;
+						font-size: 13px;
+						line-height: 15px;
+						a {
+							@include museoslabbold;
+							color: $sienna;
+							line-height: 15px;
+							margin: 0;
+							padding: 0;
+						}
+					}
 				}
 			}
 		}
@@ -1491,7 +1525,7 @@ p.search_filter_hint {
 		}
 	}
 }
-#recent-questions #recent-qotds, #qustions-list #questions-list-feed-qotd{
+.questions-list-feed-qotd, #recent-questions #recent-qotds, #qustions-list #questions-list-feed-qotd{
 	a.button{
 		background:$purple;
 		&:hover{
@@ -1539,7 +1573,7 @@ p.search_filter_hint {
 			li{
 				background:none;
 				padding:0;
-				margin:5px 0;
+				margin:2px 0;
 				a{
 					overflow:hidden;
 					display:block;
@@ -1572,7 +1606,7 @@ p.search_filter_hint {
 						margin:0 10px 0 0;
 					}
 					span.reply-count{
-						float:left;
+						float:right;
 						width:53px;
 						padding:10px 0 10px 3px;
 						margin:-5px 0;
@@ -1588,8 +1622,7 @@ p.search_filter_hint {
 					}
 					&:hover{
 						text-decoration:none;
-						background:#f7e3de;
-						background:rgba(231,95,61,0.15);
+						background:#fff3f0;
 						color:$sienna;
 						.reply-count{
 							background-position:-200px 0;
@@ -1618,8 +1651,20 @@ p.search_filter_hint {
 				}
 			}
 		}
+		&.questions-list-feed-qotd{
+      @include column(24,last);
+      ul li a:hover{
+        text-decoration:none;
+        background:#d9e8ef;
+        background:rgba(114,180,210,0.15);
+        color:$purple;
+        .reply-count{
+          background-position:-400px 0;
+        }
+      }
+    }
 		ul li a span.title {
-		      width: 838px;
+		      width: 600px;
 		}
 	}
 }
@@ -1983,6 +2028,10 @@ dl.things dt:after {content: ":"}
 			background-image:url(/images/redesign/bg-home.png);
 		}
 	}
+}
+
+#user-search{
+  margin-bottom: 20px;
 }
 
 
@@ -2448,6 +2497,56 @@ dl.things dt:after {content: ":"}
 	}
 }
 
+#search-title {
+	overflow:hidden;
+	height: 90px;
+	h1 {
+		float: left;
+		width: 152px;
+		height: 37px;
+		padding: 20px 30px;
+		color: #fff;
+		background: transparent url(/images/soapbox/search-bg.png) no-repeat;
+		@include museoslabbold;
+		font-size: 40px;
+		text-shadow: 0 2px 0 #333;
+	}
+	#question-search-form {
+		float: left;
+		margin: 20px 0 0 20px;
+		padding: 0;
+		#query {
+			width: 300px;
+			height: 34px;
+			font-size: 16px;
+			font-family: 'lucida grande', helvetica, arial,sans-serif;
+			padding: 3px 6px 3px 36px;
+			@include border-radius(3px);
+			border: 1px solid #ddd;
+			margin-right: 5px;
+			background-image: url(/images/soapbox/search-large.png);
+			background-repeat: no-repeat;
+			background-position: 6px 10px;
+		}
+		.positive {
+			background-color:$purple;
+			@include museoslabbold;
+			font-size: 20px;
+			border: 0px;
+			@include border-radius(3px);
+			color: #fff;
+			padding: 6px 12px;
+			&:hover {
+				background-color: $baby-blue;
+			}
+		}
+	}
+}
+
+.soapbox-search-results {
+  min-height: 400px;
+}
+
 #page-content a.directory_switch {
 	position: absolute;
 	top: 200px;
@@ -2471,6 +2570,134 @@ dl.things dt:after {content: ":"}
 	}
 }
 
+#page-content .search-results {
+	overflow: hidden;
+	margin-bottom: 50px;
+	#questions-list {
+		margin: 0 0 100px;
+		padding: 0 16px;
+		width:900px;
+		.subtitle {
+			width: 900px;
+			h1 {
+				font-size: 16px;
+				color: #888;
+				border-bottom: 1px solid #ddd;
+				margin: 0;
+				padding: 0;
+			}
+			time {
+				border: 0;
+				background: #f7f6f4;
+				padding-bottom: 4px;
+				span {
+					background: $sienna;
+					margin: 0 0 3px;
+				}
+			}
+			ul {
+				display: block;
+				margin: 0 0 30px;
+				padding: 0;
+				li {
+					display: block;
+					margin: 0;
+					padding: 0;
+					border-bottom: 1px dotted #ddd;
+					a {
+						display: block;
+						margin: 4px 0;
+						.title {
+							width: 600px;
+							display: block;
+							font-size: 14px;
+							font-family: 'helvetica neue', helvetica, arial, sans-serif;
+							font-weight:normal;
+							line-height: 21px;
+							color: #555;
+							margin-bottom: 5px;
+							clear: right;
+							strong {
+								color: $sienna;
+							}
+						}
+						.user-answer {
+							display: block;
+							clear: both;
+							background-color: #f7f6f4;
+							padding: 5px;
+							margin: 5px 0 0;
+							.avatar {
+								float: left;
+								display: inline;
+								width: 50px;
+								height: 50px;
+								padding: 0;
+								img {
+									margin: 0;
+									background-color:  #f1eee9;
+									@include hiddentext;
+								}
+							}
+							.btl_answer {
+								margin: 0;
+								padding: 0;
+								font-family: Georgia, Tahoma, 'lucida grande', sans-serif;
+								font-size: 15px;
+								color: #333;
+							}
+							.btl-answer-author {
+								font-size: 11px;
+							}
+						}
+						.reply-count {display: none;}
+						&:hover {
+							.user-answer {
+								background: #fdece7;
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}
 
+#questions-list .resto_search {
+	header {
+		border: 0;
+		padding: 0;
+		margin: 0;
+		img {
+			display: none;
+		}
+		h1 {
+			border: 0;
+			margin: 0;
+			padding: 0;
+			a {
+				color: $sienna;
+				&:hover {
+					color: $purple;
+					text-decoration: none;
+				}
+			}
+		}
+	}
+	.resto_meta {
+		margin: 0 0 20px;
+		padding: 0;
+		p {
+			font-size: 11px;
+			margin: 0;
+			padding: 0;
+			line-height: 17px;
+		}
+	}
+}
 
+.btl-answer-author {
+  float: left;
+  color: #888;
+}
 

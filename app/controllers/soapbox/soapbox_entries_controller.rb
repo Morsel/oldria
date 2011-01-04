@@ -35,15 +35,6 @@ class Soapbox::SoapboxEntriesController < Soapbox::SoapboxController
     @no_sidebar = true
   end
 
-  def search
-    @key = params[:query]
-    @qotds = Admin::Qotd.soapbox_entry_published.message_like_or_display_message_like(@key).all(:include => :soapbox_entry)
-    @trend_questions = TrendQuestion.soapbox_entry_published.subject_like_or_display_message_like(@key).all(:include => :soapbox_entry)
-    @comments
-
-    @no_sidebar = true
-  end
-
   protected
 
   def hide_flashes

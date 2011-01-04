@@ -67,3 +67,21 @@ Feature: AddThis sharing feature
     And I am on the profile page for "john"
     Then I should see addThis button
 
+  Scenario: Soapbox Qotd/Trend page should contain og:description tag with appropriate content
+    Given there is a QOTD asking "Where do you buy flowers?"
+    And that QOTD has the following answers:
+      | John Doeface  | I like to get them at the store |
+      | Patty Wallace | Hand-picked, all the way!       |
+    And I am logged in as an admin
+    When I create a new soapbox entry for that QOTD with:
+      | Published at | 2010-05-10 |
+    And I go to the soapbox front burner page
+    And I follow "Where do you buy flowers?"
+    Then I should see facebook description tag containing "Hand-picked" within content
+
+  Scenario: Chapters page should contain og:description tag with appropriate content
+    Given I am on the profile page for "john"
+    When I follow "View all Topics" within "#behindline"
+    And I follow "View all"    
+    Then I should see facebook description tag containing "Check out John Smith's full profile" within content
+  

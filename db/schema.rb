@@ -932,29 +932,6 @@ ActiveRecord::Schema.define(:version => 20110104123654) do
     t.datetime "updated_at"
   end
 
-  create_table "soapbox_promos", :force => true do |t|
-    t.string   "title"
-    t.text     "body"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.string   "link"
-    t.integer  "position"
-  end
-
-  create_table "soapbox_slides", :force => true do |t|
-    t.string   "image_file_name"
-    t.string   "image_content_type"
-    t.integer  "image_file_size"
-    t.integer  "image_updated_at"
-    t.string   "title"
-    t.text     "excerpt"
-    t.string   "link"
-    t.integer  "position"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.string   "photo_credit"
-  end
-
   create_table "solo_discussions", :force => true do |t|
     t.integer  "employment_id"
     t.integer  "trend_question_id"

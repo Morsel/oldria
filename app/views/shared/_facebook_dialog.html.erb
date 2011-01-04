@@ -6,6 +6,7 @@ window.onload = function(){
        <%= "link: '#{link}'," if defined?(link) %>
        <%= "caption: '#{caption}'," if defined?(caption) %>
        <%= "message: '#{message}'," if defined?(message) %>
+       picture: '<%= request.protocol + request.host_with_port + image_path('soapbox/logo-soapbox.png') %>',
        method: 'feed'
      },
      function(response) {

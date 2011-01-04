@@ -1,22 +1,28 @@
 <!doctype html>
 <html lang="en" class="no-js">
+<% if @no_key %>
+  <% title = "Search The Site" %>
+<% elsif !@key.blank? %>
+  <% title = "Search for \"#{h(truncate(@key, :length => 35))}\"" %>
+<% else %>
+  <% title = "Empty search keyword" %>
+<% end %>
 <head>
   <meta charset="utf-8">
   <!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"><![endif]-->
   <!--[if lt IE 9]>
     <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
   <![endif]-->
-  <title><%= h(yield(:title) || "Untitled") %> - Soapbox<%= @append || "" %> - Restaurant Intelligence Agency</title>
+  <title><%= h(title || "Untitled") %> - Soapbox - Restaurant Intelligence Agency</title>
   <meta name="description" content="All about Spoonfeed's Soapbox">
-  <meta name="author" content="Restaurant Intelligence Agency">
-  <meta property="og:description" content="<%= h(yield(:fb_description) || "")  %>" />
+  <meta name="author" content="Restaruant Intelligence Agency">
   <link rel="shortcut icon" href="/favicon-sb.ico">
+  <%= stylesheet_link_tag '/redesign/_css/spoonfeed' %>
   <link rel="stylesheet" href="/soapbox/_css/soapbox.css?v=1" media="screen">
   <link rel="stylesheet" href="/soapbox/_css/print.css?v=1" media="print">
   <link rel="stylesheet" href="/soapbox/_css/museoslab/stylesheet.css?v=1">
   <link rel="stylesheet" href="/soapbox/_css/knockout/stylesheet.css?v=1">
-  <%= yield(:head) %>
-  
+
 </head>
 <!--[if lt IE 7 ]> <body class="ie6"> <![endif]-->
 <!--[if IE 7 ]>    <body class="ie7"> <![endif]-->
@@ -24,7 +30,7 @@
 <!--[if IE 9 ]>    <body class="ie9"> <![endif]-->
 <!--[if (gt IE 9)|!(IE)]><!--> <body> <!--<![endif]-->
 
-  <div id="container">    
+  <div id="container">
     <header id="header">
       <hgroup>
         <h1 id="logo"><a href="/soapbox">Soapbox</a></h1>
@@ -39,31 +45,32 @@
         <%= link_to 'Contact', '/soapbox/contact', :id => "nav-contact", :class => "#{active_page?('/soapbox/contact')} last" %>
       </nav>
     </header>
-  
+
     <nav id="utilities">
-      <%= link_to 'Search the site', soapbox_search_path, :id => "search-handle", :title => "Search the site" %>
+      <a id="search-handle-inactive" title="Search interface" disabled="disabled">Search the site</a>
       <a id="ria-hq" title="RIA Home" href="http://www.restaurantintelligenceagency.com/"><abbr title="Restaurant Intelligence Agency">RIA</abbr> <abbr title="Headquarters">HQ</abbr></a>
-			<a id="log-in" title="Log In to Spoonfeed" href="http://spoonfeed.restaurantintelligenceagency.com/login">Login</a>
+                        <a id="log-in" title="Log In to Spoonfeed" href="http://spoonfeed.restaurantintelligenceagency.com/">Login</a>
     </nav><!--#utilities-->
-  
+
     <div id="main">
-        <%- if @home -%>
-          <%= yield %>
-        <%- else -%>
-        <section id="content" class="<%= 'no-sidebar' if @no_sidebar %>">
-            <%- if show_title? -%>
-            <header id="page-title">
-                <h1><%= h yield(:title) %></h1>
+        <section id="content" class="no-sidebar">
+            <header id="search-title">
+              <h1 id="search_flag">Search</h1>
+              <% form_tag soapbox_search_path, :method => :get, :id => 'question-search-form' do %>
+                <%= text_field_tag "query", @key, :class => 'big_search' %>
+                <%= submit_tag "Search", :class => 'button positive' , :name => nil %>
+              <% end %>
             </header>
-            <%- end -%>
-            <div id="inside">
-                <article id="page-content">
-                    <%= yield %>
-                </article><!-- /page-content -->
-            </div><!-- /inside -->
+            <article id="page-content">
+              <div id="inside" class="soapbox-search-results">
+                <% if @no_results %>
+                  <h2>No results found</h2>
+                <% else %>
+                  <%= yield %>
+                <% end unless @no_key %>
+              </div>
+            </article><!-- /page-content -->
         </section><!-- /content -->
-        <%= render :partial => 'soapbox/sidebar' unless @no_sidebar %>
-        <%- end -%>
     </div><!-- /main -->
     <div id="sticky-footer-pad"></div>
   </div> <!-- end of #container -->
@@ -77,7 +84,7 @@
         <nav id="footer-links">
           <a href="/soapbox/about">About</a>|
           <a href="http://www.restaurantintelligenceagency.com">RIA HQ</a>|
-	      <a href="http://soapbox.restaurantintelligenceagency.com/soapbox/products">Products</a>|
+              <a href="http://soapbox.restaurantintelligenceagency.com/soapbox/products">Products</a>|
           <a href="/soapbox/privacy">Privacy</a>|
           <a href="/soapbox/help">Help</a>
           <a href="/soapbox/contact">Contact</a>
@@ -93,7 +100,12 @@
     </div><!-- /footer-container -->
   </footer>
 
-  <%= javascript_include_tag 'https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js', 'https://ajax.googleapis.com/ajax/libs/jqueryui/1/jquery-ui.min.js' %>
+  <script src="http://google.com/jsapi"></script>
+  <script>
+    google.load('jquery','1.4.2');
+    google.load('jqueryui','1.8.5');
+  </script>
+  <script>!window.jQuery && document.write('<script src="/soapbox/_js/jquery-1.4.2.min.js"><\/script><script src="/soapbox/_js/jquery-ui-1.8.5.min.js"><\/script>')</script>
   <%= javascript_include_tag '/soapbox/_js/jquery-ui-1.8.5.tabs-customized.min.js', 'jquery.ui.accordion', 'http://cachedcommons.org/cache/jquery-cycle/2.8.6/javascripts/jquery-cycle.js', 'showy', '/soapbox/_js/jquery.equalheights.js', '/soapbox/_js/site' %>
   <!--[if lt IE 7 ]>
     <script src="/soapbox/_js/dd_belatedpng.js?v=1"></script>
@@ -114,6 +126,6 @@
   })();
 
 </script>
-  
+
 </body>
 </html>

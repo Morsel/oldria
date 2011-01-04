@@ -26,7 +26,7 @@ Feature: Admin Messaging
     And Facebook is functioning
     And given that user "johndoe" has facebook connection
     And there is a QOTD asking "Are lazy cakes cool?"
-    And that QOTD is featured on the soapbox    
+    And that QOTD is featured on the soapbox
     And that QOTD was sent to "johndoe"
     When I go to the front burner page
     And I follow "Post"
@@ -37,13 +37,13 @@ Feature: Admin Messaging
     And I press "Send"
     Then I should see Facebook Share Popup
     And I should see "your answer has been saved"
- 
+
   Scenario: Replying to a published Trend question give a possibility to post on facebook
     Given I am logged in as "johndoe"
     And Facebook is functioning
     And given that user "johndoe" has facebook connection
     And there is a Trend Question "Are cold cakes cool?"
-    And that Trend Question is featured on the soapbox    
+    And that Trend Question is featured on the soapbox
     And that Trend Question was sent to "No Man's Land"
     When I go to the front burner page
     And I follow "Post"
@@ -101,7 +101,7 @@ Feature: Admin Messaging
     When the date and time is "2012-06-04 11:45:00"
     When I go to the front burner page
     Then I should see "This is a QOTD"
-    
+
 # New user woes
 
   Scenario: I have just confirmed my account and don't want to be overwhelmed by old with-replies messages
@@ -109,13 +109,13 @@ Feature: Admin Messaging
       | username   | name     | role | subject matters |
       | cleopatra  | Cleo Doe | Chef | Food, Wine      |
     And "cleopatra" has a QOTD message with:
-      | message      | This is a new QOTD | 
+      | message      | This is a new QOTD |
     And "cleopatra" has a QOTD message with:
-      | message      | This is an old QOTD | 
+      | message      | This is an old QOTD |
       | scheduled_at | 2010-06-03 12:00:00 |
     And QOTD "This is an old QOTD" has a reply "I reply!"
     And "cleopatra" has a trend question with:
-      | subject      | This is an old trend question | 
+      | subject      | This is an old trend question |
       | scheduled_at | 2010-06-06 12:00:00           |
     And trend question "This is an old trend question" has a reply "I reply here too!"
     And "Fields of Plenty" has a holiday reminder for holiday "Day Off" with:

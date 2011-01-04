@@ -21,7 +21,7 @@
 				<% current_user.employments.each do |employment| %>
 					<li class="<%= dom_class(employment.restaurant) %>">
 						<%= link_to h(employment.restaurant_name), employment.restaurant %>
-						<% if employment.omniscient? %><span>(Admin)</span><% end %>
+						<% if employment.omniscient? %><span>Admin</span><% end %>
 					</li>
 				<% end %>
 			</ul>

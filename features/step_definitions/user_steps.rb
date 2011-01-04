@@ -47,6 +47,12 @@ Given /^I am logged in as a normal user$/ do
   Given 'I am logged in as "normal" with password "normal"'
 end
 
+Given /^There is a searchable user with a communicative profile$/ do
+  user = Factory(:published_user, :username => 'searchable', :password => 'searchable',
+                 :name => "Bob Ichvinstone", :subscription => Factory(:subscription))
+  Factory(:profile, :user => user, :summary => "I like ketchup!")
+end
+
 Given /^I am logged in as a normal user with a profile$/ do
   user = Factory(:user, :username => 'normal', :password => 'normal')
   Factory(:profile, :user => user)
@@ -102,7 +108,7 @@ end
 
 Given /^given that user "([^\"]*)" has facebook connection$/ do |username|
   user = User.find_by_username(username)
-  user.update_attributes :facebook_id => 1234567, :facebook_access_token => 'foobar' 
+  user.update_attributes :facebook_id => 1234567, :facebook_access_token => 'foobar'
 end
 
 Given /^"([^\"]*)" has a default employment with the role "([^\"]*)"$/ do |username, role_name|
@@ -202,12 +208,12 @@ end
 
 Then /^"([^"]*)" should have a "([^"]*)" account in the list$/ do |username, account_type|
   user = User.find_by_username(username)
-  response.should have_selector("##{dom_id(user)} .user_account_type", 
+  response.should have_selector("##{dom_id(user)} .user_account_type",
       :content => account_type)
 end
 
 When /^"([^"]*)" should have a "([^"]*)" account on the page$/ do |user_name, account_type|
-  account_type = "Premium" if account_type == "Complimentary" 
+  account_type = "Premium" if account_type == "Complimentary"
   response.should have_selector(".user_account_type", :content => account_type)
 end
 
@@ -227,3 +233,4 @@ end
 Then /^"([^\"]*)" should not have a default employment$/ do |username|
   User.find_by_username(username).default_employment.should be_nil
 end
+

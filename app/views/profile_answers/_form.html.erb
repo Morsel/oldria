@@ -10,7 +10,7 @@
 </fieldset>
 
   <p class="clear clearfix">
-    <span class="and_twitter">  
+    <span class="and_twitter">
       <% if current_facebook_user && current_user.facebook_authorized? -%>
         <%= check_box_tag "profile_question[#{answer.profile_question.id}]post_to_facebook", 1, false, :class => 'checkbox'  %>
         <%= label_tag "profile_question[#{answer.profile_question.id}]post_to_facebook", "Post to Facebook?" %>

@@ -2,7 +2,7 @@ class QuestionsController < ApplicationController
   include QuestionsHelper
 
   before_filter :require_user_unless_soapbox
-  before_filter :get_subject, :except => :show
+  before_filter :get_subject, :except => [:show]
   before_filter :get_profile, :only => :topics
 
   skip_before_filter :load_random_btl_question, :only => [:refresh]
@@ -73,7 +73,7 @@ class QuestionsController < ApplicationController
 
   def get_subject
     if params[:user_id]
-      @subject = User.find(params[:user_id])      
+      @subject = User.find(params[:user_id])
     elsif params[:feature_page_id] || params[:feature_id]
       id = params[:feature_page_id] || params[:feature_id]
       @subject = RestaurantFeaturePage.find(id)

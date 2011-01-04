@@ -48,6 +48,12 @@ class ProfileQuestion < ActiveRecord::Base
 
   named_scope :answered, :joins => :profile_answers
 
+  named_scope :answered_by_premium_subjects, lambda {
+    { :joins => "INNER JOIN profile_answers ON profile_answers.profile_question_id = profile_questions.id INNER JOIN subscriptions ON subscriptions.subscriber_id = responder_id AND subscriptions.subscriber_type = responder_type",
+      :conditions => ["subscriptions.id IS NOT NULL AND (subscriptions.end_date IS NULL OR subscriptions.end_date >= ?)",
+          Date.today]}
+  }
+
   named_scope :answered_for_subject, lambda { |subject|
     { :joins => :profile_answers, :conditions => ["profile_answers.responder_id = ? AND profile_answers.responder_type = ?", subject.id, subject.class.name] }
   }

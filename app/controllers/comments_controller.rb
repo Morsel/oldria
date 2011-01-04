@@ -31,11 +31,11 @@ class CommentsController < ApplicationController
       redirect_to :back
     end
   end
-  
+
   def edit
     @comment = Comment.find(params[:id])
   end
-  
+
   def update
     @comment = Comment.find(params[:id])
     if @comment.update_attributes(params[:comment].merge(:user_id => current_user.id))
@@ -45,7 +45,7 @@ class CommentsController < ApplicationController
       render :action => "edit"
     end
   end
-  
+
   def destroy
     @comment = Comment.find(params[:id])
     @comment.destroy
@@ -74,7 +74,7 @@ class CommentsController < ApplicationController
       @parent = SoloMediaDiscussion.find(params[:solo_media_discussion_id])
     end
   end
-  
+
   def front_burner_content
     @parent.is_a?(AdminDiscussion) || @parent.is_a?(SoloDiscussion) || @parent.is_a?(Admin::Conversation)
   end

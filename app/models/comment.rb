@@ -26,7 +26,7 @@ class Comment < ActiveRecord::Base
   named_scope :not_user, lambda { |user| {
     :conditions => ["user_id != ?", user.id]
   }}
-  
+
   #validates_presence_of :comment
 
   attr_accessor :post_to_facebook
@@ -78,20 +78,53 @@ class Comment < ActiveRecord::Base
     return [] unless resource && user
     self.all(:conditions => ['commentable_type = ? AND commentable_id = ? AND user_id = ?', resource.class.to_s, resource.id, user.id])
   end
-  
+
   def editable?
-    commentable.is_a?(Admin::Conversation) || 
+    commentable.is_a?(Admin::Conversation) ||
         (commentable.is_a?(AdminDiscussion) && commentable.discussionable.is_a?(TrendQuestion)) ||
         commentable.is_a?(SoloDiscussion)
   end
-  
+
   def editable_by?(person)
     return false unless editable?
     (self.user == person) || self.user.coworkers.include?(person)
   end
-  
+
   def show_on_soapbox?
     self.employment && self.employment.post_to_soapbox
+  end
+
+  # find all soapbox published qotds comments containing the keyboard
+  def self.search_qotd_comments(keyword, page = nil)
+    select_params = { :select => 'comments.id as comment_id,
+               comments.comment as comment_comment,
+               comments.updated_at as comment_at,
+               comments.user_id as comment_user_id,
+               admin_messages.display_message as question_display_message,
+               admin_messages.message as question_short_message,
+               soapbox_entries.id as soapbox_entry_id' }
+
+    Admin::Qotd.soapbox_entry_published.admin_conversations_comments_comment_like(keyword).
+      all(select_params)
+  end
+
+  # find all soapbox published trend questions comments containing the keyboard
+  def self.search_trend_question_comments(keyword, page = nil)
+    select_params = { :select => 'comments.id as comment_id,
+               comments.comment as comment_comment,
+               comments.updated_at as comment_at,
+               comments.user_id as comment_user_id,
+               trend_questions.display_message as question_display_message,
+               trend_questions.subject as question_short_message,
+               soapbox_entries.id as soapbox_entry_id' }
+
+    d_comments = TrendQuestion.soapbox_entry_published.
+      admin_discussions_comments_comment_like(keyword).
+      all(select_params)
+
+    d_comments + TrendQuestion.soapbox_entry_published.
+      solo_discussions_comments_comment_like(keyword).
+      all(select_params)
   end
 
   def commentable_title

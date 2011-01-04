@@ -25,13 +25,16 @@ class Subscription < ActiveRecord::Base
 
   belongs_to :subscriber, :polymorphic => true
   belongs_to :payer, :polymorphic => true
-  
+
   named_scope :user_subscriptions, :conditions => {:subscriber_type => "User"}
+  named_scope :is_active, lambda {
+    { :conditions => ['end_date is NULL OR end_date >= ?', Time.now] }
+  }
 
   def premium?
     true
   end
-  
+
   def has_braintree_info?
     braintree_id.present?
   end
@@ -49,7 +52,7 @@ class Subscription < ActiveRecord::Base
     return false if end_date.blank?
     end_date.future?
   end
-  
+
   def staff_account?
     payer && payer.can_be_payer? && subscriber.can_be_staff?
   end
@@ -57,7 +60,7 @@ class Subscription < ActiveRecord::Base
   def braintree_data
     BraintreeConnector.find_subscription(self)
   end
-  
+
   def calculate_end_date
     return 1.month_from_now unless has_braintree_info?
     data = braintree_data
@@ -87,12 +90,12 @@ class Subscription < ActiveRecord::Base
   def skip_braintree_cancel?
     complimentary? || in_overtime?
   end
-  
+
   def add_staff_account(user)
     return unless subscriber.can_be_payer?
     return unless user.can_be_staff?
     return if !active?
-    result = BraintreeConnector.set_add_ons_for_subscription(self, 
+    result = BraintreeConnector.set_add_ons_for_subscription(self,
         user_subscriptions_for_payer.size + 1)
     if result.success?
       user.make_staff_account!(subscriber)
@@ -101,12 +104,12 @@ class Subscription < ActiveRecord::Base
       nil
     end
   end
-  
+
   def remove_staff_account(user)
     return unless subscriber.can_be_payer?
     return unless user.can_be_staff?
     return if !active?
-    result = BraintreeConnector.set_add_ons_for_subscription(self, 
+    result = BraintreeConnector.set_add_ons_for_subscription(self,
         user_subscriptions_for_payer.size - 1)
     if result.success?
       user.cancel_subscription!(:terminate_immediately => true)
@@ -115,9 +118,9 @@ class Subscription < ActiveRecord::Base
       nil
     end
   end
-  
+
   def user_subscriptions_for_payer
-    if payer 
+    if payer
       payer.paid_subscriptions.user_subscriptions
     else
       subscriber.paid_subscriptions.user_subscriptions

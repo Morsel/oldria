@@ -1,0 +1,57 @@
+<% unless @no_results  %>
+  <div class="search-results">
+    <section id="questions-list">
+      <% unless @btl_questions_found.empty? && @btl_answers_found.empty? %>
+        <div class="subtitle">
+          <h1>Behind The Line</h1>
+          <ul>
+            <%= render :partial => 'btl_question', :collection => @btl_questions_found unless @btl_questions_found.empty? %>
+            <%= render :partial => 'btl_answer', :collection => @btl_answers_found unless @btl_answers_found.empty? %>
+          </ul>
+        </div>
+      <% end %>
+
+      <% unless @trend_questions_found.empty? && @trend_question_comments_found.empty? %>
+        <div class="subtitle">
+          <h1>Trend Questions</h1>
+          <ul>
+            <%= render :partial => 'trend_list_entry', :collection => @trend_questions_found unless @trend_questions_found.empty? %>
+            <%= render :partial => 'comment_list_entry', :collection => @trend_question_comments_found unless @trend_question_comments_found.empty? %>
+          </ul>
+        </div>
+      <% end %>
+
+      <% unless @qotds_found.empty? && @qotd_comments_found.empty? %>
+        <div class="subtitle">
+          <h1>Questions of the Day</h1>
+          <ul>
+            <%= render :partial => 'qotd_list_entry', :collection => @qotds_found unless @qotds_found.empty? %>
+            <%= render :partial => 'comment_list_entry', :collection => @qotd_comments_found unless @qotd_comments_found.empty? %>
+          </ul>
+        </div>
+      <% end %>
+
+      <% unless @users_found.empty? %>
+        <div class="subtitle">
+          <h1>Users</h1>
+        </div>
+        <div id="user-results">
+          <%= render :partial => 'user_list_entry', :collection => @users_found %>
+        </div>
+      <% end %>
+
+      <% unless @restaurants_found.empty? %>
+        <div class="subtitle">
+          <h1>Restaurants</h1>
+        </div>
+				<div class="resto_search">
+        	<%= render :partial => 'restaurant_list_entry', :collection => @restaurants_found %>
+				</div><!-- .resto_search-->
+      <% end %>
+
+      <%= will_paginate(@all_entries) %>
+    </section>
+  </div><!--.search-results-->
+<% end %>
+
+

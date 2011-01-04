@@ -25,15 +25,16 @@ ActionController::Routing::Routes.draw do |map|
     end
     soapbox.resources :restaurant_features, :only => ["show"]
     soapbox.resources :a_la_minute_questions, :only => ['index', 'show']
-    soapbox.resources :soapbox_entries, :only => ['index', 'show', 'qotd', 'trend', 'search'], :as => "front_burner", 
-                      :collection => { :qotd => :get, :trend => :get, :search => :get }
+    soapbox.resources :soapbox_entries, :only => ['index', 'show', 'qotd', 'trend'], :as => "front_burner",
+                      :collection => { :qotd => :get, :trend => :get }
 
     soapbox.resources :users do |users|
       users.resources :questions, :collection => { :topics => :get, :chapters => :get }
     end
-    soapbox.resources :questions, :only => 'show'
+    soapbox.resources :questions, :only => ['show']
     soapbox.connect 'directory_search', :controller => 'soapbox', :action => 'directory_search'
     soapbox.connect 'restaurant_search', :controller => 'soapbox', :action => 'restaurant_search'
+    soapbox.resource :search, :controller => 'site_search', :only => ['show']
     soapbox.root :controller => 'soapbox', :action => 'index'
   end
 
@@ -41,7 +42,7 @@ ActionController::Routing::Routes.draw do |map|
       :requirements => { :username => /[a-zA-Z0-9\-\_ ]+/}
 
   map.soapbox_directory 'soapbox/directory', :controller => 'soapbox/soapbox', :action => 'directory'
-  map.soapbox_restaurant_directory 'soapbox/directory/restaurants', 
+  map.soapbox_restaurant_directory 'soapbox/directory/restaurants',
     :controller => 'soapbox/soapbox', :action => 'restaurant_directory'
 
   map.with_options :conditions => { :subdomain => 'soapbox' }, :controller => 'soapbox/soapbox' do |soapbox|
@@ -55,7 +56,7 @@ ActionController::Routing::Routes.draw do |map|
   map.with_options :conditions => { :subdomain => 'hq' }, :controller => 'hq/hq' do |hq|
     hq.root :action => 'index'
   end
-  
+
   map.namespace(:mediafeed) do |mediafeed|
     mediafeed.root :controller => 'mediafeed', :action => 'index'
     mediafeed.login 'login', :controller => 'mediafeed', :action => 'login'
@@ -71,7 +72,7 @@ ActionController::Routing::Routes.draw do |map|
   map.with_options :conditions => { :subdomain => 'mediafeed' }, :controller => 'mediafeed/mediafeed' do |mediafeed|
     mediafeed.root :action => 'index'
   end
-  
+
   map.mediafeed_directory 'mediafeed/directory', :controller => 'mediafeed/mediafeed', :action => 'directory'
 
   map.resource :my_profile, :only => ['create', 'edit', 'update'],
@@ -140,7 +141,7 @@ ActionController::Routing::Routes.draw do |map|
     restaurant.resources :calendars, :collection => { "ria" => :get }
     restaurant.resources :events, :member => { "ria_details" => :get, "transfer" => :post }
     restaurant.resources :features, :controller => "restaurant_features",
-                                    :member => { :add => :post, :bulk_edit => :get }, 
+                                    :member => { :add => :post, :bulk_edit => :get },
                                     :collection => { :edit_top => :get, :update_top => :post } do |features|
       features.resources :questions, :collection => { :topics => :get, :chapters => :get, :refresh => :post }
       features.resources :profile_answers, :only => [:create, :update, :destroy]
@@ -263,7 +264,7 @@ ActionController::Routing::Routes.draw do |map|
 
     admin.resources :hq_slides, :collection => { :sort => :post }
     admin.resources :hq_promos, :collection => { :sort => :post }
-    
+
     admin.resources :mediafeed_slides, :collection => { :sort => :post }
     admin.resources :mediafeed_promos, :collection => { :sort => :post }
 

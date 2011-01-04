@@ -6,9 +6,9 @@ class WelcomeController < ApplicationController
   before_filter :preload_classes
   before_filter :require_user, :only => [:refresh]
 
-  # cache dashboard for logged in users 
+  # cache dashboard for logged in users
   caches_action :index,
-                :if =>  Proc.new {|controller| controller.cache? && !controller.params[:is_more] }, 
+                :if =>  Proc.new {|controller| controller.cache? && !controller.params[:is_more] },
                 :expires_in => 5.minutes,
                 :cache_path => Proc.new { |controller| controller.dashboard_cache_key }
 
@@ -36,7 +36,7 @@ class WelcomeController < ApplicationController
   # GET /dashboard/refresh
   # refresh cache for dashboard
   def refresh
-    expire_action_by_key(dashboard_cache_key) 
+    expire_action_by_key(dashboard_cache_key)
     @recent_comments = cache_or_get(:load_recent_comments, true)
     @has_more = cache_or_get(:has_more?, true)
 
@@ -61,7 +61,7 @@ class WelcomeController < ApplicationController
     #there yet?
     @has_more = cache_or_get(:has_more?)
   end
-  
+
   def set_up_dashboard_with_pagination
     soapbox_comments = SoapboxEntry.published.all(:order => "published_at DESC",
                                                   :conditions => ["created_at > ?", 2.weeks.ago]).map(&:comments)
@@ -69,21 +69,21 @@ class WelcomeController < ApplicationController
                                 :conditions => ["created_at > ?", 2.weeks.ago])
 
     all_comments = [soapbox_comments, answers].flatten.sort { |a,b| b.created_at <=> a.created_at }
-    
+
     all_comments.slice!(0..(@per_page - 1)) #delete recent
-    
+
     @recent_comments = all_comments.paginate :page => params[:page], :per_page => @per_page
     @has_pagination = true
   end
-  
+
   # load recent comments for dashboard
   # this data is common for all users
   def load_recent_comments
     soapbox_comments = SoapboxEntry.published.all(:limit => @per_page, :order => "published_at DESC").map(&:comments)
-    answers = ProfileAnswer.all(:limit => @per_page, :order => "created_at DESC") 
+    answers = ProfileAnswer.all(:limit => @per_page, :order => "created_at DESC")
     [soapbox_comments, answers].flatten.sort { |a,b| b.created_at <=> a.created_at }[0..(@per_page - 1)]
   end
- 
+
   def has_more?
     recent_answers = ProfileAnswer.count(:conditions => ["created_at > ?", 2.weeks.ago])
     recent_answers > @per_page ||

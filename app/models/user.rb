@@ -90,21 +90,21 @@ class User < ActiveRecord::Base
 
 
   validates_presence_of :email
-  
+
   has_and_belongs_to_many :metropolitan_areas
 
   attr_accessor :send_invitation, :agree_to_contract, :invitation_sender, :password_reset_required
 
   # Attributes that should not be updated from a form or mass-assigned
   attr_protected :crypted_password, :password_salt, :perishable_token, :persistence_token, :confirmed_at, :admin=, :admin
-  
+
   accepts_nested_attributes_for :profile, :default_employment
 
   has_attached_file :avatar,
                     :default_url => "/images/default_avatars/:style.png",
                     :styles => { :small => "100x100>", :thumb => "50x50#", :tiny => "20x20#" }
 
-  validates_attachment_content_type :avatar, 
+  validates_attachment_content_type :avatar,
       :content_type => ["image/jpg", "image/jpeg", "image/png", "image/gif", "image/pjpeg", "image/x-png"],
       :message => "Please upload a valid image type: jpeg, gif, or png", :if => :avatar_file_name
 
@@ -123,12 +123,13 @@ class User < ActiveRecord::Base
 
   named_scope :media, :conditions => {:role => 'media'}
   named_scope :admin, :conditions => {:role => 'admin'}
-  
+
   named_scope :for_autocomplete, :select => "first_name, last_name", :order => "last_name ASC", :limit => 15
   named_scope :by_last_name, :order => "LOWER(last_name) ASC"
 
   named_scope :active, :conditions => "last_request_at IS NOT NULL"
   named_scope :visible, :conditions => ['visible = ? AND (role != ? OR role IS NULL)', true, 'media']
+
 
 ### Preferences ###
   preference :hide_help_box, :default => false
@@ -301,11 +302,11 @@ class User < ActiveRecord::Base
   def self.receive_email_notifications
     User.with_preferences(:receive_email_notifications => true)
   end
-  
+
   def self.in_soapbox_directory
     active.visible.with_premium_account.with_preferences(:publish_profile => true).by_last_name
   end
-  
+
   def self.in_spoonfeed_directory
     active.visible.by_last_name
   end
@@ -364,11 +365,11 @@ class User < ActiveRecord::Base
   def specialties
     profile.present? ? profile.specialties : []
   end
-  
+
   def james_beard_region
     profile.present? ? profile.james_beard_region : nil
   end
-  
+
   def metropolitan_area
     profile.present? ? profile.metropolitan_area : nil
   end
@@ -395,15 +396,15 @@ class User < ActiveRecord::Base
     self.subscription.try(:start_date).try(:>, 1.week.ago.to_date)
   end
 
-  # check if user is individual 
+  # check if user is individual
   # or associated with a restaurants
   def individual?
     employments.blank?
   end
 
   # check if user associated with restaurants
-  # has at least one filled role 
-  def has_restaurant_role? 
+  # has at least one filled role
+  def has_restaurant_role?
     !self.employments.first(:conditions => 'restaurant_role_id IS NOT NULL').nil?
   end
 
@@ -414,8 +415,102 @@ class User < ActiveRecord::Base
     :granted
   end
 
+  def self.extended_find(keyword)
+    # when searchlogic will be updated, instead of all(:conditions => ["users.id NOT in (?)", [0] + users.map(&:id)])
+    # one can use id_not_in(users.map(&:id))
+
+    # USER: first_name, last_name, role
+    users = User.in_soapbox_directory.first_name_or_last_name_or_role_like(keyword)
+    # USER->PROFILE: headline, summary, hometown, current_residence
+    users += User.in_soapbox_directory.
+      profile_headline_or_profile_summary_or_profile_hometown_or_profile_current_residence_like(keyword).
+      all(:conditions => ["users.id NOT in (?)", [0] + users.map(&:id)])
+    # USER->PROFILE->METROPOLITAN AREA: name
+    users += User.in_soapbox_directory.profile_metropolitan_area_name_like(keyword).
+      all(:conditions => ["users.id NOT in (?)", [0] + users.map(&:id)])
+    # USER->PROFILE->CUISINES: name
+    users += User.in_soapbox_directory.profile_cuisines_name_like(keyword).
+      all(:conditions => ["users.id NOT in (?)", [0] + users.map(&:id)])
+    # USER->PROFILE->SPECIALTIES: name
+    users += User.in_soapbox_directory.profile_specialties_name_like(keyword).
+      all(:conditions => ["users.id NOT in (?)", [0] + users.map(&:id)])
+    # USER->RESAURANTS: name
+    users += User.in_soapbox_directory.restaurants_name_like(keyword).
+      all(:conditions => ["users.id NOT in (?)", [0] + users.map(&:id)])
+    # USER->PROFILE->AWARDS: name
+    users += User.in_soapbox_directory.profile_awards_name_like(keyword).
+      all(:conditions => ["users.id NOT in (?)", [0] + users.map(&:id)])
+    # USER->EMPLOYMENT->RESTAURANT_ROLE: name
+    users += User.in_soapbox_directory.employments_restaurant_role_name_like(keyword).
+      all(:conditions => ["users.id NOT in (?)", [0] + users.map(&:id)])
+    # USER->PROFILE->CULINARY_JOB: restaurant_name, title, chef_name, cuisine, notes
+    users += User.in_soapbox_directory.profile_culinary_jobs_restaurant_name_like(keyword).
+      all(:conditions => ["users.id NOT in (?)", [0] + users.map(&:id)])
+    users += User.in_soapbox_directory.profile_culinary_jobs_title_like(keyword).
+      all(:conditions => ["users.id NOT in (?)", [0] + users.map(&:id)])
+    users += User.in_soapbox_directory.profile_culinary_jobs_chef_name_like(keyword).
+      all(:conditions => ["users.id NOT in (?)", [0] + users.map(&:id)])
+    users += User.in_soapbox_directory.profile_culinary_jobs_cuisine_like(keyword).
+      all(:conditions => ["users.id NOT in (?)", [0] + users.map(&:id)])
+    users += User.in_soapbox_directory.profile_culinary_jobs_notes_like(keyword).
+      all(:conditions => ["users.id NOT in (?)", [0] + users.map(&:id)])
+    # USER->PROFILE->NONCULINARY_JOB: company, title, chef_name, cuisine, notes
+    users += User.in_soapbox_directory.profile_nonculinary_jobs_company_like(keyword).
+      all(:conditions => ["users.id NOT in (?)", [0] + users.map(&:id)])
+    users += User.in_soapbox_directory.profile_nonculinary_jobs_title_like(keyword).
+      all(:conditions => ["users.id NOT in (?)", [0] + users.map(&:id)])
+    users += User.in_soapbox_directory.profile_nonculinary_jobs_responsibilities_like(keyword).
+      all(:conditions => ["users.id NOT in (?)", [0] + users.map(&:id)])
+    # USER->PROFILE->ENROLLMENTS->SCHOOLS: name
+    users += User.in_soapbox_directory.profile_schools_name_like(keyword).
+      all(:conditions => ["users.id NOT in (?)", [0] + users.map(&:id)])
+    # USER->PROFILE->ENROLLMENTS: degree, focus, scholarships
+    users += User.in_soapbox_directory.profile_enrollments_degree_like(keyword).
+      all(:conditions => ["users.id NOT in (?)", [0] + users.map(&:id)])
+    users += User.in_soapbox_directory.profile_enrollments_focus_like(keyword).
+      all(:conditions => ["users.id NOT in (?)", [0] + users.map(&:id)])
+    users += User.in_soapbox_directory.profile_enrollments_scholarships_like(keyword).
+      all(:conditions => ["users.id NOT in (?)", [0] + users.map(&:id)])
+    # USER->PROFILE->NONCULINARY_ENROLLMENTS->SCHOOLS: name
+    users += User.in_soapbox_directory.profile_nonculinary_schools_name_like(keyword).
+      all(:conditions => ["users.id NOT in (?)", [0] + users.map(&:id)])
+    # USER->PROFILE->NONCULINARY_ENROLLMENTS: degree, field_of_study, achievements
+    users += User.in_soapbox_directory.profile_nonculinary_enrollments_degree_like(keyword).
+      all(:conditions => ["users.id NOT in (?)", [0] + users.map(&:id)])
+    users += User.in_soapbox_directory.profile_nonculinary_enrollments_field_of_study_like(keyword).
+      all(:conditions => ["users.id NOT in (?)", [0] + users.map(&:id)])
+    users += User.in_soapbox_directory.profile_nonculinary_enrollments_achievements_like(keyword).
+      all(:conditions => ["users.id NOT in (?)", [0] + users.map(&:id)])
+    # USER->PROFILE->COMPETITION: name
+    users += User.in_soapbox_directory.profile_competitions_name_like(keyword).
+      all(:conditions => ["users.id NOT in (?)", [0] + users.map(&:id)])
+    # USER->PROFILE->INTERNSHIPS: establishment, supervisor, comments
+    users += User.in_soapbox_directory.profile_internships_establishment_like(keyword).
+      all(:conditions => ["users.id NOT in (?)", [0] + users.map(&:id)])
+    users += User.in_soapbox_directory.profile_internships_supervisor_like(keyword).
+      all(:conditions => ["users.id NOT in (?)", [0] + users.map(&:id)])
+    users += User.in_soapbox_directory.profile_internships_comments_like(keyword).
+      all(:conditions => ["users.id NOT in (?)", [0] + users.map(&:id)])
+    # USER->PROFILE->STAGES: establishment, expert, comments
+    users += User.in_soapbox_directory.profile_stages_establishment_like(keyword).
+      all(:conditions => ["users.id NOT in (?)", [0] + users.map(&:id)])
+    users += User.in_soapbox_directory.profile_stages_expert_like(keyword).
+      all(:conditions => ["users.id NOT in (?)", [0] + users.map(&:id)])
+    users += User.in_soapbox_directory.profile_stages_comments_like(keyword).
+      all(:conditions => ["users.id NOT in (?)", [0] + users.map(&:id)])
+    # USER->PROFILE->APPRENTICESHIPS: establishment, supervisor, comments
+    users += User.in_soapbox_directory.profile_apprenticeships_establishment_like(keyword).
+      all(:conditions => ["users.id NOT in (?)", [0] + users.map(&:id)])
+    users += User.in_soapbox_directory.profile_apprenticeships_supervisor_like(keyword).
+      all(:conditions => ["users.id NOT in (?)", [0] + users.map(&:id)])
+    users += User.in_soapbox_directory.profile_apprenticeships_comments_like(keyword).
+      all(:conditions => ["users.id NOT in (?)", [0] + users.map(&:id)])
+
+    users
+  end
+
   # conditions hash for mediafeed visible users only
-  # Ex. Employment.all(User.mediafeed_only_condition) 
+  # Ex. Employment.all(User.mediafeed_only_condition)
   def self.mediafeed_only_condition
     options = { :joins => [:restaurant, :employee]  ,  :conditions => { :users => { :mediafeed_visible => true } } }
   end

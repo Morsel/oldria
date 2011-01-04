@@ -1,0 +1,2 @@
+module Soapbox::SiteSearchHelper
+end
