@@ -13,6 +13,6 @@
    	<%= active_link_to "Media Requests (#{@media_requests_count})", media_requests_messages_path %>
 
 	<%= link_to "New Staff Discussion", new_discussion_path, :class => "first nav_button" if current_user.restaurants.present? %>
-	<%= link_to "New Member Discussion", new_conversation_path, :class => "nav_button" %>
+
   </nav>
 </div><!-- /messages_nav -->
