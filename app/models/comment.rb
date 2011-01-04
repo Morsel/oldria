@@ -129,6 +129,7 @@ class Comment < ActiveRecord::Base
 
   def commentable_title
     target = self.commentable
+    # FIXME - refactor code below to use an IF statement
     case true
     when target.respond_to?(:admin_message)  then target.admin_message.try(:message)
     when target.respond_to?(:discussionable) then target.discussionable.try(:subject)

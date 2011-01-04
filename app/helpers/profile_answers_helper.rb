@@ -1,5 +1,6 @@
 module ProfileAnswersHelper
   def url_to_responder_chapters(responder, topic_id)
+    # FIXME - refactor code below to use an IF statement
     case true
     when responder.is_a?(Restaurant)
       then chapters_soapbox_restaurant_questions_url(responder, :topic_id => topic_id)
@@ -11,6 +12,7 @@ module ProfileAnswersHelper
   end
   
   def url_to_responder_question(responder, chapter_id, profile_question_id=nil)
+    # FIXME - refactor code below to use an IF statement
     case true 
     when responder.is_a?(User)
       then soapbox_user_questions_url(responder, :chapter_id => chapter_id,
@@ -24,6 +26,7 @@ module ProfileAnswersHelper
   end
 
   def url_to_responder_topics(responder)
+    # FIXME - refactor code below to use an IF statement
     case true
     when responder.is_a?(Restaurant)
       then topics_soapbox_restaurant_questions_url(responder)
