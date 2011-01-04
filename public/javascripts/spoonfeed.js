@@ -201,6 +201,7 @@ $(document).ready(function(){
 	  $('.colorbox').colorbox({
 	      initialWidth: 450,
 	      onComplete: colorboxOnComplete,
+				current: '',
 	      onClosed: function() {
 	        bindAjaxDeleters();
 	        bindColorbox();
