@@ -44,6 +44,7 @@ class MenusController < ApplicationController
 
   def destroy
     Menu.find(params[:id]).destroy
+    flash[:notice] = "The menu was deleted."
     redirect_to bulk_edit_restaurant_menus_path(@restaurant)
   end
 
