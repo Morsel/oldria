@@ -235,6 +235,9 @@ class Restaurant < ActiveRecord::Base
     # RESTAURANT->RESTAURANT FEATURES->RESTAURANT FEATURE CATEGORY: name
     restaurants += premiums.restaurant_features_restaurant_feature_category_name_like(keyword).
       all(:conditions => ["restaurants.id NOT in (?)", [0] + restaurants.map(&:id)])
+    # RESTAURANT->RESTAURANT FEATURES->RESTAURANT FEATURE CATEGORY->RESTAURANT FEATURE PAGE: name
+    restaurants += premiums.restaurant_features_restaurant_feature_category_restaurant_feature_page_name_like(keyword).
+      all(:conditions => ["restaurants.id NOT in (?)", [0] + restaurants.map(&:id)])
     # RESTAURANT->MENUS: name
     restaurants += premiums.menus_name_like(keyword).
       all(:conditions => ["restaurants.id NOT in (?)", [0] + restaurants.map(&:id)])
