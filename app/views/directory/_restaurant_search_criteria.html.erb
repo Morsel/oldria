@@ -11,7 +11,7 @@
                                 <label for="id_eq_any">Restaurant id equals any</label>
                             </legend>
                             <ol>
-                                <% for restaurant in (on_soapbox ? Restaurant.with_premium_account : Restaurant.all) %>
+                                <% for restaurant in restaurants = (on_soapbox ? Restaurant.with_premium_account : Restaurant.all) %>
                                 <li><label for="id_eq_any_<%= restaurant.id %>">
                                     <%= check_box_tag "search[id_eq_any][]", restaurant.id, false, :id => "id_eq_any_#{restaurant.id}" %>
                                     <%= restaurant.name %>
@@ -31,7 +31,7 @@
                                 <label for="search_cuisine_id_eq_any">Cuisine id equals any</label>
                             </legend>
                             <ol>
-                                <% for cuisine in Cuisine.with_restaurants %>
+                                <% for cuisine in restaurants.map(&:cuisine).flatten.compact.uniq.sort_by(&:name) %>
                                 <li><label for="search_cuisine_id_eq_any_<%= cuisine.id %>">
                                     <%= check_box_tag "search[cuisine_id_eq_any][]", cuisine.id, false, :id => "search_cuisine_id_eq_any_#{cuisine.id}" %>
                                     <%= cuisine.name %>
@@ -51,7 +51,7 @@
                                 <label for="search_james_beard_region_id_eq_any">Region id equals any</label>
                             </legend>
                             <ol>
-                                <% for region in JamesBeardRegion.with_restaurants %>
+                                <% for region in restaurants.map(&:james_beard_region).flatten.compact.uniq.sort_by(&:name) %>
                                 <li><label for="search_james_beard_region_id_eq_any_<%= region.id %>">
                                     <%= check_box_tag "search[james_beard_region_id_eq_any][]", region.id, false, :id => "search_james_beard_region_id_eq_any_#{region.id}" %>
                                     <%= region.to_label %>
@@ -71,7 +71,7 @@
                                 <label for="search_metropolitan_area_id_eq_any">Metro area id equals any</label>
                             </legend>
                             <ol>
-                                <% for metro in MetropolitanArea.with_restaurants %>
+                                <% for metro in restaurants.map(&:metropolitan_area).flatten.compact.uniq.sort_by(&:name) %>
                                 <li><label for="search_metropolitan_area_id_eq_any_<%= metro.id %>">
                                     <%= check_box_tag "search[metropolitan_area_id_eq_any][]", metro.id, false, :id => "search_metropolitan_area_id_eq_any_#{metro.id}" %>
                                     <%= metro.name %>
