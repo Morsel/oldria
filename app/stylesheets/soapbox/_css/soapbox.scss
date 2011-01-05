@@ -2426,6 +2426,10 @@ dl.things dt:after {content: ":"}
 	padding:0 0 3px;
 	margin:0 0 10px;
 	border-bottom:1px solid #ccc;
+	a {
+	  color: white;
+	  text-decoration: none;
+	}
 	span.btl-art{
 		@include hiddentext;
 		display:inline-block;
