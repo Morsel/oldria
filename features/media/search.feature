@@ -20,28 +20,28 @@ Feature: Media faceted member search
 
   Scenario: Searching by restaurant name, exact match
     Given I am on the media request search page
-    When I perform the search:
-      | Restaurant Name | South of the Border |
+    When I perform the raw search:
+      | restaurant_name_eq | South of the Border |
     Then I should see "South of the Border"
 
   Scenario: Searching by city
     Given "South of the Border" restaurant is in the "New York NY" metro region
     And I am on the media request search page
-    When I perform the search:
-      | Metro Area | New York NY |
+    When I perform the raw search:
+      | restaurant_metropolitan_area_name_eq | New York NY |
     Then I should see "South of the Border"
 
   Scenario: Searching by other criteria
     Given the restaurant "South of the Border" is in the region "Midwest"
     And I am on the media request search page
-    When I perform the search:
-      | Region | Midwest |
+    When I perform the raw search:
+      | restaurant_james_beard_region_name_eq | Midwest |
     Then I should see "South of the Border"
 
 @regression
   Scenario: Searching by restaurant role
     Given I am on the media request search page
-    When I perform the search:
-      | Role | Sommelier |
+    When I perform the raw search:
+      | restaurant_role_name_eq | Sommelier |
     Then I should see "South of the Border"
     And I should see "Southtown Borders"

@@ -121,15 +121,20 @@ Then /^I should see a list of media requests$/ do
   Then("I should see a table of resources")
 end
 
+When /^I perform the raw search:$/ do |table|
+  visit new_mediafeed_media_request_path(:search => table.rows_hash)
+end
+
 When "I perform the search:" do |table|
   searchcriteria = table.rows_hash
   searchcriteria.each do |field, value|
-    if ['Region', 'Metro Area', 'Subject Matter', 'Role', 'Restaurant Name', 'Region'].include?(field)
+    if ['Region', 'Greater Metropolitan Area', 'Subject Matter', 'Role at Restaurant', 'Restaurant Name'].include?(field)
       check value
     else
       fill_in field, :with => value
     end
   end
+  click_button "Search"
 end
 
 When /^I approve the media request$/ do
