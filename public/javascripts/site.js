@@ -575,7 +575,6 @@ $('#profile_questions tbody').sortable({
 	dropOnEmpty:false,
 	update: function(){
     var postData = $(this).sortable('serialize', { key: 'profile_questions[]' });
-    postData = postData + "&chapter_id=" + $(".chapter").attr("id").split("_")[1];
 		$.ajax({ data: postData,
 		    dataType:'script', type:'post', url:'/admin/profile_questions/sort'
 		});
