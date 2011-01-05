@@ -1,4 +1,4 @@
-@soapbox
+@soapbox @search
 Feature: Search question
   So that diners and journalists can find interesting content
   As a public user of the site

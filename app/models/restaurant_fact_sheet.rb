@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20101214220857
+# Schema version: 20110104123654
 #
 # Table name: restaurant_fact_sheets
 #
@@ -55,6 +55,10 @@
 #  other_updated_at                  :datetime
 #  created_at                        :datetime
 #  updated_at                        :datetime
+#  days_closed                       :string(255)
+#  holidays_closed                   :string(255)
+#  concept                           :string(255)
+#  entertainment                     :string(255)
 #
 
 class RestaurantFactSheet < ActiveRecord::Base

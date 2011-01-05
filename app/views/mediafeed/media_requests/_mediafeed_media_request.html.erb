@@ -8,7 +8,7 @@
 			 <% end %>
     </li>
 		<% if mediafeed_media_request.employment_search.present? %>
-		  <% names = mediafeed_media_request.employment_search.try(:employments).map(&:employee_name).uniq.try(:to_sentence) -%>
+		  <% names = mediafeed_media_request.recipient_names -%>
 		  <% unless mediafeed? -%>
 		    <% names = @media_request_discussion.recipient_name %>
 		  <% end -%>

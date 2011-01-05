@@ -62,9 +62,7 @@ class Admin::ProfileQuestionsController < Admin::AdminController
       end
     elsif params[:profile_questions]
       params[:profile_questions].each_with_index do |id, index|
-        membership = ChapterQuestionMembership.find(:first,
-            :conditions => { :profile_question_id => id, :chapter_id => params[:chapter_id] })
-        membership.update_attributes(:position => (index + 1))
+        ProfileQuestion.update_all(['position=?', index+1], ['id=?', id])
       end
     end
     render :nothing => true

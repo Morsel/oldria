@@ -62,8 +62,6 @@ Feature: Manage restaurants
     Then I should see that the restaurant has a complimentary account
     When I am on the admin restaurants page
     And the listing for "Piece" should be complimentary
-    When I go to the restaurant show page for "Piece"
-    Then the show page should be premium
     
   Scenario: Canceling a restaurant complimentary account
     Given the restaurant "Piece" has a complimentary account
@@ -74,8 +72,6 @@ Feature: Manage restaurants
     Then I should see that the restaurant has a basic account
     When I am on the admin restaurants page
     And the listing for "Piece" should be basic
-    When I go to the restaurant show page for "Piece"
-    Then the show page should be basic
     
   Scenario: Converting an existing restaurant account to complementary
     Given the restaurant "Piece" has a premium account
@@ -86,8 +82,6 @@ Feature: Manage restaurants
     Then I should see that the restaurant has a complimentary account
     When I am on the admin restaurants page
     And the listing for "Piece" should be complimentary
-    When I go to the restaurant show page for "Piece"
-    Then the show page should be premium
     
   Scenario: Cancel a non-complimentary restaurant premium account
     Given the restaurant "Piece" has a premium account
@@ -98,8 +92,6 @@ Feature: Manage restaurants
     Then I should see that the restaurant has a basic account
     When I am on the admin restaurants page
     And the listing for "Piece" should be basic
-    When I go to the restaurant show page for "Piece"
-    Then the show page should be basic
     
   Scenario: Convert an overtime restaurant account to complimentary
     Given the restaurant "Piece" has an overtime account
@@ -110,8 +102,6 @@ Feature: Manage restaurants
     Then I should see that the restaurant has a complimentary account
     When I am on the admin restaurants page
     And the listing for "Piece" should be complimentary
-    When I go to the restaurant show page for "Piece"
-    Then the show page should be premium
   
   #Scenario: Cancel an overtime restaurant account
   Scenario: Deleting the restaurant's primary manager (and selecting a new one)

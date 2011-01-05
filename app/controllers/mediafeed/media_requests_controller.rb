@@ -23,11 +23,13 @@ class Mediafeed::MediaRequestsController < Mediafeed::MediafeedController
     @media_request = current_user.media_requests.build(params[:media_request])
     @media_request.attachments.build
     search_setup(@media_request, User.mediafeed_only_condition)
+    @solo_users = @solo_users.select { |u| u.employee.mediafeed_visible } # see FIXME note in ApplicationController::search_setup
   end
 
   def create
     @media_request = current_user.media_requests.build(params[:media_request])
     search_setup(@media_request, User.mediafeed_only_condition)
+    @solo_users = @solo_users.select { |u| u.employee.mediafeed_visible } # see FIXME note in ApplicationController::search_setup
 
     # Step 1: Media requests must include a subject matter in the criteria
     unless params[:search][:subject_matters_id_equals_any].compact.any?

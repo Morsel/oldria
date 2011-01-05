@@ -12,17 +12,13 @@ Feature: Restaurant Accounts
     Given "emily" is the account manager for "Taco Bell"
     Given I am logged in as "emily" with password "secret"
 
-  Scenario: A restaurant's account status shows on its profile page
-    When I go to the restaurant show page for "Taco Bell"
-    Then I see that the restaurant's account status is basic
+  Scenario: A basic restaurant can see its account status
     When I go to the edit restaurant page for "Taco Bell"
     Then I see that the restaurant's account status is basic
     And I see a link to update my account to premium
 
   Scenario: A premium restaurant can see their account status
     Given the restaurant "Taco Bell" has a premium account
-    When I go to the restaurant show page for "Taco Bell"
-    Then I see that the restaurant's account status is premium
     When I go to the edit restaurant page for "Taco Bell"
     Then I see that the restaurant's account status is premium
     And I see a link to cancel my account
