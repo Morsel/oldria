@@ -23,7 +23,7 @@ class Mediafeed::MediaRequestsController < Mediafeed::MediafeedController
     @media_request = current_user.media_requests.build(params[:media_request])
     @media_request.attachments.build
     search_setup(@media_request, User.mediafeed_only_condition)
-    @solo_users = @solo_users.select { |u| u.mediafeed_visible } # see FIXME note in ApplicationController::search_setup
+    @solo_users = @solo_users.select { |u| u.employee.mediafeed_visible } # see FIXME note in ApplicationController::search_setup
   end
 
   def create
