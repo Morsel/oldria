@@ -29,6 +29,16 @@ $(document).ready(function(){
 		$('#content.home .panel').equalHeights();
 	}
 	
+	$('.colorbox').colorbox({
+			current: ''
+  });
+
+	$('div#photos').masonry({ 
+		columnWidth: 330,
+		itemSelector: '.photo'
+	});
+
+	
 	if($('#cycle').length > 0){
 		$('#cycle').cycle({
 			timeout: 8000,
