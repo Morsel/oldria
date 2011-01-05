@@ -22,7 +22,7 @@ Feature: Managing Restaurants
     And I follow "Jimmy's Diner"
     When I follow "Edit Restaurant"
     And I follow "Staff"
-    Then I should see "Employees at Jimmy's Diner"
+    Then I should see "Rearrange the order employees are listed on your restaurant"
 
   Scenario: I can add restaurant managers
     Given I have added "jane@sample.com" to that restaurant
@@ -46,4 +46,4 @@ Feature: Managing Restaurants
     When I follow "My Restaurants"
     And I follow "Jimmy's Diner"
     And I follow "Edit restaurant"
-    Then I should see "Edit your restaurant"
+    Then I should see "Back to public view"
