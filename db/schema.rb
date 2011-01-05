@@ -339,8 +339,6 @@ ActiveRecord::Schema.define(:version => 20110104234602) do
     t.datetime "updated_at"
   end
 
-  add_index "feed_categories", ["id"], :name => "index_feed_categories_on_id", :unique => true
-
   create_table "feed_entries", :force => true do |t|
     t.string   "title"
     t.string   "author"
