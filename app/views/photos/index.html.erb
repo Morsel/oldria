@@ -7,8 +7,9 @@
   <div id="photos">
     <% @photos.each do |photo| %>
       <% content_tag_for(:div, photo) do %>
-        <%= link_to image_tag(photo.attachment.url(:medium), :class => "restaurant_photo", :width => photo.attachment.width, :height => photo.attachment.height), photo.attachment.url(:large), :class => 'colorbox', :rel => 'restaurant_photo', :title => "#{photo.credit}" %>
-        <p class="credit"><%= photo.credit %></p>
+        <%= link_to image_tag(photo.attachment.url(:medium), :class => "restaurant_photo", :width => photo.attachment.width, :height => photo.attachment.height), photo.attachment.url(:large), :class => 'colorbox', :rel => 'restaurant_photo', :title => "#{photo.name}" %>
+        <p class="credit"><%= photo.name %><br>
+        Credit: <%= photo.credit %></p>
       <% end %>
     <% end %>
   </div>

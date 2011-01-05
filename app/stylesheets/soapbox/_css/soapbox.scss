@@ -2372,6 +2372,28 @@ dl.things dt:after {content: ":"}
 			}
 		}
 	}
+	
+	h2 {
+    .inline-hint {
+      font-size: 12px;
+      font-family: "Helvetica Neue", "Helvetica", Arial, sans-serif;
+      color: gray;
+      font-style: normal;
+			text-transform:none !important;
+    }
+  }
+	
+	#photos {
+    .photo {
+			width:320px;
+      margin:0 10px 0 0;
+      .credit {
+        background: white;
+        margin: 0;
+        padding: 5px 0 15px;
+      }
+    }
+  }
 
 } /* ## ---- end of restaurant_profile_view ----- */
 

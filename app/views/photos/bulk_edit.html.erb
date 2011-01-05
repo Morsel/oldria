@@ -10,7 +10,8 @@
     		<% photo_form.inputs "New Photo" do %>
       		<%= photo_form.error_messages %>
       		<%= photo_form.input 'attachment', :as => 'file', :hint => "Please upload a jpeg, gif, or png" %>
-      		<%= photo_form.input :credit, :required => true, :label => 'Caption' %>
+      		<%= photo_form.input :name, :required => true %>
+      		<%= photo_form.input :credit, :required => true %>
       		<%= button_tag 'Upload', :class => 'positive' %>
     		<% end %>
   		<% end %>
@@ -24,7 +25,7 @@
     	  	<thead>
     	      <tr>
     	        <th>Photo</th>
-    	        <th>Caption</th>
+    	        <th>Credit</th>
     	        <th>Primary</th>
     	        <th>Actions</th>
     	      </tr>
@@ -32,12 +33,15 @@
     	  	<tbody>
     	  		<% @photos.each do |photo| %>
     	    	<% content_tag_for(:tr, photo) do %>
-    	      	<td><%= image_tag photo.attachment.url(:medium), :class => "restaurant_photo" %></td>
+    	      	<td>
+    	      	  <%= image_tag photo.attachment.url(:medium), :class => "restaurant_photo" %><br>
+    	      	  <%= photo.name %>
+    	      	</td>
     	      	<td class="restaurant_photo_credit"><%= photo.credit %></td>
     	      	<td><%= restaurant_form.radio_button :primary_photo_id, photo.id %></td>
                 <td>
                   <%= link_to "Remove", restaurant_photo_path(@restaurant, photo), :method => :delete, :confirm => "Are you sure you want to remove the photo?", :class => 'delete' %>
-                  <%= link_to "Edit", edit_restaurant_photo_path(@restaurant, photo), :class => ['colorbox', ' edit-link'] %></td>
+                  <%= link_to "Edit", edit_restaurant_photo_path(@restaurant, photo), :class => 'edit' %></td>
     	    		<% end %>
     	  		<% end %>
     	  	</tbody>

@@ -32,6 +32,12 @@ $(document).ready(function(){
 	$('.colorbox').colorbox({
 			current: ''
   });
+
+	$('div#photos').masonry({ 
+		columnWidth: 330,
+		itemSelector: '.photo'
+	});
+
 	
 	if($('#cycle').length > 0){
 		$('#cycle').cycle({
