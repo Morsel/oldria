@@ -190,9 +190,29 @@ class ApplicationController < ActionController::Base
       @search = EmploymentSearch.new(:conditions => params[:search]).employments
     end
 
+    extra_params = build_extra_profile_params
+    solo_search = EmploymentSearch.new(:conditions => extra_params).solo_employments if extra_params.present?
+
     options.reverse_merge!(:include => [:restaurant, :employee], :order => "restaurants.name")
+
     @solo_users, @restaurants_and_employments = @search.all(options).partition { |e| e.restaurant.nil? }
     @restaurants_and_employments = @restaurants_and_employments.group_by(&:restaurant)
+
+    # FIXME - should call solo_search.all(options) but it generates a DB error
+    # instead since we only use the options in media requests we'll manually filter there (in MediaRequestsController)
+    @solo_users = [@solo_users, solo_search].flatten.compact.uniq if extra_params.present?
+  end
+
+  def build_extra_profile_params
+    extra_params = {}
+    if params[:search].try(:[], :restaurant_james_beard_region_id_equals_any)
+      extra_params[:employee_profile_james_beard_region_id_eq_any] = params[:search][:restaurant_james_beard_region_id_equals_any]
+    end
+    if params[:search].try(:[], :restaurant_metropolitan_area_id_equals_any)
+      extra_params[:employee_profile_metropolitan_area_id_eq_any] = params[:search][:restaurant_metropolitan_area_id_equals_any]
+    end
+
+    return extra_params
   end
 
   def save_search

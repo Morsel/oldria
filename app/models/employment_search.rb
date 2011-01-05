@@ -79,4 +79,8 @@ class EmploymentSearch < ActiveRecord::Base
     end
   end
 
+  def search_params
+    conditions
+  end
+
 end

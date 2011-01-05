@@ -74,6 +74,10 @@ class MediaRequest < ActiveRecord::Base
     subject_matter.present? ? subject_matter.name : "Media Request"
   end
 
+  def recipient_names
+    [restaurants.map(&:name), employments.map(&:employee_name)].flatten.to_sentence
+  end
+
   def discussions_with_comments
     media_request_discussions.with_comments + solo_media_discussions.with_comments
   end
@@ -113,7 +117,22 @@ class MediaRequest < ActiveRecord::Base
 
   def update_restaurants_from_search_criteria
     self.restaurant_ids = employment_search.restaurant_ids
-    self.employments = employment_search.solo_employments if employment_search.solo_employments.present?
+
+    # FIXME kludgy hack here: media request can only have one employment search 
+    # but we really need a second search to add solo users who have a matching region or metro on their profile
+    if employment_search.search_params[:restaurant_james_beard_region_id_equals_any].present? || 
+        employment_search.search_params[:restaurant_metropolitan_area_id_equals_any].present?
+
+      extra_results = EmploymentSearch.new(:conditions => { 
+          :employee_profile_james_beard_region_id_eq_any => employment_search.search_params[:restaurant_james_beard_region_id_equals_any],
+          :employee_profile_metropolitan_area_id_eq_any => employment_search.search_params[:restaurant_metropolitan_area_id_equals_any]
+      }).solo_employments
+
+      _employments = [employment_search.solo_employments, extra_results].flatten.compact.uniq
+      self.employments = _employments if _employments.present?
+    else
+      self.employments = employment_search.solo_employments if employment_search.solo_employments.present?
+    end
   end
 end
 

@@ -63,7 +63,7 @@
         <div id="region_fields" class="loading" style="display:none;">
             <%= s.input :restaurant_james_beard_region_id_equals_any,
                         :as => "check_boxes",
-                        :collection => JamesBeardRegion.with_restaurants.all %>
+                        :collection => (JamesBeardRegion.with_restaurants + JamesBeardRegion.with_profiles).flatten.uniq.sort_by(&:name) %>
         </div>
       </div>
       <div class="accordion_box">
@@ -71,12 +71,14 @@
         <div id="metro_fields" class="loading" style="display:none;">
             <%= s.input :restaurant_metropolitan_area_id_equals_any,
                         :as => "check_boxes",
-                        :collection => MetropolitanArea.with_restaurants.all %>
+                        :collection => (MetropolitanArea.with_restaurants + MetropolitanArea.with_profiles).flatten.uniq.sort_by(&:name) %>
         </div>
       </div>
     </div>
   <% end %>
+  <%- if mediafeed? -%>
   <div id="employment_list" class="">
       <%= render :partial => 'shared/employment_list' %>
   </div>
+  <%- end -%>
 <% end %>
