@@ -16,7 +16,6 @@ Feature: Media faceted member search
     And the following media users:
       | username | password |
       | mediaman | secret   |
-    And the restaurants have premium accounts
     And I am logged in as "mediaman" with password "secret"
 
   Scenario: Searching by restaurant name, exact match
