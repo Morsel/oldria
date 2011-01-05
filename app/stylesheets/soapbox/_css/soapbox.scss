@@ -1325,74 +1325,8 @@ p.search_filter_hint {
 	}
 }
 
-/*.share{
-  padding: 3px;
-  position:relative;
-  .addthis_toolbox{
-    position:absolute;
-    right:0;
-    background:url(/images/soapbox/bg-sienna-opacity-10.png);
-    background:rgba(215,82,30,0.10);
-    &:hover{
-      background:$sienna;
-      a{
-        color:#fff;
-        background-position:2px -28px;
-        text-decoration:none;
-        text-shadow:none;
-      }
-    }
-    a{
-      display:block;
-      padding:5px 10px 2px 20px;
-      font-size:12px;
-      text-shadow:0 1px 0 #fff;
-      text-transform:uppercase;
-      @include museoslabbold;
-      background:url(/images/soapbox/share-arrow.gif) no-repeat 2px 3px;
-      color:$sienna;
-      &:hover{
-        background-position:2px -28px;
-        text-decoration:none;
-        text-shadow:none;
-      }
-    }
-  }
-}*/
 #trend-article {
 	position:relative;
-	/*.addthis_toolbox{
-	   position:absolute;
-	   top:-40px;
-	   right:0;
-	   background:url(/images/soapbox/bg-sienna-opacity-10.png);
-	   background:rgba(215,82,30,0.10);
-	   &:hover{
-	     background:$sienna;
-	     a{
-	       color:#fff;
-	       background-position:2px -28px;
-	       text-decoration:none;
-	       text-shadow:none;
-	     }
-	   }
-	   a{
-	     display:block;
-	     padding:5px 10px 2px 20px;
-	     font-size:12px;
-	     text-shadow:0 1px 0 #fff;
-	     text-transform:uppercase;
-	     @include museoslabbold;
-	     background:url(/images/soapbox/share-arrow.gif) no-repeat 2px 3px;
-	     color:$sienna;
-	     &:hover{
-	       background-position:2px -28px;
-	       text-decoration:none;
-	       text-shadow:none;
-	     }
-	   }
-	 }*/
-
 	header h1{
 		@include hiddentext;
 		width:205px;
