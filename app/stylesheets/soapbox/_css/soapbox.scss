@@ -2242,6 +2242,7 @@ dl.things dt:after {content: ":"}
 			small {
 				display: block;
 				margin: 10px 0;
+				clear:both;
 				a {
 					color: $sienna;
 					&:hover {
