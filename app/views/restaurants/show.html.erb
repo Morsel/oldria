@@ -80,11 +80,6 @@
       <dd id="opening_date"><%= @restaurant.opening_date.to_s(:long) %></dd>
     <% end %>
 
-    <% dl_if(@restaurant.account_type, :class => "list_item account", :id => "account_status") do %>
-      <dt>Account Status:</dt>
-      <dd class="currently"><%= @restaurant.account_type %></dd>
-    <% end %>
-
     <% dl_if(@restaurant.phone_number, :class => "list_item", :id => "phone_number") do %>
       <dt>Phone Number:</dt>
       <dd id="phone_number"><%=h @restaurant.phone_number %></dd>
