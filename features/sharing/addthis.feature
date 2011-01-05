@@ -78,10 +78,4 @@ Feature: AddThis sharing feature
     And I go to the soapbox front burner page
     And I follow "Where do you buy flowers?"
     Then I should see facebook description tag containing "Hand-picked" within content
-
-  Scenario: Chapters page should contain og:description tag with appropriate content
-    Given I am on the profile page for "john"
-    When I follow "View all Topics" within "#behindline"
-    And I follow "View all"    
-    Then I should see facebook description tag containing "Check out John Smith's full profile" within content
   

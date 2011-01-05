@@ -27,6 +27,13 @@ Given /^a restaurant named "([^\"]*)" with the following employees:$/ do |restau
   restaurant
 end
 
+Given /^the restaurants have premium accounts$/ do
+  Restaurant.all.each do |restaurant|
+    restaurant.update_attribute('premium_account',1)
+  end
+end
+
+
 Given /^a restaurant named "([^\"]*)" with manager "([^\"]*)"$/ do |name, username|
   user = Factory(:user, :username => username, :email => "#{username}@testsite.com")
   restaurant = Factory(:restaurant, :name => name, :manager => user)
