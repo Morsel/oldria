@@ -192,6 +192,7 @@ em, i{
 	margin: 0 0 0px 0;
 	z-index: 500;
 	background: transparent url(/images/mediafeed/bg-fauxcolumn.gif) repeat-y;
+	overflow:hidden;
 	&.hp {
 		position: relative;
 		background: none;
