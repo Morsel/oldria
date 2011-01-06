@@ -40,4 +40,9 @@ module QuestionsHelper
     end
     output.join(' | ')
   end
+  
+  def find_btl_url_for subject
+    subject.class == "User" ? soapbox_profile_path(subject.username) : 
+      soapbox_restaurant_path(subject)
+  end
 end
