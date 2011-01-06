@@ -514,6 +514,16 @@ class User < ActiveRecord::Base
   # conditions hash for mediafeed visible users only
   # Ex. Employment.all(User.mediafeed_only_condition)
   def self.mediafeed_only_condition
-    options = { :joins => [:restaurant, :employee]  ,  :conditions => { :users => { :mediafeed_visible => true } } }
+    options = { 
+      :joins => [:restaurant, :employee],
+      :conditions =>  [
+        'users.mediafeed_visible = ? AND
+        users.visible = ? AND 
+        users.role != ? OR
+        (users.role != ? OR users.role IS NULL)', 
+        true, true, 'admin', 'media'
+      ],
+      :order => "LOWER(last_name) ASC" 
+    }
   end
 end

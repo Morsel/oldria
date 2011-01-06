@@ -16,6 +16,7 @@
         <div id="subject_fields" class="loading">
             <%= s.input :subject_matters_id_equals_any, 
                         :as => "check_boxes",
+                        :label => '&nbsp;',
                         :collection => SubjectMatter.general.all %>
         </div>
       </div>
@@ -28,6 +29,7 @@
         <div id="user_fields" style="display:none;">
             <%= s.input :employee_id_equals_any,
                         :as => "check_boxes",
+                        :label => '&nbsp;',
                         :collection => User.by_last_name %>
         </div>
       </div>
@@ -36,6 +38,7 @@
         <div id="restaurant_fields" style="display:none;">
             <%= s.input :restaurant_id_equals_any,
                         :as => "check_boxes",
+                        :label => '&nbsp;',
                         :collection => Restaurant.all(:order => 'sort_name ASC') %>
         </div>
       </div>
@@ -45,6 +48,7 @@
         <div id="cuisine_fields" class="loading" style="display:none;">
             <%= s.input :restaurant_cuisine_id_equals_any,
                         :as => "check_boxes",
+                        :label => '&nbsp;',
                         :collection => Cuisine.with_restaurants %>
         </div>
       </div>
@@ -54,6 +58,7 @@
         <div id="role_fields" class="loading" style="display:none;">
             <%= s.input :restaurant_role_id_equals_any,
                         :as => "check_boxes",
+                        :label => '&nbsp;',
                         :collection => RestaurantRole.with_employments.all %>
         </div>
       </div>
@@ -63,6 +68,7 @@
         <div id="region_fields" class="loading" style="display:none;">
             <%= s.input :restaurant_james_beard_region_id_equals_any,
                         :as => "check_boxes",
+                        :label => '&nbsp;',
                         :collection => (JamesBeardRegion.with_restaurants + JamesBeardRegion.with_profiles).flatten.uniq.sort_by(&:name) %>
         </div>
       </div>
@@ -71,6 +77,7 @@
         <div id="metro_fields" class="loading" style="display:none;">
             <%= s.input :restaurant_metropolitan_area_id_equals_any,
                         :as => "check_boxes",
+                        :label => '&nbsp;',
                         :collection => (MetropolitanArea.with_restaurants + MetropolitanArea.with_profiles).flatten.uniq.sort_by(&:name) %>
         </div>
       </div>

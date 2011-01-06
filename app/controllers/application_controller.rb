@@ -259,7 +259,7 @@ class ApplicationController < ActionController::Base
       extra_params[:default_employment_solo_restaurant_name_eq_any] = params[:search][:employments_restaurant_name_eq_any]
     end
 
-    if params[:controller].match(/soapbox/) or params[:controller].match(/mediafeed/)
+    if soapbox?
       search = User.in_soapbox_directory.search(params[:search]).all
       extra_search_results = User.in_soapbox_directory.search(extra_params).all if extra_params.present?
       @users = [search, extra_search_results].flatten.compact.uniq.sort { |a,b| a.last_name.downcase <=> b.last_name.downcase }
