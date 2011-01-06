@@ -9,7 +9,7 @@ module DirectoryHelper
   end
   
   def users_for_search
-    if on_soapbox || on_mediafeed
+    if on_soapbox
       User.in_soapbox_directory
     else
       User.in_spoonfeed_directory
