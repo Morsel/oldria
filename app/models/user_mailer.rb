@@ -50,7 +50,7 @@ class UserMailer < ActionMailer::Base
     from        'notifications@restaurantintelligenceagency.com'
     recipients  invite.email
     sent_on     Time.now
-    subject     "Thanks for your interest in Spoonfeed!"
+    subject     "Thanks for requesting an invitation to Spoonfeed!"
     body        :invitation => invite
   end
   
