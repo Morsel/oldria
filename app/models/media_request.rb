@@ -108,6 +108,10 @@ class MediaRequest < ActiveRecord::Base
     discussion = media_request_discussions.find_by_restaurant_id(employment.restaurant_id)
     discussion && discussion.viewable_by?(employment)
   end
+  
+  def discussions
+    media_request_discussions | solo_media_discussions
+  end
 
   private
 

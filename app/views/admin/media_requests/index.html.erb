@@ -22,7 +22,7 @@
 		<% @pending_media_requests.each do |media_request| -%>
 		<tr id="<%= dom_id(media_request) %>" class="media_request <%= cycle('even,odd') %>">
 			<td><%= media_request.sender.try(:name) %></td>
-			<td><%= media_request.media_request_discussions.size %></td>
+			<td><%= media_request.discussions.size %></td>
 			<td><%= media_request.subject_matter.try(:name) %></td>
 			<td><%= truncate(media_request.message, :length => 50) %></td>
 			<td><%= list_and_link_replies(media_request) %></td>
@@ -43,7 +43,7 @@
 	<% table_for(@approved_media_requests) do |t| %>
 		<% t.data :actions => [:show, :edit], :action_prefix => :admin do
 			t.cell :sender
-			t.cell(:recipients) {|r| r.media_request_discussions.size }
+			t.cell(:recipients) {|r| r.discussions.size }
 			t.cell :subject_matter, :heading => "Type / Subject Matter"
 			t.cell(:message) {|r| truncate(r.message, :length => 50)}
 			t.cell(:replies) {|r| list_and_link_replies(r) }

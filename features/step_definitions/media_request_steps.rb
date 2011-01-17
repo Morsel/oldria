@@ -173,7 +173,7 @@ Then(/^there should be (\d+) media requests?(?: in the system)?$/) do |num|
 end
 
 Then /^the media request should have ([0-9]+) comments?$/ do |num|
-  MediaRequest.last.media_request_discussions.last.comments_count.should == num.to_i
+  MediaRequest.last.discussions.sum(&:comments_count).should == num.to_i
 end
 
 Then /^I should see an admin media request$/ do
