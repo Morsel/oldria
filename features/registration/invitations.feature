@@ -28,8 +28,8 @@ Feature: users can be invited to join Spoonfeed by registered SF users, restaura
     And "mc@restaurants.com" should have 2 emails
 
     When I logout
-    And "mc@restaurants.com" opens the email with subject "Thanks for your interest in Spoonfeed!"
-    Then they should see "Thanks, Ellen" in the email body
+    And "mc@restaurants.com" opens the email with subject "Thanks for requesting an invitation to Spoonfeed!"
+    Then they should see "Thanks,<br />Ellen" in the email body
     
     When "mc@restaurants.com" opens the email with subject "SpoonFeed: You're invited"
     Then I should see an invitation URL in the email body
