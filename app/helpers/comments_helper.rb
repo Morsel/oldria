@@ -21,5 +21,15 @@ module CommentsHelper
         "#{comment.employment.restaurant_role.try(:name)} at #{restaurant_link(comment.restaurant)}" :
         "#{comment.employment.restaurant_role.try(:name)}"
   end
+  
+  def restaurant_name_for user
+    if (employment = user.primary_employment).present? && (restaurant = employment.restaurant).present?
+      " of #{restaurant.name} "
+    elsif employment && (name = employment.solo_restaurant_name).present?
+      " of #{name} "
+    else
+      "&nbsp;"
+    end
+  end
 
 end
