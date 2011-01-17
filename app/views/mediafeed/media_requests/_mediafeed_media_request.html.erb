@@ -13,7 +13,7 @@
 		    <% names = @media_request_discussion.recipient_name %>
 		  <% end -%>
 		  <li id="shorten_<%= mediafeed_media_request.id %>">
-			  To: <%= names %>&nbsp;<%= link_to "View all", "#shorten_#{mediafeed_media_request.id}", :class => "shorten" if names.length > 85 %>
+			  To: <%= names %>&nbsp;<%= link_to "View all", "#shorten_#{mediafeed_media_request.id}", :class => "shorten" if names.length > 50 %>
 			</li>
 	  <% end %>
 	</ul>
