@@ -2247,6 +2247,7 @@ p.search_filter_hint {
 			&#invitation {
 				line-height: 17px;
 				color: #fff;
+				background: #ce4600;
 				@include linear-gradient(color-stops(#ce4600,#df680e ), top);
 			  h2 {
 			    @include hoeflerbolditalic;
@@ -2260,6 +2261,7 @@ p.search_filter_hint {
 			    @include opacity(.8);
 			  }
 				&:hover {
+				  background: #AF380E;
 				  @include linear-gradient(color-stops(#AF380E,#ce4600 ), top);
 				  h2, p {					  
 					  @include opacity(.66);
