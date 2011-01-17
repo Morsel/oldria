@@ -7,7 +7,7 @@ class UserMailer < ActionMailer::Base
       from       'accounts@restaurantintelligenceagency.com'
       recipients user.email
       sent_on    sent_at
-      subject    'Welcome to SpoonFeed! Please confirm your account'
+      subject    'Welcome! Please confirm your account'
       body       :user => user
     end
   end
