@@ -23,13 +23,13 @@ module CommentsHelper
   end
   
   def restaurant_name_for user
-    if (employment = user.primary_employment).present? && (restaurant = employment.restaurant).present?
-      " of #{restaurant.name} "
-    elsif employment && (name = employment.solo_restaurant_name).present?
-      " of #{name} "
-    else
+    # if (employment = user.primary_employment).present? && (restaurant = employment.restaurant).present?
+    #       " of #{restaurant.name} "
+    #     elsif employment && (name = employment.solo_restaurant_name).present?
+    #       " of #{name} "
+    #     else
       "&nbsp;"
-    end
+    # end
   end
 
 end
