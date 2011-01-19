@@ -33,6 +33,22 @@ describe UserMailer do
       @email.should have_subject(/#{@request.publication_string}/)
     end
   end
+  
+  describe "media request notifications for solo users" do
+    before(:all) do
+      @sender = Factory.stub(:media_user, :email => "media@media.com")
+      @receiver = Factory.stub(:user, :name => "Hambone Fisher", :email => "hammy@spammy.com")
+      @employment = Factory.stub(:employment, :employee => @receiver)
+      @request = Factory.stub(:media_request, :sender => @sender, :publication => "New York Times")
+      @request_discussion = Factory.stub(:solo_media_discussion, :media_request => @request, :employment => @employment)
+      @request_discussion.stubs(:employments).returns([@employment])
+      @email = UserMailer.create_media_request_notification(@request_discussion, @receiver)
+    end
+
+    it "should contain a link to the solo media conversation" do
+      @email.should have_text(/#{solo_media_discussion_url(@request_discussion)}/)
+    end
+  end
 
   describe "restaurant employee invitations" do
     before(:each) do
