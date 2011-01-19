@@ -3,7 +3,7 @@
     <li class="reply_count"><%= pluralize (comments = @media_request_discussion.comments.reject { |c| c.new_record? }).size, "reply" %></li>
   	<% for comment in comments.reverse -%>
   	  <li class="reply">
-		    <h3><%= comment.user.name %></h3>
+		    <h3><%= comment.user.name %><%= title_and_restaurant_name_for(comment.commentable, comment.user) %></h3>
 		    <p><%= comment.comment %></p>
 		    <% if (file = comment.attachments.first).present? -%>
 		      <%= render :partial => 'attachments/attachment', :locals => { :attachment => file } %>

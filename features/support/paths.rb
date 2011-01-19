@@ -172,7 +172,9 @@ module NavigationHelpers
     when /the soapbox restaurant feature page for "(.+)" and "(.+)"/
       soapbox_restaurant_feature_page_path(
           Restaurant.find_by_name($1), RestaurantFeaturePage.find_by_name($2))
-
+    when /the soapbox restaurant directory page/
+      soapbox_restaurant_directory_path
+      
     # Question
     when /^the question page with title "(.+)"$/
       question_path(ProfileQuestion.find_by_title($1).id)

@@ -44,3 +44,8 @@ Feature: Soapbox
     When I check "Aquavit"
     Then I should see "Annalena" within "#user-results"
 
+  Scenario: Viewing restaurants in the directory
+    Given I am not logged in
+    And the restaurant "Avec" has a complimentary account
+    When I go to the soapbox restaurant directory page
+    Then I should see "Avec"

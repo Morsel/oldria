@@ -22,14 +22,17 @@ module CommentsHelper
         "#{comment.employment.restaurant_role.try(:name)}"
   end
   
-  def restaurant_name_for user
-    # if (employment = user.primary_employment).present? && (restaurant = employment.restaurant).present?
-    #       " of #{restaurant.name} "
-    #     elsif employment && (name = employment.solo_restaurant_name).present?
-    #       " of #{name} "
-    #     else
+  def title_and_restaurant_name_for resource, user
+    if resource.is_a?(MediaRequestDiscussion)
+      mr_restaurant = resource.restaurant
+      ", #{user.employments.find_by_restaurant_id(mr_restaurant.id).try(:restaurant_role).try(:name)} of #{mr_restaurant.name} "
+    elsif (employment = user.primary_employment).present? && (restaurant = employment.restaurant).present?
+      ", #{employment.try(:restaurant_role).try(:name)} of #{restaurant.name} "
+    elsif employment && (name = employment.solo_restaurant_name).present?
+      " of #{name} "
+    else
       "&nbsp;"
-    # end
+    end
   end
 
 end

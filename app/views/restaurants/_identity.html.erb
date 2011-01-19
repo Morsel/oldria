@@ -13,10 +13,10 @@
       <%= restaurant.cuisine.name %>
     </li>
     <li class="region">
-      <%= restaurant.james_beard_region.name %>
+      <%= restaurant.james_beard_region.try(:name) %>
     </li>
     <li class="metro_area">
-      <%= restaurant.metropolitan_area.name %>
+      <%= restaurant.metropolitan_area.try(:name) %>
     </li>
     
   </ul>

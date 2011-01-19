@@ -9,11 +9,11 @@
     </li>
 		<% if mediafeed_media_request.employment_search.present? %>
 		  <% names = mediafeed_media_request.recipient_names -%>
-		  <% unless mediafeed? -%>
-		    <% names = @media_request_discussion.recipient_name %>
-		  <% end -%>
+		  <li id="long_version_<%= mediafeed_media_request.id %>" style="display:none;">
+			  To: <%= names %>&nbsp;<%= link_to "View less", "#long_version_#{mediafeed_media_request.id}", :class => "show_more", :"data-show" => "#shorten_#{mediafeed_media_request.id}" %>
+			</li>
 		  <li id="shorten_<%= mediafeed_media_request.id %>">
-			  To: <%= names %>&nbsp;<%= link_to "View all", "#shorten_#{mediafeed_media_request.id}", :class => "shorten" if names.length > 50 %>
+			  To: <%= truncate(names, :length => 75) %>&nbsp;<%= link_to "View all", "#shorten_#{mediafeed_media_request.id}", :class => "show_more", :"data-show" => "#long_version_#{mediafeed_media_request.id}" if names.length > 75 %>
 			</li>
 	  <% end %>
 	</ul>

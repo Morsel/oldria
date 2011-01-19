@@ -5,9 +5,9 @@ Feature: Search question
   I want to search for QOTD, TRENDS and answers, BTL and user profiles by keyword.
 
   Background:
-  Given There is a searchable user with a communicative profile
-  And a premium restaurant named "Whisky House"
-  And several profile questions matching employment roles for "searchable"
+    Given There is a searchable user with a communicative profile
+    And a premium restaurant named "Whisky House"
+    And several profile questions matching employment roles for "searchable"
 
   Scenario: Finding a QOTD
     Given there is a QOTD asking "Is alloy mug fancy?"

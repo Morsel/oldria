@@ -103,4 +103,10 @@ function updateDirectoryList() {
 
 $directoryInputs.change(updateDirectoryList);
 
-$(".shorten").shorten();
+$('.show_more').click(function(){
+	toggle_me_first = $(this).attr('href');
+	toggle_me_next = $(this).attr('data-show');
+	$(toggle_me_first).toggle();
+	$(toggle_me_next).toggle();
+	return false;
+})

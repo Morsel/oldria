@@ -5,7 +5,7 @@
 <div class="content">
 	<p class="meta">
 	On <%= comment.created_at.try(:strftime, "%b %e, %Y at %l:%M %p") %>
-	<%= comment.user.try(:name_or_username) %><%= restaurant_name_for(comment.user) %>said:
+	<%= comment.user.try(:name_or_username) %><%= title_and_restaurant_name_for(comment.commentable, comment.user) %>said:
 	</p>
 
     <%= simple_format comment.comment %>
