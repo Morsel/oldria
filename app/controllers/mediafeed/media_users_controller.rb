@@ -7,9 +7,9 @@ class Mediafeed::MediaUsersController < Mediafeed::MediafeedController
 
   def create
     @media_user = User.new(params[:user])
-    @media_user.has_role! :media
-    @media_user.reset_perishable_token!
     if @media_user.save
+      @media_user.has_role! :media
+      @media_user.reset_perishable_token!
       UserMailer.deliver_signup(@media_user)
       redirect_to mediafeed_user_confirmation_path
     else

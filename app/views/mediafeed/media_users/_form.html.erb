@@ -1,7 +1,7 @@
 <% button_text = @media_user.new_record? ? "Signup" : "Save" -%>
 <% url = @media_user.new_record? ? mediafeed_media_users_path : mediafeed_media_user_path -%>
-<% semantic_form_for @media_user, :url => url do |f| %>
-
+<% semantic_form_for @media_user, :url => url, :html => { :id => 'mediafeed_user' } do |f| %>
+<%= error_messages_for :media_user %>
 <% f.inputs :name => 'Your Information', :class => 'editing basics' do %>
 	<%= f.input :first_name, :input_html => {:class => 'span-3'}, :wrapper_html => {:class => 'span-3'} %>
 	<%= f.input :last_name, :input_html => {:class => 'span-4'}, :wrapper_html => {:class => 'span-4'} %>
@@ -13,9 +13,10 @@
 	<%= f.input :metropolitan_areas, :as => :check_boxes, :label => 'I cover the following specific metro areas' %>
 <% end %>
 <% f.inputs :name => 'Desired Login Information', :class => 'editing basics' do %>
-	<%= f.input :username, :input_html => {:autocomplete => "off"} %>
-	<%= f.input :password, :input_html => {:autocomplete => "off"} %>
-	<%= f.input :password_confirmation, :input_html => {:autocomplete => "off"} %>
+	<%= f.input :username, :required => true, :input_html => {:autocomplete => "off"} %>
+	<%= f.input :password, :required => true, :input_html => {:autocomplete => "off"} %>
+	<%= f.input :password_confirmation, :required => true, :input_html => {:autocomplete => "off"} %>
+	<div id="requirement_errors"></div>
 	<p>
   	<%= button_tag button_text, :class => 'positive' %>
   </p>
