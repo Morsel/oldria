@@ -173,7 +173,7 @@ task :logs, :roles => :app do
   run "cd #{current_path}; RAILS_ENV=#{rails_env} tail -f log/#{rails_env}.log"
 end
 
-# before 'deploy:restart', 'compass:compile'
+before 'deploy:restart', 'compass:compile'
 after "deploy:symlink", "deploy:update_crontab"
 after 'deploy:update_code', 'deploy:symlink_shared'
 
