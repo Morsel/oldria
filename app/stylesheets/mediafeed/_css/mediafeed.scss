@@ -2213,3 +2213,13 @@ form, #content form{
 #content a.directory_switch {
 	display: none;
 }
+
+#requirement_errors{
+	padding:10px 0;
+	div{
+		background: #FBE3E4;
+		border:2px solid #FBC2C4;
+		color: #8A1F11;
+		padding:5px 10px;
+	}
+}

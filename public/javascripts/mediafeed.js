@@ -110,3 +110,4 @@ $('.show_more').click(function(){
 	$(toggle_me_next).toggle();
 	return false;
 })
+
