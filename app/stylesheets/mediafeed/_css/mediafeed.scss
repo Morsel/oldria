@@ -2196,6 +2196,34 @@ form, #content form{
 	}
 }
 
+.errorExplanation {
+  background: 7px 10px no-repeat url('/images/refinery/icons/cancel.png') #FFB1B1;
+  padding: 0px 5px 5px 30px;
+  font-weight: bold;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  border: 1px solid red;
+}
+.errorExplanation h2 {
+  color: red;
+  text-transform: none;
+  display: none;
+}
+.errorExplanation li{
+	padding-left:20px !important;
+	margin:5px 0 !important;
+}
+.errorExplanation p {
+  font-weight: normal;
+}
+.fieldWithErrors input, .fieldWithErrors textarea {
+  border: 1px solid red !important;
+  background-color: #FFECF0 !important;
+}
+.fieldWithErrors iframe, .fieldWithErrors .wym_box {
+  border-color: red !important;
+}
+
 /* ## end of #messages_nav ---------------------- */
 
 #directory_search {
