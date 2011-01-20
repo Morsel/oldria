@@ -35,11 +35,10 @@
       <% @users.each do |user| %>
         <tr id="<%= dom_id(user) %>" class="user <%= user.role %> <%= users_extra_row_class(user) %>">
             <td><%= h user.last_name %>, <%=h user.first_name %></td>
-            <td class="user_account_type">
-                <%= h user.account_type %>
-            </td>
+            <td class="user_account_type"><%= h user.account_type %></td>
             <td><%= link_to user.username, profile_path(user.username) %></td>
             <td><%= h user.email %></td>
+			<td><!-- JBF region here --></td>
             <td><%= user.last_request_at.try(:to_s,:long) %></td>
             <td class="<%= user.recently_upgraded? ? "highlight" : "plain" %>">
                 <%= user.subscription.try(:start_date).try(:to_s, :long) %>
