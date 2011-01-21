@@ -537,26 +537,27 @@ form#new_user_session {
 		}
 	}
 } /* end of #content.hp -------------------------------- */
+.addthis_toolbox {
+  overflow: auto;
+  a {
+    font-family: 'Helvetica Neue', Helvetica, arial, sans-serif;;
+    font-size: 12px;
+    text-transform: uppercase;
+    background: url(/images/redesign/share-arrow.gif) no-repeat 2px 2px $trans-orange;
+    display: block;
+    float: right;
+    margin-bottom: 10px;
+    padding: 3px 10px 3px 20px;
+    &:hover {
+      background: url(/images/redesign/share-arrow.gif) no-repeat 2px -29px $orange;
+      color: #fff !important;
+    }
+  }
+}
 
 #content {
 	@include column(18);
-	.addthis_toolbox {
-	  overflow: auto;
-	  a {
-      font-family: 'Helvetica Neue', Helvetica, arial, sans-serif;;
-      font-size: 12px;
-      text-transform: uppercase;
-      background: url(/images/redesign/share-arrow.gif) no-repeat 2px 2px $trans-orange;
-      display: block;
-      float: right;
-      margin-bottom: 10px;
-      padding: 3px 10px 3px 20px;
-      &:hover {
-        background: url(/images/redesign/share-arrow.gif) no-repeat 2px -29px $orange;
-        color: #fff;
-      }
-    }
-	}
+	
 	header {
 
 		padding: 5px 0;
@@ -1743,13 +1744,7 @@ form#new_user_session {
 			text-transform:uppercase;
 			font:normal 10px "Lucida Grande", Arial, sans-serif;
 		}
-		&:hover{
-			cursor:pointer;
-			color: $orange;
-			text-decoration:none;
-			background-color: none;
-			background: none;
-		}
+		
 		table{
 			table-layout:fixed;
 			width:314px;
@@ -1904,7 +1899,9 @@ form#new_user_session {
 		}
 	}
 } /* ## end of page_content --------------------- */
-
+.not_premium_colorbox{
+	display:none !important;
+}
 #profile-tabs {
 	form {
 		h2 {
@@ -3007,13 +3004,16 @@ p.search_filter_hint {
 	}
 }
 
-#btl-title{
+#page_content h1#btl-title{
 	color:#666;
 	text-transform: capitalize;
 	font:200 16px "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, sans-serif !important;
 	padding:0 0 5px;
 	margin:0 0 10px;
 	border-bottom:1px solid #ccc;
+	a{
+		color:#fff;
+	}
 	span.btl-art{
 		@include hiddentext;
 		display:inline-block;
