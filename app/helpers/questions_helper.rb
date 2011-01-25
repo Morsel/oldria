@@ -42,7 +42,10 @@ module QuestionsHelper
   end
   
   def find_btl_url_for subject
-    subject.class == "User" ? soapbox_profile_path(subject.username) : 
-      soapbox_restaurant_path(subject)
+    if subject.is_a?(User)
+      subject.premium_account ? soapbox_profile_path(subject.username) : profile_url(subject.username)
+    else
+      subject.premium_account ? soapbox_restaurant_path(subject) : restaurant_url(subject)
+    end
   end
 end

@@ -159,31 +159,38 @@ body,html,#container,#main,#content,#inside{
 	height:100%;
 }
 
+.not_premium_colorbox{
+	display:none !important;
+}
+
+.addthis_toolbox{
+	float: right;
+  display:inline-block;
+  .addthis_button {
+    display:inline-block;
+    padding:5px 10px 2px 20px;
+    font-size:12px;
+    text-shadow:0 1px 0 #fff;
+    text-transform:uppercase;
+    @include museoslabbold;
+    background:url(/images/soapbox/share-arrow.gif) no-repeat 2px 3px #faede8;
+    color: $sienna;
+    &:hover{
+      color: #fff !important;
+      background-position:2px -28px;
+      background-color: $sienna;
+      text-decoration:none;
+      text-shadow:none;
+    }
+	}
+}
+
+
 #content{
 	@include column(18,true);
 	padding:10px 0 0;
 	background:url(/images/soapbox/bg-white-opacity-55.png);
 	background:rgba(255,255,255,0.55);
-	.addthis_toolbox{
-	  .addthis_button {
-	    float: right;
-	    display:block;
-      padding:5px 10px 2px 20px;
-      font-size:12px;
-      text-shadow:0 1px 0 #fff;
-      text-transform:uppercase;
-      @include museoslabbold;
-      background:url(/images/soapbox/share-arrow.gif) no-repeat 2px 3px #faede8;
-      color: $sienna;
-      &:hover{
-        color: #fff;
-        background-position:2px -28px;
-        background-color: $sienna;
-        text-decoration:none;
-        text-shadow:none;
-      }
-		}
-	}
 	#page-title h1{
 		@include museoslabthin;
 		color: #333;
@@ -2419,7 +2426,7 @@ dl.things dt:after {content: ":"}
 	}
 } /* end of #behindline ----------------------------- */
 
-#btl-title{
+#page_content h1#btl-title, #page-content h1#btl-title{
 	color:#666;
 	text-transform: capitalize;
 	font:200 16px "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, sans-serif !important;
@@ -2427,7 +2434,7 @@ dl.things dt:after {content: ":"}
 	margin:0 0 10px;
 	border-bottom:1px solid #ccc;
 	a {
-	  color: white;
+	  color: white !important;
 	  text-decoration: none;
 	}
 	span.btl-art{
