@@ -7,12 +7,14 @@
         <span><a href="#qotd-feed">Questions of the Day</a></span>
       </nav>
     </header>
-    <ol id="trend-questions-feed">
-      <%= render :partial => 'soapbox/sidebar_item', :collection => @trend_questions %>
-    </ol><!-- /activity-feed -->
-    <ol id="qotd-feed">
-      <%= render :partial => 'soapbox/sidebar_item', :collection => @qotds %>
-    </ol><!-- /activity-feed -->
+    <% cache('previously_on_frontburner', :expires_in => 8.hours) do -%>
+      <ol id="trend-questions-feed">
+        <%= render :partial => 'soapbox/sidebar_item', :collection => @trend_questions %>
+      </ol><!-- /activity-feed -->
+      <ol id="qotd-feed">
+        <%= render :partial => 'soapbox/sidebar_item', :collection => @qotds %>
+      </ol><!-- /activity-feed -->
+    <% end -%>
     <div id="feed-bottom"></div>
     <footer>
       <nav id="activity-chooser-all">
