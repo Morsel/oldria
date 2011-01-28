@@ -108,6 +108,8 @@ class Restaurant < ActiveRecord::Base
   has_one :fact_sheet, :class_name => "RestaurantFactSheet"
   after_create :add_fact_sheet
 
+  preference :publish_profile, :default => true
+  
   # For pagination
   cattr_reader :per_page
   @@per_page = 15
