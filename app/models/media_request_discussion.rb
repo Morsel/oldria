@@ -46,7 +46,7 @@ class MediaRequestDiscussion < ActiveRecord::Base
   end
   
   def recipient_name
-    restaurant.name
+    restaurant.try(:name)
   end
 
 end
