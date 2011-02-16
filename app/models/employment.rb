@@ -91,7 +91,7 @@ class Employment < ActiveRecord::Base
   end
 
   def restaurant_name
-    @restaurant_name ||= restaurant && restaurant.name
+    @restaurant_name ||= restaurant && restaurant.try(:name)
   end
 
   def name_and_restaurant

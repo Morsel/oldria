@@ -4,7 +4,7 @@
       <% link_text = "Read &amp; Reply &raquo;" -%>
   		<span class="unread_comments_count"><%= media_request_discussion.comments_count %></span>
       <%= media_request_discussion.comments_count == 1 ? 'reply' : 'replies' %>
-      for <%= media_request_discussion.restaurant.name %>. 
+      for <%= media_request_discussion.restaurant.try(:name) %>. 
   	<% else %>
   	  <% link_text = "Reply &#187;" -%>
     	No one has responded yet. 

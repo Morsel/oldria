@@ -26,7 +26,7 @@ module QuestionsHelper
     title_text = subject.name
     if subject.is_a? RestaurantFeaturePage
       restaurant = Restaurant.find(params[:restaurant_id])
-      title_text = "#{restaurant.name} - #{title_text}"
+      title_text = "#{restaurant.try(:name)} - #{title_text}"
     end
     title_text
   end

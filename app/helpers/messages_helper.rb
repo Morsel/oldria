@@ -104,7 +104,7 @@ module MessagesHelper
     restuarants = discussions_without_replies.map(&:restaurant)
 
     restaurant_phrase = restuarants.map do |restaurant|
-      "<span>#{restaurant.name}</span>"
+      "<span>#{restaurant.try(:name)}</span>"
     end.to_sentence
 
     if discussions_without_replies.length > 1

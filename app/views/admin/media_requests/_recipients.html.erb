@@ -1,7 +1,7 @@
 <ul>
 	<% @media_request.restaurants.each do |restaurant| %>
 		<li>
-			<%= link_to restaurant.name, edit_admin_restaurant_path(restaurant) %>
+			<%= link_to restaurant.try(:name), edit_admin_restaurant_path(restaurant) %>
 		</li>
 	<% end -%>
 </ul>

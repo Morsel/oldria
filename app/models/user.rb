@@ -212,9 +212,9 @@ class User < ActiveRecord::Base
     if employments.blank?
       primary_employment.try(:solo_restaurant_name)
     elsif employments.count == 1
-      primary_employment.restaurant.name
+      primary_employment.restaurant.try(:name)
     else
-      employments.all(:order => '"primary" DESC', :include => :restaurant).map{|e| e.restaurant.name }.to_sentence
+      employments.all(:order => '"primary" DESC', :include => :restaurant).map{|e| e.restaurant.try(:name) }.to_sentence
     end
   end
 
