@@ -27,7 +27,7 @@
   <fieldset class="checkall">
     <ol>
   <% discussions.each do |admin_discussion| %>
-    <li><label><%= check_box_tag 'quick_reply[restaurant_ids][]', admin_discussion.restaurant_id %> <%= admin_discussion.restaurant.name %></label></li>
+    <li><label><%= check_box_tag 'quick_reply[restaurant_ids][]', admin_discussion.restaurant_id %> <%= admin_discussion.restaurant.try(:name) %></label></li>
   <% end %>
     </ol>
   </fieldset>

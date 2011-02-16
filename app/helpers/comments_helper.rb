@@ -25,9 +25,9 @@ module CommentsHelper
   def title_and_restaurant_name_for resource, user
     if resource.is_a?(MediaRequestDiscussion)
       mr_restaurant = resource.restaurant
-      ", #{user.employments.find_by_restaurant_id(mr_restaurant.id).try(:restaurant_role).try(:name)} of #{mr_restaurant.name} "
+      ", #{user.employments.find_by_restaurant_id(mr_restaurant.id).try(:restaurant_role).try(:name)} of #{mr_restaurant.try(:name)} "
     elsif (employment = user.primary_employment).present? && (restaurant = employment.restaurant).present?
-      ", #{employment.try(:restaurant_role).try(:name)} of #{restaurant.name} "
+      ", #{employment.try(:restaurant_role).try(:name)} of #{restaurant.try(:name)} "
     elsif employment && (name = employment.solo_restaurant_name).present?
       " of #{name} "
     else

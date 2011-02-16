@@ -9,7 +9,7 @@
 		<% for discussion in media_request.discussions_with_comments %>
 			<% if comment = discussion.comments.not_user(current_user).last  %>
 			<li class="response">
-				<%= link_to last_comment_and_date_span(comment), discussion, :title => "Discussion with #{discussion.restaurant.name}"  %>
+				<%= link_to last_comment_and_date_span(comment), discussion, :title => "Discussion with #{discussion.restaurant.try(:name)}"  %>
 			</li>
 			<% end -%>
 		<% end %>

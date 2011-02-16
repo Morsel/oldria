@@ -15,7 +15,7 @@
 
       <% current_user.restaurants.each do |restaurant| %>
       <li class="labs_calendar">
-        <%= link_to "Calendar (#{restaurant.name})", restaurant_calendars_path(:restaurant_id => restaurant) %>
+        <%= link_to "Calendar (#{restaurant.try(:name)})", restaurant_calendars_path(:restaurant_id => restaurant) %>
       </li>
       <% end %>
 
