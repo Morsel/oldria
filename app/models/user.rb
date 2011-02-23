@@ -347,7 +347,7 @@ class User < ActiveRecord::Base
   # Behind the line
 
   def profile_questions
-    ProfileQuestion.for_subject(self)
+    self.primary_employment.present? ? ProfileQuestion.for_subject(self) : []
   end
 
   def topics
