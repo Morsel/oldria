@@ -11,5 +11,5 @@
   <%= "Was on opening staff<br/>" if culinary_job.opening_staff? %>
   <%= simple_format(culinary_job.notes) %>
   <%= link_to "Edit", edit_my_profile_culinary_job_path(culinary_job), :class => 'colorbox' %>
-  <%= link_to "Destroy", my_profile_culinary_job_path(culinary_job), :method => :delete, :class => 'delete' %>
+  <%= link_to "Destroy", my_profile_culinary_job_path(culinary_job), { :method => :delete }, { :class => 'delete' } %>
 <% end %>
