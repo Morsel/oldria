@@ -2219,6 +2219,7 @@ p.search_filter_hint {
 			padding: 13px 10px;
 			@include box-shadow(#eee,0px, 1px,0px);
 			&#promotion_status {
+			  background-color: $trans-brown;
 			  h3 {
 			    @include hoeflerbolditalic;
 					font-size: 18px;
@@ -2240,27 +2241,17 @@ p.search_filter_hint {
 			}
 			&#invitation {
 				line-height: 17px;
-				color: #fff;
-				background: #ce4600;
-				@include linear-gradient(color-stops(#ce4600,#df680e ), top);
 			  h2 {
 			    @include hoeflerbolditalic;
   				font-size: 20px;
-  				text-shadow: 0 1px 0 #333;
   				padding-left: 0;
   				margin-bottom: 9px;
 			  }
 			  p {
+  				color: #000;
 			    font-size: 13px;
 			    @include opacity(.8);
 			  }
-				&:hover {
-				  background: #AF380E;
-				  @include linear-gradient(color-stops(#AF380E,#ce4600 ), top);
-				  h2, p {					  
-					  @include opacity(.66);
-					}
-				}
 			}
 			&#btl_game {
 				background-color: $trans-brown;
@@ -2343,14 +2334,19 @@ p.search_filter_hint {
 				}
 			}
 			&#gotosoapbox {
-			  @include hoeflerbolditalic;
-				font-size: 18px;
-				line-height: 20px;
-			  &:hover {
-					color: #fff;
-					@include linear-gradient(color-stops(#ce4600,#df680e ), left);
-					text-shadow: 0 1px 0 #333;
-				}
+        a {
+          @include hoeflerbolditalic;
+          font-size: 18px;
+          line-height: 20px;
+          &:hover {
+            color: #fff;
+            @include linear-gradient(color-stops(#ce4600,#df680e ), left);
+            text-shadow: 0 1px 0 #333;
+          }
+        }
+        p {
+          margin-top: 9px;
+        }
 			}
 			&#manuals {
 				a {
