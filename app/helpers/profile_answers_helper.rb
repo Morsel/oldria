@@ -11,17 +11,14 @@ module ProfileAnswersHelper
     end
   end
   
-  def url_to_responder_question(responder, chapter_id, profile_question_id=nil)
-    # FIXME - refactor code below to use an IF statement
-    case true 
-    when responder.is_a?(User)
-      then soapbox_user_questions_url(responder, :chapter_id => chapter_id,
-             :anchor => profile_question_id ? "profile_question_#{profile_question_id}" : nil)
-    when responder.is_a?(Restaurant)
-      then soapbox_restaurant_questions_url(responder, :chapter_id => chapter_id,
-             :anchor => profile_question_id ? "profile_question_#{profile_question_id}" : nil)
+  def url_for_question(responder, chapter_id, profile_question_id = nil, for_soapbox = false)
+    params = { :chapter_id => chapter_id, :anchor => (profile_question_id ? "profile_question_#{profile_question_id}" : nil) }
+    if responder.is_a?(User)
+      (soapbox? || for_soapbox) ? soapbox_user_questions_url(responder, params) : user_questions_url(responder, params)
+    elsif responder.is_a?(Restaurant)
+      (soapbox? || for_soapbox) ? soapbox_restaurant_questions_url(responder, params) : restaurant_questions_url(responder, params)
     else
-      raise "Unsupported responder type for sharing the question url"
+      ""
     end
   end
 

@@ -17,7 +17,7 @@ class ProfileAnswersController < ApplicationController
             answer = @question.find_or_build_answer_for(@responder)
             answer.answer = answer_params[:answer]
             answer.post_to_facebook = answer_params[:post_to_facebook]
-            answer.share_url = url_to_responder_question(answer.responder, answer.profile_question.chapter.id)
+            answer.share_url = url_for_question(answer.responder, answer.profile_question.chapter.id, nil, true)
             answer.responder = @responder
             unless answer.save # if it doesn't save, the answer was blank, and we can ignore it
               Rails.logger.error answer.errors.full_messages

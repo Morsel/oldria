@@ -3,7 +3,7 @@
 <%= render :partial => 'shared/add_this', :locals => {:responder => @responder} %>
 <% javascript_tag do %>
   var addthis_share = {
-    url: '<%= url_to_responder_question(@responder, @chapter.id) %>',
+    url: '<%= url_for_question(@responder, @chapter.id, nil, true) %>',
     title: $('title').text().replace('Spoonfeed','Soapbox')
   }
 <% end %>
