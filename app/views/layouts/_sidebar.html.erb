@@ -1,16 +1,18 @@
 <% if display_sidebar? -%>
 	<div id="sidebar_b">
-	  <% if current_user -%>
-		  <div id="sidebar_content">
-		  
-  		  <%= yield :sidebar %>
+        <% if current_user -%>
+        <div id="sidebar_content">
+
+            <%= yield :sidebar %>
+
+            <% if current_user && current_user.admin? %>
+              <%= link_to "Go to Admin", admin_root_path, :class => "promo go_to_admin" %>
+            <% end %>
 			
-			<% if current_user && current_user.admin? %>
-          <%= link_to "Go to Admin", admin_root_path, :class => "promo go_to_admin" %>
-      <% end %>
-			
-			<%= link_to "<h2>Grow the network</h2><p>Invite other chefs, mixologists, sommeliers</p>", recommend_invitations_path, :id => "invitation", :class => "promo" %>
-			
+            <aside class="promo" id="promotion_status">
+                <%= render "shared/promotion_status" %>
+            </aside><!--.promo-->
+
 			<% if @btl_question %>
             <aside class="promo" id="btl_game">
               <%= link_to "new question", '#', :"data-auth" => form_authenticity_token.inspect, :"data-user-id" => current_user.id, :class => "new_question" %>
@@ -21,7 +23,9 @@
             </aside><!--#btl_game-->
             <% end %>
             
-        <%= link_to "Go to Soapbox &rarr;", "http://soapbox.restaurantintelligenceagency.com", :id => "gotosoapbox", :class => "promo", :target => "_blank" %>
+			<%= link_to "<h2>Grow the network</h2><p>Invite other chefs, mixologists, sommeliers</p>", recommend_invitations_path, :id => "invitation", :class => "promo" %>
+			
+            <%= link_to "Go to Soapbox &rarr;", "http://soapbox.restaurantintelligenceagency.com", :id => "gotosoapbox", :class => "promo", :target => "_blank" %>
         
   			<aside class="promo" id="manuals">
 
@@ -52,11 +56,6 @@
             });
           }          
         <% end %>
-        <%- if current_user %>
-          <aside class="promo" id="promotion_status">
-          <%= render "shared/promotion_status" %>
-          </aside><!--.promo-->
-        <% end -%>
   		</div><!-- #sidebar_content-->
   	<% else -%>
   	  &nbsp;
