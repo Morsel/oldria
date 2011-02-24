@@ -1,6 +1,6 @@
-  <h3>Soapbox public profile</h3>
   <% if current_user.premium_account? %>
     <% if current_user.prefers_publish_profile %>
+      <h3>Your profile is public</h3>
       <%= link_to "Hide my profile on Soapbox", toggle_publish_profile_my_profile_path( :prefers_publish_profile => 0),
                                                 :class => "promo",
                                                 :onclick => "toggleMyProfileOnSoapbox(this.href);return false;"  %>
@@ -8,11 +8,13 @@
         Just a reminder: <%= link_to "your profile", soapbox_profile_path(current_user.username) %> is live in Soapbox so media can see it.
       </p>
     <% else %>
+      <h3>Your profile is not public</h3>
       <%= link_to "Display my profile on Soapbox", toggle_publish_profile_my_profile_path( :prefers_publish_profile => 1),
                                                    :class => "promo",
                                                    :onclick => "toggleMyProfileOnSoapbox(this.href);return false;"  %>
     <% end %>
   <% else %>
+    <h3>Your profile is not public</h3>
     <p>Want media to see your profile?</p>
     <p><%= link_to "Upgrade to Premium", new_user_subscription_path(current_user) %> and your profile will be included on Soapbox.</p>
   <% end %>

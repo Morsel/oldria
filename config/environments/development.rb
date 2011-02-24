@@ -15,27 +15,18 @@ config.action_controller.perform_caching             = false
 
 # Don't care if the mailer can't send
 config.action_mailer.raise_delivery_errors = true
+config.action_mailer.delivery_method = :emailthing
 
 config.gem "rails-footnotes"
 config.gem 'mail_safe'
 config.gem "awesome_print", :lib => "ap"
-config.gem 'compass',               :version => "~> 0.10.5"
+config.gem 'compass', :version => "~> 0.10.5"
 
 require 'compass'
 require 'compass/app_integration/rails'
 
 # Turn off asset timestamp appends for development
 ENV['RAILS_ASSET_ID'] = ''
-
-config.action_mailer.smtp_settings = {
-  :enable_starttls_auto => true,
-  :address        => "smtp.gmail.com",
-  :port           => 587,
-  :domain         => "spoonfeed@neotericdesign.com",
-  :authentication => :plain,
-  :user_name      => "spoonfeed@neotericdesign.com",
-  :password       => "5U8579"
-}
 
 Braintree::Configuration.environment = :sandbox
 Braintree::Configuration.merchant_id = "ny23sz9jy8gy38bw" 
