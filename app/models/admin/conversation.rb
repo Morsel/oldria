@@ -73,11 +73,6 @@ class Admin::Conversation < ActiveRecord::Base
 
   # Should only be called from an external observer.
   def notify_recipients
-    self.send_at(scheduled_at, :queued_message_sending)
-  end
-
-  # Should only be called from the notify_recipients queued action
-  def queued_message_sending
     if recipient.prefers_receive_email_notifications
       UserMailer.deliver_message_notification(self, recipient)
     end
