@@ -9,6 +9,6 @@
   
   <% if action_name != 'show' %>
     <%= link_to "Edit", edit_my_profile_internship_path(internship), :class => 'colorbox' %>
-    <%= link_to "Destroy", my_profile_internship_path(internship), :method => :delete, :class => 'delete' %>
+    <%= link_to "Destroy", my_profile_internship_path(internship), { :method => :delete }, { :class => 'delete' } %>
   <% end %>
 <% end %>

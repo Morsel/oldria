@@ -37,7 +37,7 @@ describe Admin::Message do
 
   it "should know how many replies it has received (through conversations)" do
     Admin::Message.new.reply_count.should == 0
-    qotd = Factory(:admin_message, :type => 'Admin::Qotd')
+    qotd = Factory(:qotd)
     conversation = Factory(:admin_conversation, :admin_message => qotd)
     conversation.comments.create(Factory.attributes_for(:comment))
     qotd.reply_count.should == 1

@@ -84,12 +84,11 @@ class User < ActiveRecord::Base
   has_many :readings, :dependent => :destroy
   has_many :comments, :dependent => :destroy
 
-  has_one :profile
-  has_many :profile_answers
+  has_one :profile, :dependent => :destroy
+  has_many :profile_answers, :as => :responder, :dependent => :destroy
 
   has_one :invitation, :foreign_key => "invitee_id"
   has_subscription
-
 
   validates_presence_of :email
 
@@ -347,11 +346,11 @@ class User < ActiveRecord::Base
   # Behind the line
 
   def profile_questions
-    ProfileQuestion.for_subject(self)
+    self.primary_employment.present? ? ProfileQuestion.for_subject(self) : []
   end
 
   def topics
-    Topic.for_subject(self) || []
+    self.primary_employment.present? ? Topic.for_subject(self) : []
   end
 
   def published_topics

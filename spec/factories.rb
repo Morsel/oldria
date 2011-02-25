@@ -417,7 +417,7 @@ end
 
 Factory.define :admin_conversation, :class => Admin::Conversation do |f|
   f.association :recipient, :factory => :user
-  f.association :admin_message
+  f.association :admin_message, :factory => :announcement
 end
 
 Factory.define :admin_discussion do |f|

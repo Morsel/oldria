@@ -1,8 +1,6 @@
 # Settings specified here will take precedence over those in config/environment.rb
 DEFAULT_HOST = 'spoonfeed.restaurantintelligenceagency.com'
 
-ActionMailer::Base.delivery_method = :sendmail
-
 # The production environment is meant for finished, "live" apps.
 # Code is not reloaded between requests
 config.cache_classes = true
@@ -34,3 +32,5 @@ Braintree::Configuration.environment = :production
 Braintree::Configuration.merchant_id = "3fb27hjyr2pj4mkh"
 Braintree::Configuration.public_key = "8prvwthxmkmtcpt7"
 Braintree::Configuration.private_key = "2xkncs7ptjyytgqd"
+
+config.action_mailer.delivery_method = :emailthing

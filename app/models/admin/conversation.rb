@@ -55,13 +55,6 @@ class Admin::Conversation < ActiveRecord::Base
     true
   end
 
-  # For passing cucumber features/admin/messaging.feature
-  #
-  # Should be replaced by real functionality
-  def self.title
-    "title sample"
-  end
-
   def self.action_required(user)
     self.with_replies.unread_by(user).reject { |c| c.comments.last.user == user }
   end

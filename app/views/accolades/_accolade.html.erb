@@ -4,7 +4,6 @@
   <%= link_to truncate(accolade.link, :length => 25), accolade.link, :class => 'unstyled' if accolade.link %><br/>
   <% if action_name != 'show' %>
     <%= link_to "Edit", accolade_edit_path(accolade), :class => 'colorbox' %>
-    <%= link_to "Destroy", accolade_destroy_path(accolade),
-        :method => :delete, :class => 'delete' %>
+    <%= link_to "Destroy", accolade_destroy_path(accolade), { :method => :delete }, { :class => 'delete' } %>
   <% end %>
 <% end %>
