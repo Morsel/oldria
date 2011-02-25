@@ -58,8 +58,8 @@ class MediaRequest < ActiveRecord::Base
   end
 
   def deliver_notifications
-    media_request_discussions.each { |d| d.send_later(:deliver_notifications) }
-    solo_media_discussions.each { |d| d.send_later(:deliver_notifications) }
+    media_request_discussions.each { |d| d.deliver_notifications }
+    solo_media_discussions.each { |d| d.deliver_notifications }
   end
 
   def discussion_with_restaurant(restaurant)

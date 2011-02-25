@@ -52,7 +52,7 @@ class Comment < ActiveRecord::Base
 
     commentable.send(users_method).each do |recipient|
       if (user_id != recipient.id) && recipient.prefers_receive_email_notifications
-        UserMailer.send_later(:deliver_message_comment_notification, commentable, recipient, user)
+        UserMailer.deliver_message_comment_notification(commentable, recipient, user)
       end
     end
   end

@@ -70,7 +70,7 @@ class Discussion < ActiveRecord::Base
   # Never call this directly!
   def notify_recipients
     for user in self.users
-      UserMailer.send_later(:deliver_discussion_notification, self, user)
+      UserMailer.deliver_discussion_notification(self, user)
     end
   end
   

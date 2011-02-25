@@ -121,7 +121,7 @@ Feature: Admin Messaging
     And "Fields of Plenty" has a holiday reminder for holiday "Day Off" with:
       | message      | Don't bother to call in sick |
       | scheduled_at | 2010-06-02 12:00:00          |
-    And holiday "Day Off" has a reply "A reply for all holidays"
+    # And holiday "Day Off" has a reply "A reply for all holidays"
     And "cleopatra" has just been confirmed
     And I am logged in as "cleopatra"
     When I go to the front burner page
