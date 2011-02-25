@@ -2,7 +2,7 @@
     <% if current_user.prefers_publish_profile %>
       <h3>Your profile is public</h3>
       <%= link_to "Hide my profile on Soapbox", toggle_publish_profile_my_profile_path( :prefers_publish_profile => 0),
-                                                :class => "promo",
+                                                :class => "visibility_toggle",
                                                 :onclick => "toggleMyProfileOnSoapbox(this.href);return false;"  %>
       <p>
         Just a reminder: <%= link_to "your profile", soapbox_profile_path(current_user.username) %> is live in Soapbox so media can see it.
@@ -10,7 +10,7 @@
     <% else %>
       <h3>Your profile is not public</h3>
       <%= link_to "Display my profile on Soapbox", toggle_publish_profile_my_profile_path( :prefers_publish_profile => 1),
-                                                   :class => "promo",
+                                                   :class => "visibility_toggle",
                                                    :onclick => "toggleMyProfileOnSoapbox(this.href);return false;"  %>
     <% end %>
   <% else %>

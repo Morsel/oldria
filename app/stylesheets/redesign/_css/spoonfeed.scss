@@ -2228,6 +2228,10 @@ p.search_filter_hint {
 			  p {
 			    margin: 5px 0;
 			  }
+			  a.visibility_toggle {
+				display: block;
+			    font-size: 13px;
+			  }
 			}
 			&.go_to_admin {
 				background: $trans-brown url(/images/redesign/go-to-admin.png) no-repeat 12px 12px;
