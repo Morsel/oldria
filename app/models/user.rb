@@ -90,7 +90,6 @@ class User < ActiveRecord::Base
   has_one :invitation, :foreign_key => "invitee_id"
   has_subscription
 
-
   validates_presence_of :email
 
   has_and_belongs_to_many :metropolitan_areas
