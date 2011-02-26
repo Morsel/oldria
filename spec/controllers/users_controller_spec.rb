@@ -88,7 +88,7 @@ describe UsersController do
       user = Factory(:user)
       controller.stubs(:current_user).returns(user)
       get :edit, :id => user.id
-      response.should redirect_to(edit_my_profile_path)
+      response.should redirect_to(edit_user_profile_path(:user_id => user.id))
     end
 
   end

@@ -1,5 +1,6 @@
 class AccoladesController < ApplicationController
-  before_filter :get_accoladable
+  before_filter :require_user
+  before_filter :get_accoladable, :only => [:new, :create]
 
   def new
     @accolade = @accoladable.accolades.build
@@ -11,7 +12,7 @@ class AccoladesController < ApplicationController
 
     respond_to do |wants|
       if @accolade.save
-        wants.html { redirect_to edit_my_profile_path }
+        wants.html { redirect_to @accoladable.is_a?(Restaurant) ? edit_restaurant_path(@accoladable) : edit_user_profile_path(:user_id => @user.id) }
         wants.json do render :json => {
             :html => render_to_string(:partial => '/accolades/accolade.html.erb', :locals => {:accolade => @accolade}),
             :accolade => @accolade.to_json
@@ -19,37 +20,47 @@ class AccoladesController < ApplicationController
         end
       else
         wants.html { render :new }
-        wants.json { render :json => render_to_string(:partial => 'form.html.erb'), :status => :unprocessable_entity }
+        wants.json { render :json => render_to_string(:partial => "#{@accolade.accoladable.type.to_s.downcase}_form.html.erb"), :status => :unprocessable_entity }
       end
     end
   end
 
   def edit
-    @accolade = @accoladable.accolades.find(params[:id])
+    @accolade = Accolade.find(params[:id])
     render :layout => false if request.xhr?
   end
 
   def update
-    @accolade = @accoladable.accolades.find(params[:id])
+    @accolade = Accolade.find(params[:id])
+    unauthorized! unless can?(:edit, @accolade.accoladable)
     respond_to do |wants|
-      if @editable && @accolade.update_attributes(params[:accolade])
-        wants.html { redirect_to edit_my_profile_path }
+      if @accolade.update_attributes(params[:accolade])
+        wants.html { 
+          redirect_to @accolade.accoladable.is_a?(Restaurant) ? 
+            edit_restaurant_path(@accolade.accoladable) : 
+            edit_user_profile_path(:user_id => @accolade.accoladable.user.id)
+        }
         wants.json { render :json => {
             :html => render_to_string(:partial => '/accolades/accolade.html.erb', :locals => {:accolade => @accolade}),
             :accolade => @accolade.to_json
         } }
       else
         wants.html { render :new }
-        wants.json { render :json => render_to_string(:partial => 'form.html.erb'), :status => :unprocessable_entity }
+        wants.json { render :json => render_to_string(:partial => "#{@accolade.accoladable.type.downcase}_form.html.erb"), :status => :unprocessable_entity }
       end
     end
   end
 
   def destroy
-    @accolade = @accoladable.accolades.find(params[:id])
-    if @editable && @accolade.destroy
+    @accolade = Accolade.find(params[:id])
+    unauthorized! unless can?(:edit, @accolade.accoladable)
+    if @accolade.destroy
       respond_to do |wants|
-        wants.html { redirect_to edit_my_profile_path }
+        wants.html { 
+          redirect_to @accolade.accoladable.is_a?(Restaurant) ? 
+            edit_restaurant_path(@accolade.accoladable) : 
+            edit_user_profile_path(:user_id => @accolade.accoladable.user.id)
+        }
         wants.js { render :nothing => true }
       end
     else
@@ -60,17 +71,16 @@ class AccoladesController < ApplicationController
     end
   end
 
-
   private
 
   def get_accoladable
     if params[:restaurant_id]
-      @accoladable = Restaurant.find(params[:restaurant_id])
-      @editable = can?(:edit, @accoladable)
-    else
-      require_user
-      @accoladable = (current_user.profile || current_user.create_profile)
-      @editable = true
+      @accoladable = @restaurant = Restaurant.find(params[:restaurant_id])
+      redirect_to restaurant_path(@restaurant) unless can?(:edit, @accoladable)
+    elsif params[:user_id]
+      @user = User.find(params[:user_id])
+      @accoladable = @user.profile
+      redirect_to profile_path(@user.username) unless can?(:edit, @accoladable)
     end
   end
 end

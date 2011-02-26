@@ -1,2 +1,6 @@
 <% title "New Accolade" %>
-<%= render 'form' %>
+<%- if @accoladable.is_a?(Profile) -%>
+    <%= render 'profile_form' %>
+<%- elsif @accoladable.is_a?(Restaurant) -%>
+  <%= render 'restaurant_form' %>
+<%- end -%>

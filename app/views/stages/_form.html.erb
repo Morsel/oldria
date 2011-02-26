@@ -1,5 +1,5 @@
 <%= "<h1>#{yield :title}</h1>" if request.xhr? %>
-<% semantic_form_for [:my_profile, @stage] do |f| %>
+<% semantic_form_for @stage.new_record? ? [:user, :profile, @stage] : @stage do |f| %>
   <% f.inputs :class => "stages" do %>
     <%= f.input :establishment, :label => "Name of establishment", :hint => "restaurant, winery, brewery" %>
     <%= f.input :expert, :label => "Name of person for whom you staged", :hint => "chef, winemaker, mixologist, beer master" %>

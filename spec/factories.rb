@@ -7,7 +7,6 @@ Factory.define :user do |f|
   f.confirmed_at { 1.week.ago }
   f.first_name { |u| u.name.split(' ').first || "John" }
   f.last_name  { |u| u.name.split(' ').last  || "Doe" }
-  f.id
 end
 
 Factory.define :twitter_user, :parent => :user do |f|

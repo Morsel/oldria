@@ -1,18 +1,20 @@
 class InternshipsController < ApplicationController
   
-  before_filter :get_profile
+  before_filter :require_user
   
   def new
+    @profile = User.find(params[:user_id]).profile
     @internship = @profile.internships.build
     render :layout => false if request.xhr?
   end
 
   def create
+    @profile = User.find(params[:user_id]).profile
     @internship = @profile.internships.build(params[:internship])
 
     respond_to do |wants|
       if @internship.save
-        wants.html { redirect_to edit_my_profile_path }
+        wants.html { redirect_to edit_user_profile_path(:user_id => @profile.user.id) }
         wants.json do render :json => {
             :html => render_to_string(:partial => '/internships/internship.html.erb', :locals => {:internship => @internship}),
             :internship => @internship.to_json
@@ -26,16 +28,16 @@ class InternshipsController < ApplicationController
   end
   
   def edit
-    @internship = @profile.internships.find(params[:id])
+    @internship = Internship.find(params[:id])
     render :layout => false if request.xhr?
   end
 
   def update
-    @internship = @profile.internships.find(params[:id])
+    @internship = Internship.find(params[:id])
 
     respond_to do |wants|
       if @internship.update_attributes(params[:internship])
-        wants.html { redirect_to edit_my_profile_path }
+        wants.html { redirect_to edit_user_profile_path(:user_id => @internship.profile.user.id) }
         wants.json { render :json => {
           :html => render_to_string(:partial => '/internships/internship.html.erb', :locals => {:internship => @internship}),
           :internship => @internship.to_json
@@ -48,20 +50,13 @@ class InternshipsController < ApplicationController
   end
   
   def destroy
-    @internship = @profile.internships.find(params[:id])
+    @internship = Internship.find(params[:id])
     if @internship.destroy
       respond_to do |wants|
-        wants.html { redirect_to edit_my_profile_path }
+        wants.html { redirect_to edit_user_profile_path(:user_id => @internship.profile.user.id) }
         wants.js { render :nothing => true }
       end
     end
-  end
-
-  private
-
-  def get_profile
-    require_user
-    @profile = (current_user.profile || current_user.create_profile)
   end
 
 end

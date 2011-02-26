@@ -34,4 +34,5 @@
   <% end %>
 
 	<p><%= button_tag "Save", :class => 'positive' %></p>
+    <p><%= link_to "Edit profile", edit_user_profile_path(:user_id => @user.id), :class => 'button' unless @user.new_record? %></p>
 <% end %>

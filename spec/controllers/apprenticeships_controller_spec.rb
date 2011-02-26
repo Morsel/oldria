@@ -3,13 +3,14 @@ require 'spec_helper'
 describe ApprenticeshipsController do
 
   before(:each) do
-    current_user = Factory(:user)
-    controller.stubs(:current_user).returns current_user
-    @profile = Factory(:profile, :user => current_user)
+    @user = Factory(:user)
+    controller.stubs(:current_user).returns @user
+    @profile = Factory(:profile, :user => @user)
+    User.stubs(:find).returns(@user)
   end
   
   it "should create a new apprenticeship" do
-    post :create, :profile_id => @profile.id, 
+    post :create, :user_id => @user.id, 
         :apprenticeship => { :establishment => "House of Interns", :supervisor => "Captain Crunch", :year => 1980 }
     Apprenticeship.count.should == 1
   end

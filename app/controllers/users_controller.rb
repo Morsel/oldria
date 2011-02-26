@@ -18,7 +18,7 @@ class UsersController < ApplicationController
   end
 
   def edit
-    redirect_to edit_my_profile_path
+    redirect_to edit_user_profile_path(:user_id => @user.id)
   end
 
   def update
@@ -96,7 +96,7 @@ class UsersController < ApplicationController
     @user.asecret = nil
     if @user.save
       flash[:message] = "Your Twitter Account was disassociated with your SpoonFeed Account"
-      redirect_to edit_my_profile_path
+      redirect_to edit_user_profile_path(:user_id => @user.id)
     else
       render :edit
     end
@@ -106,7 +106,7 @@ class UsersController < ApplicationController
     @user.avatar = nil
     if @user.save
       flash[:message] = "Got it! We’ve removed your headshot from your account"
-      redirect_to edit_my_profile_path
+      redirect_to edit_user_profile_path(:user_id => @user.id)
     else
       render :edit
     end
@@ -118,7 +118,7 @@ class UsersController < ApplicationController
   def fb_deauth
     @user.update_attribute(:facebook_access_token, nil)
     flash[:notice] = "Your Facebook account has been disconnected"
-    redirect_to edit_my_profile_path
+    redirect_to edit_user_profile_path(:user_id => @user.id)
   end
 
   def fb_connect
@@ -129,7 +129,7 @@ class UsersController < ApplicationController
       end
       flash[:notice] = "Your Facebook account has been connected to your spoonfeed account"
     end
-    redirect_to edit_my_profile_path
+    redirect_to edit_user_profile_path(:user_id => @user.id)
   end
 
   def fb_page_auth
@@ -143,7 +143,7 @@ class UsersController < ApplicationController
       flash[:notice] = "Cleared the Facebook page settings from your account"
     end
 
-    redirect_to edit_my_profile_path
+    redirect_to edit_user_profile_path(:user_id => @user.id)
   end
 
   private

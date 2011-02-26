@@ -75,23 +75,6 @@ ActionController::Routing::Routes.draw do |map|
 
   map.mediafeed_directory 'mediafeed/directory', :controller => 'mediafeed/mediafeed', :action => 'directory'
 
-  map.resource :my_profile, :only => ['create', 'edit', 'update'],
-               :controller => 'profiles',
-               :collection => { :toggle_publish_profile => :get } do |p|
-    p.resources :culinary_jobs
-    p.resources :nonculinary_jobs
-    p.resources :awards
-    p.resources :accolades
-    p.resources :enrollments
-    p.resources :competitions
-    p.resources :internships
-    p.resources :stages
-    p.resources :nonculinary_enrollments
-    p.resources :apprenticeships
-    p.resources :profile_cuisines
-    p.resources :cookbooks
-  end
-
   map.profile 'profile/:username', :controller => 'users', :action => 'show', :requirements => { :username => /[a-zA-Z0-9\-\_ ]+/}
 
   map.resources :quick_replies
@@ -117,11 +100,29 @@ ActionController::Routing::Routes.draw do |map|
     :fb_deauth => :any,
     :fb_page_auth => :post
   }, :shallow => true do |users|
+    users.resource :profile, :only => ['create', 'edit', 'update'],
+                   :controller => 'profiles',
+                   :collection => { :toggle_publish_profile => :get } do |p|
+      p.resources :culinary_jobs
+      p.resources :nonculinary_jobs
+      p.resources :awards
+      p.resources :accolades
+      p.resources :enrollments
+      p.resources :competitions
+      p.resources :internships
+      p.resources :stages
+      p.resources :nonculinary_enrollments
+      p.resources :apprenticeships
+      p.resources :profile_cuisines
+      p.resources :cookbooks
+    end
     users.resources :statuses
     users.resources :direct_messages, :member => { :reply => :get }
     users.resources :questions, :collection => { :topics => :get, :chapters => :get, :refresh => :post }
     users.resources :default_employments
-    users.resource :subscription, :collection => { :bt_callback => :get, :billing_history => :get }, :controller => 'subscriptions'
+    users.resource :subscription, 
+      :collection => { :bt_callback => :get, :billing_history => :get }, 
+      :controller => 'subscriptions'
   end
 
   map.resources :users do |users|

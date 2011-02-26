@@ -2,7 +2,7 @@
   <span class="extended-title"><%= apprenticeship.establishment %></span>
   <%= apprenticeship.supervisor %><br /><%= apprenticeship.year %><br>
   <% if action_name != 'show' %>
-    <%= link_to "Edit", edit_my_profile_apprenticeship_path(apprenticeship), :class => 'colorbox' %>
-    <%= link_to "Destroy", my_profile_apprenticeship_path(apprenticeship), { :method => :delete }, { :class => 'delete' } %>
+    <%= link_to "Edit", edit_apprenticeship_path(apprenticeship), :class => 'colorbox' %>
+    <%= link_to "Destroy", apprenticeship_path(apprenticeship), { :method => :delete }, { :class => 'delete' } %>
   <% end %>
 <% end %>

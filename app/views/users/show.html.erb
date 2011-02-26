@@ -12,11 +12,11 @@
         title: $('title').text().replace('Spoonfeed','Soapbox')
       }
     <% end %>
-  <%= render :partial => 'shared/add_this', :locals => {:responder => @responder} %>
+  <%= render :partial => 'shared/add_this', :locals => { :responder => @user } %>
 
   <aside class="user_actions">
         <% if current_user == @user -%>
-          <%= link_to 'Edit profile', edit_my_profile_path %>
+          <%= link_to 'Edit profile', edit_user_profile_path(@user) %>
         <% elsif current_user -%>
           <%= link_to "Private Message", new_user_direct_message_path(@user), :class => 'private_message' %>
           <% if @following %>

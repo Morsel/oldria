@@ -2,7 +2,7 @@
     <%= cuisine.name %>&nbsp;
     <% if action_name != 'show' %>
       <%= link_to "Remove", 
-        my_profile_profile_cuisine_path(@profile.profile_cuisines.find(:first, :conditions => { :cuisine_id => cuisine })), 
-        :method => :delete, :class => 'delete' %>
+        profile_cuisine_path(@user, @profile.profile_cuisines.find(:first, :conditions => { :cuisine_id => cuisine })), 
+        { :method => :delete }, { :class => 'delete' } %>
     <% end %>
 <% end %>

@@ -1,20 +1,23 @@
 class ApprenticeshipsController < ApplicationController
 
-  before_filter :get_profile
+  before_filter :require_user
   
   def new
+    @profile = User.find(params[:user_id]).profile
     @apprenticeship = @profile.apprenticeships.build
     render :layout => false if request.xhr?
   end
 
   def create
+    @profile = User.find(params[:user_id]).profile
     @apprenticeship = @profile.apprenticeships.build(params[:apprenticeship])
 
     respond_to do |wants|
       if @apprenticeship.save
-        wants.html { redirect_to edit_my_profile_path }
+        wants.html { redirect_to edit_user_profile_path(:user_id => @profile.user.id) }
         wants.json do render :json => {
-            :html => render_to_string(:partial => '/apprenticeships/apprenticeship.html.erb', :locals => {:apprenticeship => @apprenticeship}),
+            :html => render_to_string(:partial => '/apprenticeships/apprenticeship.html.erb', 
+                                      :locals => {:apprenticeship => @apprenticeship}),
             :apprenticeship => @apprenticeship.to_json
           }
         end
@@ -26,16 +29,16 @@ class ApprenticeshipsController < ApplicationController
   end
 
   def edit
-    @apprenticeship = @profile.apprenticeships.find(params[:id])
+    @apprenticeship = Apprenticeship.find(params[:id])
     render :layout => false if request.xhr?
   end
 
   def update
-    @apprenticeship = @profile.apprenticeships.find(params[:id])
+    @apprenticeship = Apprenticeship.find(params[:id])
 
     respond_to do |wants|
       if @apprenticeship.update_attributes(params[:apprenticeship])
-        wants.html { redirect_to edit_my_profile_path }
+        wants.html { redirect_to edit_user_profile_path(:user_id => @apprenticeship.profile.user.id) }
         wants.json { render :json => {
           :html => render_to_string(:partial => '/apprenticeships/apprenticeship.html.erb', :locals => {:apprenticeship => @apprenticeship}),
           :apprenticeship => @apprenticeship.to_json
@@ -48,20 +51,13 @@ class ApprenticeshipsController < ApplicationController
   end
 
   def destroy
-    @apprenticeship = @profile.apprenticeships.find(params[:id])
+    @apprenticeship = Apprenticeship.find(params[:id])
     if @apprenticeship.destroy
       respond_to do |wants|
-        wants.html { redirect_to edit_my_profile_path }
+        wants.html { redirect_to edit_user_profile_path(:user_id => @apprenticeship.profile.user.id) }
         wants.js { render :nothing => true }
       end
     end
-  end
-
-  private
-
-  def get_profile
-    require_user
-    @profile = (current_user.profile || current_user.create_profile)
   end
 
 end

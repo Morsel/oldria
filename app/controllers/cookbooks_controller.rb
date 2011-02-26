@@ -1,16 +1,19 @@
 class CookbooksController < ApplicationController
-  before_filter :get_profile
+
+  before_filter :require_user
 
   def new
+    @profile = User.find(params[:user_id]).profile
     @cookbook = @profile.cookbooks.build
     render :layout => false if request.xhr?
   end
 
   def create
+    @profile = User.find(params[:user_id]).profile
     @cookbook = @profile.cookbooks.build(params[:cookbook])
     respond_to do |wants|
       if @cookbook.save
-        wants.html { redirect_to edit_my_profile_path }
+        wants.html { redirect_to edit_user_profile_path(:user_id => @profile.user.id) }
         wants.json do render :json => {
             :html => render_to_string(:partial => '/cookbooks/cookbook', :locals => {:cookbook => @cookbook}),
             :cookbook => @cookbook.to_json
@@ -24,15 +27,15 @@ class CookbooksController < ApplicationController
   end
 
   def edit
-    @cookbook = @profile.cookbooks.find(params[:id])
+    @cookbook = Cookbook.find(params[:id])
     render :layout => false if request.xhr?
   end
 
   def update
-    @cookbook = @profile.cookbooks.find(params[:id])
+    @cookbook = Cookbook.find(params[:id])
     respond_to do |wants|
       if @cookbook.update_attributes(params[:cookbook])
-        wants.html { redirect_to edit_my_profile_path }
+        wants.html { redirect_to edit_user_profile_path(:user_id => @cookbook.profile.user.id) }
         wants.json do render :json => {
             :html => render_to_string(:partial => '/cookbooks/cookbook.html.erb', :locals => {:cookbook => @cookbook}),
             :cookbook => @cookbook.to_json
@@ -46,17 +49,13 @@ class CookbooksController < ApplicationController
   end
 
   def destroy
-    @cookbook = @profile.cookbooks.find(params[:id])
+    @cookbook = Cookbook.find(params[:id])
     if @cookbook.destroy
-      redirect_to edit_my_profile_path
+      respond_to do |wants|
+        wants.html { redirect_to edit_user_profile_path(:user_id => @cookbook.profile.user.id) }
+        wants.js { render :nothing => true }
+      end
     end
   end
 
-
-  private
-
-  def get_profile
-    require_user
-    @profile = (current_user.profile || current_user.create_profile)
-  end
 end

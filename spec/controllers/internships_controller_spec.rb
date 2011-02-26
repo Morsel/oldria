@@ -3,13 +3,14 @@ require 'spec_helper'
 describe InternshipsController do
 
   before(:each) do
-    current_user = Factory(:user)
-    controller.stubs(:current_user).returns current_user
-    @profile = Factory(:profile, :user => current_user)
+    @user = Factory(:user)
+    controller.stubs(:current_user).returns @user
+    @profile = Factory(:profile, :user => @user)
+    User.stubs(:find).returns(@user)
   end
   
   it "should create a new internship" do
-    post :create, :profile_id => @profile.id, 
+    post :create, :user_id => @user.id,
         :internship => { :establishment => "House of Interns", 
                          :supervisor => "Captain Crunch", 
                          :start_date => 1.year.ago, 

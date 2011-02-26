@@ -11,7 +11,7 @@ def fill_in_fields_for_table(table)
 end
 
 When(/^I add a profile item "([^"]*)" to my profile with:$/) do |profile_association, table|
-  visit edit_my_profile_path
+  visit edit_user_profile_path(:user_id => @current_user.id)
   click_link_within ".#{profile_association.pluralize}", "Add"
 
   fill_in_fields_for_table(table)

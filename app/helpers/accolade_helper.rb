@@ -4,7 +4,7 @@ module AccoladeHelper
     if accolade.restaurant?
       edit_restaurant_accolade_path(accolade.accoladable, accolade)
     else
-      edit_my_profile_accolade_path(accolade)
+      edit_accolade_path(accolade)
     end
   end
 
@@ -12,7 +12,7 @@ module AccoladeHelper
     if accolade.restaurant?
       restaurant_accolade_path(accolade.accoladable, accolade)
     else
-      my_profile_accolade_path(accolade)
+      accolade_path(accolade)
     end
   end
 

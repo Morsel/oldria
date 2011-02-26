@@ -12,7 +12,7 @@ class ProfileCuisinesController < ApplicationController
 
     respond_to do |wants|
       if @profile_cuisine.save
-        wants.html { redirect_to edit_my_profile_path }
+        wants.html { redirect_to edit_user_profile_path(:user_id => @profile.user.id) }
         wants.json do render :json => {
             :html => render_to_string(:partial => '/profile_cuisines/profile_cuisine.html.erb', :locals => {:profile_cuisine => @profile_cuisine}),
             :profile_cuisine => @profile_cuisine.to_json
@@ -29,10 +29,9 @@ class ProfileCuisinesController < ApplicationController
     @profile_cuisine = ProfileCuisine.find(params[:id])
     if @profile_cuisine.destroy
       respond_to do |wants|
-        wants.html { redirect_to edit_my_profile_path }
+        wants.html { redirect_to edit_user_profile_path(:user_id => @profile.user.id) }
         wants.js { render :nothing => true }
       end
-
     end
   end
 

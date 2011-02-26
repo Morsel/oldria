@@ -109,7 +109,7 @@
     </section><!-- /profile-account -->
 
     <section id="profile-summary">
-    <% semantic_form_for @profile, :url => my_profile_path do |f| %>
+    <% semantic_form_for @profile, :url => user_profile_path(@user) do |f| %>
           <% if @user.premium_account? %> 
             <% f.inputs :name => "Public Profile View", :for => :user do |user_form| %>
               <%= user_form.input :prefers_publish_profile, :as => :boolean, :label => 'Display my profile on Soapbox' %>
@@ -142,11 +142,11 @@
 
             <% end %>
 
-            <% if @profile.user.employments.present? %>
+            <% if @user.employments.present? %>
             <% f.inputs :name => "Current Employment" do %>
                 <label>Select your primary job role:</label>
                 <ul class="primary-employment">
-                    <% for employment in @profile.user.employments %>
+                    <% for employment in @user.employments %>
                     <li><%= radio_button_tag "profile[primary_employment][]", employment.id, primary?(employment) %> <%= employment.restaurant_role.try(:name) %> at <%= employment.restaurant.try(:name) %></li>
                     <% end %>
                 </ul>
@@ -170,10 +170,10 @@
                     <% end %>
                 </div>
 
-                <%- if @profile.user.twitter_authorized? -%>
+                <%- if @user.twitter_authorized? -%>
                 <div class="clear">
                     <%= f.input :prefers_display_twitter, :as => :radio, :collection => privacy_options, :label => "Show this to:", :wrapper_html => { :class => "show_this_to" } %>
-                    <div class="span-6 last">Your Twitter account: <%= @profile.user.twitter_username %>
+                    <div class="span-6 last">Your Twitter account: <%= @user.twitter_username %>
                     </div>
                 </div>
                 <%- else -%>
@@ -204,7 +204,7 @@
 						<ul id="cuisines">
 							<%= render @profile.cuisines %>
 						</ul>
-						<p><%= link_to "Add Cuisine", new_my_profile_profile_cuisine_path, :class => 'sf-button colorbox' %></p>
+						<p><%= link_to "Add Cuisine", new_user_profile_profile_cuisine_path, :class => 'sf-button colorbox' %></p>
 					</fieldset>
 
                 </div>
@@ -219,34 +219,34 @@
   <section id="profile-extended">
       <% if @profile.new_record? %>
       <div>
-          Please fill in your <%= link_to "profile summary information", edit_my_profile_path(:anchor => "profile-summary"), :id => 'open-profile-summary' %> (including hometown and current city) before continuing with this section.
+          Please fill in your <%= link_to "profile summary information", edit_user_profile_path(@user, :anchor => "profile-summary"), :id => 'open-profile-summary' %> (including hometown and current city) before continuing with this section.
       </div>
       <% else %>
     <div id="extended_profile_fields">
       <%= render :partial => 'profiles/extended_profile_section', :locals => {
           :association => "culinary_jobs",
           :caption => "Work Experience - Restaurants",
-          :form_path => new_my_profile_culinary_job_path} %>
+          :form_path => new_user_profile_culinary_job_path(:user_id => @user.id)} %>
 
       <%= render :partial => 'profiles/extended_profile_section', :locals => {
           :association => "nonculinary_jobs",
           :caption => "Work Experience - Nonculinary",
-          :form_path => new_my_profile_nonculinary_job_path} %>
+          :form_path => new_user_profile_nonculinary_job_path(:user_id => @user.id)} %>
 
       <%= render :partial => 'profiles/extended_profile_section', :locals => {
           :association => "awards",
           :caption => "Awards",
-          :form_path => new_my_profile_award_path} %>
+          :form_path => new_user_profile_award_path(:user_id => @user.id)} %>
 
       <%= render :partial => 'profiles/extended_profile_section', :locals => {
           :association => "accolades",
           :caption => "Accolades",
-          :form_path => new_my_profile_accolade_path} %>
+          :form_path => new_user_profile_accolade_path(:user_id => @user.id)} %>
 
       <%= render :partial => 'profiles/extended_profile_section', :locals => {
           :association => "culinary_schools",
           :caption => "Education (Culinary)",
-          :form_path => new_my_profile_enrollment_path} %>
+          :form_path => new_user_profile_enrollment_path(:user_id => @user.id)} %>
 
       <% reset_cycle('default') -%>
       <div class="nonculinary_enrollments nonculinary_schools clear ajaxdelete">
@@ -254,33 +254,33 @@
           <ul id="nonculinary_enrollments">
               <%= render @profile.nonculinary_enrollments %>
           </ul>
-          <%= link_to "add another", new_my_profile_nonculinary_enrollment_path, :class => 'add_extended colorbox'%>
+          <%= link_to "add another", new_user_profile_nonculinary_enrollment_path(:user_id => @user.id), :class => 'add_extended colorbox'%>
       </div>
 
       <%= render :partial => 'profiles/extended_profile_section', :locals => {
           :association => "competitions",
           :caption => "Competitions",
-          :form_path => new_my_profile_competition_path} %>
+          :form_path => new_user_profile_competition_path(:user_id => @user.id)} %>
 
       <%= render :partial => 'profiles/extended_profile_section', :locals => {
           :association => "internships",
           :caption => "Internships",
-          :form_path => new_my_profile_internship_path} %>
+          :form_path => new_user_profile_internship_path(:user_id => @user.id)} %>
 
       <%= render :partial => 'profiles/extended_profile_section', :locals => {
           :association => "stages",
           :caption => "Stages",
-          :form_path => new_my_profile_stage_path} %>
+          :form_path => new_user_profile_stage_path(:user_id => @user.id)} %>
 
       <%= render :partial => 'profiles/extended_profile_section', :locals => {
           :association => "apprenticeships",
           :caption => "Apprenticeships",
-          :form_path => new_my_profile_apprenticeship_path} %>
+          :form_path => new_user_profile_apprenticeship_path(:user_id => @user.id)} %>
           
       <%= render :partial => 'profiles/extended_profile_section', :locals => {
           :association => "cookbooks",
           :caption => "Cookbooks",
-          :form_path => new_my_profile_cookbook_path} %>
+          :form_path => new_user_profile_cookbook_path(:user_id => @user.id)} %>
     
     </div><!-- #extended_profile_fields -->
     <% end %>

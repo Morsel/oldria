@@ -3,6 +3,6 @@
   <%= nonculinary_enrollment.degree %><br>
   <%= nonculinary_enrollment.field_of_study %><br>
   <%= nonculinary_enrollment.achievements %><br/>
-  <%= link_to "Edit", edit_my_profile_nonculinary_enrollment_path(nonculinary_enrollment), :class => 'colorbox' %>
-  <%= link_to "Destroy", my_profile_nonculinary_enrollment_path(nonculinary_enrollment), :method => :delete, :class => 'delete' %>
+  <%= link_to "Edit", edit_nonculinary_enrollment_path(nonculinary_enrollment), :class => 'colorbox' %>
+  <%= link_to "Destroy", nonculinary_enrollment_path(nonculinary_enrollment), { :method => :delete }, { :class => 'delete' } %>
 <% end %>

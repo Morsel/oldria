@@ -1,3 +1,4 @@
+@restaurant_profile
 Feature: Adding accolades to a restaurant
   In order to show off how awesome we are
   As a restaurant manager

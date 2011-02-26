@@ -2,7 +2,7 @@
   <span class="extended-title"><%= competition.place %></span>
   <%= competition.name %><br /><%= competition.year %><br>
   <% if action_name != 'show' %>
-    <%= link_to "Edit", edit_my_profile_competition_path(competition), :class => 'colorbox' %>
-    <%= link_to "Destroy", my_profile_competition_path(competition), { :method => :delete }, { :class => 'delete' } %>
+    <%= link_to "Edit", edit_competition_path(competition), :class => 'colorbox' %>
+    <%= link_to "Destroy", competition_path(competition), { :method => :delete }, { :class => 'delete' } %>
   <% end %>
 <% end %>

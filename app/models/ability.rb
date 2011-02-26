@@ -7,6 +7,10 @@ class Ability
     if user.admin?
       can :manage, :all
     else
+      can :manage, Profile do |action, profile|
+        profile.user == user
+      end
+
       can :manage, Restaurant do |action, restaurant|
         restaurant.try(:manager) == user || restaurant.managers.include?(user)
       end

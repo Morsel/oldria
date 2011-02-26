@@ -1,5 +1,5 @@
 <%= "<h1>#{yield :title}</h1>" if request.xhr? %>
-<% semantic_form_for [:my_profile, setup_nonculinary_enrollment(@nonculinary_enrollment)] do |f| %>
+<% semantic_form_for @nonculinary_enrollment.new_record? ? [:user, :profile, setup_nonculinary_enrollment(@nonculinary_enrollment)] : setup_nonculinary_enrollment(@nonculinary_enrollment) do |f| %>
   <% f.inputs :class => "nonculinary_enrollments" do %>
     <%= f.input :nonculinary_school %>
 
@@ -33,7 +33,7 @@
 
     <%= f.input :degree %>
     <%= f.input :field_of_study %>
-    <%= f.input :achievements, :hint => "Did you receive any awards or special scholarships" %>
+    <%= f.input :achievements, :hint => "Did you receive any awards or special scholarships?" %>
   <% end %>
   <%= button_tag "Save" %>
 <% end %>

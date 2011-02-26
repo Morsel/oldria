@@ -41,7 +41,7 @@ module NavigationHelpers
     when /^the new conversations page$/
       new_conversation_path
     when "my profile's edit page"
-      edit_my_profile_path
+      edit_user_profile_path(:user_id => @current_user.id)
     when "the new invitation page"
       new_invitation_path
     when "the new invitation recommendation page"

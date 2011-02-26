@@ -1,17 +1,20 @@
 class EnrollmentsController < ApplicationController
-  before_filter :get_profile
+
+  before_filter :require_user
 
   def new
+    @profile = User.find(params[:user_id]).profile
     @enrollment = @profile.enrollments.build
     render :layout => false if request.xhr?
   end
 
   def create
+    @profile = User.find(params[:user_id]).profile
     @enrollment = @profile.enrollments.build(params[:enrollment])
 
     respond_to do |wants|
       if @enrollment.save
-        wants.html { redirect_to edit_my_profile_path }
+        wants.html { redirect_to edit_user_profile_path(:user_id => @profile.user.id) }
         wants.json do render :json => {
             :html => render_to_string(:partial => '/enrollments/enrollment.html.erb', :locals => {:enrollment => @enrollment}),
             :enrollment => @enrollment.to_json
@@ -25,16 +28,16 @@ class EnrollmentsController < ApplicationController
   end
 
   def edit
-    @enrollment = @profile.enrollments.find(params[:id])
+    @enrollment = Enrollment.find(params[:id])
     render :layout => false if request.xhr?
   end
 
   def update
-    @enrollment = @profile.enrollments.find(params[:id])
+    @enrollment = Enrollment.find(params[:id])
 
     respond_to do |wants|
       if @enrollment.update_attributes(params[:enrollment])
-        wants.html { redirect_to edit_my_profile_path }
+        wants.html { redirect_to edit_user_profile_path(:user_id => @enrollment.profile.user.id) }
         wants.json { render :json => {
           :html => render_to_string(:partial => '/enrollments/enrollment.html.erb', :locals => {:enrollment => @enrollment}),
           :enrollment => @enrollment.to_json
@@ -47,21 +50,13 @@ class EnrollmentsController < ApplicationController
   end
 
   def destroy
-    @enrollment = @profile.enrollments.find(params[:id])
+    @enrollment = Enrollment.find(params[:id])
     if @enrollment.destroy
       respond_to do |wants|
-        wants.html { redirect_to edit_my_profile_path }
+        wants.html { redirect_to edit_user_profile_path(:user_id => @enrollment.profile.user.id) }
         wants.js { render :nothing => true }
       end
-
     end
   end
 
-
-  private
-
-  def get_profile
-    require_user
-    @profile = (current_user.profile || current_user.create_profile)
-  end
 end

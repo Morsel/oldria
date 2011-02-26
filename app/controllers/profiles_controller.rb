@@ -1,45 +1,41 @@
 class ProfilesController < ApplicationController
 
   before_filter :require_user
+  before_filter :find_user
   
   def create
-    @profile = current_user.build_profile(params[:profile])
+    @profile = @user.build_profile(params[:profile])
 
     if params[:preview]
-      @user = @responder =current_user
       @user.profile.attributes = params[:profile]
       render :template => "users/show" and return
     end
     
     if @profile.save
       flash[:notice] = "Successfully created profile."
-      redirect_to profile_path(@profile.user.username)
+      redirect_to profile_path(@user.username)
     else
-      @user = current_user
       render :edit
     end
   end
 
   def edit
-    @profile = current_user.profile || current_user.build_profile
-    @user = current_user
+    @profile = @user.profile || @user.build_profile
     @fb_user = current_facebook_user.fetch if current_facebook_user && @profile.user.facebook_authorized?
   end
 
   def update
-    @profile = current_user.profile
+    @profile = @user.profile
 
     if params[:preview]
-      @user = @responder = current_user      
       @user.profile.attributes = params[:profile]
       render :template => "users/show" and return
     end
 
     if @profile.update_attributes(params[:profile])
       flash[:notice] = "Successfully updated profile."
-      redirect_to profile_path(@profile.user.username)
+      redirect_to profile_path(@user.username)
     else
-      @user = @profile.user
       render :edit
     end
   end
@@ -50,5 +46,12 @@ class ProfilesController < ApplicationController
     else
       render :partial => "shared/ajax_error" 
     end
+  end
+
+  protected
+
+  def find_user
+    @user = User.find(params[:user_id])
+    require_admin unless @user == current_user
   end
 end
