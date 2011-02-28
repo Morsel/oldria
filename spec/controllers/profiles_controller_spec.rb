@@ -26,7 +26,7 @@ describe ProfilesController do
   it "update action should redirect when model is valid" do
     Profile.any_instance.stubs(:valid?).returns(true)
     put :update, :user_id => @user.id
-    response.should redirect_to( profile_path(@user.username) )
+    response.should redirect_to( edit_user_profile_path(:user_id => @user.id) )
   end
   
   it "should set the primary employment" do

@@ -38,7 +38,7 @@ class UsersController < ApplicationController
 
         format.html do
           flash[:notice] = "Successfully updated your profile."
-          redirect_to user_path(@user)
+          redirect_to edit_user_profile_path(:user_id => @user.id)
         end
         format.js   { head :ok }
       else
