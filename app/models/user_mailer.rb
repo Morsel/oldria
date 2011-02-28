@@ -41,7 +41,7 @@ class UserMailer < ActionMailer::Base
     from        'notifications@restaurantintelligenceagency.com'
     recipients  email
     sent_on     Time.now
-    subject     "#{referring_user.name} wants you to check out Spoonfeed!"
+    subject     "Referral from #{referring_user.name}"
     body        :referring_user => referring_user
   end
   
@@ -50,7 +50,7 @@ class UserMailer < ActionMailer::Base
     from        'notifications@restaurantintelligenceagency.com'
     recipients  invite.email
     sent_on     Time.now
-    subject     "Thanks for requesting an invitation to Spoonfeed!"
+    subject     "Spoonfeed Invitation Request Received"
     body        :invitation => invite
   end
   
@@ -68,7 +68,7 @@ class UserMailer < ActionMailer::Base
     from          'accounts@restaurantintelligenceagency.com'
     recipients    user.email
     sent_on       Time.now
-    subject       "SpoonFeed: You're invited"
+    subject       "Your invitation to Spoonfeed has arrived!"
     body          :user => user, :invitation_sender => invitation_sender
   end
   

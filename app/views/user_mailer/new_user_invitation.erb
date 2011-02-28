@@ -1,20 +1,13 @@
-<p>Welcome to Spoonfeed &mdash; where you connect to the media for free.</p>
-<p>Please use the login link below to get started! You will be prompted to select a password. Keep it safe as only you should be updating information on your account.</p>
-
-<p>Your log in link: <%= invitation_url(@user.perishable_token, :user_id => @user.id) %></p>
-
-<p>
-Once you get that done, check out a few profiles to see the possibilities.  Paul Fehribach, Justin Large and Cary Taylor have all used the site to get discovered by media (check out the March 2011 Travel & Leisure!).  There profiles are a good place to get a feel for the possibilities.
-</p>
-<p>
-After that, don't worry, we’ll walk you through more of the system as we go.  So, don't worry, we're here right with you at every turn.
-</p>
-<p>Thanks,<br />Team RIA</p>
- 
-
 <div class="quote" style="margin: 10px 0pt; padding: 8px 12px; border: 1px solid rgb(221, 221, 221);">
-  <h4 style="margin: 0pt; font-weight: 300;">
-Spoonfeed understands that food media is no longer one person shouting from a mountaintop, but conversations on the same level. No longer are chefs anonymous cooks in toques, but someone we can now engage in dialogue easily. And that's indispensable for journalists. No hyperbole. I spent 20 mins reading up on a chef and my interview questions to him were 10 times better because of it.
-	<br /><br />
-  <span style="font-size: 12px; color: rgb(119, 119, 119);">Kevin Pang &mdash; Food Writer, Chicago Tribune, James Beard Nominee</span></h4>
+    <h4 style="margin: 0pt; font-weight: 300;">
+        Spoonfeed understands food media. And that's indispensable for journalists.
+        <br /><br />
+        <span style="font-size: 12px; color: rgb(119, 119, 119);">Kevin Pang &mdash; Food Writer, James Beard Nominee</span>
+    </h4>
 </div>
+
+<p>Activate your membership: <%= invitation_url(@user.perishable_token, :user_id => @user.id) %></p>
+
+<p>You’ll be prompted to fill out some essentials for your account. Then just upload a picture and get started! We’ll walk you through the rest.</p>
+
+<p>Welcome Aboard!<br/>TeamRIA</p>
