@@ -8,7 +8,9 @@ describe AccoladesController do
     describe "for a user accolade" do
       before do
         fake_normal_user
-        get :new
+        @profile = Factory(:profile, :user => @user)
+        User.stubs(:find).returns(@user)
+        get :new, :user_id => @user.id
       end
 
       it { assigns[:accoladable].should be_a(Profile) }
@@ -49,9 +51,9 @@ describe AccoladesController do
     describe "for a restaurant accolade" do
       before do
         fake_admin_user
-        @profile = Factory(:restaurant)
-        @accolade = Factory(:accolade, :accoladable => @profile)
-        get :edit, :id => @accolade.id, :restaurant_id => @profile.id
+        @restaurant = Factory(:restaurant)
+        @accolade = Factory(:accolade, :accoladable => @restaurant)
+        get :edit, :id => @accolade.id, :restaurant_id => @restaurant.id
       end
 
       it { response.should be_success }
@@ -69,7 +71,7 @@ describe AccoladesController do
       post :update, :id => @accolade.id, :restaurant_id => @restaurant.id,
           :accolade => {:name => "fred"}
       Accolade.find_by_name("fred").should be_nil
-      response.should render_template(:new)
+      response.should be_redirect
     end
 
   end
@@ -81,7 +83,7 @@ describe AccoladesController do
       @accolade = Factory(:accolade, :accoladable => @restaurant, :name => "Top Chef")
       delete :destroy, :id => @accolade.id, :restaurant_id => @restaurant.id
       Accolade.find_by_name("Top Chef").should_not be_nil
-      response.should render_template(:new)
+      response.should be_redirect
     end
   end
 
