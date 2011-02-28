@@ -11,9 +11,10 @@
   <%= render :partial => 'shared/add_this', :locals => { :responder => @user } %>
 
   <aside class="user_actions">
-        <% if current_user == @user -%>
+        <% if current_user && (current_user == @user || current_user.admin?) -%>
           <%= link_to 'Edit profile', edit_user_profile_path(@user) %>
-        <% elsif current_user -%>
+        <% end %>
+        <% if current_user && (current_user != @user) -%>
           <%= link_to "Private Message", new_user_direct_message_path(@user), :class => 'private_message' %>
           <% if @following %>
             <%= link_to "Stop following this user", following_path(@following.id),

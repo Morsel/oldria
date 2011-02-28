@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 class UsersController < ApplicationController
   before_filter :require_visibility, :only => [:show]
   before_filter :require_owner_or_admin, :only => [:edit, :update, :remove_twitter, :remove_avatar,
