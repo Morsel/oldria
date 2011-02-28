@@ -1,10 +1,6 @@
 <% title "#{@user.first_name}'s Profile", false %>
 <% content_for(:fb_description, truncate(@user.profile.try(:summary), :length => 256)) %>
 
-<% if params[:controller] == "profiles" %>
-  <p>This is a preview view. These changes have not been saved.<%= link_to_function "Go back", "history.go(-1)" %> to edit or save.</p>
-<% end %>
-
 <header class="soapbox_profile_header">
     <% javascript_tag do %>
       var addthis_share = {

@@ -6,11 +6,6 @@ class ProfilesController < ApplicationController
   def create
     @profile = @user.build_profile(params[:profile])
 
-    if params[:preview]
-      @user.profile.attributes = params[:profile]
-      render :template => "users/show" and return
-    end
-    
     if @profile.save
       flash[:notice] = "Successfully created profile."
       redirect_to profile_path(@user.username)
@@ -26,11 +21,6 @@ class ProfilesController < ApplicationController
 
   def update
     @profile = @user.profile
-
-    if params[:preview]
-      @user.profile.attributes = params[:profile]
-      render :template => "users/show" and return
-    end
 
     if @profile.update_attributes(params[:profile])
       flash[:notice] = "Successfully updated profile."
