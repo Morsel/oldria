@@ -51,12 +51,20 @@ module ApplicationHelper
     !on_soapbox
   end
 
+  def on_mediafeed
+    mediafeed?
+  end
+
+  def not_mediafeed
+    !on_mediafeed
+  end
+
   def logged_in_and_not_soapbox
     not_soapbox && current_user
   end
 
-  def on_mediafeed
-    mediafeed?
+  def logged_in_on_spoonfeed
+    current_user.present? && not_soapbox && not_mediafeed
   end
 
   def logo_for(obj)

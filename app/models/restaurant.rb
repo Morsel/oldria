@@ -211,7 +211,7 @@ class Restaurant < ActiveRecord::Base
   end
 
   def linkable_profile?
-    self.premium_account?
+    self.prefers_publish_profile? && self.premium_account?
   end
 
   def self.extended_find(keyword)
