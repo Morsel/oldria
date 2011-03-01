@@ -37,11 +37,15 @@ class CompleteRegistrationsController < ApplicationController
   def user_details
     @user = current_user
     invitation = @user.invitation
-    solo_restaurant_name = invitation.restaurant_id ? 
+    if invitation.present?
+      solo_restaurant_name = invitation.restaurant_id ? 
         Restaurant.find(invitation.restaurant_id).name :
         invitation.restaurant_name
-    @user.build_default_employment(:solo_restaurant_name => solo_restaurant_name, 
+      @user.build_default_employment(:solo_restaurant_name => solo_restaurant_name, 
         :restaurant_role => invitation.restaurant_role, :subject_matters => invitation.subject_matters)
+    else
+      @user.build_default_employment
+    end
     @user.build_profile
   end
   

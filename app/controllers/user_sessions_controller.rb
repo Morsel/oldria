@@ -37,7 +37,14 @@ class UserSessionsController < ApplicationController
   def save_session
     if @user_session.save
       flash[:notice] = "You are now logged in."
-      redirect_back_or_default
+      user = @user_session.user
+
+      if user.admin? || user.media? || user.completed_setup?
+        redirect_back_or_default
+      else
+        flash[:notice] += " Please finish setting up your account."
+        redirect_to user_details_complete_registration_path
+      end
     else
       if @user_session.errors.on_base == "Your account is not confirmed"
         error_message = "Your account is not confirmed.<br/>
@@ -49,6 +56,7 @@ class UserSessionsController < ApplicationController
       else
         error_message = "Sorry, but we couldn't log you in"
       end
+
       if params[:mediafeed]
         flash[:error] = error_message
         redirect_to mediafeed_login_path

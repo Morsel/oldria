@@ -78,8 +78,12 @@ end
 
 Then(/^"([^\"]*)" should have (\d+) Unread Announcement messages?$/) do |username, num|
   user = User.find_by_username(username)
-  sleep 1
   user.unread_announcements.count.should == num.to_i
+end
+
+Then /^I should have 0 unread announcements$/ do
+  user = User.last
+  user.unread_announcements.count.should == 0
 end
 
 Then(/^"([^\"]*)" should have (\d+) PR Tip messages?$/) do |username, num|

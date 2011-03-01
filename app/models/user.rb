@@ -254,6 +254,10 @@ class User < ActiveRecord::Base
     self.save
   end
 
+  def completed_setup?
+    self.profile.present? && self.primary_employment.present?
+  end
+
   def deliver_password_reset_instructions!
     reset_perishable_token!
     UserMailer.deliver_password_reset_instructions(self)

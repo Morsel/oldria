@@ -8,26 +8,24 @@ Feature: Using dashboard
       | New Announcement 1 |
       | New Announcement 2 |
 
-    Given the following confirmed users:
-      | username | password | email           |
-      | joe298   | secret   | joe298@sample.com  |
-  Scenario: Show user popup with new announcements once
-    Given "joe298" should have 2 Unread Announcement message
-    And  I am logged in as "joe298" with password "secret"
+  Scenario: Show the announcement popup on the dashboard once and hide it after viewing
+    Given I am logged in as a normal user
+	And I go to the dashboard
     Then I should see unread announcement popup
-    And "joe298" should have 0 Unread Announcement message
-    Then I am on the dashboard
-    And I should not see unread announcement popup
+    And I should have 0 unread announcements
+
+    Given I am on the dashboard
+    Then I should not see unread announcement popup
 
   Scenario: Show links more when comment very long
     Given answers with long text
-    And I am logged in as an admin
+    And I am logged in as a normal user
     When I go to the dashboard
     Then I see more link to the answer's expanded view
 
   Scenario: Show links see more when many comments
     Given 11 comments in dashboard
-    And I am logged in as an admin
+    And I am logged in as a normal user
     When I go to the dashboard
     Then I should see link "see more"
     
