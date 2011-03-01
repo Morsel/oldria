@@ -33,7 +33,8 @@ class CompleteRegistrationsController < ApplicationController
       params[:step] == '2' ? render(:action => 'user_details') : render(:show)
     end
   end
-  
+
+  # A form view to setup profile and default employment
   def user_details
     @user = current_user
     invitation = @user.invitation
