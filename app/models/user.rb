@@ -316,9 +316,9 @@ class User < ActiveRecord::Base
     active.visible.by_last_name
   end
 
-  def deliver_invitation_message!
+  def deliver_invitation_message!(reset_token = true)
     @send_invitation = nil
-    reset_perishable_token!
+    reset_perishable_token! if reset_token
     logger.info( "Delivering invitation email to #{email}" )
     UserMailer.deliver_new_user_invitation!(self, invitation_sender)
   end

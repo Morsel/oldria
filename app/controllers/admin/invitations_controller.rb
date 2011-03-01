@@ -47,7 +47,7 @@ class Admin::InvitationsController < Admin::AdminController
   def resend
     invitation = Invitation.find(params[:id])
     if invitation.invitee
-      invitation.invitee.deliver_invitation_message!
+      invitation.invitee.deliver_invitation_message!(false)
       flash[:notice] = "We sent a new acceptance email to #{invitation.name}"
     else
       flash[:error] = "You must accept this invitation before you can resend it"
