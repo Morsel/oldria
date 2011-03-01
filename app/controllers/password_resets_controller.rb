@@ -1,4 +1,5 @@
 class PasswordResetsController < ApplicationController
+
   before_filter :require_no_user
   before_filter :load_user_using_perishable_token, :only => [:edit, :update]
 
@@ -31,13 +32,22 @@ class PasswordResetsController < ApplicationController
     if @user.save
       @user.reset_perishable_token!
       flash[:notice] = "Password successfully updated"
-      redirect_to root_url
+
+      # Spoonfeed users often begin initial setup through step 1 (setting a new password), log out, forget the password, 
+      # and wind up here to reset it. We need to catch that happening so we can ensure they complete step 2 of the setup
+      # process, and not just go to the dashboard.
+      if @user.admin? || @user.media? || @user.completed_setup?
+        redirect_to root_path
+      else
+        flash[:notice] += ". Please finish setting up your account."
+        redirect_to user_details_complete_registration_path
+      end
     else
       render :edit
     end
   end
 
-private
+  private
 
   def load_user_using_perishable_token
     @user = User.find_using_perishable_token(params[:id])

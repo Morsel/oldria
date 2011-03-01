@@ -1,3 +1,4 @@
+@passwords @login
 Feature: Reset password
   So that I can login
   As a user who has forgotten/lost my password
