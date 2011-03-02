@@ -15,11 +15,6 @@ def find_media_requests_for_username(username)
   media_requests = user.viewable_media_requests
 end
 
-Given /^"([^\"]*)" has a media request from a media member with:$/ do |username, table|
-  Factory(:media_user, :username => "media")
-  Given %Q{"#{username}" has a media request from "media" with:}, table
-end
-
 Given /^subject matter "([^\"]*)" is general$/ do |name|
   s = SubjectMatter.find_or_create_by_name(name)
   s.update_attribute(:general, true)
@@ -45,17 +40,8 @@ Given /^"([^\"]*)" does not handle the subject matter "([^"]*)" for "([^"]*)"$/ 
   employment.responsibilities.destroy_all
 end
 
-Given /^"([^\"]*)" has a media request from "([^\"]*)" with:$/ do |username, mediauser, table|
-  message = table.rows_hash['Message']
-  status = table.rows_hash['Status'] || 'pending'
-  user = User.find_by_username(username)
-  Factory(:employment, :employee => user) if user.restaurants.blank?
-  sender = User.find_by_username(mediauser)
-  publication = table.rows_hash['Publication'] || sender.publication
-  search = EmploymentSearch.new(:conditions => { :id_eq => user.primary_employment })
-  @media_request = Factory(:media_request, :employment_search => search, :sender => sender,
-                           :message => message, :status => status, :publication => publication)
-  media_request_discussion = Factory(:media_request_discussion, :media_request => @media_request)
+Given /^there are no media requests$/ do
+  MediaRequest.destroy_all
 end
 
 Given /^"([^\"]*)" has a media request$/ do |username|
@@ -67,8 +53,25 @@ Given /^"([^\"]*)" has a media request$/ do |username|
   @media_request.approve!
 end
 
-Given /^there are no media requests$/ do
-  MediaRequest.destroy_all
+Given /^"([^\"]*)" has a media request from a media member with:$/ do |username, table|
+  Factory(:media_user, :username => "media")
+  Given %Q{"#{username}" has a media request from "media" with:}, table
+end
+
+Given /^"([^\"]*)" has a media request from "([^\"]*)" with:$/ do |username, mediauser, table|
+  message = table.rows_hash['Message']
+  status = table.rows_hash['Status'] || 'pending'
+
+  user = User.find_by_username(username)
+  Factory(:employment, :employee => user) if user.restaurants.blank?
+
+  sender = User.find_by_username(mediauser)
+  publication = table.rows_hash['Publication'] || sender.publication
+
+  search = EmploymentSearch.new(:conditions => { :id_eq => user.primary_employment.id })
+
+  @media_request = Factory(:media_request, :employment_search => search, :sender => sender,
+                           :message => message, :status => status, :publication => publication)
 end
 
 When /^I create a media request with message "([^\"]*)" and criteria:$/ do |message, criteria|

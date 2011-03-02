@@ -21,15 +21,19 @@ Feature: Media request discussions
       | Message | Do you like cheesy potatoes? |
       | Status  | approved                     |
     And I am logged in as "sam" with password "secret"
+
     When I visit the media request discussion page for "Do you like cheesy potatoes?"
     And I leave a comment with "Of course I love cheesy potatoes!"
+
     Then I should see "Thanks: your answer has been saved"
     And the media request should have 1 comment
 	And "mediaguy@timesy.com" should have 1 email
 
     Given I am logged in as "mediaguy" with password "secret"
+
     When I visit the Mediafeed media request discussion page for "Do you like cheesy potatoes?"
     Then I should see "Of course I love cheesy potatoes!"
     And I leave a comment with "Thanks for your quick response, Sam"
+
     Then the media request should have 2 comments
 	And "sam@testunit.com" should have 1 email
