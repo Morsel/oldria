@@ -31,7 +31,7 @@ class SoloMediaDiscussion < ActiveRecord::Base
 
   # for comment notifications
   def users
-    [employee, media_request.user]
+    [employee, media_request.sender]
   end
 
   def publication_string
