@@ -47,7 +47,7 @@ class Profile < ActiveRecord::Base
 
   validates_uniqueness_of :user_id
   validates_presence_of :hometown, :current_residence
-  validates_presence_of :metropolitan_area, :james_beard_region, :on => :create
+  validates_presence_of :metropolitan_area, :james_beard_region
   validate :birthday_year_is_set
   validates_length_of :summary, :maximum => 1000, :allow_blank => true
   
