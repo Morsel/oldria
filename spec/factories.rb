@@ -47,6 +47,8 @@ Factory.define :profile do |f|
   f.hometown "Detroit"
   f.current_residence "NYC"
   f.cellnumber "123-456-7890"
+  f.association :metropolitan_area
+  f.association :james_beard_region
 end
 
 Factory.define :culinary_job do |f|

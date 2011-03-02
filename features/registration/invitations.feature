@@ -6,6 +6,7 @@ Feature: users can be invited to join Spoonfeed by registered SF users, restaura
     | username | password | email            | name           | role      |
     | mgmt     | secret   | mgmt@example.com | Mgmt Jack      | Manager   |
     | sam      | secret   | sam@example.com  | Samantha Smith | Chef      |
+  And the restaurant "Jack's Diner" is in the region "Midwest"
   And I am logged in as "sam"
 
   Scenario: a regular restaurant employee wants to invite a friend
@@ -58,6 +59,8 @@ Feature: users can be invited to join Spoonfeed by registered SF users, restaura
 
     And I fill in "Hometown" with "nowhere"
     And I fill in "Currently residing in" with "Seattle, WA"
+	And I select "Chicago IL" from "Metropolitan area"
+	And I select "Midwest (IN IL OH)" from "Region"
 
     And I press "Save"
     Then I should see "Enjoy SpoonFeed!"
@@ -100,6 +103,9 @@ Feature: users can be invited to join Spoonfeed by registered SF users, restaura
     And I check "Drink"
     And I fill in "Hometown" with "Ithaca, NY"
     And I fill in "Currently residing in" with "Palm Springs"
+	And I select "Chicago IL" from "Metropolitan area"
+	And I select "Midwest (IN IL OH)" from "Region"
+
     And I press "Save"
     
     Then I should see "Is this your restaurant?"
