@@ -28,6 +28,11 @@ class MediaRequestDiscussion < ActiveRecord::Base
     employments.map(&:id)
   end
 
+  # for comment notifications
+  def users
+    employments.map(&:employee) + [media_request.sender]
+  end
+
   def viewable_by?(employment)
     return false unless employment
     employment.employee == employment.restaurant.try(:manager) ||
@@ -39,7 +44,15 @@ class MediaRequestDiscussion < ActiveRecord::Base
     media_request.publication_string
   end
 
-  def deliver_notifications
+  def email_title
+    "Media Request"
+  end
+
+  def message
+    "#{publication_string} has a question for #{recipient_name}"
+  end
+
+  def notify_recipients
     employments.each do |employment|
       UserMailer.deliver_media_request_notification(self, employment.employee)
     end

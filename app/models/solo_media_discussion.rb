@@ -29,11 +29,24 @@ class SoloMediaDiscussion < ActiveRecord::Base
     employment.try(:employee)
   end
 
+  # for comment notifications
+  def users
+    [employee, media_request.user]
+  end
+
   def publication_string
     media_request.publication_string
   end
 
-  def deliver_notifications
+  def email_title
+    "Media Request"
+  end
+
+  def message
+    "#{publication_string} has a question for #{recipient_name}"
+  end
+
+  def notify_recipients
     UserMailer.deliver_media_request_notification(self, employment.employee)
   end
   
