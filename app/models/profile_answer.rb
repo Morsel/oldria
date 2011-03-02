@@ -22,6 +22,7 @@ class ProfileAnswer < ActiveRecord::Base
 
   attr_accessor :post_to_facebook, :share_url
   after_save    :post_to_facebook
+
   named_scope :from_premium_subjects, lambda {
     { :joins => 'INNER JOIN subscriptions ON `subscriptions`.subscriber_id = responder_id AND `subscriptions`.subscriber_type = responder_type',
       :conditions => ['`subscriptions`.id IS NOT NULL AND (`subscriptions`.end_date IS NULL OR `subscriptions`.end_date >= ?)',
@@ -34,7 +35,7 @@ class ProfileAnswer < ActiveRecord::Base
              :caption => name + ":: Behind The Line :: Topic: Background",
              :link    => @share_url }
     response = self.responder.facebook_user.feed_create(Mogli::Post.new(:message => post[:message],
-                                                                   :link    => post[:link],
-                                                                   :caption => post[:caption])) if @post_to_facebook.to_s == "1"
+                                                                        :link    => post[:link],
+                                                                        :caption => post[:caption])) if @post_to_facebook.to_s == "1"
   end
 end

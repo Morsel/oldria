@@ -5,30 +5,32 @@ class ProfileAnswersController < ApplicationController
   before_filter :require_responder
   before_filter :require_subject
 
-  skip_before_filter :load_random_btl_question
+  # skip_before_filter :load_random_btl_question
 
   def create
     respond_to do |format|
       format.html do
         # the regular form submits a hash of question ids with their answers
-       if params[:profile_question]
+        if params[:profile_question]
           params[:profile_question].each do |id, answer_params|
             @question = ProfileQuestion.find(id)
-            answer = @question.find_or_build_answer_for(@responder)
+            answer = @question.find_or_build_answer_for(@subject, @responder)
             answer.answer = answer_params[:answer]
+
             answer.post_to_facebook = answer_params[:post_to_facebook]
             answer.share_url = url_for_question(answer.responder, answer.profile_question.chapter.id, nil, true)
-            answer.responder = @responder
+
             unless answer.save # if it doesn't save, the answer was blank, and we can ignore it
               Rails.logger.error answer.errors.full_messages
             end
           end
-       end
+        end
 
         flash[:notice] = "Your answers have been saved"
         redirect_to link_for_questions(:subject => @subject, :chapter_id => @question.chapter.id)
       end
 
+      # For the btl-game sidebar widget
       format.js do
         @answer = ProfileAnswer.new(params[:profile_answer].merge(:responder => current_user))
         @question = @answer.profile_question
@@ -47,11 +49,12 @@ class ProfileAnswersController < ApplicationController
   def update
     @answer = ProfileAnswer.find(params[:id])
     @question = @answer.profile_question
+
     if @answer.update_attributes(params[:profile_answer])
       flash[:notice] = "Your answer has been saved"
       redirect_to link_for_questions(:subject => @subject,
-                    :chapter_id => @question.chapter.id,
-                    :anchor => "profile_question_#{@question.id}")
+                                     :chapter_id => @question.chapter.id,
+                                     :anchor => "profile_question_#{@question.id}")
     else
       render :template => "profile_answers/new"
     end
@@ -60,33 +63,33 @@ class ProfileAnswersController < ApplicationController
   def destroy
     @answer = ProfileAnswer.find(params[:id])
     @question = @answer.profile_question
-    @user = @answer.responder
-    flash[:notice] = "Your answer has been deleted"
-    @answer.destroy
-    redirect_to link_for_questions(:subject => @subject,
-                  :chapter_id => @question.chapter.id,
-                  :anchor => "profile_question_#{@question.id}")
+
+    if @answer.destroy
+      flash[:notice] = "Your answer has been deleted"
+      redirect_to link_for_questions(:subject => @subject, 
+                                     :chapter_id => @question.chapter.id, 
+                                     :anchor => "profile_question_#{@question.id}")
+    end
   end
 
   private
 
+  # The user or restaurant answering the question
   def require_responder
     if params[:restaurant_id]
-      @responder = Restaurant.find(params[:restaurant_id])
+      @responder = @restaurant = Restaurant.find(params[:restaurant_id])
     else
-      @responder = current_user
+      @responder = User.find(params[:user_id])
     end
   end
 
+  # The entity the question applies to: a user, (restaurant?), or restaurant feature page
   def require_subject
-    if params[:user_id]
-      @subject = User.find(params[:user_id])
-    elsif params[:feature_page_id] || params[:feature_id]
+    if params[:feature_page_id] || params[:feature_id]
       id = params[:feature_page_id] || params[:feature_id]
       @subject = RestaurantFeaturePage.find(id)
-      @restaurant = Restaurant.find(params[:restaurant_id])
     else
-      @subject = Restaurant.find(params[:restaurant_id])
+      @subject = @responder
     end
   end
 end
