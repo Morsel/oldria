@@ -217,7 +217,6 @@ When /^"([^"]*)" should have a "([^"]*)" account on the page$/ do |user_name, ac
   response.should have_selector(".user_account_type", :content => account_type)
 end
 
-
 When /^I should see that the user has a basic account$/ do
   response.should have_selector("#account_type", :content => "Basic")
 end
@@ -234,3 +233,7 @@ Then /^"([^\"]*)" should not have a default employment$/ do |username|
   User.find_by_username(username).default_employment.should be_nil
 end
 
+Then /^"([^\"]*)" should have a published profile$/ do |username|
+  user = User.find_by_username(username)
+  user.prefers_publish_profile.should == true
+end

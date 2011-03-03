@@ -109,7 +109,7 @@ When /^I simulate braintree update behavior$/ do
     )
 end
 
-When /^I simulate a successful call from braintree for user "([^"]*)"$/ do |username|
+When /^I simulate a successful call from braintree for user "([^\"]*)"$/ do |username|
   user = User.find_by_username(username)
   BraintreeConnector.any_instance.stubs(
       :confirm_request_and_start_subscription => stub(:success? => true,
@@ -117,7 +117,7 @@ When /^I simulate a successful call from braintree for user "([^"]*)"$/ do |user
   visit(bt_callback_subscription_url(user))
 end
 
-When /^I simulate a successful call from braintree for the restaurant "([^"]*)"$/ do |name|
+When /^I simulate a successful call from braintree for the restaurant "([^\"]*)"$/ do |name|
   restaurant = Restaurant.find_by_name(name)
   BraintreeConnector.any_instance.stubs(
       :braintree_customer => nil)
@@ -127,7 +127,7 @@ When /^I simulate a successful call from braintree for the restaurant "([^"]*)"$
   visit(bt_callback_subscription_url(restaurant))
 end
 
-When /^I simulate an unsuccessful call from braintree for user "([^"]*)"$/ do |username|
+When /^I simulate an unsuccessful call from braintree for user "([^\"]*)"$/ do |username|
   user = User.find_by_username(username)
   BraintreeConnector.any_instance.stubs(
       :braintree_customer => nil)
@@ -135,7 +135,6 @@ When /^I simulate an unsuccessful call from braintree for user "([^"]*)"$/ do |u
       :confirm_request_and_start_subscription => stub(:success? => false, :message => "message"))
   visit(bt_callback_subscription_url(user))
 end
-
 
 When /^I simulate an unsuccessful call from braintree for the restaurant "([^"]*)"$/ do |name|
   restaurant = Restaurant.find_by_name(name)

@@ -92,6 +92,10 @@ module HasSubscription
           :payer => self,
           :start_date => Date.today,
           :braintree_id => bt_subscription.subscription.id)
+
+      # Update all premium accounts to public (for soapbox and mediafeed)
+      self.write_preference(:publish_profile, true)
+
       save
       self.subscription
     end

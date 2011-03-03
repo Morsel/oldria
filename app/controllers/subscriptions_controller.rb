@@ -41,6 +41,7 @@ class SubscriptionsController < ApplicationController
           @braintree_customer.make_premium!(bt_result)
         end
       end
+
       flash[:success] = (request_kind == "update_customer")? "Thanks! Your payment information has been updated." : "Thanks for upgrading to Premium!"
       redirect_to customer_edit_path(@braintree_customer)
     else
@@ -105,7 +106,6 @@ class SubscriptionsController < ApplicationController
     end
     restaurant
   end
-
 
   def create_braintree_connector
     @braintree_connector = BraintreeConnector.new(@braintree_customer,

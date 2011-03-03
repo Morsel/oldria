@@ -43,6 +43,11 @@ Feature: User Accounts
     Then I see my account status is premium
     And I see my account is paid for by myself
 
+  Scenario: Upgraded accounts should be switched to published profiles
+    Given I am logged in as "emily" with password "secret"
+    When I simulate a successful call from braintree for user "emily"
+	Then "emily" should have a published profile
+
   Scenario: Unsuccessful response from braintree does not make a user premium
     Given I am logged in as "emily" with password "secret"
     When I simulate an unsuccessful call from braintree for user "emily"
