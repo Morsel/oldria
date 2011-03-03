@@ -8,9 +8,9 @@
         title: $('title').text().replace('Spoonfeed','Soapbox')
       }
     <% end %>
-  <%= render :partial => 'shared/add_this', :locals => { :responder => @user } %>
+    <%= render :partial => 'shared/add_this', :locals => { :responder => @user } %>
 
-  <aside class="user_actions">
+    <aside class="user_actions">
         <% if current_user && (current_user == @user || current_user.admin?) -%>
           <%= link_to 'Edit profile', edit_user_profile_path(@user) %>
         <% end %>
@@ -137,14 +137,10 @@
   <%= render 'users/extended_profile', :user => @user, :profile => @user.profile %>
 </div><!-- #extended_profile_container -->
 
-
-
    <div id="recent_soapbox" class="clear clearfix">
 
-      <%   if @user.btl_enabled? && (@user == current_user || @user.published_topics.present?) %>
-
-      <%= render :partial => 'profile_questions/behind_the_line', :locals => { :subject => @user } %>
-
+      <% if @user.btl_enabled? && (@user.published_topics.present? || @user == current_user || current_user.try(:admin?)) %>
+        <%= render :partial => 'profile_questions/behind_the_line', :locals => { :subject => @user } %>
       <% end %>
 
       <div id="recent_qtod" class="recent_actions last">
@@ -162,9 +158,9 @@
                 <%= render :partial => 'users/question',
                     :collection => @user.trend_questions_responded,
                     :local => {:user => @user} %>
-                <% else %>
+              <% else %>
                   <p><%= @user.name %> hasn't answered any Trend Questions yet.</p>
-                <% end %>
+              <% end %>
             </div><!--#older_tqs_box-->
             <div id="older_qotds_box">
               <% if @user.qotds_responded.present? %>
