@@ -4,8 +4,12 @@
     <%= f.input :id, :as => :hidden %>
     <%= hidden_field_tag 'step', 2 %>
 
+    <% if @user.primary_employment.present? && @user.primary_employment.restaurant.present? %>
+    <strong>Your employment details:</strong> <%= @user.primary_employment.restaurant_role.try(:name) %> at <%= @user.primary_employment.restaurant_name %>
+    <% else %>
     <% f.semantic_fields_for :default_employment do |employment| %>
         <%= render :partial => "default_employments/form", :locals => { :f => employment } %>
+    <% end %>
     <% end %>
 
     <% f.semantic_fields_for :profile do |profile| %>
