@@ -7,7 +7,7 @@
         <% if can? :edit, @restaurant %>
           <%= link_to 'Edit Restaurant', edit_restaurant_path(@restaurant), :class=>'edit_restaurant' %>
         <% end -%>
-        <%= link_to 'Start a discussion', new_discussion_path(:restaurant_id => @restaurant.id), :class => 'start_discussion' %>
+        <%= link_to 'Start a discussion', new_discussion_path(:restaurant_id => @restaurant.id), :class => 'start_discussion' unless on_soapbox %>
         <%= link_to 'Share Profile', new_discussion_path(:restaurant_id => @restaurant.id), :class => 'share_profile' %>
       <% else -%>
         <%= link_to 'Back to public view', restaurant_path(@restaurant), :class => 'backtopublic' %>
