@@ -1,6 +1,8 @@
 class SoloMediaDiscussionsController < ApplicationController
+
   before_filter :require_user
   before_filter :find_solo_media_discussion
+  before_filter :redirect_media, :only => :show
 
   def show
     @comments = @solo_media_discussion.comments.all(:include => [:user, :attachments], :order => 'created_at DESC')
@@ -20,4 +22,13 @@ class SoloMediaDiscussionsController < ApplicationController
     @solo_media_discussion = SoloMediaDiscussion.find(params[:id])
     @media_request = @solo_media_discussion.media_request
   end
+
+  def redirect_media
+    if current_user.media?
+      redirect_to mediafeed_discussion_path(@media_request.id, 
+                                            @solo_media_discussion.class.name.pluralize.underscore.downcase, 
+                                            @solo_media_discussion.id)
+    end
+  end
+
 end
