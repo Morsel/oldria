@@ -3,7 +3,7 @@
   <% f.inputs :class => "cookbooks" do %>
     <%= f.input :title, :hint => "Include books you have authored or contributed to" %>
     <%= f.input :publisher %>
-    <%= f.input :published_on, :as => :date %>
+    <%= f.input :published_on, :as => :date, :end_year => 1940, :start_year => Date.today.year %>
   <% end %>
   <%= button_tag "Save" %>
 <% end %>

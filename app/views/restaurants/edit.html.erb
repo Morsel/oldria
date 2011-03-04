@@ -25,15 +25,11 @@
 
     <% end %>
 
-
-
     <% f.inputs :name => "Basics", :class => "editing basics" do %>
       <%= f.input :name %>
       <%= f.input :description, :as => :text, :label => "Tagline or short description" %>
       <% button_tag :class => 'positive' do %>Save changes to basic information<% end %>
     <% end %>
-
-
 
     <% f.inputs :name => "Address", :class => "editing address" do %>
       <%= f.input :street1, :label => 'Street Address' %>
@@ -47,13 +43,11 @@
       <% button_tag :class => 'positive' do %>Save changes to address<% end %>
     <% end -%>
 
-
-
     <% f.inputs :name => 'Other', :class => "editing other" do %>
       <%= f.input :manager, :label => "Primary Account Manager", :collection => @restaurant.managers %>
       <%= f.input :media_contact, :collection => @restaurant.employees %>
       <%= f.input :cuisine %>
-      <%= f.input :opening_date, :class => "opening_date" %>
+      <%= f.input :opening_date, :class => "opening_date", :end_year => 1940, :start_year => Date.today.year %>
       <%= f.input :website %>
       <%= f.input :twitter_username, :hint => "Just your username" %>
       <%= f.input :facebook_page %>
