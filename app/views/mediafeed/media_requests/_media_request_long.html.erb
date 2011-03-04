@@ -2,15 +2,12 @@
   <div id="read_messages">
 <% end %>
 <% div_for @media_request, :class => 'clearfix box extended discussion thread', :id => "media_request_long" do %>
-  <ul class="message_headers">
-    <li>
-      <h4><%= @media_request.subject_matter.try(:name) %> (Original request)</h4>
-       Due by <%= @media_request.due_date.try(:to_s, :long_ordinal) %>
-       <% unless @media_request.publication.empty? || @media_request.sender.publication.empty? %>
-			  (<%= @media_request.publication || @media_request.sender.publication %>)
-        <% end %>
-    </li>
-	</ul>
+    <ul class="message_headers">
+        <li>
+            <h4><%= @media_request.subject_matter.try(:name) %> (Original request)</h4>
+            Due by <%= @media_request.due_date.try(:to_s, :long_ordinal) %>
+        </li>
+    </ul>
 	<p class="message">
 	  <%= simple_format @media_request.message %>
 	</p>
@@ -21,12 +18,12 @@
 		  <% if @media_request.sender == current_user %>
 		    You sent this on
 		  <% else %>
-		    <%= @media_request.sender.name %> sent this on
+		    <%= @media_request.publication || @media_request.sender.publication %> sent this
 		  <% end %>
-		  <%= @media_request.created_at.try(:to_s, :sentence) %>
+		  <%= @media_request_discussion.present? ? "to #{@media_request_discussion.restaurant.try(:name)}" : "" %>
+		  on <%= @media_request.created_at.try(:to_s, :sentence) %>
 		</li>
 	</ul>
-	
 
 	<% unless @media_request.try(:attachments).blank? %>
 	<div class="attachments box">

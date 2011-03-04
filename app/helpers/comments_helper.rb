@@ -23,7 +23,9 @@ module CommentsHelper
   end
   
   def title_and_restaurant_name_for resource, user
-    if resource.is_a?(MediaRequestDiscussion)
+    if user.media?
+      " #{resource.media_request.publication || user.publication} "
+    elsif resource.is_a?(MediaRequestDiscussion)
       mr_restaurant = resource.restaurant
       ", #{user.employments.find_by_restaurant_id(mr_restaurant.id).try(:restaurant_role).try(:name)} of #{mr_restaurant.try(:name)} "
     elsif (employment = user.primary_employment).present? && (restaurant = employment.restaurant).present?
