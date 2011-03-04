@@ -10,6 +10,7 @@ class ProfilesController < ApplicationController
       flash[:notice] = "Successfully created profile."
       redirect_to profile_path(@user.username)
     else
+      flash[:error] = "Please fix the errors in the form below"
       render :edit
     end
   end
@@ -26,6 +27,7 @@ class ProfilesController < ApplicationController
       flash[:notice] = "Successfully updated profile."
       redirect_to edit_user_profile_path(:user_id => @user.id)
     else
+      flash[:error] = "Please fix the errors in the form below"
       render :edit
     end
   end

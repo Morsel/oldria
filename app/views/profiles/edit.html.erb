@@ -150,8 +150,8 @@
                     <li><%= radio_button_tag "profile[primary_employment][]", employment.id, primary?(employment) %> <%= employment.restaurant_role.try(:name) %> at <%= employment.restaurant.try(:name) %></li>
                     <% end %>
                 </ul>
-				<% button_tag :class => 'positive' do %>Save changes to employment<% end %>
 
+				<% button_tag :class => 'positive' do %>Save changes to employment<% end %>
             <% end %>
             <% end %>
 
@@ -298,3 +298,13 @@
     <% end %>
   </section><!-- /profile-messages -->
 </section><!-- /profile-tabs -->
+
+<% if @profile.errors.present? %>
+  <% content_for :javascript do %>
+  <script type="text/javascript">
+    $(document).ready(function() {
+      $('#profile-tabs').tabs('select', 1);
+    });
+  </script>
+  <% end %>
+<% end  %>

@@ -77,7 +77,6 @@ $('#profile_user_attributes_prefers_publish_profile').live('click',function(){
 	}
 })
 
-
 $('#profile-tabs').tabs({
 	panelTemplate: '<section></section>',
 	fx: { duration: 'fast', opacity: 'toggle' },
