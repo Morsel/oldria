@@ -32,6 +32,14 @@ class Ability
           discussion.restaurant.employments.find_by_employee_id(user.id)
         )
       end
+
+      can :manage, MediaRequest do |action, message|
+        message.sender == user
+      end
+
+      can :manage, MediaRequestDiscussion do |action, discussion|
+        discussion.viewable_by?(discussion.restaurant.employments.find_by_employee_id(user.id))
+      end
     end
   end
 

@@ -1,14 +1,13 @@
 require 'spec/spec_helper'
 
 describe MediaRequestDiscussionsController do
-  integrate_views
 
   before(:each) do
     @employee = Factory(:user)
     @recipient = Factory(:employment, :employee => @employee)
     @mrc = Factory(:media_request_discussion, :restaurant => @recipient.restaurant)
     MediaRequestDiscussion.stubs(:find).returns(@mrc)
-    @employee.stubs(:viewable_media_request_discussions).returns [@mrc.media_request]
+    @mrc.stubs(:viewable_by?).with(@recipient).returns(true)
     controller.stubs(:current_user).returns(@employee)
   end
 

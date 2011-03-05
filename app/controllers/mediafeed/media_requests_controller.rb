@@ -1,22 +1,12 @@
 class Mediafeed::MediaRequestsController < Mediafeed::MediafeedController
   before_filter :require_user, :only => [:index, :show]
-  before_filter :require_media_user, :except => [:index, :show]
   before_filter :get_reply_count, :only => [:index, :show, :discussion]
+  before_filter :find_and_authorize, :only => [:show, :edit, :discussion]
 
   def index
-    if current_user.media?
       @media_requests = params[:view_all] ? 
           current_user.media_requests.all(:include => [:subject_matter, :restaurants]) :
           @media_requests_with_replies #set in :get_reply_count
-    else
-      # These are always scoped by restaurant!
-      @restaurant = Restaurant.find(params[:restaurant_id])
-      @media_requests = @restaurant.media_requests.all(:include => [:sender, :conversations_with_comments])
-    end
-  end
-
-  def show
-    @media_request = MediaRequest.find(params[:id])
   end
 
   def new
@@ -51,9 +41,11 @@ class Mediafeed::MediaRequestsController < Mediafeed::MediafeedController
     end
   end
 
+  def show
+  end
+
   def edit
     @subject_matters = SubjectMatter.all
-    @media_request = MediaRequest.find(params[:id])
     @media_request.publication = @media_request.sender.try(:publication)
     @restaurants = @media_request.restaurants
   end
@@ -77,13 +69,12 @@ class Mediafeed::MediaRequestsController < Mediafeed::MediafeedController
   
   def discussion
     collection = params[:discussion_type]
-    @media_request = MediaRequest.find(params[:id])
     @media_request_discussion = @media_request.send(collection.to_sym).find(params[:discussion_id])
     build_comment
   end
   
   protected
-  
+
   def get_reply_count
     if mediafeed?
       @media_requests_with_replies = current_user.media_requests.all(:include => [:subject_matter, :restaurants]).select { |m| m.discussions_with_comments.present? }
@@ -96,6 +87,11 @@ class Mediafeed::MediaRequestsController < Mediafeed::MediafeedController
     @comment.attachments.build
     @comment.user = current_user
     @comment_resource = [@media_request_discussion, @comment]
+  end
+
+  def find_and_authorize
+    @media_request = MediaRequest.find(params[:id])
+    unauthorized! if cannot? :read, @media_request
   end
 
 end
