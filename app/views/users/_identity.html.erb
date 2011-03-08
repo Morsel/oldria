@@ -1,14 +1,16 @@
+<% cache "user_#{user.id}", :expires => 1.hour do %>
 <div class="identity<% unless user.avatar? -%> no_avatar<% end -%>">
     <div class="avatar">
       <% if user.avatar? -%>
         <%= image_tag(user.avatar.url(:thumb), :width => 50, :height => 'auto') %>
       <% end -%>
     </div>
-  <ul class="identity_details user">
-      <li class="employee_name primary">
-          <%= link_to_if (user.linkable_profile? || logged_in_on_spoonfeed), user.name_or_username, directory_link(user) %>
-      </li>
-      <li class="employee_role"><%= user.primary_employment.try(:restaurant_role).try(:name) %></li>
-      <li class="restaurant_name"><%= restaurant_names_for_user(user) %></li>
-  </ul>
+    <ul class="identity_details user">
+        <li class="employee_name primary">
+            <%= link_to_if (user.linkable_profile? || logged_in_on_spoonfeed), user.name_or_username, directory_link(user) %>
+        </li>
+        <li class="employee_role"><%= user.primary_employment.try(:restaurant_role).try(:name) %></li>
+        <li class="restaurant_name"><%= restaurant_names_for_user(user) %></li>
+    </ul>
 </div>
+<% end %>
