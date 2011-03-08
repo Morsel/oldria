@@ -5,8 +5,6 @@ class ProfileAnswersController < ApplicationController
   before_filter :require_responder
   before_filter :require_subject
 
-  # skip_before_filter :load_random_btl_question
-
   def create
     respond_to do |format|
       format.html do

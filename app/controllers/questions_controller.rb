@@ -5,8 +5,6 @@ class QuestionsController < ApplicationController
   before_filter :get_subject, :except => [:show]
   before_filter :get_profile, :only => :topics
 
-  skip_before_filter :load_random_btl_question, :only => [:refresh]
-
   def index
     @chapter = Chapter.find(params[:chapter_id])
 
