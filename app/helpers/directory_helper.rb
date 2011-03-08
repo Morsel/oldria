@@ -9,10 +9,11 @@ module DirectoryHelper
   end
   
   def users_for_search
+    opts = { :include => :restaurants }
     if on_soapbox
-      User.in_soapbox_directory
+      User.in_soapbox_directory.all(opts)
     else
-      User.in_spoonfeed_directory
+      User.in_spoonfeed_directory.all(opts)
     end
   end
   
