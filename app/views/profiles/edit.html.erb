@@ -204,7 +204,7 @@
 						<ul id="cuisines">
 							<%= render @profile.cuisines %>
 						</ul>
-						<p><%= link_to "Add Cuisine", new_user_profile_profile_cuisine_path, :class => 'sf-button colorbox' %></p>
+						<p><%= link_to "Add Cuisine", new_user_profile_profile_cuisine_path(:user_id => @user.id), :class => 'sf-button colorbox' %></p>
 					</fieldset>
 
                 </div>
