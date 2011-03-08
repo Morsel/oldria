@@ -10,11 +10,10 @@ class ApplicationController < ActionController::Base
 
   layout :site_layout
 
+  before_filter :notify_emailthing_of_clicked_links
+
   # Scrub sensitive parameters from your log
   filter_parameter_logging :password
-
-  # before_filter :load_random_btl_question
-  before_filter :notify_emailthing_of_clicked_links
 
   helper_method :current_user
   helper_method :mediafeed?
