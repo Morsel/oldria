@@ -1,7 +1,8 @@
 class Mediafeed::MediaRequestsController < Mediafeed::MediafeedController
-  before_filter :require_user, :only => [:index, :show]
+
+  before_filter :require_user
+  before_filter :find_and_authorize, :only => [:show, :edit, :update, :destroy, :discussion]
   before_filter :get_reply_count, :only => [:index, :show, :discussion]
-  before_filter :find_and_authorize, :only => [:show, :edit, :discussion]
 
   def index
       @media_requests = params[:view_all] ? 
@@ -51,7 +52,6 @@ class Mediafeed::MediaRequestsController < Mediafeed::MediafeedController
   end
 
   def update
-    @media_request = MediaRequest.find(params[:id])
     if @media_request.update_attributes(params[:media_request])
       flash[:notice] = "Thanks! Your media request will be sent shortly!"
       redirect_to @media_request
@@ -61,7 +61,6 @@ class Mediafeed::MediaRequestsController < Mediafeed::MediafeedController
   end
 
   def destroy
-    @media_request = MediaRequest.find(params[:id])
     @media_request.destroy
     flash[:notice] = "Successfully destroyed media request."
     redirect_to media_requests_url
