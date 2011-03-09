@@ -59,7 +59,7 @@ class AccoladesController < ApplicationController
         wants.html { 
           redirect_to @accolade.accoladable.is_a?(Restaurant) ? 
             edit_restaurant_path(@accolade.accoladable) : 
-            edit_user_profile_path(:user_id => @accolade.accoladable.user.id)
+            edit_user_profile_path(:user_id => @accolade.accoladable.user.id, :anchor => "profile-extended")
         }
         wants.js { render :nothing => true }
       end
