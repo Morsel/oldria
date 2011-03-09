@@ -9,6 +9,11 @@
 </p>
 
 <p id="messagelink" style="clear: both; font-size: 16px;">
-  <a href="<%= polymorphic_url(@message) %>" style="color: #cc6632; font-weight: bold; text-decoration: none;">View this <%= @message.email_title %> &raquo;</a></p>
+<% if @recipient.media? && (@message.is_a?(MediaRequestDiscussion) || @message.is_a?(SoloMediaDiscussion)) -%>
+  <a href="<%= mediafeed_discussion_url(@message.media_request, @message.class.name.pluralize.underscore.downcase, @message) %>" style="color: #cc6632; font-weight: bold; text-decoration: none;">View this <%= @message.email_title %> &raquo;</a>
+<% else %>
+  <a href="<%= polymorphic_url(@message) %>" style="color: #cc6632; font-weight: bold; text-decoration: none;">View this <%= @message.email_title %> &raquo;</a>
+<% end -%>
+</p>
 
 <%= render :partial => 'email_footer' %>

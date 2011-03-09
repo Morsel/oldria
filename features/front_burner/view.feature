@@ -17,12 +17,12 @@ Feature: Frontburner page
   Scenario: Individual users who dont have permissions to answer qotd/trend question should get help message
     Given I am logged in as "neue" with password "secret"
     When I go to Front Burner
-    And I should see "In order to receive Front Burner questions, please make sure your role and subject matter are set up in your profile summary"
+    And I should see "In order to receive Front Burner questions, please make sure your role and areas of expertise are set up in your profile summary"
 
   Scenario: Individual users who have permissions to answer qotd/trend question should not get help message
     Given I am logged in as "luk" with password "secret"
     When I go to Front Burner
-    And I should not see "In order to receive Front Burner questions, please make sure your role and subject matter are set up in your profile summary"
+    And I should not see "In order to receive Front Burner questions, please make sure your role and areas of expertise are set up in your profile summary"
 
   Scenario: Restaurant users who dont have permissions to answer qotd/trend question should get help message
     Given I am logged in as an admin
