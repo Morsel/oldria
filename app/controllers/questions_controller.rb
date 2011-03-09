@@ -66,7 +66,11 @@ class QuestionsController < ApplicationController
   protected
 
   def require_user_unless_soapbox
-    params[:controller].match(/soapbox/) ? true : require_user
+    if soapbox?
+      return true
+    else
+      require_user
+    end
   end
 
   def get_subject
