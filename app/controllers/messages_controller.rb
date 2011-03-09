@@ -6,7 +6,7 @@ class MessagesController < ApplicationController
   ##
   # GET /messages
   def index
-    redirect_to ria_messages_path
+    redirect_to media_requests_messages_path
   end
 
   ##
