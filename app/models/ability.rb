@@ -40,6 +40,10 @@ class Ability
       can :manage, MediaRequestDiscussion do |action, discussion|
         discussion.viewable_by?(discussion.restaurant.employments.find_by_employee_id(user.id))
       end
+
+      can :manage, SoloMediaDiscussion do |action, discussion|
+        discussion.employee == user
+      end
     end
   end
 
