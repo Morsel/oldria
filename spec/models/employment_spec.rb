@@ -108,7 +108,8 @@ describe Employment do
     it "finds public employees" do
       public_employee = Factory(:employment, :public_profile => true)
       private_employee = Factory(:employment, :public_profile => false)
-      Employment.public_profile_only.all.should == [public_employee]
+      Employment.public_profile_only.include?(public_employee).should == true
+      Employment.public_profile_only.include?(private_employee).should == false
     end
 
   end

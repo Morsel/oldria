@@ -19,15 +19,15 @@
     	<div class="public_profile">
     		<% if employment.public_profile %>
     	  	<p class="public">
-    	    	This employee will be displayed on the public profile.
-    	    	<%= link_to "Click to make private",
+    	    	This employee will be displayed on your restaurant's public profile.<br/>
+    	    	<%= link_to "Click to hide this employee",
     	        restaurant_employment_path(@restaurant, employment, :employment => {:public_profile => false}),
     	        :method => :put %>.
     	  	</p>
     		<% else %>
     	  	<p class="private">
-    	    	This employee will not be displayed on the public profile.
-    	    	<%= link_to "Click to make public",
+    	    	This employee will not be displayed on your restaurant's public profile.<br/>
+    	    	<%= link_to "Click to make this employee public",
     	        	restaurant_employment_path(@restaurant, employment, :employment => {:public_profile => true}),
     	        	:method => :put %>.
     	  	</p>

@@ -108,8 +108,8 @@
   <div class="rest_staff clearfix">
     <h2>Restaurant Staff</h2>
     <div class="restaurant_employees employments clearfix">
-      <%= render :partial => 'restaurants/employment', :collection => @restaurant.employments.by_position.all(
-          :include => [:subject_matters, :restaurant_role, :employee]) %>
+      <%= render :partial => 'restaurants/employment', 
+                 :collection => @restaurant.public_employments.all(:include => [:subject_matters, :restaurant_role, :employee]) %>
     </div><!-- .employments -->
   </div><!--.rest_staff-->
 
@@ -147,7 +147,6 @@
 </div><!-- #restaurant_profile_view -->
 
 
-
 <% content_for :javascript do %>
   <script type="text/javascript">
     //<![CDATA[
@@ -160,4 +159,3 @@
     //]]>
   </script>
 <% end %>
-
