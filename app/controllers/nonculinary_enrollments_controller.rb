@@ -53,7 +53,7 @@ class NonculinaryEnrollmentsController < ApplicationController
     @nonculinary_enrollment = NonculinaryEnrollment.find(params[:id])
     if @nonculinary_enrollment.destroy
       respond_to do |wants|
-        wants.html { redirect_to edit_user_profile_path(:user_id => @nonculinary_enrollment.profile.user.id) }
+        wants.html { redirect_to edit_user_profile_path(:user_id => @nonculinary_enrollment.profile.user.id, :anchor => "profile-extended") }
         wants.js { render :nothing => true }
       end
     end

@@ -37,7 +37,7 @@ module NavigationHelpers
     when /^the (edit|choose) (my )?feeds page$/
       edit_feeds_path
     when /^(my|the)? ?inbox$/
-      messages_path
+      ria_messages_path
     when /^the new conversations page$/
       new_conversation_path
     when "my profile's edit page"

@@ -54,7 +54,7 @@ class ApprenticeshipsController < ApplicationController
     @apprenticeship = Apprenticeship.find(params[:id])
     if @apprenticeship.destroy
       respond_to do |wants|
-        wants.html { redirect_to edit_user_profile_path(:user_id => @apprenticeship.profile.user.id) }
+        wants.html { redirect_to edit_user_profile_path(:user_id => @apprenticeship.profile.user.id, :anchor => "profile-extended") }
         wants.js { render :nothing => true }
       end
     end

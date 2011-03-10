@@ -11,9 +11,9 @@
   <meta property="og:description" content="<%= h(yield(:fb_description) || "")  %>" />
   <meta name="author" content="Restaurant Intelligence Agency">
   <link rel="shortcut icon" href="/favicon.ico">
-	<%= stylesheet_link_tag 'colorbox', '/redesign/brandonbold/stylesheet', '/redesign/hoeflerbolditalic/stylesheet', '/redesign/_css/spoonfeed' %>
-	<%= stylesheet_link_tag '/redesign/_css/print', :media => 'print' %>
-	<%= yield(:head) %>
+  <%= stylesheet_link_tag 'colorbox', '/redesign/brandonbold/stylesheet', '/redesign/hoeflerbolditalic/stylesheet', '/redesign/_css/spoonfeed' %>
+  <%= stylesheet_link_tag '/redesign/_css/print', :media => 'print' %>
+  <%= yield(:head) %>
 
   <%- if protect_against_forgery? -%>
   <script type='text/javascript'>

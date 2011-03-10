@@ -52,7 +52,7 @@ class CookbooksController < ApplicationController
     @cookbook = Cookbook.find(params[:id])
     if @cookbook.destroy
       respond_to do |wants|
-        wants.html { redirect_to edit_user_profile_path(:user_id => @cookbook.profile.user.id) }
+        wants.html { redirect_to edit_user_profile_path(:user_id => @cookbook.profile.user.id, :anchor => "profile-extended") }
         wants.js { render :nothing => true }
       end
     end

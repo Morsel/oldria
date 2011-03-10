@@ -1587,6 +1587,9 @@ form#new_user_session {
 				margin: 10px 0;
 				padding: 12px 0 0;
 				border-bottom: 1px solid #ddd;
+				select {
+				  margin: 2px 0 15px;
+				}
 				legend {
 					margin: 0;
 					padding: 0;
