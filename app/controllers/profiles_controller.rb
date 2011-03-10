@@ -25,7 +25,7 @@ class ProfilesController < ApplicationController
 
     if @profile.update_attributes(params[:profile])
       flash[:notice] = "Successfully updated profile."
-      redirect_to edit_user_profile_path(:user_id => @user.id)
+      redirect_to edit_user_profile_path(:user_id => @user.id, :anchor => "profile-summary")
     else
       flash[:error] = "Please fix the errors in the form below"
       render :edit
