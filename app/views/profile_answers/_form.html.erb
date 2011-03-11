@@ -16,7 +16,7 @@
         <%= check_box_tag "profile_question[#{answer.profile_question.id}]post_to_facebook", 1, false, :class => 'checkbox'  %>
         <%= label_tag "profile_question[#{answer.profile_question.id}]post_to_facebook", "Post to Facebook?" %>
       <% else %>
-        <%= link_to "Setup Facebook to post there too!", fb_auth_user_path(current_user) %>
+        <%= link_to "Use Spoonfeed to build your brand. Set up Facebook now.", fb_auth_user_path(current_user) %>
       <% end -%>
     </span>
   </p>
