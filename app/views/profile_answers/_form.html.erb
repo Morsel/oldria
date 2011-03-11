@@ -9,6 +9,7 @@
   </ol>
 </fieldset>
 
+<% if answer.responder.is_a?(User) %>
   <p class="clear clearfix">
     <span class="and_twitter">
       <% if current_facebook_user && current_user.facebook_authorized? -%>
@@ -19,7 +20,7 @@
       <% end -%>
     </span>
   </p>
-
+<% end %>
 
 <div class="clearfix">
   <%= button_tag "Post" %>
