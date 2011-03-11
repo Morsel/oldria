@@ -13,7 +13,7 @@
   <p class="clear clearfix">
     <span class="and_twitter">
       <% if current_facebook_user && current_user.facebook_authorized? -%>
-        <%= check_box_tag "profile_question[#{answer.profile_question.id}]post_to_facebook", 1, false, :class => 'checkbox'  %>
+        <%= check_box_tag "profile_question[#{answer.profile_question.id}]post_to_facebook", 1, true, :class => 'checkbox'  %>
         <%= label_tag "profile_question[#{answer.profile_question.id}]post_to_facebook", "Post to Facebook?" %>
       <% else %>
         <%= link_to "Use Spoonfeed to build your brand. Set up Facebook now.", fb_auth_user_path(current_user) %>

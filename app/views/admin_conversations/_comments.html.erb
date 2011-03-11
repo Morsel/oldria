@@ -12,7 +12,7 @@
         <p class="clear clearfix">
         <span class="and_twitter">
               <% if current_facebook_user && current_user.facebook_authorized? -%>
-                <%= f.input :post_to_facebook, :as => :boolean, :class => 'checkbox' , :label => "Post to Facebook?"  %>
+                <%= f.input :post_to_facebook, :as => :boolean, :class => 'checkbox', :label => "Post to Facebook?", :selected => true %>
               <% else %>
                 <%= link_to "Use Spoonfeed to build your brand. Set up Facebook now.", fb_auth_user_path(current_user) %>
               <% end -%>
