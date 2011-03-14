@@ -132,24 +132,19 @@ class ApplicationController < ActionController::Base
   end
 
 ### Content for layout
-  def preload_resources
-    load_random_coached_update
-    load_current_user_statuses
+  def past_qotds
+    @qotds ||= SoapboxEntry.qotd.published.recent.all(:include => :featured_item).map(&:featured_item)
   end
+  helper_method :past_qotds
 
-  def load_random_coached_update
-    return unless current_user && !current_user.media?
-    @coached_message = CoachedStatusUpdate.current.random.first
+  def past_trends
+    @trend_questions ||= SoapboxEntry.trend_question.published.recent.all(:include => :featured_item).map(&:featured_item)
   end
-
-  def load_current_user_statuses
-    return unless current_user && !current_user.media?
-    @current_user_recent_statuses = current_user.statuses.all(:limit => 2)
-  end
+  helper_method :past_trends
 
   def load_past_features
-    @qotds ||= SoapboxEntry.qotd.published.recent.all(:include => :featured_item).map(&:featured_item)
-    @trend_questions ||= SoapboxEntry.trend_question.published.recent.all(:include => :featured_item).map(&:featured_item)
+    past_qotds
+    past_trends
   end
 
   def load_random_btl_question

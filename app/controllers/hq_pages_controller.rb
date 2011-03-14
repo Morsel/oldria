@@ -1,8 +1,6 @@
 class HqPagesController < Hq::HqController
   layout 'hq'
   
-#  before_filter :load_past_features, :only => [:show]
-  
   def show
     @page = HqPage.find(params[:id])
     @feed = Feedzirra::Feed.fetch_and_parse('http://feeds.feedburner.com/RIAUnplugged')
