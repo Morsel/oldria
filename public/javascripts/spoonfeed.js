@@ -26,6 +26,12 @@ $('#front-burner-comments #new_comment').submit(function(){
     $('#loading-wait').show();
 });
 
+$('#btl_answers form').submit(function(){
+    $(":button", this).attr('disabled', 'disabled');
+    $('.text').hide();
+    $('#loading-wait').show();
+});
+
 // == Inbox for RIA messages
 $(".inbox_message .readit").live('click', function(){
   var $message = $(this).parents('.inbox_message');
