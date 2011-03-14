@@ -1,5 +1,5 @@
 <% admin_message = @admin_conversation.admin_message %>
-<div id="admin-conversation-comments" class="comments">
+<div id="front-burner-comments" class="comments">
 <% if @comments.blank? %>
   <% semantic_form_for @comment_resource, :html => { :multipart => true } do |f| %>
     <% f.inputs do %>
