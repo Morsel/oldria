@@ -2426,7 +2426,8 @@ dl.things dt:after {content: ":"}
 	}
 } /* end of #behindline ----------------------------- */
 
-#page_content h1#btl-title, #page-content h1#btl-title{
+#page_content h1#btl-title, #page-content h1#btl-title,
+#page-content h3#btl-title {
 	color:#666;
 	text-transform: capitalize;
 	font:200 16px "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, sans-serif !important;

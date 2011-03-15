@@ -1,7 +1,6 @@
 class Soapbox::SoapboxEntriesController < Soapbox::SoapboxController
 
   before_filter :hide_flashes
-  before_filter :load_past_features, :only => [:index, :show]
 
   def index
     @main_feature = SoapboxEntry.main_feature

@@ -1,7 +1,5 @@
 class Soapbox::SoapboxController < ApplicationController
 
-  before_filter :load_past_features, :only => [:index, :directory]
-
   def index
     @home = true
     @slides = SoapboxSlide.all(:order => "position", :limit => 4, :conditions => "position is not null")

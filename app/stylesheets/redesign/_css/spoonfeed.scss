@@ -3011,7 +3011,7 @@ p.search_filter_hint {
 	}
 }
 
-#page_content h1#btl-title{
+#page_content h1#btl-title, #page_content h3#btl-title {
 	color:#666;
 	text-transform: capitalize;
 	font:200 16px "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, sans-serif !important;
@@ -3187,8 +3187,6 @@ p.search_filter_hint {
 	}
 } /* end of #behindline ----------------------------- */
 
-
-
 #recent_qtod {
 	@include column(8,true);
 	h3 {
@@ -3198,6 +3196,7 @@ p.search_filter_hint {
 		font-size: 16px;
 		border-bottom: 1px solid #ccc;
 		padding-bottom: 5px;
+		margin-top: 0;
 	}
 	.tabable {
 		nav {

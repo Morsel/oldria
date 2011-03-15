@@ -37,6 +37,11 @@
     <% end %>
   <% end %><%# end form %>
 
+  <div id="loading-wait" style="display: none">
+    <%= image_tag "ajax-loader.gif" %>
+    <p>Please wait while we save your responses</p>
+  </div>
+
   <p class="clear">Answers to your questions will be posted on your profile and can be used by Restaurant Intelligence Agency to increase traffic to the site.</p>
 
 <% else -%><%# no editing by other users %>

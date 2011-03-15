@@ -274,6 +274,18 @@ Then /^I should see that "([^"]*)" is public$/ do |username|
   response.should have_selector("##{dom_id(employment)} .public", :content => "will be displayed")
 end
 
+When /^I click to make "([^\"]*)" private$/ do |username|
+  user = User.find_by_username(username)
+  employment = user.employments.first
+  click_link_within("##{dom_id(employment)}", "Click to hide")
+end
+
+Then /^I should see that "([^\"]*)" is private$/ do |username|
+  user = User.find_by_username(username)
+  employment = user.employments.first
+  response.should have_selector("##{dom_id(employment)} .private", :content => "will not be displayed")
+end
+
 When /^I should not see an employee listing for "([^\"]*)"$/ do |username|
   user = User.find_by_username(username)
   response.should_not have_selector("##{dom_id(user)}")

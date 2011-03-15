@@ -9,10 +9,10 @@
     </header>
     <% cache('previously_on_frontburner', :expires_in => 8.hours) do -%>
       <ol id="trend-questions-feed">
-        <%= render :partial => 'soapbox/sidebar_item', :collection => @trend_questions %>
+        <%= render :partial => 'soapbox/sidebar_item', :collection => past_trends %>
       </ol><!-- /activity-feed -->
       <ol id="qotd-feed">
-        <%= render :partial => 'soapbox/sidebar_item', :collection => @qotds %>
+        <%= render :partial => 'soapbox/sidebar_item', :collection => past_qotds %>
       </ol><!-- /activity-feed -->
     <% end -%>
     <div id="feed-bottom"></div>

@@ -44,7 +44,7 @@ module ApplicationHelper
   end
 
   def on_soapbox
-    params[:controller].match(/soapbox/)
+    soapbox?
   end
 
   def not_soapbox

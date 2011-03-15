@@ -233,10 +233,10 @@ describe Restaurant do
   describe "public employment" do
     it "should get only public employments" do
       restaurant = Factory(:restaurant)
-      public_employment = Factory(:employment, :public_profile => true,
-          :restaurant => restaurant)
-      private_employment = Factory(:employment, :public_profile => false,
-          :restaurant => restaurant)
+      # Set the manager to invisible for this test
+      restaurant.employments.first.update_attribute(:public_profile, false)
+      public_employment = Factory(:employment, :public_profile => true, :restaurant => restaurant)
+      private_employment = Factory(:employment, :public_profile => false, :restaurant => restaurant)
       restaurant.public_employments.should == [public_employment]
     end
   end
