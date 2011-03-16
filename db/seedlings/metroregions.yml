@@ -154,6 +154,8 @@ metroregions:
   state: California
 - name: Fayetteville
   state: North Carolina
+- name: Flagstaff
+  state: Arizona
 - name: Flint
   state: Michican
 - name: Fontana
@@ -374,6 +376,8 @@ metroregions:
   state: Florida
 - name: Port St. Lucie
   state: Florida
+- name: Portland
+  state: Maine
 - name: Portland
   state: Oregon
 - name: Portsmouth
