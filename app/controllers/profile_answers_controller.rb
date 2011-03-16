@@ -13,13 +13,17 @@ class ProfileAnswersController < ApplicationController
           params[:profile_question].each do |id, answer_params|
             @question = ProfileQuestion.find(id)
             answer = @question.find_or_build_answer_for(@subject, @responder)
-            answer.answer = answer_params[:answer]
 
-            answer.post_to_facebook = answer_params[:post_to_facebook]
-            answer.share_url = url_for_question(answer.responder, answer.profile_question.chapter.id, nil, true)
+            # Only update answers that are new or changed
+            if answer.answer != answer_params[:answer]
+              answer.answer = answer_params[:answer]
 
-            unless answer.save # if it doesn't save, the answer was blank, and we can ignore it
-              Rails.logger.error answer.errors.full_messages
+              answer.post_to_facebook = answer_params[:post_to_facebook]
+              answer.share_url = url_for_question(answer.responder, answer.profile_question.chapter.id, nil, true)
+
+              unless answer.save # if it doesn't save, the answer was blank, and we can ignore it
+                Rails.logger.error answer.errors.full_messages
+              end
             end
           end
         end
