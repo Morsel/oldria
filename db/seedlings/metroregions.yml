@@ -520,11 +520,11 @@ metroregions:
   state: Utah
 - name: Westminster
   state: Colorado
-- name: Wisconsinchita
+- name: Wichita
   state: Kansas
-- name: Wisconsinchita Falls
+- name: Wichita Falls
   state: Texas
-- name: Wisconsinnston-Salem
+- name: Winston-Salem
   state: North Carolina
 - name: Worcester
   state: Massachusetts
