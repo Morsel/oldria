@@ -10,9 +10,9 @@ Feature: Signup restaurant
       | username | password |
       | joesak   | secret   |
     And the following metropolitan_area records:
-      | name            |
-      | Chicago IL      |
-      | Indianapolis IN |
+      | name         | state    |
+      | Chicago      | Illinois |
+      | Indianapolis | Indiana  |
     And the following cuisine records:
       | name     |
       | American |
@@ -26,13 +26,13 @@ Feature: Signup restaurant
     And I fill in "Zip" with "12345"
     And I fill in "Phone number" with "123-4567"
     And I fill in "Website" with "http://www.website.com"
-    And I select "Chicago IL" from "Metropolitan area"
+    And I select "Chicago, Illinois" from "Metropolitan area"
     And I select "Italian" from "Cuisine"
     When I select "Janaury 22, 2008" as the date
     And I press "Submit"
     Then I should see "Successfully created restaurant"
     And "joesak" should be the account manager for "Joe's Shack"
-    And "Joe's Shack" should be in the "Chicago IL" metropolitan area
+    And "Joe's Shack" should be in the "Chicago" metropolitan area
     And "Joe's Shack" should have "Italian" cuisine
     
     When I follow "My Restaurants"

@@ -283,7 +283,8 @@ Factory.define :james_beard_region do |f|
 end
 
 Factory.define :metropolitan_area do |f|
-  f.name "Chicago IL"
+  f.name "Chicago"
+  f.state "Illinois"
 end
 
 Factory.define :subject_matter do |f|

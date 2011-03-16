@@ -18,7 +18,7 @@ class MetropolitanArea < ActiveRecord::Base
   
   validates_presence_of :name
   
-  default_scope :order => "#{table_name}.state ASC, LOWER(#{table_name}.name) ASC"
+  default_scope :order => "LOWER(#{table_name}.state) ASC, LOWER(#{table_name}.name) ASC"
 
   named_scope :with_restaurants,
     :joins => :restaurants,
@@ -28,5 +28,9 @@ class MetropolitanArea < ActiveRecord::Base
   named_scope :with_profiles,
     :joins => :profiles,
     :group => "#{table_name}.id"
+
+  def to_label
+    "#{name}, #{state}"
+  end
 
 end
