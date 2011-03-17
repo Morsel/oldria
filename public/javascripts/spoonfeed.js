@@ -386,8 +386,10 @@ var $omniscientField = $("input#employment_omniscient"),
 var selectOmniscientRoles = function(){
   if($omniscientField.is(":checked")) {
     $omniscientRoleCheckboxes.attr('checked', 'checked');
+    $omniscientRoleCheckboxes.attr('disabled', 'disabled')
   } else {
     $omniscientRoleCheckboxes.removeAttr('checked');
+    $omniscientRoleCheckboxes.removeAttr('disabled');
   }
 };
 
