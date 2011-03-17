@@ -377,3 +377,20 @@ function updateRestoDirectoryList() {
 }
 
 $restoDirectoryInputs.change(updateRestoDirectoryList);
+
+//
+// Managing subject matters for restaurant managers
+var $omniscientField = $("input#employment_omniscient"),
+    $omniscientRoleCheckboxes = $('#employment_general_subject_matters :checkbox, #employment_subject_matters :checkbox');
+
+var selectOmniscientRoles = function(){
+  if($omniscientField.is(":checked")) {
+    $omniscientRoleCheckboxes.attr('checked', 'checked');
+  } else {
+    $omniscientRoleCheckboxes.removeAttr('checked');
+  }
+};
+
+$omniscientField.change(selectOmniscientRoles);
+
+if($omniscientField.is(":checked")) { $omniscientField.change(); }

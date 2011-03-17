@@ -7,7 +7,7 @@
 		<%= f.input :omniscient, 
 		    :label => "Grant this user the ability to administer and edit #{@restaurant.name}'s Spoonfeed Press Kit", 
 		    :hint => "Note: Admins receive all notifications", 
-		    :input_html => { :disabled => (@restaurant.manager == @employee ? true : false) } %>
+		    :input_html => { :disabled => (@restaurant.manager == @employee) } %>
 		<% if @employee == @restaurant.manager %>
 		  <p><%= @employee.name %> is the primary account administrator. Go to <%= link_to 'the restaurant page', edit_restaurant_path(@restaurant) %> to change this.</p>
 		<% end %>

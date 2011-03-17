@@ -8,4 +8,4 @@
   :wrapper_html => {:class => 'checkall', :id => "employment_general_subject_matters"},
   :collection => SubjectMatter.general.all,
   :label => "This staffer is allowed to freely speak to the media about the following subject(s):",
-  :input_html => { :disabled => @restaurant.managers.include?(@employee) } %>
+  :input_html => { :disabled => @restaurant.manager == @employee } %>
