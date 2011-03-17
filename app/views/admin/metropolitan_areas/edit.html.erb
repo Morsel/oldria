@@ -3,7 +3,7 @@
 <% semantic_form_for [:admin, @metro] do |f| %>
     <% f.inputs do %>
         <%= f.input :name %>
-        <%= f.input :state, :hint => "For sorting purposes only - not displayed to users" %>
+        <%= f.input :state %>
         
         <%= submit_tag "Save" %>
     <% end %>
