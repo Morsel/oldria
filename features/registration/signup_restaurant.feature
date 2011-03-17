@@ -26,7 +26,7 @@ Feature: Signup restaurant
     And I fill in "Zip" with "12345"
     And I fill in "Phone number" with "123-4567"
     And I fill in "Website" with "http://www.website.com"
-    And I select "Chicago, Illinois" from "Metropolitan area"
+    And I select "Illinois: Chicago" from "Metropolitan area"
     And I select "Italian" from "Cuisine"
     When I select "Janaury 22, 2008" as the date
     And I press "Submit"

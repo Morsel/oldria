@@ -30,7 +30,7 @@ class MetropolitanArea < ActiveRecord::Base
     :group => "#{table_name}.id"
 
   def to_label
-    "#{name}, #{state}"
+    "#{state}: #{name}"
   end
 
 end
