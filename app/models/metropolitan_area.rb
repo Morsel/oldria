@@ -33,4 +33,8 @@ class MetropolitanArea < ActiveRecord::Base
     "#{state}: #{name}"
   end
 
+  def city_and_state
+    "#{name}, #{state}"
+  end
+
 end
