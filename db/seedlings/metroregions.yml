@@ -321,7 +321,7 @@ metroregions:
 - name: Norfolk
   state: Virginia
 - name: Norman
-  state: Alaska
+  state: Oklahoma
 - name: North Las Vegas
   state: Nevada
 - name: Norwalk
@@ -331,7 +331,7 @@ metroregions:
 - name: Oceanside
   state: California
 - name: Oklahoma City
-  state: Alaska
+  state: Oklahoma
 - name: Olathe
   state: Kansas
 - name: Omaha
@@ -493,7 +493,7 @@ metroregions:
 - name: Tucson
   state: Arizona
 - name: Tulsa
-  state: Alaska
+  state: Arizona
 - name: Vallejo
   state: California
 - name: Vancouver
