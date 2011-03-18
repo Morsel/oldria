@@ -5,6 +5,10 @@ module UserMessaging
     @viewable_media_request_discussions ||= all_employments.map(&:viewable_media_request_discussions).flatten
   end
 
+  def viewable_unread_media_request_discussions
+    @viewable_unread_media_request_discussions ||= all_employments.map(&:viewable_unread_media_request_discussions).flatten
+  end
+
   def viewable_media_requests
     viewable_media_request_discussions.map(&:media_request)
   end

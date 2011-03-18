@@ -78,11 +78,11 @@ ActionController::Routing::Routes.draw do |map|
   map.profile 'profile/:username', :controller => 'users', :action => 'show', :requirements => { :username => /[a-zA-Z0-9\-\_ ]+/}
 
   map.resources :quick_replies
-  map.resources :media_request_discussions, :only => [:show, :update] do |mrc|
+
+  map.resources :media_request_discussions, :only => [:show, :update], :member => { :read => :put } do |mrc|
     mrc.resources :comments, :only => [:new, :create]
   end
-
-  map.resources :solo_media_discussions, :only => [:show, :update] do |smd|
+  map.resources :solo_media_discussions, :only => [:show, :update], :member => { :read => :put } do |smd|
     smd.resources :comments, :only => [:new, :create]
   end
 
