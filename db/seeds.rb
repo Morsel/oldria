@@ -16,7 +16,18 @@ end
 
 # == Set up Regions ==
 model_count_before_and_after(JamesBeardRegion) do
-  regions = {"Great Lakes" => "IL, IN, MI, OH", "Mid-Atlantic" => "D.C., DE, MD, NJ, PA, VA", "Midwest" => "IA, KS, MN, MO, NE, ND, SD, WI", "New York City" => "Five Boroughs", "Northeast" => "CT, MA, ME, NH, NY State, RI, VT", "Northwest" => "AK, ID, MT, OR, WA, WY", "Pacific" => "CA, HI", "South" => "AL, AR, FL, LA, MS", "Southeast" => "GA, KY, NC, SC, TN, WV", "Southwest" =>  "AZ, CO, NM, NV, OK, TX, UT"}
+  regions = {
+    "Great Lakes" => "IL, IN, MI, OH", 
+    "Mid-Atlantic" => "D.C., DE, MD, NJ, PA, VA", 
+    "Midwest" => "IA, KS, MN, MO, NE, ND, SD, WI", 
+    "New York City" => "Five Boroughs", 
+    "Northeast" => "CT, MA, ME, NH, NY State, RI, VT", 
+    "Northwest" => "AK, ID, MT, OR, WA, WY", 
+    "Pacific" => "CA, HI", 
+    "South" => "AL, AR, FL, LA, MS", 
+    "Southeast" => "GA, KY, NC, SC, TN, WV", 
+    "Southwest" =>  "AZ, CO, NM, NV, OK, TX, UT"
+  }
 
   regions.each_pair do |region_name, desc|
     region = JamesBeardRegion.find_by_name(region_name)
@@ -88,40 +99,40 @@ model_count_before_and_after(School) do
   end
 end
 
-model_count_before_and_after(RestaurantFeature) do
-#  RestaurantFeaturePage.delete_all
-#  RestaurantFeatureCategory.delete_all
-#  RestaurantFeature.delete_all
-  pages = {
-      "Cuisine" => ["Accoutrement", "Cheese", "Cuisine style", "Cuisine tag", "Cuisine",
-          "Cuisine type", "Meals served", "Menu change", "Menu structure",
-          "Physical menu construction"],
-      "Beverage" => ["Alcohol service", "Cocktails and beers", "Coffee-tea",
-          "Non-alcoholic beverages", "Wine"],
-      "Design" => ["Artwork", "Atmosphere", "Decor style", "Decor",
-          "Decorative elements", "Seating types", "Space history"],
-      "Other" => ["Activities", "Dress code", "Hours of operation",
-          "Kids' activities", "Outdoor dining", "Parking", "Payment",
-          "Reservations", "Retail area", "Signature products", "Smoking",
-          "Takeout"],
-  }
-
-  pages.each do |key, values|
-    page = RestaurantFeaturePage.find_or_create_by_name(key)
-    values.each do |value|
-      category = RestaurantFeatureCategory.find_or_create_by_name(value)
-      category.update_attributes(:restaurant_feature_page => page)
-    end
-  end
-
-  Dir.glob(@seedling_path + '/restaurant_features/*.txt').each do |filename|
-    category_name = File.basename(filename, ".txt").gsub(/options|tags|lookup|dropdown|tag/, "").humanize.strip
-    category = RestaurantFeatureCategory.find_by_name(category_name)
-    raise "Oops #{category_name}" unless category
-    values = File.read(filename).split("\r")
-    values.each do |value|
-      feature = RestaurantFeature.find_or_create_by_value(value.strip)
-      feature.update_attributes(:restaurant_feature_category => category)
-    end
-  end
-end
+# model_count_before_and_after(RestaurantFeature) do
+# #  RestaurantFeaturePage.delete_all
+# #  RestaurantFeatureCategory.delete_all
+# #  RestaurantFeature.delete_all
+#   pages = {
+#       "Cuisine" => ["Accoutrement", "Cheese", "Cuisine style", "Cuisine tag", "Cuisine",
+#           "Cuisine type", "Meals served", "Menu change", "Menu structure",
+#           "Physical menu construction"],
+#       "Beverage" => ["Alcohol service", "Cocktails and beers", "Coffee-tea",
+#           "Non-alcoholic beverages", "Wine"],
+#       "Design" => ["Artwork", "Atmosphere", "Decor style", "Decor",
+#           "Decorative elements", "Seating types", "Space history"],
+#       "Other" => ["Activities", "Dress code", "Hours of operation",
+#           "Kids' activities", "Outdoor dining", "Parking", "Payment",
+#           "Reservations", "Retail area", "Signature products", "Smoking",
+#           "Takeout"],
+#   }
+# 
+#   pages.each do |key, values|
+#     page = RestaurantFeaturePage.find_or_create_by_name(key)
+#     values.each do |value|
+#       category = RestaurantFeatureCategory.find_or_create_by_name(value)
+#       category.update_attributes(:restaurant_feature_page => page)
+#     end
+#   end
+# 
+#   Dir.glob(@seedling_path + '/restaurant_features/*.txt').each do |filename|
+#     category_name = File.basename(filename, ".txt").gsub(/options|tags|lookup|dropdown|tag/, "").humanize.strip
+#     category = RestaurantFeatureCategory.find_by_name(category_name)
+#     raise "Oops #{category_name}" unless category
+#     values = File.read(filename).split("\r")
+#     values.each do |value|
+#       feature = RestaurantFeature.find_or_create_by_value(value.strip)
+#       feature.update_attributes(:restaurant_feature_category => category)
+#     end
+#   end
+# end
