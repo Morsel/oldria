@@ -1,17 +1,11 @@
 <p>We want to make sure that the right media inquiries go to the right people at your restaurant. What kinds of topics are you comfortable having <%= @employee ? @employee.name : 'this employee' %> respond to? Keep in mind, their responses will represent <%= @restaurant ? @restaurant.name : 'this restaurant'%> and go straight to the media. So, it is important to choose wisely!</p>
 
-<p class="highlightable"><strong>Note:</strong> Account Managers receive <strong>all</strong> media requests and RIA messages, regardless of the subject matters chosen below.</p>
-
-<!-- <h4>Responsibilities</h4> -->
-<%#= f.input :subject_matters,
-  :as => :check_boxes,
-  :wrapper_html => {:class => 'checkall', :id => "employment_subject_matters"},
-  :collection => SubjectMatter.nongeneral.all,
-  :label => "This staffer is responsible for handling the following type(s) of media requests:" %>
+<p class="highlightable"><strong>Note:</strong> Spoonfeed Account Administrators receive <strong>all</strong> media requests and RIA messages, regardless of the subject matters chosen below.</p>
 
 <h4>Area(s) of expertise</h4>
 <%= f.input :subject_matters,
   :as => :check_boxes,
   :wrapper_html => {:class => 'checkall', :id => "employment_general_subject_matters"},
   :collection => SubjectMatter.general.all,
-  :label => "This staffer is allowed to freely speak to the media about the following subject(s):" %>
+  :label => "This staffer is allowed to freely speak to the media about the following subject(s):",
+  :input_html => { :disabled => @restaurant.manager == @employee } %>

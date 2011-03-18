@@ -1,4 +1,4 @@
-@manage
+@restaurant @management
 Feature: Managing Restaurants
   So that I can manage my restaurants
 
@@ -29,7 +29,7 @@ Feature: Managing Restaurants
     When I follow "edit"
     And I check "employment_omniscient"
     And I press "Submit"
-    Then I should see "Account Manager"
+    Then I should see "Account Administrator"
 
   Scenario: I cannot edit the employees of restaurants I do not manage
     Given a restaurant named "Avec" with the following employees:

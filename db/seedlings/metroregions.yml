@@ -154,6 +154,8 @@ metroregions:
   state: California
 - name: Fayetteville
   state: North Carolina
+- name: Flagstaff
+  state: Arizona
 - name: Flint
   state: Michican
 - name: Fontana
@@ -319,7 +321,7 @@ metroregions:
 - name: Norfolk
   state: Virginia
 - name: Norman
-  state: Alaska
+  state: Oklahoma
 - name: North Las Vegas
   state: Nevada
 - name: Norwalk
@@ -329,7 +331,7 @@ metroregions:
 - name: Oceanside
   state: California
 - name: Oklahoma City
-  state: Alaska
+  state: Oklahoma
 - name: Olathe
   state: Kansas
 - name: Omaha
@@ -374,6 +376,8 @@ metroregions:
   state: Florida
 - name: Port St. Lucie
   state: Florida
+- name: Portland
+  state: Maine
 - name: Portland
   state: Oregon
 - name: Portsmouth
@@ -489,7 +493,7 @@ metroregions:
 - name: Tucson
   state: Arizona
 - name: Tulsa
-  state: Alaska
+  state: Arizona
 - name: Vallejo
   state: California
 - name: Vancouver
@@ -516,11 +520,11 @@ metroregions:
   state: Utah
 - name: Westminster
   state: Colorado
-- name: Wisconsinchita
+- name: Wichita
   state: Kansas
-- name: Wisconsinchita Falls
+- name: Wichita Falls
   state: Texas
-- name: Wisconsinnston-Salem
+- name: Winston-Salem
   state: North Carolina
 - name: Worcester
   state: Massachusetts

@@ -26,8 +26,8 @@ class Slide < ActiveRecord::Base
   validates_attachment_content_type :image, :content_type => ["image/jpg", "image/jpeg", "image/png", "image/gif"], 
       :if => :image_file_name
       
-  validates_length_of :excerpt, :maximum => 140, 
-      :too_long => "Please shorten the text to no more than 140 characters", 
+  validates_length_of :excerpt, :maximum => 200, 
+      :too_long => "Please shorten the text to no more than 200 characters", 
       :allow_blank => true
 
 end

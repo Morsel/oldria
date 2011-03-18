@@ -44,7 +44,7 @@
     <% end -%>
 
     <% f.inputs :name => 'Other', :class => "editing other" do %>
-      <%= f.input :manager, :label => "Primary Account Manager", :collection => @restaurant.managers %>
+      <%= f.input :manager, :label => "Spoonfeed Account Administrator", :collection => @restaurant.managers %>
       <%= f.input :media_contact, :collection => @restaurant.employees %>
       <%= f.input :cuisine %>
       <%= f.input :opening_date, :class => "opening_date", :end_year => 1940, :start_year => Date.today.year %>
