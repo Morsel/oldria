@@ -182,6 +182,7 @@ module UserMessaging
     @message_inbox_count ||= (ria_message_count + 
                               unread_discussions.size + 
                               discussions.with_comments_unread_by(self).size + 
+                              unread_direct_messages.size +
                               viewable_unread_media_request_discussions.size)
   end
   
