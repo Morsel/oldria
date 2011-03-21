@@ -2,6 +2,6 @@
   <span class="extended-title"><%= cookbook.title %></span>
   <p>Publisher: <%= cookbook.publisher %><br>
   Published On: <%= cookbook.published_on.strftime('%b %d, %Y') %></p>
-  <% if action_name != 'show' %><p><%= link_to "Edit", edit_my_profile_cookbook_path(cookbook), :class => 'colorbox' %>
-  <%= link_to "Destroy", my_profile_cookbook_path(cookbook), { :method => :delete }, { :class => 'delete' } %></p><% end -%>
+  <% if action_name != 'show' %><p><%= link_to "Edit", edit_cookbook_path(cookbook), :class => 'colorbox' %>
+  <%= link_to "Destroy", cookbook_path(cookbook), { :method => :delete }, { :class => 'delete' } %></p><% end -%>
 <% end %>
