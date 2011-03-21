@@ -87,8 +87,7 @@ class Topic < ActiveRecord::Base
     if secondary_subject
       self.profile_questions.answered_for_page(subject, secondary_subject).count
     else
-      questions = subject.profile_questions.answered
-      questions.for_chapter(self.chapters.map(&:id)).count
+      subject.profile_questions.answered.for_chapter(self.chapters.map(&:id)).count
     end
   end
 
