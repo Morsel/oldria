@@ -57,7 +57,8 @@ class ProfileQuestion < ActiveRecord::Base
   }
 
   named_scope :answered_for_subject, lambda { |subject|
-    { :joins => :profile_answers, :conditions => ["profile_answers.responder_id = ? AND profile_answers.responder_type = ?", subject.id, subject.class.name] }
+    { :joins => :profile_answers, :conditions => ["profile_answers.responder_id = ? AND profile_answers.responder_type = ?", 
+      subject.id, subject.class.name] }
   }
 
   named_scope :answered_for_page, lambda { |page, restaurant|
