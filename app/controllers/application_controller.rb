@@ -166,7 +166,7 @@ class ApplicationController < ActionController::Base
     @ria_message_count = current_user.try(:ria_message_count)
     @private_message_count = current_user.try(:unread_direct_messages).try(:size)
     @discussions_count = current_user && (current_user.unread_discussions + current_user.discussions.with_comments_unread_by(current_user)).uniq.size
-    @media_requests_count = current_user.try(:viewable_media_request_discussions).try(:size)
+    @media_requests_count = current_user.try(:viewable_unread_media_request_discussions).try(:size)
   end
 
   ##
