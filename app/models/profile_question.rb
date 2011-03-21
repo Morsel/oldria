@@ -26,12 +26,14 @@ class ProfileQuestion < ActiveRecord::Base
   named_scope :for_subject, lambda { |subject|
     if subject.is_a? User
       { :joins => :question_roles,
-        :conditions => ["question_roles.responder_id = ? AND question_roles.responder_type = ?", subject.primary_employment.restaurant_role.id, subject.primary_employment.restaurant_role.class.name],
+        :conditions => ["question_roles.responder_id = ? AND question_roles.responder_type = ?", 
+          subject.primary_employment.restaurant_role.id, subject.primary_employment.restaurant_role.class.name],
         :include => :chapter,
         :order => "chapters.position, profile_questions.position" }
     elsif subject.is_a? RestaurantFeaturePage
       { :joins => :question_roles,
-        :conditions => ["question_roles.responder_id = ? AND question_roles.responder_type = ?", subject.id, subject.class.name],
+        :conditions => ["question_roles.responder_id = ? AND question_roles.responder_type = ?", 
+          subject.id, subject.class.name],
         :include => :chapter,
         :order => "chapters.position, profile_questions.position" }
     elsif subject.is_a? Restaurant
