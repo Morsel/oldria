@@ -16,7 +16,7 @@
 #   You will also have to set "notify true" inside each backup block below to enable it for that particular backup
 notifier_settings do
 
-  to    ["servers@neotericdesign.com", "lauren@restaurantintelligenceagency.com", "ellen@restaurantintelligenceagency.com"]
+  to    ["servers@neotericdesign.com", "gj@restaurantintelligenceagency.com", "ellen@restaurantintelligenceagency.com"]
   from  "backups@restaurantintelligenceagency.com"
 
   smtp do
