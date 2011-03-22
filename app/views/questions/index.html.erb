@@ -1,9 +1,10 @@
 <% title "#{@chapter.title} - #{@subject.name} - Behind The Line", false %>
 
-<%= render :partial => 'shared/add_this', :locals => {:responder => @responder} %>
+<%= render :partial => 'shared/add_this', :locals => {:responder => responder = @restaurant || @subject} %>
+
 <% javascript_tag do %>
   var addthis_share = {
-    url: '<%= url_for_question(@responder, @chapter.id, nil, true) %>',
+    url: '<%= url_for_question(responder, @chapter.id, nil, true) %>',
     title: $('title').text().replace('Spoonfeed','Soapbox')
   }
 <% end %>

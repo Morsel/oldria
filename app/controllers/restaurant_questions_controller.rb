@@ -3,6 +3,25 @@ class RestaurantQuestionsController < ApplicationController
   before_filter :require_user_unless_soapbox
   before_filter :find_subject
 
+  # Questions for the given chapter, filtered by feature page as needed
+  def index
+    @chapter = Chapter.find(params[:chapter_id])
+
+    is_self = can? :manage, @restaurant
+    @previous = @chapter.previous_for_subject(@subject, is_self)
+    @next = @chapter.next_for_subject(@subject, is_self)
+    @previous_topic = @chapter.topic.previous_for_subject(@subject, is_self)
+    @next_topic = @chapter.topic.next_for_subject(@subject, is_self)
+
+    @questions = is_self ?
+        @chapter.profile_questions.for_subject(@subject) :
+        @page.present? ?
+            ProfileQuestion.answered_for_page(@page, @restaurant).for_chapter(params[:chapter_id]) :
+            ProfileQuestion.answered_for_subject(@restaurant).for_chapter(params[:chapter_id])
+    render :template => 'questions/index'
+  end
+
+  # All topics for the restaurant or restaurant feature page
   def topics
     @restaurant = Restaurant.find(params[:restaurant_id])
     @page = RestaurantFeaturePage.find(params[:page_id]) if params[:page_id].present?
