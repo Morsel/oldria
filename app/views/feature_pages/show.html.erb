@@ -16,5 +16,5 @@
   	<% end %>
 	</div><!--#features-->
 
-  <%= render :partial => 'profile_questions/behind_the_line', :locals => {:subject => @page} %>
+    <%= render :partial => 'restaurants/behind_the_line', :locals => { :restaurant => @restaurant, :page => @page } if topics_for(@page).present? %>
 </div>

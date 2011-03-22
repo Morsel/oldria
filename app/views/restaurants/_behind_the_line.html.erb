@@ -1,0 +1,23 @@
+<% page ||= nil %>
+<div id="behindline" class="recent_actions">
+
+  <h3 id="btl-title"><span class="btl-art">Behind the Line:</span> <%= page.present? ? "#{restaurant.name} - #{page.name}" : restaurant.name %></h3>
+  <% if can_edit_profile_questions(restaurant) && !params[:controller].match(/soapbox/)%>
+    <div class="edit_profile_link">
+      <%= link_to "<span>Answer more questions!</span>", topics_restaurant_questions_path(:restaurant_id => restaurant.id, :page_id => page.try(:id)) %>
+    </div>
+  <% end %>
+  <ul class="box">
+    <% reset_cycle('default') -%>
+    <% topics_for(page || restaurant).each do |topic| %>
+      <li class="<%= cycle("even", "odd") %>">
+        <% link_to chapters_restaurant_questions_path(:restaurant_id => restaurant.id, :topic_id => topic.id, :page_id => page.try(:id)) do %>
+          <h5><%= topic.title %> <span class="completeness">(<%= page.present? ? topic.completion_percentage(page, restaurant) : topic.completion_percentage(restaurant) %>% complete)</span></h5>
+          <%= topic.description || truncate(topic.profile_questions.map(&:title).join(" "), :length => 100) %>
+        <% end %>
+       </li>
+    <% end %>
+  </ul>
+  <p class="view_all"><%= link_to "View all Topics &raquo;", topics_restaurant_questions_path(:restaurant_id => restaurant.id, :page_id => page.try(:id)) %></p>
+</div><!--#behindline-->
+
