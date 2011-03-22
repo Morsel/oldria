@@ -50,6 +50,10 @@ class ApplicationController < ActionController::Base
         request.path.match(/soapbox/)
   end
 
+  def require_user_unless_soapbox
+    soapbox? ? true : require_user
+  end
+
   def find_user_feeds(dashboard = false)
     @feeds = current_user.chosen_feeds(dashboard) || Feed.featured.all(:limit => (dashboard ? 2 : nil))
     @user_feed_ids = @feeds.map(&:id)

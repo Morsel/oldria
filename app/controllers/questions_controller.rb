@@ -65,14 +65,6 @@ class QuestionsController < ApplicationController
 
   protected
 
-  def require_user_unless_soapbox
-    if soapbox?
-      return true
-    else
-      require_user
-    end
-  end
-
   def get_subject
     if params[:user_id]
       @subject = User.find(params[:user_id])

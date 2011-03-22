@@ -1,13 +1,13 @@
 <% title "Behind the Line - #{@subject.name}", false %>
 
-<%= render :partial => 'shared/add_this', :locals => {:responder => @responder} %>
+<%= render :partial => 'shared/add_this', :locals => {:responder => responder = @restaurant || @subject} %>
 
 <h1 id="btl-title" class="btl"><%= link_to "<span class=\"btl-art\">Behind the Line:</span> <span class=\"name\">#{btl_title_for(@subject)}</span>", find_btl_url_for(@subject) %></h1>
 
 <h2 id="topic_title">Topics</h2>
 <% javascript_tag do %>
   var addthis_share = {
-    url: '<%= url_to_responder_topics(@responder) %>',
+    url: '<%= url_to_responder_topics(responder) %>',
     title: $('title').text().replace('Spoonfeed','Soapbox')
   }
 <% end %>
