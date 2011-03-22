@@ -1,7 +1,6 @@
 <% question_url = @question.new_record? ?
-                  admin_profile_questions_path(:responder_type => params[:responder_type]) :
-                  admin_profile_question_path(:responder_type => params[:responder_type],
-                    :id => @question.id) %>
+                  admin_profile_questions_path :
+                  admin_profile_question_path(:id => @question.id) %>
 
 <% semantic_form_for [:admin, @question], :url => question_url do |f| %>
     <%= f.error_messages %>
@@ -15,9 +14,7 @@
 
         <%= f.input :chapter, :collection => (@question.new_record? ? @topics.first.chapters : @question.topic.chapters) %>
 
-        <%= f.hidden_field :responder_type, :value => params[:responder_type] %>
-
-        <%= render :partial => "#{params[:responder_type]}_roles", :locals => { :f => f } %>
+        <%= render :partial => "user_roles", :locals => { :f => f } %>
     <% end %>
     <p><%= button_tag "Save Question" %></p>
 <% end %>

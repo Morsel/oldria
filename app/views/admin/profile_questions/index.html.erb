@@ -23,10 +23,10 @@
         t.cell(:title)
         t.cell(:roles, :heading => roles_heading) { |c| c.roles_description }
         t.cell(:edit_link, :heading => '', :cell_html => {:class => 'actions edit_link'}) { |c|
-          link_to('Edit', edit_admin_profile_question_url(:id => c.id, :responder_type => params[:responder_type]))
+          link_to('Edit', edit_admin_profile_question_url(:id => c.id))
         }
         t.cell(:destroy_link, :heading => '', :cell_html => {:class => 'actions destroy_link'}) { |c|
-          link_to('Destroy', admin_profile_question_url(:id => c.id, :responder_type => params[:responder_type]), :method => :destroy)
+          link_to('Destroy', admin_profile_question_url(:id => c.id), :method => :destroy)
         }
   end %>
 <% end %>
