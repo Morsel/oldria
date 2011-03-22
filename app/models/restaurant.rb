@@ -37,6 +37,7 @@
 
 class Restaurant < ActiveRecord::Base
   apply_addresslogic
+  has_subscription
 
   default_scope :conditions => {:deleted_at => nil}, :order => "#{table_name}.sort_name"
 
@@ -71,7 +72,6 @@ class Restaurant < ActiveRecord::Base
   has_many :menus
   has_many :accolades, :as => :accoladable
   has_many :a_la_minute_answers, :as => :responder
-  has_subscription
 
   has_many :restaurant_feature_items
   has_many :restaurant_features, :through => :restaurant_feature_items,
