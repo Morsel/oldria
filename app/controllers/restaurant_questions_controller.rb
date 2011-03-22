@@ -1,10 +1,11 @@
 class RestaurantQuestionsController < ApplicationController
 
   before_filter :require_user_unless_soapbox
+  before_filter :find_subject
 
   def topics
     @restaurant = Restaurant.find(params[:restaurant_id])
-    @page = RestaurantFeaturePage.find(params[:page_id])
+    @page = RestaurantFeaturePage.find(params[:page_id]) if params[:page_id].present?
     @subject = @page || @restaurant
 
     if can? :manage, @restaurant
@@ -25,6 +26,28 @@ class RestaurantQuestionsController < ApplicationController
       @chapters_by_topic = chapters.flatten.group_by(&:topic)
     end
     render :template => 'questions/topics'
+  end
+
+  # Chapters within a topic, for a restaurant or restaurant feature page
+  def chapters
+    @topic = Topic.find(params[:topic_id])
+    is_self = can? :manage, @restaurant
+    @previous = @topic.previous_for_subject(@subject, is_self)
+    @next = @topic.next_for_subject(@subject, is_self)
+
+    @questions_by_chapter = @subject.profile_questions.all(:conditions => { :chapter_id => @topic.chapters.map(&:id) }, 
+                                                                            :joins => :chapter,
+                                                                            :order => "chapters.position, chapters.id").
+                                                                            group_by(&:chapter)
+    render :template => 'questions/chapters'
+  end
+
+  protected
+
+  def find_subject
+    @restaurant = Restaurant.find(params[:restaurant_id])
+    @page = RestaurantFeaturePage.find(params[:page_id]) if params[:page_id].present?
+    @subject = @page || @restaurant
   end
 
 end

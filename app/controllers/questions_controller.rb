@@ -75,7 +75,6 @@ class QuestionsController < ApplicationController
     else
       @subject = Restaurant.find(params[:restaurant_id])
     end
-    @responder = @restaurant || @subject
   end
 
   def get_profile
