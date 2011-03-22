@@ -251,6 +251,10 @@ ActionController::Routing::Routes.draw do |map|
     admin.resources :soapbox_slides, :collection => { :sort => :post }
     admin.resources :soapbox_promos, :collection => { :sort => :post }
 
+    admin.resources :restaurant_questions
+    admin.resources :restaurant_chapters, :collection => { :select => :post }
+    admin.resources :restaurant_topics
+
     admin.resources :question_roles
 
     admin.resources :schools

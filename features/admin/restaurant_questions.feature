@@ -1,5 +1,5 @@
-@profile
-Feature: Profile questions
+@admin @restaurant @restaurantquestions @btl
+Feature: Restaurant questions
   As an admin,
   I want to create questions that restaurant managers can answer
   And organize these into chapters and topics
@@ -14,7 +14,7 @@ Feature: Profile questions
     And I press "Save"
     Then I should see "Created new topic named Management"
 
-  Scenario: viewing profile questions for restaurant
+  Scenario: viewing restaurants questions
     Given the following restaurant chapters:
       | title    | topic   |
       | Early on | History |
@@ -22,7 +22,7 @@ Feature: Profile questions
       | chapter  | question                                                |
       | Early on | What restaurant's were you inspired by when you opened? |
       | Early on | What year did you open for business?                    |
-    When I go to the admin restaurant profile questions page
+    When I go to the admin restaurant questions page
     Then I should see "Add new question"
     And I should see "Manage topics"
     And I should see "Manage chapters"
@@ -63,17 +63,17 @@ Feature: Profile questions
     Then I should see "Early on"
     And I should see "Career building"
 
-  Scenario: creating a restaurant profile question
+  Scenario: creating a restaurant question
     Given the following restaurant chapters:
       | title    | topic   |
       | Early on | History |
     And a restaurant feature page named "Other"
-    When I go to the new restaurant profile question page
+    When I go to the new restaurant question page
     And fill in "Your question" with "Who was your first employee?"
     And I select "History" from "Topic"
     And I select "Early on" from "Chapter"
     And I check "Other"
     And I press "Save Question"
-    Then I should be on the admin restaurant profile questions page
-    Then I should see "Added new profile question"
+    Then I should be on the admin restaurant questions page
+    Then I should see "Added new restaurant question"
 

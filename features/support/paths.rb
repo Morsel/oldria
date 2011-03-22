@@ -135,18 +135,29 @@ module NavigationHelpers
       admin_calendars_path
     when /^the new admin event page$/
       new_admin_event_path
-    when /^the new (.+) profile question page$/
-      new_admin_profile_question_path(:responder_type => $1.downcase)
-    when /^the admin (.+) profile questions page$/
-      admin_profile_questions_path(:responder_type => $1.downcase)
+
+    when /^the new profile question page$/
+      new_admin_profile_question_path(:responder_type => 'user')
+    when /^the admin profile questions page$/
+      admin_profile_questions_path(:responder_type => 'user')
     when /^the chapters page$/
-      admin_chapters_path
-    when /^the new (.+) topic page$/
-      new_admin_topic_path(:responder_type => $1.downcase)
-    when /^the (.+) topics page$/
-      admin_topics_path(:responder_type => $1.downcase)
-    when /^the (.+) chapters page$/
-      admin_chapters_path(:responder_type => $1.downcase)
+      admin_chapters_path(:responder_type => 'user')
+    when /^the new topic page$/
+      new_admin_topic_path(:responder_type => 'user')
+    when /^the topics page$/
+      admin_topics_path(:responder_type => 'user')
+
+    when /^the new restaurant question page$/
+      new_admin_restaurant_question_path
+    when /^the admin restaurant questions page$/
+      admin_restaurant_questions_path
+    when /^the new restaurant topic page$/
+      new_admin_restaurant_topic_path
+    when /^the restaurant topics page$/
+      admin_restaurant_topics_path
+    when /^the restaurant chapters page$/
+      admin_restaurant_chapters_path
+
     when /^the admin invitations page$/
       admin_invitations_path
     when /^the restaurant photo upload page for (.+)$/

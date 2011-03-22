@@ -1,15 +1,14 @@
-<% title "Profile Questions" %>
+<% title "Restaurant Questions" %>
 
 <% if Topic.count > 0 && Chapter.count > 0 -%>
-<div class="clearfix"><%= link_to "Add new question", new_admin_profile_question_path, :class => "positive button" %></div>
+<div class="clearfix"><%= link_to "Add new question", new_admin_restaurant_question_path, :class => "positive button" %></div>
 <% else -%>
 <p>Add chapters and topics to get started</p>
 <% end -%>
 
 <div class="clearfix">
-    <%= link_to "Manage topics", admin_topics_path, :class => "button" %>
-    <%= link_to "Manage chapters", admin_chapters_path, :class => "button" %>
-    <%= link_to "Manage roles", admin_restaurant_roles_path, :class => "button" %>
+    <%= link_to "Manage topics", admin_restaurant_topics_path, :class => "button" %>
+    <%= link_to "Manage chapters", admin_restaurant_chapters_path, :class => "button" %>
 </div>
 
 <%- for chapter in @questions.keys -%>
@@ -23,10 +22,10 @@
         t.cell(:title)
         t.cell(:roles, :heading => roles_heading) { |c| c.roles_description }
         t.cell(:edit_link, :heading => '', :cell_html => {:class => 'actions edit_link'}) { |c|
-          link_to('Edit', edit_admin_profile_question_url(:id => c.id, :responder_type => params[:responder_type]))
+          link_to('Edit', edit_admin_restaurant_question_path(:id => c.id))
         }
         t.cell(:destroy_link, :heading => '', :cell_html => {:class => 'actions destroy_link'}) { |c|
-          link_to('Destroy', admin_profile_question_url(:id => c.id, :responder_type => params[:responder_type]), :method => :destroy)
+          link_to('Destroy', admin_restaurant_question_path(:id => c.id), :method => :destroy)
         }
   end %>
 <% end %>
