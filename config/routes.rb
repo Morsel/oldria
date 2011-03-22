@@ -130,23 +130,27 @@ ActionController::Routing::Routes.draw do |map|
   end
 
   map.resources :restaurants,
-                :member => {
-                        :edit_logo => :get,
-                        :select_primary_photo => :post,
-                        :new_manager_needed => :get,
-                        :replace_manager => :post
-                } do |restaurant|
+                :member => { :edit_logo => :get,
+                             :select_primary_photo => :post,
+                             :new_manager_needed => :get,
+                             :replace_manager => :post
+                             } do |restaurant|
+    restaurant.resources :employees, :collection => { :bulk_edit => :get }, :except => [:show, :index]
+    restaurant.resources :employments, :collection => { "reorder" => :post }
+    restaurant.resource :employee_accounts, :only => [:create, :destroy]
+
     restaurant.resource :fact_sheet, :controller => "restaurant_fact_sheets"
     restaurant.media_requests 'media_requests', :controller => 'media_requests', :action => 'index'
-    restaurant.resources :employees, :collection => { :bulk_edit => :get }, :except => [:show, :index]
     restaurant.resources :calendars, :collection => { "ria" => :get }
     restaurant.resources :events, :member => { "ria_details" => :get, "transfer" => :post }
+
     restaurant.resources :features, :controller => "restaurant_features",
                                     :member => { :add => :post, :bulk_edit => :get },
                                     :collection => { :edit_top => :get, :update_top => :post } do |features|
       features.resources :questions, :collection => { :topics => :get, :chapters => :get, :refresh => :post }
       features.resources :profile_answers, :only => [:create, :update, :destroy]
     end
+
     restaurant.resources :feature_pages
     restaurant.resources :menus, :collection => { "reorder" => :post, :bulk_edit => :get }
     restaurant.resources :photos, :collection => { "reorder" => :post, "bulk_edit" => :get }, :member => { "show_sizes" => :get }
@@ -154,12 +158,9 @@ ActionController::Routing::Routes.draw do |map|
     restaurant.resources :accolades
     restaurant.resources :questions, :collection => { :topics => :get, :chapters => :get, :refresh => :post }
     restaurant.resources :profile_answers, :only => [:create, :update, :destroy]
-    restaurant.resources :employments, :collection => { "reorder" => :post }
     #todo only need these two routes
     restaurant.resources :a_la_minute_answers, :collection => { :bulk_update => :put, :bulk_edit => :get }
     restaurant.resource :subscription, :collection => { :bt_callback => :get, :billing_history => :get }, :controller => 'subscriptions'
-    restaurant.resource :employee_accounts, :only => [:create, :destroy]
-    restaurant.resources
   end
 
   map.resources :user_sessions, :password_resets, :followings, :pages
@@ -195,7 +196,8 @@ ActionController::Routing::Routes.draw do |map|
                               :private => :get,
                               :staff_discussions => :get,
                               :media_requests => :get
-                            }
+  }
+
   map.front_burner 'front_burner', :controller => 'front_burner', :action => 'index'
 
   map.resources :timelines, :collection => {
@@ -203,7 +205,7 @@ ActionController::Routing::Routes.draw do |map|
                               :twitter => :get,
                               :facebook => :get,
                               :activity_stream => :get
-                            }
+  }
 
   map.resources :feed_entries, :only => 'show', :member => { :read => :put }
   map.resource :feeds
@@ -250,6 +252,7 @@ ActionController::Routing::Routes.draw do |map|
     admin.resources :soapbox_promos, :collection => { :sort => :post }
 
     admin.resources :question_roles
+
     admin.resources :schools
     admin.resources :specialties, :collection => { :sort => :post }
     admin.resources :invitations, :member => { :accept => :get, :archive => :get, :resend => :get }
