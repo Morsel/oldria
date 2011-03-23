@@ -113,12 +113,13 @@
           <% if @user.premium_account? %> 
             <% f.inputs :name => "Public Profile View", :for => :user do |user_form| %>
               <%= user_form.input :prefers_publish_profile, :as => :boolean, :label => 'Display my profile on Soapbox' %>
-      				<% button_tag :class => 'positive' do %>Save changes to public profile view<% end %>
+      		  <% button_tag :class => 'positive' do %>Save changes to public profile view<% end %>
             <% end %>
           <% else %>
             <fieldset class="inputs">
               <legend><span>Public Profile View</span></legend>
-              <p>To show your profile on Soapbox, upgrade to a Premium Account <%= link_to "here", new_user_subscription_path(current_user) %>.</p>
+              <p>To show your profile on Soapbox, upgrade to a Premium Account
+              <%= link_to "here", new_user_subscription_path(current_user) %>.</p>
             </fieldset>
           <% end %>
 
