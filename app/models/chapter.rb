@@ -36,7 +36,7 @@ class Chapter < ActiveRecord::Base
         :order => :position }
     elsif subject.is_a? Restaurant
       { :joins => :topic,
-        :conditions => ["topics.responder_type = 'restaurant'"],
+        :conditions => ["topics.type = 'RestaurantTopic'"],
         :select => "distinct chapters.*",
         :order => :position }
     end

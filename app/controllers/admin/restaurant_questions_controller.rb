@@ -1,14 +1,14 @@
 class Admin::RestaurantQuestionsController < Admin::AdminController
   
   def index
-    @questions = ProfileQuestion.all(:conditions => ["topics.responder_type = 'restaurant'"],
+    @questions = ProfileQuestion.all(:conditions => ["topics.type = 'RestaurantTopic'"],
                                      :include => { :chapter => :topic },
                                      :order => "topics.title ASC, chapters.title ASC, profile_questions.position ASC").group_by(&:chapter)
   end
 
   def new
     @question = ProfileQuestion.new
-    @topics = Topic.all(:conditions => { :responder_type => 'restaurant' })
+    @topics = RestaurantTopic.all
   end
 
   def create
@@ -17,14 +17,14 @@ class Admin::RestaurantQuestionsController < Admin::AdminController
       flash[:notice] = "Added new restaurant question \"#{@question.title}\""
       redirect_to :action => "index"
     else
-      @topics = Topic.all(:conditions => { :responder_type => 'restaurant' })
+      @topics = RestaurantTopic.all
       render :action => "new"
     end
   end
 
   def edit
     @question = ProfileQuestion.find(params[:id])
-    @topics = Topic.all(:conditions => { :responder_type => 'restaurant' })
+    @topics = RestaurantTopic.all
   end
 
   def update
@@ -33,7 +33,7 @@ class Admin::RestaurantQuestionsController < Admin::AdminController
       flash[:notice] = "Updated question \"#{@question.title}\""
       redirect_to :action => "index"
     else
-      @topics = Topic.all(:conditions => { :responder_type => 'restaurant' })
+      @topics = RestaurantTopic.all
       render :action => "edit"
     end
   end

@@ -1,12 +1,10 @@
 class Admin::ChaptersController < Admin::AdminController
 
   def index
-    @topics = Topic.all(:conditions => {:responder_type => 'user'}, :order => :title)
-    @chapters_by_topic = Chapter.all(
-        :conditions => ["topics.responder_type = ?", 'user'],
-        :include => :topic,
-        :order => "topics.title ASC, chapters.position ASC"
-      ).group_by(&:topic)
+    @topics = Topic.user_topics(:order => :title)
+    @chapters_by_topic = Chapter.all(:include => :topic,
+                                     :conditions => "topics.type IS NULL",
+                                     :order => "topics.title ASC, chapters.position ASC").group_by(&:topic)
   end
 
   def create

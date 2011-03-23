@@ -1,8 +1,7 @@
 class Admin::TopicsController < Admin::AdminController
   
   def index
-    @topics = Topic.all(:conditions => {:responder_type => 'user'},
-                :order => "position ASC, title ASC")
+    @topics = Topic.user_topics(:order => "position ASC, title ASC")
   end
 
   def new
@@ -11,7 +10,7 @@ class Admin::TopicsController < Admin::AdminController
   end
 
   def create
-    @topic = Topic.new(params[:topic].merge(:responder_type => 'user'))
+    @topic = Topic.new(params[:topic])
     if @topic.save
       flash[:notice] = "Created new topic named #{@topic.title}"
       redirect_to :action => "index"

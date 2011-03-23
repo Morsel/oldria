@@ -239,8 +239,12 @@ Factory.define :admin_event, :parent => "event" do |f|
 end
 
 Factory.define :topic do |f|
-  f.sequence(:title) { |n| "Background #{n}" }
-  f.responder_type "user"
+  f.sequence(:title) { |n| "Topic #{n}" }
+  f.description "Interesting topic"
+end
+
+Factory.define :restaurant_topic do |f|
+  f.sequence(:title) { |n| "Topic #{n}" }
   f.description "Interesting topic"
 end
 

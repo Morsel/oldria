@@ -10,8 +10,8 @@ class QuestionsController < ApplicationController
     is_self = can? :manage, @subject
     @previous = @chapter.previous_for_subject(@subject, is_self)
     @next = @chapter.next_for_subject(@subject, is_self)
-    @previous_topic = @chapter.topic.previous_for_subject(@subject, is_self)
-    @next_topic = @chapter.topic.next_for_subject(@subject, is_self)
+    @previous_topic = @chapter.topic.previous_for_user(@subject, is_self)
+    @next_topic = @chapter.topic.next_for_user(@subject, is_self)
 
     @questions = is_self ?
       @chapter.profile_questions.for_subject(@subject) :
@@ -25,13 +25,13 @@ class QuestionsController < ApplicationController
 
   def topics
     if can? :manage, @subject
-      @topics = Topic.for_subject(@subject)
+      @topics = Topic.for_user(@subject)
       chapters = @topics.collect do |topic|
         topic.chapters.for_subject(@subject).all(:limit => 3)
       end
       @chapters_by_topic = chapters.flatten.group_by(&:topic)
     else
-      @topics = Topic.answered_for_subject(@subject)
+      @topics = Topic.answered_for_user(@subject)
       chapters = @topics.collect do |topic|
         topic.chapters.answered_for_subject(@subject).all(:limit => 3)
       end
@@ -42,8 +42,8 @@ class QuestionsController < ApplicationController
   def chapters
     @topic = Topic.find(params[:topic_id])
     is_self = can? :manage, @subject
-    @previous = @topic.previous_for_subject(@subject, is_self)
-    @next = @topic.next_for_subject(@subject, is_self)
+    @previous = @topic.previous_for_user(@subject, is_self)
+    @next = @topic.next_for_user(@subject, is_self)
 
     @questions_by_chapter = @subject.profile_questions.all(:conditions => { :chapter_id => @topic.chapters.map(&:id) }, 
                                                                             :joins => :chapter,

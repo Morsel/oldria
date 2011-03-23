@@ -18,25 +18,36 @@ class Topic < ActiveRecord::Base
   has_many :profile_questions, :through => :chapters
 
   validates_presence_of :title
-  validates_uniqueness_of :title, :case_sensitive => false, :scope => :responder_type
+  validates_uniqueness_of :title, :case_sensitive => false, :scope => :type
   validates_length_of :description, :maximum => 100
 
   default_scope :order => "topics.position ASC, topics.title ASC"
 
+  named_scope :user_topics, :conditions => "type IS NULL"
+
+  named_scope :for_user, lambda { |user|
+    { :joins => { :chapters => { :profile_questions => :question_roles }},
+      :conditions => ["question_roles.responder_id = ? AND question_roles.responder_type = ?",
+        user.primary_employment.restaurant_role.id, user.primary_employment.restaurant_role.class.name],
+      :select => "distinct topics.*",
+      :order => :position }
+  }
+
+  named_scope :answered_for_user, lambda { |user|
+    { :joins => { :chapters => { :profile_questions => :profile_answers } },
+      :conditions => ["profile_answers.responder_id = ? AND profile_answers.responder_type = ?", user.id, 'user'],
+      :select => "distinct topics.*",
+      :order => :position }
+  }
+
   named_scope :for_subject, lambda { |subject|
-    if subject.is_a? User
-      { :joins => { :chapters => { :profile_questions => :question_roles }},
-        :conditions => ["question_roles.responder_id = ? AND question_roles.responder_type = ?", 
-          subject.primary_employment.restaurant_role.id, subject.primary_employment.restaurant_role.class.name],
-        :select => "distinct topics.*",
-        :order => :position }
-    elsif subject.is_a? RestaurantFeaturePage
+    if subject.is_a? RestaurantFeaturePage
       { :joins => { :chapters => { :profile_questions => :question_roles }},
         :conditions => ["question_roles.responder_id = ? AND question_roles.responder_type = ?", subject.id, subject.class.name],
         :select => "distinct topics.*",
         :order => :position }
     elsif subject.is_a? Restaurant
-      { :conditions => { :responder_type => 'restaurant' },
+      { :conditions => { :type => 'RestaurantTopic' },
         :select => "distinct topics.*",
         :order => :position }
     end
@@ -57,24 +68,24 @@ class Topic < ActiveRecord::Base
       :order => :position }
   }
 
-  def previous_for_subject(subject, is_self = false)
+  def previous_for_user(user, is_self = false)
     sort_field = (self.position == 0 ? "id" : "position")
     if is_self
-      Topic.for_subject(subject).first(:conditions => ["topics.#{sort_field} < ?", self.send(sort_field)],
+      Topic.for_user(user).first(:conditions => ["topics.#{sort_field} < ?", self.send(sort_field)],
                                  :order => "#{sort_field} DESC")
     else
-      Topic.answered_for_subject(subject).first(:conditions => ["topics.#{sort_field} < ?", self.send(sort_field)],
+      Topic.answered_for_user(subject).first(:conditions => ["topics.#{sort_field} < ?", self.send(sort_field)],
                                           :order => "#{sort_field} DESC")
     end
   end
 
-  def next_for_subject(subject, is_self = false)
+  def next_for_user(user, is_self = false)
     sort_field = (self.position == 0 ? "id" : "position")
     if is_self
-      Topic.for_subject(subject).first(:conditions => ["topics.#{sort_field} > ?", self.send(sort_field)],
+      Topic.for_user(user).first(:conditions => ["topics.#{sort_field} > ?", self.send(sort_field)],
                                  :order => "#{sort_field} ASC")
     else
-      Topic.answered_for_subject(subject).first(:conditions => ["topics.#{sort_field} > ?", self.send(sort_field)],
+      Topic.answered_for_user(user).first(:conditions => ["topics.#{sort_field} > ?", self.send(sort_field)],
                                           :order => "#{sort_field} ASC")
     end
   end

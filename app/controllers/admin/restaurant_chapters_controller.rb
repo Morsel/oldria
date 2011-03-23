@@ -1,12 +1,11 @@
 class Admin::RestaurantChaptersController < Admin::AdminController
 
   def index
-    @topics = Topic.all(:conditions => {:responder_type => 'restaurant'}, :order => :title)
-    @chapters_by_topic = Chapter.all(
-        :conditions => ["topics.responder_type = ?", 'restaurant'],
-        :include => :topic,
-        :order => "topics.title ASC, chapters.position ASC"
-      ).group_by(&:topic)
+    @topics = RestaurantTopic.all(:order => :title)
+    # FIXME: couldn't this be written to use the @topics above?
+    @chapters_by_topic = Chapter.all(:include => :topic,
+                                     :conditions => ["topics.type = ?", 'RestaurantTopic'],
+                                     :order => "topics.title ASC, chapters.position ASC").group_by(&:topic)
   end
 
   def create

@@ -38,7 +38,7 @@ class ProfileQuestion < ActiveRecord::Base
         :order => "chapters.position, profile_questions.position" }
     elsif subject.is_a? Restaurant
       { :joins => { :chapter => :topic },
-        :conditions => ["topics.responder_type = ?", 'restaurant'],
+        :conditions => ["topics.type = ?", 'RestaurantTopic'],
         :include => :chapter,
         :order => "chapters.position, profile_questions.position" }
     end

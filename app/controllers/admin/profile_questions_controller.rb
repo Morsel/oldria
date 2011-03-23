@@ -2,7 +2,7 @@ class Admin::ProfileQuestionsController < Admin::AdminController
 
   def index
     @questions = ProfileQuestion.all(
-        :conditions => ["topics.responder_type = ?", 'user'],
+        :conditions => ["topics.type IS NULL"],
         :include => { :chapter => :topic },
         :order => "topics.title ASC, chapters.title ASC, profile_questions.position ASC"
       ).group_by(&:chapter)
@@ -11,7 +11,7 @@ class Admin::ProfileQuestionsController < Admin::AdminController
   def new
     @question = ProfileQuestion.new
     @roles = RestaurantRole.all.group_by(&:category)
-    @topics = Topic.all(:conditions => { :responder_type => 'user' })
+    @topics = Topic.user_topics
   end
 
   def create
@@ -21,7 +21,7 @@ class Admin::ProfileQuestionsController < Admin::AdminController
       redirect_to :action => "index"
     else
       @roles = RestaurantRole.all.group_by(&:category)
-      @topics = Topic.all(:conditions => { :responder_type => 'user' })
+      @topics = Topic.user_topics
       render :action => "new"
     end
   end
@@ -29,7 +29,7 @@ class Admin::ProfileQuestionsController < Admin::AdminController
   def edit
     @question = ProfileQuestion.find(params[:id])
     @roles = RestaurantRole.all.group_by(&:category)
-    @topics = Topic.all(:conditions => { :responder_type => 'user' })
+    @topics = Topic.user_topics
   end
 
   def update
@@ -39,7 +39,7 @@ class Admin::ProfileQuestionsController < Admin::AdminController
       redirect_to :action => "index"
     else
       @roles = RestaurantRole.all.group_by(&:category)
-      @topics = Topic.all(:conditions => { :responder_type => 'user' })
+      @topics = Topic.user_topics
       render :action => "edit"
     end
   end

@@ -21,7 +21,7 @@ end
 Given /^several profile questions matching employment roles for "([^\"]*)"$/ do |username|
   user = User.find_by_username(username)
   role = Factory(:restaurant_role)
-  topic = Factory(:topic, :responder_type => 'user')
+  topic = Factory(:topic)
   Factory(:employment, :employee => user, :primary => true, :restaurant_role => role)
   Factory(:profile_question, :title => "Title 1", :question_roles => [Factory(:question_role, :responder => role)],
       :chapter => Factory(:chapter, :title => "Education", :topic => topic))
@@ -34,7 +34,7 @@ end
 Given /^profile question matching employment role with static topic name for "([^\"]*)"$/ do |username|
   user = User.find_by_username(username)
   role = Factory(:restaurant_role)
-  topic = Factory(:topic, :title => "SeoTopic", :responder_type => 'user')
+  topic = Factory(:topic, :title => "SeoTopic")
   chapter = Factory(:chapter, :title => "Education2", :topic => topic)
   Factory(:employment, :employee => user, :primary => true, :restaurant_role => role)
   Factory(:profile_question,
@@ -43,25 +43,41 @@ Given /^profile question matching employment role with static topic name for "([
           :chapter => chapter)
 end
 
-Given /^the following (.+) profile questions:$/ do |responder_type, table|
+Given /^the following user profile questions:$/ do |table|
   table.hashes.each do |row|
-    topic = Topic.find_by_title(row['topic']) || Factory(:topic, :title => row['topic'], :responder_type => responder_type)
+    topic = Topic.find_by_title(row['topic']) || Factory(:topic, :title => row['topic'])
+    chapter = Chapter.find_by_title(row['chapter']) || Factory(:chapter, :topic => topic, :title => row['chapter'])
+    question = Factory(:profile_question, :title => row['question'], :chapter => chapter, 
+        :question_roles => [Factory(:question_role)])
+  end
+end
+
+Given /^the following restaurant profile questions:$/ do |table|
+  table.hashes.each do |row|
+    topic = RestaurantTopic.find_by_title(row['topic']) || Factory(:restaurant_topic, :title => row['topic'])
     chapter = Chapter.find_by_title(row['chapter']) || Factory(:chapter, :topic => topic, :title => row['chapter'])
     responder = RestaurantFeaturePage.find_by_name(row['page']) || Factory(:restaurant_feature_page, :name => row['page'])
-    question = Factory(:profile_question, :title => row['question'], :chapter => chapter, :question_roles => [Factory(:question_role, :responder => responder)])
+    question = Factory(:profile_question, :title => row['question'], :chapter => chapter, 
+        :question_roles => [Factory(:question_role, :responder => responder)])
   end
 end
 
 Given /^the following restaurant chapters:$/ do |table|
   table.hashes.each do |row|
-    topic = Factory(:topic, :title => row['topic'], :responder_type => 'restaurant')
+    topic = Factory(:restaurant_topic, :title => row['topic'])
     Factory(:chapter, :title => row['title'], :topic => topic)
   end
 end
 
-Given /^the following (.+) topics:$/ do |responder_type, table|
+Given /^the following user topics:$/ do |table|
   table.hashes.each do |row|
-    topic = Factory(:topic, :title => row['topic'], :responder_type => responder_type)
+    topic = Factory(:topic, :title => row['topic'])
+  end
+end
+
+Given /^the following restaurant topics:$/ do |table|
+  table.hashes.each do |row|
+    topic = Factory(:restaurant_topic, :title => row['topic'])
   end
 end
 
@@ -73,7 +89,7 @@ end
 
 Given /^I have created the following restaurant topics:$/ do |table|
   table.hashes.each do |row|
-    topic = Factory(:topic, :title => row['topic'], :responder_type => 'restaurant')
+    topic = Factory(:restaurant_topic, :title => row['topic'])
   end
 end
 
@@ -88,9 +104,8 @@ Given /^the following profile questions with chapters, topics and answers for "(
   role = Factory(:restaurant_role, :name => "UniqueRole", :category => "UniqueCategory")
   Factory(:employment, :employee => user, :primary => true, :restaurant_role => role)
   table.hashes.each do |row|
-    topic = Topic.find_by_title(row['topic']) || Factory(:topic,
-                                                         :title => row['topic'],
-                                                         :responder_type => 'user')
+    topic = Topic.user_topics.find_by_title(row['topic']) || Factory(:topic,
+                                                         :title => row['topic'])
     chapter = topic.chapters.first(:conditions => {:title => row['chapter']}) || Factory(:chapter,
                                                                                          :title => row['chapter'],
                                                                                          :topic => topic)

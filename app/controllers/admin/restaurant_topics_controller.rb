@@ -1,17 +1,16 @@
 class Admin::RestaurantTopicsController < Admin::AdminController
 
   def index
-    @topics = Topic.all(:conditions => {:responder_type => 'restaurant'},
-                        :order => "position ASC, title ASC")
+    @topics = RestaurantTopic.all(:order => "position ASC, title ASC")
   end
 
   def new
-    @topic = Topic.new
+    @topic = RestaurantTopic.new
     render :action => "edit"
   end
 
   def create
-    @topic = Topic.new(params[:topic].merge(:responder_type => 'restaurant'))
+    @topic = RestaurantTopic.new(params[:restaurant_topic])
     if @topic.save
       flash[:notice] = "Created new topic named #{@topic.title}"
       redirect_to :action => "index"
@@ -25,12 +24,12 @@ class Admin::RestaurantTopicsController < Admin::AdminController
   end
 
   def edit
-    @topic = Topic.find(params[:id])
+    @topic = RestaurantTopic.find(params[:id])
   end
 
   def update
-    @topic = Topic.find(params[:id])
-    if @topic.update_attributes(params[:topic])
+    @topic = RestaurantTopic.find(params[:id])
+    if @topic.update_attributes(params[:restaurant_topic])
       flash[:notice] = "Updated topic"
       redirect_to :action => "index"
     else
@@ -39,7 +38,7 @@ class Admin::RestaurantTopicsController < Admin::AdminController
   end
 
   def destroy
-    @topic = Topic.find(params[:id])
+    @topic = RestaurantTopic.find(params[:id])
     if @topic.chapters.count > 0
       flash[:error] = "Unable to delete topics currently assigned to chapters"
     else
