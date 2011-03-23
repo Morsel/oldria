@@ -24,4 +24,21 @@ module RestaurantsHelper
   def correct_restaurant_photos_path restaurant
      soapbox? ? soapbox_restaurant_photos_path(restaurant) : restaurant_photos_path(restaurant)
   end
+
+  def link_for_restaurant_topics(opts = {})
+    if soapbox?
+      topics_soapbox_restaurant_questions_path(opts)
+    else
+      topics_restaurant_questions_path(opts)
+    end
+  end
+
+  def link_for_restaurant_chapters(opts = {})
+    if soapbox?
+      chapters_soapbox_restaurant_questions_path(opts)
+    else
+      chapters_restaurant_questions_path(opts)
+    end
+  end
+
 end

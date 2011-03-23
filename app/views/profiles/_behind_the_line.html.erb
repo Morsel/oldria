@@ -1,7 +1,7 @@
 <div id="behindline" class="recent_actions">
 
   <h3 id="btl-title"><span class="btl-art">Behind the Line:</span> <%= user.username %></h3>
-  <% if can_edit_profile_questions(user) && !params[:controller].match(/soapbox/)%>
+  <% if can?(:manage, user) && !params[:controller].match(/soapbox/) %>
     <div class="edit_profile_link">
       <%= link_to "<span>Answer more questions!</span>", topics_user_questions_path(:user_id => user.id) %>
     </div>
@@ -10,13 +10,13 @@
     <% reset_cycle('default') -%>
     <% topics_for(user).each do |topic| %>
       <li class="<%= cycle("even", "odd") %>">
-        <% link_to chapters_user_questions_path(:user_id => user.id, :topic_id => topic.id) do %>
+        <% link_to link_for_user_chapters(:user_id => user.id, :topic_id => topic.id) do %>
           <h5><%= topic.title %> <span class="completeness">(<%= topic.completion_percentage(user) %>% complete)</span></h5>
           <%= topic.description || truncate(topic.profile_questions.map(&:title).join(" "), :length => 100) %>
         <% end %>
        </li>
     <% end %>
   </ul>
-  <p class="view_all"><%= link_to "View all Topics &raquo;", topics_user_questions_path(:user_id => user.id) %></p>
+  <p class="view_all"><%= link_to "View all Topics &raquo;", link_for_user_topics(:user_id => user.id) %></p>
 </div><!--#behindline-->
 
