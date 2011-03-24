@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110323195248) do
+ActiveRecord::Schema.define(:version => 20110323232407) do
 
   create_table "a_la_minute_answers", :force => true do |t|
     t.text     "answer"
@@ -709,6 +709,13 @@ ActiveRecord::Schema.define(:version => 20110323195248) do
     t.string   "link_text"
   end
 
+  create_table "question_pages", :force => true do |t|
+    t.integer  "restaurant_question_id"
+    t.integer  "restaurant_feature_page_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "question_role_categories", :force => true do |t|
     t.integer  "restaurant_role_id"
     t.string   "category"
@@ -833,6 +840,15 @@ ActiveRecord::Schema.define(:version => 20110323195248) do
   end
 
   add_index "restaurant_features", ["restaurant_feature_category_id"], :name => "restaurant_feature_category_id_index"
+
+  create_table "restaurant_questions", :force => true do |t|
+    t.string   "title"
+    t.integer  "position"
+    t.integer  "chapter_id"
+    t.text     "pages_description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "restaurant_roles", :force => true do |t|
     t.string   "name"

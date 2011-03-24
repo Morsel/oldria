@@ -1,4 +1,20 @@
+# == Schema Information
+# Schema version: 20110323195248
+#
+# Table name: topics
+#
+#  id          :integer         not null, primary key
+#  title       :string(255)
+#  created_at  :datetime
+#  updated_at  :datetime
+#  position    :integer
+#  description :string(255)
+#  type        :string(255)
+#
+
 class RestaurantTopic < Topic
+
+  has_many :restaurant_questions, :through => :restaurants
 
   def previous_for_subject(subject, is_self = false)
     sort_field = (self.position == 0 ? "id" : "position")

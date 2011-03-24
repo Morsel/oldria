@@ -16,6 +16,7 @@ class Chapter < ActiveRecord::Base
 
   belongs_to :topic
   has_many :profile_questions
+  has_many :restaurant_questions
 
   validates_presence_of :title, :topic_id
   validates_uniqueness_of :title, :scope => :topic_id, :case_sensitive => false
