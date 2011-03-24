@@ -21,13 +21,15 @@ class RestaurantQuestion < ActiveRecord::Base
   validates_presence_of :title, :chapter_id
   validates_uniqueness_of :title, :scope => :chapter_id, :case_sensitive => false
 
-  named_scope :for_page, lambda { |page| {
-    :joins => :question_pages,
-    :conditions => { :question_pages => { :restaurant_feature_page_id => page.id }}
-    :include => :chapter,
-    :order => "chapters.position, restaurant_questions.position" }
+  named_scope :for_page, lambda { |page|
+    {
+      :joins => :question_pages,
+      :include => :chapter,
+      :conditions => { :question_pages => { :restaurant_feature_page_id => page.id }},
+      :order => "chapters.position, restaurant_questions.position"
+    }
   }
-  
+
   named_scope :for_chapter, lambda { |chapter_id|
     { :conditions => { :chapter_id => chapter_id } }
   }
