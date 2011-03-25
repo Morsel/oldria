@@ -1,5 +1,4 @@
 class ProfileAnswersController < ApplicationController
-  # include ProfileAnswersHelper, BehindTheLineHelper
 
   before_filter :require_user
   before_filter :find_user
@@ -18,7 +17,7 @@ class ProfileAnswersController < ApplicationController
               answer.answer = answer_params[:answer]
 
               answer.post_to_facebook = answer_params[:post_to_facebook]
-              answer.share_url = url_for_question(answer.user, answer.profile_question.chapter.id, nil, true)
+              answer.share_url = soapbox_user_questions_url(answer.user, :chapter_id => answer.profile_question.chapter.id)
 
               unless answer.save # if it doesn't save, the answer was blank, and we can ignore it
                 Rails.logger.error answer.errors.full_messages
@@ -67,9 +66,9 @@ class ProfileAnswersController < ApplicationController
 
     if @answer.destroy
       flash[:notice] = "Your answer has been deleted"
-      redirect_to user_questions_path(:subject => @user, 
-                                     :chapter_id => @question.chapter.id, 
-                                     :anchor => "profile_question_#{@question.id}")
+      redirect_to user_questions_path(:user_id => @user.id,
+                                      :chapter_id => @question.chapter.id,
+                                      :anchor => "profile_question_#{@question.id}")
     end
   end
 

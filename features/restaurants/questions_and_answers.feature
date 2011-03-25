@@ -22,14 +22,14 @@ Feature: Restaurant Profile - Behind the Line (aka Q&A)
   Scenario: Viewing chapters for a topic
     Given I am on the restaurant show page for "The Chef"
     When I follow "View all Topics" within "#behindline"
-    And I follow "View all \"Early on\" chapters"
+    And I follow "View all"
     Then I should see "Inspirations"
     And I should see "Funding"
 
   Scenario: Viewing questions in a chapter
     Given I am on the restaurant show page for "The Chef"
     When I follow "View all Topics" within "#behindline"
-    And I follow "View all \"Early on\" chapters"
+    And I follow "View all"
     And I follow "Inspirations"
     Then I should see "What restaurants inspired you to open?"
 
@@ -38,7 +38,7 @@ Feature: Restaurant Profile - Behind the Line (aka Q&A)
     When I follow "View all Topics" within "#behindline"
     And I follow "View all"
     And I follow "Inspirations"
-    And I fill in question titled "What restaurants inspired you to open?" with answer "A great answer for this"
+    And I fill in the restaurant question titled "What restaurants inspired you to open?" with answer "A great answer for this"
     And I press "Post"
     Then I should see "Your answers have been saved"
 

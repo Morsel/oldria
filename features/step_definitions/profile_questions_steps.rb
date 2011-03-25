@@ -98,6 +98,10 @@ When /^I fill in question titled "([^\"]*)" with answer "([^\"]*)"$/ do |title, 
   When "I fill in \"profile_question_#{question.id}_answer\" with \"#{answer}\""
 end
 
+When /^I fill in the restaurant question titled "([^\"]*)" with answer "([^\"]*)"$/ do |title, answer|
+  question = RestaurantQuestion.find_by_title(title)
+  When "I fill in \"restaurant_question_#{question.id}_answer\" with \"#{answer}\""
+end
 
 Given /^the following profile questions with chapters, topics and answers for "([^\"]*)":$/ do |username, table|
   user = User.find_by_username(username)

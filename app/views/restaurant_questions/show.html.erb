@@ -24,7 +24,7 @@
 
   <% for answer in @answers %>
       <div class="comment">
-          <%= render :partial => "#{answer.responder.class.name.underscore.pluralize}/identity", :locals => { :user => answer.responder } %>
+          <%= render :partial => "restaurants/identity", :locals => { :user => answer.restaurant } %>
           <div class="user_comment"><p><%= answer.answer %></p></div>
       </div>
   <% end %>

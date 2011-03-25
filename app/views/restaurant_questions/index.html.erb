@@ -1,17 +1,18 @@
 <% title "#{@chapter.title} - #{@subject.name} - Behind The Line", false %>
 
-<%= render :partial => 'shared/add_this', :locals => {:responder => responder = @restaurant || @subject} %>
+<%= render :partial => 'shared/add_this', :locals => { :responder => @restaurant } %>
 
 <% javascript_tag do %>
   var addthis_share = {
-    url: '<%= url_for_question(responder, @chapter.id, nil, true) %>',
+    url: '<%= url_for_question(@restaurant, @chapter.id, nil, true) %>',
     title: $('title').text().replace('Spoonfeed','Soapbox')
   }
 <% end %>
 <h1 id="btl-title" class="btl"><%= link_to "<span class=\"btl-art\">Behind the Line:</span> <span class=\"name\">#{btl_title_for(@subject)}</span>", find_btl_url_for(@subject) %></h1>
 
 <h2 id="topic_title">Topic: <%= @chapter.topic.title %></h2>
-<%= render :partial => 'restaurant_questions/topic_nav', :locals => { :next_topic => @next_topic, :prev_topic => @previous_topic } %>
+<%= render :partial => 'restaurant_questions/topic_nav',
+    :locals => { :next_topic => @next_topic, :prev_topic => @previous_topic } %>
 
 <div id="btl_answers" class="btl-my-answers">
   <div id="" class="clear clearfix">
@@ -19,21 +20,23 @@
     <% if @next.present? or @previous.present? -%>
       <nav id="chapter_nav" class="topic-nav clearfix">
         <% if @next.present? -%>
-          <%= link_to "Next: #{truncate(@next.title, :length => 20, :omission => '&hellip;')}", link_for_questions(:subject => @subject, :chapter_id => @next), :class => 'next' %>
+          <%= link_to "Next: #{truncate(@next.title, :length => 20, :omission => '&hellip;')}",
+              link_for_questions(:subject => @subject, :chapter_id => @next), :class => 'next' %>
         <% end -%>
         <% if @previous.present? -%>
-          <%= link_to "Prev: #{truncate(@previous.title, :length => 20, :omission => '&hellip;')}", link_for_questions(:subject => @subject, :chapter_id => @previous), :class => 'prev' %>
+          <%= link_to "Prev: #{truncate(@previous.title, :length => 20, :omission => '&hellip;')}",
+              link_for_questions(:subject => @subject, :chapter_id => @previous), :class => 'prev' %>
         <% end -%>
       </nav>
     <% end -%>
   </div>
 
-<% if can_edit_profile_questions(@subject) && !params[:controller].match(/soapbox/) %><%# let's edit these answers %>
-  <% form_tag link_for_profile_answers(:subject => @subject) do %>
+<% if can?(:manage, @restaurant) && !soapbox? %><%# let's edit these answers %>
+  <% form_tag restaurant_restaurant_answers_path(:restaurant_id => @restaurant) do %>
     <% @questions.each do |question| %>
       <% div_for question do %>
           <h4>Q: <%= question.title %></h4>
-          <%= render :partial => "profile_answers/form", :locals => { :answer => find_answer_for(question, @subject) } %>
+          <%= render :partial => "restaurant_answers/form", :locals => { :answer => find_answer_for(question, @subject) } %>
       <% end %>
     <% end %>
   <% end %><%# end form %>
@@ -58,6 +61,7 @@
       <% end %>
     <% end -%>
   <% end -%>
+
 <% end -%>
 </div>
 
