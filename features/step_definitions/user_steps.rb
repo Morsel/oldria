@@ -66,7 +66,7 @@ Given /^I am logged in as user with btl enabled$/ do
   Factory(:employment, :employee => user, :restaurant_role => role)
 
   chapter = Factory(:chapter, :title => "title1")
-  qr = Factory(:question_role, :responder => role)
+  qr = Factory(:question_role, :restaurant_role => role)
   Factory(:profile_question, :chapter => chapter, :question_roles => [qr])
 
   Given 'I am logged in as "valera" with password "secret"'

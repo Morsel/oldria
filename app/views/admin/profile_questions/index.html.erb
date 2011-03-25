@@ -21,7 +21,7 @@
   <% t.data do
         t.cell(:handle, :heading => '', :cell_html => {:class => 'small handle'}) { "[drag]" }
         t.cell(:title)
-        t.cell(:roles, :heading => roles_heading) { |c| c.roles_description }
+        t.cell(:roles, :heading => 'Role') { |c| c.roles_description }
         t.cell(:edit_link, :heading => '', :cell_html => {:class => 'actions edit_link'}) { |c|
           link_to('Edit', edit_admin_profile_question_url(:id => c.id))
         }

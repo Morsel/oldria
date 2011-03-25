@@ -27,43 +27,14 @@ class Topic < ActiveRecord::Base
 
   named_scope :for_user, lambda { |user|
     { :joins => { :chapters => { :profile_questions => :question_roles }},
-      :conditions => ["question_roles.responder_id = ? AND question_roles.responder_type = ?",
-        user.primary_employment.restaurant_role.id, user.primary_employment.restaurant_role.class.name],
+      :conditions => ["question_roles.restaurant_role_id = ?", user.primary_employment.restaurant_role.id],
       :select => "distinct topics.*",
       :order => :position }
   }
 
   named_scope :answered_for_user, lambda { |user|
     { :joins => { :chapters => { :profile_questions => :profile_answers } },
-      :conditions => ["profile_answers.responder_id = ? AND profile_answers.responder_type = ?", user.id, 'user'],
-      :select => "distinct topics.*",
-      :order => :position }
-  }
-
-  named_scope :for_subject, lambda { |subject|
-    if subject.is_a? RestaurantFeaturePage
-      { :joins => { :chapters => { :profile_questions => :question_roles }},
-        :conditions => ["question_roles.responder_id = ? AND question_roles.responder_type = ?", subject.id, subject.class.name],
-        :select => "distinct topics.*",
-        :order => :position }
-    elsif subject.is_a? Restaurant
-      { :conditions => { :type => 'RestaurantTopic' },
-        :select => "distinct topics.*",
-        :order => :position }
-    end
-  }
-
-  named_scope :answered_for_subject, lambda { |subject|
-    { :joins => { :chapters => { :profile_questions => :profile_answers } },
-      :conditions => ["profile_answers.responder_id = ? AND profile_answers.responder_type = ?", 
-        subject.id, subject.class.name],
-      :select => "distinct topics.*",
-      :order => :position }
-  }
-
-  named_scope :answered_for_page, lambda { |page, restaurant|
-    { :joins => { :chapters => { :profile_questions => [:profile_answers, :question_roles] } },
-      :conditions => [ 'profile_answers.responder_id = ? AND profile_answers.responder_type = ? AND question_roles.responder_id = ? AND question_roles.responder_type = ?', restaurant.id, restaurant.class.name, page.id, page.class.name ],
+      :conditions => ["profile_answers.user_id = ?", user.id],
       :select => "distinct topics.*",
       :order => :position }
   }
@@ -90,28 +61,24 @@ class Topic < ActiveRecord::Base
     end
   end
 
-  def question_count_for_subject(subject)
-    self.profile_questions.for_subject(subject).count
+  def question_count_for_user(user)
+    self.profile_questions.for_user(user).count
   end
-
-  def answer_count_for(subject, secondary_subject = nil)
-    if secondary_subject
-      self.profile_questions.answered_for_page(subject, secondary_subject).count
-    else
-      subject.profile_questions.answered.for_chapter(self.chapters.map(&:id)).count
-    end
+  
+  def answer_count_for(user)
+    user.profile_questions.answered.for_chapter(self.chapters.map(&:id)).count
   end
-
-  def completion_percentage(subject, secondary_subject = nil)
-    if question_count_for_subject(subject) > 0
-      ((answer_count_for(subject, secondary_subject).to_f / question_count_for_subject(subject).to_f) * 100).to_i
+  
+  def completion_percentage(user)
+    if question_count_for_user(user) > 0
+      ((answer_count_for(user).to_f / question_count_for_user(user).to_f) * 100).to_i
     else
       0
     end
   end
-
-  def published?(subject, secondary_subject = nil)
-    completion_percentage(subject, secondary_subject) > 0
+  
+  def published?(user)
+    completion_percentage(user) > 0
   end
 
 end

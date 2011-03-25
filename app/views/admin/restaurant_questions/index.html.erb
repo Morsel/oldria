@@ -20,7 +20,7 @@
   <% t.data do
         t.cell(:handle, :heading => '', :cell_html => {:class => 'small handle'}) { "[drag]" }
         t.cell(:title)
-        t.cell(:roles, :heading => roles_heading) { |c| c.roles_description }
+        t.cell(:pages, :heading => 'Page') { |c| c.pages_description }
         t.cell(:edit_link, :heading => '', :cell_html => {:class => 'actions edit_link'}) { |c|
           link_to('Edit', edit_admin_restaurant_question_path(:id => c.id))
         }

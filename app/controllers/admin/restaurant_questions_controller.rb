@@ -1,18 +1,17 @@
 class Admin::RestaurantQuestionsController < Admin::AdminController
   
   def index
-    @questions = ProfileQuestion.all(:conditions => ["topics.type = 'RestaurantTopic'"],
-                                     :include => { :chapter => :topic },
-                                     :order => "topics.title ASC, chapters.title ASC, profile_questions.position ASC").group_by(&:chapter)
+    @questions = RestaurantQuestion.all(:include => { :chapter => :topic },
+        :order => "topics.title ASC, chapters.title ASC, restaurant_questions.position ASC").group_by(&:chapter)
   end
 
   def new
-    @question = ProfileQuestion.new
+    @question = RestaurantQuestion.new
     @topics = RestaurantTopic.all
   end
 
   def create
-    @question = ProfileQuestion.new(params[:profile_question])
+    @question = RestaurantQuestion.new(params[:restaurant_question])
     if @question.save
       flash[:notice] = "Added new restaurant question \"#{@question.title}\""
       redirect_to :action => "index"
@@ -23,13 +22,13 @@ class Admin::RestaurantQuestionsController < Admin::AdminController
   end
 
   def edit
-    @question = ProfileQuestion.find(params[:id])
+    @question = RestaurantQuestion.find(params[:id])
     @topics = RestaurantTopic.all
   end
 
   def update
-    @question = ProfileQuestion.find(params[:id])
-    if @question.update_attributes(params[:profile_question])
+    @question = RestaurantQuestion.find(params[:id])
+    if @question.update_attributes(params[:restaurant_question])
       flash[:notice] = "Updated question \"#{@question.title}\""
       redirect_to :action => "index"
     else
@@ -39,7 +38,7 @@ class Admin::RestaurantQuestionsController < Admin::AdminController
   end
 
   def destroy
-    @question = ProfileQuestion.find(params[:id])
+    @question = RestaurantQuestion.find(params[:id])
     flash[:notice] = "Deleted question \"#{@question.title}\""
     @question.destroy
     redirect_to :action => "index"
@@ -54,9 +53,9 @@ class Admin::RestaurantQuestionsController < Admin::AdminController
       params[:chapters].each_with_index do |id, index|
         Chapter.update_all(['position=?', index+1], ['id=?', id])
       end
-    elsif params[:profile_questions]
-      params[:profile_questions].each_with_index do |id, index|
-        ProfileQuestion.update_all(['position=?', index+1], ['id=?', id])
+    elsif params[:restaurant_question]
+      params[:restaurant_question].each_with_index do |id, index|
+        RestaurantQuestion.update_all(['position=?', index+1], ['id=?', id])
       end
     end
     render :nothing => true

@@ -23,11 +23,11 @@ Given /^several profile questions matching employment roles for "([^\"]*)"$/ do 
   role = Factory(:restaurant_role)
   topic = Factory(:topic)
   Factory(:employment, :employee => user, :primary => true, :restaurant_role => role)
-  Factory(:profile_question, :title => "Title 1", :question_roles => [Factory(:question_role, :responder => role)],
+  Factory(:profile_question, :title => "Title 1", :question_roles => [Factory(:question_role, :restaurant_role => role)],
       :chapter => Factory(:chapter, :title => "Education", :topic => topic))
-  Factory(:profile_question, :title => "Title 2", :question_roles => [Factory(:question_role, :responder => role)],
+  Factory(:profile_question, :title => "Title 2", :question_roles => [Factory(:question_role, :restaurant_role => role)],
       :chapter => Factory(:chapter, :title => "Work Experience", :topic => topic))
-  Factory(:profile_question, :title => "Title 3", :question_roles => [Factory(:question_role, :responder => role)],
+  Factory(:profile_question, :title => "Title 3", :question_roles => [Factory(:question_role, :restaurant_role => role)],
       :chapter => Factory(:chapter, :title => "Free Time", :topic => topic))
 end
 
@@ -39,7 +39,7 @@ Given /^profile question matching employment role with static topic name for "([
   Factory(:employment, :employee => user, :primary => true, :restaurant_role => role)
   Factory(:profile_question,
           :title => "QTitle 1",
-          :question_roles => [Factory(:question_role, :responder => role)],
+          :question_roles => [Factory(:question_role, :restaurant_role => role)],
           :chapter => chapter)
 end
 
@@ -56,9 +56,9 @@ Given /^the following restaurant profile questions:$/ do |table|
   table.hashes.each do |row|
     topic = RestaurantTopic.find_by_title(row['topic']) || Factory(:restaurant_topic, :title => row['topic'])
     chapter = Chapter.find_by_title(row['chapter']) || Factory(:chapter, :topic => topic, :title => row['chapter'])
-    responder = RestaurantFeaturePage.find_by_name(row['page']) || Factory(:restaurant_feature_page, :name => row['page'])
-    question = Factory(:profile_question, :title => row['question'], :chapter => chapter, 
-        :question_roles => [Factory(:question_role, :responder => responder)])
+    page = RestaurantFeaturePage.find_by_name(row['page']) || Factory(:restaurant_feature_page, :name => row['page'])
+    question = Factory(:restaurant_question, :title => row['question'], :chapter => chapter, 
+        :question_pages => [Factory(:question_page, :restaurant_feature_page => page)])
   end
 end
 
@@ -81,9 +81,9 @@ Given /^the following restaurant topics:$/ do |table|
   end
 end
 
-Given /^I have created the following restaurant profile questions:$/ do |table|
+Given /^I have created the following restaurant questions:$/ do |table|
   table.hashes.each do |row|
-    question = Factory(:profile_question, :title => row['question'], :chapter => Chapter.find_by_title(row['chapter']))
+    question = Factory(:restaurant_question, :title => row['question'], :chapter => Chapter.find_by_title(row['chapter']))
   end
 end
 
@@ -111,11 +111,11 @@ Given /^the following profile questions with chapters, topics and answers for "(
                                                                                          :topic => topic)
     question = Factory(:profile_question,
                        :title => row['title'],
-                       :question_roles => [Factory(:question_role, :responder => role)],
+                       :question_roles => [Factory(:question_role, :restaurant_role => role)],
                        :chapter =>  chapter)
     Factory(:profile_answer,
             :profile_question => question,
-            :responder => user,
+            :user => user,
             :answer => row['answer']) unless row['answer'].blank?
   end
 end

@@ -198,12 +198,12 @@ class Restaurant < ActiveRecord::Base
     self.managers - [self.manager]
   end
 
-  def profile_questions
-    ProfileQuestion.for_subject(self)
+  def questions(opts = {})
+    RestaurantQuestion.all(opts)
   end
 
   def topics
-    Topic.for_subject(self) || []
+    RestaurantTopic.all
   end
 
   def published_topics

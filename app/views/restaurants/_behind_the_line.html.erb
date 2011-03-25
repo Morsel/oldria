@@ -9,11 +9,11 @@
   <% end %>
   <ul class="box">
     <% reset_cycle('default') -%>
-    <% topics_for(page || restaurant).each do |topic| %>
+    <% restaurant_topics(restaurant, page).each do |topic| %>
       <li class="<%= cycle("even", "odd") %>">
         <% link_to link_for_restaurant_chapters(:restaurant_id => restaurant.id, :topic_id => topic.id, :page_id => page.try(:id)) do %>
-          <h5><%= topic.title %> <span class="completeness">(<%= page.present? ? topic.completion_percentage(page, restaurant) : topic.completion_percentage(restaurant) %>% complete)</span></h5>
-          <%= topic.description || truncate(topic.profile_questions.map(&:title).join(" "), :length => 100) %>
+          <h5><%= topic.title %> <span class="completeness">(<%= page.present? ? topic.completion_percentage(restaurant, page) : topic.completion_percentage(restaurant) %>% complete)</span></h5>
+          <%= topic.description || truncate(topic.restaurant_questions.map(&:title).join(" "), :length => 100) %>
         <% end %>
        </li>
     <% end %>

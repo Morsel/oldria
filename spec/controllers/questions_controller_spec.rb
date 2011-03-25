@@ -13,7 +13,7 @@ describe QuestionsController do
       role = Factory(:restaurant_role)
       @user.stubs(:primary_employment).returns(Factory(:employment, :restaurant_role => role, :employee => @user))
 
-      question_role = Factory(:question_role, :responder => role)
+      question_role = Factory(:question_role, :restaurant_role => role)
       Factory(:profile_question, :question_roles => [question_role])
 
       get :topics, :user_id => @user.id
@@ -26,12 +26,12 @@ describe QuestionsController do
       employment = Factory(:employment, :restaurant_role => role, :employee => profile_user)
       profile_user.stubs(:primary_employment).returns(employment)
 
-      question_role = Factory(:question_role, :responder => role)
+      question_role = Factory(:question_role, :restaurant_role => role)
       question = Factory(:profile_question, :question_roles => [question_role])
-      Factory(:profile_answer, :profile_question => question, :responder => profile_user)
+      Factory(:profile_answer, :profile_question => question, :user => profile_user)
 
       get :topics, :user_id => profile_user.id
-      assigns[:topics].should == [question]
+      assigns[:topics].should == [question.topic]
     end
 
   end

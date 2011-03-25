@@ -1,0 +1,33 @@
+<% title "#{@topic.title} - #{@subject.name} Behind the Line", false %>
+
+<%= render :partial => 'shared/add_this', :locals => {:responder => responder = @restaurant || @subject} %>
+
+<h1 id="btl-title" class="btl"><%= link_to "<span class=\"btl-art\">Behind the Line:</span> <span class=\"name\">#{btl_title_for(@subject)}</span>", find_btl_url_for(@subject) %></h1>
+
+<h2 id="topic_title">Topic: <%= @topic.title %></h2>
+<% javascript_tag do %>
+  var addthis_share = {
+    url: '<%= url_to_responder_chapters(responder, @topic.id) %>',
+    title: $('title').text().replace('Spoonfeed','Soapbox')
+  }
+<% end %>
+
+<%= render :partial => 'restaurant_questions/topic_nav', :locals => { :next_topic => @next, :prev_topic => @previous } %>
+
+<div class="clear"></div>
+
+<% for chapter in @questions_by_chapter.keys %>
+<%- if can_edit_profile_questions(@subject) || chapter.published?(@subject) -%>
+  <% div_for chapter, :class => cycle('', ' last') do -%>
+      <% link_to link_for_questions(:subject => @subject, :chapter_id => chapter.id) do %>
+          <h3><%= chapter.title %></h3>
+
+          <p class="chapter_answer_count"><%= answer_count_for(@subject, chapter) %> of <%= question_count_for(@subject, chapter) %></p>
+          <p><%= chapter.description || truncate(@questions_by_chapter[chapter].map(&:title).to_sentence, :length => 100) %></p>
+          <% if can_edit_profile_questions(@subject) %>
+          <p><%= published_for(@subject, chapter) ? "Published" : "Not published" %></p>
+          <% end %>
+      <% end %>
+  <% end -%>
+<%- end -%>
+<% end if @questions_by_chapter.present? %>

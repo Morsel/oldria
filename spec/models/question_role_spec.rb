@@ -4,8 +4,7 @@ describe QuestionRole do
   before(:each) do
     @valid_attributes = {
       :profile_question_id => 1,
-      :responder_id => 1,
-      :responder_type => "Class"
+      :restaurant_role_id => 1
     }
   end
 

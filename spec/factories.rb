@@ -26,7 +26,6 @@ Factory.define :admin, :parent => :user do |f|
 end
 
 Factory.define :published_user, :parent => :user do |f|
-  f.role 'admin'
   f.visible '1'
   f.prefers_publish_profile true
   f.premium_account '1'
@@ -261,13 +260,29 @@ Factory.define :profile_question do |f|
 end
 
 Factory.define :question_role do |f|
-  f.responder { Factory(:restaurant_role) }
+  f.association :restaurant_role
 end
 
 Factory.define :profile_answer do |f|
   f.association :profile_question
-  f.association :responder, :factory => :user
-  f.answer "Awesomeland!"
+  f.association :user
+  f.sequence(:answer) { |n| "Answer #{n}!" }
+end
+
+Factory.define :restaurant_question do |f|
+  f.sequence(:title) { |n| "Question #{n}" }
+  f.association :chapter
+  f.question_pages { [Factory(:question_page), Factory(:question_page) ]}
+end
+
+Factory.define :restaurant_answer do |f|
+  f.association :restaurant_question
+  f.association :restaurant
+  f.answer "Yes!"
+end
+
+Factory.define :question_page do |f|
+  f.association :restaurant_feature_page
 end
 
 # == Lookup Tables ==

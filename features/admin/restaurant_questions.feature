@@ -18,7 +18,7 @@ Feature: Restaurant questions
     Given the following restaurant chapters:
       | title    | topic   |
       | Early on | History |
-    And I have created the following restaurant profile questions:
+    And I have created the following restaurant questions:
       | chapter  | question                                                |
       | Early on | What restaurant's were you inspired by when you opened? |
       | Early on | What year did you open for business?                    |

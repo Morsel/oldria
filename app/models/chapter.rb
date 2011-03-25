@@ -22,37 +22,46 @@ class Chapter < ActiveRecord::Base
   validates_uniqueness_of :title, :scope => :topic_id, :case_sensitive => false
   validates_length_of :description, :maximum => 100
 
-  default_scope :joins => :topic, :order => "topics.title ASC, chapters.title ASC"
+  default_scope :include => :topic, :order => "topics.title ASC, chapters.title ASC"
 
-  named_scope :for_subject, lambda { |subject|
-    if subject.is_a? User
-      { :joins => { :profile_questions => :question_roles },
-        :conditions => ["question_roles.responder_id = ? AND question_roles.responder_type = ?", subject.primary_employment.restaurant_role.id, subject.primary_employment.restaurant_role.class.name],
-        :select => "distinct chapters.*",
-        :order => :position }
-    elsif subject.is_a? RestaurantFeaturePage
-      { :joins => { :profile_questions => :question_roles },
-        :conditions => ["question_roles.responder_id = ? AND question_roles.responder_type = ?", subject.id, subject.class.name],
-        :select => "distinct chapters.*",
-        :order => :position }
-    elsif subject.is_a? Restaurant
-      { :joins => :topic,
-        :conditions => ["topics.type = 'RestaurantTopic'"],
-        :select => "distinct chapters.*",
-        :order => :position }
-    end
+  named_scope :for_user, lambda { |user|
+    { :joins => { :profile_questions => :question_roles },
+      :conditions => ["question_roles.restaurant_role_id = ?", user.primary_employment.restaurant_role.id],
+      :select => "distinct chapters.*",
+      :order => :position }
   }
 
-  named_scope :answered_for_subject, lambda { |subject|
+  named_scope :for_restaurant, lambda { |restaurant|
+    { :joins => :topic,
+      :conditions => ["topics.type = 'RestaurantTopic'"],
+      :select => "distinct chapters.*",
+      :order => :position }
+  }
+
+  named_scope :for_page, lambda { |page|
+    { :joins => { :restaurant_questions => :question_pages },
+      :conditions => ["question_pages.restaurant_feature_page_id = ?", page.id],
+      :select => "distinct chapters.*",
+      :order => :position }
+  }
+
+  named_scope :answered_for_user, lambda { |user|
     { :joins => { :profile_questions => :profile_answers },
-      :conditions => ["profile_answers.responder_id = ? AND profile_answers.responder_type = ?", subject.id, subject.class.name],
+      :conditions => ["profile_answers.user_id = ?", user.id],
+      :select => "distinct chapters.*",
+      :order => :position }
+  }
+
+  named_scope :answered_for_restaurant, lambda { |restaurant|
+    { :joins => { :restaurant_questions => :restaurant_answers },
+      :conditions => ["restaurant_answers.restaurant_id = ?", restaurant.id],
       :select => "distinct chapters.*",
       :order => :position }
   }
 
   named_scope :answered_for_page, lambda { |page, restaurant|
-    { :joins => { :profile_questions => [:profile_answers, :question_roles] },
-      :conditions => ["profile_answers.responder_id = ? AND profile_answers.responder_type = ? AND question_roles.responder_id = ? AND question_roles.responder_type = ?", restaurant.id, restaurant.class.name, page.id, page.class.name],
+    { :joins => { :restaurant_questions => [:restaurant_answers, :question_pages] },
+      :conditions => ["restaurant_answers.restaurant_id = ? AND question_pages.restaurant_feature_page_id = ?", restaurant.id, page.id],
       :select => "distinct chapters.*",
       :order => :position }
   }
@@ -61,49 +70,82 @@ class Chapter < ActiveRecord::Base
     "#{topic.title} - #{title}"
   end
 
-  def previous_for_subject(subject, is_self = false)
+  # Context should be a user, restaurant, or page, to match the named scopes above. is_self means the requestor is the owner.
+  def previous_for_context(context, is_self = false)
     sort_field = (self.position == 0 ? "id" : "position")
-    if is_self
-      self.topic.chapters.for_subject(subject).first(
+    is_self_prefix = is_self ? "answered_" : ""
+    context_name = filter_name(context)
+
+    self.topic.chapters.send("#{is_self_prefix}for_#{context_name}", context).first(
         :conditions => ["chapters.#{sort_field} < ?", self.send(sort_field)],
-        :order => "#{sort_field} DESC")
-    else
-      self.topic.chapters.answered_for_subject(subject).first(
-        :conditions => ["chapters.#{sort_field} < ?", self.send(sort_field)],
-        :order => "#{sort_field} DESC")
+        :order => "chapters.#{sort_field} DESC")
+  end
+
+  def next_for_context(context, is_self = false)
+    sort_field = (self.position == 0 ? "id" : "position")
+    context_name = filter_name(context)
+
+    chapters = is_self ? 
+        self.topic.chapters.send("for_#{context_name}", context) : 
+        self.topic.chapters.send("answered_for_#{context_name}", context)
+
+    chapters.find(:first, :conditions => ["chapters.#{sort_field} > ?", self.send(sort_field)], :order => "chapters.#{sort_field} ASC")
+  end
+
+  def filter_name(context)
+    if context.is_a?(User)
+      "user"
+    elsif context.is_a?(Restaurant)
+      "restaurant"
+    elsif context.is_a?(RestaurantFeaturePage)
+      "page"
     end
   end
 
-  def next_for_subject(subject, is_self = false)
-    sort_field = (self.position == 0 ? "id" : "position")
-    chapters = is_self ? self.topic.chapters.for_subject(subject) : self.topic.chapters.answered_for_subject(subject)
-    chapters.find(:first,
-                  :conditions => ["chapters.#{sort_field} > ?", self.send(sort_field)],
-                  :order => "#{sort_field} ASC")
+  def questions_for_user(user)
+    profile_questions.for_user(user)
   end
 
-  def question_count_for_subject(subject)
-    self.profile_questions.for_subject(subject).count
+  def answered_for_user(user)
+    profile_questions.answered_for_user(user)
   end
 
-  def answer_count_for_subject(subject, secondary_subject = nil)
-    if secondary_subject
-      self.profile_questions.answered_for_page(subject, secondary_subject).count
-    else
-      self.profile_questions.answered_for_subject(subject).count
-    end
-  end
-
-  def completion_percentage(subject, secondary_subject = nil)
-    if question_count_for_subject(subject) > 0
-      ((answer_count_for_subject(subject, secondary_subject).to_f / question_count_for_subject(subject).to_f) * 100).to_i
+  def completion_percentage_for_user(user)
+    if questions_for_user(user).count > 0
+      ((answered_for_user(user).count.to_f / questions_for_user(user).count.to_f) * 100).to_i
     else
       0
     end
   end
 
-  def published?(subject, secondary_subject = nil)
-    completion_percentage(subject, secondary_subject) > 0
+  def published_for_user?(user)
+    answered_for_user(user).count > 0
+  end
+
+  def question_count_for_restaurant(restaurant, page = nil)
+    page.present? ? restaurant_questions.for_page(page).count : restaurant_questions.count
+  end
+
+  def answer_count_for_restaurant(restaurant, page)
+    page.present? ?
+      restaurant_questions.answered_for_page(page, restaurant).count :
+      restaurant_questions.answered_for_restaurant(restaurant).count
+  end
+
+  def completion_percentage_for_restaurant(restaurant, page = nil)
+    if question_count_for_restaurant(restaurant, page) > 0
+      ((answer_count_for_restaurant(restaurant, page).to_f / question_count_for_restaurant(restaurant, page).to_f) * 100).to_i
+    else
+      0
+    end
+  end
+
+  def published_for_user?(user)
+    completion_percentage_for_user(user) > 0
+  end
+
+  def published_for_restaurant?(restaurant, page)
+    completion_percentage_for_restaurant(restaurant, page) > 0
   end
 
 end

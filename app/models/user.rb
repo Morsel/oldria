@@ -85,7 +85,7 @@ class User < ActiveRecord::Base
   has_many :comments, :dependent => :destroy
 
   has_one :profile, :dependent => :destroy
-  has_many :profile_answers, :as => :responder, :dependent => :destroy
+  has_many :profile_answers, :as => :user, :dependent => :destroy
 
   has_one :invitation, :foreign_key => "invitee_id"
   has_subscription
@@ -350,11 +350,11 @@ class User < ActiveRecord::Base
   # Behind the line
 
   def profile_questions
-    self.primary_employment.present? ? ProfileQuestion.for_subject(self) : []
+    self.primary_employment.present? ? ProfileQuestion.for_user(self) : []
   end
 
   def topics
-    self.primary_employment.present? ? Topic.for_subject(self) : []
+    self.primary_employment.present? ? Topic.for_user(self) : []
   end
 
   def published_topics

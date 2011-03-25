@@ -18,10 +18,10 @@
             </p>
         </div>
         <div class="user_comment">
-            <%= render :partial => "#{comment.responder.class.name.underscore.pluralize}/identity", :locals => { :user => comment.responder } if comment.responder %>
+            <%= render :partial => "users/identity", :locals => { :user => comment.user } if comment.user %>
             <div class="user_comment"><%= truncate(comment.answer, :length => 200) %>
                 <% if comment.answer.size > 200 -%>
-                      <%= link_to "more &raquo;", url_for_question(comment.responder, comment.profile_question.chapter.id, comment.profile_question.id) %>
+                      <%= link_to "more &raquo;", url_for_question(comment.user, comment.profile_question.chapter.id, comment.profile_question.id) %>
                 <%- end %>
             </div>
         </div>

@@ -2,7 +2,6 @@ class Admin::RestaurantChaptersController < Admin::AdminController
 
   def index
     @topics = RestaurantTopic.all(:order => :title)
-    # FIXME: couldn't this be written to use the @topics above?
     @chapters_by_topic = Chapter.all(:include => :topic,
                                      :conditions => ["topics.type = ?", 'RestaurantTopic'],
                                      :order => "topics.title ASC, chapters.position ASC").group_by(&:topic)
@@ -40,7 +39,7 @@ class Admin::RestaurantChaptersController < Admin::AdminController
   end
 
   def select
-    chapters = Topic.find(params[:id]).chapters
+    chapters = RestaurantTopic.find(params[:id]).chapters
     render :update do |page|
       page.replace_html 'profile_question_chapter_id',
           '<option value=""></option>' + options_from_collection_for_select(chapters, :id, :title)

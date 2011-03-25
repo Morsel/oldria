@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110324162539) do
+ActiveRecord::Schema.define(:version => 20110324170725) do
 
   create_table "a_la_minute_answers", :force => true do |t|
     t.text     "answer"
@@ -654,8 +654,7 @@ ActiveRecord::Schema.define(:version => 20110324162539) do
     t.text     "answer"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "responder_id"
-    t.string   "responder_type"
+    t.integer  "user_id"
   end
 
   create_table "profile_cuisines", :force => true do |t|
@@ -725,10 +724,9 @@ ActiveRecord::Schema.define(:version => 20110324162539) do
 
   create_table "question_roles", :force => true do |t|
     t.integer  "profile_question_id"
-    t.integer  "responder_id"
+    t.integer  "restaurant_role_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "responder_type"
   end
 
   create_table "readings", :force => true do |t|

@@ -1,4 +1,4 @@
-@profile @btl
+@profile @profilequestions @btl
 Feature: Profile questions
   As an admin,
   I want to create questions that users can answer

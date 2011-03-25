@@ -1,7 +1,7 @@
 <li>
   <% link_to soapbox_question_path(btl_answer.profile_question) do %>
     <% date = btl_answer.created_at %>
-    <% responder = btl_answer.responder %>
+    <% responder = btl_answer.user %>
     
     <time datetime="<%= date.try(:strftime,'%Y-%m-%d') %>"><span><%= date.try(:strftime, "%b").upcase %></span><%= date.try(:strftime, "%e") %></time>
 		
@@ -22,9 +22,9 @@
     	</div>
 			<p class="btl_answer"><%= truncate(btl_answer.answer, :length => 200) %></p>
     	<span class="btl-answer-author">
-    	  by <%= [btl_answer.responder.try(:name),
-    	          btl_answer.responder.primary_employment.try(:restaurant_role).try(:name),
-    	          btl_answer.responder.restaurant_names].reject(&:blank?).join(", ") %>
+    	  by <%= [btl_answer.user.try(:name),
+    	          btl_answer.user.primary_employment.try(:restaurant_role).try(:name),
+    	          btl_answer.user.restaurant_names].reject(&:blank?).join(", ") %>
     	</span>
 		</div>
   <% end %>

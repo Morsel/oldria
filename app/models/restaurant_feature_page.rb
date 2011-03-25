@@ -1,6 +1,6 @@
 class RestaurantFeaturePage < ActiveRecord::Base
   has_many :restaurant_feature_categories
-  has_many :question_roles, :as => :responder, :dependent => :destroy
+  has_many :question_pages, :dependent => :destroy
   has_many :profile_questions, :through => :question_roles
 
   validates_presence_of :name
@@ -14,12 +14,12 @@ class RestaurantFeaturePage < ActiveRecord::Base
 
   # Behind the line
 
-  def profile_questions
-    ProfileQuestion.for_subject(self)
+  def questions
+    RestaurantQuestion.for_page(self)
   end
 
   def topics
-    Topic.for_subject(self) || []
+    RestaurantTopic.for_page(self)
   end
 
   def published_topics(secondary_subject = nil)

@@ -16,32 +16,17 @@ class ProfileQuestion < ActiveRecord::Base
 
   belongs_to :chapter
   has_many :question_roles, :dependent => :destroy
+  has_many :restaurant_roles, :through => :question_roles
   has_many :profile_answers, :dependent => :destroy
 
   validates_presence_of :title, :chapter_id
   validates_uniqueness_of :title, :scope => :chapter_id, :case_sensitive => false
 
-  attr_accessor :responder_type
-
-  named_scope :for_subject, lambda { |subject|
-    if subject.is_a? User
-      { :joins => :question_roles,
-        :conditions => ["question_roles.responder_id = ? AND question_roles.responder_type = ?", 
-          subject.primary_employment.restaurant_role.id, subject.primary_employment.restaurant_role.class.name],
-        :include => :chapter,
-        :order => "chapters.position, profile_questions.position" }
-    elsif subject.is_a? RestaurantFeaturePage
-      { :joins => :question_roles,
-        :conditions => ["question_roles.responder_id = ? AND question_roles.responder_type = ?", 
-          subject.id, subject.class.name],
-        :include => :chapter,
-        :order => "chapters.position, profile_questions.position" }
-    elsif subject.is_a? Restaurant
-      { :joins => { :chapter => :topic },
-        :conditions => ["topics.type = ?", 'RestaurantTopic'],
-        :include => :chapter,
-        :order => "chapters.position, profile_questions.position" }
-    end
+  named_scope :for_user, lambda { |user|
+    { :joins => :question_roles,
+      :include => :chapter,
+      :conditions => ["question_roles.restaurant_role_id = ?", user.primary_employment.restaurant_role.id],
+      :order => "chapters.position, profile_questions.position" }
   }
 
   named_scope :for_chapter, lambda { |chapter_id|
@@ -50,24 +35,22 @@ class ProfileQuestion < ActiveRecord::Base
 
   named_scope :answered, :joins => :profile_answers
 
-  named_scope :answered_by_premium_subjects, lambda {
-    { :joins => "INNER JOIN profile_answers ON profile_answers.profile_question_id = profile_questions.id INNER JOIN subscriptions ON subscriptions.subscriber_id = responder_id AND subscriptions.subscriber_type = responder_type",
-      :conditions => ["subscriptions.id IS NOT NULL AND (subscriptions.end_date IS NULL OR subscriptions.end_date >= ?)",
-          Date.today]}
-  }
-
-  named_scope :answered_for_subject, lambda { |subject|
-    { :joins => :profile_answers, :conditions => ["profile_answers.responder_id = ? AND profile_answers.responder_type = ?", 
-      subject.id, subject.class.name] }
-  }
-
-  named_scope :answered_for_page, lambda { |page, restaurant|
-    { :joins => [:profile_answers, :question_roles],
-      :conditions => ['profile_answers.responder_id = ? AND profile_answers.responder_type = ? AND question_roles.responder_id = ? AND question_roles.responder_type = ?', restaurant.id, restaurant.class.name, page.id, page.class.name] }
+  named_scope :answered_for_user, lambda { |user|
+    {
+      :joins => :profile_answers, 
+      :conditions => ["profile_answers.user_id = ?", user.id] 
+    }
   }
 
   named_scope :answered_for_chapter, lambda { |chapter_id|
     { :joins => [:chapter, :profile_answers], :conditions => ["chapters.id = ?", chapter_id] }
+  }
+
+  named_scope :answered_by_premium_users, lambda {
+    {
+      :joins => { :profile_answers => { :user => :subscription }},
+      :conditions => ["subscriptions.id IS NOT NULL AND (subscriptions.end_date IS NULL OR subscriptions.end_date >= ?)", Date.today]
+    }
   }
 
   named_scope :random, :order => RANDOM_SQL_STRING
@@ -78,46 +61,24 @@ class ProfileQuestion < ActiveRecord::Base
     chapter.topic
   end
 
-  def answered_by?(subject)
-    self.profile_answers.exists?(:responder_id => subject.id, :responder_type => subject.class.name)
+  def answered_by?(user)
+    self.profile_answers.exists?(:user_id => user.id)
   end
 
-  def answer_for(subject)
-    self.profile_answers.select { |a| a.responder == subject }.first
+  def answer_for(user)
+    self.profile_answers.select { |a| a.user == user }.first
   end
 
-  def find_or_build_answer_for(subject, responder = nil)
-    if subject.is_a? RestaurantFeaturePage
-      answer = self.answered_by?(responder) ?
-          self.answer_for(responder) : 
-          self.profile_answers.build(:responder => responder)
-    else
-      answer = self.answered_by?(subject) ?
-          self.answer_for(subject) : 
-          self.profile_answers.build(:responder => subject)
-    end
-  end
-
-  def responders=(responder_ids)
-    responder_ids = responder_ids.select { |id| id.present? }
-    responders = if responder_type == 'restaurant'
-      RestaurantFeaturePage.find(responder_ids.compact)
-    else
-      RestaurantRole.find(responder_ids.compact)
-    end
-    self.question_roles = responders.collect do |responder|
-      self.question_roles.build(:responder => responder)
-    end
-  end
-
-  def responders
-    self.question_roles.collect(&:responder).collect(&:id)
+  def find_or_build_answer_for(user)
+    answer = self.answered_by?(user) ?
+      self.answer_for(user) : 
+      self.profile_answers.build(:user => user)
   end
 
   protected
 
   def update_roles_description
-    self.roles_description = self.question_roles.collect(&:responder).map(&:name).to_sentence
+    self.roles_description = self.question_roles.map(&:restaurant_role).map(&:name).to_sentence
   end
 
 end

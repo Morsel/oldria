@@ -41,4 +41,12 @@ module RestaurantsHelper
     end
   end
 
+  def restaurant_topics(restaurant, page)
+    if can?(:manage, restaurant)
+      page.present? ? page.topics : restaurant.topics
+    else
+      page.present? ? page.published_topics : restaurant.topics
+    end
+  end
+
 end

@@ -137,15 +137,15 @@ module NavigationHelpers
       new_admin_event_path
 
     when /^the new profile question page$/
-      new_admin_profile_question_path(:responder_type => 'user')
+      new_admin_profile_question_path
     when /^the admin profile questions page$/
-      admin_profile_questions_path(:responder_type => 'user')
+      admin_profile_questions_path
     when /^the chapters page$/
-      admin_chapters_path(:responder_type => 'user')
+      admin_chapters_path
     when /^the new topic page$/
-      new_admin_topic_path(:responder_type => 'user')
+      new_admin_topic_path
     when /^the topics page$/
-      admin_topics_path(:responder_type => 'user')
+      admin_topics_path
 
     when /^the new restaurant question page$/
       new_admin_restaurant_question_path
