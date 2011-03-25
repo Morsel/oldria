@@ -51,8 +51,8 @@ class RestaurantQuestionsController < ApplicationController
   def chapters
     @topic = Topic.find(params[:topic_id])
     is_self = can? :manage, @restaurant
-    @previous = @topic.previous_for_context(@subject, is_self)
-    @next = @topic.next_for_context(@subject, is_self)
+    @previous = @topic.previous_for_context(@restaurant, @page, is_self)
+    @next = @topic.next_for_context(@restaurant, @page, is_self)
 
     @questions_by_chapter = @subject.questions(:conditions => { :chapter_id => @topic.chapters.map(&:id) },
                                                                 :joins => :chapter,

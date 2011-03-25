@@ -44,7 +44,8 @@ class RestaurantQuestion < ActiveRecord::Base
 
   named_scope :answered_for_page, lambda { |page, restaurant|
     { :joins => [:restaurant_answers, :question_pages],
-      :conditions => ['restaurant_answers.restaurant_id = ? AND question_pages.page_id = ?', restaurant.id, page.id]
+      :conditions => ['restaurant_answers.restaurant_id = ? AND question_pages.restaurant_feature_page_id = ?',
+        restaurant.id, page.id]
     }
   }
 

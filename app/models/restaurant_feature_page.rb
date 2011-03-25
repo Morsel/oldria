@@ -14,8 +14,8 @@ class RestaurantFeaturePage < ActiveRecord::Base
 
   # Behind the line
 
-  def questions
-    RestaurantQuestion.for_page(self)
+  def questions(opts = {})
+    RestaurantQuestion.for_page(self).all(opts)
   end
 
   def topics

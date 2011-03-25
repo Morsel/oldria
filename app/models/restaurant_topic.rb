@@ -36,24 +36,42 @@ class RestaurantTopic < Topic
       :order => :position }
   }
 
-  def previous_for_context(context, is_self = false)
+  named_scope :answered_for_page, lambda { |page, restaurant|
+    { :joins => { :restaurant_questions => [:restaurant_answers, :question_pages] },
+      :conditions => ["restaurant_answers.restaurant_id = ? AND question_pages.restaurant_feature_page_id = ?",
+        restaurant.id, page.id],
+      :select => "distinct topics.*",
+      :order => :position }
+  }
+
+  def previous_for_context(restaurant, page, is_self = false)
     sort_field = (self.position == 0 ? "id" : "position")
-    context_name = filter_name(context)
     is_self_prefix = is_self ? "answered_" : ""
 
-    RestaurantTopic.send("#{is_self_prefix}for_#{context_name}", context).first(
-      :conditions => ["topics.#{sort_field} < ?", self.send(sort_field)],
-      :order => "#{sort_field} DESC")
+    if page.present?
+      RestaurantTopic.send("#{is_self_prefix}for_page", page, restaurant).first(
+        :conditions => ["topics.#{sort_field} < ?", self.send(sort_field)],
+        :order => "#{sort_field} DESC")
+    else
+      RestaurantTopic.send("#{is_self_prefix}for_restaurant", restaurant).first(
+        :conditions => ["topics.#{sort_field} < ?", self.send(sort_field)],
+        :order => "#{sort_field} DESC")
+    end
   end
 
-  def next_for_context(context, is_self = false)
+  def next_for_context(restaurant, page, is_self = false)
     sort_field = (self.position == 0 ? "id" : "position")
-    context_name = filter_name(context)
     is_self_prefix = is_self ? "answered_" : ""
 
-    RestaurantTopic.send("#{is_self_prefix}for_#{context_name}", context).first(
+    if page.present?
+      RestaurantTopic.send("#{is_self_prefix}for_page", page, restaurant).first(
         :conditions => ["topics.#{sort_field} > ?", self.send(sort_field)],
         :order => "#{sort_field} ASC")
+    else
+      RestaurantTopic.send("#{is_self_prefix}for_restaurant", restaurant).first(
+        :conditions => ["topics.#{sort_field} > ?", self.send(sort_field)],
+        :order => "#{sort_field} ASC")
+    end
   end
 
   def question_count_for_restaurant(restaurant, page = nil)
@@ -76,14 +94,6 @@ class RestaurantTopic < Topic
   
   def published?(restaurant, page = nil)
     completion_percentage(restaurant, page) > 0
-  end
-  
-  def filter_name(context)
-    if context.is_a?(Restaurant)
-      "restaurant"
-    elsif context.is_a?(RestaurantFeaturePage)
-      "page"
-    end
   end
 
 end
