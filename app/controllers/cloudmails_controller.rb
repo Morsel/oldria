@@ -13,7 +13,7 @@ class CloudmailsController < ApplicationController
     # use this if you need to debug
     Rails.logger.info %Q{
     #{'*'*72}
-     Receiving email message
+     Receiving email message with disposable : #{params[:disposable]}
      #{'*'*72}
      #{params[:plain]}
      #{'*'*72}
