@@ -14,6 +14,9 @@ ActionController::Routing::Routes.draw do |map|
   map.directory 'directory', :controller => 'directory', :action => 'index'
   map.restaurant_directory 'directory/restaurants', :controller => 'directory', :action => 'restaurants'
 
+  # the callback for cloudmailin
+  map.resource :cloudmail, :only => :create 
+
   map.namespace(:soapbox) do |soapbox|
     soapbox.resources :restaurants, :only => ['show'] do |restaurants|
       restaurants.resources :feature_pages, :only => ['show'] do |pages|
@@ -289,7 +292,7 @@ ActionController::Routing::Routes.draw do |map|
   map.soapbox_page 'soapbox/:id', :controller => 'soapbox_pages', :action => 'show'
   map.hq_page 'hq/:id', :controller => 'hq_pages', :action => 'show'
   map.mediafeed_page 'mediafeed/:id', :controller => 'mediafeed_pages', :action => 'show'
-
+  
   # Default Routes
   map.connect ':controller/:action/:id'
   map.connect ':controller/:action/:id.:format'

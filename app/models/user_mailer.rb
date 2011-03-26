@@ -92,6 +92,16 @@ class UserMailer < ActionMailer::Base
   end
 
   ##
+  # Generic message which can be 'answered': could be one of QOTD, etc.
+  def answerable_message_notification(message, recipient)
+    from        '2d24f220c2adec0bbeb5+'+recipient.cloudmail_id(message)+'@cloudmailin.net'
+    recipients  recipient.email
+    sent_on     Time.now
+    subject     "SpoonFeed: #{message.email_title} notification"
+    body        :message => message, :recipient => recipient
+  end
+
+  ##
   # Comment on a generic message: could be one of DirectMessage, etc.
   def message_comment_notification(message, recipient, commenter = nil)
     from        'notifications@restaurantintelligenceagency.com'

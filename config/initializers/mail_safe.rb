@@ -17,6 +17,7 @@ if defined?(MailSafe::Config)
     address =~ /.*@restaurantintelligenceagency\.com/i ||
     address =~ /.*@elevatedrails\.com/i ||
     address =~ /nicole\.schnitzler.*@gmail\.com/
+    address =~ /craigulliott.*@gmail\.com/
   }
 
 # everything else is going to be sent to this address

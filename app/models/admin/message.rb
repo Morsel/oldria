@@ -96,4 +96,9 @@ class Admin::Message < ActiveRecord::Base
   def attachments_allowed?
     false
   end
+  
+  def mailer_method
+    'message_notification'  
+  end
+  
 end

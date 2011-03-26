@@ -38,7 +38,11 @@ class Admin::Conversation < ActiveRecord::Base
   def email_title
     inbox_title
   end
-
+  
+  def email_body
+    admin_message.message
+  end
+  
   def message
     admin_message.message
   end
@@ -72,7 +76,8 @@ class Admin::Conversation < ActiveRecord::Base
   # Should only be called from the notify_recipients queued action
   def queued_message_sending
     if recipient.prefers_receive_email_notifications
-      UserMailer.deliver_message_notification(self, recipient)
+      # we send some messgaes to the different mailer
+      UserMailer.send("deliver_#{admin_message.mailer_method}", self, recipient)
     end
   end
 

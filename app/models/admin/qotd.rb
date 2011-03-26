@@ -41,4 +41,9 @@ class Admin::Qotd < Admin::Message
   def soapbox_comment_count
     admin_conversations.with_replies.map(&:comments).flatten.select { |c| c.show_on_soapbox? }.size
   end
+  
+  def mailer_method
+    'answerable_message_notification'  
+  end
+  
 end
