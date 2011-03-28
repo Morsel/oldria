@@ -8,7 +8,7 @@
     title: $('title').text().replace('Spoonfeed','Soapbox')
   }
 <% end %>
-<h1 id="btl-title" class="btl"><%= link_to "<span class=\"btl-art\">Behind the Line:</span> <span class=\"name\">#{btl_title_for(@subject)}</span>", find_btl_url_for(@subject) %></h1>
+<h1 id="btl-title" class="btl"><%= link_to "<span class=\"btl-art\">Behind the Line:</span> <span class=\"name\">#{restaurant_btl_title(@restaurant, @page)}</span>", find_btl_url_for(@subject) %></h1>
 
 <h2 id="topic_title">Topic: <%= @chapter.topic.title %></h2>
 <%= render :partial => 'restaurant_questions/topic_nav',
@@ -36,7 +36,7 @@
     <% @questions.each do |question| %>
       <% div_for question do %>
           <h4>Q: <%= question.title %></h4>
-          <%= render :partial => "restaurant_answers/form", :locals => { :answer => find_answer_for(question, @subject) } %>
+          <%= render :partial => "restaurant_answers/form", :locals => { :answer => question.find_or_build_answer_for(@restaurant) } %>
       <% end %>
     <% end %>
   <% end %><%# end form %>
@@ -53,7 +53,7 @@
   <% for question in @questions -%>
     <% div_for question do %>
       <h4><span class="letter-q">Q:</span> <%= link_to question.title, link_for_question(question) %></h4>
-      <% if answer = answer_for(@subject, question) %>
+      <% if answer = question.answer_for(@restaurant) %>
         <p><%= answer.answer %></p>
         <span class="timestamp">Last updated: <%= answer.try(:updated_at).try(:strftime, "%b %e %Y") %></span>
       <% else %>

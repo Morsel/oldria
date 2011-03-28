@@ -8,7 +8,7 @@
   <% end %>
   <ul class="box">
     <% reset_cycle('default') -%>
-    <% topics_for(user).each do |topic| %>
+    <% user_topics(user).each do |topic| %>
       <li class="<%= cycle("even", "odd") %>">
         <% link_to link_for_user_chapters(:user_id => user.id, :topic_id => topic.id) do %>
           <h5><%= topic.title %> <span class="completeness">(<%= topic.completion_percentage(user) %>% complete)</span></h5>

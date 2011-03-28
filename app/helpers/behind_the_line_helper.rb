@@ -1,12 +1,5 @@
 module BehindTheLineHelper
 
-  def find_answer_for(question, subject)
-    if subject.is_a? RestaurantFeaturePage
-      subject = Restaurant.find(params[:restaurant_id])
-    end
-    question.find_or_build_answer_for(subject)
-  end
-
   def link_for_chapter(options = {})
     subject = options.delete(:subject)
     options = options_for_subject(subject, options)
@@ -74,32 +67,6 @@ module BehindTheLineHelper
     else
       send("#{path_model_name}_profile_answer_path", options)
     end
-  end
-
-  def answer_for(subject, question)
-    subject.is_a?(RestaurantFeaturePage) ?
-      question.answer_for(Restaurant.find(params[:restaurant_id])) :
-      question.answer_for(subject)
-  end
-
-  def completion_percentage_for(subject, obj)
-    secondary_subject = subject.is_a?(RestaurantFeaturePage) ? Restaurant.find(params[:restaurant_id]) : nil
-    obj.completion_percentage(subject, secondary_subject)
-  end
-
-  def answer_count_for(subject, obj)
-    secondary_subject = subject.is_a?(RestaurantFeaturePage) ? Restaurant.find(params[:restaurant_id]) : nil
-    obj.answer_count_for_subject(subject, secondary_subject)
-  end
-
-  def question_count_for(subject, obj)
-    secondary_subject = subject.is_a?(RestaurantFeaturePage) ? Restaurant.find(params[:restaurant_id]) : nil
-    obj.question_count_for_subject(subject)
-  end
-
-  def published_for(subject, obj)
-    secondary_subject = subject.is_a?(RestaurantFeaturePage) ? Restaurant.find(params[:restaurant_id]) : nil
-    obj.published?(subject, secondary_subject)
   end
 
   private

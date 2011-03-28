@@ -27,7 +27,7 @@ class Topic < ActiveRecord::Base
 
   named_scope :for_user, lambda { |user|
     { :joins => { :chapters => { :profile_questions => :question_roles }},
-      :conditions => ["question_roles.restaurant_role_id = ?", user.primary_employment.restaurant_role.id],
+      :conditions => ["question_roles.restaurant_role_id = ? AND topics.type IS NULL", user.primary_employment.restaurant_role.id],
       :select => "distinct topics.*",
       :order => :position }
   }
@@ -45,7 +45,7 @@ class Topic < ActiveRecord::Base
       Topic.for_user(user).first(:conditions => ["topics.#{sort_field} < ?", self.send(sort_field)],
                                  :order => "#{sort_field} DESC")
     else
-      Topic.answered_for_user(subject).first(:conditions => ["topics.#{sort_field} < ?", self.send(sort_field)],
+      Topic.answered_for_user(user).first(:conditions => ["topics.#{sort_field} < ?", self.send(sort_field)],
                                           :order => "#{sort_field} DESC")
     end
   end

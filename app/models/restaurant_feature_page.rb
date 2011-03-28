@@ -22,8 +22,8 @@ class RestaurantFeaturePage < ActiveRecord::Base
     RestaurantTopic.for_page(self)
   end
 
-  def published_topics(secondary_subject = nil)
-    topics.select { |t| t.published?(self, secondary_subject) }
+  def published_topics(restaurant = nil)
+    topics.select { |t| t.published?(self, restaurant) }
   end
 
 end

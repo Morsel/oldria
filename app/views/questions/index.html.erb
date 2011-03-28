@@ -29,11 +29,11 @@
   </div>
 
 <% if can?(:manage, @user) && !soapbox? %><%# let's edit these answers %>
-  <% form_tag link_for_profile_answers(:subject => @user) do %>
+  <% form_tag user_profile_answers_path(:user_id => @user.id) do %>
     <% @questions.each do |question| %>
       <% div_for question do %>
           <h4>Q: <%= question.title %></h4>
-          <%= render :partial => "profile_answers/form", :locals => { :answer => find_answer_for(question, @user) } %>
+          <%= render :partial => "profile_answers/form", :locals => { :answer => question.find_or_build_answer_for(@user) } %>
       <% end %>
     <% end %>
   <% end %><%# end form %>
@@ -50,7 +50,7 @@
   <% for question in @questions -%>
     <% div_for question do %>
       <h4><span class="letter-q">Q:</span> <%= link_to question.title, link_for_question(question) %></h4>
-      <% if answer = answer_for(@user, question) %>
+      <% if answer = question.answer_for(@user) %>
         <p><%= answer.answer %></p>
         <span class="timestamp">Last updated: <%= answer.try(:updated_at).try(:strftime, "%b %e %Y") %></span>
       <% else %>

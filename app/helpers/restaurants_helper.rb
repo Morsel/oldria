@@ -41,11 +41,11 @@ module RestaurantsHelper
     end
   end
 
-  def restaurant_topics(restaurant, page)
+  def restaurant_topics(restaurant, page = nil)
     if can?(:manage, restaurant)
       page.present? ? page.topics : restaurant.topics
     else
-      page.present? ? page.published_topics : restaurant.topics
+      page.present? ? page.published_topics : restaurant.published_topics
     end
   end
 

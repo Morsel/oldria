@@ -2,7 +2,7 @@
 
 <%= render :partial => 'shared/add_this', :locals => {:responder => responder = @restaurant || @subject} %>
 
-<h1 id="btl-title" class="btl"><%= link_to "<span class=\"btl-art\">Behind the Line:</span> <span class=\"name\">#{btl_title_for(@subject)}</span>", find_btl_url_for(@subject) %></h1>
+<h1 id="btl-title" class="btl"><%= link_to "<span class=\"btl-art\">Behind the Line:</span> <span class=\"name\">#{restaurant_btl_title(@restaurant, @page)}</span>", find_btl_url_for(@subject) %></h1>
 
 <h2 id="topic_title">Topic: <%= @topic.title %></h2>
 <% javascript_tag do %>
