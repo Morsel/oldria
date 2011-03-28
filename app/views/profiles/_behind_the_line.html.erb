@@ -1,7 +1,7 @@
 <div id="behindline" class="recent_actions">
 
-  <h3 id="btl-title"><span class="btl-art">Behind the Line:</span> <%= user.username %></h3>
-  <% if can?(:manage, user) && !params[:controller].match(/soapbox/) %>
+  <h3 id="btl-title"><span class="btl-art">Behind the Line:</span> <%= user.name %></h3>
+  <% if can?(:manage, user) && !soapbox? %>
     <div class="edit_profile_link">
       <%= link_to "<span>Answer more questions!</span>", topics_user_questions_path(:user_id => user.id) %>
     </div>
