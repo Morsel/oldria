@@ -19,7 +19,8 @@ ActionController::Routing::Routes.draw do |map|
       restaurants.resources :feature_pages, :only => ['show'] do |pages|
         pages.resources :questions, :collection => { :topics => :get, :chapters => :get, :refresh => :post }
       end
-      restaurants.resources :questions, :collection => { :topics => :get, :chapters => :get, :refresh => :post }
+      restaurants.resources :questions, :collection => { :topics => :get, :chapters => :get, :refresh => :post }, 
+        :controller => "restaurant_questions"
       restaurants.resources :photos, :only => ['show', 'index']
       restaurants.resources :accolades, :only => ['index']
     end
