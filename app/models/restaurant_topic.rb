@@ -48,8 +48,12 @@ class RestaurantTopic < Topic
     sort_field = (self.position == 0 ? "id" : "position")
     is_self_prefix = is_self ? "answered_" : ""
 
-    if page.present?
-      RestaurantTopic.send("#{is_self_prefix}for_page", page, restaurant).first(
+    if page.present? && is_self
+      RestaurantTopic.send("for_page", page).first(
+        :conditions => ["topics.#{sort_field} > ?", self.send(sort_field)],
+        :order => "#{sort_field} ASC")
+    elsif page.present?
+      RestaurantTopic.send("answered_for_page", page, restaurant).first(
         :conditions => ["topics.#{sort_field} < ?", self.send(sort_field)],
         :order => "#{sort_field} DESC")
     else
@@ -63,8 +67,12 @@ class RestaurantTopic < Topic
     sort_field = (self.position == 0 ? "id" : "position")
     is_self_prefix = is_self ? "answered_" : ""
 
-    if page.present?
-      RestaurantTopic.send("#{is_self_prefix}for_page", page, restaurant).first(
+    if page.present? && is_self
+      RestaurantTopic.send("for_page", page).first(
+        :conditions => ["topics.#{sort_field} > ?", self.send(sort_field)],
+        :order => "#{sort_field} ASC")
+    elsif page.present?
+      RestaurantTopic.send("answered_for_page", page, restaurant).first(
         :conditions => ["topics.#{sort_field} > ?", self.send(sort_field)],
         :order => "#{sort_field} ASC")
     else

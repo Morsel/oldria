@@ -1,4 +1,4 @@
-@restaurant @btl
+@restaurant @btl @restaurantquestions
 Feature: Restaurant Profile - Behind the Line (aka Q&A)
   SF restaurant managers should be able to answer questions specific to their restaurant
   These questions will be organized into a series of topics and chapters
@@ -41,4 +41,3 @@ Feature: Restaurant Profile - Behind the Line (aka Q&A)
     And I fill in the restaurant question titled "What restaurants inspired you to open?" with answer "A great answer for this"
     And I press "Post"
     Then I should see "Your answers have been saved"
-

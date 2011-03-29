@@ -27,11 +27,11 @@ class RestaurantQuestionsController < ApplicationController
     @subject = @page || @restaurant
 
     if can? :manage, @restaurant
-      @topics = @page.present? ? RestaurantTopic.for_page(@subject) : RestaurantTopic.for_restaurant(@subject)
+      @topics = @page.present? ? RestaurantTopic.for_page(@page) : RestaurantTopic.for_restaurant(@restaurant)
       chapters = @topics.collect do |topic|
         @page.present? ?
-            topic.chapters.for_page(@subject).all(:limit => 3) :
-            topic.chapters.for_restaurant(@subject).all(:limit => 3)
+            topic.chapters.for_page(@page).all(:limit => 3) :
+            topic.chapters.for_restaurant(@restaurant).all(:limit => 3)
       end
       @chapters_by_topic = chapters.flatten.group_by(&:topic)
     else
