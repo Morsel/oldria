@@ -16,7 +16,7 @@ if defined?(MailSafe::Config)
     address =~ /.*@neotericdesign\.com/i ||
     address =~ /.*@restaurantintelligenceagency\.com/i ||
     address =~ /.*@elevatedrails\.com/i ||
-    address =~ /nicole\.schnitzler.*@gmail\.com/
+    address =~ /nicole\.schnitzler.*@gmail\.com/ ||
     address =~ /craigulliott.*@gmail\.com/
   }
 
