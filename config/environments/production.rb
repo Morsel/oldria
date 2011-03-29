@@ -33,4 +33,6 @@ Braintree::Configuration.merchant_id = "3fb27hjyr2pj4mkh"
 Braintree::Configuration.public_key = "8prvwthxmkmtcpt7"
 Braintree::Configuration.private_key = "2xkncs7ptjyytgqd"
 
+CLOUDMAIL_ID = '2d24f220c2adec0bbeb5'
+
 config.action_mailer.delivery_method = :emailthing
