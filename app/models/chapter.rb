@@ -27,43 +27,43 @@ class Chapter < ActiveRecord::Base
   named_scope :for_user, lambda { |user|
     { :joins => { :profile_questions => :question_roles },
       :conditions => ["question_roles.restaurant_role_id = ?", user.primary_employment.restaurant_role.id],
-      :select => "distinct chapters.*",
-      :order => :position }
+      :group => "chapters.id",
+      :order => "chapters.position" }
   }
 
   named_scope :for_restaurant, lambda { |restaurant|
     { :joins => :topic,
       :conditions => ["topics.type = 'RestaurantTopic'"],
-      :select => "distinct chapters.*",
-      :order => :position }
+      :group => "chapters.id",
+      :order => "chapters.position" }
   }
 
   named_scope :for_page, lambda { |page|
     { :joins => { :restaurant_questions => :question_pages },
       :conditions => ["question_pages.restaurant_feature_page_id = ?", page.id],
-      :select => "distinct chapters.*",
-      :order => :position }
+      :group => "chapters.id",
+      :order => "chapters.position" }
   }
 
   named_scope :answered_for_user, lambda { |user|
     { :joins => { :profile_questions => :profile_answers },
       :conditions => ["profile_answers.user_id = ?", user.id],
-      :select => "distinct chapters.*",
-      :order => :position }
+      :group => "chapters.id",
+      :order => "chapters.position" }
   }
 
   named_scope :answered_for_restaurant, lambda { |restaurant|
     { :joins => { :restaurant_questions => :restaurant_answers },
       :conditions => ["restaurant_answers.restaurant_id = ?", restaurant.id],
-      :select => "distinct chapters.*",
-      :order => :position }
+      :group => "chapters.id",
+      :order => "chapters.position" }
   }
 
   named_scope :answered_for_page, lambda { |page, restaurant|
     { :joins => { :restaurant_questions => [:restaurant_answers, :question_pages] },
       :conditions => ["restaurant_answers.restaurant_id = ? AND question_pages.restaurant_feature_page_id = ?", restaurant.id, page.id],
-      :select => "distinct chapters.*",
-      :order => :position }
+      :group => "chapters.id",
+      :order => "chapters.position" }
   }
 
   def title_with_topic

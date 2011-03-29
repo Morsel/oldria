@@ -45,8 +45,7 @@ class QuestionsController < ApplicationController
     @previous = @topic.previous_for_user(@user, is_self)
     @next = @topic.next_for_user(@user, is_self)
 
-    @questions_by_chapter = @user.profile_questions.all(:conditions => { :chapter_id => @topic.chapters.map(&:id) }, 
-                                                                            :joins => :chapter,
+    @questions_by_chapter = @user.profile_questions.for_chapter(@topic.chapters.map(&:id)).all(:include => :chapter,
                                                                             :order => "chapters.position, chapters.id").
                                                                             group_by(&:chapter)
   end

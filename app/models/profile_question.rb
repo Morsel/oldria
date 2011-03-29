@@ -36,10 +36,9 @@ class ProfileQuestion < ActiveRecord::Base
   named_scope :answered, :joins => :profile_answers
 
   named_scope :answered_for_user, lambda { |user|
-    {
-      :joins => :profile_answers, 
-      :conditions => ["profile_answers.user_id = ?", user.id] 
-    }
+    { :joins => :profile_answers,
+      :conditions => ["profile_answers.user_id = ?", user.id],
+      :order => "chapters.position, profile_questions.position" }
   }
 
   named_scope :answered_for_chapter, lambda { |chapter_id|
@@ -47,10 +46,9 @@ class ProfileQuestion < ActiveRecord::Base
   }
 
   named_scope :answered_by_premium_users, lambda {
-    {
-      :joins => { :profile_answers => { :user => :subscription }},
-      :conditions => ["subscriptions.id IS NOT NULL AND (subscriptions.end_date IS NULL OR subscriptions.end_date >= ?)", Date.today]
-    }
+    { :joins => { :profile_answers => { :user => :subscription }},
+      :conditions => ["subscriptions.id IS NOT NULL AND (subscriptions.end_date IS NULL OR subscriptions.end_date >= ?)",
+          Date.today] }
   }
 
   named_scope :random, :order => RANDOM_SQL_STRING
