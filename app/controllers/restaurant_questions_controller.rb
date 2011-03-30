@@ -55,7 +55,7 @@ class RestaurantQuestionsController < ApplicationController
     @next = @topic.next_for_context(@restaurant, @page, is_self)
 
     @questions_by_chapter = @subject.questions(:conditions => { :chapter_id => @topic.chapters.map(&:id) },
-                                                                :joins => :chapter,
+                                                                :include => :chapter,
                                                                 :order => "chapters.position, chapters.id").
                                                                 group_by(&:chapter)
   end

@@ -70,35 +70,52 @@ class Chapter < ActiveRecord::Base
     "#{topic.title} - #{title}"
   end
 
-  # Context should be a user, restaurant, or page, to match the named scopes above. is_self means the requestor is the owner.
-  def previous_for_context(context, is_self = false)
+  # is_self means the requestor is the user
+  def previous_for_user(user, is_self = false)
     sort_field = (self.position == 0 ? "id" : "position")
     is_self_prefix = is_self ? "answered_" : ""
-    context_name = filter_name(context)
 
-    self.topic.chapters.send("#{is_self_prefix}for_#{context_name}", context).first(
+    self.topic.chapters.send("#{is_self_prefix}for_user", user).first(
         :conditions => ["chapters.#{sort_field} < ?", self.send(sort_field)],
         :order => "chapters.#{sort_field} DESC")
   end
 
-  def next_for_context(context, is_self = false)
+  def next_for_user(user, is_self = false)
     sort_field = (self.position == 0 ? "id" : "position")
-    context_name = filter_name(context)
+    is_self_prefix = is_self ? "answered_" : ""
 
-    chapters = is_self ? 
-        self.topic.chapters.send("for_#{context_name}", context) : 
-        self.topic.chapters.send("answered_for_#{context_name}", context)
-
-    chapters.find(:first, :conditions => ["chapters.#{sort_field} > ?", self.send(sort_field)], :order => "chapters.#{sort_field} ASC")
+    self.topic.chapters.send("#{is_self_prefix}for_user", user).first(
+        :conditions => ["chapters.#{sort_field} > ?", self.send(sort_field)], 
+        :order => "chapters.#{sort_field} ASC")
   end
 
-  def filter_name(context)
-    if context.is_a?(User)
-      "user"
-    elsif context.is_a?(Restaurant)
-      "restaurant"
-    elsif context.is_a?(RestaurantFeaturePage)
-      "page"
+  def previous_for_context(restaurant, page, is_self = false)
+    sort_field = (self.position == 0 ? "id" : "position")
+    opts = { :conditions => ["chapters.#{sort_field} < ?", self.send(sort_field)],
+             :order => "chapters.#{sort_field} DESC" }
+
+    if page.present? && is_self
+      self.topic.chapters.for_page(page).first(opts)
+    elsif page.present?
+      self.topic.chapters.answered_for_page(page, restaurant).first(opts)
+    else
+      is_self_prefix = is_self ? "answered_" : ""
+      self.topic.chapters.send("#{is_self_prefix}for_restaurant", restaurant).first(opts)
+    end
+  end
+
+  def next_for_context(restaurant, page, is_self = false)
+    sort_field = (self.position == 0 ? "id" : "position")
+    opts = { :conditions => ["chapters.#{sort_field} > ?", self.send(sort_field)], 
+             :order => "chapters.#{sort_field} ASC" }
+
+    if page.present? && is_self
+      self.topic.chapters.for_page(page).first(opts)
+    elsif page.present?
+      self.topic.chapters.answered_for_page(page, restaurant).first(opts)
+    else
+      is_self_prefix = is_self ? "answered_" : ""
+      self.topic.chapters.send("#{is_self_prefix}for_restaurant", restaurant).first(opts)
     end
   end
 
@@ -145,7 +162,7 @@ class Chapter < ActiveRecord::Base
   end
 
   def published_for_restaurant?(restaurant, page)
-    completion_percentage_for_restaurant(restaurant, page) > 0
+    answer_count_for_restaurant(restaurant, page) > 0
   end
 
 end

@@ -8,8 +8,8 @@ class QuestionsController < ApplicationController
     @chapter = Chapter.find(params[:chapter_id])
 
     is_self = can? :manage, @user
-    @previous = @chapter.previous_for_context(@user, is_self)
-    @next = @chapter.next_for_context(@user, is_self)
+    @previous = @chapter.previous_for_user(@user, is_self)
+    @next = @chapter.next_for_user(@user, is_self)
     @previous_topic = @chapter.topic.previous_for_user(@user, is_self)
     @next_topic = @chapter.topic.next_for_user(@user, is_self)
 

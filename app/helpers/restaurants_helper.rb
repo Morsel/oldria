@@ -41,11 +41,19 @@ module RestaurantsHelper
     end
   end
 
+  def link_for_restaurant_questions(opts = {})
+    if soapbox?
+      soapbox_restaurant_questions_path(opts)
+    else
+      restaurant_questions_path(opts)
+    end
+  end
+
   def restaurant_topics(restaurant, page = nil)
     if can?(:manage, restaurant)
       page.present? ? page.topics : restaurant.topics
     else
-      page.present? ? page.published_topics : restaurant.published_topics
+      page.present? ? page.published_topics(restaurant) : restaurant.published_topics
     end
   end
 
