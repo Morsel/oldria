@@ -25,7 +25,7 @@
         <% end -%>
         <% if @previous.present? -%>
           <%= link_to "Prev: #{truncate(@previous.title, :length => 20, :omission => '&hellip;')}",
-              link_for_questions(:subject => @subject, :chapter_id => @previous), :class => 'prev' %>
+              link_for_restaurant_questions(:restaurant_id => @restaurant.id, :chapter_id => @previous.id, :page_id => @page.try(:id)), :class => 'prev' %>
         <% end -%>
       </nav>
     <% end -%>
