@@ -26,12 +26,14 @@ class ProfileQuestion < ActiveRecord::Base
   named_scope :for_subject, lambda { |subject|
     if subject.is_a? User
       { :joins => :question_roles,
-        :conditions => ["question_roles.responder_id = ? AND question_roles.responder_type = ?", subject.primary_employment.restaurant_role.id, subject.primary_employment.restaurant_role.class.name],
+        :conditions => ["question_roles.responder_id = ? AND question_roles.responder_type = ?", 
+          subject.primary_employment.restaurant_role.id, subject.primary_employment.restaurant_role.class.name],
         :include => :chapter,
         :order => "chapters.position, profile_questions.position" }
     elsif subject.is_a? RestaurantFeaturePage
       { :joins => :question_roles,
-        :conditions => ["question_roles.responder_id = ? AND question_roles.responder_type = ?", subject.id, subject.class.name],
+        :conditions => ["question_roles.responder_id = ? AND question_roles.responder_type = ?", 
+          subject.id, subject.class.name],
         :include => :chapter,
         :order => "chapters.position, profile_questions.position" }
     elsif subject.is_a? Restaurant
@@ -55,7 +57,8 @@ class ProfileQuestion < ActiveRecord::Base
   }
 
   named_scope :answered_for_subject, lambda { |subject|
-    { :joins => :profile_answers, :conditions => ["profile_answers.responder_id = ? AND profile_answers.responder_type = ?", subject.id, subject.class.name] }
+    { :joins => :profile_answers, :conditions => ["profile_answers.responder_id = ? AND profile_answers.responder_type = ?", 
+      subject.id, subject.class.name] }
   }
 
   named_scope :answered_for_page, lambda { |page, restaurant|

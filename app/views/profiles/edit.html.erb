@@ -113,12 +113,13 @@
           <% if @user.premium_account? %> 
             <% f.inputs :name => "Public Profile View", :for => :user do |user_form| %>
               <%= user_form.input :prefers_publish_profile, :as => :boolean, :label => 'Display my profile on Soapbox' %>
-      				<% button_tag :class => 'positive' do %>Save changes to public profile view<% end %>
+      		  <% button_tag :class => 'positive' do %>Save changes to public profile view<% end %>
             <% end %>
           <% else %>
             <fieldset class="inputs">
               <legend><span>Public Profile View</span></legend>
-              <p>To show your profile on Soapbox, upgrade to a Premium Account <%= link_to "here", new_user_subscription_path(current_user) %>.</p>
+              <p>To show your profile on Soapbox, upgrade to a Premium Account
+              <%= link_to "here", new_user_subscription_path(current_user) %>.</p>
             </fieldset>
           <% end %>
 
@@ -246,12 +247,15 @@
           :caption => "Accolades",
           :form_path => new_user_profile_accolade_path(:user_id => @user.id)} %>
 
-      <%= render :partial => 'profiles/extended_profile_section', :locals => {
-          :association => "culinary_schools",
-          :caption => "Education (Culinary)",
-          :form_path => new_user_profile_enrollment_path(:user_id => @user.id)} %>
-
       <% reset_cycle('default') -%>
+      <div class="enrollments culinary_schools clear ajaxdelete">
+          <h2>Education (Culinary)</h2>
+          <ul id="enrollments">
+              <%= render @profile.enrollments %>
+          </ul>
+          <%= link_to "add another", new_user_profile_enrollment_path(:user_id => @user.id), :class => 'add_extended colorbox'%>
+      </div>
+
       <div class="nonculinary_enrollments nonculinary_schools clear ajaxdelete">
           <h2>Education (Other)</h2>
           <ul id="nonculinary_enrollments">

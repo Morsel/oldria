@@ -26,7 +26,8 @@ class Topic < ActiveRecord::Base
   named_scope :for_subject, lambda { |subject|
     if subject.is_a? User
       { :joins => { :chapters => { :profile_questions => :question_roles }},
-        :conditions => ["question_roles.responder_id = ? AND question_roles.responder_type = ?", subject.primary_employment.restaurant_role.id, subject.primary_employment.restaurant_role.class.name],
+        :conditions => ["question_roles.responder_id = ? AND question_roles.responder_type = ?", 
+          subject.primary_employment.restaurant_role.id, subject.primary_employment.restaurant_role.class.name],
         :select => "distinct topics.*",
         :order => :position }
     elsif subject.is_a? RestaurantFeaturePage
@@ -43,7 +44,8 @@ class Topic < ActiveRecord::Base
 
   named_scope :answered_for_subject, lambda { |subject|
     { :joins => { :chapters => { :profile_questions => :profile_answers } },
-      :conditions => ["profile_answers.responder_id = ? AND profile_answers.responder_type = ?", subject.id, subject.class.name],
+      :conditions => ["profile_answers.responder_id = ? AND profile_answers.responder_type = ?", 
+        subject.id, subject.class.name],
       :select => "distinct topics.*",
       :order => :position }
   }
@@ -85,7 +87,7 @@ class Topic < ActiveRecord::Base
     if secondary_subject
       self.profile_questions.answered_for_page(subject, secondary_subject).count
     else
-      self.profile_questions.answered_for_subject(subject).count
+      subject.profile_questions.answered.for_chapter(self.chapters.map(&:id)).count
     end
   end
 

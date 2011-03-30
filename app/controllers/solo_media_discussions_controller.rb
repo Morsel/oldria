@@ -9,18 +9,29 @@ class SoloMediaDiscussionsController < ApplicationController
     build_comment
   end
 
+  ##
+  # PUT /solo_media_discussions/1/read
+  # This is meant to be called via AJAX
+  def read
+    @solo_media_discussion.read_by!(current_user)
+    @solo_media_discussion.comments.each do |comment|
+      comment.read_by!(current_user) unless comment.read_by?(current_user)
+    end
+    render :nothing => true
+  end
+
   private
+
+  def find_solo_media_discussion
+    @solo_media_discussion = SoloMediaDiscussion.find(params[:id])
+    @media_request = @solo_media_discussion.media_request
+  end
 
   def build_comment
     @comment = @solo_media_discussion.comments.build
     @comment.attachments.build
     @comment.user = current_user
     @comment_resource = [@solo_media_discussion, @comment]
-  end
-
-  def find_solo_media_discussion
-    @solo_media_discussion = SoloMediaDiscussion.find(params[:id])
-    @media_request = @solo_media_discussion.media_request
   end
 
   def authorize_or_redirect

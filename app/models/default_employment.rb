@@ -28,7 +28,11 @@ class DefaultEmployment < Employment
   end
   
   def viewable_media_request_discussions
-    solo_media_discussions.select { |d| d.media_request.status == "approved" }
+    solo_media_discussions.approved
+  end
+
+  def viewable_unread_media_request_discussions
+    solo_media_discussions.approved.select { |d| !d.read_by?(self.employee) }
   end
 
 end
