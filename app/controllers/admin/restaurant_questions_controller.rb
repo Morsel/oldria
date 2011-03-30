@@ -53,8 +53,8 @@ class Admin::RestaurantQuestionsController < Admin::AdminController
       params[:chapters].each_with_index do |id, index|
         Chapter.update_all(['position=?', index+1], ['id=?', id])
       end
-    elsif params[:restaurant_question]
-      params[:restaurant_question].each_with_index do |id, index|
+    elsif params[:restaurant_questions]
+      params[:restaurant_questions].each_with_index do |id, index|
         RestaurantQuestion.update_all(['position=?', index+1], ['id=?', id])
       end
     end
