@@ -18,11 +18,11 @@
     <table>
         <% @chapters_by_topic[topic].each do |chapter| %>
         <tr>
-           <td class="topic_link"><%= link_to chapter.title, link_for_questions(:subject => @subject, :chapter_id => chapter.id) %></td>
+           <td class="topic_link"><%= link_to chapter.title, link_for_restaurant_questions(:restaurant_id => @restaurant.id, :chapter_id => chapter.id, :page_id => @page.try(:id)) %></td>
            <td class="topic_completeness"><%= chapter.completion_percentage_for_restaurant(@restaurant, @page) %>% complete</td>
         </tr>
         <% end if @chapters_by_topic[topic] %>
     </table>
-    <%= link_to "View all \"#{topic.title}\" chapters &raquo;", link_for_chapter(:subject => @subject, :topic_id => topic.id), :class => 'view_all_chapters' %>
+    <%= link_to "View all \"#{topic.title}\" chapters &raquo;", link_for_restaurant_chapters(:restaurant_id => @restaurant.id, :topic_id => topic.id, :page_id => @page.try(:id)), :class => 'view_all_chapters' %>
 </div>
 <%- end -%>

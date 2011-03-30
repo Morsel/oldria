@@ -16,9 +16,7 @@ ActionController::Routing::Routes.draw do |map|
 
   map.namespace(:soapbox) do |soapbox|
     soapbox.resources :restaurants, :only => ['show'] do |restaurants|
-      restaurants.resources :feature_pages, :only => ['show'] do |pages|
-        pages.resources :questions, :collection => { :topics => :get, :chapters => :get, :refresh => :post }
-      end
+      restaurants.resources :feature_pages, :only => ['show']
       restaurants.resources :questions, :collection => { :topics => :get, :chapters => :get, :refresh => :post }, 
         :controller => "restaurant_questions"
       restaurants.resources :photos, :only => ['show', 'index']
@@ -148,8 +146,6 @@ ActionController::Routing::Routes.draw do |map|
     restaurant.resources :features, :controller => "restaurant_features",
                                     :member => { :add => :post, :bulk_edit => :get },
                                     :collection => { :edit_top => :get, :update_top => :post } do |features|
-      features.resources :questions, :collection => { :topics => :get, :chapters => :get, :refresh => :post },
-        :controller => "restaurant_questions"
       features.resources :profile_answers, :only => [:create, :update, :destroy]
     end
 
