@@ -2238,6 +2238,18 @@ dl.things dt:after {content: ":"}
 			padding: 0;
 		}
 	}
+	#features {
+	  @include column(7);
+		float: left;
+		padding: 10px 15px;
+		margin: 0 15px 15px 0;
+		h3 {
+			margin-bottom: 0;
+		}
+	}
+	#behindline {
+	  margin-top: 2em;
+	}
 
 	.accolades {
 		margin: 0;
