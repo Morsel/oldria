@@ -1,41 +1,5 @@
 module BehindTheLineHelper
 
-  def link_for_chapter(options = {})
-    subject = options.delete(:subject)
-    options = options_for_subject(subject, options)
-    path_model_name = path_model_name(subject)
-
-    if params[:controller].match(/soapbox/)
-      send("chapters_soapbox_#{path_model_name}_questions_path".to_sym, options)
-    else
-      send("chapters_#{path_model_name}_questions_path", options)
-    end
-  end
-
-  def link_for_topics(options = {})
-    subject = options.delete(:subject)
-    options = options_for_subject(subject, options)
-    path_model_name = path_model_name(subject)
-
-    if params[:controller].match(/soapbox/)
-      send("topics_soapbox_#{path_model_name}_questions_path", options)
-    else
-      send("topics_#{path_model_name}_questions_path", options)
-    end
-  end
-
-  def link_for_questions(options = {})
-    subject = options.delete(:subject)
-    options = options_for_subject(subject, options)
-    path_model_name = path_model_name(subject)
-
-    if params[:controller].match(/soapbox/)
-      send("soapbox_#{path_model_name}_questions_path", options)
-    else
-      send("#{path_model_name}_questions_path", options)
-    end
-  end
-
   def link_for_question(options = {})
     if params[:controller].match(/soapbox/)
       soapbox_question_path(options)

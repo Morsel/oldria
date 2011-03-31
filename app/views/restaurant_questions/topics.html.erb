@@ -2,12 +2,12 @@
 
 <%= render :partial => 'shared/add_this', :locals => { :responder => @restaurant } %>
 
-<h1 id="btl-title" class="btl"><%= link_to "<span class=\"btl-art\">Behind the Line:</span> <span class=\"name\">#{restaurant_btl_title(@restaurant, @page)}</span>", find_btl_url_for(@subject) %></h1>
+<h1 id="btl-title" class="btl"><%= link_to "<span class=\"btl-art\">Behind the Line:</span> <span class=\"name\">#{restaurant_btl_title(@restaurant, @page)}</span>", path_for_restaurant_and_page(@restaurant, @page) %></h1>
 
 <h2 id="topic_title">Topics</h2>
 <% javascript_tag do %>
   var addthis_share = {
-    url: '<%= url_to_responder_topics(@restaurant) %>',
+    url: '<%= topics_soapbox_restaurant_questions_url(:restaurant_id => @restaurant.id, :page_id => @page.try(:id)) %>',
     title: $('title').text().replace('Spoonfeed','Soapbox')
   }
 <% end %>

@@ -57,4 +57,15 @@ module RestaurantsHelper
     end
   end
 
+  def path_for_restaurant_and_page(restaurant, page = nil)
+    if logged_in_on_spoonfeed
+      page.present? ? restaurant_feature_page_path(restaurant, page) : restaurant_path(restaurant)
+    elsif restaurant.premium_account
+      page.present? ? soapbox_restaurant_feature_page_path(restaurant, page) : soapbox_restaurant_path(restaurant)
+    else
+      # No url for non-premium accounts because we shouldn't see them off spoonfeed
+      ""
+    end
+  end
+
 end

@@ -2,7 +2,7 @@
 
 <%= render :partial => 'shared/add_this', :locals => {:responder => @user} %>
 
-<h1 id="btl-title" class="btl"><%= link_to "<span class=\"btl-art\">Behind the Line:</span> <span class=\"name\">#{@user.name}</span>", find_btl_url_for(@user) %></h1>
+<h1 id="btl-title" class="btl"><%= link_to "<span class=\"btl-art\">Behind the Line:</span> <span class=\"name\">#{@user.name}</span>", path_for_profile(@user) %></h1>
 
 <h2 id="topic_title">Topic: <%= @topic.title %></h2>
 <% javascript_tag do %>
@@ -19,7 +19,7 @@
 <% for chapter in @questions_by_chapter.keys %>
 <%- if can?(:manage, @user) || chapter.published_for_user?(@user) -%>
   <% div_for chapter, :class => cycle('', ' last') do -%>
-      <% link_to link_for_questions(:subject => @user, :chapter_id => chapter.id) do %>
+      <% link_to link_for_user_questions(:user_id => @user.id, :chapter_id => chapter.id) do %>
           <h3><%= chapter.title %></h3>
 
           <p class="chapter_answer_count"><%= chapter.answered_for_user(@user).count %> of <%= chapter.questions_for_user(@user).count %></p>
