@@ -39,7 +39,8 @@ class ProfileCuisinesController < ApplicationController
 
   def get_profile
     require_user
-    @profile = (current_user.profile || current_user.create_profile)
+    @profile = User.find(params[:user_id]).profile
+    unauthorized! if cannot? :edit, @profile
   end
 
 end

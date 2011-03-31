@@ -268,6 +268,7 @@ class Restaurant < ActiveRecord::Base
 
   def add_manager_as_employee
     self.employees << manager if manager
+    manager.default_employment.try(:destroy)
   end
 
   def update_manager
