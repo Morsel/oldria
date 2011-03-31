@@ -5,7 +5,7 @@
 
 <p id="messagemessage" style="font-size: 14px;">
       <img src="http://spoonfeed.restaurantintelligenceagency.com/images/bubble_large.png" align="left" alt="" style="margin-bottom:30px;margin-right:10px;float:left">
-      You've received <%= indefenite_article(title) %> <%= title %><%= " from #{@sender.name}" if @sender %>.
+      You've received a new <%= title %><%= " from #{@sender.name}" if @sender %>.
 </p>
 <p id="messagelink" style="clear: both; font-size: 16px;">
   <% if title == "Announcement" -%>
