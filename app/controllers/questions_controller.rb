@@ -2,7 +2,7 @@ class QuestionsController < ApplicationController
   # include QuestionsHelper
 
   before_filter :require_user_unless_soapbox
-  before_filter :get_user, :except => [:show]
+  before_filter :get_user, :except => [:show] # Show view includes many users' responses
 
   def index
     @chapter = Chapter.find(params[:chapter_id])

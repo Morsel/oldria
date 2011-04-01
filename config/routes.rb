@@ -15,6 +15,9 @@ ActionController::Routing::Routes.draw do |map|
   map.restaurant_directory 'directory/restaurants', :controller => 'directory', :action => 'restaurants'
 
   map.namespace(:soapbox) do |soapbox|
+    soapbox.resources :questions, :only => ['show']
+    soapbox.resources :restaurant_questions, :only => ['show']
+
     soapbox.resources :restaurants, :only => ['show'] do |restaurants|
       restaurants.resources :feature_pages, :only => ['show']
       restaurants.resources :questions, :collection => { :topics => :get, :chapters => :get, :refresh => :post }, 
@@ -30,7 +33,6 @@ ActionController::Routing::Routes.draw do |map|
     soapbox.resources :users do |users|
       users.resources :questions, :collection => { :topics => :get, :chapters => :get }
     end
-    soapbox.resources :questions, :only => ['show']
     soapbox.connect 'directory_search', :controller => 'soapbox', :action => 'directory_search'
     soapbox.connect 'restaurant_search', :controller => 'soapbox', :action => 'restaurant_search'
     soapbox.resource :search, :controller => 'site_search', :only => ['show']
