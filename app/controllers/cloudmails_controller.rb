@@ -80,6 +80,8 @@ class CloudmailsController < ApplicationController
         message_body.gsub!(/\n.*wrote\:\s*$/i,"")
         message_body.gsub!(/\n.*from\:\s*$/i,"")
         message_body.gsub!(/\n.*sent\:\s*$/i,"")
+        message_body.gsub!(/\n\s*On (mon|tue|wed|thu|fri|sat|sun).* at \d+\:\d\d (AM|PM)[^a-zA-Z0-9]*$/i,"")
+        message_body.gsub!(/\n\s*On (mon|tue|wed|thu|fri|sat|sun).* at \d+\:\d\d[^a-zA-Z0-9]*$/i,"")
       end
 
       # remove any leading or trailing spaces
