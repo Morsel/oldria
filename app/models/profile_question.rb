@@ -26,7 +26,7 @@ class ProfileQuestion < ActiveRecord::Base
     { :joins => :question_roles,
       :include => :chapter,
       :conditions => ["question_roles.restaurant_role_id = ?", user.primary_employment.restaurant_role.id],
-      :order => "`chapters`.position, `profile_questions`.position" }
+      :order => "chapters.position, profile_questions.position" }
   }
 
   named_scope :for_chapter, lambda { |chapter_id|
@@ -36,13 +36,15 @@ class ProfileQuestion < ActiveRecord::Base
   named_scope :answered, :joins => :profile_answers
 
   named_scope :answered_for_user, lambda { |user|
-    { :joins => :profile_answers,
+    { :joins => [:profile_answers],
+      :include => :chapter,
       :conditions => ["profile_answers.user_id = ?", user.id],
-      :order => "`chapters`.position, `profile_questions`.position" }
+      :order => "chapters.position, profile_questions.position" }
   }
 
   named_scope :answered_for_chapter, lambda { |chapter_id|
-    { :joins => [:chapter, :profile_answers], :conditions => ["chapters.id = ?", chapter_id] }
+    { :joins => [:chapter, :profile_answers],
+      :conditions => ["chapters.id = ?", chapter_id] }
   }
 
   named_scope :answered_by_premium_users, lambda {
