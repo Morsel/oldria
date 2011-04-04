@@ -36,9 +36,10 @@ class ProfileQuestion < ActiveRecord::Base
   named_scope :answered, :joins => :profile_answers
 
   named_scope :answered_for_user, lambda { |user|
-    { :joins => [:profile_answers],
+    { :joins => [:profile_answers, :question_roles],
       :include => :chapter,
-      :conditions => ["profile_answers.user_id = ?", user.id],
+      :conditions => ["profile_answers.user_id = ? AND question_roles.restaurant_role_id = ?",
+                      user.id, user.primary_employment.restaurant_role.id],
       :order => "chapters.position, profile_questions.position" }
   }
 

@@ -27,7 +27,8 @@ class Topic < ActiveRecord::Base
 
   named_scope :for_user, lambda { |user|
     { :joins => { :chapters => { :profile_questions => :question_roles }},
-      :conditions => ["question_roles.restaurant_role_id = ? AND topics.type IS NULL", user.primary_employment.restaurant_role.id],
+      :conditions => ["question_roles.restaurant_role_id = ? AND topics.type IS NULL",
+                      user.primary_employment.restaurant_role.id],
       :select => "distinct topics.*",
       :order => :position }
   }
@@ -66,7 +67,7 @@ class Topic < ActiveRecord::Base
   end
   
   def answer_count_for(user)
-    user.profile_questions.answered.for_chapter(self.chapters.map(&:id)).count
+    self.profile_questions.answered_for_user(user).count
   end
   
   def completion_percentage(user)
