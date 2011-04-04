@@ -2,7 +2,6 @@
 <% content_tag_for(:dl, question) do %>
   <dt class="question">
     <%= link_if_soapbox question %>
-    <%= content_tag(:span, "(Shown on public profile)") if answer.show_as_public && restaurant.employees.include?(current_user) %>
   </dt>
   <dd class="answer">
     <%= h answer.answer %>
