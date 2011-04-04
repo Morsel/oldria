@@ -5,6 +5,10 @@ module UserMessaging
     @viewable_media_request_discussions ||= all_employments.map(&:viewable_media_request_discussions).flatten
   end
 
+  def viewable_unread_media_request_discussions
+    @viewable_unread_media_request_discussions ||= all_employments.map(&:viewable_unread_media_request_discussions).flatten
+  end
+
   def viewable_media_requests
     viewable_media_request_discussions.map(&:media_request)
   end
@@ -175,9 +179,11 @@ module UserMessaging
   end
   
   def message_inbox_count
-    @message_inbox_count ||= (messages_from_ria + 
-        unread_discussions + discussions.with_comments_unread_by(self) + 
-        viewable_media_request_discussions).size
+    @message_inbox_count ||= (ria_message_count + 
+                              unread_discussions.size + 
+                              discussions.with_comments_unread_by(self).size + 
+                              unread_direct_messages.size +
+                              viewable_unread_media_request_discussions.size)
   end
   
   def front_burner_unread_count

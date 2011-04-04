@@ -25,4 +25,7 @@
  				Reply &raquo;
     <% end %></p>
   </div>
+  <% unless archived_view? %>
+    <%= link_to "<span>read</span>", read_solo_media_discussion_path(solo_media_discussion), :class => 'readit' %>
+  <% end %>
 <% end %>

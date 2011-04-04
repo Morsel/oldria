@@ -59,7 +59,7 @@ module BehindTheLineHelper
     options = options_for_subject(subject, options)
     path_model_name = path_model_name(subject)
 
-    if params[:controller].match(/soapbox/)
+    if soapbox?
       send("soapbox_#{path_model_name}_profile_answers_path", options)
     else
       send("#{path_model_name}_profile_answers_path", options)
@@ -108,7 +108,7 @@ module BehindTheLineHelper
   private
   def path_model_name(model)
     if model.is_a?(RestaurantFeaturePage)
-      if params[:controller].match(/soapbox/)
+      if soapbox?
         "restaurant_feature_page"
       else
         "restaurant_feature"

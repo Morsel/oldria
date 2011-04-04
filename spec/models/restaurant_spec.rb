@@ -33,23 +33,26 @@ describe Restaurant do
     end
   end
 
-  describe "missing_subject_matters" do
-    it "should know which subject matters are mising" do
-      %w(Beer Other Beverage Food Business Wine Pastry).each do |sm|
-        Factory(:subject_matter, :name => sm)
-      end
-
-      handled_subject = SubjectMatter.find_by_name("Pastry")
-
-      employment = Factory(:employment, :subject_matters => [handled_subject])
-      restaurant = employment.restaurant
-
-      %w(Beer Other Beverage Food Business Wine).each do |sm|
-        restaurant.missing_subject_matters.map(&:name).should include(sm)
-      end
-      restaurant.missing_subject_matters.should_not include(handled_subject)
-    end
-  end
+  # Managers now get all subject matters by default, so
+  # there should no longer be the possibility of some remaining unassigned
+  #
+  # describe "missing_subject_matters" do
+  #   it "should know which subject matters are missing" do
+  #     %w(Beer Other Beverage Food Business Wine Pastry).each do |sm|
+  #       Factory(:subject_matter, :name => sm)
+  #     end
+  # 
+  #     handled_subject = SubjectMatter.find_by_name("Pastry")
+  # 
+  #     employment = Factory(:employment, :subject_matters => [handled_subject])
+  #     restaurant = employment.restaurant
+  # 
+  #     %w(Beer Other Beverage Food Business Wine).each do |sm|
+  #       restaurant.missing_subject_matters.map(&:name).should include(sm)
+  #     end
+  #     restaurant.missing_subject_matters.should_not include(handled_subject)
+  #   end
+  # end
 
   describe "safe deletion" do
     it "should not actually delete Restaurants" do

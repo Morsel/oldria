@@ -48,6 +48,8 @@ class Employment < ActiveRecord::Base
 
   validates_uniqueness_of :employee_id, :scope => :restaurant_id, :message => "is already associated with that restaurant"
 
+  before_save :set_subject_matters_for_managers, :if => Proc.new { |e| e.omniscient }
+
   named_scope :restaurants_metro_id, lambda { |ids|
     {:joins => :restaurant, :conditions => {:restaurants => { :metropolitan_area_id => ids.map(&:to_i)}}}
   }
@@ -99,7 +101,11 @@ class Employment < ActiveRecord::Base
   end
 
   def viewable_media_request_discussions
-    restaurant.media_request_discussions.select { |d| d.viewable_by?(self) && d.media_request.status == "approved" }.sort { |a, b| b.created_at <=> a.created_at }
+    restaurant.media_request_discussions.approved.select { |d| d.viewable_by?(self) }
+  end
+
+  def viewable_unread_media_request_discussions
+    restaurant.media_request_discussions.approved.select { |d| d.viewable_by?(self) && !d.read_by?(self.employee) }
   end
 
   def viewable_admin_discussions
@@ -136,6 +142,10 @@ class Employment < ActiveRecord::Base
 
   def filter_only_viewable(collection)
     collection.select {|element| element.viewable_by? self }
+  end
+
+  def set_subject_matters_for_managers
+    self.subject_matters = SubjectMatter.general.all
   end
 
 end

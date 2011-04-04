@@ -1,4 +1,5 @@
 class ALaMinuteAnswersController < ApplicationController
+
   before_filter :require_restaurant_employee, :only => [:destroy, :bulk_edit, :bulk_update]
 
   def destroy
@@ -39,17 +40,11 @@ class ALaMinuteAnswersController < ApplicationController
   private
 
   def require_restaurant_employee
+    require_user
     @restaurant = Restaurant.find(params[:restaurant_id])
-    unless current_user
-      store_location
-      flash[:notice] = "You must be logged in to access this page"
-      redirect_to login_url
-      return false
-    end
-    unless @restaurant.employees.include? current_user
+    unless @restaurant.employees.include?(current_user) || current_user.admin?
       flash[:notice] = "You must be an employee of #{@restaurant.name} to answer and edit questions"
-      redirect_to restaurants_url
-      return false
+      redirect_to restaurants_url and return
     end
     true
   end

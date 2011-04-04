@@ -59,7 +59,7 @@ Feature: users can be invited to join Spoonfeed by registered SF users, restaura
 
     And I fill in "Hometown" with "nowhere"
     And I fill in "Currently residing in" with "Seattle, WA"
-	And I select "Chicago IL" from "Metropolitan area"
+	And I select "Illinois: Chicago" from "Metropolitan area"
 	And I select "Midwest (IN IL OH)" from "Region"
 
     And I press "Save"
@@ -103,7 +103,7 @@ Feature: users can be invited to join Spoonfeed by registered SF users, restaura
     And I check "Drink"
     And I fill in "Hometown" with "Ithaca, NY"
     And I fill in "Currently residing in" with "Palm Springs"
-	And I select "Chicago IL" from "Metropolitan area"
+	And I select "Illinois: Chicago" from "Metropolitan area"
 	And I select "Midwest (IN IL OH)" from "Region"
 
     And I press "Save"

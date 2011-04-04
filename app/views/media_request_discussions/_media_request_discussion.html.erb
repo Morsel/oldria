@@ -14,4 +14,8 @@
           </div>
       </div>
       <%= render :partial => 'media_request_discussions/media_request_replies', :locals => { :media_request_discussion => media_request_discussion } %>
+
+      <% unless archived_view? %>
+        <%= link_to "<span>read</span>", read_media_request_discussion_path(media_request_discussion), :class => 'readit' %>
+      <% end %>
 <% end %>

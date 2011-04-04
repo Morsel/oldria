@@ -132,24 +132,19 @@ class ApplicationController < ActionController::Base
   end
 
 ### Content for layout
-  def preload_resources
-    load_random_coached_update
-    load_current_user_statuses
+  def past_qotds
+    @qotds ||= SoapboxEntry.qotd.published.recent.all(:include => :featured_item).map(&:featured_item)
   end
+  helper_method :past_qotds
 
-  def load_random_coached_update
-    return unless current_user && !current_user.media?
-    @coached_message = CoachedStatusUpdate.current.random.first
+  def past_trends
+    @trend_questions ||= SoapboxEntry.trend_question.published.recent.all(:include => :featured_item).map(&:featured_item)
   end
-
-  def load_current_user_statuses
-    return unless current_user && !current_user.media?
-    @current_user_recent_statuses = current_user.statuses.all(:limit => 2)
-  end
+  helper_method :past_trends
 
   def load_past_features
-    @qotds ||= SoapboxEntry.qotd.published.recent.all(:include => :featured_item).map(&:featured_item)
-    @trend_questions ||= SoapboxEntry.trend_question.published.recent.all(:include => :featured_item).map(&:featured_item)
+    past_qotds
+    past_trends
   end
 
   def load_random_btl_question
@@ -171,7 +166,7 @@ class ApplicationController < ActionController::Base
     @ria_message_count = current_user.try(:ria_message_count)
     @private_message_count = current_user.try(:unread_direct_messages).try(:size)
     @discussions_count = current_user && (current_user.unread_discussions + current_user.discussions.with_comments_unread_by(current_user)).uniq.size
-    @media_requests_count = current_user.try(:viewable_media_request_discussions).try(:size)
+    @media_requests_count = current_user.try(:viewable_unread_media_request_discussions).try(:size)
   end
 
   ##
@@ -197,8 +192,9 @@ class ApplicationController < ActionController::Base
     @restaurants_and_employments = @restaurants_and_employments.group_by(&:restaurant)
 
     # FIXME - should call solo_search.all(options) but it generates a DB error
-    # instead since we only use the options in media requests we'll manually filter there (in MediaRequestsController)
+    # instead since we only use the options in media requests we'll manually filter
     @solo_users = [@solo_users, solo_search].flatten.compact.uniq if extra_params.present?
+    @solo_users = @solo_users.select { |u| u.employee.mediafeed_visible } if mediafeed?
   end
 
   def build_extra_profile_params

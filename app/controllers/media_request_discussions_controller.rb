@@ -18,6 +18,17 @@ class MediaRequestDiscussionsController < ApplicationController
     end
   end
 
+  ##
+  # PUT /media_request_discussions/1/read
+  # This is meant to be called via AJAX
+  def read
+    @media_request_discussion.read_by!(current_user)
+    @media_request_discussion.comments.each do |comment|
+      comment.read_by!(current_user) unless comment.read_by?(current_user)
+    end
+    render :nothing => true
+  end
+
   private
 
   def find_media_request_discussion

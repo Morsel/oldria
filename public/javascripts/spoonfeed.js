@@ -20,6 +20,17 @@ $('div#photos').masonry({
 
 $('#extended_profile .equalheights').equalHeights(160);
 
+$('#front-burner-comments #new_comment').submit(function(){
+    $(":button", this).attr('disabled', 'disabled');
+    $('#comment_comment').hide();
+    $('#loading-wait').show();
+});
+
+$('#btl_answers form').submit(function(){
+    $(":button", this).attr('disabled', 'disabled');
+    $('.text').hide();
+    $('#loading-wait').show();
+});
 
 // == Inbox for RIA messages
 $(".inbox_message .readit").live('click', function(){
@@ -366,3 +377,22 @@ function updateRestoDirectoryList() {
 }
 
 $restoDirectoryInputs.change(updateRestoDirectoryList);
+
+//
+// Managing subject matters for restaurant managers
+var $omniscientField = $("input#employment_omniscient"),
+    $omniscientRoleCheckboxes = $('#employment_general_subject_matters :checkbox, #employment_subject_matters :checkbox');
+
+var selectOmniscientRoles = function(){
+  if($omniscientField.is(":checked")) {
+    $omniscientRoleCheckboxes.attr('checked', 'checked');
+    $omniscientRoleCheckboxes.attr('disabled', 'disabled')
+  } else {
+    $omniscientRoleCheckboxes.removeAttr('checked');
+    $omniscientRoleCheckboxes.removeAttr('disabled');
+  }
+};
+
+$omniscientField.change(selectOmniscientRoles);
+
+if($omniscientField.is(":checked")) { $omniscientField.change(); }

@@ -1,6 +1,6 @@
 <% title "Profile Questions" %>
 
-<% if @questions.keys.present? -%>
+<% if Topic.count > 0 && Chapter.count > 0 -%>
 <div class="clearfix"><%= link_to "Add new question", new_admin_profile_question_path, :class => "positive button" %></div>
 <% else -%>
 <p>Add chapters and topics to get started</p>

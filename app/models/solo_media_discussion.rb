@@ -13,12 +13,15 @@
 
 class SoloMediaDiscussion < ActiveRecord::Base
 
+  acts_as_readable
   acts_as_commentable
+
   belongs_to :media_request
   belongs_to :employment
   
   default_scope :order => "#{table_name}.created_at DESC"
 
+  named_scope :approved, :joins => :media_request, :conditions => ['media_requests.status = ?', 'approved']
   named_scope :with_comments, :conditions => "#{table_name}.comments_count > 0"
 
   def viewable_by?(_employment)

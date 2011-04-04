@@ -1,9 +1,13 @@
 <% admin_message = @admin_conversation.admin_message %>
-<div class="comments">
+<div id="front-burner-comments" class="comments">
 <% if @comments.blank? %>
   <% semantic_form_for @comment_resource, :html => { :multipart => true } do |f| %>
     <% f.inputs do %>
       <%= f.input :comment, :label => 'Post', :input_html => { :rows => 8 }, :hint => soapbox_notice(message) %>
+      <div id="loading-wait" style="display: none">
+        <%= image_tag "ajax-loader.gif" %>
+        <p>Please wait while we save your comment</p>
+      </div>
       <% f.fields_for :attachments do |child_form| -%>
         <p class="attach">Attach files</p>
         <p class="attachfield"><%= child_form.file_field :attachment %></p>

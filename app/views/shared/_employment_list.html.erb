@@ -4,7 +4,7 @@
     <% if @solo_users.present? %>
     <div class="clear">
         <h3>Individuals:</h3> 
-        <%= @solo_users.map { |e| "<span style='#{e.post_to_soapbox ? "" : "text-decoration: line-through"}'>#{e.employee_name}</span>" }.to_sentence %>
+        <%= @solo_users.map { |e| e.employee_name }.to_sentence %>
     </div>
     <% end %>
     
