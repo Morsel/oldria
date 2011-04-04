@@ -85,7 +85,7 @@ class User < ActiveRecord::Base
   has_many :comments, :dependent => :destroy
 
   has_one :profile, :dependent => :destroy
-  has_many :profile_answers, :as => :user, :dependent => :destroy
+  has_many :profile_answers, :dependent => :destroy
 
   has_one :invitation, :foreign_key => "invitee_id"
   has_subscription
