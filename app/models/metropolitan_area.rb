@@ -17,6 +17,7 @@ class MetropolitanArea < ActiveRecord::Base
   has_and_belongs_to_many :users
   
   validates_presence_of :name
+  validates_uniqueness_of :name, :scope => :state
   
   default_scope :order => "LOWER(#{table_name}.state) ASC, LOWER(#{table_name}.name) ASC"
 
