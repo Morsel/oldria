@@ -259,8 +259,8 @@ ActionController::Routing::Routes.draw do |map|
     admin.resources :restaurant_feature_categories, :only => [:create,  :destroy],
         :collection => {:edit_in_place => :post}
 
-    admin.resources :metropolitan_areas, :only => [:index, :edit, :update]
     admin.resource :complimentary_accounts, :only => [:create, :destroy]
+    admin.resources :metropolitan_areas
 
     # Admin Messaging
     exclusive_routes = [:index, :show, :destroy]

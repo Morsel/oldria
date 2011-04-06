@@ -302,7 +302,7 @@ Factory.define :james_beard_region do |f|
 end
 
 Factory.define :metropolitan_area do |f|
-  f.name "Chicago"
+  f.sequence(:name) { |n| "City #{n}" }
   f.state "Illinois"
 end
 
