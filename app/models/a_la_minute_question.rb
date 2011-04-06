@@ -23,7 +23,6 @@ class ALaMinuteQuestion < ActiveRecord::Base
     named_scope :"#{kind.pluralize}", :conditions => {:kind => kind}
   end
 
-
   def answer_for(restaurant)
     restaurant.a_la_minute_answers.first(:conditions => {:a_la_minute_question_id => id})
   end

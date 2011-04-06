@@ -2351,20 +2351,30 @@ dl.things dt:after {content: ":"}
 	}
 	.questions {
 		dl {
-			margin: 10px 0;
+      margin: 10px 0;
+      border-bottom: 1px dotted #B0B5CC;
 			dt {
 				font-weight: bold;
 				color: #333;
 				margin: 0;
 				padding: 0;
+				.show_all_link {
+				  display: block;
+				  text-align: right;
+				  float: right;
+				  font-weight: normal;
+				}
 			}
 			dd {
 				font-weight: normal;
 				color: #666;
 				margin: 0;
-				padding: 0;
+				padding: 0 0 5px 0;
 			}
 		}
+    ul {
+      margin: 5px 0 0 0;
+    }
 	}
 }
 
