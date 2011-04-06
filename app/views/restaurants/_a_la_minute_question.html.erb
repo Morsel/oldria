@@ -2,13 +2,13 @@
 <% content_tag_for(:dl, question) do %>
   <dt class="question">
     <%= link_if_soapbox question %>
-    <%= link_to '(view past answers)', "#a_la_minute_answers_#{question.id}", :class => 'show_all_link showit' %>
+    <%= link_to 'view archive', "#a_la_minute_answers_#{question.id}", :class => 'show_all_link showit' %>
   </dt>
   <dd class="answer">
     <%= h answer.answer %>
   </dd>
   <ul class="archive" id="a_la_minute_answers_<%= question.id %>">
-    Previously...
+    Archive
     <% @restaurant.a_la_minute_answers.show_public.for_question(question).each_with_index do |archived_answer, index| %>
       <% content_tag_for(:li, archived_answer, :class => "answer hidden") do %>
         <%= archived_answer.answer %>
