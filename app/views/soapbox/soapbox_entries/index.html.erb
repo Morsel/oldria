@@ -5,9 +5,9 @@
 
 <section id="recent-questions">
   <div id="recent-trends">
-    <h1>Recent Trend Questions</h1>
+    <h1>Past Featured Trend Questions</h1>
     <ul id="recent-trends-feed">
-        <% for trend_question in @trend_questions %>
+        <% for trend_question in @featured_trend_questions %>
         <li>
             <% link_to soapbox_soapbox_entry_path(trend_question.soapbox_entry) do %>
                 <% date = trend_question.soapbox_entry.published_at %>
@@ -22,9 +22,9 @@
   </div><!-- /recent-trends -->
 
   <div id="recent-qotds">
-    <h1>Recent Questions of the Day</h1>
+    <h1>Past Featured Questions of the Day</h1>
     <ul id="recent-qotds-feed">
-        <% for qotd in @qotds %>
+        <% for qotd in @featured_qotds %>
       <li>
           <% link_to soapbox_soapbox_entry_path(qotd.soapbox_entry) do %>
               <% date = qotd.soapbox_entry.published_at %>
@@ -38,3 +38,7 @@
     <p class="clear"><%= link_to 'View previous Questions of the Day &#187;', qotd_soapbox_soapbox_entries_path, :class => :button %></p>
   </div><!-- /recent-trends -->
 </section><!-- / recent-questions -->
+
+<% content_for :sidebar do -%>
+<%= render :partial => 'front_burner_sidebar' %>
+<% end -%>

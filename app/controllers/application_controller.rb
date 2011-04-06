@@ -136,20 +136,30 @@ class ApplicationController < ActionController::Base
   end
 
 ### Content for layout
+  def past_featured_qotds
+    @featured_qotds ||= SoapboxEntry.qotd.published.recent.all(:include => :featured_item).map(&:featured_item)
+  end
+  helper_method :past_featured_qotds
+
+  def past_featured_trends
+    @featured_trend_questions ||= SoapboxEntry.trend_question.published.recent.all(:include => :featured_item).map(&:featured_item)
+  end
+  helper_method :past_featured_trends
+
+  def load_past_features
+    past_featured_qotds
+    past_featured_trends
+  end
+
   def past_qotds
-    @qotds ||= SoapboxEntry.qotd.published.recent.all(:include => :featured_item).map(&:featured_item)
+    @qotds ||= Admin::Qotd.current.all(:order => "created_at DESC", :limit => 10)
   end
   helper_method :past_qotds
 
   def past_trends
-    @trend_questions ||= SoapboxEntry.trend_question.published.recent.all(:include => :featured_item).map(&:featured_item)
+    @trend_questions ||= TrendQuestion.current.all(:order => "created_at DESC", :limit => 10)
   end
   helper_method :past_trends
-
-  def load_past_features
-    past_qotds
-    past_trends
-  end
 
   def load_random_btl_question
     return unless current_user && current_user.btl_enabled?

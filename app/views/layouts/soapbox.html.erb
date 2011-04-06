@@ -62,7 +62,7 @@
                 </article><!-- /page-content -->
             </div><!-- /inside -->
         </section><!-- /content -->
-        <%= render :partial => 'soapbox/sidebar' unless @no_sidebar %>
+        <%= yield(:sidebar) %>
         <%- end -%>
     </div><!-- /main -->
     <div id="sticky-footer-pad"></div>

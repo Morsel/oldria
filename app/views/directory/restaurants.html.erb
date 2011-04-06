@@ -11,3 +11,7 @@
 <div id="restaurant_directory_list">
     <%= render :partial => 'directory/restaurant_search_results' %>
 </div>
+
+<% content_for :sidebar do -%>
+<%= render :partial => 'soapbox/sidebar' %>
+<% end if soapbox? -%>
