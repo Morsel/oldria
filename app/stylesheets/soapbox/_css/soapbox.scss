@@ -1489,9 +1489,10 @@ p.search_filter_hint {
 	margin:0 -10px;
 	div{
 		padding:10px 0;
-		@include column(12);
+		@include column(8);
 		&#recent-qotds{
-			@include column(12,last);
+			@include column(8, last);
+			width: 340px;
 			ul li a:hover{
 				text-decoration:none;
 				background:#d9e8ef;
@@ -1543,7 +1544,7 @@ p.search_filter_hint {
 					span.title{
 						display:block;
 						float:left;
-						width:345px;
+						width:180px;
 						margin:0 10px 0 0;
 					}
 					span.reply-count{
