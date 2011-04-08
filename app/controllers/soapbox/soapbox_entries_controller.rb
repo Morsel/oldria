@@ -20,16 +20,22 @@ class Soapbox::SoapboxEntriesController < Soapbox::SoapboxController
   end
 
   def trend
-    @questions = SoapboxEntry.trend_question.published.paginate(:page => params[:page], :include => :featured_item)
-
-    @featured_items = @questions.map(&:featured_item)
+    if params[:view_all]
+      @featured_items = TrendQuestion.current.all(:order => "created_at DESC").paginate(:page => params[:page])
+    else
+      questions = SoapboxEntry.trend_question.published
+      @featured_items = questions.map(&:featured_item).paginate(:page => params[:page], :include => :featured_item)
+    end
     @no_sidebar = true
   end
 
   def qotd
-    @questions = SoapboxEntry.qotd.published.paginate(:page => params[:page], :include => :featured_item)
-
-    @featured_items = @questions.map(&:featured_item)
+    if params[:view_all]
+      @featured_items = Admin::Qotd.current.all(:order => "created_at DESC", :limit => 10).paginate(:page => params[:page])
+    else
+      questions = SoapboxEntry.qotd.published
+      @featured_items = questions.map(&:featured_item).paginate(:page => params[:page], :include => :featured_item)
+    end
     @no_sidebar = true
   end
 

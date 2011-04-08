@@ -4,6 +4,6 @@
   <div id="questions-list-feed-qotd">
     <h1>Questions of the Day</h1>
     <%= render :partial => 'qotd_list', :locals => {:questions => @featured_items} %>
-    <%= will_paginate(@questions) %>
+    <%= will_paginate(@featured_items) %>
   </div><!-- /recent-trends -->
 </section><!-- / recent-questions -->
