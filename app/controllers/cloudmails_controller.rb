@@ -8,7 +8,7 @@ class CloudmailsController < ApplicationController
   
   def create
 
-    mail_token = params[:to].split('@').first.first.gsub('<','')
+    mail_token = params[:to].split('@').first.gsub('<','')
     
     # use this if you need to debug
     Rails.logger.info %Q{
