@@ -1,5 +1,9 @@
 <% title = @message.email_title -%>
 <%= render :partial => 'email_header' %>
+<%
+ # if you change the string "RESPOND BY REPLYING TO THIS EMAIL - ABOVE THIS LINE"
+ # then you must update the logic in cloudmails_controller
+%>
 <h3 id="messagetype" style="color: #cc6632; font-size: 16px; font-weight: bold; letter-spacing: 2px; line-height: 14px; margin: 0 0 13px; text-transform: uppercase; text-align: center;">RESPOND BY REPLYING TO THIS EMAIL - ABOVE THIS LINE</h2>
 <h1 id="salutation" style="font-size: 20px; line-height: 26px; margin: 20px 0;">Hi <%= @recipient.first_name %>,</h1>
 
