@@ -8,12 +8,12 @@ class CloudmailsController < ApplicationController
   
   def create
 
-    disposable = params[:disposable]
+    mail_token = params[:to].split('@').first
     
     # use this if you need to debug
     Rails.logger.info %Q{
     #{'*'*72}
-     Receiving email message with disposable : #{params[:disposable]}
+     Receiving email message with mail_token : #{mail_token}
      #{'*'*72}
      #{params[:plain]}
      #{'*'*72}
@@ -35,8 +35,8 @@ class CloudmailsController < ApplicationController
     # clean it up to get what the user intends we get (as best as we can)
     message_body = clean_email_body(message_body)
 
-    # everything we need is in the disposable part of the email address
-    user_id, cloudmail_hash, message_id = disposable.split('-')
+    # everything we need is in the mail_token
+    user_id, cloudmail_hash, message_id = mail_token.split('-')
     
     # get the models
     user = User.find user_id
@@ -51,6 +51,14 @@ class CloudmailsController < ApplicationController
     end
     
     conversation.comments.create(:user => user, :comment => message_body)
+    
+    # use this if you need to debug
+    Rails.logger.info %Q{
+    #{'*'*72}
+     Cleaned Message : 
+     #{message_body}
+     #{'*'*72}
+    }
 
     # cloudmailin likes this response
     render :text => 'success', :status => 200
