@@ -75,8 +75,10 @@ class CloudmailsController < ApplicationController
       # remove any leading or trailing spaces
       message_body.strip!
 
-      # if the last line contains a 'From:', 'Sent:', or 'wrote:' then remove it
-      2.times do
+      # if the last line contains any of these expressions, then remove it
+      3.times do
+        message_body.gsub!(/\s*$/i,"")
+        message_body.gsub!(/\nSent from my [\w ]+\s*$/i,"")
         message_body.gsub!(/\n.*wrote\:\s*$/i,"")
         message_body.gsub!(/\n.*from\:\s*$/i,"")
         message_body.gsub!(/\n.*sent\:\s*$/i,"")

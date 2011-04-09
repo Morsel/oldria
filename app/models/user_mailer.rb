@@ -95,7 +95,7 @@ class UserMailer < ActionMailer::Base
   # Generic message which can be 'answered': could be one of QOTD, etc.
   def answerable_message_notification(message, recipient)
     from        'notifications@restaurantintelligenceagency.com'
-    reply_to    recipient.cloudmail_id(message)+"@{CLOUDMAIL_DOMAIN}"
+    reply_to    recipient.cloudmail_id(message)+"@#{CLOUDMAIL_DOMAIN}"
     recipients  recipient.email
     sent_on     Time.now
     subject     "SpoonFeed: #{message.email_title} notification"
