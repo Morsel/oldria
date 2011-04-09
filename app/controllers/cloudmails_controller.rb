@@ -8,7 +8,7 @@ class CloudmailsController < ApplicationController
   
   def create
 
-    mail_token = params[:to].split('@').first
+    mail_token = params[:to].split('@').first.first.gsub('<','')
     
     # use this if you need to debug
     Rails.logger.info %Q{
@@ -23,14 +23,15 @@ class CloudmailsController < ApplicationController
     # choose a version of the email body we can work with, after this point it should not include any html
     whole_message_body = ( params[:plain].length > 50 ) ? params[:plain] : params[:html].gsub(/<\/?[^>]*>/, "\n")
     
-    # abort unless we can find our seperator 'Reply ABOVE THIS LINE'
-    unless whole_message_body.include? 'Reply ABOVE THIS LINE'
-      render :text => 'Im sorry, we had a problem automatically adding your answer, please try again or answer on the website.', :status => 422
+    # abort unless we can find our seperator 'RESPOND BY REPLYING TO THIS EMAIL - ABOVE THIS LINE'
+    unless whole_message_body.include? 'RESPOND BY REPLYING TO THIS EMAIL - ABOVE THIS LINE'
+      Rails.logger.info 'Im sorry, we had a problem automatically adding your answer, please try again or answer on the website.'
+      render :text => 'some day send them an email to tell them it failed', :status => 200
       return
     end
 
-    # take everything infront of the first 'Reply ABOVE THIS LINE'
-    message_body = whole_message_body.split('Reply ABOVE THIS LINE').first
+    # take everything infront of the first 'RESPOND BY REPLYING TO THIS EMAIL - ABOVE THIS LINE'
+    message_body = whole_message_body.split('RESPOND BY REPLYING TO THIS EMAIL - ABOVE THIS LINE').first
 
     # clean it up to get what the user intends we get (as best as we can)
     message_body = clean_email_body(message_body)
@@ -46,7 +47,8 @@ class CloudmailsController < ApplicationController
     user.validate_cloudmail_token!(cloudmail_hash, conversation)
 
     if message_body.length < 10
-      render :text => 'Your answer was too short, or could not be read properly', :status => 422
+      Rails.logger.info 'Your answer was too short, or could not be read properly'
+      render :text => 'some day send them an email to tell them it failed', :status => 200
       return
     end
     
