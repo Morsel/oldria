@@ -37,4 +37,13 @@ module ProfileHelper
     result -= 1 if Date.today < birthday + result.years
     result
   end
+
+  def user_topics(user)
+    if can?(:manage, user)
+      user.topics
+    else
+      user.published_topics
+    end
+  end
+
 end

@@ -145,7 +145,7 @@
   </div><!--#a_la_minute-->
   <% end %>
 
-  <%= render :partial => 'profile_questions/behind_the_line', :locals => { :subject => @restaurant } if topics_for(@restaurant).present? %>
+  <%= render :partial => 'restaurants/behind_the_line', :locals => { :restaurant => @restaurant } if restaurant_topics(@restaurant).present? %>
 </div><!-- #restaurant_profile_view -->
 
 

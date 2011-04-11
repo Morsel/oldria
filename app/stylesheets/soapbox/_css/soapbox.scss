@@ -1489,9 +1489,10 @@ p.search_filter_hint {
 	margin:0 -10px;
 	div{
 		padding:10px 0;
-		@include column(12);
+		@include column(8);
 		&#recent-qotds{
-			@include column(12,last);
+			@include column(8, last);
+			width: 340px;
 			ul li a:hover{
 				text-decoration:none;
 				background:#d9e8ef;
@@ -1543,7 +1544,7 @@ p.search_filter_hint {
 					span.title{
 						display:block;
 						float:left;
-						width:345px;
+						width:180px;
 						margin:0 10px 0 0;
 					}
 					span.reply-count{
@@ -2238,6 +2239,18 @@ dl.things dt:after {content: ":"}
 			padding: 0;
 		}
 	}
+	#features {
+	  @include column(7);
+		float: left;
+		padding: 10px 15px;
+		margin: 0 15px 15px 0;
+		h3 {
+			margin-bottom: 0;
+		}
+	}
+	#behindline {
+	  margin-top: 2em;
+	}
 
 	.accolades {
 		margin: 0;
@@ -2351,20 +2364,32 @@ dl.things dt:after {content: ":"}
 	}
 	.questions {
 		dl {
-			margin: 10px 0;
+      margin: 10px 0;
+      border-bottom: 1px dotted #B0B5CC;
 			dt {
 				font-weight: bold;
 				color: #333;
 				margin: 0;
 				padding: 0;
+				.show_all_link {
+				  display: block;
+				  text-align: right;
+				  float: right;
+				  font-weight: normal;
+				  font-style: italic;
+				  font-size: 90%;
+				}
 			}
 			dd {
 				font-weight: normal;
 				color: #666;
 				margin: 0;
-				padding: 0;
+				padding: 0 0 5px 0;
 			}
 		}
+    ul {
+      margin: 5px 0 0 0;
+    }
 	}
 }
 

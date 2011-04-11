@@ -1,0 +1,2 @@
+module RestaurantAnswersHelper
+end

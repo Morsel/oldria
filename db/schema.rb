@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110310182330) do
+ActiveRecord::Schema.define(:version => 20110325231824) do
 
   create_table "a_la_minute_answers", :force => true do |t|
     t.text     "answer"
@@ -652,8 +652,7 @@ ActiveRecord::Schema.define(:version => 20110310182330) do
     t.text     "answer"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "responder_id"
-    t.string   "responder_type"
+    t.integer  "user_id"
   end
 
   create_table "profile_cuisines", :force => true do |t|
@@ -707,12 +706,18 @@ ActiveRecord::Schema.define(:version => 20110310182330) do
     t.string   "link_text"
   end
 
-  create_table "question_roles", :force => true do |t|
-    t.integer  "profile_question_id"
-    t.integer  "responder_id"
+  create_table "question_pages", :force => true do |t|
+    t.integer  "restaurant_question_id"
+    t.integer  "restaurant_feature_page_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "responder_type"
+  end
+
+  create_table "question_roles", :force => true do |t|
+    t.integer  "profile_question_id"
+    t.integer  "restaurant_role_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "readings", :force => true do |t|
@@ -732,6 +737,14 @@ ActiveRecord::Schema.define(:version => 20110310182330) do
 
   add_index "responsibilities", ["employment_id"], :name => "index_responsibilities_on_employment_id"
   add_index "responsibilities", ["subject_matter_id"], :name => "index_responsibilities_on_subject_matter_id"
+
+  create_table "restaurant_answers", :force => true do |t|
+    t.integer  "restaurant_question_id"
+    t.text     "answer"
+    t.integer  "restaurant_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "restaurant_fact_sheets", :force => true do |t|
     t.string   "venue"
@@ -824,6 +837,15 @@ ActiveRecord::Schema.define(:version => 20110310182330) do
   end
 
   add_index "restaurant_features", ["restaurant_feature_category_id"], :name => "restaurant_feature_category_id_index"
+
+  create_table "restaurant_questions", :force => true do |t|
+    t.string   "title"
+    t.integer  "position"
+    t.integer  "chapter_id"
+    t.text     "pages_description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "restaurant_roles", :force => true do |t|
     t.string   "name"
@@ -1019,7 +1041,7 @@ ActiveRecord::Schema.define(:version => 20110310182330) do
     t.datetime "updated_at"
     t.integer  "position"
     t.string   "description"
-    t.string   "responder_type"
+    t.string   "type"
   end
 
   create_table "trend_questions", :force => true do |t|

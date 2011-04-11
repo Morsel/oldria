@@ -22,14 +22,14 @@ Feature: Profile - Behind the Line (aka Q&A)
     Given I am on the profile page for "punkrock"
     When I follow "View all Topics" within "#behindline"
     And I follow "View all"
-    Then I should see "Education"
+    Then I should see "John Smith Behind the Line" within "title"
 
   Scenario: Viewing questions in a chapter
     Given I am on the profile page for "punkrock"
     When I follow "View all Topics" within "#behindline"
     And I follow "View all"
     And I follow "Education"
-    Then I should see "Title 1"
+    And I should see "Education - John Smith - Behind The Line" within "title"
 
   Scenario: Answering a question
     Given I am on the profile page for "punkrock"
@@ -39,27 +39,7 @@ Feature: Profile - Behind the Line (aka Q&A)
     And I fill in question titled "Title 1" with answer "A great answer for this"
     And I press "Post"
     Then I should see "Your answers have been saved"
-
-    When I go to the question page with title "Title 1"
-    Then I should see "A great answer for this"
-
-  Scenario: Should contain topic name and chief name in title
-    Given I am on the profile page for "punkrock"
-    And profile question matching employment role with static topic name for "punkrock"
-    When I follow "View all Topics" within "#behindline"
-    When I follow "SeoTopic"
-    And I should see "SeoTopic - John Smith" within "title"
-
-  Scenario: Question page should contain question name in title
-    Given I am on the question page with title "Title 1"
-    And I should see "Title 1 - Behind The Line" within "title"
-
-  Scenario: Chapter questions page should contain chapter title and chief name in title
-    Given I am on the profile page for "punkrock"
-    When I follow "View all Topics" within "#behindline"
-    And I follow "View all"
-    And I follow "Education"
-    Then I should see "Education - John Smith - Behind The Line" within "title"
+    And I should see "A great answer for this"
 
   Scenario: User answers a Behind The Line question and post to facebook
     Given "punkrock" has a complimentary premium account
@@ -74,4 +54,3 @@ Feature: Profile - Behind the Line (aka Q&A)
     And I check "Post to Facebook?"
     And I press "Post"
     Then message to facebook is sent
-

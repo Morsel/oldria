@@ -4376,12 +4376,22 @@ p.search_filter_hint {
 		}
 		.questions {
 			dl {
-				margin: 10px 0;
+				padding: 0 0 1em 0;
+        margin: 10px 0;
+        border-bottom: 1px dotted #B0B5CC;
 				dt {
 					font-weight: bold;
 					color: #333;
 					margin: 0;
 					padding: 0;
+					.show_all_link {
+					  display: block;
+					  text-align: right;
+					  float: right;
+					  font-weight: normal;
+  				  font-style: italic;
+  				  font-size: 90%;
+					}
 				}
 				dd {
 					font-weight: normal;
@@ -4390,6 +4400,9 @@ p.search_filter_hint {
 					padding: 0;
 				}
 			}
+      ul {
+        margin: 5px 0 0 0;
+      }
 		}
 	}
 } 

@@ -24,7 +24,7 @@ describe Soapbox::SiteSearchController do
       role = Factory(:restaurant_role)
       @profile_user.stubs(:primary_employment).returns(Factory(:employment, :restaurant_role => role, :employee => @profile_user))
       @question = Factory(:profile_question)
-      @answer = Factory(:profile_answer, :profile_question => @question, :responder => @profile_user)
+      @answer = Factory(:profile_answer, :profile_question => @question, :user => @profile_user)
     end
 
     it "should find question" do

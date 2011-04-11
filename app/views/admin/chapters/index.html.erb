@@ -1,7 +1,7 @@
 <% title "Chapters" %>
 
 <div class="clearfix">
-    <%= link_to "Back to Profile Questions", admin_profile_questions_path(:responder_type => params[:responder_type]), :class => "button" %>
+    <%= link_to "Back to Profile Questions", admin_profile_questions_path, :class => "button" %>
 </div>
 
 <% for topic in @topics %>
@@ -12,9 +12,9 @@
         t.cell(:handle, :heading => '', :cell_html => {:class => 'small handle'}) { "[drag]" }
     t.cell(:title)
     t.cell(:description)
-    t.cell(:can_be_deleted?) { |c| link_to "delete", admin_chapter_path(:id => c.id, :responder_type => params[:responder_type]), :method => "delete", :confirm => "Are you sure you want to delete this?" if c.profile_questions.count == 0 }
+    t.cell(:can_be_deleted?) { |c| link_to "delete", admin_chapter_path(:id => c.id), :method => "delete", :confirm => "Are you sure you want to delete this?" if c.profile_questions.count == 0 }
     t.cell(:edit_link, :heading => '', :cell_html => {:class => 'actions edit_link'}) { |c|
-      link_to('Edit', edit_admin_chapter_url(:id => c.id, :responder_type => params[:responder_type]))
+      link_to('Edit', edit_admin_chapter_url(:id => c.id))
     }
     end %>
   <% end %>

@@ -1,6 +1,4 @@
 require 'spec_helper'
-include ProfileAnswersHelper
-include BehindTheLineHelper
 
 describe ProfileAnswersController do
   before(:each) do

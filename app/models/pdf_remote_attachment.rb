@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20101014141041
+# Schema version: 20110323195248
 #
 # Table name: attachments
 #
@@ -14,6 +14,7 @@
 #  updated_at              :datetime
 #  credit                  :string(255)
 #  position                :integer
+#  name                    :string(255)
 #
 
 class PdfRemoteAttachment < RemoteAttachment

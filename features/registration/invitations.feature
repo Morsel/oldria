@@ -7,6 +7,7 @@ Feature: users can be invited to join Spoonfeed by registered SF users, restaura
     | mgmt     | secret   | mgmt@example.com | Mgmt Jack      | Manager   |
     | sam      | secret   | sam@example.com  | Samantha Smith | Chef      |
   And the restaurant "Jack's Diner" is in the region "Midwest"
+  And "Jack's Diner" restaurant is in the "Chicago" metro region
   And I am logged in as "sam"
 
   Scenario: a regular restaurant employee wants to invite a friend

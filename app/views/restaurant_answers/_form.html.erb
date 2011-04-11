@@ -1,0 +1,15 @@
+<fieldset class="plain">
+<ol>
+    <li class="hidden optional"><%= hidden_field_tag :restaurant_question_id, answer.restaurant_question.id %></li>
+    <li class="text required">
+        <%= text_area_tag "restaurant_question[#{answer.restaurant_question.id}]answer", answer.answer,
+            :rows => 20, :cols => 50, :id => "restaurant_question_#{answer.restaurant_question.id}_answer" %>
+        <p class="inline-hints"><%= answer.new_record? ? "" : "This answer is viewable by others" %></p>
+    </li>
+  </ol>
+</fieldset>
+
+<div class="clearfix">
+  <%= button_tag "Post" %>
+  <%= link_to "Delete this answer", restaurant_restaurant_answer_path(:id => answer.id, :restaurant_id => @restaurant.id), { :method => "delete" }, { :class => "button negative" } unless answer.new_record? %>
+</div>

@@ -1,5 +1,5 @@
-<% chapter_url = chapter.new_record? ? admin_chapters_path(:responder_type => params[:responder_type]) :
-    admin_chapter_path(:responder_type => params[:responder_type], :id => chapter.id) %>
+<% chapter_url = chapter.new_record? ? admin_chapters_path :
+    admin_chapter_path(:id => chapter.id) %>
 
 <% semantic_form_for [:admin, chapter], :url => chapter_url do |f| %>
     <% f.inputs :class => "plain" do %>
