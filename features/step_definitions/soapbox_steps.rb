@@ -67,7 +67,7 @@ When /^I create a new soapbox page with:$/ do |table|
   click_button "Save"
 end
 
-When /^I selected corresponding soapbox entry$/ do
+When /^I follow the corresponding soapbox entry link$/ do
   visit soapbox_soapbox_entry_path(:id => @soapbox_entry.to_param)
 end
 
