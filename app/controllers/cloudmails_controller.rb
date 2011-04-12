@@ -23,15 +23,15 @@ class CloudmailsController < ApplicationController
     # choose a version of the email body we can work with, after this point it should not include any html
     whole_message_body = ( params[:plain].length > 50 ) ? params[:plain] : params[:html].gsub(/<\/?[^>]*>/, "\n")
     
-    # abort unless we can find our seperator 'RESPOND BY REPLYING TO THIS EMAIL - ABOVE THIS LINE'
-    unless whole_message_body.include? 'RESPOND BY REPLYING TO THIS EMAIL - ABOVE THIS LINE'
+    # abort unless we can find our seperator 'Respond by replying to this email - above this line'
+    unless whole_message_body.include? 'Respond by replying to this email - above this line'
       Rails.logger.info 'Im sorry, we had a problem automatically adding your answer, please try again or answer on the website.'
       render :text => 'some day send them an email to tell them it failed', :status => 200
       return
     end
 
-    # take everything infront of the first 'RESPOND BY REPLYING TO THIS EMAIL - ABOVE THIS LINE'
-    message_body = whole_message_body.split('RESPOND BY REPLYING TO THIS EMAIL - ABOVE THIS LINE').first
+    # take everything infront of the first 'Respond by replying to this email - above this line'
+    message_body = whole_message_body.split('Respond by replying to this email - above this line').first
 
     # clean it up to get what the user intends we get (as best as we can)
     message_body = clean_email_body(message_body)
