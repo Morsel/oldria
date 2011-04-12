@@ -53,3 +53,4 @@ end
 
 TWITTER_CONFIG = YAML.load(File.read(Rails.root + 'config' + 'twitter.yml'))[RAILS_ENV]
 
+CLOUDMAIL_DOMAIN = 'dev-mailbot.restaurantintelligenceagency.com'
