@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20101101205324
+# Schema version: 20110412173344
 #
 # Table name: soapbox_entries
 #
@@ -10,6 +10,7 @@
 #  created_at         :datetime
 #  updated_at         :datetime
 #  published          :boolean         default(TRUE)
+#  daily_feature      :boolean
 #
 
 class SoapboxEntry < ActiveRecord::Base
@@ -28,6 +29,8 @@ class SoapboxEntry < ActiveRecord::Base
               :limit => 5,
               :offset => 1
 
+  named_scope :daily_feature, :conditions => { :daily_feature => true }, :order => "updated_at DESC"
+
   def title
     featured_item.title
   end
@@ -45,31 +48,32 @@ class SoapboxEntry < ActiveRecord::Base
   end
 
   class << self
-    def secondary_feature
-      featured_item_with_offset(1)
-    end
-
     def main_feature
       featured_item_with_offset(0)
     end
 
-    def main_feature_comments(limit = 8)
+    def main_feature_comments(limit = 12)
       featured_item_comments_with_offset(0)[0...limit]
     end
 
-    def secondary_feature_comments(limit = 8)
+    def secondary_feature
+      featured_item_with_offset(1)
+    end
+
+    def secondary_feature_comments(limit = 12)
       featured_item_comments_with_offset(1)[0...limit]
     end
 
     private
 
+    def featured_item_with_offset(offset = 0)
+      published.daily_feature.first(:include => :featured_item, :offset => offset).try(:featured_item)
+    end
+
     def featured_item_comments_with_offset(offset = 0)
       featured_item_with_offset(offset).comments(true).select {|c| c.employment && c.employment.post_to_soapbox }
     end
 
-    def featured_item_with_offset(offset = 0)
-      published.first(:include => :featured_item, :offset => offset).try(:featured_item)
-    end
   end
 
 end
