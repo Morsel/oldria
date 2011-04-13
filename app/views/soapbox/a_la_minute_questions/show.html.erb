@@ -1,4 +1,4 @@
-<h2><%= h @question.question %></h2>
+<% title @question.question %>
 <ul id="answers">
   <%= render :partial => 'answer', :collection => @answers, :as => :answer %>
 </ul>

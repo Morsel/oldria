@@ -2393,6 +2393,20 @@ dl.things dt:after {content: ":"}
 	}
 }
 
+.a_la_minute_question {
+  margin-bottom: 1em;
+  .identity {
+    border: none !important;
+  }
+  .answer {
+    font-size: 110%;
+    font-style: italic;
+  }
+  .datestamp {
+    color: #ccc;
+  }
+}
+
 #behindline {
   @include column(8, true);
   float: left;
