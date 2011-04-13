@@ -10,6 +10,9 @@
             <header class="feed-item-title">
                 <%= link_to question.question, soapbox_a_la_minute_question_path(question) %>
             </header>
+            <aside class="feed-item-reply-count">
+                Last answered by <%= question.latest_answer.responder.name %>
+            </aside>
           </li>
           <% end %>
       </ol><!-- /activity-feed -->
