@@ -3,10 +3,10 @@ class Soapbox::ALaMinuteQuestionsController < ApplicationController
   def index
     @questions = ALaMinuteQuestion.all(:include => "a_la_minute_answers",
                                        :order => "a_la_minute_answers.created_at DESC",
-                                       :limit => 10)
+                                       :limit => 5)
     @sidebar_questions = ALaMinuteQuestion.all(:include => "a_la_minute_answers",
                                                :order => "a_la_minute_answers.created_at DESC",
-                                               :limit => 10, :offset => 10)
+                                               :limit => 10, :offset => 5)
   end
 
   def show
