@@ -7,6 +7,7 @@
 		t.cell(:message) { |c| c.featured_item.message }
 		t.cell(:display_message) { |c| c.featured_item.display_message }
 		t.cell(:authorized_comments) { |c| c.featured_item.soapbox_comment_count }
+		t.cell(:daily_feature) { |c| c.daily_feature ? "yes" : "" }
 		t.cell(:change_status) { |c| link_to (c.published ? "Unpublish" : "Publish"), toggle_status_admin_soapbox_entry_path(c), :method => "post" }
 	end %>
 <% end %>
