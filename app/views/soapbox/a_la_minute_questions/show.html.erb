@@ -2,3 +2,7 @@
 <ul id="answers">
   <%= render :partial => 'answer', :collection => @answers, :as => :answer %>
 </ul>
+
+<% content_for :sidebar do -%>
+<%= render :partial => 'sidebar' %>
+<% end -%>

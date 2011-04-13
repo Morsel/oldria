@@ -136,6 +136,6 @@ Then /^I see an employee named "([^"]*)" without a link$/ do |username|
 end
 
 Then /^I should see the heading "([^\"]*)"$/ do |text|
-  response.should have_selector("h2", :content => text)
+  response.should have_selector("h1", :content => text)
 end
 
