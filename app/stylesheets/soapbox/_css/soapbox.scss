@@ -2407,6 +2407,22 @@ dl.things dt:after {content: ":"}
   }
 }
 
+.a_la_minute_answer p.datestamp {
+  color: #ccc;
+}
+
+#alm-feed {
+  .feed-item-reply {
+    font-size:11px;
+    font-weight:normal;
+    margin:5px 0;
+    a {
+      color:#D6D9E8;
+      text-decoration:none;
+    }
+  }	
+}
+
 #behindline {
   @include column(8, true);
   float: left;
