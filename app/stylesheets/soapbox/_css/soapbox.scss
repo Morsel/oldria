@@ -825,6 +825,9 @@ body,html,#container,#main,#content,#inside{
 				&.hidden {display: none;}
 			}
 		}
+    .identity {
+      border: none !important;
+    }
 	}
 
 	#topic_title {margin: 0;}

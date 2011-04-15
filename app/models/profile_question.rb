@@ -76,6 +76,10 @@ class ProfileQuestion < ActiveRecord::Base
       self.profile_answers.build(:user => user)
   end
 
+  def latest_answer
+    profile_answers.first(:order => "created_at DESC")
+  end
+
   protected
 
   def update_roles_description

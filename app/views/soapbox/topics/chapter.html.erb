@@ -1,7 +1,5 @@
 <% title "#{@chapter.title} - Behind The Line", false %>
 
-<%#= render :partial => 'shared/add_this', :locals => {:responder => @user} %>
-
 <h1 id="btl-title" class="btl"><%= link_to "<span class=\"btl-art\">Behind the Line</span>", soapbox_topics_path %></h1>
 
 <h2 id="topic_title">Topic: <%= @chapter.topic.title %></h2>
@@ -25,6 +23,14 @@
   <% for question in @questions -%>
     <% div_for question do %>
       <h4><span class="letter-q">Q:</span> <%= link_to question.title, soapbox_question_path(question) %></h4>
+      <% if answer = question.latest_answer %>
+        <p>Last answered by:</p>
+        <%= render :partial => 'users/identity', :locals => { :user => answer.user } %>
+        <p><%= answer.answer %></p>
+        <span class="timestamp">Last updated: <%= answer.try(:updated_at).try(:strftime, "%b %e %Y") %></span>
+      <% else %>
+        <p>Not answered yet.</p>
+      <% end %>
     <% end -%>
   <% end -%>
 </div>
