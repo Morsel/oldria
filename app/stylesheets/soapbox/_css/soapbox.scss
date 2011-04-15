@@ -2409,6 +2409,12 @@ dl.things dt:after {content: ":"}
 
 .a_la_minute_answer p.datestamp {
   color: #ccc;
+  margin: 0;
+}
+
+#answers .restaurant {
+  margin-bottom: 5px;
+  padding-bottom: 0;
 }
 
 #alm-feed {
