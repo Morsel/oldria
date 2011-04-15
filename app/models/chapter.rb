@@ -119,6 +119,18 @@ class Chapter < ActiveRecord::Base
     end
   end
 
+  def previous
+    sort_field = (self.position == 0 ? "id" : "position")
+    self.topic.chapters.first(:conditions => ["chapters.#{sort_field} < ?", self.send(sort_field)],
+                              :order => "chapters.#{sort_field} DESC")
+  end
+
+  def next
+    sort_field = (self.position == 0 ? "id" : "position")
+    self.topic.chapters.first(:conditions => ["chapters.#{sort_field} > ?", self.send(sort_field)],
+                              :order => "chapters.#{sort_field} DESC")
+  end
+
   def questions_for_user(user)
     profile_questions.for_user(user)
   end

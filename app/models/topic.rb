@@ -62,6 +62,16 @@ class Topic < ActiveRecord::Base
     end
   end
 
+  def previous
+    sort_field = (self.position == 0 ? "id" : "position")
+    Topic.first(:conditions => ["topics.#{sort_field} < ?", self.send(sort_field)], :order => "#{sort_field} DESC")
+  end
+
+  def next
+    sort_field = (self.position == 0 ? "id" : "position")
+    Topic.first(:conditions => ["topics.#{sort_field} > ?", self.send(sort_field)], :order => "#{sort_field} DESC")
+  end
+
   def question_count_for_user(user)
     self.profile_questions.for_user(user).count
   end
