@@ -29,6 +29,7 @@
             <%= render :partial => 'users/identity', :locals => { :user => answer.user } %>
             <p><%= answer.answer %></p>
             <span class="timestamp">Last updated: <%= answer.try(:updated_at).try(:strftime, "%b %e %Y") %></span>
+            <div class="clearfix">&nbsp;</div>
         </div>
       <% else %>
         <p>Not answered yet.</p>
