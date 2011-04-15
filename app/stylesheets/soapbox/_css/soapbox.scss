@@ -825,9 +825,6 @@ body,html,#container,#main,#content,#inside{
 				&.hidden {display: none;}
 			}
 		}
-    .identity {
-      border: none !important;
-    }
 	}
 
 	#topic_title {margin: 0;}
@@ -2735,3 +2732,20 @@ dl.things dt:after {content: ":"}
   color: #888;
 }
 
+#btl_answers {
+  h4 {
+    a {
+      font-weight: bold;
+      font-size: 14px;      
+    }
+    .letter-q {
+      font-weight: bolder;
+    }
+  }
+  .btl-answer {
+    margin-left: 2em;
+  }
+  .identity {
+    border: none !important;
+  }
+}
