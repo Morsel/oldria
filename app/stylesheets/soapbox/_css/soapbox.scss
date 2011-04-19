@@ -2502,8 +2502,8 @@ dl.things dt:after {content: ":"}
 	span.btl-art{
 		@include hiddentext;
 		display:inline-block;
-		background:url(/images/redesign/title-behindtheline.png) no-repeat;
-		width:123px;
+		background:url(/images/redesign/title-onlinepresskit.png) no-repeat;
+		width:132px;
 		height:19px;
 	}
 	&.btl{
@@ -2519,10 +2519,10 @@ dl.things dt:after {content: ":"}
 			float:left;
 			margin:0 5px 0 0;
 			&.btl-art{
-				background:url(/images/redesign/btl-white.png) no-repeat left;
+				background:url(/images/redesign/onlinepresskit-white.png) no-repeat left;
 			}
 			&.name{
-				padding-top:3px;
+				padding-top:1px;
 			}
 		}
 	}

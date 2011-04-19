@@ -3450,8 +3450,8 @@ dl.things dt:after {
   outline: 0;
   text-indent: -9999px;
   display: inline-block;
-  background: url(/images/redesign/title-behindtheline.png) no-repeat;
-  width: 123px;
+  background: url(/images/redesign/title-onlinepresskit.png) no-repeat;
+  width: 132px;
   height: 19px;
 }
 /* line 2509, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
@@ -3475,12 +3475,12 @@ dl.things dt:after {
 /* line 2521, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
 #page_content h1#btl-title.btl span.btl-art, #page-content h1#btl-title.btl span.btl-art,
 #page-content h3#btl-title.btl span.btl-art {
-  background: url(/images/redesign/btl-white.png) no-repeat left;
+  background: url(/images/redesign/onlinepresskit-white.png) no-repeat left;
 }
 /* line 2524, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
 #page_content h1#btl-title.btl span.name, #page-content h1#btl-title.btl span.name,
 #page-content h3#btl-title.btl span.name {
-  padding-top: 3px;
+  padding-top: 1px;
 }
 
 /* line 2531, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
