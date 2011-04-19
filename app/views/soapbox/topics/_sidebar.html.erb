@@ -12,7 +12,7 @@
             </header>
             <aside class="feed-item-reply-count">
                 <% link_to soapbox_question_path(question) do %>
-                <span class="num"><%= count = question.profile_answers.count %></span> <%= count > 1 ? "replies" : "reply" %>
+                <span class="num"><%= count = question.soapbox_answer_count %></span> <%= count == 1 ? "reply" : "replies" %>
                 <% end %>
             </aside>
           </li>
