@@ -108,7 +108,7 @@ h1,h2,h3,h4,h5,h6{
 #tagline{
 	@include hiddentext;
 	float:left;
-	padding:45px 65px 0 10px;
+	padding:45px 2px 0 10px;
 	width:110px;
 	height:31px;
 	background:url(/images/soapbox/logo-tagline-soapbox.png) no-repeat 10px 45px;
@@ -120,7 +120,7 @@ h1,h2,h3,h4,h5,h6{
 		@include hiddentext;
 		margin: -23px 0 0 0;
 		float: left;
-		width: 122px;
+		width: 77px;
 		height: 115px;
 		text-decoration: none;
 		background: transparent url(/images/soapbox/soapbox-nav.png) no-repeat;
@@ -130,24 +130,40 @@ h1,h2,h3,h4,h5,h6{
 			&.selected {background-position: 0 -400px;}
 		}
 		&#nav-front-burner {
-			background-position: -122px 0;
-			&:hover {background-position: -122px -200px;}
-			&.selected {background-position: -122px -400px;}
+			background-position: -77px 0;
+			&:hover {background-position: -77px -200px;}
+			&.selected {background-position: -77px -400px;}
+			width: 87px;
+		}
+		&#nav-alm {
+			background-position: -165px 0;
+			&:hover {background-position: -165px -200px;}
+			&.selected {background-position: -165px -400px;}
+			width: 87px;
+		}
+		&#nav-btl {
+			background-position: -251px 0;
+			&:hover {background-position: -251px -200px;}
+			&.selected {background-position: -251px -400px;}
+			width: 97px;
 		}
 		&#nav-directory {
-			background-position: -244px 0;
-			&:hover {background-position: -244px -200px;}
-			&.selected {background-position: -244px -400px;}
+			background-position: -349px 0;
+			&:hover {background-position: -349px -200px;}
+			&.selected {background-position: -349px -400px;}
+			width: 99px;
 		}
-		&#nav-about {
-			background-position: -366px 0;
-			&:hover {background-position: -366px -200px;}
-			&.selected {background-position: -366px -400px;}
+		&#nav-restaurant-directory {
+			background-position: -448px 0;
+			&:hover {background-position: -448px -200px;}
+			&.selected {background-position: -448px -400px;}
+			width: 115px;
 		}
-		&#nav-contact {
-			background-position: -488px 0;
-			&:hover {background-position: -488px -200px;}
-			&.selected {background-position: -488px -400px;}
+		&#nav-newsfeed {
+			background-position: -562px 0;
+			&:hover {background-position: -562px -200px;}
+			&.selected {background-position: -562px -400px;}
+			width: 111px;
 		}
 	}
 }
