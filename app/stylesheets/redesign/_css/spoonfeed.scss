@@ -3024,6 +3024,13 @@ p.search_filter_hint {
 	span.btl-art{
 		@include hiddentext;
 		display:inline-block;
+		background:url(/images/redesign/title-behindtheline.png) no-repeat;
+		width:123px;
+		height:19px;
+	}
+	span.presskit-art{
+		@include hiddentext;
+		display:inline-block;
 		background:url(/images/redesign/title-onlinepresskit.png) no-repeat;
 		width:132px;
 		height:19px;
