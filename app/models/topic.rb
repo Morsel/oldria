@@ -40,6 +40,8 @@ class Topic < ActiveRecord::Base
       :order => :position }
   }
 
+  named_scope :without_travel, :conditions => ["title != ?", "Travel Guides"]
+
   def previous_for_user(user, is_self = false)
     sort_field = (self.position == 0 ? "id" : "position")
     if is_self

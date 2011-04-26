@@ -1,7 +1,7 @@
 class Soapbox::TopicsController < ApplicationController
   
   def index
-    @topics = Topic.user_topics
+    @topics = Topic.user_topics.without_travel
     chapters = @topics.map(&:chapters)
     @chapters_by_topic = chapters.flatten.group_by(&:topic)
   end
