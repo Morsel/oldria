@@ -2109,7 +2109,7 @@ p.search_filter_hint {
 }
 /* line 1436, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
 #trend-comments .comment, #qotd-comments .comment {
-  width: 206px;
+  width: 190px;
   padding: 10px;
   -moz-box-shadow: #999999 0 0 3px 0;
   -webkit-box-shadow: #999999 0 0 3px 0;
