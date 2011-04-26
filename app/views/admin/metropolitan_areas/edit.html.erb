@@ -1,10 +1,3 @@
 <% title "Editing Metro Area" %>
 
-<% semantic_form_for [:admin, @metro] do |f| %>
-    <% f.inputs do %>
-        <%= f.input :name %>
-        <%= f.input :state %>
-        
-        <p><%= submit_tag "Save" %></p>
-    <% end %>
-<% end %>
+<%= render :partial => 'form', :locals => { :metro => @metro } %>

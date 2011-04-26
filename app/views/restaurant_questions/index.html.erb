@@ -1,0 +1,67 @@
+<% title "#{@chapter.title} - #{@subject.name} - Online Press Kit", false %>
+
+<%= render :partial => 'shared/add_this', :locals => { :responder => @restaurant } %>
+
+<% javascript_tag do %>
+  var addthis_share = {
+    url: '<%= soapbox_restaurant_questions_url(:restaurant_id => @restaurant.id, :chapter_id => @chapter.id, :page_id => @page.try(:id)) %>',
+    title: $('title').text().replace('Spoonfeed','Soapbox')
+  }
+<% end %>
+<h1 id="btl-title" class="btl"><%= link_to "<span class=\"btl-art\">Online Press Kit:</span> <span class=\"name\">#{restaurant_btl_title(@restaurant, @page)}</span>", path_for_restaurant_and_page(@restaurant, @page) %></h1>
+
+<h2 id="topic_title">Topic: <%= @chapter.topic.title %></h2>
+<%= render :partial => 'restaurant_questions/topic_nav',
+    :locals => { :next_topic => @next_topic, :prev_topic => @previous_topic } %>
+
+<div id="btl_answers" class="btl-my-answers">
+  <div id="" class="clear clearfix">
+    <h3><%= @chapter.title %></h3>
+    <% if @next.present? or @previous.present? -%>
+      <nav id="chapter_nav" class="topic-nav clearfix">
+        <% if @next.present? -%>
+          <%= link_to "Next: #{truncate(@next.title, :length => 20, :omission => '&hellip;')}",
+              link_for_restaurant_questions(:restaurant_id => @restaurant.id, :chapter_id => @next.id), :class => 'next' %>
+        <% end -%>
+        <% if @previous.present? -%>
+          <%= link_to "Prev: #{truncate(@previous.title, :length => 20, :omission => '&hellip;')}",
+              link_for_restaurant_questions(:restaurant_id => @restaurant.id, :chapter_id => @previous.id, :page_id => @page.try(:id)), :class => 'prev' %>
+        <% end -%>
+      </nav>
+    <% end -%>
+  </div>
+
+<% if can?(:manage, @restaurant) && !soapbox? %><%# let's edit these answers %>
+  <% form_tag restaurant_restaurant_answers_path(:restaurant_id => @restaurant) do %>
+    <% @questions.each do |question| %>
+      <% div_for question do %>
+          <h4>Q: <%= question.title %></h4>
+          <%= render :partial => "restaurant_answers/form", :locals => { :answer => question.find_or_build_answer_for(@restaurant) } %>
+      <% end %>
+    <% end %>
+  <% end %><%# end form %>
+
+  <div id="loading-wait" style="display: none">
+    <%= image_tag "ajax-loader.gif" %>
+    <p>Please wait while we save your responses</p>
+  </div>
+
+  <p class="clear">Answers to your questions will be posted on your profile and can be used by Restaurant Intelligence Agency to increase traffic to the site.</p>
+
+<% else -%><%# no editing by other users %>
+
+  <% for question in @questions -%>
+    <% div_for question do %>
+      <h4><span class="letter-q">Q:</span> <%= link_to question.title, soapbox_restaurant_question_path(question) %></h4>
+      <% if answer = question.answer_for(@restaurant) %>
+        <p><%= answer.answer %></p>
+        <span class="timestamp">Last updated: <%= answer.try(:updated_at).try(:strftime, "%b %e %Y") %></span>
+      <% else %>
+        <p>Not answered yet.</p>
+      <% end %>
+    <% end -%>
+  <% end -%>
+
+<% end -%>
+</div>
+

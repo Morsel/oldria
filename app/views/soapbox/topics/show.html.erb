@@ -1,0 +1,23 @@
+<% title "#{@topic.title} - Behind the Line", false %>
+
+<h1 id="btl-title" class="btl"><%= link_to "<span class=\"btl-art\">Behind the Line</span>", soapbox_topics_path %></h1>
+
+<h2 id="topic_title">Topic: <%= @topic.title %></h2>
+
+<%= render :partial => 'nav', :locals => { :next_topic => @next, :prev_topic => @previous } %>
+
+<div class="clear"></div>
+
+<% for chapter in @questions_by_chapter.keys %>
+  <% div_for chapter, :class => cycle('', ' last') do -%>
+      <% link_to chapter_soapbox_topics_path(:chapter_id => chapter.id) do %>
+          <h3><%= chapter.title %></h3>
+
+          <p><%= chapter.description || truncate(@questions_by_chapter[chapter].map(&:title).to_sentence, :length => 100) %></p>
+      <% end %>
+  <% end -%>
+<% end %>
+
+<% content_for :sidebar do -%>
+<%= render :partial => "sidebar" %>
+<% end -%>

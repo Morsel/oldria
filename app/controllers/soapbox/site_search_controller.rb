@@ -61,10 +61,10 @@ class Soapbox::SiteSearchController < ApplicationController
   end
 
   def search_btl_entities
-    ProfileQuestion.answered_by_premium_subjects.title_like(@key).all.each do |entry|
+    ProfileQuestion.answered_by_premium_users.title_like(@key).all.each do |entry|
       @all_entries << [entry, :btl_question]
     end
-    ProfileAnswer.from_premium_subjects.answer_like(@key).all(:include => :profile_question).each do |entry|
+    ProfileAnswer.from_premium_users.answer_like(@key).all(:include => :profile_question).each do |entry|
       @all_entries << [entry, :btl_answer]
     end
   end

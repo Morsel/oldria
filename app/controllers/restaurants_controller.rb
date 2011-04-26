@@ -25,7 +25,7 @@ class RestaurantsController < ApplicationController
   def show
     @employments = @restaurant.employments.by_position.all(
         :include => [:subject_matters, :restaurant_role, :employee])
-    @questions = ALaMinuteAnswer.newest_for(@restaurant)
+    @questions = ALaMinuteAnswer.public_profile_for(@restaurant)
   end
 
   def edit

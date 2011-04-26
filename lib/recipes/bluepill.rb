@@ -9,10 +9,6 @@
 # Or wherever bluepill is installed. On some of our servers, it is at
 #   /opt/ruby-enterprise-1.8.7-2009.10/bin/bluepill
 
-
-before "deploy:update", "bluepill:quit"
-after "deploy:update",  "bluepill:start"
-
 namespace :bluepill do
   desc "Stop processes that bluepill is monitoring and quit bluepill"
   task :quit, :roles => [:app] do
@@ -23,7 +19,15 @@ namespace :bluepill do
       sudo "bluepill #{nickname} stop"
       sudo "bluepill #{nickname} quit"
     end
-    
+  end
+
+  desc "Stop processes that bluepill is monitoring"
+  task :stop, :roles => [:app] do
+    if rails_env == :production
+      sudo "bluepill #{rails_env} stop"
+    else
+      sudo "bluepill #{nickname} stop"
+    end
   end
 
   desc "Load bluepill configuration and start it"
@@ -37,6 +41,10 @@ namespace :bluepill do
 
   desc "Prints bluepills monitored processes statuses"
   task :status, :roles => [:app] do
-    sudo "bluepill status"
+    if rails_env == :production
+      sudo "bluepill #{rails_env} status"
+    else
+      sudo "bluepill #{nickname} status"
+    end
   end
 end

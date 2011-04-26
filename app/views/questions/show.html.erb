@@ -24,10 +24,14 @@
 
   <% for answer in @answers %>
       <div class="comment">
-          <%= render :partial => "#{answer.responder.class.name.underscore.pluralize}/identity", :locals => { :user => answer.responder } %>
+          <%= render :partial => "users/identity", :locals => { :user => answer.user } %>
           <div class="user_comment"><p><%= answer.answer %></p></div>
       </div>
   <% end %>
 
   <p><span class="timestamp">Last updated: <%= answer.try(:updated_at).try(:strftime, "%b %e %Y") %></span></p>
 </div><!-- #btl_answers -->
+
+<% content_for :sidebar do -%>
+<%= render :partial => "soapbox/topics/sidebar" %>
+<% end if soapbox? -%>

@@ -5,6 +5,6 @@
     All <%= category %>
   </label>
 
-  <%= f.input :responders, :as => :check_boxes, :label => "&nbsp;", :collection => roles, :required => false, :wrapper_html => { :id => "profile_question_restaurant_roles_#{category.gsub(/ /, "_") rescue nil}_input" } %>
+  <%= f.input :restaurant_roles, :as => :check_boxes, :label => "&nbsp;", :collection => roles, :required => false, :wrapper_html => { :id => "profile_question_restaurant_roles_#{category.gsub(/ /, "_") rescue nil}_input" } %>
   <hr/>
 <% end %>

@@ -561,15 +561,6 @@ $('.soapbox_sidebar').tabs();
 $('.tabable').tabs();
 
 // Profile question admin
-$('#chapters tbody').sortable({
-	axis:'y',
-	dropOnEmpty:false,
-	update: function(){
-		$.ajax({ data:$(this).sortable('serialize', { key: 'chapters[]' }), dataType:'script', type:'post', url:'/admin/profile_questions/sort'
-		});
-	}
-});
-
 $('#profile_questions tbody').sortable({
 	axis:'y',
 	dropOnEmpty:false,
@@ -581,11 +572,43 @@ $('#profile_questions tbody').sortable({
 	}
 });
 
+$('#chapters tbody').sortable({
+	axis:'y',
+	dropOnEmpty:false,
+	update: function(){
+		$.ajax({ data:$(this).sortable('serialize', { key: 'chapters[]' }), dataType:'script', type:'post', url:'/admin/profile_questions/sort'
+		});
+	}
+});
+
 $('#topics tbody').sortable({
 	axis:'y',
 	dropOnEmpty:false,
 	update: function(){
 		$.ajax({ data:$(this).sortable('serialize', { key: 'topics[]' }), dataType:'script', type:'post', url:'/admin/profile_questions/sort'
+		});
+	}
+});
+
+$('#restaurant_questions tbody').sortable({
+	axis:'y',
+	dropOnEmpty:false,
+	update: function(){
+    var postData = $(this).sortable('serialize', { key: 'restaurant_questions[]' });
+		$.ajax({ data: postData,
+		    dataType:'script', type:'post', url:'/admin/restaurant_questions/sort'
+		});
+	}
+});
+
+$('#restaurant_topics tbody').sortable({
+	axis:'y',
+	dropOnEmpty:false,
+	update: function(){
+		$.ajax({ data:$(this).sortable('serialize',
+		         { key: 'restaurant_topics[]' }),
+		         dataType:'script', type:'post',
+		         url:'/admin/restaurant_questions/sort'
 		});
 	}
 });

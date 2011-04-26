@@ -1,3 +1,4 @@
+@alm @restaurant
 Feature: Manage a_la_minutes
   In order to provide current information for our users
   Our restaurant managers and employees
@@ -59,7 +60,9 @@ Feature: Manage a_la_minutes
 
     When I go to the edit a la minute question page for "Steak Knife"
     And I fill in a la minute question titled "What's new?" with answer "Salad"
+    And I check "a_la_minute_questions_1_show_as_public"
     And I fill in a la minute question titled "What's playing?" with answer "Creed"
+    And I check "a_la_minute_questions_2_show_as_public"
     And I press "Change Answers"
     And I go to the restaurant show page for "Steak Knife"
     Then I should see the question "What's new?" with the answer "Salad"

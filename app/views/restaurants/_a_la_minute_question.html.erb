@@ -2,9 +2,17 @@
 <% content_tag_for(:dl, question) do %>
   <dt class="question">
     <%= link_if_soapbox question %>
-    <%= content_tag(:span, "(Shown on public profile)") if answer.show_as_public && restaurant.employees.include?(current_user) %>
+    <%= link_to 'view archive', "#a_la_minute_answers_#{question.id}", :class => 'show_all_link showit' %>
   </dt>
   <dd class="answer">
     <%= h answer.answer %>
   </dd>
+  <ul class="archive" id="a_la_minute_answers_<%= question.id %>">
+    Archive
+    <% @restaurant.a_la_minute_answers.show_public.for_question(question).each_with_index do |archived_answer, index| %>
+      <% content_tag_for(:li, archived_answer, :class => "answer hidden") do %>
+        <%= archived_answer.answer %>
+      <% end unless index == 0 %><%# don't show the current answer in this list %>
+    <% end %>
+  </ul>
 <% end %>

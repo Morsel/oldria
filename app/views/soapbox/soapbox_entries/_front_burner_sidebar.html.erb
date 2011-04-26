@@ -1,0 +1,33 @@
+<div id="sidebar">
+  <aside id="recent-activity">
+    <header>
+      <h1>Front Burner Questions</h1>
+      <nav id="activity-chooser">
+        <span><a href="#trend-questions-feed">Trend Questions</a></span>
+        <span><a href="#qotd-feed">Questions of the Day</a></span>
+      </nav>
+    </header>
+    <% cache('frontburner_sidebar', :expires_in => 1.hour) do -%>
+      <ol id="trend-questions-feed">
+        <%= render :partial => 'soapbox/soapbox_entries/sidebar_item', :collection => past_trends %>
+      </ol><!-- /activity-feed -->
+      <ol id="qotd-feed">
+        <%= render :partial => 'soapbox/soapbox_entries/sidebar_item', :collection => past_qotds %>
+      </ol><!-- /activity-feed -->
+    <% end -%>
+    <div id="feed-bottom"></div>
+    <footer>
+      <nav id="activity-chooser-all">
+        <span><%= link_to "View all &nbsp;&#187;", "#", :id => "view-all-questions", :onClick => "show_all_questions_linker();" %></span>
+        <% javascript_tag do %>
+          SOAPBOX_ENTRIES_URLS = ["<%= trend_soapbox_soapbox_entries_path(:view_all => true) %>", "<%= qotd_soapbox_soapbox_entries_path(:view_all => true) %>"];
+        <% end %>
+      </nav>
+    </footer>
+  </aside><!-- /recent-activity -->
+  <nav id="participate">
+    <%= link_to "Login to participate", login_path, :class => "button", :id => "login-participate" %>
+    <span>or</span>
+    <%= link_to "Request an invitation", '/soapbox/request-invitation', :class => "button", :id => "request-invite" %>
+  </nav><!-- /participate -->
+</div><!-- /sidebar -->

@@ -19,7 +19,7 @@ describe ProfileQuestion do
     user = Factory(:user)
     question = Factory(:profile_question)
     question.answered_by?(user).should be_false
-    Factory(:profile_answer, :responder => user, :profile_question => question)
+    Factory(:profile_answer, :user => user, :profile_question => question)
   end
 
 end

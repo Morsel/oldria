@@ -1,0 +1,10 @@
+<% topic_url = topic.new_record? ? admin_restaurant_topics_path :
+    admin_restaurant_topic_path(:id => topic.id) %>
+
+<% semantic_form_for [:admin, topic], :url => topic_url do |f| %>
+    <% f.inputs do %>
+        <%= f.input :title %>
+        <%= f.input :description %>
+    <% end %>
+    <p><%= button_tag "Save Topic" %></p>
+<% end %>

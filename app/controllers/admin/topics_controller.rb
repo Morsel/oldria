@@ -1,9 +1,7 @@
 class Admin::TopicsController < Admin::AdminController
   
   def index
-    @topics = Topic.all(
-                :conditions => {:responder_type => h(params[:responder_type])},
-                :order => "position ASC, title ASC")
+    @topics = Topic.user_topics(:order => "position ASC, title ASC")
   end
 
   def new

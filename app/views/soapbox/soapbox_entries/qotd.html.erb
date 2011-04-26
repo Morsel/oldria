@@ -2,8 +2,8 @@
 
 <section id="questions-list">
   <div id="questions-list-feed-qotd">
-    <h1>Questions of the Day</h1>
+    <h1><%= params[:view_all].present? ? "Questions of the Day" : "Previous Featured Questions of the Day" %></h1>
     <%= render :partial => 'qotd_list', :locals => {:questions => @featured_items} %>
-    <%= will_paginate(@questions) %>
+    <%= will_paginate(@featured_items) %>
   </div><!-- /recent-trends -->
 </section><!-- / recent-questions -->

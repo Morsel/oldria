@@ -3028,6 +3028,13 @@ p.search_filter_hint {
 		width:123px;
 		height:19px;
 	}
+	span.presskit-art{
+		@include hiddentext;
+		display:inline-block;
+		background:url(/images/redesign/title-onlinepresskit.png) no-repeat;
+		width:132px;
+		height:19px;
+	}
 	&.btl{
 		overflow:hidden;
 		display:inline-block;
@@ -3041,10 +3048,10 @@ p.search_filter_hint {
 			float:left;
 			margin:0 5px 0 0;
 			&.btl-art{
-				background:url(/images/redesign/btl-white.png) no-repeat left;
+				background:url(/images/redesign/onlinepresskit-white.png) no-repeat left;
 			}
 			&.name{
-				padding-top:3px;
+				padding-top:1px;
 			}
 		}
 	}
@@ -4376,12 +4383,22 @@ p.search_filter_hint {
 		}
 		.questions {
 			dl {
-				margin: 10px 0;
+				padding: 0 0 1em 0;
+        margin: 10px 0;
+        border-bottom: 1px dotted #B0B5CC;
 				dt {
 					font-weight: bold;
 					color: #333;
 					margin: 0;
 					padding: 0;
+					.show_all_link {
+					  display: block;
+					  text-align: right;
+					  float: right;
+					  font-weight: normal;
+  				  font-style: italic;
+  				  font-size: 90%;
+					}
 				}
 				dd {
 					font-weight: normal;
@@ -4390,6 +4407,9 @@ p.search_filter_hint {
 					padding: 0;
 				}
 			}
+      ul {
+        margin: 5px 0 0 0;
+      }
 		}
 	}
 } 

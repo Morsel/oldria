@@ -19,10 +19,10 @@ class ALaMinuteAnswer < ActiveRecord::Base
 
   validates_presence_of :a_la_minute_question_id
 
-
   default_scope :order => 'created_at desc', :include => :a_la_minute_question
-  # named_scope :newest, :group => :a_la_minute_question_id, :order => 'created_at desc'
+
   named_scope :for_question, lambda { |question| {:conditions => {:a_la_minute_question_id => question.id}} }
+  named_scope :show_public, :conditions => { :show_as_public => true }
 
   def self.newest_for(obj)
     ids = []

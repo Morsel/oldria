@@ -1,5 +1,7 @@
 <% title "Metropolitan Areas" %>
 
+<p class="clearfix"><%= link_to "New Metro Area", new_admin_metropolitan_area_path, :class => 'button positive'%></p>
+
 <% table_for @metros do |t| %>
     <% t.data :actions => [:edit], :action_prefix => 'admin' do
 	  t.cell(:name)

@@ -45,10 +45,12 @@ Feature: AddThis sharing feature
     Given there is a QOTD asking "Where do you buy flowers?"
     And I am logged in as an admin
     When I create a new soapbox entry for that QOTD with:
-      | Published at | 2010-05-10 |
+      | Published at  | 2010-05-10 |
+      | Daily feature | true       |
     And there is a Trend Question "What is the haps?: Boo-ya"
     When I create a new soapbox entry for that Trend Question with:
       | Published at | 2010-05-10 |
+      | Daily feature | true       |
 
     When I go to the soapbox front burner page
     Then I should see "Where do you buy flowers?"
@@ -74,7 +76,8 @@ Feature: AddThis sharing feature
       | Patty Wallace | Hand-picked, all the way!       |
     And I am logged in as an admin
     When I create a new soapbox entry for that QOTD with:
-      | Published at | 2010-05-10 |
+      | Published at  | 2010-05-10 |
+      | Daily feature | true       |
     And I go to the soapbox front burner page
     And I follow "Where do you buy flowers?"
     Then I should see facebook description tag containing "Hand-picked" within content
