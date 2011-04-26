@@ -8,7 +8,7 @@
     title: $('title').text().replace('Spoonfeed','Soapbox')
   }
 <% end %>
-<h1 id="btl-title" class="btl"><%= link_to "<span class=\"btl-art\">Online Press Kit:</span> <span class=\"name\">#{restaurant_btl_title(@restaurant, @page)}</span>", path_for_restaurant_and_page(@restaurant, @page) %></h1>
+<h1 id="btl-title" class="btl"><%= link_to "<span class=\"presskit-art\">Online Press Kit:</span> <span class=\"name\">#{restaurant_btl_title(@restaurant, @page)}</span>", path_for_restaurant_and_page(@restaurant, @page) %></h1>
 
 <h2 id="topic_title">Topic: <%= @chapter.topic.title %></h2>
 <%= render :partial => 'restaurant_questions/topic_nav',

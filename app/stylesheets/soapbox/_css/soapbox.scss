@@ -2542,6 +2542,9 @@ dl.things dt:after {content: ":"}
 			float:left;
 			margin:0 5px 0 0;
 			&.btl-art{
+				background:url(/images/redesign/btl-white.png) no-repeat left;
+			}
+			&.presskit-art{
 				background:url(/images/redesign/onlinepresskit-white.png) no-repeat left;
 			}
 			&.name{
