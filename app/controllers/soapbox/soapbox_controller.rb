@@ -18,6 +18,7 @@ class Soapbox::SoapboxController < ApplicationController
       @use_search = true
     end
 
+    @no_sidebar = true
     render :template => "directory/index"
   end
 
@@ -28,6 +29,7 @@ class Soapbox::SoapboxController < ApplicationController
 
   def restaurant_directory
     @restaurants = Restaurant.with_premium_account
+    @no_sidebar = true
     render :template => "directory/restaurants"
   end
 
