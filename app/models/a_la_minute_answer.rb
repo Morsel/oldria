@@ -24,6 +24,14 @@ class ALaMinuteAnswer < ActiveRecord::Base
   named_scope :for_question, lambda { |question| {:conditions => {:a_la_minute_question_id => question.id}} }
   named_scope :show_public, :conditions => { :show_as_public => true }
 
+  named_scope :from_premium_responders, lambda {
+    {
+      :joins => 'INNER JOIN subscriptions ON `subscriptions`.subscriber_id = responder_id AND `subscriptions`.subscriber_type = responder_type',
+      :conditions => ["subscriptions.id IS NOT NULL AND (subscriptions.end_date IS NULL OR subscriptions.end_date >= ?)",
+          Date.today]
+    }
+  }
+
   def self.newest_for(obj)
     ids = []
     if obj.is_a?(Restaurant) || obj.is_a?(User)
