@@ -32,7 +32,7 @@ class ALaMinuteQuestion < ActiveRecord::Base
   end
 
   def latest_answer
-    a_la_minute_answers.first
+    a_la_minute_answers.from_premium_responders.first
   end
 
 end
