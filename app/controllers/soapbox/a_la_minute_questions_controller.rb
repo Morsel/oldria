@@ -11,7 +11,7 @@ class Soapbox::ALaMinuteQuestionsController < ApplicationController
 
   def show
     @question = ALaMinuteQuestion.find(params[:id])
-    @answers = ALaMinuteAnswer.newest_for(@question)
+    @answers = ALaMinuteAnswer.from_premium_responders.newest_for(@question)
     @sidebar_questions = ALaMinuteQuestion.all(:include => "a_la_minute_answers",
                                                :order => "a_la_minute_answers.created_at DESC")
   end
