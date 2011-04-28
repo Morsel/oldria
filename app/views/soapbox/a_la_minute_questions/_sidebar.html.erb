@@ -10,11 +10,6 @@
             <header class="feed-item-title">
                 <%= link_to question.question, soapbox_a_la_minute_question_path(question) %>
             </header>
-            <% if question.latest_answer.present? -%>
-            <aside class="feed-item-reply">
-                Last answered by <%= link_to_if question.latest_answer.responder.linkable_profile?, question.latest_answer.responder.name, soapbox_restaurant_path(question.latest_answer.responder) %>
-            </aside>
-            <% end -%>
           </li>
           <% end %>
       </ol><!-- /activity-feed -->
