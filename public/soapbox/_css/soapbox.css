@@ -1175,7 +1175,7 @@ body, html, #container, #main, #content, #inside {
   margin: 0;
 }
 /* line 736, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
-#page-content h2#btl-tagline {
+#page-content h2#btl-tagline, #page-content h2#alm-tagline {
   margin: 0;
   border: none;
   padding-bottom: 1em;
