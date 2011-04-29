@@ -19,7 +19,6 @@ class ALaMinuteAnswer < ActiveRecord::Base
 
   validates_presence_of :a_la_minute_question_id
   validates_presence_of :answer
-  validates_length_of :answer, :maximum => 270
 
   default_scope :order => 'created_at desc', :include => :a_la_minute_question
 
