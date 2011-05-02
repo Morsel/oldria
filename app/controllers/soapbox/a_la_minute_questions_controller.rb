@@ -3,8 +3,7 @@ class Soapbox::ALaMinuteQuestionsController < ApplicationController
   def index
     @questions = ALaMinuteQuestion.all(:include => "a_la_minute_answers",
                                        :order => "a_la_minute_answers.created_at DESC",
-                                       :conditions => ["`a_la_minute_answers`.show_as_public = ?", true],
-                                       :limit => 10)
+                                       :conditions => ["`a_la_minute_answers`.show_as_public = ?", true])[0...10]
     @sidebar_questions = ALaMinuteQuestion.all(:order => "question")
   end
 
