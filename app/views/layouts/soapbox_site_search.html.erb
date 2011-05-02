@@ -38,11 +38,13 @@
         <h2 id="tagline">A digital magazine written by chefs</h2>
       </hgroup>
       <nav id="nav">
-        <%= link_to 'Home', soapbox_root_path, :id => "nav-home", :class => active_page?('/soapbox') %>
-        <%= link_to 'Front Burner', soapbox_soapbox_entries_path, :id => "nav-front-burner", :class => active_page?('/soapbox/front_burner') %>
-        <%= link_to 'Profiles', '/soapbox/directory', :id => "nav-directory", :class => active_page?('/soapbox/directory') %>
-        <%= link_to 'About', '/soapbox/about', :id => "nav-about", :class => active_page?('/soapbox/about') %>
-        <%= link_to 'Contact', '/soapbox/contact', :id => "nav-contact", :class => "#{active_page?('/soapbox/contact')} last" %>
+          <%= link_to 'Home', soapbox_root_path, :id => "nav-home", :class => active_page?('/soapbox') %>
+          <%= link_to 'Restaurant Profiles', '/soapbox/directory/restaurants', :id => "nav-restaurant-directory", :class => active_page?('/soapbox/directory/restaurants') %>
+          <%= link_to 'Newsfeed', '/soapbox/newsfeed', :id => "nav-newsfeed", :class => active_page?('/soapbox/newsfeed') %>
+          <%= link_to 'A La Minute', '/soapbox/a_la_minute_questions', :id => "nav-alm", :class => active_page?('/soapbox/a_la_minute_questions') %>
+          <%= link_to 'Personal Profiles', '/soapbox/directory', :id => "nav-directory", :class => active_page?('/soapbox/directory') %>
+          <%= link_to 'Behind the Line', '/soapbox/behind_the_line', :id => "nav-btl", :class => active_page?('/soapbox/behind_the_line') %>
+          <%= link_to 'Front Burner', soapbox_soapbox_entries_path, :id => "nav-front-burner", :class => "#{active_page?('/soapbox/front_burner')} last" %>
       </nav>
     </header>
 
