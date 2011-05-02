@@ -5,7 +5,7 @@
     </header>
     <% cache('previously_on_btl', :expires_in => 1.hour) do -%>
       <ol id="btl-feed">
-          <% for question in ProfileQuestion.recently_answered -%>
+          <% for question in ProfileQuestion.answered_by_premium_users.recently_answered[0...10] -%>
           <li>
             <header class="feed-item-title">
                 <%= link_to question.title, soapbox_question_path(question) %>

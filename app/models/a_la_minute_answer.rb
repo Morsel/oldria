@@ -18,6 +18,7 @@ class ALaMinuteAnswer < ActiveRecord::Base
   belongs_to :responder, :polymorphic => true
 
   validates_presence_of :a_la_minute_question_id
+  validates_presence_of :answer
 
   default_scope :order => 'created_at desc', :include => :a_la_minute_question
 

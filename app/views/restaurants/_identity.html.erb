@@ -10,12 +10,6 @@
         <li class="employee_name primary">
             <%= link_to_if (restaurant.linkable_profile? || logged_in_on_spoonfeed), restaurant.try(:name), correct_restaurant_path(restaurant) %>
         </li>
-        <li class="cuisine">
-            <%= restaurant.cuisine.name %>
-        </li>
-        <li class="region">
-            <%= restaurant.james_beard_region.try(:name) %>
-        </li>
         <li class="metro_area">
             <%= restaurant.metropolitan_area.try(:name) %>
         </li>

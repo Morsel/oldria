@@ -733,6 +733,12 @@ body,html,#container,#main,#content,#inside{
 	} /* recent questions in profile */
 
 	#topic_title {margin: 0;}
+	h2#btl-tagline, h2#alm-tagline {
+	  margin: 0;
+	  border: none;
+	  padding-bottom: 1em;
+	  font-size: 130%;
+	}
 	.topic {
 		width: 300px;
 		min-height: 120px;
