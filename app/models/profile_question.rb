@@ -56,7 +56,7 @@ class ProfileQuestion < ActiveRecord::Base
 
   named_scope :random, :order => RANDOM_SQL_STRING
 
-  named_scope :recently_answered, :include => :profile_answers, :order => "profile_answers.created_at DESC", :limit => 10
+  named_scope :recently_answered, :include => :profile_answers, :order => "profile_answers.created_at DESC"
 
   before_save :update_roles_description
 
