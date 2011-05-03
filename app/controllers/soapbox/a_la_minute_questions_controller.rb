@@ -7,7 +7,7 @@ class Soapbox::ALaMinuteQuestionsController < ApplicationController
                                                   INNER JOIN subscriptions
                                                   ON `subscriptions`.subscriber_id = `a_la_minute_answers`.responder_id
                                                   AND `subscriptions`.subscriber_type = `a_la_minute_answers`.responder_type',
-                                       :order => "a_la_minute_answers.created_at DESC",
+                                       :order => "a_la_minute_answers.id DESC",
                                        :select => "DISTINCT `a_la_minute_questions`.*",
                                        :conditions => ["`a_la_minute_answers`.show_as_public = ?
                                                         AND subscriptions.id IS NOT NULL
