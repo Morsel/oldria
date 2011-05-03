@@ -8,11 +8,10 @@ class Soapbox::ALaMinuteQuestionsController < ApplicationController
                                                   ON `subscriptions`.subscriber_id = `a_la_minute_answers`.responder_id
                                                   AND `subscriptions`.subscriber_type = `a_la_minute_answers`.responder_type',
                                        :order => "a_la_minute_answers.created_at DESC",
-                                       :select => "DISTINCT `a_la_minute_questions`.*",
                                        :conditions => ["`a_la_minute_answers`.show_as_public = ?
                                                         AND subscriptions.id IS NOT NULL
                                                         AND (subscriptions.end_date IS NULL OR subscriptions.end_date >= ?)",
-                                                        true, Date.today])[0...10]
+                                                        true, Date.today]).uniq[0...10]
     @sidebar_questions = ALaMinuteQuestion.all(:order => "question")
   end
 
