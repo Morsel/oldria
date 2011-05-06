@@ -466,3 +466,7 @@ When /^I check a la minute question titled "([^\"]*)" as public$/ do |title|
   question = ALaMinuteQuestion.find_by_question(title)
   When "I check \"a_la_minute_questions_#{question.id}_show_as_public\""
 end
+
+Given /^a promotion type named "([^\"]*)"$/ do |name|
+  Factory(:promotion_type, :name => name)
+end
