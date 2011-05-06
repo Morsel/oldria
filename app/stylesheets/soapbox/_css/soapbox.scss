@@ -85,7 +85,6 @@ h1,h2,h3,h4,h5,h6{
 	}
 }
 
-
 #header{
 	background:url(/images/soapbox/nav.png) no-repeat;
 	margin:40px 0 30px;
@@ -104,7 +103,9 @@ h1,h2,h3,h4,h5,h6{
 	padding:0;
 	float:left;
 }
+
 #printlogo {display: none;}
+
 #tagline{
 	@include hiddentext;
 	float:left;
@@ -171,6 +172,7 @@ h1,h2,h3,h4,h5,h6{
 #main{
 	overflow:hidden;
 }
+
 body,html,#container,#main,#content,#inside{
 	height:100%;
 }
@@ -200,7 +202,6 @@ body,html,#container,#main,#content,#inside{
     }
 	}
 }
-
 
 #content{
 	@include column(18,true);
@@ -265,7 +266,6 @@ body,html,#container,#main,#content,#inside{
 				#cycle-footer{
 					color:#fff;
 					font-size:10px;
-
 				}
 			}
 			#pager{
@@ -371,6 +371,22 @@ body,html,#container,#main,#content,#inside{
 		}
 		.panel_2{
 			@include column(6,true);
+		}
+		#quicklinks {
+		  @include column(4);
+		  margin: 16px 0 0 16px;
+		  h2 {
+		    margin: 0;
+		    padding: 16px 0;
+		    color: $baby-blue;
+		    font-weight: bold;
+		    font-size: 14px;
+		    text-transform: uppercase;
+		    border-top: 1px dashed #acb8c0;
+		  }
+		  ul {
+		    margin-bottom: 10px;
+		  }
 		}
 	}
 
@@ -929,7 +945,6 @@ body,html,#container,#main,#content,#inside{
 	overflow:hidden;
 	&.home{
 		margin:0 15px;
-		background:0;
 		padding:0 0 20px;
 	}
 }

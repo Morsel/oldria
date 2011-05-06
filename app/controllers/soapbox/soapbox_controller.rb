@@ -2,8 +2,8 @@ class Soapbox::SoapboxController < ApplicationController
 
   def index
     @home = true
-    @slides = SoapboxSlide.all(:order => "position", :limit => 4, :conditions => "position is not null")
-    @promos = SoapboxPromo.all(:order => "position", :limit => 3, :conditions => "position is not null")
+    @alm_links = ALaMinuteQuestion.find(:all, :limit => 5)
+    @btl_links = ProfileQuestion.find(:all, :limit => 5)
   end
 
   def directory
