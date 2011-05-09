@@ -2,8 +2,9 @@ class Soapbox::SoapboxController < ApplicationController
 
   def index
     @home = true
-    @alm_links = ALaMinuteQuestion.find(:all, :limit => 5)
-    @btl_links = ProfileQuestion.find(:all, :limit => 5)
+
+    @alm_links = ALaMinuteQuestion.all(:limit => 5, :order => "question")
+    @btl_links = Topic.user_topics.all(:limit => 5, :order => "title")
   end
 
   def directory
