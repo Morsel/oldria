@@ -24,31 +24,36 @@
         <div id="main-feeds">
             <div class="live-feed">
                 <h2>A la Minute</h2>
-                <% for question in @alm_questions -%>
-                <% div_for question do %>
-                    <h2><%= link_to question.question, soapbox_a_la_minute_question_path(question) %></h2>
+                <%= link_to "+ See all", soapbox_a_la_minute_questions_path %>
+                <% @alm_questions.each_with_index do |question, index| -%>
+                <div class="a_la_minute_question" id="alm_<%= index %>">
+                    <h3><%= link_to question.question, soapbox_a_la_minute_question_path(question) %></h3>
                     <% if question.latest_answer.present? -%>
                     <%= render :partial => 'restaurants/identity', :locals => { :restaurant => question.latest_answer.responder } %>
                     <p class="answer"><%= question.latest_answer.answer %></p>
                     <p class="datestamp">Posted <%= question.latest_answer.created_at.strftime("%D") %></p>
                     <div class="clearfix">&nbsp;</div>
                     <% end -%>
-                <% end %>
+                </div>
                 <% end -%>
             </div>
 
             <div class="live-feed">
                 <h2>Behind the Line</h2>
-                <% for question in @btl_questions -%>
-                <% div_for question do %>
-                    <h2><%= link_to question.title, soapbox_question_path(question) %></h2>
+                <%= link_to "+ See all", soapbox_topics_path %>
+                <% @btl_questions.each_with_index do |question, index| -%>
+                <div class="profile_question" id="btl_<%= index %>">
+                    <h3>Topic: <%= question.topic.title %></h3>
+                    <h4><%= link_to question.title, soapbox_question_path(question) %></h4>
                     <% if question.latest_answer.present? -%>
-                    <%= render :partial => 'users/identity', :locals => { :user => question.latest_answer.user } %>
-                    <p class="answer"><%= question.latest_answer.answer %></p>
-                    <p class="datestamp">Posted <%= question.latest_answer.created_at.strftime("%D") %></p>
+                    <div style="height:100px">
+                        <%= render :partial => 'users/identity', :locals => { :user => question.latest_answer.user } %>
+                        <p class="answer"><%= question.latest_answer.answer %></p>
+                        <p class="datestamp">Posted <%= question.latest_answer.created_at.strftime("%D") %></p>
+                    </div>
                     <div class="clearfix">&nbsp;</div>
                     <% end -%>
-                <% end %>
+                </div>
                 <% end -%>
             </div>
             <!-- <div class="live-feed">

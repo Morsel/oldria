@@ -389,7 +389,64 @@ body,html,#container,#main,#content,#inside{
 		  }
 		}
     #main-feeds {
-      @include column(8)
+      @include column(14);
+      margin-left: 20px;
+      .live-feed {
+        clear: both;
+        border: 5px solid black;
+        margin-top: 10px;
+        padding: 5px;
+        h2 {
+          font-size: 20px;
+          color: white;
+          background-color: black;
+        }
+        h3 {
+          @include museoslabmedium;
+      		font-size:18px;
+      		padding:0 0 2px;
+      		margin-top: 20px;
+      		clear: both;
+      		border-bottom:1px solid $feedback-border-color;
+        }
+        .a_la_minute_question {
+          display: none;
+          &#alm_0 {
+            display: block;
+          }
+        }
+        .profile_question {
+          display: none;
+          &#btl_0 {
+            display: block;
+          }
+        }
+        .identity {
+          width: 183px;
+          float: left;
+          margin: 0 15px 10px 0;
+          border-bottom: 1px dotted #ddd;
+          padding-bottom: 4px;
+          .avatar {
+            background-color: #f2f2f2;
+            width: 50px;
+            float: left;
+            img {
+              background-color: #f2f2f2;
+            }
+          }
+      		ul {
+      			list-style: none;
+      			margin: 0;
+      			padding: 0 0 0 70px;
+      			li {
+      				background-image: none;
+      				margin: 0;
+      				padding: 0;
+      			}
+      		}
+        }
+      }
     }
 	}
 
@@ -419,11 +476,10 @@ body,html,#container,#main,#content,#inside{
 				height: 25px;
 				vertical-align: bottom;
 			}
-
 		}
 	}/* .restaurant */
-
 } /*content */
+
 #page-content{
 	.last_updated, .timestamp_header, .timestamp {
 		font-size: 10px;
