@@ -1041,8 +1041,11 @@ body,html,#container,#main,#content,#inside{
 } /*sidebar */
 
 #facebook-button{
-	border-bottom:1px dashed $purple;
 	margin-top:0;
+}
+
+#help-questions {
+  border-bottom:1px dashed $purple;
 }
 
 #recent-activity{
