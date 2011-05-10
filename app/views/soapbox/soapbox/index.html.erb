@@ -6,7 +6,7 @@
                 <h2>A la Minute</h2>
                 <ul>
                     <% for link in @alm_links -%>
-                    <li><%= link_to link.question, soapbox_a_la_minute_question_path(link) %></li>
+                    <li><%= link_to (link.topic || link.question), soapbox_a_la_minute_question_path(link) %></li>
                     <% end -%>
                     <%= link_to "View more", soapbox_a_la_minute_questions_path %>
                 </ul>

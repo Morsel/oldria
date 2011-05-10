@@ -16,6 +16,7 @@ class ALaMinuteQuestion < ActiveRecord::Base
 
   has_many :a_la_minute_answers, :dependent => :destroy
 
+  validates_presence_of :question
   validates_inclusion_of :kind, :in => KINDS
 
   # named_scope :restaurants, :conditions => {:kind => "restaurant"}

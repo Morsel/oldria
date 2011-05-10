@@ -1,17 +1,32 @@
 class Admin::ALaMinuteQuestionsController < Admin::AdminController
-  def index
 
+  def index
+    @questions = ALaMinuteQuestion.restaurants
+  end
+
+  def create
+    question = ALaMinuteQuestion.create(params[:a_la_minute_question])
+
+    redirect_to :action => :index
+  end
+
+  def edit
+    @question = ALaMinuteQuestion.find(params[:id])
+  end
+
+  def update
+    @question = ALaMinuteQuestion.find(params[:id])
+    if @question.update_attributes(params[:a_la_minute_question])
+      flash[:notice] = "Updated A la Minute Question"
+      redirect_to :action => :index
+    else
+      render :action => :edit
+    end
   end
 
   def destroy
     question = ALaMinuteQuestion.find(params[:id])
     question.destroy
-
-    redirect_to :action => :index
-  end
-
-  def create
-    question = ALaMinuteQuestion.create(params[:a_la_minute_question])
 
     redirect_to :action => :index
   end
