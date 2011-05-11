@@ -80,7 +80,7 @@
         <div id="front-burner" class="button">
             <h1>Front Burner</h1>
             <p>Check out today's features</p>
-            <p><%= link_to @main_feature.display_message, soapbox_soapbox_entry_path(@main_feature) %> / <%= link_to @secondary_feature.display_message, soapbox_soapbox_entry_path(@secondary_feature) %></p>
+            <p><%= link_to @main_feature.display_message, soapbox_soapbox_entry_path(@main_feature) if @main_feature.present? %> / <%= link_to @secondary_feature.display_message, soapbox_soapbox_entry_path(@secondary_feature) if @secondary_feature.present? %></p>
         </div>
         <%#= link_to "Request an <span>invitation</span>", '/soapbox/request-invitation', :class => "button", :id => "login-participate" %>
         <%= link_to "<span>Learn</span> more", '/soapbox/learn_more', :class => "button", :id => "request-invite" %>
