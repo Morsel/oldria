@@ -393,9 +393,12 @@ body,html,#container,#main,#content,#inside{
       margin-left: 20px;
       .live-feed {
         clear: both;
-        border: 5px solid black;
         margin-top: 10px;
         padding: 5px;
+        a.link-all {
+          display: block;
+          text-align: right;
+        }
         h2 {
           font-size: 20px;
           color: white;
@@ -411,12 +414,14 @@ body,html,#container,#main,#content,#inside{
         }
         .a_la_minute_question {
           display: none;
+          border: 5px solid black;
           &#alm_0 {
             display: block;
           }
         }
         .profile_question {
           display: none;
+          border: 5px solid black;
           &#btl_0 {
             display: block;
           }
