@@ -38,7 +38,7 @@
                 <% end -%>
                 <div>
                     <% (1..4).each do |i| %>
-                      <%= link_to_function i, "$('.a_la_minute_question').hide(); $('#alm_#{i-1}').show()" %>
+                      <%= link_to_function i, "$('.a_la_minute_question').hide(); $('#alm_#{i-1}').show()" if @alm_questions[i-1].present? %>
                     <% end %>
                     <%= link_to "more", soapbox_a_la_minute_questions_path %>
                 </div>
@@ -63,7 +63,7 @@
                 <% end -%>
                 <div>
                     <% (1..4).each do |i| %>
-                      <%= link_to_function i, "$('.profile_question').hide(); $('#btl_#{i-1}').show()" %>
+                      <%= link_to_function i, "$('.profile_question').hide(); $('#btl_#{i-1}').show()" if @btl_questions[i-1].present? %>
                     <% end %>
                     <%= link_to "more", soapbox_topics_path %>
                 </div>
