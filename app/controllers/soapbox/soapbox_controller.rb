@@ -4,7 +4,7 @@ class Soapbox::SoapboxController < ApplicationController
     @home = true
 
     @alm_links = ALaMinuteQuestion.all(:limit => 5, :order => "question")
-    @btl_links = Topic.user_topics.all(:limit => 5, :order => "title")
+    @btl_links = Topic.user_topics.all(:order => "title")
 
     @alm_questions = ALaMinuteQuestion.most_recent_for_soapbox(4)
     @btl_questions = ProfileQuestion.recently_answered.answered_by_premium_users[0...4]
