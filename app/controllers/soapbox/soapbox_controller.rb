@@ -8,6 +8,9 @@ class Soapbox::SoapboxController < ApplicationController
 
     @alm_questions = ALaMinuteQuestion.most_recent_for_soapbox(4)
     @btl_questions = ProfileQuestion.recently_answered.answered_by_premium_users[0...4]
+
+    @main_feature = SoapboxEntry.main_feature
+    @secondary_feature = SoapboxEntry.secondary_feature
   end
 
   def directory

@@ -35,6 +35,10 @@ class SoapboxEntry < ActiveRecord::Base
     featured_item.title
   end
 
+  def display_message
+    featured_item.display_message
+  end
+
   def comments
     featured_item.comments(true).select {|c| c.show_on_soapbox? }
   end

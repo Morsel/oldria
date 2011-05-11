@@ -1175,6 +1175,7 @@ body,html,#container,#main,#content,#inside{
 		background-position:-3px -1px;
 	}
 }
+
 #feed-bottom{
 	position:absolute;
 	width:100%;
@@ -1183,6 +1184,7 @@ body,html,#container,#main,#content,#inside{
 	left:0;
 	background:url(/images/soapbox/bg-sidebar-bottom.png) no-repeat;
 }
+
 #participate{
 	padding:4px 0 20px;
 	.button, span{
@@ -1240,6 +1242,16 @@ body,html,#container,#main,#content,#inside{
 			&:hover{
 				background-position:right -300px;
 			}
+		}
+		#front-burner {
+		  color: white;
+		  p {
+		    text-transform: none;
+       	font:normal 12px "Helvetica Neue", Helvetica, Arial, sans-serif;
+		  }
+		  a {
+		    color: $baby-blue;
+		  }
 		}
 	}
 } /*participate */
