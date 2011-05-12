@@ -8,17 +8,19 @@
                     <% for link in @alm_links -%>
                     <li><%= link_to (link.topic || link.question), soapbox_a_la_minute_question_path(link) %></li>
                     <% end -%>
-                    <%= link_to "View more", soapbox_a_la_minute_questions_path %>
                 </ul>
+                <%= link_to "view more", soapbox_a_la_minute_questions_path, :class => "view-more" %>
             </div>
             <!-- <h2>Newsfeed</h2> -->
-            <h2>Behind the Line</h2>
-            <ul>
-                <% for link in @btl_links -%>
-                <li><%= link_to link.title, soapbox_topic_path(link) %></li>
-                <% end -%>
-                <%= link_to "View more", soapbox_topics_path %>
-            </ul>
+            <div id="btl-links">
+                <h2>Behind the Line</h2>
+                <ul>
+                    <% for link in @btl_links -%>
+                    <li><%= link_to link.title, soapbox_topic_path(link) %></li>
+                    <% end -%>
+                </ul>
+                <%= link_to "view more", soapbox_topics_path, :class => "view-more" %>
+            </div>
             <!-- <h2>Travel Guide</h2> -->
         </div>
         <div id="main-feeds">
@@ -79,13 +81,12 @@
     <nav id="participate" class="home">
         <div id="front-burner" class="button">
             <h1>Front Burner</h1>
-            <p>Check out today's features</p>
+            <p>Check out Today's Features</p>
             <p>
                 <%= link_to @main_feature.display_message, soapbox_soapbox_entry_path(@main_feature.soapbox_entry) if @main_feature.present? %><br/>
                 <%= link_to @secondary_feature.display_message, soapbox_soapbox_entry_path(@secondary_feature.soapbox_entry) if @secondary_feature.present? %>
             </p>
         </div>
-        <%#= link_to "Request an <span>invitation</span>", '/soapbox/request-invitation', :class => "button", :id => "login-participate" %>
         <%= link_to "<span>Learn</span> more", '/soapbox/learn_more', :class => "button", :id => "request-invite" %>
     </nav><!-- /participate -->
 
