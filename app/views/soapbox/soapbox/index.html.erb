@@ -81,8 +81,8 @@
             <h1>Front Burner</h1>
             <p>Check out today's features</p>
             <p>
-                <%= link_to @main_feature.display_message, soapbox_soapbox_entry_path(@main_feature) if @main_feature.present? %><br/>
-                <%= link_to @secondary_feature.display_message, soapbox_soapbox_entry_path(@secondary_feature) if @secondary_feature.present? %>
+                <%= link_to @main_feature.display_message, soapbox_soapbox_entry_path(@main_feature.soapbox_entry) if @main_feature.present? %><br/>
+                <%= link_to @secondary_feature.display_message, soapbox_soapbox_entry_path(@secondary_feature.soapbox_entry) if @secondary_feature.present? %>
             </p>
         </div>
         <%#= link_to "Request an <span>invitation</span>", '/soapbox/request-invitation', :class => "button", :id => "login-participate" %>
