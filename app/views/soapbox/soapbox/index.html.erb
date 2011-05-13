@@ -81,7 +81,7 @@
     <nav id="participate" class="home">
         <div id="front-burner" class="button">
             <h1>Front Burner</h1>
-            <p>Check out Today's Features</p>
+            <p>Check out Today's Features:</p>
             <p>
                 <%= link_to @main_feature.display_message, soapbox_soapbox_entry_path(@main_feature.soapbox_entry) if @main_feature.present? %><br/>
                 <%= link_to @secondary_feature.display_message, soapbox_soapbox_entry_path(@secondary_feature.soapbox_entry) if @secondary_feature.present? %>

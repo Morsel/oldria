@@ -1169,6 +1169,7 @@ body,html,#container,#main,#content,#inside{
 				color:#fff;
 				@include museoslabbold;
 				font-size: 19px;
+				display: inline;
 			}
 		}
 		.button{
@@ -1180,19 +1181,22 @@ body,html,#container,#main,#content,#inside{
 			}
 		}
 		#request-invite{
-			padding-bottom:40px;
+			padding: 34px;
 			margin-bottom:0;
 			background:url(/images/soapbox/bg-hp-tab2.png) no-repeat right 0;
+			font-size: 20px;
 			&:hover{
 				background-position:right -300px;
 			}
 		}
 		#front-burner {
 		  color: white;
-		  font-size: 14px;
+		  h1 {
+		    font-size: 18px;
+		  }
 		  p {
 		    text-transform: none;
-       	font:normal 11px "Helvetica Neue", Helvetica, Arial, sans-serif;
+       	font:normal 12px "Helvetica Neue", Helvetica, Arial, sans-serif;
        	margin: 5px 0;
   		  a {
   		    color: $baby-blue;
