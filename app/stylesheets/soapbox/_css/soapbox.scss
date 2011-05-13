@@ -985,9 +985,20 @@ body,html,#container,#main,#content,#inside{
 
 #facebook-button{
 	margin-top:0;
-	p {
+  img {
+    float: left;
+    padding: 0 14px;
+  }
+	#twitter-button {
 	  background-color: white;
 	  padding: 14px;
+	  margin-bottom: 14px;
+	  img {
+	    padding-left: 0;
+	  }
+	  p {
+	    margin: 0;
+	  }
 	}
 }
 

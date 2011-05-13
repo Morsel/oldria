@@ -109,7 +109,11 @@
         <header>
             <h1>Follow us</h1>
         </header>
-        <p>Follow <%= link_to "@EllenMalloy", "http://twitter.com/ellenmalloy" %> on twitter and stay up to date on new features</p>
+        <div id="twitter-button">
+            <%= image_tag "soapbox/twitter.png" %>
+            <p>Follow <%= link_to "@EllenMalloy", "http://twitter.com/ellenmalloy" %> on twitter and stay up to date on new features</p>
+        </div>
+        <%= image_tag "soapbox/facebook.png" %>
         <iframe src="http://www.facebook.com/plugins/like.php?href=http%3A%2F%2Fsoapbox.restaurantintelligenceagency.com%2Fsoapbox&amp;layout=standard&amp;show_faces=true&amp;width=154&amp;action=like&amp;font=lucida+grande&amp;colorscheme=light&amp;height=auto" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:154px; height:auto;" allowTransparency="true"></iframe>
     </section><!-- /facebook-button -->
 </aside><!-- /sidebar -->
