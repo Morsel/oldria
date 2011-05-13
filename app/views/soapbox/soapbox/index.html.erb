@@ -24,9 +24,11 @@
             <!-- <h2>Travel Guide</h2> -->
         </div>
         <div id="main-feeds">
-            <div class="live-feed">
-                <h2>A la Minute</h2>
-                <%= link_to "+ See all", soapbox_a_la_minute_questions_path, :class => "link-all" %>
+            <div id="alm-feed" class="live-feed">
+                <div id="alm-title" class="title">
+                    <h2>A la Minute</h2>
+                    <%= link_to "+ See all", soapbox_a_la_minute_questions_path, :class => "link-all" %>
+                </div>
                 <% @alm_questions.each_with_index do |question, index| -%>
                 <div class="a_la_minute_question" id="alm_<%= index %>">
                     <!-- AddThis Button BEGIN -->
@@ -51,7 +53,7 @@
                     <% end -%>
                 </div>
                 <% end -%>
-                <div>
+                <div class="pane-links">
                     <% (1..4).each do |i| %>
                       <%= link_to_function i, "$('.a_la_minute_question').hide(); $('#alm_#{i-1}').show()" if @alm_questions[i-1].present? %>
                     <% end %>
@@ -59,9 +61,11 @@
                 </div>
             </div>
 
-            <div class="live-feed">
-                <h2>Behind the Line</h2>
-                <%= link_to "+ See all", soapbox_topics_path, :class => "link-all" %>
+            <div id="btl-feed" class="live-feed">
+                <div id="btl-title" class="title">
+                    <h2>Behind the Line</h2>
+                    <%= link_to "+ See all", soapbox_topics_path, :class => "link-all" %>
+                </div>
                 <% @btl_questions.each_with_index do |question, index| -%>
                 <div class="profile_question" id="btl_<%= index %>">
                     <!-- AddThis Button BEGIN -->
@@ -88,7 +92,7 @@
                     <% end -%>
                 </div>
                 <% end -%>
-                <div>
+                <div class="pane-links">
                     <% (1..4).each do |i| %>
                       <%= link_to_function i, "$('.profile_question').hide(); $('#btl_#{i-1}').show()" if @btl_questions[i-1].present? %>
                     <% end %>
