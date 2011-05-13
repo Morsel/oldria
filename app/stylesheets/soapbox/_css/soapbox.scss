@@ -1005,7 +1005,25 @@ body,html,#container,#main,#content,#inside{
 #sidebar.home {
   #help-questions, #newsletter {
     border-bottom:1px dashed $purple;
-  }  
+  }
+  #newsletter {
+    h1 { margin: 0; padding: 0; }
+    input[type=submit] {
+      font-size:15px;
+      font-weight:bold;
+      padding:4px 15px;
+      margin: 0;
+      @include border-radius(90px);
+      color:#fff;
+      text-shadow:0 1px 0 #333;
+      background:$purple;
+      border: none;
+      &:hover{
+        text-decoration:none;
+        background:$dark-purple;
+      }
+    }
+  }
 }
 
 #recent-activity{
