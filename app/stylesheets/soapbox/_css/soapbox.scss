@@ -341,6 +341,12 @@ body,html,#container,#main,#content,#inside{
           &#btl-title {
             background-color: #ca4826;
           }
+          img {
+            float: left;
+            position: relative;
+            top: 5px;
+            left: -10px;
+          }
           a.link-all {
             display: block;
             text-align: right;
@@ -369,7 +375,8 @@ body,html,#container,#main,#content,#inside{
     		}
         .a_la_minute_question {
           display: none;
-          border: 5px solid #565656;
+          border: 10px solid #565656;
+          border-top: none;
           padding: 12px;
           &#alm_0 {
             display: block;
@@ -377,7 +384,8 @@ body,html,#container,#main,#content,#inside{
         }
         .profile_question {
           display: none;
-          border: 5px solid #ca4826;
+          border: 10px solid #ca4826;
+          border-top: none;
           padding: 12px;
           &#btl_0 {
             display: block;
@@ -386,7 +394,14 @@ body,html,#container,#main,#content,#inside{
         .pane-links {
           text-align: right;
           margin-top: 10px;
-          margin-bottom: 25px;
+          margin-bottom: 20px;
+          a {
+            border: 1px solid #ca4826;
+            background-color: #f5f4f2;
+            font-weight: bold;
+            text-decoration: none;
+            padding: 5px 8px;
+          }
         }
         .identity {
           width: 183px;

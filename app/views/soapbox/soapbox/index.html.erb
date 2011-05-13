@@ -27,6 +27,7 @@
             <div id="alm-feed" class="live-feed">
                 <div id="alm-title" class="title">
                     <h2>A la Minute</h2>
+                    <%= image_tag "soapbox/title-alm.png" %>
                     <%= link_to "+ See all", soapbox_a_la_minute_questions_path, :class => "link-all" %>
                 </div>
                 <% @alm_questions.each_with_index do |question, index| -%>
@@ -64,6 +65,7 @@
             <div id="btl-feed" class="live-feed">
                 <div id="btl-title" class="title">
                     <h2>Behind the Line</h2>
+                    <%= image_tag "soapbox/title-btl.png" %>
                     <%= link_to "+ See all", soapbox_topics_path, :class => "link-all" %>
                 </div>
                 <% @btl_questions.each_with_index do |question, index| -%>
