@@ -393,8 +393,7 @@ body,html,#container,#main,#content,#inside{
         }
         .pane-links {
           text-align: right;
-          margin-top: 10px;
-          margin-bottom: 20px;
+          margin: 10px 10px 20px 0;
           a {
             border: 1px solid #ca4826;
             background-color: #f5f4f2;
@@ -1263,7 +1262,10 @@ body,html,#container,#main,#content,#inside{
 		  h1 {
 		    font-size: 18px;
 		  }
-		  p {
+		  ul {
+		    list-style: square inside;
+		  }
+		  p, ul {
 		    text-transform: none;
        	font:normal 12px "Helvetica Neue", Helvetica, Arial, sans-serif;
        	margin: 5px 0;
