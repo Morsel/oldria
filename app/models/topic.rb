@@ -94,4 +94,8 @@ class Topic < ActiveRecord::Base
     completion_percentage(user) > 0
   end
 
+  def self.travel
+    first(:conditions => { :title => "Travel Guides" })
+  end
+
 end

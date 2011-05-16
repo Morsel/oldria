@@ -45,4 +45,8 @@ class Soapbox::SoapboxController < ApplicationController
     render :partial => "directory/restaurant_search_results"
   end
 
+  def travel_guides
+    redirect_to soapbox_topic_path(Topic.travel)
+  end
+
 end
