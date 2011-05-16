@@ -56,7 +56,7 @@ class ProfileQuestion < ActiveRecord::Base
 
   named_scope :random, :order => RANDOM_SQL_STRING
   named_scope :recently_answered, :include => :profile_answers, :order => "profile_answers.created_at DESC"
-  named_scope :without_travel, :joins => { :chapter => :topic }, :conditions => ["topics.title != ?", "Travel Guides"]
+  named_scope :without_travel, :joins => { :chapter => :topic }, :conditions => ["topics.title != ?", "Travel Guide"]
 
   before_save :update_roles_description
 

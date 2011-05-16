@@ -40,7 +40,7 @@ class Topic < ActiveRecord::Base
       :order => :position }
   }
 
-  named_scope :without_travel, :conditions => ["title != ?", "Travel Guides"]
+  named_scope :without_travel, :conditions => ["title != ?", "Travel Guide"]
 
   def previous_for_user(user, is_self = false)
     sort_field = (self.position == 0 ? "id" : "position")
@@ -95,7 +95,7 @@ class Topic < ActiveRecord::Base
   end
 
   def self.travel
-    first(:conditions => { :title => "Travel Guides" })
+    first(:conditions => { :title => "Travel Guide" })
   end
 
 end
