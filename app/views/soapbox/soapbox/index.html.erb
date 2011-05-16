@@ -22,6 +22,7 @@
                 </ul>
                 <%= link_to "view more", soapbox_topics_path, :class => "view-more" %>
             </div>
+            <% if @travel_links.present? -%>
             <div id="travel-links">
                 <h2>Travel Guide</h2>
                 <ul>
@@ -31,6 +32,7 @@
                 </ul>
                 <%= link_to "view more", soapbox_topic_path(Topic.travel), :class => "view-more" %>
             </div>
+            <% end -%>
         </div>
 
         <div id="main-feeds">
