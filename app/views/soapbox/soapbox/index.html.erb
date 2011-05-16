@@ -54,9 +54,14 @@
                     <% end -%>
                 </div>
                 <% end -%>
-                <div class="pane-links">
+                <div class="links">
                     <% (1..4).each do |i| %>
-                      <%= link_to_function i, "$('.a_la_minute_question').hide(); $('#alm_#{i-1}').show()" if @alm_questions[i-1].present? %>
+                      <% if @alm_questions[i-1].present? -%>
+                        <%= link_to_function i,
+                            "$('.a_la_minute_question').hide(); $('#alm_#{i-1}').show(); $('.alm_link').removeClass(\"current\"); $('#alm_link_#{i}').addClass(\"current\")",
+                            :class => (i == 1 ? "current alm_link" : "alm_link"),
+                            :id => "alm_link_#{i}" %>
+                      <% end -%>
                     <% end %>
                     <%= link_to "more", soapbox_a_la_minute_questions_path %>
                 </div>
@@ -94,9 +99,14 @@
                     <% end -%>
                 </div>
                 <% end -%>
-                <div class="pane-links">
+                <div class="links">
                     <% (1..4).each do |i| %>
-                      <%= link_to_function i, "$('.profile_question').hide(); $('#btl_#{i-1}').show()" if @btl_questions[i-1].present? %>
+                      <% if @btl_questions[i-1].present? -%>
+                        <%= link_to_function i,
+                            "$('.profile_question').hide(); $('#btl_#{i-1}').show(); $('.btl_link').removeClass(\"current\"); $('#btl_link_#{i}').addClass(\"current\")",
+                            :class => (i == 1 ? "current btl_link" : "btl_link"),
+                            :id => "btl_link_#{i}" %>
+                      <% end -%>
                     <% end %>
                     <%= link_to "more", soapbox_topics_path %>
                 </div>
