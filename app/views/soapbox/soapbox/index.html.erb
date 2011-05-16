@@ -1,6 +1,7 @@
 <% title "Home", false %>
 <section id="content" class="home">
     <div id="inside" class="home">
+
         <div id="quicklinks">
             <div id="alm-links">
                 <h2>A la Minute</h2>
@@ -21,8 +22,17 @@
                 </ul>
                 <%= link_to "view more", soapbox_topics_path, :class => "view-more" %>
             </div>
-            <!-- <h2>Travel Guide</h2> -->
+            <div id="travel-links">
+                <h2>Travel Guide</h2>
+                <ul>
+                    <% for link in @travel_links -%>
+                    <li><%= link_to link.title, chapter_soapbox_topics_path(:chapter_id => link.id) %></li>
+                    <% end -%>
+                </ul>
+                <%= link_to "view more", soapbox_topic_path(Topic.travel), :class => "view-more" %>
+            </div>
         </div>
+
         <div id="main-feeds">
             <div id="alm-feed" class="live-feed">
                 <div id="alm-title" class="title">

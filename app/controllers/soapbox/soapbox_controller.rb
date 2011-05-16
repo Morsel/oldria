@@ -4,10 +4,11 @@ class Soapbox::SoapboxController < ApplicationController
     @home = true
 
     @alm_links = ALaMinuteQuestion.all(:limit => 5, :order => "question")
-    @btl_links = Topic.user_topics.all(:order => "title")
+    @btl_links = Topic.user_topics.without_travel.all(:order => "title")
+    @travel_links = Topic.travel.chapters.all(:order => "chapters.title")
 
     @alm_questions = ALaMinuteQuestion.most_recent_for_soapbox(4)
-    @btl_questions = ProfileQuestion.recently_answered.answered_by_premium_users[0...4]
+    @btl_questions = ProfileQuestion.without_travel.recently_answered.answered_by_premium_users[0...4]
 
     @main_feature = SoapboxEntry.main_feature
     @secondary_feature = SoapboxEntry.secondary_feature
