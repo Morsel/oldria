@@ -57,5 +57,7 @@
         :class=> 'promo editor emp' %>
     <%= active_link_to "A La Minute", bulk_edit_restaurant_a_la_minute_answers_path(:restaurant_id => @restaurant),
         :class => 'promo editor alm' %>
+    <%= active_link_to "Newsfeed", new_restaurant_promotion_path(:restaurant_id => @restaurant),
+        :class => 'promo editor newsfeed' %>
   </nav>
 <% end -%>

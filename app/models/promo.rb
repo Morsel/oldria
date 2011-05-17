@@ -14,6 +14,8 @@
 #  link_text  :string(255)
 #
 
+# Base class for front page promotions
+
 class Promo < ActiveRecord::Base
   default_scope :order => 'position ASC'
   

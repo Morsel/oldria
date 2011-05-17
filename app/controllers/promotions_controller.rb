@@ -6,8 +6,14 @@ class PromotionsController < ApplicationController
   end
 
   def create
-    flash[:notice] = "Your promotion has been saved"
-    redirect_to :action => "new"
+    @restaurant = Restaurant.find(params[:restaurant_id])
+    @promotion = @restaurant.promotions.build(params[:promotion])
+    if @promotion.save
+      flash[:notice] = "Your promotion has been saved"
+      redirect_to :action => "new"
+    else
+      render :action => "new"
+    end
   end
 
 end

@@ -2,9 +2,12 @@ require 'spec_helper'
 
 describe PromotionsController do
 
-  #Delete this example and add some real ones
-  it "should use PromotionsController" do
-    controller.should be_an_instance_of(PromotionsController)
+  it "should create a new promotion" do
+    restaurant = Factory(:restaurant)
+    post :create, :restaurant_id => restaurant.id,
+        :promotion => Factory.attributes_for(:promotion, :promotion_type => Factory(:promotion_type))
+    response.should be_redirect
+    restaurant.promotions.count.should == 1
   end
 
 end

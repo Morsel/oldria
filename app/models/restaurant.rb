@@ -68,6 +68,7 @@ class Restaurant < ActiveRecord::Base
   has_many :content_requests, :through => :admin_discussions,
            :source => :discussionable, :source_type => 'ContentRequest'
 
+  has_many :promotions
   has_many :events
   has_many :menus
   has_many :accolades, :as => :accoladable

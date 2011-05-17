@@ -14,8 +14,12 @@
 #  updated_at        :datetime
 #
 
+# Restaurant events and promotions
+
 class Promotion < ActiveRecord::Base
 
   belongs_to :promotion_type
+
+  validates_presence_of :promotion_type_id, :details, :start_date, :restaurant_id
 
 end

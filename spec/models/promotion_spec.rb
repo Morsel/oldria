@@ -8,7 +8,8 @@ describe Promotion do
       :link => "value for link",
       :start_date => Date.today,
       :end_date => Date.today,
-      :date_description => "value for date_description"
+      :date_description => "value for date_description",
+      :restaurant_id => 1
     }
   end
 
