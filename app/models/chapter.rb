@@ -66,6 +66,12 @@ class Chapter < ActiveRecord::Base
       :order => "chapters.position" }
   }
 
+  named_scope :recently_answered, {
+    :joins => { :profile_questions => :profile_answers },
+    :group => "chapters.id",
+    :order => "profile_answers.created_at DESC"
+  }
+
   def title_with_topic
     "#{topic.title} - #{title}"
   end
