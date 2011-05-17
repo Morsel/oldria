@@ -2,8 +2,16 @@ class Soapbox::SoapboxController < ApplicationController
 
   def index
     @home = true
-    @slides = SoapboxSlide.all(:order => "position", :limit => 4, :conditions => "position is not null")
-    @promos = SoapboxPromo.all(:order => "position", :limit => 3, :conditions => "position is not null")
+
+    @alm_links = ALaMinuteQuestion.all(:limit => 5, :order => "question")
+    @btl_links = Topic.user_topics.without_travel.all(:order => "title")
+    @travel_links = Topic.travel.chapters.answered_by_premium_users[0...4] if Topic.travel
+
+    @alm_questions = ALaMinuteQuestion.most_recent_for_soapbox(4)
+    @btl_questions = ProfileQuestion.without_travel.recently_answered.answered_by_premium_users[0...4]
+
+    @main_feature = SoapboxEntry.main_feature
+    @secondary_feature = SoapboxEntry.secondary_feature
   end
 
   def directory
@@ -36,6 +44,10 @@ class Soapbox::SoapboxController < ApplicationController
   def restaurant_search
     @restaurants = Restaurant.with_premium_account.search(params[:search]).all
     render :partial => "directory/restaurant_search_results"
+  end
+
+  def travel_guides
+    redirect_to soapbox_topic_path(Topic.travel)
   end
 
 end

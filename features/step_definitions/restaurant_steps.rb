@@ -415,7 +415,7 @@ end
 Then /^I should see the following questions:$/ do |table|
   table.hashes.each do |row|
     question = ALaMinuteQuestion.find_by_question(row['question'])
-    response.should have_selector(".questions .a_la_minute_question", :content => question.question)
+    response.should have_selector("#a_la_minute_questions td", :content => question.question)
   end
 end
 

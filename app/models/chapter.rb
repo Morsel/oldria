@@ -66,6 +66,14 @@ class Chapter < ActiveRecord::Base
       :order => "chapters.position" }
   }
 
+  named_scope :answered_by_premium_users, {
+    :joins => { :profile_questions => { :profile_answers => { :user => :subscription }}},
+    :conditions => ["subscriptions.id IS NOT NULL AND (subscriptions.end_date IS NULL OR subscriptions.end_date >= ?)",
+        Date.today],
+    :group => "chapters.id",
+    :order => "profile_answers.created_at DESC"
+  }
+
   def title_with_topic
     "#{topic.title} - #{title}"
   end

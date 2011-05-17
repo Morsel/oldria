@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110412173344) do
+ActiveRecord::Schema.define(:version => 20110510161045) do
 
   create_table "a_la_minute_answers", :force => true do |t|
     t.text     "answer"
@@ -26,6 +26,7 @@ ActiveRecord::Schema.define(:version => 20110412173344) do
     t.string   "kind"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "topic"
   end
 
   create_table "accolades", :force => true do |t|
@@ -211,8 +212,8 @@ ActiveRecord::Schema.define(:version => 20110412173344) do
     t.date     "date_ended"
     t.string   "chef_name",       :default => "",    :null => false
     t.boolean  "chef_is_me",      :default => false, :null => false
-    t.text     "cuisine",                            :null => false
-    t.text     "notes",                              :null => false
+    t.text     "cuisine",         :default => "",    :null => false
+    t.text     "notes",           :default => "",    :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "opening_staff",   :default => false
@@ -295,9 +296,9 @@ ActiveRecord::Schema.define(:version => 20110412173344) do
     t.integer  "restaurant_role_id"
     t.boolean  "omniscient"
     t.boolean  "primary",              :default => false
+    t.string   "type"
     t.boolean  "public_profile",       :default => true
     t.integer  "position"
-    t.string   "type"
     t.boolean  "post_to_soapbox",      :default => true
     t.string   "solo_restaurant_name"
   end
@@ -338,6 +339,8 @@ ActiveRecord::Schema.define(:version => 20110412173344) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "feed_categories", ["id"], :name => "index_feed_categories_on_id", :unique => true
 
   create_table "feed_entries", :force => true do |t|
     t.string   "title"
@@ -609,8 +612,8 @@ ActiveRecord::Schema.define(:version => 20110412173344) do
     t.string   "country",            :default => "", :null => false
     t.date     "date_started",                       :null => false
     t.date     "date_ended"
-    t.text     "responsibilities",                   :null => false
-    t.text     "reason_for_leaving",                 :null => false
+    t.text     "responsibilities",   :default => "", :null => false
+    t.text     "reason_for_leaving", :default => "", :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -666,7 +669,7 @@ ActiveRecord::Schema.define(:version => 20110412173344) do
     t.string   "title"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "position",          :default => 0
+    t.integer  "position"
     t.integer  "chapter_id"
     t.text     "roles_description"
   end
@@ -686,7 +689,7 @@ ActiveRecord::Schema.define(:version => 20110412173344) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "headline",              :default => ""
-    t.text     "summary"
+    t.text     "summary",               :default => ""
     t.string   "hometown"
     t.string   "current_residence"
     t.integer  "metropolitan_area_id"
@@ -704,6 +707,23 @@ ActiveRecord::Schema.define(:version => 20110412173344) do
     t.integer  "position"
     t.string   "type"
     t.string   "link_text"
+  end
+
+  create_table "promotion_types", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "promotions", :force => true do |t|
+    t.integer  "promotion_type_id"
+    t.text     "details"
+    t.string   "link"
+    t.date     "start_date"
+    t.date     "end_date"
+    t.string   "date_description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "question_pages", :force => true do |t|

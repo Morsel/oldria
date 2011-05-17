@@ -132,6 +132,10 @@ class Restaurant < ActiveRecord::Base
     [name, city, state].reject(&:blank?).join(", ")
   end
 
+  def city_and_state
+    [city, state].reject(&:blank?).join(", ")
+  end
+
   def missing_subject_matters
     SubjectMatter.find(missing_subject_matter_ids)
   end
