@@ -392,6 +392,12 @@ body,html,#container,#main,#content,#inside{
           &#btl_0 {
             display: block;
           }
+          .datestamp {
+            color: #ccc;
+          }
+          .identity {
+            border: none;
+          }
         }
         .links {
           text-align: right;
@@ -2630,7 +2636,8 @@ dl.things dt:after {content: ":"}
 			}
 		}
 	}
-} /* end of #behindline ----------------------------- */
+}
+/* end of #behindline ----------------------------- */
 
 #page_content h1#btl-title, #page-content h1#btl-title,
 #page-content h3#btl-title {

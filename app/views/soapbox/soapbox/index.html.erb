@@ -59,10 +59,12 @@
 
                     <h3><%= link_to question.question, soapbox_a_la_minute_question_path(question) %></h3>
                     <% if question.latest_answer.present? -%>
-                    <%= render :partial => 'restaurants/identity', :locals => { :restaurant => question.latest_answer.responder } %>
-                    <p class="answer"><%= question.latest_answer.answer %></p>
-                    <p class="datestamp">Posted <%= question.latest_answer.created_at.strftime("%D") %></p>
-                    <div class="clearfix">&nbsp;</div>
+                    <div>
+                        <%= render :partial => 'restaurants/identity', :locals => { :restaurant => question.latest_answer.responder } %>
+                        <p class="answer"><%= question.latest_answer.answer %></p>
+                        <p class="datestamp">Posted <%= question.latest_answer.created_at.strftime("%D") %></p>
+                    </div>
+                    <div class="clear">&nbsp;</div>
                     <% end -%>
                 </div>
                 <% end -%>
@@ -102,12 +104,12 @@
                     <h3>Topic: <%= question.topic.title %></h3>
                     <h4><%= link_to question.title, soapbox_question_path(question) %></h4>
                     <% if question.latest_answer.present? -%>
-                    <div style="height:100px">
+                    <div>
                         <%= render :partial => 'users/identity', :locals => { :user => question.latest_answer.user } %>
                         <p class="answer"><%= question.latest_answer.answer %></p>
                         <p class="datestamp">Posted <%= question.latest_answer.created_at.strftime("%D") %></p>
                     </div>
-                    <div class="clearfix">&nbsp;</div>
+                    <div class="clear">&nbsp;</div>
                     <% end -%>
                 </div>
                 <% end -%>
