@@ -382,6 +382,9 @@ body,html,#container,#main,#content,#inside{
           &#alm_0 {
             display: block;
           }
+          .answer {
+            margin-bottom: 10px;
+          }
         }
         .profile_question {
           display: none;
@@ -391,6 +394,15 @@ body,html,#container,#main,#content,#inside{
           min-height: 145px;
           &#btl_0 {
             display: block;
+          }
+          .datestamp {
+            color: #ccc;
+          }
+          .identity {
+            border: none;
+          }
+          .answer {
+            margin-bottom: 10px;
           }
         }
         .links {
@@ -2630,7 +2642,8 @@ dl.things dt:after {content: ":"}
 			}
 		}
 	}
-} /* end of #behindline ----------------------------- */
+}
+/* end of #behindline ----------------------------- */
 
 #page_content h1#btl-title, #page-content h1#btl-title,
 #page-content h3#btl-title {
