@@ -17,6 +17,7 @@ class ALaMinuteQuestion < ActiveRecord::Base
 
   has_many :a_la_minute_answers, :dependent => :destroy
 
+  validates_presence_of :question
   validates_inclusion_of :kind, :in => KINDS
 
   # named_scope :restaurants, :conditions => {:kind => "restaurant"}
@@ -34,6 +35,19 @@ class ALaMinuteQuestion < ActiveRecord::Base
 
   def latest_answer
     a_la_minute_answers.from_premium_responders.show_public.first
+  end
+
+  def self.most_recent_for_soapbox(count = 10)
+    all(:joins => 'LEFT OUTER JOIN a_la_minute_answers
+                   ON `a_la_minute_answers`.a_la_minute_question_id = `a_la_minute_questions`.id
+                   INNER JOIN subscriptions
+                   ON `subscriptions`.subscriber_id = `a_la_minute_answers`.responder_id
+                   AND `subscriptions`.subscriber_type = `a_la_minute_answers`.responder_type',
+        :order => "a_la_minute_answers.created_at DESC",
+        :conditions => ["`a_la_minute_answers`.show_as_public = ?
+                         AND subscriptions.id IS NOT NULL
+                         AND (subscriptions.end_date IS NULL OR subscriptions.end_date >= ?)",
+                         true, Date.today]).uniq[0...count]
   end
 
 end

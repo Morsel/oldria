@@ -36,6 +36,8 @@ ActionController::Routing::Routes.draw do |map|
     soapbox.resources :users do |users|
       users.resources :questions, :collection => { :topics => :get, :chapters => :get }
     end
+
+    soapbox.connect 'travel_guides', :controller => 'soapbox', :action => 'travel_guides'
     soapbox.connect 'directory_search', :controller => 'soapbox', :action => 'directory_search'
     soapbox.connect 'restaurant_search', :controller => 'soapbox', :action => 'restaurant_search'
     soapbox.resource :search, :controller => 'site_search', :only => ['show']

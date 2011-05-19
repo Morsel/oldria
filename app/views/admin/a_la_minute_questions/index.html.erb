@@ -1,21 +1,18 @@
-<div id="restaurant_questions" class="span-12 last">
-  <h2>A La Minute for Restaurants</h2>
-  <ul class="questions">
-    <%= render :partial => 'question', :collection => ALaMinuteQuestion.restaurants, :as => :question %>
-    <%= content_tag :li, "There are no questions here, yet." if ALaMinuteQuestion.restaurants.empty? %>
-  </ul>
+<% title "A La Minute for Restaurants" %>
 
-  <% semantic_form_for :a_la_minute_question, :url => admin_a_la_minute_questions_url, :html => {:method => :post} do |question_form| %>
-    <%= question_form.input :kind, :value => 'restaurant', :as => :hidden %>
-    <%= question_form.input :question %>
-    <%= question_form.submit :Add %>
-  <% end %>
-</div>
+<% table_for(@questions, :class => 'questions') do |t| %>
+    <% t.data :actions => [:edit, :destroy], :action_prefix => 'admin' do
+        t.cell :question
+        t.cell :topic
+    end %>
+<% end %>
 
-<% content_for :javascript do %>
-<script type="text/javascript">
-  //<![CDATA[
-  $('.a_la_minute_question.eip').eip();
-  //]]>
-</script>
+<% semantic_form_for [:admin, ALaMinuteQuestion.new] do |f| %>
+    <% f.inputs :class => "plain" do %>
+        <%= f.input :kind, :value => 'restaurant', :as => :hidden %>
+        <%= f.input :question %>
+        <%= f.input :topic %>
+
+        <%= f.submit "Add" %>
+    <% end %>
 <% end %>
