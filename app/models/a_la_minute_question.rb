@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20101013222730
+# Schema version: 20110517222623
 #
 # Table name: a_la_minute_questions
 #
@@ -8,6 +8,7 @@
 #  kind       :string(255)
 #  created_at :datetime
 #  updated_at :datetime
+#  topic      :string(255)
 #
 
 class ALaMinuteQuestion < ActiveRecord::Base

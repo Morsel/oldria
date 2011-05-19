@@ -3,6 +3,7 @@ class PromotionsController < ApplicationController
   def new
     @restaurant = Restaurant.find(params[:restaurant_id])
     @promotion = Promotion.new
+    @promotions = @restaurant.promotions
   end
 
   def create

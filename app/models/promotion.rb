@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20110505222330
+# Schema version: 20110517222623
 #
 # Table name: promotions
 #
@@ -12,6 +12,7 @@
 #  date_description  :string(255)
 #  created_at        :datetime
 #  updated_at        :datetime
+#  restaurant_id     :integer
 #
 
 # Restaurant events and promotions

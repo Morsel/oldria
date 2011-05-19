@@ -4416,7 +4416,8 @@ p.search_filter_hint {
       }
 		}
 	}
-} 
+}
+
 #edit_resto_menu {
   overflow: auto;
   a {
@@ -4435,6 +4436,7 @@ p.search_filter_hint {
     }
   }
 }
+
 .photos {
   h2 {
     .inline-hint {
@@ -4613,8 +4615,6 @@ p.search_filter_hint {
     }
 }
 
-
-
 aside.dashboard_actions {
   a { 
       background-color: #FAEAE4;
@@ -4626,5 +4626,12 @@ aside.dashboard_actions {
       padding: 10px;
       text-shadow: 0 1px 0 #FFFFFF;
       text-transform: uppercase;
+  }
+}
+
+table#promotions {
+  width: 100%;
+  thead th {
+    font-weight: bold;
   }
 }
