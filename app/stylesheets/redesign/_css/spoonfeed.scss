@@ -4629,9 +4629,22 @@ aside.dashboard_actions {
   }
 }
 
-table#promotions {
-  width: 100%;
-  thead th {
-    font-weight: bold;
+/* Promotions (Newsfeed) */
+
+#promotion-form {
+  @include column(6);
+  margin-right: 18px;
+  input[type=text], textarea {
+    width: 220px;
+  }
+}
+
+#promotion-list {
+  @include column(11, true);
+  table#promotions {
+    width: 100%;
+    thead th {
+      font-weight: bold;
+    }
   }
 }

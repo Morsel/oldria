@@ -2,8 +2,9 @@ require 'spec_helper'
 
 describe Promotion do
   before(:each) do
+    promo_type = Factory(:promotion_type)
     @valid_attributes = {
-      :promotion_type_id => 1,
+      :promotion_type_id => promo_type.id,
       :details => "value for details",
       :link => "value for link",
       :start_date => Date.today,

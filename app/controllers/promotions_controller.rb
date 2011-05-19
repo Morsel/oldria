@@ -2,8 +2,9 @@ class PromotionsController < ApplicationController
 
   def new
     @restaurant = Restaurant.find(params[:restaurant_id])
-    @promotion = Promotion.new
     @promotions = @restaurant.promotions
+
+    @promotion = Promotion.new
   end
 
   def create
@@ -13,6 +14,7 @@ class PromotionsController < ApplicationController
       flash[:notice] = "Your promotion has been saved"
       redirect_to :action => "new"
     else
+      @promotions = @restaurant.promotions
       render :action => "new"
     end
   end
