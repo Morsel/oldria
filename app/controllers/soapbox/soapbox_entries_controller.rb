@@ -8,8 +8,6 @@ class Soapbox::SoapboxEntriesController < Soapbox::SoapboxController
 
     @secondary_feature = SoapboxEntry.secondary_feature
     @secondary_feature_comments = SoapboxEntry.secondary_feature_comments if @secondary_feature
-
-    load_past_features
   end
 
   def show

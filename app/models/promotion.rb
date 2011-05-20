@@ -27,7 +27,7 @@ class Promotion < ActiveRecord::Base
       :message => "End date is required for repeating events"
   validates_length_of :details, :maximum => 1000
 
-  named_scope :current, :conditions => ["start_date <= ?", Date.today]
+  named_scope :current, :order => "start_date DESC"
 
   def title
     promotion_type.name
