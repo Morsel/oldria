@@ -16,7 +16,7 @@
                 <h2>Newsfeed</h2>
                 <ul>
                     <% for link in @newsfeed_links -%>
-                    <li><%= link_to "#{link.restaurant_name}: #{link.title}", soapbox_promotions_path(:promotion_type_id => link.promotion_type_id, :anchor => "promotion_#{link.id}") %></li>
+                    <li><%= link_to "#{link.name}", soapbox_promotions_path(:promotion_type_id => link.id) %></li>
                     <% end -%>
                 </ul>
                 <%= link_to "view more", soapbox_promotions_path, :class => "view-more" %>
