@@ -33,4 +33,8 @@ class Promotion < ActiveRecord::Base
     promotion_type.name
   end
 
+  def restaurant_name
+    restaurant.name
+  end
+
 end

@@ -29,6 +29,7 @@ ActionController::Routing::Routes.draw do |map|
     soapbox.resources :a_la_minute_questions, :only => ['index', 'show']
     soapbox.resources :soapbox_entries, :only => ['index', 'show', 'qotd', 'trend'], :as => "front_burner",
                       :collection => { :qotd => :get, :trend => :get }
+    soapbox.resources :promotions, :as => "newsfeed"
 
     soapbox.resources :topics, :only => ['index', 'show'], :as => "behind_the_line",
                       :collection => { :chapter => :get }

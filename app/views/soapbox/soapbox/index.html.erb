@@ -16,10 +16,10 @@
                 <h2>Newsfeed</h2>
                 <ul>
                     <% for link in @newsfeed_links -%>
-                    <li><%= link_to link.title, "#" %></li>
+                    <li><%= link_to "#{link.restaurant_name}: #{link.title}", soapbox_promotions_path(:promotion_type_id => link.promotion_type_id, :anchor => "promotion_#{link.id}") %></li>
                     <% end -%>
                 </ul>
-                <%= link_to "view more", "#", :class => "view-more" %>
+                <%= link_to "view more", soapbox_promotions_path, :class => "view-more" %>
             </div>
             <div id="btl-links">
                 <h2>Behind the Line</h2>
@@ -154,7 +154,7 @@
                     </div>
                     <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#username=unpluggedria"></script>
                     <!-- AddThis Button END -->
-                    <h3><%= link_to "#{promotion.title}: #{promotion.start_date.to_formatted_s(:long)}", '#' %></h3>
+                    <h3><%= link_to "#{promotion.title}: #{promotion.start_date.to_formatted_s(:long)}", soapbox_promotions_path(:promotion_type_id => promotion.promotion_type_id, :anchor => "promotion_#{promotion.id}") %></h3>
                     <div>
                         <%= render :partial => 'restaurants/identity', :locals => { :restaurant => promotion.restaurant } %>
                         <p class="answer"><%= promotion.details %></p>
@@ -171,7 +171,7 @@
                             :id => "news_link_#{i}" %>
                       <% end -%>
                     <% end %>
-                    <%= link_to "more", '#' %>
+                    <%= link_to "more", soapbox_promotions_path %>
                 </div>
             </div>
         </div>

@@ -4,7 +4,7 @@
   <div class="addthis_toolbox"> 
     <% content_for :head do %>
       <meta property="og:description" content="<%= @feature_comments.collect { |comment| comment.user.name.to_s + ": " + truncate(comment.comment.to_s) }.join("\n ") %>" />
-    <% end if @feature_comments%>
+    <% end if @feature_comments %>
     <a href="http://www.addthis.com/bookmark.php?v=250&amp;username=unpluggedria" class="addthis_button">Share</a> 
   </div> 
   <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#username=unpluggedria"></script> 
