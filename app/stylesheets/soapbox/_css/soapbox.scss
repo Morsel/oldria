@@ -440,6 +440,7 @@ body,html,#container,#main,#content,#inside{
             background-color: #f2f2f2;
             width: 50px;
             float: left;
+      			text-align: center;
             img {
               background-color: #f2f2f2;
             }
@@ -558,7 +559,7 @@ body,html,#container,#main,#content,#inside{
 	}
 	.identity {
 		width: 183px;
-		height: 96px;
+    min-height: 62px;
 		float: left;
 		margin: 0 15px 10px 0;
 		border-bottom: 1px dotted #ddd;
