@@ -12,7 +12,15 @@
                 </ul>
                 <%= link_to "view more", soapbox_a_la_minute_questions_path, :class => "view-more" %>
             </div>
-            <!-- <h2>Newsfeed</h2> -->
+            <div id="news-links">
+                <h2>Newsfeed</h2>
+                <ul>
+                    <% for link in @newsfeed_links -%>
+                    <li><%= link_to link.title, "#" %></li>
+                    <% end -%>
+                </ul>
+                <%= link_to "view more", "#", :class => "view-more" %>
+            </div>
             <div id="btl-links">
                 <h2>Behind the Line</h2>
                 <ul>
@@ -125,9 +133,47 @@
                     <%= link_to "more", soapbox_topics_path %>
                 </div>
             </div>
-            <!-- <div class="live-feed">
-                <h2>Newsfeed</h2>
-            </div> -->
+
+            <div id="newsfeed" class="live-feed">
+                <div id="news-title" class="title">
+                    <h2>Newsfeed</h2>
+                    <%= image_tag "soapbox/title-news.png" %>
+                    <%= link_to "+ See all", "#", :class => "link-all" %>
+                </div>
+                <% @promotions.each_with_index do |promotion, index| -%>
+                <div class="promotion" id="news_<%= index %>">
+                    <!-- AddThis Button BEGIN -->
+                    <div class="addthis_toolbox">
+                      <script type="text/javascript">
+                          var addthis_share = {
+                              url: '<%= "#" %>',
+                              title: 'Newsfeed - <%= promotion.title %>'
+                          }
+                      </script>
+                      <a href="http://www.addthis.com/bookmark.php?v=250&amp;username=unpluggedria" class="addthis_button">Share</a>
+                    </div>
+                    <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#username=unpluggedria"></script>
+                    <!-- AddThis Button END -->
+                    <h3><%= link_to "#{promotion.title}: #{promotion.start_date}", '#' %></h3>
+                    <div>
+                        <%= render :partial => 'restaurants/identity', :locals => { :restaurant => promotion.restaurant } %>
+                        <p class="answer"><%= promotion.details %></p>
+                    </div>
+                    <div class="clear">&nbsp;</div>
+                </div>
+                <% end -%>
+                <div class="links">
+                    <% (1..4).each do |i| %>
+                      <% if @promotions[i-1].present? -%>
+                        <%= link_to_function i,
+                            "$('.promotion').hide(); $('#news_#{i-1}').show(); $('.news_link').removeClass(\"current\"); $('#news_link_#{i}').addClass(\"current\")",
+                            :class => (i == 1 ? "current news_link" : "news_link"),
+                            :id => "news_link_#{i}" %>
+                      <% end -%>
+                    <% end %>
+                    <%= link_to "more", '#' %>
+                </div>
+            </div>
         </div>
     </div><!-- /inside -->
 </section><!-- /content --> 

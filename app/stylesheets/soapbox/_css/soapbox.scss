@@ -341,6 +341,9 @@ body,html,#container,#main,#content,#inside{
           &#btl-title {
             background-color: #ca4826;
           }
+          &#news-title {
+            background-color: #5a9cb8;
+          }
           img {
             float: left;
             position: relative;
@@ -397,6 +400,16 @@ body,html,#container,#main,#content,#inside{
           }
           .identity {
             border: none;
+          }
+        }
+        .promotion {
+          display: none;
+          border: 10px solid #5a9cb8;
+          border-top: none;
+          padding: 12px;
+          min-height: 145px;
+          &#news_0 {
+            display: block;
           }
         }
         .links {

@@ -20,9 +20,17 @@
 class Promotion < ActiveRecord::Base
 
   belongs_to :promotion_type
+  belongs_to :restaurant
 
   validates_presence_of :promotion_type, :details, :start_date, :restaurant_id
-  validates_presence_of :end_date, :if => Proc.new { |promo| promo.date_description.present? }, :message => "End date is required for repeating events"
+  validates_presence_of :end_date, :if => Proc.new { |promo| promo.date_description.present? },
+      :message => "End date is required for repeating events"
   validates_length_of :details, :maximum => 1000
+
+  named_scope :current, :conditions => ["start_date >= ?", Date.today]
+
+  def title
+    promotion_type.name
+  end
 
 end
