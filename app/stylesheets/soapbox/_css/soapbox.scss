@@ -2928,3 +2928,12 @@ dl.things dt:after {content: ":"}
     border: none !important;
   }
 }
+
+#page-content .promotion {
+  .identity {
+    border: none;
+  }
+  p.details {
+    font-size: 110%;
+  }
+}

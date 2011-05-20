@@ -7,9 +7,9 @@
     <% end -%>
     <%= render :partial => 'restaurants/identity', :locals => { :restaurant => promotion.restaurant } %>
     <div>
-        <p class="answer"><%= promotion.details %></p>
+        <p class="details"><%= promotion.details %></p>
         <p><%= link_to promotion.link %></p>
-        <p><%= promotion.start_date %> - <%= promotion.end_date %> - <%= promotion.date_description %></p>
+        <p><%= promotion.start_date %> <%= "- #{promotion.end_date}" if promotion.end_date.present? %> <%= "- #{promotion.date_description}" if promotion.date_description.present? %></p>
     </div>
     <div class="clear">&nbsp;</div>
 <% end %>

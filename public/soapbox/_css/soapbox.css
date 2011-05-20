@@ -3996,3 +3996,12 @@ dl.things dt:after {
 #btl_answers .identity {
   border: none !important;
 }
+
+/* line 2933, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+#page-content .promotion .identity {
+  border: none;
+}
+/* line 2936, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+#page-content .promotion p.details {
+  font-size: 110%;
+}
