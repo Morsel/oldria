@@ -2,7 +2,7 @@
 <div class="identity<% unless user.avatar? -%> no_avatar<% end -%>">
     <div class="avatar">
       <% if user.avatar? -%>
-        <%= image_tag(user.avatar.url(:thumb), :width => 50, :height => 'auto') %>
+        <%= image_tag(user.avatar.url(:thumb), :width => 'auto', :height => 'auto') %>
       <% end -%>
     </div>
     <ul class="identity_details user">

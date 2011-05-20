@@ -3,7 +3,7 @@
 <div class="identity<% unless restaurant.logo && restaurant.logo.attachment? -%> no_avatar<% end -%>">
     <div class="avatar">
         <% if restaurant.logo && restaurant.logo.attachment? -%>
-          <%= image_tag(restaurant.logo.attachment.url(:thumb), :width => 50, :height => 'auto') %>
+          <%= image_tag(restaurant.logo.attachment.url(:thumb), :width => 'auto', :height => 'auto') %>
         <% end -%>
     </div>
     <ul class="identity_details restaurant">

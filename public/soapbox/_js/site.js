@@ -1,6 +1,7 @@
 $(document).ready(function(){
 	
-	$('.identity').equalHeights();
+	$('#restaurant_directory_list .identity').equalHeights();
+	$('#directory_list .identity').equalHeights();
 	$('.culinary').equalHeights();
 	$('.nonculinary_job').equalHeights();
 	$('.award').equalHeights();
