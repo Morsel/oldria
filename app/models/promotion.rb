@@ -29,6 +29,12 @@ class Promotion < ActiveRecord::Base
 
   named_scope :current, :order => "start_date DESC"
 
+  named_scope :from_premium_restaurants, lambda {
+    { :joins => { :restaurant => :subscription },
+      :conditions => ["subscriptions.id IS NOT NULL AND (subscriptions.end_date IS NULL OR subscriptions.end_date >= ?)",
+          Date.today] }
+  }
+
   def title
     promotion_type.name
   end
