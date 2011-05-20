@@ -112,7 +112,7 @@
                     <h3><%= link_to "#{promotion.title}: #{promotion.start_date.to_formatted_s(:long)}", soapbox_promotions_path(:promotion_type_id => promotion.promotion_type_id, :anchor => "promotion_#{promotion.id}") %></h3>
                     <div>
                         <%= render :partial => 'restaurants/identity', :locals => { :restaurant => promotion.restaurant } %>
-                        <p class="answer"><%= promotion.details %></p>
+                        <p class="details"><%= promotion.details %></p>
                     </div>
                     <div class="clear">&nbsp;</div>
                 </div>

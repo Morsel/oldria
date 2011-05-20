@@ -3998,10 +3998,10 @@ dl.things dt:after {
 }
 
 /* line 2933, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
-#page-content .promotion .identity {
+.promotion .identity {
   border: none;
 }
 /* line 2936, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
-#page-content .promotion p.details {
+.promotion p.details {
   font-size: 110%;
 }
