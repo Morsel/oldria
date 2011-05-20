@@ -154,7 +154,7 @@
                     </div>
                     <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#username=unpluggedria"></script>
                     <!-- AddThis Button END -->
-                    <h3><%= link_to "#{promotion.title}: #{promotion.start_date}", '#' %></h3>
+                    <h3><%= link_to "#{promotion.title}: #{promotion.start_date.to_formatted_s(:long)}", '#' %></h3>
                     <div>
                         <%= render :partial => 'restaurants/identity', :locals => { :restaurant => promotion.restaurant } %>
                         <p class="answer"><%= promotion.details %></p>
