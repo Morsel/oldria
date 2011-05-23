@@ -1,0 +1,12 @@
+<% semantic_form_for [restaurant, promotion] do |f| %>
+    <% f.inputs do %>
+        <%= f.input :promotion_type %>
+        <%= f.input :details, :hint => "Under 1000 characters", :input_html => { :rows => 4 } %>
+        <%= f.input :link %>
+        <%= f.input :start_date %>
+        <%= f.input :end_date, :selected => nil %>
+        <%= f.input :date_description, :label => "Repeating on", :hint => "Example: every Monday in March" %>
+    <% end %>
+
+    <%= f.submit "Post" %>
+<% end %>

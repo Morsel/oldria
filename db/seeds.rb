@@ -14,90 +14,98 @@ def model_count_before_and_after(model, &block)
   end
 end
 
+# == Set up Promotion Types ==
+model_count_before_and_after(PromotionType) do
+  promotion_types = YAML.load_file(@seedling_path + '/promotion_types.yml')['promotion_types']
+  promotion_types.each do |promotion_types|
+    PromotionType.find_or_create_by_name(promotion_types)
+  end
+end
+
 # == Set up Regions ==
-model_count_before_and_after(JamesBeardRegion) do
-  regions = {
-    "Great Lakes" => "IL, IN, MI, OH", 
-    "Mid-Atlantic" => "D.C., DE, MD, NJ, PA, VA", 
-    "Midwest" => "IA, KS, MN, MO, NE, ND, SD, WI", 
-    "New York City" => "Five Boroughs", 
-    "Northeast" => "CT, MA, ME, NH, NY State, RI, VT", 
-    "Northwest" => "AK, ID, MT, OR, WA, WY", 
-    "Pacific" => "CA, HI", 
-    "South" => "AL, AR, FL, LA, MS", 
-    "Southeast" => "GA, KY, NC, SC, TN, WV", 
-    "Southwest" =>  "AZ, CO, NM, NV, OK, TX, UT"
-  }
-
-  regions.each_pair do |region_name, desc|
-    region = JamesBeardRegion.find_by_name(region_name)
-    region ||= JamesBeardRegion.create!(:name => region_name, :description => desc)
-  end
-end
-
-# == Set up Media Request Types ==
-model_count_before_and_after(MediaRequestType) do
-  request_types = YAML.load_file(@seedling_path + '/media_request_types.yml')
-  request_types.each_pair do |shortname, name_and_fields|
-    name = name_and_fields['name']
-    fields = name_and_fields['fields']
-    fields = fields.join(", ") if fields
-    rt = MediaRequestType.find_by_shortname(shortname)
-    rt ||= MediaRequestType.create!(:shortname => shortname, :name => name, :fields => fields)
-  end
-end
-
-
-# == Set up Cuisines ==
-model_count_before_and_after(Cuisine) do
-  cuisines = YAML.load_file(@seedling_path + '/cuisines.yml')['cuisines']
-  cuisines.each do |c|
-    Cuisine.find_or_create_by_name(c)
-  end
-end
-
-# == Set up Specialties ==
-model_count_before_and_after(Specialty) do
-  specialties = YAML.load_file(@seedling_path + '/specialties.yml')['specialties']
-  specialties.each do |s|
-    Specialty.find_or_create_by_name(s)
-  end
-end
+# model_count_before_and_after(JamesBeardRegion) do
+#   regions = {
+#     "Great Lakes" => "IL, IN, MI, OH", 
+#     "Mid-Atlantic" => "D.C., DE, MD, NJ, PA, VA", 
+#     "Midwest" => "IA, KS, MN, MO, NE, ND, SD, WI", 
+#     "New York City" => "Five Boroughs", 
+#     "Northeast" => "CT, MA, ME, NH, NY State, RI, VT", 
+#     "Northwest" => "AK, ID, MT, OR, WA, WY", 
+#     "Pacific" => "CA, HI", 
+#     "South" => "AL, AR, FL, LA, MS", 
+#     "Southeast" => "GA, KY, NC, SC, TN, WV", 
+#     "Southwest" =>  "AZ, CO, NM, NV, OK, TX, UT"
+#   }
+# 
+#   regions.each_pair do |region_name, desc|
+#     region = JamesBeardRegion.find_by_name(region_name)
+#     region ||= JamesBeardRegion.create!(:name => region_name, :description => desc)
+#   end
+# end
+# 
+# # == Set up Media Request Types ==
+# model_count_before_and_after(MediaRequestType) do
+#   request_types = YAML.load_file(@seedling_path + '/media_request_types.yml')
+#   request_types.each_pair do |shortname, name_and_fields|
+#     name = name_and_fields['name']
+#     fields = name_and_fields['fields']
+#     fields = fields.join(", ") if fields
+#     rt = MediaRequestType.find_by_shortname(shortname)
+#     rt ||= MediaRequestType.create!(:shortname => shortname, :name => name, :fields => fields)
+#   end
+# end
+# 
+# 
+# # == Set up Cuisines ==
+# model_count_before_and_after(Cuisine) do
+#   cuisines = YAML.load_file(@seedling_path + '/cuisines.yml')['cuisines']
+#   cuisines.each do |c|
+#     Cuisine.find_or_create_by_name(c)
+#   end
+# end
+# 
+# # == Set up Specialties ==
+# model_count_before_and_after(Specialty) do
+#   specialties = YAML.load_file(@seedling_path + '/specialties.yml')['specialties']
+#   specialties.each do |s|
+#     Specialty.find_or_create_by_name(s)
+#   end
+# end
 
 # == Set up Metropolitan Regions ==
-model_count_before_and_after(MetropolitanArea) do
-  metroareas = YAML.load_file(@seedling_path + '/metroregions.yml')['metroregions']
-  metroareas.each do |ma|
-    next if MetropolitanArea.find_by_name(ma['name'])
-    MetropolitanArea.create!(ma)
-  end
-end
+# model_count_before_and_after(MetropolitanArea) do
+#   metroareas = YAML.load_file(@seedling_path + '/metroregions.yml')['metroregions']
+#   metroareas.each do |ma|
+#     next if MetropolitanArea.find_by_name(ma['name'])
+#     MetropolitanArea.create!(ma)
+#   end
+# end
 
 # == Set up Restaurant Roles ==
-model_count_before_and_after(RestaurantRole) do
-  roles = YAML.load_file(@seedling_path + '/restaurant_roles.yml')['restaurant_roles']
-  roles.each do |role|
-    RestaurantRole.find_or_create_by_name(role)
-  end
-end
+# model_count_before_and_after(RestaurantRole) do
+#   roles = YAML.load_file(@seedling_path + '/restaurant_roles.yml')['restaurant_roles']
+#   roles.each do |role|
+#     RestaurantRole.find_or_create_by_name(role)
+#   end
+# end
 
 # == Set up Subject Matters ==
-model_count_before_and_after(SubjectMatter) do
-  subject_matters = YAML.load_file(@seedling_path + '/subject_matters.yml')['subject_matters']
-  subject_matters.each do |subject_matter|
-    SubjectMatter.find_or_create_by_name(subject_matter)
-  end
-end
+# model_count_before_and_after(SubjectMatter) do
+#   subject_matters = YAML.load_file(@seedling_path + '/subject_matters.yml')['subject_matters']
+#   subject_matters.each do |subject_matter|
+#     SubjectMatter.find_or_create_by_name(subject_matter)
+#   end
+# end
 
 # == Set up Culinary Schools ==
-model_count_before_and_after(School) do
-  culinary_schools = YAML.load_file(@seedling_path + '/culinary_schools.yml')['culinary_schools']
-  culinary_schools.each do |school|
-    next if School.find_by_name(school['name'])
-    school['country'] ||= "United States"
-    School.create!(school)
-  end
-end
+# model_count_before_and_after(School) do
+#   culinary_schools = YAML.load_file(@seedling_path + '/culinary_schools.yml')['culinary_schools']
+#   culinary_schools.each do |school|
+#     next if School.find_by_name(school['name'])
+#     school['country'] ||= "United States"
+#     School.create!(school)
+#   end
+# end
 
 # model_count_before_and_after(RestaurantFeature) do
 # #  RestaurantFeaturePage.delete_all

@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20101013222730
+# Schema version: 20110517222623
 #
 # Table name: a_la_minute_questions
 #
@@ -8,6 +8,7 @@
 #  kind       :string(255)
 #  created_at :datetime
 #  updated_at :datetime
+#  topic      :string(255)
 #
 
 class ALaMinuteQuestion < ActiveRecord::Base
@@ -18,6 +19,8 @@ class ALaMinuteQuestion < ActiveRecord::Base
 
   validates_presence_of :question
   validates_inclusion_of :kind, :in => KINDS
+
+  named_scope :answered, :joins => :a_la_minute_answers
 
   # named_scope :restaurants, :conditions => {:kind => "restaurant"}
   KINDS.each do |kind|

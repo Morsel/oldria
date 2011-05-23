@@ -4416,7 +4416,8 @@ p.search_filter_hint {
       }
 		}
 	}
-} 
+}
+
 #edit_resto_menu {
   overflow: auto;
   a {
@@ -4435,6 +4436,7 @@ p.search_filter_hint {
     }
   }
 }
+
 .photos {
   h2 {
     .inline-hint {
@@ -4613,8 +4615,6 @@ p.search_filter_hint {
     }
 }
 
-
-
 aside.dashboard_actions {
   a { 
       background-color: #FAEAE4;
@@ -4626,5 +4626,40 @@ aside.dashboard_actions {
       padding: 10px;
       text-shadow: 0 1px 0 #FFFFFF;
       text-transform: uppercase;
+  }
+}
+
+/* Promotions (Newsfeed) */
+
+#promotion-form {
+  @include column(8);
+  border: 1px solid #ccc;
+  padding: 5px;
+  margin-right: 16px;
+  input[type=text], textarea {
+    width: 300px;
+  }
+}
+
+#promotion-list {
+  @include column(8, true);
+  dl {
+    padding: 5px;
+    background-color: #eee;
+    &.even {
+      background:rgba(216,83,30,0.08);
+    }
+    dt {
+      font-weight: bold;
+      margin: 0;
+      padding: 0;
+    }
+    dd {
+      font-weight: normal;
+      margin-bottom: 10px;
+    }
+  }
+  p {
+    text-align: right;
   }
 }
