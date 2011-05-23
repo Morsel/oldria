@@ -17,7 +17,7 @@
         <dd><%= link_to promotion.link %></dd>
 
         <dt>Date(s)</dt>
-        <dd><%= promotion.start_date %> <%= "- #{promotion.end_date}" if promotion.end_date.present? %> <%= "- #{promotion.date_description}" if promotion.date_description.present? %></dd>
+        <dd><%= promotion.start_date.to_formatted_s(:long) %> <%= "- #{promotion.end_date.to_formatted_s(:long)}" if promotion.end_date.present? %> <%= "- #{promotion.date_description}" if promotion.date_description.present? %></dd>
     </dl>
     <p><%= link_to "edit", edit_restaurant_promotion_path(@restaurant, promotion) %> | <%= link_to "delete", restaurant_promotion_path(@restaurant, promotion), :method => "delete" %></p>
     <% end -%>
