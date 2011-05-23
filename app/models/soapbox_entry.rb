@@ -51,6 +51,10 @@ class SoapboxEntry < ActiveRecord::Base
     published == true && published_at > Time.zone.now
   end
 
+  def latest_answer
+    comments.sort_by(&:created_at).last
+  end
+
   class << self
     def main_feature
       featured_item_with_offset(0)

@@ -11,6 +11,7 @@ class Soapbox::SoapboxController < ApplicationController
     @alm_questions = ALaMinuteQuestion.most_recent_for_soapbox(4)
     @btl_questions = ProfileQuestion.without_travel.recently_answered.answered_by_premium_users[0...4]
     @promotions = Promotion.from_premium_restaurants.current(:limit => 4)
+    @soapbox_entries = SoapboxEntry.published(:limit => 4, :order => "created_at DESC")
 
     @main_feature = SoapboxEntry.main_feature
     @secondary_feature = SoapboxEntry.secondary_feature

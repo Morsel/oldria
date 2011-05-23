@@ -344,6 +344,9 @@ body,html,#container,#main,#content,#inside{
           &#news-title {
             background-color: #5a9cb8;
           }
+          &#frontburner-title {
+            background-color: #263f6a;
+          }
           img {
             float: left;
             position: relative;
@@ -413,6 +416,19 @@ body,html,#container,#main,#content,#inside{
           .identity {
             border: none;
           }
+        }
+        .soapbox_entry {
+          display: none;
+          border: 10px solid #263f6a;
+          border-top: none;
+          padding: 12px;
+          min-height: 145px;
+          &#frontburner_0 {
+            display: block;
+          }
+          .identity {
+            border: none;
+          }          
         }
         .links {
           text-align: right;
