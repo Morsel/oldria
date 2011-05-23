@@ -27,7 +27,7 @@ class Promotion < ActiveRecord::Base
       :message => "End date is required for repeating events"
   validates_length_of :details, :maximum => 1000
 
-  named_scope :current, :conditions => "promotions.end_date >= #{Date.today} OR (promotions.start_date >= #{Date.today} AND promotions.end_date IS NULL)",
+  named_scope :current, :conditions => ["promotions.end_date >= ? OR (promotions.start_date >= ? AND promotions.end_date IS NULL)", Date.today, Date.today],
                         :order => "promotions.start_date ASC"
 
   named_scope :from_premium_restaurants, lambda {
