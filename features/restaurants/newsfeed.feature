@@ -20,4 +20,4 @@ Feature: Newsfeed (restaurant promotions and events)
     And I fill in "Details" with "My great event"
     And I press "Post"
 
-    Then I should see "Your promotion has been saved"
+    Then I should see "Your promotion has been created"

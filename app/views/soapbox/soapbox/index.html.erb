@@ -89,6 +89,7 @@
                 </div>
             </div>
 
+            <% if @promotions.present? -%>
             <div id="newsfeed" class="live-feed">
                 <div id="news-title" class="title">
                     <%= image_tag "soapbox/title-news.png" %>
@@ -129,6 +130,7 @@
                     <%= link_to "more", soapbox_promotions_path %>
                 </div>
             </div>
+            <% end -%>
 
             <div id="btl-feed" class="live-feed">
                 <div id="btl-title" class="title">
