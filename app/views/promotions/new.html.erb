@@ -1,30 +1,24 @@
 <% title "Newsfeed" %>
 
 <div id="promotion-form">
-<% semantic_form_for [@restaurant, @promotion] do |f| %>
-    <% f.inputs do %>
-        <%= f.input :promotion_type %>
-        <%= f.input :details, :hint => "Under 1000 characters", :input_html => { :rows => 4 } %>
-        <%= f.input :link %>
-        <%= f.input :start_date %>
-        <%= f.input :end_date, :selected => nil %>
-        <%= f.input :date_description, :label => "Repeating on", :hint => "Example: every Monday in March" %>
-    <% end %>
-
-    <%= f.submit "Post" %>
-<% end %>
+    <%= render :partial => "form", :locals => { :restaurant => @restaurant, :promotion => @promotion } %>
 </div>
 
 <div id="promotion-list">
-<h2>Promotions</h2>
-<% table_for(@promotions) do |t| %>
-    <% t.data :actions => [] do
-        t.cell(:promotion_type)
-        t.cell(:details)
-        t.cell(:link) { |c| link_to c.link }
-        t.cell(:start_date)
-        t.cell(:end_date)
-        t.cell(:date_description)
-    end %>
-<% end %>
+    <% for promotion in @promotions -%>
+    <dl class="<%= cycle("odd", "even") %>">
+        <dt>Promotion Type</dt>
+        <dd><%= promotion.title %></dd>
+
+        <dt>Details</dt>
+        <dd><%= promotion.details %></dd>
+
+        <dt>Link</dt>
+        <dd><%= link_to promotion.link %></dd>
+
+        <dt>Date(s)</dt>
+        <dd><%= promotion.start_date %> <%= "- #{promotion.end_date}" if promotion.end_date.present? %> <%= "- #{promotion.date_description}" if promotion.date_description.present? %></dd>
+    </dl>
+    <p><%= link_to "edit", edit_restaurant_promotion_path(@restaurant, promotion) %> | <%= link_to "delete", restaurant_promotion_path(@restaurant, promotion), :method => "delete" %></p>
+    <% end -%>
 </div>

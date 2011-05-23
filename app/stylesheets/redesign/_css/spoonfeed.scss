@@ -4632,19 +4632,34 @@ aside.dashboard_actions {
 /* Promotions (Newsfeed) */
 
 #promotion-form {
-  @include column(6);
-  margin-right: 18px;
+  @include column(8);
+  border: 1px solid #ccc;
+  padding: 5px;
+  margin-right: 16px;
   input[type=text], textarea {
-    width: 220px;
+    width: 300px;
   }
 }
 
 #promotion-list {
-  @include column(11, true);
-  table#promotions {
-    width: 100%;
-    thead th {
-      font-weight: bold;
+  @include column(8, true);
+  dl {
+    padding: 5px;
+    background-color: #eee;
+    &.even {
+      background:rgba(216,83,30,0.08);
     }
+    dt {
+      font-weight: bold;
+      margin: 0;
+      padding: 0;
+    }
+    dd {
+      font-weight: normal;
+      margin-bottom: 10px;
+    }
+  }
+  p {
+    text-align: right;
   }
 }
