@@ -13,4 +13,6 @@ class PromotionType < ActiveRecord::Base
 
   has_many :promotions
 
+  named_scope :used_by_promotions, :joins => :promotions
+
 end

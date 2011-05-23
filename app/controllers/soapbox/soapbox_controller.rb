@@ -3,10 +3,10 @@ class Soapbox::SoapboxController < ApplicationController
   def index
     @home = true
 
-    @alm_links = ALaMinuteQuestion.all(:limit => 5, :order => "question")
+    @alm_links = ALaMinuteQuestion.answered.all(:order => "question").uniq
     @btl_links = Topic.user_topics.without_travel.all(:order => "title")
     @travel_links = Topic.travel.chapters.answered_by_premium_users[0...4] if Topic.travel
-    @newsfeed_links = PromotionType.all(:order => :name)
+    @newsfeed_links = PromotionType.used_by_promotions.all(:order => :name).uniq
 
     @alm_questions = ALaMinuteQuestion.most_recent_for_soapbox(4)
     @btl_questions = ProfileQuestion.without_travel.recently_answered.answered_by_premium_users[0...4]
