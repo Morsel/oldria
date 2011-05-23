@@ -46,8 +46,8 @@
         <div id="main-feeds">
             <div id="alm-feed" class="live-feed">
                 <div id="alm-title" class="title">
-                    <h2>A la Minute</h2>
                     <%= image_tag "soapbox/title-alm.png" %>
+                    <h2>A la Minute</h2>
                     <%= link_to "+ See all", soapbox_a_la_minute_questions_path, :class => "link-all" %>
                 </div>
                 <% @alm_questions.each_with_index do |question, index| -%>
@@ -91,8 +91,8 @@
 
             <div id="newsfeed" class="live-feed">
                 <div id="news-title" class="title">
-                    <h2>Newsfeed</h2>
                     <%= image_tag "soapbox/title-news.png" %>
+                    <h2>Newsfeed</h2>
                     <%= link_to "+ See all", soapbox_promotions_path, :class => "link-all" %>
                 </div>
                 <% @promotions.each_with_index do |promotion, index| -%>
@@ -132,8 +132,8 @@
 
             <div id="btl-feed" class="live-feed">
                 <div id="btl-title" class="title">
-                    <h2>Behind the Line</h2>
                     <%= image_tag "soapbox/title-btl.png" %>
+                    <h2>Behind the Line</h2>
                     <%= link_to "+ See all", soapbox_topics_path, :class => "link-all" %>
                 </div>
                 <% @btl_questions.each_with_index do |question, index| -%>

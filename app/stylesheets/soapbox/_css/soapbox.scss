@@ -350,6 +350,10 @@ body,html,#container,#main,#content,#inside{
             top: 5px;
             left: -10px;
           }
+          h2 {
+            float: left;
+            @include hiddentext;
+          }
           a.link-all {
             display: block;
             text-align: right;
@@ -358,11 +362,6 @@ body,html,#container,#main,#content,#inside{
             position: relative;
             top: 15px;
             right: 10px;
-          }
-          h2 {
-            font-size: 20px;
-            float: left;
-            @include hiddentext;
           }
         }
         h3 {
