@@ -3,6 +3,7 @@
     <div id="inside" class="home">
 
         <div id="quicklinks">
+            <% cache "soapbox_quicklinks_alm", :expires => 8.hours do %>
             <div id="alm-links">
                 <h2>A la Minute</h2>
                 <ul>
@@ -12,6 +13,7 @@
                 </ul>
                 <%= link_to "view more", soapbox_a_la_minute_questions_path, :class => "view-more" %>
             </div>
+            <% end %>
             <div id="news-links">
                 <h2>Newsfeed</h2>
                 <ul>
