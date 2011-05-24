@@ -23,6 +23,7 @@
                 </ul>
                 <%= link_to "view more", soapbox_promotions_path, :class => "view-more" %>
             </div>
+            <% cache "soapbox_quicklinks_topics", :expires => 8.hours do %>
             <div id="btl-links">
                 <h2>Behind the Line</h2>
                 <ul>
@@ -43,6 +44,7 @@
                 <%= link_to "view more", soapbox_topic_path(Topic.travel), :class => "view-more" %>
             </div>
             <% end -%>
+            <% end %>
         </div>
 
         <div id="main-feeds">
