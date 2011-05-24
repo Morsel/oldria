@@ -23,6 +23,7 @@
                 </ul>
                 <%= link_to "view more", soapbox_promotions_path, :class => "view-more" %>
             </div>
+            <% cache "soapbox_quicklinks_topics", :expires => 8.hours do %>
             <div id="btl-links">
                 <h2>Behind the Line</h2>
                 <ul>
@@ -43,6 +44,7 @@
                 <%= link_to "view more", soapbox_topic_path(Topic.travel), :class => "view-more" %>
             </div>
             <% end -%>
+            <% end %>
         </div>
 
         <div id="main-feeds">
@@ -179,6 +181,7 @@
                 </div>
             </div>
 
+            <% if false # temporarily removing for speed -%>
             <div id="frontburner-feed" class="live-feed">
                 <div id="frontburner-title" class="title">
                     <%= image_tag "soapbox/title-frontburner.png" %>
@@ -223,6 +226,7 @@
                     <%= link_to "more", soapbox_soapbox_entries_path %>
                 </div>
             </div>
+            <% end -%>
 
         </div>
     </div><!-- /inside -->
