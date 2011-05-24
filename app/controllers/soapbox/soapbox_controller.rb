@@ -4,7 +4,7 @@ class Soapbox::SoapboxController < ApplicationController
     @home = true
 
     # Right sidebar content
-    @alm_links = ALaMinuteQuestion.answered.all(:order => "question").uniq
+    @alm_links = ALaMinuteQuestion.answered.all(:order => "topic, question").uniq
     @newsfeed_links = PromotionType.used_by_promotions.all(:order => :name).uniq
     @btl_links = Topic.user_topics.without_travel.all(:order => "title")
     @travel_links = Topic.travel.chapters.answered_by_premium_users.all(:limit => 15) if Topic.travel
