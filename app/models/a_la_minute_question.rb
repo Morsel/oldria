@@ -46,12 +46,10 @@ class ALaMinuteQuestion < ActiveRecord::Base
                    ON `subscriptions`.subscriber_id = `a_la_minute_answers`.responder_id
                    AND `subscriptions`.subscriber_type = `a_la_minute_answers`.responder_type',
         :order => "a_la_minute_answers.created_at DESC",
-        :group => "a_la_minute_answers.id",
-        :limit => count,
         :conditions => ["`a_la_minute_answers`.show_as_public = ?
                          AND subscriptions.id IS NOT NULL
                          AND (subscriptions.end_date IS NULL OR subscriptions.end_date >= ?)",
-                         true, Date.today])
+                         true, Date.today]).uniq[0...count]
   end
 
 end
