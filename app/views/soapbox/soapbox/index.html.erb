@@ -179,7 +179,6 @@
                 </div>
             </div>
 
-            <% if false # temporarily removing for speed -%>
             <div id="frontburner-feed" class="live-feed">
                 <div id="frontburner-title" class="title">
                     <%= image_tag "soapbox/title-frontburner.png" %>
@@ -187,6 +186,7 @@
                     <%= link_to "+ See all", soapbox_soapbox_entries_path, :class => "link-all" %>
                 </div>
                 <% @soapbox_entries.each_with_index do |question, index| -%>
+                <% cache "soapbox_entry_#{question.id}", :expires => 8.hours do %>
                 <div class="soapbox_entry" id="frontburner_<%= index %>">
                     <!-- AddThis Button BEGIN -->
                     <div class="addthis_toolbox">
@@ -211,6 +211,7 @@
                     <div class="clear">&nbsp;</div>
                     <% end -%>
                 </div>
+                <% end %>
                 <% end -%>
                 <div class="links">
                     <% (1..4).each do |i| %>
@@ -224,7 +225,6 @@
                     <%= link_to "more", soapbox_soapbox_entries_path %>
                 </div>
             </div>
-            <% end -%>
 
         </div>
     </div><!-- /inside -->
