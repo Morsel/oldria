@@ -58,7 +58,7 @@
                     <div class="addthis_toolbox">
                       <script type="text/javascript">
                           var addthis_share = {
-                              url: '<%= soapbox_a_la_minute_question_path(question) %>',
+                              url: '<%= soapbox_a_la_minute_question_url(question) %>',
                               title: 'A la Minute - <%= question.question %>'
                           }
                       </script>
@@ -104,7 +104,7 @@
                     <div class="addthis_toolbox">
                       <script type="text/javascript">
                           var addthis_share = {
-                              url: '<%= "#" %>',
+                              url: '<%= soapbox_promotions_url(:promotion_type_id => promotion.promotion_type_id, :anchor => "promotion_#{promotion.id}") %>',
                               title: 'Newsfeed - <%= promotion.title %>'
                           }
                       </script>
@@ -146,7 +146,7 @@
                     <div class="addthis_toolbox">
                       <script type="text/javascript">
                           var addthis_share = {
-                              url: '<%= soapbox_question_path(question) %>',
+                              url: '<%= soapbox_question_url(question) %>',
                               title: 'Behind the Line - <%= question.title %>'
                           }
                       </script>
@@ -184,7 +184,7 @@
                 <div id="frontburner-title" class="title">
                     <%= image_tag "soapbox/title-frontburner.png" %>
                     <h2>Front Burner</h2>
-                    <%= link_to "+ See all", soapbox_soapbox_entries_path, :class => "link-all" %>
+                    <%= link_to "+ See all", soapbox_soapbox_entries_url, :class => "link-all" %>
                 </div>
                 <% @soapbox_entries.each_with_index do |question, index| -%>
                 <div class="soapbox_entry" id="frontburner_<%= index %>">
@@ -192,7 +192,7 @@
                     <div class="addthis_toolbox">
                       <script type="text/javascript">
                           var addthis_share = {
-                              url: '<%= soapbox_soapbox_entry_path(question) %>',
+                              url: '<%= soapbox_soapbox_entry_url(question) %>',
                               title: 'Front Burner - <%= message(question.featured_item) %>'
                           }
                       </script>
