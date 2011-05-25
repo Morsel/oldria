@@ -53,7 +53,6 @@
                     <%= link_to "+ See all", soapbox_a_la_minute_questions_path, :class => "link-all" %>
                 </div>
                 <% @alm_questions.each_with_index do |question, index| -%>
-                <% cache "homepage_alm_question_#{question.id}", :expires => 8.hours do %>
                 <div class="a_la_minute_question" id="alm_<%= index %>">
                     <!-- AddThis Button BEGIN -->
                     <div class="addthis_toolbox">
@@ -76,7 +75,6 @@
                         <p class="datestamp">Posted <%= question.latest_answer.created_at.strftime("%D") %></p>
                     </div>
                     <div class="clear">&nbsp;</div>
-                    <% end %>
                     <% end -%>
                 </div>
                 <% end -%>
@@ -101,7 +99,6 @@
                     <%= link_to "+ See all", soapbox_promotions_path, :class => "link-all" %>
                 </div>
                 <% @promotions.each_with_index do |promotion, index| -%>
-                <% cache "homepage_promotion_#{promotion.id}", :expires => 8.hours do %>
                 <div class="promotion" id="news_<%= index %>">
                     <!-- AddThis Button BEGIN -->
                     <div class="addthis_toolbox">
@@ -122,7 +119,6 @@
                     </div>
                     <div class="clear">&nbsp;</div>
                 </div>
-                <% end %>
                 <% end -%>
                 <div class="links">
                     <% (1..4).each do |i| %>
@@ -145,7 +141,6 @@
                     <%= link_to "+ See all", soapbox_topics_path, :class => "link-all" %>
                 </div>
                 <% @btl_questions.each_with_index do |question, index| -%>
-                <% cache "homepage_btl_question_#{question.id}", :expires => 8.hours do %>
                 <div class="profile_question" id="btl_<%= index %>">
                     <!-- AddThis Button BEGIN -->
                     <div class="addthis_toolbox">
@@ -170,7 +165,6 @@
                     <div class="clear">&nbsp;</div>
                     <% end -%>
                 </div>
-                <% end %>
                 <% end -%>
                 <div class="links">
                     <% (1..4).each do |i| %>
@@ -192,7 +186,7 @@
                     <%= link_to "+ See all", soapbox_soapbox_entries_path, :class => "link-all" %>
                 </div>
                 <% @soapbox_entries.each_with_index do |question, index| -%>
-                <% cache "homepage_soapbox_entry_#{question.id}", :expires => 8.hours do %>
+                <% cache "soapbox_entry_#{question.id}", :expires => 8.hours do %>
                 <div class="soapbox_entry" id="frontburner_<%= index %>">
                     <!-- AddThis Button BEGIN -->
                     <div class="addthis_toolbox">
