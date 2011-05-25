@@ -40,7 +40,7 @@ class SoapboxEntry < ActiveRecord::Base
   end
 
   def comments
-    featured_item.comments(true).select {|c| c.show_on_soapbox? }
+    featured_item.comments(false).show_on_soapbox
   end
   
   def published?
@@ -52,7 +52,7 @@ class SoapboxEntry < ActiveRecord::Base
   end
 
   def latest_answer
-    comments.sort_by(&:created_at).last
+    featured_item.last_comment
   end
 
   class << self

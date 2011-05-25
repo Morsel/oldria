@@ -93,9 +93,21 @@ class TrendQuestion < ActiveRecord::Base
   end
 
   def comments(deep_includes = false)
-    includes = deep_includes ? { :comments => { :user => :employments }} : :comments
-    _discussions = admin_discussions.with_replies.all(:include => includes) + solo_discussions.with_replies.all(:include => includes)
-    (_discussions).map(&:comments).flatten
+    includes = deep_includes ? { :user => :employments } : nil
+    Comment.scoped(:conditions => ["(commentable_id IN (?) AND commentable_type = 'AdminDiscussion') OR
+      (commentable_id IN (?) AND commentable_type = 'SoloDiscussion')",
+      admin_discussions.with_replies.all(:select => "id").map { |d| d.id },
+      solo_discussions.with_replies.all(:select => "id").map { |d| d.id }],
+      :include => includes)
+  end
+
+  def last_comment
+    Comment.scoped(:conditions => ["(commentable_id IN (?) AND commentable_type = 'AdminDiscussion') OR
+      (commentable_id IN (?) AND commentable_type = 'SoloDiscussion')",
+      admin_discussions.with_replies.all(:select => "id").map { |d| d.id },
+      solo_discussions.with_replies.all(:select => "id").map { |d| d.id }],
+      :order => "comments.created_at DESC",
+      :limit => 1).first
   end
 
   def title
@@ -107,7 +119,7 @@ class TrendQuestion < ActiveRecord::Base
   end
   
   def soapbox_comment_count
-    discussions_with_replies.map(&:comments).flatten.select { |c| c.show_on_soapbox? }.size
+    discussions_with_replies.map { |c| c.comments.show_on_soapbox }.flatten.size
   end
 
 end
