@@ -3,7 +3,7 @@ class Soapbox::SoapboxController < ApplicationController
   def index
     @home = true
 
-    # Left sidebar content
+    # Right sidebar content
     @alm_links = ALaMinuteQuestion.answered.all(:order => "topic, question").uniq
     @newsfeed_links = PromotionType.used_by_promotions.all(:order => :name).uniq
     @btl_links = Topic.user_topics.without_travel.all(:order => "title")
@@ -13,7 +13,7 @@ class Soapbox::SoapboxController < ApplicationController
     @alm_questions = ALaMinuteQuestion.most_recent_for_soapbox(4)
     @promotions = Promotion.from_premium_restaurants.current.all(:limit => 4)
     @btl_questions = ProfileQuestion.without_travel.recently_answered.answered_by_premium_users[0...4]
-    @soapbox_entries = SoapboxEntry.published(:limit => 4, :order => "created_at DESC").map(&:featured_item)
+    @soapbox_entries = SoapboxEntry.published(:limit => 4, :order => "created_at DESC")
 
     # Right sidebar content
     @main_feature = SoapboxEntry.main_feature
