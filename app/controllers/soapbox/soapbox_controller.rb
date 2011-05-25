@@ -3,7 +3,7 @@ class Soapbox::SoapboxController < ApplicationController
   def index
     @home = true
 
-    # Left sidebar content
+    # Right sidebar content
     @alm_links = ALaMinuteQuestion.answered.all(:order => "topic, question").uniq
     @newsfeed_links = PromotionType.used_by_promotions.all(:order => :name).uniq
     @btl_links = Topic.user_topics.without_travel.all(:order => "title")
