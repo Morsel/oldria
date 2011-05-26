@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110517222623) do
+ActiveRecord::Schema.define(:version => 20110526212923) do
 
   create_table "a_la_minute_answers", :force => true do |t|
     t.text     "answer"
@@ -68,6 +68,7 @@ ActiveRecord::Schema.define(:version => 20110517222623) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "display_message"
+    t.string   "slug"
   end
 
   create_table "apprenticeships", :force => true do |t|
@@ -1075,6 +1076,7 @@ ActiveRecord::Schema.define(:version => 20110517222623) do
     t.datetime "updated_at"
     t.integer  "employment_search_id"
     t.string   "display_message"
+    t.string   "slug"
   end
 
   add_index "trend_questions", ["employment_search_id"], :name => "index_trend_questions_on_employment_search_id"

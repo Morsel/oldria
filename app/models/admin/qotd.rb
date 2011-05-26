@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20101011235856
+# Schema version: 20110526212923
 #
 # Table name: admin_messages
 #
@@ -11,6 +11,7 @@
 #  created_at      :datetime
 #  updated_at      :datetime
 #  display_message :string(255)
+#  slug            :string(255)
 #
 
 class Admin::Qotd < Admin::Message

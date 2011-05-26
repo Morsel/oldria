@@ -4,7 +4,8 @@
       <div class="form_basics">
         <%= f.input :subject %>
         <%= f.input :body %>
-        <%= f.input :display_message %>
+        <%= f.input :display_message, :hint => "For Soapbox" %>
+        <%= f.input :slug, :hint => "For Soapbox links. Limited to 30 characters." %>
       </div>
 
       <div id="employment_list" class="clearfix">

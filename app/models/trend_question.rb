@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20100811202044
+# Schema version: 20110526212923
 #
 # Table name: trend_questions
 #
@@ -12,6 +12,7 @@
 #  updated_at           :datetime
 #  employment_search_id :integer
 #  display_message      :string(255)
+#  slug                 :string(255)
 #
 
 class TrendQuestion < ActiveRecord::Base
@@ -25,6 +26,8 @@ class TrendQuestion < ActiveRecord::Base
   has_many :employments, :through => :solo_discussions
 
   has_one :soapbox_entry, :as => :featured_item, :dependent => :destroy
+
+  validates_length_of :slug, :maximum => 30
 
   named_scope :by_scheduled_date, :order => "#{table_name}.scheduled_at desc"
   named_scope :by_subject, :order => "#{table_name}.subject asc"

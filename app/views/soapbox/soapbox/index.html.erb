@@ -236,8 +236,8 @@
             <h1>Front Burner</h1>
             <p>Check out Today's Features:</p>
             <ul>
-                <li><%= link_to @main_feature.display_message, soapbox_soapbox_entry_path(@main_feature.soapbox_entry) if @main_feature.present? %></li>
-                <li><%= link_to @secondary_feature.display_message, soapbox_soapbox_entry_path(@secondary_feature.soapbox_entry) if @secondary_feature.present? %></li>
+                <li><%= link_to (@main_feature.slug || @main_feature.display_message), soapbox_soapbox_entry_path(@main_feature.soapbox_entry) if @main_feature.present? %></li>
+                <li><%= link_to (@secondary_feature.slug || @secondary_feature.display_message), soapbox_soapbox_entry_path(@secondary_feature.soapbox_entry) if @secondary_feature.present? %></li>
             </ul>
         </div>
         <%= link_to "<span>Learn</span> more", '/soapbox/learn_more', :class => "button", :id => "request-invite" %>
