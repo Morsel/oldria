@@ -5,6 +5,7 @@
       <div class="form_basics">
         <%= f.input :message %>
         <%= f.input :display_message, :hint => "For Soapbox" %>
+        <%= f.input :slug, :hint => "For Soapbox links. Limited to 30 characters." %>
       </div>
 
       <% if @qotd.new_record? %>
