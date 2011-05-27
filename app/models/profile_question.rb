@@ -55,6 +55,8 @@ class ProfileQuestion < ActiveRecord::Base
   }
 
   named_scope :random, :order => RANDOM_SQL_STRING
+  named_scope :recently_answered, :include => :profile_answers, :order => "profile_answers.created_at DESC"
+  named_scope :without_travel, :joins => { :chapter => :topic }, :conditions => ["topics.title != ?", "Travel Guide"]
 
   before_save :update_roles_description
 
@@ -74,6 +76,14 @@ class ProfileQuestion < ActiveRecord::Base
     answer = self.answered_by?(user) ?
       self.answer_for(user) : 
       self.profile_answers.build(:user => user)
+  end
+
+  def latest_answer
+    profile_answers.first(:order => "created_at DESC")
+  end
+
+  def soapbox_answer_count
+    profile_answers.from_premium_users.select { |a| a.user.try(:prefers_publish_profile?) }.count
   end
 
   protected

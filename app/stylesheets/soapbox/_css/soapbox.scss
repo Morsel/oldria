@@ -85,7 +85,6 @@ h1,h2,h3,h4,h5,h6{
 	}
 }
 
-
 #header{
 	background:url(/images/soapbox/nav.png) no-repeat;
 	margin:40px 0 30px;
@@ -104,11 +103,13 @@ h1,h2,h3,h4,h5,h6{
 	padding:0;
 	float:left;
 }
+
 #printlogo {display: none;}
+
 #tagline{
 	@include hiddentext;
 	float:left;
-	padding:45px 65px 0 10px;
+	padding:45px 2px 0 10px;
 	width:110px;
 	height:31px;
 	background:url(/images/soapbox/logo-tagline-soapbox.png) no-repeat 10px 45px;
@@ -120,34 +121,50 @@ h1,h2,h3,h4,h5,h6{
 		@include hiddentext;
 		margin: -23px 0 0 0;
 		float: left;
-		width: 122px;
+		width: 77px;
 		height: 115px;
 		text-decoration: none;
 		background: transparent url(/images/soapbox/soapbox-nav.png) no-repeat;
 		&#nav-home {
 			background-position: 0 0;
 			&:hover {background-position: 0 -200px;}
-			&.selected {background-position: 0 -400px;}
+			&.selected {background-position: 0 -398px;}
 		}
 		&#nav-front-burner {
-			background-position: -122px 0;
-			&:hover {background-position: -122px -200px;}
-			&.selected {background-position: -122px -400px;}
+			background-position: -77px 0;
+			&:hover {background-position: -77px -200px;}
+			&.selected {background-position: -77px -398px;}
+			width: 87px;
+		}
+		&#nav-alm {
+			background-position: -165px 0;
+			&:hover {background-position: -165px -200px;}
+			&.selected {background-position: -165px -398px;}
+			width: 87px;
+		}
+		&#nav-btl {
+			background-position: -251px 0;
+			&:hover {background-position: -251px -200px;}
+			&.selected {background-position: -251px -398px;}
+			width: 97px;
 		}
 		&#nav-directory {
-			background-position: -244px 0;
-			&:hover {background-position: -244px -200px;}
-			&.selected {background-position: -244px -400px;}
+			background-position: -349px 0;
+			&:hover {background-position: -349px -200px;}
+			&.selected {background-position: -349px -398px;}
+			width: 99px;
 		}
-		&#nav-about {
-			background-position: -366px 0;
-			&:hover {background-position: -366px -200px;}
-			&.selected {background-position: -366px -400px;}
+		&#nav-restaurant-directory {
+			background-position: -448px 0;
+			&:hover {background-position: -448px -200px;}
+			&.selected {background-position: -448px -398px;}
+			width: 115px;
 		}
-		&#nav-contact {
-			background-position: -488px 0;
-			&:hover {background-position: -488px -200px;}
-			&.selected {background-position: -488px -400px;}
+		&#nav-newsfeed {
+			background-position: -562px 0;
+			&:hover {background-position: -562px -200px;}
+			&.selected {background-position: -562px -398px;}
+			width: 111px;
 		}
 	}
 }
@@ -155,6 +172,7 @@ h1,h2,h3,h4,h5,h6{
 #main{
 	overflow:hidden;
 }
+
 body,html,#container,#main,#content,#inside{
 	height:100%;
 }
@@ -185,7 +203,6 @@ body,html,#container,#main,#content,#inside{
 	}
 }
 
-
 #content{
 	@include column(18,true);
 	padding:10px 0 0;
@@ -203,79 +220,6 @@ body,html,#container,#main,#content,#inside{
 	}
 
 	&.home{
-		@include column(20);
-		#jumbotron{
-			margin:3px 0 25px;
-			height:400px;
-			overflow:hidden;
-			position:relative;
-			border-bottom:5px solid $sienna;
-			img{
-				width:780px;
-				height:400px;
-			}
-			#display{
-				position:absolute;
-				bottom:0;
-				left:0;
-				width:730px;
-				background:rgba(0,0,0,0.75);
-				background:url(/images/soapbox/bg-black-opacity-75.png);
-				padding:20px 25px 12px;
-				z-index:1000;
-				h1{
-					color:$sienna;
-					@include museoslabbold;
-					font-size:22px;
-					line-height:1.2;
-					width:575px;
-					text-shadow:0 2px 0 #000;
-					padding:0;
-					margin:0;
-				}
-				summary{
-					width:575px;
-					padding:8px 0;
-					font-size:15px;
-					line-height:1.3;
-					color:#fff;
-					a{
-						color:$sienna;
-						font-weight:bold;
-						font-style:italic;
-						text-decoration:none;
-					}
-				}
-				#cycle-footer{
-					color:#fff;
-					font-size:10px;
-
-				}
-			}
-			#pager{
-				position:absolute;
-				top:15px;
-				right:10px;
-				a{
-					display:block;
-					float:left;
-					margin:0 10px 0 0;
-					padding:12px 10px 8px;
-					@include border-radius(350px);
-					@include museoslabbold;
-					font-size:18px;
-					line-height:0.5;
-					text-decoration:none;
-					color:#000;
-					background:$sienna;
-					text-shadow: 0px 1px 0px #000;
-					&.activeSlide, &:hover{
-						color:#fff;
-						background:#e85f43;
-					}
-				}
-			}
-		} /*jumbotron */
 		.panel{
 			background:#fff;
 			@include box-shadow(#d5ceca, 0, 0, 3px);
@@ -356,6 +300,179 @@ body,html,#container,#main,#content,#inside{
 		.panel_2{
 			@include column(6,true);
 		}
+		#quicklinks {
+		  @include column(4);
+		  margin: 16px 0 5px 16px;
+		  div {
+		    margin-bottom: 16px;
+		  }
+		  h2 {
+			  margin: 0;
+		    padding: 12px 0;
+		    color: $baby-blue;
+		    font-weight: bold;
+		    font-size: 14px;
+		    text-transform: uppercase;
+		    border-top: 1px dashed #acb8c0;
+				@include museoslabmedium;
+		  }
+		  ul {
+		    a, a:visited {
+		      color: #ca4826;
+		    }
+		  }
+      a.view-more {
+        color: $baby-blue;
+      }
+		}
+    #main-feeds {
+      @include column(12);
+      margin-left: 20px;
+      .live-feed {
+        clear: both;
+        margin-top: 10px;
+        padding: 5px;
+        .title {
+  				@include museoslabthin;
+  				height: 40px;
+          &#alm-title {
+            background-color: #565656;
+          }
+          &#btl-title {
+            background-color: #ca4826;
+          }
+          &#news-title {
+            background-color: #5a9cb8;
+          }
+          &#frontburner-title {
+            background-color: #263f6a;
+          }
+          img {
+            float: left;
+            position: relative;
+            top: 5px;
+            left: -10px;
+          }
+          h2 {
+            float: left;
+            @include hiddentext;
+          }
+          a.link-all {
+            display: block;
+            text-align: right;
+            color: white;
+            text-decoration: none;
+            position: relative;
+            top: 15px;
+            right: 10px;
+          }
+        }
+        h3 {
+          @include museoslabmedium;
+      		font-size:18px;
+      		padding:0 0 2px;
+      		margin-top: 20px;
+      		clear: both;
+      		border-bottom:1px solid $feedback-border-color;
+        }
+    		a, a:visited {
+    		  color: #ca4826;
+    		}
+        .a_la_minute_question {
+          display: none;
+          border: 10px solid #565656;
+          border-top: none;
+          padding: 12px;
+          min-height: 145px;
+          &#alm_0 {
+            display: block;
+          }
+        }
+        .profile_question {
+          display: none;
+          border: 10px solid #ca4826;
+          border-top: none;
+          padding: 12px;
+          min-height: 145px;
+          &#btl_0 {
+            display: block;
+          }
+          .datestamp {
+            color: #ccc;
+          }
+          .identity {
+            border: none;
+          }
+        }
+        .promotion {
+          display: none;
+          border: 10px solid #5a9cb8;
+          border-top: none;
+          padding: 12px;
+          min-height: 145px;
+          &#news_0 {
+            display: block;
+          }
+          .identity {
+            border: none;
+          }
+        }
+        .soapbox_entry {
+          display: none;
+          border: 10px solid #263f6a;
+          border-top: none;
+          padding: 12px;
+          min-height: 145px;
+          &#frontburner_0 {
+            display: block;
+          }
+          .identity {
+            border: none;
+          }          
+        }
+        .links {
+          text-align: right;
+          margin: 10px 10px 20px 0;
+          a {
+            border: 1px solid #ca4826;
+            background-color: #f5f4f2;
+            font-weight: bold;
+            text-decoration: none;
+            padding: 5px 8px;
+            &.current {
+              border: 1px solid #b1b0af;
+              color: #6d6d6d;
+            }
+          }
+        }
+        .identity {
+          width: 183px;
+          float: left;
+          margin: 0 15px 10px 0;
+          border-bottom: 1px dotted #ddd;
+          padding-bottom: 4px;
+          .avatar {
+            background-color: #f2f2f2;
+            width: 50px;
+            float: left;
+      			text-align: center;
+            img {
+              background-color: #f2f2f2;
+            }
+          }
+      		ul {
+      			list-style: none;
+      			margin: 0;
+      			padding: 0 0 0 70px;
+      			li {
+      				background-image: none;
+      				margin: 0;
+      				padding: 0;
+      			}
+      		}
+        }
+      }
+    }
 	}
 
 	.restaurant {
@@ -384,11 +501,10 @@ body,html,#container,#main,#content,#inside{
 				height: 25px;
 				vertical-align: bottom;
 			}
-
 		}
 	}/* .restaurant */
-
 } /*content */
+
 #page-content{
 	.last_updated, .timestamp_header, .timestamp {
 		font-size: 10px;
@@ -458,6 +574,7 @@ body,html,#container,#main,#content,#inside{
 	}
 	.identity {
 		width: 183px;
+    min-height: 62px;
 		float: left;
 		margin: 0 15px 10px 0;
 		border-bottom: 1px dotted #ddd;
@@ -717,6 +834,12 @@ body,html,#container,#main,#content,#inside{
 	} /* recent questions in profile */
 
 	#topic_title {margin: 0;}
+	h2#btl-tagline, h2#alm-tagline {
+	  margin: 0;
+	  border: none;
+	  padding-bottom: 1em;
+	  font-size: 130%;
+	}
 	.topic {
 		width: 300px;
 		min-height: 120px;
@@ -906,7 +1029,6 @@ body,html,#container,#main,#content,#inside{
 	overflow:hidden;
 	&.home{
 		margin:0 15px;
-		background:0;
 		padding:0 0 20px;
 	}
 }
@@ -919,7 +1041,8 @@ body,html,#container,#main,#content,#inside{
 	@include column(6,true);
 	margin:20px 0 0;
 	&.home{
-		@include column(4,true);
+		@include column(6,true);
+		margin-left: 10px;
 		section{
 			padding:10px 0;
 			margin:10px 0;
@@ -944,8 +1067,46 @@ body,html,#container,#main,#content,#inside{
 } /*sidebar */
 
 #facebook-button{
-	border-bottom:1px dashed $purple;
 	margin-top:0;
+  img {
+    float: left;
+    padding: 0 14px;
+  }
+	#twitter-button {
+	  background-color: white;
+	  padding: 14px;
+	  margin-bottom: 14px;
+	  img {
+	    padding-left: 0;
+	  }
+	  p {
+	    margin: 0;
+	  }
+	}
+}
+
+#sidebar.home {
+  #help-questions, #newsletter {
+    border-bottom:1px dashed $purple;
+  }
+  #newsletter {
+    h1 { margin: 0; padding: 0; }
+    input[type=submit] {
+      font-size:15px;
+      font-weight:bold;
+      padding:4px 15px;
+      margin: 0;
+      @include border-radius(90px);
+      color:#fff;
+      text-shadow:0 1px 0 #333;
+      background:$purple;
+      border: none;
+      &:hover{
+        text-decoration:none;
+        background:$dark-purple;
+      }
+    }
+  }
 }
 
 #recent-activity{
@@ -1061,6 +1222,7 @@ body,html,#container,#main,#content,#inside{
 		float:left;
 		&:first-child{
 			margin-right:5px;
+			padding-top: 10px;
 		}
 	}
 	.ui-state-active a, a:hover{
@@ -1069,6 +1231,7 @@ body,html,#container,#main,#content,#inside{
 		background-position:-3px -1px;
 	}
 }
+
 #feed-bottom{
 	position:absolute;
 	width:100%;
@@ -1077,6 +1240,7 @@ body,html,#container,#main,#content,#inside{
 	left:0;
 	background:url(/images/soapbox/bg-sidebar-bottom.png) no-repeat;
 }
+
 #participate{
 	padding:4px 0 20px;
 	.button, span{
@@ -1117,6 +1281,7 @@ body,html,#container,#main,#content,#inside{
 				color:#fff;
 				@include museoslabbold;
 				font-size: 19px;
+				display: inline;
 			}
 		}
 		.button{
@@ -1124,16 +1289,34 @@ body,html,#container,#main,#content,#inside{
 			padding:25px 0px 30px 20px;
 			background:url(/images/soapbox/bg-hp-tab1.png) no-repeat right 0;
 			&:hover{
-				background-position:right -301px;
+				background-position:right -252px;
 			}
 		}
 		#request-invite{
-			padding-bottom:40px;
+			padding: 34px;
 			margin-bottom:0;
 			background:url(/images/soapbox/bg-hp-tab2.png) no-repeat right 0;
+			font-size: 20px;
 			&:hover{
 				background-position:right -300px;
 			}
+		}
+		#front-burner {
+		  color: white;
+		  h1 {
+		    font-size: 18px;
+		  }
+		  ul {
+		    list-style: square inside;
+		  }
+		  p, ul {
+		    text-transform: none;
+       	font:normal 12px "Helvetica Neue", Helvetica, Arial, sans-serif;
+       	margin: 5px 0;
+  		  a {
+  		    color: $baby-blue;
+  		  }
+		  }
 		}
 	}
 } /*participate */
@@ -1418,7 +1601,7 @@ p.search_filter_hint {
 	overflow:hidden;
 	clear:both;
 	.comment{
-		width:206px;
+		width:190px;
 		padding:10px;
 		@include box-shadow(#999, 0, 0, 3px);
 		margin:10px 5px;
@@ -2393,6 +2576,42 @@ dl.things dt:after {content: ":"}
 	}
 }
 
+.a_la_minute_question {
+  margin-bottom: 1em;
+  .identity {
+    border: none !important;
+  }
+  .answer {
+    font-size: 110%;
+    font-style: italic;
+  }
+  .datestamp {
+    color: #ccc;
+  }
+}
+
+.a_la_minute_answer p.datestamp {
+  color: #ccc;
+  margin: 0;
+}
+
+#answers .restaurant {
+  margin-bottom: 5px;
+  padding-bottom: 0;
+}
+
+#alm-feed {
+  .feed-item-reply {
+    font-size:11px;
+    font-weight:normal;
+    margin:5px 0;
+    a {
+      color:#D6D9E8;
+      text-decoration:none;
+    }
+  }	
+}
+
 #behindline {
   @include column(8, true);
   float: left;
@@ -2449,7 +2668,8 @@ dl.things dt:after {content: ":"}
 			}
 		}
 	}
-} /* end of #behindline ----------------------------- */
+}
+/* end of #behindline ----------------------------- */
 
 #page_content h1#btl-title, #page-content h1#btl-title,
 #page-content h3#btl-title {
@@ -2470,6 +2690,13 @@ dl.things dt:after {content: ":"}
 		width:123px;
 		height:19px;
 	}
+	span.presskit-art{
+		@include hiddentext;
+		display:inline-block;
+		background:url(/images/redesign/title-onlinepresskit.png) no-repeat;
+		width:132px;
+		height:19px;
+	}
 	&.btl{
 		overflow:hidden;
 		display:inline-block;
@@ -2485,8 +2712,11 @@ dl.things dt:after {content: ":"}
 			&.btl-art{
 				background:url(/images/redesign/btl-white.png) no-repeat left;
 			}
+			&.presskit-art{
+				background:url(/images/redesign/onlinepresskit-white.png) no-repeat left;
+			}
 			&.name{
-				padding-top:3px;
+				padding-top:1px;
 			}
 		}
 	}
@@ -2696,3 +2926,29 @@ dl.things dt:after {content: ":"}
   color: #888;
 }
 
+#btl_answers {
+  h4 {
+    a {
+      font-weight: bold;
+      font-size: 14px;      
+    }
+    .letter-q {
+      font-weight: bolder;
+    }
+  }
+  .btl-answer {
+    margin-left: 2em;
+  }
+  .identity {
+    border: none !important;
+  }
+}
+
+.promotion {
+  .identity {
+    border: none;
+  }
+  p.details {
+    font-size: 110%;
+  }
+}

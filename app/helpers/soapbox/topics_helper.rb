@@ -1,0 +1,2 @@
+module Soapbox::TopicsHelper
+end

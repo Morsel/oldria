@@ -1,5 +1,5 @@
-<% title "Profile Directory" %>
-<%= link_to 'Switch to Restaurant Directory', correct_restaurant_directory_path, :class => "directory_switch" %>
+<% title "Personal Profile Directory" %>
+<%= link_to 'Switch to Restaurant Directory', correct_restaurant_directory_path, :class => "directory_switch" unless soapbox? %>
 
 <%= title_for_search %>
 
@@ -21,7 +21,3 @@
 <div id="directory_list">
     <%= render :partial => 'directory/search_results' %>
 </div>
-
-<% content_for :sidebar do -%>
-<%= render :partial => 'soapbox/soapbox_entries/front_burner_sidebar' %>
-<% end if soapbox? -%>

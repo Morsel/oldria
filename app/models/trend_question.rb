@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20100811202044
+# Schema version: 20110526212923
 #
 # Table name: trend_questions
 #
@@ -12,6 +12,7 @@
 #  updated_at           :datetime
 #  employment_search_id :integer
 #  display_message      :string(255)
+#  slug                 :string(255)
 #
 
 class TrendQuestion < ActiveRecord::Base
@@ -25,6 +26,8 @@ class TrendQuestion < ActiveRecord::Base
   has_many :employments, :through => :solo_discussions
 
   has_one :soapbox_entry, :as => :featured_item, :dependent => :destroy
+
+  validates_length_of :slug, :maximum => 30
 
   named_scope :by_scheduled_date, :order => "#{table_name}.scheduled_at desc"
   named_scope :by_subject, :order => "#{table_name}.subject asc"
@@ -93,9 +96,21 @@ class TrendQuestion < ActiveRecord::Base
   end
 
   def comments(deep_includes = false)
-    includes = deep_includes ? { :comments => { :user => :employments }} : :comments
-    _discussions = admin_discussions.with_replies.all(:include => includes) + solo_discussions.with_replies.all(:include => includes)
-    (_discussions).map(&:comments).flatten
+    includes = deep_includes ? { :user => :employments } : nil
+    Comment.scoped(:conditions => ["(commentable_id IN (?) AND commentable_type = 'AdminDiscussion') OR
+      (commentable_id IN (?) AND commentable_type = 'SoloDiscussion')",
+      admin_discussions.with_replies.all(:select => "id").map { |d| d.id },
+      solo_discussions.with_replies.all(:select => "id").map { |d| d.id }],
+      :include => includes)
+  end
+
+  def last_comment
+    Comment.scoped(:conditions => ["(commentable_id IN (?) AND commentable_type = 'AdminDiscussion') OR
+      (commentable_id IN (?) AND commentable_type = 'SoloDiscussion')",
+      admin_discussions.with_replies.all(:select => "id").map { |d| d.id },
+      solo_discussions.with_replies.all(:select => "id").map { |d| d.id }],
+      :order => "comments.created_at DESC",
+      :limit => 1).first
   end
 
   def title
@@ -107,7 +122,7 @@ class TrendQuestion < ActiveRecord::Base
   end
   
   def soapbox_comment_count
-    discussions_with_replies.map(&:comments).flatten.select { |c| c.show_on_soapbox? }.size
+    discussions_with_replies.map { |c| c.comments.show_on_soapbox }.flatten.size
   end
 
 end

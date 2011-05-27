@@ -35,8 +35,12 @@ class SoapboxEntry < ActiveRecord::Base
     featured_item.title
   end
 
+  def display_message
+    featured_item.display_message
+  end
+
   def comments
-    featured_item.comments(true).select {|c| c.show_on_soapbox? }
+    featured_item.comments(false).show_on_soapbox
   end
   
   def published?
@@ -47,12 +51,16 @@ class SoapboxEntry < ActiveRecord::Base
     published == true && published_at > Time.zone.now
   end
 
+  def latest_answer
+    featured_item.last_comment
+  end
+
   class << self
     def main_feature
       featured_item_with_offset(0)
     end
 
-    def main_feature_comments(limit = 12)
+    def main_feature_comments(limit = 6)
       featured_item_comments_with_offset(0)[0...limit]
     end
 
@@ -60,7 +68,7 @@ class SoapboxEntry < ActiveRecord::Base
       featured_item_with_offset(1)
     end
 
-    def secondary_feature_comments(limit = 12)
+    def secondary_feature_comments(limit = 6)
       featured_item_comments_with_offset(1)[0...limit]
     end
 

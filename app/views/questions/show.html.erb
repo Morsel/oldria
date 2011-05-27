@@ -31,3 +31,7 @@
 
   <p><span class="timestamp">Last updated: <%= answer.try(:updated_at).try(:strftime, "%b %e %Y") %></span></p>
 </div><!-- #btl_answers -->
+
+<% content_for :sidebar do -%>
+<%= render :partial => "soapbox/topics/sidebar" %>
+<% end if soapbox? -%>

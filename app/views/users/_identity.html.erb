@@ -2,7 +2,7 @@
 <div class="identity<% unless user.avatar? -%> no_avatar<% end -%>">
     <div class="avatar">
       <% if user.avatar? -%>
-        <%= image_tag(user.avatar.url(:thumb), :width => 50, :height => 'auto') %>
+        <%= image_tag(user.avatar.url(:thumb), :width => 'auto', :height => 'auto') %>
       <% end -%>
     </div>
     <ul class="identity_details user">
@@ -11,6 +11,7 @@
         </li>
         <li class="employee_role"><%= user.primary_employment.try(:restaurant_role).try(:name) %></li>
         <li class="restaurant_name"><%= restaurant_names_for_user(user) %></li>
+        <li><%= user.primary_employment.try(:restaurant).try(:city_and_state) || user.try(:profile).try(:current_residence) %></li>
     </ul>
 </div>
 <% end %>

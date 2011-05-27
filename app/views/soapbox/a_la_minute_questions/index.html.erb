@@ -1,0 +1,31 @@
+<% title "A la Minute" %>
+
+<!-- AddThis Button BEGIN -->
+<div class="addthis_toolbox">
+    <%= link_to "Share", "http://www.addthis.com/bookmark.php?v=250&amp;username=unpluggedria", :class => "addthis_button" %>
+</div>
+<%= javascript_include_tag "http://s7.addthis.com/js/250/addthis_widget.js#username=unpluggedria" %>
+<% javascript_tag do %>
+  var addthis_share = {
+    url: '<%= soapbox_a_la_minute_questions_url %>',
+  }
+<% end %>
+<!-- AddThis Button END -->
+
+<h2 id="alm-tagline">The latest news on what is happening in restaurants right now</h2>
+
+<% for question in @questions -%>
+<% div_for question do %>
+    <h2><%= link_to question.question, soapbox_a_la_minute_question_path(question) %></h2>
+    <% if question.latest_answer.present? -%>
+    <%= render :partial => 'restaurants/identity', :locals => { :restaurant => question.latest_answer.responder } %>
+    <p class="answer"><%= question.latest_answer.answer %></p>
+    <p class="datestamp">Posted <%= question.latest_answer.created_at.strftime("%D") %></p>
+    <div class="clearfix">&nbsp;</div>
+    <% end -%>
+<% end %>
+<% end -%>
+
+<% content_for :sidebar do -%>
+<%= render :partial => 'sidebar' %>
+<% end -%>

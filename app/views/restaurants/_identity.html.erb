@@ -1,20 +1,14 @@
-<% restaurant = user %>
+<% restaurant ||= user %>
 <% cache "#{soapbox? || mediafeed? ? "public" : "private"}_restaurant_#{restaurant.id}", :expires => 1.hour do %>
 <div class="identity<% unless restaurant.logo && restaurant.logo.attachment? -%> no_avatar<% end -%>">
     <div class="avatar">
         <% if restaurant.logo && restaurant.logo.attachment? -%>
-          <%= image_tag(restaurant.logo.attachment.url(:thumb), :width => 50, :height => 'auto') %>
+          <%= image_tag(restaurant.logo.attachment.url(:thumb), :width => 'auto', :height => 'auto') %>
         <% end -%>
     </div>
     <ul class="identity_details restaurant">
         <li class="employee_name primary">
-            <%= link_to_if (user.linkable_profile? || logged_in_on_spoonfeed), restaurant.try(:name), correct_restaurant_path(restaurant) %>
-        </li>
-        <li class="cuisine">
-            <%= restaurant.cuisine.name %>
-        </li>
-        <li class="region">
-            <%= restaurant.james_beard_region.try(:name) %>
+            <%= link_to_if (restaurant.linkable_profile? || logged_in_on_spoonfeed), restaurant.try(:name), correct_restaurant_path(restaurant) %>
         </li>
         <li class="metro_area">
             <%= restaurant.metropolitan_area.try(:name) %>

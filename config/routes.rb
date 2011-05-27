@@ -32,10 +32,16 @@ ActionController::Routing::Routes.draw do |map|
     soapbox.resources :a_la_minute_questions, :only => ['index', 'show']
     soapbox.resources :soapbox_entries, :only => ['index', 'show', 'qotd', 'trend'], :as => "front_burner",
                       :collection => { :qotd => :get, :trend => :get }
+    soapbox.resources :promotions, :as => "newsfeed"
+
+    soapbox.resources :topics, :only => ['index', 'show'], :as => "behind_the_line",
+                      :collection => { :chapter => :get }
 
     soapbox.resources :users do |users|
       users.resources :questions, :collection => { :topics => :get, :chapters => :get }
     end
+
+    soapbox.connect 'travel_guides', :controller => 'soapbox', :action => 'travel_guides'
     soapbox.connect 'directory_search', :controller => 'soapbox', :action => 'directory_search'
     soapbox.connect 'restaurant_search', :controller => 'soapbox', :action => 'restaurant_search'
     soapbox.resource :search, :controller => 'site_search', :only => ['show']
@@ -165,6 +171,7 @@ ActionController::Routing::Routes.draw do |map|
     #todo only need these two routes
     restaurant.resources :a_la_minute_answers, :collection => { :bulk_update => :put, :bulk_edit => :get }
     restaurant.resource :subscription, :collection => { :bt_callback => :get, :billing_history => :get }, :controller => 'subscriptions'
+    restaurant.resources :promotions
   end
 
   map.resources :user_sessions, :password_resets, :followings, :pages

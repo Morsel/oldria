@@ -5122,14 +5122,14 @@ div.main_feature .comment.last {
   font-size: 1.5em;
 }
 
-.formtastic.a_la_minute_question li, .formtastic.a_la_minute_question li label {
+/*.formtastic.a_la_minute_question li, .formtastic.a_la_minute_question li label {
   display:inline;
 }
 
 .formtastic.a_la_minute_question {
   display:inline;
   margin-left:0.5em;
-}
+}*/
 
 div.a_la_minute_question {
   border:1px solid #ccc;

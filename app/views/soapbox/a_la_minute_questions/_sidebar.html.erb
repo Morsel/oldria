@@ -1,0 +1,26 @@
+<div id="sidebar">
+  <aside id="recent-activity">
+    <header>
+      <h1>A La Minute Questions</h1>
+    </header>
+    <% cache('alm_sidebar', :expires_in => 1.hour) do -%>
+      <ol id="alm-feed">
+          <% for question in @sidebar_questions %>
+          <li>
+            <header class="feed-item-title">
+                <%= link_to question.question, soapbox_a_la_minute_question_path(question) %>
+            </header>
+          </li>
+          <% end %>
+      </ol><!-- /activity-feed -->
+    <% end -%>
+    <div id="feed-bottom"></div>
+    <footer>
+    </footer>
+  </aside><!-- /recent-activity -->
+  <nav id="participate">
+    <%= link_to "Login to participate", login_path, :class => "button", :id => "login-participate" %>
+    <span>or</span>
+    <%= link_to "Request an invitation", '/soapbox/request-invitation', :class => "button", :id => "request-invite" %>
+  </nav><!-- /participate -->
+</div><!-- /sidebar -->

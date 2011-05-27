@@ -2089,6 +2089,7 @@ form, #page_content form{
 	.identity {
 		float: left;
 		width: 315px;
+		height: 96px;
 		margin: 10px 20px 10px 0;
 		min-height: 70px;
 		border-bottom: 1px dotted #ddd;
@@ -3028,6 +3029,13 @@ p.search_filter_hint {
 		width:123px;
 		height:19px;
 	}
+	span.presskit-art{
+		@include hiddentext;
+		display:inline-block;
+		background:url(/images/redesign/title-onlinepresskit.png) no-repeat;
+		width:132px;
+		height:19px;
+	}
 	&.btl{
 		overflow:hidden;
 		display:inline-block;
@@ -3043,8 +3051,11 @@ p.search_filter_hint {
 			&.btl-art{
 				background:url(/images/redesign/btl-white.png) no-repeat left;
 			}
+			&.presskit-art{
+				background:url(/images/redesign/onlinepresskit-white.png) no-repeat left;
+			}
 			&.name{
-				padding-top:3px;
+				padding-top:1px;
 			}
 		}
 	}
@@ -4405,7 +4416,8 @@ p.search_filter_hint {
       }
 		}
 	}
-} 
+}
+
 #edit_resto_menu {
   overflow: auto;
   a {
@@ -4424,6 +4436,7 @@ p.search_filter_hint {
     }
   }
 }
+
 .photos {
   h2 {
     .inline-hint {
@@ -4602,8 +4615,6 @@ p.search_filter_hint {
     }
 }
 
-
-
 aside.dashboard_actions {
   a { 
       background-color: #FAEAE4;
@@ -4615,5 +4626,40 @@ aside.dashboard_actions {
       padding: 10px;
       text-shadow: 0 1px 0 #FFFFFF;
       text-transform: uppercase;
+  }
+}
+
+/* Promotions (Newsfeed) */
+
+#promotion-form {
+  @include column(8);
+  border: 1px solid #ccc;
+  padding: 5px;
+  margin-right: 16px;
+  input[type=text], textarea {
+    width: 300px;
+  }
+}
+
+#promotion-list {
+  @include column(8, true);
+  dl {
+    padding: 5px;
+    background-color: #eee;
+    &.even {
+      background:rgba(216,83,30,0.08);
+    }
+    dt {
+      font-weight: bold;
+      margin: 0;
+      padding: 0;
+    }
+    dd {
+      font-weight: normal;
+      margin-bottom: 10px;
+    }
+  }
+  p {
+    text-align: right;
   }
 }

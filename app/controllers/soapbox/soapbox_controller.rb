@@ -2,8 +2,10 @@ class Soapbox::SoapboxController < ApplicationController
 
   def index
     @home = true
-    @slides = SoapboxSlide.all(:order => "position", :limit => 4, :conditions => "position is not null")
-    @promos = SoapboxPromo.all(:order => "position", :limit => 3, :conditions => "position is not null")
+
+    # Right sidebar content
+    @main_feature = SoapboxEntry.main_feature
+    @secondary_feature = SoapboxEntry.secondary_feature
   end
 
   def directory
@@ -18,6 +20,7 @@ class Soapbox::SoapboxController < ApplicationController
       @use_search = true
     end
 
+    @no_sidebar = true
     render :template => "directory/index"
   end
 
@@ -28,12 +31,17 @@ class Soapbox::SoapboxController < ApplicationController
 
   def restaurant_directory
     @restaurants = Restaurant.with_premium_account
+    @no_sidebar = true
     render :template => "directory/restaurants"
   end
 
   def restaurant_search
     @restaurants = Restaurant.with_premium_account.search(params[:search]).all
     render :partial => "directory/restaurant_search_results"
+  end
+
+  def travel_guides
+    redirect_to soapbox_topic_path(Topic.travel)
   end
 
 end

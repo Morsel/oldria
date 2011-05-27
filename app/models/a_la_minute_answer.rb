@@ -18,11 +18,20 @@ class ALaMinuteAnswer < ActiveRecord::Base
   belongs_to :responder, :polymorphic => true
 
   validates_presence_of :a_la_minute_question_id
+  validates_presence_of :answer
 
   default_scope :order => 'created_at desc', :include => :a_la_minute_question
 
   named_scope :for_question, lambda { |question| {:conditions => {:a_la_minute_question_id => question.id}} }
   named_scope :show_public, :conditions => { :show_as_public => true }
+
+  named_scope :from_premium_responders, lambda {
+    {
+      :joins => 'INNER JOIN subscriptions ON `subscriptions`.subscriber_id = responder_id AND `subscriptions`.subscriber_type = responder_type',
+      :conditions => ["subscriptions.id IS NOT NULL AND (subscriptions.end_date IS NULL OR subscriptions.end_date >= ?)",
+          Date.today]
+    }
+  }
 
   def self.newest_for(obj)
     ids = []

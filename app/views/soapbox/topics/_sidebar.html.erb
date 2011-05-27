@@ -1,0 +1,29 @@
+<div id="sidebar">
+  <aside id="recent-activity">
+    <header>
+      <h1>Recently Posted on Behind the Line</h1>
+    </header>
+    <% cache('previously_on_btl', :expires_in => 1.hour) do -%>
+      <ol id="btl-feed">
+          <% for question in ProfileQuestion.answered_by_premium_users.recently_answered[0...10] -%>
+          <li>
+            <header class="feed-item-title">
+                <%= link_to question.title, soapbox_question_path(question) %>
+            </header>
+            <aside class="feed-item-reply-count">
+                <% link_to soapbox_question_path(question) do %>
+                <span class="num"><%= count = question.soapbox_answer_count %></span> <%= count == 1 ? "reply" : "replies" %>
+                <% end %>
+            </aside>
+          </li>
+          <% end -%>
+      </ol><!-- /activity-feed -->
+    <% end -%>
+    <div id="feed-bottom"></div>
+  </aside><!-- /recent-activity -->
+  <nav id="participate">
+    <%= link_to "Login to participate", login_path, :class => "button", :id => "login-participate" %>
+    <span>or</span>
+    <%= link_to "Request an invitation", '/soapbox/request-invitation', :class => "button", :id => "request-invite" %>
+  </nav><!-- /participate -->
+</div><!-- /sidebar -->

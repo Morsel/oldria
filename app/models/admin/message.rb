@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20101013222730
+# Schema version: 20110526212923
 #
 # Table name: admin_messages
 #
@@ -11,6 +11,7 @@
 #  created_at      :datetime
 #  updated_at      :datetime
 #  display_message :string(255)
+#  slug            :string(255)
 #
 
 class Admin::Message < ActiveRecord::Base
@@ -23,6 +24,7 @@ class Admin::Message < ActiveRecord::Base
   accepts_nested_attributes_for :attachments
 
   validates_presence_of :message
+  validates_length_of :slug, :maximum => 30
 
   named_scope :current, lambda {
     { :conditions => ['admin_messages.scheduled_at < ? OR admin_messages.scheduled_at IS NULL', Time.zone.now] }
@@ -81,16 +83,22 @@ class Admin::Message < ActiveRecord::Base
   end
 
   def comments(deep_includes = false)
-    includes = deep_includes ? { :comments => :user } : :comments
-    conversations_with_replies.all(:include => includes).map(&:comments).flatten
+    includes = deep_includes ? :user : nil
+    Comment.scoped(:conditions => ["commentable_id IN (?) AND commentable_type = 'Admin::Conversation'",
+      admin_conversations.all(:select => "id").map { |d| d.id }],
+      :include => includes)
+  end
+
+  def last_comment
+    comments.first(:order => "comments.created_at DESC", :limit => 1)
   end
 
   def conversations_with_replies
-    admin_conversations.scoped(:conditions => "comments_count > 0", :include => :recipient )
+    admin_conversations.scoped(:conditions => "comments_count > 0", :include => :recipient)
   end
 
   def conversations_without_replies
-    admin_conversations.scoped(:conditions => "comments_count < 1", :include => :recipient )
+    admin_conversations.scoped(:conditions => "comments_count < 1", :include => :recipient)
   end
 
   def attachments_allowed?

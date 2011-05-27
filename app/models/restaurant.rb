@@ -68,10 +68,11 @@ class Restaurant < ActiveRecord::Base
   has_many :content_requests, :through => :admin_discussions,
            :source => :discussionable, :source_type => 'ContentRequest'
 
+  has_many :promotions
   has_many :events
   has_many :menus
   has_many :accolades, :as => :accoladable
-  has_many :a_la_minute_answers, :as => :responder
+  has_many :a_la_minute_answers, :as => :responder, :dependent => :destroy
 
   has_many :restaurant_feature_items
   has_many :restaurant_features, :through => :restaurant_feature_items,
@@ -130,6 +131,10 @@ class Restaurant < ActiveRecord::Base
 
   def name_and_location
     [name, city, state].reject(&:blank?).join(", ")
+  end
+
+  def city_and_state
+    [city, state].reject(&:blank?).join(", ")
   end
 
   def missing_subject_matters

@@ -40,6 +40,22 @@ class Topic < ActiveRecord::Base
       :order => :position }
   }
 
+  named_scope :answered, {
+    :joins => { :chapters => { :profile_questions => :profile_answers } },
+    :select => "distinct topics.*",
+    :order => "profile_answers.created_at DESC"
+  }
+
+  named_scope :answered_by_premium_users, {
+    :joins => { :chapters => { :profile_questions => { :profile_answers => { :user => :subscription }}}},
+    :conditions => ["subscriptions.id IS NOT NULL AND (subscriptions.end_date IS NULL OR subscriptions.end_date >= ?)",
+        Date.today],
+    :select => "distinct topics.*",
+    :order => "profile_answers.created_at DESC"
+  }
+
+  named_scope :without_travel, :conditions => ["topics.title != ?", "Travel Guide"]
+
   def previous_for_user(user, is_self = false)
     sort_field = (self.position == 0 ? "id" : "position")
     if is_self
@@ -62,6 +78,16 @@ class Topic < ActiveRecord::Base
     end
   end
 
+  def previous
+    sort_field = (self.position == 0 ? "id" : "position")
+    Topic.first(:conditions => ["topics.#{sort_field} < ?", self.send(sort_field)], :order => "#{sort_field} DESC")
+  end
+
+  def next
+    sort_field = (self.position == 0 ? "id" : "position")
+    Topic.first(:conditions => ["topics.#{sort_field} > ?", self.send(sort_field)], :order => "#{sort_field} DESC")
+  end
+
   def question_count_for_user(user)
     self.profile_questions.for_user(user).count
   end
@@ -80,6 +106,10 @@ class Topic < ActiveRecord::Base
   
   def published?(user)
     completion_percentage(user) > 0
+  end
+
+  def self.travel
+    first(:conditions => { :title => "Travel Guide" })
   end
 
 end

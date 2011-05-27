@@ -554,3 +554,14 @@ Factory.define :menu do |f|
   f.association :pdf_remote_attachment
   f.association :restaurant
 end
+
+Factory.define :promotion do |f|
+  f.association :promotion_type
+  f.details "Special event"
+  f.start_date Date.today
+  f.association :restaurant
+end
+
+Factory.define :promotion_type do |f|
+  f.name "Event"
+end

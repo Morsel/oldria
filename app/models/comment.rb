@@ -27,6 +27,11 @@ class Comment < ActiveRecord::Base
     :conditions => ["user_id != ?", user.id]
   }}
 
+  named_scope :show_on_soapbox, {
+    :joins => { :user => :all_employments },
+    :conditions => ["employments.post_to_soapbox = ?", true]
+  }
+
   #validates_presence_of :comment
 
   attr_accessor :post_to_facebook

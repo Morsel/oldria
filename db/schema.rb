@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110412173344) do
+ActiveRecord::Schema.define(:version => 20110526212923) do
 
   create_table "a_la_minute_answers", :force => true do |t|
     t.text     "answer"
@@ -26,6 +26,7 @@ ActiveRecord::Schema.define(:version => 20110412173344) do
     t.string   "kind"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "topic"
   end
 
   create_table "accolades", :force => true do |t|
@@ -67,6 +68,7 @@ ActiveRecord::Schema.define(:version => 20110412173344) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "display_message"
+    t.string   "slug"
   end
 
   create_table "apprenticeships", :force => true do |t|
@@ -708,16 +710,27 @@ ActiveRecord::Schema.define(:version => 20110412173344) do
     t.string   "link_text"
   end
 
-  create_table "question_pages", :force => true do |t|
-    t.integer  "restaurant_question_id"
-    t.integer  "restaurant_feature_page_id"
+  create_table "promotion_types", :force => true do |t|
+    t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "question_role_categories", :force => true do |t|
-    t.integer  "restaurant_role_id"
-    t.string   "category"
+  create_table "promotions", :force => true do |t|
+    t.integer  "promotion_type_id"
+    t.text     "details"
+    t.string   "link"
+    t.date     "start_date"
+    t.date     "end_date"
+    t.string   "date_description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "restaurant_id"
+  end
+
+  create_table "question_pages", :force => true do |t|
+    t.integer  "restaurant_question_id"
+    t.integer  "restaurant_feature_page_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -1063,6 +1076,7 @@ ActiveRecord::Schema.define(:version => 20110412173344) do
     t.datetime "updated_at"
     t.integer  "employment_search_id"
     t.string   "display_message"
+    t.string   "slug"
   end
 
   add_index "trend_questions", ["employment_search_id"], :name => "index_trend_questions_on_employment_search_id"

@@ -1,7 +1,7 @@
 <% page ||= nil %>
 <div id="behindline" class="recent_actions">
 
-  <h3 id="btl-title"><span class="btl-art">Behind the Line:</span> <%= page.present? ? "#{restaurant.name} - #{page.name}" : restaurant.name %></h3>
+  <h3 id="btl-title"><span class="presskit-art">Online Press Kit:</span> <%= page.present? ? "#{restaurant.name} - #{page.name}" : restaurant.name %></h3>
   <% if can?(:manage, restaurant) && !params[:controller].match(/soapbox/) %>
     <div class="edit_profile_link">
       <%= link_to "<span>Answer more questions!</span>", topics_restaurant_questions_path(:restaurant_id => restaurant.id, :page_id => page.try(:id)) %>

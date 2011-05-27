@@ -1,0 +1,24 @@
+<% title "Behind the Line", false %>
+
+<h1 id="btl-title" class="btl"><%= link_to "<span class=\"btl-art\">Behind the Line</span>", soapbox_topics_path %></h1>
+
+<h2 id="btl-tagline">Get to know our chefs, inside and out, over and above</h2>
+
+<h2 id="topic_title">Topics</h2>
+
+<%- @topics.each do |topic| -%>
+<div class="topic <%= cycle '',' last' %>" id="<%= dom_id topic %>">
+    <h3><%= topic.title %></h3>
+    <table>
+        <% @chapters_by_topic[topic].each do |chapter| %>
+        <tr>
+           <td class="topic_link"><%= link_to chapter.title, chapter_soapbox_topics_path(:chapter_id => chapter.id) %></td>
+        </tr>
+        <% end if @chapters_by_topic[topic] %>
+    </table>
+</div>
+<%- end -%>
+
+<% content_for :sidebar do -%>
+<%= render :partial => "sidebar" %>
+<% end -%>

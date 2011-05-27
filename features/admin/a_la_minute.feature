@@ -1,3 +1,4 @@
+@alm
 Feature: A La Minute Question/Answer Management
   In order to give customers better insight into the heart and soul of a restaurant
   As an admin
@@ -26,7 +27,7 @@ Feature: A La Minute Question/Answer Management
      | What's changing? | restaurant |
 
     When I go to the admin a la minute questions page
-    And I follow "Remove" for "What's new?"
+    And I follow "Destroy" within "#a_la_minute_question_1"
     Then I should see the following questions:
      | question         |
      | What's changing? |
@@ -38,4 +39,3 @@ Feature: A La Minute Question/Answer Management
     Then I should see the following questions:
      | question    |
      | What's new? |
-

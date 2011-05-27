@@ -66,6 +66,14 @@ class Chapter < ActiveRecord::Base
       :order => "chapters.position" }
   }
 
+  named_scope :answered_by_premium_users, {
+    :joins => { :profile_questions => { :profile_answers => { :user => :subscription }}},
+    :conditions => ["subscriptions.id IS NOT NULL AND (subscriptions.end_date IS NULL OR subscriptions.end_date >= ?)",
+        Date.today],
+    :group => "chapters.id",
+    :order => "profile_answers.created_at DESC"
+  }
+
   def title_with_topic
     "#{topic.title} - #{title}"
   end
@@ -117,6 +125,18 @@ class Chapter < ActiveRecord::Base
       is_self_prefix = is_self ? "answered_" : ""
       self.topic.chapters.send("#{is_self_prefix}for_restaurant", restaurant).first(opts)
     end
+  end
+
+  def previous
+    sort_field = (self.position == 0 ? "id" : "position")
+    self.topic.chapters.first(:conditions => ["chapters.#{sort_field} < ?", self.send(sort_field)],
+                              :order => "chapters.#{sort_field} DESC")
+  end
+
+  def next
+    sort_field = (self.position == 0 ? "id" : "position")
+    self.topic.chapters.first(:conditions => ["chapters.#{sort_field} > ?", self.send(sort_field)],
+                              :order => "chapters.#{sort_field} DESC")
   end
 
   def questions_for_user(user)

@@ -7,7 +7,7 @@
         <span><a href="#qotd-feed">Questions of the Day</a></span>
       </nav>
     </header>
-    <% cache('frontburner_sidebar', :expires_in => 8.hours) do -%>
+    <% cache('frontburner_sidebar', :expires_in => 1.hour) do -%>
       <ol id="trend-questions-feed">
         <%= render :partial => 'soapbox/soapbox_entries/sidebar_item', :collection => past_trends %>
       </ol><!-- /activity-feed -->
