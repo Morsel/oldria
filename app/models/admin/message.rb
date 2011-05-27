@@ -24,7 +24,7 @@ class Admin::Message < ActiveRecord::Base
   accepts_nested_attributes_for :attachments
 
   validates_presence_of :message
-  validates_length_of :slug, :maximum => 30
+  validates_length_of :slug, :maximum => 30, :allow_nil => true
 
   named_scope :current, lambda {
     { :conditions => ['admin_messages.scheduled_at < ? OR admin_messages.scheduled_at IS NULL', Time.zone.now] }
