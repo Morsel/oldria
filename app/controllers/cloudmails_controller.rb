@@ -23,7 +23,7 @@ class CloudmailsController < ApplicationController
     
     # some email clients convert all this for us, and send a plan text version others just give us html
     # choose a version of the email body we can work with, after this point it should not include any html
-    whole_message_body = ( params[:plain].length > 50 ) ? params[:plain] : params[:html].gsub(/<\/?[^>]*>/, "\n")
+    whole_message_body = (params[:plain].length > 50) ? params[:plain] : params[:html].gsub(/<\/?[^>]*>/, "\n")
     
     # abort unless we can find our seperator 'Respond by replying to this email - above this line'
     unless whole_message_body.include?(EMAIL_SEPARATOR)
@@ -68,11 +68,10 @@ class CloudmailsController < ApplicationController
     render :text => 'success', :status => 200
   end
 
+  private
 
-  private 
     # tries to clean the email body, differnet email clients modify the text in different ways
     def clean_email_body message_body
-    
       # remove any leading or trailing spaces
       message_body.strip!
 
@@ -102,7 +101,6 @@ class CloudmailsController < ApplicationController
       message_body.strip!
     
       return message_body
-      
     end
     
     # sign the params, and check they actually came from cloudmailin
@@ -115,4 +113,5 @@ class CloudmailsController < ApplicationController
         return false 
       end
     end
+
 end
