@@ -253,7 +253,7 @@ ActionController::Routing::Routes.draw do |map|
     admin.resources :restaurant_chapters, :collection => { :select => :post }
     admin.resources :restaurant_topics
 
-    admin.resources :profile_questions
+    admin.resources :profile_questions, :member => { :send_notifications => :post }
     admin.resources :chapters, :collection => { :select => :post }
     admin.resources :topics
     admin.resources :question_roles

@@ -22,6 +22,9 @@
         t.cell(:handle, :heading => '', :cell_html => {:class => 'small handle'}) { "[drag]" }
         t.cell(:title)
         t.cell(:roles, :heading => 'Role') { |c| c.roles_description }
+        t.cell(:notify_link, :heading => '', :cell_html => { :class => 'actions edit_link' }) { |c|
+            link_to('Send Notification', send_notifications_admin_profile_question_path(:id => c.id), :method => 'post')
+        }
         t.cell(:edit_link, :heading => '', :cell_html => {:class => 'actions edit_link'}) { |c|
           link_to('Edit', edit_admin_profile_question_url(:id => c.id))
         }

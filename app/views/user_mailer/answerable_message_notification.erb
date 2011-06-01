@@ -19,7 +19,7 @@
   <% if title == "Announcement" -%>
     <%= link_to "Read the Announcement &#187;", require_login_url, :style => "color: #cc6632; font-weight: bold; text-decoration: none;" %>
   <% else -%>
-    <a href="<%= @message.respond_to?(:admin_message) ? admin_conversation_url(@message) : polymorphic_url(@message) %>" style="color: #bbb; font-weight: normal; text-decoration: none;">View this <%= title %> on Spoonfeed &#187;</a>
+    <a href="<%= url_for_message(@message) %>" style="color: #bbb; font-weight: normal; text-decoration: none;">View this <%= title %> on Spoonfeed &#187;</a>
   <% end -%>
 </p>
 <%= render :partial => 'email_footer' %>

@@ -20,6 +20,16 @@ Feature: Profile questions
     And I press "Save Question"
     Then I should see "Added new profile question"
 
+  Scenario: sending a notification for a question
+	Given the following confirmed users:
+	  | username | password | email             |
+	  | jimmy    | secret   | jimmy@kitchen.com |
+	And "jimmy" has a default employment with role "Chef" and restaurant name "Soup Kitchn"
+	And several profile questions matching employment roles for "jimmy"
+	When I go to the admin profile questions page
+	And I follow "Send Notification" within "#profile_question_1"
+	Then "jimmy@kitchen.com" should have 1 email
+
   Scenario: creating a new chapter
     When I go to the chapters page
     And fill in "Title" with "Mentoring"

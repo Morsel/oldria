@@ -44,5 +44,16 @@ describe Admin::ProfileQuestionsController do
     end
 
   end
-  
+
+  describe "sending notifications" do
+
+    it "should send a notification to all users who are eligible to reply but have not done so yet" do
+      question = Factory(:profile_question)
+      ProfileQuestion.expects(:find).returns(question)
+      question.expects(:notify_users!).returns(true)
+
+      post :send_notifications, :id => question.id
+    end
+  end
+
 end
