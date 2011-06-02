@@ -5,11 +5,9 @@ class CloudmailsController < ApplicationController
 
   EMAIL_SEPARATOR = 'Respond by replying to this email - above this line'
 
-  # cloudmailin wasnt finished with this feature yet
-  # before_filter :verify_cloudmail_signature
+  before_filter :verify_cloudmail_signature
   
   def create
-
     mail_token = params[:to].split('@').first.gsub('<','')
     
     # use this if you need to debug
@@ -39,23 +37,25 @@ class CloudmailsController < ApplicationController
     message_body = clean_email_body(message_body)
 
     # everything we need is in the mail_token
-    user_id, cloudmail_hash, message_id = mail_token.split('-')
-    
-    # get the models
-    user = User.find user_id
-    conversation = Admin::Conversation.find(message_id)
+    user_id, cloudmail_hash, message_type, message_id = mail_token.split('-')
 
-    # ensure this user is who they say they are
-    user.validate_cloudmail_token!(cloudmail_hash, conversation)
+    if message_type == "QOTD"
+      # get the models
+      user = User.find(user_id)
+      conversation = Admin::Conversation.find(message_id)
 
-    if message_body.length < 10
-      Rails.logger.info 'Your answer was too short, or could not be read properly'
-      render :text => 'some day send them an email to tell them it failed', :status => 200
-      return
+      # ensure this user is who they say they are
+      user.validate_cloudmail_token!(cloudmail_hash, conversation)
+
+      if message_body.length < 10
+        Rails.logger.info 'Your answer was too short, or could not be read properly'
+        render :text => 'some day send them an email to tell them it failed', :status => 200
+        return
+      end
+
+      conversation.comments.create(:user => user, :comment => message_body)
     end
-    
-    conversation.comments.create(:user => user, :comment => message_body)
-    
+
     # use this if you need to debug
     Rails.logger.info %Q{
     #{'*'*72}
