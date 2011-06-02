@@ -38,6 +38,10 @@ class Admin::Conversation < ActiveRecord::Base
   def email_title
     inbox_title
   end
+
+  def short_title
+    admin_message.class.shorttitle
+  end
   
   def email_body
     admin_message.message

@@ -404,12 +404,12 @@ class User < ActiveRecord::Base
   # a string which can be used in the disposable part of the email to track and authenticate user
   def cloudmail_id(message)
     token = cloudmail_token(message)
-    return "#{id}-#{token}-#{message.id}"
+    return "#{id}-#{token}-#{message.short_title}-#{message.id}"
   end
   
   # generates a one way hash used in the authentication for cloudmailin
   def cloudmail_token(message)
-    Digest::SHA1.hexdigest "#{message.id}-#{id}-#{CLOUDMAIL_SEED}-#{email}"
+    Digest::SHA1.hexdigest("#{message.id}-#{id}-#{CLOUDMAIL_SEED}-#{email}")[0..8]
   end
 
   # checks the cloudmail_token is valid

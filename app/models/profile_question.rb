@@ -103,6 +103,10 @@ class ProfileQuestion < ActiveRecord::Base
     "Behind the Line"
   end
 
+  def short_title
+    "BTL"
+  end
+
   def email_body
     title
   end
