@@ -1,9 +1,9 @@
-<% unless RAILS_ENV == 'test' || RAILS_ENV == 'development' %>
-
+<% unless RAILS_ENV == 'test' || RAILS_ENV == 'development' -%>
 <script type="text/javascript">
 
   var _gaq = _gaq || [];
   _gaq.push(['_setAccount', 'UA-4174638-5']);
+  _gaq.push(['_setCustomVar', 1, 'LoggedIn', '<%= current_user.present? %>', 2]);
   _gaq.push(['_trackPageview']);
 
   (function() {
@@ -13,5 +13,4 @@
   })();
 
 </script>
-
-<% end %>
+<% end -%>
