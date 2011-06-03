@@ -4,7 +4,6 @@ class PromotionsController < ApplicationController
 
   def new
     @promotions = @restaurant.promotions
-
     @promotion = Promotion.new
   end
 
@@ -14,8 +13,7 @@ class PromotionsController < ApplicationController
       flash[:notice] = "Your promotion has been created"
       redirect_to :action => "new"
     else
-      @promotions = @restaurant.promotions
-      render :action => "new"
+      render :action => "edit"
     end
   end
 
