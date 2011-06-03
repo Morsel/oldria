@@ -25,12 +25,12 @@ class CloudmailsController < ApplicationController
     
     # abort unless we can find our seperator 'Respond by replying to this email - above this line'
     unless whole_message_body.include?(EMAIL_SEPARATOR)
-      Rails.logger.info 'Im sorry, we had a problem automatically adding your answer, please try again or answer on the website.'
+      Rails.logger.info('I\'m sorry, we had a problem automatically adding your answer, please try again or answer on the website.')
       render :text => 'some day send them an email to tell them it failed', :status => 200
       return
     end
 
-    # take everything infront of the first 'Respond by replying to this email - above this line'
+    # take everything in front of the first 'Respond by replying to this email - above this line'
     message_body = whole_message_body.split(EMAIL_SEPARATOR).first
 
     # clean it up to get what the user intends we get (as best as we can)
@@ -39,21 +39,25 @@ class CloudmailsController < ApplicationController
     # everything we need is in the mail_token
     user_id, cloudmail_hash, message_type, message_id = mail_token.split('-')
 
+    if message_body.length < 10
+      Rails.logger.info 'Your answer was too short, or could not be read properly'
+      render :text => 'some day send them an email to tell them it failed', :status => 200
+      return
+    end
+
+    user = User.find(user_id)
+
     if message_type == "QOTD"
-      # get the models
-      user = User.find(user_id)
       conversation = Admin::Conversation.find(message_id)
 
       # ensure this user is who they say they are
       user.validate_cloudmail_token!(cloudmail_hash, conversation)
 
-      if message_body.length < 10
-        Rails.logger.info 'Your answer was too short, or could not be read properly'
-        render :text => 'some day send them an email to tell them it failed', :status => 200
-        return
-      end
-
       conversation.comments.create(:user => user, :comment => message_body)
+    elsif message_type == "BTL"
+      question = ProfileQuestion.find(message_id)
+      user.validate_cloudmail_token!(cloudmail_hash, question)
+      question.profile_answers.create(:user => user, :answer => message_body)
     end
 
     # use this if you need to debug
