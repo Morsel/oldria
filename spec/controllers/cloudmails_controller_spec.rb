@@ -3,7 +3,7 @@ require 'spec/spec_helper'
 describe CloudmailsController do
 
   before(:each) do
-    controller.expects(:verify_cloudmail_signature).returns(true)
+    # controller.expects(:verify_cloudmail_signature).returns(true)
 
     @user = Factory(:user)
     User.stubs(:find).returns(@user)
