@@ -5,7 +5,7 @@ class CloudmailsController < ApplicationController
 
   EMAIL_SEPARATOR = 'Respond by replying to this email - above this line'
 
-  before_filter :verify_cloudmail_signature
+  # before_filter :verify_cloudmail_signature
   
   def create
     mail_token = params[:to].split('@').first.gsub('<','')
