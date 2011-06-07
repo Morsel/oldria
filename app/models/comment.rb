@@ -50,6 +50,7 @@ class Comment < ActiveRecord::Base
     # Only models that already have notifications set up
     # With special exception for HolidayDiscussion because the notification is on HolidayDiscussionReminder
     return unless commentable.respond_to?(:notify_recipients) || commentable.is_a?(HolidayDiscussion)
+    return if commentable.is_a?(SoloDiscussion) # no other recipients to notify
 
     # Which method of finding users? (using the first available method)
     users_method = %w(employees users).detect {|method| commentable.respond_to?(method)}
