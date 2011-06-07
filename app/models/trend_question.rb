@@ -44,6 +44,10 @@ class TrendQuestion < ActiveRecord::Base
     self.class.title
   end
 
+  def mailer_method
+    'answerable_message_notification'
+  end
+
   def message
     [subject, body].compact.join(': ')
   end

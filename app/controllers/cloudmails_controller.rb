@@ -47,17 +47,23 @@ class CloudmailsController < ApplicationController
 
     user = User.find(user_id)
 
-    if message_type == "QOTD"
+    case message_type
+    when "QOTD"
       conversation = Admin::Conversation.find(message_id)
-
-      # ensure this user is who they say they are
       user.validate_cloudmail_token!(cloudmail_hash, conversation)
-
       conversation.comments.create(:user => user, :comment => message_body)
-    elsif message_type == "BTL"
+    when "BTL"
       question = ProfileQuestion.find(message_id)
       user.validate_cloudmail_token!(cloudmail_hash, question)
       question.profile_answers.create(:user => user, :answer => message_body)
+    when "RD" # Restaurant-based Trend Question Discussion
+      discussion = AdminDiscussion.find(message_id)
+      user.validate_cloudmail_token!(cloudmail_hash, discussion)
+      discussion.comments.create(:user => user, :comment => message_body)
+    when "SD" # Individual user TQ discussion
+      discussion = SoloDiscussion.find(message_id)
+      user.validate_cloudmail_token!(cloudmail_hash, discussion)
+      discussion.comments.create(:user => user, :comment => message_body)
     end
 
     # use this if you need to debug

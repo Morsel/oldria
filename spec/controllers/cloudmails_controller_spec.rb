@@ -5,8 +5,9 @@ describe CloudmailsController do
   before(:each) do
     # controller.expects(:verify_cloudmail_signature).returns(true)
 
-    @user = Factory(:user)
-    User.stubs(:find).returns(@user)
+    @user = Factory(:user, :email => "reply-person@tester.com")
+    User.stubs(:find).with('1').returns(@user)
+    User.stubs(:find).with(1, {:readonly => nil, :include => nil, :select => nil, :conditions => nil}).returns(@user)
     @user.expects(:validate_cloudmail_token!).returns(true)
   end
 
@@ -36,6 +37,39 @@ describe CloudmailsController do
     question.profile_answers.first.user.should == @user
   end
 
-  it "should parse a valid Trend Question response"
+  it "should parse a valid Trend Question response from a restaurant employee" do
+    restaurant = Factory.stub(:restaurant, :manager => @user)
+    Factory.stub(:employment, :restaurant => restaurant)
+    discussion = Factory(:admin_discussion,
+                         :restaurant => restaurant,
+                         :discussionable => Factory(:trend_question, :subject => "Trend to reply to"))
+    AdminDiscussion.stubs(:find).returns(discussion)
+
+    post :create, :to => "1-token-RD-1@dev-mailbot.restaurantintelligenceagency.com",
+                  :message => "",
+                  :plain => "This is my Trend Q reply\nRespond by replying to this email - above this line\nThis is the Trend message",
+                  :signature => ""
+
+    discussion.comments.count.should == 1
+    discussion.comments.first.user.should == @user
+  end
+
+  it "should parse a valid Trend Question response from a solo employee" do
+    employment = Factory.stub(:default_employment, :employee => @user)
+    discussion = Factory(:solo_discussion,
+                         :employment => employment,
+                         :trend_question => Factory(:trend_question, :subject => "Another trend to reply to"))
+    SoloDiscussion.stubs(:find).returns(discussion)
+
+    post :create, :to => "1-token-SD-1@dev-mailbot.restaurantintelligenceagency.com",
+                  :message => "",
+                  :plain => "This is my Trend Q reply\nRespond by replying to this email - above this line\nThis is the Trend message",
+                  :signature => ""
+
+    discussion.comments.count.should == 1
+    discussion.comments.first.user.should == @user
+  end
+
+  it "should send an error to a user who tries to reply to an already-answered Trend Question for their main restaurant"
 
 end

@@ -42,6 +42,14 @@ class SoloDiscussion < ActiveRecord::Base
     inbox_title
   end
 
+  def email_body
+    message
+  end
+
+  def short_title
+    "SD"
+  end
+
   def scheduled_at
     trend_question.scheduled_at
   end
@@ -69,7 +77,7 @@ class SoloDiscussion < ActiveRecord::Base
   end
 
   def send_email_notification
-    UserMailer.deliver_message_notification(self, employee) if employee.prefers_receive_email_notifications
+    UserMailer.deliver_answerable_message_notification(self, employee) if employee.prefers_receive_email_notifications
   end
 
 end

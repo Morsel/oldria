@@ -1,4 +1,3 @@
-<% title = @message.email_title -%>
 <%= render :partial => 'email_header' %>
 <%
  # if you change the string "Respond by replying to this email - above this line"
@@ -16,10 +15,6 @@
 </p>
   
 <p id="messagelink" style="clear: both; font-size: 14px;">
-  <% if title == "Announcement" -%>
-    <%= link_to "Read the Announcement &#187;", require_login_url, :style => "color: #cc6632; font-weight: bold; text-decoration: none;" %>
-  <% else -%>
-    <a href="<%= url_for_message(@message) %>" style="color: #bbb; font-weight: normal; text-decoration: none;">View this <%= title %> on Spoonfeed &#187;</a>
-  <% end -%>
+    <a href="<%= url_for_message(@message) %>" style="color: #bbb; font-weight: normal; text-decoration: none;">View this <%= @message.email_title %> on Spoonfeed &#187;</a>
 </p>
 <%= render :partial => 'email_footer' %>

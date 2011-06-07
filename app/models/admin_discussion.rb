@@ -39,6 +39,14 @@ class AdminDiscussion < ActiveRecord::Base
     inbox_title
   end
 
+  def email_body
+    message
+  end
+
+  def short_title
+    "RD"
+  end
+
   def scheduled_at
     discussionable.scheduled_at
   end
@@ -48,7 +56,7 @@ class AdminDiscussion < ActiveRecord::Base
   end
 
   def employments
-    # Only include the employments that
+    # Only include the employments that match the employment search criteria
     restaurant.employments.all(:include => :employee) & discussionable.employment_search.try(:employments).try(:all, :include => :employee)
   end
 
@@ -82,7 +90,7 @@ class AdminDiscussion < ActiveRecord::Base
   def send_email_notification_to_each_employee
     employees.each do |user|
       if user.prefers_receive_email_notifications
-        UserMailer.deliver_message_notification(self, user)
+        UserMailer.send("deliver_#{discussionable.mailer_method}", self, user)
       end
     end
   end
