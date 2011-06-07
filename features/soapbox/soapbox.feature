@@ -37,7 +37,7 @@ Feature: Soapbox
     And I should see "View all" within "aside"
 
   Scenario: Featuring all QOTDs on a separate page
-    Given there is a QOTD asking "How do you boil ketchup"
+    Given there is a QOTD asking "How do you boil ketchup: For scientific purposes only, I promise"
     And that QOTD has the following answers:
       | Archibald Goodwill | I like to get them at the store |
     And I am logged in as an admin
@@ -54,7 +54,7 @@ Feature: Soapbox
     And I should see "How do you freeze ketchup" within "#questions-list-feed-qotd"
 
   Scenario: Featuring all Trends on a separate page
-    Given there is a Trend Question "The best ketchup in the world"
+    Given there is a Trend Question "The best ketchup in the world: Where can I find it?"
     And that Trend Question is featured on the soapbox
     Given there is a Trend Question "Hot water supplier"
     And that Trend Question is featured on the soapbox

@@ -27,6 +27,7 @@ class TrendQuestion < ActiveRecord::Base
 
   has_one :soapbox_entry, :as => :featured_item, :dependent => :destroy
 
+  validates_presence_of :subject, :body
   validates_length_of :slug, :maximum => 30, :allow_nil => true
 
   named_scope :by_scheduled_date, :order => "#{table_name}.scheduled_at desc"

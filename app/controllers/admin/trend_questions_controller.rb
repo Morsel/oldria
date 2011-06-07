@@ -22,6 +22,8 @@ class Admin::TrendQuestionsController < Admin::AdminController
       flash[:notice] = "Successfully created trend question."
       redirect_to([:admin, @trend_question])
     else
+      @solo_users, @restaurants_and_employments = @search.all.partition { |e| e.restaurant.nil? }
+      @restaurants_and_employments = @restaurants_and_employments.group_by(&:restaurant)
       render :action => 'new'
     end
   end

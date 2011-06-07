@@ -18,7 +18,7 @@ Feature: Search question
     Then I should see "Is alloy mug fancy?" within ".search-results"
 
   Scenario: Finding a Trend Question
-    Given there is a Trend Question "How much water do you pour into milk?"
+    Given there is a Trend Question "How much water do you pour into milk?: Please don't do this at home"
     And that Trend Question is featured on the soapbox
     When I go to the soapbox search page searching for "water"
     Then I should see "water" within ".search-results"
