@@ -56,7 +56,7 @@ Feature: Soapbox
   Scenario: Featuring all Trends on a separate page
     Given there is a Trend Question "The best ketchup in the world: Where can I find it?"
     And that Trend Question is featured on the soapbox
-    Given there is a Trend Question "Hot water supplier"
+    Given there is a Trend Question "Hot water supplier: Is that even a thing?"
     And that Trend Question is featured on the soapbox
     When I go to the all of the trend questions listing page
     Then I should see "Trend Questions" within "#questions-list"

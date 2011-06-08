@@ -25,8 +25,9 @@ class CloudmailsController < ApplicationController
     
     # abort unless we can find our seperator 'Respond by replying to this email - above this line'
     unless whole_message_body.include?(EMAIL_SEPARATOR)
-      Rails.logger.info('I\'m sorry, we had a problem automatically adding your answer, please try again or answer on the website.')
-      render :text => 'some day send them an email to tell them it failed', :status => 200
+      Rails.logger.info('Email answer does not include separator text')
+      render :text => "I'm sorry, we had a problem automatically adding your answer, please try again or answer on the website.",
+             :status => 403
       return
     end
 
@@ -40,8 +41,8 @@ class CloudmailsController < ApplicationController
     user_id, cloudmail_hash, message_type, message_id = mail_token.split('-')
 
     if message_body.length < 10
-      Rails.logger.info 'Your answer was too short, or could not be read properly'
-      render :text => 'some day send them an email to tell them it failed', :status => 200
+      Rails.logger.info 'Email answer was too short'
+      render :text => 'Your answer was too short, or could not be read properly', :status => 403
       return
     end
 
@@ -58,6 +59,12 @@ class CloudmailsController < ApplicationController
       question.profile_answers.create(:user => user, :answer => message_body)
     when "RD" # Restaurant-based Trend Question Discussion
       discussion = AdminDiscussion.find(message_id)
+      if discussion.comments.count > 0
+        Rails.logger.info 'User submitted a reply to a trend question that has already been answered by that restaurant'
+        render :text => 'This restaurant has already answered the trend question. Please visit the site to edit your answer.', :status => 403
+        return
+      end
+
       user.validate_cloudmail_token!(cloudmail_hash, discussion)
       discussion.comments.create(:user => user, :comment => message_body)
     when "SD" # Individual user TQ discussion
@@ -119,7 +126,7 @@ class CloudmailsController < ApplicationController
       signature = Digest::MD5.hexdigest(request.request_parameters.sort.map{|k,v| v}.join + CLOUDMAIL_SECRET)
 
       if provided != signature
-        render :text => "Message signature fail #{provided} != #{signature}", :status => 403
+        render :text => "Message signature error #{provided} != #{signature}", :status => 403
         return false 
       end
     end
