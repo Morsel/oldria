@@ -40,5 +40,5 @@ Braintree::Configuration.merchant_id = "ny23sz9jy8gy38bw"
 Braintree::Configuration.public_key = "n77z2dvd56jy4j9n"
 Braintree::Configuration.private_key = "w8kw3smb2g2m6mds"
 
-CLOUDMAIL_ID = '250cc08569f3f0e11d74'
+CLOUDMAIL_ID = 'd99c0e88ffd4ba590ae4'
 CLOUDMAIL_DOMAIN = 'staging-mailbot.restaurantintelligenceagency.com'
