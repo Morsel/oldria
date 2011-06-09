@@ -4,7 +4,9 @@
  # then you must update the logic in cloudmails_controller
 %>
 <h3 id="messagetype" style="color: #cc6632; font-size: 16px; font-weight: normal; line-height: 14px; margin: 0 0 13px; text-align: center;">Respond by replying to this email - above this line</h2>
-<h1 id="salutation" style="font-size: 20px; line-height: 26px; margin: 20px 0;">Hi <%= @recipient.first_name %>,</h1>
+<h1 id="salutation" style="font-size: 20px; line-height: 26px; margin: 20px 0;">
+    Hi <%= (@recipient.employments.count > 1 && @message.is_a?(AdminDiscussion)) ? "#{@recipient.first_name} (#{@message.restaurant.name})" : @recipient.first_name %>,
+</h1>
 
 <p id="messagemessage" style="font-size: 14px;">
       <img src="http://spoonfeed.restaurantintelligenceagency.com/images/bubble_large.png" align="left" alt="" style="margin-bottom:30px;margin-right:10px;float:left">
@@ -13,12 +15,6 @@
 <p id="messagebody">
   <%= @message.email_body %>
 </p>
-
-<% if @message.is_a?(AdminDiscussion) %>
-<p>
-    Please reply for <%= @message.restaurant.name %>
-</p>
-<% end -%>
 
 <p id="messagelink" style="clear: both; font-size: 14px;">
     <a href="<%= url_for_message(@message) %>" style="color: #bbb; font-weight: normal; text-decoration: none;">View this <%= @message.email_title %> on Spoonfeed &#187;</a>
