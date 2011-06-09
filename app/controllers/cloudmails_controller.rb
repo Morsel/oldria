@@ -27,7 +27,7 @@ class CloudmailsController < ApplicationController
     unless whole_message_body.include?(EMAIL_SEPARATOR)
       Rails.logger.info('Email answer does not include separator text')
       render :text => "I'm sorry, we had a problem automatically adding your answer, please try again or answer on the website.",
-             :status => 403
+             :status => 422
       return
     end
 
@@ -42,7 +42,7 @@ class CloudmailsController < ApplicationController
 
     if message_body.length < 10
       Rails.logger.info 'Email answer was too short'
-      render :text => 'Your answer was too short, or could not be read properly', :status => 403
+      render :text => 'Your answer was too short, or could not be read properly', :status => 422
       return
     end
 
@@ -61,7 +61,8 @@ class CloudmailsController < ApplicationController
       discussion = AdminDiscussion.find(message_id)
       if discussion.comments.count > 0
         Rails.logger.info 'User submitted a reply to a trend question that has already been answered by that restaurant'
-        render :text => 'This restaurant has already answered the trend question. Please visit the site to edit your answer.', :status => 403
+        render :text => 'This restaurant has already answered the trend question. Please visit the site to edit your answer.',
+               :status => 422
         return
       end
 
