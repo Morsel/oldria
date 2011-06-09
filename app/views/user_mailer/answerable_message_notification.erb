@@ -13,7 +13,13 @@
 <p id="messagebody">
   <%= @message.email_body %>
 </p>
-  
+
+<% if @message.is_a?(AdminDiscussion) %>
+<p>
+    Please reply for <%= @message.restaurant.name %>
+</p>
+<% end -%>
+
 <p id="messagelink" style="clear: both; font-size: 14px;">
     <a href="<%= url_for_message(@message) %>" style="color: #bbb; font-weight: normal; text-decoration: none;">View this <%= @message.email_title %> on Spoonfeed &#187;</a>
 </p>
