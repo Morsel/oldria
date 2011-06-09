@@ -11,13 +11,7 @@ class CloudmailsController < ApplicationController
     mail_token = params[:to].split('@').first.gsub('<','')
     
     # use this if you need to debug
-    Rails.logger.info %Q{
-    #{'*'*72}
-     Receiving email message with mail_token : #{mail_token}
-     #{'*'*72}
-     #{params[:plain]}
-     #{'*'*72}
-    }
+    Rails.logger.info %Q{#{'*'*72}\nReceiving email message with mail_token: #{mail_token}\n#{'*'*72}\n#{params[:plain]}\n#{'*'*72}}
     
     # some email clients convert all this for us, and send a plan text version others just give us html
     # choose a version of the email body we can work with, after this point it should not include any html
@@ -26,8 +20,9 @@ class CloudmailsController < ApplicationController
     # abort unless we can find our seperator 'Respond by replying to this email - above this line'
     unless whole_message_body.include?(EMAIL_SEPARATOR)
       Rails.logger.info('Email answer does not include separator text')
-      render :text => "I'm sorry, we had a problem automatically adding your answer, please try again or answer on the website.",
-             :status => 422
+      render :text => 'Email answer does not include separator text',
+             :status => 200
+      # send separate error email
       return
     end
 
@@ -40,9 +35,10 @@ class CloudmailsController < ApplicationController
     # everything we need is in the mail_token
     user_id, cloudmail_hash, message_type, message_id = mail_token.split('-')
 
-    if message_body.length < 10
+    if message_body.length < 5
       Rails.logger.info 'Email answer was too short'
-      render :text => 'Your answer was too short, or could not be read properly', :status => 422
+      render :text => 'Your answer was too short, or could not be read properly', :status => 200
+      # send separate error email
       return
     end
 
@@ -62,7 +58,8 @@ class CloudmailsController < ApplicationController
       if discussion.comments.count > 0
         Rails.logger.info 'User submitted a reply to a trend question that has already been answered by that restaurant'
         render :text => 'This restaurant has already answered the trend question. Please visit the site to edit your answer.',
-               :status => 422
+               :status => 200
+        # send separate error email
         return
       end
 
@@ -75,12 +72,7 @@ class CloudmailsController < ApplicationController
     end
 
     # use this if you need to debug
-    Rails.logger.info %Q{
-    #{'*'*72}
-     Cleaned Message : 
-     #{message_body}
-     #{'*'*72}
-    }
+    Rails.logger.info %Q{#{'*'*72}\nCleaned Message:\n#{message_body}\n#{'*'*72}}
 
     # cloudmailin likes this response
     render :text => 'success', :status => 200
