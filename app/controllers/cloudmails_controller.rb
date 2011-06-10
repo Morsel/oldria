@@ -62,7 +62,7 @@ class CloudmailsController < ApplicationController
 
       UserMailer.deliver_answerable_message_error(original_message, user,
           ((message_type == "RD") ? "You already responded to this message, or a coworker beat you to it. Use the link below to review and edit your comments." :
-                                 "You already responded to this message. Use the link below to edit your comments."))
+                                 "You already responded to this message. Use the link below to edit your comments."), false)
 
       return
     end

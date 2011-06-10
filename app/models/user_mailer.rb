@@ -103,13 +103,13 @@ class UserMailer < ActionMailer::Base
   end
 
   # Error email for answerable messages
-  def answerable_message_error(message, recipient, error_text)
+  def answerable_message_error(message, recipient, error_text, allow_reply = true)
     from        'notifications@restaurantintelligenceagency.com'
     reply_to    recipient.cloudmail_id(message)+"@#{CLOUDMAIL_DOMAIN}"
     recipients  recipient.email
     sent_on     Time.now
     subject     "SpoonFeed: #{message.email_title} response error"
-    body        :message => message, :recipient => recipient, :error_text => error_text
+    body        :message => message, :recipient => recipient, :error_text => error_text, :allow_reply => allow_reply
   end
 
   ##
