@@ -72,6 +72,10 @@ class Admin::Conversation < ActiveRecord::Base
     # !read_by?(user) && comments_count > 0 && comments.last.user != user
   end
 
+  def create_response_for_user(user, comment)
+    self.comments.create(:user => user, :comment => comment)
+  end
+
   # Should only be called from an external observer.
   def notify_recipients
     self.send_at(scheduled_at, :queued_message_sending)

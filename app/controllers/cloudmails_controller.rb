@@ -35,41 +35,39 @@ class CloudmailsController < ApplicationController
     # everything we need is in the mail_token
     user_id, cloudmail_hash, message_type, message_id = mail_token.split('-')
 
-    if message_body.length < 5
+    user = User.find(user_id)
+    original_message = case message_type
+    when "QOTD"
+      Admin::Conversation.find(message_id)
+    when "BTL"
+      ProfileQuestion.find(message_id)
+    when "RD" # Restaurant-based Trend Question Discussion
+      AdminDiscussion.find(message_id)
+    when "SD" # Individual user TQ discussion
+      SoloDiscussion.find(message_id)
+    end
+
+    if (message_type == "BTL" && original_message.answered_by?(user)) || \
+       (message_type != "BTL" && original_message.comments.count > 0)
+      Rails.logger.info 'User submitted a reply to a discussion or question that already has one'
+
+      render :text => 'This is a duplicate reply. Please edit your response on the Spoonfeed site.', :status => 200
+
+      UserMailer.deliver_answerable_message_error(original_message, user,
+          "You or a fellow employee have already responded to this message.")
+
+      return
+    elsif message_body.length < 5
       Rails.logger.info 'Email answer was too short'
       render :text => 'Your answer was too short, or could not be read properly', :status => 200
-      # send separate error email
+      UserMailer.deliver_answerable_message_error(original_message, user,
+          "Your answer was too short, or could not be read properly.")
       return
     end
 
-    user = User.find(user_id)
+    user.validate_cloudmail_token!(cloudmail_hash, original_message)
 
-    case message_type
-    when "QOTD"
-      conversation = Admin::Conversation.find(message_id)
-      user.validate_cloudmail_token!(cloudmail_hash, conversation)
-      conversation.comments.create(:user => user, :comment => message_body)
-    when "BTL"
-      question = ProfileQuestion.find(message_id)
-      user.validate_cloudmail_token!(cloudmail_hash, question)
-      question.profile_answers.create(:user => user, :answer => message_body)
-    when "RD" # Restaurant-based Trend Question Discussion
-      discussion = AdminDiscussion.find(message_id)
-      if discussion.comments.count > 0
-        Rails.logger.info 'User submitted a reply to a trend question that has already been answered by that restaurant'
-        render :text => 'This restaurant has already answered the trend question. Please visit the site to edit your answer.',
-               :status => 200
-        # send separate error email
-        return
-      end
-
-      user.validate_cloudmail_token!(cloudmail_hash, discussion)
-      discussion.comments.create(:user => user, :comment => message_body)
-    when "SD" # Individual user TQ discussion
-      discussion = SoloDiscussion.find(message_id)
-      user.validate_cloudmail_token!(cloudmail_hash, discussion)
-      discussion.comments.create(:user => user, :comment => message_body)
-    end
+    original_message.create_response_for_user(user, message_body)
 
     # use this if you need to debug
     Rails.logger.info %Q{#{'*'*72}\nCleaned Message:\n#{message_body}\n#{'*'*72}}

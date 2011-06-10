@@ -118,6 +118,10 @@ class ProfileQuestion < ActiveRecord::Base
     end
   end
 
+  def create_response_for_user(user, answer)
+    self.profile_answers.create(:user => user, :answer => answer)
+  end
+
   protected
 
   def update_roles_description
