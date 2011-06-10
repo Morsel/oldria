@@ -3,17 +3,17 @@
  # if you change the string "Respond by replying to this email - above this line"
  # then you must update the logic in cloudmails_controller
 %>
-<h3 id="messagetype" style="color: #cc6632; font-size: 16px; font-weight: normal; line-height: 14px; margin: 0 0 13px; text-align: center;">Respond by replying to this email - above this line</h2>
+<h3 id="messagetype" style="color: #cc6632; font-size: 16px; font-weight: normal; line-height: 14px; margin: 0 0 13px; text-align: center;">Respond by replying to this email - above this line</h3>
 <h1 id="salutation" style="font-size: 20px; line-height: 26px; margin: 20px 0;">
     Hi <%= (@recipient.employments.count > 1 && @message.is_a?(AdminDiscussion)) ? "#{@recipient.first_name} (#{@message.restaurant.name})" : @recipient.first_name %>,
 </h1>
 
 <p>
-    We received your reply to this message: <%= @message.email_body %>
+    We received your reply to "<%= @message.email_body %>"
 <p>
 
 <p>
-    Unfortunately, there was a problem with your email response: <%= @error_text %>
+    Unfortunately, there was a problem: <%= @error_text %>
 <p>
 
 <p id="messagelink" style="clear: both; font-size: 14px;">

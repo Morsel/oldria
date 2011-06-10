@@ -17,6 +17,21 @@ class CloudmailsController < ApplicationController
     # choose a version of the email body we can work with, after this point it should not include any html
     whole_message_body = (params[:plain].length > 50) ? params[:plain] : params[:html].gsub(/<\/?[^>]*>/, "\n")
     
+    # everything we need is in the mail_token
+    user_id, cloudmail_hash, message_type, message_id = mail_token.split('-')
+
+    user = User.find(user_id)
+    original_message = case message_type
+    when "QOTD"
+      Admin::Conversation.find(message_id)
+    when "BTL"
+      ProfileQuestion.find(message_id)
+    when "RD" # Restaurant-based Trend Question Discussion
+      AdminDiscussion.find(message_id)
+    when "SD" # Individual user TQ discussion
+      SoloDiscussion.find(message_id)
+    end
+
     # abort unless we can find our seperator 'Respond by replying to this email - above this line'
     unless whole_message_body.include?(EMAIL_SEPARATOR)
       Rails.logger.info('Email answer does not include separator text')
@@ -32,21 +47,6 @@ class CloudmailsController < ApplicationController
 
     # clean it up to get what the user intends we get (as best as we can)
     message_body = clean_email_body(message_body)
-
-    # everything we need is in the mail_token
-    user_id, cloudmail_hash, message_type, message_id = mail_token.split('-')
-
-    user = User.find(user_id)
-    original_message = case message_type
-    when "QOTD"
-      Admin::Conversation.find(message_id)
-    when "BTL"
-      ProfileQuestion.find(message_id)
-    when "RD" # Restaurant-based Trend Question Discussion
-      AdminDiscussion.find(message_id)
-    when "SD" # Individual user TQ discussion
-      SoloDiscussion.find(message_id)
-    end
 
     if message_body.length < 5
       Rails.logger.info 'Email answer was too short'
