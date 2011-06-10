@@ -22,7 +22,8 @@ class CloudmailsController < ApplicationController
       Rails.logger.info('Email answer does not include separator text')
       render :text => 'Email answer does not include separator text',
              :status => 200
-      # send separate error email
+      UserMailer.deliver_answerable_message_error(original_message, user,
+        "We couldn't find the \"#{EMAIL_SEPARATOR}\" text needed to process this message. Please try replying again, and do not edit any of the quoted text.")
       return
     end
 
@@ -47,22 +48,22 @@ class CloudmailsController < ApplicationController
       SoloDiscussion.find(message_id)
     end
 
-    if (message_type == "BTL" && original_message.answered_by?(user)) || \
+    if message_body.length < 5
+      Rails.logger.info 'Email answer was too short'
+      render :text => 'Your answer was too short, or could not be read properly', :status => 200
+      UserMailer.deliver_answerable_message_error(original_message, user,
+          "Your answer was too short, or could not be read properly. Please try again by replying to this message.")
+      return
+    elsif (message_type == "BTL" && original_message.answered_by?(user)) || \
        (message_type != "BTL" && original_message.comments.count > 0)
       Rails.logger.info 'User submitted a reply to a discussion or question that already has one'
 
       render :text => 'This is a duplicate reply. Please edit your response on the Spoonfeed site.', :status => 200
 
       UserMailer.deliver_answerable_message_error(original_message, user,
-          message_type == "RD" ? "You already responded to this message, or a coworker beat you to it. Use the link below to review and edit your comments." :
-                                 "You already responded to this message. Use the link below to edit your comments.")
+          ((message_type == "RD") ? "You already responded to this message, or a coworker beat you to it. Use the link below to review and edit your comments." :
+                                 "You already responded to this message. Use the link below to edit your comments."))
 
-      return
-    elsif message_body.length < 5
-      Rails.logger.info 'Email answer was too short'
-      render :text => 'Your answer was too short, or could not be read properly', :status => 200
-      UserMailer.deliver_answerable_message_error(original_message, user,
-          "Your answer was too short, or could not be read properly.")
       return
     end
 
