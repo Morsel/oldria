@@ -54,7 +54,8 @@ class CloudmailsController < ApplicationController
       render :text => 'This is a duplicate reply. Please edit your response on the Spoonfeed site.', :status => 200
 
       UserMailer.deliver_answerable_message_error(original_message, user,
-          "You or a fellow employee have already responded to this message.")
+          message_type == "RD" ? "You already responded to this message, or a coworker beat you to it. Use the link below to review and edit your comments." :
+                                 "You already responded to this message. Use the link below to edit your comments.")
 
       return
     elsif message_body.length < 5
