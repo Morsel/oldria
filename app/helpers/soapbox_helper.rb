@@ -61,7 +61,7 @@ module SoapboxHelper
   end
 
   def newsfeed_links
-    PromotionType.used_by_promotions.all(:order => :name).uniq
+    PromotionType.used_by_current_promotions.from_premium_restaurants.all(:order => :name).uniq
   end
 
   def btl_links
