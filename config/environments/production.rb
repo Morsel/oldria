@@ -35,5 +35,7 @@ Braintree::Configuration.private_key = "2xkncs7ptjyytgqd"
 
 config.action_mailer.delivery_method = :emailthing
 
-CLOUDMAIL_ID = '2d24f220c2adec0bbeb5'
+CLOUDMAIL_ID = '0df080edd37d5e209f5d'
 CLOUDMAIL_DOMAIN = 'mailbot.restaurantintelligenceagency.com'
+# for verifying the emails came from cloudmailin
+CLOUDMAIL_SECRET = '781ff8e2b62535e0eee2'.freeze
