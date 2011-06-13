@@ -104,7 +104,7 @@ class ProfileQuestion < ActiveRecord::Base
   end
 
   def short_title
-    "BTL"
+    "btl"
   end
 
   def email_body

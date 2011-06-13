@@ -44,7 +44,7 @@ class AdminDiscussion < ActiveRecord::Base
   end
 
   def short_title
-    "RD"
+    "rd"
   end
 
   def scheduled_at

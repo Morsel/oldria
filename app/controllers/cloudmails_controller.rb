@@ -19,16 +19,17 @@ class CloudmailsController < ApplicationController
     
     # everything we need is in the mail_token
     user_id, cloudmail_hash, message_type, message_id = mail_token.split('-')
+    message_type = message_type.downcase
 
     user = User.find(user_id)
     original_message = case message_type
-    when "QOTD"
+    when "qotd"
       Admin::Conversation.find(message_id)
-    when "BTL"
+    when "btl"
       ProfileQuestion.find(message_id)
-    when "RD" # Restaurant-based Trend Question Discussion
+    when "rd" # Restaurant-based Trend Question Discussion
       AdminDiscussion.find(message_id)
-    when "SD" # Individual user TQ discussion
+    when "sd" # Individual user TQ discussion
       SoloDiscussion.find(message_id)
     end
 
@@ -54,14 +55,14 @@ class CloudmailsController < ApplicationController
       UserMailer.deliver_answerable_message_error(original_message, user,
           "Your answer was too short, or could not be read properly. Please try again by replying to this message.")
       return
-    elsif (message_type == "BTL" && original_message.answered_by?(user)) || \
-       (message_type != "BTL" && original_message.comments.count > 0)
+    elsif (message_type == "btl" && original_message.answered_by?(user)) || \
+       (message_type != "btl" && original_message.comments.count > 0)
       Rails.logger.info 'User submitted a reply to a discussion or question that already has one'
 
       render :text => 'This is a duplicate reply. Please edit your response on the Spoonfeed site.', :status => 200
 
       UserMailer.deliver_answerable_message_error(original_message, user,
-          ((message_type == "RD") ? "You already responded to this message, or a coworker beat you to it. Use the link below to review and edit your comments." :
+          ((message_type == "rd") ? "You already responded to this message, or a coworker beat you to it. Use the link below to review and edit your comments." :
                                  "You already responded to this message. Use the link below to edit your comments."), false)
 
       return

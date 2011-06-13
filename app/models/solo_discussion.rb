@@ -47,7 +47,7 @@ class SoloDiscussion < ActiveRecord::Base
   end
 
   def short_title
-    "SD"
+    "sd"
   end
 
   def scheduled_at
