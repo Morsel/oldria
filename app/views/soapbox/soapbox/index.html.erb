@@ -156,11 +156,12 @@
                     <!-- AddThis Button END -->
                     <h3>Topic: <%= question.topic.title %></h3>
                     <h4><%= link_to question.title, soapbox_question_path(question) %></h4>
-                    <% if question.latest_answer.present? -%>
+                    <% answer = question.latest_soapbox_answer %>
+                    <% if answer.present? -%>
                     <div>
-                        <%= render :partial => 'users/identity', :locals => { :user => question.latest_answer.user } %>
-                        <p class="answer"><%= question.latest_answer.answer %></p>
-                        <p class="datestamp">Posted <%= question.latest_answer.created_at.strftime("%D") %></p>
+                        <%= render :partial => 'users/identity', :locals => { :user => answer.user } %>
+                        <p class="answer"><%= answer.answer %></p>
+                        <p class="datestamp">Posted <%= answer.created_at.strftime("%D") %></p>
                     </div>
                     <div class="clear">&nbsp;</div>
                     <% end -%>

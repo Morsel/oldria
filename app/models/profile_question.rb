@@ -82,6 +82,10 @@ class ProfileQuestion < ActiveRecord::Base
     profile_answers.first(:order => "created_at DESC")
   end
 
+  def latest_soapbox_answer
+    profile_answers.from_premium_users.select { |a| a.user.try(:prefers_publish_profile?) }.first
+  end
+
   def soapbox_answer_count
     profile_answers.from_premium_users.select { |a| a.user.try(:prefers_publish_profile?) }.count
   end

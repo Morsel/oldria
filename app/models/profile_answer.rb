@@ -22,13 +22,13 @@ class ProfileAnswer < ActiveRecord::Base
   attr_accessor :post_to_facebook, :share_url
   after_save    :post_to_facebook
 
-  named_scope :from_premium_users, lambda {
-    {
-      :joins => { :user => :subscription },
-      :conditions => ["subscriptions.id IS NOT NULL AND (subscriptions.end_date IS NULL OR subscriptions.end_date >= ?)",
-          Date.today]
-    }
+  named_scope :from_premium_users, {
+    :joins => { :user => :subscription },
+    :conditions => ["subscriptions.id IS NOT NULL AND (subscriptions.end_date IS NULL OR subscriptions.end_date >= ?)",
+      Date.today]
   }
+
+  named_scope :recently_answered, :order => "profile_answers.created_at DESC"
 
   def post_to_facebook
     name = self.user.respond_to?(:name) ? self.user.name : ""
