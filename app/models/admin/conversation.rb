@@ -40,7 +40,7 @@ class Admin::Conversation < ActiveRecord::Base
   end
 
   def short_title
-    admin_message.class.shorttitle
+    "qotd"
   end
   
   def email_body
