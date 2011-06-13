@@ -39,6 +39,14 @@ class Admin::Conversation < ActiveRecord::Base
     inbox_title
   end
 
+  def short_title
+    admin_message.class.shorttitle
+  end
+  
+  def email_body
+    admin_message.message
+  end
+  
   def message
     admin_message.message
   end
@@ -64,6 +72,10 @@ class Admin::Conversation < ActiveRecord::Base
     # !read_by?(user) && comments_count > 0 && comments.last.user != user
   end
 
+  def create_response_for_user(user, comment)
+    self.comments.create(:user => user, :comment => comment)
+  end
+
   # Should only be called from an external observer.
   def notify_recipients
     self.send_at(scheduled_at, :queued_message_sending)
@@ -72,7 +84,8 @@ class Admin::Conversation < ActiveRecord::Base
   # Should only be called from the notify_recipients queued action
   def queued_message_sending
     if recipient.prefers_receive_email_notifications
-      UserMailer.deliver_message_notification(self, recipient)
+      # we send some messgaes to the different mailer
+      UserMailer.send("deliver_#{admin_message.mailer_method}", self, recipient)
     end
   end
 

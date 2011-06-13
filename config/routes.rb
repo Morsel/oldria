@@ -14,6 +14,9 @@ ActionController::Routing::Routes.draw do |map|
   map.directory 'directory', :controller => 'directory', :action => 'index'
   map.restaurant_directory 'directory/restaurants', :controller => 'directory', :action => 'restaurants'
 
+  # the callback for cloudmailin
+  map.resource :cloudmail, :only => :create 
+
   map.namespace(:soapbox) do |soapbox|
     soapbox.resources :questions, :only => ['show']
     soapbox.resources :restaurant_questions, :only => ['show']
@@ -250,7 +253,7 @@ ActionController::Routing::Routes.draw do |map|
     admin.resources :restaurant_chapters, :collection => { :select => :post }
     admin.resources :restaurant_topics
 
-    admin.resources :profile_questions
+    admin.resources :profile_questions, :member => { :send_notifications => :post }
     admin.resources :chapters, :collection => { :select => :post }
     admin.resources :topics
     admin.resources :question_roles
@@ -301,7 +304,7 @@ ActionController::Routing::Routes.draw do |map|
   map.soapbox_page 'soapbox/:id', :controller => 'soapbox_pages', :action => 'show'
   map.hq_page 'hq/:id', :controller => 'hq_pages', :action => 'show'
   map.mediafeed_page 'mediafeed/:id', :controller => 'mediafeed_pages', :action => 'show'
-
+  
   # Default Routes
   map.connect ':controller/:action/:id'
   map.connect ':controller/:action/:id.:format'

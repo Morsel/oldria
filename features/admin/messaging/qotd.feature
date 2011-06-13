@@ -28,7 +28,7 @@ Feature: Admin Messaging: Question of the Day
     Given "sam" prefers to not receive direct message alerts
     And I am on the new QOTD page
     When I check "Eight Ball"
-    And I fill in "Message" with "What is your favorite pie?"
+    And I fill in "Message" with "What is your favorite cake?"
     And I press "Submit"
     Then "sam@example.com" should have no emails
 
@@ -37,6 +37,6 @@ Feature: Admin Messaging: Question of the Day
     Given "sam" prefers to receive direct message alerts
     And I am on the new QOTD page
     When I check "Eight Ball"
-    And I fill in "Message" with "What is your favorite pie?"
+    And I fill in "Message" with "What is your favorite cookie?"
     And I press "Submit"
     Then "sam@example.com" should have 1 email

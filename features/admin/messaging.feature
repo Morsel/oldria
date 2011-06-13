@@ -42,7 +42,7 @@ Feature: Admin Messaging
     Given I am logged in as "johndoe"
     And Facebook is functioning
     And given that user "johndoe" has facebook connection
-    And there is a Trend Question "Are cold cakes cool?"
+    And there is a Trend Question "Are cold cakes cool?: Weigh in now"
     And that Trend Question is featured on the soapbox
     And that Trend Question was sent to "No Man's Land"
     When I go to the front burner page
@@ -116,6 +116,7 @@ Feature: Admin Messaging
     And QOTD "This is an old QOTD" has a reply "I reply!"
     And "cleopatra" has a trend question with:
       | subject      | This is an old trend question |
+	  | body         | Old trend message             |
       | scheduled_at | 2010-06-06 12:00:00           |
     And trend question "This is an old trend question" has a reply "I reply here too!"
     And "Fields of Plenty" has a holiday reminder for holiday "Day Off" with:

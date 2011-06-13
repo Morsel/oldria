@@ -92,6 +92,27 @@ class UserMailer < ActionMailer::Base
   end
 
   ##
+  # Generic message which can be 'answered': could be one of QOTD, etc.
+  def answerable_message_notification(message, recipient)
+    from        'notifications@restaurantintelligenceagency.com'
+    reply_to    recipient.cloudmail_id(message)+"@#{CLOUDMAIL_DOMAIN}"
+    recipients  recipient.email
+    sent_on     Time.now
+    subject     "SpoonFeed: #{message.email_title} notification"
+    body        :message => message, :recipient => recipient
+  end
+
+  # Error email for answerable messages
+  def answerable_message_error(message, recipient, error_text, allow_reply = true)
+    from        'notifications@restaurantintelligenceagency.com'
+    reply_to    recipient.cloudmail_id(message)+"@#{CLOUDMAIL_DOMAIN}"
+    recipients  recipient.email
+    sent_on     Time.now
+    subject     "SpoonFeed: #{message.email_title} response error"
+    body        :message => message, :recipient => recipient, :error_text => error_text, :allow_reply => allow_reply
+  end
+
+  ##
   # Comment on a generic message: could be one of DirectMessage, etc.
   def message_comment_notification(message, recipient, commenter = nil)
     from        'notifications@restaurantintelligenceagency.com'

@@ -39,3 +39,5 @@ Braintree::Configuration.environment = :sandbox
 Braintree::Configuration.merchant_id = "ny23sz9jy8gy38bw" 
 Braintree::Configuration.public_key = "n77z2dvd56jy4j9n" 
 Braintree::Configuration.private_key = "w8kw3smb2g2m6mds"
+
+CLOUDMAIL_DOMAIN = 'dev-mailbot.restaurantintelligenceagency.com'

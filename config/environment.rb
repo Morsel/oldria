@@ -52,4 +52,3 @@ Rails::Initializer.run do |config|
 end
 
 TWITTER_CONFIG = YAML.load(File.read(Rails.root + 'config' + 'twitter.yml'))[RAILS_ENV]
-
