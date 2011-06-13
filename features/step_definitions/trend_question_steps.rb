@@ -1,6 +1,7 @@
 When /^I create a new trend question with subject "([^\"]*)" with criteria:$/ do |subject, table|
   visit new_admin_trend_question_path
   fill_in :subject, :with => subject
+  fill_in :body, :with => "Default body text"
   table.rows_hash.each do |field, value|
     check value
   end

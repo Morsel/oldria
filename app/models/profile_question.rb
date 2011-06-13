@@ -86,6 +86,42 @@ class ProfileQuestion < ActiveRecord::Base
     profile_answers.from_premium_users.select { |a| a.user.try(:prefers_publish_profile?) }.count
   end
 
+  def users_with_answers
+    profile_answers.map(&:user).uniq
+  end
+
+  def users_without_answers
+    ids = self.profile_answers.map(&:user_id)
+    if ids.present?
+      self.restaurant_roles.map { |r| r.employees.all(:conditions => ["users.id NOT IN (?)", ids]) }.flatten.uniq
+    else
+      self.restaurant_roles.map { |r| r.employees.all }.flatten.uniq
+    end
+  end
+
+  def email_title
+    "Behind the Line"
+  end
+
+  def short_title
+    "BTL"
+  end
+
+  def email_body
+    title
+  end
+
+  # Send an email to everyone who hasn't responded but could
+  def notify_users!
+    for user in users_without_answers
+      UserMailer.deliver_answerable_message_notification(self, user)
+    end
+  end
+
+  def create_response_for_user(user, answer)
+    self.profile_answers.create(:user => user, :answer => answer)
+  end
+
   protected
 
   def update_roles_description

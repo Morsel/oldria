@@ -11,7 +11,9 @@
 #
 
 class RestaurantRole < ActiveRecord::Base
+
   has_many :employments
+  has_many :employees, :through => :employments
   has_many :question_roles, :dependent => :destroy
   has_many :profile_questions, :through => :question_roles
 

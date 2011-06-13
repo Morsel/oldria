@@ -1,6 +1,13 @@
 module MailerHelper
-  # FIXME - the word is spelled indefinite, and the message text could probably be rewritten to eliminate this helper
-  def indefenite_article(word)
-    (word.to_s =~ /^[aeio]+/i) ? "an" : "a"
+
+  def url_for_message(message)
+    if @message.respond_to?(:admin_message)
+      admin_conversation_url(@message)
+    elsif message.is_a?(ProfileQuestion)
+      user_questions_url(:user_id => @recipient.id, :chapter_id => message.chapter.id)
+    else
+      polymorphic_url(@message)
+    end
   end
+
 end

@@ -1,0 +1,24 @@
+<%= render :partial => 'email_header' %>
+<% # if you change the string "Respond by replying to this email - above this line"
+   # then you must update the logic in cloudmails_controller
+%>
+<% if @allow_reply -%>
+<h3 id="messagetype" style="color: #cc6632; font-size: 16px; font-weight: normal; line-height: 14px; margin: 0 0 13px; text-align: center;">Respond by replying to this email - above this line</h3>
+<% end -%>
+<h1 id="salutation" style="font-size: 20px; line-height: 26px; margin: 20px 0;">
+    Hi <%= (@recipient.employments.count > 1 && @message.is_a?(AdminDiscussion)) ? "#{@recipient.first_name} (#{@message.restaurant.name})" : @recipient.first_name %>,
+</h1>
+
+<p>
+    We received your reply to "<%= @message.email_body %>"
+</p>
+
+<p style="color: #cc6632">
+    Unfortunately, there was a problem: <%= @error_text %>
+</p>
+
+<p id="messagelink" style="clear: both; font-size: 14px;">
+    <a href="<%= url_for_message(@message) %>" style="color: #bbb; font-weight: normal; text-decoration: none;">Respond to this <%= @message.email_title %> on Spoonfeed &#187;</a>
+</p>
+
+<%= render :partial => 'email_footer' %>

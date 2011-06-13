@@ -1,11 +1,12 @@
 class Admin::ProfileQuestionsController < Admin::AdminController
 
+  before_filter :find_question, :only => [:edit, :update, :destroy, :send_notifications]
+
   def index
-    @questions = ProfileQuestion.all(
-        :conditions => ["topics.type IS NULL"],
-        :include => { :chapter => :topic },
-        :order => "topics.title ASC, chapters.title ASC, profile_questions.position ASC"
-      ).group_by(&:chapter)
+    @questions = ProfileQuestion.all(:conditions => ["topics.type IS NULL"],
+                                     :include => { :chapter => :topic },
+                                     :order => "topics.title ASC, chapters.title ASC, profile_questions.position ASC").
+                                     group_by(&:chapter)
   end
 
   def new
@@ -27,13 +28,11 @@ class Admin::ProfileQuestionsController < Admin::AdminController
   end
 
   def edit
-    @question = ProfileQuestion.find(params[:id])
     @roles = RestaurantRole.all.group_by(&:category)
     @topics = Topic.user_topics
   end
 
   def update
-    @question = ProfileQuestion.find(params[:id])
     if @question.update_attributes(params[:profile_question])
       flash[:notice] = "Updated question \"#{@question.title}\""
       redirect_to :action => "index"
@@ -45,7 +44,6 @@ class Admin::ProfileQuestionsController < Admin::AdminController
   end
 
   def destroy
-    @question = ProfileQuestion.find(params[:id])
     flash[:notice] = "Deleted question \"#{@question.title}\""
     @question.destroy
     redirect_to :action => "index"
@@ -66,6 +64,18 @@ class Admin::ProfileQuestionsController < Admin::AdminController
       end
     end
     render :nothing => true
+  end
+
+  def send_notifications
+    @question.notify_users!
+    flash[:notice] = "Notification emails sent for \"#{@question.title}\""
+    redirect_to :action => "index"
+  end
+
+  private
+
+  def find_question
+    @question = ProfileQuestion.find(params[:id])
   end
 
 end
