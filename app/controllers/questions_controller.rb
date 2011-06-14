@@ -20,7 +20,7 @@ class QuestionsController < ApplicationController
 
   def show
     @question = ProfileQuestion.find(params[:id])
-    @answers = @question.profile_answers.from_premium_users.recently_answered.select { |a| a.user.try(:prefers_publish_profile?) }
+    @answers = @question.profile_answers.from_premium_users.from_public_users.recently_answered
   end
 
   def topics

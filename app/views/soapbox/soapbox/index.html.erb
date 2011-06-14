@@ -140,36 +140,33 @@
                     <h2>Behind the Line</h2>
                     <%= link_to "+ See all", soapbox_topics_path, :class => "link-all" %>
                 </div>
-                <% @btl_questions.each_with_index do |question, index| -%>
+                <% @btl_answers.each_with_index do |answer, index| -%>
                 <div class="profile_question" id="btl_<%= index %>">
                     <!-- AddThis Button BEGIN -->
                     <div class="addthis_toolbox">
                       <script type="text/javascript">
                           var addthis_share = {
-                              url: '<%= soapbox_question_url(question) %>',
-                              title: 'Behind the Line - <%= question.title %>'
+                              url: '<%= soapbox_question_url(answer.profile_question) %>',
+                              title: 'Behind the Line - <%= answer.profile_question.title %>'
                           }
                       </script>
                       <a href="http://www.addthis.com/bookmark.php?v=250&amp;username=unpluggedria" class="addthis_button">Share</a>
                     </div>
                     <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#username=unpluggedria"></script>
                     <!-- AddThis Button END -->
-                    <h3>Topic: <%= question.topic.title %></h3>
-                    <h4><%= link_to question.title, soapbox_question_path(question) %></h4>
-                    <% answer = question.latest_soapbox_answer %>
-                    <% if answer.present? -%>
+                    <h3>Topic: <%= answer.profile_question.topic.title %></h3>
+                    <h4><%= link_to answer.profile_question.title, soapbox_question_path(answer.profile_question) %></h4>
                     <div>
                         <%= render :partial => 'users/identity', :locals => { :user => answer.user } %>
                         <p class="answer"><%= answer.answer %></p>
                         <p class="datestamp">Posted <%= answer.created_at.strftime("%D") %></p>
                     </div>
                     <div class="clear">&nbsp;</div>
-                    <% end -%>
                 </div>
                 <% end -%>
                 <div class="links">
                     <% (1..4).each do |i| %>
-                      <% if @btl_questions[i-1].present? -%>
+                      <% if @btl_answers[i-1].present? -%>
                         <%= link_to_function i,
                             "$('.profile_question').hide(); $('#btl_#{i-1}').show(); $('.btl_link').removeClass(\"current\"); $('#btl_link_#{i}').addClass(\"current\")",
                             :class => (i == 1 ? "current btl_link" : "btl_link"),

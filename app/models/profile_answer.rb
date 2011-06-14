@@ -28,7 +28,14 @@ class ProfileAnswer < ActiveRecord::Base
       Date.today]
   }
 
+  named_scope :from_public_users, {
+    :joins => "INNER JOIN preferences ON `profile_answers`.user_id = `preferences`.owner_id",
+    :conditions => ["`preferences`.owner_type = 'User' AND `preferences`.name = 'receive_email_notifications' AND `preferences`.value = ?", true]
+  }
+
   named_scope :recently_answered, :order => "profile_answers.created_at DESC"
+  named_scope :without_travel, :joins => { :profile_question => { :chapter => :topic }},
+      :conditions => ["topics.title != ?", "Travel Guide"]
 
   def post_to_facebook
     name = self.user.respond_to?(:name) ? self.user.name : ""

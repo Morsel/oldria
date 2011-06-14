@@ -83,11 +83,11 @@ class ProfileQuestion < ActiveRecord::Base
   end
 
   def latest_soapbox_answer
-    profile_answers.from_premium_users.select { |a| a.user.try(:prefers_publish_profile?) }.first
+    profile_answers.from_premium_users.from_public_users.first
   end
 
   def soapbox_answer_count
-    profile_answers.from_premium_users.select { |a| a.user.try(:prefers_publish_profile?) }.count
+    profile_answers.from_premium_users.from_public_users.count
   end
 
   def users_with_answers
