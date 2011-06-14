@@ -2230,23 +2230,23 @@ p.search_filter_hint {
   background-image: url(/images/soapbox/label-qotd.png);
 }
 /* line 1531, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
-#trend-article details {
+#trend-article div.details {
   margin-left: 190px;
   clear: none;
 }
 /* line 1534, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
-#trend-article details time {
+#trend-article div.details time {
   margin: 0;
   padding: 0;
 }
 /* line 1538, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
-#trend-article details h2 {
+#trend-article div.details h2 {
   clear: none;
   margin: 5px 0 10px;
   border: 0;
 }
 /* line 1543, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
-#trend-article details.comment-author {
+#trend-article div.details.comment-author {
   margin: 10px 0;
 }
 
@@ -2266,12 +2266,12 @@ p.search_filter_hint {
   box-shadow: #d5ceca 0 1px 3px 0;
 }
 /* line 1557, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
-#fb-comments .comment details {
+#fb-comments .comment div.details {
   float: left;
   width: 183px;
 }
 /* line 1560, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
-#fb-comments .comment details img {
+#fb-comments .comment div.details img {
   float: left;
   margin: 0 10px 5px 0;
   padding: 4px;
@@ -2282,11 +2282,11 @@ p.search_filter_hint {
 }
 
 /* line 1571, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
-#trend-question details, #question-of-the-day details {
+#trend-question div.details, #question-of-the-day div.details {
   margin: 0 0 0 188px;
 }
 /* line 1573, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
-#trend-question details time, #question-of-the-day details time {
+#trend-question div.details time, #question-of-the-day div.details time {
   display: block;
   text-transform: uppercase;
   letter-spacing: 3px;
@@ -2296,7 +2296,7 @@ p.search_filter_hint {
   margin: 0 0 10px;
 }
 /* line 1580, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
-#trend-question details h2, #question-of-the-day details h2 {
+#trend-question div.details h2, #question-of-the-day div.details h2 {
   clear: none;
   color: #cb4827;
   border: 0;
@@ -2308,7 +2308,7 @@ p.search_filter_hint {
 }
 
 /* line 1593, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
-#question-of-the-day-details details p {
+#question-of-the-day-details div.details p {
   font-size: 15px;
   line-height: 1.3;
 }
