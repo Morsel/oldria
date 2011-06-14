@@ -11,10 +11,10 @@
   <!-- AddThis Button END -->
   <header>
     <%= soapbox_tabby_title(@feature) %>
-    <details>
+    <div class="details">
       <time datetime="<%= @feature.soapbox_entry.published_at.try(:strftime,'%Y-%m-%d') %>"><%= @feature.soapbox_entry.published_at.try(:strftime, "%b %e, %Y") %></time>
       <h2><%= message(@feature) %></h2>
-    </details>
+    </div>
   </header>
   
   <% if @feature_comments %>

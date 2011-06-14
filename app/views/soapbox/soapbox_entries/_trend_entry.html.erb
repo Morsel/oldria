@@ -15,10 +15,10 @@
     <%= soapbox_tabby_title(feature) %>
   </header>
   <article id="trend-question">
-    <details>
+    <div class="details">
       <time datetime="<%= feature.soapbox_entry.published_at.strftime('%Y-%m-%d') %>"><%= feature.soapbox_entry.published_at.try(:strftime, "%b %e, %Y") %></time>
       <h2><%= link_to message(feature), soapbox_soapbox_entry_path(feature.soapbox_entry) %></h2>
-    </details>
+    </div>
   </article>
   <% if feature_comments %>
   <section id="trend-comments">
