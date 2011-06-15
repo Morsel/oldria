@@ -19,5 +19,5 @@
 <% end %>
 
 <div id="directory_list">
-    <%= render :partial => 'directory/search_results' %>
+    <%= render :partial => 'directory/search_results', :locals => { :users => @users } %>
 </div>
