@@ -1,5 +1,6 @@
 class Mediafeed::MediafeedController < ApplicationController
   layout 'mediafeed'
+  before_filter :require_media_user, :only => [:directory, :directory_search]
   
   def index
     @mediafeed_home_page = true
@@ -32,7 +33,7 @@ class Mediafeed::MediafeedController < ApplicationController
 
   def require_media_user
     unless current_user && (current_user.media? || current_user.admin?)
-      flash[:message] = "Please log in first"
+      flash[:message] = "Please log in with your media account first"
       redirect_to root_url
     end
   end
