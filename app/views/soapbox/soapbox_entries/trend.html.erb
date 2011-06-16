@@ -2,7 +2,7 @@
 
 <section id="questions-list">
   <div id="questions-list-feed-trend">
-    <h1><%= params[:view_all].present? ? "Trend Questions" : "Previous Featured Trend Questions" %></h1>
+    <h1><%= params[:view_all].present? ? "What's New" : "Previous Features" %></h1>
     <%= render :partial => 'trend_list', :locals => {:questions => @featured_items} %>
     <%= will_paginate(@featured_items) %>
   </div><!-- /recent-trends -->

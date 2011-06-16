@@ -148,7 +148,7 @@
 
         <div class="tabable">
           <nav>
-            <span><a href="#older_tqs_box">Trend Questions</a></span>
+            <span><a href="#older_tqs_box">What's New</a></span>
             <span><a href="#older_qotds_box">Questions of the Day</a></span>
           </nav>
 
@@ -159,7 +159,7 @@
                     :collection => @user.trend_questions_responded,
                     :local => {:user => @user} %>
               <% else %>
-                  <p><%= @user.name %> hasn't answered any Trend Questions yet.</p>
+                  <p><%= @user.name %> hasn't answered any What's New items yet.</p>
               <% end %>
             </div><!--#older_tqs_box-->
             <div id="older_qotds_box">

@@ -32,7 +32,7 @@ Feature: Soapbox
     And there is a Trend Question "What is the haps?: Boo-ya"
     And that Trend Question is featured on the soapbox
     When I follow the corresponding soapbox entry link
-    Then I should see "Trend Questions" within "aside"
+    Then I should see "What's New" within "aside"
     And I should see "Questions of the Day" within "aside"
     And I should see "View all" within "aside"
 
@@ -59,7 +59,7 @@ Feature: Soapbox
     Given there is a Trend Question "Hot water supplier: Is that even a thing?"
     And that Trend Question is featured on the soapbox
     When I go to the all of the trend questions listing page
-    Then I should see "Trend Questions" within "#questions-list"
+    Then I should see "Previous Features" within "#questions-list"
     And I should see "The best ketchup in the world" within "#questions-list-feed-trend"
     And I should see "Hot water supplier" within "#questions-list-feed-trend"
 

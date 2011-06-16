@@ -38,7 +38,7 @@ class TrendQuestion < ActiveRecord::Base
   before_save :update_restaurants_and_employments_from_search_criteria
   
   def self.title
-    "Trend Question"
+    "What's New"
   end
 
   def inbox_title
