@@ -58,13 +58,10 @@
                 <div class="a_la_minute_question" id="alm_<%= index %>">
                     <!-- AddThis Button BEGIN -->
                     <div class="addthis_toolbox">
-                      <script type="text/javascript">
-                          var addthis_share = {
-                              url: '<%= soapbox_a_la_minute_question_url(question) %>',
-                              title: 'A la Minute - <%= question.question %>'
-                          }
-                      </script>
-                      <a href="http://www.addthis.com/bookmark.php?v=250&amp;username=unpluggedria" class="addthis_button">Share</a>
+                      <a href="http://www.addthis.com/bookmark.php?v=250&amp;username=unpluggedria"
+                         class="addthis_button"
+                         addthis:url="<%= soapbox_a_la_minute_question_url(question) %>"
+                         addthis:title='A la Minute - <%= question.question %>'>Share</a>
                     </div>
                     <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#username=unpluggedria"></script>
                     <!-- AddThis Button END -->
@@ -103,16 +100,14 @@
                 <div class="promotion" id="news_<%= index %>">
                     <!-- AddThis Button BEGIN -->
                     <div class="addthis_toolbox">
-                      <script type="text/javascript">
-                          var addthis_share = {
-                              url: '<%= soapbox_promotions_url(:promotion_type_id => promotion.promotion_type_id, :anchor => "promotion_#{promotion.id}") %>',
-                              title: 'Newsfeed - <%= promotion.title %>'
-                          }
-                      </script>
-                      <a href="http://www.addthis.com/bookmark.php?v=250&amp;username=unpluggedria" class="addthis_button">Share</a>
+                      <a href="http://www.addthis.com/bookmark.php?v=250&amp;username=unpluggedria"
+                         class="addthis_button"
+                         addthis:url="<%= soapbox_promotions_url(:promotion_type_id => promotion.promotion_type_id, :anchor => "promotion_#{promotion.id}") %>"
+                         addthis:title='Newsfeed - <%= promotion.title %>'>Share</a>
                     </div>
                     <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#username=unpluggedria"></script>
                     <!-- AddThis Button END -->
+
                     <h3><%= link_to "#{promotion.title}: #{promotion.start_date.to_formatted_s(:long)}", soapbox_promotions_path(:promotion_type_id => promotion.promotion_type_id, :anchor => "promotion_#{promotion.id}") %></h3>
                     <div>
                         <%= render :partial => 'restaurants/identity', :locals => { :restaurant => promotion.restaurant } %>
@@ -144,16 +139,14 @@
                 <div class="profile_question" id="btl_<%= index %>">
                     <!-- AddThis Button BEGIN -->
                     <div class="addthis_toolbox">
-                      <script type="text/javascript">
-                          var addthis_share = {
-                              url: '<%= soapbox_question_url(answer.profile_question) %>',
-                              title: 'Behind the Line - <%= answer.profile_question.title %>'
-                          }
-                      </script>
-                      <a href="http://www.addthis.com/bookmark.php?v=250&amp;username=unpluggedria" class="addthis_button">Share</a>
+                      <a href="http://www.addthis.com/bookmark.php?v=250&amp;username=unpluggedria"
+                         class="addthis_button"
+                         addthis:url="<%= soapbox_question_url(answer.profile_question) %>"
+                         addthis:title='Behind the Line - <%= answer.profile_question.title %>'>Share</a>
                     </div>
                     <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#username=unpluggedria"></script>
                     <!-- AddThis Button END -->
+
                     <h3>Topic: <%= answer.profile_question.topic.title %></h3>
                     <h4><%= link_to answer.profile_question.title, soapbox_question_path(answer.profile_question) %></h4>
                     <div>
@@ -187,13 +180,10 @@
                 <div class="soapbox_entry" id="frontburner_<%= index %>">
                     <!-- AddThis Button BEGIN -->
                     <div class="addthis_toolbox">
-                      <script type="text/javascript">
-                          var addthis_share = {
-                              url: '<%= soapbox_soapbox_entry_url(question) %>',
-                              title: 'Front Burner - <%= message(question.featured_item) %>'
-                          }
-                      </script>
-                      <a href="http://www.addthis.com/bookmark.php?v=250&amp;username=unpluggedria" class="addthis_button">Share</a>
+                      <a href="http://www.addthis.com/bookmark.php?v=250&amp;username=unpluggedria"
+                         class="addthis_button"
+                         addthis:url="<%= soapbox_soapbox_entry_url(question) %>"
+                         addthis:title='Front Burner - <%= message(question.featured_item) %>'>Share</a>
                     </div>
                     <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#username=unpluggedria"></script>
                     <!-- AddThis Button END -->
