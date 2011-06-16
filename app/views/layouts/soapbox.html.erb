@@ -10,13 +10,10 @@
   <meta name="author" content="Restaurant Intelligence Agency">
   <meta property="og:description" content="<%= h(yield(:fb_description) || "")  %>" />
   <link rel="shortcut icon" href="/favicon-sb.ico">
-  <link rel="stylesheet" href="/soapbox/_css/soapbox.css?v=1" media="screen">
-  <link rel="stylesheet" href="/stylesheets/colorbox.css?v=1" media="screen">
-  <link rel="stylesheet" href="/soapbox/_css/print.css?v=1" media="print">
-  <link rel="stylesheet" href="/soapbox/_css/museoslab/stylesheet.css?v=1">
-  <link rel="stylesheet" href="/soapbox/_css/knockout/stylesheet.css?v=1">
+  <%= stylesheet_link_tag "/soapbox/_css/soapbox.css", "colorbox.css", :media => "screen" %>
+  <%= stylesheet_link_tag "/soapbox/_css/print.css", :media => "print" %>
+  <%= stylesheet_link_tag "/soapbox/_css/museoslab/stylesheet.css", "/soapbox/_css/knockout/stylesheet.css" %>
   <%= yield(:head) %>
-  
 </head>
 <!--[if lt IE 7 ]> <body class="ie6"> <![endif]-->
 <!--[if IE 7 ]>    <body class="ie7"> <![endif]-->
