@@ -17,9 +17,13 @@ module CommentsHelper
   end
   
   def title_and_restaurant(comment)
-      comment.restaurant.present? ? 
-        "#{comment.employment.restaurant_role.try(:name)} at #{restaurant_link(comment.restaurant)}" :
-        "#{comment.employment.restaurant_role.try(:name)}"
+      if comment.restaurant.present?
+        "#{comment.employment.restaurant_role.try(:name)} at #{restaurant_link(comment.restaurant)}"
+      elsif comment.employment.solo_restaurant_name.present?
+        "#{comment.employment.restaurant_role.try(:name)} at #{comment.employment.solo_restaurant_name}"
+      else
+        comment.employment.restaurant_role.try(:name)
+      end
   end
   
   def title_and_restaurant_name_for resource, user
