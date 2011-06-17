@@ -108,7 +108,9 @@
                     <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#username=unpluggedria"></script>
                     <!-- AddThis Button END -->
 
-                    <h3><%= link_to "#{promotion.title}: #{promotion.start_date.to_formatted_s(:long)}", soapbox_promotions_path(:promotion_type_id => promotion.promotion_type_id, :anchor => "promotion_#{promotion.id}") %></h3>
+                    <h3><% link_to soapbox_promotions_path(:promotion_type_id => promotion.promotion_type_id, :anchor => "promotion_#{promotion.id}") do %>
+                        <%= "#{promotion.title}: #{promotion.start_date.to_formatted_s(:long)}" %> <%= "- #{promotion.end_date.to_formatted_s(:long)}" if promotion.end_date.present? %>
+                    <% end %></h3>
                     <div>
                         <%= render :partial => 'restaurants/identity', :locals => { :restaurant => promotion.restaurant } %>
                         <p class="details"><%= promotion.details %></p>
