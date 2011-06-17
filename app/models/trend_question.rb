@@ -106,7 +106,7 @@ class TrendQuestion < ActiveRecord::Base
       (commentable_id IN (?) AND commentable_type = 'SoloDiscussion')",
       admin_discussions.with_replies.all(:select => "id").map { |d| d.id },
       solo_discussions.with_replies.all(:select => "id").map { |d| d.id }],
-      :include => includes)
+      :include => includes, :group => 'comments.id')
   end
 
   def last_comment
