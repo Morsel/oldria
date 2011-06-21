@@ -3,9 +3,10 @@
 <% div_for(comment) do %>
     <div class="details comment-author">
         <%= image_tag(comment.user.avatar.url(:thumb), :alt => "#{comment.user.name}'s Profile Photo") %>
-        <%= restaurant_link(comment.restaurant) if comment.restaurant.present? %><br/>
         <%= link_to_if comment.user.linkable_profile?, comment.user.name_or_username, soapbox_profile_path(comment.user.username), :class => "user-name" %><br/>
-        <%= comment.user.primary_employment.restaurant_role.try(:name) if comment.user.primary_employment %>
+        <%= comment.user.primary_employment.restaurant_role.try(:name) if comment.user.primary_employment %><br/>
+        <%= restaurant_names_for_user(comment.user) %><br/>
+        <%= comment.user.primary_employment.try(:restaurant).try(:city_and_state) || comment.user.try(:profile).try(:current_residence) %>
     </div>
     <div class="user_comment"><%= simple_format(comment.comment) %></div>
 <% end %>
@@ -14,7 +15,10 @@
 
 <% div_for(comment) do %>
     <header>
-        <%= link_to_if comment.user.linkable_profile?, comment.user.name_or_username, soapbox_profile_path(comment.user.username) %>, <%= title_and_restaurant(comment) %>, said:
+        <%= link_to_if comment.user.linkable_profile?, comment.user.name_or_username, soapbox_profile_path(comment.user.username) %><br/>
+        <%= comment.user.primary_employment.restaurant_role.try(:name) if comment.user.primary_employment %><br/>
+        <%= restaurant_names_for_user(comment.user) %><br/>
+        <%= comment.user.primary_employment.try(:restaurant).try(:city_and_state) || comment.user.try(:profile).try(:current_residence) %>
     </header>
     <p>
         <%= image_tag(comment.user.avatar.url(:thumb), :alt => "#{comment.user.name}'s Profile Photo") %>

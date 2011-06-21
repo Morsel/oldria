@@ -26,7 +26,7 @@ class Soapbox::SoapboxController < ApplicationController
 
   def directory_search
     directory_search_setup
-    render :partial => "directory/search_results"
+    render :partial => "directory/search_results", :locals => { :users => @users }
   end
 
   def restaurant_directory

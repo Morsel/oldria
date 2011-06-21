@@ -113,14 +113,6 @@
             <%= f.input :smoking, :as => :select, :collection => smoking_options %>
             <%= f.input :concept, :as => :select, :collection => concept_options %>
             <%= f.input :entertainments, :as => :check_boxes, :collection => RestaurantFactSheet::ENTERTAINMENT_OPTIONS %>
-            <!-- <ol> -->
-            <!--   <% RestaurantFactSheet::ENTERTAINMENT_OPTIONS.each do |eo| %> -->
-            <!--     <li> -->
-            <!--       <%= label_tag "restaurant_fact_sheet[entertainment][#{eo}]", eo, :id => eo %> -->
-            <!--       <%= check_box_tag "restaurant_fact_sheet[entertainment][#{eo}]", eo, true %> -->
-            <!--     </li> -->
-            <!--   <% end %> -->
-            <!-- </ol> -->
          <% end %>
 
           <% f.buttons do %>

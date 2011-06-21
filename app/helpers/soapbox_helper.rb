@@ -11,7 +11,7 @@ module SoapboxHelper
 
   def soapbox_tabby_title(featured_item)
     if featured_item.is_a?(TrendQuestion)
-      "<h1>#{link_to 'Trend Identified', soapbox_soapbox_entry_path(featured_item.soapbox_entry)}</h1>"
+      "<h1 class='trend'>#{link_to 'What\'s New', soapbox_soapbox_entry_path(featured_item.soapbox_entry)}</h1>"
     elsif featured_item.is_a?(Admin::Qotd)
       "<h1 class='qotd'>#{link_to 'Question of the Day', soapbox_soapbox_entry_path(featured_item.soapbox_entry)}</h1>"
     end
@@ -75,8 +75,8 @@ module SoapboxHelper
   def load_homepage_feeds
     @alm_questions = ALaMinuteQuestion.most_recent_for_soapbox(4)
     @promotions = Promotion.from_premium_restaurants.current.all(:limit => 4)
-    @btl_questions = ProfileQuestion.without_travel.recently_answered.answered_by_premium_users[0...4]
-    @soapbox_entries = SoapboxEntry.published(:limit => 4, :order => "created_at DESC")
+    @btl_answers = ProfileAnswer.without_travel.from_premium_users.from_public_users.recently_answered[0...4]
+    @soapbox_entries = SoapboxEntry.published.all(:limit => 4, :order => "created_at DESC")
   end
 
 end

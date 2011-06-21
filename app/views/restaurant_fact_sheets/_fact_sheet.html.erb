@@ -104,8 +104,8 @@
 
       <% content_tag(:li) do %>
         Wine by the Bottle:
-        <strong><%= price_range(fact_sheet.wine_by_the_bottle_max_price, fact_sheet.wine_by_the_bottle_max_price) %></strong>
-      <% end unless fact_sheet.wine_by_the_bottle_max_price.blank? && fact_sheet.wine_by_the_bottle_max_price.blank?  %>
+        <strong><%= price_range(fact_sheet.wine_by_the_bottle_min_price, fact_sheet.wine_by_the_bottle_max_price) %></strong>
+      <% end unless fact_sheet.wine_by_the_bottle_min_price.blank? && fact_sheet.wine_by_the_bottle_max_price.blank?  %>
 
       <% content_tag(:li) do %>
         Wine by the bottle details:

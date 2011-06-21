@@ -22,13 +22,20 @@ class ProfileAnswer < ActiveRecord::Base
   attr_accessor :post_to_facebook, :share_url
   after_save    :post_to_facebook
 
-  named_scope :from_premium_users, lambda {
-    {
-      :joins => { :user => :subscription },
-      :conditions => ["subscriptions.id IS NOT NULL AND (subscriptions.end_date IS NULL OR subscriptions.end_date >= ?)",
-          Date.today]
-    }
+  named_scope :from_premium_users, {
+    :joins => { :user => :subscription },
+    :conditions => ["subscriptions.id IS NOT NULL AND (subscriptions.end_date IS NULL OR subscriptions.end_date >= ?)",
+      Date.today]
   }
+
+  named_scope :from_public_users, {
+    :joins => "INNER JOIN preferences ON `profile_answers`.user_id = `preferences`.owner_id",
+    :conditions => ["`preferences`.owner_type = 'User' AND `preferences`.name = 'receive_email_notifications' AND `preferences`.value = ?", true]
+  }
+
+  named_scope :recently_answered, :order => "profile_answers.created_at DESC"
+  named_scope :without_travel, :joins => { :profile_question => { :chapter => :topic }},
+      :conditions => ["topics.title != ?", "Travel Guide"]
 
   def post_to_facebook
     name = self.user.respond_to?(:name) ? self.user.name : ""

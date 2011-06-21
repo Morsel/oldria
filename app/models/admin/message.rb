@@ -86,7 +86,7 @@ class Admin::Message < ActiveRecord::Base
     includes = deep_includes ? :user : nil
     Comment.scoped(:conditions => ["commentable_id IN (?) AND commentable_type = 'Admin::Conversation'",
       admin_conversations.all(:select => "id").map { |d| d.id }],
-      :include => includes)
+      :include => includes, :group => "comments.id")
   end
 
   def last_comment

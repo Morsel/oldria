@@ -77,9 +77,6 @@ class Employment < ActiveRecord::Base
   named_scope :public_profile_only, :conditions => { :public_profile => true }
   named_scope :by_position, :order => "position ASC"
 
-  ### Preferences ###
-  preference :post_to_soapbox, :default => true # FIXME deprecated: remove after spoonfeed deploy
-
   def employee_name
     @employee_name ||= employee && employee.name
   end

@@ -1222,7 +1222,6 @@ body,html,#container,#main,#content,#inside{
 		float:left;
 		&:first-child{
 			margin-right:5px;
-			padding-top: 10px;
 		}
 	}
 	.ui-state-active a, a:hover{
@@ -1502,7 +1501,7 @@ p.search_filter_hint {
 		@include hiddentext;
 		width:205px;
 		height:100px;
-		background:url(/images/soapbox/label-trend.png) no-repeat;
+		background:url(/images/soapbox/label-trend-new.png) no-repeat;
 		float:left;
 		margin:0 0 0 -30px;
 	}
@@ -1521,7 +1520,7 @@ p.search_filter_hint {
 		@include hiddentext;
 		width:205px;
 		height:100px;
-		background:url(/images/soapbox/label-trend.png) no-repeat;
+		background:url(/images/soapbox/label-trend-new.png) no-repeat;
 		float:left;
 		margin:0 0 0 -33px;
 		&.qotd{
