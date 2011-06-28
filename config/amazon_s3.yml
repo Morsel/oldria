@@ -3,17 +3,17 @@ development:
   app_name: ria
   # You must create the s3_bucket specified below via an external tool like S3 Browser, etc
   s3_bucket: ria-spoonfeed-backup-dev
-  aws_access_key_id: AKIAILTU3LUR6KLQ2ODQ
-  aws_secret_access_key: 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
+  aws_access_key_id: AKIAJOUV45SFLBRGHRXA
+  aws_secret_access_key: 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
 
 staging:
   app_name: ria
   s3_bucket: ria-spoonfeed-backup-staging
-  aws_access_key_id: AKIAILTU3LUR6KLQ2ODQ
-  aws_secret_access_key: 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
+  aws_access_key_id: AKIAJOUV45SFLBRGHRXA
+  aws_secret_access_key: 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
 
 production:
   app_name: ria
   s3_bucket: ria-spoonfeed-backup-production
-  aws_access_key_id: AKIAILTU3LUR6KLQ2ODQ
-  aws_secret_access_key: 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
+  aws_access_key_id: AKIAJOUV45SFLBRGHRXA
+  aws_secret_access_key: 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
