@@ -4,7 +4,6 @@ set :scm, :git
 set :repository,  "git@github.com:elevatedrails/ria.git"
 set :branch, (ENV["DEPLOY_BRANCH"] || 'master')
 set :git_enable_submodules, 1
-set :deploy_via, :remote_cache
 set :use_sudo, false
 
 default_run_options[:pty] = true
