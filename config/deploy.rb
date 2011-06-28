@@ -1,7 +1,7 @@
 set :application, "ria"
 
 set :scm, :git
-set :repository,  "git@github.com:neotericdesign/spoonfeed.git"
+set :repository,  "git@github.com:elevatedrails/ria.git"
 set :branch, (ENV["DEPLOY_BRANCH"] || 'master')
 set :git_enable_submodules, 1
 set :deploy_via, :remote_cache
