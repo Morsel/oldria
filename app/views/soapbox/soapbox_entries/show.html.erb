@@ -3,10 +3,9 @@
 <%= @feature_comments.collect { |comment| comment.user.name.to_s + ": " + truncate(comment.comment.to_s) }.join("; ") -%>
 <% end if @feature_comments -%>
 <% content_for :facebook_meta do -%>
-<meta property="og:type" content="article"/>
+  <meta property="og:type" content="article"/>
   <meta property="og:image" content=""/>
   <meta property="og:url" content="<%= soapbox_soapbox_entry_url(@feature.soapbox_entry) %>"/>
-  <meta property="fb:app_id" content="7b651e84a6eb8a5824913467c569aaac"/>
 <% end -%>
 
 <article id="trend-article">
@@ -25,7 +24,7 @@
       <!-- Likes and Tweets BEGIN -->
       <script src="http://platform.twitter.com/widgets.js" type="text/javascript"></script>
       <a href="http://twitter.com/share" class="twitter-share-button">Tweet</a>
-      <iframe src="http://www.facebook.com/plugins/like.php?href=<%= URI.escape soapbox_soapbox_entry_url(@feature.soapbox_entry) %>&amp;layout=button_count&amp;show_faces=false&amp;width=154&amp;action=like&amp;font=lucida+grande&amp;colorscheme=light&amp;height=auto" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:90px; height:20px;" allowTransparency="true"></iframe>
+      <iframe src="http://www.facebook.com/plugins/like.php?href=<%= URI.escape soapbox_soapbox_entry_url(@feature.soapbox_entry) %>&amp;layout=button_count&amp;show_faces=false&amp;width=154&amp;action=like&amp;font=lucida+grande&amp;colorscheme=light&amp;height=auto&amp;ref=fb_show_<%= @feature.soapbox_entry.id %>" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:90px; height:20px;" allowTransparency="true"></iframe>
       <!-- Likes and Tweets END -->
     </div>
   </header>
