@@ -17,6 +17,10 @@
     <div class="details">
       <time datetime="<%= feature.soapbox_entry.published_at.strftime('%Y-%m-%d') %>"><%= feature.soapbox_entry.published_at.try(:strftime, "%b %e, %Y") %></time>
       <h2><%= link_to message(feature), soapbox_soapbox_entry_path(feature.soapbox_entry) %></h2>
+      <!-- Likes and Tweets BEGIN -->
+      <a href="http://twitter.com/share?url=<%= URI.escape soapbox_soapbox_entry_url(feature.soapbox_entry) %>" class="twitter-share-button">Tweet</a>
+      <fb:like href="<%= soapbox_soapbox_entry_url(feature.soapbox_entry) %>" layout="button_count" show_faces="false" width="90" height="20" action="like" colorscheme="light"></fb:like>
+      <!-- Likes and Tweets END -->
     </div>
   </article>
   <% if feature_comments %>

@@ -63,7 +63,6 @@
                          addthis:url="<%= soapbox_a_la_minute_question_url(question) %>"
                          addthis:title='A la Minute - <%= question.question %>'>Share</a>
                     </div>
-                    <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#username=unpluggedria"></script>
                     <!-- AddThis Button END -->
 
                     <h3><%= link_to question.question, soapbox_a_la_minute_question_path(question) %></h3>
@@ -105,7 +104,6 @@
                          addthis:url="<%= soapbox_promotions_url(:promotion_type_id => promotion.promotion_type_id, :anchor => "promotion_#{promotion.id}") %>"
                          addthis:title='Newsfeed - <%= promotion.title %>'>Share</a>
                     </div>
-                    <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#username=unpluggedria"></script>
                     <!-- AddThis Button END -->
 
                     <h3><% link_to soapbox_promotions_path(:promotion_type_id => promotion.promotion_type_id, :anchor => "promotion_#{promotion.id}") do %>
@@ -146,7 +144,6 @@
                          addthis:url="<%= soapbox_question_url(answer.profile_question) %>"
                          addthis:title='Behind the Line - <%= answer.profile_question.title %>'>Share</a>
                     </div>
-                    <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#username=unpluggedria"></script>
                     <!-- AddThis Button END -->
 
                     <h3>Topic: <%= answer.profile_question.topic.title %></h3>
