@@ -2,6 +2,12 @@
 <% content_for :fb_description do -%>
 <%= @feature_comments.collect { |comment| comment.user.name.to_s + ": " + truncate(comment.comment.to_s) }.join("; ") -%>
 <% end if @feature_comments -%>
+<% content_for :head do -%>
+<meta property="og:type" content="article"/>
+<meta property="og:image" content=""/>
+<meta property="og:url" content="<%= soapbox_soapbox_entry_url(@feature.soapbox_entry) %>"/>
+<meta property="fb:app_id" content="7b651e84a6eb8a5824913467c569aaac"/>
+<% end -%>
 
 <article id="trend-article">
   <!-- AddThis Button BEGIN --> 
