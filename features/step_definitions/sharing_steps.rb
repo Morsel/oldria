@@ -3,8 +3,8 @@ Then /^I should see addThis button$/ do
 end
 
 Then /^I should see two addThis buttons$/ do
-  response.should have_selector('#qotd') 
-  response.should have_selector('#trend')
+  response.should have_selector('#question-of-the-day .addthis_button')
+  response.should have_selector('#trend-identified .addthis_button')
 end
 
 Then /^addThis button should have public link$/ do
