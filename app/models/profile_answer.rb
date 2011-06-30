@@ -30,7 +30,7 @@ class ProfileAnswer < ActiveRecord::Base
 
   named_scope :from_public_users, {
     :joins => "INNER JOIN preferences ON `profile_answers`.user_id = `preferences`.owner_id",
-    :conditions => ["`preferences`.owner_type = 'User' AND `preferences`.name = 'receive_email_notifications' AND `preferences`.value = ?", true]
+    :conditions => ["`preferences`.owner_type = 'User' AND `preferences`.name = 'publish_profile' AND `preferences`.value = ?", true]
   }
 
   named_scope :recently_answered, :order => "profile_answers.created_at DESC"
