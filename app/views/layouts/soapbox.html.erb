@@ -4,11 +4,16 @@
   <meta charset="utf-8">
   <!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"><![endif]-->
   <!--[if lt IE 9]>
-    <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
   <![endif]-->
-  <title><%= h(yield(:title) || "Untitled") %> - Soapbox<%= @append || "" %> - Restaurant Intelligence Agency</title>
+  <%- title = h(yield(:title) || "Untitled") -%>
+  <title><%= title -%> - Soapbox<%= @append || "" %> - Restaurant Intelligence Agency</title>
   <meta name="author" content="Restaurant Intelligence Agency">
+  <meta property="og:site_name" content="Soapbox - Restaurant Intelligence Agency" />
+  <meta property="og:title" content="<%= title %>">
   <meta property="og:description" content="<%= h(yield(:fb_description) || "")  %>" />
+  <%= yield(:facebook_meta) %>
+  <meta property="fb:app_id" content="<%= RAILS_ENV == 'staging' ? '138436116175329' : '147177445296317' %>"/>
   <link rel="shortcut icon" href="/favicon-sb.ico">
   <%= stylesheet_link_tag "/soapbox/_css/soapbox.css", "colorbox.css", :media => "screen" %>
   <%= stylesheet_link_tag "/soapbox/_css/print.css", :media => "print" %>
