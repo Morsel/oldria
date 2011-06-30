@@ -181,7 +181,7 @@ body,html,#container,#main,#content,#inside{
 	display:none !important;
 }
 
-.addthis_toolbox{
+.addthis_toolbox {
 	float: right;
   display:inline-block;
   .addthis_button {
@@ -1543,6 +1543,14 @@ p.search_filter_hint {
 			margin: 10px 0;
 		}
 	}
+  div.sharing {
+    margin-left: 190px;
+    margin-top: 10px;
+    clear: none;
+    .fb_iframe_widget {
+      top: -3px
+    }
+  }
 }
 
 #fb-comments {
@@ -1586,7 +1594,16 @@ p.search_filter_hint {
 	p{
 		line-height:1.5;
 	}
+  div.sharing {
+    margin-left: 190px;
+    margin-top: 10px;
+    clear: none;
+    .fb_iframe_widget {
+      top: -3px
+    }
+  }
 }
+
 #question-of-the-day-details{
   div.details {
     p {
