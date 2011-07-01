@@ -79,4 +79,8 @@ module SoapboxHelper
     @soapbox_entries = SoapboxEntry.published.all(:limit => 4, :order => "created_at DESC")
   end
 
+  def recent_newsfeed
+    Promotion.from_premium_restaurants.current
+  end
+
 end
