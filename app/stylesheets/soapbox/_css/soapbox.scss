@@ -2962,9 +2962,15 @@ dl.things dt:after {content: ":"}
 
 .promotion {
   .identity {
-    border: none;
+    border: none !important;
   }
   p.details {
     font-size: 110%;
+  }
+  .sharing {
+    margin-top: 10px;
+    .fb_iframe_widget {
+      top: -3px
+    }
   }
 }

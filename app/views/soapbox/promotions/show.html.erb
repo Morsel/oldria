@@ -1,0 +1,41 @@
+<% title "Newsfeed: #{@promotion.promotion_type.name}" %>
+<% content_for :facebook_meta do -%>
+  <meta property="og:type" content="article"/>
+  <meta property="og:image" content="http://soapbox.restaurantintelligenceagency.com/images/soapbox/logo-soapbox.png"/>
+  <meta property="og:url" content="<%= soapbox_promotion_url(@promotion) %>"/>
+<% end -%>
+<% content_for :fb_description do -%>
+<%= @promotion.details %>
+<% end if -%>
+
+<% div_for(@promotion) do %>
+    <!-- AddThis Button BEGIN -->
+    <div class="addthis_toolbox">
+        <script type="text/javascript">
+        var addthis_share = {
+            url: '<%= soapbox_promotion_url(@promotion) %>',
+            title: 'Newsfeed - <%= @promotion.title %>'
+        }
+        </script>
+        <a href="http://www.addthis.com/bookmark.php?v=250&amp;username=unpluggedria" class="addthis_button">Share</a>
+    </div>
+    <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#username=unpluggedria"></script>
+    <!-- AddThis Button END -->
+
+    <%= render :partial => 'restaurants/identity', :locals => { :restaurant => @promotion.restaurant } %>
+    <div>
+        <p class="details"><%= @promotion.details %></p>
+        <p><%= link_to @promotion.link, @promotion.link %></p>
+        <p><%= @promotion.start_date.to_formatted_s(:long) %> <%= "- #{@promotion.end_date.to_formatted_s(:long)}" if @promotion.end_date.present? %> <%= "- #{@promotion.date_description}" if @promotion.date_description.present? %></p>
+    </div>
+    <!-- Likes and Tweets BEGIN -->
+    <div class="sharing">
+        <script src="http://connect.facebook.net/en_US/all.js#xfbml=1"></script>
+        <fb:like href="<%= soapbox_promotion_url(@promotion) %>" layout="button_count" show_faces="false" width="90" height="20" action="like" colorscheme="light"></fb:like>
+
+        <script src="http://platform.twitter.com/widgets.js" type="text/javascript"></script>
+        <a href="http://twitter.com/share" class="twitter-share-button">Tweet</a>
+    </div>
+    <!-- Likes and Tweets END -->
+    <div class="clear">&nbsp;</div>
+<% end %>

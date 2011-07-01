@@ -9,4 +9,8 @@ class Soapbox::PromotionsController < ApplicationController
     end
   end
 
+  def show
+    @promotion = Promotion.find(params[:id])
+  end
+
 end
