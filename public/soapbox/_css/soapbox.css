@@ -3585,7 +3585,7 @@ dl.things dt:after {
   font-style: italic;
 }
 /* line 2604, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
-.a_la_minute_question .datestamp a, .a_la_minute_answer .datestamp a {
+.a_la_minute_question .datestamp, .a_la_minute_answer .datestamp {
   color: #ccc;
 }
 
