@@ -3572,20 +3572,20 @@ dl.things dt:after {
 }
 
 /* line 2595, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
-.a_la_minute_question {
+.a_la_minute_question, .a_la_minute_answer {
   margin-bottom: 1em;
 }
 /* line 2597, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
-.a_la_minute_question .identity {
+.a_la_minute_question .identity, .a_la_minute_answer .identity {
   border: none !important;
 }
 /* line 2600, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
-.a_la_minute_question .answer {
+.a_la_minute_question .answer, .a_la_minute_answer .answer {
   font-size: 110%;
   font-style: italic;
 }
 /* line 2604, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
-.a_la_minute_question .datestamp {
+.a_la_minute_question .datestamp a, .a_la_minute_answer .datestamp a {
   color: #ccc;
 }
 
