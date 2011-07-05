@@ -30,8 +30,8 @@ config.action_view.cache_template_loading            = true
 
 Braintree::Configuration.environment = :production
 Braintree::Configuration.merchant_id = "3fb27hjyr2pj4mkh"
-Braintree::Configuration.public_key = "8prvwthxmkmtcpt7"
-Braintree::Configuration.private_key = "2xkncs7ptjyytgqd"
+Braintree::Configuration.public_key = "8946tj2vb98yf6xq"
+Braintree::Configuration.private_key = "tkjvt5wph2m5qh33"
 
 config.action_mailer.delivery_method = :emailthing
 
