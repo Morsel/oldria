@@ -1,5 +1,4 @@
 <% content_tag_for(:li, answer.responder, :answer_for, :class => 'a_la_minute_answer') do %>
   <%= link_to_if answer.responder.linkable_profile?, answer.responder.name, soapbox_restaurant_path(answer.responder) %> says: <%= h answer.answer %>
-  <p class="datestamp"><%= "Posted #{answer.created_at.strftime("%D")}" %></p>
-  <p><%= link_to "Share this entry", soapbox_a_la_minute_answer_path(answer) %></p>
+  <p><span class="datestamp"><%= "Posted #{answer.created_at.strftime("%D")}" %></span> - <%= link_to "Share this entry", soapbox_a_la_minute_answer_path(answer) %></p>
 <% end %>
