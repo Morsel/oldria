@@ -12,7 +12,7 @@
 class RestaurantFeature < ActiveRecord::Base
 
   belongs_to :restaurant_feature_category, :include => :restaurant_feature_page
-  has_many :restaurant_feature_items
+  has_many :restaurant_feature_items, :dependent => :destroy
   has_many :restaurants, :through => :restaurant_feature_items
 
   validates_presence_of :value
