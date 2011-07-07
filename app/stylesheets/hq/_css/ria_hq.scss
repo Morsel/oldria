@@ -51,7 +51,7 @@ a img{ border:0; }
 	#logo {
 		position: absolute;
 		margin-top: 12px;
-		margin-left: -12px;
+		margin-left: -12px; /* 390px for center alignment */
 		width: 166px;
 		height: 167px;
 		background: transparent url(/images/ria/ria-logo.png) no-repeat;
@@ -120,151 +120,60 @@ a img{ border:0; }
 	}
 } /* ## end of site_header ---------------------- */
 
-
-
-#jumbotron_wrapper {
-	position: relative;
-	@include column(20);
-	border-bottom: 6px solid $tomato;
-	height: 400px;
-	margin-top: -15px;
-	margin-bottom: 30px;
-	#jumbotron {
-		width: 810px;
-		height: 400px;
-		article {
-			display: block;
-			height: 400px;
-		}
-	}
-	#jumbo_promo {
-		position: absolute;
-		bottom: 0;
-		margin-left: 15px;
-		width: 264px;
-		height: 240px;
-		padding: 15px;
-		background: transparent url(/images/ria/bg-tomato-86.png) repeat;
-		z-index: 100;
-		h1 {
-			@include gotham;
-			font-weight: bold;
-			font-size: 24px;
-			line-height: 29px;
-			margin: 0 0 10px 0;
-			color: #fff;
-			a {
-				display: block;
-				color: #fff;
-				text-shadow: 0 1px 0 #9b2b00;
-				&:hover {
-					color: #ffd2c0;
-					color: rgba(255,255,255,.7);
-					text-shadow: 0 2px 2px #9b2b00;
-				}
-			}
-		}
-		p {
-			@include gotham;
-			font-weight: normal;
-			font-size: 14px;
-			line-height: 20px;
-			color: #fff;
-			a {
-				font-weight: bold;
-				color: #fff;
-				&:hover {
-					text-shadow: 0 2px 2px #7c2301;
-					color: #fff;
-					color: rgba(255,255,255,0.8);
-				}
-			}
-		}	
-		
-	}
-	#controller {
-		display: block;
-		position: absolute;
-		margin-left: 15px;
-		bottom: 0;
-		width: 264px;
-		z-index:101;
-		padding: 10px 15px;
-		height: 20px;
-		background: $tomato;
-		a {
-			display: block;
-			margin: 4px 0 0;
-			float: left;
-			margin-right: 15px;
-			background-color: #f7b8a0;
-			width: 14px;
-			height: 14px;
-			@include border-radius(20px);
-			@include hiddentext;
-			&.activeSlide {
-				background-color: #fff;
-				@include box-shadow(#000, 0, 1px, 0);
-				&:hover {
-					@include box-shadow(#000, 0, 1px, 0);
-					background-color: #fff;
-				}
-			}
-			&:hover {
-				background-color: #f9dace;
-				@include box-shadow(#7c2301, 0, 2px, 2px);
-			}
-		}
-	}
-} /* ## end of the jumbotron ----------------------- */
-
-
-
+h2.tagline {
+/*  margin-top: 90px;*/
+  @include gotham;
+  text-align: center;
+  font-size: 24px;
+  font-weight: bold;
+  color: #D9531E;
+  margin-bottom: 36px;
+}
 
 #audiences {
-	margin-top: 10px;
+	margin: 10px 0 30px 0;
+	height: 300px;
 	nav {
+	  a:first-child {
+	    margin-left: 0;
+	  }
 		a {
-			width: 164px;
-			float: left;
-			margin-left: -10px;
-			margin-right: 0px;
-			margin-bottom: 10px;
-			padding: 12px 0;
-			color: #fff;
-			background:#5da430;
-			@include linear-gradient(color-stops(#6CB33F,#5da430), left);
-			border-top: 1px solid $medgreen;
-			border-bottom: 1px solid $medgreen;
-			h1 {
-				margin: 0 12px;
+		  margin-left: 24px;
+		  display: block;
+		  float: left;
+			width: 267px;
+			padding: 0 20px;
+			text-align: center;
+	    @include gotham;
+	    color: black;
+		  &#spoonfeed-link {
+  			background-image: url(/images/ria/hq-feature-1.png);
+  			height: 207px;
+  			padding-top: 90px;
+		  }
+		  &#media-link {
+		    background-image: url(/images/ria/hq-feature-2.png);
+  			height: 200px;
+  			padding-top: 97px;
+		  }
+		  &#soapbox-link {
+  			background-image: url(/images/ria/hq-feature-3.png);
+  			height: 180px;
+  			padding-top: 117px;
+		  }
+		  h3 {
 				font-size: 20px;
-				font-weight: normal;
-				font-weight: 500;
-				@include gotham;
-				text-shadow: 0 1px 0 #333;
-			}
-			p {
-				margin: 2px 12px;
-				@include gotham;
-				font-size: 13px;
-				line-height: 17px;
-			}
-			&:hover {
-				background:#eb6835;
-				@include linear-gradient(color-stops(#D9531E,#eb6835), left);
-				border-top: 1px solid #a32e00;
-				border-bottom: 1px solid #a32e00;
-				h1 {
-					color: #fff;
-					color: rgba(255,255,255,0.8);
-					text-shadow: 0 2px 2px #a32e00;
-				}
-				p {
-					color: #fff;
-					color: rgba(255,255,255,0.8);
-				}
-			}
+				line-height: 22px;
+				margin: 10px 0 0;
+				font-weight: bold;
+		    text-shadow: 0 1px 0 #fff;
+		  }
+		  p {
+		    color: #D9531E;
+		    text-shadow: 0 1px 0 #fff;
+        font-size: 16px;
+        margin: 1em 0;
+		  }
 		}
 	}
 } /* ## end of audiences ------------------------ */

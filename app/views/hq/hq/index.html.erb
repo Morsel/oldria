@@ -1,43 +1,22 @@
 <% title "RIA HQ" -%>
 
-<div id="jumbotron_wrapper">
-	<div id="jumbotron">
-		<%= render @hq_slides %>
-	</div><!--#jumbotron-->
-	
-	<div id="jumbo_promo">
-	  <% if @hq_slides.any? -%>
-  		<% unless @hq_slides.first.link.blank? -%>
-  		  <h1><%= link_to @hq_slides.first.title, @hq_slides.first.link %></h1>
-  		<% else -%>
-  		  <h1><%= @hq_slides.first.title %></h1>
-  		<% end -%>
-  		<p><%= @hq_slides.first.excerpt %><% unless @hq_slides.first.link.blank? -%> <%= link_to "learn&nbsp;more&nbsp;&#187;", @hq_slides.first.try(:link) %><% end -%></p>
-  	<% end -%>
-	</div><!--#jumbo_promo-->
-	<nav id="controller"></nav>
-</div><!--#jumbotron_wrapper-->
+<h2 class="tagline">We Connect Restaurants, Media, and Diners</h2>
 
 <div id="audiences">
 	<nav>
-		<% link_to "http://spoonfeed.restaurantintelligenceagency.com/invitations/new" do -%>
-			<h1>Restaurant Personnel</h1>
-			<p>To get started, request an invitation on Spoonfeed.</p>
+		<% link_to "http://spoonfeed.restaurantintelligenceagency.com/invitations/new", :id => "spoonfeed-link", :name => "Spoonfeed" do -%>
+		    <h3>Chefs, Mixologists, Sommeliers</h3>
+		    <p>Connect to the media for free! Communicate to diners online.</p>
 		<% end -%>
-		<% link_to "http://soapbox.restaurantintelligenceagency.com/" do -%>
-			<h1>Diners</h1>
-			<p>Check out Soapbox, our digital magazine written by chefs.</p>
+		<% link_to hq_page_path('media_flag'), :id => "media-link" do -%>
+	        <h3>Food/Beverage Journalists, Authors, Bloggers</h3>
+	        <p>Private, secure direct connection to chefs, mixologists &amp; sommeliers.</p>
 		<% end -%>
-	  <% link_to hq_page_path('media_flag') do -%>
-			<h1>Media</h1>
-			<p>Mediafeed, your portal to the country's most inspiring chefs.</p>
+	    <% link_to "http://soapbox.restaurantintelligenceagency.com/", :id => "soapbox-link" do -%>
+            <h3>Diners</h3>
+	        <p>A backstage pass to the<br/>restaurants you crave.</p>
 		<% end -%>
 	</nav>
 </div><!--#audiences-->
 
-<br clear="all" />
-
-<section id="bottom_promos">
-	<%= render @hq_promos %>
-</section><!--#bottom_promos-->
-
+<div class="clear">&nbsp;</div>
