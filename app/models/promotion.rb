@@ -30,6 +30,9 @@ class Promotion < ActiveRecord::Base
   named_scope :current, :conditions => ["promotions.end_date >= ? OR (promotions.start_date >= ? AND promotions.end_date IS NULL)", Date.today, Date.today],
                         :order => "promotions.start_date ASC"
 
+  named_scope :recently_posted, :conditions => ["promotions.end_date >= ? OR (promotions.start_date >= ? AND promotions.end_date IS NULL)", Date.today, Date.today],
+                                :order => "promotions.created_at DESC"
+
   named_scope :from_premium_restaurants, lambda {
     { :joins => { :restaurant => :subscription },
       :conditions => ["subscriptions.id IS NOT NULL AND (subscriptions.end_date IS NULL OR subscriptions.end_date >= ?)",
