@@ -11,7 +11,7 @@
   <meta name="description" content="Restaurant Intelligence Agency website">
   <meta name="author" content="Restaurant Intelligence Agency">
   <link rel="shortcut icon" href="/favicon-ria.ico">
-  <link rel="stylesheet" href="/hq/_css/ria_hq.css?v=1">
+  <%= stylesheet_link_tag '/hq/_css/ria_hq.css' %>
 
 </head>
 
@@ -33,8 +33,6 @@
 			<nav>
 			  <%= link_to 'Home', hq_root_path, :id => 'navhome', :class => active_page?({:controller => 'hq/hq', :action => 'index'}) %>
 			  <%= link_to 'About', hq_page_path('about'), :id => 'navabout', :class => active_page?('/hq/about') %>
-			  <%= link_to 'Products', hq_page_path('products'), :id => 'navproducts', :class => active_page?('/hq/products') %>
-			  <%= link_to 'Unplugged', 'http://unplugged.restaurantintelligenceagency.com', :id => 'navunplugged' %>
 			  <%= link_to 'Testimonials', hq_page_path('testimonials'), :id => 'navtestimonials', :class => active_page?('/hq/testimonials') %>
 			  <%= link_to 'Contact', hq_page_path('contact'), :id => 'navcontact', :class => active_page?('/hq/contact') %>
 			</nav>			

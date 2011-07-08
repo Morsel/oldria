@@ -1,14 +1,14 @@
 <div id="sidebar">
   <aside id="recent-activity">
     <header>
-      <h1>A La Minute Questions</h1>
+      <h1>Newsfeed</h1>
     </header>
-    <% cache('alm_sidebar', :expires_in => 1.hour) do -%>
-      <ol id="alm-feed">
-          <% for question in @sidebar_questions %>
+    <% cache('newsfeed_sidebar', :expires_in => 1.hour) do -%>
+      <ol id="newsfeed">
+          <% for promotion in recent_newsfeed %>
           <li>
             <header class="feed-item-title">
-                <%= link_to question.question, soapbox_a_la_minute_question_path(question) %>
+                <%= link_to "#{promotion.restaurant.name}: #{promotion.title}", soapbox_promotion_path(promotion) %>
             </header>
           </li>
           <% end %>
@@ -16,9 +16,9 @@
     <% end -%>
     <div id="feed-bottom"></div>
     <footer>
-        <div id="activity-chooser-all">
-          <span><%= link_to "View all &nbsp;&#187;", soapbox_a_la_minute_questions_path, :id => "view-all-questions" %></span>
-        </div>
+      <div id="activity-chooser-all">
+        <span><%= link_to "View all &nbsp;&#187;", soapbox_promotions_path, :id => "view-all-questions" %></span>
+      </div>
     </footer>
   </aside><!-- /recent-activity -->
   <nav id="participate">

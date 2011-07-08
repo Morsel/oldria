@@ -74,7 +74,7 @@ class Restaurant < ActiveRecord::Base
   has_many :accolades, :as => :accoladable
   has_many :a_la_minute_answers, :as => :responder, :dependent => :destroy
 
-  has_many :restaurant_feature_items
+  has_many :restaurant_feature_items, :dependent => :destroy
   has_many :restaurant_features, :through => :restaurant_feature_items,
       :include => {:restaurant_feature_category => :restaurant_feature_page}
 
