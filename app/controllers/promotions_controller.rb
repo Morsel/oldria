@@ -2,8 +2,13 @@ class PromotionsController < ApplicationController
 
   before_filter :find_restaurant
 
+  def index
+    @promotions = @restaurant.promotions.select { |p| p.current? }
+    @past_promotions = @restaurant.promotions.reject { |p| p.current? }
+  end
+
   def new
-    @promotions = @restaurant.promotions
+    @promotions = @restaurant.promotions.all(:order => "created_at DESC")
     @promotion = Promotion.new
   end
 

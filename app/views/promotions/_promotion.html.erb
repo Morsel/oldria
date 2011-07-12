@@ -1,0 +1,13 @@
+<% div_for(promotion) do %>
+    <h3>
+        <% link_to_if soapbox?, soapbox_promotion_path(promotion) do %>
+        <%= "#{promotion.title}: #{promotion.start_date.to_formatted_s(:long)}" %> <%= "- #{promotion.end_date.to_formatted_s(:long)}" if promotion.end_date.present? %>
+        <% end %>
+    </h3>
+
+    <div>
+        <p class="details"><%= promotion.details %></p>
+        <p><%= link_to promotion.link, promotion.link %></p>
+        <p><%= promotion.date_description %></p>
+    </div>
+<% end %>

@@ -122,13 +122,35 @@
   </div><!-- .accolades -->
   <% end %>
 
+  <% if @promotions.present? %>
+  <div id="newsfeed">
+      <h2 id="newsfeed-title"><%= link_to "Newsfeed", soapbox? ? soapbox_promotions_path(:restaurant_id => @restaurant) : restaurant_promotions_path(:restaurant_id => @restaurant) %></h2>
+      <% if @restaurant.employees.include?(current_user) -%>
+      <div class="edit_profile_link">
+          <%= link_to "edit Newsfeed", new_restaurant_promotion_path(:restaurant_id => @restaurant) %>
+      </div>
+      <% end -%>
+
+      <div id="promotions">
+          <% for promotion in @promotions -%>
+          <% div_for(promotion) do %>
+            <h3><%= link_to_if soapbox?, promotion.title, soapbox_promotion_path(promotion) %></h3>
+            <p><%= truncate promotion.details %></p>
+            <p><%= link_to promotion.link, promotion.link %></p>
+            <p><%= promotion.start_date.to_formatted_s(:long) %> <%= "- #{promotion.end_date.to_formatted_s(:long)}" if promotion.end_date.present? %> <%= "- #{promotion.date_description}" if promotion.date_description.present? %></p>
+          <% end %>
+          <% end -%>
+      </div>
+  </div><!--#newsfeed-->
+  <% end %>
+
   <% if @restaurant.fact_sheet.info_exists? %>
     <div id="extended_profile_container" class="clear">
       <a href="#extended_profile" class="showit">View Restaurant Fact Sheet <em>(Parking &amp; Directions, Pricing, Hours, etc)</em></a>
       <%= render 'restaurant_fact_sheets/fact_sheet', :fact_sheet => @restaurant.fact_sheet %>
     </div><!-- #extended_profile_container -->
   <% end %>
-  
+
   <% if @questions.present? %>
   <div id="a_la_minute">
     <h3 id="alm-title">A La Minute Questions</h3>

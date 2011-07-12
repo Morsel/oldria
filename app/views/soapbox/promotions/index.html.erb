@@ -1,4 +1,4 @@
-<% title @promotion_type.present? ? "Newsfeed: #{@promotion_type.name}" : "Newsfeed" %>
+<% title newsfeed_title %>
 
 <% for promotion in @promotions -%>
 <% div_for(promotion) do %>
@@ -35,6 +35,10 @@
     </div>
     <div class="clear">&nbsp;</div>
 <% end %>
+<% end -%>
+
+<% unless params[:view_all] == "true" -%>
+<p><%= link_to "View archived news &rarr;", soapbox_promotions_path(params.merge(:view_all => "true")) %></p>
 <% end -%>
 
 <% content_for :sidebar do -%>

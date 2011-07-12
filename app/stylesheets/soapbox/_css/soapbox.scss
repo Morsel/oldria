@@ -2552,6 +2552,20 @@ dl.things dt:after {content: ":"}
 
 } /* ## ---- end of restaurant_profile_view ----- */
 
+#newsfeed {
+  .promotion {
+		width: 190px;
+		margin: 0 20px 10px 0px;
+		padding: 10px;
+		float: left;
+	  border: 1px solid #eaeaea;
+	  @include box-shadow(#eaeaea, 1px, 2px, 2px);
+    h3 {
+      margin: 0 0 10px 0;
+    }
+  }
+}
+
 #a_la_minute {
   @include column(9);
 	width: 313px;
