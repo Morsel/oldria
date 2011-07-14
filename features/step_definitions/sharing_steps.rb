@@ -8,10 +8,10 @@ Then /^I should see two addThis buttons$/ do
 end
 
 Then /^addThis button should have public link$/ do
-  response.should have_selector("script", :content =>"soapbox" + current_url)
+  response.should have_selector("script", :content => "url: ")
 end
 
-Then /^I should see link \"see more\"$/ do
+Then /^I should see link "see more"$/ do
   response.should have_selector(".see_more_link", :href =>"/dashboard_more")
 end
 

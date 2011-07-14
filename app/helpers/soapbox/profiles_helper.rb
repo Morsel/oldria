@@ -2,7 +2,7 @@ module Soapbox::ProfilesHelper
 
   def link_for_user_topics(opts = {})
     if soapbox?
-      topics_soapbox_user_questions_path(opts)
+      soapbox_user_questions_path(opts[:user_id])
     else
       topics_user_questions_path(opts)
     end
@@ -10,7 +10,7 @@ module Soapbox::ProfilesHelper
 
   def link_for_user_chapters(opts = {})
     if soapbox?
-      chapters_soapbox_user_questions_path(opts)
+      soapbox_user_topic_path(opts[:user_id], opts[:topic_id])
     else
       chapters_user_questions_path(opts)
     end
@@ -18,7 +18,7 @@ module Soapbox::ProfilesHelper
 
   def link_for_user_questions(opts = {})
     if soapbox?
-      soapbox_user_questions_path(opts)
+      soapbox_user_chapter_path(opts[:user_id], opts[:chapter_id])
     else
       user_questions_path(opts)
     end

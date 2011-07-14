@@ -1,22 +1,22 @@
 <div id="sidebar">
   <aside id="recent-activity">
     <header>
-      <h1>Behind the Line Chapters</h1>
+      <h1>Behind the Line Topics</h1>
     </header>
-    <% cache("btl_topic_index_#{topic.id}", :expires_in => 1.hour) do -%>
+    <% cache('btl_topics_index', :expires_in => 1.hour) do -%>
       <ol id="btl-feed">
-          <% for chapter in topic.chapters %>
+          <% for topic in Topic.without_travel.all -%>
           <li>
             <header class="feed-item-title">
-                <%= link_to chapter.title, soapbox_chapter_path(chapter) %>
+                <%= link_to topic.title, soapbox_topic_path(topic) %>
             </header>
             <aside class="feed-item-reply-count">
-                <% link_to soapbox_chapter_path(chapter) do %>
-                <span class="num"><%= count = chapter.profile_questions.to_a.sum(&:soapbox_answer_count) %></span> <%= count == 1 ? "reply" : "replies" %>
+                <% link_to soapbox_topic_path(topic) do %>
+                <span class="num"><%= count = topic.profile_questions.to_a.sum(&:soapbox_answer_count) %></span> <%= count == 1 ? "reply" : "replies" %>
                 <% end %>
             </aside>
           </li>
-          <% end %>
+          <% end -%>
       </ol><!-- /activity-feed -->
     <% end -%>
     <div id="feed-bottom"></div>

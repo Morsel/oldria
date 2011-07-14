@@ -34,8 +34,14 @@ class ProfileAnswer < ActiveRecord::Base
   }
 
   named_scope :recently_answered, :order => "profile_answers.created_at DESC"
+
   named_scope :without_travel, :joins => { :profile_question => { :chapter => :topic }},
       :conditions => ["topics.title != ?", "Travel Guide"]
+
+  named_scope :for_topic, lambda { |topic|
+    { :joins => { :profile_question => { :chapter => :topic } },
+      :conditions => ["topics.id = ?", topic.id] }
+  }
 
   def post_to_facebook
     name = self.user.respond_to?(:name) ? self.user.name : ""

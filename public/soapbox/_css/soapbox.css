@@ -790,7 +790,7 @@ body, html, #container, #main, #content, #inside {
 }
 /* line 403, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
 #content.home #main-feeds .live-feed .profile_question .identity {
-  border: none;
+  border: none !important;
 }
 /* line 407, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
 #content.home #main-feeds .live-feed .promotion {
@@ -1410,7 +1410,7 @@ body, html, #container, #main, #content, #inside {
 }
 /* line 915, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
 #page-content .profile_question {
-  border-bottom: 1px dotted #ddd;
+  /*    border-bottom: 1px dotted #ddd;*/
   padding: 0 0 10px 0;
   margin: 0 0 10px 0;
 }
@@ -4034,37 +4034,51 @@ dl.things dt:after {
   color: #888;
 }
 
-/* line 2961, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+/* line 2960, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+#btl_answers h3#more-answers {
+  margin-top: 30px;
+}
+/* line 2964, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
 #btl_answers h4 a {
   font-weight: bold;
   font-size: 14px;
 }
-/* line 2965, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+/* line 2968, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
 #btl_answers h4 .letter-q {
   font-weight: bolder;
 }
-/* line 2969, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+/* line 2972, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
 #btl_answers .btl-answer {
   margin-left: 2em;
 }
-/* line 2972, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+/* line 2975, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
 #btl_answers .identity {
   border: none !important;
 }
-
 /* line 2978, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+#btl_answers div.sharing {
+  margin-left: 190px;
+  margin-top: 10px;
+  clear: none;
+}
+/* line 2982, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+#btl_answers div.sharing .fb_iframe_widget {
+  top: -3px;
+}
+
+/* line 2989, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
 .promotion .identity {
   border: none !important;
 }
-/* line 2981, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+/* line 2992, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
 .promotion p.details {
   font-size: 110%;
 }
-/* line 2984, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+/* line 2995, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
 .promotion .sharing {
   margin-top: 10px;
 }
-/* line 2986, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+/* line 2997, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
 .promotion .sharing .fb_iframe_widget {
   top: -3px;
 }

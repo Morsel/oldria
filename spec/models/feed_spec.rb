@@ -32,7 +32,7 @@ describe Feed do
     feed.no_entries = true
     feed.title.should be_blank
     feed.save
-    feed.title.should == "Neoteric Design, Inc."
+    feed.title.should == "Neoteric Design"
   end
 
   it "should not fetch and parse if the given fields are passed in when new" do

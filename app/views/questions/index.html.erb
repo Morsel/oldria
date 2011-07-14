@@ -14,7 +14,7 @@
 <%= render :partial => 'questions/topic_nav', :locals => { :next_topic => @next_topic, :prev_topic => @previous_topic } %>
 
 <div id="btl_answers" class="btl-my-answers">
-  <div id="" class="clear clearfix">
+  <div class="clear clearfix">
     <h3><%= @chapter.title %></h3>
     <% if @next.present? or @previous.present? -%>
       <nav id="chapter_nav" class="topic-nav clearfix">
@@ -52,7 +52,7 @@
       <h4><span class="letter-q">Q:</span> <%= link_to question.title, soapbox_question_path(question) %></h4>
       <% if answer = question.answer_for(@user) %>
         <p><%= answer.answer %></p>
-        <span class="timestamp">Last updated: <%= answer.try(:updated_at).try(:strftime, "%b %e %Y") %></span>
+        <span class="timestamp">Last updated: <%= answer.try(:updated_at).try(:strftime, "%b %e %Y") %> - <%= link_to "Share this entry", soapbox_user_question_path(@user, question) %></span>
       <% else %>
         <p>Not answered yet.</p>
       <% end %>

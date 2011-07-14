@@ -29,14 +29,14 @@
                     <li><%= link_to link.title, soapbox_topic_path(link) %></li>
                     <% end -%>
                 </ul>
-                <%= link_to "view more", soapbox_topics_path, :class => "view-more" %>
+                <%= link_to "view more", soapbox_questions_path, :class => "view-more" %>
             </div>
             <% if travel_links.present? -%>
             <div id="travel-links">
                 <h2>Travel Guide</h2>
                 <ul>
                     <% for link in travel_links -%>
-                    <li><%= link_to link.title, chapter_soapbox_topics_path(:chapter_id => link.id) %></li>
+                    <li><%= link_to link.title, soapbox_chapter_path(link) %></li>
                     <% end -%>
                 </ul>
                 <%= link_to "view more", soapbox_topic_path(Topic.travel), :class => "view-more" %>
@@ -133,7 +133,7 @@
                 <div id="btl-title" class="title">
                     <%= image_tag "soapbox/title-btl.png" %>
                     <h2>Behind the Line</h2>
-                    <%= link_to "+ See all", soapbox_topics_path, :class => "link-all" %>
+                    <%= link_to "+ See all", soapbox_questions_path, :class => "link-all" %>
                 </div>
                 <% @btl_answers.each_with_index do |answer, index| -%>
                 <div class="profile_question" id="btl_<%= index %>">
@@ -165,7 +165,7 @@
                             :id => "btl_link_#{i}" %>
                       <% end -%>
                     <% end %>
-                    <%= link_to "more", soapbox_topics_path %>
+                    <%= link_to "more", soapbox_questions_path %>
                 </div>
             </div>
 

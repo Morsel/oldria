@@ -13,7 +13,7 @@ Feature: Feeds
     When I create a new feed with:
       | Feed Url | http://feeds.neotericdesign.com/neotericdesign |
     Then I should see "Success"
-    And I should see "Neoteric Design, Inc."
+    And I should see "Neoteric Design"
 
 
   Scenario: Removing a feed

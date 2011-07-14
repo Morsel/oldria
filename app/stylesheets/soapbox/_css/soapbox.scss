@@ -401,7 +401,7 @@ body,html,#container,#main,#content,#inside{
             color: #ccc;
           }
           .identity {
-            border: none;
+            border: none !important;
           }
         }
         .promotion {
@@ -913,7 +913,7 @@ body,html,#container,#main,#content,#inside{
 		}
 	}
 	.profile_question {
-		border-bottom: 1px dotted #ddd;
+/*    border-bottom: 1px dotted #ddd;*/
 		padding: 0 0 10px 0;
 		margin: 0 0 10px 0;
 		h4 {
@@ -2957,6 +2957,9 @@ dl.things dt:after {content: ":"}
 }
 
 #btl_answers {
+  h3#more-answers {
+    margin-top: 30px;
+  }
   h4 {
     a {
       font-weight: bold;
@@ -2971,6 +2974,14 @@ dl.things dt:after {content: ":"}
   }
   .identity {
     border: none !important;
+  }
+  div.sharing {
+    margin-left: 190px;
+    margin-top: 10px;
+    clear: none;
+    .fb_iframe_widget {
+      top: -3px
+    }
   }
 }
 
