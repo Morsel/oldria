@@ -34,6 +34,7 @@ class ProfileQuestion < ActiveRecord::Base
   }
 
   named_scope :answered, :joins => :profile_answers
+  named_scope :recently_answered, :include => :profile_answers, :order => "profile_answers.created_at DESC"
 
   named_scope :answered_for_user, lambda { |user|
     { :joins => [:profile_answers, :question_roles],
@@ -54,8 +55,13 @@ class ProfileQuestion < ActiveRecord::Base
           Date.today] }
   }
 
+  named_scope :answered_by_public_users, {
+    :joins => "INNER JOIN profile_answers on `profile_questions`.id = `profile_answers`.profile_question_id
+    INNER JOIN preferences ON `profile_answers`.user_id = `preferences`.owner_id",
+    :conditions => ["`preferences`.owner_type = 'User' AND `preferences`.name = 'publish_profile' AND `preferences`.value = ?", true]
+  }
+
   named_scope :random, :order => RANDOM_SQL_STRING
-  named_scope :recently_answered, :include => :profile_answers, :order => "profile_answers.created_at DESC"
   named_scope :without_travel, :joins => { :chapter => :topic }, :conditions => ["topics.title != ?", "Travel Guide"]
 
   before_save :update_roles_description
