@@ -5,7 +5,7 @@
     </header>
     <% cache('btl_topics_index', :expires_in => 1.hour) do -%>
       <ol id="btl-feed">
-          <% for topic in Topic.without_travel.all -%>
+          <% for topic in Topic.user_topics.without_travel.all -%>
           <li>
             <header class="feed-item-title">
                 <%= link_to topic.title, soapbox_topic_path(topic) %>

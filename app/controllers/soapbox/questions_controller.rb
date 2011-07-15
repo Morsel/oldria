@@ -20,7 +20,8 @@ class Soapbox::QuestionsController < ApplicationController
 
       render :template => 'questions/topics'
     else
-      @answers = ProfileAnswer.without_travel.from_premium_users.from_public_users.recently_answered.all(:limit => 10)
+      @answers = ProfileAnswer.without_travel.from_premium_users.from_public_users.recently_answered.all(:limit => 10,
+          :group => "profile_questions.id")
     end
   end
 
