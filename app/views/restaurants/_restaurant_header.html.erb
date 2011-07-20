@@ -27,7 +27,7 @@
 
   <% unless editing? or @restaurant.restaurant_features.blank? -%>
     <div id="restaurant_features" class="clear clearfix">
-      <span>Features: </span>
+      <span>Learn more about this restaurant: </span>
       <ul class="tags clearfix">
         <% @restaurant.feature_pages.each do |page| -%>
           <li><%= link_to page.name, restaurant_feature_page_link(@restaurant, page) %></li>
