@@ -15,27 +15,23 @@ Feature: Restaurant Profile - Behind the Line (aka Q&A)
   And I am logged in as "Bob"
 
   Scenario: Viewing my topics
-    Given I am on the restaurant show page for "The Chef"
-    When I follow "View all Topics" within "#behindline"
+    Given I am on the Behind the Line page for "The Chef"
     Then I should see "Topics"
 
   Scenario: Viewing chapters for a topic
-    Given I am on the restaurant show page for "The Chef"
-    When I follow "View all Topics" within "#behindline"
+    Given I am on the Behind the Line page for "The Chef"
     And I follow "View all"
     Then I should see "Inspirations"
     And I should see "Funding"
 
   Scenario: Viewing questions in a chapter
-    Given I am on the restaurant show page for "The Chef"
-    When I follow "View all Topics" within "#behindline"
+    Given I am on the Behind the Line page for "The Chef"
     And I follow "View all"
     And I follow "Inspirations"
     Then I should see "What restaurants inspired you to open?"
 
   Scenario: Answering a question
-    Given I am on the restaurant show page for "The Chef"
-    When I follow "View all Topics" within "#behindline"
+    Given I am on the Behind the Line page for "The Chef"
     And I follow "View all"
     And I follow "Inspirations"
     And I fill in the restaurant question titled "What restaurants inspired you to open?" with answer "A great answer for this"

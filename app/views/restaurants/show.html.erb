@@ -122,29 +122,6 @@
   </div><!-- .accolades -->
   <% end %>
 
-  <% if @promotions.present? %>
-  <div id="newsfeed">
-      <h2 id="newsfeed-title"><%= link_to "Newsfeed", soapbox? ? soapbox_promotions_path(:restaurant_id => @restaurant) : restaurant_promotions_path(:restaurant_id => @restaurant) %></h2>
-      <% if @restaurant.employees.include?(current_user) -%>
-      <div class="edit_profile_link">
-          <%= link_to "edit Newsfeed", new_restaurant_promotion_path(:restaurant_id => @restaurant) %>
-      </div>
-      <% end -%>
-
-      <div id="promotions">
-          <% for promotion in @promotions -%>
-          <% div_for(promotion) do %>
-            <h3><%= link_to_if soapbox?, promotion.title, soapbox_promotion_path(promotion) %></h3>
-            <p><%= truncate promotion.details %></p>
-            <p><%= link_to promotion.link, promotion.link %></p>
-            <p><%= promotion.start_date.to_formatted_s(:long) %> <%= "- #{promotion.end_date.to_formatted_s(:long)}" if promotion.end_date.present? %> <%= "- #{promotion.date_description}" if promotion.date_description.present? %></p>
-          <% end %>
-          <% end -%>
-      </div>
-  </div><!--#newsfeed-->
-  <div class="clear">&nbsp;</div>
-  <% end %>
-
   <% if @restaurant.fact_sheet.info_exists? %>
     <div id="extended_profile_container" class="clear">
       <a href="#extended_profile" class="showit">View Restaurant Fact Sheet <em>(Parking &amp; Directions, Pricing, Hours, etc)</em></a>
@@ -168,7 +145,29 @@
   </div><!--#a_la_minute-->
   <% end %>
 
-  <%= render :partial => 'restaurants/behind_the_line', :locals => { :restaurant => @restaurant } if restaurant_topics(@restaurant).present? %>
+  <% if @promotions.present? %>
+  <div id="newsfeed" class="recent_actions">
+      <h3 id="newsfeed-title"><%= link_to "Newsfeed", soapbox? ? soapbox_promotions_path(:restaurant_id => @restaurant) : restaurant_promotions_path(:restaurant_id => @restaurant) %></h3>
+      <% if @restaurant.employees.include?(current_user) -%>
+      <div class="edit_profile_link">
+          <%= link_to "edit Newsfeed", new_restaurant_promotion_path(:restaurant_id => @restaurant) %>
+      </div>
+      <% end -%>
+
+      <ul class="box">
+        <% reset_cycle('default') -%>
+        <% for promotion in @promotions -%>
+        <li class="<%= cycle("even", "odd") %>">
+            <% link_to soapbox_promotion_path(promotion) do %>
+            <h5><%= promotion.title %>: <%= truncate promotion.details %></h5>
+            <%= promotion.start_date.to_formatted_s(:long) %> <%= "- #{promotion.end_date.to_formatted_s(:long)}" if promotion.end_date.present? %> <%= "- #{promotion.date_description}" if promotion.date_description.present? %>
+            <% end %>
+        </li>
+        <% end -%>
+      </ul>
+  </div><!--#newsfeed-->
+  <% end %>
+
 </div><!-- #restaurant_profile_view -->
 
 
