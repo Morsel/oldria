@@ -15,22 +15,12 @@
                 <%= render "shared/promotion_status" %>
             </aside><!--.promo-->
 
-			<% if false # @btl_question %>
-            <aside class="promo" id="btl_game">
-              <%= link_to "new question", '#', :"data-auth" => form_authenticity_token.inspect, :"data-user-id" => current_user.id, :class => "new_question" %>
-              <h1>Behind the Line</h1>
-              <div id="btl_game_content">
-                <%= render :partial => "shared/btl_game", :locals => { :question => @btl_question } %>
-              </div>
-            </aside><!--#btl_game-->
-            <% end %>
-            
             <%= link_to "<h2>Check out Soapbox &rarr;</h2><p>Diners &amp; Media learn about you here. See how your profile stacks up.</p>", "http://soapbox.restaurantintelligenceagency.com", :id => "gotosoapbox", :class => "promo", :target => "_blank" %>
         
   			<aside class="promo" id="manuals">
 
-  				<%= link_to "Marketing Manual", public_page_path('introduction-marketing-workbook'), :id => 'marketing_manual' %>
-  				<p>Built to answer your marketing questions.  It's in progress: tell us what you need, and we'll cover it.</p>
+  				<%= link_to "How-To Guide", public_page_path('spoonfeed_welcome'), :id => 'marketing_manual' %>
+  				<p>Everything you need to know about how to use Spoonfeed.</p>
 
   				<%= link_to "Help / Questions?", public_page_path('help'), :id => 'help_questions' %>
   				<p>We're building this for you, so don't be shy—ask us questions and give us suggestions!</p>
