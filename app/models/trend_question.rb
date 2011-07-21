@@ -127,7 +127,7 @@ class TrendQuestion < ActiveRecord::Base
   end
   
   def soapbox_comment_count
-    discussions_with_replies.map { |c| c.comments.show_on_soapbox }.flatten.size
+    discussions_with_replies.map { |c| c.comments.show_on_soapbox }.flatten.uniq.size
   end
 
 end

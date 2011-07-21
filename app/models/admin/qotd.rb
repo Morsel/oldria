@@ -40,7 +40,7 @@ class Admin::Qotd < Admin::Message
   end
   
   def soapbox_comment_count
-    admin_conversations.with_replies.map { |c| c.comments.show_on_soapbox }.flatten.size
+    admin_conversations.with_replies.map { |c| c.comments.show_on_soapbox }.flatten.uniq.size
   end
 
   def mailer_method
