@@ -13,11 +13,26 @@ class CloudmailsController < ApplicationController
     # use this if you need to debug
     Rails.logger.info %Q{#{'*'*72}\nReceiving email message with mail_token: #{mail_token}\n#{'*'*72}\n#{params[:plain]}\n#{'*'*72}}
     
-    # some email clients convert all this for us, and send a plan text version others just give us html
-    # choose a version of the email body we can work with, after this point it should not include any html
-    whole_message_body = (params[:plain].length > 50) ? params[:plain] : params[:html].gsub(/<\/?[^>]*>/, "\n")
-    
-    # everything we need is in the mail_token
+    # Some mail clients give us plaintext and html, some only give us plaintext
+    whole_message_body = if params[:plain].present?
+      message = params[:plain]
+      message.gsub!(/\n>/, "\n") # Removing symbols to indicate quoting
+
+      # Remove any residual html in the quoted text
+      Loofah.fragment(message).scrub!(:strip).text
+    elsif params[:html].present?
+      message = params[:html]
+      message.gsub!(/&nbsp;/, " ") # Clean this because it doesn't seem to convert well
+      message.gsub!(/<br\/*>/, "\n") # Converting html breaks into newlines
+      message.gsub!(/\n>/, "\n") # Removing symbols to indicate quoting
+      Loofah.document(message).scrub!(:strip).text
+    else
+      Rails.logger.info('No readable message received')
+      render :text => 'No readable message received',
+             :status => 200
+    end
+
+    # Get IDs from the mail token
     user_id, cloudmail_hash, message_type, message_id = mail_token.split('-')
     message_type = message_type.downcase
 
@@ -43,11 +58,8 @@ class CloudmailsController < ApplicationController
       return
     end
 
-    # take everything in front of the first 'Respond by replying to this email - above this line'
-    message_body = whole_message_body.split(EMAIL_SEPARATOR).first
-
     # clean it up to get what the user intends we get (as best as we can)
-    message_body = clean_email_body(message_body)
+    message_body = process_email_body(whole_message_body)
 
     if message_body.length < 5
       Rails.logger.info 'Email answer was too short'
@@ -81,32 +93,47 @@ class CloudmailsController < ApplicationController
 
   private
 
-    # tries to clean the email body, differnet email clients modify the text in different ways
-    def clean_email_body message_body
+    # Clean up the email text and extract the user's reply
+    def process_email_body(message_body)
+      # take everything in front of the first 'Respond by replying to this email - above this line'
+      message_body = message_body.split(EMAIL_SEPARATOR).first
+
       # remove any leading or trailing spaces
       message_body.strip!
 
       # clean up the newlines
-      message_body.gsub!(/\s*\n\s*/,"\n")
+      message_body.gsub!(/[\s]*\n[\s]*/, "\n")
 
       # for the next transformation it makes things easier if we have new lines at the begining and end
       message_body = "\n#{message_body}\n"
-      #remove any lines which dont contain at least one alpha numeric
-      message_body.gsub!(/\n[^a-zA-Z0-9]+\n/,"\n")
 
-      # remove any leading or trailing spaces
-      message_body.strip!
+      stop_words = [/notifications[@=]restaurantintelligenceagency.com/,
+                    /Sent from my [\w ]+\s*/,
+                    /\s*On (mon|tue|wed|thu|fri|sat|sun).* at \d+\:\d\d (AM|PM)[^a-zA-Z0-9]*/i,
+                    /\s*On (mon|tue|wed|thu|fri|sat|sun).* at \d+\:\d\d[^a-zA-Z0-9]*/i,
+                    /.*subject\:.*/i,
+                    /.*to\:.*/i,
+                    /.*date\:.*/i,
+                    /.*sent\:.*/i,
+                    /-*Original Message-*/,
+                    /^#yiv/,
+                    /^Email$/,
+                    /^td\{/,
+                    /border:1px solid red;/]
+
+      message_lines = message_body.split("\n").reject { |line|
+        stop_words.any? { |word| line.match(word) }
+      }
+
+      message_body = message_lines.join("\n")
 
       # if the last line contains any of these expressions, then remove it
       3.times do
-        message_body.gsub!(/\s*$/i,"")
-        message_body.gsub!(/\nSent from my [\w ]+\s*$/i,"")
-        message_body.gsub!(/\n.*wrote\:\s*$/i,"")
-        message_body.gsub!(/\n.*from\:\s*$/i,"")
-        message_body.gsub!(/\n.*sent\:\s*$/i,"")
-        message_body.gsub!(/\n\s*On (mon|tue|wed|thu|fri|sat|sun).* at \d+\:\d\d (AM|PM)[^a-zA-Z0-9]*$/i,"")
-        message_body.gsub!(/\n\s*On (mon|tue|wed|thu|fri|sat|sun).* at \d+\:\d\d[^a-zA-Z0-9]*$/i,"")
+        message_body.gsub!(/\s*$/i, "\n")
       end
+
+      # remove any lines which dont contain at least one alpha numeric
+      message_body.gsub!(/\n[^a-zA-Z0-9]+\n/,"\n")
 
       # remove any leading or trailing spaces
       message_body.strip!
