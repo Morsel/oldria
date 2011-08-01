@@ -103,6 +103,7 @@ class CloudmailsController < ApplicationController
 
       # clean up the newlines
       message_body.gsub!(/[\s]*\n[\s]*/, "\n")
+      message_body.gsub!(/&#13;\n/, "\n") # html-ified carriage returns
 
       # for the next transformation it makes things easier if we have new lines at the begining and end
       message_body = "\n#{message_body}\n"
