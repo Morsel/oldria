@@ -13,7 +13,7 @@ class Soapbox::SoapboxEntriesController < Soapbox::SoapboxController
   def show
     entry = SoapboxEntry.find(params[:id], :include => :featured_item)
     @feature = entry.featured_item
-    @feature_comments = entry.comments
+    @feature_comments = entry.comments.all(:order => "created_at DESC")
     @feature_type = entry.featured_item_type == 'Admin::Qotd' ? ' Question of the Day' : ' Trend'
   end
 
