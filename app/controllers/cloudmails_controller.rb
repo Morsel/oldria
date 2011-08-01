@@ -16,12 +16,14 @@ class CloudmailsController < ApplicationController
     # Some mail clients give us plaintext and html, some only give us plaintext
     whole_message_body = if params[:plain].present?
       message = params[:plain]
+      message.gsub!(/\r\n/, "\n") # Converting carriage returns
       message.gsub!(/\n>/, "\n") # Removing symbols to indicate quoting
 
       # Remove any residual html in the quoted text
       Loofah.fragment(message).scrub!(:strip).text
     elsif params[:html].present?
       message = params[:html]
+      message.gsub!("\r\n", "\n") # Converting carriage returns
       message.gsub!(/&nbsp;/, " ") # Clean this because it doesn't seem to convert well
       message.gsub!(/<br\/*>/, "\n") # Converting html breaks into newlines
       message.gsub!(/\n>/, "\n") # Removing symbols to indicate quoting
@@ -103,7 +105,6 @@ class CloudmailsController < ApplicationController
 
       # clean up the newlines
       message_body.gsub!(/[\s]*\n[\s]*/, "\n")
-      message_body.gsub!(/&#13;\n/, "\n") # html-ified carriage returns
 
       # for the next transformation it makes things easier if we have new lines at the begining and end
       message_body = "\n#{message_body}\n"

@@ -107,6 +107,7 @@ describe CloudmailsController do
 
     it "should produce a clean reply from a Gmail user's response" do
       message = read_sample('gmail.txt')
+      message.gsub!(/(?:\r|\n)*$/, "\r\n") # re-creating Gmail's line endings
 
       conversation = Factory(:admin_conversation, :recipient => @user, :admin_message => Factory(:qotd))
       Admin::Conversation.stubs(:find).returns(conversation)
