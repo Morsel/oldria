@@ -208,20 +208,20 @@ taste"
 
       conversation.comments.first.comment.should == "I would eat at Vij’s.  I ate there before and really loved the service and food."
     end
-  end
 
-  it "should produce a clean reply from plaintext that's really html" do
-    message = read_sample("html_bug.txt")
+    it "should produce a clean reply from plaintext that's really html" do
+      message = read_sample("html_bug.txt")
 
-    conversation = Factory(:admin_conversation, :recipient => @user, :admin_message => Factory(:qotd))
-    Admin::Conversation.stubs(:find).returns(conversation)
+      conversation = Factory(:admin_conversation, :recipient => @user, :admin_message => Factory(:qotd))
+      Admin::Conversation.stubs(:find).returns(conversation)
 
-    post :create, :to => "1-token-QOTD-1@dev-mailbot.restaurantintelligenceagency.com",
-         :message => "",
-         :plain => message,
-         :signature => ""
+      post :create, :to => "1-token-QOTD-1@dev-mailbot.restaurantintelligenceagency.com",
+           :message => "",
+           :plain => message,
+           :signature => ""
 
-    conversation.comments.first.comment.should == "Teaspoon. My brother wanted it to be Half Pint but I didn't like that. So now it's teaspoon."    
+      conversation.comments.first.comment.should == "Teaspoon.  My brother wanted it to be Half Pint but I didn't like that.  So now it's teaspoon."    
+    end
   end
 
   it "should send an error to a user who tries to reply to an already-answered Trend Question for their main restaurant" do
