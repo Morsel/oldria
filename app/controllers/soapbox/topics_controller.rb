@@ -1,26 +1,25 @@
 class Soapbox::TopicsController < ApplicationController
   
-  def index
-    @topics = Topic.user_topics.without_travel.answered_by_premium_users
-    chapters = @topics.map(&:chapters)
-    @chapters_by_topic = chapters.flatten.group_by(&:topic)
-  end
-
   def show
-    @topic = Topic.find(params[:id])
-    @previous = @topic.previous
-    @next = @topic.next
-    @questions_by_chapter = @topic.chapters.answered_by_premium_users.map(&:profile_questions).flatten.group_by(&:chapter)
-  end
+    if params[:user_id]
+      @user = User.find(params[:user_id])
+      @topic = Topic.find(params[:id])
+      is_self = can? :manage, @user
+      @previous = @topic.previous_for_user(@user, is_self)
+      @next = @topic.next_for_user(@user, is_self)
 
-  def chapter
-    @chapter = Chapter.find(params[:chapter_id])
-    @questions = @chapter.profile_questions.answered_by_premium_users.uniq
+      @questions_by_chapter = @user.profile_questions.for_chapter(@topic.chapters.map(&:id)).all(:include => :chapter,
+                                                                              :order => "chapters.position, chapters.id").
+                                                                              group_by(&:chapter)
 
-    @next_topic = @chapter.topic.next
-    @previous_topic = @chapter.topic.previous
-    @next = @chapter.next
-    @previous = @chapter.previous
+      render :template => 'questions/chapters'
+    else
+      @topic = Topic.find(params[:id])
+      @answers = ProfileAnswer.for_topic(@topic).all(:limit => 10)
+
+      @previous = @topic.previous
+      @next = @topic.next
+    end
   end
 
 end

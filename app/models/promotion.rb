@@ -47,4 +47,8 @@ class Promotion < ActiveRecord::Base
     restaurant.name
   end
 
+  def current?
+    end_date.nil? ? start_date >= Date.today : end_date >= Date.today
+  end
+
 end

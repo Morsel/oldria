@@ -3060,9 +3060,11 @@ p.search_filter_hint {
 		}
 	}
 }
+
 #topic_title {
   letter-spacing: 2px;
 }
+
 #btl_answers {
   background: #FAFAF7;
   padding: 10px; 
@@ -3140,13 +3142,20 @@ p.search_filter_hint {
   
 }
 
-#behindline {
+#behindline, #newsfeed.recent_actions {
   @include column(9);
   float: left;
+  h3#newsfeed-title {
+		@include brandongrotesquebold;
+    font-size: 16px;
+    margin: 6px 0 0 0;
+    border-bottom: 1px solid #CCCCCC;
+  }
 	ul{
 		margin:10px 0;
 		padding:0;
 		min-height: 120px;
+		list-style-type: none;
 		li{
 			padding:0;
 			margin:0;
@@ -4254,7 +4263,7 @@ p.search_filter_hint {
 	    float: left;
 	    @include column(8);
 	    small {
-	      margin-top: 10px;
+	      margin-bottom: 10px;
 	      display: block;
 				clear:both;
 	    }
@@ -4661,5 +4670,21 @@ aside.dashboard_actions {
   }
   p {
     text-align: right;
+  }
+}
+
+#promotion_archive {
+  .promotion {
+    margin-bottom: 15px;
+    border-bottom: 1px solid #ccc;
+  }
+  #past {
+    h2 {
+      margin: 20px 0 0;
+    }
+    .promotion {
+      @include linear-gradient(color-stops(#fff,#ddd), top);
+      padding: 0 10px;
+    }
   }
 }

@@ -28,8 +28,3 @@ Feature: Using dashboard
     And I am logged in as a normal user
     When I go to the dashboard
     Then I should see link "see more"
-    
-  # Scenario: Show widget btl game
-  #   And I am logged in as user with btl enabled
-  #   When I go to the dashboard
-  #   Then I should see btl_game

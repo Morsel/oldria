@@ -43,6 +43,12 @@ Spork.prefork do
     controller.stubs(:require_admin).returns(false)
   end
 
+  SAMPLES_PATH = File.expand_path(File.dirname(__FILE__) + "/email_samples") unless defined?(SAMPLES_PATH)
+
+  def read_sample(path_fragment)
+    File.read(File.join(SAMPLES_PATH, path_fragment))
+  end
+
   Spec::Runner.configure do |config|
     config.use_instantiated_fixtures  = false
     config.use_transactional_fixtures = true

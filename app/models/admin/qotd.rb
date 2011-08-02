@@ -18,8 +18,6 @@ class Admin::Qotd < Admin::Message
 
   # TODO - figure out why :as => :featured_item isn't working here
   has_one :soapbox_entry, :foreign_key => :featured_item_id, :conditions => { :featured_item_type => "Admin::Qotd" }, :dependent => :destroy
-  # TODO looks like :as => :featured_item works but previous version does not! Have no imagination what heppened for this moment
-  #has_one :soapbox_entry, :as => :featured_item, :dependent => :destroy
 
   named_scope :current, :conditions => ['scheduled_at < ? OR scheduled_at IS NULL', Time.zone.now]
 
@@ -40,7 +38,7 @@ class Admin::Qotd < Admin::Message
   end
   
   def soapbox_comment_count
-    admin_conversations.with_replies.map { |c| c.comments.show_on_soapbox }.flatten.size
+    admin_conversations.with_replies.map { |c| c.comments.show_on_soapbox }.flatten.uniq.size
   end
 
   def mailer_method

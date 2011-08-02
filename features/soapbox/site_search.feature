@@ -41,7 +41,7 @@ Feature: Search question
     When I go to the soapbox search page searching for "whisky house"
     Then I should see "Whisky House" within ".search-results"
 
-  Scenario: Finding BTL quesiton
+  Scenario: Finding BTL question
     Given I am logged in as "searchable" with password "searchable"
     And I am on the profile page for "searchable"
     When I follow "View all Topics" within "#behindline"

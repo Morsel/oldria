@@ -75,6 +75,154 @@ describe CloudmailsController do
       discussion.comments.first.user.should == @user
     end
 
+    it "should produce a clean reply from an iPhone user's response" do
+      message = read_sample('iphone.txt')
+
+      conversation = Factory(:admin_conversation, :recipient => @user, :admin_message => Factory(:qotd))
+      Admin::Conversation.stubs(:find).returns(conversation)
+
+      post :create, :to => "1-token-QOTD-1@dev-mailbot.restaurantintelligenceagency.com",
+           :message => "",
+           :html => "",
+           :plain => message,
+           :signature => ""
+
+      conversation.comments.first.comment.should == "Morimoto. Hands down. No one else can hold a candle to him."
+    end
+
+    it "should produce a clean reply from a Blackberry user's response" do
+      message = read_sample('blackberry.txt')
+
+      conversation = Factory(:admin_conversation, :recipient => @user, :admin_message => Factory(:qotd))
+      Admin::Conversation.stubs(:find).returns(conversation)
+
+      post :create, :to => "1-token-QOTD-1@dev-mailbot.restaurantintelligenceagency.com",
+           :message => "",
+           :html => "",
+           :plain => message,
+           :signature => ""
+
+      conversation.comments.first.comment.should == "Good quality pans....all clad."
+    end
+
+    it "should produce a clean reply from a Gmail user's response" do
+      message = read_sample('gmail.txt')
+      message.gsub!(/(?:\r|\n)*$/, "\r\n") # re-creating Gmail's line endings
+
+      conversation = Factory(:admin_conversation, :recipient => @user, :admin_message => Factory(:qotd))
+      Admin::Conversation.stubs(:find).returns(conversation)
+
+      post :create, :to => "1-token-QOTD-1@dev-mailbot.restaurantintelligenceagency.com",
+           :message => "",
+           :plain => message,
+           :html => "",
+           :signature => ""
+
+      conversation.comments.first.comment.should == "we make squash blossom quesadillas. they are traditional mexican snacks, and
+go well with the green mole salsa we do using the squash seeds."
+    end
+
+    it "should produce a clean reply from a Yahoo user's response" do
+      message = read_sample('yahoo.txt')
+
+      conversation = Factory(:admin_conversation, :recipient => @user, :admin_message => Factory(:qotd))
+      Admin::Conversation.stubs(:find).returns(conversation)
+
+      post :create, :to => "1-token-QOTD-1@dev-mailbot.restaurantintelligenceagency.com",
+           :message => "",
+           :plain => message,
+           :html => "",
+           :signature => ""
+
+      conversation.comments.first.comment.should == "John is using young peas in a new course involving lardo, vanilla, and wild pea flowers, all enriched with creamy egg."
+    end
+
+    it "should produce a clean reply from a Yahoo classic user's response" do
+      message = read_sample('yahoo_classic.txt')
+
+      conversation = Factory(:admin_conversation, :recipient => @user, :admin_message => Factory(:qotd))
+      Admin::Conversation.stubs(:find).returns(conversation)
+
+      post :create, :to => "1-token-QOTD-1@dev-mailbot.restaurantintelligenceagency.com",
+           :message => "",
+           :html => "",
+           :plain => message,
+           :signature => ""
+
+      conversation.comments.first.comment.should == "I am a true American...HOT DOGS! I love the Smoky Links at Comiskey. They have better food than Wrigley. But...I am a Cubs fan!"
+    end
+
+    it "should produce a clean reply from a Hotmail user's response" do
+      message = read_sample('hotmail.txt')
+
+      conversation = Factory(:admin_conversation, :recipient => @user, :admin_message => Factory(:qotd))
+      Admin::Conversation.stubs(:find).returns(conversation)
+
+      post :create, :to => "1-token-QOTD-1@dev-mailbot.restaurantintelligenceagency.com",
+           :message => "",
+           :html => "",
+           :plain => message,
+           :signature => ""
+
+      conversation.comments.first.comment.should == "I'm going to fight every urge to rant here and simply state:  being southern born and raised, this is embarrassing to the music and food industry. I'm sure they'll make millions."
+    end
+
+    it "should produce a clean reply from a Microsoft Office Outlook 12.0 user's response" do
+      message = read_sample('outlook.txt')
+
+      conversation = Factory(:admin_conversation, :recipient => @user, :admin_message => Factory(:qotd))
+      Admin::Conversation.stubs(:find).returns(conversation)
+
+      post :create, :to => "1-token-QOTD-1@dev-mailbot.restaurantintelligenceagency.com",
+      :message => "",
+      :plain => message,
+      :signature => ""
+
+      conversation.comments.first.comment.should == "My Mom was a fearless and adventuresome cook but it was my Dad who got me into the kitchen. When I  was 8 Dad started a subscription to Gourmet magazine. Most of the recipes were a little strange for 1964 in Indianapolis Indiana but Dad and I loved reading the travel articles and we would pore over the recipes wondering where we would find the exotic ingredients. Dad and I made Caesar salad together at least once a month. I would toss while he squeezed the lemon and showed me how to perfectly coddle an egg. Dad manned the grill in the summer but that was about it as far as cooking went. It was his enthusiasm and unabashed enjoyment of eating that was his specialty. He showed me the connection between cooking and love-something I hold very dear.\nChef Susan Goss\nWest Town Tavern\n1329 W Chicago Avenue\nChicago, IL 60642\n312-666-6175\nVisit our newly designed website at:\nhttp://www.westtowntavern.com\ndinner monday-saturday 5-10pm\nVisit out facebook page at:\nhttp://www.facebook.com/#!/WestTownTavern\nFollow Chef Susan's Blog at\nhttp:chefsusangoss.wordpress.com\nwtt-logo-sig"
+    end
+
+    it "should produce a clean reply from Katherine at Branch's response" do
+      message = read_sample("branch.txt")
+
+      conversation = Factory(:admin_conversation, :recipient => @user, :admin_message => Factory(:qotd))
+      Admin::Conversation.stubs(:find).returns(conversation)
+
+      post :create, :to => "1-token-QOTD-1@dev-mailbot.restaurantintelligenceagency.com",
+           :message => "",
+           :plain => message,
+           :signature => ""
+
+      conversation.comments.first.comment.should == "we have been using them in both salads and risotto. People love the delicate
+taste"
+    end
+
+    it "should produce a clean reply from Prairie Grass Cafe" do
+      message = read_sample("prairiegrasscafe.txt")
+
+      conversation = Factory(:admin_conversation, :recipient => @user, :admin_message => Factory(:qotd))
+      Admin::Conversation.stubs(:find).returns(conversation)
+
+      post :create, :to => "1-token-QOTD-1@dev-mailbot.restaurantintelligenceagency.com",
+           :message => "",
+           :plain => message,
+           :signature => ""
+
+      conversation.comments.first.comment.should == "I would eat at Vij’s.  I ate there before and really loved the service and food."
+    end
+
+    it "should produce a clean reply from plaintext that's really html" do
+      message = read_sample("html_bug.txt")
+
+      conversation = Factory(:admin_conversation, :recipient => @user, :admin_message => Factory(:qotd))
+      Admin::Conversation.stubs(:find).returns(conversation)
+
+      post :create, :to => "1-token-QOTD-1@dev-mailbot.restaurantintelligenceagency.com",
+           :message => "",
+           :plain => message,
+           :signature => ""
+
+      conversation.comments.first.comment.should == "Teaspoon.  My brother wanted it to be Half Pint but I didn't like that.  So now it's teaspoon."    
+    end
   end
 
   it "should send an error to a user who tries to reply to an already-answered Trend Question for their main restaurant" do

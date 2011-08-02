@@ -1,0 +1,9 @@
+<div class="user_answer">
+    <%= render :partial => "users/identity", :locals => { :user => answer.user } if answer.user %>
+    <div class="user_answer">
+        <%= truncate(answer.answer, :length => 200) %>
+        <% if answer.answer.size > 200 -%>
+        <%= link_to "more &raquo;", soapbox_user_question_path(answer.user, answer.profile_question) %>
+        <% end -%>
+    </div>
+</div>

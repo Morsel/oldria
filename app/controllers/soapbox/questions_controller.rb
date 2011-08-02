@@ -1,24 +1,38 @@
-class Soapbox::QuestionsController < QuestionsController
-  # all actions inherit, this is just there to make routing/template selection easier
+class Soapbox::QuestionsController < ApplicationController
 
   def index
-    super
-    render :template => 'questions/index'
+    if params[:user_id]
+      @user = User.find(params[:user_id])
+
+      if can? :manage, @user
+        @topics = Topic.for_user(@user)
+        chapters = @topics.collect do |topic|
+          topic.chapters.for_user(@user).all(:limit => 3)
+        end
+        @chapters_by_topic = chapters.flatten.group_by(&:topic)
+      else
+        @topics = Topic.answered_for_user(@user)
+        chapters = @topics.collect do |topic|
+          topic.chapters.answered_for_user(@user).all(:limit => 3)
+        end
+        @chapters_by_topic = chapters.flatten.group_by(&:topic)
+      end
+
+      render :template => 'questions/topics'
+    else
+      @answers = ProfileAnswer.without_travel.from_premium_users.from_public_users.recently_answered.\
+          all(:limit => 10, :group => "profile_questions.id")
+    end
   end
 
   def show
-    super
-    render :template => 'questions/show'
-  end
-
-  def topics
-    super
-    render :template => 'questions/topics'
-  end
-
-  def chapters
-    super
-    render :template => 'questions/chapters'
+    @question = ProfileQuestion.find(params[:id])
+    @answers = @question.profile_answers.from_premium_users.from_public_users.recently_answered
+    @user = User.find(params[:user_id]) if params[:user_id]
+    if @user.present?
+      @primary_answer = @question.answer_for(@user)
+      @answers = @answers - [@primary_answer]
+    end
   end
 
 end

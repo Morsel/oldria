@@ -26,6 +26,7 @@ class RestaurantsController < ApplicationController
     @employments = @restaurant.employments.by_position.all(
         :include => [:subject_matters, :restaurant_role, :employee])
     @questions = ALaMinuteAnswer.public_profile_for(@restaurant)
+    @promotions = @restaurant.promotions.recently_posted.all(:limit => 3)
   end
 
   def edit

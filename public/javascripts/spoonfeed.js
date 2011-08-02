@@ -12,6 +12,7 @@ $('.hp_promo').equalHeights();
 $('.chapter').equalHeights();
 $('.topic').equalHeights();
 $('.rest_staff .employment').equalHeights();
+$('#newsfeed .promotion').equalHeights();
 
 $('div#photos').masonry({ 
 	columnWidth: 345,

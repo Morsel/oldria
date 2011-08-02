@@ -18,8 +18,10 @@ ActionController::Routing::Routes.draw do |map|
   map.resource :cloudmail, :only => :create 
 
   map.namespace(:soapbox) do |soapbox|
-    soapbox.resources :questions, :only => ['show']
+    soapbox.resources :questions, :only => ['index', 'show'], :as => "behind_the_line"
     soapbox.resources :restaurant_questions, :only => ['show']
+    soapbox.resources :topics, :only => ['show']
+    soapbox.resources :chapters, :only => ['show']
 
     soapbox.resources :restaurants, :only => ['show'] do |restaurants|
       restaurants.resources :feature_pages, :only => ['show']
@@ -35,11 +37,10 @@ ActionController::Routing::Routes.draw do |map|
                       :collection => { :qotd => :get, :trend => :get }
     soapbox.resources :promotions, :as => "newsfeed"
 
-    soapbox.resources :topics, :only => ['index', 'show'], :as => "behind_the_line",
-                      :collection => { :chapter => :get }
-
     soapbox.resources :users do |users|
-      users.resources :questions, :collection => { :topics => :get, :chapters => :get }
+      users.resources :questions
+      users.resources :topics, :only => ['show']
+      users.resources :chapters, :only => ['show']
     end
 
     soapbox.connect 'travel_guides', :controller => 'soapbox', :action => 'travel_guides'
