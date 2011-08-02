@@ -83,7 +83,7 @@ class ProfileQuestion < ActiveRecord::Base
   end
 
   def latest_soapbox_answer
-    profile_answers.from_premium_users.from_public_users.first
+    profile_answers.from_premium_users.from_public_users.first(:order => "created_at DESC")
   end
 
   def soapbox_answer_count
