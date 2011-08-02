@@ -123,6 +123,12 @@ Given /^"([^\"]*)" has a published profile$/ do |username|
   user.save
 end
 
+Given /^"([^\"]*)" does not have a published profile$/ do |username|
+  user = User.find_by_username(username)
+  user.prefers_publish_profile = false
+  user.save
+end
+
 Given /^"([^\"]*)" has a default employment with role "([^\"]*)" and restaurant name "([^\"]*)"$/ do |username, rolename, restoname|
   user = User.find_by_username(username)
   role = Factory(:restaurant_role, :name => rolename)
