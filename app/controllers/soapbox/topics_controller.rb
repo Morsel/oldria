@@ -15,7 +15,7 @@ class Soapbox::TopicsController < ApplicationController
       render :template => 'questions/chapters'
     else
       @topic = Topic.find(params[:id])
-      @answers = ProfileAnswer.for_topic(@topic).all(:limit => 10)
+      @answers = ProfileAnswer.for_topic(@topic).all(:limit => 10, :order => "created_at DESC")
 
       @previous = @topic.previous
       @next = @topic.next
