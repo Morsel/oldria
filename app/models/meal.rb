@@ -29,6 +29,7 @@ class Meal < ActiveRecord::Base
   def open_at
     "#{open_at_hours}:#{open_at_minutes}#{open_at_am_pm}"
   end
+
   def closed_at
     "#{closed_at_hours}:#{closed_at_minutes}#{closed_at_am_pm}"
   end

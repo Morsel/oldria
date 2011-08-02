@@ -9,33 +9,34 @@
             <%= f.input :intersection, :hint => "e.g., State and Main" %>
             <%= f.input :neighborhood %>
             <%= f.input :parking, :as => :select, :collection => parking_options %>
-            <%= f.input :public_transit, :hint => "e.g., One block north of Brown line Chicago stop, or 1 block north of bus route 66." %>
+            <%= f.input :public_transit,
+                        :hint => "e.g., One block north of Brown line Chicago stop, or 1 block north of bus route 66." %>
           <% end %>
 
           <% f.inputs :name => "Pricing", :class => "editing pricing" do %>
-              <h4>Check Average</h4>
-              <%= f.input :dinner_average_price %>
-              <%= f.input :lunch_average_price %>
+            <h4>Check Average</h4>
+            <%= f.input :dinner_average_price %>
+            <%= f.input :lunch_average_price %>
             <%= f.input :brunch_average_price %>
             <%= f.input :breakfast_average_price %>
             <%= f.input :children_average_price %>
-              <h4>Small Plate Pricing</h4>
+            <h4>Small Plate Pricing</h4>
             <%= f.input :small_plate_min_price %>
             <%= f.input :small_plate_max_price %>
             <h4>Large Plate Pricing</h4>
             <%= f.input :large_plate_min_price %>
             <%= f.input :large_plate_max_price %>
-              <h4>Desert Pricing</h4>
-              <%= f.input :dessert_plate_min_price %>
-              <%= f.input :dessert_plate_max_price %>
+            <h4>Desert Pricing</h4>
+            <%= f.input :dessert_plate_min_price %>
+            <%= f.input :dessert_plate_max_price %>
             <li id="tasting_menus">
-              <h4>Tasting Menus</h4>
-              <ol>
-              <% f.fields_for :tasting_menus do |tasting_menu_form| %>
-                <%= render "tasting_menu_fields", :f => tasting_menu_form %>
-              <% end %>
-              </ol>
-              <%= link_to_add_fields("Add a tasting menu", f, :tasting_menus, :class => "sf-button add_fields_for") %>
+                <h4>Tasting Menus</h4>
+                <ol>
+                    <% f.fields_for :tasting_menus do |tasting_menu_form| %>
+                    <%= render "tasting_menu_fields", :f => tasting_menu_form %>
+                    <% end %>
+                </ol>
+                <%= link_to_add_fields("Add a tasting menu", f, :tasting_menus, :class => "sf-button add_fields_for") %>
             </li>
             <h4>Wine Pricing</h4>
             <%= f.input :wine_by_the_glass_count %>
