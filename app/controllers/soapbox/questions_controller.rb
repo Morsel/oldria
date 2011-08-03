@@ -20,8 +20,9 @@ class Soapbox::QuestionsController < ApplicationController
 
       render :template => 'questions/topics'
     else
+      # FIXME - figure out why these don't match the top/most recent answer on the show page
       @answers = ProfileAnswer.without_travel.from_premium_users.from_public_users.recently_answered.\
-          all(:limit => 10, :group => "profile_questions.id", :order => "created_at DESC")
+          all(:limit => 10, :group => "profile_questions.id")
     end
   end
 

@@ -57,7 +57,7 @@
   <div class="clear">&nbsp;</div>
   <% end %>
 
-  <p><span class="timestamp">Last updated: <%= answer.try(:updated_at).try(:strftime, "%b %e %Y") %></span></p>
+  <p><span class="timestamp">Last updated: <%= @answers.first.try(:updated_at).try(:strftime, "%b %e %Y") %></span></p>
 </div><!-- #btl_answers -->
 
 <% else -%><%# no user %>
@@ -92,7 +92,7 @@
   <div class="clear">&nbsp;</div>
   <% end -%>
 
-  <p><span class="timestamp">Last updated: <%= answer.try(:updated_at).try(:strftime, "%b %e %Y") %></span></p>
+  <p><span class="timestamp">Last updated: <%= @answers.first.try(:updated_at).try(:strftime, "%b %e %Y") %></span></p>
 </div><!-- #btl_answers -->
 <% end -%>
 
