@@ -21,7 +21,7 @@ class Soapbox::QuestionsController < ApplicationController
       render :template => 'questions/topics'
     else
       @answers = ProfileQuestion.without_travel.answered_by_premium_and_public_users.\
-          all(:limit => 15, :order => "profile_answers.created_at DESC").map(&:latest_soapbox_answer).uniq.compact
+          all(:limit => 30, :order => "profile_answers.created_at DESC").map(&:latest_soapbox_answer).uniq.compact[0...15]
     end
   end
 
