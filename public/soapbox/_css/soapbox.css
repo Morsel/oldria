@@ -4062,20 +4062,25 @@ dl.things dt:after {
 #btl_answers div.sharing .fb_iframe_widget {
   top: -3px;
 }
+/* line 2983, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+#btl_answers .user_answer p.share-this {
+  text-align: right;
+  font-size: 10px;
+}
 
-/* line 2985, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+/* line 2991, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
 .promotion .identity {
   border: none !important;
 }
-/* line 2988, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+/* line 2994, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
 .promotion p.details {
   font-size: 110%;
 }
-/* line 2991, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+/* line 2997, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
 .promotion .sharing {
   margin-top: 10px;
 }
-/* line 2993, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+/* line 2999, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
 .promotion .sharing .fb_iframe_widget {
   top: -3px;
 }

@@ -48,6 +48,7 @@
   <!-- Likes and Tweets END -->
   <div class="clear">&nbsp;</div>
 
+  <% if @answers.present? -%>
   <h3 id="more-answers">Answers from other users</h3>
 
   <% for answer in @answers[0..4] %>
@@ -58,6 +59,7 @@
   <% end %>
 
   <p><span class="timestamp">Last updated: <%= @answers.first.try(:updated_at).try(:strftime, "%b %e %Y") %></span></p>
+  <% end -%>
 </div><!-- #btl_answers -->
 
 <% else -%><%# no user %>
