@@ -111,6 +111,7 @@ class CloudmailsController < ApplicationController
 
       stop_words = [/notifications[@=]restaurantintelligenceagency.com/,
                     /Sent from my [\w ]+\s*/,
+                    /Sent from myTouch [\w ]+\s*/,
                     /Sent via [\w ]+\s*/,
                     /\s*On (mon|tue|wed|thu|fri|sat|sun).* at \d+\:\d\d (AM|PM)[^a-zA-Z0-9]*/i,
                     /\s*On (mon|tue|wed|thu|fri|sat|sun).* at \d+\:\d\d[^a-zA-Z0-9]*/i,
@@ -119,6 +120,7 @@ class CloudmailsController < ApplicationController
                     /.*date\:.*/i,
                     /.*sent\:.*/i,
                     /-*Original Message-*/,
+                    /---+/,
                     /^#yiv/,
                     /^Email$/,
                     /^td\{/,

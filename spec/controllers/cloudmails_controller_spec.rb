@@ -238,6 +238,20 @@ taste"
 
       conversation.comments.first.comment.should == "Teaspoon.  My brother wanted it to be Half Pint but I didn't like that.  So now it's teaspoon."    
     end
+
+    it "should produce a clean reply from a myTouch user's response" do
+      message = read_sample("mytouch.txt")
+
+      conversation = Factory(:admin_conversation, :recipient => @user, :admin_message => Factory(:qotd))
+      Admin::Conversation.stubs(:find).returns(conversation)
+
+      post :create, :to => "1-token-QOTD-1@dev-mailbot.restaurantintelligenceagency.com",
+           :message => "",
+           :plain => message,
+           :signature => ""
+
+      conversation.comments.first.comment.should == "I made a peach torrentes sorbet as a sweet finish."
+    end
   end
 
   it "should send an error to a user who tries to reply to an already-answered Trend Question for their main restaurant" do
