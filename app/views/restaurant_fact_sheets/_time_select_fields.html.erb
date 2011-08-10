@@ -1,6 +1,6 @@
 <li>
   <%= f.label field.to_sym %>
   <%= f.select :"#{field}_at_hours", options_for_select((1..12).map(&:to_s), f.object.send(:"#{field}_at_hours")) %>
-  <%= f.select :"#{field}_at_minutes", options_for_select((0..59).collect{|x| "%02d" % x}, f.object.send(:"#{field}_at_minutes")) %>
+  <%= f.select :"#{field}_at_minutes", options_for_select([0,15,30,45].collect{|x| "%02d" % x}, f.object.send(:"#{field}_at_minutes")) %>
   <%= f.select :"#{field}_at_am_pm", options_for_select(["am", "pm"].collect{|x| [x.upcase, x]}, f.object.send(:"#{field}_at_am_pm")) %>
 </li>
