@@ -44,12 +44,16 @@ class ProfileAnswer < ActiveRecord::Base
   }
 
   def post_to_facebook
-    name = self.user.respond_to?(:name) ? self.user.name : ""
-    post = { :message => self.profile_question.title.to_s + " - " + self.answer.to_s,
-             :caption => name + ":: Behind The Line :: Topic: Background",
-             :link    => @share_url }
-    response = self.user.facebook_user.feed_create(Mogli::Post.new(:message => post[:message],
-                                                                   :link    => post[:link],
-                                                                   :caption => post[:caption])) if @post_to_facebook.to_s == "1"
+    if @post_to_facebook.to_s == "1"
+      name = self.user.respond_to?(:name) ? self.user.name : ""
+      post = { :message => self.profile_question.title.to_s + " - " + self.answer.to_s,
+               :caption => name + ":: Behind The Line :: Topic: Background",
+               :link    => @share_url }
+      response = self.user.facebook_user.feed_create(Mogli::Post.new(:message => post[:message],
+                                                                     :link    => post[:link],
+                                                                     :caption => post[:caption]))
+    end
+  rescue Mogli::Client::OAuthException
+    flash[:error] = "Your message could not be posted to Facebook at this time"
   end
 end
