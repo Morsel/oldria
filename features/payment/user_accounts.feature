@@ -30,7 +30,7 @@ Feature: User Accounts
     When I go to my profile's edit page
     And I follow "Upgrade to Premium"
     When I fill in the following:
-      | Credit Card Number                    | 4111111111111111     |
+      | Visa/Mastercard Number                | 4111111111111111     |
       | Billing ZIP                           | 60654                |
       | customer_credit_card_expiration_month | 10                   |
       | customer_credit_card_expiration_year  | 1.year.from_now.year |
@@ -107,7 +107,7 @@ Feature: User Accounts
     When I follow "Update billing information"
     Then I should see my credit card information populated
     When I fill in the following:
-      | Credit Card Number                    | 4111111111111111     |
+      | Visa/Mastercard Number                | 4111111111111111     |
       | Billing ZIP                           | 60654                |
       | customer_credit_card_expiration_month | 10                   |
       | customer_credit_card_expiration_year  | 1.year.from_now.year |
