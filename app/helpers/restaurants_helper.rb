@@ -17,7 +17,7 @@ module RestaurantsHelper
     elsif user.employments.count == 1
       restaurant_link(user.primary_employment.restaurant)
     else
-      user.employments.all(:order => '"primary" DESC', :include => :restaurant).map{|e| restaurant_link(e.restaurant) }.to_sentence
+      user.employments.all(:order => '"primary"', :include => :restaurant).map{|e| restaurant_link(e.restaurant) }.to_sentence
     end
   end
   
