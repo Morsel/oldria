@@ -5,11 +5,16 @@
     </header>
     <% cache('newsfeed_sidebar', :expires_in => 1.hour) do -%>
       <ol id="newsfeed">
-          <% for promotion in recent_newsfeed %>
+          <% for link in newsfeed_links %>
           <li>
             <header class="feed-item-title">
-                <%= link_to "#{promotion.restaurant.name}: #{promotion.title}", soapbox_promotion_path(promotion) %>
+                <%= link_to "#{link.name}", soapbox_promotions_path(:promotion_type_id => link.id) %>
             </header>
+            <aside class="feed-item-reply-count">
+                <% link_to soapbox_promotions_path(:promotion_type_id => link.id) do %>
+                <span class="num"><%= count = Promotion.current.for_type(link.id).count %></span> <%= count != 1 ? "items" : "item" %>
+                <% end %>
+            </aside>
           </li>
           <% end %>
       </ol><!-- /activity-feed -->

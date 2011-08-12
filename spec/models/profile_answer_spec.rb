@@ -29,6 +29,7 @@ describe ProfileAnswer do
     end
 
   end
+
 end
 
 # == Schema Information

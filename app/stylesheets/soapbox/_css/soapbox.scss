@@ -426,6 +426,9 @@ body,html,#container,#main,#content,#inside{
           &#frontburner_0 {
             display: block;
           }
+          .datestamp {
+            color: #ccc;
+          }
           .identity {
             border: none;
           }          
@@ -2594,6 +2597,7 @@ dl.things dt:after {content: ":"}
 
 .a_la_minute_question, .a_la_minute_answer {
   margin-bottom: 1em;
+  clear: both;
   .identity {
     border: none !important;
   }
@@ -2974,6 +2978,12 @@ dl.things dt:after {content: ":"}
     clear: none;
     .fb_iframe_widget {
       top: -3px
+    }
+  }
+  .user_answer {
+    p.share-this {
+      text-align: right;
+      font-size: 10px;
     }
   }
 }

@@ -60,7 +60,7 @@
           <% end %>
       </dl><!-- .user_info.contact -->
 
-                <h5>More Details</h5>
+      <h5>More Details</h5>
       <dl class="user_info clearfix extra">
           <%- if !on_soapbox && can?(:edit,@user) -%>
           <dt>Acct. Type</dt>
@@ -173,21 +173,3 @@
         </div><!-- /tabable -->
       </div><!--recent_qtod-->
     </div><!-- /recent_soapbox -->
-
-<% if false -%>
-
-
-        <div id="user_profile_view" class="clearfix">
-                <div class="profile_info">
-                        <div class="profile_header">
-                                <div class="profile_picture"></div><!-- .profile_picture -->
-                <h2 class="user_name"></h2>
-                <% if @user.profile && @user.profile.headline %>
-                                                        <h3 class="headline"><%= @user.profile.try(:headline) %></h3>
-                                                <% end %>
-                        </div><!--.profile_header-->
-                </div><!--.profile_info-->
-        </div><!-- #user_profile_view -->
-
-
-<% end -%>

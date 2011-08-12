@@ -55,6 +55,15 @@ class ProfileQuestion < ActiveRecord::Base
           Date.today] }
   }
 
+  named_scope :answered_by_premium_and_public_users, {
+    :joins => "INNER JOIN profile_answers ON `profile_questions`.id = `profile_answers`.profile_question_id
+               INNER JOIN preferences ON `profile_answers`.user_id = `preferences`.owner_id
+               INNER JOIN subscriptions ON `profile_answers`.user_id = `subscriptions`.subscriber_id",
+    :conditions => ["`preferences`.owner_type = 'User' AND `preferences`.name = 'publish_profile' AND `preferences`.value = ?
+                    AND subscriptions.id IS NOT NULL AND (subscriptions.end_date IS NULL OR subscriptions.end_date >= ?)",
+                    true, Date.today]
+  }
+
   named_scope :random, :order => RANDOM_SQL_STRING
   named_scope :without_travel, :joins => { :chapter => :topic }, :conditions => ["topics.title != ?", "Travel Guide"]
 

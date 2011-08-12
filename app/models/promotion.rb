@@ -39,6 +39,10 @@ class Promotion < ActiveRecord::Base
           Date.today] }
   }
 
+  named_scope :for_type, lambda { |type_id|
+    { :conditions => { :promotion_type_id => type_id } }
+  }
+
   def title
     promotion_type.name
   end

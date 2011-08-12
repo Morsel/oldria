@@ -29,7 +29,7 @@ Feature: Restaurant Accounts
     When I go to the edit restaurant page for "Taco Bell"
     And I follow "Upgrade to Premium"
     And I fill in the following:
-      | Credit Card Number                    | 4111111111111111     |
+      | Visa/Mastercard Number                | 4111111111111111     |
       | Billing ZIP                           | 60654                |
       | customer_credit_card_expiration_month | 10                   |
       | customer_credit_card_expiration_year  | 1.year.from_now.year |
@@ -95,7 +95,7 @@ Feature: Restaurant Accounts
     When I follow "Update billing information"
     Then I should see my credit card information populated
     When I fill in the following:
-      | Credit Card Number                    | 4111111111111111     |
+      | Visa/Mastercard Number                | 4111111111111111     |
       | Billing ZIP                           | 60654                |
       | customer_credit_card_expiration_month | 10                   |
       | customer_credit_card_expiration_year  | 1.year.from_now.year |

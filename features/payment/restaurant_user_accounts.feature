@@ -87,11 +87,11 @@ Feature: Restaurant Accounts
     When I follow "Upgrade to Restaurant Account"
     Then I should be on the new subscription page for the restaurant "Taco Bell"
     When I fill in the following:
-          | Credit Card Number                    | 4111111111111111     |
+          | Visa/Mastercard Number                | 4111111111111111     |
           | Billing ZIP                           | 60654                |
           | customer_credit_card_expiration_month | 10                   |
           | customer_credit_card_expiration_year  | 1.year.from_now.year |
-          | Security Code                          | 123                  |
+          | Security Code                         | 123                  |
 
   Scenario: Successful response from braintree makes a user premium
     When I simulate a successful call from braintree for the restaurant "Taco Bell"

@@ -105,6 +105,21 @@ describe CloudmailsController do
       conversation.comments.first.comment.should == "Good quality pans....all clad."
     end
 
+    it "should produce a clean reply from a Blackberry/T-Mobile user's response" do
+      message = read_sample('blackberry_tmo.txt')
+
+      conversation = Factory(:admin_conversation, :recipient => @user, :admin_message => Factory(:qotd))
+      Admin::Conversation.stubs(:find).returns(conversation)
+
+      post :create, :to => "1-token-QOTD-1@dev-mailbot.restaurantintelligenceagency.com",
+           :message => "",
+           :html => "",
+           :plain => message,
+           :signature => ""
+
+      conversation.comments.first.comment.should == "The philosophy behind it is to serve good food that makes everybody feel good about eating. We have a small staff of between 6-8 any night and it's a family environment. We all like to eat well, so we do. I also want the servers to be geared up to run the floor and talk to people with energy and enthusiasm. It can get pretty tiring to talk to 40-85 people a night with energy. We serve a lot of grains and pastas so people have a satisfied feeling. A good amount of chicken as well. We like to get homey with the staff meal too especially in the winter so everyone can kinda feel like they are at home. Meatloaf, chicken and dumplings, meatballs, roasted chicken, macaroni and cheese, etc. My special treat when I make staff is fried rice!"
+    end
+
     it "should produce a clean reply from a Gmail user's response" do
       message = read_sample('gmail.txt')
       message.gsub!(/(?:\r|\n)*$/, "\r\n") # re-creating Gmail's line endings
@@ -222,6 +237,20 @@ taste"
            :signature => ""
 
       conversation.comments.first.comment.should == "Teaspoon.  My brother wanted it to be Half Pint but I didn't like that.  So now it's teaspoon."    
+    end
+
+    it "should produce a clean reply from a myTouch user's response" do
+      message = read_sample("mytouch.txt")
+
+      conversation = Factory(:admin_conversation, :recipient => @user, :admin_message => Factory(:qotd))
+      Admin::Conversation.stubs(:find).returns(conversation)
+
+      post :create, :to => "1-token-QOTD-1@dev-mailbot.restaurantintelligenceagency.com",
+           :message => "",
+           :plain => message,
+           :signature => ""
+
+      conversation.comments.first.comment.should == "I made a peach torrentes sorbet as a sweet finish."
     end
   end
 

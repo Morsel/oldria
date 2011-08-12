@@ -12,9 +12,9 @@
 <% end %>
 <!-- AddThis Button END -->
 
-<ul id="answers">
+<div id="answers">
   <%= render :partial => 'answer', :collection => @answers, :as => :answer %>
-</ul>
+</div>
 
 <% content_for :sidebar do -%>
 <%= render :partial => 'sidebar' %>
