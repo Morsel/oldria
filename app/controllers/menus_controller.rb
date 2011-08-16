@@ -1,7 +1,7 @@
 class MenusController < ApplicationController
   before_filter :require_user
-  before_filter :require_account_manager_authorization
   before_filter :find_restaurant
+  before_filter :require_account_manager_authorization
   before_filter :find_menu, :only => [:edit, :update]
 
   def bulk_edit
@@ -10,12 +10,13 @@ class MenusController < ApplicationController
   end
 
   def create
-    @menu = Menu.from_params(params[:menu].merge(:restaurant => @restaurant))
-    if @menu.invalid?
+    @menu = Menu.new(params[:menu].merge(:restaurant => @restaurant))
+    if @menu.save
+      redirect_to bulk_edit_restaurant_menus_path(@restaurant)
+    else
+      # TODO - does this next line actually work? Firefox is not showing the filename in the form when there's an error
       @menu.pdf_remote_attachment = PdfRemoteAttachment.new(params[:menu][:pdf_remote_attachment_attributes])
       render :action => :bulk_edit
-    else
-      redirect_to bulk_edit_restaurant_menus_path(@restaurant)
     end
   end
 

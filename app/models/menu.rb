@@ -31,15 +31,9 @@ class Menu < ActiveRecord::Base
       File.read(File.join(RAILS_ROOT, 'db/seedlings/restaurant_features/menu change tags.txt')).split("\r\n")
     end
   end
+
   validates_inclusion_of :change_frequency, :in => Menu.change_frequencies,
       :message => "must be selected"
-
-
-  def self.from_params(params)
-    menu = Menu.new(params)
-    menu.save
-    menu
-  end
 
 end
 

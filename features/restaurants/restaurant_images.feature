@@ -1,4 +1,4 @@
-@restaurant_images
+@restaurant @restaurant_images
 Feature: Restaurant Images
   In order to better advertise a restaurant,
   I as a public user,
@@ -22,7 +22,7 @@ Feature: Restaurant Images
   Scenario: Photo upload page does not display for a non-account manager
     Given the user "normal" is not employed by "Bourgeois Pig"
     When I go to the restaurant photo upload page for Bourgeois Pig
-    And I should see "You don't have permission to access that page"
+    And I should see "You are not permitted to access this page"
 
   Scenario: Photo upload page does not display for a logged out user
     Given I am not logged in

@@ -307,21 +307,21 @@ Then /^I see the text for each question$/ do
   end
 end
 
-Given /^"([^"]*)" has answered "([^"]*)" with "([^"]*)"$/ do |restaurant_name, question, answer|
+Given /^"([^\"]*)" has answered "([^\"]*)" with "([^\"]*)"$/ do |restaurant_name, question, answer|
   @restaurant = Restaurant.find_by_name(restaurant_name)
   @question = ALaMinuteQuestion.find_by_question(question)
   @answer = ALaMinuteAnswer.create!(:answer => answer, :a_la_minute_question => @question,
       :responder => @restaurant)
 end
 
-Then /^I should see the answer "([^"]*)"$/ do |answer_text|
+Then /^I should see the answer "([^\"]*)"$/ do |answer_text|
   response.should have_selector(".answer", :content => answer_text)
 end
 
 Given /^the user "([^\"]*)" is employed by "([^\"]*)"$/ do |username, restaurant_name|
   user = User.find_by_username(username)
   restaurant = Restaurant.find_by_name(restaurant_name)
-  restaurant.employees << user
+  Factory(:employment, :employee => user, :restaurant => restaurant)
 end
 
 Given /^I am logged in as an account manager for "([^\"]*)"$/ do |arg1|
@@ -343,8 +343,7 @@ end
 Given /^the user "([^\"]*)" is an account manager for "([^\"]*)"$/ do |username, restaurant_name|
   user = User.find_by_username(username)
   restaurant = Restaurant.find_by_name(restaurant_name)
-  restaurant.employees << user
-  user.reload.employments.find(:first, :conditions => {:restaurant_id => restaurant.id}).update_attributes!(:omniscient => true)
+  Factory(:employment, :employee => user, :restaurant => restaurant, :omniscient => true)
 end
 
 Then /^I should view the dashboard$/ do

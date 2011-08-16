@@ -78,13 +78,8 @@ class ApplicationController < ActionController::Base
   end
 
   def require_account_manager_authorization
-    return true if current_user.admin?
-    @restaurant = Restaurant.find(params[:restaurant_id])
-    employment = current_user.reload.employments.find(:first,
-        :conditions => {:restaurant_id => @restaurant.id})
-    omniscient = employment && employment.omniscient?
-    unless omniscient
-      flash[:error] = "You don't have permission to access that page"
+    if cannot? :manage, @restaurant
+      flash[:error] = "You are not permitted to access this page"
       redirect_to root_path
     end
   end
