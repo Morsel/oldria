@@ -29,6 +29,11 @@ describe Menu do
     Menu.create!(@valid_attributes)
   end
 
+  it "should create a new site activity message when saved" do
+    Menu.create!(@valid_attributes)
+    SiteActivity.last.description.should == "Saved menu for #{@restaurant.name}"
+  end
+
   describe "validations" do
     describe "change_frequency" do
       it "fails if change_frequency is not one of the allowed values" do

@@ -19,7 +19,6 @@ Given /^that "([^\"]*)" has an employee "([^\"]*)"$/ do |restaurant_name, employ
                        :employee => Factory(:user, :username => employee_name, :password => 'secret') )
 end
 
-
 Then /^I see the restaurant's name linked as "([^\"]*)"$/ do |name|
   response.should have_selector("#name a", :content => name)
 end
@@ -415,11 +414,22 @@ Then /^"([^\"]*)" should be marked as the primary accolade$/ do |accolade_name|
   field_labeled(dom_id(accolade, :primary)).should be_checked
 end
 
-Then /^I should see the accolades in order: "([^"]*)"$/ do |accolade_names|
+Then /^I should see the accolades in order: "([^\"]*)"$/ do |accolade_names|
   expected_names = tableish(".accolade", ".extended-title")
   expected_names.flatten.should == accolade_names.split(",").map(&:strip)
 end
 
 Given /^I should see that the restaurant has an overtime account$/ do
   response.should have_selector("#account_type", :content => "cancelled")
+end
+
+Given /^a manager for "([^\"]*)" has just uploaded a new menu$/ do |restaurant_name|
+  steps %Q{
+    Given I am logged in as an account manager for "#{restaurant_name}"
+    When I go to the restaurant menu upload page for #{restaurant_name}
+    And I fill in "August" for "menu_name"
+    And I select "Monthly" from "How often it changes"
+    And I attach the file "/features/images/menu1.pdf" to "menu_pdf_remote_attachment_attributes_attachment" on S3
+    And I press "Upload"
+  }
 end

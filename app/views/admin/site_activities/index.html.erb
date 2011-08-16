@@ -1,0 +1,5 @@
+<% title "Site Activity Updates" %>
+
+<% for activity in SiteActivity.all %>
+<p><%= activity.created_at.to_formatted_s(:short) %> - <%= activity.description %></p>
+<% end %>
