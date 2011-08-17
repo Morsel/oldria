@@ -59,7 +59,7 @@ Feature: users can be invited to join Spoonfeed by registered SF users, restaura
     And I check "user_default_employment_attributes_post_to_soapbox"
 
     And I fill in "Hometown" with "nowhere"
-    And I fill in "Currently residing in" with "Seattle, WA"
+    And I fill in "user_profile_attributes_current_residence" with "Seattle, WA"
 	And I select "Illinois: Chicago" from "Metropolitan area"
 	And I select "Midwest (IN IL OH)" from "Region"
 
@@ -103,7 +103,7 @@ Feature: users can be invited to join Spoonfeed by registered SF users, restaura
     When I select "Beverage Director" from "Role"
     And I check "Drink"
     And I fill in "Hometown" with "Ithaca, NY"
-    And I fill in "Currently residing in" with "Palm Springs"
+    And I fill in "user_profile_attributes_current_residence" with "Palm Springs"
 	And I select "Illinois: Chicago" from "Metropolitan area"
 	And I select "Midwest (IN IL OH)" from "Region"
 

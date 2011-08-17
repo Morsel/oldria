@@ -109,7 +109,7 @@
     </section><!-- /profile-account -->
 
     <section id="profile-summary">
-    <% semantic_form_for @profile, :url => user_profile_path(@user) do |f| %>
+        <% semantic_form_for @profile, :url => user_profile_path(@user) do |f| %>
           <% if @user.premium_account? %> 
             <% f.inputs :name => "Public Profile View", :for => :user do |user_form| %>
               <%= user_form.input :prefers_publish_profile, :as => :boolean, :label => 'Display my profile on Soapbox' %>
@@ -123,16 +123,15 @@
             </fieldset>
           <% end %>
 
-            <% f.inputs :name => 'Basic Information' do %>
+          <% f.inputs :name => 'Basic Information' do %>
             <%= f.input :birthday, :end_year => 1930, :start_year => Date.today.year, :selected => nil %>
             <%= f.input :job_start, :end_year => 1930, :start_year => Date.today.year, :selected => nil %>
             <%= f.input :headline %>
             <%= f.input :summary, :hint => "Keep it under 1000 characters" %>
             <%= f.input :hometown %>
-            <%= f.input :current_residence, :label => "Currently residing in" %>
-				<% button_tag :class => 'positive' do %>Save changes to basic information<% end %>
-
-            <% end %>
+            <%= f.input :current_residence, :label => "In what city/state do you work?", :hint => "Or where you live, if currently unemployed" %>
+            <% button_tag :class => 'positive' do %> Save changes to basic information <% end %>
+          <% end %>
 
             <% f.inputs :name => "Metro and Region for search" do %>
                 <%= f.input :metropolitan_area %>

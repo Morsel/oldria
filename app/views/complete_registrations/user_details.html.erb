@@ -15,7 +15,7 @@
     <% f.semantic_fields_for :profile do |profile| %>
         <% profile.inputs :name => 'Profile Details' do %>
             <%= profile.input :hometown %>
-            <%= profile.input :current_residence, :label => "Currently residing in" %>
+            <%= profile.input :current_residence, :label => "In what city/state do you work?", :hint => "Or where you live, if currently unemployed" %>
         <% end %>
         <% profile.inputs :name => "Metro and Region for search" do %>
             <%= profile.input :metropolitan_area %>
