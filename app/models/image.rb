@@ -18,6 +18,9 @@
 #
 
 class Image < Attachment
+
+  belongs_to :attachable, :polymorphic => true
+
   validates_attachment_content_type :attachment,
     :content_type => ["image/jpg", "image/jpeg", "image/png", "image/gif"],
     :if => :attachment_file_name,
@@ -38,4 +41,9 @@ class Image < Attachment
     :url => ':s3_domain_url',
     :whiny => false,
     :default_url => '/images/avatar_restaurant.gif'
+
+  def restaurant
+    attachable if attachable_type == "Restaurant"
+  end
+
 end
