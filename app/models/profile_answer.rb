@@ -18,6 +18,7 @@ class ProfileAnswer < ActiveRecord::Base
 
   validates_presence_of :answer, :profile_question_id, :user_id
   validates_uniqueness_of :profile_question_id, :scope => :user_id
+  validates_length_of :answer, :maximum => 1500
 
   attr_accessor :post_to_facebook, :share_url
   after_save    :post_to_facebook
