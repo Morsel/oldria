@@ -1685,7 +1685,7 @@ body, html, #container, #main, #content, #inside {
 
 /* line 1115, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
 #recent-activity {
-  background: url(/images/soapbox/bg-sidebar-top-purple.png) no-repeat;
+  background: url(/images/soapbox/bg-sidebar-top-purple.png) no-repeat #333c68;
   padding: 0 15px 40px;
   position: relative;
   margin: 0 0 50px;
