@@ -4,6 +4,7 @@ class RestaurantsController < ApplicationController
   before_filter :find_restaurant, :only => [:show, :select_primary_photo, :new_manager_needed, :replace_manager]
 
   def index
+    @employments = current_user.employments
   end
 
   def new
