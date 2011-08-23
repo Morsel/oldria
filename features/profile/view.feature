@@ -10,7 +10,7 @@ Feature: Profile View
     And I am logged in as "admin"
     And I am on the profile page for "admin"
     And I follow "EDIT PROFILE"
-    Then I should see "Profile Summary"
+    Then I should see "Summary"
     And I should not see "Display my profile on Soapbox"
 
   Scenario: User with premium account should see "Display my profile on Soapbox" checkbox 
@@ -18,6 +18,6 @@ Feature: Profile View
     And I am logged in as "admin"
     And I am on the profile page for "admin"
     And I follow "EDIT PROFILE"
-    Then I should see "Profile Summary"
+    Then I should see "Summary"
     And I should see "Display my profile on Soapbox"
 

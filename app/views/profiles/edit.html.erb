@@ -7,9 +7,10 @@
 <section id="profile-tabs">
     <nav id="profile-options">
         <span><a href="#profile-edit-account">Account</a></span>
-        <span><a href="#profile-summary">Profile Summary</a></span> 
+        <span><a href="#profile-summary">Summary</a></span>
         <span><a href="#profile-extended">Extended Profile</a></span>
         <span><a href="#profile-messages">Notifications</a></span>
+        <% if @user.btl_enabled? -%><span><a href="#profile-btl">Behind the Line</a></span><% end %>
     </nav><!-- /profile_options -->
 
     <section id="profile-edit-account">
@@ -303,6 +304,12 @@
 
     <% end %>
   </section><!-- /profile-messages -->
+
+  <section id="profile-btl">
+      <% if @user.btl_enabled? -%>
+        <%= render :partial => 'profiles/behind_the_line', :locals => { :user => @user } %>
+      <% end -%>
+  </section>
 </section><!-- /profile-tabs -->
 
 <% if @profile.errors.present? %>

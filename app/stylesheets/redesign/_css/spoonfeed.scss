@@ -2021,7 +2021,15 @@ form, #page_content form{
 	border-left: 1px dotted #ddd;
 } /* ## end #profile_account + #profile-summary ----------------------- */
 
-
+#profile-btl {
+  #behindline {
+    @include column(18);
+    float: none;
+    h3, .edit_profile_link, p.view_all {
+      display: none;
+    }
+  }
+}
 
 #page_content a.directory_switch {
 	float: right;
