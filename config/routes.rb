@@ -152,7 +152,6 @@ ActionController::Routing::Routes.draw do |map|
     restaurant.resource :employee_accounts, :only => [:create, :destroy]
 
     restaurant.resource :fact_sheet, :controller => "restaurant_fact_sheets"
-    restaurant.media_requests 'media_requests', :controller => 'media_requests', :action => 'index'
     restaurant.resources :calendars, :collection => { "ria" => :get }
     restaurant.resources :events, :member => { "ria_details" => :get, "transfer" => :post }
 

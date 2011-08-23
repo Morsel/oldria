@@ -6,7 +6,7 @@
 
   	<% if can? :edit, @restaurant %>
   		<% unless @restaurant.media_requests.blank? %>
-  			<h3 class="media_requests">Your restaurant has <%= link_to "#{@restaurant.media_requests.size} media requests", restaurant_media_requests_path(@restaurant) %></h3>
+  			<h3 class="media_requests">Your restaurant has <%= link_to "#{@restaurant.media_requests.size} media requests", media_requests_messages_path %></h3>
   		<% end %>
   		<p>So that your media requests go to the correct person, please also check what type of questions this employee should answer. We recommend that each role actually has <strong>at least one person assigned to it</strong>. You can have multiple employees with the same role, just make sure that one person is for sure responsible for answering the question.</p>
 	
