@@ -27,7 +27,7 @@
 
     <% f.inputs :name => "Basics", :class => "editing basics" do %>
       <%= f.input :name %>
-      <%= f.input :description, :as => :text, :label => "Tagline or short description" %>
+      <%= f.input :description, :as => :text, :label => "Tagline or short description (no more than 255 characters)" %>
       <% button_tag :class => 'positive' do %>Save changes to basic information<% end %>
     <% end %>
 
