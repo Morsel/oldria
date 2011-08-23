@@ -4,18 +4,15 @@ Feature: Update information
   As a SF member,
   I should be able to update my account profile.
 
-
   Scenario: Update my username
     Given the following user records:
     | username | password |
     | lestor   | secret   |
     And I am logged in as "lestor" with password "secret"
     When I follow "My Profile"
-    And I follow "Edit profile"
     And I fill in "Username" with "leslie"
     And I press "Save"
     Then I should see "Successfully updated your profile"
-
 
   Scenario: Updating password
     Given the following user records:
@@ -23,7 +20,6 @@ Feature: Update information
     | manny    | secret   |
     And I am logged in as "manny" with password "secret"
     When I follow "My Profile"
-    And I follow "Edit profile"
     And I fill in "Password" with "betterpassword"
     And I fill in "Password Confirmation" with "betterpassword"
     And I press "Save"
@@ -43,7 +39,6 @@ Feature: Update information
     | horatio  | secret   |
     And I am logged in as "horatio" with password "secret"
     When I follow "My Profile"
-    And I follow "Edit profile"
     And I fill in "Password" with "betterpassword"
     And I fill in "Password Confirmation" with "better"
     And I press "Save"
@@ -56,7 +51,6 @@ Feature: Update information
     | sammy    | secret   |
     And I am logged in as "sammy" with password "secret"
     When I follow "My Profile"
-    And I follow "Edit profile"
     And I follow "Disconnect Twitter"
     Then I should see "Your Twitter Account was disassociated with your SpoonFeed Account"
     And "sammy" should not have Twitter linked to his account
