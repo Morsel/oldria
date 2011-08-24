@@ -9,6 +9,9 @@
         <%= comment.user.primary_employment.try(:restaurant).try(:city_and_state) || comment.user.try(:profile).try(:current_residence) %>
     </div>
     <div class="user_comment"><%= simple_format(comment.comment) %></div>
+    <% unless @comment_view -%>
+    <p class="share-this"><%= link_to "Share this entry", comment_soapbox_soapbox_entry_path(@entry.id, :comment_id => comment.id) %></p>
+    <% end -%>
 <% end %>
 
 <%- else -%>
