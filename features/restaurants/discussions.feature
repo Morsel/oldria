@@ -13,28 +13,28 @@ Feature: Discussions
       | john     | secret   | john@example.com | John Doe  | Sommelier |
 
   Scenario: Create a new Discussion
-    Given I am logged in as "wendy" with password "secret"
+    Given I am logged in as "sam" with password "secret"
     When I follow "My Restaurants"
     And I follow "Arabian Nights"
     And I follow "Start a discussion"
     And I fill in "Subject" with "Where should we eat?"
-    And I check "Sam Smith"
+    And I check "Wendy Sue"
     And I press "Post Discussion"
     Then there should be 1 discussion in the system
 
   Scenario: Discussion notifications
-    Given I am logged in as "wendy" with password "secret"
+    Given I am logged in as "sam" with password "secret"
     When I follow "My Restaurants"
     And I follow "Arabian Nights"
     And I follow "Start a discussion"
     And I fill in "Subject" with "Where should we eat?"
-    And I check "Sam Smith"
+    And I check "Wendy Sue"
     And I uncheck "John Doe"
     And I press "Post Discussion"
-    Then "sam@example.com" should have 1 email
+    Then "wsue@example.com" should have 1 email
     And "john@example.com" should have no emails
 
-    When "sam@example.com" opens the email with subject "SpoonFeed: Wendy Sue has invited you to a discussion"
+    When "wsue@example.com" opens the email with subject "SpoonFeed: Sam Smith has invited you to a discussion"
     And I follow "View this discussion" in the email
     Then I should see "Where should we eat?"
 
@@ -51,14 +51,14 @@ Feature: Discussions
 
 @allow-rescue
   Scenario: Lockdown
-    Given I am logged in as "wendy" with password "secret"
-    When I follow "My Restaurants"
-    And I follow "Arabian Nights"
-    And I follow "Start a discussion"
-    And I fill in "Subject" with "Where should we eat?"
-    And I check "Sam Smith"
-    And I uncheck "John Doe"
-    And I press "Post Discussion"
+    Given I am logged in as "sam" with password "secret"
+	When I follow "My Restaurants"
+	And I follow "Arabian Nights"
+	And I follow "Start a discussion"
+	And I fill in "Subject" with "Where should we eat?"
+	And I check "Wendy Sue"
+	And I uncheck "John Doe"
+	And I press "Post Discussion"
     Then there should be 1 discussion in the system
 
     Given I am logged in as "john" with password "secret"

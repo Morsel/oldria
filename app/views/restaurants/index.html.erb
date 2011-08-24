@@ -20,13 +20,15 @@
       <ul>
           <% @employments.each do |employment| %>
           <li class="<%= dom_class(employment.restaurant) %>">
-              <%= link_to h(employment.restaurant_name), employment.restaurant, :class => "restaurant" %>
               <% if employment.omniscient? -%>
+              <%= link_to "Edit #{employment.restaurant_name}", edit_restaurant_path(employment.restaurant), :class => "restaurant" %>
               <span>Admin</span>
               <p>
                   <%= link_to "Edit A la Minute", bulk_edit_restaurant_a_la_minute_answers_path(:restaurant_id => employment.restaurant_id), :class => "restaurant-actions" %>&nbsp;&nbsp;&nbsp;
                   <%= link_to "Edit Newsfeed", new_restaurant_promotion_path(:restaurant_id => employment.restaurant_id), :class => "restaurant-actions" %>
               </p>
+              <% else -%>
+              <%= link_to "#{employment.restaurant_name}", employment.restaurant, :class => "restaurant" %>
               <% end -%>
           </li>
           <% end %>

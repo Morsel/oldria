@@ -19,8 +19,7 @@ Feature: Managing Restaurants
   Scenario: I can edit the employees of restaurants I manage
     Given I am on the dashboard
     When I follow "My Restaurants"
-    And I follow "Jimmy's Diner"
-    When I follow "Edit Restaurant"
+    And I follow "Edit Jimmy's Diner"
     And I follow "Staff"
     Then I should see "Rearrange the order employees are listed on your restaurant"
 
@@ -44,6 +43,5 @@ Feature: Managing Restaurants
   Scenario: I can edit the restaurants I manage
     Given I am on the dashboard
     When I follow "My Restaurants"
-    And I follow "Jimmy's Diner"
-    And I follow "Edit restaurant"
+    And I follow "Edit Jimmy's Diner"
     Then I should see "Back to public view"
