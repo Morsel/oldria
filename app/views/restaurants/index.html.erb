@@ -28,7 +28,7 @@
                   <%= link_to "Edit Newsfeed", new_restaurant_promotion_path(:restaurant_id => employment.restaurant_id), :class => "restaurant-actions" %>
               </p>
               <% else -%>
-              <%= link_to "#{employment.restaurant_name}", employment.restaurant, :class => "restaurant" %>
+              <p><%= link_to "#{employment.restaurant_name}", employment.restaurant, :class => "restaurant" %></p>
               <% end -%>
           </li>
           <% end %>
