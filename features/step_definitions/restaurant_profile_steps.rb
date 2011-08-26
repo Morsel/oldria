@@ -252,6 +252,7 @@ Then /^I should see the primary photo detail view$/ do
 end
 
 Then /^I should see the restaurant photo gallery$/ do
+  response.should have_selector("#photos")
   @restaurant.reload.photos.each do |photo|
     response.should have_selector("#photo_#{photo.id} img")
     response.body.should include("#{photo.attachment_file_name}")

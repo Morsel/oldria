@@ -30,7 +30,7 @@ config.gem 'rspec-rails',      :lib => false, :version => '>=1.3.2' unless File.
 
 config.gem "factory_girl",  :version => '~>1.2.3'
 config.gem 'bmabey-email_spec', :lib => 'email_spec', :source => "http://gems.github.com"
-config.gem "fakeweb", :version => ">= 1.2.5"
+config.gem "fakeweb", :version => "1.3.0"
 config.gem "mocha"
 config.gem "delorean"
 config.gem "awesome_print", :lib => "ap"
