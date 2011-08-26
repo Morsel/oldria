@@ -1,6 +1,6 @@
 <nav id="primary_nav">
   <span><%= active_link_to "Dashboard", root_path, :id => "nav_dashboard" %></span>
-  <span><%= active_link_to "My Profile", profile_path(current_user.username), :id => "nav_myprofile" %></span>
+  <span><%= active_link_to "My Profile", edit_user_profile_path(current_user), :id => "nav_myprofile" %></span>
   <span><%= active_link_to "My Restaurants", restaurants_path, :id => "nav_myrestaurants" %></span>
   <span>
     <%= active_link_to "Front Burner", '/front_burner', :id => "nav_frontburner" %>
@@ -15,5 +15,4 @@
     <% end -%>
   </span>
   <span><%= active_link_to "Directory", '/directory', :id => "nav_directory" %></span>
-  <span><%= active_link_to "Social Media", user_statuses_path(current_user), :id => "nav_socialmedia" %></span>
 </nav>

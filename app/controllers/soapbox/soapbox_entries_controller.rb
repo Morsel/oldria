@@ -11,10 +11,10 @@ class Soapbox::SoapboxEntriesController < Soapbox::SoapboxController
   end
 
   def show
-    entry = SoapboxEntry.find(params[:id], :include => :featured_item)
-    @feature = entry.featured_item
-    @feature_comments = entry.comments.all(:order => "created_at DESC")
-    @feature_type = entry.featured_item_type == 'Admin::Qotd' ? ' Question of the Day' : ' Trend'
+    @entry = SoapboxEntry.find(params[:id], :include => :featured_item)
+    @feature = @entry.featured_item
+    @feature_comments = @entry.comments.all(:order => "created_at DESC")
+    @feature_type = @entry.featured_item_type == 'Admin::Qotd' ? ' Question of the Day' : ' Trend'
   end
 
   def trend
@@ -35,6 +35,16 @@ class Soapbox::SoapboxEntriesController < Soapbox::SoapboxController
       @featured_items = questions.map(&:featured_item).paginate(:page => params[:page], :include => :featured_item)
     end
     @no_sidebar = true
+  end
+
+  def comment
+    @entry = SoapboxEntry.find(params[:id], :include => :featured_item)
+    @feature = @entry.featured_item
+    @feature_comments = [Comment.find(params[:comment_id])]
+    @feature_type = @entry.featured_item_type == 'Admin::Qotd' ? ' Question of the Day' : ' Trend'
+    @comment_view = true
+
+    render :action => "show"
   end
 
   protected

@@ -4,7 +4,7 @@
     <li class="text required">
         <%= text_area_tag "profile_question[#{answer.profile_question.id}]answer", answer.answer,
             :rows => 20, :cols => 50, :id => "profile_question_#{answer.profile_question.id}_answer" %>
-        <p class="inline-hints"><%= answer.new_record? ? "" : "This answer is viewable by others" %></p>
+        <p class="inline-hints"><%= answer.new_record? ? "Maximum length 1500 characters" : "This answer is viewable by others" %></p>
     </li>
   </ol>
 </fieldset>

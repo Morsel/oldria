@@ -18,6 +18,7 @@ class ProfileAnswer < ActiveRecord::Base
 
   validates_presence_of :answer, :profile_question_id, :user_id
   validates_uniqueness_of :profile_question_id, :scope => :user_id
+  validates_length_of :answer, :maximum => 1500
 
   attr_accessor :post_to_facebook, :share_url
   after_save    :post_to_facebook
@@ -31,6 +32,14 @@ class ProfileAnswer < ActiveRecord::Base
   named_scope :from_public_users, {
     :joins => "INNER JOIN preferences ON `profile_answers`.user_id = `preferences`.owner_id",
     :conditions => ["`preferences`.owner_type = 'User' AND `preferences`.name = 'publish_profile' AND `preferences`.value = ?", true]
+  }
+
+  named_scope :from_premium_and_public_users, {
+    :joins => "INNER JOIN preferences ON `profile_answers`.user_id = `preferences`.owner_id
+               INNER JOIN subscriptions ON `profile_answers`.user_id = `subscriptions`.subscriber_id",
+    :conditions => ["`preferences`.owner_type = 'User' AND `preferences`.name = 'publish_profile' AND `preferences`.value = ?
+                    AND subscriptions.id IS NOT NULL AND (subscriptions.end_date IS NULL OR subscriptions.end_date >= ?)",
+                    true, Date.today]
   }
 
   named_scope :recently_answered, :order => "profile_answers.created_at DESC"

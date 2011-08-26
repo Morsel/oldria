@@ -10,13 +10,13 @@ Given /^the following confirmed,? twitter\-authorized users?:?$/ do |table|
   end
 end
 
-
 When /^Twitter authorizes "([^\"]+)"$/ do |username|
   u = User.find_by_username(username)
   u.asecret = "fakesecret"
   u.atoken  = "faketoken"
   u.save.should be_true
   u.twitter_authorized?.should be_true
+
   visit path_to('the homepage')
 end
 

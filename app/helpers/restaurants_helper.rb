@@ -16,9 +16,13 @@ module RestaurantsHelper
       user.primary_employment.try(:solo_restaurant_name)
     elsif user.employments.count == 1
       restaurant_link(user.primary_employment.restaurant)
-    else
+    elsif user.employments.count <= 3
       sorted_employments = ([user.primary_employment] + user.nonprimary_employments).flatten
       sorted_employments.map { |e| restaurant_link(e.restaurant) }.to_sentence
+    else
+      sorted_employments = ([user.primary_employment] + user.nonprimary_employments[0..1]).flatten
+      sorted_employments = sorted_employments.map { |e| restaurant_link(e.restaurant) }
+      sorted_employments.join(", ") + " and #{link_to 'more', profile_path(user.username)}"
     end
   end
   

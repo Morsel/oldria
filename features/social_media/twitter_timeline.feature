@@ -11,7 +11,6 @@ Feature: Twitter Authentication
     | johnny   | secret   |
     And I am logged in as "johnny" with password "secret"
     When I follow "My Profile"
-    And I follow "Edit profile"
     And I follow "Setup Twitter"
     And Twitter authorizes "johnny"
     Then I should see "Twitter"
@@ -24,7 +23,6 @@ Feature: Twitter Authentication
     | stevie   | secret   |
     Given I am logged in as "stevie" with password "secret"
     When I follow "My Profile"
-    And I follow "Edit profile"
     And I follow "Read Twitter Timeline"
 
     ## From a fixture file ##

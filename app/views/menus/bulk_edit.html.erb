@@ -22,30 +22,32 @@
 	  	  <% end %>
 	  	<% end %>
 		</div><!--.upload_photo-->
-	
-	  <h3>Uploaded Menus</h3>
-		<div class="editing clearfix clear">
-	  	<table id="menus" data-remote-url="<%= reorder_restaurant_menus_url(@restaurant) %>">
-				<thead>
-  	      <tr>
-  	        <th>Menu name</th>
-  	        <th>Date uploaded</th>
-  	        <th>How often it changes</th>
-  	        <th>Actions</th>
-  	      </tr>
-  	  	</thead>
-				<tbody>
-	  	  	<% @restaurant.menus.by_position.each do |menu| %>
-	  	  	  <% content_tag_for(:tr, menu) do %>
-	  	  	    <td class="menu_name"><%= link_to h(menu.name), menu.pdf_remote_attachment.attachment.url %></td>
-	  	  	    <td class="menu_date"><%= menu.pdf_remote_attachment.updated_at.to_s(:standard) %></td>
-	  	  	    <td class="menu_change_frequency"><%=h menu.change_frequency %></td>
-	  	  	    <td><%= link_to "Remove", restaurant_menu_path(@restaurant, menu), :method => :delete, :confirm => "Are you sure you want to remove the menu #{menu.name}?", :class => 'delete' %><%= link_to "Edit", edit_restaurant_menu_path(@restaurant, menu), :class => 'edit' %></td>
-	  	  	  <% end %>
-	  	  	<% end %>
-				</tbody>
-	  	</table>
-		</div>
+
+        <% if @restaurant.menus.present? -%>
+        <h3>Uploaded Menus</h3>
+        <div class="editing clearfix clear">
+            <table id="menus" data-remote-url="<%= reorder_restaurant_menus_url(@restaurant) %>">
+                <thead>
+                    <tr>
+                        <th>Menu name</th>
+                        <th>Date uploaded</th>
+                        <th>How often it changes</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% @restaurant.menus.by_position.each do |menu| %>
+                    <% content_tag_for(:tr, menu) do %>
+                    <td class="menu_name"><%= link_to h(menu.name), menu.pdf_remote_attachment.attachment.url %></td>
+                    <td class="menu_date"><%= menu.pdf_remote_attachment.updated_at.to_s(:standard) %></td>
+                    <td class="menu_change_frequency"><%=h menu.change_frequency %></td>
+                    <td><%= link_to "Remove", restaurant_menu_path(@restaurant, menu), :method => :delete, :confirm => "Are you sure you want to remove the menu #{menu.name}?", :class => 'delete' %><%= link_to "Edit", edit_restaurant_menu_path(@restaurant, menu), :class => 'edit' %></td>
+                    <% end %>
+                    <% end %>
+                </tbody>
+            </table>
+        </div>
+        <% end -%>
 		
 	</div><!--#editing_restaurant-->
 	

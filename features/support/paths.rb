@@ -137,6 +137,8 @@ module NavigationHelpers
       admin_calendars_path
     when /^the new admin event page$/
       new_admin_event_path
+    when /^the site activities page$/
+      admin_site_activities_path
 
     when /^the new profile question page$/
       new_admin_profile_question_path

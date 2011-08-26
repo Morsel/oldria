@@ -34,7 +34,8 @@ ActionController::Routing::Routes.draw do |map|
     soapbox.resources :a_la_minute_questions, :only => ['index', 'show']
     soapbox.resources :a_la_minute_answers, :only => ['show']
     soapbox.resources :soapbox_entries, :only => ['index', 'show', 'qotd', 'trend'], :as => "front_burner",
-                      :collection => { :qotd => :get, :trend => :get }
+                      :collection => { :qotd => :get, :trend => :get },
+                      :member => { :comment => :get }
     soapbox.resources :promotions, :as => "newsfeed"
 
     soapbox.resources :users do |users|
@@ -152,7 +153,6 @@ ActionController::Routing::Routes.draw do |map|
     restaurant.resource :employee_accounts, :only => [:create, :destroy]
 
     restaurant.resource :fact_sheet, :controller => "restaurant_fact_sheets"
-    restaurant.media_requests 'media_requests', :controller => 'media_requests', :action => 'index'
     restaurant.resources :calendars, :collection => { "ria" => :get }
     restaurant.resources :events, :member => { "ria_details" => :get, "transfer" => :post }
 
@@ -273,6 +273,7 @@ ActionController::Routing::Routes.draw do |map|
 
     admin.resource :complimentary_accounts, :only => [:create, :destroy]
     admin.resources :metropolitan_areas
+    admin.resources :site_activities
 
     # Admin Messaging
     exclusive_routes = [:index, :show, :destroy]
