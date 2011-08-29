@@ -9,9 +9,10 @@ Feature: Update information
     | username | password |
     | lestor   | secret   |
     And I am logged in as "lestor" with password "secret"
-    When I follow "My Profile"
+    When I go to the edit page for "lestor"
+	And I follow "Account"
     And I fill in "Username" with "leslie"
-    And I press "Save"
+    And I press "Save User Details"
     Then I should see "Successfully updated your profile"
 
   Scenario: Updating password
@@ -19,10 +20,11 @@ Feature: Update information
     | username | password |
     | manny    | secret   |
     And I am logged in as "manny" with password "secret"
-    When I follow "My Profile"
+    When I go to the edit page for "manny"
+	And I follow "Account"
     And I fill in "Password" with "betterpassword"
     And I fill in "Password Confirmation" with "betterpassword"
-    And I press "Save"
+    And I press "Save User Details"
     Then I should see "Successfully updated your profile"
 
     When I am on the login page
@@ -38,10 +40,11 @@ Feature: Update information
     | username | password |
     | horatio  | secret   |
     And I am logged in as "horatio" with password "secret"
-    When I follow "My Profile"
+    When I go to the edit page for "horatio"
+	And I follow "Account"
     And I fill in "Password" with "betterpassword"
     And I fill in "Password Confirmation" with "better"
-    And I press "Save"
+    And I press "Save User Details"
     Then I should see "doesn't match confirmation"
 
 @twitter
