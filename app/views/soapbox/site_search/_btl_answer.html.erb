@@ -1,3 +1,4 @@
+<% unless btl_answer.profile_question.nil? -%>
 <li>
   <% link_to soapbox_question_path(btl_answer.profile_question) do %>
     <% date = btl_answer.created_at %>
@@ -29,3 +30,4 @@
 		</div>
   <% end %>
 </li>
+<% end -%>
