@@ -35,6 +35,13 @@
 
         <% semantic_form_for @profile, :url => user_profile_path(@user) do |f| %>
 
+            <% f.inputs :name => "Metro and Region for search" do %>
+              <%= f.input :metropolitan_area %>
+              <%= f.input :james_beard_region, :label => "Region" %>
+              <br />
+              <% button_tag :class => 'positive' do %>Save changes for search<% end %>
+            <% end %>
+
             <% f.inputs :name => "Cuisines and Specialties" do %>
             <div>
                 <%= f.input :specialties, 
@@ -78,14 +85,6 @@
             <% button_tag :class => 'positive' do %> Save changes to basic information <% end %>
           <% end %>
 
-            <% f.inputs :name => "Metro and Region for search" do %>
-                <%= f.input :metropolitan_area %>
-                <%= f.input :james_beard_region, :label => "Region" %>
-<br />
-				<% button_tag :class => 'positive' do %>Save changes for search<% end %>
-
-            <% end %>
-
             <% unless @profile.new_record? %>
             <% if @user.employments.present? %>
             <% f.inputs :name => "Current Employment" do %>
@@ -99,46 +98,6 @@
 				<% button_tag :class => 'positive' do %>Save changes to employment<% end %>
             <% end %>
             <% end %>
-
-            <% f.inputs :name => "Contact Information" do %>
-                <div class="clear">
-                    <%= f.input :prefers_display_cell, :as => :radio, :collection => privacy_options, 
-                        :label => "Show this to:", :wrapper_html => { :class => "show_this_to" } %>
-                    <%= f.input :cellnumber, :label => "Cellphone", :wrapper_html => { :class => "span-6 last" } %>
-                </div>
-
-                <div class="clear">
-                    <%= f.input :prefers_display_email, :as => :radio, :collection => privacy_options, 
-                        :label => "Show this to:", :wrapper_html => { :class => "show_this_to" } %>
-                    <% f.semantic_fields_for :user do |user| %>
-                        <%= user.input :email, :wrapper_html => { :class => "span-6 last" } %>
-                    <% end %>
-                </div>
-
-                <%- if @user.twitter_authorized? -%>
-                <div class="clear">
-                    <%= f.input :prefers_display_twitter, :as => :radio, :collection => privacy_options, :label => "Show this to:", :wrapper_html => { :class => "show_this_to" } %>
-                    <div class="span-6 last">Your Twitter account: <%= @user.twitter_username %>
-                    </div>
-                </div>
-                <%- else -%>
-                  <p><%= link_to "Setup Twitter", new_twitter_authorization_url, :class=>'sf-button' %></p>
-                <%- end -%>
-
-                <%- if @fb_user -%>
-                <div class="clear">
-                    <%= f.input :prefers_display_facebook, :as => :radio, :collection => privacy_options, :label => "Show this to:", :wrapper_html => { :class => "show_this_to" } %>
-                    <div class="span-6 last">
-                        Your Facebook account: <%= @fb_user.name %>
-                    </div>
-                </div>
-                <%- else -%>
-                  <p><%= link_to "Setup Facebook", fb_auth_user_path(@user), :class => 'sf-button' %></p>
-                <%- end -%>
-
-				<% button_tag :class => 'positive' do %>Save changes to contact information<% end %>
-
-            <% end %><!-- Contact information -->
 
             <% end %><%# non-basic details %>
         <% end %>
@@ -306,6 +265,49 @@
       <hr class="edit_block" />
 
       <%= render :partial => 'users/form' %>
+
+      <% semantic_form_for @profile, :url => user_profile_path(@user) do |f| %>
+      <% f.inputs :name => "Contact Information" do %>
+          <div class="clear">
+              <%= f.input :prefers_display_cell, :as => :radio, :collection => privacy_options, 
+                  :label => "Show this to:", :wrapper_html => { :class => "show_this_to" } %>
+              <%= f.input :cellnumber, :label => "Cellphone", :wrapper_html => { :class => "span-6 last" } %>
+          </div>
+
+          <div class="clear">
+              <%= f.input :prefers_display_email, :as => :radio, :collection => privacy_options, 
+                  :label => "Show this to:", :wrapper_html => { :class => "show_this_to" } %>
+              <% f.semantic_fields_for :user do |user| %>
+                  <%= user.input :email, :wrapper_html => { :class => "span-6 last" } %>
+              <% end %>
+          </div>
+
+          <%- if @user.twitter_authorized? -%>
+          <div class="clear">
+              <%= f.input :prefers_display_twitter, :as => :radio, :collection => privacy_options, :label => "Show this to:", :wrapper_html => { :class => "show_this_to" } %>
+              <div class="span-6 last">Your Twitter account: <%= @user.twitter_username %>
+              </div>
+          </div>
+          <%- else -%>
+            <p><%= link_to "Setup Twitter", new_twitter_authorization_url, :class=>'sf-button' %></p>
+          <%- end -%>
+
+          <%- if @fb_user -%>
+          <div class="clear">
+              <%= f.input :prefers_display_facebook, :as => :radio, :collection => privacy_options, :label => "Show this to:", :wrapper_html => { :class => "show_this_to" } %>
+              <div class="span-6 last">
+                  Your Facebook account: <%= @fb_user.name %>
+              </div>
+          </div>
+          <%- else -%>
+            <p><%= link_to "Setup Facebook", fb_auth_user_path(@user), :class => 'sf-button' %></p>
+          <%- end -%>
+
+		  <% button_tag :class => 'positive' do %>Save changes to contact information<% end %>
+
+      <% end %><!-- Contact information -->
+      <% end %>
+
   </section><!-- /profile-account -->
 
 </section><!-- /profile-tabs -->
