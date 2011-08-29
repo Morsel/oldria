@@ -13,7 +13,7 @@ Feature: Education
   Scenario: Adding a culinary school to your profile
   Given I am logged in as a normal user with a profile
     And I am on my profile's edit page
-    And I follow "Extended Profile"
+    And I follow "Résumé"
     When I add a culinary school to my profile with:
       | School Name     | Midwest International Food |
       | City            | Columbus                   |
@@ -25,7 +25,7 @@ Feature: Education
   Scenario: Adding a normal school to your profile
   Given I am logged in as a normal user with a profile
     And I am on my profile's edit page
-    And I follow "Extended Profile"
+    And I follow "Résumé"
     When I add a nonculinary school to my profile with:
       | School Name     | Indiana University |
       | City            | Bloomington        |
