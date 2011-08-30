@@ -187,6 +187,7 @@
 
           <% f.inputs :name => 'Preferences' do %>
               <%= f.input :prefers_receive_email_notifications, :as => :boolean, :label => 'Receive email notifications?' %>
+              <%= f.input :notification_email, :wrapper_html => { :class => "clear bottom" }, :hint => "Send content notifications to another email address" %>
           <% end %>
 
           <p><%= button_tag "Save Messages Preferences", :class => 'positive' %></p>
