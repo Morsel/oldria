@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20110104123654
+# Schema version: 20110830000745
 #
 # Table name: users
 #
@@ -32,6 +32,7 @@
 #  visible               :boolean         default(TRUE)
 #  national              :boolean
 #  mediafeed_visible     :boolean         default(TRUE)
+#  notification_email    :string(255)
 #
 
 class User < ActiveRecord::Base
@@ -321,6 +322,10 @@ class User < ActiveRecord::Base
     reset_perishable_token! if reset_token
     logger.info( "Delivering invitation email to #{email}" )
     UserMailer.deliver_new_user_invitation!(self, invitation_sender)
+  end
+
+  def email_for_content
+    notification_email.present? ? notification_email : email
   end
 
   # Facebook !!!

@@ -142,6 +142,11 @@ Given /^"([^\"]*)" has a default employment with the role "([^\"]*)" and subject
   Factory(:default_employment, :employee => user, :restaurant_role => role, :subject_matters => [subjectmatter])
 end
 
+Given /^"([^\"]*)" has set a notification email address "([^\"]*)"$/ do |username, email|
+  user = User.find_by_username(username)
+  user.update_attribute(:notification_email, email)
+end
+
 When /^I (?:visit the logout path|logout)$/ do
   visit logout_url
 end

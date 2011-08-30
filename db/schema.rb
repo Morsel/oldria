@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110813003934) do
+ActiveRecord::Schema.define(:version => 20110830000745) do
 
   create_table "a_la_minute_answers", :force => true do |t|
     t.text     "answer"
@@ -1116,6 +1116,7 @@ ActiveRecord::Schema.define(:version => 20110813003934) do
     t.boolean  "visible",               :default => true
     t.boolean  "national"
     t.boolean  "mediafeed_visible",     :default => true
+    t.string   "notification_email"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email"
