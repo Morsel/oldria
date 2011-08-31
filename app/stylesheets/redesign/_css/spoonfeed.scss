@@ -1061,18 +1061,19 @@ form#new_user_session {
 			}
 		}
 		.message-body {
-			margin: 15px;
+			margin: 15px 0;
 			p {
-				font-size: 13px;
+				font-size: 15px;
 				line-height: 18px;
 			}
 		}
 		.message-comments {
 			border-top: 1px solid #ccc;
+			margin-top: 10px;
 			.comment {
-				padding: 10px;
+				padding: 10px 0;
 				.avatar {
-					 margin: 5px 0 0 0;
+					 margin: 5px 10px 10px 0;
 				}
 			}
 			textarea {

@@ -2,24 +2,21 @@
     <div class="icon">
     </div>
     <header>
-			<h1><%= admin_message.inbox_title %></h1>
-      <p class="timestamp"><%= date_for_admin_message(admin_message) %>
-      </p>
+        <h1><%= admin_message.inbox_title %></h1>
+        <p class="timestamp"><%= date_for_admin_message(admin_message) %></p>
     </header>
 
     <div class="message-body">
         <%= auto_link(simple_format(admin_message.message)) %>
     </div>
     
-    <% if admin_message.soapbox_entry.try(:published?) %>
     <div>
+      <% if admin_message.soapbox_entry.try(:published?) %>
         This has been <%= link_to 'published on soapbox', soapbox_soapbox_entry_path(admin_message.soapbox_entry), :popup => true %>.
-    </div>
-    <% elsif admin_message.soapbox_entry.try(:upcoming?) %>
-    <div>
+      <% elsif admin_message.soapbox_entry.try(:upcoming?) %>
         This will be published in <%= distance_of_time_in_words(Time.now, admin_message.soapbox_entry.published_at) %>
+      <% end %>
     </div>
-    <% end %>
 
     <div class="message-comments clearfix">
         <% if admin_message.recipients_can_reply? %>
