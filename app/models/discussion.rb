@@ -44,13 +44,6 @@ class Discussion < ActiveRecord::Base
        :group => 'discussions.id' }
   }
 
-  named_scope :unread_by, lambda { |user|
-     { :joins => "LEFT OUTER JOIN readings ON discussions.id = readings.readable_id
-       AND readings.readable_type = 'Discussion'
-       AND readings.user_id = #{user.id}",
-       :conditions => 'readings.user_id IS NULL' }
-  }
-
   def inbox_title
     "Discussion"
   end

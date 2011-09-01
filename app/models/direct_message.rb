@@ -28,13 +28,6 @@ class DirectMessage < ActiveRecord::Base
   named_scope :all_from_admin, :conditions => { :from_admin => true }
   named_scope :all_not_from_admin, :conditions => { :from_admin => false }
 
-  named_scope :unread_by, lambda { |user|
-     { :joins => "LEFT OUTER JOIN readings ON #{table_name}.id = readings.readable_id
-       AND readings.readable_type = '#{self.to_s}'
-       AND readings.user_id = #{user.id}",
-       :conditions => 'readings.user_id IS NULL' }
-  }
-
   named_scope :root, :conditions => { :in_reply_to_message_id => nil }
 
   validates_presence_of :receiver

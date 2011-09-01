@@ -21,7 +21,7 @@ module UserMessaging
   end
 
   def unread_announcements
-    Admin::Announcement.current.recent.find_unread_by( self )
+    Admin::Announcement.current.recent.find_unread_by(self)
   end
 
   # PR Tips
@@ -30,7 +30,7 @@ module UserMessaging
   end
 
   def unread_pr_tips
-    Admin::PrTip.current.recent.find_unread_by( self )
+    Admin::PrTip.current.recent.find_unread_by(self)
   end
 
   # Admin discussions
@@ -83,7 +83,7 @@ module UserMessaging
   
   # Solo discussions
   def unread_solo_discussions
-    solo_discussions.current.reject { |d| d.read_by?(self) }
+    solo_discussions.current.find_unread_by(self)
   end
   
   # Content requests
@@ -113,7 +113,7 @@ module UserMessaging
 
   # Restaurant staff discussions, site-wide user conversations
   def unread_discussions
-    discussions.unread_by(self)
+    discussions.find_unread_by(self)
   end
 
   # Holiday mayhem
@@ -139,7 +139,7 @@ module UserMessaging
 
   # Direct messages
   def unread_direct_messages
-    direct_messages.unread_by(self)
+    direct_messages.find_unread_by(self)
   end
 
   def root_direct_messages # root is the first message in the thread
@@ -149,21 +149,17 @@ module UserMessaging
   # Collections for display
 
   def messages_from_ria
-    @messages_from_ria ||= [ unread_grouped_content_requests.keys,
-      unread_pr_tips,
-      unread_announcements
-      ].flatten.sort_by(&:scheduled_at).reverse
+    @messages_from_ria ||= [unread_pr_tips,
+                            unread_announcements].flatten.sort_by(&:scheduled_at).reverse
   end
 
-  def all_messages
-    @all_messages ||= [ grouped_content_requests.keys,
-      Admin::Announcement.current.all,
-      Admin::PrTip.current.all
-    ].flatten.sort_by(&:scheduled_at).reverse
+  def all_messages_from_ria
+    @all_messages ||= [Admin::Announcement.current.all,
+                       Admin::PrTip.current.all].flatten.sort_by(&:scheduled_at).reverse
   end
 
   def ria_message_count
-    @ria_message_count ||= messages_from_ria.size
+    @ria_message_count ||= unread_pr_tips.count + unread_announcements.count
   end
   
   def message_inbox_count

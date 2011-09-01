@@ -121,8 +121,6 @@ class User < ActiveRecord::Base
 
   after_create :deliver_invitation_message!, :if => Proc.new { |user| user.send_invitation }
 
-  after_update :mark_replies_as_read, :if => Proc.new { |user| user.confirmed_at && user.confirmed_at > 1.minute.ago }
-
   named_scope :media, :conditions => {:role => 'media'}
   named_scope :admin, :conditions => {:role => 'admin'}
 
