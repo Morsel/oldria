@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20100826162154
+# Schema version: 20110831230326
 #
 # Table name: internships
 #

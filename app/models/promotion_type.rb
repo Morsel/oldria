@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20110517222623
+# Schema version: 20110831230326
 #
 # Table name: promotion_types
 #

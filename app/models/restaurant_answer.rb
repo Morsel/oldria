@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20110324162539
+# Schema version: 20110831230326
 #
 # Table name: restaurant_answers
 #

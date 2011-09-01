@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20100910002655
+# Schema version: 20110831230326
 #
 # Table name: specialties
 #

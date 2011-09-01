@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20100415205144
+# Schema version: 20110831230326
 #
 # Table name: admin_discussions
 #
@@ -13,6 +13,7 @@
 #
 
 class AdminDiscussion < ActiveRecord::Base
+
   belongs_to :restaurant
   belongs_to :discussionable, :polymorphic => true
 

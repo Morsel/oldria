@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20101220214928
+# Schema version: 20110831230326
 #
 # Table name: solo_media_discussions
 #

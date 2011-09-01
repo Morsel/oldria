@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20100827181841
+# Schema version: 20110831230326
 #
 # Table name: restaurant_roles
 #

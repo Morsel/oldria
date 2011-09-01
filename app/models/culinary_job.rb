@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20101104213542
+# Schema version: 20110831230326
 #
 # Table name: culinary_jobs
 #

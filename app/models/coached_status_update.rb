@@ -1,4 +1,5 @@
 # == Schema Information
+# Schema version: 20110831230326
 #
 # Table name: coached_status_updates
 #

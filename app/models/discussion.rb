@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20100715002740
+# Schema version: 20110831230326
 #
 # Table name: discussions
 #
@@ -16,6 +16,7 @@
 class Discussion < ActiveRecord::Base
   acts_as_commentable
   acts_as_readable
+
   has_many :attachments, :as => :attachable, :class_name => '::Attachment', :dependent => :destroy
   accepts_nested_attributes_for :comments, :attachments
 

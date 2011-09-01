@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20101207003441
+# Schema version: 20110831230326
 #
 # Table name: metropolitan_areas
 #
