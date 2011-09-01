@@ -65,11 +65,6 @@ class AdminDiscussion < ActiveRecord::Base
     @employees ||= employments.map(&:employee)
   end
 
-  def action_required?(user)
-    return false if discussionable.is_a?(TrendQuestion)
-    !read_by?(user) && comments_count > 0 && (comments.last.user != user)
-  end
-
   def viewable_by?(employment)
     discussionable.viewable_by?(employment)
   end

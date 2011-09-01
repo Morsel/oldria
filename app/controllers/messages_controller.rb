@@ -13,7 +13,6 @@ class MessagesController < ApplicationController
   # GET /messages/ria
   def ria
     @messages = archived_view? ? current_user.all_messages : current_user.messages_from_ria
-    @action_required_messages = current_user.action_required_messages unless archived_view?
   end
 
   ##

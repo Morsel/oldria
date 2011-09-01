@@ -47,10 +47,6 @@ module UserMessaging
     current_admin_discussions.reject { |d| d.read_by?(self) }
   end
 
-  def action_required_admin_discussions
-    unread_admin_discussions.select { |d| d.comments_count > 0 && d.comments.last.user != self }
-  end
-  
   def grouped_admin_discussions
     return @grouped_admin_discussions if defined?(@grouped_admin_discussions)
     @grouped_admin_discussions = current_admin_discussions.group_by(&:discussionable)
@@ -58,7 +54,7 @@ module UserMessaging
 
   def unread_grouped_admin_discussions
     return @unread_grouped_admin_discussions if defined?(@unread_grouped_admin_discussions)
-    @unread_grouped_admin_discussions = (current_admin_discussions - action_required_admin_discussions).group_by(&:discussionable)
+    @unread_grouped_admin_discussions = (current_admin_discussions).group_by(&:discussionable)
     @unread_grouped_admin_discussions.reject! do |discussionable, admin_discussions|
       discussionable.read_by?(self) || (discussionable.scheduled_at < 2.weeks.ago)
     end
@@ -137,10 +133,6 @@ module UserMessaging
     holiday_discussion_reminders.map { |r| r.find_unread_by(self) }.flatten
   end
 
-  def action_required_holidays
-    holiday_discussions.select { |d| d.action_required?(self) }
-  end
-
   def accepted_holiday_discussions
     holiday_discussions.select(&:accepted?)
   end
@@ -155,10 +147,6 @@ module UserMessaging
   end
 
   # Collections for display
-
-  def action_required_messages
-    action_required_admin_discussions.sort { |a, b| b.comments.last.created_at <=> a.comments.last.created_at }
-  end
 
   def messages_from_ria
     @messages_from_ria ||= [ unread_grouped_content_requests.keys,
@@ -198,9 +186,5 @@ module UserMessaging
   #     0
   #   end
   # end
-
-  def mark_replies_as_read
-    action_required_messages.each { |m| m.read_by! self }
-  end
 
 end

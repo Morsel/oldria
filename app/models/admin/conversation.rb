@@ -64,15 +64,6 @@ class Admin::Conversation < ActiveRecord::Base
     true
   end
 
-  def self.action_required(user)
-    self.with_replies.unread_by(user).reject { |c| c.comments.last.user == user }
-  end
-
-  def action_required?(user)
-    false
-    # !read_by?(user) && comments_count > 0 && comments.last.user != user
-  end
-
   def create_response_for_user(user, comment)
     self.comments.create(:user => user, :comment => comment)
   end

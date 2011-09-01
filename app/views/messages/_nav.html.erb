@@ -2,16 +2,11 @@
   <h1 class="pg_title">Messages</h1>
   <nav>
       <%= active_link_to "Media Requests (#{@media_requests_count})", media_requests_messages_path %>
-      <%= active_link_to "From RIA (#{@ria_message_count})", ria_messages_path, 
-            :class => class_for_replies(@action_required_messages) %>
+      <%= active_link_to "From RIA (#{@ria_message_count})", ria_messages_path %>
       <%= active_link_to "Private Messages (#{@private_message_count})", private_messages_path %>
-
       <% unless current_user.restaurants.blank? -%>
-      <%= active_link_to "Discussions (#{@discussions_count})", staff_discussions_messages_path, 
-            :class => class_for_replies(@messages_with_replies) %>
+        <%= active_link_to "Discussions (#{@discussions_count})", staff_discussions_messages_path %>
       <% end -%>
-
-      <%= link_to "New Staff Discussion", new_discussion_path, 
-            :class => "first nav_button" if current_user.restaurants.present? %>
+      <%= link_to "New Staff Discussion", new_discussion_path, :class => "first nav_button" if current_user.restaurants.present? %>
   </nav>
 </div><!-- /messages_nav -->

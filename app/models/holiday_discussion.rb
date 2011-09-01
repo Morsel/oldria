@@ -55,14 +55,6 @@ class HolidayDiscussion < ActiveRecord::Base
     created_at
   end
 
-  def self.action_required(user)
-    self.with_replies.unread_by(user).reject { |c| c.comments.last.user == user }
-  end
-
-  def action_required?(user)
-    !read_by?(user) && comments_count > 0 && (comments.last.user != user)
-  end
-
   def employees
     restaurant.employees
   end

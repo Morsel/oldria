@@ -84,7 +84,6 @@ module MessagesHelper
     defaults = "inbox_message clear clearfix"
     defaults += " archived" if message.read_by?(current_user)
     defaults += " #{dom_class(message.discussionable)}" if message.respond_to?(:discussionable)
-    defaults += " action" if message.respond_to?(:action_required?) && message.action_required?(current_user)
     defaults
   end
 
@@ -124,28 +123,14 @@ module MessagesHelper
     !message.read_by?(current_user)
   end
   
-  def show_replies_link?(message)
-    message.respond_to?(:action_required?) && message.action_required?(current_user)
-  end
-
   def css_classes_for_discussion(discussion)
     classes = 'inbox_message'
-    classes << ' action_required' if discussion.action_required?(current_user)
     classes << ' archived' if discussion.read_by?(current_user)
     classes
   end
   
   def announcement?(message)
      message.inbox_title == "Announcement"
-  end
-  
-  def class_for_replies(action_required_messages)
-    action_required_messages.blank? ? "no_replies" : "with_replies" 
-  end
-  
-  def use_replies_header?
-    false
-    # !archived_view? && show_replies? && @action_required_messages.present?
   end
   
   def ria_messages?
