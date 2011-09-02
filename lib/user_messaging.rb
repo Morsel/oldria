@@ -164,14 +164,14 @@ module UserMessaging
   
   def message_inbox_count
     @message_inbox_count ||= (ria_message_count + 
-                              unread_discussions.size + 
-                              discussions.with_comments_unread_by(self).size + 
-                              unread_direct_messages.size +
+                              unread_discussions.count +
+                              discussions.with_comments_unread_by(self).count +
+                              unread_direct_messages.count +
                               viewable_unread_media_request_discussions.size)
   end
   
   def front_burner_unread_count
-    unread_qotds.count + unread_grouped_trend_questions.keys.size + unread_solo_discussions.count
+    @front_burner_unread_count ||= unread_qotds.count + unread_grouped_trend_questions.keys.size + unread_solo_discussions.count
   end
   
   # def mediafeed_discussions_with_replies_count
