@@ -70,9 +70,9 @@ module UserMessaging
   end
   
   def grouped_trend_questions
-    @grouped_trend_questions ||= trend_questions.group_by(&:discussionable)
+    @grouped_trend_questions ||= trend_questions.reject { |t| t.scheduled_at < 2.weeks.ago }.group_by(&:discussionable)
   end
-  
+
   def unread_grouped_trend_questions
     @unread_grouped_trend_questions ||= unread_trend_questions.group_by(&:discussionable)
   end

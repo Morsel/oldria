@@ -217,7 +217,7 @@ class User < ActiveRecord::Base
   end
 
   def post_to_soapbox?
-    primary_employment && primary_employment.post_to_soapbox
+    primary_employment.try(:post_to_soapbox)
   end
 
 ### Convenience methods for getting/setting first and last names ###
@@ -435,10 +435,16 @@ class User < ActiveRecord::Base
   end
 
   # user permission for receiving front burner content
-  def receive_front_burner
-    return :individual_denied if !self.post_to_soapbox? && self.individual?
-    return :restaurant_denied if !self.individual? && ( !self.post_to_soapbox? || !self.has_restaurant_role?)
-    :granted
+  def front_burner_status
+    status = if self.post_to_soapbox?
+      :granted
+    elsif self.individual?
+      :individual_denied
+    else
+      :restaurant_denied
+    end
+
+    return status
   end
 
   def self.extended_find(keyword)

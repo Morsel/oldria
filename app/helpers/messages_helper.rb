@@ -50,7 +50,7 @@ module MessagesHelper
 
   def unread_message?(message, user)
     if message.respond_to?(:admin_discussions) # TrendQuestion or ContentRequest
-      first_discussion_for_user = current_user.grouped_admin_discussions[message].first
+      first_discussion_for_user = user.grouped_admin_discussions[message].first
       !first_discussion_for_user.read_by?(user)
     else
       !message.read_by?(user)

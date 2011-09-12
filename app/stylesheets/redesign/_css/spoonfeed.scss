@@ -1550,6 +1550,9 @@ form#new_user_session {
 				}
 			}
 		}
+    #qotd_column, #trend_column {
+      @include column(8);
+		}
 		.ui-tabs-panel {
 			p {display: block;overflow:hidden;}
 			button {
@@ -2014,13 +2017,14 @@ form, #page_content form{
 	}
 } 	
 
-#profile-account {
-	float: right;
-	width: 213px;
-	margin-left: 15px;
-	padding-left: 15px;
-	border-left: 1px dotted #ddd;
-} /* ## end #profile_account + #profile-summary ----------------------- */
+/*#profile-account {
+  float: right;
+  width: 213px;
+  margin-left: 15px;
+  padding-left: 15px;
+  border-left: 1px dotted #ddd;
+}*/
+/* ## end #profile_account + #profile-summary ----------------------- */
 
 #profile-btl {
   #behindline {

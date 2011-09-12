@@ -6,22 +6,22 @@ Feature: Update information
 
   Scenario: Update my username
     Given the following user records:
-    | username | password |
-    | lestor   | secret   |
+      | username | password |
+      | lestor   | secret   |
     And I am logged in as "lestor" with password "secret"
     When I go to the edit page for "lestor"
-	And I follow "Account"
+    And I follow "Account"
     And I fill in "Username" with "leslie"
     And I press "Save User Details"
     Then I should see "Successfully updated your profile"
 
   Scenario: Updating password
     Given the following user records:
-    | username | password |
-    | manny    | secret   |
+      | username | password |
+      | manny    | secret   |
     And I am logged in as "manny" with password "secret"
     When I go to the edit page for "manny"
-	And I follow "Account"
+    And I follow "Account"
     And I fill in "Password" with "betterpassword"
     And I fill in "Password Confirmation" with "betterpassword"
     And I press "Save User Details"
@@ -31,17 +31,15 @@ Feature: Update information
     And I fill in "Username" with "manny"
     And I fill in "Password" with "betterpassword"
     And I press "Login"
-
     Then I should see "You are now logged in"
-
 
   Scenario: Require matching password/confirmation to update
     Given the following user records:
-    | username | password |
-    | horatio  | secret   |
+      | username | password |
+      | horatio  | secret   |
     And I am logged in as "horatio" with password "secret"
     When I go to the edit page for "horatio"
-	And I follow "Account"
+    And I follow "Account"
     And I fill in "Password" with "betterpassword"
     And I fill in "Password Confirmation" with "better"
     And I press "Save User Details"
@@ -54,6 +52,7 @@ Feature: Update information
     | sammy    | secret   |
     And I am logged in as "sammy" with password "secret"
     When I follow "My Profile"
+    And I follow "Account"
     And I follow "Disconnect Twitter"
     Then I should see "Your Twitter Account was disassociated with your SpoonFeed Account"
     And "sammy" should not have Twitter linked to his account
@@ -67,5 +66,5 @@ Feature: Update information
     | devil    | demon    |
     And I am logged in as "devil" with password "demon"
     When I go to the edit page for "angel"
-    Then I should see "This is an administrative area"
+    Then I should see "Oops, you don't have access to the admin area."
     And I should be on the homepage

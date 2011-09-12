@@ -1,0 +1,9 @@
+<div id="qotd_column">
+  <h2 class="col_title">Questions of the Day</h2>
+  <%= render :partial => 'messages/message', :collection => @qotds %>
+</div><!--#qotd_column-->
+<div id="trend_column">
+  <h2 class="col_title">What's New</h2>
+  <%= render :partial => 'messages/message', :collection => @trend_questions %>
+</div><!--#trend_column-->
+<div class="clear">&nbsp;</div>

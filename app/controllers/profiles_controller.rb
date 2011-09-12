@@ -2,6 +2,7 @@ class ProfilesController < ApplicationController
 
   before_filter :require_user
   before_filter :find_user
+  before_filter :find_or_build_profile, :only => [:edit, :edit_front_burner, :edit_account]
   
   def create
     @profile = @user.build_profile(params[:profile])
@@ -16,8 +17,22 @@ class ProfilesController < ApplicationController
   end
 
   def edit
-    @profile = @user.profile || @user.build_profile
+  end
+
+  def edit_btl
+    render :layout => false
+  end
+
+  def edit_front_burner
+    @qotds = @user.admin_conversations.current.recent
+    resto_trends = @user.grouped_trend_questions.keys
+    @trend_questions = (resto_trends.present? ? resto_trends : @user.solo_discussions.current.recent).sort_by(&:scheduled_at).reverse
+    render :layout => false
+  end
+
+  def edit_account
     @fb_user = current_facebook_user.fetch if current_facebook_user && @profile.user.facebook_authorized?
+    render :layout => false
   end
 
   def update
@@ -46,4 +61,9 @@ class ProfilesController < ApplicationController
     @user = User.find(params[:user_id])
     require_admin unless @user == current_user
   end
+
+  def find_or_build_profile
+    @profile = @user.profile || @user.build_profile
+  end
+
 end

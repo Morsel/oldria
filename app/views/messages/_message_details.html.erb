@@ -2,11 +2,11 @@
   <div class="icon">
     <%= read_link_for_message(message) %>
   </div>
-<% end -%>
+<% end unless @profile.present? -%><%# skip marking as read for profile view %>
 <div class="message-details">
   <header>
     <h1><%= title_link_for_message(message) %></h1>
-		<p class="timestamp"><%= message.scheduled_at.try(:strftime, "%B %d, %Y at %I:%M%p") %></p>
+	<p class="timestamp"><%= message.scheduled_at.try(:strftime, "%B %d, %Y at %I:%M%p") %></p>
   </header>
   <div class="message-body">
     <%= auto_link(simple_format(message.message)) %>
