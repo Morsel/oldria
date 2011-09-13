@@ -180,3 +180,39 @@
   </section><!-- /profile-extended -->
 
 </section><!-- /profile-tabs -->
+
+<% content_for :javascript do %>
+<script type="text/javascript">
+$(document).ready(function() {
+  $('#profile-tabs').tabs({
+    panelTemplate: '<section></section>',
+    fx: { duration: 'fast', opacity: 'toggle' },
+    show: function(event, ui) { 
+      if(ui.panel.id == 'profile-extended' && !already_equalized){
+        already_equalized = true;
+        $('.culinary_job').equalHeights();
+        $('.nonculinary_job').equalHeights();
+        $('.award').equalHeights();
+        $('.accolade').equalHeights();
+        $('.enrollment').equalHeights();
+        $('.competition').equalHeights();
+        $('.internship').equalHeights();
+        $('.stage').equalHeights();
+        $('.apprenticeship').equalHeights();
+        $('.cookbook').equalHeights();
+      }
+    }
+  });
+});
+</script>
+<% end %>
+
+<% if false # @user.errors.present? %>
+  <% content_for :javascript do %>
+  <script type="text/javascript">
+    $(document).ready(function() {
+      $('#profile-tabs').tabs('select', 'profile-account');
+    });
+  </script>
+  <% end %>
+<% end %>
