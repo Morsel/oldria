@@ -89,6 +89,7 @@ $('#profile_user_attributes_prefers_publish_profile').live('click',function(){
 	}
 })
 
+$(document).ready(function(){
 $('#profile-tabs').tabs({
 	panelTemplate: '<section></section>',
 	fx: { duration: 'fast', opacity: 'toggle' },
@@ -108,6 +109,7 @@ $('#profile-tabs').tabs({
 		}
 	}
 });
+}
 
 $('#open-profile-summary').click(function(){
 	$('#profile-tabs').tabs('select',1);
