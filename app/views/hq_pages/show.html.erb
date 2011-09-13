@@ -42,21 +42,6 @@
 				<a href="javascript:window.print();" class="print last">Print</a>
 			</nav>
 		</aside>
-		<p><%= link_to image_tag('redesign/title-unplugged.jpg', :alt => 'RIA Unplugged Logo'), "http://unplugged.restaurantintelligenceagency.com" %></p>
-		<% if @feed.present? and @feed.entries.any? -%>
-  		<aside class="promo" id="fromtheblog">
-  			<ul>
-  			  <% @feed.entries[0..2].each do |entry| -%>
-  				  <li>
-  				    <% link_to entry.url do -%>
-  				      <%= entry.title %> <span><%= entry.published.strftime('%B %d') %></span>
-  				    <% end -%>
-  				  </li>
-  				<% end -%>
-  			</ul>
-  			<%= link_to "More from the blog&nbsp;&#187;", @feed.url, :class => 'more' %>
-  		</aside>
-		<% end -%>
 
 	</div><!--#sidebar_b-->
 <% end -%>
