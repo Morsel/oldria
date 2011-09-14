@@ -17,6 +17,7 @@ class ProfilesController < ApplicationController
   end
 
   def edit
+    @fb_user = current_facebook_user.fetch if current_facebook_user && @profile.user.facebook_authorized?
   end
 
   def edit_btl
@@ -27,11 +28,6 @@ class ProfilesController < ApplicationController
     @qotds = @user.admin_conversations.current.recent
     resto_trends = @user.grouped_trend_questions.keys
     @trend_questions = (resto_trends.present? ? resto_trends : @user.solo_discussions.current.recent).sort_by(&:scheduled_at).reverse
-    render :layout => false
-  end
-
-  def edit_account
-    @fb_user = current_facebook_user.fetch if current_facebook_user && @profile.user.facebook_authorized?
     render :layout => false
   end
 
