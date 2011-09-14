@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20110831230326
+# Schema version: 20110913204942
 #
 # Table name: soapbox_entries
 #
@@ -40,7 +40,7 @@ class SoapboxEntry < ActiveRecord::Base
   end
 
   def comments
-    featured_item.comments(false).show_on_soapbox
+    featured_item.comments(false)
   end
   
   def published?
@@ -79,7 +79,7 @@ class SoapboxEntry < ActiveRecord::Base
     end
 
     def featured_item_comments_with_offset(offset = 0)
-      featured_item_with_offset(offset).comments(true).select {|c| c.employment && c.employment.post_to_soapbox }
+      featured_item_with_offset(offset).comments(true)
     end
 
   end

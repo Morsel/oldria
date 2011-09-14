@@ -11,12 +11,6 @@
     <%= link_to pluralize(admin_conversation.comments_count, "comment"), admin_conversation %>
   </td>
   <%- end -%>
-  
-  <%- if admin_conversation.comments_count > 0 -%>
-  <td>
-      <%= admin_conversation.recipient.post_to_soapbox? ? "[s]" : "&nbsp;" %>
-  </td>
-  <%- end -%>
 
   <td class="actions">
     <% if admin_conversation.recipient %>

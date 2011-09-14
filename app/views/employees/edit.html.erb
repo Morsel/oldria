@@ -18,9 +18,6 @@
             :hint => "Which best describes the role that #{@employee.name} has at #{@restaurant.name}?" %>
 
         <%= render :partial => 'subject_matter_fields', :locals => {:f => f} %>
-
-        <%= f.input :post_to_soapbox, :as => :boolean, 
-            :label => "Is this person authorized to receive and post responses to \"Questions of the Day\" and \"What's New\" items on Front Burner for #{@restaurant.name}?" %>
     <% end %>
 
     <p><%= button_tag "Submit", :class => 'positive' %></p>

@@ -13,19 +13,17 @@
         <%= @restaurants_and_employments.keys.map { |r| "#{r.name}" }.to_sentence %>
     </div>
 <% elsif current_user.admin? %>
-    <p>(a line through the name means they do not have permission to post to soapbox)</p>
-    
     <% if @solo_users.present? %>
     <div class="clear">
         <h3>Unaffiliated:</h3> 
-        <%= @solo_users.map { |e| "<span style='#{e.post_to_soapbox ? "" : "text-decoration: line-through"}'>#{e.employee_name}</span>" }.to_sentence %>
+        <%= @solo_users.map { |e| e.employee_name }.to_sentence %>
     </div>
     <% end %>
     
     <% @restaurants_and_employments.each do |restaurant, employments| %>
       <div class="restaurant_and_employees span-5 column">
         <h3><%= restaurant_link(restaurant) %>:</h3>
-        <%= employments.map { |e| "<span style='#{e.post_to_soapbox ? "" : "text-decoration: line-through"}'>#{e.employee_name}</span>" }.to_sentence %>
+        <%= employments.map { |e| e.employee_name }.to_sentence %>
       </div>
     <% end %>
 <% else %>

@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20110831230326
+# Schema version: 20110913204942
 #
 # Table name: solo_discussions
 #
@@ -70,10 +70,6 @@ class SoloDiscussion < ActiveRecord::Base
     true
   end
   
-  def view_on_soapbox?
-    comments.first.employment.post_to_soapbox
-  end
-
   def create_response_for_user(user, comment)
     self.comments.create(:user => user, :comment => comment)
   end

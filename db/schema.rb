@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110831230326) do
+ActiveRecord::Schema.define(:version => 20110913204942) do
 
   create_table "a_la_minute_answers", :force => true do |t|
     t.text     "answer"
@@ -300,7 +300,6 @@ ActiveRecord::Schema.define(:version => 20110831230326) do
     t.string   "type"
     t.boolean  "public_profile",       :default => true
     t.integer  "position"
-    t.boolean  "post_to_soapbox",      :default => true
     t.string   "solo_restaurant_name"
   end
 

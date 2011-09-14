@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20110831230326
+# Schema version: 20110913204942
 #
 # Table name: trend_questions
 #
@@ -127,7 +127,7 @@ class TrendQuestion < ActiveRecord::Base
   end
   
   def soapbox_comment_count
-    discussions_with_replies.map { |c| c.comments.show_on_soapbox }.flatten.uniq.size
+    discussions_with_replies.count
   end
 
 end

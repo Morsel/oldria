@@ -1,10 +1,9 @@
-<% case current_user.front_burner_status
-   when :granted %>
+<% title "Front Burner" %>
+<% if @user.primary_employment.present? %>
     <div class="new_all">
       <%= link_to "New", front_burner_path, :class => selected?("New") %>
       <%= link_to "All", front_burner_path(:all => true), :class => selected?("All") %>
     </div><!--.new_all-->
-    <% title "Front Burner" %>	
     <div id="qotd_column">
       <h2 class="col_title">Questions of the Day</h2>
       <%= render :partial => 'messages/message', :collection => @qotds %>
@@ -23,10 +22,6 @@
                                 :message => truncate(@comment.comment),
                                 :link    => soapbox_soapbox_entry_url(@comment.commentable.soapbox_entry)  } )  %>
     <% end %>
-  <% when :individual_denied %>
-    <% title "Front Burner" %>	
+<% else %>
     <p>In order to receive Front Burner questions, please make sure your role and areas of expertise are set up in your profile summary.</p>
-  <% when :restaurant_denied %>
-    <% title "Front Burner" %>	
-    <p>Sorry, your account currently isn't set to receive Front Burner questions. If you'd like to participate in Front Burner, please contact your restaurant administrator and ask them to grant you access.</p>
 <% end %>

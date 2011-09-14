@@ -22,7 +22,7 @@ describe Admin::QotdsController do
 
   it "create action should redirect when model is valid" do
     Admin::Qotd.any_instance.stubs(:valid?).returns(true)
-    post :create, :search  => @search_params
+    post :create, :search => @search_params
     response.should redirect_to(admin_messages_path)
   end
 

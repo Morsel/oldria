@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20110831230326
+# Schema version: 20110913204942
 #
 # Table name: comments
 #
@@ -26,11 +26,6 @@ class Comment < ActiveRecord::Base
   named_scope :not_user, lambda { |user| {
     :conditions => ["user_id != ?", user.id]
   }}
-
-  named_scope :show_on_soapbox, {
-    :joins => { :user => :all_employments },
-    :conditions => ["employments.post_to_soapbox = ?", true]
-  }
 
   #validates_presence_of :comment
 
@@ -94,10 +89,6 @@ class Comment < ActiveRecord::Base
   def editable_by?(person)
     return false unless editable?
     (self.user == person) || self.user.coworkers.include?(person) || person.admin?
-  end
-
-  def show_on_soapbox?
-    self.employment && self.employment.post_to_soapbox
   end
 
   # find all soapbox published qotds comments containing the keyboard

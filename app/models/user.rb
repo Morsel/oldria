@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20110831230326
+# Schema version: 20110913204942
 #
 # Table name: users
 #
@@ -216,10 +216,6 @@ class User < ActiveRecord::Base
     end
   end
 
-  def post_to_soapbox?
-    primary_employment.try(:post_to_soapbox)
-  end
-
 ### Convenience methods for getting/setting first and last names ###
   def name
     @name ||= [first_name, last_name].compact.join(' ')
@@ -432,19 +428,6 @@ class User < ActiveRecord::Base
   # has at least one filled role
   def has_restaurant_role?
     !self.employments.first(:conditions => 'restaurant_role_id IS NOT NULL').nil?
-  end
-
-  # user permission for receiving front burner content
-  def front_burner_status
-    status = if self.post_to_soapbox?
-      :granted
-    elsif self.individual?
-      :individual_denied
-    else
-      :restaurant_denied
-    end
-
-    return status
   end
 
   def self.extended_find(keyword)

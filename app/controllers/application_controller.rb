@@ -232,10 +232,9 @@ class ApplicationController < ActionController::Base
   end
 
   # For use when building the search on a Trend Question or other message
-  def build_search(resource = nil, soapbox_only = false)
+  def build_search(resource = nil)
     return false unless resource
     @search = Employment.search(normalized_search_params)
-    @search.post_to_soapbox = true if soapbox_only
 
     @employment_search = if resource.employment_search
       resource.employment_search.conditions = @search.conditions

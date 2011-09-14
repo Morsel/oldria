@@ -16,7 +16,7 @@ class Admin::TrendQuestionsController < Admin::AdminController
 
   def create
     @trend_question = ::TrendQuestion.new(params[:trend_question])
-    build_search(@trend_question, true)
+    build_search(@trend_question)
     @employment_search.save
     if @trend_question.save
       flash[:notice] = "Successfully created trend question."
@@ -35,7 +35,7 @@ class Admin::TrendQuestionsController < Admin::AdminController
 
   def update
     @trend_question = ::TrendQuestion.find(params[:id])
-    build_search(@trend_question, true)
+    build_search(@trend_question)
     @employment_search.save
     if @trend_question.update_attributes(params[:trend_question])
       flash[:notice] = "Successfully updated trend question."

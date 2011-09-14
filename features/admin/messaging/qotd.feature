@@ -13,15 +13,14 @@ Feature: Admin Messaging: Question of the Day
     And I am logged in as an admin
 
   Scenario: Create a new QOTD
-    Given "john" is not allowed to post to soapbox
-    And I am on the new QOTD page
+    Given I am on the new QOTD page
     When I check "Eight Ball"
     And I fill in "Message" with "What is your favorite pie?"
     And I press "Submit"
     Then I should see list of QOTDs
     And I should see "What is your favorite pie?"
     And "sam" should have 1 QOTD message
-    And "john" should have 0 QOTD messages
+    And "john" should have 1 QOTD message
 
 @emails
   Scenario: New QOTD notification, user prefers no emails
