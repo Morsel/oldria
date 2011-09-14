@@ -16,7 +16,6 @@ Feature: Media requests
       | mediaman | secret   |
     Given there are no media requests
 
-
   Scenario: A new media request is held for approval
     Given I am logged in as "mediaman" with password "secret"
     And a subject matter "Beer"
@@ -65,6 +64,7 @@ Feature: Media requests
     And that media request is approved
     Then "neue" should have 1 media requests
 
+@emails
   Scenario: Approved media requests notifications are emailed to recipients
     Given "sam" handles the subject matter "Beer" for "Eight Ball"
     And "john" does not handle the subject matter "Beer" for "Eight Ball"
@@ -92,3 +92,13 @@ Feature: Media requests
     Then "keue" should have 1 media requests
     Then "leue" should have 0 media requests
 
+@emails
+  Scenario: Users who set a notification email address will have media requests redirected
+    Given "sam" handles the subject matter "Beer" for "Eight Ball"
+    And "sam" has set a notification email address "assistant@myrestaurant.com"
+    And subject matter "Beer" is general
+    Given I am logged in as "mediaman" with password "secret"
+    When I create a media request with message "Are cucumbers good in salad?" and criteria:
+      | Subject Matter | Beer |
+    And that media request is approved
+    Then "assistant@myrestaurant.com" should have 1 email

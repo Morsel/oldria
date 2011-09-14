@@ -3,6 +3,7 @@
 <% if @comments.blank? %>
   <% semantic_form_for @comment_resource, :html => { :multipart => true } do |f| %>
     <% f.inputs do %>
+      <%= f.hidden_field :user_id, :value => @admin_conversation.recipient_id %>
       <%= f.input :comment, :label => 'Post', :input_html => { :rows => 8 }, :hint => soapbox_notice(message) %>
       <div id="loading-wait" style="display: none">
         <%= image_tag "ajax-loader.gif" %>
@@ -33,8 +34,7 @@
     <%= render(:partial => "shared/facebook_dialog",
                :locals => { :caption => "Check out more about \"#{admin_message.message}\"", 
                             :message => @comments.first.comment,
-                            :link    => soapbox_soapbox_entry_url(admin_message.soapbox_entry)   } ) %>
+                            :link    => soapbox_soapbox_entry_url(admin_message.soapbox_entry) } ) %>
   <% end %>
 <% end %>
-<hr class="space"/>
 </div>

@@ -260,15 +260,6 @@ describe User do
     end
   end
 
-  context "updating replies after confirmed" do
-
-    it "should mark message replies as read for recently confirmed user" do
-      user = Factory(:user, :confirmed_at => nil)
-      user.expects(:mark_replies_as_read)
-      user.confirm!
-    end
-  end
-
   context "primary employment" do
 
     it "should choose the user's first employment as the primary employment if not otherwise specified" do

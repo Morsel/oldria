@@ -1,4 +1,5 @@
 # == Schema Information
+# Schema version: 20110831230326
 #
 # Table name: james_beard_regions
 #

@@ -3,12 +3,15 @@
       <%= render @comments %>
       <% semantic_form_for @comment_resource, :html => { :multipart => true } do |f| %>
         <% f.inputs do %>
+            <% if current_user.admin? -%>
+            <%= f.input :user_id, :as => :select, :collection => @admin_discussion.employees %>
+            <% end -%>
             <%= f.input :comment, :label => 'Post', :input_html => { :rows => 8 }, :hint => soapbox_notice(message) %>
             <div id="loading-wait" style="display: none">
               <%= image_tag "ajax-loader.gif" %>
               <p>Please wait while we save your comment</p>
             </div>
-            <% if @discussionable.respond_to?(:soapbox_entry) &&  @discussionable.soapbox_entry.try(:published?) %>
+            <% if @discussionable.respond_to?(:soapbox_entry) && @discussionable.soapbox_entry.try(:published?) %>
               <p class="clear clearfix">
                 <span class="and_twitter">
                   <% if current_facebook_user && current_user.facebook_authorized? -%>

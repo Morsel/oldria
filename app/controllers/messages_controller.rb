@@ -13,7 +13,6 @@ class MessagesController < ApplicationController
   # GET /messages/ria
   def ria
     @messages = archived_view? ? current_user.all_messages : current_user.messages_from_ria
-    @action_required_messages = current_user.action_required_messages unless archived_view?
   end
 
   ##
@@ -22,7 +21,7 @@ class MessagesController < ApplicationController
     @messages = if archived_view?
       current_user.root_direct_messages
     else
-      current_user.unread_direct_messages.all(:include => [:sender, :users_who_read])
+      current_user.unread_direct_messages
     end
   end
 
@@ -33,7 +32,7 @@ class MessagesController < ApplicationController
       @messages = current_user.discussions
     else
       @messages_with_replies = current_user.discussions.with_comments_unread_by(current_user)
-      @messages = current_user.discussions.unread_by(current_user) - @messages_with_replies
+      @messages = current_user.discussions.find_unread_by(current_user) - @messages_with_replies
     end
   end
 

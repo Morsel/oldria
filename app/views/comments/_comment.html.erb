@@ -1,25 +1,25 @@
 <% div_for comment, :class => 'clearfix' do %>
-<div class="avatar">
-	<%= image_tag(comment.user.try(:avatar).try(:url, :thumb)) %>
-</div>
-<div class="content">
-	<p class="meta">
-	On <%= comment.created_at.try(:strftime, "%b %e, %Y at %l:%M %p") %>
-	<%= comment.user.try(:name_or_username) unless comment.user.media? %><%= title_and_restaurant_name_for(comment.commentable, comment.user) %>said:
-	</p>
-
-    <%= simple_format comment.comment %>
-
-	<% if !comment.attachments.blank? %>
-    <h3 class="attachments-header">Attached files:</h3>
-    <%= render comment.attachments %>
-	<% end %>
-
-    <% if comment.editable_by?(current_user) %>
-    <div class="clear" style="float: right">
-        <%= link_to "Edit", path_for_comment_edit(comment.commentable, comment), :class => "button utility round" %>
-        <%= link_to "Delete", path_for_comment_delete(comment.commentable, comment), :method => "delete", :class => "button utility round" %>
+    <div class="avatar">
+        <%= image_tag(comment.user.try(:avatar).try(:url, :thumb)) %>
     </div>
-    <% end %>
-</div>
+    <div class="content">
+        <p class="meta">
+            On <%= comment.created_at.try(:strftime, "%b %e, %Y at %l:%M %p") %>
+            <%= comment.user.try(:name_or_username) unless comment.user.media? %><%= title_and_restaurant_name_for(comment.commentable, comment.user) %>said:
+        </p>
+
+        <%= simple_format comment.comment %>
+
+        <% if !comment.attachments.blank? %>
+        <h3 class="attachments-header">Attached files:</h3>
+        <%= render comment.attachments %>
+        <% end %>
+
+        <% if comment.editable_by?(current_user) %>
+        <div class="clear" style="float: right">
+            <%= link_to "Edit", path_for_comment_edit(comment.commentable, comment), :class => "button utility round" %>
+            <%= link_to "Delete", path_for_comment_delete(comment.commentable, comment), :method => "delete", :class => "button utility round" %>
+        </div>
+        <% end %>
+    </div>
 <% end %>

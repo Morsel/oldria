@@ -166,3 +166,15 @@ Feature: Trend questions
     And I press "Send"
     
     Then "sam@example.com" should have 2 emails
+
+@emails
+  Scenario: New Trend Question notification, user has set a notification email address
+    Given "sam" prefers to receive direct message alerts
+    And "sam" has set a notification email address "assistant@myrestaurant.com"
+    Given I am logged in as an admin
+    When I create a new trend question with subject "Chef Surprise" with criteria:
+      | Region | Midwest (IN IL OH) |
+      | Role   | Chef               |
+    Then the trend question with subject "Chef Surprise" should have 1 restaurant
+    And the last trend question for "Normal Pants" should be viewable by "Sam Smith"
+    And "assistant@myrestaurant.com" should have 1 email

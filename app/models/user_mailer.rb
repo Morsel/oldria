@@ -22,7 +22,7 @@ class UserMailer < ActionMailer::Base
 
   def media_request_notification(request_discussion, user)
     from       'notifications@restaurantintelligenceagency.com'
-    recipients user.email
+    recipients user.email_for_content
     sent_on    request_discussion.created_at
     subject    "SpoonFeed: #{request_discussion.publication_string} has a question for #{request_discussion.recipient_name}"
     body       :request => request_discussion.media_request, :discussion => request_discussion
@@ -96,7 +96,7 @@ class UserMailer < ActionMailer::Base
   def answerable_message_notification(message, recipient)
     from        'notifications@restaurantintelligenceagency.com'
     reply_to    recipient.cloudmail_id(message)+"@#{CLOUDMAIL_DOMAIN}"
-    recipients  recipient.email
+    recipients  recipient.email_for_content
     sent_on     Time.now
     subject     "SpoonFeed: #{message.email_title} notification"
     body        :message => message, :recipient => recipient
@@ -106,7 +106,7 @@ class UserMailer < ActionMailer::Base
   def answerable_message_error(message, recipient, error_text, allow_reply = true)
     from        'notifications@restaurantintelligenceagency.com'
     reply_to    recipient.cloudmail_id(message)+"@#{CLOUDMAIL_DOMAIN}"
-    recipients  recipient.email
+    recipients  recipient.email_for_content
     sent_on     Time.now
     subject     "SpoonFeed: #{message.email_title} response error"
     body        :message => message, :recipient => recipient, :error_text => error_text, :allow_reply => allow_reply
@@ -116,7 +116,7 @@ class UserMailer < ActionMailer::Base
   # Comment on a generic message: could be one of DirectMessage, etc.
   def message_comment_notification(message, recipient, commenter = nil)
     from        'notifications@restaurantintelligenceagency.com'
-    recipients  recipient.email
+    recipients  recipient.email_for_content
     sent_on     Time.now
     subject     "SpoonFeed: #{message.email_title} comment notification"
     body        :message => message, :recipient => recipient, :commenter => commenter

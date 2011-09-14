@@ -39,7 +39,7 @@ ActionController::Routing::Routes.draw do |map|
     soapbox.resources :promotions, :as => "newsfeed"
 
     soapbox.resources :users do |users|
-      users.resources :questions
+      users.resources :questions, :only => ['index', 'show']
       users.resources :topics, :only => ['show']
       users.resources :chapters, :only => ['show']
     end
@@ -115,6 +115,7 @@ ActionController::Routing::Routes.draw do |map|
   }, :shallow => true do |users|
     users.resource :profile, :only => ['create', 'edit', 'update'],
                    :controller => 'profiles',
+                   :member => { :edit_front_burner => :get, :edit_btl => :get },
                    :collection => { :toggle_publish_profile => :get } do |p|
       p.resources :culinary_jobs
       p.resources :nonculinary_jobs

@@ -1,4 +1,4 @@
-<% case current_user.receive_front_burner
+<% case current_user.front_burner_status
    when :granted %>
     <div class="new_all">
       <%= link_to "New", front_burner_path, :class => selected?("New") %>
@@ -29,5 +29,4 @@
   <% when :restaurant_denied %>
     <% title "Front Burner" %>	
     <p>Sorry, your account currently isn't set to receive Front Burner questions. If you'd like to participate in Front Burner, please contact your restaurant administrator and ask them to grant you access.</p>
-  <% end %> 
-    
+<% end %>

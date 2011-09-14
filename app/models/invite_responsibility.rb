@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20101130003744
+# Schema version: 20110831230326
 #
 # Table name: invite_responsibilities
 #

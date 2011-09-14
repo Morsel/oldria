@@ -13,6 +13,7 @@ Feature: User Accounts
     When I go to the profile page for "emily"
     Then I do not see a premium badge
     When I go to my profile's edit page
+    And I follow "Account"
     Then I see my account status is not premium
     And I see a link to update my account to premium
 
@@ -20,6 +21,7 @@ Feature: User Accounts
     Given user "emily" has a premium account
     Given I am logged in as "emily" with password "secret"
     When I go to my profile's edit page
+    And I follow "Account"
     Then I see my account status is premium
     And I see a link to cancel my account
 
@@ -40,19 +42,21 @@ Feature: User Accounts
     Given I am logged in as "emily" with password "secret"
     When I simulate a successful call from braintree for user "emily"
     Then I should be on my profile's edit page
+    And I follow "Account"
     Then I see my account status is premium
     And I see my account is paid for by myself
 
   Scenario: Upgraded accounts should be switched to published profiles
     Given I am logged in as "emily" with password "secret"
     When I simulate a successful call from braintree for user "emily"
-	Then "emily" should have a published profile
+    Then "emily" should have a published profile
 
   Scenario: Unsuccessful response from braintree does not make a user premium
     Given I am logged in as "emily" with password "secret"
     When I simulate an unsuccessful call from braintree for user "emily"
     Then I should be on the new subscription page for "emily"
     When I go to my profile's edit page
+    And I follow "Account"
     Then I see my account status is not premium
 
   Scenario: A user can cancel their payment info
@@ -60,8 +64,10 @@ Feature: User Accounts
     Given I am logged in as "emily" with password "secret"
     And I simulate a successful cancel from braintree
     When I go to my profile's edit page
+    And I follow "Account"
     And I follow "Downgrade to basic"
     Then I should be on my profile's edit page
+    When I follow "Account"
     Then I see my account status is premium
     And I see that the account for "emily" lasts until the end of the billing cycle
     And I do not see any account change options
@@ -71,39 +77,41 @@ Feature: User Accounts
     Given I am logged in as "emily" with password "secret"
     And I simulate an unsuccessful cancel from braintree
     When I go to my profile's edit page
+    And I follow "Account"
     And I follow "Downgrade to basic"
     Then I should be on my profile's edit page
+    When I follow "Account"
     Then I see my account status is premium
     And I don't see that the account for "emily" lasts until the end of the billing cycle
 
   Scenario: You can't access another user's account
     Given user "emily" has a premium account
     Given I am logged in as "notemily" with password "secret"
-    # No route to access other users' profile edit pages
-    # When I go to the edit profile page for "emily"
-    # Then I should be on the root page
+    When I go to the edit page for "emily"
+    Then I should be on the root page
     When I go to the new subscription page for "emily"
     Then I should be on the root page
     When I traverse the delete link for subscriptions for user "emily"
     Then I should be on the root page
 
-  # Currently no route for admins to access user's profile edit page
-  # Scenario: An admin can access another user's account
-  #   Given user "emily" has a premium account
-  #   And I am logged in as an admin
-  #   And I simulate a successful cancel from braintree
-  #   When I go to the admin edit page for "emily"
-  #   And I follow "Downgrade to basic"
-  #   Then I should be on the edit page for "emily"
-  #   Then I see my account status is premium
-  #   And I see that the account for "emily" lasts until the end of the billing cycle
-
+  Scenario: An admin can access another user's account
+    Given user "emily" has a premium account
+    And I am logged in as an admin
+    And I simulate a successful cancel from braintree
+    When I go to the edit page for "emily"
+    And I follow "Account"
+    And I follow "Downgrade to basic"
+    Then I should be on the edit page for "emily"
+    When I follow "Account"
+    Then I see my account status is premium
+    And I see that the account for "emily" lasts until the end of the billing cycle
 
   Scenario: A user can update their payment info
     Given user "emily" has a premium account
     Given I am logged in as "emily" with password "secret"
     And I simulate braintree update behavior
     When I go to my profile's edit page
+    And I follow "Account"
     When I follow "Update billing information"
     Then I should see my credit card information populated
     When I fill in the following:
@@ -114,7 +122,8 @@ Feature: User Accounts
       | Security Code                         | 123                  |
     And I simulate a successful call from braintree for user "emily"
     Then I should be on my profile's edit page
-    And I see my account status is premium
+    When I follow "Account"
+    Then I see my account status is premium
 
   Scenario: A user can view their billing history
     Given user "emily" has a premium account
@@ -126,5 +135,6 @@ Feature: User Accounts
       | ijkl           | 50.00  | settled | 1.months.ago | Visa      | 1111        | 10/2012         |
 
     When I go to my profile's edit page
+    And I follow "Account"
     And I follow "View billing history"
     Then I should see all of my transaction details

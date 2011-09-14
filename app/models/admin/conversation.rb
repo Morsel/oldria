@@ -1,4 +1,5 @@
 # == Schema Information
+# Schema version: 20110831230326
 #
 # Table name: admin_conversations
 #
@@ -61,15 +62,6 @@ class Admin::Conversation < ActiveRecord::Base
 
   def recipients_can_reply?
     true
-  end
-
-  def self.action_required(user)
-    self.with_replies.unread_by(user).reject { |c| c.comments.last.user == user }
-  end
-
-  def action_required?(user)
-    false
-    # !read_by?(user) && comments_count > 0 && comments.last.user != user
   end
 
   def create_response_for_user(user, comment)

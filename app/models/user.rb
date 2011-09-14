@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20110104123654
+# Schema version: 20110831230326
 #
 # Table name: users
 #
@@ -32,6 +32,7 @@
 #  visible               :boolean         default(TRUE)
 #  national              :boolean
 #  mediafeed_visible     :boolean         default(TRUE)
+#  notification_email    :string(255)
 #
 
 class User < ActiveRecord::Base
@@ -119,8 +120,6 @@ class User < ActiveRecord::Base
   validates_presence_of :facebook_page_id, :if => Proc.new { |user| user.facebook_page_token }
 
   after_create :deliver_invitation_message!, :if => Proc.new { |user| user.send_invitation }
-
-  after_update :mark_replies_as_read, :if => Proc.new { |user| user.confirmed_at && user.confirmed_at > 1.minute.ago }
 
   named_scope :media, :conditions => {:role => 'media'}
   named_scope :admin, :conditions => {:role => 'admin'}
@@ -218,7 +217,7 @@ class User < ActiveRecord::Base
   end
 
   def post_to_soapbox?
-    primary_employment && primary_employment.post_to_soapbox
+    primary_employment.try(:post_to_soapbox)
   end
 
 ### Convenience methods for getting/setting first and last names ###
@@ -321,6 +320,10 @@ class User < ActiveRecord::Base
     reset_perishable_token! if reset_token
     logger.info( "Delivering invitation email to #{email}" )
     UserMailer.deliver_new_user_invitation!(self, invitation_sender)
+  end
+
+  def email_for_content
+    notification_email.present? ? notification_email : email
   end
 
   # Facebook !!!
@@ -432,10 +435,16 @@ class User < ActiveRecord::Base
   end
 
   # user permission for receiving front burner content
-  def receive_front_burner
-    return :individual_denied if !self.post_to_soapbox? && self.individual?
-    return :restaurant_denied if !self.individual? && ( !self.post_to_soapbox? || !self.has_restaurant_role?)
-    :granted
+  def front_burner_status
+    status = if self.post_to_soapbox?
+      :granted
+    elsif self.individual?
+      :individual_denied
+    else
+      :restaurant_denied
+    end
+
+    return status
   end
 
   def self.extended_find(keyword)

@@ -1,7 +1,5 @@
 <div id="new_or_old_messages">
-    <% if use_replies_header? %>
-      <span class="replies">You have replies</span>
-    <% elsif ria_messages? %>
+    <% if ria_messages? %>
       <span class="latest">The latest from RIA</span>
     <% end %>
     <%= link_to "New", {:view_all => nil}, :class => "#{archived_view? ? '' : 'selected'}" %>

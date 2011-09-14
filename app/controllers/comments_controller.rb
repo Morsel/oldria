@@ -38,9 +38,13 @@ class CommentsController < ApplicationController
 
   def update
     @comment = Comment.find(params[:id])
-    if @comment.update_attributes(params[:comment].merge(:user_id => current_user.id))
+    @parent = @comment.commentable
+    # Allow admins to edit other people's comments, otherwise we assume this is an authorized coworker
+    params[:comment].merge!(:user_id => current_user.id) unless current_user.admin?
+
+    if @comment.update_attributes(params[:comment])
       flash[:notice] = "Updated comment"
-      redirect_to front_burner_content ? front_burner_path : messages_path
+      redirect_after_save
     else
       render :action => "edit"
     end
@@ -50,7 +54,7 @@ class CommentsController < ApplicationController
     @comment = Comment.find(params[:id])
     @comment.destroy
     flash[:notice] = "Deleted comment"
-    redirect_to front_burner_path
+    redirect_to front_burner_path # FIXME - admins, mediafeed, other special cases
   end
 
   private
@@ -82,7 +86,7 @@ class CommentsController < ApplicationController
   def redirect_after_save
     if mediafeed?
       redirect_to mediafeed_discussion_path(@parent.media_request, @parent.class.name.pluralize.underscore.downcase, @parent)
-    elsif front_burner_content
+    elsif front_burner_content && !current_user.admin?
       redirect_to front_burner_path(:post_to_facebook => @comment.post_to_facebook, :comment_id => @comment.id)
     else
       redirect_to @parent

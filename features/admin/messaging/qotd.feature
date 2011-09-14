@@ -40,3 +40,13 @@ Feature: Admin Messaging: Question of the Day
     And I fill in "Message" with "What is your favorite cookie?"
     And I press "Submit"
     Then "sam@example.com" should have 1 email
+
+@emails
+  Scenario: New QOTD notification, user has set an alternate notification email address
+    Given "sam" prefers to receive direct message alerts
+    And "sam" has set a notification email address "assistant@myrestaurant.com"
+	And I am on the new QOTD page
+	When I check "Eight Ball"
+	And I fill in "Message" with "What is your favorite cookie?"
+	And I press "Submit"
+	Then "assistant@myrestaurant.com" should have 1 email

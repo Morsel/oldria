@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20101104213542
+# Schema version: 20110831230326
 #
 # Table name: holiday_discussions
 #
@@ -53,14 +53,6 @@ class HolidayDiscussion < ActiveRecord::Base
 
   def scheduled_at
     created_at
-  end
-
-  def self.action_required(user)
-    self.with_replies.unread_by(user).reject { |c| c.comments.last.user == user }
-  end
-
-  def action_required?(user)
-    !read_by?(user) && comments_count > 0 && (comments.last.user != user)
   end
 
   def employees

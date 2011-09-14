@@ -3,7 +3,7 @@
 
     <% if message.respond_to?(:recipients_can_reply?) and message.recipients_can_reply? %>
     <div class="message-actions">
-        <%= render 'messages/message_actions', :message => message %>
+        <%= render 'messages/message_actions', :message => message, :user => @user || current_user %>
     </div>
     <% end %>
 <% end %>

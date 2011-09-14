@@ -1061,18 +1061,19 @@ form#new_user_session {
 			}
 		}
 		.message-body {
-			margin: 15px;
+			margin: 15px 0;
 			p {
-				font-size: 13px;
+				font-size: 15px;
 				line-height: 18px;
 			}
 		}
 		.message-comments {
 			border-top: 1px solid #ccc;
+			margin-top: 10px;
 			.comment {
-				padding: 10px;
+				padding: 10px 0;
 				.avatar {
-					 margin: 5px 0 0 0;
+					 margin: 5px 10px 10px 0;
 				}
 			}
 			textarea {
@@ -1549,6 +1550,9 @@ form#new_user_session {
 				}
 			}
 		}
+    #qotd_column, #trend_column {
+      @include column(8);
+		}
 		.ui-tabs-panel {
 			p {display: block;overflow:hidden;}
 			button {
@@ -2013,13 +2017,14 @@ form, #page_content form{
 	}
 } 	
 
-#profile-account {
-	float: right;
-	width: 213px;
-	margin-left: 15px;
-	padding-left: 15px;
-	border-left: 1px dotted #ddd;
-} /* ## end #profile_account + #profile-summary ----------------------- */
+/*#profile-account {
+  float: right;
+  width: 213px;
+  margin-left: 15px;
+  padding-left: 15px;
+  border-left: 1px dotted #ddd;
+}*/
+/* ## end #profile_account + #profile-summary ----------------------- */
 
 #profile-btl {
   #behindline {

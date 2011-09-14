@@ -8,8 +8,11 @@
     <nav id="profile-options">
         <span><a href="#profile-summary" id="tab-summary">Summary</a></span>
         <span><a href="#profile-extended" id="tab-resume">Résumé</a></span>
-        <% if @user.btl_enabled? -%><span><a href="#profile-btl" id="tab-btl">Behind the Line</a></span><% end %>
-        <span><a href="#profile-edit-account" id="tab-account">Account</a></span>
+        <% if @user.btl_enabled? -%>
+        <span><%= link_to "Behind the Line", edit_btl_user_profile_path(@user), :id => "tab-btl", :title => "profile-btl" %></span>
+        <% end -%>
+        <span><%= link_to "Front Burner", edit_front_burner_user_profile_path(@user), :id => "tab-fb", :title => "profile-front-burner" %></span>
+        <span><a href="#profile-account" id="tab-account">Account</a></span>
     </nav><!-- /profile_options -->
 
     <section id="profile-summary">
@@ -34,7 +37,6 @@
         <% end %>
 
         <% semantic_form_for @profile, :url => user_profile_path(@user) do |f| %>
-
             <% f.inputs :name => "Metro and Region for search" do %>
               <%= f.input :metropolitan_area %>
               <%= f.input :james_beard_region, :label => "Region" %>
@@ -45,9 +47,9 @@
             <% f.inputs :name => "Cuisines and Specialties" do %>
             <div>
                 <%= f.input :specialties, 
-                :as => :check_boxes, 
-                :collection => Specialty.all, 
-                :label => "What are your specialties?" %>
+                            :as => :check_boxes, 
+                            :collection => Specialty.all, 
+                            :label => "What are your specialties?" %>
                 <% button_tag :class => 'positive' do %>Save changes to specialties<% end %>
             </div>
 
@@ -85,8 +87,7 @@
             <% button_tag :class => 'positive' do %> Save changes to basic information <% end %>
           <% end %>
 
-            <% unless @profile.new_record? %>
-            <% if @user.employments.present? %>
+            <% if !@profile.new_record? && @user.employments.present? %>
             <% f.inputs :name => "Current Employment" do %>
                 <label>Select your primary job role:</label>
                 <ul class="primary-employment">
@@ -98,9 +99,7 @@
 				<% button_tag :class => 'positive' do %>Save changes to employment<% end %>
             <% end %>
             <% end %>
-
-            <% end %><%# non-basic details %>
-        <% end %>
+        <% end %><%# non-basic details %>
     </section><!-- /profile-summary -->
 
   <section id="profile-extended">
@@ -176,17 +175,12 @@
     <% end %>
   </section><!-- /profile-extended -->
 
-  <section id="profile-btl">
-      <% if @user.btl_enabled? -%>
-        <%= render :partial => 'profiles/behind_the_line', :locals => { :user => @user } %>
-      <% end -%>
-  </section>
-
-  <section id="profile-edit-account">
+  <section id="profile-account">
       <% semantic_form_for @user do |f| %>
 
           <% f.inputs :name => 'Preferences' do %>
               <%= f.input :prefers_receive_email_notifications, :as => :boolean, :label => 'Receive email notifications?' %>
+              <%= f.input :notification_email, :wrapper_html => { :class => "clear bottom" }, :hint => "Send content notifications to another email address" %>
           <% end %>
 
           <p><%= button_tag "Save Messages Preferences", :class => 'positive' %></p>
@@ -303,11 +297,46 @@
             <p><%= link_to "Setup Facebook", fb_auth_user_path(@user), :class => 'sf-button' %></p>
           <%- end -%>
 
-		  <% button_tag :class => 'positive' do %>Save changes to contact information<% end %>
+  		  <% button_tag :class => 'positive' do %>Save changes to contact information<% end %>
 
       <% end %><!-- Contact information -->
       <% end %>
-
   </section><!-- /profile-account -->
 
 </section><!-- /profile-tabs -->
+
+<% content_for :javascript do %>
+<script type="text/javascript">
+$(document).ready(function() {
+  $('#profile-tabs').tabs({
+    panelTemplate: '<section></section>',
+    fx: { duration: 'fast', opacity: 'toggle' },
+    show: function(event, ui) { 
+      if(ui.panel.id == 'profile-extended' && !already_equalized){
+        already_equalized = true;
+        $('.culinary_job').equalHeights();
+        $('.nonculinary_job').equalHeights();
+        $('.award').equalHeights();
+        $('.accolade').equalHeights();
+        $('.enrollment').equalHeights();
+        $('.competition').equalHeights();
+        $('.internship').equalHeights();
+        $('.stage').equalHeights();
+        $('.apprenticeship').equalHeights();
+        $('.cookbook').equalHeights();
+      }
+    }
+  });
+});
+</script>
+<% end %>
+
+<% if @user.errors.present? && @user.errors.on(:avatar_content_type).nil? %>
+  <% content_for :javascript do %>
+  <script type="text/javascript">
+    $(document).ready(function() {
+      $('#profile-tabs').tabs('select', 'profile-account');
+    });
+  </script>
+  <% end %>
+<% end %>

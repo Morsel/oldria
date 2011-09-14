@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20110412173344
+# Schema version: 20110831230326
 #
 # Table name: soapbox_entries
 #

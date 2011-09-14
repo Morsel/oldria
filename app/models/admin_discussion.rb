@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20100415205144
+# Schema version: 20110831230326
 #
 # Table name: admin_discussions
 #
@@ -13,6 +13,7 @@
 #
 
 class AdminDiscussion < ActiveRecord::Base
+
   belongs_to :restaurant
   belongs_to :discussionable, :polymorphic => true
 
@@ -62,11 +63,6 @@ class AdminDiscussion < ActiveRecord::Base
 
   def employees
     @employees ||= employments.map(&:employee)
-  end
-
-  def action_required?(user)
-    return false if discussionable.is_a?(TrendQuestion)
-    !read_by?(user) && comments_count > 0 && (comments.last.user != user)
   end
 
   def viewable_by?(employment)

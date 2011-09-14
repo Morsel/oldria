@@ -110,6 +110,7 @@ Feature: Restaurant Accounts
     Given the restaurant "Taco Bell" has a premium account
     And user "emily" has a staff account for the restaurant "Taco Bell"
     When I go to the edit page for "emily"
+    And I follow "Account"
     Then I see my account status is a premium staff account
     And I do not see any account change options
 

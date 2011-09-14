@@ -1,0 +1,3 @@
+    <% if @user.btl_enabled? -%>
+      <%= render :partial => 'profiles/behind_the_line', :locals => { :user => @user } %>
+    <% end -%>

@@ -21,7 +21,7 @@ module UserMessaging
   end
 
   def unread_announcements
-    Admin::Announcement.current.recent.find_unread_by( self )
+    Admin::Announcement.current.recent.find_unread_by(self)
   end
 
   # PR Tips
@@ -30,7 +30,7 @@ module UserMessaging
   end
 
   def unread_pr_tips
-    Admin::PrTip.current.recent.find_unread_by( self )
+    Admin::PrTip.current.recent.find_unread_by(self)
   end
 
   # Admin discussions
@@ -47,10 +47,6 @@ module UserMessaging
     current_admin_discussions.reject { |d| d.read_by?(self) }
   end
 
-  def action_required_admin_discussions
-    unread_admin_discussions.select { |d| d.comments_count > 0 && d.comments.last.user != self }
-  end
-  
   def grouped_admin_discussions
     return @grouped_admin_discussions if defined?(@grouped_admin_discussions)
     @grouped_admin_discussions = current_admin_discussions.group_by(&:discussionable)
@@ -58,7 +54,7 @@ module UserMessaging
 
   def unread_grouped_admin_discussions
     return @unread_grouped_admin_discussions if defined?(@unread_grouped_admin_discussions)
-    @unread_grouped_admin_discussions = (current_admin_discussions - action_required_admin_discussions).group_by(&:discussionable)
+    @unread_grouped_admin_discussions = (current_admin_discussions).group_by(&:discussionable)
     @unread_grouped_admin_discussions.reject! do |discussionable, admin_discussions|
       discussionable.read_by?(self) || (discussionable.scheduled_at < 2.weeks.ago)
     end
@@ -74,9 +70,9 @@ module UserMessaging
   end
   
   def grouped_trend_questions
-    @grouped_trend_questions ||= trend_questions.group_by(&:discussionable)
+    @grouped_trend_questions ||= trend_questions.reject { |t| t.scheduled_at < 2.weeks.ago }.group_by(&:discussionable)
   end
-  
+
   def unread_grouped_trend_questions
     @unread_grouped_trend_questions ||= unread_trend_questions.group_by(&:discussionable)
   end
@@ -87,7 +83,7 @@ module UserMessaging
   
   # Solo discussions
   def unread_solo_discussions
-    solo_discussions.current.reject { |d| d.read_by?(self) }
+    solo_discussions.current.find_unread_by(self)
   end
   
   # Content requests
@@ -117,7 +113,7 @@ module UserMessaging
 
   # Restaurant staff discussions, site-wide user conversations
   def unread_discussions
-    discussions.unread_by(self)
+    discussions.find_unread_by(self)
   end
 
   # Holiday mayhem
@@ -137,17 +133,13 @@ module UserMessaging
     holiday_discussion_reminders.map { |r| r.find_unread_by(self) }.flatten
   end
 
-  def action_required_holidays
-    holiday_discussions.select { |d| d.action_required?(self) }
-  end
-
   def accepted_holiday_discussions
     holiday_discussions.select(&:accepted?)
   end
 
   # Direct messages
   def unread_direct_messages
-    direct_messages.unread_by(self)
+    direct_messages.find_unread_by(self)
   end
 
   def root_direct_messages # root is the first message in the thread
@@ -156,38 +148,30 @@ module UserMessaging
 
   # Collections for display
 
-  def action_required_messages
-    action_required_admin_discussions.sort { |a, b| b.comments.last.created_at <=> a.comments.last.created_at }
-  end
-
   def messages_from_ria
-    @messages_from_ria ||= [ unread_grouped_content_requests.keys,
-      unread_pr_tips,
-      unread_announcements
-      ].flatten.sort_by(&:scheduled_at).reverse
+    @messages_from_ria ||= [unread_pr_tips,
+                            unread_announcements].flatten.sort_by(&:scheduled_at).reverse
   end
 
-  def all_messages
-    @all_messages ||= [ grouped_content_requests.keys,
-      Admin::Announcement.current.all,
-      Admin::PrTip.current.all
-    ].flatten.sort_by(&:scheduled_at).reverse
+  def all_messages_from_ria
+    @all_messages ||= [Admin::Announcement.current.all,
+                       Admin::PrTip.current.all].flatten.sort_by(&:scheduled_at).reverse
   end
 
   def ria_message_count
-    @ria_message_count ||= messages_from_ria.size
+    @ria_message_count ||= unread_pr_tips.count + unread_announcements.count
   end
   
   def message_inbox_count
     @message_inbox_count ||= (ria_message_count + 
-                              unread_discussions.size + 
-                              discussions.with_comments_unread_by(self).size + 
-                              unread_direct_messages.size +
+                              unread_discussions.count +
+                              discussions.with_comments_unread_by(self).count +
+                              unread_direct_messages.count +
                               viewable_unread_media_request_discussions.size)
   end
   
   def front_burner_unread_count
-    unread_qotds.count + unread_grouped_trend_questions.keys.size + unread_solo_discussions.count
+    @front_burner_unread_count ||= unread_qotds.count + unread_grouped_trend_questions.keys.size + unread_solo_discussions.count
   end
   
   # def mediafeed_discussions_with_replies_count
@@ -198,9 +182,5 @@ module UserMessaging
   #     0
   #   end
   # end
-
-  def mark_replies_as_read
-    action_required_messages.each { |m| m.read_by! self }
-  end
 
 end

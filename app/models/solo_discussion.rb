@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20101013222730
+# Schema version: 20110831230326
 #
 # Table name: solo_discussions
 #
@@ -28,7 +28,11 @@ class SoloDiscussion < ActiveRecord::Base
     { :joins => :trend_question,
       :conditions => ['trend_questions.scheduled_at < ? OR trend_questions.scheduled_at IS NULL', Time.zone.now],
       :order => 'trend_questions.scheduled_at DESC'  }
-    }
+  }
+
+  named_scope :recent, lambda {
+    { :conditions => ['trend_questions.scheduled_at >= ?', 2.weeks.ago] }
+  }
 
   def message
     [trend_question.subject, trend_question.body].reject(&:blank?).join(": ")

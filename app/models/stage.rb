@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20101124215652
+# Schema version: 20110831230326
 #
 # Table name: stages
 #

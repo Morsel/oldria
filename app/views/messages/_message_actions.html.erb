@@ -3,8 +3,8 @@
   <%= render 'messages/message_reply_link', :message => message %>
 
 <%# Trend Questions and Content Requests %>
-<% elsif discussions = current_user.grouped_admin_discussions[message] %>
-    <%= render 'messages/message_response_summary', :message => message %>
+<% elsif discussions = user.grouped_admin_discussions[message] %>
+    <%= render 'messages/message_response_summary', :message => message, :user => user %>
 
 <%# QOTD %>
 <% else %>

@@ -89,26 +89,6 @@ $('#profile_user_attributes_prefers_publish_profile').live('click',function(){
 	}
 })
 
-$('#profile-tabs').tabs({
-	panelTemplate: '<section></section>',
-	fx: { duration: 'fast', opacity: 'toggle' },
-	show: function(event, ui) { 
-		if(ui.panel.id == 'profile-extended' && !already_equalized){
-			already_equalized = true;
-			$('.culinary_job').equalHeights();
-			$('.nonculinary_job').equalHeights();
-			$('.award').equalHeights();
-			$('.accolade').equalHeights();
-			$('.enrollment').equalHeights();
-			$('.competition').equalHeights();
-			$('.internship').equalHeights();
-			$('.stage').equalHeights();
-			$('.apprenticeship').equalHeights();
-			$('.cookbook').equalHeights(); 
-		}
-	}
-});
-
 $('#open-profile-summary').click(function(){
 	$('#profile-tabs').tabs('select',1);
 })

@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20100316193326
+# Schema version: 20110831230326
 #
 # Table name: comments
 #
@@ -93,7 +93,7 @@ class Comment < ActiveRecord::Base
 
   def editable_by?(person)
     return false unless editable?
-    (self.user == person) || self.user.coworkers.include?(person)
+    (self.user == person) || self.user.coworkers.include?(person) || person.admin?
   end
 
   def show_on_soapbox?

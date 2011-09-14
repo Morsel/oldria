@@ -1,3 +1,14 @@
+# == Schema Information
+# Schema version: 20110831230326
+#
+# Table name: restaurant_feature_pages
+#
+#  id         :integer         not null, primary key
+#  name       :string(255)
+#  created_at :datetime
+#  updated_at :datetime
+#
+
 class RestaurantFeaturePage < ActiveRecord::Base
   has_many :restaurant_feature_categories
   has_many :question_pages, :dependent => :destroy
@@ -27,13 +38,3 @@ class RestaurantFeaturePage < ActiveRecord::Base
   end
 
 end
-# == Schema Information
-#
-# Table name: restaurant_feature_pages
-#
-#  id         :integer         not null, primary key
-#  name       :string(255)
-#  created_at :datetime
-#  updated_at :datetime
-#
-
