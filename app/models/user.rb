@@ -91,6 +91,9 @@ class User < ActiveRecord::Base
   has_one :invitation, :foreign_key => "invitee_id"
   has_subscription
 
+  has_many :user_editors, :dependent => :destroy
+  has_many :editors, :through => :user_editors
+
   validates_presence_of :email
 
   has_and_belongs_to_many :metropolitan_areas

@@ -55,7 +55,10 @@ class ProfilesController < ApplicationController
 
   def find_user
     @user = User.find(params[:user_id])
-    require_admin unless @user == current_user
+    unauthorized! unless can?(:manage, @user)
+  rescue CanCan::AccessDenied
+    flash[:error] = "You are not authorized to access this page."
+    redirect_to root_path
   end
 
   def find_or_build_profile

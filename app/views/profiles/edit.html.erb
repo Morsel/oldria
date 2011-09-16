@@ -177,13 +177,18 @@
 
   <section id="profile-account">
       <% semantic_form_for @user do |f| %>
-
           <% f.inputs :name => 'Preferences' do %>
               <%= f.input :prefers_receive_email_notifications, :as => :boolean, :label => 'Receive email notifications?' %>
               <%= f.input :notification_email, :wrapper_html => { :class => "clear bottom" }, :hint => "Send content notifications to another email address" %>
           <% end %>
 
           <p><%= button_tag "Save Messages Preferences", :class => 'positive' %></p>
+
+          <% f.inputs :name => "Editing" do %>
+              <%= f.input :editors, :as => :select, :collection => User.in_spoonfeed_directory, :label => 'Allow another user to edit your account?' %>
+          <% end %>
+
+          <p><%= button_tag "Save Editing Preferences", :class => 'positive' %></p>
 
       <% end %>
 

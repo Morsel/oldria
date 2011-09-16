@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110913204942) do
+ActiveRecord::Schema.define(:version => 20110915181800) do
 
   create_table "a_la_minute_answers", :force => true do |t|
     t.text     "answer"
@@ -1085,6 +1085,13 @@ ActiveRecord::Schema.define(:version => 20110913204942) do
   end
 
   add_index "trend_questions", ["employment_search_id"], :name => "index_trend_questions_on_employment_search_id"
+
+  create_table "user_editors", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "editor_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "users", :force => true do |t|
     t.string   "username"

@@ -8,7 +8,7 @@ class Ability
       can :manage, :all
     else
       can :manage, User do |action, user_to_manage|
-        user_to_manage == user
+        user_to_manage == user || user_to_manage.editors.include?(user)
       end
 
       can :manage, Profile do |action, profile|
