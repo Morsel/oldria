@@ -11,9 +11,8 @@ describe DefaultEmploymentsController do
     role = Factory(:restaurant_role)
     subject_matter = Factory(:subject_matter)
     post :create, :user_id => @user.id, 
-        "default_employment" => {"post_to_soapbox" => "1", 
-                                 "restaurant_role_id" => role.id, 
-                                 "subject_matter_ids" => [subject_matter.id]}
+                  "default_employment" => { "restaurant_role_id" => role.id,
+                                            "subject_matter_ids" => [subject_matter.id] }
     @user.reload
     @user.default_employment.should_not be_nil
     @user.primary_employment.should_not be_nil

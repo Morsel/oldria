@@ -3,6 +3,7 @@ class SubscriptionsController < ApplicationController
 
   ssl_required :new, :edit if Rails.env.production?
 
+  before_filter :require_user
   before_filter :find_customer
   before_filter :create_braintree_connector
 
@@ -79,7 +80,6 @@ class SubscriptionsController < ApplicationController
   end
 
   def find_customer
-    require_user
     @braintree_customer = if params[:user_id]
       find_user(params[:user_id])
     elsif params

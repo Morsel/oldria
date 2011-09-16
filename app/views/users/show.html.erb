@@ -11,7 +11,7 @@
     <%= render :partial => 'shared/add_this', :locals => { :responder => @user } %>
 
     <aside class="user_actions">
-        <% if current_user && (current_user == @user || current_user.admin?) -%>
+        <% if can?(:manage, @user) -%>
           <%= link_to 'Edit profile', edit_user_profile_path(@user) %>
         <% end %>
         <% if current_user && (current_user != @user) -%>

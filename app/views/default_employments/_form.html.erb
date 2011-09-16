@@ -10,7 +10,4 @@
       :wrapper_html => { :class => 'checkall', :id => "employment_general_subject_matters" },
       :collection => SubjectMatter.general.all,
       :label => "I am comfortable answering questions and speaking to the media about the following topics:" %>
-
-    <%= f.input :post_to_soapbox, :as => :boolean, :label => "&nbsp;I want to receive Front Burner questions and have my answers published to the public Soapbox!", :selected => @user.default_employment.post_to_soapbox %>
-            
 <% end %>

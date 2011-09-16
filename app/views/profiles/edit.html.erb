@@ -1,4 +1,4 @@
-<% title "Edit Profile" %>
+<% title "Edit Profile: #{@user.name}" %>
 
 <% content_for :head do -%>
   <%= stylesheet_link_tag 'colorbox' %>
@@ -177,13 +177,23 @@
 
   <section id="profile-account">
       <% semantic_form_for @user do |f| %>
-
           <% f.inputs :name => 'Preferences' do %>
               <%= f.input :prefers_receive_email_notifications, :as => :boolean, :label => 'Receive email notifications?' %>
               <%= f.input :notification_email, :wrapper_html => { :class => "clear bottom" }, :hint => "Send content notifications to another email address" %>
+
+              <p><%= button_tag "Save Messages Preferences", :class => 'positive' %></p>
           <% end %>
 
-          <p><%= button_tag "Save Messages Preferences", :class => 'positive' %></p>
+          <% f.inputs :name => "Editing" do %>
+              <%= f.input :editors, :as => :select, :collection => User.in_spoonfeed_directory, :label => 'Allow another user to edit your account?', :hint => "Select one or more users" %>
+
+              <% if @user.editors.present? -%>
+              <h3>Current Editors:</h3>
+              <p><%= @user.editors.map(&:name).to_sentence %></p>
+              <% end -%>
+
+              <p><%= button_tag "Save Editing Preferences", :class => 'positive' %></p>
+          <% end %>
 
       <% end %>
 

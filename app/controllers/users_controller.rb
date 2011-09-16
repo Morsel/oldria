@@ -1,7 +1,8 @@
 class UsersController < ApplicationController
+
   before_filter :require_visibility, :only => [:show]
   before_filter :require_owner_or_admin, :only => [:edit, :update, :remove_twitter, :remove_avatar,
-    :fb_auth, :fb_deauth, :fb_connect, :fb_page_auth]
+                                                   :fb_auth, :fb_deauth, :fb_connect, :fb_page_auth]
 
   def index
     respond_to do |format|
@@ -161,11 +162,11 @@ class UsersController < ApplicationController
   end
 
   def require_owner_or_admin
-    @user = User.find(params[:id])
-    unless (@user == current_user) || (current_user.present? && current_user.admin?)
-      flash[:error] = "This is an administrative area. Nothing exciting here at all."
-      redirect_to root_url
-    end
+    get_user
+    unauthorized! unless can?(:manage, @user)
+  rescue CanCan::AccessDenied
+    flash[:error] = "You are not authorized to access this page."
+    redirect_to root_path
   end
 
   def auto_complete_employees

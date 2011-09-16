@@ -1,50 +1,49 @@
 require 'spec_helper'
 
 describe ProfilesController do
-  integrate_views
 
   describe "editing and updating profiles" do
 
-  before(:each) do
-    fake_normal_user
-    profile = Factory(:profile, :user => @user)
-    @user.stubs(:profile).returns(profile)
-    User.stubs(:find).returns(@user)
-  end
+    before(:each) do
+      fake_normal_user
+      profile = Factory(:profile, :user => @user)
+      @user.stubs(:profile).returns(profile)
+      User.stubs(:find).returns(@user)
+    end
 
-  it "edit action should render edit template" do
-    get :edit, :user_id => @user.id
-    response.should render_template(:edit)
-  end
+    it "edit action should render edit template" do
+      get :edit, :user_id => @user.id
+      response.should render_template(:edit)
+    end
 
-  it "update action should render edit template when model is invalid" do
-    Profile.any_instance.stubs(:valid?).returns(false)
-    put :update, :user_id => @user.id
-    response.should render_template(:edit)
-  end
+    it "update action should render edit template when model is invalid" do
+      Profile.any_instance.stubs(:valid?).returns(false)
+      put :update, :user_id => @user.id
+      response.should render_template(:edit)
+    end
 
-  it "update action should redirect when model is valid" do
-    Profile.any_instance.stubs(:valid?).returns(true)
-    put :update, :user_id => @user.id
-    response.should redirect_to( edit_user_profile_path(:user_id => @user.id, :anchor => "profile-summary") )
-  end
-  
-  it "should set the primary employment" do
-    employment = Factory(:employment, :employee => @user)
-    employment2 = Factory(:employment, :employee => @user)
-    put :update, :user_id => @user.id, :profile => { :primary_employment => [employment2.id.to_s] }
-    @user.primary_employment.should == employment2
-  end
-  
-  it "should clear an old primary employment" do
-    employment = Factory(:employment, :employee => @user)
-    employment2 = Factory(:employment, :employee => @user, :primary => true)
-    put :update, :user_id => @user.id, :profile => { :primary_employment => [employment.id.to_s] }
-    @user.primary_employment.should == employment
-    Employment.find(employment2.id).primary.should == false
-  end
+    it "update action should redirect when model is valid" do
+      Profile.any_instance.stubs(:valid?).returns(true)
+      put :update, :user_id => @user.id
+      response.should redirect_to( edit_user_profile_path(:user_id => @user.id, :anchor => "profile-summary") )
+    end
 
-end
+    it "should set the primary employment" do
+      employment = Factory(:employment, :employee => @user)
+      employment2 = Factory(:employment, :employee => @user)
+      put :update, :user_id => @user.id, :profile => { :primary_employment => [employment2.id.to_s] }
+      @user.primary_employment.should == employment2
+    end
+
+    it "should clear an old primary employment" do
+      employment = Factory(:employment, :employee => @user)
+      employment2 = Factory(:employment, :employee => @user, :primary => true)
+      put :update, :user_id => @user.id, :profile => { :primary_employment => [employment.id.to_s] }
+      @user.primary_employment.should == employment
+      Employment.find(employment2.id).primary.should == false
+    end
+
+  end
 
   describe "creating a new profile" do
 

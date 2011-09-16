@@ -64,22 +64,6 @@ Feature: Trend questions
     And the last trend question for "Normal Pants" should be viewable by "Jim Smith"
     And the last trend question for "Normal Pants" should be viewable by "Sam Smith"
     
-  Scenario: Users who can't post to soapbox can't see the trend question
-    Given I am logged in as an admin
-    And "jim" is not allowed to post to soapbox
-    When I create a new trend question with subject "Where's the chicken?" with criteria:
-      | Region | Midwest (IN IL OH) |
-    Then the trend question with subject "Where's the chicken?" should have 1 restaurant
-    And the trend question "Where's the chicken?" should not be viewable by "jim"
-
-    Given I am logged in as "sam" with password "secret"
-    When I go to Front Burner
-    Then I should see "Where's the chicken?"
-    
-    Given I am logged in as "jim" with password "secret"
-    When I go to Front Burner
-    Then I should not see "Where's the chicken?"
-
   Scenario: Restaurant folks can respond to trend questions
     Given I am logged in as an admin
     When I create a new trend question with subject "My river runs blue" with criteria:

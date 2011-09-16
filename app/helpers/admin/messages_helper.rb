@@ -33,11 +33,7 @@ module Admin::MessagesHelper
   
   def soapbox_notice(message)
     if message.is_a?(TrendQuestion) || message.is_a?(Admin::Qotd)
-      if current_user.post_to_soapbox?
-        "This post will be seen on the public Soapbox."
-      else
-        "Just to let you know, your comments won't go to the public Soapbox. Contact your spoonfeed account manager for details."
-      end
+      "This post will be seen on the public Soapbox."
     else
       ""
     end

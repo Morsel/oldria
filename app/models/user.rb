@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20110831230326
+# Schema version: 20110913204942
 #
 # Table name: users
 #
@@ -90,6 +90,9 @@ class User < ActiveRecord::Base
 
   has_one :invitation, :foreign_key => "invitee_id"
   has_subscription
+
+  has_many :user_editors, :dependent => :destroy
+  has_many :editors, :through => :user_editors
 
   validates_presence_of :email
 
@@ -214,10 +217,6 @@ class User < ActiveRecord::Base
     else
       employments.all(:order => '"primary" DESC', :include => :restaurant).map{|e| e.restaurant.try(:name) }.to_sentence
     end
-  end
-
-  def post_to_soapbox?
-    primary_employment.try(:post_to_soapbox)
   end
 
 ### Convenience methods for getting/setting first and last names ###
@@ -432,19 +431,6 @@ class User < ActiveRecord::Base
   # has at least one filled role
   def has_restaurant_role?
     !self.employments.first(:conditions => 'restaurant_role_id IS NOT NULL').nil?
-  end
-
-  # user permission for receiving front burner content
-  def front_burner_status
-    status = if self.post_to_soapbox?
-      :granted
-    elsif self.individual?
-      :individual_denied
-    else
-      :restaurant_denied
-    end
-
-    return status
   end
 
   def self.extended_find(keyword)

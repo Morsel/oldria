@@ -8,8 +8,6 @@ class Admin::QotdsController < Admin::AdminController
     @qotd = Admin::Qotd.new(params[:admin_qotd])
     @search = Employment.search(normalized_search_params)
     
-    # Users via Employments that can post to soapbox
-    @search.post_to_soapbox = true
     @qotd.recipients = @search.all.map(&:employee).flatten.uniq
 
     if @qotd.save

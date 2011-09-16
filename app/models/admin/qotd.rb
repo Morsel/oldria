@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20110831230326
+# Schema version: 20110913204942
 #
 # Table name: admin_messages
 #
@@ -38,7 +38,7 @@ class Admin::Qotd < Admin::Message
   end
   
   def soapbox_comment_count
-    admin_conversations.with_replies.map { |c| c.comments.show_on_soapbox }.flatten.uniq.size
+    admin_conversations.with_replies.count
   end
 
   def mailer_method
