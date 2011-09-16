@@ -188,6 +188,11 @@
               <%= f.input :editors, :as => :select, :collection => User.in_spoonfeed_directory, :label => 'Allow another user to edit your account?', :hint => "Select one or more users" %>
           <% end %>
 
+          <% if @user.editors.present? -%>
+          <h3>Current Editors:</h3>
+          <p><%= @user.editors.map(&:name).to_sentence %></p>
+          <% end -%>
+
           <p><%= button_tag "Save Editing Preferences", :class => 'positive' %></p>
 
       <% end %>
