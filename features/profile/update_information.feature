@@ -66,7 +66,7 @@ Feature: Update information
     | devil    | demon    |
     And I am logged in as "devil" with password "demon"
     When I go to the edit page for "angel"
-    Then I should see "Oops, you don't have access to the admin area."
+    Then I should see "You are not authorized to access this page."
     And I should be on the homepage
 
   Scenario: A user can set other users who are allowed to edit their account
@@ -74,9 +74,15 @@ Feature: Update information
       | username  | password | name         |
       | horatio   | secret   | Horatio T.   |
       | publicist | secret   | My Publicist |
+    And I am logged in as "publicist" with password "secret"
+    And I am not logged in
     And I am logged in as "horatio" with password "secret"
     When I go to the edit page for "horatio"
     And I follow "Account"
-    And I select "My Publicist" from "Editors"
-    And I press "Save editor details"
+    And I select "My Publicist" from "Allow another user to edit your account?"
+    And I press "Save editing preferences"
     Then I should see "Successfully updated your profile"
+
+    Given I am logged in as "publicist"
+    When I go to the edit page for "horatio"
+    Then I should see "Edit Profile"

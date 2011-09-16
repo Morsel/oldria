@@ -185,7 +185,7 @@
           <p><%= button_tag "Save Messages Preferences", :class => 'positive' %></p>
 
           <% f.inputs :name => "Editing" do %>
-              <%= f.input :editors, :as => :select, :collection => User.in_spoonfeed_directory, :label => 'Allow another user to edit your account?' %>
+              <%= f.input :editors, :as => :select, :collection => User.in_spoonfeed_directory, :label => 'Allow another user to edit your account?', :hint => "Select one or more users" %>
           <% end %>
 
           <p><%= button_tag "Save Editing Preferences", :class => 'positive' %></p>
