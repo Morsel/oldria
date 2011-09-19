@@ -1,5 +1,5 @@
 class Mediafeed::MediafeedController < ApplicationController
-  layout 'mediafeed'
+
   before_filter :require_media_user, :only => [:directory, :directory_search]
   
   def index

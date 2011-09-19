@@ -29,7 +29,7 @@ class UserSessionsController < ApplicationController
     user = @user_session.user
     @user_session.destroy
     flash[:notice] = "Successfully logged out."
-    redirect_to user.media? ? mediafeed_root_url : root_url
+    redirect_to root_url
   end
 
   protected
@@ -57,13 +57,8 @@ class UserSessionsController < ApplicationController
         error_message = "Sorry, but we couldn't log you in"
       end
 
-      if params[:mediafeed]
-        flash[:error] = error_message
-        redirect_to mediafeed_login_path
-      else
-        flash.now[:error] = error_message
-        render :new
-      end
+      flash.now[:error] = error_message
+      render :new
     end
   end
 end

@@ -1,4 +1,6 @@
-<% if current_user -%>
+<% if current_user && current_user.media? -%>
+  <%= render :partial => 'layouts/nav_mediafeed_loggedin' %>
+<% elsif current_user -%>
   <%= render :partial => 'layouts/nav_spoonfeed' %>
 <% else -%>
   <%= render :partial => 'layouts/nav' %>

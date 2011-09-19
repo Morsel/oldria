@@ -19,8 +19,6 @@ class WelcomeController < ApplicationController
   # GET /welcome/index
   def index
     if current_user
-      redirect_to mediafeed_root_path and return if current_user.media?
-
       @user = current_user
       @announcements   = current_user.unread_announcements.each { |announcement| announcement.read_by!(current_user) }
       params[:is_more] ? set_up_dashboard_with_pagination : set_up_dashboard
