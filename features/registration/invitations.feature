@@ -8,6 +8,7 @@ Feature: users can be invited to join Spoonfeed by registered SF users, restaura
     | sam      | secret   | sam@example.com  | Samantha Smith | Chef      |
   And the restaurant "Jack's Diner" is in the region "Midwest"
   And "Jack's Diner" restaurant is in the "Chicago" metro region
+  And a subject matter "Food"
   And I am logged in as "sam"
 
   Scenario: a regular restaurant employee wants to invite a friend
@@ -16,6 +17,20 @@ Feature: users can be invited to join Spoonfeed by registered SF users, restaura
     And I press "Send Now"
     Then I should see "Thanks for recommending new members!"
     And "ma@email.com" should have 1 email
+
+  Scenario: an unregistered user requests an invite
+    Given I am on the new invitation page
+    And I fill in "First name" with "Liane"
+    And I fill in "Last name" with "Jones"
+    And I fill in "Email" with "ljones@myemail.com"
+    And I select "Restaurant professional" from "account_type"
+    Then I should see "Work details"
+
+    When I fill in "invitation_restaurant_name" with "My Restaurant"
+    And I select "Chef" from "Role"
+    And I check "Food"
+    And I press "Create Free Account"
+    Then I should see "Soapbox"
     
   Scenario: an invite is approved and the user wants to log in and update their info (not a restaurant employee)
     Given there are the following invitations:

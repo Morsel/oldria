@@ -2,7 +2,7 @@ class Mediafeed::MediaUsersController < Mediafeed::MediafeedController
   before_filter :require_media_user, :only => [:edit, :update]
 
   def new
-    @media_user = User.new
+    @media_user = User.new(params[:user])
   end
 
   def create
