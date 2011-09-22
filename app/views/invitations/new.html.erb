@@ -33,7 +33,7 @@
     <script type="text/javascript">
     function handle_account_type() {
         if ($("select#account_type").val() == "Media") {
-            document.location = "<%= new_mediafeed_media_user_url %>?" + "user[email]=" + $('#invitation_first_name').val() +  "&amp;user[first_name]=" + $('#invitation_last_name').val() + "&amp;user[last_name]=" + $('#invitation_email').val();
+            document.location = "<%= new_mediafeed_media_user_url %>?" + "user[first_name]=" + $('#invitation_first_name').val() +  "&amp;user[last_name]=" + $('#invitation_last_name').val() + "&amp;user[email]=" + $('#invitation_email').val();
         } else {
             $("#work-details").show();
         }
