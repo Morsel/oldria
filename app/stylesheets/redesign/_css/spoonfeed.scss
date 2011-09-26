@@ -252,7 +252,8 @@ em, i{
 	position: relative;
 	z-index: 100;
 	background: transparent url(/images/mediafeed/nav-bg.png) repeat-x;
-	height: 55px;
+	height: 60px;
+	overflow:hidden;
 	> span {
 	  position: relative;
 		display:block;
@@ -275,31 +276,35 @@ em, i{
 	}
 	a {
 		@include hiddentext;
-		height: 50px;
-		width: 243px;
+		height: 60px;
+		width: 195px;
 		float: left;
 		background: transparent url(/images/mediafeed/nav-loggedin.png) no-repeat;
-		&#nav_explore {
+		&#nav_dashboard {
 			background-position: 0 0;
 			&:hover {background-position: 0 -100px;}
 			&.selected {background-position: 0 -200px;}
 		}
-		&#nav_requests {
-			width: 244px;
-			background-position: -244px 0;
-			&:hover {background-position: -244px -100px;}
-			&.selected {background-position: -244px -200px;}
-		}
 		&#nav_profile {
-			width: 244px;
-			background-position: -490px 0;
-			&:hover {background-position: -490px -100px;}
-			&.selected {background-position:-490px -200px;}
+			background-position: -195px 0;
+			&:hover {background-position: -195px -100px;}
+			&.selected {background-position: -195px -200px;}
 		}
-		&#nav_contact {
-			background-position: -734px 0;
-			&:hover {background-position: -734px -100px;}
-			&.selected {background-position:-734px -200px;}
+		&#nav_requests {
+		  width: 194px;
+			background-position: -390px 0;
+			&:hover {background-position: -390px -100px;}
+			&.selected {background-position: -390px -200px;}
+		}
+		&#nav_restaurants {
+			background-position: -584px 0;
+			&:hover {background-position: -584px -100px;}
+			&.selected {background-position:-584px -200px;}
+		}
+		&#nav_directory {
+			background-position: -779px 0;
+			&:hover {background-position: -779px -100px;}
+			&.selected {background-position: -779px -200px;}
 		}
 		&.selected {
 		  + a.count {
