@@ -58,7 +58,7 @@ class Restaurant < ActiveRecord::Base
            :source => :employee,
            :conditions => { :employments => { :omniscient => true }}
 
-  has_many :media_request_discussions
+  has_many :media_request_discussions, :dependent => :destroy
   has_many :media_requests, :through => :media_request_discussions
   has_many :admin_discussions, :dependent => :destroy
   has_many :holiday_discussions, :dependent => :destroy
@@ -68,7 +68,7 @@ class Restaurant < ActiveRecord::Base
   has_many :content_requests, :through => :admin_discussions,
            :source => :discussionable, :source_type => 'ContentRequest'
 
-  has_many :promotions
+  has_many :promotions, :dependent => :destroy
   has_many :events
   has_many :menus
   has_many :accolades, :as => :accoladable
