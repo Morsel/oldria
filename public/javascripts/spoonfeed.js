@@ -133,12 +133,14 @@ $('.new_question').live('click', function(){
 	}); 
 	return false;
 });
+
 $('#profile_answer_submit').live('click', function(){
     var rthis = this;
     setTimeout(function(){
         $(rthis).val('posting...').attr('disabled','disabled');
     }, 0);
 });
+
 $('#new_quick_reply button').live('click', function(){
 	$(this).text('posting...').attr('disabled','disabled');
 });
@@ -147,7 +149,6 @@ function jumbotronController(idx, elem){
 	idx++;
 	return html+='<a href="#">'+idx+'</a>';
 }
-
 
 var colorboxOnComplete = function(){
   $('#culinary_job_chef_is_me').click(function(){
@@ -183,11 +184,9 @@ $(document).ready(function(){
 	    containerSelector: 'li:first'
 	  });
 	};
-	
+
 	bindAjaxDeleters();
-	
-	
-	
+
 	var bindColorbox = function() {
 	  $('.colorbox').colorbox({
 	      initialWidth: 450,
@@ -299,27 +298,28 @@ var colorboxForm = function(){
   return false;
 };
 
+$(document).ready(function(){
+  // == Dynamic Updates for Employment Searching
+  var	$employmentsList  = $("#employment_list");
+  var $employmentInputs = $("#employment_criteria input[type=checkbox]");
+  var $loaderImg        = $('<img class="loader" src="/images/ajax-loader.gif" />').hide();
 
-// == Dynamic Updates for Employment Searching
-var	$employmentsList  = $("#employment_list");
-var $employmentInputs = $("#employment_criteria input[type=checkbox]");
-var $loaderImg =        $('<img class="loader" src="/images/ajax-loader.gif" />').hide();
+  // load the image load indicator, hidden
+  $employmentsList.before($loaderImg);
 
-// load the image load indicator, hidden
-$employmentsList.before($loaderImg);
+  function updateEmploymentsList() {
+    input_string = $employmentInputs.serialize();
+    $loaderImg.show();
+    $employmentsList.hide();
+    $employmentsList.load('/employment_search', input_string, function(responseText, textStatus){
+      $loaderImg.hide();
+      $employmentsList.fadeIn(300);
+    });
+    // return true;
+  }
 
-function updateEmploymentsList() {
-	input_string = $employmentInputs.serialize();
-	$loaderImg.show();
-	$employmentsList.hide();
-	$employmentsList.load('/employment_search', input_string, function(responseText, textStatus){
-	  $loaderImg.hide();
-	  $employmentsList.fadeIn(300);
-	});
-	// return true;	
-}
-
-$employmentInputs.change(updateEmploymentsList);
+  $employmentInputs.change(updateEmploymentsList);
+});
 
 // Directory search
 var	$directoryList  = $("#directory_list");
