@@ -22,10 +22,6 @@ module ApplicationHelper
         :class => "facebook_login"
   end
 
-  def display_sidebar?
-    controller_name != "soapbox"
-  end
-
   def div_if(boolean, options={}, &block)
     return "" unless boolean
     content_tag(:div, options, &block)
