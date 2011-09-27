@@ -2317,6 +2317,22 @@ p.search_filter_hint {
           font-size: 13px;
         }
       }
+			&.media_request {
+				background: $orange url(/images/mediafeed/pen.png) no-repeat 8px 12px;
+				padding-left: 46px;
+				color: #fff;
+/*        @include gotham;*/
+				font-size: 15px;
+				font-weight: bold;
+				border: 1px solid $orange;
+				text-shadow: 0 1px 0 #333;
+				&:hover {
+					background-color: $brown;
+/*          border: 1px solid $tan;*/
+					color: #fff;
+					color: rgba(255,255,255,.8);
+				}	
+			}
 			&.go_to_admin {
 				background: $trans-brown url(/images/redesign/go-to-admin.png) no-repeat 12px 12px;
 				@include hiddentext;
