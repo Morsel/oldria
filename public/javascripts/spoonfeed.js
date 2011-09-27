@@ -162,21 +162,23 @@ var colorboxOnComplete = function(){
   });
 };
 
-$('#criteria_accordion').accordion({
-	autoHeight: false,
-	collapsible: true,
-	active: false,
-	header: '.accordion_box a',
-	change: function() {
-		$('.accordion_box').each(function(){
-			if($(this).find('input:checked').length > 0){
-				$(this).find('a').addClass('options_selected');
-			} else {
-				$(this).find('a').removeClass('options_selected');
-			}
-		});
-	}
-}).find('.loading').removeClass('loading');
+$(document).ready(function(){
+  $('#criteria_accordion').accordion({
+    autoHeight: false,
+    collapsible: true,
+    active: false,
+    header: '.accordion_box a',
+    change: function() {
+      $('.accordion_box').each(function(){
+        if($(this).find('input:checked').length > 0){
+          $(this).find('a').addClass('options_selected');
+        } else {
+          $(this).find('a').removeClass('options_selected');
+        }
+      });
+    }
+  }).find('.loading').removeClass('loading');
+});
 
 $(document).ready(function(){
 	var bindAjaxDeleters = function(){
@@ -307,7 +309,7 @@ $(document).ready(function(){
   // load the image load indicator, hidden
   $employmentsList.before($loaderImg);
 
-  function updateEmploymentsList() {
+  updateEmploymentsList = function() {
     input_string = $employmentInputs.serialize();
     $loaderImg.show();
     $employmentsList.hide();
@@ -316,7 +318,7 @@ $(document).ready(function(){
       $employmentsList.fadeIn(300);
     });
     // return true;
-  }
+  };
 
   $employmentInputs.change(updateEmploymentsList);
 });
@@ -328,7 +330,7 @@ $(document).ready(function(){
 
   $directoryList.before($loaderImg);
 
-  function updateDirectoryList() {
+  updateDirectoryList = function() {
     input_string = $directoryInputs.serialize();
     $loaderImg.show();
     $directoryList.hide();
@@ -337,7 +339,7 @@ $(document).ready(function(){
       $directoryList.fadeIn(300);
     });
     // return true;
-  }
+  };
 
   $directoryInputs.change(updateDirectoryList);
 });
@@ -349,7 +351,7 @@ $(document).ready(function(){
 
   $restoDirectoryList.before($loaderImg);
 
-  function updateRestoDirectoryList() {
+  updateRestoDirectoryList = function() {
     input_string = $restoDirectoryInputs.serialize();
     $loaderImg.show();
     $restoDirectoryList.hide();
@@ -358,7 +360,7 @@ $(document).ready(function(){
       $restoDirectoryList.fadeIn(300);
     });
     // return true;
-  }
+  };
 
   $restoDirectoryInputs.change(updateRestoDirectoryList);
 });
