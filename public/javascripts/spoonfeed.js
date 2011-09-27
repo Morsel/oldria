@@ -298,8 +298,8 @@ var colorboxForm = function(){
   return false;
 };
 
+// == Dynamic Updates for Employment Searching
 $(document).ready(function(){
-  // == Dynamic Updates for Employment Searching
   var	$employmentsList  = $("#employment_list");
   var $employmentInputs = $("#employment_criteria input[type=checkbox]");
   var $loaderImg        = $('<img class="loader" src="/images/ajax-loader.gif" />').hide();
@@ -322,42 +322,46 @@ $(document).ready(function(){
 });
 
 // Directory search
-var	$directoryList  = $("#directory_list");
-var $directoryInputs = $("#directory_search #employment_criteria input[type=checkbox]");
+$(document).ready(function(){
+  var	$directoryList  = $("#directory_list");
+  var $directoryInputs = $("#directory_search #employment_criteria input[type=checkbox]");
 
-$directoryList.before($loaderImg);
+  $directoryList.before($loaderImg);
 
-function updateDirectoryList() {
-	input_string = $directoryInputs.serialize();
-	$loaderImg.show();
-	$directoryList.hide();
-	$directoryList.load('/directory/search', input_string, function(responseText, textStatus){
-	  $loaderImg.hide();
-	  $directoryList.fadeIn(300);
-	});
-	// return true;	
-}
+  function updateDirectoryList() {
+    input_string = $directoryInputs.serialize();
+    $loaderImg.show();
+    $directoryList.hide();
+    $directoryList.load('/directory/search', input_string, function(responseText, textStatus){
+      $loaderImg.hide();
+      $directoryList.fadeIn(300);
+    });
+    // return true;
+  }
 
-$directoryInputs.change(updateDirectoryList);
+  $directoryInputs.change(updateDirectoryList);
+});
 
 // Restaurant directory search
-var	$restoDirectoryList  = $("#restaurant_directory_list");
-var $restoDirectoryInputs = $("#directory_search #restaurant_criteria input[type=checkbox]");
+$(document).ready(function(){
+  var	$restoDirectoryList  = $("#restaurant_directory_list");
+  var $restoDirectoryInputs = $("#directory_search #restaurant_criteria input[type=checkbox]");
 
-$restoDirectoryList.before($loaderImg);
+  $restoDirectoryList.before($loaderImg);
 
-function updateRestoDirectoryList() {
-	input_string = $restoDirectoryInputs.serialize();
-	$loaderImg.show();
-	$restoDirectoryList.hide();
-	$restoDirectoryList.load('/directory/restaurant_search', input_string, function(responseText, textStatus){
-	  $loaderImg.hide();
-	  $restoDirectoryList.fadeIn(300);
-	});
-	// return true;
-}
+  function updateRestoDirectoryList() {
+    input_string = $restoDirectoryInputs.serialize();
+    $loaderImg.show();
+    $restoDirectoryList.hide();
+    $restoDirectoryList.load('/directory/restaurant_search', input_string, function(responseText, textStatus){
+      $loaderImg.hide();
+      $restoDirectoryList.fadeIn(300);
+    });
+    // return true;
+  }
 
-$restoDirectoryInputs.change(updateRestoDirectoryList);
+  $restoDirectoryInputs.change(updateRestoDirectoryList);
+});
 
 //
 // Managing subject matters for restaurant managers
