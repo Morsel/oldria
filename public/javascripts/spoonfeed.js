@@ -15,11 +15,6 @@ $('.topic').equalHeights();
 $('.rest_staff .employment').equalHeights();
 $('#newsfeed .promotion').equalHeights();
 
-$('div#photos').masonry({ 
-	columnWidth: 345,
-	itemSelector: '.photo'
-});
-
 $('#extended_profile .equalheights').equalHeights(160);
 
 $('#front-burner-comments #new_comment').submit(function(){
@@ -180,6 +175,31 @@ $('#criteria_accordion').accordion({
   }
 }).find('.loading').removeClass('loading');
 
+$.fn.ajaxDestroyLink = function(options){
+  var config = {
+    confirmMessage: "Are you sure you want to PERMANENTLY delete this?",
+    containerSelector: 'tr:first'
+  };
+
+  if(options) { $.extend(config, options); }
+
+  return this.each(function(){
+    var $this = $(this);
+    $this.removeAttr('onclick');
+    $this.unbind();
+    $this.live('click',function(){
+      if (confirm(config.confirmMessage)) {
+        $.post(this.href+".js", {_method: 'delete'}, function(data, status){
+          var container = $this.parents(config.containerSelector);
+          container.fadeOut(200,function(){
+            container.remove();
+          });
+        });
+      }
+      return false;
+    });
+  });
+};
 
 var bindAjaxDeleters = function(){
   $('#profile-tabs a.delete').ajaxDestroyLink({
@@ -243,32 +263,6 @@ $('#restaurant_tags input:checkbox').click(function() {
 $('#restaurant_tags form').submit(function() {
   $('#restaurant_tags form:checkbox').not(':checked').removeAttr('disabled');
 });
-
-$.fn.ajaxDestroyLink = function(options){
-  var config = {
-    confirmMessage: "Are you sure you want to PERMANENTLY delete this?",
-    containerSelector: 'tr:first'
-  };
-  
-  if(options) { $.extend(config, options); }
-  
-  return this.each(function(){
-    var $this = $(this);
-    $this.removeAttr('onclick');
-    $this.unbind();
-    $this.live('click',function(){
-      if (confirm(config.confirmMessage)) {
-        $.post(this.href+".js", {_method: 'delete'}, function(data, status){
-          var container = $this.parents(config.containerSelector);
-          container.fadeOut(200,function(){
-            container.remove();
-          });
-        });
-      }
-      return false;
-    });
-  });
-};
 
 var colorboxForm = function(){
   var $form = $(this);
