@@ -178,9 +178,8 @@ $(document).ready(function(){
       });
     }
   }).find('.loading').removeClass('loading');
-});
 
-$(document).ready(function(){
+
 	var bindAjaxDeleters = function(){
 	  $('#profile-tabs a.delete').ajaxDestroyLink({
 	    containerSelector: 'li:first'
@@ -300,8 +299,8 @@ var colorboxForm = function(){
   return false;
 };
 
-// == Dynamic Updates for Employment Searching
 $(document).ready(function(){
+  // == Dynamic Updates for Employment Searching
   var	$employmentsList  = $("#employment_list");
   var $employmentInputs = $("#employment_criteria input[type=checkbox]");
   var $loaderImg        = $('<img class="loader" src="/images/ajax-loader.gif" />').hide();
@@ -321,10 +320,9 @@ $(document).ready(function(){
   };
 
   $employmentInputs.change(updateEmploymentsList);
-});
 
-// Directory search
-$(document).ready(function(){
+
+  // Directory search
   var	$directoryList  = $("#directory_list");
   var $directoryInputs = $("#directory_search #employment_criteria input[type=checkbox]");
 
@@ -342,10 +340,9 @@ $(document).ready(function(){
   };
 
   $directoryInputs.change(updateDirectoryList);
-});
 
-// Restaurant directory search
-$(document).ready(function(){
+
+  // Restaurant directory search
   var	$restoDirectoryList  = $("#restaurant_directory_list");
   var $restoDirectoryInputs = $("#directory_search #restaurant_criteria input[type=checkbox]");
 
