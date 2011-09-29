@@ -1,4 +1,4 @@
-$.fn.showy = function(){
+jQuery.fn.showy = function(){
   return this.each(function(){
     var hidable = $(this.hash);
 
