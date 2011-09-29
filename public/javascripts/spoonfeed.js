@@ -268,7 +268,6 @@ $('#colorbox form.stage, #colorbox form.apprenticeship, #colorbox form.nonculina
 
 $("a.showit").showy();
 
-
 // Update top tags remaining on load
 var max = 15;
 var remaining = max-$('#restaurant_tags input:checkbox:checked').length;
