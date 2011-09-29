@@ -375,5 +375,28 @@ $omniscientField.change(selectOmniscientRoles);
 
 if($omniscientField.is(":checked")) { $omniscientField.change(); }
 
+// == Media request fields - subject matters
+var fieldsets = $("div.media_request_subject").hide();
+var generalfields = $("#fields_for_general");
+generalfields.detach();
+
+$("#media_request_request_types").bind('change', function(){
+    fieldsets.hide();
+    var _this = $(this);
+    var val = _this.find(":selected").attr("value");
+    if (val === ''){
+        _this.after(generalfields);
+        generalfields.fadeIn();
+    } else {
+        generalfields.detach();
+        $("#fields_for_" + val).fadeIn();
+    }
+}).change();
+
+$('div#photos').masonry({
+    columnWidth: 345,
+    itemSelector: '.photo'
+});
+
 // end $(document).ready
 });

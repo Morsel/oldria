@@ -36,7 +36,6 @@ window.current_user_id = '<%= current_user ? current_user.id : "null" %>';
 <%= yield :facebook_js %>
 <% end %>
 
-<%= javascript_include_tag 'spoonfeed' %>
 <%= yield(:javascript) %>
 </body>
 </html>

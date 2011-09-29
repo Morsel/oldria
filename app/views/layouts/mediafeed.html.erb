@@ -91,8 +91,7 @@
 	    </footer>
 	  </div>
 	</div><!-- #footer_container-->
-	
-	
+
 	<script type="text/javascript">
 	window.current_user_id = '<%= current_user ? current_user.id : "null" %>';
 	</script>
@@ -101,8 +100,8 @@
 	<%= yield :facebook_js %>
 	<% end %>
 	
-	<%= javascript_include_tag 'https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js', 'https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.7/jquery-ui.min.js' %>
-	 <%= javascript_include_tag 'jquery-easing-min.js', 'jquery-cycle-min.js', 'jquery.equalheights', 'showy', 'mediafeed' %>
-	<%= yield(:javascript) %>
+    <%= javascript_include_tag 'https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js', 'https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.7/jquery-ui.min.js' %>
+	<%= javascript_include_tag 'jquery-easing-min.js', 'jquery-cycle-min.js', 'jquery.equalheights', 'showy', 'mediafeed' %>
+    <%= yield(:javascript) %>
 </body>
 </html>
