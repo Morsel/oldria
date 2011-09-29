@@ -125,6 +125,7 @@ class User < ActiveRecord::Base
   after_create :deliver_invitation_message!, :if => Proc.new { |user| user.send_invitation }
 
   named_scope :media, :conditions => { :role => 'media' }
+  named_scope :not_media, :conditions => ["(role != ? OR role IS NULL)", "media"]
   named_scope :admin, :conditions => { :role => 'admin' }
 
   named_scope :for_autocomplete, :select => "first_name, last_name", :order => "last_name ASC", :limit => 15

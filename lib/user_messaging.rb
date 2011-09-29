@@ -17,20 +17,20 @@ module UserMessaging
 
   # Announcements
   def announcements
-    Admin::Announcement.scoped(:order => "updated_at DESC").current
+    self.media? ? [] : Admin::Announcement.scoped(:order => "updated_at DESC").current
   end
 
   def unread_announcements
-    Admin::Announcement.current.recent.find_unread_by(self)
+    self.media? ? [] : Admin::Announcement.current.recent.find_unread_by(self)
   end
 
   # PR Tips
   def pr_tips
-    Admin::PrTip.scoped(:order => "updated_at DESC").current
+    self.media? ? [] : Admin::PrTip.scoped(:order => "updated_at DESC").current
   end
 
   def unread_pr_tips
-    Admin::PrTip.current.recent.find_unread_by(self)
+    self.media? ? [] : Admin::PrTip.current.recent.find_unread_by(self)
   end
 
   # Admin discussions
