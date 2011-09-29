@@ -234,36 +234,6 @@ function post_reply_text(){
 // Do it!
 bindColorbox();
 
-$('#colorbox form.stage, #colorbox form.apprenticeship, #colorbox form.nonculinary_enrollment, #colorbox form.award, #colorbox form.culinary_job, #colorbox form.nonculinary_job, #colorbox form.accolade, #colorbox form.enrollment, #colorbox form.competition, #colorbox form.internship').live('submit', colorboxForm);
-$("a.showit").showy();
-
-
-// Update top tags remaining on load
-var max = 15;
-var remaining = max-$('#restaurant_tags input:checkbox:checked').length;
-$('#tags_remaining').html(remaining+" left");
-if (remaining == 0) {
-  $('#restaurant_tags input:checkbox').not(':checked').attr('disabled', true).next('label').css('color', 'gray');
-}
-
-$('#restaurant_tags input:checkbox').click(function() {    
-  var $checkbox = $('#restaurant_tags input:checkbox');
-  var total = $(":checkbox:checked").length; 
-  var remaining = (max-total) + " left";
-  if (total < max) { // Update counter.
-    $('#tags_remaining').html(remaining);
-    $checkbox.removeAttr('disabled');
-    $checkbox.next('label').css('color', '#333');
-  } else { // Disable all checkboxes
-      $('#tags_remaining').html(remaining);
-      $checkbox.not(':checked').attr('disabled', true).next('label').css('color', 'gray');
-  } 
-});
-// Enable all the checkboxes on submit
-$('#restaurant_tags form').submit(function() {
-  $('#restaurant_tags form:checkbox').not(':checked').removeAttr('disabled');
-});
-
 var colorboxForm = function(){
   var $form = $(this);
   // var button = $form.find('button:first');
@@ -293,6 +263,37 @@ var colorboxForm = function(){
 
   return false;
 };
+
+$('#colorbox form.stage, #colorbox form.apprenticeship, #colorbox form.nonculinary_enrollment, #colorbox form.award, #colorbox form.culinary_job, #colorbox form.nonculinary_job, #colorbox form.accolade, #colorbox form.enrollment, #colorbox form.competition, #colorbox form.internship').live('submit', colorboxForm);
+
+$("a.showit").showy();
+
+
+// Update top tags remaining on load
+var max = 15;
+var remaining = max-$('#restaurant_tags input:checkbox:checked').length;
+$('#tags_remaining').html(remaining+" left");
+if (remaining == 0) {
+  $('#restaurant_tags input:checkbox').not(':checked').attr('disabled', true).next('label').css('color', 'gray');
+}
+
+$('#restaurant_tags input:checkbox').click(function() {
+  var $checkbox = $('#restaurant_tags input:checkbox');
+  var total = $(":checkbox:checked").length;
+  var remaining = (max-total) + " left";
+  if (total < max) { // Update counter.
+    $('#tags_remaining').html(remaining);
+    $checkbox.removeAttr('disabled');
+    $checkbox.next('label').css('color', '#333');
+  } else { // Disable all checkboxes
+      $('#tags_remaining').html(remaining);
+      $checkbox.not(':checked').attr('disabled', true).next('label').css('color', 'gray');
+  }
+});
+// Enable all the checkboxes on submit
+$('#restaurant_tags form').submit(function() {
+  $('#restaurant_tags form:checkbox').not(':checked').removeAttr('disabled');
+});
 
 
 // == Dynamic Updates for Employment Searching
