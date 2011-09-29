@@ -393,6 +393,16 @@ $("#media_request_request_types").bind('change', function(){
     }
 }).change();
 
+// Media request recipient list
+$('.show_more').click(function(){
+	toggle_me_first = $(this).attr('href');
+	toggle_me_next = $(this).attr('data-show');
+	$(toggle_me_first).toggle();
+	$(toggle_me_next).toggle();
+	return false;
+})
+
+
 $('div#photos').masonry({
     columnWidth: 345,
     itemSelector: '.photo'

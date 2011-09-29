@@ -1,35 +1,34 @@
 <% div_for mediafeed_media_request, :class => 'clearfix box extended discussion thread' do %>
-  <ul class="message_headers">
-    <li>
-      <h4><%= mediafeed_media_request.subject_matter.name %></h4>
-       Due by <%= mediafeed_media_request.due_date.try(:to_s, :long_ordinal) %>
-       <% unless mediafeed_media_request.publication.empty? || mediafeed_media_request.sender.publication.empty? %>
-			  (<%= mediafeed_media_request.publication || mediafeed_media_request.sender.publication %>)
-			 <% end %>
-    </li>
-		<% if mediafeed_media_request.employment_search.present? %>
-		  <% names = mediafeed_media_request.recipient_names -%>
-		  <li id="long_version_<%= mediafeed_media_request.id %>" style="display:none;">
-			  To: <%= names %>&nbsp;<%= link_to "View less", "#long_version_#{mediafeed_media_request.id}", :class => "show_more", :"data-show" => "#shorten_#{mediafeed_media_request.id}" %>
-			</li>
-		  <li id="shorten_<%= mediafeed_media_request.id %>">
-			  To: <%= truncate(names, :length => 75) %>&nbsp;<%= link_to "View all", "#shorten_#{mediafeed_media_request.id}", :class => "show_more", :"data-show" => "#long_version_#{mediafeed_media_request.id}" if names.length > 75 %>
-			</li>
-	  <% end %>
-	</ul>
+    <ul class="message_headers">
+        <li>
+            <h4><%= mediafeed_media_request.subject_matter.name %></h4>
+            Due by <%= mediafeed_media_request.due_date.try(:to_s, :long_ordinal) %>
+            <% unless mediafeed_media_request.publication.empty? || mediafeed_media_request.sender.publication.empty? %>
+              (<%= mediafeed_media_request.publication || mediafeed_media_request.sender.publication %>)
+            <% end %>
+        </li>
+        <% if mediafeed_media_request.employment_search.present? %>
+        <% names = mediafeed_media_request.recipient_names -%>
+        <li id="long_version_<%= mediafeed_media_request.id %>" style="display:none;">
+            To: <%= names %>&nbsp;<%= link_to "View less", "#long_version_#{mediafeed_media_request.id}", :class => "show_more", :"data-show" => "#shorten_#{mediafeed_media_request.id}" %>
+        </li>
+        <li id="shorten_<%= mediafeed_media_request.id %>">
+            To: <%= truncate(names, :length => 75) %>&nbsp;<%= link_to "View all", "#shorten_#{mediafeed_media_request.id}", :class => "show_more", :"data-show" => "#long_version_#{mediafeed_media_request.id}" if names.length > 75 %>
+        </li>
+        <% end %>
+    </ul>
 	
 	<% if @media_request_discussion.present? %>
 	  <%= simple_format mediafeed_media_request.message %>
 	<% else -%>
-  	<p class="message"><%= truncate(mediafeed_media_request.message, :length => 75) %></p>
-  <% end -%>
+  	  <p class="message"><%= truncate(mediafeed_media_request.message, :length => 75) %></p>
+    <% end -%>
   
   	<%= render :partial => 'mediafeed/media_requests/mediafeed_media_request_discussion', :locals => { :mediafeed_media_request => mediafeed_media_request } %>
-
   	
 	<p class="sent_on">
-    <% if mediafeed_media_request.sender == current_user %>
-	    You sent this on <%= mediafeed_media_request.created_at.strftime('%m/%d/%y %I:%M%p') %>
-	  <% end %>
-  </p>
+        <% if mediafeed_media_request.sender == current_user %>
+          You sent this on <%= mediafeed_media_request.created_at.strftime('%m/%d/%y %I:%M%p') %>
+        <% end %>
+    </p>
 <% end #div_for mediafeed_media_request -%>
