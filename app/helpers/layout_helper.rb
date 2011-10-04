@@ -22,8 +22,8 @@ module LayoutHelper
     content_for(:head) { javascript_include_tag(*args) }
   end
 
-  def active_link_to text, path, options = {}
-    selected = (root_paths.include? path) ? request.path == path : (request.path == path || request.path =~ /^#{path}/)
+  def active_link_to(text, path, options = {})
+    selected = root_paths.include?(path) ? request.path == path : (request.path == path || request.path =~ /^#{path}/)
     css_class = selected ? ' selected' : ''
     options[:class] ||= ""
     options[:class] << css_class
@@ -33,7 +33,7 @@ module LayoutHelper
   private
   
   def root_paths
-    [root_path, mediafeed_root_path, soapbox_root_path, hq_root_path]
+    [root_path, mediafeed_root_path, soapbox_root_path, hq_root_path, directory_path]
   end
   
 end

@@ -1,5 +1,7 @@
 <% title "Restaurant Directory" %>
+<% unless soapbox? || mediafeed? -%>
 <%= link_to 'Switch to Profile Directory', correct_profile_directory_path, :class => "directory_switch" unless soapbox? %>
+<% end -%>
 
 <div id="directory_search">
     <% form_tag do %>

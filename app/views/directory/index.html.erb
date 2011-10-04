@@ -1,5 +1,7 @@
 <% title "Personal Profile Directory" %>
-<%= link_to 'Switch to Restaurant Directory', correct_restaurant_directory_path, :class => "directory_switch" unless soapbox? %>
+<% unless soapbox? || mediafeed? -%>
+<%= link_to 'Switch to Restaurant Directory', correct_restaurant_directory_path, :class => "directory_switch" %>
+<% end -%>
 
 <%= title_for_search %>
 
