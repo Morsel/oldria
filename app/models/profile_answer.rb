@@ -63,6 +63,6 @@ class ProfileAnswer < ActiveRecord::Base
                                                                      :caption => post[:caption]))
     end
   rescue Mogli::Client::OAuthException
-    flash[:error] = "Your message could not be posted to Facebook at this time"
+    Rails.logger.info("Unable to post answer to Facebook for #{self.user.name}")
   end
 end
