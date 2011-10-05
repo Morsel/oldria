@@ -1,21 +1,25 @@
-  <% media_request = media_request_discussion.media_request %>
-  <% div_for media_request_discussion, :class => 'inbox_message discussion' do %>
-  <div class="message-details">
-      <header>
-          <h1><%= link_to media_request.inbox_title, media_request_discussion %></h1>
-          <p class="timestamp"><%= media_request.created_at.to_s(:sentence) %></p>
-      </header>
+<% media_request = media_request_discussion.media_request %>
+<% div_for media_request_discussion, :class => 'inbox_message discussion' do %>
+    <div class="message-details">
+        <header>
+            <h1><%= link_to "Query from Journalist: #{media_request.inbox_title}", media_request_discussion %></h1>
+            <p class="timestamp"><%= media_request.created_at.to_s(:sentence) %></p>
+        </header>
 
-      <p>To: <%= media_request_discussion.restaurant.try(:name) %><br/>
-          Due by: <%= media_request.due_date.try(:to_s, :long_ordinal) %></p>
+        <p>
+            To: <%= media_request_discussion.restaurant.try(:name) %><br/>
+            From: <%= media_request.publication %><br/>
+            Due by: <%= media_request.due_date.try(:to_s, :long_ordinal) %>
+        </p>
 
-          <div class="message-body">
-              <%= simple_format(media_request.message) %>
-          </div>
-      </div>
-      <%= render :partial => 'media_request_discussions/media_request_replies', :locals => { :media_request_discussion => media_request_discussion } %>
+        <div class="message-body">
+            <%= simple_format(media_request.message) %>
+        </div>
+    </div>
+    <%= render :partial => 'media_request_discussions/media_request_replies',
+               :locals => { :media_request_discussion => media_request_discussion } %>
 
-      <% unless archived_view? %>
-        <%= link_to "<span>read</span>", read_media_request_discussion_path(media_request_discussion), :class => 'readit' %>
-      <% end %>
+    <% unless archived_view? %>
+      <%= link_to "<span>read</span>", read_media_request_discussion_path(media_request_discussion), :class => 'readit' %>
+    <% end %>
 <% end %>
