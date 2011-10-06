@@ -16,7 +16,7 @@ class DirectoryController < ApplicationController
 
   def search
     directory_search_setup
-    render :partial => "search_results"
+    render :partial => "directory/search_results", :locals => { :users => @users }
   end
   
   def restaurants
