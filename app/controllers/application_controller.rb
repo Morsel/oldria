@@ -246,30 +246,38 @@ class ApplicationController < ActionController::Base
 
   # Directory (profile) search
   def directory_search_setup
-    # We want to repeat some of the searches through the users' restaurants
-    extra_params = {}
-    if params[:search].try(:[], :profile_cuisines_id_eq_any)
-      extra_params[:restaurants_cuisine_id_eq_any] = params[:search][:profile_cuisines_id_eq_any]
-    end
-    if params[:search].try(:[], :profile_james_beard_region_id_eq_any)
-      extra_params[:restaurants_james_beard_region_id_eq_any] = params[:search][:profile_james_beard_region_id_eq_any]
-    end
-    if params[:search].try(:[], :profile_metropolitan_area_id_eq_any)
-      extra_params[:restaurants_metropolitan_area_id_eq_any] = params[:search][:profile_metropolitan_area_id_eq_any]
-    end
-    if params[:search].try(:[], :employments_restaurant_name_eq_any)
-      extra_params[:default_employment_solo_restaurant_name_eq_any] = params[:search][:employments_restaurant_name_eq_any]
-    end
+    if params.has_key?(:search)
+      # We want to repeat some of the searches through the users' restaurants
+      extra_params = {}
+      if params[:search].has_key?(:profile_cuisines_id_eq_any)
+        extra_params[:restaurants_cuisine_id_eq_any] = params[:search][:profile_cuisines_id_eq_any]
+      end
+      if params[:search].has_key?(:profile_james_beard_region_id_eq_any)
+        extra_params[:restaurants_james_beard_region_id_eq_any] = params[:search][:profile_james_beard_region_id_eq_any]
+      end
+      if params[:search].has_key?(:profile_metropolitan_area_id_eq_any)
+        extra_params[:restaurants_metropolitan_area_id_eq_any] = params[:search][:profile_metropolitan_area_id_eq_any]
+      end
 
-    if soapbox?
-      search = User.in_soapbox_directory.search(params[:search]).all
-      extra_search_results = User.in_soapbox_directory.search(extra_params).all if extra_params.present?
-      @users = [search, extra_search_results].flatten.compact.uniq.sort { |a,b| a.last_name.downcase <=> b.last_name.downcase }
-    else
-      search = User.in_spoonfeed_directory.search(params[:search]).all
-      extra_search_results = User.in_spoonfeed_directory.search(extra_params).all if extra_params.present?
-
-      @users = [search, extra_search_results].flatten.compact.uniq.sort { |a,b| a.last_name.downcase <=> b.last_name.downcase }
+      if soapbox?
+        search = User.in_soapbox_directory.search(params[:search]).all
+        extra_search_results = User.in_soapbox_directory.search(extra_params).all if extra_params.present?
+        @users = [search, extra_search_results].flatten.compact.uniq.sort { |a,b|
+          a.last_name.downcase <=> b.last_name.downcase
+        }
+      else
+        search = User.in_spoonfeed_directory.search(params[:search]).all
+        extra_search_results = User.in_spoonfeed_directory.search(extra_params).all if extra_params.present?
+        @users = [search, extra_search_results].flatten.compact.uniq.sort { |a,b|
+          a.last_name.downcase <=> b.last_name.downcase
+        }
+      end
+    else # No search params
+      if soapbox?
+        @users = User.in_soapbox_directory.all(:order => :last_name)
+      else
+        @users = User.in_spoonfeed_directory.all(:order => :last_name)
+      end
     end
   end
   
