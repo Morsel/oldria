@@ -18,6 +18,7 @@ module RestaurantFactSheetsHelper
   def price(val)
     "$#{h(val)}"
   end
+
   def price_range(min, max)
     "#{price(min)} to #{price(max)}"
   end

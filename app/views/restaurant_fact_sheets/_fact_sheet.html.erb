@@ -38,27 +38,27 @@
     <ul class="pricing_info clearfix">
       <% content_tag(:li) do %>
         Dinner average price:
-        <strong><%=price fact_sheet.dinner_average_price %></strong>
+        <strong><%= price fact_sheet.dinner_average_price %></strong>
       <% end unless fact_sheet.dinner_average_price.blank? %>
 
       <% content_tag(:li) do %>
         Lunch average price:
-        <strong><%=price fact_sheet.lunch_average_price %></strong>
+        <strong><%= price fact_sheet.lunch_average_price %></strong>
       <% end unless fact_sheet.lunch_average_price.blank? %>
 
       <% content_tag(:li) do %>
         Brunch average price:
-        <strong><%=price fact_sheet.brunch_average_price %></strong>
+        <strong><%= price fact_sheet.brunch_average_price %></strong>
       <% end unless fact_sheet.brunch_average_price.blank? %>
 
       <% content_tag(:li) do %>
         Breakfast average price:
-        <strong><%=price fact_sheet.breakfast_average_price %></strong>
+        <strong><%= price fact_sheet.breakfast_average_price %></strong>
       <% end unless fact_sheet.breakfast_average_price.blank? %>
 
       <% content_tag(:li) do %>
         Children average price:
-        <strong><%=price fact_sheet.children_average_price %></strong>
+        <strong><%= price fact_sheet.children_average_price %></strong>
       <% end unless fact_sheet.children_average_price.blank? %>
 
       <% content_tag(:li) do %>
@@ -79,9 +79,9 @@
         <% content_tag_for(:li, tasting_menu) do %>
           <dl>
             <dt><%=h tasting_menu.name %></dt>
-            <dd>Price: <strong><%=price tasting_menu.price %></strong></dd>
+            <dd>Price: <strong><%= price tasting_menu.price %></strong></dd>
             <% unless tasting_menu.wine_supplement_price.blank? %>
-              <dd>Wine Supplement: <strong><%=price tasting_menu.wine_supplement_price %></strong></dd>
+              <dd>Wine Supplement: <strong><%= price tasting_menu.wine_supplement_price %></strong></dd>
             <% end %>
           </dl>
         <% end %>
