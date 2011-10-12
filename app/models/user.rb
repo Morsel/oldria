@@ -134,7 +134,6 @@ class User < ActiveRecord::Base
   named_scope :active, :conditions => "last_request_at IS NOT NULL"
   named_scope :visible, :conditions => ['visible = ? AND (role != ? OR role IS NULL)', true, 'media']
 
-
 ### Preferences ###
   preference :hide_help_box, :default => false
   preference :receive_email_notifications, :default => true
