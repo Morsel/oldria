@@ -1,0 +1,8 @@
+<% title "On the Menu" %>
+
+<% semantic_form_for [@restaurant, @menu_item] do |f| %>
+    <%= f.inputs %>
+    <%= f.input :otm_keywords, :collection => OtmKeyword.all, :label => "keywords" %>
+    
+    <%= submit_tag "Save" %>
+<% end %>

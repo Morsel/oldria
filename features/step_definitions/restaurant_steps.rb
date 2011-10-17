@@ -57,6 +57,12 @@ Given /^I am an employee of "([^\"]*)"$/ do |restaurantname|
   click_button "Yes"
 end
 
+Given /^I am an employee of "([^\"]*)" with role "([^\"]*)"$/ do |restaurant_name, role_name|
+  restaurant = Restaurant.find_by_name(restaurant_name)
+  role = RestaurantRole.find_or_create_by_name(role_name)
+  Factory(:employment, :employee => User.last, :restaurant => restaurant, :restaurant_role => role)
+end
+
 Given /^"([^\"]*)" restaurant is in the "([^\"]*)" metro region$/ do |restaurantname, metroregion|
   restaurant = Restaurant.find_by_name(restaurantname)
   metro = Factory(:metropolitan_area, :name => metroregion)
@@ -468,4 +474,8 @@ end
 
 Given /^a promotion type named "([^\"]*)"$/ do |name|
   Factory(:promotion_type, :name => name)
+end
+
+Given /^a menu item keyword "([^\"]*)" with category "([^\"]*)"$/ do |name, category|
+  Factory(:otm_keyword, :name => name, :category => category)
 end
