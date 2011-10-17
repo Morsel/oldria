@@ -2,7 +2,7 @@
 <section id="content" class="home">
     <div id="inside" class="home">
 
-        <% cache "soapbox_quicklinks", :expires => 8.hours do %>
+        <% cache "soapbox_quicklinks", :expires_in => 8.hours do %>
         <div id="quicklinks">
             <div id="alm-links">
                 <h2>A la Minute</h2>
@@ -45,7 +45,7 @@
         </div>
         <% end %>
 
-        <% cache 'soapbox_homepage_feeds', :expires => 1.hour do %>
+        <% cache 'soapbox_homepage_feeds', :expires_in => 1.hour do %>
         <% load_homepage_feeds %>
         <div id="main-feeds">
             <div id="alm-feed" class="live-feed">
