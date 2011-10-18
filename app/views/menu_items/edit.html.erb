@@ -1,2 +1,14 @@
-<h1>MenuItems#edit</h1>
-<p>Find me in app/views/menu_items/edit.html.erb</p>
+<% title "On the Menu" %>
+
+<div>
+    <% semantic_form_for [@restaurant, @menu_item] do |f| %>
+        <% f.inputs do %>
+            <%= f.input :name %>
+            <%= f.input :description %>
+            <%= f.input :price %>
+            <%= f.input :otm_keywords, :collection => OtmKeyword.all, :label => "keywords" %>
+        <% end %>
+
+        <%= submit_tag "Save" %>
+    <% end %>
+</div>

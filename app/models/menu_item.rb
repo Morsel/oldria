@@ -21,4 +21,8 @@ class MenuItem < ActiveRecord::Base
 
   validates_presence_of :name
 
+  def keywords
+    otm_keywords.map { |k| "#{k.category}: #{k.name}" }.to_sentence
+  end
+
 end

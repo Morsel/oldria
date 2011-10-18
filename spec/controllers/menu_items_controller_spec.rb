@@ -23,8 +23,27 @@ describe MenuItemsController do
 
   describe "GET 'edit'" do
     it "should be successful" do
-      get 'edit', :restaurant_id => @restaurant.id
+      item = Factory(:menu_item, :restaurant => @restaurant)
+      get 'edit', { :restaurant_id => @restaurant.id, :id => item.id }
       response.should be_success
+    end
+  end
+
+  describe "update" do
+    it "should update the menu item" do
+      item = Factory(:menu_item, :name => "Old name", :restaurant => @restaurant)
+      put :update, :menu_item => { :name => "New name" }, :restaurant_id => @restaurant.id, :id => item.id
+      response.should be_redirect
+      MenuItem.find(item.id).name.should == "New name"
+    end
+  end
+  
+  describe "destroy" do
+    it "should destroy the menu item" do
+      item = Factory(:menu_item, :restaurant => @restaurant)
+      delete :destroy, :id => item.id, :restaurant_id => @restaurant.id
+      response.should be_redirect
+      MenuItem.all.should be_empty
     end
   end
 

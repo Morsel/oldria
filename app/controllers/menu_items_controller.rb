@@ -19,9 +19,25 @@ class MenuItemsController < ApplicationController
   end
 
   def edit
+    @menu_item = @restaurant.menu_items.find(params[:id])
+  end
+
+  def update
+    @menu_item = @restaurant.menu_items.find(params[:id])
+    if @menu_item.update_attributes(params[:menu_item])
+      flash[:notice] = "Your menu item has been saved"
+      redirect_to :action => "index"
+    else
+      render :action => "edit"
+    end
   end
 
   def destroy
+    @menu_item = @restaurant.menu_items.find(params[:id])
+    if @menu_item.destroy
+      flash[:notice] = "Your menu item has been deleted"
+      redirect_to :action => "index"
+    end
   end
 
   private
