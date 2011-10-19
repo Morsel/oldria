@@ -276,6 +276,7 @@ ActionController::Routing::Routes.draw do |map|
     admin.resource :complimentary_accounts, :only => [:create, :destroy]
     admin.resources :metropolitan_areas
     admin.resources :site_activities
+    admin.resources :otm_keywords
 
     # Admin Messaging
     exclusive_routes = [:index, :show, :destroy]

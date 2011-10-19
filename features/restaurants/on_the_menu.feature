@@ -18,7 +18,7 @@ Feature: On the Menu
     And I fill in "name" with "Pork chop"
     And I fill in "description" with "A braised pork chop served with fruit compote"
     And I fill in "price" with "12.00"
-    And I select "farm-to-table" from "keywords"
+    And I check "Other: farm-to-table"
     And I press "Save"
     Then I should see "saved"
     

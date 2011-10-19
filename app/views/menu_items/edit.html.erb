@@ -6,7 +6,7 @@
             <%= f.input :name %>
             <%= f.input :description %>
             <%= f.input :price %>
-            <%= f.input :otm_keywords, :collection => OtmKeyword.all, :label => "keywords" %>
+            <%= f.input :otm_keywords, :as => "check_boxes", :collection => OtmKeyword.all(:order => "category"), :label => "Keywords" %>
         <% end %>
 
         <%= submit_tag "Save" %>
