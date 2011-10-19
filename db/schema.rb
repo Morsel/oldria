@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110920181709) do
+ActiveRecord::Schema.define(:version => 20111017183828) do
 
   create_table "a_la_minute_answers", :force => true do |t|
     t.text     "answer"
@@ -567,6 +567,22 @@ ActiveRecord::Schema.define(:version => 20110920181709) do
     t.datetime "updated_at"
   end
 
+  create_table "menu_item_keywords", :force => true do |t|
+    t.integer  "menu_item_id"
+    t.integer  "otm_keyword_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "menu_items", :force => true do |t|
+    t.string   "name"
+    t.text     "description"
+    t.string   "price"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "restaurant_id"
+  end
+
   create_table "menus", :force => true do |t|
     t.string   "name"
     t.string   "change_frequency"
@@ -623,6 +639,13 @@ ActiveRecord::Schema.define(:version => 20110920181709) do
     t.string   "city",       :default => "", :null => false
     t.string   "state",      :default => "", :null => false
     t.string   "country",    :default => "", :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "otm_keywords", :force => true do |t|
+    t.string   "name"
+    t.string   "category"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

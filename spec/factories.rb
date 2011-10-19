@@ -565,3 +565,13 @@ end
 Factory.define :promotion_type do |f|
   f.name "Event"
 end
+
+Factory.define :otm_keyword do |f|
+  f.name "pasta"
+  f.category "Grain"
+end
+
+Factory.define :menu_item do |f|
+  f.name "BBQ Tofu"
+  f.association :restaurant
+end

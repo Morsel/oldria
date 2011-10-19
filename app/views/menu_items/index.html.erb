@@ -1,0 +1,33 @@
+<% title "On the Menu" %>
+
+<div id="promotion-form">
+    <% semantic_form_for [@restaurant, @menu_item] do |f| %>
+        <% f.inputs do %>
+            <%= f.input :name %>
+            <%= f.input :description %>
+            <%= f.input :price %>
+            <%= f.input :otm_keywords, :as => "check_boxes", :collection => OtmKeyword.all(:order => "category"), :label => "Keywords" %>
+        <% end %>
+
+        <%= submit_tag "Save" %>
+    <% end %>
+</div>
+
+<div id="promotion-list">
+    <% for menu_item in @menu_items -%>
+    <dl class="<%= cycle("odd", "even") %>">
+        <dt>Name</dt>
+        <dd><%= menu_item.name %></dd>
+
+        <dt>Description</dt>
+        <dd><%= menu_item.description %></dd>
+
+        <dt>Price</dt>
+        <dd><%= price(menu_item.price) %></dd>
+
+        <dt>Keywords</dt>
+        <dd><%= menu_item.keywords %></dd>
+    </dl>
+    <p><%= link_to "edit", edit_restaurant_menu_item_path(@restaurant, menu_item) %> | <%= link_to "delete", restaurant_menu_item_path(@restaurant, menu_item), :method => "delete" %></p>
+    <% end -%>
+</div>
