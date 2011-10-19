@@ -4535,10 +4535,10 @@ p.search_filter_hint {
     float: left;
     display: block;
     padding: 9px 10px;
-    font-size: 14px;
+    font-size: 11px;
     color: #333;
     &.selected {
-      @include linear-gradient(color-stops($orange,#e3602c ), bottom);
+      @include linear-gradient(color-stops($orange, #e3602c), bottom);
       text-shadow: 0 1px 1px #555;
       color: #fff;
     }

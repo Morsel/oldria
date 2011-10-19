@@ -59,5 +59,7 @@
         :class => 'promo editor alm' %>
     <%= active_link_to "Newsfeed", new_restaurant_promotion_path(:restaurant_id => @restaurant),
         :class => 'promo editor newsfeed' %>
+    <%= active_link_to "On the Menu", restaurant_menu_items_path(:restaurant_id => @restaurant),
+        :class => 'promo editor otm' %>
   </nav>
 <% end -%>
