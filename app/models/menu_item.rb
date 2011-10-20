@@ -19,6 +19,13 @@ class MenuItem < ActiveRecord::Base
   has_many :menu_item_keywords
   has_many :otm_keywords, :through => :menu_item_keywords
 
+  has_attached_file :photo,
+                    :styles => { :large => "300x400>", :thumb => "60x80>" }
+
+  validates_attachment_content_type :photo,
+      :content_type => ["image/jpg", "image/jpeg", "image/png", "image/gif", "image/pjpeg", "image/x-png"],
+      :message => "Please upload a valid image type: jpeg, gif, or png", :if => :photo_file_name
+
   validates_presence_of :name
 
   def keywords

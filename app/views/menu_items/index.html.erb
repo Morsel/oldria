@@ -1,16 +1,7 @@
 <% title "On the Menu" %>
 
 <div id="promotion-form">
-    <% semantic_form_for [@restaurant, @menu_item] do |f| %>
-        <% f.inputs do %>
-            <%= f.input :name %>
-            <%= f.input :description %>
-            <%= f.input :price %>
-            <%= f.input :otm_keywords, :as => "check_boxes", :collection => OtmKeyword.all(:order => "category"), :label => "Keywords" %>
-        <% end %>
-
-        <%= submit_tag "Save" %>
-    <% end %>
+    <%= render :partial => "form" %>
 </div>
 
 <div id="promotion-list">
@@ -24,6 +15,11 @@
 
         <dt>Price</dt>
         <dd><%= price(menu_item.price) %></dd>
+
+        <% if menu_item.photo_file_name.present? -%>
+        <dt>Photo</dt>
+        <dd><%= image_tag menu_item.photo(:thumb) %></dd>
+        <% end -%>
 
         <dt>Keywords</dt>
         <dd><%= menu_item.keywords %></dd>
