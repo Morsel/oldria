@@ -183,7 +183,7 @@ $.fn.ajaxDestroyLink = function(options){
 
   if(options) { $.extend(config, options); }
 
-  return this.each(function(){
+  return $(this).each(function(){
     var $this = $(this);
     $this.removeAttr('onclick');
     $this.unbind();
@@ -208,31 +208,6 @@ var bindAjaxDeleters = function(){
 };
 
 bindAjaxDeleters();
-
-var bindColorbox = function() {
-  $('.colorbox').colorbox({
-    initialWidth: 450,
-    onComplete: colorboxOnComplete,
-    current: '',
-    onClosed: function() {
-      bindAjaxDeleters();
-      bindColorbox();
-    }
-  });
-};
-
-function close_box(){
-  $.fn.colorbox.close();
-}
-
-$('.close').live('click', close_box);
-
-function post_reply_text(){
-  $('#new_quick_reply button').text('Post Reply');
-}
-
-// Do it!
-bindColorbox();
 
 var colorboxForm = function(){
   var $form = $(this);
@@ -264,9 +239,35 @@ var colorboxForm = function(){
   return false;
 };
 
+var bindColorbox = function() {
+  $('.colorbox').colorbox({
+    initialWidth: 450,
+    onComplete: colorboxOnComplete,
+    current: '',
+    onClosed: function() {
+      bindAjaxDeleters();
+      bindColorbox();
+    }
+  });
+};
+
+function close_box(){
+  $.fn.colorbox.close();
+}
+
+$('.close').live('click', close_box);
+
+function post_reply_text(){
+  $('#new_quick_reply button').text('Post Reply');
+}
+
+// Do it!
+bindColorbox();
+
 $('#colorbox form.stage, #colorbox form.apprenticeship, #colorbox form.nonculinary_enrollment, #colorbox form.award, #colorbox form.culinary_job, #colorbox form.nonculinary_job, #colorbox form.accolade, #colorbox form.enrollment, #colorbox form.competition, #colorbox form.internship').live('submit', colorboxForm);
 
 $("a.showit").showy();
+
 
 // Update top tags remaining on load
 var max = 15;
@@ -293,7 +294,6 @@ $('#restaurant_tags input:checkbox').click(function() {
 $('#restaurant_tags form').submit(function() {
   $('#restaurant_tags form:checkbox').not(':checked').removeAttr('disabled');
 });
-
 
 // == Dynamic Updates for Employment Searching
 var	$employmentsList  = $("#employment_list");
@@ -355,6 +355,7 @@ updateRestoDirectoryList = function() {
 };
 
 $restoDirectoryInputs.change(updateRestoDirectoryList);
+
 
 //
 // Managing subject matters for restaurant managers

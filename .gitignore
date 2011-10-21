@@ -10,6 +10,7 @@ coverage/*
 features_rcov/
 public/system/a*/
 public/system/images/
+public/system/photos/
 mkmf.log
 rerun.txt
 .rake_tasks~

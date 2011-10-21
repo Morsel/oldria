@@ -82,6 +82,26 @@
                     </li>
                 </div>
             </div>
+            <div class="accordion_box">
+                <%= link_to "<span>Menu Keywords</span>", "#" %>
+                <div id="metro_fields" class="loading" style="display:none;">
+                    <li id="search_menu_items_otm_keywords_id_eq_any_input" class="check_boxes optional">
+                        <fieldset>
+                            <legend class="label">
+                                <label for="search_menu_items_otm_keywords_id_eq_any">Menu items otm keywords id equals any</label>
+                            </legend>
+                            <ol>
+                                <% for keyword in restaurants.map(&:menu_items).flatten.map(&:otm_keywords).flatten.uniq %>
+                                <li><label for="search_menu_items_otm_keywords_id_eq_any_<%= keyword.id %>">
+                                    <%= check_box_tag "search[menu_items_otm_keywords_id_eq_any][]", keyword.id, false, :id => "search_menu_items_otm_keywords_id_eq_any_#{keyword.id}" %>
+                                    <%= keyword.to_label %>
+                                </label></li>
+                                <% end %>
+                            </ol>
+                        </fieldset>
+                    </li>
+                </div>
+            </div>
         </div>
     </ol>
 </fieldset>

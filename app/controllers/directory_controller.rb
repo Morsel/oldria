@@ -24,7 +24,7 @@ class DirectoryController < ApplicationController
   end
   
   def restaurant_search
-    @restaurants = Restaurant.search(params[:search]).all
+    @restaurants = Restaurant.search(params[:search]).all(:order => "name").uniq
     render :partial => "restaurant_search_results"
   end
 
