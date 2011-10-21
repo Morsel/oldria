@@ -14,11 +14,6 @@ $('.topic').equalHeights();
 $('.rest_staff .employment').equalHeights();
 $('#newsfeed .promotion').equalHeights();
 
-$('div#photos').masonry({ 
-	columnWidth: 345,
-	itemSelector: '.photo'
-});
-
 $('#extended_profile .equalheights').equalHeights(160);
 
 $('#front-burner-comments #new_comment').submit(function(){
@@ -378,3 +373,10 @@ var selectOmniscientRoles = function(){
 $omniscientField.change(selectOmniscientRoles);
 
 if($omniscientField.is(":checked")) { $omniscientField.change(); }
+
+$(document).ready(function(){
+  $('div#photos').masonry({
+    columnWidth: 345,
+    itemSelector: '.photo'
+  });
+});
