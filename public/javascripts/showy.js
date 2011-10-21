@@ -1,5 +1,5 @@
 $.fn.showy = function(){
-  return this.each(function(){
+  return $(this).each(function(){
     var hidable = $(this.hash);
 
     // Just in case it starts out shown, hide it
