@@ -1,3 +1,4 @@
+$(document).ready(function(){
 var already_equalized = false;
 
 $('#jumbotron').cycle({
@@ -172,80 +173,14 @@ $('#criteria_accordion').accordion({
 	}
 }).find('.loading').removeClass('loading');
 
-$(document).ready(function(){
-	var bindAjaxDeleters = function(){
-	  $('#profile-tabs a.delete').ajaxDestroyLink({
-	    containerSelector: 'li:first'
-	  });
-	};
-	
-	bindAjaxDeleters();
-	
-	
-	
-	var bindColorbox = function() {
-	  $('.colorbox').colorbox({
-	      initialWidth: 450,
-	      onComplete: colorboxOnComplete,
-				current: '',
-	      onClosed: function() {
-	        bindAjaxDeleters();
-	        bindColorbox();
-	      }
-	  });
-	};
-
-  function close_box(){
-    $.fn.colorbox.close();
-  }
-
-  $('.close').live('click', close_box);
-
-  function post_reply_text(){
-    $('#new_quick_reply button').text('Post Reply');
-  }
-
-  // Do it!
-  bindColorbox();
-
-	$('#colorbox form.stage, #colorbox form.apprenticeship, #colorbox form.nonculinary_enrollment, #colorbox form.award, #colorbox form.culinary_job, #colorbox form.nonculinary_job, #colorbox form.accolade, #colorbox form.enrollment, #colorbox form.competition, #colorbox form.internship').live('submit', colorboxForm);
-	$("a.showit").showy();
-	
-	
-	// Update top tags remaining on load
-	var max = 15;
-	var remaining = max-$('#restaurant_tags input:checkbox:checked').length;
-	$('#tags_remaining').html(remaining+" left");
-	if (remaining == 0) {
-	  $('#restaurant_tags input:checkbox').not(':checked').attr('disabled', true).next('label').css('color', 'gray');
-	}
-  $('#restaurant_tags input:checkbox').click(function() {    
-    var $checkbox = $('#restaurant_tags input:checkbox');
-    var total = $(":checkbox:checked").length; 
-    var remaining = (max-total) + " left";
-    if (total < max) { // Update counter.
-      $('#tags_remaining').html(remaining);
-      $checkbox.removeAttr('disabled');
-      $checkbox.next('label').css('color', '#333');
-    } else { // Disable all checkboxes
-      $('#tags_remaining').html(remaining);
-      $checkbox.not(':checked').attr('disabled', true).next('label').css('color', 'gray');
-    } 
-  });
-  // Enable all the checkboxes on submit
-  $('#restaurant_tags form').submit(function() {
-     $('#restaurant_tags form:checkbox').not(':checked').removeAttr('disabled');
-  });
-});
-
 $.fn.ajaxDestroyLink = function(options){
   var config = {
     confirmMessage: "Are you sure you want to PERMANENTLY delete this?",
     containerSelector: 'tr:first'
   };
-  
+
   if(options) $.extend(config, options);
-  
+
   return $(this).each(function(){
     var $this = $(this);
     $this.removeAttr('onclick');
@@ -263,6 +198,14 @@ $.fn.ajaxDestroyLink = function(options){
     });
   });
 };
+
+var bindAjaxDeleters = function(){
+  $('#profile-tabs a.delete').ajaxDestroyLink({
+    containerSelector: 'li:first'
+  });
+};
+
+bindAjaxDeleters();
 
 var colorboxForm = function(){
   var $form = $(this);
@@ -294,7 +237,61 @@ var colorboxForm = function(){
   return false;
 };
 
-$(document).ready(function(){
+var bindColorbox = function() {
+  $('.colorbox').colorbox({
+    initialWidth: 450,
+    onComplete: colorboxOnComplete,
+    current: '',
+    onClosed: function() {
+      bindAjaxDeleters();
+      bindColorbox();
+    }
+  });
+};
+
+function close_box(){
+  $.fn.colorbox.close();
+}
+
+$('.close').live('click', close_box);
+
+function post_reply_text(){
+  $('#new_quick_reply button').text('Post Reply');
+}
+
+// Do it!
+bindColorbox();
+
+$('#colorbox form.stage, #colorbox form.apprenticeship, #colorbox form.nonculinary_enrollment, #colorbox form.award, #colorbox form.culinary_job, #colorbox form.nonculinary_job, #colorbox form.accolade, #colorbox form.enrollment, #colorbox form.competition, #colorbox form.internship').live('submit', colorboxForm);
+
+$("a.showit").showy();
+
+
+// Update top tags remaining on load
+var max = 15;
+var remaining = max-$('#restaurant_tags input:checkbox:checked').length;
+$('#tags_remaining').html(remaining+" left");
+if (remaining == 0) {
+  $('#restaurant_tags input:checkbox').not(':checked').attr('disabled', true).next('label').css('color', 'gray');
+}
+$('#restaurant_tags input:checkbox').click(function() {    
+  var $checkbox = $('#restaurant_tags input:checkbox');
+  var total = $(":checkbox:checked").length; 
+  var remaining = (max-total) + " left";
+  if (total < max) { // Update counter.
+    $('#tags_remaining').html(remaining);
+    $checkbox.removeAttr('disabled');
+    $checkbox.next('label').css('color', '#333');
+    } else { // Disable all checkboxes
+      $('#tags_remaining').html(remaining);
+      $checkbox.not(':checked').attr('disabled', true).next('label').css('color', 'gray');
+    } 
+  });
+  // Enable all the checkboxes on submit
+  $('#restaurant_tags form').submit(function() {
+    $('#restaurant_tags form:checkbox').not(':checked').removeAttr('disabled');
+  });
+
 // == Dynamic Updates for Employment Searching
 var	$employmentsList  = $("#employment_list");
 var $employmentInputs = $("#employment_criteria input[type=checkbox]");
@@ -353,7 +350,7 @@ function updateRestoDirectoryList() {
 }
 
 $restoDirectoryInputs.change(updateRestoDirectoryList);
-});
+
 
 //
 // Managing subject matters for restaurant managers
@@ -374,9 +371,9 @@ $omniscientField.change(selectOmniscientRoles);
 
 if($omniscientField.is(":checked")) { $omniscientField.change(); }
 
-$(document).ready(function(){
   $('div#photos').masonry({
     columnWidth: 345,
     itemSelector: '.photo'
   });
+
 });
