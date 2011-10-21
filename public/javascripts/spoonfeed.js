@@ -251,7 +251,7 @@ $.fn.ajaxDestroyLink = function(options){
   
   if(options) $.extend(config, options);
   
-  return this.each(function(){
+  return $(this).each(function(){
     var $this = $(this);
     $this.removeAttr('onclick');
     $this.unbind();
@@ -299,7 +299,7 @@ var colorboxForm = function(){
   return false;
 };
 
-
+$(document).ready(function(){
 // == Dynamic Updates for Employment Searching
 var	$employmentsList  = $("#employment_list");
 var $employmentInputs = $("#employment_criteria input[type=checkbox]");
@@ -358,6 +358,7 @@ function updateRestoDirectoryList() {
 }
 
 $restoDirectoryInputs.change(updateRestoDirectoryList);
+});
 
 //
 // Managing subject matters for restaurant managers
