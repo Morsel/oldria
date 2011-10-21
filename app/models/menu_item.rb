@@ -20,7 +20,7 @@ class MenuItem < ActiveRecord::Base
   has_many :otm_keywords, :through => :menu_item_keywords
 
   has_attached_file :photo,
-                    :styles => { :large => "300x400>", :thumb => "60x80>" }
+                    :styles => { :large => "1966x2400>", :thumb => "120x160>" }
 
   validates_attachment_content_type :photo,
       :content_type => ["image/jpg", "image/jpeg", "image/png", "image/gif", "image/pjpeg", "image/x-png"],

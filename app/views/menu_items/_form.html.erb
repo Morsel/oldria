@@ -3,7 +3,7 @@
         <%= f.input :name %>
         <%= f.input :description %>
         <%= f.input :price %>
-        <%= f.input :photo %>
+        <%= f.input :photo, :hint => "Large, high-resolution photos can take a little while to upload, so please be patient" %>
         <%= f.input :otm_keywords, :as => "check_boxes", :collection => OtmKeyword.all(:order => "category"), :label => "Keywords" %>
     <% end %>
 
