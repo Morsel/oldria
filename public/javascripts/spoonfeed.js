@@ -1,5 +1,4 @@
 $(document).ready(function(){
-var already_equalized = false;
 
 $('#jumbotron').cycle({
 	fx: 'scrollHorz',
