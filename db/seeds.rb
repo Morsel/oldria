@@ -14,13 +14,23 @@ def model_count_before_and_after(model, &block)
   end
 end
 
-# == Set up Promotion Types ==
-model_count_before_and_after(PromotionType) do
-  promotion_types = YAML.load_file(@seedling_path + '/promotion_types.yml')['promotion_types']
-  promotion_types.each do |promotion_types|
-    PromotionType.find_or_create_by_name(promotion_types)
+# == Set up Menu Item Keywords
+model_count_before_and_after(OtmKeyword) do
+  rows = FasterCSV.read((@seedling_path + '/menu_item_keywords.csv'), :headers => true)
+  rows.each do |row|
+    row.each do |field|
+      OtmKeyword.create!(:category => field[0], :name => field[1]) unless field[1].nil?
+    end
   end
 end
+
+# == Set up Promotion Types ==
+# model_count_before_and_after(PromotionType) do
+#   promotion_types = YAML.load_file(@seedling_path + '/promotion_types.yml')['promotion_types']
+#   promotion_types.each do |promotion_types|
+#     PromotionType.find_or_create_by_name(promotion_types)
+#   end
+# end
 
 # == Set up Regions ==
 # model_count_before_and_after(JamesBeardRegion) do
