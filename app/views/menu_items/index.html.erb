@@ -1,10 +1,8 @@
 <% title "On the Menu" %>
 
-<div id="promotion-form">
-    <%= render :partial => "form" %>
-</div>
+<p class="clearfix"><%= link_to "Add a new item", new_restaurant_menu_item_path(@restaurant), :class => "button" %></p>
 
-<div id="promotion-list">
+<div id="menu_items">
     <% for menu_item in @menu_items -%>
     <dl class="<%= cycle("odd", "even") %>">
         <dt>Name</dt>
@@ -25,5 +23,5 @@
         <dd><%= menu_item.keywords %></dd>
     </dl>
     <p><%= link_to "edit", edit_restaurant_menu_item_path(@restaurant, menu_item) %> | <%= link_to "delete", restaurant_menu_item_path(@restaurant, menu_item), :method => "delete" %></p>
-    <% end -%>
+<% end -%>
 </div>

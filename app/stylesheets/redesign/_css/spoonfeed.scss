@@ -1940,7 +1940,7 @@ form, #page_content form{
 	label{
 		font-weight:bold;
 	}
-	.string, .text, .country, .password, .numeric, .select {
+	.string, .text, .country, .password, .numeric, .select, .file {
 		label{
 			display:block;
 			margin:5px 0 0;
@@ -4703,4 +4703,31 @@ aside.dashboard_actions {
       padding: 0 10px;
     }
   }
+}
+
+// Menu items
+#menu_items {
+  dl {
+    padding: 10px;
+    background-color: #eee;
+    &.even {
+      background:rgba(216,83,30,0.08);
+    }
+    dt {
+      font-weight: bold;
+      margin: 0;
+      padding: 0;
+    }
+    dd {
+      font-weight: normal;
+      margin-bottom: 10px;
+    }
+  }
+  p {
+    text-align: right;
+  }
+}
+
+.otm-form-section li.check_boxes fieldset ol li {
+  @include column(4, true);
 }

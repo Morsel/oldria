@@ -4,8 +4,11 @@ class MenuItemsController < ApplicationController
   before_filter :require_manager
 
   def index
-    @menu_item = MenuItem.new
     @menu_items = @restaurant.menu_items
+  end
+
+  def new
+    @menu_item = MenuItem.new
   end
 
   def create

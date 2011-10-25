@@ -17,8 +17,4 @@ class OtmKeyword < ActiveRecord::Base
 
   validates_presence_of :name, :category
 
-  def to_label
-    "#{category}: #{name}"
-  end
-
 end

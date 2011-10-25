@@ -4,8 +4,35 @@
         <%= f.input :description %>
         <%= f.input :price %>
         <%= f.input :photo, :hint => "Large, high-resolution photos can take a little while to upload, so please be patient" %>
-        <%= f.input :otm_keywords, :as => "check_boxes", :collection => OtmKeyword.all(:order => "category"), :label => "Keywords" %>
+        <% unless @menu_item.new_record? -%>
+        <h3>Current Keywords</h3>
+        <p><%= @menu_item.keywords %></p>
+        <% end -%>
+        <section id="form-tabs">
+            <nav id="profile-options">
+                <% OtmKeyword.all.group_by(&:category).keys.each do |category| %>
+                <span><a href="#form-<%= category.downcase.gsub(/\s/, "-") %>" id="tab-summary"><%= category %></a></span>
+                <% end %>
+            </nav>
+
+            <% OtmKeyword.all.group_by(&:category).each do |category, keywords| %>
+            <section id="form-<%= category.downcase.gsub(/\s/, "-") %>" class="otm-form-section">
+                <%= f.input :otm_keywords, :as => "check_boxes", :collection => keywords, :label => category %>
+            </section>
+            <% end %>
+        </section>
     <% end %>
 
     <%= submit_tag "Save" %>
+<% end %>
+
+<% content_for :javascript do %>
+<script type="text/javascript">
+$(document).ready(function() {
+  $('#form-tabs').tabs({
+    panelTemplate: '<section></section>',
+    fx: { duration: 'fast', opacity: 'toggle' },
+  });
+});
+</script>
 <% end %>
