@@ -5,7 +5,7 @@ describe MenuItem do
     @valid_attributes = {
       :name => "value for name",
       :description => "value for description",
-      :price => "value for price"
+      :price => "1.00"
     }
   end
 

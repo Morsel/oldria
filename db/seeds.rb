@@ -15,14 +15,14 @@ def model_count_before_and_after(model, &block)
 end
 
 # == Set up Menu Item Keywords
-model_count_before_and_after(OtmKeyword) do
-  rows = FasterCSV.read((@seedling_path + '/menu_item_keywords.csv'), :headers => true)
-  rows.each do |row|
-    row.each do |field|
-      OtmKeyword.create!(:category => field[0], :name => field[1]) unless field[1].nil?
-    end
-  end
-end
+# model_count_before_and_after(OtmKeyword) do
+#   rows = FasterCSV.read((@seedling_path + '/menu_item_keywords.csv'), :headers => true)
+#   rows.each do |row|
+#     row.each do |field|
+#       OtmKeyword.create!(:category => field[0], :name => field[1]) unless field[1].nil?
+#     end
+#   end
+# end
 
 # == Set up Promotion Types ==
 # model_count_before_and_after(PromotionType) do

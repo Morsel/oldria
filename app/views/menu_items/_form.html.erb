@@ -2,7 +2,7 @@
     <% f.inputs do %>
         <%= f.input :name %>
         <%= f.input :description %>
-        <%= f.input :price %>
+        <%= f.input :price, :hint => "Do not include the dollar sign ($)" %>
         <%= f.input :photo, :hint => "Large, high-resolution photos can take a little while to upload, so please be patient" %>
         <% unless @menu_item.new_record? -%>
         <h3>Current Keywords</h3>

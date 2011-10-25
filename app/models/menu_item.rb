@@ -27,6 +27,7 @@ class MenuItem < ActiveRecord::Base
       :message => "Please upload a valid image type: jpeg, gif, or png", :if => :photo_file_name
 
   validates_presence_of :name
+  validates_format_of :price, :with => RestaurantFactSheet::MONEY_FORMAT
 
   def keywords
     otm_keywords.map { |k| "#{k.category}: #{k.name}" }.to_sentence
