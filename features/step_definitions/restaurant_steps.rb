@@ -483,6 +483,6 @@ end
 Given /^the following menu items for "([^\"]*)":$/ do |restaurant_name, table|
   restaurant = Restaurant.find_by_name(restaurant_name)
   table.hashes.each do |row|
-    restaurant.menu_items.create(row)
+    Factory(:menu_item, row.merge(:restaurant => restaurant))
   end
 end

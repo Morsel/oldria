@@ -4,7 +4,7 @@ class MenuItemsController < ApplicationController
   before_filter :require_manager
 
   def index
-    @menu_items = @restaurant.menu_items
+    @menu_items = @restaurant.menu_items.all(:order => "created_at DESC")
   end
 
   def new

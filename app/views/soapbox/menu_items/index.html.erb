@@ -11,12 +11,15 @@
         <p><%= image_tag menu_item.photo(:medium) %></p>
         <% end -%>
 
-        <p><%= menu_item.description %> <%= "(#{price(menu_item.price)})" if menu_item.price.present? %></p>
+        <p>
+            <%= menu_item.name %><%- if menu_item.description.present? -%><%= ": #{truncate(menu_item.description, :length => 200)}" %> <%= link_to "more &raquo;", "#" if menu_item.description.size > 200 %><%- end -%>
+            <%= "(#{price(menu_item.price)})" if menu_item.price.present? %>
+        </p>
 
         <p><%= menu_item.keywords_without_categories %></p>
 
         <p><span class="datestamp"><%= "Posted #{menu_item.created_at.strftime("%D")}" %></span> - <%= link_to "Share this entry", "#" %></p>
-    </div>        
+    </div>
 <% end %>
 <% end -%>
 
