@@ -8,7 +8,7 @@
     <%= render :partial => 'restaurants/identity', :locals => { :restaurant => menu_item.restaurant } %>
     <div>
         <% if menu_item.photo_file_name.present? -%>
-        <p><%= image_tag menu_item.photo(:thumb) %></p>
+        <p><%= image_tag menu_item.photo(:medium) %></p>
         <% end -%>
 
         <p><%= menu_item.description %></p>
