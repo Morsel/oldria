@@ -837,7 +837,7 @@ body,html,#container,#main,#content,#inside{
 	} /* recent questions in profile */
 
 	#topic_title {margin: 0;}
-	h2#btl-tagline, h2#alm-tagline {
+	h2#btl-tagline, h2#alm-tagline, h2#otm-tagline {
 	  margin: 0;
 	  border: none;
 	  padding-bottom: 1em;
@@ -3004,5 +3004,15 @@ dl.things dt:after {content: ":"}
     .fb_iframe_widget {
       top: -3px
     }
+  }
+}
+
+.menu_item {
+  clear: both;
+  .identity {
+    border: none !important;
+  }
+  .datestamp {
+    color: #ccc;
   }
 }

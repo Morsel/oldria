@@ -37,6 +37,7 @@ ActionController::Routing::Routes.draw do |map|
                       :collection => { :qotd => :get, :trend => :get },
                       :member => { :comment => :get }
     soapbox.resources :promotions, :as => "newsfeed"
+    soapbox.resources :menu_items, :as => "on_the_menu"
 
     soapbox.resources :users, :only => [] do |users|
       users.resources :questions, :only => ['index', 'show']

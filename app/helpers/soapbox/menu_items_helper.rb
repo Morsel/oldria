@@ -1,0 +1,2 @@
+module Soapbox::MenuItemsHelper
+end

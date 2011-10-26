@@ -10,12 +10,12 @@
         <% end -%>
         <section id="form-tabs">
             <nav id="profile-options">
-                <% OtmKeyword.all.group_by(&:category).keys.each do |category| %>
+                <% @categories.keys.each do |category| %>
                 <span><a href="#form-<%= category.downcase.gsub(/\s/, "-") %>" id="tab-summary"><%= category %></a></span>
                 <% end %>
             </nav>
 
-            <% OtmKeyword.all.group_by(&:category).each do |category, keywords| %>
+            <% @categories.each do |category, keywords| %>
             <section id="form-<%= category.downcase.gsub(/\s/, "-") %>" class="otm-form-section">
                 <%= f.input :otm_keywords, :as => "check_boxes", :collection => keywords, :label => category %>
             </section>

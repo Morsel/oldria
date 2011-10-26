@@ -9,6 +9,7 @@ class MenuItemsController < ApplicationController
 
   def new
     @menu_item = MenuItem.new
+    @categories = OtmKeyword.all.group_by(&:category)
   end
 
   def create
@@ -17,7 +18,8 @@ class MenuItemsController < ApplicationController
       flash[:notice] = "Your menu item has been saved"
       redirect_to :action => "index"
     else
-      render :action => "index"
+      @categories = OtmKeyword.all.group_by(&:category)
+      render :action => "new"
     end
   end
 

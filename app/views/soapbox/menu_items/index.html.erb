@@ -1,0 +1,24 @@
+<% title "On the Menu" %>
+
+<h2 id="otm-tagline">The latest dishes, drinks, beers, and wines in restaurants right now</h2>
+
+<% for menu_item in @menu_items -%>
+<% div_for menu_item do %>
+    <h2><%= link_to menu_item.name, "#" %></h2>
+    <%= render :partial => 'restaurants/identity', :locals => { :restaurant => menu_item.restaurant } %>
+    <div>
+        <% if menu_item.photo_file_name.present? -%>
+        <p><%= image_tag menu_item.photo(:thumb) %></p>
+        <% end -%>
+
+        <p><%= menu_item.description %></p>
+        <p><%= price(menu_item.price) if menu_item.price.present? %></p>
+        <p><%= menu_item.keywords %></p>
+        <p><span class="datestamp"><%= "Posted #{menu_item.created_at.strftime("%D")}" %></span> - <%= link_to "Share this entry", "#" %></p>
+    </div>        
+<% end %>
+<% end -%>
+
+<% content_for :sidebar do -%>
+<%= render :partial => 'sidebar' %>
+<% end -%>
