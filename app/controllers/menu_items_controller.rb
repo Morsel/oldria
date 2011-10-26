@@ -25,6 +25,7 @@ class MenuItemsController < ApplicationController
 
   def edit
     @menu_item = @restaurant.menu_items.find(params[:id])
+    @categories = OtmKeyword.all.group_by(&:category)
   end
 
   def update
