@@ -26,7 +26,7 @@ class MenuItem < ActiveRecord::Base
       :content_type => ["image/jpg", "image/jpeg", "image/png", "image/gif", "image/pjpeg", "image/x-png"],
       :message => "Please upload a valid image type: jpeg, gif, or png", :if => :photo_file_name
 
-  validates_presence_of :name
+  validates_presence_of :name, :otm_keywords
   validates_format_of :price, :with => RestaurantFactSheet::MONEY_FORMAT
 
   def keywords
