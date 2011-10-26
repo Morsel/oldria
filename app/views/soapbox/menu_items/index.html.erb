@@ -13,7 +13,7 @@
 
         <p><%= menu_item.description %> <%= "(#{price(menu_item.price)})" if menu_item.price.present? %></p>
 
-        <p><%= menu_item.keywords %></p>
+        <p><%= menu_item.keywords_without_categories %></p>
 
         <p><span class="datestamp"><%= "Posted #{menu_item.created_at.strftime("%D")}" %></span> - <%= link_to "Share this entry", "#" %></p>
     </div>        

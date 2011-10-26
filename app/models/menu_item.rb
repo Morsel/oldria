@@ -33,4 +33,8 @@ class MenuItem < ActiveRecord::Base
     otm_keywords.map { |k| "#{k.category}: #{k.name}" }.to_sentence
   end
 
+  def keywords_without_categories
+    otm_keywords.map { |k| "#{k.name}" }.to_sentence
+  end
+
 end
