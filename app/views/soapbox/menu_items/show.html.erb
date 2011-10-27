@@ -47,7 +47,3 @@
 <% for menu_item in @more_menu_items -%>
   <%= render :partial => "menu_item", :locals => { :menu_item => menu_item } %>
 <% end -%>
-
-<% content_for :sidebar do -%>
-<%= render :partial => 'sidebar' %>
-<% end -%>
