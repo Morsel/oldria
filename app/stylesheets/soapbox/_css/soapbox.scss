@@ -3012,7 +3012,12 @@ dl.things dt:after {content: ":"}
   .identity {
     border: none !important;
   }
-  .datestamp {
-    color: #ccc;
+  .menu_item_details {
+    .datestamp {
+      color: #ccc;
+    }
+    p.keywords {
+      margin-top: 15px;
+    }
   }
 }

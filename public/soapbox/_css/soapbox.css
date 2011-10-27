@@ -4099,7 +4099,11 @@ dl.things dt:after {
 .menu_item .identity {
   border: none !important;
 }
-/* line 3015, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
-.menu_item .datestamp {
+/* line 3016, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+.menu_item .menu_item_details .datestamp {
   color: #ccc;
+}
+/* line 3019, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+.menu_item .menu_item_details p.keywords {
+  margin-top: 15px;
 }

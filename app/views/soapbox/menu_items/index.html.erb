@@ -3,24 +3,7 @@
 <h2 id="otm-tagline">The latest dishes, drinks, beers, and wines in restaurants right now</h2>
 
 <% for menu_item in @menu_items -%>
-<% div_for menu_item do %>
-    <h2><%= link_to menu_item.name, soapbox_menu_item_path(menu_item) %></h2>
-    <%= render :partial => 'restaurants/identity', :locals => { :restaurant => menu_item.restaurant } %>
-    <div>
-        <% if menu_item.photo_file_name.present? -%>
-        <p><%= image_tag menu_item.photo(:medium) %></p>
-        <% end -%>
-
-        <p>
-            <%= menu_item.name %><%- if menu_item.description.present? -%><%= ": #{truncate(menu_item.description, :length => 200)}" %> <%= link_to "more &raquo;", "#" if menu_item.description.size > 200 %><%- end -%>
-            <%= "(#{price(menu_item.price)})" if menu_item.price.present? %>
-        </p>
-
-        <p><%= menu_item.keywords_without_categories %></p>
-
-        <p><span class="datestamp"><%= "Posted #{menu_item.created_at.strftime("%D")}" %></span> - <%= link_to "Share this entry", soapbox_menu_item_path(menu_item) %></p>
-    </div>
-<% end %>
+  <%= render :partial => "menu_item", :locals => { :menu_item => menu_item } %>
 <% end -%>
 
 <% content_for :sidebar do -%>
