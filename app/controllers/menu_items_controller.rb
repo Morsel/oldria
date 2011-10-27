@@ -34,6 +34,7 @@ class MenuItemsController < ApplicationController
       flash[:notice] = "Your menu item has been saved"
       redirect_to :action => "index"
     else
+      @categories = OtmKeyword.all.group_by(&:category)
       render :action => "edit"
     end
   end
