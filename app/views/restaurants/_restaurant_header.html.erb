@@ -2,7 +2,16 @@
     <div id="restaurant_actions">
         <%= link_to 'Edit Restaurant', edit_restaurant_path(@restaurant), :class => 'edit_restaurant' if can?(:edit, @restaurant) %>
         <%= link_to 'Start a discussion', new_discussion_path(:restaurant_id => @restaurant.id), :class => 'start_discussion' unless on_soapbox %>
-        <%= link_to 'Share Profile', new_discussion_path(:restaurant_id => @restaurant.id), :class => 'share_profile' %>
+
+        <!-- AddThis Button BEGIN -->
+        <%= link_to 'Share Profile', "http://www.addthis.com/bookmark.php?v=250&amp;username=unpluggedria", :class => 'share_profile addthis_button' %>
+        <%= javascript_include_tag "http://s7.addthis.com/js/250/addthis_widget.js#username=unpluggedria" %>
+        <% javascript_tag do %>
+          var addthis_share = {
+            url: '<%= soapbox_restaurant_path(@restaurant) %>',
+          }
+        <% end %>
+        <!-- AddThis Button END -->
     </div><!--#restaurant_actions-->
 
     <%= image_tag logo_for(@restaurant).attachment.url(:small), :width=>'100' %>
