@@ -16,7 +16,7 @@ class MenuItem < ActiveRecord::Base
 
   belongs_to :restaurant
 
-  has_many :menu_item_keywords
+  has_many :menu_item_keywords, :dependent => :destroy
   has_many :otm_keywords, :through => :menu_item_keywords
 
   has_attached_file :photo,
@@ -26,7 +26,7 @@ class MenuItem < ActiveRecord::Base
       :content_type => ["image/jpg", "image/jpeg", "image/png", "image/gif", "image/pjpeg", "image/x-png"],
       :message => "Please upload a valid image type: jpeg, gif, or png", :if => :photo_file_name
 
-  validates_presence_of :name, :otm_keywords
+  validates_presence_of :name
   validates_format_of :price, :with => RestaurantFactSheet::MONEY_FORMAT
 
   def keywords
