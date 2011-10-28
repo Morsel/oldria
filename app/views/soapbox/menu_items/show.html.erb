@@ -1,0 +1,49 @@
+<% title "On the Menu" %>
+
+<% content_for(:fb_description, "FIXME put details here") %>
+
+<% javascript_tag do %>
+  var addthis_share = {
+    url: '<%= soapbox_menu_item_url(@menu_item) %>',
+    title: $('title').text().replace('Spoonfeed','Soapbox')
+  }
+<% end %>
+<!-- AddThis Button BEGIN -->
+<div class="addthis_toolbox">
+  <a href="http://www.addthis.com/bookmark.php?v=250&username=unpluggedria" class="addthis_button">Share</a>
+</div>
+<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#username=unpluggedria"></script>
+<!-- AddThis Button END -->
+
+<% div_for @menu_item do %>
+    <h2><%= @menu_item.name %> at <%= link_to @menu_item.restaurant.name, soapbox_restaurant_path(@menu_item.restaurant) %></h2>
+    <div>
+        <% if @menu_item.photo_file_name.present? -%>
+        <p><%= image_tag @menu_item.photo(:large) %></p>
+        <% end -%>
+
+        <p><%= @menu_item.name %> <%= "(#{price(@menu_item.price)})" if @menu_item.price.present? %></p>
+
+        <h3>Keywords</h3>
+        <p><%= @menu_item.keywords_without_categories %></p>
+    </div>
+    <div class="clear">
+        <%= @menu_item.description if @menu_item.description.present? %>
+        <p><span class="datestamp"><%= "Posted #{@menu_item.created_at.strftime("%D")}" %></span></p>
+    </div>
+    <!-- Likes and Tweets BEGIN -->
+    <div class="sharing">
+        <script src="http://connect.facebook.net/en_US/all.js#xfbml=1"></script>
+        <fb:like href="<%= soapbox_menu_item_url(@menu_item) %>" layout="button_count" show_faces="false" width="90" height="20" action="like" colorscheme="light"></fb:like>
+
+        <script src="http://platform.twitter.com/widgets.js" type="text/javascript"></script>
+        <a href="http://twitter.com/share" class="twitter-share-button">Tweet</a>
+    </div>
+    <!-- Likes and Tweets END -->
+<% end %>
+
+<h3 id="more-answers">Other recent items</h3>
+
+<% for menu_item in @more_menu_items -%>
+  <%= render :partial => "menu_item", :locals => { :menu_item => menu_item } %>
+<% end -%>

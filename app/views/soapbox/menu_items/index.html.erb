@@ -1,0 +1,7 @@
+<% title "On the Menu" %>
+
+<h2 id="otm-tagline">The latest dishes, drinks, beers, and wines in restaurants right now</h2>
+
+<% for menu_item in @menu_items -%>
+  <%= render :partial => "menu_item", :locals => { :menu_item => menu_item } %>
+<% end -%>

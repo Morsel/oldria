@@ -4,8 +4,12 @@ class MenuItemsController < ApplicationController
   before_filter :require_manager
 
   def index
+    @menu_items = @restaurant.menu_items.all(:order => "created_at DESC")
+  end
+
+  def new
     @menu_item = MenuItem.new
-    @menu_items = @restaurant.menu_items
+    @categories = OtmKeyword.all.group_by(&:category)
   end
 
   def create
@@ -14,12 +18,14 @@ class MenuItemsController < ApplicationController
       flash[:notice] = "Your menu item has been saved"
       redirect_to :action => "index"
     else
-      render :action => "index"
+      @categories = OtmKeyword.all.group_by(&:category)
+      render :action => "new"
     end
   end
 
   def edit
     @menu_item = @restaurant.menu_items.find(params[:id])
+    @categories = OtmKeyword.all.group_by(&:category)
   end
 
   def update
@@ -28,6 +34,7 @@ class MenuItemsController < ApplicationController
       flash[:notice] = "Your menu item has been saved"
       redirect_to :action => "index"
     else
+      @categories = OtmKeyword.all.group_by(&:category)
       render :action => "edit"
     end
   end

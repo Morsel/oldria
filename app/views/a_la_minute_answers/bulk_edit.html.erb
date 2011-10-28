@@ -1,19 +1,10 @@
+<% title "A La Minute Questions" %>
 <div id="restaurant_profile_view" class="edit clear clearfix">
 
-  <%= render 'restaurants/restaurant_header' %>
+  <%= render 'restaurants/restaurant_editing_header' %>
   <div id="editing_restaurant">
     <div id="a_la_minute_questions">
       <h2>A la minute</h2>
-      <% title "A La Minute Questions" %>
-
-      <% if can? :edit, @restaurant %>
-        <% content_for :page_actions do -%>
-        <p class="clearfix">
-          <%= link_to 'Edit restaurant', edit_restaurant_path(@restaurant),
-              :class=>'sf-button' %>
-        </p>
-        <% end -%>
-      <% end -%>
 
       <% semantic_form_for :restaurant, :url => bulk_update_restaurant_a_la_minute_answers_url(:restaurant_id => @restaurant.id),
             :html => {:method => :put} do |form| %>

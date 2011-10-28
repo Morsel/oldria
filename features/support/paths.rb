@@ -103,8 +103,8 @@ module NavigationHelpers
       new_restaurant_promotion_path(Restaurant.find_by_name($1))
     when /my restaurants page/
       restaurants_path
-    when /the edit on the menu page for "(.+)"$/
-      restaurant_menu_items_path(Restaurant.find_by_name($1))
+    when /the new on the menu page for "(.+)"$/
+      new_restaurant_menu_item_path(Restaurant.find_by_name($1))
 
     # Admin pages
     when /^the admin landing page$/

@@ -479,3 +479,10 @@ end
 Given /^a menu item keyword "([^\"]*)" with category "([^\"]*)"$/ do |name, category|
   Factory(:otm_keyword, :name => name, :category => category)
 end
+
+Given /^the following menu items for "([^\"]*)":$/ do |restaurant_name, table|
+  restaurant = Restaurant.find_by_name(restaurant_name)
+  table.hashes.each do |row|
+    Factory(:menu_item, row.merge(:restaurant => restaurant))
+  end
+end

@@ -14,11 +14,11 @@ Feature: On the Menu
     Then I should see "On the Menu"
 
   Scenario: Managers can enter an OTM item
-    When I go to the edit on the menu page for "Country Dog"
+    When I go to the new on the menu page for "Country Dog"
     And I fill in "name" with "Pork chop"
     And I fill in "description" with "A braised pork chop served with fruit compote"
     And I fill in "price" with "12.00"
-    And I check "Other: farm-to-table"
+    And I check "farm-to-table"
     And I press "Save"
     Then I should see "saved"
     
@@ -28,6 +28,6 @@ Feature: On the Menu
       | Marko Tony | mtony    |
     And I am logged in as "mtony"
     And I am an employee of "Country Dog" with role "Chef"
-    When I go to the edit on the menu page for "Country Dog"
+    When I go to the new on the menu page for "Country Dog"
     Then I should not see "On the Menu"
     And I should see "You don't have permission to access that page"
