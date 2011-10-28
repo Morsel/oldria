@@ -1,27 +1,36 @@
-<% title "On the Menu" %>
+<% title "On the Menu :: #{@restaurant.name}", false %>
+<div id="restaurant_profile_view" class="edit clear clearfix">
+    <%= render 'restaurants/restaurant_editing_header' %>
 
-<p class="clearfix"><%= link_to "Add a new item", new_restaurant_menu_item_path(@restaurant), :class => "button" %></p>
+    <div id="editing_restaurant">
+        <div id="menu_items_header">
+            <h2>On the Menu</h2>
+        </div>
 
-<div id="menu_items">
-    <% for menu_item in @menu_items -%>
-    <dl class="<%= cycle("odd", "even") %>">
-        <dt>Name</dt>
-        <dd><%= menu_item.name %></dd>
+        <p class="clearfix"><%= link_to "Add a new item", new_restaurant_menu_item_path(@restaurant), :class => "button" %></p>
 
-        <dt>Description</dt>
-        <dd><%= menu_item.description %></dd>
+        <div id="menu_items">
+            <% for menu_item in @menu_items -%>
+            <dl class="<%= cycle("odd", "even") %>">
+                <dt>Name</dt>
+                <dd><%= menu_item.name %></dd>
 
-        <dt>Price</dt>
-        <dd><%= price(menu_item.price) %></dd>
+                <dt>Description</dt>
+                <dd><%= menu_item.description %></dd>
 
-        <% if menu_item.photo_file_name.present? -%>
-        <dt>Photo</dt>
-        <dd><%= image_tag menu_item.photo(:thumb) %></dd>
-        <% end -%>
+                <dt>Price</dt>
+                <dd><%= price(menu_item.price) %></dd>
 
-        <dt>Keywords</dt>
-        <dd><%= menu_item.keywords %></dd>
-    </dl>
-    <p><%= link_to "edit", edit_restaurant_menu_item_path(@restaurant, menu_item) %> | <%= link_to "delete", restaurant_menu_item_path(@restaurant, menu_item), :method => "delete" %></p>
-    <% end -%>
-</div>
+                <% if menu_item.photo_file_name.present? -%>
+                <dt>Photo</dt>
+                <dd><%= image_tag menu_item.photo(:thumb) %></dd>
+                <% end -%>
+
+                <dt>Keywords</dt>
+                <dd><%= menu_item.keywords %></dd>
+            </dl>
+            <p><%= link_to "edit", edit_restaurant_menu_item_path(@restaurant, menu_item) %> | <%= link_to "delete", restaurant_menu_item_path(@restaurant, menu_item), :method => "delete" %></p>
+            <% end -%>
+        </div>
+    </div><!-- /editing_restaurant -->
+</div><!-- /restaurant_profile_view -->
