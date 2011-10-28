@@ -16,7 +16,7 @@ class CommentsController < ApplicationController
         # if the parent is attached to a trend question, show archive message only when it's the first discussion for the user
         # why the first discussion? because we only check the first item's read/unread status in the inbox when we group these
         if @parent.is_a?(AdminDiscussion)
-          current_user.grouped_admin_discussions[@parent.discussionable].first == @parent ? 
+          @comment.user.grouped_admin_discussions[@parent.discussionable].first == @parent ?
               flash[:notice] = success_and_archive :
               flash[:notice] = success
         else
