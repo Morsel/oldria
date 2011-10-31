@@ -344,11 +344,11 @@ body,html,#container,#main,#content,#inside{
           &#news-title {
             background-color: #5a9cb8;
           }
-          &#frontburner-title {
+          &#otm-title {
             background-color: #263f6a;
           }
           img {
-            float: left;
+            /*float: left;*/
             position: relative;
             top: 5px;
             left: -10px;
@@ -365,6 +365,7 @@ body,html,#container,#main,#content,#inside{
             position: relative;
             top: 15px;
             right: 10px;
+            float: right;
           }
         }
         h3 {
@@ -417,13 +418,13 @@ body,html,#container,#main,#content,#inside{
             border: none;
           }
         }
-        .soapbox_entry {
+        .menu_item {
           display: none;
           border: 10px solid #263f6a;
           border-top: none;
           padding: 12px;
           min-height: 145px;
-          &#frontburner_0 {
+          &#otm_0 {
             display: block;
           }
           .datestamp {
