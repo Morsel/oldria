@@ -3155,8 +3155,24 @@ p.search_filter_hint {
   
 }
 
-#behindline, #newsfeed.recent_actions {
+#behindline {
   @include column(9);
+}
+
+#newsfeed.recent_actions {
+  @include column(8);
+}
+
+#on_the_menu.recent_actions {
+  @include column(8);
+  h3#otm-title {
+    font-size: 16px;
+    margin: 6px 0 0 0;
+    border-bottom: 1px solid #CCCCCC;
+  }
+}
+
+#behindline, #newsfeed.recent_actions, #on_the_menu.recent_actions {
   float: left;
   h3#newsfeed-title {
 		@include brandongrotesquebold;
@@ -4402,8 +4418,7 @@ p.search_filter_hint {
 		}
 	}
 	#a_la_minute {
-	  @include column(9);
-		width: 313px;
+	  @include column(16);
 		#alm-title {
 			@include hiddentext;
 			border-bottom: 1px solid #ccc;

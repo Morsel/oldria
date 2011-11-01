@@ -8,6 +8,7 @@ module Soapbox
       end
       @questions = ALaMinuteAnswer.public_profile_for(@restaurant)
       @promotions = @restaurant.promotions.recently_posted.all(:limit => 3)
+      @menu_items = @restaurant.menu_items.all(:order => "created_at DESC", :limit => 3)
       render :template => 'restaurants/show'
     end
   end

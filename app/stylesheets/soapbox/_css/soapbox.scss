@@ -2561,8 +2561,7 @@ dl.things dt:after {content: ":"}
 } /* ## ---- end of restaurant_profile_view ----- */
 
 #a_la_minute {
-  @include column(9);
-	width: 313px;
+  @include column(16);
 	#alm-title {
 		@include hiddentext;
 		border-bottom: 1px solid #ccc;
@@ -2637,11 +2636,15 @@ dl.things dt:after {content: ":"}
   }	
 }
 
-#behindline, #newsfeed.recent_actions {
-  @include column(8, true);
-  float: left;
+#behindline, #newsfeed.recent_actions, #on_the_menu.recent_actions {
+  @include column(8);
   h3#newsfeed-title {
 		@include museoslabbold;
+    font-size: 16px;
+    margin: 23px 0 0 0;
+    border-bottom: 1px solid #CCCCCC;
+  }
+  h3#otm-title {
     font-size: 16px;
     margin: 23px 0 0 0;
     border-bottom: 1px solid #CCCCCC;
