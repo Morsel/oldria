@@ -1,9 +1,9 @@
 <% title "On the Menu" %>
 
-<h2 id="otm-tagline">The latest dishes, drinks, beers, and wines in restaurants right now</h2>
-
 <% if params[:keyword].present? -%>
-  <h3>Keyword: <%= params[:keyword] %></h3>
+  <h2 id="otm-tagline">Keyword: <%= params[:keyword] %></h2>
+<% else -%>
+  <h2 id="otm-tagline">The latest dishes, drinks, beers, and wines in restaurants right now</h2>
 <% end -%>
 
 <% for menu_item in @menu_items -%>
