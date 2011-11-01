@@ -12,12 +12,12 @@
 
         <p>
             <%- if menu_item.description.present? -%>
-              <%= truncate(menu_item.description, :length => 200) %>
-              <%= link_to "more &raquo;", soapbox_menu_item_path(menu_item) if menu_item.description.size > 200 %>
+              <%= truncate(menu_item.description, :length => 150) %>
+              <%= link_to "more &raquo;", soapbox_menu_item_path(menu_item) if menu_item.description.size > 150 %>
             <%- end -%>
         </p>
 
-        <p class="keywords"><%= menu_item.keywords_without_categories %></p>
+        <p class="keywords"><%= menu_item.otm_keywords.map { |k| link_to k.name, soapbox_menu_items_path(:keyword => k.name) }.to_sentence %></p>
 
         <p><span class="datestamp"><%= "Posted #{menu_item.created_at.strftime("%D")}" %></span> - <%= link_to "Share this entry", soapbox_menu_item_path(menu_item) %></p>
     </div>

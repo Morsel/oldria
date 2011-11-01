@@ -1,6 +1,10 @@
 <% title "On the Menu" %>
 
-<h2 id="otm-tagline">The latest dishes, drinks, beers, and wines in restaurants right now</h2>
+<% if params[:keyword].present? -%>
+  <h2 id="otm-tagline">Keyword: <%= params[:keyword] %></h2>
+<% else -%>
+  <h2 id="otm-tagline">The latest dishes, drinks, beers, and wines in restaurants right now</h2>
+<% end -%>
 
 <% for menu_item in @menu_items -%>
   <%= render :partial => "menu_item", :locals => { :menu_item => menu_item } %>
