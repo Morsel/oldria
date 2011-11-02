@@ -3,7 +3,7 @@ Feature: Soapbox - On the Menu
   As a public user of the site, I want to see recent menu items from restaurants.
 
   Background:
-    Given a restaurant named "River Deli"
+    Given a premium restaurant named "River Deli"
     And the following menu items for "River Deli":
       | name       | price |
       | Butterkase | 3.00  |

@@ -29,6 +29,12 @@ class MenuItem < ActiveRecord::Base
   validates_presence_of :name
   validates_format_of :price, :with => RestaurantFactSheet::MONEY_FORMAT
 
+  named_scope :from_premium_restaurants, lambda {
+    { :joins => { :restaurant => :subscription },
+      :conditions => ["subscriptions.id IS NOT NULL AND (subscriptions.end_date IS NULL OR subscriptions.end_date >= ?)",
+          Date.today] }
+  }
+
   def keywords
     otm_keywords.map { |k| "#{k.category}: #{k.name}" }.to_sentence
   end
