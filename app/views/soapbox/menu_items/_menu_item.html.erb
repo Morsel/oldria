@@ -1,6 +1,6 @@
 <% div_for menu_item do %>
     <h2><%= link_to menu_item.name, soapbox_menu_item_path(menu_item) %></h2>
-    <%= render :partial => 'restaurants/identity', :locals => { :restaurant => menu_item.restaurant } %>
+    <%= render :partial => 'restaurants/identity', :locals => { :restaurant => menu_item.restaurant } unless @restaurant.present? %>
     <div class="menu_item_details">
         <% if menu_item.photo_file_name.present? -%>
         <p><%= image_tag menu_item.photo(:medium) %></p>

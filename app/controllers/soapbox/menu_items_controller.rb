@@ -5,6 +5,9 @@ class Soapbox::MenuItemsController < ApplicationController
       @menu_items = MenuItem.from_premium_restaurants.all(:joins => { :menu_item_keywords => :otm_keyword },
                                  :conditions => ["otm_keywords.name = ?", params[:keyword]],
                                  :order => "menu_items.created_at DESC")
+    elsif params[:restaurant_id].present?
+      @restaurant = Restaurant.find(params[:restaurant_id])
+      @menu_items = @restaurant.menu_items.all(:order => "created_at DESC")
     else
       @menu_items = MenuItem.from_premium_restaurants.all(:order => "created_at DESC")
     end
