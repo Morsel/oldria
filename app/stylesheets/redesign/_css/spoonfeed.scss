@@ -4744,5 +4744,26 @@ aside.dashboard_actions {
 }
 
 .otm-form-section li.check_boxes fieldset ol li {
-  @include column(4, true);
+  @include column(3, true);
+}
+
+.menu_item {
+  clear: both;
+	h2 {
+		font-size:18px;
+		padding:0 0 2px;
+		margin-top: 20px;
+		clear: both;
+		border-bottom:1px solid $feedback-border-color;
+	}
+  img {
+    float: left;
+    margin: 0 1em 1em 0;
+  }
+  .datestamp {
+    color: #ccc;
+  }
+  p.keywords {
+    margin-top: 15px;
+  }
 }

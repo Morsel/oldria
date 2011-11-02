@@ -132,7 +132,7 @@
 
   <% if @menu_items.present? %>
   <div id="on_the_menu" class="recent_actions">
-      <h3 id="otm-title"><%= link_to "On the Menu", soapbox_menu_items_path %></h3>
+      <h3 id="otm-title"><%= link_to "On the Menu", soapbox? ? soapbox_menu_items_path(:restaurant_id => @restaurant) : restaurant_menu_items_path(:restaurant_id => @restaurant) %></h3>
       <% if @restaurant.employees.include?(current_user) -%>
       <div class="edit_profile_link">
           <%= link_to "edit On the Menu", restaurant_menu_items_path(:restaurant_id => @restaurant) %>

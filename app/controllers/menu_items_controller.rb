@@ -1,10 +1,12 @@
 class MenuItemsController < ApplicationController
 
   before_filter :require_user
-  before_filter :require_manager
+  before_filter :require_manager, :except => [:index]
 
   def index
+    find_restaurant
     @menu_items = @restaurant.menu_items.all(:order => "created_at DESC")
+    render :template => "soapbox/menu_items/index" if cannot?(:edit, @restaurant)
   end
 
   def new
