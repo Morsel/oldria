@@ -2506,7 +2506,7 @@ p.search_filter_hint {
 		font-size: 13px;
 		line-height: 20px;
 	}
-	.profile_answer > .user_comment {
+	.profile_answer > .user_comment, .menu_item > .user_comment {
 		margin-left: 313px;
 		padding: 0px 0px 10px;
 	}
@@ -2527,7 +2527,7 @@ p.search_filter_hint {
 			background: none;
 		}
 	}
-	.admin_conversation, .admin_discussion, .profile_answer, .solo_discussion {
+	.admin_conversation, .admin_discussion, .profile_answer, .solo_discussion, .menu_item {
 		overflow: hidden;
 		background: transparent url(/images/redesign/bg-hp-left.png) no-repeat;
 		margin-bottom: 8px;
