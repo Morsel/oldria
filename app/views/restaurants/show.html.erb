@@ -149,6 +149,7 @@
         </li>
         <% end -%>
       </ul>
+      <p class="view_all"><%= link_to "View all &raquo;", soapbox? ? soapbox_menu_items_path(:restaurant_id => @restaurant) : restaurant_menu_items_path(:restaurant_id => @restaurant) %></p>
   </div><!--#on_the_menu-->
   <% end %>
 
