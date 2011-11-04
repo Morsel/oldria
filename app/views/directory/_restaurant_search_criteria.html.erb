@@ -94,7 +94,7 @@
                                 <% for keyword in restaurants.map(&:menu_items).flatten.map(&:otm_keywords).flatten.uniq %>
                                 <li><label for="search_menu_items_otm_keywords_id_eq_any_<%= keyword.id %>">
                                     <%= check_box_tag "search[menu_items_otm_keywords_id_eq_any][]", keyword.id, false, :id => "search_menu_items_otm_keywords_id_eq_any_#{keyword.id}" %>
-                                    <%= keyword.to_label %>
+                                    <%= keyword.name_with_category %>
                                 </label></li>
                                 <% end %>
                             </ol>

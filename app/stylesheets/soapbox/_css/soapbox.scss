@@ -128,42 +128,42 @@ h1,h2,h3,h4,h5,h6{
 		&#nav-home {
 			background-position: 0 0;
 			&:hover {background-position: 0 -200px;}
-			&.selected {background-position: 0 -398px;}
+			&.selected {background-position: 0 -400px;}
 		}
-		&#nav-front-burner {
+		&#nav-otm {
 			background-position: -77px 0;
 			&:hover {background-position: -77px -200px;}
-			&.selected {background-position: -77px -398px;}
+			&.selected {background-position: -77px -400px;}
 			width: 87px;
 		}
 		&#nav-alm {
 			background-position: -165px 0;
 			&:hover {background-position: -165px -200px;}
-			&.selected {background-position: -165px -398px;}
+			&.selected {background-position: -165px -400px;}
 			width: 87px;
 		}
 		&#nav-btl {
 			background-position: -251px 0;
 			&:hover {background-position: -251px -200px;}
-			&.selected {background-position: -251px -398px;}
+			&.selected {background-position: -251px -400px;}
 			width: 97px;
 		}
 		&#nav-directory {
 			background-position: -349px 0;
 			&:hover {background-position: -349px -200px;}
-			&.selected {background-position: -349px -398px;}
+			&.selected {background-position: -349px -400px;}
 			width: 99px;
 		}
 		&#nav-restaurant-directory {
 			background-position: -448px 0;
 			&:hover {background-position: -448px -200px;}
-			&.selected {background-position: -448px -398px;}
+			&.selected {background-position: -448px -400px;}
 			width: 115px;
 		}
 		&#nav-newsfeed {
 			background-position: -562px 0;
 			&:hover {background-position: -562px -200px;}
-			&.selected {background-position: -562px -398px;}
+			&.selected {background-position: -562px -400px;}
 			width: 111px;
 		}
 	}

@@ -17,4 +17,8 @@ class OtmKeyword < ActiveRecord::Base
 
   validates_presence_of :name, :category
 
+  def name_with_category
+    "#{category}: #{name}"
+  end
+
 end

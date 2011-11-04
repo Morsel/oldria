@@ -351,20 +351,20 @@ h1, h2, h3, h4, h5, h6 {
 }
 /* line 131, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
 #nav a#nav-home.selected {
-  background-position: 0 -398px;
+  background-position: 0 -400px;
 }
 /* line 133, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
-#nav a#nav-front-burner {
+#nav a#nav-otm {
   background-position: -77px 0;
   width: 87px;
 }
 /* line 135, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
-#nav a#nav-front-burner:hover {
+#nav a#nav-otm:hover {
   background-position: -77px -200px;
 }
 /* line 136, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
-#nav a#nav-front-burner.selected {
-  background-position: -77px -398px;
+#nav a#nav-otm.selected {
+  background-position: -77px -400px;
 }
 /* line 139, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
 #nav a#nav-alm {
@@ -377,7 +377,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 /* line 142, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
 #nav a#nav-alm.selected {
-  background-position: -165px -398px;
+  background-position: -165px -400px;
 }
 /* line 145, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
 #nav a#nav-btl {
@@ -390,7 +390,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 /* line 148, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
 #nav a#nav-btl.selected {
-  background-position: -251px -398px;
+  background-position: -251px -400px;
 }
 /* line 151, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
 #nav a#nav-directory {
@@ -403,7 +403,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 /* line 154, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
 #nav a#nav-directory.selected {
-  background-position: -349px -398px;
+  background-position: -349px -400px;
 }
 /* line 157, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
 #nav a#nav-restaurant-directory {
@@ -416,7 +416,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 /* line 160, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
 #nav a#nav-restaurant-directory.selected {
-  background-position: -448px -398px;
+  background-position: -448px -400px;
 }
 /* line 163, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
 #nav a#nav-newsfeed {
@@ -429,7 +429,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 /* line 166, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
 #nav a#nav-newsfeed.selected {
-  background-position: -562px -398px;
+  background-position: -562px -400px;
 }
 
 /* line 172, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
