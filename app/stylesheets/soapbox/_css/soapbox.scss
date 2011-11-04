@@ -332,6 +332,7 @@ body,html,#container,#main,#content,#inside{
         clear: both;
         margin-top: 10px;
         padding: 5px;
+        position: relative;
         .title {
   				@include museoslabthin;
   				height: 40px;
@@ -348,9 +349,9 @@ body,html,#container,#main,#content,#inside{
             background-color: #263f6a;
           }
           img {
-            /*float: left;*/
-            position: relative;
-            top: 5px;
+            float: left;
+            position: absolute;
+            top: 10px;
             left: -10px;
           }
           h2 {
