@@ -21,7 +21,13 @@
 
             <% @categories.each do |category, keywords| %>
             <section id="form-<%= category.downcase.gsub(/\s/, "-") %>" class="otm-form-section">
-                <%= f.input :otm_keywords, :as => "check_boxes", :collection => keywords, :label => category %>
+                <div><%= category %></div>
+                <% keywords.in_groups(3, OtmKeyword.new).each do |keyword_set| %>
+                  <div class="keyword-column">
+                      <%= f.input :otm_keywords, :as => "check_boxes", :collection => keyword_set, :label => "&nbsp;" %>
+                  </div>
+                <% end %>
+                <div class="clear">&nbsp;</div>
             </section>
             <% end %>
         </section>

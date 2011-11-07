@@ -4743,8 +4743,11 @@ aside.dashboard_actions {
   }
 }
 
-.otm-form-section li.check_boxes fieldset ol li {
+.otm-form-section .keyword-column {
   @include column(5, true);
+  #menu_item_otm_keyword_ids_ {
+    display: none;
+  }
 }
 
 .menu_item {
