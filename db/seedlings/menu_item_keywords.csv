@@ -1,53 +1,57 @@
-Specialty Ingredient,Source,Producer,Serving,Technique,Savory Prep,Sweet Prep,Beverages,Trends,Seasonal-Spring,Seasonal-Summer,Seasonal-Fall,Seasonal-Winter
-Arc of Taste,artisanal,Anson Mills,"""secret"" menu",aigre doux,bisque,a la mode,mulled wine,coffee cocktail,apricots,apples,apple cider donuts,black truffle
-biodynamic wine,"beehive, sponsored/personal",Bellweather Farms,alcohol popsicles,barbecue,blood sausage,angel food,beer cocktail,elote,artichoke,beets,apples,blood orange
-boar,biodynamic wine,Benton Country Hams,bone-in,candied,bolagnese,baked Alaska,barista drinks,frozen cocktail,asparagus,bluefish,asian pear,brussels sprouts
-buffalo,bitters (housemade),Blenheim Ginger Ale,dessert for two,cask-conditioned,brandade,bread pudding,beer flight,herb cocktail,black cod,cat tails,butterfish,buddha's hand
-burrata,family recipe,Blis gourmet,entrees for two,chicken fried,bulgogi,brownie,digestifs,hot cocktail,chanterelle,clams,butternut squash,citron
-caviar,farm-raised,Blue Bottle Coffee,firkin,confit,caramel corn,buche de noel,spirits flights,housemade charcoal,cherries,clams,chestnuts,dungeness crab
-dulce de leche,farmer (local),Bolzano Artisan Meats,flaming,confit,carpaccio,cajeta,wine flight,lollipop presentation,fiddlehead,elderberries,cockscomb,egg nog
-einkorn,farmer (regional),Border Springs Farm,intermezzo,cooked in hay,cassoulet,cake,wine pairing,non-alcoholic cocktails,green almonds,fresh chickpeas,Concord Grapes,finger lime
-elk,farmers' market,Bourbon Barrel Foods,latte art,cooked to order,charcuterie,candy,fruit cello (housemade),nose-to-fin,green garlic,local melons,cranberry,grapefruit
-foie gras,foraged (purveyor),Burton's Maplewood Farm,served tableside,dried/dehydrated,chowder,cannele,,punch,green strawberries,local tomatoes,crawfish,hearts of palm
-heirloom,foraged (self),Callebaut,small plate,duck fat fried,consomme,cheesecake,,single-hop,lettuces,lovage,fresh dates,hot chocolate
-Henry Moore corn,garden (community),Carolina Beef,specialty barware,fire-roasted,crepe,chiffon,,snout-to-tail,Maine sweet shrimp,Mackaral,goose,key lime
-heritage,garden (personal),Caw Caw Creek,specialty ice,foam,croque,chocolate,housemade liquor,sour ale,morels,marionberry (& others),hazelnuts,kumquat
-house blended spices,garden (restaurant),Cellars at Jasper Hill,specialty plateware,fondant,crostini,cinnamon bun/roll,local spirits,tableside cocktails,peas,mullet,hen of the woods,meyer lemon
-house herb blend,garden (rooftop),Charleson Tea Plantation,,gelee,crudo,cobbler,,tea cocktail,porcini mushrooms,peach,hubbard squash,parsnips
-house-aged steak,grown to spec,Cowgirl Creamery,,hand cut,doughnut (savory),cookie,,vintage cocktails,ramps,plum,jerusalem artichokes,pineapple
-house-ground flour,Gulf Seafood,Crave Brothers,,hand-harvested,French toast,cream puff,,cocos beans,rhubarb,queen anne's lace,oysters,pink lemons
-housemade chorizo,handmade,Creminelli Fine Meats,,handmade,gumbo,creme brulee,organic spirits,,sand dab,raspberries,pawpaw,pomegranate
-housemade salumi,heirloom ingredient,Geechie Boy Mill,,head-on,housemade pasta,creme caramel,organic wine,,smelt,scapes,pear,pomelo
-humanely raise veal,heirloom recipe,Gioia Cheese,,herb-crusted,jambalaya,crepe,housemade soda,,soft shell crab,shell beans (fresh),pecans,satsuma
-Kolsch,homage dish,Jack Rudy Cocktail Co.,,house canning/preserving,mac & cheese,crumble,,,sorrel,shishito peppers,pumpkin,Stout
-lambic,kosher,La Quercia,,house pickling,panzenella,cupcake,,,Spring butter (local),summer butter (local),pumpkin beer,tangerine
-local flour,line-caught,Meadow Creek Dairy,,house-brewed,parfait,doughnut,,,spring onions,summer squash,quince,turbot
-local rabbit,local dairy,Mepkin Abbey,,housemade charcoal,picallili,float,,,strawberries,tropea onions,red kuri squash,whitefish
-marrow,local w/in 100 miles,Newsom's Country Ham,,infused,pipperade,gooey butter cake,,,wild garlic,tuna,red snapper,gingerbread
-marshmallow,local w/in 50 miles,Nicasio Valley Cheese Company,,infusion,pizza,housemade jam,punch,,wild salmon,watermelon,ruby trout,fruitcake
-milk stout,organic,Olympic Provisions,,infusion,polenta,ice cream sandwich,sangria,,maple,zucchini,stone crab,egg nog
-mostarda,proprietary label,Our Local Foods,,lacquered,popcorn,macaron,,,,corn,sturgeon
-nudja,regional favorite,Q7 Ranch,mignardise,on a stick,poutine,madeline,,,,,venison
-offal,regional specialty,Rare Tea Cellar,amuse bouche,palate cleanser,pretzle,parfait,,,,,walnuts
-pig's head,self-harvested,Rivers Edge Chevre,specialty serviceware,pasta guitar/chitarra,ragout,pie,,,,,white truffle
-quail egg,sustainable,Stella Maris Seafood,custom serviceware,pickle,rillettes,pudding,,,,,honey
-rediscovered ingredient,unique/rare varietal,Sunburst Trout Farm,,raw,sashimi,s'more
-reindeer,small-batch liquor,Sustainable Seafood Initiative,,raw,Scotch egg,short cake
-roe,,Tennessee Truffle,,rotisserie,stew,streusel
-single-origin chocolate,,Texas Olive Ranch,,sabayon,sushi,sundae
-sorghum,,Uplands Cheese,,served flaming,tacos,tart/tartlet
-spelt,,Urban Moonshine,,slaw,tartare,tea cake
-suckling pig,,Vermont Butter and Cheese Creamery,,slow-smoked,vinaigrette,tres leches
-sweetbreads,,White Oak Pastures Beef,,smoked
-tofu,,Wood's Cider Mill,,sous vide
-verjus,,,,sous vide
-,,,,spice-rubbed
-,,,,tempura
-,,,,troll caught
-,,,,tuile
-,,,,waffle
-,,,,whole-roasted
-,,,,whole-roasted
-,,,,wood-grilled
-,,,,wood-grilled
-,,,,wood-roasted
+Source,Trends,Serving,Technique,Beverages,Beer/Wine,Specialty Ingredients,Seasonal-Spring,Seasonal-Summer,Seasonal-Fall,Seasonal-Winter
+Alaskan,housemade charcoal,"""secret"" menu",aigre doux,barista drinks,wine on tap,Arc of Taste,apricots,apples,apple cider donuts,black truffle
+artisanal,lollipop presentation,alcohol popsicles,barbecue,cider,beer flight,Berkshire pig,artichoke,beets,apples,blood orange
+biodynamic wine,"""dirt""",bone-in,candied,coffee cocktail,beer cocktail,wild boar,asparagus,bluefish,asian pear,brussels sprouts
+bitters (housemade),ember-cooked,dessert for two,cask-conditioned,digestifs,mulled wine,buffalo,black cod,cat tails,butterfish,buddha's hand
+dayboat,vegetable chips,entrees for two,chicken fried,frozen cocktail,organic wine,burrata,chanterelle,clams,butternut squash,citron
+family recipe,soft serve,firkin,confit,fruit cello (housemade),single-hop,Castelvetrano olives,cherries,clams,chestnuts,dungeness crab
+farm-raised,historical dish,flaming,confit,herb cocktail,sour ale,caviar,fiddlehead,elderberries,cockscomb,egg nog
+farmer (local),featured bread service,intermezzo,,horchata,wine flight,cocos beans,green almonds,fresh chickpeas,Concord Grapes,finger lime
+farmer (regional),neck/collar,latte art,cooked to order,hot cocktail,wine pairing,dulce de leche,green garlic,local melons,cranberry,grapefruit
+farmers' market,pimento cheese,served tableside,dried/dehydrated,housemade liquor,kolsch,einkorn,green strawberries,local tomatoes,crawfish,hearts of palm
+foraged (purveyor),smoked oil/spice,small plate,duck fat fried,housemade soda,lager,elk,lettuces,lovage,fresh dates,hot chocolate
+foraged (self),whey,specialty barware,fire-roasted,local distiller/spirits,lambic,farro,Maine sweet shrimp,Mackaral,goose,key lime
+garden (community),hay,specialty ice,foam,mulled wine,I.P.A.,farro piccolo,morels,marionberry (& others),hazelnuts,kumquat
+garden (personal),savory yogurt,specialty plateware,fondant,non-alcoholic cocktails,port,foie gras,peas,mullet,hen of the woods,meyer lemon
+garden (restaurant),artisanal butter,custom plateware,gelee,organic spirits,porter,ghost chilies,porcini mushrooms,peach,hubbard squash,parsnips
+garden (rooftop),"beehive, sponsored/personal",custom silverware,hand cut,punch,stout,heirloom,ramps,plum,jerusalem artichokes,pineapple
+Georges Bank,cellared beer,mignardise,hand-harvested,sangria,brewed by chef/staff,Henry Moore corn,rhubarb,queen anne's lace,oysters,pink lemons
+grown to spec,savory ice cream,amuse bouche,handmade,spirits flights,Kolsch,heritage,sand dab,raspberries,pawpaw,pomegranate
+Gulf seafood,jam/preserves in cocktails,specialty serviceware,head-on,tableside cocktails,lambic,house blended spices,smelt,scapes,pear,pomelo
+handmade,gluten-free,custom serviceware,herb-crusted,tea cocktail,biodynamic wine,house herb blend,soft shell crab,shell beans (fresh),pecans,satsuma
+heirloom ingredient,poutine,en cocotte,house canning/preserving,vintage cocktails,,house-aged steak,sorrel,shishito peppers,pumpkin,Stout
+heirloom recipe,bulgogi,,house pickling,white tea,,house-ground flour,spring butter (local),summer butter (local),pumpkin beer,tangerine
+homage dish,macaron,,house-brewed,roiboos tea,,housemade chorizo,spring onions,summer squash,quince,turbot
+humanely raised,blood sausage,,housemade charcoal,,,housemade salumi,strawberries,tropea onions,red kuri squash,whitefish
+kosher,charcuterie,,infused,,,veal,wild garlic,tuna,red snapper,gingerbread
+line-caught,donut,,,,,Iberico ham,wild salmon,watermelon,ruby trout,fruitcake
+local dairy,crudo,,infusion,,,local flour,maple,zucchini,stone crab,buche de noel
+local w/in 100 miles,popcorn,,lacquered,,,local rabbit,elderflowers,corn,sturgeon,chestnuts
+local w/in 50 miles,pretzle,,on a stick,,,Mangalista pig,spinach,triggerfish,venison,kumquat
+Nantucket,Scotch egg,,palate cleanser,,,marrow,beet greens,padron chilies,walnuts,smoked salmon
+organic,chermoula,,pasta guitar/chitarra,,,marshmallow,veal,purslane,white truffle,salt pork
+Prince Edward Island,salsa verde,,pickle,,,milk stout,ham,pimento,,salsify
+proprietary label,Retro reinvented,,raw,,,mostarda,salt pork,sweet potato greens,porcini,sauerkraut
+regional favorite,elote,,raw,,,nudja,fava beans,tomato leaves,figs
+regional specialty,s'more,,rotisserie,,,offal,wood sorrel,chanterelles,albacore
+self-harvested,gooey butter cake,,sabayon,,,pig's head,wild ginger,lamb's quarter,rudderfish
+single-origin,housemade jam,,served flaming,,,quail egg,,,grouper
+small-batch liquor,vegan,,slaw,,,rediscovered ingredient,,,field peas
+sustainable,sticky toffee pudding,,slow-smoked,,,reindeer,,,matsutakes
+unique/rare varietal,beer cheese,,smoked,,,roe,,,cardoon
+Chesapeake Bay,popover,,sous vide,,,sorghum,,,fresh pork
+Sea Island,popped sorghum,,,,,spelt
+trap net,spoonbread,,spice-rubbed,,,suckling pig,,,root vegetables
+gill net,unlaid eggs,,tempura,,,sweetbreads,,,Satsuma
+Gulf,rustic,,troll caught,,,tamworth pig,,,cauliflower
+Hudson Valley,,,tuile,,,tofu,,,brussels sprots
+Great Lakes,,,waffle,,,verjus
+,,,whole-roasted,,,Carolina Gold rice
+,,,wood-grilled,,,pueerh tea
+,,,paneed,,,squab
+,,,freeze-dried,,,duck eggs
+,,,bronzed,,,black garlic
+,,,dry-cured,,,blood
+,,,semifreddo,,,green wheat
+,,,,,,green barley
+,,,,,,heart of palm
