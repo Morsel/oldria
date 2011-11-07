@@ -15,12 +15,12 @@
         <section id="form-tabs">
             <nav id="profile-options">
                 <% @categories.keys.each do |category| %>
-                <span><a href="#form-<%= category.downcase.gsub(/\s/, "-") %>" id="tab-summary"><%= category %></a></span>
+                <span><a href="#form-<%= category.downcase.gsub(/[\s\W]/, "-") %>" id="tab-summary"><%= category %></a></span>
                 <% end %>
             </nav>
 
             <% @categories.each do |category, keywords| %>
-            <section id="form-<%= category.downcase.gsub(/\s/, "-") %>" class="otm-form-section">
+            <section id="form-<%= category.downcase.gsub(/[\s\W]/, "-") %>" class="otm-form-section">
                 <div><%= category %></div>
                 <% keywords.in_groups(3, OtmKeyword.new).each do |keyword_set| %>
                   <div class="keyword-column">

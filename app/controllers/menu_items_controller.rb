@@ -11,7 +11,7 @@ class MenuItemsController < ApplicationController
 
   def new
     @menu_item = MenuItem.new
-    @categories = OtmKeyword.all.group_by(&:category)
+    @categories = OtmKeyword.all(:order => "category ASC, name ASC").group_by(&:category)
   end
 
   def create
@@ -20,14 +20,14 @@ class MenuItemsController < ApplicationController
       flash[:notice] = "Your menu item has been saved"
       redirect_to :action => "index"
     else
-      @categories = OtmKeyword.all.group_by(&:category)
+      @categories = OtmKeyword.all(:order => "category ASC, name ASC").group_by(&:category)
       render :action => "new"
     end
   end
 
   def edit
     @menu_item = @restaurant.menu_items.find(params[:id])
-    @categories = OtmKeyword.all.group_by(&:category)
+    @categories = OtmKeyword.all(:order => "category ASC, name ASC").group_by(&:category)
   end
 
   def update
@@ -36,7 +36,7 @@ class MenuItemsController < ApplicationController
       flash[:notice] = "Your menu item has been saved"
       redirect_to :action => "index"
     else
-      @categories = OtmKeyword.all.group_by(&:category)
+      @categories = OtmKeyword.all(:order => "category ASC, name ASC").group_by(&:category)
       render :action => "edit"
     end
   end
