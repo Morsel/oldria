@@ -128,42 +128,42 @@ h1,h2,h3,h4,h5,h6{
 		&#nav-home {
 			background-position: 0 0;
 			&:hover {background-position: 0 -200px;}
-			&.selected {background-position: 0 -398px;}
+			&.selected {background-position: 0 -400px;}
 		}
-		&#nav-front-burner {
+		&#nav-otm {
 			background-position: -77px 0;
 			&:hover {background-position: -77px -200px;}
-			&.selected {background-position: -77px -398px;}
+			&.selected {background-position: -77px -400px;}
 			width: 87px;
 		}
 		&#nav-alm {
 			background-position: -165px 0;
 			&:hover {background-position: -165px -200px;}
-			&.selected {background-position: -165px -398px;}
+			&.selected {background-position: -165px -400px;}
 			width: 87px;
 		}
 		&#nav-btl {
 			background-position: -251px 0;
 			&:hover {background-position: -251px -200px;}
-			&.selected {background-position: -251px -398px;}
+			&.selected {background-position: -251px -400px;}
 			width: 97px;
 		}
 		&#nav-directory {
 			background-position: -349px 0;
 			&:hover {background-position: -349px -200px;}
-			&.selected {background-position: -349px -398px;}
+			&.selected {background-position: -349px -400px;}
 			width: 99px;
 		}
 		&#nav-restaurant-directory {
 			background-position: -448px 0;
 			&:hover {background-position: -448px -200px;}
-			&.selected {background-position: -448px -398px;}
+			&.selected {background-position: -448px -400px;}
 			width: 115px;
 		}
 		&#nav-newsfeed {
 			background-position: -562px 0;
 			&:hover {background-position: -562px -200px;}
-			&.selected {background-position: -562px -398px;}
+			&.selected {background-position: -562px -400px;}
 			width: 111px;
 		}
 	}
@@ -332,6 +332,7 @@ body,html,#container,#main,#content,#inside{
         clear: both;
         margin-top: 10px;
         padding: 5px;
+        position: relative;
         .title {
   				@include museoslabthin;
   				height: 40px;
@@ -344,13 +345,13 @@ body,html,#container,#main,#content,#inside{
           &#news-title {
             background-color: #5a9cb8;
           }
-          &#frontburner-title {
+          &#otm-title {
             background-color: #263f6a;
           }
           img {
             float: left;
-            position: relative;
-            top: 5px;
+            position: absolute;
+            top: 10px;
             left: -10px;
           }
           h2 {
@@ -365,6 +366,7 @@ body,html,#container,#main,#content,#inside{
             position: relative;
             top: 15px;
             right: 10px;
+            float: right;
           }
         }
         h3 {
@@ -417,13 +419,13 @@ body,html,#container,#main,#content,#inside{
             border: none;
           }
         }
-        .soapbox_entry {
+        .menu_item {
           display: none;
           border: 10px solid #263f6a;
           border-top: none;
           padding: 12px;
           min-height: 145px;
-          &#frontburner_0 {
+          &#otm_0 {
             display: block;
           }
           .datestamp {
@@ -837,7 +839,7 @@ body,html,#container,#main,#content,#inside{
 	} /* recent questions in profile */
 
 	#topic_title {margin: 0;}
-	h2#btl-tagline, h2#alm-tagline {
+	h2#btl-tagline, h2#alm-tagline, h2#otm-tagline {
 	  margin: 0;
 	  border: none;
 	  padding-bottom: 1em;
@@ -1913,7 +1915,7 @@ p.search_filter_hint {
 	  	margin: 0 0 12px 0;
 	  	color:#333;
 	  	font-family: 'helvetica neue', helvetica, arial, sans-serif;
-		font-weight: normal;
+      font-weight: normal;
 	}
 	h5 {
   		color: #333;
@@ -2560,8 +2562,7 @@ dl.things dt:after {content: ":"}
 } /* ## ---- end of restaurant_profile_view ----- */
 
 #a_la_minute {
-  @include column(9);
-	width: 313px;
+  @include column(16);
 	#alm-title {
 		@include hiddentext;
 		border-bottom: 1px solid #ccc;
@@ -2636,11 +2637,15 @@ dl.things dt:after {content: ":"}
   }	
 }
 
-#behindline, #newsfeed.recent_actions {
-  @include column(8, true);
-  float: left;
+#behindline, #newsfeed.recent_actions, #on_the_menu.recent_actions {
+  @include column(8);
   h3#newsfeed-title {
 		@include museoslabbold;
+    font-size: 16px;
+    margin: 23px 0 0 0;
+    border-bottom: 1px solid #CCCCCC;
+  }
+  h3#otm-title {
     font-size: 16px;
     margin: 23px 0 0 0;
     border-bottom: 1px solid #CCCCCC;
@@ -3004,5 +3009,18 @@ dl.things dt:after {content: ":"}
     .fb_iframe_widget {
       top: -3px
     }
+  }
+}
+
+.menu_item {
+  clear: both;
+  .identity {
+    border: none !important;
+  }
+  .datestamp {
+    color: #ccc;
+  }
+  p.keywords {
+    margin-top: 15px;
   }
 }

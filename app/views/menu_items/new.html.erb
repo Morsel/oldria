@@ -1,0 +1,12 @@
+<% title "On the Menu :: #{@restaurant.name}", false %>
+<div id="restaurant_profile_view" class="edit clear clearfix">
+    <%= render 'restaurants/restaurant_editing_header' %>
+
+    <div id="editing_restaurant">
+        <div id="menu_items_header">
+            <h2>On the Menu - New Item</h2>
+        </div>
+
+        <%= render :partial => "form" %>
+    </div><!-- /editing_restaurant -->
+</div><!-- /restaurant_profile_view -->

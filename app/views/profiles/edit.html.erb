@@ -318,6 +318,8 @@
 <% content_for :javascript do %>
 <script type="text/javascript">
 $(document).ready(function() {
+  var already_equalized = false;
+
   $('#profile-tabs').tabs({
     panelTemplate: '<section></section>',
     fx: { duration: 'fast', opacity: 'toggle' },

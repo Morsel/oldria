@@ -1,3 +1,12 @@
-<% title "Edit Promotion" %>
+<% title "Edit Newsfeed :: #{@restaurant.name}", false %>
+<div id="restaurant_profile_view" class="edit clear clearfix">
+    <%= render 'restaurants/restaurant_editing_header' %>
 
-<%= render :partial => "form", :locals => { :restaurant => @restaurant, :promotion => @promotion } %>
+    <div id="editing_restaurant">
+        <div id="menu_items_header">
+            <h2>Edit Newsfeed</h2>
+        </div>
+
+        <%= render :partial => "form", :locals => { :restaurant => @restaurant, :promotion => @promotion } %>
+    </div><!-- /editing_restaurant -->
+</div><!-- /restaurant_profile_view -->

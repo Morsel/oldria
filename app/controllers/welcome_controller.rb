@@ -22,7 +22,8 @@ class WelcomeController < ApplicationController
       redirect_to mediafeed_root_path and return if current_user.media?
 
       @user = current_user
-      @announcements   = current_user.unread_announcements.each { |announcement| announcement.read_by!(current_user) }
+      @announcements = current_user.unread_announcements
+      @announcements.each { |announcement| announcement.read_by!(current_user) }
       params[:is_more] ? set_up_dashboard_with_pagination : set_up_dashboard
       render :dashboard
     else
@@ -71,8 +72,9 @@ class WelcomeController < ApplicationController
                                                   :conditions => ["created_at > ?", 2.weeks.ago]).map(&:comments)
     answers = ProfileAnswer.all(:order => "created_at DESC",
                                 :conditions => ["created_at > ?", 2.weeks.ago])
+    menu_items = MenuItem.all(:order => "created_at DESC", :conditions => ["created_at > ?", 2.weeks.ago])
 
-    all_comments = [soapbox_comments, answers].flatten.sort { |a,b| b.created_at <=> a.created_at }
+    all_comments = [soapbox_comments, answers, menu_items].flatten.sort { |a,b| b.created_at <=> a.created_at }
 
     all_comments.slice!(0..(@per_page - 1)) #delete recent
 
@@ -85,7 +87,8 @@ class WelcomeController < ApplicationController
   def load_recent_comments
     soapbox_comments = SoapboxEntry.published.all(:limit => @per_page, :order => "published_at DESC").map(&:comments)
     answers = ProfileAnswer.all(:limit => @per_page, :order => "created_at DESC")
-    [soapbox_comments, answers].flatten.sort { |a,b| b.created_at <=> a.created_at }[0..(@per_page - 1)]
+    menu_items = MenuItem.all(:limit => @per_page, :order => "created_at DESC")
+    [soapbox_comments, answers, menu_items].flatten.sort { |a,b| b.created_at <=> a.created_at }[0..(@per_page - 1)]
   end
 
   def has_more?

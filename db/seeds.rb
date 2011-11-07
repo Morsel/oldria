@@ -5,7 +5,7 @@ def model_count_before_and_after(model, &block)
   total = model.count
   block.call
   new_count = model.count
-  number_added = total - new_count
+  number_added = (total - new_count).abs
   plural_model = model.table_name.humanize
   if number_added == 0
     puts "No new #{plural_model} loaded"
@@ -14,13 +14,26 @@ def model_count_before_and_after(model, &block)
   end
 end
 
-# == Set up Promotion Types ==
-model_count_before_and_after(PromotionType) do
-  promotion_types = YAML.load_file(@seedling_path + '/promotion_types.yml')['promotion_types']
-  promotion_types.each do |promotion_types|
-    PromotionType.find_or_create_by_name(promotion_types)
+# == Set up Menu Item Keywords
+model_count_before_and_after(OtmKeyword) do
+  rows = FasterCSV.read((@seedling_path + '/menu_item_keywords.csv'), :headers => true)
+  rows.each do |row|
+    row.each do |field|
+      unless field[1].nil?
+        keyword = OtmKeyword.find_or_initialize_by_name_and_category(field[1], field[0])
+        keyword.save!
+      end
+    end
   end
 end
+
+# == Set up Promotion Types ==
+# model_count_before_and_after(PromotionType) do
+#   promotion_types = YAML.load_file(@seedling_path + '/promotion_types.yml')['promotion_types']
+#   promotion_types.each do |promotion_types|
+#     PromotionType.find_or_create_by_name(promotion_types)
+#   end
+# end
 
 # == Set up Regions ==
 # model_count_before_and_after(JamesBeardRegion) do
