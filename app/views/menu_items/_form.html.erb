@@ -4,6 +4,10 @@
         <%= f.input :description %>
         <%= f.input :price, :hint => "Do not include the dollar sign ($)" %>
         <%= f.input :photo, :hint => "Large, high-resolution photos can take a little while to upload, so please be patient" %>
+        <% if @menu_item.photo_file_name.present? -%>
+        <p class="clearfix"><%= image_tag @menu_item.photo(:thumb) %></p>
+        <% end -%>
+
         <% unless @menu_item.new_record? -%>
         <h3>Current Keywords</h3>
         <p><%= @menu_item.keywords %></p>
