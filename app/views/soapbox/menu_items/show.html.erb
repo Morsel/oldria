@@ -1,6 +1,11 @@
 <% title "On the Menu" %>
 
-<% content_for(:fb_description, "FIXME put details here") %>
+<% content_for(:fb_description, truncate(@menu_item.description, :length => 200)) %>
+<% content_for :facebook_meta do -%>
+  <meta property="og:type" content="article"/>
+  <meta property="og:image" content="<%= @menu_item.photo_file_name.present? ? (request.protocol + request.host_with_port + image_path(@menu_item.photo(:medium))) : "http://soapbox.restaurantintelligenceagency.com/images/soapbox/logo-soapbox.png" %>"/>
+  <meta property="og:url" content="<%= soapbox_menu_item_url(@menu_item) %>"/>
+<% end -%>
 
 <% javascript_tag do %>
   var addthis_share = {
@@ -24,11 +29,11 @@
 
         <p><%= @menu_item.name %> <%= "(#{price(@menu_item.price)})" if @menu_item.price.present? %></p>
 
-        <h3>Keywords</h3>
+        <p><%= @menu_item.description %></p>
+
         <p><%= @menu_item.otm_keywords.map { |k| link_to k.name, soapbox_menu_items_path(:keyword => k.name) }.to_sentence %></p>
     </div>
     <div class="clear">
-        <%= @menu_item.description if @menu_item.description.present? %>
         <p><span class="datestamp"><%= "Posted #{@menu_item.created_at.strftime("%D")}" %></span></p>
     </div>
     <!-- Likes and Tweets BEGIN -->
