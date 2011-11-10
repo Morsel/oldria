@@ -1,14 +1,7 @@
 <% title "Personal Profile Directory" %>
-<%= link_to 'Switch to Restaurant Directory', correct_restaurant_directory_path, :class => "directory_switch" unless soapbox? %>
+<%= link_to 'Switch to Restaurant Directory', restaurant_directory_path, :class => "directory_switch" unless soapbox? %>
 
 <%= title_for_search %>
-
-<% if false %>
-<div class="clearfix">
-    <%= link_to "Search Users", directory_path %>
-    <%= link_to "Search Restaurants", restaurant_directory_path %>
-</div>
-<% end %>
 
 <% if @use_search %>
 <div id="directory_search">

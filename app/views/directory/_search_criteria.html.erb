@@ -1,40 +1,7 @@
+<% cache "#{soapbox? ? "public" : "private"}_search_criteria", :expires_in => 8.hours do %>
 <fieldset name="Find People" id="employment_criteria">
     <ol>
         <div id="criteria_accordion">
-            <div class="accordion_box">
-                <%= link_to "<span>Users</span>", "#" %>
-                <div id="user_fields" style="display:none;">
-                    <li id="search_id_equals_any_input" class="check_boxes optional">
-                        <fieldset>
-                            <ol>
-                                <% for user in users_for_search %>
-                                <li><label for="search_id_equals_any_<%= user.id %>">
-                                    <%= check_box_tag "search[id_equals_any][]", user.id, false, :id => "search_id_equals_any_#{user.id}" %>
-                                    <%= user.to_label %>
-                                </label></li>
-                                <% end %>
-                            </ol>
-                        </fieldset>
-                    </li>
-                </div>
-            </div>
-            <div class="accordion_box">
-                <%= link_to "<span>Restaurants</span>", "#" %>
-                <div id="restaurant_fields" style="display:none;">
-                    <li id="search_employments_restaurant_name_eq_any_input" class="check_boxes optional">
-                        <fieldset>
-                            <ol>
-                                <% for name in restaurant_names_for_search %>
-                                <li><label for="search_employments_restaurant_name_eq_any_<%= name %>">
-                                    <%= check_box_tag "search[employments_restaurant_name_eq_any][]", name, false, :id => "search_employments_restaurant_name_eq_any_#{name}" %>
-                                    <%= name %>
-                                </label></li>
-                                <% end %>
-                            </ol>
-                        </fieldset>
-                    </li>
-                </div>
-            </div>
             <div class="accordion_box">
                 <%= link_to "<span>Cuisine</span>", "#" %>
                 <div id="cuisine_fields" class="loading" style="display:none;">
@@ -123,3 +90,4 @@
         </div>
     </ol>
 </fieldset>
+<% end %>

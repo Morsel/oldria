@@ -1,16 +1,16 @@
 module DirectoryHelper
   
   def title_for_search
-    if @specialty
+    if @specialty.present?
       "<h2>Specialty: #{@specialty.name}</h2>"
-    elsif @cuisine
+    elsif @cuisine.present?
       "<h2>Cuisine: #{@cuisine.name}</h2>"
     end
   end
   
   def users_for_search
     opts = { :include => :restaurants }
-    if on_soapbox
+    @users_for_search ||= if on_soapbox
       User.in_soapbox_directory.all(opts)
     else
       User.in_spoonfeed_directory.all(opts)
@@ -18,7 +18,7 @@ module DirectoryHelper
   end
   
   def restaurants_for_search
-    users_for_search.map(&:restaurants).flatten.compact.uniq.sort_by(&:sort_name)
+    @restaurants_for_search ||= users_for_search.map(&:restaurants).flatten.compact.uniq.sort_by(&:sort_name)
   end
   
   def restaurant_names_for_search
@@ -44,14 +44,6 @@ module DirectoryHelper
   
   def metros_for_search
     (users_for_search.map(&:metropolitan_area) + restaurants_for_search.map(&:metropolitan_area)).flatten.compact.uniq.sort_by(&:name)
-  end
-  
-  def correct_restaurant_directory_path
-    soapbox? ? soapbox_restaurant_directory_path : restaurant_directory_path
-  end
-  
-  def correct_profile_directory_path
-    soapbox? ? soapbox_directory_path : directory_path
   end
   
   def correct_restaurant_path restaurant
