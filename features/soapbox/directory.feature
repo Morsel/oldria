@@ -41,7 +41,7 @@ Feature: Soapbox
     When I go to the soapbox directory page
     Then I should see "Aquavit"
     And I should see "Annalena"
-    When I check "Aquavit"
+    When I check "Executive Chef"
     Then I should see "Annalena" within "#user-results"
 
   Scenario: Viewing restaurants in the directory
