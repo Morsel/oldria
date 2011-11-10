@@ -76,7 +76,7 @@ module SoapboxHelper
     @alm_questions = ALaMinuteQuestion.most_recent_for_soapbox(4)
     @promotions = Promotion.from_premium_restaurants.recently_posted.all(:limit => 4)
     @btl_answers = ProfileAnswer.without_travel.from_premium_users.from_public_users.recently_answered.all(:limit => 5)
-    @menu_items = MenuItem.all(:limit => 4, :order => "created_at DESC")
+    @menu_items = MenuItem.from_premium_restaurants.all(:limit => 4, :order => "created_at DESC")
   end
 
   def recent_newsfeed
