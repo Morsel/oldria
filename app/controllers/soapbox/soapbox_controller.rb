@@ -16,8 +16,8 @@ class Soapbox::SoapboxController < ApplicationController
       @cuisine = Cuisine.find(params[:cuisine_id])
       @users = User.in_soapbox_directory.profile_cuisines_id_eq(params[:cuisine_id]).all(:order => "users.last_name").uniq
     else
-      directory_search_setup
       @use_search = true
+      @users = User.in_soapbox_directory.all(:order => "users.last_name")
     end
 
     @no_sidebar = true
