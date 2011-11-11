@@ -26,7 +26,7 @@
               <p>
                   <%= link_to "Edit A la Minute", bulk_edit_restaurant_a_la_minute_answers_path(:restaurant_id => employment.restaurant_id), :class => "restaurant-actions" %>&nbsp;&nbsp;&nbsp;
                   <%= link_to "Edit Newsfeed", new_restaurant_promotion_path(:restaurant_id => employment.restaurant_id), :class => "restaurant-actions" %>&nbsp;&nbsp;&nbsp;
-                  <%= link_to "Edit On the Menu", restaurant_menu_items_path(:restaurant_id => employment.restaurant_id), :class => "restaurant-actions" %>
+                  <%= link_to "New On the Menu", new_restaurant_menu_item_path(:restaurant_id => employment.restaurant_id), :class => "restaurant-actions" %>
               </p>
               <% else -%>
               <p><%= link_to "#{employment.restaurant_name}", employment.restaurant, :class => "restaurant" %></p>
