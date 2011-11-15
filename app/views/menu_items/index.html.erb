@@ -21,6 +21,9 @@
                 <dt>Price</dt>
                 <dd><%= price(menu_item.price) %></dd>
 
+                <dt>Pairing</dt>
+                <dd><%= menu_item.pairing %></dd>
+
                 <% if menu_item.photo_file_name.present? -%>
                 <dt>Photo</dt>
                 <dd><%= image_tag menu_item.photo(:thumb) %></dd>
