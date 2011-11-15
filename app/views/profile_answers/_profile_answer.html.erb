@@ -1,0 +1,16 @@
+<% div_for profile_answer do %>
+    <div class="activity_header">
+        <h3>Behind the Line</h3>
+        <p class="topic">
+            <%= "#{profile_answer.profile_question.chapter.title_with_topic}: #{profile_answer.profile_question.title}" %>
+        </p>
+    </div>
+    <div class="user_comment">
+        <%= render :partial => "users/identity", :locals => { :user => profile_answer.user } if profile_answer.user %>
+        <div class="user_comment"><%= truncate(profile_answer.answer, :length => 200) %>
+            <% if profile_answer.answer.size > 200 -%>
+                  <%= link_to "more &raquo;", user_questions_path(:user_id => profile_answer.user.id, :chapter_id => profile_answer.profile_question.chapter.id, :anchor => "profile_question_#{profile_answer.profile_question.id}") %>
+            <%- end %>
+        </div>
+    </div>
+<% end %>

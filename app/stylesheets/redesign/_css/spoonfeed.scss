@@ -2017,13 +2017,13 @@ form, #page_content form{
 	}
 } 	
 
-/*#profile-account {
+#profile-account.equal-height {
   float: right;
   width: 213px;
   margin-left: 15px;
   padding-left: 15px;
   border-left: 1px dotted #ddd;
-}*/
+}
 /* ## end #profile_account + #profile-summary ----------------------- */
 
 #profile-btl {
@@ -2506,7 +2506,7 @@ p.search_filter_hint {
 		font-size: 13px;
 		line-height: 20px;
 	}
-	.profile_answer > .user_comment, .menu_item > .user_comment {
+	.profile_answer > .user_comment, .menu_item > .user_comment, .promotion > .user_comment, .a_la_minute_answer > .user_comment {
 		margin-left: 313px;
 		padding: 0px 0px 10px;
 	}
@@ -2527,7 +2527,7 @@ p.search_filter_hint {
 			background: none;
 		}
 	}
-	.admin_conversation, .admin_discussion, .profile_answer, .solo_discussion, .menu_item {
+	.admin_conversation, .admin_discussion, .profile_answer, .solo_discussion, .menu_item, .promotion, .a_la_minute_answer {
 		overflow: hidden;
 		background: transparent url(/images/redesign/bg-hp-left.png) no-repeat;
 		margin-bottom: 8px;

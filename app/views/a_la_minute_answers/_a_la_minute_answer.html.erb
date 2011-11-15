@@ -1,0 +1,17 @@
+<% div_for a_la_minute_answer do %>
+    <div class="activity_header">
+        <h3>A la Minute</h3>
+        <p class="name">
+            <%= a_la_minute_answer.question %>
+        </p>
+    </div>
+    <div class="user_comment">
+        <%= render :partial => 'restaurants/identity', :locals => { :restaurant => a_la_minute_answer.responder } %>
+        <div class="user_comment">
+            <%= truncate(a_la_minute_answer.answer, :length => 200) %>
+            <%# if comment.comment.size > 200 -%>
+            <%#= link_to "more &raquo;", soapbox_soapbox_entry_path(a_la_minute_answer.soapbox_entry, :anchor => "comment_#{comment.id}") %>
+            <%#- end %>
+        </div>
+    </div>
+<% end %>

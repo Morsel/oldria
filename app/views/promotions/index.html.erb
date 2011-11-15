@@ -1,12 +1,12 @@
 <% title "Newsfeed: #{@restaurant.name}" %>
 
 <div id="promotion_archive">
-    <%= render :partial => "promotion", :collection => @promotions %>
+    <%= render :partial => "promotion_archive_item", :collection => @promotions %>
     
     <% if @past_promotions.present? -%>
     <div id="past">
         <h2>Past News</h2>
-        <%= render :partial => "promotion", :collection => @past_promotions %>
+        <%= render :partial => "promotion_archive_item", :collection => @past_promotions %>
     </div>
     <% end -%>
 </div>
