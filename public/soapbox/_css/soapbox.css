@@ -4089,27 +4089,31 @@ dl.things dt:after {
   font-size: 110%;
 }
 /* line 3007, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+.promotion .datestamp {
+  color: #ccc;
+}
+/* line 3010, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
 .promotion .sharing {
   margin-top: 10px;
 }
-/* line 3009, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+/* line 3012, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
 .promotion .sharing .fb_iframe_widget {
   top: -3px;
 }
 
-/* line 3015, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+/* line 3018, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
 .menu_item {
   clear: both;
 }
-/* line 3017, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+/* line 3020, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
 .menu_item .identity {
   border: none !important;
 }
-/* line 3020, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+/* line 3023, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
 .menu_item .datestamp {
   color: #ccc;
 }
-/* line 3023, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+/* line 3026, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
 .menu_item p.keywords {
   margin-top: 15px;
 }
