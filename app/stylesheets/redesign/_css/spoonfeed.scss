@@ -3232,6 +3232,9 @@ p.search_filter_hint {
 					}
 				}
 			}
+      .datestamp {
+        color: #ccc;
+      }
 		}
 	}
 } /* end of #behindline ----------------------------- */
@@ -4708,6 +4711,9 @@ aside.dashboard_actions {
   .promotion {
     margin-bottom: 15px;
     border-bottom: 1px solid #ccc;
+    .datestamp {
+      color: #ccc;
+    }
   }
   #past {
     h2 {
@@ -4716,6 +4722,9 @@ aside.dashboard_actions {
     .promotion {
       @include linear-gradient(color-stops(#fff,#ddd), top);
       padding: 0 10px;
+      .datestamp {
+        color: #000;
+      }
     }
   }
 }
