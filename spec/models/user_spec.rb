@@ -135,9 +135,8 @@ describe User do
   context "twitter and oauth" do
     before(:each) do
       @user = User.new(:atoken => 'atoken', :asecret => 'asecret')
-      @twitter_oauth = TwitterOAuth::Client.new(:consumer_key => 'key', :consumer_secret => 'secret')
-      @user.stubs(:twitter_oauth).returns(@twitter_oauth)
-      @user.stubs(:twitter_client).returns(@twitter_oauth)
+      @twitter_client = Twitter::Client.new
+      @user.stubs(:twitter_client).returns(@twitter_client)
       @tweet = JSON.parse( File.new(File.dirname(__FILE__) + '/../fixtures/twitter_update.json').read )
     end
 
@@ -146,22 +145,22 @@ describe User do
     end
 
     it "should retrieve friend requests" do
-      @twitter_oauth.stubs(:friends_timeline).returns(@tweet)
+      @twitter_client.stubs(:friends_timeline).returns(@tweet)
       @user.twitter_client.friends_timeline.first['text'].should eql("Best American flag etiquette video series I've seen all month!  http://bit.ly/eiOZe")
     end
 
     it "should find twitter username when it's available" do
-      @twitter_oauth.stubs(:user).returns([{'user' => {'screen_name' => 'twitter_username'}}])
+      @twitter_client.stubs(:user).returns({'screen_name' => 'twitter_username'})
       @user.twitter_username.should == "twitter_username"
     end
 
     it "should return nil when twitter username isn't available" do
-      @twitter_oauth.stubs(:user).returns(nil)
+      @twitter_client.stubs(:user).returns(nil)
       @user.twitter_username.should be_nil
     end
 
     it "should return nil when twitter returns blank" do
-      @twitter_oauth.stubs(:user).returns([])
+      @twitter_client.stubs(:user).returns([])
       @user.twitter_username.should be_nil
     end
   end

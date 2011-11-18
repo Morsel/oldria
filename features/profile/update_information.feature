@@ -54,7 +54,7 @@ Feature: Update information
     When I follow "My Profile"
     And I follow "Account"
     And I follow "Disconnect Twitter"
-    Then I should see "Your Twitter Account was disassociated with your SpoonFeed Account"
+    Then I should see "Your Twitter account is no longer connected to your SpoonFeed account"
     And "sammy" should not have Twitter linked to his account
     And I should not see "Remove Twitter Information"
 
