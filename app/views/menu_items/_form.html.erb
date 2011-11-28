@@ -37,8 +37,8 @@
             <% end %>
         </section>
 
-        <% if @menu_item.new_record? -%>
-        <%= f.input :post_to_twitter, :as => "boolean" %>
+        <% if @menu_item.new_record? && current_user.twitter_authorized? -%>
+        <%= f.input :post_to_twitter, :as => "boolean", :input_html => { :checked => "checked" } %>
         <%= f.input :user_id, :as => "hidden", :value => current_user.id %>
         <% end -%>
     <% end %>
