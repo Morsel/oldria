@@ -19,6 +19,10 @@
 
 class MenuItem < ActiveRecord::Base
 
+  include ActionView::Helpers::TextHelper
+  include ActionController::UrlWriter
+  default_url_options[:host] = 'spoonfeed.restaurantintelligenceagency.com' #DEFAULT_HOST
+
   belongs_to :restaurant
 
   has_many :menu_item_keywords, :dependent => :destroy
@@ -40,12 +44,24 @@ class MenuItem < ActiveRecord::Base
           Date.today] }
   }
 
+  attr_accessor :post_to_twitter
+  attr_accessor :user_id
+  after_create :crosspost
+
   def keywords
     otm_keywords.map { |k| "#{k.category}: #{k.name}" }.to_sentence
   end
 
   def keywords_without_categories
     otm_keywords.map { |k| "#{k.name}" }.to_sentence
+  end
+
+  private
+
+  def crosspost
+    if post_to_twitter == "1"
+      User.find(user_id).twitter_client.update("#{truncate(name, :length => 100)} #{soapbox_menu_item_url(self)}")
+    end
   end
 
 end

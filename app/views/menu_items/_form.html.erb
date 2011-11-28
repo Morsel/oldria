@@ -36,6 +36,11 @@
             </section>
             <% end %>
         </section>
+
+        <% if @menu_item.new_record? -%>
+        <%= f.input :post_to_twitter, :as => "boolean" %>
+        <%= f.input :user_id, :as => "hidden", :value => current_user.id %>
+        <% end -%>
     <% end %>
 
     <p class="inline-hints">

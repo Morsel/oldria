@@ -20,7 +20,7 @@ module TwitterAuthorization
     def twitter_oauth
       @twitter_oauth ||= OAuth::Consumer.new(TWITTER_CONFIG['token'],
                                              TWITTER_CONFIG['secret'],
-                                             :site => "https://api.twitter.com/")
+                                             :site => "https://api.twitter.com")
     end
 
     def twitter_client

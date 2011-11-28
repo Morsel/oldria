@@ -32,7 +32,7 @@
                 <dt>Keywords</dt>
                 <dd><%= menu_item.keywords %></dd>
             </dl>
-            <p><%= link_to "edit", edit_restaurant_menu_item_path(@restaurant, menu_item) %> | <%= link_to "delete", restaurant_menu_item_path(@restaurant, menu_item), :method => "delete" %></p>
+            <p><%= link_to "edit", edit_restaurant_menu_item_path(@restaurant, menu_item) %> | <%= link_to "delete", restaurant_menu_item_path(@restaurant, menu_item), :method => "delete", :confirm => "Are you sure you want to delete this?" %></p>
             <% end -%>
         </div>
     </div><!-- /editing_restaurant -->
