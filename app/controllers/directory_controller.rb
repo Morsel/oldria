@@ -10,7 +10,7 @@ class DirectoryController < ApplicationController
       @users = User.profile_cuisines_id_eq(params[:cuisine_id]).all(:order => "users.last_name").uniq
     else
       @use_search = true
-      directory_search_setup
+      @users = User.in_spoonfeed_directory.all(:order => "users.last_name")
     end
   end
 

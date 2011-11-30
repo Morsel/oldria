@@ -8,10 +8,11 @@ Feature: On the Menu
     And I am logged in as "bland"
     Given a menu item keyword "farm-to-table" with category "Other"
 
-  Scenario: Managers can access the OTM form
+  Scenario: Managers can access the OTM page
     When I go to my restaurants page
-    And I follow "Edit On the Menu"
-    Then I should see "On the Menu"
+    And I follow "Edit Country Dog"
+    And I follow "On the Menu"
+    Then I should see "Add a new item"
 
   Scenario: Managers can enter an OTM item
     When I go to the new on the menu page for "Country Dog"
@@ -22,12 +23,21 @@ Feature: On the Menu
     And I press "Save"
     Then I should see "saved"
     
-  Scenario: Other users can't access the OTM area
+  Scenario: Other users can't access the private OTM area
     Given the following confirmed user:
       | name       | username |
       | Marko Tony | mtony    |
     And I am logged in as "mtony"
     And I am an employee of "Country Dog" with role "Chef"
     When I go to the new on the menu page for "Country Dog"
-    Then I should not see "On the Menu"
+    Then I should not see "On the Menu - New Item"
     And I should see "You don't have permission to access that page"
+
+  Scenario: Other users can access the public OTM area
+    Given the following confirmed user:
+      | name       | username |
+      | Marko Tony | mtony    |
+    And I am logged in as "mtony"
+    And I am an employee of "Country Dog" with role "Chef"
+    When I go to the On the Menu page for "Country Dog"
+    Then I should see "On the Menu"

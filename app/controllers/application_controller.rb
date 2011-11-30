@@ -246,41 +246,35 @@ class ApplicationController < ActionController::Base
 
   # Directory (profile) search
   def directory_search_setup
-    if params.has_key?(:search)
-      # Restaurants should be searched too, and the results combined
-      extra_params = {}
-      if params[:search].has_key?(:profile_cuisines_id_eq_any)
-        extra_params[:restaurants_cuisine_id_eq_any] = params[:search][:profile_cuisines_id_eq_any]
-      end
-      if params[:search].has_key?(:profile_james_beard_region_id_eq_any)
-        extra_params[:restaurants_james_beard_region_id_eq_any] = params[:search][:profile_james_beard_region_id_eq_any]
-      end
-      if params[:search].has_key?(:profile_metropolitan_area_id_eq_any)
-        extra_params[:restaurants_metropolitan_area_id_eq_any] = params[:search][:profile_metropolitan_area_id_eq_any]
-      end
-
-      users_to_search = soapbox? ? User.in_soapbox_directory : users_to_search = User.in_spoonfeed_directory
-      search = users_to_search.search(params[:search])
-
-      if extra_params.present?
-        # Restaurant-related search should filter out people w/o matching specialties or roles
-        if params[:search].has_key?(:profile_specialties_id_eq_any)
-          extra_params[:profile_specialties_id_eq_any] = params[:search][:profile_specialties_id_eq_any]
-        end
-
-        extra_search = users_to_search.search(extra_params)
-        roles = params[:search][:all_employments_restaurant_role_id_eq_any]
-        extra_search_results = extra_search.all(:conditions => ["employments.restaurant_role_id IN (?)", roles])
-      end
-
-      @users = [search.all, extra_search_results].flatten.compact.uniq.sort { |a,b|
-        a.last_name.downcase <=> b.last_name.downcase
-      }
-    else # No search params
-      @users = soapbox? ?
-          User.in_soapbox_directory.all(:order => :last_name) :
-          User.in_spoonfeed_directory.all(:order => :last_name)
+    # Restaurants should be searched too, and the results combined
+    extra_params = {}
+    if params[:search].has_key?(:profile_cuisines_id_eq_any)
+      extra_params[:restaurants_cuisine_id_eq_any] = params[:search][:profile_cuisines_id_eq_any]
     end
+    if params[:search].has_key?(:profile_james_beard_region_id_eq_any)
+      extra_params[:restaurants_james_beard_region_id_eq_any] = params[:search][:profile_james_beard_region_id_eq_any]
+    end
+    if params[:search].has_key?(:profile_metropolitan_area_id_eq_any)
+      extra_params[:restaurants_metropolitan_area_id_eq_any] = params[:search][:profile_metropolitan_area_id_eq_any]
+    end
+
+    users_to_search = soapbox? ? User.in_soapbox_directory : User.in_spoonfeed_directory
+    search = users_to_search.search(params[:search])
+
+    if extra_params.present?
+      # Restaurant-related search should filter out people w/o matching specialties or roles
+      if params[:search].has_key?(:profile_specialties_id_eq_any)
+        extra_params[:profile_specialties_id_eq_any] = params[:search][:profile_specialties_id_eq_any]
+      end
+
+      extra_search = users_to_search.search(extra_params)
+      roles = params[:search][:all_employments_restaurant_role_id_eq_any]
+      extra_search_results = extra_search.all(:conditions => ["employments.restaurant_role_id IN (?)", roles])
+    end
+
+    @users = [search.all, extra_search_results].flatten.compact.uniq.sort { |a,b|
+      a.last_name.downcase <=> b.last_name.downcase
+    }
   end
   
 end

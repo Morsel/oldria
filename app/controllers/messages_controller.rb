@@ -12,7 +12,7 @@ class MessagesController < ApplicationController
   ##
   # GET /messages/ria
   def ria
-    @messages = archived_view? ? current_user.all_messages : current_user.messages_from_ria
+    @messages = archived_view? ? current_user.all_messages_from_ria : current_user.messages_from_ria
   end
 
   ##

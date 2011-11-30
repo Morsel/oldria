@@ -1,3 +1,4 @@
+<% cache "#{soapbox? ? "public" : "private"}_search_criteria", :expires_in => 8.hours do %>
 <fieldset name="Find People" id="employment_criteria">
     <ol>
         <div id="criteria_accordion">
@@ -89,3 +90,4 @@
         </div>
     </ol>
 </fieldset>
+<% end %>

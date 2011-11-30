@@ -55,4 +55,11 @@ class Promotion < ActiveRecord::Base
     end_date.nil? ? start_date >= Date.today : end_date >= Date.today
   end
 
+  def date_text
+    text = start_date.to_formatted_s(:long)
+    text << "- #{end_date.to_formatted_s(:long)}" if end_date.present?
+    text << "- #{date_description}" if date_description.present?
+    return text
+  end
+
 end

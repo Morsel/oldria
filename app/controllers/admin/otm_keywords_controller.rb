@@ -1,7 +1,7 @@
 class Admin::OtmKeywordsController < Admin::AdminController
 
   def index
-    @categories = OtmKeyword.all.group_by(&:category)
+    @categories = OtmKeyword.all(:order => "category ASC, name ASC").group_by(&:category)
   end
 
   def new

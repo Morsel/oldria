@@ -1,4 +1,4 @@
-class Admin::MetropolitanAreasController < ApplicationController
+class Admin::MetropolitanAreasController < Admin::AdminController
   
   def index
     @metros = MetropolitanArea.all
@@ -27,6 +27,13 @@ class Admin::MetropolitanAreasController < ApplicationController
     @metro.update_attributes(params[:metropolitan_area])
     flash[:notice] = "Updated #{@metro.name}"
     redirect_to :action => "index"
+  end
+
+  def destroy
+    @metro = MetropolitanArea.find(params[:id])
+    @metro.destroy
+    flash[:notice] = "Deleted #{@metro.name}"
+    redirect_to :action => "index"    
   end
 
 end

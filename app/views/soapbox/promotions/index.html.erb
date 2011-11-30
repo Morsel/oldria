@@ -32,14 +32,13 @@
         <p class="details"><%= promotion.details %></p>
         <p><%= link_to promotion.link, promotion.link %></p>
         <p><%= promotion.date_description %></p>
+        <p><span class="datestamp"><%= "Posted #{promotion.created_at.strftime("%D")}" %></span></p>
     </div>
     <div class="clear">&nbsp;</div>
 <% end %>
 <% end -%>
 
-<% unless params[:view_all] == "true" -%>
-<p><%= link_to "View archived news &rarr;", soapbox_promotions_path(params.merge(:view_all => "true")) %></p>
-<% end -%>
+<%= will_paginate(@promotions) %>
 
 <% content_for :sidebar do -%>
 <%= render :partial => 'sidebar' %>

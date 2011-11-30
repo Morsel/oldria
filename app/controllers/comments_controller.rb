@@ -86,8 +86,12 @@ class CommentsController < ApplicationController
   def redirect_after_save
     if mediafeed?
       redirect_to mediafeed_discussion_path(@parent.media_request, @parent.class.name.pluralize.underscore.downcase, @parent)
-    elsif front_burner_content && !current_user.admin?
-      redirect_to front_burner_path(:post_to_facebook => @comment.post_to_facebook, :comment_id => @comment.id)
+    elsif front_burner_content
+      if current_user.admin?
+        redirect_to edit_user_profile_path(:user_id => @comment.user.id, :anchor => "profile-front-burner")
+      else
+        redirect_to front_burner_path(:post_to_facebook => @comment.post_to_facebook, :comment_id => @comment.id)
+      end
     else
       redirect_to @parent
     end

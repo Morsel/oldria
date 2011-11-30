@@ -3,24 +3,19 @@ class TwitterAuthorizationsController < ApplicationController
 
   def new
     clear_request_tokens
-    oauth_client = current_user.twitter_oauth
-    request_token = oauth_client.request_token(:oauth_callback => TWITTER_CONFIG['callbackurl'])
-    session['rsecret'] = request_token.secret
-    session['rtoken'] = request_token.token
 
-    redirect_to request_token.authorize_url
+    oauth_client = current_user.twitter_oauth
+    request_token = oauth_client.get_request_token(:oauth_callback => TWITTER_CONFIG['callbackurl'])
+    session[:request_token] = request_token
+
+    redirect_to request_token.authorize_url(:oauth_callback => TWITTER_CONFIG['callbackurl'])
   end
 
   def show
     begin
-      twitter_oauth = current_user.twitter_oauth
-      access_token = twitter_oauth.authorize(
-        session['rtoken'],
-        session['rsecret'],
-        :oauth_verifier => params[:oauth_verifier]
-      )
+      access_token = session[:request_token].get_access_token
 
-      if current_user.update_attributes({:atoken => access_token.token, :asecret => access_token.secret})
+      if current_user.update_attributes(:atoken => access_token.token, :asecret => access_token.secret)
         clear_request_tokens
         flash[:notice] = "Cool. Your Twitter account was successfully linked to SpoonFeed."
       end
@@ -29,13 +24,12 @@ class TwitterAuthorizationsController < ApplicationController
       flash[:error] = "Hmm, something went wrong. We'll sent our worker bees in to find out why."
     end
 
-    redirect_to root_path
+    redirect_to edit_user_profile_path(current_user)
   end
 
   private
 
   def clear_request_tokens
-    session['rtoken'] = nil
-    session['rsecret'] = nil
+    session[:request_token] = nil
   end
 end

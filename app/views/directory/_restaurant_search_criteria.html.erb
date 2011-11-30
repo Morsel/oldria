@@ -1,27 +1,8 @@
+<% cache "#{soapbox? ? "public" : "private"}_restaurant_search_criteria", :expires_in => 8.hours do %>
 <fieldset name="Find Restaurants" id="restaurant_criteria">
     <h3>Filter Your Search</h3>
     <ol>
         <div id="criteria_accordion">
-            <div class="accordion_box">
-                <%= link_to "<span>Restaurants</span>", "#" %>
-                <div id="restaurant_fields" style="display:none;">
-                    <li id="id_eq_any_input" class="check_boxes optional">
-                        <fieldset>
-                            <legend class="label">
-                                <label for="id_eq_any">Restaurant id equals any</label>
-                            </legend>
-                            <ol>
-                                <% for restaurant in restaurants = (on_soapbox ? Restaurant.with_premium_account : Restaurant.all) %>
-                                <li><label for="id_eq_any_<%= restaurant.id %>">
-                                    <%= check_box_tag "search[id_eq_any][]", restaurant.id, false, :id => "id_eq_any_#{restaurant.id}" %>
-                                    <%= restaurant.try(:name) %>
-                                </label></li>
-                                <% end %>
-                            </ol>
-                        </fieldset>
-                    </li>
-                </div>
-            </div>
             <div class="accordion_box">
                 <%= link_to "<span>Cuisine</span>", "#" %>
                 <div id="cuisine_fields" class="loading" style="display:none;">
@@ -31,7 +12,7 @@
                                 <label for="search_cuisine_id_eq_any">Cuisine id equals any</label>
                             </legend>
                             <ol>
-                                <% for cuisine in restaurants.map(&:cuisine).flatten.compact.uniq.sort_by(&:name) %>
+                                <% for cuisine in all_restaurants_for_search.map(&:cuisine).flatten.compact.uniq.sort_by(&:name) %>
                                 <li><label for="search_cuisine_id_eq_any_<%= cuisine.id %>">
                                     <%= check_box_tag "search[cuisine_id_eq_any][]", cuisine.id, false, :id => "search_cuisine_id_eq_any_#{cuisine.id}" %>
                                     <%= cuisine.name %>
@@ -51,7 +32,7 @@
                                 <label for="search_james_beard_region_id_eq_any">Region id equals any</label>
                             </legend>
                             <ol>
-                                <% for region in restaurants.map(&:james_beard_region).flatten.compact.uniq.sort_by(&:name) %>
+                                <% for region in all_restaurants_for_search.map(&:james_beard_region).flatten.compact.uniq.sort_by(&:name) %>
                                 <li><label for="search_james_beard_region_id_eq_any_<%= region.id %>">
                                     <%= check_box_tag "search[james_beard_region_id_eq_any][]", region.id, false, :id => "search_james_beard_region_id_eq_any_#{region.id}" %>
                                     <%= region.to_label %>
@@ -71,7 +52,7 @@
                                 <label for="search_metropolitan_area_id_eq_any">Metro area id equals any</label>
                             </legend>
                             <ol>
-                                <% for metro in restaurants.map(&:metropolitan_area).flatten.compact.uniq.sort_by(&:name) %>
+                                <% for metro in all_restaurants_for_search.map(&:metropolitan_area).flatten.compact.uniq.sort_by(&:name) %>
                                 <li><label for="search_metropolitan_area_id_eq_any_<%= metro.id %>">
                                     <%= check_box_tag "search[metropolitan_area_id_eq_any][]", metro.id, false, :id => "search_metropolitan_area_id_eq_any_#{metro.id}" %>
                                     <%= metro.city_and_state %>
@@ -91,10 +72,10 @@
                                 <label for="search_menu_items_otm_keywords_id_eq_any">Menu items otm keywords id equals any</label>
                             </legend>
                             <ol>
-                                <% for keyword in restaurants.map(&:menu_items).flatten.map(&:otm_keywords).flatten.uniq %>
+                                <% for keyword in all_restaurants_for_search.map(&:menu_items).flatten.map(&:otm_keywords).flatten.uniq %>
                                 <li><label for="search_menu_items_otm_keywords_id_eq_any_<%= keyword.id %>">
                                     <%= check_box_tag "search[menu_items_otm_keywords_id_eq_any][]", keyword.id, false, :id => "search_menu_items_otm_keywords_id_eq_any_#{keyword.id}" %>
-                                    <%= keyword.to_label %>
+                                    <%= keyword.name_with_category %>
                                 </label></li>
                                 <% end %>
                             </ol>
@@ -105,3 +86,4 @@
         </div>
     </ol>
 </fieldset>
+<% end %>
