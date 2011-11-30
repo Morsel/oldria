@@ -44,8 +44,7 @@ class MenuItem < ActiveRecord::Base
           Date.today] }
   }
 
-  attr_accessor :post_to_twitter
-  attr_accessor :user_id
+  attr_accessor :post_to_twitter, :post_to_facebook_page, :user_id
   after_create :crosspost
 
   def keywords
@@ -60,7 +59,15 @@ class MenuItem < ActiveRecord::Base
 
   def crosspost
     if post_to_twitter == "1"
-      User.find(user_id).twitter_client.update("#{truncate(name, :length => 100)} #{soapbox_menu_item_url(self)}")
+      User.find(user_id).twitter_client.send_later(:update, "#{truncate(name, :length => 100)} #{soapbox_menu_item_url(self)}")
+    end
+    if post_to_facebook_page == "1"
+      post_attributes = { :message     => "New on the menu: #{name}",
+                          :link        => soapbox_menu_item_url(self),
+                          :name        => name,
+                          :description => description }
+      post_attributes.merge(:picture => "http://#{DEFAULT_HOST}#{self.photo.url}") if self.photo_file_name.present?
+      User.find(user_id).send_later(:post_to_facebook_page, post_attributes)
     end
   end
 
