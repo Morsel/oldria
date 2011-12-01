@@ -3711,9 +3711,13 @@ dl.things dt:after {
 #behindline ul li a:hover h5 .completeness, #newsfeed.recent_actions ul li a:hover h5 .completeness, #on_the_menu.recent_actions ul li a:hover h5 .completeness {
   color: #333;
 }
+/* line 2705, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+#behindline ul li .datestamp, #newsfeed.recent_actions ul li .datestamp, #on_the_menu.recent_actions ul li .datestamp {
+  color: #ccc;
+}
 
 /* end of #behindline ----------------------------- */
-/* line 2711, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+/* line 2714, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
 #page_content h1#btl-title, #page-content h1#btl-title,
 #page-content h3#btl-title {
   color: #666;
@@ -3723,13 +3727,13 @@ dl.things dt:after {
   margin: 0 0 10px;
   border-bottom: 1px solid #ccc;
 }
-/* line 2718, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+/* line 2721, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
 #page_content h1#btl-title a, #page-content h1#btl-title a,
 #page-content h3#btl-title a {
   color: white !important;
   text-decoration: none;
 }
-/* line 2722, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+/* line 2725, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
 #page_content h1#btl-title span.btl-art, #page-content h1#btl-title span.btl-art,
 #page-content h3#btl-title span.btl-art {
   display: block;
@@ -3740,7 +3744,7 @@ dl.things dt:after {
   width: 123px;
   height: 19px;
 }
-/* line 2729, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+/* line 2732, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
 #page_content h1#btl-title span.presskit-art, #page-content h1#btl-title span.presskit-art,
 #page-content h3#btl-title span.presskit-art {
   display: block;
@@ -3751,7 +3755,7 @@ dl.things dt:after {
   width: 132px;
   height: 19px;
 }
-/* line 2736, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+/* line 2739, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
 #page_content h1#btl-title.btl, #page-content h1#btl-title.btl,
 #page-content h3#btl-title.btl {
   overflow: hidden;
@@ -3763,34 +3767,34 @@ dl.things dt:after {
   color: #fff;
   background: #d9531e url(/images/redesign/red-divot.gif) no-repeat right;
 }
-/* line 2745, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+/* line 2748, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
 #page_content h1#btl-title.btl span, #page-content h1#btl-title.btl span,
 #page-content h3#btl-title.btl span {
   float: left;
   margin: 0 5px 0 0;
 }
-/* line 2748, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+/* line 2751, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
 #page_content h1#btl-title.btl span.btl-art, #page-content h1#btl-title.btl span.btl-art,
 #page-content h3#btl-title.btl span.btl-art {
   background: url(/images/redesign/btl-white.png) no-repeat left;
 }
-/* line 2751, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+/* line 2754, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
 #page_content h1#btl-title.btl span.presskit-art, #page-content h1#btl-title.btl span.presskit-art,
 #page-content h3#btl-title.btl span.presskit-art {
   background: url(/images/redesign/onlinepresskit-white.png) no-repeat left;
 }
-/* line 2754, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+/* line 2757, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
 #page_content h1#btl-title.btl span.name, #page-content h1#btl-title.btl span.name,
 #page-content h3#btl-title.btl span.name {
   padding-top: 1px;
 }
 
-/* line 2761, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+/* line 2764, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
 #search-title {
   overflow: hidden;
   height: 90px;
 }
-/* line 2764, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+/* line 2767, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
 #search-title h1 {
   float: left;
   width: 152px;
@@ -3804,13 +3808,13 @@ dl.things dt:after {
   font-size: 40px;
   text-shadow: 0 2px 0 #333;
 }
-/* line 2775, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+/* line 2778, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
 #search-title #question-search-form {
   float: left;
   margin: 20px 0 0 20px;
   padding: 0;
 }
-/* line 2779, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+/* line 2782, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
 #search-title #question-search-form #query {
   width: 300px;
   height: 34px;
@@ -3829,7 +3833,7 @@ dl.things dt:after {
   background-repeat: no-repeat;
   background-position: 6px 10px;
 }
-/* line 2792, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+/* line 2795, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
 #search-title #question-search-form .positive {
   background-color: #474f80;
   font-family: 'MuseoSlab700', 'Helvetica Neue', Helvetica, arial, sans-serif;
@@ -3846,17 +3850,17 @@ dl.things dt:after {
   color: #fff;
   padding: 6px 12px;
 }
-/* line 2800, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+/* line 2803, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
 #search-title #question-search-form .positive:hover {
   background-color: #72b4d2;
 }
 
-/* line 2807, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+/* line 2810, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
 .soapbox-search-results {
   min-height: 400px;
 }
 
-/* line 2811, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+/* line 2814, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
 #page-content a.directory_switch {
   position: absolute;
   top: 200px;
@@ -3878,7 +3882,7 @@ dl.things dt:after {
   font-size: 13px;
   font-family: 'helvetica neue', helvetica, arial, sans-serif;
 }
-/* line 2826, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+/* line 2829, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
 #page-content a.directory_switch:hover {
   background-color: #cb4827;
   text-decoration: none;
@@ -3886,22 +3890,22 @@ dl.things dt:after {
   text-shadow: 0 1px 0 #333;
 }
 
-/* line 2834, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+/* line 2837, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
 #page-content .search-results {
   overflow: hidden;
   margin-bottom: 50px;
 }
-/* line 2837, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+/* line 2840, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
 #page-content .search-results #questions-list {
   margin: 0 0 100px;
   padding: 0 16px;
   width: 900px;
 }
-/* line 2841, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+/* line 2844, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
 #page-content .search-results #questions-list .subtitle {
   width: 900px;
 }
-/* line 2843, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+/* line 2846, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
 #page-content .search-results #questions-list .subtitle h1 {
   font-size: 16px;
   color: #888;
@@ -3909,36 +3913,36 @@ dl.things dt:after {
   margin: 0;
   padding: 0;
 }
-/* line 2850, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+/* line 2853, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
 #page-content .search-results #questions-list .subtitle time {
   border: 0;
   background: #f7f6f4;
   padding-bottom: 4px;
 }
-/* line 2854, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+/* line 2857, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
 #page-content .search-results #questions-list .subtitle time span {
   background: #cb4827;
   margin: 0 0 3px;
 }
-/* line 2859, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+/* line 2862, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
 #page-content .search-results #questions-list .subtitle ul {
   display: block;
   margin: 0 0 30px;
   padding: 0;
 }
-/* line 2863, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+/* line 2866, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
 #page-content .search-results #questions-list .subtitle ul li {
   display: block;
   margin: 0;
   padding: 0;
   border-bottom: 1px dotted #ddd;
 }
-/* line 2868, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+/* line 2871, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
 #page-content .search-results #questions-list .subtitle ul li a {
   display: block;
   margin: 4px 0;
 }
-/* line 2871, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+/* line 2874, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
 #page-content .search-results #questions-list .subtitle ul li a .title {
   width: 600px;
   display: block;
@@ -3950,11 +3954,11 @@ dl.things dt:after {
   margin-bottom: 5px;
   clear: right;
 }
-/* line 2881, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+/* line 2884, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
 #page-content .search-results #questions-list .subtitle ul li a .title strong {
   color: #cb4827;
 }
-/* line 2885, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+/* line 2888, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
 #page-content .search-results #questions-list .subtitle ul li a .user-answer {
   display: block;
   clear: both;
@@ -3962,7 +3966,7 @@ dl.things dt:after {
   padding: 5px;
   margin: 5px 0 0;
 }
-/* line 2891, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+/* line 2894, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
 #page-content .search-results #questions-list .subtitle ul li a .user-answer .avatar {
   float: left;
   display: inline;
@@ -3970,7 +3974,7 @@ dl.things dt:after {
   height: 50px;
   padding: 0;
 }
-/* line 2897, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+/* line 2900, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
 #page-content .search-results #questions-list .subtitle ul li a .user-answer .avatar img {
   margin: 0;
   background-color: #f1eee9;
@@ -3978,7 +3982,7 @@ dl.things dt:after {
   outline: 0;
   text-indent: -9999px;
 }
-/* line 2903, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+/* line 2906, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
 #page-content .search-results #questions-list .subtitle ul li a .user-answer .btl_answer {
   margin: 0;
   padding: 0;
@@ -3986,50 +3990,50 @@ dl.things dt:after {
   font-size: 15px;
   color: #333;
 }
-/* line 2910, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+/* line 2913, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
 #page-content .search-results #questions-list .subtitle ul li a .user-answer .btl-answer-author {
   font-size: 11px;
 }
-/* line 2914, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+/* line 2917, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
 #page-content .search-results #questions-list .subtitle ul li a .reply-count {
   display: none;
 }
-/* line 2916, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+/* line 2919, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
 #page-content .search-results #questions-list .subtitle ul li a:hover .user-answer {
   background: #fdece7;
 }
 
-/* line 2928, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+/* line 2931, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
 #questions-list .resto_search header {
   border: 0;
   padding: 0;
   margin: 0;
 }
-/* line 2932, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+/* line 2935, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
 #questions-list .resto_search header img {
   display: none;
 }
-/* line 2935, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+/* line 2938, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
 #questions-list .resto_search header h1 {
   border: 0;
   margin: 0;
   padding: 0;
 }
-/* line 2939, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+/* line 2942, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
 #questions-list .resto_search header h1 a {
   color: #cb4827;
 }
-/* line 2941, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+/* line 2944, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
 #questions-list .resto_search header h1 a:hover {
   color: #474f80;
   text-decoration: none;
 }
-/* line 2948, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+/* line 2951, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
 #questions-list .resto_search .resto_meta {
   margin: 0 0 20px;
   padding: 0;
 }
-/* line 2951, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+/* line 2954, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
 #questions-list .resto_search .resto_meta p {
   font-size: 11px;
   margin: 0;
@@ -4037,79 +4041,83 @@ dl.things dt:after {
   line-height: 17px;
 }
 
-/* line 2960, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+/* line 2963, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
 .btl-answer-author {
   float: left;
   color: #888;
 }
 
-/* line 2966, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+/* line 2969, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
 #btl_answers h3#more-answers {
   margin-top: 30px;
 }
-/* line 2970, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+/* line 2973, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
 #btl_answers h4 a {
   font-weight: bold;
   font-size: 14px;
 }
-/* line 2974, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+/* line 2977, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
 #btl_answers h4 .letter-q {
   font-weight: bolder;
 }
-/* line 2978, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+/* line 2981, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
 #btl_answers .btl-answer {
   margin-left: 2em;
 }
-/* line 2981, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+/* line 2984, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
 #btl_answers .identity {
   border: none !important;
 }
-/* line 2984, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+/* line 2987, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
 #btl_answers div.sharing {
   margin-left: 190px;
   margin-top: 10px;
   clear: none;
 }
-/* line 2988, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+/* line 2991, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
 #btl_answers div.sharing .fb_iframe_widget {
   top: -3px;
 }
-/* line 2993, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+/* line 2996, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
 #btl_answers .user_answer p.share-this {
   text-align: right;
   font-size: 10px;
 }
 
-/* line 3001, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+/* line 3004, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
 .promotion .identity {
   border: none !important;
 }
-/* line 3004, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+/* line 3007, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
 .promotion p.details {
   font-size: 110%;
 }
-/* line 3007, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+/* line 3010, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+.promotion .datestamp {
+  color: #ccc;
+}
+/* line 3013, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
 .promotion .sharing {
   margin-top: 10px;
 }
-/* line 3009, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+/* line 3015, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
 .promotion .sharing .fb_iframe_widget {
   top: -3px;
 }
 
-/* line 3015, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+/* line 3021, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
 .menu_item {
   clear: both;
 }
-/* line 3017, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+/* line 3023, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
 .menu_item .identity {
   border: none !important;
 }
-/* line 3020, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+/* line 3026, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
 .menu_item .datestamp {
   color: #ccc;
 }
-/* line 3023, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
+/* line 3029, ../../../app/stylesheets/soapbox/_css/soapbox.scss */
 .menu_item p.keywords {
   margin-top: 15px;
 }

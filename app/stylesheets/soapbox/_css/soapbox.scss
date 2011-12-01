@@ -2702,6 +2702,9 @@ dl.things dt:after {content: ":"}
 					}
 				}
 			}
+      .datestamp {
+        color: #ccc;
+      }
 		}
 	}
 }
@@ -3003,6 +3006,9 @@ dl.things dt:after {content: ":"}
   }
   p.details {
     font-size: 110%;
+  }
+  .datestamp {
+    color: #ccc;
   }
   .sharing {
     margin-top: 10px;

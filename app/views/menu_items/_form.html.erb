@@ -3,6 +3,7 @@
         <%= f.input :name %>
         <%= f.input :description %>
         <%= f.input :price, :hint => "Do not include the dollar sign ($)" %>
+        <%= f.input :pairing %>
         <%= f.input :photo, :hint => "Please shrink large photos to 2400 pixels on a side before you attempt to upload them" %>
         <% if @menu_item.photo_file_name.present? -%>
         <p class="clearfix"><%= image_tag @menu_item.photo(:thumb) %></p>
@@ -35,6 +36,12 @@
             </section>
             <% end %>
         </section>
+
+        <% if @menu_item.new_record? -%>
+        <%= f.input :post_to_twitter, :as => "boolean", :label => "Post to my Twitter account", :input_html => { :checked => "checked" } if current_user.twitter_authorized? %>
+        <%= f.input :post_to_facebook_page, :as => "boolean", :label => "Post to my Facebook page", :input_html => { :checked => "checked" } if current_user.has_facebook_page? %>
+        <%= f.input :user_id, :as => "hidden", :value => current_user.id %>
+        <% end -%>
     <% end %>
 
     <p class="inline-hints">

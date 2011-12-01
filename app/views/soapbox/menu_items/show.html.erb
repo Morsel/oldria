@@ -31,6 +31,8 @@
 
         <p><%= @menu_item.description %></p>
 
+        <p><%= "Pairing: #{@menu_item.pairing}" if @menu_item.pairing.present? %></p>
+
         <p><%= @menu_item.otm_keywords.map { |k| link_to k.name, soapbox_menu_items_path(:keyword => k.name) }.to_sentence %></p>
     </div>
     <div class="clear">

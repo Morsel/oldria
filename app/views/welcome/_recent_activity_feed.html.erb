@@ -5,60 +5,7 @@
     </aside>
 
     <% for comment in @recent_comments %>
-    <% if comment.is_a?(ProfileAnswer) %><%# profile answers are not really a comment so they get their own block %>
-    <% div_for comment do %>
-        <div class="activity_header">
-            <h3>Behind the Line</h3>
-            <p class="topic">
-                <%= "#{comment.profile_question.chapter.title_with_topic}: #{comment.profile_question.title}" %>
-            </p>
-        </div>
-        <div class="user_comment">
-            <%= render :partial => "users/identity", :locals => { :user => comment.user } if comment.user %>
-            <div class="user_comment"><%= truncate(comment.answer, :length => 200) %>
-                <% if comment.answer.size > 200 -%>
-                      <%= link_to "more &raquo;", user_questions_path(:user_id => comment.user.id, :chapter_id => comment.profile_question.chapter.id, :anchor => "profile_question_#{comment.profile_question.id}") %>
-                <%- end %>
-            </div>
-        </div>
-    <% end %>
-
-    <% elsif comment.is_a?(MenuItem) %><%# menu items are also not really comments %>
-    <% div_for comment do %>
-        <div class="activity_header">
-            <h3>On the Menu</h3>
-            <p class="name">
-                <%= comment.name %>
-            </p>
-        </div>
-        <div class="user_comment">
-            <%= render :partial => "restaurants/identity", :locals => { :restaurant => comment.restaurant } %>
-            <div class="user_comment"><%= truncate(comment.description, :length => 200) %>
-                <% if comment.description.size > 200 -%>
-                      <%= link_to "more &raquo;", restaurant_menu_items_path(comment.restaurant) %>
-                <%- end %>
-            </div>
-        </div>
-    <% end %>
-
-    <% else %><%# comments from trend questions and QOTD %>
-    <%- topic = comment.commentable -%>
-    <% div_for topic do %>
-        <div class="activity_header">
-            <h3><%= topic.inbox_title %></h3>
-            <p class="topic"><%= topic.message %></p>
-        </div>
-        <% div_for comment do %>
-            <%= render :partial => 'users/identity', :locals => { :user => comment.user } %>
-            <div class="user_comment"><%= truncate(comment.comment, :length => 200) %>
-            <% if comment.comment.size > 200 -%>
-            <%# FIXME - should link to spoonfeed front burner when viewed within spoonfeed %>
-              <%= link_to "more &raquo;", soapbox_soapbox_entry_path(topic.soapbox_entry, :anchor => "comment_#{comment.id}") %>
-            <%- end %></div>
-        <% end %>
-    <% end %>
-    <% end %>
-
+    <%= render :partial => comment, :locals => { :dashboard => true } %>
     <% end %>
 
     <% if @has_more %>
@@ -66,5 +13,4 @@
     <% end %>
 
     <%= will_paginate @recent_comments if @has_pagination %>
-
 </div>

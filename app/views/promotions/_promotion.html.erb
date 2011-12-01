@@ -1,3 +1,25 @@
+<% dashboard ||= false %>
+<% if dashboard == true -%>
+
+<% div_for promotion do %>
+    <div class="activity_header">
+        <h3>Newsfeed</h3>
+        <p class="name">
+            <%= promotion.title %>
+        </p>
+    </div>
+    <div class="user_comment">
+        <%= render :partial => "restaurants/identity", :locals => { :restaurant => promotion.restaurant } %>
+        <div class="user_comment"><%= truncate(promotion.details, :length => 200) %>
+            <% if promotion.details.size > 200 -%>
+                  <%= link_to "more &raquo;", restaurant_promotions_path(promotion.restaurant) %>
+            <%- end %>
+        </div>
+    </div>
+<% end %>
+
+<% else -%>
+
 <% div_for(promotion) do %>
     <h3>
         <% link_to_if soapbox?, soapbox_promotion_path(promotion) do %>
@@ -9,5 +31,8 @@
         <p class="details"><%= promotion.details %></p>
         <p><%= link_to promotion.link, promotion.link %></p>
         <p><%= promotion.date_description %></p>
+        <p><span class="datestamp"><%= "Posted #{promotion.created_at.strftime("%D")}" %></span></p>
     </div>
 <% end %>
+
+<% end -%>

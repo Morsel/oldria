@@ -171,7 +171,9 @@ module UserMessaging
   end
   
   def front_burner_unread_count
-    @front_burner_unread_count ||= unread_qotds.count + unread_grouped_trend_questions.keys.size + unread_solo_discussions.count
+    @front_burner_unread_count ||= (unread_qotds.count +
+                                    unread_grouped_trend_questions.keys.size +
+                                    unread_solo_discussions.count)
   end
   
   # def mediafeed_discussions_with_replies_count

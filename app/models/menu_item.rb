@@ -1,18 +1,27 @@
 # == Schema Information
-# Schema version: 20111017183828
+# Schema version: 20111115211957
 #
 # Table name: menu_items
 #
-#  id            :integer         not null, primary key
-#  name          :string(255)
-#  description   :text
-#  price         :string(255)
-#  created_at    :datetime
-#  updated_at    :datetime
-#  restaurant_id :integer
+#  id                 :integer         not null, primary key
+#  name               :string(255)
+#  description        :text
+#  price              :string(255)
+#  created_at         :datetime
+#  updated_at         :datetime
+#  restaurant_id      :integer
+#  photo_file_name    :string(255)
+#  photo_content_type :string(255)
+#  photo_file_size    :integer
+#  photo_updated_at   :datetime
+#  pairing            :string(255)
 #
 
 class MenuItem < ActiveRecord::Base
+
+  include ActionView::Helpers::TextHelper
+  include ActionController::UrlWriter
+  default_url_options[:host] = DEFAULT_HOST
 
   belongs_to :restaurant
 
@@ -35,12 +44,31 @@ class MenuItem < ActiveRecord::Base
           Date.today] }
   }
 
+  attr_accessor :post_to_twitter, :post_to_facebook_page, :user_id
+  after_create :crosspost
+
   def keywords
     otm_keywords.map { |k| "#{k.category}: #{k.name}" }.to_sentence
   end
 
   def keywords_without_categories
     otm_keywords.map { |k| "#{k.name}" }.to_sentence
+  end
+
+  private
+
+  def crosspost
+    if post_to_twitter == "1"
+      User.find(user_id).twitter_client.send_later(:update, "#{truncate(name, :length => 100)} #{soapbox_menu_item_url(self)}")
+    end
+    if post_to_facebook_page == "1"
+      post_attributes = { :message     => "New on the menu: #{name}",
+                          :link        => soapbox_menu_item_url(self),
+                          :name        => name,
+                          :description => description }
+      post_attributes.merge(:picture => "http://#{DEFAULT_HOST}#{self.photo.url}") if self.photo_file_name.present?
+      User.find(user_id).send_later(:post_to_facebook_page, post_attributes)
+    end
   end
 
 end

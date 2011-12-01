@@ -10,13 +10,13 @@ class DirectoryController < ApplicationController
       @users = User.profile_cuisines_id_eq(params[:cuisine_id]).all(:order => "users.last_name").uniq
     else
       @use_search = true
-      directory_search_setup
+      @users = User.in_spoonfeed_directory.all(:order => "users.last_name")
     end
   end
 
   def search
     directory_search_setup
-    render :partial => "search_results"
+    render :partial => "search_results", :locals => { :users => @users }
   end
   
   def restaurants

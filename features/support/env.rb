@@ -22,7 +22,11 @@ Webrat.configure do |config|
 end
 
 FakeWeb.allow_net_connect = false
-FakeWeb.register_uri(:post, 'http://twitter.com/oauth/request_token', :body => 'oauth_token=fake&oauth_token_secret=fake')
+
+FakeWeb.register_uri(:post, 'https://api.twitter.com/oauth/request_token', :body => 'oauth_token=fake&oauth_token_secret=fake')
+tweet_file = File.new(File.dirname(__FILE__) + '/../../spec/fixtures/twitter_update.json').read
+FakeWeb.register_uri(:get, 'https://api.twitter.com/1/statuses/home_timeline.json', :body => tweet_file)
+
 FakeWeb.register_uri(:put, Regexp.new('http://s3.amazonaws.com/.*'), :body => "OK")
 FakeWeb.register_uri(:head, Regexp.new('http://s3.amazonaws.com/.*'), :body => "OK")
 FakeWeb.register_uri(:delete, Regexp.new('http://s3.amazonaws.com/.*'), :body => "OK")

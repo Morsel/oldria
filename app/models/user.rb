@@ -349,6 +349,10 @@ class User < ActiveRecord::Base
     @page ||= Mogli::Page.new(:id => facebook_page_id, :client => Mogli::Client.new(facebook_page_token))
   end
 
+  def post_to_facebook_page(post_params)
+    facebook_page.feed_create(Mogli::Post.new(post_params))
+  end
+
   # Behind the line
 
   def profile_questions

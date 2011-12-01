@@ -10,9 +10,9 @@ Feature: On the Menu
 
   Scenario: Managers can access the OTM page
     When I go to my restaurants page
-    And I follow "Edit On the Menu"
-    Then I should see "On the Menu"
-    And I should see "Add a new item"
+    And I follow "Edit Country Dog"
+    And I follow "On the Menu"
+    Then I should see "Add a new item"
 
   Scenario: Managers can enter an OTM item
     When I go to the new on the menu page for "Country Dog"

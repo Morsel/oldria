@@ -169,10 +169,12 @@
             <% link_to soapbox_promotion_path(promotion) do %>
             <h5><%= promotion.title %>: <%= truncate promotion.details %></h5>
             <%= promotion.start_date.to_formatted_s(:long) %> <%= "- #{promotion.end_date.to_formatted_s(:long)}" if promotion.end_date.present? %> <%= "- #{promotion.date_description}" if promotion.date_description.present? %>
+            <div><span class="datestamp"><%= "Posted #{promotion.created_at.strftime("%D")}" %></span></div>
             <% end %>
         </li>
         <% end -%>
       </ul>
+      <p class="view_all"><%= link_to "View all &raquo;", soapbox? ? soapbox_promotions_path(:restaurant_id => @restaurant) : restaurant_promotions_path(:restaurant_id => @restaurant) %></p>
   </div><!--#newsfeed-->
   <% end %>
 

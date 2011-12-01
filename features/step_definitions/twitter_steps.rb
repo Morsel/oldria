@@ -1,6 +1,6 @@
 Given /^Twitter is functioning$/ do
   tweet = JSON.parse( File.new( RAILS_ROOT + '/spec/fixtures/twitter_response.json').read )
-  TwitterOAuth::Client.any_instance.stubs(:update).returns(tweet)
+  Twitter::Client.any_instance.stubs(:update).returns(tweet)
 end
 
 

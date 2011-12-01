@@ -6,9 +6,7 @@
         <p><%= image_tag menu_item.photo(:medium) %></p>
         <% end -%>
 
-        <p>
-            <%= menu_item.name %><%= ": (#{price(menu_item.price)})" if menu_item.price.present? %>
-        </p>
+        <p><%= menu_item.name %><%= ": (#{price(menu_item.price)})" if menu_item.price.present? %></p>
 
         <p>
             <%- if menu_item.description.present? -%>
@@ -16,6 +14,8 @@
               <%= link_to "more &raquo;", soapbox_menu_item_path(menu_item) if menu_item.description.size > 150 %>
             <%- end -%>
         </p>
+
+        <p><%= "Pairing: #{menu_item.pairing}" if menu_item.pairing.present? %></p>
 
         <p class="keywords"><%= menu_item.otm_keywords.map { |k| link_to k.name, soapbox_menu_items_path(:keyword => k.name) }.to_sentence %></p>
 

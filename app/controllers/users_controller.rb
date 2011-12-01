@@ -95,7 +95,7 @@ class UsersController < ApplicationController
     @user.atoken  = nil
     @user.asecret = nil
     if @user.save
-      flash[:message] = "Your Twitter Account was disassociated with your SpoonFeed Account"
+      flash[:message] = "Your Twitter account is no longer connected to your SpoonFeed account"
       redirect_to edit_user_profile_path(:user_id => @user.id)
     else
       render :edit
