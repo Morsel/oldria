@@ -85,6 +85,61 @@ h1,h2,h3,h4,h5,h6{
 	}
 }
 
+#page-content form {
+	ul, ol, li{
+		margin:0;
+		padding:0;
+		list-style:none;
+	}
+	label{
+		font-weight:bold;
+	}
+	.string, .text, .country, .password, .numeric, .select, .file {
+		label{
+			display:block;
+			margin:5px 0 0;
+		}
+	}
+	.string, .text, .password, .numeric {
+		input, textarea{
+			padding:5px;
+			border:1px solid #ccc;
+			font:bold 13px;
+			color:#333;
+		}
+	}
+	.date{
+		ol, ul{
+			overflow:hidden;
+			li{
+				float:left;
+				margin:0 10px 0 0;
+				label{
+					display:block;
+				}
+			}
+		}
+	}
+
+	p.inline-hints{
+		margin:0 0 10px;
+		font-style:italic;
+		color:#666;
+	}
+	fieldset{
+		margin:10px 0;
+	}
+
+	.error {
+		padding:5px;
+		border:2px solid $orange;
+		background: $trans-orange;
+		color: $orange;
+		margin:5px 0;
+	}
+}
+/* ## forms universal styles ------------------ */
+
 #header{
 	background:url(/images/soapbox/nav.png) no-repeat;
 	margin:40px 0 30px;

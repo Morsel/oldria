@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111115211957) do
+ActiveRecord::Schema.define(:version => 20111201222932) do
 
   create_table "a_la_minute_answers", :force => true do |t|
     t.text     "answer"
@@ -612,6 +612,12 @@ ActiveRecord::Schema.define(:version => 20111115211957) do
 
   add_index "metropolitan_areas_users", ["metropolitan_area_id"], :name => "index_metropolitan_areas_users_on_metropolitan_area_id"
   add_index "metropolitan_areas_users", ["user_id"], :name => "index_metropolitan_areas_users_on_user_id"
+
+  create_table "newsletter_subscribers", :force => true do |t|
+    t.string   "email"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "nonculinary_enrollments", :force => true do |t|
     t.integer  "nonculinary_school_id"
