@@ -22,6 +22,10 @@ class NewsletterSubscriber < ActiveRecord::Base
     self.update_attribute(:confirmed_at, Time.now)
   end
 
+  def confirmation_token
+    Digest::MD5.hexdigest(id.to_s + created_at.to_s)
+  end
+
   private
 
   def not_a_user

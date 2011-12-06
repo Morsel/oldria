@@ -15,7 +15,11 @@ class Soapbox::NewsletterSubscribersController < ApplicationController
 
   def confirm
     @subscriber = NewsletterSubscriber.find(params[:id])
-    @subscriber.confirm!
+    if params[:token] == @subscriber.confirmation_token
+      @subscriber.confirm!
+    else
+      render :text => "Sorry, that link is not valid"
+    end
   end
 
 end

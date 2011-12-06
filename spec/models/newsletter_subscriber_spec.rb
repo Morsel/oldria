@@ -12,7 +12,6 @@ describe NewsletterSubscriber do
   end
 
   it "should send a confirmation email after creation" do
-    subscriber = Factory(:newsletter_subscriber)
     UserMailer.expects(:send_later).with(:deliver_newsletter_subscription_confirmation, kind_of(NewsletterSubscriber))
     NewsletterSubscriber.create(@valid_attributes)
   end

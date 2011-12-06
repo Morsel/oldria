@@ -1,5 +1,5 @@
 <p>Welcome to the Soapbox daily email! Please click the link below to confirm your subscription:</p>
 
-<p><%= link_to "Confirm your email address", confirm_soapbox_newsletter_subscriber_url(@subscriber) %></p>
+<p><%= link_to "Confirm your email address", confirm_soapbox_newsletter_subscriber_url(@subscriber, :token => @subscriber.confirmation_token) %></p>
 
 <p>--Restaurant Intelligence Agency</p>

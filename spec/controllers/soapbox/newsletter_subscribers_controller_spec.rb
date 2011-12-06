@@ -16,4 +16,23 @@ describe Soapbox::NewsletterSubscribersController do
     end
 
   end
+
+  describe "GET 'confirm'" do
+    it "should confirm a user when valid id and token are given" do
+      subscriber = Factory(:newsletter_subscriber)
+      NewsletterSubscriber.stubs(:find).returns(subscriber)
+      get 'confirm', :id => 1, :token => subscriber.confirmation_token
+      response.should be_success
+      subscriber.reload.confirmed_at.should_not be_nil
+    end
+
+    it "should not confirm the user if no valid token is given" do
+      subscriber = Factory(:newsletter_subscriber)
+      NewsletterSubscriber.stubs(:find).returns(subscriber)
+      get 'confirm', :id => 1
+      response.should be_success
+      subscriber.reload.confirmed_at.should be_nil
+    end
+  end
+
 end
