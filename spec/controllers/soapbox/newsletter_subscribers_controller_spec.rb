@@ -12,7 +12,7 @@ describe Soapbox::NewsletterSubscribersController do
     it "should not create a subscriber when no email address is present" do
       post 'create'
       response.should render_template('new')
-      assigns[:subscriber].should have(2).errors_on(:email)
+      assigns[:subscriber].should have(1).error_on(:email)
     end
 
   end

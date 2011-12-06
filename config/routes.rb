@@ -45,7 +45,7 @@ ActionController::Routing::Routes.draw do |map|
       users.resources :chapters, :only => ['show']
     end
 
-    soapbox.resources :newsletter_subscribers, :member => { :first_confirmation => :get }
+    soapbox.resources :newsletter_subscribers, :member => { :welcome => :get, :confirm => :get }
 
     soapbox.connect 'travel_guides', :controller => 'soapbox', :action => 'travel_guides'
     soapbox.connect 'directory_search', :controller => 'soapbox', :action => 'directory_search'

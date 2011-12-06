@@ -576,3 +576,7 @@ Factory.define :menu_item do |f|
   f.association :restaurant
   f.otm_keywords { [Factory(:otm_keyword)] }
 end
+
+Factory.define :newsletter_subscriber do |f|
+  f.email "myemail@maily.com"
+end
