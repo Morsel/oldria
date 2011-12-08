@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111207190216) do
+ActiveRecord::Schema.define(:version => 20111208191639) do
 
   create_table "a_la_minute_answers", :force => true do |t|
     t.text     "answer"
@@ -929,7 +929,7 @@ ActiveRecord::Schema.define(:version => 20111207190216) do
     t.string   "description"
     t.string   "phone_number"
     t.string   "website"
-    t.string   "twitter_username"
+    t.string   "twitter_handle"
     t.string   "facebook_page_url"
     t.string   "hours"
     t.integer  "media_contact_id"
@@ -942,6 +942,8 @@ ActiveRecord::Schema.define(:version => 20111207190216) do
     t.string   "sort_name"
     t.string   "facebook_page_id"
     t.string   "facebook_page_token"
+    t.string   "atoken"
+    t.string   "asecret"
   end
 
   add_index "restaurants", ["cuisine_id"], :name => "index_restaurants_on_cuisine_id"

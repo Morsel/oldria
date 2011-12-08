@@ -59,7 +59,7 @@ class MenuItem < ActiveRecord::Base
 
   def crosspost
     if post_to_twitter == "1"
-      User.find(user_id).twitter_client.send_later(:update, "#{truncate(name, :length => 100)} #{soapbox_menu_item_url(self)}")
+      restaurant.twitter_client.send_later(:update, "#{truncate(name, :length => 100)} #{soapbox_menu_item_url(self)}")
     end
     if post_to_facebook_page == "1"
       post_attributes = { :message     => "New on the menu: #{name}",

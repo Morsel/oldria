@@ -1,4 +1,4 @@
-@restaurant_profile
+@restaurant_profile @restaurant
 Feature: Restaurant profile
   So that a restaurant can see their profile
 
@@ -52,7 +52,7 @@ Feature: Restaurant profile
     Then I do not see management data
 
   Scenario: The restaurant doesn't like social networking
-    Given the restaurant has no Twitter of Facebook info
+    Given the restaurant has no Twitter or Facebook info
     When I go to the soapbox restaurant profile for "Piece"
     Then I do not see the Twitter username
     And I do not see the Facebook username

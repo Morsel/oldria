@@ -156,9 +156,10 @@ Then /^"([^\"]*)" should have a primary employment with role "([^\"]*)"$/ do |us
 end
 
 When /^I remove optional information from the restaurant$/ do
-  @restaurant.update_attributes(:twitter_username => nil,
-      :facebook_page_url => nil, :management_company_name => nil,
-      :management_company_website => nil)
+  @restaurant.update_attributes(:twitter_handle => nil,
+                                :facebook_page_url => nil,
+                                :management_company_name => nil,
+                                :management_company_website => nil)
 end
 
 Then /^I do not see a section for "([^\"]*)"$/ do |dom_id|

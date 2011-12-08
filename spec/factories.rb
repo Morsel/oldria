@@ -169,7 +169,7 @@ Factory.define :restaurant do |f|
   f.description "This is a great restaurant with good Pizza offerings"
   f.management_company_name "Lettuce Entertain You"
   f.management_company_website "http://www.lettuce.com"
-  f.twitter_username "joeblow"
+  f.twitter_handle "joeblow"
   f.facebook_page_url "http://www.facebook.com/joeblow"
   f.association :metropolitan_area
   f.hours "Open All Night"

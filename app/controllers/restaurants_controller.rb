@@ -1,7 +1,7 @@
 class RestaurantsController < ApplicationController
   before_filter :require_user
   before_filter :authenticate, :only => [:edit, :update]
-  before_filter :find_restaurant, :only => [:show, :select_primary_photo, :new_manager_needed, :replace_manager, :fb_page_auth]
+  before_filter :find_restaurant, :only => [:show, :select_primary_photo, :new_manager_needed, :replace_manager, :fb_page_auth, :remove_twitter]
 
   def index
     @employments = current_user.employments
@@ -84,6 +84,17 @@ class RestaurantsController < ApplicationController
     end
 
     redirect_to edit_restaurant_path(@restaurant)
+  end
+
+  def remove_twitter
+    @restaurant.atoken  = nil
+    @restaurant.asecret = nil
+    if @restaurant.save
+      flash[:message] = "Your Twitter account is no longer connected to your SpoonFeed restaurant account"
+      redirect_to edit_restaurant_path(@restaurant)
+    else
+      render :edit
+    end
   end
 
   private

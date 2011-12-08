@@ -32,7 +32,7 @@ Feature: Basic Restaurant Data
       | Management Company Website   | http://www.lettuce.com              |
     And I select "Fred Mercury" from "Media contact"
     When I select "Janaury 22, 2008" as the date
-    And I press "Save"
+    And I press "Save changes"
     And I see the following restaurant fields:
       | name               | NeoPiece                            |
       | description        | This is a modern cuisine restaurant |
@@ -43,7 +43,7 @@ Feature: Basic Restaurant Data
       | address            | 12345                               |
       | phone_number       | (312) 123-4567                      |
       | website            | http://www.restaurant.example.com   |
-      | twitter_username   | piece                               |
+      | twitter_handle     | piece                               |
       | facebook_page      | http://www.facebook.com/piece       |
       | media_contact      | Fred Mercury                        |
       | management_company | Lettuce Entertain You               |

@@ -50,7 +50,7 @@
       <%= f.input :cuisine %>
       <%= f.input :opening_date, :class => "opening_date", :start_year => Date.today.year, :end_year => 1960 %>
       <%= f.input :website %>
-      <%= f.input :twitter_username, :hint => "Just your username" %>
+      <%= f.input :twitter_handle, :hint => "Just your username", :label => "Twitter username" %>
       <%= f.input :facebook_page_url %>
       <%= f.input :management_company_name %>
       <%= f.input :management_company_website %>
@@ -58,6 +58,18 @@
     <% end %>
 
   <% end %>
+
+  <fieldset id="twitter-fieldset" class="inputs editing">
+      <legend><span>Twitter</span></legend>
+
+      <% if @restaurant.twitter_authorized? -%>
+      <p>You currently have your Twitter account set up as <em><%= @restaurant.twitter_username %></em>. To change which Twitter account you want your SpoonFeed account linked with, you can remove the Twitter credentials below, and then setup Twitter again.<br/>
+          <%= link_to "Disconnect Twitter", remove_twitter_restaurant_path(@restaurant), :confirm => "Are you sure you want to unlink your Twitter account? This action cannot be undone.", :class => 'sf-button', :method => :put %>
+      </p>
+      <% else -%>
+        <%= link_to "Setup Twitter", new_twitter_authorization_url(:restaurant_id => @restaurant.id), :class =>'sf-button' %>
+      <% end -%>
+  </fieldset>
 
   <fieldset id="facebook-fieldset" class="inputs editing">
       <legend><span>Facebook</span></legend>
