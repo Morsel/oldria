@@ -157,7 +157,7 @@ end
 
 When /^I remove optional information from the restaurant$/ do
   @restaurant.update_attributes(:twitter_username => nil,
-      :facebook_page => nil, :management_company_name => nil,
+      :facebook_page_url => nil, :management_company_name => nil,
       :management_company_website => nil)
 end
 

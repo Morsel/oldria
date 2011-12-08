@@ -93,9 +93,9 @@
       <dd><%= link_to h(@restaurant.website), @restaurant.website%></dd>
     <% end %>
 
-    <% dl_if(@restaurant.facebook_page.present?, :class => "list_item", :id => "facebook_page") do %>
+    <% dl_if(@restaurant.facebook_page_url.present?, :class => "list_item", :id => "facebook_page") do %>
       <dt>Facebook Page:</dt>
-      <dd><%= link_to h(@restaurant.name), @restaurant.facebook_page%></dd>
+      <dd><%= link_to h(@restaurant.name), @restaurant.facebook_page_url %></dd>
     <% end %>
 
     <% dl_if(@restaurant.twitter_username.present?, :class => "list_item", :id => "twitter_username") do %>

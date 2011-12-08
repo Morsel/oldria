@@ -49,7 +49,7 @@ end
 
 Then /^I see the restaurant's Facebook page$/ do
   response.should have_selector("#facebook_page a", :content => @restaurant.name,
-      :href => @restaurant.facebook_page)
+      :href => @restaurant.facebook_page_url)
 end
 
 When /^I see the restaurant's hours$/ do
@@ -114,7 +114,7 @@ Then /^I do not see management data$/ do
 end
 
 Given /^the restaurant has no Twitter of Facebook info$/ do
-  @restaurant.update_attributes(:twitter_username => nil, :facebook_page => nil)
+  @restaurant.update_attributes(:twitter_username => nil, :facebook_page_url => nil)
 end
 
 Then /^I do not see the Twitter username$/ do

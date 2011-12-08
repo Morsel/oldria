@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111115211957) do
+ActiveRecord::Schema.define(:version => 20111207190216) do
 
   create_table "a_la_minute_answers", :force => true do |t|
     t.text     "answer"
@@ -613,6 +613,13 @@ ActiveRecord::Schema.define(:version => 20111115211957) do
   add_index "metropolitan_areas_users", ["metropolitan_area_id"], :name => "index_metropolitan_areas_users_on_metropolitan_area_id"
   add_index "metropolitan_areas_users", ["user_id"], :name => "index_metropolitan_areas_users_on_user_id"
 
+  create_table "newsletter_subscribers", :force => true do |t|
+    t.string   "email"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.datetime "confirmed_at"
+  end
+
   create_table "nonculinary_enrollments", :force => true do |t|
     t.integer  "nonculinary_school_id"
     t.integer  "profile_id"
@@ -923,7 +930,7 @@ ActiveRecord::Schema.define(:version => 20111115211957) do
     t.string   "phone_number"
     t.string   "website"
     t.string   "twitter_username"
-    t.string   "facebook_page"
+    t.string   "facebook_page_url"
     t.string   "hours"
     t.integer  "media_contact_id"
     t.string   "management_company_name"
@@ -933,6 +940,8 @@ ActiveRecord::Schema.define(:version => 20111115211957) do
     t.date     "opening_date"
     t.boolean  "premium_account"
     t.string   "sort_name"
+    t.string   "facebook_page_id"
+    t.string   "facebook_page_token"
   end
 
   add_index "restaurants", ["cuisine_id"], :name => "index_restaurants_on_cuisine_id"

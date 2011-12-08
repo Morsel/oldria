@@ -67,7 +67,7 @@ class MenuItem < ActiveRecord::Base
                           :name        => name,
                           :description => description }
       post_attributes.merge(:picture => "http://#{DEFAULT_HOST}#{self.photo.url}") if self.photo_file_name.present?
-      User.find(user_id).send_later(:post_to_facebook_page, post_attributes)
+      restaurant.send_later(:post_to_facebook_page, post_attributes)
     end
   end
 

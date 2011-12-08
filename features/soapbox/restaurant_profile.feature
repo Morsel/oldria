@@ -15,7 +15,7 @@ Feature: Restaurant profile
     And I press "Upload"
     When I go to the edit restaurant page for "Piece"
     And I attach the image "/features/images/bourgeoispig_logo.gif" to "restaurant_logo_attributes_attachment" on S3
-    And I press "Save"
+    And I press "Save logo changes"
     When I go to the restaurant menu upload page for Piece
     And I fill in "January" for "Menu name"
     And I select "Monthly" from "How often it changes"

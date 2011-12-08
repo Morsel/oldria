@@ -170,7 +170,7 @@ Factory.define :restaurant do |f|
   f.management_company_name "Lettuce Entertain You"
   f.management_company_website "http://www.lettuce.com"
   f.twitter_username "joeblow"
-  f.facebook_page "http://www.facebook.com/joeblow"
+  f.facebook_page_url "http://www.facebook.com/joeblow"
   f.association :metropolitan_area
   f.hours "Open All Night"
   f.opening_date 1.year.ago
