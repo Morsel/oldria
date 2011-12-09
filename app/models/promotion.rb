@@ -19,6 +19,10 @@
 
 class Promotion < ActiveRecord::Base
 
+  include ActionView::Helpers::TextHelper
+  include ActionController::UrlWriter
+  default_url_options[:host] = DEFAULT_HOST
+
   belongs_to :promotion_type
   belongs_to :restaurant
 
@@ -43,6 +47,9 @@ class Promotion < ActiveRecord::Base
     { :conditions => { :promotion_type_id => type_id } }
   }
 
+  attr_accessor :post_to_twitter, :post_to_facebook_page
+  after_create :crosspost
+
   def title
     promotion_type.name
   end
@@ -60,6 +67,21 @@ class Promotion < ActiveRecord::Base
     text << "- #{end_date.to_formatted_s(:long)}" if end_date.present?
     text << "- #{date_description}" if date_description.present?
     return text
+  end
+
+  private
+
+  def crosspost
+    # if post_to_twitter == "1"
+    #   restaurant.twitter_client.send_later(:update, "#{truncate(name, :length => 100)} #{soapbox_menu_item_url(self)}")
+    # end
+    if post_to_facebook_page == "1"
+      post_attributes = { :message     => "Newsfeed: #{title}",
+                          :link        => soapbox_promotion_url(self),
+                          :name        => title,
+                          :description => details }
+      restaurant.send_later(:post_to_facebook_page, post_attributes)
+    end
   end
 
 end
