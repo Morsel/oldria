@@ -93,15 +93,15 @@
       <dd><%= link_to h(@restaurant.website), @restaurant.website%></dd>
     <% end %>
 
-    <% dl_if(@restaurant.facebook_page_url.present?, :class => "list_item", :id => "facebook_page") do %>
+    <% dl_if(@restaurant.has_facebook_page?, :class => "list_item", :id => "facebook_page") do %>
       <dt>Facebook Page:</dt>
-      <dd><%= link_to h(@restaurant.name), @restaurant.facebook_page_url %></dd>
+      <dd><%= link_to h(@restaurant.name), @restaurant.facebook_page.fetch.link %></dd>
     <% end %>
 
-    <% dl_if(@restaurant.twitter_handle.present?, :class => "list_item", :id => "twitter_username") do %>
+    <% dl_if(@restaurant.twitter_authorized?, :class => "list_item", :id => "twitter_username") do %>
       <dt>Twitter:</dt>
       <dd>
-        <%= link_to "@#{h(@restaurant.twitter_handle)}", "http://twitter.com/#{@restaurant.twitter_handle}"%>
+        <%= link_to "@#{h(@restaurant.twitter_username)}", "http://twitter.com/#{@restaurant.twitter_username}"%>
       </dd>
     <% end %>
   </div><!-- .account_details -->

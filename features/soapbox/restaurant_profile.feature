@@ -32,8 +32,8 @@ Feature: Restaurant profile
     And I see the address
     And I see the phone number
     And I see the restaurant's website as a link
-    And I see the restaurant's Twitter username
-    And I see the restaurant's Facebook page
+    # And I see the restaurant's Twitter username
+    # And I see the restaurant's Facebook page
     And I see media contact name, phone, and email
     And I see the management company name as a link
     And I see the primary photo

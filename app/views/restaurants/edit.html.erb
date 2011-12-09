@@ -50,8 +50,6 @@
       <%= f.input :cuisine %>
       <%= f.input :opening_date, :class => "opening_date", :start_year => Date.today.year, :end_year => 1960 %>
       <%= f.input :website %>
-      <%= f.input :twitter_handle, :hint => "Just your username", :label => "Twitter username" %>
-      <%= f.input :facebook_page_url %>
       <%= f.input :management_company_name %>
       <%= f.input :management_company_website %>
       <% button_tag :class => 'positive' do %>Save changes<% end %>
