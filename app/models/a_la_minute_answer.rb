@@ -14,6 +14,11 @@
 #
 
 class ALaMinuteAnswer < ActiveRecord::Base
+
+  include ActionView::Helpers::TextHelper
+  include ActionController::UrlWriter
+  default_url_options[:host] = DEFAULT_HOST
+
   belongs_to :a_la_minute_question
   belongs_to :responder, :polymorphic => true
 
@@ -32,6 +37,9 @@ class ALaMinuteAnswer < ActiveRecord::Base
           Date.today]
     }
   }
+
+  attr_accessor :post_to_twitter#, :post_to_facebook_page
+  after_create :crosspost
 
   def self.newest_for(obj)
     ids = []
@@ -62,6 +70,23 @@ class ALaMinuteAnswer < ActiveRecord::Base
 
   def question
     a_la_minute_question.question
+  end
+
+  private
+
+  def crosspost
+    if post_to_twitter == "1"
+      message = "#{question} #{answer}"
+      responder.twitter_client.send_later(:update, "#{truncate(message, :length => 100)} #{soapbox_a_la_minute_answer_url(self)}")
+    end
+    # if post_to_facebook_page == "1"
+    #   post_attributes = { :message     => "New on the menu: #{name}",
+    #                       :link        => soapbox_menu_item_url(self),
+    #                       :name        => name,
+    #                       :description => description }
+    #   post_attributes.merge(:picture => "http://#{DEFAULT_HOST}#{self.photo.url}") if self.photo_file_name.present?
+    #   restaurant.send_later(:post_to_facebook_page, post_attributes)
+    # end
   end
 
 end

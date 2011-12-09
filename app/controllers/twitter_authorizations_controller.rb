@@ -5,7 +5,7 @@ class TwitterAuthorizationsController < ApplicationController
   def new
     clear_request_tokens
 
-    oauth_client = twitterer.twitter_oauth
+    oauth_client = @twitterer.twitter_oauth
     callback_url = params[:restaurant_id].present? ?
                    TWITTER_CONFIG['callbackurl'] + "?restaurant_id=#{params[:restaurant_id]}" :
                    TWITTER_CONFIG['callbackurl']
@@ -19,7 +19,7 @@ class TwitterAuthorizationsController < ApplicationController
     begin
       access_token = session[:request_token].get_access_token
 
-      if twitterer.update_attributes(:atoken => access_token.token, :asecret => access_token.secret)
+      if @twitterer.update_attributes(:atoken => access_token.token, :asecret => access_token.secret)
         clear_request_tokens
         flash[:notice] = "Your Twitter account was successfully linked to SpoonFeed."
       end
@@ -28,8 +28,8 @@ class TwitterAuthorizationsController < ApplicationController
     end
 
     redirect_to params[:restaurant_id].present? ?
-                edit_restaurant_path(twitter_subject) :
-                edit_user_profile_path(twitter_subject)
+                edit_restaurant_path(@twitterer) :
+                edit_user_profile_path(@twitterer)
   end
 
   private
@@ -39,7 +39,7 @@ class TwitterAuthorizationsController < ApplicationController
   end
 
   def find_twitter_user
-    twitterer = params[:restaurant_id].present? ? Restaurant.find(params[:restaurant_id]) : current_user
+    @twitterer = params[:restaurant_id].present? ? Restaurant.find(params[:restaurant_id]) : current_user
   end
 
 end

@@ -44,7 +44,7 @@ class MenuItem < ActiveRecord::Base
           Date.today] }
   }
 
-  attr_accessor :post_to_twitter, :post_to_facebook_page, :user_id
+  attr_accessor :post_to_twitter, :post_to_facebook_page
   after_create :crosspost
 
   def keywords

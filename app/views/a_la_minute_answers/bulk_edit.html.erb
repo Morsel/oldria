@@ -9,9 +9,7 @@
       <% semantic_form_for :restaurant, :url => bulk_update_restaurant_a_la_minute_answers_url(:restaurant_id => @restaurant.id),
             :html => {:method => :put} do |form| %>
 
-            
         <% @questions.each do |question| %>
-          <% #div_for question do %>
             <% answer = alm_answer_for(question) %>
             <fieldset class="editing basics">
               <ol>
@@ -24,6 +22,8 @@
               <% div_for question do -%>
                 <%= check_box_tag "a_la_minute_questions[#{question.id}][show_as_public]", "1", answer.show_as_public, :class => "show_as_public_toggle" %>
                 <%= label_tag "a_la_minute_questions_#{question.id}_show_as_public", "Show on Soapbox profile?", :class => 'inline' %>
+                <%= check_box_tag "a_la_minute_questions[#{question.id}][post_to_twitter]", "1", true, :class => "show_as_public_toggle" %>
+                <%= label_tag "a_la_minute_questions_#{question.id}_post_to_twitter", "Post to Twitter?", :class => 'inline' %>
               <% end -%>
               <%= link_to 'View past answers', "#a_la_minute_answers_#{question.id}", :class => 'show_all_link showit' %>
               <ul class="archive" id="a_la_minute_answers_<%= question.id %>">
@@ -41,7 +41,6 @@
             </fieldset>
 
             
-          <% #end %>
         <% end %>
 
         <%= button_tag "Change Answers", :class => 'positive' %>
