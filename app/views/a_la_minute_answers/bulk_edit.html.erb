@@ -22,8 +22,16 @@
               <% div_for question do -%>
                 <%= check_box_tag "a_la_minute_questions[#{question.id}][show_as_public]", "1", answer.show_as_public, :class => "show_as_public_toggle" %>
                 <%= label_tag "a_la_minute_questions_#{question.id}_show_as_public", "Show on Soapbox profile?", :class => 'inline' %>
+
+                <% if @restaurant.twitter_authorized? -%>
                 <%= check_box_tag "a_la_minute_questions[#{question.id}][post_to_twitter]", "1", true, :class => "show_as_public_toggle" %>
                 <%= label_tag "a_la_minute_questions_#{question.id}_post_to_twitter", "Post to Twitter?", :class => 'inline' %>
+                <% end -%>
+
+                <% if @restaurant.has_facebook_page? -%>
+                <%= check_box_tag "a_la_minute_questions[#{question.id}][post_to_facebook_page]", "1", true, :class => "show_as_public_toggle" %>
+                <%= label_tag "a_la_minute_questions_#{question.id}_post_to_facebook_page", "Post to Facebook page?", :class => 'inline' %>
+                <% end -%>
               <% end -%>
               <%= link_to 'View past answers', "#a_la_minute_answers_#{question.id}", :class => 'show_all_link showit' %>
               <ul class="archive" id="a_la_minute_answers_<%= question.id %>">

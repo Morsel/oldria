@@ -38,7 +38,7 @@ class ALaMinuteAnswer < ActiveRecord::Base
     }
   }
 
-  attr_accessor :post_to_twitter#, :post_to_facebook_page
+  attr_accessor :post_to_twitter, :post_to_facebook_page
   after_create :crosspost
 
   def self.newest_for(obj)
@@ -79,14 +79,13 @@ class ALaMinuteAnswer < ActiveRecord::Base
       message = "#{question} #{answer}"
       responder.twitter_client.send_later(:update, "#{truncate(message, :length => 100)} #{soapbox_a_la_minute_answer_url(self)}")
     end
-    # if post_to_facebook_page == "1"
-    #   post_attributes = { :message     => "New on the menu: #{name}",
-    #                       :link        => soapbox_menu_item_url(self),
-    #                       :name        => name,
-    #                       :description => description }
-    #   post_attributes.merge(:picture => "http://#{DEFAULT_HOST}#{self.photo.url}") if self.photo_file_name.present?
-    #   restaurant.send_later(:post_to_facebook_page, post_attributes)
-    # end
+    if post_to_facebook_page == "1"
+      post_attributes = { :message     => "#{question} #{answer}",
+                          :link        => soapbox_a_la_minute_answer_url(self),
+                          :name        => question,
+                          :description => answer }
+      responder.send_later(:post_to_facebook_page, post_attributes)
+    end
   end
 
 end
