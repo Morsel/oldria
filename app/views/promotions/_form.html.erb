@@ -8,7 +8,7 @@
         <%= f.input :date_description, :label => "Repeating on", :hint => "Example: every Monday in March" %>
 
         <% if promotion.new_record? -%>
-        <%#= f.input :post_to_twitter, :as => "boolean", :label => "Post to my Twitter account", :input_html => { :checked => "checked" } if @restaurant.twitter_authorized? %>
+        <%= f.input :post_to_twitter, :as => "boolean", :label => "Post to my Twitter account", :input_html => { :checked => "checked" } if @restaurant.twitter_authorized? %>
         <%= f.input :post_to_facebook_page, :as => "boolean", :label => "Post to Facebook page \"#{@restaurant.facebook_page.fetch.name}\"", :input_html => { :checked => "checked" } if @restaurant.has_facebook_page? %>
         <% end -%>
     <% end %>

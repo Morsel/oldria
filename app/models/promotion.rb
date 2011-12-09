@@ -72,9 +72,9 @@ class Promotion < ActiveRecord::Base
   private
 
   def crosspost
-    # if post_to_twitter == "1"
-    #   restaurant.twitter_client.send_later(:update, "#{truncate(name, :length => 100)} #{soapbox_menu_item_url(self)}")
-    # end
+    if post_to_twitter == "1"
+      restaurant.twitter_client.send_later(:update, "#{truncate(details, :length => 100)} #{soapbox_promotion_url(self)}")
+    end
     if post_to_facebook_page == "1"
       post_attributes = { :message     => "Newsfeed: #{title}",
                           :link        => soapbox_promotion_url(self),
