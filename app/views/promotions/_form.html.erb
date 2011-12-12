@@ -1,7 +1,7 @@
 <% semantic_form_for [restaurant, promotion] do |f| %>
     <% f.inputs do %>
         <%= f.input :promotion_type %>
-        <%= f.input :details, :hint => "Under 1000 characters", :input_html => { :rows => 4 } %>
+        <%= f.input :details, :hint => "Stay under 1000 characters. Basic HTML formatting is allowed.", :input_html => { :rows => 4 } %>
         <%= f.input :link %>
         <%= f.input :start_date %>
         <%= f.input :end_date, :selected => nil %>

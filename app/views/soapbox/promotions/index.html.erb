@@ -29,7 +29,7 @@
 
     <%= render :partial => 'restaurants/identity', :locals => { :restaurant => promotion.restaurant } %>
     <div>
-        <p class="details"><%= simple_format(promotion.details) %></p>
+        <p class="details"><%= simple_format(Loofah::Helpers.sanitize(promotion.details)) %></p>
         <p><%= link_to promotion.link, promotion.link %></p>
         <p><%= promotion.date_description %></p>
         <p><span class="datestamp"><%= "Posted #{promotion.created_at.strftime("%D")}" %></span></p>

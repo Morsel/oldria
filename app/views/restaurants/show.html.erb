@@ -167,7 +167,7 @@
         <% for promotion in @promotions -%>
         <li class="<%= cycle("even", "odd") %>">
             <% link_to soapbox_promotion_path(promotion) do %>
-            <h5><%= promotion.title %>: <%= truncate promotion.details %></h5>
+            <h5><%= promotion.title %>: <%= Loofah::Helpers.sanitize(truncate(promotion.details)) %></h5>
             <%= promotion.start_date.to_formatted_s(:long) %> <%= "- #{promotion.end_date.to_formatted_s(:long)}" if promotion.end_date.present? %> <%= "- #{promotion.date_description}" if promotion.date_description.present? %>
             <div><span class="datestamp"><%= "Posted #{promotion.created_at.strftime("%D")}" %></span></div>
             <% end %>
