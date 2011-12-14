@@ -61,7 +61,7 @@
       <legend><span>Twitter</span></legend>
 
       <% if @restaurant.twitter_authorized? -%>
-      <p>You currently have your Twitter account set up as <em><%= @restaurant.twitter_username %></em>. To change which Twitter account you want your SpoonFeed account linked with, you can remove the Twitter credentials below, and then setup Twitter again.<br/>
+      <p>You currently have your Twitter account set up for <em><%= @restaurant.twitter_username %></em>. To change which Twitter account you want your Spoonfeed account linked with, you can remove the Twitter credentials below, and then setup Twitter again.<br/>
           <%= link_to "Disconnect Twitter", remove_twitter_restaurant_path(@restaurant), :confirm => "Are you sure you want to unlink your Twitter account? This action cannot be undone.", :class => 'sf-button', :method => :put %>
       </p>
       <% else -%>
@@ -94,7 +94,8 @@
       <% end %>
 
       <%- else -%>
-        <%= link_to "Setup Facebook", fb_auth_user_path(current_user), :class => 'sf-button' %>
+        <%= link_to "Setup Facebook", fb_auth_user_path(current_user, :restaurant_id => @restaurant.id), :class => 'sf-button' %>
+        <p>Facebook regulations require you to use your Facebook personal account permissions to access your restaurant's Facebook page. So first, link Spoonfeed to your personal Facebook account by clicking below. You can then link the account to your restaurant page. You must have admin permissions for your restaurant's Facebook page to link the accounts.</p>
       <%- end -%>
   </fieldset>
 

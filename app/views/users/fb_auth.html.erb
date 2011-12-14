@@ -4,4 +4,4 @@
 
 <p>Find out more about <%= link_to "working with Facebook", "http://spoonfeed.restaurantintelligenceagency.com/facebook_101_introduction" %>.</p>
 
-<%= fb_login_link fb_connect_user_path(@user) %>
+<%= fb_login_link params[:restaurant_id].present? ? fb_connect_user_path(@user, :restaurant_id => params[:restaurant_id]) : fb_connect_user_path(@user) %>

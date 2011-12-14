@@ -35,6 +35,7 @@ class Promotion < ActiveRecord::Base
       :message => "End date is required for repeating events"
   validates_length_of :details, :maximum => 1000
 
+  # Attachments and validations
   has_attached_file :attachment,
                     :storage        => :s3,
                     :s3_credentials => "#{RAILS_ROOT}/config/environments/#{RAILS_ENV}/amazon_s3.yml",
@@ -56,6 +57,7 @@ class Promotion < ActiveRecord::Base
   def content_type
     errors.add(:attachment, "needs to be converted to PDF") unless VALID_CONTENT_TYPES.include?(self.attachment_content_type)
   end
+  # end of attachments section
 
   named_scope :current,
               :conditions => ["promotions.end_date >= ? OR (promotions.start_date >= ? AND promotions.end_date IS NULL)",
