@@ -1,18 +1,22 @@
 # == Schema Information
-# Schema version: 20110913204942
+# Schema version: 20111213182004
 #
 # Table name: promotions
 #
-#  id                :integer         not null, primary key
-#  promotion_type_id :integer
-#  details           :text
-#  link              :string(255)
-#  start_date        :date
-#  end_date          :date
-#  date_description  :string(255)
-#  created_at        :datetime
-#  updated_at        :datetime
-#  restaurant_id     :integer
+#  id                      :integer         not null, primary key
+#  promotion_type_id       :integer
+#  details                 :text
+#  link                    :string(255)
+#  start_date              :date
+#  end_date                :date
+#  date_description        :string(255)
+#  created_at              :datetime
+#  updated_at              :datetime
+#  restaurant_id           :integer
+#  attachment_file_name    :string(255)
+#  attachment_content_type :string(255)
+#  attachment_file_size    :integer
+#  attachment_updated_at   :datetime
 #
 
 # Restaurant events and promotions
@@ -31,11 +35,37 @@ class Promotion < ActiveRecord::Base
       :message => "End date is required for repeating events"
   validates_length_of :details, :maximum => 1000
 
-  named_scope :current, :conditions => ["promotions.end_date >= ? OR (promotions.start_date >= ? AND promotions.end_date IS NULL)", Date.today, Date.today],
-                        :order => "promotions.start_date ASC"
+  has_attached_file :attachment,
+                    :storage        => :s3,
+                    :s3_credentials => "#{RAILS_ROOT}/config/environments/#{RAILS_ENV}/amazon_s3.yml",
+                    :path           => "#{RAILS_ENV}/newsfeed_attachments/:id/:filename",
+                    :bucket         => "spoonfeed",
+                    :url            => ':s3_domain_url'
 
-  named_scope :recently_posted, :conditions => ["promotions.end_date >= ? OR (promotions.start_date >= ? AND promotions.end_date IS NULL)", Date.today, Date.today],
-                                :order => "promotions.created_at DESC"
+  VALID_CONTENT_TYPES = ["application/zip", "application/x-zip", "application/x-zip-compressed", "application/pdf", "application/x-pdf"]
+
+  before_validation(:on => :save) do |file|
+    if file.attachment_file_name.present? && (file.attachment_content_type == 'binary/octet-stream')
+      mime_type = MIME::Types.type_for(file.attachment_file_name)
+      file.attachment_content_type = mime_type.first.content_type if mime_type.first
+    end
+  end
+
+  validate :content_type, :if => Proc.new { |promo| promo.attachment_file_name.present? }
+
+  def content_type
+    errors.add(:attachment, "needs to be converted to PDF") unless VALID_CONTENT_TYPES.include?(self.attachment_content_type)
+  end
+
+  named_scope :current,
+              :conditions => ["promotions.end_date >= ? OR (promotions.start_date >= ? AND promotions.end_date IS NULL)",
+                              Date.today, Date.today],
+              :order => "promotions.start_date ASC"
+
+  named_scope :recently_posted,
+              :conditions => ["promotions.end_date >= ? OR (promotions.start_date >= ? AND promotions.end_date IS NULL)",
+                              Date.today, Date.today],
+              :order => "promotions.created_at DESC"
 
   named_scope :from_premium_restaurants, lambda {
     { :joins => { :restaurant => :subscription },
