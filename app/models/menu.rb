@@ -22,9 +22,9 @@ class Menu < ActiveRecord::Base
 
   accepts_nested_attributes_for :pdf_remote_attachment
 
-  default_scope :order => :position
+  # default_scope :order => "menus.position, menus.created_at DESC"
 
-  named_scope :by_position, :order => :position
+  named_scope :by_position, :order => "menus.position, menus.created_at DESC"
 
   def self.change_frequencies
     @change_frequencies ||= begin

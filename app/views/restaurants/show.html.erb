@@ -19,7 +19,7 @@
       <h2>Menus</h2>
       <% if @restaurant.menus.any? -%>
         <ul>
-          <%= render :partial => 'menus/menu', :collection => @restaurant.menus %>
+          <%= render :partial => 'menus/menu', :collection => @restaurant.menus.by_position %>
         </ul>
       <% else -%>
         <p>There are no menus available at this time.</p>
