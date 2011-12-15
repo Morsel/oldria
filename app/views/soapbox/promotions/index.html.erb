@@ -31,6 +31,9 @@
     <div>
         <p class="details"><%= simple_format(Loofah::Helpers.sanitize(promotion.details)) %></p>
         <p><%= link_to promotion.link, promotion.link %></p>
+        <% if promotion.attachment.file? -%>
+        <p><%= link_to promotion.attachment_file_name, promotion.attachment.url %></p>
+        <% end -%>
         <p><%= promotion.date_description %></p>
         <p><span class="datestamp"><%= "Posted #{promotion.created_at.strftime("%D")}" %></span></p>
     </div>

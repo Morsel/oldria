@@ -27,6 +27,9 @@
         <p><%= @promotion.title %>: <%= @promotion.date_text %></p>
         <p class="details"><%= simple_format(@promotion.details) %></p>
         <p><%= link_to @promotion.link, @promotion.link %></p>
+        <% if @promotion.attachment.file? -%>
+        <p><%= link_to @promotion.attachment_file_name, @promotion.attachment.url %></p>
+        <% end -%>
         <p><span class="datestamp"><%= "Posted #{@promotion.created_at.strftime("%D")}" %></span></p>
     </div>
     <!-- Likes and Tweets BEGIN -->
