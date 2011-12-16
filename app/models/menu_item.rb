@@ -29,6 +29,11 @@ class MenuItem < ActiveRecord::Base
   has_many :otm_keywords, :through => :menu_item_keywords
 
   has_attached_file :photo,
+                    :storage        => :s3,
+                    :s3_credentials => "#{RAILS_ROOT}/config/environments/#{RAILS_ENV}/amazon_s3.yml",
+                    :path           => "#{RAILS_ENV}/otm_photos/:id/:style/:filename",
+                    :bucket         => "spoonfeed",
+                    :url            => ':s3_domain_url',
                     :styles => { :full => "1966x2400>", :large => "360x480>", :medium => "240x320>", :thumb => "120x160>" }
 
   validates_attachment_content_type :photo,
