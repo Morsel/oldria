@@ -16,7 +16,7 @@ require 'spec_helper'
 describe Menu do
   before(:each) do
     @restaurant = Factory(:restaurant)
-    pdf_remote_attachment = PdfRemoteAttachment.create!(:attachment_content_type => "application/pdf")
+    pdf_remote_attachment = PdfRemoteAttachment.create!(:attachment_content_type => "application/pdf", :attachment_file_name => "my_file.pdf")
     @valid_attributes = {
       :name => "value for name",
       :change_frequency => "Monthly",
@@ -45,15 +45,15 @@ describe Menu do
     end
   end
 
-  describe "default scope" do
-    it "should sort by position" do
-      menu_a = Menu.create!(@valid_attributes.merge({:name => "menu_a", :position => 2}))
-      menu_b = Menu.create!(@valid_attributes.merge({:name => "menu_b", :position => 0}))
-      menu_c = Menu.create!(@valid_attributes.merge({:name => "menu_c", :position => 1}))
-
-      Menu.all.should == [menu_b, menu_c, menu_a]
-    end
-  end
+  # describe "default scope" do
+  #   it "should sort by position" do
+  #     menu_a = Menu.create!(@valid_attributes.merge({:name => "menu_a", :position => 2}))
+  #     menu_b = Menu.create!(@valid_attributes.merge({:name => "menu_b", :position => 0}))
+  #     menu_c = Menu.create!(@valid_attributes.merge({:name => "menu_c", :position => 1}))
+  # 
+  #     Menu.all.should == [menu_b, menu_c, menu_a]
+  #   end
+  # end
 
   describe "by_position scope" do
     it "should sort by position" do

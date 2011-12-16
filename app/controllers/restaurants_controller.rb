@@ -1,7 +1,7 @@
 class RestaurantsController < ApplicationController
   before_filter :require_user
   before_filter :authenticate, :only => [:edit, :update]
-  before_filter :find_restaurant, :only => [:show, :select_primary_photo, :new_manager_needed, :replace_manager]
+  before_filter :find_restaurant, :only => [:show, :select_primary_photo, :new_manager_needed, :replace_manager, :fb_page_auth, :remove_twitter]
 
   def index
     @employments = current_user.employments
@@ -32,6 +32,7 @@ class RestaurantsController < ApplicationController
   end
 
   def edit
+    @fb_user = current_facebook_user.fetch if current_facebook_user && current_user.facebook_authorized?
   end
 
   def update
@@ -69,6 +70,31 @@ class RestaurantsController < ApplicationController
     end
 
     redirect_to bulk_edit_restaurant_employees_path(@restaurant)
+  end
+
+  def fb_page_auth
+    @page = current_facebook_user.accounts.select { |a| a.id == params[:facebook_page] }.first
+
+    if @page
+      @restaurant.update_attributes!(:facebook_page_id => @page.id, :facebook_page_token => @page.access_token)
+      flash[:notice] = "Added Facebook page #{@page.name} to the restaurant"
+    else
+      @user.update_attributes!(:facebook_page_id => nil, :facebook_page_token => nil)
+      flash[:notice] = "Cleared the Facebook page settings from your restaurant"
+    end
+
+    redirect_to edit_restaurant_path(@restaurant)
+  end
+
+  def remove_twitter
+    @restaurant.atoken  = nil
+    @restaurant.asecret = nil
+    if @restaurant.save
+      flash[:message] = "Your Twitter account is no longer connected to your SpoonFeed restaurant account"
+      redirect_to edit_restaurant_path(@restaurant)
+    else
+      render :edit
+    end
   end
 
   private

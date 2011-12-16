@@ -12,7 +12,7 @@
 
   <div id="editing_restaurant">
 
-  <% semantic_form_for(@restaurant, :html => { :multipart => true }) do |f| %>
+  <% semantic_form_for(@restaurant) do |f| %>
 
     <% f.inputs :name => "Account Status", :class => "editing account" do %>
       <div class="standout">Your current account status is <strong><%= @restaurant.account_type %></strong>.</div>
@@ -24,7 +24,6 @@
         <p class="alert">This account has been canceled and will end <%= @restaurant.subscription.end_date.to_s(:long)%></p>
       <% end %>
       <%= render :partial => 'subscriptions/account_links', :locals => {:subscriber => @restaurant, :subscriber_type => "restaurant"} %>
-
     <% end %>
 
     <% f.inputs :name => "Basics", :class => "editing basics" do %>
@@ -51,12 +50,56 @@
       <%= f.input :cuisine %>
       <%= f.input :opening_date, :class => "opening_date", :start_year => Date.today.year, :end_year => 1960 %>
       <%= f.input :website %>
-      <%= f.input :twitter_username, :hint => "Just your username" %>
-      <%= f.input :facebook_page %>
       <%= f.input :management_company_name %>
       <%= f.input :management_company_website %>
       <% button_tag :class => 'positive' do %>Save changes<% end %>
     <% end %>
+
+  <% end %>
+
+  <fieldset id="twitter-fieldset" class="inputs editing">
+      <legend><span>Twitter</span></legend>
+
+      <% if @restaurant.twitter_authorized? -%>
+      <p>You currently have your Twitter account set up for <em><%= @restaurant.twitter_username %></em>. To change which Twitter account you want your Spoonfeed account linked with, you can remove the Twitter credentials below, and then setup Twitter again.<br/>
+          <%= link_to "Disconnect Twitter", remove_twitter_restaurant_path(@restaurant), :confirm => "Are you sure you want to unlink your Twitter account? This action cannot be undone.", :class => 'sf-button', :method => :put %>
+      </p>
+      <% else -%>
+        <%= link_to "Setup Twitter", new_twitter_authorization_url(:restaurant_id => @restaurant.id), :class =>'sf-button' %>
+      <% end -%>
+  </fieldset>
+
+  <fieldset id="facebook-fieldset" class="inputs editing">
+      <legend><span>Facebook</span></legend>
+      <%- if @fb_user.present? -%>
+      <p>
+          You are currently linked to your Facebook account <em>"<%= @fb_user.name %>"</em>. You can connect to a different Facebook profile by disconnecting below, then setting up Facebook again.
+          <%= fb_logout_link "Disconnect Facebook", fb_deauth_user_path(current_user), :class => 'sf-button negative' %>
+      </p>
+      <% if @restaurant.has_facebook_page? -%>
+        <p>Current Facebook page for <%= @restaurant.name %>: <em><%= @restaurant.facebook_page.fetch.name %></em></p>
+      <%- end %>
+      <% if @fb_user.accounts.blank? %>
+        <p>You don't appear to have access to any Facebook pages. If you'd like the change the page for this restaurant, please ask the admin to give you access through your Facebook account.</p>
+      <% else %>
+      <div class="clear">
+          <% form_tag fb_page_auth_restaurant_path(@restaurant) do %>
+          <p>
+              Configure a page to post to:<br/>
+              <%= select_tag "facebook_page", "<option>&nbsp;</option>" + options_from_collection_for_select(@fb_user.accounts, :id, :name, @restaurant.facebook_page_id.to_s) %><br>
+              <%= button_tag "Save Facebook Page", :class => 'clear' %>
+          </p>
+          <% end %>
+      </div>
+      <% end %>
+
+      <%- else -%>
+        <%= link_to "Setup Facebook", fb_auth_user_path(current_user, :restaurant_id => @restaurant.id), :class => 'sf-button' %>
+        <p>Facebook regulations require you to use your Facebook personal account permissions to access your restaurant's Facebook page. So first, link Spoonfeed to your personal Facebook account by clicking below. You can then link the account to your restaurant page. You must have admin permissions for your restaurant's Facebook page to link the accounts.</p>
+      <%- end -%>
+  </fieldset>
+
+  <% semantic_form_for(@restaurant, :html => { :multipart => true }) do |f| %>
 
     <% f.inputs :name => 'Logo', :class => "editing", :id => "logo_image" do %>
 

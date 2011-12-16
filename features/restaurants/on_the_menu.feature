@@ -33,7 +33,7 @@ Feature: On the Menu
     Then I should not see "On the Menu - New Item"
     And I should see "You don't have permission to access that page"
 
-  Scenario: Other users can access the public OTM area
+  Scenario: Other restaurant employees can access the public OTM area
     Given the following confirmed user:
       | name       | username |
       | Marko Tony | mtony    |

@@ -26,6 +26,7 @@
 
         <% if @restaurant.menus.present? -%>
         <h3>Uploaded Menus</h3>
+        <p>Drag and drop menus to change the sort order</p>
         <div class="editing clearfix clear">
             <table id="menus" data-remote-url="<%= reorder_restaurant_menus_url(@restaurant) %>">
                 <thead>

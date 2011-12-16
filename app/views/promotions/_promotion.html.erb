@@ -10,7 +10,7 @@
     </div>
     <div class="user_comment">
         <%= render :partial => "restaurants/identity", :locals => { :restaurant => promotion.restaurant } %>
-        <div class="user_comment"><%= truncate(promotion.details, :length => 200) %>
+        <div class="user_comment"><%= Loofah::Helpers.sanitize(truncate(promotion.details, :length => 200)) %>
             <% if promotion.details.size > 200 -%>
                   <%= link_to "more &raquo;", restaurant_promotions_path(promotion.restaurant) %>
             <%- end %>
@@ -28,8 +28,11 @@
     </h3>
 
     <div>
-        <p class="details"><%= promotion.details %></p>
+        <p class="details"><%= simple_format(Loofah::Helpers.sanitize(promotion.details)) %></p>
         <p><%= link_to promotion.link, promotion.link %></p>
+        <% if promotion.attachment.file? -%>
+        <p><%= link_to promotion.attachment_file_name, promotion.attachment.url %></p>
+        <% end -%>
         <p><%= promotion.date_description %></p>
         <p><span class="datestamp"><%= "Posted #{promotion.created_at.strftime("%D")}" %></span></p>
     </div>

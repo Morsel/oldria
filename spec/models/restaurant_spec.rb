@@ -160,10 +160,10 @@ describe Restaurant do
   describe "validate facebook URL" do
 
     subject { Factory(:restaurant) }
-    it { should accept_values_for(:facebook_page, nil, "", "http://www.facebook.com/fred",
+    it { should accept_values_for(:facebook_page_url, nil, "", "http://www.facebook.com/fred",
         "http://www.facebook.com/profile.php?id=23423",
         "http://www.facebook.com/pages/Random-Restaurant/11746961621") }
-    it { should_not accept_values_for(:facebook_page, "fred", "@noelrap",
+    it { should_not accept_values_for(:facebook_page_url, "fred", "@noelrap",
         "http://www.twitter.com/noelrap") }
 
   end

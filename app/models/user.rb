@@ -43,6 +43,7 @@ class User < ActiveRecord::Base
   end
 
   include TwitterAuthorization
+  include FacebookPageConnect
   include UserMessaging
 
   has_many :statuses, :dependent => :destroy
@@ -339,18 +340,6 @@ class User < ActiveRecord::Base
     if facebook_id and facebook_access_token
       @facebook_user ||= Mogli::User.new(:id => facebook_id, :client => Mogli::Client.new(facebook_access_token))
     end
-  end
-
-  def has_facebook_page?
-    facebook_page_id.present? and facebook_page_token.present?
-  end
-
-  def facebook_page
-    @page ||= Mogli::Page.new(:id => facebook_page_id, :client => Mogli::Client.new(facebook_page_token))
-  end
-
-  def post_to_facebook_page(post_params)
-    facebook_page.feed_create(Mogli::Post.new(post_params))
   end
 
   # Behind the line

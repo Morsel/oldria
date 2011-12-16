@@ -32,10 +32,10 @@ Rails::Initializer.run do |config|
   config.gem 'hoptoad_notifier',      :version => "~>2.4.6"
   config.gem 'backup',                :version => "~>2.3.1"
   config.gem 'newrelic_rpm',          :version => "~>3.1.1"
-  config.gem "facebooker2"
-  config.gem 'subdomain-fu',          :version => "~> 0.5.4"
+  config.gem "facebooker2",           :version => "~>0.0.4"
+  config.gem 'subdomain-fu',          :version => "~>0.5.4"
   config.gem 'braintree',             :version => "2.6.1"
-  config.gem 'ssl_requirement',       :version => "~> 0.1.0"
+  config.gem 'ssl_requirement',       :version => "~>0.1.0"
   
   # Settings in config/environments/* take precedence over those specified here.
   # Application configuration should go into files in config/initializers
