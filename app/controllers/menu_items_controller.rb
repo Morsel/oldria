@@ -5,7 +5,7 @@ class MenuItemsController < ApplicationController
 
   def index
     find_restaurant
-    @menu_items = @restaurant.menu_items.all(:order => "created_at DESC")
+    @menu_items = @restaurant.menu_items.all(:order => "created_at DESC").paginate(:page => params[:page], :per_page => 10)
     render :template => "soapbox/menu_items/index" if cannot?(:edit, @restaurant)
   end
 

@@ -54,14 +54,14 @@ Feature: Restaurant Images
   Scenario: Upload logo
     When I go to the edit restaurant page for "Bourgeois Pig"
     And I attach the image "/features/images/bourgeoispig_logo.gif" to "restaurant_logo_attributes_attachment" on S3
-    And I press "Save"
+    And I press "Save logo changes"
     When I go to the edit restaurant page for "Bourgeois Pig"
     Then I see the restaurant logo
 
   Scenario: Upload logo fails when content type is not an image
     When I go to the edit restaurant page for "Bourgeois Pig"
     And I attach the image "/features/images/menu1.pdf" to "restaurant[logo_attributes][attachment]" on S3
-    And I press "Save"
+    And I press "Save logo changes"
     Then I should see a flash error message
 
   Scenario: Select Primary Photo
@@ -125,7 +125,7 @@ Feature: Restaurant Images
   Scenario: Remove the restaurant logo
     When I go to the edit restaurant page for "Bourgeois Pig"
     And I attach the image "/features/images/bourgeoispig_logo.gif" to "restaurant_logo_attributes_attachment" on S3
-    And I press "Save"
+    And I press "Save logo changes"
     When I go to the edit restaurant page for "Bourgeois Pig"
     And I remove the restaurant logo
     Then I should not see the restaurant logo

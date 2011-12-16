@@ -18,8 +18,7 @@ module ApplicationHelper
 
   def fb_login_link(url=root_path)
     link_to_function image_tag("connect.gif"),
-        "FB.login(function() {  window.location.href='#{url}'},{perms: 'offline_access,publish_stream,email,friends_status,manage_pages'});",
-        :class => "facebook_login"
+        "FB.login(function() {window.location.href = '#{url}'}, {scope: 'offline_access, publish_stream, email, friends_status, manage_pages'});", :class => "facebook_login"
   end
 
   def div_if(boolean, options={}, &block)

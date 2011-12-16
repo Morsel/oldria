@@ -11,6 +11,7 @@ class Soapbox::MenuItemsController < ApplicationController
     else
       @menu_items = MenuItem.from_premium_restaurants.all(:order => "created_at DESC")
     end
+    @menu_items = @menu_items.paginate(:page => params[:page], :per_page => 5)
   end
 
   def show

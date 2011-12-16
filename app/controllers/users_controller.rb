@@ -127,9 +127,11 @@ class UsersController < ApplicationController
       if @user.facebook_access_token != current_facebook_user.client.access_token
         @user.update_attribute(:facebook_access_token, current_facebook_user.client.access_token)
       end
-      flash[:notice] = "Your Facebook account has been connected to your spoonfeed account"
+      flash[:notice] = "Your Facebook account has been connected to your Spoonfeed account"
+    else
+      flash[:error] = "We were unable to connect your account. Please try again later."
     end
-    redirect_to edit_user_profile_path(:user_id => @user.id)
+    redirect_to params[:restaurant_id].present? ? edit_restaurant_path(params[:restaurant_id]) : edit_user_profile_path(:user_id => @user.id)
   end
 
   def fb_page_auth

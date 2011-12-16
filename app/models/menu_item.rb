@@ -29,6 +29,11 @@ class MenuItem < ActiveRecord::Base
   has_many :otm_keywords, :through => :menu_item_keywords
 
   has_attached_file :photo,
+                    :storage        => :s3,
+                    :s3_credentials => "#{RAILS_ROOT}/config/environments/#{RAILS_ENV}/amazon_s3.yml",
+                    :path           => "#{RAILS_ENV}/otm_photos/:id/:style/:filename",
+                    :bucket         => "spoonfeed",
+                    :url            => ':s3_domain_url',
                     :styles => { :full => "1966x2400>", :large => "360x480>", :medium => "240x320>", :thumb => "120x160>" }
 
   validates_attachment_content_type :photo,
@@ -44,7 +49,7 @@ class MenuItem < ActiveRecord::Base
           Date.today] }
   }
 
-  attr_accessor :post_to_twitter, :post_to_facebook_page, :user_id
+  attr_accessor :post_to_twitter, :post_to_facebook_page
   after_create :crosspost
 
   def keywords
@@ -59,7 +64,7 @@ class MenuItem < ActiveRecord::Base
 
   def crosspost
     if post_to_twitter == "1"
-      User.find(user_id).twitter_client.send_later(:update, "#{truncate(name, :length => 100)} #{soapbox_menu_item_url(self)}")
+      restaurant.twitter_client.send_later(:update, "#{truncate(name, :length => 100)} #{soapbox_menu_item_url(self)}")
     end
     if post_to_facebook_page == "1"
       post_attributes = { :message     => "New on the menu: #{name}",
@@ -67,7 +72,7 @@ class MenuItem < ActiveRecord::Base
                           :name        => name,
                           :description => description }
       post_attributes.merge(:picture => "http://#{DEFAULT_HOST}#{self.photo.url}") if self.photo_file_name.present?
-      User.find(user_id).send_later(:post_to_facebook_page, post_attributes)
+      restaurant.send_later(:post_to_facebook_page, post_attributes)
     end
   end
 

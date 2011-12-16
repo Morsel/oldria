@@ -11,3 +11,5 @@
 <% for menu_item in @menu_items -%>
   <%= render :partial => "soapbox/menu_items/menu_item", :locals => { :menu_item => menu_item } %>
 <% end -%>
+
+<%= will_paginate(@menu_items) %>

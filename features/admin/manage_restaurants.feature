@@ -23,8 +23,8 @@ Feature: Manage restaurants
       | Zip                          | 12345                               |
       | Phone Number                 | (312) 123-4567                      |
       | Website                      | http://www.restaurant.example.com   |
-      | Twitter Username             | piece                               |
-      | Facebook Page                | http://www.facebook.com/piece       |
+      # | Twitter Username             | piece_twitter                       |
+      # | Facebook Page                | http://www.facebook.com/piece       |
       | Management Company Name      | Lettuce Entertain You               |
       | Management Company Website   | http://www.lettuce.com              |
     And I select "Fred Mercury" from "Media contact"
@@ -45,8 +45,8 @@ Feature: Manage restaurants
       | address            | 12345                               |
       | phone_number       | (312) 123-4567                      |
       | website            | http://www.restaurant.example.com   |
-      | twitter_username   | piece                               |
-      | facebook_page      | http://www.facebook.com/piece       |
+      # | twitter_handle     | piece_twitter                       |
+      # | facebook_page      | http://www.facebook.com/piece       |
       | media_contact      | Fred Mercury                        |
       | management_company | Lettuce Entertain You               |
       | opening_date       | January 22, 2008                    |

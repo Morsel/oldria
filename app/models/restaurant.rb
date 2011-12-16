@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20110913204942
+# Schema version: 20111208191639
 #
 # Table name: restaurants
 #
@@ -22,8 +22,8 @@
 #  description                :string(255)
 #  phone_number               :string(255)
 #  website                    :string(255)
-#  twitter_username           :string(255)
-#  facebook_page              :string(255)
+#  twitter_handle             :string(255)
+#  facebook_page_url          :string(255)
 #  hours                      :string(255)
 #  media_contact_id           :integer
 #  management_company_name    :string(255)
@@ -33,11 +33,17 @@
 #  opening_date               :date
 #  premium_account            :boolean
 #  sort_name                  :string(255)
+#  facebook_page_id           :string(255)
+#  facebook_page_token        :string(255)
+#  atoken                     :string(255)
+#  asecret                    :string(255)
 #
 
 class Restaurant < ActiveRecord::Base
   apply_addresslogic
   has_subscription
+  include FacebookPageConnect
+  include TwitterAuthorization
 
   default_scope :conditions => {:deleted_at => nil}, :order => "#{table_name}.sort_name"
 
@@ -97,8 +103,8 @@ class Restaurant < ActiveRecord::Base
       :message => "needs to be a valid URL that starts with http://",
       :allow_blank => true
 
-  validates_format_of :facebook_page,
-      :with => %r{^http://www\.facebook\.com(.*)},
+  validates_format_of :facebook_page_url,
+      :with => %r{^https*://www\.facebook\.com(.*)},
       :allow_blank => true,
       :message => "Facebook page must start with http://www.facebook.com"
 
@@ -268,7 +274,6 @@ class Restaurant < ActiveRecord::Base
 
     restaurants
   end
-
 
   private
 

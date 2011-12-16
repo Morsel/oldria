@@ -43,13 +43,13 @@ Then /^I see the restaurant's website as a link$/ do
 end
 
 Then /^I see the restaurant's Twitter username$/ do
-  response.should have_selector("#twitter_username a", :content => @restaurant.twitter_username,
-      :href => "http://twitter.com/#{@restaurant.twitter_username}")
+  response.should have_selector("#twitter_username a", :content => @restaurant.twitter_handle,
+      :href => "http://twitter.com/#{@restaurant.twitter_handle}")
 end
 
 Then /^I see the restaurant's Facebook page$/ do
   response.should have_selector("#facebook_page a", :content => @restaurant.name,
-      :href => @restaurant.facebook_page)
+      :href => @restaurant.facebook_page_url)
 end
 
 When /^I see the restaurant's hours$/ do
@@ -113,8 +113,8 @@ Then /^I do not see management data$/ do
   response.should_not have_selector("#management_company")
 end
 
-Given /^the restaurant has no Twitter of Facebook info$/ do
-  @restaurant.update_attributes(:twitter_username => nil, :facebook_page => nil)
+Given /^the restaurant has no Twitter or Facebook info$/ do
+  @restaurant.update_attributes(:twitter_handle => nil, :facebook_page_url => nil)
 end
 
 Then /^I do not see the Twitter username$/ do

@@ -1,4 +1,4 @@
-@restaurant_profile
+@restaurant_profile @restaurant
 Feature: Restaurant profile
   So that a restaurant can see their profile
 
@@ -15,7 +15,7 @@ Feature: Restaurant profile
     And I press "Upload"
     When I go to the edit restaurant page for "Piece"
     And I attach the image "/features/images/bourgeoispig_logo.gif" to "restaurant_logo_attributes_attachment" on S3
-    And I press "Save"
+    And I press "Save logo changes"
     When I go to the restaurant menu upload page for Piece
     And I fill in "January" for "Menu name"
     And I select "Monthly" from "How often it changes"
@@ -32,8 +32,8 @@ Feature: Restaurant profile
     And I see the address
     And I see the phone number
     And I see the restaurant's website as a link
-    And I see the restaurant's Twitter username
-    And I see the restaurant's Facebook page
+    # And I see the restaurant's Twitter username
+    # And I see the restaurant's Facebook page
     And I see media contact name, phone, and email
     And I see the management company name as a link
     And I see the primary photo
@@ -52,7 +52,7 @@ Feature: Restaurant profile
     Then I do not see management data
 
   Scenario: The restaurant doesn't like social networking
-    Given the restaurant has no Twitter of Facebook info
+    Given the restaurant has no Twitter or Facebook info
     When I go to the soapbox restaurant profile for "Piece"
     Then I do not see the Twitter username
     And I do not see the Facebook username
