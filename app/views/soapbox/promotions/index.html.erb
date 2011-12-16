@@ -35,7 +35,7 @@
         <p><%= link_to promotion.attachment_file_name, promotion.attachment.url %></p>
         <% end -%>
         <p><%= promotion.date_description %></p>
-        <p><span class="datestamp"><%= "Posted #{promotion.created_at.strftime("%D")}" %></span></p>
+        <p><span class="datestamp"><%= "Posted #{promotion.created_at.strftime("%D")}" %></span> - <%= link_to "Share this entry", soapbox_promotion_path(promotion) %></p>
     </div>
     <div class="clear">&nbsp;</div>
 <% end %>
