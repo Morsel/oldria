@@ -17,7 +17,7 @@ Feature: On the Menu
   Scenario: Managers can enter an OTM item
     When I go to the new on the menu page for "Country Dog"
     And I fill in "name" with "Pork chop"
-    And I fill in "description" with "A braised pork chop served with fruit compote"
+    And I fill in "menu_item_description" with "A braised pork chop served with fruit compote"
     And I fill in "price" with "12.00"
     And I check "farm-to-table"
     And I press "Save"

@@ -9,7 +9,7 @@
     <% end %>
     
     <div class="clear">
-        <h3>Restaurant Personnel from:</h3>
+        <h3>Restaurant personnel from:</h3>
         <%= @restaurants_and_employments.keys.map { |r| "#{r.name}" }.to_sentence %>
     </div>
 <% elsif current_user.admin? %>
