@@ -1,10 +1,10 @@
-<% title "Create free account" %>
+<% title "Sign up for a free account" %>
 
 <div id="editing_restaurant">
 
 <% semantic_form_for @invitation do |f| %>
     <%= render :partial => "form", :locals => { :f => f } %>
-    <%= submit_tag current_user ? "Invite User" : "Create Free Account" %>
+    <%= submit_tag current_user ? "Invite User" : "Sign up for a free account" %>
 <% end %>
 
 </div>
