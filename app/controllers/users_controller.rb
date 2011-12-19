@@ -118,7 +118,7 @@ class UsersController < ApplicationController
   def fb_deauth
     @user.update_attribute(:facebook_access_token, nil)
     flash[:notice] = "Your Facebook account has been disconnected"
-    redirect_to edit_user_profile_path(:user_id => @user.id)
+    redirect_to params[:restaurant_id].present? ? edit_restaurant_path(params[:restaurant_id]) : edit_user_profile_path(:user_id => @user.id)
   end
 
   def fb_connect
