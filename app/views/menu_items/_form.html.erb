@@ -1,7 +1,7 @@
 <% semantic_form_for [@restaurant, @menu_item], :html => {:multipart => true} do |f| %>
     <% f.inputs do %>
-        <%= f.input :name %>
-        <%= f.input :description %>
+        <%= f.input :name, :label => "Name of Dish/Drink/Wine/Beer" %>
+        <%= f.input :description, :label => "Inspiration/Background", :hint => "Share what makes you excited" %>
         <%= f.input :price, :hint => "Do not include the dollar sign ($)" %>
         <%= f.input :pairing %>
         <%= f.input :photo, :hint => "Please shrink large photos to 2400 pixels on a side before you attempt to upload them" %>
