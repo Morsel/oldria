@@ -74,8 +74,8 @@
       <%- if @fb_user.present? -%>
       <p>
           You are currently linked to your Facebook account <em>"<%= @fb_user.name %>"</em>. You can connect to a different Facebook profile by disconnecting below, then setting up Facebook again.
-          <%= fb_logout_link "Disconnect Facebook", fb_deauth_user_path(current_user), :class => 'sf-button negative' %>
       </p>
+      <%= fb_logout_link "Disconnect Facebook", fb_deauth_user_path(current_user), :class => 'sf-button negative' %>
       <% if @restaurant.has_facebook_page? -%>
         <p>Current Facebook page for <%= @restaurant.name %>: <em><%= @restaurant.facebook_page.fetch.name %></em></p>
       <%- end %>
@@ -94,8 +94,8 @@
       <% end %>
 
       <%- else -%>
-        <%= link_to "Setup Facebook", fb_auth_user_path(current_user, :restaurant_id => @restaurant.id), :class => 'sf-button' %>
         <p>Facebook regulations require you to use your Facebook personal account permissions to access your restaurant's Facebook page. So first, link Spoonfeed to your personal Facebook account by clicking below. You can then link the account to your restaurant page. You must have admin permissions for your restaurant's Facebook page to link the accounts.</p>
+        <%= link_to "Setup Facebook", fb_auth_user_path(current_user, :restaurant_id => @restaurant.id), :class => 'sf-button' %>
       <%- end -%>
   </fieldset>
 
