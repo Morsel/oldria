@@ -2269,18 +2269,17 @@ dl.things dt:after {content: ":"}
 			}
 		}
 		img {
-			width: 100px;
-			height: 100px;
-			border: 1px solid #ddd;
-			background-color: #f5f4f2;
+			border: 1px solid #ccc;
 			@include hiddentext;
+			float: left;
+			margin: 0 14px 10px 0;
 		}
 		h1 {
 			font-size: 24px;
 			color: #333;
 		}
 		#restaurant_meta {
-			margin-left: 115px;
+			float: left;
 			.address {
 				line-height: 17px;
 			}
