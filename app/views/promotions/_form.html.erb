@@ -1,6 +1,7 @@
 <% semantic_form_for [restaurant, promotion], :html => { :multipart => true } do |f| %>
     <% f.inputs do %>
         <%= f.input :promotion_type %>
+        <%= f.input :headline, :hint => "Limit: 144 characters" %>
         <%= f.input :details, :hint => "Stay under 1000 characters. Basic HTML formatting is allowed.", :input_html => { :rows => 4 } %>
         <%= f.input :link %>
         <%= f.input :attachment, :hint => "PDF files allowed" %>

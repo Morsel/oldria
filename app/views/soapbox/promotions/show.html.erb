@@ -22,6 +22,7 @@
     <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#username=unpluggedria"></script>
     <!-- AddThis Button END -->
 
+    <h3><%= @promotion.headline %></h3>
     <%= render :partial => 'restaurants/identity', :locals => { :restaurant => @promotion.restaurant } %>
     <div>
         <p><%= @promotion.title %>: <%= @promotion.date_text %></p>
