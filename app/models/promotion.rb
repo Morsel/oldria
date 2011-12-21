@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20111213182004
+# Schema version: 20111220185932
 #
 # Table name: promotions
 #
@@ -17,6 +17,7 @@
 #  attachment_content_type :string(255)
 #  attachment_file_size    :integer
 #  attachment_updated_at   :datetime
+#  headline                :string(255)
 #
 
 # Restaurant events and promotions
@@ -30,10 +31,11 @@ class Promotion < ActiveRecord::Base
   belongs_to :promotion_type
   belongs_to :restaurant
 
-  validates_presence_of :promotion_type, :details, :start_date, :restaurant_id
+  validates_presence_of :promotion_type, :details, :start_date, :restaurant_id, :headline
   validates_presence_of :end_date, :if => Proc.new { |promo| promo.date_description.present? },
       :message => "End date is required for repeating events"
   validates_length_of :details, :maximum => 1000
+  validates_length_of :headline, :maximum => 144
 
   # Attachments and validations
   has_attached_file :attachment,

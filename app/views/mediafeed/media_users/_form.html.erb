@@ -9,8 +9,8 @@
 	<%= f.input :publication, :label => "Affiliated Publication", :hint => "Please note: your response rate will increase exponentially if you include a publication. If none is listed, chefs will assume you are a <em>diner</em> and not a <em>journalist</em>. If you are <em>freelance</em>, please include your primary publication(s). " %>
 	<p>&nbsp;</p>
 	<h3>Location(s) that I write for:</h3>
-	<p><%= f.input :national, :label => 'I cover a national selection of restaurants and personnel.' %></p>
-	<%= f.input :metropolitan_areas, :as => :check_boxes, :label => 'I cover the following specific metro areas' %>
+	<p><%= f.input :national, :label => 'I would like to receive a national newsletter to keep abreast of national trends' %></p>
+	<%= f.input :metropolitan_areas, :as => :check_boxes, :label => 'I would like to receive local information for the following metro areas (check all that apply)' %>
 <% end %>
 <% f.inputs :name => 'Desired Login Information', :class => 'editing basics' do %>
 	<%= f.input :username, :required => true, :input_html => {:autocomplete => "off"} %>

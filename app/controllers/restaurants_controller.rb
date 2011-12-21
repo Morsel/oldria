@@ -76,7 +76,7 @@ class RestaurantsController < ApplicationController
     @page = current_facebook_user.accounts.select { |a| a.id == params[:facebook_page] }.first
 
     if @page
-      @restaurant.update_attributes!(:facebook_page_id => @page.id, :facebook_page_token => @page.access_token)
+      @restaurant.update_attributes!(:facebook_page_id => @page.id, :facebook_page_token => @page.access_token, :facebook_page_url => @page.fetch.link)
       flash[:notice] = "Added Facebook page #{@page.name} to the restaurant"
     else
       @user.update_attributes!(:facebook_page_id => nil, :facebook_page_token => nil)

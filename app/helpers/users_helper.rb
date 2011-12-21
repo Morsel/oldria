@@ -15,8 +15,8 @@ module UsersHelper
     (current_user == follower) || current_user.following?(follower)
   end
 
-  def primary?(employment)
-    employment == current_user.primary_employment
+  def primary?(user, employment)
+    employment == user.primary_employment
   end
 
   def display_email(user)

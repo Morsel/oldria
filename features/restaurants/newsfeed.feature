@@ -18,6 +18,7 @@ Feature: Newsfeed (restaurant promotions and events)
 
     When I select "Special Promotion" from "Promotion type"
     And I fill in "Details" with "My great event"
+    And I fill in "Headline" with "Read all about it!"
     And I press "Post"
 
     Then I should see "Your promotion has been created"

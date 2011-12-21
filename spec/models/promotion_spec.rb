@@ -10,7 +10,8 @@ describe Promotion do
       :start_date => Date.today,
       :end_date => Date.today,
       :date_description => "value for date_description",
-      :restaurant_id => 1
+      :restaurant_id => 1,
+      :headline => "My great headline"
     }
   end
 
