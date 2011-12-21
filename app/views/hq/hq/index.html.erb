@@ -1,22 +1,154 @@
 <% title "RIA HQ" -%>
 
-<h2 class="tagline">We Connect Restaurants, Media, and Diners</h2>
+<div class="mainGraphic">
+  <div class="message">
+    <div class="container">
+      <h2 class="chefsMessage">Showcase your talent in a community of your peers</h2>
+      <h2 class="pubMessage">Get more access to more media and help your clients reach more diners<br>- without the busywork</h2>
+      <h2 class="journalistMessage">Access the nation's largest database of restaurant press information</h2>
+      <h2 class="dinersMessage">Go behind the scenes with the nation's most engaging chefs</h2>
+    </div>
+  </div>
+</div>
 
-<div id="audiences">
-	<nav>
-		<% link_to "http://spoonfeed.restaurantintelligenceagency.com/", :id => "spoonfeed-link", :name => "Spoonfeed" do -%>
-		    <h3>Chefs, Mixologists, Sommeliers</h3>
-		    <p>Connect to the media for free! Communicate to diners online.</p>
-		<% end -%>
-		<% link_to "http://mediafeed.restaurantintelligenceagency.com/", :id => "media-link", :name => "Mediafeed" do -%>
-	        <h3>Food/Beverage Journalists, Authors, Bloggers</h3>
-	        <p>Private, secure direct connection to chefs, mixologists &amp; sommeliers.</p>
-		<% end -%>
-	    <% link_to "http://soapbox.restaurantintelligenceagency.com/", :id => "soapbox-link", :name => "Soapbox" do -%>
-            <h3>Diners</h3>
-	        <p>A backstage pass to the<br/>restaurants you crave.</p>
-		<% end -%>
-	</nav>
-</div><!--#audiences-->
+<section id="main" role="main">
 
-<div class="clear">&nbsp;</div>
+  <div id="top" class="clearfix">
+    <h2>The work of great chefs. The center of all things restaurant.</h2>
+  </div>
+
+  <article id="ourSites" class="gradient">
+    <div class="articleBox">
+      <h2 class="ir">Our Sites</h2>
+          <ul id="logoNav" class="htabs">
+            <li id="first" class="spoonfeed"><a href="#first" class="on">spoonfeed</a></li>
+            <li id="second" class="soapbox"><a href="#second">soapbox</a></li>
+          </ul>
+          <div class="tabs">
+            <div id="first" class="tab clearfix">
+              <span class="green-t"></span>
+              <p>Connecting chefs, publicists and media online, Spoonfeed is an online tool for managing restaurant public relations. Featuring comprehensive restaurant press kits and professional profiles for chefs, mixologists and sommeliers, Spoonfeed is custom-designed to generate more media coverage for chef-driven restaurants.</p>
+              <%= link_to "Visit Spoonfeed", root_path %>
+            </div>
+            <div id="second" class="tab clearfix">
+              <span class="green-t"></span>
+              <p>The backstage pass to the restaurants you crave, Soapbox delivers the country's most engaging chefs - unfiltered, uncensored and unplugged. Discover their inspirations, philosophies, tatoos and taboos - the real insights into life in the kitchen that don't make it onto "Top Chef."</p>
+              <%= link_to "Visit Soapbox", soapbox_root_path %>
+            </div>
+          </div>
+      </div>
+  </article>
+
+  <article id="usage" class="gradient">
+    <div class="articleBox">
+      <h2 class="ir">Our Sites</h2>
+          <ul id="infoNav" class="htabs2">
+            <li id="3" class="chefs"><a href="#third" class="on" title="chefs">chefs</a></li>
+            <li id="4" class="publicists"><a href="#fourth" title="publicists">publicists</a></li>
+            <li id="5" class="journalists"><a href="#fifth" title="journalists">journalists</a></li>
+            <li id="6" class="diners"><a href="#sixth" title="diners">diners</a></li>
+          </ul>
+          <div class="tabs">
+            <div id="third" class="tab clearfix">
+              <span class="green-t"></span>
+              <p>Join hundreds of the country's most engaging chefs, sommeliers and mixologists and create a professional profile custom-built to help you share your inspirations, philosophies, background and career.</p>
+              <%= link_to_unimplemented("Learn More") %>
+            </div>
+            <div id="fourth" class="tab clearfix">
+              <span class="orange-t"></span>
+              <p>Collaborate with your clients and connect with media with a robust, easy-to-use online media center custom-built for restaurant publicists. Automated online tools help keep your clients top of mind and in the news.</p>
+              <%= link_to_unimplemented("Learn More") %>
+            </div>
+            <div id="fifth" class="tab clearfix">
+              <span class="yellow-t"></span>
+              <p>Discover the ultimate restaurant research tool - from comprehensive press kit information to thousands of story ideas and a secure, private tool for connecting with chefs directly.</p>
+              <%= link_to_unimplemented("Learn More") %>
+            </div>
+            <div id="sixth" class="tab clearfix">
+              <span class="brown-t"></span>
+              <p>Become the ultimate restaurant insider with a backstage pass to your favorite restaurant and the rising star chefs, mixologists and sommeliers. Get insider tips on where to eat, what to cook and the hottest trends in food today.</p>
+              <%= link_to_unimplemented("Learn More") %>
+            </div>
+          </div>
+      </div>
+  </article>
+  <article id="join" class="gradient">
+    <div class="articleBox">
+      <h2 class="ir">Join Us</h2>
+      <form id="join" class="clearfix">
+        <div class="left">
+          <input id="firstName" class="standard-filler" type="text" name="firstName" alt="First Name" required />
+          <input id="lastName" class="standard-filler" type="text" name="lastName" alt="Last Name" required />
+        </div>
+        <div class="right">
+          <input id="email" class="standard-filler" type="email" name="email" alt="email" required />
+          <div class="select">
+            <select>
+              <option>Restaurant professional</option>
+              <option>Media</option>
+            </select>
+          </div>
+        </div>
+        <div class="clearfix">
+            <p class="left">By entering your information you are agreeing to our <a href="<%= page_path('terms') %>" class="terms">terms and services</a></p>
+            <input type="submit" id="submit" class="right" value="Sign Me Up">
+        </div>
+      </form>
+    </div>
+  </article>
+
+  <article id="testimonials" class="gradient">
+    <div class="articleBox">
+      <h2 class="ir">What People Are Saying.</h2>
+      <div class="testimonial clearfix">
+        <img class="left" src="/images/hq/profile1.png" />
+        <div>
+          <blockquote>
+            "I can't imagine why any any independent restaurant wouldn't do this. It's amazing."
+          </blockquote>
+          <p>Paul Kahan - Blackbird, avec, The Publican, Big Star</p>
+        </div>
+      </div>
+      <div class="testimonial clearfix">
+        <img class="right" src="/images/hq/profile2.png" />
+        <div>
+          <blockquote>
+            "What RIA is doing is fabulous - very innovative way to connect chefs, bloggers, and journalists."
+          </blockquote>
+          <p>Perry Hendrix - Executive Chef, Custom House Tavern</p>
+        </div>
+      </div>
+        <div class="testimonial clearfix">
+          <img class="left" src="/images/hq/profile1.png" />
+          <div>
+            <blockquote>
+              "Restaurant Intelligence Agency is a must-have for any restaurant or bar owner dedicated to creating a focus point for a focused publicity strategy."
+            </blockquote>
+            <p>Jason Cott - the Violet Hour and Alchemy Consulting</p>
+          </div>
+        </div>
+    </div>
+  </article>
+
+  <article id="social" class="gradient">
+    <div class="articleBox">
+      <h2 class="ir">Social</h2>
+      <div class="socialContainer clearfix">
+        <div class="twitter clearfix">
+          <h3>Follow <a href="http://www.twitter.com/soapbox_HQ">@soapbox_HQ</a>on Twitter</h3>
+          <img src="/images/hq/twitter.png" alt="" />
+          <div class="twitterBox">
+            <span class="arrow"></span>
+            <div class="tweet"></div>
+          </div>
+        </div>
+        <div class="facebook left">
+          <h3>Follow ria on Facebook</h3>
+          <div class="fb-activity" data-site="https://www.facebook.com/RestaurantIntelligenceAgency" data-width="325" data-height="390" data-header="true" data-recommendations="false">
+          </div>
+        </div>
+      </div>
+    </div>
+  </article>
+
+</section>

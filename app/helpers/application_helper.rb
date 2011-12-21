@@ -81,4 +81,8 @@ module ApplicationHelper
       restaurant_path(commenter)
     end
   end
+
+  def link_to_unimplemented(string)
+    link_to_function(string, "alert('Not implemented yet')")
+  end
 end

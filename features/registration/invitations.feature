@@ -29,7 +29,7 @@ Feature: users can be invited to join Spoonfeed by registered SF users, restaura
     When I fill in "invitation_restaurant_name" with "My Restaurant"
     And I select "Chef" from "Role"
     And I check "Food"
-    And I press "Create Free Account"
+    And I press "Sign up for a free account"
     Then I should see "Soapbox"
     
   Scenario: an invite is approved and the user wants to log in and update their info (not a restaurant employee)
