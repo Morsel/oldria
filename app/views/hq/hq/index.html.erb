@@ -75,25 +75,20 @@
   <article id="join" class="gradient">
     <div class="articleBox">
       <h2 class="ir">Join Us</h2>
-      <form id="join" class="clearfix">
-        <div class="left">
-          <input id="firstName" class="standard-filler" type="text" name="firstName" alt="First Name" required />
-          <input id="lastName" class="standard-filler" type="text" name="lastName" alt="Last Name" required />
-        </div>
-        <div class="right">
-          <input id="email" class="standard-filler" type="email" name="email" alt="email" required />
-          <div class="select">
-            <select>
-              <option>Restaurant professional</option>
-              <option>Media</option>
-            </select>
-          </div>
-        </div>
-        <div class="clearfix">
-            <p class="left">By entering your information you are agreeing to our <a href="<%= page_path('terms') %>" class="terms">terms and services</a></p>
-            <input type="submit" id="submit" class="right" value="Sign Me Up">
-        </div>
-      </form>
+      <% form_tag redirect_invitations_path, :id => "join" do %>
+      <div class="left">
+          <%= text_field_tag "first_name", "", :id => "firstName", :class => "standard-filler", :alt => "First Name", :required => "" %>
+          <%= text_field_tag "last_name", "", :id => "lastName", :class => "standard-filler", :alt => "Last Name", :required => "" %>
+      </div>
+      <div class="right">
+          <%= text_field_tag "email", "", :id => "email", :class => "standard-filler", :alt => "email", :required => "" %>
+          <%= select_tag "role", options_for_select([["Select one", ""], ["Restaurant professional", "restaurant"], ["Media", "media"]]) %>
+      </div>
+      <div class="clearfix">
+          <p class="left">By entering your information you are agreeing to our <a href="<%= page_path('terms') %>" class="terms">terms and services</a></p>
+          <%= submit_tag "Sign Me Up", :id => "submit", :class => "right" %>
+      </div>
+      <% end %>
     </div>
   </article>
 

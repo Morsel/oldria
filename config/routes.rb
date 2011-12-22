@@ -6,7 +6,7 @@ ActionController::Routing::Routes.draw do |map|
   map.social_media 'social_media', :controller => 'social_media', :action => 'index'
   map.feature '/features/:id', :controller => 'features', :action => 'show'
   map.resources :invitations, :only => ['new', 'create', 'show'],
-        :collection => { :recommend => :get, :submit_recommendation => :post }
+        :collection => { :recommend => :get, :submit_recommendation => :post, :redirect => :post }
   map.resource :complete_registration, :only => [:show, :update],
     :collection => { :user_details => :get, :find_restaurant => :any, :contact_restaurant => :post,
       :finish_without_contact => :get }

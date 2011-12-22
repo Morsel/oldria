@@ -23,10 +23,7 @@ Feature: users can be invited to join Spoonfeed by registered SF users, restaura
     And I fill in "First name" with "Liane"
     And I fill in "Last name" with "Jones"
     And I fill in "Email" with "ljones@myemail.com"
-    And I select "Restaurant professional" from "account_type"
-    Then I should see "Work details"
-
-    When I fill in "invitation_restaurant_name" with "My Restaurant"
+    And I fill in "invitation_restaurant_name" with "My Restaurant"
     And I select "Chef" from "Role"
     And I check "Food"
     And I press "Sign up for a free account"

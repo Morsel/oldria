@@ -6,7 +6,7 @@ class InvitationsController < ApplicationController
   before_filter :require_user, :only => [:recommend, :submit_recommendation]
   
   def new
-    @invitation = Invitation.new
+    @invitation = Invitation.new(params[:invitation])
   end
   
   def create
@@ -49,7 +49,15 @@ class InvitationsController < ApplicationController
       redirect_to login_path, :user_id => params[:user_id]
     end
   end
-  
+
+  def redirect
+    if params[:role] == "restaurant"
+      redirect_to :action => "new", :invitation => { :first_name => params[:first_name], :last_name => params[:last_name], :email => params[:email] }
+    elsif params[:role] == "media"
+      redirect_to :controller => "mediafeed/media_users", :action => "new", :user => { :first_name => params[:first_name], :last_name => params[:last_name], :email => params[:email] }
+    end
+  end
+
   def recommend
   end
   
