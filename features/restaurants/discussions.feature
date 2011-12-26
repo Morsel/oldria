@@ -14,7 +14,7 @@ Feature: Discussions
 
   Scenario: Create a new Discussion
     Given I am logged in as "sam" with password "secret"
-    When I follow "My Restaurants"
+    When I follow "Edit Restaurant"
     And I follow "Arabian Nights"
     And I follow "Start a discussion"
     And I fill in "Subject" with "Where should we eat?"
@@ -24,7 +24,7 @@ Feature: Discussions
 
   Scenario: Discussion notifications
     Given I am logged in as "sam" with password "secret"
-    When I follow "My Restaurants"
+    When I follow "Edit Restaurant"
     And I follow "Arabian Nights"
     And I follow "Start a discussion"
     And I fill in "Subject" with "Where should we eat?"
@@ -52,7 +52,7 @@ Feature: Discussions
 @allow-rescue
   Scenario: Lockdown
     Given I am logged in as "sam" with password "secret"
-	When I follow "My Restaurants"
+	When I follow "Edit Restaurant"
 	And I follow "Arabian Nights"
 	And I follow "Start a discussion"
 	And I fill in "Subject" with "Where should we eat?"

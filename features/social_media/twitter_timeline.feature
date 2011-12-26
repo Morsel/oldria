@@ -10,11 +10,11 @@ Feature: Twitter Authentication
     | username | password |
     | johnny   | secret   |
     And I am logged in as "johnny" with password "secret"
-    When I follow "My Profile"
+    When I follow "Edit Profile"
     And I follow "Account"
     And I follow "Setup Twitter"
     And Twitter authorizes "johnny"
-    Then I should see "Twitter"
+    Then I should see "You currently have your Twitter account set up"
     But I should not see "Setup Twitter"
 
 
@@ -23,7 +23,7 @@ Feature: Twitter Authentication
     | username | password |
     | stevie   | secret   |
     Given I am logged in as "stevie" with password "secret"
-    When I follow "My Profile"
+    When I follow "Edit Profile"
     And I follow "Account"
     And I follow "Read Twitter Timeline"
 

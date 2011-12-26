@@ -27,7 +27,7 @@ class WelcomeController < ApplicationController
     else
       @sf_slides = SfSlide.all(:limit => 4)
       @sf_promos = SfPromo.all(:limit => 4)
-      render :layout => 'home'
+      # render :layout => 'home'
     end
   end
   

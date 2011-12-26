@@ -1,9 +1,0 @@
-  <h2><%= question.topic.title %></h2>
-  <p><%= question.chapter.title %></p>
-  <h3><%= question.title %></h3>
-  <% remote_form_for question.find_or_build_answer_for(current_user), :url => user_profile_answers_path(current_user, :format => :js), :update => "btl_game_content" do |f| %>
-      <%= f.hidden_field :profile_question_id %>
-      <%= f.text_area :answer %>
-      <%= f.submit 'Post' %>
-  <% end %>
-  <p class="disclaimer">Your answers are viewable on your public profile</p>

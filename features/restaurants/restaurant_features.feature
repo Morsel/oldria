@@ -17,8 +17,8 @@ Feature: Associate Restaurant features
 
   Scenario: Initial navigation
     When I go to the restaurant show page for "Piece"
-    And I follow "Edit restaurant"
-    And I follow "Features"
+    And I follow "Edit restaurant" within "#restaurant_actions"
+    And I follow "Features" within "#edit_resto_menu"
     Then I am on the restaurant feature page for "Piece"
     And I see the page header for "Cuisine"
     And I see the category headers for "Cuisine"

@@ -51,7 +51,7 @@ Feature: Update information
     | username | password |
     | sammy    | secret   |
     And I am logged in as "sammy" with password "secret"
-    When I follow "My Profile"
+    When I follow "Edit Profile"
     And I follow "Account"
     And I follow "Disconnect Twitter"
     Then I should see "Your Twitter account is no longer connected to your SpoonFeed account"

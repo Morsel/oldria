@@ -1,17 +1,20 @@
-<!doctype html>
-<html lang="en" class="no-js">
+<!DOCTYPE html>
+<!--[if lt IE 7]> <html class="no-js ie6 oldie" lang="en"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js ie7 oldie" lang="en"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js ie8 oldie" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"><![endif]-->
-  <!--[if lt IE 9]>
-    <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-  <![endif]-->
-  <title><%= h(yield(:title) || "") %> :: Spoonfeed :: Restaurant Intelligence Agency</title>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 
+  <title><%= h(yield(:title) || "") %> | Spoonfeed - Connecting Chefs, Publicists, and Media</title>
   <meta property="og:description" content="<%= h(yield(:fb_description) || "")  %>" />
   <meta name="author" content="Restaurant Intelligence Agency">
+
   <link rel="shortcut icon" href="/favicon.ico">
-  <%= stylesheet_link_tag 'colorbox', '/redesign/brandonbold/stylesheet', '/redesign/hoeflerbolditalic/stylesheet', '/redesign/_css/spoonfeed', :cache => true %>
+
+  <link href='http://fonts.googleapis.com/css?family=Voltaire' rel='stylesheet' type='text/css'>
+  <%= stylesheet_link_tag 'sf/reset.css', 'sf/style.css', 'colorbox' %>
   <%= stylesheet_link_tag '/redesign/_css/print', :media => 'print' %>
   <%= yield(:head) %>
 
@@ -25,17 +28,10 @@
   <%- end -%>
 
   <%= render :partial => 'layouts/ga' %>
-  
-  <%= javascript_include_tag 'https://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js', 'https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.min.js' %>
+
+  <%= javascript_include_tag 'modernizr-2.0.6.min.js' %>
   <%= javascript_include_tag 'jquery-form-min.js', 'jquery-colorbox-min.js', 'jquery-easing-min.js', 'jquery-cycle-min.js', 'jquery.equalheights', 'jquery.ui.tabs-customized', 'showy', 'jquery.masonry.js', :cache => true %>
   <%= javascript_include_tag 'spoonfeed' %>
-
 </head>
 
-<!--[if lt IE 7 ]> <body id="<%= Rails.env %>" class="ie6"> <![endif]-->
-<!--[if IE 7 ]>    <body id="<%= Rails.env %>" class="ie7"> <![endif]-->
-<!--[if IE 8 ]>    <body id="<%= Rails.env %>" class="ie8"> <![endif]-->
-<!--[if IE 9 ]>    <body id="<%= Rails.env %>" class="ie9"> <![endif]-->
-<!--[if (gt IE 9)|!(IE)]>
-	
-<!--><body id="<%= Rails.env %>"> <!--<![endif]-->
+<body>

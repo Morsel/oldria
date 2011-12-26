@@ -7,9 +7,11 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 
-  <title><%= "#{h(yield(:title))} |" %> Restaurant Intelligence Agency</title>
+  <title><%= h(yield(:title)) %> | Restaurant Intelligence Agency</title>
   <meta name="description" content="Restaurant Intelligence Agency website">
   <meta name="author" content="Restaurant Intelligence Agency">
+
+  <link rel="shortcut icon" href="/favicon-ria.ico">
 
   <meta name="viewport" content="width=device-width,initial-scale=1">
 
@@ -30,11 +32,8 @@
 
     <header class="clearfix">
       <div class="container">
-        <% link_to hq_root_path do -%><img id="logo" src="/images/hq/logo.png" alt="" /><% end %>
+        <% link_to hq_root_path do -%><img id="logo" src="/images/hq/logo.png" alt="RIA" /><% end %>
       </div>
-      <!-- <div class="container">
-        <a href="<%= hq_root_path %>"><img id="logo" src="/images/hq/logo.png" alt="RIA" /></a>
-      </div> -->
       <nav id="topNav" class="clearfix">
         <div class="container">
           <ul>
@@ -98,7 +97,7 @@
     </footer>
 
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.6/jquery.min.js"></script>
-  <script>window.jQuery || document.write('<script src="js/libs/jquery-1.6.2.min.js"><\/script>')</script>
+  <script type="text/javascript">window.jQuery || document.write('<script src="/javascripts/jquery-1.6.2.min.js"></script>')</script>
 
   <%= javascript_include_tag 'plugins.js', 'jquery.tools.min.js', 'jquery.easing.1.3.js', 'jquery.tweet.js', 'filler.js', 'jquery.simplemodal.js', 'ria.js' %>
 
