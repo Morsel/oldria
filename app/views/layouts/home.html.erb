@@ -14,7 +14,7 @@
   <link rel="shortcut icon" href="/favicon.ico">
 
   <link href='http://fonts.googleapis.com/css?family=Voltaire' rel='stylesheet' type='text/css'>
-  <%= stylesheet_link_tag 'sf/reset.css', 'sf/style.css' %>
+  <%= stylesheet_link_tag 'sf_home/reset.css', 'sf_home/style.css' %>
 
   <%= javascript_include_tag 'modernizr-2.0.6.min.js' %>
 </head>
@@ -30,7 +30,6 @@
 }(document, 'script', 'facebook-jssdk'));</script>
 
     <header class="clearfix">
-
       <%= render :partial => "layouts/nav_sites" %>
 
       <div id="mainNav" class="clearfix container">
@@ -47,7 +46,6 @@
           </ul>
         </nav>
       </div>
-
     </header>
 
     <div class="mainGraphic">
@@ -186,9 +184,7 @@
 
     <%= render :partial => "layouts/sf_footer_links" %>
 
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.6/jquery.min.js"></script>
-    <script type="text/javascript">window.jQuery || document.write('<script src="/javascripts/jquery-1.6.2.min.js"></script>')</script>
-
+    <%= javascript_include_tag 'https://ajax.googleapis.com/ajax/libs/jquery/1.6/jquery.min.js' %>
     <%= javascript_include_tag 'jquery.tweet.js', 'filler.js', 'jquery.simplemodal.js', 'sf_home.js' %>
 
   <script>

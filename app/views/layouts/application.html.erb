@@ -10,7 +10,11 @@
 
 <section id="main" class="clearfix">
 
-    <%= render 'layouts/nav_sf_logged_in' if current_user && !current_user.media? %>
+    <% if current_user && current_user.media? -%>
+      <%= render 'layouts/nav_media_logged_in' %>
+    <% elsif current_user -%>
+      <%= render 'layouts/nav_sf_logged_in' %>
+    <% end -%>
 
     <div class="mainContainer">
         <%= render 'layouts/flashes' %>

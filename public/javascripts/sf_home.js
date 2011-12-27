@@ -5,14 +5,14 @@ jQuery(document).ready(function(){
   });
   jQuery('.box div:last').css({'border-right' : '0'});
   jQuery(function(jQuery){
-      jQuery("#twitterBox").tweet({
-        count: 3,
-        query: "from:seaofclouds http",
-        loading_text: "searching twitter..."
-      });
+    jQuery("#twitterBox").tweet({
+      count: 3,
+      query: "from:seaofclouds http",
+      loading_text: "searching twitter..."
     });
+  });
   jQuery(function(jQuery){
-  jQuery(".tweet").tweet({
+    jQuery(".tweet").tweet({
       username: "soapbox_HQ",
       join_text: "auto",
       count: 3,
@@ -26,14 +26,14 @@ jQuery(document).ready(function(){
   });
   jQuery('.standard-filler').formFiller();
   jQuery('.terms').click(function (e) {
-        jQuery('#basic-modal-content').modal();
+    jQuery('#basic-modal-content').modal();
 
-        return false;
-    });
-    //Equal Height Columns
-    var highestCol = Math.max(jQuery('.chefBox .content,').height(),jQuery('.pubBox .content').height(),jQuery('.mediaBox .content').height());
-    jQuery('.content').height(highestCol);
-    var highestCol = Math.max(jQuery('.footerBox').height());
-    jQuery('.footerBox').height(highestCol);
-    jQuery('.testimonial:odd div').css({'text-align': 'right'});
- });
+    return false;
+  });
+  //Equal Height Columns
+  var highestCol = Math.max(jQuery('.chefBox .content,').height(),jQuery('.pubBox .content').height(),jQuery('.mediaBox .content').height());
+  jQuery('.content').height(highestCol);
+  var highestCol = Math.max(jQuery('.footerBox').height());
+  jQuery('.footerBox').height(highestCol);
+  jQuery('.testimonial:odd div').css({'text-align': 'right'});
+});
