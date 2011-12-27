@@ -25,9 +25,7 @@ class WelcomeController < ApplicationController
       params[:is_more] ? set_up_dashboard_with_pagination : set_up_dashboard
       render :dashboard
     else
-      @sf_slides = SfSlide.all(:limit => 4)
-      @sf_promos = SfPromo.all(:limit => 4)
-      # render :layout => 'home'
+      render :layout => 'home'
     end
   end
   

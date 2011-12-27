@@ -4,11 +4,10 @@ Feature: Reset password
   As a user who has forgotten/lost my password
   I want to reset my password, with an email confirmation
 
-
   Scenario: Normal Reset Password Workflow
     Given the following confirmed user:
-    | username | email       |
-    | freddyb  | fred@me.com |
+      | username | email       |
+      | freddyb  | fred@me.com |
 
     When I am on the homepage
     And I follow "Login"
@@ -40,21 +39,19 @@ Feature: Reset password
     Then I should see "Password successfully updated"
     And "freddyb" should be logged in
 
-
   Scenario: Trying to reset when already logged in
     Given the following confirmed user:
-    | username | password  |
-    | james    | secret    |
+      | username | password  |
+      | james    | secret    |
     And I am logged in as "james" with password "secret"
 
     When I go to the password reset request page
     Then I should see "You must be logged out to access this page"
 
-
   Scenario: Trying to reset a non-existing account
     Given the following confirmed user:
-    | username | email               |
-    | correct  | correct@example.com |
+      | username | email               |
+      | correct  | correct@example.com |
 
     When I am on the password reset request page
     And I fill in "Email" with "noone@example.com"
@@ -62,11 +59,10 @@ Feature: Reset password
 
     Then I should see "No user was found with that email address"
 
-
   Scenario: Trying to reset more than once
     Given the following confirmed user:
-    | username | email               |
-    | thatguy  | correct@example.com |
+      | username | email               |
+      | thatguy  | correct@example.com |
 
     And I am on the password reset request page
 

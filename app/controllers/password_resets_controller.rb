@@ -12,13 +12,13 @@ class PasswordResetsController < ApplicationController
     @is_mediafeed = params[:mediafeed]
     if @user && @user.confirmed?
       @user.deliver_password_reset_instructions!
-      flash[:notice] = "Please check your email for instructions"
-      redirect_to mediafeed? ? mediafeed_root_url : root_url
+      flash[:notice] = "Please check your email for instructions to finish resetting your password"
+      redirect_to :action => "new"
     else
       flash.now[:error] = @user ? "Your account is not confirmed.<br/>Please check your email for instructions or 
           <a href='#{mediafeed? ? mediafeed_resend_user_confirmation_path : resend_confirmation_users_path}'>request the confirmation email</a> again." : 
           "No user was found with that email address"
-      render :action => :new, :layout => mediafeed? ? 'mediafeed' : 'application'
+      render :action => :new
     end
   end
   
@@ -53,7 +53,7 @@ class PasswordResetsController < ApplicationController
     @user = User.find_using_perishable_token(params[:id])
     unless @user
       flash[:notice] = "Oops. We're having trouble finding your account."
-      redirect_to root_url
+      redirect_to :action => "new"
     end
   end
 

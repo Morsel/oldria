@@ -82,7 +82,7 @@
       </div>
       <div class="right">
           <%= text_field_tag "email", "", :id => "email", :class => "standard-filler", :alt => "email", :required => "" %>
-          <%= select_tag "role", options_for_select([["Select one", ""], ["Restaurant professional", "restaurant"], ["Media", "media"]]) %>
+          <%= select_tag "role", options_for_select([["Select one", ""], ["Diner", "diner"], ["Restaurant professional", "restaurant"], ["Media", "media"]]) %>
       </div>
       <div class="clearfix">
           <p class="left">By entering your information you are agreeing to our <a href="<%= page_path('terms') %>" class="terms">terms and services</a></p>

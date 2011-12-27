@@ -670,12 +670,12 @@ article#social h2 {
   top: 100px;
 }
 
-/*form {
+form#join {
   width: 660px;
   margin: 0 auto;
 }
 
-form input[type="text"], form input[type="email"], select {
+form#join input[type="text"], form input[type="email"], select {
   width: 310px;
   -webkit-border-radius: 6px;
   -moz-border-radius: 6px;
@@ -686,32 +686,32 @@ form input[type="text"], form input[type="email"], select {
   padding: 5px;
   font-size: 14px;
   display: block;
-}*/
+}
 
-select {
+form#join select {
   width: 322px !important;
   color: #999;
 }
 
-select:active {
+form#join select:active {
   color: #000;
 }
 
-.select {
+form#join .select {
   background: url('/images/sf/dropdown.png') no-repeat center right;
 }
 
-form div p {
+form#join div p {
   font-size: 12px;
   color: #626264;
   font-family: sans-serif;
 }
 
-form div p a {
+form#join div p a {
   color: #521000 !important;
 }
 
-form #submit {
+form#join #submit {
   border: 0;
   text-indent: -9999px;
   display: block;
@@ -720,7 +720,7 @@ form #submit {
   background: url('/images/sf/submit.png') no-repeat 0 -35px;
 }
 
-form #submit:hover {
+form#join #submit:hover {
   background-position: 0 0;
 }
 
