@@ -111,6 +111,10 @@ module UserMessaging
     Admin::Qotd.on_soapbox_with_response_from_user(self)
   end
 
+  def qotd_convos_with_comments
+    admin_conversations.with_replies
+  end
+
   # Restaurant staff discussions, site-wide user conversations
   def unread_discussions
     discussions.find_unread_by(self)

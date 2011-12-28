@@ -55,6 +55,7 @@ class Topic < ActiveRecord::Base
   }
 
   named_scope :without_travel, :conditions => ["topics.title != ?", "Travel Guide"]
+  named_scope :travel, :conditions => { :title => "Travel Guide" }
 
   def previous_for_user(user, is_self = false)
     sort_field = (self.position == 0 ? "id" : "position")

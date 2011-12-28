@@ -1,3 +1,4 @@
+<% if soapbox? %>
 <div id="behindline" class="recent_actions">
     <h3 id="btl-title"><span class="btl-art">Behind the Line:</span> <%= user.name %></h3>
     <% if can?(:manage, user) && !soapbox? %>
@@ -18,3 +19,15 @@
     </ul>
     <p class="view_all"><%= link_to "View all Topics &raquo;", link_for_user_topics(:user_id => user.id) %></p>
 </div><!--#behindline-->
+<% else %>
+<div id="behind" class="left profileBox">
+    <h3>Behind the line<span class="brownArrow"></span></h3>
+
+    <% user_topics(user).each do |topic| -%>
+    <h4><%= topic.title %></h4>
+    <p><%= topic.description || truncate(topic.profile_questions.map(&:title).join(" "), :length => 100) %></p>
+    <% end -%>
+
+    <%= link_to "learn more about #{user.first_name}", link_for_user_topics(:user_id => user.id), :class => "brownLink" %>
+</div>
+<% end %>

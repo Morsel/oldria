@@ -8,6 +8,9 @@ $brown: #897A55;
 $med-brown: #AA9C74;
 $trans-brown: #F7F6F2;
 
+$new-orange: #f16522;
+$new-green: #6eb33f;
+
 @mixin hiddentext{
 	display: block;
 	outline: 0;
@@ -2480,19 +2483,19 @@ table#menus {
 }
 
 /* Profile Page Styles */
-.profile #profileHeader {
+.user_profile #profileHeader {
   margin-bottom: 7px;
 }
 
-.profile #profileImage {
+.user_profile #profileImage {
   width: 281px;
 }
 
-.profile #profileDetails {
+.user_profile #profileDetails {
   width: 577px;
 }
 
-.profile #profileHeader h2 {
+.user_profile #profileHeader h2 {
   color: #6eb33f;
   font-size: 42px;
   font-weight: normal;
@@ -2501,52 +2504,52 @@ table#menus {
   margin: 30px 0 10px 0;
 }
 
-h3 {
+.user_profile h3 {
   font-family: 'Voltaire', sans-serif;
   font-size: 22px;
   text-transform: uppercase;
   margin-bottom: 10px;
 }
 
-h4 {
+.user_profile h4 {
   color: #867d7e;
   margin-bottom: 5px;
 }
 
-h5 {
+.user_profile h5 {
   color: #867d7e;
 }
 
-.profile #profileContent {
+.user_profile #profileContent {
   width: 577px;
 }
 
-.profile #meta {
+.user_profile #meta {
 }
 
-.profile #meta h4 {
+.user_profile #meta h4 {
   color: #f16522;
   text-transform: uppercase;
 }
 
-.profile #meta ul {
+.user_profile #meta ul {
 }
 
-.profile #meta ul li {
+.user_profile #meta ul li {
   display: inline;
   margin-right: 5px;
 }
 
-.profile #meta ul li a {
+.user_profile #meta ul li a {
   color: #867d7e;
   text-decoration: underline;
 }
 
-.profile #meta ul li a:hover {
+.user_profile #meta ul li a:hover {
   color: #59595B;
 }
 
-.profile #sidebar > div {
+.user_profile #sidebar > div {
   width: 224px;
   background: #f8f7f4;
   background: url('/images/sf/noise.png'), #f8f7f4;
@@ -2554,28 +2557,28 @@ h5 {
   margin-bottom: 7px;
 }
 
-.profile #behind, .profile #question {
+.user_profile #behind, .user_profile #question {
   width: 275px;
 }
 
-.profile #behind h3, .profile #question h3, .profile #guides h3 {
+.user_profile #behind h3, .user_profile #question h3, .user_profile #guides h3 {
   color: #FFF;
   padding: 5px 12px;
   position: relative;
   margin-bottom: 25px;
 }
 
-.profile #behind h3 {
+.user_profile #behind h3 {
   background: #d8c469;
   background: url('/images/sf/noise.png'), #d8c469;
 }
 
-.profile #question h3 {
+.user_profile #question h3 {
   background: #acd158;
   background: url('/images/sf/noise.png'), #acd158;
 }
 
-.profile #guides h3 {
+.user_profile #guides h3 {
   background: #a09b98;
   background: url('/images/sf/noise.png'), #a09b98;
 }
@@ -2637,8 +2640,19 @@ span.grayArrow {
   color: #59595B
 }
 
-#background p {
-  margin-bottom: 10px;
+.user_profile .contactDetails {
+  h3, h4 {
+    color: $new-orange;
+  }
+}
+
+.user_profile #background {
+  h3 {
+    color: $new-green;
+  }
+  p {
+    margin-bottom: 10px;
+  }
 }
 
 #facts a {

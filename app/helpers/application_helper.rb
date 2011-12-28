@@ -82,7 +82,7 @@ module ApplicationHelper
     end
   end
 
-  def link_to_unimplemented(string)
-    link_to_function(string, "alert('Not implemented yet')")
+  def link_to_unimplemented(string, opts = {})
+    link_to_function(string, "alert('Not implemented yet')", opts)
   end
 end
