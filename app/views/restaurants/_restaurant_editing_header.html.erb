@@ -3,7 +3,7 @@
         <%= link_to 'Back to public view', restaurant_path(@restaurant), :class => 'backtopublic' %>
     </div><!--#restaurant_actions-->
 
-    <%= image_tag logo_for(@restaurant).attachment.url(:small), :width=>'100' %>
+    <%= image_tag logo_for(@restaurant).attachment.url(:small) %>
     <h1 id="name"><%= restaurant_link(@restaurant) %></h1>
 
     <div id="restaurant_meta" class="">

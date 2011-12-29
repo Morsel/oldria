@@ -998,7 +998,7 @@ form#new_user_session {
 			margin: 4px 10px 10px 0;
 			img {
 				display: block;
-				width: 50px;
+/*        width: 50px;*/
 				border: 1px solid $brown;
 				color: #999;
 				@include hiddentext;
@@ -1870,6 +1870,127 @@ aside.dashboard_actions {
     }
   }
 }
+
+/* ## Restaurant Features Editing --------------------------------------------- */
+
+#restaurant_pages {
+	#restaurant_feature_nav{
+		@include column(3);
+		a {
+		  color: #333;
+			display: block;
+			background: $trans-orange;
+			margin-bottom: 3px;
+			width: 77%;
+			padding: 7px 10px;
+			&:hover, &.selected {
+			  color: #fff;
+			  background: url(/images/redesign/active_arrow_right.png) top right no-repeat $orange;
+			  width: auto;
+			}
+		}
+	}
+	#restaurant_features, #restaurant_tags {
+	  #tags_remaining {
+	    font-weight: bold;
+			font-size: 18px;
+			float: right;
+			margin-top: -34px;
+	  }
+	  > h2 {
+			font-family: 'Hoefler Text', Georgia, Serif;
+			font-weight: bold;
+			font-style: italic;
+			font-size: 22px;
+			line-height: 17px;
+	  }
+	  .feature_category_header, .tag_category_header {
+	    font-family: "helvetica neue", arial, sans-serif;
+		  border-bottom: 1px solid #ddd;
+		  font-style: normal;
+		  font-weight: normal;
+		  padding: 4px 0;
+		}
+		.feature_category, .tag_category {
+		  margin-bottom: 30px;
+		  p {
+		    margin: 5px 0;
+		    input[type="checkbox"] {
+		      margin-bottom: 0;
+		    }
+		  }
+		}
+		form label {
+		  font-weight: normal;
+		}
+	}
+
+  #restaurant_pages_content {
+    @include column(12, true);
+  }
+  #restaurant_features_content {
+    @include column(6);
+    + #behindline {
+      @include column(7, true);
+      h3 {
+        margin-top: 0;
+      }
+    }
+  }
+}
+
+/* ## END of restaurant FEATURES editing --------------------------------------------- */
+
+/* ## A La Minute Editing --------------------------------------------- */
+#editing_restaurant #a_la_minute_questions {
+ 	.editing {
+ 		ol li {
+ 			.ala {
+ 				font-size: 16px;
+ 				font-family: 'Hoefler Text', georgia, serif;
+ 				margin-bottom: 3px;
+ 			}
+ 		}
+	}
+  .a_la_minute_question {
+    label {
+      font-weight: normal;
+    }
+  }
+  .archive {
+    display: none;
+    margin: 10px 0;
+    li {
+      background: none;
+      .remove_link {
+        font-weight: bold;
+        font-size: 11px;
+        margin-left: 5px;
+      }
+      small {
+        font-size: small;
+        color: #aaa;
+      }
+    }
+  }
+  .show_all_link {
+    background: #f1f1f1 url(/images/redesign/arrow-dropdown.png) no-repeat 8px 7px;
+    border: 1px solid #DDD;
+    @include border-radius(30px);
+    color: #333;
+    font-weight: normal;
+    display: inline-block;
+    padding: 4px 14px 4px 21px;
+    text-shadow: #fff 0px 1px 0px;
+    &.open {
+      border-color: $trans-orange;
+      color: $orange;
+      background-color: $trans-orange;
+      background-position: 8px -93px;
+    }
+  }
+}
+/* ## END of A La Minute editing --------------------------------------------- */
 
 /* Promotions (Newsfeed) */
 #promotion-form {
