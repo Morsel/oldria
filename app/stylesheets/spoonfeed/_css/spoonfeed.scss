@@ -61,7 +61,7 @@ a:hover {
   color: #59595B;
 }
 
-form, #page_content form{
+form, #main form{
 	ul, ol, li{
 		margin:0;
 		padding:0;
@@ -96,16 +96,15 @@ form, #page_content form{
 			}
 		}
 	}
-
-	p.inline-hints{
+	p.inline-hints {
 		margin:0 0 10px;
 		font-style:italic;
 		color:#666;
 	}
-	fieldset{
+	fieldset {
 		margin:10px 0;
 	}
-	.error{
+	.error {
 		padding:5px;
 		border:2px solid $orange;
 		background: $trans-orange;
@@ -1107,6 +1106,266 @@ aside.dashboard_actions {
   }
 }
 
+/* User profile editing */
+#profile-tabs {
+	#extended_profile_fields {
+		ul {
+			margin: 0;
+			padding: 0;
+			li {
+				margin: 0;
+				padding: 4px 20px 4px 5px;
+				span {
+					margin: 0;
+					padding: 0;
+				}
+				.colorbox {
+					background-color: #eae6d5;
+					background-position: 3px 3px;
+					&:hover {
+						background-color: #dfd9c3;
+						color: $brown;
+						text-shadow: 0 1px 0 #fff;
+					}
+				}
+				.delete {
+					background-color: $trans-orange;
+					background-position: 3px 3px;
+					&:hover {
+						background-color: $orange;
+						color: #fff;
+						text-shadow: 0 1px 0 #333;
+					}
+				}
+			}
+		}
+	}
+	section{
+		display:none;
+		&.ui-tabs-panel{
+			display:block;
+			&.ui-tabs-hide{
+				display:none;
+			}
+		}
+	}
+  #qotd_column, #trend_column {
+    @include column(8);
+	}
+	.ui-tabs-panel {
+		p {display: block;overflow:hidden;}
+		button {
+			cursor:pointer;
+			float: left;
+			display: block;
+			margin: 0 10px 0 0;
+			font-size: 12px;
+			font-family: 'helvetica neue', helvetica, arial, sans-serif;
+			background-color: $orange;
+			@include border-radius(20px);
+			color: #fff;
+			padding: 5px 12px;
+			font-weight: bold;
+			text-shadow:0 1px 0 #444;
+			border:0;
+			&:hover {
+				background: #bbb08c;
+				color: #fff;
+			}
+			&.positive {
+				margin:0 0 10px;
+				&:hover {
+					background: #e1d9c4;
+					color: #333;
+					text-shadow:none;
+				}
+			}
+			&.clear{
+				float:none;
+				margin:10px 0;
+			}
+		}
+	 	.inputs {
+			display: block;
+			margin: 10px 0;
+			padding: 12px 0 0;
+			border-bottom: 1px solid #ddd;
+			select {
+			  margin: 2px 0 15px;
+			}
+			legend {
+				margin: 0;
+				padding: 0;
+				span {
+					font-family: "Hoefler Text", Georgia, serif;
+					font-size: 12px;
+					font-weight: bold;
+					color: #333;
+					text-transform: uppercase;
+					margin: 0;
+					padding: 0;
+					letter-spacing: 0.2em;
+				}
+				label {
+					font-weight: bold;
+				}
+			}
+			ol {
+				li {
+					.cuisines {
+						.colorbox {
+							background: $trans-orange;
+						}
+					}
+					&.show_this_to {
+						background: transparent url(/images/redesign/bg-show-to.png) no-repeat 0 100%;
+						padding: 12px;
+						margin: 5px 0;
+						fieldset ol li {
+							margin: 0;
+							padding: 0;
+							label {
+								font-size: 12px;
+								text-transform: capitalize;
+								margin: 0;
+								padding: 0;
+								input {
+									margin: 5px 0 0;
+									padding: 0;
+								}
+							}
+						}
+					}
+					fieldset ol li label {
+						font-size: 10px;
+						text-transform: uppercase;
+					}
+				}
+			}
+			textarea {
+				height: 100px;
+				font-family: 'lucida grande', tahoma, arial, sans-serif;
+				font-size: 12px;
+				line-height: 16px;
+				color: #444;
+			}
+			label {
+				display: block;
+				margin: 2px 0;
+				font-weight: normal;
+				font-size: 12px;
+			}
+			input {
+				font-family: 'lucida grande', tahoma, arial, sans-serif;
+				font-size: 12px;
+				line-height: 16px;
+				color: #444;
+				margin: 2px 0 15px;
+				&#profile_user_attributes_prefers_publish_profile {
+					margin-right: 6px;
+				}
+			}
+			p.inline-hints {
+				font-family: 'lucida grande', tahoma, verdana, arial, sans-serif;
+				font-size: 10px;
+				color: #777;
+				font-style: normal;
+				margin: -10px 0 15px 0;
+			}
+			#profile_summary_input {
+				.inline-hints {
+					margin: 0 0 10px 0;
+				}
+			}
+			ol {
+				li {
+					fieldset {
+						margin: 2px 0 12px;
+					}
+				}
+			}
+		}
+	}
+	#twitter-fieldset, #facebook-fieldset{
+		width:308px;
+		padding:10px;
+		float:left;
+		border-bottom: 0;
+		a{
+			color:#333;
+			&.sf-button{
+				color:$orange;
+			}
+			&.remove_twitter {
+				display: block;
+				margin: 6px 0;
+				color: $orange;
+			}
+			&.read_twitter {
+				display: block;
+				margin: 6px 0;
+				color: $orange;
+			}
+		}
+	}
+	#twitter-fieldset{
+		border-right:1px dotted #ccc;
+		padding-left: 0;
+	}
+	#facebook-fieldset {
+		padding-left: 16px;
+	}
+} /* ## end of #profile-tabs ----------------------- */
+
+#profile-options{
+	margin:15px 0 0;
+	padding:0 10px 0 0;
+	overflow:hidden;
+	a {
+		letter-spacing:2px;
+		text-transform:uppercase;
+		display:block;
+		float:left;
+		padding:5px 10px;
+		margin-right:6px;
+/*    @include brandongrotesquebold;*/
+		color:$orange;
+		border:solid #dad8d1;
+		border-width:1px 1px 0;
+		@include transition;
+		&:hover{
+			background:$orange;
+			color:#fff;
+			text-shadow:0 1px 0 #333;
+			border-color:$orange;
+		}
+	}
+	.ui-tabs-selected a{
+		background:$orange;
+		border-color:$orange;
+		color:#fff;
+		text-shadow:0 1px 0 #333;
+	}
+} /* ## profile-options -------------------- */
+
+.ui-tabs-panel {
+	background:#f7f6f2;
+	padding:12px;
+	margin:0;
+}
+
+.ui-tabs-hide{ display:none; }
+
+#main #profile-tabs .ui-tabs-panel .inputs {
+	#profile_specialties_input li {
+		padding: 2px 0;
+		margin: 2px 0;
+		float: left;
+		width: 200px;
+		height: 25px;
+	}
+}
+
 #my_restaurants {
 	.employers {
 		ul {
@@ -1172,7 +1431,7 @@ aside.dashboard_actions {
 	}
 } /* end of #my_restaurants -------------------- */
 
-#page_content #editing_restaurant {
+#main #editing_restaurant {
   padding: 20px;
 	overflow: hidden;
 	border: 1px solid #eaeaea;
@@ -2489,6 +2748,10 @@ table#menus {
 
 .user_profile #profileImage {
   width: 281px;
+  background: transparent url('/images/sf/profile-mainimg.png') no-repeat;
+  img {
+    margin-left: 1px;
+  }
 }
 
 .user_profile #profileDetails {

@@ -40,9 +40,9 @@ module ProfileHelper
 
   def user_topics(user)
     if can?(:manage, user)
-      user.topics.without_travel
+      user.topics_without_travel
     else
-      user.published_topics.without_travel
+      user.published_topics_without_travel
     end
   end
 

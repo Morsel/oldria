@@ -44,7 +44,7 @@ Feature: Search question
   Scenario: Finding BTL question
     Given I am logged in as "searchable" with password "searchable"
     And I am on the profile page for "searchable"
-    When I follow "View all Topics" within "#behindline"
+    When I follow "learn more about searchable" within "#behind"
     And I follow "View all"
     And I follow "Education"
     And I fill in question titled "Title 1" with answer "A dumb answer"
@@ -55,7 +55,7 @@ Feature: Search question
   Scenario: Finding BTL answer
     Given I am logged in as "searchable" with password "searchable"
     And I am on the profile page for "searchable"
-    When I follow "View all Topics" within "#behindline"
+    When I follow "learn more about searchable" within "#behind"
     And I follow "View all"
     And I follow "Education"
     And I fill in question titled "Title 1" with answer "A great answer for this"

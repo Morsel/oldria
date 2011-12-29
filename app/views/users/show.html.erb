@@ -3,7 +3,7 @@
 <div class="user_profile">
     <header id="profileHeader" class="clearfix">
         <div id="profileImage" class="left">
-            <img src="/images/sf/profile-mainimg.png" alt="" />
+            <%= image_tag @user.avatar.url(:large) %>
         </div>
         <div id="profileDetails" class="right">
             <hgroup>

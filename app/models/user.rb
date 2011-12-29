@@ -108,7 +108,7 @@ class User < ActiveRecord::Base
 
   has_attached_file :avatar,
                     :default_url => "/images/default_avatars/:style.png",
-                    :styles => { :small => "100x100>", :thumb => "50x50#", :tiny => "20x20#" }
+                    :styles => { :large => "256x283#", :small => "100x100>", :thumb => "50x50#", :tiny => "20x20#" }
 
   validates_attachment_content_type :avatar,
       :content_type => ["image/jpg", "image/jpeg", "image/png", "image/gif", "image/pjpeg", "image/x-png"],
@@ -354,6 +354,14 @@ class User < ActiveRecord::Base
 
   def published_topics
     topics.select { |t| t.published?(self) }
+  end
+
+  def topics_without_travel
+    self.primary_employment.present? ? Topic.for_user(self).without_travel : []
+  end
+
+  def published_topics_without_travel
+    topics_without_travel.select { |t| t.published?(self) }
   end
 
   # Profile elements
