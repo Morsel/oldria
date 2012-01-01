@@ -13,15 +13,6 @@ describe Restaurant do
   should_have_many :trend_questions, :through => :admin_discussions
   should_have_many :content_requests, :through => :admin_discussions
 
-  it "should limit the description to 250 words" do
-    restaurant = Factory(:restaurant)
-    restaurant.description = (["moo"] * 250).join(" ")
-    restaurant.should be_valid
-
-    restaurant.description = (["moo"] * 251).join(" ")
-    restaurant.should_not be_valid
-  end
-
   describe "manager and employees" do
     it "should belong to a manager (user)" do
       user = Factory(:user)

@@ -9,9 +9,9 @@
 </div>
 <div id="restaurant_fields" style="display: none;" class="clearfix clear">
 	<h4>We have a few more pieces of information we need for your account</h4>
-    <%= text_field_tag "restaurant_name", "", :id => "restaurant_name", :class => "standard-filler", :alt => "Restaurant Name", :required => "" %>
+    <%= text_field_tag "restaurant_name", "", :id => "restaurant_name", :class => "standard-filler", :alt => "Restaurant Name" %>
     <p class="inline-hints">Enter your restaurant name or your employment status e.g., student, between jobs, retired, time off</p>
-    <%= select_tag "restaurant_role", options_from_collection_for_select(RestaurantRole.all, :id, :name), :id => "restaurant_role", :class => "standard-filler", :alt => "Role", :required => "" %>
+    <%= select_tag "restaurant_role", options_from_collection_for_select(RestaurantRole.all, :id, :name), :id => "restaurant_role", :class => "standard-filler", :alt => "Role" %>
     <p class="inline-hints">Your role helps the media find you when they are looking for sources for stories.  If you are "chef/owner" select that and not "owner": you will receive more opportunities!</p>
     <h4>Area(s) of expertise</h4>
     <p class="inline-hints">I am comfortable answering questions and speaking to the media about the following topics:</p>

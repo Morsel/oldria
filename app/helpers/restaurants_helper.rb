@@ -29,7 +29,7 @@ module RestaurantsHelper
     if soapbox?
       topics_soapbox_restaurant_questions_path(opts)
     else
-      topics_restaurant_questions_path(opts)
+      restaurant_behind_the_line_path(opts)
     end
   end
 
@@ -37,7 +37,7 @@ module RestaurantsHelper
     if soapbox?
       chapters_soapbox_restaurant_questions_path(opts)
     else
-      chapters_restaurant_questions_path(opts)
+      restaurant_btl_topic_path(opts)
     end
   end
 
@@ -45,7 +45,7 @@ module RestaurantsHelper
     if soapbox?
       soapbox_restaurant_questions_path(opts)
     else
-      restaurant_questions_path(opts)
+      restaurant_btl_chapter_path(opts)
     end
   end
 

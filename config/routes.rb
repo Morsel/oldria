@@ -197,15 +197,17 @@ ActionController::Routing::Routes.draw do |map|
     restaurant.resources :photos, :collection => { "reorder" => :post, "bulk_edit" => :get }, :member => { "show_sizes" => :get }
     restaurant.resource :logo
     restaurant.resources :accolades
-    restaurant.resources :questions, :collection => { :topics => :get, :chapters => :get, :refresh => :post }, 
-      :controller => "restaurant_questions"
-    restaurant.resources :restaurant_answers, :only => [:create, :update, :destroy]
+    restaurant.resources :restaurant_answers, :only => [:show, :create, :update, :destroy]
     restaurant.resources :a_la_minute_answers, :collection => { :bulk_update => :put, :bulk_edit => :get }
     restaurant.resource :subscription, :collection => { :bt_callback => :get, :billing_history => :get },
                                        :controller => 'subscriptions'
     restaurant.resources :promotions, :member => { :delete_attachment => :post }
     restaurant.resources :menu_items, :member => { :facebook_post => :post }
     restaurant.resources :press_releases, :collection => { :archive => :get }
+
+    restaurant.behind_the_line 'behind_the_line', :controller => 'restaurants/behind_the_line', :action => 'index'
+    restaurant.btl_topic 'behind_the_line/topic/:id', :controller => 'restaurants/behind_the_line', :action => 'topic'
+    restaurant.btl_chapter 'behind_the_line/chapter/:id', :controller => 'restaurants/behind_the_line', :action => 'chapter'
   end
 
   map.resources :user_sessions, :password_resets, :followings, :pages
@@ -261,6 +263,7 @@ ActionController::Routing::Routes.draw do |map|
   map.social 'social', :controller => "spoonfeed/social_updates", :action => "index"
   map.update_social 'update_social', :controller => "spoonfeed/social_updates", :action => "load_updates"
   map.filter_social 'filter_social', :controller => "spoonfeed/social_updates", :action => "filter_updates"
+  map.resources :restaurant_questions, :only => ['index', 'show'], :as => 'restaurant_btl', :controller => 'spoonfeed/restaurant_questions'
 
   map.resources :page_views, :only => ['create']
 

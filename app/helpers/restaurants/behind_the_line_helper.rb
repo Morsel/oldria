@@ -1,4 +1,4 @@
-module RestaurantQuestionsHelper
+module Restaurants::BehindTheLineHelper
 
   def restaurant_btl_title(restaurant, page)
     if page.present?

@@ -108,8 +108,8 @@
       <% end unless fact_sheet.wine_by_the_bottle_min_price.blank? && fact_sheet.wine_by_the_bottle_max_price.blank?  %>
 
       <% content_tag(:li) do %>
-        Wine by the bottle details:
-        <strong><%=h fact_sheet.wine_by_the_bottle_details %></strong>
+        Wine list details:
+        <strong><%= h fact_sheet.wine_by_the_bottle_details %></strong>
       <% end unless fact_sheet.wine_by_the_bottle_details.blank? %>
     </ul>
     <span class="timestamp">

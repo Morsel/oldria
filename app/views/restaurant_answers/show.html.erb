@@ -1,0 +1,26 @@
+<% title "#{@question.title} - Behind The Line", false %>
+
+<h1 id="btl-title" class="btl"><span class="btl-art">Behind the Line</span></h1>
+<h2 id="topic_title">Topic: <%= @question.chapter.topic.title %></h2>
+
+<div id="btl_answers">
+  <h3><%= @question.chapter.title %></h3>
+
+  <h4><span class="letter-q">Q:</span> <%= @question.title %></h4>
+
+  <div class="comment">
+      <%= render :partial => "restaurants/identity", :locals => { :restaurant => @answer.restaurant } %>
+      <div class="user_comment"><p><%= @answer.answer %></p></div>
+  </div>
+  <p><span class="timestamp">Last updated: <%= @answer.try(:updated_at).try(:strftime, "%b %e %Y") %></span></p>
+
+</div><!-- #btl_answers -->
+
+<h4>Other responses</h4>
+
+<% for answer in @other_answers %>
+<% div_for answer do %>
+    <%= render :partial => "spoonfeed/restaurant_questions/answer", :locals => { :answer => answer } %>
+<% end %>
+<div class="clear">&nbsp;</div>
+<% end %>
