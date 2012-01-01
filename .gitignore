@@ -17,7 +17,6 @@ rerun.txt
 .cap_tasks~
 tmp/webrat-*
 .idea/
-.rvmrc
 .project
 default.gems
 *.swp
