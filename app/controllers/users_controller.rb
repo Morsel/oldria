@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
 
-  before_filter :require_visibility, :only => [:show]
+  before_filter :require_user, :only => [:show, :index]
   before_filter :require_owner_or_admin, :only => [:edit, :update, :remove_twitter, :remove_avatar,
                                                    :fb_auth, :fb_deauth, :fb_connect, :fb_page_auth]
 
@@ -11,6 +11,7 @@ class UsersController < ApplicationController
   end
 
   def show
+    get_user
   end
 
   def edit
@@ -171,14 +172,6 @@ class UsersController < ApplicationController
     @users = User.for_autocomplete.find_all_by_name(params[:q]) if params[:q]
     if @users
       render :text => @users.map(&:name).join("\n")
-    end
-  end
-
-  def require_visibility
-    get_user
-    unless @user.prefers_publish_profile || current_user
-      flash[:error] = "You must be logged in to access this page"
-      redirect_to login_path
     end
   end
 

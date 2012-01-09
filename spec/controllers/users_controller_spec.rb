@@ -5,6 +5,9 @@ describe UsersController do
   describe "GET index" do
     context "responding with js" do
       before(:each) do
+        current_user = Factory(:user)
+        controller.stubs(:current_user).returns(current_user)
+
         @john1 = Factory.stub(:user, :first_name => "John", :last_name => "Hamm")
         @john2 = Factory.stub(:user, :first_name => "John", :last_name => "Manner")
       end
@@ -22,25 +25,7 @@ describe UsersController do
   describe "GET show" do
     before(:each) do
       @user = Factory(:user, :id => 3)
-      #User.stubs(:find).returns @user
-    end
-
-    context "as an anonymous user" do
-      before(:each) do
-        controller.stubs(:current_user).returns nil
-      end
-
-      it "should redirect to the login page if the profile is not visible" do
-        @user.prefers_publish_profile = false; @user.save
-        get :show, :id => 3
-        response.should redirect_to(login_url)
-      end
-
-      it "should show the profile if it is visible" do
-        @user.prefers_publish_profile = true; @user.save
-        get :show, :id => 3
-        response.should render_template(:show)
-      end
+      User.stubs(:find).returns(@user)
     end
 
     context "as a logged in user" do
