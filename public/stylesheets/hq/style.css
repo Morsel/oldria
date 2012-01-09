@@ -148,7 +148,7 @@ width:177px;background-position:-536px -46px;}
 
 .tab a {float: right; display: inline-block; margin-top: 10px; color: #FFF; font-family: sans-serif; font-size: 15px; text-shadow: 0 1px 0 rgba(0,0,0,0.7); text-transform: uppercase; font-weight: bold;}
 
-.message h2 {font-size: 42px; color: #FFF; text-align: center; font-style: italic; position: absolute; display: none; top: 100px;}
+.message h2 {font-size: 42px; color: #FFF; text-align: center; font-style: italic; position: absolute; display: none; top: 100px; width: 100%;}
 
 form {width: 660px; margin: 0 auto;}
 form input[type="text"], form input[type="email"], select {width: 310px; -webkit-border-radius: 6px; -moz-border-radius: 6px; border-radius: 6px; border: 1px solid #BFBFBF; background: #FFF; margin-bottom: 15px; padding: 5px; font-size: 14px; display: block;}
