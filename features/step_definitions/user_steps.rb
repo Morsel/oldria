@@ -84,6 +84,7 @@ Given /^I am logged in as a media member$/ do
 end
 
 Given /^I am logged in as "([^\"]*)" with password "([^\"]*)"$/ do |username, password|
+  visit logout_url if @current_user
   unless username.blank?
     visit login_url
     fill_in "Username", :with => username

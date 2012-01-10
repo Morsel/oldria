@@ -1,4 +1,6 @@
 class UserSessionsController < ApplicationController
+
+  before_filter :require_no_user, :only => [:new, :create, :create_from_facebook]
   before_filter :require_user, :only => :destroy
 
   def new

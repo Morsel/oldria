@@ -27,6 +27,7 @@ Feature: Update information
     And I press "Save User Details"
     Then I should see "Successfully updated your profile"
 
+    Given I am not logged in
     When I am on the login page
     And I fill in "Username" with "manny"
     And I fill in "Password" with "betterpassword"
