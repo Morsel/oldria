@@ -2,4 +2,4 @@
 <p>Welcome to Spoonfeed. Please login.</p>
 <p>(Diners, please check out <%= link_to "Soapbox", soapbox_root_path %>.)</p>
 <%= render :partial => 'user_sessions/form' %>
-<p>Don't have an account? <%= link_to "Create a free account", new_invitation_path %> now!</p>
+<p>Don't have an account? <%= link_to "Create a free account", root_path(:anchor => "join") %> now!</p>
