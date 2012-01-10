@@ -103,10 +103,12 @@ jQuery(document).ready(function(){
       loading_text: "loading tweets..."
     });
   });
-  jQuery('.standard-filler').formFiller();
-  jQuery('.terms').click(function (e) {
-    $('#basic-modal-content').modal();
 
-    return false;
-  });
+  jQuery('.standard-filler').formFiller();
+
+  // jQuery('.terms').click(function (e) {
+  //   $('#basic-modal-content').modal();
+  // 
+  //   return false;
+  // });
 });
