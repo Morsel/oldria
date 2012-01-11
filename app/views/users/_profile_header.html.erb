@@ -25,6 +25,7 @@
 
             <h5>Resides in <span><%= @user.profile.try(:current_residence) %></span></h5>
         </hgroup>
+        <% if params[:action] == "show" -%>
         <div id="meta">
             <% if @user.profile.present? -%>
             <h4>Specialties</h4>
@@ -35,5 +36,6 @@
             </ul>
             <% end -%>
         </div>
+        <% end -%>
     </div>
 </header>
