@@ -3043,6 +3043,15 @@ span.grayArrow {
   text-decoration: underline;
 }
 
+.user_profile #facts #resume-link {
+  margin-bottom: 0;
+  a {
+    font-size: 18px;
+    font-weight: bold;
+    text-decoration: none;
+  }
+}
+
 .contactDetails {
   padding-bottom: 10px;
   border-bottom: 1px dashed #e1ddd1;

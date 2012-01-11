@@ -14,6 +14,10 @@ class UsersController < ApplicationController
     get_user
   end
 
+  def resume
+    get_user
+  end
+
   def edit
     redirect_to edit_user_profile_path(:user_id => @user.id)
   end

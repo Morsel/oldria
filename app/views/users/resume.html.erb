@@ -1,0 +1,6 @@
+<%= title "#{@user.name}'s Resume", false %>
+<div class="user_profile">
+    <%= render :partial => "profile_header" %>
+
+    <%= render :partial => "extended_profile", :locals => { :user => @user, :profile => @user.profile } %>
+</div>

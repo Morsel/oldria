@@ -28,6 +28,8 @@ module NavigationHelpers
       new_password_reset_path
     when /^the profile page for "(.+)"$/
       profile_path($1)
+    when /^my profile page$/
+      profile_path(@current_user.username)
     when /^the statuses page for "(.+)"$/
       user_statuses_path(User.find_by_username($1))
     when /^the edit page for "(.+)"$/
