@@ -9,7 +9,6 @@
 <% end -%>
 
 <section id="main" class="clearfix">
-
     <% if current_user && current_user.media? -%>
       <%= render 'layouts/nav_media_logged_in' %>
     <% elsif current_user -%>

@@ -1,7 +1,7 @@
 <% title "#{@page.name} details for #{@restaurant.name}" %>
 
 <div id="restaurant_profile_view" class="clear clearfix">
-  <%= render 'restaurants/restaurant_header' %>
+  <%= render "#{soapbox? ? 'soapbox/' : ''}restaurants/restaurant_header" %>
 	<div id="features">
 	    <h2><%= @page.name %></h2>
   	    <% @restaurant.categories_for_page(@page).each do |category| %>

@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
 
-  before_filter :require_user, :only => [:show, :index]
+  before_filter :require_user, :only => [:show, :resume, :index]
   before_filter :require_owner_or_admin, :only => [:edit, :update, :remove_twitter, :remove_avatar,
                                                    :fb_auth, :fb_deauth, :fb_connect, :fb_page_auth]
 

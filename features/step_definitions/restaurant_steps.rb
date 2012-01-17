@@ -196,7 +196,7 @@ When /^I see the (\d+)(st|nd|th) photo selected as the primary photo$/ do |photo
 end
 
 Then /^I should see that photo$/ do
-  response.should have_selector("img", :src => @restaurant.reload.photos.last.attachment.url(:medium))
+  response.should have_selector("img", :src => @restaurant.reload.photos.last.attachment.url(:medium_photo))
 end
 
 Then /^I should see a menu with the name "([^\"]*)" and change frequency "([^\"]*)" and uploaded at date "([^\"]*)"$/ do |name, change_frequency, date|

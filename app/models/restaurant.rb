@@ -226,6 +226,14 @@ class Restaurant < ActiveRecord::Base
     self.prefers_publish_profile? && self.premium_account?
   end
 
+  def menus_last_updated
+    menus.first(:order => "created_at DESC").updated_at.strftime('%m/%d/%y')
+  end
+
+  def photos_last_updated
+    photos.first(:order => "created_at DESC").updated_at.strftime('%m/%d/%y')
+  end
+
   def self.extended_find(keyword)
     # when searchlogic will be updated, instead of all(:conditions => ["restaurants.id NOT in (?)", [0] + restaurants.map(&:id)])
     # one can use id_not_in(restaurants.map(&:id))

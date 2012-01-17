@@ -33,7 +33,9 @@ class Image < Attachment
       :medium => "320x320>",
       :small => "100x100>",
       :thumbnail => "40x40>",
-      :thumb => "50x50>"
+      :thumb => "50x50>",
+      :big_logo => "273x180>",
+      :medium_photo => "189x150>"
     },
     :s3_credentials => "#{RAILS_ROOT}/config/environments/#{RAILS_ENV}/amazon_s3.yml",
     :path => "#{RAILS_ENV}/images/:id/:style/:filename",

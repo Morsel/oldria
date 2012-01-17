@@ -49,7 +49,7 @@ Feature: Manage restaurants
       # | facebook_page      | http://www.facebook.com/piece       |
       | media_contact      | Fred Mercury                        |
       | management_company | Lettuce Entertain You               |
-      | opening_date       | January 22, 2008                    |
+      # | opening_date       | January 22, 2008                    |
     
   Scenario: Making a basic restaurant complimentary
     Given the restaurant "Piece" does not have a premium account

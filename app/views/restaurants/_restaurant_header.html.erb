@@ -1,38 +1,46 @@
-<header id="restaurant_header">
-    <div id="restaurant_actions">
-        <%= link_to 'Edit Restaurant', edit_restaurant_path(@restaurant), :class => 'edit_restaurant' if can?(:edit, @restaurant) %>
-        <%= link_to 'Start a discussion', new_discussion_path(:restaurant_id => @restaurant.id), :class => 'start_discussion' unless on_soapbox %>
-
-        <!-- AddThis Button BEGIN -->
-        <%= link_to 'Share Profile', "http://www.addthis.com/bookmark.php?v=250&amp;username=unpluggedria", :class => 'share_profile addthis_button' %>
-        <%= javascript_include_tag "http://s7.addthis.com/js/250/addthis_widget.js#username=unpluggedria" %>
-        <% javascript_tag do %>
-          var addthis_share = {
-            url: '<%= soapbox_restaurant_path(@restaurant) %>',
-          }
-        <% end %>
-        <!-- AddThis Button END -->
-    </div><!--#restaurant_actions-->
-
-    <%= image_tag logo_for(@restaurant).attachment.url(:small) %>
-    <h1 id="name"><%= restaurant_link(@restaurant) %></h1>
-
-    <div id="restaurant_meta" class="">
-        <p class="address"><%= @restaurant.address_parts.join("<br />") %></p>
-        <p>
-            Metropolitan Area: <%=h @restaurant.metropolitan_area.try(:name) %><br/>
-            Region: <%=h @restaurant.james_beard_region.try(:name) %>
-        </p>
-    </div><!-- /restaurant_meta -->
-
-    <% unless @restaurant.restaurant_features.blank? -%>
-    <div id="restaurant_features" class="clear clearfix">
-        <span>Learn more about this restaurant: </span>
-        <ul class="tags clearfix">
-            <% @restaurant.feature_pages.each do |page| -%>
-            <li><%= link_to page.name, restaurant_feature_page_link(@restaurant, page) %></li>
-            <% end -%>
-        </ul>
-    </div><!-- /restaurant_features -->
-    <% end -%>
+<header id="profileHeader" class="clearfix">
+    <div id="profileImage" class="left">
+        <%= image_tag(@restaurant.logo.attachment.url(:big_logo)) if @restaurant.logo.present? %>
+    </div>
+    <div id="profileDetails" class="right">
+        <div class="headingDetails clearfix">
+            <hgroup class="left">
+                <h2><%= @restaurant.name %></h2>
+                <p class="tagline"><%= @restaurant.description %></p>
+            </hgroup>
+            <div id="restaurant_actions" class="moreLinks right">
+                <%= link_to "edit restaurant", edit_restaurant_path(@restaurant), :class => "orangeLink" %>
+                <!-- AddThis Button BEGIN -->
+                <%= link_to 'share profile', "http://www.addthis.com/bookmark.php?v=250&amp;username=unpluggedria", :class => 'orangeLink share_profile addthis_button' %>
+                <%= javascript_include_tag "http://s7.addthis.com/js/250/addthis_widget.js#username=unpluggedria" %>
+                <% javascript_tag do %>
+                  var addthis_share = {
+                    url: '<%= soapbox_restaurant_path(@restaurant) %>',
+                  }
+                <% end %>
+                <!-- AddThis Button END -->
+                <div class="moreDetails">
+                    <small>facts updated on <span><%= @restaurant.updated_at.strftime('%m/%d/%y') %></span></small>
+                    <small>menus updated on <span><%= @restaurant.menus_last_updated %></span></small>
+                    <small>photos updated on <span><%= @restaurant.photos_last_updated %></span></small>
+                </div>
+            </div>
+        </div>
+        <div class="meta">
+            <h4>Highlights</h4>
+            <ul id="tags">
+                <% 12.times do %>
+                <li><%= link_to_unimplemented "test" %></li>
+                <% end %>
+            </ul>
+        </div>
+        <div class="meta">
+            <h4>Learn More</h4>
+            <ul id="tags">
+                <% @restaurant.feature_pages.each do |page| -%>
+                <li><%= link_to page.name, restaurant_feature_page_link(@restaurant, page) %></li>
+                <% end -%>
+            </ul>
+        </div>
+    </div>
 </header>

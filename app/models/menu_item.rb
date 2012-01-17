@@ -34,7 +34,7 @@ class MenuItem < ActiveRecord::Base
                     :path           => "#{RAILS_ENV}/otm_photos/:id/:style/:filename",
                     :bucket         => "spoonfeed",
                     :url            => ':s3_domain_url',
-                    :styles => { :full => "1966x2400>", :large => "360x480>", :medium => "240x320>", :thumb => "120x160>" }
+                    :styles         => { :full => "1966x2400>", :large => "360x480>", :medium => "240x320>", :small => "189x150>", :thumb => "120x160>" }
 
   validates_attachment_content_type :photo,
       :content_type => ["image/jpg", "image/jpeg", "image/png", "image/gif", "image/pjpeg", "image/x-png"],
