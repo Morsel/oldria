@@ -7,6 +7,15 @@
             <hgroup class="left">
                 <h2><%= @restaurant.name %></h2>
                 <p class="tagline"><%= @restaurant.description %></p>
+                <p class="cuisine-location">
+                    <strong>Cuisine:</strong> <%= @restaurant.cuisine.try(:name) %>
+                </p>
+                <p class="cuisine-location">
+                    <strong>Metro area:</strong> <%= @restaurant.metropolitan_area.try(:name) %>
+                </p>
+                <p class="cuisine-location">
+                    <strong>Region:</strong> <%= @restaurant.james_beard_region.try(:name) %>
+                </p>
             </hgroup>
             <div id="restaurant_actions" class="moreLinks right">
                 <%= link_to "edit restaurant", edit_restaurant_path(@restaurant), :class => "orangeLink" %>

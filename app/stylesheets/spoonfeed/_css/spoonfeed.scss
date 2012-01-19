@@ -3639,7 +3639,20 @@ hgroup h5 span {
   .moreLinks small span {font-style: italic; color: #000;}
   .headingDetails {border-bottom: 1px dashed #BAB5B4; padding-bottom: 20px; margin-bottom: 20px;}
   .moreDetails {padding: 8px 0 0 0;}
-  .headingDetails hgroup {border: none; padding: 0; margin:0;} 
+  .headingDetails hgroup {border: none; padding: 0; margin:0;}
+
+  .headingDetails .cuisine-location {
+    margin: 0;
+    padding: 0;
+    font-size: 13px;
+    line-height: 16px;
+    strong {
+      color: $new-orange;
+      text-transform: uppercase;
+      font-weight: normal;
+    }
+  }
+
   hgroup h4 {color: #000 !important; font-size: 16px;}
   hgroup h5 {font-size: 12px; color: #857E7D; text-transform: uppercase;}
   hgroup h5 span {text-transform: none;}
