@@ -227,11 +227,11 @@ class Restaurant < ActiveRecord::Base
   end
 
   def menus_last_updated
-    menus.first(:order => "created_at DESC").updated_at.strftime('%m/%d/%y')
+    menus.present? ? menus.first(:order => "created_at DESC").updated_at.strftime('%m/%d/%y') : ''
   end
 
   def photos_last_updated
-    photos.first(:order => "created_at DESC").updated_at.strftime('%m/%d/%y')
+    photos.present? ? photos.first(:order => "created_at DESC").updated_at.strftime('%m/%d/%y') : ''
   end
 
   def self.extended_find(keyword)
