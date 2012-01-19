@@ -1,5 +1,5 @@
 class MediafeedPagesController < Hq::HqController
-  layout 'mediafeed'
+  layout 'application'
   
   def show
     @page = MediafeedPage.find(params[:id])
