@@ -23,7 +23,7 @@
               </h4>
             <% end %>
 
-            <h5>Resides in <span><%= @user.profile.try(:current_residence) %></span></h5>
+            <h5><%= @user.profile.try(:headline) %></h5>
         </hgroup>
         <% if params[:action] == "show" -%>
         <div id="meta">
