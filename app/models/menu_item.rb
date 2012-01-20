@@ -67,11 +67,12 @@ class MenuItem < ActiveRecord::Base
       restaurant.twitter_client.send_later(:update, "#{truncate(name, :length => 100)} #{soapbox_menu_item_url(self)}")
     end
     if post_to_facebook_page == "1"
+      picture_url = self.photo.url if self.photo_file_name.present?
       post_attributes = { :message     => "New on the menu: #{name}",
                           :link        => soapbox_menu_item_url(self),
                           :name        => name,
-                          :description => description }
-      post_attributes.merge(:picture => "http://#{DEFAULT_HOST}#{self.photo.url}") if self.photo_file_name.present?
+                          :description => description,
+                          :picture     => picture_url }
       restaurant.send_later(:post_to_facebook_page, post_attributes)
     end
   end
