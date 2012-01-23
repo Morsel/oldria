@@ -23,11 +23,11 @@
 <div id="behind" class="left profileBox">
     <h3>Behind the line<span class="brownArrow"></span></h3>
 
-    <% user_topics(user).each do |topic| -%>
-    <h4><%= topic.title %></h4>
-    <p><%= topic.description || truncate(topic.profile_questions.map(&:title).join(" "), :length => 100) %></p>
-    <% end -%>
+    <% for answer in user.profile_answers.without_travel.recently_answered.all(:limit => 5) %>
+    <h4><%= answer.question %></h4>
+    <p><%= answer.answer %></p>
+    <% end %>
 
-    <%= link_to "learn more about #{user.first_name}", link_for_user_topics(:user_id => user.id), :class => "brownLink" %>
+    <%= link_to "See more of #{user.first_name}'s Behind the Line", link_for_user_topics(:user_id => user.id), :class => "brownLink" %>
 </div>
 <% end %>
