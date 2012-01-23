@@ -12,35 +12,11 @@
                 <%= submit_tag "Search", :class => 'searchSubmit', :name => nil %>
             </div>
             <% end %>
-            <% if current_user.admin? -%>
             <div class="statusBox clearfix left">
                 <div id="user_status" class="account">
-                    <h5>&nbsp;&nbsp;</h5>
-                    <p><%= link_to "Go to admin home page", admin_root_path %></p>
+                    <p>&nbsp;&nbsp;&nbsp;&nbsp;Media User</p>
                 </div>
             </div>
-            <% else -%>
-            <div class="statusBox clearfix left">
-                <div id="user_status" class="account">
-                    <h5>Personal Account Status</h5>
-                    <% if current_user.premium_account? -%>
-                    <p>Premium <%= link_to "change", edit_user_profile_path(current_user, :anchor => "profile-account") %></p>
-                    <% else -%>
-                    <p>Free <%= link_to "upgrade", new_user_subscription_path(current_user) %></p>
-                    <% end %>
-                </div>
-                <% if current_user.restaurants.present? %>
-                <div id="restaurant_status" class="account">
-                    <h5>Restaurant Account Status</h5>
-                    <% if current_user.primary_employment.restaurant.premium_account? -%>
-                    <p>Premium <%= link_to "change", edit_restaurant_path(current_user.primary_employment.restaurant) %></p>
-                    <% else -%>
-                    <p>Basic <%= link_to "upgrade", new_restaurant_subscription_path(current_user.primary_employment.restaurant) %></p>
-                    <% end %>
-                </div>
-                <% end %>
-            </div>
-            <% end -%>
         </div>
         <div class="member clearfix right">
             <div class="left welcome">

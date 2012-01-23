@@ -2,7 +2,9 @@
 <%= render 'layouts/staging_bar' %>
 <%= render 'layouts/nav_sites' %>
 
-<% if current_user && !current_user.media? -%>
+<% if current_user && current_user.media? -%>
+  <%= render 'layouts/header_media_logged_in' %>
+<% elsif current_user %>
   <%= render 'layouts/header_sf_logged_in' %>
 <% else -%>
   <%= render 'layouts/header_sf_logged_out' %>
