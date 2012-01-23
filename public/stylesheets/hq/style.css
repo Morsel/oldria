@@ -195,3 +195,54 @@ footer {background: url('/images/hq/footerbg.png'); height: 229px; text-transfor
 #simplemodal-container a {color:#ddd;}
 #simplemodal-container a.modalCloseImg {background:url(/images/hq/x.png) no-repeat; width:25px; height:29px; display:inline; z-index:3200; position:absolute; top:-15px; right:-16px; cursor:pointer;}
 #simplemodal-container h3 {color:#84b8d9;}
+
+/* HQ pages */
+#main_content {
+  width: 1000px;
+  margin: 50px auto;
+  position: relative;
+}
+
+* html #main_content {
+  overflow-x: hidden;
+}
+
+#main_content a.edit_button {
+  position: absolute;
+  right: 0;
+  padding: 5px 10px 4px 10px;
+  font-size: 11px;
+  font-weight: bold;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  -o-border-radius: 3px;
+  -ms-border-radius: 3px;
+  -khtml-border-radius: 3px;
+  border-radius: 3px;
+  text-transform: uppercase;
+  margin: -22px 0 0 15px;
+  background: #d9531e;
+  font-family: Gotham, 'Helvetica Neue', Helvetica, arial, sans-serif;
+  color: #fff;
+}
+
+#main_content a.edit_button:hover {
+  background: #6cb33f;
+  color: #fff;
+  text-shadow: 0 1px 0 #333;
+}
+
+h1.pg_title {
+  width: 1000px;
+  margin: auto;
+  padding-left: 325px;
+  padding-top: 75px;
+  font-family: 'Voltaire', sans-serif;
+  color: white;
+  text-shadow: 0 2px 0 #000;
+}
+
+#main_content p {
+  margin: 10px 0;
+}
+
