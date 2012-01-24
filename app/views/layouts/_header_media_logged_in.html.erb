@@ -14,18 +14,17 @@
             <% end %>
             <div class="statusBox clearfix left">
                 <div id="user_status" class="account">
-                    <p>&nbsp;&nbsp;&nbsp;&nbsp;Media User</p>
+                    <p>&nbsp;Media Member</p>
                 </div>
             </div>
         </div>
-        <div class="member clearfix right">
+        <div id="media-member" class="member clearfix right">
             <div class="left welcome">
                 <h3>Welcome, <%= current_user.first_name %></h3>
                 <p class="right"><%= link_to "Help + Questions", "http://spoonfeed.restaurantintelligenceagency.com/spoonfeed_welcome" %> / <%= link_to "logout", logout_path %></p>
             </div>
-            <div class="right invite">
+            <div class="right avatar">
                 <%= image_tag current_user.avatar(:thumb), :size => "32x32" %>
-                <%= link_to "Invite Friends!", recommend_invitations_path, :class => "ir" %>
             </div>
         </div>
     </div>

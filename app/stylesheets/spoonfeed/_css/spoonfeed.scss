@@ -3315,6 +3315,16 @@ hgroup h5 span {
 
 .member {
   margin: 15px 0;
+  &#media-member {
+    margin-left: 50px;
+    .avatar {
+      height: 32px;
+      img {
+        display: inline-block;
+        float: right;
+      }
+    }
+  }
 }
 
 .member h3 {
