@@ -63,8 +63,8 @@ Feature: Restaurant Accounts
     Then I see that the restaurant's account status is premium
     And I see that the restaurant account for "Taco Bell" lasts until the end of the billing cycle
     And I do not see any account change options
-    And I am not logged in
-    And I am logged in as an admin
+
+    Given I am logged in as an admin
     When I go to the admin edit page for "john"
     Then I see my account status is premium
     And I see that the account for "john" lasts until the end of the billing cycle
@@ -118,8 +118,8 @@ Feature: Restaurant Accounts
     Given the restaurant "Taco Bell" has a premium account
     And user "emily" has a staff account for the restaurant "Taco Bell"
     And I simulate a successful braintree update for "Taco Bell" with the complimentary discount
-    And I am not logged in
-    And I am logged in as an admin
+
+    Given I am logged in as an admin
     When I go to the admin edit restaurant page for Taco Bell
     And I follow "Convert restaurant's premium account to a Complimentary Premium Account"
     Then I should be on the admin edit restaurant page for Taco Bell
@@ -130,8 +130,8 @@ Feature: Restaurant Accounts
     And I simulate a successful addon response from Braintree with 1
     And user "emily" has a staff account for the restaurant "Taco Bell"
     And user "sam" has a staff account for the restaurant "Taco Bell"
-    And I am not logged in
-    And I am logged in as an admin
+
+    Given I am logged in as an admin
     When I go to the admin edit page for "sam"
     And I follow "Convert user's premium account to a Complimentary Premium Account"
     Then I should be on the admin edit page for "sam"
@@ -141,8 +141,8 @@ Feature: Restaurant Accounts
     Given the restaurant "Taco Bell" has a premium account
     And user "emily" has a staff account for the restaurant "Taco Bell"
     And I simulate a required successful cancel from braintree
-    And I am not logged in
-    And I am logged in as an admin
+
+    Given I am logged in as an admin
     When I go to the admin edit restaurant page for Taco Bell
     And I follow "Downgrade the restaurant to a Basic Account"
     Then I should be on the admin edit restaurant page for Taco Bell
@@ -155,8 +155,8 @@ Feature: Restaurant Accounts
     And I simulate a successful addon response from Braintree with 1
     And user "emily" has a staff account for the restaurant "Taco Bell"
     And user "sam" has a staff account for the restaurant "Taco Bell"
-    And I am not logged in
-    And I am logged in as an admin
+
+    Given I am logged in as an admin
     When I go to the admin edit page for "sam"
     And I follow "Downgrade the user to a Basic Account"
     Then I should be on the admin edit page for "sam"
@@ -175,7 +175,7 @@ Feature: Restaurant Accounts
     When I go to the employees page for "Taco Bell"
     When I follow the edit role link for "Emily Emily"
     And I see that "emily" has a premium account paid for by the restaurant
-    And I am not logged in
+
     Given I am logged in as "king" with password "secret"
     When I go to the employees page for "Burger King"
     When I follow the edit role link for "Emily Emily"
