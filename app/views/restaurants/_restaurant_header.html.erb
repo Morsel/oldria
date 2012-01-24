@@ -36,19 +36,19 @@
             </div>
         </div>
         <div class="meta">
-            <h4>Highlights</h4>
-            <ul id="tags">
-                <% 12.times do %>
-                <li><%= link_to_unimplemented "test" %></li>
-                <% end %>
-            </ul>
-        </div>
-        <div class="meta">
             <h4>Learn More</h4>
             <ul id="tags">
                 <% @restaurant.feature_pages.each do |page| -%>
                 <li><%= link_to page.name, restaurant_feature_page_link(@restaurant, page) %></li>
                 <% end -%>
+            </ul>
+        </div>
+        <div class="meta">
+            <h4>Highlights</h4>
+            <ul id="tags">
+                <% 12.times do %>
+                <li><%= link_to_unimplemented "test" %></li>
+                <% end %>
             </ul>
         </div>
     </div>
