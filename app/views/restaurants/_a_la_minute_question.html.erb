@@ -5,13 +5,13 @@
     <%= link_to 'view archive', "#a_la_minute_answers_#{question.id}", :class => 'show_all_link showit' %>
   </dt>
   <dd class="answer">
-    <%= h answer.answer %>
+    <%= h answer.answer %> <span class="datestamp">(<%= answer.created_at.strftime("%D") %>)</span>
   </dd>
   <ul class="archive" id="a_la_minute_answers_<%= question.id %>">
     Archive
     <% @restaurant.a_la_minute_answers.show_public.for_question(question).each_with_index do |archived_answer, index| %>
       <% content_tag_for(:li, archived_answer, :class => "answer hidden") do %>
-        <%= archived_answer.answer %>
+        <%= archived_answer.answer %> <span class="datestamp">(<%= archived_answer.created_at.strftime("%D") %>)</span>
       <% end unless index == 0 %><%# don't show the current answer in this list %>
     <% end %>
   </ul>

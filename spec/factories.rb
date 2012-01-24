@@ -560,6 +560,7 @@ Factory.define :promotion do |f|
   f.details "Special event"
   f.start_date Date.today
   f.association :restaurant
+  f.headline "HEADLINE"
 end
 
 Factory.define :promotion_type do |f|

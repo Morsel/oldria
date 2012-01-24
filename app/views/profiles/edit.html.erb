@@ -92,7 +92,7 @@
                 <label>Select your primary job role:</label>
                 <ul class="primary-employment">
                     <% for employment in @user.employments %>
-                    <li><%= radio_button_tag "profile[primary_employment][]", employment.id, primary?(employment) %> <%= employment.restaurant_role.try(:name) %> at <%= employment.restaurant.try(:name) %></li>
+                    <li><%= radio_button_tag "profile[primary_employment][]", employment.id, primary?(@user, employment) %> <%= employment.restaurant_role.try(:name) %> at <%= employment.restaurant.try(:name) %></li>
                     <% end %>
                 </ul>
 

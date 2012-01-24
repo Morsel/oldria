@@ -26,6 +26,7 @@
         <%= "#{promotion.title}: #{promotion.start_date.to_formatted_s(:long)}" %> <%= "- #{promotion.end_date.to_formatted_s(:long)}" if promotion.end_date.present? %>
         <% end %>
     </h3>
+    <h4><%= promotion.headline %></h4>
 
     <div>
         <p class="details"><%= simple_format(Loofah::Helpers.sanitize(promotion.details)) %></p>
