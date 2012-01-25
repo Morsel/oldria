@@ -125,12 +125,23 @@ class Comment < ActiveRecord::Base
   end
 
   def commentable_title
-    target = self.commentable
-    # FIXME - refactor code below to use an IF statement
-    case true
-    when target.respond_to?(:admin_message)  then target.admin_message.try(:message)
-    when target.respond_to?(:discussionable) then target.discussionable.try(:subject)
-    else raise "Wrong commentable item"
+    if commentable.respond_to?(:admin_message)
+      commentable.admin_message.try(:message)
+    elsif commentable.respond_to?(:discussionable)
+      commentable.discussionable.try(:subject)
     end
   end
+
+  def activity_name
+    "comment on \"#{commentable_title}\""
+  end
+
+  def track_activity?
+    if commentable.is_a?(Admin::Conversation) || commentable.is_a?(AdminDiscussion) || commentable.is_a?(SoloDiscussion)
+      true
+    else
+      false
+    end
+  end
+
 end

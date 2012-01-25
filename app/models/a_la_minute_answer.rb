@@ -72,6 +72,14 @@ class ALaMinuteAnswer < ActiveRecord::Base
     a_la_minute_question.question
   end
 
+  def activity_name
+    "A la Minute answer"
+  end
+
+  def restaurant
+    responder
+  end
+
   private
 
   def crosspost

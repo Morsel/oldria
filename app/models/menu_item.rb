@@ -60,6 +60,10 @@ class MenuItem < ActiveRecord::Base
     otm_keywords.map { |k| "#{k.name}" }.to_sentence
   end
 
+  def activity_name
+    "On the Menu item"
+  end
+
   private
 
   def crosspost
