@@ -27,4 +27,8 @@ class RestaurantAnswer < ActiveRecord::Base
     }
   }
 
+  def activity_name
+    "Behind the Line"
+  end
+
 end

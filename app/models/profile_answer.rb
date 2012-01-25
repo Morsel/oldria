@@ -56,6 +56,10 @@ class ProfileAnswer < ActiveRecord::Base
     profile_question.title
   end
 
+  def activity_name
+    "Behind the Line"
+  end
+
   def post_to_facebook
     if @post_to_facebook.to_s == "1"
       name = self.user.respond_to?(:name) ? self.user.name : ""

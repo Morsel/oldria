@@ -31,7 +31,7 @@ describe Menu do
 
   it "should create a new site activity message when saved" do
     Menu.create!(@valid_attributes)
-    SiteActivity.last.description.should == "Saved menu for #{@restaurant.name}"
+    SiteActivity.last.description.should == "Saved menu"
   end
 
   describe "validations" do

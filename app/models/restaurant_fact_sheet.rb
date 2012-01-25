@@ -152,6 +152,10 @@ class RestaurantFactSheet < ActiveRecord::Base
     result
   end
 
+  def activity_name
+    "fact sheet"
+  end
+
   private
 
   def update_timestamps

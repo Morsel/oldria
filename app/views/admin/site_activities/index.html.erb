@@ -1,5 +1,12 @@
 <% title "Site Activity Updates" %>
 
+<p><%= will_paginate(@activities) %></p>
+
 <% for activity in @activities %>
-<p><%= activity.created_at.to_formatted_s(:short) %> - <%= activity.description %></p>
+<p>
+    <%= activity.created_at.to_formatted_s(:short) %> - <%= activity.description %>
+    <% if activity.creator.present? -%>for <%= link_to activity.creator.try(:name), activity.creator %><%- end %>
+</p>
 <% end %>
+
+<p><%= will_paginate(@activities) %></p>
