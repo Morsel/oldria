@@ -5,7 +5,7 @@
 <% for activity in @activities %>
 <p>
     <%= activity.created_at.to_formatted_s(:short) %> - <%= activity.description %>
-    <% if activity.creator.present? -%>for <%= link_to activity.creator.try(:name), activity.creator %><%- end %>
+    <% if activity.creator.present? -%>for <%= activity.creator.try(:name) %>, <%= url_for(polymorphic_url(activity.creator)) %><%- end %>
 </p>
 <% end %>
 
