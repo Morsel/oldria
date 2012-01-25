@@ -1,7 +1,9 @@
-<nav id="primary_mf_nav">
-  <span><%= active_link_to "Dashboard", root_path, :id => "nav_dashboard" %></span>
-  <span><%= active_link_to "Account", edit_mediafeed_media_user_path(current_user), :id => "nav_profile" %></span>
-  <span><%= active_link_to "Messages", mediafeed_media_requests_path, :id => "nav_requests" %></span>
-  <span><%= active_link_to "Restaurants", restaurant_directory_path, :id => "nav_restaurants" %></span>
-  <span><%= active_link_to "Personal Profiles", directory_path, :id => "nav_directory" %></span>
+<nav id="navContainer">
+    <ul id="user_nav">
+        <li><%= active_link_to "Dashboard", root_path, :id => "nav_dashboard" %></li>
+        <li><%= active_link_to "Account", edit_mediafeed_media_user_path(current_user), :id => "nav_profile" %></li>
+        <li><%= active_link_to "Messages", mediafeed_media_requests_path, :id => "nav_requests" %></li>
+        <li><%= active_link_to "Restaurants", restaurant_directory_path, :id => "nav_restaurants" %></li>
+        <li><%= active_link_to "Personal Profiles", directory_path, :id => "nav_directory" %></li>
+    </ul>
 </nav>

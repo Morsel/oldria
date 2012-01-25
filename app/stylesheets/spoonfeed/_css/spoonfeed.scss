@@ -800,98 +800,30 @@ footer {
 }
 
 #user_nav {
-  display: block;
-  width: 923px;
-  height: 62px;
-  background: url(/images/sf/nav-logged-in.png) left top no-repeat;
-  background: url('/images/sf/noise.png'), url(/images/sf/nav-logged-in.png) left top no-repeat;
-}
-
-#user_nav li {
-  display: block;
-  float: left;
-}
-
-#user_nav li a {
-  display: block;
-  height: 62px;
-  text-indent: -9999px;
-}
-
-#user_nav li a:hover,
-#user_nav li a.selected {
-  background-image: url(/images/sf/nav-logged-in.png);
-  background: url('/images/sf/noise.png'), url(/images/sf/nav-logged-in.png) left top no-repeat;
-}
-
-#user_nav li.dashboard a {
-  width: 129px;
-  background-position: -0px -62px;
-}
-
-#user_nav li.edit-profile a {
-  width: 132px;
-  background-position: -129px -62px;
-}
-
-#user_nav li.edit-restaurant a {
-  width: 131px;
-  background-position: -261px -62px;
-}
-
-#user_nav li.messages a {
-  width: 130px;
-  background-position: -392px -62px;
-}
-
-#user_nav li.front-burner a {
-  width: 132px;
-  background-position: -522px -62px;
-}
-
-#user_nav li.personal-directory a {
-  width: 131px;
-  background-position: -654px -62px;
-}
-
-#user_nav li.restaurant-directory a {
-  width: 138px;
-  background-position: -785px -62px;
-}
-
-#user_nav li.dashboard a.selected {
-  width: 129px;
-  background-position: -0px -124px;
-}
-
-#user_nav li.edit-profile a.selected {
-  width: 132px;
-  background-position: -129px -124px;
-}
-
-#user_nav li.edit-restaurant a.selected {
-  width: 131px;
-  background-position: -261px -124px;
-}
-
-#user_nav li.messages a.selected {
-  width: 130px;
-  background-position: -392px -124px;
-}
-
-#user_nav li.front-burner a.selected {
-  width: 132px;
-  background-position: -522px -124px;
-}
-
-#user_nav li.personal-directory a.selected {
-  width: 131px;
-  background-position: -654px -124px;
-}
-
-#user_nav li.restaurant-directory a.selected {
-  width: 138px;
-  background-position: -785px -124px;
+  background: #f7f7f1 url('/images/sf/noise.png');
+  li {
+    float: left;
+    padding: 10px 0;
+    position: relative;
+    a {
+      display: table-cell;
+      vertical-align: middle;
+      width: 91px;
+      border-right: 1px solid #c6c1ad;
+      color: #a9a29f;
+      text-align: center;
+      padding: 0 20px;
+      font-family: 'Voltaire', sans-serif;
+      text-transform: uppercase;
+      height: 30px;
+      &:hover, &.selected {
+        color: #f26522 !important;
+      }
+      &.last {
+        border: none;
+      }
+    }
+  }
 }
 /* End logged in user nav */
 
