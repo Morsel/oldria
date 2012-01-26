@@ -1,0 +1,14 @@
+<% semantic_form_for [:admin, @testimonial], :html => { :multipart => true } do |f| %>
+    <% f.inputs do %>
+        <% unless @testimonial.new_record? -%>
+          Current image:
+          <%= image_tag(@testimonial.photo.url(:small)) %>
+        <% end -%>
+        <%= f.input :photo %>
+        <%= f.input :person %>
+        <%= f.input :quote %>
+        <%= f.input :page, :collection => Testimonial.page_options, :include_blank => false %>
+    <% end %>
+    
+	<%= button_tag "Save" %>
+<% end %>

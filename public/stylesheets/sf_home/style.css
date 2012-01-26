@@ -615,12 +615,23 @@ article#social h2 {
   width: 790px;
 }
 
-.testimonial img.left {
-  margin: 0 20px 0 0;
+.testimonial img {
+  -webkit-box-shadow: 3px -5px 5px rgba(120, 120, 120, 0.75);
+  -moz-box-shadow:    3px -5px 5px rgba(120, 120, 120, 0.75);
+  box-shadow:         3px -5px 5px rgba(120, 120, 120, 0.75);
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  border-radius: 10px;
 }
 
-.testimonial img.right {
-  margin: 0 0 0 20px;
+.testimonial:nth-child(odd) img {
+  margin: 20px 20px 20px 30px;
+  float: right;
+}
+
+.testimonial:nth-child(even) img {
+  margin: 20px 30px 20px 20px;
+  float: left;
 }
 
 .testimonial blockquote {

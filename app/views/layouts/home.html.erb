@@ -131,33 +131,15 @@
       <article id="testimonials" class="gradient">
         <div class="articleBox">
           <h2 class="ir">What People Are Saying.</h2>
+          <% for testimonial in @testimonials -%>
           <div class="testimonial clearfix">
-            <img class="left" src="/images/sf/profile1.png" />
+            <%= image_tag testimonial.photo.url(:small) %>
             <div>
-              <blockquote>
-                "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis justo libero."
-              </blockquote>
-              <p>Firstname Lastname, Company or Restaurant</p>
+              <blockquote>&#8220;<%= testimonial.quote %>&#8221;</blockquote>
+              <p><%= testimonial.person %></p>
             </div>
           </div>
-          <div class="testimonial clearfix">
-            <img class="right" src="/images/sf/profile2.png" />
-            <div>
-              <blockquote>
-                "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis justo libero."
-              </blockquote>
-              <p>Firstname Lastname, Company or Restaurant</p>
-            </div>
-          </div>
-            <div class="testimonial clearfix">
-              <img class="left" src="/images/sf/profile1.png" />
-              <div>
-                <blockquote>
-                  "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis justo libero."
-                </blockquote>
-                <p>Firstname Lastname, Company or Restaurant</p>
-              </div>
-            </div>
+          <% end -%>
         </div>
       </article>
 

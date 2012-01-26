@@ -25,6 +25,7 @@ class WelcomeController < ApplicationController
       params[:is_more] ? set_up_dashboard_with_pagination : set_up_dashboard
       render :dashboard
     else
+      @testimonials = Testimonial.for_page("Spoonfeed").by_position
       render :layout => 'home'
     end
   end

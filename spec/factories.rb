@@ -577,3 +577,13 @@ Factory.define :menu_item do |f|
   f.association :restaurant
   f.otm_keywords { [Factory(:otm_keyword)] }
 end
+
+Factory.define :testimonial do |f|
+  f.quote "This is great"
+  f.person "Chef Tastic - New Place"
+  f.page "RIA HQ"
+  f.sequence(:photo_file_name) { |n| "image#{n}.jpg" }
+  f.photo_content_type "image/jpg"
+  f.photo_file_size 5000
+  f.photo_updated_at 1.day.ago
+end

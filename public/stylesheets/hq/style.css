@@ -137,14 +137,51 @@ width:177px;background-position:-536px -46px;}
 
 
 
-.testimonial {border-bottom: 1px dashed #000; padding-bottom: 25px; margin: 0 auto 20px auto; width: 790px;}
-.testimonial img.left {margin: 0 20px 0 0;}
-.testimonial img.right {margin: 0 0 0 20px;}
-.testimonial blockquote {font-style: italic; font-size: 28px; margin: 20px 0 25px 0;}
-.testimonial p {font-family: sans-serif; font-weight: bold; font-size: 14px;}
-.testimonial:last-child {border: none;  margin-bottom: none;}
-.testimonial p {color: #E17750}
-.testimonial div {width: 600px; float: left;}
+.testimonial {
+  border-bottom: 1px dashed #000;
+  padding-bottom: 25px;
+  margin: 0 auto 20px auto;
+  width: 790px;
+}
+
+.testimonial img {
+  -webkit-box-shadow: 3px -5px 5px rgba(120, 120, 120, 0.75);
+  -moz-box-shadow:    3px -5px 5px rgba(120, 120, 120, 0.75);
+  box-shadow:         3px -5px 5px rgba(120, 120, 120, 0.75);
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  border-radius: 10px;
+}
+
+.testimonial:nth-child(odd) img {
+  margin: 20px 20px 20px 30px;
+  float: right;
+}
+
+.testimonial:nth-child(even) img {
+  margin: 20px 30px 20px 20px;
+  float: left;
+}
+
+.testimonial blockquote {
+  font-style: italic;
+  font-size: 28px;
+  margin: 20px 0 25px 0;
+}
+.testimonial p {
+  font-family: sans-serif;
+  font-weight: bold;
+  font-size: 14px;
+  color: #E17750
+}
+.testimonial:last-child {
+  border: none;
+  margin-bottom: none;
+}
+.testimonial div {
+  width: 600px;
+  float: left;
+}
 
 .tab a {float: right; display: inline-block; margin-top: 10px; color: #FFF; font-family: sans-serif; font-size: 15px; text-shadow: 0 1px 0 rgba(0,0,0,0.7); text-transform: uppercase; font-weight: bold;}
 

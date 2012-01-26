@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120124214829) do
+ActiveRecord::Schema.define(:version => 20120126002642) do
 
   create_table "a_la_minute_answers", :force => true do |t|
     t.text     "answer"
@@ -1109,6 +1109,19 @@ ActiveRecord::Schema.define(:version => 20120124214829) do
     t.integer  "restaurant_fact_sheet_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "testimonials", :force => true do |t|
+    t.string   "person"
+    t.text     "quote"
+    t.string   "photo_file_name"
+    t.string   "photo_content_type"
+    t.integer  "photo_file_size"
+    t.datetime "photo_updated_at"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "position"
+    t.string   "page"
   end
 
   create_table "topics", :force => true do |t|

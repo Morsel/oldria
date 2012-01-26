@@ -95,33 +95,15 @@
   <article id="testimonials" class="gradient">
     <div class="articleBox">
       <h2 class="ir">What People Are Saying.</h2>
+      <% for testimonial in @testimonials -%>
       <div class="testimonial clearfix">
-        <img class="left" src="/images/hq/profile1.png" />
+        <%= image_tag testimonial.photo.url(:small) %>
         <div>
-          <blockquote>
-            "I can't imagine why any any independent restaurant wouldn't do this. It's amazing."
-          </blockquote>
-          <p>Paul Kahan - Blackbird, avec, The Publican, Big Star</p>
+          <blockquote>&#8220;<%= testimonial.quote %>&#8221;</blockquote>
+          <p><%= testimonial.person %></p>
         </div>
       </div>
-      <div class="testimonial clearfix">
-        <img class="right" src="/images/hq/profile2.png" />
-        <div>
-          <blockquote>
-            "What RIA is doing is fabulous - very innovative way to connect chefs, bloggers, and journalists."
-          </blockquote>
-          <p>Perry Hendrix - Executive Chef, Custom House Tavern</p>
-        </div>
-      </div>
-        <div class="testimonial clearfix">
-          <img class="left" src="/images/hq/profile1.png" />
-          <div>
-            <blockquote>
-              "Restaurant Intelligence Agency is a must-have for any restaurant or bar owner dedicated to creating a focus point for a focused publicity strategy."
-            </blockquote>
-            <p>Jason Cott - the Violet Hour and Alchemy Consulting</p>
-          </div>
-        </div>
+      <% end -%>
     </div>
   </article>
 
