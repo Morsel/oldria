@@ -67,7 +67,7 @@
             <h3>Question of the day<span class="greenArrow"></span></h3>
 
             <% if @user.qotd_convos_with_comments.present? -%>
-              <% for conversation in @user.qotd_convos_with_comments -%>
+              <% for conversation in @user.qotd_convos_with_comments.all(:limit => 5) -%>
               <h4><%= conversation.admin_message.message %></h4>
               <p>
                   <%= conversation.comments.first.comment %>

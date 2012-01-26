@@ -43,13 +43,15 @@
                 <% end -%>
             </ul>
         </div>
+        <% if @restaurant.top_tags.any? -%>
         <div class="meta">
             <h4>Highlights</h4>
             <ul id="tags">
-                <% 12.times do %>
-                <li><%= link_to_unimplemented "test" %></li>
+                <% for tag in @restaurant.top_tags %>
+                <li><%= link_to h(tag.value), feature_path(tag)  %></li>
                 <% end %>
             </ul>
         </div>
+        <% end -%>
     </div>
 </header>
