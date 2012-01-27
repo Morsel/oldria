@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111220185932) do
+ActiveRecord::Schema.define(:version => 20120124214829) do
 
   create_table "a_la_minute_answers", :force => true do |t|
     t.text     "answer"
@@ -978,6 +978,10 @@ ActiveRecord::Schema.define(:version => 20111220185932) do
     t.string   "description"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "creator_id"
+    t.string   "creator_type"
+    t.integer  "content_id"
+    t.string   "content_type"
   end
 
   create_table "slides", :force => true do |t|

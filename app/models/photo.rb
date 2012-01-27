@@ -22,4 +22,9 @@ class Photo < Image
   validates_attachment_presence :attachment
 
   acts_as_list :scope => :attachable
+
+  def activity_name
+    "photo"
+  end
+
 end

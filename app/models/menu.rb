@@ -35,5 +35,9 @@ class Menu < ActiveRecord::Base
   validates_inclusion_of :change_frequency, :in => Menu.change_frequencies,
       :message => "must be selected"
 
+  def activity_name
+    "menu"
+  end
+
 end
 

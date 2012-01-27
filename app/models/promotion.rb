@@ -103,6 +103,10 @@ class Promotion < ActiveRecord::Base
     return text
   end
 
+  def activity_name
+    "Newsfeed item"
+  end
+
   private
 
   def crosspost
