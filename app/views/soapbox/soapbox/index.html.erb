@@ -1,231 +1,49 @@
 <% title "Home", false %>
 <section id="content" class="home">
     <div id="inside" class="home">
-
-        <% cache "soapbox_quicklinks", :expires_in => 8.hours do %>
-        <div id="quicklinks">
-            <div id="alm-links">
-                <h2>A la Minute</h2>
-                <ul>
-                    <% for link in alm_links -%>
-                    <li><%= link_to (link.topic || link.question), soapbox_a_la_minute_question_path(link) %></li>
-                    <% end -%>
-                </ul>
-                <%= link_to "view more", soapbox_a_la_minute_questions_path, :class => "view-more" %>
+        <%- if @slides.any? -%>
+        <div id="jumbotron">
+            <div id="cycle">
+                <% for slide in @slides %>
+                <%= image_tag slide.image.url(:full), "data-title" => slide.title, "data-caption" => truncate(slide.excerpt, :length => 150), "data-url" => slide.link, "data-credit" => slide.photo_credit %>
+                <% end %>
             </div>
-            <div id="news-links">
-                <h2>Newsfeed</h2>
-                <ul>
-                    <% for link in newsfeed_links -%>
-                    <li><%= link_to "#{link.name}", soapbox_promotions_path(:promotion_type_id => link.id) %></li>
-                    <% end -%>
-                </ul>
-                <%= link_to "view more", soapbox_promotions_path, :class => "view-more" %>
+            <div id="display">
+                <header>
+                    <h1 id="cycle-title"><%= @slides.first.title %></h1>
+                </header>
+                <summary id="cycle-caption"><%= truncate(@slides.first.excerpt, :length => 100) %>&nbsp;<% unless @slides.first.link.blank? -%><%= link_to "go&nbsp;&#187;", @slides.first.link %><% end -%></summary>
+                <footer id="cycle-footer">Photo Credit: <%= @slides.first.photo_credit %></footer>
+                <nav id="pager"></nav>
             </div>
-            <div id="btl-links">
-                <h2>Behind the Line</h2>
-                <ul>
-                    <% for link in btl_links -%>
-                    <li><%= link_to link.title, soapbox_topic_path(link) %></li>
-                    <% end -%>
-                </ul>
-                <%= link_to "view more", soapbox_questions_path, :class => "view-more" %>
-            </div>
-            <% if travel_links.present? -%>
-            <div id="travel-links">
-                <h2>Travel Guide</h2>
-                <ul>
-                    <% for link in travel_links -%>
-                    <li><%= link_to link.title, soapbox_chapter_path(link) %></li>
-                    <% end -%>
-                </ul>
-                <%= link_to "view more", soapbox_topic_path(Topic.travel), :class => "view-more" %>
-            </div>
-            <% end -%>
-        </div>
-        <% end %>
+        </div><!-- /jumbotron -->
+        <%- end -%>
 
-        <% cache 'soapbox_homepage_feeds', :expires_in => 1.hour do %>
-        <% load_homepage_feeds %>
-        <div id="main-feeds">
-            <div id="otm-feed" class="live-feed">
-                <div id="otm-title" class="title">
-                    <%= image_tag "soapbox/title-otm.png" %>
-                    <h2>On the Menu</h2>
-                    <%= link_to "+ See all", soapbox_menu_items_path, :class => "link-all" %>
-                </div>
-                <% @menu_items.each_with_index do |item, index| -%>
-                <div class="menu_item" id="otm_<%= index %>">
-                    <!-- AddThis Button BEGIN -->
-                    <div class="addthis_toolbox">
-                      <a href="http://www.addthis.com/bookmark.php?v=250&amp;username=unpluggedria"
-                         class="addthis_button"
-                         addthis:url="<%= soapbox_menu_item_url(item) %>"
-                         addthis:title='On the Menu - <%= item.name %>'>Share</a>
-                    </div>
-                    <!-- AddThis Button END -->
-
-                    <h3><%= link_to item.name, soapbox_menu_item_path(item) %></h3>
-                    <div>
-                        <%= render :partial => 'restaurants/identity', :locals => { :restaurant => item.restaurant } %>
-                        <p class="answer"><%= item.description %></p>
-                        <p class="datestamp">Posted <%= item.created_at.strftime("%D") %></p>
-                    </div>
-                    <div class="clear">&nbsp;</div>
-                </div>
-                <% end -%>
-                <div class="links">
-                    <% (1..4).each do |i| %>
-                      <% if @menu_items[i-1].present? -%>
-                        <%= link_to_function i,
-                            "$('.menu_item').hide(); $('#otm_#{i-1}').show(); $('.otm_link').removeClass(\"current\"); $('#otm_link_#{i}').addClass(\"current\")",
-                            :class => (i == 1 ? "current otm_link" : "otm_link"),
-                            :id => "otm_link_#{i}" %>
-                      <% end -%>
-                    <% end %>
-                    <%= link_to "more", soapbox_menu_items_path %>
-                </div>
-            </div>
-
-            <div id="alm-feed" class="live-feed">
-                <div id="alm-title" class="title">
-                    <%= image_tag "soapbox/title-alm.png" %>
-                    <h2>A la Minute</h2>
-                    <%= link_to "+ See all", soapbox_a_la_minute_questions_path, :class => "link-all" %>
-                </div>
-                <% @alm_questions.each_with_index do |question, index| -%>
-                <div class="a_la_minute_question" id="alm_<%= index %>">
-                    <!-- AddThis Button BEGIN -->
-                    <div class="addthis_toolbox">
-                      <a href="http://www.addthis.com/bookmark.php?v=250&amp;username=unpluggedria"
-                         class="addthis_button"
-                         addthis:url="<%= soapbox_a_la_minute_question_url(question) %>"
-                         addthis:title='A la Minute - <%= question.question %>'>Share</a>
-                    </div>
-                    <!-- AddThis Button END -->
-
-                    <h3><%= link_to question.question, soapbox_a_la_minute_question_path(question) %></h3>
-                    <% if question.latest_answer.present? -%>
-                    <div>
-                        <%= render :partial => 'restaurants/identity', :locals => { :restaurant => question.latest_answer.responder } %>
-                        <p class="answer"><%= question.latest_answer.answer %></p>
-                        <p class="datestamp">Posted <%= question.latest_answer.created_at.strftime("%D") %></p>
-                    </div>
-                    <div class="clear">&nbsp;</div>
-                    <% end -%>
-                </div>
-                <% end -%>
-                <div class="links">
-                    <% (1..4).each do |i| %>
-                      <% if @alm_questions[i-1].present? -%>
-                        <%= link_to_function i,
-                            "$('.a_la_minute_question').hide(); $('#alm_#{i-1}').show(); $('.alm_link').removeClass(\"current\"); $('#alm_link_#{i}').addClass(\"current\")",
-                            :class => (i == 1 ? "current alm_link" : "alm_link"),
-                            :id => "alm_link_#{i}" %>
-                      <% end -%>
-                    <% end %>
-                    <%= link_to "more", soapbox_a_la_minute_questions_path %>
-                </div>
-            </div>
-
-            <div id="news-feed" class="live-feed">
-                <div id="news-title" class="title">
-                    <%= image_tag "soapbox/title-news.png" %>
-                    <h2>Newsfeed</h2>
-                    <%= link_to "+ See all", soapbox_promotions_path, :class => "link-all" %>
-                </div>
-                <% @promotions.each_with_index do |promotion, index| -%>
-                <div class="promotion" id="news_<%= index %>">
-                    <!-- AddThis Button BEGIN -->
-                    <div class="addthis_toolbox">
-                      <a href="http://www.addthis.com/bookmark.php?v=250&amp;username=unpluggedria"
-                         class="addthis_button"
-                         addthis:url="<%= soapbox_promotions_url(:promotion_type_id => promotion.promotion_type_id, :anchor => "promotion_#{promotion.id}") %>"
-                         addthis:title='Newsfeed - <%= promotion.title %>'>Share</a>
-                    </div>
-                    <!-- AddThis Button END -->
-
-                    <h3><% link_to soapbox_promotions_path(:promotion_type_id => promotion.promotion_type_id, :anchor => "promotion_#{promotion.id}") do %>
-                        <%= "#{promotion.title}: #{promotion.start_date.to_formatted_s(:long)}" %> <%= "- #{promotion.end_date.to_formatted_s(:long)}" if promotion.end_date.present? %>
-                    <% end %></h3>
-                    <div>
-                        <%= render :partial => 'restaurants/identity', :locals => { :restaurant => promotion.restaurant } %>
-                        <p class="details"><%= promotion.details %></p>
-                    </div>
-                    <div class="clear">&nbsp;</div>
-                </div>
-                <% end -%>
-                <div class="links">
-                    <% (1..4).each do |i| %>
-                      <% if @promotions[i-1].present? -%>
-                        <%= link_to_function i,
-                            "$('.promotion').hide(); $('#news_#{i-1}').show(); $('.news_link').removeClass(\"current\"); $('#news_link_#{i}').addClass(\"current\")",
-                            :class => (i == 1 ? "current news_link" : "news_link"),
-                            :id => "news_link_#{i}" %>
-                      <% end -%>
-                    <% end %>
-                    <%= link_to "more", soapbox_promotions_path %>
-                </div>
-            </div>
-
-            <div id="btl-feed" class="live-feed">
-                <div id="btl-title" class="title">
-                    <%= image_tag "soapbox/title-btl.png" %>
-                    <h2>Behind the Line</h2>
-                    <%= link_to "+ See all", soapbox_questions_path, :class => "link-all" %>
-                </div>
-                <% @btl_answers.each_with_index do |answer, index| -%>
-                <div class="profile_question" id="btl_<%= index %>">
-                    <!-- AddThis Button BEGIN -->
-                    <div class="addthis_toolbox">
-                      <a href="http://www.addthis.com/bookmark.php?v=250&amp;username=unpluggedria"
-                         class="addthis_button"
-                         addthis:url="<%= soapbox_question_url(answer.profile_question) %>"
-                         addthis:title='Behind the Line - <%= answer.profile_question.title %>'>Share</a>
-                    </div>
-                    <!-- AddThis Button END -->
-                    <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#username=unpluggedria"></script>
-
-                    <h3>Topic: <%= answer.profile_question.topic.title %></h3>
-                    <h4><%= link_to answer.profile_question.title, soapbox_question_path(answer.profile_question) %></h4>
-                    <div>
-                        <%= render :partial => 'users/identity', :locals => { :user => answer.user } %>
-                        <p class="answer"><%= answer.answer %></p>
-                        <p class="datestamp">Posted <%= answer.created_at.strftime("%D") %></p>
-                    </div>
-                    <div class="clear">&nbsp;</div>
-                </div>
-                <% end -%>
-                <div class="links">
-                    <% (1..4).each do |i| %>
-                      <% if @btl_answers[i-1].present? -%>
-                        <%= link_to_function i,
-                            "$('.profile_question').hide(); $('#btl_#{i-1}').show(); $('.btl_link').removeClass(\"current\"); $('#btl_link_#{i}').addClass(\"current\")",
-                            :class => (i == 1 ? "current btl_link" : "btl_link"),
-                            :id => "btl_link_#{i}" %>
-                      <% end -%>
-                    <% end %>
-                    <%= link_to "more", soapbox_questions_path %>
-                </div>
-            </div>
-        </div>
-        <% end %>
-
+        <%- @promos.each_with_index do |promo,idx| -%>
+        <article class="panel panel_<%= idx %>" id="home-pulse">
+            <header>
+                <h1><%= promo.title %></h1>
+            </header>
+            <section>
+                <p><%= promo.body %></p>
+                <%= link_to "more&nbsp;&#187;", promo.link unless promo.link.blank? %>
+            </section>
+        </article><!-- /home-pulse -->
+        <%- end if @promos.any? -%>
     </div><!-- /inside -->
 </section><!-- /content --> 
 
 <aside id="sidebar" class="home">
     <nav id="participate" class="home">
-        <div id="front-burner" class="button">
-            <h1>Front Burner</h1>
-            <p>Check out Today's Features:</p>
-            <ul>
-                <li><%= link_to (@main_feature.slug || @main_feature.display_message), soapbox_soapbox_entry_path(@main_feature.soapbox_entry) if @main_feature.present? %></li>
-                <li><%= link_to (@secondary_feature.slug || @secondary_feature.display_message), soapbox_soapbox_entry_path(@secondary_feature.soapbox_entry) if @secondary_feature.present? %></li>
-            </ul>
-        </div>
         <%= link_to "<span>Learn</span> more", '/soapbox/learn_more', :class => "button", :id => "request-invite" %>
+        <%= link_to "Request an <span>invitation</span>", '/soapbox/request-invitation', :class => "button", :id => "login-participate" %>
     </nav><!-- /participate -->
+    <section id="facebook-button">
+        <header>
+            <h1>Like us on Facebook</h1>
+        </header>
+        <iframe src="http://www.facebook.com/plugins/like.php?href=http%3A%2F%2Fsoapbox.restaurantintelligenceagency.com%2Fsoapbox&amp;layout=standard&amp;show_faces=true&amp;width=154&amp;action=like&amp;font=lucida+grande&amp;colorscheme=light&amp;height=auto" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:154px; height:auto;" allowTransparency="true"></iframe>
+    </section><!-- /facebook-button -->
 
     <section id="help-questions">
         <header>
@@ -234,23 +52,4 @@
         <p>You can <a href="mailto:support@restaurantintelligenceagency.com">email our support staff</a> anytime.</p>
         <p>We also have a customer support line available 9am–9pm that can be reached at (312) 572-9082.</p>
     </section><!-- /help-questions -->
-
-    <section id="newsletter">
-        <header>
-            <h1>Sign up for our Email Newsletter</h1>
-        </header>
-        <%= render :partial => "newsletter_form" %>
-    </section>
-
-    <section id="facebook-button">
-        <header>
-            <h1>Follow us</h1>
-        </header>
-        <div id="twitter-button">
-            <%= image_tag "soapbox/twitter.png" %>
-            <p>Follow <%= link_to "@EllenMalloy", "http://twitter.com/ellenmalloy" %> on twitter and stay up to date on new features</p>
-        </div>
-        <%= image_tag "soapbox/facebook.png" %>
-        <iframe src="http://www.facebook.com/plugins/like.php?href=http%3A%2F%2Fsoapbox.restaurantintelligenceagency.com%2Fsoapbox&amp;layout=standard&amp;show_faces=true&amp;width=154&amp;action=like&amp;font=lucida+grande&amp;colorscheme=light&amp;height=auto" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:154px; height:auto;" allowTransparency="true"></iframe>
-    </section><!-- /facebook-button -->
 </aside><!-- /sidebar -->
