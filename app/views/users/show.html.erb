@@ -7,6 +7,14 @@
         <div id="facts">
             <div class="contactDetails">
                 <h3>Quick Facts</h3>
+                <% if display_cell(@user) -%>
+                <h4>phone: <span><%= @user.profile.cellnumber %></span></h4>
+                <% end -%>
+
+                <%- if display_email(@user) -%>
+                <h4>email: <span><%= mail_to(@user.email, truncate(@user.email, :length => 20)) %></span></h4>
+                <%- end -%>
+
                 <% if display_twitter(@user) -%>
                 <h4>twitter: <span><%= link_to @user.twitter_username, "http://twitter.com/#{@user.twitter_username}" %></span></h4>
                 <% end -%>
@@ -15,11 +23,7 @@
                 <h4>facebook: <span><%= link_to @user.facebook_user.name, @user.facebook_user.link %></span></h4>
                 <% end -%>
 
-                <h4>blog: <span><%= link_to_unimplemented "firstname.com" %></span></h4>
-
-                <% if display_cell(@user) -%>
-                <h4>contact: <span><%= @user.profile.cellnumber %></span></h4>
-                <% end -%>
+                <p>last updated: <%= @user.profile.try(:updated_at).try(:strftime, '%m/%d/%y') %></p>
             </div>
 
             <% if @user.profile.try(:cuisines).present? -%>
@@ -29,24 +33,34 @@
             </p>
             <% end -%>
 
+            <% if @user.profile.try(:current_residence).present? -%>
+            <h5>resides in:</h5>
+            <p><%= @user.profile.try(:current_residence) %></p>
+            <% end -%>
+
+            <% if @user.profile.try(:metropolitan_area).present? -%>
+            <h5>Metropolitan Area:</h5>
+            <p><%= @user.profile.try(:metropolitan_area).try(:name) %></p>
+            <% end -%>
+
+            <% if @user.profile.try(:james_beard_region).present? -%>
+            <h5>Region:</h5>
+            <p><%= @user.profile.try(:james_beard_region).try(:name) %></p>
+            <% end -%>
+
             <% if @user.profile.try(:job_start).present? -%>
             <h5>job start:</h5>
             <p><%= @user.profile.job_start.try(:strftime, '%B %d, %Y') %></p>
             <% end -%>
 
             <% if @user.profile.try(:birthday).present? -%>
-            <h5>age:</h5>
-            <p><%= age(@user.profile.birthday) %></p>
+            <h5>birthdate:</h5>
+            <p><%= @user.profile.birthday %></p>
             <% end -%>
 
             <% if @user.profile.try(:hometown).present? -%>
             <h5>birthplace:</h5>
             <p><%= @user.profile.hometown %></p>
-            <% end -%>
-
-            <% if @user.profile.try(:current_residence).present? -%>
-            <h5>resides:</h5>
-            <p><%= @user.profile.try(:current_residence) %></p>
             <% end -%>
 
             <p id="resume-link"><%= link_to "View Resume", resume_user_path(@user) if @user.profile.present? %></p>
