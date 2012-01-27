@@ -2855,6 +2855,9 @@ table#menus {
 .user_profile #meta ul li {
   display: inline;
   margin-right: 5px;
+  background: none;
+  padding: 0;
+  white-space: nowrap;
 }
 
 .user_profile #meta ul li a {
