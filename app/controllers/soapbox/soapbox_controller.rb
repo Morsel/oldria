@@ -2,10 +2,8 @@ class Soapbox::SoapboxController < ApplicationController
 
   def index
     @home = true
-
-    # Right sidebar content
-    @main_feature = SoapboxEntry.main_feature
-    @secondary_feature = SoapboxEntry.secondary_feature
+    @slides = SoapboxSlide.all(:order => "position", :limit => 4, :conditions => "position is not null")
+    @promos = SoapboxPromo.all(:order => "position", :limit => 3, :conditions => "position is not null")
   end
 
   def directory

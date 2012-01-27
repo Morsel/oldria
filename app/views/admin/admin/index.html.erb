@@ -4,10 +4,12 @@
 
 <h2>Soapbox and Front Burner</h2>
 <ul>
-  <li><%= link_to "Soapbox Entries", admin_soapbox_entries_path %></li>
-  <li><%= link_to "Soapbox Pages", admin_soapbox_pages_path %></li>
-  <li><%= link_to "QOTDs", admin_messages_path %></li>
-  <li><%= link_to "Trends", admin_trend_questions_path %></li>
+    <li><%= link_to "QOTDs", admin_messages_path %></li>
+    <li><%= link_to "Trends", admin_trend_questions_path %></li>
+    <li><%= link_to "Soapbox Entries", admin_soapbox_entries_path %></li>
+    <li><%= link_to "Soapbox Pages", admin_soapbox_pages_path %></li>
+    <li><%= link_to "Soapbox Slides", admin_soapbox_slides_path %></li>
+    <li><%= link_to "Soapbox Promos", admin_soapbox_promos_path %></li>
 </ul>
 
 <h2>Spoonfeed Home</h2>
@@ -27,7 +29,6 @@
     <li><%= link_to "Mediafeed Pages", admin_mediafeed_pages_path %></li>
 </ul>
 
-
 <h2>Restaurants and Users</h2>
 <ul>
   <li><%= link_to "Site Activity Tracker", admin_site_activities_path %></li>
@@ -45,21 +46,16 @@
   <li><%= link_to "Restaurants: Behind the Line: Topics, Chapters, Questions", admin_restaurant_questions_path %></li>
 </ul>
 
-
 <h2>RIA Messages</h2>
 <ul>
   <li><%= link_to "Admin Messages", admin_messages_path %></li>
-  <li><%= link_to "Content Requests / Questions from RIA", admin_content_requests_path %></li>
   <li><%= link_to "Private Messages", admin_direct_messages_path %></li>
 </ul>
-
 
 <h2>Lookup Tables</h2>
 <ul>
   <li><%= link_to "Cuisines", admin_cuisines_path %></li>
   <li><%= link_to "Specialties", admin_specialties_path %></li>
-  <li><%= link_to "Coached Status Updates", admin_coached_status_updates_path %></li>
-  <li><%= link_to "Date Ranges for coached status updates", admin_date_ranges_path %></li>
   <li><%= link_to "Subject Matters", admin_subject_matters_path %></li>
   <li><%= link_to "Metropolitan Areas", admin_metropolitan_areas_path %></li>
   <li><%= link_to "On the Menu Keywords", admin_otm_keywords_path %></li>
@@ -67,7 +63,10 @@
 
 <h2>Future Features</h2>
 <ul>
-  <li><%= link_to "Holidays", admin_holidays_path %></li>
-  <li><%= link_to "Feeds", admin_feeds_path %></li>
-  <li><%= link_to "Calendars", admin_calendars_path %></li>
+    <li><%= link_to "Coached Status Updates", admin_coached_status_updates_path %></li>
+    <li><%= link_to "Date Ranges for coached status updates", admin_date_ranges_path %></li>
+    <li><%= link_to "Content Requests / Questions from RIA", admin_content_requests_path %></li>
+    <li><%= link_to "Holidays", admin_holidays_path %></li>
+    <li><%= link_to "Feeds", admin_feeds_path %></li>
+    <li><%= link_to "Calendars", admin_calendars_path %></li>
 </ul>
