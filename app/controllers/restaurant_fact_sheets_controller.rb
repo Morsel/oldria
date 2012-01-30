@@ -1,10 +1,12 @@
 class RestaurantFactSheetsController < ApplicationController
-  before_filter :find_restaurant
+
+  before_filter :require_user
+  before_filter :authenticate, :only => [:edit, :update, :destroy]
+  before_filter :find_restaurant, :only => :show
 
   # GET /restaurant_fact_sheets/1
   # GET /restaurant_fact_sheets/1.xml
   def show
-
     @fact_sheet = @restaurant.fact_sheet
 
     respond_to do |format|
@@ -50,6 +52,15 @@ ac
   private
 
   def find_restaurant
-    @restaurant = Restaurant.find(params[:restaurant_id])
+    @restaurant = Restaurant.find(params[:id])
   end
+
+  def authenticate
+    find_restaurant
+    if cannot? :edit, @restaurant
+      flash[:error] = "You don't have permission to access that page"
+      redirect_to @restaurant
+    end
+  end
+
 end

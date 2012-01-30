@@ -3553,6 +3553,15 @@ hgroup h5 span {
         font-weight: normal;
       }
     }
+    a#factsheet {
+      display: block;
+      padding-top: 20px;
+      font-size: 18px;
+      font-weight: normal;
+      text-decoration: none;
+      color: $new-orange;
+      font-family: 'Hoefler Text', Georgia, Times, serif;
+    }
   }
   #facts h4 {text-transform: uppercase; color: #f16522; font-size: 12px;}
   #facts h4 span {text-transform: none; color: #857E7D;}
