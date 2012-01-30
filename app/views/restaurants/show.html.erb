@@ -2,39 +2,7 @@
 <div id="restaurant_profile_view">
     <%= render :partial => "restaurant_header" %>
 
-    <aside id="sidebar" class="left">
-        <div id="facts">
-            <div class="contactDetails">
-                <h3>Quick Facts</h3>
-                <h4>Phone: <span><%= @restaurant.phone_number %></span></h4>
-                <p><%= @restaurant.address_parts.join("<br />") %><br /><%= link_to "link to Google Map", "http://maps.google.com/maps?q=#{@restaurant.address_parts.join("+")}", :popup => "true" %></p>
-            </div>
-
-            <div class="contactDetails">
-                <h4>website: <span><%= link_to @restaurant.website, @restaurant.website %></span></h4>
-                <% if @restaurant.twitter_authorized? -%>
-                <h4>twitter: <span><%= link_to "@#{@restaurant.twitter_username}", "http://twitter.com/#{@restaurant.twitter_username}" %></span></h4>
-                <% end -%>
-                <% if @restaurant.has_facebook_page? -%>
-                <h4>facebook: <span><%= link_to @restaurant.name, @restaurant.facebook_page_url %></span></h4>
-                <% end -%>
-            </div>
-
-            <div class="contactDetails">
-                <h4>Media Contact: <span><%= link_to @restaurant.media_contact.name, profile_path(:username => @restaurant.media_contact.username) %></span></h4>
-            </div>
-
-            <% if @restaurant.management_company_name.present? -%>
-            <div class="contactDetails">
-                <h4>Management Company:
-                    <span><%= @restaurant.management_company_website.present? ?
-                              link_to(@restaurant.management_company_name, @restaurant.management_company_website) :
-                              @restaurant.management_company_name %></span>
-                </h4>
-            </div>
-            <% end %>
-        </div>
-    </aside>
+    <%= render :partial => "restaurant_sidebar" %>
 
     <section id="profileContent" class="right">
 

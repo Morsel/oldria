@@ -35,6 +35,7 @@
                 </div>
             </div>
         </div>
+        <% if params[:controller] == "restaurants" -%>
         <div class="meta">
             <h4>Learn More</h4>
             <ul id="tags">
@@ -52,6 +53,7 @@
                 <% end %>
             </ul>
         </div>
+        <% end -%>
         <% end -%>
     </div>
 </header>

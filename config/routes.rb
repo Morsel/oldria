@@ -297,6 +297,9 @@ ActionController::Routing::Routes.draw do |map|
     admin.resources :hq_pages
     admin.resources :mediafeed_pages
 
+    admin.resources :soapbox_slides, :collection => { :sort => :post }
+    admin.resources :soapbox_promos, :collection => { :sort => :post }
+
     admin.resources :testimonials
   end
 

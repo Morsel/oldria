@@ -3446,6 +3446,19 @@ hgroup h5 span {
 /* Restaurant profiles */
 #restaurant_profile_view {
   font-family: Georgia, serif;
+	#features {
+	  @include column(7);
+		background-color: $trans-brown;
+		float: left;
+		padding: 10px 15px;
+		margin: 0 15px 15px 5px;
+		h3 {
+			margin-bottom: 0;
+		}
+	}
+  #behindline {
+    @include column(7);
+  }
 
   h3 {
     font-family: 'Voltaire', sans-serif;
