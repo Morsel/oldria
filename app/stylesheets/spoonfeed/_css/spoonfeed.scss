@@ -460,6 +460,49 @@ form, #main form{
 		margin: 0;
 		padding: 0;
 	}
+  .datestamp {
+    color: #ccc;
+  }
+	.identity {
+		min-height: 50px;
+		margin: 0 0 15px 0;
+		.avatar {
+			float: left;
+			width: 50px;
+			height: 50px;
+			margin: 4px 10px 10px 0;
+			img {
+				display: block;
+				border: 1px solid $brown;
+				color: #999;
+				@include hiddentext;
+			}
+		}
+		ul {
+			margin: 8px 0 0 65px;
+			padding: 0;
+			li {
+				font-size: 13px;
+				background: none;
+				margin: 0;
+				padding: 0;
+				line-height: 16px;
+				a {
+					color:$orange;
+					font-weight: bold;
+				}
+			}
+		}
+		&.no_avatar{
+			ul{
+				margin-left:0;
+			}
+			.avatar{
+				width:0;
+				margin:0;
+			}
+		}
+	}
 
   /* Front Burner */
   .new_all {
@@ -928,47 +971,6 @@ form#new_user_session {
 		font-size: 12px;
 		font-weight: bold;
 		letter-spacing: 0.1em;
-	}
-	.identity {
-		min-height: 50px;
-		margin: 0 0 15px 0;
-		.avatar {
-			float: left;
-			width: 50px;
-			height: 50px;
-			margin: 4px 10px 10px 0;
-			img {
-				display: block;
-/*        width: 50px;*/
-				border: 1px solid $brown;
-				color: #999;
-				@include hiddentext;
-			}
-		}	
-		ul {
-			margin: 8px 0 0 65px;
-			padding: 0;
-			li {
-				font-size: 13px;
-				background: none;
-				margin: 0;
-				padding: 0;
-				line-height: 16px;
-				a {
-					color:$orange;
-					font-weight: bold;
-				}
-			}
-		}
-		&.no_avatar{
-			ul{
-				margin-left:0;
-			}
-			.avatar{
-				width:0;
-				margin:0;
-			}
-		}
 	}
 	.user_comment {
 		font-size: 13px;
@@ -3729,6 +3731,10 @@ hgroup h5 span {
   .excerpt a {color: #9d9896; font-size: 12px; text-decoration: underline; font-style: italic;}
   .inspire h4 {font-family: serif; text-transform: uppercase; font-weight: bold; font-size: 12px;}
   p.inspireText {color: #ab9c33; font-size: 22px; font-family: serif;}
+
+  .promotion {
+    margin-bottom: 20px;
+  }
 
   #bottomInfo {
     padding: 40px;
