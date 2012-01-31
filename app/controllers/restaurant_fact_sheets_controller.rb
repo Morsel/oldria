@@ -52,7 +52,7 @@ ac
   private
 
   def find_restaurant
-    @restaurant = Restaurant.find(params[:id])
+    @restaurant = Restaurant.find(params[:restaurant_id])
   end
 
   def authenticate
