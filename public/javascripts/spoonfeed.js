@@ -1,5 +1,7 @@
 $(document).ready(function(){
 
+$('<span class="down-arrow"></span>').appendTo('a.selected');
+
 $('.footerBox').equalHeights();
 $('.hp_promo').equalHeights();
 $('.chapter').equalHeights();

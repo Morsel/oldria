@@ -200,7 +200,7 @@ form, #main form{
 }
 
 .mainContainer {
-  padding: 0 20px;
+  padding: 20px 20px 0 20px;
 	/* -- base styles for the site -- */
 	h1 {
     font-weight: normal;
@@ -800,11 +800,11 @@ footer {
 }
 
 #user_nav {
-  background: #f7f7f1 url('/images/sf/noise.png');
   li {
     float: left;
     padding: 10px 0;
     position: relative;
+    background: #f7f7f1 url('/images/sf/noise.png');
     a {
       display: table-cell;
       vertical-align: middle;
@@ -823,6 +823,15 @@ footer {
         border: none;
       }
     }
+  }
+  .down-arrow {
+    width: 24px;
+    height: 9px;
+    background: url('/images/sf/down-arrow.png');
+    position: absolute;
+    bottom: -9px;
+    left: 40%;
+    opacity: .55;
   }
 }
 /* End logged in user nav */
