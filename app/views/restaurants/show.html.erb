@@ -7,11 +7,11 @@
     <section id="profileContent" class="right">
 
         <div class="module clearfix menus">
-            <h2 class="moduleHeadline orange"><span>On the menu</span><%= link_to_unimplemented "See all menus" %></h2>
+            <h2 class="moduleHeadline orange"><span>On the menu</span><%= link_to "See all menus", restaurant_menu_items_path(@restaurant) %></h2>
 
             <% for item in @menu_items %>
             <figure>
-                <% link_to soapbox_menu_item_path(item) do %>
+                <% link_to restaurant_menu_items_path(@restaurant, :anchor => "menu_item_#{item.id}") do %>
                   <%= image_tag(item.photo.url(:small)) if item.photo_file_name.present? %>
                 <% end %>
                 <figcaption>
