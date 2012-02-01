@@ -99,7 +99,7 @@
             <h2>Menus</h2>
             <ul>
                 <% for menu in @restaurant.menus.by_position %>
-                <li><%= link_to menu.name, menu.pdf_remote_attachment.attachment.url %></li>
+                <li><%= link_to menu.name, menu.pdf_remote_attachment.attachment.url %> <span><%= menu.updated_at.strftime('%m/%d/%y') %></li>
                 <% end %>
             </ul>
         </div>
