@@ -21,18 +21,22 @@ class ALaMinuteAnswersController < ApplicationController
   def bulk_update
     params[:a_la_minute_questions].each do |id, attributes|
       question = ALaMinuteQuestion.find(id)
-      old_answer = attributes.delete(:old_answer)
+      previous_answer = ALaMinuteAnswer.find(attributes.delete(:answer_id)) rescue nil
 
       # create a new answer if the answer has changed
-      unless attributes[:answer] == old_answer
-        @restaurant.a_la_minute_answers.
-          create(attributes.merge(:a_la_minute_question_id => id))
+      unless attributes[:answer] == previous_answer.try(:answer)
+        new_answer = @restaurant.a_la_minute_answers.create(attributes.merge(:a_la_minute_question_id => id))
       end
 
-      # update all answers for the question to reflect show_as_public state
-      question.answers_for(@restaurant).each do |answer|
-        answer.update_attributes(:show_as_public => attributes[:show_as_public].present?)
+      unless previous_answer.nil?
+        # update all answers for the question to reflect show_as_public state if it changed
+        unless attributes[:show_as_public].present? === previous_answer.show_as_public
+          question.answers_for(@restaurant).each do |answer|
+            answer.update_attributes(:show_as_public => attributes[:show_as_public])
+          end
+        end
       end
+
       flash[:success] = "Your changes have been saved."
     end
     redirect_to :action => :bulk_edit
