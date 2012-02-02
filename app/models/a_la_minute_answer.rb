@@ -63,17 +63,12 @@ class ALaMinuteAnswer < ActiveRecord::Base
     answers
   end
 
-  attr_writer :old_answer
-  def old_answer
-    @old_answer || answer
-  end
-
   def question
     a_la_minute_question.question
   end
 
   def activity_name
-    "A la Minute answer"
+    "A la Minute answer to #{question}"
   end
 
   def restaurant
