@@ -659,6 +659,7 @@ form, #main form{
 		}
 		h3{
 /*      @include hoeflerbolditalic;*/
+      font-family: "Helvetica Neue", arial, sans-serif;
 			color:$orange;
 			text-shadow: 0 1px 0 #fff;
 			font-size:21px;
@@ -3453,6 +3454,161 @@ hgroup h5 span {
 #page_content #profile-tabs #user_prefers_receive_email_notifications {
 	margin-right: 10px;
 } /* ## profile_extended + extended_profile_container ----------------- */
+
+.mainContainer h1#btl-title, .mainContainer h3#btl-title {
+	color:#666;
+	text-transform: capitalize;
+	font:200 16px "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, sans-serif !important;
+	padding:0 0 5px;
+	margin:0 0 10px;
+	border-bottom:1px solid #ccc;
+	a{
+		color:#fff;
+	}
+	span.btl-art{
+		@include hiddentext;
+		display:inline-block;
+		background:url(/images/redesign/title-behindtheline.png) no-repeat;
+		width:123px;
+		height:19px;
+	}
+	span.presskit-art{
+		@include hiddentext;
+		display:inline-block;
+		background:url(/images/redesign/title-onlinepresskit.png) no-repeat;
+		width:132px;
+		height:19px;
+	}
+	&.btl{
+		overflow:hidden;
+		display:inline-block;
+		padding:10px 20px 0 5px;
+		margin:0 0 15px -18px;
+		border:0;
+		height:33px;
+		color:#fff;
+		background:#d9531e url(/images/redesign/red-divot.gif) no-repeat right;
+		span{
+			float:left;
+			margin:0 5px 0 0;
+			&.btl-art{
+				background:url(/images/redesign/btl-white.png) no-repeat left;
+			}
+			&.presskit-art{
+				background:url(/images/redesign/onlinepresskit-white.png) no-repeat left;
+			}
+			&.name{
+				padding-top:1px;
+			}
+		}
+	}
+}
+
+#topic_title {
+  letter-spacing: 2px;
+}
+
+.topic-nav{
+	overflow:hidden;
+	padding: 0px 0 10px 10px;
+	a{
+		display:block;
+		padding:5px 10px 5px 20px;
+		background-color:rgba(216,83,30,0.08);
+		background-repeat:no-repeat;
+		background-position:left;
+		float:right;
+		margin:0 0 0 10px;
+		&.next{
+			padding-left:10px;
+			padding-right:20px;
+			background-image:url(/images/redesign/bg-orange-arrow-next.png);
+			background-position:right;
+		}
+		&.prev{
+			background-image:url(/images/redesign/bg-orange-arrow-prev.png);
+		}
+		&.all-topics{
+			background-image:url(/images/redesign/bg-home.png);
+		}
+	}
+} /* end of .topic-nav ----------------------------- */
+
+#btl_answers {
+  background: #FAFAF7;
+  padding: 10px; 
+  &.btl-my-answers {
+    .profile_question {
+      padding: 10px;
+      margin-bottom: 10px;
+      &:hover {
+        background: white;
+        @include box-shadow(#eaeaea, 2px, 2px, 2px);
+      }
+      h4 {
+        margin-top: 0;
+      }
+      p {
+        font-size: 13px;
+      }
+    }
+  }
+  @include box-shadow(#eaeaea, 0px, 3px, 3px);
+  h3 {
+    border-bottom: 1px dotted #ded8c8;
+    font-size: 21px;
+    font-style: italic;
+    font-weight: normal;
+  }
+  h4 {
+    font-size: 13px;
+    font-family: Georgia, "Times New Roman", Times, serif;
+    font-weight: bold;
+    text-transform: none;
+    letter-spacing: 0;
+    margin: 20px 0;
+    a {
+      color: #333;
+      &:hover {
+        color: #AA9C74;
+        text-decoration: none;
+      }
+    }
+    .letter-q {
+      font-size: 18px;
+      color: $orange;
+      font-style: italic;
+    }
+  }
+  .comment {
+    overflow: auto;
+    margin: 20px 0;
+    .identity {
+      @include column(6);
+      .avatar {
+        float: left;
+      }
+      .identity_details {
+        width: 186px;
+        float: left;
+      }
+      li {
+        background: none;
+        padding: 0 0 0 20px;
+      }
+      .employee_name {
+        font-family: "Hoefler Text", Georgia, "Times New Roman", Times, serif;
+        font-size: 20px;
+        font-style: italic;
+      }
+    }
+    .user_comment {
+      @include column(10);
+      background: url(/images/redesign/bg-divot.png) top left no-repeat;
+      padding-left: 20px;
+    }
+  }  
+}
 
 /* Restaurant profiles */
 #restaurant_profile_view {
