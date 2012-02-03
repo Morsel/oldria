@@ -18,9 +18,9 @@ Feature: AddThis sharing feature
 
   Scenario: Topic should contain button addThis
     Given I am on the soapbox profile page for "john"
-    And profile question matching employment role with static topic name for "john"
+    And profile question matching employment role with topic name "Background" for "john"
     When I follow "View all Topics" within "#behindline"
-    When I follow "SeoTopic"
+    When I follow "Background"
     Then I should see addThis button
     And addThis button should have public link
 
