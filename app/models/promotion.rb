@@ -116,7 +116,7 @@ class Promotion < ActiveRecord::Base
     if post_to_facebook_page == "1"
       post_attributes = { :message     => "Newsfeed: #{title}",
                           :link        => soapbox_promotion_url(self),
-                          :name        => title,
+                          :name        => headline,
                           :description => details }
       restaurant.send_later(:post_to_facebook_page, post_attributes)
     end
