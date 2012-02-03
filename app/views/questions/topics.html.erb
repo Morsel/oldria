@@ -13,16 +13,14 @@
 <% end %>
 
 <%- @topics.each do |topic| -%>
-<div class="topic <%= cycle '',' last' %>" id="<%= dom_id topic %>">
-    <h3><%= topic.title %></h3>
-    <table>
-        <% @chapters_by_topic[topic].each do |chapter| %>
-        <tr>
-           <td class="topic_link"><%= link_to chapter.title, link_for_user_questions(:user_id => @user.id, :chapter_id => chapter.id) %></td>
-           <td class="topic_completeness"><%= chapter.completion_percentage_for_user(@user) %>% complete</td>
-        </tr>
-        <% end if @chapters_by_topic[topic] %>
-    </table>
-    <%= link_to "View all \"#{topic.title}\" chapters &raquo;", link_for_user_chapters(:user_id => @user.id, :topic_id => topic.id), :class => 'view_all_chapters' %>
-</div>
+<h3><%= link_to topic.title, link_for_user_chapters(:user_id => @user.id, :topic_id => topic.id) %></h3>
 <%- end -%>
+
+<h2>Recent Posts to Behind the Line</h2>
+
+<% for answer in @user.profile_answers.recently_answered.all(:limit => 10) %>
+<h4><span class="letter-q">Q:</span> <%= link_to answer.profile_question.title, question_path(answer.profile_question) %></h4>
+<p><%= answer.answer %></p>
+<p class="datestamp">Posted <%= answer.created_at.strftime("%m/%d/%y") %></p>
+<p class="share-this"><%= link_to "Share this entry", question_path(answer.profile_question) %></p>
+<% end %>

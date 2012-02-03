@@ -57,17 +57,17 @@ Feature: AddThis sharing feature
     And I should see "What is the haps?: Boo-ya"
     And I should see two addThis buttons
 
-  Scenario: User with basic account can't share profile
-    Given the user "john" does not have a premium account
-    And I am logged in as "john"
-    When I am on the profile page for "john"
-    Then I can`t share this profile
-    
-  Scenario: User with premium account can share profile
-    Given the user "john" has a premium account
-    And I am logged in as "john"
-    When I am on the soapbox profile page for "john"
-    Then I should see addThis button
+  # Scenario: User with basic account can't share profile
+  #   Given the user "john" does not have a premium account
+  #   And I am logged in as "john"
+  #   When I am on the profile page for "john"
+  #   Then I can`t share this profile
+  #   
+  # Scenario: User with premium account can share profile
+  #   Given the user "john" has a premium account
+  #   And I am logged in as "john"
+  #   When I am on the profile page for "john"
+  #   Then I should see addThis button
 
   Scenario: Soapbox Qotd/Trend page should contain og:description tag with appropriate content
     Given there is a QOTD asking "Where do you buy flowers?"

@@ -49,7 +49,7 @@
 
   <% for question in @questions -%>
     <% div_for question do %>
-      <h4><span class="letter-q">Q:</span> <%= link_to question.title, soapbox_question_path(question) %></h4>
+      <h4><span class="letter-q">Q:</span> <%= link_to question.title, question_path(question) %></h4>
       <% if answer = question.answer_for(@user) %>
         <p><%= answer.answer %></p>
         <span class="timestamp">Last updated: <%= answer.try(:updated_at).try(:strftime, "%b %e %Y") %> - <%= link_to "Share this entry", soapbox_user_question_path(@user, question) %></span>

@@ -3,7 +3,7 @@ require 'spec_helper'
 describe ALaMinuteAnswersController do
   include ActionView::Helpers::RecordIdentificationHelper
 
-  let(:restaurant) { Factory(:restaurant, :id => 1) }
+  let(:restaurant) { Factory(:restaurant) }
   let(:current_user) { Factory(:user) }
   let(:question) { Factory(:a_la_minute_question) }
 
@@ -15,8 +15,11 @@ describe ALaMinuteAnswersController do
   describe "PUT bulk_update" do
     describe "successful update" do
       before(:each) do
-        previous_answer = Factory(:a_la_minute_answer, :responder => restaurant, :a_la_minute_question => question)
-
+        previous_answer = ALaMinuteAnswer.create(:answer => "old answer",
+                                                 :a_la_minute_question => question,
+                                                 :responder => restaurant,
+                                                 :created_at => 1.day.ago,
+                                                 :show_as_public => false)
         put :bulk_update, "restaurant_id" => restaurant.id,
           "a_la_minute_questions" => {
             question.id.to_s => {

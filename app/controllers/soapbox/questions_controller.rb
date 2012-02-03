@@ -18,7 +18,7 @@ class Soapbox::QuestionsController < ApplicationController
         @chapters_by_topic = chapters.flatten.group_by(&:topic)
       end
 
-      render :template => 'questions/topics'
+      render :template => 'soapbox/questions/topics'
     else
       @answers = ProfileQuestion.without_travel.answered_by_premium_and_public_users.\
           all(:limit => 50, :order => "profile_answers.created_at DESC").map(&:latest_soapbox_answer).uniq.compact[0...15]
