@@ -841,9 +841,14 @@ footer {
 
 #navContainer {
   margin-bottom: 38px;
+  li {
+    float: left;
+    padding: 0 10px;
+  }
 }
 
 #user_nav {
+  clear: both;
   li {
     float: left;
     padding: 10px 0;
@@ -891,6 +896,7 @@ footer {
   text-align: center;
   text-transform: uppercase;
   font-weight: bold;
+  clear: both;
   a {
     color: #e5ea93;
   }

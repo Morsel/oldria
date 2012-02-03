@@ -1,4 +1,10 @@
 <nav id="navContainer">
+    <ul>
+        <li><%= active_link_to "edit profile", edit_user_profile_path(current_user), :title => "edit your profile" %></li>
+        <li><%= active_link_to "edit restaurant", restaurants_path, :title => "edit your restaurants" %></li>
+        <li><%= active_link_to "messages", messages_path, :title => "messages" %></li>
+        <li><%= active_link_to "front burner", front_burner_path, :title => "front burner" %></li>
+    </ul>
     <% if !current_user.premium_account? -%>    
     <p id="navBanner">
         Media cannot see your personal profile. To share your personal profile, upgrade to a premium account by <%= link_to "clicking here", new_user_subscription_path(current_user) %>
@@ -6,10 +12,10 @@
     <% end -%>
     <ul id="user_nav">
         <li><%= active_link_to "dashboard", root_path, :title => "dashboard" %></li>
-        <li><%= active_link_to "edit profile", edit_user_profile_path(current_user), :title => "edit your profile" %></li>
-        <li><%= active_link_to "edit restaurant", restaurants_path, :title => "edit your restaurants" %></li>
-        <li><%= active_link_to "messages", messages_path, :title => "messages" %></li>
-        <li><%= active_link_to "front burner", front_burner_path, :title => "front burner" %></li>
+        <li><%= active_link_to "Newsfeed", "#" %></li>
+        <li><%= active_link_to "A La Minute", "#" %></li>
+        <li><%= active_link_to "On the Menu", "#" %></li>
+        <li><%= active_link_to "Behind the Line", "#" %></li>
         <li><%= active_link_to "personal directory", directory_path, :title => "personal directory" %></li>
         <li><%= active_link_to "restaurant directory", restaurant_directory_path, :title => "restaurant directory", :class => "last" %></li>
     </ul>
