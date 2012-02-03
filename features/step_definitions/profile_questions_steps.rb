@@ -31,10 +31,10 @@ Given /^several profile questions matching employment roles for "([^\"]*)"$/ do 
       :chapter => Factory(:chapter, :title => "Free Time", :topic => topic))
 end
 
-Given /^profile question matching employment role with static topic name for "([^\"]*)"$/ do |username|
+Given /^profile question matching employment role with topic name "([^\"]*)" for "([^\"]*)"$/ do |topic_name, username|
   user = User.find_by_username(username)
   role = Factory(:restaurant_role)
-  topic = Factory(:topic, :title => "SeoTopic")
+  topic = Factory(:topic, :title => topic_name)
   chapter = Factory(:chapter, :title => "Education2", :topic => topic)
   Factory(:employment, :employee => user, :primary => true, :restaurant_role => role)
   Factory(:profile_question,
