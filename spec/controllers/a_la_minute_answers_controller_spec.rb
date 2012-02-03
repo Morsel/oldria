@@ -20,6 +20,7 @@ describe ALaMinuteAnswersController do
                                                  :responder => restaurant,
                                                  :created_at => 1.day.ago,
                                                  :show_as_public => false)
+
         put :bulk_update, "restaurant_id" => restaurant.id,
           "a_la_minute_questions" => {
             question.id.to_s => {
