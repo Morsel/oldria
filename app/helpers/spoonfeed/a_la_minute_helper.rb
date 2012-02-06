@@ -1,0 +1,2 @@
+module Spoonfeed::ALaMinuteHelper
+end

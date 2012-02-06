@@ -47,7 +47,7 @@ Given /^I am logged in as a normal user$/ do
   Given 'I am logged in as "normal" with password "normal"'
 end
 
-Given /^There is a searchable user with a communicative profile$/ do
+Given /^there is a searchable user with a communicative profile$/ do
   user = Factory(:published_user, :username => 'searchable', :password => 'searchable',
                  :name => "Bob Ichvinstone", :subscription => Factory(:subscription))
   Factory(:profile, :user => user, :summary => "I like ketchup!")
