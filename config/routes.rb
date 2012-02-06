@@ -11,6 +11,11 @@ ActionController::Routing::Routes.draw do |map|
     :collection => { :user_details => :get, :find_restaurant => :any, :contact_restaurant => :post,
       :finish_without_contact => :get }
 
+  map.root :controller => 'welcome'
+  map.dashboard_more 'dashboard_more', :controller => 'welcome', :action => 'index', :is_more => true
+  map.refresh_dashboard 'dashboard/refresh', :controller => 'welcome', :action => 'refresh'
+  map.require_login 'dashboard/require_login', :controller => 'welcome', :action => 'require_login'
+
   map.directory 'directory', :controller => 'directory', :action => 'index'
   map.restaurant_directory 'directory/restaurants', :controller => 'directory', :action => 'restaurants'
 
@@ -89,13 +94,12 @@ ActionController::Routing::Routes.draw do |map|
 
   map.mediafeed_directory 'mediafeed/directory', :controller => 'mediafeed/mediafeed', :action => 'directory'
 
-  map.profile 'profile/:username', :controller => 'users', :action => 'show', :requirements => { :username => /[a-zA-Z0-9\-\_ ]+/}
-
   map.resources :quick_replies
 
   map.resources :media_request_discussions, :only => [:show, :update], :member => { :read => :put } do |mrc|
     mrc.resources :comments, :only => [:new, :create]
   end
+
   map.resources :solo_media_discussions, :only => [:show, :update], :member => { :read => :put } do |smd|
     smd.resources :comments, :only => [:new, :create]
   end
@@ -105,6 +109,10 @@ ActionController::Routing::Routes.draw do |map|
   end
 
   map.resources :conversations
+
+  map.resources :direct_messages, :member => { :read => :put }
+
+  map.profile 'profile/:username', :controller => 'users', :action => 'show', :requirements => { :username => /[a-zA-Z0-9\-\_ ]+/}
 
   map.resources :users, :collection => { :resend_confirmation => :any }, :member => {
     :resume => :get,
@@ -184,18 +192,6 @@ ActionController::Routing::Routes.draw do |map|
 
   map.resources :user_sessions, :password_resets, :followings, :pages
 
-  map.resources :direct_messages, :member => { :read => :put }
-
-  map.resources :holiday_conversations, :only => ['show','update'] do |holiday_conversations|
-    holiday_conversations.resources :comments, :only => [:new, :create]
-  end
-
-  map.resources :holiday_discussions, :member => { :read => :put }, :only => ['show','update'] do |holiday_discussions|
-    holiday_discussions.resources :comments, :only => [:new, :create]
-  end
-
-  map.resources :holiday_discussion_reminders, :member => { :read => :put }
-
   map.resources :admin_conversations, :only => 'show', :member => { :read => :put } do |admin_conversations|
     admin_conversations.resources :comments, :only => [:new, :create, :edit, :update, :destroy]
   end
@@ -235,10 +231,7 @@ ActionController::Routing::Routes.draw do |map|
 
   map.resource :search, :only => 'show'
 
-  map.root :controller => 'welcome'
-  map.dashboard_more 'dashboard_more', :controller => 'welcome', :action => 'index', :is_more => true
-  map.refresh_dashboard 'dashboard/refresh', :controller => 'welcome', :action => 'refresh'
-  map.require_login 'dashboard/require_login', :controller => 'welcome', :action => 'require_login'
+  map.promotions 'promotions', :controller => "spoonfeed/promotions", :action => "index"
 
   map.namespace :admin do |admin|
     admin.root      :controller => 'admin'
@@ -302,6 +295,18 @@ ActionController::Routing::Routes.draw do |map|
 
     admin.resources :testimonials
   end
+
+  # Not in use?
+  map.resources :holiday_conversations, :only => ['show','update'] do |holiday_conversations|
+    holiday_conversations.resources :comments, :only => [:new, :create]
+  end
+
+  map.resources :holiday_discussions, :member => { :read => :put }, :only => ['show','update'] do |holiday_discussions|
+    holiday_discussions.resources :comments, :only => [:new, :create]
+  end
+
+  map.resources :holiday_discussion_reminders, :member => { :read => :put }
+  ###
 
   map.public_page ":id", :controller => 'pages', :action => 'show'
   map.soapbox_page 'soapbox/:id', :controller => 'soapbox_pages', :action => 'show'
