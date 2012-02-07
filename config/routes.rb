@@ -233,6 +233,7 @@ ActionController::Routing::Routes.draw do |map|
 
   map.promotions 'newsfeed', :controller => "spoonfeed/promotions", :action => "index"
   map.a_la_minute 'a_la_minute', :controller => "spoonfeed/a_la_minute", :action => "index"
+  map.menu_items 'on_the_menu', :controller => "spoonfeed/menu_items", :action => "index"
 
   map.namespace :admin do |admin|
     admin.root      :controller => 'admin'

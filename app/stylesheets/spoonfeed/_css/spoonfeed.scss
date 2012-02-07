@@ -464,19 +464,22 @@ form, #main form{
     color: #ccc;
   }
 	.identity {
-		min-height: 50px;
-		margin: 0 0 15px 0;
-		.avatar {
-			float: left;
-			width: 50px;
-			height: 50px;
-			margin: 4px 10px 10px 0;
-			img {
-				display: block;
-				border: 1px solid $brown;
-				color: #999;
-				@include hiddentext;
-			}
+    width: 183px;
+    min-height: 62px;
+    float: left;
+    margin: 0 15px 10px 0;
+    padding-bottom: 4px;
+    .avatar {
+      float: left;
+      width: 50px;
+      height: 50px;
+      margin: 4px 10px 10px 0;
+      img {
+        display: block;
+        border: 1px solid $brown;
+        color: #999;
+        @include hiddentext;
+      }
 		}
 		ul {
 			margin: 8px 0 0 65px;
