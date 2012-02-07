@@ -2,7 +2,7 @@ class Soapbox::SoapboxController < ApplicationController
 
   def index
     @home = true
-    @slides = SoapboxSlide.all(:order => "position", :limit => 3, :conditions => "position is not null")
+    @slides = SoapboxSlide.all(:order => "position", :limit => 5, :conditions => "position is not null")
     @promos = SoapboxPromo.all(:order => "position", :limit => 3, :conditions => "position is not null")
   end
 
