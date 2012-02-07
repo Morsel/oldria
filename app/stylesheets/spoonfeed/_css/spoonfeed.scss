@@ -961,6 +961,57 @@ form#new_user_session {
 	}
 } /* ## end of form#new_user_session ------------------------ */
 
+/* Registration / Signup */
+h1.join {
+  @include hiddentext;
+  background: url('/images/sf/join-banner.png') top center no-repeat;
+  height: 66px;
+}
+
+form#join {
+  width: 660px;
+  margin: 0 auto;
+  input[type="text"], form input[type="email"], select {
+    width: 310px;
+    -webkit-border-radius: 6px;
+    -moz-border-radius: 6px;
+    border-radius: 6px;
+    border: 1px solid #BFBFBF;
+    background: #FFF;
+    margin-bottom: 15px;
+    padding: 5px;
+    font-size: 14px;
+    display: block;
+  }
+  select {
+    width: 322px !important;
+    color: #999;
+    background: url('/images/sf/dropdown.png') no-repeat center right;
+    &:active {
+      color: #000;
+    }
+  }
+  div p {
+    font-size: 12px;
+    color: #626264;
+    font-family: sans-serif;
+    a {
+      color: #521000 !important;
+    }
+  }
+  #submit {
+    border: 0;
+    text-indent: -9999px;
+    display: block;
+    height: 35px;
+    width: 101px;
+    background: url('/images/sf/submit.png') no-repeat 0 -35px;
+    &:hover {
+      background-position: 0 0;
+    }
+  }
+}
+
 /* Dashboard/homepage */
 #recently {
 	h3 {

@@ -1,10 +1,10 @@
 ActionController::Routing::Routes.draw do |map|
   map.login  'login',  :controller => 'user_sessions', :action => 'new'
   map.logout 'logout', :controller => 'user_sessions', :action => 'destroy'
-  map.confirm 'confirm/:id', :controller => 'users', :action => 'confirm'
   map.fb_login 'facebook_login', :controller => 'user_sessions', :action => 'create_from_facebook'
-  map.social_media 'social_media', :controller => 'social_media', :action => 'index'
-  map.feature '/features/:id', :controller => 'features', :action => 'show'
+
+  map.join 'join_us', :controller => "join", :action => "index"
+  map.confirm 'confirm/:id', :controller => 'users', :action => 'confirm'
   map.resources :invitations, :only => ['new', 'create', 'show'],
         :collection => { :recommend => :get, :submit_recommendation => :post, :redirect => :post }
   map.resource :complete_registration, :only => [:show, :update],
@@ -155,6 +155,8 @@ ActionController::Routing::Routes.draw do |map|
     users.resources :profile_answers, :only => [:create, :update, :destroy]
   end
 
+  map.feature '/features/:id', :controller => 'features', :action => 'show'
+
   map.resources :restaurants,
                 :member => { :edit_logo => :get,
                              :select_primary_photo => :post,
@@ -230,6 +232,7 @@ ActionController::Routing::Routes.draw do |map|
 
   map.resource :twitter_authorization
   map.resource :friends_statuses, :only => 'show'
+  map.social_media 'social_media', :controller => 'social_media', :action => 'index'
 
   map.resource :search, :only => 'show'
 

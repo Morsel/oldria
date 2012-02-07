@@ -27,7 +27,6 @@ jQuery(document).ready(function(){
   jQuery('.standard-filler').formFiller();
   jQuery('.terms').click(function (e) {
     jQuery('#basic-modal-content').modal();
-
     return false;
   });
   //Equal Height Columns

@@ -46,8 +46,8 @@
   
     <nav id="utilities">
       <%= link_to 'Search the site', soapbox_search_path, :id => "search-handle", :title => "Search the site" %>
-      <a id="ria-hq" title="RIA Home" href="http://www.restaurantintelligenceagency.com/"><abbr title="Restaurant Intelligence Agency">RIA</abbr> <abbr title="Headquarters">HQ</abbr></a>
-			<a id="log-in" title="Log In to Spoonfeed" href="http://spoonfeed.restaurantintelligenceagency.com/login">Login</a>
+      <a id="ria-hq" title="RIA Home" href="<%= hq_root_path %>"><abbr title="Restaurant Intelligence Agency">RIA</abbr> <abbr title="Headquarters">HQ</abbr></a>
+			<a id="log-in" title="Log In to Spoonfeed" href="<%= login_path %>">Login</a>
     </nav><!--#utilities-->
   
     <div id="main">

@@ -23,6 +23,8 @@ $('#btl_answers form').submit(function(){
     $('#loading-wait').show();
 });
 
+jQuery('.standard-filler').formFiller();
+
 // == Inbox for RIA messages
 $(".inbox_message .readit").live('click', function(){
   var $message = $(this).parents('.inbox_message');

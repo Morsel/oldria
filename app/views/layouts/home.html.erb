@@ -40,7 +40,7 @@
               <li class="left"><%= link_to "FAQs", page_path('faq') %></li>
             </div>
             <div class="right">
-              <li class="left"><%= link_to "Join", page_path('request-invitation') %></li>
+              <li class="left"><%= link_to "Join", join_path %></li>
               <li class="left"><%= link_to "Contact", hq_page_path('contact') %></li>
             </div>
           </ul>
@@ -72,7 +72,7 @@
                     </div>
                     <ul id="callButtons1">
                         <li class="learn"><%= link_to "learn", page_path('about'), :title => "learn" %></li>
-                        <li class="join"><%= link_to "join", page_path('request-invitation'), :title => "join" %></li>
+                        <li class="join"><%= link_to "join", join_path, :title => "join" %></li>
                     </ul>
                 </div>
 
@@ -86,7 +86,7 @@
                     </div>
                     <ul id="callButtons2">
                         <li class="learn"><%= link_to "learn", page_path('about'), :title => "learn" %></li>
-                        <li class="join"><%= link_to "join", page_path('request-invitation'), :title => "join" %></li>
+                        <li class="join"><%= link_to "join", join_path, :title => "join" %></li>
                     </ul>
                 </div>
 
@@ -100,7 +100,7 @@
                     </div>
                     <ul id="callButtons3">
                         <li class="learn"><%= link_to "learn", page_path('about'), :title => "learn" %></li>
-                        <li class="join"><%= link_to "join", page_path('request-invitation'), :title => "join" %></li>
+                        <li class="join"><%= link_to "join", join_path, :title => "join" %></li>
                     </ul>
                 </div>
             </div>
@@ -117,11 +117,11 @@
               <%= text_field_tag "last_name", "", :id => "lastName", :class => "standard-filler", :alt => "Last Name", :required => "" %>
           </div>
           <div class="right">
-              <%= text_field_tag "email", "", :id => "email", :class => "standard-filler", :alt => "email", :required => "" %>
+              <%= text_field_tag "email", "", :id => "email", :class => "standard-filler", :alt => "Email", :required => "" %>
               <%= select_tag "role", options_for_select([["Select one", ""], ["Diner", "diner"], ["Restaurant professional", "restaurant"], ["Media", "media"]]) %>
           </div>
           <div class="clearfix">
-              <p class="left">By entering your information you are agreeing to our <a href="<%= page_path('terms') %>" class="terms">terms and services</a></p>
+              <p class="left">By entering your information you are agreeing to our <%= link_to "terms of use", page_path('terms'), { :popup => true }, { :class => "terms" } %></p>
               <%= submit_tag "Sign Me Up", :id => "submit", :class => "right" %>
           </div>
           <% end %>
