@@ -5,7 +5,7 @@
     <h2><%= link_to answer.question, restaurant_path(answer.responder) %></h2>
     <%= render :partial => 'restaurants/identity', :locals => { :restaurant => answer.responder } %>
     <p class="answer"><%= answer.answer %></p>
-    <p><span class="datestamp"><%= "Posted #{answer.created_at.strftime("%D")}" %></span> <!-- - <%#= link_to "Share this entry", restaurant_path(answer.responder) %> --></p>
+    <p><span class="datestamp"><%= "Posted #{answer.created_at.strftime("%D")}" %></span> - <%= link_to "Check out what other restaurants posted", a_la_minute_answers_path(:question_id => answer.a_la_minute_question.id) %></p>
     <div class="clearfix">&nbsp;</div>
 <% end %>
 <% end -%>

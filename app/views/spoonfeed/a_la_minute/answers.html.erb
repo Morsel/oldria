@@ -1,0 +1,12 @@
+<% title @question.question %>
+
+<% for answer in @answers %>
+<div class="a_la_minute_answer">
+    <%= render :partial => 'restaurants/identity', :locals => { :restaurant => answer.responder } %>
+    <p class="details"><%= answer.answer %></p>
+    <p><span class="datestamp"><%= "Posted #{answer.created_at.strftime("%D")}" %></span></p>
+    <div class="clearfix">&nbsp;</div>
+</div>
+<% end %>
+
+<%= will_paginate(@answers) %>
