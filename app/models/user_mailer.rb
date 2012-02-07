@@ -122,4 +122,12 @@ class UserMailer < ActionMailer::Base
     body        :message => message, :recipient => recipient, :commenter => commenter
   end
 
+  def newsletter_subscription_confirmation(subscriber)
+    from        'accounts@restaurantintelligenceagency.com'
+    recipients  subscriber.email
+    sent_on     Time.now
+    subject     'Confirm your Soapbox email newsletter subscription'
+    body        :subscriber => subscriber
+  end
+
 end

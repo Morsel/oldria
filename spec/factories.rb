@@ -587,3 +587,7 @@ Factory.define :testimonial do |f|
   f.photo_file_size 5000
   f.photo_updated_at 1.day.ago
 end
+
+Factory.define :newsletter_subscriber do |f|
+  f.email "myemail@maily.com"
+end
