@@ -37,7 +37,7 @@
 
 class User < ActiveRecord::Base
   acts_as_authentic do |c|
-    c.validates_format_of_login_field_options = { :with => /^[a-zA-Z0-9\-\_ ]+$/,
+    c.validates_format_of_login_field_options = { :with => /^[a-zA-Z0-9\-\_\. ]+$/,
       :message => "'%{value}' is not allowed. Usernames can only contain letters, numbers, and/or the '-' symbol" }
     c.disable_perishable_token_maintenance = true
   end

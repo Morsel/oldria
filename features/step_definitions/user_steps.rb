@@ -26,15 +26,19 @@ Given /^the following media users?:?$/ do |table|
   end
 end
 
-Given /^a media user "([^\"]*)" has just signed up$/ do |username|
-  visit new_mediafeed_media_user_path
+Given /^a media user named "([^\"]*)" has just signed up$/ do |username|
+  visit join_path
 
-  When 'I sign up with:', table(%Q{
-    | username    | email        | password |
-    | #{username} | jimbo@bo.com | secret   |
+  When 'I fill in the following:', table(%Q{
+    | first_name | Media                 |
+    | last_name  | User                  |
+    | email      | #{username}@media.com |
+    | role       | media                 |
   })
+  And 'I press "submit"'
 
-  @user = User.find_by_username(username)
+  @user = User.find_by_email("#{username}@media.com")
+  @user.update_attribute(:username, username)
 end
 
 Given /^I am logged in as an admin$/ do

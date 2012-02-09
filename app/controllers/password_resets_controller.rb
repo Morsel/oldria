@@ -9,14 +9,13 @@ class PasswordResetsController < ApplicationController
 
   def create
     @user = User.find_by_email(params[:email])
-    @is_mediafeed = params[:mediafeed]
     if @user && @user.confirmed?
       @user.deliver_password_reset_instructions!
       flash[:notice] = "Please check your email for instructions to finish resetting your password"
       redirect_to :action => "new"
     else
       flash.now[:error] = @user ? "Your account is not confirmed.<br/>Please check your email for instructions or 
-          <a href='#{mediafeed? ? mediafeed_resend_user_confirmation_path : resend_confirmation_users_path}'>request the confirmation email</a> again." : 
+          <a href='#{resend_confirmation_users_path}'>request the confirmation email</a> again." : 
           "No user was found with that email address"
       render :action => :new
     end

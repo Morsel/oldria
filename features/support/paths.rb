@@ -20,8 +20,8 @@ module NavigationHelpers
 
     when /^the coached status updates page$/
       admin_coached_status_updates_path
-    when /^the signup page$/
-      signup_path
+    when /^the join page$/
+      join_path
     when /^the login page$/
       login_path
     when /^the password reset request page$/

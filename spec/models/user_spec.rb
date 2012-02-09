@@ -28,7 +28,7 @@ describe User do
 
   it "should only allow alphanumeric characters in username" do
     user = Factory.build(:user, :username => nil)
-    user.username = "chef.bacle"
+    user.username = "chef*bacle"
     user.should_not be_valid
   end
 

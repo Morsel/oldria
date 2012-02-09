@@ -1012,6 +1012,32 @@ form#join {
   }
 }
 
+/* Confirming registration */
+form#mediafeed_user {
+  fieldset {
+    legend {
+      font-family: 'Hoefler Text', Georgia, serif !important;
+  		font-size: 14px;
+  		font-weight: bold;
+  		margin: 5px 0 0 0;
+    }
+  }
+  li {
+    margin: 5px 0;
+  }
+  abbr[title=required] {
+    color: red;
+  }
+  li#user_metropolitan_areas_input ol li {
+    float: left;
+    width: 25%;
+    label {
+      font-weight: normal;
+      color: black;
+    }
+  }
+}
+
 /* Dashboard/homepage */
 #recently {
 	h3 {

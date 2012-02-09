@@ -4,7 +4,9 @@ ActionController::Routing::Routes.draw do |map|
   map.fb_login 'facebook_login', :controller => 'user_sessions', :action => 'create_from_facebook'
 
   map.join 'join_us', :controller => "join", :action => "index"
+  map.registration 'register', :controller => "join", :action => "register"
   map.confirm 'confirm/:id', :controller => 'users', :action => 'confirm'
+  map.save_confirmation 'save_confirmation/:user_id', :controller => 'users', :action => 'save_confirmation'
   map.resources :invitations, :only => ['new', 'create', 'show'],
         :collection => { :recommend => :get, :submit_recommendation => :post, :redirect => :post }
   map.resource :complete_registration, :only => [:show, :update],

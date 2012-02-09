@@ -63,7 +63,7 @@ module Ckeditor
       ckeditor_options[:filebrowserImageBrowseUrl] = PLUGIN_FILE_MANAGER_IMAGE_URI
       ckeditor_options[:filebrowserImageUploadUrl] = PLUGIN_FILE_MANAGER_IMAGE_UPLOAD_URI
       
-      output_buffer = ActionView::SafeBuffer.new
+      output_buffer = ActiveSupport::SafeBuffer.new
       
       if options[:ajax]
         textarea_options.update(:name => id)

@@ -8,7 +8,7 @@ require 'ckeditor/utils'
 require 'ckeditor/view_helper'
 require 'ckeditor/form_builder'
 
-unless defined?(ActionView::SafeBuffer)
+unless defined?(ActiveSupport::SafeBuffer)
   require 'ckeditor/safe_buffer'
 end
 
