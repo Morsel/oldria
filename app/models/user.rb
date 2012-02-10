@@ -326,6 +326,16 @@ class User < ActiveRecord::Base
     notification_email.present? ? notification_email : email
   end
 
+  def self.build_media_from_registration(params)
+    new_user = User.new(:first_name => params[:first_name],
+                        :last_name => params[:last_name],
+                        :email => params[:email],
+                        :role => "media")
+    new_user.username = [new_user.first_name, new_user.last_name].map(&:downcase).join(".")
+    new_user.password = new_user.password_confirmation = Authlogic::Random.friendly_token
+    return new_user
+  end
+
   # Facebook !!!
 
   def connect_to_facebook_user(fb_id)

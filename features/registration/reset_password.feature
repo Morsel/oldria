@@ -27,7 +27,7 @@ Feature: Reset password
     Then "fred@me.com" should receive 1 email
     And "foo@bar.com" should receive no emails
 
-    When "fred@me.com" opens the email with subject "SpoonFeed: Password Reset Instructions"
+    When "fred@me.com" opens the email with subject "Spoonfeed: Password Reset Instructions"
     Then I should see "reset" in the email body
 
     When I click the first link in the email
@@ -70,7 +70,7 @@ Feature: Reset password
     And I press "Reset my password"
     Then "correct@example.com" should receive 1 email
 
-    When "correct@example.com" opens the email with subject "SpoonFeed: Password Reset Instructions"
+    When "correct@example.com" opens the email with subject "Spoonfeed: Password Reset Instructions"
     And I click the first link in the email
     And I fill in "New Password" with "newpassword"
     And I fill in "Confirm New Password" with "newpassword"
@@ -79,6 +79,6 @@ Feature: Reset password
     And "thatguy" should be logged in
 
     When I logout
-    And "correct@example.com" opens the email with subject "SpoonFeed: Password Reset Instructions"
+    And "correct@example.com" opens the email with subject "Spoonfeed: Password Reset Instructions"
     And I click the first link in the email
     Then I should see "Oops. We're having trouble finding your account."
