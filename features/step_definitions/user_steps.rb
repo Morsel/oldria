@@ -166,7 +166,7 @@ When /^I sign up with:$/ do |table|
 end
 
 When /^I confirm my account$/ do
-  When 'I open the email with subject "Welcome! Please confirm your account"'
+  When 'I open the email with subject "Welcome to Spoonfeed! Please confirm your account"'
   When 'I click the first link in the email'
 end
 

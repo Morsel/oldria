@@ -1,6 +1,12 @@
 <h2>Hi, <%= @user.name_or_username %></h2>
 
+<% if @user.media? %>
+<p>Welcome. Free access to our database of&mdash;and pipeline to&mdash;hundreds of the nation's best chefs, restaurants and beverage professionals is just a click away.</p>
+
+<p>Click right here on this link to confirm your free media account and you’ll be good to go:</p>
+<% else -%>
 <p>Click right here on this link to confirm your account and you’ll be good to go: </p>
+<% end -%>
 
 <p><a href="<%= confirm_url(:id => @user.perishable_token) %>"><%= confirm_url(:id => @user.perishable_token) %></a></p>
 

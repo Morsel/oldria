@@ -7,7 +7,7 @@ class UserMailer < ActionMailer::Base
       from       'accounts@restaurantintelligenceagency.com'
       recipients user.email
       sent_on    sent_at
-      subject    'Welcome! Please confirm your account'
+      subject    'Welcome to Spoonfeed! Please confirm your account'
       body       :user => user
     end
   end
@@ -16,7 +16,7 @@ class UserMailer < ActionMailer::Base
     from          'accounts@restaurantintelligenceagency.com'
     recipients    user.email
     sent_on       Time.now
-    subject       "SpoonFeed: Password Reset Instructions"
+    subject       "Spoonfeed: Password Reset Instructions"
     body          :edit_password_reset_url => edit_password_reset_url(user.perishable_token)
   end
 
@@ -24,7 +24,7 @@ class UserMailer < ActionMailer::Base
     from       'notifications@restaurantintelligenceagency.com'
     recipients user.email_for_content
     sent_on    request_discussion.created_at
-    subject    "SpoonFeed: #{request_discussion.publication_string} has a question for #{request_discussion.recipient_name}"
+    subject    "Spoonfeed: #{request_discussion.publication_string} has a question for #{request_discussion.recipient_name}"
     body       :request => request_discussion.media_request, :discussion => request_discussion
   end
 
@@ -32,7 +32,7 @@ class UserMailer < ActionMailer::Base
     from        'notifications@restaurantintelligenceagency.com'
     recipients  user.email
     sent_on     Time.now
-    subject     "SpoonFeed: #{discussion.poster.try :name} has invited you to a discussion"
+    subject     "Spoonfeed: #{discussion.poster.try :name} has invited you to a discussion"
     body        :discussion => discussion, :user => user
   end
   
@@ -41,7 +41,7 @@ class UserMailer < ActionMailer::Base
     from        'notifications@restaurantintelligenceagency.com'
     recipients  email
     sent_on     Time.now
-    subject     "Referral from #{referring_user.name}"
+    subject     "Spoonfeed referral from #{referring_user.name}"
     body        :referring_user => referring_user
   end
   
