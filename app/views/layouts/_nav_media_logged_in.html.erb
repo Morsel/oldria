@@ -1,9 +1,16 @@
 <nav id="navContainer">
+    <ul>
+        <li><%= link_to "Account", edit_mediafeed_media_user_path(current_user) %></li>
+        <li><%= link_to "Messages", mediafeed_media_requests_path %></li>
+        <li><%= link_to "Send Media Request", new_mediafeed_media_request_path %></li>
+    </ul>
     <ul id="user_nav">
-        <li><%= active_link_to "Dashboard", root_path, :id => "nav_dashboard" %></li>
-        <li><%= active_link_to "Account", edit_mediafeed_media_user_path(current_user), :id => "nav_profile" %></li>
-        <li><%= active_link_to "Messages", mediafeed_media_requests_path, :id => "nav_requests" %></li>
-        <li><%= active_link_to "Restaurants", restaurant_directory_path, :id => "nav_restaurants" %></li>
-        <li><%= active_link_to "Personal Profiles", directory_path, :id => "nav_directory" %></li>
+        <li><%= active_link_to "Dashboard", root_path %></li>
+        <li><%= active_link_to "Newsfeed", promotions_path %></li>
+        <li><%= active_link_to "A La Minute", a_la_minute_path %></li>
+        <li><%= active_link_to "On the Menu", menu_items_path %></li>
+        <li><%= active_link_to "Behind the Line", "#" %></li>
+        <li><%= active_link_to "Personal Directory", directory_path %></li>
+        <li><%= active_link_to "Restaurant Directory", restaurant_directory_path, :class => "last" %></li>
     </ul>
 </nav>

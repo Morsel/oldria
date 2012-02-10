@@ -11,12 +11,12 @@
     </p>
     <% end -%>
     <ul id="user_nav">
-        <li><%= active_link_to "dashboard", root_path, :title => "dashboard" %></li>
+        <li><%= active_link_to "dashboard", root_path %></li>
         <li><%= active_link_to "Newsfeed", promotions_path %></li>
         <li><%= active_link_to "A La Minute", a_la_minute_path %></li>
         <li><%= active_link_to "On the Menu", menu_items_path %></li>
         <li><%= active_link_to "Behind the Line", "#" %></li>
-        <li><%= active_link_to "personal directory", directory_path, :title => "personal directory" %></li>
-        <li><%= active_link_to "restaurant directory", restaurant_directory_path, :title => "restaurant directory", :class => "last" %></li>
+        <li><%= active_link_to "personal directory", directory_path %></li>
+        <li><%= active_link_to "restaurant directory", restaurant_directory_path, :class => "last" %></li>
     </ul>
 </nav>
