@@ -14,6 +14,7 @@ Rails::Initializer.run do |config|
   config.gem 'addresslogic',          :version => "~>1.2.1"
   config.gem 'cancan',                :version => "~>1.0.1"
   config.gem 'paperclip',             :version => "2.3.3"
+  config.gem 'aws-s3',                :lib => "aws/s3", :version => "0.6.2"
   config.gem 'faraday',               :version => "0.7.5"
   config.gem 'oauth',                 :version => "0.4.5"
   config.gem 'twitter',               :version => "1.7.2"
@@ -25,7 +26,7 @@ Rails::Initializer.run do |config|
   config.gem 'tabletastic',           :version => "~>0.1.2" # Versions at or above 0.1.2, but below 0.2.0
   config.gem 'friendly_id',           :version => "~>2.2.7" # Versions at or above 2.2.7, but below 2.3.0
   config.gem 'loofah',                :version => "~>0.4.6"
-  config.gem 'feedzirra',             :version => "~>0.0.20"
+  config.gem 'feedzirra',             :version => "0.0.24"
   config.gem 'preferences',           :version => "~>0.4.1"
   config.gem 'whenever',              :lib => false
   config.gem 'delayed_job',           :version => "~>1.8.4"
@@ -36,6 +37,7 @@ Rails::Initializer.run do |config|
   config.gem 'subdomain-fu',          :version => "~>0.5.4"
   config.gem 'braintree',             :version => "2.6.1"
   config.gem 'ssl_requirement',       :version => "~>0.1.0"
+  config.gem 'fastercsv'
   
   # Settings in config/environments/* take precedence over those specified here.
   # Application configuration should go into files in config/initializers
