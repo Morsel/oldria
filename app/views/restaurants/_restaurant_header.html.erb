@@ -8,13 +8,13 @@
                 <h2><%= @restaurant.name %></h2>
                 <p class="tagline"><%= @restaurant.description %></p>
                 <p class="cuisine-location">
-                    <strong>Cuisine:</strong> <%= @restaurant.cuisine.try(:name) %>
+                    <strong>Cuisine:</strong> <%= link_to @restaurant.cuisine.try(:name), restaurant_directory_path(:cuisine_id => @restaurant.cuisine.try(:id)) %>
                 </p>
                 <p class="cuisine-location">
-                    <strong>Metro area:</strong> <%= @restaurant.metropolitan_area.try(:name) %>
+                    <strong>Metro area:</strong> <%= link_to @restaurant.metropolitan_area.try(:name), restaurant_directory_path(:metropolitan_area_id => @restaurant.metropolitan_area.try(:id)) %>
                 </p>
                 <p class="cuisine-location">
-                    <strong>Region:</strong> <%= @restaurant.james_beard_region.try(:name) %>
+                    <strong>Region:</strong> <%= link_to @restaurant.james_beard_region.try(:name), restaurant_directory_path(:james_beard_region_id => @restaurant.james_beard_region.try(:id)) %>
                 </p>
             </hgroup>
             <div id="restaurant_actions" class="moreLinks right">

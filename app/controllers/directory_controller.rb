@@ -20,7 +20,19 @@ class DirectoryController < ApplicationController
   end
   
   def restaurants
-    @restaurants = Restaurant.all
+    if params[:cuisine_id]
+      @cuisine = Cuisine.find(params[:cuisine_id])
+      @restaurants = Restaurant.cuisine_id_eq(params[:cuisine_id]).all.uniq
+    elsif params[:metropolitan_area_id]
+      @metro_area = MetropolitanArea.find(params[:metropolitan_area_id])
+      @restaurants = Restaurant.metropolitan_area_id_eq(params[:metropolitan_area_id]).all.uniq
+    elsif params[:james_beard_region_id]
+      @region = JamesBeardRegion.find(params[:james_beard_region_id])
+      @restaurants = Restaurant.james_beard_region_id_eq(params[:james_beard_region_id]).all.uniq
+    else
+      @use_search = true
+      @restaurants = Restaurant.all
+    end
   end
   
   def restaurant_search

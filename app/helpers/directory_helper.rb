@@ -5,6 +5,10 @@ module DirectoryHelper
       "<h2>Specialty: #{@specialty.name}</h2>"
     elsif @cuisine.present?
       "<h2>Cuisine: #{@cuisine.name}</h2>"
+    elsif @metro_area.present?
+      "<h2>Metropolitan Area: #{@metro_area.name}</h2>"
+    elsif @region.present?
+      "<h2>Region: #{@region.name}</h2>"
     end
   end
   
