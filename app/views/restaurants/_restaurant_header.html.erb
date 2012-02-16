@@ -20,13 +20,13 @@
             <div id="restaurant_actions" class="moreLinks right">
                 <%= link_to "edit restaurant", edit_restaurant_path(@restaurant), :class => "orangeLink" %>
                 <!-- AddThis Button BEGIN -->
-                <%= link_to 'share profile', "http://www.addthis.com/bookmark.php?v=250&amp;username=unpluggedria", :class => 'orangeLink share_profile addthis_button' %>
+                <!-- <%= link_to 'share profile', "http://www.addthis.com/bookmark.php?v=250&amp;username=unpluggedria", :class => 'orangeLink share_profile addthis_button' %>
                 <%= javascript_include_tag "http://s7.addthis.com/js/250/addthis_widget.js#username=unpluggedria" %>
                 <% javascript_tag do %>
                   var addthis_share = {
                     url: '<%= soapbox_restaurant_path(@restaurant) %>',
                   }
-                <% end %>
+                <% end %> -->
                 <!-- AddThis Button END -->
                 <div class="moreDetails">
                     <small>facts updated on <span><%= @restaurant.updated_at.strftime('%m/%d/%y') %></span></small>
