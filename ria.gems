@@ -3,3 +3,4 @@ compass -v0.10.6
 libxml-ruby -v2.2.2
 braintree -v2.6.3
 ruby-debug
+capistrano -v2.5.21

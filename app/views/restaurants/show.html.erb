@@ -7,7 +7,7 @@
     <section id="profileContent" class="right">
 
         <div class="module clearfix menus">
-            <h2 class="moduleHeadline orange"><span>On the menu</span><%= link_to "See all menus", restaurant_menu_items_path(@restaurant) %></h2>
+            <h2 class="moduleHeadline orange"><span>On the menu</span><%= link_to "See all \"on the menu\"", restaurant_menu_items_path(@restaurant) %></h2>
 
             <% for item in @menu_items %>
             <figure>
