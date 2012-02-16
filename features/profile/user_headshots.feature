@@ -13,7 +13,7 @@ Feature: User headshots
   Scenario: Uploading an image
     Given I am logged in as "emily" with password "secret"
     And "emily" has no headshot
-    When I follow "Edit Profile"
+    When I follow "edit my profile"
     And I attach an avatar "headshot.jpg" to "Upload a Headshot"
     And I press "Upload Headshot"
     Then I should see "Successfully updated your profile"
@@ -23,7 +23,7 @@ Feature: User headshots
   Scenario: Removing headshot
     Given I am logged in as "emily" with password "secret"
     And "emily" has a headshot
-    When I follow "Edit Profile"
+    When I follow "edit my profile"
     Then I should see my headshot
 
     When I follow "Remove my headshot"

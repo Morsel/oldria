@@ -1,9 +1,9 @@
 <nav id="navContainer">
     <ul>
-        <li><%= active_link_to "edit profile", edit_user_profile_path(current_user), :title => "edit your profile" %></li>
-        <li><%= active_link_to "edit restaurant", restaurants_path, :title => "edit your restaurants" %></li>
-        <li><%= active_link_to "messages", messages_path, :title => "messages" %></li>
-        <li><%= active_link_to "front burner", front_burner_path, :title => "front burner" %></li>
+        <li><%= active_link_to "edit my profile", edit_user_profile_path(current_user), :title => "edit your profile" %></li>
+        <li><%= active_link_to "edit my restaurant", restaurants_path, :title => "edit your restaurants" %></li>
+        <li><%= active_link_to "read my messages", messages_path, :title => "messages" %></li>
+        <li><%= active_link_to "answer today's questions", front_burner_path, :title => "front burner" %></li>
     </ul>
     <% if !current_user.premium_account? -%>    
     <p id="navBanner">

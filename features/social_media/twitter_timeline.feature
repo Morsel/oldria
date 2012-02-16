@@ -10,7 +10,7 @@ Feature: Twitter Authentication
     | username | password |
     | johnny   | secret   |
     And I am logged in as "johnny" with password "secret"
-    When I follow "Edit Profile"
+    When I follow "edit my profile"
     And I follow "Account"
     And I follow "Setup Twitter"
     And Twitter authorizes "johnny"
@@ -23,7 +23,7 @@ Feature: Twitter Authentication
     | username | password |
     | stevie   | secret   |
     Given I am logged in as "stevie" with password "secret"
-    When I follow "Edit Profile"
+    When I follow "edit my profile"
     And I follow "Account"
     And I follow "Read Twitter Timeline"
 

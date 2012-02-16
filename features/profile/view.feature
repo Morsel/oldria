@@ -9,7 +9,7 @@ Feature: Profile View
     Given the user "admin" does not have a premium account
     And I am logged in as "admin"
     And I am on the profile page for "admin"
-    And I follow "EDIT PROFILE"
+    When I follow "edit my profile"
     Then I should see "Summary"
     And I should not see "Display my profile on Soapbox"
 
@@ -17,7 +17,7 @@ Feature: Profile View
     Given the user "admin" has a premium account
     And I am logged in as "admin"
     And I am on the profile page for "admin"
-    And I follow "EDIT PROFILE"
+    When I follow "edit my profile"
     Then I should see "Summary"
     And I should see "Display my profile on Soapbox"
 
