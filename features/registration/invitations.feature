@@ -19,15 +19,16 @@ Feature: users can be invited to join Spoonfeed by registered SF users, restaura
     And "ma@email.com" should have 1 email
 
   Scenario: an unregistered user requests an invite
-    Given I am on the new invitation page
-    And I fill in "First name" with "Liane"
-    And I fill in "Last name" with "Jones"
-    And I fill in "Email" with "ljones@myemail.com"
-    And I fill in "invitation_restaurant_name" with "My Restaurant"
-    And I select "Chef" from "Role"
+    Given I am on the join page
+    And I fill in "first_name" with "Liane"
+    And I fill in "last_name" with "Jones"
+    And I fill in "email" with "ljones@myemail.com"
+	And I select "Restaurant professional" from "role"
+    And I fill in "restaurant_name" with "My Restaurant"
+    And I select "Chef" from "restaurant_role"
     And I check "Food"
-    And I press "Sign up for a free account"
-    Then I should see "Soapbox"
+    And I press "Sign Me Up"
+    Then I should see "Thank you"
     
   Scenario: an invite is approved and the user wants to log in and update their info (not a restaurant employee)
     Given there are the following invitations:

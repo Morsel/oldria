@@ -111,20 +111,7 @@
       <article id="join" class="gradient">
         <div class="articleBox">
           <h2 class="ir">Join Us</h2>
-          <% form_tag registration_path, :id => "join" do %>
-          <div class="left">
-              <%= text_field_tag "first_name", "", :id => "firstName", :class => "standard-filler", :alt => "First Name", :required => "" %>
-              <%= text_field_tag "last_name", "", :id => "lastName", :class => "standard-filler", :alt => "Last Name", :required => "" %>
-          </div>
-          <div class="right">
-              <%= text_field_tag "email", "", :id => "email", :class => "standard-filler", :alt => "Email", :required => "" %>
-              <%= select_tag "role", options_for_select([["Select one", ""], ["Diner", "diner"], ["Restaurant professional", "restaurant"], ["Media", "media"]]) %>
-          </div>
-          <div class="clearfix">
-              <p class="left">By entering your information you are agreeing to our <%= link_to "terms of use", page_path('terms'), { :popup => true }, { :class => "terms" } %></p>
-              <%= submit_tag "Sign Me Up", :id => "submit", :class => "right" %>
-          </div>
-          <% end %>
+          <%= render :partial => "join/form" %>
         </div>
       </article>
 

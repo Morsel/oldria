@@ -405,5 +405,13 @@ $('div#photos').masonry({
     itemSelector: '.photo'
 });
 
+updateRestaurantSignupFields = function() {
+  if ($('#role').val() == 'restaurant') {
+    $('#restaurant_fields').show();
+  } else {
+    $('#restaurant_fields').hide();
+  } 
+};
+
 // end $(document).ready
 });

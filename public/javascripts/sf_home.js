@@ -29,10 +29,20 @@ jQuery(document).ready(function(){
     jQuery('#basic-modal-content').modal();
     return false;
   });
+
   //Equal Height Columns
   var highestCol = Math.max(jQuery('.chefBox .content,').height(),jQuery('.pubBox .content').height(),jQuery('.mediaBox .content').height());
   jQuery('.content').height(highestCol);
   var highestCol = Math.max(jQuery('.footerBox').height());
   jQuery('.footerBox').height(highestCol);
   jQuery('.testimonial:odd div').css({'text-align': 'right'});
+
+	updateRestaurantSignupFields = function() {
+		if ($('#role').val() == 'restaurant') {
+			$('#restaurant_fields').show();
+		} else {
+			$('#restaurant_fields').hide();
+		} 
+	};
+
 });

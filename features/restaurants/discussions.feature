@@ -12,6 +12,7 @@ Feature: Discussions
       | sam      | secret   | sam@example.com  | Sam Smith | Chef      |
       | john     | secret   | john@example.com | John Doe  | Sommelier |
 
+@wip
   Scenario: Create a new Discussion
     Given I am logged in as "sam" with password "secret"
     When I follow "Edit Restaurant"
@@ -22,6 +23,7 @@ Feature: Discussions
     And I press "Post Discussion"
     Then there should be 1 discussion in the system
 
+@wip
   Scenario: Discussion notifications
     Given I am logged in as "sam" with password "secret"
     When I follow "Edit Restaurant"
@@ -49,6 +51,7 @@ Feature: Discussions
     And I should see "Lets go to the movies"
     And I should see "Sounds like a plan"
 
+@wip
 @allow-rescue
   Scenario: Lockdown
     Given I am logged in as "sam" with password "secret"

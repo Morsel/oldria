@@ -15,12 +15,14 @@ Feature: Follow a SpoonFeed member, See who's following me
       | otherguy | otherguy@msn.com   | Sarah Cooper   | secret   |
     Given I am logged in as "friendly" with password "secret"
 
+@wip
   Scenario: Find someone and follow them
     Given I am on the profile page for "otherguy"
     When I follow "Follow This User"
     Then I should see "You are now following Sarah Cooper"
     And "friendly" should be following 1 user
 
+@wip
   Scenario: Unfollow someone
     Given "friendly" is following "otherguy"
     When I am on the profile page for "otherguy"
@@ -28,13 +30,15 @@ Feature: Follow a SpoonFeed member, See who's following me
     Then I should see "you aren't following Sarah Cooper anymore"
     And "friendly" should be following 0 users
 
+@wip
   Scenario: You can't follow yourself
     Given I am on the profile page for "friendly"
     Then I should not see "Follow This User"
 
-  # Scenario: Viewing Friends Activity
-  #   Given I am following "otherguy"
-  #   And "otherguy" has the following status messages:
-  #     | message        |
-  #     | I just ate     |
-  #     | I ate too much |
+@wip
+  Scenario: Viewing Friends Activity
+    Given I am following "otherguy"
+    And "otherguy" has the following status messages:
+      | message        |
+      | I just ate     |
+      | I ate too much |

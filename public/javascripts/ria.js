@@ -111,4 +111,13 @@ jQuery(document).ready(function(){
   // 
   //   return false;
   // });
+
+  updateRestaurantSignupFields = function() {
+	if ($('#role').val() == 'restaurant') {
+	  $('#restaurant_fields').show();
+	} else {
+	  $('#restaurant_fields').hide();
+	} 
+  };
+
 });

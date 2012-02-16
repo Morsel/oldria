@@ -8,7 +8,8 @@ ActionController::Routing::Routes.draw do |map|
   map.confirm 'confirm/:id', :controller => 'users', :action => 'confirm'
   map.save_confirmation 'save_confirmation/:user_id', :controller => 'users', :action => 'save_confirmation'
   map.resources :invitations, :only => ['new', 'create', 'show'],
-        :collection => { :recommend => :get, :submit_recommendation => :post, :redirect => :post }
+        :collection => { :recommend => :get, :submit_recommendation => :post, :redirect => :post },
+        :member => { :confirm => :get }
   map.resource :complete_registration, :only => [:show, :update],
     :collection => { :user_details => :get, :find_restaurant => :any, :contact_restaurant => :post,
       :finish_without_contact => :get }
@@ -83,11 +84,10 @@ ActionController::Routing::Routes.draw do |map|
   map.namespace(:mediafeed) do |mediafeed|
     mediafeed.root :controller => 'mediafeed', :action => 'index'
     mediafeed.login 'login', :controller => 'user_sessions', :action => 'new'
-    mediafeed.resources :media_users, :except => [:index, :show]
-    mediafeed.resources :media_requests
-    mediafeed.user_confirmation 'confirmation', :controller => 'media_users', :action => 'confirmation'
+    mediafeed.resources :media_users, :except => [:index, :show], :member => { "confirm" => :get }
     mediafeed.resend_user_confirmation 'resend_confirmation', :controller => 'media_users', :action => 'resend_confirmation'
     mediafeed.forgot_password 'forgot_password', :controller => 'media_users', :action => 'forgot_password'
+    mediafeed.resources :media_requests
     mediafeed.connect 'directory_search', :controller => 'mediafeed', :action => 'directory_search'
     mediafeed.discussion 'media_requests/:id/:discussion_type/:discussion_id', :controller => 'media_requests', :action => 'discussion'
   end

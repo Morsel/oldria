@@ -31,7 +31,7 @@ class Invitation < ActiveRecord::Base
   has_many :subject_matters, :through => :invite_responsibilities
   
   validates_presence_of :email, :first_name, :last_name, :restaurant_role, :restaurant_name, :subject_matters
-  validates_uniqueness_of :email, :message => "That person has already been invited"
+  validates_uniqueness_of :email, :message => "That email address has already been invited"
   
   after_create :send_welcome_and_notify_admins
   
@@ -46,6 +46,15 @@ class Invitation < ActiveRecord::Base
   def send_welcome_and_notify_admins
     UserMailer.deliver_invitation_welcome(self) unless requesting_user_id
     UserMailer.deliver_admin_invitation_notice(self)
+  end
+
+  def self.build_from_registration(params)
+    new_invite = Invitation.new(:first_name => params[:first_name],
+                                :last_name => params[:last_name],
+                                :email => params[:email],
+                                :restaurant_role_id => params[:restaurant_role],
+                                :restaurant_name => params[:restaurant_name],
+                                :subject_matters => SubjectMatter.find(params[:subject_matters].keys))
   end
 
 end

@@ -4,14 +4,23 @@ class JoinController < ApplicationController
   end
 
   def register
+    # TODO - implement form error checking
+
     if params[:role] == "media"
       @user = User.build_media_from_registration(params)
       if @user.save
         @user.reset_perishable_token!
         UserMailer.deliver_signup(@user)
-        redirect_to mediafeed_user_confirmation_path
+        redirect_to confirm_mediafeed_media_user_path(@user)
       else
-        render :action => "new", :controller => "media_users"
+        render :template => "mediafeed/media_users/new"
+      end
+    elsif params[:role] == "restaurant"
+      @invitation = Invitation.build_from_registration(params)
+      if @invitation.save
+        redirect_to confirm_invitation_path(@invitation)
+      else
+        render :template => "invitations/new"
       end
     end
   end

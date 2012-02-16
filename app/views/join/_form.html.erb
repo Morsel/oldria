@@ -1,0 +1,25 @@
+<% form_tag registration_path, :id => "join" do %>
+<div class="left">
+    <%= text_field_tag "first_name", "", :id => "firstName", :class => "standard-filler", :alt => "First Name", :required => "" %>
+    <%= text_field_tag "last_name", "", :id => "lastName", :class => "standard-filler", :alt => "Last Name", :required => "" %>
+</div>
+<div class="right">
+    <%= text_field_tag "email", "", :id => "email", :class => "standard-filler", :alt => "Email", :required => "" %>
+    <%= select_tag "role", options_for_select([["Select one", ""], ["Diner", "diner"], ["Restaurant professional", "restaurant"], ["Media", "media"]]), :onchange => "updateRestaurantSignupFields();" %>
+</div>
+<div id="restaurant_fields" style="display: none;" class="clearfix clear">
+    <%= text_field_tag "restaurant_name", "", :id => "restaurant_name", :class => "standard-filler", :alt => "Restaurant Name", :required => "" %>
+    <p class="inline-hints">Enter your restaurant name or your employment status e.g., student, between jobs, retired, time off</p>
+    <%= select_tag "restaurant_role", options_from_collection_for_select(RestaurantRole.all, :id, :name), :id => "restaurant_role", :class => "standard-filler", :alt => "Role", :required => "" %>
+    <p class="inline-hints">Your role helps the media find you when they are looking for sources for stories.  If you are "chef/owner" select that and not "owner": you will receive more opportunities!</p>
+    <h4>Area(s) of expertise</h4>
+    <p class="inline-hints">I am comfortable answering questions and speaking to the media about the following topics:</p>
+    <% for subject in SubjectMatter.general.all %>
+    <p><%= check_box_tag "subject_matters[#{subject.id}]" %> <label for="subject_matters_<%= subject.id %>"><%= subject.name %></label></p>
+    <% end %>
+</div>
+<div class="clearfix clear">
+    <p class="left">By entering your information you are agreeing to our <%= link_to "terms of use", page_path('terms'), { :popup => true }, { :class => "terms" } %></p>
+    <%= submit_tag "Sign Me Up", :id => "submit", :class => "right" %>
+</div>
+<% end %>
