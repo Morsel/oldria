@@ -27,17 +27,16 @@ describe Mediafeed::MediaUsersController do
     end
 
     it "should set make the new user a media user" do
-      User.any_instance.stubs(:save).returns(true)
-      post :create
-      assigns[:media_user].should have_role(:media)
+      User.any_instance.stubs(:valid?).returns(true)
+      post :create, :user => { :first_name => "Media", :last_name => "User", :username => "media", :email => "me@newsy.com", :password => "secret", :password_confirmation => "secret" }
+      assigns[:user].should have_role(:media)
     end
 
     it "create action should redirect when model is valid" do
       UserMailer.expects(:deliver_signup).returns true
-      User.any_instance.stubs(:save).returns @user
       User.any_instance.stubs(:valid?).returns(true)
-      post :create
-      response.should redirect_to(mediafeed_user_confirmation_path)
+      post :create, :user => { :first_name => "Media", :last_name => "User", :username => "media2", :email => "notme@newsy.com", :password => "secret", :password_confirmation => "secret" }
+      response.should be_redirect
     end
   end
 
