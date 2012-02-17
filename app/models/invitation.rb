@@ -32,6 +32,7 @@ class Invitation < ActiveRecord::Base
   
   validates_presence_of :email, :first_name, :last_name, :restaurant_role, :restaurant_name, :subject_matters
   validates_uniqueness_of :email, :message => "That email address has already been invited"
+  validates_format_of :email, :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i, :message => "is not a valid email address", :allow_blank => true
   
   after_create :send_welcome_and_notify_admins
   
@@ -49,12 +50,12 @@ class Invitation < ActiveRecord::Base
   end
 
   def self.build_from_registration(params)
-    new_invite = Invitation.new(:first_name => params[:first_name],
-                                :last_name => params[:last_name],
-                                :email => params[:email],
-                                :restaurant_role_id => params[:restaurant_role],
-                                :restaurant_name => params[:restaurant_name],
-                                :subject_matters => SubjectMatter.find(params[:subject_matters].keys))
+    new(:first_name => params[:first_name],
+        :last_name => params[:last_name],
+        :email => params[:email],
+        :restaurant_role_id => params[:restaurant_role],
+        :restaurant_name => params[:restaurant_name],
+        :subject_matters => SubjectMatter.find(params[:subject_matters].keys))
   end
 
 end

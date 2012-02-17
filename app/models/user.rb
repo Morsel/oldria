@@ -96,6 +96,7 @@ class User < ActiveRecord::Base
   has_many :editors, :through => :user_editors
 
   validates_presence_of :email
+  validates_format_of :email, :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i, :message => "is not a valid email address", :allow_blank => true
 
   has_and_belongs_to_many :metropolitan_areas
 

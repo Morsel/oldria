@@ -26,6 +26,12 @@ class NewsletterSubscriber < ActiveRecord::Base
     Digest::MD5.hexdigest(id.to_s + created_at.to_s)
   end
 
+  def self.build_from_registration(params)
+    new(:first_name => params[:first_name],
+        :last_name => params[:last_name],
+        :email => params[:email])
+  end
+
   private
 
   def not_a_user

@@ -21,7 +21,7 @@ class UserSessionsController < ApplicationController
       @user_session = UserSession.new(user)
       save_session
     else
-      flash[:error] = "We couldn't find a spoonfeed account connected to that Facebook account. Please log with your username and password below, edit your Profile, and connect your Facebook accounts there. Going forward, you can just click the Facebook login connect button."
+      flash[:error] = "We couldn't find a Spoonfeed account connected to that Facebook account. Please log with your username and password below, edit your profile, and connect your Facebook accounts there. Going forward, you can just click the Facebook login connect button."
       redirect_to :action => 'new'
     end
   end

@@ -22,6 +22,16 @@ class JoinController < ApplicationController
       else
         render :template => "invitations/new"
       end
+    elsif params[:role] == "diner"
+      @subscriber = NewsletterSubscriber.build_from_registration(params)
+      if @subscriber.save
+        redirect_to welcome_soapbox_newsletter_subscriber_path(@subscriber)
+      else
+        render :template => "soapbox/newsletter_subscribers/new"
+      end
+    else
+      flash[:error] = "Please try again."
+      redirect_to :action => "index"
     end
   end
 
