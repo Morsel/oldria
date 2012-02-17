@@ -4,8 +4,6 @@ class JoinController < ApplicationController
   end
 
   def register
-    # TODO - implement form error checking
-
     if params[:role] == "media"
       @user = User.build_media_from_registration(params)
       if @user.save
