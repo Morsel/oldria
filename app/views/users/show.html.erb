@@ -90,7 +90,7 @@
             <% else -%>
               <p><%= @user.name %> hasn't answered any Questions of the Day yet.</p>
             <% end -%>
-            <%= link_to_unimplemented "learn more about #{@user.first_name}", :class => "greenLink" %>
+            <%= link_to_unimplemented "See more of #{@user.first_name}'s Questions of the Day", :class => "greenLink" %>
         </div>
 
         <% if @user.qotd_convos_with_comments.present? -%>
