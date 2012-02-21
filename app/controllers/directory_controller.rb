@@ -8,6 +8,12 @@ class DirectoryController < ApplicationController
     elsif params[:cuisine_id]
       @cuisine = Cuisine.find(params[:cuisine_id])
       @users = User.in_spoonfeed_directory.profile_cuisines_id_eq(params[:cuisine_id]).all(:order => "users.last_name").uniq
+    elsif params[:metropolitan_area_id]
+      @metro_area = MetropolitanArea.find(params[:metropolitan_area_id])
+      @users = User.in_spoonfeed_directory.profile_metropolitan_area_id_eq(params[:metropolitan_area_id]).all(:order => "users.last_name").uniq
+    elsif params[:james_beard_region_id]
+      @region = JamesBeardRegion.find(params[:james_beard_region_id])
+      @users = User.in_spoonfeed_directory.profile_james_beard_region_id_eq(params[:james_beard_region_id]).all(:order => "users.last_name").uniq
     else
       @use_search = true
       @users = User.in_spoonfeed_directory.all(:order => "users.last_name")

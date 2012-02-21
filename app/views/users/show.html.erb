@@ -40,12 +40,12 @@
 
             <% if @user.profile.try(:metropolitan_area).present? -%>
             <h5>Metropolitan Area:</h5>
-            <p><%= @user.profile.try(:metropolitan_area).try(:name) %></p>
+            <p><%= link_to @user.profile.try(:metropolitan_area).try(:name), directory_path(:metropolitan_area_id => @user.profile.try(:metropolitan_area).try(:id)) %></p>
             <% end -%>
 
             <% if @user.profile.try(:james_beard_region).present? -%>
             <h5>Region:</h5>
-            <p><%= @user.profile.try(:james_beard_region).try(:name) %></p>
+            <p><%= link_to link_to @user.profile.try(:james_beard_region).try(:name), directory_path(:james_beard_region_id => @user.profile.try(:james_beard_region).try(:id)) %></p>
             <% end -%>
 
             <% if @user.profile.try(:job_start).present? -%>
