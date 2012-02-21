@@ -157,6 +157,8 @@ ActionController::Routing::Routes.draw do |map|
     users.resources :profile_answers, :only => [:create, :update, :destroy]
   end
 
+  map.resource :search, :controller => 'site_search', :only => ['show']
+
   map.feature '/features/:id', :controller => 'features', :action => 'show'
 
   map.resources :restaurants,

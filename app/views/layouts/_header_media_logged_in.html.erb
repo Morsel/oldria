@@ -5,7 +5,7 @@
         </div>
 
         <div class="right">
-            <% form_tag soapbox_search_path, :method => :get, :class => 'searchBox left' do %>
+            <% form_tag search_path, :method => :get, :class => 'searchBox left' do %>
             <%= text_field_tag "query", "", :class => 'searchInput', :placeholder => "SEARCH" %>
             <div>
                 <span class="searchArrow"></span>

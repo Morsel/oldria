@@ -844,10 +844,10 @@ footer {
 
 #navContainer {
   margin-bottom: 38px;
-  li {
-    float: left;
-    padding: 0 10px;
-  }
+	li {
+		float: right;
+		padding: 0 10px;
+	}
 }
 
 #user_nav {
@@ -4051,4 +4051,128 @@ hgroup h5 span {
           left: 50px;
   }
   a:hover {color: #222!important;}
+}
+
+.mainContainer .search-results {
+	overflow: hidden;
+	margin-bottom: 50px;
+	#questions-list {
+		margin: 0 0 100px;
+		padding: 0 16px;
+		width:900px;
+		.subtitle {
+			width: 900px;
+			h1 {
+				font-size: 16px;
+				color: #888;
+				border-bottom: 1px solid #ddd;
+				margin: 0;
+				padding: 0;
+				clear: both;
+			}
+			time {
+				border: 0;
+				background: #f7f6f4;
+				padding-bottom: 4px;
+				float:left;
+				margin:0 10px 0 0;
+				font-size:16px;
+				font-weight:bold;
+				color:#000;
+				text-align:center;
+				border:1px solid #ddd;
+				padding:0 0 3px;
+				width:33px;
+				height: 40px;
+				span {
+					background: $trans-brown;
+					margin: 0 0 3px;
+					font-size:11px;
+					font-weight:normal;
+					display:block;
+					background:#000;
+					color:#fff;
+					padding:3px 0;
+				}
+			}
+			ul {
+				display: block;
+				margin: 0 0 30px;
+				padding: 0;
+				clear: both;
+				list-style-type: none;
+				li {
+					display: block;
+					margin: 0;
+					padding: 0;
+					border-bottom: 1px dotted #ddd;
+					background: none;
+					min-height: 40px;
+					a {
+						display: block;
+						margin: 4px 0;
+						.title {
+							width: 600px;
+							display: block;
+							font-size: 14px;
+							font-family: 'helvetica neue', helvetica, arial, sans-serif;
+							font-weight:normal;
+							line-height: 21px;
+							color: #555;
+							margin-bottom: 5px;
+							clear: right;
+							strong {
+								color: $brown;
+							}
+						}
+						.user-answer {
+							display: block;
+							clear: both;
+							background-color: #f7f6f4;
+							padding: 5px;
+							margin: 10px 0;
+							height: 50px;
+							.avatar {
+								float: left;
+								display: block;
+								width: 50px;
+								height: 50px;
+								padding: 0;
+								margin-right: 10px;
+								img {
+									margin: 0;
+									background-color:  #f1eee9;
+									@include hiddentext;
+								}
+							}
+							.btl_answer {
+								margin: 0;
+								padding: 0;
+								font-family: Georgia, Tahoma, 'lucida grande', sans-serif;
+								font-size: 15px;
+								color: #333;
+							}
+							.btl-answer-author {
+								font-size: 11px;
+							}
+						}
+						.reply-count {display: none;}
+						&:hover {
+							.user-answer {
+								background: #fdece7;
+							}
+						}
+					}
+				}
+			}
+		}
+		.resto_search {
+			header {
+				img {
+					float: left;
+					margin: 0 10px 20px 0;
+				}				
+			}
+		}
+	}
 }

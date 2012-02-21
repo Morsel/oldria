@@ -1,0 +1,24 @@
+<li>
+  <% link_to "#" do %>
+    <% date = Time.parse(comment_list_entry.comment_at) %>
+    <% user = User.find(comment_list_entry.comment_user_id) %>
+    
+    <time datetime="<%= date.try(:strftime,'%Y-%m-%d') %>"><span><%= date.try(:strftime, "%b").upcase %></span><%= date.try(:strftime, "%e") %></time>
+		
+    <span class="title"><strong><%= comment_list_entry.question_display_message || comment_list_entry.question_short_message %></strong><br/>
+      <%= truncate(comment_list_entry.comment_comment, :length => 120) %>
+    </span>
+		<div class="user-answer">
+			<div class="avatar">
+    	  <% if user.avatar? -%>
+    	    <%= image_tag(user.avatar.url(:thumb), :width => 50, :height => 50) %>
+    	  <% end -%>
+    	</div>
+    	<span class="btl-answer-author">
+    	  by <%= [user.name_or_username,
+    	          user.primary_employment.try(:restaurant_role).try(:name),
+    	          user.restaurant_names].reject(&:blank?).join(", ") unless user.nil? %>
+    	</span>
+		</div>
+  <% end %>
+</li>
