@@ -11,3 +11,4 @@ describe RestaurantFeatureItem do
     RestaurantFeatureItem.create!(@valid_attributes)
   end
 end
+

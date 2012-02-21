@@ -17,3 +17,4 @@ describe NewsletterSubscriber do
   end
 
 end
+

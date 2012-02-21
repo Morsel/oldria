@@ -12,3 +12,4 @@ describe RestaurantTopic do
     RestaurantTopic.create!(@valid_attributes)
   end
 end
+

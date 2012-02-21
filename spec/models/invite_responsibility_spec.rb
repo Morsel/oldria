@@ -12,3 +12,4 @@ describe InviteResponsibility do
     InviteResponsibility.create!(@valid_attributes)
   end
 end
+

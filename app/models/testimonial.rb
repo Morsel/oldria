@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20120126002642
+# Schema version: 20120217190417
 #
 # Table name: testimonials
 #

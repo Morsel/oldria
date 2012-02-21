@@ -1,16 +1,3 @@
-# == Schema Information
-#
-# Table name: menus
-#
-#  id                       :integer         not null, primary key
-#  name                     :string(255)
-#  change_frequency         :string(255)
-#  pdf_remote_attachment_id :integer
-#  restaurant_id            :integer
-#  created_at               :datetime
-#  updated_at               :datetime
-#
-
 require 'spec_helper'
 
 describe Menu do
@@ -65,4 +52,5 @@ describe Menu do
     end
   end
 end
+
 

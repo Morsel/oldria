@@ -12,3 +12,4 @@ describe MenuItemKeyword do
     MenuItemKeyword.create!(@valid_attributes)
   end
 end
+

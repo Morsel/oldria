@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20110913204942
+# Schema version: 20120217190417
 #
 # Table name: pages
 #
@@ -9,6 +9,10 @@
 #  title      :string(255)
 #  slug       :string(255)
 #  content    :text
+#
+# Indexes
+#
+#  index_pages_on_slug  (slug)
 #
 
 class Page < ActiveRecord::Base

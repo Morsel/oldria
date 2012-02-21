@@ -1,14 +1,3 @@
-# == Schema Information
-#
-# Table name: feed_subscriptions
-#
-#  id         :integer         not null, primary key
-#  user_id    :integer
-#  feed_id    :integer
-#  created_at :datetime
-#  updated_at :datetime
-#
-
 require 'spec/spec_helper'
 
 describe FeedSubscription do

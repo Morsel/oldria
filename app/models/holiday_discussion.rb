@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20110913204942
+# Schema version: 20120217190417
 #
 # Table name: holiday_discussions
 #
@@ -9,7 +9,12 @@
 #  comments_count :integer         default(0)
 #  created_at     :datetime
 #  updated_at     :datetime
-#  accepted       :boolean
+#  accepted       :boolean         default(FALSE)
+#
+# Indexes
+#
+#  index_holiday_discussions_on_holiday_id     (holiday_id)
+#  index_holiday_discussions_on_restaurant_id  (restaurant_id)
 #
 
 class HolidayDiscussion < ActiveRecord::Base
@@ -63,4 +68,5 @@ class HolidayDiscussion < ActiveRecord::Base
     true
   end
 end
+
 

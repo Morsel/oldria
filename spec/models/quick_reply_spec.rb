@@ -1,14 +1,3 @@
-# == Schema Information
-# Schema version: 20100708221553
-#
-# Table name: quick_replies
-#
-#  message_id   :string
-#  message_type :string
-#  reply_text   :text
-#  user_id      :integer
-#
-
 require 'spec/spec_helper'
 
 describe QuickReply do

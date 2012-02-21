@@ -1,17 +1,3 @@
-# == Schema Information
-# Schema version: 20100426230131
-#
-# Table name: holiday_reminders
-#
-#  id           :integer         not null, primary key
-#  scheduled_at :datetime
-#  status       :string(255)
-#  message      :text
-#  holiday_id   :integer
-#  created_at   :datetime
-#  updated_at   :datetime
-#
-
 require 'spec/spec_helper'
 
 describe Admin::HolidayReminder do

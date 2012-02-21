@@ -11,3 +11,4 @@ describe PromotionType do
     PromotionType.create!(@valid_attributes)
   end
 end
+

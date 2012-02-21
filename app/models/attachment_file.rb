@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20110913204942
+# Schema version: 20120217190417
 #
 # Table name: assets
 #
@@ -13,6 +13,13 @@
 #  user_id           :integer
 #  created_at        :datetime
 #  updated_at        :datetime
+#
+# Indexes
+#
+#  index_assets_on_id_and_type  (id,type)
+#  fk_user                      (user_id)
+#  fk_assets                    (assetable_id,assetable_type)
+#  ndx_type_assetable           (assetable_id,assetable_type,type)
 #
 
 class AttachmentFile < Asset

@@ -1,15 +1,3 @@
-# == Schema Information
-#
-# Table name: soapbox_pages
-#
-#  id         :integer         not null, primary key
-#  title      :string(255)
-#  slug       :string(255)
-#  content    :text
-#  created_at :datetime
-#  updated_at :datetime
-#
-
 require 'spec_helper'
 
 describe SoapboxPage do

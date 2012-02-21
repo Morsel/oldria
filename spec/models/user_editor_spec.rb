@@ -12,3 +12,4 @@ describe UserEditor do
     UserEditor.create!(@valid_attributes)
   end
 end
+

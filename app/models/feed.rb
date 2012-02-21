@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20110913204942
+# Schema version: 20120217190417
 #
 # Table name: feeds
 #
@@ -14,6 +14,11 @@
 #  created_at       :datetime
 #  updated_at       :datetime
 #  feed_category_id :integer
+#
+# Indexes
+#
+#  index_feeds_on_id                (id) UNIQUE
+#  index_feeds_on_feed_category_id  (feed_category_id)
 #
 
 class Feed < ActiveRecord::Base

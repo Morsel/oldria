@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20110913204942
+# Schema version: 20120217190417
 #
 # Table name: media_request_discussions
 #
@@ -9,6 +9,11 @@
 #  comments_count   :integer         default(0)
 #  created_at       :datetime
 #  updated_at       :datetime
+#
+# Indexes
+#
+#  index_media_request_discussions_on_restaurant_id     (restaurant_id)
+#  index_media_request_discussions_on_media_request_id  (media_request_id)
 #
 
 class MediaRequestDiscussion < ActiveRecord::Base

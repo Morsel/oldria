@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20110913204942
+# Schema version: 20120217190417
 #
 # Table name: media_requests
 #
@@ -13,8 +13,14 @@
 #  fields               :text
 #  status               :string(255)
 #  publication          :string(255)
-#  admin                :boolean
+#  admin                :boolean         default(FALSE)
 #  employment_search_id :integer
+#
+# Indexes
+#
+#  index_media_requests_on_employment_search_id   (employment_search_id)
+#  index_media_requests_on_sender_id              (sender_id)
+#  index_media_requests_on_media_request_type_id  (subject_matter_id)
 #
 
 class MediaRequest < ActiveRecord::Base
@@ -139,4 +145,5 @@ class MediaRequest < ActiveRecord::Base
     end
   end
 end
+
 

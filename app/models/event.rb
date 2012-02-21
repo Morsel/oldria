@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20110913204942
+# Schema version: 20120217190417
 #
 # Table name: events
 #
@@ -15,6 +15,10 @@
 #  created_at    :datetime
 #  updated_at    :datetime
 #  parent_id     :integer
+#
+# Indexes
+#
+#  index_events_on_restaurant_id  (restaurant_id)
 #
 
 class Event < ActiveRecord::Base

@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20110913204942
+# Schema version: 20120217190417
 #
 # Table name: restaurant_feature_categories
 #
@@ -8,6 +8,10 @@
 #  restaurant_feature_page_id :integer
 #  created_at                 :datetime
 #  updated_at                 :datetime
+#
+# Indexes
+#
+#  restaurant_feature_page_id_index  (restaurant_feature_page_id)
 #
 
 class RestaurantFeatureCategory < ActiveRecord::Base

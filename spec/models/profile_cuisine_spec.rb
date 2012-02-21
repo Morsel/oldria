@@ -13,14 +13,3 @@ describe ProfileCuisine do
   end
 end
 
-# == Schema Information
-#
-# Table name: profile_cuisines
-#
-#  id         :integer         not null, primary key
-#  profile_id :integer
-#  cuisine_id :integer
-#  created_at :datetime
-#  updated_at :datetime
-#
-

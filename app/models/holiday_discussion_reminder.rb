@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20110913204942
+# Schema version: 20120217190417
 #
 # Table name: holiday_discussion_reminders
 #
@@ -8,6 +8,11 @@
 #  holiday_reminder_id   :integer
 #  created_at            :datetime
 #  updated_at            :datetime
+#
+# Indexes
+#
+#  index_holiday_discussion_reminders_on_holiday_reminder_id    (holiday_reminder_id)
+#  index_holiday_discussion_reminders_on_holiday_discussion_id  (holiday_discussion_id)
 #
 
 class HolidayDiscussionReminder < ActiveRecord::Base

@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20110913204942
+# Schema version: 20120217190417
 #
 # Table name: coached_status_updates
 #
@@ -8,6 +8,10 @@
 #  created_at    :datetime
 #  updated_at    :datetime
 #  date_range_id :integer
+#
+# Indexes
+#
+#  index_coached_status_updates_on_date_range_id  (date_range_id)
 #
 
 class CoachedStatusUpdate < ActiveRecord::Base

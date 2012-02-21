@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20110913204942
+# Schema version: 20120217190417
 #
 # Table name: statuses
 #
@@ -12,8 +12,12 @@
 #  queue_for_social_media  :boolean
 #  queue_for_facebook      :boolean
 #  facebook_id             :integer
-#  queue_for_facebook_page :boolean
+#  queue_for_facebook_page :boolean         default(FALSE)
 #  facebook_page_id        :integer
+#
+# Indexes
+#
+#  index_statuses_on_user_id  (user_id)
 #
 
 class Status < ActiveRecord::Base
@@ -54,4 +58,5 @@ class Status < ActiveRecord::Base
   end
   
 end
+
 

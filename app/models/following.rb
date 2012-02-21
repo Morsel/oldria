@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20110913204942
+# Schema version: 20120217190417
 #
 # Table name: followings
 #
@@ -8,6 +8,11 @@
 #  friend_id   :integer
 #  created_at  :datetime
 #  updated_at  :datetime
+#
+# Indexes
+#
+#  index_followings_on_friend_id    (friend_id)
+#  index_followings_on_follower_id  (follower_id)
 #
 
 class Following < ActiveRecord::Base

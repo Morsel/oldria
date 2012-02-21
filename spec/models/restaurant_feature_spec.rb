@@ -25,14 +25,3 @@ describe RestaurantFeature do
   end
 
 end
-# == Schema Information
-#
-# Table name: restaurant_features
-#
-#  id                             :integer         not null, primary key
-#  restaurant_feature_category_id :integer
-#  value                          :string(255)
-#  created_at                     :datetime
-#  updated_at                     :datetime
-#
-

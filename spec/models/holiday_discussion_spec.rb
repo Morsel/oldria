@@ -13,16 +13,3 @@ describe HolidayDiscussion do
   end
 end
 
-# == Schema Information
-#
-# Table name: holiday_discussions
-#
-#  id             :integer         not null, primary key
-#  restaurant_id  :integer
-#  holiday_id     :integer
-#  comments_count :integer         default(0)
-#  created_at     :datetime
-#  updated_at     :datetime
-#  accepted       :boolean         default(FALSE)
-#
-

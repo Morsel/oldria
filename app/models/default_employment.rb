@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20110913204942
+# Schema version: 20120217190417
 #
 # Table name: employments
 #
@@ -10,11 +10,17 @@
 #  updated_at           :datetime
 #  restaurant_role_id   :integer
 #  omniscient           :boolean
-#  primary              :boolean
+#  primary              :boolean         default(FALSE)
 #  type                 :string(255)
 #  public_profile       :boolean         default(TRUE)
 #  position             :integer
 #  solo_restaurant_name :string(255)
+#
+# Indexes
+#
+#  index_employments_on_restaurant_role_id  (restaurant_role_id)
+#  index_employments_on_restaurant_id       (restaurant_id)
+#  index_employments_on_employee_id         (employee_id)
 #
 
 class DefaultEmployment < Employment
@@ -35,3 +41,4 @@ class DefaultEmployment < Employment
   end
 
 end
+

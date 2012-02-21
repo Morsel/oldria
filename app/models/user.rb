@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20110913204942
+# Schema version: 20120217190417
 #
 # Table name: users
 #
@@ -33,6 +33,12 @@
 #  national              :boolean
 #  mediafeed_visible     :boolean         default(TRUE)
 #  notification_email    :string(255)
+#
+# Indexes
+#
+#  index_users_on_username  (username)
+#  index_users_on_id        (id) UNIQUE
+#  index_users_on_email     (email)
 #
 
 class User < ActiveRecord::Base

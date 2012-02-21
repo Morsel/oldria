@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20110913204942
+# Schema version: 20120217190417
 #
 # Table name: profiles
 #
@@ -16,6 +16,10 @@
 #  current_residence     :string(255)
 #  metropolitan_area_id  :integer
 #  james_beard_region_id :integer
+#
+# Indexes
+#
+#  index_profiles_on_user_id  (user_id) UNIQUE
 #
 
 class Profile < ActiveRecord::Base

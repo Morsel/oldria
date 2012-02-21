@@ -1,14 +1,3 @@
-# == Schema Information
-#
-# Table name: discussion_seats
-#
-#  id            :integer         not null, primary key
-#  user_id       :integer
-#  discussion_id :integer
-#  created_at    :datetime
-#  updated_at    :datetime
-#
-
 require 'spec_helper'
 
 describe DiscussionSeat do

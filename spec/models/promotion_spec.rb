@@ -19,3 +19,4 @@ describe Promotion do
     Promotion.create!(@valid_attributes)
   end
 end
+

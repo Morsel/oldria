@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20110913204942
+# Schema version: 20120217190417
 #
 # Table name: holiday_conversations
 #
@@ -10,6 +10,11 @@
 #  created_at     :datetime
 #  updated_at     :datetime
 #  accepted       :boolean
+#
+# Indexes
+#
+#  index_holiday_conversations_on_holiday_id    (holiday_id)
+#  index_holiday_conversations_on_recipient_id  (recipient_id)
 #
 
 class HolidayConversation < ActiveRecord::Base

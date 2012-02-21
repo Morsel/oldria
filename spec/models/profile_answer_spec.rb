@@ -32,15 +32,3 @@ describe ProfileAnswer do
 
 end
 
-# == Schema Information
-#
-# Table name: profile_answers
-#
-#  id                  :integer         not null, primary key
-#  profile_question_id :integer
-#  answer              :text
-#  created_at          :datetime
-#  updated_at          :datetime
-#  user_id             :integer
-#
-

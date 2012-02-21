@@ -17,3 +17,4 @@ describe Testimonial do
     Testimonial.create!(@valid_attributes)
   end
 end
+

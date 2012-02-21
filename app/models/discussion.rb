@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20110913204942
+# Schema version: 20120217190417
 #
 # Table name: discussions
 #
@@ -11,6 +11,12 @@
 #  created_at           :datetime
 #  updated_at           :datetime
 #  employment_search_id :integer
+#
+# Indexes
+#
+#  index_discussions_on_employment_search_id  (employment_search_id)
+#  index_discussions_on_poster_id             (poster_id)
+#  index_discussions_on_id                    (id) UNIQUE
 #
 
 class Discussion < ActiveRecord::Base

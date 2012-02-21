@@ -1,13 +1,3 @@
-# == Schema Information
-#
-# Table name: metropolitan_areas
-#
-#  id         :integer         not null, primary key
-#  name       :string(255)
-#  created_at :datetime
-#  updated_at :datetime
-#
-
 require 'spec/spec_helper'
 
 describe MetropolitanArea do
@@ -23,3 +13,4 @@ describe MetropolitanArea do
     MetropolitanArea.create!(@valid_attributes)
   end
 end
+

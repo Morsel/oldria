@@ -1,14 +1,3 @@
-# == Schema Information
-#
-# Table name: a_la_minute_questions
-#
-#  id         :integer         not null, primary key
-#  question   :text
-#  kind       :string(255)
-#  created_at :datetime
-#  updated_at :datetime
-#
-
 require 'spec_helper'
 
 describe ALaMinuteQuestion do
@@ -51,3 +40,4 @@ describe ALaMinuteQuestion do
     end
   end
 end
+

@@ -12,3 +12,4 @@ describe QuestionPage do
     QuestionPage.create!(@valid_attributes)
   end
 end
+

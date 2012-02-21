@@ -1,12 +1,15 @@
 # == Schema Information
-# Schema version: 20111201222932
+# Schema version: 20120217190417
 #
 # Table name: newsletter_subscribers
 #
-#  id         :integer         not null, primary key
-#  email      :string(255)
-#  created_at :datetime
-#  updated_at :datetime
+#  id           :integer         not null, primary key
+#  email        :string(255)
+#  created_at   :datetime
+#  updated_at   :datetime
+#  confirmed_at :datetime
+#  first_name   :string(255)
+#  last_name    :string(255)
 #
 
 class NewsletterSubscriber < ActiveRecord::Base
@@ -47,3 +50,4 @@ class NewsletterSubscriber < ActiveRecord::Base
   end
 
 end
+

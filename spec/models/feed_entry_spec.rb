@@ -1,20 +1,3 @@
-# == Schema Information
-#
-# Table name: feed_entries
-#
-#  id           :integer         not null, primary key
-#  title        :string(255)
-#  author       :string(255)
-#  url          :string(255)
-#  summary      :text
-#  content      :text
-#  published_at :datetime
-#  guid         :string(255)
-#  feed_id      :integer
-#  created_at   :datetime
-#  updated_at   :datetime
-#
-
 require 'spec/spec_helper'
 
 describe FeedEntry do

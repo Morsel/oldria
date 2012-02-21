@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20110913204942
+# Schema version: 20120217190417
 #
 # Table name: admin_discussions
 #
@@ -10,6 +10,11 @@
 #  updated_at          :datetime
 #  comments_count      :integer         default(0)
 #  discussionable_type :string(255)
+#
+# Indexes
+#
+#  admin_discussions_by_discussionable       (discussionable_id,discussionable_type)
+#  index_admin_discussions_on_restaurant_id  (restaurant_id)
 #
 
 class AdminDiscussion < ActiveRecord::Base

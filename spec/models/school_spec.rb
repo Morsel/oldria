@@ -6,16 +6,3 @@ describe School do
   should_have_many :profiles, :through => :enrollments
 end
 
-# == Schema Information
-#
-# Table name: schools
-#
-#  id         :integer         not null, primary key
-#  name       :string(255)     default(""), not null
-#  city       :string(255)     default(""), not null
-#  state      :string(255)     default(""), not null
-#  country    :string(255)     default(""), not null
-#  created_at :datetime
-#  updated_at :datetime
-#
-

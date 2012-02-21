@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20111208191639
+# Schema version: 20120217190417
 #
 # Table name: restaurants
 #
@@ -37,6 +37,14 @@
 #  facebook_page_token        :string(255)
 #  atoken                     :string(255)
 #  asecret                    :string(255)
+#
+# Indexes
+#
+#  index_restaurants_on_metropolitan_area_id   (metropolitan_area_id)
+#  index_restaurants_on_manager_id             (manager_id)
+#  index_restaurants_on_james_beard_region_id  (james_beard_region_id)
+#  index_restaurants_on_id                     (id) UNIQUE
+#  index_restaurants_on_cuisine_id             (cuisine_id)
 #
 
 class Restaurant < ActiveRecord::Base

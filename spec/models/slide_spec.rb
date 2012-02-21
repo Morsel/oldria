@@ -11,3 +11,4 @@ describe Slide do
     Slide.create!(@valid_attributes)
   end
 end
+

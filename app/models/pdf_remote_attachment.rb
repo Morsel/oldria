@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20110913204942
+# Schema version: 20120217190417
 #
 # Table name: attachments
 #
@@ -15,6 +15,10 @@
 #  credit                  :string(255)
 #  position                :integer
 #  name                    :string(255)
+#
+# Indexes
+#
+#  index_attachments_on_attachable_id_and_attachable_type  (attachable_id,attachable_type)
 #
 
 class PdfRemoteAttachment < RemoteAttachment

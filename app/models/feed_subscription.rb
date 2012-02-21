@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20110913204942
+# Schema version: 20120217190417
 #
 # Table name: feed_subscriptions
 #
@@ -8,6 +8,11 @@
 #  feed_id    :integer
 #  created_at :datetime
 #  updated_at :datetime
+#
+# Indexes
+#
+#  index_feed_subscriptions_on_user_id  (user_id)
+#  index_feed_subscriptions_on_feed_id  (feed_id)
 #
 
 class FeedSubscription < ActiveRecord::Base

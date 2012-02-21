@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20110913204942
+# Schema version: 20120217190417
 #
 # Table name: comments
 #
@@ -11,6 +11,12 @@
 #  user_id          :integer
 #  created_at       :datetime
 #  updated_at       :datetime
+#
+# Indexes
+#
+#  index_comments_on_user_id           (user_id)
+#  index_comments_on_commentable_type  (commentable_type)
+#  index_comments_on_commentable_id    (commentable_id)
 #
 
 class Comment < ActiveRecord::Base

@@ -1,17 +1,3 @@
-# == Schema Information
-# Schema version: 20100331215807
-#
-# Table name: holiday_conversations
-#
-#  id             :integer         not null, primary key
-#  recipient_id   :integer
-#  holiday_id     :integer
-#  comments_count :integer         default(0), not null
-#  created_at     :datetime
-#  updated_at     :datetime
-#  accepted       :boolean
-#
-
 require 'spec/spec_helper'
 
 describe HolidayConversation do
