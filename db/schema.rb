@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120217190417) do
+ActiveRecord::Schema.define(:version => 20120221182030) do
 
   create_table "a_la_minute_answers", :force => true do |t|
     t.text     "answer"
@@ -1021,6 +1021,7 @@ ActiveRecord::Schema.define(:version => 20120217190417) do
     t.datetime "updated_at"
     t.boolean  "published",          :default => true
     t.boolean  "daily_feature",      :default => false
+    t.text     "description"
   end
 
   create_table "soapbox_pages", :force => true do |t|
