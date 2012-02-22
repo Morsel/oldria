@@ -20,7 +20,10 @@
 <% else -%>
 <div class="excerpt">
     <h3 class="question"><%= question.question %></h3>
-    <p class="answer"><%= h answer.answer %> <%= link_to 'archive', "#a_la_minute_answers_#{question.id}", :class => 'showit' %></p>
+    <p class="answer">
+		<%= h answer.answer %> <span class="datestamp">(<%= answer.created_at.strftime("%D") %>)
+		<%= link_to 'archive', "#a_la_minute_answers_#{question.id}", :class => 'showit' %>
+	</p>
     <ul class="archive" id="a_la_minute_answers_<%= question.id %>">
         <% @restaurant.a_la_minute_answers.show_public.for_question(question).each_with_index do |archived_answer, index| %>
           <% content_tag_for(:li, archived_answer, :class => "answer") do %>
