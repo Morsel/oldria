@@ -86,14 +86,14 @@
               <p>
                   <%= truncate(comment = conversation.comments.first.comment, :length => 130) %>
 				<% if comment.length > 130 -%>
-				<%= link_to_unimplemented "more &raquo;" %>
+				<%= link_to "more &raquo;", user_qotds_path(:id => @user.id, :anchor => "admin_conversation_#{conversation.id}") %>
 				<% end -%>
               </p>
               <% end -%>
             <% else -%>
               <p><%= @user.name %> hasn't answered any Questions of the Day yet.</p>
             <% end -%>
-            <%= link_to_unimplemented "See more of #{@user.first_name}'s Questions of the Day", :class => "greenLink" %>
+            <%= link_to "See more of #{@user.first_name}'s Questions of the Day", user_qotds_path(:id => @user.id), :class => "greenLink" %>
         </div>
 
         <% if @user.qotd_convos_with_comments.present? -%>

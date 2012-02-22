@@ -222,6 +222,8 @@ ActionController::Routing::Routes.draw do |map|
   }
 
   map.front_burner 'front_burner', :controller => 'front_burner', :action => 'index'
+  map.user_qotds 'front_burner/user/:id', :controller => 'front_burner', :action => 'user_qotds'
+  map.qotd 'front_burner/qotd/:id', :controller => 'front_burner', :action => 'qotd'
 
   map.resources :timelines, :collection => {
                               :people_you_follow => :get,
