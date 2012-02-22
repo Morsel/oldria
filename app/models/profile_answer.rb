@@ -56,6 +56,10 @@ class ProfileAnswer < ActiveRecord::Base
     profile_question.title
   end
 
+  def chapter_id
+    profile_question.chapter.id
+  end
+
   def activity_name
     "Behind the Line"
   end

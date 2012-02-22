@@ -81,10 +81,13 @@
             <h3>Question of the day<span class="greenArrow"></span></h3>
 
             <% if @user.qotd_convos_with_comments.present? -%>
-              <% for conversation in @user.qotd_convos_with_comments.all(:limit => 5) -%>
+              <% for conversation in @user.qotd_convos_with_comments.all(:limit => 5, :order => "created_at DESC") -%>
               <h4><%= conversation.admin_message.message %></h4>
               <p>
-                  <%= conversation.comments.first.comment %>
+                  <%= truncate(comment = conversation.comments.first.comment, :length => 130) %>
+				<% if comment.length > 130 -%>
+				<%= link_to_unimplemented "more &raquo;" %>
+				<% end -%>
               </p>
               <% end -%>
             <% else -%>

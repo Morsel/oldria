@@ -25,7 +25,12 @@
 
     <% for answer in user.profile_answers.without_travel.recently_answered.all(:limit => 5) %>
     <h4><%= answer.question %></h4>
-    <p><%= answer.answer %></p>
+    <p>
+		<%= truncate(answer.answer, :length => 130) %>
+		<% if answer.answer.length > 130 -%>
+		<%= link_to "more &raquo;", user_questions_path(user, :chapter_id => answer.chapter_id, :anchor => "profile_question_#{answer.profile_question.id}") %>
+		<% end -%>
+	</p>
     <% end %>
 
     <%= link_to "See more of #{user.first_name}'s Behind the Line", link_for_user_topics(:user_id => user.id), :class => "brownLink" %>
