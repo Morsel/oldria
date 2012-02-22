@@ -3,7 +3,7 @@
 <% content_for(:fb_description, truncate(@menu_item.description, :length => 200)) %>
 <% content_for :facebook_meta do -%>
   <meta property="og:type" content="article"/>
-  <meta property="og:image" content="<%= @menu_item.photo_file_name.present? ? (request.protocol + request.host_with_port + image_path(@menu_item.photo(:medium))) : "http://soapbox.restaurantintelligenceagency.com/images/soapbox/logo-soapbox.png" %>"/>
+  <meta property="og:image" content="<%= @menu_item.photo_file_name.present? ? @menu_item.photo.url : "http://soapbox.restaurantintelligenceagency.com/images/soapbox/logo-soapbox.png" %>"/>
   <meta property="og:url" content="<%= soapbox_menu_item_url(@menu_item) %>"/>
 <% end -%>
 
