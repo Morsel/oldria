@@ -1,3 +1,13 @@
 <% title "Question of the Day" %>
 
 <h2><%= @qotd.message %></h2>
+
+<% for comment in @qotd.comments.all(:order => "created_at DESC") %>
+<% div_for(comment) do %>
+    <%= render :partial => "users/identity", :locals => { :user => comment.user } %>
+    <p>
+        <%= comment.comment %>
+    </p>
+    <div class="clear">&nbsp;</div>
+<% end %>
+<% end %>
