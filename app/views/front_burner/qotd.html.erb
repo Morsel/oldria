@@ -2,7 +2,7 @@
 
 <h2><%= @qotd.message %></h2>
 
-<% for comment in @qotd.comments.all(:order => "created_at DESC") %>
+<% for comment in @answers %>
 <% div_for(comment) do %>
     <%= render :partial => "users/identity", :locals => { :user => comment.user } %>
     <p>

@@ -23,6 +23,7 @@ class FrontBurnerController < ApplicationController
 
   def qotd
     @qotd = Admin::Qotd.find(params[:id])
+    @answers = @qotd.comments.from_premium_users.all(:order => "created_at DESC")
   end
 
   private 

@@ -33,6 +33,12 @@ class Comment < ActiveRecord::Base
     :conditions => ["user_id != ?", user.id]
   }}
 
+  named_scope :from_premium_users, {
+    :joins => { :user => :subscription },
+    :conditions => ["subscriptions.id IS NOT NULL AND (subscriptions.end_date IS NULL OR subscriptions.end_date >= ?)",
+      Date.today]
+  }
+
   #validates_presence_of :comment
 
   attr_accessor :post_to_facebook
