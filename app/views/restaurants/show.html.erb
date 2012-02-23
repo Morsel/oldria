@@ -63,7 +63,7 @@
         </div>
 
         <article class="middleDetails">
-            <h2><span>A la Minute</span><a href="#" class="gray">see all A La Minute</a></h2>
+            <h2><span>A la Minute</span><%= link_to "see all A la Minute", a_la_minute_path, :class => "gray" %></h2>
             <%= render :partial => "restaurants/a_la_minute_question",
                        :collection => @questions, :as => :answer, :locals => { :restaurant => @restaurant } %>
         </article>
