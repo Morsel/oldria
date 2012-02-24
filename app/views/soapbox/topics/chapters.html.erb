@@ -19,7 +19,7 @@
 <% for chapter in @questions_by_chapter.keys %>
 <%- if can?(:manage, @user) || chapter.published_for_user?(@user) -%>
   <% div_for chapter, :class => cycle('', ' last') do -%>
-      <% link_to link_for_user_questions(:user_id => @user.id, :chapter_id => chapter.id) do %>
+      <% link_to link_for_user_questions(:user_id => @user.id, :id => chapter.id) do %>
           <h3><%= chapter.title %></h3>
 
           <p class="chapter_answer_count"><%= chapter.answered_for_user(@user).count %> of <%= chapter.questions_for_user(@user).count %></p>

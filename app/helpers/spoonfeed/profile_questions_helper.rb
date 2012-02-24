@@ -1,4 +1,4 @@
-module QuestionsHelper
+module Spoonfeed::ProfileQuestionsHelper
 
   def btl_description_for_fb(answers)
     output = []
@@ -9,5 +9,5 @@ module QuestionsHelper
     end
     output.join(' | ')
   end
-  
+
 end

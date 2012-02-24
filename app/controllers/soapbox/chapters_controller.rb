@@ -15,7 +15,7 @@ class Soapbox::ChaptersController < ApplicationController
         @chapter.profile_questions.for_user(@user) :
         ProfileQuestion.answered_for_user(@user).for_chapter(params[:id])
 
-      render :template => 'questions/index'
+      render :template => 'soapbox/chapters/user_show'
     else
       @chapter = Chapter.find(params[:id])
       @questions = @chapter.profile_questions.answered_by_premium_users.uniq

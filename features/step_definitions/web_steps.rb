@@ -305,7 +305,7 @@ Then /^I can`t share this profile$/ do
 end
 
 Then /^I see more link to the answer's expanded view$/ do
-  link = user_questions_path(@profile_answer.user, :chapter_id => @profile_answer.profile_question.chapter.id,
+  link = user_btl_chapter_path(@profile_answer.user, :id => @profile_answer.profile_question.chapter.id,
              :anchor => "profile_question_#{@profile_answer.profile_question_id}")
   response.should have_selector("a", :href => link)
 end

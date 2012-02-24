@@ -12,7 +12,7 @@ class Soapbox::TopicsController < ApplicationController
                                                                               :order => "chapters.position, chapters.id").
                                                                               group_by(&:chapter)
 
-      render :template => 'questions/chapters'
+      render :template => 'soapbox/topics/chapters'
     else
       @topic = Topic.find(params[:id])
       @answers = ProfileAnswer.for_topic(@topic).from_premium_and_public_users.all(:limit => 10, :order => "created_at DESC")

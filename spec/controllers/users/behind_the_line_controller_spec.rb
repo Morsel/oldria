@@ -1,13 +1,13 @@
 require 'spec_helper'
 
-describe QuestionsController do
+describe Users::BehindTheLineController do
 
   before(:each) do
     @user = Factory(:user)
     controller.stubs(:current_user).returns(@user)
   end
 
-  describe "topics" do
+  describe "index" do
 
     it "should show you your topics" do
       role = Factory(:restaurant_role)
@@ -16,7 +16,7 @@ describe QuestionsController do
       question_role = Factory(:question_role, :restaurant_role => role)
       Factory(:profile_question, :question_roles => [question_role])
 
-      get :topics, :user_id => @user.id
+      get :index, :user_id => @user.id
       assigns[:topics].size.should == 1
     end
 
@@ -30,7 +30,7 @@ describe QuestionsController do
       question = Factory(:profile_question, :question_roles => [question_role])
       Factory(:profile_answer, :profile_question => question, :user => profile_user)
 
-      get :topics, :user_id => profile_user.id
+      get :index, :user_id => profile_user.id
       assigns[:topics].should == [question.topic]
     end
 

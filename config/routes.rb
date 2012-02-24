@@ -146,7 +146,11 @@ ActionController::Routing::Routes.draw do |map|
     end
     users.resources :statuses
     users.resources :direct_messages, :member => { :reply => :get }
-    users.resources :questions, :collection => { :topics => :get, :chapters => :get, :refresh => :post }
+
+    users.behind_the_line 'behind_the_line', :controller => 'users/behind_the_line', :action => 'index'
+    users.btl_topic 'behind_the_line/topic/:id', :controller => 'users/behind_the_line', :action => 'topic'
+    users.btl_chapter 'behind_the_line/chapter/:id', :controller => 'users/behind_the_line', :action => 'chapter'
+
     users.resources :default_employments
     users.resource :subscription, 
       :collection => { :bt_callback => :get, :billing_history => :get }, 
@@ -246,6 +250,7 @@ ActionController::Routing::Routes.draw do |map|
   map.a_la_minute 'a_la_minute', :controller => "spoonfeed/a_la_minute", :action => "index"
   map.a_la_minute_answers 'a_la_minute/:question_id/answers', :controller => "spoonfeed/a_la_minute", :action => "answers"
   map.menu_items 'on_the_menu', :controller => "spoonfeed/menu_items", :action => "index"
+  map.resources :profile_questions, :only => ['index', 'show'], :as => "behind_the_line", :controller => 'spoonfeed/profile_questions'
 
   map.namespace :admin do |admin|
     admin.root      :controller => 'admin'

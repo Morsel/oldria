@@ -27,7 +27,7 @@ class ProfileAnswersController < ApplicationController
         end
 
         flash[:notice] = "Your answers have been saved"
-        redirect_to user_questions_path(@user, :chapter_id => @question.chapter.id)
+        redirect_to user_btl_chapter_path(@user, @question.chapter)
       end
 
       # For the btl-game sidebar widget
@@ -52,9 +52,7 @@ class ProfileAnswersController < ApplicationController
 
     if @answer.update_attributes(params[:profile_answer])
       flash[:notice] = "Your answer has been saved"
-      redirect_to user_questions_path(@user,
-                                     :chapter_id => @question.chapter.id,
-                                     :anchor => "profile_question_#{@question.id}")
+      redirect_to user_btl_chapter_path(@user, @question.chapter, :anchor => "profile_question_#{@question.id}")
     else
       render :template => "profile_answers/new"
     end
@@ -66,9 +64,7 @@ class ProfileAnswersController < ApplicationController
 
     if @answer.destroy
       flash[:notice] = "Your answer has been deleted"
-      redirect_to user_questions_path(:user_id => @user.id,
-                                      :chapter_id => @question.chapter.id,
-                                      :anchor => "profile_question_#{@question.id}")
+      redirect_to user_btl_chapter_path(@user, @question.chapter, :anchor => "profile_question_#{@question.id}")
     end
   end
 

@@ -28,28 +28,9 @@
     <% end -%>
   </div>
 
-<% if can?(:manage, @user) && !soapbox? %><%# let's edit these answers %>
-  <% form_tag user_profile_answers_path(:user_id => @user.id) do %>
-    <% @questions.each do |question| %>
-      <% div_for question do %>
-          <h4>Q: <%= question.title %></h4>
-          <%= render :partial => "profile_answers/form", :locals => { :answer => question.find_or_build_answer_for(@user) } %>
-      <% end %>
-    <% end %>
-  <% end %><%# end form %>
-
-  <div id="loading-wait" style="display: none">
-    <%= image_tag "ajax-loader.gif" %>
-    <p>Please wait while we save your responses</p>
-  </div>
-
-  <p class="clear">Answers to your questions will be posted on your profile and can be used by Restaurant Intelligence Agency to increase traffic to the site.</p>
-
-<% else -%><%# no editing by other users %>
-
   <% for question in @questions -%>
     <% div_for question do %>
-      <h4><span class="letter-q">Q:</span> <%= link_to question.title, question_path(question) %></h4>
+      <h4><span class="letter-q">Q:</span> <%= link_to question.title, soapbox_question_path(question) %></h4>
       <% if answer = question.answer_for(@user) %>
         <p><%= answer.answer %></p>
         <span class="timestamp">Last updated: <%= answer.try(:updated_at).try(:strftime, "%b %e %Y") %> - <%= link_to "Share this entry", soapbox_user_question_path(@user, question) %></span>
@@ -58,6 +39,5 @@
       <% end %>
     <% end -%>
   <% end -%>
-<% end -%>
 </div>
 

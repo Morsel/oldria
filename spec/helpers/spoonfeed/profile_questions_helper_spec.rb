@@ -1,7 +1,6 @@
 require 'spec_helper'
 
-describe QuestionsHelper do
-  include QuestionsHelper
+describe Spoonfeed::ProfileQuestionsHelper do
 
   it "btl_description_for_fb should return excerpt from answers" do
     answer = Object.new
