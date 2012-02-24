@@ -2,7 +2,7 @@
 
 <% for conversation in @qotds %>
 <% div_for conversation do %>
-	<h2><%= conversation.admin_message.message %></h2>
+	<h2><%= conversation.admin_message.display_message %></h2>
 	<p><%= simple_format conversation.comments.first.comment %></p>
 	<p><%= link_to "See how other members answered this question", qotd_path(conversation.admin_message) %></p>
 <% end %>
