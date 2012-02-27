@@ -1,3 +1,13 @@
-    <% if @user.btl_enabled? -%>
-      <%= render :partial => 'profiles/behind_the_line', :locals => { :user => @user } %>
-    <% end -%>
+<% if @user.btl_enabled? -%>
+<ul class="box">
+    <% reset_cycle('default') -%>
+    <% @user.topics.each do |topic| %>
+    <li class="<%= cycle("even", "odd") %>">
+        <% link_to link_for_user_chapters(:user_id => @user.id, :id => topic.id) do %>
+        <h5><%= topic.title %> <span class="completeness">(<%= topic.completion_percentage(@user) %>% complete)</span></h5>
+        <%= topic.description || truncate(topic.profile_questions.map(&:title).join(" "), :length => 100) %>
+        <% end %>
+    </li>
+    <% end %>
+</ul>
+<% end -%>

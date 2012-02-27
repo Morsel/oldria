@@ -12,7 +12,7 @@ Given /^Facebook is functioning$/ do
 
   StatusesController.any_instance.stubs(:current_facebook_user).returns(user)
   AdminConversationsController.any_instance.stubs(:current_facebook_user).returns(user)
-  QuestionsController.any_instance.stubs(:current_facebook_user).returns(user)
+  Users::BehindTheLineController.any_instance.stubs(:current_facebook_user).returns(user)
   AdminDiscussionsController.any_instance.stubs(:current_facebook_user).returns(user)
 end
 
