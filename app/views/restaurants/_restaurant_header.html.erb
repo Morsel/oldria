@@ -33,6 +33,11 @@
                     <small>menus updated on <span><%= @restaurant.menus_last_updated %></span></small>
                     <small>photos updated on <span><%= @restaurant.photos_last_updated %></span></small>
                 </div>
+				<div id="press_releases">
+					<% for release in @restaurant.press_releases.all(:order => "created_at DESC", :limit => 3) -%>
+					<p><%= link_to release.title, release.pdf_remote_attachment.attachment.url %></p>
+					<% end %>
+				</div>
             </div>
         </div>
         <% if params[:controller] == "restaurants" -%>
