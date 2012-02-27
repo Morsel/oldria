@@ -3675,7 +3675,7 @@ hgroup h5 span {
       }
       .identity_details {
         width: 186px;
-        float: left;
+        //float: left;
       }
       li {
         background: none;
@@ -3691,6 +3691,9 @@ hgroup h5 span {
       @include column(10);
       background: url(/images/redesign/bg-divot.png) top left no-repeat;
       padding-left: 20px;
+			p {
+				font-size: 15px;
+			}
     }
   }  
 }
