@@ -1,22 +1,15 @@
 # == Schema Information
-# Schema version: 20120217190417
 #
 # Table name: discussions
 #
-#  id                   :integer         not null, primary key
+#  id                   :integer         not null, primary key, indexed
 #  title                :string(255)
 #  body                 :text
-#  poster_id            :integer
+#  poster_id            :integer         indexed
 #  comments_count       :integer         default(0)
 #  created_at           :datetime
 #  updated_at           :datetime
-#  employment_search_id :integer
-#
-# Indexes
-#
-#  index_discussions_on_employment_search_id  (employment_search_id)
-#  index_discussions_on_poster_id             (poster_id)
-#  index_discussions_on_id                    (id) UNIQUE
+#  employment_search_id :integer         indexed
 #
 
 class Discussion < ActiveRecord::Base

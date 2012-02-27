@@ -1,22 +1,15 @@
 # == Schema Information
-# Schema version: 20120217190417
 #
 # Table name: comments
 #
 #  id               :integer         not null, primary key
 #  title            :string(50)      default("")
 #  comment          :text
-#  commentable_id   :integer
-#  commentable_type :string(255)
-#  user_id          :integer
+#  commentable_id   :integer         indexed
+#  commentable_type :string(255)     indexed
+#  user_id          :integer         indexed
 #  created_at       :datetime
 #  updated_at       :datetime
-#
-# Indexes
-#
-#  index_comments_on_user_id           (user_id)
-#  index_comments_on_commentable_type  (commentable_type)
-#  index_comments_on_commentable_id    (commentable_id)
 #
 
 class Comment < ActiveRecord::Base

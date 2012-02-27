@@ -1,20 +1,14 @@
 # == Schema Information
-# Schema version: 20120217190417
 #
 # Table name: admin_discussions
 #
 #  id                  :integer         not null, primary key
-#  restaurant_id       :integer
-#  discussionable_id   :integer
+#  restaurant_id       :integer         indexed
+#  discussionable_id   :integer         indexed => [discussionable_type]
 #  created_at          :datetime
 #  updated_at          :datetime
 #  comments_count      :integer         default(0)
-#  discussionable_type :string(255)
-#
-# Indexes
-#
-#  admin_discussions_by_discussionable       (discussionable_id,discussionable_type)
-#  index_admin_discussions_on_restaurant_id  (restaurant_id)
+#  discussionable_type :string(255)     indexed => [discussionable_id]
 #
 
 class AdminDiscussion < ActiveRecord::Base

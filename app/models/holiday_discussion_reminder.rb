@@ -1,18 +1,12 @@
 # == Schema Information
-# Schema version: 20120217190417
 #
 # Table name: holiday_discussion_reminders
 #
 #  id                    :integer         not null, primary key
-#  holiday_discussion_id :integer
-#  holiday_reminder_id   :integer
+#  holiday_discussion_id :integer         indexed
+#  holiday_reminder_id   :integer         indexed
 #  created_at            :datetime
 #  updated_at            :datetime
-#
-# Indexes
-#
-#  index_holiday_discussion_reminders_on_holiday_reminder_id    (holiday_reminder_id)
-#  index_holiday_discussion_reminders_on_holiday_discussion_id  (holiday_discussion_id)
 #
 
 class HolidayDiscussionReminder < ActiveRecord::Base

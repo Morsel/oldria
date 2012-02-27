@@ -1,20 +1,14 @@
 # == Schema Information
-# Schema version: 20120217190417
 #
 # Table name: holiday_discussions
 #
 #  id             :integer         not null, primary key
-#  restaurant_id  :integer
-#  holiday_id     :integer
+#  restaurant_id  :integer         indexed
+#  holiday_id     :integer         indexed
 #  comments_count :integer         default(0)
 #  created_at     :datetime
 #  updated_at     :datetime
 #  accepted       :boolean         default(FALSE)
-#
-# Indexes
-#
-#  index_holiday_discussions_on_holiday_id     (holiday_id)
-#  index_holiday_discussions_on_restaurant_id  (restaurant_id)
 #
 
 class HolidayDiscussion < ActiveRecord::Base

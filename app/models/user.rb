@@ -1,11 +1,10 @@
 # == Schema Information
-# Schema version: 20120217190417
 #
 # Table name: users
 #
-#  id                    :integer         not null, primary key
-#  username              :string(255)
-#  email                 :string(255)
+#  id                    :integer         not null, primary key, indexed
+#  username              :string(255)     indexed
+#  email                 :string(255)     indexed
 #  crypted_password      :string(255)
 #  password_salt         :string(255)
 #  perishable_token      :string(255)
@@ -33,12 +32,6 @@
 #  national              :boolean
 #  mediafeed_visible     :boolean         default(TRUE)
 #  notification_email    :string(255)
-#
-# Indexes
-#
-#  index_users_on_username  (username)
-#  index_users_on_id        (id) UNIQUE
-#  index_users_on_email     (email)
 #
 
 class User < ActiveRecord::Base

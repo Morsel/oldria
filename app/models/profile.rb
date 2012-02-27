@@ -1,10 +1,9 @@
 # == Schema Information
-# Schema version: 20120217190417
 #
 # Table name: profiles
 #
 #  id                    :integer         not null, primary key
-#  user_id               :integer         not null
+#  user_id               :integer         not null, indexed
 #  birthday              :date
 #  job_start             :date
 #  cellnumber            :string(255)
@@ -16,10 +15,6 @@
 #  current_residence     :string(255)
 #  metropolitan_area_id  :integer
 #  james_beard_region_id :integer
-#
-# Indexes
-#
-#  index_profiles_on_user_id  (user_id) UNIQUE
 #
 
 class Profile < ActiveRecord::Base

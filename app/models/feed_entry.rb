@@ -1,5 +1,4 @@
 # == Schema Information
-# Schema version: 20120217190417
 #
 # Table name: feed_entries
 #
@@ -11,13 +10,9 @@
 #  content      :text
 #  published_at :datetime
 #  guid         :string(255)
-#  feed_id      :integer
+#  feed_id      :integer         indexed
 #  created_at   :datetime
 #  updated_at   :datetime
-#
-# Indexes
-#
-#  index_feed_entries_on_feed_id  (feed_id)
 #
 
 class FeedEntry < ActiveRecord::Base

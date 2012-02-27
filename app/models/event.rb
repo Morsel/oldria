@@ -1,10 +1,9 @@
 # == Schema Information
-# Schema version: 20120217190417
 #
 # Table name: events
 #
 #  id            :integer         not null, primary key
-#  restaurant_id :integer
+#  restaurant_id :integer         indexed
 #  title         :string(255)
 #  start_at      :datetime
 #  end_at        :datetime
@@ -15,10 +14,6 @@
 #  created_at    :datetime
 #  updated_at    :datetime
 #  parent_id     :integer
-#
-# Indexes
-#
-#  index_events_on_restaurant_id  (restaurant_id)
 #
 
 class Event < ActiveRecord::Base

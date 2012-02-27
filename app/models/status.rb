@@ -1,5 +1,4 @@
 # == Schema Information
-# Schema version: 20120217190417
 #
 # Table name: statuses
 #
@@ -7,17 +6,13 @@
 #  message                 :string(255)
 #  created_at              :datetime
 #  updated_at              :datetime
-#  user_id                 :integer
+#  user_id                 :integer         indexed
 #  twitter_id              :integer
 #  queue_for_social_media  :boolean
 #  queue_for_facebook      :boolean
 #  facebook_id             :integer
 #  queue_for_facebook_page :boolean         default(FALSE)
 #  facebook_page_id        :integer
-#
-# Indexes
-#
-#  index_statuses_on_user_id  (user_id)
 #
 
 class Status < ActiveRecord::Base

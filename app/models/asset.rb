@@ -1,25 +1,17 @@
 # == Schema Information
-# Schema version: 20120217190417
 #
 # Table name: assets
 #
-#  id                :integer         not null, primary key
+#  id                :integer         not null, primary key, indexed => [type]
 #  data_file_name    :string(255)
 #  data_content_type :string(255)
 #  data_file_size    :integer
-#  assetable_id      :integer
-#  assetable_type    :string(25)
-#  type              :string(25)
-#  user_id           :integer
+#  assetable_id      :integer         indexed => [assetable_type], indexed => [assetable_type, type]
+#  assetable_type    :string(25)      indexed => [assetable_id], indexed => [assetable_id, type]
+#  type              :string(25)      indexed => [id], indexed => [assetable_id, assetable_type]
+#  user_id           :integer         indexed
 #  created_at        :datetime
 #  updated_at        :datetime
-#
-# Indexes
-#
-#  index_assets_on_id_and_type  (id,type)
-#  fk_user                      (user_id)
-#  fk_assets                    (assetable_id,assetable_type)
-#  ndx_type_assetable           (assetable_id,assetable_type,type)
 #
 
 class Asset < ActiveRecord::Base

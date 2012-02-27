@@ -1,10 +1,9 @@
 # == Schema Information
-# Schema version: 20120217190417
 #
 # Table name: culinary_jobs
 #
 #  id              :integer         not null, primary key
-#  profile_id      :integer         not null
+#  profile_id      :integer         not null, indexed
 #  restaurant_name :string(255)     default(""), not null
 #  title           :string(255)     default(""), not null
 #  city            :string(255)     default(""), not null
@@ -19,10 +18,6 @@
 #  created_at      :datetime
 #  updated_at      :datetime
 #  opening_staff   :boolean         default(FALSE)
-#
-# Indexes
-#
-#  index_profile_restaurants_on_profile_id  (profile_id)
 #
 
 class CulinaryJob < ActiveRecord::Base

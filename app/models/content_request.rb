@@ -1,5 +1,4 @@
 # == Schema Information
-# Schema version: 20120217190417
 #
 # Table name: content_requests
 #
@@ -8,13 +7,9 @@
 #  body                 :text
 #  scheduled_at         :datetime
 #  expired_at           :datetime
-#  employment_search_id :integer
+#  employment_search_id :integer         indexed
 #  created_at           :datetime
 #  updated_at           :datetime
-#
-# Indexes
-#
-#  index_content_requests_on_employment_search_id  (employment_search_id)
 #
 
 class ContentRequest < ActiveRecord::Base

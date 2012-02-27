@@ -200,6 +200,7 @@ ActionController::Routing::Routes.draw do |map|
                                        :controller => 'subscriptions'
     restaurant.resources :promotions
     restaurant.resources :menu_items
+    restaurant.resources :press_releases
   end
 
   map.resources :user_sessions, :password_resets, :followings, :pages

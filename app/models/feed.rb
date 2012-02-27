@@ -1,9 +1,8 @@
 # == Schema Information
-# Schema version: 20120217190417
 #
 # Table name: feeds
 #
-#  id               :integer         not null, primary key
+#  id               :integer         not null, primary key, indexed
 #  url              :string(255)
 #  feed_url         :string(255)
 #  title            :string(255)
@@ -13,12 +12,7 @@
 #  last_modified    :datetime
 #  created_at       :datetime
 #  updated_at       :datetime
-#  feed_category_id :integer
-#
-# Indexes
-#
-#  index_feeds_on_id                (id) UNIQUE
-#  index_feeds_on_feed_category_id  (feed_category_id)
+#  feed_category_id :integer         indexed
 #
 
 class Feed < ActiveRecord::Base

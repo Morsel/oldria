@@ -1,9 +1,8 @@
 # == Schema Information
-# Schema version: 20120217190417
 #
 # Table name: restaurants
 #
-#  id                         :integer         not null, primary key
+#  id                         :integer         not null, primary key, indexed
 #  name                       :string(255)
 #  street1                    :string(255)
 #  street2                    :string(255)
@@ -14,10 +13,10 @@
 #  facts                      :text
 #  created_at                 :datetime
 #  updated_at                 :datetime
-#  manager_id                 :integer
-#  metropolitan_area_id       :integer
-#  james_beard_region_id      :integer
-#  cuisine_id                 :integer
+#  manager_id                 :integer         indexed
+#  metropolitan_area_id       :integer         indexed
+#  james_beard_region_id      :integer         indexed
+#  cuisine_id                 :integer         indexed
 #  deleted_at                 :datetime
 #  description                :string(255)
 #  phone_number               :string(255)
@@ -37,14 +36,6 @@
 #  facebook_page_token        :string(255)
 #  atoken                     :string(255)
 #  asecret                    :string(255)
-#
-# Indexes
-#
-#  index_restaurants_on_metropolitan_area_id   (metropolitan_area_id)
-#  index_restaurants_on_manager_id             (manager_id)
-#  index_restaurants_on_james_beard_region_id  (james_beard_region_id)
-#  index_restaurants_on_id                     (id) UNIQUE
-#  index_restaurants_on_cuisine_id             (cuisine_id)
 #
 
 class Restaurant < ActiveRecord::Base
@@ -88,6 +79,7 @@ class Restaurant < ActiveRecord::Base
   has_many :menus
   has_many :accolades, :as => :accoladable
   has_many :a_la_minute_answers, :as => :responder, :dependent => :destroy
+  has_many :press_releases
 
   has_many :restaurant_feature_items, :dependent => :destroy
   has_many :restaurant_features, :through => :restaurant_feature_items,

@@ -1,19 +1,13 @@
 # == Schema Information
-# Schema version: 20120217190417
 #
 # Table name: media_request_discussions
 #
 #  id               :integer         not null, primary key
-#  media_request_id :integer
-#  restaurant_id    :integer
+#  media_request_id :integer         indexed
+#  restaurant_id    :integer         indexed
 #  comments_count   :integer         default(0)
 #  created_at       :datetime
 #  updated_at       :datetime
-#
-# Indexes
-#
-#  index_media_request_discussions_on_restaurant_id     (restaurant_id)
-#  index_media_request_discussions_on_media_request_id  (media_request_id)
 #
 
 class MediaRequestDiscussion < ActiveRecord::Base

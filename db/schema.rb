@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120221182030) do
+ActiveRecord::Schema.define(:version => 20120227183738) do
 
   create_table "a_la_minute_answers", :force => true do |t|
     t.text     "answer"
@@ -686,6 +686,14 @@ ActiveRecord::Schema.define(:version => 20120221182030) do
   end
 
   add_index "preferences", ["owner_id", "owner_type", "name", "group_id", "group_type"], :name => "index_preferences_on_owner_and_name_and_preference", :unique => true
+
+  create_table "press_releases", :force => true do |t|
+    t.string   "title"
+    t.integer  "pdf_remote_attachment_id"
+    t.integer  "restaurant_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "profile_answers", :force => true do |t|
     t.integer  "profile_question_id"

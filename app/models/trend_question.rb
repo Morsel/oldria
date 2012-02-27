@@ -1,5 +1,4 @@
 # == Schema Information
-# Schema version: 20120217190417
 #
 # Table name: trend_questions
 #
@@ -10,13 +9,9 @@
 #  expired_at           :datetime
 #  created_at           :datetime
 #  updated_at           :datetime
-#  employment_search_id :integer
+#  employment_search_id :integer         indexed
 #  display_message      :string(255)
 #  slug                 :string(255)
-#
-# Indexes
-#
-#  index_trend_questions_on_employment_search_id  (employment_search_id)
 #
 
 class TrendQuestion < ActiveRecord::Base

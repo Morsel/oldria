@@ -1,22 +1,15 @@
 # == Schema Information
-# Schema version: 20120217190417
 #
 # Table name: direct_messages
 #
 #  id                     :integer         not null, primary key
 #  body                   :text
-#  sender_id              :integer         not null
-#  receiver_id            :integer         not null
-#  in_reply_to_message_id :integer
+#  sender_id              :integer         not null, indexed
+#  receiver_id            :integer         not null, indexed
+#  in_reply_to_message_id :integer         indexed
 #  created_at             :datetime
 #  updated_at             :datetime
 #  from_admin             :boolean         default(FALSE)
-#
-# Indexes
-#
-#  index_direct_messages_on_in_reply_to_message_id  (in_reply_to_message_id)
-#  index_direct_messages_on_sender_id               (sender_id)
-#  index_direct_messages_on_receiver_id             (receiver_id)
 #
 
 class DirectMessage < ActiveRecord::Base

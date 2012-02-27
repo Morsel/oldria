@@ -1,18 +1,12 @@
 # == Schema Information
-# Schema version: 20120217190417
 #
 # Table name: followings
 #
 #  id          :integer         not null, primary key
-#  follower_id :integer
-#  friend_id   :integer
+#  follower_id :integer         indexed
+#  friend_id   :integer         indexed
 #  created_at  :datetime
 #  updated_at  :datetime
-#
-# Indexes
-#
-#  index_followings_on_friend_id    (friend_id)
-#  index_followings_on_follower_id  (follower_id)
 #
 
 class Following < ActiveRecord::Base
