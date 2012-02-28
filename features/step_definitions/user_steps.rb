@@ -39,6 +39,7 @@ Given /^a media user named "([^\"]*)" has just signed up$/ do |username|
 
   @user = User.find_by_email("#{username}@media.com")
   @user.update_attribute(:username, username)
+  @user.update_attributes(:password => "secret", :password_confirmation => "secret")
 end
 
 Given /^I am logged in as an admin$/ do

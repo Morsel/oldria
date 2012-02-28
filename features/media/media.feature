@@ -36,5 +36,6 @@ Feature: Media accounts
     Given a media user named "journo" has just signed up
     And "journo" has just been confirmed
     And I am logged in as "journo"
+	Then I should see "Fresh from Spoonfeed"
     When I logout
     Then I should be on the homepage

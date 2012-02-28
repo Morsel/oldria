@@ -6,8 +6,9 @@ describe "Subscription Rake Tasks" do
   before(:each) do
     @rake = Rake::Application.new
     Rake.application = @rake
-    Rake.application.rake_require "lib/tasks/subscription"
     Rake::Task.define_task(:environment)
+    # Rake.application.rake_require "lib/tasks/subscription"
+    load "#{Rails.root}/lib/tasks/subscription.rake"
   end
 
   describe "#mark_past_due" do

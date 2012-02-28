@@ -3,8 +3,8 @@ Given /^"([^\"]*)" is following "([^\"]*)"$/ do |follower, friend|
 end
 
 Given /^I am following "([^\"]*)"$/ do |username|
-  visit profile_path(username)
-  click_link "Follow User"
+  visit soapbox_profile_path(username)
+  click_link "Follow this user"
 end
 
 Then /^"([^\"]*)" should be following ([0-9]+) users?$/ do |username,num|
