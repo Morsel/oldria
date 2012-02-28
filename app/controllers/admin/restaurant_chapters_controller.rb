@@ -41,7 +41,7 @@ class Admin::RestaurantChaptersController < Admin::AdminController
   def select
     chapters = RestaurantTopic.find(params[:id]).chapters
     render :update do |page|
-      page.replace_html 'profile_question_chapter_id',
+      page.replace_html 'restaurant_question_chapter_id',
           '<option value=""></option>' + options_from_collection_for_select(chapters, :id, :title)
     end
   end
