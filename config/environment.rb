@@ -9,7 +9,7 @@ require File.join(File.dirname(__FILE__), 'boot')
 Rails::Initializer.run do |config|
   config.gem 'will_paginate',         :version => "~>2.3.9"
   config.gem 'RedCloth',              :lib => 'redcloth'
-  config.gem 'searchlogic',           :version => "~>2.4.5"
+  config.gem 'searchlogic',           :version => "~>2.5.8"
   config.gem 'authlogic',             :version => "~>2.1.3"
   config.gem 'addresslogic',          :version => "~>1.2.1"
   config.gem 'cancan',                :version => "~>1.0.1"
