@@ -36,7 +36,7 @@
 
 class User < ActiveRecord::Base
   acts_as_authentic do |c|
-    c.validates_format_of_login_field_options = { :with => /^[a-zA-Z0-9\-\_\. ]+$/,
+    c.validates_format_of_login_field_options = { :with => /^[a-zA-Z0-9\-\_ ]+$/,
       :message => "'%{value}' is not allowed. Usernames can only contain letters, numbers, and/or the '-' symbol" }
     c.disable_perishable_token_maintenance = true
   end
@@ -331,7 +331,7 @@ class User < ActiveRecord::Base
                         :last_name => params[:last_name],
                         :email => params[:email],
                         :role => "media")
-    new_user.username = [new_user.first_name, new_user.last_name].map(&:downcase).join(".")
+    new_user.username = [new_user.first_name, new_user.last_name].join("")
     new_user.password = new_user.password_confirmation = Authlogic::Random.friendly_token
     return new_user
   end

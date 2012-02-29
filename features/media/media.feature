@@ -13,7 +13,7 @@ Feature: Media accounts
       | role       | media        |
     And I press "submit"
     Then "jimbo@bo.com" should have 1 email
-    And "jim.bo" should be marked as a media user
+    And "JimBo" should be marked as a media user
 
   Scenario: Media confirmation
     Given a media user named "mediaman" has just signed up
