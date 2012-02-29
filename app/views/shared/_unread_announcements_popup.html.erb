@@ -4,16 +4,18 @@
       <%= render 'messages/message_details', :message => announcement %>
     <% end %>
   </div>
+  <% content_for :javascript do %>
   <% javascript_tag do %>
       $(document).ready(function(){
         $.colorbox({
           innerWidth: 360,
           innerHeight: 320,
           open: true,
-          html : function (){
+          html: function (){
             return $('#unread_announcements_content').html();
           }
         });
       });
+  <% end %>
   <% end %>
 <% end %>
