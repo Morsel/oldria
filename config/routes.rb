@@ -245,8 +245,6 @@ ActionController::Routing::Routes.draw do |map|
   map.resource :friends_statuses, :only => 'show'
   map.social_media 'social_media', :controller => 'social_media', :action => 'index'
 
-  map.resource :search, :only => 'show'
-
   map.promotions 'newsfeed', :controller => "spoonfeed/promotions", :action => "index"
   map.a_la_minute 'a_la_minute', :controller => "spoonfeed/a_la_minute", :action => "index"
   map.a_la_minute_answers 'a_la_minute/:question_id/answers', :controller => "spoonfeed/a_la_minute", :action => "answers"
