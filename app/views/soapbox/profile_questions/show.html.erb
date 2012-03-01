@@ -4,7 +4,7 @@
 <% javascript_tag do %>
   var addthis_share = {
     url: '<%= soapbox_profile_question_url(@question) %>',
-    title: $('title').text().replace('Spoonfeed','Soapbox')
+    title: $('title')
   }
 <% end %>
 <!-- AddThis Button BEGIN -->
@@ -20,18 +20,18 @@
 <div id="btl_answers">
   <h3><%= @question.chapter.title %></h3>
 
-  <h4><span class="letter-q">Q:</span> <%= @question.title %></h4>
+  <h4><%= @question.title %></h4>
 
-  <% for answer in @answers %>
-      <div class="comment">
-          <%= render :partial => "users/identity", :locals => { :user => answer.user } %>
-          <div class="user_comment"><p><%= answer.answer %></p></div>
-      </div>
+  <% for answer in @answers -%>
+  <% div_for(answer) do %>
+    <%= render :partial => "soapbox/profile_questions/answer", :locals => { :answer => answer } %>
   <% end %>
+  <div class="clear">&nbsp;</div>
+  <% end -%>
 
   <p><span class="timestamp">Last updated: <%= @answers.first.try(:updated_at).try(:strftime, "%b %e %Y") %></span></p>
 </div><!-- #btl_answers -->
 
 <% content_for :sidebar do -%>
-<%= render :partial => "soapbox/topics/sidebar" %>
-<% end if soapbox? -%>
+<%= render :partial => "soapbox/profile_questions/sidebar" %>
+<% end -%>

@@ -4,14 +4,14 @@
     <p class="comment_date"><%= profile_answer.created_at.strftime("%m/%d") %></p>
     <p class="topic">
       <%= link_to "#{profile_answer.profile_question.chapter.title_with_topic}: #{profile_answer.profile_question.title}",
-          soapbox_question_path(profile_answer.profile_question) %>
+          soapbox_profile_question_path(profile_answer.profile_question) %>
     </p>
   </div>
   <div class="user_comment">
     <%= render :partial => 'users/identity', :locals => { :user => profile_answer.user } %>
     <div class="user_comment"><%= truncate(profile_answer.answer, :length => 200) %>
       <% if profile_answer.answer.size > 200 -%>
-        <%= link_to "more &raquo;", soapbox_question_path(profile_answer.profile_question) %>
+        <%= link_to "more &raquo;", soapbox_profile_question_path(profile_answer.profile_question) %>
       <% end %>
     </div>
   </div>

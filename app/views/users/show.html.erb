@@ -126,7 +126,7 @@
                     <p class="description">Find out <%= @user.first_name %>’s favorite haunts around the world:</p>
                     <ul>
                         <% for city in Topic.travel.chapters.for_user(@user) %>
-                        <li><%= link_to city.title, link_for_user_questions(:user_id => @user.id, :chapter_id => city.id) %></li>
+                        <li><%= link_to city.title, user_btl_chapter_path(:user_id => @user.id, :chapter_id => city.id) %></li>
                         <% end if Topic.travel.present? %>
                     </ul>
                 </div>

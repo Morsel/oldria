@@ -16,7 +16,7 @@ class ProfileAnswersController < ApplicationController
               answer.answer = answer_params[:answer]
 
               answer.post_to_facebook = answer_params[:post_to_facebook]
-              answer.share_url = soapbox_user_questions_url(answer.user, :chapter_id => answer.profile_question.chapter.id)
+              answer.share_url = soapbox_user_profile_questions_url(answer.user, :chapter_id => answer.profile_question.chapter.id)
 
               unless answer.save # if it doesn't save, the answer was blank, and we can ignore it
                 Rails.logger.error answer.errors.full_messages

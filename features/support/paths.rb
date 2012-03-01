@@ -202,7 +202,7 @@ module NavigationHelpers
       
     # Question
     when /^the question page with title "(.+)"$/
-      profile_question_path(ProfileQuestion.find_by_title($1).id)
+      soapbox_profile_question_path(ProfileQuestion.find_by_title($1).id)
 
     # all qotds and trends pages
     when /^the all of the qotd questions listing page$/

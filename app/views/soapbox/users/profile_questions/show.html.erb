@@ -1,16 +1,15 @@
-<% if @user.present? -%>
 <% title "#{@question.title} - #{@user.name} - Behind The Line", false %>
 <% content_for :facebook_meta do -%>
   <meta property="og:type" content="article"/>
   <meta property="og:image" content="http://soapbox.restaurantintelligenceagency.com/images/soapbox/logo-soapbox.png"/>
-  <meta property="og:url" content="<%= soapbox_user_question_url(@user, @question) %>"/>
+  <meta property="og:url" content="<%= soapbox_user_profile_question_url(@user, @question) %>"/>
 <% end -%>
 <% content_for(:fb_description, "#{@user.name} says: #{@question.title} #{truncate(@primary_answer.answer, :length => 100)}") %>
 
 <% javascript_tag do %>
   var addthis_share = {
-    url: '<%= soapbox_user_question_url(@user, @question) %>',
-    title: $('title').text().replace('Spoonfeed','Soapbox')
+    url: '<%= soapbox_user_profile_question_url(@user, @question) %>',
+    title: $('title')
   }
 <% end %>
 <!-- AddThis Button BEGIN -->
@@ -20,7 +19,7 @@
 <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#username=unpluggedria"></script>
 <!-- AddThis Button END -->
 
-<h1 id="btl-title" class="btl"><%= link_to "<span class=\"btl-art\">Behind the Line:</span> <span class=\"name\">#{@user.name}</span>", path_for_profile(@user) %></h1>
+<h1 id="btl-title" class="btl"><%= link_to "<span class=\"btl-art\">Behind the Line:</span> <span class=\"name\">#{@user.name}</span>", soapbox_profile_path(@user.username) %></h1>
 
 <h2 id="topic_title">Topic: <%= @question.chapter.topic.title %></h2>
 
@@ -40,7 +39,7 @@
   <!-- Likes and Tweets BEGIN -->
   <div class="sharing">
       <script src="http://connect.facebook.net/en_US/all.js#xfbml=1"></script>
-      <fb:like href="<%= soapbox_user_question_url(@user, @question) %>" layout="button_count" show_faces="false" width="90" height="20" action="like" colorscheme="light"></fb:like>
+      <fb:like href="<%= soapbox_user_profile_question_url(@user, @question) %>" layout="button_count" show_faces="false" width="90" height="20" action="like" colorscheme="light"></fb:like>
 
       <script src="http://platform.twitter.com/widgets.js" type="text/javascript"></script>
       <a href="http://twitter.com/share" class="twitter-share-button">Tweet</a>
@@ -62,42 +61,6 @@
   <% end -%>
 </div><!-- #btl_answers -->
 
-<% else -%><%# no user %>
-<% title "#{@question.title} - Behind The Line", false %>
-<% content_for(:fb_description, btl_description_for_fb(@answers)) %>
-
-<% javascript_tag do %>
-  var addthis_share = {
-    url: '<%= soapbox_question_url(@question) %>',
-    title: $('title').text().replace('Spoonfeed','Soapbox')
-  }
-<% end %>
-<!-- AddThis Button BEGIN -->
-<div class="addthis_toolbox">
-  <a href="http://www.addthis.com/bookmark.php?v=250&username=unpluggedria" class="addthis_button">Share</a>
-</div>
-<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#username=unpluggedria"></script>
-<!-- AddThis Button END -->
-
-<h1 id="btl-title" class="btl"><span class="btl-art">Behind the Line</span></h1>
-<h2 id="topic_title">Topic: <%= @question.chapter.topic.title %></h2>
-
-<div id="btl_answers">
-  <h3><%= @question.chapter.title %></h3>
-
-  <h4><%= @question.title %></h4>
-
-  <% for answer in @answers -%>
-  <% div_for(answer) do %>
-    <%= render :partial => "soapbox/questions/answer", :locals => { :answer => answer } %>
-  <% end %>
-  <div class="clear">&nbsp;</div>
-  <% end -%>
-
-  <p><span class="timestamp">Last updated: <%= @answers.first.try(:updated_at).try(:strftime, "%b %e %Y") %></span></p>
-</div><!-- #btl_answers -->
-<% end -%>
-
 <% content_for :sidebar do -%>
-<%= render :partial => "soapbox/questions/sidebar" %>
+<%= render :partial => "soapbox/profile_questions/sidebar" %>
 <% end -%>

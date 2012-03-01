@@ -16,13 +16,13 @@ Feature: AddThis sharing feature
     Given I am on the question page with title "Title 1"
     Then I should see addThis button
 
-  # Scenario: Topic should contain button addThis
-  #   Given I am on the soapbox profile page for "john"
-  #   And profile question matching employment role with topic name "Background" for "john"
-  #   When I follow "View all Topics" within "#behindline"
-  #   When I follow "Background"
-  #   Then I should see addThis button
-  #   And addThis button should have public link
+  Scenario: Topic should contain button addThis
+    Given I am on the soapbox profile page for "john"
+    And profile question matching employment role with topic name "Background" for "john"
+    When I follow "View all Topics" within "#behindline"
+    When I follow "Background"
+    Then I should see addThis button
+    And addThis button should have public link
 
   Scenario: Chapter questions page should contain AddThis UI feature
     Given I am on the soapbox profile page for "john"

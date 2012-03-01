@@ -26,15 +26,15 @@ ActionController::Routing::Routes.draw do |map|
   map.resource :cloudmail, :only => :create 
 
   map.namespace(:soapbox) do |soapbox|
-    soapbox.resources :questions, :only => ['index', 'show'], :as => "behind_the_line"
+    soapbox.resources :profile_questions, :only => ['index', 'show'], :as => "behind_the_line"
+    soapbox.btl_topic 'behind_the_line/topic/:id', :controller => 'behind_the_line', :action => 'topic'
+    soapbox.btl_chapter 'behind_the_line/chapter/:id', :controller => 'behind_the_line', :action => 'chapter'
+
     soapbox.resources :restaurant_questions, :only => ['show']
-    soapbox.resources :topics, :only => ['show']
-    soapbox.resources :chapters, :only => ['show']
 
     soapbox.resources :restaurants, :only => ['show'] do |restaurants|
       restaurants.resources :feature_pages, :only => ['show']
-      restaurants.resources :questions, :collection => { :topics => :get, :chapters => :get, :refresh => :post }, 
-        :controller => "restaurant_questions"
+      restaurants.resources :questions, :collection => { :topics => :get, :chapters => :get, :refresh => :post }, :controller => "restaurant_questions"
       restaurants.resources :photos, :only => ['show', 'index']
       restaurants.resources :accolades, :only => ['index']
     end
@@ -48,9 +48,9 @@ ActionController::Routing::Routes.draw do |map|
     soapbox.resources :menu_items, :as => "on_the_menu"
 
     soapbox.resources :users, :only => [] do |users|
-      users.resources :questions, :only => ['index', 'show']
-      users.resources :topics, :only => ['show']
-      users.resources :chapters, :only => ['show']
+      users.resources :profile_questions, :only => ['index', 'show'], :controller => 'users/profile_questions'
+      users.btl_topic 'behind_the_line/topic/:id', :controller => 'users/behind_the_line', :action => 'topic'
+      users.btl_chapter 'behind_the_line/chapter/:id', :controller => 'users/behind_the_line', :action => 'chapter'
     end
 
     soapbox.resources :newsletter_subscribers, :member => { :welcome => :get, :confirm => :get }

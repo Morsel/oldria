@@ -8,10 +8,10 @@
           <% for topic in Topic.user_topics.without_travel.all -%>
           <li>
             <header class="feed-item-title">
-                <%= link_to topic.title, soapbox_topic_path(topic) %>
+                <%= link_to topic.title, soapbox_btl_topic_path(topic) %>
             </header>
             <aside class="feed-item-reply-count">
-                <% link_to soapbox_topic_path(topic) do %>
+                <% link_to soapbox_btl_topic_path(topic) do %>
                 <span class="num"><%= count = topic.profile_questions.to_a.sum(&:soapbox_answer_count) %></span> <%= count == 1 ? "reply" : "replies" %>
                 <% end %>
             </aside>
