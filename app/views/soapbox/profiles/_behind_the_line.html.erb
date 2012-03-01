@@ -1,0 +1,20 @@
+<div id="behindline" class="recent_actions">
+    <h3 id="btl-title"><span class="btl-art">Behind the Line:</span> <%= user.name %></h3>
+    <% if can?(:manage, user) && !soapbox? %>
+    <div class="edit_profile_link">
+        <%= link_to "<span>Answer more questions!</span>", user_behind_the_line_path(user) %>
+    </div>
+    <% end %>
+    <ul class="box">
+        <% reset_cycle('default') -%>
+        <% user_topics(user).each do |topic| %>
+        <li class="<%= cycle("even", "odd") %>">
+            <% link_to soapbox_user_btl_topic_path(:user_id => user.id, :id => topic.id) do %>
+            <h5><%= topic.title %> <span class="completeness">(<%= topic.completion_percentage(user) %>% complete)</span></h5>
+            <%= topic.description || truncate(topic.profile_questions.map(&:title).join(" "), :length => 100) %>
+            <% end %>
+        </li>
+        <% end %>
+    </ul>
+    <p class="view_all"><%= link_to "View all Topics &raquo;", soapbox_user_profile_questions_path(:user_id => user.id) %></p>
+</div><!--#behindline-->

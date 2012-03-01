@@ -138,7 +138,7 @@
 <div id="recent_soapbox" class="clear clearfix">
 
     <% if @user.btl_enabled? && (@user.published_topics.present? || @user == current_user || current_user.try(:admin?)) %>
-    <%= render :partial => 'profiles/behind_the_line', :locals => { :user => @user } %>
+    <%= render :partial => 'behind_the_line', :locals => { :user => @user } %>
     <% end %>
 
     <div id="recent_qtod" class="recent_actions last">
