@@ -13,7 +13,7 @@ class TimelinesController < ApplicationController
   def twitter
     if current_user.twitter_authorized?
       @title = "Twitter"
-      @posts = current_user.twitter_client.friends_timeline
+      @posts = current_user.twitter_client.home_timeline
     end
     render :action => "activity_stream"
   end
