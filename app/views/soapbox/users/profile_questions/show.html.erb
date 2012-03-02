@@ -52,7 +52,7 @@
 
   <% for answer in @answers[0..4] %>
   <% div_for(answer) do %>
-    <%= render :partial => "soapbox/questions/answer", :locals => { :answer => answer } %>
+    <%= render :partial => "soapbox/profile_questions/answer", :locals => { :answer => answer } %>
   <% end %>
   <div class="clear">&nbsp;</div>
   <% end %>
