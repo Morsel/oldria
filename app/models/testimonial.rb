@@ -24,6 +24,7 @@ class Testimonial < ActiveRecord::Base
                     :path           => "#{RAILS_ENV}/testimonial_photos/:id/:style/:filename",
                     :bucket         => "spoonfeed",
                     :url            => ':s3_domain_url',
+                    :default_url    => "/images/default_avatars/small.png",
                     :styles         => { :small => "114x114>" }
 
   validates_attachment_content_type :photo,
