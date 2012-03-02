@@ -29,6 +29,7 @@ class Soapbox::SoapboxController < ApplicationController
 
   def restaurant_directory
     @restaurants = Restaurant.with_premium_account
+    @use_search = true
     @no_sidebar = true
     render :template => "directory/restaurants"
   end

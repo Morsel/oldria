@@ -172,53 +172,83 @@ h1,h2,h3,h4,h5,h6{
 #nav {
 	padding: 0;
 	a {
-		@include hiddentext;
-		margin: -23px 0 0 0;
-		float: left;
-		width: 77px;
-		height: 115px;
-		text-decoration: none;
+	  display: block;
+	  outline: 0;
+	  text-indent: -9999px;
+	  margin: -23px 0 0 0;
+	  float: left;
+	  width: 77px;
+	  height: 115px;
+	  text-decoration: none;
 		background: transparent url(/images/soapbox/soapbox-nav.png) no-repeat;
 		&#nav-home {
 			background-position: 0 0;
-			&:hover {background-position: 0 -200px;}
-			&.selected {background-position: 0 -400px;}
+			&:hover {
+				background-position: 0 -200px;
+			}
+			&.selected {
+				background-position: 0 -400px;
+			}
 		}
-		&#nav-otm {
+		&#nav-fb {
 			background-position: -77px 0;
-			&:hover {background-position: -77px -200px;}
-			&.selected {background-position: -77px -400px;}
-			width: 87px;
+			width: 97px;
+			&:hover {
+				background-position: -77px -200px;
+			}
+			&.selected {
+				background-position: -77px -400px;
+			}
 		}
 		&#nav-alm {
-			background-position: -165px 0;
-			&:hover {background-position: -165px -200px;}
-			&.selected {background-position: -165px -400px;}
-			width: 87px;
+			background-position: -174px 0;
+			width: 86px;
+			&:hover {
+				background-position: -174px -200px;
+			}
+			&.selected {
+				background-position: -174px -400px;
+			}
 		}
-		&#nav-btl {
-			background-position: -251px 0;
-			&:hover {background-position: -251px -200px;}
-			&.selected {background-position: -251px -400px;}
-			width: 97px;
+		&#nav-otm {
+			background-position: -260px 0;
+			width: 88px;
+			&:hover {
+				background-position: -260px -200px;
+			}
+			&.selected {
+				background-position: -260px -400px;
+			}
 		}
 		&#nav-directory {
-			background-position: -349px 0;
-			&:hover {background-position: -349px -200px;}
-			&.selected {background-position: -349px -400px;}
-			width: 99px;
+			background-position: -348px 0;
+			width: 100px;
+			&:hover {
+				background-position: -348px -200px;
+			}
+			&.selected {
+				background-position: -348px -400px;
+			}
 		}
 		&#nav-restaurant-directory {
 			background-position: -448px 0;
-			&:hover {background-position: -448px -200px;}
-			&.selected {background-position: -448px -400px;}
 			width: 115px;
+			&:hover {
+				background-position: -448px -200px;
+			}
+			&.selected {
+				background-position: -448px -400px;
+			}
 		}
-		&#nav-newsfeed {
-			background-position: -562px 0;
-			&:hover {background-position: -562px -200px;}
-			&.selected {background-position: -562px -400px;}
-			width: 111px;
+		&#nav-join {
+			background-position: -563px 0;
+			width: 75px;
+			&:hover {
+				background-position: -563px -200px;
+			}
+			&.selected {
+				background-position: -563px -400px;
+			}
 		}
 	}
 }

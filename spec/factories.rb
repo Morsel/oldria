@@ -511,7 +511,7 @@ Factory.define :sf_slide do |f|
 end
 
 Factory.define :a_la_minute_question do |f|
-  f.question "What's new?"
+  f.question "Our current inspiration is"
   f.kind 'restaurant'
 end
 
