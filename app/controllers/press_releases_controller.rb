@@ -1,7 +1,7 @@
 class PressReleasesController < ApplicationController
 
   before_filter :find_restaurant
-  before_filter :require_manager
+  before_filter :require_manager, :unless => [:archive]
 
   def index
     @press_release = @restaurant.press_releases.build
@@ -39,6 +39,10 @@ class PressReleasesController < ApplicationController
       flash[:notice] = "Deleted press release \"#{@press_release.title}\""
       redirect_to :action => "index", :restaurant_id => @restaurant.id
     end
+  end
+
+  def archive
+    
   end
 
   private
