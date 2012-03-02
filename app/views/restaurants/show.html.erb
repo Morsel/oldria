@@ -41,7 +41,7 @@
 
     <section id="middle" class="clear">
 
-        <div class="middleDetails">
+        <!-- <div class="middleDetails">
             <article class="stack green">
                 <h2><span>Today's Deals</span><a href="#" class="gray">archives</a></h2>
                 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
@@ -60,7 +60,7 @@
                     <li><a href="#">ante</a></li>
                 </ul>
             </article>
-        </div>
+        </div> -->
 
         <article class="middleDetails">
             <h2><span>A la Minute</span><%= link_to "see all A la Minute", a_la_minute_path, :class => "gray" %></h2>
@@ -86,7 +86,7 @@
 
         <div class="inspire clear">
             <h4>Our Current Inspiration</h4>
-            <p class="inspireText">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+            <p class="inspireText"><%= @restaurant.a_la_minute_answers.for_question(ALaMinuteQuestion.current_inspiration).first(:order => "created_at DESC").answer %></p>
         </div>
 
     </section><!-- middle -->
@@ -118,7 +118,7 @@
         </div>
 
         <div class="accolades" style="margin-right: 0;">
-            <h2><span>Accolades</span><%= link_to_unimplemented "see all accolades" %></h2>
+            <h2><span>Accolades</span><%#= link_to_unimplemented "see all accolades" %></h2>
             <ul>
                 <%= render :partial => 'accolades/accolade', :collection => @restaurant.accolades.by_run_date %>
             </ul>

@@ -39,6 +39,10 @@ class ALaMinuteQuestion < ActiveRecord::Base
     a_la_minute_answers.from_premium_responders.show_public.first
   end
 
+  def self.current_inspiration
+    first(:conditions => "question LIKE 'Our current inspiration%'")
+  end
+
   def self.most_recent_for_soapbox(count = 10)
     all(:joins => 'LEFT OUTER JOIN a_la_minute_answers
                    ON `a_la_minute_answers`.a_la_minute_question_id = `a_la_minute_questions`.id
