@@ -80,6 +80,11 @@ namespace :deploy do
     run "cd #{current_path} && whenever --update-crontab #{rails_env}"
   end
 
+  desc "build missing paperclip styles"
+  task :build_missing_paperclip_styles, :roles => :app do
+    run "cd #{release_path}; RAILS_ENV=production rake paperclip:refresh class=User"
+  end
+
   namespace :web do
     task :disable, :roles => :web do
       # invoke with
@@ -172,6 +177,7 @@ end
 before 'deploy:restart', 'compass:compile'
 after "deploy:symlink", "deploy:update_crontab"
 after 'deploy:update_code', 'deploy:symlink_shared'
+after("deploy:update_code", "deploy:build_missing_paperclip_styles")
 
 before "deploy:update_code", "bluepill:stop"
 after "deploy:restart",  "bluepill:start"
