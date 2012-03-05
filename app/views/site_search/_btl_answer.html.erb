@@ -1,0 +1,33 @@
+<% unless btl_answer.profile_question.nil? -%>
+<li>
+  <% link_to profile_question_path(btl_answer.profile_question) do %>
+    <% date = btl_answer.created_at %>
+    <% responder = btl_answer.user %>
+    
+    <time datetime="<%= date.try(:strftime,'%Y-%m-%d') %>"><span><%= date.try(:strftime, "%b").upcase %></span><%= date.try(:strftime, "%e") %></time>
+		
+    <span class="title">
+      <strong><%= "#{btl_answer.profile_question.chapter.title_with_topic}:" %></strong><br/> <%= "#{btl_answer.profile_question.title}" %><br/>
+    </span>
+		<div class="user-answer">
+			<div class="avatar">
+    	  <% if responder.respond_to?(:avatar) %>
+    	    <% if responder.avatar? -%>
+    	      <%= image_tag(responder.avatar.url(:thumb), :width => 50, :height => 50) %>
+    	    <% end -%>
+    	  <% elsif responder.respond_to?(:photos) %>
+    	    <% if responder.photos.any? -%>
+    	      <%= link_to image_tag(responder.primary_photo.attachment.url(:medium), :alt => ''), restaurant_photos_path(responder) %>
+    	    <% end -%>
+    	  <% end -%>
+    	</div>
+			<p class="btl_answer"><%= truncate(btl_answer.answer, :length => 200) %></p>
+    	<span class="btl-answer-author">
+    	  by <%= [btl_answer.user.try(:name),
+    	          btl_answer.user.primary_employment.try(:restaurant_role).try(:name),
+    	          btl_answer.user.restaurant_names].reject(&:blank?).join(", ") %>
+    	</span>
+		</div>
+  <% end %>
+</li>
+<% end -%>

@@ -1,16 +1,3 @@
-# == Schema Information
-# Schema version: 20100708221553
-#
-# Table name: media_request_discussions
-#
-#  id               :integer         not null, primary key
-#  media_request_id :integer
-#  restaurant_id    :integer
-#  comments_count   :integer         default(0)
-#  created_at       :datetime
-#  updated_at       :datetime
-#
-
 require 'spec/spec_helper'
 
 describe MediaRequestDiscussion do

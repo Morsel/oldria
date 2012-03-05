@@ -17,7 +17,7 @@ When /^Twitter authorizes "([^\"]+)"$/ do |username|
   u.save.should be_true
   u.twitter_authorized?.should be_true
 
-  visit path_to('the homepage')
+  visit edit_user_profile_path(u)
 end
 
 Then /^"([^\"]+)" should have ([\d]+) friend tweets$/ do |username, number|

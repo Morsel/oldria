@@ -1,25 +1,30 @@
-<header id="restaurant_header">
-    <div id="restaurant_actions">
-        <%= link_to 'Back to public view', restaurant_path(@restaurant), :class => 'backtopublic' %>
-    </div><!--#restaurant_actions-->
-
-    <%= image_tag logo_for(@restaurant).attachment.url(:small), :width=>'100' %>
-    <h1 id="name"><%= restaurant_link(@restaurant) %></h1>
-
-    <div id="restaurant_meta" class="">
-        <p class="address"><%= @restaurant.address_parts.join("<br />") %></p>
-        <p>
-            Metropolitan Area: <%=h @restaurant.metropolitan_area.try(:name) %><br/>
-            Region: <%=h @restaurant.james_beard_region.try(:name) %>
-        </p>
-    </div><!-- /restaurant_meta -->
+<header id="profileHeader" class="clearfix">
+    <div id="profileImage" class="left">
+        <%= image_tag(@restaurant.logo.attachment.url(:big_logo)) if @restaurant.logo.present? %>
+    </div>
+    <div id="profileDetails" class="right">
+        <div class="headingDetails clearfix">
+            <hgroup class="left">
+                <h2><%= @restaurant.name %></h2>
+                <p class="tagline"><%= @restaurant.description %></p>
+            </hgroup>
+            <div id="restaurant_actions" class="moreLinks right">
+                <%= link_to 'Back to public view', restaurant_path(@restaurant), :class => 'backtopublic' %>
+                <div class="moreDetails">
+                    <small>facts updated on <span><%= @restaurant.updated_at.strftime('%m/%d/%y') %></span></small>
+                    <small>menus updated on <span><%= @restaurant.menus_last_updated %></span></small>
+                    <small>photos updated on <span><%= @restaurant.photos_last_updated %></span></small>
+                </div>
+            </div>
+        </div>
+    </div>
 </header>
 
 <nav id="edit_resto_menu">
     <%= active_link_to 'Details', edit_restaurant_path(@restaurant),
-        :class=> 'promo editor details' %>
+        :class => 'promo editor details' %>
     <%= active_link_to 'Features', restaurant_features_path(@restaurant),
-        :class=> 'promo editor features' %>
+        :class => 'promo editor features' %>
     <%= active_link_to "Photos", bulk_edit_restaurant_photos_path(@restaurant),
         :class => 'promo editor photos' %>
     <%= active_link_to 'Fact Sheet', edit_restaurant_fact_sheet_path(@restaurant),
@@ -27,13 +32,15 @@
     <%= active_link_to "Menus", bulk_edit_restaurant_menus_path(@restaurant),
         :class => 'promo editor menus' %>
     <%= active_link_to 'Top Tags', edit_top_restaurant_features_path(@restaurant),
-        :class=> 'promo editor tags' if @restaurant.restaurant_features.any? %>
+        :class => 'promo editor tags' if @restaurant.restaurant_features.any? %>
     <%= active_link_to 'Staff', bulk_edit_restaurant_employees_path(@restaurant),
-        :class=> 'promo editor emp' %>
+        :class => 'promo editor emp' %>
     <%= active_link_to "A La Minute", bulk_edit_restaurant_a_la_minute_answers_path(:restaurant_id => @restaurant),
         :class => 'promo editor alm' %>
     <%= active_link_to "Newsfeed", new_restaurant_promotion_path(:restaurant_id => @restaurant),
         :class => 'promo editor newsfeed' %>
     <%= active_link_to "On the Menu", restaurant_menu_items_path(:restaurant_id => @restaurant),
         :class => 'promo editor otm' %>
+    <%= active_link_to "Press Releases", restaurant_press_releases_path(:restaurant_id => @restaurant),
+	    :class => 'promo editor pr' %>
 </nav>

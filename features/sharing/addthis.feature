@@ -9,7 +9,7 @@ Feature: AddThis sharing feature
   And I am logged in as "john"
 
   Scenario: User with premium account can share profile
-    And I am on the profile page for "john"
+    When I am on the soapbox profile page for "john"
     Then I should see addThis button
 
   Scenario: Question page should AddThis UI feature
@@ -25,13 +25,13 @@ Feature: AddThis sharing feature
     And addThis button should have public link
 
   Scenario: Chapter questions page should contain AddThis UI feature
-    Given I am on the profile page for "john"
+    Given I am on the soapbox profile page for "john"
     When I follow "View all Topics" within "#behindline"
     And I follow "View all"
     And I follow "Education"
     Then I should see addThis button
     And addThis button should have public link
-          
+
   Scenario: Viewing addThis on user profiles
     Given the following published users:
       | username    | password |
@@ -50,24 +50,24 @@ Feature: AddThis sharing feature
     And there is a Trend Question "What is the haps?: Boo-ya"
     When I create a new soapbox entry for that Trend Question with:
       | Published at | 2010-05-10 |
-      | Daily feature | true       |
+      | Daily feature | true      |
 
     When I go to the soapbox front burner page
     Then I should see "Where do you buy flowers?"
     And I should see "What is the haps?: Boo-ya"
     And I should see two addThis buttons
 
-  Scenario: User with basic account can't share profile
-    Given the user "john" does not have a premium account
-    And I am logged in as "john"
-    And I am on the profile page for "john"
-    Then I can`t share this profile
-    
-  Scenario: User with premium account can share profile
-    Given the user "john" has a premium account
-    And I am logged in as "john"
-    And I am on the profile page for "john"
-    Then I should see addThis button
+  # Scenario: User with basic account can't share profile
+  #   Given the user "john" does not have a premium account
+  #   And I am logged in as "john"
+  #   When I am on the profile page for "john"
+  #   Then I can`t share this profile
+  #   
+  # Scenario: User with premium account can share profile
+  #   Given the user "john" has a premium account
+  #   And I am logged in as "john"
+  #   When I am on the profile page for "john"
+  #   Then I should see addThis button
 
   Scenario: Soapbox Qotd/Trend page should contain og:description tag with appropriate content
     Given there is a QOTD asking "Where do you buy flowers?"

@@ -21,10 +21,6 @@ module ApplicationHelper
         "FB.login(function() {window.location.href = '#{url}'}, {scope: 'offline_access, publish_stream, email, friends_status, manage_pages'});", :class => "facebook_login"
   end
 
-  def display_sidebar?
-    controller_name != "soapbox"
-  end
-
   def div_if(boolean, options={}, &block)
     return "" unless boolean
     content_tag(:div, options, &block)
@@ -63,7 +59,7 @@ module ApplicationHelper
   end
 
   def logged_in_on_spoonfeed
-    current_user.present? && not_soapbox && not_mediafeed
+    current_user.present? && not_soapbox
   end
 
   def logo_for(obj)
@@ -84,5 +80,9 @@ module ApplicationHelper
     elsif commenter.is_a?(Restaurant)
       restaurant_path(commenter)
     end
+  end
+
+  def link_to_unimplemented(string, opts = {})
+    link_to_function(string, "alert('Not implemented yet')", opts)
   end
 end

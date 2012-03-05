@@ -1,14 +1,13 @@
 # == Schema Information
-# Schema version: 20110913204942
 #
 # Table name: comments
 #
 #  id               :integer         not null, primary key
 #  title            :string(50)      default("")
 #  comment          :text
-#  commentable_id   :integer
-#  commentable_type :string(255)
-#  user_id          :integer
+#  commentable_id   :integer         indexed
+#  commentable_type :string(255)     indexed
+#  user_id          :integer         indexed
 #  created_at       :datetime
 #  updated_at       :datetime
 #
@@ -26,6 +25,12 @@ class Comment < ActiveRecord::Base
   named_scope :not_user, lambda { |user| {
     :conditions => ["user_id != ?", user.id]
   }}
+
+  named_scope :from_premium_users, {
+    :joins => { :user => :subscription },
+    :conditions => ["subscriptions.id IS NOT NULL AND (subscriptions.end_date IS NULL OR subscriptions.end_date >= ?)",
+      Date.today]
+  }
 
   #validates_presence_of :comment
 

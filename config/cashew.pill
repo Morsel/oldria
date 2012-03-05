@@ -8,9 +8,9 @@ Bluepill.application("cashew", :log_file => "#{APP_ROOT}/shared/log/bluepill.log
   app.process("delayed_job") do |process|
     process.working_dir = RAILS_ROOT
 
-    process.start_grace_time    = 60.seconds
-    process.stop_grace_time     = 60.seconds
-    process.restart_grace_time  = 60.seconds
+    process.start_grace_time    = 120.seconds
+    process.stop_grace_time     = 120.seconds
+    process.restart_grace_time  = 120.seconds
 
     process.start_command = "/usr/bin/env RAILS_ENV=#{RAILS_ENV} #{RUBY_EXEC} #{RAILS_ROOT}/script/delayed_job start"
     process.stop_command  = "/usr/bin/env RAILS_ENV=#{RAILS_ENV} #{RUBY_EXEC} #{RAILS_ROOT}/script/delayed_job stop"

@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
 
-  before_filter :require_user, :only => [:show, :index]
+  before_filter :require_user, :only => [:show, :resume, :index]
   before_filter :require_owner_or_admin, :only => [:edit, :update, :remove_twitter, :remove_avatar,
                                                    :fb_auth, :fb_deauth, :fb_connect, :fb_page_auth]
 
@@ -12,10 +12,10 @@ class UsersController < ApplicationController
 
   def show
     get_user
-    # Is the current user following this person?
-    @following = current_user.followings.first(:conditions => {:friend_id => @user.id}) if current_user
-    @latest_statuses = @user.statuses.all(:limit => 5)
-    @responder = @user
+  end
+
+  def resume
+    get_user
   end
 
   def edit
@@ -54,14 +54,7 @@ class UsersController < ApplicationController
   def confirm
     @user = User.find_by_perishable_token(params[:id])
     if @user
-      @user.confirmed_at = Time.now
-      @user_session = UserSession.new(@user)
-      if @user_session.save
-        @message = "Welcome aboard! Your account has been confirmed."
-        redirect_to mediafeed_root_path if @user.media?
-      else
-        @message = "Could not log you in. Please contact us for assistance."
-      end
+      # render the page
     elsif current_user
       flash[:notice] = "Looks like you're already set up. Get to work!"
       redirect_to root_path
@@ -71,9 +64,27 @@ class UsersController < ApplicationController
     end
   end
 
+  def save_confirmation
+    @user = User.find(params[:user_id])
+    # Force password reset
+    @user.crypted_password = nil
+    if @user.update_attributes(params[:user])
+      @user.reset_perishable_token!
+      @user.confirmed_at = Time.now
+      @user_session = UserSession.new(@user)
+      if @user_session.save
+        flash[:notice] = "Welcome aboard! Your account has been confirmed."
+        redirect_to root_path
+      else
+        flash[:error] = "Could not log you in. Please contact us for assistance."
+      end
+    else
+      render :action => "confirm"
+    end
+  end
+
   def resend_confirmation
     require_no_user unless current_user && current_user.admin?
-    @is_mediafeed = params[:mediafeed]
     if request.post?
       if user = User.find_by_email(params[:email])
         UserMailer.deliver_signup user
@@ -83,11 +94,10 @@ class UsersController < ApplicationController
           redirect_to admin_users_path
         else
           flash[:notice] = "We just sent you a new confirmation email. Click the link in the email and you'll be ready to go!"
-          redirect_to mediafeed? ? mediafeed_root_path : root_path
+          redirect_to root_path
         end
       else
         flash[:error] = "Sorry, we can't find a user with that email address. Try again?"
-        render :layout => (mediafeed? ? 'mediafeed' : 'application')
       end
     end
   end

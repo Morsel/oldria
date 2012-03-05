@@ -12,13 +12,13 @@ Feature: Managing Restaurants
 
   Scenario: I can view my restaurants individually
     Given I am on the dashboard
-    When I follow "My Restaurants"
+    When I follow "edit my restaurant"
     And I follow "Jimmy's Diner"
     Then I should not see "Your Digital Dashboard"
 
   Scenario: I can edit the employees of restaurants I manage
     Given I am on the dashboard
-    When I follow "My Restaurants"
+    When I follow "edit my restaurant"
     And I follow "Edit Jimmy's Diner"
     And I follow "Staff"
     Then I should see "Rearrange the order employees are listed on your restaurant"
@@ -36,12 +36,12 @@ Feature: Managing Restaurants
       | mgmt     | secret   | mgmt@example.com | Mgmt Joe  | Manager   |
       | bob      | secret   | bob@example.com  | Chef Bob  | Chef      |
     And I am logged in as "bob" with password "secret"
-    When I follow "My Restaurants"
+    When I follow "edit my restaurant"
     And I follow "Avec"
     Then I should not see "Manage employees"
 
   Scenario: I can edit the restaurants I manage
     Given I am on the dashboard
-    When I follow "My Restaurants"
+    When I follow "edit my restaurant"
     And I follow "Edit Jimmy's Diner"
     Then I should see "Back to public view"

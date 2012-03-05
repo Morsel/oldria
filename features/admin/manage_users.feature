@@ -34,8 +34,8 @@ Feature: Manage users
     Then I should see that the user has a complimentary account
     When I am on the admin users landing page
     And "jimbob" should have a "Complimentary" account in the list
-    When I go to the profile page for "jimbob"
-    And "jimbob" should have a "Complimentary" account on the page
+    # When I go to the profile page for "jimbob"
+    # And "jimbob" should have a "Complimentary" account on the page
 
   Scenario: Canceling a complimentary account
     Given the user "jimbob" has a complimentary account
@@ -46,8 +46,8 @@ Feature: Manage users
     Then I should see that the user has a basic account
     When I am on the admin users landing page
     And "jimbob" should have a "Basic" account in the list
-    When I go to the profile page for "jimbob"
-    And "jimbob" should have a "Basic" account on the page
+    # When I go to the profile page for "jimbob"
+    # And "jimbob" should have a "Basic" account on the page
 
   Scenario: Converting an existing account to complementary
     Given the user "jimbob" has a premium account
@@ -58,8 +58,8 @@ Feature: Manage users
     Then I should see that the user has a complimentary account
     When I am on the admin users landing page
     And "jimbob" should have a "Complimentary" account in the list
-    When I go to the profile page for "jimbob"
-    And "jimbob" should have a "Complimentary" account on the page
+    # When I go to the profile page for "jimbob"
+    # And "jimbob" should have a "Complimentary" account on the page
 
   Scenario: Cancel a non-complimentary premium account
     Given the user "jimbob" has a premium account
@@ -70,8 +70,8 @@ Feature: Manage users
     Then I should see that the user has a basic account
     When I am on the admin users landing page
     And "jimbob" should have a "Basic" account in the list
-    When I go to the profile page for "jimbob"
-    And "jimbob" should have a "Basic" account on the page
+    # When I go to the profile page for "jimbob"
+    # And "jimbob" should have a "Basic" account on the page
     Then I go to the admin edit page for "jimbob"
     And I don't see that the account for "jimbob" lasts until the end of the billing cycle
 

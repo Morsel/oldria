@@ -23,8 +23,7 @@
     </div>
 
     <% f.inputs :name => 'Your Request', :class => 'editing' do %>
-
-      <%= render 'subject_matters', :f => f %>
+      <%= render :partial => 'subject_matters', :locals => { :f => f } %>
 
       <%= f.input :due_date, :label => "When do you need the response by?" %>
       <%= f.input :message, :input_html => {:rows => 5, :style => 'height:auto'} %>
@@ -33,8 +32,8 @@
         <%= child_form.label :attachment, "Attachment(s)" %>
         <p class="attachfield"><%= child_form.file_field :attachment %></p>
       <% end -%>
+
       <p><%= button_tag "Submit" %></p>
     <% end %>
-
     
 <% end %>

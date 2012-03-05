@@ -1,22 +1,3 @@
-# == Schema Information
-# Schema version: 20100708221553
-#
-# Table name: events
-#
-#  id            :integer         not null, primary key
-#  restaurant_id :integer
-#  title         :string(255)
-#  start_at      :datetime
-#  end_at        :datetime
-#  location      :string(255)
-#  description   :text
-#  category      :string(255)
-#  status        :string(255)
-#  created_at    :datetime
-#  updated_at    :datetime
-#  parent_id     :integer
-#
-
 require 'spec_helper'
 
 describe Event do

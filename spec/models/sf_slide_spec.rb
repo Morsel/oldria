@@ -11,3 +11,4 @@ describe SfSlide do
     SfSlide.create!(@valid_attributes)
   end
 end
+

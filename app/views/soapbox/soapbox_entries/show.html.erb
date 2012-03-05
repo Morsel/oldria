@@ -21,6 +21,7 @@
     <div class="details">
       <time datetime="<%= @entry.published_at.try(:strftime,'%Y-%m-%d') %>"><%= @entry.published_at.try(:strftime, "%b %e, %Y") %></time>
       <h2><%= message(@feature) %></h2>
+	  <p><%= simple_format(@entry.description) %></p>
     </div>
     <div class="sharing">
         <!-- Likes and Tweets BEGIN -->

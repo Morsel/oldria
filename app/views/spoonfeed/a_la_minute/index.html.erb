@@ -1,0 +1,13 @@
+<% title "A la Minute" %>
+
+<% for answer in @answers -%>
+<% div_for answer do %>
+    <h2><%= link_to answer.question, a_la_minute_answers_path(:question_id => answer.a_la_minute_question.id) %></h2>
+    <%= render :partial => 'restaurants/identity', :locals => { :restaurant => answer.responder } %>
+    <p class="answer"><%= answer.answer %></p>
+    <p><span class="datestamp"><%= "Posted #{answer.created_at.strftime("%D")}" %></span></p>
+    <div class="clearfix">&nbsp;</div>
+<% end %>
+<% end -%>
+
+<%= will_paginate(@answers) %>

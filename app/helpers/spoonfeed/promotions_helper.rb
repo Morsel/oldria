@@ -1,0 +1,2 @@
+module Spoonfeed::PromotionsHelper
+end

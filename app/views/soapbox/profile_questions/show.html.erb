@@ -1,0 +1,37 @@
+<% title "#{@question.title} - Behind The Line", false %>
+<% content_for(:fb_description, btl_description_for_fb(@answers)) %>
+
+<% javascript_tag do %>
+  var addthis_share = {
+    url: '<%= soapbox_profile_question_url(@question) %>',
+    title: $('title')
+  }
+<% end %>
+<!-- AddThis Button BEGIN -->
+<div class="addthis_toolbox">
+  <a href="http://www.addthis.com/bookmark.php?v=250&username=unpluggedria" class="addthis_button">Share</a>
+</div>
+<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#username=unpluggedria"></script>
+<!-- AddThis Button END -->
+
+<h1 id="btl-title" class="btl"><span class="btl-art">Behind the Line</span></h1>
+<h2 id="topic_title">Topic: <%= @question.chapter.topic.title %></h2>
+
+<div id="btl_answers">
+  <h3><%= @question.chapter.title %></h3>
+
+  <h4><%= @question.title %></h4>
+
+  <% for answer in @answers -%>
+  <% div_for(answer) do %>
+    <%= render :partial => "soapbox/profile_questions/answer", :locals => { :answer => answer } %>
+  <% end %>
+  <div class="clear">&nbsp;</div>
+  <% end -%>
+
+  <p><span class="timestamp">Last updated: <%= @answers.first.try(:updated_at).try(:strftime, "%b %e %Y") %></span></p>
+</div><!-- #btl_answers -->
+
+<% content_for :sidebar do -%>
+<%= render :partial => "soapbox/profile_questions/sidebar" %>
+<% end -%>

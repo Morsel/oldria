@@ -10,16 +10,3 @@ describe Competition do
   end
 end
 
-# == Schema Information
-#
-# Table name: competitions
-#
-#  id         :integer         not null, primary key
-#  profile_id :integer
-#  name       :string(255)
-#  place      :string(255)
-#  year       :integer
-#  created_at :datetime
-#  updated_at :datetime
-#
-

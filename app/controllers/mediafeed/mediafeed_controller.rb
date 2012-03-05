@@ -1,20 +1,13 @@
 class Mediafeed::MediafeedController < ApplicationController
-  layout 'mediafeed'
+
   before_filter :require_media_user, :only => [:directory, :directory_search]
   
   def index
-    @mediafeed_home_page = true
-    if current_user && current_user.media?
-      redirect_to mediafeed_directory_path
-    else
-      @mediafeed_slides = MediafeedSlide.all
-      @mediafeed_promos = MediafeedPromo.all
-    end
+    redirect_to root_path
   end
   
   def login
-    @user_session = UserSession.new(params[:user_session])
-    render :template => 'user_sessions/new'
+    redirect_to login_path
   end
   
   def directory

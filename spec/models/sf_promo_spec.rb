@@ -12,3 +12,4 @@ describe SfPromo do
     SfPromo.create!(@valid_attributes)
   end
 end
+

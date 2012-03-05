@@ -1,4 +1,6 @@
 class UserSessionsController < ApplicationController
+
+  before_filter :require_no_user, :only => [:new, :create, :create_from_facebook]
   before_filter :require_user, :only => :destroy
 
   def new
@@ -19,7 +21,7 @@ class UserSessionsController < ApplicationController
       @user_session = UserSession.new(user)
       save_session
     else
-      flash[:error] = "We couldn't find a spoonfeed account connected to that Facebook account. Please log with your username and password below, edit your Profile, and connect your Facebook accounts there. Going forward, you can just click the Facebook login connect button."
+      flash[:error] = "We couldn't find a Spoonfeed account connected to that Facebook account. Please log with your username and password below, edit your profile, and connect your Facebook accounts there. Going forward, you can just click the Facebook login connect button."
       redirect_to :action => 'new'
     end
   end
@@ -29,7 +31,7 @@ class UserSessionsController < ApplicationController
     user = @user_session.user
     @user_session.destroy
     flash[:notice] = "Successfully logged out."
-    redirect_to user.media? ? mediafeed_root_url : root_url
+    redirect_to root_url
   end
 
   protected
@@ -57,13 +59,8 @@ class UserSessionsController < ApplicationController
         error_message = "Sorry, but we couldn't log you in"
       end
 
-      if params[:mediafeed]
-        flash[:error] = error_message
-        redirect_to mediafeed_login_path
-      else
-        flash.now[:error] = error_message
-        render :new
-      end
+      flash.now[:error] = error_message
+      render :new
     end
   end
 end

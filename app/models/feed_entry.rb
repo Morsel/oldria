@@ -1,5 +1,4 @@
 # == Schema Information
-# Schema version: 20110913204942
 #
 # Table name: feed_entries
 #
@@ -11,7 +10,7 @@
 #  content      :text
 #  published_at :datetime
 #  guid         :string(255)
-#  feed_id      :integer
+#  feed_id      :integer         indexed
 #  created_at   :datetime
 #  updated_at   :datetime
 #

@@ -10,7 +10,7 @@ Feature: Using dashboard
 
   Scenario: Show the announcement popup on the dashboard once and hide it after viewing
     Given I am logged in as a normal user
-	And I go to the dashboard
+	And I am on the dashboard
     Then I should see unread announcement popup
     And I should have 0 unread announcements
 

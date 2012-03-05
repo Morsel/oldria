@@ -1,10 +1,9 @@
 # == Schema Information
-# Schema version: 20110913204942
 #
 # Table name: restaurant_features
 #
 #  id                             :integer         not null, primary key
-#  restaurant_feature_category_id :integer
+#  restaurant_feature_category_id :integer         indexed
 #  value                          :string(255)
 #  created_at                     :datetime
 #  updated_at                     :datetime

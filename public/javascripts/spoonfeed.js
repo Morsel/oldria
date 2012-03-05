@@ -1,13 +1,8 @@
 $(document).ready(function(){
 
-$('#jumbotron').cycle({
-	fx: 'scrollHorz',
-	timeout: 8000,
-	easing: 'easeInOutCubic',
-	pager: '#jumbotron_controller nav',
-	pagerBuilder: jumbotronController
-});
+$('<span class="down-arrow"></span>').appendTo('a.selected');
 
+$('.footerBox').equalHeights();
 $('.hp_promo').equalHeights();
 $('.chapter').equalHeights();
 $('.topic').equalHeights();
@@ -27,6 +22,8 @@ $('#btl_answers form').submit(function(){
     $('.text').hide();
     $('#loading-wait').show();
 });
+
+jQuery('.standard-filler').formFiller();
 
 // == Inbox for RIA messages
 $(".inbox_message .readit").live('click', function(){
@@ -128,12 +125,14 @@ $('.new_question').live('click', function(){
 	}); 
 	return false;
 });
+
 $('#profile_answer_submit').live('click', function(){
     var rthis = this;
     setTimeout(function(){
         $(rthis).val('posting...').attr('disabled','disabled');
     }, 0);
 });
+
 $('#new_quick_reply button').live('click', function(){
 	$(this).text('posting...').attr('disabled','disabled');
 });
@@ -142,7 +141,6 @@ function jumbotronController(idx, elem){
 	idx++;
 	return html+='<a href="#">'+idx+'</a>';
 }
-
 
 var colorboxOnComplete = function(){
   $('#culinary_job_chef_is_me').click(function(){
@@ -156,20 +154,21 @@ var colorboxOnComplete = function(){
   });
 };
 
+// Search filter UI
 $('#criteria_accordion').accordion({
-	autoHeight: false,
-	collapsible: true,
-	active: false,
-	header: '.accordion_box a',
-	change: function() {
-		$('.accordion_box').each(function(){
-			if($(this).find('input:checked').length > 0){
-				$(this).find('a').addClass('options_selected');
-			} else {
-				$(this).find('a').removeClass('options_selected');
-			}
-		});
-	}
+  autoHeight: false,
+  collapsible: true,
+  active: false,
+  header: '.accordion_box a',
+  change: function() {
+    $('.accordion_box').each(function(){
+      if($(this).find('input:checked').length > 0){
+        $(this).find('a').addClass('options_selected');
+      } else {
+        $(this).find('a').removeClass('options_selected');
+      }
+    });
+  }
 }).find('.loading').removeClass('loading');
 
 $.fn.ajaxDestroyLink = function(options){
@@ -178,7 +177,7 @@ $.fn.ajaxDestroyLink = function(options){
     containerSelector: 'tr:first'
   };
 
-  if(options) $.extend(config, options);
+  if(options) { $.extend(config, options); }
 
   return $(this).each(function(){
     var $this = $(this);
@@ -273,44 +272,46 @@ $('#tags_remaining').html(remaining+" left");
 if (remaining == 0) {
   $('#restaurant_tags input:checkbox').not(':checked').attr('disabled', true).next('label').css('color', 'gray');
 }
-$('#restaurant_tags input:checkbox').click(function() {    
+
+$('#restaurant_tags input:checkbox').click(function() {
   var $checkbox = $('#restaurant_tags input:checkbox');
-  var total = $(":checkbox:checked").length; 
+  var total = $(":checkbox:checked").length;
   var remaining = (max-total) + " left";
   if (total < max) { // Update counter.
     $('#tags_remaining').html(remaining);
     $checkbox.removeAttr('disabled');
     $checkbox.next('label').css('color', '#333');
-    } else { // Disable all checkboxes
+  } else { // Disable all checkboxes
       $('#tags_remaining').html(remaining);
       $checkbox.not(':checked').attr('disabled', true).next('label').css('color', 'gray');
-    } 
-  });
-  // Enable all the checkboxes on submit
-  $('#restaurant_tags form').submit(function() {
-    $('#restaurant_tags form:checkbox').not(':checked').removeAttr('disabled');
-  });
+  }
+});
+// Enable all the checkboxes on submit
+$('#restaurant_tags form').submit(function() {
+  $('#restaurant_tags form:checkbox').not(':checked').removeAttr('disabled');
+});
 
 // == Dynamic Updates for Employment Searching
 var	$employmentsList  = $("#employment_list");
 var $employmentInputs = $("#employment_criteria input[type=checkbox]");
-var $loaderImg =        $('<img class="loader" src="/images/ajax-loader.gif" />').hide();
+var $loaderImg        = $('<img class="loader" src="/images/ajax-loader.gif" />').hide();
 
 // load the image load indicator, hidden
 $employmentsList.before($loaderImg);
 
-function updateEmploymentsList() {
-	input_string = $employmentInputs.serialize();
-	$loaderImg.show();
-	$employmentsList.hide();
-	$employmentsList.load('/employment_search', input_string, function(responseText, textStatus){
-	  $loaderImg.hide();
-	  $employmentsList.fadeIn(300);
-	});
-	// return true;	
-}
+updateEmploymentsList = function() {
+  input_string = $employmentInputs.serialize();
+  $loaderImg.show();
+  $employmentsList.hide();
+  $employmentsList.load('/employment_search', input_string, function(responseText, textStatus){
+    $loaderImg.hide();
+    $employmentsList.fadeIn(300);
+  });
+  // return true;
+};
 
 $employmentInputs.change(updateEmploymentsList);
+
 
 // Directory search
 var	$directoryList  = $("#directory_list");
@@ -318,18 +319,19 @@ var $directoryInputs = $("#directory_search #employment_criteria input[type=chec
 
 $directoryList.before($loaderImg);
 
-function updateDirectoryList() {
-	input_string = $directoryInputs.serialize();
-	$loaderImg.show();
-	$directoryList.hide();
-	$directoryList.load('/directory/search', input_string, function(responseText, textStatus){
-	  $loaderImg.hide();
-	  $directoryList.fadeIn(300);
-	});
-	// return true;	
-}
+updateDirectoryList = function() {
+  input_string = $directoryInputs.serialize();
+  $loaderImg.show();
+  $directoryList.hide();
+  $directoryList.load('/directory/search', input_string, function(responseText, textStatus){
+    $loaderImg.hide();
+    $directoryList.fadeIn(300);
+  });
+  // return true;
+};
 
 $directoryInputs.change(updateDirectoryList);
+
 
 // Restaurant directory search
 var	$restoDirectoryList  = $("#restaurant_directory_list");
@@ -337,24 +339,24 @@ var $restoDirectoryInputs = $("#directory_search #restaurant_criteria input[type
 
 $restoDirectoryList.before($loaderImg);
 
-function updateRestoDirectoryList() {
-	input_string = $restoDirectoryInputs.serialize();
-	$loaderImg.show();
-	$restoDirectoryList.hide();
-	$restoDirectoryList.load('/directory/restaurant_search', input_string, function(responseText, textStatus){
-	  $loaderImg.hide();
-	  $restoDirectoryList.fadeIn(300);
-	});
-	// return true;
-}
+updateRestoDirectoryList = function() {
+  input_string = $restoDirectoryInputs.serialize();
+  $loaderImg.show();
+  $restoDirectoryList.hide();
+  $restoDirectoryList.load('/directory/restaurant_search', input_string, function(responseText, textStatus){
+    $loaderImg.hide();
+    $restoDirectoryList.fadeIn(300);
+  });
+  // return true;
+};
 
 $restoDirectoryInputs.change(updateRestoDirectoryList);
 
 
 //
 // Managing subject matters for restaurant managers
-var $omniscientField = $("input#employment_omniscient"),
-    $omniscientRoleCheckboxes = $('#employment_general_subject_matters :checkbox, #employment_subject_matters :checkbox');
+var $omniscientField = $("input#employment_omniscient");
+var $omniscientRoleCheckboxes = $('#employment_general_subject_matters :checkbox, #employment_subject_matters :checkbox');
 
 var selectOmniscientRoles = function(){
   if($omniscientField.is(":checked")) {
@@ -370,9 +372,46 @@ $omniscientField.change(selectOmniscientRoles);
 
 if($omniscientField.is(":checked")) { $omniscientField.change(); }
 
-  $('div#photos').masonry({
+// == Media request fields - subject matters
+var fieldsets = $("div.media_request_subject").hide();
+var generalfields = $("#fields_for_general");
+generalfields.detach();
+
+$("#media_request_request_types").bind('change', function(){
+    fieldsets.hide();
+    var _this = $(this);
+    var val = _this.find(":selected").attr("value");
+    if (val === ''){
+        _this.after(generalfields);
+        generalfields.fadeIn();
+    } else {
+        generalfields.detach();
+        $("#fields_for_" + val).fadeIn();
+    }
+}).change();
+
+// Media request recipient list
+$('.show_more').click(function(){
+	toggle_me_first = $(this).attr('href');
+	toggle_me_next = $(this).attr('data-show');
+	$(toggle_me_first).toggle();
+	$(toggle_me_next).toggle();
+	return false;
+})
+
+
+$('div#photos').masonry({
     columnWidth: 345,
     itemSelector: '.photo'
-  });
+});
 
+updateRestaurantSignupFields = function() {
+  if ($('#role').val() == 'restaurant') {
+    $('#restaurant_fields').show();
+  } else {
+    $('#restaurant_fields').hide();
+  } 
+};
+
+// end $(document).ready
 });

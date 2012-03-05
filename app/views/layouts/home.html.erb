@@ -1,25 +1,174 @@
-<%= render 'layouts/head' %>
-<%= render 'layouts/staging_bar' %>
-<div id="container">
-	<header id="site_header">
-	  <%= render 'layouts/logo' %>
-		<div class="header_right">
-			<%= render 'layouts/search' %>			
-			<%= render 'layouts/userbox' %>
-			<%= render 'layouts/top_promo' %>
-		</div><!-- .header_right -->
-	</header>
-	<div id="main" class="hp">		
-	  <%= render 'layouts/nav_logic' %>
-	  <div id="jumbotron">
-			<%= render @sf_slides %>
-		</div><!--#jumbotron-->
-		<div id="jumbotron_controller"><nav></nav></div><!--#jumbotron_controller-->
-		
-		<%= render 'layouts/flashes' %>
-		<div id="content" class="hp">
-      <%= render @sf_promos %>
-    </div><!-- /content -->
-    <div class="clear"></div>
-  </div><!-- /main -->
-<%= render 'layouts/footer' %>
+<!DOCTYPE html>
+<!--[if lt IE 7]> <html class="no-js ie6 oldie" lang="en"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js ie7 oldie" lang="en"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js ie8 oldie" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+  <title>Spoonfeed - Connecting Chefs, Publicists, and Media</title>
+  <meta name="description" content="Restaurant Intelligence Agency website">
+  <meta name="author" content="Restaurant Intelligence Agency">
+
+  <link rel="shortcut icon" href="/favicon.ico">
+
+  <link href='http://fonts.googleapis.com/css?family=Voltaire' rel='stylesheet' type='text/css'>
+  <%= stylesheet_link_tag 'sf_home/reset.css', 'sf_home/style.css' %>
+
+  <%= javascript_include_tag 'modernizr-2.0.6.min.js' %>
+</head>
+
+<body class="home">
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/all.js#xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+    <header class="clearfix">
+      <%= render :partial => "layouts/nav_sites" %>
+
+      <div id="mainNav" class="clearfix container">
+        <nav>
+          <ul class="clearfix">
+            <div class="left">
+              <li class="left"><%= link_to "Learn More", page_path('about') %></li>
+              <li class="left"><%= link_to "FAQs", page_path('faq') %></li>
+            </div>
+            <div class="right">
+              <li class="left"><%= link_to "Join", join_path %></li>
+              <li class="left"><%= link_to "Contact", hq_page_path('contact') %></li>
+            </div>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <div class="mainGraphic">
+      <div class="message">
+        <div class="container">
+          <h2 class="chefsMessage">Showcase your talent in a community of your peers</h2>
+          <h2 class="pubMessage">Get more access to more media and help your clients reach more diners<br>- without the busywork</h2>
+          <h2 class="journalistMessage">Access the nation's largest database of restaurant press information</h2>
+          <h2 class="dinersMessage">Go behind the scenes with the nation's most engaging chefs</h2>
+        </div>
+      </div>      
+    </div>
+    
+    <section id="main" role="main">
+        <article id="infoBoxes" class="gradient">
+            <div class="clearfix boxContainer">
+                <div class="box chefBox">
+                    <h2 class="ir">Chefs</h2>
+                    <div class="content">
+                        <h3>Get the word out</h3>
+                        <p>Share your creativity, inspirations and philosophies with media and diners.</p>
+                        <p>Join hundreds of the nation’s top chefs, mixologists and sommeliers online.</p>
+                        <p>Reach new diners looking to discover the best new chefs.</p>
+                    </div>
+                    <ul id="callButtons1">
+                        <li class="learn"><%= link_to "learn", page_path('chefs_learn_more'), :title => "learn" %></li>
+                        <li class="join"><%= link_to "join", join_path, :title => "join" %></li>
+                    </ul>
+                </div>
+
+                <div class="box pubBox">
+                    <h2 class="ir">Publicists</h2>
+                    <div class="content">
+                        <h3>Simplify your job</h3>
+                        <p>Streamline your job with a media center custom-built for restaurant publicists.</p>
+                        <p>Connect your clients with thousands of journalists&mdash;and diners&mdash;everyday.</p>
+                        <p>Automatically create content for your clients’ Facebook and Twitter accounts.</p>
+                    </div>
+                    <ul id="callButtons2">
+                        <li class="learn"><%= link_to "learn", page_path('publicists_learn_more'), :title => "learn" %></li>
+                        <li class="join"><%= link_to "join", join_path, :title => "join" %></li>
+                    </ul>
+                </div>
+
+                <div class="box mediaBox">
+                    <h2 class="ir">Media</h2>
+                    <div class="content">
+                        <h3>Find sources + ideas</h3>
+                        <p>Revolutionize your research with our direct pipeline to the country’s most engaging restaurants, chefs, mixologists and sommeliers.</p>
+                        <p>Get daily reports on trends, news and activities online or via email.</p>
+                        <p>Connect with responsive sources securely and privately.</p>
+                    </div>
+                    <ul id="callButtons3">
+                        <li class="learn"><%= link_to "learn", page_path('journalists_learn_more'), :title => "learn" %></li>
+                        <li class="join"><%= link_to "join", join_path, :title => "join" %></li>
+                    </ul>
+                </div>
+            </div>
+        </article>
+
+        <div id="signup_form">&nbsp;</div>
+
+      <article id="join" class="gradient">
+        <div class="articleBox">
+          <h2 class="ir">Join Us</h2>
+          <%= render :partial => "join/form" %>
+        </div>
+      </article>
+
+      <article id="testimonials" class="gradient">
+        <div class="articleBox">
+          <h2 class="ir">What People Are Saying.</h2>
+          <% for testimonial in @testimonials -%>
+          <div class="testimonial clearfix">
+            <%= image_tag testimonial.photo.url(:small) %>
+            <div>
+              <blockquote>&#8220;<%= testimonial.quote %>&#8221;</blockquote>
+              <p><%= testimonial.person %></p>
+            </div>
+          </div>
+          <% end -%>
+        </div>
+      </article>
+
+      <article id="social" class="gradient">
+        <div class="articleBox">
+          <h2 class="ir">Social</h2>
+          <div class="socialContainer clearfix">
+            <div class="twitter clearfix">            
+              <h3>Follow <a href="http://www.twitter.com/soapbox_HQ">@soapbox_HQ</a>on Twitter</h3>
+              <img src="/images/sf/twitter.png" alt="Twitter" />
+              <div class="twitterBox">
+                <span class="arrow"></span>
+                <div class="tweet"></div>
+              </div>
+            </div>
+            <div class="facebook left">
+              <h3>Follow ria on Facebook</h3>
+              <div class="fb-activity" data-site="https://www.facebook.com/RestaurantIntelligenceAgency" data-width="325" data-height="390" data-header="true" data-recommendations="false">
+              </div>
+            </div>
+          </div>
+        </div>
+      </article>
+
+    </section>
+
+    <%= render :partial => "layouts/footer_links" %>
+
+    <%= javascript_include_tag 'https://ajax.googleapis.com/ajax/libs/jquery/1.6/jquery.min.js' %>
+    <%= javascript_include_tag 'jquery.tweet.js', 'filler.js', 'jquery.simplemodal.js', 'sf_home.js' %>
+
+  <script>
+    window._gaq = [['_setAccount','UA-4174638-5'],['_trackPageview'],['_trackPageLoadTime']];
+    Modernizr.load({
+      load: ('https:' == location.protocol ? '//ssl' : '//www') + '.google-analytics.com/ga.js'
+    });
+  </script>
+
+  <!--[if lt IE 7 ]>
+    <script src="//ajax.googleapis.com/ajax/libs/chrome-frame/1.0.3/CFInstall.min.js"></script>
+    <script>window.attachEvent('onload',function(){CFInstall.check({mode:'overlay'})})</script>
+  <![endif]-->
+
+</body>
+</html>

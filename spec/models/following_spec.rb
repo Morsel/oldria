@@ -1,14 +1,3 @@
-# == Schema Information
-#
-# Table name: followings
-#
-#  id          :integer         not null, primary key
-#  follower_id :integer
-#  friend_id   :integer
-#  created_at  :datetime
-#  updated_at  :datetime
-#
-
 require 'spec/spec_helper'
 
 describe Following do

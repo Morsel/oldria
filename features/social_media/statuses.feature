@@ -36,7 +36,7 @@ Feature: Manage SpoonFeed Statuses
     And I am on the statuses page for "another"
     Then I should see "Statuses for John Doe"
     And I should see "I ate too much"
-    But I should not see "Post" within "#page_content"
+    But I should not see "Post" within "#main"
     And I should not see "Delete"
 
 

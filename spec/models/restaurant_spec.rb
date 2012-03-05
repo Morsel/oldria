@@ -280,37 +280,4 @@ describe Restaurant do
 end
 
 
-# == Schema Information
-#
-# Table name: restaurants
-#
-#  id                         :integer         not null, primary key
-#  name                       :string(255)
-#  street1                    :string(255)
-#  street2                    :string(255)
-#  city                       :string(255)
-#  state                      :string(255)
-#  zip                        :string(255)
-#  country                    :string(255)
-#  facts                      :text
-#  created_at                 :datetime
-#  updated_at                 :datetime
-#  manager_id                 :integer
-#  metropolitan_area_id       :integer
-#  james_beard_region_id      :integer
-#  cuisine_id                 :integer
-#  deleted_at                 :datetime
-#  description                :string(255)
-#  phone_number               :string(255)
-#  website                    :string(255)
-#  twitter_username           :string(255)
-#  facebook_page              :string(255)
-#  hours                      :string(255)
-#  media_contact_id           :integer
-#  management_company_name    :string(255)
-#  management_company_website :string(255)
-#  logo_id                    :integer
-#  primary_photo_id           :integer
-#  opening_date               :date
-#
 

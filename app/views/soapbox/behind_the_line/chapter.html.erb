@@ -1,0 +1,35 @@
+<% title "#{@chapter.title} - Behind The Line", false %>
+
+<h1 id="btl-title" class="btl"><%= link_to "<span class=\"btl-art\">Behind the Line</span>", soapbox_profile_questions_path %></h1>
+
+<h2 id="topic_title">Topic: <%= @chapter.topic.title %></h2>
+
+<%= render :partial => 'soapbox/behind_the_line/nav', :locals => { :next_topic => @next_topic, :prev_topic => @previous_topic } %>
+
+<div id="btl_answers" class="btl-my-answers">
+  <div id="" class="clear clearfix">
+    <h3><%= @chapter.title %></h3>
+    <% if @next.present? or @previous.present? -%>
+      <nav id="chapter_nav" class="topic-nav clearfix">
+        <% if @next.present? -%>
+          <%= link_to "Next: #{truncate(@next.title, :length => 20, :omission => '&hellip;')}", soapbox_btl_chapter_path(@next), :class => 'next' %>
+        <% end -%>
+        <% if @previous.present? -%>
+          <%= link_to "Prev: #{truncate(@previous.title, :length => 20, :omission => '&hellip;')}", soapbox_btl_chapter_path(@previous), :class => 'prev' %>
+        <% end -%>
+      </nav>
+    <% end -%>
+  </div>
+
+  <% for question in @questions -%>
+    <% div_for question do %>
+      <h4><%= link_to question.title, soapbox_profile_question_path(question) %></h4>
+      <%= render :partial => "soapbox/profile_questions/answer", :locals => { :answer => question.latest_soapbox_answer } if question.latest_soapbox_answer.present? %>
+    <% end -%>
+    <div class="clear">&nbsp;</div>
+  <% end -%>
+</div>
+
+<% content_for :sidebar do -%>
+<%= render :partial => "soapbox/behind_the_line/sidebar", :locals => { :topic => @chapter.topic } %>
+<% end -%>

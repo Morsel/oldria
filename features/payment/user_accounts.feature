@@ -13,7 +13,7 @@ Feature: User Accounts
     When I go to the profile page for "emily"
     Then I do not see a premium badge
     When I go to my profile's edit page
-    And I follow "Account"
+    And I follow "Account" within "#profile-tabs"
     Then I see my account status is not premium
     And I see a link to update my account to premium
 
@@ -21,7 +21,7 @@ Feature: User Accounts
     Given user "emily" has a premium account
     Given I am logged in as "emily" with password "secret"
     When I go to my profile's edit page
-    And I follow "Account"
+    And I follow "Account" within "#profile-tabs"
     Then I see my account status is premium
     And I see a link to cancel my account
 
@@ -30,6 +30,7 @@ Feature: User Accounts
     And user "emily" does not have a premium account
     And I simulate braintree create behavior
     When I go to my profile's edit page
+    And I follow "Account" within "#profile-tabs"
     And I follow "Upgrade to Premium"
     When I fill in the following:
       | Visa/Mastercard Number                | 4111111111111111     |
@@ -42,7 +43,7 @@ Feature: User Accounts
     Given I am logged in as "emily" with password "secret"
     When I simulate a successful call from braintree for user "emily"
     Then I should be on my profile's edit page
-    And I follow "Account"
+    And I follow "Account" within "#profile-tabs"
     Then I see my account status is premium
     And I see my account is paid for by myself
 
@@ -56,7 +57,7 @@ Feature: User Accounts
     When I simulate an unsuccessful call from braintree for user "emily"
     Then I should be on the new subscription page for "emily"
     When I go to my profile's edit page
-    And I follow "Account"
+    And I follow "Account" within "#profile-tabs"
     Then I see my account status is not premium
 
   Scenario: A user can cancel their payment info
@@ -64,10 +65,10 @@ Feature: User Accounts
     Given I am logged in as "emily" with password "secret"
     And I simulate a successful cancel from braintree
     When I go to my profile's edit page
-    And I follow "Account"
+    And I follow "Account" within "#profile-tabs"
     And I follow "Downgrade to basic"
     Then I should be on my profile's edit page
-    When I follow "Account"
+    And I follow "Account" within "#profile-tabs"
     Then I see my account status is premium
     And I see that the account for "emily" lasts until the end of the billing cycle
     And I do not see any account change options
@@ -77,10 +78,10 @@ Feature: User Accounts
     Given I am logged in as "emily" with password "secret"
     And I simulate an unsuccessful cancel from braintree
     When I go to my profile's edit page
-    And I follow "Account"
+    And I follow "Account" within "#profile-tabs"
     And I follow "Downgrade to basic"
     Then I should be on my profile's edit page
-    When I follow "Account"
+    And I follow "Account" within "#profile-tabs"
     Then I see my account status is premium
     And I don't see that the account for "emily" lasts until the end of the billing cycle
 
@@ -99,10 +100,10 @@ Feature: User Accounts
     And I am logged in as an admin
     And I simulate a successful cancel from braintree
     When I go to the edit page for "emily"
-    And I follow "Account"
+    And I follow "Account" within "#profile-tabs"
     And I follow "Downgrade to basic"
     Then I should be on the edit page for "emily"
-    When I follow "Account"
+    And I follow "Account" within "#profile-tabs"
     Then I see my account status is premium
     And I see that the account for "emily" lasts until the end of the billing cycle
 
@@ -111,7 +112,7 @@ Feature: User Accounts
     Given I am logged in as "emily" with password "secret"
     And I simulate braintree update behavior
     When I go to my profile's edit page
-    And I follow "Account"
+    And I follow "Account" within "#profile-tabs"
     When I follow "Update billing information"
     Then I should see my credit card information populated
     When I fill in the following:
@@ -135,6 +136,6 @@ Feature: User Accounts
       | ijkl           | 50.00  | settled | 1.months.ago | Visa      | 1111        | 10/2012         |
 
     When I go to my profile's edit page
-    And I follow "Account"
+    And I follow "Account" within "#profile-tabs"
     And I follow "View billing history"
     Then I should see all of my transaction details

@@ -9,3 +9,4 @@ describe MenuItem do
     MenuItem.create!(@valid_attributes)
   end
 end
+

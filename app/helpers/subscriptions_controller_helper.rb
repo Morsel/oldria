@@ -22,6 +22,7 @@ module SubscriptionsControllerHelper
       new_restaurant_subscription_path(subscriber)
     end
   end
+
   def billing_history_subscription_path(subscriber)
     if(subscriber.is_a? User)
       billing_history_user_subscription_path(subscriber)

@@ -1,11 +1,10 @@
 # == Schema Information
-# Schema version: 20110913204942
 #
 # Table name: media_request_discussions
 #
 #  id               :integer         not null, primary key
-#  media_request_id :integer
-#  restaurant_id    :integer
+#  media_request_id :integer         indexed
+#  restaurant_id    :integer         indexed
 #  comments_count   :integer         default(0)
 #  created_at       :datetime
 #  updated_at       :datetime

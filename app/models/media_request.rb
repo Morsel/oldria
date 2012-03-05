@@ -1,20 +1,19 @@
 # == Schema Information
-# Schema version: 20110913204942
 #
 # Table name: media_requests
 #
 #  id                   :integer         not null, primary key
-#  sender_id            :integer
+#  sender_id            :integer         indexed
 #  message              :text
 #  created_at           :datetime
 #  updated_at           :datetime
 #  due_date             :date
-#  subject_matter_id    :integer
+#  subject_matter_id    :integer         indexed
 #  fields               :text
 #  status               :string(255)
 #  publication          :string(255)
-#  admin                :boolean
-#  employment_search_id :integer
+#  admin                :boolean         default(FALSE)
+#  employment_search_id :integer         indexed
 #
 
 class MediaRequest < ActiveRecord::Base
@@ -139,4 +138,5 @@ class MediaRequest < ActiveRecord::Base
     end
   end
 end
+
 

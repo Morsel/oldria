@@ -1,15 +1,14 @@
 # == Schema Information
-# Schema version: 20110913204942
 #
 # Table name: holiday_discussions
 #
 #  id             :integer         not null, primary key
-#  restaurant_id  :integer
-#  holiday_id     :integer
+#  restaurant_id  :integer         indexed
+#  holiday_id     :integer         indexed
 #  comments_count :integer         default(0)
 #  created_at     :datetime
 #  updated_at     :datetime
-#  accepted       :boolean
+#  accepted       :boolean         default(FALSE)
 #
 
 class HolidayDiscussion < ActiveRecord::Base
@@ -63,4 +62,5 @@ class HolidayDiscussion < ActiveRecord::Base
     true
   end
 end
+
 

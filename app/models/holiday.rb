@@ -1,5 +1,4 @@
 # == Schema Information
-# Schema version: 20110913204942
 #
 # Table name: holidays
 #
@@ -8,7 +7,7 @@
 #  date                 :date
 #  created_at           :datetime
 #  updated_at           :datetime
-#  employment_search_id :integer
+#  employment_search_id :integer         indexed
 #
 
 class Holiday < ActiveRecord::Base

@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20111014212116
+# Schema version: 20120217190417
 #
 # Table name: menu_item_keywords
 #

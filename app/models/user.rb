@@ -1,11 +1,10 @@
 # == Schema Information
-# Schema version: 20110913204942
 #
 # Table name: users
 #
-#  id                    :integer         not null, primary key
-#  username              :string(255)
-#  email                 :string(255)
+#  id                    :integer         not null, primary key, indexed
+#  username              :string(255)     indexed
+#  email                 :string(255)     indexed
 #  crypted_password      :string(255)
 #  password_salt         :string(255)
 #  perishable_token      :string(255)
@@ -96,6 +95,7 @@ class User < ActiveRecord::Base
   has_many :editors, :through => :user_editors
 
   validates_presence_of :email
+  validates_format_of :email, :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i, :message => "is not a valid email address", :allow_blank => true
 
   has_and_belongs_to_many :metropolitan_areas
 
@@ -108,7 +108,7 @@ class User < ActiveRecord::Base
 
   has_attached_file :avatar,
                     :default_url => "/images/default_avatars/:style.png",
-                    :styles => { :small => "100x100>", :thumb => "50x50#", :tiny => "20x20#" }
+                    :styles => { :large => "256x283#", :small => "100x100>", :thumb => "50x50#", :tiny => "20x20#" }
 
   validates_attachment_content_type :avatar,
       :content_type => ["image/jpg", "image/jpeg", "image/png", "image/gif", "image/pjpeg", "image/x-png"],
@@ -125,15 +125,15 @@ class User < ActiveRecord::Base
 
   after_create :deliver_invitation_message!, :if => Proc.new { |user| user.send_invitation }
 
-  named_scope :media, :conditions => {:role => 'media'}
-  named_scope :admin, :conditions => {:role => 'admin'}
+  named_scope :media, :conditions => { :role => 'media' }
+  named_scope :not_media, :conditions => ["(role != ? OR role IS NULL)", "media"]
+  named_scope :admin, :conditions => { :role => 'admin' }
 
   named_scope :for_autocomplete, :select => "first_name, last_name", :order => "last_name ASC", :limit => 15
   named_scope :by_last_name, :order => "LOWER(last_name) ASC"
 
   named_scope :active, :conditions => "last_request_at IS NOT NULL"
   named_scope :visible, :conditions => ['visible = ? AND (role != ? OR role IS NULL)', true, 'media']
-
 
 ### Preferences ###
   preference :hide_help_box, :default => false
@@ -326,6 +326,16 @@ class User < ActiveRecord::Base
     notification_email.present? ? notification_email : email
   end
 
+  def self.build_media_from_registration(params)
+    new_user = User.new(:first_name => params[:first_name],
+                        :last_name => params[:last_name],
+                        :email => params[:email],
+                        :role => "media")
+    new_user.username = [new_user.first_name, new_user.last_name].join("")
+    new_user.password = new_user.password_confirmation = Authlogic::Random.friendly_token
+    return new_user
+  end
+
   # Facebook !!!
 
   def connect_to_facebook_user(fb_id)
@@ -354,6 +364,14 @@ class User < ActiveRecord::Base
 
   def published_topics
     topics.select { |t| t.published?(self) }
+  end
+
+  def topics_without_travel
+    self.primary_employment.present? ? Topic.for_user(self).without_travel : []
+  end
+
+  def published_topics_without_travel
+    topics_without_travel.select { |t| t.published?(self) }
   end
 
   # Profile elements

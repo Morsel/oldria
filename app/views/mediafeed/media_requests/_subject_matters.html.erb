@@ -6,7 +6,7 @@
  %>
 
 <% SubjectMatter.media_viewable.nongeneral.each do |subject_matter| %>
-<div id="fields_for_<%= subject_matter.id %>" class="fieldsets">
+<div id="fields_for_<%= subject_matter.id %>" class="fieldsets media_request_subject">
   <% subject_matter.fieldset.each do |field| %>
   <li class="string">
     <%= label_tag "media_request[fields][#{field}]", field.humanize %>

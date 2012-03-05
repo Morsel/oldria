@@ -15,26 +15,26 @@ Feature: Profile - Behind the Line (aka Q&A)
 
   Scenario: Viewing my topics
     Given I am on the profile page for "punkrock"
-    When I follow "View all Topics" within "#behindline"
+    When I follow "See more of John's Behind the Line" within "#behind"
     Then I should see "Topics"
 
   Scenario: Viewing chapters for a topic
     Given I am on the profile page for "punkrock"
-    When I follow "View all Topics" within "#behindline"
-    And I follow "View all"
+    When I follow "See more of John's Behind the Line" within "#behind"
+    And I follow "Topic 1"
     Then I should see "John Smith Behind the Line" within "title"
 
   Scenario: Viewing questions in a chapter
     Given I am on the profile page for "punkrock"
-    When I follow "View all Topics" within "#behindline"
-    And I follow "View all"
+    When I follow "See more of John's Behind the Line" within "#behind"
+    And I follow "Topic 1"
     And I follow "Education"
     And I should see "Education - John Smith - Behind The Line" within "title"
 
   Scenario: Answering a question
     Given I am on the profile page for "punkrock"
-    When I follow "View all Topics" within "#behindline"
-    And I follow "View all"
+    When I follow "See more of John's Behind the Line" within "#behind"
+    And I follow "Topic 1"
     And I follow "Education"
     And I fill in question titled "Title 1" with answer "A great answer for this"
     And I press "Post"
@@ -46,8 +46,8 @@ Feature: Profile - Behind the Line (aka Q&A)
     And Facebook is functioning
     And given that user "punkrock" has facebook connection
     And I am on the profile page for "punkrock"
-    When I follow "View all Topics" within "#behindline"
-    And I follow "View all"
+    When I follow "See more of John's Behind the Line" within "#behind"
+    And I follow "Topic 1"
     And I follow "Education"
     And I fill in question titled "Title 1" with answer "A great answer for this"
     And I should see "Post to Facebook"

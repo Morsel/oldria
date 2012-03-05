@@ -20,14 +20,16 @@ module NavigationHelpers
 
     when /^the coached status updates page$/
       admin_coached_status_updates_path
-    when /^the signup page$/
-      signup_path
+    when /^the join page$/
+      join_path
     when /^the login page$/
       login_path
     when /^the password reset request page$/
       new_password_reset_path
     when /^the profile page for "(.+)"$/
       profile_path($1)
+    when /^my profile page$/
+      profile_path(@current_user.username)
     when /^the statuses page for "(.+)"$/
       user_statuses_path(User.find_by_username($1))
     when /^the edit page for "(.+)"$/
@@ -200,7 +202,7 @@ module NavigationHelpers
       
     # Question
     when /^the question page with title "(.+)"$/
-      question_path(ProfileQuestion.find_by_title($1).id)
+      soapbox_profile_question_path(ProfileQuestion.find_by_title($1).id)
 
     # all qotds and trends pages
     when /^the all of the qotd questions listing page$/

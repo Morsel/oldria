@@ -247,6 +247,73 @@ em, i{
 	}
 } /* ## end of #primary_nav ------------------------ */
 
+#primary_mf_nav {
+	width: 974px;
+	position: relative;
+	z-index: 100;
+	background: transparent url(/images/mediafeed/nav-bg.png) repeat-x;
+	height: 60px;
+	overflow:hidden;
+	> span {
+	  position: relative;
+		display:block;
+		float: left;
+	  a.count {
+	    position: absolute;
+  	  right: 3px;
+  	  top: 3px;
+	    color: #D8531E;
+	    font-weight: bold;
+	    background: #fff;
+	    font-size: 11px;
+	    padding: 2px 6px;
+	    @include border-radius(10px);
+	    @include box-shadow(#d3d3ce, 0, 2px, 0, 0);
+			float:none;
+			height:auto;
+			text-indent:0;
+	  }
+	}
+	a {
+		@include hiddentext;
+		height: 60px;
+		width: 195px;
+		float: left;
+		background: transparent url(/images/mediafeed/nav-loggedin.png) no-repeat;
+		&#nav_dashboard {
+			background-position: 0 0;
+			&:hover {background-position: 0 -100px;}
+			&.selected {background-position: 0 -200px;}
+		}
+		&#nav_profile {
+			background-position: -195px 0;
+			&:hover {background-position: -195px -100px;}
+			&.selected {background-position: -195px -200px;}
+		}
+		&#nav_requests {
+		  width: 194px;
+			background-position: -390px 0;
+			&:hover {background-position: -390px -100px;}
+			&.selected {background-position: -390px -200px;}
+		}
+		&#nav_restaurants {
+			background-position: -584px 0;
+			&:hover {background-position: -584px -100px;}
+			&.selected {background-position:-584px -200px;}
+		}
+		&#nav_directory {
+			background-position: -779px 0;
+			&:hover {background-position: -779px -100px;}
+			&.selected {background-position: -779px -200px;}
+		}
+		&.selected {
+		  + a.count {
+	      @include box-shadow(#ab4218, 0, 2px, 0, 0);
+	    }
+		}
+	}
+} /* ## end of #primary_nav ------------------------ */
+
 #alternate_nav {
 	width: 974px;
 	position: relative;
@@ -2248,6 +2315,22 @@ p.search_filter_hint {
           font-size: 13px;
         }
       }
+			&.media_request {
+				background: $orange url(/images/mediafeed/pen.png) no-repeat 8px 12px;
+				padding-left: 46px;
+				color: #fff;
+/*        @include gotham;*/
+				font-size: 15px;
+				font-weight: bold;
+				border: 1px solid $orange;
+				text-shadow: 0 1px 0 #333;
+				&:hover {
+					background-color: $brown;
+/*          border: 1px solid $tan;*/
+					color: #fff;
+					color: rgba(255,255,255,.8);
+				}	
+			}
 			&.go_to_admin {
 				background: $trans-brown url(/images/redesign/go-to-admin.png) no-repeat 12px 12px;
 				@include hiddentext;

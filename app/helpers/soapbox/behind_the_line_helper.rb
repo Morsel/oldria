@@ -1,0 +1,2 @@
+module Soapbox::BehindTheLineHelper
+end

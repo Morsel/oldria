@@ -22,13 +22,14 @@ config.action_controller.allow_forgery_protection    = false
 # ActionMailer::Base.deliveries array.
 config.action_mailer.delivery_method = :test
 
-config.gem 'cucumber-rails',   :lib => false, :version => '~>0.3.1' unless File.directory?(File.join(Rails.root, 'vendor/plugins/cucumber-rails'))
-config.gem 'database_cleaner', :lib => false, :version => '>=0.5.0' unless File.directory?(File.join(Rails.root, 'vendor/plugins/database_cleaner'))
-config.gem 'webrat',           :lib => false, :version => '>=0.7.0' unless File.directory?(File.join(Rails.root, 'vendor/plugins/webrat'))
-config.gem 'rspec',            :lib => false, :version => '>=1.3.0' unless File.directory?(File.join(Rails.root, 'vendor/plugins/rspec'))
-config.gem 'rspec-rails',      :lib => false, :version => '>=1.3.2' unless File.directory?(File.join(Rails.root, 'vendor/plugins/rspec-rails'))
-
-config.gem "factory_girl",  :version => '~>1.2.3'
+config.gem 'cucumber',         :lib => false, :version => '~>1.1.0'
+config.gem 'cucumber-rails',   :lib => false, :version => '~>0.3.2'
+# config.gem 'gherkin',          :lib => false, :version => '~>2.7.7'
+config.gem 'database_cleaner', :lib => false, :version => '>=0.5.0'
+config.gem 'webrat',           :lib => false, :version => '>=0.7.0'
+config.gem 'rspec',            :lib => false, :version => '~>1.3.0'
+config.gem 'rspec-rails',      :lib => false, :version => '~>1.3.2'
+config.gem "factory_girl",     :version => '~>1.2.3'
 config.gem 'bmabey-email_spec', :lib => 'email_spec', :source => "http://gems.github.com"
 config.gem "fakeweb", :version => "1.3.0"
 config.gem "mocha"

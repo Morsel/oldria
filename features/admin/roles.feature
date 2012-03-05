@@ -9,16 +9,13 @@ Feature: Member roles
     Given I am logged in as a spoonfeed member
     When I am on the dashboard
     Then I should see "Fresh from Spoonfeed"
-    # And I should not see "Media Portal"
-
 
   Scenario: Media members
     Given I am logged in as a media member
     When I am on the dashboard
-    Then I should see "Mediafeed"
-    And I should not see "Dashboard"
+    Then I should see "Dashboard"
   
-  @allow-rescue
+@allow-rescue
   Scenario Outline: Media members access
     Given the following confirmed users:
       | username | email             |
@@ -28,9 +25,9 @@ Feature: Member roles
     Then I should <action>
   
   Examples:
-    | page                         | action                        |
-    | the admin landing page       | be on the mediafeed directory page |
-    | the edit page for "jimmy"    | be on the mediafeed directory page |
+    | page                         | action              |
+    | the admin landing page       | be on the dashboard |
+    | the edit page for "jimmy"    | be on the dashboard |
 
 
   Scenario Outline: Admin members access
@@ -45,4 +42,3 @@ Feature: Member roles
     | page                            |
     | the admin landing page          |
     | the admin edit page for "jimmy" |
-

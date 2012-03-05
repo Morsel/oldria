@@ -1,0 +1,31 @@
+<header id="user_header" class="clearfix">
+    <div class="headerContainer clearfix">
+        <div class="logoBox left">
+            <% link_to root_path do -%><%= image_tag "sf/sf-logo.png" %><% end %>
+        </div>
+
+        <div class="right">
+            <% form_tag search_path, :method => :get, :class => 'searchBox left' do %>
+            <%= text_field_tag "query", "", :class => 'searchInput', :placeholder => "SEARCH" %>
+            <div>
+                <span class="searchArrow"></span>
+                <%= submit_tag "Search", :class => 'searchSubmit', :name => nil %>
+            </div>
+            <% end %>
+            <div class="statusBox clearfix left">
+                <div id="user_status" class="account">
+                    <p>&nbsp;Media Member</p>
+                </div>
+            </div>
+        </div>
+        <div id="media-member" class="member clearfix right">
+            <div class="left welcome">
+                <h3>Welcome, <%= current_user.first_name %></h3>
+                <p class="right"><%= link_to "Help + Questions", "http://spoonfeed.restaurantintelligenceagency.com/spoonfeed_welcome" %> / <%= link_to "logout", logout_path %></p>
+            </div>
+            <div class="right avatar">
+                <%= image_tag current_user.avatar(:thumb), :size => "32x32" %>
+            </div>
+        </div>
+    </div>
+</header>

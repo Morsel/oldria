@@ -1,8 +1,0 @@
-<% message_count = current_user.ria_message_count %>
-<% if message_count > 0 -%>
-  <div id="admin_messages">
-    <div class="mail_count"><span><%= message_count %></span></div>
-    <p>You have <%= pluralize(message_count, 'unread message') %> from <abbr title="Restaurant Intelligence Agency">RIA</abbr>.</p>
-    <p class="view_your_messages"><%= link_to 'View your messages &#187;', messages_path, html_options = {:onclick => "pageTracker._trackEvent('Dashboard', 'Click', 'New RIA Message Promo')"} %></p>
-  </div><!-- /admin_messages -->
-<% end -%>

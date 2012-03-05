@@ -37,18 +37,4 @@ describe TrendQuestion do
   end
 end
 
-# == Schema Information
-#
-# Table name: trend_questions
-#
-#  id                   :integer         not null, primary key
-#  subject              :string(255)
-#  body                 :text
-#  scheduled_at         :datetime
-#  expired_at           :datetime
-#  created_at           :datetime
-#  updated_at           :datetime
-#  employment_search_id :integer
-#  display_message      :string(255)
-#
 

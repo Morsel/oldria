@@ -1,16 +1,5 @@
-<% if mediafeed? %>
-
-  <% title "Login to Mediafeed" %>
-    <h1><%= yield :title %></h1>
-    <h5>Welcome to MediaFeed, our new portal for you to reach chefs, mixologists, sommeliers and other restaurant staffers directly.</h5>
-    <p>If you are used to RIA's Media Request feature, you'll notice we have made a lot of improvements and plan on making many more (as well as adding a lot more people for you to query!) in the coming months. If you are new to RIA, welcome to the first draft of our vision of the future of restaurant media relations.</p>
-    <%= render :partial => 'user_sessions/form' %>
-<% else %>
-
-  <% title "Login to SpoonFeed" %>
-  <p>Welcome to SpoonFeed. Please login.</p>
-  <p>Don't have an account? <%= link_to "Create a free account", new_invitation_path %> now!</p>
-  <%= render :partial => 'user_sessions/form' %>
-<% end %>
-
-
+<% title "Login to Spoonfeed" %>
+<p>Welcome to Spoonfeed. Please login.</p>
+<p>(Diners, please check out <%= link_to "Soapbox", soapbox_root_path %>.)</p>
+<%= render :partial => 'user_sessions/form' %>
+<p>Don't have an account? <%= link_to "Create a free account", root_path(:anchor => "signup_form") %> now!</p>

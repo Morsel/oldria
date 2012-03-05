@@ -1,16 +1,15 @@
 # == Schema Information
-# Schema version: 20110913204942
 #
 # Table name: employments
 #
 #  id                   :integer         not null, primary key
-#  employee_id          :integer
-#  restaurant_id        :integer
+#  employee_id          :integer         indexed
+#  restaurant_id        :integer         indexed
 #  created_at           :datetime
 #  updated_at           :datetime
-#  restaurant_role_id   :integer
+#  restaurant_role_id   :integer         indexed
 #  omniscient           :boolean
-#  primary              :boolean
+#  primary              :boolean         default(FALSE)
 #  type                 :string(255)
 #  public_profile       :boolean         default(TRUE)
 #  position             :integer
@@ -145,4 +144,5 @@ class Employment < ActiveRecord::Base
   end
 
 end
+
 

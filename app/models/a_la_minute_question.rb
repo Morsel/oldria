@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20110913204942
+# Schema version: 20120217190417
 #
 # Table name: a_la_minute_questions
 #
@@ -37,6 +37,10 @@ class ALaMinuteQuestion < ActiveRecord::Base
 
   def latest_answer
     a_la_minute_answers.from_premium_responders.show_public.first
+  end
+
+  def self.current_inspiration
+    first(:conditions => "question LIKE 'Our current inspiration%'")
   end
 
   def self.most_recent_for_soapbox(count = 10)

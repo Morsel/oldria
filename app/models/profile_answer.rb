@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20110913204942
+# Schema version: 20120217190417
 #
 # Table name: profile_answers
 #
@@ -18,7 +18,7 @@ class ProfileAnswer < ActiveRecord::Base
 
   validates_presence_of :answer, :profile_question_id, :user_id
   validates_uniqueness_of :profile_question_id, :scope => :user_id
-  validates_length_of :answer, :maximum => 1500
+  validates_length_of :answer, :maximum => 2000
 
   attr_accessor :post_to_facebook, :share_url
   after_save    :post_to_facebook
@@ -54,6 +54,10 @@ class ProfileAnswer < ActiveRecord::Base
 
   def question
     profile_question.title
+  end
+
+  def chapter_id
+    profile_question.chapter.id
   end
 
   def activity_name

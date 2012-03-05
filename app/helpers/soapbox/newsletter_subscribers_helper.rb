@@ -1,0 +1,2 @@
+module Soapbox::NewsletterSubscribersHelper
+end

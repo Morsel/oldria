@@ -6,3 +6,4 @@ class MediafeedPageTest < ActiveSupport::TestCase
     assert true
   end
 end
+

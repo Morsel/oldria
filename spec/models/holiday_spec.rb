@@ -1,16 +1,3 @@
-# == Schema Information
-# Schema version: 20100409221445
-#
-# Table name: holidays
-#
-#  id                   :integer         not null, primary key
-#  name                 :string(255)
-#  date                 :date
-#  created_at           :datetime
-#  updated_at           :datetime
-#  employment_search_id :integer
-#
-
 require 'spec/spec_helper'
 
 describe Holiday do

@@ -6,3 +6,4 @@ class HqPromoTest < ActiveSupport::TestCase
     assert true
   end
 end
+

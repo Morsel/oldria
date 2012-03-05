@@ -1,15 +1,23 @@
 ActionController::Routing::Routes.draw do |map|
   map.login  'login',  :controller => 'user_sessions', :action => 'new'
   map.logout 'logout', :controller => 'user_sessions', :action => 'destroy'
-  map.confirm 'confirm/:id', :controller => 'users', :action => 'confirm'
   map.fb_login 'facebook_login', :controller => 'user_sessions', :action => 'create_from_facebook'
-  map.social_media 'social_media', :controller => 'social_media', :action => 'index'
-  map.feature '/features/:id', :controller => 'features', :action => 'show'
+
+  map.join 'join_us', :controller => "join", :action => "index"
+  map.registration 'register', :controller => "join", :action => "register"
+  map.confirm 'confirm/:id', :controller => 'users', :action => 'confirm'
+  map.save_confirmation 'save_confirmation/:user_id', :controller => 'users', :action => 'save_confirmation'
   map.resources :invitations, :only => ['new', 'create', 'show'],
-        :collection => { :recommend => :get, :submit_recommendation => :post }
+        :collection => { :recommend => :get, :submit_recommendation => :post, :redirect => :post },
+        :member => { :confirm => :get }
   map.resource :complete_registration, :only => [:show, :update],
     :collection => { :user_details => :get, :find_restaurant => :any, :contact_restaurant => :post,
       :finish_without_contact => :get }
+
+  map.root :controller => 'welcome'
+  map.dashboard_more 'dashboard_more', :controller => 'welcome', :action => 'index', :is_more => true
+  map.refresh_dashboard 'dashboard/refresh', :controller => 'welcome', :action => 'refresh'
+  map.require_login 'dashboard/require_login', :controller => 'welcome', :action => 'require_login'
 
   map.directory 'directory', :controller => 'directory', :action => 'index'
   map.restaurant_directory 'directory/restaurants', :controller => 'directory', :action => 'restaurants'
@@ -18,15 +26,15 @@ ActionController::Routing::Routes.draw do |map|
   map.resource :cloudmail, :only => :create 
 
   map.namespace(:soapbox) do |soapbox|
-    soapbox.resources :questions, :only => ['index', 'show'], :as => "behind_the_line"
+    soapbox.resources :profile_questions, :only => ['index', 'show'], :as => "behind_the_line"
+    soapbox.btl_topic 'behind_the_line/topic/:id', :controller => 'behind_the_line', :action => 'topic'
+    soapbox.btl_chapter 'behind_the_line/chapter/:id', :controller => 'behind_the_line', :action => 'chapter'
+
     soapbox.resources :restaurant_questions, :only => ['show']
-    soapbox.resources :topics, :only => ['show']
-    soapbox.resources :chapters, :only => ['show']
 
     soapbox.resources :restaurants, :only => ['show'] do |restaurants|
       restaurants.resources :feature_pages, :only => ['show']
-      restaurants.resources :questions, :collection => { :topics => :get, :chapters => :get, :refresh => :post }, 
-        :controller => "restaurant_questions"
+      restaurants.resources :questions, :collection => { :topics => :get, :chapters => :get, :refresh => :post }, :controller => "restaurant_questions"
       restaurants.resources :photos, :only => ['show', 'index']
       restaurants.resources :accolades, :only => ['index']
     end
@@ -40,10 +48,12 @@ ActionController::Routing::Routes.draw do |map|
     soapbox.resources :menu_items, :as => "on_the_menu"
 
     soapbox.resources :users, :only => [] do |users|
-      users.resources :questions, :only => ['index', 'show']
-      users.resources :topics, :only => ['show']
-      users.resources :chapters, :only => ['show']
+      users.resources :profile_questions, :only => ['index', 'show'], :controller => 'users/profile_questions'
+      users.btl_topic 'behind_the_line/topic/:id', :controller => 'users/behind_the_line', :action => 'topic'
+      users.btl_chapter 'behind_the_line/chapter/:id', :controller => 'users/behind_the_line', :action => 'chapter'
     end
+
+    soapbox.resources :newsletter_subscribers, :member => { :welcome => :get, :confirm => :get }
 
     soapbox.connect 'travel_guides', :controller => 'soapbox', :action => 'travel_guides'
     soapbox.connect 'directory_search', :controller => 'soapbox', :action => 'directory_search'
@@ -73,12 +83,11 @@ ActionController::Routing::Routes.draw do |map|
 
   map.namespace(:mediafeed) do |mediafeed|
     mediafeed.root :controller => 'mediafeed', :action => 'index'
-    mediafeed.login 'login', :controller => 'mediafeed', :action => 'login'
-    mediafeed.resources :media_users, :except => [:index, :show]
-    mediafeed.resources :media_requests
-    mediafeed.user_confirmation 'confirmation', :controller => 'media_users', :action => 'confirmation'
+    mediafeed.login 'login', :controller => 'user_sessions', :action => 'new'
+    mediafeed.resources :media_users, :except => [:index, :show], :member => { "confirm" => :get }
     mediafeed.resend_user_confirmation 'resend_confirmation', :controller => 'media_users', :action => 'resend_confirmation'
     mediafeed.forgot_password 'forgot_password', :controller => 'media_users', :action => 'forgot_password'
+    mediafeed.resources :media_requests
     mediafeed.connect 'directory_search', :controller => 'mediafeed', :action => 'directory_search'
     mediafeed.discussion 'media_requests/:id/:discussion_type/:discussion_id', :controller => 'media_requests', :action => 'discussion'
   end
@@ -89,13 +98,12 @@ ActionController::Routing::Routes.draw do |map|
 
   map.mediafeed_directory 'mediafeed/directory', :controller => 'mediafeed/mediafeed', :action => 'directory'
 
-  map.profile 'profile/:username', :controller => 'users', :action => 'show', :requirements => { :username => /[a-zA-Z0-9\-\_ ]+/}
-
   map.resources :quick_replies
 
   map.resources :media_request_discussions, :only => [:show, :update], :member => { :read => :put } do |mrc|
     mrc.resources :comments, :only => [:new, :create]
   end
+
   map.resources :solo_media_discussions, :only => [:show, :update], :member => { :read => :put } do |smd|
     smd.resources :comments, :only => [:new, :create]
   end
@@ -106,7 +114,12 @@ ActionController::Routing::Routes.draw do |map|
 
   map.resources :conversations
 
+  map.resources :direct_messages, :member => { :read => :put }
+
+  map.profile 'profile/:username', :controller => 'users', :action => 'show', :requirements => { :username => /[a-zA-Z0-9\-\_ ]+/}
+
   map.resources :users, :collection => { :resend_confirmation => :any }, :member => {
+    :resume => :get,
     :remove_twitter => :put,
     :remove_avatar => :put,
     :fb_auth => :get,
@@ -133,7 +146,11 @@ ActionController::Routing::Routes.draw do |map|
     end
     users.resources :statuses
     users.resources :direct_messages, :member => { :reply => :get }
-    users.resources :questions, :collection => { :topics => :get, :chapters => :get, :refresh => :post }
+
+    users.behind_the_line 'behind_the_line', :controller => 'users/behind_the_line', :action => 'index'
+    users.btl_topic 'behind_the_line/topic/:id', :controller => 'users/behind_the_line', :action => 'topic'
+    users.btl_chapter 'behind_the_line/chapter/:id', :controller => 'users/behind_the_line', :action => 'chapter'
+
     users.resources :default_employments
     users.resource :subscription, 
       :collection => { :bt_callback => :get, :billing_history => :get }, 
@@ -143,6 +160,10 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :users do |users|
     users.resources :profile_answers, :only => [:create, :update, :destroy]
   end
+
+  map.resource :search, :controller => 'site_search', :only => ['show']
+
+  map.feature '/features/:id', :controller => 'features', :action => 'show'
 
   map.resources :restaurants,
                 :member => { :edit_logo => :get,
@@ -179,21 +200,10 @@ ActionController::Routing::Routes.draw do |map|
                                        :controller => 'subscriptions'
     restaurant.resources :promotions
     restaurant.resources :menu_items
+    restaurant.resources :press_releases, :collection => { :archive => :get }
   end
 
   map.resources :user_sessions, :password_resets, :followings, :pages
-
-  map.resources :direct_messages, :member => { :read => :put }
-
-  map.resources :holiday_conversations, :only => ['show','update'] do |holiday_conversations|
-    holiday_conversations.resources :comments, :only => [:new, :create]
-  end
-
-  map.resources :holiday_discussions, :member => { :read => :put }, :only => ['show','update'] do |holiday_discussions|
-    holiday_discussions.resources :comments, :only => [:new, :create]
-  end
-
-  map.resources :holiday_discussion_reminders, :member => { :read => :put }
 
   map.resources :admin_conversations, :only => 'show', :member => { :read => :put } do |admin_conversations|
     admin_conversations.resources :comments, :only => [:new, :create, :edit, :update, :destroy]
@@ -217,6 +227,8 @@ ActionController::Routing::Routes.draw do |map|
   }
 
   map.front_burner 'front_burner', :controller => 'front_burner', :action => 'index'
+  map.user_qotds 'front_burner/user/:id', :controller => 'front_burner', :action => 'user_qotds'
+  map.qotd 'front_burner/qotd/:id', :controller => 'front_burner', :action => 'qotd'
 
   map.resources :timelines, :collection => {
                               :people_you_follow => :get,
@@ -231,13 +243,13 @@ ActionController::Routing::Routes.draw do |map|
 
   map.resource :twitter_authorization
   map.resource :friends_statuses, :only => 'show'
+  map.social_media 'social_media', :controller => 'social_media', :action => 'index'
 
-  map.resource :search, :only => 'show'
-
-  map.root :controller => 'welcome'
-  map.dashboard_more 'dashboard_more', :controller => 'welcome', :action => 'index', :is_more => true
-  map.refresh_dashboard 'dashboard/refresh', :controller => 'welcome', :action => 'refresh'
-  map.require_login 'dashboard/require_login', :controller => 'welcome', :action => 'require_login'
+  map.promotions 'newsfeed', :controller => "spoonfeed/promotions", :action => "index"
+  map.a_la_minute 'a_la_minute', :controller => "spoonfeed/a_la_minute", :action => "index"
+  map.a_la_minute_answers 'a_la_minute/:question_id/answers', :controller => "spoonfeed/a_la_minute", :action => "answers"
+  map.menu_items 'on_the_menu', :controller => "spoonfeed/menu_items", :action => "index"
+  map.resources :profile_questions, :only => ['index', 'show'], :as => "behind_the_line", :controller => 'spoonfeed/profile_questions'
 
   map.namespace :admin do |admin|
     admin.root      :controller => 'admin'
@@ -299,15 +311,20 @@ ActionController::Routing::Routes.draw do |map|
     admin.resources :soapbox_slides, :collection => { :sort => :post }
     admin.resources :soapbox_promos, :collection => { :sort => :post }
 
-    admin.resources :sf_slides, :collection => { :sort => :post }
-    admin.resources :sf_promos, :collection => { :sort => :post }
-
-    admin.resources :hq_slides, :collection => { :sort => :post }
-    admin.resources :hq_promos, :collection => { :sort => :post }
-
-    admin.resources :mediafeed_slides, :collection => { :sort => :post }
-    admin.resources :mediafeed_promos, :collection => { :sort => :post }
+    admin.resources :testimonials
   end
+
+  # Not in use?
+  map.resources :holiday_conversations, :only => ['show','update'] do |holiday_conversations|
+    holiday_conversations.resources :comments, :only => [:new, :create]
+  end
+
+  map.resources :holiday_discussions, :member => { :read => :put }, :only => ['show','update'] do |holiday_discussions|
+    holiday_discussions.resources :comments, :only => [:new, :create]
+  end
+
+  map.resources :holiday_discussion_reminders, :member => { :read => :put }
+  ###
 
   map.public_page ":id", :controller => 'pages', :action => 'show'
   map.soapbox_page 'soapbox/:id', :controller => 'soapbox_pages', :action => 'show'

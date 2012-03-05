@@ -8,6 +8,7 @@ Feature: users can be invited to join Spoonfeed by registered SF users, restaura
     | sam      | secret   | sam@example.com  | Samantha Smith | Chef      |
   And the restaurant "Jack's Diner" is in the region "Midwest"
   And "Jack's Diner" restaurant is in the "Chicago" metro region
+  And a subject matter "Food"
   And I am logged in as "sam"
 
   Scenario: a regular restaurant employee wants to invite a friend
@@ -16,6 +17,18 @@ Feature: users can be invited to join Spoonfeed by registered SF users, restaura
     And I press "Send Now"
     Then I should see "Thanks for recommending new members!"
     And "ma@email.com" should have 1 email
+
+  Scenario: an unregistered user requests an invite
+    Given I am on the join page
+    And I fill in "first_name" with "Liane"
+    And I fill in "last_name" with "Jones"
+    And I fill in "email" with "ljones@myemail.com"
+	And I select "Restaurant professional" from "role"
+    And I fill in "restaurant_name" with "My Restaurant"
+    And I select "Chef" from "restaurant_role"
+    And I check "Food"
+    And I press "Sign Me Up"
+    Then I should see "Thank you"
     
   Scenario: an invite is approved and the user wants to log in and update their info (not a restaurant employee)
     Given there are the following invitations:

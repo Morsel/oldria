@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20100708221553
+# Schema version: 20120217190417
 #
 # Table name: quick_replies
 #

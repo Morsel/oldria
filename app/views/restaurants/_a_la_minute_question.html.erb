@@ -1,4 +1,5 @@
 <% question = answer.a_la_minute_question %>
+<% if soapbox? -%>
 <% content_tag_for(:dl, question) do %>
   <dt class="question">
     <%= link_if_soapbox question %>
@@ -15,4 +16,20 @@
       <% end unless index == 0 %><%# don't show the current answer in this list %>
     <% end %>
   </ul>
+<% end %>
+<% else -%>
+<div class="excerpt">
+    <h3 class="question"><%= question.question %></h3>
+    <p class="answer">
+		<%= h answer.answer %> <span class="datestamp">(<%= answer.created_at.strftime("%D") %>)
+		<%= link_to 'archive', "#a_la_minute_answers_#{question.id}", :class => 'showit' %>
+	</p>
+    <ul class="archive" id="a_la_minute_answers_<%= question.id %>">
+        <% @restaurant.a_la_minute_answers.show_public.for_question(question).each_with_index do |archived_answer, index| %>
+          <% content_tag_for(:li, archived_answer, :class => "answer") do %>
+            <%= archived_answer.answer %> <span class="datestamp">(<%= archived_answer.created_at.strftime("%D") %>)</span>
+          <% end unless index == 0 %><%# don't show the current answer in this list %>
+        <% end %>
+    </ul>
+</div>
 <% end %>

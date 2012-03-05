@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20110913204942
+# Schema version: 20120221182030
 #
 # Table name: soapbox_entries
 #
@@ -10,7 +10,8 @@
 #  created_at         :datetime
 #  updated_at         :datetime
 #  published          :boolean         default(TRUE)
-#  daily_feature      :boolean
+#  daily_feature      :boolean         default(FALSE)
+#  description        :text
 #
 
 class SoapboxEntry < ActiveRecord::Base
@@ -85,3 +86,4 @@ class SoapboxEntry < ActiveRecord::Base
   end
 
 end
+

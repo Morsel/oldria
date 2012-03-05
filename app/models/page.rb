@@ -1,5 +1,4 @@
 # == Schema Information
-# Schema version: 20110913204942
 #
 # Table name: pages
 #
@@ -7,7 +6,7 @@
 #  created_at :datetime
 #  updated_at :datetime
 #  title      :string(255)
-#  slug       :string(255)
+#  slug       :string(255)     indexed
 #  content    :text
 #
 

@@ -5,9 +5,10 @@ Feature: Search question
   I want to search for QOTD, TRENDS and answers, BTL and user profiles by keyword.
 
   Background:
-    Given There is a searchable user with a communicative profile
+    Given there is a searchable user with a communicative profile
     And a premium restaurant named "Whisky House"
-    And several profile questions matching employment roles for "searchable"
+    And profile question matching employment role with topic name "Topic A" for "searchable"
+    And profile question matching employment role with topic name "Topic B" for "searchable"
 
   Scenario: Finding a QOTD
     Given there is a QOTD asking "Is alloy mug fancy?"
@@ -44,10 +45,10 @@ Feature: Search question
   Scenario: Finding BTL question
     Given I am logged in as "searchable" with password "searchable"
     And I am on the profile page for "searchable"
-    When I follow "View all Topics" within "#behindline"
-    And I follow "View all"
-    And I follow "Education"
-    And I fill in question titled "Title 1" with answer "A dumb answer"
+    When I follow "See more of Bob's Behind the Line" within "#behind"
+    And I follow "Topic A"
+    And I follow "Education2"
+    And I fill in question titled "QTitle 1" with answer "A dumb answer"
     And I press "Post"
     When I go to the soapbox search page searching for "Title 1"
     Then I should see "Title 1" within ".search-results"
@@ -55,10 +56,10 @@ Feature: Search question
   Scenario: Finding BTL answer
     Given I am logged in as "searchable" with password "searchable"
     And I am on the profile page for "searchable"
-    When I follow "View all Topics" within "#behindline"
-    And I follow "View all"
-    And I follow "Education"
-    And I fill in question titled "Title 1" with answer "A great answer for this"
+    When I follow "See more of Bob's Behind the Line" within "#behind"
+    And I follow "Topic A"
+    And I follow "Education2"
+    And I fill in question titled "QTitle 1" with answer "A great answer for this"
     And I press "Post"
     When I go to the soapbox search page searching for "great answer"
     Then I should see "A great answer for this" within ".search-results"

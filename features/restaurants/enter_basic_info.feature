@@ -47,7 +47,7 @@ Feature: Basic Restaurant Data
       # | facebook_page      | http://www.facebook.com/piece       |
       | media_contact      | Fred Mercury                        |
       | management_company | Lettuce Entertain You               |
-      | opening_date       | January 22, 2008                    |
+      # | opening_date       | January 22, 2008                    |
 
   Scenario: Unhappy data
     When I remove optional information from the restaurant

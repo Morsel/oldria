@@ -13,3 +13,4 @@ describe SoloMediaDiscussion do
     SoloMediaDiscussion.create!(@valid_attributes)
   end
 end
+

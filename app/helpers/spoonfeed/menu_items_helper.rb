@@ -1,0 +1,2 @@
+module Spoonfeed::MenuItemsHelper
+end

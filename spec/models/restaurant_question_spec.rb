@@ -14,3 +14,4 @@ describe RestaurantQuestion do
     RestaurantQuestion.create!(@valid_attributes)
   end
 end
+

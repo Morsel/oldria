@@ -14,3 +14,7 @@ begin
 rescue LoadError
   STDERR.puts "Run `rake gems:install` to install delayed_job"
 end
+
+ENV['position_in_class']   = "before"
+ENV['exclude_tests']       = "true"
+ENV['exclude_fixtures']    = "true"

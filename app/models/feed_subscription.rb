@@ -1,11 +1,10 @@
 # == Schema Information
-# Schema version: 20110913204942
 #
 # Table name: feed_subscriptions
 #
 #  id         :integer         not null, primary key
-#  user_id    :integer
-#  feed_id    :integer
+#  user_id    :integer         indexed
+#  feed_id    :integer         indexed
 #  created_at :datetime
 #  updated_at :datetime
 #

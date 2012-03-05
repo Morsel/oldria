@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20111220185932
+# Schema version: 20120217190417
 #
 # Table name: promotions
 #
@@ -34,7 +34,7 @@ class Promotion < ActiveRecord::Base
   validates_presence_of :promotion_type, :details, :start_date, :restaurant_id, :headline
   validates_presence_of :end_date, :if => Proc.new { |promo| promo.date_description.present? },
       :message => "End date is required for repeating events"
-  validates_length_of :details, :maximum => 1000
+  validate :details_word_count
   validates_length_of :headline, :maximum => 144
 
   # Attachments and validations
@@ -119,6 +119,12 @@ class Promotion < ActiveRecord::Base
                           :name        => headline,
                           :description => details }
       restaurant.send_later(:post_to_facebook_page, post_attributes)
+    end
+  end
+
+  def details_word_count
+    if details.split(" ").size > 1000
+      errors.add(:details, "can't go over 1000 words")
     end
   end
 

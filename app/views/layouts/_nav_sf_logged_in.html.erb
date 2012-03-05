@@ -1,0 +1,22 @@
+<nav id="navContainer">
+    <ul>
+        <li><%= active_link_to "edit my profile", edit_user_profile_path(current_user), :title => "edit your profile" %></li>
+        <li><%= active_link_to "edit my restaurant", restaurants_path, :title => "edit your restaurants" %></li>
+        <li><%= active_link_to "read my messages", messages_path, :title => "messages" %></li>
+        <li><%= active_link_to "answer today's questions", front_burner_path, :title => "front burner" %></li>
+    </ul>
+    <% if !current_user.premium_account? -%>    
+    <p id="navBanner">
+        Media cannot see your personal profile. To share your personal profile, upgrade to a premium account by <%= link_to "clicking here", new_user_subscription_path(current_user) %>
+    </p>
+    <% end -%>
+    <ul id="user_nav">
+        <li><%= active_link_to "dashboard", root_path %></li>
+        <li><%= active_link_to "Newsfeed", promotions_path %></li>
+        <li><%= active_link_to "A La Minute", a_la_minute_path %></li>
+        <li><%= active_link_to "On the Menu", menu_items_path %></li>
+        <li><%= active_link_to "Behind the Line", profile_questions_path %></li>
+        <li><%= active_link_to "personal directory", directory_path %></li>
+        <li><%= active_link_to "restaurant directory", restaurant_directory_path, :class => "last" %></li>
+    </ul>
+</nav>

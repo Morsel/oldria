@@ -1,0 +1,29 @@
+<div id="sidebar">
+  <aside id="recent-activity">
+    <header>
+      <h1>Behind the Line Chapters</h1>
+    </header>
+    <% cache("btl_topic_index_#{topic.id}", :expires_in => 1.hour) do -%>
+      <ol id="btl-feed">
+          <% for chapter in topic.chapters %>
+          <li>
+            <header class="feed-item-title">
+                <%= link_to chapter.title, soapbox_btl_chapter_path(chapter) %>
+            </header>
+            <aside class="feed-item-reply-count">
+                <% link_to soapbox_btl_chapter_path(chapter) do %>
+                <span class="num"><%= count = chapter.profile_questions.to_a.sum(&:soapbox_answer_count) %></span> <%= count == 1 ? "reply" : "replies" %>
+                <% end %>
+            </aside>
+          </li>
+          <% end %>
+      </ol><!-- /activity-feed -->
+    <% end -%>
+    <div id="feed-bottom"></div>
+  </aside><!-- /recent-activity -->
+  <nav id="participate">
+    <%= link_to "Login to participate", login_path, :class => "button", :id => "login-participate" %>
+    <span>or</span>
+    <%= link_to "Create free account", join_path, :class => "button", :id => "request-invite" %>
+  </nav><!-- /participate -->
+</div><!-- /sidebar -->

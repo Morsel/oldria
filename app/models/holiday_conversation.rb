@@ -1,11 +1,10 @@
 # == Schema Information
-# Schema version: 20110913204942
 #
 # Table name: holiday_conversations
 #
 #  id             :integer         not null, primary key
-#  recipient_id   :integer
-#  holiday_id     :integer
+#  recipient_id   :integer         indexed
+#  holiday_id     :integer         indexed
 #  comments_count :integer         default(0), not null
 #  created_at     :datetime
 #  updated_at     :datetime

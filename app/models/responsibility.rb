@@ -1,11 +1,10 @@
 # == Schema Information
-# Schema version: 20110913204942
 #
 # Table name: responsibilities
 #
 #  id                :integer         not null, primary key
-#  employment_id     :integer
-#  subject_matter_id :integer
+#  employment_id     :integer         indexed
+#  subject_matter_id :integer         indexed
 #  created_at        :datetime
 #  updated_at        :datetime
 #

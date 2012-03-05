@@ -1,0 +1,28 @@
+<% title "Behind the Line - #{@user.name}", false %>
+
+<%= render :partial => 'shared/add_this', :locals => {:responder => @user} %>
+
+<h1 id="btl-title" class="btl"><%= link_to "<span class=\"btl-art\">Behind the Line:</span> <span class=\"name\">#{@user.name}</span>", soapbox_profile_path(@user.username) %></h1>
+
+<h2 id="topic_title">Topics</h2>
+<% javascript_tag do %>
+  var addthis_share = {
+    url: '<%= soapbox_user_profile_questions_url(@user) %>',
+    title: $('title').text().replace('Spoonfeed','Soapbox')
+  }
+<% end %>
+
+<%- @topics.each do |topic| -%>
+<div class="topic <%= cycle '',' last' %>" id="<%= dom_id topic %>">
+    <h3><%= topic.title %></h3>
+    <table>
+        <% @chapters_by_topic[topic].each do |chapter| %>
+        <tr>
+           <td class="topic_link"><%= link_to chapter.title, soapbox_user_btl_chapter_path(:user_id => @user.id, :id => chapter.id) %></td>
+           <td class="topic_completeness"><%= chapter.completion_percentage_for_user(@user) %>% complete</td>
+        </tr>
+        <% end if @chapters_by_topic[topic] %>
+    </table>
+    <%= link_to "View all \"#{topic.title}\" chapters &raquo;", soapbox_user_btl_topic_path(:user_id => @user.id, :id => topic.id), :class => 'view_all_chapters', :id => "view_topic_#{topic.title}" %>
+</div>
+<%- end -%>

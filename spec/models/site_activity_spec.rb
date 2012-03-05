@@ -11,3 +11,4 @@ describe SiteActivity do
     SiteActivity.create!(@valid_attributes)
   end
 end
+

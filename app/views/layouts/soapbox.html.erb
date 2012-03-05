@@ -26,28 +26,28 @@
 <!--[if IE 9 ]>    <body class="ie9"> <![endif]-->
 <!--[if (gt IE 9)|!(IE)]><!--> <body> <!--<![endif]-->
 
-  <div id="container">    
+  <div id="container">
     <header id="header">
       <hgroup>
         <h1 id="logo"><a href="/soapbox">Soapbox</a></h1>
         <img src="/images/soapbox/logo-soapbox.png" id="printlogo">
         <h2 id="tagline">A digital magazine written by chefs</h2>
       </hgroup>
-      <nav id="nav">
-        <%= link_to 'Home', soapbox_root_path, :id => "nav-home", :class => active_page?('/soapbox') %>
-        <%= link_to 'Restaurant Profiles', '/soapbox/directory/restaurants', :id => "nav-restaurant-directory", :class => active_page?('/soapbox/directory/restaurants') %>
-        <%= link_to 'Newsfeed', '/soapbox/newsfeed', :id => "nav-newsfeed", :class => active_page?('/soapbox/newsfeed') %>
-        <%= link_to 'A La Minute', '/soapbox/a_la_minute_questions', :id => "nav-alm", :class => active_page?('/soapbox/a_la_minute_questions') %>
-        <%= link_to 'On the Menu', soapbox_menu_items_path, :id => "nav-otm", :class => active_page?('/soapbox/on_the_menu') %>
-        <%= link_to 'Personal Profiles', '/soapbox/directory', :id => "nav-directory", :class => active_page?('/soapbox/directory') %>
-        <%= link_to 'Behind the Line', '/soapbox/behind_the_line', :id => "nav-btl", :class => "#{active_page?('/soapbox/behind_the_line')} last" %>
-      </nav>
+	  <nav id="nav">
+		<%= link_to 'Home', soapbox_root_path, :id => "nav-home", :class => active_page?('/soapbox') %>
+		<%= link_to 'Front Burner', 'http://blog.restaurantintelligenceagency.com/', :id => "nav-fb" %>
+		<%= link_to 'A La Minute', '/soapbox/a_la_minute_questions', :id => "nav-alm", :class => active_page?('/soapbox/a_la_minute_questions') %>
+		<%= link_to 'On the Menu', soapbox_menu_items_path, :id => "nav-otm", :class => active_page?('/soapbox/on_the_menu') %>
+		<%= link_to 'Personal Profiles', '/soapbox/directory', :id => "nav-directory", :class => active_page?('/soapbox/directory') %>
+		<%= link_to 'Restaurant Profiles', '/soapbox/directory/restaurants', :id => "nav-restaurant-directory", :class => active_page?('/soapbox/directory/restaurants') %>
+		<%= link_to 'Join', join_path, :id => "nav-join", :class => "last" %>
+	  </nav>
     </header>
   
     <nav id="utilities">
       <%= link_to 'Search the site', soapbox_search_path, :id => "search-handle", :title => "Search the site" %>
-      <a id="ria-hq" title="RIA Home" href="http://www.restaurantintelligenceagency.com/"><abbr title="Restaurant Intelligence Agency">RIA</abbr> <abbr title="Headquarters">HQ</abbr></a>
-			<a id="log-in" title="Log In to Spoonfeed" href="http://spoonfeed.restaurantintelligenceagency.com/login">Login</a>
+      <a id="ria-hq" title="RIA Home" href="<%= hq_root_path %>"><abbr title="Restaurant Intelligence Agency">RIA</abbr> <abbr title="Headquarters">HQ</abbr></a>
+			<a id="log-in" title="Log In to Spoonfeed" href="<%= login_path %>">Login</a>
     </nav><!--#utilities-->
   
     <div id="main">

@@ -17,7 +17,7 @@ config.action_controller.perform_caching             = false
 config.action_mailer.raise_delivery_errors = false
 # config.action_mailer.delivery_method = :emailthing
 
-config.gem "rails-footnotes"
+config.gem "rails-footnotes", :version => '< 3.7.0'
 config.gem 'mail_safe'
 config.gem "awesome_print", :lib => "ap"
 config.gem 'compass', :version => "~> 0.10.5"

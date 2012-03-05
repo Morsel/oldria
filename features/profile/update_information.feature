@@ -27,6 +27,7 @@ Feature: Update information
     And I press "Save User Details"
     Then I should see "Successfully updated your profile"
 
+    Given I am not logged in
     When I am on the login page
     And I fill in "Username" with "manny"
     And I fill in "Password" with "betterpassword"
@@ -51,7 +52,7 @@ Feature: Update information
     | username | password |
     | sammy    | secret   |
     And I am logged in as "sammy" with password "secret"
-    When I follow "My Profile"
+    When I follow "edit my profile"
     And I follow "Account"
     And I follow "Disconnect Twitter"
     Then I should see "Your Twitter account is no longer connected to your SpoonFeed account"

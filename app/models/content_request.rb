@@ -1,5 +1,4 @@
 # == Schema Information
-# Schema version: 20110913204942
 #
 # Table name: content_requests
 #
@@ -8,7 +7,7 @@
 #  body                 :text
 #  scheduled_at         :datetime
 #  expired_at           :datetime
-#  employment_search_id :integer
+#  employment_search_id :integer         indexed
 #  created_at           :datetime
 #  updated_at           :datetime
 #

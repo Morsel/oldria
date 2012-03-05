@@ -12,7 +12,7 @@ Feature: Admin Messaging: Pr Tips
     Given I am logged in as an admin
 
 
-  Scenario: PR Tips are sent to everyone
+  Scenario: PR Tips are sent to everyone (who is a restaurant user)
     Given there are no PR Tips in the system
     And I am on the new PR Tip page
     When I fill in "Message" with "Be friendly!"
@@ -22,6 +22,16 @@ Feature: Admin Messaging: Pr Tips
     And "sam" should have 1 PR Tip message
     And "john" should have 1 PR Tip message
 
+  Scenario: PR Tips are not sent to media users
+    Given the following media users:
+      | username | password |
+      | media    | secret   |
+    And there are no PR Tips in the system
+    And I am on the new PR Tip page
+    When I fill in "Message" with "Smile and nod!"
+    And I press "Save"
+    Then "media" should have 0 PR Tip messages
+    And "media" should have no emails
 
 @emails
   Scenario: New Pr Tip notification, user prefers no emails

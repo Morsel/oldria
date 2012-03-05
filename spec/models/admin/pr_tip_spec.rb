@@ -1,17 +1,3 @@
-# == Schema Information
-#
-# Table name: admin_messages
-#
-#  id              :integer         not null, primary key
-#  type            :string(255)
-#  scheduled_at    :datetime
-#  status          :string(255)
-#  message         :text
-#  created_at      :datetime
-#  updated_at      :datetime
-#  display_message :string(255)
-#
-
 require 'spec/spec_helper'
 
 describe Admin::PrTip do
@@ -27,4 +13,5 @@ describe Admin::PrTip do
   end
 
 end
+
 

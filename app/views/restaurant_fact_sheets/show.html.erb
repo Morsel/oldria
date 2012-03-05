@@ -1,1 +1,10 @@
-<%= render 'fact_sheet', :fact_sheet => @restaurant.fact_sheet %>
+<% title @restaurant.name, false %>
+<div id="restaurant_profile_view">
+    <%= render :partial => "restaurants/restaurant_header" %>
+
+    <%= render :partial => "restaurants/restaurant_sidebar" %>
+
+    <div id="profile-extended">
+        <%= render 'fact_sheet', :fact_sheet => @restaurant.fact_sheet %>
+    </div>
+</div>

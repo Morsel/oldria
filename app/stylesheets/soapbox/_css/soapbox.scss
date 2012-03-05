@@ -1,4 +1,3 @@
- // This import applies a global reset to any page that imports this stylesheet.
 @import "blueprint/reset";
 @import "compass/reset";
 @import "blueprint";
@@ -85,6 +84,61 @@ h1,h2,h3,h4,h5,h6{
 	}
 }
 
+#page-content form {
+	ul, ol, li{
+		margin:0;
+		padding:0;
+		list-style:none;
+	}
+	label{
+		font-weight:bold;
+	}
+	.string, .text, .country, .password, .numeric, .select, .file {
+		label{
+			display:block;
+			margin:5px 0 0;
+		}
+	}
+	.string, .text, .password, .numeric {
+		input, textarea{
+			padding:5px;
+			border:1px solid #ccc;
+			font:bold 13px;
+			color:#333;
+		}
+	}
+	.date{
+		ol, ul{
+			overflow:hidden;
+			li{
+				float:left;
+				margin:0 10px 0 0;
+				label{
+					display:block;
+				}
+			}
+		}
+	}
+
+	p.inline-hints{
+		margin:0 0 10px;
+		font-style:italic;
+		color:#666;
+	}
+	fieldset{
+		margin:10px 0;
+	}
+
+	.error {
+		padding:5px;
+		border:2px solid $orange;
+		background: $trans-orange;
+		color: $orange;
+		margin:5px 0;
+	}
+}
+/* ## forms universal styles ------------------ */
+
 #header{
 	background:url(/images/soapbox/nav.png) no-repeat;
 	margin:40px 0 30px;
@@ -118,53 +172,83 @@ h1,h2,h3,h4,h5,h6{
 #nav {
 	padding: 0;
 	a {
-		@include hiddentext;
-		margin: -23px 0 0 0;
-		float: left;
-		width: 77px;
-		height: 115px;
-		text-decoration: none;
+	  display: block;
+	  outline: 0;
+	  text-indent: -9999px;
+	  margin: -23px 0 0 0;
+	  float: left;
+	  width: 77px;
+	  height: 115px;
+	  text-decoration: none;
 		background: transparent url(/images/soapbox/soapbox-nav.png) no-repeat;
 		&#nav-home {
 			background-position: 0 0;
-			&:hover {background-position: 0 -200px;}
-			&.selected {background-position: 0 -400px;}
+			&:hover {
+				background-position: 0 -200px;
+			}
+			&.selected {
+				background-position: 0 -400px;
+			}
 		}
-		&#nav-otm {
+		&#nav-fb {
 			background-position: -77px 0;
-			&:hover {background-position: -77px -200px;}
-			&.selected {background-position: -77px -400px;}
-			width: 87px;
+			width: 97px;
+			&:hover {
+				background-position: -77px -200px;
+			}
+			&.selected {
+				background-position: -77px -400px;
+			}
 		}
 		&#nav-alm {
-			background-position: -165px 0;
-			&:hover {background-position: -165px -200px;}
-			&.selected {background-position: -165px -400px;}
-			width: 87px;
+			background-position: -174px 0;
+			width: 86px;
+			&:hover {
+				background-position: -174px -200px;
+			}
+			&.selected {
+				background-position: -174px -400px;
+			}
 		}
-		&#nav-btl {
-			background-position: -251px 0;
-			&:hover {background-position: -251px -200px;}
-			&.selected {background-position: -251px -400px;}
-			width: 97px;
+		&#nav-otm {
+			background-position: -260px 0;
+			width: 88px;
+			&:hover {
+				background-position: -260px -200px;
+			}
+			&.selected {
+				background-position: -260px -400px;
+			}
 		}
 		&#nav-directory {
-			background-position: -349px 0;
-			&:hover {background-position: -349px -200px;}
-			&.selected {background-position: -349px -400px;}
-			width: 99px;
+			background-position: -348px 0;
+			width: 100px;
+			&:hover {
+				background-position: -348px -200px;
+			}
+			&.selected {
+				background-position: -348px -400px;
+			}
 		}
 		&#nav-restaurant-directory {
 			background-position: -448px 0;
-			&:hover {background-position: -448px -200px;}
-			&.selected {background-position: -448px -400px;}
 			width: 115px;
+			&:hover {
+				background-position: -448px -200px;
+			}
+			&.selected {
+				background-position: -448px -400px;
+			}
 		}
-		&#nav-newsfeed {
-			background-position: -562px 0;
-			&:hover {background-position: -562px -200px;}
-			&.selected {background-position: -562px -400px;}
-			width: 111px;
+		&#nav-join {
+			background-position: -563px 0;
+			width: 75px;
+			&:hover {
+				background-position: -563px -200px;
+			}
+			&.selected {
+				background-position: -563px -400px;
+			}
 		}
 	}
 }
@@ -220,6 +304,79 @@ body,html,#container,#main,#content,#inside{
 	}
 
 	&.home{
+		@include column(20);
+		#jumbotron{
+			margin:3px 0 25px;
+			height:400px;
+			overflow:hidden;
+			position:relative;
+			border-bottom:5px solid $sienna;
+			img{
+				width:780px;
+				height:400px;
+			}
+			#display{
+				position:absolute;
+				bottom:0;
+				left:0;
+				width:730px;
+				background:rgba(0,0,0,0.75);
+				background:url(/images/soapbox/bg-black-opacity-75.png);
+				padding:20px 25px 12px;
+				z-index:1000;
+				h1{
+					color:$sienna;
+					@include museoslabbold;
+					font-size:22px;
+					line-height:1.2;
+					width:575px;
+					text-shadow:0 2px 0 #000;
+					padding:0;
+					margin:0;
+				}
+				summary{
+					width:575px;
+					padding:8px 0;
+					font-size:15px;
+					line-height:1.3;
+					color:#fff;
+					a{
+						color:$sienna;
+						font-weight:bold;
+						font-style:italic;
+						text-decoration:none;
+					}
+				}
+				#cycle-footer{
+					color:#fff;
+					font-size:10px;
+
+				}
+			}
+			#pager{
+				position:absolute;
+				top:15px;
+				right:10px;
+				a{
+					display:block;
+					float:left;
+					margin:0 10px 0 0;
+					padding:12px 10px 8px;
+					@include border-radius(350px);
+					@include museoslabbold;
+					font-size:18px;
+					line-height:0.5;
+					text-decoration:none;
+					color:#000;
+					background:$sienna;
+					text-shadow: 0px 1px 0px #000;
+					&.activeSlide, &:hover{
+						color:#fff;
+						background:#e85f43;
+					}
+				}
+			}
+		} /*jumbotron */
 		.panel{
 			background:#fff;
 			@include box-shadow(#d5ceca, 0, 0, 3px);
@@ -300,184 +457,6 @@ body,html,#container,#main,#content,#inside{
 		.panel_2{
 			@include column(6,true);
 		}
-		#quicklinks {
-		  @include column(4);
-		  margin: 16px 0 5px 16px;
-		  div {
-		    margin-bottom: 16px;
-		  }
-		  h2 {
-			  margin: 0;
-		    padding: 12px 0;
-		    color: $baby-blue;
-		    font-weight: bold;
-		    font-size: 14px;
-		    text-transform: uppercase;
-		    border-top: 1px dashed #acb8c0;
-				@include museoslabmedium;
-		  }
-		  ul {
-		    a, a:visited {
-		      color: #ca4826;
-		    }
-		  }
-      a.view-more {
-        color: $baby-blue;
-      }
-		}
-    #main-feeds {
-      @include column(12);
-      margin-left: 20px;
-      .live-feed {
-        clear: both;
-        margin-top: 10px;
-        padding: 5px;
-        position: relative;
-        .title {
-  				@include museoslabthin;
-  				height: 40px;
-          &#alm-title {
-            background-color: #565656;
-          }
-          &#btl-title {
-            background-color: #ca4826;
-          }
-          &#news-title {
-            background-color: #5a9cb8;
-          }
-          &#otm-title {
-            background-color: #263f6a;
-          }
-          img {
-            float: left;
-            position: absolute;
-            top: 10px;
-            left: -10px;
-          }
-          h2 {
-            float: left;
-            @include hiddentext;
-          }
-          a.link-all {
-            display: block;
-            text-align: right;
-            color: white;
-            text-decoration: none;
-            position: relative;
-            top: 15px;
-            right: 10px;
-            float: right;
-          }
-        }
-        h3 {
-          @include museoslabmedium;
-      		font-size:18px;
-      		padding:0 0 2px;
-      		margin-top: 20px;
-      		clear: both;
-      		border-bottom:1px solid $feedback-border-color;
-        }
-    		a, a:visited {
-    		  color: #ca4826;
-    		}
-        .a_la_minute_question {
-          display: none;
-          border: 10px solid #565656;
-          border-top: none;
-          padding: 12px;
-          min-height: 145px;
-          &#alm_0 {
-            display: block;
-          }
-        }
-        .profile_question {
-          display: none;
-          border: 10px solid #ca4826;
-          border-top: none;
-          padding: 12px;
-          min-height: 145px;
-          &#btl_0 {
-            display: block;
-          }
-          .datestamp {
-            color: #ccc;
-          }
-          .identity {
-            border: none !important;
-          }
-        }
-        .promotion {
-          display: none;
-          border: 10px solid #5a9cb8;
-          border-top: none;
-          padding: 12px;
-          min-height: 145px;
-          &#news_0 {
-            display: block;
-          }
-          .identity {
-            border: none;
-          }
-        }
-        .menu_item {
-          display: none;
-          border: 10px solid #263f6a;
-          border-top: none;
-          padding: 12px;
-          min-height: 145px;
-          &#otm_0 {
-            display: block;
-          }
-          .datestamp {
-            color: #ccc;
-          }
-          .identity {
-            border: none;
-          }          
-        }
-        .links {
-          text-align: right;
-          margin: 10px 10px 20px 0;
-          a {
-            border: 1px solid #ca4826;
-            background-color: #f5f4f2;
-            font-weight: bold;
-            text-decoration: none;
-            padding: 5px 8px;
-            &.current {
-              border: 1px solid #b1b0af;
-              color: #6d6d6d;
-            }
-          }
-        }
-        .identity {
-          width: 183px;
-          float: left;
-          margin: 0 15px 10px 0;
-          border-bottom: 1px dotted #ddd;
-          padding-bottom: 4px;
-          .avatar {
-            background-color: #f2f2f2;
-            width: 50px;
-            float: left;
-      			text-align: center;
-            img {
-              background-color: #f2f2f2;
-            }
-          }
-      		ul {
-      			list-style: none;
-      			margin: 0;
-      			padding: 0 0 0 70px;
-      			li {
-      				background-image: none;
-      				margin: 0;
-      				padding: 0;
-      			}
-      		}
-        }
-      }
-    }
 	}
 
 	.restaurant {
@@ -1046,8 +1025,7 @@ body,html,#container,#main,#content,#inside{
 	@include column(6,true);
 	margin:20px 0 0;
 	&.home{
-		@include column(6,true);
-		margin-left: 10px;
+		@include column(4,true);
 		section{
 			padding:10px 0;
 			margin:10px 0;

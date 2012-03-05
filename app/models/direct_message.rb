@@ -1,16 +1,15 @@
 # == Schema Information
-# Schema version: 20110913204942
 #
 # Table name: direct_messages
 #
 #  id                     :integer         not null, primary key
 #  body                   :text
-#  sender_id              :integer         not null
-#  receiver_id            :integer         not null
-#  in_reply_to_message_id :integer
+#  sender_id              :integer         not null, indexed
+#  receiver_id            :integer         not null, indexed
+#  in_reply_to_message_id :integer         indexed
 #  created_at             :datetime
 #  updated_at             :datetime
-#  from_admin             :boolean
+#  from_admin             :boolean         default(FALSE)
 #
 
 class DirectMessage < ActiveRecord::Base
@@ -99,4 +98,5 @@ class DirectMessage < ActiveRecord::Base
   end
 
 end
+
 

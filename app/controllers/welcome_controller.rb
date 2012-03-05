@@ -19,16 +19,13 @@ class WelcomeController < ApplicationController
   # GET /welcome/index
   def index
     if current_user
-      redirect_to mediafeed_root_path and return if current_user.media?
-
       @user = current_user
       @announcements = current_user.unread_announcements
       @announcements.each { |announcement| announcement.read_by!(current_user) }
       params[:is_more] ? set_up_dashboard_with_pagination : set_up_dashboard
       render :dashboard
     else
-      @sf_slides = SfSlide.all(:limit => 4)
-      @sf_promos = SfPromo.all(:limit => 4)
+      @testimonials = Testimonial.for_page("Spoonfeed").by_position
       render :layout => 'home'
     end
   end

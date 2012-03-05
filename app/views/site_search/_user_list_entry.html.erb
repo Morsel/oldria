@@ -1,0 +1,12 @@
+<div class="identity<% unless user_list_entry.avatar? -%> no_avatar<% end -%>">
+	<div class="avatar">
+		<% if user_list_entry.avatar? -%>
+			<%= image_tag(user_list_entry.avatar.url(:thumb), :width => 50, :height => 50) %>
+		<% end -%>
+	</div>
+  <ul class="identity_details user_list_entry">
+		<li class="employee_name primary"><%= link_to_if (user_list_entry.linkable_profile? || logged_in_and_not_soapbox), user_list_entry.name_or_username, profile_path(user_list_entry.username) %></li>
+		<li class="employee_role"><%= user_list_entry.primary_employment.try(:restaurant_role).try(:name) %></li>
+		<li class="restaurant_name"><%= user_list_entry.restaurant_names %></li>
+  </ul>
+</div><!--.identity-->

@@ -1,2 +1,0 @@
-module Soapbox::ChaptersHelper
-end

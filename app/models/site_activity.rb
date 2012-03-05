@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20120124214829
+# Schema version: 20120217190417
 #
 # Table name: site_activities
 #

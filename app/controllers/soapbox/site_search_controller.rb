@@ -16,7 +16,7 @@ class Soapbox::SiteSearchController < ApplicationController
       search_users
       search_restaurants
 
-      @all_entries = @all_entries.paginate(:page => params[:page])
+      @all_entries = @all_entries.uniq.paginate(:page => params[:page])
 
       @qotds_found = @all_entries.select {|res, type| type == :qotd }.map(&:first)
       @qotd_comments_found = @all_entries.select {|res, type| type == :qotd_comment }.map(&:first)
@@ -38,7 +38,7 @@ class Soapbox::SiteSearchController < ApplicationController
     end
   end
 
-  private
+  protected
 
   def search_qotds_and_trends_entities
     TrendQuestion.soapbox_entry_published.subject_like_or_display_message_like(@key).

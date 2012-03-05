@@ -1,15 +1,3 @@
-# == Schema Information
-#
-# Table name: admin_conversations
-#
-#  id               :integer         not null, primary key
-#  recipient_id     :integer
-#  admin_message_id :integer
-#  comments_count   :integer         default(0), not null
-#  created_at       :datetime
-#  updated_at       :datetime
-#
-
 require 'spec/spec_helper'
 
 describe Admin::Conversation do

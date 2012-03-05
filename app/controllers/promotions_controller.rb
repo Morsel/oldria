@@ -1,10 +1,10 @@
 class PromotionsController < ApplicationController
 
   before_filter :find_restaurant
+  before_filter :require_manager, :except => [:index]
 
   def index
-    @promotions = @restaurant.promotions.select { |p| p.current? }
-    @past_promotions = @restaurant.promotions.reject { |p| p.current? }
+    @promotions, @past_promotions = @restaurant.promotions.all(:order => "created_at DESC").split { |p| p.current? }
   end
 
   def new
@@ -51,6 +51,13 @@ class PromotionsController < ApplicationController
 
   def find_promotion
     @promotion = Promotion.find(params[:id])
+  end
+
+  def require_manager
+    if cannot? :edit, @restaurant
+      flash[:error] = "You don't have permission to access that page"
+      redirect_to @restaurant
+    end
   end
 
 end

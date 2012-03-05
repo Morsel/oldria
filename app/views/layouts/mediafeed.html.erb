@@ -46,26 +46,25 @@
 			
 		</header><!--#site_header-->
 		
-		<div id="main" class="<%= media_feed_css_class_if_home %>">		
-		
-      <%= render 'layouts/mediafeed_nav_logic' %>
-      <div id="content" class="<%= media_feed_css_class_if_home %>">
-        <% unless @mediafeed_home_page -%><div class="inner_content"><% end -%>
-          <%= render 'layouts/flashes' unless @mediafeed_home_page %>          
-          <%= yield %>
-          <%= render 'mediafeed/shared/mediafeed_sidebar' unless @mediafeed_home_page %>
-        <% unless @mediafeed_home_page -%></div><!-- /inner_content --><% end -%>
-      </div><!-- /content -->
-      
-			
-			
-			<%= yield :sidebar_b %>	
-		  <div class="clear"></div>
-      
-		</div><!--#main-->
-		
-		<div id="padding"></div>
-	</div><!-- #container -->
+        <div id="main" class="<%= media_feed_css_class_if_home %>">
+
+            <%= render 'layouts/mediafeed_nav_logic' %>
+            <div id="content" class="<%= media_feed_css_class_if_home %>">
+                <% unless @mediafeed_home_page -%><div class="inner_content"><% end -%>
+                    <%= render 'layouts/flashes' unless @mediafeed_home_page %>
+                    <%= yield %>
+                    <%= render 'mediafeed/shared/mediafeed_sidebar' unless @mediafeed_home_page %>
+                <% unless @mediafeed_home_page -%></div><!-- /inner_content --><% end -%>
+            </div><!-- /content -->
+
+            <%= yield :sidebar_b %>
+            <div class="clear"></div>
+
+        </div><!--#main-->
+
+        <div id="padding"></div>
+    </div><!-- #container -->
+
 	<div id="footer_container"> 
 	  <div id="foot-wrap">
 	    <footer>
@@ -92,8 +91,7 @@
 	    </footer>
 	  </div>
 	</div><!-- #footer_container-->
-	
-	
+
 	<script type="text/javascript">
 	window.current_user_id = '<%= current_user ? current_user.id : "null" %>';
 	</script>
@@ -102,8 +100,8 @@
 	<%= yield :facebook_js %>
 	<% end %>
 	
-	<%= javascript_include_tag 'https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js', 'https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.7/jquery-ui.min.js' %>
-	 <%= javascript_include_tag 'jquery-easing-min.js', 'jquery-cycle-min.js', 'jquery.equalheights', 'showy', 'mediafeed' %>
-	<%= yield(:javascript) %>
+    <%= javascript_include_tag 'https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js', 'https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.7/jquery-ui.min.js' %>
+	<%= javascript_include_tag 'jquery-easing-min.js', 'jquery-cycle-min.js', 'jquery.equalheights', 'showy', 'mediafeed' %>
+    <%= yield(:javascript) %>
 </body>
 </html>

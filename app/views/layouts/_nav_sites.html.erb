@@ -1,0 +1,17 @@
+<nav id="topNav" class="clearfix">
+	<div class="sites_container">
+		<ul>
+			<li><%= link_to "RIA", hq_root_path %></li>
+			<li><%= link_to "Soapbox", soapbox_root_path %></li>
+			<li>Spoonfeed</li>
+			<li><%= link_to "Blog", "http://ellenmalloy.com" %></li>
+			<li><%= link_to "Contact", hq_page_path('contact') %></li>
+			<% if current_user -%>
+			<li><%= link_to "Account", current_user.media? ? edit_mediafeed_media_user_path(current_user) : edit_user_profile_path(current_user, :anchor => "profile-account") %></li>
+			<li><%= link_to "Logout", logout_path %></li>
+			<% else -%>
+			<li><%= link_to "Login", login_path %></li>
+			<% end -%>
+		</ul>
+	</div>
+</nav>

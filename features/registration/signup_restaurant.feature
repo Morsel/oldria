@@ -39,7 +39,7 @@ Feature: Signup restaurant
     And "joesak" should be the account manager for "Joe's Shack"
     And "Joe's Shack" should be in the "Chicago" metropolitan area
     And "Joe's Shack" should have "Italian" cuisine
-	And "joesak" should not have a default employment
+    And "joesak" should not have a default employment
     
-    When I follow "My Restaurants"
+    When I follow "edit my restaurant"
     Then I should see "Joe's Shack"

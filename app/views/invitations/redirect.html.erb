@@ -1,0 +1,18 @@
+<% title "Select an account type" %>
+
+<p>Please select an account type: restaurant professional or media</p>
+
+<% form_tag redirect_invitations_path, :id => "join" do %>
+<div class="left">
+    <%= text_field_tag "first_name", params[:first_name], :id => "firstName", :class => "standard-filler", :alt => "First Name", :required => "" %>
+    <%= text_field_tag "last_name", params[:last_name], :id => "lastName", :class => "standard-filler", :alt => "Last Name", :required => "" %>
+</div>
+<div class="right">
+    <%= text_field_tag "email", params[:email], :id => "email", :class => "standard-filler", :alt => "email", :required => "" %>
+    <%= select_tag "role", options_for_select([["Select one", ""], ["Restaurant professional", "restaurant"], ["Media", "media"]]) %>
+</div>
+<div class="clearfix">
+    <p class="left">By entering your information you are agreeing to our <a href="<%= page_path('terms') %>" class="terms">terms and services</a></p>
+    <%= submit_tag "Sign Me Up", :id => "submit", :class => "right" %>
+</div>
+<% end %>

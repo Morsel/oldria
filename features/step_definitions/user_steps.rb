@@ -26,15 +26,20 @@ Given /^the following media users?:?$/ do |table|
   end
 end
 
-Given /^a media user "([^\"]*)" has just signed up$/ do |username|
-  visit new_mediafeed_media_user_path
+Given /^a media user named "([^\"]*)" has just signed up$/ do |username|
+  visit join_path
 
-  When 'I sign up with:', table(%Q{
-    | username    | email        | password |
-    | #{username} | jimbo@bo.com | secret   |
+  When 'I fill in the following:', table(%Q{
+    | first_name | Media                 |
+    | last_name  | User                  |
+    | email      | #{username}@media.com |
+    | role       | media                 |
   })
+  And 'I press "submit"'
 
-  @user = User.find_by_username(username)
+  @user = User.find_by_email("#{username}@media.com")
+  @user.update_attribute(:username, username)
+  @user.update_attributes(:password => "secret", :password_confirmation => "secret")
 end
 
 Given /^I am logged in as an admin$/ do
@@ -47,7 +52,7 @@ Given /^I am logged in as a normal user$/ do
   Given 'I am logged in as "normal" with password "normal"'
 end
 
-Given /^There is a searchable user with a communicative profile$/ do
+Given /^there is a searchable user with a communicative profile$/ do
   user = Factory(:published_user, :username => 'searchable', :password => 'searchable',
                  :name => "Bob Ichvinstone", :subscription => Factory(:subscription))
   Factory(:profile, :user => user, :summary => "I like ketchup!")
@@ -84,6 +89,7 @@ Given /^I am logged in as a media member$/ do
 end
 
 Given /^I am logged in as "([^\"]*)" with password "([^\"]*)"$/ do |username, password|
+  visit logout_url if @current_user
   unless username.blank?
     visit login_url
     fill_in "Username", :with => username
@@ -161,7 +167,7 @@ When /^I sign up with:$/ do |table|
 end
 
 When /^I confirm my account$/ do
-  When 'I open the email with subject "Welcome! Please confirm your account"'
+  When 'I open the email with subject "Welcome to Spoonfeed! Please confirm your account"'
   When 'I click the first link in the email'
 end
 

@@ -1,0 +1,11 @@
+<li>
+  <% link_to profile_question_path(btl_question) do %>
+    <% date = btl_question.created_at %>
+    <time datetime="<%= date.try(:strftime,'%Y-%m-%d') %>"><span><%= date.try(:strftime, "%b").upcase %></span><%= date.try(:strftime, "%e") %></time>
+    <span class="title">
+      <strong><%= btl_question.chapter.title_with_topic %>:</strong><br/>
+      <%= btl_question.title %>
+    </span>
+    <span class="reply-count"><span><%= count = btl_question.profile_answers.count %></span><%= count > 1 ? "replies" : "reply" %></span>
+  <% end %>
+</li>

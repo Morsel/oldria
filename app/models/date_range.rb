@@ -1,9 +1,8 @@
 # == Schema Information
-# Schema version: 20110913204942
 #
 # Table name: date_ranges
 #
-#  id         :integer         not null, primary key
+#  id         :integer         not null, primary key, indexed
 #  start_date :date
 #  end_date   :date
 #  name       :string(255)

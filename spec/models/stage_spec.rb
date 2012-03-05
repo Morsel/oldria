@@ -10,18 +10,4 @@ describe Stage do
   end
 end
 
-# == Schema Information
-#
-# Table name: stages
-#
-#  id            :integer         not null, primary key
-#  establishment :string(255)
-#  expert        :string(255)
-#  start_date    :date
-#  end_date      :date
-#  comments      :text
-#  profile_id    :integer
-#  created_at    :datetime
-#  updated_at    :datetime
-#
 

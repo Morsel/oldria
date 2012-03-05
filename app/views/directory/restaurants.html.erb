@@ -1,11 +1,14 @@
 <% title "Restaurant Directory" %>
-<%= link_to 'Switch to Profile Directory', directory_path, :class => "directory_switch" unless soapbox? %>
 
+<%= title_for_search %>
+
+<% if @use_search %>
 <div id="directory_search">
-    <% form_tag do %>
-        <%= render :partial => 'directory/restaurant_search_criteria' %>
-    <% end %>
+	<% form_tag do %>
+		<%= render :partial => 'directory/restaurant_search_criteria' %>
+	<% end %>
 </div>
+<% end %>
 
 <div id="restaurant_directory_list">
     <%= render :partial => 'directory/restaurant_search_results' %>

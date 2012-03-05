@@ -1,10 +1,9 @@
 # == Schema Information
-# Schema version: 20110913204942
 #
 # Table name: profiles
 #
 #  id                    :integer         not null, primary key
-#  user_id               :integer         not null
+#  user_id               :integer         not null, indexed
 #  birthday              :date
 #  job_start             :date
 #  cellnumber            :string(255)

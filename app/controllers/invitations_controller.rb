@@ -6,19 +6,20 @@ class InvitationsController < ApplicationController
   before_filter :require_user, :only => [:recommend, :submit_recommendation]
   
   def new
-    @invitation = Invitation.new
+    @invitation = Invitation.new(params[:invitation])
   end
   
   def create
     @invitation = Invitation.new(params[:invitation])
     if @invitation.save
-      flash[:notice] = "Thanks for recommending a new member for Spoonfeed! We’ll shoot them an invitation as soon as our system can accept new members."
-      current_user ? 
-        redirect_to(root_path) :
-        redirect_to(soapbox_root_path)
+      redirect_to :action => "confirm", :id => @invitation.id
     else
       render :new
     end
+  end
+
+  def confirm
+    @invitation = Invitation.find(params[:id])
   end
 
   # This is where "accept Spoonfeed invite" links go. They have both a perishable token and a user id.
@@ -49,7 +50,16 @@ class InvitationsController < ApplicationController
       redirect_to login_path, :user_id => params[:user_id]
     end
   end
-  
+
+  # FIXME - this will be deprecated at end of redesign-2011 and should be removed
+  def redirect
+    if params[:role] == "restaurant"
+      redirect_to :action => "new", :invitation => { :first_name => params[:first_name], :last_name => params[:last_name], :email => params[:email] }
+    elsif params[:role] == "media"
+      redirect_to :controller => "mediafeed/media_users", :action => "new", :user => { :first_name => params[:first_name], :last_name => params[:last_name], :email => params[:email] }
+    end
+  end
+
   def recommend
   end
   

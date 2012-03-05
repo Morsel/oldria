@@ -511,7 +511,7 @@ Factory.define :sf_slide do |f|
 end
 
 Factory.define :a_la_minute_question do |f|
-  f.question "What's new?"
+  f.question "Our current inspiration is"
   f.kind 'restaurant'
 end
 
@@ -576,4 +576,18 @@ Factory.define :menu_item do |f|
   f.name "BBQ Tofu"
   f.association :restaurant
   f.otm_keywords { [Factory(:otm_keyword)] }
+end
+
+Factory.define :testimonial do |f|
+  f.quote "This is great"
+  f.person "Chef Tastic - New Place"
+  f.page "RIA HQ"
+  f.sequence(:photo_file_name) { |n| "image#{n}.jpg" }
+  f.photo_content_type "image/jpg"
+  f.photo_file_size 5000
+  f.photo_updated_at 1.day.ago
+end
+
+Factory.define :newsletter_subscriber do |f|
+  f.email "myemail@maily.com"
 end

@@ -1,42 +1,22 @@
-  <div id="padding"></div>
-</div><!-- #container -->
-<div id="footer_container"> 
-  <div id="foot-wrap">
-    <footer>
-    	<div id="footer_branding">
-    		<a href="http://www.restaurantintelligenceagency.com/"><img src="/images/redesign/footer-ria-logo.png" alt="RIA: Restaurant Intelligency Agency" title="RIA: Restaurant Intelligency Agency" /></a>
-    	</div><!--#footer_branding-->
-	
-    	<div id="footer_links">
-    		<p>&copy; <%= Time.now.strftime('%Y') %> <a href="http://www.restaurantintelligenceagency.com/">Restaurant Intelligency Agency</a>. All Rights Reserved.</p>
-    		<nav>
-    			<%= link_to 'Contact', public_page_path('contact') %>
-    			<%= link_to 'RIA HQ', 'http://www.restaurantintelligenceagency.com' %>
-    			<%= link_to 'Privacy', public_page_path('privacy') %>
-    			<%= link_to 'About', public_page_path('about') %>
-    			<%= link_to 'Products', public_page_path('products') %>
-    			<%= link_to 'Help', public_page_path('help') , :class => 'last' %>
-    		</nav>
-    	</div><!--#footer_links-->
-	
-    	<div id="footer_social">
-    		<a class="fb" href="http://www.facebook.com/RestaurantIntelligenceAgency">Check us out<br/>on Facebook</a>
-    		<a class="twitter" href="http://twitter.com/TeamRIA">Follow on Twitter<br/>@TeamRIA</a>
-    	</div><!--#social_links-->
-    </footer>
-  </div>
-</div><!-- #footer_container-->
+  <%= render :partial => "layouts/footer_links" %>
 
+  <%= javascript_include_tag 'https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js', 'https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.min.js' %>
+  <%= javascript_include_tag 'modernizr-2.0.6.min.js', 'jquery-form-min.js', 'jquery-colorbox-min.js', 'jquery-easing-min.js', 'jquery-cycle-min.js', 'jquery.equalheights', 'jquery.ui.tabs-customized', 'showy', 'jquery.masonry.js', 'filler.js', :cache => true %>
+  <%= javascript_include_tag 'spoonfeed.js' %>
 
-<script type="text/javascript">
-window.current_user_id = '<%= current_user ? current_user.id : "null" %>';
-</script>
+  <!--[if lt IE 7 ]>
+    <script src="//ajax.googleapis.com/ajax/libs/chrome-frame/1.0.3/CFInstall.min.js"></script>
+    <script>window.attachEvent('onload',function(){CFInstall.check({mode:'overlay'})})</script>
+  <![endif]-->
 
-<% fb_connect_async_js do %>
-<%= yield :facebook_js %>
-<% end %>
+  <script type="text/javascript">
+  window.current_user_id = '<%= current_user ? current_user.id : "null" %>';
+  </script>
 
-<%= javascript_include_tag 'spoonfeed' %>
-<%= yield(:javascript) %>
+  <% fb_connect_async_js do %>
+    <%= yield :facebook_js %>
+  <% end %>
+
+  <%= yield(:javascript) %>
 </body>
 </html>

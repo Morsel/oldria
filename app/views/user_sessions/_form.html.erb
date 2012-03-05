@@ -8,15 +8,11 @@
             <label><%= f.check_box :remember_me %> Remember me?</label>
         </li>
 
-        <%- if mediafeed? -%><%= hidden_field_tag "mediafeed", "true" %><%- end -%>
-
         <p><%= button_tag "Login", :class => 'positive', :name => 'submit' %></p>
     <% end %>
 <% end %>
 
-<% unless mediafeed? %>
 <div class="fb">
     Or login with Facebook:
     <p><%= fb_login_link fb_login_path %></p>
 </div>
-<% end %>

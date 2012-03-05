@@ -1,0 +1,41 @@
+<% title "Press Releases for #{@restaurant.name}" %>
+
+<% title @restaurant.name, false -%>
+<div id="restaurant_profile_view" class="edit clear clearfix">
+	
+	<%= render 'restaurants/restaurant_editing_header' %>
+
+	<div id="editing_restaurant">
+		
+		<h2>Add a press release</h2>
+		<div class="upload_photo editing">
+			<%= render :partial => "form" %>
+		</div><!--.upload_photo-->
+
+        <% if @restaurant.press_releases.present? -%>
+        <h3>Uploaded Press Releases</h3>
+        <div class="editing clearfix clear">
+            <table id="press_releases" style="width: 60%">
+                <thead>
+                    <tr>
+                        <th>Press release title</th>
+                        <th>Date uploaded</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% @restaurant.press_releases.all(:order => "created_at DESC").each do |press_release| %>
+                    <% content_tag_for(:tr, press_release) do %>
+                    <td class="title"><%= link_to press_release.title, press_release.pdf_remote_attachment.attachment.url %></td>
+                    <td class="date"><%= press_release.pdf_remote_attachment.updated_at.to_s(:standard) %></td>
+                    <td><%= link_to "Remove", restaurant_press_release_path(@restaurant, press_release), :method => :delete, :confirm => "Are you sure you want to remove this?", :class => 'delete' %><%= link_to "Edit", edit_restaurant_press_release_path(@restaurant, press_release), :class => 'edit' %></td>
+                    <% end %>
+                    <% end %>
+                </tbody>
+            </table>
+        </div>
+        <% end -%>
+		
+	</div><!--#editing_restaurant-->
+	
+</div><!--#restaurant_profile_view-->

@@ -13,3 +13,4 @@ describe RestaurantAnswer do
     RestaurantAnswer.create!(@valid_attributes)
   end
 end
+

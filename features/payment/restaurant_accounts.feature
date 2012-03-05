@@ -67,7 +67,6 @@ Feature: Restaurant Accounts
     And I don't see that the restaurant account for "Taco Bell" lasts until the end of the billing cycle
 
   Scenario: You can't access a restaurant unless you are a manager
-    Given I am not logged in
     Given I am logged in as "sam" with password "secret"
     When I go to the edit restaurant page for "Taco Bell"
     Then I should be on the restaurant show page for "Taco Bell"
@@ -78,8 +77,7 @@ Feature: Restaurant Accounts
 
   Scenario: An admin can access any restaurant
     Given the restaurant "Taco Bell" has a premium account
-    Given I am not logged in
-    And I am logged in as an admin
+    Given I am logged in as an admin
     And I simulate a successful cancel from braintree
     When I go to the edit restaurant page for "Taco Bell"
     And I follow "Downgrade to basic"

@@ -11,7 +11,7 @@ Feature: Admin Messaging: Announcements
       | john     | secret   | john@example.com | John Doe  | Sommelier | Beer, Wine      |
     Given I am logged in as an admin
 
-  Scenario: Announcements are sent to everyone
+  Scenario: Announcements are sent to everyone (who is a restaurant user)
     Given there are no Admin Messages in the system
     And I am on the new Announcement page
     When I fill in "Message" with "We've got Direct Messages!"
@@ -20,6 +20,17 @@ Feature: Admin Messaging: Announcements
     And I should see "We've got Direct Messages!"
     And "sam" should have 1 Announcement message
     And "john" should have 1 Announcement message
+
+  Scenario: Announcements are not sent to media members
+    Given the following media users:
+      | username | password |
+      | media    | secret   |
+    And there are no Admin Messages in the system
+    And I am on the new Announcement page
+    When I fill in "Message" with "Announcement!"
+    And I press "Save"
+    Then "media" should have 0 Announcement messages
+    And "media" should have no emails
 
 @emails
   Scenario: New Announcement notification, user prefers no emails

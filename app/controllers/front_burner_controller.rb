@@ -16,6 +16,16 @@ class FrontBurnerController < ApplicationController
     @comment = Comment.find(params[:comment_id]) if comment_share?
   end
 
+  def user_qotds
+    @user = User.find(params[:id])
+    @qotds = @user.qotd_convos_with_comments.all(:order => "created_at DESC")
+  end
+
+  def qotd
+    @qotd = Admin::Qotd.find(params[:id])
+    @answers = @qotd.comments.from_premium_users.all(:order => "created_at DESC")
+  end
+
   private 
 
   def comment_share?

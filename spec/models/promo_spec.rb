@@ -12,3 +12,4 @@ describe Promo do
     Promo.create!(@valid_attributes)
   end
 end
+

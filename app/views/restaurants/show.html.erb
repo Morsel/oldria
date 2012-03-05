@@ -1,211 +1,130 @@
 <% title @restaurant.name, false %>
-<div id="restaurant_profile_view" class="clear clearfix">
+<div id="restaurant_profile_view">
+    <%= render :partial => "restaurant_header" %>
 
-  <%= render 'restaurants/restaurant_header' %>
+    <%= render :partial => "restaurant_sidebar" %>
 
-  <div class="media clear clearfix">
+    <section id="profileContent" class="right">
 
-    <div id="primary_photo" class="photos">
-      <h2>Photos</h2>
-      <% if @restaurant.photos.any? -%>
-        <small><%= link_to 'View all photos&nbsp;&#187;', correct_restaurant_photos_path(@restaurant) %></small>
-        <%= link_to image_tag(@restaurant.primary_photo.attachment.url(:medium), :alt => ''), correct_restaurant_photos_path(@restaurant) %>
-      <% else -%>
-        <p>There are no photos for this restaurant yet.</p>
-      <% end -%>
-    </div><!-- .photos -->
+        <div class="module clearfix menus">
+            <h2 class="moduleHeadline orange"><span>On the menu</span><%= link_to "See all \"on the menu\"", restaurant_menu_items_path(@restaurant) %></h2>
 
-    <div class="menus">
-      <h2>Menus</h2>
-      <% if @restaurant.menus.any? -%>
-        <ul>
-          <%= render :partial => 'menus/menu', :collection => @restaurant.menus.by_position %>
-        </ul>
-      <% else -%>
-        <p>There are no menus available at this time.</p>
-      <% end -%>
-    </div><!-- .menus -->
-
-  </div><!-- .media -->
-
-  <% if @restaurant.top_tags.any? %>
-  <div class="top-tags clear clearfix">
-    <h2>Top 15 Tags</h2>
-    <ul class="tags">
-        <% for tag in @restaurant.top_tags %>
-        <li><%= link_to h(tag.value), feature_path(tag)  %></li>
-        <% end %>
-    </ul>
-  </div><!-- .top-tags -->
-  <% end %>
-
-  <h2>Details</h2>
-  <div class="manager_and_facts equal-height tricol">
-    <% dl_if(!@restaurant.description.blank?, :class => "list_item", :id => "description") do %>
-      <dt>Description:</dt>
-      <dd><%= @restaurant.description %></dd>
-    <% end %>
-
-    <% dl_if(@restaurant.cuisine, :class => "list_item", :id => "cuisine") do %>
-      <dt>Cuisine:</dt>
-      <dd><%=h @restaurant.cuisine.try(:name) %></dd>
-    <% end %>
-
-    <% dl_if @restaurant.manager, :class => "list_item", :id => "manager" do %>
-      <dt>Account Administrator:</dt>
-      <dd><%= link_to h(@restaurant.manager.name), profile_path(:username => @restaurant.manager.username) %></dd>
-    <% end %>
-
-    <% dl_if @restaurant.media_contact, :class => "list_item", :id => "media_contact" do %>
-      <dt>Media Contact:</dt>
-      <dd>
-        <%= link_to h(@restaurant.media_contact.name), profile_path(:username => @restaurant.media_contact.username) %>
-        <%= "<br>#{@restaurant.media_contact.phone_number}" if @restaurant.media_contact.phone_number.present? -%>
-        <%= "<br>#{mail_to @restaurant.media_contact.email}" if @restaurant.media_contact.email.present? -%>
-      </dd>
-    <% end %>
-
-    <% dl_if(@restaurant.management_company_name.present?, :class => "list_item", :id => "management_company") do %>
-      <dt>Management Company:</dt>
-      <% if @restaurant.management_company_website.present? %>
-        <dd><%= link_to h(@restaurant.management_company_name), @restaurant.management_company_website %></dd>
-      <% else %>
-        <dd><%= h(@restaurant.management_company_name) %><dd>
-      <% end %>
-    <% end %>
-  </div><!-- .manager_and_facts -->
-
-  <div class="account_contact equal-height tricol">
-    <% dl_if(@restaurant.opening_date, :class => "list_item") do %>
-      <dt>Opening Date:</dt>
-      <dd id="opening_date"><%= @restaurant.opening_date.to_s(:long) %></dd>
-    <% end %>
-
-    <% dl_if(@restaurant.phone_number, :class => "list_item", :id => "phone_number") do %>
-      <dt>Phone Number:</dt>
-      <dd id="phone_number"><%=h @restaurant.phone_number %></dd>
-    <% end %>
-  </div><!-- .account_contact -->
-
-  <div class="account_social equal-height tricol">
-    <% dl_if(@restaurant.website.present?, :class => "list_item", :id => "website") do %>
-      <dt>Website:</dt>
-      <dd><%= link_to h(@restaurant.website), @restaurant.website %></dd>
-    <% end %>
-
-    <% dl_if(@restaurant.has_facebook_page?, :class => "list_item", :id => "facebook_page") do %>
-      <dt>Facebook Page:</dt>
-      <dd><%= link_to h(@restaurant.name), @restaurant.facebook_page_url %></dd>
-    <% end %>
-
-    <% dl_if(@restaurant.twitter_authorized?, :class => "list_item", :id => "twitter_username") do %>
-      <dt>Twitter:</dt>
-      <dd>
-        <%= link_to "@#{h(@restaurant.twitter_username)}", "http://twitter.com/#{@restaurant.twitter_username}"%>
-      </dd>
-    <% end %>
-  </div><!-- .account_details -->
-
-  <div class="rest_staff clearfix">
-    <h2>Restaurant Staff</h2>
-    <div class="restaurant_employees employments clearfix">
-      <%= render :partial => 'restaurants/employment', 
-                 :collection => @restaurant.public_employments.all(:include => [:subject_matters, :restaurant_role, :employee]) %>
-    </div><!-- .employments -->
-  </div><!--.rest_staff-->
-
-  <% unless @restaurant.accolades.empty? %>
-  <div class="accolades clearfix">
-    <h2>Accolades</h2>
-    <ul>
-      <%= render :partial => 'accolades/accolade', :collection => @restaurant.accolades.by_run_date %>
-    </ul>
-  </div><!-- .accolades -->
-  <% end %>
-
-  <% if @restaurant.fact_sheet.info_exists? %>
-    <div id="extended_profile_container" class="clear">
-      <a href="#extended_profile" class="showit">View Restaurant Fact Sheet <em>(Parking &amp; Directions, Pricing, Hours, etc)</em></a>
-      <%= render 'restaurant_fact_sheets/fact_sheet', :fact_sheet => @restaurant.fact_sheet %>
-    </div><!-- #extended_profile_container -->
-  <% end %>
-
-  <% if @menu_items.present? %>
-  <div id="on_the_menu" class="recent_actions">
-      <h3 id="otm-title"><%= link_to "On the Menu", soapbox? ? soapbox_menu_items_path(:restaurant_id => @restaurant) : restaurant_menu_items_path(:restaurant_id => @restaurant) %></h3>
-      <% if @restaurant.employees.include?(current_user) -%>
-      <div class="edit_profile_link">
-          <%= link_to "edit On the Menu", restaurant_menu_items_path(:restaurant_id => @restaurant) %>
-      </div>
-      <% end -%>
-
-      <ul class="box">
-        <% reset_cycle('default') -%>
-        <% for item in @menu_items -%>
-        <li class="<%= cycle("odd", "even") %>">
-            <% link_to soapbox_menu_item_path(item) do %>
-            <h5><%= item.name %>: <%= truncate(item.description, :length => 100) %></h5>
+            <% for item in @menu_items %>
+            <figure>
+                <% link_to restaurant_menu_items_path(@restaurant, :anchor => "menu_item_#{item.id}") do %>
+                  <%= image_tag(item.photo.url(:small)) if item.photo_file_name.present? %>
+                <% end %>
+                <figcaption>
+                    <p><%= item.name %></p>
+                </figcaption>
+            </figure>
             <% end %>
-        </li>
-        <% end -%>
-      </ul>
-      <p class="view_all"><%= link_to "View all &raquo;", soapbox? ? soapbox_menu_items_path(:restaurant_id => @restaurant) : restaurant_menu_items_path(:restaurant_id => @restaurant) %></p>
-  </div><!--#on_the_menu-->
-  <% end %>
+        </div>
 
-  <% if @promotions.present? %>
-  <div id="newsfeed" class="recent_actions">
-      <h3 id="newsfeed-title"><%= link_to "Newsfeed", soapbox? ? soapbox_promotions_path(:restaurant_id => @restaurant) : restaurant_promotions_path(:restaurant_id => @restaurant) %></h3>
-      <% if @restaurant.employees.include?(current_user) -%>
-      <div class="edit_profile_link">
-          <%= link_to "edit Newsfeed", new_restaurant_promotion_path(:restaurant_id => @restaurant) %>
-      </div>
-      <% end -%>
+        <div class="module clearfix photos">
 
-      <ul class="box">
-        <% reset_cycle('default') -%>
-        <% for promotion in @promotions -%>
-        <li class="<%= cycle("even", "odd") %>">
-            <% link_to soapbox_promotion_path(promotion) do %>
-            <h5><%= promotion.title %>: <%= Loofah::Helpers.sanitize(truncate(promotion.details)) %></h5>
-            <%= promotion.start_date.to_formatted_s(:long) %> <%= "- #{promotion.end_date.to_formatted_s(:long)}" if promotion.end_date.present? %> <%= "- #{promotion.date_description}" if promotion.date_description.present? %>
-            <div><span class="datestamp"><%= "Posted #{promotion.created_at.strftime("%D")}" %></span></div>
+            <h2 class="moduleHeadline green"><span>Press Photos</span><%= link_to "See all photos", restaurant_photos_path(@restaurant) %></h2>
+
+            <% for photo in @restaurant.photos.all(:limit => 3) %>
+            <figure>
+                <%= link_to image_tag(photo.attachment.url(:medium_photo)), photo.attachment.url(:large), :class => 'colorbox', :rel => 'restaurant_photo', :title => "#{photo.name}" %>
+                <figcaption>
+                    <p><%= photo.name %><br />
+                        <span><%= photo.credit %></span>
+                    </p>
+                </figcaption>
+            </figure>
             <% end %>
-        </li>
-        <% end -%>
-      </ul>
-      <p class="view_all"><%= link_to "View all &raquo;", soapbox? ? soapbox_promotions_path(:restaurant_id => @restaurant) : restaurant_promotions_path(:restaurant_id => @restaurant) %></p>
-  </div><!--#newsfeed-->
-  <% end %>
+        </div>
 
-  <% if @questions.present? %>
-  <div id="a_la_minute">
-    <h3 id="alm-title">A La Minute Questions</h3>
-    <% if @restaurant.employees.include?(current_user) %>
-    <div class="edit_profile_link">
-      <%= link_to "edit your answers", bulk_edit_restaurant_a_la_minute_answers_path(:restaurant_id => @restaurant) %>
-    </div>
-    <% end %>
+    </section><!-- profileContent -->
 
-    <div class="questions">
-      <%= render :partial => "restaurants/a_la_minute_question",
-              :collection => @questions, :as => :answer, :locals => { :restaurant => @restaurant } %>
-    </div>
-  </div><!--#a_la_minute-->
-  <% end %>
+    <section id="middle" class="clear">
 
-</div><!-- #restaurant_profile_view -->
+        <!-- <div class="middleDetails">
+            <article class="stack green">
+                <h2><span>Today's Deals</span><a href="#" class="gray">archives</a></h2>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+            </article>
+            <article>
+                <h2><span>Events</span><a href="#" class="gray">archives</a></h2>
+                <p class="gray">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                <ul>
+                    <li><a href="#">Lorem ipsum</a></li>
+                    <li><a href="#">dolor sit</a></li>
+                    <li><a href="#">consectetur</a></li>
+                    <li><a href="#">adipiscing elit</a></li>
+                    <li><a href="#">Duis a</a></li>
+                    <li><a href="#">lectus nunc</a></li>
+                    <li><a href="#">vel venenatis</a></li>
+                    <li><a href="#">ante</a></li>
+                </ul>
+            </article>
+        </div> -->
 
+        <article class="middleDetails">
+            <h2><span>A la Minute</span><%= link_to "see all A la Minute", a_la_minute_path, :class => "gray" %></h2>
+            <%= render :partial => "restaurants/a_la_minute_question",
+                       :collection => @questions, :as => :answer, :locals => { :restaurant => @restaurant } %>
+        </article>
 
-<% content_for :javascript do %>
-  <script type="text/javascript">
-    //<![CDATA[
-    $('.a_la_minute_answer_eip').eip("/a_la_minute_answers/edit_in_place", {
-        data: "restaurant_id=" + $(".a_la_minute_answer_eip").attr("data-restaurant-id") } );
-    $('.hidden_with_js').hide();
-    $('.submit_on_change').change(function() {
-      $(this).closest("form").ajaxSubmit();
-    });
-    //]]>
-  </script>
-<% end %>
+        <article class="middleDetails" style="margin-right: 0;">
+            <h2><span>Newsfeed</span><%= link_to "see all newsfeed items", restaurant_promotions_path(@restaurant) , :class => "gray" %></h2>
+            <% for promotion in @promotions -%>
+            <% div_for promotion do %>
+                <h3><%= link_to "#{promotion.title}:", restaurant_promotions_path(promotion.restaurant) %> <%= promotion.headline %></h3>
+                <p><span class="datestamp"><%= "Posted #{promotion.created_at.strftime("%D")}" %></span></p>
+                <p>
+                    <%= Loofah::Helpers.sanitize(truncate(promotion.details, :length => 300)) %>
+                    <% if promotion.details.size > 200 -%>
+                    <%= link_to "more &raquo;", restaurant_promotions_path(promotion.restaurant) %>
+                    <%- end %>
+                </p>
+            <% end %>
+            <% end -%>
+        </article>
+
+		<% if ALaMinuteQuestion.current_inspiration.present? %>
+        <div class="inspire clear">
+            <h4>Our Current Inspiration</h4>
+            <p class="inspireText"><%= @restaurant.a_la_minute_answers.for_question(ALaMinuteQuestion.current_inspiration).first(:order => "created_at DESC").answer %></p>
+        </div>
+		<% end -%>
+
+    </section><!-- middle -->
+
+    <section id="bottomInfo">
+
+        <span class="arrow-up"></span>
+
+        <div class="bottomMenu">
+            <h2>Menus</h2>
+            <ul>
+                <% for menu in @restaurant.menus.by_position %>
+                <li><%= link_to menu.name, menu.pdf_remote_attachment.attachment.url %> <span><%= menu.updated_at.strftime('%m/%d/%y') %></li>
+                <% end %>
+            </ul>
+        </div>
+
+        <div class="staff">
+            <h2>Staff</h2>
+            <ul>
+                <% for employment in @restaurant.public_employments %>
+                <li class="clearfix">
+                    <%= link_to image_tag(employment.employee.avatar.url(:thumb)), profile_path(employment.employee.username) %>
+                    <h3><%= employee_link(employment.employee) %></h3>
+                    <p><%= employment.restaurant_role.try(:name) %></p>
+                </li>
+                <% end %>
+            </ul>
+        </div>
+
+        <div class="accolades" style="margin-right: 0;">
+            <h2><span>Accolades</span><%#= link_to_unimplemented "see all accolades" %></h2>
+            <ul>
+                <%= render :partial => 'accolades/accolade', :collection => @restaurant.accolades.by_run_date %>
+            </ul>
+        </div>
+
+    </section><!-- bottom -->
+</div>

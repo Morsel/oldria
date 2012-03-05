@@ -12,3 +12,4 @@ describe OtmKeyword do
     OtmKeyword.create!(@valid_attributes)
   end
 end
+

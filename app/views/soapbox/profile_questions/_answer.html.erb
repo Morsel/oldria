@@ -1,0 +1,10 @@
+<div class="user_answer">
+    <%= render :partial => "users/identity", :locals => { :user => answer.user } if answer.user %>
+    <div>
+        <%= truncate(answer.answer, :length => 200) %>
+        <% if answer.answer.size > 200 -%>
+        <%= link_to "more &raquo;", soapbox_user_profile_question_path(answer.user, answer.profile_question) %>
+        <% end -%>
+        <p class="share-this"><%= link_to "Share this entry", soapbox_user_profile_question_path(answer.user, answer.profile_question) %></p>
+    </div>
+</div>
