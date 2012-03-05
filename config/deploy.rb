@@ -82,7 +82,7 @@ namespace :deploy do
 
   desc "build missing paperclip styles"
   task :build_missing_paperclip_styles, :roles => :app do
-    run "cd #{release_path}; RAILS_ENV=production rake paperclip:refresh class=User"
+    run "cd #{release_path}; RAILS_ENV=#{rails_env} rake paperclip:refresh class=User"
   end
 
   namespace :web do
