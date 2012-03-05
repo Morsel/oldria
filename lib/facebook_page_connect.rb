@@ -10,6 +10,8 @@ module FacebookPageConnect
 
   def post_to_facebook_page(post_params)
     facebook_page.feed_create(Mogli::Post.new(post_params))
+  rescue Mogli::Client::OAuthException, Mogli::Client::HTTPException
+    Rails.logger.info("Unable to post to Facebook page #{facebook_page_id}")
   end
 
 end

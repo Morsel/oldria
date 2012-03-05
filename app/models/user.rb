@@ -352,6 +352,12 @@ class User < ActiveRecord::Base
     end
   end
 
+  def post_to_facebook(opts)
+    self.facebook_user.feed_create(Mogli::Post.new(opts))
+  rescue Mogli::Client::OAuthException, Mogli::Client::HTTPException
+    Rails.logger.info("Unable to post to Facebook for #{name}")
+  end
+
   # Behind the line
 
   def profile_questions
