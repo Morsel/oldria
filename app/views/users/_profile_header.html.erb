@@ -3,28 +3,35 @@
         <%= image_tag @user.avatar.url(:large) %>
     </div>
     <div id="profileDetails" class="right">
-        <hgroup>
-            <h2><%= @user.name %></h2>
-            <% if @user.employments.any? %>
-              <h4>
-                <%= @user.primary_employment.try(:restaurant_role).try(:name) %>,
-                <%= restaurant_link(@user.primary_employment.restaurant) %>
-              </h4>
-              <% for employment in @user.nonprimary_employments %>
-              <h5>
-                <%= employment.try(:restaurant_role).try(:name) %>,
-                <span><%= restaurant_link(employment.restaurant) %></span>
-              </h5>
-              <% end %>
-            <% elsif @user.default_employment %>
-              <h4>
-                <%= @user.primary_employment.try(:restaurant_role).try(:name) %>,
-                <%= @user.primary_employment.try(:solo_restaurant_name) %>
-              </h4>
-            <% end %>
+	    <div class="headingDetails clearfix">
+			<hgroup class="left">
+				<h2><%= @user.name %></h2>
+				<% if @user.employments.any? %>
+				<h4>
+					<%= @user.primary_employment.try(:restaurant_role).try(:name) %>,
+					<%= restaurant_link(@user.primary_employment.restaurant) %>
+				</h4>
+				<% for employment in @user.nonprimary_employments %>
+				<h5>
+					<%= employment.try(:restaurant_role).try(:name) %>,
+					<span><%= restaurant_link(employment.restaurant) %></span>
+				</h5>
+				<% end %>
+				<% elsif @user.default_employment %>
+				<h4>
+					<%= @user.primary_employment.try(:restaurant_role).try(:name) %>,
+					<%= @user.primary_employment.try(:solo_restaurant_name) %>
+				</h4>
+				<% end %>
 
-            <h5><%= @user.profile.try(:headline) %></h5>
-        </hgroup>
+				<h5><%= @user.profile.try(:headline) %></h5>
+			</hgroup>
+			<% if can? :edit, @user %>
+			<div id="profile_actions" class="moreLinks right">
+				<%= link_to "edit profile", edit_user_path(@user), :class => "orangeLink" %>
+			</div>
+			<% end -%>
+		</div>
         <% if params[:action] == "show" -%>
         <div id="meta">
             <% if @user.profile.present? -%>

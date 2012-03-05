@@ -2907,6 +2907,19 @@ table#menus {
 
 .user_profile #profileDetails {
   width: 577px;
+  .moreLinks {width: 40%;}
+  .moreLinks {padding: 30px 0 10px 0; text-align: right;}
+	.moreLinks a {
+		background: url('/images/sf/orange-plus.png') right bottom no-repeat;
+		color: #f16522;
+		font-family: sans-serif;
+		text-transform: uppercase;
+		font-size: 12px;
+		min-height: 16px;
+		padding-top: 5px;
+		border-top: 2px solid #f7f6f2;
+		padding-right: 22px;
+	}
 }
 
 .user_profile #profileHeader h2 {
