@@ -10,7 +10,7 @@ Feature: Update information
       | lestor   | secret   |
     And I am logged in as "lestor" with password "secret"
     When I go to the edit page for "lestor"
-    And I follow "Account"
+    And I follow "Account" within "#profile-options"
     And I fill in "Username" with "leslie"
     And I press "Save User Details"
     Then I should see "Successfully updated your profile"
@@ -21,7 +21,7 @@ Feature: Update information
       | manny    | secret   |
     And I am logged in as "manny" with password "secret"
     When I go to the edit page for "manny"
-    And I follow "Account"
+    And I follow "Account" within "#profile-options"
     And I fill in "Password" with "betterpassword"
     And I fill in "Password Confirmation" with "betterpassword"
     And I press "Save User Details"
@@ -40,7 +40,7 @@ Feature: Update information
       | horatio  | secret   |
     And I am logged in as "horatio" with password "secret"
     When I go to the edit page for "horatio"
-    And I follow "Account"
+    And I follow "Account" within "#profile-options"
     And I fill in "Password" with "betterpassword"
     And I fill in "Password Confirmation" with "better"
     And I press "Save User Details"
@@ -53,7 +53,7 @@ Feature: Update information
     | sammy    | secret   |
     And I am logged in as "sammy" with password "secret"
     When I follow "edit my profile"
-    And I follow "Account"
+    And I follow "Account" within "#profile-options"
     And I follow "Disconnect Twitter"
     Then I should see "Your Twitter account is no longer connected to your SpoonFeed account"
     And "sammy" should not have Twitter linked to his account
@@ -79,7 +79,7 @@ Feature: Update information
     And I am not logged in
     And I am logged in as "horatio" with password "secret"
     When I go to the edit page for "horatio"
-    And I follow "Account"
+    And I follow "Account" within "#profile-options"
     And I select "My Publicist" from "Allow another user to edit your account?"
     And I press "Save editing preferences"
     Then I should see "Successfully updated your profile"
