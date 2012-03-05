@@ -87,7 +87,7 @@
 		<% if ALaMinuteQuestion.current_inspiration.present? %>
         <div class="inspire clear">
             <h4>Our Current Inspiration</h4>
-            <p class="inspireText"><%= @restaurant.a_la_minute_answers.for_question(ALaMinuteQuestion.current_inspiration).first(:order => "created_at DESC").answer %></p>
+            <p class="inspireText"><%= @restaurant.a_la_minute_answers.for_question(ALaMinuteQuestion.current_inspiration).first(:order => "created_at DESC").try(:answer) %></p>
         </div>
 		<% end -%>
 
