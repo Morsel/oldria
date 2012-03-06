@@ -14,7 +14,6 @@ ActionController::Routing::Routes.draw do |map|
     :collection => { :user_details => :get, :find_restaurant => :any, :contact_restaurant => :post,
       :finish_without_contact => :get }
 
-  map.root :controller => 'welcome'
   map.dashboard_more 'dashboard_more', :controller => 'welcome', :action => 'index', :is_more => true
   map.refresh_dashboard 'dashboard/refresh', :controller => 'welcome', :action => 'refresh'
   map.require_login 'dashboard/require_login', :controller => 'welcome', :action => 'require_login'
@@ -326,6 +325,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :holiday_discussion_reminders, :member => { :read => :put }
   ###
 
+  map.root :controller => 'welcome'
   map.public_page ":id", :controller => 'pages', :action => 'show'
   map.soapbox_page 'soapbox/:id', :controller => 'soapbox_pages', :action => 'show'
   map.hq_page 'hq/:id', :controller => 'hq_pages', :action => 'show'
