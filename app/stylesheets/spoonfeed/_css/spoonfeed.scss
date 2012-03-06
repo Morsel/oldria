@@ -2024,17 +2024,12 @@ aside.dashboard_actions {
 
 /* Promotions (Newsfeed) */
 #promotion-form {
-  @include column(7);
   border: 1px solid #ccc;
-  padding: 5px;
+  padding: 10px;
   margin-right: 16px;
-  input[type=text], textarea {
-    width: 300px;
-  }
 }
 
 #promotion-list {
-  @include column(8, true);
   dl {
     padding: 5px;
     background-color: #eee;
