@@ -119,6 +119,7 @@ class CloudmailsController < ApplicationController
                     /.*to\:.*/i,
                     /.*date\:.*/i,
                     /.*sent\:.*/i,
+                    /.*wrote\:.*/i,
                     /-*Original Message-*/,
                     /---+/,
                     /^#yiv/,
