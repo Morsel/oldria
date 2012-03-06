@@ -8,7 +8,7 @@ end
 
 SubdomainFu.tld_sizes = {
   :development => 0,
-  :test => 0,
+  :test => 1,
   :staging => 1,
   :production => 1
 }

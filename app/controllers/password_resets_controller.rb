@@ -17,7 +17,7 @@ class PasswordResetsController < ApplicationController
       flash.now[:error] = @user ? "Your account is not confirmed.<br/>Please check your email for instructions or 
           <a href='#{resend_confirmation_users_path}'>request the confirmation email</a> again." : 
           "No user was found with that email address"
-      render :action => :new
+      render :action => "new"
     end
   end
   

@@ -38,11 +38,11 @@
         <div class="container">
           <ul>
             <li>RIA</li>
-            <li><%= link_to "Soapbox", soapbox_root_path %></li>
-            <li><%= link_to "Spoonfeed", root_path %></li>
+			<li><%= link_to "Soapbox", soapbox_root_url(:subdomain => "soapbox") %></li>
+            <li><%= link_to "Spoonfeed", root_url(:subdomain => "spoonfeed") %></li>
             <li><%= link_to "Blog", "http://ellenmalloy.com" %></li>
-            <li><%= link_to "Contact", hq_page_path('contact') %></li>
-            <li><%= link_to "Login", login_path unless current_user %></li>
+            <li><%= link_to "Contact", hq_page_url('contact', :subdomain => 'hq') %></li>
+            <li><%= link_to "Login", login_url(:subdomain => "spoonfeed") unless current_user %></li>
           </ul>
         </div>
       </nav>
