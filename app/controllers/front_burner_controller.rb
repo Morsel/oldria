@@ -5,13 +5,15 @@ class FrontBurnerController < ApplicationController
   def index
     @user = current_user
     if params[:all]
-      @qotds = @user.admin_conversations.current
+      @qotds = @user.admin_conversations.current.paginate(:page => params[:page], :per_page => 5)
       resto_trends = @user.grouped_trend_questions.keys
-      @trend_questions = (resto_trends.present? ? resto_trends : @user.solo_discussions.current).sort_by(&:scheduled_at).reverse
+      @trend_questions = (resto_trends.present? ? resto_trends : @user.solo_discussions.current).sort_by(&:scheduled_at).reverse.\
+          paginate(:page => params[:page], :per_page => 5)
     else
-      @qotds = @user.unread_qotds
+      @qotds = @user.unread_qotds.paginate(:page => params[:page], :per_page => 5)
       resto_trends = @user.unread_grouped_trend_questions.keys
-      @trend_questions = (resto_trends.present? ? resto_trends : @user.unread_solo_discussions).sort_by(&:scheduled_at).reverse
+      @trend_questions = (resto_trends.present? ? resto_trends : @user.unread_solo_discussions).sort_by(&:scheduled_at).reverse.\
+          paginate(:page => params[:page], :per_page => 5)
     end
     @comment = Comment.find(params[:comment_id]) if comment_share?
   end

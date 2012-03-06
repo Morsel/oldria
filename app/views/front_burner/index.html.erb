@@ -12,6 +12,10 @@
       <h2 class="col_title">What's New</h2>
       <%= render :partial => 'messages/message', :collection => @trend_questions %>
     </div><!--#trend_column-->
+
+	<%# Paginate whichever collection is larger %>
+	<p class="clear"><%= will_paginate(@qotds.size > @trend_questions.size ? @qotds : @trend_questions) %></p>
+
     <% # After posting comment
        # on Qotd or Trend Question
        # if user checked "share to facebook"
