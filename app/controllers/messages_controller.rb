@@ -13,6 +13,7 @@ class MessagesController < ApplicationController
   # GET /messages/ria
   def ria
     @messages = archived_view? ? current_user.all_messages_from_ria : current_user.messages_from_ria
+    @messages = @messages.paginate(:page => params[:page], :per_page => 5)
   end
 
   ##
@@ -40,9 +41,9 @@ class MessagesController < ApplicationController
   # GET /messages/media_requests
   def media_requests
     if archived_view?
-      @messages = current_user.viewable_media_request_discussions.sort { |a, b| b.created_at <=> a.created_at }
+      @messages = current_user.viewable_media_request_discussions.sort { |a, b| b.created_at <=> a.created_at }.paginate(:page => params[:page], :per_page => 5)
     else
-      @messages = current_user.viewable_unread_media_request_discussions.sort { |a, b| b.created_at <=> a.created_at }
+      @messages = current_user.viewable_unread_media_request_discussions.sort { |a, b| b.created_at <=> a.created_at }.paginate(:page => params[:page], :per_page => 5)
     end
   end
 end
