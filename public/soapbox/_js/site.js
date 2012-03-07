@@ -92,7 +92,7 @@ function displayInfo(currSlideElement, nextSlideElement, options, forwardFlag){
 	caption = $(nextSlideElement).attr('data-caption');
 	url = $(nextSlideElement).attr('data-url');
 	credit = 'Photo Credit: ' + $(nextSlideElement).attr('data-credit');
-	link = url.length > 0 ? '&nbsp;<a href=' + url + '>go&nbsp;&#187;</a>' : '';
+	link = url.length > 0 ? '&nbsp;<a href="' + url + '">go&nbsp;&#187;</a>' : '';
 	$('#cycle-title').html(title);
 	$('#cycle-footer').html(credit);
 	$('#cycle-caption').html(caption + link);
