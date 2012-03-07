@@ -6,7 +6,7 @@
 #  message                 :string(255)
 #  created_at              :datetime
 #  updated_at              :datetime
-#  user_id                 :integer         indexed
+#  user_id                 :integer
 #  twitter_id              :integer
 #  queue_for_social_media  :boolean
 #  queue_for_facebook      :boolean

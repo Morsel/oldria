@@ -3,12 +3,12 @@
 # Table name: admin_discussions
 #
 #  id                  :integer         not null, primary key
-#  restaurant_id       :integer         indexed
-#  discussionable_id   :integer         indexed => [discussionable_type]
+#  restaurant_id       :integer
+#  discussionable_id   :integer
 #  created_at          :datetime
 #  updated_at          :datetime
 #  comments_count      :integer         default(0)
-#  discussionable_type :string(255)     indexed => [discussionable_id]
+#  discussionable_type :string(255)
 #
 
 class AdminDiscussion < ActiveRecord::Base

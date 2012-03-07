@@ -3,8 +3,8 @@
 # Table name: holiday_discussion_reminders
 #
 #  id                    :integer         not null, primary key
-#  holiday_discussion_id :integer         indexed
-#  holiday_reminder_id   :integer         indexed
+#  holiday_discussion_id :integer
+#  holiday_reminder_id   :integer
 #  created_at            :datetime
 #  updated_at            :datetime
 #

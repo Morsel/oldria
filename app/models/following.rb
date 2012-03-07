@@ -3,8 +3,8 @@
 # Table name: followings
 #
 #  id          :integer         not null, primary key
-#  follower_id :integer         indexed
-#  friend_id   :integer         indexed
+#  follower_id :integer
+#  friend_id   :integer
 #  created_at  :datetime
 #  updated_at  :datetime
 #

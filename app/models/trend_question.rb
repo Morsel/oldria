@@ -9,7 +9,7 @@
 #  expired_at           :datetime
 #  created_at           :datetime
 #  updated_at           :datetime
-#  employment_search_id :integer         indexed
+#  employment_search_id :integer
 #  display_message      :string(255)
 #  slug                 :string(255)
 #

@@ -291,6 +291,7 @@ ActionController::Routing::Routes.draw do |map|
     admin.resources :metropolitan_areas
     admin.resources :site_activities
     admin.resources :otm_keywords
+    admin.resources :email_stopwords
 
     # Admin Messaging
     exclusive_routes = [:index, :show, :destroy]

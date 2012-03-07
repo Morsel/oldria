@@ -7,7 +7,7 @@
 #  body                 :text
 #  scheduled_at         :datetime
 #  expired_at           :datetime
-#  employment_search_id :integer         indexed
+#  employment_search_id :integer
 #  created_at           :datetime
 #  updated_at           :datetime
 #

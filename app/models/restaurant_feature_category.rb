@@ -4,7 +4,7 @@
 #
 #  id                         :integer         not null, primary key
 #  name                       :string(255)
-#  restaurant_feature_page_id :integer         indexed
+#  restaurant_feature_page_id :integer
 #  created_at                 :datetime
 #  updated_at                 :datetime
 #

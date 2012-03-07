@@ -3,7 +3,7 @@
 # Table name: restaurant_features
 #
 #  id                             :integer         not null, primary key
-#  restaurant_feature_category_id :integer         indexed
+#  restaurant_feature_category_id :integer
 #  value                          :string(255)
 #  created_at                     :datetime
 #  updated_at                     :datetime

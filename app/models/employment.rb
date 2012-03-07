@@ -3,11 +3,11 @@
 # Table name: employments
 #
 #  id                   :integer         not null, primary key
-#  employee_id          :integer         indexed
-#  restaurant_id        :integer         indexed
+#  employee_id          :integer
+#  restaurant_id        :integer
 #  created_at           :datetime
 #  updated_at           :datetime
-#  restaurant_role_id   :integer         indexed
+#  restaurant_role_id   :integer
 #  omniscient           :boolean
 #  primary              :boolean         default(FALSE)
 #  type                 :string(255)

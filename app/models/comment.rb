@@ -5,9 +5,9 @@
 #  id               :integer         not null, primary key
 #  title            :string(50)      default("")
 #  comment          :text
-#  commentable_id   :integer         indexed
-#  commentable_type :string(255)     indexed
-#  user_id          :integer         indexed
+#  commentable_id   :integer
+#  commentable_type :string(255)
+#  user_id          :integer
 #  created_at       :datetime
 #  updated_at       :datetime
 #

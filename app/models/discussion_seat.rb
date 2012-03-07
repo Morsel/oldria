@@ -3,8 +3,8 @@
 # Table name: discussion_seats
 #
 #  id            :integer         not null, primary key
-#  user_id       :integer         indexed
-#  discussion_id :integer         indexed
+#  user_id       :integer
+#  discussion_id :integer
 #  created_at    :datetime
 #  updated_at    :datetime
 #

@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120227183738) do
+ActiveRecord::Schema.define(:version => 20120307173246) do
 
   create_table "a_la_minute_answers", :force => true do |t|
     t.text     "answer"
@@ -282,6 +282,12 @@ ActiveRecord::Schema.define(:version => 20120227183738) do
   add_index "discussions", ["employment_search_id"], :name => "index_discussions_on_employment_search_id"
   add_index "discussions", ["id"], :name => "index_discussions_on_id", :unique => true
   add_index "discussions", ["poster_id"], :name => "index_discussions_on_poster_id"
+
+  create_table "email_stopwords", :force => true do |t|
+    t.text     "phrase"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "employment_searches", :force => true do |t|
     t.text     "conditions"

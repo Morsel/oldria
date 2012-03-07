@@ -6,7 +6,7 @@
 #  message       :string(255)
 #  created_at    :datetime
 #  updated_at    :datetime
-#  date_range_id :integer         indexed
+#  date_range_id :integer
 #
 
 class CoachedStatusUpdate < ActiveRecord::Base
