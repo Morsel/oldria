@@ -40,7 +40,7 @@ class Soapbox::SoapboxController < ApplicationController
   end
 
   def travel_guides
-    redirect_to soapbox_topic_path(Topic.travel)
+    redirect_to soapbox_btl_topic_path(Topic.travel)
   end
 
 end
