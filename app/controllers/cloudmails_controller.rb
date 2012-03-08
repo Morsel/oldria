@@ -125,7 +125,8 @@ class CloudmailsController < ApplicationController
                     /^#yiv/,
                     /^Email$/,
                     /^td\{/,
-                    /border:1px solid red;/]
+                    /border:1px solid red;/] + \
+                    Admin::EmailStopword.all.map(&:phrase)
 
       message_lines = message_body.split("\n").reject { |line|
         stop_words.any? { |word| line.match(word) }

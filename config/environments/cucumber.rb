@@ -24,7 +24,7 @@ config.action_mailer.delivery_method = :test
 
 config.gem 'cucumber',         :lib => false, :version => '~>1.1.0'
 config.gem 'cucumber-rails',   :lib => false, :version => '~>0.3.2'
-# config.gem 'gherkin',          :lib => false, :version => '~>2.7.7'
+config.gem 'gherkin',          :lib => false, :version => '~>2.5.4'
 config.gem 'database_cleaner', :lib => false, :version => '>=0.5.0'
 config.gem 'webrat',           :lib => false, :version => '>=0.7.0'
 config.gem 'rspec',            :lib => false, :version => '~>1.3.0'
