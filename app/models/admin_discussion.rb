@@ -31,6 +31,10 @@ class AdminDiscussion < ActiveRecord::Base
     [discussionable.subject, discussionable.body].reject(&:blank?).join(": ")
   end
 
+  def display_message
+    discussionable.display_message
+  end
+
   def inbox_title
     discussionable.class.title
   end

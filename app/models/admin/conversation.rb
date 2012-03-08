@@ -52,6 +52,10 @@ class Admin::Conversation < ActiveRecord::Base
     admin_message.message
   end
 
+  def display_message
+    admin_message.display_message
+  end
+
   def scheduled_at
     admin_message.scheduled_at
   end
