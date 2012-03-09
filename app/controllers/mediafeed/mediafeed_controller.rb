@@ -3,7 +3,7 @@ class Mediafeed::MediafeedController < ApplicationController
   before_filter :require_media_user, :only => [:directory, :directory_search]
   
   def index
-    redirect_to root_path(:subdomain => "mediafeed")
+    redirect_to root_path(:subdomain => "spoonfeed")
   end
   
   def login
