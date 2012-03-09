@@ -38,6 +38,10 @@ class SoloDiscussion < ActiveRecord::Base
     [trend_question.subject, trend_question.body].reject(&:blank?).join(": ")
   end
 
+  def display_message
+    trend_question.display_message
+  end
+
   def inbox_title
     trend_question.class.title
   end
