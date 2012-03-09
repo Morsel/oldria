@@ -4,7 +4,7 @@
 <% div_for topic do %>
     <div class="activity_header">
         <h3><%= topic.inbox_title %></h3>
-        <p class="topic"><%= topic.display_message %></p>
+        <p class="topic"><%= topic.try(:display_message).present? ? topic.display_message : topic.message %></p>
     </div>
     <% div_for comment do %>
         <%= render :partial => 'users/identity', :locals => { :user => comment.user } %>
