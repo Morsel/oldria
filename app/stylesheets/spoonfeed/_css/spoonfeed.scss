@@ -1385,6 +1385,19 @@ aside.dashboard_actions {
 
 .ui-tabs-hide{ display:none; }
 
+.ui-autocomplete {
+	position: absolute;
+	cursor: default;
+	background-color: white;
+	border: 1px solid #ccc;
+	li {
+		padding: 3px;
+	}
+}
+
+/* workarounds */
+* html .ui-autocomplete { width:1px; } /* without this, the menu expands to 100% in IE6 */
+
 #main #profile-tabs .ui-tabs-panel .inputs {
 	#profile_specialties_input li {
 		padding: 2px 0;

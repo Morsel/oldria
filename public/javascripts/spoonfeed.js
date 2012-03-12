@@ -413,5 +413,9 @@ updateRestaurantSignupFields = function() {
   } 
 };
 
+$("#user_editor").autocomplete({
+	source: "/users.js",
+});
+
 // end $(document).ready
 });

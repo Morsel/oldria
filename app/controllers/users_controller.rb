@@ -26,6 +26,11 @@ class UsersController < ApplicationController
     employment_params = params[:user].delete(:default_employment) if params[:user]
 
     respond_to do |format|
+      if params[:user][:editor]
+        editor = User.find_by_name(params[:user].delete(:editor))
+        @user.editors << editor
+      end
+
       if @user.update_attributes(params[:user])
 
         # update default employment
@@ -47,8 +52,10 @@ class UsersController < ApplicationController
         format.html { render :template => 'profiles/edit' }
         format.js   { render :json => @user.errors, :status => :unprocessable_entity }
       end
-
     end
+  rescue ActiveRecord::AssociationTypeMismatch
+    flash[:error] = "Sorry, we could not find the user you entered. Please try again."
+    redirect_to edit_user_profile_path(:user_id => @user.id)
   end
 
   def confirm
@@ -159,14 +166,22 @@ class UsersController < ApplicationController
     redirect_to edit_user_profile_path(:user_id => @user.id)
   end
 
+  def remove_editor
+    get_user
+    editor = User.find(params[:editor_id])
+    @user.editors.delete(editor)
+    flash[:notice] = "Removed #{editor.name} from editing your account"
+    redirect_to edit_user_profile_path(:user_id => @user.id)
+  end
+
   private
 
   def get_user
     if params[:username]
-      @user = User.find_by_username(params[:username], :include => [:followings])
+      @user = User.find_by_username(params[:username])
       raise ActiveRecord::RecordNotFound, "Couldn't find User with username=#{params[:username]}" if @user.nil?
     else
-      @user = User.find(params[:id], :include => [:followings])
+      @user = User.find(params[:id])
     end
   end
 
@@ -183,9 +198,9 @@ class UsersController < ApplicationController
   end
 
   def auto_complete_employees
-    @users = User.for_autocomplete.find_all_by_name(params[:q]) if params[:q]
+    @users = User.in_spoonfeed_directory.for_autocomplete.find_all_by_name(params[:term]) if params[:term]
     if @users
-      render :text => @users.map(&:name).join("\n")
+      render :json => @users.map(&:name)
     end
   end
 

@@ -124,7 +124,8 @@ ActionController::Routing::Routes.draw do |map|
     :fb_auth => :get,
     :fb_connect => :any,
     :fb_deauth => :any,
-    :fb_page_auth => :post
+    :fb_page_auth => :post,
+    :remove_editor => :put
   }, :shallow => true do |users|
     users.resource :profile, :only => ['create', 'edit', 'update'],
                    :controller => 'profiles',

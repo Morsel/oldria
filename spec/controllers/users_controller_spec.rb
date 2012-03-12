@@ -14,7 +14,7 @@ describe UsersController do
 
       it "should return a list of found users, joined by newlines" do
         User.expects(:find_all_by_name).returns([@john1,@john2])
-        get :index, :format => 'js', :q => "John"
+        get :index, :format => 'js', :term => "John"
         assigns[:users].should == [@john1, @john2]
         response.body.should contain("John Hamm")
         response.body.should contain("John Manner")
@@ -83,7 +83,7 @@ describe UsersController do
     before(:each) do
       @user = Factory(:user)
       controller.stubs(:current_user).returns(@user)
-      User.expects(:find).returns(@user)
+      User.expects(:find).at_least_once.returns(@user)
     end
 
     it "should update the user" do
@@ -94,6 +94,31 @@ describe UsersController do
     it "should create a default employment" do
       @user.expects(:create_default_employment).with("restaurant_role_id" => 1).returns(true)
       put :update, :id => @user.id, :user => { :username => "Hammy", :default_employment => { :restaurant_role_id => 1 } }
+    end
+
+    it "should set a new alternate editor" do
+      editor = Factory(:published_user, :name => "Editor User")
+      User.expects(:find_by_name).with(editor.name).returns(editor)
+      put :update, :id => @user.id, :user => { :editor => editor.name }
+      @user.user_editors.first.editor_id.should == editor.id
+    end
+
+  end
+
+  describe "updating editors" do
+
+    it "should remove an editor" do
+      @user = Factory(:user)
+      controller.stubs(:current_user).returns(@user)
+      User.expects(:find).with(@user.id.to_s).returns(@user)
+
+      editor = Factory(:published_user)
+      @user.editors << editor
+      @user.user_editors.size.should == 1
+
+      User.expects(:find).with(editor.id.to_s).returns(editor)
+      put :remove_editor, :id => @user.id, :editor_id => editor.id
+      @user.user_editors.size.should == 0
     end
 
   end

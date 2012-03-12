@@ -80,7 +80,7 @@ Feature: Update information
     And I am logged in as "horatio" with password "secret"
     When I go to the edit page for "horatio"
     And I follow "Account" within "#profile-options"
-    And I select "My Publicist" from "Allow another user to edit your account?"
+    And I fill in "Allow another user to edit your account?" with "My Publicist"
     And I press "Save editing preferences"
     Then I should see "Successfully updated your profile"
 
