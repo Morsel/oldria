@@ -65,15 +65,13 @@ class WelcomeController < ApplicationController
   end
 
   def set_up_dashboard_with_pagination
-    soapbox_comments = SoapboxEntry.published.all(:order => "published_at DESC",
-                                                  :conditions => ["created_at > ?", 2.weeks.ago]).map(&:comments)
-    answers = ProfileAnswer.all(:order => "created_at DESC",
-                                :conditions => ["created_at > ?", 2.weeks.ago])
-    menu_items = MenuItem.all(:order => "created_at DESC", :conditions => ["created_at > ?", 2.weeks.ago])
-    promotions = Promotion.all(:order => "created_at DESC", :conditions => ["created_at > ?", 2.weeks.ago])
-    alm_answers = ALaMinuteAnswer.all(:order => "created_at DESC", :conditions => ["created_at > ?", 2.weeks.ago])
+    soapbox_comments   = SoapboxEntry.published.all(:order => "published_at DESC", :conditions => ["created_at > ?", 2.weeks.ago]).map(&:comments)
+    answers            = ProfileAnswer.all(:order => "created_at DESC", :conditions => ["created_at > ?", 2.weeks.ago])
+    menu_items         = MenuItem.all(:order => "created_at DESC", :conditions => ["created_at > ?", 2.weeks.ago])
+    promotions         = Promotion.all(:order => "created_at DESC", :conditions => ["created_at > ?", 2.weeks.ago])
+    restaurant_answers = RestaurantAnswer.all(:order => "created_at DESC", :conditions => ["created_at > ?", 2.weeks.ago])
 
-    all_comments = [soapbox_comments, answers, menu_items, promotions, alm_answers].flatten.sort { |a,b| b.created_at <=> a.created_at }
+    all_comments = [soapbox_comments, answers, menu_items, promotions, restaurant_answers].flatten.sort { |a,b| b.created_at <=> a.created_at }
 
     all_comments.slice!(0..(@per_page - 1)) #delete recent
 
@@ -84,21 +82,21 @@ class WelcomeController < ApplicationController
   # load recent comments for dashboard
   # this data is common for all users
   def load_recent_comments
-    soapbox_comments = SoapboxEntry.published.all(:limit => @per_page, :order => "published_at DESC").map(&:comments)
-    answers = ProfileAnswer.all(:limit => @per_page, :order => "created_at DESC")
-    menu_items = MenuItem.all(:limit => @per_page, :order => "created_at DESC")
-    promotions = Promotion.all(:limit => @per_page, :order => "created_at DESC")
-    alm_answers = ALaMinuteAnswer.all(:limit => @per_page, :order => "created_at DESC")
+    soapbox_comments   = SoapboxEntry.published.all(:limit => @per_page, :order => "published_at DESC").map(&:comments)
+    answers            = ProfileAnswer.all(:limit => @per_page, :order => "created_at DESC")
+    menu_items         = MenuItem.all(:limit => @per_page, :order => "created_at DESC")
+    promotions         = Promotion.all(:limit => @per_page, :order => "created_at DESC")
+    restaurant_answers = RestaurantAnswer.all(:limit => @per_page, :order => "created_at DESC")
 
-    [soapbox_comments, answers, menu_items, promotions, alm_answers].flatten.sort { |a,b| b.created_at <=> a.created_at }[0..(@per_page - 1)]
+    [soapbox_comments, answers, menu_items, promotions, restaurant_answers].flatten.sort { |a,b| b.created_at <=> a.created_at }[0..(@per_page - 1)]
   end
 
   def has_more?
-    answer_count = ProfileAnswer.count(:conditions => ["created_at > ?", 2.weeks.ago])
-    menu_item_count = MenuItem.count(:conditions => ["created_at > ?", 2.weeks.ago])
-    promotion_count = Promotion.count(:conditions => ["created_at > ?", 2.weeks.ago])
-    alm_count = ALaMinuteAnswer.count(:conditions => ["created_at > ?", 2.weeks.ago])
-    total_count = answer_count + menu_item_count + promotion_count + alm_count
+    answer_count            = ProfileAnswer.count(:conditions => ["created_at > ?", 2.weeks.ago])
+    menu_item_count         = MenuItem.count(:conditions => ["created_at > ?", 2.weeks.ago])
+    promotion_count         = Promotion.count(:conditions => ["created_at > ?", 2.weeks.ago])
+    restaurant_answer_count = RestaurantAnswer.count(:conditions => ["created_at > ?", 2.weeks.ago])
+    total_count             = answer_count + menu_item_count + promotion_count + restaurant_answer_count
 
     total_count > @per_page ||
        (total_count + SoapboxEntry.published.all(:limit => @per_page + 1, :conditions => ["created_at > ?", 2.weeks.ago]).map(&:comments).flatten.size) > @per_page

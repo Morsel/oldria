@@ -1062,7 +1062,7 @@ form#mediafeed_user {
 		font-size: 13px;
 		line-height: 20px;
 	}
-	.profile_answer > .user_comment, .menu_item > .user_comment, .promotion > .user_comment, .a_la_minute_answer > .user_comment {
+	.profile_answer > .user_comment, .menu_item > .user_comment, .promotion > .user_comment, .a_la_minute_answer > .user_comment, .restaurant_answer > .user_comment {
 		margin-left: 313px;
 		padding: 0px 0px 10px;
 	}
@@ -1083,7 +1083,7 @@ form#mediafeed_user {
 			background: none;
 		}
 	}
-	.admin_conversation, .admin_discussion, .profile_answer, .solo_discussion, .menu_item, .promotion, .a_la_minute_answer {
+	.admin_conversation, .admin_discussion, .profile_answer, .solo_discussion, .menu_item, .promotion, .a_la_minute_answer, .restaurant_answer {
 		overflow: hidden;
 		background: transparent url(/images/redesign/bg-hp-left.png) no-repeat;
 		margin-bottom: 8px;
