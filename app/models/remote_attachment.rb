@@ -7,8 +7,8 @@
 #  attachment_content_type :string(255)
 #  attachment_file_size    :integer
 #  attachment_updated_at   :datetime
-#  attachable_id           :integer         indexed => [attachable_type]
-#  attachable_type         :string(255)     indexed => [attachable_id]
+#  attachable_id           :integer
+#  attachable_type         :string(255)
 #  created_at              :datetime
 #  updated_at              :datetime
 #  credit                  :string(255)

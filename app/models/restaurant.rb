@@ -2,7 +2,7 @@
 #
 # Table name: restaurants
 #
-#  id                         :integer         not null, primary key, indexed
+#  id                         :integer         not null, primary key
 #  name                       :string(255)
 #  street1                    :string(255)
 #  street2                    :string(255)
@@ -13,10 +13,10 @@
 #  facts                      :text
 #  created_at                 :datetime
 #  updated_at                 :datetime
-#  manager_id                 :integer         indexed
-#  metropolitan_area_id       :integer         indexed
-#  james_beard_region_id      :integer         indexed
-#  cuisine_id                 :integer         indexed
+#  manager_id                 :integer
+#  metropolitan_area_id       :integer
+#  james_beard_region_id      :integer
+#  cuisine_id                 :integer
 #  deleted_at                 :datetime
 #  description                :string(255)
 #  phone_number               :string(255)

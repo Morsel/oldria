@@ -2,14 +2,14 @@
 #
 # Table name: discussions
 #
-#  id                   :integer         not null, primary key, indexed
+#  id                   :integer         not null, primary key
 #  title                :string(255)
 #  body                 :text
-#  poster_id            :integer         indexed
+#  poster_id            :integer
 #  comments_count       :integer         default(0)
 #  created_at           :datetime
 #  updated_at           :datetime
-#  employment_search_id :integer         indexed
+#  employment_search_id :integer
 #
 
 class Discussion < ActiveRecord::Base

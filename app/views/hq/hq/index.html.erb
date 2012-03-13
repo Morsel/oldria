@@ -28,12 +28,12 @@
             <div id="first" class="tab clearfix">
               <span class="green-t"></span>
               <p>Connecting chefs, publicists and media online, Spoonfeed streamlines restaurant public relations and social media. Comprehensive restaurant press kits and professional profiles for chefs, mixologists and sommeliers are custom-designed to generate more media coverage.</p>
-              <%= link_to "Visit Spoonfeed", root_path %>
+              <%= link_to "Visit Spoonfeed", root_url(:subdomain => "spoonfeed") %>
             </div>
             <div id="second" class="tab clearfix">
               <span class="green-t"></span>
               <p>The backstage pass to the restaurants you crave, Soapbox delivers the country's most engaging chefs - unfiltered, uncensored and unplugged. Discover their inspirations, philosophies, tattoos and taboos - the real insights into life in the kitchen that don't make it onto "Top Chef."</p>
-              <%= link_to "Visit Soapbox", soapbox_root_path %>
+              <%= link_to "Visit Soapbox", soapbox_root_url(:subdomain => "soapbox") %>
             </div>
           </div>
       </div>
@@ -52,22 +52,22 @@
             <div id="third" class="tab clearfix">
               <span class="green-t"></span>
               <p>Join hundreds of the country's most engaging chefs, sommeliers and mixologists to promote yourself and your restaurant online.</p>
-              <%= link_to "Learn More", hq_page_path('chefs_learn_more') %>
+              <%= link_to "Learn More", page_path('chefs_learn_more') %>
             </div>
             <div id="fourth" class="tab clearfix">
               <span class="orange-t"></span>
               <p>Collaborate with your clients to connect with media using our easy online tools custom-built for you.</p>
-              <%= link_to "Learn More", hq_page_path('publicists_learn_more') %>
+              <%= link_to "Learn More", page_path('publicists_learn_more') %>
             </div>
             <div id="fifth" class="tab clearfix">
               <span class="yellow-t"></span>
               <p>Discover the ultimate restaurant research tool&mdash;comprehensive, private, always available.</p>
-              <%= link_to "Learn More", hq_page_path('media_learn_more') %>
+              <%= link_to "Learn More", page_path('journalists_learn_more') %>
             </div>
             <div id="sixth" class="tab clearfix">
               <span class="brown-t"></span>
               <p>Get insider tips from chefs on where to eat, what to cook and the hottest trends in food today.</p>
-              <%= link_to "Learn More", hq_page_path('diners_learn_more') %>
+              <%= link_to "Learn More", page_path('diners_learn_more') %>
             </div>
           </div>
       </div>

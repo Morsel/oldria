@@ -1,6 +1,6 @@
 class SiteActivityObserver < ActiveRecord::Observer
   
-  observe Menu, Photo, Promotion, MenuItem, ALaMinuteAnswer, RestaurantAnswer, ProfileAnswer, RestaurantFactSheet, Comment
+  observe Menu, Photo, Promotion, MenuItem, RestaurantAnswer, ProfileAnswer, RestaurantFactSheet, Comment
   
   def after_save(record)
     return if record.is_a?(Comment) && !record.track_activity?

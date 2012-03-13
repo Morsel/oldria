@@ -10,7 +10,7 @@
 #  content      :text
 #  published_at :datetime
 #  guid         :string(255)
-#  feed_id      :integer         indexed
+#  feed_id      :integer
 #  created_at   :datetime
 #  updated_at   :datetime
 #

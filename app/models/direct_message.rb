@@ -4,9 +4,9 @@
 #
 #  id                     :integer         not null, primary key
 #  body                   :text
-#  sender_id              :integer         not null, indexed
-#  receiver_id            :integer         not null, indexed
-#  in_reply_to_message_id :integer         indexed
+#  sender_id              :integer         not null
+#  receiver_id            :integer         not null
+#  in_reply_to_message_id :integer
 #  created_at             :datetime
 #  updated_at             :datetime
 #  from_admin             :boolean         default(FALSE)

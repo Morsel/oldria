@@ -6,7 +6,7 @@
 #  created_at :datetime
 #  updated_at :datetime
 #  title      :string(255)
-#  slug       :string(255)     indexed
+#  slug       :string(255)
 #  content    :text
 #
 

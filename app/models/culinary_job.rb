@@ -3,7 +3,7 @@
 # Table name: culinary_jobs
 #
 #  id              :integer         not null, primary key
-#  profile_id      :integer         not null, indexed
+#  profile_id      :integer         not null
 #  restaurant_name :string(255)     default(""), not null
 #  title           :string(255)     default(""), not null
 #  city            :string(255)     default(""), not null

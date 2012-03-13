@@ -3,7 +3,7 @@
 # Table name: events
 #
 #  id            :integer         not null, primary key
-#  restaurant_id :integer         indexed
+#  restaurant_id :integer
 #  title         :string(255)
 #  start_at      :datetime
 #  end_at        :datetime

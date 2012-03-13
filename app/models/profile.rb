@@ -3,7 +3,7 @@
 # Table name: profiles
 #
 #  id                    :integer         not null, primary key
-#  user_id               :integer         not null, indexed
+#  user_id               :integer         not null
 #  birthday              :date
 #  job_start             :date
 #  cellnumber            :string(255)

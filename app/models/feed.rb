@@ -2,7 +2,7 @@
 #
 # Table name: feeds
 #
-#  id               :integer         not null, primary key, indexed
+#  id               :integer         not null, primary key
 #  url              :string(255)
 #  feed_url         :string(255)
 #  title            :string(255)
@@ -12,7 +12,7 @@
 #  last_modified    :datetime
 #  created_at       :datetime
 #  updated_at       :datetime
-#  feed_category_id :integer         indexed
+#  feed_category_id :integer
 #
 
 class Feed < ActiveRecord::Base

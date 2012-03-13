@@ -3,8 +3,8 @@
 # Table name: holiday_discussions
 #
 #  id             :integer         not null, primary key
-#  restaurant_id  :integer         indexed
-#  holiday_id     :integer         indexed
+#  restaurant_id  :integer
+#  holiday_id     :integer
 #  comments_count :integer         default(0)
 #  created_at     :datetime
 #  updated_at     :datetime

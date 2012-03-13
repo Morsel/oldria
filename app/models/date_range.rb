@@ -2,7 +2,7 @@
 #
 # Table name: date_ranges
 #
-#  id         :integer         not null, primary key, indexed
+#  id         :integer         not null, primary key
 #  start_date :date
 #  end_date   :date
 #  name       :string(255)
