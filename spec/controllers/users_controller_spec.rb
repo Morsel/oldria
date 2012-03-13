@@ -112,7 +112,7 @@ describe UsersController do
       controller.stubs(:current_user).returns(@user)
       User.expects(:find).with(@user.id.to_s).returns(@user)
 
-      editor = Factory(:published_user)
+      editor = Factory.stub(:published_user)
       @user.editors << editor
       @user.user_editors.size.should == 1
 

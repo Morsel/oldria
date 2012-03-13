@@ -26,7 +26,8 @@
 
         <% if @restaurant.menus.present? -%>
         <h3>Uploaded Menus</h3>
-        <p>Drag and drop menus to change the sort order</p>
+        <p>Drag and drop menus to change the sort order.</p>
+		<p>Leave your old menus up as an archive for media. You can add as many menus as you'd like, so feel free to add special event and private event menus, as well as all of your regular menus.</p>
         <div class="editing clearfix clear">
             <table id="menus" data-remote-url="<%= reorder_restaurant_menus_url(@restaurant) %>">
                 <thead>
