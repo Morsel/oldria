@@ -5,6 +5,7 @@
 
 	<div id="editing_restaurant">
   	<h2>Photos</h2>
+		<p>Please upload your logo as well as head shots, food shots, room shots, and exterior shots.</p>
 		<div class="upload_photo editing">
   		<% semantic_form_for :photo, :url => restaurant_photos_path(@restaurant),
       :html => { :multipart => true } do |photo_form| %>
