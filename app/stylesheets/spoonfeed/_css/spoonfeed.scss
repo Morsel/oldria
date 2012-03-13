@@ -3428,6 +3428,9 @@ hgroup h5 span {
 
 #profile-extended, #extended_profile_container {
   width: 577px;
+  &.fact_sheet {
+    width: 900px;
+  }
 	#extended_profile {
 		padding: 5px 16px 5px 20px;
 		.extended_profile_info {
