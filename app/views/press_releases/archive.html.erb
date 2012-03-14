@@ -1,7 +1,7 @@
 <% title "Press releases for #{@restaurant.name}" %>
 
 <ul>
-	<% for release in @restaurant.press_releases.all(:order => "created_at DESC") %>
+	<% for release in @press_releases %>
 	<li><%= link_to release.title, release.pdf_remote_attachment.attachment.url %> <span class="datestamp"><%= release.created_at.strftime('%m/%d/%y') %></span></li>
 	<% end %>
 </ul>

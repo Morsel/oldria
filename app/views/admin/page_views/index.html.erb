@@ -1,0 +1,7 @@
+<% title "Page Views" %>
+
+<ul>
+	<% for view in @page_views %>
+	<li><%= view.user.name %> viewed <%= link_to view.title, view.url %> on <%= view.created_at.strftime("%m/%d/%y") %></li>
+	<% end %>
+</ul>

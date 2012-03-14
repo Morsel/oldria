@@ -1,7 +1,7 @@
 class PressReleasesController < ApplicationController
 
   before_filter :find_restaurant
-  before_filter :require_manager, :unless => [:archive]
+  before_filter :require_manager, :except => [:archive]
 
   def index
     @press_release = @restaurant.press_releases.build
@@ -42,7 +42,7 @@ class PressReleasesController < ApplicationController
   end
 
   def archive
-    
+    @press_releases = @restaurant.press_releases.all(:order => "created_at DESC")
   end
 
   private

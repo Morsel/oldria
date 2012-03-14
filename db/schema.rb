@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120307173246) do
+ActiveRecord::Schema.define(:version => 20120314171555) do
 
   create_table "a_la_minute_answers", :force => true do |t|
     t.text     "answer"
@@ -666,6 +666,14 @@ ActiveRecord::Schema.define(:version => 20120307173246) do
   create_table "otm_keywords", :force => true do |t|
     t.string   "name"
     t.string   "category"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "page_views", :force => true do |t|
+    t.integer  "user_id"
+    t.string   "title"
+    t.string   "url"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

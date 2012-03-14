@@ -18,5 +18,12 @@
   <% end %>
 
   <%= yield(:javascript) %>
+
+  <% if current_user.try(:media?) && (@user.present? || @restaurant.present?) -%>
+  <script type="text/javascript">
+	params = { page_view: { url: window.location.toString(), user_id: <%= current_user.id %>, title: "<%= @content_for_title %>" } };
+	$.post("/page_views", params);
+  </script>
+  <% end -%>
 </body>
 </html>

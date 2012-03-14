@@ -251,6 +251,8 @@ ActionController::Routing::Routes.draw do |map|
   map.menu_items 'on_the_menu', :controller => "spoonfeed/menu_items", :action => "index"
   map.resources :profile_questions, :only => ['index', 'show'], :as => "behind_the_line", :controller => 'spoonfeed/profile_questions'
 
+  map.resources :page_views, :only => ['create']
+
   map.namespace :admin do |admin|
     admin.root      :controller => 'admin'
 
@@ -293,6 +295,7 @@ ActionController::Routing::Routes.draw do |map|
     admin.resources :site_activities
     admin.resources :otm_keywords
     admin.resources :email_stopwords
+    admin.resources :page_views, :only => ["index"]
 
     # Admin Messaging
     exclusive_routes = [:index, :show, :destroy]
