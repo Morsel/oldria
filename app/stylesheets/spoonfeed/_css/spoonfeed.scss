@@ -1972,7 +1972,7 @@ aside.dashboard_actions {
     @include column(12, true);
   }
   #restaurant_features_content {
-    @include column(6);
+    @include column(11);
     + #behindline {
       @include column(7, true);
       h3 {
