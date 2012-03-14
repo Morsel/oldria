@@ -30,7 +30,7 @@
                 <%= link_to image_tag(photo.attachment.url(:medium_photo)), photo.attachment.url(:large), :class => 'colorbox', :rel => 'restaurant_photo', :title => "#{photo.name}" %>
                 <figcaption>
                     <p><%= photo.name %><br />
-                        <span><%= photo.credit %></span>
+                        <span>Credit: <%= photo.credit %></span>
                     </p>
                 </figcaption>
             </figure>
