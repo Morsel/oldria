@@ -31,7 +31,7 @@ class ProfileAnswer < ActiveRecord::Base
 
   named_scope :from_public_users, {
     :joins => "INNER JOIN preferences ON `profile_answers`.user_id = `preferences`.owner_id",
-    :conditions => ["`preferences`.owner_type = 'User' AND `preferences`.name = 'publish_profile' AND (`preferences`.value IS NULL OR `preferences`.value = ?)", true]
+    :conditions => ["`preferences`.owner_type = 'User' AND `preferences`.name = 'publish_profile' AND `preferences`.value = ?", true]
   }
 
   named_scope :from_premium_and_public_users, {
