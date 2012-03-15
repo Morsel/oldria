@@ -1,0 +1,16 @@
+<% div_for restaurant_answer do %>
+    <div class="activity_header">
+        <h3>Behind the Line</h3>
+        <p class="topic">
+            <%= "#{restaurant_answer.restaurant_question.chapter.title_with_topic}: #{restaurant_answer.restaurant_question.title}" %>
+        </p>
+    </div>
+    <div class="user_comment">
+        <%= render :partial => "restaurants/identity", :locals => { :restaurant => restaurant_answer.restaurant } if restaurant_answer.restaurant %>
+        <div class="user_comment"><%= truncate(restaurant_answer.answer, :length => 200) %>
+            <% if restaurant_answer.answer.size > 200 -%>
+                  <%= link_to "more &raquo;", user_btl_chapter_path(:user_id => restaurant_answer.user.id, :id => restaurant_answer.restaurant_question.chapter.id, :anchor => "profile_question_#{restaurant_answer.restaurant_question.id}") %>
+            <%- end %>
+        </div>
+    </div>
+<% end %>

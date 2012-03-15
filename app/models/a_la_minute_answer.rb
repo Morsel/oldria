@@ -79,11 +79,10 @@ class ALaMinuteAnswer < ActiveRecord::Base
 
   def crosspost
     if post_to_twitter == "1"
-      message = "#{question} #{answer}"
-      responder.twitter_client.send_later(:update, "#{truncate(message, :length => 100)} #{soapbox_a_la_minute_answer_url(self)}")
+      responder.twitter_client.send_later(:update, "#{truncate(answer, :length => 100)} #{soapbox_a_la_minute_answer_url(self)}")
     end
     if post_to_facebook_page == "1"
-      post_attributes = { :message     => "#{question} #{answer}",
+      post_attributes = { :message     => answer,
                           :link        => soapbox_a_la_minute_answer_url(self),
                           :name        => question,
                           :description => answer }
