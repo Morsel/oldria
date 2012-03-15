@@ -30,16 +30,14 @@ class ProfileAnswer < ActiveRecord::Base
   }
 
   named_scope :from_public_users, {
-    :joins => "INNER JOIN preferences ON `profile_answers`.user_id = `preferences`.owner_id",
-    :conditions => ["`preferences`.owner_type = 'User' AND `preferences`.name = 'publish_profile' AND `preferences`.value = ?", true]
+    :joins => :user,
+    :conditions => ["users.publish_profile = ?", true]
   }
 
   named_scope :from_premium_and_public_users, {
-    :joins => "INNER JOIN preferences ON `profile_answers`.user_id = `preferences`.owner_id
-               INNER JOIN subscriptions ON `profile_answers`.user_id = `subscriptions`.subscriber_id",
-    :conditions => ["`preferences`.owner_type = 'User' AND `preferences`.name = 'publish_profile' AND `preferences`.value = ?
-                    AND subscriptions.id IS NOT NULL AND (subscriptions.end_date IS NULL OR subscriptions.end_date >= ?)",
-                    true, Date.today]
+    :joins => { :user => :subscription },
+    :conditions => ["subscriptions.id IS NOT NULL AND (subscriptions.end_date IS NULL OR subscriptions.end_date >= ?) AND users.publish_profile = ?",
+      Date.today, true]
   }
 
   named_scope :recently_answered, :order => "profile_answers.created_at DESC"

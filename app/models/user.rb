@@ -32,6 +32,7 @@
 #  national              :boolean
 #  mediafeed_visible     :boolean         default(TRUE)
 #  notification_email    :string(255)
+#  publish_profile       :boolean         default(TRUE)
 #
 
 class User < ActiveRecord::Base
@@ -134,11 +135,11 @@ class User < ActiveRecord::Base
 
   named_scope :active, :conditions => "last_request_at IS NOT NULL"
   named_scope :visible, :conditions => ['visible = ? AND (role != ? OR role IS NULL)', true, 'media']
+  named_scope :with_published_profile, :conditions => ["publish_profile = ?", true]
 
 ### Preferences ###
   preference :hide_help_box, :default => false
   preference :receive_email_notifications, :default => true
-  preference :publish_profile, :default => true
 
 ### Roles ###
   def admin?
@@ -308,7 +309,7 @@ class User < ActiveRecord::Base
   end
 
   def self.in_soapbox_directory
-    active.visible.with_premium_account.with_preferences(:publish_profile => true).by_last_name
+    active.visible.with_premium_account.with_published_profile.by_last_name
   end
 
   def self.in_spoonfeed_directory
@@ -408,7 +409,7 @@ class User < ActiveRecord::Base
   end
 
   def linkable_profile?
-    self.prefers_publish_profile? && self.premium_account?
+    self.publish_profile? && self.premium_account?
   end
 
   ## Subscriptions

@@ -1,8 +1,8 @@
   <% if current_user.premium_account? %>
-    <% if current_user.prefers_publish_profile %>
+    <% if current_user.publish_profile? %>
       <h3>Your profile is public</h3>
       <%= link_to "Hide my profile on Soapbox", 
-            toggle_publish_profile_user_profile_path(current_user, :prefers_publish_profile => 0),
+            toggle_publish_profile_user_profile_path(current_user, :publish_profile => 0),
                 :class => "visibility_toggle",
                 :onclick => "toggleMyProfileOnSoapbox(this.href);return false;"  %>
       <p>
@@ -11,7 +11,7 @@
     <% else %>
       <h3>Your profile is not public</h3>
       <%= link_to "Display my profile on Soapbox", 
-            toggle_publish_profile_user_profile_path(current_user, :prefers_publish_profile => 1),
+            toggle_publish_profile_user_profile_path(current_user, :publish_profile => 1),
                 :class => "visibility_toggle",
                 :onclick => "toggleMyProfileOnSoapbox(this.href);return false;"  %>
     <% end %>

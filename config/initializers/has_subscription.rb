@@ -94,7 +94,7 @@ module HasSubscription
           :braintree_id => bt_subscription.subscription.id)
 
       # Update all premium accounts to public (for soapbox and mediafeed)
-      self.write_preference(:publish_profile, true)
+      self.is_a?(Restaurant) ? self.write_preference(:publish_profile, true) : self.update_attribute(:publish_profile, true)
 
       save
       self.subscription
