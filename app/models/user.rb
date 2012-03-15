@@ -140,7 +140,7 @@ class User < ActiveRecord::Base
 ### Preferences ###
   preference :hide_help_box, :default => false
   preference :receive_email_notifications, :default => true
-  preference :prefers_publish_profile, :default => true # TODO - remove this after changes are on production
+  preference :publish_profile, :default => true # TODO - remove this after changes are on production
 
 ### Roles ###
   def admin?
