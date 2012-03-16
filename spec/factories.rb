@@ -27,7 +27,7 @@ end
 
 Factory.define :published_user, :parent => :user do |f|
   f.visible '1'
-  f.prefers_publish_profile true
+  f.publish_profile true
   f.premium_account '1'
 end
 

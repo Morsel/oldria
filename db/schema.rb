@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120307173246) do
+ActiveRecord::Schema.define(:version => 20120315200604) do
 
   create_table "a_la_minute_answers", :force => true do |t|
     t.text     "answer"
@@ -670,6 +670,14 @@ ActiveRecord::Schema.define(:version => 20120307173246) do
     t.datetime "updated_at"
   end
 
+  create_table "page_views", :force => true do |t|
+    t.integer  "user_id"
+    t.string   "title"
+    t.string   "url"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "pages", :force => true do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -1201,6 +1209,7 @@ ActiveRecord::Schema.define(:version => 20120307173246) do
     t.boolean  "national"
     t.boolean  "mediafeed_visible",     :default => true
     t.string   "notification_email"
+    t.boolean  "publish_profile",       :default => true
   end
 
   add_index "users", ["email"], :name => "index_users_on_email"
