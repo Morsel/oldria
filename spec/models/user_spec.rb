@@ -356,7 +356,7 @@ describe User do
   describe "extended_find" do
     it "find a user by last name" do
       user = Factory(:user, :name => "Jerry Elevatson", :last_request_at => Time.now,
-          :subscription => Factory(:subscription), :prefers_publish_profile => true)
+          :subscription => Factory(:subscription), :publish_profile => true)
       User.stubs(:in_soapbox_directory).returns(User)
       found = User.extended_find("vatson")
       found.should == [user]

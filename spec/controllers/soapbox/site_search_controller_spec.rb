@@ -41,7 +41,7 @@ describe Soapbox::SiteSearchController do
   describe "search users" do
     it "Should find one user" do
       user = Factory(:published_real_user_with_subscription)
-      user.prefers_publish_profile = true
+      user.publish_profile = true
       Factory(:profile, :summary => "The toys", :user => user)
       get :show, :query => "toys"
       assigns[:users_found].should == [user]

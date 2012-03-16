@@ -69,7 +69,7 @@ $('.direct_message .readit').click(function(){
   return false;
 });
 
-$('#profile_user_attributes_prefers_publish_profile').live('click',function(){
+$('#profile_user_attributes_publish_profile').live('click',function(){
 	if(!$(this).is(':checked')){
 		return;
 	}

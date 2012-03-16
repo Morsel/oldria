@@ -125,13 +125,13 @@ end
 
 Given /^"([^\"]*)" has a published profile$/ do |username|
   user = User.find_by_username(username)
-  user.prefers_publish_profile = true
+  user.publish_profile = true
   user.save
 end
 
 Given /^"([^\"]*)" does not have a published profile$/ do |username|
   user = User.find_by_username(username)
-  user.prefers_publish_profile = false
+  user.publish_profile = false
   user.save
 end
 
@@ -252,5 +252,5 @@ end
 
 Then /^"([^\"]*)" should have a published profile$/ do |username|
   user = User.find_by_username(username)
-  user.prefers_publish_profile.should == true
+  user.publish_profile.should == true
 end

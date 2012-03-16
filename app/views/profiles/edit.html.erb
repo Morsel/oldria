@@ -66,7 +66,7 @@
 
           <% if @user.premium_account? %> 
             <% f.inputs :name => "Public Profile View", :for => :user do |user_form| %>
-              <%= user_form.input :prefers_publish_profile, :as => :boolean, :label => 'Display my profile on Soapbox' %>
+              <%= user_form.input :publish_profile, :as => :boolean, :label => 'Display my profile on Soapbox' %>
       		  <% button_tag :class => 'positive' do %>Save changes to public profile view<% end %>
             <% end %>
           <% else %>
