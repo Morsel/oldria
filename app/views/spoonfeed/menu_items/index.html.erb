@@ -2,7 +2,7 @@
 
 <% for menu_item in @menu_items -%>
 <% div_for menu_item do %>
-    <h2><%= link_to menu_item.name, restaurant_path(menu_item.restaurant) %></h2>
+    <h2><%= link_to menu_item.name, menu_item_path(menu_item) %></h2>
     <%= render :partial => 'restaurants/identity', :locals => { :restaurant => menu_item.restaurant } unless @restaurant.present? %>
     <div class="menu_item_details">
         <% if menu_item.photo_file_name.present? -%>
