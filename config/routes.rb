@@ -249,6 +249,7 @@ ActionController::Routing::Routes.draw do |map|
   map.a_la_minute 'a_la_minute', :controller => "spoonfeed/a_la_minute", :action => "index"
   map.a_la_minute_answers 'a_la_minute/:question_id/answers', :controller => "spoonfeed/a_la_minute", :action => "answers"
   map.menu_items 'on_the_menu', :controller => "spoonfeed/menu_items", :action => "index"
+  map.menu_item 'on_the_menu/:id', :controller => "spoonfeed/menu_items", :action => "show"
   map.resources :profile_questions, :only => ['index', 'show'], :as => "behind_the_line", :controller => 'spoonfeed/profile_questions'
 
   map.namespace :admin do |admin|
