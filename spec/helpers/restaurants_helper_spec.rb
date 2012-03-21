@@ -1,6 +1,12 @@
 require 'spec_helper'
+
+def soapbox?
+  @is_soapbox
+end
+
 describe RestaurantsHelper do
   include RestaurantsHelper
+
   describe "restaurant link method" do
     it "should return restaurant link to spoonfeed" do
       restaurant = Factory(:restaurant)
@@ -8,14 +14,14 @@ describe RestaurantsHelper do
     end
 
     it "should show soapbox link when on soapbox if restaurant is premium" do
-      params[:controller] = "soapbox"
+      @is_soapbox = true
       restaurant = Factory(:restaurant)
       restaurant.stubs(:premium_account?).returns(true)
       restaurant_link(restaurant).should == "<a href=\"/soapbox/restaurants/#{restaurant.id}\">#{restaurant.name}</a>"
     end
 
     it "should show just name w/o link when on soapbox if restaurant is not premium" do
-      params[:controller] = "soapbox"
+      @is_soapbox = true
       restaurant = Factory(:restaurant)
       restaurant.stubs(:premium_account?).returns(false)
       restaurant_link(restaurant).should == "#{restaurant.name}"

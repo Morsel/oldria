@@ -6,4 +6,8 @@ class Spoonfeed::MenuItemsController < ApplicationController
     @menu_items = MenuItem.from_premium_restaurants.all(:order => "created_at DESC").paginate(:page => params[:page])
   end
 
+  def show
+    @menu_item = MenuItem.find(params[:id])
+  end
+
 end

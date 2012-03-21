@@ -36,11 +36,11 @@ class Mediafeed::MediaUsersController < Mediafeed::MediafeedController
   end
   
   def resend_confirmation
-    render :template => 'users/resend_confirmation', :layout => 'mediafeed'
+    render :template => 'users/resend_confirmation'
   end
   
   def forgot_password
-    render :template => 'password_resets/new', :layout => 'mediafeed'
+    render :template => 'password_resets/new'
   end
 
 end
