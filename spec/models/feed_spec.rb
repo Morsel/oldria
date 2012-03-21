@@ -11,17 +11,17 @@ describe Feed do
 
 
   it "should fetch and parse the feed url before saving" do
-    feed = Feed.new(:feed_url => 'http://feeds.neotericdesign.com/neotericdesign')
+    feed = Feed.new(:feed_url => 'http://feeds.feedburner.com/neoteric-blog')
     feed.no_entries = true
     feed.title.should be_blank
     feed.save
-    feed.title.should == "Neoteric Design, Inc."
+    feed.title.should == "Neoteric Design: Blog"
   end
 
   it "should not fetch and parse if the given fields are passed in when new" do
     Feed.any_instance.stubs(:fetch_and_parse).raises(NoMethodError) # Guards against remote call
     feed = Feed.new(
-      :feed_url => 'http://feeds.neotericdesign.com/neotericdesign',
+      :feed_url => 'http://feeds.feedburner.com/neoteric-blog',
       :url => 'http://www.neotericdesign.com',
       :title => 'Arbitrary Title'
     )
@@ -41,7 +41,7 @@ describe Feed do
     it "should update" do
       feed = Factory( :feed,
                       :title => 'Neoteric',
-                      :feed_url => 'http://feeds.neotericdesign.com/neotericdesign')
+                      :feed_url => 'http://feeds.feedburner.com/neoteric-blog')
       feed.update_entries!
       feed.reload
       feed.feed_entries.all.should_not be_empty
