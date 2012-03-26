@@ -24,6 +24,7 @@ role :db, server_ip, :primary => true
 
 set :rails_env, :staging
 set :deploy_to, "/srv/httpd/staging/#{nickname}/"
+set :robots_file, "robots_staging.txt"
 
 ssh_options[:port] = nil
 set :user, "deployer"
@@ -52,6 +53,7 @@ task :production do
   set :branch, 'production'
   set :rails_env, :production
   set :deploy_to, "/srv/httpd/spoonfeed.restaurantintelligenceagency.com/"
+  set :robots_file, "robots_production.txt"
 end
 
 desc "Run a Rake task remotely. Set the task with RAKE_TASK='your task here'"
@@ -174,10 +176,16 @@ task :logs, :roles => :app do
   run "cd #{current_path}; RAILS_ENV=#{rails_env} tail -f log/#{rails_env}.log"
 end
 
+task :update_robots do
+  desc "Setting correct robots.txt for environment"
+  run "cp #{release_path}/public/#{robots_file} #{release_path}/public/robots.txt"
+end
+
 before 'deploy:restart', 'compass:compile'
 after "deploy:symlink", "deploy:update_crontab"
 after 'deploy:update_code', 'deploy:symlink_shared'
 # after("deploy:update_code", "deploy:build_missing_paperclip_styles")
+after 'deploy:update_code', 'update_robots'
 
 before "deploy:update_code", "bluepill:stop"
 after "deploy:restart",  "bluepill:start"

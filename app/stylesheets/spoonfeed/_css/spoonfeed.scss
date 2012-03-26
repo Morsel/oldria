@@ -4095,8 +4095,13 @@ hgroup h5 span {
   }
   a:hover {color: #222!important;}
 
-  #photos .credit {
-    width: 345px;
+  #photos {
+    .photo {
+      height: 190px;
+      .credit {
+        width: 200px;
+      }
+    }
   }
 }
 
