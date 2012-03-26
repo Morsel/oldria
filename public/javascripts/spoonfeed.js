@@ -399,9 +399,8 @@ $('.show_more').click(function(){
 	return false;
 })
 
-
 $('div#photos').masonry({
-    columnWidth: 345,
+    columnWidth: 200,
     itemSelector: '.photo'
 });
 
