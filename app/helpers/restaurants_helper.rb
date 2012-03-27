@@ -1,6 +1,6 @@
 module RestaurantsHelper
   def restaurant_link(restaurant, options = nil)
-    if (params[:controller].match(/soapbox/) || params[:controller].match(/mediafeed/))
+    if soapbox?
       if restaurant.premium_account?
         link_to(h(restaurant.try(:name)), soapbox_restaurant_path(restaurant), options) 
       else
