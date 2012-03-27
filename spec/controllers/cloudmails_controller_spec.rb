@@ -7,7 +7,7 @@ describe CloudmailsController do
 
     @user = Factory(:user, :email => "reply-person@tester.com")
     User.stubs(:find).with('1').returns(@user)
-    User.stubs(:find).with(1, {:readonly => nil, :include => nil, :select => nil, :conditions => nil}).returns(@user)
+    User.stubs(:find).with(@user.id, {:readonly => nil, :include => nil, :select => nil, :conditions => nil}).returns(@user)
   end
 
   context "Successful emails" do
