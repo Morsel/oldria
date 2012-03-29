@@ -23,12 +23,20 @@ class UsersController < ApplicationController
   end
 
   def update
-    employment_params = params[:user].delete(:default_employment) if params[:user]
+    if params[:user]
+      employment_params = params[:user].delete(:default_employment)
+      editor_name = params[:user].delete(:editor)
+    end
 
     respond_to do |format|
-      if params[:user][:editor]
-        editor = User.find_by_name(params[:user].delete(:editor))
-        @user.editors << editor
+      if editor_name.present?
+        editor = User.find_by_name(editor_name)
+        if editor.present?
+          @user.editors << editor
+        else
+          flash[:error] = "Sorry, we could not find the user you entered. Please try again."
+          redirect_to edit_user_profile_path(:user_id => @user.id)
+        end
       end
 
       if @user.update_attributes(params[:user])
@@ -53,9 +61,6 @@ class UsersController < ApplicationController
         format.js   { render :json => @user.errors, :status => :unprocessable_entity }
       end
     end
-  rescue ActiveRecord::AssociationTypeMismatch
-    flash[:error] = "Sorry, we could not find the user you entered. Please try again."
-    redirect_to edit_user_profile_path(:user_id => @user.id)
   end
 
   def confirm
