@@ -1,5 +1,9 @@
 <% title "On the Menu" %>
 
+<% if params[:keyword].present? -%>
+  <h2 id="otm-tagline">Keyword: <%= params[:keyword] %></h2>
+<% end %>
+
 <% for menu_item in @menu_items -%>
 <% div_for menu_item do %>
     <h2><%= link_to menu_item.name, menu_item_path(menu_item) %></h2>
@@ -20,7 +24,7 @@
 
         <p><%= "Pairing: #{menu_item.pairing}" if menu_item.pairing.present? %></p>
 
-        <p class="keywords"><%= menu_item.otm_keywords.map { |k| link_to k.name, soapbox_menu_items_path(:keyword => k.name) }.to_sentence %></p>
+        <p class="keywords"><%= menu_item.otm_keywords.map { |k| link_to k.name, menu_items_path(:keyword => k.name) }.to_sentence %></p>
 
         <p><span class="datestamp"><%= "Posted #{menu_item.created_at.strftime("%D")}" %></span> <!-- - <%#= link_to "Share this entry", soapbox_menu_item_path(menu_item) %> --></p>
     </div>
