@@ -1,22 +1,22 @@
 Then /^I should see addThis button$/ do
-  response.should have_selector(".addthis_button", :content =>"Share")
+  page.should have_css(".addthis_button", :content =>"Share")
 end
 
 Then /^I should see two addThis buttons$/ do
-  response.should have_selector('#question-of-the-day .addthis_button')
-  response.should have_selector('#trend-identified .addthis_button')
+  page.should have_css('#question-of-the-day .addthis_button')
+  page.should have_css('#trend-identified .addthis_button')
 end
 
 Then /^addThis button should have public link$/ do
-  response.should have_selector("script", :content => "url: ")
+  page.should have_css("script", :content => "url: ")
 end
 
 Then /^I should see link "see more"$/ do
-  response.should have_selector(".see_more_link", :href =>"/dashboard_more")
+  page.should have_css(".see_more_link", :href =>"/dashboard_more")
 end
 
 Then /^I should see btl_game$/ do
-  response.should have_selector("#btl_game")
+  page.should have_css("#btl_game")
 end
 
 Given /^answers with long text$/ do
@@ -30,10 +30,10 @@ Given /^11 comments in dashboard$/ do
 end
 
 Then /^I should see facebook description tag with "([^\"]*)" within content$/ do |content|
-  response.should have_xpath("//meta[@property='og:description'and@content='#{content}']")
+  page.should have_xpath("//meta[@property='og:description'and@content='#{content}']")
 end
 
 Then /^I should see facebook description tag containing "([^\"]*)" within content$/ do |content|
-  response.should have_xpath("//meta[contains(@content,\"#{content}\")and@property='og:description']")
+  page.should have_xpath("//meta[contains(@content,\"#{content}\")and@property='og:description']")
 end
 

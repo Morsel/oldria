@@ -25,6 +25,7 @@ Feature: Manage users
     And "jimbob" should be an admin
     And "jimbob" should have a "Basic" account in the list
 
+@javascript
   Scenario: Making a basic user complimentary
     Given the user "jimbob" does not have a premium account
     When I go to the admin edit page for "jimbob"
@@ -37,6 +38,7 @@ Feature: Manage users
     # When I go to the profile page for "jimbob"
     # And "jimbob" should have a "Complimentary" account on the page
 
+@javascript
   Scenario: Canceling a complimentary account
     Given the user "jimbob" has a complimentary account
     When I go to the admin edit page for "jimbob"
@@ -49,6 +51,7 @@ Feature: Manage users
     # When I go to the profile page for "jimbob"
     # And "jimbob" should have a "Basic" account on the page
 
+@javascript
   Scenario: Converting an existing account to complementary
     Given the user "jimbob" has a premium account
     When I go to the admin edit page for "jimbob"
@@ -61,11 +64,12 @@ Feature: Manage users
     # When I go to the profile page for "jimbob"
     # And "jimbob" should have a "Complimentary" account on the page
 
+@javascript
   Scenario: Cancel a non-complimentary premium account
     Given the user "jimbob" has a premium account
     When I go to the admin edit page for "jimbob"
     And I should see that the user has a premium account
-    And I follow "Downgrade the user to a basic account"
+    And I follow "Downgrade the user to a Basic Account"
     Then I should be on the admin edit page for "jimbob"
     Then I should see that the user has a basic account
     When I am on the admin users landing page

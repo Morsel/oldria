@@ -20,7 +20,7 @@ Feature: AddThis sharing feature
     Given I am on the soapbox profile page for "john"
     And profile question matching employment role with topic name "Background" for "john"
     When I follow "View all Topics" within "#behindline"
-    When I follow "Background"
+    And I follow "Background"
     Then I should see addThis button
     And addThis button should have public link
 

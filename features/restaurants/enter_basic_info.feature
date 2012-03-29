@@ -24,14 +24,14 @@ Feature: Basic Restaurant Data
       | City                         | Paris                               |
       | State                        | TX                                  |
       | Zip                          | 12345                               |
-      | Phone Number                 | (312) 123-4567                      |
+      | Phone number                 | (312) 123-4567                      |
       | Website                      | http://www.restaurant.example.com   |
       # | Twitter Username             | piece                               |
       # | Facebook Page                | http://www.facebook.com/piece       |
-      | Management Company Name      | Lettuce Entertain You               |
-      | Management Company Website   | http://www.lettuce.com              |
+      | Management company name      | Lettuce Entertain You               |
+      | Management company website   | http://www.lettuce.com              |
     And I select "Fred Mercury" from "Media contact"
-    When I select "Janaury 22, 2008" as the date
+    When I select "2008-01-22" as the "Opening date" date
     And I press "Save changes"
     And I see the following restaurant fields:
       | name               | NeoPiece                            |

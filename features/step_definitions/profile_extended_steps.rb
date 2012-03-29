@@ -1,8 +1,8 @@
 def fill_in_fields_for_table(table)
   table.rows_hash.each do |field, value|
-    if field == "Start date" || field == "Run date"
-      select_date value, :from => field
-    elsif field == 'Media Type' || field == 'Cuisine'
+    if ["Start date", "Run date", "Date started"].include?(field)
+      select_date field, :with => value
+    elsif ["Media type", "Cuisine", "Year nominated", "Year won", "Country", "Graduation Year"].include?(field)
       select value, :from => field
     else
       fill_in field, :with => value
@@ -12,7 +12,9 @@ end
 
 When(/^I add a profile item "([^"]*)" to my profile with:$/) do |profile_association, table|
   visit edit_user_profile_path(:user_id => @current_user.id)
-  click_link_within ".#{profile_association.pluralize}", "Add"
+  within ".#{profile_association.pluralize}" do
+    click_link profile_association == "cuisine" ? "Add Cuisine" : "add another"
+  end
 
   fill_in_fields_for_table(table)
 

@@ -11,22 +11,24 @@ Feature: Feeds
 
   Scenario: Adding a new feed
     When I create a new feed with:
-      | Feed Url | http://feeds.feedburner.com/neoteric-blog |
+      | Feed url | http://feeds.feedburner.com/neoteric-blog |
     Then I should see "Success"
     And I should see "Neoteric Design"
 
-
+@javascript
   Scenario: Removing a feed
     Given a feed exists with a title of "Newbie"
     When I go to the admin feeds page
-    And I follow "destroy"
-    Then there should be no feeds in the system
+	Then I should see "Newbie"
+    When I follow "Destroy"
+	Then I should not see "Newbie"
+    And there should be no feeds in the system
 
 
   Scenario: Marking a feed as featured
     Given a feed exists with a title of "Special"
     When I go to the admin feeds page
-    And I follow "edit"
+    And I follow "Edit"
     And check "Featured"
     And press "Save"
     Then the feed with title "Special" should be featured
@@ -36,7 +38,7 @@ Feature: Feeds
     Given a feed exists with a title of "Categoryless"
     And a feed category exists with a name of "Food Blogs"
     When I go to the admin feeds page
-    And I follow "edit"
+    And I follow "Edit"
     And I fill in "Title" with "Latest Food Blog"
     And select "Food Blogs" from "Category"
     And press "Save"

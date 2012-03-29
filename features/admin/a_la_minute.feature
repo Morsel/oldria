@@ -20,6 +20,7 @@ Feature: A La Minute Question/Answer Management
      | What's new?      |
      | What's changing? |
 
+@javascript
   Scenario: Delete a question
     Given I have created the following A La Minute Questions:
      | question         | kind       |
@@ -27,14 +28,14 @@ Feature: A La Minute Question/Answer Management
      | What's changing? | restaurant |
 
     When I go to the admin a la minute questions page
-    And I follow "Destroy" within "#a_la_minute_question_1"
+    And I follow "Destroy"
     Then I should see the following questions:
      | question         |
      | What's changing? |
 
   Scenario: Create a new question
     When I go to the admin a la minute questions page
-    And I fill in "question" with "What's new?"
+    And I fill in "a_la_minute_question_question" with "What's new?"
     And I press "Add"
     Then I should see the following questions:
      | question    |

@@ -1,7 +1,7 @@
 Given /^I have just posted a discussion with the title "([^\"]*)"$/ do |title|
   visit new_discussion_path
-  fill_in :subject, :with => title
-  click_button
+  fill_in "Subject", :with => title
+  click_button("Post Discussion")
 end
 
 Given(/^there are no discussions(?: in the system)?$/) do

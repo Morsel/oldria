@@ -14,7 +14,7 @@ Feature: users can be invited to join Spoonfeed by registered SF users, restaura
   Scenario: a regular restaurant employee wants to invite a friend
     Given I am on the new invitation recommendation page
     And I fill in "emails" with "ma@email.com"
-    And I press "Send Now"
+    And I press "Send now"
     Then I should see "Thanks for recommending new members!"
     And "ma@email.com" should have 1 email
 
@@ -37,7 +37,7 @@ Feature: users can be invited to join Spoonfeed by registered SF users, restaura
     Given a subject matter "Food"
     And I am logged in as an admin
     And I go to the admin invitations page
-    And I follow "accept"
+    And I follow "Accept"
     Then "mariahcarpenter" should be a confirmed user
     # one invitation welcome message, one confirmation with log in link
     And "mc@restaurants.com" should have 2 emails
@@ -78,7 +78,8 @@ Feature: users can be invited to join Spoonfeed by registered SF users, restaura
     And I press "Save"
     Then I should see "Enjoy SpoonFeed!"
     And "mcarpenter" should have a primary employment
-    
+
+@javascript
   Scenario: an invite is approved and the user wants to log in and update their info (invited as restaurant employee)
     Given a restaurant named "Restaurant du Jour" with manager "mgmtdujour"
     And a subject matter "Drink"
@@ -89,8 +90,9 @@ Feature: users can be invited to join Spoonfeed by registered SF users, restaura
       | Maggie      | Davis     | davis@restaurants.com | Restaurant du Jour |
     And I am logged in as an admin
     And I go to the admin invitations page
-    And I follow "accept"
-    Then "maggiedavis" should be a confirmed user
+    And I follow "Accept"
+	Then I should see "View all archived"
+    And "maggiedavis" should be a confirmed user
     # one to confirm the invite was requested, one after approval
     And "davis@restaurants.com" should have 2 emails
     

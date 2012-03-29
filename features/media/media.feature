@@ -10,7 +10,7 @@ Feature: Media accounts
       | first_name | Jim          |
       | last_name  | Bo           |
       | email      | jimbo@bo.com |
-      | role       | media        |
+	And I select "Media" from "role"
     And I press "submit"
     Then "jimbo@bo.com" should have 1 email
     And "JimBo" should be marked as a media user
@@ -21,8 +21,8 @@ Feature: Media accounts
     And I fill in "Affiliated Publication" with "Sky News"
     And I check "user_national"
     And I fill in "Password" with "secret"
-    And I fill in "Password Confirmation" with "secret"
-    And I press "confirm"
+    And I fill in "Password confirmation" with "secret"
+    And I press "Confirm"
     Then I should be on the dashboard
     And I should see "Welcome aboard!"
     

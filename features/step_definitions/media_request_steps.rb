@@ -76,7 +76,7 @@ end
 
 When /^I create a media request with message "([^\"]*)" and criteria:$/ do |message, criteria|
   visit new_mediafeed_media_request_path
-  fill_in :message, :with => message
+  fill_in "Message", :with => message
   criteria.rows_hash.each do |field, value|
     if field =~ /(Type of Request)/i
       select value, :from => field
@@ -84,13 +84,13 @@ When /^I create a media request with message "([^\"]*)" and criteria:$/ do |mess
       check value
     end
   end
-  click_button :submit
+  click_button "Submit"
   @media_request = MediaRequest.last
 end
 
 When /^I create a new media request with:$/ do |table|
   media_request_from_hash(table.rows_hash)
-  click_button :submit
+  click_button "Submit"
   @media_request = MediaRequest.last
 end
 
@@ -99,7 +99,7 @@ When /^I create a new admin media request with:$/ do |table|
   media_request_from_hash(hash_data)
   check "Admin"
   select hash_data["Status"], :from => :status if hash_data["Status"]
-  click_button :submit
+  click_button "Submit"
   @media_request = MediaRequest.last
 end
 
@@ -116,7 +116,7 @@ end
 Given /^an admin has approved the media request from "([^\"]*)"$/ do |username|
   Given("I am logged in as an admin")
   visit admin_media_requests_path
-  response.should contain(User.find_by_username(username).name)
+  page.should contain(User.find_by_username(username).name)
   click_link "approve"
 end
 
@@ -180,5 +180,5 @@ Then /^the media request should have ([0-9]+) comments?$/ do |num|
 end
 
 Then /^I should see an admin media request$/ do
-  response.should have_selector(".media_request.admin")
+  page.should have_css(".media_request.admin")
 end
