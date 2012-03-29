@@ -54,6 +54,7 @@ Feature: Restaurant Menus
     Then I should not see any menus
     And I should see an error message
 
+@javascript
   Scenario: Remove a menu
     When I go to the restaurant menu upload page for Bourgeois Pig
     And I fill in "January" for "Menu name"

@@ -17,6 +17,7 @@ Feature: Fire an employee
     Given I am on the employees page for "Crazy Eights" 
     Then I should see "Delete"
 
+@javascript
   Scenario: Delete the employment
     Given I am on the employees page for "Crazy Eights"
     When I follow "Delete" within "#user_101"

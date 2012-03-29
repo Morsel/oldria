@@ -36,7 +36,7 @@ Feature: Direct messaging
     And I am logged in as "getterboy" with password "secret"
     When I am on my inbox
     And I follow "Private Messages (1)"
-    And I follow "Reply"
+    And I follow "reply"
     Then I should see "Albert Albert sent you a message"
 
     When I fill in "Body" with "This is my reply"

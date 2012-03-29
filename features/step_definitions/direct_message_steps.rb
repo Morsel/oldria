@@ -1,5 +1,5 @@
 def fill_in_form_with_data_hash(data_hash)
-  fill_in :direct_message_body,  :with => data_hash[:body]
+  fill_in 'direct_message_body', :with => data_hash[:body]
   click_button "Send"
 end
 
@@ -18,7 +18,7 @@ end
 
 When /^I send an admin direct message to "([^\"]*)" with:$/ do |username, table|
   visit new_admin_direct_message_path
-  select username
+  select username, :from => "To"
   fill_in_form_with_data_hash table.hashes.first
 end
 
@@ -31,14 +31,14 @@ end
 
 Then /^I should see a message from "([^\"]*)"$/ do |username|
   user = User.find_by_username(username)
-  response.should have_selector(".direct_message") do |message|
+  page.should have_css(".direct_message") do |message|
     message.should contain(user.name)
   end
 end
 
 Then /^I should see my message to "([^\"]*)"$/ do |username|
   user = User.find_by_username(username)
-  response.should have_selector(".sent_message") do |message|
+  page.should have_css(".sent_message") do |message|
     message.should contain(user.name)
   end
 end

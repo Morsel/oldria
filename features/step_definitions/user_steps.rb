@@ -33,8 +33,8 @@ Given /^a media user named "([^\"]*)" has just signed up$/ do |username|
     | first_name | Media                 |
     | last_name  | User                  |
     | email      | #{username}@media.com |
-    | role       | media                 |
   })
+  select "Media", :from => "role"
   And 'I press "submit"'
 
   @user = User.find_by_email("#{username}@media.com")
@@ -89,9 +89,9 @@ Given /^I am logged in as a media member$/ do
 end
 
 Given /^I am logged in as "([^\"]*)" with password "([^\"]*)"$/ do |username, password|
-  visit logout_url if @current_user
+  visit logout_path if @current_user
   unless username.blank?
-    visit login_url
+    visit login_path
     fill_in "Username", :with => username
     fill_in "Password", :with => password
     click_button "Login"
@@ -154,7 +154,7 @@ Given /^"([^\"]*)" has set a notification email address "([^\"]*)"$/ do |usernam
 end
 
 When /^I (?:visit the logout path|logout)$/ do
-  visit logout_url
+  visit logout_path
 end
 
 When /^I sign up with:$/ do |table|
@@ -225,25 +225,25 @@ end
 
 Then /^"([^"]*)" should have a "([^"]*)" account in the list$/ do |username, account_type|
   user = User.find_by_username(username)
-  response.should have_selector("##{dom_id(user)} .user_account_type",
-      :content => account_type)
+  page.should have_css("##{dom_id(user)} .user_account_type",
+      :text => account_type)
 end
 
 When /^"([^"]*)" should have a "([^"]*)" account on the page$/ do |user_name, account_type|
   account_type = "Premium" if account_type == "Complimentary"
-  response.should have_selector(".user_account_type", :content => account_type)
+  page.should have_css(".user_account_type", :text => account_type)
 end
 
 When /^I should see that the user has a basic account$/ do
-  response.should have_selector("#account_type", :content => "Basic")
+  page.should have_css("#account_type", :text => "Basic")
 end
 
 Then /^I should see that the user has a complimentary account$/ do
-  response.should have_selector("#account_type", :content => "Complimentary")
+  page.should have_css("#account_type", :text => "Complimentary")
 end
 
 When /^I should see that the user has a premium account$/ do
-  response.should have_selector("#account_type", :content => "Premium")
+  page.should have_css("#account_type", :text => "Premium")
 end
 
 Then /^"([^\"]*)" should not have a default employment$/ do |username|

@@ -23,8 +23,8 @@ Feature: Signup restaurant
     Given I am logged in as "joesak" with password "secret"
     And I am on the new restaurant page
 
-    When I fill in "Restaurant Name" with "Joe's Shack"
-    And I fill in "Street Address" with "566 W. Adams"
+    When I fill in "Restaurant name" with "Joe's Shack"
+    And I fill in "Street address" with "566 W. Adams"
     And I fill in "City" with "Chicago"
     And I fill in "State" with "IL"
     And I fill in "Zip" with "12345"
@@ -32,7 +32,7 @@ Feature: Signup restaurant
     And I fill in "Website" with "http://www.website.com"
     And I select "Illinois: Chicago" from "Metropolitan area"
     And I select "Italian" from "Cuisine"
-    When I select "Janaury 22, 2008" as the date
+    When I select "2008-01-22" as the "Opening date" date
     And I press "Submit"
 
     Then I should see "Successfully created restaurant"

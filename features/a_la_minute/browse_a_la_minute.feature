@@ -1,3 +1,4 @@
+@alm
 Feature: Browse a la minute
   In order to discover new restaurants and users
   As a site user
@@ -6,7 +7,7 @@ Feature: Browse a la minute
   Background: title
     Given a restaurant named "Steak Knife"
     And that "Steak Knife" has a premium account
-    And a restaurant named "Piece"
+    Given a restaurant named "Piece"
     And that "Piece" has a premium account
     And a restaurant named "Bourgeois Pig"
     And that "Bourgeois Pig" has a premium account

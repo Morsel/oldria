@@ -45,7 +45,13 @@ When /^I create a new soapbox entry for that QOTD with:$/ do |table|
   visit new_admin_soapbox_entry_path(:qotd_id => @qotd.to_param)
 
   table.rows_hash.each do |field, value|
-    fill_in field, :with => value
+    if field == "Daily feature"
+      check field
+    elsif field == "Published at"
+      select_date field, :with => value
+    else
+      fill_in field, :with => value
+    end
   end
 
   click_button "Save"
@@ -55,7 +61,13 @@ When /^I create a new soapbox entry for that Trend Question with:$/ do |table|
   visit new_admin_soapbox_entry_path(:trend_question_id => @trend_question.to_param)
 
   table.rows_hash.each do |field, value|
-    fill_in field, :with => value
+    if field == "Daily feature"
+      check field
+    elsif field == "Published at"
+      select_date field, :with => value
+    else
+      fill_in field, :with => value
+    end
   end
 
   click_button "Save"
@@ -77,35 +89,45 @@ Then /^there should be (\d+) QOTDs? on the soapbox front burner page$/ do |num|
 end
 
 Then /^I see a navigation link for "([^\"]*)"$/ do |header_name|
-  response.should have_selector("#restaurant_features a", :content => header_name)
-end
-
-Then /^I do not see a navigation link for "([^\"]*)"$/ do |header_name|
-  response.should_not have_selector("#restaurant_features a", :content => header_name)
-end
-
-Then /^I see a page header for "([^\"]*)" with "([^\"]*)"$/ do |page, tags|
-  page_obj = RestaurantFeaturePage.find_by_name(page)
-  response.should have_selector(".feature_page_header", :content => page)
-  tags.split(",").each do |tag|
-    response.should have_selector("##{dom_id(page_obj)} .feature", :content => tag.strip)
+  within "#restaurant_features" do
+    page.should have_link(header_name)
   end
 end
 
-Then /^I do not see a page header for "([^\"]*)"$/ do |page|
-  response.should_not have_selector(".feature_page_header", :content => page)
+Then /^I do not see a navigation link for "([^\"]*)"$/ do |header_name|
+  within "#restaurant_features" do
+    page.should_not have_link(header_name)
+  end
+end
+
+Then /^I see a page header for "([^\"]*)" with "([^\"]*)"$/ do |page_name, tags|
+  page_obj = RestaurantFeaturePage.find_by_name(page_name)
+  within ".feature_page_header" do
+    page.should have_content(page_name)
+  end
+  tags.split(",").each do |tag|
+    within "##{dom_id(page_obj)} .feature" do
+      page.should have_content(tag.strip)
+    end
+  end
+end
+
+Then /^I do not see a page header for "([^\"]*)"$/ do |page_name|
+  within ".feature_page_header" do
+    page.should_not have_content(page_name)
+  end
 end
 
 Then /^I should see an accolades section$/ do
-  response.should have_selector(".accolades")
+  page.should have_css(".accolades")
 end
 
 Then /^I should not see an accolades section$/ do
-  response.should_not have_selector(".accolades")
+  page.should_not have_css(".accolades")
 end
 
 Then /^I should see an employee named "([^\"]*)"$/ do |name|
-  response.should contain(name)
+  page.should contain(name)
 end
 
 Then /^I should see the employees in the order "([^"]*)"$/ do |employee_names|
@@ -126,16 +148,22 @@ end
 
 Then /^I see an employee named "([^"]*)" with a link$/ do |username|
   user = User.find_by_username(username)
-  response.should have_selector(".employment a", :content => user.name)
+  within ".employments" do
+    page.should have_link(user.name)
+  end
 end
 
 Then /^I see an employee named "([^"]*)" without a link$/ do |username|
   user = User.find_by_username(username)
-  response.should have_selector(".employment", :content => user.name)
-  response.should_not have_selector(".employment a", :content => user.name)
+  within ".employments" do
+    page.should have_content(user.name)
+    page.should_not have_link(user.name)
+  end
 end
 
 Then /^I should see the heading "([^\"]*)"$/ do |text|
-  response.should have_selector("h1", :content => text)
+  within "#page-title h1" do
+    page.should have_content(text)
+  end
 end
 

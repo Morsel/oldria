@@ -4,14 +4,14 @@ Feature: Twitter Authentication
   As a SF member and twitter member,
   I want to see my Twitter timeline from within SF.
 
-
+@javascript
   Scenario: Add Twitter account to SpoonFeed Profile
     Given the following confirmed user:
     | username | password |
     | johnny   | secret   |
     And I am logged in as "johnny" with password "secret"
     When I follow "edit my profile"
-    And I follow "Account"
+    And I follow "Account" within "#profile-options"
     And I follow "Setup Twitter"
     And Twitter authorizes "johnny"
     Then I should see "You currently have your Twitter account set up"
@@ -24,7 +24,7 @@ Feature: Twitter Authentication
     | stevie   | secret   |
     Given I am logged in as "stevie" with password "secret"
     When I follow "edit my profile"
-    And I follow "Account"
+    And I follow "Account" within "#profile-options"
     And I follow "Read Twitter Timeline"
 
     ## From a fixture file ##

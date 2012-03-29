@@ -10,7 +10,7 @@ Feature: Profile Accolades
     And I follow "Résumé"
     When I add an accolade to my profile with:
       | Name       | Top Chef                     |
-      | Run Date   | 2009-10-21                   |
-      | Media Type | National television exposure |
+      | Run date   | 2009-10-21                   |
+      | Media type | National television exposure |
     Then I should have 1 accolade on my profile
     And I should see "Top Chef" on my profile page

@@ -181,7 +181,7 @@ module NavigationHelpers
     when /^the admin a la minute questions page$/
       admin_a_la_minute_questions_path
     when /^the edit a la minute question page for "(.+)"$/
-      bulk_edit_restaurant_a_la_minute_answers_path(:restaurant_id => Restaurant.find_by_name($1).id)
+      bulk_edit_restaurant_a_la_minute_answers_path(Restaurant.find_by_name($1))
     when /^the Behind the Line page for "(.+)"$/
       topics_restaurant_questions_path(Restaurant.find_by_name($1))
 

@@ -17,8 +17,8 @@ Feature: Adding accolades to a restaurant
     When I go to the edit restaurant page for "Restaurant"
     When I add an accolade to the restaurant "Restaurant" with:
       | Name       | Best Restaurant              |
-      | Run Date   | 2009-10-21                   |
-      | Media Type | National television exposure |
+      | Run date   | 2009-10-21                   |
+      | Media type | National television exposure |
     Then I should have 1 accolade on my restaurant profile
     And I should see an accolade for "Best Restaurant" on the profile page for "Restaurant"
 

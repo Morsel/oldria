@@ -5,7 +5,6 @@
 # break Cucumber's use_transactional_fixtures method.
 # For more information see https://rspec.lighthouseapp.com/projects/16211/tickets/165
 config.cache_classes = true
-DEFAULT_HOST = 'localhost:3000'
 
 # Log error messages when you accidentally call methods on nil.
 config.whiny_nils = true
@@ -22,13 +21,14 @@ config.action_controller.allow_forgery_protection    = false
 # ActionMailer::Base.deliveries array.
 config.action_mailer.delivery_method = :test
 
-config.gem 'cucumber',         :lib => false, :version => '~>1.1.0'
-config.gem 'cucumber-rails',   :lib => false, :version => '~>0.3.2'
-config.gem 'gherkin',          :lib => false, :version => '~>2.5.4'
-config.gem 'database_cleaner', :lib => false, :version => '>=0.5.0'
-config.gem 'webrat',           :lib => false, :version => '>=0.7.0'
-config.gem 'rspec',            :lib => false, :version => '~>1.3.0'
-config.gem 'rspec-rails',      :lib => false, :version => '~>1.3.2'
+config.gem 'cucumber',         :lib => false, :version => '1.1.0'
+config.gem 'cucumber-rails',   :lib => false, :version => '0.3.2'
+config.gem 'gherkin',          :lib => false, :version => '2.5.4'
+config.gem 'database_cleaner', :lib => false, :version => '0.7.2'
+config.gem 'capybara',         :lib => false, :version => '1.1.2'
+config.gem 'capybara-webkit',  :version => "0.7.2"
+config.gem 'rspec',            :lib => false, :version => '1.3.2'
+config.gem 'rspec-rails',      :lib => false, :version => '1.3.4'
 config.gem "factory_girl",     :version => '~>1.2.3'
 config.gem 'bmabey-email_spec', :lib => 'email_spec', :source => "http://gems.github.com"
 config.gem "fakeweb", :version => "1.3.0"
@@ -42,3 +42,5 @@ Braintree::Configuration.public_key = "n77z2dvd56jy4j9n"
 Braintree::Configuration.private_key = "w8kw3smb2g2m6mds"
 
 CLOUDMAIL_DOMAIN = 'dev-mailbot.restaurantintelligenceagency.com'
+
+DEFAULT_HOST = 'localhost:3000'

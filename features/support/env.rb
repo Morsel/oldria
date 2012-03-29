@@ -13,23 +13,15 @@ require 'cucumber/rails/world'
 require 'cucumber/rails/active_record'
 require 'cucumber/web/tableish'
 
-require 'webrat'
-require 'webrat/core/matchers'
-
-Webrat.configure do |config|
-  config.mode = :rails
-  config.open_error_files = false # Set to true if you want error pages to pop up in the browser
-end
-
-FakeWeb.allow_net_connect = false
-
-FakeWeb.register_uri(:post, 'https://api.twitter.com/oauth/request_token', :body => 'oauth_token=fake&oauth_token_secret=fake')
-tweet_file = File.new(File.dirname(__FILE__) + '/../../spec/fixtures/twitter_update.json').read
-FakeWeb.register_uri(:get, 'https://api.twitter.com/1/statuses/home_timeline.json', :body => tweet_file)
-
-FakeWeb.register_uri(:put, Regexp.new('http://s3.amazonaws.com/.*'), :body => "OK")
-FakeWeb.register_uri(:head, Regexp.new('http://s3.amazonaws.com/.*'), :body => "OK")
-FakeWeb.register_uri(:delete, Regexp.new('http://s3.amazonaws.com/.*'), :body => "OK")
+require 'capybara/rails'
+require 'capybara/cucumber'
+require 'capybara/session'
+# require 'cucumber/rails/capybara_javascript_emulation' # Lets you click links with onclick javascript handlers without using @culerity or @javascript
+# Capybara defaults to XPath selectors rather than Webrat's default of CSS3. In
+# order to ease the transition to Capybara we set the default here. If you'd
+# prefer to use XPath just remove this line and adjust any selectors in your
+# steps to use the XPath syntax.
+Capybara.default_selector = :css
 
 # If you set this to false, any error raised from within your app will bubble 
 # up to your step definition and out to cucumber unless you catch it somewhere
@@ -60,6 +52,7 @@ Cucumber::Rails::World.use_transactional_fixtures = true
 if defined?(ActiveRecord::Base)
   begin
     require 'database_cleaner'
+    require 'database_cleaner/cucumber'
     DatabaseCleaner.strategy = :truncation
   rescue LoadError => ignore_if_database_cleaner_not_present
   end

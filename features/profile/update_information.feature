@@ -23,7 +23,7 @@ Feature: Update information
     When I go to the edit page for "manny"
     And I follow "Account" within "#profile-options"
     And I fill in "Password" with "betterpassword"
-    And I fill in "Password Confirmation" with "betterpassword"
+    And I fill in "Password confirmation" with "betterpassword"
     And I press "Save User Details"
     Then I should see "Successfully updated your profile"
 
@@ -42,11 +42,11 @@ Feature: Update information
     When I go to the edit page for "horatio"
     And I follow "Account" within "#profile-options"
     And I fill in "Password" with "betterpassword"
-    And I fill in "Password Confirmation" with "better"
+    And I fill in "Password confirmation" with "better"
     And I press "Save User Details"
     Then I should see "doesn't match confirmation"
 
-@twitter
+@twitter @javascript
   Scenario: Removing Twitter
     Given the following confirmed, twitter-authorized users:
     | username | password |
@@ -81,7 +81,7 @@ Feature: Update information
     When I go to the edit page for "horatio"
     And I follow "Account" within "#profile-options"
     And I fill in "Allow another user to edit your account?" with "My Publicist"
-    And I press "Save editing preferences"
+    And I press "Save Editing Preferences"
     Then I should see "Successfully updated your profile"
 
     Given I am logged in as "publicist"

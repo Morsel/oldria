@@ -9,9 +9,8 @@ Given /^"([^\"]*)" has a headshot$/ do |username|
   u.should have_avatar
 end
 
-
 When /^I attach(?: an)? avatar "([^\"]*)" to "([^\"]*)"$/ do |attachment, field|
-  attach_file(field, RAILS_ROOT + "/features/support/paperclip/avatar/#{attachment}", "image/jpg")
+  attach_file(field, RAILS_ROOT + "/features/support/paperclip/avatar/#{attachment}")
 end
 
 Then /^"([^\"]*)" should have a headshot$/ do |username|
@@ -19,9 +18,13 @@ Then /^"([^\"]*)" should have a headshot$/ do |username|
 end
 
 Then /^"([^\"]*)" should not have a headshot$/ do |username|
-   User.find_by_username(username).should_not have_avatar
+  User.find_by_username(username).should_not have_avatar
 end
 
 Then /^I should see (?:my|his|her|a) headshot$/ do
-  response.should have_tag("img", :class => 'thumbnail')
+  page.should have_css("#profileImage img")
+end
+
+Then /^I should see my headshot thumbnail$/ do
+  page.should have_css("img.thumbnail")
 end

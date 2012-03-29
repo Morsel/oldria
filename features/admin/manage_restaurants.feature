@@ -5,12 +5,12 @@ Feature: Manage restaurants
   I want to be able to manage all restaurants and their information
 
   Background:
-    Given I am logged in as an admin
     Given a restaurant named "Piece" with the following employees:
       | username | password | email             | name           | role      |    
       | fred     | secret   | fred@testing.com  | Fred Mercury   | Chef      |
       | betty    | secret   | betty@testing.com | Betty Cobalt   | Sous chef |
-    
+    And I am logged in as an admin
+
   Scenario: I enter complete, valid data
     When I go to the admin edit restaurant page for Piece
     And I fill in the following:
@@ -21,14 +21,14 @@ Feature: Manage restaurants
       | City                         | Paris                               |
       | State                        | TX                                  |
       | Zip                          | 12345                               |
-      | Phone Number                 | (312) 123-4567                      |
+      | Phone number                 | (312) 123-4567                      |
       | Website                      | http://www.restaurant.example.com   |
       # | Twitter Username             | piece_twitter                       |
       # | Facebook Page                | http://www.facebook.com/piece       |
-      | Management Company Name      | Lettuce Entertain You               |
-      | Management Company Website   | http://www.lettuce.com              |
+      | Management company name      | Lettuce Entertain You               |
+      | Management company website   | http://www.lettuce.com              |
     And I select "Fred Mercury" from "Media contact"
-    And I select "January 22, 2008" as the date
+    And I select "2008-01-22" as the "Opening date" date
     And I press "Save"
     
     Then I should be on the admin restaurants page
@@ -51,6 +51,7 @@ Feature: Manage restaurants
       | management_company | Lettuce Entertain You               |
       # | opening_date       | January 22, 2008                    |
     
+@javascript
   Scenario: Making a basic restaurant complimentary
     Given the restaurant "Piece" does not have a premium account
     And I am on the admin restaurants page
@@ -63,6 +64,7 @@ Feature: Manage restaurants
     When I am on the admin restaurants page
     And the listing for "Piece" should be complimentary
     
+@javascript
   Scenario: Canceling a restaurant complimentary account
     Given the restaurant "Piece" has a complimentary account
     When I go to the admin edit restaurant page for Piece
@@ -73,6 +75,7 @@ Feature: Manage restaurants
     When I am on the admin restaurants page
     And the listing for "Piece" should be basic
     
+@javascript
   Scenario: Converting an existing restaurant account to complementary
     Given the restaurant "Piece" has a premium account
     When I go to the admin edit restaurant page for Piece
@@ -83,16 +86,18 @@ Feature: Manage restaurants
     When I am on the admin restaurants page
     And the listing for "Piece" should be complimentary
     
+@javascript
   Scenario: Cancel a non-complimentary restaurant premium account
     Given the restaurant "Piece" has a premium account
     When I go to the admin edit restaurant page for Piece
     Then I should see that the restaurant has a premium account
-    And I follow "Downgrade the restaurant to a basic account"
+    And I follow "Downgrade the restaurant to a Basic Account"
     Then I should be on the admin edit restaurant page for Piece
     Then I should see that the restaurant has a basic account
     When I am on the admin restaurants page
     And the listing for "Piece" should be basic
     
+@javascript
   Scenario: Convert an overtime restaurant account to complimentary
     Given the restaurant "Piece" has an overtime account
     When I go to the admin edit restaurant page for Piece
@@ -104,6 +109,8 @@ Feature: Manage restaurants
     And the listing for "Piece" should be complimentary
   
   #Scenario: Cancel an overtime restaurant account
+
+@javascript
   Scenario: Deleting the restaurant's primary manager (and selecting a new one)
     Given "fred" is a manager for "Piece"
     And "betty" is a manager for "Piece"
@@ -116,12 +123,12 @@ Feature: Manage restaurants
     And I press "Update"
     Then I should see "Updated account manager to Betty Cobalt. Fred Mercury is no longer an employee."
 
+@javascript
   Scenario: Deleting a restaurant
     When I go to the admin restaurants page
-    And I follow "destroy"
-  
-    Then I should see "Successfully removed restaurant"
-    And I should not see "Piece"
+    And I follow "Destroy"
+
+    Then I should not see "Piece"
     # Ensure users are converted to default (solo) employments
     And "fred" should have a primary employment with role "Chef"
     And "betty" should have a primary employment with role "Sous chef"

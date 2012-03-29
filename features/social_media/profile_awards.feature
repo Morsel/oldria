@@ -13,7 +13,7 @@ Feature: Profile - Awards
     And I am on my profile's edit page
     When I add an award to my profile with:
       | Name of Award  | Top Chef |
-      | Year Won       | 2009     |
-      | Year Nominated | 2008     |
+      | Year won       | 2009     |
+      | Year nominated | 2008     |
     Then I should have 1 award on my profile
     And I should see "Top Chef (2009)" on my profile page

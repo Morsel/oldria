@@ -60,9 +60,9 @@ Feature: Manage a_la_minutes
 
     When I go to the edit a la minute question page for "Steak Knife"
     And I fill in a la minute question titled "What's new?" with answer "Salad"
-    And I check "a_la_minute_questions_1_show_as_public"
+	And I check a la minute question titled "What's new?" as public
     And I fill in a la minute question titled "What's playing?" with answer "Creed"
-    And I check "a_la_minute_questions_2_show_as_public"
+	And I check a la minute question titled "What's playing?" as public
     And I press "Change Answers"
     And I go to the restaurant show page for "Steak Knife"
     Then I should see the question "What's new?" with the answer "Salad"
@@ -80,7 +80,7 @@ Feature: Manage a_la_minutes
     And I should see the question "What's new?" with the answer "Something newer"
     And I should see the question "What's new?" with the answer "Lobster Bisque"
 
-
+@javascript
   Scenario: Manager should be able to remove an answer
     Given "Steak Knife" has answered the following A La Minute questions:
       | question    | answer               | public | created_at     |
@@ -88,7 +88,6 @@ Feature: Manage a_la_minutes
       | What's new? | Something newer      | true   | 2.hours.ago    |
       | What's new? | Something even newer | true   | 30.minutes.ago |
     And I go to the edit a la minute question page for "Steak Knife"
-    When I follow "Remove" for the answer "Something newer"
+    When I follow "[remove]" for the answer "Something newer"
     Then I should see the question "What's new?" with the answer "Something even newer"
     And I should see the question "What's new?" with the answer "Lobster Bisque"
-

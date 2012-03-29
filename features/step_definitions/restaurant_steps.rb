@@ -93,7 +93,7 @@ end
 
 Given /^I have added "([^\"]*)" to that restaurant$/ do |email|
   click_link "Add employee"
-  fill_in "Employee Email", :with => email
+  fill_in "Employee email", :with => email
   click_button "Submit" # search for user
   click_button "Yes" # confirm selected user
   click_button "Submit" # save default roles/responsibilities
@@ -101,7 +101,9 @@ end
 
 When /^I follow the edit role link for "([^\"]*)"$/ do |employee_name|
   user_id = User.find_by_name(employee_name).id
-  click_link_within "#user_#{user_id}", "edit"
+  within "#user_#{user_id}" do
+    click_link "Edit"
+  end
 end
 
 When /^I confirm the employee$/ do
@@ -163,27 +165,27 @@ When /^I remove optional information from the restaurant$/ do
 end
 
 Then /^I do not see a section for "([^\"]*)"$/ do |dom_id|
-  response.should_not have_tag("##{dom_id}")
+  page.should_not have_css("##{dom_id}")
 end
 
 Then /^I see the uploaded restaurant photo$/ do
-  response.should have_selector("img.restaurant_photo")
-  response.body.should include("http://spoonfeed.s3.amazonaws.com/cucumber/images/#{@restaurant.photos.last.id}/medium/bourgeoispig.jpg")
+  page.should have_css("img.restaurant_photo")
+  page.body.should include("http://spoonfeed.s3.amazonaws.com/cucumber/images/#{@restaurant.photos.last.id}/medium/bourgeoispig.jpg")
 end
 
 When /^I should see the uploaded restaurant photo credit$/ do
-  response.should have_selector(".restaurant_photo_credit", :content => @restaurant.photos.last.credit)
+  page.should have_selector(".restaurant_photo_credit", :text => @restaurant.photos.last.credit)
 end
 
 Then /^I see the restaurant logo$/ do
   @restaurant = Restaurant.find(@restaurant.id)
   filename = "http://spoonfeed.s3.amazonaws.com/cucumber/images/#{@restaurant.reload.logo.id}/medium/bourgeoispig_logo.gif"
-  response.should have_selector("img#restaurant_logo_image[src*=\"#{filename}\"]")
+  page.should have_css("img#restaurant_logo_image[src*=\"#{filename}\"]")
 end
 
 Then /^I should not see the restaurant logo$/ do
   filename = "avatar_restaurant.gif"
-  response.should have_selector("img#restaurant_logo_image[src*=\"#{filename}\"]")
+  page.should have_css("img#restaurant_logo_image[src*=\"#{filename}\"]")
 end
 
 
@@ -192,46 +194,56 @@ When /^I select the (\d+)(st|nd|th) photo as the primary photo$/ do |photo_order
 end
 
 When /^I see the (\d+)(st|nd|th) photo selected as the primary photo$/ do |photo_order, ordinal|
-  response.should have_selector("input", :type => "radio", :value => @restaurant.reload.photos[photo_order.to_i - 1].id.to_s, :checked => "checked")
+  page.should have_css("input", :type => "radio", :value => @restaurant.reload.photos[photo_order.to_i - 1].id.to_s, :checked => "checked")
 end
 
 Then /^I should see that photo$/ do
-  response.should have_selector("img", :src => @restaurant.reload.photos.last.attachment.url(:medium_photo))
+  page.should have_css("img", :src => @restaurant.reload.photos.last.attachment.url(:medium_photo))
 end
 
 Then /^I should see a menu with the name "([^\"]*)" and change frequency "([^\"]*)" and uploaded at date "([^\"]*)"$/ do |name, change_frequency, date|
-  response.should have_selector(".menu_name", :content => name)
-  response.should have_selector(".menu_change_frequency", :content => change_frequency)
-  response.should have_selector(".menu_date", :content => Chronic.parse(date).to_s(:standard))
+  page.should have_selector(".menu_name", :text => name)
+  page.should have_selector(".menu_change_frequency", :text => change_frequency)
+  page.should have_selector(".menu_date", :text => Chronic.parse(date).to_s(:standard))
 end
 
 Then /^I should see a link to download the uploaded menu pdf "([^\"]*)"$/ do |file_name|
-  response.body.should include("http://spoonfeed.s3.amazonaws.com/cucumber/attachments/#{@restaurant.reload.menus.last.id}/#{file_name}")
+  page.body.should include("http://spoonfeed.s3.amazonaws.com/cucumber/attachments/#{@restaurant.reload.menus.last.id}/#{file_name}")
 end
 
 When /^I delete the menu with the name "([^"]*)"$/ do |name|
   menu = Menu.find_by_name(name)
-  click_link_within("#menu_#{menu.id}", "Remove")
+  within "#menu_#{menu.id}" do
+    page.should have_link("Remove")
+    click_link("Remove")
+  end
 end
 
 Then /^I should not have a menu with the name "([^"]*)" and change frequency "([^"]*)"$/ do |name, change_frequency|
+  page.should have_content("The menu was deleted")
   Menu.first(:conditions => {:name => name, :change_frequency => change_frequency}).should be_nil
 end
 
 Then /^I should have a menu with the name "([^"]*)" and change frequency "([^"]*)"$/ do |name, change_frequency|
+  within ".menu_name" do
+    page.should have_content(name)
+  end
+  within ".menu_change_frequency" do
+    page.should have_content(change_frequency)
+  end
   Menu.first(:conditions => {:name => name, :change_frequency => change_frequency}).should_not be_nil
 end
 
 Then /^I should not see any menus$/ do
-  response.should_not have_selector("table#menus tr")
+  page.should_not have_css("table#menus tr")
 end
 
 Then /^I should see an error message$/ do
-  response.should have_selector("#errorExplanation")
+  page.should have_css("#errorExplanation")
 end
 
 Then /^I should see a flash error message$/ do
-  response.should have_selector("#flash_error")
+  page.should have_css("#flash_error")
 end
 
 Given /^"([^\"]*)" is an employee of "([^\"]*)"$/ do |username, restaurant_name|
@@ -249,53 +261,61 @@ Given /^"([^"]*)" is an employee of "([^"]*)" with public position (\d+)$/ do |u
 end
 
 Then /^I should have a photo with the file "([^"]*)"$/ do |filename|
-  response.should have_selector("img.restaurant_photo[src*=\"#{filename}\"]")
+  page.should have_css("img.restaurant_photo[src*=\"#{filename}\"]")
 end
 
 Then /^I should not have a photo with the file "([^"]*)"$/ do |filename|
-  response.should_not have_selector("img.restaurant_photo[src*=\"#{filename}\"]")
+  page.should_not have_css("img.restaurant_photo[src*=\"#{filename}\"]")
 end
 
 When /^I remove the restaurant photo with the file "([^"]*)"$/ do |filename|
   photo = @restaurant.photos.find_by_attachment_file_name(filename)
-  click_link_within("#photo_#{photo.id}", "Remove")
+  within "#photo_#{photo.id}" do
+    click_link("Remove")
+  end
 end
 
 When /^I remove the restaurant logo$/ do
-  click_link_within("#delete-logo", "Remove")
+  within "#delete-logo" do
+    click_link("Remove")
+  end
 end
 
 Then /^I see no restaurant photos$/ do
-  response.should_not have_selector("img.restaurant_photo")
+  page.should_not have_css("img.restaurant_photo")
 end
 
 When /^I click to make "([^"]*)" public$/ do |username|
   user = User.find_by_username(username)
   employment = user.employments.first
-  click_link_within("##{dom_id(employment)}", "Click to make public")
+  within "##{dom_id(employment)}" do
+    click_link("Click to make public")
+  end
 end
 
 Then /^I should see that "([^"]*)" is public$/ do |username|
   user = User.find_by_username(username)
   employment = user.employments.first
-  response.should have_selector("##{dom_id(employment)} .public", :content => "will be displayed")
+  page.should have_selector("##{dom_id(employment)} .public", :text => "will be displayed")
 end
 
 When /^I click to make "([^\"]*)" private$/ do |username|
   user = User.find_by_username(username)
   employment = user.employments.first
-  click_link_within("##{dom_id(employment)}", "Click to hide")
+  within "##{dom_id(employment)}" do
+    click_link("Click to hide")
+  end
 end
 
 Then /^I should see that "([^\"]*)" is private$/ do |username|
   user = User.find_by_username(username)
   employment = user.employments.first
-  response.should have_selector("##{dom_id(employment)} .private", :content => "will not be displayed")
+  page.should have_selector("##{dom_id(employment)} .private", :text => "will not be displayed")
 end
 
 When /^I should not see an employee listing for "([^\"]*)"$/ do |username|
   user = User.find_by_username(username)
-  response.should_not have_selector("##{dom_id(user)}")
+  page.should_not have_css("##{dom_id(user)}")
 end
 
 Given /^the following a la minute questions:$/ do |table|
@@ -305,12 +325,12 @@ Given /^the following a la minute questions:$/ do |table|
 end
 
 Then /^I see a header for a la minute$/ do
-  response.should have_selector("h1", :content => "A La Minute Questions")
+  page.should have_selector("h1", :text => "A La Minute Questions")
 end
 
 Then /^I see the text for each question$/ do
   ALaMinuteQuestion.all.each do |question|
-    response.should have_selector("#a_la_minute_questions .question", :content => question.question)
+    page.should have_selector("#a_la_minute_questions .question", :text => question.question)
   end
 end
 
@@ -322,7 +342,7 @@ Given /^"([^\"]*)" has answered "([^\"]*)" with "([^\"]*)"$/ do |restaurant_name
 end
 
 Then /^I should see the answer "([^\"]*)"$/ do |answer_text|
-  response.should have_selector(".answer", :content => answer_text)
+  page.should have_selector(".answer", :text => answer_text)
 end
 
 Given /^the user "([^\"]*)" is employed by "([^\"]*)"$/ do |username, restaurant_name|
@@ -354,7 +374,7 @@ Given /^the user "([^\"]*)" is an account manager for "([^\"]*)"$/ do |username,
 end
 
 Then /^I should view the dashboard$/ do
-  response.should have_selector("#dashboard.selected")
+  page.should have_css("#dashboard.selected")
 end
 
 Given /^"([^"]*)" has answered the following A La Minute questions:$/ do |restaurant_name, table|
@@ -380,36 +400,37 @@ When /^I check "([^"]*)" for "([^"]*)"$/ do |label, question_text|
 end
 
 Then /^I should see the question "([^"]*)" with the answer "([^"]*)"$/ do |question_text, answer_text|
-  answer = @restaurant.a_la_minute_answers.find_by_answer(answer_text)
-  response.should have_selector(".question", :content => question_text)
-  response.should have_selector(".answer", :content => answer_text)
+  page.should have_selector(".question", :text => question_text)
+  page.should have_selector(".answer", :text => answer_text)
 end
 
 Then /^I should not see the question "([^"]*)" with the answer "([^"]*)"$/ do |question_text, answer_text|
-  response.should_not have_selector(".question", :content => question_text)
-  response.should_not have_selector(".answer", :content => answer_text)
+  page.should_not have_selector(".answer", answer_text)
 end
 
 Then /^I should not see the answer "([^"]*)"$/ do |answer_text|
-  response.should_not have_selector(".answer", :content => answer_text)
+  page.should_not have_selector(".answer", answer_text)
 end
 
 Then /^the listing for "([^\"]*)" should be premium$/ do |restaurant_name|
   restaurant = Restaurant.find_by_name(restaurant_name)
-  response.should have_selector("tr##{dom_id(restaurant)} td",
-      :content => "Premium")
+  within "tr##{dom_id(restaurant)}" do
+    page.should have_content("Premium")
+  end
 end
 
 Then /^the listing for "([^\"]*)" should be complimentary$/ do |restaurant_name|
   restaurant = Restaurant.find_by_name(restaurant_name)
-  response.should have_selector("tr##{dom_id(restaurant)} td",
-      :content => "Complimentary")
+  within "tr##{dom_id(restaurant)}" do
+    page.should have_content("Complimentary")
+  end
 end
 
 Then /^the listing for "([^\"]*)" should be basic$/ do |restaurant_name|
   restaurant = Restaurant.find_by_name(restaurant_name)
-  response.should have_selector("tr##{dom_id(restaurant)} td",
-      :content => "Basic")
+  within "tr##{dom_id(restaurant)}" do
+    page.should have_content("Basic")
+  end
 end
 
 Given /^I have created the following A La Minute Questions:$/ do |table|
@@ -421,35 +442,49 @@ end
 Then /^I should see the following questions:$/ do |table|
   table.hashes.each do |row|
     question = ALaMinuteQuestion.find_by_question(row['question'])
-    response.should have_selector("#a_la_minute_questions td", :content => question.question)
+    within "#a_la_minute_questions" do
+      page.should have_content(question.question)
+    end
   end
 end
 
 When /^I follow "([^"]*)" for "([^"]*)"$/ do |link, question_text|
   question = ALaMinuteQuestion.find_by_question(question_text)
-  click_link_within("##{dom_id(question)}", link)
+  within "##{dom_id(question)}" do
+    click_link link
+  end
 end
 
 When /^I follow "([^"]*)" for the answer "([^"]*)"$/ do |link, answer_text|
   answer = ALaMinuteAnswer.find_by_answer(answer_text)
-  click_link_within("##{dom_id(answer)}", link)
+  within "##{dom_id(answer)}" do
+    click_link link
+  end
 end
 
 Then /^I should see the answer "([^"]*)" for "([^"]*)"$/ do |answer, name|
-  responder = Restaurant.find_by_name(name) || User.find_by_name(name)
-  response.should have_selector(".a_la_minute_answer", :content => answer)
+  responder = Restaurant.find_by_name(name)
+  within "#answers" do
+    page.should have_content(answer)
+  end
 end
 
 When /^I should see that the restaurant has a basic account$/ do
-  response.should have_selector("#account_type", :content => "Basic")
+  within "#account_type" do
+    page.should have_content("Basic")
+  end
 end
 
 Then /^I should see that the restaurant has a complimentary account$/ do
-  response.should have_selector("#account_type", :content => "Complimentary")
+  within "#account_type" do
+    page.should have_content("Complimentary")
+  end
 end
 
 When /^I should see that the restaurant has a premium account$/ do
-  response.should have_selector("#account_type", :content => "Premium")
+  within "#account_type" do
+    page.should have_content("Premium")
+  end
 end
 
 Given /^the restaurant "([^\"]*)" has a complimentary account$/ do |name|
@@ -460,7 +495,9 @@ end
 
 When /^I delete the account manager for "([^\"]*)"$/ do |name|
   restaurant = Restaurant.find_by_name(name)
-  click_link_within("#user_#{restaurant.manager_id}", "Delete")
+  within "#user_#{restaurant.manager_id}" do
+    click_link "Delete"
+  end
 end
 
 When /^I fill in a la minute question titled "([^\"]*)" with answer "([^\"]*)"$/ do |title, answer|

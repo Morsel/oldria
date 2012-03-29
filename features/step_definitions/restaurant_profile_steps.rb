@@ -20,61 +20,74 @@ Given /^that "([^\"]*)" has an employee "([^\"]*)"$/ do |restaurant_name, employ
 end
 
 Then /^I see the restaurant's name linked as "([^\"]*)"$/ do |name|
-  response.should have_selector("#name a", :content => name)
+  within "#name" do
+    page.should have_link(name)
+  end
 end
 
 Then /^I see the restaurant's description$/ do
-  response.should have_selector("#description", :content => @restaurant.description)
+  within "#description" do
+    page.should have_content(@restaurant.description)
+  end
 end
 
 When /^I see the address$/ do
   @restaurant.address_parts.each do |address_part|
-    response.should have_selector(".address", :content => address_part)
+    within ".address" do
+      page.should have_content(address_part)
+    end
   end
 end
 
 Then /^I see the phone number$/ do
-  response.should have_selector("#phone_number", :content => @restaurant.phone_number)
+  within "#phone_number" do
+    page.should have_content(@restaurant.phone_number)
+  end
 end
 
 Then /^I see the restaurant's website as a link$/ do
-  response.should have_selector("#website a", :content => @restaurant.website,
-      :href => @restaurant.website)
+  within "#website" do
+    page.should have_link(@restaurant.website, :href => @restaurant.website)
+  end
 end
 
 Then /^I see the restaurant's Twitter username$/ do
-  response.should have_selector("#twitter_username a", :content => @restaurant.twitter_handle,
-      :href => "http://twitter.com/#{@restaurant.twitter_handle}")
+  within "#twitter_username" do
+    page.should have_link(@restaurant.twitter_handle, "http://twitter.com/#{@restaurant.twitter_handle}")
+  end
 end
 
 Then /^I see the restaurant's Facebook page$/ do
-  response.should have_selector("#facebook_page a", :content => @restaurant.name,
-      :href => @restaurant.facebook_page_url)
+  within "#facebook_page" do
+    page.should have_link(@restaurant.name, :href => @restaurant.facebook_page_url)
+  end
 end
 
 When /^I see the restaurant's hours$/ do
-  response.should have_selector("#hours", :content => @restaurant.hours)
+  page.should have_selector("#hours", :text => @restaurant.hours)
 end
 
 Then /^I see media contact name, phone, and email$/ do
   media_contact = @restaurant.media_contact
-  response.should have_selector("#media_contact a",
-      :content => media_contact.name,
-      :href => profile_path(media_contact.username))
-  response.should have_selector("#media_contact", :content => media_contact.phone_number)
-  response.should have_selector("#media_contact a", :content => media_contact.email,
-        :href => "mailto:#{media_contact.email}")
-  response.should have_selector("#media_contact", :content => media_contact.email)
+  within "#media_contact" do
+    page.should have_link(media_contact.name, :href => profile_path(media_contact.username))
+    page.should have_content(media_contact.phone_number)
+    page.should have_link(media_contact.email, :href => "mailto:#{media_contact.email}")
+  end
 end
 
 When /^I see media contact name and email, but no phone$/ do
   media_contact = @restaurant.media_contact
-  response.should have_selector("#media_contact", :content => media_contact.name)
-  response.should_not have_selector("#media_contact_phone")
+  within "#media_contact" do
+    page.should have_content(media_contact.name)
+    page.should have_no_css("#media_contact_phone")
+  end
 end
 
 Then /^I see the management company name as a link$/ do
-  response.should have_selector("#management_company a", :content => @restaurant.management_company_name)
+  within "#management_company" do
+    page.should have_link(@restaurant.management_company_name, :href => @restaurant.management_company_website)
+  end
 end
 
 Given /^the restaurant has no media contact$/ do
@@ -90,9 +103,8 @@ Given /^the restaurant media contact has a private phone number$/ do
   @restaurant.media_contact.profile.save!
 end
 
-
 Then /^I should not see media contact info$/ do
-  response.should_not have_selector("#media_contact")
+  page.should_not have_css("#media_contact")
 end
 
 Given /^the restaurant has no website for its management company$/ do
@@ -100,8 +112,8 @@ Given /^the restaurant has no website for its management company$/ do
 end
 
 When /^I see the management company name without a link$/ do
-  response.should have_selector("#management_company", :content => @restaurant.management_company_name)
-  response.should_not have_selector("#management_company a")
+  page.should have_selector("#management_company", :text => @restaurant.management_company_name)
+  page.should_not have_css("#management_company a")
 end
 
 Given /^the restaurant has no management data$/ do
@@ -110,7 +122,7 @@ Given /^the restaurant has no management data$/ do
 end
 
 Then /^I do not see management data$/ do
-  response.should_not have_selector("#management_company")
+  page.should_not have_css("#management_company")
 end
 
 Given /^the restaurant has no Twitter or Facebook info$/ do
@@ -118,19 +130,19 @@ Given /^the restaurant has no Twitter or Facebook info$/ do
 end
 
 Then /^I do not see the Twitter username$/ do
-  response.should_not have_selector("#twitter_username")
+  page.should_not have_css("#twitter_username")
 end
 
 Then /^I do not see the Facebook username$/ do
-  response.should_not have_selector("#facebook_page")
+  page.should_not have_css("#facebook_page")
 end
 
 Then /^I see the following restaurant fields:$/ do |fields|
   fields.rows_hash.each do |field, name|
     if name.match(/^http/)
-      response.should have_selector("a", :href => name)
+      page.should have_css("a", :href => name)
     else
-      response.should have_selector("#restaurant_profile_view", :content => name)
+      page.should have_selector("#restaurant_profile_view", :text => name)
     end
   end
 end
@@ -146,31 +158,33 @@ Given /^the following restaurant features:$/ do |features|
 end
 
 Then /^I see the page headers$/ do
-  RestaurantFeaturePage.all.each do |page|
-     response.should have_selector(".feature_page", :content => page.name)
+  RestaurantFeaturePage.all.each do |feature_page|
+    page.should have_selector(".feature_page", :text => feature_page.name)
   end
 end
 
 Then /^I see the page header for "([^\"]*)"$/ do |page_name|
   selected_page = RestaurantFeaturePage.find_by_name(page_name)
-  RestaurantFeaturePage.all.each do |page|
-    if page == selected_page
-      response.should have_selector("#restaurant_features", :content => page.name)
-    else
-      response.should_not have_selector("#restaurant_features", :content => page.name)
+  RestaurantFeaturePage.all.each do |feature_page|
+    within "#restaurant_features" do
+      if feature_page == selected_page
+        page.should have_content(feature_page.name)
+      else
+        page.should_not have_content(feature_page.name)
+      end
     end
   end
 end
 
 Then /^I see the category headers$/ do
   RestaurantFeatureCategory.all.each do |category|
-     response.should have_selector(".feature_category", :content => category.name)
+    page.should have_selector(".feature_category", :text => category.name)
   end
 end
 
 Then /^I see the category values$/ do
   RestaurantFeature.all.each do |feature|
-    response.should have_selector(".feature_category ##{dom_id(feature)}")
+    page.should have_css(".feature_category ##{dom_id(feature)}")
   end
 end
 
@@ -178,9 +192,9 @@ Then /^I see the category headers for "([^\"]*)"$/ do |page_name|
   selected_page = RestaurantFeaturePage.find_by_name(page_name)
   RestaurantFeatureCategory.all.each do |category|
     if category.restaurant_feature_page == selected_page
-      response.should have_selector(".feature_category_header", :content => category.name)
+      page.should have_selector(".feature_category_header", :text => category.name)
     else
-      response.should_not have_selector(".feature_category_header", :content => category.name)
+      page.should_not have_selector(".feature_category_header", :text => category.name)
     end
   end
 end
@@ -189,79 +203,89 @@ Then /^I see the category values for "([^\"]*)"$/ do |page_name|
   selected_page = RestaurantFeaturePage.find_by_name(page_name)
   RestaurantFeature.all.each do |feature|
     if feature.restaurant_feature_page == selected_page
-      response.should have_selector(".feature #check_#{dom_id(feature)}")
+      page.should have_css(".feature #check_#{dom_id(feature)}")
     else
-      response.should_not have_selector(".feature #check_#{dom_id(feature)}")
+      page.should_not have_css(".feature #check_#{dom_id(feature)}")
     end
   end
 end
 
 Then /^I see a tag named "([^\"]*)" in the category "([^\"]*)"$/ do |feature, category_name|
   category = RestaurantFeatureCategory.find_by_name(category_name)
-  response.should have_selector("##{dom_id(category)} .feature", :content => feature)
+  within "##{dom_id(category)}" do
+    page.should have_selector(".feature", :text => feature)
+  end
 end
 
 Then /^I see a category named "([^\"]*)" in the page "([^\"]*)"$/ do |category, page_name|
-  page = RestaurantFeaturePage.find_by_name(page_name)
-  response.should have_selector("##{dom_id(page)} .feature_category", :content => category)
+  feature_page = RestaurantFeaturePage.find_by_name(page_name)
+  within "##{dom_id(feature_page)}" do
+    page.should have_selector(".feature_category", :text => category)
+  end
 end
 
-When /^I see a page named "([^\"]*)"$/ do |page|
-  response.should have_selector(".feature_page", :content => page)
+When /^I see a page named "([^\"]*)"$/ do |feature_page|
+  page.should have_selector(".feature_page", :text => feature_page)
 end
 
 Then /^I see the restaurant's website$/ do
-  response.should have_selector("#website", :content => @restaurant.website)
+  within "#website" do
+    page.should have_content(@restaurant.website)
+  end
 end
 
 Then /^I see headers for feature categories for "([^\"]*)"$/ do |page_name|
-  page = RestaurantFeaturePage.find_by_name(page_name)
-  @restaurant.categories_for_page(page).each do |category|
-    response.should have_selector(".restaurant_feature_category h3", :content => category.name)
+  feature_page = RestaurantFeaturePage.find_by_name(page_name)
+  @restaurant.categories_for_page(feature_page).each do |category|
+    page.should have_selector(".restaurant_feature_category", :text => category.name)
   end
-  missing = page.restaurant_feature_categories - @restaurant.categories_for_page(page)
+  missing = feature_page.restaurant_feature_categories - @restaurant.categories_for_page(feature_page)
   missing.each do |category|
-    response.should_not have_selector(".restaurant_feature_category h3", :content => category.name)
+    page.should_not have_selector(".restaurant_feature_category", :text => category.name)
   end
 end
 
 Then /^I see "([^\"]*)" links for "([^\"]*)"$/ do |category_name, tags|
   category = RestaurantFeatureCategory.find_by_name(category_name)
   tags.split(",").each do |tag|
-    response.should have_selector("##{dom_id(category)}", :content => tag.strip)
+    within "##{dom_id(category)}" do
+      page.should have_content tag.strip
+    end
   end
 end
 
 Then /^I do not see links for "([^\"]*)"$/ do |tag|
-  response.should_not have_selector(".feature", :content => tag.strip)
+  page.should_not have_selector(".feature", :text => tag.strip)
 end
 
 When /^I see the primary photo$/ do
-  response.should have_selector("#primary_photo img")
-  response.body.should include("bourgeoispig.jpg")
+  page.should have_css("#primary_photo img")
+  page.body.should include("bourgeoispig.jpg")
 end
 
 When /^I browse to the the primary photo detail view$/ do
   @restaurant.reload
-  click_link_within("#primary_photo", "a")
+  within "#primary_photo" do
+    click_link "a"
+  end
 end
 
 Then /^I should see the primary photo detail view$/ do
-  response.should have_selector("#photo_#{@restaurant.reload.primary_photo.id} img")
-  response.body.should include("bourgeoispig.jpg")
+  page.should have_css("#photo_#{@restaurant.reload.primary_photo.id} img")
+  page.body.should include("bourgeoispig.jpg")
 end
 
 Then /^I should see the restaurant photo gallery$/ do
-  response.should have_selector("#photos")
+  page.should have_css("#photos")
   @restaurant.reload.photos.each do |photo|
-    response.should have_selector("#photo_#{photo.id} img")
-    response.body.should include("#{photo.attachment_file_name}")
-    response.body.should include(photo.credit)
+    page.should have_css("#photo_#{photo.id} img")
+    page.body.should include("#{photo.attachment_file_name}")
+    page.body.should include(photo.credit)
   end
 end
 
 Then /^I should see no restaurant photos$/ do
-  response.should have_selector("#no_photos_available")
+  page.should have_css("#no_photos_available")
 end
 
 Given /^"([^\"]*)" is tagged with "([^\"]*)"$/ do |restaurant_name, tags|
@@ -270,25 +294,25 @@ Given /^"([^\"]*)" is tagged with "([^\"]*)"$/ do |restaurant_name, tags|
 end
 
 Then /^I see the restaurant "([^\"]*)"$/ do |restaurant_name|
-  response.should have_selector(".restaurant", :content => restaurant_name)
+  page.should have_selector(".restaurant", :text => restaurant_name)
 end
 
 Then /^I see the restaurant logo for the profile$/ do
-  response.should have_selector("#restaurant_header img")
-  response.body.should include("bourgeoispig_logo.gif")
+  page.should have_css("#restaurant_header img")
+  page.body.should include("bourgeoispig_logo.gif")
 end
 
 Then /^I see the restaurant menus$/ do
-  response.should have_selector(".menus")
+  page.should have_css(".menus")
 
   @restaurant.menus.each do |menu|
-    response.should have_selector(".menu_item", :content => menu.name)
-    response.should have_selector(".menu_item", :content => menu.updated_at.strftime("%m/%d/%Y"))
+    page.should have_selector(".menu_item", :text => menu.name)
+    page.should have_selector(".menu_item", :text => menu.updated_at.strftime("%m/%d/%Y"))
   end
 end
 
 Then /^I should not see any photos$/ do
-  response.should_not have_selector("#primary_photo img")
+  page.should_not have_css("#primary_photo img")
 end
 
 Given /^a restaurant feature page named "([^\"]*)"$/ do |name|
@@ -296,28 +320,28 @@ Given /^a restaurant feature page named "([^\"]*)"$/ do |name|
 end
 
 Then /^I see a delete link for the page "([^\"]*)"$/ do |name|
-  page = RestaurantFeaturePage.find_by_name(name)
-  response.body.should have_selector("##{dom_id(page)} ##{dom_id(page, :delete_link)}")
+  feature_page = RestaurantFeaturePage.find_by_name(name)
+  page.should have_css("##{dom_id(feature_page)} ##{dom_id(feature_page, :delete_link)}")
 end
 
 Then /^I do not see a delete link for the page "([^\"]*)"$/ do |name|
-  page = RestaurantFeaturePage.find_by_name(name)
-  response.body.should_not have_selector("##{dom_id(page)} ##{dom_id(page, :delete_link)}")
+  feature_page = RestaurantFeaturePage.find_by_name(name)
+  page.should_not have_css("##{dom_id(feature_page)} ##{dom_id(feature_page, :delete_link)}")
 end
 
 Given /^a restaurant feature category named "([^\"]*)" in the page "([^\"]*)"$/ do |name, page_name|
-  page = RestaurantFeaturePage.find_by_name(page_name)
-  RestaurantFeatureCategory.create(:name => name, :restaurant_feature_page => page)
+  feature_page = RestaurantFeaturePage.find_by_name(page_name)
+  RestaurantFeatureCategory.create(:name => name, :restaurant_feature_page => feature_page)
 end
 
 Then /^I see a delete link for the category "([^\"]*)"$/ do |name|
   category = RestaurantFeatureCategory.find_by_name(name)
-  response.body.should have_selector("##{dom_id(category)} ##{dom_id(category, :delete_link)}")
+  page.should have_css("##{dom_id(category)} ##{dom_id(category, :delete_link)}")
 end
 
 Then /^I do not see a delete link for the category "([^\"]*)"$/ do |name|
   category = RestaurantFeatureCategory.find_by_name(name)
-  response.body.should_not have_selector("##{dom_id(category)} ##{dom_id(category, :delete_link)}")
+  page.should_not have_css("##{dom_id(category)} ##{dom_id(category, :delete_link)}")
 end
 
 Given /^the restaurant "([^\"]*)" has the tag "([^\"]*)"$/ do |restaurant_name, tag_name|
@@ -327,17 +351,17 @@ end
 
 Then /^I see a delete link for the tag "([^\"]*)"$/ do |value|
   feature = RestaurantFeature.find_by_value(value)
-  response.body.should have_selector("##{dom_id(feature, :delete_link)}")
+  page.should have_css("##{dom_id(feature, :delete_link)}")
 end
 
 Then /^I do not see a delete link for the tag "([^\"]*)"$/ do |value|
   feature = RestaurantFeature.find_by_value(value)
-  response.body.should_not have_selector("##{dom_id(feature, :delete_link)}")
+  page.should_not have_css("##{dom_id(feature, :delete_link)}")
 end
 
 When /^I click on the delete link for the page "([^\"]*)"$/ do |page_name|
-  page = RestaurantFeaturePage.find_by_name(page_name)
-  click_link(dom_id(page, :delete_link))
+  feature_page = RestaurantFeaturePage.find_by_name(page_name)
+  click_link(dom_id(feature_page, :delete_link))
 end
 
 Then /^I do not see the page "([^\"]*)"$/ do |page_name|
@@ -362,18 +386,23 @@ Then /^I do not see the feature "([^\"]*)"$/ do |feature_value|
   RestaurantFeature.find_by_value(feature_value).should be_nil
 end
 
-
 Then /^I see the ajax button for adding an accolade$/ do
-  response.should have_selector(".accolades h2", :content => "Accolades")
+  within ".accolades h2" do
+    page.should have_content("Accolades")
+  end
 end
 
 Then /^I see the opening date$/ do
-  response.should have_tag("#opening_date", :content => @restaurant.opening_date.to_s(:long))
+  within "#opening_date" do
+    page.should have_content(@restaurant.opening_date.to_date.to_s(:long))
+  end
 end
 
 When /^I add an accolade to the restaurant "([^\"]*)" with:$/ do |restaurant_name, table|
   @restaurant = Restaurant.find_by_name(restaurant_name)
-  click_link_within ".accolades", "Add"
+  within ".accolades" do
+    click_link "add another"
+  end
   fill_in_fields_for_table(table)
   click_button "Save"
 end
@@ -386,7 +415,9 @@ When /^I should see an accolade for "([^\"]*)" on the profile page for "([^\"]*)
   restaurant = Restaurant.find_by_name(restaurant_name)
   accolade = Accolade.find_by_name(accolade_name)
   visit edit_restaurant_path(restaurant)
-  response.should have_selector("#accolades ##{dom_id(accolade)}", :content => accolade_name)
+  within "#accolades ##{dom_id(accolade)}" do
+    page.should have_content(accolade_name)
+  end
 end
 
 Given /^an accolade for "([^\"]*)" named "([^\"]*)"$/ do |restaurant_name, accolade_name|
@@ -402,12 +433,13 @@ end
 
 When /^I click on the "([^\"]*)" link within "([^\"]*)"$/ do |link, accolade_name|
   accolade = Accolade.find_by_name(accolade_name)
-  click_link_within("##{dom_id(accolade)}", link)
+  within "##{dom_id(accolade)}" do
+    click_link link
+  end
 end
 
 Then /^I should see the accolade form correctly$/ do
-  response.should be_success
-  response.should have_selector("form.accolade")
+  page.should have_css("form.accolade")
 end
 
 Then /^"([^\"]*)" should be marked as the primary accolade$/ do |accolade_name|
@@ -421,7 +453,9 @@ Then /^I should see the accolades in order: "([^\"]*)"$/ do |accolade_names|
 end
 
 Given /^I should see that the restaurant has an overtime account$/ do
-  response.should have_selector("#account_type", :content => "cancelled")
+  within "#account_status" do
+    page.should have_content("This restaurant has cancelled their Premium Account.")
+  end
 end
 
 Given /^a manager for "([^\"]*)" has just uploaded a new menu$/ do |restaurant_name|

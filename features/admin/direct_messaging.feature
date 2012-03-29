@@ -17,6 +17,3 @@ Feature: Direct messaging
       | body                        |
       | You need to fill out a menu |
     Then "normalguy" should have an admin message with body: "You need to fill out a menu"
-
-
-
