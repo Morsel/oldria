@@ -87,3 +87,14 @@ Feature: Update information
     Given I am logged in as "publicist"
     When I go to the edit page for "horatio"
     Then I should see "Edit Profile"
+
+  Scenario: A user can set another user who will receive email messages on their behalf
+	Given the following user records:
+      | username  | password | name         |
+      | horatio   | secret   | Horatio T.   |
+    And I am logged in as "horatio" with password "secret"
+    When I go to the edit page for "horatio"
+    And I follow "Account" within "#profile-options"
+    And I fill in "Notification email" with "someone-else@pubmail.com"
+	And I press "Save Messages Preferences"
+	Then I should see "Successfully updated your profile"
