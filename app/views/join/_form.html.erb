@@ -8,6 +8,7 @@
     <%= select_tag "role", options_for_select([["Select one", ""], ["Diner", "diner"], ["Restaurant professional", "restaurant"], ["Media", "media"]]), :onchange => "updateRestaurantSignupFields();" %>
 </div>
 <div id="restaurant_fields" style="display: none;" class="clearfix clear">
+	<h4>We have a few more pieces of information we need for your account</h4>
     <%= text_field_tag "restaurant_name", "", :id => "restaurant_name", :class => "standard-filler", :alt => "Restaurant Name", :required => "" %>
     <p class="inline-hints">Enter your restaurant name or your employment status e.g., student, between jobs, retired, time off</p>
     <%= select_tag "restaurant_role", options_from_collection_for_select(RestaurantRole.all, :id, :name), :id => "restaurant_role", :class => "standard-filler", :alt => "Role", :required => "" %>
