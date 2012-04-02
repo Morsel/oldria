@@ -617,7 +617,6 @@ body,html,#container,#main,#content,#inside{
 					font-size: 11px;
 					line-height: 15px;
 					&.primary {
-						text-transform: capitalize;
 						font-size: 13px;
 						line-height: 15px;
 						a {
@@ -2319,7 +2318,6 @@ dl.things dt:after {content: ":"}
 					h3 {
 						margin: 0;
 						line-height: 15px;
-						text-transform: capitalize;
 						a {
 							color: $sienna;
 							&:hover {color: $purple;}
