@@ -19,7 +19,6 @@ class WelcomeController < ApplicationController
   # GET /welcome/index
   def index
     if current_user
-      @user = current_user
       @announcements = current_user.unread_announcements
       @announcements.each { |announcement| announcement.read_by!(current_user) }
       params[:is_more] ? set_up_dashboard_with_pagination : set_up_dashboard

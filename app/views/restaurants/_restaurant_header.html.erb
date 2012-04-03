@@ -18,7 +18,7 @@
                 </p>
             </hgroup>
             <div id="restaurant_actions" class="moreLinks right">
-                <%= link_to "edit restaurant", edit_restaurant_path(@restaurant), :class => "orangeLink" %>
+                <%= link_to "edit restaurant", edit_restaurant_path(@restaurant), :class => "orangeLink" if can?(:edit, @restaurant) %>
                 <!-- AddThis Button BEGIN -->
                 <!-- <%= link_to 'share profile', "http://www.addthis.com/bookmark.php?v=250&amp;username=unpluggedria", :class => 'orangeLink share_profile addthis_button' %>
                 <%= javascript_include_tag "http://s7.addthis.com/js/250/addthis_widget.js#username=unpluggedria" %>
@@ -57,7 +57,7 @@
             <h4>Highlights</h4>
             <ul id="tags">
                 <% for tag in @restaurant.top_tags %>
-                <li><%= link_to h(tag.value), feature_path(tag)  %></li>
+                <li><%= link_to h(tag.value), feature_path(tag) %></li>
                 <% end %>
             </ul>
         </div>
