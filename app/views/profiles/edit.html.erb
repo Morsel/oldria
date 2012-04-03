@@ -219,8 +219,7 @@
                 </div>
                 <% if @user.subscription && @user.subscription.in_overtime? %>
                   <div id="end_date">
-                      This account has been canceled and will end
-                      <%= @user.subscription.end_date.to_s(:long)%>
+                      This account has been canceled and will end <%= @user.subscription.end_date.to_s(:long) %>
                   </div>
                 <% end %>
               <% end %>
