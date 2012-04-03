@@ -21,7 +21,7 @@ Feature: Associating a Restaurant with its employees
     And "Jimmy's Diner" should have 1 employee
 
     When I follow "Add employee"
-    And I fill in "Employee Email" with "<inputfield>"
+    And I fill in "Employee email" with "<inputfield>"
     And I press "Submit"
     Then I should see "Is this user an employee at your restaurant?"
     Then I should see "<name>"
@@ -47,7 +47,7 @@ Feature: Associating a Restaurant with its employees
     Given I have added "betty@example.com" to that restaurant
     Then "Jimmy's Diner" should have 2 employees
     When I follow "Add employee"
-    And I fill in "Employee Email" with "betty@example.com"
+    And I fill in "Employee email" with "betty@example.com"
     And I press "Submit"
     And I press "Yes"
     Then I should see "Employee is already associated with that restaurant"
@@ -56,7 +56,7 @@ Feature: Associating a Restaurant with its employees
   Scenario: Inviting a non-existing Employee
     Given I have just created a restaurant named "Duck Soup"
     When I follow "Add employee"
-    And I fill in "Employee Email" with "dinkle@example.com"
+    And I fill in "Employee email" with "dinkle@example.com"
     And I press "Submit"
     Then I should see "invite"
 
@@ -64,6 +64,7 @@ Feature: Associating a Restaurant with its employees
     Then I should see "Thanks for recommending new members!"
     And "dinkle@example.com" should have 1 email
 
+@javascript
   Scenario: Making an employee private on the main page
     Given I have just created a restaurant named "Jimmy's Diner"
     And "betty" is an employee of "Jimmy's Diner"

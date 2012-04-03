@@ -20,6 +20,8 @@ class Attachment < ActiveRecord::Base
   belongs_to :attachable, :polymorphic => true
   has_attached_file :attachment
 
+  validates_format_of :attachment_file_name, :with => /^[a-zA-Z\d\s\.-_]+$/, :message => "can only contain letters, numbers, spaces, dashes, and underscores"
+
   def extname
     return @extname if defined?(@extname)
     @extname = attachment_file_name && File.extname(attachment_file_name).gsub(/^\.+/, "")

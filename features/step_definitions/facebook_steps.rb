@@ -22,9 +22,5 @@ end
 
 Then /^I should see Facebook Share Popup$/ do
   text = "FB.ui"
-  if response.respond_to? :should
-    response.should contain(text)
-  else
-    assert_contain text
-  end  
+  page.should have_content(text)
 end

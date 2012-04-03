@@ -8,9 +8,11 @@ Feature: Using dashboard
       | New Announcement 1 |
       | New Announcement 2 |
 
+@javascript
   Scenario: Show the announcement popup on the dashboard once and hide it after viewing
     Given I am logged in as a normal user
 	And I am on the dashboard
+	Then I should see "Fresh from Spoonfeed"
     Then I should see unread announcement popup
     And I should have 0 unread announcements
 

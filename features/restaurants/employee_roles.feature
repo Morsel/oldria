@@ -28,7 +28,7 @@ Feature: Employee roles
 
   Scenario: Assigning Roles when adding existing Employee
     When I follow "Add employee"
-    And I fill in "Employee Email" with "betty@example.com"
+    And I fill in "Employee email" with "betty@example.com"
     And I press "Submit"
     And I confirm the employee
     Then I should see "Betty Davis"

@@ -45,6 +45,7 @@ Feature: RIA admin of restaurant features
     Then I see a delete link for the page "Beverages"
     And I do not see a delete link for the page "Cuisine"
 
+@javascript
   Scenario: Actually delete a page
     Given a restaurant feature page named "Beverages"
     When I go to the admin restaurant feature page
@@ -58,6 +59,7 @@ Feature: RIA admin of restaurant features
     Then I see a delete link for the category "Cheesburgers"
     Then I do not see a delete link for the category "Cuisine type"
 
+@javascript
   Scenario: Actually delete a category
     Given a restaurant feature category named "Cheesburgers" in the page "Cuisine"
     When I go to the admin restaurant feature page
@@ -72,6 +74,7 @@ Feature: RIA admin of restaurant features
     Then I see a delete link for the tag "Casual"
     Then I do not see a delete link for the tag "Ugly"
 
+@javascript
   Scenario: Actually delete a feature
     When I go to the admin restaurant feature page
     And I click on the delete link for the feature "Ugly"

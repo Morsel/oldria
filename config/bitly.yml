@@ -1,0 +1,16 @@
+development: &DEV
+  username: aeschright
+  api_key: R_8f5b58948d3d9f64dc8e3b7601757fb6
+
+production: &PRODUCTION
+  username: elliecm
+  api_key: R_65db441970a7f666bb776ba173ccec75
+
+staging:
+  <<: *PRODUCTION
+
+test:
+  <<: *DEV
+
+cucumber:
+  <<: *DEV

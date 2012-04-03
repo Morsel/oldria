@@ -25,7 +25,7 @@ Feature: Managing Restaurants
 
   Scenario: I can add restaurant managers
     Given I have added "jane@sample.com" to that restaurant
-    When I follow "edit"
+    When I follow "Edit"
     And I check "employment_omniscient"
     And I press "Submit"
     Then I should see "Account Administrator"

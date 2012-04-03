@@ -62,8 +62,8 @@ When(/^I create a new QOTD with:$/) do |table|
 end
 
 Then(/^I should see list of (QOTD|Announcement|Holiday|PR Tip)s$/) do |klass|
-  response.should contain(klass)
-  response.should have_selector('table')
+  page.should have_content(klass)
+  page.should have_css('table')
 end
 
 Then(/^"([^\"]*)" should have (\d+) QOTD messages?$/) do |username, num|

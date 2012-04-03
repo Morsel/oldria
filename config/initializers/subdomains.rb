@@ -7,7 +7,7 @@ else
 end
 
 SubdomainFu.tld_sizes = {
-  :development => 0,
+  :development => 2,
   :test => 1,
   :staging => 2,
   :production => 1

@@ -20,7 +20,7 @@ Feature: Profile questions
     And I press "Save Question"
     Then I should see "Added new profile question"
 
-@emails
+@javascript @emails
   Scenario: Sending a notification for a question
   Given the following confirmed users:
     | username | password | email             |
@@ -29,9 +29,10 @@ Feature: Profile questions
   And several profile questions matching employment roles for "jimmy"
   When I go to the admin profile questions page
   And I follow "Send Notification" within "#profile_question_1"
-  Then "jimmy@kitchen.com" should have 1 email
+  Then I should see "Notification emails sent"
+  And "jimmy@kitchen.com" should have 1 email
 
-@emails
+@javascript @emails
   Scenario: Sending a notification for a question when the user has a notification email set
     Given the following confirmed users:
       | username | password | email             |
@@ -41,7 +42,8 @@ Feature: Profile questions
     And several profile questions matching employment roles for "jimmy"
     When I go to the admin profile questions page
     And I follow "Send Notification" within "#profile_question_1"
-    Then "assistant@myrestaurant.com" should have 1 email
+    Then I should see "Notification emails sent"
+    And "assistant@myrestaurant.com" should have 1 email
 
   Scenario: Creating a new chapter
     When I go to the chapters page

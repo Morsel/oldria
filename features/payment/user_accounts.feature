@@ -34,10 +34,10 @@ Feature: User Accounts
     And I follow "Upgrade to Premium"
     When I fill in the following:
       | Visa/Mastercard Number                | 4111111111111111     |
-      | Billing ZIP                           | 60654                |
-      | customer_credit_card_expiration_month | 10                   |
-      | customer_credit_card_expiration_year  | 1.year.from_now.year |
+      | Billing Zip Code                      | 60654                |
       | Security Code                         | 123                  |
+	And I select "10" from "customer_credit_card_expiration_month"
+	And I select "2016" from "customer_credit_card_expiration_year"
 
   Scenario: Successful response from braintree makes a user premium
     Given I am logged in as "emily" with password "secret"
@@ -60,6 +60,7 @@ Feature: User Accounts
     And I follow "Account" within "#profile-tabs"
     Then I see my account status is not premium
 
+@javascript
   Scenario: A user can cancel their payment info
     Given user "emily" has a premium account
     Given I am logged in as "emily" with password "secret"
@@ -73,6 +74,7 @@ Feature: User Accounts
     And I see that the account for "emily" lasts until the end of the billing cycle
     And I do not see any account change options
 
+@javascript
   Scenario: An unsuccessful cancel doesn't work
     Given user "emily" has a premium account
     Given I am logged in as "emily" with password "secret"
@@ -95,6 +97,7 @@ Feature: User Accounts
     When I traverse the delete link for subscriptions for user "emily"
     Then I should be on the root page
 
+@javascript
   Scenario: An admin can access another user's account
     Given user "emily" has a premium account
     And I am logged in as an admin
@@ -117,13 +120,13 @@ Feature: User Accounts
     Then I should see my credit card information populated
     When I fill in the following:
       | Visa/Mastercard Number                | 4111111111111111     |
-      | Billing ZIP                           | 60654                |
-      | customer_credit_card_expiration_month | 10                   |
-      | customer_credit_card_expiration_year  | 1.year.from_now.year |
+      | Billing Zip Code                      | 60654                |
       | Security Code                         | 123                  |
+	And I select "10" from "customer_credit_card_expiration_month"
+	And I select "2016" from "customer_credit_card_expiration_year"
     And I simulate a successful call from braintree for user "emily"
     Then I should be on my profile's edit page
-    When I follow "Account"
+    And I follow "Account" within "#profile-tabs"
     Then I see my account status is premium
 
   Scenario: A user can view their billing history

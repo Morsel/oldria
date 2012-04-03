@@ -101,6 +101,7 @@ Feature: Restaurant Images
     When I go to the restaurant photos page for Bourgeois Pig
     Then I should see that photo
 
+@javascript
   Scenario: Remove a restaurant photo
     When I go to the restaurant photo upload page for Bourgeois Pig
     And I attach the image "/features/images/bourgeoispig.jpg" to "photo_attachment" on S3
@@ -122,6 +123,7 @@ Feature: Restaurant Images
     Then I should have a photo with the file "bourgeoispig.jpg"
     Then I should have a photo with the file "bourgeoispig2.jpg"
 
+@javascript
   Scenario: Remove the restaurant logo
     When I go to the edit restaurant page for "Bourgeois Pig"
     And I attach the image "/features/images/bourgeoispig_logo.gif" to "restaurant_logo_attributes_attachment" on S3
@@ -130,6 +132,7 @@ Feature: Restaurant Images
     And I remove the restaurant logo
     Then I should not see the restaurant logo
 
+@javascript
   Scenario: Remove a restaurant photo that is the primary photo with other photos existing
     When I go to the restaurant photo upload page for Bourgeois Pig
     And I attach the image "/features/images/bourgeoispig.jpg" to "photo_attachment" on S3
@@ -149,6 +152,7 @@ Feature: Restaurant Images
     When I remove the restaurant photo with the file "bourgeoispig1.jpg"
     Then I see the 1st photo selected as the primary photo
 
+@javascript
   Scenario: Remove a restaurant photo that is the primary photo and first photo in multiple
     When I go to the restaurant photo upload page for Bourgeois Pig
     And I attach the image "/features/images/bourgeoispig.jpg" to "photo_attachment" on S3
@@ -168,6 +172,7 @@ Feature: Restaurant Images
     When I remove the restaurant photo with the file "bourgeoispig1.jpg"
     Then I see the 1st photo selected as the primary photo
 
+@javascript
   Scenario: Remove a restaurant photo that is the primary photo and only photo
     When I go to the restaurant photo upload page for Bourgeois Pig
     And I attach the image "/features/images/bourgeoispig.jpg" to "photo_attachment" on S3

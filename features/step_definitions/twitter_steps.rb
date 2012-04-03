@@ -25,8 +25,8 @@ Then /^"([^\"]+)" should have ([\d]+) friend tweets$/ do |username, number|
 end
 
 Then /^the first tweet should have a link$/ do
-  response.body.should have_selector('.tweet') do |t|
-    t.should have_selector('a')
+  page.should have_css('.tweet') do |t|
+    t.should have_css('a')
   end
 end
 

@@ -7,30 +7,12 @@ require 'ap'
 
 include ActionView::Helpers::RecordIdentificationHelper
 
-#### NOTE -- this is a patched workaround for an issue with webrat and
-### formtastic for date selects and steps of the type
-# When I select "November 23, 2004 11:20" as the "Preferred" date and time
-# see
-## https://webrat.lighthouseapp.com/projects/10503/tickets/388-select_date-broken-with-formtastic#ticket-388-2
-module Webrat
-  class Scope
-    def locate_id_prefix(options, &location_strategy) #:nodoc:
-      return options[:id_prefix] if options[:id_prefix]
+Capybara.javascript_driver = :webkit
 
-      if options[:from]
-        if (label = LabelLocator.new(@session, dom, options[:from]).locate)
-          id_prefix = label.for_id
-          if id_prefix =~ /(.*?)_[0-9]i$/
-            $1
-          else
-            id_prefix
-          end
-        else
-          raise NotFoundError.new("Could not find the label with text #{options[:from]}")
-        end
-      else
-        yield
-      end
-    end
-  end
-end
+FakeWeb.register_uri(:post, 'https://api.twitter.com/oauth/request_token', :body => 'oauth_token=fake&oauth_token_secret=fake')
+tweet_file = File.new(File.dirname(__FILE__) + '/../../spec/fixtures/twitter_update.json').read
+FakeWeb.register_uri(:get, 'https://api.twitter.com/1/statuses/home_timeline.json', :body => tweet_file)
+
+FakeWeb.register_uri(:put, Regexp.new('http://s3.amazonaws.com/.*'), :body => "OK")
+FakeWeb.register_uri(:head, Regexp.new('http://s3.amazonaws.com/.*'), :body => "OK")
+FakeWeb.register_uri(:delete, Regexp.new('http://s3.amazonaws.com/.*'), :body => "OK")

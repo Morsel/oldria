@@ -36,7 +36,7 @@ Feature: Coached Status Updates
 
     When I follow "New Coached Status Update"
     And I fill in "Message" with "Been to the farmer's market lately?"
-    And I select "Christmas" from "Time of year"
+    And I select "Christmas" from "Time of Year"
     And I press "Save"
 
     Then I should see "Awesome, you’ve just added the Coached Status Update"

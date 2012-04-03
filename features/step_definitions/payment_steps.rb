@@ -1,23 +1,23 @@
 include SubscriptionsControllerHelper
 
 Then /^I see my account status is not premium$/ do
-  response.should have_selector(".current", :content => "Basic")
+  page.should have_selector(".current", :text => "Basic")
 end
 
 Then /^I see that the restaurant's account status is basic$/ do
-  response.should have_selector(".account", :content => "Basic")
+  page.should have_selector(".account", :text => "Basic")
 end
 
 Then /^I see that the restaurant's account status is premium$/ do
-  response.should have_selector(".account", :content => "Premium")
+  page.should have_selector(".account", :text => "Premium")
 end
 
 Then /^I do not see a premium badge$/ do
-  response.should_not have_selector(".premium_badge")
+  page.should_not have_css(".premium_badge")
 end
 
 Then /^I see a link to update my account to premium$/ do
-  response.should have_selector("#upgrade_link a", :content => "Upgrade to Premium")
+  page.should have_selector("#upgrade_link a", :text => "Upgrade to Premium")
 end
 
 Given /^user "([^"]*)" has a premium account$/ do |username|
@@ -53,33 +53,32 @@ end
 
 
 Then /^I see a premium badge$/ do
-  response.should have_selector(".premium_badge")
+  page.should have_css(".premium_badge")
 end
 
 Then /^I see my account status is premium$/ do
-  response.should have_selector(".current", :content => "Premium")
+  page.should have_selector(".current", :text => "Premium")
 end
 
 Then /^I see my account status is basic$/ do
-  response.should have_selector(".current", :content => "Basic")
+  page.should have_selector(".current", :text => "Basic")
 end
 
 Then /^I see my account status is a premium staff account$/ do
-  response.should have_selector(".current", :content => "Premium Staff")
+  page.should have_selector(".current", :text => "Premium Staff")
 end
 
 Then /^I see my account status is complimentary$/ do
-  response.should have_selector(".current", :content => "Premium")
+  page.should have_selector(".current", :text => "Premium")
 end
 
 
 Then /^I see a link to cancel my account$/ do
-  response.should have_selector("#upgrade_link a", :content => "Downgrade to basic")
+  page.should have_selector("#upgrade_link a", :text => "Downgrade to basic")
 end
 
 When /^I simulate braintree create behavior$/ do
-  BraintreeConnector.any_instance.stubs(
-      :braintree_customer => nil)
+  BraintreeConnector.any_instance.stubs(:braintree_customer => nil)
 end
 
 When /^I simulate braintree update behavior$/ do
@@ -153,63 +152,54 @@ When /^I simulate a successful cancel from braintree$/ do
 end
 
 When /^I simulate a required successful cancel from braintree$/ do
-  BraintreeConnector.expects(
-      :cancel_subscription => stub(:success? => true))
-  BraintreeConnector.stubs(:find_subscription).returns(
-          stub(:billing_period_end_date => 1.month.from_now.to_date))
+  BraintreeConnector.expects(:cancel_subscription => stub(:success? => true))
+  BraintreeConnector.stubs(:find_subscription).returns(stub(:billing_period_end_date => 1.month.from_now.to_date))
 end
 
 When /^I simulate an unsuccessful cancel from braintree$/ do
-  BraintreeConnector.any_instance.stubs(
-      :cancel_subscription => stub(:success? => false))
+  BraintreeConnector.any_instance.stubs(:cancel_subscription => stub(:success? => false))
 end
 
 Then /^I see my account is paid for by myself$/ do
-  response.should_not have_selector(".current", :content => "Complimentary")
-  response.should have_selector("#start_date",
-      :content => "since #{Date.today.to_s(:long)}")
+  page.should_not have_selector(".current", :text => "Complimentary")
+  page.should have_selector("#start_date", :text => "since #{Date.today.to_s(:long)}")
 end
 
 Then /^I see my restaurant account is paid for by myself$/ do
-  response.should_not have_selector(".current", :content => "Complimentary")
-  response.should have_selector(".account",
-      :content => "since #{Date.today.to_s(:long)}")
+  page.should_not have_selector(".current", :text => "Complimentary")
+  page.should have_selector("#start_date", :text => "since #{Date.today.to_s(:long)}")
 end
 
 When /^I traverse the delete link for subscriptions for user "([^"]*)"$/ do |username|
-  visit(user_subscription_path(User.find_by_username(username).id),
-      :delete)
+  visit(user_subscription_path(User.find_by_username(username).id, :method => :delete))
 end
 
 When /^I traverse the delete link for subscriptions for the restaurant "([^"]*)"$/ do |name|
-  visit(restaurant_subscription_path(Restaurant.find_by_name(name)),
-      :delete)
-
+  visit(restaurant_subscription_path(Restaurant.find_by_name(name), :method => :delete))
 end
+
 Then /^I see that the account for "([^"]*)" lasts until the end of the billing cycle$/ do |username|
   user = User.find_by_username(username)
-  response.should have_selector("#end_date",
-      :content => user.subscription.end_date.to_s(:long))
+  within "#end_date" do
+    page.should have_content(user.subscription.end_date.to_s(:long))
+  end
 end
 
 Then /^I see that the restaurant account for "([^"]*)" lasts until the end of the billing cycle$/ do |restaurant_name|
   restaurant = Restaurant.find_by_name(restaurant_name)
-  response.should have_selector("fieldset.account .alert",
-      :content => restaurant.subscription.end_date.to_s(:long))
+  page.should have_css("fieldset.account .alert", :text => restaurant.subscription.end_date.to_s(:long))
 end
 
-
 Then /^I don't see that the account for "([^"]*)" lasts until the end of the billing cycle$/ do |username|
-  response.should_not have_selector("#end_date")
+  page.should_not have_css("#end_date")
 end
 
 Then /^I don't see that the restaurant account for "([^"]*)" lasts until the end of the billing cycle$/ do |arg1|
-  response.should_not have_selector("fieldset.account .alert")
+  page.should_not have_css("fieldset.account .alert")
 end
 
-
 Then /^I do not see any account change options$/ do
-  response.should_not have_selector("#upgrade_link")
+  page.should_not have_css("#upgrade_link")
 end
 
 Given /^the restaurant "([^"]*)" has a premium account$/ do |restaurant_name|
@@ -255,48 +245,51 @@ Given /^I simulate braintree search billing history behavior with the following:
 end
 
 Then /^I should see all of my transaction details$/ do
-  response.should have_selector("table#transactions")
+  page.should have_css("table#transactions")
   @transactions.each do |transaction|
-    response.should have_selector("tr##{dom_id(transaction)}") do |trans_block|
-      trans_block.should have_selector("td", :content => transaction.id)
-      trans_block.should have_selector("td", :content => transaction.amount)
-      trans_block.should have_selector("td", :content => transaction.status)
-      trans_block.should have_selector("td", :content => transaction.created_at.strftime("%m/%d/%Y"))
-      trans_block.should have_selector("td", :content => transaction.credit_card_details.last_4)
-      trans_block.should have_selector("td", :content => transaction.credit_card_details.card_type)
-      trans_block.should have_selector("td", :content => transaction.credit_card_details.expiration_date)
+    page.should have_css("tr##{dom_id(transaction)}") do |trans_block|
+      trans_block.should have_css("td", :text => transaction.id)
+      trans_block.should have_css("td", :text => transaction.amount)
+      trans_block.should have_css("td", :text => transaction.status)
+      trans_block.should have_css("td", :text => transaction.created_at.strftime("%m/%d/%Y"))
+      trans_block.should have_css("td", :text => transaction.credit_card_details.last_4)
+      trans_block.should have_css("td", :text => transaction.credit_card_details.card_type)
+      trans_block.should have_css("td", :text => transaction.credit_card_details.expiration_date)
     end
   end
 end
 
 Then /^I see that "([^"]*)" has a basic account$/ do |username|
   user = User.find_by_username(username)
-  response.should have_selector(".account_status", :content => "Basic")
+  within ".account_status" do
+    page.should have_content("Basic")
+  end
 end
 
 Then /^I see that "([^"]*)" has a premium account paid for by the restaurant$/ do |username|
   user = User.find_by_username(username)
-  response.should have_selector(".account_status", :content => "Premium Staff Account")
-  response.should_not have_selector(".account_status",
-      :content => "This account is paid for by a different restaurant.")
+  within ".account_status" do
+    page.should have_content("Premium Staff Account")
+    page.should_not have_content("This account is paid for by a different restaurant.")
+  end
 end
 
 Then /^I see that "([^"]*)" does not have a premium account paid for by the restaurant$/ do |username|
   user = User.find_by_username(username)
-  response.should have_selector(".account_status", :content => "Basic Personal Account")
+  page.should have_css(".account_status", :text => "Basic Personal Account")
 end
 
 When /^I see that "([^"]*)" has a premium account paid for by a different restaurant$/ do |username|
   user = User.find_by_username(username)
-  response.should have_selector(".account_status",
-      :content => "Premium Staff Account")
-  response.should have_selector(".account_status",
-      :content => "This account is paid for by a different restaurant.")
+  page.should have_css(".account_status",
+      :text => "Premium Staff Account")
+  page.should have_css(".account_status",
+      :text => "This account is paid for by a different restaurant.")
 end
 
 Then /^I see that "([^"]*)" has a premium account of his own$/ do |username|
   user = User.find_by_username(username)
-  response.should have_selector(".account_status", :content => "Premium Personal Account")
+  page.should have_css(".account_status", :text => "Premium Personal Account")
 end
 
 Given /^I simulate a successful addon response from Braintree with (\d+)$/ do |count|
@@ -311,11 +304,11 @@ Given /^user "([^"]*)" has a restaurant staff account from "([^"]*)"$/ do |usern
 end
 
 Then /^I do not see a link to change the user status$/ do
-  response.should_not have_selector(".account_info .status_change_links")
+  page.should_not have_css(".account_info .status_change_links")
 end
 
 Then /^I see the information to enter billing$/ do
-  response.should have_selector(".account_info .payment_info_needed")
+  page.should have_css(".account_info .payment_info_needed")
 end
 
 Given /^I simulate a successful braintree update for "([^"]*)" with the complimentary discount$/ do |name|
@@ -353,9 +346,9 @@ Given /^I have a credit card on file with braintree$/ do
 end
 
 Then /^I should see my credit card information populated$/ do
-  response.should have_selector("input", :value => "#{"*"*12}#{@credit_card[:last_4]}")
-  response.should have_selector("input", :value => @credit_card[:billing_address][:postal_code])
-  response.should have_selector("select[name*=expiration_month] option[selected]", :content => @credit_card[:expiration_month])
-  response.should have_selector("select[name*=expiration_year] option[selected]", :value => @credit_card[:expiration_year])
+  page.should have_css("input", :value => "#{"*"*12}#{@credit_card[:last_4]}")
+  page.should have_css("input", :value => @credit_card[:billing_address][:postal_code])
+  page.should have_css("select[name*=expiration_month] option[selected]", :text => @credit_card[:expiration_month])
+  page.should have_css("select[name*=expiration_year] option[selected]", :value => @credit_card[:expiration_year])
 
 end

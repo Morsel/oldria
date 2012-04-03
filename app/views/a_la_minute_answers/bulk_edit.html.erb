@@ -42,7 +42,7 @@
                     <% if index == 0 %>
                       <small>(current)</small>
                     <% end %>
-                    <%= link_to '[remove]', restaurant_a_la_minute_answer_path(@restaurant, archived_answer), :method => :delete, :class => 'remove_link' %>
+                    <%= link_to '[remove]', restaurant_a_la_minute_answer_path(@restaurant, archived_answer), :method => :delete, :class => 'remove_link', :id => "remove_answer_#{archived_answer.id}" %>
                   <% end %>
                 <% end %>
               </ul>
@@ -66,7 +66,7 @@
         e.preventDefault();
         var href = $(this).attr('href');
         $.post(href, {"_method": "delete"}, function() {
-          $("a[href$=" + this.url + "]").closest("li").remove();
+          $(this.id).closest("li").remove();
         });
       }).removeAttr("onclick");
 

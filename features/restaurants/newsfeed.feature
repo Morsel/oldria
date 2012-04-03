@@ -19,7 +19,7 @@ Feature: Newsfeed (restaurant promotions and events)
     When I select "Special Promotion" from "Promotion type"
     And I fill in "Details" with "My great event"
     And I fill in "Headline" with "Read all about it!"
-	And I select "3/12/2012" as the date
+	And I select "2012-03-12" as the "Start date" date
     And I press "Post"
 
     Then I should see "Your promotion has been created"

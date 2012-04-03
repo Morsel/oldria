@@ -1,5 +1,5 @@
 Then /^I should see the media feed layout$/ do
-  response.should have_selector("body.mediafeed")
+  page.should have_css("body.mediafeed")
 end
 
 When /^I create a new mediafeed page with:$/ do |table|

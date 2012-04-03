@@ -79,7 +79,9 @@ class ALaMinuteAnswer < ActiveRecord::Base
 
   def crosspost
     if post_to_twitter == "1"
-      responder.twitter_client.send_later(:update, "#{truncate(answer, :length => 100)} #{soapbox_a_la_minute_answer_url(self)}")
+      client = Bitly.new(BITLY_CONFIG['username'], BITLY_CONFIG['api_key'])
+      link = client.shorten(soapbox_a_la_minute_answer_url(self))
+      responder.twitter_client.send_later(:update, "#{truncate(answer, :length => 120)} #{link.short_url}")
     end
     if post_to_facebook_page == "1"
       post_attributes = { :message     => answer,

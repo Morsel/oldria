@@ -30,10 +30,10 @@ Feature: Restaurant Accounts
     And I follow "Upgrade to Premium"
     And I fill in the following:
       | Visa/Mastercard Number                | 4111111111111111     |
-      | Billing ZIP                           | 60654                |
-      | customer_credit_card_expiration_month | 10                   |
-      | customer_credit_card_expiration_year  | 1.year.from_now.year |
+      | Billing Zip Code                      | 60654                |
       | Security Code                         | 123                  |
+	And I select "10" from "customer_credit_card_expiration_month"
+	And I select "2016" from "customer_credit_card_expiration_year"
 
   Scenario: Successful response from braintree makes a user premium
     When I simulate a successful call from braintree for the restaurant "Taco Bell"
@@ -47,6 +47,7 @@ Feature: Restaurant Accounts
     When I go to the edit restaurant page for "Taco Bell"
     Then I see that the restaurant's account status is basic
 
+@javascript
   Scenario: A restaurant can cancel their premium account
     Given the restaurant "Taco Bell" has a premium account
     And I simulate a successful cancel from braintree
@@ -57,6 +58,7 @@ Feature: Restaurant Accounts
     And I see that the restaurant account for "Taco Bell" lasts until the end of the billing cycle
     And I do not see any account change options
 
+@javascript
   Scenario: An unsuccessful cancel doesn't work for a restaurant
     Given the restaurant "Taco Bell" has a premium account
     And I simulate an unsuccessful cancel from braintree
@@ -75,6 +77,7 @@ Feature: Restaurant Accounts
     When I traverse the delete link for subscriptions for the restaurant "Taco Bell"
     Then I should be on the restaurant show page for "Taco Bell"
 
+@javascript
   Scenario: An admin can access any restaurant
     Given the restaurant "Taco Bell" has a premium account
     Given I am logged in as an admin
@@ -94,10 +97,10 @@ Feature: Restaurant Accounts
     Then I should see my credit card information populated
     When I fill in the following:
       | Visa/Mastercard Number                | 4111111111111111     |
-      | Billing ZIP                           | 60654                |
-      | customer_credit_card_expiration_month | 10                   |
-      | customer_credit_card_expiration_year  | 1.year.from_now.year |
+      | Billing Zip Code                      | 60654                |
       | Security Code                         | 123                  |
+	And I select "10" from "customer_credit_card_expiration_month"
+	And I select "2016" from "customer_credit_card_expiration_year"
     And I simulate a successful call from braintree for the restaurant "Taco Bell"
     Then I should be on the edit restaurant page for "Taco Bell"
     And I see that the restaurant's account status is premium

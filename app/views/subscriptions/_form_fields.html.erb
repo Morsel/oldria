@@ -4,7 +4,7 @@
 
   <% content_tag :li,
           :id => "customer_credit_card_number_expiration_date", :class => "date required" do %>
-    <%= label_tag "customer[credit_card][expiration_month]", "Expiration Date"%>
+    <%= label_tag "customer[credit_card][expiration_month]", "Expiration Date" %>
     <%= cc_form.select :expiration_month,
             options_for_select(month_options,
                 @customer.credit_card.expiration_month) %>
