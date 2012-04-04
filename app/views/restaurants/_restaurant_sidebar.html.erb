@@ -41,4 +41,22 @@
 
         <%= link_to "View Fact Sheet", restaurant_fact_sheet_path(@restaurant), :id => "factsheet" %>
     </div>
+
+    <% if @restaurant.twitter_authorized? -%>
+	<div>
+		<h3>Twitter</h3>
+		<% for post in @restaurant.twitter_client.home_timeline[0...5].each do %>
+			<p><%= link_to post.text, "http://twitter.com/#{@restaurant.twitter_username}/status/#{post.id}" %></p>
+		<% end %>
+	</div>
+	<% end -%>
+
+    <% if @restaurant.has_facebook_page? -%>
+	<div>
+		<h3>Facebook</h3>
+		<% for post in @restaurant.facebook_page.posts[0...5] do %>
+		<p><%= post.message %></p>
+		<% end %>
+	</div>
+	<% end -%>
 </aside>
