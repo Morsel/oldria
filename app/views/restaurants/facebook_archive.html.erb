@@ -1,0 +1,9 @@
+<%= title "Facebook archive for #{@restaurant.name}", false %>
+
+<div id="restaurant_profile_view">
+    <%= render :partial => "restaurant_header" %>
+
+    <% for post in @restaurant.facebook_page.posts do %>
+    <p><%= post.message %></p>
+    <% end %>
+</div>

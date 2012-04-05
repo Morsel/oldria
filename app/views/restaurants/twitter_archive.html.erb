@@ -1,0 +1,9 @@
+<%= title "Twitter archive for #{@restaurant.name}" %>
+
+<div id="restaurant_profile_view">
+    <%= render :partial => "restaurant_header" %>
+
+    <% for post in @restaurant.twitter_client.home_timeline.each do %>
+    <p><%= link_to post.text, "http://twitter.com/#{@restaurant.twitter_username}/status/#{post.id}" %></p>
+    <% end %>
+</div>

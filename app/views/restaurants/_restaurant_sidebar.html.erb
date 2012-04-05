@@ -48,6 +48,7 @@
 		<% for post in @restaurant.twitter_client.home_timeline[0...5].each do %>
 			<p><%= link_to post.text, "http://twitter.com/#{@restaurant.twitter_username}/status/#{post.id}" %></p>
 		<% end %>
+        <%= link_to "View Twitter Archive", twitter_archive_restaurant_path(@restaurant) %>
 	</div>
 	<% end -%>
 
@@ -57,6 +58,7 @@
 		<% for post in @restaurant.facebook_page.posts[0...5] do %>
 		<p><%= post.message %></p>
 		<% end %>
+        <%= link_to "View Facebook Archive", facebook_archive_restaurant_path(@restaurant) %>
 	</div>
 	<% end -%>
 </aside>
