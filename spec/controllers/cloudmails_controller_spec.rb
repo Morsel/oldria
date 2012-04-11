@@ -272,6 +272,21 @@ taste"
       conversation.comments.first.comment.should == "My Mom was a fearless and adventuresome cook but it was my Dad who got me into the kitchen. When I  was 8 Dad started a subscription to Gourmet magazine. Most of the recipes were a little strange for 1964 in Indianapolis Indiana but Dad and I loved reading the travel articles and we would pore over the recipes wondering where we would find the exotic ingredients. Dad and I made Caesar salad together at least once a month. I would toss while he squeezed the lemon and showed me how to perfectly coddle an egg. Dad manned the grill in the summer but that was about it as far as cooking went. It was his enthusiasm and unabashed enjoyment of eating that was his specialty. He showed me the connection between cooking and love-something I hold very dear."
     end
 
+    it "should produce a clean reply from Jonathon's Ruhlman answer" do
+      message = read_sample('jonathon-ruhlman.txt')
+
+      conversation = Factory(:admin_conversation, :recipient => @user, :admin_message => Factory(:qotd))
+      Admin::Conversation.stubs(:find).returns(conversation)
+
+      post :create, :to => "1-token-QOTD-1@dev-mailbot.restaurantintelligenceagency.com",
+           :message => "",
+           :html => "",
+           :plain => message,
+           :signature => ""
+
+      conversation.comments.first.comment.should == "My favorite cooking book by Ruhlman is Ratio. The app is so useful, I use\nit almost every day in my home life and restaurants.  I'm also a big fan of\nHouse: A memoir. It's full of great stories and really makes me appreciate\nliving in a century home. I'd have to say that he has had a tremendous\ninfluence on my career in the best possible way.\nMy favorite cooking book by Ruhlman is Ratio. The app is so useful, I use\nit almost every day in my home life and restaurants.  I'm also a big fan of\nHouse: A memoir. It's full of great stories and really makes me appreciate\nliving in a century home. I'd have to say that he has had a tremendous\ninfluence on my career in the best possible way.\nOn Apr 4, 2012, at 11:56 AM,"
+    end
+
   end
 
   it "should send an error to a user who tries to reply to an already-answered Trend Question for their main restaurant" do

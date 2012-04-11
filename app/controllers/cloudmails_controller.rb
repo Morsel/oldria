@@ -16,8 +16,8 @@ class CloudmailsController < ApplicationController
     # Some mail clients give us plaintext and html, some only give us plaintext
     whole_message_body = if params[:plain].present?
       message = params[:plain]
-      message.gsub!(/\r\n/, "\n") # Converting carriage returns
-      message.gsub!(/\n>/, "\n") # Removing symbols to indicate quoting
+      message.gsub!(/\\r\\n/, "\n") # Converting carriage returns
+      message.gsub!("\n>", "\n") # Removing symbols to indicate quoting
 
       # Remove any residual html in the quoted text
       Loofah.fragment(message).scrub!(:strip).text
