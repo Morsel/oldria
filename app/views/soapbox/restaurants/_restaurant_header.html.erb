@@ -8,7 +8,7 @@
         <%= javascript_include_tag "http://s7.addthis.com/js/250/addthis_widget.js#username=unpluggedria" %>
         <% javascript_tag do %>
           var addthis_share = {
-            url: '<%= soapbox_restaurant_path(@restaurant) %>',
+            url: '<%= soapbox_restaurant_url(@restaurant) %>',
           }
         <% end %>
         <!-- AddThis Button END -->
