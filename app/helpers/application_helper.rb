@@ -59,7 +59,7 @@ module ApplicationHelper
   end
 
   def logged_in_on_spoonfeed
-    current_user.present? && not_soapbox
+    current_user.present? && not_soapbox && !current_user.media?
   end
 
   def logo_for(obj)
