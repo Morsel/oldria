@@ -5,3 +5,5 @@
 	<li><%= view.user.name %> viewed <%= link_to view.title, view.url %> [<%= link_to view.page_owner.try(:name), polymorphic_path(view.page_owner) if view.page_owner.present? %>] on <%= view.created_at.strftime("%m/%d/%y") %></li>
 	<% end %>
 </ul>
+
+<%= will_paginate(@page_views) %>
