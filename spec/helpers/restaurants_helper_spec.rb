@@ -4,8 +4,12 @@ def soapbox?
   @is_soapbox
 end
 
+def current_user
+  Factory(:user)
+end
+
 describe RestaurantsHelper do
-  include RestaurantsHelper
+  include RestaurantsHelper, ApplicationHelper, DirectoryHelper
 
   describe "restaurant link method" do
     it "should return restaurant link to spoonfeed" do
