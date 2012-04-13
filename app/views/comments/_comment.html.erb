@@ -10,7 +10,7 @@
         <%= render :partial => 'users/identity', :locals => { :user => comment.user } %>
         <div class="user_comment"><%= truncate(comment.comment, :length => 200) %>
         <% if comment.comment.size > 200 -%>
-          <%= link_to "more &raquo;", profile_path(comment.user.username, :anchor => "question") %>
+          <%= link_to "more &raquo;", topic.is_a?(AdminDiscussion) ? restaurant_path(topic.restaurant) : profile_path(comment.user.username, :anchor => "question") %>
         <%- end %></div>
     <% end %>
 <% end %>
