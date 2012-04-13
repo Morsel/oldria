@@ -16,6 +16,7 @@ class Spoonfeed::MenuItemsController < ApplicationController
 
   def show
     @menu_item = MenuItem.find(params[:id])
+    @restaurant = @menu_item.restaurant
   end
 
 end
