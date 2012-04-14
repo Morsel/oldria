@@ -1,6 +1,11 @@
-<% title @restaurant.name %>
-<h2>Menus</h2>
+<% title "#{@restaurant.name} Menus", false %>
 
-<ul>
-	<%= render @menus %>
-</ul>
+<div id="restaurant_profile_view">
+    <%= render :partial => "restaurants/restaurant_header" %>
+
+    <h2>Menus</h2>
+
+    <ul>
+        <%= render @menus %>
+    </ul>
+</div>
