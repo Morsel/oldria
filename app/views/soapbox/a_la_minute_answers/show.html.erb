@@ -37,6 +37,12 @@
 </div>
 <div class="clear">&nbsp;</div>
 
+<h2>Other answers</h2>
+
+<div id="answers">
+  <%= render :partial => 'soapbox/a_la_minute_questions/answer', :collection => @other_answers, :as => :answer %>
+</div>
+
 <% content_for :sidebar do -%>
 <%= render :partial => 'soapbox/a_la_minute_questions/sidebar' %>
 <% end -%>
