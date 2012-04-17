@@ -64,6 +64,10 @@ class MenuItem < ActiveRecord::Base
     "On the Menu item"
   end
 
+  def self.email_address_for_restaurant(restaurant)
+    "otm-#{restaurant.id}@#{CLOUDMAIL_DOMAIN}"
+  end
+
   private
 
   def crosspost

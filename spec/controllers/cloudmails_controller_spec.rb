@@ -46,8 +46,8 @@ describe CloudmailsController do
       restaurant = Factory.stub(:restaurant, :manager => @user)
       Factory.stub(:employment, :restaurant => restaurant)
       discussion = Factory(:admin_discussion,
-      :restaurant => restaurant,
-      :discussionable => Factory(:trend_question, :subject => "Trend to reply to"))
+                           :restaurant => restaurant,
+                           :discussionable => Factory(:trend_question, :subject => "Trend to reply to"))
       AdminDiscussion.stubs(:find).returns(discussion)
 
       post :create, :to => "1-token-RD-1@dev-mailbot.restaurantintelligenceagency.com",
@@ -62,8 +62,8 @@ describe CloudmailsController do
     it "should parse a valid Trend Question response from a solo employee" do
       employment = Factory.stub(:default_employment, :employee => @user)
       discussion = Factory(:solo_discussion,
-      :employment => employment,
-      :trend_question => Factory(:trend_question, :subject => "Another trend to reply to"))
+                           :employment => employment,
+                           :trend_question => Factory(:trend_question, :subject => "Another trend to reply to"))
       SoloDiscussion.stubs(:find).returns(discussion)
 
       post :create, :to => "1-token-SD-1@dev-mailbot.restaurantintelligenceagency.com",
@@ -274,6 +274,7 @@ taste"
 
     it "should produce a clean reply from Jonathon's Ruhlman answer" do
       message = read_sample('jonathon-ruhlman.txt')
+      message.gsub!(/(?:\r|\n)*$/, "\r\n") # re-creating Gmail's line endings
 
       conversation = Factory(:admin_conversation, :recipient => @user, :admin_message => Factory(:qotd))
       Admin::Conversation.stubs(:find).returns(conversation)
@@ -289,6 +290,7 @@ taste"
 
     it "should produce a clean reply from Ellen's Gmail test answer" do
       message = read_sample('new_gmail.txt')
+      message.gsub!(/(?:\r|\n)*$/, "\r\n") # re-creating Gmail's line endings
 
       conversation = Factory(:admin_conversation, :recipient => @user, :admin_message => Factory(:qotd))
       Admin::Conversation.stubs(:find).returns(conversation)
@@ -336,6 +338,28 @@ taste"
                   :signature => ""
 
     conversation.comments.count.should == 0
+  end
+
+  describe "on the menu" do
+
+    it "should create a new menu item from an incoming email" do
+      restaurant = Factory.stub(:restaurant, :manager => @user)
+      Restaurant.stubs(:find).returns(restaurant)
+
+      post :create, :to => "otm-#{restaurant.id}@dev-mailbot.restaurantintelligenceagency.com",
+                    :plain => "A new dish you should try.\n\n$13",
+                    :message => "",
+                    :subject => "The name of the dish",
+                    :signature => ""
+      MenuItem.count.should == 1
+      menu_item = MenuItem.first
+      menu_item.price.should == "13"
+      menu_item.name.should == "The name of the dish"
+      menu_item.description.should == "A new dish you should try."
+    end
+
+    it "should send an error report if the menu item can't be created"
+
   end
 
 end
