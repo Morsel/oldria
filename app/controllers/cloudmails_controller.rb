@@ -53,8 +53,6 @@ class CloudmailsController < ApplicationController
                                    "You already responded to this message. Use the link below to edit your comments."), false)
 
     render :text => 'This is a duplicate reply. Please edit your response on the Spoonfeed site.', :status => 200 and return
-  rescue CloudmailinException::InvalidSignature
-    render :text => "Message signature error #{provided} != #{signature}", :status => 403 and return
   rescue ActiveRecord::RecordInvalid
     UserMailer.deliver_cloudmailin_error(params[:from])
     Rails.logger.info "Message could not be processed: ActiveRecord::RecordInvalid"
@@ -208,7 +206,8 @@ class CloudmailsController < ApplicationController
     signature = Digest::MD5.hexdigest(request.request_parameters.sort.map{|k,v| v}.join + CLOUDMAIL_SECRET)
 
     if provided != signature
-      raise CloudmailinException::InvalidSignature
+      render :text => "Message signature fail #{provided} != #{signature}", :status => 403
+      return false
     end
   end
 

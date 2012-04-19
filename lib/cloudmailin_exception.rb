@@ -4,6 +4,5 @@ module CloudmailinException
   class MissingReplySeparator < StandardError; end
   class MessageTooShort < StandardError; end
   class DuplicateResponse < StandardError; end
-  class InvalidSignature < StandardError; end
 
 end
