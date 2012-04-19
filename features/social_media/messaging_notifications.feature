@@ -27,7 +27,7 @@ Feature: Messaging notifications preferences
       | body                       |
       | I'm sending you a message! |
     Then "zeke@example.com" should have 1 email
-    When "zeke@example.com" opens the email with subject "SpoonFeed: Private Message notification"
+    When "zeke@example.com" opens the email with subject "Spoonfeed: Private Message notification"
     And I follow "Respond to the Private Message" in the email
     Then I should see "I'm sending you a message!"
 

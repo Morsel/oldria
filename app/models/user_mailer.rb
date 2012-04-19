@@ -77,7 +77,7 @@ class UserMailer < ActionMailer::Base
     from          'accounts@restaurantintelligenceagency.com'    
     recipients    restaurant.manager.email
     sent_on       Time.now
-    subject       "SpoonFeed: a new employee has joined"
+    subject       "Spoonfeed: a new employee has joined"
     body          :recipient => restaurant.manager, :user => user, :restaurant => restaurant
   end
 
@@ -87,7 +87,7 @@ class UserMailer < ActionMailer::Base
     from        'notifications@restaurantintelligenceagency.com'
     recipients  recipient.email
     sent_on     Time.now
-    subject     "SpoonFeed: #{message.email_title} notification"
+    subject     "Spoonfeed: #{message.email_title} notification"
     body        :message => message, :recipient => recipient, :sender => sender
   end
 
@@ -98,7 +98,7 @@ class UserMailer < ActionMailer::Base
     reply_to    recipient.cloudmail_id(message)+"@#{CLOUDMAIL_DOMAIN}"
     recipients  recipient.email_for_content
     sent_on     Time.now
-    subject     "SpoonFeed: #{message.email_title} notification"
+    subject     "Spoonfeed: #{message.email_title} notification"
     body        :message => message, :recipient => recipient
   end
 
@@ -108,7 +108,7 @@ class UserMailer < ActionMailer::Base
     reply_to    recipient.cloudmail_id(message)+"@#{CLOUDMAIL_DOMAIN}"
     recipients  recipient.email_for_content
     sent_on     Time.now
-    subject     "SpoonFeed: #{message.email_title} response error"
+    subject     "Spoonfeed: #{message.email_title} response error"
     body        :message => message, :recipient => recipient, :error_text => error_text, :allow_reply => allow_reply
   end
 
@@ -118,7 +118,7 @@ class UserMailer < ActionMailer::Base
     from        'notifications@restaurantintelligenceagency.com'
     recipients  recipient.email_for_content
     sent_on     Time.now
-    subject     "SpoonFeed: #{message.email_title} comment notification"
+    subject     "Spoonfeed: #{message.email_title} comment notification"
     body        :message => message, :recipient => recipient, :commenter => commenter
   end
 
@@ -130,4 +130,10 @@ class UserMailer < ActionMailer::Base
     body        :subscriber => subscriber
   end
 
+  def cloudmailin_error(email)
+    from        'notifications@restaurantintelligenceagency.com'
+    recipients  'email'
+    sent_on     Time.now
+    subject     'Spoonfeed: Email message error'
+  end
 end

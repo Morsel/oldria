@@ -353,6 +353,7 @@ taste"
                     :message => "",
                     :subject => "The name of the dish",
                     :signature => ""
+
       MenuItem.count.should == 1
       menu_item = MenuItem.first
       menu_item.price.should == "13"
@@ -375,7 +376,17 @@ taste"
       menu_item.photo_file_name.should_not be_nil
     end
 
-    it "should send an error report if the menu item can't be created"
+    it "should send an error report if the menu item can't be created" do
+      MenuItem.any_instance.stubs(:save!).raises(ActiveRecord::RecordInvalid.new(MenuItem.new))
+
+      post :create, :to => "otm-#{@restaurant.id}@dev-mailbot.restaurantintelligenceagency.com",
+                    :plain => "Not a real description",
+                    :message => "",
+                    :subject => "Blank subject",
+                    :signature => ""
+
+      MenuItem.count.should == 0
+    end
 
   end
 

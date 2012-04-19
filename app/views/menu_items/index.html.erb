@@ -9,7 +9,7 @@
 
         <p class="clearfix"><%= link_to "Add a new item", new_restaurant_menu_item_path(@restaurant), :class => "button" %></p>
 
-		<p>Prefer email? Send your new menu item to <%= mail_to MenuItem.email_address_for_restaurant(@restaurant) %></p>
+		<p>Prefer email? Send your new menu item to <%= mail_to MenuItem.email_address_for_restaurant(@restaurant) %>. Include a photo as an attachment, name of dish in subject of email, description in body of email and, on a separate line, use $ to indicate price.</p>
 
         <div id="menu_items">
             <% for menu_item in @menu_items -%>

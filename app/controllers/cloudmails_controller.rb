@@ -30,7 +30,7 @@ class CloudmailsController < ApplicationController
 
     # cloudmailin likes this response
     render :text => 'success', :status => 200
-  rescue CloudmailinException::MissingMessage => e
+  rescue CloudmailinException::MissingMessage
     Rails.logger.info('No readable message received')
 
     render :text => 'No readable message received', :status => 200 and return
@@ -55,6 +55,11 @@ class CloudmailsController < ApplicationController
     render :text => 'This is a duplicate reply. Please edit your response on the Spoonfeed site.', :status => 200 and return
   rescue CloudmailinException::InvalidSignature
     render :text => "Message signature error #{provided} != #{signature}", :status => 403 and return
+  rescue ActiveRecord::RecordInvalid
+    UserMailer.deliver_cloudmailin_error(params[:from])
+    Rails.logger.info "Message could not be processed: ActiveRecord::RecordInvalid"
+
+    render :text => "This message could not be processed.", :status => 200 and return
   end
 
   private
@@ -89,18 +94,19 @@ class CloudmailsController < ApplicationController
     end
     message_body = lines.join("\n")
 
-    if params.has_key?(:attachments)
+    menu_item = if params.has_key?(:attachments)
       url_parts = params[:attachments]['0'][:url].split("/")
       photo_url = "http://#{url_parts.delete_at(0)}.s3.amazonaws.com/#{url_parts.join("/")}"
-      menu_item = MenuItem.build_with_photo_url({ :name          => params[:subject],
-                                                  :description   => message_body,
-                                                  :price         => price,
-                                                  :restaurant_id => restaurant.id,
-                                                  :photo_url     => photo_url })
-      menu_item.save
+      MenuItem.build_with_photo_url({ :name          => params[:subject],
+                                      :description   => message_body,
+                                      :price         => price,
+                                      :restaurant_id => restaurant.id,
+                                      :photo_url     => photo_url })
     else
-      restaurant.menu_items.create(:name => params[:subject], :description => message_body, :price => price)
+      restaurant.menu_items.build(:name => params[:subject], :description => message_body, :price => price)
     end
+
+    menu_item.save!
   end
 
   def create_reply_message(mail_token, whole_message_body)

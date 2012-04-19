@@ -574,6 +574,7 @@ end
 
 Factory.define :menu_item do |f|
   f.name "BBQ Tofu"
+  f.description "Yum yum"
   f.association :restaurant
   f.otm_keywords { [Factory(:otm_keyword)] }
 end
