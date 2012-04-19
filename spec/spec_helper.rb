@@ -61,12 +61,6 @@ Spork.prefork do
     config.fixture_path = RAILS_ROOT + '/spec/fixtures/'
     config.mock_with :mocha
     config.ignore_backtrace_patterns(/spork/)
-    config.after(:all) do
-      if NetRecorder.recording?
-        NetRecorder.cache!
-      end
-    end
-    #include Webrat::Methods
   end
 
   module DisableFlashSweeping
