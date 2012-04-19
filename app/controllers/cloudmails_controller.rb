@@ -89,7 +89,18 @@ class CloudmailsController < ApplicationController
     end
     message_body = lines.join("\n")
 
-    restaurant.menu_items.create(:name => params[:subject], :description => message_body, :price => price)
+    if params.has_key?(:attachments)
+      url_parts = params[:attachments]['0'][:url].split("/")
+      photo_url = "http://#{url_parts.delete_at(0)}.s3.amazonaws.com/#{url_parts.join("/")}"
+      menu_item = MenuItem.build_with_photo_url({ :name          => params[:subject],
+                                                  :description   => message_body,
+                                                  :price         => price,
+                                                  :restaurant_id => restaurant.id,
+                                                  :photo_url     => photo_url })
+      menu_item.save
+    else
+      restaurant.menu_items.create(:name => params[:subject], :description => message_body, :price => price)
+    end
   end
 
   def create_reply_message(mail_token, whole_message_body)

@@ -32,6 +32,7 @@ Spork.prefork do
   FakeWeb.allow_net_connect = false
   FakeWeb.register_uri(:head, Regexp.new('http://s3.amazonaws.com/.*'), :body => "OK")
   FakeWeb.register_uri(:delete, Regexp.new('http://s3.amazonaws.com/.*'), :body => "OK")
+  FakeWeb.register_uri(:put, Regexp.new('http://s3.amazonaws.com/.*'), :body => "OK")
 
   def fake_admin_user
     @user = Factory.stub(:admin)

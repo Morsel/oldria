@@ -68,6 +68,13 @@ class MenuItem < ActiveRecord::Base
     "otm-#{restaurant.id}@#{CLOUDMAIL_DOMAIN}"
   end
 
+  def self.build_with_photo_url(params = {})
+    io = open(params.delete(:photo_url))
+    def io.original_filename; base_uri.path.split('/').last; end
+    photo = io.original_filename.blank? ? nil : io
+    MenuItem.new(params.merge(:photo => photo))
+  end
+
   private
 
   def crosspost

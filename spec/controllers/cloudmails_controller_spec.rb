@@ -342,11 +342,13 @@ taste"
 
   describe "on the menu" do
 
-    it "should create a new menu item from an incoming email" do
-      restaurant = Factory.stub(:restaurant, :manager => @user)
-      Restaurant.stubs(:find).returns(restaurant)
+    before(:each) do
+      @restaurant = Factory.stub(:restaurant, :manager => @user)
+      Restaurant.stubs(:find).returns(@restaurant)
+    end
 
-      post :create, :to => "otm-#{restaurant.id}@dev-mailbot.restaurantintelligenceagency.com",
+    it "should create a new menu item from an incoming email" do
+      post :create, :to => "otm-#{@restaurant.id}@dev-mailbot.restaurantintelligenceagency.com",
                     :plain => "A new dish you should try.\n\n$13",
                     :message => "",
                     :subject => "The name of the dish",
@@ -356,6 +358,21 @@ taste"
       menu_item.price.should == "13"
       menu_item.name.should == "The name of the dish"
       menu_item.description.should == "A new dish you should try."
+    end
+
+    it "should process a photo attachment on the menu item email" do
+      FakeWeb.allow_net_connect = 'http://spoonfeed.s3.amazonaws.com/test/cloudmailin/otm_photo.jpg'
+
+      post :create, :to => "otm-#{@restaurant.id}@dev-mailbot.restaurantintelligenceagency.com",
+                    :plain => "A new dish you should try, complete with photo!\n\n$13",
+                    :message => "",
+                    :subject => "The name of the dish",
+                    :signature => "",
+                    :attachments => { '0' => { 'file_name' => 'test.jpg', 'content_type' => 'image/jpg', 'url' => 'spoonfeed/test/cloudmailin/otm_photo.jpg' } }
+
+      MenuItem.count.should == 1
+      menu_item = MenuItem.first
+      menu_item.photo_file_name.should_not be_nil
     end
 
     it "should send an error report if the menu item can't be created"
