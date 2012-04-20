@@ -93,13 +93,11 @@ class CloudmailsController < ApplicationController
     message_body = lines.join("\n")
 
     menu_item = if params.has_key?(:attachments)
-      url_parts = params[:attachments]['0'][:url].split("/")
-      photo_url = "http://#{url_parts.delete_at(0)}.s3.amazonaws.com/#{url_parts.join("/")}"
       MenuItem.build_with_photo_url({ :name          => params[:subject],
                                       :description   => message_body,
                                       :price         => price,
                                       :restaurant_id => restaurant.id,
-                                      :photo_url     => photo_url })
+                                      :photo_url     => params[:attachments]['0'][:url] })
     else
       restaurant.menu_items.build(:name => params[:subject], :description => message_body, :price => price)
     end

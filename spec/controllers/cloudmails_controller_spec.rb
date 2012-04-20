@@ -369,7 +369,7 @@ taste"
                     :message => "",
                     :subject => "The name of the dish",
                     :signature => "",
-                    :attachments => { '0' => { 'file_name' => 'test.jpg', 'content_type' => 'image/jpg', 'url' => 'spoonfeed/test/cloudmailin/otm_photo.jpg' } }
+                    :attachments => { '0' => { 'file_name' => 'test.jpg', 'content_type' => 'image/jpg', 'url' => 'http://spoonfeed.s3.amazonaws.com/test/cloudmailin/otm_photo.jpg' } }
 
       MenuItem.count.should == 1
       menu_item = MenuItem.first
