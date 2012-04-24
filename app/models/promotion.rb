@@ -107,13 +107,16 @@ class Promotion < ActiveRecord::Base
     "Newsfeed item"
   end
 
+  def bitly_link
+    client = Bitly.new(BITLY_CONFIG['username'], BITLY_CONFIG['api_key'])
+    client.shorten(soapbox_promotion_url(self)).short_url
+  end
+
   private
 
   def crosspost
     if post_to_twitter == "1"
-      client = Bitly.new(BITLY_CONFIG['username'], BITLY_CONFIG['api_key'])
-      link = client.shorten(soapbox_promotion_url(self))
-      restaurant.twitter_client.send_later(:update, "#{truncate(headline, :length => 120)} #{link.short_url}")
+      restaurant.twitter_client.send_later(:update, "#{truncate(headline, :length => 120)} #{self.bitly_link}")
     end
     if post_to_facebook_page == "1"
       post_attributes = { :message     => "Newsfeed: #{title}",

@@ -7,6 +7,7 @@ Feature: Soapbox - On the Menu
     And the following menu items for "River Deli":
       | name       | price |
       | Butterkase | 3.00  |
+    Given links are shortened with bit.ly
 
   Scenario: Viewing all recent menu items
     When I go to the soapbox menu items page

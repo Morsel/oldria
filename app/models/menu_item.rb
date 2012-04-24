@@ -75,13 +75,16 @@ class MenuItem < ActiveRecord::Base
     MenuItem.new(params.merge(:photo => photo))
   end
 
+  def bitly_link
+    client = Bitly.new(BITLY_CONFIG['username'], BITLY_CONFIG['api_key'])
+    client.shorten(soapbox_menu_item_url(self)).short_url
+  end
+
   private
 
   def crosspost
     if post_to_twitter == "1"
-      client = Bitly.new(BITLY_CONFIG['username'], BITLY_CONFIG['api_key'])
-      link = client.shorten(soapbox_menu_item_url(self))
-      restaurant.twitter_client.send_later(:update, "#{truncate(name, :length => 120)} #{link.short_url}")
+      restaurant.twitter_client.send_later(:update, "#{truncate(name, :length => 120)} #{self.bitly_link}")
     end
     if post_to_facebook_page == "1"
       picture_url = self.photo.url if self.photo_file_name.present?
