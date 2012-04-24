@@ -26,7 +26,7 @@ class RestaurantsController < ApplicationController
   def show
     @employments = @restaurant.employments.by_position.all(
         :include => [:subject_matters, :restaurant_role, :employee])
-    @questions = ALaMinuteAnswer.public_profile_for(@restaurant)
+    @questions = ALaMinuteAnswer.public_profile_for(@restaurant)[0...3]
     @promotions = @restaurant.promotions.all(:order => "created_at DESC", :limit => 5)
     @menu_items = @restaurant.menu_items.all(:order => "created_at DESC", :limit => 3)
   end
