@@ -1,8 +1,12 @@
 class MenusController < ApplicationController
   before_filter :require_user
   before_filter :find_restaurant
-  before_filter :require_account_manager_authorization
+  before_filter :require_account_manager_authorization, :except => [:index]
   before_filter :find_menu, :only => [:edit, :update]
+
+  def index
+    @menus = @restaurant.menus.all(:order => "created_at DESC")
+  end
 
   def bulk_edit
     @menu = Menu.new(:restaurant => @restaurant)

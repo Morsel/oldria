@@ -41,4 +41,27 @@
 
         <%= link_to "View Fact Sheet", restaurant_fact_sheet_path(@restaurant), :id => "factsheet" %>
     </div>
+
+	<div class="bottomMenu new">
+		<h2><span>Menus</span><%= link_to "see all menus", restaurant_menus_path(@restaurant) %></h2>
+		<ul>
+			<% for menu in @restaurant.menus.by_position(:limit => 10) %>
+			<li><%= link_to menu.name, menu.pdf_remote_attachment.attachment.url %> <span><%= menu.updated_at.strftime('%m/%d/%y') %></li>
+			<% end %>
+		</ul>
+	</div>
+
+	<div class="staff new">
+		<h2>Staff</h2>
+		<ul>
+			<% for employment in @restaurant.public_employments %>
+			<li class="clearfix">
+				<%= link_to image_tag(employment.employee.avatar.url(:thumb)), profile_path(employment.employee.username) %>
+				<h3><%= employee_link(employment.employee) %></h3>
+				<p><%= employment.restaurant_role.try(:name) %></p>
+			</li>
+			<% end %>
+		</ul>
+	</div>
+
 </aside>

@@ -40,7 +40,7 @@ class MenuItem < ActiveRecord::Base
       :content_type => ["image/jpg", "image/jpeg", "image/png", "image/gif", "image/pjpeg", "image/x-png"],
       :message => "Please upload a valid image type: jpeg, gif, or png", :if => :photo_file_name
 
-  validates_presence_of :name
+  validates_presence_of :name, :description, :restaurant
   validates_format_of :price, :with => RestaurantFactSheet::MONEY_FORMAT
 
   named_scope :from_premium_restaurants, lambda {
@@ -64,13 +64,27 @@ class MenuItem < ActiveRecord::Base
     "On the Menu item"
   end
 
+  def self.email_address_for_restaurant(restaurant)
+    "otm-#{restaurant.id}@#{CLOUDMAIL_DOMAIN}"
+  end
+
+  def self.build_with_photo_url(params = {})
+    io = open(params.delete(:photo_url))
+    def io.original_filename; base_uri.path.split('/').last; end
+    photo = io.original_filename.blank? ? nil : io
+    MenuItem.new(params.merge(:photo => photo))
+  end
+
+  def bitly_link
+    client = Bitly.new(BITLY_CONFIG['username'], BITLY_CONFIG['api_key'])
+    client.shorten(soapbox_menu_item_url(self)).short_url
+  end
+
   private
 
   def crosspost
     if post_to_twitter == "1"
-      client = Bitly.new(BITLY_CONFIG['username'], BITLY_CONFIG['api_key'])
-      link = client.shorten(soapbox_menu_item_url(self))
-      restaurant.twitter_client.send_later(:update, "#{truncate(name, :length => 120)} #{link.short_url}")
+      restaurant.twitter_client.send_later(:update, "#{truncate(name, :length => 120)} #{self.bitly_link}")
     end
     if post_to_facebook_page == "1"
       picture_url = self.photo.url if self.photo_file_name.present?

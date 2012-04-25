@@ -394,7 +394,7 @@ end
 
 Then /^I see the opening date$/ do
   within "#opening_date" do
-    page.should have_content(@restaurant.opening_date.to_date.to_s(:long))
+    page.should have_content(@restaurant.opening_date.to_date.to_s(:long).gsub(/\s+/, " "))
   end
 end
 

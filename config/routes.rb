@@ -171,7 +171,9 @@ ActionController::Routing::Routes.draw do |map|
                              :new_manager_needed => :get,
                              :replace_manager => :post,
                              :fb_page_auth => :post,
-                             :remove_twitter => :put
+                             :remove_twitter => :put,
+                             :twitter_archive => :get,
+                             :facebook_archive => :get
                              } do |restaurant|
     restaurant.resources :employees, :collection => { :bulk_edit => :get }, :except => [:show, :index]
     restaurant.resources :employments, :collection => { "reorder" => :post }

@@ -14,6 +14,9 @@
 
 class ProfileQuestion < ActiveRecord::Base
 
+  include ActionController::UrlWriter
+  default_url_options[:host] = DEFAULT_HOST
+
   belongs_to :chapter
   has_many :question_roles, :dependent => :destroy
   has_many :restaurant_roles, :through => :question_roles
@@ -133,6 +136,11 @@ class ProfileQuestion < ActiveRecord::Base
 
   def create_response_for_user(user, answer)
     self.profile_answers.create(:user => user, :answer => answer)
+  end
+
+  def bitly_link_for_user(user)
+    client = Bitly.new(BITLY_CONFIG['username'], BITLY_CONFIG['api_key'])
+    client.shorten(soapbox_user_profile_question_url(user, self)).short_url
   end
 
   protected

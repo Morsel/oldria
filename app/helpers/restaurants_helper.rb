@@ -1,14 +1,9 @@
 module RestaurantsHelper
   def restaurant_link(restaurant, options = nil)
-    if soapbox?
-      if restaurant.premium_account?
-        link_to(h(restaurant.try(:name)), soapbox_restaurant_path(restaurant), options) 
-      else
-        h(restaurant.name)
-      end
-    else
-      link_to(h(restaurant.try(:name)), restaurant_path(restaurant), options)
-    end
+    link_to_if (restaurant.linkable_profile? || logged_in_on_spoonfeed),
+               restaurant.try(:name),
+               correct_restaurant_path(restaurant),
+               options
   end
 
   def restaurant_names_for_user(user)

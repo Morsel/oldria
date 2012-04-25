@@ -3778,7 +3778,13 @@ hgroup h5 span {
   #profileImage {width: 281px;}
   #profileDetails {width: 577px;} 
   #profileContent {width: 577px; padding-top: 40px;}
-  .meta {margin-bottom: 10px;}
+
+  .meta {
+    margin-bottom: 10px;
+    margin-top:5px;
+    float:left;
+  }
+
   .meta h4 {
     color: #f16522;
     text-transform: uppercase;
@@ -3807,9 +3813,27 @@ hgroup h5 span {
   #sidebar > div {
     width: 243px;
     background: #f8f7f4;
-    background: url('/images/sf/noise.png'), #f8f7f4;
+    background: url("/images/sf/noise.png"), #f8f7f4;
     padding: 20px 15px;
     margin-bottom: 7px;
+    margin-top: -170px;
+    &.new {
+      width: 243px;
+      background: #fff;
+      padding: 20px 15px;
+      margin-bottom: 7px;
+      margin-top:20px;
+      h2 {
+        border-bottom: 1px dashed #9D9896;
+        color: #4F4E4E;
+        margin-bottom: 20px;
+        font-family: 'Voltaire',sans-serif;
+        font-size: 22px;
+        margin-bottom: 10px;
+        padding-bottom: 5px;
+        text-transform: uppercase;
+      }
+    }
   }
 
   #facts {
@@ -3866,7 +3890,7 @@ hgroup h5 span {
   .single hgroup {width: 50%;}
   .moreLinks {width: 40%;}
   .moreLinks {padding: 30px 0 10px 0; text-align: right;}
-	.moreLinks a {
+	.moreLinks a.orangeLink {
 		background: url('/images/sf/orange-plus.png') right bottom no-repeat;
 		color: #f16522;
 		font-family: sans-serif;
@@ -3876,11 +3900,20 @@ hgroup h5 span {
 		padding-top: 5px;
 		border-top: 2px solid #f7f6f2;
 		padding-right: 22px;
+		display: block;
 	}
-	.moreLinks a, .moreLinks small {
+	.moreLinks small {
 		display: block;
 	}
 	.moreLinks #press_releases a {
+		color: #f16522;
+		font-family: sans-serif;
+		text-transform: uppercase;
+		font-size: 12px;
+		min-height: 16px;
+		padding-top: 5px;
+		border-top: 2px solid #f7f6f2;
+		display: block;
 		background: none;
 		padding-right: 0;
 	}
@@ -3955,14 +3988,36 @@ hgroup h5 span {
   .invite a:hover {background: url('/images/sf/invite-hover.png') center top no-repeat;}
 
   .module {margin-bottom: 30px;}
-  h2.orange {background: #f26623; background: url('/images/sf/noise.png'), #f26623;}
-  h2.green {background: #6db33f; background:  url('/images/sf/noise.png'), #6db33f;}
+
+  h2.orange {
+    background: #f26623;
+    background: url('/images/sf/noise.png'), #f26623;
+  }
+
+  h2.green {
+    background: #6db33f;
+    background: url("/images/sf/noise.png"), #6db33f;
+  }
+
+  h2.blue {
+    background: #4b99ae;
+    background: url("/images/sf/noise.png"), #4b99ae;
+  }
+
   h2.moduleHeadline {padding: 10px; color: #FFF; font-family: 'Voltaire', sans-serif; text-transform: uppercase; font-size: 22px; margin-bottom: 5px;}
+
   .module figure {
     float: left;
     margin-left: 5px;
     width: 189px;
   }
+
+  .social figure {
+    margin-top:5px;
+    padding-right: 10px;
+    width:179px;
+  }
+
   .module figure:nth-child(2) {
     margin-left: 0px;
   }
@@ -4008,7 +4063,13 @@ hgroup h5 span {
     display: block;
     padding-right: 26px;
   }
-  .middleDetails h3 {color: #9d9896; font-size: 11px; margin-bottom: 5px; font-family: serif; text-transform: uppercase;}
+  .middleDetails h3, .bottomMenu h3 {
+    color: #9d9896;
+    font-size: 11px;
+    margin-bottom: 5px;
+    font-family: serif;
+    text-transform: uppercase;
+  }
   .middleDetails article {margin: 0; padding: 0;}
   .middleDetails .archive {
     display: none;
@@ -4068,7 +4129,7 @@ hgroup h5 span {
     }
   }
 
-  .accolades h2 a {
+  .accolades h2 a, .bottomMenu h2 a {
     color: #9D9896;
     height: 17px;
     font-size: 14px;

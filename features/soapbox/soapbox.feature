@@ -4,6 +4,9 @@ Feature: Soapbox
   As a public user of the site
   I want to see QOTD and TRENDS as a public stream.
 
+  Background:
+    Given links are shortened with bit.ly
+
   Scenario: Featuring a QOTD on the soapbox
     Given there is a QOTD asking "Where do you buy flowers?"
     And that QOTD has the following answers:

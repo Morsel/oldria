@@ -1,7 +1,7 @@
 class RestaurantsController < ApplicationController
   before_filter :require_user
   before_filter :authenticate, :only => [:edit, :update]
-  before_filter :find_restaurant, :only => [:show, :select_primary_photo, :new_manager_needed, :replace_manager, :fb_page_auth, :remove_twitter]
+  before_filter :find_restaurant, :only => [:show, :select_primary_photo, :new_manager_needed, :replace_manager, :fb_page_auth, :remove_twitter, :twitter_archive, :facebook_archive]
 
   def index
     @employments = current_user.employments
@@ -26,7 +26,7 @@ class RestaurantsController < ApplicationController
   def show
     @employments = @restaurant.employments.by_position.all(
         :include => [:subject_matters, :restaurant_role, :employee])
-    @questions = ALaMinuteAnswer.public_profile_for(@restaurant)
+    @questions = ALaMinuteAnswer.public_profile_for(@restaurant)[0...3]
     @promotions = @restaurant.promotions.all(:order => "created_at DESC", :limit => 5)
     @menu_items = @restaurant.menu_items.all(:order => "created_at DESC", :limit => 3)
   end
@@ -95,6 +95,12 @@ class RestaurantsController < ApplicationController
     else
       render :edit
     end
+  end
+
+  def twitter_archive
+  end
+
+  def facebook_archive
   end
 
   private

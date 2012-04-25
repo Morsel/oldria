@@ -16,4 +16,5 @@ Feature: Direct messaging
     When I send an admin direct message to "Jim John" with:
       | body                        |
       | You need to fill out a menu |
+	And I press "Send"
     Then "normalguy" should have an admin message with body: "You need to fill out a menu"

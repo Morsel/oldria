@@ -33,7 +33,7 @@
         <% end %>
 
         <script src="http://platform.twitter.com/widgets.js" type="text/javascript"></script>
-        <a href="http://twitter.com/share" class="twitter-share-button">Tweet</a>
+        <a href="http://twitter.com/share?url=<% URI.escape(@entry.bitly_link) %>" class="twitter-share-button">Tweet</a>
         <!-- Likes and Tweets END -->
     </div>
   </header>

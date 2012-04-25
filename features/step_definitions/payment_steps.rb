@@ -181,13 +181,13 @@ end
 Then /^I see that the account for "([^"]*)" lasts until the end of the billing cycle$/ do |username|
   user = User.find_by_username(username)
   within "#end_date" do
-    page.should have_content(user.subscription.end_date.to_s(:long))
+    page.should have_content(user.subscription.end_date.to_s(:long).gsub(/\s+/, " "))
   end
 end
 
 Then /^I see that the restaurant account for "([^"]*)" lasts until the end of the billing cycle$/ do |restaurant_name|
   restaurant = Restaurant.find_by_name(restaurant_name)
-  page.should have_css("fieldset.account .alert", :text => restaurant.subscription.end_date.to_s(:long))
+  page.should have_css("fieldset.account .alert", :text => restaurant.subscription.end_date.to_s(:long).gsub(/\s+/, " "))
 end
 
 Then /^I don't see that the account for "([^"]*)" lasts until the end of the billing cycle$/ do |username|
