@@ -10,7 +10,7 @@
 
         <%- if menu_item.description.present? -%>
         <p>
-            <%= menu_item.description %>
+            <%= Loofah::Helpers.sanitize(menu_item.description) %>
         </p>
         <%- end -%>
 
