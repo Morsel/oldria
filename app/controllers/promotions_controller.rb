@@ -43,6 +43,14 @@ class PromotionsController < ApplicationController
     redirect_to new_restaurant_promotion_path(@restaurant)
   end
 
+  def delete_attachment
+    find_promotion
+    @promotion.attachment = nil
+    @promotion.save
+    flash[:notice] = "Deleted attachment"
+    redirect_to edit_restaurant_promotion_path(@restaurant, @promotion)
+  end
+
   private
 
   def find_restaurant
