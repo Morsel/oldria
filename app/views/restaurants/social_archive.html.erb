@@ -1,0 +1,25 @@
+<% title "Social archive for #{@restaurant.name}", false %>
+
+<div id="restaurant_profile_view">
+    <%= render :partial => "restaurant_header" %>
+
+	<div style="width: 30%; float: left; margin-right: 15px;">
+		<h2>Twitter</h2>
+	    <% for post in @restaurant.twitter_client.home_timeline.each do %>
+	    <p><%= link_to post.text, "http://twitter.com/#{@restaurant.twitter_username}/status/#{post.id}" %></p>
+	    <% end %>
+	</div>
+
+	<div style="width: 30%; float: left; margin-right: 15px;">
+		<h2>Facebook</h2>
+	    <% for post in @restaurant.facebook_page.posts do %>
+	    <p><%= post.message %></p>
+	    <% end %>
+	</div>
+
+	<div style="width: 30%; float: left;">
+		<h2>A La Minute</h2>
+		<%= render :partial => "restaurants/a_la_minute_question",
+				   :collection => ALaMinuteAnswer.public_profile_for(@restaurant), :as => :answer, :locals => { :restaurant => @restaurant } %>
+	</div>
+</div>
