@@ -3783,6 +3783,7 @@ hgroup h5 span {
     margin-bottom: 10px;
     margin-top:5px;
     float:left;
+    clear: left;
   }
 
   .meta h4 {
@@ -3816,7 +3817,7 @@ hgroup h5 span {
     background: url("/images/sf/noise.png"), #f8f7f4;
     padding: 20px 15px;
     margin-bottom: 7px;
-    margin-top: -170px;
+    margin-top: -130px;
     &.new {
       width: 243px;
       background: #fff;
