@@ -59,7 +59,7 @@
 			<% end -%>
 
 			<figure style="margin-right: 0;" class="middleDetails">
-				<h2><span>a la minute</span><%= link_to "see all", a_la_minute_path, :class => "gray" %></h2>
+				<h2><span>a la minute</span><%= link_to "see all", restaurant_a_la_minute_answers_path(@restaurant), :class => "gray" %></h2>
 
 				<%= render :partial => "restaurants/a_la_minute_question",
 						   :collection => @questions, :as => :answer, :locals => { :restaurant => @restaurant } %>

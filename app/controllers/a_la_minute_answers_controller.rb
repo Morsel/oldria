@@ -3,6 +3,11 @@ class ALaMinuteAnswersController < ApplicationController
   before_filter :require_user
   before_filter :require_restaurant_employee, :only => [:destroy, :bulk_edit, :bulk_update]
 
+  def index
+    @restaurant = Restaurant.find(params[:restaurant_id])
+    @questions = ALaMinuteAnswer.public_profile_for(@restaurant)
+  end
+
   def destroy
     @restaurant.a_la_minute_answers.destroy(params[:id])
 

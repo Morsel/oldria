@@ -1,0 +1,11 @@
+<% title "A La Minute for #{@restaurant.name}", false %>
+
+<div id="restaurant_profile_view">
+    <%= render :partial => "restaurants/restaurant_header" %>
+
+	<h2>A La Minute</h2>
+	<p><%= link_to "See all archive", social_archive_restaurant_path(@restaurant) %></p>
+
+	<%= render :partial => "restaurants/a_la_minute_question",
+               :collection => @questions, :as => :answer, :locals => { :restaurant => @restaurant } %>
+</div>
