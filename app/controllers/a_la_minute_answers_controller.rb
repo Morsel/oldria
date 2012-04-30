@@ -5,7 +5,7 @@ class ALaMinuteAnswersController < ApplicationController
 
   def index
     @restaurant = Restaurant.find(params[:restaurant_id])
-    @questions = ALaMinuteAnswer.public_profile_for(@restaurant)
+    @answers = ALaMinuteAnswer.public_profile_for(@restaurant)
   end
 
   def destroy
