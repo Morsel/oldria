@@ -141,6 +141,9 @@ class ProfileQuestion < ActiveRecord::Base
   def bitly_link_for_user(user)
     client = Bitly.new(BITLY_CONFIG['username'], BITLY_CONFIG['api_key'])
     client.shorten(soapbox_user_profile_question_url(user, self)).short_url
+  rescue => e
+    Rails.logger.error("Bit.ly error: #{e.message}")
+    soapbox_user_profile_question_url(user, self)
   end
 
   protected

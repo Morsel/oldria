@@ -110,6 +110,9 @@ class Promotion < ActiveRecord::Base
   def bitly_link
     client = Bitly.new(BITLY_CONFIG['username'], BITLY_CONFIG['api_key'])
     client.shorten(soapbox_promotion_url(self)).short_url
+  rescue => e
+    Rails.logger.error("Bit.ly error: #{e.message}")
+    soapbox_promotion_url(self)
   end
 
   private
