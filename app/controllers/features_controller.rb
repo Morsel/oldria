@@ -1,6 +1,6 @@
 class FeaturesController < ApplicationController
 
-  before_filter :require_user_unless_soapbox
+  before_filter :require_user
 
   def show
     @feature = RestaurantFeature.find(params[:id])
