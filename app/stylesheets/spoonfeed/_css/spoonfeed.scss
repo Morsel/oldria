@@ -4018,9 +4018,10 @@ hgroup h5 span {
   }
 
   .social figure {
-    margin-top:5px;
+    margin-top: 5px;
     padding-right: 10px;
-    width:179px;
+    width: 179px;
+    overflow: hidden;
   }
 
   .module figure:nth-child(2) {
