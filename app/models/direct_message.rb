@@ -1,4 +1,5 @@
 # == Schema Information
+# Schema version: 20120501172145
 #
 # Table name: direct_messages
 #
@@ -9,7 +10,7 @@
 #  in_reply_to_message_id :integer
 #  created_at             :datetime
 #  updated_at             :datetime
-#  from_admin             :boolean         default(FALSE)
+#  from_admin             :boolean
 #
 
 class DirectMessage < ActiveRecord::Base

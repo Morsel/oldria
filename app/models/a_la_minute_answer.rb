@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20120217190417
+# Schema version: 20120501172145
 #
 # Table name: a_la_minute_answers
 #
@@ -11,6 +11,7 @@
 #  created_at              :datetime
 #  updated_at              :datetime
 #  show_as_public          :boolean
+#  short_url               :string(255)
 #
 
 class ALaMinuteAnswer < ActiveRecord::Base
@@ -76,8 +77,11 @@ class ALaMinuteAnswer < ActiveRecord::Base
   end
 
   def bitly_link
-    client = Bitly.new(BITLY_CONFIG['username'], BITLY_CONFIG['api_key'])
-    client.shorten(soapbox_a_la_minute_answer_url(self)).short_url
+    unless short_url.present?
+      client = Bitly.new(BITLY_CONFIG['username'], BITLY_CONFIG['api_key'])
+      self.update_attribute(:short_url, client.shorten(soapbox_a_la_minute_answer_url(self)).short_url)
+    end
+    return short_url
   rescue => e
     Rails.logger.error("Bit.ly error: #{e.message}")
     soapbox_a_la_minute_answer_url(self)
