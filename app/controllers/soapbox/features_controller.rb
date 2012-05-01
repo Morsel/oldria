@@ -1,7 +1,8 @@
-class Soapbox::FeaturesController < FeaturesController
+class Soapbox::FeaturesController < ApplicationController
   
   def show
-    super
+    @feature = RestaurantFeature.find(params[:id])
+    @restaurants = @feature.restaurants
     render :template => 'features/show'
   end
 
