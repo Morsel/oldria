@@ -1,5 +1,4 @@
 # == Schema Information
-# Schema version: 20120501172145
 #
 # Table name: media_requests
 #
@@ -13,7 +12,7 @@
 #  fields               :text
 #  status               :string(255)
 #  publication          :string(255)
-#  admin                :boolean
+#  admin                :boolean         default(FALSE)
 #  employment_search_id :integer
 #
 

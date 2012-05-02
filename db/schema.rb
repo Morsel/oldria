@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120501172145) do
+ActiveRecord::Schema.define(:version => 20120316173800) do
 
   create_table "a_la_minute_answers", :force => true do |t|
     t.text     "answer"
@@ -19,7 +19,6 @@ ActiveRecord::Schema.define(:version => 20120501172145) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "show_as_public"
-    t.string   "short_url"
   end
 
   create_table "a_la_minute_questions", :force => true do |t|
@@ -593,7 +592,6 @@ ActiveRecord::Schema.define(:version => 20120501172145) do
     t.integer  "photo_file_size"
     t.datetime "photo_updated_at"
     t.string   "pairing"
-    t.string   "short_url"
   end
 
   create_table "menus", :force => true do |t|
@@ -793,7 +791,6 @@ ActiveRecord::Schema.define(:version => 20120501172145) do
     t.integer  "attachment_file_size"
     t.datetime "attachment_updated_at"
     t.string   "headline"
-    t.string   "short_url"
   end
 
   create_table "question_pages", :force => true do |t|
@@ -1049,7 +1046,6 @@ ActiveRecord::Schema.define(:version => 20120501172145) do
     t.boolean  "published",          :default => true
     t.boolean  "daily_feature",      :default => false
     t.text     "description"
-    t.string   "short_url"
   end
 
   create_table "soapbox_pages", :force => true do |t|

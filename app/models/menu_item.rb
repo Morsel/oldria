@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20120501172145
+# Schema version: 20120217190417
 #
 # Table name: menu_items
 #
@@ -15,7 +15,6 @@
 #  photo_file_size    :integer
 #  photo_updated_at   :datetime
 #  pairing            :string(255)
-#  short_url          :string(255)
 #
 
 class MenuItem < ActiveRecord::Base
@@ -77,11 +76,8 @@ class MenuItem < ActiveRecord::Base
   end
 
   def bitly_link
-    unless short_url.present?
-      client = Bitly.new(BITLY_CONFIG['username'], BITLY_CONFIG['api_key'])
-      self.update_attribute(:short_url, client.shorten(soapbox_menu_item_url(self)).short_url)
-    end
-    return short_url
+    client = Bitly.new(BITLY_CONFIG['username'], BITLY_CONFIG['api_key'])
+    client.shorten(soapbox_menu_item_url(self)).short_url
   rescue => e
     Rails.logger.error("Bit.ly error: #{e.message}")
     soapbox_menu_item_url(self)

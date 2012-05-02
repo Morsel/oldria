@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20120501172145
+# Schema version: 20120221182030
 #
 # Table name: soapbox_entries
 #
@@ -10,9 +10,8 @@
 #  created_at         :datetime
 #  updated_at         :datetime
 #  published          :boolean         default(TRUE)
-#  daily_feature      :boolean
+#  daily_feature      :boolean         default(FALSE)
 #  description        :text
-#  short_url          :string(255)
 #
 
 class SoapboxEntry < ActiveRecord::Base
@@ -62,11 +61,8 @@ class SoapboxEntry < ActiveRecord::Base
   end
 
   def bitly_link
-    unless short_url.present?
-      client = Bitly.new(BITLY_CONFIG['username'], BITLY_CONFIG['api_key'])
-      self.update_attribute(:short_url, client.shorten(soapbox_soapbox_entry_url(self)).short_url)
-    end
-    return short_url
+    client = Bitly.new(BITLY_CONFIG['username'], BITLY_CONFIG['api_key'])
+    client.shorten(soapbox_soapbox_entry_url(self)).short_url
   rescue => e
     Rails.logger.error("Bit.ly error: #{e.message}")
     soapbox_soapbox_entry_url(self)

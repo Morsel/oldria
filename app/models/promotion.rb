@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20120501172145
+# Schema version: 20120217190417
 #
 # Table name: promotions
 #
@@ -18,7 +18,6 @@
 #  attachment_file_size    :integer
 #  attachment_updated_at   :datetime
 #  headline                :string(255)
-#  short_url               :string(255)
 #
 
 # Restaurant events and promotions
@@ -109,11 +108,8 @@ class Promotion < ActiveRecord::Base
   end
 
   def bitly_link
-    unless short_url.present?
-      client = Bitly.new(BITLY_CONFIG['username'], BITLY_CONFIG['api_key'])
-      self.update_attribute(:short_url, client.shorten(soapbox_promotion_url(self)).short_url)
-    end
-    return short_url
+    client = Bitly.new(BITLY_CONFIG['username'], BITLY_CONFIG['api_key'])
+    client.shorten(soapbox_promotion_url(self)).short_url
   rescue => e
     Rails.logger.error("Bit.ly error: #{e.message}")
     soapbox_promotion_url(self)

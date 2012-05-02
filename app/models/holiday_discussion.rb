@@ -1,5 +1,4 @@
 # == Schema Information
-# Schema version: 20120501172145
 #
 # Table name: holiday_discussions
 #
@@ -9,7 +8,7 @@
 #  comments_count :integer         default(0)
 #  created_at     :datetime
 #  updated_at     :datetime
-#  accepted       :boolean
+#  accepted       :boolean         default(FALSE)
 #
 
 class HolidayDiscussion < ActiveRecord::Base
