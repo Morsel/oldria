@@ -17,11 +17,6 @@ Given /^I wait for all AJAX to finish$/ do
   end
 end
 
-Given /^links are shortened with bit\.ly$/ do
-  MenuItem.any_instance.stubs(:bitly_link).returns("http://bit.ly/abcd1234")
-  SoapboxEntry.any_instance.stubs(:bitly_link).returns("http://bit.ly/abcd1234")
-end
-
 When /^I try to visit (.*)+$/ do |path|
   visit path_to(path)
 end

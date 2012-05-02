@@ -30,7 +30,7 @@
             <fb:like href="<%= soapbox_a_la_minute_answer_url(@answer) %>" layout="button_count" show_faces="false" width="90" height="20" action="like" colorscheme="light"></fb:like>
 
             <script src="http://platform.twitter.com/widgets.js" type="text/javascript"></script>
-            <a href="http://twitter.com/share?url=<%= URI.escape(@answer.bitly_link) %>" class="twitter-share-button">Tweet</a>
+            <a href="http://twitter.com/share?url=<%= URI.escape(soapbox_a_la_minute_answer_url(@answer)) %>" class="twitter-share-button">Tweet</a>
         </div>
         <!-- Likes and Tweets END -->
     </div>
