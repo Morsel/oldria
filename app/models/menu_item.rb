@@ -86,10 +86,10 @@ class MenuItem < ActiveRecord::Base
   private
 
   def crosspost
-    if post_to_twitter == "1"
+    if post_to_twitter == "1" && restaurant.twitter_authorized?
       restaurant.twitter_client.send_later(:update, "#{truncate(name, :length => 120)} #{self.bitly_link}")
     end
-    if post_to_facebook_page == "1"
+    if post_to_facebook_page == "1" && restaurant.has_facebook_page?
       picture_url = self.photo.url if self.photo_file_name.present?
       post_attributes = { :message     => "New on the menu: #{name}",
                           :link        => soapbox_menu_item_url(self),
