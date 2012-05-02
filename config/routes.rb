@@ -38,6 +38,7 @@ ActionController::Routing::Routes.draw do |map|
       restaurants.resources :accolades, :only => ['index']
     end
     soapbox.resources :restaurant_features, :only => ["show"]
+    soapbox.resources :features, :only => ['show'], :controller => 'features'
     soapbox.resources :a_la_minute_questions, :only => ['index', 'show']
     soapbox.resources :a_la_minute_answers, :only => ['show']
     soapbox.resources :soapbox_entries, :only => ['index', 'show', 'qotd', 'trend'], :as => "front_burner",
@@ -173,7 +174,8 @@ ActionController::Routing::Routes.draw do |map|
                              :fb_page_auth => :post,
                              :remove_twitter => :put,
                              :twitter_archive => :get,
-                             :facebook_archive => :get
+                             :facebook_archive => :get,
+                             :social_archive => :get
                              } do |restaurant|
     restaurant.resources :employees, :collection => { :bulk_edit => :get }, :except => [:show, :index]
     restaurant.resources :employments, :collection => { "reorder" => :post }
@@ -200,7 +202,7 @@ ActionController::Routing::Routes.draw do |map|
     restaurant.resources :a_la_minute_answers, :collection => { :bulk_update => :put, :bulk_edit => :get }
     restaurant.resource :subscription, :collection => { :bt_callback => :get, :billing_history => :get },
                                        :controller => 'subscriptions'
-    restaurant.resources :promotions
+    restaurant.resources :promotions, :member => { :delete_attachment => :post }
     restaurant.resources :menu_items
     restaurant.resources :press_releases, :collection => { :archive => :get }
   end

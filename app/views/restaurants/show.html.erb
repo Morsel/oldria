@@ -37,7 +37,7 @@
 		</div>
 
 		<div class="module clearfix social">
-			<h2 class="moduleHeadline blue"><span>Social</span><a href="#">See all archive</a></h2>
+			<h2 class="moduleHeadline blue"><span>Social</span><%= link_to "See all social", social_archive_restaurant_path(@restaurant) %></h2>
 
             <% if @restaurant.has_facebook_page? -%>
 			<figure style="margin-right: 0;" class="middleDetails">
@@ -59,7 +59,7 @@
 			<% end -%>
 
 			<figure style="margin-right: 0;" class="middleDetails">
-				<h2><span>a la minute</span><%= link_to "see all", a_la_minute_path, :class => "gray" %></h2>
+				<h2><span>a la minute</span><%= link_to "see all", restaurant_a_la_minute_answers_path(@restaurant), :class => "gray" %></h2>
 
 				<%= render :partial => "restaurants/a_la_minute_question",
 						   :collection => @questions, :as => :answer, :locals => { :restaurant => @restaurant } %>

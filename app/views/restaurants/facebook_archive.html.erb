@@ -3,7 +3,10 @@
 <div id="restaurant_profile_view">
     <%= render :partial => "restaurant_header" %>
 
+	<h2>Facebook updates</h2>
+	<p><%= link_to "See all archive", social_archive_restaurant_path(@restaurant) %></p>
+
     <% for post in @restaurant.facebook_page.posts do %>
     <p><%= post.message %></p>
-    <% end %>
+    <% end rescue nil %>
 </div>

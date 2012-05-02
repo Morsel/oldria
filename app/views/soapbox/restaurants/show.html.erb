@@ -33,7 +33,7 @@
     <h2>Top 15 Tags</h2>
     <ul class="tags">
         <% for tag in @restaurant.top_tags %>
-        <li><%= link_to h(tag.value), feature_path(tag)  %></li>
+        <li><%= link_to h(tag.value), soapbox_feature_path(tag)  %></li>
         <% end %>
     </ul>
   </div><!-- .top-tags -->

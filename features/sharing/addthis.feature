@@ -8,7 +8,6 @@ Feature: AddThis sharing feature
   And several profile questions matching employment roles for "john"
   And the user "john" has a premium account
   And I am logged in as "john"
-  Given links are shortened with bit.ly
 
   Scenario: User with premium account can share profile
     When I am on the soapbox profile page for "john"

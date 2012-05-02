@@ -2,6 +2,14 @@
 {
     config.uiColor = '#E2E2E2';
     config.toolbar_Basic = [
+        ['Undo', 'Redo'],
+        ['Bold', 'Italic'],
+        ['Link','Unlink'],
+        ['RemoveFormat'],
+        ['Source']
+    ];
+
+    config.toolbar_Full = [
         ['Styles'],
         ['Undo', 'Redo'],
         ['Bold', 'Italic', '-', 'NumberedList', 'BulletedList'],

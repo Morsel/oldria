@@ -78,6 +78,9 @@ class ALaMinuteAnswer < ActiveRecord::Base
   def bitly_link
     client = Bitly.new(BITLY_CONFIG['username'], BITLY_CONFIG['api_key'])
     client.shorten(soapbox_a_la_minute_answer_url(self)).short_url
+  rescue => e
+    Rails.logger.error("Bit.ly error: #{e.message}")
+    soapbox_a_la_minute_answer_url(self)
   end
 
   private

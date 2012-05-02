@@ -1,7 +1,11 @@
 <% semantic_form_for [@restaurant, @menu_item], :html => {:multipart => true} do |f| %>
     <% f.inputs do %>
         <%= f.input :name, :label => "Name of Dish/Drink/Wine/Beer" %>
-        <%= f.input :description, :label => "Inspiration/Background", :hint => "Share what makes you excited" %>
+	    <li>
+			<%= label_tag "menu_item_description_editor", "Inspiration/Background" %>
+        	<%= f.cktext_area :description, :input_html => { :rows => 4 }, :toolbar => 'Basic' %>
+			<p class="inline-hints">Share what makes you excited. Basic HTML formatting is allowed.</p>
+		</li>
         <%= f.input :price, :hint => "Do not include the dollar sign ($)" %>
         <%= f.input :pairing %>
         <%= f.input :photo, :hint => "Please shrink large photos to 2400 pixels on a side before you attempt to upload them" %>

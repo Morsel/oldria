@@ -1,7 +1,8 @@
 class RestaurantsController < ApplicationController
   before_filter :require_user
   before_filter :authenticate, :only => [:edit, :update]
-  before_filter :find_restaurant, :only => [:show, :select_primary_photo, :new_manager_needed, :replace_manager, :fb_page_auth, :remove_twitter, :twitter_archive, :facebook_archive]
+  before_filter :find_restaurant, :only => [:show, :select_primary_photo, :new_manager_needed, :replace_manager, :fb_page_auth, :remove_twitter,
+                                            :twitter_archive, :facebook_archive, :social_archive]
 
   def index
     @employments = current_user.employments
@@ -101,6 +102,9 @@ class RestaurantsController < ApplicationController
   end
 
   def facebook_archive
+  end
+
+  def social_archive
   end
 
   private

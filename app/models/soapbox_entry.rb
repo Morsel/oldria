@@ -60,11 +60,6 @@ class SoapboxEntry < ActiveRecord::Base
     featured_item.last_comment
   end
 
-  def bitly_link
-    client = Bitly.new(BITLY_CONFIG['username'], BITLY_CONFIG['api_key'])
-    client.shorten(soapbox_soapbox_entry_url(self)).short_url
-  end
-
   class << self
     def main_feature
       featured_item_with_offset(0)

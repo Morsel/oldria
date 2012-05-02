@@ -4,15 +4,20 @@
     <% f.inputs do %>
         <%= f.input :promotion_type %>
         <%= f.input :headline, :hint => "Limit: 144 characters" %>
-        <%= f.input :details, :hint => "Stay under 1000 words. Basic HTML formatting is allowed.", :input_html => { :rows => 4 } %>
+	    <li>
+			<%= label_tag "promotion_details_editor", "Details" %>
+        	<%= f.cktext_area :details, :input_html => { :rows => 4 }, :toolbar => 'Basic' %>
+			<p class="inline-hints">Stay under 1000 words. Basic HTML formatting is allowed.</p>
+		</li>
         <%= f.input :link %>
         <%= f.input :attachment, :hint => "PDF files allowed" %>
+        <% if !promotion.new_record? && promotion.attachment.file? -%>
+          Current attachment: <%= link_to promotion.attachment_file_name, promotion.attachment.url %>
+		  <p><%= link_to "Delete attachment", delete_attachment_restaurant_promotion_path(restaurant, promotion), :method => :post, :confirm => "Are you sure you want to delete this?" %> or replace by uploading a new file</p>
+        <% end -%>
         <%= f.input :start_date %>
         <%= f.input :end_date, :selected => nil %>
         <%= f.input :date_description, :label => "Repeating on", :hint => "Example: every Monday in March" %>
-        <% if !promotion.new_record? && promotion.attachment.file? -%>
-        Current attachment: <%= link_to promotion.attachment_file_name, promotion.attachment.url %>
-        <% end -%>
 
         <% if promotion.new_record? -%>
         <%= f.input :post_to_twitter, :as => "boolean", :label => "Post to my Twitter account", :input_html => { :checked => "checked" } if @restaurant.twitter_authorized? %>

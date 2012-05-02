@@ -78,6 +78,9 @@ class MenuItem < ActiveRecord::Base
   def bitly_link
     client = Bitly.new(BITLY_CONFIG['username'], BITLY_CONFIG['api_key'])
     client.shorten(soapbox_menu_item_url(self)).short_url
+  rescue => e
+    Rails.logger.error("Bit.ly error: #{e.message}")
+    soapbox_menu_item_url(self)
   end
 
   private
