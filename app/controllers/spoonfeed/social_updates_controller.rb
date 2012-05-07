@@ -1,5 +1,7 @@
 class Spoonfeed::SocialUpdatesController < ApplicationController
 
+  before_filter :require_user
+
   def index
     @alm_answers = ALaMinuteAnswer.from_premium_responders.all.map { |a| { :post => a.answer,
                                                                            :restaurant => a.restaurant,
@@ -39,7 +41,7 @@ class Spoonfeed::SocialUpdatesController < ApplicationController
     end
 
     merger = SocialMerger.new(@twitter_posts, @facebook_posts, @alm_answers)
-    @updates = merger.sorted_updates
+    @updates = merger.sorted_updates.paginate(:page => params[:page])
   end
 
 end

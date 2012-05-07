@@ -88,7 +88,7 @@ class MenuItem < ActiveRecord::Base
     post_attributes = { :message     => "New on the menu: #{name}",
                         :link        => soapbox_menu_item_url(self),
                         :name        => name,
-                        :description => description,
+                        :description => Loofah::Helpers.strip_tags(description),
                         :picture     => picture_url }
     restaurant.send_later(:post_to_facebook_page, post_attributes)
   end
