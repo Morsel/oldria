@@ -255,6 +255,7 @@ ActionController::Routing::Routes.draw do |map|
   map.menu_items 'on_the_menu', :controller => "spoonfeed/menu_items", :action => "index"
   map.menu_item 'on_the_menu/:id', :controller => "spoonfeed/menu_items", :action => "show"
   map.resources :profile_questions, :only => ['index', 'show'], :as => "behind_the_line", :controller => 'spoonfeed/profile_questions'
+  map.social 'social', :controller => "spoonfeed/social_updates", :action => "index"
 
   map.resources :page_views, :only => ['create']
 
