@@ -1,6 +1,6 @@
 <% title "Social" %>
 
-<% cache "spoonfeed_social", :expires_in => 1.hour do %>
+<% cache "spoonfeed_social_page#{params[:page]}", :expires_in => 1.hour do %>
 <% @updates.each do |post| %>
     <div>
         <h2><%= link_to_if post.has_key?(:link), post[:title], post[:link] %></h2>
