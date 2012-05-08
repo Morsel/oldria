@@ -27,7 +27,7 @@ class CommentsController < ApplicationController
       end
       return redirect_after_save
     else
-      flash[:error] = "Your comment couldn't be saved."
+      flash[:error] = "Your comment couldn't be saved. Errors: #{@comment.errors.full_messages.to_sentence}"
       redirect_to :back
     end
   end
