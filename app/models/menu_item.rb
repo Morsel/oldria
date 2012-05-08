@@ -84,7 +84,7 @@ class MenuItem < ActiveRecord::Base
   end
 
   def queue_for_facebook_page
-    picture_url = self.photo.url if self.photo_file_name.present?
+    picture_url = self.photo(:large) if self.photo_file_name.present?
     post_attributes = { :message     => "New on the menu: #{name}",
                         :link        => soapbox_menu_item_url(self),
                         :name        => name,
