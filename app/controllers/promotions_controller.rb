@@ -4,7 +4,9 @@ class PromotionsController < ApplicationController
   before_filter :require_manager, :except => [:index]
 
   def index
-    @promotions, @past_promotions = @restaurant.promotions.all(:order => "created_at DESC").split { |p| p.current? }
+    all_promotions = @restaurant.promotions.all(:order => "created_at DESC")
+    @promotions = all_promotions.select { |p| p.current? }
+    @past_promotions = all_promotions.reject { |p| p.current? }
   end
 
   def new
