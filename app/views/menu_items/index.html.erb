@@ -34,7 +34,11 @@
                 <dt>Keywords</dt>
                 <dd><%= menu_item.keywords %></dd>
             </dl>
-            <p class="actions"><%= link_to "edit", edit_restaurant_menu_item_path(@restaurant, menu_item) %> | <%= link_to "delete", restaurant_menu_item_path(@restaurant, menu_item), :method => "delete", :confirm => "Are you sure you want to delete this?" %></p>
+            <p class="actions">
+                <% if @restaurant.has_facebook_page? -%><%= link_to "post to Facebook page", facebook_post_restaurant_menu_item_path(@restaurant, menu_item), :method => "post" %> |<%- end %>
+                <%= link_to "edit", edit_restaurant_menu_item_path(@restaurant, menu_item) %> |
+                <%= link_to "delete", restaurant_menu_item_path(@restaurant, menu_item), :method => "delete", :confirm => "Are you sure you want to delete this?" %>
+            </p>
             <% end -%>
         </div>
 

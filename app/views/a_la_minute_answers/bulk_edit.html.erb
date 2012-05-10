@@ -27,11 +27,15 @@
                 <% if @restaurant.twitter_authorized? -%>
                 <%= check_box_tag "a_la_minute_questions[#{question.id}][post_to_twitter]", "1", true, :class => "show_as_public_toggle" %>
                 <%= label_tag "a_la_minute_questions_#{question.id}_post_to_twitter", "Post to Twitter?", :class => 'inline' %>
+                <% else -%>
+                <p>Hook up your Twitter account to autopost this content to your social streams.</p>
                 <% end -%>
 
                 <% if @restaurant.has_facebook_page? -%>
                 <%= check_box_tag "a_la_minute_questions[#{question.id}][post_to_facebook_page]", "1", true, :class => "show_as_public_toggle" %>
                 <%= label_tag "a_la_minute_questions_#{question.id}_post_to_facebook_page", "Post to Facebook page?", :class => 'inline' %>
+                <% else -%>
+                <p>Hook up your Facebook account to autopost this content to your social streams.</p>
                 <% end -%>
               <% end -%>
               <%= link_to 'View past answers', "#a_la_minute_answers_#{question.id}", :class => 'show_all_link showit' %>

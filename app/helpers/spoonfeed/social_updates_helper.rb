@@ -1,0 +1,2 @@
+module Spoonfeed::SocialUpdatesHelper
+end

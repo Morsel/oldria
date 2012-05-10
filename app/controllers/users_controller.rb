@@ -35,7 +35,7 @@ class UsersController < ApplicationController
           @user.editors << editor
         else
           flash[:error] = "Sorry, we could not find the user you entered. Please try again."
-          redirect_to edit_user_profile_path(:user_id => @user.id)
+          redirect_to edit_user_profile_path(:user_id => @user.id) and return
         end
       end
 
@@ -52,7 +52,7 @@ class UsersController < ApplicationController
 
         format.html do
           flash[:notice] = "Successfully updated your profile."
-          redirect_to edit_user_profile_path(:user_id => @user.id)
+          redirect_to edit_user_profile_path(:user_id => @user.id) and return
         end
         format.js   { head :ok }
       else

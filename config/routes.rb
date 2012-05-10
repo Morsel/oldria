@@ -203,7 +203,7 @@ ActionController::Routing::Routes.draw do |map|
     restaurant.resource :subscription, :collection => { :bt_callback => :get, :billing_history => :get },
                                        :controller => 'subscriptions'
     restaurant.resources :promotions, :member => { :delete_attachment => :post }
-    restaurant.resources :menu_items
+    restaurant.resources :menu_items, :member => { :facebook_post => :post }
     restaurant.resources :press_releases, :collection => { :archive => :get }
   end
 
@@ -255,6 +255,7 @@ ActionController::Routing::Routes.draw do |map|
   map.menu_items 'on_the_menu', :controller => "spoonfeed/menu_items", :action => "index"
   map.menu_item 'on_the_menu/:id', :controller => "spoonfeed/menu_items", :action => "show"
   map.resources :profile_questions, :only => ['index', 'show'], :as => "behind_the_line", :controller => 'spoonfeed/profile_questions'
+  map.social 'social', :controller => "spoonfeed/social_updates", :action => "index"
 
   map.resources :page_views, :only => ['create']
 

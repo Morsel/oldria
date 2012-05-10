@@ -92,14 +92,17 @@ class CloudmailsController < ApplicationController
     end
     message_body = lines.join("\n")
 
+    menu_item_attributes = { :name          => params[:subject],
+                             :description   => message_body,
+                             :price         => price,
+                             :restaurant_id => restaurant.id,
+                             :post_to_twitter => "1",
+                             :post_to_facebook_page => "1" }
     menu_item = if params.has_key?(:attachments)
-      MenuItem.build_with_photo_url({ :name          => params[:subject],
-                                      :description   => message_body,
-                                      :price         => price,
-                                      :restaurant_id => restaurant.id,
-                                      :photo_url     => params[:attachments]['0'][:url] })
+      menu_item_attributes.merge!(:photo_url => params[:attachments]['0'][:url])
+      MenuItem.build_with_photo_url(menu_item_attributes)
     else
-      restaurant.menu_items.build(:name => params[:subject], :description => message_body, :price => price)
+      MenuItem.new(menu_item_attributes)
     end
 
     menu_item.save!

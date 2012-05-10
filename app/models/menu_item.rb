@@ -83,20 +83,24 @@ class MenuItem < ActiveRecord::Base
     soapbox_menu_item_url(self)
   end
 
+  def queue_for_facebook_page
+    picture_url = self.photo(:large) if self.photo_file_name.present?
+    post_attributes = { :message     => "New on the menu: #{name}",
+                        :link        => soapbox_menu_item_url(self),
+                        :name        => name,
+                        :description => Loofah::Helpers.strip_tags(description),
+                        :picture     => picture_url }
+    restaurant.send_later(:post_to_facebook_page, post_attributes)
+  end
+
   private
 
   def crosspost
-    if post_to_twitter == "1"
+    if post_to_twitter == "1" && restaurant.twitter_authorized?
       restaurant.twitter_client.send_later(:update, "#{truncate(name, :length => 120)} #{self.bitly_link}")
     end
-    if post_to_facebook_page == "1"
-      picture_url = self.photo.url if self.photo_file_name.present?
-      post_attributes = { :message     => "New on the menu: #{name}",
-                          :link        => soapbox_menu_item_url(self),
-                          :name        => name,
-                          :description => description,
-                          :picture     => picture_url }
-      restaurant.send_later(:post_to_facebook_page, post_attributes)
+    if post_to_facebook_page == "1" && restaurant.has_facebook_page?
+      queue_for_facebook_page
     end
   end
 

@@ -49,6 +49,13 @@ class MenuItemsController < ApplicationController
     end
   end
 
+  def facebook_post
+    @menu_item = @restaurant.menu_items.find(params[:id])
+    @menu_item.queue_for_facebook_page
+    flash[:notice] = "Posted #{@menu_item.name} to Facebook page"
+    redirect_to :action => "index"
+  end
+
   private
 
   def find_restaurant

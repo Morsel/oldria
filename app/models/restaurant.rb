@@ -122,6 +122,14 @@ class Restaurant < ActiveRecord::Base
   cattr_reader :per_page
   @@per_page = 15
 
+  named_scope :with_twitter, lambda {
+    { :conditions => "atoken IS NOT NULL AND asecret IS NOT NULL" }
+  }
+
+  named_scope :with_facebook_page, lambda {
+    { :conditions => "facebook_page_id IS NOT NULL AND facebook_page_token IS NOT NULL" }
+  }
+
   def self.find_premium(id)
     possibility = find_by_id(id)
     possibility.try(:premium_account) ? possibility : nil

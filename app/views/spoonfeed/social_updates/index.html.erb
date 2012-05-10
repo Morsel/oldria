@@ -1,0 +1,15 @@
+<% title "Social" %>
+
+<% cache "spoonfeed_social_page#{params[:page]}", :expires_in => 1.hour do %>
+<% @updates.each do |post| %>
+    <div>
+        <h2><%= link_to_if post.has_key?(:link), (post[:title] || post[:source]), post[:link] %></h2>
+        <%= render :partial => 'restaurants/identity', :locals => { :restaurant => post[:restaurant] } %>
+        <p class="answer"><%= post[:post] %></p>
+        <p><span class="datestamp"><%= "Posted #{post[:created_at].strftime("%D")}" %></span></p>
+    </div>
+    <div class="clear">&nbsp;</div>
+<% end %>
+<% end %>
+
+<%= will_paginate(@updates) %>

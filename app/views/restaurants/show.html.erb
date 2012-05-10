@@ -39,24 +39,28 @@
 		<div class="module clearfix social">
 			<h2 class="moduleHeadline blue"><span>Social</span><%= link_to "See all social", social_archive_restaurant_path(@restaurant) %></h2>
 
+    	    <% cache "facebook_profile_restaurant_#{@restaurant.id}", :expires_in => 1.hour do %>
             <% if @restaurant.has_facebook_page? -%>
 			<figure style="margin-right: 0;" class="middleDetails">
 				<h2><span>Facebook</span><%= link_to "see all", facebook_archive_restaurant_path(@restaurant), :class => "gray" %></h2>
 
 				<% for post in @restaurant.facebook_page.posts[0...3] do %>
-				<p><%= post.message %></p>
+				<p><%= post.message %> <span class="datestamp">(<%= Time.parse(post.created_time).strftime("%D") %>)</p>
 				<% end rescue nil %>
 			</figure>
 			<% end -%>
+            <% end %>
 
+    	    <% cache "twitter_profile_restaurant_#{@restaurant.id}", :expires_in => 1.hour do %>
             <% if @restaurant.twitter_authorized? -%>
 			<figure style="margin-right: 0;" class="middleDetails">
 				<h2><span>Twitter</span><%= link_to "see all", twitter_archive_restaurant_path(@restaurant), :class => "gray" %></h2>
 				<% for post in @restaurant.twitter_client.home_timeline[0...3].each do %>
-				<p><%= link_to post.text, "http://twitter.com/#{@restaurant.twitter_username}/status/#{post.id}" %></p>
+				<p><%= link_to post.text, "http://twitter.com/#{@restaurant.twitter_username}/status/#{post.id}" %> <span class="datestamp">(<%= Time.parse(post.created_at).strftime("%D") %>)</p>
 				<% end rescue nil %>
 			</figure>
 			<% end -%>
+            <% end %>
 
 			<figure style="margin-right: 0;" class="middleDetails">
 				<h2><span>a la minute</span><%= link_to "see all", restaurant_a_la_minute_answers_path(@restaurant), :class => "gray" %></h2>
