@@ -77,7 +77,7 @@
       </p>
       <%= fb_logout_link "Disconnect Facebook", fb_deauth_user_path(current_user, :restaurant_id => @restaurant.id), :class => 'sf-button negative' %>
       <% if @restaurant.has_facebook_page? -%>
-        <p>Current Facebook page for <%= @restaurant.name %>: <em><%= @restaurant.facebook_page.fetch.name %></em></p>
+        <p>Current Facebook page for <%= @restaurant.name %>: <em><%= @restaurant.facebook_page.fetch.name rescue Exception nil %></em></p>
       <%- end %>
       <% if @fb_user.accounts.blank? %>
         <p>You don't appear to have access to any Facebook pages. If you'd like the change the page for this restaurant, please ask the admin to give you access through your Facebook account.</p>
