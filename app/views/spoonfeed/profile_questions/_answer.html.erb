@@ -6,5 +6,6 @@
         <%= link_to "more &raquo;", profile_question_path(answer.profile_question) %>
         <% end -%>
     </div>
+    <p class="request"><%= link_to "Request more information", mediafeed_request_information_path(:user_id => answer.user_id, :request_type => "Behind the Line", :request_title => truncate(answer.answer, :length => 200) ) %></p>
 	<p><span class="timestamp">Last updated: <%= answer.updated_at.strftime("%b %e %Y") %></span></p>
 </div>

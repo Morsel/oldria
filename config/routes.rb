@@ -90,6 +90,7 @@ ActionController::Routing::Routes.draw do |map|
     mediafeed.resources :media_requests
     mediafeed.connect 'directory_search', :controller => 'mediafeed', :action => 'directory_search'
     mediafeed.discussion 'media_requests/:id/:discussion_type/:discussion_id', :controller => 'media_requests', :action => 'discussion'
+    mediafeed.request_information 'request_information', :controller => 'mediafeed', :action => 'request_information'
   end
 
   map.with_options :conditions => { :subdomain => 'mediafeed' }, :controller => 'mediafeed/mediafeed' do |mediafeed|
