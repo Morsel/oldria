@@ -23,7 +23,7 @@
         </div>
 
         <div class="contactDetails">
-            <h4>Media Contact: <span><%= link_to @restaurant.media_contact.name, profile_path(:username => @restaurant.media_contact.username) %></span></h4>
+            <h4>Media Contact: <span><%= mail_to @restaurant.media_contact.email, @restaurant.media_contact.name, :subject => "Inquiry about #{@restaurant.name}" %></span></h4>
             <% if @restaurant.media_contact.phone_number.present? -%>
             <h4>Phone: <span><%= @restaurant.media_contact.phone_number %></span></h4>
             <% end -%>
