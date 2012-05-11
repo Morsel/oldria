@@ -35,7 +35,7 @@ class Spoonfeed::SocialUpdatesController < ApplicationController
                                :source => "Facebook",
                                :link => r.facebook_page_url }
         end
-      rescue
+      rescue Mogli::Client::OAuthException, Mogli::Client::HTTPException
         next
       end
     end

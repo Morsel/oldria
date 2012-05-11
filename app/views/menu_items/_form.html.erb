@@ -50,7 +50,7 @@
         <% if @restaurant.has_facebook_page? %>
           <% begin %>
           <%= f.input :post_to_facebook_page, :as => "boolean", :label => "Post to Facebook page \"#{@restaurant.facebook_page.fetch.name}\"", :input_html => { :checked => "checked" } %>
-          <% rescue %>
+          <% rescue Mogli::Client::OAuthException, Mogli::Client::HTTPException %>
           <p>Your Facebook page access has expired. Please reconnect your account on your restaurant profile page.</p>
           <% end %>
         <% else %>
