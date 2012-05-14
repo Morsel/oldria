@@ -8,7 +8,7 @@
         <% if @restaurant.twitter_authorized? -%>
 		<h2>Twitter</h2>
 		<% begin %>
-          <% for post in @restaurant.twitter_client.home_timeline.each do %>
+          <% for post in @restaurant.twitter_client.user_timeline.each do %>
 			<p><%= link_to post.text, "http://twitter.com/#{@restaurant.twitter_username}/status/#{post.id}" %> <span class="datestamp">(<%= Time.parse(post.created_at).strftime("%D") %>)</p>
 	      <% end %>
 	    <% rescue %>

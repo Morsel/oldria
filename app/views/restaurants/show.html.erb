@@ -61,7 +61,7 @@
 				<h2><span>Twitter</span><%= link_to "see all", twitter_archive_restaurant_path(@restaurant), :class => "gray" %></h2>
 
                 <% begin %>
-				<% for post in @restaurant.twitter_client.home_timeline[0...3].each do %>
+				<% for post in @restaurant.twitter_client.user_timeline[0...3].each do %>
 				<p><%= link_to post.text, "http://twitter.com/#{@restaurant.twitter_username}/status/#{post.id}" %> <span class="datestamp">(<%= Time.parse(post.created_at).strftime("%D") %>)</p>
 				<% end %>
 				<% rescue %>

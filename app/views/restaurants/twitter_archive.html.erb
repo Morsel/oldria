@@ -6,7 +6,7 @@
 	<h2>Twitter updates</h2>
 	<p><%= link_to "See all archive", social_archive_restaurant_path(@restaurant) %></p>
 
-    <% for post in @restaurant.twitter_client.home_timeline.each do %>
+    <% for post in @restaurant.twitter_client.user_timeline.each do %>
     <p><%= link_to post.text, "http://twitter.com/#{@restaurant.twitter_username}/status/#{post.id}" %></p>
     <% end rescue nil %>
 </div>
