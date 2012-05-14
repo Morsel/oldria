@@ -13,7 +13,7 @@ class Spoonfeed::SocialUpdatesController < ApplicationController
     @twitter_posts = []
     Restaurant.with_twitter.each do |r|
       begin
-        r.twitter_client.home_timeline.each do |post|
+        r.twitter_client.user_timeline.each do |post|
           @twitter_posts << { :post => post.text,
                               :restaurant => r,
                               :created_at => Time.parse(post.created_at),
