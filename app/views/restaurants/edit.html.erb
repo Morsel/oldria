@@ -77,7 +77,11 @@
       </p>
       <%= fb_logout_link "Disconnect Facebook", fb_deauth_user_path(current_user, :restaurant_id => @restaurant.id), :class => 'sf-button negative' %>
       <% if @restaurant.has_facebook_page? -%>
-        <p>Current Facebook page for <%= @restaurant.name %>: <em><%= @restaurant.facebook_page.fetch.name rescue Exception nil %></em></p>
+      <% begin %>
+        <p>Current Facebook page for <%= @restaurant.name %>: <em><%= @restaurant.facebook_page.fetch.name %></em></p>
+	  <% rescue Mogli::Client::OAuthException, Mogli::Client::HTTPException %>
+        <p>Access to your Facebook page has expired. Please select the page again.</p>
+      <% end %>
       <%- end %>
       <% if @fb_user.accounts.blank? %>
         <p>You don't appear to have access to any Facebook pages. If you'd like the change the page for this restaurant, please ask the admin to give you access through your Facebook account.</p>
