@@ -15,19 +15,19 @@ class Spoonfeed::SocialUpdatesController < ApplicationController
   private
 
   def fetch_updates
-    Rails.cache.fetch('social_updates', :expires_in => 1.hour) do
-      @alm_answers = ALaMinuteAnswer.from_premium_responders.all.map { |a| { :post => a.answer,
+    Rails.cache.fetch('social_updates') do
+      alm_answers = ALaMinuteAnswer.from_premium_responders.all.map { |a| { :post => a.answer,
                                                                              :restaurant => a.restaurant,
                                                                              :created_at => a.created_at,
                                                                              :link => a_la_minute_answers_path(:question_id => a.a_la_minute_question.id),
                                                                              :title => a.question,
                                                                              :source => "Spoonfeed" } }
 
-      @twitter_posts = []
+      twitter_posts = []
       Restaurant.with_twitter.each do |r|
         begin
           r.twitter_client.user_timeline.each do |post|
-            @twitter_posts << { :post => post.text,
+            twitter_posts << { :post => post.text,
                                 :restaurant => r,
                                 :created_at => Time.parse(post.created_at),
                                 :link => "http://twitter.com/#{r.twitter_username}/status/#{post.id}",
@@ -38,11 +38,11 @@ class Spoonfeed::SocialUpdatesController < ApplicationController
         end
       end
 
-      @facebook_posts = []
+      facebook_posts = []
       Restaurant.with_facebook_page.each do |r|
         begin
           r.facebook_page.posts.each do |post|
-            @facebook_posts << { :post => post.message,
+            facebook_posts << { :post => post.message,
                                  :restaurant => r,
                                  :created_at => Time.parse(post.created_time),
                                  :source => "Facebook",
@@ -52,7 +52,7 @@ class Spoonfeed::SocialUpdatesController < ApplicationController
           next
         end
       end
-      SocialMerger.new(@twitter_posts, @facebook_posts, @alm_answers).sorted_updates
+      SocialMerger.new(twitter_posts, facebook_posts, alm_answers).sorted_updates
     end
   end
 
