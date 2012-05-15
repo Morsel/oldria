@@ -6,7 +6,16 @@ class Spoonfeed::SocialUpdatesController < ApplicationController
   end
 
   def load_updates
-    sorted_merge = Rails.cache.fetch('social_updates', :expires_in => 1.hour) do
+    sorted_merge = fetch_updates
+
+    @updates = sorted_merge.paginate(:page => params[:page], :per_page => 10)
+    render :partial => "updates"
+  end
+
+  private
+
+  def fetch_updates
+    Rails.cache.fetch('social_updates', :expires_in => 1.hour) do
       @alm_answers = ALaMinuteAnswer.from_premium_responders.all.map { |a| { :post => a.answer,
                                                                              :restaurant => a.restaurant,
                                                                              :created_at => a.created_at,
@@ -45,9 +54,6 @@ class Spoonfeed::SocialUpdatesController < ApplicationController
       end
       SocialMerger.new(@twitter_posts, @facebook_posts, @alm_answers).sorted_updates
     end
-
-    @updates = sorted_merge.paginate(:page => params[:page], :per_page => 10)
-    render :partial => "updates"
   end
 
 end

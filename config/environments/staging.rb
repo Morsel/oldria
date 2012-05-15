@@ -13,7 +13,7 @@ config.action_controller.perform_caching             = true
 config.action_view.cache_template_loading            = true
 
 # Using memcache as cache store
-config.cache_store = :mem_cache_store, "localhost:11211", { :namespace => "staging" }
+config.cache_store = :mem_cache_store
 
 # See everything in the log (default is :info)
 config.log_level = :debug
