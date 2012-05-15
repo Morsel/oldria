@@ -15,7 +15,8 @@ class Spoonfeed::SocialUpdatesController < ApplicationController
   private
 
   def fetch_updates
-    Rails.cache.fetch('social_updates') do
+    updates = Rails.cache.read('social_updates')
+    if updates.nil?
       alm_answers = ALaMinuteAnswer.from_premium_responders.all.map { |a| { :post => a.answer,
                                                                              :restaurant => a.restaurant,
                                                                              :created_at => a.created_at,
@@ -52,8 +53,10 @@ class Spoonfeed::SocialUpdatesController < ApplicationController
           next
         end
       end
-      SocialMerger.new(twitter_posts, facebook_posts, alm_answers).sorted_updates
+      updates = SocialMerger.new(twitter_posts, facebook_posts, alm_answers).sorted_updates
+      Rails.cache.write('social_updates', updates)
     end
+    return updates
   end
 
 end
