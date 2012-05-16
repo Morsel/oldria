@@ -6,9 +6,7 @@ class Spoonfeed::SocialUpdatesController < ApplicationController
   end
 
   def load_updates
-    Rails.cache.write('test1', "this is my test result")
     sorted_merge = fetch_updates
-    test_val = Rails.cache.read('test1')
 
     @updates = sorted_merge.paginate(:page => params[:page], :per_page => 10)
     render :partial => "updates"
@@ -26,36 +24,36 @@ class Spoonfeed::SocialUpdatesController < ApplicationController
                                                                             :source => "Spoonfeed" } }
 
       twitter_posts = []
-      # Restaurant.with_twitter.each do |r|
-      #   begin
-      #     r.twitter_client.user_timeline.each do |post|
-      #       twitter_posts << { :post => post.text,
-      #                          :restaurant => r,
-      #                          :created_at => Time.parse(post.created_at),
-      #                          :link => "http://twitter.com/#{r.twitter_username}/status/#{post.id}",
-      #                          :source => "Twitter" }
-      #     end
-      #   rescue Exception
-      #     next
-      #   end
-      # end
+      Restaurant.with_twitter.each do |r|
+        begin
+          r.twitter_client.user_timeline.each do |post|
+            twitter_posts << { :post => post.text,
+                               :restaurant => r,
+                               :created_at => Time.parse(post.created_at),
+                               :link => "http://twitter.com/#{r.twitter_username}/status/#{post.id}",
+                               :source => "Twitter" }
+          end
+        rescue Exception
+          next
+        end
+      end
 
       facebook_posts = []
-      # Restaurant.with_facebook_page.each do |r|
-      #   begin
-      #     r.facebook_page.posts.each do |post|
-      #       facebook_posts << { :post => post.message,
-      #                           :restaurant => r,
-      #                           :created_at => Time.parse(post.created_time),
-      #                           :source => "Facebook",
-      #                           :link => r.facebook_page_url }
-      #     end
-      #   rescue Mogli::Client::OAuthException, Mogli::Client::HTTPException
-      #     next
-      #   end
-      # end
+      Restaurant.with_facebook_page.each do |r|
+        begin
+          r.facebook_page.posts.each do |post|
+            facebook_posts << { :post => post.message,
+                                :restaurant => r,
+                                :created_at => Time.parse(post.created_time),
+                                :source => "Facebook",
+                                :link => r.facebook_page_url }
+          end
+        rescue Mogli::Client::OAuthException, Mogli::Client::HTTPException
+          next
+        end
+      end
 
-      SocialMerger.new(twitter_posts, facebook_posts, alm_answers).sorted_updates
+      SocialMerger.new(twitter_posts, facebook_posts, alm_answers).sorted_updates[0...1000]
     end
   end
 
