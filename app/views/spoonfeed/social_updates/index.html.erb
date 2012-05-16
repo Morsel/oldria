@@ -1,6 +1,6 @@
 <% title "Social" %>
 
-<%= link_to_remote "Reload updates", :update => "updates", :url => "/update_social?page=1", :loading => "$('#loading').show();", :complete => "$('#loading').hide();" %>
+<%#= link_to_remote "Reload updates", :update => "updates", :url => "/update_social?page=1", :loading => "$('#loading').show();", :complete => "$('#loading').hide();" %>
 
 <div id="loading" style="display: none;">
     Please wait while we load the latest updates <%= image_tag "ajax-loader.gif" %>
@@ -8,3 +8,15 @@
 
 <div id="updates">
 </div>
+
+<script type="text/javascript">
+  $(document).ready(function(){
+    $.ajax({
+      beforeSend:function(request){$('#loading').show();},
+      complete:function(request){$('#loading').hide();},
+      success:function(request){$('#updates').html(request);},
+      type:'post',
+      url:'/update_social?page = 1'
+    });
+  });
+</script>

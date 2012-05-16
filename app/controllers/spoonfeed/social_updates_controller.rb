@@ -53,7 +53,7 @@ class Spoonfeed::SocialUpdatesController < ApplicationController
         end
       end
 
-      SocialMerger.new(twitter_posts, facebook_posts, alm_answers).sorted_updates[0...1000]
+      SocialMerger.new(twitter_posts, facebook_posts, alm_answers).sorted_updates[0...1000] # limited so the results will fit in the cache
     end
   end
 
