@@ -1,0 +1,10 @@
+<% title "What's New: #{@trend_question.display_message}" %>
+
+<% for discussion in @discussions %>
+<% div_for discussion do %>
+    <%= render :partial => "restaurants/identity", :locals => { :restaurant => discussion.restaurant } %>
+	<p><%= simple_format discussion.comments.first.comment %></p>
+<% end %>
+<% end %>
+
+<%= will_paginate(@discussions) %>

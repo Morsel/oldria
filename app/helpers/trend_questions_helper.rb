@@ -1,0 +1,2 @@
+module TrendQuestionsHelper
+end

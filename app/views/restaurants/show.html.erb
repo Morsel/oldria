@@ -106,8 +106,9 @@
 
 		<% if ALaMinuteQuestion.current_inspiration.present? -%>
 		<div class="inspire clear">
-			<h4>Our Current Inspiration</h4>
-			<p class="inspireText"><%= @restaurant.a_la_minute_answers.for_question(ALaMinuteQuestion.current_inspiration).first(:order => "created_at DESC").try(:answer) %></p>
+			<h4>What's New</h4>
+			<p class="inspireText"><%= @trend_answer.discussionable.display_message %>: <%= @trend_answer.comments.first.comment %></p>
+			<p><%= link_to "See all", restaurant_trend_questions_path(:restaurant_id => @restaurant.id) %></p>
 		</div>
 		<% end -%>
 
