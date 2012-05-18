@@ -235,6 +235,8 @@ ActionController::Routing::Routes.draw do |map|
   map.user_qotds 'front_burner/user/:id', :controller => 'front_burner', :action => 'user_qotds'
   map.qotd 'front_burner/qotd/:id', :controller => 'front_burner', :action => 'qotd'
 
+  map.resources 'trend_questions', :only => 'show', :collection => { 'restaurant' => :get }
+
   map.resources :timelines, :collection => {
                               :people_you_follow => :get,
                               :twitter => :get,

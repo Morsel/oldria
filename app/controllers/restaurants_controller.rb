@@ -30,6 +30,7 @@ class RestaurantsController < ApplicationController
     @questions = ALaMinuteAnswer.public_profile_for(@restaurant)[0...3]
     @promotions = @restaurant.promotions.all(:order => "created_at DESC", :limit => 5)
     @menu_items = @restaurant.menu_items.all(:order => "created_at DESC", :limit => 3)
+    @trend_answer = @restaurant.admin_discussions.for_trends.with_replies.first(:order => "created_at DESC")
   end
 
   def edit
