@@ -292,16 +292,15 @@ class User < ActiveRecord::Base
   end
 
   def self.find_by_name(_name)
-    name_parts = _name.split(' ')
-    find_by_first_name_and_last_name(name_parts.shift, name_parts.pop)
+    find_all_by_name(_name).first
   end
 
   def self.find_all_by_name(_name)
     namearray = _name.split(" ")
     if namearray.length > 1
-      first_name_begins_with(namearray.first).last_name_begins_with(namearray.last)
+      first_name_like(namearray.first).last_name_like(namearray.last)
     else
-      first_name_or_last_name_begins_with(namearray.first)
+      first_name_or_last_name_like(namearray.first)
     end
   end
 
