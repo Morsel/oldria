@@ -7,10 +7,10 @@
     </div>
     <div class="user_comment">
         <%= render :partial => "restaurants/identity", :locals => { :restaurant => menu_item.restaurant } %>
-        <div class="user_comment"><%= truncate(menu_item.description, :length => 200) %>
-            <% if menu_item.description.size > 200 -%>
-                  <%= link_to "more &raquo;", restaurant_menu_items_path(menu_item.restaurant) %>
-            <%- end %>
+        <div class="user_comment"><%= menu_item.description %>
+            <%# if menu_item.description.size > 200 -%>
+                  <%#= link_to "more &raquo;", restaurant_menu_items_path(menu_item.restaurant) %>
+            <%#- end %>
         </div>
     </div>
 <% end %>

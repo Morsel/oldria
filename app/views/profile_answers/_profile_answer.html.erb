@@ -7,10 +7,10 @@
     </div>
     <div class="user_comment">
         <%= render :partial => "users/identity", :locals => { :user => profile_answer.user } if profile_answer.user %>
-        <div class="user_comment"><%= truncate(profile_answer.answer, :length => 200) %>
-            <% if profile_answer.answer.size > 200 -%>
-                  <%= link_to "more &raquo;", user_btl_chapter_path(:user_id => profile_answer.user.id, :id => profile_answer.profile_question.chapter.id, :anchor => "profile_question_#{profile_answer.profile_question.id}") %>
-            <%- end %>
+        <div class="user_comment"><%= profile_answer.answer %>
+            <%# if profile_answer.answer.size > 200 -%>
+                  <%#= link_to "more &raquo;", user_btl_chapter_path(:user_id => profile_answer.user.id, :id => profile_answer.profile_question.chapter.id, :anchor => "profile_question_#{profile_answer.profile_question.id}") %>
+            <%#- end %>
         </div>
     </div>
 <% end %>
