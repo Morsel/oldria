@@ -266,7 +266,7 @@ end
 When /^I browse to the the primary photo detail view$/ do
   @restaurant.reload
   within "#primary_photo" do
-    click_link "a"
+    click_link "Primary photo"
   end
 end
 

@@ -83,8 +83,8 @@ Feature: Restaurant profile
     And I attach the image "/features/images/bourgeoispig2.jpg" to "photo_attachment" on S3
     And I fill in "Xavier Zarope II" for "Credit"
     And I press "Upload"
-    When I go to the soapbox restaurant profile for "Piece"
-    And I follow "View all photos"
+    When I go to the restaurant show page for "Piece"
+    And I follow "See all photos"
     Then I should see the restaurant photo gallery
 
   Scenario: Display message about no photos available when photo gallery is empty
