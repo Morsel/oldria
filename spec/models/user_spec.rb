@@ -109,11 +109,6 @@ describe User do
       users.should_not include(@amy)
     end
 
-    it "should be able to find by name" do
-      user = Factory(:user, :first_name => "Hamburg", :last_name => "Erlang" )
-      User.find_by_name("Hamburg Erlang").should == user
-    end
-
     it "should be able to find all by name for autocompletion" do
       john = Factory(:user, :first_name => "John", :last_name => "Dorian" )
       joe = Factory(:user, :first_name => "Joe", :last_name => "Doe" )
@@ -121,6 +116,31 @@ describe User do
       found.should include(john)
       found.should include(joe)
     end
+
+    it "should handle multiple space-separated first or last names" do
+      mary_anne = Factory(:user, :first_name => "Mary Anne", :last_name => "Thygesen")
+      users = User.find_all_by_name("Mary Anne Thygesen")
+      users.should include(mary_anne)
+      laura = Factory(:user, :first_name => "Laura", :last_name => "Windt Collins")
+      users = User.find_all_by_name("Laura Windt Collins")
+      users.should include(laura)
+    end
+  end
+
+  context "searching with find_by_name" do
+
+    it "should be able to find by name" do
+      user = Factory(:user, :first_name => "Hamburg", :last_name => "Erlang" )
+      User.find_by_name("Hamburg Erlang").should == user
+    end
+
+    it "should handle multiple space-separated first or last names" do
+      mary_anne = Factory(:user, :first_name => "Mary Anne", :last_name => "Thygesen")
+      User.find_by_name("Mary Anne Thygesen").should == mary_anne
+      laura = Factory(:user, :first_name => "Laura", :last_name => "Windt Collins")
+      User.find_by_name("Laura Windt Collins").should == laura
+    end
+
   end
 
   context "following" do

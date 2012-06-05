@@ -24,15 +24,4 @@
             Region: <%=h @restaurant.james_beard_region.try(:name) %>
         </p>
     </div><!-- /restaurant_meta -->
-
-    <% unless @restaurant.restaurant_features.blank? -%>
-    <div id="restaurant_features" class="clear clearfix">
-        <span>Learn more about this restaurant: </span>
-        <ul class="tags clearfix">
-            <% @restaurant.feature_pages.each do |page| -%>
-            <li><%= link_to page.name, restaurant_feature_page_link(@restaurant, page) %></li>
-            <% end -%>
-        </ul>
-    </div><!-- /restaurant_features -->
-    <% end -%>
 </header>

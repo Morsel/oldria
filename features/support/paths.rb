@@ -93,6 +93,8 @@ module NavigationHelpers
       edit_restaurant_path(Restaurant.find_by_name($1))
     when /the restaurant show page for "(.+)"$/
       restaurant_path(Restaurant.find_by_name($1))
+    when /the restaurant feature page for "(.+)" and "(.+)"/
+      restaurant_feature_page_path(Restaurant.find_by_name($1), RestaurantFeaturePage.find_by_name($2))
     when /the restaurant feature page for "(.+)"/
       restaurant_features_path(Restaurant.find_by_name($1))
     when /^the restaurant menu upload page for (.+)$/

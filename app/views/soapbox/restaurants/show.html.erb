@@ -6,12 +6,8 @@
   <div class="media clear clearfix">
 
     <div id="primary_photo" class="photos">
-      <h2>Photos</h2>
       <% if @restaurant.photos.any? -%>
-        <small><%= link_to 'View all photos&nbsp;&#187;', correct_restaurant_photos_path(@restaurant) %></small>
-        <%= link_to image_tag(@restaurant.primary_photo.attachment.url(:medium), :alt => ''), correct_restaurant_photos_path(@restaurant) %>
-      <% else -%>
-        <p>There are no photos for this restaurant yet.</p>
+        <%= link_to image_tag(@restaurant.primary_photo.attachment.url(:medium), :alt => 'Primary photo'), correct_restaurant_photos_path(@restaurant) %>
       <% end -%>
     </div><!-- .photos -->
 
@@ -19,7 +15,7 @@
       <h2>Menus</h2>
       <% if @restaurant.menus.any? -%>
         <ul>
-          <%= render :partial => 'menus/menu', :collection => @restaurant.menus.by_position %>
+          <%= render :partial => 'menus/menu', :collection => @restaurant.menus.by_position.all(:limit => 3) %>
         </ul>
       <% else -%>
         <p>There are no menus available at this time.</p>

@@ -11,10 +11,10 @@
     <div class="user_comment">
         <%= render :partial => "restaurants/identity", :locals => { :restaurant => promotion.restaurant } %>
         <div class="user_comment">
-            <%= Loofah::Helpers.sanitize(truncate(promotion.details, :length => 200)) %>
-            <% if promotion.details.size > 200 -%>
-                  <%= link_to "more &raquo;", restaurant_promotions_path(promotion.restaurant) %>
-            <%- end %>
+            <%= Loofah::Helpers.sanitize(promotion.details) %>
+            <%# if promotion.details.size > 200 -%>
+                  <%#= link_to "more &raquo;", restaurant_promotions_path(promotion.restaurant) %>
+            <%#- end %>
         </div>
     </div>
 <% end %>
