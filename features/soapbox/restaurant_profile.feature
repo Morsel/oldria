@@ -72,25 +72,25 @@ Feature: Restaurant profile
     Then I should see the primary photo detail view
     And I should see "Xavier Zarope"
 
-  Scenario: Show photo gallery
-    When I go to the restaurant photo upload page for Piece
-    And I attach the image "/features/images/bourgeoispig.jpg" to "photo_attachment" on S3
-    And I fill in "Xavier Zarope" for "Credit"
-    And I press "Upload"
-    And I attach the image "/features/images/bourgeoispig1.jpg" to "photo_attachment" on S3
-    And I fill in "Xavier Zarope I" for "Credit"
-    And I press "Upload"
-    And I attach the image "/features/images/bourgeoispig2.jpg" to "photo_attachment" on S3
-    And I fill in "Xavier Zarope II" for "Credit"
-    And I press "Upload"
-    When I go to the restaurant show page for "Piece"
-    And I follow "See all photos"
-    Then I should see the restaurant photo gallery
+  # Scenario: Show photo gallery
+  #   When I go to the restaurant photo upload page for Piece
+  #   And I attach the image "/features/images/bourgeoispig.jpg" to "photo_attachment" on S3
+  #   And I fill in "Xavier Zarope" for "Credit"
+  #   And I press "Upload"
+  #   And I attach the image "/features/images/bourgeoispig1.jpg" to "photo_attachment" on S3
+  #   And I fill in "Xavier Zarope I" for "Credit"
+  #   And I press "Upload"
+  #   And I attach the image "/features/images/bourgeoispig2.jpg" to "photo_attachment" on S3
+  #   And I fill in "Xavier Zarope II" for "Credit"
+  #   And I press "Upload"
+  #   When I go to the soapbox restaurant profile for "Piece"
+  #   And I follow "See all photos"
+  #   Then I should see the restaurant photo gallery
 
-  Scenario: Display message about no photos available when photo gallery is empty
-    When I go to the soapbox restaurant profile for "Piece"
-    Then I should not see any photos
-    And I should see "There are no photos for this restaurant yet."
+  # Scenario: Display message about no photos available when photo gallery is empty
+  #   When I go to the soapbox restaurant profile for "Piece"
+  #   Then I should not see any photos
+  #   And I should see "There are no photos for this restaurant yet."
 
   Scenario: Show the public A La Minute Answers
     And "Piece" has answered the following A La Minute questions:
