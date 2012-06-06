@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120316173800) do
+ActiveRecord::Schema.define(:version => 20120605234321) do
 
   create_table "a_la_minute_answers", :force => true do |t|
     t.text     "answer"
@@ -791,6 +791,7 @@ ActiveRecord::Schema.define(:version => 20120316173800) do
     t.integer  "attachment_file_size"
     t.datetime "attachment_updated_at"
     t.string   "headline"
+    t.datetime "post_to_twitter_at"
   end
 
   create_table "question_pages", :force => true do |t|

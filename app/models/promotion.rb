@@ -1,5 +1,4 @@
 # == Schema Information
-# Schema version: 20120217190417
 #
 # Table name: promotions
 #
@@ -18,6 +17,7 @@
 #  attachment_file_size    :integer
 #  attachment_updated_at   :datetime
 #  headline                :string(255)
+#  post_to_twitter_at      :datetime
 #
 
 # Restaurant events and promotions
@@ -81,7 +81,7 @@ class Promotion < ActiveRecord::Base
     { :conditions => { :promotion_type_id => type_id } }
   }
 
-  attr_accessor :post_to_twitter, :post_to_facebook_page
+  attr_accessor :post_to_facebook_page
   after_create :crosspost
 
   def title
@@ -118,8 +118,8 @@ class Promotion < ActiveRecord::Base
   private
 
   def crosspost
-    if post_to_twitter == "1"
-      restaurant.twitter_client.send_later(:update, "#{truncate(headline, :length => 120)} #{self.bitly_link}")
+    if post_to_twitter_at.present?
+      restaurant.twitter_client.send_at(post_to_twitter_at, :update, "#{truncate(headline, :length => 120)} #{self.bitly_link}")
     end
     if post_to_facebook_page == "1"
       post_attributes = { :message     => "Newsfeed: #{title}",
