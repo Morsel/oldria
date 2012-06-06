@@ -339,8 +339,8 @@ class User < ActiveRecord::Base
 
   # Facebook !!!
 
-  def connect_to_facebook_user(fb_id)
-    update_attributes(:facebook_id => fb_id)
+  def connect_to_facebook_user(fb_id, expiration)
+    update_attributes(:facebook_id => fb_id, :facebook_token_expiration => expiration)
   end
 
   def facebook_authorized?

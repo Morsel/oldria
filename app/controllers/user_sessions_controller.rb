@@ -15,6 +15,7 @@ class UserSessionsController < ApplicationController
   def create_from_facebook
     user = User.find_by_facebook_id(current_facebook_user.id)
     if user
+      user.update_attribute(:facebook_token_expiration, current_facebook_user.client.expiration)
       if user.facebook_access_token != current_facebook_user.client.access_token
         user.update_attribute(:facebook_access_token, current_facebook_user.client.access_token)
       end

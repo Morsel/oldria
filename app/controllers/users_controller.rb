@@ -146,7 +146,7 @@ class UsersController < ApplicationController
 
   def fb_connect
     if current_facebook_user
-      @user.connect_to_facebook_user(current_facebook_user.id)
+      @user.connect_to_facebook_user(current_facebook_user.id, current_facebook_user.client.expiration)
       if @user.facebook_access_token != current_facebook_user.client.access_token
         @user.update_attribute(:facebook_access_token, current_facebook_user.client.access_token)
       end
