@@ -81,7 +81,6 @@ class Promotion < ActiveRecord::Base
     { :conditions => { :promotion_type_id => type_id } }
   }
 
-  attr_accessor :post_to_facebook_page
   after_create :crosspost
 
   def title
@@ -121,12 +120,12 @@ class Promotion < ActiveRecord::Base
     if post_to_twitter_at.present?
       restaurant.twitter_client.send_at(post_to_twitter_at, :update, "#{truncate(headline, :length => 120)} #{self.bitly_link}")
     end
-    if post_to_facebook_page == "1"
+    if post_to_facebook_at.present?
       post_attributes = { :message     => "Newsfeed: #{title}",
                           :link        => soapbox_promotion_url(self),
                           :name        => headline,
                           :description => details }
-      restaurant.send_later(:post_to_facebook_page, post_attributes)
+      restaurant.send_at(post_to_facebook_at, :post_to_facebook_page, post_attributes)
     end
   end
 

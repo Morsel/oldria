@@ -11,7 +11,7 @@ class PromotionsController < ApplicationController
 
   def new
     @promotions = @restaurant.promotions.all(:order => "created_at DESC")
-    @promotion = Promotion.new(:post_to_twitter_at => Time.now)
+    @promotion = Promotion.new(:post_to_twitter_at => Time.now, :post_to_facebook_at => Time.now)
   end
 
   def create

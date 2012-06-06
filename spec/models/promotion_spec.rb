@@ -28,5 +28,11 @@ describe Promotion do
     Promotion.create(@valid_attributes.merge(:post_to_twitter_at => (Time.now + 5.hours)))
   end
 
+  it "should schedule a crosspost to Facebook" do
+    Promotion.any_instance.stubs(:restaurant).returns(@restaurant)
+    @restaurant.expects(:send_at).returns(true)
+    Promotion.create(@valid_attributes.merge(:post_to_facebook_at => (Time.now + 5.hours)))
+  end
+
 end
 

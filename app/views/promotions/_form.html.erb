@@ -21,13 +21,14 @@
 
         <% if promotion.new_record? -%>
         <% if @restaurant.twitter_authorized? -%>
-          <%= f.input :post_to_twitter_at, :label => "Post to my Twitter account on", :start_year => Date.today.year %>
+          <%= f.input :post_to_twitter_at, :label => "Post to my Twitter account on", :start_year => Date.today.year, :end_year => 1.year.from_now.year %>
         <% else %>
           <p>Hook up your Twitter account to autopost this content to your social streams.</p>
         <% end %>
         <% if @restaurant.has_facebook_page? %>
           <% begin %>
-          <%= f.input :post_to_facebook_page, :as => "boolean", :label => "Post to Facebook page \"#{@restaurant.facebook_page.fetch.name}\"", :input_html => { :checked => "checked" } %>
+          <%= f.input :post_to_facebook_at, :label => "Post to Facebook page \"#{@restaurant.facebook_page.fetch.name}\" on", :start_year => Date.today.year, :end_year => 1.year.from_now.year %>
+          <p>Schedule posts before <%= current_user.facebook_token_expiration.to_formatted_s(:long) %>.</p>
           <% rescue Mogli::Client::OAuthException, Mogli::Client::HTTPException %>
           <p>Your Facebook page access has expired. Please reconnect your account on your restaurant profile page.</p>
           <% end %>
