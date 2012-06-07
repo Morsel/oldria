@@ -49,7 +49,6 @@ class MenuItem < ActiveRecord::Base
           Date.today] }
   }
 
-  attr_accessor :post_to_facebook_page
   after_create :crosspost
 
   def keywords
@@ -90,7 +89,7 @@ class MenuItem < ActiveRecord::Base
                         :name        => name,
                         :description => Loofah::Helpers.strip_tags(description),
                         :picture     => picture_url }
-    restaurant.send_later(:post_to_facebook_page, post_attributes)
+    restaurant.send_at(post_to_facebook_at, :post_to_facebook_page, post_attributes)
   end
 
   private
@@ -99,7 +98,7 @@ class MenuItem < ActiveRecord::Base
     if post_to_twitter_at.present? && restaurant.twitter_authorized?
       restaurant.twitter_client.send_at(post_to_twitter_at, :update, "#{truncate(name, :length => 120)} #{self.bitly_link}")
     end
-    if post_to_facebook_page == "1" && restaurant.has_facebook_page?
+    if post_to_facebook_at.present? && restaurant.has_facebook_page?
       queue_for_facebook_page
     end
   end
