@@ -75,4 +75,13 @@ describe ALaMinuteAnswer do
       ALaMinuteAnswer.archived_for(q1).should == [ans_1, ans_3, ans_2]
     end
   end
+
+  it "should schedule a crosspost to Twitter" do
+    ALaMinuteAnswer.any_instance.stubs(:responder).returns(@responder)
+    twitter_client = mock
+    @responder.stubs(:twitter_client).returns(twitter_client)
+    twitter_client.expects(:send_at).returns(true)
+    ALaMinuteAnswer.create(@valid_attributes.merge(:post_to_twitter_at => (Time.now + 5.hours)))
+  end
+
 end
