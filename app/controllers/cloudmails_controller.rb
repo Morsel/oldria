@@ -96,7 +96,7 @@ class CloudmailsController < ApplicationController
                              :description   => message_body,
                              :price         => price,
                              :restaurant_id => restaurant.id,
-                             :post_to_twitter => "1",
+                             :post_to_twitter_at => Time.now,
                              :post_to_facebook_page => "1" }
     menu_item = if params.has_key?(:attachments)
       menu_item_attributes.merge!(:photo_url => params[:attachments]['0'][:url])
