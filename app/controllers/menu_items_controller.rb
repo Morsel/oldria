@@ -10,7 +10,7 @@ class MenuItemsController < ApplicationController
   end
 
   def new
-    @menu_item = MenuItem.new
+    @menu_item = MenuItem.new(:post_to_twitter_at => Time.now)
     @categories = OtmKeyword.all(:order => "category ASC, name ASC").group_by(&:category)
   end
 

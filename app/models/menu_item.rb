@@ -1,5 +1,4 @@
 # == Schema Information
-# Schema version: 20120217190417
 #
 # Table name: menu_items
 #
@@ -15,6 +14,7 @@
 #  photo_file_size    :integer
 #  photo_updated_at   :datetime
 #  pairing            :string(255)
+#  post_to_twitter_at :datetime
 #
 
 class MenuItem < ActiveRecord::Base
@@ -49,7 +49,7 @@ class MenuItem < ActiveRecord::Base
           Date.today] }
   }
 
-  attr_accessor :post_to_twitter, :post_to_facebook_page
+  attr_accessor :post_to_facebook_page
   after_create :crosspost
 
   def keywords
@@ -96,8 +96,8 @@ class MenuItem < ActiveRecord::Base
   private
 
   def crosspost
-    if post_to_twitter == "1" && restaurant.twitter_authorized?
-      restaurant.twitter_client.send_later(:update, "#{truncate(name, :length => 120)} #{self.bitly_link}")
+    if post_to_twitter_at.present? && restaurant.twitter_authorized?
+      restaurant.twitter_client.send_at(post_to_twitter_at, :update, "#{truncate(name, :length => 120)} #{self.bitly_link}")
     end
     if post_to_facebook_page == "1" && restaurant.has_facebook_page?
       queue_for_facebook_page

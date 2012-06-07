@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120606184648) do
+ActiveRecord::Schema.define(:version => 20120607161114) do
 
   create_table "a_la_minute_answers", :force => true do |t|
     t.text     "answer"
@@ -592,6 +592,7 @@ ActiveRecord::Schema.define(:version => 20120606184648) do
     t.integer  "photo_file_size"
     t.datetime "photo_updated_at"
     t.string   "pairing"
+    t.datetime "post_to_twitter_at"
   end
 
   create_table "menus", :force => true do |t|

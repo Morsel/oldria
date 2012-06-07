@@ -18,6 +18,7 @@
 #  attachment_updated_at   :datetime
 #  headline                :string(255)
 #  post_to_twitter_at      :datetime
+#  post_to_facebook_at     :datetime
 #
 
 # Restaurant events and promotions
