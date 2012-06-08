@@ -20,6 +20,7 @@ class PromotionsController < ApplicationController
       flash[:notice] = "Your promotion has been created"
       redirect_to :action => "new"
     else
+      flash[:error] = "Your promotion could not be saved. Please review the errors below."
       render :action => "edit"
     end
   end
@@ -34,6 +35,7 @@ class PromotionsController < ApplicationController
       flash[:notice] = "Your promotion has been updated"
       redirect_to :action => "new"
     else
+      flash[:error] = "Your promotion could not be saved. Please review the errors below."
       render :action => "edit"
     end
   end
