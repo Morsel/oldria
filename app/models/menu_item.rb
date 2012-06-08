@@ -2,19 +2,20 @@
 #
 # Table name: menu_items
 #
-#  id                 :integer         not null, primary key
-#  name               :string(255)
-#  description        :text
-#  price              :string(255)
-#  created_at         :datetime
-#  updated_at         :datetime
-#  restaurant_id      :integer
-#  photo_file_name    :string(255)
-#  photo_content_type :string(255)
-#  photo_file_size    :integer
-#  photo_updated_at   :datetime
-#  pairing            :string(255)
-#  post_to_twitter_at :datetime
+#  id                  :integer         not null, primary key
+#  name                :string(255)
+#  description         :text
+#  price               :string(255)
+#  created_at          :datetime
+#  updated_at          :datetime
+#  restaurant_id       :integer
+#  photo_file_name     :string(255)
+#  photo_content_type  :string(255)
+#  photo_file_size     :integer
+#  photo_updated_at    :datetime
+#  pairing             :string(255)
+#  post_to_twitter_at  :datetime
+#  post_to_facebook_at :datetime
 #
 
 class MenuItem < ActiveRecord::Base

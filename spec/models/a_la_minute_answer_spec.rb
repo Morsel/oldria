@@ -84,4 +84,10 @@ describe ALaMinuteAnswer do
     ALaMinuteAnswer.create(@valid_attributes.merge(:post_to_twitter_at => (Time.now + 5.hours)))
   end
 
+  it "should schedule a crosspost to Facebook" do
+    ALaMinuteAnswer.any_instance.stubs(:responder).returns(@responder)
+    @responder.expects(:send_at).returns(true)
+    ALaMinuteAnswer.create(@valid_attributes.merge(:post_to_facebook_at => (Time.now + 5.hours)))
+  end
+
 end
