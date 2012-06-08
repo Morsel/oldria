@@ -25,15 +25,18 @@
                 <%= label_tag "a_la_minute_questions_#{question.id}_show_as_public", "Show on Soapbox profile?", :class => 'inline' %>
 
                 <% if @restaurant.twitter_authorized? -%>
-                <%= check_box_tag "a_la_minute_questions[#{question.id}][post_to_twitter]", "1", true, :class => "show_as_public_toggle" %>
-                <%= label_tag "a_la_minute_questions_#{question.id}_post_to_twitter", "Post to Twitter?", :class => 'inline' %>
+                <p>
+                    <%= label_tag "a_la_minute_questions_#{question.id}_post_to_twitter_at", "Post to Twitter on", :class => 'inline' %>
+                    <%= select_datetime Time.now, :prefix => "a_la_minute_questions[#{question.id}][post_to_twitter_at]" %>
+                </p>
                 <% else -%>
                 <p>Hook up your Twitter account to autopost this content to your social streams.</p>
                 <% end -%>
 
                 <% if @restaurant.has_facebook_page? -%>
-                <%= check_box_tag "a_la_minute_questions[#{question.id}][post_to_facebook_page]", "1", true, :class => "show_as_public_toggle" %>
-                <%= label_tag "a_la_minute_questions_#{question.id}_post_to_facebook_page", "Post to Facebook page?", :class => 'inline' %>
+                <p>
+                    <%= label_tag "a_la_minute_questions_#{question.id}_post_to_facebook_at", "Post to Facebook on", :class => 'inline' %>
+                    <%= select_datetime Time.now, :prefix => "a_la_minute_questions[#{question.id}][post_to_facebook_at]" %>
                 <% else -%>
                 <p>Hook up your Facebook account to autopost this content to your social streams.</p>
                 <% end -%>

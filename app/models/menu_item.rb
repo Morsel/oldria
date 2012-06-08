@@ -1,20 +1,21 @@
 # == Schema Information
-# Schema version: 20120217190417
 #
 # Table name: menu_items
 #
-#  id                 :integer         not null, primary key
-#  name               :string(255)
-#  description        :text
-#  price              :string(255)
-#  created_at         :datetime
-#  updated_at         :datetime
-#  restaurant_id      :integer
-#  photo_file_name    :string(255)
-#  photo_content_type :string(255)
-#  photo_file_size    :integer
-#  photo_updated_at   :datetime
-#  pairing            :string(255)
+#  id                  :integer         not null, primary key
+#  name                :string(255)
+#  description         :text
+#  price               :string(255)
+#  created_at          :datetime
+#  updated_at          :datetime
+#  restaurant_id       :integer
+#  photo_file_name     :string(255)
+#  photo_content_type  :string(255)
+#  photo_file_size     :integer
+#  photo_updated_at    :datetime
+#  pairing             :string(255)
+#  post_to_twitter_at  :datetime
+#  post_to_facebook_at :datetime
 #
 
 class MenuItem < ActiveRecord::Base
@@ -49,7 +50,6 @@ class MenuItem < ActiveRecord::Base
           Date.today] }
   }
 
-  attr_accessor :post_to_twitter, :post_to_facebook_page
   after_create :crosspost
 
   def keywords
@@ -90,16 +90,16 @@ class MenuItem < ActiveRecord::Base
                         :name        => name,
                         :description => Loofah::Helpers.strip_tags(description),
                         :picture     => picture_url }
-    restaurant.send_later(:post_to_facebook_page, post_attributes)
+    restaurant.send_at(post_to_facebook_at, :post_to_facebook_page, post_attributes)
   end
 
   private
 
   def crosspost
-    if post_to_twitter == "1" && restaurant.twitter_authorized?
-      restaurant.twitter_client.send_later(:update, "#{truncate(name, :length => 120)} #{self.bitly_link}")
+    if post_to_twitter_at.present? && restaurant.twitter_authorized?
+      restaurant.twitter_client.send_at(post_to_twitter_at, :update, "#{truncate(name, :length => 120)} #{self.bitly_link}")
     end
-    if post_to_facebook_page == "1" && restaurant.has_facebook_page?
+    if post_to_facebook_at.present? && restaurant.has_facebook_page?
       queue_for_facebook_page
     end
   end
