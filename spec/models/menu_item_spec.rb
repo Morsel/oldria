@@ -18,9 +18,19 @@ describe MenuItem do
     MenuItem.create(@valid_attributes.merge(:post_to_twitter_at => (Time.now + 5.hours)))
   end
 
+  it "should not crosspost to Twitter when no crosspost flag is set" do
+    @restaurant.expects(:twitter_client).never
+    MenuItem.create(@valid_attributes.merge(:post_to_twitter_at => Time.now, :no_twitter_crosspost => "1"))
+  end
+
   it "should schedule a crosspost to Facebook" do
     @restaurant.expects(:send_at).returns(true)
     MenuItem.create(@valid_attributes.merge(:post_to_facebook_at => (Time.now + 5.hours)))
+  end
+
+  it "should not crosspost to Facebook when no crosspost flag is set" do
+    @restaurant.expects(:send_at).never
+    MenuItem.create(@valid_attributes.merge(:post_to_facebook_at => Time.now, :no_fb_crosspost => "1"))
   end
 
 end
