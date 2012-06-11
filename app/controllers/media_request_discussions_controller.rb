@@ -38,7 +38,7 @@ class MediaRequestDiscussionsController < ApplicationController
 
   def build_comment
     @comment = @media_request_discussion.comments.build
-    @comment.attachments.build
+    5.times { @comment.attachments.build }
     @comment.user = current_user
     @comment_resource = [@media_request_discussion, @comment]
   end
