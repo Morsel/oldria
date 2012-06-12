@@ -38,6 +38,7 @@ class ALaMinuteAnswer < ActiveRecord::Base
     }
   }
 
+  attr_accessor :no_twitter_crosspost, :no_fb_crosspost
   after_create :crosspost
 
   def self.newest_for(obj)
@@ -85,10 +86,13 @@ class ALaMinuteAnswer < ActiveRecord::Base
   private
 
   def crosspost
-    if post_to_twitter_at.present?
+    update_attribute(:post_to_twitter_at, nil) if no_twitter_crosspost == "1"
+    if post_to_twitter_at.present? && responder.twitter_authorized?
       responder.twitter_client.send_at(post_to_twitter_at, :update, "#{truncate(answer, :length => 120)} #{self.bitly_link}")
     end
-    if post_to_facebook_at.present?
+
+    update_attribute(:post_to_facebook_at, nil) if no_fb_crosspost == "1"
+    if post_to_facebook_at.present? && responder.has_facebook_page?
       post_attributes = { :message     => answer,
                           :link        => soapbox_a_la_minute_answer_url(self),
                           :name        => question,

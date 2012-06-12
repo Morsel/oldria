@@ -76,18 +76,35 @@ describe ALaMinuteAnswer do
     end
   end
 
-  it "should schedule a crosspost to Twitter" do
-    ALaMinuteAnswer.any_instance.stubs(:responder).returns(@responder)
-    twitter_client = mock
-    @responder.stubs(:twitter_client).returns(twitter_client)
-    twitter_client.expects(:send_at).returns(true)
-    ALaMinuteAnswer.create(@valid_attributes.merge(:post_to_twitter_at => (Time.now + 5.hours)))
-  end
+  describe "crossposting on create" do
 
-  it "should schedule a crosspost to Facebook" do
-    ALaMinuteAnswer.any_instance.stubs(:responder).returns(@responder)
-    @responder.expects(:send_at).returns(true)
-    ALaMinuteAnswer.create(@valid_attributes.merge(:post_to_facebook_at => (Time.now + 5.hours)))
+    before(:each) do
+      @responder = Factory(:restaurant, :atoken => "asdfgh", :asecret => "1234567", :facebook_page_id => "987987213", :facebook_page_token => "kljas987as")
+      ALaMinuteAnswer.any_instance.stubs(:responder).returns(@responder)
+    end
+
+    it "should schedule a crosspost to Twitter" do
+      twitter_client = mock
+      @responder.stubs(:twitter_client).returns(twitter_client)
+      twitter_client.expects(:send_at).returns(true)
+      ALaMinuteAnswer.create(@valid_attributes.merge(:post_to_twitter_at => (Time.now + 5.hours)))
+    end
+
+    it "should not crosspost to Twitter when no crosspost flag is set" do
+      @responder.expects(:twitter_client).never
+      ALaMinuteAnswer.create(@valid_attributes.merge(:post_to_twitter_at => Time.now, :no_twitter_crosspost => "1"))
+    end
+
+    it "should schedule a crosspost to Facebook" do
+      @responder.expects(:send_at).returns(true)
+      ALaMinuteAnswer.create(@valid_attributes.merge(:post_to_facebook_at => (Time.now + 5.hours)))
+    end
+
+    it "should not crosspost to Facebook when no crosspost flag is set" do
+      @responder.expects(:send_at).never
+      ALaMinuteAnswer.create(@valid_attributes.merge(:post_to_facebook_at => Time.now, :no_fb_crosspost => "1"))
+    end
+
   end
 
 end
