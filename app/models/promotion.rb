@@ -82,6 +82,7 @@ class Promotion < ActiveRecord::Base
     { :conditions => { :promotion_type_id => type_id } }
   }
 
+  attr_accessor :no_twitter_crosspost, :no_fb_crosspost
   after_create :crosspost
 
   def title
@@ -118,10 +119,13 @@ class Promotion < ActiveRecord::Base
   private
 
   def crosspost
-    if post_to_twitter_at.present?
+    update_attribute(:post_to_twitter_at, nil) if no_twitter_crosspost == "1"
+    if post_to_twitter_at.present? && restaurant.twitter_authorized?
       restaurant.twitter_client.send_at(post_to_twitter_at, :update, "#{truncate(headline, :length => 120)} #{self.bitly_link}")
     end
-    if post_to_facebook_at.present?
+
+    update_attribute(:post_to_facebook_at, nil) if no_fb_crosspost == "1"
+    if post_to_facebook_at.present? && restaurant.has_facebook_page?
       post_attributes = { :message     => "Newsfeed: #{title}",
                           :link        => soapbox_promotion_url(self),
                           :name        => headline,
