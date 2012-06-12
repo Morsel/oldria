@@ -50,6 +50,11 @@
                 <p>Hook up your Facebook account to autopost this content to your social streams.</p>
                 <% end -%>
               <% end -%>
+
+              <div class="clearfix">
+                  <%= button_tag "Post", :class => 'positive' %>
+              </div>
+
               <%= link_to 'View past answers', "#a_la_minute_answers_#{question.id}", :class => 'show_all_link showit' %>
               <ul class="archive" id="a_la_minute_answers_<%= question.id %>">
                 <% @restaurant.a_la_minute_answers.for_question(question).each_with_index do |archived_answer, index| %>
@@ -65,10 +70,8 @@
               
             </fieldset>
 
-            
         <% end %>
 
-        <%= button_tag "Change Answers", :class => 'positive' %>
       <% end %>
     </div>
   </div><!-- /editing_restaurant -->
