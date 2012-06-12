@@ -80,12 +80,12 @@ Feature: Admin Messaging
     Given I am logged in as "johndoe"
     And "johndoe" has a PR Tip message with:
       | message      | This is a scheduled message |
-      | scheduled_at | 2012-06-04 11:30:00         |
+      | scheduled_at | 2022-06-04 11:30:00         |
     When I go to my inbox
     Then I should not see "PR Tip"
     And I should not see "This is a scheduled message"
 
-    When the date and time is "2012-06-04 11:45:00"
+    When the date and time is "2022-06-04 11:45:00"
     And I go to my inbox
     Then I should see "This is a scheduled message"
 
@@ -93,12 +93,12 @@ Feature: Admin Messaging
     Given I am logged in as "johndoe"
     And "johndoe" has a QOTD message with:
       | message      | This is a QOTD      |
-      | scheduled_at | 2012-06-04 11:30:00 |
+      | scheduled_at | 2022-06-04 11:30:00 |
     When I go to the front burner page
     Then I should not see "Question of the Day"
     And I should not see "This is a QOTD"
 
-    When the date and time is "2012-06-04 11:45:00"
+    When the date and time is "2022-06-04 11:45:00"
     When I go to the front burner page
     Then I should see "This is a QOTD"
 

@@ -11,7 +11,7 @@ class PromotionsController < ApplicationController
 
   def new
     @promotions = @restaurant.promotions.all(:order => "created_at DESC")
-    @promotion = Promotion.new
+    @promotion = Promotion.new(:post_to_twitter_at => Time.now, :post_to_facebook_at => Time.now)
   end
 
   def create
@@ -20,6 +20,7 @@ class PromotionsController < ApplicationController
       flash[:notice] = "Your promotion has been created"
       redirect_to :action => "new"
     else
+      flash[:error] = "Your promotion could not be saved. Please review the errors below."
       render :action => "edit"
     end
   end
@@ -34,6 +35,7 @@ class PromotionsController < ApplicationController
       flash[:notice] = "Your promotion has been updated"
       redirect_to :action => "new"
     else
+      flash[:error] = "Your promotion could not be saved. Please review the errors below."
       render :action => "edit"
     end
   end

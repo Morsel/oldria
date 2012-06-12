@@ -1,5 +1,4 @@
 # == Schema Information
-# Schema version: 20120217190417
 #
 # Table name: promotions
 #
@@ -18,6 +17,8 @@
 #  attachment_file_size    :integer
 #  attachment_updated_at   :datetime
 #  headline                :string(255)
+#  post_to_twitter_at      :datetime
+#  post_to_facebook_at     :datetime
 #
 
 # Restaurant events and promotions
@@ -81,7 +82,7 @@ class Promotion < ActiveRecord::Base
     { :conditions => { :promotion_type_id => type_id } }
   }
 
-  attr_accessor :post_to_twitter, :post_to_facebook_page
+  attr_accessor :no_twitter_crosspost, :no_fb_crosspost
   after_create :crosspost
 
   def title
@@ -118,15 +119,18 @@ class Promotion < ActiveRecord::Base
   private
 
   def crosspost
-    if post_to_twitter == "1"
-      restaurant.twitter_client.send_later(:update, "#{truncate(headline, :length => 120)} #{self.bitly_link}")
+    update_attribute(:post_to_twitter_at, nil) if no_twitter_crosspost == "1"
+    if post_to_twitter_at.present? && restaurant.twitter_authorized?
+      restaurant.twitter_client.send_at(post_to_twitter_at, :update, "#{truncate(headline, :length => 120)} #{self.bitly_link}")
     end
-    if post_to_facebook_page == "1"
+
+    update_attribute(:post_to_facebook_at, nil) if no_fb_crosspost == "1"
+    if post_to_facebook_at.present? && restaurant.has_facebook_page?
       post_attributes = { :message     => "Newsfeed: #{title}",
                           :link        => soapbox_promotion_url(self),
                           :name        => headline,
                           :description => details }
-      restaurant.send_later(:post_to_facebook_page, post_attributes)
+      restaurant.send_at(post_to_facebook_at, :post_to_facebook_page, post_attributes)
     end
   end
 

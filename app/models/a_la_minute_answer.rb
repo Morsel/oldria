@@ -1,5 +1,4 @@
 # == Schema Information
-# Schema version: 20120217190417
 #
 # Table name: a_la_minute_answers
 #
@@ -11,6 +10,7 @@
 #  created_at              :datetime
 #  updated_at              :datetime
 #  show_as_public          :boolean
+#  post_to_twitter_at      :datetime
 #
 
 class ALaMinuteAnswer < ActiveRecord::Base
@@ -38,7 +38,7 @@ class ALaMinuteAnswer < ActiveRecord::Base
     }
   }
 
-  attr_accessor :post_to_twitter, :post_to_facebook_page
+  attr_accessor :no_twitter_crosspost, :no_fb_crosspost
   after_create :crosspost
 
   def self.newest_for(obj)
@@ -86,15 +86,18 @@ class ALaMinuteAnswer < ActiveRecord::Base
   private
 
   def crosspost
-    if post_to_twitter == "1"
-      responder.twitter_client.send_later(:update, "#{truncate(answer, :length => 120)} #{self.bitly_link}")
+    update_attribute(:post_to_twitter_at, nil) if no_twitter_crosspost == "1"
+    if post_to_twitter_at.present? && responder.twitter_authorized?
+      responder.twitter_client.send_at(post_to_twitter_at, :update, "#{truncate(answer, :length => 120)} #{self.bitly_link}")
     end
-    if post_to_facebook_page == "1"
+
+    update_attribute(:post_to_facebook_at, nil) if no_fb_crosspost == "1"
+    if post_to_facebook_at.present? && responder.has_facebook_page?
       post_attributes = { :message     => answer,
                           :link        => soapbox_a_la_minute_answer_url(self),
                           :name        => question,
                           :description => answer }
-      responder.send_later(:post_to_facebook_page, post_attributes)
+      responder.send_at(post_to_facebook_at, :post_to_facebook_page, post_attributes)
     end
   end
 

@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120316173800) do
+ActiveRecord::Schema.define(:version => 20120608164811) do
 
   create_table "a_la_minute_answers", :force => true do |t|
     t.text     "answer"
@@ -19,6 +19,8 @@ ActiveRecord::Schema.define(:version => 20120316173800) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "show_as_public"
+    t.datetime "post_to_twitter_at"
+    t.datetime "post_to_facebook_at"
   end
 
   create_table "a_la_minute_questions", :force => true do |t|
@@ -592,6 +594,8 @@ ActiveRecord::Schema.define(:version => 20120316173800) do
     t.integer  "photo_file_size"
     t.datetime "photo_updated_at"
     t.string   "pairing"
+    t.datetime "post_to_twitter_at"
+    t.datetime "post_to_facebook_at"
   end
 
   create_table "menus", :force => true do |t|
@@ -791,6 +795,8 @@ ActiveRecord::Schema.define(:version => 20120316173800) do
     t.integer  "attachment_file_size"
     t.datetime "attachment_updated_at"
     t.string   "headline"
+    t.datetime "post_to_twitter_at"
+    t.datetime "post_to_facebook_at"
   end
 
   create_table "question_pages", :force => true do |t|
@@ -1187,7 +1193,7 @@ ActiveRecord::Schema.define(:version => 20120316173800) do
     t.string   "crypted_password"
     t.string   "password_salt"
     t.string   "perishable_token"
-    t.string   "persistence_token",                       :null => false
+    t.string   "persistence_token",                           :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.datetime "confirmed_at"
@@ -1207,11 +1213,12 @@ ActiveRecord::Schema.define(:version => 20120316173800) do
     t.string   "facebook_page_id"
     t.string   "facebook_page_token"
     t.boolean  "premium_account"
-    t.boolean  "visible",               :default => true
+    t.boolean  "visible",                   :default => true
     t.boolean  "national"
-    t.boolean  "mediafeed_visible",     :default => true
+    t.boolean  "mediafeed_visible",         :default => true
     t.string   "notification_email"
-    t.boolean  "publish_profile",       :default => true
+    t.boolean  "publish_profile",           :default => true
+    t.datetime "facebook_token_expiration"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email"
