@@ -1,4 +1,5 @@
 # == Schema Information
+# Schema version: 20120612214511
 #
 # Table name: a_la_minute_answers
 #
@@ -9,8 +10,8 @@
 #  responder_type          :string(255)
 #  created_at              :datetime
 #  updated_at              :datetime
-#  show_as_public          :boolean
 #  post_to_twitter_at      :datetime
+#  post_to_facebook_at     :datetime
 #
 
 class ALaMinuteAnswer < ActiveRecord::Base
@@ -28,7 +29,6 @@ class ALaMinuteAnswer < ActiveRecord::Base
   default_scope :order => 'created_at desc'
 
   named_scope :for_question, lambda { |question| {:conditions => {:a_la_minute_question_id => question.id}} }
-  named_scope :show_public, :conditions => { :show_as_public => true }
 
   named_scope :from_premium_responders, lambda {
     {
@@ -53,7 +53,7 @@ class ALaMinuteAnswer < ActiveRecord::Base
   end
 
   def self.public_profile_for(responder)
-    ids = responder.a_la_minute_answers.maximum(:created_at, :group => :a_la_minute_question_id, :select => :id, :conditions => { :show_as_public => true }).collect{|k,v|v}
+    ids = responder.a_la_minute_answers.maximum(:created_at, :group => :a_la_minute_question_id, :select => :id).collect{|k,v|v}
     responder.a_la_minute_answers.find(ids, :order => "created_at desc")
   end
 

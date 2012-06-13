@@ -33,15 +33,6 @@ class ALaMinuteAnswersController < ApplicationController
         new_answer = @restaurant.a_la_minute_answers.create(attributes.merge(:a_la_minute_question_id => id))
       end
 
-      unless previous_answer.nil?
-        # update all answers for the question to reflect show_as_public state if it changed
-        unless attributes[:show_as_public].present? === previous_answer.show_as_public
-          question.answers_for(@restaurant).each do |answer|
-            answer.update_attributes(:show_as_public => attributes[:show_as_public])
-          end
-        end
-      end
-
       flash[:success] = "Your changes have been saved."
     end
     redirect_to :action => :bulk_edit
@@ -56,9 +47,5 @@ class ALaMinuteAnswersController < ApplicationController
       redirect_to restaurants_url and return
     end
     true
-  end
-
-  def show_as_public_count_valid?
-    params[:a_la_minute_questions].select{|id, attributes| attributes[:show_as_public].present? }.length <= 3
   end
 end

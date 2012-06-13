@@ -27,24 +27,13 @@ Feature: Manage a_la_minutes
     When I go to the edit a la minute question page for "Steak Knife"
     Then I should see the answer "Lobster Bisque"
 
-  Scenario: Answers can be shared publicly
-    Given "Steak Knife" has answered the following A La Minute questions:
-     | question        | answer         |
-     | What's new?     | Lobster Bisque |
-
-    When I go to the edit a la minute question page for "Steak Knife"
-    And I check a la minute question titled "What's new?" as public
-    And I press "Post"
-    And I go to the soapbox restaurant profile for "Steak Knife"
-    Then I should see the question "What's new?" with the answer "Lobster Bisque"
-
   Scenario: Only the 3 most recently created answers should be shown
     Given "Steak Knife" has answered the following A La Minute questions:
-    | question         | answer                  | public | created_at     |
-    | What's new?      | Lobster Bisque          | false   | 3.hours.ago    |
-    | What's changing? | Adding sidewalk seating | true   | 2.hours.ago    |
-    | What's up?       | Nothing much            | true   | 30.minutes.ago |
-    | Morning?         | Evening                 | true   | 10.minutes.ago |
+    | question         | answer                  |  created_at     |
+    | What's new?      | Lobster Bisque          |  3.hours.ago    |
+    | What's changing? | Adding sidewalk seating |  2.hours.ago    |
+    | What's up?       | Nothing much            |  30.minutes.ago |
+    | Morning?         | Evening                 |  10.minutes.ago |
 
     And I go to the soapbox restaurant profile for "Steak Knife"
     Then I should see the question "What's changing?" with the answer "Adding sidewalk seating"
@@ -60,9 +49,7 @@ Feature: Manage a_la_minutes
 
     When I go to the edit a la minute question page for "Steak Knife"
     And I fill in a la minute question titled "What's new?" with answer "Salad"
-	And I check a la minute question titled "What's new?" as public
     And I fill in a la minute question titled "What's playing?" with answer "Creed"
-	And I check a la minute question titled "What's playing?" as public
     And I press "Post"
     And I go to the restaurant show page for "Steak Knife"
     Then I should see the question "What's new?" with the answer "Salad"
@@ -70,10 +57,10 @@ Feature: Manage a_la_minutes
 
   Scenario: Manager should see archived answers under each question
     Given "Steak Knife" has answered the following A La Minute questions:
-      | question    | answer               | public | created_at     |
-      | What's new? | Lobster Bisque       | true   | 3.hours.ago    |
-      | What's new? | Something newer      | true   | 2.hours.ago    |
-      | What's new? | Something even newer | true   | 30.minutes.ago |
+      | question    | answer               | created_at     |
+      | What's new? | Lobster Bisque       | 3.hours.ago    |
+      | What's new? | Something newer      | 2.hours.ago    |
+      | What's new? | Something even newer | 30.minutes.ago |
 
     When I go to the edit a la minute question page for "Steak Knife"
     Then I should see the question "What's new?" with the answer "Something even newer"
@@ -83,10 +70,10 @@ Feature: Manage a_la_minutes
 @javascript
   Scenario: Manager should be able to remove an answer
     Given "Steak Knife" has answered the following A La Minute questions:
-      | question    | answer               | public | created_at     |
-      | What's new? | Lobster Bisque       | true   | 3.hours.ago    |
-      | What's new? | Something newer      | true   | 2.hours.ago    |
-      | What's new? | Something even newer | true   | 30.minutes.ago |
+      | question    | answer               | created_at     |
+      | What's new? | Lobster Bisque       | 3.hours.ago    |
+      | What's new? | Something newer      | 2.hours.ago    |
+      | What's new? | Something even newer | 30.minutes.ago |
     And I go to the edit a la minute question page for "Steak Knife"
     When I follow "[remove]" for the answer "Something newer"
     Then I should see the question "What's new?" with the answer "Something even newer"

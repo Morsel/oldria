@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120608164811) do
+ActiveRecord::Schema.define(:version => 20120612214511) do
 
   create_table "a_la_minute_answers", :force => true do |t|
     t.text     "answer"
@@ -18,7 +18,6 @@ ActiveRecord::Schema.define(:version => 20120608164811) do
     t.string   "responder_type"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "show_as_public"
     t.datetime "post_to_twitter_at"
     t.datetime "post_to_facebook_at"
   end

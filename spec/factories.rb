@@ -517,7 +517,6 @@ end
 
 Factory.define :a_la_minute_answer do |f|
   f.answer "Nothing"
-  f.show_as_public true
   f.association :responder, :factory => :restaurant
   f.association :a_la_minute_question
 end
