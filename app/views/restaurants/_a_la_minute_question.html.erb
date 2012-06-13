@@ -10,7 +10,7 @@
   </dd>
   <ul class="archive" id="a_la_minute_answers_<%= question.id %>">
     Archive
-    <% @restaurant.a_la_minute_answers.show_public.for_question(question).each_with_index do |archived_answer, index| %>
+    <% @restaurant.a_la_minute_answers.for_question(question).each_with_index do |archived_answer, index| %>
       <% content_tag_for(:li, archived_answer, :class => "answer hidden") do %>
         <%= archived_answer.answer %> <span class="datestamp">(<%= archived_answer.created_at.strftime("%D") %>)</span>
       <% end unless index == 0 %><%# don't show the current answer in this list %>
@@ -25,7 +25,7 @@
 		<%= link_to 'archive', "#a_la_minute_answers_#{question.id}", :class => 'showit' %>
 	</p>
     <ul class="archive" id="a_la_minute_answers_<%= question.id %>">
-        <% @restaurant.a_la_minute_answers.show_public.for_question(question).each_with_index do |archived_answer, index| %>
+        <% @restaurant.a_la_minute_answers.for_question(question).each_with_index do |archived_answer, index| %>
           <% content_tag_for(:li, archived_answer, :class => "answer") do %>
             <%= archived_answer.answer %> <span class="datestamp">(<%= archived_answer.created_at.strftime("%D") %>)</span>
           <% end unless index == 0 %><%# don't show the current answer in this list %>

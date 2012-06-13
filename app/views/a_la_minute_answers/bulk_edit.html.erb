@@ -21,8 +21,6 @@
               </ol>
               <%= hidden_field_tag "a_la_minute_questions[#{question.id}][answer_id]", answer.id %>
               <% div_for question do -%>
-                <%= check_box_tag "a_la_minute_questions[#{question.id}][show_as_public]", "1", answer.show_as_public, :class => "show_as_public_toggle" %>
-                <%= label_tag "a_la_minute_questions_#{question.id}_show_as_public", "Show on Soapbox profile?", :class => 'inline' %>
 
                 <% if @restaurant.twitter_authorized? -%>
                 <p>
@@ -49,6 +47,7 @@
                 <% else -%>
                 <p>Hook up your Facebook account to autopost this content to your social streams.</p>
                 <% end -%>
+
               <% end -%>
 
               <div class="clearfix">

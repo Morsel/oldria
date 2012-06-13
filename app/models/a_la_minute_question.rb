@@ -36,7 +36,7 @@ class ALaMinuteQuestion < ActiveRecord::Base
   end
 
   def latest_answer
-    a_la_minute_answers.from_premium_responders.show_public.first
+    a_la_minute_answers.from_premium_responders.first
   end
 
   def self.current_inspiration
@@ -50,10 +50,9 @@ class ALaMinuteQuestion < ActiveRecord::Base
                    ON `subscriptions`.subscriber_id = `a_la_minute_answers`.responder_id
                    AND `subscriptions`.subscriber_type = `a_la_minute_answers`.responder_type',
         :order => "a_la_minute_answers.created_at DESC",
-        :conditions => ["`a_la_minute_answers`.show_as_public = ?
-                         AND subscriptions.id IS NOT NULL
+        :conditions => ["subscriptions.id IS NOT NULL
                          AND (subscriptions.end_date IS NULL OR subscriptions.end_date >= ?)",
-                         true, Date.today]).uniq[0...count]
+                         Date.today]).uniq[0...count]
   end
 
 end

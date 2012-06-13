@@ -383,19 +383,11 @@ Given /^"([^"]*)" has answered the following A La Minute questions:$/ do |restau
     # TODO this feels cludgy... there's probably a better way... refactor.
     question = ALaMinuteQuestion.find_by_question(row['question']) || Factory(:a_la_minute_question, :question => row['question'], :kind => "restaurant")
     answer_params = {:answer => row['answer'],
-        :a_la_minute_question => question, :responder => @restaurant,
-        :show_as_public => row['public']}
+        :a_la_minute_question => question, :responder => @restaurant}
     answer_params[:created_at] = eval(row['created_at']) if row['created_at']
     answer_params[:updated_at] = eval(row['created_at']) if row['created_at']
 
     answer = Factory(:a_la_minute_answer, answer_params)
-  end
-end
-
-When /^I check "([^"]*)" for "([^"]*)"$/ do |label, question_text|
-  question = ALaMinuteQuestion.find_by_question(question_text)
-  within("##{dom_id(question)}") do |content|
-    check("a_la_minute_questions[#{question.id}][show_as_public]")
   end
 end
 
@@ -503,11 +495,6 @@ end
 When /^I fill in a la minute question titled "([^\"]*)" with answer "([^\"]*)"$/ do |title, answer|
   question = ALaMinuteQuestion.find_by_question(title)
   When "I fill in \"a_la_minute_questions_#{question.id}_answer\" with \"#{answer}\""
-end
-
-When /^I check a la minute question titled "([^\"]*)" as public$/ do |title|
-  question = ALaMinuteQuestion.find_by_question(title)
-  When "I check \"a_la_minute_questions_#{question.id}_show_as_public\""
 end
 
 Given /^a promotion type named "([^\"]*)"$/ do |name|
