@@ -30,7 +30,7 @@
           <% begin %>
           <%= f.input :post_to_facebook_at, :label => "Post to Facebook page \"#{@restaurant.facebook_page.fetch.name}\" on", :start_year => Date.today.year, :end_year => 1.year.from_now.year %>
           <%= f.input :no_fb_crosspost, :as => "boolean", :label => "Don't crosspost to Facebook" %>
-          <p>Schedule posts before <%= current_user.facebook_token_expiration.to_formatted_s(:long) %>.</p>
+          <p>Schedule posts before <%= current_user.facebook_token_expiration.to_formatted_s(:long) rescue 1.day.from_now.to_formatted_s(:long) %>.</p>
           <% rescue Mogli::Client::OAuthException, Mogli::Client::HTTPException %>
           <p>Your Facebook page access has expired. Please reconnect your account on your restaurant profile page.</p>
           <% end %>
