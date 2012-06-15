@@ -22,8 +22,8 @@ class Spoonfeed::SocialUpdatesController < ApplicationController
   private
 
   def fetch_updates(search_params = {})
-    cache_key = search_params.present? ? search_params.to_s : "default"
-    Rails.cache.fetch("social_updates_#{search_params.to_s}", :expires_in => 1.hour) do
+#    cache_key = search_params.present? ? search_params.to_s : "default"
+#    Rails.cache.fetch("social_updates_#{search_params.to_s}", :expires_in => 1.hour) do
       alm_answers = ALaMinuteAnswer.social_results(search_params)
 
       twitter_posts = []
@@ -57,7 +57,7 @@ class Spoonfeed::SocialUpdatesController < ApplicationController
       # end
 
       SocialMerger.new(twitter_posts, facebook_posts, alm_answers).sorted_updates[0...1000] # limited so the results will fit in the cache
-    end
+#    end
   end
 
 end
