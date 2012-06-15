@@ -12,19 +12,17 @@ class Spoonfeed::SocialUpdatesController < ApplicationController
     render :partial => "updates"
   end
 
-  def filter
-    sorted_merge = fetch_updates(params[:search])
-
-    @updates = sorted_merge.paginate(:page => params[:page], :per_page => 10)
-    render :partial => "updates"
-  end
+  # def filter
+  #   sorted_merge = fetch_updates(params[:search])
+  # 
+  #   @updates = sorted_merge.paginate(:page => params[:page], :per_page => 10)
+  #   render :partial => "updates"
+  # end
 
   private
 
-  def fetch_updates(search_params = {})
-    cache_key = search_params.present? ? "filtered" : "default"
-    Rails.cache.fetch("social_updates_#{cache_key}", :expires_in => 1.minute) do
-      # alm_answers = ALaMinuteAnswer.social_results(search_params)
+  def fetch_updates
+    Rails.cache.fetch("social_updates", :expires_in => 1.minute) do
       alm_answers = ALaMinuteAnswer.from_premium_responders.map { |a| { :post => a.answer,
                                                     :restaurant => a.restaurant,
                                                     :created_at => a.created_at,
@@ -33,7 +31,6 @@ class Spoonfeed::SocialUpdatesController < ApplicationController
                                                     :source => "Spoonfeed" } }
 
       twitter_posts = []
-      # twitter_restaurants = search_params.present? ? Restaurant.with_premium_account.with_twitter.search(search_params).all : Restaurant.with_premium_account.with_twitter
       Restaurant.with_premium_account.with_twitter.each do |r|
         begin
           r.twitter_client.user_timeline.each do |post|
@@ -49,19 +46,6 @@ class Spoonfeed::SocialUpdatesController < ApplicationController
       end
 
       facebook_posts = []
-      # Restaurant.with_premium_account.with_facebook_page.search(search_params).all.each do |r|
-      #   begin
-      #     r.facebook_page.posts.each do |post|
-      #       facebook_posts << { :post => post.message,
-      #                           :restaurant => r,
-      #                           :created_at => Time.parse(post.created_time),
-      #                           :source => "Facebook",
-      #                           :link => r.facebook_page_url }
-      #     end
-      #   rescue Mogli::Client::OAuthException, Mogli::Client::HTTPException
-      #     next
-      #   end
-      # end
 
       SocialMerger.new(twitter_posts, facebook_posts, alm_answers).sorted_updates[0...1000] # limited so the results will fit in the cache
     end
