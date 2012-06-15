@@ -16,11 +16,6 @@ config.action_view.cache_template_loading            = true
 # Disable request forgery protection in test environment
 config.action_controller.allow_forgery_protection    = false
 
-# Enable perform caching for testing dashboard caching
-# This is temporary solution unless perform caching 
-# will be set in runtime for specific tests
-config.action_controller.perform_caching             = true
-
 # Tell Action Mailer not to deliver emails to the real world.
 # The :test delivery method accumulates sent emails in the
 # ActionMailer::Base.deliveries array.

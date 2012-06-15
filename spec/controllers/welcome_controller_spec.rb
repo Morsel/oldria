@@ -2,7 +2,16 @@ require 'spec/spec_helper'
 
 describe WelcomeController do
   integrate_views
-  enable_memcache_stub
+
+  before(:all) do
+    ActionController::Base.perform_caching = true
+    Rails.cache.clear
+  end
+
+  after(:all) do
+    Rails.cache.clear
+    ActionController::Base.perform_caching = false
+  end
 
   describe "GET index" do
     context "for anonymous users" do
