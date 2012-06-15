@@ -22,12 +22,12 @@ class Spoonfeed::SocialUpdatesController < ApplicationController
   private
 
   def fetch_updates(search_params = {})
-    cache_key = search_params.present? ? "filtered" : "default"
-    Rails.cache.fetch("social_updates_#{cache_key}", :expires_in => 1.minute) do
+    Rails.cache.fetch("social_updates_#{search_params.to_s}", :expires_in => 1.minute) do
       alm_answers = ALaMinuteAnswer.social_results(search_params)
 
       twitter_posts = []
-      Restaurant.with_premium_account.with_twitter.search(search_params).all.each do |r|
+      twitter_restaurants = search_params.present? ? Restaurant.with_premium_account.with_twitter.search(search_params).all : Restaurant.with_premium_account.with_twitter
+      twitter_restaurants.each do |r|
         begin
           r.twitter_client.user_timeline.each do |post|
             twitter_posts << { :post => post.text,

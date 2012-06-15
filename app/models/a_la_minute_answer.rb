@@ -82,7 +82,7 @@ class ALaMinuteAnswer < ActiveRecord::Base
   end
 
   def self.social_results(search_params)
-    restaurants = Restaurant.with_premium_account.search(search_params).all
+    restaurants = search_params.present? ? Restaurant.with_premium_account.search(search_params).all : Restaurant.with_premium_account
     self.from_responders(restaurants).map { |a| { :post => a.answer,
                                                   :restaurant => a.restaurant,
                                                   :created_at => a.created_at,
