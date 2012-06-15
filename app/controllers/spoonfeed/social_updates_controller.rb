@@ -22,8 +22,14 @@ class Spoonfeed::SocialUpdatesController < ApplicationController
   private
 
   def fetch_updates(search_params = {})
-    Rails.cache.fetch("social_updates_placeholder", :expires_in => 1.minute) do
-      alm_answers = ALaMinuteAnswer.social_results(search_params)
+    Rails.cache.fetch("social_updates_#{search_params.to_s}", :expires_in => 1.minute) do
+      # alm_answers = ALaMinuteAnswer.social_results(search_params)
+      alm_answers = ALaMinuteAnswer.from_premium_responders.map { |a| { :post => a.answer,
+                                                    :restaurant => a.restaurant,
+                                                    :created_at => a.created_at,
+                                                    :link => a_la_minute_answers_path(:question_id => a.a_la_minute_question.id),
+                                                    :title => a.question,
+                                                    :source => "Spoonfeed" } }
 
       twitter_posts = []
       # twitter_restaurants = search_params.present? ? Restaurant.with_premium_account.with_twitter.search(search_params).all : Restaurant.with_premium_account.with_twitter
