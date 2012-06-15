@@ -13,7 +13,7 @@ class Spoonfeed::SocialUpdatesController < ApplicationController
   end
 
   def filter_updates
-    sorted_merge = fetch_updates(params[:search])
+    sorted_merge = fetch_updates#(params[:search])
 
     @updates = sorted_merge.paginate(:page => params[:page], :per_page => 10)
     render :partial => "updates"
