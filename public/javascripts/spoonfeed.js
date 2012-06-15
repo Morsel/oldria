@@ -427,7 +427,7 @@ updateRestoDirectoryList = function() {
   input_string = $restoSocialInputs.serialize();
   $socialLoaderImg.show();
   $restoSocialList.hide();
-  $restoSocialList.load('/spoonfeed/social_updates/filter_updates', input_string, function(responseText, textStatus){
+  $restoSocialList.load('/filter_social', input_string, function(responseText, textStatus){
     $socialLoaderImg.hide();
     $restoSocialList.fadeIn(300);
   });
