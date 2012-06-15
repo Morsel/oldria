@@ -6,6 +6,58 @@
     Please wait while we load the latest updates <%= image_tag "ajax-loader.gif" %>
 </div>
 
+<div id="restaurant_filters" style="display: none;">
+    <% cache "social_restaurant_search_criteria", :expires_in => 8.hours do %>
+    <fieldset name="Find Restaurants" id="restaurant_criteria">
+        <h3>Filter Results</h3>
+        <ol>
+            <div id="criteria_accordion">
+                <div class="accordion_box">
+                    <%= link_to "<span>Region</span>", "#" %>
+                    <div id="region_fields" class="loading" style="display:none;">
+                        <li id="search_james_beard_region_id_eq_any_input" class="check_boxes optional">
+                            <fieldset>
+                                <legend class="label">
+                                    <label for="search_james_beard_region_id_eq_any">Region id equals any</label>
+                                </legend>
+                                <ol>
+                                    <% for region in Restaurant.all.map(&:james_beard_region).flatten.compact.uniq.sort_by(&:name) %>
+                                    <li><label for="search_james_beard_region_id_eq_any_<%= region.id %>">
+                                        <%= check_box_tag "search[james_beard_region_id_eq_any][]", region.id, false, :id => "search_james_beard_region_id_eq_any_#{region.id}" %>
+                                        <%= region.to_label %>
+                                    </label></li>
+                                    <% end %>
+                                </ol>
+                            </fieldset>
+                        </li>
+                    </div>
+                </div>
+                <div class="accordion_box">
+                    <%= link_to "<span>Metro Area</span>", "#" %>
+                    <div id="metro_fields" class="loading" style="display:none;">
+                        <li id="search_metropolitan_area_id_eq_any_input" class="check_boxes optional">
+                            <fieldset>
+                                <legend class="label">
+                                    <label for="search_metropolitan_area_id_eq_any">Metro area id equals any</label>
+                                </legend>
+                                <ol>
+                                    <% for metro in Restaurant.all.map(&:metropolitan_area).flatten.compact.uniq.sort_by(&:name) %>
+                                    <li><label for="search_metropolitan_area_id_eq_any_<%= metro.id %>">
+                                        <%= check_box_tag "search[metropolitan_area_id_eq_any][]", metro.id, false, :id => "search_metropolitan_area_id_eq_any_#{metro.id}" %>
+                                        <%= metro.city_and_state %>
+                                    </label></li>
+                                    <% end %>
+                                </ol>
+                            </fieldset>
+                        </li>
+                    </div>
+                </div>
+            </div>
+        </ol>
+    </fieldset>
+    <% end %>
+</div>
+
 <div id="updates">
 </div>
 
