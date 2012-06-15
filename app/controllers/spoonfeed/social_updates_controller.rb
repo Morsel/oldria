@@ -22,7 +22,8 @@ class Spoonfeed::SocialUpdatesController < ApplicationController
   private
 
   def fetch_updates(search_params = {})
-    Rails.cache.fetch("social_updates_#{search_params.to_s}", :expires_in => 1.minute) do
+    cache_key = search_params.present? ? "filtered" : "default"
+    Rails.cache.fetch("social_updates_#{cache_key}", :expires_in => 1.minute) do
       # alm_answers = ALaMinuteAnswer.social_results(search_params)
       alm_answers = ALaMinuteAnswer.from_premium_responders.map { |a| { :post => a.answer,
                                                     :restaurant => a.restaurant,
