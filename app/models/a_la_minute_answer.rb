@@ -86,7 +86,7 @@ class ALaMinuteAnswer < ActiveRecord::Base
     self.from_responders(restaurants).map { |a| { :post => a.answer,
                                                   :restaurant => a.restaurant,
                                                   :created_at => a.created_at,
-                                                  :link => a_la_minute_answers_path(:question_id => a.a_la_minute_question.id),
+                                                  :link => a.send(:a_la_minute_answers_url, :question_id => a.a_la_minute_question.id),
                                                   :title => a.question,
                                                   :source => "Spoonfeed" } }
   end
