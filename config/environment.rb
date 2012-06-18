@@ -30,7 +30,7 @@ Rails::Initializer.run do |config|
   config.gem 'preferences',           :version => "~>0.4.1"
   config.gem 'whenever',              :lib => false
   config.gem 'delayed_job',           :version => "~>1.8.4"
-  config.gem 'hoptoad_notifier',      :version => "~>2.4.6"
+  config.gem "airbrake",              :version => "~> 3.1.1"
   config.gem 'backup',                :version => "~>2.3.1"
   config.gem 'newrelic_rpm',          :version => "~>3.1.1"
   config.gem "facebooker2",           :version => "~>0.0.4"
