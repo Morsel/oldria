@@ -6,6 +6,7 @@
     Please wait while we load the latest updates <%= image_tag "ajax-loader.gif" %>
 </div>
 
+<% if false %>
 <div id="restaurant_filters" style="display: none;">
     <% cache "social_restaurant_search_criteria", :expires_in => 8.hours do %>
     <fieldset name="Find Restaurants" id="restaurant_criteria">
@@ -57,6 +58,7 @@
     </fieldset>
     <% end %>
 </div>
+<% end %>
 
 <div id="updates">
 </div>
