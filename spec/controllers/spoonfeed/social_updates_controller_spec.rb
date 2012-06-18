@@ -6,10 +6,10 @@ describe Spoonfeed::SocialUpdatesController do
     @user = Factory.stub(:user)
     controller.stubs(:current_user).returns(@user)
 
-    @restaurant = Factory(:restaurant)
+    @restaurant = Factory(:restaurant, :name => "Restaurant 1")
     @restaurant.subscription = Factory(:subscription, :payer => @restaurant)
 
-    @restaurant2 = Factory(:restaurant)
+    @restaurant2 = Factory(:restaurant, :name => "Restaurant 2")
     @restaurant2.subscription = Factory(:subscription, :payer => @restaurant2)
 
     @alm_answer1 = Factory(:a_la_minute_answer, :responder => @restaurant, :answer => "Answer 1")
@@ -30,8 +30,8 @@ describe Spoonfeed::SocialUpdatesController do
       }
       ALaMinuteAnswer.expects(:social_results).with({}).returns(alm_results)
       SocialMerger.expects(:new).returns(mock(:sorted_updates => alm_results))
-      xhr :get, :load_updates
-      assigns[:updates].count.should == 3
+      xhr :post, :load_updates, :page => 1
+      assigns[:updates].should == alm_results
     end
 
   end
@@ -49,7 +49,7 @@ describe Spoonfeed::SocialUpdatesController do
       }
       ALaMinuteAnswer.expects(:social_results).with({ 'metropolitan_area_id_eq_any' => [@restaurant.metropolitan_area.id] }).returns(alm_results)
       SocialMerger.expects(:new).returns(mock(:sorted_updates => alm_results))
-      xhr :get, :filter, :search => { :metropolitan_area_id_eq_any => [@restaurant.metropolitan_area.id] }
+      xhr :get, :filter_updates, :search => { :metropolitan_area_id_eq_any => [@restaurant.metropolitan_area.id] }, :page => 1
       assigns[:updates].should == alm_results
     end
 
