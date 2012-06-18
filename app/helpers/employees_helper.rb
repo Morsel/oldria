@@ -64,10 +64,11 @@ module EmployeesHelper
   end
 
   def employee_link(employee)
-    if on_soapbox && !employee.premium_account?
-      employee.try(:name)
-    else
+    if employee.linkable_profile?
       link_to employee.try(:name), profile_path(employee.username)
+    else
+      employee.try(:name)
     end
   end
+
 end
