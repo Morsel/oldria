@@ -18,7 +18,7 @@
 #  james_beard_region_id      :integer
 #  cuisine_id                 :integer
 #  deleted_at                 :datetime
-#  description                :string(255)
+#  description                :text
 #  phone_number               :string(255)
 #  website                    :string(255)
 #  twitter_handle             :string(255)
@@ -107,6 +107,8 @@ class Restaurant < ActiveRecord::Base
       :with => %r{^https*://www\.facebook\.com(.*)},
       :allow_blank => true,
       :message => "Facebook page must start with http://www.facebook.com"
+
+  validate :description_word_count
 
   has_one :subscription, :as => :subscriber
   after_validation_on_create :add_manager_as_employee
@@ -330,6 +332,12 @@ class Restaurant < ActiveRecord::Base
 
   def add_fact_sheet
     self.fact_sheet = RestaurantFactSheet.create
+  end
+
+  def description_word_count
+    unless description.split(" ").size <= 250
+      errors.add(:description, :message => "is too long (over 250 words)")
+    end
   end
 
 end

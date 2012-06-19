@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120612214511) do
+ActiveRecord::Schema.define(:version => 20120618231750) do
 
   create_table "a_la_minute_answers", :force => true do |t|
     t.text     "answer"
@@ -962,7 +962,7 @@ ActiveRecord::Schema.define(:version => 20120612214511) do
     t.integer  "james_beard_region_id"
     t.integer  "cuisine_id"
     t.datetime "deleted_at"
-    t.string   "description"
+    t.text     "description"
     t.string   "phone_number"
     t.string   "website"
     t.string   "twitter_handle"
