@@ -108,7 +108,7 @@ class Restaurant < ActiveRecord::Base
       :allow_blank => true,
       :message => "Facebook page must start with http://www.facebook.com"
 
-  validate :description_word_count
+  validate :description_word_count, :if => Proc.new { |restaurant| restaurant.description.present? }
 
   has_one :subscription, :as => :subscriber
   after_validation_on_create :add_manager_as_employee
