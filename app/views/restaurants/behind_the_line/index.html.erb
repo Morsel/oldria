@@ -1,16 +1,8 @@
 <% title "Online Press Kit - #{@subject.name}", false %>
 
-<%= render :partial => 'shared/add_this', :locals => { :responder => @restaurant } %>
-
 <h1 id="btl-title" class="btl"><%= link_to "<span class=\"presskit-art\">Online Press Kit:</span> <span class=\"name\">#{restaurant_btl_title(@restaurant, @page)}</span>", path_for_restaurant_and_page(@restaurant, @page) %></h1>
 
 <h2 id="topic_title">Topics</h2>
-<% javascript_tag do %>
-  var addthis_share = {
-    url: '<%= topics_soapbox_restaurant_questions_url(:restaurant_id => @restaurant.id, :page_id => @page.try(:id)) %>',
-    title: $('title').text().replace('Spoonfeed','Soapbox')
-  }
-<% end %>
 
 <%- @topics.each do |topic| -%>
 <div class="topic <%= cycle '',' last' %>" id="<%= dom_id topic %>">
@@ -18,11 +10,11 @@
     <table>
         <% @chapters_by_topic[topic].each do |chapter| %>
         <tr>
-           <td class="topic_link"><%= link_to chapter.title, link_for_restaurant_questions(:restaurant_id => @restaurant.id, :chapter_id => chapter.id, :page_id => @page.try(:id)) %></td>
+           <td class="topic_link"><%= link_to chapter.title, link_for_restaurant_questions(:restaurant_id => @restaurant.id, :id => chapter.id, :page_id => @page.try(:id)) %></td>
            <td class="topic_completeness"><%= chapter.completion_percentage_for_restaurant(@restaurant, @page) %>% complete</td>
         </tr>
         <% end if @chapters_by_topic[topic] %>
     </table>
-    <%= link_to "View all \"#{topic.title}\" chapters &raquo;", link_for_restaurant_chapters(:restaurant_id => @restaurant.id, :topic_id => topic.id, :page_id => @page.try(:id)), :class => 'view_all_chapters' %>
+    <%= link_to "View all \"#{topic.title}\" chapters &raquo;", link_for_restaurant_chapters(:restaurant_id => @restaurant.id, :id => topic.id, :page_id => @page.try(:id)), :class => 'view_all_chapters' %>
 </div>
 <%- end -%>

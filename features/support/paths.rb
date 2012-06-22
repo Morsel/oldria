@@ -185,7 +185,7 @@ module NavigationHelpers
     when /^the edit a la minute question page for "(.+)"$/
       bulk_edit_restaurant_a_la_minute_answers_path(Restaurant.find_by_name($1))
     when /^the Behind the Line page for "(.+)"$/
-      topics_restaurant_questions_path(Restaurant.find_by_name($1))
+      restaurant_behind_the_line_path(Restaurant.find_by_name($1))
 
     # Soapbox
     when /the soapbox index page/

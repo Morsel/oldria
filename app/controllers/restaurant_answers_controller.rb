@@ -1,7 +1,13 @@
 class RestaurantAnswersController < ApplicationController
 
   before_filter :require_user
-  before_filter :find_and_authorize_restaurant
+  before_filter :find_and_authorize_restaurant, :except => [:show]
+
+  def show
+    @answer = RestaurantAnswer.find(params[:id])
+    @question = @answer.restaurant_question
+    @other_answers = @question.restaurant_answers.from_premium_restaurants.recently_answered - [@answer]
+  end
 
   def create
     # the form submits a hash of question ids with their answers

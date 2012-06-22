@@ -1,24 +1,10 @@
-class Soapbox::RestaurantQuestionsController < RestaurantQuestionsController
-  # all actions inherit, this is just there to make routing/template selection easier
-
-  def index
-    super
-    render :template => 'restaurant_questions/index'
-  end
+class Soapbox::RestaurantQuestionsController < Soapbox::SoapboxController
 
   def show
-    super
+    @question = RestaurantQuestion.find(params[:id])
+    @answers = @question.restaurant_answers.from_premium_restaurants.all(:order => "restaurant_answers.created_at DESC") \
+        .select { |a| a.restaurant.try(:prefers_publish_profile?) }
     render :template => 'restaurant_questions/show'
-  end
-
-  def topics
-    super
-    render :template => 'restaurant_questions/topics'
-  end
-
-  def chapters
-    super
-    render :template => 'restaurant_questions/chapters'
   end
 
 end

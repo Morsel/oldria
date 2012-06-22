@@ -56,10 +56,9 @@ class RestaurantQuestion < ActiveRecord::Base
   }
 
   named_scope :answered_by_premium_restaurants, lambda {
-    { :joins => "INNER JOIN restaurant_answers ON restaurant_answers.restaurant_question_id = restaurant_questions.id
-        INNER JOIN subscriptions ON subscriptions.subscriber_id = restaurant_answers.restaurant_id AND subscriptions.subscriber_type = `restaurant`",
-      :conditions => ["subscriptions.id IS NOT NULL AND (subscriptions.end_date IS NULL OR subscriptions.end_date >= ?)", Date.today]
-    }
+    { :joins => { :restaurant_answers => { :restaurant => :subscription }},
+      :conditions => ["subscriptions.id IS NOT NULL AND (subscriptions.end_date IS NULL OR subscriptions.end_date >= ?)",
+          Date.today] }
   }
 
   before_save :update_pages_description
@@ -80,6 +79,10 @@ class RestaurantQuestion < ActiveRecord::Base
     answer = self.answered_by?(restaurant) ?
       self.answer_for(restaurant) : 
       self.restaurant_answers.build(:restaurant => restaurant)
+  end
+
+  def latest_soapbox_answer
+    restaurant_answers.from_premium_restaurants.first(:order => "created_at DESC")
   end
 
   private

@@ -1,27 +1,9 @@
-class RestaurantQuestionsController < ApplicationController
+class Restaurants::BehindTheLineController < ApplicationController
 
-  before_filter :require_user_unless_soapbox
-  before_filter :find_restaurant_and_page, :except => [:show] # Show view includes many responses
+  before_filter :require_user
+  before_filter :find_restaurant_and_page
 
-  # Questions for the given chapter, filtered by feature page as needed
   def index
-    @chapter = Chapter.find(params[:chapter_id])
-
-    is_self = can? :manage, @restaurant
-    @previous = @chapter.previous_for_context(@restaurant, @page, is_self)
-    @next = @chapter.next_for_context(@restaurant, @page, is_self)
-    @previous_topic = @chapter.topic.previous_for_context(@restaurant, @page, is_self)
-    @next_topic = @chapter.topic.next_for_context(@restaurant, @page, is_self)
-
-    @questions = is_self ?
-        RestaurantQuestion.for_chapter(@chapter) :
-        @page.present? ?
-            RestaurantQuestion.answered_for_page(@page, @restaurant).for_chapter(params[:chapter_id]) :
-            RestaurantQuestion.answered_for_restaurant(@restaurant).for_chapter(params[:chapter_id])
-  end
-
-  # All topics for the restaurant or restaurant feature page
-  def topics
     if can? :manage, @restaurant
       @topics = @page.present? ? RestaurantTopic.for_page(@page) : RestaurantTopic.for_restaurant(@restaurant)
       chapters = @topics.collect do |topic|
@@ -43,9 +25,8 @@ class RestaurantQuestionsController < ApplicationController
     end
   end
 
-  # Chapters within a topic, for a restaurant or restaurant feature page
-  def chapters
-    @topic = Topic.find(params[:topic_id])
+  def topic
+    @topic = Topic.find(params[:id])
     is_self = can? :manage, @restaurant
     @previous = @topic.previous_for_context(@restaurant, @page, is_self)
     @next = @topic.next_for_context(@restaurant, @page, is_self)
@@ -56,10 +37,20 @@ class RestaurantQuestionsController < ApplicationController
                                                                 group_by(&:chapter)
   end
 
-  def show
-    @question = RestaurantQuestion.find(params[:id])
-    @answers = @question.restaurant_answers.from_premium_restaurants.all(:order => "restaurant_answers.created_at DESC") \
-        .select { |a| a.restaurant.try(:prefers_publish_profile?) }
+  def chapter
+    @chapter = Chapter.find(params[:id])
+
+    is_self = can? :manage, @restaurant
+    @previous = @chapter.previous_for_context(@restaurant, @page, is_self)
+    @next = @chapter.next_for_context(@restaurant, @page, is_self)
+    @previous_topic = @chapter.topic.previous_for_context(@restaurant, @page, is_self)
+    @next_topic = @chapter.topic.next_for_context(@restaurant, @page, is_self)
+
+    @questions = is_self ?
+        RestaurantQuestion.for_chapter(@chapter) :
+        @page.present? ?
+            RestaurantQuestion.answered_for_page(@page, @restaurant).for_chapter(params[:id]) :
+            RestaurantQuestion.answered_for_restaurant(@restaurant).for_chapter(params[:id])
   end
 
   protected
