@@ -1,12 +1,12 @@
 <% @updates.each do |post| %>
 <div class="social_update">
-    <h2><%= link_to_if post.has_key?(:link), (post[:title] || post[:source]), post[:link] %></h2>
-    <%= render :partial => 'restaurants/identity', :locals => { :restaurant => post[:restaurant] } %>
-    <p class="answer"><%= post[:post] %></p>
+    <h2><%= link_to_if post.link?, (post.title || post.source), post.link %></h2>
+    <%= render :partial => 'restaurants/identity', :locals => { :restaurant => post.restaurant } %>
+    <p class="answer"><%= post.post_data %></p>
     <%- if current_user.media? -%>
-    <p class="request"><%= link_to "Request more information", mediafeed_request_information_path(:user_id => post[:restaurant].media_contact_id, :request_type => post[:source], :request_title => (post[:title] || post[:post]) ) %></p>
+    <p class="request"><%= link_to "Request more information", mediafeed_request_information_path(:user_id => post.restaurant.media_contact_id, :request_type => post.source, :request_title => (post.title || post.post_data) ) %></p>
     <%- end -%>
-    <p><span class="datestamp"><%= "Posted #{post[:created_at].strftime("%D")}" %></span></p>
+    <p><span class="datestamp"><%= "Posted #{post.post_created_at.strftime("%D")}" %></span></p>
 </div>
 <div class="clear">&nbsp;</div>
 <% end %>
