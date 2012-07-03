@@ -22,7 +22,7 @@ ActionController::Routing::Routes.draw do |map|
   map.restaurant_directory 'directory/restaurants', :controller => 'directory', :action => 'restaurants'
 
   # the callback for cloudmailin
-  map.resource :cloudmail, :only => :create 
+  map.resource :cloudmail, :only => :create
 
   map.namespace(:soapbox) do |soapbox|
     soapbox.resources :profile_questions, :only => ['index', 'show'], :as => "behind_the_line"
@@ -154,8 +154,8 @@ ActionController::Routing::Routes.draw do |map|
     users.btl_chapter 'behind_the_line/chapter/:id', :controller => 'users/behind_the_line', :action => 'chapter'
 
     users.resources :default_employments
-    users.resource :subscription, 
-      :collection => { :bt_callback => :get, :billing_history => :get }, 
+    users.resource :subscription,
+      :collection => { :bt_callback => :get, :billing_history => :get },
       :controller => 'subscriptions'
   end
 
@@ -224,7 +224,7 @@ ActionController::Routing::Routes.draw do |map|
     admin_discussions.resources :comments, :only => [:new, :create, :edit, :update]
   end
 
-  map.resources :admin_messages, :only => 'show', :member => { :read => :put }
+ # map.resources :admin_messages, :only => 'show', :member => { :read => :put }
   map.resources :messages, :collection => {
                               :archive => :get,
                               :ria => :get,
@@ -263,6 +263,7 @@ ActionController::Routing::Routes.draw do |map|
   map.social 'social', :controller => "spoonfeed/social_updates", :action => "index"
   map.update_social 'update_social', :controller => "spoonfeed/social_updates", :action => "load_updates"
   map.filter_social 'filter_social', :controller => "spoonfeed/social_updates", :action => "filter_updates"
+  map.filter_social 'save_post', :controller => "spoonfeed/social_updates", :action => "save_post"
   map.resources :restaurant_questions, :only => ['index', 'show'], :as => 'restaurant_btl', :controller => 'spoonfeed/restaurant_questions'
 
   map.resources :page_views, :only => ['create']
@@ -349,8 +350,9 @@ ActionController::Routing::Routes.draw do |map|
   map.soapbox_page 'soapbox/:id', :controller => 'soapbox_pages', :action => 'show'
   map.hq_page 'hq/:id', :controller => 'hq_pages', :action => 'show'
   map.mediafeed_page 'mediafeed/:id', :controller => 'mediafeed_pages', :action => 'show'
-  
+
   # Default Routes
   map.connect ':controller/:action/:id'
   map.connect ':controller/:action/:id.:format'
 end
+
