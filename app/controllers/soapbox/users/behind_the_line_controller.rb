@@ -1,7 +1,8 @@
 class Soapbox::Users::BehindTheLineController < ApplicationController
 
+  before_filter :require_btl_on_user
+
   def topic
-    @user = User.find(params[:user_id])
     @topic = Topic.find(params[:id])
     is_self = can? :manage, @user
     @previous = @topic.previous_for_user(@user, is_self)
@@ -12,7 +13,6 @@ class Soapbox::Users::BehindTheLineController < ApplicationController
   end
 
   def chapter
-    @user = User.find(params[:user_id])
     @chapter = Chapter.find(params[:id])
 
     is_self = can? :manage, @user
@@ -24,6 +24,15 @@ class Soapbox::Users::BehindTheLineController < ApplicationController
     @questions = is_self ?
         @chapter.profile_questions.for_user(@user) :
         ProfileQuestion.answered_for_user(@user).for_chapter(params[:id])
+  end
+
+  private
+
+  def require_btl_on_user
+    @user = User.find(params[:user_id])
+    unless @user.btl_enabled?
+      redirect_to soapbox_root_path
+    end
   end
 
 end
