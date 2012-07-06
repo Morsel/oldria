@@ -44,5 +44,5 @@
 </div>
 
 <% content_for :sidebar do -%>
-<%= render :partial => 'soapbox/a_la_minute_questions/sidebar' %>
+<%= render :partial => 'soapbox/restaurant_sidebar', :locals => { :restaurant => @answer.responder } %>
 <% end -%>
