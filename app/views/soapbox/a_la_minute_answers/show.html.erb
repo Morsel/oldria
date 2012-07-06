@@ -24,6 +24,7 @@
     <%= render :partial => 'restaurants/identity', :locals => { :restaurant => @answer.responder } %>
     <div>
         <p class="details"><%= @answer.answer %></p>
+        <p class="tags">Tags: <%= @answer.responder.top_tags.map(&:name).to_sentence %></p>
         <!-- Likes and Tweets BEGIN -->
         <div class="sharing">
             <script src="http://connect.facebook.net/en_US/all.js#xfbml=1"></script>
