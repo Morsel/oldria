@@ -2,8 +2,8 @@
     <div id="restaurant_details">
         <h4><%= link_to restaurant.name, soapbox_restaurant_path(restaurant) %></h4>
         <p><%= restaurant.address_parts.join("<br />") %></p>
-        <p><strong>Metropolitan area: <%= restaurant.metropolitan_area.name %></strong></p>
-        <p><strong>Region: <%= restaurant.james_beard_region.name %></strong></p>
+        <p><strong>Metropolitan area: <%= restaurant.metropolitan_area.try(:name) %></strong></p>
+        <p><strong>Region: <%= restaurant.james_beard_region.try(:name) %></strong></p>
     </div>
   <aside id="recent-activity">
     <header>
