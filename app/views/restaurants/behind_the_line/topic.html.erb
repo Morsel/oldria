@@ -1,16 +1,8 @@
 <% title "#{@topic.title} - #{@subject.name} - Online Press Kit", false %>
 
-<%= render :partial => 'shared/add_this', :locals => {:responder => @restaurant} %>
-
 <h1 id="btl-title" class="btl"><%= link_to "<span class=\"presskit-art\">Online Press Kit:</span> <span class=\"name\">#{restaurant_btl_title(@restaurant, @page)}</span>", path_for_restaurant_and_page(@restaurant, @page) %></h1>
 
 <h2 id="topic_title">Topic: <%= @topic.title %></h2>
-<% javascript_tag do %>
-  var addthis_share = {
-    url: '<%= chapters_soapbox_restaurant_questions_url(:restaurant_id => @restaurant.id, :topic_id => @topic.id, :page_id => @page.try(:id)) %>',
-    title: $('title').text().replace('Spoonfeed','Soapbox')
-  }
-<% end %>
 
 <%= render :partial => 'restaurant_questions/topic_nav', :locals => { :next_topic => @next, :prev_topic => @previous } %>
 
@@ -19,7 +11,7 @@
 <% for chapter in @questions_by_chapter.keys %>
 <%- if can?(:manage, @restaurant) || chapter.published_for_restaurant?(@restaurant, @page) -%>
   <% div_for chapter, :class => cycle('', ' last') do -%>
-      <% link_to link_for_restaurant_questions(:restaurant_id => @restaurant.id, :chapter_id => chapter.id, :page_id => @page.try(:id)) do %>
+      <% link_to link_for_restaurant_questions(:restaurant_id => @restaurant.id, :id => chapter.id, :page_id => @page.try(:id)) do %>
           <h3><%= chapter.title %></h3>
 
           <p class="chapter_answer_count">

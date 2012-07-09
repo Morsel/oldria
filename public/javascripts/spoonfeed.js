@@ -416,5 +416,25 @@ $("#user_editor").autocomplete({
 	source: "/users.js",
 });
 
+// Social updates filtering
+var $restoSocialList   = $("#updates");
+var $restoSocialInputs = $("#restaurant_filters #restaurant_criteria input[type=checkbox]");
+var $socialLoaderImg   = $('#loading').hide();
+
+$restoSocialList.before($socialLoaderImg);
+
+updateRestoDirectoryList = function() {
+  input_string = $restoSocialInputs.serialize();
+  $socialLoaderImg.show();
+  $restoSocialList.hide();
+  $restoSocialList.load('/filter_social', input_string, function(responseText, textStatus){
+    $socialLoaderImg.hide();
+    $restoSocialList.fadeIn(300);
+  });
+  // return true;
+};
+
+$restoSocialInputs.change(updateRestoDirectoryList);
+
 // end $(document).ready
 });

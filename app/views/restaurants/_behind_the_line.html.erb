@@ -4,14 +4,14 @@
   <h3 id="btl-title"><span class="presskit-art">Online Press Kit:</span> <%= page.present? ? "#{restaurant.name} - #{page.name}" : restaurant.name %></h3>
   <% if can?(:manage, restaurant) && !params[:controller].match(/soapbox/) %>
     <div class="edit_profile_link">
-      <%= link_to "<span>Answer more questions!</span>", topics_restaurant_questions_path(:restaurant_id => restaurant.id, :page_id => page.try(:id)) %>
+      <%= link_to "<span>Answer more questions!</span>", restaurant_behind_the_line_path(:restaurant_id => restaurant.id, :page_id => page.try(:id)) %>
     </div>
   <% end %>
   <ul class="box">
     <% reset_cycle('default') -%>
     <% restaurant_topics(restaurant, page).each do |topic| %>
       <li class="<%= cycle("even", "odd") %>">
-        <% link_to link_for_restaurant_chapters(:restaurant_id => restaurant.id, :topic_id => topic.id, :page_id => page.try(:id)) do %>
+        <% link_to link_for_restaurant_chapters(:restaurant_id => restaurant.id, :id => topic.id, :page_id => page.try(:id)) do %>
           <h5><%= topic.title %> <span class="completeness">(<%= page.present? ? topic.completion_percentage(restaurant, page) : topic.completion_percentage(restaurant) %>% complete)</span></h5>
           <%= topic.description || truncate(topic.restaurant_questions.map(&:title).join(" "), :length => 100) %>
         <% end %>

@@ -1046,6 +1046,9 @@ body,html,#container,#main,#content,#inside{
 			}
 		}
 	}
+	#restaurant_details {
+	  padding-left: 10px;
+  }
 } /*sidebar */
 
 #facebook-button{
@@ -2585,7 +2588,7 @@ dl.things dt:after {content: ":"}
     font-size: 110%;
     font-style: italic;
   }
-  .datestamp {
+  .datestamp, .tags {
     color: #ccc;
   }
 }
@@ -2982,7 +2985,7 @@ dl.things dt:after {content: ":"}
   p.details {
     font-size: 110%;
   }
-  .datestamp {
+  .datestamp, .tags {
     color: #ccc;
   }
   .sharing {
@@ -2998,7 +3001,7 @@ dl.things dt:after {content: ":"}
   .identity {
     border: none !important;
   }
-  .datestamp {
+  .datestamp, .tags {
     color: #ccc;
   }
   p.keywords {

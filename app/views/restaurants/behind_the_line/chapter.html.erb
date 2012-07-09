@@ -1,13 +1,5 @@
 <% title "#{@chapter.title} - #{@subject.name} - Online Press Kit", false %>
 
-<%= render :partial => 'shared/add_this', :locals => { :responder => @restaurant } %>
-
-<% javascript_tag do %>
-  var addthis_share = {
-    url: '<%= soapbox_restaurant_questions_url(:restaurant_id => @restaurant.id, :chapter_id => @chapter.id, :page_id => @page.try(:id)) %>',
-    title: $('title').text().replace('Spoonfeed','Soapbox')
-  }
-<% end %>
 <h1 id="btl-title" class="btl"><%= link_to "<span class=\"presskit-art\">Online Press Kit:</span> <span class=\"name\">#{restaurant_btl_title(@restaurant, @page)}</span>", path_for_restaurant_and_page(@restaurant, @page) %></h1>
 
 <h2 id="topic_title">Topic: <%= @chapter.topic.title %></h2>
@@ -21,11 +13,11 @@
       <nav id="chapter_nav" class="topic-nav clearfix">
         <% if @next.present? -%>
           <%= link_to "Next: #{truncate(@next.title, :length => 20, :omission => '&hellip;')}",
-              link_for_restaurant_questions(:restaurant_id => @restaurant.id, :chapter_id => @next.id), :class => 'next' %>
+              link_for_restaurant_questions(:restaurant_id => @restaurant.id, :id => @next.id), :class => 'next' %>
         <% end -%>
         <% if @previous.present? -%>
           <%= link_to "Prev: #{truncate(@previous.title, :length => 20, :omission => '&hellip;')}",
-              link_for_restaurant_questions(:restaurant_id => @restaurant.id, :chapter_id => @previous.id, :page_id => @page.try(:id)), :class => 'prev' %>
+              link_for_restaurant_questions(:restaurant_id => @restaurant.id, :id => @previous.id, :page_id => @page.try(:id)), :class => 'prev' %>
         <% end -%>
       </nav>
     <% end -%>
@@ -52,10 +44,10 @@
 
   <% for question in @questions -%>
     <% div_for question do %>
-      <h4><span class="letter-q">Q:</span> <%= link_to question.title, soapbox_restaurant_question_path(question) %></h4>
+      <h4><span class="letter-q">Q:</span> <%= link_to question.title, soapbox? ? soapbox_restaurant_question_path(question) : restaurant_question_path(question) %></h4>
       <% if answer = question.answer_for(@restaurant) %>
         <p><%= answer.answer %></p>
-        <span class="timestamp">Last updated: <%= answer.try(:updated_at).try(:strftime, "%b %e %Y") %></span>
+        <p><span class="timestamp">Last updated: <%= answer.try(:updated_at).try(:strftime, "%b %e %Y") %></span> - <%= link_to "Share this entry", restaurant_restaurant_answer_path(answer.restaurant, answer) %></p>
       <% else %>
         <p>Not answered yet.</p>
       <% end %>

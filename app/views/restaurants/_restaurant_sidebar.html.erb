@@ -56,7 +56,7 @@
 		<ul>
 			<% for employment in @restaurant.public_employments %>
 			<li class="clearfix">
-				<%= link_to image_tag(employment.employee.avatar.url(:thumb)), profile_path(employment.employee.username) %>
+				<%= link_to_if employment.employee.linkable_profile?, image_tag(employment.employee.avatar.url(:thumb)), profile_path(employment.employee.username) %>
 				<h3><%= employee_link(employment.employee) %></h3>
 				<p><%= employment.restaurant_role.try(:name) %></p>
 			</li>

@@ -27,6 +27,8 @@ class RestaurantAnswer < ActiveRecord::Base
     }
   }
 
+  named_scope :recently_answered, :order => "restaurant_answers.created_at DESC"
+
   def activity_name
     "Behind the Line"
   end

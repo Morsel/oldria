@@ -40,7 +40,7 @@
             <%= f.input :wine_by_the_bottle_count %>
             <%= f.input :wine_by_the_bottle_min_price, :hint => "Do not include the dollar sign ($)" %>
             <%= f.input :wine_by_the_bottle_max_price, :hint => "Do not include the dollar sign ($)" %>
-            <%= f.input :wine_by_the_bottle_details, :as => :text %>
+            <%= f.input :wine_by_the_bottle_details, :as => :text, :label => "Wine list details" %>
           <% end %>
 
           <% f.inputs :name => "Hours", :class => "editing hours" do %>

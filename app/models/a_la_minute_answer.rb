@@ -38,6 +38,12 @@ class ALaMinuteAnswer < ActiveRecord::Base
     }
   }
 
+  named_scope :from_responders, lambda { |restaurants|
+    {
+      :conditions => ["id in (?)", restaurants.map(&:id)]
+    }
+  }
+
   attr_accessor :no_twitter_crosspost, :no_fb_crosspost
   after_create :crosspost
 
@@ -73,6 +79,15 @@ class ALaMinuteAnswer < ActiveRecord::Base
 
   def restaurant
     responder
+  end
+
+  def self.social_results(search_params)
+    self.from_responders(Restaurant.with_premium_account.search(search_params).all).map { |a| { :post => a.answer,
+                                                  :restaurant => a.restaurant,
+                                                  :created_at => a.created_at,
+                                                  :link => a.send(:a_la_minute_answers_url, :question_id => a.a_la_minute_question.id),
+                                                  :title => a.question,
+                                                  :source => "Spoonfeed" } }
   end
 
   def bitly_link
