@@ -1046,16 +1046,15 @@ body,html,#container,#main,#content,#inside{
 			}
 		}
 	}
-	#restaurant_details {
-	  padding-left: 10px;
-	    h4{
-  font-family: 'MuseoSlab700', 'Helvetica Neue', Helvetica, arial, sans-serif;
-  font-weight: normal !important;
-  font-weight: 700;
-  font-size: 18px;
-  color: #474f80;
-}
-
+  #restaurant_details {
+    padding-left: 10px;
+    h4 {
+      font-family: 'MuseoSlab700', 'Helvetica Neue', Helvetica, arial, sans-serif;
+      font-weight: normal !important;
+      font-weight: 700;
+      font-size: 18px;
+      color: #474f80;
+    }
   }
 } /*sidebar */
 
@@ -2993,7 +2992,10 @@ dl.things dt:after {content: ":"}
   p.details {
     font-size: 110%;
   }
-  .datestamp, .tags {
+  .datestamp {
+    color: #ccc;
+  }
+  .tags {
     color: #666;
   }
   .sharing {
@@ -3009,8 +3011,11 @@ dl.things dt:after {content: ":"}
   .identity {
     border: none !important;
   }
-  .datestamp, .tags {
+  .datestamp {
     color: #ccc;
+  }
+  .tags {
+    color: #666;
   }
   p.keywords {
     margin-top: 15px;
