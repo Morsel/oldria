@@ -1146,6 +1146,9 @@ body,html,#container,#main,#content,#inside{
 						background-color: #5FA1C6;
 					}
 				}
+				&.website p a {
+				  font-size: 10px;
+				}
 			}
 			.feed-item-reply-count{
 				font-size:11px;
