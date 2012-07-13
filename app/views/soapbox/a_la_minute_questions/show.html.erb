@@ -15,9 +15,14 @@
 
 <div id="answers">
   <h2><%= @question.question %></h2>
-  <%= render :partial => 'answer', :collection => @answers, :as => :answer %>
+  <%#= render :partial => 'answer', :collection => @answers, :as => :answer %>
+  <%= render :partial => 'single_answer', :locals => { :answer => @answers.first}  %>
 </div>
 
+<% #content_for :sidebar do -%>
+<%#= render :partial => 'sidebar' %>
+<% #end -%>
+
 <% content_for :sidebar do -%>
-<%= render :partial => 'sidebar' %>
+<%= render :partial => 'soapbox/restaurant_sidebar', :locals => { :restaurant => @answers.first.responder } %>
 <% end -%>
