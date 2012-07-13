@@ -9,6 +9,19 @@ class Soapbox::NewsletterSubscribersController < ApplicationController
     end
   end
 
+  def edit
+  end
+
+  def update
+    @subscriber = NewsletterSubscriber.find(params[:id])
+    if @subscriber.update_attributes(params[:newsletter_subscriber])
+      flash[:notice] = "Thanks! Your preferences have been updated."
+      redirect_to :action => "edit"
+    else
+      render :action => "edit"
+    end
+  end
+
   def welcome
     @subscriber = NewsletterSubscriber.find(params[:id])
   end
