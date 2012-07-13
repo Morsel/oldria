@@ -3014,6 +3014,11 @@ dl.things dt:after {content: ":"}
   .identity {
     border: none !important;
   }
+  .menu_item_detail {
+	float: right;
+    min-height: 62px;
+    width: 464px;
+  }
   .datestamp {
     color: #ccc;
   }
