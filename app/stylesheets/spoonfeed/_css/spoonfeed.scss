@@ -1069,13 +1069,18 @@ form#mediafeed_user {
 	.avatar {
 		float: left;
 		width: 25px;
-		margin: 8px 10px 10px 0;
+		margin: 8px 10px 20px 0;
 		img {
 			display: block;
 			width: 25px;
 			border: 1px solid $brown;
 		}
 	}
+	.user_comment_text {
+			display: block;
+    float: right;
+    width: 365px;
+			}
 	ul {
 		margin: 8px 0;
 		padding: 0;
@@ -2125,6 +2130,13 @@ aside.dashboard_actions {
 		clear: both;
 		border-bottom:1px solid $feedback-border-color;
 	}
+
+	  .menu_item_detail {
+	float: right;
+    min-height: 62px;
+    width: 685px;
+	display:block;
+  }
   img {
     float: left;
     margin: 0 1em 1em 0;
