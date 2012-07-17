@@ -39,7 +39,7 @@ Rails::Initializer.run do |config|
   config.gem 'ssl_requirement',       :version => "~>0.1.0"
   config.gem 'fastercsv'
   config.gem 'bitly',                 :version => "0.7.0"
-  
+
   # Settings in config/environments/* take precedence over those specified here.
   # Application configuration should go into files in config/initializers
   # -- all .rb files in that directory are automatically loaded.
@@ -60,3 +60,4 @@ TWITTER_CONFIG = YAML.load(File.read(Rails.root + 'config' + 'twitter.yml'))[RAI
 BITLY_CONFIG = YAML.load(File.read(Rails.root + 'config' + 'bitly.yml'))[RAILS_ENV]
 
 Bitly.use_api_version_3
+

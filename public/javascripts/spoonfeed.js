@@ -32,7 +32,7 @@ $(".inbox_message .readit").live('click', function(){
     $message.fadeOut(300, function(){
       $message.remove();
     });
-  },null);  
+  },null);
   return false;
 });
 
@@ -43,7 +43,7 @@ $('.direct_message .readit').click(function(){
     $message.fadeOut(300, function(){
       $message.remove();
     });
-  },null);  
+  },null);
   return false;
 });
 
@@ -54,7 +54,7 @@ $(".inbox_message .readit").live('click', function(){
     $message.fadeOut(300, function(){
       $message.remove();
     });
-  },null);  
+  },null);
   return false;
 });
 
@@ -65,7 +65,7 @@ $('.direct_message .readit').click(function(){
     $message.fadeOut(300, function(){
       $message.remove();
     });
-  },null);  
+  },null);
   return false;
 });
 
@@ -120,9 +120,9 @@ $('.new_question').live('click', function(){
 				backgroundPosition: '0 0'
 			})
 		},
-		type:'post', 
+		type:'post',
 		url:'/users/'+$(this).attr('data-user-id')+'/questions/refresh'
-	}); 
+	});
 	return false;
 });
 
@@ -409,7 +409,7 @@ updateRestaurantSignupFields = function() {
     $('#restaurant_fields').show();
   } else {
     $('#restaurant_fields').hide();
-  } 
+  }
 };
 
 $("#user_editor").autocomplete({
@@ -436,5 +436,23 @@ updateRestoDirectoryList = function() {
 
 $restoSocialInputs.change(updateRestoDirectoryList);
 
+// get cities list by state name : Nishant
+$('#metropolitan_areas_state_state_id').change(function(){
+
+   $('#metropolitan_areas_state_cities').html($('<img />').attr({'src': '/images/redesign/ajax-loader.gif', 'alt': 'Lodding...' }));
+
+    if($(this).val())
+        $.ajax({
+		data:'state_name=' + encodeURIComponent($(this).val()),
+	     	success:function(response){
+			    $('#metropolitan_areas_state_cities').html(response)
+		    },
+		url:'/mediafeed/get_cities'
+	    });
+
+
+})
+
 // end $(document).ready
 });
+
