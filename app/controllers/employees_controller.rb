@@ -1,6 +1,7 @@
 class EmployeesController < ApplicationController
   before_filter :require_user
   before_filter :find_and_authorize_restaurant, :except => :index
+  before_filter :require_email, :only => :new
 
   def bulk_edit
     @restaurant = Restaurant.find(params[:restaurant_id])
@@ -8,12 +9,12 @@ class EmployeesController < ApplicationController
         :include => [:subject_matters, :restaurant_role, :employee])
   end
 
-  def new
+  def new    
     @employment = @restaurant.employments.build(params[:employment])
     find_or_initialize_employee if params[:employment]
   end
 
-  def create
+  def create    
     @employment = @restaurant.employments.build(params[:employment])
     # If the new user isn't valid, halt the whole action
     return unless verify_employee
@@ -71,10 +72,20 @@ class EmployeesController < ApplicationController
   private
 
   def find_or_initialize_employee
-    email = params[:employment][:employee_email]
-    @employee = User.find_by_email(email) || User.find_all_by_name(email).first
+    
+    email = params[:employment][:employee_email]    
+    @employee = User.find_all_by_email(email) 
+    if(@employee.count <1)
+      @employee = User.find_all_by_name(email)
+    elsif (@employee.count <1)
+      @employee = User.find_all_by_first_name(email.split(" ").first)
+    else
+      @employee = User.find_all_by_last_name(email.split(" ").last)
+    end  
+          
+    
     if !@employee.blank?
-      @employment.employee_id = @employee.id
+      @employment.employee_id = @employee.first.id
       render :confirm_employee
     else
       identifier = email.match(/\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i) ?
@@ -86,7 +97,8 @@ class EmployeesController < ApplicationController
         render :new_employee
       else
         flash[:notice] = "We couldn't find them in our system. You can invite this person."
-        redirect_to recommend_invitations_path(:emails => email)
+        #redirect_to recommend_invitations_path(:emails => email)
+        render :new
       end
     end
   end
@@ -129,5 +141,11 @@ class EmployeesController < ApplicationController
     else
       return false
     end
+  end
+  def require_email        
+      if !params[:employment].nil? &&  params[:employment][:employee_email].blank?
+        flash[:notice] = "Please enter some value."        
+        redirect_to :new_restaurant_employee 
+      end
   end
 end
