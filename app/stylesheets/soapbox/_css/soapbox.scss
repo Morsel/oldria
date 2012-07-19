@@ -1103,7 +1103,7 @@ body,html,#container,#main,#content,#inside{
   }
 }
 
-#recent-activity{
+#recent-activity, .recent-activity-class{
 	background:url(/images/soapbox/bg-sidebar-top-purple.png) no-repeat #333c68;
 	padding:0 15px 40px;
 	position:relative;
@@ -1136,6 +1136,20 @@ body,html,#container,#main,#content,#inside{
 				@include opacity(0.66);
 				@include knockout;
 				font-size: 15px;
+			}
+			.tags{
+				display:inline;
+				a{
+					font-weight:normal;
+					color:#fff;
+					padding: 1px;
+					&:hover {
+						background-color: #5FA1C6;
+					}
+				}
+				&.website p a {
+				  font-size: 12px;
+				}
 			}
 			.feed-item-title{
 				display:inline;
@@ -3029,6 +3043,10 @@ dl.things dt:after {content: ":"}
   }
   p.keywords {
     margin-top: 15px;
+  }
+  .sharing{		
+		background-color: #F6F4F3; 
+		text-align: right;  	
   }
 }
 

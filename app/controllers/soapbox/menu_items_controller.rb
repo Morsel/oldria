@@ -15,8 +15,8 @@ class Soapbox::MenuItemsController < ApplicationController
   end
 
   def show
-    @menu_item = MenuItem.find(params[:id])
-    @more_menu_items = MenuItem.from_premium_restaurants.all(:order => "created_at DESC", :limit => 5, :conditions => ["menu_items.id != ?", @menu_item.id])
+    @menu_item = MenuItem.find(params[:id])    
+    @more_menu_items = MenuItem.from_premium_restaurants.all(:order => "created_at DESC", :limit => 5, :conditions => ["menu_items.id != ? and menu_items.created_at >= ?", @menu_item.id,  (Date.today-7) ])
   end
 
 end
