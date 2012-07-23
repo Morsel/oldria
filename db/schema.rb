@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120612214511) do
+ActiveRecord::Schema.define(:version => 20120720071207) do
 
   create_table "a_la_minute_answers", :force => true do |t|
     t.text     "answer"
@@ -18,8 +18,7 @@ ActiveRecord::Schema.define(:version => 20120612214511) do
     t.string   "responder_type"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.datetime "post_to_twitter_at"
-    t.datetime "post_to_facebook_at"
+    t.boolean  "show_as_public"
   end
 
   create_table "a_la_minute_questions", :force => true do |t|
@@ -214,8 +213,8 @@ ActiveRecord::Schema.define(:version => 20120612214511) do
     t.date     "date_ended"
     t.string   "chef_name",       :default => "",    :null => false
     t.boolean  "chef_is_me",      :default => false, :null => false
-    t.text     "cuisine",         :default => "",    :null => false
-    t.text     "notes",           :default => "",    :null => false
+    t.text     "cuisine",                            :null => false
+    t.text     "notes",                              :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "opening_staff",   :default => false
@@ -284,12 +283,6 @@ ActiveRecord::Schema.define(:version => 20120612214511) do
   add_index "discussions", ["id"], :name => "index_discussions_on_id", :unique => true
   add_index "discussions", ["poster_id"], :name => "index_discussions_on_poster_id"
 
-  create_table "email_stopwords", :force => true do |t|
-    t.text     "phrase"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "employment_searches", :force => true do |t|
     t.text     "conditions"
     t.datetime "created_at"
@@ -304,9 +297,9 @@ ActiveRecord::Schema.define(:version => 20120612214511) do
     t.integer  "restaurant_role_id"
     t.boolean  "omniscient"
     t.boolean  "primary",              :default => false
-    t.string   "type"
     t.boolean  "public_profile",       :default => true
     t.integer  "position"
+    t.string   "type"
     t.string   "solo_restaurant_name"
   end
 
@@ -315,7 +308,7 @@ ActiveRecord::Schema.define(:version => 20120612214511) do
   add_index "employments", ["restaurant_role_id"], :name => "index_employments_on_restaurant_role_id"
 
   create_table "enrollments", :force => true do |t|
-    t.integer  "school_id",                       :null => false
+    t.integer  "school_id"
     t.integer  "profile_id",                      :null => false
     t.date     "graduation_date"
     t.string   "degree",          :default => "", :null => false
@@ -651,8 +644,8 @@ ActiveRecord::Schema.define(:version => 20120612214511) do
     t.string   "country",            :default => "", :null => false
     t.date     "date_started",                       :null => false
     t.date     "date_ended"
-    t.text     "responsibilities",   :default => "", :null => false
-    t.text     "reason_for_leaving", :default => "", :null => false
+    t.text     "responsibilities",                   :null => false
+    t.text     "reason_for_leaving",                 :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -671,16 +664,6 @@ ActiveRecord::Schema.define(:version => 20120612214511) do
     t.string   "category"
     t.datetime "created_at"
     t.datetime "updated_at"
-  end
-
-  create_table "page_views", :force => true do |t|
-    t.integer  "user_id"
-    t.string   "title"
-    t.string   "url"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.integer  "page_owner_id"
-    t.string   "page_owner_type"
   end
 
   create_table "pages", :force => true do |t|
@@ -733,7 +716,7 @@ ActiveRecord::Schema.define(:version => 20120612214511) do
     t.string   "title"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "position"
+    t.integer  "position",          :default => 0
     t.integer  "chapter_id"
     t.text     "roles_description"
   end
@@ -753,7 +736,7 @@ ActiveRecord::Schema.define(:version => 20120612214511) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "headline",              :default => ""
-    t.text     "summary",               :default => ""
+    t.text     "summary"
     t.string   "hometown"
     t.string   "current_residence"
     t.integer  "metropolitan_area_id"
@@ -789,13 +772,6 @@ ActiveRecord::Schema.define(:version => 20120612214511) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "restaurant_id"
-    t.string   "attachment_file_name"
-    t.string   "attachment_content_type"
-    t.integer  "attachment_file_size"
-    t.datetime "attachment_updated_at"
-    t.string   "headline"
-    t.datetime "post_to_twitter_at"
-    t.datetime "post_to_facebook_at"
   end
 
   create_table "question_pages", :force => true do |t|
@@ -965,8 +941,8 @@ ActiveRecord::Schema.define(:version => 20120612214511) do
     t.string   "description"
     t.string   "phone_number"
     t.string   "website"
-    t.string   "twitter_handle"
-    t.string   "facebook_page_url"
+    t.string   "twitter_username"
+    t.string   "facebook_page"
     t.string   "hours"
     t.integer  "media_contact_id"
     t.string   "management_company_name"
@@ -974,12 +950,14 @@ ActiveRecord::Schema.define(:version => 20120612214511) do
     t.integer  "logo_id"
     t.integer  "primary_photo_id"
     t.date     "opening_date"
-    t.boolean  "premium_account"
     t.string   "sort_name"
-    t.string   "facebook_page_id"
-    t.string   "facebook_page_token"
+    t.boolean  "premium_account"
     t.string   "atoken"
     t.string   "asecret"
+    t.string   "facebook_page_url"
+    t.string   "facebook_page_id"
+    t.string   "facebook_page_token"
+    t.boolean  "is_activate",                :default => false
   end
 
   add_index "restaurants", ["cuisine_id"], :name => "index_restaurants_on_cuisine_id"
@@ -1009,10 +987,6 @@ ActiveRecord::Schema.define(:version => 20120612214511) do
     t.string   "description"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "creator_id"
-    t.string   "creator_type"
-    t.integer  "content_id"
-    t.string   "content_type"
   end
 
   create_table "slides", :force => true do |t|
@@ -1050,13 +1024,23 @@ ActiveRecord::Schema.define(:version => 20120612214511) do
     t.datetime "updated_at"
     t.boolean  "published",          :default => true
     t.boolean  "daily_feature",      :default => false
-    t.text     "description"
   end
 
   create_table "soapbox_pages", :force => true do |t|
     t.string   "title"
     t.string   "slug"
     t.text     "content"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "social_posts", :force => true do |t|
+    t.string   "post_data"
+    t.string   "link"
+    t.datetime "post_created_at"
+    t.string   "source"
+    t.integer  "restaurant_id"
+    t.string   "title"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -1192,7 +1176,7 @@ ActiveRecord::Schema.define(:version => 20120612214511) do
     t.string   "crypted_password"
     t.string   "password_salt"
     t.string   "perishable_token"
-    t.string   "persistence_token",                           :null => false
+    t.string   "persistence_token",                                        :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.datetime "confirmed_at"
@@ -1212,12 +1196,12 @@ ActiveRecord::Schema.define(:version => 20120612214511) do
     t.string   "facebook_page_id"
     t.string   "facebook_page_token"
     t.boolean  "premium_account"
-    t.boolean  "visible",                   :default => true
+    t.boolean  "visible",                                :default => true
     t.boolean  "national"
-    t.boolean  "mediafeed_visible",         :default => true
+    t.boolean  "mediafeed_visible",                      :default => true
     t.string   "notification_email"
-    t.boolean  "publish_profile",           :default => true
-    t.datetime "facebook_token_expiration"
+    t.integer  "publish_profile",           :limit => 1,                   :null => false
+    t.datetime "facebook_token_expiration",                                :null => false
   end
 
   add_index "users", ["email"], :name => "index_users_on_email"

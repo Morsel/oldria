@@ -168,6 +168,7 @@ ActionController::Routing::Routes.draw do |map|
 
   map.feature '/features/:id', :controller => 'features', :action => 'show'
 
+  map.activate_restaurant '/restaurants/:id/activate/:mode' ,:controller =>'restaurants' ,:action => 'activate_restaurant'
   map.resources :restaurants,
                 :member => { :edit_logo => :get,
                              :select_primary_photo => :post,
@@ -178,7 +179,7 @@ ActionController::Routing::Routes.draw do |map|
                              :twitter_archive => :get,
                              :facebook_archive => :get,
                              :social_archive => :get
-                             } do |restaurant|
+                             } do |restaurant|    
     restaurant.resources :employees, :collection => { :bulk_edit => :get }, :except => [:show, :index]
     restaurant.resources :employments, :collection => { "reorder" => :post }
     restaurant.resource :employee_accounts, :only => [:create, :destroy]

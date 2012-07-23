@@ -44,7 +44,7 @@ class Restaurant < ActiveRecord::Base
   include FacebookPageConnect
   include TwitterAuthorization
 
-  default_scope :conditions => {:deleted_at => nil}, :order => "#{table_name}.sort_name"
+  default_scope :conditions => {:deleted_at => nil }, :order => "#{table_name}.sort_name"
 
   # primary account manager
   belongs_to :manager, :class_name => "User", :foreign_key => 'manager_id'
@@ -129,6 +129,8 @@ class Restaurant < ActiveRecord::Base
   named_scope :with_facebook_page, lambda {
     { :conditions => "facebook_page_id IS NOT NULL AND facebook_page_token IS NOT NULL" }
   }
+
+  named_scope :activated_restaurant, :conditions => {:is_activated => true } 
 
   def self.find_premium(id)
     possibility = find_by_id(id)
@@ -246,7 +248,7 @@ class Restaurant < ActiveRecord::Base
     # when searchlogic will be updated, instead of all(:conditions => ["restaurants.id NOT in (?)", [0] + restaurants.map(&:id)])
     # one can use id_not_in(restaurants.map(&:id))
 
-    premiums = Restaurant.subscription_is_active
+    premiums = Restaurant.activated_restaurant.subscription_is_active
 
     # RESTAURANT: name, city, state, management_company_name
     restaurants = premiums.name_or_city_or_state_or_management_company_name_like(keyword)
@@ -290,6 +292,9 @@ class Restaurant < ActiveRecord::Base
 
     restaurants
   end
+  def is_activated_restaurant? 
+      is_activated
+  end
 
   private
 
@@ -331,5 +336,5 @@ class Restaurant < ActiveRecord::Base
   def add_fact_sheet
     self.fact_sheet = RestaurantFactSheet.create
   end
-
+  
 end

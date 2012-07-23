@@ -38,6 +38,13 @@ class ALaMinuteAnswer < ActiveRecord::Base
     }
   }
 
+  named_scope :activated_restaurants, lambda {
+    {
+      :joins => 'INNER JOIN restaurants ON `restaurants`.id = responder_id ',
+      :conditions => ["responder_type = 'Restaurant'  AND (restaurants.is_activated = ?)",
+          true]
+    }
+  }
   named_scope :from_responders, lambda { |restaurants|
     {
       :conditions => ["id in (?)", restaurants.map(&:id)]

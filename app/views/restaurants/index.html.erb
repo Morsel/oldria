@@ -22,6 +22,9 @@
           <li class="<%= dom_class(employment.restaurant) %>">
               <% if employment.omniscient? -%>
               <%= link_to "Edit #{employment.restaurant_name}", edit_restaurant_path(employment.restaurant), :class => "restaurant" %>
+
+              <%= link_to ((employment.restaurant.is_activated ? "Deactivate" : "Activate"), activate_restaurant_path(employment.restaurant,employment.restaurant.is_activated ? 0 :1), :class => "restaurant" ) %>
+              
               <span>Admin</span>
               <p>
                   <%= link_to "Edit A la Minute", bulk_edit_restaurant_a_la_minute_answers_path(:restaurant_id => employment.restaurant_id), :class => "restaurant-actions" %>&nbsp;&nbsp;&nbsp;
