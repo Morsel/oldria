@@ -109,7 +109,7 @@ class WelcomeController < ApplicationController
   def has_more?
     if current_user.media?
       answer_count            = ProfileAnswer.from_premium_users.count(:conditions => ["profile_answers.created_at > ?", 2.weeks.ago])
-      menu_item_count         = MenuItem.activated_restaurants.om_premium_restaurants.count(:conditions => ["menu_items.created_at > ?", 2.weeks.ago])
+      menu_item_count         = MenuItem.activated_restaurants.from_premium_restaurants.count(:conditions => ["menu_items.created_at > ?", 2.weeks.ago])
       promotion_count         = Promotion.from_premium_restaurants.count(:conditions => ["promotions.created_at > ?", 2.weeks.ago])
       restaurant_answer_count = RestaurantAnswer.activated_restaurants.from_premium_restaurants.count(:conditions => ["restaurant_answers.created_at > ?", 2.weeks.ago])
     else
