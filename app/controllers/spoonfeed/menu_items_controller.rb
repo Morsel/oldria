@@ -20,11 +20,8 @@ class Spoonfeed::MenuItemsController < ApplicationController
   end
 
   def show
-    #@menu_item = MenuItem.find(params[:id])
-    #@restaurant = @menu_item.restaurant
-
     @menu_item = MenuItem.activated_restaurants.find(:first,:conditions=>["menu_items.id= ?",params[:id]]) 
-    debugger
+
     if(@menu_item.nil?)
         flash[:notice] = "Restaurant not found or deactivated."
         redirect_back_or_default #redirect_to(:back) // can be used redirect back
