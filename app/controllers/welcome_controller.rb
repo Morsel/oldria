@@ -3,14 +3,14 @@ class WelcomeController < ApplicationController
 
   # preload classes which may be used while caching
   # to prevent "undefined class/module"
-  #before_filter :preload_classes
+  before_filter :preload_classes
   before_filter :require_user, :only => [:refresh, :require_login]
 
   # cache dashboard for logged in users
-  #caches_action :index,
-   #             :if =>  Proc.new {|controller| controller.cache? && !controller.params[:is_more] },
-    #            :expires_in => 5.minutes,
-     #           :cache_path => Proc.new { |controller| controller.dashboard_cache_key }
+  caches_action :index,
+                :if =>  Proc.new {|controller| controller.cache? && !controller.params[:is_more] },
+                :expires_in => 5.minutes,
+                :cache_path => Proc.new { |controller| controller.dashboard_cache_key }
 
   def initialize
     @per_page = 10
