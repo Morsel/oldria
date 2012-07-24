@@ -26,7 +26,8 @@ class ALaMinuteAnswersController < ApplicationController
   def bulk_update
     params[:a_la_minute_questions].each do |id, attributes|
       question = ALaMinuteQuestion.find(id)
-      previous_answer = ALaMinuteAnswer.find(attributes.delete(:answer_id)) rescue nil
+      answer_id = attributes.delete(:answer_id)
+      previous_answer = ALaMinuteAnswer.find(answer_id) if ALaMinuteAnswer.exists?(answer_id)
 
       # create a new answer if the answer has changed
       unless attributes[:answer] == previous_answer.try(:answer)
