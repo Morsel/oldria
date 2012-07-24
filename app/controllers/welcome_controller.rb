@@ -68,13 +68,13 @@ class WelcomeController < ApplicationController
     if current_user.media?
       soapbox_comments   = SoapboxEntry.published.all(:order => "published_at DESC", :conditions => ["created_at > ?", 2.weeks.ago]).map(&:comments)
       answers            = ProfileAnswer.from_premium_users.all(:order => "profile_answers.created_at DESC", :conditions => ["profile_answers.created_at > ?", 2.weeks.ago])
-      menu_items         = MenuItem.from_premium_restaurants.all(:order => "menu_items.created_at DESC", :conditions => ["menu_items.created_at > ?", 2.weeks.ago])
+      menu_items         = MenuItem.activated_restaurants.from_premium_restaurants.all(:order => "menu_items.created_at DESC", :conditions => ["menu_items.created_at > ?", 2.weeks.ago])
       promotions         = Promotion.from_premium_restaurants.all(:order => "promotions.created_at DESC", :conditions => ["promotions.created_at > ?", 2.weeks.ago])
       restaurant_answers = RestaurantAnswer.from_premium_restaurants.all(:order => "restaurant_answers.created_at DESC", :conditions => ["restaurant_answers.created_at > ?", 2.weeks.ago])      
     else
       soapbox_comments   = SoapboxEntry.published.all(:order => "published_at DESC", :conditions => ["created_at > ?", 2.weeks.ago]).map(&:comments)
       answers            = ProfileAnswer.all(:order => "created_at DESC", :conditions => ["created_at > ?", 2.weeks.ago])
-      menu_items         = MenuItem.all(:order => "created_at DESC", :conditions => ["created_at > ?", 2.weeks.ago])
+      menu_items         = MenuItem.activated_restaurants.all(:order => "created_at DESC", :conditions => ["created_at > ?", 2.weeks.ago])
       promotions         = Promotion.all(:order => "created_at DESC", :conditions => ["created_at > ?", 2.weeks.ago])
       restaurant_answers = RestaurantAnswer.all(:order => "created_at DESC", :conditions => ["created_at > ?", 2.weeks.ago])
     end
