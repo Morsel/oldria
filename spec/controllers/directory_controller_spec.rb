@@ -14,9 +14,10 @@ describe DirectoryController do
     assigns[:users].count.should == User.in_spoonfeed_directory.count
   end
 
-  it "should show a list of all restaurants" do
+  it "should show a list of all activated restaurants" do
+    Factory(:restaurant, :is_activated=> false);Factory(:restaurant, :is_activated=> true)
     get :restaurants
-    assigns[:restaurants].count.should == Restaurant.count
+    assigns[:restaurants].count.should == Restaurant.activated_restaurant.count
   end
 
 end
