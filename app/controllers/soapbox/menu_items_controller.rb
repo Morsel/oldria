@@ -10,13 +10,10 @@ class Soapbox::MenuItemsController < ApplicationController
       @menu_items = @restaurant.menu_items.all(:order => "created_at DESC") if !@restaurant.nil?
     else
       @menu_items = MenuItem.activated_restaurants.from_premium_restaurants.all(:order => "created_at DESC")
-    end
-    if(@menu_items.nil?)
-        flash[:notice] = "Restaurant not found or deactivated."
-        redirect_back_or_default #redirect_to(:back) // can be used redirect back
-     else 
-      @menu_items = @menu_items.paginate(:page => params[:page], :per_page => 5)
-    end
+    end  
+    debugger  
+      @menu_items = @menu_items.paginate(:page => params[:page], :per_page => 5)  unless @menu_items.count < 1
+    
   end
 
   def show        
