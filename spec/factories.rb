@@ -177,6 +177,7 @@ Factory.define :restaurant do |f|
   f.association :media_contact, :factory => :user
   f.association :cuisine
   f.association :manager, :factory => :user
+  f.is_activated true
 end
 
 Factory.define :photo do |f|
