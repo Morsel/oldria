@@ -3,7 +3,7 @@ class Soapbox::MenuItemsController < ApplicationController
   def index    
     if params[:keyword].present?
       @menu_items = MenuItem.from_premium_restaurants.all(:joins => { :menu_item_keywords => :otm_keyword },
-                                 :conditionsz => ["otm_keywords.name = ?", params[:keyword]],
+                                 :conditions => ["otm_keywords.name = ?", params[:keyword]],
                                  :order => "menu_items.created_at DESC")
     elsif params[:restaurant_id].present?
       @restaurant = Restaurant.activated_restaurant.find(:first,:conditions=> ["id = ?",params[:restaurant_id]])
