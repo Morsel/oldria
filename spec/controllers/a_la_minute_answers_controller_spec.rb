@@ -50,6 +50,28 @@ describe ALaMinuteAnswersController do
       specify { question.should have(1).a_la_minute_answers }
     end
 
+    describe "update with cross-posting" do
+
+      it "should crosspost to Twitter" do
+        restaurant = Factory(:restaurant, :atoken => "qwerty", :asecret => "1234567", :facebook_page_id => "987987213", :facebook_page_token => "kljas987as")
+        twitter_client = mock
+        restaurant.stubs(:twitter_client).returns(twitter_client)
+        twitter_client.expects(:send_at).returns(true)
+
+        previous_answer = Factory(:a_la_minute_answer, :responder => restaurant, :a_la_minute_question => question)
+
+        put :bulk_update, "restaurant_id" => restaurant.id,
+        "a_la_minute_questions" => {
+          question.id.to_s => {
+            "answer" => "new answer",
+            "answer_id" => previous_answer.id,
+            "post_to_twitter_at" => Time.now
+          }
+        }
+      end
+
+    end
+
   end
 
 end
