@@ -1439,6 +1439,12 @@ aside.dashboard_actions {
 				  font-size: 18px;
 				  margin-bottom: 5px;
 				}
+				a.restaurant.live{
+					color:#6EB33F;
+				}
+				a.restaurant.private{
+					color: #990000;
+				}
 				a.restaurant-actions {
 					display: inline-block;
 					margin: 0 0 10px;
