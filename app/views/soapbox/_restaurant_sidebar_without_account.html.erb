@@ -34,11 +34,11 @@
                 <p><%= link_to restaurant.website, restaurant.website %></p>
             </header>
           </li>
-          <% if !restaurant.twitter_username.nil? %>
+          <% if !restaurant.twitter_handle.nil? %>
           <li>
             <header class="feed-item-title">
                 Twitter:
-                <p><%= link_to "@#{restaurant.twitter_username}", "http://twitter.com/#{restaurant.twitter_username}" %></p>
+                <p><%= link_to "@#{restaurant.twitter_handle}", "http://twitter.com/#{restaurant.twitter_handle}" %></p>
             </header>
           </li>
           <% end %>
