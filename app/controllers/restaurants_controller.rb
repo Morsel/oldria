@@ -140,9 +140,11 @@ class RestaurantsController < ApplicationController
       redirect_to :restaurants 
     end    
   end
-
+  def find_restaurant_witout_scope    
+    @restaurant = Restaurant.find(params[:id])
+  end  
   def authenticate
-    find_restaurant
+    find_restaurant_witout_scope
     if (cannot? :edit, @restaurant) || (cannot? :update, @restaurant)
       flash[:error] = "You don't have permission to access that page"
       redirect_to @restaurant
