@@ -31,6 +31,8 @@
         <% if @promotion.attachment.file? -%>
         <p><%= link_to @promotion.attachment_file_name, @promotion.attachment.url %></p>
         <% end -%>
+        <p class="tags">Tags: <%= @promotion.restaurant.top_tags.map(&:name).to_sentence %></p>
+
         <p><span class="datestamp"><%= "Posted #{@promotion.created_at.strftime("%D")}" %></span></p>
     </div>
     <!-- Likes and Tweets BEGIN -->
@@ -46,5 +48,5 @@
 <% end %>
 
 <% content_for :sidebar do -%>
-<%= render :partial => 'sidebar' %>
+<%= render :partial => 'soapbox/restaurant_sidebar', :locals => { :restaurant => @promotion.restaurant } %>
 <% end -%>

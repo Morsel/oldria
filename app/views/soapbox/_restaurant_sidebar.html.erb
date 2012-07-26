@@ -1,0 +1,64 @@
+<div id="sidebar">
+    <div id="restaurant_details">
+        <h4><%= link_to restaurant.name, soapbox_restaurant_path(restaurant) %></h4>
+        <p><%= restaurant.address_parts.join("<br />") %></p>
+        <p><strong>Metropolitan area: <%= restaurant.metropolitan_area.try(:name) %></strong></p>
+        <p><strong>Region: <%= restaurant.james_beard_region.try(:name) %></strong></p>
+    </div>
+  <aside id="recent-activity">
+    <header>
+      <h1>Details</h1>
+    </header>
+      <ol id="alm-feed">
+          <li>
+            <header class="feed-item-title">
+                Cuisine:
+                <p><%= restaurant.cuisine.name %></p>
+            </header>
+          </li>
+          <li>
+            <header class="feed-item-title">
+                Account Administrator:
+                <p><%= restaurant.manager.try(:name) %></p>
+            </header>
+          </li>
+          <li>
+            <header class="feed-item-title">
+                Media Contact:
+                <p><%= restaurant.media_contact.try(:name) %></p>
+                <p><%= restaurant.media_contact.try(:email) %></p>
+            </header>
+          </li>
+          <li>
+            <header class="feed-item-title">
+                Opening Date:
+                <p><%= restaurant.opening_date %></p>
+            </header>
+          </li>
+          <li>
+            <header class="feed-item-title">
+                Phone Number:
+                <p><%= restaurant.phone_number %></p>
+            </header>
+          </li>
+          <li>
+            <header class="feed-item-title website">
+                <%= link_to "Website:", restaurant.website %>
+                <p><%= link_to restaurant.website, restaurant.website %></p>
+            </header>
+          </li>
+          <li>
+            <header class="feed-item-title">
+                Twitter:
+                <p><%= link_to "@#{restaurant.twitter_username}", "http://twitter.com/#{restaurant.twitter_username}" %></p>
+            </header>
+          </li>
+      </ol><!-- /activity-feed -->
+    <div id="feed-bottom"></div>
+    <footer>
+        <div id="activity-chooser-all">
+          <span><%= link_to "View #{restaurant.name} &#187;", soapbox_restaurant_path(restaurant), :id => "view-all-questions" %></span>
+        </div>
+    </footer>
+  </aside><!-- /recent-activity -->
+</div><!-- /sidebar -->

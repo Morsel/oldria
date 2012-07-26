@@ -4,7 +4,11 @@
       <% semantic_form_for @comment_resource, :html => { :multipart => true } do |f| %>
         <% f.inputs do %>
             <% if current_user.admin? -%>
-            <%= f.input :user_id, :as => :select, :collection => @admin_discussion.employees %>
+              <% if @admin_discussion.present? -%>
+                <%= f.input :user_id, :as => :select, :collection => @admin_discussion.employees %>
+              <% else -%>
+                <%= f.input :user_id, :as => :hidden, :value => @discussion.employee.id %>
+              <% end -%>
             <% end -%>
             <%= f.input :comment, :label => 'Post', :input_html => { :rows => 8 }, :hint => soapbox_notice(message) %>
             <div id="loading-wait" style="display: none">
