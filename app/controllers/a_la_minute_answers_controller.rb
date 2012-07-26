@@ -31,6 +31,9 @@ class ALaMinuteAnswersController < ApplicationController
 
       # create a new answer if the answer has changed
       unless attributes[:answer] == previous_answer.try(:answer)
+        attributes[:post_to_twitter_at] = Time.parse("#{attributes[:post_to_twitter_at][:year]}-#{attributes[:post_to_twitter_at][:month]}-#{attributes[:post_to_twitter_at][:day]} #{attributes[:post_to_twitter_at][:hour]}:#{attributes[:post_to_twitter_at][:minute]}") if attributes[:post_to_twitter_at].present?
+        attributes[:post_to_facebook_at] = Time.parse("#{attributes[:post_to_facebook_at][:year]}-#{attributes[:post_to_facebook_at][:month]}-#{attributes[:post_to_facebook_at][:day]} #{attributes[:post_to_facebook_at][:hour]}:#{attributes[:post_to_facebook_at][:minute]}") if attributes[:post_to_facebook_at].present?
+
         new_answer = @restaurant.a_la_minute_answers.create(attributes.merge(:a_la_minute_question_id => id))
       end
 
