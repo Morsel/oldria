@@ -83,7 +83,7 @@ class EmployeesController < ApplicationController
       @employee = User.find_all_by_last_name(email.split(" ").last)
     end          
     
-    if @employee.count > 0
+    if !@employee.blank?
       @employment.employee_id = @employee.first.id
       render :confirm_employee
     else
