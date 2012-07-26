@@ -74,7 +74,7 @@ describe ALaMinuteAnswersController do
         question.id.to_s => {
           "answer" => "new cross-posting answer",
           "answer_id" => previous_answer.id,
-          "post_to_twitter_at" => Time.now
+          "post_to_twitter_at" => { :year => "2012", :month => "07", :day => "25", :hour => "6", :minute => "24"}
         }
       }
 
