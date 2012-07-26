@@ -1,5 +1,7 @@
 class Soapbox::NewsletterSubscribersController < ApplicationController
 
+  before_filter :verify_subscriber, :only => ['edit', 'update']
+
   def create
     @subscriber = NewsletterSubscriber.new(params[:newsletter_subscriber])
     if @subscriber.save
@@ -30,9 +32,18 @@ class Soapbox::NewsletterSubscribersController < ApplicationController
     @subscriber = NewsletterSubscriber.find(params[:id])
     if params[:token] == @subscriber.confirmation_token
       @subscriber.confirm!
-      cookies['newsletter_subscriber'] = @subscriber.id
+      cookies['newsletter_subscriber'] = @subscriber.confirmation_token
     else
       render :text => "Sorry, that link is not valid"
+    end
+  end
+
+  private
+
+  def verify_subscriber
+    @subscriber = NewsletterSubscriber.find(params[:id])
+    unless cookies['newsletter_subscriber'] == @subscriber.confirmation_token.to_s
+      redirect_to soapbox_root_path
     end
   end
 

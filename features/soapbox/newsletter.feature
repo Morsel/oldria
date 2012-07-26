@@ -18,4 +18,4 @@ Feature: Newsletter
 
     When I check "Sign me up for the Soapbox email newsletter!"
     And I press "Confirm"
-    Then I should see "preferences"
+    Then I should be on the edit newsletter subscriber page for "myemail@mailserver.com"

@@ -199,11 +199,12 @@ module NavigationHelpers
     when /the soapbox feature page for "(.+)"/
       soapbox_restaurant_feature_page_path(RestaurantFeature.find_by_value($1))
     when /the soapbox restaurant feature page for "(.+)" and "(.+)"/
-      soapbox_restaurant_feature_page_path(
-          Restaurant.find_by_name($1), RestaurantFeaturePage.find_by_name($2))
+      soapbox_restaurant_feature_page_path(Restaurant.find_by_name($1), RestaurantFeaturePage.find_by_name($2))
     when /the soapbox restaurant directory page/
       soapbox_restaurant_directory_path
-      
+    when /the edit newsletter subscriber page for "(.+)"/
+      edit_soapbox_newsletter_subscriber_path(NewsletterSubscriber.find_by_email($1))
+
     # Question
     when /^the question page with title "(.+)"$/
       soapbox_profile_question_path(ProfileQuestion.find_by_title($1).id)

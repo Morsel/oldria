@@ -1,1 +1,10 @@
 <% title "Edit your preferences" %>
+
+<%= render 'layouts/flashes' %>
+
+<% semantic_form_for [:soapbox, @subscriber] do |f| %>
+    <% f.inputs do %>
+        <%= f.input :receive_soapbox_news, :label => "I want to receive the Soapbox email newsletter" %>
+    <% end %>
+    <%= submit_tag "Confirm" %>
+<% end %>
