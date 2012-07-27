@@ -2,9 +2,9 @@ class ALaMinuteAnswersController < ApplicationController
 
   before_filter :require_user
   before_filter :require_restaurant_employee, :only => [:destroy, :bulk_edit, :bulk_update]
+  before_filter :find_activated_restaurant, :only=>[:index]
 
-  def index
-    @restaurant = Restaurant.find(params[:restaurant_id])
+  def index    
     @questions = ALaMinuteAnswer.public_profile_for(@restaurant)
   end
 
@@ -52,4 +52,11 @@ class ALaMinuteAnswersController < ApplicationController
     end
     true
   end
+  def find_activated_restaurant      
+      @restaurant = Restaurant.find(params[:restaurant_id])
+      unless @restaurant.is_activated?        
+        flash[:error] = "This restaurant is not activated."
+        redirect_to :restaurants
+      end
+  end  
 end
