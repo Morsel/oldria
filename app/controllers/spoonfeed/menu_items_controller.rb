@@ -1,6 +1,7 @@
 class Spoonfeed::MenuItemsController < ApplicationController
 
   before_filter :require_user
+  before_filter :verify_restaurant_activation, :only =>[:show]
 
   def index
     
@@ -19,14 +20,16 @@ class Spoonfeed::MenuItemsController < ApplicationController
   end
 
   def show
-    @menu_item = MenuItem.activated_restaurants.find(:first,:conditions=>["menu_items.id= ?",params[:id]]) 
+    @menu_item = MenuItem.find(:first,:conditions=>["menu_items.id= ?",params[:id]]) 
+    @restaurant = @menu_item.restaurant   
+  end
 
-    if(@menu_item.nil?)
-        flash[:notice] = "Restaurant not found or deactivated."
-        redirect_back_or_default #redirect_to(:back) // can be used redirect back
-    else      
-      @restaurant = @menu_item.restaurant
-    end 
+  def verify_restaurant_activation        
+      @menu_item = MenuItem.find(params[:id])       
+      unless @menu_item.restaurant.is_activated?        
+        flash[:error] = "This on the Menu page is unavailable."
+        redirect_to :menu_items   
+      end
   end
 
 end
