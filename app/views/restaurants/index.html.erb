@@ -24,9 +24,9 @@
               <%= link_to "Edit #{employment.restaurant_name}", edit_restaurant_path(employment.restaurant), :class => "restaurant " %>
 
                <% if employment.restaurant.is_activated %>
-                <%= link_to ( "Private", activate_restaurant_path(employment.restaurant, 0 ), :class => "restaurant private",:style=>"color:#990000" ) %>
+                <%= link_to( "Private", activate_restaurant_path(employment.restaurant, 0 ), :class => "restaurant private",:style=>"color:#990000") %>
                 <%else%>
-                <%= link_to ( "Live", activate_restaurant_path(employment.restaurant,1), :class => "restaurant live", :style=>"color:#6EB33F" ) %>
+                <%= link_to( "Live", activate_restaurant_path(employment.restaurant,1), :class => "restaurant live", :style=>"color:#6EB33F") %>
                 <% end -%>
 
               
