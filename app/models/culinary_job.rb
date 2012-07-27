@@ -1,4 +1,5 @@
 # == Schema Information
+# Schema version: 20120726233422
 #
 # Table name: culinary_jobs
 #
@@ -12,12 +13,12 @@
 #  date_started    :date            not null
 #  date_ended      :date
 #  chef_name       :string(255)     default(""), not null
-#  chef_is_me      :boolean         default(FALSE), not null
+#  chef_is_me      :boolean         not null
 #  cuisine         :text            default(""), not null
 #  notes           :text            default(""), not null
 #  created_at      :datetime
 #  updated_at      :datetime
-#  opening_staff   :boolean         default(FALSE)
+#  opening_staff   :boolean
 #
 
 class CulinaryJob < ActiveRecord::Base

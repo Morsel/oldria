@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20120221182030
+# Schema version: 20120726233422
 #
 # Table name: soapbox_entries
 #
@@ -10,7 +10,7 @@
 #  created_at         :datetime
 #  updated_at         :datetime
 #  published          :boolean         default(TRUE)
-#  daily_feature      :boolean         default(FALSE)
+#  daily_feature      :boolean
 #  description        :text
 #
 

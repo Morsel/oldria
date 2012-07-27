@@ -1,4 +1,5 @@
 # == Schema Information
+# Schema version: 20120726233422
 #
 # Table name: restaurants
 #
@@ -36,6 +37,7 @@
 #  facebook_page_token        :string(255)
 #  atoken                     :string(255)
 #  asecret                    :string(255)
+#  is_activated               :boolean
 #
 
 class Restaurant < ActiveRecord::Base

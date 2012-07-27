@@ -1,15 +1,17 @@
 # == Schema Information
-# Schema version: 20120217190417
+# Schema version: 20120726233422
 #
 # Table name: newsletter_subscribers
 #
-#  id           :integer         not null, primary key
-#  email        :string(255)
-#  created_at   :datetime
-#  updated_at   :datetime
-#  confirmed_at :datetime
-#  first_name   :string(255)
-#  last_name    :string(255)
+#  id                   :integer         not null, primary key
+#  email                :string(255)
+#  created_at           :datetime
+#  updated_at           :datetime
+#  confirmed_at         :datetime
+#  first_name           :string(255)
+#  last_name            :string(255)
+#  receive_soapbox_news :boolean         default(TRUE)
+#  opt_out              :boolean
 #
 
 class NewsletterSubscriber < ActiveRecord::Base

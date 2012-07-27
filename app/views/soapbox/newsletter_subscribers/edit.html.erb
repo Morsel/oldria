@@ -8,3 +8,9 @@
     <% end %>
     <%= submit_tag "Confirm" %>
 <% end %>
+
+<% if !@subscriber.opt_out %>
+<p><%= link_to "Opt out of all email communication", soapbox_newsletter_subscriber_path(:newsletter_subscriber => {:opt_out => true}), :method => "put", :confirm => "Are you sure you want to opt out?" %></p>
+<% else %>
+<p>You have opted out of all email communication. <%= link_to "Opt back in?", soapbox_newsletter_subscriber_path(:newsletter_subscriber => {:opt_out => false}), :method => "put" %></p>
+<% end %>

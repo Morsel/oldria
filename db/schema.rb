@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120712205209) do
+ActiveRecord::Schema.define(:version => 20120726233422) do
 
   create_table "a_la_minute_answers", :force => true do |t|
     t.text     "answer"
@@ -630,6 +630,7 @@ ActiveRecord::Schema.define(:version => 20120712205209) do
     t.string   "first_name"
     t.string   "last_name"
     t.boolean  "receive_soapbox_news", :default => true
+    t.boolean  "opt_out",              :default => false
   end
 
   create_table "nonculinary_enrollments", :force => true do |t|
