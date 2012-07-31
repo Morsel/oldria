@@ -35,11 +35,11 @@
             </header>
           </li>
 
-          <% if !restaurant.twitter_handle.nil? %>
+          <% if restaurant.twitter_authorized? %>
           <li>
             <header class="feed-item-title">
                 Twitter:
-                <p><%= link_to "@#{restaurant.twitter_handle}", "http://twitter.com/#{restaurant.twitter_handle}" %></p>
+                <p><%= link_to "@#{restaurant.twitter_username}", "http://twitter.com/#{restaurant.twitter_username}" %></p>
 
             </header>
           </li>
