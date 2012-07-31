@@ -33,7 +33,7 @@ describe Soapbox::RestaurantsController do
       subscriber = Factory(:newsletter_subscriber)
       cookies['newsletter_subscriber_id'] = subscriber.id
       post :subscribe, :id => restaurant.id
-      restaurant.newsletter_subscribers.count.should == 1
+      NewsletterSubscription.count.should == 1
     end
   end
 

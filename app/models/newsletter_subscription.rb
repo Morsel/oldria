@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20120730212805
+# Schema version: 20120731175904
 #
 # Table name: newsletter_subscriptions
 #
@@ -8,6 +8,7 @@
 #  newsletter_subscriber_id :integer
 #  created_at               :datetime
 #  updated_at               :datetime
+#  share_with_restaurant    :boolean
 #
 
 class NewsletterSubscription < ActiveRecord::Base

@@ -177,7 +177,8 @@ ActionController::Routing::Routes.draw do |map|
                              :remove_twitter => :put,
                              :twitter_archive => :get,
                              :facebook_archive => :get,
-                             :social_archive => :get
+                             :social_archive => :get,
+                             :download_subscribers => :get
                              } do |restaurant|
     restaurant.resources :employees, :collection => { :bulk_edit => :get }, :except => [:show, :index]
     restaurant.resources :employments, :collection => { "reorder" => :post }
