@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120730212805) do
+ActiveRecord::Schema.define(:version => 20120731175904) do
 
   create_table "a_la_minute_answers", :force => true do |t|
     t.text     "answer"
@@ -638,6 +638,7 @@ ActiveRecord::Schema.define(:version => 20120730212805) do
     t.integer  "newsletter_subscriber_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "share_with_restaurant",    :default => false
   end
 
   create_table "nonculinary_enrollments", :force => true do |t|

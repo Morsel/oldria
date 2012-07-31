@@ -42,9 +42,7 @@ class Soapbox::NewsletterSubscribersController < ApplicationController
 
   def verify_subscriber
     @subscriber = NewsletterSubscriber.find(params[:id])
-    unless cookies['newsletter_subscriber_id'] == @subscriber.id.to_s
-      redirect_to soapbox_root_path
-    end
+    redirect_to soapbox_root_path unless cookies['newsletter_subscriber_id'] == @subscriber.id.to_s
   end
 
 end

@@ -16,12 +16,18 @@ module Soapbox
     def subscribe
       subscriber = NewsletterSubscriber.find(cookies['newsletter_subscriber_id'])
       restaurant = Restaurant.find(params[:id])
-      NewsletterSubscription.create(:newsletter_subscriber => subscriber, :restaurant => restaurant)
+      NewsletterSubscription.find_or_create_by_restaurant_id_and_newsletter_subscriber_id(:newsletter_subscriber => subscriber, :restaurant => restaurant)
       flash[:notice] = "#{subscriber.email} is now subscribed to #{restaurant.name}'s newsletter."
-      redirect_to edit_soapbox_newsletter_subscriber_path(subscriber)
+      redirect_to :action => "confirm_subscription", :subscriber_id => subscriber.id
     rescue ActiveRecord::RecordNotFound
       flash[:notice] = "Please register as a diner in order to subscribe to restaurants."
       redirect_to join_path
+    end
+
+    def confirm_subscription
+      @subscriber = NewsletterSubscriber.find(params[:subscriber_id])
+      @restaurant = Restaurant.find(params[:id])
+      @subscription = NewsletterSubscription.find_by_restaurant_id_and_newsletter_subscriber_id(@restaurant.id, @subscriber.id)
     end
 
   end
