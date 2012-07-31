@@ -31,7 +31,7 @@ ActionController::Routing::Routes.draw do |map|
 
     soapbox.resources :restaurant_questions, :only => ['show']
 
-    soapbox.resources :restaurants, :only => ['show'] do |restaurants|
+    soapbox.resources :restaurants, :only => ['show'], :member => { :subscribe => :post } do |restaurants|
       restaurants.resources :feature_pages, :only => ['show']
       restaurants.resources :questions, :collection => { :topics => :get, :chapters => :get, :refresh => :post }, :controller => "restaurant_questions"
       restaurants.resources :photos, :only => ['show', 'index']

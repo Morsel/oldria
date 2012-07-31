@@ -82,6 +82,8 @@ class Restaurant < ActiveRecord::Base
   has_many :accolades, :as => :accoladable
   has_many :a_la_minute_answers, :as => :responder, :dependent => :destroy
   has_many :press_releases
+  has_many :newsletter_subscriptions
+  has_many :newsletter_subscribers, :through => :newsletter_subscriptions
 
   has_many :restaurant_feature_items, :dependent => :destroy
   has_many :restaurant_features, :through => :restaurant_feature_items,

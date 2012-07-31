@@ -26,5 +26,15 @@ describe Soapbox::RestaurantsController do
 
   end
 
+  describe "subscribing to a restaurant's newsletter" do
+
+    it "should allow a newsletter subscriber to add a restaurant subscription" do
+      restaurant = Factory(:restaurant)
+      subscriber = Factory(:newsletter_subscriber)
+      cookies['newsletter_subscriber_id'] = subscriber.id
+      post :subscribe, :id => restaurant.id
+      restaurant.newsletter_subscribers.count.should == 1
+    end
+  end
 
 end

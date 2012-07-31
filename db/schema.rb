@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120726233422) do
+ActiveRecord::Schema.define(:version => 20120730212805) do
 
   create_table "a_la_minute_answers", :force => true do |t|
     t.text     "answer"
@@ -633,6 +633,13 @@ ActiveRecord::Schema.define(:version => 20120726233422) do
     t.boolean  "opt_out",              :default => false
   end
 
+  create_table "newsletter_subscriptions", :force => true do |t|
+    t.integer  "restaurant_id"
+    t.integer  "newsletter_subscriber_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "nonculinary_enrollments", :force => true do |t|
     t.integer  "nonculinary_school_id"
     t.integer  "profile_id"
@@ -982,6 +989,7 @@ ActiveRecord::Schema.define(:version => 20120726233422) do
     t.string   "facebook_page_token"
     t.string   "atoken"
     t.string   "asecret"
+    t.boolean  "is_activated",               :default => false
   end
 
   add_index "restaurants", ["cuisine_id"], :name => "index_restaurants_on_cuisine_id"
@@ -1059,6 +1067,17 @@ ActiveRecord::Schema.define(:version => 20120726233422) do
     t.string   "title"
     t.string   "slug"
     t.text     "content"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "social_posts", :force => true do |t|
+    t.string   "post_data"
+    t.string   "link"
+    t.datetime "post_created_at"
+    t.string   "source"
+    t.integer  "restaurant_id"
+    t.string   "title"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

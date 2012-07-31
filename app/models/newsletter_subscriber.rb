@@ -16,6 +16,8 @@
 
 class NewsletterSubscriber < ActiveRecord::Base
 
+  has_many :newsletter_subscriptions
+
   validates_presence_of :email
   validates_uniqueness_of :email, :message => "has already registered"
   validates_format_of :email, :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i, :message => "is not a valid email address", :allow_blank => true
@@ -48,7 +50,6 @@ class NewsletterSubscriber < ActiveRecord::Base
 
   def send_confirmation
     UserMailer.send_later(:deliver_newsletter_subscription_confirmation, self)
-    # UserMailer.deliver_newsletter_subscription_confirmation(self)
   end
 
 end
