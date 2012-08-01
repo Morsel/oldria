@@ -11,6 +11,9 @@
 <% for menu_item in @menu_items -%>
   <%= render :partial => "soapbox/menu_items/menu_item", :locals => { :menu_item => menu_item } %>
 <% end -%>
+<% if @menu_items.count < 1 %>
+     <p>Sorry, nothing to display</p>
+<% end %>
 <div class="clear">&nbsp;</div>
 
-<%= will_paginate(@menu_items) %>
+<%= will_paginate(@menu_items) unless @menu_items.count < 1 %>

@@ -18,7 +18,8 @@ ActiveRecord::Schema.define(:version => 20120720071207) do
     t.string   "responder_type"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "show_as_public"
+    t.datetime "post_to_twitter_at"
+    t.datetime "post_to_facebook_at"
   end
 
   create_table "a_la_minute_questions", :force => true do |t|
@@ -282,6 +283,12 @@ ActiveRecord::Schema.define(:version => 20120720071207) do
   add_index "discussions", ["employment_search_id"], :name => "index_discussions_on_employment_search_id"
   add_index "discussions", ["id"], :name => "index_discussions_on_id", :unique => true
   add_index "discussions", ["poster_id"], :name => "index_discussions_on_poster_id"
+
+  create_table "email_stopwords", :force => true do |t|
+    t.text     "phrase"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "employment_searches", :force => true do |t|
     t.text     "conditions"
@@ -666,6 +673,16 @@ ActiveRecord::Schema.define(:version => 20120720071207) do
     t.datetime "updated_at"
   end
 
+  create_table "page_views", :force => true do |t|
+    t.integer  "user_id"
+    t.string   "title"
+    t.string   "url"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "page_owner_id"
+    t.string   "page_owner_type"
+  end
+
   create_table "pages", :force => true do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -772,6 +789,13 @@ ActiveRecord::Schema.define(:version => 20120720071207) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "restaurant_id"
+    t.string   "attachment_file_name"
+    t.string   "attachment_content_type"
+    t.integer  "attachment_file_size"
+    t.datetime "attachment_updated_at"
+    t.string   "headline"
+    t.datetime "post_to_twitter_at"
+    t.datetime "post_to_facebook_at"
   end
 
   create_table "question_pages", :force => true do |t|
@@ -941,7 +965,7 @@ ActiveRecord::Schema.define(:version => 20120720071207) do
     t.string   "description"
     t.string   "phone_number"
     t.string   "website"
-    t.string   "twitter_username"
+    t.string   "twitter_handle"
     t.string   "facebook_page"
     t.string   "hours"
     t.integer  "media_contact_id"
@@ -952,12 +976,12 @@ ActiveRecord::Schema.define(:version => 20120720071207) do
     t.date     "opening_date"
     t.string   "sort_name"
     t.boolean  "premium_account"
-    t.string   "atoken"
-    t.string   "asecret"
-    t.string   "facebook_page_url"
-    t.string   "facebook_page_id"
-    t.string   "facebook_page_token"
-    t.boolean  "is_activate",                :default => false
+    t.string   "atoken",                                        :null => false
+    t.string   "asecret",                                       :null => false
+    t.string   "facebook_page_url",                             :null => false
+    t.string   "facebook_page_id",                              :null => false
+    t.string   "facebook_page_token",                           :null => false
+    t.boolean  "is_activated",               :default => false
   end
 
   add_index "restaurants", ["cuisine_id"], :name => "index_restaurants_on_cuisine_id"
@@ -987,6 +1011,10 @@ ActiveRecord::Schema.define(:version => 20120720071207) do
     t.string   "description"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "creator_id"
+    t.string   "creator_type"
+    t.integer  "content_id"
+    t.string   "content_type"
   end
 
   create_table "slides", :force => true do |t|
@@ -1024,6 +1052,7 @@ ActiveRecord::Schema.define(:version => 20120720071207) do
     t.datetime "updated_at"
     t.boolean  "published",          :default => true
     t.boolean  "daily_feature",      :default => false
+    t.text     "description"
   end
 
   create_table "soapbox_pages", :force => true do |t|

@@ -73,18 +73,17 @@ class EmployeesController < ApplicationController
 
   def find_or_initialize_employee
     
-    email = params[:employment][:employee_email]    
-    @employee = User.find_all_by_email(email) 
-    if(@employee.count <1)
+    email = params[:employment][:employee_email]
+    @employee   = User.find_all_by_email(email) 
+    if(@employee.count < 1)
       @employee = User.find_all_by_name(email)
-    elsif (@employee.count <1)
+    elsif (@employee.count < 1)
       @employee = User.find_all_by_first_name(email.split(" ").first)
     else
       @employee = User.find_all_by_last_name(email.split(" ").last)
-    end  
-          
+    end          
     
-    if !@employee.blank?
+    if @employee.count > 0
       @employment.employee_id = @employee.first.id
       render :confirm_employee
     else
@@ -92,11 +91,11 @@ class EmployeesController < ApplicationController
         { :email => email } : 
         { :first_name => email.split(" ").first, :last_name => email.split(" ").last }
       if current_user.admin?
-        flash.now[:notice] = "We couldn't find them in our system. You can add this person."
+        flash.now[:notice] = "We couldn't find a person by that name, please try again."
         @employee = @restaurant.employees.build(identifier)
         render :new_employee
       else
-        flash[:notice] = "We couldn't find them in our system. You can invite this person."
+        flash[:notice] = "We couldn't find a person by that name, please try again."
         #redirect_to recommend_invitations_path(:emails => email)
         render :new
       end

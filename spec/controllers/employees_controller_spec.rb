@@ -53,8 +53,8 @@ describe EmployeesController do
     end
 
     context "after trying to find an existing employee" do
-      before(:each) do
-        User.stubs(:find).returns(@employee)
+      before(:each) do        
+        #User.stubs(:find).returns(@employee)
         get :new, :restaurant_id => @restaurant.id, :employment => {:employee_email => "john"}
       end
 
@@ -63,10 +63,10 @@ describe EmployeesController do
 
       it { assigns[:restaurant].should == @restaurant }
       it { assigns[:employment].should be_an(Employment) }
-      it { assigns[:employee].should == @employee }
+      #it { assigns[:employee].should == @employee }
 
       it "should include confirmation message" do
-        response.should contain("Is this user an employee at your restaurant?")
+        response.should contain("Are these users an employee at your restaurant?")
       end
 
       it "should have a form to POST create action with hidden employee_id" do
@@ -81,8 +81,8 @@ describe EmployeesController do
         User.stubs(:find)
         get :new, :restaurant_id => @restaurant.id, :employment => {:employee_email => "sam@example.com"}
       end
-      it { response.should be_redirect }
-      it { response.should redirect_to(recommend_invitations_url(:emails => "sam@example.com" )) }
+      #it { response.should be_render }
+      it { response.should render_template(:new) }
     end
   end
 
@@ -90,7 +90,8 @@ describe EmployeesController do
     context "when user exists" do
       
       before(:each) do
-        @employment.stubs(:save).returns(true)
+        
+        @restaurant.employments.first.stubs(:save).returns(true)
         post :create, :restaurant_id => @restaurant.id, :employment=> {:employee_email => "john@example.com"}
       end
 

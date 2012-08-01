@@ -115,7 +115,7 @@ class RestaurantsController < ApplicationController
   def activate_restaurant
     
     @restaurant = Restaurant.find(params[:id])
-    if (cannot? :edit, @restaurant) || (cannot? :update, @restaurant)
+    if (cannot? :manage, @restaurant) 
       flash[:error] = "You don't have permission to access that page"
       redirect_to @restaurant
     end
