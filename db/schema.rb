@@ -629,6 +629,7 @@ ActiveRecord::Schema.define(:version => 20120731175904) do
     t.datetime "confirmed_at"
     t.string   "first_name"
     t.string   "last_name"
+    t.boolean  "receive_soapbox_news", :default => true
   end
 
   create_table "nonculinary_enrollments", :force => true do |t|
@@ -1058,17 +1059,6 @@ ActiveRecord::Schema.define(:version => 20120731175904) do
     t.string   "title"
     t.string   "slug"
     t.text     "content"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "social_posts", :force => true do |t|
-    t.string   "post_data"
-    t.string   "link"
-    t.datetime "post_created_at"
-    t.string   "source"
-    t.integer  "restaurant_id"
-    t.string   "title"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
