@@ -994,15 +994,24 @@ body,html,#container,#main,#content,#inside{
 
 	.soapbox_profile_header {
 		border-bottom: 1px dotted #ddd;
-		img {
-			border: 1px solid #ddd;
-		}
-		h1 {
-			font-size: 24px;
-		}
-	}
-
-
+    img {
+      display: block;
+      width: 25px;
+      border: 1px solid $brown;
+    }
+  }	
+  .user_comment_text {
+    display: block;
+    float: right;
+    width: 365px;
+  }
+  ul {
+    margin: 8px 0;
+    padding: 0;
+    li {
+      background: none;
+    }
+  }
 } /* page-content */
 
 #inside{
