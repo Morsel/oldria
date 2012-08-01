@@ -28,7 +28,7 @@
                 <p><%= link_to restaurant.website, restaurant.website %></p>
             </header>
           </li>
-          <%if restaurant.twitter_handle? %>
+          <%if restaurant.twitter_authorized? %>
           <li>
           	<header class="feed-item-title">
                 Twitter:
