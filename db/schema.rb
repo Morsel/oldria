@@ -630,6 +630,15 @@ ActiveRecord::Schema.define(:version => 20120731175904) do
     t.string   "first_name"
     t.string   "last_name"
     t.boolean  "receive_soapbox_news", :default => true
+    t.boolean  "opt_out",              :default => false
+  end
+
+  create_table "newsletter_subscriptions", :force => true do |t|
+    t.integer  "restaurant_id"
+    t.integer  "newsletter_subscriber_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.boolean  "share_with_restaurant",    :default => false
   end
 
   create_table "nonculinary_enrollments", :force => true do |t|
@@ -1059,6 +1068,17 @@ ActiveRecord::Schema.define(:version => 20120731175904) do
     t.string   "title"
     t.string   "slug"
     t.text     "content"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "social_posts", :force => true do |t|
+    t.string   "post_data"
+    t.string   "link"
+    t.datetime "post_created_at"
+    t.string   "source"
+    t.integer  "restaurant_id"
+    t.string   "title"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
