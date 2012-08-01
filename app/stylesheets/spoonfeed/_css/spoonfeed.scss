@@ -187,7 +187,7 @@ form, #main form{
           font-weight: normal;
         }
       }
-    }
+    }    
   }
 }
 
@@ -374,7 +374,7 @@ form, #main form{
 				}
 			}
 		}
-	}
+	}	
 	ol {
 		margin: 5px 0 15px 18px;
 		padding: 0;
@@ -643,7 +643,7 @@ form, #main form{
 			}
 			.message-header {display: none;}
 		}
-	}
+	} 
 	#qotd_column {
 		margin-right: 20px;
 	} /* ## qotd && trend columns -------------------------- */
@@ -705,7 +705,7 @@ form, #main form{
 				}
 			}
 		}
-	}
+	} 
 	.topic {
 		h3{
 			padding-right:0;
@@ -1115,7 +1115,7 @@ form#mediafeed_user {
 			margin-left: 315px;
 			padding-bottom: 10px;
 		}
-
+		
 	}
 } /* ## recently -------------------- */
 
@@ -1127,7 +1127,7 @@ form#mediafeed_user {
 }
 
 aside.dashboard_actions {
-  a {
+  a { 
     background-color: #FAEAE4;
     display: block;
     font-family: 'Hoefler Text',Georgia,Serif;
@@ -1720,7 +1720,7 @@ aside.dashboard_actions {
 					width:50px;
 					font-size: 11px;
 				}
-			}
+			}	
 		}
 	}
 	.negative {
@@ -1761,7 +1761,7 @@ aside.dashboard_actions {
 					font-size: 13px;
 					margin: 2px 0;
 					font-weight: bold;
-				}
+				}	
 			}
 		}
 	}
@@ -2138,7 +2138,7 @@ aside.dashboard_actions {
 		clear: both;
 		border-bottom:1px solid $feedback-border-color;
 	}
-
+	
 	  .menu_item_detail {
 	float: right;
     min-height: 62px;
@@ -2281,7 +2281,7 @@ ul#friend_timeline {
 		textarea {
 			@include border-radius(3px);
 			height: 80px;
-			@include box-shadow(#ddd,0px, 2px, 1px);
+			@include box-shadow(#ddd,0px, 2px, 1px);	
 			margin: 0 0 10px 0;
 		}
 		p.attach {
@@ -2460,7 +2460,7 @@ ul#friend_timeline {
 				text-transform: uppercase;
 				margin: 5px 0 15px;
 				padding: 0;
-			}
+			}	
 		}
 		.message-details {
 			.message-body {
@@ -2849,7 +2849,7 @@ p.search_filter_hint {
 			margin: 0;
 			color: $brown;
 			padding: 0;
-			font-size: 16px;
+			font-size: 16px;		
 			span {
 				color: #888;
 				font-size: 12px;
@@ -3462,7 +3462,7 @@ hgroup h5 span {
       h3 {
         font-weight: bold;
         font-family: "Hoefler Text", Georgia, sans-serif;
-        font-size: 12px;
+        font-size: 12px; 
         color: #333;
         text-transform: uppercase;
         letter-spacing: 0.2em;
@@ -3665,7 +3665,7 @@ hgroup h5 span {
 
 #btl_answers {
   background: #FAFAF7;
-  padding: 10px;
+  padding: 10px; 
   &.btl-my-answers {
     .profile_question {
       padding: 10px;
@@ -3739,7 +3739,7 @@ hgroup h5 span {
 				font-size: 15px;
 			}
     }
-  }
+  }  
 }
 
 /* Restaurant profiles */
@@ -3800,7 +3800,7 @@ hgroup h5 span {
   }
 
   #profileImage {width: 281px;}
-  #profileDetails {width: 577px;}
+  #profileDetails {width: 577px;} 
   #profileContent {width: 577px; padding-top: 40px;}
 
   .meta {
@@ -4310,7 +4310,7 @@ hgroup h5 span {
 				img {
 					float: left;
 					margin: 0 10px 20px 0;
-				}
+				}				
 			}
 		}
 	}
