@@ -112,18 +112,44 @@ class RestaurantsController < ApplicationController
   def social_archive
   end
 
+  def activate_restaurant
+    
+    @restaurant = Restaurant.find(params[:id])
+    if (cannot? :edit, @restaurant) || (cannot? :update, @restaurant)
+      flash[:error] = "You don't have permission to access that page"
+      redirect_to @restaurant
+    end
+    
+    if @restaurant.update_attributes(:is_activated => params[:mode])
+      
+      flash[:notice] = params[:mode].to_i > 0  ? "Successfully activated restaurant" : "Successfully deactivated restaurant"
+      redirect_to :restaurants
+    else
+      flash[:error] = "We were unable to update the restaurant"
+      redirect_to :restaurants
+    end
+
+  end  
+
   private
 
-  def find_restaurant
-    @restaurant = Restaurant.find(params[:id])
+  def find_restaurant    
+    @restaurant = Restaurant.activated_restaurant.find(:first,:conditions=>["id = ?",params[:id]])
+    if(@restaurant.nil?)
+      flash[:notice] = "Restaurant not found or deactivated."
+      redirect_to :restaurants 
+    end    
   end
 
   def authenticate
     find_restaurant
-    if cannot? :edit, @restaurant
+    if (cannot? :edit, @restaurant) || (cannot? :update, @restaurant)
       flash[:error] = "You don't have permission to access that page"
       redirect_to @restaurant
     end
   end
+
+  
+
 
 end

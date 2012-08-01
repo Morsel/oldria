@@ -1,7 +1,7 @@
 module Soapbox
   class RestaurantsController < ApplicationController
-    def show
-      @restaurant = Restaurant.find_premium(params[:id])
+    def show      
+      @restaurant = Restaurant.activated_restaurant.find_premium(params[:id])
       if @restaurant.nil?
         redirect_to(soapbox_root_path)
         return

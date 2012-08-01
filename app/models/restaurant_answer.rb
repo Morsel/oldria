@@ -29,6 +29,14 @@ class RestaurantAnswer < ActiveRecord::Base
 
   named_scope :recently_answered, :order => "restaurant_answers.created_at DESC"
 
+  named_scope :activated_restaurants, lambda {
+    {
+      :joins => 'INNER JOIN restaurants as res ON `res`.id = restaurant_id ',
+      :conditions => ["(res.is_activated = ?)",          true]
+    }
+  }
+
+
   def activity_name
     "Behind the Line"
   end

@@ -3,14 +3,14 @@ class WelcomeController < ApplicationController
 
   # preload classes which may be used while caching
   # to prevent "undefined class/module"
-  before_filter :preload_classes
+  #before_filter :preload_classes
   before_filter :require_user, :only => [:refresh, :require_login]
 
   # cache dashboard for logged in users
-  caches_action :index,
-                :if =>  Proc.new {|controller| controller.cache? && !controller.params[:is_more] },
-                :expires_in => 5.minutes,
-                :cache_path => Proc.new { |controller| controller.dashboard_cache_key }
+  #caches_action :index,
+   #             :if =>  Proc.new {|controller| controller.cache? && !controller.params[:is_more] },
+    #            :expires_in => 5.minutes,
+     #           :cache_path => Proc.new { |controller| controller.dashboard_cache_key }
 
   def initialize
     @per_page = 10
@@ -57,13 +57,14 @@ class WelcomeController < ApplicationController
 
   private
 
-  def set_up_dashboard
+  def set_up_dashboard    
     @recent_comments = cache_or_get(:load_recent_comments)
     #there yet?
     @has_more = cache_or_get(:has_more?)
   end
 
   def set_up_dashboard_with_pagination
+
     if current_user.media?
       soapbox_comments   = SoapboxEntry.published.all(:order => "published_at DESC", :conditions => ["created_at > ?", 2.weeks.ago]).map(&:comments)
       answers            = ProfileAnswer.from_premium_users.all(:order => "profile_answers.created_at DESC", :conditions => ["profile_answers.created_at > ?", 2.weeks.ago])
@@ -91,15 +92,15 @@ class WelcomeController < ApplicationController
     if current_user.media?
       soapbox_comments   = SoapboxEntry.published.all(:limit => @per_page, :order => "published_at DESC").map(&:comments)
       answers            = ProfileAnswer.from_premium_users.all(:limit => @per_page, :order => "created_at DESC")
-      menu_items         = MenuItem.from_premium_restaurants.all(:limit => @per_page, :order => "created_at DESC")
+      menu_items         = MenuItem.activated_restaurants.from_premium_restaurants.all(:limit => @per_page, :order => "created_at DESC")
       promotions         = Promotion.from_premium_restaurants.all(:limit => @per_page, :order => "created_at DESC")
-      restaurant_answers = RestaurantAnswer.from_premium_restaurants.all(:limit => @per_page, :order => "created_at DESC")      
+      restaurant_answers = RestaurantAnswer.activated_restaurants.from_premium_restaurants.all(:limit => @per_page, :order => "created_at DESC")      
     else
       soapbox_comments   = SoapboxEntry.published.all(:limit => @per_page, :order => "published_at DESC").map(&:comments)
       answers            = ProfileAnswer.all(:limit => @per_page, :order => "created_at DESC")
-      menu_items         = MenuItem.all(:limit => @per_page, :order => "created_at DESC")
+      menu_items         = MenuItem.activated_restaurants.all(:limit => @per_page, :order => "created_at DESC")
       promotions         = Promotion.all(:limit => @per_page, :order => "created_at DESC")
-      restaurant_answers = RestaurantAnswer.all(:limit => @per_page, :order => "created_at DESC")
+      restaurant_answers = RestaurantAnswer.activated_restaurants.all(:limit => @per_page, :order => "created_at DESC")
     end
 
     [soapbox_comments, answers, menu_items, promotions, restaurant_answers].flatten.sort { |a,b| b.created_at <=> a.created_at }[0..(@per_page - 1)]
@@ -108,14 +109,14 @@ class WelcomeController < ApplicationController
   def has_more?
     if current_user.media?
       answer_count            = ProfileAnswer.from_premium_users.count(:conditions => ["profile_answers.created_at > ?", 2.weeks.ago])
-      menu_item_count         = MenuItem.from_premium_restaurants.count(:conditions => ["menu_items.created_at > ?", 2.weeks.ago])
+      menu_item_count         = MenuItem.activated_restaurants.om_premium_restaurants.count(:conditions => ["menu_items.created_at > ?", 2.weeks.ago])
       promotion_count         = Promotion.from_premium_restaurants.count(:conditions => ["promotions.created_at > ?", 2.weeks.ago])
-      restaurant_answer_count = RestaurantAnswer.from_premium_restaurants.count(:conditions => ["restaurant_answers.created_at > ?", 2.weeks.ago])
+      restaurant_answer_count = RestaurantAnswer.activated_restaurants.from_premium_restaurants.count(:conditions => ["restaurant_answers.created_at > ?", 2.weeks.ago])
     else
       answer_count            = ProfileAnswer.count(:conditions => ["created_at > ?", 2.weeks.ago])
-      menu_item_count         = MenuItem.count(:conditions => ["created_at > ?", 2.weeks.ago])
+      menu_item_count         = MenuItem.activated_restaurants.count(:conditions => ["menu_items.created_at > ?", 2.weeks.ago])
       promotion_count         = Promotion.count(:conditions => ["created_at > ?", 2.weeks.ago])
-      restaurant_answer_count = RestaurantAnswer.count(:conditions => ["created_at > ?", 2.weeks.ago])
+      restaurant_answer_count = RestaurantAnswer.activated_restaurants.count(:conditions => ["restaurant_answers.created_at > ?", 2.weeks.ago])
     end
     total_count             = answer_count + menu_item_count + promotion_count + restaurant_answer_count
 
