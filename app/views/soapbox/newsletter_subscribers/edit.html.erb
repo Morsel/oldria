@@ -21,3 +21,5 @@
 <% else %>
 <p>You have opted out of all email communication. <%= link_to "Opt back in?", soapbox_newsletter_subscriber_path(:newsletter_subscriber => {:opt_out => false}), :method => "put" %></p>
 <% end %>
+
+<p><%= @subscriber.email %> isn't you? <%= link_to "Log in with your own email address", find_subscriber_soapbox_newsletter_subscribers_path %></p>
