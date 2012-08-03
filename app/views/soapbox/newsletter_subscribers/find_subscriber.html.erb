@@ -1,0 +1,12 @@
+<% title "Soapbox Subscriptions" %>
+
+<p>Are you signed up for Soapbox? Enter your email address to subscribe to <%= @restaurant.name %>.</p>
+
+<% form_tag "/soapbox/newsletter_subscribers/connect?restaurant_id=#{@restaurant.id}" do %>
+    <label>Email address</label>
+    <%= text_field_tag "email" %>
+    
+    <%= submit_tag "Subscribe" %>
+<% end %>
+<br/>
+<p>If you haven't signed up for Soapbox yet, <%= link_to "join now!", join_url(:subdomain => "spoonfeed") %></p>

@@ -16,4 +16,6 @@ class NewsletterSubscription < ActiveRecord::Base
   belongs_to :restaurant
   belongs_to :newsletter_subscriber
 
+  validates_uniqueness_of :newsletter_subscriber_id, :scope => :restaurant_id
+
 end

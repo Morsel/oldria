@@ -38,6 +38,19 @@ class Soapbox::NewsletterSubscribersController < ApplicationController
     end
   end
 
+  def find_subscriber
+    @restaurant = Restaurant.find(params[:restaurant_id])
+  end
+
+  def connect
+    @subscriber = NewsletterSubscriber.find_by_email(params[:email])
+    cookies['newsletter_subscriber_id'] = @subscriber.id
+    redirect_to subscribe_soapbox_restaurant_path(:id => params[:restaurant_id])
+  rescue ActiveRecord::RecordNotFound
+    flash[:notice] = "Please register as a diner in order to subscribe to restaurants."
+    redirect_to join_path
+  end
+
   private
 
   def verify_subscriber
