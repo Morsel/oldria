@@ -12,7 +12,11 @@
         <% end %>
         <!-- AddThis Button END -->
 
-        <%= link_to 'Subscribe', subscribe_soapbox_restaurant_path(@restaurant), :method => "post" unless current_user.present? %>
+        <% if @subscriber.present? && @subscriber.has_subscription(@restaurant) %>
+        <%= link_to 'Unsubscribe', unsubscribe_soapbox_restaurant_path(@restaurant, :subscriber_id => @subscriber.id), :method => "post" %>
+        <%- elsif !current_user.present? -%>
+        <%= link_to 'Subscribe', subscribe_soapbox_restaurant_path(@restaurant), :method => "post" %>
+        <%- end -%>
     </div><!--#restaurant_actions-->
 
     <%= image_tag logo_for(@restaurant).attachment.url(:small) %>

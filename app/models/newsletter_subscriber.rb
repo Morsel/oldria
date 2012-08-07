@@ -39,6 +39,10 @@ class NewsletterSubscriber < ActiveRecord::Base
         :email => params[:email])
   end
 
+  def has_subscription(restaurant)
+    NewsletterSubscription.exists?(:newsletter_subscriber_id => self.id, :restaurant_id => restaurant.id)
+  end
+
   private
 
   def not_a_user

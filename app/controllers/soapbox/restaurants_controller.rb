@@ -11,6 +11,7 @@ module Soapbox
       @questions = ALaMinuteAnswer.public_profile_for(@restaurant)
       @promotions = @restaurant.promotions.all(:order => "created_at DESC", :limit => 3)
       @menu_items = @restaurant.menu_items.all(:order => "created_at DESC", :limit => 3)
+      @subscriber = NewsletterSubscriber.find(cookies['newsletter_subscriber_id']) if cookies.has_key?('newsletter_subscriber_id')
     end
 
     def subscribe
@@ -30,6 +31,16 @@ module Soapbox
       @subscriber = NewsletterSubscriber.find(params[:subscriber_id])
       @restaurant = Restaurant.find(params[:id])
       @subscription = NewsletterSubscription.find_by_restaurant_id_and_newsletter_subscriber_id(@restaurant.id, @subscriber.id)
+    end
+
+    def unsubscribe
+      subscriber = NewsletterSubscriber.find(params[:subscriber_id])
+      restaurant = Restaurant.find(params[:id])
+      subscription = NewsletterSubscription.find_by_restaurant_id_and_newsletter_subscriber_id(restaurant.id, subscriber.id)
+      if subscription.destroy
+        flash[:notice] = "#{subscriber.email} is no longer subscribed to #{restaurant.name}'s newsletter."
+        redirect_to edit_soapbox_newsletter_subscriber_path(subscriber)
+      end
     end
 
   end

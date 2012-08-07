@@ -32,9 +32,23 @@ describe Soapbox::RestaurantsController do
       restaurant = Factory(:restaurant)
       subscriber = Factory(:newsletter_subscriber)
       cookies['newsletter_subscriber_id'] = subscriber.id
+      NewsletterSubscription.count.should == 0
+
       post :subscribe, :id => restaurant.id
       NewsletterSubscription.count.should == 1
     end
+
+    it "should allow a newsletter subscriber to remove a restaurant subscription" do
+      restaurant = Factory(:restaurant)
+      subscriber = Factory(:newsletter_subscriber)
+      cookies['newsletter_subscriber_id'] = subscriber.id
+      NewsletterSubscription.create(:restaurant => restaurant, :newsletter_subscriber => subscriber)
+      NewsletterSubscription.count.should == 1
+
+      post :unsubscribe, :id => restaurant.id, :subscriber_id => subscriber.id
+      NewsletterSubscription.count.should == 0
+    end
+
   end
 
 end
