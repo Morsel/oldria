@@ -12,7 +12,7 @@ Feature: Discussions
       | sam      | secret   | sam@example.com  | Sam Smith | Chef      |
       | john     | secret   | john@example.com | John Doe  | Sommelier |
 
-
+@javascript
   Scenario: Create a new Discussion
     Given I am logged in as "sam" with password "secret"
     When I follow "read my messages"
@@ -21,9 +21,10 @@ Feature: Discussions
     And I fill in "Subject" with "Where should we eat?"
     And I check "Wendy Sue"
     And I press "Post Discussion"
-    Then there should be 1 discussion in the system
+    Then I should see "Where should we eat?"
+    And there should be 1 discussion in the system
 
-
+@javascript
   Scenario: Discussion notifications
     Given I am logged in as "sam" with password "secret"
     When I follow "read my messages"
@@ -33,7 +34,8 @@ Feature: Discussions
     And I check "Wendy Sue"
     And I uncheck "John Doe"
     And I press "Post Discussion"
-    Then "wsue@example.com" should have 1 email
+    Then I should see "Where should we eat?"
+    And "wsue@example.com" should have 1 email
     And "john@example.com" should have no emails
 
     When "wsue@example.com" opens the email with subject "Spoonfeed: Sam Smith has invited you to a discussion"
@@ -52,17 +54,18 @@ Feature: Discussions
     And I should see "Sounds like a plan"
 
 
-@allow-rescue
+@javascript @allow-rescue
   Scenario: Lockdown
     Given I am logged in as "sam" with password "secret"
     When I follow "read my messages"
     And I follow "Discussions"
     And I follow "New Staff Discussion"
-	And I fill in "Subject" with "Where should we eat?"
-	And I check "Wendy Sue"
-	And I uncheck "John Doe"
-	And I press "Post Discussion"
-    Then there should be 1 discussion in the system
+    And I fill in "Subject" with "Where should we eat?"
+    And I check "Wendy Sue"
+    And I uncheck "John Doe"
+    And I press "Post Discussion"
+    Then I should see "Where should we eat?"
+    And there should be 1 discussion in the system
 
     Given I am logged in as "john" with password "secret"
     And I visit that discussion

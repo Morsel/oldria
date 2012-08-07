@@ -16,7 +16,8 @@ Feature: conversations with a group of users
     And the restaurant "Normal Pants" is in the region "Midwest"
     And the restaurant "Fancy Lamb" is in the region "Southwest"
     And I am logged in as "sam"
-  
+
+@javascript
   Scenario: a user starts a conversation
     Given I go to the new conversations page
     And I fill in "Subject" with "Is your refrigerator running?"
