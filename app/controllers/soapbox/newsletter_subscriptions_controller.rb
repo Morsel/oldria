@@ -1,4 +1,4 @@
-class NewsletterSubscriptionsController < ApplicationController
+class Soapbox::NewsletterSubscriptionsController < ApplicationController
 
   def update
     @subscription = NewsletterSubscription.find(params[:id])
