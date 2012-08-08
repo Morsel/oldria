@@ -1,8 +1,8 @@
 class Soapbox::SoapboxController < ApplicationController
 
-  before_filter :get_home_page_data ,:only=>[:index]
 
   def index
+    get_home_page_data
     @home = true
     @slides = SoapboxSlide.all(:order => "position", :limit => 5, :conditions => "position is not null")
     @promos = SoapboxPromo.all(:order => "position", :limit => 3, :conditions => "position is not null")
@@ -49,17 +49,13 @@ class Soapbox::SoapboxController < ApplicationController
   private
 
   def get_home_page_data
-    
+
     restaurants_ids = Restaurant.activated_restaurant.with_premium_account.map{|e| e.id}
-    @menu_items = MenuItem.activated_restaurants.from_premium_restaurants.all(:order => "created_at DESC" ,:limit=>5)
-    @questions = ALaMinuteQuestion.find(11,13,23) # for Today's menu specials are   
-    @answers_13 = @questions.detect{|e| e[:id] ==13}.a_la_minute_answers.activated_restaurants.find(:all,:limit=>2 ,:order=>" created_at DESC")
-    @answers_23 = @questions.detect{|e| e[:id] ==23}.a_la_minute_answers.activated_restaurants.find(:all,:limit=>2 ,:order=>" created_at DESC")
-    @answers_11 = @questions.detect{|e| e[:id] ==11}.a_la_minute_answers.activated_restaurants.find(:all,:limit=>2 ,:order=>" created_at DESC")
+    @menu_items = MenuItem.activated_restaurants.from_premium_restaurants.all(:order => "created_at DESC" ,:limit=>5)     
+    @questions = ALaMinuteQuestion.all(:order => "id DESC",:limit=>3)
     @behind_the_line_answers = ProfileQuestion.without_travel.answered_by_premium_and_public_users.all(:limit => 1).map(&:latest_soapbox_answer).uniq.compact[0...15]    
     @menus =  Menu.find(:all,:conditions=>[" restaurant_id in (?)",restaurants_ids],:limit=>5)    
-    @photos = Photo.find(:all,:conditions=>["attachable_type = ? and attachable_id  in (?)", 'Restaurant',restaurants_ids],:limit=>4)
-    #@profile =  Profile.last(:joins=>:user,:conditions=>"summary is not null and summary <> '' and users.publish_profile = true")    
+    @photos = Photo.find(:all,:conditions=>["attachable_type = ? and attachable_id  in (?)", 'Restaurant',restaurants_ids],:limit=>4)    
     @spotlight_user = User.in_soapbox_directory.last
     @rand_users = User.in_soapbox_directory.sample(2)
     @promotions = Promotion.from_premium_restaurants.all(:order => "created_at DESC" ,:limit =>5)
