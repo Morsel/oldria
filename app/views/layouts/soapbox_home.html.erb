@@ -154,44 +154,20 @@ THIS SECTION SHOULD PULL THE LATEST TITLE, MENU ITEM, RESTAURANT NAME and LINK t
               </header>
               <!-- post -->
               <article class="post">
-                <h3><!-- <a href="#">TODAY’S MENU SPECIALS:</a> -->
-                  <%= link_to @answers_11.first.question.upcase ,soapbox_a_la_minute_question_path(@answers_11.first.a_la_minute_question
-)%>
-                </h3>
-              
-                <% @answers_11.each do |ans_row| %>
-                  <p>
-                      <%= Loofah::Helpers.sanitize(truncate(ans_row.answer, :length => 200)) %>
-                      <em><%=link_to ans_row.responder.try(:name).capitalize, soapbox_restaurant_path(ans_row.responder) %></em>
-                  </p>
-                <% end %>                
-              </article>
-              <!-- post -->
-              <article class="post">
-                <h3><%= link_to @answers_23.first.question.upcase ,soapbox_a_la_minute_question_path(@answers_23.first.a_la_minute_question )%>
-              </h3>
-  
-                  <% @answers_23.each do |ans_row| %>
-                  <p>
-                      <%= Loofah::Helpers.sanitize(truncate(ans_row.answer, :length => 200)) %>
-                      <em><%=link_to ans_row.responder.try(:name).capitalize, soapbox_restaurant_path(ans_row.responder) %></em>
-                  </p>
-                  <% end %>       
-             
-              </article>
-              <!-- post -->
-              <article class="post">
-                 <h3><%= link_to @answers_13.first.question.upcase ,soapbox_a_la_minute_question_path(@answers_13.first.a_la_minute_question )%>
-              </h3>
-                
-                <% @answers_13.each do |ans_row| %>
-                  <p>
-                      <%= Loofah::Helpers.sanitize(truncate(ans_row.answer, :length => 200)) %>
-                      <em><%=link_to ans_row.responder.try(:name).capitalize, soapbox_restaurant_path(ans_row.responder) %></em>
-                  </p>
-                  <% end %>
-
-              </article>
+                  <% @questions.each do |question| %>
+                    <h3><!-- <a href="#">TODAY’S MENU SPECIALS:</a> -->
+                        <%= link_to truncate(question.question.upcase,:length=>50) ,soapbox_a_la_minute_question_path(question)%>
+                    </h3>
+                        <% (question.a_la_minute_answers.activated_restaurants.find(:all,:limit=>2 ,:order=>" created_at DESC")).each do|answer| %>
+                          <p>
+                              <%= Loofah::Helpers.sanitize(truncate(answer.answer, :length => 200)) %>
+                              <em><%=link_to answer.responder.try(:name).capitalize, soapbox_restaurant_path(answer.responder) %>
+                              </em>
+                          </p>
+                      <% end %>     
+                <% end %> <!-- End question -->
+              </article>         
+            
             </section>
           </div>
           <!-- info-block -->
@@ -229,17 +205,19 @@ THIS SECTION SHOULD PULL THE LATEST TITLE, MENU ITEM, RESTAURANT NAME and LINK t
             </header>
             <!-- question-area -->
             <article class="question-area">
-                <div class="title">
-                    <span class="note">BEHIND THE LINE: <strong>ON THE JOB</strong></span>
-                    <strong class="question"><%= link_to @answers.first.profile_question.title.upcase,soapbox_profile_question_path(@answers.first.profile_question) %></strong>
-                </div>
-                <strong class="answer">A: <%=@answers.first.answer%>. <em><%= link_to_if (@answers.first.user.linkable_profile? || logged_in_on_spoonfeed), @answers.first.user.name_or_username, directory_link(@answers.first.user) %>
-                  ,<%= restaurant_names_for_user(@answers.first.user) %></em>
-                </strong>
+                <% if @answers.count > 0%>
+                  <div class="title">
+                      <span class="note">BEHIND THE LINE: <strong>ON THE JOB</strong></span>
+                      <strong class="question"><%= link_to @answers.first.profile_question.title.upcase,soapbox_profile_question_path(@answers.first.profile_question) %></strong>
+                  </div>
+                  <strong class="answer">A: <%=@answers.first.answer%>. <em><%= link_to_if (@answers.first.user.linkable_profile? || logged_in_on_spoonfeed), @answers.first.user.name_or_username, directory_link(@answers.first.user) %>
+                    ,<%= restaurant_names_for_user(@answers.first.user) %></em>
+                  </strong>
+                <%end%>
             </article>
             <div class="holder">
               <!-- question-area -->
-                <%if(@qoth.is_a? Admin::Qotd)%>
+                <%if(!@qoth.nil? && (@qoth.is_a? Admin::Qotd) ) %>
                 <article class="question-area">
                   <div class="title">
                     <span class="note"><%= soapbox_tabby_title(@qoth) %></span>
@@ -247,7 +225,7 @@ THIS SECTION SHOULD PULL THE LATEST TITLE, MENU ITEM, RESTAURANT NAME and LINK t
                   </div>
                   <ul>
                      <% @qoth_comments.each do |qoth_comment|%>
-                      <li>A:<%= truncate (qoth_comment.comment,100 )%> 
+                      <li>A:<%= truncate(qoth_comment.comment,100 )%> 
                           <em>
                              <%= link_to_if qoth_comment.user.linkable_profile?, qoth_comment.user.name_or_username, soapbox_profile_path(qoth_comment.user.username) %>,<%=restaurant_names_for_user(qoth_comment.user) %>
                           </em>
@@ -257,7 +235,7 @@ THIS SECTION SHOULD PULL THE LATEST TITLE, MENU ITEM, RESTAURANT NAME and LINK t
                 </article>
                 <% end %>
               <!-- question-area -->
-              <%if @main_feature.is_a?(TrendQuestion) %>
+              <%if !@main_feature.nil? && @main_feature.is_a?(TrendQuestion) %>
                   <article class="question-area">
                     <div class="title">
                       <span class="note"><%= soapbox_tabby_title(@main_feature)%></span>
@@ -265,7 +243,7 @@ THIS SECTION SHOULD PULL THE LATEST TITLE, MENU ITEM, RESTAURANT NAME and LINK t
                     </div>
                     <ul>
                       <% @main_feature_comments.each do |main_feature_comment|%>
-                      <li>A:<%= truncate (main_feature_comment.comment,100 )%> 
+                      <li>A:<%= truncate(main_feature_comment.comment,100 )%> 
                           <em>
                              <%= link_to_if main_feature_comment.user.linkable_profile?, main_feature_comment.user.name_or_username, soapbox_profile_path(main_feature_comment.user.username) %>,<%=restaurant_names_for_user(main_feature_comment.user) %>
                           </em>
@@ -291,18 +269,18 @@ THIS SECTION SHOULD PULL THE LATEST TITLE, MENU ITEM, RESTAURANT NAME and LINK t
               <h3>new <span>menus</span></h3>
  
               <ul class="menu-list">
-
-                <% @menus.each do |menu| %>
-                  <li>
-                      <div class="link-area">
-                        <%=link_to content_tag(:span,"quick view" ,:class=>"popup"), soapbox_restaurant_path(menu.restaurant) ,:class=>"view" %>
-                        
-                        <%= link_to content_tag(:span,"download"), menu.pdf_remote_attachment.attachment.url ,:class=>"download"%>
-                      </div>
-                      <p><%=menu.restaurant.try(:restaurant_and_city)%></p>
-                  </li>
-              <%end%>
-                
+                <% if @menus.count > 0%>
+                    <% @menus.each do |menu| %>
+                      <li>
+                          <div class="link-area">
+                            <%=link_to content_tag(:span,"quick view" ,:class=>"popup"), soapbox_restaurant_path(menu.restaurant) ,:class=>"view" %>
+                            
+                            <%= link_to content_tag(:span,"download"), menu.pdf_remote_attachment.attachment.url ,:class=>"download"%>
+                          </div>
+                         <p><%=menu.restaurant.try(:restaurant_and_city)%></p>
+                    </li>
+                  <%end%>
+               <%end%>
               </ul>
             </article>
             <!-- section -->
