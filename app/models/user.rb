@@ -357,7 +357,7 @@ class User < ActiveRecord::Base
   def post_to_facebook(opts)
     self.facebook_user.feed_create(Mogli::Post.new(opts))
   rescue Mogli::Client::OAuthException, Mogli::Client::HTTPException
-    Rails.logger.info("Unable to post to Facebook for #{name}")
+    Rails.logger.info("Unable to post to Facebook for #{name} on #{Time.now}")
   end
 
   # Behind the line
