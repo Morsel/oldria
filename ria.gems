@@ -1,7 +1,6 @@
 rails -v2.3.14
 compass -v0.10.6
 libxml-ruby -v2.2.2
-braintree -v2.6.3
 ruby-debug -v0.10.4
 capistrano -v2.5.21
 braintree -v2.6.1
