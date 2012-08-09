@@ -11,21 +11,21 @@
 		<%= hidden_field_tag 'employment[subject_matter_ids][]', sm %>
 	<% end -%>
 
-	<% if @employee %>
-		<p>Are these users an employee at your restaurant?</p>
+	<% if @employee.count > 0 %>
+			<p>Are these users an employee at your restaurant?</p>
 
-		<%#= render @employee %>
+			<%#= render @employee %>
 
 		
-<% @employee.each do |user| %>
-	<% div_for user, :class => 'box clearfix' do %>
-		<%=radio_button_tag(:employee_radio , user.id) %>
-		<%= link_to image_tag(user.avatar.url(:thumb)), profile_path(user.username) %>
-		<h3><%= user.name %></h3>
-	<% end -%>
-<% end -%>
+			<% @employee.each do |user| %>
+				<% div_for user, :class => 'box clearfix' do %>
+					<%=radio_button_tag(:employee_radio , user.id) %>
+					<%= link_to image_tag(user.avatar.url(:thumb)), profile_path(user.username) %>
+					<h3><%= user.name %></h3>
+				<% end -%>
+			<% end -%>
 
-		<p><%= button_tag "Yes", :class => 'nofloat positive',:id=>"confirm_yes_id"  %> or <%= link_to "No", :action => :new %></p>
+					<p><%= button_tag "Yes", :class => 'nofloat positive',:id=>"confirm_yes_id"  %> or <%= link_to "No", :action => :new %></p>
 	<% else %>
 		<p>We couldn't find that person</p>
 	<% end %>
