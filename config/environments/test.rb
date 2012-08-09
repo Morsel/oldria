@@ -33,7 +33,7 @@ config.gem "remarkable_rails",  :lib => false
 config.gem "factory_girl",      :version => '~>1.2.3'
 config.gem 'bmabey-email_spec', :lib => 'email_spec', :source => "http://gems.github.com"
 config.gem "fakeweb",           :version => "1.3.0"
-config.gem "mocha"
+config.gem "mocha",             :version => "0.9.8"
 config.gem "spork",             :version => "~> 0.7.5"
 config.gem "delorean"
 config.gem "awesome_print",     :lib => "ap"
