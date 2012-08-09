@@ -8,3 +8,4 @@ braintree -v2.6.1
 bitly -v0.7.0
 delayed_job -v1.8.4
 faraday -v0.7.5
+mysql -v2.8.1
