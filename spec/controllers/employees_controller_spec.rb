@@ -81,8 +81,8 @@ describe EmployeesController do
         User.stubs(:find)
         get :new, :restaurant_id => @restaurant.id, :employment => {:employee_email => "sam@example.com"}
       end
-      #it { response.should be_render }
-      it { response.should render_template(:new) }
+      it { response.should be_redirect }
+      it { response.should redirect_to(recommend_invitations_url(:emails => "sam@example.com" )) }
     end
   end
 
