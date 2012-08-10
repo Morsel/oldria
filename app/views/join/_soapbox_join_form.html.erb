@@ -8,17 +8,19 @@
       <div class="holder">
         <p>Whiz bang copy about why people should join. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maece - nas orci metus, venenatis in rhoncus eget, imperdiet vitae sem. Curabitur scelerisque convallis laoreet. Morbi tortor tellus, congue in luctus id, ultricies at tellus. Maecenas sed feugiat ante.</p> 
 <div class="row">
-    <%= text_field_tag "first_name", "", :id => "firstName",  :placeholder=>"First Name", :required => "", :class=>"validate[required]" %>
+    <%= text_field_tag "first_name", "", :id => "firstName",  :placeholder=>"First Name", :class=>"validate[required]" %>
  </div>
  <div class="row">   
-    <%= text_field_tag "last_name", "", :id => "lastName", :class => "standard-filler", :placeholder => "Last Name", :required => "" , :class=>"validate[required]" %>
+    <%= text_field_tag "last_name", "", :id => "lastName", :class => "standard-filler", :placeholder => "Last Name" , :class=>"validate[required]" %>
   </div>  
 
 <div class="row">
-    <%= text_field_tag "email", "", :id => "email", :class => "standard-filler", :placeholder => "Email", :required => "" , :class=>"validate[custom[email]]" %>
+    <%= text_field_tag "email", "", :id => "email", :class => "standard-filler", :placeholder => "Email",  :class=>"validate[custom[email]]" %>
  </div>
  <div class="row">   
         <%= select_tag "role", options_for_select([["Select one", ""], ["Diner", "diner"], ["Restaurant professional", "restaurant"], ["Media", "media"]]), :onchange => "updateRestaurantSignupFields();" ,:class=>"default validate[required]"  %>
+        <span class="info">*By entering your information you are agreeing to our terms of use</span>
+        <input type="submit" value="SUBMIT">
 </div>
     <div id="restaurant_fields" style="display: none;" class="clearfix clear">
     	<b>We have a few more pieces of information we need for your account</b>
@@ -31,11 +33,11 @@
         <% for subject in SubjectMatter.general.all %>
         <p><%= check_box_tag "subject_matters[#{subject.id}]" %> <label for="subject_matters_<%= subject.id %>"><%= subject.name %></label></p>
         <% end %>
+
     </div>
 
 <% end %>
-        <span class="info">*By entering your information you are agreeing to our terms of use</span>
-        <input type="submit" value="SUBMIT">
+        
     <div class="link-holder">
       <a href="#" class="close-btn">close</a>
     </div>

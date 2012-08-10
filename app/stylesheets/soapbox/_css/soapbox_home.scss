@@ -8,6 +8,7 @@
 
 // Import all the default blueprint modules so that we can access their mixins.
 @include reset-html5;
+
 .clearfix{
 	overflow:hidden;
 }
@@ -16,7 +17,7 @@
 }
 
 body{
- 	font:normal 12px "Helvetica Neue", Helvetica, Arial, sans-serif;
+ 	font:11px/14px 'Museo300Regular',Arial,sans-serif;
 	background:$body-bg url(/images/soapbox/bg-body.jpg) repeat-x 50% 100% !important;
 	color:$font-color;
 }
@@ -215,7 +216,7 @@ img{
 	position:absolute;
 	width:100%;
 	height:9px;
-	background:url(/images/bg-nav.gif) no-repeat;
+	background:url(/images/soapbox/bg-nav.gif) no-repeat;
 	top:0;
 	left:0;
 }
@@ -269,7 +270,6 @@ img{
 #nav li span{
 	display:block;
 	padding:5px 0 8px;
-	@include museoslabmedium;
 }
 #nav li:first-child{padding:0 3.3% 0 1.8%;}
 #nav li:first-child span{padding:5px 0 8px;}
@@ -366,7 +366,7 @@ img{
 }
 .post-section .post p{
 	margin:0 0 5px;
-	@include museoslabthin;
+	
 }
 .post-section .date{
 	font:8px/12px 'MuseoSlab500Regular', serif;
@@ -480,8 +480,7 @@ img{
 .twocolumns .alignleft{margin:3px 8px 0 0;}
 .twocolumns .info{overflow:hidden;}
 .twocolumns p{
-	margin:0;
-	@include museoslabthin;
+	margin:0;	
 }
 .question-area em,
 .news-holder p em,
@@ -489,7 +488,7 @@ img{
 .twocolumns p em a,
 .promotion p em a,
 .answer em a{
-	@include museoslabthin;
+	
 	color:#8e898b;
 	a
 	{
@@ -551,7 +550,7 @@ img{
 }
 .twocolumns .post p{
 	margin:0 0 6px;
-	@include museoslabthin;
+
 }
 .select-form select{width:104px;}
 /* info-block */
@@ -584,7 +583,7 @@ img{
 	border-top:2px solid #dedede;
 	padding:0 0 0;
 	margin:3px 0 0;
-	@include museoslabthin;
+	
 }
 .news-holder .date{
 	font-size:8px;
@@ -619,7 +618,7 @@ img{
 	line-height:16px;
 	color:#cb4827;
 	text-decoration:none;
-	@include museoslabthin;
+	
 
 }
 .question-area .question a:hover{text-decoration:underline;}
@@ -701,7 +700,7 @@ img{
 .sign-up-form .holder{padding:0 12px;}
 .sign-up-form p{
 	margin:0 0 15px;
-	@include museoslabthin;
+	
 	}
 .sign-up-form .row{
 	overflow:hidden;
@@ -839,14 +838,14 @@ img{
 .aside-box .menu-list .link-area .download{background-position:-99px -372px;}
 .aside-box .menu-list .link-area .download:hover{background-position:-136px -372px;}
 .aside-box .menu-list .link-area .view:hover .popup{display:block;}
-.aside-box .menu-list p{margin:0;@include museoslabthin;}
+.aside-box .menu-list p{margin:0;}
 .aside-box .photo-list{
 	margin:0 -3px 0 -2px;
 	padding:0;
 	font-size:10px;
 	line-height:12px;
 	list-style:none;
-	@include museoslabthin;
+	
 }
 .aside-box .photo-list li{
 	display:inline-block;
@@ -895,8 +894,7 @@ img{
 	color:#474f80;
 }
 .aside-box .profile-info q{
-	quotes:none;
-	@include museoslabthin;
+	quotes:none;	
 	font-size:14px;
 	line-height:17px;
 }
