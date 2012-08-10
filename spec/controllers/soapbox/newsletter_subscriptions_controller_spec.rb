@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe NewsletterSubscriptionsController do
+describe Soapbox::NewsletterSubscriptionsController do
 
   it "should allow a newsletter subscriber to opt in to having their email shared with the restaurant" do
     restaurant = Factory(:restaurant)

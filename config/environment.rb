@@ -39,7 +39,8 @@ Rails::Initializer.run do |config|
   config.gem 'ssl_requirement',       :version => "~>0.1.0"
   config.gem 'fastercsv'
   config.gem 'bitly',                 :version => "0.7.0"
-  
+  config.gem "bcrypt-ruby",           :version => "3.0.1", :lib => "bcrypt"
+
   # Settings in config/environments/* take precedence over those specified here.
   # Application configuration should go into files in config/initializers
   # -- all .rb files in that directory are automatically loaded.

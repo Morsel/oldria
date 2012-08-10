@@ -10,6 +10,11 @@
 </ul>
 
 <% semantic_form_for [:soapbox, @subscriber] do |f| %>
+    <% f.inputs :name => "Set a new password" do %>
+        <%= f.input :password %>
+        <%= f.input :password_confirmation %>
+    <% end %>
+
     <% f.inputs do %>
         <%= f.input :receive_soapbox_news, :label => "I want to receive the Soapbox email newsletter" %>
     <% end %>

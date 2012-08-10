@@ -9,11 +9,17 @@
 <%- end -%>
 
 <% form_tag form_url do %>
-    <label>Email address</label>
-    <%= text_field_tag "email" %>
-    
-    <%= submit_tag "Sign in" %>
+    <p>
+        <label>Email address</label>
+        <%= text_field_tag "email" %>
+    </p>
+
+    <p>
+        <label>Password</label>
+        <%= password_field_tag "password" %>
+    </p>
+
+    <p><%= submit_tag "Sign in" %></p>
 <% end %>
 
-<br/>
 <p>If you haven't signed up for Soapbox yet, <%= link_to "join now!", join_url(:subdomain => "spoonfeed") %></p>

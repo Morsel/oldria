@@ -43,7 +43,7 @@ class Soapbox::NewsletterSubscribersController < ApplicationController
   end
 
   def connect
-    @subscriber = NewsletterSubscriber.find_by_email(params[:email])
+    @subscriber = NewsletterSubscriber.authenticate(params[:email], params[:password])
     if @subscriber.present?
       cookies['newsletter_subscriber_id'] = @subscriber.id
       if params[:restaurant_id]
@@ -62,7 +62,7 @@ class Soapbox::NewsletterSubscribersController < ApplicationController
 
   def verify_subscriber
     @subscriber = NewsletterSubscriber.find(params[:id])
-    redirect_to soapbox_root_path unless cookies['newsletter_subscriber_id'] == @subscriber.id.to_s
+    redirect_to :action => "find_subscriber" unless cookies['newsletter_subscriber_id'] == @subscriber.id.to_s
   end
 
 end

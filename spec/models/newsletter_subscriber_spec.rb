@@ -3,7 +3,9 @@ require 'spec_helper'
 describe NewsletterSubscriber do
   before(:each) do
     @valid_attributes = {
-      :email => "myemail@compy.com"
+      :email => "myemail@compy.com",
+      :password => "secret",
+      :password_confirmation => "secret"
     }
   end
 
