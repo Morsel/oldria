@@ -229,7 +229,7 @@ ActionController::Routing::Routes.draw do |map|
     admin_discussions.resources :comments, :only => [:new, :create, :edit, :update]
   end
 
- # map.resources :admin_messages, :only => 'show', :member => { :read => :put }
+  map.resources :admin_messages, :only => 'show', :member => { :read => :put }
   map.resources :messages, :collection => {
                               :archive => :get,
                               :ria => :get,
