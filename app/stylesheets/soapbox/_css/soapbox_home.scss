@@ -487,9 +487,12 @@ img{
 .twocolumns p em,
 .twocolumns p em a,
 .promotion p em a,
-.answer em a{
-	
-	color:#8e898b;
+.sector p ,
+.post p,
+.news-holder p,
+.menu-list p,
+.add-info p,
+.answer em a{		
 	a
 	{
 		text-decoration:none;
@@ -497,6 +500,9 @@ img{
 	a:hover
 	{
 		text-decoration:underline;
+	}
+	em a{
+		color:#8E898B;
 	}
 }
 .qotd, .trend{
@@ -880,7 +886,7 @@ img{
 .aside-box .profile-info dd{
 	margin:0;
 	overflow:hidden;
-	font-family:'MuseoSans700Regular', serif;
+	
 }
 .aside-box .profile-info .holder{
 	overflow:hidden;
@@ -1184,4 +1190,85 @@ img{
 		line-height:13px
 	}
 	.social-plugin li a{padding-top:7px;}
+}
+
+#footer-container{
+	@include container;	
+	overflow:hidden;
+	color:#fff;
+	font-size: 12px;
+	margin: -40px auto;
+	p{
+		color: rgba(255,255,255, .7);
+		margin:0 0 10px;
+	}
+	a{
+		color:#fff;
+	}
+	.social-media-links{
+		float: left;
+		width: 170px;
+		padding: 10px 25px 0 15px;
+		margin: 0;
+		min-height: 70px;
+		border-left: 1px dotted #aadaef;
+	}
+
+}
+#twitter-link{	
+	background:url(/images/soapbox/icon-footer-twitter.png) no-repeat 0 3px;
+	padding:0 0 0 56px;
+	a{
+		display:inline-block;
+		background:rgba(255,255,255,0.33);
+		padding:5px 10px;
+		margin:5px 0 0;
+		font-size:13px;
+		font-weight:bold;
+		@include border-radius(20px);
+		text-decoration: none;
+		text-shadow: 0 1px 0 #000;
+		&:hover{
+			background: #488CAA;
+			color: #fff;
+			text-shadow: 0 1px 0 #000;
+		}
+	}
+	}
+#footer-logo{
+	@include hiddentext;
+	width: 166px;
+	height:88px;
+	background:url(/images/soapbox/bg-ria-footer.png) no-repeat;
+	float:left;
+}
+
+
+#legal{
+	margin-top: 10px;
+	@include column(9);
+	a:hover{
+		text-decoration:none;
+		color: #165773;
+	}
+}
+#footer-links{
+	margin:0 0 10px;
+	a{
+			font-size: 11px;
+		display:inline-block;
+		padding:0 10px;
+		&:first-child{
+			padding-left:0;
+		}
+	}
+}
+#facebook-link a{
+	display:block;
+	padding:0px 0 20px 35px;
+	background:url(/images/soapbox/icon-footer-fb.png) no-repeat 0 4px;
+	&:hover{
+		color: #165773;
+		text-decoration:none;
+	}
 }
