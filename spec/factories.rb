@@ -591,4 +591,6 @@ end
 
 Factory.define :newsletter_subscriber do |f|
   f.email "myemail@maily.com"
+  f.password "secret"
+  f.password_confirmation "secret"
 end

@@ -33,13 +33,14 @@ config.gem "remarkable_rails",  :lib => false
 config.gem "factory_girl",      :version => '~>1.2.3'
 config.gem 'bmabey-email_spec', :lib => 'email_spec', :source => "http://gems.github.com"
 config.gem "fakeweb",           :version => "1.3.0"
-config.gem "mocha"
+config.gem "mocha",             :version => "0.9.8"
 config.gem "spork",             :version => "~> 0.7.5"
 config.gem "delorean"
 config.gem "awesome_print",     :lib => "ap"
 config.gem "accept_values_for", :version => "0.3.1"
 config.gem "rails_best_practices", :version => "0.3.16"
 # config.gem "metric_fu", :version => "1.5.1", :lib => "metric_fu"
+config.gem "webrat", :version => "0.7.0"
 
 Braintree::Configuration.environment = :sandbox
 Braintree::Configuration.merchant_id = "ny23sz9jy8gy38bw" 

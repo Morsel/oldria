@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120731175904) do
+ActiveRecord::Schema.define(:version => 20120809215525) do
 
   create_table "a_la_minute_answers", :force => true do |t|
     t.text     "answer"
@@ -631,6 +631,8 @@ ActiveRecord::Schema.define(:version => 20120731175904) do
     t.string   "last_name"
     t.boolean  "receive_soapbox_news", :default => true
     t.boolean  "opt_out",              :default => false
+    t.string   "password_hash"
+    t.string   "password_salt"
   end
 
   create_table "newsletter_subscriptions", :force => true do |t|

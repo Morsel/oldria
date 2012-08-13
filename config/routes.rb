@@ -31,7 +31,7 @@ ActionController::Routing::Routes.draw do |map|
 
     soapbox.resources :restaurant_questions, :only => ['show']
 
-    soapbox.resources :restaurants, :only => ['show'] do |restaurants|
+    soapbox.resources :restaurants, :only => ['show'], :member => { :subscribe => :any, :unsubscribe => :post, :confirm_subscription => :get } do |restaurants|
       restaurants.resources :feature_pages, :only => ['show']
       restaurants.resources :questions, :collection => { :topics => :get, :chapters => :get, :refresh => :post }, :controller => "restaurant_questions"
       restaurants.resources :photos, :only => ['show', 'index']
@@ -53,7 +53,9 @@ ActionController::Routing::Routes.draw do |map|
       users.btl_chapter 'behind_the_line/chapter/:id', :controller => 'users/behind_the_line', :action => 'chapter'
     end
 
-    soapbox.resources :newsletter_subscribers, :member => { :welcome => :get, :confirm => :get }
+    soapbox.resources :newsletter_subscribers, :member => { :welcome => :get, :confirm => :get },
+                                               :collection => { :find_subscriber => :get }
+    soapbox.resources :newsletter_subscriptions, :only => [:update]
 
     soapbox.connect 'travel_guides', :controller => 'soapbox', :action => 'travel_guides'
     soapbox.connect 'directory_search', :controller => 'soapbox', :action => 'directory_search'
@@ -178,8 +180,9 @@ ActionController::Routing::Routes.draw do |map|
                              :remove_twitter => :put,
                              :twitter_archive => :get,
                              :facebook_archive => :get,
-                             :social_archive => :get
-                             } do |restaurant|    
+                             :social_archive => :get,
+                             :download_subscribers => :get
+                             } do |restaurant|
     restaurant.resources :employees, :collection => { :bulk_edit => :get }, :except => [:show, :index]
     restaurant.resources :employments, :collection => { "reorder" => :post }
     restaurant.resource :employee_accounts, :only => [:create, :destroy]

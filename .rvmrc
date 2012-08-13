@@ -1,0 +1,2 @@
+rvm use --create ree-1.8.7-2012.01@ria
+rvm gemset import ria.gems
