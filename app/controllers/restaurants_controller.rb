@@ -1,8 +1,7 @@
 class RestaurantsController < ApplicationController
   before_filter :require_user
-  before_filter :authenticate, :only => [:edit, :update]
-  before_filter :find_activated_restaurant, :only => [:show, :select_primary_photo, :new_manager_needed, :replace_manager, :fb_page_auth, :remove_twitter,
-                                            :twitter_archive, :facebook_archive, :social_archive, :download_subscribers]
+  before_filter :authenticate, :only => [:edit, :update, :select_primary_photo, :new_manager_needed, :replace_manager, :fb_page_auth, :remove_twitter, :download_subscribers, :activate_restaurant]
+  before_filter :find_restaurant, :only => [:twitter_archive, :facebook_archive, :social_archive]
 
   def index
     @employments = current_user.employments
@@ -25,6 +24,7 @@ class RestaurantsController < ApplicationController
   end
 
   def show
+    find_activated_restaurant
     @employments = @restaurant.employments.by_position.all(
         :include => [:subject_matters, :restaurant_role, :employee])
     @questions = ALaMinuteAnswer.public_profile_for(@restaurant)[0...3]
@@ -113,22 +113,13 @@ class RestaurantsController < ApplicationController
   end
 
   def activate_restaurant
-    
-    @restaurant = Restaurant.find(params[:id])
-    if (cannot? :manage, @restaurant) 
-      flash[:error] = "You don't have permission to access that page"
-      redirect_to @restaurant
-    end
-    
-    if @restaurant.update_attributes(:is_activated => params[:mode])
-      
+    if @restaurant.update_attributes(:is_activated => params[:mode])      
       flash[:notice] = params[:mode].to_i > 0  ? "Successfully activated restaurant" : "Successfully deactivated restaurant"
       redirect_to :restaurants
     else
       flash[:error] = "We were unable to update the restaurant"
       redirect_to :restaurants
     end
-
   end  
 
   def download_subscribers
