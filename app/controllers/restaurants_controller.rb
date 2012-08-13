@@ -112,7 +112,6 @@ class RestaurantsController < ApplicationController
   def social_archive
   end
 
-<<<<<<< HEAD
   def activate_restaurant
     
     @restaurant = Restaurant.find(params[:id])
@@ -131,11 +130,10 @@ class RestaurantsController < ApplicationController
     end
 
   end  
-=======
+
   def download_subscribers
     send_data(@restaurant.newsletter_subscribers.to_csv, :filename => "#{@restaurant.name} subscribers.csv")
   end
->>>>>>> master
 
   private
 
@@ -146,9 +144,11 @@ class RestaurantsController < ApplicationController
       redirect_to :restaurants 
     end    
   end
+
   def find_restaurant    
     @restaurant = Restaurant.find(params[:id])
   end  
+
   def authenticate
     find_restaurant
     if (cannot? :edit, @restaurant) || (cannot? :update, @restaurant)
@@ -156,8 +156,5 @@ class RestaurantsController < ApplicationController
       redirect_to @restaurant
     end
   end
-
-  
-
 
 end
