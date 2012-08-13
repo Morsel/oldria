@@ -42,8 +42,8 @@
             </header>
           </li>
           <li>
-            <header class="feed-item-title">
-                Website:
+            <header class="feed-item-title website">
+                <%= link_to "Website:", restaurant.website %>
                 <p><%= link_to restaurant.website, restaurant.website %></p>
             </header>
           </li>
@@ -61,9 +61,4 @@
         </div>
     </footer>
   </aside><!-- /recent-activity -->
-  <nav id="participate">
-    <%= link_to "Login to participate", login_path, :class => "button", :id => "login-participate" %>
-    <span>or</span>
-    <%= link_to "Create free account", join_path, :class => "button", :id => "request-invite" %>
-  </nav><!-- /participate -->
 </div><!-- /sidebar -->

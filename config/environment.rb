@@ -10,7 +10,7 @@ Rails::Initializer.run do |config|
   config.gem 'will_paginate',         :version => "~>2.3.9"
   config.gem 'RedCloth',              :lib => 'redcloth'
   config.gem 'searchlogic',           :version => "~>2.5.8"
-  config.gem 'authlogic',             :version => "~>2.1.3"
+  config.gem 'authlogic',             :version => "2.1.6"
   config.gem 'addresslogic',          :version => "~>1.2.1"
   config.gem 'cancan',                :version => "~>1.0.1"
   config.gem 'paperclip',             :version => "2.3.3"
@@ -39,7 +39,8 @@ Rails::Initializer.run do |config|
   config.gem 'ssl_requirement',       :version => "~>0.1.0"
   config.gem 'fastercsv'
   config.gem 'bitly',                 :version => "0.7.0"
-  
+  config.gem "bcrypt-ruby",           :version => "3.0.1", :lib => "bcrypt"
+
   # Settings in config/environments/* take precedence over those specified here.
   # Application configuration should go into files in config/initializers
   # -- all .rb files in that directory are automatically loaded.

@@ -2,7 +2,7 @@ class RestaurantsController < ApplicationController
   before_filter :require_user
   before_filter :authenticate, :only => [:edit, :update]
   before_filter :find_restaurant, :only => [:show, :select_primary_photo, :new_manager_needed, :replace_manager, :fb_page_auth, :remove_twitter,
-                                            :twitter_archive, :facebook_archive, :social_archive]
+                                            :twitter_archive, :facebook_archive, :social_archive, :download_subscribers]
 
   def index
     @employments = current_user.employments
@@ -35,6 +35,8 @@ class RestaurantsController < ApplicationController
 
   def edit
     @fb_user = current_facebook_user.fetch if current_facebook_user && current_user.facebook_authorized?
+  rescue Mogli::Client::OAuthException, Mogli::Client::HTTPException => e
+    Rails.logger.error("Unable to fetch Facebook user for restaurant editing due to #{e.message} on #{Time.now}")
   end
 
   def update
@@ -108,6 +110,10 @@ class RestaurantsController < ApplicationController
   end
 
   def social_archive
+  end
+
+  def download_subscribers
+    send_data(@restaurant.newsletter_subscribers.to_csv, :filename => "#{@restaurant.name} subscribers.csv")
   end
 
   private

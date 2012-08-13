@@ -36,7 +36,7 @@
 <aside id="sidebar" class="home">
     <nav id="participate" class="home">
         <%= link_to "<span>Learn</span> more", '/soapbox/learn_more', :class => "button", :id => "request-invite" %>
-        <%= link_to "Request an <span>invitation</span>", join_path, :class => "button", :id => "login-participate" %>
+        <%= link_to "Request an <span>invitation</span>", join_url(:subdomain => "spoonfeed"), :class => "button", :id => "login-participate" %>
     </nav><!-- /participate -->
     <section id="facebook-button">
         <header>

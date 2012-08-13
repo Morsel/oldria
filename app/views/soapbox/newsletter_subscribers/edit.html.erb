@@ -1,0 +1,30 @@
+<% title "Edit your preferences" %>
+
+<%= render 'layouts/flashes' %>
+
+<h2>Current subscriptions</h2>
+<ul>
+    <% for subscription in @subscriber.newsletter_subscriptions %>
+    <li><%= link_to subscription.restaurant.name, soapbox_restaurant_path(subscription.restaurant) %></li>
+    <% end %>
+</ul>
+
+<% semantic_form_for [:soapbox, @subscriber] do |f| %>
+    <% f.inputs :name => "Set a new password" do %>
+        <%= f.input :password %>
+        <%= f.input :password_confirmation %>
+    <% end %>
+
+    <% f.inputs do %>
+        <%= f.input :receive_soapbox_news, :label => "I want to receive the Soapbox email newsletter" %>
+    <% end %>
+    <%= submit_tag "Save Email Preferences" %>
+<% end %>
+
+<% if !@subscriber.opt_out %>
+<p><%= link_to "Opt out of all email communication", soapbox_newsletter_subscriber_path(:newsletter_subscriber => {:opt_out => true}), :method => "put", :confirm => "Are you sure you want to opt out?" %></p>
+<% else %>
+<p>You have opted out of all email communication. <%= link_to "Opt back in?", soapbox_newsletter_subscriber_path(:newsletter_subscriber => {:opt_out => false}), :method => "put" %></p>
+<% end %>
+
+<p><%= @subscriber.email %> isn't you? <%= link_to "Log in with your own email address", find_subscriber_soapbox_newsletter_subscribers_path %></p>
