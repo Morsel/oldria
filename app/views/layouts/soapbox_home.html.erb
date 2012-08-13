@@ -88,28 +88,31 @@
   
                 <article class="post">
                    <h2>
-                      <%=link_to(@blog_posts.first.post_title,"http://blog.restaurantintelligenceagency.com/?p=#{@blog_posts.first.ID}")%>
+                        <%=link_to(truncate(@blog_posts[2].post_title,:length=>15),"http://blog.restaurantintelligenceagency.com/?p=#{@blog_posts[2].ID}")%>
                     </h2>
-                   <p><%= h truncate( @blog_posts.first.post_content, :length=>150)%></p>
-                  <em class="date"><%= distance_of_time_in_words( @blog_posts.first.post_date, Time.now)%></em>
+                    <p><%= truncate( @blog_posts[2].post_content.gsub(/<\/?[^>]*>/, ""), :length=>150)%></p>
+                     <em class="date"><%= distance_of_time_in_words( @blog_posts[2].post_date, Time.now)%></em>
                 </article>
             </div>
             <div class="column">
                 <article class="post size">
-                    <h2> 
-                      <%=link_to(@blog_posts[1].post_title,"http://blog.restaurantintelligenceagency.com/?p=#{@blog_posts[1].ID}")%>
-                     </h2>
-                    <p><%= h truncate( @blog_posts[1].post_content, :length=>180)%></p>
-                    <em class="date"><%= distance_of_time_in_words( @blog_posts[1].post_date, Time.now)%></em>
+                  <h2>
+                      <%=link_to(truncate(@blog_posts.first.post_title,:length=>30),"http://blog.restaurantintelligenceagency.com/?p=#{@blog_posts.first.ID}")%>
+                    </h2>
+                   <p><%=  truncate( @blog_posts.first.post_content.gsub(/<\/?[^>]*>/, ""), :length=>200)%></p>
+                  <em class="date"><%= distance_of_time_in_words( @blog_posts.first.post_date, Time.now)%></em>
+
+                   
                 </article>
             </div>
             <div class="column last">
                 <article class="post size01">
-                    <h2>
-                        <%=link_to(@blog_posts[2].post_title,"http://blog.restaurantintelligenceagency.com/?p=#{@blog_posts[2].ID}")%>
-                    </h2>
-                    <p><%= h truncate( @blog_posts[2].post_content, :length=>150)%></p>
-                     <em class="date"><%= distance_of_time_in_words( @blog_posts[2].post_date, Time.now)%></em>
+                     <h2> 
+                      <%=link_to(truncate(@blog_posts[1].post_title,:length=>18),"http://blog.restaurantintelligenceagency.com/?p=#{@blog_posts[1].ID}")%>
+                     </h2>
+                    <p><%=  truncate( @blog_posts[1].post_content.gsub(/<\/?[^>]*>/, ""), :length=>150)%></p>
+                    <em class="date"><%= distance_of_time_in_words( @blog_posts[1].post_date, Time.now)%></em>
+                    
                 </article>
                 <article class="post size02">
                     <h2>
@@ -131,17 +134,19 @@
               <% @menu_items.each do |menu_item| %>
               <article class="sector">
               <!--   <img src="images/img01.gif" alt="image description" class="alignleft" > -->
-                <% if false && menu_item.photo_file_name.present? -%>
-				        	<p><%= image_tag menu_item.photo(:thumb) ,:alt => menu_item.photo_file_name ,:class=>"alignleft"%></p>
+                <% if menu_item.photo_file_name.present? -%>
+				        	<p><%= image_tag menu_item.photo(:thumb) ,:alt => menu_item.photo_file_name ,:class=>"alignleft", :height=>50,:width=>50%></p>
 				        	<%else%>
 				        		<p><%= image_tag 'soapbox/img01.gif', :alt=>"Image not available", :class=>"alignleft"%></p>
 				        <% end -%>
 
                 <div class="info">
-                    <p>
-                      <%= truncate(menu_item.description.gsub(/<\/?[p>]>/, ""), :length => 100) %>
-                      <em>                  
-                         <%= link_to (menu_item.restaurant.try(:restaurant_and_city)), soapbox_menu_item_path(menu_item)%>
+                    <p>                     
+                      <%= menu_item.name%>
+                      <%= link_to(truncate(menu_item.description.gsub(/<\/?[p>]>/, ""), :length => 100) ,soapbox_menu_item_path(menu_item))%>
+                      <br />
+                      <em>                                    
+                         <%= link_to (menu_item.restaurant.try(:name_and_location)), soapbox_restaurant_path(menu_item.restaurant)%>
                       </em>
                     </p>
                 </div>
@@ -151,20 +156,18 @@
             </section>
             <section class="column">
               <header class="title">
-                <h2> <!-- *****************
-
-THIS SECTION SHOULD PULL THE LATEST TITLE, MENU ITEM, RESTAURANT NAME and LINK to individual postfrom http://soapbox.restaurantintelligenceagency.com/soapbox/on_the_menu --> </h2>
+                <h2> A LA MINUTE </h2>
               </header>
               <!-- post -->
               <article class="post">
                   <% @questions.each do |question| %>
                     <h3><!-- <a href="#">TODAY’S MENU SPECIALS:</a> -->
-                        <%= link_to truncate(question.question.upcase,:length=>50) ,soapbox_a_la_minute_question_path(question)%>
+                        <%= link_to truncate(question.topic.upcase,:length=>50) ,soapbox_a_la_minute_question_path(question)%>
                     </h3>
                         <% (question.a_la_minute_answers.activated_restaurants.find(:all,:limit=>2 ,:order=>" created_at DESC")).each do|answer| %>
                           <p>
                               <%= Loofah::Helpers.sanitize(truncate(answer.answer, :length => 200)) %>
-                              <em><%=link_to answer.responder.try(:name).capitalize, soapbox_restaurant_path(answer.responder) %>
+                              <em><%=link_to answer.responder.try(:name_and_location), soapbox_restaurant_path(answer.responder) %>
                               </em>
                           </p>
                       <% end %>     
@@ -191,8 +194,8 @@ THIS SECTION SHOULD PULL THE LATEST TITLE, MENU ITEM, RESTAURANT NAME and LINK t
                     <%content_tag_for(:div, promotion,:class=>"info") do %> 
                     <%=content_tag(:em, (promotion.try(:start_date).to_s(:long).upcase + (promotion.try(:end_date).nil? ? "" : (" - "+ promotion.try(:end_date).to_s(:long).upcase)  )),:class=>"date")%> 
                     <p>
-                      <%=Loofah::Helpers.sanitize(truncate(promotion.details.gsub(/<\/?[^>]*>/, "").capitalize, :length => 150))%>
-                     <em> <%=link_to promotion.restaurant.restaurant_and_city ,restaurant_promotions_path(promotion.restaurant) %></em>
+                      <%=Loofah::Helpers.sanitize(truncate(promotion.headline.gsub(/<\/?[^>]*>/, ""), :length => 150))%>
+                     <em> <%=link_to promotion.restaurant.try(:name_and_location) ,restaurant_promotions_path(promotion.restaurant) %></em>
                     
                   </p>
                <%end%>                  
@@ -280,7 +283,9 @@ THIS SECTION SHOULD PULL THE LATEST TITLE, MENU ITEM, RESTAURANT NAME and LINK t
                             
                             <%= link_to content_tag(:span,"download"), menu.pdf_remote_attachment.attachment.url ,:class=>"download"%>
                           </div>
-                         <p><%=menu.restaurant.try(:restaurant_and_city)%></p>
+                         <p>
+                          <%=link_to menu.restaurant.try(:name_and_location) ,soapbox_restaurant_path(menu.restaurant) %>
+                        </p>
                     </li>
                   <%end%>
                <%end%>
@@ -348,7 +353,7 @@ THIS SECTION SHOULD PULL THE LATEST TITLE, MENU ITEM, RESTAURANT NAME and LINK t
                                 <% end %>
                             </span>
                               <p>
-                                <%= user.primary_employment.try(:restaurant_role).try(:name) %>
+                                <%= user.primary_employment.try(:restaurant_role).try(:name) %>,
                                 <%= user.primary_employment.try(:restaurant).try(:city_and_state) || user.try(:profile).try(:current_residence) %>
                               </p>
                         <% end %>
@@ -389,10 +394,8 @@ THIS SECTION SHOULD PULL THE LATEST TITLE, MENU ITEM, RESTAURANT NAME and LINK t
             </header>
             <!-- social-plugin -->
             <ul class="social-plugin">
-              <li><a class="facebook" href="#"><span>0,000 followers</span></a></li>
-              <li><a class="twitter" href="#"><span>Follow @account2</span></a></li>
-              <li><a class="twitter" href="#"><span>Follow @account1</span></a></li>
-              <li><a class="twitter" href="#"><span>Follow @account3</span></a></li>
+              <li><a class="facebook" href="http://www.facebook.com/RestaurantIntelligenceAgency"><span>0,000 followers</span></a></li>
+              <li><a class="twitter" href="https://twitter.com/RIASocial"><span>follow @riasocia</span></a></li>              
             </ul>
             <!-- social-networks -->
             <ul class="social-networks">
@@ -404,10 +407,39 @@ THIS SECTION SHOULD PULL THE LATEST TITLE, MENU ITEM, RESTAURANT NAME and LINK t
           </section>
           <div class="add-info">
             <h2>NEED HELP? HAVE QUESTIONS?</h2>
-            <p>You can email our support stay anytime. We also have a customer support line available 9am-9pm that can be</p>
+            <p>You can <a href="mailto:support@restaurantintelligenceagency.com">email our support staff</a> anytime.</p>
+            <p>We also have a customer support line available 9am–9pm that can be reached at (312) 572-9082.</p>
+
           </div>
         </aside>
       </div>
     </div>
   </div>
+    <footer id="footer">
+    <div id="footer-container">
+      <h1 id="footer-logo">
+        Soapbox: Soapbox is a product of RIA
+      </h1>
+      <div id="legal">
+        <p>&copy; 2010 <a href="http://www.restaurantintelligenceagency.com/">Restaurant Intelligence Agency</a>. All Rights Reserved.</p>
+        <nav id="footer-links">
+          <a href="/soapbox/about">About</a>|
+          <a href="http://www.restaurantintelligenceagency.com">RIA HQ</a>|
+          <a href="http://soapbox.restaurantintelligenceagency.com/soapbox/products">Products</a>|
+          <a href="/soapbox/privacy">Privacy</a>|
+          <a href="/soapbox/help">Help</a>
+          <a href="/soapbox/contact">Contact</a>
+        </nav>
+      </div><!-- /legal -->
+      <div class="social-media-links">
+        <p id="twitter-link">Get Daily Dining Updates for Chicago <a href="http://twitter.com/TeamRIA_Chi">@TeamRIA_Chi</a></p>
+        <p><%= mail_to "ellen@restaurantintelligenceagency.com", "Help Us Start a Daily Dining Newsletter in Your City", :subject => "Daily Dining Newsletter in My City" %></p>
+      </div>
+      <div class="social-media-links last">
+        <p id="facebook-link"><a href="http://www.facebook.com/RestaurantIntelligenceAgency">Check us out on Facebook</a></p>
+      </div>
+    </div><!-- /footer-container -->
+  </footer>
+
+
 </body></html>

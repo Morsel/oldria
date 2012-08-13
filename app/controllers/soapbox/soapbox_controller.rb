@@ -49,12 +49,15 @@ class Soapbox::SoapboxController < ApplicationController
   private
 
   def get_home_page_data
-
-    restaurants_ids = Restaurant.activated_restaurant.with_premium_account.map{|e| e.id}
+    @questions = []
+    restaurants_ids = Restaurant.activated_restaurant.with_premium_account.map{|e| e.id}    
     @menu_items = MenuItem.activated_restaurants.from_premium_restaurants.all(:order => "created_at DESC" ,:limit=>5)     
-    @questions = ALaMinuteQuestion.all(:order => "id DESC",:limit=>3)
+    #@questions = ALaMinuteQuestion.find(:all,:limit=>3,:conditions=>["id in (?) ",ALaMinuteAnswer.find(:all,:limit=>20,:select=>:a_la_minute_question_id).map {|row| row.a_la_minute_question_id}.uniq.compact[0..2]])
+    @questions_ids = ALaMinuteAnswer.find(:all,:limit=>20,:select=>:a_la_minute_question_id).map {|row| row.a_la_minute_question_id}.uniq.compact[0..2]
+    @questions_ids.each do |ids| @questions << ALaMinuteQuestion.find(ids)  end                  
+
     @behind_the_line_answers = ProfileQuestion.without_travel.answered_by_premium_and_public_users.all(:limit => 1).map(&:latest_soapbox_answer).uniq.compact[0...15]    
-    @menus =  Menu.find(:all,:conditions=>[" restaurant_id in (?)",restaurants_ids],:limit=>5)    
+    @menus =  @menus =  Menu.find(:all,:conditions=>[" restaurant_id in (?)",restaurants_ids],:limit=>5,:group => :restaurant_id)
     @photos = Photo.find(:all,:conditions=>["attachable_type = ? and attachable_id  in (?)", 'Restaurant',restaurants_ids],:limit=>4)    
     @spotlight_user = User.in_soapbox_directory.last
     @rand_users = User.in_soapbox_directory.sample(2)
@@ -65,7 +68,7 @@ class Soapbox::SoapboxController < ApplicationController
     @main_feature_comments = SoapboxEntry.main_feature_comments(3) if @main_feature
     @qoth = SoapboxEntry.secondary_feature
     @qoth_comments = SoapboxEntry.secondary_feature_comments(3) if @qoth
-    @blog_posts = WpBlogPost.find(:all, :conditions => ['post_status = "publish"'], :limit => 4,:order=>"id DESC")
+    @blog_posts = WpBlogPost.find(:all, :conditions => ['post_status = "publish"'], :limit => 4,:order=>"post_date DESC")
   end
   
   
