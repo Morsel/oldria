@@ -54,7 +54,7 @@ describe EmployeesController do
 
     context "after trying to find an existing employee" do
       before(:each) do        
-        #User.stubs(:find).returns(@employee)
+        User.stubs(:find_all_by_email).returns([@employee])
         get :new, :restaurant_id => @restaurant.id, :employment => {:employee_email => "john"}
       end
 
@@ -63,7 +63,7 @@ describe EmployeesController do
 
       it { assigns[:restaurant].should == @restaurant }
       it { assigns[:employment].should be_an(Employment) }
-      #it { assigns[:employee].should == @employee }
+      it { assigns[:employees].first.should == @employee }
 
       it "should include confirmation message" do
         response.should contain("Are these users an employee at your restaurant?")

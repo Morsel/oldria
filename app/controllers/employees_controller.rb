@@ -72,24 +72,17 @@ class EmployeesController < ApplicationController
   private
 
   def find_or_initialize_employee
-    
     email = params[:employment][:employee_email]
-    @employee   = User.find_all_by_email(email) 
-    if(@employee.count < 1)
-      @employee = User.find_all_by_name(email)
-    elsif (@employee.count < 1)
-      @employee = User.find_all_by_first_name(email.split(" ").first)
-    elsif (@employee.count < 1)
-      @employee = User.find_all_by_last_name(email.split(" ").last)
-    end          
-    
-    if !@employee.blank?
-      @employment.employee_id = @employee.first.id
+    @employees = (User.find_all_by_email(email) + User.find_all_by_name(email) + User.find_all_by_first_name(email.split(" ").first) + User.find_all_by_last_name(email.split(" ").last)).compact
+
+    if @employees.present?
+      @employment.employee_id = @employees.first.id
       render :confirm_employee
     else
       identifier = email.match(/\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i) ?
         { :email => email } : 
         { :first_name => email.split(" ").first, :last_name => email.split(" ").last }
+
       if current_user.admin?
         flash.now[:notice] = "We couldn't find them in our system. You can add this person."
         @employee = @restaurant.employees.build(identifier)

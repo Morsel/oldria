@@ -11,13 +11,10 @@
 		<%= hidden_field_tag 'employment[subject_matter_ids][]', sm %>
 	<% end -%>
 
-	<% if @employee.count > 0 %>
+	<% if @employees.present? %>
 			<p>Are these users an employee at your restaurant?</p>
 
-			<%#= render @employee %>
-
-		
-			<% @employee.each do |user| %>
+			<% @employees.each do |user| %>
 				<% div_for user, :class => 'box clearfix' do %>
 					<%=radio_button_tag(:employee_radio , user.id) %>
 					<%= link_to image_tag(user.avatar.url(:thumb)), profile_path(user.username) %>
