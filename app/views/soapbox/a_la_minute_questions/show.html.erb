@@ -15,8 +15,6 @@
 
 <div id="answers">
   <h2><%= @question.question %></h2>
-  <%#= render :partial => 'answer', :collection => @answers, :as => :answer %>
-  <%#= render :partial => 'single_answer', :locals => { :answer => @answers.first}  %>
   <% content_tag_for(:div, @answers.first.responder, :answer_for, :class => 'a_la_minute_answer') do %>
     <%= render :partial => "restaurants/identity", :locals => { :restaurant => @answers.first.responder } if @answers.first.responder %>
 
@@ -26,16 +24,10 @@
     </div>
     <%= render :partial => "tags", :locals => { :answer => @answers.first } if @answers.first %>
 
-
-
   <% end %>
 </div>
 
-<% #content_for :sidebar do -%>
-<%#= render :partial => 'sidebar' %>
-<% #end -%>
-
 <% content_for :sidebar do -%>
-<%= render :partial => 'soapbox/restaurant_sidebar_without_account', :locals => { :restaurant => @answers.first.responder } %>
+<%= render :partial => 'soapbox/restaurant_sidebar', :locals => { :restaurant => @answers.first.responder } %>
 <% end -%>
 
