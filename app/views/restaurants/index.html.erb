@@ -29,6 +29,7 @@
                 <%= link_to( "Live", activate_restaurant_path(employment.restaurant,1), :class => "restaurant live", :style=>"color:#6EB33F") %>
                 <% end -%>
 
+              <%= link_to((employment.restaurant.is_activated ? "Deactivate" : "Activate"), activate_restaurant_path(employment.restaurant,employment.restaurant.is_activated ? 0 :1), :class => "restaurant" ) %>
               
               <span>Admin</span>
               <p>
