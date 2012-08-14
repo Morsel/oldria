@@ -50,18 +50,18 @@ class Soapbox::SoapboxController < ApplicationController
 
   def get_home_page_data
     @questions = []
-    restaurants_ids = Restaurant.activated_restaurant.with_premium_account.map{|e| e.id}    
-    @menu_items = MenuItem.activated_restaurants.from_premium_restaurants.all(:order => "created_at DESC" ,:limit=>5)     
+    restaurants_ids = Restaurant.with_premium_account.map{|e| e.id}
+    @menu_items = MenuItem.from_premium_restaurants.all(:order => "created_at DESC" ,:limit=>5)
     #@questions = ALaMinuteQuestion.find(:all,:limit=>3,:conditions=>["id in (?) ",ALaMinuteAnswer.find(:all,:limit=>20,:select=>:a_la_minute_question_id).map {|row| row.a_la_minute_question_id}.uniq.compact[0..2]])
     @questions_ids = ALaMinuteAnswer.find(:all,:limit=>20,:select=>:a_la_minute_question_id).map {|row| row.a_la_minute_question_id}.uniq.compact[0..2]
     @questions_ids.each do |ids| @questions << ALaMinuteQuestion.find(ids)  end      
     @behind_the_line_answers = (ProfileQuestion.without_travel.answered_by_premium_and_public_users.all(:limit => 50,:order => "profile_answers.created_at DESC").map(&:latest_soapbox_answer).uniq.compact[0...15]).compact[0..4]
-    @menus =  @menus =  Menu.activated_restaurants.all(:limit=>5,:order=>"created_at desc")
+    @menus =  @menus =  Menu.all(:limit=>5,:order=>"created_at desc")
     @photos = Photo.find(:all,:conditions=>["attachable_type = ? and attachable_id  in (?)", 'Restaurant',restaurants_ids],:limit=>4)    
     @spotlight_user = User.in_soapbox_directory.last
     @rand_users = User.in_soapbox_directory.sample(2)
     @promotions = Promotion.from_premium_restaurants.all(:order => "created_at DESC" ,:limit =>5)
-    @restaurants = Restaurant.activated_restaurant.with_premium_account.sample(2)
+    @restaurants = Restaurant.with_premium_account.sample(2)
     @main_feature = SoapboxEntry.main_feature    
     @main_feature_comments = SoapboxEntry.main_feature_comments(5) if @main_feature
     @qoth = SoapboxEntry.secondary_feature

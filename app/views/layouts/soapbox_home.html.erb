@@ -164,7 +164,7 @@
                     <h3><!-- <a href="#">TODAY’S MENU SPECIALS:</a> -->
                         <%= link_to truncate(question.topic.upcase,:length=>50) ,soapbox_a_la_minute_question_path(question)%>
                     </h3>
-                        <% (question.a_la_minute_answers.activated_restaurants.find(:all,:limit=>2 ,:order=>" created_at DESC")).each do|answer| %>
+                        <% (question.a_la_minute_answers.find(:all,:limit=>2 ,:order=>" created_at DESC")).each do|answer| %>
                           <p>
                               <%= Loofah::Helpers.sanitize(truncate(answer.answer, :length => 200)) %>
                               <em><%=link_to answer.responder.try(:name_and_location), soapbox_restaurant_path(answer.responder) %>
