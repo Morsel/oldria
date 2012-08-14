@@ -211,14 +211,22 @@
             </header>
             <!-- question-area -->
             <article class="question-area">
-                <% if @answers.count > 0%>
                   <div class="title">
-                      <span class="note">BEHIND THE LINE: <strong>ON THE JOB</strong></span>
-                      <strong class="question"><%= link_to @answers.first.profile_question.title.upcase,soapbox_profile_question_path(@answers.first.profile_question) %></strong>
+                        <span class="note">BEHIND THE LINE: <strong>ON THE JOB</strong></span>
+                </div>                        
+                <% if @behind_the_line_answers.count > 0%>
+                     <%@behind_the_line_answers.each do |answer|%>
+                      <div class="title">      
+                        <strong class="question"><%= link_to answer.profile_question.title.upcase,soapbox_profile_question_path(answer.profile_question) %></strong>
+                   
+                      <strong class="answer">A: <%=answer.answer%>. <em class="btl_em"><%= link_to_if (answer.user.linkable_profile? || logged_in_on_spoonfeed), answer.user.name_or_username, directory_link(answer.user) %>
+                      ,<%= answer.user.primary_employment.try(:restaurant_role).try(:name)%>,
+                      <%= restaurant_names_for_user(answer.user) %>,
+                      <%= answer.user.primary_employment.try(:restaurant).try(:city_and_state) || answer.user.try(:profile).try(:current_residence) %>
+                    </em>
+                    </strong>
                   </div>
-                  <strong class="answer">A: <%=@answers.first.answer%>. <em><%= link_to_if (@answers.first.user.linkable_profile? || logged_in_on_spoonfeed), @answers.first.user.name_or_username, directory_link(@answers.first.user) %>
-                    ,<%= restaurant_names_for_user(@answers.first.user) %></em>
-                  </strong>
+                  <%end%><!-- end each -->  
                 <%end%>
             </article>
             <div class="holder">
@@ -281,9 +289,9 @@
                           <div class="link-area">
                             <%=link_to content_tag(:span,"quick view" ,:class=>"popup"), soapbox_restaurant_path(menu.restaurant) ,:class=>"view" %>
                             
-                            <%= link_to content_tag(:span,"download"), menu.pdf_remote_attachment.attachment.url ,:class=>"download"%>
+                            <%= link_to content_tag(:span,menu), menu.pdf_remote_attachment.attachment.url ,:class=>"download"%>
                           </div>
-                         <p>
+                         <p>                          
                           <%=link_to menu.restaurant.try(:name_and_location) ,soapbox_restaurant_path(menu.restaurant) %>
                         </p>
                     </li>

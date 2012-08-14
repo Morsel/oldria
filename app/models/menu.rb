@@ -25,7 +25,13 @@ class Menu < ActiveRecord::Base
   # default_scope :order => "menus.position, menus.created_at DESC"
 
   named_scope :by_position, :order => "menus.position, menus.created_at DESC"
-
+  named_scope :activated_restaurants, lambda {
+    {
+      :joins => 'INNER JOIN restaurants as r ON `r`.id = restaurant_id ',
+      :conditions => ["(r.is_activated = ?)",true]
+    }
+  }
+  
   def self.change_frequencies
     @change_frequencies ||= begin
       File.read(File.join(RAILS_ROOT, 'db/seedlings/restaurant_features/menu change tags.txt')).split("\r\n")
