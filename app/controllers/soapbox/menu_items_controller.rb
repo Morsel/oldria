@@ -17,6 +17,9 @@ class Soapbox::MenuItemsController < ApplicationController
   end
 
   def show        
+    @more_menu_items = MenuItem.all(:conditions => ["restaurant_id = ? AND id != ?", @menu_item.restaurant_id, @menu_item.id],
+                                    :order => "created_at DESC",
+                                    :limit => 5)
   end
 
    def verify_restaurant_activation        
