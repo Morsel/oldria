@@ -287,9 +287,9 @@
                     <% @menus.each do |menu| %>
                       <li>
                           <div class="link-area">
-                            <%=link_to content_tag(:span,"quick view" ,:class=>"popup"), soapbox_restaurant_path(menu.restaurant) ,:class=>"view" %>
+                            <%= link_to content_tag(:span, "quick view", :class => "popup"), menu.pdf_remote_attachment.attachment.url, :class => "view" %>
                             
-                            <%= link_to content_tag(:span,menu), menu.pdf_remote_attachment.attachment.url ,:class=>"download"%>
+                            <%= link_to content_tag(:span, menu), menu.pdf_remote_attachment.attachment.url, :class => "download" %>
                           </div>
                          <p>                          
                           <%=link_to menu.restaurant.try(:name_and_location) ,soapbox_restaurant_path(menu.restaurant) %>
