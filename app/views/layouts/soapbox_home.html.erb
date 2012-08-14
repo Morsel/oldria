@@ -162,7 +162,7 @@
               <article class="post">
                   <% @questions.each do |question| %>
                     <h3><!-- <a href="#">TODAY’S MENU SPECIALS:</a> -->
-                        <%= link_to truncate(question.topic.upcase,:length=>50) ,soapbox_a_la_minute_question_path(question)%>
+                        <%= link_to truncate(question.topic.try(:upcase),:length=>50) ,soapbox_a_la_minute_question_path(question)%>
                     </h3>
                         <% (question.a_la_minute_answers.find(:all,:limit=>2 ,:order=>" created_at DESC")).each do|answer| %>
                           <p>

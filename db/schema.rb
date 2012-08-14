@@ -992,7 +992,6 @@ ActiveRecord::Schema.define(:version => 20120809215525) do
     t.string   "facebook_page_token"
     t.string   "atoken"
     t.string   "asecret"
-    t.boolean  "is_activated",               :default => false
   end
 
   add_index "restaurants", ["cuisine_id"], :name => "index_restaurants_on_cuisine_id"
@@ -1070,17 +1069,6 @@ ActiveRecord::Schema.define(:version => 20120809215525) do
     t.string   "title"
     t.string   "slug"
     t.text     "content"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "social_posts", :force => true do |t|
-    t.string   "post_data"
-    t.string   "link"
-    t.datetime "post_created_at"
-    t.string   "source"
-    t.integer  "restaurant_id"
-    t.string   "title"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
