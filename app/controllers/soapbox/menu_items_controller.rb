@@ -14,11 +14,9 @@ class Soapbox::MenuItemsController < ApplicationController
       @menu_items = MenuItem.activated_restaurants.from_premium_restaurants.all(:order => "created_at DESC")
     end      
       @menu_items = @menu_items.paginate(:page => params[:page], :per_page => 5)  unless @menu_items.count < 1
-    
   end
 
   def show        
-       @more_menu_items = MenuItem.from_premium_restaurants.all(:order => "created_at DESC", :limit => 5, :conditions => ["menu_items.id != ? and menu_items.created_at >= ?", @menu_item.id,  (Date.today-7) ])
   end
 
    def verify_restaurant_activation        

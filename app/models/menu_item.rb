@@ -49,12 +49,12 @@ class MenuItem < ActiveRecord::Base
       :conditions => ["subscriptions.id IS NOT NULL AND (subscriptions.end_date IS NULL OR subscriptions.end_date >= ?)",
           Date.today] }
   }
-  named_scope :activated_restaurants, lambda {
-    {
-      :joins => 'INNER JOIN restaurants as r ON `r`.id = restaurant_id ',
-      :conditions => ["(r.is_activated = ?)",true]
-    }
+
+  named_scope :activated_restaurants, {
+    :joins => :restaurant,
+    :conditions => ["restaurants.is_activated = ?", true]
   }
+
   attr_accessor :no_twitter_crosspost, :no_fb_crosspost
   after_create :crosspost
 
