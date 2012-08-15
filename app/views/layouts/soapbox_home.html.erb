@@ -86,6 +86,7 @@
                     <h2><%= link_to 'FRONT BURNER', 'http://blog.restaurantintelligenceagency.com/' %></h2>
                 </header>
   
+                <%- if @blog_posts.present? -%>
                 <article class="post">
                    <h2>
                         <%=link_to(truncate(@blog_posts[2].post_title,:length=>15),"http://blog.restaurantintelligenceagency.com/?p=#{@blog_posts[2].ID}")%>
@@ -101,8 +102,6 @@
                     </h2>
                    <p><%=  truncate( @blog_posts.first.post_content.gsub(/<\/?[^>]*>/, ""), :length=>200)%></p>
                   <em class="date"><%= distance_of_time_in_words( @blog_posts.first.post_date, Time.now)%></em>
-
-                   
                 </article>
             </div>
             <div class="column last">
@@ -112,7 +111,6 @@
                      </h2>
                     <p><%=  truncate( @blog_posts[1].post_content.gsub(/<\/?[^>]*>/, ""), :length=>150)%></p>
                     <em class="date"><%= distance_of_time_in_words( @blog_posts[1].post_date, Time.now)%></em>
-                    
                 </article>
                 <article class="post size02">
                     <h2>
@@ -120,7 +118,7 @@
                     </h2>                       
                      <em class="date"><%= distance_of_time_in_words( @blog_posts[3].post_date, Time.now)%></em>
                 </article>
-               
+                <% end %>
             </div>
           </section>
           <!-- twocolumns -->
