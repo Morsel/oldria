@@ -326,7 +326,7 @@
             <article class="profile-info">
               <dl>
                 <dt>Spotlight On:</dt>
-                <dd><%=@spotlight_user.name%></dd>
+                <dd><%= link_to @spotlight_user.name, soapbox_profile_path(@spotlight_user.username) %></dd>
               </dl>
              
                  <% content_tag(:div,:class=>"holder") do %>
@@ -354,7 +354,7 @@
                         <% content_tag_for(:div, user ,:class=>"info") do %>
                             <span>
                                 <strong class="name">
-                                 <%= user.name_or_username %>
+                                 <%= link_to user.name_or_username, soapbox_profile_path(user.username) %>
                                 </strong> 
                            
                                 <% if user.profile && user.profile.specialties.present? %>
@@ -386,7 +386,7 @@
                           <% content_tag_for(:div, restaurant ,:class=>"info") do %>
                               <span>
                                 <strong class="name">
-                                 <%= restaurant.try(:name) %>
+                                 <%= link_to restaurant.try(:name), soapbox_restaurant_path(restaurant) %>
                                 </strong>  
                                 <%=restaurant.top_limited_tags(3).map{|tag|(link_to h(tag.value),soapbox_feature_path(tag))}.join(", ")%>
                               </span>
