@@ -1,9 +1,12 @@
 class Soapbox::SoapboxController < ApplicationController
 
+
   def index
+    get_home_page_data
     @home = true
     @slides = SoapboxSlide.all(:order => "position", :limit => 5, :conditions => "position is not null")
     @promos = SoapboxPromo.all(:order => "position", :limit => 3, :conditions => "position is not null")
+    render :layout => 'soapbox_home'
   end
 
   def directory
@@ -43,4 +46,25 @@ class Soapbox::SoapboxController < ApplicationController
     redirect_to soapbox_btl_topic_path(Topic.travel)
   end
 
+  private
+
+  def get_home_page_data
+    restaurants_ids = Restaurant.with_premium_account.map{|e| e.id}
+    @menu_items = MenuItem.from_premium_restaurants.all(:order => "created_at DESC" ,:limit=>5)
+    @questions = ALaMinuteQuestion.most_recent_for_soapbox(3)
+    @behind_the_line_answers = (ProfileQuestion.without_travel.answered_by_premium_and_public_users.all(:limit => 50,:order => "profile_answers.created_at DESC").map(&:latest_soapbox_answer).uniq.compact[0...15]).compact[0..4]
+    @menus =  @menus =  Menu.all(:limit=>5,:order=>"created_at desc")
+    @photos = Photo.find(:all,:conditions=>["attachable_type = ? and attachable_id  in (?)", 'Restaurant',restaurants_ids],:limit=>4)    
+    @spotlight_user = User.in_soapbox_directory.last
+    @rand_users = User.in_soapbox_directory.sample(2)
+    @promotions = Promotion.from_premium_restaurants.all(:order => "created_at DESC" ,:limit =>5)
+    @restaurants = Restaurant.with_premium_account.sample(2)
+    @main_feature = SoapboxEntry.main_feature    
+    @main_feature_comments = SoapboxEntry.main_feature_comments(5) if @main_feature
+    @qoth = SoapboxEntry.secondary_feature
+    @qoth_comments = SoapboxEntry.secondary_feature_comments(5) if @qoth
+    @blog_posts = WpBlogPost.find(:all, :conditions => ['post_status = "publish"'], :limit => 4,:order=>"post_date DESC")
+  end
+  
+  
 end

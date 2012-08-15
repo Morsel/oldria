@@ -1,0 +1,48 @@
+
+<% form_tag registration_path, :id => "join" ,:class=>"sign-up-form" do %>
+<fieldset>
+      <header class="title">
+        <h2><span>Chefs, diners, media - <a href="#">JOIN NOW!</a></span></h2>
+        <span class="note">It’s free &amp; easy to sign up </span>
+      </header>
+      <div class="holder">
+        <p>Connecting restaurants with audiences that matter <br />
+          <%= link_to "Restaurants", 'http://soapbox.restaurantintelligenceagency.com/soapbox/about_1#restauranteurs'%> - Connect with audiences that matter<br />
+          <%= link_to "Diners", ' http://soapbox.restaurantintelligenceagency.com/soapbox/about_1#diners' %> - The insider connection to the best restaurants<br />
+           <%= link_to "Journalists/Bloggers", ' http://soapbox.restaurantintelligenceagency.com/soapbox/about_1#media' %> - The place for discovery and story inspiration</p> 
+<div class="row">
+    <%= text_field_tag "first_name", "", :id => "firstName",  :placeholder=>"First Name", :class=>"validate[required]" %>
+ </div>
+ <div class="row">   
+    <%= text_field_tag "last_name", "", :id => "lastName", :class => "standard-filler", :placeholder => "Last Name" , :class=>"validate[required]" %>
+  </div>  
+
+<div class="row">
+    <%= text_field_tag "email", "", :id => "email", :class => "standard-filler", :placeholder => "Email",  :class=>"validate[custom[email]]" %>
+ </div>
+ <div class="row">   
+        <%= select_tag "role", options_for_select([["Select one", ""], ["Diner", "diner"], ["Restaurant professional", "restaurant"], ["Media", "media"]]), :onchange => "updateRestaurantSignupFields();" ,:class=>"default validate[required]"  %>
+        <span class="info">*By entering your information you are agreeing to our terms of use</span>
+        <input type="submit" value="SUBMIT">
+</div>
+    <div id="restaurant_fields" style="display: none;" class="clearfix clear">
+    	<b>We have a few more pieces of information we need for your account</b>
+        <%= text_field_tag "restaurant_name", "", :id => "restaurant_name", :class => "standard-filler", :placeholder => "Restaurant Name" %>
+        <p class="inline-hints">Enter your restaurant name or your employment status e.g., student, between jobs, retired, time off</p>
+        <%= select_tag "restaurant_role", options_from_collection_for_select(RestaurantRole.all, :id, :name), :id => "restaurant_role", :class => "standard-filler", :placeholder => "Role" %>
+        <p class="inline-hints">Your role helps the media find you when they are looking for sources for stories.  If you are "chef/owner" select that and not "owner": you will receive more opportunities!</p>
+        <b>Area(s) of expertise</b>
+        <p class="inline-hints">I am comfortable answering questions and speaking to the media about the following topics:</p>
+        <% for subject in SubjectMatter.general.all %>
+        <p><%= check_box_tag "subject_matters[#{subject.id}]" %> <label for="subject_matters_<%= subject.id %>"><%= subject.name %></label></p>
+        <% end %>
+
+    </div>
+
+<% end %>
+        
+    <div class="link-holder">
+      <a href="#" class="close-btn">close</a>
+    </div>
+  </div>
+</fieldset>

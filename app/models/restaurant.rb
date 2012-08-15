@@ -148,6 +148,10 @@ class Restaurant < ActiveRecord::Base
     restaurant_feature_items.all(:limit => 15, :conditions => { :top_tag => true }).map(&:restaurant_feature)
   end
 
+  def top_limited_tags(no)
+    restaurant_feature_items.all(:limit => no, :conditions => { :top_tag => true }).map(&:restaurant_feature)
+  end
+
   def name_and_location
     [name, city, state].reject(&:blank?).join(", ")
   end
@@ -164,6 +168,9 @@ class Restaurant < ActiveRecord::Base
     self.update_attribute(:deleted_at, Time.now.utc)
   end
 
+  def restaurant_and_city
+    [name.capitalize, city].reject(&:blank?).join(", ")
+  end
   # Override the default destroy to allow us to flag deleted_at.
   # This preserves the before_destroy and after_destroy callbacks.
   # Because this is also called internally by Model.destroy_all and
