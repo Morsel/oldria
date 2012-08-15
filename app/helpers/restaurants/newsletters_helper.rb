@@ -1,0 +1,2 @@
+module Restaurants::NewslettersHelper
+end
