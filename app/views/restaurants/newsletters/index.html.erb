@@ -1,0 +1,3 @@
+<%= title "Newsletters" %>
+
+<%= link_to "Download subscribers", download_subscribers_restaurant_path(@restaurant), :class => "promo editor download" if @restaurant.shareable_newsletter_subscribers.present? %>

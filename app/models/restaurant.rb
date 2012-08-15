@@ -81,7 +81,8 @@ class Restaurant < ActiveRecord::Base
   has_many :accolades, :as => :accoladable
   has_many :a_la_minute_answers, :as => :responder, :dependent => :destroy
   has_many :press_releases
-  has_many :newsletter_subscriptions, :conditions => { :share_with_restaurant => true }
+
+  has_many :newsletter_subscriptions
   has_many :newsletter_subscribers, :through => :newsletter_subscriptions
   has_many :social_posts
 
@@ -252,6 +253,10 @@ class Restaurant < ActiveRecord::Base
 
   def photos_last_updated
     photos.present? ? photos.first(:order => "updated_at DESC").updated_at.strftime('%m/%d/%y') : ''
+  end
+
+  def shareable_newsletter_subscribers
+    newsletter_subscribers.all(:conditions => ["newsletter_subscriptions.share_with_restaurant = ?", true])
   end
 
   def self.extended_find(keyword)
