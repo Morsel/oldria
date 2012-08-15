@@ -216,16 +216,20 @@
                 </div>                        
                 <% if @behind_the_line_answers.count > 0%>
                      <%@behind_the_line_answers.each do |answer|%>
-                      <div class="title">      
-                        <strong class="question"><%= link_to answer.profile_question.title.upcase,soapbox_profile_question_path(answer.profile_question) %></strong>
-                   
-                      <strong class="answer">A: <%=answer.answer%>. <em class="btl_em"><%= link_to_if (answer.user.linkable_profile? || logged_in_on_spoonfeed), answer.user.name_or_username, directory_link(answer.user) %>
-                      ,<%= answer.user.primary_employment.try(:restaurant_role).try(:name)%>,
-                      <%= restaurant_names_for_user(answer.user) %>,
-                      <%= answer.user.primary_employment.try(:restaurant).try(:city_and_state) || answer.user.try(:profile).try(:current_residence) %>
-                    </em>
-                    </strong>
-                  </div>
+                     <div class="title">
+                         <strong class="question">
+                            <%= link_to answer.profile_question.title.upcase, soapbox_profile_question_path(answer.profile_question) %>
+                        </strong>
+
+                         <strong class="answer">
+                             A: <%= link_to truncate(answer.answer, :length => 160), soapbox_a_la_minute_answer_path(answer) %>. 
+                             <em class="btl_em"><%= link_to_if (answer.user.linkable_profile? || logged_in_on_spoonfeed), answer.user.name_or_username, directory_link(answer.user) %>,
+                             <%= answer.user.primary_employment.try(:restaurant_role).try(:name) %>,
+                             <%= restaurant_names_for_user(answer.user) %>,
+                             <%= answer.user.primary_employment.try(:restaurant).try(:city_and_state) || answer.user.try(:profile).try(:current_residence) %>
+                         </em>
+                     </strong>
+                 </div>
                   <%end%><!-- end each -->  
                 <%end%>
             </article>
