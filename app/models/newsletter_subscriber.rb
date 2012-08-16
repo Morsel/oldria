@@ -1,5 +1,4 @@
 # == Schema Information
-# Schema version: 20120726233422
 #
 # Table name: newsletter_subscribers
 #
@@ -11,7 +10,9 @@
 #  first_name           :string(255)
 #  last_name            :string(255)
 #  receive_soapbox_news :boolean         default(TRUE)
-#  opt_out              :boolean
+#  opt_out              :boolean         default(FALSE)
+#  password_hash        :string(255)
+#  password_salt        :string(255)
 #
 
 class NewsletterSubscriber < ActiveRecord::Base

@@ -21,7 +21,7 @@
                                     <label for="search_james_beard_region_id_eq_any">Region id equals any</label>
                                 </legend>
                                 <ol>
-                                    <% for region in Restaurant.with_premium_account.map(&:james_beard_region).flatten.compact.uniq.sort_by(&:name) %>
+                                    <% for region in Restaurant.all.map(&:james_beard_region).flatten.compact.uniq.sort_by(&:name) %>
                                     <li><label for="search_james_beard_region_id_eq_any_<%= region.id %>">
                                         <%= check_box_tag "search[james_beard_region_id_eq_any][]", region.id, false, :id => "search_james_beard_region_id_eq_any_#{region.id}" %>
                                         <%= region.to_label %>
@@ -41,7 +41,7 @@
                                     <label for="search_metropolitan_area_id_eq_any">Metro area id equals any</label>
                                 </legend>
                                 <ol>
-                                    <% for metro in Restaurant.with_premium_account.map(&:metropolitan_area).flatten.compact.uniq.sort_by(&:name) %>
+                                    <% for metro in Restaurant.all.map(&:metropolitan_area).flatten.compact.uniq.sort_by(&:name) %>
                                     <li><label for="search_metropolitan_area_id_eq_any_<%= metro.id %>">
                                         <%= check_box_tag "search[metropolitan_area_id_eq_any][]", metro.id, false, :id => "search_metropolitan_area_id_eq_any_#{metro.id}" %>
                                         <%= metro.city_and_state %>
@@ -68,7 +68,7 @@
       complete: function(request){$('#loading').hide();$('#restaurant_filters').show();},
       success: function(request){$('#updates').html(request);},
       type:'post',
-      url:'/update_social?page=1'
+      url:'/update_social?page = 1'
     });
   });
 </script>
