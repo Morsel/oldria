@@ -1,3 +1,7 @@
 <%= title "Newsletters" %>
 
+<%- if @restaurant.premium_account? -%>
 <%= link_to "Download subscribers", download_subscribers_restaurant_path(@restaurant), :class => "promo editor download" if @restaurant.shareable_newsletter_subscribers.present? %>
+<%- else -%>
+<p><%= link_to "Upgrade to a premium account", new_subscription_path(@restaurant) %> to access your newsletter!</p>
+<%- end -%>
