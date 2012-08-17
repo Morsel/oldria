@@ -1,5 +1,4 @@
 # == Schema Information
-# Schema version: 20120726233422
 #
 # Table name: restaurants
 #
@@ -37,7 +36,8 @@
 #  facebook_page_token        :string(255)
 #  atoken                     :string(255)
 #  asecret                    :string(255)
-#  is_activated               :boolean
+#  is_activated               :boolean         default(FALSE)
+#  newsletter_frequency       :string(255)
 #
 
 class Restaurant < ActiveRecord::Base
@@ -112,6 +112,8 @@ class Restaurant < ActiveRecord::Base
       :with => %r{^https*://www\.facebook\.com(.*)},
       :allow_blank => true,
       :message => "Facebook page must start with http://www.facebook.com"
+
+  validates_inclusion_of :newsletter_frequency, :in => ["weekly", "biweekly", "monthly"]
 
   has_one :subscription, :as => :subscriber
   after_validation_on_create :add_manager_as_employee

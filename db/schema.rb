@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120809215525) do
+ActiveRecord::Schema.define(:version => 20120817183017) do
 
   create_table "a_la_minute_answers", :force => true do |t|
     t.text     "answer"
@@ -992,6 +992,8 @@ ActiveRecord::Schema.define(:version => 20120809215525) do
     t.string   "facebook_page_token"
     t.string   "atoken"
     t.string   "asecret"
+    t.boolean  "is_activated",               :default => false
+    t.string   "newsletter_frequency",       :default => "biweekly"
   end
 
   add_index "restaurants", ["cuisine_id"], :name => "index_restaurants_on_cuisine_id"
@@ -1071,6 +1073,18 @@ ActiveRecord::Schema.define(:version => 20120809215525) do
     t.text     "content"
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "social_posts", :force => true do |t|
+    t.string   "post_data"
+    t.string   "link"
+    t.datetime "post_created_at"
+    t.string   "source"
+    t.integer  "restaurant_id"
+    t.string   "title"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "post_id"
   end
 
   create_table "solo_discussions", :force => true do |t|

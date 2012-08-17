@@ -1,5 +1,4 @@
 # == Schema Information
-# Schema version: 20120726233422
 #
 # Table name: statuses
 #
@@ -12,7 +11,7 @@
 #  queue_for_social_media  :boolean
 #  queue_for_facebook      :boolean
 #  facebook_id             :integer
-#  queue_for_facebook_page :boolean
+#  queue_for_facebook_page :boolean         default(FALSE)
 #  facebook_page_id        :integer
 #
 
