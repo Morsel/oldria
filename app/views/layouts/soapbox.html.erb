@@ -20,11 +20,11 @@
   <%= stylesheet_link_tag "/soapbox/_css/museoslab/stylesheet.css", "/soapbox/_css/knockout/stylesheet.css" %>
   <%= yield(:head) %>
 </head>
-<!--[if lt IE 7 ]> <body class="ie6"> <![endif]-->
-<!--[if IE 7 ]>    <body class="ie7"> <![endif]-->
-<!--[if IE 8 ]>    <body class="ie8"> <![endif]-->
-<!--[if IE 9 ]>    <body class="ie9"> <![endif]-->
-<!--[if (gt IE 9)|!(IE)]><!--> <body> <!--<![endif]-->
+  <!--[if lt IE 7 ]> <body class="ie6"> <![endif]-->
+  <!--[if IE 7 ]>    <body class="ie7"> <![endif]-->
+  <!--[if IE 8 ]>    <body class="ie8"> <![endif]-->
+  <!--[if IE 9 ]>    <body class="ie9"> <![endif]-->
+  <!--[if (gt IE 9)|!(IE)]><!--> <body> <!--<![endif]-->
 
   <div id="container">
     <header id="header">
@@ -47,7 +47,7 @@
     <nav id="utilities">
       <%= link_to 'Search the site', soapbox_search_path, :id => "search-handle", :title => "Search the site" %>
       <a id="ria-hq" title="RIA Home" href="<%= hq_root_url(:subdomain => "hq") %>"><abbr title="Restaurant Intelligence Agency">RIA</abbr> <abbr title="Headquarters">HQ</abbr></a>
-			<a id="log-in" title="Log In to Spoonfeed" href="<%= login_path %>">Login</a>
+      <a id="log-in" title="Log In to Spoonfeed" href="<%= login_path %>">Login</a>
     </nav><!--#utilities-->
   
     <div id="main">
@@ -81,7 +81,7 @@
         <nav id="footer-links">
           <a href="/soapbox/about">About</a>|
           <a href="http://www.restaurantintelligenceagency.com">RIA HQ</a>|
-	      <a href="http://soapbox.restaurantintelligenceagency.com/soapbox/products">Products</a>|
+          <a href="http://soapbox.restaurantintelligenceagency.com/soapbox/products">Products</a>|
           <a href="/soapbox/privacy">Privacy</a>|
           <a href="/soapbox/help">Help</a>
           <a href="/soapbox/contact">Contact</a>

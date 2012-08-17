@@ -61,3 +61,4 @@ TWITTER_CONFIG = YAML.load(File.read(Rails.root + 'config' + 'twitter.yml'))[RAI
 BITLY_CONFIG = YAML.load(File.read(Rails.root + 'config' + 'bitly.yml'))[RAILS_ENV]
 
 Bitly.use_api_version_3
+

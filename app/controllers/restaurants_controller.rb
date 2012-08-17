@@ -1,8 +1,7 @@
 class RestaurantsController < ApplicationController
   before_filter :require_user
-  before_filter :authenticate, :only => [:edit, :update]
-  before_filter :find_restaurant, :only => [:show, :select_primary_photo, :new_manager_needed, :replace_manager, :fb_page_auth, :remove_twitter,
-                                            :twitter_archive, :facebook_archive, :social_archive, :download_subscribers]
+  before_filter :authenticate, :only => [:edit, :update, :select_primary_photo, :new_manager_needed, :replace_manager, :fb_page_auth, :remove_twitter, :download_subscribers, :activate_restaurant]
+  before_filter :find_restaurant, :only => [:twitter_archive, :facebook_archive, :social_archive]
 
   def index
     @employments = current_user.employments
@@ -25,6 +24,7 @@ class RestaurantsController < ApplicationController
   end
 
   def show
+    find_activated_restaurant
     @employments = @restaurant.employments.by_position.all(
         :include => [:subject_matters, :restaurant_role, :employee])
     @questions = ALaMinuteAnswer.public_profile_for(@restaurant)[0...3]
@@ -112,19 +112,37 @@ class RestaurantsController < ApplicationController
   def social_archive
   end
 
+  def activate_restaurant
+    if @restaurant.update_attributes(:is_activated => params[:mode])      
+      flash[:notice] = params[:mode].to_i > 0  ? "Successfully activated restaurant" : "Successfully deactivated restaurant"
+      redirect_to :restaurants
+    else
+      flash[:error] = "We were unable to update the restaurant"
+      redirect_to :restaurants
+    end
+  end  
+
   def download_subscribers
     send_data(@restaurant.newsletter_subscribers.to_csv, :filename => "#{@restaurant.name} subscribers.csv")
   end
 
   private
 
-  def find_restaurant
-    @restaurant = Restaurant.find(params[:id])
+  def find_activated_restaurant    
+    @restaurant = Restaurant.activated_restaurant.find(:first,:conditions=>["id = ?",params[:id]])
+    if(@restaurant.nil?)
+      flash[:notice] = "Restaurant not found or deactivated."
+      redirect_to :restaurants 
+    end    
   end
+
+  def find_restaurant    
+    @restaurant = Restaurant.find(params[:id])
+  end  
 
   def authenticate
     find_restaurant
-    if cannot? :edit, @restaurant
+    if (cannot? :edit, @restaurant) || (cannot? :update, @restaurant)
       flash[:error] = "You don't have permission to access that page"
       redirect_to @restaurant
     end

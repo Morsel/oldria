@@ -1,5 +1,4 @@
 # == Schema Information
-# Schema version: 20120726233422
 #
 # Table name: invitations
 #
@@ -8,7 +7,7 @@
 #  last_name          :string(255)
 #  email              :string(255)
 #  title              :string(255)
-#  coworker           :boolean
+#  coworker           :boolean         default(FALSE)
 #  restaurant_id      :integer
 #  restaurant_name    :string(255)
 #  requesting_user_id :integer
@@ -16,7 +15,7 @@
 #  approved_at        :datetime
 #  created_at         :datetime
 #  updated_at         :datetime
-#  archived           :boolean
+#  archived           :boolean         default(FALSE)
 #  restaurant_role_id :integer
 #
 
@@ -55,7 +54,7 @@ class Invitation < ActiveRecord::Base
         :email => params[:email],
         :restaurant_role_id => params[:restaurant_role],
         :restaurant_name => params[:restaurant_name],
-        :subject_matters => SubjectMatter.find(params[:subject_matters].try(:keys)))
+        :subject_matters => SubjectMatter.find(:all,:conditions=>["id in (?)",params[:subject_matters].try(:keys)]))
   end
 
 end

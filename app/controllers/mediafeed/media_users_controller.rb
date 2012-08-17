@@ -30,17 +30,24 @@ class Mediafeed::MediaUsersController < Mediafeed::MediafeedController
       render :edit
     end
   end
-  
+
   def confirm
     @user = User.find(params[:id])
   end
-  
+
   def resend_confirmation
     render :template => 'users/resend_confirmation'
   end
-  
+
   def forgot_password
     render :template => 'password_resets/new'
   end
 
+  def get_cities
+      @cities = MetropolitanArea.find_all_by_state(params['state_name'])      
+      @selected_cities = current_user.metropolitan_areas
+      render :layout => false
+  end
+
 end
+

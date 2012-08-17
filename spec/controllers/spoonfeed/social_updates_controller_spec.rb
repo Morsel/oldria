@@ -17,21 +17,21 @@ describe Spoonfeed::SocialUpdatesController do
     @alm_answer3 = Factory(:a_la_minute_answer, :responder => @restaurant2, :answer => "Answer 3")
   end
 
-  describe "load_updates" do
+  describe "index" do
 
     it "should display a list of updates" do
       alm_results = [@alm_answer1, @alm_answer2, @alm_answer3].map { |a|
-        { :post => a.answer,
+        { :post_data => a.answer,
+          :post_id => a.id,
           :restaurant => a.restaurant,
-          :created_at => a.created_at,
+          :post_created_at => a.created_at,
           :link => a.send(:a_la_minute_answers_path, :question_id => a.a_la_minute_question.id),
           :title => a.question,
           :source => "Spoonfeed" }
       }
-      ALaMinuteAnswer.expects(:social_results).with({}).returns(alm_results)
-      SocialMerger.expects(:new).returns(mock(:sorted_updates => alm_results))
-      xhr :post, :load_updates, :page => 1
-      assigns[:updates].should == alm_results
+      alm_results.each { |a| SocialPost.create(a) }
+      get :index, :page => 1
+      assigns[:updates].count.should == 3
     end
 
   end
@@ -40,17 +40,17 @@ describe Spoonfeed::SocialUpdatesController do
 
     it "should display a filtered list of updates" do
       alm_results = [@alm_answer1].map { |a|
-        { :post => a.answer,
+        { :post_data => a.answer,
+          :post_id => a.id,
           :restaurant => a.restaurant,
-          :created_at => a.created_at,
-          :link => a_la_minute_answers_path(:question_id => a.a_la_minute_question.id),
+          :post_created_at => a.created_at,
+          :link => a.send(:a_la_minute_answers_path, :question_id => a.a_la_minute_question.id),
           :title => a.question,
           :source => "Spoonfeed" }
       }
-      ALaMinuteAnswer.expects(:social_results).with({ 'metropolitan_area_id_eq_any' => [@restaurant.metropolitan_area.id] }).returns(alm_results)
-      SocialMerger.expects(:new).returns(mock(:sorted_updates => alm_results))
+      alm_results.each { |a| SocialPost.create(a) }
       xhr :get, :filter_updates, :search => { :metropolitan_area_id_eq_any => [@restaurant.metropolitan_area.id] }, :page => 1
-      assigns[:updates].should == alm_results
+      assigns[:updates].count.should == 1
     end
 
   end

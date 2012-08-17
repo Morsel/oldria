@@ -31,14 +31,14 @@ class Soapbox::SoapboxController < ApplicationController
   end
 
   def restaurant_directory
-    @restaurants = Restaurant.with_premium_account
+    @restaurants = Restaurant.activated_restaurant.with_premium_account
     @use_search = true
     @no_sidebar = true
     render :template => "directory/restaurants"
   end
 
   def restaurant_search
-    @restaurants = Restaurant.with_premium_account.search(params[:search]).all
+    @restaurants = Restaurant.activated_restaurant.with_premium_account.search(params[:search]).all
     render :partial => "directory/restaurant_search_results"
   end
 

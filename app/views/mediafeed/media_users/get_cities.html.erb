@@ -1,0 +1,17 @@
+<li id="user_metropolitan_areas_input" class="check_boxes optional">
+  <fieldset>
+      <ol>
+          <% @cities.each do |city| %>
+            <li>
+                <label for="user_metropolitan_area_ids_<%=city.id%>">
+                <input type="hidden" value="" name="user[metropolitan_area_ids][]">                
+                <%= check_box_tag 'user[metropolitan_area_ids][]',city.id,@selected_cities.map {|e| e.id}.include?(city.id) %>
+                : <%=city.name%>
+                
+                </label>
+            </li>
+          <% end %>
+      </ol>
+  </fieldset>
+</li>
+
