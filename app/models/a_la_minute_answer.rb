@@ -89,9 +89,10 @@ class ALaMinuteAnswer < ActiveRecord::Base
   end
 
   def self.social_results(search_params)
-    self.from_responders(Restaurant.with_premium_account.search(search_params).all).map { |a| { :post => a.answer,
+    self.from_responders(Restaurant.with_premium_account.search(search_params).all).map { |a| { :post_id => a.id,
+                                                  :post_data => a.answer,
                                                   :restaurant => a.restaurant,
-                                                  :created_at => a.created_at,
+                                                  :post_created_at => a.created_at,
                                                   :link => a.send(:a_la_minute_answers_url, :question_id => a.a_la_minute_question.id),
                                                   :title => a.question,
                                                   :source => "Spoonfeed" } }

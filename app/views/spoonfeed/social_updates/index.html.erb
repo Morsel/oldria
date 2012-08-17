@@ -1,12 +1,10 @@
 <% title "Social" %>
 
-<%#= link_to_remote "Reload updates", :update => "updates", :url => "/update_social?page=1", :loading => "$('#loading').show();", :complete => "$('#loading').hide();" %>
-
 <div id="loading" style="display: none;">
     Please wait while we load the latest updates <%= image_tag "ajax-loader.gif" %>
 </div>
 
-<div id="restaurant_filters" style="display: none;">
+<div id="restaurant_filters">
     <% cache "social_restaurant_search_criteria", :expires_in => 8.hours do %>
     <fieldset name="Find Restaurants" id="restaurant_criteria">
         <h3>Filter Results</h3>
@@ -59,16 +57,5 @@
 </div>
 
 <div id="updates">
+    <%= render :partial => "updates", :locals => { :updates => @updates } %>
 </div>
-
-<script type="text/javascript">
-  $(document).ready(function(){
-    $.ajax({
-      beforeSend: function(request){$('#loading').show();},
-      complete: function(request){$('#loading').hide();$('#restaurant_filters').show();},
-      success: function(request){$('#updates').html(request);},
-      type:'post',
-      url:'/update_social?page = 1'
-    });
-  });
-</script>
