@@ -22,7 +22,7 @@ ActionController::Routing::Routes.draw do |map|
   map.restaurant_directory 'directory/restaurants', :controller => 'directory', :action => 'restaurants'
 
   # the callback for cloudmailin
-  map.resource :cloudmail, :only => :create 
+  map.resource :cloudmail, :only => :create
 
   map.namespace(:soapbox) do |soapbox|
     soapbox.resources :profile_questions, :only => ['index', 'show'], :as => "behind_the_line"
@@ -93,6 +93,7 @@ ActionController::Routing::Routes.draw do |map|
     mediafeed.connect 'directory_search', :controller => 'mediafeed', :action => 'directory_search'
     mediafeed.discussion 'media_requests/:id/:discussion_type/:discussion_id', :controller => 'media_requests', :action => 'discussion'
     mediafeed.request_information 'request_information', :controller => 'mediafeed', :action => 'request_information'
+    mediafeed.get_cities_list 'get_cities', :controller => 'media_users', :action => 'get_cities'
   end
 
   map.with_options :conditions => { :subdomain => 'mediafeed' }, :controller => 'mediafeed/mediafeed' do |mediafeed|
@@ -156,8 +157,8 @@ ActionController::Routing::Routes.draw do |map|
     users.btl_chapter 'behind_the_line/chapter/:id', :controller => 'users/behind_the_line', :action => 'chapter'
 
     users.resources :default_employments
-    users.resource :subscription, 
-      :collection => { :bt_callback => :get, :billing_history => :get }, 
+    users.resource :subscription,
+      :collection => { :bt_callback => :get, :billing_history => :get },
       :controller => 'subscriptions'
   end
 
@@ -169,6 +170,7 @@ ActionController::Routing::Routes.draw do |map|
 
   map.feature '/features/:id', :controller => 'features', :action => 'show'
 
+  map.activate_restaurant '/restaurants/:id/activate/:mode' ,:controller =>'restaurants' ,:action => 'activate_restaurant'
   map.resources :restaurants,
                 :member => { :edit_logo => :get,
                              :select_primary_photo => :post,
@@ -264,7 +266,6 @@ ActionController::Routing::Routes.draw do |map|
   map.menu_item 'on_the_menu/:id', :controller => "spoonfeed/menu_items", :action => "show"
   map.resources :profile_questions, :only => ['index', 'show'], :as => "behind_the_line", :controller => 'spoonfeed/profile_questions'
   map.social 'social', :controller => "spoonfeed/social_updates", :action => "index"
-  map.update_social 'update_social', :controller => "spoonfeed/social_updates", :action => "load_updates"
   map.filter_social 'filter_social', :controller => "spoonfeed/social_updates", :action => "filter_updates"
   map.resources :restaurant_questions, :only => ['index', 'show'], :as => 'restaurant_btl', :controller => 'spoonfeed/restaurant_questions'
 
@@ -352,8 +353,9 @@ ActionController::Routing::Routes.draw do |map|
   map.soapbox_page 'soapbox/:id', :controller => 'soapbox_pages', :action => 'show'
   map.hq_page 'hq/:id', :controller => 'hq_pages', :action => 'show'
   map.mediafeed_page 'mediafeed/:id', :controller => 'mediafeed_pages', :action => 'show'
-  
+
   # Default Routes
   map.connect ':controller/:action/:id'
   map.connect ':controller/:action/:id.:format'
 end
+

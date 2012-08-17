@@ -1439,6 +1439,12 @@ aside.dashboard_actions {
 				  font-size: 18px;
 				  margin-bottom: 5px;
 				}
+				a.restaurant.live{
+					color:#6EB33F;
+				}
+				a.restaurant.private{
+					color: #990000;
+				}
 				a.restaurant-actions {
 					display: inline-block;
 					margin: 0 0 10px;
@@ -1499,6 +1505,14 @@ aside.dashboard_actions {
       width: 55%;
     }
 	}
+    select {
+    width: 55%;
+    border: 1px solid #BFBFBF;
+    background: #FFF;
+    margin-bottom: 15px;
+    padding: 5px;
+    display: block;
+  }
 	textarea {
     border: 1px solid #ccc;
     @include box-shadow(#eaeaea, 0px, 1px, 1px);
@@ -4307,3 +4321,4 @@ hgroup h5 span {
 		}
 	}
 }
+

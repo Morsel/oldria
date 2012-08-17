@@ -2,7 +2,7 @@
 
 <% form_for @employment, :url => restaurant_employees_path(@restaurant) do |f| %>
 	<%= f.error_messages %>
-	<%= f.hidden_field :employee_id %>
+	<%= f.hidden_field :employee_id  %>
 	<%= f.hidden_field :restaurant_role_id %>
 	<%= f.hidden_field :omniscient %>
   <%= f.hidden_field :public_profile %>
@@ -11,11 +11,41 @@
 		<%= hidden_field_tag 'employment[subject_matter_ids][]', sm %>
 	<% end -%>
 
-	<% if @employee %>
-		<p>Is this user an employee at your restaurant?</p>
-		<%= render @employee %>
-		<p><%= button_tag "Yes", :class => 'nofloat positive' %> or <%= link_to "No", :action => :new %></p>
+	<% if @employees.present? %>
+			<p>Are these users an employee at your restaurant?</p>
+
+			<% @employees.each do |user| %>
+				<% div_for user, :class => 'box clearfix' do %>
+					<%=radio_button_tag(:employee_radio , user.id) %>
+					<%= link_to image_tag(user.avatar.url(:thumb)), profile_path(user.username) %>
+					<h3><%= user.name %></h3>
+				<% end -%>
+			<% end -%>
+
+					<p><%= button_tag "Yes", :class => 'nofloat positive',:id=>"confirm_yes_id"  %> or <%= link_to "No", :action => :new %></p>
 	<% else %>
 		<p>We couldn't find that person</p>
 	<% end %>
 <% end %>
+<% content_for :javascript do %>
+	
+  	  <script type="text/javascript">
+  	    //<![CDATA[
+  	    $(document).ready(function(){
+
+  	    	$('#confirm_yes_id').click(function(e){
+ 	    			var select_radio = $("input[@name=new_employment]:checked").val();
+  	    		 if( select_radio=== undefined)
+  	    		 {
+  	    		 		alert("Please select one profile")
+  	    		 		return false;
+  	    		 	}else{
+  	    		 		$('#employment_employee_id').val(select_radio)
+  	    		 	}	
+	  	    })	
+  	    })
+  	    
+  	    //]]>
+  	  </script>
+	
+  	<% end %>

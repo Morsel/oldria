@@ -135,8 +135,7 @@
 
       $("#restaurant_fact_sheet").delegate(".destroy_nested", "click", function(e) {
         e.preventDefault();
-        var $fields = $(this).closest(".fields");
-        debugger;
+        var $fields = $(this).closest(".fields");       
         $fields.find("input[type=hidden][name*=destroy]").val("1")
         $fields.hide();
       });

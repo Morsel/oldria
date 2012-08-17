@@ -73,9 +73,9 @@ h1,h2,h3,h4,h5,h6{
       background-color: #474F80;
       background-position: 3px 5px;
       text-shadow: 0px 1px 0px darkblue;
-      &:hover { 
+      &:hover {
         color: white;
-        cursor: default; 
+        cursor: default;
       }
     }
 		&#search-handle {background-position: 3px 5px;}
@@ -1048,13 +1048,15 @@ body,html,#container,#main,#content,#inside{
 	}
   #restaurant_details {
     padding-left: 10px;
-    h4 {
-      font-family: 'MuseoSlab700', 'Helvetica Neue', Helvetica, arial, sans-serif;
-      font-weight: normal !important;
-      font-weight: 700;
-      font-size: 18px;
-      color: #474f80;
-    }
+    h4
+      a{
+          font-family: 'MuseoSlab700', 'Helvetica Neue', Helvetica, arial, sans-serif;
+          font-weight: normal !important;
+          font-weight: 700;
+          font-size: 18px;
+          color: #474f80;
+          text-decoration:none;
+      }
   }
 } /*sidebar */
 
@@ -1101,7 +1103,7 @@ body,html,#container,#main,#content,#inside{
   }
 }
 
-#recent-activity{
+#recent-activity, .recent-activity-class{
 	background:url(/images/soapbox/bg-sidebar-top-purple.png) no-repeat #333c68;
 	padding:0 15px 40px;
 	position:relative;
@@ -1134,6 +1136,20 @@ body,html,#container,#main,#content,#inside{
 				@include opacity(0.66);
 				@include knockout;
 				font-size: 15px;
+			}
+			.tags{
+				display:inline;
+				a{
+					font-weight:normal;
+					color:#fff;
+					padding: 1px;
+					&:hover {
+						background-color: #5FA1C6;
+					}
+				}
+				&.website p a {
+				  font-size: 12px;
+				}
 			}
 			.feed-item-title{
 				display:inline;
@@ -2523,7 +2539,7 @@ dl.things dt:after {content: ":"}
 			}
 		}
 	}
-	
+
 	h2 {
     .inline-hint {
       font-size: 12px;
@@ -2533,7 +2549,7 @@ dl.things dt:after {content: ":"}
 			text-transform:none !important;
     }
   }
-	
+
 	#photos {
     .photo {
 			width:320px;
@@ -2622,7 +2638,7 @@ dl.things dt:after {content: ":"}
       color:#D6D9E8;
       text-decoration:none;
     }
-  }	
+  }
 }
 
 #behindline, #newsfeed.recent_actions, #on_the_menu.recent_actions {
@@ -2960,7 +2976,7 @@ dl.things dt:after {content: ":"}
   h4 {
     a {
       font-weight: bold;
-      font-size: 14px;      
+      font-size: 14px;
     }
     .letter-q {
       font-weight: bolder;
@@ -3028,4 +3044,9 @@ dl.things dt:after {content: ":"}
   p.keywords {
     margin-top: 15px;
   }
+  .sharing{		
+		background-color: #F6F4F3; 
+		text-align: right;  	
+  }
 }
+

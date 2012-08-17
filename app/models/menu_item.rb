@@ -50,6 +50,11 @@ class MenuItem < ActiveRecord::Base
           Date.today] }
   }
 
+  named_scope :activated_restaurants, {
+    :joins => :restaurant,
+    :conditions => ["restaurants.is_activated = ?", true]
+  }
+
   attr_accessor :no_twitter_crosspost, :no_fb_crosspost
   after_create :crosspost
 

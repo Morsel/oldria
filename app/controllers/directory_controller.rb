@@ -28,21 +28,21 @@ class DirectoryController < ApplicationController
   def restaurants
     if params[:cuisine_id]
       @cuisine = Cuisine.find(params[:cuisine_id])
-      @restaurants = Restaurant.cuisine_id_eq(params[:cuisine_id]).all.uniq
+      @restaurants = Restaurant.activated_restaurant.cuisine_id_eq(params[:cuisine_id]).all.uniq
     elsif params[:metropolitan_area_id]
       @metro_area = MetropolitanArea.find(params[:metropolitan_area_id])
-      @restaurants = Restaurant.metropolitan_area_id_eq(params[:metropolitan_area_id]).all.uniq
+      @restaurants = Restaurant.activated_restaurant.metropolitan_area_id_eq(params[:metropolitan_area_id]).all.uniq
     elsif params[:james_beard_region_id]
       @region = JamesBeardRegion.find(params[:james_beard_region_id])
-      @restaurants = Restaurant.james_beard_region_id_eq(params[:james_beard_region_id]).all.uniq
-    else
+      @restaurants = Restaurant.activated_restaurant.james_beard_region_id_eq(params[:james_beard_region_id]).all.uniq
+    else      
       @use_search = true
-      @restaurants = Restaurant.all
+      @restaurants = Restaurant.activated_restaurant
     end
   end
   
   def restaurant_search
-    @restaurants = Restaurant.search(params[:search]).all(:order => "name").uniq
+    @restaurants = Restaurant.activated_restaurant.search(params[:search]).all(:order => "name").uniq
     render :partial => "restaurant_search_results"
   end
 
