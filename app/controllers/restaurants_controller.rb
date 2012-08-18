@@ -1,8 +1,8 @@
 class RestaurantsController < ApplicationController
   before_filter :require_user
-  before_filter :authenticate, :only => [:edit, :update]
-  before_filter :find_restaurant, :only => [:show, :select_primary_photo, :new_manager_needed, :replace_manager, :fb_page_auth, :remove_twitter,
-                                            :twitter_archive, :facebook_archive, :social_archive, :download_subscribers]
+  before_filter :authorize, :only => [:edit, :update]
+  before_filter :find_restaurant, :only => [:show, :select_primary_photo, :new_manager_needed, :replace_manager,
+    :fb_page_auth, :remove_twitter, :twitter_archive, :facebook_archive, :social_archive, :download_subscribers]
 
   def index
     @employments = current_user.employments
@@ -122,7 +122,7 @@ class RestaurantsController < ApplicationController
     @restaurant = Restaurant.find(params[:id])
   end
 
-  def authenticate
+  def authorize
     find_restaurant
     if cannot? :edit, @restaurant
       flash[:error] = "You don't have permission to access that page"

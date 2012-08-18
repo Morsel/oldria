@@ -1,5 +1,11 @@
 <%= title "Newsletters" %>
 
+<% semantic_form_for @restaurant, :url => update_settings_restaurant_newsletters_path do |f| %>
+    <%= f.input :newsletter_frequency, :as => :select, :collection => ["weekly", "biweekly", "monthly"] %>
+
+    <%= submit_tag "Save" %>
+<% end %>
+
 <%- if @restaurant.premium_account? -%>
 <%= link_to "Download subscribers", download_subscribers_restaurant_path(@restaurant), :class => "promo editor download" if @restaurant.shareable_newsletter_subscribers.present? %>
 <%- else -%>
