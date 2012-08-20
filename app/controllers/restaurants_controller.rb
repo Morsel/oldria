@@ -1,6 +1,8 @@
 class RestaurantsController < ApplicationController
   before_filter :require_user
-  before_filter :authenticate, :only => [:edit, :update, :select_primary_photo, :new_manager_needed, :replace_manager, :fb_page_auth, :remove_twitter, :download_subscribers, :activate_restaurant]
+  before_filter :authorize, :only => [:edit, :update, :select_primary_photo,
+                                             :new_manager_needed, :replace_manager, :fb_page_auth,
+                                             :remove_twitter, :download_subscribers, :activate_restaurant]
   before_filter :find_restaurant, :only => [:twitter_archive, :facebook_archive, :social_archive]
 
   def index
@@ -129,22 +131,22 @@ class RestaurantsController < ApplicationController
   private
 
   def find_activated_restaurant    
-    @restaurant = Restaurant.activated_restaurant.find(:first,:conditions=>["id = ?",params[:id]])
-    if(@restaurant.nil?)
-      flash[:notice] = "Restaurant not found or deactivated."
-      redirect_to :restaurants 
-    end    
+    find_restaurant
+    unless can?(:manage, @restaurant) || @restaurant.is_activated?
+      flash[:notice] = "This restaurant is not available to view."
+      redirect_to root_path and return
+    end
   end
 
   def find_restaurant    
     @restaurant = Restaurant.find(params[:id])
   end  
 
-  def authenticate
+  def authorize
     find_restaurant
     if (cannot? :edit, @restaurant) || (cannot? :update, @restaurant)
       flash[:error] = "You don't have permission to access that page"
-      redirect_to @restaurant
+      redirect_to @restaurant and return
     end
   end
 
