@@ -64,7 +64,6 @@ class WelcomeController < ApplicationController
   end
 
   def set_up_dashboard_with_pagination
-
     if current_user.media?
       soapbox_comments   = SoapboxEntry.published.all(:order => "published_at DESC", :conditions => ["created_at > ?", 2.weeks.ago]).map(&:comments)
       answers            = ProfileAnswer.from_premium_users.all(:order => "profile_answers.created_at DESC", :conditions => ["profile_answers.created_at > ?", 2.weeks.ago])
@@ -74,7 +73,7 @@ class WelcomeController < ApplicationController
     else
       soapbox_comments   = SoapboxEntry.published.all(:order => "published_at DESC", :conditions => ["created_at > ?", 2.weeks.ago]).map(&:comments)
       answers            = ProfileAnswer.all(:order => "created_at DESC", :conditions => ["created_at > ?", 2.weeks.ago])
-      menu_items         = MenuItem.activated_restaurants.all(:order => "created_at DESC", :conditions => ["created_at > ?", 2.weeks.ago])
+      menu_items         = MenuItem.activated_restaurants.all(:order => "menu_items.created_at DESC", :conditions => ["menu_items.created_at > ?", 2.weeks.ago])
       promotions         = Promotion.all(:order => "created_at DESC", :conditions => ["created_at > ?", 2.weeks.ago])
       restaurant_answers = RestaurantAnswer.all(:order => "created_at DESC", :conditions => ["created_at > ?", 2.weeks.ago])
     end
@@ -92,15 +91,15 @@ class WelcomeController < ApplicationController
     if current_user.media?
       soapbox_comments   = SoapboxEntry.published.all(:limit => @per_page, :order => "published_at DESC").map(&:comments)
       answers            = ProfileAnswer.from_premium_users.all(:limit => @per_page, :order => "created_at DESC")
-      menu_items         = MenuItem.activated_restaurants.from_premium_restaurants.all(:limit => @per_page, :order => "created_at DESC")
+      menu_items         = MenuItem.activated_restaurants.from_premium_restaurants.all(:limit => @per_page, :order => "menu_items.created_at DESC")
       promotions         = Promotion.from_premium_restaurants.all(:limit => @per_page, :order => "created_at DESC")
-      restaurant_answers = RestaurantAnswer.activated_restaurants.from_premium_restaurants.all(:limit => @per_page, :order => "created_at DESC")      
+      restaurant_answers = RestaurantAnswer.activated_restaurants.from_premium_restaurants.all(:limit => @per_page, :order => "restaurant_answers.created_at DESC")
     else
       soapbox_comments   = SoapboxEntry.published.all(:limit => @per_page, :order => "published_at DESC").map(&:comments)
       answers            = ProfileAnswer.all(:limit => @per_page, :order => "created_at DESC")
-      menu_items         = MenuItem.activated_restaurants.all(:limit => @per_page, :order => "created_at DESC")
+      menu_items         = MenuItem.activated_restaurants.all(:limit => @per_page, :order => "menu_items.created_at DESC")
       promotions         = Promotion.all(:limit => @per_page, :order => "created_at DESC")
-      restaurant_answers = RestaurantAnswer.activated_restaurants.all(:limit => @per_page, :order => "created_at DESC")
+      restaurant_answers = RestaurantAnswer.activated_restaurants.all(:limit => @per_page, :order => "restaurant_answers.created_at DESC")
     end
 
     [soapbox_comments, answers, menu_items, promotions, restaurant_answers].flatten.sort { |a,b| b.created_at <=> a.created_at }[0..(@per_page - 1)]
