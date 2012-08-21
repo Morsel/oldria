@@ -21,24 +21,27 @@
     <%= text_field_tag "email", "", :id => "email", :class => "standard-filler", :placeholder => "Email",  :class=>"validate[custom[email]]" %>
  </div>
  <div class="row">   
-        <%= select_tag "role", options_for_select([["Select one", ""], ["Diner", "diner"], ["Restaurant professional", "restaurant"], ["Media", "media"]]), :onchange => "updateRestaurantSignupFields();" ,:class=>"default validate[required]"  %>
+        <%= select_tag "role", options_for_select([["Select one", ""], ["Diner", "diner"],["Media", "media"], ["Restaurant professional", "restaurant"]]), :onchange => "updateRestaurantSignupFields();" ,:class=>"default validate[required]"  %>
         <span class="info">*By entering your information you are agreeing to our terms of use</span>
-        <input type="submit" value="SUBMIT">
-</div>
+
     <div id="restaurant_fields" style="display: none;" class="clearfix clear">
     	<b>We have a few more pieces of information we need for your account</b>
-        <%= text_field_tag "restaurant_name", "", :id => "restaurant_name", :class => "standard-filler", :placeholder => "Restaurant Name" %>
-        <p class="inline-hints">Enter your restaurant name or your employment status e.g., student, between jobs, retired, time off</p>
-        <%= select_tag "restaurant_role", options_from_collection_for_select(RestaurantRole.all, :id, :name), :id => "restaurant_role", :class => "standard-filler", :placeholder => "Role" %>
-        <p class="inline-hints">Your role helps the media find you when they are looking for sources for stories.  If you are "chef/owner" select that and not "owner": you will receive more opportunities!</p>
-        <b>Area(s) of expertise</b>
+        <%= text_field_tag "restaurant_name", "", :id => "restaurant_name", :class => "validate[required] standard-filler", :placeholder => "Restaurant Name" %>
+        <p class="inline-hints">Enter your restaurant name or your employment status e.g., student, between jobs, retired, time off</p>     
+        <p class="inline-hints margin-top-zero">Your role helps the media find you when they are looking for sources for stories.  If you are "chef/owner" select that and not "owner": you will receive more opportunities!      
+       </p>
+       <div class="alignleft">
+             <%= select_tag "restaurant_role", "<option value=''>Select your role</option>" +options_from_collection_for_select(RestaurantRole.all, :id, :name), :id => "restaurant_role", :class => "standard-filler join-us", :placeholder => "Role" %>
+         </div> 
+        <div class="clear padding-top-ten"><b>Area(s) of expertise</b></div>
         <p class="inline-hints">I am comfortable answering questions and speaking to the media about the following topics:</p>
         <% for subject in SubjectMatter.general.all %>
         <p><%= check_box_tag "subject_matters[#{subject.id}]" %> <label for="subject_matters_<%= subject.id %>"><%= subject.name %></label></p>
         <% end %>
 
     </div>
-
+      <input type="submit" value="SUBMIT">
+</div>
 <% end %>
         
     <div class="link-holder">

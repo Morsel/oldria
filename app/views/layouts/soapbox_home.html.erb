@@ -20,8 +20,19 @@
   <%= stylesheet_link_tag "/soapbox/_css/print.css", :media => "print" %>
   <%= stylesheet_link_tag "/soapbox/_css/museoslab/stylesheet.css", "/soapbox/_css/knockout/stylesheet.css" %>
   <%= stylesheet_link_tag "/stylesheets/validationEngine.jquery.css","/stylesheets/template" %>  
-  <%= javascript_include_tag "jquery-1.6.2.min","jquery.main.soapbox","languages/jquery.validationEngine-en","jquery.validationEngine" %>
-
+  <%= javascript_include_tag "jquery-1.6.2.min","jquery.main.soapbox","languages/jquery.validationEngine-en","jquery.validationEngine","jquery.prettynumber" %>
+  <script>
+    $(document).ready(function(){
+      $.ajax({
+          url: 'https://graph.facebook.com/RestaurantIntelligenceAgency',
+          dataType: "json",
+          success: function(data){
+            $('#fb_follower').html(data.likes ).prettynumber({delimiter : ','}).append(' followers');
+            
+          }
+        });
+    })
+  </script>
   <%= yield(:head) %>
 </head>
   <!--[if lt IE 7 ]> <body class="ie6"> <![endif]-->
@@ -139,8 +150,9 @@
 				        <% end -%>
 
                 <div class="info">
-                    <p>                     
-                      <%= menu_item.name%>
+                    <p>       
+
+                     <strong>  <%= menu_item.name%></strong> 
                       <%= link_to(truncate(menu_item.description.gsub(/<\/?[p>]>/, ""), :length => 100) ,soapbox_menu_item_path(menu_item))%>
                       <br />
                       <em>                                    
@@ -209,27 +221,29 @@
             </header>
             <!-- question-area -->
             <article class="question-area">
-                  <div class="title">
-                        <span class="note">BEHIND THE LINE: <strong>ON THE JOB</strong></span>
-                </div>                        
-                <% if @behind_the_line_answers.count > 0%>
-                     <%@behind_the_line_answers.each do |answer|%>
-                     <div class="title">
-                         <strong class="question">
-                            <%= link_to answer.profile_question.title.upcase, soapbox_profile_question_path(answer.profile_question) %>
-                        </strong>
+                                      
+          <% if @behind_the_line_answers.count > 0%>
+               <%@behind_the_line_answers.each do |answer|%>               
+                <div class="title">
+                  <span class="note">BEHIND THE LINE: <strong><%=answer.profile_question.topic.title if !answer.profile_question.topic.nil? %></strong></span>
+                 </div> 
+               <div class="title">
+                   <strong class="question">
+                      <%= link_to answer.profile_question.title.upcase, soapbox_profile_question_path(answer.profile_question) %>
+                  </strong>
 
-                         <strong class="answer">
-                             A: <%= link_to truncate(answer.answer, :length => 160), soapbox_profile_question_path(answer.profile_question, :anchor => "profile_answer_#{answer.id}") %>. 
-                             <em class="btl_em"><%= link_to_if (answer.user.linkable_profile? || logged_in_on_spoonfeed), answer.user.name_or_username, directory_link(answer.user) %>,
-                             <%= answer.user.primary_employment.try(:restaurant_role).try(:name) %>,
-                             <%= restaurant_names_for_user(answer.user) %>,
-                             <%= answer.user.primary_employment.try(:restaurant).try(:city_and_state) || answer.user.try(:profile).try(:current_residence) %>
-                         </em>
-                     </strong>
-                 </div>
-                  <%end%><!-- end each -->  
-                <%end%>
+                   <strong class="answer">
+                       A: <%= link_to truncate(answer.answer, :length => 160), soapbox_profile_question_path(answer.profile_question, :anchor => "profile_answer_#{answer.id}") %>. 
+                       <br />
+                       <em class="btl_em"><%= link_to_if (answer.user.linkable_profile? || logged_in_on_spoonfeed), answer.user.name_or_username, directory_link(answer.user) %>,
+                       <%= answer.user.primary_employment.try(:restaurant_role).try(:name) %>,
+                       <%= restaurant_names_for_user(answer.user) %>,
+                       <%= answer.user.primary_employment.try(:restaurant).try(:city_and_state) || answer.user.try(:profile).try(:current_residence) %>
+                   </em>
+               </strong>
+           </div>
+            <%end%><!-- end each -->  
+          <%end%>
             </article>
             <div class="holder">
               <!-- question-area -->
@@ -404,22 +418,20 @@
             </header>
             <!-- social-plugin -->
             <ul class="social-plugin">
-              <li><a class="facebook" href="http://www.facebook.com/RestaurantIntelligenceAgency"><span>0,000 followers</span></a></li>
+              <li><a class="facebook" href="http://www.facebook.com/RestaurantIntelligenceAgency"><span id="fb_follower">0,000 followers</span></a></li>
               <li><a class="twitter" href="https://twitter.com/RIASocial"><span>follow @riasocia</span></a></li>              
             </ul>
             <!-- social-networks -->
             <ul class="social-networks">
-              <li><a class="pinterest" href="#">pinterest</a></li>
-              <li><a class="linked-in" href="#">linked-in</a></li>
-              <li><a class="google" href="#">google</a></li>
-              <li><a class="instagram" href="#">instagram</a></li>
+              <li><a class="pinterest" href="http://pinterest.com/SoapboxHQ/" target="_blank">pinterest</a></li>
+              <li><a class="linked-in" href="http://www.linkedin.com/company/1948595?goback=%2Efcs_GLHD_restaurant+intelligence+agency_false_*2_*2_*2_*2_*2_*2_*2_*2_*2_*2_*2_*2&trk=ncsrch_hits" target="_blank">linked-in</a></li>
+              <li><a class="google" href="https://plus.google.com/b/101434601310229456734/101434601310229456734/posts" target="_blank">google</a></li>
+             <!--  <li><a class="instagram" href="#" target="_blank">instagram</a></li> -->
             </ul>
           </section>
           <div class="add-info">
             <h2>NEED HELP? HAVE QUESTIONS?</h2>
-            <p>You can <a href="mailto:support@restaurantintelligenceagency.com">email our support staff</a> anytime.</p>
-            <p>We also have a customer support line available 9am–9pm that can be reached at (312) 572-9082.</p>
-
+            <p>You can <a href="mailto:support@restaurantintelligenceagency.com"><b>email our support staff</b></a> anytime.</p>            
           </div>
         </aside>
       </div>
