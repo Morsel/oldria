@@ -277,6 +277,17 @@ describe Restaurant do
       found.should == [restaurant]
     end
   end
+
+  describe "newsletter preview reminders" do
+
+    it "should generate reminders for all premium restaurants" do
+      restaurant = Factory(:restaurant)
+      restaurant.subscription = Factory(:subscription)
+      Restaurant.any_instance.expects(:send_later).with(:send_newsletter_preview_reminder)
+      Restaurant.send_newsletter_preview_reminder
+    end
+
+  end
 end
 
 
