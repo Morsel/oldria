@@ -263,6 +263,16 @@ class Restaurant < ActiveRecord::Base
     newsletter_subscribers.all(:conditions => ["newsletter_subscriptions.share_with_restaurant = ?", true])
   end
 
+  def self.send_newsletter_preview_reminder
+    for restaurant in Restaurant.with_premium_account
+      restaurant.send_later(:send_newsletter_preview_reminder)
+    end
+  end
+
+  def send_newsletter_preview_reminder
+    UserMailer.deliver_newsletter_preview_reminder(self)
+  end
+
   def self.extended_find(keyword)
     # when searchlogic will be updated, instead of all(:conditions => ["restaurants.id NOT in (?)", [0] + restaurants.map(&:id)])
     # one can use id_not_in(restaurants.map(&:id))
