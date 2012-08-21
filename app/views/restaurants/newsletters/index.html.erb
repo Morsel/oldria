@@ -7,6 +7,8 @@
         <%= submit_tag "Save" %>
     <% end %>
 
+    <p><%= link_to "Preview newsletter", preview_restaurant_newsletters_path(@restaurant), :popup => true %></p>
+
     <p><%= link_to "Download subscribers", download_subscribers_restaurant_path(@restaurant), :class => "promo editor download" if @restaurant.shareable_newsletter_subscribers.present? %></p>
 <%- else -%>
     <p><%= link_to "Upgrade to a premium account", new_subscription_path(@restaurant) %> to access your newsletter!</p>
