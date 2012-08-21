@@ -276,7 +276,7 @@ img{
 /* main */
 #main{
 	background:url(/images/soapbox/bg-main.gif) repeat-x 50% 0;
-	padding:54px 0 210px;
+	padding:54px 0 100px;
 	width:100%;
 }
 .main-holder{
@@ -492,7 +492,8 @@ img{
 .news-holder p,
 .menu-list p,
 .add-info p,
-.answer em a{		
+.answer em a,
+.answer{		
 	a
 	{
 		text-decoration:none;
@@ -1084,6 +1085,20 @@ img{
 	color: #69a1c7;
 	height: 1%;
 }
+.select-options li.jcfcalc span{	
+	font-size:12px;
+}
+.select-join-us{	
+	min-width:150px !important;
+	font-size:12px;
+	margin-top:5px;
+}
+.margin-top-zero{
+	margin:0px 0px 0px 5px !important;
+}
+.padding-top-ten{
+	 padding-top: 10px;	
+}
 @media only screen and (max-width: 980px){
 	.nav-holder{padding-left:190px;}
 	.nav-holder .note{
@@ -1092,10 +1107,7 @@ img{
 	}
 	#nav{width:82%;}
 	#nav li{padding:5px 1.5% 8px 1%;}
-	#main{
-		width:auto;
-		padding:34px 10px 210px;
-	}
+	
 	.info-block .holder .question-area{width:47.7%;}
 	.sign-up-form .title h2{font-size:9px;}
 	.sign-up-form input[type="text"]{width:94%;}
