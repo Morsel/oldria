@@ -27,7 +27,7 @@
           url: 'https://graph.facebook.com/RestaurantIntelligenceAgency',
           dataType: "json",
           success: function(data){
-            $('#fb_follower').html(data.likes ).prettynumber({delimiter : ','}).append(' followers');
+            $('#fb_follower').html(data.likes ).prettynumber({delimiter : ','}).append(' Fans followers');
             
           }
         });
@@ -52,12 +52,14 @@
           <!-- add-nav -->
           <%= render 'layouts/site_nav_soapbox' %>
         </div>
-        <form class="search-form" action="#">
+        <% form_tag soapbox_search_path ,:class=>"search-form", :method => "get" do %>
+        <!-- <form class="search-form" action="#"> -->
           <fieldset>
             <input type="submit" value="search">
-            <input type="text" placeholder="Search the site">
+            <input type="text" name="query" placeholder="Search the site">
           </fieldset>
-        </form>
+     <!--    </form> -->
+      <% end %>
       </div>
       <div class="nav-holder">
         <span class="height"> </span>
@@ -443,11 +445,11 @@
         Soapbox: Soapbox is a product of RIA
       </h1>
       <div id="legal">
-        <p>&copy; 2010 <a href="http://www.restaurantintelligenceagency.com/">Restaurant Intelligence Agency</a>. All Rights Reserved.</p>
+        <p>&copy; 2012 <a href="http://www.restaurantintelligenceagency.com/">Restaurant Intelligence Agency</a>. All Rights Reserved.</p>
         <nav id="footer-links">
           <a href="/soapbox/about">About</a>|
           <a href="http://www.restaurantintelligenceagency.com">RIA HQ</a>|
-          <a href="http://soapbox.restaurantintelligenceagency.com/soapbox/products">Products</a>|
+          <!-- <a href="http://soapbox.restaurantintelligenceagency.com/soapbox/products">Products</a>| -->
           <a href="/soapbox/privacy">Privacy</a>|
           <a href="/soapbox/help">Help</a>
           <a href="/soapbox/contact">Contact</a>
