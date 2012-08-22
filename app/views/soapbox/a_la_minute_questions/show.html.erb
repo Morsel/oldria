@@ -15,19 +15,11 @@
 
 <div id="answers">
   <h2><%= @question.question %></h2>
-  <% content_tag_for(:div, @answers.first.responder, :answer_for, :class => 'a_la_minute_answer') do %>
-    <%= render :partial => "restaurants/identity", :locals => { :restaurant => @answers.first.responder } if @answers.first.responder %>
-
-    <div>
-        <%= h @answers.first.answer %> <br />
-        <p><span class="datestamp"><%= "Posted #{@answers.first.created_at.strftime("%D")}" %></span> - <%= link_to "Share this entry", soapbox_a_la_minute_answer_path(@answers.first) %></p>
-    </div>
-    <%= render :partial => "tags", :locals => { :answer => @answers.first } if @answers.first %>
-
-  <% end %>
+  <%= render :partial => 'answer', :collection => @answers, :as => :answer %>
 </div>
 
 <% content_for :sidebar do -%>
 <%= render :partial => 'soapbox/restaurant_sidebar', :locals => { :restaurant => @answers.first.responder } %>
 <% end -%>
-
+<div class="clear">&nbsp;</div>
+<%= will_paginate(@answers) %>
