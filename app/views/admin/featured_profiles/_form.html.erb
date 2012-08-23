@@ -1,0 +1,20 @@
+  <% semantic_form_for [:admin, @feature] do |f| %>
+    <div class="span-12">    
+      <% f.inputs do %>
+        <div class="form_basics">
+           <%= f.input :feature_id, :as => "select", 
+                                 :label => (params[:type].downcase == "user" ? "Personal Profile" : "Restaurant"), 
+                                 :collection => @records,:required=>true %>
+          <%= f.input :start_date ,:required=>true,:start_year => Date.today.year%>
+
+          <%= f.input :end_date %>
+          <%= f.input :spotlight_on   , :hint => "For Soapbox" %>
+         <%= hidden_field_tag "type", params[:type] %>
+         <%= hidden_field_tag "feature_type", params[:type] %>
+        </div>
+      <% end %>
+
+      <p><%= button_tag "Submit" %></p>
+    </div>
+
+  <% end %>
