@@ -8,7 +8,7 @@ class Soapbox::ALaMinuteQuestionsController < ApplicationController
   def show
     @question = ALaMinuteQuestion.find(params[:id])
     @answers =  ALaMinuteAnswer.from_premium_responders.newest_for(@question)
-    @answers = @answers.paginate(:page => params[:page], :per_page => 5)
+    @answers = @answers.paginate(:page => params[:page], :per_page => 10)
     @sidebar_questions = ALaMinuteQuestion.all(:order => "question")
   end
 
