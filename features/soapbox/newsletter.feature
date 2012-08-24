@@ -3,6 +3,7 @@ Feature: Newsletter
   As a public user of the site, I want to be able to subscribe to a daily newsletter
   
   Scenario: Signing up for the newsletter
+    Given Mailchimp is set up
     When I go to the homepage
     And I fill in "Diner" for "first_name"
     And I fill in "Jones" for "last_name"
