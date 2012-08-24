@@ -17,7 +17,7 @@
 
 class NewsletterSubscriber < ActiveRecord::Base
 
-  has_many :newsletter_subscriptions
+  has_many :newsletter_subscriptions, :dependent => :destroy
 
   validates_presence_of :email
   validates_uniqueness_of :email, :message => "has already registered"
@@ -32,6 +32,11 @@ class NewsletterSubscriber < ActiveRecord::Base
 
   before_save :encrypt_password
   after_create :send_confirmation
+  after_update :update_mailchimp
+
+  named_scope :confirmed, {
+    :conditions => "confirmed_at IS NOT NULL"
+  }
 
   def confirm!
     self.update_attribute(:confirmed_at, Time.now)
@@ -39,6 +44,10 @@ class NewsletterSubscriber < ActiveRecord::Base
 
   def confirmation_token
     Digest::MD5.hexdigest(id.to_s + created_at.to_s)
+  end
+
+  def confirmed?
+    confirmed_at.present?
   end
 
   def self.build_from_registration(params)
@@ -80,6 +89,20 @@ class NewsletterSubscriber < ActiveRecord::Base
     if password.present?
       self.password_salt = BCrypt::Engine.generate_salt
       self.password_hash = BCrypt::Engine.hash_secret(password, password_salt)
+    end
+  end
+
+  def update_mailchimp
+    if self.confirmed?
+      mc = MailchimpConnector.new
+      groupings = if receive_soapbox_news?
+        { :name => "Your Interests", :groups => "National Newsletter" }
+      else
+        { :name => "Your Interests", :groups => "" }
+      end
+      mc.client.list_subscribe(:id => mc.mailing_list_id, :email_address => email, :update_existing => true,
+                               :merge_vars => { :fname => first_name, :lname => last_name, :groupings => [groupings] })
+      # TODO unsubscribe if opt-out set
     end
   end
 
