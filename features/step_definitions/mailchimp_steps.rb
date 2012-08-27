@@ -1,8 +1,6 @@
 Given /^Mailchimp is set up$/ do
-  client = mock
-  mc = mock
-  MailchimpConnector.stubs(:new).returns(mc)
-  mc.stubs(:client).returns(client)
+  MailchimpConnector.stubs(:new).returns(mc = mock)
+  mc.stubs(:client).returns(client = mock)
   mc.stubs(:mailing_list_id).returns(1234)
   client.stubs(:list_subscribe).returns(true)
 end

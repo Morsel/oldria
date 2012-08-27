@@ -7,7 +7,7 @@ class MailchimpConnector
   end
 
   def mailing_list_id
-    client.lists(:filters => { :name => "Soapbox Newsletter" })['data'].first['id']
+    @mailing_list_id ||= client.lists(:filters => { :name => "Soapbox Newsletter" })['data'].first['id']
   end
 
 end
