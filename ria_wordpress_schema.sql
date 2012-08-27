@@ -30,7 +30,7 @@ CREATE TABLE `wp_commentmeta` (
   PRIMARY KEY  (`meta_id`),
   KEY `comment_id` (`comment_id`),
   KEY `meta_key` (`meta_key`)
-) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=18 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -57,12 +57,11 @@ CREATE TABLE `wp_comments` (
   `comment_parent` bigint(20) unsigned NOT NULL default '0',
   `user_id` bigint(20) unsigned NOT NULL default '0',
   PRIMARY KEY  (`comment_ID`),
-  KEY `comment_approved` (`comment_approved`),
   KEY `comment_post_ID` (`comment_post_ID`),
   KEY `comment_approved_date_gmt` (`comment_approved`,`comment_date_gmt`),
   KEY `comment_date_gmt` (`comment_date_gmt`),
   KEY `comment_parent` (`comment_parent`)
-) ENGINE=MyISAM AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -120,6 +119,96 @@ CREATE TABLE `wp_cwp_poll_logs` (
   `answerid` tinytext,
   UNIQUE KEY `id` (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `wp_flag_album`
+--
+
+DROP TABLE IF EXISTS `wp_flag_album`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `wp_flag_album` (
+  `id` bigint(20) NOT NULL auto_increment,
+  `name` varchar(255) NOT NULL,
+  `previewpic` bigint(20) NOT NULL default '0',
+  `albumdesc` mediumtext,
+  `categories` longtext NOT NULL,
+  PRIMARY KEY  (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `wp_flag_comments`
+--
+
+DROP TABLE IF EXISTS `wp_flag_comments`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `wp_flag_comments` (
+  `cid` int(11) unsigned NOT NULL auto_increment,
+  `ownerid` int(11) unsigned NOT NULL default '0',
+  `name` varchar(255) NOT NULL default '',
+  `email` varchar(255) NOT NULL default '',
+  `website` varchar(255) default NULL,
+  `date` datetime default NULL,
+  `comment` text,
+  `inmoderation` int(1) unsigned NOT NULL default '0',
+  PRIMARY KEY  (`cid`),
+  KEY `ownerid` (`ownerid`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `wp_flag_gallery`
+--
+
+DROP TABLE IF EXISTS `wp_flag_gallery`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `wp_flag_gallery` (
+  `gid` bigint(20) NOT NULL auto_increment,
+  `name` varchar(255) NOT NULL,
+  `path` mediumtext,
+  `title` mediumtext,
+  `galdesc` mediumtext,
+  `previewpic` bigint(20) default '0',
+  `sortorder` bigint(20) NOT NULL default '0',
+  `author` bigint(20) NOT NULL default '0',
+  PRIMARY KEY  (`gid`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `wp_flag_pictures`
+--
+
+DROP TABLE IF EXISTS `wp_flag_pictures`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `wp_flag_pictures` (
+  `pid` bigint(20) NOT NULL auto_increment,
+  `galleryid` bigint(20) NOT NULL default '0',
+  `filename` varchar(255) NOT NULL,
+  `description` mediumtext,
+  `alttext` mediumtext,
+  `imagedate` datetime NOT NULL default '0000-00-00 00:00:00',
+  `exclude` tinyint(4) default '0',
+  `sortorder` bigint(20) NOT NULL default '0',
+  `location` text,
+  `city` tinytext,
+  `state` tinytext,
+  `country` tinytext,
+  `credit` text,
+  `copyright` text,
+  `commentson` int(1) unsigned NOT NULL default '1',
+  `hitcounter` int(11) unsigned default '0',
+  `total_value` int(11) unsigned default '0',
+  `total_votes` int(11) unsigned default '0',
+  `used_ips` longtext,
+  `meta_data` longtext,
+  PRIMARY KEY  (`pid`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -208,6 +297,116 @@ CREATE TABLE `wp_links` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+-- Table structure for table `wp_livefyre_activity_map`
+--
+
+DROP TABLE IF EXISTS `wp_livefyre_activity_map`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `wp_livefyre_activity_map` (
+  `lf_activity_id` bigint(11) NOT NULL,
+  `lf_comment_id` bigint(11) NOT NULL,
+  `wp_comment_id` bigint(11) NOT NULL,
+  UNIQUE KEY `id` (`lf_activity_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `wp_mf_custom_fields`
+--
+
+DROP TABLE IF EXISTS `wp_mf_custom_fields`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `wp_mf_custom_fields` (
+  `id` int(19) NOT NULL auto_increment,
+  `name` varchar(150) NOT NULL,
+  `label` varchar(150) NOT NULL,
+  `description` text,
+  `post_type` varchar(120) NOT NULL,
+  `custom_group_id` int(19) NOT NULL,
+  `type` varchar(100) NOT NULL,
+  `required_field` tinyint(1) default NULL,
+  `display_order` mediumint(9) default '0',
+  `duplicated` tinyint(1) default NULL,
+  `active` tinyint(1) default '1',
+  `options` text,
+  PRIMARY KEY  (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `wp_mf_custom_groups`
+--
+
+DROP TABLE IF EXISTS `wp_mf_custom_groups`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `wp_mf_custom_groups` (
+  `id` int(11) NOT NULL auto_increment,
+  `name` varchar(255) NOT NULL,
+  `label` varchar(255) NOT NULL,
+  `post_type` varchar(255) NOT NULL,
+  `duplicated` tinyint(1) default '0',
+  `expanded` tinyint(1) default '0',
+  PRIMARY KEY  (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `wp_mf_custom_taxonomy`
+--
+
+DROP TABLE IF EXISTS `wp_mf_custom_taxonomy`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `wp_mf_custom_taxonomy` (
+  `id` mediumint(9) NOT NULL auto_increment,
+  `type` varchar(20) NOT NULL,
+  `name` varchar(50) NOT NULL,
+  `description` text,
+  `arguments` text,
+  `active` tinyint(1) default '1',
+  PRIMARY KEY  (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `wp_mf_post_meta`
+--
+
+DROP TABLE IF EXISTS `wp_mf_post_meta`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `wp_mf_post_meta` (
+  `meta_id` int(11) NOT NULL,
+  `field_name` varchar(255) NOT NULL,
+  `field_count` int(11) NOT NULL,
+  `group_count` int(11) NOT NULL,
+  `post_id` int(11) NOT NULL,
+  PRIMARY KEY  (`meta_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `wp_mf_posttypes`
+--
+
+DROP TABLE IF EXISTS `wp_mf_posttypes`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `wp_mf_posttypes` (
+  `id` mediumint(9) NOT NULL auto_increment,
+  `type` varchar(20) NOT NULL,
+  `name` varchar(50) NOT NULL,
+  `description` text,
+  `arguments` text,
+  `active` tinyint(1) default '1',
+  PRIMARY KEY  (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
 -- Table structure for table `wp_options`
 --
 
@@ -216,13 +415,12 @@ DROP TABLE IF EXISTS `wp_options`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `wp_options` (
   `option_id` bigint(20) unsigned NOT NULL auto_increment,
-  `blog_id` int(11) NOT NULL default '0',
   `option_name` varchar(64) NOT NULL default '',
   `option_value` longtext NOT NULL,
   `autoload` varchar(20) NOT NULL default 'yes',
   PRIMARY KEY  (`option_id`),
   UNIQUE KEY `option_name` (`option_name`)
-) ENGINE=MyISAM AUTO_INCREMENT=30069 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=42064 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -240,7 +438,7 @@ CREATE TABLE `wp_postmeta` (
   PRIMARY KEY  (`meta_id`),
   KEY `post_id` (`post_id`),
   KEY `meta_key` (`meta_key`)
-) ENGINE=MyISAM AUTO_INCREMENT=3779 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=6585 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -267,7 +465,7 @@ CREATE TABLE `wp_posts` (
   `pinged` text NOT NULL,
   `post_modified` datetime NOT NULL default '0000-00-00 00:00:00',
   `post_modified_gmt` datetime NOT NULL default '0000-00-00 00:00:00',
-  `post_content_filtered` text NOT NULL,
+  `post_content_filtered` longtext NOT NULL,
   `post_parent` bigint(20) unsigned NOT NULL default '0',
   `guid` varchar(255) NOT NULL default '',
   `menu_order` int(11) NOT NULL default '0',
@@ -279,7 +477,7 @@ CREATE TABLE `wp_posts` (
   KEY `type_status_date` (`post_type`,`post_status`,`post_date`,`ID`),
   KEY `post_parent` (`post_parent`),
   KEY `post_author` (`post_author`)
-) ENGINE=MyISAM AUTO_INCREMENT=9151 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=9994 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -354,7 +552,7 @@ CREATE TABLE `wp_term_taxonomy` (
   PRIMARY KEY  (`term_taxonomy_id`),
   UNIQUE KEY `term_id_taxonomy` (`term_id`,`taxonomy`),
   KEY `taxonomy` (`taxonomy`)
-) ENGINE=MyISAM AUTO_INCREMENT=258 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=264 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -372,7 +570,7 @@ CREATE TABLE `wp_terms` (
   PRIMARY KEY  (`term_id`),
   UNIQUE KEY `slug` (`slug`),
   KEY `name` (`name`)
-) ENGINE=MyISAM AUTO_INCREMENT=258 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=264 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -390,7 +588,7 @@ CREATE TABLE `wp_usermeta` (
   PRIMARY KEY  (`umeta_id`),
   KEY `user_id` (`user_id`),
   KEY `meta_key` (`meta_key`)
-) ENGINE=MyISAM AUTO_INCREMENT=194 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=206 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -426,4 +624,4 @@ CREATE TABLE `wp_users` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2012-08-15 15:47:55
+-- Dump completed on 2012-08-27 11:43:01
