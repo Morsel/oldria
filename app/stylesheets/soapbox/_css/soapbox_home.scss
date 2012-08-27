@@ -361,8 +361,8 @@ img{
 	background:url(/images/soapbox/sprite.png) no-repeat -37px -24px;
 }
 .post-section .post h2{
-	font:24px/26px 'MuseoSlab500Regular', serif;
-	margin:0 0 7px;
+	font: 20px/26px "MuseoSlab500Regular", serif;
+	margin: 0 0 7px;
 }
 .post-section .post p{
 	margin:0 0 5px;
@@ -378,9 +378,9 @@ img{
 	margin-bottom:5px;
 }
 .post-section .post.size h2{
-	font-size:30px;
-	line-height:37px;
-	margin-bottom:5px;
+	font-size: 24px;
+	line-height: 32px;
+	margin-bottom: 5px;
 }
 .post-section .post.size:after{
 	left:-34px;
@@ -1214,6 +1214,7 @@ img{
 	color:#fff;
 	font-size: 12px;
 	margin: -40px auto;
+	height:180px;
 	p{
 		color: rgba(255,255,255, .7);
 		margin:0 0 10px;
@@ -1288,3 +1289,9 @@ img{
 		text-decoration:none;
 	}
 }
+
+.post-section .more{
+	
+	text-decoration :underline;
+}
+#footnotes_debug {display: none;}
