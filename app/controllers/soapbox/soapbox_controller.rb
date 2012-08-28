@@ -65,7 +65,7 @@ class Soapbox::SoapboxController < ApplicationController
     @main_feature_comments = SoapboxEntry.main_feature_comments(5) if @main_feature
     @qoth = SoapboxEntry.secondary_feature
     @qoth_comments = SoapboxEntry.secondary_feature_comments(5) if @qoth    
-    @blog_posts =  WpBlogPost.find_by_sql("select wp_postmeta.*,wp_posts.post_date as post_date from wp_postmeta join wp_posts on wp_posts.id = wp_postmeta.post_id where post_id in (SELECT wmpm.post_id FROM `wp_posts` wp join wp_mf_post_meta wmpm on wmpm.post_id = wp.id  join wp_postmeta wpm on wpm.meta_id = wmpm.meta_id group by post_id having count(wmpm.post_id) >1) and (meta_key = 'soapbox_home_page_description' or meta_key = 'soapbox_home_page_title') and wp_posts.post_status = 'publish' order by wp_posts.post_date DESC")
+    @blog_posts =  WpBlogPost.find_by_sql("select wp_postmeta.*,wp_posts.post_date as post_date from wp_postmeta join wp_posts on wp_posts.id = wp_postmeta.post_id where post_id in (SELECT wmpm.post_id FROM `wp_posts` wp join wp_mf_post_meta wmpm on wmpm.post_id = wp.id  join wp_postmeta wpm on wpm.meta_id = wmpm.meta_id group by post_id having count(wmpm.post_id) >1) and (meta_key = 'soapbox_home_page_description' or meta_key = 'soapbox_home_page_title') and wp_posts.post_status = 'publish' order by wp_posts.post_date DESC limit 8")
     @my_hash = Hash.new
     @blog_posts.each {|row|  @my_hash[row.post_id] = Hash.new }
     @blog_posts.each {|row|  @my_hash[row.post_id][row.meta_key] = row}    
