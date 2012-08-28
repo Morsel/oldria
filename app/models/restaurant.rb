@@ -94,6 +94,8 @@ class Restaurant < ActiveRecord::Base
   belongs_to :primary_photo, :class_name => "Photo", :dependent => :destroy
   belongs_to :logo, :class_name => "Image", :dependent => :destroy
 
+  has_one :featured_profile, :as => :feature
+
   accepts_nested_attributes_for :logo
 
   validates_presence_of :name, :street1, :city, :state, :zip, :phone_number,

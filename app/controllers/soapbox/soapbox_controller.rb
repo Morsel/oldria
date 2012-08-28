@@ -55,10 +55,12 @@ class Soapbox::SoapboxController < ApplicationController
     @behind_the_line_answers = (ProfileQuestion.without_travel.answered_by_premium_and_public_users.all(:limit => 50,:order => "profile_answers.created_at DESC").map(&:latest_soapbox_answer).uniq.compact[0...15]).compact[0..4]
     @menus =  @menus =  Menu.all(:limit=>5,:order=>"created_at desc")
     @photos = Photo.find(:all,:conditions=>["attachable_type = ? and attachable_id  in (?)", 'Restaurant',restaurants_ids],:limit=>4,:order=>"created_at desc")    
-    @spotlight_user = User.in_soapbox_directory.last
-    @rand_users = User.in_soapbox_directory.sample(2)
+    @spotlight_user = FeaturedProfile.spotlight_user.sample(1)  
+    @spotlight_user =   @spotlight_user.blank? ? User.in_soapbox_directory.last : @spotlight_user.first.feature        
     @promotions = Promotion.from_premium_restaurants.all(:order => "created_at DESC" ,:limit =>5)
-    @restaurants = Restaurant.with_premium_account.sample(2)
+    @featured_ptofiles = FeaturedProfile.personal_profiles.group_by(&:feature_type)
+    @restaurants =  @featured_ptofiles["Restaurant"].blank? ?  Restaurant.premium_account.sample(2) : @featured_ptofiles["Restaurant"].sample(2).map{|row| row.feature}
+    @rand_users = @featured_ptofiles["User"].blank? ?  User.in_soapbox_directory.sample(2) : @featured_ptofiles["User"].sample(2).map{|row| row.feature} 
     @main_feature = SoapboxEntry.main_feature    
     @main_feature_comments = SoapboxEntry.main_feature_comments(5) if @main_feature
     @qoth = SoapboxEntry.secondary_feature

@@ -1,0 +1,44 @@
+<% title "Featured profiles" %>
+
+
+<div class="admin_message_section">
+  <p>
+    <%= link_to (image_tag("plus.png") + "New Personal Profile Spotlight"), new_admin_featured_profile_path(:type =>'User'), :class => 'button positive'%>
+    <%= link_to (image_tag("plus.png") + "New Restaurnat Spotlight"), new_admin_featured_profile_path(:type =>'Restaurant'), :class => 'button positive'%>
+  </p>
+ 
+  <h3>Featured Profiles</h3>
+  <table class="admin_message_table">
+    <thead>
+      <tr>
+        <th>Scheduled</th>
+        <th>Type</th>
+        <th>Chef/Restaurant</th>
+        <th>Spotlight?</th>
+        <!-- <th><%#= profile_type.class_name %>'s name</th>         -->
+        <th></th>
+        <th></th>
+        
+      </tr>
+    </thead>
+    <tbody>
+        
+      <% @featured_profiles.each do |profile_row| %>
+        <tr class="<%= cycle('odd','even', :name => 'featured_profiles') %>">
+          <td ><%= profile_row.start_date.try(:strftime,"%m/%d/%y") %></td>
+          <td ><%=  profile_row.feature_type == "User" ? "Personal" :"Restaurant" %></td>
+          <td  class="<%=  profile_row.spotlight_on ? '' : 'spotlight-off' %>"><%=  profile_row.feature.name %></td>
+          <td  class="<%=  profile_row.spotlight_on ? '' : 'actions' %>"><%= link_to ( profile_row.spotlight_on ? 'Yes' : 'No','#') %></b></td>
+          <td  class="actions edit_link">
+            <%= link_to "Edit", edit_admin_featured_profile_path(profile_row)+"?type="+profile_row.feature_type %>
+          </td>
+          <td class="actions destroy_link">
+            <%= link_to "Destroy", admin_featured_profile_path(profile_row), :method => :delete %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+
+
