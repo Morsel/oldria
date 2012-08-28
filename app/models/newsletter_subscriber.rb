@@ -95,14 +95,18 @@ class NewsletterSubscriber < ActiveRecord::Base
   def update_mailchimp
     if self.confirmed?
       mc = MailchimpConnector.new
-      groupings = if receive_soapbox_news?
-        { :name => "Your Interests", :groups => "National Newsletter" }
+
+      if self.opt_out?
+        mc.client.list_unsubscribe(:id => mc.mailing_list_id, :email_address => email)
       else
-        { :name => "Your Interests", :groups => "" }
+        groupings = if receive_soapbox_news?
+          { :name => "Your Interests", :groups => "National Newsletter" }
+        else
+          { :name => "Your Interests", :groups => "" }
+        end
+        mc.client.list_subscribe(:id => mc.mailing_list_id, :email_address => email, :update_existing => true,
+                                 :merge_vars => { :fname => first_name, :lname => last_name, :groupings => [groupings] })
       end
-      mc.client.list_subscribe(:id => mc.mailing_list_id, :email_address => email, :update_existing => true,
-                               :merge_vars => { :fname => first_name, :lname => last_name, :groupings => [groupings] })
-      # TODO unsubscribe if opt-out set
     end
   end
 
