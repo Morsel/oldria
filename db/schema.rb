@@ -985,7 +985,7 @@ ActiveRecord::Schema.define(:version => 20120823175108) do
     t.integer  "james_beard_region_id"
     t.integer  "cuisine_id"
     t.datetime "deleted_at"
-    t.text     "description"
+    t.string   "description"
     t.string   "phone_number"
     t.string   "website"
     t.string   "twitter_handle"
