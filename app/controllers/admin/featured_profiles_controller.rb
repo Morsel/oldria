@@ -4,7 +4,7 @@ class Admin::FeaturedProfilesController < Admin::AdminController
 
 
 	def index
-  		@featured_profiles = FeaturedProfile.valid_feature_profiels
+  		@featured_profiles = FeaturedProfile.valid_feature_profiles
   end
 
   def new  	

@@ -7,7 +7,7 @@
                                  :collection => @records,:required=>true %>
           <%= f.input :start_date ,:required=>true,:start_year => Date.today.year%>
 
-          <%= f.input :end_date %>
+          <%= f.input :end_date,:start_year => Date.today.year %>
           <%= f.input :spotlight_on   , :hint => "For Soapbox" %>
          <%= hidden_field_tag "type", params[:type] %>
          <%= hidden_field_tag "feature_type", params[:type] %>
