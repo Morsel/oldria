@@ -315,6 +315,7 @@ ActionController::Routing::Routes.draw do |map|
     admin.resources :otm_keywords
     admin.resources :email_stopwords
     admin.resources :page_views, :only => ["index"]
+    admin.resources :featured_profiles
 
     # Admin Messaging
     exclusive_routes = [:index, :show, :destroy]

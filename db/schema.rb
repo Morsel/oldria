@@ -341,6 +341,17 @@ ActiveRecord::Schema.define(:version => 20120823175108) do
 
   add_index "events", ["restaurant_id"], :name => "index_events_on_restaurant_id"
 
+  create_table "featured_profiles", :force => true do |t|
+    t.integer  "feature_id"
+    t.string   "feature_type"
+    t.datetime "scheduled_at"
+    t.datetime "start_date"
+    t.datetime "end_date"
+    t.boolean  "spotlight_on", :default => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "feed_categories", :force => true do |t|
     t.string   "name"
     t.datetime "created_at"

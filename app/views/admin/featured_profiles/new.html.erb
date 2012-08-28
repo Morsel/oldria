@@ -1,0 +1,10 @@
+<% if params[:type].downcase == "user"%>
+  <% title "New Personal Profile Spotlight" %>
+<%else%>
+  <% title "New Restaurant Spotlight" %>
+<%end%>
+<%  if @records.nil? %>
+  <h3> Profile type not found.</h3>
+<%else%>  
+    <%= render 'form'%>
+<%end%>

@@ -20,9 +20,34 @@
   <%= stylesheet_link_tag "/soapbox/_css/print.css", :media => "print" %>
   <%= stylesheet_link_tag "/soapbox/_css/museoslab/stylesheet.css", "/soapbox/_css/knockout/stylesheet.css" %>
   <%= stylesheet_link_tag "/stylesheets/validationEngine.jquery.css","/stylesheets/template" %>  
-  <%= javascript_include_tag "jquery-1.6.2.min","jquery.main.soapbox","languages/jquery.validationEngine-en","jquery.validationEngine" %>
+  <%= javascript_include_tag "jquery-1.6.2.min","jquery.main.soapbox","languages/jquery.validationEngine-en","jquery.validationEngine","jquery.prettynumber.js" %>
+  <script>
+    $(document).ready(function(){
+      $.ajax({
+          url: 'https://graph.facebook.com/RestaurantIntelligenceAgency',
+          dataType: "json",
+          success: function(data){
+            $('#fb_follower').html(data.likes ).prettynumber({delimiter : ','}).append(' Fans ');
+            
+          }
+        });
+    })
+  </script>
+    <%= yield(:head) %>
+      <script type="text/javascript">
 
-  <%= yield(:head) %>
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-4174638-6']);
+      _gaq.push(['_setDomainName', '.restaurantintelligenceagency.com']);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+
+    </script>
 </head>
   <!--[if lt IE 7 ]> <body class="ie6"> <![endif]-->
   <!--[if IE 7 ]>    <body class="ie7"> <![endif]-->
@@ -41,12 +66,14 @@
           <!-- add-nav -->
           <%= render 'layouts/site_nav_soapbox' %>
         </div>
-        <form class="search-form" action="#">
+        <% form_tag soapbox_search_path ,:class=>"search-form", :method => "get" do %>
+        <!-- <form class="search-form" action="#"> -->
           <fieldset>
             <input type="submit" value="search">
-            <input type="text" placeholder="Search the site">
+            <input type="text" name="query" placeholder="Search the site">
           </fieldset>
-        </form>
+     <!--    </form> -->
+      <% end %>
       </div>
       <div class="nav-holder">
         <span class="height"> </span>
@@ -85,40 +112,61 @@
                 <header class="heading">
                     <h2><%= link_to 'FRONT BURNER', 'http://blog.restaurantintelligenceagency.com/' %></h2>
                 </header>
-  
-                <%- if @blog_posts.present? -%>
+                
                 <article class="post">
-                   <h2>
-                        <%=link_to(truncate(@blog_posts[2].post_title,:length=>15),"http://blog.restaurantintelligenceagency.com/?p=#{@blog_posts[2].ID}")%>
+                    <%- if @box1.present? -%>
+                    <h2>
+                        <%= link_to(@box1.title, "http://blog.restaurantintelligenceagency.com/?p=#{@box1.id}") %>
                     </h2>
-                    <p><%= truncate( @blog_posts[2].post_content.gsub(/<\/?[^>]*>/, ""), :length=>150)%></p>
-                     <em class="date"><%= distance_of_time_in_words( @blog_posts[2].post_date, Time.now)%></em>
+                    <p>
+                        <%= truncate @box1.description.gsub(/<\/?[^>]*>/, ""),
+                                     :length => 130,
+                                     :omission => (" " + link_to("read more", "http://blog.restaurantintelligenceagency.com/?p=#{@box1.id}", :class => "more") + "...") %>
+                    </p>
+                    <em class="date"><%= distance_of_time_in_words(@box1.post_date, Time.now) %> ago</em>
+                    <%- end -%>
                 </article>
             </div>
+
             <div class="column">
                 <article class="post size">
-                  <h2>
-                      <%=link_to(truncate(@blog_posts.first.post_title,:length=>30),"http://blog.restaurantintelligenceagency.com/?p=#{@blog_posts.first.ID}")%>
+                    <%- if @box2.present? -%>
+                    <h2>
+                        <%= link_to(@box2.title, "http://blog.restaurantintelligenceagency.com/?p=#{@box2.id}") %>
                     </h2>
-                   <p><%=  truncate( @blog_posts.first.post_content.gsub(/<\/?[^>]*>/, ""), :length=>200)%></p>
-                  <em class="date"><%= distance_of_time_in_words( @blog_posts.first.post_date, Time.now)%></em>
+                    <p><%= truncate @box2.description.gsub(/<\/?[^>]*>/, ""),
+                                    :length => 220,
+                                    :omission => (" " + link_to("read more", "http://blog.restaurantintelligenceagency.com/?p=#{@box2.id}", :class => "more") + "...") %>
+                    </p>
+                    <br /><br /><br>
+                    <em class="date"><%= distance_of_time_in_words(@box2.post_date, Time.now) %> ago</em>
+                    <%- end -%>
                 </article>
             </div>
+
             <div class="column last">
                 <article class="post size01">
+                  <%- if @box3.present? -%>
                      <h2> 
-                      <%=link_to(truncate(@blog_posts[1].post_title,:length=>18),"http://blog.restaurantintelligenceagency.com/?p=#{@blog_posts[1].ID}")%>
+                      <%= link_to(@box3.title, "http://blog.restaurantintelligenceagency.com/?p=#{@box3.id}") %>
                      </h2>
-                    <p><%=  truncate( @blog_posts[1].post_content.gsub(/<\/?[^>]*>/, ""), :length=>150)%></p>
-                    <em class="date"><%= distance_of_time_in_words( @blog_posts[1].post_date, Time.now)%></em>
+                    <p><%= truncate @box3.description.gsub(/<\/?[^>]*>/, ""),
+                                    :length => 150,
+                                    :omission => " " + link_to("read more", "http://blog.restaurantintelligenceagency.com/?p=#{@box3.id}", :class => "more") + "..." %>
+                    </p>
+                    <em class="date"><%= distance_of_time_in_words(@box3.post_date, Time.now) %> ago</em>
+                   <% end %> 
                 </article>
+
                 <article class="post size02">
+                    <%- if @box4.present? -%>
                     <h2>
-                         <%=link_to(@blog_posts[3].post_title,"http://blog.restaurantintelligenceagency.com/?p=#{@blog_posts[3].ID}")%>
+                        <%= link_to(@box4.title,"http://blog.restaurantintelligenceagency.com/?p=#{@box4.id}") %>
                     </h2>                       
-                     <em class="date"><%= distance_of_time_in_words( @blog_posts[3].post_date, Time.now)%></em>
+                    <em class="date"><%= distance_of_time_in_words(@box4.post_date, Time.now) %> ago</em>
+                    <% end %> 
                 </article>
-                <% end %>
+
             </div>
           </section>
           <!-- twocolumns -->
@@ -139,8 +187,9 @@
 				        <% end -%>
 
                 <div class="info">
-                    <p>                     
-                      <%= menu_item.name%>
+                    <p>       
+
+                     <strong>  <%= menu_item.name%></strong> 
                       <%= link_to(truncate(menu_item.description.gsub(/<\/?[p>]>/, ""), :length => 100) ,soapbox_menu_item_path(menu_item))%>
                       <br />
                       <em>                                    
@@ -186,7 +235,7 @@
               <% content_tag_for(:article, promotion.promotion_type,:class=>"news-holder") do %>
                     <header class="title <%=css_classes[index]%>">
                       <% promotion_type = promotion.promotion_type.name.split(" ") %>         
-                        <h3><%=promotion_type.first%> <em><%=promotion_type.last if promotion_type .length >1 %> </em></h3>
+                        <h3><%=promotion_type.first%> <em><%=promotion_type.last if promotion_type.length >1 %> </em></h3>
                     </header>    
                     
                     <%content_tag_for(:div, promotion,:class=>"info") do %> 
@@ -209,27 +258,29 @@
             </header>
             <!-- question-area -->
             <article class="question-area">
-                  <div class="title">
-                        <span class="note">BEHIND THE LINE: <strong>ON THE JOB</strong></span>
-                </div>                        
-                <% if @behind_the_line_answers.count > 0%>
-                     <%@behind_the_line_answers.each do |answer|%>
-                     <div class="title">
-                         <strong class="question">
-                            <%= link_to answer.profile_question.title.upcase, soapbox_profile_question_path(answer.profile_question) %>
-                        </strong>
+                                      
+          <% if @behind_the_line_answers.count > 0%>
+               <%@behind_the_line_answers.each do |answer|%>               
+                <div class="title">
+                  <span class="note">BEHIND THE LINE: <strong><%=answer.profile_question.topic.title if !answer.profile_question.topic.nil? %></strong></span>
+                 </div> 
+               <div class="title">
+                   <strong class="question">
+                      <%= link_to answer.profile_question.title.upcase, soapbox_profile_question_path(answer.profile_question) %>
+                  </strong>
 
-                         <strong class="answer">
-                             A: <%= link_to truncate(answer.answer, :length => 160), soapbox_profile_question_path(answer.profile_question, :anchor => "profile_answer_#{answer.id}") %>. 
-                             <em class="btl_em"><%= link_to_if (answer.user.linkable_profile? || logged_in_on_spoonfeed), answer.user.name_or_username, directory_link(answer.user) %>,
-                             <%= answer.user.primary_employment.try(:restaurant_role).try(:name) %>,
-                             <%= restaurant_names_for_user(answer.user) %>,
-                             <%= answer.user.primary_employment.try(:restaurant).try(:city_and_state) || answer.user.try(:profile).try(:current_residence) %>
-                         </em>
-                     </strong>
-                 </div>
-                  <%end%><!-- end each -->  
-                <%end%>
+                   <strong class="answer">
+                       A: <%= link_to truncate(answer.answer, :length => 160), soapbox_profile_question_path(answer.profile_question, :anchor => "profile_answer_#{answer.id}") %>. 
+                       <br />
+                       <em class="btl_em"><%= link_to_if (answer.user.linkable_profile? || logged_in_on_spoonfeed), answer.user.name_or_username, directory_link(answer.user) %>,
+                       <%= answer.user.primary_employment.try(:restaurant_role).try(:name) %>,
+                       <%= restaurant_names_for_user(answer.user) %>,
+                       <%= answer.user.primary_employment.try(:restaurant).try(:city_and_state) || answer.user.try(:profile).try(:current_residence) %>
+                   </em>
+               </strong>
+           </div>
+            <%end%><!-- end each -->  
+          <%end%>
             </article>
             <div class="holder">
               <!-- question-area -->
@@ -404,22 +455,21 @@
             </header>
             <!-- social-plugin -->
             <ul class="social-plugin">
-              <li><a class="facebook" href="http://www.facebook.com/RestaurantIntelligenceAgency"><span>0,000 followers</span></a></li>
-              <li><a class="twitter" href="https://twitter.com/RIASocial"><span>follow @riasocia</span></a></li>              
+              <li><a class="facebook" href="http://www.facebook.com/RestaurantIntelligenceAgency"><span id="fb_follower">0,000 followers</span></a></li>
+              <li><a class="twitter" href="https://twitter.com/Soapbox_HQ"><span>follow @Soapbox_HQ
+</span></a></li>              
             </ul>
             <!-- social-networks -->
             <ul class="social-networks">
-              <li><a class="pinterest" href="#">pinterest</a></li>
-              <li><a class="linked-in" href="#">linked-in</a></li>
-              <li><a class="google" href="#">google</a></li>
-              <li><a class="instagram" href="#">instagram</a></li>
+              <li><a class="pinterest" href="http://pinterest.com/SoapboxHQ/" target="_blank">pinterest</a></li>
+              <li><a class="linked-in" href="http://www.linkedin.com/company/1948595?goback=%2Efcs_GLHD_restaurant+intelligence+agency_false_*2_*2_*2_*2_*2_*2_*2_*2_*2_*2_*2_*2&trk=ncsrch_hits" target="_blank">linked-in</a></li>
+              <li><a class="google" href="https://plus.google.com/b/101434601310229456734/101434601310229456734/posts" target="_blank">google</a></li>
+             <!--  <li><a class="instagram" href="#" target="_blank">instagram</a></li> -->
             </ul>
           </section>
           <div class="add-info">
             <h2>NEED HELP? HAVE QUESTIONS?</h2>
-            <p>You can <a href="mailto:support@restaurantintelligenceagency.com">email our support staff</a> anytime.</p>
-            <p>We also have a customer support line available 9am–9pm that can be reached at (312) 572-9082.</p>
-
+            <p>You can <a href="mailto:support@restaurantintelligenceagency.com"><b>email our support staff</b></a> anytime.</p>            
           </div>
         </aside>
       </div>
@@ -431,11 +481,11 @@
         Soapbox: Soapbox is a product of RIA
       </h1>
       <div id="legal">
-        <p>&copy; 2010 <a href="http://www.restaurantintelligenceagency.com/">Restaurant Intelligence Agency</a>. All Rights Reserved.</p>
+        <p>&copy; 2012 <a href="http://www.restaurantintelligenceagency.com/">Restaurant Intelligence Agency</a>. All Rights Reserved.</p>
         <nav id="footer-links">
           <a href="/soapbox/about">About</a>|
           <a href="http://www.restaurantintelligenceagency.com">RIA HQ</a>|
-          <a href="http://soapbox.restaurantintelligenceagency.com/soapbox/products">Products</a>|
+          <!-- <a href="http://soapbox.restaurantintelligenceagency.com/soapbox/products">Products</a>| -->
           <a href="/soapbox/privacy">Privacy</a>|
           <a href="/soapbox/help">Help</a>
           <a href="/soapbox/contact">Contact</a>

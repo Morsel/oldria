@@ -468,3 +468,21 @@ Given /^a manager for "([^\"]*)" has just uploaded a new menu$/ do |restaurant_n
     And I press "Upload"
   }
 end
+
+Then "I should have home data" do 
+       (1..5).each do|index| 
+            restaurant = Factory(:restaurant, :is_activated=> true)
+            Factory(:menu_item, :restaurant => restaurant)
+            @menu_a = Factory(:menu, :position => "1", :restaurant => restaurant)
+            @menu_b = Factory(:menu, :position => "2", :restaurant => restaurant)
+            @menu_c = Factory(:menu, :position => "3", :restaurant => restaurant)
+            restaurant.subscription = Factory(:subscription)
+            employment = Factory(:employment, :restaurant => restaurant)
+            profile = Factory(:profile, :user => employment.employee)
+        end
+
+          
+      [11,13,23].each do |index|        
+        Factory(:a_la_minute_question,:id=>index,:kind=>"restaurant",:question=>"Our current inspiration is")       
+     end
+end

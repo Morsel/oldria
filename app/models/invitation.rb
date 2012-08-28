@@ -54,7 +54,7 @@ class Invitation < ActiveRecord::Base
         :email => params[:email],
         :restaurant_role_id => params[:restaurant_role],
         :restaurant_name => params[:restaurant_name],
-        :subject_matters => SubjectMatter.find(params[:subject_matters].try(:keys)))
+        :subject_matters => SubjectMatter.find(:all,:conditions=>["id in (?)",params[:subject_matters].try(:keys)]))
   end
 
 end

@@ -18,7 +18,7 @@
 #  james_beard_region_id      :integer
 #  cuisine_id                 :integer
 #  deleted_at                 :datetime
-#  description                :string(255)
+#  description                :text
 #  phone_number               :string(255)
 #  website                    :string(255)
 #  twitter_handle             :string(255)
@@ -37,7 +37,10 @@
 #  atoken                     :string(255)
 #  asecret                    :string(255)
 #  is_activated               :boolean         default(FALSE)
+<<<<<<< HEAD
 #  newsletter_frequency       :string(255)
+=======
+>>>>>>> master
 #
 
 class Restaurant < ActiveRecord::Base
@@ -46,7 +49,7 @@ class Restaurant < ActiveRecord::Base
   include FacebookPageConnect
   include TwitterAuthorization
 
-  default_scope :conditions => {:deleted_at => nil}, :order => "#{table_name}.sort_name"
+  default_scope :conditions => {:deleted_at => nil }, :order => "#{table_name}.sort_name"
 
   # primary account manager
   belongs_to :manager, :class_name => "User", :foreign_key => 'manager_id'
@@ -86,6 +89,7 @@ class Restaurant < ActiveRecord::Base
 
   has_many :newsletter_subscriptions, :dependent => :destroy
   has_many :newsletter_subscribers, :through => :newsletter_subscriptions
+  has_many :social_posts
 
   has_many :restaurant_feature_items, :dependent => :destroy
   has_many :restaurant_features, :through => :restaurant_feature_items,
@@ -95,6 +99,8 @@ class Restaurant < ActiveRecord::Base
     :after_add => :reset_primary_photo_on_add, :after_remove => :reset_primary_photo_on_remove
   belongs_to :primary_photo, :class_name => "Photo", :dependent => :destroy
   belongs_to :logo, :class_name => "Image", :dependent => :destroy
+
+  has_one :featured_profile, :as => :feature
 
   accepts_nested_attributes_for :logo
 
@@ -137,6 +143,8 @@ class Restaurant < ActiveRecord::Base
   named_scope :with_facebook_page, lambda {
     { :conditions => "facebook_page_id IS NOT NULL AND facebook_page_token IS NOT NULL" }
   }
+
+  named_scope :activated_restaurant, :conditions => {:is_activated => true } 
 
   def self.find_premium(id)
     possibility = find_by_id(id)
@@ -275,7 +283,7 @@ class Restaurant < ActiveRecord::Base
     # when searchlogic will be updated, instead of all(:conditions => ["restaurants.id NOT in (?)", [0] + restaurants.map(&:id)])
     # one can use id_not_in(restaurants.map(&:id))
 
-    premiums = Restaurant.subscription_is_active
+    premiums = Restaurant.activated_restaurant.subscription_is_active
 
     # RESTAURANT: name, city, state, management_company_name
     restaurants = premiums.name_or_city_or_state_or_management_company_name_like(keyword)
@@ -319,6 +327,9 @@ class Restaurant < ActiveRecord::Base
 
     restaurants
   end
+  def is_activated_restaurant? 
+      is_activated
+  end
 
   private
 
@@ -360,5 +371,5 @@ class Restaurant < ActiveRecord::Base
   def add_fact_sheet
     self.fact_sheet = RestaurantFactSheet.create
   end
-
+  
 end

@@ -1,0 +1,12 @@
+<% if answer.responder.top_tags.any? %>
+    <div id="restaurant_profile_view" class="clear clearfix">
+      <div class="top-tags clear clearfix">
+        <h2>Top 15 Tags</h2>
+        <ul class="tags">
+            <% for tag in answer.responder.top_tags %>
+            <li><%= link_to h(tag.value), soapbox_feature_path(tag)  %></li>
+            <% end %>
+        </ul>
+      </div><!-- .top-tags -->
+    </div>
+<% end %>

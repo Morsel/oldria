@@ -1,4 +1,5 @@
-<% title @question.question %>
+
+<% title "A la Minute" %>
 
 <!-- AddThis Button BEGIN -->
 <div class="addthis_toolbox">
@@ -13,9 +14,12 @@
 <!-- AddThis Button END -->
 
 <div id="answers">
+  <h2><%= @question.question %></h2>
   <%= render :partial => 'answer', :collection => @answers, :as => :answer %>
 </div>
 
 <% content_for :sidebar do -%>
-<%= render :partial => 'sidebar' %>
+<%= render :partial => 'soapbox/restaurant_sidebar', :locals => { :restaurant => @answers.first.responder } %>
 <% end -%>
+<div class="clear">&nbsp;</div>
+<%= will_paginate(@answers) %>

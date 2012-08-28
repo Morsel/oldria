@@ -3,47 +3,17 @@ class Spoonfeed::SocialUpdatesController < ApplicationController
   before_filter :require_user
 
   def index
-  end
+    @updates = SocialPost.all(:order => "post_created_at DESC").paginate(:page => params[:page], :per_page => 10)
 
-  def load_updates
-    sorted_merge = fetch_updates
-
-    @updates = sorted_merge.paginate(:page => params[:page], :per_page => 10)
-    render :partial => "updates"
+    # kick off hourly delayed job to load/update posts from twitter/fb/etc
+    if @updates.blank? || @updates.first.updated_at < 1.hour.ago
+      SocialPost.send_later(:fetch_updates)
+    end
   end
 
   def filter_updates
-    sorted_merge = fetch_updates(params[:search])
-
-    @updates = sorted_merge.paginate(:page => params[:page], :per_page => 10)
-    render :partial => "updates"
-  end
-
-  private
-
-  def fetch_updates(search_params = {})
-    # Rails.cache.fetch("social_updates_#{search_params.to_s}", :expires_in => 1.minute) do
-      alm_answers = ALaMinuteAnswer.social_results(search_params)
-
-      twitter_posts = []
-      Restaurant.with_premium_account.with_twitter.search(search_params).all.each do |r|
-        begin
-          r.twitter_client.user_timeline.each do |post|
-            twitter_posts << { :post => post.text,
-                               :restaurant => r,
-                               :created_at => Time.parse(post.created_at),
-                               :link => "http://twitter.com/#{r.twitter_username}/status/#{post.id}",
-                               :source => "Twitter" }
-          end
-        rescue Exception
-          next
-        end
-      end
-
-      facebook_posts = []
-
-      SocialMerger.new(twitter_posts, facebook_posts, alm_answers).sorted_updates[0...1000] # limited so the results will fit in the cache
-    # end
+    @updates = SocialPost.all(:conditions => { :restaurant_id => Restaurant.search(params[:search]).map(&:id)}).paginate(:page => params[:page], :per_page => 10)
+    render :partial => "updates", :locals => { :updates => @updates }
   end
 
 end

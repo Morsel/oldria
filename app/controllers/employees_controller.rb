@@ -1,6 +1,7 @@
 class EmployeesController < ApplicationController
   before_filter :require_user
   before_filter :find_and_authorize_restaurant, :except => :index
+  before_filter :require_email, :only => :new
 
   def bulk_edit
     @restaurant = Restaurant.find(params[:restaurant_id])
@@ -8,12 +9,12 @@ class EmployeesController < ApplicationController
         :include => [:subject_matters, :restaurant_role, :employee])
   end
 
-  def new
+  def new    
     @employment = @restaurant.employments.build(params[:employment])
     find_or_initialize_employee if params[:employment]
   end
 
-  def create
+  def create    
     @employment = @restaurant.employments.build(params[:employment])
     # If the new user isn't valid, halt the whole action
     return unless verify_employee
@@ -72,14 +73,16 @@ class EmployeesController < ApplicationController
 
   def find_or_initialize_employee
     email = params[:employment][:employee_email]
-    @employee = User.find_by_email(email) || User.find_all_by_name(email).first
-    if !@employee.blank?
-      @employment.employee_id = @employee.id
+    @employees = (User.find_all_by_email(email) + User.find_all_by_name(email) + User.find_all_by_first_name(email.split(" ").first) + User.find_all_by_last_name(email.split(" ").last)).compact
+
+    if @employees.present?
+      @employment.employee_id = @employees.first.id
       render :confirm_employee
     else
       identifier = email.match(/\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i) ?
         { :email => email } : 
         { :first_name => email.split(" ").first, :last_name => email.split(" ").last }
+
       if current_user.admin?
         flash.now[:notice] = "We couldn't find them in our system. You can add this person."
         @employee = @restaurant.employees.build(identifier)
@@ -129,5 +132,11 @@ class EmployeesController < ApplicationController
     else
       return false
     end
+  end
+  def require_email        
+      if !params[:employment].nil? &&  params[:employment][:employee_email].blank?
+        flash[:notice] = "Please enter some value."        
+        redirect_to :new_restaurant_employee 
+      end
   end
 end

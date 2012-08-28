@@ -276,7 +276,7 @@ img{
 /* main */
 #main{
 	background:url(/images/soapbox/bg-main.gif) repeat-x 50% 0;
-	padding:54px 0 210px;
+	padding:54px 0 100px;
 	width:100%;
 }
 .main-holder{
@@ -361,8 +361,8 @@ img{
 	background:url(/images/soapbox/sprite.png) no-repeat -37px -24px;
 }
 .post-section .post h2{
-	font:24px/26px 'MuseoSlab500Regular', serif;
-	margin:0 0 7px;
+	font: 20px/26px "MuseoSlab500Regular", serif;
+	margin: 0 0 7px;
 }
 .post-section .post p{
 	margin:0 0 5px;
@@ -378,9 +378,9 @@ img{
 	margin-bottom:5px;
 }
 .post-section .post.size h2{
-	font-size:30px;
-	line-height:37px;
-	margin-bottom:5px;
+	font-size: 24px;
+	line-height: 32px;
+	margin-bottom: 5px;
 }
 .post-section .post.size:after{
 	left:-34px;
@@ -492,7 +492,8 @@ img{
 .news-holder p,
 .menu-list p,
 .add-info p,
-.answer em a{		
+.answer em a,
+.answer{		
 	a
 	{
 		text-decoration:none;
@@ -965,7 +966,7 @@ img{
 	background:url(/images/soapbox/sprite.png) no-repeat 0 -438px;
 	padding:11px 0 10px 41px;
 }
-.social-plugin li .twitter{background-position:0 -505px;}
+.social-plugin li .twitter{background-position:0 -505px;width:100%}
 .social-plugin li span{
 	display:inline-block;
 	vertical-align:top;
@@ -1084,6 +1085,20 @@ img{
 	color: #69a1c7;
 	height: 1%;
 }
+.select-options li.jcfcalc span{	
+	font-size:12px;
+}
+.select-join-us{	
+	min-width:150px !important;
+	font-size:12px;
+	margin-top:5px;
+}
+.margin-top-zero{
+	margin:0px 0px 0px 5px !important;
+}
+.padding-top-ten{
+	 padding-top: 10px;	
+}
 @media only screen and (max-width: 980px){
 	.nav-holder{padding-left:190px;}
 	.nav-holder .note{
@@ -1092,10 +1107,7 @@ img{
 	}
 	#nav{width:82%;}
 	#nav li{padding:5px 1.5% 8px 1%;}
-	#main{
-		width:auto;
-		padding:34px 10px 210px;
-	}
+	
 	.info-block .holder .question-area{width:47.7%;}
 	.sign-up-form .title h2{font-size:9px;}
 	.sign-up-form input[type="text"]{width:94%;}
@@ -1202,6 +1214,7 @@ img{
 	color:#fff;
 	font-size: 12px;
 	margin: -40px auto;
+	height:180px;
 	p{
 		color: rgba(255,255,255, .7);
 		margin:0 0 10px;
@@ -1276,3 +1289,9 @@ img{
 		text-decoration:none;
 	}
 }
+
+.post-section .more{
+	
+	text-decoration :underline;
+}
+#footnotes_debug {display: none;}
