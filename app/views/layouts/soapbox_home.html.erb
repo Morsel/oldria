@@ -161,7 +161,7 @@
                 <article class="post size02">
                     <%- if @box4.present? -%>
                     <h2>
-                        <%= link_to(@box4.title,"http://blog.restaurantintelligenceagency.com/?p=#{@box4.post_id}") %>
+                        <%= link_to(@box4.title,"http://blog.restaurantintelligenceagency.com/?p=#{@box4.id}") %>
                     </h2>                       
                     <em class="date"><%= distance_of_time_in_words(@box4.post_date, Time.now) %> ago</em>
                     <% end %> 
