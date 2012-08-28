@@ -65,14 +65,19 @@ class Soapbox::SoapboxController < ApplicationController
     @main_feature_comments = SoapboxEntry.main_feature_comments(5) if @main_feature
     @qoth = SoapboxEntry.secondary_feature
     @qoth_comments = SoapboxEntry.secondary_feature_comments(5) if @qoth    
-    @blog_posts =  WpBlogPost.find_by_sql("select wp_postmeta.*,wp_posts.post_date as post_date from wp_postmeta join wp_posts on wp_posts.id = wp_postmeta.post_id where post_id in (SELECT wmpm.post_id FROM `wp_posts` wp join wp_mf_post_meta wmpm on wmpm.post_id = wp.id  join wp_postmeta wpm on wpm.meta_id = wmpm.meta_id group by post_id having count(wmpm.post_id) >1) and (meta_key = 'soapbox_home_page_description' or meta_key = 'soapbox_home_page_title') and wp_posts.post_status = 'publish' order by wp_posts.post_date DESC limit 8")
-    @my_hash = Hash.new
-    @blog_posts.each {|row|  @my_hash[row.post_id] = Hash.new }
-    @blog_posts.each {|row|  @my_hash[row.post_id][row.meta_key] = row}    
-    @box1 = @my_hash[@my_hash.keys[2]] 
-    @box2 = @my_hash[@my_hash.keys[0]]
-    @box3 = @my_hash[@my_hash.keys[1]]
-    @box4 = @my_hash[@my_hash.keys[3]]
+    @blog_posts = WpBlogPost.find_by_sql("select wp_posts.id, meta_title.meta_value as title, meta_description.meta_value as description, wp_posts.post_date
+                                          from wp_posts
+                                          join wp_postmeta meta_title on wp_posts.id = meta_title.post_id
+                                          join wp_postmeta meta_description on wp_posts.id = meta_description.post_id 
+                                          where meta_title.meta_key='soapbox_home_page_title'
+                                          and meta_description.meta_key='soapbox_home_page_description'
+                                          and wp_posts.post_status = 'publish'
+                                          order by wp_posts.post_date DESC
+                                          limit 4")
+    @box1 = @blog_posts[2]
+    # @box2 = @blog_posts[0]
+    # @box3 = @blog_posts[1]
+    # @box4 = @blog_posts[3]
   end
   
   
