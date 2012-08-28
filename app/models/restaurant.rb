@@ -37,10 +37,7 @@
 #  atoken                     :string(255)
 #  asecret                    :string(255)
 #  is_activated               :boolean         default(FALSE)
-<<<<<<< HEAD
 #  newsletter_frequency       :string(255)
-=======
->>>>>>> master
 #
 
 class Restaurant < ActiveRecord::Base
