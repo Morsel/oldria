@@ -27,7 +27,7 @@
           url: 'https://graph.facebook.com/RestaurantIntelligenceAgency',
           dataType: "json",
           success: function(data){
-            $('#fb_follower').html(data.likes ).prettynumber({delimiter : ','}).append(' Fans followers');
+            $('#fb_follower').html(data.likes ).prettynumber({delimiter : ','}).append(' Fans ');
             
           }
         });
@@ -112,50 +112,56 @@
                 <header class="heading">
                     <h2><%= link_to 'FRONT BURNER', 'http://blog.restaurantintelligenceagency.com/' %></h2>
                 </header>
-                <%- if @blog_posts.present? -%>
+                
                 <article class="post">
+                  <%- if !@box1.nil? -%>
                    <h2>
 
-                        <%=link_to(@my_hash[@my_hash.keys[2]]['soapbox_home_page_title'].meta_value,"http://blog.restaurantintelligenceagency.com/?p=#{@my_hash[@my_hash.keys[2]]['soapbox_home_page_description'].post_id}")%>
+                        <%=link_to(@box1['soapbox_home_page_title'].meta_value,"http://blog.restaurantintelligenceagency.com/?p=#{@box1['soapbox_home_page_description'].post_id}")%>
                     </h2>
-                    <p><%= truncate( @my_hash[@my_hash.keys[2]]['soapbox_home_page_description'].meta_value.gsub(/<\/?[^>]*>/, ""), :length=>130 ,:omission =>" " +(link_to "read more", "http://blog.restaurantintelligenceagency.com/?p=#{@my_hash[@my_hash.keys[2]]['soapbox_home_page_description'].post_id}" ,:class=>"more")+"...")%>
+                    <p><%= truncate( @box1['soapbox_home_page_description'].meta_value.gsub(/<\/?[^>]*>/, ""), :length=>130 ,:omission =>" " +(link_to "read more", "http://blog.restaurantintelligenceagency.com/?p=#{@box1['soapbox_home_page_description'].post_id}" ,:class=>"more")+"...")%>
                       
                     </p>
                      <em class="date"><%= distance_of_time_in_words( @my_hash[@my_hash.keys[2]]['soapbox_home_page_title'].post_date, Time.now)%></em>
+                  <% end %>
                 </article>
+
             </div>
             <div class="column">
                 <article class="post size">
+                  <%- if !@box2.nil? -%>
                   <h2>
-                    
-
-                      <%=link_to(@my_hash[@my_hash.keys[0]]['soapbox_home_page_title'].meta_value,"http://blog.restaurantintelligenceagency.com/?p=#{@my_hash[@my_hash.keys[0]]['soapbox_home_page_description'].post_id}")%>
+                      <%=link_to(@box2['soapbox_home_page_title'].meta_value,"http://blog.restaurantintelligenceagency.com/?p=#{@box2['soapbox_home_page_description'].post_id}")%>
 
                     </h2>
-                   <p><%=  truncate( @my_hash[@my_hash.keys[0]]['soapbox_home_page_description'].meta_value.gsub(/<\/?[^>]*>/, ""), :length=>220,:omission =>" " +(link_to "read more", "http://blog.restaurantintelligenceagency.com/?p=#{@my_hash[@my_hash.keys[0]]['soapbox_home_page_description'].post_id}" ,:class=>"more")+"...")%>
+                   <p><%=  truncate( @box2['soapbox_home_page_description'].meta_value.gsub(/<\/?[^>]*>/, ""), :length=>220,:omission =>" " +(link_to "read more", "http://blog.restaurantintelligenceagency.com/?p=#{@box2['soapbox_home_page_description'].post_id}" ,:class=>"more")+"...")%>
                       
                    </p>
                    <br /><br /><br>
                   <em class="date"><%= distance_of_time_in_words( @my_hash[@my_hash.keys[0]]['soapbox_home_page_title'].post_date, Time.now)%></em>
+                   <% end %>
                 </article>
             </div>
             <div class="column last">
                 <article class="post size01">
+                  <%- if !@box3.nil? -%>
                      <h2> 
-
-                      <%=link_to(@my_hash[@my_hash.keys[1]]['soapbox_home_page_title'].meta_value,"http://blog.restaurantintelligenceagency.com/?p=#{@my_hash[@my_hash.keys[1]]['soapbox_home_page_title'].post_id}")%>
+                      <%=link_to(@box3['soapbox_home_page_title'].meta_value,"http://blog.restaurantintelligenceagency.com/?p=#{@box3['soapbox_home_page_title'].post_id}")%>
                      </h2>
-                    <p><%=  truncate(@my_hash[@my_hash.keys[1]]['soapbox_home_page_title'].meta_value.gsub(/<\/?[^>]*>/, ""), :length=>150,:omission =>" " +(link_to "read more", "http://blog.restaurantintelligenceagency.com/?p=#{@my_hash[@my_hash.keys[1]]['soapbox_home_page_title'].post_id}" ,:class=>"more")+"...")%>
+                    <p><%=  truncate(@box3['soapbox_home_page_title'].meta_value.gsub(/<\/?[^>]*>/, ""), :length=>150,:omission =>" " +(link_to "read more", "http://blog.restaurantintelligenceagency.com/?p=#{@box3['soapbox_home_page_title'].post_id}" ,:class=>"more")+"...")%>
                     </p>
                     <em class="date"><%= distance_of_time_in_words( @my_hash[@my_hash.keys[1]]['soapbox_home_page_title'].post_date, Time.now)%></em>
+                   <% end %> 
                 </article>
                 <article class="post size02">
+                  <%- if !@box4.nil? -%>
                     <h2>
-                      <%=link_to(@my_hash[@my_hash.keys[3]]['soapbox_home_page_title'].meta_value,"http://blog.restaurantintelligenceagency.com/?p=#{@my_hash[@my_hash.keys[3]]['soapbox_home_page_title'].post_id}")%>
+                      <%=link_to(@box4['soapbox_home_page_title'].meta_value,"http://blog.restaurantintelligenceagency.com/?p=#{@box4['soapbox_home_page_title'].post_id}")%>
                     </h2>                       
                      <em class="date"><%= distance_of_time_in_words( @my_hash[@my_hash.keys[3]]['soapbox_home_page_title'].post_date, Time.now)%></em>
+                     <% end %> 
                 </article>
-                <% end %>
+             
             </div>
           </section>
           <!-- twocolumns -->
@@ -445,7 +451,8 @@
             <!-- social-plugin -->
             <ul class="social-plugin">
               <li><a class="facebook" href="http://www.facebook.com/RestaurantIntelligenceAgency"><span id="fb_follower">0,000 followers</span></a></li>
-              <li><a class="twitter" href="https://twitter.com/Soapbox_HQ"><span>follow @riasocia</span></a></li>              
+              <li><a class="twitter" href="https://twitter.com/Soapbox_HQ"><span>follow @Soapbox_HQ
+</span></a></li>              
             </ul>
             <!-- social-networks -->
             <ul class="social-networks">
