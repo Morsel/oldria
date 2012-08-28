@@ -114,8 +114,8 @@
                 </header>
                 
                 <article class="post">
-                  <%- if @box1.present? -%>
-                   <h2>
+                    <%- if @box1.present? -%>
+                    <h2>
                         <%= link_to(@box1.title, "http://blog.restaurantintelligenceagency.com/?p=#{@box1.id}") %>
                     </h2>
                     <p>
@@ -123,48 +123,50 @@
                                      :length => 130,
                                      :omission => (" " + link_to("read more", "http://blog.restaurantintelligenceagency.com/?p=#{@box1.id}", :class => "more") + "...") %>
                     </p>
-                     <em class="date"><%= distance_of_time_in_words(@box1.post_date, Time.now) %></em>
-                  <%- end -%>
+                    <em class="date"><%= distance_of_time_in_words(@box1.post_date, Time.now) %> ago</em>
+                    <%- end -%>
                 </article>
             </div>
 
             <div class="column">
                 <article class="post size">
-                  <%- if !@box2.nil? -%>
-                  <h2>
-                      <%=link_to(@box2['soapbox_home_page_title'].meta_value,"http://blog.restaurantintelligenceagency.com/?p=#{@box2['soapbox_home_page_description'].post_id}")%>
-
+                    <%- if @box2.present? -%>
+                    <h2>
+                        <%= link_to(@box2.title, "http://blog.restaurantintelligenceagency.com/?p=#{@box2.id}") %>
                     </h2>
-                   <p><%=  truncate( @box2['soapbox_home_page_description'].meta_value.gsub(/<\/?[^>]*>/, ""), :length=>220,:omission =>" " +(link_to "read more", "http://blog.restaurantintelligenceagency.com/?p=#{@box2['soapbox_home_page_description'].post_id}" ,:class=>"more")+"...")%>
-                      
-                   </p>
-                   <br /><br /><br>
-                  <em class="date"><%= distance_of_time_in_words( @my_hash[@my_hash.keys[0]]['soapbox_home_page_title'].post_date, Time.now)%></em>
-                   <% end %>
+                    <p><%= truncate @box2.description.gsub(/<\/?[^>]*>/, ""),
+                                    :length => 220,
+                                    :omission => (" " + link_to("read more", "http://blog.restaurantintelligenceagency.com/?p=#{@box2.id}", :class => "more") + "...") %>
+                    </p>
+                    <br /><br /><br>
+                    <em class="date"><%= distance_of_time_in_words(@box2.post_date, Time.now) %> ago</em>
+                    <%- end -%>
                 </article>
             </div>
 
             <div class="column last">
                 <article class="post size01">
-                  <%- if !@box3.nil? -%>
+                  <%- if @box3.present? -%>
                      <h2> 
-                      <%=link_to(@box3['soapbox_home_page_title'].meta_value,"http://blog.restaurantintelligenceagency.com/?p=#{@box3['soapbox_home_page_title'].post_id}")%>
+                      <%= link_to(@box3.title, "http://blog.restaurantintelligenceagency.com/?p=#{@box3.id}") %>
                      </h2>
-                    <p><%=  truncate(@box3['soapbox_home_page_title'].meta_value.gsub(/<\/?[^>]*>/, ""), :length=>150,:omission =>" " +(link_to "read more", "http://blog.restaurantintelligenceagency.com/?p=#{@box3['soapbox_home_page_title'].post_id}" ,:class=>"more")+"...")%>
+                    <p><%= truncate @box3.description.gsub(/<\/?[^>]*>/, ""),
+                                    :length => 150,
+                                    :omission => " " + link_to("read more", "http://blog.restaurantintelligenceagency.com/?p=#{@box3.id}", :class => "more") + "..." %>
                     </p>
-                    <em class="date"><%= distance_of_time_in_words( @my_hash[@my_hash.keys[1]]['soapbox_home_page_title'].post_date, Time.now)%></em>
+                    <em class="date"><%= distance_of_time_in_words(@box3.post_date, Time.now) %> ago</em>
                    <% end %> 
                 </article>
 
                 <article class="post size02">
-                  <%- if !@box4.nil? -%>
+                    <%- if @box4.present? -%>
                     <h2>
-                      <%=link_to(@box4['soapbox_home_page_title'].meta_value,"http://blog.restaurantintelligenceagency.com/?p=#{@box4['soapbox_home_page_title'].post_id}")%>
+                        <%= link_to(@box4.title,"http://blog.restaurantintelligenceagency.com/?p=#{@box4.post_id}") %>
                     </h2>                       
-                     <em class="date"><%= distance_of_time_in_words( @my_hash[@my_hash.keys[3]]['soapbox_home_page_title'].post_date, Time.now)%></em>
-                     <% end %> 
+                    <em class="date"><%= distance_of_time_in_words(@box4.post_date, Time.now) %> ago</em>
+                    <% end %> 
                 </article>
-             
+
             </div>
           </section>
           <!-- twocolumns -->

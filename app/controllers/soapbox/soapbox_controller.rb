@@ -75,9 +75,9 @@ class Soapbox::SoapboxController < ApplicationController
                                           order by wp_posts.post_date DESC
                                           limit 4")
     @box1 = @blog_posts[2]
-    # @box2 = @blog_posts[0]
-    # @box3 = @blog_posts[1]
-    # @box4 = @blog_posts[3]
+    @box2 = @blog_posts[0]
+    @box3 = @blog_posts[1]
+    @box4 = @blog_posts[3]
   end
   
   
