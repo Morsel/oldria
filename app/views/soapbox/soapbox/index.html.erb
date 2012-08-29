@@ -1,55 +1,372 @@
 <% title "Home", false %>
-<section id="content" class="home">
-    <div id="inside" class="home">
-        <%- if @slides.any? -%>
-        <div id="jumbotron">
-            <div id="cycle">
-                <% for slide in @slides %>
-                <%= image_tag slide.image.url(:full), "data-title" => slide.title, "data-caption" => truncate(slide.excerpt, :length => 150), "data-url" => slide.link, "data-credit" => slide.photo_credit %>
-                <% end %>
-            </div>
-            <div id="display">
-                <header>
-                    <h1 id="cycle-title"><%= @slides.first.title %></h1>
+<div class="main-holder">
+        <!-- content -->
+        <div id="content">
+          <!-- post-section -->
+          <section class="post-section">
+            <div class="column">
+                <header class="heading">
+                    <h2><%= link_to 'FRONT BURNER', 'http://blog.restaurantintelligenceagency.com/' %></h2>
                 </header>
-                <summary id="cycle-caption"><%= truncate(@slides.first.excerpt, :length => 100) %>&nbsp;<% unless @slides.first.link.blank? -%><%= link_to "go&nbsp;&#187;", @slides.first.link %><% end -%></summary>
-                <footer id="cycle-footer">Photo Credit: <%= @slides.first.photo_credit %></footer>
-                <nav id="pager"></nav>
+                
+                <article class="post">
+                    <%- if @box1.present? -%>
+                    <h2>
+                        <%= link_to(@box1.title, "http://blog.restaurantintelligenceagency.com/?p=#{@box1.id}") %>
+                    </h2>
+                    <p>
+                        <%= truncate @box1.description.gsub(/<\/?[^>]*>/, ""),
+                                     :length => 130,
+                                     :omission => (" " + link_to("read more", "http://blog.restaurantintelligenceagency.com/?p=#{@box1.id}", :class => "more") + "...") %>
+                    </p>
+                    <em class="date"><%= distance_of_time_in_words(@box1.post_date, Time.now) %> ago</em>
+                    <%- end -%>
+                </article>
             </div>
-        </div><!-- /jumbotron -->
-        <%- end -%>
 
-        <%- @promos.each_with_index do |promo,idx| -%>
-        <article class="panel panel_<%= idx %>" id="home-pulse">
-            <header>
-                <h1><%= promo.title %></h1>
-            </header>
-            <section>
-                <p><%= promo.body %></p>
-                <%= link_to "more&nbsp;&#187;", promo.link unless promo.link.blank? %>
+            <div class="column">
+                <article class="post size">
+                    <%- if @box2.present? -%>
+                    <h2>
+                        <%= link_to(@box2.title, "http://blog.restaurantintelligenceagency.com/?p=#{@box2.id}") %>
+                    </h2>
+                    <p><%= truncate @box2.description.gsub(/<\/?[^>]*>/, ""),
+                                    :length => 220,
+                                    :omission => (" " + link_to("read more", "http://blog.restaurantintelligenceagency.com/?p=#{@box2.id}", :class => "more") + "...") %>
+                    </p>
+                    <br /><br /><br>
+                    <em class="date"><%= distance_of_time_in_words(@box2.post_date, Time.now) %> ago</em>
+                    <%- end -%>
+                </article>
+            </div>
+
+            <div class="column last">
+                <article class="post size01">
+                  <%- if @box3.present? -%>
+                     <h2> 
+                      <%= link_to(@box3.title, "http://blog.restaurantintelligenceagency.com/?p=#{@box3.id}") %>
+                     </h2>
+                    <p><%= truncate @box3.description.gsub(/<\/?[^>]*>/, ""),
+                                    :length => 150,
+                                    :omission => " " + link_to("read more", "http://blog.restaurantintelligenceagency.com/?p=#{@box3.id}", :class => "more") + "..." %>
+                    </p>
+                    <em class="date"><%= distance_of_time_in_words(@box3.post_date, Time.now) %> ago</em>
+                   <% end %> 
+                </article>
+
+                <article class="post size02">
+                    <%- if @box4.present? -%>
+                    <h2>
+                        <%= link_to(@box4.title,"http://blog.restaurantintelligenceagency.com/?p=#{@box4.id}") %>
+                    </h2>                       
+                    <em class="date"><%= distance_of_time_in_words(@box4.post_date, Time.now) %> ago</em>
+                    <% end %> 
+                </article>
+
+            </div>
+          </section>
+          <!-- twocolumns -->
+          <div class="twocolumns">
+            <section class="column">
+              <header class="title">
+                <h2>ON THE MENU</h2>
+              </header>
+       
+              <!-- sector -->
+              <% @menu_items.each do |menu_item| %>
+              <article class="sector">
+              <!--   <img src="images/img01.gif" alt="image description" class="alignleft" > -->
+                <% if menu_item.photo_file_name.present? -%>
+                            <p><%= image_tag menu_item.photo(:thumb) ,:alt => menu_item.photo_file_name ,:class=>"alignleft", :height=>50,:width=>50%></p>
+                            <%else%>
+                                <p><%= image_tag 'soapbox/img01.gif', :alt=>"Image not available", :class=>"alignleft"%></p>
+                        <% end -%>
+
+                <div class="info">
+                    <p>       
+
+                     <strong>  <%= menu_item.name%></strong> 
+                      <%= link_to(truncate(menu_item.description.gsub(/<\/?[p>]>/, ""), :length => 100) ,soapbox_menu_item_path(menu_item))%>
+                      <br />
+                      <em>                                    
+                         <%= link_to (menu_item.restaurant.try(:name_and_location)), soapbox_restaurant_path(menu_item.restaurant)%>
+                      </em>
+                    </p>
+                </div>
+              </article>
+              <% end %>
+             
             </section>
-        </article><!-- /home-pulse -->
-        <%- end if @promos.any? -%>
-    </div><!-- /inside -->
-</section><!-- /content --> 
+            <section class="column">
+              <header class="title">
+                <h2> A LA MINUTE </h2>
+              </header>
+              <!-- post -->
+              <article class="post">
+                  <% @questions.each do |question| %>
+                    <h3><!-- <a href="#">TODAY’S MENU SPECIALS:</a> -->
+                        <%= link_to truncate(question.topic.try(:upcase),:length=>50) ,soapbox_a_la_minute_question_path(question)%>
+                    </h3>
+                        <% (question.a_la_minute_answers.find(:all,:limit=>2 ,:order=>" created_at DESC")).each do|answer| %>
+                          <p>
+                              <%= Loofah::Helpers.sanitize(truncate(answer.answer, :length => 200)) %>
+                              <em><%=link_to answer.responder.try(:name_and_location), soapbox_restaurant_path(answer.responder) %>
+                              </em>
+                          </p>
+                      <% end %>     
+                <% end %> <!-- End question -->
+              </article>         
+            
+            </section>
+          </div>
+          <!-- info-block -->
+          <section class="info-block">
+            <header class="heading">
+              <h2>NEWSFEED</h2>
 
-<aside id="sidebar" class="home">
-    <nav id="participate" class="home">
-        <%= link_to "<span>Learn</span> more", '/soapbox/learn_more', :class => "button", :id => "request-invite" %>
-        <%= link_to "Request an <span>invitation</span>", join_url(:subdomain => "spoonfeed"), :class => "button", :id => "login-participate" %>
-    </nav><!-- /participate -->
-    <section id="facebook-button">
-        <header>
-            <h1>Like us on Facebook</h1>
-        </header>
-        <iframe src="http://www.facebook.com/plugins/like.php?href=http%3A%2F%2Fsoapbox.restaurantintelligenceagency.com%2Fsoapbox&amp;layout=standard&amp;show_faces=true&amp;width=154&amp;action=like&amp;font=lucida+grande&amp;colorscheme=light&amp;height=auto" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:154px; height:auto;" allowTransparency="true"></iframe>
-    </section><!-- /facebook-button -->
+            </header>
+            <!-- news-holder -->
+            <% css_classes =["","yellow","blue","","yellow","blue"]%>
+            <% @promotions.each_with_index do |promotion,index| %>            
+              <% content_tag_for(:article, promotion.promotion_type,:class=>"news-holder") do %>
+                    <header class="title <%=css_classes[index]%>">
+                      <% promotion_type = promotion.promotion_type.name.split(" ") %>         
+                        <h3><%=promotion_type.first%> <em><%=promotion_type.last if promotion_type.length >1 %> </em></h3>
+                    </header>    
+                    
+                    <%content_tag_for(:div, promotion,:class=>"info") do %> 
+                    <%=content_tag(:em, (promotion.try(:start_date).to_s(:long).upcase + (promotion.try(:end_date).nil? ? "" : (" - "+ promotion.try(:end_date).to_s(:long).upcase)  )),:class=>"date")%> 
+                    <p>
+                      <%=Loofah::Helpers.sanitize(truncate(promotion.headline.gsub(/<\/?[^>]*>/, ""), :length => 150))%>
+                     <em> <%=link_to promotion.restaurant.try(:name_and_location) ,restaurant_promotions_path(promotion.restaurant) %></em>
+                    
+                  </p>
+               <%end%>                  
+              <% end %>
 
-    <section id="help-questions">
-        <header>
-            <h1>Need Help? Have Questions?</h1>
-        </header>
-        <p>You can <a href="mailto:support@restaurantintelligenceagency.com">email our support staff</a> anytime.</p>
-        <p>We also have a customer support line available 9am–9pm that can be reached at (312) 572-9082.</p>
-    </section><!-- /help-questions -->
-</aside><!-- /sidebar -->
+             <% end %> <!-- End @promotion each  -->
+
+           
+          </section>
+          <section class="info-block">
+            <header class="heading">
+              <h2>Q&amp;A</h2>
+            </header>
+            <!-- question-area -->
+            <article class="question-area">
+                                      
+          <% if @behind_the_line_answers.count > 0%>
+               <%@behind_the_line_answers.each do |answer|%>               
+                <div class="title">
+                  <span class="note">BEHIND THE LINE: <strong><%=answer.profile_question.topic.title if !answer.profile_question.topic.nil? %></strong></span>
+                 </div> 
+               <div class="title">
+                   <strong class="question">
+                      <%= link_to answer.profile_question.title.upcase, soapbox_profile_question_path(answer.profile_question) %>
+                  </strong>
+
+                   <strong class="answer">
+                       A: <%= link_to truncate(answer.answer, :length => 160), soapbox_profile_question_path(answer.profile_question, :anchor => "profile_answer_#{answer.id}") %>. 
+                       <br />
+                       <em class="btl_em"><%= link_to_if (answer.user.linkable_profile? || logged_in_on_spoonfeed), answer.user.name_or_username, directory_link(answer.user) %>,
+                       <%= answer.user.primary_employment.try(:restaurant_role).try(:name) %>,
+                       <%= restaurant_names_for_user(answer.user) %>,
+                       <%= answer.user.primary_employment.try(:restaurant).try(:city_and_state) || answer.user.try(:profile).try(:current_residence) %>
+                   </em>
+               </strong>
+           </div>
+            <%end%><!-- end each -->  
+          <%end%>
+            </article>
+            <div class="holder">
+              <!-- question-area -->
+                <%if(!@qoth.nil? && (@qoth.is_a? Admin::Qotd) ) %>
+                <article class="question-area">
+                  <div class="title">
+                    <span class="note"><%= soapbox_tabby_title(@qoth) %></span>
+                    <strong class="question"> <%=  link_to message(@qoth), soapbox_soapbox_entry_path(@qoth.soapbox_entry) %></strong>
+                  </div>
+                  <ul>
+                     <% @qoth_comments.each do |qoth_comment|%>
+                      <li>A:<%= truncate(qoth_comment.comment,100 )%> 
+                          <em>
+                             <%= link_to_if qoth_comment.user.linkable_profile?, qoth_comment.user.name_or_username, soapbox_profile_path(qoth_comment.user.username) %>,<%=restaurant_names_for_user(qoth_comment.user) %>
+                          </em>
+                      </li>
+                      <% end %>  
+                  </ul>
+                </article>
+                <% end %>
+              <!-- question-area -->
+              <%if !@main_feature.nil? && @main_feature.is_a?(TrendQuestion) %>
+                  <article class="question-area">
+                    <div class="title">
+                      <span class="note"><%= soapbox_tabby_title(@main_feature)%></span>
+                      <strong class="question"><%= link_to message(@main_feature), soapbox_soapbox_entry_path(@main_feature.soapbox_entry) %></strong>
+                    </div>
+                    <ul>
+                      <% @main_feature_comments.each do |main_feature_comment|%>
+                      <li>A:<%= truncate(main_feature_comment.comment,100 )%> 
+                          <em>
+                             <%= link_to_if main_feature_comment.user.linkable_profile?, main_feature_comment.user.name_or_username, soapbox_profile_path(main_feature_comment.user.username) %>,<%=restaurant_names_for_user(main_feature_comment.user) %>
+                          </em>
+                      </li>
+                      <% end %>                      
+                    </ul>
+                  </article>
+              <% end %>
+            </div>
+          </section>
+        </div>
+        <!-- sidebar -->
+        <aside id="sidebar">
+         
+             <%= render :partial =>"join/soapbox_join_form" %>
+          <!-- aside-box -->
+          <section class="aside-box">
+            <header class="heading">
+              <h2>THE LATEST</h2>
+            </header>
+        <!-- section -->
+            <article class="section">
+              <h3>new <span>menus</span></h3>
+ 
+              <ul class="menu-list">
+                <% if @menus.count > 0%>
+                    <% @menus.each do |menu| %>
+                      <li>
+                          <div class="link-area">
+                            <%= link_to content_tag(:span, "quick view", :class => "popup"), menu.pdf_remote_attachment.attachment.url, :class => "view" %>
+                            
+                            <%= link_to content_tag(:span, menu), menu.pdf_remote_attachment.attachment.url, :class => "download" %>
+                          </div>
+                         <p>                          
+                          <%=link_to menu.restaurant.try(:name_and_location) ,soapbox_restaurant_path(menu.restaurant) %>
+                        </p>
+                    </li>
+                  <%end%>
+               <%end%>
+              </ul>
+            </article>
+            <!-- section -->
+            <article class="section">
+              <h3>new <span>photography</span></h3>
+             <ul class="photo-list">
+            <% @photos.each do |photo| %>
+               <% content_tag_for(:li, photo) do %>
+                  <%= link_to (image_tag photo.attachment.url(:thumb) ,:alt=>"Restaurant's photo") , soapbox_restaurant_path(photo.restaurant)  %>
+                  <%=content_tag(:span, photo.restaurant.name.capitalize)%>
+               <% end %> 
+            <% end %>    
+                
+              </ul>
+            </article>
+          </section>
+          <!-- aside-box -->
+          <section class="aside-box">
+            <header class="heading">
+              <h2>PROFILES</h2>
+            </header>
+            <% if !@spotlight_user.nil?%>
+            <article class="profile-info">
+              <dl>
+                <dt>Spotlight On:</dt>
+                <dd><%= link_to @spotlight_user.name, soapbox_profile_path(@spotlight_user.username) %></dd>
+              </dl>
+             
+                 <% content_tag(:div,:class=>"holder") do %>
+
+                     <%= image_tag @spotlight_user.avatar.url(:thumb) ,:alt => @spotlight_user.name ,:class => 'alignleft'%>                     
+                      
+                    <div class="info">
+                      <blockquote>
+
+                        <q>“<%=Loofah::Helpers.sanitize(truncate(@spotlight_user.profile.summary.capitalize, :length => 150))%>”</q>
+                      </blockquote>
+                      <%= link_to "read more", soapbox_profile_path(@spotlight_user.username),:class=>"more"%>
+                    </div>
+                 <% end %>
+
+            </article>
+            <% end -%>
+            <article class="block">
+              <h3><span>Personal</span> Proﬁles</h3>
+              <ul class="list">
+                <% @rand_users.each do |user|%>
+                  <% content_tag_for(:li, "user") do %>
+                      <%= image_tag user.avatar.url(:thumb) ,:alt =>user.first_name ,:class => 'alignleft'%> 
+                      
+                        <% content_tag_for(:div, user ,:class=>"info") do %>
+                            <span>
+                                <strong class="name">
+                                 <%= link_to user.name_or_username, soapbox_profile_path(user.username) %>
+                                </strong> 
+                           
+                                <% if user.profile && user.profile.specialties.present? %>
+
+                                    <% user.profile.specialties.each_with_index do  |s,index|  %>
+                                     <%= ((link_to s.name, directory_search_link(:specialty_id =>s.id)) +",") if index < 3 %>                                  
+                                    <% end %>
+                                <% end %>
+                            </span>
+                              <p>
+                                <%= user.primary_employment.try(:restaurant_role).try(:name) %>,
+                                <%= user.primary_employment.try(:restaurant).try(:city_and_state) || user.try(:profile).try(:current_residence) %>
+                              </p>
+                        <% end %>
+
+                   <%end%>     
+                <%end%><!-- End each -->              
+              </ul>
+            </article>
+            <article class="block alt">
+              <h3><span>Restaurant</span> Proﬁles</h3>
+              <ul class="list">
+                 <% @restaurants.each do |restaurant| %>
+                     <% content_tag_for(:li, "restaurnat") do %>
+                        <% if restaurant.logo && restaurant.logo.attachment? -%>
+                          <%= image_tag(restaurant.logo.attachment.url(:thumb), :class => 'alignleft') %>
+                        <% end -%>
+                        
+                          <% content_tag_for(:div, restaurant ,:class=>"info") do %>
+                              <span>
+                                <strong class="name">
+                                 <%= link_to restaurant.try(:name), soapbox_restaurant_path(restaurant) %>
+                                </strong>  
+                                <%=restaurant.top_limited_tags(3).map{|tag|(link_to h(tag.value),soapbox_feature_path(tag))}.join(", ")%>
+                              </span>
+                              <p>
+                                  <%= restaurant.try(:city_and_state) %>
+                              </p>
+                          <% end %>     
+                     <% end %>
+                 <% end %>                
+              </ul>
+            </article>
+          </section>
+          <!-- aside-box -->
+          <section class="aside-box">
+            <header class="heading">
+              <h2>GET SOCIAL</h2>
+            </header>
+            <!-- social-plugin -->
+            <ul class="social-plugin">
+              <li><a class="facebook" href="http://www.facebook.com/RestaurantIntelligenceAgency"><span id="fb_follower">0,000 followers</span></a></li>
+              <li><a class="twitter" href="https://twitter.com/Soapbox_HQ"><span>follow @Soapbox_HQ
+</span></a></li>              
+            </ul>
+            <!-- social-networks -->
+            <ul class="social-networks">
+              <li><a class="pinterest" href="http://pinterest.com/SoapboxHQ/" target="_blank">pinterest</a></li>
+              <li><a class="linked-in" href="http://www.linkedin.com/company/1948595?goback=%2Efcs_GLHD_restaurant+intelligence+agency_false_*2_*2_*2_*2_*2_*2_*2_*2_*2_*2_*2_*2&trk=ncsrch_hits" target="_blank">linked-in</a></li>
+              <li><a class="google" href="https://plus.google.com/b/101434601310229456734/101434601310229456734/posts" target="_blank">google</a></li>
+             <!--  <li><a class="instagram" href="#" target="_blank">instagram</a></li> -->
+            </ul>
+          </section>
+          <div class="add-info">
+            <h2>NEED HELP? HAVE QUESTIONS?</h2>
+            <p>You can <a href="mailto:support@restaurantintelligenceagency.com"><b>email our support staff</b></a> anytime.</p>            
+          </div>
+        </aside>
+      </div>
+    </div>
