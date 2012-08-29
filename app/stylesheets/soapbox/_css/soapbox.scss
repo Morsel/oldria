@@ -2233,6 +2233,7 @@ dl.things dt:after {content: ":"}
 				background-image: url(/images/soapbox/share-actions.png);
 				background-color: $sienna;
 				background-repeat: no-repeat;
+				background-position: 10px 10px;
 				padding: 8px 20px 8px 30px;
 				@include border-radius(30px);
 				color: #fff;

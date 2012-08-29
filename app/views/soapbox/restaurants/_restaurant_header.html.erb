@@ -2,8 +2,8 @@
     <div id="restaurant_actions">
         <%= link_to 'Edit Restaurant', edit_restaurant_path(@restaurant), :class => 'edit_restaurant' if can?(:edit, @restaurant) %>
 
-        <!-- AddThis Button BEGIN -->
-        <%= link_to 'Share Profile', "http://www.addthis.com/bookmark.php?v=250&amp;username=unpluggedria", :class => 'share_profile addthis_button' %>
+        <!-- AddThis Button BEGIN --><!-- For ticket /stories/35128741 -->
+        <%#= link_to 'Share Profile', "http://www.addthis.com/bookmark.php?v=250&amp;username=unpluggedria", :class => 'share_profile addthis_button' %>
         <%= javascript_include_tag "http://s7.addthis.com/js/250/addthis_widget.js#username=unpluggedria" %>
         <% javascript_tag do %>
           var addthis_share = {
