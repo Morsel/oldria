@@ -1,8 +1,19 @@
 class Restaurants::NewslettersController < ApplicationController
 
-  before_filter :authorize
+  before_filter :authorize, :except => "show"
 
   def index
+  end
+
+  def show
+    newsletter = RestaurantNewsletter.find(params[:id])
+    @restaurant = newsletter.restaurant
+    @menu_items = newsletter.menu_items
+    @restaurant_answers = newsletter.restaurant_answers
+    @menus = newsletter.menus
+    @promotions = newsletter.promotions
+    @alaminute_answers = newsletter.a_la_minute_answers
+    render :layout => false
   end
 
   def update
