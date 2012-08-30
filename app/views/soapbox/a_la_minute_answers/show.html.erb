@@ -52,7 +52,7 @@
   <%= render :partial => 'soapbox/a_la_minute_questions/answer', :collection => @other_answers, :as => :answer %>
 </div>
 
-</div>
+
 <% content_for :sidebar do -%>
 <%= render :partial => 'soapbox/restaurant_sidebar', :locals => { :restaurant => @answer.responder } %>
 <% end -%>
