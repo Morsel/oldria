@@ -5,6 +5,13 @@ class Restaurants::NewslettersController < ApplicationController
   def index
   end
 
+  # TODO - remove this once the feature is complete, for testing only
+  def create
+    @restaurant.send_newsletter_to_subscribers
+    newsletter = @restaurant.restaurant_newsletters.last
+    redirect_to :action => "show", :id => newsletter.id
+  end
+
   def show
     newsletter = RestaurantNewsletter.find(params[:id])
     @restaurant = newsletter.restaurant
