@@ -15,13 +15,8 @@
 <h2 id="alm-tagline">The latest news on what is happening in restaurants right now</h2>
 
 <% for answer in @answers -%>
-<% div_for answer do %>
-    <h2><%= link_to answer.question, soapbox_a_la_minute_question_path(answer.a_la_minute_question) %></h2>
-    <%= render :partial => 'restaurants/identity', :locals => { :restaurant => answer.responder } %>
-    <p class="answer"><%= answer.answer %></p>
-    <p><span class="datestamp"><%= "Posted #{answer.created_at.strftime("%D")}" %></span> - <%= link_to "Share this entry", soapbox_a_la_minute_answer_path(answer) %></p>
-    <div class="clearfix">&nbsp;</div>
-<% end %>
+		<%= render :partial => 'answer_list',:locals => { :answer => answer } %>
+
 <% end -%>
 
 <%= will_paginate(@answers) %>

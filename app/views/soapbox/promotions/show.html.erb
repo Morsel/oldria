@@ -46,6 +46,18 @@
     <!-- Likes and Tweets END -->
     <div class="clear">&nbsp;</div>
 <% end %>
+<div class="clear"> </div>
+<h3 id="more-answers">A la Minute</h3>
+<div id="answers">
+ <% for answer in @answers -%>
+        <%= render :partial => 'soapbox/a_la_minute_questions/answer_list',:locals => { :answer => answer } %>
+<% end -%>
+</div>
+<div class="clear"> </div>
+<h3 id="more-answers">On the menu</h3>
+<% for menu_item in @menu_items -%>
+  <%= render :partial => "soapbox/menu_items/menu_item", :locals => { :menu_item => menu_item } %>
+<% end -%>
 
 <% content_for :sidebar do -%>
 <%= render :partial => 'soapbox/restaurant_sidebar', :locals => { :restaurant => @promotion.restaurant } %>
