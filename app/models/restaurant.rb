@@ -46,6 +46,9 @@ class Restaurant < ActiveRecord::Base
   include FacebookPageConnect
   include TwitterAuthorization
 
+  include ActionController::UrlWriter
+  default_url_options[:host] = DEFAULT_HOST
+
   default_scope :conditions => {:deleted_at => nil }, :order => "#{table_name}.sort_name"
 
   # primary account manager
@@ -86,6 +89,7 @@ class Restaurant < ActiveRecord::Base
 
   has_many :newsletter_subscriptions, :dependent => :destroy
   has_many :newsletter_subscribers, :through => :newsletter_subscriptions
+  has_many :restaurant_newsletters
   has_many :social_posts
 
   has_many :restaurant_feature_items, :dependent => :destroy
@@ -274,6 +278,30 @@ class Restaurant < ActiveRecord::Base
 
   def send_newsletter_preview_reminder
     UserMailer.deliver_newsletter_preview_reminder(self)
+  end
+
+  def mailchimp_group_name
+    "#{name} in #{city} #{state}"
+  end
+
+  def send_newsletter_to_subscribers
+    # create newsletter
+    newsletter = RestaurantNewsletter.create_with_content(id)
+    # connect to Mailchimp
+    mc = MailchimpConnector.new
+    # create new campaign with content for the restaurant, selecting the correct subscribers
+    campaign_id = \
+    mc.client.campaign_create(:type => "regular",
+                              :options => { :list_id => mc.mailing_list_id,
+                                            :subject => "#{name} Soapbox Newsletter for #{Date.today}",
+                                            :generate_text => true },
+                              :segment_opts => { :match => "all",
+                                                 :conditions => [{ :field => "interests-#{mc.grouping_id}",
+                                                                   :op => "all",
+                                                                   :value => mailchimp_group_name}] },
+                              :content => { :url => restaurant_newsletter_url(self, newsletter) })
+    # send campaign
+    mc.client.campaign_send_now(:cid => campaign_id)
   end
 
   def self.extended_find(keyword)

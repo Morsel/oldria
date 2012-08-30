@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120823175108) do
+ActiveRecord::Schema.define(:version => 20120829203625) do
 
   create_table "a_la_minute_answers", :force => true do |t|
     t.text     "answer"
@@ -952,6 +952,17 @@ ActiveRecord::Schema.define(:version => 20120823175108) do
   end
 
   add_index "restaurant_features", ["restaurant_feature_category_id"], :name => "restaurant_feature_category_id_index"
+
+  create_table "restaurant_newsletters", :force => true do |t|
+    t.integer  "restaurant_id"
+    t.text     "menu_item_ids"
+    t.text     "restaurant_answer_ids"
+    t.text     "menu_ids"
+    t.text     "promotion_ids"
+    t.text     "a_la_minute_answer_ids"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "restaurant_questions", :force => true do |t|
     t.string   "title"

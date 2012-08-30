@@ -25,13 +25,13 @@ class NewsletterSubscription < ActiveRecord::Base
   def add_subscription_to_mailchimp
     unless newsletter_subscriber.opt_out?
       mc = MailchimpConnector.new
-      group_name = "#{restaurant.name} in #{restaurant.city} #{restaurant.state}"
-      unless mc.client.list_interest_groupings(:id => mc.mailing_list_id).to_s.match(/#{group_name}/)
-        mc.client.list_interest_group_add(:id => mc.mailing_list_id, :group_name => group_name)
+      unless mc.client.list_interest_groupings(:id => mc.mailing_list_id).to_s.match(/#{restaurant.mailchimp_group_name}/)
+        mc.client.list_interest_group_add(:id => mc.mailing_list_id, :group_name => restaurant.mailchimp_group_name)
       end
 
       mc.client.list_update_member(:id => mc.mailing_list_id, :email_address => newsletter_subscriber.email,
-                                   :merge_vars => { :groupings => [{ :name => "Your Interests", :groups => group_name}] },
+                                   :merge_vars => { :groupings => [{ :name => "Your Interests",
+                                                                     :groups => restaurant.mailchimp_group_name}] },
                                    :replace_interests => false)
     end
   end
@@ -40,7 +40,7 @@ class NewsletterSubscription < ActiveRecord::Base
     groups = []
     groups << "National Newsletter" if newsletter_subscriber.receive_soapbox_news?
     for subscription in newsletter_subscriber.newsletter_subscriptions
-      groups << "#{subscription.restaurant.name} in #{subscription.restaurant.city} #{subscription.restaurant.state}" unless subscription == self
+      groups << "#{subscription.restaurant.mailchimp_group_name}" unless subscription == self
     end
 
     mc = MailchimpConnector.new
