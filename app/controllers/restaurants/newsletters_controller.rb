@@ -36,7 +36,7 @@ class Restaurants::NewslettersController < ApplicationController
     @menus = @restaurant.menus.all(:order => "updated_at DESC", :limit => 3)
     @promotions = @restaurant.promotions.all(:order => "created_at DESC", :limit => 3)
     @alaminute_answers = @restaurant.a_la_minute_answers.all(:order => "created_at DESC", :limit => 3)
-    render :layout => false
+    render :action => "show", :layout => false
   end
 
   private
