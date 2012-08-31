@@ -28,6 +28,7 @@ Rails::Initializer.run do |config|
   config.gem 'loofah',                :version => "~>0.4.6"
   config.gem 'feedzirra',             :version => "0.0.24"
   config.gem 'preferences',           :version => "~>0.4.1"
+  config.gem "chronic",               :version => "0.6.7"
   config.gem 'whenever',              :lib => false
   config.gem 'delayed_job',           :version => "~>1.8.4"
   config.gem "airbrake",              :version => "~> 3.1.1"
@@ -41,7 +42,6 @@ Rails::Initializer.run do |config|
   config.gem 'bitly',                 :version => "0.7.0"
   config.gem "bcrypt-ruby",           :version => "3.0.1", :lib => "bcrypt"
   config.gem "gibbon",                :version => "0.3.5"
-  config.gem "chronic",               :version => "0.6.7"
 
   # Settings in config/environments/* take precedence over those specified here.
   # Application configuration should go into files in config/initializers
