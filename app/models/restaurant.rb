@@ -40,6 +40,8 @@
 #  newsletter_frequency       :string(255)
 #
 
+require 'chronic'
+
 class Restaurant < ActiveRecord::Base
   apply_addresslogic
   has_subscription
