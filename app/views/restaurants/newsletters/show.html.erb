@@ -332,7 +332,7 @@ text-decoration: none;
 
   <tr>
 
-    <td rowspan="2" width="114">LOGO 114x?</td>
+    <td rowspan="2" width="114"><%= image_tag logo_for(@restaurant).attachment.url(:small) %></td>
     <td width="586"><img src="http://blog.restaurantintelligenceagency.com/images/newsletter/menubar-short.jpg" width="586" height="31" border="0" usemap="#TopMap" style="display:block;" alt="RIA Menu" />
       <map name="TopMap" id="TopMap">
         <area shape="rect" coords="126,0,155,31" href="http://hq.restaurantintelligenceagency.com/" alt="ria" />
@@ -398,7 +398,7 @@ text-decoration: none;
                 <% end %>
             </div>
           </center></td>
-          <td rowspan="5" background="http://blog.restaurantintelligenceagency.com/images/newsletter/otm_bottom.jpg" class="cloud" style="background: #ffffff url(http://blog.restaurantintelligenceagency.com/images/newsletter/otm_bottom.jpg) left;" width="150px">dfas
+          <td rowspan="5" background="http://blog.restaurantintelligenceagency.com/images/newsletter/otm_bottom.jpg" class="cloud" style="background: #ffffff url(http://blog.restaurantintelligenceagency.com/images/newsletter/otm_bottom.jpg) left;" width="150px">
             <table width="100%" border="0" cellspacing="0" cellpadding="10">
               <tr>
                 <td><h3>The Latest</h3></td>
@@ -457,27 +457,6 @@ text-decoration: none;
           </center></td>
         </tr>
         <!-- A LA MINUTE - SECTION END -->
-        <table border="0" cellpadding="0" cellspacing="0" width="700" align="center" style="background: #ffffff url(http://blog.restaurantintelligenceagency.com/images/newsletter/newmenus_newphotos_texture.jpg) left;" background="http://blog.restaurantintelligenceagency.com/images/newsletter/newmenus_newphotos_texture.jpg">
-          <tr>
-            <td>&nbsp;</td>
-          </tr>
-        </table>
-        <table border="0" cellpadding="0" cellspacing="0" width="700" align="center" style="background: #ffffff url(http://blog.restaurantintelligenceagency.com/images/newsletter/newmenus_newphotos_texture.jpg) left;" background="http://blog.restaurantintelligenceagency.com/images/newsletter/newmenus_newphotos_texture.jpg">
-          <tr>
-            <td valign="top"><p style="font-family: georgia,serif; font-size: 12px; text-align: center; font-weight: bold; color: #58A618;"> <a href="http://eepurl.com/dGoUc" target="_blank" style="color: #58A618;">Click here to subscribe if you received this from a friend!</a></p></td>
-          </tr>
-          <tr>
-            <td valign="top"><p style="font-family: georgia,serif; font-size: 10px; text-align: center; color: #58A618;"> <em>&copy; *|CURRENT_YEAR|* *|LIST:COMPANY|* : All Rights Reserved</em><br />
-              You are receiving this email because you opted in at <a href="http://hq.restaurantintelligenceagency.com/" style="color: #58A618;font-weight: normal;text-decoration: underline;" target="_blank">restaurantintelligenceagency.com</a>.<br />
-              <strong>Our mailing address is:</strong> P.O. Box 259618, Chicago, IL 60625<br />
-              *|END:IF|*</p></td>
-          </tr>
-          <tr>
-            <td valign="top"><p style="font-family: georgia,serif; font-size: 10px; text-align: center; color: #58A618;"> &nbsp;<a href="*|UNSUB|*" style="color: #58A618;">unsubscribe from this list</a> | <a href="*|UPDATE_PROFILE|*" style="color: #58A618;">update subscription preferences</a>*|IFNOT:ARCHIVE_PAGE|* | <a href="*|ARCHIVE|*" style="color: #58A618;">view email in browser</a>*|END:IF|*&nbsp;</p></td>
-          </tr>
-        </table>
-      </table></td>
-    </tr>
   <!-- ON THE MENU - SECTION END -->
   <!-- NEWSFEED - SECTION START -->
 <!-- NEWSFEED - SECTION END -->
