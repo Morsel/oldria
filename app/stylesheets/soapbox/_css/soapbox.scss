@@ -2234,6 +2234,7 @@ dl.things dt:after {content: ":"}
 				background-color: $sienna;
 				background-repeat: no-repeat;
 				padding: 8px 20px 8px 30px;
+				background-position:10px 10px;
 				@include border-radius(30px);
 				color: #fff;
 				@include museoslabbold;
