@@ -281,24 +281,47 @@ class Restaurant < ActiveRecord::Base
     "#{name} in #{city} #{state}"
   end
 
+  def next_newsletter_for_frequency
+    case newsletter_frequency
+    when "weekly"
+      Chronic.parse("next week Thursday 12:00am")
+    when "biweekly"
+      Chronic.parse("next week Thursday 12:00am") + 1.week
+    when "monthly"
+      Chronic.parse("next month Thursday 12:00am")
+    end
+  end
+
+  def self.send_newsletters
+    for restaurant in Restaurant.with_premium_account
+      if restaurant.next_newsletter_at < Time.now
+        restaurant.send_later(:send_newsletter_to_subscribers)
+        restaurant.update_attribute(:next_newsletter_at, restaurant.next_newsletter_for_frequency)
+      end
+    end
+  end
+
   def send_newsletter_to_subscribers
-    # create newsletter
-    newsletter = RestaurantNewsletter.create_with_content(id)
-    # connect to Mailchimp
-    mc = MailchimpConnector.new
-    # create new campaign with content for the restaurant, selecting the correct subscribers
-    campaign_id = \
-    mc.client.campaign_create(:type => "regular",
-                              :options => { :list_id => mc.mailing_list_id,
-                                            :subject => "#{name} Soapbox Newsletter for #{Date.today}",
-                                            :generate_text => true },
-                              :segment_opts => { :match => "all",
-                                                 :conditions => [{ :field => "interests-#{mc.grouping_id}",
-                                                                   :op => "all",
-                                                                   :value => mailchimp_group_name}] },
-                              :content => { :url => restaurant_newsletter_url(self, newsletter) })
-    # send campaign
-    mc.client.campaign_send_now(:cid => campaign_id)
+    if newsletter_subscribers.present?
+      # create newsletter
+      newsletter = RestaurantNewsletter.create_with_content(id)
+      # connect to Mailchimp
+      mc = MailchimpConnector.new
+      # create new campaign with content for the restaurant, selecting the correct subscribers
+      campaign_id = \
+      mc.client.campaign_create(:type => "regular",
+                                :options => { :list_id => mc.mailing_list_id,
+                                              :subject => "#{name} Soapbox Newsletter for #{Date.today}",
+                                              :generate_text => true },
+                                :segment_opts => { :match => "all",
+                                :conditions => [{ :field => "interests-#{mc.grouping_id}",
+                                                  :op => "all",
+                                                  :value => mailchimp_group_name}] },
+                                :content => { :url => restaurant_newsletter_url(self, newsletter) })
+      # send campaign
+      mc.client.campaign_send_now(:cid => campaign_id)
+      update_attribute(:last_newsletter_at, Time.now)
+    end
   end
 
   def self.extended_find(keyword)
