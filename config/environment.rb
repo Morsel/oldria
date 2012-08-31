@@ -28,7 +28,6 @@ Rails::Initializer.run do |config|
   config.gem 'loofah',                :version => "~>0.4.6"
   config.gem 'feedzirra',             :version => "0.0.24"
   config.gem 'preferences',           :version => "~>0.4.1"
-  config.gem "chronic",               :version => "0.6.7"
   config.gem 'whenever',              :lib => false
   config.gem 'delayed_job',           :version => "~>1.8.4"
   config.gem "airbrake",              :version => "~> 3.1.1"
