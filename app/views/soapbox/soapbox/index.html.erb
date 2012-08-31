@@ -237,7 +237,6 @@
                     <% @menus.each do |menu| %>
                       <li>
                           <div class="link-area">
-                            <%=menu.name %>
                             <%= link_to content_tag(:span, "quick view", :class => "popup"), menu.pdf_remote_attachment.attachment.url, :class => "view" %>
                             
                             <%= link_to content_tag(:span, menu), menu.pdf_remote_attachment.attachment.url, :class => "download" %>
