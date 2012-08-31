@@ -1,0 +1,38 @@
+
+    <h2>
+    <% if @promotion_type.present? -%>
+        <% link_to soapbox_promotion_path(promotion) do %>
+            <%= "#{promotion.start_date.to_formatted_s(:long)}" %> <%= "- #{promotion.end_date.to_formatted_s(:long)}" if promotion.end_date.present? %>
+        <% end %>
+    <% else -%>
+        <% link_to soapbox_promotion_path(promotion) do %>
+            <%= "#{promotion.title}: #{promotion.start_date.to_formatted_s(:long)}" %> <%= "- #{promotion.end_date.to_formatted_s(:long)}" if promotion.end_date.present? %>
+        <% end %>
+    <% end -%>
+    </h2>
+
+    <!-- AddThis Button BEGIN -->
+    <div class="addthis_toolbox">
+        <script type="text/javascript">
+        var addthis_share = {
+            url: '<%= soapbox_promotion_url(promotion) %>',
+            title: 'Newsfeed - <%= promotion.title %>'
+        }
+        </script>
+        <a href="http://www.addthis.com/bookmark.php?v=250&amp;username=unpluggedria" class="addthis_button">Share</a>
+    </div>
+    <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#username=unpluggedria"></script>
+    <!-- AddThis Button END -->
+
+    <h3><%= promotion.headline %></h3>
+    <%= render :partial => 'restaurants/identity', :locals => { :restaurant => promotion.restaurant } %>
+    <div>
+        <p class="details"><%= simple_format(Loofah::Helpers.sanitize(promotion.details)) %></p>
+        <p><%= link_to promotion.link, promotion.link %></p>
+        <% if promotion.attachment.file? -%>
+        <p><%= link_to promotion.attachment_file_name, promotion.attachment.url %></p>
+        <% end -%>
+        <p><%= promotion.date_description %></p>
+        <p><span class="datestamp"><%= "Posted #{promotion.created_at.strftime("%D")}" %></span> - <%= link_to "Share this entry", soapbox_promotion_path(promotion) %></p>
+    </div>
+    <div class="clear">&nbsp;</div>

@@ -44,15 +44,31 @@
       </div>
     <!-- Likes and Tweets END -->
  </div>   
-<div class="clear">&nbsp;</div>
+ <% unless @promotions.blank?%>
+      <div class="clear">&nbsp;</div>
+      <header id="page-title">
+          <h1>News Feed</h1>
+      </header>
+      <div id="answers">
+        <% for promotion in @promotions -%>
+            <% div_for(promotion) do %>
+                <%= render :partial => 'soapbox/promotions/promotion', :locals => { :promotion => promotion } %>  
+            <% end -%>
+        <% end -%>
+      </div>
+<% end -%>
 
-<h2>Other answers</h2>
-
-<div id="answers">
-  <%= render :partial => 'soapbox/a_la_minute_questions/answer', :collection => @other_answers, :as => :answer %>
-</div>
-
-
+<div class="clear"> </div>
+<% unless @menu_items.blank?%>
+      <header id="page-title">
+          <h1>On The Menu</h1>
+      </header>
+      <div id="answers">
+          <% for menu_item in @menu_items -%>
+            <%= render :partial => "soapbox/menu_items/menu_item", :locals => { :menu_item => menu_item } %>
+          <% end -%>
+       </div>   
+<%end%>
 <% content_for :sidebar do -%>
 <%= render :partial => 'soapbox/restaurant_sidebar', :locals => { :restaurant => @answer.responder } %>
 <% end -%>

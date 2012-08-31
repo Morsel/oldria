@@ -19,7 +19,8 @@
 </div>
 
 <% content_for :sidebar do -%>
-<%= render :partial => 'soapbox/restaurant_sidebar', :locals => { :restaurant => @answers.first.responder } %>
+<%#= render :partial => 'soapbox/restaurant_sidebar', :locals => { :restaurant => @answers.first.responder } %> <!-- TODO  if need to change with  Address side bar -->
+<%= render :partial => 'sidebar' %>
 <% end -%>
 <div class="clear">&nbsp;</div>
 <%= will_paginate(@answers) %>
