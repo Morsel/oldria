@@ -39,3 +39,7 @@ end
 every :tuesday, :at => "12:00pm" do
   runner 'Restaurant.send_newsletter_preview_reminder'
 end
+
+every :thursday, :at => "2:00am" do
+  runner 'Restaurant.send_newsletters'
+end
