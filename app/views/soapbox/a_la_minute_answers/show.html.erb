@@ -8,17 +8,6 @@
 <%= @answer.answer %>
 <% end -%>
 
-<!-- AddThis Button BEGIN -->
-<div class="addthis_toolbox">
-    <%= link_to "Share", "http://www.addthis.com/bookmark.php?v=250&amp;username=unpluggedria", :class => "addthis_button" %>
-</div>
-<%= javascript_include_tag "http://s7.addthis.com/js/250/addthis_widget.js#username=unpluggedria" %>
-<% javascript_tag do %>
-  var addthis_share = {
-    url: '<%= soapbox_a_la_minute_question_url(@question) %>',
-  }
-<% end %>
-<!-- AddThis Button END -->
 
 <div class="a_la_minute_answer">
     <%= render :partial => 'restaurants/identity', :locals => { :restaurant => @answer.responder } %>

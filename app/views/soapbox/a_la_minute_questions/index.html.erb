@@ -1,17 +1,5 @@
 <% title "A la Minute" %>
 
-<!-- AddThis Button BEGIN -->
-<div class="addthis_toolbox">
-    <%= link_to "Share", "http://www.addthis.com/bookmark.php?v=250&amp;username=unpluggedria", :class => "addthis_button" %>
-</div>
-<%= javascript_include_tag "http://s7.addthis.com/js/250/addthis_widget.js#username=unpluggedria" %>
-<% javascript_tag do %>
-  var addthis_share = {
-    url: '<%= soapbox_a_la_minute_questions_url %>',
-  }
-<% end %>
-<!-- AddThis Button END -->
-
 <h2 id="alm-tagline">The latest news on what is happening in restaurants right now</h2>
 
 <% for answer in @answers -%>

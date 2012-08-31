@@ -9,18 +9,7 @@
 <% end -%>
 
 <% div_for(@promotion) do %>
-    <!-- AddThis Button BEGIN -->
-    <div class="addthis_toolbox">
-        <script type="text/javascript">
-        var addthis_share = {
-            url: '<%= soapbox_promotion_url(@promotion) %>',
-            title: 'Newsfeed - <%= @promotion.title %>'
-        }
-        </script>
-        <a href="http://www.addthis.com/bookmark.php?v=250&amp;username=unpluggedria" class="addthis_button">Share</a>
-    </div>
-    <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#username=unpluggedria"></script>
-    <!-- AddThis Button END -->
+    
 
     <h3><%= @promotion.headline %></h3>
     <%= render :partial => 'restaurants/identity', :locals => { :restaurant => @promotion.restaurant } %>
