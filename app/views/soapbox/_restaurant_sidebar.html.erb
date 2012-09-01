@@ -36,50 +36,50 @@
                     <p><%= link_to "@#{restaurant.twitter_username}", "http://twitter.com/#{restaurant.twitter_username}" %></p>
                 </header>
             </li>
+           </ol> 
             <%- end -%>
-        </ol>
-    </aside>
-
-    <aside id="recent-activity">
-        <header>
-            <h1>The Details</h1>
-        </header>
-        <ol id="alm-feed">
-            <li>
-                <header class="feed-item-title">
-                    Cuisine:
-                    <p><%= restaurant.cuisine.name %></p>
-                </header>
-            </li>
-            <li>
-                <header class="feed-item-title">
-                    Metropolitan area:
-                    <p><%= restaurant.metropolitan_area.try(:name) %></p>
-                </header>
-            </li>
-            <li>
-                <header class="feed-item-title">
-                    Region:
-                    <p><%= restaurant.james_beard_region.try(:name) %></p>
-                </header>
-            </li>
-            <li>
-                <header class="feed-item-title">
-                    Opening Date:
-                    <p><%= restaurant.opening_date %></p>
-                </header>
-            </li>
-        </ol><!-- /activity-feed -->
+        
+           
+            <header>
+                <h1>The Details</h1>
+            </header>
+            <ol>
+                <li>
+                    <header class="feed-item-title">
+                        Cuisine:
+                        <p><%= restaurant.cuisine.name %></p>
+                    </header>
+                </li>
+                <li>
+                    <header class="feed-item-title">
+                        Metropolitan area:
+                        <p><%= restaurant.metropolitan_area.try(:name) %></p>
+                    </header>
+                </li>
+                <li>
+                    <header class="feed-item-title">
+                        Region:
+                        <p><%= restaurant.james_beard_region.try(:name) %></p>
+                    </header>
+                </li>
+                <li>
+                    <header class="feed-item-title">
+                        Opening Date:
+                        <p><%= restaurant.opening_date %></p>
+                    </header>
+                </li>
+               </ol> 
+<!-- /activity-feed -->
         <div id="feed-bottom"></div>
         <footer>
             <div id="activity-chooser-all">
                 <span><%= link_to "View #{restaurant.name} &#187;", soapbox_restaurant_path(restaurant), :id => "view-all-questions" %></span>
             </div>
         </footer>
-    </aside>
+
     <!-- Tags  -->
     <% if restaurant.top_tags.present? %>
-    <aside class="recent-activity-class">
+    
         <header>
             <h1>Tags</h1>
         </header>
