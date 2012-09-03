@@ -20,7 +20,8 @@ ActionController::Routing::Routes.draw do |map|
 
   map.directory 'directory', :controller => 'directory', :action => 'index'
   map.restaurant_directory 'directory/restaurants', :controller => 'directory', :action => 'restaurants'
-
+  map.user_restaurants 'directory/current_user_restaurants', :controller => 'directory', :action => 'current_user_restaurants'
+  map.get_restaurant_url 'directory/get_restaurant_url', :controller => 'directory', :action => 'get_restaurant_url'
   # the callback for cloudmailin
   map.resource :cloudmail, :only => :create 
 
