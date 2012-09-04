@@ -22,7 +22,9 @@
       </tr>
     </thead>
     <tbody>
-        
+      <%        
+        @featured_profiles.sort! { |a,b| a.feature.name.downcase <=> b.feature.name.downcase }
+      %>
       <% @featured_profiles.each do |profile_row| %>
         <tr class="<%= cycle('odd','even', :name => 'featured_profiles') %>">
           <td ><%= profile_row.start_date.try(:strftime,"%m/%d/%y") %></td>
