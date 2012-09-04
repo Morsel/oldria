@@ -134,7 +134,7 @@ ActionController::Routing::Routes.draw do |map|
   }, :shallow => true do |users|
     users.resource :profile, :only => ['create', 'edit', 'update'],
                    :controller => 'profiles',
-                   :member => { :edit_front_burner => :get, :edit_btl => :get },
+                   :member => { :edit_front_burner => :get, :edit_btl => :get,:add_role =>:post ,:add_role_form =>:get},
                    :collection => { :toggle_publish_profile => :get } do |p|
       p.resources :culinary_jobs
       p.resources :nonculinary_jobs

@@ -481,7 +481,16 @@ $('#metropolitan_areas_state_state_id').change(function(){
           dataType: 'json'
         });
     }
-  })
+  }) /*End select_restaurant onchange*/
+   $('.add-btl').colorbox({rel:'gal'});
+   
+ /* $('.add-btl').click(function(e){
+    e.preventDefault();
+    var id = $(this).attr('id')
+
+    $.colorbox({href:"/directory/current_user_restaurants?clicked="+id});   
+
+  })*//* End model click*/
 // end $(document).ready
 });
 

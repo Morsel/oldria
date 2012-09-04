@@ -1,46 +1,60 @@
 <nav id="navContainer">
-    <ul>
-        <li><%= link_to "Account", edit_mediafeed_media_user_path(current_user) %></li>
-        <li><%= link_to "Messages", mediafeed_media_requests_path %></li>
-        <li><%= link_to "Send Media Request", new_mediafeed_media_request_path %></li>
+     <ul>
+        <li><%= active_link_to "edit my profile", edit_user_profile_path(current_user), :title => "edit your profile" %></li>
+        <li><%= active_link_to "edit my restaurant", restaurants_path, :title => "edit your restaurants" %></li>
+        <li><%= active_link_to "read my messages", messages_path, :title => "messages" %></li>
+        <li><%= active_link_to "answer today's questions", front_burner_path, :title => "front burner" %></li>
     </ul>
     <ul id="user_nav">
         <li><%= active_link_to "My Messages", media_requests_messages_path %></li>
-
         <!-- Post to newsfeed -->
          <% if current_user.restaurants.blank? %>
             <li><%= active_link_to "new restaurant", new_restaurant_path, :title => "add new restaurants" %>
             <li><%= active_link_to "Post to ALM", new_restaurant_path %></li>
             <li><%= active_link_to "Post to OTM", new_restaurant_path %></li>
-            <li><%= active_link_to "Post to BTL", profile_questions_path ,:titke=>"post to Behind the Line"%></li>
-            <li><%= active_link_to "Edit My Profile", edit_user_profile_path(current_user) %></li>
+             <!-- Post to BTL -->
+             <% if current_user.btl_enabled? %>
+                 <li><%= active_link_to "Post to BTL", edit_user_profile_path(current_user,:anchor => "profile-btl") ,:titke=>"post to Behind the Line"    %></li>
+             <%else%>       
+                <li><%= active_link_to "Post to BTL", add_role_form_user_profile_path(current_user,:anchor => "profile-btl") ,:titke=>"post to Behind the Line" ,:class=>"add-btl"   %></li>
+             <%end%>      
+            <!-- END Post to BTL -->
+            <li><%= active_link_to "Edit My Profile", edit_user_profile_path(current_user,:anchor => "profile-account") %></li>
             <li><%= active_link_to "Edit My Restaurant", new_restaurant_path, :class => "last" %></li>
 
          <%elsif current_user.restaurants.count == 1%>       
             <li><%= active_link_to "Post to newsfeed", new_restaurant_promotion_path(current_user.restaurants.first), :title => "Post to newsfeed" %>
             <li><%= active_link_to "Post to ALM", bulk_edit_restaurant_a_la_minute_answers_path(current_user.restaurants.first) , :title => "Post to ALM" %></li>
              <li><%= active_link_to "Post to OTM", new_restaurant_menu_item_path(current_user.restaurants.first) %></li>
-             <li><%= active_link_to "Post to BTL", profile_questions_path ,:titke=>"post to Behind the Line"%></li>
+            <!-- Post to BTL -->
+             <% if current_user.btl_enabled? %>
+                 <li><%= active_link_to "Post to BTL", edit_user_profile_path(current_user,:anchor => "profile-btl") ,:titke=>"post to Behind the Line"    %></li>
+             <%else%>       
+                <li><%= active_link_to "Post to BTL", add_role_form_user_profile_path(current_user,:anchor => "profile-btl") ,:titke=>"post to Behind the Line" ,:class=>"add-btl"   %></li>
+             <%end%>      
+            <!-- END Post to BTL -->
              <li><%= active_link_to "Edit My Profile", edit_user_profile_path(current_user) %></li>
              <li><%= active_link_to "Edit My Restaurant", edit_restaurant_path(current_user.restaurants.first), :class => "last" %></li>
 
-         <%else%>               
-            <% @restaurant  ||= current_user.restaurants.first %>
-            <li><%= active_link_to "Post to newsfeed", new_restaurant_promotion_path(@restaurant), :title => "Post to newsfeed" ,:class=>"restaurants-model",:id=>"dashboard_newsfeed" %>
-            <li><%= active_link_to "Post to ALM",bulk_edit_restaurant_a_la_minute_answers_path(@restaurant)  , :title => "Post to ALM", :class=>"restaurants-model",:id=>"dashboard_alm" %></li>
+         <%else%>    
+           
+            <li><%= active_link_to "Post to newsfeed", "#", :title => "Post to newsfeed" ,:class=>"restaurants-model",:id=>"dashboard_newsfeed" %>
+            <li><%= active_link_to "Post to ALM","#"  , :title => "Post to ALM", :class=>"restaurants-model",:id=>"dashboard_alm" %></li>
 
-            <li><%= active_link_to "Post to OTM", new_restaurant_menu_item_path(@restaurant) , :class=>"restaurants-model",:id=>"dashboard_otm"%></li>
-            <li><%= active_link_to "Post to BTL", profile_questions_path ,:titke=>"post to Behind the Line"%></li>
+            <li><%= active_link_to "Post to OTM", "#" , :class=>"restaurants-model",:id=>"dashboard_otm"%></li>
+             <!-- Post to BTL -->
+             <% if current_user.btl_enabled? %>
+                 <li><%= active_link_to "Post to BTL", edit_user_profile_path(current_user,:anchor => "profile-btl") ,:titke=>"post to Behind the Line"    %></li>
+             <%else%>       
+                <li><%= active_link_to "Post to BTL", add_role_form_user_profile_path(current_user,:anchor => "profile-btl") ,:titke=>"post to Behind the Line" ,:class=>"add-btl"   %></li>
+             <%end%>      
+            <!-- END Post to BTL -->
+
             <li><%= active_link_to "Edit My Profile", edit_user_profile_path(current_user) %></li>
-            <li><%= active_link_to "Edit My Restaurant", edit_restaurant_path(@restaurant), :class => "last restaurants-model",:id=>"dashboard_restaurant" %></li>
+            <li><%= active_link_to "Edit My Restaurant", "#", :class => "last restaurants-model",:id=>"dashboard_restaurant" %></li>
 
          <%end%><!-- End Post to newsfeed -->
-        
-        
 
-       
-        
-        
         
     </ul>
 </nav>

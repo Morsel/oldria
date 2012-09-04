@@ -4326,10 +4326,10 @@ hgroup h5 span {
 	}
 }
 
-#color-box-restaurant{
+#color-box-restaurant,#add-role{
 	min-width:150px;
 	margin:30px;
- select{
+ 	select{
 		background: none repeat scroll 0 0 #FFFFFF;
 	  border: 1px solid #BFBFBF;
 	  display: block;
@@ -4349,4 +4349,9 @@ hgroup h5 span {
 #color-box-restaurant-msg{
 	display:none;
 	margin:30px;
+}
+#add-role{
+	width:700px;
+	select{width:55%;}
+	input{width:53%;}
 }

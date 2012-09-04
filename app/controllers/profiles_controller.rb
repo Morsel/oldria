@@ -51,6 +51,9 @@ class ProfilesController < ApplicationController
     end
   end
 
+  def add_role_form
+    render :partial => "profiles/add_role_form" 
+  end  
   protected
 
   def find_user
