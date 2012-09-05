@@ -47,19 +47,20 @@
                 <li>
                     <header class="feed-item-title">
                         Cuisine:
-                        <p><%= restaurant.cuisine.name %></p>
+
+                        <p><%= link_to restaurant.cuisine.name, soapbox_restaurant_directory_path({:cuisine_id=>restaurant.cuisine}) %></p>
                     </header>
                 </li>
                 <li>
                     <header class="feed-item-title">
                         Metropolitan area:
-                        <p><%= restaurant.metropolitan_area.try(:name) %></p>
+                        <p><%= link_to restaurant.metropolitan_area.try(:name), soapbox_restaurant_directory_path({:metropolitan_area_id=>restaurant.metropolitan_area.try(:id)}) %></p>
                     </header>
                 </li>
                 <li>
                     <header class="feed-item-title">
                         Region:
-                        <p><%= restaurant.james_beard_region.try(:name) %></p>
+                        <p><%= link_to restaurant.james_beard_region.try(:name), soapbox_restaurant_directory_path({:james_beard_region_id=>restaurant.james_beard_region.try(:id)}) %></p>
                     </header>
                 </li>
                 <li>

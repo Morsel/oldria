@@ -31,7 +31,19 @@ class Soapbox::SoapboxController < ApplicationController
   end
 
   def restaurant_directory
-    @restaurants = Restaurant.activated_restaurant.with_premium_account
+
+    if params[:cuisine_id]
+      @cuisine = Cuisine.find(params[:cuisine_id])
+      @restaurants = Restaurant.activated_restaurant.with_premium_account.cuisine_id_eq(params[:cuisine_id]).all.uniq
+    elsif params[:metropolitan_area_id]
+      @metro_area = MetropolitanArea.find(params[:metropolitan_area_id])
+      @restaurants = Restaurant.activated_restaurant.with_premium_account.metropolitan_area_id_eq(params[:metropolitan_area_id]).all.uniq
+    elsif params[:james_beard_region_id]
+      @region = JamesBeardRegion.find(params[:james_beard_region_id])
+      @restaurants = Restaurant.activated_restaurant.with_premium_account.james_beard_region_id_eq(params[:james_beard_region_id]).all.uniq
+    else      
+      @restaurants = Restaurant.activated_restaurant.with_premium_account
+    end
     @use_search = true
     @no_sidebar = true
     render :template => "directory/restaurants"
