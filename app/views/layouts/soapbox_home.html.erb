@@ -105,31 +105,67 @@
       <%= yield %>
     </div>  <!-- End main -->
     <footer id="footer">
-    <div id="footer-container">
-      <h1 id="footer-logo">
-        Soapbox: Soapbox is a product of RIA
-      </h1>
-      <div id="legal">
-        <p>&copy; 2012 <a href="http://www.restaurantintelligenceagency.com/">Restaurant Intelligence Agency</a>. All Rights Reserved.</p>
-        <nav id="footer-links">
-          <a href="/soapbox/about">About</a>|
-          <a href="http://www.restaurantintelligenceagency.com">RIA HQ</a>|
-          <!-- <a href="http://soapbox.restaurantintelligenceagency.com/soapbox/products">Products</a>| -->
-          <a href="/soapbox/privacy">Privacy</a>|
-          <a href="/soapbox/help">Help</a>
-          <a href="/soapbox/contact">Contact</a>
-        </nav>
-      </div><!-- /legal -->
-      <div class="social-media-links">
-        <p id="twitter-link">Get Daily Dining Updates for Chicago <a href="http://twitter.com/TeamRIA_Chi">@TeamRIA_Chi</a></p>
-        <p><%= mail_to "ellen@restaurantintelligenceagency.com", "Help Us Start a Daily Dining Newsletter in Your City", :subject => "Daily Dining Newsletter in My City" %></p>
-      </div>
-      <div class="social-media-links last">
-        <p id="facebook-link"><a href="http://www.facebook.com/RestaurantIntelligenceAgency">Check us out on Facebook</a></p>
-      </div>
-    </div><!-- /footer-container -->
-  </footer>
+      <%= render 'layouts/soapbox_footer' %>    
+    </footer>
 
+<style>
+body{
 
+  background-size: 80% !important;
+}
+.footerBox {
+    border-right: 1px dashed #FFFFFF;
+    float: left;
+    padding-left: 30px;
+    text-transform: uppercase;
+    width: 209px;
+    height: 160px;
+}
+.copyright {    
+    text-align: center;
+    font-family: sans-serif;
+    font-size: 13px;
+    text-align: center;
+}
+.clearfix:after {
+    clear: both;
+}
+.clearfix:before, .clearfix:after {
+    content: "";
+    display: table;
+}
+.clearfix:before, .clearfix:after {
+    content: "";
+    display: table;
+}
+.footerBox h4 {
+    color: #FFFFFF;
+    font-family: sans-serif;
+    font-size: 20px;
+    letter-spacing: 3px;
+    margin-bottom: 10px;
+    font-weight: normal;
+}
+#footer-container {
+    height: auto;
+    padding-bottom: 55px;
+    width: 720px;
+}
+
+.footerBox ul li {
+    margin-bottom: 5px;
+}
+.footerBox ul li a {
+    color: #FFF;
+    font-weight: bold;
+    margin-bottom: 5px;
+    text-decoration: none !important;
+    font-family: sans-serif;
+    line-height: 1.231
+}
+.footerBox ul li a:hover {
+  color: #000 !important;
+}
+</style>
 </body>
 </html>

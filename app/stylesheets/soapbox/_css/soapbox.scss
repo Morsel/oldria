@@ -1332,8 +1332,9 @@ body,html,#container,#main,#content,#inside{
 } /*participate */
 
 #footer{
-	background:url(/images/soapbox/bg-footer.png) repeat-x;
-	border-bottom: 10px solid #488CAA;
+	background:$body-bg url(/images/soapbox/bg-body.jpg) repeat-x 50% 100% !important;	
+	background-size: 80% auto !important;
+	height: 275px;
 }
 
 #footer-logo{
@@ -3050,4 +3051,71 @@ dl.things dt:after {content: ":"}
 		text-align: right;  	
   }
 }
+body{
+
+  background-size: 80% !important;
+}
+.footerBox {
+    border-right: 1px dashed #FFFFFF;
+    float: left;
+    padding-left: 30px;
+    text-transform: uppercase;
+    width: 209px;
+    height: 160px;
+}
+.copyright {    
+    text-align: center;
+    font-family: sans-serif;
+    font-size: 13px;
+    text-align: center;
+}
+.clearfix:after {
+    clear: both;
+}
+.clearfix:before, .clearfix:after {
+    content: "";
+    display: table;
+}
+.clearfix:before, .clearfix:after {
+    content: "";
+    display: table;
+}
+
+#footer-container {
+    height: auto;
+    padding-bottom: 55px;
+    width: 720px;
+}
+
+.footerBox {
+    border-right: 1px dashed #FFFFFF;
+    float: left;
+    padding-left: 30px;
+    text-transform: uppercase;
+    width: 209px;
+    height: 160px;
+	 h4{
+  	color: #FFFFFF;
+    font-family: sans-serif;
+    font-size: 20px;
+    letter-spacing: 3px;
+    margin-bottom: 10px;
+    font-weight: normal;
+  }
+  ul li{
+  			margin-bottom: 5px; 
+  		a {
+		    color: #FFF;
+		    font-weight: bold;
+		    margin-bottom: 5px;
+		    text-decoration: none !important;
+		    font-family: sans-serif;
+		    line-height: 1.231;
+		    &:hover{
+		    	color: #000 !important;
+		    }
+		}
+	}
+}
+
 
