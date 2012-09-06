@@ -14,7 +14,7 @@
         <% end %>
 
         <% f.inputs :name => "Details", :class=> "editing" do %>
-            <%= f.input :website, :hint => "Include the full URL starting with http://" %>
+            <%= f.input :website %>
             <%= f.input :metropolitan_area, :as => :select, :collection => MetropolitanArea.all %>
             <%= f.input :james_beard_region, :as => :select, :collection => JamesBeardRegion.all %>
             <%= f.input :cuisine, :as => :select, :collection => Cuisine.all %>
