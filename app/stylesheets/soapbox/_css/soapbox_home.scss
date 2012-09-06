@@ -20,6 +20,7 @@ body{
  	font:11px/14px 'Museo300Regular',Arial,sans-serif;
 	background:$body-bg url(/images/soapbox/bg-body.jpg) repeat-x 50% 100% !important;
 	color:$font-color;
+	margin-bottom:40px;
 }
 a{
 	text-decoration:underline;
@@ -1346,6 +1347,6 @@ body{
 }
 #footer-container {
     height: auto;
-    padding-bottom: 55px;
+    padding-bottom: 21px;
     width: 720px;
 }
