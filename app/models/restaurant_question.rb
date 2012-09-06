@@ -84,11 +84,39 @@ class RestaurantQuestion < ActiveRecord::Base
   def latest_soapbox_answer
     restaurant_answers.from_premium_restaurants.first(:order => "created_at DESC")
   end
+   # Send an email to everyone who hasn't responded but could
+  def notify_users!
+    for user in restaurant_user_without_answers
+      UserMailer.deliver_answerable_message_notification(self, user)
+    end
+  end
 
+  def email_title
+    "Behind the Line"
+  end
+
+  def short_title
+    "btl"
+  end
+
+  def email_body
+    title
+  end
+
+  def restaurant_user_without_answers
+    ids = self.restaurant_answers.map(&:restaurant_id)
+    if ids.present?
+      Restaurant.all.map { |r| r.managers.all(:conditions => ["users.id NOT IN (?)", ids]) }.flatten.uniq
+    else
+      Restaurant.all.map { |r| r.managers.all }.flatten.uniq
+    end
+  end
   private
   
   def update_pages_description
     self.pages_description = self.question_pages.map(&:restaurant_feature_page).map(&:name).to_sentence
   end
+
+  
 
 end
