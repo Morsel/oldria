@@ -85,7 +85,7 @@ class RestaurantQuestion < ActiveRecord::Base
     restaurant_answers.from_premium_restaurants.first(:order => "created_at DESC")
   end
    # Send an email to everyone who hasn't responded but could
-  def notify_users!
+  def notify_users!    
     for user in restaurant_user_without_answers
       UserMailer.deliver_answerable_message_notification(self, user)
     end
@@ -106,9 +106,9 @@ class RestaurantQuestion < ActiveRecord::Base
   def restaurant_user_without_answers
     ids = self.restaurant_answers.map(&:restaurant_id)
     if ids.present?
-      Restaurant.all.map { |r| r.managers.all(:conditions => ["users.id NOT IN (?)", ids]) }.flatten.uniq
+      Restaurant.all.map { |r| r.manager unless ids.include?(r.manager.id) }.flatten.uniq #r.managers.all(:conditions => ["users.id NOT IN (?)", ids]) 
     else
-      Restaurant.all.map { |r| r.managers.all }.flatten.uniq
+      Restaurant.all.map { |r| r.manager }.flatten.uniq
     end
   end
   private
