@@ -1020,7 +1020,12 @@ img{
 	line-height:16px;
 	color:#474f80;
 }
-.add-info p{margin:0;}
+.add-info p{
+	margin:0;
+	a{
+		color:#CB4827;
+	}
+}
 /* hide original element */
 .jcf-hidden {
 	display: block !important;
@@ -1307,6 +1312,7 @@ body{
     font-family: sans-serif;
     font-size: 13px;
     text-align: center;
+    line-height:14px;
 }
 .clearfix:after {
     clear: both;
@@ -1347,6 +1353,7 @@ body{
 }
 #footer-container {
     height: auto;
-    padding-bottom: 21px;
+    padding-bottom: 12px !important;
     width: 720px;
 }
+#footnotes_debug{display: none;}

@@ -1334,7 +1334,7 @@ body,html,#container,#main,#content,#inside{
 #footer{
 	background:$body-bg url(/images/soapbox/bg-body.jpg) repeat-x 50% 100% !important;	
 	background-size: 80% auto !important;
-	height: 275px;
+	height: 329px;
 }
 
 #footer-logo{
@@ -3068,6 +3068,7 @@ body{
     font-family: sans-serif;
     font-size: 13px;
     text-align: center;
+    line-height:14px;
 }
 .clearfix:after {
     clear: both;
@@ -3083,8 +3084,9 @@ body{
 
 #footer-container {
     height: auto;
-    padding-bottom: 55px;
-    width: 720px;
+    padding-bottom: 0px;
+    width: 721px;
+    padding-top:99px;
 }
 
 .footerBox {
@@ -3099,11 +3101,11 @@ body{
     font-family: sans-serif;
     font-size: 20px;
     letter-spacing: 3px;
-    margin-bottom: 10px;
+    margin-bottom: 5px;
     font-weight: normal;
   }
   ul li{
-  			margin-bottom: 5px; 
+  			margin-bottom: 4px; 
   		a {
 		    color: #FFF;
 		    font-weight: bold;
