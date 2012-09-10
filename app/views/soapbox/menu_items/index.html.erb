@@ -15,5 +15,9 @@
      <p>Sorry, nothing to display</p>
 <% end %>
 <div class="clear">&nbsp;</div>
-
+<% unless @cloud_keywords.blank?%>
+	<% content_for :sidebar do -%>	
+		<%= render :partial => 'soapbox/keywords_cloud' %>
+	<% end -%>
+<% end -%>
 <%= will_paginate(@menu_items) unless @menu_items.count < 1 %>

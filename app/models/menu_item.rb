@@ -99,6 +99,19 @@ class MenuItem < ActiveRecord::Base
     restaurant.send_at(post_to_facebook_at, :post_to_facebook_page, post_attributes)
   end
 
+  def self.todays_cloud_keywords            
+    MenuItem.all(:include=> :otm_keywords,:conditions=>["created_at > DATE(?) ",(Time.now - 24.hours)])
+  end
+
+  def self.filter_cloud_keywords(from=nil,to=nil)
+      unless (to.nil?)
+        MenuItem.all(:joins=> :otm_keywords,:conditions=>["menu_items.created_at < DATE(?) and  menu_items.created_at > DATE(?)",(Time.now - from), (Time.now - to)],:group=>"otm_keywords.name",:limit=>5)
+      else
+        MenuItem.all(:joins=> :otm_keywords,:conditions=>["menu_items.created_at < DATE(?) ",(Time.now - from)],:group=>"otm_keywords.name",:limit=>5) 
+      end  
+  end
+
+ 
   private
 
   def crosspost
