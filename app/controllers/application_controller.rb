@@ -18,6 +18,7 @@ class ApplicationController < ActionController::Base
   helper_method :current_user
   helper_method :mediafeed?
   helper_method :soapbox?
+  helper_method :heatmap
 
   rescue_from CanCan::AccessDenied do
     if current_user
