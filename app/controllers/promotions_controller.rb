@@ -15,8 +15,9 @@ class PromotionsController < ApplicationController
   end
 
   def create
-    @promotion = @restaurant.promotions.build(params[:promotion])
+    @promotion = @restaurant.promotions.build(params[:promotion])    
     if @promotion.save
+       @promotion.notify_newsfeed_request!       
       flash[:notice] = "Your promotion has been created"
       redirect_to :action => "new"
     else

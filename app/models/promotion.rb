@@ -116,6 +116,9 @@ class Promotion < ActiveRecord::Base
     soapbox_promotion_url(self)
   end
 
+  def notify_newsfeed_request!      
+     UserMailer.deliver_admin_notification(self, restaurant.manager)      
+  end  
   private
 
   def crosspost
