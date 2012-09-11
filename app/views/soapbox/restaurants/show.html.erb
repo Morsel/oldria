@@ -2,7 +2,7 @@
 <div id="restaurant_profile_view" class="clear clearfix">
 
   <%= render 'restaurant_header' %>
-
+<br/>
   <div class="media clear clearfix">
 
     <div id="primary_photo" class="photos">
@@ -15,7 +15,7 @@
       <h2>Menus</h2>
       <% if @restaurant.menus.any? -%>
         <ul>
-          <%= render :partial => 'menus/menu', :collection => @restaurant.menus.by_position.all(:limit => 3) %>
+          <%= render :partial => 'menus/menu', :collection => @restaurant.menus.by_position.all(:limit => 5) %>
         </ul>
       <% else -%>
         <p>There are no menus available at this time.</p>
@@ -25,14 +25,20 @@
   </div><!-- .media -->
 
   <% if @restaurant.top_tags.any? %>
-  <div class="top-tags clear clearfix">
+  <div class="top-tags clear clearfix no-border-bottom">
     <h2>Top 15 Tags</h2>
-    <ul class="tags">
+    <ul class="tags ">
         <% for tag in @restaurant.top_tags %>
         <li><%= link_to h(tag.value), soapbox_feature_path(tag)  %></li>
         <% end %>
     </ul>
   </div><!-- .top-tags -->
+  <% end %>
+  <% if @restaurant.fact_sheet.info_exists? %>
+    <div id="extended_profile_container" class="clear">
+      <a href="#extended_profile" class="showit">View Restaurant Fact Sheet <em>(Parking &amp; Directions, Pricing, Hours, etc)</em></a>
+      <%= render 'restaurant_fact_sheets/fact_sheet', :fact_sheet => @restaurant.fact_sheet %>
+    </div><!-- #extended_profile_container -->
   <% end %>
 
   <!-- OTM and News FEED -->
@@ -102,12 +108,7 @@
   </div><!-- .accolades -->
   <% end %>
 
-  <% if @restaurant.fact_sheet.info_exists? %>
-    <div id="extended_profile_container" class="clear">
-      <a href="#extended_profile" class="showit">View Restaurant Fact Sheet <em>(Parking &amp; Directions, Pricing, Hours, etc)</em></a>
-      <%= render 'restaurant_fact_sheets/fact_sheet', :fact_sheet => @restaurant.fact_sheet %>
-    </div><!-- #extended_profile_container -->
-  <% end %>
+
 
   
 
