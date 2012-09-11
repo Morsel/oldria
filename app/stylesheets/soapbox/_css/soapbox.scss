@@ -2229,7 +2229,7 @@ dl.things dt:after {content: ":"}
 	}
 	header {
 		border-bottom: 1px dotted #ddd;
-		padding: 0 0 10px 0;
+		padding: 0;
 		#restaurant_actions {
 			width: 166px;
 			float: right;
@@ -2290,28 +2290,10 @@ dl.things dt:after {content: ":"}
 		h1 {
 			font-size: 24px;
 			color: #333;
+			margin: 0 !important;
+			padding-top: 10px;
 		}
-		#restaurant_meta {
-			float: left;
-			width:300px;
-			.address {
-				line-height: 17px;
-			}
-			.premium {
-				z-index: 1000;
-				margin: -15px 0 10px 0;
-				padding: 0;
-				p {
-					display: inline-block;
-					font-size: 10px;
-					font-family: verdana, arial, sans-serif;
-					margin: 0;
-					padding: 1px 5px;
-					background-color:#f5f4f2;
-					color: #8e8366;
-				}
-			}
-		}
+		
 	}
 	.manager_and_facts, .account_contact, .account_social {
 	  float: left;
@@ -2572,7 +2554,29 @@ dl.things dt:after {content: ":"}
   }
 
 } /* ## ---- end of restaurant_profile_view ----- */
-
+#restaurant_meta {
+			float: left;
+			padding-bottom: 10px;
+			padding-top: 5px;
+			width: 80%;
+			.address {
+				line-height: 17px;
+			}
+			.premium {
+				z-index: 1000;
+				margin: -15px 0 10px 0;
+				padding: 0;
+				p {
+					display: inline-block;
+					font-size: 10px;
+					font-family: verdana, arial, sans-serif;
+					margin: 0;
+					padding: 1px 5px;
+					background-color:#f5f4f2;
+					color: #8e8366;
+				}
+			}
+		}
 #a_la_minute {
   @include column(16);
 	#alm-title {
@@ -3143,4 +3147,8 @@ body{
   	color:#FFF !important;
   	text-decoration: none;
   }
+}
+.no-border-bottom
+{
+	border-bottom: 0px !important;
 }
