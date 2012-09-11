@@ -22,10 +22,8 @@
     <h1 id="name"><%= restaurant_link(@restaurant) %></h1>
 
     <div id="restaurant_meta" class="">
-        <p class="address"><%= @restaurant.address_parts.join("<br />") %></p>
-        <p>
-            Metropolitan Area: <%=h @restaurant.metropolitan_area.try(:name) %><br/>
-            Region: <%=h @restaurant.james_beard_region.try(:name) %>
-        </p>
+    <% dl_if(!@restaurant.description.blank?, :class => "list_item", :id => "description") do %>   
+      <dd><%= @restaurant.description %></dd>
+    <% end %>
     </div><!-- /restaurant_meta -->
 </header>
