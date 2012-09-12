@@ -2,7 +2,7 @@
     <div id="restaurant_details">
         <div class="avatar">
             <% if restaurant.logo && restaurant.logo.attachment? -%>
-            <%= link_to(image_tag(restaurant.logo.attachment.url(:small), :width => 'auto', :height => 'auto'),soapbox_restaurant_path(restaurant) )%>
+            <%= link_to(image_tag(restaurant.logo.attachment.url(:restaurant_logo), :width => 215),soapbox_restaurant_path(restaurant) )%>
             <% end -%>
         </div>
     </div>
