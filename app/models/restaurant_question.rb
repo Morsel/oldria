@@ -87,7 +87,9 @@ class RestaurantQuestion < ActiveRecord::Base
    # Send an email to everyone who hasn't responded but could
   def notify_users!    
     for user in restaurant_user_without_answers
-      UserMailer.deliver_answerable_message_notification(self, user)
+      unless user.nil? # TODO Identify why giving NoMethodError: undefined method `cloudmail_id' for nil:NilClass
+        UserMailer.deliver_answerable_message_notification(self, user)
+      end  
     end
   end
 
@@ -104,9 +106,9 @@ class RestaurantQuestion < ActiveRecord::Base
   end
 
   def restaurant_user_without_answers
-    ids = self.restaurant_answers.map(&:restaurant_id)
+    ids = self.restaurant_answers.map(&:restaurant_id)    
     if ids.present?
-      Restaurant.all.map { |r| r.manager unless ids.include?(r.manager.id) }.flatten.uniq #r.managers.all(:conditions => ["users.id NOT IN (?)", ids]) 
+      Restaurant.all.map { |r| r.manager unless ids.include?(r.id) }.flatten.uniq #r.managers.all(:conditions => ["restaurants.id NOT IN (?)", ids]) 
     else
       Restaurant.all.map { |r| r.manager }.flatten.uniq
     end
