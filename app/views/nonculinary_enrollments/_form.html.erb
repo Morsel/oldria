@@ -4,13 +4,13 @@
     <%= f.input :nonculinary_school %>
 
   <% if action_name != 'edit' %>
-    <p>
-      <a href="#school_fields" class="showit">
-        We don't have your school listed? You can add it below
-      </a>
-    </p>
+    
+    <% if !@nonculinary_enrollment.errors.first.nil? && @nonculinary_enrollment.errors.first.include?("nonculinary_school") %>
+    <div id="school_fields" class="display-none">
+     <%else%>
+     <div id="school_fields">
+     <%end%>
 
-    <div id="school_fields">
       <% f.semantic_fields_for :nonculinary_school do |school| %>
         <%= school.input :name, :label => 'School Name' %>
         <%= school.input :city, :input_html => {:class => 'span-5'},
@@ -20,6 +20,11 @@
         <%= school.input :country, :wrapper_html => {:class => 'clear'} %>
       <% end %>
     </div>
+    <p>
+      <a href="#school_fields" class="showit">
+        We don't have your school listed? You can add it below
+      </a>
+    </p>
   <% end %>
 
     <li class="date optional">
