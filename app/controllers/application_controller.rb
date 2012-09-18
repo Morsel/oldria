@@ -276,5 +276,9 @@ class ApplicationController < ActionController::Base
       a.last_name.downcase <=> b.last_name.downcase
     }
   end
+
+  def is_profile_not_completed? user
+     !user.avatar? || user.profile.specialties.blank? || user.profile.cuisines.blank?
+  end  
   
 end
