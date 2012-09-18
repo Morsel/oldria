@@ -10,7 +10,7 @@
 #
 
 class RestaurantFeatureCategory < ActiveRecord::Base
-  has_many :restaurant_features
+  has_many :restaurant_features ,:order=>"value asc"
   belongs_to :restaurant_feature_page
 
   validates_presence_of :name
