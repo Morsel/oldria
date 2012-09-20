@@ -1303,8 +1303,7 @@ img{
 #footnotes_debug {display: none;}
 
 body{
-
-  background-size: 80% !important;
+  background-size: 80% 12% !important;
 }
 
 .copyright {    
@@ -1325,6 +1324,7 @@ body{
     border-right: 1px dashed #FFFFFF;
     float: left;
     padding-left: 30px;
+    padding-top:6px;
     text-transform: uppercase;
     width: 209px;
     height: 160px;
@@ -1352,8 +1352,8 @@ body{
 	}
 }
 #footer-container {
-    height: auto;
-    padding-bottom: 12px !important;
+    clear:both;
     width: 720px;
+    padding-bottom: 60px
 }
 #footnotes_debug{display: none;}
