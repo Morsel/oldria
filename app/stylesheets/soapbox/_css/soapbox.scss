@@ -1332,14 +1332,9 @@ body,html,#container,#main,#content,#inside{
 } /*participate */
 
 #footer{
-<<<<<<< HEAD
-	background:url(/images/soapbox/bg-footer.png) repeat-x;
-	border-bottom: 10px solid #488CAA;
-=======
 	background:$body-bg url(/images/soapbox/bg-body.jpg) repeat-x 50% 100% !important;	
 	background-size: 80% auto !important;
 	height: 329px;
->>>>>>> 2b7836a... Changed some css for footer alignment
 }
 
 #footer-logo{
