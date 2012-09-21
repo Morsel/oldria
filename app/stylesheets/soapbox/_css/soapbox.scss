@@ -1193,6 +1193,18 @@ body,html,#container,#main,#content,#inside{
 				}
 
 			}
+			header{
+				p{
+					a{
+						font-size:12px !important;
+						&:hover {
+							color: #fff;
+							text-decoration: underline;
+					}
+					}	
+
+				}
+			}
 		}
 	}
 } /*recent-activity*/
@@ -1332,8 +1344,9 @@ body,html,#container,#main,#content,#inside{
 } /*participate */
 
 #footer{
-	background:url(/images/soapbox/bg-footer.png) repeat-x;
-	border-bottom: 10px solid #488CAA;
+	background:$body-bg url(/images/soapbox/bg-body.jpg) repeat-x 50% 100% !important;	
+	background-size: 80% 90% !important;
+	height: 329px;
 }
 
 #footer-logo{
@@ -2223,7 +2236,7 @@ dl.things dt:after {content: ":"}
 	}
 	header {
 		border-bottom: 1px dotted #ddd;
-		padding: 0 0 10px 0;
+		padding: 0;
 		#restaurant_actions {
 			width: 166px;
 			float: right;
@@ -2234,6 +2247,7 @@ dl.things dt:after {content: ":"}
 				background-color: $sienna;
 				background-repeat: no-repeat;
 				padding: 8px 20px 8px 30px;
+				background-position:10px 10px;
 				@include border-radius(30px);
 				color: #fff;
 				@include museoslabbold;
@@ -2283,27 +2297,10 @@ dl.things dt:after {content: ":"}
 		h1 {
 			font-size: 24px;
 			color: #333;
+			margin: 0 !important;
+			padding-top: 10px;
 		}
-		#restaurant_meta {
-			float: left;
-			.address {
-				line-height: 17px;
-			}
-			.premium {
-				z-index: 1000;
-				margin: -15px 0 10px 0;
-				padding: 0;
-				p {
-					display: inline-block;
-					font-size: 10px;
-					font-family: verdana, arial, sans-serif;
-					margin: 0;
-					padding: 1px 5px;
-					background-color:#f5f4f2;
-					color: #8e8366;
-				}
-			}
-		}
+		
 	}
 	.manager_and_facts, .account_contact, .account_social {
 	  float: left;
@@ -2564,7 +2561,29 @@ dl.things dt:after {content: ":"}
   }
 
 } /* ## ---- end of restaurant_profile_view ----- */
-
+#restaurant_meta {
+			float: left;
+			padding-bottom: 10px;
+			padding-top: 5px;
+			width: 80%;
+			.address {
+				line-height: 17px;
+			}
+			.premium {
+				z-index: 1000;
+				margin: -15px 0 10px 0;
+				padding: 0;
+				p {
+					display: inline-block;
+					font-size: 10px;
+					font-family: verdana, arial, sans-serif;
+					margin: 0;
+					padding: 1px 5px;
+					background-color:#f5f4f2;
+					color: #8e8366;
+				}
+			}
+		}
 #a_la_minute {
   @include column(16);
 	#alm-title {
@@ -3025,7 +3044,7 @@ dl.things dt:after {content: ":"}
   }
 }
 
-.menu_item {
+.menu_item,.a_la_minute_answer,.promotion {
   clear: both;
   .identity {
     border: none !important;
@@ -3049,4 +3068,93 @@ dl.things dt:after {content: ":"}
 		text-align: right;  	
   }
 }
+body{
 
+  background-size: 80% !important;
+}
+.footerBox {
+    border-right: 1px dashed #FFFFFF;
+    float: left;
+    padding-left: 30px;
+    text-transform: uppercase;
+    width: 209px;
+    height: 160px;
+}
+.copyright {    
+    text-align: center;
+    font-family: sans-serif;
+    font-size: 13px;
+    text-align: center;
+    line-height:14px;
+}
+.clearfix:after {
+    clear: both;
+}
+.clearfix:before, .clearfix:after {
+    content: "";
+    display: table;
+}
+.clearfix:before, .clearfix:after {
+    content: "";
+    display: table;
+}
+
+#footer-container {
+    height: auto;
+    padding-bottom: 0px;
+    width: 721px;
+    padding-top:99px;
+}
+
+.footerBox {
+    border-right: 1px dashed #FFFFFF;
+    float: left;
+    padding-left: 30px;
+    text-transform: uppercase;
+    width: 209px;
+    height: 160px;
+	 h4{
+  	color: #FFFFFF;
+    font-family: sans-serif;
+    font-size: 20px;
+    letter-spacing: 3px;
+    margin-bottom: 5px;
+    font-weight: normal;
+  }
+  ul li{
+  			margin-bottom: 4px; 
+  		a {
+		    color: #FFF;
+		    font-weight: bold;
+		    margin-bottom: 5px;
+		    text-decoration: none !important;
+		    font-family: sans-serif;
+		    line-height: 1.231;
+		    &:hover{
+		    	color: #000 !important;
+		    }
+		}
+	}
+}
+
+.heatmap{
+  border-bottom: 1px solid #aaaaaa;
+  width: auto;
+  padding: 1em;
+}
+
+.heatmap_element {
+  display: block;
+  text-align: center;
+  margin: .25em;
+  padding-top: 0em;
+  float: left;
+  a{
+  	color:#FFF !important;
+  	text-decoration: none;
+  }
+}
+.no-border-bottom
+{
+	border-bottom: 0px !important;
+}

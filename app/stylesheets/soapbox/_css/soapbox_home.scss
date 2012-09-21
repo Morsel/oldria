@@ -20,6 +20,7 @@ body{
  	font:11px/14px 'Museo300Regular',Arial,sans-serif;
 	background:$body-bg url(/images/soapbox/bg-body.jpg) repeat-x 50% 100% !important;
 	color:$font-color;
+	margin-bottom:40px;
 }
 a{
 	text-decoration:underline;
@@ -365,8 +366,8 @@ img{
 	margin: 0 0 7px;
 }
 .post-section .post p{
-	margin:0 0 5px;
-	
+	margin: 0 0 5px;
+	font-size: 12px;	
 }
 .post-section .date{
 	font:8px/12px 'MuseoSlab500Regular', serif;
@@ -378,8 +379,8 @@ img{
 	margin-bottom:5px;
 }
 .post-section .post.size h2{
-	font-size: 24px;
-	line-height: 32px;
+	font-size: 42px;
+	line-height: 40px;
 	margin-bottom: 5px;
 }
 .post-section .post.size:after{
@@ -395,8 +396,8 @@ img{
 	margin:0 0 18px;
 }
 .post-section .post.size01 h2{
-	font-size:24px;
-	line-height:34px;
+	font-size: 26px;
+	line-height: 34px;
 }
 .post-section .post.size01:after{
 	background-position:-47px -50px;
@@ -1019,7 +1020,12 @@ img{
 	line-height:16px;
 	color:#474f80;
 }
-.add-info p{margin:0;}
+.add-info p{
+	margin:0;
+	a{
+		color:#CB4827;
+	}
+}
 /* hide original element */
 .jcf-hidden {
 	display: block !important;
@@ -1295,3 +1301,59 @@ img{
 	text-decoration :underline;
 }
 #footnotes_debug {display: none;}
+
+body{
+  background-size: 80% 12% !important;
+}
+
+.copyright {    
+    text-align: center;
+    font-family: sans-serif;
+    font-size: 13px;
+    text-align: center;
+    line-height:14px;
+}
+.clearfix:after {
+    clear: both;
+}
+.clearfix:before, .clearfix:after {
+    content: "";
+    display: table;
+}
+.footerBox {
+    border-right: 1px dashed #FFFFFF;
+    float: left;
+    padding-left: 30px;
+    padding-top:6px;
+    text-transform: uppercase;
+    width: 209px;
+    height: 160px;
+	 h4{
+  	color: #FFFFFF;
+    font-family: sans-serif;
+    font-size: 20px;
+    letter-spacing: 3px;
+    margin-bottom: 10px;
+    font-weight: normal;
+  }
+  ul li{
+  			margin-bottom: 5px; 
+  		a {
+		    color: #FFF;
+		    font-weight: bold;
+		    margin-bottom: 5px;
+		    text-decoration: none !important;
+		    font-family: sans-serif;
+		    line-height: 1.231;
+		    &:hover{
+		    	color: #000 !important;
+		    }
+		}
+	}
+}
+#footer-container {
+    clear:both;
+    width: 720px;
+    padding-bottom: 60px
+}
+#footnotes_debug{display: none;}

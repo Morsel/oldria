@@ -70,24 +70,24 @@ $('.direct_message .readit').click(function(){
 });
 
 $('#profile_user_attributes_publish_profile').live('click',function(){
-	if(!$(this).is(':checked')){
-		return;
-	}
-	answer = confirm('Are you sure? Is your profile filled out yet?\n\nMake sure your profile is filled out a good amount before sharing it with the public!');
-	if (answer){
-		$(this).attr('checked','checked');
-	}	else{
-		$(this).removeAttr('checked');
-	}
+  if(!$(this).is(':checked')){
+    return;
+  }
+  answer = confirm('Are you sure? Is your profile filled out yet?\n\nMake sure your profile is filled out a good amount before sharing it with the public!');
+  if (answer){
+    $(this).attr('checked','checked');
+  } else{
+    $(this).removeAttr('checked');
+  }
 })
 
 $('#open-profile-summary').click(function(){
-	$('#profile-tabs').tabs('select',1);
+  $('#profile-tabs').tabs('select',1);
 })
 
 $('.tabable').tabs({
-	panelTemplate: '<section></section>',
-	fx: { duration: 'fast', opacity: 'toggle' }
+  panelTemplate: '<section></section>',
+  fx: { duration: 'fast', opacity: 'toggle' }
 });
 
 
@@ -107,23 +107,23 @@ if (window.current_user_id) {
 
 $('.new_question').live('click', function(){
     $(this).css({
-		backgroundRepeat: 'no-repeat',
-		backgroundPosition: 'center center',
-		backgroundImage: 'url(/images/redesign/ajax-loader.gif)'
-	});
-	$.ajax({
-		data:'authenticity_token=' + encodeURIComponent($(this).attr('data-auth')),
-	 	success:function(request){
-			$('#btl_game_content').html(request);
-			$('.new_question').css({
-				backgroundImage: 'url(/images/redesign/icon-refresh.png)',
-				backgroundPosition: '0 0'
-			})
-		},
-		type:'post',
-		url:'/users/'+$(this).attr('data-user-id')+'/questions/refresh'
-	});
-	return false;
+    backgroundRepeat: 'no-repeat',
+    backgroundPosition: 'center center',
+    backgroundImage: 'url(/images/redesign/ajax-loader.gif)'
+  });
+  $.ajax({
+    data:'authenticity_token=' + encodeURIComponent($(this).attr('data-auth')),
+    success:function(request){
+      $('#btl_game_content').html(request);
+      $('.new_question').css({
+        backgroundImage: 'url(/images/redesign/icon-refresh.png)',
+        backgroundPosition: '0 0'
+      })
+    },
+    type:'post',
+    url:'/users/'+$(this).attr('data-user-id')+'/questions/refresh'
+  });
+  return false;
 });
 
 $('#profile_answer_submit').live('click', function(){
@@ -134,15 +134,16 @@ $('#profile_answer_submit').live('click', function(){
 });
 
 $('#new_quick_reply button').live('click', function(){
-	$(this).text('posting...').attr('disabled','disabled');
+  $(this).text('posting...').attr('disabled','disabled');
 });
 
 function jumbotronController(idx, elem){
-	idx++;
-	return html+='<a href="#">'+idx+'</a>';
+  idx++;
+  return html+='<a href="#">'+idx+'</a>';
 }
 
 var colorboxOnComplete = function(){
+  $('#school_fields').toggle();
   $('#culinary_job_chef_is_me').click(function(){
     var nameField = $('#culinary_job_chef_name');
     var $this     = $(this);
@@ -223,6 +224,7 @@ var colorboxForm = function(){
         $("#" + singularName + "s").append($html);
       }
       $.fn.colorbox.close();
+      showResponse(text)
     },
     error: function(xhr, status){
       var response;
@@ -261,6 +263,7 @@ function post_reply_text(){
 bindColorbox();
 
 $('#colorbox form.stage, #colorbox form.apprenticeship, #colorbox form.nonculinary_enrollment, #colorbox form.award, #colorbox form.culinary_job, #colorbox form.nonculinary_job, #colorbox form.accolade, #colorbox form.enrollment, #colorbox form.competition, #colorbox form.internship').live('submit', colorboxForm);
+$('#complete_profile form.profile_cuisine').live('submit', colorboxForm);
 
 $("a.showit").showy();
 
@@ -292,7 +295,7 @@ $('#restaurant_tags form').submit(function() {
 });
 
 // == Dynamic Updates for Employment Searching
-var	$employmentsList  = $("#employment_list");
+var $employmentsList  = $("#employment_list");
 var $employmentInputs = $("#employment_criteria input[type=checkbox]");
 var $loaderImg        = $('<img class="loader" src="/images/ajax-loader.gif" />').hide();
 
@@ -314,7 +317,7 @@ $employmentInputs.change(updateEmploymentsList);
 
 
 // Directory search
-var	$directoryList  = $("#directory_list");
+var $directoryList  = $("#directory_list");
 var $directoryInputs = $("#directory_search #employment_criteria input[type=checkbox]");
 
 $directoryList.before($loaderImg);
@@ -334,7 +337,7 @@ $directoryInputs.change(updateDirectoryList);
 
 
 // Restaurant directory search
-var	$restoDirectoryList  = $("#restaurant_directory_list");
+var $restoDirectoryList  = $("#restaurant_directory_list");
 var $restoDirectoryInputs = $("#directory_search #restaurant_criteria input[type=checkbox]");
 
 $restoDirectoryList.before($loaderImg);
@@ -392,11 +395,11 @@ $("#media_request_request_types").bind('change', function(){
 
 // Media request recipient list
 $('.show_more').click(function(){
-	toggle_me_first = $(this).attr('href');
-	toggle_me_next = $(this).attr('data-show');
-	$(toggle_me_first).toggle();
-	$(toggle_me_next).toggle();
-	return false;
+  toggle_me_first = $(this).attr('href');
+  toggle_me_next = $(this).attr('data-show');
+  $(toggle_me_first).toggle();
+  $(toggle_me_next).toggle();
+  return false;
 })
 
 $('div#photos').masonry({
@@ -413,7 +416,7 @@ updateRestaurantSignupFields = function() {
 };
 
 $("#user_editor").autocomplete({
-	source: "/users.js",
+  source: "/users.js",
 });
 
 // Social updates filtering
@@ -443,16 +446,123 @@ $('#metropolitan_areas_state_state_id').change(function(){
 
     if($(this).val())
         $.ajax({
-		data:'state_name=' + encodeURIComponent($(this).val()),
-	     	success:function(response){
-			    $('#metropolitan_areas_state_cities').html(response)
-		    },
-		url:'/mediafeed/get_cities'
-	    });
+    data:'state_name=' + encodeURIComponent($(this).val()),
+        success:function(response){
+          $('#metropolitan_areas_state_cities').html(response)
+        },
+    url:'/mediafeed/get_cities'
+      });
 
 
 })
+  $('.restaurants-model').click(function(e){
+    e.preventDefault();
+    var id = $(this).attr('id')
+    $.colorbox({href:"/directory/current_user_restaurants?clicked="+id});   
 
-// end $(document).ready
+  })/* End model click*/
+
+  $('#select_restaurant').live('change',function(){    
+    if($(this).val())
+    {
+      $('#color-box-restaurant-msg').show();
+      $('#color-box-restaurant').hide();
+
+      $.ajax({
+          type: 'POST',
+          url: ' /directory/get_restaurant_url',
+          data: "restaurant_id="+$(this).val()+"&clicked_page="+$('#hidden_clicked_nav').val(),
+          success: function(data){
+            if(data.url)
+              $(location).attr('href',data.url);
+            else
+            {
+              $('#color-box-restaurant').show()
+              $('#color-box-restaurant-msg').hide();
+             }
+          },
+          dataType: 'json'
+        });
+    }
+  }) /*End select_restaurant onchange*/
+
+    /* Profile complete wizard*/
+    $('#profile-summary').show();
+
+    var options = {         
+        success:   showResponse,  // post-submit callback 
+        dataType: 'json'
+    };
+
+    $('#form_upload_img').submit(function(e) { 
+        e.preventDefault();        
+        current_page_id =  $(this).parent().attr('id')   
+        next_page_id    =  $(this).parent().next().attr('id')   
+        loderShow();
+        $(this).ajaxSubmit(options); 
+        return false; 
+    });
+    $('#specialties_form').submit(function(e) { 
+
+        e.preventDefault();
+        current_page_id =  $(this).parent().attr('id')   
+        next_page_id    =  $(this).parent().next().attr('id') 
+        loderShow()
+
+        $(this).ajaxSubmit(options); 
+        return false; 
+    });
+    $('#complete_profile form.profile_cuisine').live('submit', function(e) { 
+        e.preventDefault();
+        if($('#redirect_to_url_hidden').val()){
+              current_page_id =  $('#cuisine_form').parent().attr('id')   
+              next_page_id    =  $('#cuisine_form').parent().next().attr('id') 
+              loderShow()
+        }
+       
+        return false; 
+    });
+
+   $('.add-btl').colorbox({rel:'gal'});
+
+  // end $(document).ready
 });
 
+  var current_page_id ;
+  var next_page_id ;
+// post-submit callback 
+function showResponse(responseText, statusText, xhr, $form)  { 
+      loderHide();      
+      if(responseText.status)
+      {
+        if(next_page_id != "loader-waiting")      
+          $('#'+next_page_id).slideDown(); 
+        else
+          location.href = $('#redirect_to_url_hidden').val();
+      }  
+      else
+      {
+        loderHide();
+        if(current_page_id == "step1")
+        {
+          $('#user_avatar_input').addClass('error');
+          $('#user_avatar_input p').remove();
+          $.each(responseText.errors, function(index, value) { 
+            $('#user_avatar_input').append('<p>'+value[1]+'</p>');
+          });
+
+          
+        }
+         $('#'+current_page_id).slideDown();
+      }
+        
+  } 
+function loderShow()
+{
+  $('#'+current_page_id).slideUp();
+  $('#loader-waiting').slideDown();
+}
+function loderHide()
+{
+  $('#loader-waiting').slideUp();
+}

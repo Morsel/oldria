@@ -20,7 +20,8 @@ ActionController::Routing::Routes.draw do |map|
 
   map.directory 'directory', :controller => 'directory', :action => 'index'
   map.restaurant_directory 'directory/restaurants', :controller => 'directory', :action => 'restaurants'
-
+  map.user_restaurants 'directory/current_user_restaurants', :controller => 'directory', :action => 'current_user_restaurants'
+  map.get_restaurant_url 'directory/get_restaurant_url', :controller => 'directory', :action => 'get_restaurant_url'
   # the callback for cloudmailin
   map.resource :cloudmail, :only => :create 
 
@@ -129,11 +130,12 @@ ActionController::Routing::Routes.draw do |map|
     :fb_connect => :any,
     :fb_deauth => :any,
     :fb_page_auth => :post,
-    :remove_editor => :put
+    :remove_editor => :put,
+    :upload =>:post
   }, :shallow => true do |users|
     users.resource :profile, :only => ['create', 'edit', 'update'],
                    :controller => 'profiles',
-                   :member => { :edit_front_burner => :get, :edit_btl => :get },
+                   :member => { :edit_front_burner => :get, :edit_btl => :get,:add_role =>:post ,:add_role_form =>:get, :complete_profile => :get},
                    :collection => { :toggle_publish_profile => :get } do |p|
       p.resources :culinary_jobs
       p.resources :nonculinary_jobs
@@ -287,7 +289,7 @@ ActionController::Routing::Routes.draw do |map|
     admin.resources :events
     admin.resources :soapbox_entries, :member => { :toggle_status => :post }
 
-    admin.resources :restaurant_questions
+    admin.resources :restaurant_questions, :member => { :send_notifications => :post }
     admin.resources :restaurant_chapters, :collection => { :select => :post }
     admin.resources :restaurant_topics
 

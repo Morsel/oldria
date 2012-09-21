@@ -1,6 +1,7 @@
-class Admin::RestaurantQuestionsController < Admin::AdminController
+ class Admin::RestaurantQuestionsController < Admin::AdminController
   
   def index
+    RestaurantQuestion.first.restaurant_user_without_answers
     @questions = RestaurantQuestion.all(:include => { :chapter => :topic },
         :order => "topics.title ASC, chapters.title ASC, restaurant_questions.position ASC").group_by(&:chapter)
   end
@@ -59,6 +60,12 @@ class Admin::RestaurantQuestionsController < Admin::AdminController
       end
     end
     render :nothing => true
+  end
+  def send_notifications
+    @question = RestaurantQuestion.find(params[:id])
+    @question.notify_users!
+    flash[:notice] = "Notification emails sent for \"#{@question.title}\""
+    redirect_to :action => "index"
   end
 
 end

@@ -17,7 +17,7 @@
 	  	        :as => :select, :collection => Menu.change_frequencies,
 	  	        :required => true %>
 	  	    <% menu_form.semantic_fields_for :pdf_remote_attachment do |pdf_remote_attachment| %>
-	  	      <%= pdf_remote_attachment.input :attachment, :as => :file %>
+	  	      <%= pdf_remote_attachment.input :attachment, :as => :file,:hint => "Only PDFs are allowed to be uploaded" %>
 	  	    <% end %>
 	  	    <%= button_tag 'Upload', :class => 'positive clear' %>
 	  	  <% end %>

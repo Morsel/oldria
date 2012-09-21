@@ -18,6 +18,7 @@ class ApplicationController < ActionController::Base
   helper_method :current_user
   helper_method :mediafeed?
   helper_method :soapbox?
+  helper_method :heatmap
 
   rescue_from CanCan::AccessDenied do
     if current_user
@@ -275,5 +276,9 @@ class ApplicationController < ActionController::Base
       a.last_name.downcase <=> b.last_name.downcase
     }
   end
+
+  def is_profile_not_completed? user
+     !user.avatar? || user.profile.specialties.blank? || user.profile.cuisines.blank? || user.restaurants.blank?
+  end  
   
 end

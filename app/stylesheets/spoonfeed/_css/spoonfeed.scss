@@ -1484,7 +1484,7 @@ aside.dashboard_actions {
 	}
 } /* end of #my_restaurants -------------------- */
 
-#main #editing_restaurant {
+#main #editing_restaurant, .color-box-restaurant {
   padding: 20px;
 	overflow: hidden;
 	border: 1px solid #eaeaea;
@@ -1505,6 +1505,10 @@ aside.dashboard_actions {
       width: 55%;
     }
 	}
+	.a_la_minute_question p select{
+			width:auto;    	
+			display:inline;
+    }
     select {
     width: 55%;
     border: 1px solid #BFBFBF;
@@ -4322,3 +4326,35 @@ hgroup h5 span {
 	}
 }
 
+#color-box-restaurant,#add-role{
+	min-width:150px;
+	margin:30px;
+ 	select{
+		background: none repeat scroll 0 0 #FFFFFF;
+	  border: 1px solid #BFBFBF;
+	  display: block;
+	  margin-bottom: 15px;
+	  padding: 5px;
+	  width:100%;
+  }
+  label {
+		color: #333333;
+		font-family: 'Hoefler Text',Georgia,Times,serif;
+		font-size: 14px;
+		font-weight: bold;
+		padding: 0;
+	}
+	
+}
+#color-box-restaurant-msg{
+	display:none;
+	margin:30px;
+}
+#add-role{
+	width:700px;
+	select{width:55%;}
+	input{width:53%;}
+}
+.display-none{
+	display: none;
+}

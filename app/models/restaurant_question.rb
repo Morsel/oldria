@@ -84,11 +84,41 @@ class RestaurantQuestion < ActiveRecord::Base
   def latest_soapbox_answer
     restaurant_answers.from_premium_restaurants.first(:order => "created_at DESC")
   end
+   # Send an email to everyone who hasn't responded but could
+  def notify_users!    
+    for user in restaurant_user_without_answers
+      unless user.nil? # TODO Identify why giving NoMethodError: undefined method `cloudmail_id' for nil:NilClass
+        UserMailer.deliver_answerable_message_notification(self, user)
+      end  
+    end
+  end
 
+  def email_title
+    "Behind the Line"
+  end
+
+  def short_title
+    "btl"
+  end
+
+  def email_body
+    title
+  end
+
+  def restaurant_user_without_answers
+    ids = self.restaurant_answers.map(&:restaurant_id)    
+    if ids.present?
+      Restaurant.all.map { |r| r.manager unless ids.include?(r.id) }.flatten.uniq #r.managers.all(:conditions => ["restaurants.id NOT IN (?)", ids]) 
+    else
+      Restaurant.all.map { |r| r.manager }.flatten.uniq
+    end
+  end
   private
   
   def update_pages_description
     self.pages_description = self.question_pages.map(&:restaurant_feature_page).map(&:name).to_sentence
   end
+
+  
 
 end
