@@ -287,7 +287,7 @@ ActionController::Routing::Routes.draw do |map|
     admin.resources :events
     admin.resources :soapbox_entries, :member => { :toggle_status => :post }
 
-    admin.resources :restaurant_questions
+    admin.resources :restaurant_questions, :member => { :send_notifications => :post }
     admin.resources :restaurant_chapters, :collection => { :select => :post }
     admin.resources :restaurant_topics
 

@@ -8,42 +8,59 @@
 <%= @answer.answer %>
 <% end -%>
 
-<!-- AddThis Button BEGIN -->
-<div class="addthis_toolbox">
-    <%= link_to "Share", "http://www.addthis.com/bookmark.php?v=250&amp;username=unpluggedria", :class => "addthis_button" %>
-</div>
-<%= javascript_include_tag "http://s7.addthis.com/js/250/addthis_widget.js#username=unpluggedria" %>
-<% javascript_tag do %>
-  var addthis_share = {
-    url: '<%= soapbox_a_la_minute_question_url(@question) %>',
-  }
-<% end %>
-<!-- AddThis Button END -->
 
 <div class="a_la_minute_answer">
     <%= render :partial => 'restaurants/identity', :locals => { :restaurant => @answer.responder } %>
     <div>
-        <p class="details"><%= @answer.answer %></p>
-        <p class="tags">Tags: <%= @answer.responder.top_tags.map(&:name).to_sentence %></p>
-        <!-- Likes and Tweets BEGIN -->
-        <div class="sharing">
-            <script src="http://connect.facebook.net/en_US/all.js#xfbml=1"></script>
-            <fb:like href="<%= soapbox_a_la_minute_answer_url(@answer) %>" layout="button_count" show_faces="false" width="90" height="20" action="like" colorscheme="light"></fb:like>
-
-            <script src="http://platform.twitter.com/widgets.js" type="text/javascript"></script>
-            <a href="http://twitter.com/share?url=<%= URI.escape(soapbox_a_la_minute_answer_url(@answer)) %>" class="twitter-share-button">Tweet</a>
-        </div>
-        <!-- Likes and Tweets END -->
+        <p class="details"><%= @answer.answer %></p>               
     </div>
-</div>
-<div class="clear">&nbsp;</div>
+    <div>
+        <p><span class="datestamp"><%= "Posted #{@answer.created_at.strftime("%D")}" %></span></p>
+    </div>
 
-<h2>Other answers</h2>
+    <!-- Likes and Tweets BEGIN -->
+      <div class="sharing">
+          <script type="text/javascript">var switchTo5x=true;</script>
+          <script type="text/javascript" src="http://w.sharethis.com/button/buttons.js"></script>
+          <script type="text/javascript">stLight.options({publisher: "041a7a0d-06a5-45e5-9455-9e9043faf823"}); </script>
+          <script type="text/javascript">var NREUMQ=[];NREUMQ.push(["mark","firstbyte",new Date().getTime()]);</script>
+          <span class='st_fbrec_large' displayText='Facebook Recommend'></span>
+          <span class='st_pinterest_large' displayText='Pinterest'></span>
+          <span class='st_facebook_large' displayText='Facebook'></span>
+          <span class='st_twitter_large' displayText='Tweet'></span>
+          <span class='st_linkedin_large' displayText='LinkedIn'></span>
+          <span class='st_email_large' displayText='Email'></span>   
+          <span class='st_googleplus_large' displayText='google plus'></span>
+          <span class="st_stumbleupon_large" displayText='stumbleupon' ></span> 
+          <span class="st_digg_large" displayText='stumbleupon' ></span>   
+      </div>
+    <!-- Likes and Tweets END -->
+ </div>   
+ <% unless @promotions.blank?%>
+      <div class="clear">&nbsp;</div>
+      <header id="page-title">
+          <h1>News Feed</h1>
+      </header>
+      <div id="answers">
+        <% for promotion in @promotions -%>
+            <% div_for(promotion) do %>
+                <%= render :partial => 'soapbox/promotions/promotion', :locals => { :promotion => promotion } %>  
+            <% end -%>
+        <% end -%>
+      </div>
+<% end -%>
 
-<div id="answers">
-  <%= render :partial => 'soapbox/a_la_minute_questions/answer', :collection => @other_answers, :as => :answer %>
-</div>
-
+<div class="clear"> </div>
+<% unless @menu_items.blank?%>
+      <header id="page-title">
+          <h1>On The Menu</h1>
+      </header>
+      <div id="answers">
+          <% for menu_item in @menu_items -%>
+            <%= render :partial => "soapbox/menu_items/menu_item", :locals => { :menu_item => menu_item } %>
+          <% end -%>
+       </div>   
+<%end%>
 <% content_for :sidebar do -%>
 <%= render :partial => 'soapbox/restaurant_sidebar', :locals => { :restaurant => @answer.responder } %>
 <% end -%>

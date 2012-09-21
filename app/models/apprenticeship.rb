@@ -17,6 +17,6 @@ class Apprenticeship < ActiveRecord::Base
   
   belongs_to :profile
   
-  validates_presence_of :establishment, :supervisor, :year, :profile_id
+  validates_presence_of :establishment, :supervisor, :profile_id, :start_date
   
 end

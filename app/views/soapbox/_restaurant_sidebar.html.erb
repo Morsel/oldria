@@ -2,7 +2,7 @@
     <div id="restaurant_details">
         <div class="avatar">
             <% if restaurant.logo && restaurant.logo.attachment? -%>
-            <%= link_to(image_tag(restaurant.logo.attachment.url(:small), :width => 'auto', :height => 'auto'),soapbox_restaurant_path(restaurant) )%>
+            <%= link_to(image_tag(restaurant.logo.attachment.url(:restaurant_logo), :width => 215),soapbox_restaurant_path(restaurant) )%>
             <% end -%>
         </div>
     </div>
@@ -36,50 +36,51 @@
                     <p><%= link_to "@#{restaurant.twitter_username}", "http://twitter.com/#{restaurant.twitter_username}" %></p>
                 </header>
             </li>
+           </ol> 
             <%- end -%>
-        </ol>
-    </aside>
+        
+           
+            <header>
+                <h1>The Details</h1>
+            </header>
+            <ol>
+                <li>
+                    <header class="feed-item-title">
+                        Cuisine:
 
-    <aside id="recent-activity">
-        <header>
-            <h1>The Details</h1>
-        </header>
-        <ol id="alm-feed">
-            <li>
-                <header class="feed-item-title">
-                    Cuisine:
-                    <p><%= restaurant.cuisine.name %></p>
-                </header>
-            </li>
-            <li>
-                <header class="feed-item-title">
-                    Metropolitan area:
-                    <p><%= restaurant.metropolitan_area.try(:name) %></p>
-                </header>
-            </li>
-            <li>
-                <header class="feed-item-title">
-                    Region:
-                    <p><%= restaurant.james_beard_region.try(:name) %></p>
-                </header>
-            </li>
-            <li>
-                <header class="feed-item-title">
-                    Opening Date:
-                    <p><%= restaurant.opening_date %></p>
-                </header>
-            </li>
-        </ol><!-- /activity-feed -->
+                        <p><%= link_to restaurant.cuisine.name, soapbox_restaurant_directory_path({:cuisine_id=>restaurant.cuisine}) %></p>
+                    </header>
+                </li>
+                <li>
+                    <header class="feed-item-title">
+                        Metropolitan area:
+                        <p><%= link_to restaurant.metropolitan_area.try(:name), soapbox_restaurant_directory_path({:metropolitan_area_id=>restaurant.metropolitan_area.try(:id)}) %></p>
+                    </header>
+                </li>
+                <li>
+                    <header class="feed-item-title">
+                        Region:
+                        <p><%= link_to restaurant.james_beard_region.try(:name), soapbox_restaurant_directory_path({:james_beard_region_id=>restaurant.james_beard_region.try(:id)}) %></p>
+                    </header>
+                </li>
+                <li>
+                    <header class="feed-item-title">
+                        Opening Date:
+                        <p><%= restaurant.opening_date %></p>
+                    </header>
+                </li>
+               </ol> 
+<!-- /activity-feed -->
         <div id="feed-bottom"></div>
         <footer>
             <div id="activity-chooser-all">
                 <span><%= link_to "View #{restaurant.name} &#187;", soapbox_restaurant_path(restaurant), :id => "view-all-questions" %></span>
             </div>
         </footer>
-    </aside>
+
     <!-- Tags  -->
     <% if restaurant.top_tags.present? %>
-    <aside class="recent-activity-class">
+    
         <header>
             <h1>Tags</h1>
         </header>

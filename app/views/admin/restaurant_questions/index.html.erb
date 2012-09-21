@@ -21,6 +21,9 @@
         t.cell(:handle, :heading => '', :cell_html => {:class => 'small handle'}) { "[drag]" }
         t.cell(:title)
         t.cell(:pages, :heading => 'Page') { |c| c.pages_description }
+        t.cell(:notify_link, :heading => '', :cell_html => { :class => 'actions edit_link' }) { |c|
+            link_to('Send Notification', send_notifications_admin_restaurant_question_path(c.id), :method => 'post')
+        }
         t.cell(:edit_link, :heading => '', :cell_html => {:class => 'actions edit_link'}) { |c|
           link_to('Edit', edit_admin_restaurant_question_path(:id => c.id))
         }
