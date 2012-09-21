@@ -1,6 +1,13 @@
 <% content_tag_for :li, apprenticeship, :class => cycle('odd','even') do %>
   <span class="extended-title"><%= apprenticeship.establishment %></span>
-  <%= apprenticeship.supervisor %><br /><%= apprenticeship.year %><br>
+  <%= apprenticeship.supervisor %><br />
+   <% if apprenticeship.end_date %>
+  <%= apprenticeship.start_date.strftime("%m/%d/%y") %> &ndash; <%= apprenticeship.end_date.strftime("%m/%d/%y") %>
+  <% else %>
+  <%= apprenticeship.start_date.strftime("%Y") %>
+  <% end %>
+  <br>
+
   <% if action_name != 'show' %>
     <%= link_to "Edit", edit_apprenticeship_path(apprenticeship), :class => 'colorbox' %>
     <%= link_to "Destroy", apprenticeship_path(apprenticeship), { :method => :delete }, { :class => 'delete' } %>

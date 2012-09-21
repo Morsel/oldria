@@ -90,8 +90,8 @@
                     "alertText": "* Not a valid integer"
                 },
                 "number": {
-                    // Number, including positive, negative, and floating decimal. credit: orefalo
-                    "regex": /^[\-\+]?(([0-9]{1,3})([\.]([0-9]{3}))*([,]([0-9]+))?|([0-9]+)?([,]([0-9]+))?)$/,
+                    // Number, including positive, negative, and floating decimal. credit: orefalo                        
+                    "regex": /^[\-\+]?((([0-9]{1,3})([,][0-9]{3})*)|([0-9]+))?([\.]([0-9]+))?$/,                    
                     "alertText": "* Invalid floating decimal number"
                 },
                 "date": {

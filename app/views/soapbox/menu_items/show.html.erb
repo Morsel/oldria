@@ -13,12 +13,7 @@
     title: $('title').text().replace('Spoonfeed','Soapbox')
   }
 <% end %>
-<!-- AddThis Button BEGIN -->
-<div class="addthis_toolbox">
-  <a href="http://www.addthis.com/bookmark.php?v=250&username=unpluggedria" class="addthis_button">Share</a>
-</div>
-<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#username=unpluggedria"></script>
-<!-- AddThis Button END -->
+
 
 <% div_for @menu_item do %>
     <h2><%= @menu_item.name %> at <%= link_to @menu_item.restaurant.name, soapbox_restaurant_path(@menu_item.restaurant) %></h2>
@@ -51,6 +46,10 @@
         <span class='st_twitter_large' displayText='Tweet'></span>
         <span class='st_linkedin_large' displayText='LinkedIn'></span>
         <span class='st_email_large' displayText='Email'></span>
+        <span class='st_googleplus_large' displayText='google plus'></span>
+        <span class="st_stumbleupon_large" displayText='stumbleupon' ></span>
+        <span class="st_digg_large" displayText='stumbleupon' ></span>
+
         
     </div>
     <!-- Likes and Tweets END -->

@@ -1,7 +1,4 @@
-<% title newsfeed_title %>
 
-<% for promotion in @promotions -%>
-<% div_for(promotion) do %>
     <h2>
     <% if @promotion_type.present? -%>
         <% link_to soapbox_promotion_path(promotion) do %>
@@ -13,7 +10,6 @@
         <% end %>
     <% end -%>
     </h2>
-
 
     <h3><%= promotion.headline %></h3>
     <%= render :partial => 'restaurants/identity', :locals => { :restaurant => promotion.restaurant } %>
@@ -27,11 +23,3 @@
         <p><span class="datestamp"><%= "Posted #{promotion.created_at.strftime("%D")}" %></span> - <%= link_to "Share this entry", soapbox_promotion_path(promotion) %></p>
     </div>
     <div class="clear">&nbsp;</div>
-<% end %>
-<% end -%>
-
-<%= will_paginate(@promotions) %>
-
-<% content_for :sidebar do -%>
-<%= render :partial => 'sidebar' %>
-<% end -%>

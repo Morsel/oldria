@@ -31,7 +31,19 @@ class Soapbox::SoapboxController < ApplicationController
   end
 
   def restaurant_directory
-    @restaurants = Restaurant.activated_restaurant.with_premium_account
+
+    if params[:cuisine_id]
+      @cuisine = Cuisine.find(params[:cuisine_id])
+      @restaurants = Restaurant.activated_restaurant.with_premium_account.cuisine_id_eq(params[:cuisine_id]).all.uniq
+    elsif params[:metropolitan_area_id]
+      @metro_area = MetropolitanArea.find(params[:metropolitan_area_id])
+      @restaurants = Restaurant.activated_restaurant.with_premium_account.metropolitan_area_id_eq(params[:metropolitan_area_id]).all.uniq
+    elsif params[:james_beard_region_id]
+      @region = JamesBeardRegion.find(params[:james_beard_region_id])
+      @restaurants = Restaurant.activated_restaurant.with_premium_account.james_beard_region_id_eq(params[:james_beard_region_id]).all.uniq
+    else      
+      @restaurants = Restaurant.activated_restaurant.with_premium_account
+    end
     @use_search = true
     @no_sidebar = true
     render :template => "directory/restaurants"
@@ -53,7 +65,7 @@ class Soapbox::SoapboxController < ApplicationController
     @menu_items = MenuItem.from_premium_restaurants.all(:order => "created_at DESC" ,:limit=>5)
     @questions = ALaMinuteQuestion.most_recent_for_soapbox(3)
     @behind_the_line_answers = (ProfileQuestion.without_travel.answered_by_premium_and_public_users.all(:limit => 50,:order => "profile_answers.created_at DESC").map(&:latest_soapbox_answer).uniq.compact[0...15]).compact[0..4]
-    @menus =  @menus =  Menu.all(:limit=>5,:order=>"created_at desc")
+    @menus =  Menu.all(:limit=>5,:order=>"menus.created_at desc",:include => :restaurant,:conditions=>["restaurants.is_activated=true"])
     @photos = Photo.find(:all,:conditions=>["attachable_type = ? and attachable_id  in (?)", 'Restaurant',restaurants_ids],:limit=>4,:order=>"created_at desc")    
     @spotlight_user = FeaturedProfile.spotlight_user.sample(1)  
     @spotlight_user =   @spotlight_user.blank? ? User.in_soapbox_directory.last : @spotlight_user.first.feature        

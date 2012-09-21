@@ -2,7 +2,7 @@
 <div id="restaurant_profile_view" class="clear clearfix">
 
   <%= render 'restaurant_header' %>
-
+<br/>
   <div class="media clear clearfix">
 
     <div id="primary_photo" class="photos">
@@ -15,7 +15,7 @@
       <h2>Menus</h2>
       <% if @restaurant.menus.any? -%>
         <ul>
-          <%= render :partial => 'menus/menu', :collection => @restaurant.menus.by_position.all(:limit => 3) %>
+          <%= render :partial => 'menus/menu', :collection => @restaurant.menus.by_position.all(:limit => 5) %>
         </ul>
       <% else -%>
         <p>There are no menus available at this time.</p>
@@ -25,100 +25,15 @@
   </div><!-- .media -->
 
   <% if @restaurant.top_tags.any? %>
-  <div class="top-tags clear clearfix">
+  <div class="top-tags clear clearfix no-border-bottom">
     <h2>Top 15 Tags</h2>
-    <ul class="tags">
+    <ul class="tags ">
         <% for tag in @restaurant.top_tags %>
         <li><%= link_to h(tag.value), soapbox_feature_path(tag)  %></li>
         <% end %>
     </ul>
   </div><!-- .top-tags -->
   <% end %>
-
-  <h2>Details</h2>
-  <div class="manager_and_facts equal-height tricol">
-    <% dl_if(!@restaurant.description.blank?, :class => "list_item", :id => "description") do %>
-      <dt>Description:</dt>
-      <dd><%= @restaurant.description %></dd>
-    <% end %>
-
-    <% dl_if(@restaurant.cuisine, :class => "list_item", :id => "cuisine") do %>
-      <dt>Cuisine:</dt>
-      <dd><%=h @restaurant.cuisine.try(:name) %></dd>
-    <% end %>
-
-    <% dl_if @restaurant.manager, :class => "list_item", :id => "manager" do %>
-      <dt>Account Administrator:</dt>
-      <dd><%= link_to h(@restaurant.manager.name), profile_path(:username => @restaurant.manager.username) %></dd>
-    <% end %>
-
-    <% dl_if @restaurant.media_contact, :class => "list_item", :id => "media_contact" do %>
-      <dt>Media Contact:</dt>
-      <dd>
-        <%= link_to h(@restaurant.media_contact.name), profile_path(:username => @restaurant.media_contact.username) %>
-        <%= "<br>#{@restaurant.media_contact.phone_number}" if @restaurant.media_contact.phone_number.present? -%>
-        <%= "<br>#{mail_to @restaurant.media_contact.email}" if @restaurant.media_contact.email.present? -%>
-      </dd>
-    <% end %>
-
-    <% dl_if(@restaurant.management_company_name.present?, :class => "list_item", :id => "management_company") do %>
-      <dt>Management Company:</dt>
-      <% if @restaurant.management_company_website.present? %>
-        <dd><%= link_to h(@restaurant.management_company_name), @restaurant.management_company_website %></dd>
-      <% else %>
-        <dd><%= h(@restaurant.management_company_name) %><dd>
-      <% end %>
-    <% end %>
-  </div><!-- .manager_and_facts -->
-
-  <div class="account_contact equal-height tricol">
-    <% dl_if(@restaurant.opening_date, :class => "list_item") do %>
-      <dt>Opening Date:</dt>
-      <dd id="opening_date"><%= @restaurant.opening_date.to_s(:long) %></dd>
-    <% end %>
-
-    <% dl_if(@restaurant.phone_number, :class => "list_item", :id => "phone_number") do %>
-      <dt>Phone Number:</dt>
-      <dd id="phone_number"><%=h @restaurant.phone_number %></dd>
-    <% end %>
-  </div><!-- .account_contact -->
-
-  <div class="account_social equal-height tricol">
-    <% dl_if(@restaurant.website.present?, :class => "list_item", :id => "website") do %>
-      <dt>Website:</dt>
-      <dd><%= link_to h(@restaurant.website), @restaurant.website %></dd>
-    <% end %>
-
-    <% dl_if(@restaurant.has_facebook_page?, :class => "list_item", :id => "facebook_page") do %>
-      <dt>Facebook Page:</dt>
-      <dd><%= link_to h(@restaurant.name), @restaurant.facebook_page_url %></dd>
-    <% end %>
-
-    <% dl_if(@restaurant.twitter_authorized?, :class => "list_item", :id => "twitter_username") do %>
-      <dt>Twitter:</dt>
-      <dd>
-        <%= link_to "@#{h(@restaurant.twitter_username)}", "http://twitter.com/#{@restaurant.twitter_username}"%>
-      </dd>
-    <% end %>
-  </div><!-- .account_details -->
-
-  <div class="rest_staff clearfix">
-    <h2>Restaurant Staff</h2>
-    <div class="restaurant_employees employments clearfix">
-      <%= render :partial => 'restaurants/employment', 
-                 :collection => @restaurant.public_employments.all(:include => [:subject_matters, :restaurant_role, :employee]) %>
-    </div><!-- .employments -->
-  </div><!--.rest_staff-->
-
-  <% unless @restaurant.accolades.empty? %>
-  <div class="accolades clearfix">
-    <h2>Accolades</h2>
-    <ul>
-      <%= render :partial => 'accolades/accolade', :collection => @restaurant.accolades.by_run_date %>
-    </ul>
-  </div><!-- .accolades -->
-  <% end %>
-
   <% if @restaurant.fact_sheet.info_exists? %>
     <div id="extended_profile_container" class="clear">
       <a href="#extended_profile" class="showit">View Restaurant Fact Sheet <em>(Parking &amp; Directions, Pricing, Hours, etc)</em></a>
@@ -126,7 +41,8 @@
     </div><!-- #extended_profile_container -->
   <% end %>
 
-  <% if @menu_items.present? %>
+  <!-- OTM and News FEED -->
+      <% if @menu_items.present? %>
   <div id="on_the_menu" class="recent_actions">
       <h3 id="otm-title"><%= link_to "On the Menu", soapbox? ? soapbox_menu_items_path(:restaurant_id => @restaurant) : restaurant_menu_items_path(:restaurant_id => @restaurant) %></h3>
       <% if @restaurant.employees.include?(current_user) -%>
@@ -173,6 +89,28 @@
       <p class="view_all"><%= link_to "View all &raquo;", soapbox? ? soapbox_promotions_path(:restaurant_id => @restaurant) : restaurant_promotions_path(:restaurant_id => @restaurant) %></p>
   </div><!--#newsfeed-->
   <% end %>
+  <!-- END OTM / NEWS FEED -->
+
+  <div class="rest_staff clearfix">
+    <h2>Restaurant Staff</h2>
+    <div class="restaurant_employees employments clearfix">
+      <%= render :partial => 'restaurants/employment', 
+                 :collection => @restaurant.public_employments.all(:include => [:subject_matters, :restaurant_role, :employee]) %>
+    </div><!-- .employments -->
+  </div><!--.rest_staff-->
+
+  <% unless @restaurant.accolades.empty? %>
+  <div class="accolades clearfix">
+    <h2>Accolades</h2>
+    <ul>
+      <%= render :partial => 'accolades/accolade', :collection => @restaurant.accolades.by_run_date %>
+    </ul>
+  </div><!-- .accolades -->
+  <% end %>
+
+
+
+  
 
   <% if @questions.present? %>
   <div id="a_la_minute">
@@ -190,6 +128,9 @@
   </div><!--#a_la_minute-->
   <% end %>
 
+<% content_for :sidebar do -%>
+<%= render :partial => 'soapbox/restaurant_sidebar', :locals => { :restaurant => @restaurant } %>
+<% end -%>
 </div><!-- #restaurant_profile_view -->
 
 

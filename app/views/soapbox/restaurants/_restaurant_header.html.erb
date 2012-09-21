@@ -2,8 +2,7 @@
     <div id="restaurant_actions">
         <%= link_to 'Edit Restaurant', edit_restaurant_path(@restaurant), :class => 'edit_restaurant' if can?(:edit, @restaurant) %>
 
-        <!-- AddThis Button BEGIN -->
-        <%= link_to 'Share Profile', "http://www.addthis.com/bookmark.php?v=250&amp;username=unpluggedria", :class => 'share_profile addthis_button' %>
+        <!-- AddThis Button BEGIN -->        
         <%= javascript_include_tag "http://s7.addthis.com/js/250/addthis_widget.js#username=unpluggedria" %>
         <% javascript_tag do %>
           var addthis_share = {
@@ -22,11 +21,11 @@
     <%= image_tag logo_for(@restaurant).attachment.url(:small) %>
     <h1 id="name"><%= restaurant_link(@restaurant) %></h1>
 
-    <div id="restaurant_meta" class="">
-        <p class="address"><%= @restaurant.address_parts.join("<br />") %></p>
-        <p>
-            Metropolitan Area: <%=h @restaurant.metropolitan_area.try(:name) %><br/>
-            Region: <%=h @restaurant.james_beard_region.try(:name) %>
-        </p>
-    </div><!-- /restaurant_meta -->
+   
+
 </header>
+ <div id="restaurant_meta" class="">
+    <% dl_if(!@restaurant.description.blank?, :class => "list_item", :id => "description") do %>   
+      <dd><%= @restaurant.description %></dd>
+<% end %>
+</div><!-- /restaurant_meta -->
