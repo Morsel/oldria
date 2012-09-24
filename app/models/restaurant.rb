@@ -133,7 +133,7 @@ class Restaurant < ActiveRecord::Base
     { :conditions => "facebook_page_id IS NOT NULL AND facebook_page_token IS NOT NULL" }
   }
 
-  named_scope :activated_restaurant, :conditions => {:is_activated => true } 
+  named_scope :activated_restaurant, :conditions => { } # TODO for workound I removed is_activated =>true Ticket 36397415 
 
   def self.find_premium(id)
     possibility = find_by_id(id)
