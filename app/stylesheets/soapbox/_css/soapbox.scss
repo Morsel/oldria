@@ -1193,6 +1193,18 @@ body,html,#container,#main,#content,#inside{
 				}
 
 			}
+			header{
+				p{
+					a{
+						font-size:12px !important;
+						&:hover {
+							color: #fff;
+							text-decoration: underline;
+					}
+					}	
+
+				}
+			}
 		}
 	}
 } /*recent-activity*/

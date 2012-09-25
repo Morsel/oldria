@@ -73,7 +73,7 @@ class EmployeesController < ApplicationController
 
   def find_or_initialize_employee
     email = params[:employment][:employee_email]
-    @employees = (User.find_all_by_email(email) + User.find_all_by_name(email) + User.find_all_by_first_name(email.split(" ").first) + User.find_all_by_last_name(email.split(" ").last)).compact
+    @employees = (User.find_all_by_email(email) + User.find_all_by_name(email) + User.find_all_by_first_name(email.split(" ").first) + User.find_all_by_last_name(email.split(" ").last)).uniq.compact
 
     if @employees.present?
       @employment.employee_id = @employees.first.id
