@@ -25,8 +25,8 @@
             </li>
             <li>
                 <header class="feed-item-title website">
-                    <%= link_to "Website:", restaurant.website %>
-                    <p><%= link_to restaurant.website, restaurant.website %></p>
+                     Name of website:
+                    <p><%= link_to restaurant.name, restaurant.website %></p>
                 </header>
             </li>
             <%- if restaurant.twitter_authorized? -%>
