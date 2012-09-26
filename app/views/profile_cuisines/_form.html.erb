@@ -1,3 +1,4 @@
+<div id="complete_profile">
 <% semantic_form_for @profile_cuisine.new_record? ? [:user, :profile, @profile_cuisine] : @profile_cuisine do |f| %>
   <% f.inputs :class => "plain profile_cuisines" do %>
     <%= f.input :profile_id, :as => :hidden %>
@@ -5,4 +6,6 @@
     <%= f.input :cuisine, :as => "select", :collection => Cuisine.all, :required => true %>
   <% end %>
   <%= button_tag "Save" %>
-<% end %>
+  <% end %>
+</div>
+

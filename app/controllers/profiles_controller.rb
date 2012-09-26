@@ -2,7 +2,7 @@ class ProfilesController < ApplicationController
 
   before_filter :require_user
   before_filter :find_user
-  before_filter :find_or_build_profile, :only => [:edit, :edit_front_burner, :edit_account]
+  before_filter :find_or_build_profile, :only => [:edit, :edit_front_burner, :edit_account,:complete_profile]
   
   def create
     @profile = @user.build_profile(params[:profile])
@@ -34,13 +34,20 @@ class ProfilesController < ApplicationController
   def update
     @profile = @user.profile
 
-    if @profile.update_attributes(params[:profile])
-      flash[:notice] = "Successfully updated profile."
-      redirect_to edit_user_profile_path(:user_id => @user.id, :anchor => "profile-summary")
-    else
-      flash[:error] = "Please fix the errors in the form below"
-      render :edit
+    respond_to do |wants|
+      if @profile.update_attributes(params[:profile])
+          flash[:notice] = "Successfully updated profile."
+          wants.html { redirect_to edit_user_profile_path(:user_id => @user.id, :anchor => "profile-summary")}
+          wants.json { render :json => {:status=>true}}
+          
+      else
+        flash[:error] = "Please fix the errors in the form below"
+        wants.html { render :edit }
+        wants.json { render :json => {:status=>false}}
+      end
     end
+
+
   end
   
   def toggle_publish_profile
@@ -49,6 +56,13 @@ class ProfilesController < ApplicationController
     else
       render :partial => "shared/ajax_error" 
     end
+  end
+
+  def add_role_form
+    render :partial => "profiles/add_role_form" 
+  end  
+
+  def complete_profile
   end
 
   protected
