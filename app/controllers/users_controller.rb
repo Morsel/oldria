@@ -2,7 +2,7 @@ class UsersController < ApplicationController
 
   before_filter :require_user, :only => [:show, :resume, :index]
   before_filter :require_owner_or_admin, :only => [:edit, :update, :remove_twitter, :remove_avatar,
-                                                   :fb_auth, :fb_deauth, :fb_connect, :fb_page_auth]
+                                                   :fb_auth, :fb_deauth, :fb_connect, :fb_page_auth,:upload]
 
   def index
     respond_to do |format|
@@ -54,7 +54,7 @@ class UsersController < ApplicationController
           flash[:notice] = "Successfully updated your profile."
           redirect_to edit_user_profile_path(:user_id => @user.id) and return
         end
-        format.js   { head :ok }
+        format.js   { head :ok }       
       else
         @profile = @user.profile || @user.build_profile
         format.html { render :template => 'profiles/edit' }
@@ -182,6 +182,14 @@ class UsersController < ApplicationController
     flash[:notice] = "Removed #{editor.name} from editing your account"
     redirect_to edit_user_profile_path(:user_id => @user.id)
   end
+
+  def upload
+      if @user.update_attributes(params[:user])
+        render :json=>{:status=>true}
+      else
+        render :json=>{:status=>false,:errors =>  @user.errors.as_json.uniq}
+      end  
+  end  
 
   private
 

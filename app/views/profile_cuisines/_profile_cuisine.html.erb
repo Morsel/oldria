@@ -1,0 +1,8 @@
+<% content_tag_for :li, cuisine do %>
+    <%= cuisine.name %>&nbsp;
+    <% if action_name != 'show' %>
+      <%= link_to "Remove", 
+        profile_cuisine_path(@profile.profile_cuisines.find_by_cuisine_id(cuisine.id), :user_id => @user.id),
+        { :method => :delete }, { :class => 'delete' } %>
+    <% end %>
+<% end %>
