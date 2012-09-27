@@ -57,4 +57,21 @@ module DirectoryHelper
   def correct_restaurant_path restaurant
     soapbox? ? soapbox_restaurant_path(restaurant) : restaurant_path(restaurant)
   end
+
+  def get_url_by_request type
+      
+      page = type.gsub("dashboard_","")
+      path = nil
+      case page
+        when "newsfeed"
+          path = new_restaurant_promotion_path(@restaurant)
+        when "alm"  
+          path = bulk_edit_restaurant_a_la_minute_answers_path(@restaurant)
+        when "otm"
+          path = new_restaurant_menu_item_path(@restaurant)
+        when "restaurant"  
+          path = edit_restaurant_path(@restaurant)
+      end 
+      path
+  end  
 end
