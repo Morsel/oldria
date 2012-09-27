@@ -145,6 +145,7 @@ class User < ActiveRecord::Base
   preference :receive_email_notifications, :default => true
   preference :publish_profile, :default => true # TODO - remove this after changes are on production
 
+
 ### Roles ###
   def admin?
     return @is_admin if defined?(@is_admin)
@@ -157,6 +158,12 @@ class User < ActiveRecord::Base
     @is_media = has_role?(:media)
   end
   alias :media :media?
+
+  def has_chef_role?
+    !(self.has_role?(:admin) || self.has_role?(:diner) || self.has_role?(:media))
+  end 
+
+  def 
 
   def admin=(bool)
     TRUE_VALUES.include?(bool) ? has_role!("admin") : has_no_role!(:admin)
