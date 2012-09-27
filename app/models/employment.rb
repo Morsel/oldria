@@ -46,6 +46,9 @@ class Employment < ActiveRecord::Base
 
   validates_uniqueness_of :employee_id, :scope => :restaurant_id, :message => "is already associated with that restaurant"
 
+
+  validates_presence_of :restaurant_role, :message => "Role is required field",:on => :update
+
   before_save :set_subject_matters_for_managers, :if => Proc.new { |e| e.omniscient }
 
   named_scope :restaurants_metro_id, lambda { |ids|
