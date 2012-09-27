@@ -452,7 +452,41 @@ $('#metropolitan_areas_state_state_id').change(function(){
 
 
 })
+  $('.restaurants-model').click(function(e){
+    e.preventDefault();
+    var id = $(this).attr('id')
+    $.colorbox({href:"/directory/current_user_restaurants?clicked="+id});   
 
-// end $(document).ready
+  })/* End model click*/
+
+  $('#select_restaurant').live('change',function(){    
+    if($(this).val())
+    {
+      $('#color-box-restaurant-msg').show();
+      $('#color-box-restaurant').hide();
+
+      $.ajax({
+          type: 'POST',
+          url: ' /directory/get_restaurant_url',
+          data: "restaurant_id="+$(this).val()+"&clicked_page="+$('#hidden_clicked_nav').val(),
+          success: function(data){
+            if(data.url)
+              $(location).attr('href',data.url);
+            else
+            {
+              $('#color-box-restaurant').show()
+              $('#color-box-restaurant-msg').hide();
+             }
+          },
+          dataType: 'json'
+        });
+    }
+  }) /*End select_restaurant onchange*/
+
+
+
+   $('.add-btl').colorbox({rel:'gal'});
+
+  // end $(document).ready
 });
 
