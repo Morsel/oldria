@@ -1,4 +1,5 @@
 class DirectoryController < ApplicationController
+  include DirectoryHelper
   before_filter :require_user
 
   def index
@@ -46,4 +47,14 @@ class DirectoryController < ApplicationController
     render :partial => "restaurant_search_results"
   end
 
+  def current_user_restaurants
+    @restaurants = current_user.restaurants   
+    render :layout => false
+  end  
+
+  def get_restaurant_url
+    @restaurant = Restaurant.find(params[:restaurant_id])
+    @url = get_url_by_request params[:clicked_page]
+    render :json =>{:url=>@url}
+  end 
 end
