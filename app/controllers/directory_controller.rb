@@ -48,7 +48,7 @@ class DirectoryController < ApplicationController
   end
 
   def current_user_restaurants
-    @restaurants = current_user.restaurants   
+    @restaurants = current_user.manager_restaurants   
     render :layout => false
   end  
 
