@@ -13,7 +13,7 @@
 <section id="main" class="clearfix">
     <% if current_user && current_user.media? -%>
       <%= render 'layouts/nav_media_logged_in' %>
-    <% elsif current_user && current_user.has_chef_role? %> 
+    <% elsif current_user && current_user.has_chef_role? && !current_user.manager_restaurants.blank? %><!-- # for omniscient check !current_user.manager_restaurants.blank?-->
         <%= render 'layouts/nav_restaurant_logged_in' %>
     <% elsif current_user -%>
       <%= render 'layouts/nav_sf_logged_in' %>
