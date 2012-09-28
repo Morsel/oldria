@@ -522,6 +522,7 @@ $('#metropolitan_areas_state_state_id').change(function(){
         return false; 
     });
 
+
    $('.add-btl').colorbox({rel:'gal'});
 
   // end $(document).ready
