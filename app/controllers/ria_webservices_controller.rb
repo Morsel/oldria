@@ -53,15 +53,26 @@ class RiaWebservicesController < ApplicationController
     save_session
   end
 
-   def save_session
+  def save_session
     if @user_session.save
-      user = @user_session.user
-    if user.admin? || user.media? || user.completed_setup?
-        status = true
-    else
-       status = false
-    end
-      render :json => {:status=>status}
+        user = @user_session.user
+        unless user.push_notification_user.nil?
+            @push_notification_user = user.push_notification_user
+            if @push_notification_user.update_attributes(eval(params[:push_notification_user]))
+              status = true
+            else
+              status = false    
+            end
+        else
+              pnu = PushNotificationUser.new(eval params[:push_notification_user])
+                if(pnu.save) 
+                  pnu.update_attributes(:user=>current_user)
+                    status = true
+                else
+                    status = false  
+                end
+         end 
+        render :json => {:status=>status}
     else
        if @user_session.errors.on_base == "Your account is not confirmed"
           status = false
@@ -72,7 +83,7 @@ class RiaWebservicesController < ApplicationController
       end
      render :json => {:status=>status,:message=>"Oops, you entered the wrong username or password.<br/>;"}
     end
-  end
+ end
 
   def create_psw_rst
     @user = User.find_by_email(params[:email])
@@ -239,7 +250,7 @@ end
           @trend_questions = (resto_trends.present? ? resto_trends : @user.unread_solo_discussions).sort_by(&:scheduled_at).reverse.\
               paginate(:page => params[:page], :per_page => 5)
 
-    end
+        end
 
       @data = Array.new
       @qotds.each do |admin_conversation|  
@@ -250,6 +261,24 @@ end
       end  
     render :json =>@data
   end
+
+  def get_newsfeed
+      all_promotions = @restaurant.promotions.all(:order => "created_at DESC")
+      promotion_clumn =  Promotion.columns
+      promotion_array = Array.new
+
+      all_promotions.each do |promotion|
+          promotion_keys = Hash.new
+          promotion_clumn.map {|c| c.name }.each{|x| promotion_keys[x] = nil}
+          promotion_clumn.map {|c| promotion_keys[c.name] = promotion[c.name] } 
+          promotion_keys[:promotion_name] = promotion.promotion_type.name.gsub!(/(<[^>]*>)|\r|\n|\t/s) {" "}
+          promotion_keys[:details] = promotion.details.gsub!(/(<[^>]*>)|\r|\n|\t/s) {" "}
+
+          promotion_array.push(promotion_keys)
+      end
+    render :json => {:all_promotions=>promotion_array }
+  end
+
 
   private
 
