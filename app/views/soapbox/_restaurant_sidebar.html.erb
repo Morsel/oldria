@@ -25,8 +25,8 @@
             </li>
             <li>
                 <header class="feed-item-title website">
-                     Name of website:
-                    <p><%= link_to restaurant.name, restaurant.website %></p>
+                     Website:
+                    <p><%= link_to restaurant.name, "http://" + restaurant.website.gsub(/.*?:\/\//,"") %></p>
                 </header>
             </li>
             <%- if restaurant.twitter_authorized? -%>
@@ -88,7 +88,7 @@
             <li>
                 <header class="tags website">
                     <p>
-                        <%= restaurant.top_tags.map{|tag|(link_to h(tag.value),soapbox_feature_path(tag))}.join(",") %>
+                        <%= restaurant.top_tags.map{|tag|(link_to h(tag.value),soapbox_feature_path(tag))}.join(", ") %>
                     </p>
                 </header>
             </li>
