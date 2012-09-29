@@ -1,6 +1,6 @@
 class RiaWebservicesController < ApplicationController
    skip_before_filter :protect_from_forge
-   before_filter :require_user,:only => [:a_la_minute_answers,:require_restaurant_employee,:menu_items,:bulk_update,:create_menu,:create_promotions,:create_photo,:show_photo,:create_comments,:get_qotds,:get_newsfeed]
+   before_filter :require_user,:only => [:a_la_minute_answers,:require_restaurant_employee,:menu_items,:bulk_update,:create_menu,:create_promotions,:create_photo,:show_photo,:create_comments,:get_qotds,:get_newsfeed,:push_notification_user]
    before_filter :require_restaurant_employee, :only => [:a_la_minute_answers,:require_restaurant_employee,:menu_items,:bulk_update,:create_menu,:create_promotions,:create_photo,:show_photo,:get_newsfeed]
    before_filter :find_activated_restaurant, :only => [:a_la_minute_answers,:require_restaurant_employee,:menu_items,:bulk_update,:create_menu,:create_promotions,:create_photo,:show_photo,:get_newsfeed]
    before_filter :require_manager, :only => [:a_la_minute_answers,:require_restaurant_employee,:menu_items,:bulk_update,:create_menu,:create_promotions,:create_photo,:show_photo,:create_comments,:get_newsfeed]
@@ -27,8 +27,11 @@ class RiaWebservicesController < ApplicationController
          message = "Your changes have been saved"
          status  = true
       else
-         message = @invitation.errors.full_messages #.join("<br />").html_safe 
-         status  = false         
+        message = []
+        @invitation.errors.full_messages.each do |msg|
+          message = msg.gsub(/(<[^>]*>)|\r|\n|\t/s) {" "}
+        end 
+         status  = false
       end
     elsif params[:role] == "diner"
       @subscriber = NewsletterSubscriber.build_from_registration(params)
@@ -102,9 +105,6 @@ class RiaWebservicesController < ApplicationController
     UserMailer.deliver_password_reset_instructions(self)
   end
 
-  def require_user_local
-    User.find(:first, :conditions => "username = '#{params[:username]}'")
-  end
 
  def soap_box_index
    render :json => {:past_qotds => past_qotds, :past_trends => past_trends}
@@ -144,6 +144,9 @@ end
     @menu_item_keywords = {}
     @menu_items.each do |menu_item|
         @menu_item_keywords[menu_item.id] = menu_item.keywords
+          if !menu_item.description.nil? && !menu_item.description.blank?
+            menu_item.description = menu_item.description.gsub(/(<[^>]*>)|\r|\n|\t/s) {" "}
+          end  
         if !menu_item.photo_file_name.nil? && !menu_item.photo_file_name.blank? 
           menu_item.photo_file_name = menu_item.photo(:thumb)
         end  
@@ -167,8 +170,7 @@ end
      render :json =>{ :categories=>@categories}
     end
 
-#completed
-  def create_promotions   
+ def create_promotions   
     @promotion = @restaurant.promotions.build(params[:promotion])
     @promotion.attachment_content_type = "application/#{@promotion.attachment_file_name.split(".").last}" if !@promotion.attachment_file_name.nil?  
     if @promotion.save
@@ -272,9 +274,8 @@ end
           promotion_clumn.map {|c| c.name }.each{|x| promotion_keys[x] = nil}
           promotion_clumn.map {|c| promotion_keys[c.name] = promotion[c.name] } 
           promotion_keys[:promotion_name] = promotion.promotion_type.name.gsub!(/(<[^>]*>)|\r|\n|\t/s) {" "}
-          promotion_keys[:details] = promotion.details.gsub!(/(<[^>]*>)|\r|\n|\t/s) {" "}
-
-          promotion_array.push(promotion_keys)
+          promotion_keys["details"] = promotion.details.gsub!(/(<[^>]*>)|\r|\n|\t/s) {" "}
+	  promotion_array.push(promotion_keys)
       end
     render :json => {:all_promotions=>promotion_array }
   end
