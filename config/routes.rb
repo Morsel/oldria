@@ -130,11 +130,12 @@ ActionController::Routing::Routes.draw do |map|
     :fb_connect => :any,
     :fb_deauth => :any,
     :fb_page_auth => :post,
-    :remove_editor => :put
+    :remove_editor => :put,
+    :upload =>:post
   }, :shallow => true do |users|
     users.resource :profile, :only => ['create', 'edit', 'update'],
                    :controller => 'profiles',
-                   :member => { :edit_front_burner => :get, :edit_btl => :get,:add_role =>:post ,:add_role_form =>:get},
+                   :member => { :edit_front_burner => :get, :edit_btl => :get,:add_role =>:post ,:add_role_form =>:get,:complete_profile => :get},
                    :collection => { :toggle_publish_profile => :get } do |p|
       p.resources :culinary_jobs
       p.resources :nonculinary_jobs
