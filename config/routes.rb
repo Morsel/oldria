@@ -20,7 +20,8 @@ ActionController::Routing::Routes.draw do |map|
 
   map.directory 'directory', :controller => 'directory', :action => 'index'
   map.restaurant_directory 'directory/restaurants', :controller => 'directory', :action => 'restaurants'
-
+  map.user_restaurants 'directory/current_user_restaurants', :controller => 'directory', :action => 'current_user_restaurants'
+  map.get_restaurant_url 'directory/get_restaurant_url', :controller => 'directory', :action => 'get_restaurant_url'
   # the callback for cloudmailin
   map.resource :cloudmail, :only => :create 
 
@@ -133,7 +134,7 @@ ActionController::Routing::Routes.draw do |map|
   }, :shallow => true do |users|
     users.resource :profile, :only => ['create', 'edit', 'update'],
                    :controller => 'profiles',
-                   :member => { :edit_front_burner => :get, :edit_btl => :get },
+                   :member => { :edit_front_burner => :get, :edit_btl => :get,:add_role =>:post ,:add_role_form =>:get},
                    :collection => { :toggle_publish_profile => :get } do |p|
       p.resources :culinary_jobs
       p.resources :nonculinary_jobs
@@ -357,4 +358,5 @@ ActionController::Routing::Routes.draw do |map|
   # Default Routes
   map.connect ':controller/:action/:id'
   map.connect ':controller/:action/:id.:format'
+  map.resources :ria_webservices, :collection => {:register => :post,:create => :post,:create_psw_rst => :post,:get_join_us_value=>:get,:soap_box_index =>:get,:a_la_minute_answers =>:get,:menu_items =>:get,:bulk_update => :post,:create_menu=>:post,:create_promotions =>:post,:get_promotion_type=>:get,:new_menu_item=>:get,:bulk_edit_photo=>:get,:create_photo =>:post,:create_comments =>:post,:show_comments =>:get,:get_qotds=>:get,:get_newsfeed=>:get,:push_notification_user=>:post}, :controller => "ria_webservices"
 end

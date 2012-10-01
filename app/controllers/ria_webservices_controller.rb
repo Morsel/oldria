@@ -10,7 +10,7 @@ class RiaWebservicesController < ApplicationController
    include ALaMinuteAnswersHelper
 
   def register    
-    message = nil
+     message = []
     if params[:role] == "media"
       @user = User.build_media_from_registration(params)
       if @user.save
@@ -22,16 +22,18 @@ class RiaWebservicesController < ApplicationController
       end
     elsif params[:role] == "restaurant"   
        params[:subject_matters] = eval(params[:subject_matters])
+
        @invitation = Invitation.build_from_registration(params)   
-      if @invitation.save         
-         message = "Your changes have been saved"
+      if @invitation.save
+         message.push("Your changes have been saved")
          status  = true
       else
-        message = []
+
         @invitation.errors.full_messages.each do |msg|
           message.push(msg.gsub(/(<[^>]*>)|\r|\n|\t/s) {" "})
         end 
-        status  = false
+
+         status  = false
       end
     elsif params[:role] == "diner"
       @subscriber = NewsletterSubscriber.build_from_registration(params)
@@ -42,7 +44,7 @@ class RiaWebservicesController < ApplicationController
       end
     else
         status = false
-        message = "Invalid request"
+        message.push("Invalid request")
     end
     render :json => {:status=>status,:message=>message}
   end
