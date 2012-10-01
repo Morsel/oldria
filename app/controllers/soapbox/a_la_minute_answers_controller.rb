@@ -7,7 +7,7 @@ class Soapbox::ALaMinuteAnswersController < ApplicationController
     @promotions = @answer.restaurant.promotions.all\
     	(:conditions=>["DATE(created_at) > DATE(?) or DATE(created_at) = DATE(?) ", Time.now,Time.now],:order => "created_at DESC",:limit=>3)
     @menu_items = @answer.restaurant.menu_items.all\
-      (:conditions=>["DATE(created_at) < DATE(?)", Time.now],:limit=>3,:order=>"menu_items.created_at DESC")
+    	(:conditions=>["DATE(created_at) < DATE(?)", Time.now],:limit=>3,:order=>"menu_items.created_at DESC")
   end
 
 end
