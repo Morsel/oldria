@@ -29,9 +29,9 @@ class RiaWebservicesController < ApplicationController
       else
         message = []
         @invitation.errors.full_messages.each do |msg|
-          message = msg.gsub(/(<[^>]*>)|\r|\n|\t/s) {" "}
+          message.push(msg.gsub(/(<[^>]*>)|\r|\n|\t/s) {" "})
         end 
-         status  = false
+        status  = false
       end
     elsif params[:role] == "diner"
       @subscriber = NewsletterSubscriber.build_from_registration(params)
@@ -84,7 +84,7 @@ class RiaWebservicesController < ApplicationController
       else
         status = false
       end
-     render :json => {:status=>status,:message=>"Oops, you entered the wrong username or password.<br/>;"}
+     render :json => {:status=>status,:message=>"Oops, you entered the wrong username or password.;"}
     end
  end
 
@@ -96,7 +96,7 @@ class RiaWebservicesController < ApplicationController
       render :json =>{:status=>status,:message=>"Please check your email for instructions to finish resetting your password"}
     else
       status = false
-       render :json =>{:status=>status,:message=>"Your account is not confirmed.<br/>Please check your email for instructions"}
+       render :json =>{:status=>status,:message=>"Your account is not confirmed.Please check your email for instructions"}
     end
   end
 
