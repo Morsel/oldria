@@ -55,6 +55,25 @@
     <!-- Likes and Tweets END -->
 <% end %>
 
+<% unless @promotions.blank?%>
+  <div class="clear">&nbsp;</div>
+      <h3>Newsfeed</h3>      
+      <div id="answers">
+        <% for promotion in @promotions -%>
+            <% div_for(promotion) do %>
+                <%= render :partial => 'soapbox/promotions/promotion', :locals => { :promotion => promotion } %>  
+            <% end -%>
+        <% end -%>
+      </div>
+<% end -%>
+
+<% unless @answers.blank?%>
+    <h3>A la Minute</h3>   
+    <% for answer in @answers -%>
+        <%= render :partial => 'soapbox/a_la_minute_questions/answer_list',:locals => { :answer => answer } %>
+    <% end -%>
+<% end -%>
+
 <h3 id="more-answers">Other recent items</h3>
 <% for menu_item in @more_menu_items -%>
   <%= render :partial => "menu_item", :locals => { :menu_item => menu_item } %>
