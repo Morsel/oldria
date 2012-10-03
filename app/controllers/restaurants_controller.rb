@@ -71,7 +71,8 @@ class RestaurantsController < ApplicationController
 
     new_media_contact = User.find(params[:media_contact])
     old_media_contact = @restaurant.media_contact 
-
+    old_media_contact_employment = @restaurant.employments.find_by_employee_id(@restaurant.media_contact_id)
+    
     if @restaurant.update_attribute(:media_contact_id, new_media_contact.id)
       flash[:notice] = "Updated account media contact "
     else
@@ -81,6 +82,11 @@ class RestaurantsController < ApplicationController
     if old_media_contact == @restaurant.manager
       redirect_to new_manager_needed_restaurant_path(@restaurant) 
     else
+      if(old_media_contact != new_media_contact && old_media_contact_employment.destroy)
+        flash[:notice] = "Updated account media contact & #{new_media_contact.name} is deleted."        
+      else
+        flash[:notice] = "Could not deleted employee, as media contact remains same. "
+      end  
       redirect_to bulk_edit_restaurant_employees_path(@restaurant)
     end  
   end  
@@ -90,6 +96,10 @@ class RestaurantsController < ApplicationController
     old_manager_employment = @restaurant.employments.find_by_employee_id(@restaurant.manager_id)
     new_manager = User.find(params[:manager])
 
+    if @restaurant.media_contact == old_manager
+      redirect_to new_media_contact_restaurant_path(@restaurant) and return
+    end 
+    
     if @restaurant.update_attribute(:manager_id, new_manager.id) && old_manager_employment.destroy
       flash[:notice] = "Updated account manager to #{new_manager.name}. #{old_manager.name} is no longer an employee."
     else
