@@ -31,9 +31,7 @@ class Soapbox::MenuItemsController < ApplicationController
                                     :limit => 5)
     @promotions = @menu_item.restaurant.promotions.all\
     (:limit=>3,:order=>"created_at DESC",:conditions=>["DATE(promotions.created_at) >= DATE(?)", Time.now])
-    
-    @answers =  @menu_item.restaurant.a_la_minute_answers.find(:all,:order=>"created_at DESC",:limit=>3) 
-    
+    @answers =  @menu_item.restaurant.a_la_minute_answers.all(:limit=>3,:order => "a_la_minute_answers.created_at DESC",:conditions=>["DATE(a_la_minute_answers.created_at) = DATE(?)", Time.now])
   end
 
    def verify_restaurant_activation        
