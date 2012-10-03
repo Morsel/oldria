@@ -32,6 +32,9 @@ class Promotion < ActiveRecord::Base
   belongs_to :promotion_type
   belongs_to :restaurant
 
+  has_one :twitter_job, :class_name => "Delayed::Job", :foreign_key => 'id', :primary_key => 'twitter_job_id', :dependent => :destroy
+  has_one :facebook_job, :class_name => "Delayed::Job", :foreign_key => 'id', :primary_key => 'facebook_job_id', :dependent => :destroy
+
   validates_presence_of :promotion_type, :details, :start_date, :restaurant_id, :headline
   validates_presence_of :end_date, :if => Proc.new { |promo| promo.date_description.present? },
       :message => "End date is required for repeating events"
@@ -116,12 +119,29 @@ class Promotion < ActiveRecord::Base
     soapbox_promotion_url(self)
   end
 
+  def update_crosspost
+    crosspost
+  end
+
   private
 
   def crosspost
+    # Post to Twitter
+    if twitter_job.present?
+      twitter_job.destroy
+      update_attribute(:twitter_job_id, nil)
+    end
+
     update_attribute(:post_to_twitter_at, nil) if no_twitter_crosspost == "1"
     if post_to_twitter_at.present? && restaurant.twitter_authorized?
-      restaurant.twitter_client.send_at(post_to_twitter_at, :update, "#{truncate(headline, :length => 120)} #{self.bitly_link}")
+      twitter_job = restaurant.twitter_client.send_at(post_to_twitter_at, :update, "#{truncate(headline, :length => 120)} #{self.bitly_link}")
+      update_attribute(:twitter_job_id, twitter_job.id)
+    end
+
+    # Post to Facebook
+    if facebook_job.present?
+      facebook_job.destroy
+      update_attribute(:facebook_job_id, nil)
     end
 
     update_attribute(:post_to_facebook_at, nil) if no_fb_crosspost == "1"
@@ -130,7 +150,8 @@ class Promotion < ActiveRecord::Base
                           :link        => soapbox_promotion_url(self),
                           :name        => headline,
                           :description => details }
-      restaurant.send_at(post_to_facebook_at, :post_to_facebook_page, post_attributes)
+      facebook_job = restaurant.send_at(post_to_facebook_at, :post_to_facebook_page, post_attributes)
+      update_attribute(:facebook_job_id, facebook_job.id)
     end
   end
 
