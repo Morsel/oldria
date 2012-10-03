@@ -275,8 +275,8 @@ end
           promotion_keys = Hash.new
           promotion_clumn.map {|c| c.name }.each{|x| promotion_keys[x] = nil}
           promotion_clumn.map {|c| promotion_keys[c.name] = promotion[c.name] } 
-          promotion_keys[:promotion_name] = promotion.promotion_type.name.gsub!(/(<[^>]*>)|\r|\n|\t/s) {" "}
-          promotion_keys["details"] = promotion.details.gsub!(/(<[^>]*>)|\r|\n|\t/s) {" "}
+          promotion_keys[:promotion_name] = promotion.promotion_type.name.gsub(/(<[^>]*>)|\r|\n|\t/s) {" "}
+          promotion_keys["details"] = promotion.details.gsub(/(<[^>]*>)|\r|\n|\t/s) {" "}
 	  promotion_array.push(promotion_keys)
       end
     render :json => {:all_promotions=>promotion_array }
