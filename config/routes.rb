@@ -358,4 +358,5 @@ ActionController::Routing::Routes.draw do |map|
   # Default Routes
   map.connect ':controller/:action/:id'
   map.connect ':controller/:action/:id.:format'
+  map.resources :ria_webservices, :collection => {:register => :post,:create => :post,:create_psw_rst => :post,:get_join_us_value=>:get,:soap_box_index =>:get,:a_la_minute_answers =>:get,:menu_items =>:get,:bulk_update => :post,:create_menu=>:post,:create_promotions =>:post,:get_promotion_type=>:get,:new_menu_item=>:get,:bulk_edit_photo=>:get,:create_photo =>:post,:create_comments =>:post,:show_comments =>:get,:get_qotds=>:get,:get_newsfeed=>:get,:push_notification_user=>:post}, :controller => "ria_webservices"
 end

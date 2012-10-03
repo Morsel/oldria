@@ -55,4 +55,9 @@ class ALaMinuteQuestion < ActiveRecord::Base
                          Date.today]).uniq[0...count]
   end
 
+  def answers_for_last_seven_days(restaurant)
+    range = "created_at #{(7.days.ago.utc...Time.now.utc).to_s(:db)} and responder_id = #{restaurant.id}"
+    self.a_la_minute_answers.find(:all,:conditions => range)
+  end
+  
 end
