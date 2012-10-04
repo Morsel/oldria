@@ -16,7 +16,7 @@
               <ol>
                 <li class="string">
                   <%= label_tag "a_la_minute_questions_#{question.id}_answer", h(question.question), :class => "question ala" %>
-                  <%= text_field_tag "a_la_minute_questions[#{question.id}][answer]", answer.answer, :class => "new answer" %>
+                  <%= text_area_tag "a_la_minute_questions[#{question.id}][answer]", answer.answer, :class => "new answer bulk-edit-text-area" ,:rows=>"10"%>
                 </li>
               </ol>
               <%= hidden_field_tag "a_la_minute_questions[#{question.id}][answer_id]", answer.id %>
