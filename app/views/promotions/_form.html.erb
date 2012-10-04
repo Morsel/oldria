@@ -20,7 +20,7 @@
         <%= f.input :date_description, :label => "Repeating on", :hint => "Example: every Monday in March" %>
 
         <% if @restaurant.twitter_authorized? -%>
-          <% if promotion.post_to_twitter_at > DateTime.now %>
+          <% if (promotion.post_to_twitter_at > DateTime.now) || promotion.new_record? %>
             <%= f.input :post_to_twitter_at, :label => "Post to my Twitter account on", :start_year => Date.today.year, :end_year => 1.year.from_now.year %>
             <%= f.input :no_twitter_crosspost, :as => "boolean", :label => "Don't crosspost to Twitter" %>
           <% else %>
@@ -30,7 +30,7 @@
           <p>Hook up your Twitter account to autopost this content to your social streams.</p>
         <% end %>
         <% if @restaurant.has_facebook_page? %>
-          <% if promotion.post_to_facebook_at > DateTime.now %>
+          <% if (promotion.post_to_facebook_at > DateTime.now) || promotion.new_record? %>
             <% begin %>
               <%= f.input :post_to_facebook_at, :label => "Post to Facebook page \"#{@restaurant.facebook_page.fetch.name}\" on", :start_year => Date.today.year, :end_year => 1.year.from_now.year %>
               <%= f.input :no_fb_crosspost, :as => "boolean", :label => "Don't crosspost to Facebook" %>
