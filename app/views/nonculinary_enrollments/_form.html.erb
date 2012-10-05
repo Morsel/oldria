@@ -1,7 +1,10 @@
 <%= "<h1>#{yield :title}</h1>" if request.xhr? %>
 <% semantic_form_for @nonculinary_enrollment.new_record? ? [:user, :profile, setup_nonculinary_enrollment(@nonculinary_enrollment)] : setup_nonculinary_enrollment(@nonculinary_enrollment) do |f| %>
   <% f.inputs :class => "nonculinary_enrollments" do %>
+  
+  <% if @nonculinary_enrollment.errors.blank? || (!@nonculinary_enrollment.errors.first.nil? && @nonculinary_enrollment.errors.first.include?("nonculinary_school")) %>
     <%= f.input :nonculinary_school %>
+    <% end %>
 
   <% if action_name != 'edit' %>
     
@@ -20,11 +23,18 @@
         <%= school.input :country, :wrapper_html => {:class => 'clear'} %>
       <% end %>
     </div>
-    <p>
+
+  <% if @nonculinary_enrollment.errors.blank? || (!@nonculinary_enrollment.errors.first.nil? && @nonculinary_enrollment.errors.first.include?("nonculinary_school")) %>
+    <br>
+      <p>
       <a href="#school_fields" class="showit">
-        We don't have your school listed? You can add it below
+        Is your school not listed above? Click here to add it!
       </a>
     </p>
+    <br>
+
+  <% end %>
+
   <% end %>
 
     <li class="date optional">
