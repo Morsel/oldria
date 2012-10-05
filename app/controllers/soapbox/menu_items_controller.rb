@@ -29,7 +29,7 @@ class Soapbox::MenuItemsController < ApplicationController
     @more_menu_items = MenuItem.all(:conditions => ["restaurant_id = ? AND id != ?", @menu_item.restaurant_id, @menu_item.id],
                                     :order => "created_at DESC",
                                     :limit => 5)
-    @promotions = @menu_item.restaurant.promotions.all(:limit=>3,:order=>"created_at DESC",:conditions=>["DATE(promotions.created_at) >= DATE(?)", Time.now])
+    @promotions = @menu_item.restaurant.promotions.all(:limit=>3,:order=>"created_at DESC",:conditions=>["DATE(promotions.start_date) >= DATE(?)", Time.now])
     @answers =  @menu_item.restaurant.a_la_minute_answers.all(:limit=>3,:order => "a_la_minute_answers.created_at DESC",:conditions=>["DATE(a_la_minute_answers.created_at) = DATE(?)", Time.now])
   end
 
