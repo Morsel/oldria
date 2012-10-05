@@ -24,5 +24,5 @@ if defined?(MailSafe::Config)
 # FYI: this is a google mail list
 
   MailSafe::Config.replacement_address = lambda { |address|
-    "testuser+#{address.gsub(/[^\w\d\-\_]/, '_')}@restaurantintelligenceagency.com" }
+    "ellen+#{address.gsub(/[^\w\d\-\_]/, '_')}@restaurantintelligenceagency.com" }
 end
