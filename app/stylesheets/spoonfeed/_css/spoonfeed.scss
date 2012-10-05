@@ -1523,6 +1523,7 @@ aside.dashboard_actions {
     width: 55%;
     height: 80px;
   }
+  
 	button, input[type="submit"] {
 		cursor:pointer;
 		float: left;
@@ -4362,3 +4363,6 @@ hgroup h5 span {
 {
 	font-weight: normal !important;
 }
+.bulk-edit-text-area{
+  	height: 100% !important;
+  }
