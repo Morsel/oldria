@@ -12,7 +12,6 @@
     <%= f.input :date_ended, :as => :date, :selected => nil, :end_year => 1930, :start_year => Date.today.year %>
     <%= f.input :responsibilities, :label => "Responsibilities and Accomplishments",
       :input_html => {:rows => 3} %>
-    <%= f.input :reason_for_leaving %>
   <% end %>
   <%= button_tag "Save" %>
 <% end %>
