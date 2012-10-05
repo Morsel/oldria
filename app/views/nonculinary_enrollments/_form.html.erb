@@ -23,7 +23,8 @@
         <%= school.input :country, :wrapper_html => {:class => 'clear'} %>
       <% end %>
     </div>
-   <% if @nonculinary_enrollment.errors.blank? || (!@nonculinary_enrollment.errors.first.nil? && @nonculinary_enrollment.errors.first.include?("nonculinary_school")) %>
+
+  <% if @nonculinary_enrollment.errors.blank? || (!@nonculinary_enrollment.errors.first.nil? && @nonculinary_enrollment.errors.first.include?("nonculinary_school")) %>
     <br>
       <p>
       <a href="#school_fields" class="showit">
@@ -32,7 +33,8 @@
     </p>
     <br>
 
-    <% end %>
+  <% end %>
+
   <% end %>
 
     <li class="date optional">
