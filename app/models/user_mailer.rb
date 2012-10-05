@@ -132,7 +132,7 @@ class UserMailer < ActionMailer::Base
 
   def admin_notification(message, recipient)
     from        'notifications@restaurantintelligenceagency.com'   
-    recipients  "admin"
+    recipients  "admin@restaurantintelligenceagency.com"
     sent_on     Time.now
     subject     "An item is posted to Newsfeed notification "
     body        :message => message, :recipient => recipient
