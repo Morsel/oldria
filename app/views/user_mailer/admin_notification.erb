@@ -1,0 +1,7 @@
+<h2>Hi, Admin</h2>
+<%if @message.respond_to?(:notify_media_request!)%>
+<p>An item is posted to Newsfeed, you can access this, via clicking on this url <%=mediafeed_media_request_url(@message) %> </p>
+<%else%>
+	<p>An item is posted to Newsfeed, you can access this, via clicking on this url <%=soapbox_promotion_url(@message) %> </p>
+<%end%>
+<p>Note: If you have trouble clicking this link above, try copying it and pasting it into your browser's URL bar.</p>
