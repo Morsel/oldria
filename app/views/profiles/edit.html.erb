@@ -323,6 +323,14 @@
 <% content_for :javascript do %>
 <script type="text/javascript">
 $(document).ready(function() {
+  $('a[href$="school_fields"]').live('click',function(e){
+        e.preventDefault();
+        $('#nonculinary_enrollment_nonculinary_school_input').toggle()
+        $('#enrollment_school_input').toggle()
+        $('#school_fields').toggle();
+        $(this).remove()
+    })
+
   var already_equalized = false;
 
   $('#profile-tabs').tabs({
