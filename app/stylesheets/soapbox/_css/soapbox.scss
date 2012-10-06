@@ -3217,6 +3217,8 @@ body{
   margin: .25em;
   padding-top: 0em;
   float: left;
+  max-width: 190px;
+  word-wrap: break-word;
   a{
   	color:#FFF !important;
   	text-decoration: none;
