@@ -2,7 +2,7 @@ class RestaurantsController < ApplicationController
   before_filter :require_user
   before_filter :authorize, :only => [:edit, :update, :select_primary_photo,
                                              :new_manager_needed, :replace_manager, :fb_page_auth,
-                                             :remove_twitter, :download_subscribers, :activate_restaurant]
+                                             :remove_twitter, :download_subscribers, :activate_restaurant,:new_media_contact,:replace_media_contact]
   before_filter :find_restaurant, :only => [:twitter_archive, :facebook_archive, :social_archive]
 
   def index
@@ -63,6 +63,27 @@ class RestaurantsController < ApplicationController
 
   def new_manager_needed
   end
+
+  def new_media_contact
+  end
+   
+  def replace_media_contact
+
+    new_media_contact = User.find(params[:media_contact])
+    old_media_contact = @restaurant.media_contact 
+
+    if @restaurant.update_attribute(:media_contact_id, new_media_contact.id)
+      flash[:notice] = "Updated account media contact "
+    else
+      flash[:error] = "Something went wrong. Our worker bees will look into it."
+    end
+
+    if old_media_contact == @restaurant.manager
+      redirect_to new_manager_needed_restaurant_path(@restaurant) 
+    else
+      redirect_to bulk_edit_restaurant_employees_path(@restaurant)
+    end  
+  end  
 
   def replace_manager
     old_manager = @restaurant.manager
