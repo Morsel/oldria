@@ -1,0 +1,11 @@
+<% title "Select a new media contact" %>
+
+ <p>
+    A new media contact must be selected before <%= @restaurant.media_contact.name %> can be removed from the employee list.
+	</p>
+<% form_tag replace_media_contact_restaurant_path(@restaurant) do %>
+
+    <%= select_tag 'media_contact', options_from_collection_for_select(@restaurant.employees, 'id', 'name',@restaurant.media_contact.id)%>
+
+    <%= submit_tag "Update" %>
+<% end %>

@@ -180,7 +180,9 @@ ActionController::Routing::Routes.draw do |map|
                              :twitter_archive => :get,
                              :facebook_archive => :get,
                              :social_archive => :get,
-                             :download_subscribers => :get
+                             :download_subscribers => :get,
+                             :new_media_contact => :get,
+                             :replace_media_contact => :post
                              } do |restaurant|
     restaurant.resources :employees, :collection => { :bulk_edit => :get }, :except => [:show, :index]
     restaurant.resources :employments, :collection => { "reorder" => :post }
