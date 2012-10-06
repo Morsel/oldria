@@ -111,7 +111,9 @@ class MediaRequest < ActiveRecord::Base
   def discussions
     media_request_discussions | solo_media_discussions
   end
-
+  def notify_media_request!      
+      UserMailer.deliver_admin_notification(self, sender)  
+  end  
   private
 
   def from_publication
