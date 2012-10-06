@@ -33,6 +33,7 @@ class PromotionsController < ApplicationController
   def update
     find_promotion
     if @promotion.update_attributes(params[:promotion])
+      @promotion.update_crosspost
       flash[:notice] = "Your promotion has been updated"
       redirect_to :action => "new"
     else

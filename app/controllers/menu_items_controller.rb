@@ -33,6 +33,7 @@ class MenuItemsController < ApplicationController
   def update
     @menu_item = @restaurant.menu_items.find(params[:id])
     if @menu_item.update_attributes(params[:menu_item])
+      @menu_item.update_crosspost
       flash[:notice] = "Your menu item has been saved"
       redirect_to :action => "index"
     else
