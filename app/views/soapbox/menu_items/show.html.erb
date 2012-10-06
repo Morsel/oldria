@@ -57,7 +57,9 @@
 
 <% unless @promotions.blank?%>
   <div class="clear">&nbsp;</div>
-      <h3>Newsfeed</h3>      
+    <header id="page-title">
+      <h1>Newsfeed</h1>    
+    </header>
       <div id="answers">
         <% for promotion in @promotions -%>
             <% div_for(promotion) do %>
@@ -68,13 +70,17 @@
 <% end -%>
 
 <% unless @answers.blank?%>
-    <h3>A la Minute</h3>   
+  <header id="page-title">
+    <h1>A la Minute</h1>   
+  </header>  
     <% for answer in @answers -%>
         <%= render :partial => 'soapbox/a_la_minute_questions/answer_list',:locals => { :answer => answer } %>
     <% end -%>
 <% end -%>
 
-<h3 id="more-answers">Other Recent On The Menu</h3>
+<header id="page-title">
+  <h1 id="more-answers">Other Recent On The Menu</h1>
+</header>
 <% for menu_item in @more_menu_items -%>
   <%= render :partial => "menu_item", :locals => { :menu_item => menu_item } %>
 <% end -%>
