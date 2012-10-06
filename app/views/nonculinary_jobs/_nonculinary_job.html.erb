@@ -8,7 +8,6 @@
   <%= nonculinary_job.date_started.strftime("%Y") %>
   <% end %>
   <%= simple_format("Responsibilities: #{nonculinary_job.responsibilities}") %>
-  <%= simple_format("Reason for leaving: #{nonculinary_job.reason_for_leaving}") %>
   <%= link_to "Edit", edit_nonculinary_job_path(nonculinary_job), :class => 'colorbox' %>
   <%= link_to "Destroy", nonculinary_job_path(nonculinary_job), { :method => :delete }, { :class => 'delete' } %>
 <% end %>
