@@ -163,8 +163,6 @@ class User < ActiveRecord::Base
     !(self.has_role?(:admin) || self.has_role?(:diner) || self.has_role?(:media))
   end 
 
-  def 
-
   def admin=(bool)
     TRUE_VALUES.include?(bool) ? has_role!("admin") : has_no_role!(:admin)
   end
