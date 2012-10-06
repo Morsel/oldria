@@ -292,7 +292,7 @@ body,html,#container,#main,#content,#inside{
 	padding:10px 0 0;
 	background:url(/images/soapbox/bg-white-opacity-55.png);
 	background:rgba(255,255,255,0.55);
-	#page-title h1{
+	#page-title h1, .page-title h1{
 		@include museoslabthin;
 		color: #333;
 		font-size:20px;

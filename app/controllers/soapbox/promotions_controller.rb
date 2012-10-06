@@ -15,8 +15,8 @@ class Soapbox::PromotionsController < ApplicationController
 
   def show
     @promotion = Promotion.find(params[:id])
-    @menu_items = @promotion.restaurant.menu_items.all\
-      (:limit=>3,:order=>"created_at DESC",:conditions=>["DATE(menu_items.created_at) = DATE(?)", Time.now])
+    @promotions = @promotion.restaurant.promotions.all(:limit=>3,:order=>"created_at DESC",:conditions=>["DATE(promotions.created_at) >= DATE(?) and promotions.id <> ?", Time.now,@promotion.id])
+    @menu_items = @promotion.restaurant.menu_items.all(:limit=>3,:order=>"created_at DESC")
     @answers =  @promotion.restaurant.a_la_minute_answers.all(:limit=>3,:order => "a_la_minute_answers.created_at DESC",:conditions=>["DATE(a_la_minute_answers.created_at) = DATE(?)", Time.now])
 
   end
