@@ -78,13 +78,15 @@
     <% end -%>
 <% end -%>
 
-<header id="page-title">
-  <h1 id="more-answers">Other Recent On The Menu</h1>
-</header>
-<% for menu_item in @more_menu_items -%>
-  <%= render :partial => "menu_item", :locals => { :menu_item => menu_item } %>
-<% end -%>
+<% unless @more_menu_items.blank?%>
+  <header id="page-title">
+    <h1 id="more-answers">Other Recent On The Menu</h1>
+  </header>
 
+  <% for menu_item in @more_menu_items -%>
+    <%= render :partial => "menu_item", :locals => { :menu_item => menu_item } %>
+  <% end -%>
+<% end -%>
 <% content_for :sidebar do -%>
 <%= render :partial => 'soapbox/restaurant_sidebar', :locals => { :restaurant => @menu_item.restaurant } %>
 <% end -%>
