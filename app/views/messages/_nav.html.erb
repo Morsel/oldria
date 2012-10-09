@@ -1,6 +1,8 @@
 <div id="messages_nav">
   <h1 class="pg_title">Messages</h1>
   <nav>
+      <%= active_link_to "What's new", front_burner_path %>
+      <%= active_link_to "QOTD", front_burner_path %>
       <%= active_link_to "Media Requests (#{@media_requests_count})", media_requests_messages_path %>
       <%= active_link_to "From RIA (#{@ria_message_count})", ria_messages_path %>
       <%= active_link_to "Private Messages (#{@private_message_count})", private_messages_path %>
