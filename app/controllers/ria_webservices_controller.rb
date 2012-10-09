@@ -61,6 +61,8 @@ class RiaWebservicesController < ApplicationController
   def save_session
     if @user_session.save
         user = @user_session.user
+        @user_restaurants =user.restaurants
+        @restaurants = @user_restaurants.find(:all ,:select=>"restaurants.id,name")
         unless user.push_notification_user.nil?
             @push_notification_user = user.push_notification_user
             if @push_notification_user.update_attributes(eval(params[:push_notification_user]))
@@ -77,7 +79,8 @@ class RiaWebservicesController < ApplicationController
                     status = false  
                 end
          end 
-        render :json => {:status=>status}
+        render :json => {:status=>status,:restaurants=>@restaurants}
+
     else
        if @user_session.errors.on_base == "Your account is not confirmed"
           status = false
@@ -190,9 +193,9 @@ end
   end
 
   def create_photo
-    @photo = @restaurant.photos.create(eval(params[:photo]))
+    @photo = @restaurant.photos.create(params[:photo])
     @photo.attachment_content_type = "image/#{@photo.attachment_file_name.split(".").last}" if !@photo.attachment_file_name.nil? 
-    if  @photo.valid?
+    if  @photo.save
        render :json => {:status=>true}
     else
       @photos = @restaurant.photos.reload
@@ -277,7 +280,7 @@ end
           promotion_clumn.map {|c| promotion_keys[c.name] = promotion[c.name] } 
           promotion_keys[:promotion_name] = promotion.promotion_type.name.gsub(/(<[^>]*>)|\r|\n|\t/s) {" "}
           promotion_keys["details"] = promotion.details.gsub(/(<[^>]*>)|\r|\n|\t/s) {" "}
-	  promotion_array.push(promotion_keys)
+    promotion_array.push(promotion_keys)
       end
     render :json => {:all_promotions=>promotion_array }
   end
