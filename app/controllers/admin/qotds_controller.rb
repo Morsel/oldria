@@ -11,11 +11,6 @@ class Admin::QotdsController < Admin::AdminController
     @qotd.recipients = @search.all.map(&:employee).flatten.uniq
 
     if @qotd.save
-      @qotd.recipients.each do |recipient|        
-       unless recipient.push_notification_user.nil?          
-          APN.notify( recipient.push_notification_user.device_tocken , "You have one question: ,#{@qotd.display_message}")
-       end  
-      end
       flash[:notice] = "Successfully created Question of the Day"
       redirect_to admin_messages_path
     else
