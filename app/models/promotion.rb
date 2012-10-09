@@ -123,6 +123,10 @@ class Promotion < ActiveRecord::Base
     crosspost
   end
 
+  def notify_newsfeed_request!      
+     UserMailer.deliver_admin_notification(self, restaurant.manager)      
+  end  
+
   private
 
   def crosspost

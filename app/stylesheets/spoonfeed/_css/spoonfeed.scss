@@ -1523,6 +1523,7 @@ aside.dashboard_actions {
     width: 55%;
     height: 80px;
   }
+  
 	button, input[type="submit"] {
 		cursor:pointer;
 		float: left;
@@ -4361,4 +4362,12 @@ hgroup h5 span {
 #employment_general_subject_matters ol li label
 {
 	font-weight: normal !important;
+}
+.bulk-edit-text-area{
+  	height: 100% !important;
+  }
+div .details p{
+  line-height: 18px !important;
+  margin: 5px 0 15px !important;
+  padding: 0 !important;
 }

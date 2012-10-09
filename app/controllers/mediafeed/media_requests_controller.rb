@@ -28,6 +28,7 @@ class Mediafeed::MediaRequestsController < Mediafeed::MediafeedController
     end
 
     if @media_request.save
+      @media_request.notify_media_request!
       flash[:notice] = "Thank you! Your query is fast on its way to the recipients you selected. You’ll be alerted that answers have arrived (shortly, we hope!) via an email sent to your email inbox. For your convenience, then, everything will be privately and securely stored here for you. Thanks again, and please do give us feedback!"
       redirect_to [:mediafeed, @media_request]
     else

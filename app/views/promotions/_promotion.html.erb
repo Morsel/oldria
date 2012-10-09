@@ -30,7 +30,7 @@
     <h4><%= promotion.headline %></h4>
 
     <div>
-        <p class="details"><%= simple_format(Loofah::Helpers.sanitize(promotion.details)) %></p>
+        <div class="details"><%= Loofah::Helpers.sanitize(promotion.details) %></div>
         <p><%= link_to promotion.link, promotion.link %></p>
         <% if promotion.attachment.file? -%>
         <p><%= link_to promotion.attachment_file_name, promotion.attachment.url %></p>

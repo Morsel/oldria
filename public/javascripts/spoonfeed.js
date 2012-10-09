@@ -143,6 +143,7 @@ function jumbotronController(idx, elem){
 }
 
 var colorboxOnComplete = function(){
+  $('#school_fields').toggle();
   $('#culinary_job_chef_is_me').click(function(){
     var nameField = $('#culinary_job_chef_name');
     var $this     = $(this);

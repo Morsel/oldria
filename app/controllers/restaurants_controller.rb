@@ -2,7 +2,7 @@ class RestaurantsController < ApplicationController
   before_filter :require_user
   before_filter :authorize, :only => [:edit, :update, :select_primary_photo,
                                              :new_manager_needed, :replace_manager, :fb_page_auth,
-                                             :remove_twitter, :download_subscribers, :activate_restaurant]
+                                             :remove_twitter, :download_subscribers, :activate_restaurant,:new_media_contact,:replace_media_contact]
   before_filter :find_restaurant, :only => [:twitter_archive, :facebook_archive, :social_archive]
 
   def index
@@ -64,11 +64,47 @@ class RestaurantsController < ApplicationController
   def new_manager_needed
   end
 
+  def new_media_contact
+  end
+   
+  def replace_media_contact
+
+    unless params[:media_contact].nil?
+      new_media_contact = User.find(params[:media_contact])
+      old_media_contact = @restaurant.media_contact 
+      old_media_contact_employment = @restaurant.employments.find_by_employee_id(@restaurant.media_contact_id)
+      
+      if @restaurant.update_attribute(:media_contact_id, new_media_contact.id)
+        flash[:notice] = "Updated account media contact "
+      else
+        flash[:error] = "Something went wrong. Our worker bees will look into it."
+      end
+
+      if old_media_contact == @restaurant.manager
+        redirect_to new_manager_needed_restaurant_path(@restaurant) 
+      else
+        if(old_media_contact != new_media_contact && old_media_contact_employment.destroy)
+          flash[:notice] = "Updated account media contact & #{new_media_contact.name} is deleted."        
+        else
+          flash[:notice] = "Could not deleted employee, as media contact remains same. "
+        end  
+        redirect_to bulk_edit_restaurant_employees_path(@restaurant)
+      end  
+    else
+      flash[:error] = "You have to select a media contact."
+      redirect_to new_media_contact_restaurant_path(@restaurant) and return
+    end  
+  end  
+
   def replace_manager
     old_manager = @restaurant.manager
     old_manager_employment = @restaurant.employments.find_by_employee_id(@restaurant.manager_id)
     new_manager = User.find(params[:manager])
 
+    if @restaurant.media_contact == old_manager
+      redirect_to new_media_contact_restaurant_path(@restaurant) and return
+    end 
+    
     if @restaurant.update_attribute(:manager_id, new_manager.id) && old_manager_employment.destroy
       flash[:notice] = "Updated account manager to #{new_manager.name}. #{old_manager.name} is no longer an employee."
     else
