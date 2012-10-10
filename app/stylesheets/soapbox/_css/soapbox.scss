@@ -1572,7 +1572,15 @@ p.search_filter_hint {
     margin-top: 10px;
     clear: none;
     .fb_iframe_widget {
-      top: -3px
+      top: -3px;
+    }
+  }
+  div.sharing-new{
+  	cleare :none;
+  	margin-top: 10px;
+  	margin-left:0px !important;
+  	.fb_iframe_widget {
+      top: 0px !important;
     }
   }
 }

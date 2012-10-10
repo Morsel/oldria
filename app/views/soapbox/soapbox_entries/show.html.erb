@@ -9,13 +9,7 @@
 <% end -%>
 
 <article id="trend-article">
-  <!-- AddThis Button BEGIN --> 
-  <div class="addthis_toolbox"> 
-    <a href="http://www.addthis.com/bookmark.php?v=250&amp;username=unpluggedria" class="addthis_button">Share</a> 
-  </div> 
-  <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#username=unpluggedria"></script> 
-  <!-- AddThis Button END -->
-
+  
   <header>
     <%= soapbox_tabby_title(@feature) %>
     <div class="details">
@@ -24,16 +18,13 @@
 	  <p><%= simple_format(@entry.description) %></p>
     </div>
     <div class="sharing">
-        <!-- Likes and Tweets BEGIN -->
+        <!-- Likes and Tweets BEGIN -->                
+      <% unless @comment_view -%>
         <script src="http://connect.facebook.net/en_US/all.js#xfbml=1"></script>
-        <% if @comment_view -%>
-        <fb:like href="<%= comment_soapbox_soapbox_entry_url(@entry, :comment_id => @feature_comments.first.id) %>" layout="button_count" show_faces="false" width="90" height="20" action="like" colorscheme="light"></fb:like>        
-        <% else -%>
         <fb:like href="<%= soapbox_soapbox_entry_url(@entry) %>" layout="button_count" show_faces="false" width="90" height="20" action="like" colorscheme="light"></fb:like>
-        <% end %>
-
         <script src="http://platform.twitter.com/widgets.js" type="text/javascript"></script>
         <a href="http://twitter.com/share?url=<% URI.escape(soapbox_soapbox_entry_url(@entry)) %>" class="twitter-share-button">Tweet</a>
+      <% end %>
         <!-- Likes and Tweets END -->
     </div>
   </header>
@@ -44,8 +35,90 @@
   </section>
   <% end %>
 
-</article><!-- /front_burner -->
+  <% if @comment_view -%>
+      <div class="clear">&nbsp;</div>
+      <div class="menu_item"> 
+      <!-- Likes and Tweets BEGIN -->
+        <div class="sharing sharing-new">
+          <script type="text/javascript">var switchTo5x=true;</script>
+          <script type="text/javascript" src="http://w.sharethis.com/button/buttons.js"></script>
+          <script type="text/javascript">stLight.options({publisher: "041a7a0d-06a5-45e5-9455-9e9043faf823"}); </script>
+          <script type="text/javascript">var NREUMQ=[];NREUMQ.push(["mark","firstbyte",new Date().getTime()]);</script>
+            <span class='st_fbrec_large' displayText='Facebook Recommend'></span>
+            <span class='st_pinterest_large' displayText='Pinterest'></span>
+            <span class='st_facebook_large' displayText='Facebook'></span>
+            <span class='st_twitter_large' displayText='Tweet'></span>
+            <span class='st_linkedin_large' displayText='LinkedIn'></span>
+            <span class='st_email_large' displayText='Email'></span>
+            <span class='st_googleplus_large' displayText='google plus'></span>
+            <span class="st_stumbleupon_large" displayText='stumbleupon' ></span>
+            <span class="st_digg_large" displayText='stumbleupon' ></span>
+        </div>
+      </div>
+    <% end %>  
 
-<% content_for :sidebar do -%>
-<%= render :partial => 'soapbox/soapbox_entries/front_burner_sidebar' %>
+</article><!-- /front_burner -->
+<div class="clear">&nbsp;</div>
+  <% if @comment_view  -%>
+  <% unless @user.primary_employment.restaurant.premium_account? && @user.linkable_profile? %>
+      <% if @answers.present? -%>
+        <h1 id="more-answers">Answers from other users</h1>
+
+        <% for answer in @answers[0..4] %>
+          <% div_for(answer) do %>
+            <%= render :partial => "soapbox/profile_questions/answer", :locals => { :answer => answer } %>
+          <% end %>
+          <div class="clear">&nbsp;</div>
+        <% end %>
+
+        <p><span class="timestamp">Last updated: <%= @answers.first.try(:updated_at).try(:strftime, "%b %e %Y") %></span></p>
+      <% end -%> 
+    <% else %>
+        <% unless @promotions.blank?%>
+          <div class="clear">&nbsp;</div>
+          <header class="page-title">
+              <h1>News Feed</h1>
+          </header>
+          <div id="answers">
+            <% for promotion in @promotions -%>
+                <% div_for(promotion) do %>
+                    <%= render :partial => 'soapbox/promotions/promotion', :locals => { :promotion => promotion } %>  
+                <% end -%>
+            <% end -%>
+          </div>
+    <% end -%>
+
+    <div class="clear"> </div>
+    <% unless @user_answers.blank?%>
+        <header class="page-title">
+            <h1>A La Minute</h1>
+        </header>
+        <div id="answers">
+         <% for answer in @user_answers -%>
+                <%= render :partial => 'soapbox/a_la_minute_questions/answer_list',:locals => { :answer => answer } %>
+        <% end -%>
+        </div>
+    <% end -%>
+
+    <div class="clear"> </div>
+    <% unless @menu_items.blank?%>
+          <header class="page-title">
+              <h1>Recently posted to On The Menu</h1>
+          </header>
+          <div id="answers">
+              <% for menu_item in @menu_items -%>
+                <%= render :partial => "soapbox/menu_items/menu_item", :locals => { :menu_item => menu_item } %>
+              <% end -%>
+           </div>   
+    <%end%>
+   <% end -%>
+  <% end -%><!-- End if @comment_view --> 
+<% unless @comment_view && @user.primary_employment.restaurant.premium_account? && @user.linkable_profile? %>
+    <% content_for :sidebar do -%>
+    <%= render :partial => 'soapbox/soapbox_entries/front_burner_sidebar' %>
+    <% end -%>
+ <% else  %>
+    <% content_for :sidebar do -%>
+      <%= render :partial => 'soapbox/restaurant_sidebar', :locals => { :restaurant => @user.primary_employment.restaurant } %>
+    <% end -%>
 <% end -%>
