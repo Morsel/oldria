@@ -24,7 +24,7 @@ class Soapbox::Users::ProfileQuestionsController < ApplicationController
 
     @primary_answer = @question.answer_for(@user)
     @answers = @answers - [@primary_answer]    
-    if @user.primary_employment.restaurant.premium_account? && @user.premium_account?
+    if @user.primary_employment.restaurant.premium_account? && @user.linkable_profile?
       primary_restaurant = @user.primary_employment.restaurant
       @menu_items = primary_restaurant.menu_items.all(:order => "created_at DESC",:limit => 3)
       @promotions = primary_restaurant.promotions.all(:limit=>3,:order=>"created_at DESC",:conditions=>["DATE(promotions.start_date) >= DATE(?)", Time.now])
