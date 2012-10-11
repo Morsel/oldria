@@ -29,6 +29,9 @@ class MenuItem < ActiveRecord::Base
   has_many :menu_item_keywords, :dependent => :destroy
   has_many :otm_keywords, :through => :menu_item_keywords
 
+  has_one :twitter_job, :class_name => "Delayed::Job", :foreign_key => 'id', :primary_key => 'twitter_job_id', :dependent => :destroy
+  has_one :facebook_job, :class_name => "Delayed::Job", :foreign_key => 'id', :primary_key => 'facebook_job_id', :dependent => :destroy
+
   has_attached_file :photo,
                     :storage        => :s3,
                     :s3_credentials => "#{RAILS_ROOT}/config/environments/#{RAILS_ENV}/amazon_s3.yml",
@@ -53,6 +56,16 @@ class MenuItem < ActiveRecord::Base
   named_scope :activated_restaurants, {
     :joins => :restaurant,
     :conditions => ["restaurants.is_activated = ?", true]
+  }
+
+  named_scope :social_posts, lambda { |restaurant_id|
+    sql = <<-SQL
+      restaurant_id = ? AND (
+        (twitter_job_id IS NOT NULL AND post_to_twitter_at IS NOT NULL AND post_to_twitter_at > NOW()) ||
+        (facebook_job_id IS NOT NULL AND post_to_facebook_at IS NOT NULL AND post_to_facebook_at > NOW())
+      )
+    SQL
+    { :conditions => [sql, restaurant_id] }
   }
 
   attr_accessor :no_twitter_crosspost, :no_fb_crosspost
@@ -96,7 +109,12 @@ class MenuItem < ActiveRecord::Base
                         :name        => name,
                         :description => Loofah::Helpers.strip_tags(description),
                         :picture     => picture_url }
-    restaurant.send_at(post_to_facebook_at, :post_to_facebook_page, post_attributes)
+    facebook_job = restaurant.send_at(post_to_facebook_at, :post_to_facebook_page, post_attributes)
+    update_attribute(:facebook_job_id, facebook_job.id)
+  end
+
+  def update_crosspost
+    crosspost
   end
 
   def self.todays_cloud_keywords            
@@ -115,9 +133,22 @@ class MenuItem < ActiveRecord::Base
   private
 
   def crosspost
+    # Post to Twitter
+    if twitter_job.present?
+      twitter_job.destroy
+      update_attribute(:twitter_job_id, nil)
+    end
+
     update_attribute(:post_to_twitter_at, nil) if no_twitter_crosspost == "1"
     if post_to_twitter_at.present? && restaurant.twitter_authorized?
-      restaurant.twitter_client.send_at(post_to_twitter_at, :update, "#{truncate(name, :length => 120)} #{self.bitly_link}")
+      twitter_job = restaurant.twitter_client.send_at(post_to_twitter_at, :update, "#{truncate(name, :length => 120)} #{self.bitly_link}")
+      update_attribute(:twitter_job_id, twitter_job.id)
+    end
+
+    # Post to Facebook
+    if facebook_job.present?
+      facebook_job.destroy
+      update_attribute(:facebook_job_id, nil)
     end
 
     update_attribute(:post_to_facebook_at, nil) if no_fb_crosspost == "1"
