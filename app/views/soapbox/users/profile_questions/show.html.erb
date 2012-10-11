@@ -23,13 +23,24 @@
       </div>
   </div>
   <% end %>
+  <div class="clear">&nbsp;</div>
+  <div class="menu_item"> 
   <!-- Likes and Tweets BEGIN -->
-  <div class="sharing">
-      <script src="http://connect.facebook.net/en_US/all.js#xfbml=1"></script>
-      <fb:like href="<%= soapbox_user_profile_question_url(@user, @question) %>" layout="button_count" show_faces="false" width="90" height="20" action="like" colorscheme="light"></fb:like>
-
-      <script src="http://platform.twitter.com/widgets.js" type="text/javascript"></script>
-      <a href="http://twitter.com/share?url=<%= URI.escape(soapbox_user_profile_question_url(@user, @question)) %>" class="twitter-share-button">Tweet</a>
+    <div class="sharing sharing-new">
+      <script type="text/javascript">var switchTo5x=true;</script>
+      <script type="text/javascript" src="http://w.sharethis.com/button/buttons.js"></script>
+      <script type="text/javascript">stLight.options({publisher: "041a7a0d-06a5-45e5-9455-9e9043faf823"}); </script>
+      <script type="text/javascript">var NREUMQ=[];NREUMQ.push(["mark","firstbyte",new Date().getTime()]);</script>
+        <span class='st_fbrec_large' displayText='Facebook Recommend'></span>
+        <span class='st_pinterest_large' displayText='Pinterest'></span>
+        <span class='st_facebook_large' displayText='Facebook'></span>
+        <span class='st_twitter_large' displayText='Tweet'></span>
+        <span class='st_linkedin_large' displayText='LinkedIn'></span>
+        <span class='st_email_large' displayText='Email'></span>
+        <span class='st_googleplus_large' displayText='google plus'></span>
+        <span class="st_stumbleupon_large" displayText='stumbleupon' ></span>
+        <span class="st_digg_large" displayText='stumbleupon' ></span>
+    </div>
   </div>
   <!-- Likes and Tweets END -->
   <div class="clear">&nbsp;</div>
