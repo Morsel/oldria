@@ -3023,6 +3023,15 @@ dl.things dt:after {content: ":"}
       top: -3px
     }
   }
+  div.sharing-new
+  {
+    margin-top: 10px;
+    clear: none;
+    margin-left: 0px !important;  
+  .fb_iframe_widget {
+      top: 0px !important;
+    }
+  }
   .user_answer {
     p.share-this {
       text-align: right;
