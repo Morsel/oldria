@@ -58,6 +58,16 @@ class MenuItem < ActiveRecord::Base
     :conditions => ["restaurants.is_activated = ?", true]
   }
 
+  named_scope :social_posts, lambda { |restaurant_id|
+    sql = <<-SQL
+      restaurant_id = ? AND (
+        (twitter_job_id IS NOT NULL AND post_to_twitter_at IS NOT NULL AND post_to_twitter_at > NOW()) ||
+        (facebook_job_id IS NOT NULL AND post_to_facebook_at IS NOT NULL AND post_to_facebook_at > NOW())
+      )
+    SQL
+    { :conditions => [sql, restaurant_id] }
+  }
+
   attr_accessor :no_twitter_crosspost, :no_fb_crosspost
   after_create :crosspost
 

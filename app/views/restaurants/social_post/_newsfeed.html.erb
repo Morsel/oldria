@@ -1,0 +1,28 @@
+<% if @promotions.empty? %>
+  <div id="no-messages" class="clear">
+      <p>You don't have any Newsfeed Promotions scheduled.</p>
+  </div>
+<% else %>
+  <div class="editing clearfix clear">
+      <table style="width: 100%">
+          <thead>
+              <tr>
+                  <th>Headline</th>
+                  <th>Post To Twitter</th>
+                  <th>Post To Facebook</th>
+                  <th>Actions</th>
+              </tr>
+          </thead>
+          <tbody>
+            <% @promotions.each do |promotion| %>
+              <tr>
+                <td><%= promotion.headline %></td>
+                <td><%= promotion.twitter_job.run_at.to_s(:short) if promotion.twitter_job.present? %></td>
+                <td><%= promotion.facebook_job.run_at.to_s(:short) if promotion.facebook_job.present? %></td>
+                <td><%= link_to 'Edit', edit_restaurant_promotion_path(@restaurant, promotion, :social => true), :class => 'edit' %></td>
+              </tr>
+            <% end %>
+          </tbody>
+      </table>
+  </div>
+<% end %>

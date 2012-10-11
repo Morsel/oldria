@@ -1,0 +1,29 @@
+<% title "Social Posts", false -%>
+
+<div id="restaurant_profile_view" class="edit clear clearfix">
+
+    <%= render 'restaurants/restaurant_editing_header' %>
+    
+    <div id="editing_restaurant">
+        <div id="restaurant_pages" class="clearfix">
+            
+          <h1 class="pg_title">Social Posts</h1>
+                    
+          <nav id="restaurant_feature_nav">
+            <nav>
+                <%= active_link_to h('Newsfeed'), restaurant_social_posts_page_path(@restaurant, 'newsfeed') %>
+                <%= active_link_to h('On The Menu'), restaurant_social_posts_page_path(@restaurant, 'menu_items') %>
+            </nav>
+          </nav>
+
+          <div id="restaurant_features_content">
+            <div id="read_messages" style="width:640px;margin:0;">
+              
+              <%= render :partial => @page %>
+              
+            </div>
+          </div>
+
+        </div>
+    </div> 
+</div><!-- #restaurant_profile_view -->
