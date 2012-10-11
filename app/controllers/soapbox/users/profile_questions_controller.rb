@@ -23,7 +23,13 @@ class Soapbox::Users::ProfileQuestionsController < ApplicationController
     @answers = @question.profile_answers.from_premium_users.from_public_users.recently_answered
 
     @primary_answer = @question.answer_for(@user)
-    @answers = @answers - [@primary_answer]
+    @answers = @answers - [@primary_answer]    
+    if @user.primary_employment.restaurant.premium_account? && @user.premium_account?
+      primary_restaurant = @user.primary_employment.restaurant
+      @menu_items = primary_restaurant.menu_items.all(:order => "created_at DESC",:limit => 3)
+      @promotions = primary_restaurant.promotions.all(:limit=>3,:order=>"created_at DESC",:conditions=>["DATE(promotions.start_date) >= DATE(?)", Time.now])
+      @user_answers = primary_restaurant.a_la_minute_answers.all(:limit=>3,:order => "a_la_minute_answers.created_at DESC",:conditions=>["DATE(a_la_minute_answers.created_at) = DATE(?)", Time.now])
+    end
   end
 
 end
