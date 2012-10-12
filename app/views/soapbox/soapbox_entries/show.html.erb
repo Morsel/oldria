@@ -60,7 +60,7 @@
 </article><!-- /front_burner -->
 <div class="clear">&nbsp;</div>
   <% if @comment_view  -%>
-  <% unless @user.primary_employment.restaurant.premium_account? && @user.linkable_profile? %>
+  <% unless @user.completed_setup? && @user.primary_restaurant? && @user.primary_restaurant.premium_account? && @user.linkable_profile? %>
       <% if @answers.present? -%>
         <h1 id="more-answers">Answers from other users</h1>
 
@@ -113,7 +113,7 @@
     <%end%>
    <% end -%>
   <% end -%><!-- End if @comment_view --> 
-<% unless @comment_view && @user.primary_employment.restaurant.premium_account? && @user.linkable_profile? %>
+<% unless @comment_view && @user.completed_setup? && @user.primary_restaurant? && @user.primary_restaurant.premium_account? && @user.linkable_profile? %>
     <% content_for :sidebar do -%>
     <%= render :partial => 'soapbox/soapbox_entries/front_burner_sidebar' %>
     <% end -%>
