@@ -141,8 +141,17 @@ class UserMailer < ActionMailer::Base
     
   def cloudmailin_error(email)
     from        'notifications@restaurantintelligenceagency.com'
-    recipients  'email'
+    recipients  email
     sent_on     Time.now
     subject     'Spoonfeed: Email message error'
   end
+
+  def newsletter_preview_reminder(restaurant)
+    from        'notifications@restaurantintelligenceagency.com'
+    recipients  restaurant.manager.email
+    sent_on     Time.now
+    subject     'Spoonfeed: Review your newsletter now'
+    body        :restaurant => restaurant
+  end
+
 end

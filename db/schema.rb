@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120823175108) do
+ActiveRecord::Schema.define(:version => 20120830180210) do
 
   create_table "a_la_minute_answers", :force => true do |t|
     t.text     "answer"
@@ -953,6 +953,17 @@ ActiveRecord::Schema.define(:version => 20120823175108) do
 
   add_index "restaurant_features", ["restaurant_feature_category_id"], :name => "restaurant_feature_category_id_index"
 
+  create_table "restaurant_newsletters", :force => true do |t|
+    t.integer  "restaurant_id"
+    t.text     "menu_item_ids"
+    t.text     "restaurant_answer_ids"
+    t.text     "menu_ids"
+    t.text     "promotion_ids"
+    t.text     "a_la_minute_answer_ids"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "restaurant_questions", :force => true do |t|
     t.string   "title"
     t.integer  "position"
@@ -985,7 +996,7 @@ ActiveRecord::Schema.define(:version => 20120823175108) do
     t.integer  "james_beard_region_id"
     t.integer  "cuisine_id"
     t.datetime "deleted_at"
-    t.text     "description"
+    t.string   "description"
     t.string   "phone_number"
     t.string   "website"
     t.string   "twitter_handle"
@@ -1004,6 +1015,9 @@ ActiveRecord::Schema.define(:version => 20120823175108) do
     t.string   "atoken"
     t.string   "asecret"
     t.boolean  "is_activated",               :default => false
+    t.string   "newsletter_frequency",       :default => "biweekly"
+    t.datetime "last_newsletter_at"
+    t.datetime "next_newsletter_at"
   end
 
   add_index "restaurants", ["cuisine_id"], :name => "index_restaurants_on_cuisine_id"
