@@ -44,7 +44,7 @@
   </div>
   <!-- Likes and Tweets END -->
   <div class="clear">&nbsp;</div>
-  <% unless @user.primary_employment.restaurant.premium_account? && @user.linkable_profile? %>
+  <% unless @user.completed_setup? && @user.primary_restaurant? && @user.primary_restaurant.premium_account? && @user.linkable_profile? %>
     <% if @answers.present? -%>
         <h3 id="more-answers">Answers from other users</h3>
 
@@ -59,7 +59,7 @@
     <% end -%> 
   <% end -%>
 </div><!-- #btl_answers -->
-<% if @user.primary_employment.restaurant.premium_account? && @user.linkable_profile? %>
+<% if @user.completed_setup? && @user.primary_restaurant? && @user.primary_restaurant.premium_account? && @user.linkable_profile? %>
     <% unless @promotions.blank?%>
           <div class="clear">&nbsp;</div>
           <header class="page-title">
@@ -100,7 +100,7 @@
            </div>   
     <%end%>
 <%end%>
-<% unless @user.primary_employment.restaurant.premium_account? && @user.linkable_profile? %>
+<% unless @user.completed_setup? && @user.primary_restaurant? && @user.primary_restaurant.premium_account? && @user.linkable_profile? %>
     <% content_for :sidebar do -%>
     <%= render :partial => "soapbox/profile_questions/sidebar" %>
     <% end -%>
