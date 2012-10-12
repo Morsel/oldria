@@ -582,5 +582,5 @@ class User < ActiveRecord::Base
       primary_employment.restaurant   
     end  
   end  
-  
+
 end
