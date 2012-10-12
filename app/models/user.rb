@@ -568,4 +568,17 @@ class User < ActiveRecord::Base
       :order => "LOWER(last_name) ASC" 
     }
   end
+
+  # Is user has primary restaurant
+  def primary_restaurant?
+    primary_employment.present? && primary_employment.restaurant.present?
+  end
+
+  #get primary restaurant 
+  def primary_restaurant
+    if self.primary_restaurant?
+      primary_employment.restaurant   
+    end  
+  end  
+  
 end
