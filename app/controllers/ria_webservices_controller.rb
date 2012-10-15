@@ -213,29 +213,19 @@ end
     @comment = @parent.comments.build(eval(params[:comment]))
     @comment.user_id ||= current_user.id
     @is_mediafeed = params[:mediafeed]
-    success_and_archive = "Thanks: your answer has been saved. The question has been archived and can be found under the \"all\" tab."
-    success = "Thanks: your answer has been saved."
-    if @comment.save
-      if front_burner_content
-        @parent.read_by!(@comment.user)
-
-        # if the parent is attached to a trend question, show archive message only when it's the first discussion for the user
-        # why the first discussion? because we only check the first item's read/unread status in the inbox when we group these
-        if @parent.is_a?(AdminDiscussion)
-          @comment.user.grouped_admin_discussions[@parent.discussionable].first == @parent ?
-              flash[:notice] = success_and_archive :
-              flash[:notice] = success
+    if @parent.comments_count == 0
+      if @comment.save
+        if front_burner_content
+          @parent.read_by!(@comment.user)
+         render :json => {:status=>true}
         else
-          flash[:notice] = success_and_archive
+
+        render :json => {:status=>false ,:message=>"Your comment couldn't be saved. Errors: #{@comment.errors.full_messages.to_sentence}"  }
         end
-      else
-        flash[:notice] = success
       end  
-       render :json => {:status=>true}
     else
-      flash[:error] = "Your comment couldn't be saved. Errors: #{@comment.errors.full_messages.to_sentence}"  
-      render :json => {:status=>false}
-    end
+       render :json => {:status=>false,:message=>"Already been commented"}
+    end 
   end
   
     def show_comments
