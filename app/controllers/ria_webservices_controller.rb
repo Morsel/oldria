@@ -3,7 +3,7 @@ class RiaWebservicesController < ApplicationController
    before_filter :require_user,:only => [:a_la_minute_answers,:require_restaurant_employee,:menu_items,:bulk_update,:create_menu,:create_promotions,:create_photo,:show_photo,:create_comments,:get_qotds,:get_newsfeed,:push_notification_user]
    before_filter :require_restaurant_employee, :only => [:a_la_minute_answers,:require_restaurant_employee,:menu_items,:bulk_update,:create_menu,:create_promotions,:create_photo,:show_photo,:get_newsfeed]
    before_filter :find_activated_restaurant, :only => [:a_la_minute_answers,:require_restaurant_employee,:menu_items,:bulk_update,:create_menu,:create_promotions,:create_photo,:show_photo,:get_newsfeed]
-   before_filter :require_manager, :only => [:a_la_minute_answers,:require_restaurant_employee,:menu_items,:bulk_update,:create_menu,:create_promotions,:create_photo,:show_photo,:create_comments,:get_newsfeed]
+   before_filter :require_manager, :only => [:a_la_minute_answers,:require_restaurant_employee,:menu_items,:bulk_update,:create_menu,:create_promotions,:create_photo,:show_photo,:get_newsfeed]
    before_filter :find_parent, :only => [:create_comments]
 
    layout false
@@ -213,29 +213,19 @@ end
     @comment = @parent.comments.build(eval(params[:comment]))
     @comment.user_id ||= current_user.id
     @is_mediafeed = params[:mediafeed]
-    success_and_archive = "Thanks: your answer has been saved. The question has been archived and can be found under the \"all\" tab."
-    success = "Thanks: your answer has been saved."
-    if @comment.save
-      if front_burner_content
-        @parent.read_by!(@comment.user)
-
-        # if the parent is attached to a trend question, show archive message only when it's the first discussion for the user
-        # why the first discussion? because we only check the first item's read/unread status in the inbox when we group these
-        if @parent.is_a?(AdminDiscussion)
-          @comment.user.grouped_admin_discussions[@parent.discussionable].first == @parent ?
-              flash[:notice] = success_and_archive :
-              flash[:notice] = success
+    if @parent.comments_count == 0
+      if @comment.save
+        if front_burner_content
+          @parent.read_by!(@comment.user)
+         render :json => {:status=>true}
         else
-          flash[:notice] = success_and_archive
+
+        render :json => {:status=>false ,:message=>"Your comment couldn't be saved. Errors: #{@comment.errors.full_messages.to_sentence}"  }
         end
-      else
-        flash[:notice] = success
       end  
-       render :json => {:status=>true}
     else
-      flash[:error] = "Your comment couldn't be saved. Errors: #{@comment.errors.full_messages.to_sentence}"  
-      render :json => {:status=>false}
-    end
+       render :json => {:status=>false,:message=>"Already been commented"}
+    end 
   end
   
     def show_comments
@@ -266,23 +256,52 @@ end
             admin_conversation]
         )
       end  
-    render :json =>@data
+
+       @trends = Array.new
+       @trend_questions.each_with_index do |trend_question,index|
+          @trends[index] = Hash.new
+          @trends[index]["question"] = trend_question.message
+          @trends[index]["date"] = trend_question.scheduled_at.try(:strftime, "%B %d, %Y at %I:%M%p")
+          @trends[index]["admin_discussions"] = Array.new
+          @user.grouped_admin_discussions[trend_question].each do |trend|    
+            obj = Hash.new
+            obj[:admin_discussion_id] = (trend.id)      
+            obj[:restaurant_id] =(trend.restaurant_id)
+            obj[:is_posted] = (trend.comments_count) #comments_count
+            @trends[index]["admin_discussions"].push(obj)
+        end
+      end   
+
+    render :json => {:data => @data,:trends => @trends }
   end
 
   def get_newsfeed
       all_promotions = @restaurant.promotions.all(:order => "created_at DESC")
       promotion_clumn =  Promotion.columns
       promotion_array = Array.new
-
       all_promotions.each do |promotion|
           promotion_keys = Hash.new
           promotion_clumn.map {|c| c.name }.each{|x| promotion_keys[x] = nil}
           promotion_clumn.map {|c| promotion_keys[c.name] = promotion[c.name] } 
           promotion_keys[:promotion_name] = promotion.promotion_type.name.gsub(/(<[^>]*>)|\r|\n|\t/s) {" "}
           promotion_keys["details"] = promotion.details.gsub(/(<[^>]*>)|\r|\n|\t/s) {" "}
-    promotion_array.push(promotion_keys)
+   	  promotion_array.push(promotion_keys)
       end
     render :json => {:all_promotions=>promotion_array }
+  end
+
+  def get_admin_discussions
+    @admin_discussion = AdminDiscussion.find(params[:id])
+    #unauthorized! if cannot? :read, @admin_discussion
+    @discussionable = @admin_discussion.discussionable
+    @comments = @admin_discussion.comments.reject(&:new_record?)
+         render :json => {:comments=>@comments }
+  end  
+
+    def get_admin_conversation
+    @admin_conversation = Admin::Conversation.find(params[:id], :include => :admin_message, :order => 'created_at DESC')
+    #unauthorized! if cannot? :read, @admin_conversation
+     render :json => {:admin_conversation=>@admin_conversation }
   end
 
 
