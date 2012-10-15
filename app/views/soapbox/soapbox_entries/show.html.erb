@@ -15,7 +15,7 @@
     <div class="details">
       <time datetime="<%= @entry.published_at.try(:strftime,'%Y-%m-%d') %>"><%= @entry.published_at.try(:strftime, "%b %e, %Y") %></time>
       <h2><%= message(@feature) %></h2>
-	  <p><%= simple_format(@entry.description) %></p>
+    <p><%= simple_format(@entry.description) %></p>
     </div>
     <div class="sharing">
         <!-- Likes and Tweets BEGIN -->                
@@ -60,8 +60,8 @@
 </article><!-- /front_burner -->
 <div class="clear">&nbsp;</div>
   <% if @comment_view  -%>
-  <% unless @user.primary_employment.restaurant.premium_account? && @user.linkable_profile? %>
-      <% if @more_comments.present? -%>
+   <% unless @user.completed_setup? && @user.primary_restaurant? && @user.primary_restaurant.premium_account? && @user.linkable_profile? %>
+        <% if @more_comments.present? -%>
         <h3 id="more-answers">Answers from other users</h3>
          <section class="fb-comments">
           <% @comment_view = false %>
@@ -111,7 +111,7 @@
     <%end%>
    <% end -%>
   <% end -%><!-- End if @comment_view --> 
-<% unless @comment_view && @user.primary_employment.restaurant.premium_account? && @user.linkable_profile? %>
+<% unless @comment_view && @user.completed_setup? && @user.primary_restaurant? && @user.primary_restaurant.premium_account? && @user.linkable_profile? %>
     <% content_for :sidebar do -%>
     <%= render :partial => 'soapbox/soapbox_entries/front_burner_sidebar' %>
     <% end -%>
