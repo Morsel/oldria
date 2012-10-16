@@ -1,5 +1,6 @@
 class Mediafeed::MediaRequestsController < Mediafeed::MediafeedController
-
+  
+  skip_before_filter :require_user
   before_filter :require_user
   before_filter :find_and_authorize, :only => [:show, :edit, :update, :destroy, :discussion]
   before_filter :get_reply_count, :only => [:index, :show, :discussion]
