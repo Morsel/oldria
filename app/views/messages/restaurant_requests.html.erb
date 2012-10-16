@@ -1,0 +1,20 @@
+<% title "Staff Requests", false -%>
+
+<%= render 'nav' %>
+
+<div>
+
+    <div id="read_messages">
+        <% unless @requests.blank? %>
+            <% @requests.each do |rer| %>
+              <%= render :partial =>'restaurant' ,:locals=>{:restaurant=>rer.restaurant,:rer =>rer,:user => rer.employee} %>
+            <% end %>  
+        <% else %>
+        <div id="no-messages" class="clear">
+            <p>You don't have any new staff requests to approved.</p>
+        </div>
+        <% end %>
+    <p><%= will_paginate @requests %></p>
+    </div>
+
+</div>

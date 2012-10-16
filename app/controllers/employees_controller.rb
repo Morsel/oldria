@@ -22,6 +22,9 @@ class EmployeesController < ApplicationController
     return if employment_duplicated? 
 
     if @employment.save
+      @rer = RestaurantEmployeeRequest.find(:first,:conditions=>["restaurant_id = ? and employee_id = ? ",@restaurant.id,params[:employment][:employee_id]])
+      @rer.update_attributes({:deleted_at=>Time.now}) unless @rer.nil?
+
       @employment.insert_at
       @employment.employee.default_employment.try(:destroy) # Get rid of user-set employment details
       flash[:notice] = @send_invitation ? "#{@employment.employee.name_or_username} has been sent an invitation and added to your restaurant.<br/>

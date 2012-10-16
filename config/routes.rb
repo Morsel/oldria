@@ -172,6 +172,7 @@ ActionController::Routing::Routes.draw do |map|
   map.feature '/features/:id', :controller => 'features', :action => 'show'
 
   map.resources :restaurants,
+                :collection => {:add_restaurant => :get},
                 :member => { :edit_logo => :get,
                              :select_primary_photo => :post,
                              :new_manager_needed => :get,
@@ -181,7 +182,8 @@ ActionController::Routing::Routes.draw do |map|
                              :twitter_archive => :get,
                              :facebook_archive => :get,
                              :social_archive => :get,
-                             :download_subscribers => :get
+                             :download_subscribers => :get,
+                             :send_restaurant_request => :get
                              } do |restaurant|
     restaurant.resources :employees, :collection => { :bulk_edit => :get }, :except => [:show, :index]
     restaurant.resources :employments, :collection => { "reorder" => :post }
@@ -235,7 +237,8 @@ ActionController::Routing::Routes.draw do |map|
                               :ria => :get,
                               :private => :get,
                               :staff_discussions => :get,
-                              :media_requests => :get
+                              :media_requests => :get,
+                              :restaurant_requests => :get
   }
 
   map.front_burner 'front_burner', :controller => 'front_burner', :action => 'index'

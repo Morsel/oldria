@@ -98,6 +98,10 @@ class User < ActiveRecord::Base
 
   has_one :featured_profile, :as => :feature
 
+  has_many :restaurant_employee_requests ,:foreign_key=>"employee_id"
+  has_many :requested_restaurants, :through => :restaurant_employee_requests ,:source=> :restaurant
+
+
   validates_presence_of :email
   validates_format_of :email, :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i, :message => "is not a valid email address", :allow_blank => true
 
@@ -570,4 +574,7 @@ class User < ActiveRecord::Base
       :order => "LOWER(last_name) ASC" 
     }
   end
+  def get_employee_requests
+    RestaurantEmployeeRequest.find(:all,:conditions=>["restaurant_id in (?) and deleted_at is null ",self.restaurants.all(:select=>"restaurants.id")])
+  end  
 end

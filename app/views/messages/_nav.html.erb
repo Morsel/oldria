@@ -4,6 +4,7 @@
       <%= active_link_to "Media Requests (#{@media_requests_count})", media_requests_messages_path %>
       <%= active_link_to "From RIA (#{@ria_message_count})", ria_messages_path %>
       <%= active_link_to "Private Messages (#{@private_message_count})", private_messages_path %>
+      <%= active_link_to "Staff Requests (#{current_user.get_employee_requests.count})", restaurant_requests_messages_path%>
       <% unless current_user.restaurants.blank? -%>
         <%= active_link_to "Discussions (#{@discussions_count})", staff_discussions_messages_path %>
       <% end -%>
