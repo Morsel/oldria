@@ -105,6 +105,9 @@ class Restaurant < ActiveRecord::Base
 
   has_one :featured_profile, :as => :feature
 
+  has_many :restaurant_employee_requests
+  has_many :requested_employees, :through => :restaurant_employee_requests ,:source =>:employee
+
   accepts_nested_attributes_for :logo
 
   validates_presence_of :name, :street1, :city, :state, :zip, :phone_number,
