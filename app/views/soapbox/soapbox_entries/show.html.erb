@@ -15,7 +15,7 @@
     <div class="details">
       <time datetime="<%= @entry.published_at.try(:strftime,'%Y-%m-%d') %>"><%= @entry.published_at.try(:strftime, "%b %e, %Y") %></time>
       <h2><%= message(@feature) %></h2>
-	  <p><%= simple_format(@entry.description) %></p>
+    <p><%= simple_format(@entry.description) %></p>
     </div>
     <div class="sharing">
         <!-- Likes and Tweets BEGIN -->                
@@ -60,19 +60,17 @@
 </article><!-- /front_burner -->
 <div class="clear">&nbsp;</div>
   <% if @comment_view  -%>
-  <% unless @user.primary_employment.restaurant.premium_account? && @user.linkable_profile? %>
-      <% if @answers.present? -%>
-        <h1 id="more-answers">Answers from other users</h1>
-
-        <% for answer in @answers[0..4] %>
-          <% div_for(answer) do %>
-            <%= render :partial => "soapbox/profile_questions/answer", :locals => { :answer => answer } %>
-          <% end %>
+   <% unless @user.completed_setup? && @user.primary_restaurant? && @user.primary_restaurant.premium_account? && @user.linkable_profile? %>
+        <% if @more_comments.present? -%>
+        <h3 id="more-answers">Answers from other users</h3>
+         <section class="fb-comments">
+          <% @comment_view = false %>
+          <%= render :partial => 'comment', :collection => @more_comments, :locals => { :full_text => true, :commentable_class => @feature.class } %>
+          <% @comment_view = true %>
           <div class="clear">&nbsp;</div>
-        <% end %>
-
-        <p><span class="timestamp">Last updated: <%= @answers.first.try(:updated_at).try(:strftime, "%b %e %Y") %></span></p>
+        </section>
       <% end -%> 
+
     <% else %>
         <% unless @promotions.blank?%>
           <div class="clear">&nbsp;</div>
@@ -113,7 +111,7 @@
     <%end%>
    <% end -%>
   <% end -%><!-- End if @comment_view --> 
-<% unless @comment_view && @user.primary_employment.restaurant.premium_account? && @user.linkable_profile? %>
+<% unless @comment_view && @user.completed_setup? && @user.primary_restaurant? && @user.primary_restaurant.premium_account? && @user.linkable_profile? %>
     <% content_for :sidebar do -%>
     <%= render :partial => 'soapbox/soapbox_entries/front_burner_sidebar' %>
     <% end -%>

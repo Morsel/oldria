@@ -1585,7 +1585,7 @@ p.search_filter_hint {
   }
 }
 
-#fb-comments {
+#fb-comments,.fb-comments {
 	clear: both;
 	.comment {
 		overflow: hidden;
@@ -1608,6 +1608,11 @@ p.search_filter_hint {
       font-size: 10px;
     }
 	}
+}
+.fb-comments{
+	.comment{
+		padding: 6px 10px !important;
+	}	
 }
 
 #trend-question, #question-of-the-day {
@@ -3021,6 +3026,15 @@ dl.things dt:after {content: ":"}
     clear: none;
     .fb_iframe_widget {
       top: -3px
+    }
+  }
+  div.sharing-new
+  {
+    margin-top: 10px;
+    clear: none;
+    margin-left: 0px !important;  
+  .fb_iframe_widget {
+      top: 0px !important;
     }
   }
   .user_answer {
