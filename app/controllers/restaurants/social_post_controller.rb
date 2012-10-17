@@ -4,6 +4,9 @@ class Restaurants::SocialPostController < ApplicationController
   before_filter :authorize
 
   def index
+    @promotions = Promotion.social_posts(@restaurant.id)
+    @menu_items = MenuItem.social_posts(@restaurant.id)
+    @no_posts = @promotions.empty? && @menu_items.empty?
   end
 
   def newsfeed
@@ -35,7 +38,7 @@ class Restaurants::SocialPostController < ApplicationController
       flash[:error] = "You don't have permission to access that page"
       redirect_to @restaurant and return
     end
-    load_page
+    # load_page
   end
 
 end
