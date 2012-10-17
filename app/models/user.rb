@@ -98,6 +98,8 @@ class User < ActiveRecord::Base
 
   has_one :featured_profile, :as => :feature
 
+  has_one :push_notification_user
+
   validates_presence_of :email
   validates_format_of :email, :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i, :message => "is not a valid email address", :allow_blank => true
 
