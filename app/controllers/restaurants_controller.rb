@@ -161,7 +161,23 @@ class RestaurantsController < ApplicationController
   end  
 
   def download_subscribers
-    send_data(@restaurant.newsletter_subscribers.to_csv, :filename => "#{@restaurant.name} subscribers.csv")
+    @subscriptions = @restaurant.newsletter_subscriptions
+
+    # csv string generator
+    @csv = FasterCSV.generate do |csv|
+      # header
+      csv << %w[first_name last_name email subscription_date]
+
+      # subscribers
+      @subscriptions.each do |subscription|
+        csv << [subscription.newsletter_subscriber.first_name,
+                subscription.newsletter_subscriber.last_name,
+                subscription.newsletter_subscriber.email,
+                subscription.created_at]
+      end
+    end
+
+    send_data(@csv, :filename => "#{@restaurant.name} subscribers.csv")
   end
 
   private
