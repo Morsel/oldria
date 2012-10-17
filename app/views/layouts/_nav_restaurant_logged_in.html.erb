@@ -1,4 +1,9 @@
 <nav id="navContainer">     
+    <ul>        
+        <% if (!current_user.manager_restaurants.blank? && !current_user.get_employee_requests.blank?) %>
+         <li><%= active_link_to "you have #{current_user.get_employee_requests.count} requests", restaurant_requests_messages_path, :title => "Employee requests" %></li>            
+        <% end %>
+    </ul>
     <ul id="user_nav">
         <li><%= active_link_to "My Messages", media_requests_messages_path %></li>
         <!-- Send News to Media -->

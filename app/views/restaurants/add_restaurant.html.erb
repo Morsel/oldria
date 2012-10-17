@@ -1,0 +1,27 @@
+<div id="editing_restaurant">
+    <% title "New Restaurant" %>
+
+    <% semantic_form_for @restaurant do |f| %>
+        <% f.inputs do %>
+            <%= f.input :name, :label => "Restaurant name", :input_html => { :class => 'title span-8' } %>
+        <% end %>
+
+        <% f.inputs :name => "Address", :class => 'editing' do %>
+            <%= f.input :street1, :label => "Street address" %>
+            <%= f.input :street2, :label => "Street address, line 2 (optional)" %>
+            <%= f.inputs :city, :state, :zip %>
+            <%= f.input :phone_number %>
+        <% end %>
+
+        <% f.inputs :name => "Details", :class=> "editing" do %>
+            <%= f.input :website %>
+            <%= f.input :metropolitan_area, :as => :select, :collection => MetropolitanArea.all %>
+            <%= f.input :james_beard_region, :as => :select, :collection => JamesBeardRegion.all %>
+            <%= f.input :cuisine, :as => :select, :collection => Cuisine.all %>
+            <%= f.input :opening_date, :start_year => Date.today.year, :end_year => 1960 %>
+        <% end %>
+
+        <p><%= button_tag "Submit", :class => 'positive' %></p>
+
+    <%- end -%>
+</div><!-- #editing_restaurant -->

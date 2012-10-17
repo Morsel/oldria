@@ -40,13 +40,18 @@ class UserSessionsController < ApplicationController
   def save_session
     if @user_session.save
       flash[:notice] = "You are now logged in."
-      user = @user_session.user
-
-      if user.admin? || user.media? || user.completed_setup?
+      user = @user_session.user      
+      
+      if user.admin? || user.media? || (user.completed_setup? && !is_profile_not_completed?(user))
         redirect_back_or_default
       else
-        flash[:notice] += " Please finish setting up your account."
-        redirect_to user_details_complete_registration_path
+        if user.completed_setup? && is_profile_not_completed?(user)
+          flash[:notice] += " Complete your profile."
+          redirect_to complete_profile_user_profile_path(user)
+        else  
+          flash[:notice] += " Please finish setting up your account."
+          redirect_to user_details_complete_registration_path
+        end
       end
     else
       if @user_session.errors.on_base == "Your account is not confirmed"

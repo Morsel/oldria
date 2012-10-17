@@ -1,0 +1,16 @@
+<% title "Find your restaurant" %>
+
+<% if @restaurants %>
+<h2>Is this your restaurant?</h2>
+<% table_for @restaurants do |t| %>
+    <% t.data do
+        t.cell(:name_and_location)
+        t.cell(:contact) { |c| link_to "Request to be added", 
+                               send_restaurant_request_restaurant_path(c.id), :method => :get }
+    end %>
+<% end %>
+<% end %>
+
+<p>
+    <%= link_to "I don't see my restaurant listed", add_restaurant_restaurants_path %>
+</p>
