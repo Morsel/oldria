@@ -182,6 +182,7 @@ ActionController::Routing::Routes.draw do |map|
                              :twitter_archive => :get,
                              :facebook_archive => :get,
                              :social_archive => :get,
+                             :newsletter_subscriptions => :get,
                              :download_subscribers => :get,
                              :new_media_contact => :get,
                              :replace_media_contact => :post,
