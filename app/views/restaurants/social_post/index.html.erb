@@ -1,0 +1,74 @@
+<% title "Social Posts", false -%>
+
+<div id="restaurant_profile_view" class="edit clear clearfix">
+
+    <%= render 'restaurants/restaurant_editing_header' %>
+    
+    <div id="editing_restaurant">
+        <div id="restaurant_pages" class="clearfix">
+            
+          <h1 class="pg_title">Social Posts</h1>
+                    
+          <!-- <nav id="restaurant_feature_nav">
+            <nav>
+                <%= active_link_to h('Newsfeed'), restaurant_social_posts_page_path(@restaurant, 'newsfeed') %>
+                <%= active_link_to h('On The Menu'), restaurant_social_posts_page_path(@restaurant, 'menu_items') %>
+            </nav>
+          </nav> -->
+
+          <div id="restaurant_features_content">
+            <div id="read_messages" style="width:800px;margin:0;">
+
+              <%# render :partial => @page %>
+
+
+
+              <% if @no_posts %>
+                <div id="no-messages" class="clear">
+                    <p>You don't have any items scheduled.</p>
+                </div>
+              <% else %>
+                <div class="editing clearfix clear">
+                    <table style="width: 100%">
+                        <thead>
+                            <tr>
+                                <th>Item</th>
+                                <th>Title</th>
+                                <th>Post To Twitter</th>
+                                <th>Post To Facebook</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                          <% @promotions.each do |promotion| %>
+                            <tr>
+                              <td><%= promotion.activity_name %></td>
+                              <td><%= promotion.headline %></td>
+                              <td><%= promotion.twitter_job.present? ? promotion.twitter_job.run_at.to_s(:short) : 'N/A' %></td>
+                              <td><%= promotion.facebook_job.present? ? promotion.facebook_job.run_at.to_s(:short) : 'N/A' %></td>
+                              <td><%= link_to 'Edit Item', edit_restaurant_promotion_path(@restaurant, promotion, :social => true), :class => 'edit' %></td>
+                            </tr>
+                          <% end %>
+
+                          <% @menu_items.each do |item| %>
+                            <tr>
+                              <td><%= item.activity_name %></td>
+                              <td><%= item.name %></td>
+                              <td><%= item.twitter_job.run_at.to_s(:short) if item.twitter_job.present? %></td>
+                              <td><%= item.facebook_job.run_at.to_s(:short) if item.facebook_job.present? %></td>
+                              <td><%= link_to 'Edit Item', edit_restaurant_menu_item_path(@restaurant, item, :social => true), :class => 'edit' %></td>
+                            </tr>
+                          <% end %>
+                        </tbody>
+                    </table>
+                </div>
+              <% end %>
+
+
+
+            </div>
+          </div>
+
+        </div>
+    </div> 
+</div><!-- #restaurant_profile_view -->

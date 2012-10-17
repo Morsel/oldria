@@ -2,6 +2,7 @@ class MenuItemsController < ApplicationController
 
   before_filter :require_user
   before_filter :require_manager, :except => [:index]
+  before_filter :social_redirect, :only => [:edit]
 
   def index
     find_restaurant
@@ -33,8 +34,9 @@ class MenuItemsController < ApplicationController
   def update
     @menu_item = @restaurant.menu_items.find(params[:id])
     if @menu_item.update_attributes(params[:menu_item])
+      @menu_item.update_crosspost
       flash[:notice] = "Your menu item has been saved"
-      redirect_to :action => "index"
+      redirect_to_social_or 'index'
     else
       @categories = OtmKeyword.all(:order => "category ASC, name ASC").group_by(&:category)
       render :action => "edit"
@@ -68,6 +70,16 @@ class MenuItemsController < ApplicationController
       flash[:error] = "You don't have permission to access that page"
       redirect_to @restaurant
     end
+  end
+
+  def social_redirect
+    if params[:social]
+      session[:redirect_to_social_posts] = restaurant_social_posts_page_path(@restaurant, 'menu_items')
+    end
+  end
+
+  def redirect_to_social_or(action)
+    redirect_to (session[:redirect_to_social_posts].present?) ? session.delete(:redirect_to_social_posts) : { :action => action }
   end
 
 end
