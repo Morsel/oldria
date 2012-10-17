@@ -215,6 +215,8 @@ ActionController::Routing::Routes.draw do |map|
     restaurant.behind_the_line 'behind_the_line', :controller => 'restaurants/behind_the_line', :action => 'index'
     restaurant.btl_topic 'behind_the_line/topic/:id', :controller => 'restaurants/behind_the_line', :action => 'topic'
     restaurant.btl_chapter 'behind_the_line/chapter/:id', :controller => 'restaurants/behind_the_line', :action => 'chapter'
+
+    restaurant.resources :newsletters, :controller => 'restaurants/newsletters', :collection => { :update_settings => :post, :preview => :get }
   end
 
   map.resources :user_sessions, :password_resets, :followings, :pages

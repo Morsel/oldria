@@ -43,5 +43,5 @@
         :class => 'promo editor otm' %>
     <%= active_link_to "Press Releases", restaurant_press_releases_path(:restaurant_id => @restaurant),
 	    :class => 'promo editor pr' %>
-	<%= active_link_to "Subscribers", download_subscribers_restaurant_path(@restaurant), :class => "promo editor download" if @restaurant.newsletter_subscribers.present? %>
+    <%= active_link_to "Newsletter", restaurant_newsletters_path(:restaurant_id => @restaurant), :class => "promo editor newsletter" %>
 </nav>

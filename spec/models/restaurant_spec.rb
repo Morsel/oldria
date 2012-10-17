@@ -277,6 +277,32 @@ describe Restaurant do
       found.should == [restaurant]
     end
   end
+
+  describe "newsletter preview reminders" do
+
+    it "should generate reminders for all premium restaurants" do
+      restaurant = Factory(:restaurant)
+      restaurant.subscription = Factory(:subscription)
+      Restaurant.any_instance.expects(:send_later).with(:send_newsletter_preview_reminder)
+      Restaurant.send_newsletter_preview_reminder
+    end
+
+  end
+
+  describe "Mailchimp newsletters" do
+
+    it "should send newsletters for premium restaurants when due" do
+      restaurant = Factory(:restaurant, :next_newsletter_at => 1.day.ago)
+      restaurant.subscription = Factory(:subscription)
+      Restaurant.stubs(:find).returns([restaurant])
+      restaurant.expects(:send_later).with(:send_newsletter_to_subscribers)
+      restaurant.expects(:update_attribute).with(:next_newsletter_at, (Chronic.parse("next week Thursday 12:00am") + 1.week))
+
+      Restaurant.send_newsletters
+    end
+
+  end
+
 end
 
 
