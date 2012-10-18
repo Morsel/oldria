@@ -1,42 +1,56 @@
-<% title "Newsletter Subscriptions :: #{@restaurant.name}", false %>
+<% title "Newsletter Subscribers :: #{@restaurant.name}", false %>
+
 <div id="restaurant_profile_view" class="edit clear clearfix">
     <%= render 'restaurants/restaurant_editing_header' %>
 
     <div id="editing_restaurant">
         <div id="restaurant_pages" class="clearfix">
 
-          <div class="right" style="margin-right:10px">
-              <%= link_to "Export to CSV file", download_subscribers_restaurant_path(@restaurant) %>
-          </div>
+            <%- if @restaurant.premium_account? -%>
 
-          <h1 class="pg_title">Newsletter Subscribers</h1>
+              <nav id="restaurant_feature_nav">
+                <%= active_link_to 'Settings', restaurant_newsletters_path(:restaurant_id => @restaurant) %>
+                <%= active_link_to 'Subscribers', newsletter_subscriptions_restaurant_path(@restaurant) if @restaurant.shareable_newsletter_subscribers.present? %>
+              </nav>
 
-          <div id="restaurant_features_content">
-            <div id="read_messages" style="width:800px;margin:0;">
-              <div class="editing clearfix clear">
-                  <table style="width: 100%">
-                      <thead>
-                          <tr>
-                              <th>First Name</th>
-                              <th>Last Name</th>
-                              <th>Email Address</th>
-                              <th>Subscription Date</th>
-                          </tr>
-                      </thead>
-                      <tbody>
-                        <% @subscriptions.each do |subscription| %>
-                          <tr>
-                            <td><%= subscription.newsletter_subscriber.first_name %></td>
-                            <td><%= subscription.newsletter_subscriber.last_name %></td>
-                            <td><%= subscription.newsletter_subscriber.email %></td>
-                            <td><%= subscription.created_at %></td>
-                          </tr>
-                        <% end %>
-                      </tbody>
-                  </table>
+              <div id="restaurant_features_content" style="width:700px;">
+
+                <div class="right" style="margin-right:10px">
+                    <%= link_to "Export to CSV file", download_subscribers_restaurant_path(@restaurant) %>
+                </div>
+
+                <h1 class="pg_title">Newsletter Subscribers</h1>
+
+                <!-- <div id="read_messages" style="width:670px;margin:0;"> -->
+                  <div class="editing clearfix clear">
+                      <table style="width: 100%">
+                          <thead>
+                              <tr>
+                                  <th style="width:20%;">First Name</th>
+                                  <th style="width:20%;">Last Name</th>
+                                  <th>Email Address</th>
+                                  <th>Subscription Date</th>
+                              </tr>
+                          </thead>
+                          <tbody>
+                            <% @subscriptions.each do |subscription| %>
+                              <tr>
+                                <td><%= subscription.newsletter_subscriber.first_name %></td>
+                                <td><%= subscription.newsletter_subscriber.last_name %></td>
+                                <td><%= subscription.newsletter_subscriber.email %></td>
+                                <td><%= subscription.created_at %></td>
+                              </tr>
+                            <% end %>
+                          </tbody>
+                      </table>
+                  </div>
+                <!-- </div> -->
+
               </div>
-            </div>
-          </div>
+
+            <%- else -%>
+              <p><%= link_to "Upgrade to a premium account", new_subscription_path(@restaurant) %> to access your newsletter!</p>
+            <%- end -%>
 
         </div>
     </div><!-- /editing_restaurant -->

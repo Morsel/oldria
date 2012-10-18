@@ -1,18 +1,42 @@
-<%= title "Newsletters" %>
+<% title "Newsletter :: #{@restaurant.name}", false %>
 
-<%- if @restaurant.premium_account? -%>
-  <% semantic_form_for @restaurant, :url => update_settings_restaurant_newsletters_path do |f| %>
-    <%= f.input :newsletter_frequency, :as => :select, :collection => ["weekly", "biweekly", "monthly"] %>
-    <%= submit_tag "Save" %>
-  <% end %>
+<div id="restaurant_profile_view" class="edit clear clearfix">
+    <%= render 'restaurants/restaurant_editing_header' %>
 
-  <p><%= link_to "Preview newsletter", preview_restaurant_newsletters_path(@restaurant), :popup => true %></p>
+    <div id="editing_restaurant">
+        <div id="restaurant_pages" class="clearfix">
 
-  <p><%= button_to "Send newsletter", restaurant_newsletters_path(@restaurant) %></p>
+            <%- if @restaurant.premium_account? -%>
 
-  <% if @restaurant.shareable_newsletter_subscribers.present? %>
-    <p><%= link_to "View Newsletter Subscriptions", newsletter_subscriptions_restaurant_path(@restaurant), :class => "promo editor" %></p>
-  <% end %>
-<%- else -%>
-  <p><%= link_to "Upgrade to a premium account", new_subscription_path(@restaurant) %> to access your newsletter!</p>
-<%- end -%>
+              <nav id="restaurant_feature_nav">
+                <%= active_link_to 'Settings', restaurant_newsletters_path(:restaurant_id => @restaurant) %>
+                <%= active_link_to 'Subscribers', newsletter_subscriptions_restaurant_path(@restaurant) if @restaurant.shareable_newsletter_subscribers.present? %>
+              </nav>
+
+              <div id="restaurant_features_content" style="width:700px;">
+
+                <h1 class="pg_title">Newsletter Settings</h1>
+
+                <div id="newsletter_settings" class="clearfix">
+                  <% semantic_form_for @restaurant, :url => update_settings_restaurant_newsletters_path do |f| %>
+                    <% f.inputs :class => "editing" do %>
+                      <%= f.input :newsletter_frequency, :as => :select, :collection => ["weekly", "biweekly", "monthly"], :input_html => { :style => 'width:150px;' }  %>
+                      <%= submit_tag "Save" %>
+                    <% end %>
+                  <% end %>
+                </div>
+
+                <div id="restaurant_actions" class="clearfix">
+                  <%= link_to "Preview newsletter", preview_restaurant_newsletters_path(@restaurant), :popup => true, :class => 'button' %>
+                  <%= button_to "Send newsletter", restaurant_newsletters_path(@restaurant) %>
+                </div>
+
+              </div>
+
+            <%- else -%>
+              <p><%= link_to "Upgrade to a premium account", new_subscription_path(@restaurant) %> to access your newsletter!</p>
+            <%- end -%>
+
+        </div>
+    </div><!-- /editing_restaurant -->
+</div><!-- /restaurant_profile_view -->
