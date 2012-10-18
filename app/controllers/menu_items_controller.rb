@@ -1,7 +1,7 @@
 class MenuItemsController < ApplicationController
 
   before_filter :require_user
-  before_filter :require_manager, :except => [:index]
+  before_filter :require_manager, :except => [:index,:get_keywords,:add_keywords]
 
   def index
     find_restaurant
@@ -10,17 +10,21 @@ class MenuItemsController < ApplicationController
   end
 
   def new
+    @is_new = true
     @menu_item = MenuItem.new(:post_to_twitter_at => Time.now, :post_to_facebook_at => Time.now)
     @categories = OtmKeyword.all(:order => "category ASC, name ASC").group_by(&:category)
   end
 
   def create
+    debugger
     @menu_item = @restaurant.menu_items.build(params[:menu_item])
     if @menu_item.save
       flash[:notice] = "Your menu item has been saved"
       redirect_to :action => "index"
     else
+      @is_new = true
       @categories = OtmKeyword.all(:order => "category ASC, name ASC").group_by(&:category)
+      @categories_keywords = OtmKeyword.find(:all,:conditions=>["name like ? ","%#{params[:menu_item][:search_keywords]}%"],:order => "category ASC, name ASC",:limit=>100) 
       render :action => "new"
     end
   end
@@ -54,6 +58,20 @@ class MenuItemsController < ApplicationController
     @menu_item.queue_for_facebook_page
     flash[:notice] = "Posted #{@menu_item.name} to Facebook page"
     redirect_to :action => "index"
+  end
+
+  def get_keywords
+    find_restaurant
+    @categories_keywords = OtmKeyword.find(:all,:conditions=>["name like ? ","%#{params[:search_keywords]}%"],:order => "category ASC, name ASC",:limit=>100) 
+     respond_to do |wants|      
+        wants.html { render :partial=>'get_keywords' }
+    end
+  end  
+
+  def add_keywords   
+    find_restaurant    
+    UserMailer.deliver_add_keyword_request(@restaurant.name, params[:keywords])
+    render :text=>"Request sent to admin,Wait for approval."  
   end
 
   private

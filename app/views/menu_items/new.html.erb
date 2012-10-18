@@ -11,3 +11,76 @@
         <%= render :partial => "form" %>
     </div><!-- /editing_restaurant -->
 </div><!-- /restaurant_profile_view -->
+
+<% content_for :javascript do %>
+<script type="text/javascript">
+$(document).ready(function() {
+  var userNotSelectedCheckBox = true
+  var ajaxNotStart = true;
+  var isPageLoad = true;
+  $('#form-tabs').tabs({
+    panelTemplate: '<section></section>',
+    fx: { duration: 'fast', opacity: 'toggle' },
+    show: function(event, ui) { 
+      if(ui.panel.id != 'form-search-keywords' && !isPageLoad)
+      {
+        //$('#menu_item_search_keywords').val('');
+      }
+      isPageLoad = false; 
+    }
+  });
+  $('#form-tabs').tabs('select', 'form-search-keywords');
+  $('#select-keyword-tab').click(function(e){
+    e.preventDefault();
+    $('#form-tabs').tabs('select', 'form-beverages');
+  })
+  $('#menu_item_search_keywords').click(function(){
+     $('#form-tabs').tabs('select', 'form-search-keywords');
+     userNotSelectedCheckBox = true
+  })
+  $('#menu_item_search_keywords').keyup(function(e){ 
+    $('#form-search-keywords').show();
+    $('#form-tabs').tabs('select', 'form-search-keywords');
+
+
+    if($(this).val().length>1)
+    {
+        var data = $(this).val()
+        $('#form-search-keywords').html('<%=image_tag "ajax-loader.gif" %><div class="clear"> </div>');
+        if(ajaxNotStart)
+        {
+          ajaxNotStart = true
+          $.ajax({
+          data:{search_keywords:data,restaurant_id:<%=@restaurant.id%>},
+          beforeSend:function(){$('#form-search-keywords').html('<%=image_tag "ajax-loader.gif" %><div class="clear"> </div>')},
+          complete: function(request){
+            ajaxNotStart = true
+            if(userNotSelectedCheckBox) 
+              $('#form-search-keywords').html(request.responseText)
+            },
+            url: '<%=get_keywords_path%>'
+          })
+        
+        }
+
+    }
+  })
+	$('#add_keywords_id').live('click',function(e){
+		e.preventDefault();
+		var data = $(this).html();
+		var url = $(this).attr('href')
+		 $.ajax({
+          beforeSend:function(){$('#form-search-keywords').html('<%=image_tag "ajax-loader.gif" %><div> Sending request.. </div><div class="clear"> </div>')},
+          complete: function(request){
+              $('#form-search-keywords').html(request.responseText)
+            },
+            url: url
+          })
+	})
+	$('.ajax_otm').live('click',function(){
+		userNotSelectedCheckBox = false
+
+	})
+});
+</script>
+<% end %>

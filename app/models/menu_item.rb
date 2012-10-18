@@ -55,7 +55,7 @@ class MenuItem < ActiveRecord::Base
     :conditions => ["restaurants.is_activated = ?", true]
   }
 
-  attr_accessor :no_twitter_crosspost, :no_fb_crosspost
+  attr_accessor :no_twitter_crosspost, :no_fb_crosspost,:search_keywords
   after_create :crosspost
 
   def keywords
