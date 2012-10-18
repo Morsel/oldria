@@ -154,4 +154,11 @@ class UserMailer < ActionMailer::Base
     body        :restaurant => restaurant
   end
 
+  def add_keyword_request(restaurant,keyword)
+    from        'notifications@restaurantintelligenceagency.com'
+    recipients  "admin@restaurantintelligenceagency.com"
+    sent_on     Time.now
+    subject     "Keyword Request from RESTAURANT NAME: #{restaurant} REQUESTED ITEM: #{keyword}"
+  end
+
 end

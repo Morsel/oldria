@@ -17,15 +17,21 @@
         <h3>Current Keywords</h3>
         <p><%= @menu_item.keywords %></p>
         <% end -%>
-        <p class="inline-hints">
-            Please select the words that best describe your dish<br/>
+        <p class="inline-hints">  
+
             Media will use the keywords to find your dish, so please be accurate and complete
+            <br/>
+            <% if @is_new %>
+              Please type in your keywords or <%= link_to "select a heading to display known keywords","/" ,:id=>"select-keyword-tab" %>
+              <%= f.input :search_keywords, :required => false, :hint => "Example: artisanal, cocktail, beer" %>  
+            <% end %>
         </p>
         <section id="form-tabs">
             <nav id="profile-options">
                 <% @categories.keys.each do |category| %>
                 <span><a href="#form-<%= category.downcase.gsub(/[\s\W]/, "-") %>" id="tab-summary"><%= category %></a></span>
                 <% end %>
+                  <span class="display-none"><a href="#form-search-keywords" id="tab-summary"></a></span>
             </nav>
 
             <% @categories.each do |category, keywords| %>
@@ -39,6 +45,11 @@
                 <div class="clear">&nbsp;</div>
             </section>
             <% end %>
+             <% if @is_new %>
+             <section id="form-search-keywords" class="otm-form-section">
+              <%=render :partial=>'get_keywords'%>
+             </section>
+             <% end %>
         </section>
 
         <% if @restaurant.twitter_authorized? -%>
@@ -72,15 +83,4 @@
         Large, high-resolution photos can take a little while to upload, so please be patient
     </p>
     <%= submit_tag "Save" %>
-<% end %>
-
-<% content_for :javascript do %>
-<script type="text/javascript">
-$(document).ready(function() {
-  $('#form-tabs').tabs({
-    panelTemplate: '<section></section>',
-    fx: { duration: 'fast', opacity: 'toggle' },
-  });
-});
-</script>
 <% end %>

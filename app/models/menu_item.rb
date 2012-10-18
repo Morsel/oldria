@@ -68,7 +68,7 @@ class MenuItem < ActiveRecord::Base
     { :conditions => [sql, restaurant_id] }
   }
 
-  attr_accessor :no_twitter_crosspost, :no_fb_crosspost
+  attr_accessor :no_twitter_crosspost, :no_fb_crosspost,:search_keywords
   after_create :crosspost
 
   def keywords
