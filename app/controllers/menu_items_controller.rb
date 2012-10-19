@@ -16,7 +16,6 @@ class MenuItemsController < ApplicationController
   end
 
   def create
-    debugger
     @menu_item = @restaurant.menu_items.build(params[:menu_item])
     if @menu_item.save
       flash[:notice] = "Your menu item has been saved"
