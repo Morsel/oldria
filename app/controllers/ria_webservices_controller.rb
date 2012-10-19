@@ -261,7 +261,7 @@ end
        @trend_questions.each_with_index do |trend_question,index|
           @trends[index] = Hash.new
           @trends[index]["question"] = trend_question.message
-          @trends[index]["date"] = trend_question.scheduled_at.try(:strftime, "%B %d, %Y at %I:%M%p")
+          @trends[index]["date"] = trend_question.scheduled_at
           @trends[index]["admin_discussions"] = Array.new
           @user.grouped_admin_discussions[trend_question].each do |trend|    
             obj = Hash.new
