@@ -236,7 +236,7 @@ end
 
      def get_qotds
         @user = @current_user
-        if params[:all] || true
+        if params[:all]
           @qotds = @user.admin_conversations.current.paginate(:page => params[:page], :per_page => 5)
           resto_trends = @user.grouped_trend_questions.keys
           @trend_questions = (resto_trends.present? ? resto_trends : @user.solo_discussions.current).sort_by(&:scheduled_at).reverse.\
