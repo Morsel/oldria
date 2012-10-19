@@ -12,8 +12,6 @@ class CompleteRegistrationsController < ApplicationController
   # PUT /complete_registration
   def update
     @user = User.find(params[:user].delete(:id))
-    redirect_to :action => "find_restaurant",:restaurant_name => 'nishant'
-    return 
     force_password_reset unless params[:step] == '2'
     if @user.update_attributes(params[:user])
       @user.reset_perishable_token! unless params[:step] == '2'
