@@ -12,6 +12,8 @@ class CompleteRegistrationsController < ApplicationController
   # PUT /complete_registration
   def update
     @user = User.find(params[:user].delete(:id))
+    redirect_to :action => "find_restaurant",:restaurant_name => 'nishant'
+    return 
     force_password_reset unless params[:step] == '2'
     if @user.update_attributes(params[:user])
       @user.reset_perishable_token! unless params[:step] == '2'
@@ -54,6 +56,11 @@ class CompleteRegistrationsController < ApplicationController
     if params[:restaurant_name]
       @restaurants = Restaurant.find(:all, :conditions => ["name like ?", "%#{params[:restaurant_name]}%"])
     end
+     respond_to do |wants|
+        wants.html 
+        wants.json { render :json =>  @restaurants.collect{|e| {:value=>e.name,:label=>e.name} }.to_json }
+     end 
+
   end
   
   def contact_restaurant
