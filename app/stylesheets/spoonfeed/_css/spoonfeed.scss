@@ -4371,3 +4371,6 @@ div .details p{
   margin: 5px 0 15px !important;
   padding: 0 !important;
 }
+.ui-autocomplete-loading {
+        background: white url('/images/ajax-loader.gif') right center no-repeat;
+    }
