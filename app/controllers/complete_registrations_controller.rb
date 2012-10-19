@@ -54,6 +54,11 @@ class CompleteRegistrationsController < ApplicationController
     if params[:restaurant_name]
       @restaurants = Restaurant.find(:all, :conditions => ["name like ?", "%#{params[:restaurant_name]}%"])
     end
+     respond_to do |wants|
+        wants.html 
+        wants.json { render :json =>  @restaurants.collect{|e| {:value=>e.name,:label=>e.name} }.to_json }
+     end 
+
   end
   
   def contact_restaurant
