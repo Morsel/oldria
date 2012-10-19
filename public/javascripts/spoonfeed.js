@@ -525,7 +525,22 @@ $('#metropolitan_areas_state_state_id').change(function(){
 
 
    $('.add-btl').colorbox({rel:'gal'});
+  var cache = {};
+  $( "#user_default_employment_attributes_solo_restaurant_name" ).autocomplete({
+      minLength: 2,
+      source:function( request, response ) {
+          var term = request.term;
+          if ( term in cache ) {
+              response( cache[ term ] );
+              return;
+          }
+          $.getJSON( "/complete_registration/find_restaurant", { restaurant_name: request.term }, function( data, status, xhr ) {
+              cache[ term ] = data;
+              response( data );
+          });
+      }
 
+    });
   // end $(document).ready
 });
 
