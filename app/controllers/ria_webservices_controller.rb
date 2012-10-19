@@ -236,7 +236,7 @@ end
 
      def get_qotds
         @user = @current_user
-        if params[:all]
+        if params[:all] || true
           @qotds = @user.admin_conversations.current.paginate(:page => params[:page], :per_page => 5)
           resto_trends = @user.grouped_trend_questions.keys
           @trend_questions = (resto_trends.present? ? resto_trends : @user.solo_discussions.current).sort_by(&:scheduled_at).reverse.\
@@ -261,7 +261,7 @@ end
        @trend_questions.each_with_index do |trend_question,index|
           @trends[index] = Hash.new
           @trends[index]["question"] = trend_question.message
-          @trends[index]["date"] = trend_question.scheduled_at.try(:strftime, "%B %d, %Y at %I:%M%p")
+          @trends[index]["date"] = trend_question.scheduled_at
           @trends[index]["admin_discussions"] = Array.new
           @user.grouped_admin_discussions[trend_question].each do |trend|    
             obj = Hash.new
