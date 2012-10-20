@@ -63,6 +63,10 @@ class ProfilesController < ApplicationController
   end  
 
   def complete_profile
+      unless is_profile_not_completed? current_user    
+        flash[:notice] = "Profile already completed, Enjoy spoonfeed!!."    
+        redirect_to root_path
+      end  
   end
 
   protected

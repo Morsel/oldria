@@ -229,7 +229,13 @@ var colorboxForm = function(){
     error: function(xhr, status){
       var response;
       try { response = $(xhr.responseText); } catch(e) { response = xhr.responseText; }
-      $.colorbox({html: response});
+      $.colorbox({html: response,onClosed:function(){
+        if($form.attr('id')=="new_profile_cuisine")
+        {
+          $('#step3').slideDown();
+          loderHide()
+        }
+      }});
     }
   });
   // button.enable();
@@ -522,7 +528,16 @@ $('#metropolitan_areas_state_state_id').change(function(){
        
         return false; 
     });
+     $('#cuisine_form').submit(function(e) { 
 
+        e.preventDefault();
+        current_page_id =  $(this).parent().attr('id')   
+        next_page_id    =  $(this).parent().next().attr('id') 
+        loderShow()
+
+        $(this).ajaxSubmit(options); 
+        return false; 
+    });
 
    $('.add-btl').colorbox({rel:'gal'});
   var cache = {};
@@ -541,6 +556,12 @@ $('#metropolitan_areas_state_state_id').change(function(){
       }
 
     });
+
+   $('.skipp').live('click',function(e){
+      e.preventDefault();
+      $(this).closest('form').submit();      
+   })
+
   // end $(document).ready
 });
 
