@@ -278,7 +278,8 @@ class ApplicationController < ActionController::Base
   end
 
   def is_profile_not_completed? user
-     !user.avatar? || user.profile.specialties.blank? || user.profile.cuisines.blank? || user.restaurants.blank?
+     !user.avatar? || (user.profile.specialties.blank? &&  user.profile.skipp_step.to_i < 2
+) || (user.profile.cuisines.blank? && user.profile.skipp_step.to_i < 3) || user.restaurants.blank?
   end  
   
 end
