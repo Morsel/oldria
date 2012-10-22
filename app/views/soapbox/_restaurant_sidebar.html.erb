@@ -44,6 +44,22 @@
                 <h1>The Details</h1>
             </header>
             <ol>
+                
+                <li>
+                   <header class="feed-item-title website"> Restaurant Staff:
+                    <% restaurant.public_employments.all(:include => [:subject_matters, :restaurant_role, :employee]).each do |employment| %> 
+                        <% if employment.employee.linkable_profile? %>
+                        <p class="staff"><%=short_role(employment.employee.primary_employment.try(:restaurant_role).try(:name))%>:
+                            <% if((employment.employee.try(:name)+short_role(employment.employee.primary_employment.try(:restaurant_role).try(:name))).length > 32) %> 
+                                <br/>
+                            <%end%>
+                            <%= link_to employment.employee.try(:name),soapbox_profile_path(employment.employee.username) %>
+                         </p>
+                        <% end %>
+
+                    <% end %>
+                     </header>    
+                </li> 
                 <li>
                     <header class="feed-item-title">
                         Cuisine:
