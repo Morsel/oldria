@@ -121,6 +121,7 @@ class MediaRequest < ActiveRecord::Base
   end
 
   def update_restaurants_from_search_criteria
+    
     self.restaurant_ids = employment_search.restaurant_ids
 
     # FIXME kludgy hack here: media request can only have one employment search 
@@ -131,7 +132,7 @@ class MediaRequest < ActiveRecord::Base
       extra_results = EmploymentSearch.new(:conditions => { 
           :employee_profile_james_beard_region_id_eq_any => employment_search.search_params[:restaurant_james_beard_region_id_equals_any],
           :employee_profile_metropolitan_area_id_eq_any => employment_search.search_params[:restaurant_metropolitan_area_id_equals_any]
-      }).solo_employments
+      }).solo_employments.map{|e| e if e.valid?}.compact # added condition by nishant for error :"Employment is invalid"
 
       _employments = [employment_search.solo_employments, extra_results].flatten.compact.uniq
       self.employments = _employments if _employments.present?
