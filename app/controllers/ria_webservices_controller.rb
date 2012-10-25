@@ -214,7 +214,7 @@ end
       myparams={}
       myparams[:comment] = params[:comment][:comment]
       myparams[:attachments_attributes] ={}
-      myparams[:attachments_attributes]["0"]= {:attachment=>params[:comment][:attachments_attributes]}
+      myparams[:attachments_attributes]["0"]= {:attachment=>params[:comment][:attachments_attributes]} unless params[:comment][:attachments_attributes].blank?
       myparams[:user_id] = current_user.id
       @comment = @parent.comments.build((myparams))
     else  
@@ -222,15 +222,11 @@ end
     end
     @comment.user_id ||= current_user.id
     @is_mediafeed = params[:mediafeed]
-    if @parent.comments_count == 0
+    if  (params[:media_request_discussion_id].blank? && @parent.comments_count == 0) || !params[:media_request_discussion_id].blank?
       if @comment.save
-        if front_burner_content
-          @parent.read_by!(@comment.user)
-         render :json => {:status=>true}
-        else
-
+        render :json => {:status=>true,:message =>"Saved"}        
+      else
         render :json => {:status=>false ,:message=>"Your comment couldn't be saved. Errors: #{@comment.errors.full_messages.to_sentence}"  }
-        end
       end  
     else
        render :json => {:status=>false,:message=>"Already been commented"}
