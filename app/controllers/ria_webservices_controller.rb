@@ -1,6 +1,6 @@
 class RiaWebservicesController < ApplicationController
    skip_before_filter :protect_from_forge
-   before_filter :require_user,:only => [:a_la_minute_answers,:require_restaurant_employee,:menu_items,:bulk_update,:create_menu,:create_promotions,:create_photo,:show_photo,:create_comments,:get_qotds,:get_newsfeed,:push_notification_user]
+   before_filter :require_user,:only => [:a_la_minute_answers,:require_restaurant_employee,:menu_items,:bulk_update,:create_menu,:create_promotions,:create_photo,:show_photo,:create_comments,:get_qotds,:get_newsfeed,:push_notification_user,:get_media_request]
    before_filter :require_restaurant_employee, :only => [:a_la_minute_answers,:require_restaurant_employee,:menu_items,:bulk_update,:create_menu,:create_promotions,:create_photo,:show_photo,:get_newsfeed]
    before_filter :find_activated_restaurant, :only => [:a_la_minute_answers,:require_restaurant_employee,:menu_items,:bulk_update,:create_menu,:create_promotions,:create_photo,:show_photo,:get_newsfeed]
    before_filter :require_manager, :only => [:a_la_minute_answers,:require_restaurant_employee,:menu_items,:bulk_update,:create_menu,:create_promotions,:create_photo,:show_photo,:get_newsfeed]
@@ -210,24 +210,61 @@ end
   end
   
   def create_comments
-    @comment = @parent.comments.build(eval(params[:comment]))
+    unless params[:media_request_discussion_id].blank?
+      myparams={}
+      myparams[:comment] = params[:comment][:comment]
+      myparams[:attachments_attributes] ={}
+      myparams[:attachments_attributes]["0"]= {:attachment=>params[:comment][:attachments_attributes]} unless params[:comment][:attachments_attributes].blank?
+      myparams[:user_id] = current_user.id
+      @comment = @parent.comments.build((myparams))
+    else  
+      @comment = @parent.comments.build(eval(params[:comment]))
+    end
     @comment.user_id ||= current_user.id
     @is_mediafeed = params[:mediafeed]
-    if @parent.comments_count == 0
+    if  (params[:media_request_discussion_id].blank? && @parent.comments_count == 0) || !params[:media_request_discussion_id].blank?
       if @comment.save
-        if front_burner_content
-          @parent.read_by!(@comment.user)
-         render :json => {:status=>true}
-        else
-
+        render :json => {:status=>true,:message =>"Saved"}        
+      else
         render :json => {:status=>false ,:message=>"Your comment couldn't be saved. Errors: #{@comment.errors.full_messages.to_sentence}"  }
-        end
       end  
     else
        render :json => {:status=>false,:message=>"Already been commented"}
     end 
   end
   
+  def get_media_request
+    
+    if archived_view?
+      @messages = current_user.viewable_media_request_discussions.sort { |a, b| b.created_at <=> a.created_at }.paginate(:page => params[:page], :per_page => 5)
+    else
+      @messages = current_user.viewable_unread_media_request_discussions.sort { |a, b| b.created_at <=> a.created_at }.paginate(:page => params[:page], :per_page => 5)
+    end 
+      @data = []
+      @messages.each_with_index do |message,index|
+        @data[index] = {}           
+        @data[index][:restaurant]  =  message.restaurant.name 
+        @data[index][:id] = message.media_request.id
+        @data[index][:message] = message.media_request.message
+        @data[index][:due_date] = message.media_request.due_date.try(:to_s, :long_ordinal)
+        @data[index][:publication] = message.media_request.publication
+        @data[index][:media_request_discussion_id] = message.id
+        @data[index][:comments_count] = message.comments_count
+        @data[index][:inbox_title] = message.media_request.inbox_title
+        @data[index][:title_date] = message.media_request.created_at.to_s(:sentence)
+        
+        @data[index][:comments] = {}
+        message.comments.all(:include => [:user, :attachments], :order => 'created_at DESC').reject(&:new_record?).each_with_index do |comment,c_index|
+            @data[index][:comments][c_index] = {}
+            @data[index][:comments][c_index][:comment] = comment.comment
+            @data[index][:comments][c_index][:comment_date] = comment.created_at.try(:strftime, "%b %e, %Y at %l:%M %p")
+            @data[index][:comments][c_index][:attachments] = comment.attachments.map(&:attachment).map(&:url).join(",")
+        end
+        
+    end
+        render :json => {:media_request=>  @data}      
+  end
+
     def show_comments
       load_and_authorize_admin_conversation
       @comments = @admin_conversation.comments.all(:include => :user).reject(&:new_record?)
