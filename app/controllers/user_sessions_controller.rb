@@ -48,9 +48,14 @@ class UserSessionsController < ApplicationController
         if user.completed_setup? && is_profile_not_completed?(user)
           flash[:notice] += " Complete your profile."
           redirect_to complete_profile_user_profile_path(user)
-        else  
-          flash[:notice] += " Please finish setting up your account."
-          redirect_to user_details_complete_registration_path
+        else
+          unless user.profile.present?
+            flash[:notice] += " Please finish setting up your account."
+            redirect_to user_details_complete_registration_path
+          else
+            flash[:notice] += " Please add role."
+            redirect_to add_employment_complete_registration_path
+          end
         end
       end
     else

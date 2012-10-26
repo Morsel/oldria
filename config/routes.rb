@@ -13,7 +13,7 @@ ActionController::Routing::Routes.draw do |map|
         :member => { :confirm => :get }
   map.resource :complete_registration, :only => [:show, :update],
     :collection => { :user_details => :get, :find_restaurant => :any, :contact_restaurant => :post,
-      :finish_without_contact => :get }
+      :finish_without_contact => :get, :add_employment => :get,:create_employment=>:post}
 
   map.dashboard_more 'dashboard_more', :controller => 'welcome', :action => 'index', :is_more => true
   map.refresh_dashboard 'dashboard/refresh', :controller => 'welcome', :action => 'refresh'
