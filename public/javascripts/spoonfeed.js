@@ -213,23 +213,37 @@ var colorboxForm = function(){
   $form.ajaxSubmit({
     dataType: 'json',
     url: $form.attr('action') + '.json',
+    beforeSubmit:function(){
+      $form.hide();
+      $('#cboxLoadingGraphic').show(); 
+    },
     success: function(text){
-      var $html = $(text.html);
-      var $id   = $html.attr('id');
-      var singularName = $id.replace(/^new_/, "").replace(/_\d+$/, "");
-      var existingElement = $('#'+ $id);
-      if (existingElement.length) {
-        existingElement.html($html.html());
-      } else {
-        $("#" + singularName + "s").append($html);
-      }
-      $.fn.colorbox.close();
-      showResponse(text)
+      $('#cboxLoadingGraphic').hide(); 
+      if($form.attr('id')== "create_employment_form")
+      {
+       
+        $.fn.colorbox.close();
+        $(location).attr('href',text.url);
+      }  
+        var $html = $(text.html);
+        var $id   = $html.attr('id');
+        var singularName = $id.replace(/^new_/, "").replace(/_\d+$/, "");
+        var existingElement = $('#'+ $id);
+        if (existingElement.length) {
+          existingElement.html($html.html());
+        } else {
+          $("#" + singularName + "s").append($html);
+        }
+        showResponse(text)      
+        $.fn.colorbox.close();
     },
     error: function(xhr, status){
       var response;
       try { response = $(xhr.responseText); } catch(e) { response = xhr.responseText; }
-      $.colorbox({html: response});
+      if($form.attr('id')=="create_employment_form")
+        $.colorbox({html: response,overlayClose: false,escKey:false});
+      else  
+        $.colorbox({html: response});
     }
   });
   // button.enable();
@@ -264,7 +278,7 @@ bindColorbox();
 
 $('#colorbox form.stage, #colorbox form.apprenticeship, #colorbox form.nonculinary_enrollment, #colorbox form.award, #colorbox form.culinary_job, #colorbox form.nonculinary_job, #colorbox form.accolade, #colorbox form.enrollment, #colorbox form.competition, #colorbox form.internship').live('submit', colorboxForm);
 $('#complete_profile form.profile_cuisine').live('submit', colorboxForm);
-
+$("#create_employment_form").live('submit', colorboxForm);
 $("a.showit").showy();
 
 
@@ -541,6 +555,9 @@ $('#metropolitan_areas_state_state_id').change(function(){
       }
 
     });
+
+    if(typeof(openColorBox) !== "undefined" )
+      $.colorbox({href: openColorBoxPath,overlayClose: false,escKey:false });
   // end $(document).ready
 });
 
