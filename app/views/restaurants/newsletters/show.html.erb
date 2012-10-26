@@ -314,11 +314,13 @@ text-decoration: none;
 
 </style>
 
+<base href="http://staging.restaurantintelligenceagency.com/restaurants/56/newsletters/6">
+
 </head>
 
 
 
-<body>
+<body style="-webkit-text-size-adjust: none;margin: 0;padding: 0;width: 100% !important;">
 
 <div align="center" style="background-color:#FFFFFF;">
 
@@ -326,44 +328,44 @@ text-decoration: none;
 
   <tr>
 
-    <td colspan="2"><img src="http://blog.restaurantintelligenceagency.com/images/newsletter/topshadow.jpg" width="700" height="15" style="display:block;" alt=""></td>
+    <td colspan="2"><img src="http://blog.restaurantintelligenceagency.com/images/newsletter/topshadow.jpg" width="700" height="15" style="display: block;border: none;font-size: 14px;font-weight: bold;height: auto;line-height: 100%;outline: none;text-decoration: none;text-transform: capitalize;" alt=""></td>
 
   </tr>
 
   <tr>
 
-    <td rowspan="2" width="114"><%= image_tag logo_for(@restaurant).attachment.url(:small) %></td>
-    <td width="586"><img src="http://blog.restaurantintelligenceagency.com/images/newsletter/menubar-short.jpg" width="586" height="31" border="0" usemap="#TopMap" style="display:block;" alt="RIA Menu" />
-      <map name="TopMap" id="TopMap">
-        <area shape="rect" coords="126,0,155,31" href="http://hq.restaurantintelligenceagency.com/" alt="ria" />
-        </area>
-        <area shape="rect" coords="161,0,219,31" href="http://soapbox.restaurantintelligenceagency.com/" alt="soap" />
-        </area>
-        <area shape="rect" coords="225,0,298,31" href="http://spoonfeed.restaurantintelligenceagency.com/" alt="spoon" />
-        </area>
-        <area shape="rect" coords="303,0,342,31" href="http://ellenmalloy.com/" alt="blog" />
-        </area>
-        <area shape="rect" coords="347,0,406,31" href="http://spoonfeed.restaurantintelligenceagency.com/contact" alt="contact" />
-        </area>
-        <area shape="rect" coords="411,0,453,31" href="http://spoonfeed.restaurantintelligenceagency.com/" alt="login" />
-        </area>
-        <area shape="rect" coords="458,0,524,31" href="http://spoonfeed.restaurantintelligenceagency.com/invitations/new" alt="join" />
-        </area>
-        <area shape="rect" coords="621,0,638,31" href="https://www.facebook.com/RestaurantIntelligenceAgency" alt="facebook" />
-        </area>
-        <area shape="rect" coords="642,0,659,31" href="https://twitter.com/#!/Soapbox_HQ" alt="twitter" />
-        </area>
-        <area shape="rect" coords="663,0,681,31" href="mailto:ellen@restaurantintelligenceagency.com" alt="email" />
-        </area>
+    <td rowspan="2" width="114"><%= image_tag logo_for(@restaurant).attachment.url(:small), :style => "border: none;font-size: 14px;font-weight: bold;height: auto;line-height: 100%;outline: none;text-decoration: none;text-transform: capitalize;" %></td>
+    <td width="586"><img src="http://blog.restaurantintelligenceagency.com/images/newsletter/menubar-short.jpg" width="586" height="31" border="0" usemap="#TopMap" style="display: block;border: none;font-size: 14px;font-weight: bold;height: auto;line-height: 100%;outline: none;text-decoration: none;text-transform: capitalize;" alt="RIA Menu">
+      <map name="TopMap" id="TopMap"><area shape="rect" coords="527,-2,549,40" href="https://twitter.com/#!/Soapbox_HQ" alt="twitter" /><area shape="rect" coords="505,-2,528,40" href="https://www.facebook.com/RestaurantIntelligenceAgency" alt="facebook" />
+        <area shape="rect" coords="13,3,42,34" href="http://hq.restaurantintelligenceagency.com/" alt="ria"></area>
+
+        <area shape="rect" coords="50,2,108,33" href="http://soapbox.restaurantintelligenceagency.com/" alt="soap"></area>
+
+        <area shape="rect" coords="113,0,186,31" href="http://spoonfeed.restaurantintelligenceagency.com/" alt="spoon"></area>
+
+        <area shape="rect" coords="187,0,226,31" href="http://ellenmalloy.com/" alt="blog"></area>
+
+        <area shape="rect" coords="228,1,287,32" href="http://spoonfeed.restaurantintelligenceagency.com/contact" alt="contact"></area>
+
+        <area shape="rect" coords="296,3,338,34" href="http://spoonfeed.restaurantintelligenceagency.com/" alt="login"></area>
+
+        <area shape="rect" coords="341,3,407,34" href="http://spoonfeed.restaurantintelligenceagency.com/invitations/new" alt="join"></area>
+
+        <area shape="rect" coords="621,0,638,31" href="https://www.facebook.com/RestaurantIntelligenceAgency" alt="facebook"></area>
+
+        <area shape="rect" coords="642,0,659,31" href="https://twitter.com/#!/Soapbox_HQ" alt="twitter"></area>
+
+        <area shape="rect" coords="663,0,681,31" href="mailto:ellen@restaurantintelligenceagency.com" alt="email"></area>
+
       </map></td>
 
   </tr>
 
       <tr>
 
-    <td colspan="2" align="center" background="http://blog.restaurantintelligenceagency.com/images/newsletter/dailydineline_texture.jpg" class="headline1" style="padding-top:8px;background: #ffffff url(http://blog.restaurantintelligenceagency.com/images/newsletter/dailydineline_texture.jpg) left;"><p  mc:edit="city"><em>What's happening at <%= @restaurant.name %>!</em></p>
+    <td colspan="2" align="center" background="http://blog.restaurantintelligenceagency.com/images/newsletter/dailydineline_texture.jpg" class="headline1" style="padding-top: 8px;background: #ffffff url(http://blog.restaurantintelligenceagency.com/images/newsletter/dailydineline_texture.jpg) left;font-family: Georgia, Times New Roman, Times, serif;font-size: 19px;color: #FFF;line-height: 8px;"><p mc:edit="city"><em>What's happening at <%= @restaurant.name %>!</em></p>
 
-      <p class="date1"  mc:edit="date">&nbsp;</p></td>
+      <p class="date1" mc:edit="date" style="font-family: Georgia, Times New Roman, Times, serif;font-size: 12px;color: #ffff99;font-weight: bold;">&nbsp;</p></td>
 
   </tr>
 
@@ -373,22 +375,22 @@ text-decoration: none;
 
 
 
-    <tr  mc:hideable>
+    <tr mc:hideable="">
       <td colspan="2"><table width="700" border="0" cellpadding="0" cellspacing="0">
         <!-- ON THE MENU - SECTION START -->
-        <tr  mc:hideable="mc:hideable">
-          <td><img src="http://blog.restaurantintelligenceagency.com/images/newsletter/otm-550.jpg" width="550" height="92" style="display:block;" alt="On The Menu" /></td>
-          <td><img src="images/sidebar-top.jpg" width="150" height="92" /></td>
+        <tr mc:hideable="mc:hideable">
+          <td><img src="http://blog.restaurantintelligenceagency.com/images/newsletter/otm-550.jpg" width="550" height="92" style="display: block;border: none;font-size: 14px;font-weight: bold;height: auto;line-height: 100%;outline: none;text-decoration: none;text-transform: capitalize;" alt="On The Menu"></td>
+          <td><img src="http://blog.restaurantintelligenceagency.com/images/newsletter/sidebar-top.jpg" width="150" height="92" style="border: none;font-size: 14px;font-weight: bold;height: auto;line-height: 100%;outline: none;text-decoration: none;text-transform: capitalize;"></td>
         </tr>
-        <tr  mc:hideable="mc:hideable">
-          <td background="http://blog.restaurantintelligenceagency.com/images/newsletter/otm_bottom.jpg" class="cloud" style="background: #ffffff url(http://blog.restaurantintelligenceagency.com/images/newsletter/otm_bottom.jpg) left;"><center>
-            <div style="width:500px; padding-top:6px;"  mc:edit="on_the_menu">
+        <tr mc:hideable="mc:hideable">
+          <td background="http://blog.restaurantintelligenceagency.com/images/newsletter/otm_bottom.jpg" class="cloud" style="background: #ffffff url(http://blog.restaurantintelligenceagency.com/images/newsletter/otm_bottom.jpg) left;font-family: Georgia, Times New Roman, Times, serif;font-size: 14px;color: #444;line-height: 28px;"><center>
+            <div style="width:500px; padding-top:6px;" mc:edit="on_the_menu">
                 <% for menu_item in @menu_items %>
-                <% link_to soapbox_menu_item_url(menu_item) do %>
+                <% link_to soapbox_menu_item_url(menu_item), :style => "color: #444;text-decoration: underline;font-family: Georgia, Times New Roman, Times, serif;font-size: 14px;line-height: 28px;" do %>
                     <strong><%= menu_item.name %></strong>
                 <% end %><br/>
-                at <% link_to soapbox_restaurant_url(menu_item.restaurant) do %><strong><%= menu_item.restaurant.name %></strong><% end %><br/>
-                <span class="bottommenu">
+                at <% link_to soapbox_restaurant_url(menu_item.restaurant), :style => "color: #444;text-decoration: underline;font-family: Georgia, Times New Roman, Times, serif;font-size: 14px;line-height: 28px;" do %><strong><%= menu_item.restaurant.name %></strong><% end %><br/>
+                <span class="bottommenu" style="font-family: Georgia, Times New Roman, Times, serif;font-size: 10px;color: #9F9A98;line-height: 16px;font-weight: bold;text-transform: uppercase;text-decoration: none;text-align: left;">
                     <%= menu_item.otm_keywords.map { |k| link_to k.name, soapbox_menu_items_url(:keyword => k.name) }.to_sentence %>
                     <% for keyword in menu_item.otm_keywords %>
                     <%= link_to keyword.name, soapbox_menu_items_url(:keyword => keyword.name) %>
@@ -398,16 +400,16 @@ text-decoration: none;
                 <% end %>
             </div>
           </center></td>
-          <td rowspan="5" background="http://blog.restaurantintelligenceagency.com/images/newsletter/otm_bottom.jpg" class="cloud" style="background: #ffffff url(http://blog.restaurantintelligenceagency.com/images/newsletter/otm_bottom.jpg) left;" width="150px">
+          <td width="150px" rowspan="5" valign="top" background="http://blog.restaurantintelligenceagency.com/images/newsletter/otm_bottom.jpg" class="cloud" style="background: #ffffff url(http://blog.restaurantintelligenceagency.com/images/newsletter/otm_bottom.jpg) left;font-family: Georgia, Times New Roman, Times, serif;font-size: 14px;color: #444;line-height: 28px;">
             <table width="100%" border="0" cellspacing="0" cellpadding="10">
               <tr>
-                <td><h3>The Latest</h3></td>
+                <td valign="top"><h3>The Latest</h3></td>
               </tr>
               <tr>
                   <td><p><strong>Behind the Lines</strong></p>
                       <p>
                           <% for answer in @restaurant_answers %>
-                          <%= link_to answer.answer, soapbox_restaurant_url(@restaurant) %><br />
+                          <%= link_to answer.answer, soapbox_restaurant_url(@restaurant), :style => "color: #444;text-decoration: underline;font-family: Georgia, Times New Roman, Times, serif;font-size: 14px;line-height: 28px;" %><br />
                           <% end %>
                       </p>
                   </td>
@@ -415,7 +417,7 @@ text-decoration: none;
               <tr>
                 <td><p><strong>Menus</strong></p>
                     <% for menu in @menus %>
-                    <p><%= link_to menu.name, restaurant_menu_url(@restaurant, menu) %></p>
+                    <p><%= link_to menu.name, restaurant_menu_url(@restaurant, menu), :style => "color: #444;text-decoration: underline;font-family: Georgia, Times New Roman, Times, serif;font-size: 14px;line-height: 28px;" %></p>
                     <% end %>
                 </td>
               </tr>
@@ -426,31 +428,31 @@ text-decoration: none;
         </tr>
         <!-- ON THE MENU - SECTION END -->
         <!-- NEWSFEED - SECTION START -->
-        <tr  mc:hideable="mc:hideable">
-          <td><img src="http://blog.restaurantintelligenceagency.com/images/newsletter/dailynews_wide_newsfeed-550.jpg" width="550" height="93" alt="Newsfeed" style="display:block;" /></td>
+        <tr mc:hideable="mc:hideable">
+          <td><img src="http://blog.restaurantintelligenceagency.com/images/newsletter/dailynews_wide_newsfeed-550.jpg" width="550" height="93" alt="Newsfeed" style="display: block;border: none;font-size: 14px;font-weight: bold;height: auto;line-height: 100%;outline: none;text-decoration: none;text-transform: capitalize;"></td>
         </tr>
-        <tr  mc:hideable="mc:hideable">
-          <td background="http://blog.restaurantintelligenceagency.com/images/newsletter/otm_bottom.jpg" class="cloud" style="background: #ffffff url(http://blog.restaurantintelligenceagency.com/images/newsletter/otm_bottom.jpg) left;"><center>
-              <div style="width:500px; padding-top:6px;"  mc:edit="newsfeed">
+        <tr mc:hideable="mc:hideable">
+          <td background="http://blog.restaurantintelligenceagency.com/images/newsletter/otm_bottom.jpg" class="cloud" style="background: #ffffff url(http://blog.restaurantintelligenceagency.com/images/newsletter/otm_bottom.jpg) left;font-family: Georgia, Times New Roman, Times, serif;font-size: 14px;color: #444;line-height: 28px;"><center>
+              <div style="width:500px; padding-top:6px;" mc:edit="newsfeed">
                   <% for promotion in @promotions %>
-                  <% link_to soapbox_promotion_url(promotion) do %>
+                  <% link_to soapbox_promotion_url(promotion), :style => "color: #444;text-decoration: underline;font-family: Georgia, Times New Roman, Times, serif;font-size: 14px;line-height: 28px;" do %>
                   <strong>SPECIAL PROMOTION: <%= promotion.headline %></strong>
                   <% end %><br/>
-                  at <%= link_to "<strong>#{promotion.restaurant.name}</strong>", soapbox_restaurant_url(promotion.restaurant) %><br/>
+                  at <%= link_to "<strong>#{promotion.restaurant.name}</strong>", soapbox_restaurant_url(promotion.restaurant), :style => "color: #444;text-decoration: underline;font-family: Georgia, Times New Roman, Times, serif;font-size: 14px;line-height: 28px;" %><br/>
                   <% end %>
               </div>
           </center></td>
         </tr>
         <!-- NEWSFEED - SECTION END -->
         <!-- A LA MINUTE - SECTION START -->
-        <tr  mc:hideable="mc:hideable">
-          <td><img src="http://blog.restaurantintelligenceagency.com/images/newsletter/dailynews_wide_alaminute-550.jpg" width="550" height="93" alt="A La Minute" style="display:block;" /></td>
+        <tr mc:hideable="mc:hideable">
+          <td><img src="http://blog.restaurantintelligenceagency.com/images/newsletter/dailynews_wide_alaminute-550.jpg" width="550" height="93" alt="A La Minute" style="display: block;border: none;font-size: 14px;font-weight: bold;height: auto;line-height: 100%;outline: none;text-decoration: none;text-transform: capitalize;"></td>
         </tr>
-        <tr  mc:hideable="mc:hideable">
-          <td background="http://blog.restaurantintelligenceagency.com/images/newsletter/otm_bottom.jpg" class="cloud" style="background: #ffffff url(http://blog.restaurantintelligenceagency.com/images/newsletter/otm_bottom.jpg) left;"><center>
-            <div style="width:500px; padding-top:6px;"> <span class="maincopyala"  mc:edit="a_la_minute">
+        <tr mc:hideable="mc:hideable">
+          <td background="http://blog.restaurantintelligenceagency.com/images/newsletter/otm_bottom.jpg" class="cloud" style="background: #ffffff url(http://blog.restaurantintelligenceagency.com/images/newsletter/otm_bottom.jpg) left;font-family: Georgia, Times New Roman, Times, serif;font-size: 14px;color: #444;line-height: 28px;"><center>
+            <div style="width:500px; padding-top:6px;"> <span class="maincopyala" mc:edit="a_la_minute" style="font-family: Georgia, Times New Roman, Times, serif;font-size: 14px;color: #5E9A66;line-height: 24px;">
                 <% for alm_answer in @alaminute_answers %>
-                <%= link_to alm_answer.question, soapbox_a_la_minute_question_url(alm_answer.a_la_minute_question) %> ::: <%= link_to alm_answer.answer, soapbox_a_la_minute_answer_url(alm_answer) %><br/>
+                <%= link_to alm_answer.question, soapbox_a_la_minute_question_url(alm_answer.a_la_minute_question), :style => "color: #5E9A66;text-decoration: none;font-family: Georgia, Times New Roman, Times, serif;font-size: 14px;line-height: 24px;" %> ::: <%= link_to alm_answer.answer, soapbox_a_la_minute_answer_url(alm_answer), :style => "color: #5E9A66;text-decoration: none;font-family: Georgia, Times New Roman, Times, serif;font-size: 14px;line-height: 24px;" %><br/>
                 <% end %>
               <br />
             </span></div>
@@ -485,7 +487,7 @@ text-decoration: none;
 
 <p style="font-family: georgia,serif; font-size: 12px; text-align: center; font-weight: bold; color: #58A618;">
 
-<a href="http://eepurl.com/dGoUc" target="_blank" style="color: #58A618;">Click here to subscribe if you received this from a friend!</a></p>
+<a href="http://eepurl.com/dGoUc" target="_blank" style="color: #58A618;text-decoration: underline;">Click here to subscribe if you received this from a friend!</a></p>
 
 </td>
 
@@ -517,7 +519,7 @@ You are receiving this email because you opted in at <a href="http://hq.restaura
 
 <p style="font-family: georgia,serif; font-size: 10px; text-align: center; color: #58A618;">
 
-&nbsp;<a href="*|UNSUB|*" style="color: #58A618;">unsubscribe from this list</a> | <a href="*|UPDATE_PROFILE|*" style="color: #58A618;">update subscription preferences</a>*|IFNOT:ARCHIVE_PAGE|* | <a href="*|ARCHIVE|*" style="color: #58A618;">view email in browser</a>*|END:IF|*&nbsp;</p>
+&nbsp;<a href="*|UNSUB|*" style="color: #58A618;text-decoration: underline;">unsubscribe from this list</a> | <a href="*|UPDATE_PROFILE|*" style="color: #58A618;text-decoration: underline;">update subscription preferences</a>*|IFNOT:ARCHIVE_PAGE|* | <a href="*|ARCHIVE|*" style="color: #58A618;text-decoration: underline;">view email in browser</a>*|END:IF|*&nbsp;</p>
 
 </td>
 
@@ -527,7 +529,7 @@ You are receiving this email because you opted in at <a href="http://hq.restaura
 
 <tr>
 
-    <td colspan="2"><img src="http://blog.restaurantintelligenceagency.com/images/newsletter/bottom_social.jpg" width="700" height="50" border="0" usemap="#BottomMap" style="display:block;" alt="Social Icons"></td>
+    <td colspan="2"><img src="http://blog.restaurantintelligenceagency.com/images/newsletter/bottom_social.jpg" width="700" height="50" border="0" usemap="#BottomMap" style="display: block;border: none;font-size: 14px;font-weight: bold;height: auto;line-height: 100%;outline: none;text-decoration: none;text-transform: capitalize;" alt="Social Icons"></td>
 
   </tr>
 
@@ -562,7 +564,7 @@ You are receiving this email because you opted in at <a href="http://hq.restaura
 
 </map>
 
-</div>
+</td></tr></table></div>
 
 </body>
 
