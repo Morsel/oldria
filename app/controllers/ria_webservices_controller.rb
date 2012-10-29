@@ -1,5 +1,5 @@
 class RiaWebservicesController < ApplicationController
-   establish_connection :staging
+   before_filter :connect_staging_db
    skip_before_filter :protect_from_forge
    before_filter :require_user,:only => [:a_la_minute_answers,:require_restaurant_employee,:menu_items,:bulk_update,:create_menu,:create_promotions,:create_photo,:show_photo,:create_comments,:get_qotds,:get_newsfeed,:push_notification_user,:get_media_request]
    before_filter :require_restaurant_employee, :only => [:a_la_minute_answers,:require_restaurant_employee,:menu_items,:bulk_update,:create_menu,:create_promotions,:create_photo,:show_photo,:get_newsfeed]
@@ -8,8 +8,19 @@ class RiaWebservicesController < ApplicationController
    before_filter :find_parent, :only => [:create_comments]
 
    layout false
-   include ALaMinuteAnswersHelper
+  include ALaMinuteAnswersHelper
 
+  def connect_staging_db    
+    config   = Rails.configuration.database_configuration
+    # lets manually connect to the proper db
+    ActiveRecord::Base.establish_connection(
+      :adapter => config["development"]["adapter"],
+      :username => config["development"]["username"],
+      :password => config["development"]["password"],
+      :database => config["development"]["database"]      
+    )
+  end  
+  
   def register    
      message = []
     if params[:role] == "media"
@@ -324,7 +335,7 @@ end
           promotion_clumn.map {|c| promotion_keys[c.name] = promotion[c.name] } 
           promotion_keys[:promotion_name] = promotion.promotion_type.name.gsub(/(<[^>]*>)|\r|\n|\t/s) {" "}
           promotion_keys["details"] = promotion.details.gsub(/(<[^>]*>)|\r|\n|\t/s) {" "}
-   	  promotion_array.push(promotion_keys)
+      promotion_array.push(promotion_keys)
       end
     render :json => {:all_promotions=>promotion_array }
   end
