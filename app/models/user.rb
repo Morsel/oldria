@@ -101,6 +101,7 @@ class User < ActiveRecord::Base
   has_many :restaurant_employee_requests ,:foreign_key=>"employee_id"
   has_many :requested_restaurants, :through => :restaurant_employee_requests ,:source=> :restaurant
 
+  has_one :push_notification_user
 
   validates_presence_of :email
   validates_format_of :email, :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i, :message => "is not a valid email address", :allow_blank => true
