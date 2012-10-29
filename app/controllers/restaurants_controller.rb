@@ -3,7 +3,8 @@ class RestaurantsController < ApplicationController
   before_filter :authorize, :only => [:edit, :update, :select_primary_photo,
                                       :new_manager_needed, :replace_manager, :fb_page_auth,
                                       :remove_twitter, :download_subscribers, :activate_restaurant, :new_media_contact, :replace_media_contact,
-                                      :newsletter_subscriptions]
+                                      :newsletter_subscriptions,:fb_deauth]
+
   before_filter :find_restaurant, :only => [:twitter_archive, :facebook_archive, :social_archive]
 
   def index
@@ -117,19 +118,37 @@ class RestaurantsController < ApplicationController
   end
 
   def fb_page_auth
-    @page = current_facebook_user.accounts.select { |a| a.id == params[:facebook_page] }.first
+    if current_facebook_user
+      @page = current_facebook_user.accounts.select { |a| a.id == params[:facebook_page] }.first
 
-    if @page
-      @restaurant.update_attributes!(:facebook_page_id => @page.id,
-                                     :facebook_page_token => @page.access_token,
-                                     :facebook_page_url => @page.fetch.link)
-      flash[:notice] = "Added Facebook page #{@page.name} to the restaurant"
+      if @page
+        @restaurant.update_attributes!(:facebook_page_id => @page.id,
+                                       :facebook_page_token => @page.access_token,
+                                       :facebook_page_url => @page.fetch.link)
+        flash[:notice] = "Added Facebook page #{@page.name} to the restaurant"
+      else
+        @restaurant.update_attributes!(:facebook_page_id => nil, :facebook_page_token => nil)
+        flash[:notice] = "Cleared the Facebook page settings from your restaurant"
+      end
+      redirect_to edit_restaurant_path(@restaurant)
     else
-      @restaurant.update_attributes!(:facebook_page_id => nil, :facebook_page_token => nil)
-      flash[:notice] = "Cleared the Facebook page settings from your restaurant"
-    end
+      flash[:notice] = "You need to login on facebook"
+      fb_auth_user_path(current_user, :restaurant_id => @restaurant.id)
+    end  
+  end
 
-    redirect_to edit_restaurant_path(@restaurant)
+  def fb_deauth
+      @page = @restaurant.facebook_page.fetch
+      if @page
+        @restaurant.update_attributes!(:facebook_page_id => nil,
+                                       :facebook_page_token => nil)
+        flash[:notice] = "Cleared the Facebook page #{@page.name} settings from your restaurant"
+      else
+        flash[:notice] = "Facebook page already disconnected."     
+      end
+
+     redirect_to edit_restaurant_path(@restaurant) 
+    
   end
 
   def remove_twitter

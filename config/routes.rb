@@ -187,7 +187,8 @@ ActionController::Routing::Routes.draw do |map|
                              :download_subscribers => :get,
                              :new_media_contact => :get,
                              :replace_media_contact => :post,
-                             :send_restaurant_request => :get
+                             :send_restaurant_request => :get,
+                             :fb_deauth => :any
                              } do |restaurant|
     restaurant.resources :employees, :collection => { :bulk_edit => :get }, :except => [:show, :index]
     restaurant.resources :employments, :collection => { "reorder" => :post }

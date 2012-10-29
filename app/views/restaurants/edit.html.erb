@@ -75,7 +75,7 @@
       <p>
           You are currently linked to your Facebook account <em>"<%= @fb_user.name %>"</em>. You can connect to a different Facebook profile by disconnecting below, then setting up Facebook again.
       </p>
-      <%= fb_logout_link "Disconnect Facebook", fb_deauth_user_path(current_user, :restaurant_id => @restaurant.id), :class => 'sf-button negative' %>
+      <%= fb_logout_link "Disconnect Facebook", fb_deauth_restaurant_path(@restaurant), :class => 'sf-button negative' %>
       <% if @restaurant.has_facebook_page? -%>
       <% begin %>
         <p>Current Facebook page for <%= @restaurant.name %>: <em><%= @restaurant.facebook_page.fetch.name %></em></p>
