@@ -212,16 +212,12 @@ end
   end
   
   def create_comments
-    unless params[:media_request_discussion_id].blank?
-      myparams={}
-      myparams[:comment] = params[:comment][:comment]
-      myparams[:attachments_attributes] ={}
-      myparams[:attachments_attributes]["0"]= {:attachment=>params[:comment][:attachments_attributes]} unless params[:comment][:attachments_attributes].blank?
-      myparams[:user_id] = current_user.id
-      @comment = @parent.comments.build((myparams))
-    else  
+    unless params[:media_request_discussion_id].blank? 
+      @comment = @parent.comments.build(params[:comment])
+      else  
       @comment = @parent.comments.build(eval(params[:comment]))
     end
+    
     @comment.user_id ||= current_user.id
     @is_mediafeed = params[:mediafeed]
     if  (params[:media_request_discussion_id].blank? && @parent.comments_count == 0) || !params[:media_request_discussion_id].blank?
