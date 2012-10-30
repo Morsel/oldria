@@ -1,5 +1,5 @@
 class RiaWebservicesController < ApplicationController
-   before_filter :connect_staging_db
+
    skip_before_filter :protect_from_forge
    before_filter :require_user,:only => [:a_la_minute_answers,:require_restaurant_employee,:menu_items,:bulk_update,:create_menu,:create_promotions,:create_photo,:show_photo,:create_comments,:get_qotds,:get_newsfeed,:push_notification_user,:get_media_request]
    before_filter :require_restaurant_employee, :only => [:a_la_minute_answers,:require_restaurant_employee,:menu_items,:bulk_update,:create_menu,:create_promotions,:create_photo,:show_photo,:get_newsfeed]
@@ -10,17 +10,7 @@ class RiaWebservicesController < ApplicationController
    layout false
   include ALaMinuteAnswersHelper
 
-  def connect_staging_db    
-    config   = Rails.configuration.database_configuration
-    # lets manually connect to the proper db
-    ActiveRecord::Base.establish_connection(
-      :adapter => config["development"]["adapter"],
-      :username => config["development"]["username"],
-      :password => config["development"]["password"],
-      :database => config["development"]["database"]      
-    )
-  end  
-  
+ 
   def register    
      message = []
     if params[:role] == "media"
