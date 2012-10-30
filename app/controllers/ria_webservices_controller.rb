@@ -1,25 +1,16 @@
 class RiaWebservicesController < ApplicationController
-   before_filter :connect_second_db
+
    skip_before_filter :protect_from_forge
    before_filter :require_user,:only => [:a_la_minute_answers,:require_restaurant_employee,:menu_items,:bulk_update,:create_menu,:create_promotions,:create_photo,:show_photo,:create_comments,:get_qotds,:get_newsfeed,:push_notification_user,:get_media_request]
    before_filter :require_restaurant_employee, :only => [:a_la_minute_answers,:require_restaurant_employee,:menu_items,:bulk_update,:create_menu,:create_promotions,:create_photo,:show_photo,:get_newsfeed]
    before_filter :find_activated_restaurant, :only => [:a_la_minute_answers,:require_restaurant_employee,:menu_items,:bulk_update,:create_menu,:create_promotions,:create_photo,:show_photo,:get_newsfeed]
    before_filter :require_manager, :only => [:a_la_minute_answers,:require_restaurant_employee,:menu_items,:bulk_update,:create_menu,:create_promotions,:create_photo,:show_photo,:get_newsfeed]
    before_filter :find_parent, :only => [:create_comments]
-
-   after_filter  :disconnect_second_db
+  
 
    layout false
   include ALaMinuteAnswersHelper
 
-  def connect_second_db
-    # lets manually connect to the proper db
-    ActiveRecord::Base.establish_connection(Rails.configuration.database_configuration["development-mysql"])
-  end
-
-  def disconnect_second_db
-      disconncet_db()    
-  end  
   def register    
      message = []
     if params[:role] == "media"
@@ -414,7 +405,6 @@ end
      find_restaurant
      if cannot? :edit, @restaurant
       status = false
-      disconncet_db()
       render :json => {:status=>false,:message=>"You don't have permission to access that page"}
     end
   end  
@@ -427,7 +417,6 @@ end
     @restaurant = Restaurant.find(params[:restaurant_id])
     unless @restaurant.employees.include?(@current_user) || @current_user.admin?
       status = false
-      disconncet_db()
       render :json => {:status=>false,:message=>"You must be an employee of restaurant to answer and edit questions"}
     else
       return true
@@ -446,12 +435,8 @@ end
     if @user_session.save
        @current_user = @user_session.user
     else         
-      disconncet_db() 
       render :json =>{:status=>false,:message=>"Login failed"}
     end
   end
-  def disconncet_db()
-    ActiveRecord::Base.establish_connection.disconnect!
-    ActiveRecord::Base.establish_connection(Rails.configuration.database_configuration["staging"])
-  end  
+ 
 end
