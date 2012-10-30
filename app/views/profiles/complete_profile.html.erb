@@ -46,7 +46,7 @@
                                         :collection => Specialty.all, 
                                         :label => "What are your specialties?" %>
                             <% button_tag :class => 'positive' do %>Save changes to specialties<% end %>
-                            &nbsp;<%= link_to "Skipp", request.url, :class => 'skipp-step2-fix sf-button skipp margin-bottom' %>
+                            &nbsp;<%= link_to "Skip", request.url, :class => 'skipp-step2-fix sf-button skipp margin-bottom' %>
                           </div>
                            <%= f.input :skipp_step, :as => "hidden" ,:value=>"2" %>
                       <% end %><!--   specialties -->
@@ -64,7 +64,7 @@
                                 <%= render @profile.cuisines %>
                             </ul>
                             <p><%= link_to "Add Cuisine", new_user_profile_profile_cuisine_path(:user_id => @user.id), :class => 'sf-button colorbox' %>
-                              <%= link_to "Skipp", request.url, :class => 'sf-button skipp' %>
+                              <%= link_to "Skip", request.url, :class => 'sf-button skipp' %>
                             </p>                            
                         </div>
                     <% end %>
