@@ -12,11 +12,11 @@ class RiaWebservicesController < ApplicationController
    before_filter :find_activated_restaurant, :only => [:a_la_minute_answers,:require_restaurant_employee,:menu_items,:bulk_update,:create_menu,:create_promotions,:create_photo,:show_photo,:get_newsfeed]
    before_filter :require_manager, :only => [:a_la_minute_answers,:require_restaurant_employee,:menu_items,:bulk_update,:create_menu,:create_promotions,:create_photo,:show_photo,:get_newsfeed]
    before_filter :find_parent, :only => [:create_comments]
+  
 
    layout false
   include ALaMinuteAnswersHelper
 
- 
   def register    
      message = []
     if params[:role] == "media"
@@ -440,9 +440,9 @@ end
     @user_session = UserSession.new(params)
     if @user_session.save
        @current_user = @user_session.user
-    else   
+    else         
       render :json =>{:status=>false,:message=>"Login failed"}
     end
   end
-
+ 
 end

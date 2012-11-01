@@ -45,5 +45,4 @@
 	    :class => 'promo editor pr' %>
     <%= active_link_to "Newsletter", restaurant_newsletters_path(:restaurant_id => @restaurant), :class => "promo editor newsletter" %>
     <%= active_link_to "Social Posts", restaurant_social_posts_path(@restaurant), :class => 'promo editor social' %>
-	<%= active_link_to "Subscribers", download_subscribers_restaurant_path(@restaurant), :class => "promo editor download" if @restaurant.newsletter_subscribers.present? %>
 </nav>
