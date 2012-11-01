@@ -99,10 +99,10 @@ class Restaurant < ActiveRecord::Base
   has_many :restaurant_employee_requests
   has_many :requested_employees, :through => :restaurant_employee_requests ,:source =>:employee
 
-  accepts_nested_attributes_for :logo
+  accepts_nested_attributes_for :logo#,:employments
 
   validates_presence_of :name, :street1, :city, :state, :zip, :phone_number,
-      :metropolitan_area, :website, :media_contact, :cuisine, :opening_date, :manager
+      :metropolitan_area, :website, :media_contact, :cuisine, :opening_date, :manager ,:restaurant_role_virtual
 
   validates_format_of :management_company_website,
       :with => URI::regexp(%w(http https)),
@@ -117,13 +117,16 @@ class Restaurant < ActiveRecord::Base
   has_one :subscription, :as => :subscriber
   after_validation_on_create :add_manager_as_employee
   after_create :update_manager
+  after_create :update_restaurant_role
   before_destroy :migrate_employees_to_default_employment
 
   has_one :fact_sheet, :class_name => "RestaurantFactSheet"
   after_create :add_fact_sheet
 
   preference :publish_profile, :default => true
-  
+
+  attr_accessor :restaurant_role_virtual
+
   # For pagination
   cattr_reader :per_page
   @@per_page = 15
@@ -318,6 +321,10 @@ class Restaurant < ActiveRecord::Base
 
   def update_manager
     self.employments.first.update_attribute(:omniscient, true) if employments.any?
+  end
+
+  def update_restaurant_role
+    self.employments.first.update_attribute(:restaurant_role_id, self.restaurant_role_virtual) if employments.any?
   end
 
   def handled_subject_matter_ids
