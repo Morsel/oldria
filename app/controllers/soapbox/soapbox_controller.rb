@@ -65,13 +65,16 @@ class Soapbox::SoapboxController < ApplicationController
     @menu_items = MenuItem.from_premium_restaurants.all(:order => "created_at DESC" ,:limit=>5)
     @questions = ALaMinuteQuestion.most_recent_for_soapbox(3)
     @behind_the_line_answers = (ProfileQuestion.without_travel.answered_by_premium_and_public_users.all(:limit => 50,:order => "profile_answers.created_at DESC").map(&:latest_soapbox_answer).uniq.compact[0...15]).compact[0..4]
-    @menus =  Menu.all(:limit=>5,:order=>"menus.created_at desc",:include => :restaurant,:conditions=>["restaurants.is_activated=true"])
+    @menus =  Menu.all(:limit=>5,:order=>"menus.created_at desc",:include => :restaurant,:conditions=>["restaurants.is_activated=true and restaurants.id in (?)",restaurants_ids])
     @photos = Photo.find(:all,:conditions=>["attachable_type = ? and attachable_id  in (?)", 'Restaurant',restaurants_ids],:limit=>4,:order=>"created_at desc")    
     @spotlight_user = FeaturedProfile.spotlight_user.sample(1)  
     @spotlight_user =   @spotlight_user.blank? ? User.in_soapbox_directory.last : @spotlight_user.first.feature        
     @promotions = Promotion.from_premium_restaurants.all(:order => "created_at DESC" ,:limit =>5)
-    @featured_ptofiles = FeaturedProfile.personal_profiles.group_by(&:feature_type)
-    @restaurants =  @featured_ptofiles["Restaurant"].blank? ?  Restaurant.premium_account.sample(2) : @featured_ptofiles["Restaurant"].sample(2).map{|row| row.feature}
+    @featured_ptofiles = FeaturedProfile.personal_profiles.group_by(&:feature_type)    
+    feature_restaurants =[]
+    feature_restaurants = @featured_ptofiles["Restaurant"].map{|row| row.feature if row.feature.linkable_profile?} unless  @featured_ptofiles["Restaurant"].blank?
+    @restaurants = feature_restaurants.blank? ?  Restaurant.with_premium_account.sample(2) : feature_restaurants.sample(2)
+    @restaurants = Restaurant.with_premium_account.sample(2) if @restaurants.blank?
     @rand_users = @featured_ptofiles["User"].blank? ?  User.in_soapbox_directory.sample(2) : @featured_ptofiles["User"].sample(2).map{|row| row.feature} 
     @main_feature = SoapboxEntry.main_feature    
     @main_feature_comments = SoapboxEntry.main_feature_comments(5) if @main_feature
