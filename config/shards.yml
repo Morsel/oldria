@@ -1,0 +1,17 @@
+octopus:
+  environments:
+      - development
+      - production
+      - staging
+  development:
+    webservice:
+      adapter: mysql
+      database: ria_cashew
+  production:
+    webservice:
+      adapter: mysql
+      database: ria_cashew      
+  staging:
+    webservice:
+      adapter: mysql
+      database: ria_cashew
