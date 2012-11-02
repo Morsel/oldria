@@ -1,5 +1,11 @@
 class RiaWebservicesController < ApplicationController
 
+  around_filter :select_shard
+
+  def select_shard(&block)
+    Octopus.using(:webservice, &block)
+  end
+
    skip_before_filter :protect_from_forge
    before_filter :require_user,:only => [:a_la_minute_answers,:require_restaurant_employee,:menu_items,:bulk_update,:create_menu,:create_promotions,:create_photo,:show_photo,:create_comments,:get_qotds,:get_newsfeed,:push_notification_user,:get_media_request]
    before_filter :require_restaurant_employee, :only => [:a_la_minute_answers,:require_restaurant_employee,:menu_items,:bulk_update,:create_menu,:create_promotions,:create_photo,:show_photo,:get_newsfeed]
