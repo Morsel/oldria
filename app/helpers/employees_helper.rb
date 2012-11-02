@@ -71,4 +71,23 @@ module EmployeesHelper
     end
   end
 
+  
+  def short_role role
+    case role
+      when "Chef","Chef de Cuisine","Chef/Partner", "Executive Chef", "Executive Chef/Owner", "Executive Sous Chef"
+        "Chef"
+      when "Pastry Chef/Owner","Pastry Chef"
+        "Pastry Chef"
+      when "Bar Chef", "Bar Director", "Bartender", "Beverage Director", "GM/Beverage Manager"
+        "Mixologist"
+      when "Sommelier", "Wien Director", "Wine Director/Owner"
+        "Sommelier"
+      when "Head Brewer", "Brewer"
+        "Brewer"
+      when "Owner", "Partner"
+        "Owner"        
+      else
+        role
+      end  
+  end 
 end
