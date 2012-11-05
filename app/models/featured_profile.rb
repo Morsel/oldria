@@ -8,11 +8,11 @@ class FeaturedProfile < ActiveRecord::Base
   }
 
   named_scope :spotlight_user, lambda {
-    { :conditions => "feature_type = 'User' and spotlight_on = 1 and (end_date IS NULL OR  end_date > DATE('#{Time.now}')) and start_date < DATE('#{Time.now}') " }
+    { :conditions =>["feature_type = 'User' and spotlight_on = 1 and (end_date IS NULL OR  end_date > DATE(?)) and start_date < DATE(?) ",Time.now,Time.now] }
   }
 
   named_scope :personal_profiles, lambda { 
-    { :conditions => " (end_date IS NULL OR  end_date > DATE('#{Time.now}'))  and start_date < DATE('#{Time.now}')" }
+    { :conditions => ["spotlight_on = 1 and (end_date IS NULL OR  end_date > DATE(?) ) and start_date < DATE(?) ",Time.now,Time.now] }
   }
 
 
