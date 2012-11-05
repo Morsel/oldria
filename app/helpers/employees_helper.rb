@@ -87,7 +87,7 @@ module EmployeesHelper
       when "Owner", "Partner"
         "Owner"        
       else
-        role
+        role.to_s
       end  
   end 
 end
