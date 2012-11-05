@@ -136,7 +136,6 @@ class RestaurantsController < ApplicationController
   end
 
   def fb_deauth
-      debugger
       if @page
         @restaurant.update_attributes!(:facebook_page_id => nil,
                                        :facebook_page_token => nil)
