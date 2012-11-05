@@ -131,12 +131,12 @@ class RestaurantsController < ApplicationController
       redirect_to edit_restaurant_path(@restaurant)
     else
       flash[:notice] = "You need to login on facebook"
-      fb_auth_user_path(current_user, :restaurant_id => @restaurant.id)
+      redirect_to fb_auth_user_path(current_user, :restaurant_id => @restaurant.id)
     end  
   end
 
   def fb_deauth
-      @page = @restaurant.facebook_page.fetch
+      debugger
       if @page
         @restaurant.update_attributes!(:facebook_page_id => nil,
                                        :facebook_page_token => nil)
