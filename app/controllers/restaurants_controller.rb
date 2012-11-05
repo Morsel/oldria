@@ -140,7 +140,7 @@ class RestaurantsController < ApplicationController
   def fb_deauth  
       @restaurant.update_attributes!(:facebook_page_id => nil,
                                        :facebook_page_token => nil)
-      flash[:notice] = "Cleared the Facebook page #{@page.name} settings from your restaurant"
+      flash[:notice] = "Cleared the Facebook page settings from your restaurant"
       redirect_to edit_restaurant_path(@restaurant)     
   end
 
