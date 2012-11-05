@@ -135,17 +135,11 @@ class RestaurantsController < ApplicationController
     end  
   end
 
-  def fb_deauth
-      if @page
-        @restaurant.update_attributes!(:facebook_page_id => nil,
+  def fb_deauth  
+      @restaurant.update_attributes!(:facebook_page_id => nil,
                                        :facebook_page_token => nil)
-        flash[:notice] = "Cleared the Facebook page #{@page.name} settings from your restaurant"
-      else
-        flash[:notice] = "Facebook page already disconnected."     
-      end
-
-     redirect_to edit_restaurant_path(@restaurant) 
-    
+      flash[:notice] = "Cleared the Facebook page #{@page.name} settings from your restaurant"
+      redirect_to edit_restaurant_path(@restaurant)     
   end
 
   def remove_twitter
