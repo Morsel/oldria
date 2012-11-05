@@ -119,16 +119,23 @@ class RestaurantsController < ApplicationController
 
   def fb_page_auth
     if current_facebook_user
-      @page = current_facebook_user.accounts.select { |a| a.id == params[:facebook_page] }.first
-
+      @page = current_facebook_user.accounts.select { |a| a.id == params[:facebook_page] }.first      
       if @page
         @restaurant.update_attributes!(:facebook_page_id => @page.id,
                                        :facebook_page_token => @page.access_token,
                                        :facebook_page_url => @page.fetch.link)
         flash[:notice] = "Added Facebook page #{@page.name} to the restaurant"
       else
-        @restaurant.update_attributes!(:facebook_page_id => nil, :facebook_page_token => nil)
-        flash[:notice] = "Cleared the Facebook page settings from your restaurant"
+        @page = current_facebook_user
+        if @page
+          @restaurant.update_attributes!(:facebook_page_id => @page.id,
+                                       :facebook_page_token => @page.client.access_token,
+                                       :facebook_page_url => @page.fetch.link)
+          flash[:notice] = "Added Facebook page #{@page.name} to the restaurant"
+        else  
+          @restaurant.update_attributes!(:facebook_page_id => nil, :facebook_page_token => nil)
+          flash[:notice] = "Cleared the Facebook page settings from your restaurant"
+        end
       end
       redirect_to edit_restaurant_path(@restaurant)
     else
@@ -140,7 +147,7 @@ class RestaurantsController < ApplicationController
   def fb_deauth  
       @restaurant.update_attributes!(:facebook_page_id => nil,
                                        :facebook_page_token => nil)
-      flash[:notice] = "Cleared the Facebook page settings from your restaurant"
+      flash[:notice] = "Cleared the Facebook page #{@page.name} settings from your restaurant"
       redirect_to edit_restaurant_path(@restaurant)     
   end
 
