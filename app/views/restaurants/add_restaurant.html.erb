@@ -21,6 +21,10 @@
             <%= f.input :opening_date, :start_year => Date.today.year, :end_year => 1960 %>
         <% end %>
 
+         <% f.inputs :name => "Role", :class=> "editing" do %>
+            <%= f.input :restaurant_role_virtual,:label=>"Restaurant role",:as => :select,:collection => RestaurantRole.all %>
+         <% end %>  
+
         <p><%= button_tag "Submit", :class => 'positive' %></p>
 
     <%- end -%>
