@@ -40,6 +40,7 @@ Rails::Initializer.run do |config|
   config.gem 'fastercsv'
   config.gem 'bitly',                 :version => "0.7.0"
   config.gem "bcrypt-ruby",           :version => "3.0.1", :lib => "bcrypt"
+  config.gem "ar-octopus",            :version => "0.3.4", :lib => "octopus"
 
   # Settings in config/environments/* take precedence over those specified here.
   # Application configuration should go into files in config/initializers

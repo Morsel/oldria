@@ -46,4 +46,8 @@ class MessagesController < ApplicationController
       @messages = current_user.viewable_unread_media_request_discussions.sort { |a, b| b.created_at <=> a.created_at }.paginate(:page => params[:page], :per_page => 5)
     end
   end
+
+  def restaurant_requests
+    @requests = current_user.get_employee_requests.paginate(:page => params[:page], :per_page => 3)
+  end  
 end

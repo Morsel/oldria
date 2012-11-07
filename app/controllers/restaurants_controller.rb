@@ -10,7 +10,8 @@ class RestaurantsController < ApplicationController
   end
 
   def new
-    @restaurant = current_user.managed_restaurants.build
+    @restaurant = current_user.managed_restaurants.build(params[:restaurant])
+    find_or_initialize_restaurant if params[:restaurant]
   end
 
   def create
@@ -21,7 +22,7 @@ class RestaurantsController < ApplicationController
       flash[:notice] = "Successfully created restaurant."
       redirect_to bulk_edit_restaurant_employees_path(@restaurant)
     else
-      render :new
+      render :add_restaurant
     end
   end
 
@@ -164,6 +165,29 @@ class RestaurantsController < ApplicationController
     send_data(@restaurant.newsletter_subscribers.to_csv, :filename => "#{@restaurant.name} subscribers.csv")
   end
 
+  def add_restaurant
+    @restaurant = current_user.managed_restaurants.build
+  end  
+
+  def send_restaurant_request
+    @restaurant = Restaurant.find(params[:id]) 
+    @employment = Employment.find(:first,:conditions=>["employee_id = ? and restaurant_id = ? ",current_user ,@restaurant])
+
+    if @restaurant && @employment.nil?
+      @req = RestaurantEmployeeRequest.new({:restaurant_id=>@restaurant.id,:employee_id=>current_user.id})
+      if(@req.save)
+        UserMailer.deliver_employee_request(@restaurant, current_user)
+        flash[:notice] = "We've contacted the restaurant manager. Thanks for setting up your account, and enjoy SpoonFeed!"
+       else
+        flash[:notice] = "Something went wrong or may be you already sent request to #{@restaurant.name
+}."
+       end
+      else
+        flash[:notice] = "Something went wrong or may be you already sent request to <b> #{@restaurant.name} </b>."           
+    end
+    redirect_to root_path
+  end
+
   private
 
   def find_activated_restaurant    
@@ -185,5 +209,19 @@ class RestaurantsController < ApplicationController
       redirect_to @restaurant and return
     end
   end
+
+  def find_or_initialize_restaurant
+    
+    restaurant_name = params[:restaurant][:name]    
+    @restaurants = Restaurant.find(:all, :conditions => ["name like ?", "%#{restaurant_name}%"])
+    if @restaurants.blank?
+      flash.now[:notice] = "We couldn't find them in our system. You can add this restaurant."
+      render :add_restaurant
+    else        
+      flash.now[:notice] = "You can send request to this restaurant."
+      render :restaurant_list  
+    end  
+  end  
+
 
 end

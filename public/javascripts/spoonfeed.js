@@ -224,6 +224,7 @@ var colorboxForm = function(){
         $("#" + singularName + "s").append($html);
       }
       $.fn.colorbox.close();
+      showResponse(text)
     },
     error: function(xhr, status){
       var response;
@@ -262,6 +263,7 @@ function post_reply_text(){
 bindColorbox();
 
 $('#colorbox form.stage, #colorbox form.apprenticeship, #colorbox form.nonculinary_enrollment, #colorbox form.award, #colorbox form.culinary_job, #colorbox form.nonculinary_job, #colorbox form.accolade, #colorbox form.enrollment, #colorbox form.competition, #colorbox form.internship').live('submit', colorboxForm);
+$('#complete_profile form.profile_cuisine').live('submit', colorboxForm);
 
 $("a.showit").showy();
 
@@ -484,10 +486,99 @@ $('#metropolitan_areas_state_state_id').change(function(){
     }
   }) /*End select_restaurant onchange*/
 
+    /* Profile complete wizard*/
+    $('#profile-summary').show();
+
+    var options = {         
+        success:   showResponse,  // post-submit callback 
+        dataType: 'json'
+    };
+
+    $('#form_upload_img').submit(function(e) { 
+        e.preventDefault();        
+        current_page_id =  $(this).parent().attr('id')   
+        next_page_id    =  $(this).parent().next().attr('id')   
+        loderShow();
+        $(this).ajaxSubmit(options); 
+        return false; 
+    });
+    $('#specialties_form').submit(function(e) { 
+
+        e.preventDefault();
+        current_page_id =  $(this).parent().attr('id')   
+        next_page_id    =  $(this).parent().next().attr('id') 
+        loderShow()
+
+        $(this).ajaxSubmit(options); 
+        return false; 
+    });
+    $('#complete_profile form.profile_cuisine').live('submit', function(e) { 
+        e.preventDefault();
+        if($('#redirect_to_url_hidden').val()){
+              current_page_id =  $('#cuisine_form').parent().attr('id')   
+              next_page_id    =  $('#cuisine_form').parent().next().attr('id') 
+              loderShow()
+        }
+       
+        return false; 
+    });
 
 
    $('.add-btl').colorbox({rel:'gal'});
+  var cache = {};
+  $( "#user_default_employment_attributes_solo_restaurant_name" ).autocomplete({
+      minLength: 2,
+      source:function( request, response ) {
+          var term = request.term;
+          if ( term in cache ) {
+              response( cache[ term ] );
+              return;
+          }
+          $.getJSON( "/complete_registration/find_restaurant", { restaurant_name: request.term }, function( data, status, xhr ) {
+              cache[ term ] = data;
+              response( data );
+          });
+      }
 
+    });
   // end $(document).ready
 });
 
+  var current_page_id ;
+  var next_page_id ;
+// post-submit callback 
+function showResponse(responseText, statusText, xhr, $form)  { 
+      loderHide();      
+      if(responseText.status)
+      {
+        if(next_page_id != "loader-waiting")      
+          $('#'+next_page_id).slideDown(); 
+        else
+          location.href = $('#redirect_to_url_hidden').val();
+      }  
+      else
+      {
+        loderHide();
+        if(current_page_id == "step1")
+        {
+          $('#user_avatar_input').addClass('error');
+          $('#user_avatar_input p').remove();
+          $.each(responseText.errors, function(index, value) { 
+            $('#user_avatar_input').append('<p>'+value[1]+'</p>');
+          });
+
+          
+        }
+         $('#'+current_page_id).slideDown();
+      }
+        
+  } 
+function loderShow()
+{
+  $('#'+current_page_id).slideUp();
+  $('#loader-waiting').slideDown();
+}
+function loderHide()
+{
+  $('#loader-waiting').slideUp();
+}

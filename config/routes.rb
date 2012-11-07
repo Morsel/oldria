@@ -130,11 +130,12 @@ ActionController::Routing::Routes.draw do |map|
     :fb_connect => :any,
     :fb_deauth => :any,
     :fb_page_auth => :post,
-    :remove_editor => :put
+    :remove_editor => :put,
+    :upload =>:post
   }, :shallow => true do |users|
     users.resource :profile, :only => ['create', 'edit', 'update'],
                    :controller => 'profiles',
-                   :member => { :edit_front_burner => :get, :edit_btl => :get,:add_role =>:post ,:add_role_form =>:get},
+                   :member => { :edit_front_burner => :get, :edit_btl => :get,:add_role =>:post ,:add_role_form =>:get,:complete_profile => :get},
                    :collection => { :toggle_publish_profile => :get } do |p|
       p.resources :culinary_jobs
       p.resources :nonculinary_jobs
@@ -171,6 +172,7 @@ ActionController::Routing::Routes.draw do |map|
   map.feature '/features/:id', :controller => 'features', :action => 'show'
 
   map.resources :restaurants,
+                :collection => {:add_restaurant => :get},
                 :member => { :edit_logo => :get,
                              :select_primary_photo => :post,
                              :new_manager_needed => :get,
@@ -182,7 +184,8 @@ ActionController::Routing::Routes.draw do |map|
                              :social_archive => :get,
                              :download_subscribers => :get,
                              :new_media_contact => :get,
-                             :replace_media_contact => :post
+                             :replace_media_contact => :post,
+                             :send_restaurant_request => :get
                              } do |restaurant|
     restaurant.resources :employees, :collection => { :bulk_edit => :get }, :except => [:show, :index]
     restaurant.resources :employments, :collection => { "reorder" => :post }
@@ -239,7 +242,8 @@ ActionController::Routing::Routes.draw do |map|
                               :ria => :get,
                               :private => :get,
                               :staff_discussions => :get,
-                              :media_requests => :get
+                              :media_requests => :get,
+                              :restaurant_requests => :get
   }
 
   map.front_burner 'front_burner', :controller => 'front_burner', :action => 'index'
@@ -363,4 +367,5 @@ ActionController::Routing::Routes.draw do |map|
   # Default Routes
   map.connect ':controller/:action/:id'
   map.connect ':controller/:action/:id.:format'
+  map.resources :ria_webservices, :collection => {:register => :post,:create => :post,:create_psw_rst => :post,:get_join_us_value=>:get,:soap_box_index =>:get,:a_la_minute_answers =>:get,:menu_items =>:get,:bulk_update => :post,:create_menu=>:post,:create_promotions =>:post,:get_promotion_type=>:get,:new_menu_item=>:get,:bulk_edit_photo=>:get,:create_photo =>:post,:create_comments =>:post,:show_comments =>:get,:get_qotds=>:get,:get_newsfeed=>:get,:push_notification_user=>:post,:get_admin_conversation_discussions=>:get,:get_media_request=>:get}, :controller => "ria_webservices"
 end
