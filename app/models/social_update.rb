@@ -1,6 +1,6 @@
 # == Schema Information
 #
-# Table name: social_posts
+# Table name: social_updates
 #
 #  id              :integer         not null, primary key
 #  post_data       :string(255)
@@ -14,7 +14,7 @@
 #  post_id         :string(255)
 #
 
-class SocialPost < ActiveRecord::Base
+class SocialUpdate < ActiveRecord::Base
   belongs_to :restaurant
 
   def self.fetch_updates
@@ -54,7 +54,7 @@ class SocialPost < ActiveRecord::Base
     updates = (twitter_posts + facebook_posts + alm_answers)
     
     for update in updates
-      post = SocialPost.find_or_create_by_post_id_and_source(:post_id => update[:post_id], :source => update[:source])
+      post = SocialUpdate.find_or_create_by_post_id_and_source(:post_id => update[:post_id], :source => update[:source])
       post.update_attributes(update)
     end
   end

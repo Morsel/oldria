@@ -29,7 +29,7 @@ describe Spoonfeed::SocialUpdatesController do
           :title => a.question,
           :source => "Spoonfeed" }
       }
-      alm_results.each { |a| SocialPost.create(a) }
+      alm_results.each { |a| SocialUpdate.create(a) }
       get :index, :page => 1
       assigns[:updates].count.should == 3
     end
@@ -48,7 +48,7 @@ describe Spoonfeed::SocialUpdatesController do
           :title => a.question,
           :source => "Spoonfeed" }
       }
-      alm_results.each { |a| SocialPost.create(a) }
+      alm_results.each { |a| SocialUpdate.create(a) }
       xhr :get, :filter_updates, :search => { :metropolitan_area_id_eq_any => [@restaurant.metropolitan_area.id] }, :page => 1
       assigns[:updates].count.should == 1
     end
