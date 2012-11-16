@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121108151236) do
+ActiveRecord::Schema.define(:version => 20121108160937) do
 
   create_table "a_la_minute_answers", :id => false, :force => true do |t|
     t.integer  "id",                      :null => false
@@ -1235,6 +1235,18 @@ ActiveRecord::Schema.define(:version => 20121108151236) do
     t.string   "title"
     t.string   "slug"
     t.text     "content"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "social_posts", :id => false, :force => true do |t|
+    t.integer  "id",          :null => false
+    t.string   "source_type"
+    t.integer  "source_id"
+    t.integer  "job_id"
+    t.string   "type"
+    t.text     "content"
+    t.datetime "post_at"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
