@@ -32,8 +32,11 @@ class Promotion < ActiveRecord::Base
   belongs_to :promotion_type
   belongs_to :restaurant
 
-  has_one :twitter_job, :class_name => "Delayed::Job", :foreign_key => 'id', :primary_key => 'twitter_job_id', :dependent => :destroy
-  has_one :facebook_job, :class_name => "Delayed::Job", :foreign_key => 'id', :primary_key => 'facebook_job_id', :dependent => :destroy
+  has_many :twitter_posts, :as => :source, :dependent => :destroy
+  accepts_nested_attributes_for :twitter_posts, :limit => 3, :allow_destroy => true, :reject_if => TwitterPost::REJECT_PROC
+
+  has_many :facebook_posts, :as => :source, :dependent => :destroy
+  accepts_nested_attributes_for :facebook_posts, :limit => 3, :allow_destroy => true, :reject_if => FacebookPost::REJECT_PROC
 
   validates_presence_of :promotion_type, :details, :start_date, :restaurant_id, :headline
   validates_presence_of :end_date, :if => Proc.new { |promo| promo.date_description.present? },
@@ -85,19 +88,6 @@ class Promotion < ActiveRecord::Base
     { :conditions => { :promotion_type_id => type_id } }
   }
 
-  named_scope :social_posts, lambda { |restaurant_id|
-    sql = <<-SQL
-      restaurant_id = ? AND (
-        (twitter_job_id IS NOT NULL AND post_to_twitter_at IS NOT NULL AND post_to_twitter_at > NOW()) ||
-        (facebook_job_id IS NOT NULL AND post_to_facebook_at IS NOT NULL AND post_to_facebook_at > NOW())
-      )
-    SQL
-    { :conditions => [sql, restaurant_id] }
-  }
-
-  attr_accessor :no_twitter_crosspost, :no_fb_crosspost
-  after_create :crosspost
-
   def title
     promotion_type.name
   end
@@ -129,45 +119,39 @@ class Promotion < ActiveRecord::Base
     soapbox_promotion_url(self)
   end
 
-  def update_crosspost
-    crosspost
-  end
-
   def notify_newsfeed_request!      
      UserMailer.deliver_admin_notification(self, restaurant.manager)      
-  end  
+  end
+
+  def twitter_message
+    "#{truncate(self.headline, :length => 120)} #{self.bitly_link}"
+  end
+
+  def facebook_message
+    "Newsfeed: #{self.title}"
+  end
+
+  def post_to_twitter(message=nil)
+    message = message.blank? ? twitter_message : message
+    restaurant.twitter_client.update(message)
+  end
+
+  def post_to_facebook(message=nil)
+    message = message.blank? ? facebook_message : message
+    post_attributes = {
+      :message     => message,
+      :link        => soapbox_promotion_url(self),
+      :name        => headline,
+      :description => details
+    }
+    restaurant.post_to_facebook_page(post_attributes)
+  end
+
+  def edit_path(options={})
+    edit_restaurant_promotion_path(restaurant, self, options)
+  end
 
   private
-
-  def crosspost
-    # Post to Twitter
-    if twitter_job.present?
-      twitter_job.destroy
-      update_attribute(:twitter_job_id, nil)
-    end
-
-    update_attribute(:post_to_twitter_at, nil) if no_twitter_crosspost == "1"
-    if post_to_twitter_at.present? && restaurant.twitter_authorized?
-      twitter_job = restaurant.twitter_client.send_at(post_to_twitter_at, :update, "#{truncate(headline, :length => 120)} #{self.bitly_link}")
-      update_attribute(:twitter_job_id, twitter_job.id)
-    end
-
-    # Post to Facebook
-    if facebook_job.present?
-      facebook_job.destroy
-      update_attribute(:facebook_job_id, nil)
-    end
-
-    update_attribute(:post_to_facebook_at, nil) if no_fb_crosspost == "1"
-    if post_to_facebook_at.present? && restaurant.has_facebook_page?
-      post_attributes = { :message     => "Newsfeed: #{title}",
-                          :link        => soapbox_promotion_url(self),
-                          :name        => headline,
-                          :description => details }
-      facebook_job = restaurant.send_at(post_to_facebook_at, :post_to_facebook_page, post_attributes)
-      update_attribute(:facebook_job_id, facebook_job.id)
-    end
-  end
 
   def details_word_count
     if details.split(" ").size > 1000

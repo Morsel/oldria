@@ -4,9 +4,7 @@ class Restaurants::SocialPostController < ApplicationController
   before_filter :authorize
 
   def index
-    @promotions = Promotion.social_posts(@restaurant.id)
-    @menu_items = MenuItem.social_posts(@restaurant.id)
-    @no_posts = @promotions.empty? && @menu_items.empty?
+    @social_posts = SocialPost.pending
   end
 
   def newsfeed

@@ -13,6 +13,7 @@ class PromotionsController < ApplicationController
   def new
     @promotions = @restaurant.promotions.all(:order => "created_at DESC")
     @promotion = Promotion.new(:post_to_twitter_at => Time.now, :post_to_facebook_at => Time.now)
+    build_social_posts
   end
 
   def create
@@ -23,22 +24,24 @@ class PromotionsController < ApplicationController
       redirect_to :action => "new"
     else
       flash[:error] = "Your promotion could not be saved. Please review the errors below."
+      build_social_posts
       render :action => "edit"
     end
   end
 
   def edit
     find_promotion
+    build_social_posts
   end
 
   def update
     find_promotion
     if @promotion.update_attributes(params[:promotion])
-      @promotion.update_crosspost
       flash[:notice] = "Your promotion has been updated"
       redirect_to_social_or 'new'
     else
       flash[:error] = "Your promotion could not be saved. Please review the errors below."
+      build_social_posts
       render :action => "edit"
     end
   end
@@ -83,6 +86,11 @@ class PromotionsController < ApplicationController
 
   def redirect_to_social_or(action)
     redirect_to (session[:redirect_to_social_posts].present?) ? session.delete(:redirect_to_social_posts) : { :action => action }
+  end
+
+  def build_social_posts
+    (TwitterPost::POST_LIMIT - @promotion.twitter_posts.size).times { @promotion.twitter_posts.build }
+    (FacebookPost::POST_LIMIT - @promotion.facebook_posts.size).times { @promotion.facebook_posts.build }
   end
 
 end

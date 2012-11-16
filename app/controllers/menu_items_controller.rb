@@ -14,6 +14,7 @@ class MenuItemsController < ApplicationController
     @is_new = true
     @menu_item = MenuItem.new(:post_to_twitter_at => Time.now, :post_to_facebook_at => Time.now)
     @categories = OtmKeyword.all(:order => "category ASC, name ASC").group_by(&:category)
+    build_social_posts
   end
 
   def create
@@ -26,6 +27,7 @@ class MenuItemsController < ApplicationController
       @is_new = true
       @categories = OtmKeyword.all(:order => "category ASC, name ASC").group_by(&:category)
       @categories_keywords = OtmKeyword.find(:all,:conditions=>["name like ? ","%#{params[:menu_item][:search_keywords]}%"],:order => "category ASC, name ASC",:limit=>100) 
+      build_social_posts
       render :action => "new"
     end
   end
@@ -33,16 +35,17 @@ class MenuItemsController < ApplicationController
   def edit
     @menu_item = @restaurant.menu_items.find(params[:id])
     @categories = OtmKeyword.all(:order => "category ASC, name ASC").group_by(&:category)
+    build_social_posts
   end
 
   def update
     @menu_item = @restaurant.menu_items.find(params[:id])
     if @menu_item.update_attributes(params[:menu_item])
-      @menu_item.update_crosspost
       flash[:notice] = "Your menu item has been saved"
       redirect_to_social_or 'index'
     else
       @categories = OtmKeyword.all(:order => "category ASC, name ASC").group_by(&:category)
+      build_social_posts
       render :action => "edit"
     end
   end
@@ -57,7 +60,7 @@ class MenuItemsController < ApplicationController
 
   def facebook_post
     @menu_item = @restaurant.menu_items.find(params[:id])
-    @menu_item.queue_for_facebook_page
+    @menu_item.post_to_facebook
     flash[:notice] = "Posted #{@menu_item.name} to Facebook page"
     redirect_to :action => "index"
   end
@@ -98,6 +101,11 @@ class MenuItemsController < ApplicationController
 
   def redirect_to_social_or(action)
     redirect_to (session[:redirect_to_social_posts].present?) ? session.delete(:redirect_to_social_posts) : { :action => action }
+  end
+
+  def build_social_posts
+    (TwitterPost::POST_LIMIT - @menu_item.twitter_posts.size).times { @menu_item.twitter_posts.build }
+    (FacebookPost::POST_LIMIT - @menu_item.facebook_posts.size).times { @menu_item.facebook_posts.build }
   end
 
 end

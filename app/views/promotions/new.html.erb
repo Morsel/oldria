@@ -35,7 +35,10 @@
                 <dd><%= link_to promotion.attachment_file_name, promotion.attachment.url %></dd>
                 <% end -%>
             </dl>
-            <p class="actions"><%= link_to "edit", edit_restaurant_promotion_path(@restaurant, promotion) %> | <%= link_to "delete", restaurant_promotion_path(@restaurant, promotion), :method => "delete" %></p>
+            <p class="actions">
+              <%= link_to "edit", edit_restaurant_promotion_path(@restaurant, promotion) %> | 
+              <%= link_to "delete", restaurant_promotion_path(@restaurant, promotion), :method => "delete",:confirm => "Are you sure you want to delete this Promotion?" %>
+            </p>
             <% end -%>
         </div>
     </div><!-- /editing_restaurant -->
