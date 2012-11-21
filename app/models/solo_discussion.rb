@@ -81,7 +81,7 @@ class SoloDiscussion < ActiveRecord::Base
   ##
   # Should only be called from an external observer.
   def notify_recipients
-    self.send_at(scheduled_at, :send_email_notification)
+    self.send_at(scheduled_at, :send_email_notification) if employment.prefers_receive_email_notifications # For employment basis email sending 
   end
 
   def send_email_notification
