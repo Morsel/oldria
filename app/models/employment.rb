@@ -41,6 +41,8 @@ class Employment < ActiveRecord::Base
 
   accepts_nested_attributes_for :employee
 
+  preference :receive_email_notifications, :default => true
+
   validates_presence_of :employee_id
   validates_presence_of :restaurant_id, :unless => Proc.new { |e| e.type == "DefaultEmployment" }
 
@@ -146,7 +148,7 @@ class Employment < ActiveRecord::Base
   def set_subject_matters_for_managers
     self.subject_matters = SubjectMatter.general.all
   end
-
+  
 end
 
 
