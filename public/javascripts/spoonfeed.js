@@ -381,7 +381,7 @@ $restoDirectoryInputs.change(updateRestoDirectoryList);
 
 //
 // Managing subject matters for restaurant managers
-var $omniscientField = $("input#employment_omniscient");
+var $omniscientField = $("input#employment_omniscient,input#employment_edit_privilege");
 var $omniscientRoleCheckboxes = $('#employment_general_subject_matters :checkbox, #employment_subject_matters :checkbox');
 
 var selectOmniscientRoles = function(){
