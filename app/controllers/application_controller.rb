@@ -282,4 +282,18 @@ class ApplicationController < ActionController::Base
 ) || (user.profile.cuisines.blank? && user.profile.skipp_step.to_i < 3) || user.restaurants.blank?
   end  
   
+  def restaurants_has_setup_fb_tw user
+      @current_user_session = UserSession.find
+      @current_user = user 
+      @restaurants_has_not_setup_fb_tw = []
+      unless user.restaurants.blank?        
+        user.restaurants.each do |restaurant|
+          unless restaurant.twitter_authorized? && restaurant.has_facebook_page?
+           @restaurants_has_not_setup_fb_tw.push(restaurant) unless (cannot? :edit, restaurant)           
+         end
+        end  
+      end
+      
+  end 
+
 end
