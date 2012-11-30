@@ -1,8 +1,9 @@
 class ALaMinuteAnswersController < ApplicationController
 
   before_filter :require_user
-  before_filter :require_restaurant_employee, :only => [:destroy, :bulk_edit, :bulk_update]
-  before_filter :find_activated_restaurant, :only=>[:index]
+  before_filter :require_restaurant_employee, :only => [:destroy, :bulk_edit, :edit, :update, :new, :create]
+  before_filter :find_activated_restaurant, :only => [:index]
+  before_filter :social_redirect, :only => [:edit]
 
   def index    
     @questions = ALaMinuteAnswer.public_profile_for(@restaurant)
@@ -21,25 +22,46 @@ class ALaMinuteAnswersController < ApplicationController
 
   def bulk_edit
     @questions = ALaMinuteQuestion.restaurants
+    @answers = @restaurant.a_la_minute_answers.group_by(&:a_la_minute_question_id)
   end
 
-  def bulk_update
-    params[:a_la_minute_questions].each do |id, attributes|
-      question = ALaMinuteQuestion.find(id)
-      answer_id = attributes.delete(:answer_id)
-      previous_answer = ALaMinuteAnswer.find(answer_id) if ALaMinuteAnswer.exists?(answer_id)
+  def new
+    @question = ALaMinuteQuestion.find(params[:question_id])
+    @answer = ALaMinuteAnswer.new
+    @answer.build_social_posts
+  end
 
-      # create a new answer if the answer has changed
-      unless attributes[:answer] == previous_answer.try(:answer)
-        attributes[:post_to_twitter_at] = Time.parse("#{attributes[:post_to_twitter_at][:year]}-#{attributes[:post_to_twitter_at][:month]}-#{attributes[:post_to_twitter_at][:day]} #{attributes[:post_to_twitter_at][:hour]}:#{attributes[:post_to_twitter_at][:minute]}") if attributes[:post_to_twitter_at].present?
-        attributes[:post_to_facebook_at] = Time.parse("#{attributes[:post_to_facebook_at][:year]}-#{attributes[:post_to_facebook_at][:month]}-#{attributes[:post_to_facebook_at][:day]} #{attributes[:post_to_facebook_at][:hour]}:#{attributes[:post_to_facebook_at][:minute]}") if attributes[:post_to_facebook_at].present?
-
-        new_answer = @restaurant.a_la_minute_answers.create(attributes.merge(:a_la_minute_question_id => id))
-      end
-
-      flash[:success] = "Your changes have been saved."
+  def create
+    @question = ALaMinuteQuestion.find(params[:question_id])
+    @answer = @restaurant.a_la_minute_answers.build(params[:a_la_minute_answer])
+    if @answer.save
+      flash[:notice] = "Your answer has been created"
+      redirect_to :action => "bulk_edit"
+    else
+      flash[:error] = "Your answer could not be saved. Please review the errors below."
+      @answer.build_social_posts
+      render :action => "new"
     end
-    redirect_to :action => :bulk_edit
+  end
+
+  def edit
+    @answer = ALaMinuteAnswer.find(params[:id])
+    @answer.build_social_posts
+    @question = @answer.a_la_minute_question
+  end
+
+  def update
+    @answer = ALaMinuteAnswer.find(params[:id])
+    @question = @answer.a_la_minute_question
+
+    if @answer.update_attributes(params[:a_la_minute_answer])
+      flash[:notice] = "Your answer has been updated"
+      redirect_to_social_or 'bulk_edit'
+    else
+      flash[:error] = "Your answer could not be saved. Please review the errors below."
+      @answer.build_social_posts
+      render :action => "edit"
+    end
   end
 
   private
@@ -52,11 +74,22 @@ class ALaMinuteAnswersController < ApplicationController
     end
     true
   end
+
   def find_activated_restaurant      
-      @restaurant = Restaurant.find(params[:restaurant_id])
-      unless @restaurant.is_activated?        
-        flash[:error] = "This restaurant is not activated."
-        redirect_to :restaurants
-      end
-  end  
+    @restaurant = Restaurant.find(params[:restaurant_id])
+    unless @restaurant.is_activated?
+      flash[:error] = "This restaurant is not activated."
+      redirect_to :restaurants
+    end
+  end
+
+  def social_redirect
+    if params[:social]
+      session[:redirect_to_social_posts] = restaurant_social_posts_page_path(@restaurant, 'newsfeed')
+    end
+  end
+
+  def redirect_to_social_or(action)
+    redirect_to (session[:redirect_to_social_posts].present?) ? session.delete(:redirect_to_social_posts) : { :action => action }
+  end
 end
