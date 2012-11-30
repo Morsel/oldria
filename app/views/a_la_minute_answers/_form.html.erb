@@ -1,0 +1,119 @@
+<% semantic_form_for [@restaurant, @answer] do |form| %>
+  <%= hidden_field_tag "question_id", @question.id %>
+  <%= hidden_field_tag "a_la_minute_answer[a_la_minute_question_id]", @question.id %>
+
+  <%= form.input :answer, :input_html => { :class => "new answer bulk-edit-text-area", :rows=>"10" } %>
+
+  <section id="social-tabs">
+    <nav id="profile-options">
+      <span><a href="#social-twitter">Twitter</a></span>
+      <span><a href="#social-facebook">Facebook</a></span>
+    </nav>
+
+    <section id="social-twitter" class="social">
+      <% if @restaurant.twitter_authorized? -%>
+        <p class="inline-hints">
+            You can schedule up to <%= TwitterPost::POST_LIMIT %> Twitter posts. <br/>
+            Please select the date and time you would like each post to be submitted. <br/>
+            You may also include a custom Tweet that will override the default, which is based on the name from above.
+        </p>
+
+        <% @answer.twitter_posts.each_with_index do |twitter_post, index| %>
+          <% if twitter_post.try(:posted?) %>
+            This Tweet posted on <%= twitter_post.post_at.strftime('%Y-%m-%d %H:%M') %>
+          <% else %>
+            <% form.semantic_fields_for :twitter_posts, twitter_post do |twitter| %>
+              <h4>Twitter Post #<%= index+1 %></h4>
+
+              <%= twitter.input :post_at, :label => "Post to my Twitter account on", :as => :string, :input_html => { :class => 'datetime',
+                                :value => twitter_post.try(:post_at).try(:strftime, '%Y-%m-%d %H:%M') } %>
+
+              <%= twitter.input :content, :label => "Custom Tweet (optional)", :input_html => { :class => 'tweet', :maxlength => 140,
+                                :value => @answer.new_record? ? '' : twitter_post.try(:input_value) } %>
+            <% end %>
+          <% end %>
+
+          <hr/>
+        <% end %>
+
+      <% else %>
+        <p>Hook up your Twitter account to autopost this content to your social streams.</p>
+      <% end %>
+    </section>
+
+    <section id="social-facebook">
+      <% if @restaurant.has_facebook_page? %>
+        <p class="inline-hints">
+            You can schedule up to <%= FacebookPost::POST_LIMIT %> Facebook posts. <br/>
+            Please select the date and time you would like each post to be submitted. <br/>
+            You may also include a custom message that will override the default, which is based on the name from above.
+        </p>
+
+        <% @answer.facebook_posts.each_with_index do |facebook_post, index| %>
+          <% if facebook_post.try(:posted?) %>
+            This Facebook post was submitted on <%= facebook_post.post_at.strftime('%Y-%m-%d %H:%M') %>
+          <% else %>
+            <% begin %>
+              <% form.semantic_fields_for :facebook_posts, facebook_post do |facebook| %>
+                <h4>Facebook Post #<%= index+1 %></h4>
+
+                <%= facebook.input :post_at, :label => "Post to Facebook page \"#{@restaurant.facebook_page.fetch.name}\" on", :as => :string, :input_html => { :class => 'datetime',
+                                   :value => facebook_post.try(:post_at).try(:strftime, '%Y-%m-%d %H:%M') } %>
+                <p class="inline-hints">Schedule posts before <%= current_user.facebook_token_expiration.to_formatted_s(:long) rescue 1.day.from_now.to_formatted_s(:long) %>.</p>
+
+                <%= facebook.input :content, :label => "Custom Message (optional)", :input_html => { :value => @answer.new_record? ? '' : facebook_post.try(:input_value) } %>
+              <% end %>
+            <% rescue Mogli::Client::OAuthException, Mogli::Client::HTTPException %>
+              <p>Your Facebook page access has expired. Please reconnect your account on your restaurant profile page.</p>
+            <% end %>
+          <% end %>
+
+          <hr/>
+        <% end %>
+
+      <% else %>
+        <p>Hook up your Facebook account to autopost this content to your social streams.</p>
+      <% end %>
+    </section>
+  </section>
+
+  <div class="clearfix">
+    <%= form.submit "Post" %>
+    <%= link_to 'Cancel', bulk_edit_restaurant_a_la_minute_answers_url(@restaurant) %>
+  </div>
+<% end %>
+
+<% content_for :javascript do %>
+<script type="text/javascript">
+  jQuery(function($) {
+
+    $('#social-tabs').tabs({
+      panelTemplate: '<section></section>',
+      fx: { duration: 'fast', opacity: 'toggle' }
+    });
+
+    var now = new Date(), nextYear = new Date();
+    nextYear.setYear(now.getFullYear() + 1);
+
+    $('input.datetime').datetimepicker({
+      dateFormat: 'yy-mm-dd',
+      timeFormat: "HH:mm",
+      changeYear: true,
+      changeMonth: true,
+      minDateTime: now,
+      maxDateTime: nextYear
+    });
+
+    $('#ui-datepicker-div').wrap('<div class="smoothness"></div>');
+
+    $(".tweet").charCount({
+      allowed: 140,
+      minChar: 5,
+      warning: 20,
+      counterText: 'Characters left: ',
+      cssWarning: 'counter-warning'
+    });
+
+  });
+</script>
+<% end %>

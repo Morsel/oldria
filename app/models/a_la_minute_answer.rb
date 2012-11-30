@@ -23,6 +23,12 @@ class ALaMinuteAnswer < ActiveRecord::Base
   belongs_to :a_la_minute_question
   belongs_to :responder, :polymorphic => true
 
+  has_many :twitter_posts, :as => :source, :dependent => :destroy
+  accepts_nested_attributes_for :twitter_posts, :limit => 3, :allow_destroy => true, :reject_if => TwitterPost::REJECT_PROC
+
+  has_many :facebook_posts, :as => :source, :dependent => :destroy
+  accepts_nested_attributes_for :facebook_posts, :limit => 3, :allow_destroy => true, :reject_if => FacebookPost::REJECT_PROC
+
   validates_presence_of :a_la_minute_question_id
   validates_presence_of :answer
 
@@ -50,9 +56,6 @@ class ALaMinuteAnswer < ActiveRecord::Base
       :conditions => ["id in (?)", restaurants.map(&:id)]
     }
   }
-
-  attr_accessor :no_twitter_crosspost, :no_fb_crosspost
-  after_create :crosspost
 
   def self.newest_for(obj)
     ids = []
@@ -106,22 +109,37 @@ class ALaMinuteAnswer < ActiveRecord::Base
     soapbox_a_la_minute_answer_url(self)
   end
 
-  private
+  def build_social_posts
+    (TwitterPost::POST_LIMIT - twitter_posts.size).times { twitter_posts.build }
+    (FacebookPost::POST_LIMIT - facebook_posts.size).times { facebook_posts.build }
+  end
 
-  def crosspost
-    update_attribute(:post_to_twitter_at, nil) if no_twitter_crosspost == "1"
-    if post_to_twitter_at.present? && responder.twitter_authorized?
-      responder.twitter_client.send_at(post_to_twitter_at, :update, "#{truncate(answer, :length => 120)} #{self.bitly_link}")
-    end
+  def twitter_message
+    "#{truncate(answer, :length => 120)} #{self.bitly_link}"
+  end
 
-    update_attribute(:post_to_facebook_at, nil) if no_fb_crosspost == "1"
-    if post_to_facebook_at.present? && responder.has_facebook_page?
-      post_attributes = { :message     => answer,
-                          :link        => soapbox_a_la_minute_answer_url(self),
-                          :name        => question,
-                          :description => answer }
-      responder.send_at(post_to_facebook_at, :post_to_facebook_page, post_attributes)
-    end
+  def facebook_message
+    answer
+  end
+
+  def post_to_twitter(message=nil)
+    message = message.blank? ? twitter_message : message
+    restaurant.twitter_client.update(message)
+  end
+
+  def post_to_facebook(message=nil)
+    message = message.blank? ? facebook_message : message
+    post_attributes = {
+      :message     => message,
+      :link        => soapbox_a_la_minute_answer_url(self),
+      :name        => question,
+      :description => answer
+    }
+    restaurant.post_to_facebook_page(post_attributes)
+  end
+
+  def edit_path(options={})
+    edit_restaurant_a_la_minute_answer_url(restaurant, self, options)
   end
 
 end
