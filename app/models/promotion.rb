@@ -32,6 +32,12 @@ class Promotion < ActiveRecord::Base
   belongs_to :promotion_type
   belongs_to :restaurant
 
+  has_many :twitter_posts, :as => :source, :dependent => :destroy
+  accepts_nested_attributes_for :twitter_posts, :limit => 3, :allow_destroy => true, :reject_if => TwitterPost::REJECT_PROC
+
+  has_many :facebook_posts, :as => :source, :dependent => :destroy
+  accepts_nested_attributes_for :facebook_posts, :limit => 3, :allow_destroy => true, :reject_if => FacebookPost::REJECT_PROC
+
   validates_presence_of :promotion_type, :details, :start_date, :restaurant_id, :headline
   validates_presence_of :end_date, :if => Proc.new { |promo| promo.date_description.present? },
       :message => "End date is required for repeating events"
@@ -82,9 +88,6 @@ class Promotion < ActiveRecord::Base
     { :conditions => { :promotion_type_id => type_id } }
   }
 
-  attr_accessor :no_twitter_crosspost, :no_fb_crosspost
-  after_create :crosspost
-
   def title
     promotion_type.name
   end
@@ -118,24 +121,37 @@ class Promotion < ActiveRecord::Base
 
   def notify_newsfeed_request!      
      UserMailer.deliver_admin_notification(self, restaurant.manager)      
-  end  
-  private
-
-  def crosspost
-    update_attribute(:post_to_twitter_at, nil) if no_twitter_crosspost == "1"
-    if post_to_twitter_at.present? && restaurant.twitter_authorized?
-      restaurant.twitter_client.send_at(post_to_twitter_at, :update, "#{truncate(headline, :length => 120)} #{self.bitly_link}")
-    end
-
-    update_attribute(:post_to_facebook_at, nil) if no_fb_crosspost == "1"
-    if post_to_facebook_at.present? && restaurant.has_facebook_page?
-      post_attributes = { :message     => "Newsfeed: #{title}",
-                          :link        => soapbox_promotion_url(self),
-                          :name        => headline,
-                          :description => details }
-      restaurant.send_at(post_to_facebook_at, :post_to_facebook_page, post_attributes)
-    end
   end
+
+  def twitter_message
+    "#{truncate(self.headline, :length => 120)} #{self.bitly_link}"
+  end
+
+  def facebook_message
+    "Newsfeed: #{self.title}"
+  end
+
+  def post_to_twitter(message=nil)
+    message = message.blank? ? twitter_message : message
+    restaurant.twitter_client.update(message)
+  end
+
+  def post_to_facebook(message=nil)
+    message = message.blank? ? facebook_message : message
+    post_attributes = {
+      :message     => message,
+      :link        => soapbox_promotion_url(self),
+      :name        => headline,
+      :description => details
+    }
+    restaurant.post_to_facebook_page(post_attributes)
+  end
+
+  def edit_path(options={})
+    edit_restaurant_promotion_path(restaurant, self, options)
+  end
+
+  private
 
   def details_word_count
     if details.split(" ").size > 1000

@@ -29,6 +29,12 @@ class MenuItem < ActiveRecord::Base
   has_many :menu_item_keywords, :dependent => :destroy
   has_many :otm_keywords, :through => :menu_item_keywords
 
+  has_many :twitter_posts, :as => :source, :dependent => :destroy
+  accepts_nested_attributes_for :twitter_posts, :limit => 3, :allow_destroy => true, :reject_if => TwitterPost::REJECT_PROC
+
+  has_many :facebook_posts, :as => :source, :dependent => :destroy
+  accepts_nested_attributes_for :facebook_posts, :limit => 3, :allow_destroy => true, :reject_if => FacebookPost::REJECT_PROC
+
   has_attached_file :photo,
                     :storage        => :s3,
                     :s3_credentials => "#{RAILS_ROOT}/config/environments/#{RAILS_ENV}/amazon_s3.yml",
@@ -54,9 +60,6 @@ class MenuItem < ActiveRecord::Base
     :joins => :restaurant,
     :conditions => ["restaurants.is_activated = ?", true]
   }
-
-  attr_accessor :no_twitter_crosspost, :no_fb_crosspost
-  after_create :crosspost
 
   def keywords
     otm_keywords.map { |k| "#{k.category}: #{k.name}" }.to_sentence
@@ -89,16 +92,6 @@ class MenuItem < ActiveRecord::Base
     soapbox_menu_item_url(self)
   end
 
-  def queue_for_facebook_page
-    picture_url = self.photo(:large) if self.photo_file_name.present?
-    post_attributes = { :message     => "New on the menu: #{name}",
-                        :link        => soapbox_menu_item_url(self),
-                        :name        => name,
-                        :description => Loofah::Helpers.strip_tags(description),
-                        :picture     => picture_url }
-    restaurant.send_at(post_to_facebook_at, :post_to_facebook_page, post_attributes)
-  end
-
   def self.todays_cloud_keywords            
     MenuItem.all(:include=> :otm_keywords,:conditions=>["created_at > DATE(?) ",(Time.now - 24.hours)])
   end
@@ -111,19 +104,34 @@ class MenuItem < ActiveRecord::Base
       end  
   end
 
- 
-  private
+  def twitter_message
+    "#{truncate(self.name, :length => 120)} #{self.bitly_link}"
+  end
 
-  def crosspost
-    update_attribute(:post_to_twitter_at, nil) if no_twitter_crosspost == "1"
-    if post_to_twitter_at.present? && restaurant.twitter_authorized?
-      restaurant.twitter_client.send_at(post_to_twitter_at, :update, "#{truncate(name, :length => 120)} #{self.bitly_link}")
-    end
+  def facebook_message
+    "New on the menu: #{self.name}"
+  end
 
-    update_attribute(:post_to_facebook_at, nil) if no_fb_crosspost == "1"
-    if post_to_facebook_at.present? && restaurant.has_facebook_page?
-      queue_for_facebook_page
-    end
+  def post_to_twitter(message=nil)
+    message = message.blank? ? twitter_message : message
+    restaurant.twitter_client.update(message)
+  end
+
+  def post_to_facebook(message=nil)
+    picture_url = self.photo_full if self.photo_file_name.present?
+    message = message.blank? ? facebook_message : message
+    post_attributes = {
+      :message     => message,
+      :link        => soapbox_menu_item_url(self),
+      :name        => name,
+      :description => Loofah::Helpers.strip_tags(description),
+      :picture     => picture_url
+    }
+    restaurant.post_to_facebook_page(post_attributes)
+  end
+
+  def edit_path(options={})
+    edit_restaurant_menu_item_path(restaurant, self, options)
   end
 
 end

@@ -1,62 +1,25 @@
-# == Schema Information
-#
-# Table name: social_posts
-#
-#  id              :integer         not null, primary key
-#  post_data       :string(255)
-#  link            :string(255)
-#  post_created_at :datetime
-#  source          :string(255)
-#  restaurant_id   :integer
-#  title           :string(255)
-#  created_at      :datetime
-#  updated_at      :datetime
-#  post_id         :string(255)
-#
+class SocialPost < ActiveRecord::Base  
+  POST_LIMIT = 3
+  REJECT_PROC = lambda { |params| params["post_at"].blank? }
+  
+  belongs_to :source, :polymorphic => true
+  has_one :delayed_job, :class_name => "Delayed::Job", :foreign_key => 'id', :primary_key => 'job_id', :dependent => :destroy
 
-class SocialPost < ActiveRecord::Base
-  belongs_to :restaurant
+  after_save :schedule_post
 
-  def self.fetch_updates
-    alm_answers = ALaMinuteAnswer.social_results({})
+  named_scope :pending, :conditions => ['post_at > ?', DateTime.now]
 
-    twitter_posts = []
-    Restaurant.with_premium_account.with_twitter.all.each do |r|
-      begin
-        r.twitter_client.user_timeline.each do |post|
-          twitter_posts << { :post_id => post.id,
-                             :post_data => post.text,
-                             :restaurant => r,
-                             :post_created_at => Time.parse(post.created_at),
-                             :link => "http://twitter.com/#{r.twitter_username}/status/#{post.id}",
-                             :source => "Twitter" }
-        end
-      rescue Exception
-        next
-      end
-    end
-
-    facebook_posts = []
-    Restaurant.with_premium_account.with_facebook_page.all.each do |r|
-      begin
-        r.facebook_page.posts.each do |post|
-          facebook_posts << { :post_id => post.id,
-                              :post_data => post.message,
-                              :restaurant => r,
-                              :post_created_at => Time.parse(post.created_time),
-                              :source => "Facebook",
-                              :link => r.facebook_page_url }
-        end
-      rescue Mogli::Client::OAuthException, Mogli::Client::HTTPException
-        next
-      end
-    end
-    updates = (twitter_posts + facebook_posts + alm_answers)
-    
-    for update in updates
-      post = SocialPost.find_or_create_by_post_id_and_source(:post_id => update[:post_id], :source => update[:source])
-      post.update_attributes(update)
-    end
+  def posted?
+    post_at.present? ? post_at < DateTime.now : false
   end
 
+  private
+
+  def schedule_post
+    if post_at_changed?
+      delayed_job.destroy if delayed_job.present?
+      job = self.send_at(post_at, :post)
+      self.class.update_all("job_id = #{job.id}", ["id = ?", self.id])
+    end
+  end
 end
