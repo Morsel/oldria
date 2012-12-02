@@ -6,98 +6,62 @@
     <div id="a_la_minute_questions">
       <h2>A la minute</h2>
 
-      <% semantic_form_for :restaurant,
-                           :url => bulk_update_restaurant_a_la_minute_answers_url(:restaurant_id => @restaurant.id),
-                           :html => { :method => :put } do |form| %>
+      <% @questions.each do |question| %>
+        <% div_for question do -%>
+          <h5><strong><%= h(question.question) %>?</strong></h5>
 
-        <% @questions.each do |question| %>
-            <% answer = alm_answer_for(question) %>
-            <fieldset class="editing basics">
-              <ol>
-                <li class="string">
-                  <%= label_tag "a_la_minute_questions_#{question.id}_answer", h(question.question), :class => "question ala" %>
-                  <%= text_area_tag "a_la_minute_questions[#{question.id}][answer]", answer.answer, :class => "new answer bulk-edit-text-area" ,:rows=>"10"%>
-                </li>
-              </ol>
-              <%= hidden_field_tag "a_la_minute_questions[#{question.id}][answer_id]", answer.id %>
-              <% div_for question do -%>
+          <% answers = @answers[question.id] || [] %>
+          <% current_answer = answers.first %>
 
-                <% if @restaurant.twitter_authorized? -%>
-                <p>
-                    <%= label_tag "a_la_minute_questions_#{question.id}_post_to_twitter_at", "Post to Twitter on", :class => 'inline' %>
-                    <%= select_datetime Time.now, :prefix => "a_la_minute_questions[#{question.id}][post_to_twitter_at]",:datetime_separator=>" Time: " %>
-                </p>
-                <p>
-                    <%= check_box_tag "a_la_minute_questions[#{question.id}][no_twitter_crosspost]", "1", false %>
-                    <%= label_tag "a_la_minute_questions_#{question.id}_no_twitter_crosspost", "Don't crosspost to Twitter", :class => 'inline' %>
-                </p>
-                <% else -%>
-                <p>Hook up your Twitter account to autopost this content to your social streams.</p>
-                <% end -%>
+          <p class="clearfix">
+            <strong>Current Answer:</strong> <%= current_answer.present? ? current_answer.answer : 'Not Answered' %>
+            <% if current_answer.present? %>
+              <%= link_to "[edit]", edit_restaurant_a_la_minute_answer_url(@restaurant, current_answer) %>
+            <% end %>
+          </p>
 
-                <% if @restaurant.has_facebook_page? -%>
-                <p>
-                    <%= label_tag "a_la_minute_questions_#{question.id}_post_to_facebook_at", "Post to Facebook on", :class => 'inline' %>
-                    <%= select_datetime Time.now, :prefix => "a_la_minute_questions[#{question.id}][post_to_facebook_at]" %>
-                </p>
-                <p>
-                    <%= check_box_tag "a_la_minute_questions[#{question.id}][no_fb_crosspost]", "1", false %>
-                    <%= label_tag "a_la_minute_questions_#{question.id}_no_fb_crosspost", "Don't crosspost to Facebook", :class => 'inline' %>
-                </p>
-                <% else -%>
-                <p>Hook up your Facebook account to autopost this content to your social streams.</p>
-                <% end -%>
+          <p class="clearfix">
+            <%= link_to "Add Answer", new_restaurant_a_la_minute_answer_url(:restaurant_id => @restaurant.id, :question_id => question.id), :class => 'button' %>
+          </p>
 
-              <% end -%>
-
-              <div class="clearfix">
-                  <%= button_tag "Post", :class => 'positive' %>
-              </div>
-
-              <%= link_to 'View past answers', "#a_la_minute_answers_#{question.id}", :class => 'show_all_link showit' %>
-              <ul class="archive" id="a_la_minute_answers_<%= question.id %>">
-                <% @restaurant.a_la_minute_answers.for_question(question).each_with_index do |archived_answer, index| %>
-                  <% content_tag_for(:li, archived_answer, :class => "answer") do %>
-                    <%= archived_answer.answer %>
-                    <% if index == 0 %>
-                      <small>(current)</small>
-                    <% end %>
-                    <%= link_to '[remove]', restaurant_a_la_minute_answer_path(@restaurant, archived_answer), :method => :delete, :class => 'remove_link', :id => "remove_answer_#{archived_answer.id}" %>
+          <% unless answers.empty? %>
+            <%= link_to 'View past answers', "#a_la_minute_answers_#{question.id}", :class => 'show_all_link showit' %>
+            <ul class="archive" id="a_la_minute_answers_<%= question.id %>">
+              <% @restaurant.a_la_minute_answers.for_question(question).each_with_index do |archived_answer, index| %>
+                <% content_tag_for(:li, archived_answer, :class => "answer") do %>
+                  <%= archived_answer.answer %>
+                  <% if index == 0 %>
+                    <small>(current)</small>
                   <% end %>
+                  <%= link_to '[remove]', restaurant_a_la_minute_answer_path(@restaurant, archived_answer), :method => :delete, :class => 'remove_link', 
+                      :id => "remove_answer_#{archived_answer.id}",
+                      :confirm => "Are you sure you want to delete this answer? Any scheduled social posts will also be removed." %>
+                  <%= link_to "[edit]", edit_restaurant_a_la_minute_answer_url(@restaurant, archived_answer), :class => 'remove_link' %>
                 <% end %>
-              </ul>
-              
-            </fieldset>
+              <% end %>
+            </ul>
+          <% end %>
 
+          <hr/>
         <% end %>
-
       <% end %>
+
     </div>
   </div><!-- /editing_restaurant -->
 </div><!-- /restaurant_profile_view -->
 
-  <% content_for :javascript do %>
-    <script type="text/javascript">
-    //<![CDATA[
-    jQuery(function($) {
-      $('.archive').find('li a.remove_link').click(function(e) {
-        e.preventDefault();
-        var href = $(this).attr('href');
-        $.post(href, {"_method": "delete"}, function() {
-          $(this.id).closest("li").remove();
-        });
-      }).removeAttr("onclick");
-
-      $(".show_all_link").toggle(function(e) {
-        e.preventDefault();
-        $(this).closest("div.a_la_minute_question").find(".archive li").removeClass("hidden");
-        $(this).html("Hide past answers");
-      }, function(e) {
-        e.preventDefault();
-        $(this).closest("div.a_la_minute_question").find(".archive li").addClass("hidden");
-        $(this).html("Show past answers");
-      });
+<% content_for :javascript do %>
+<script type="text/javascript">
+  jQuery(function($) {
+    $(".show_all_link").toggle(function(e) {
+      e.preventDefault();
+      $(this).closest("div.a_la_minute_question").find(".archive li").removeClass("hidden");
+      $(this).html("Hide past answers");
+    }, function(e) {
+      e.preventDefault();
+      $(this).closest("div.a_la_minute_question").find(".archive li").addClass("hidden");
+      $(this).html("Show past answers");
     });
-    //]]>
-  </script>
-  <% end %>
+  });
+</script>
+<% end %>

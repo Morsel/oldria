@@ -1,0 +1,28 @@
+<% if @menu_items.empty? %>
+  <div id="no-messages" class="clear">
+      <p>You don't have any Menu Items scheduled.</p>
+  </div>
+<% else %>
+  <div class="editing clearfix clear">
+      <table style="width: 100%">
+          <thead>
+              <tr>
+                  <th>Name</th>
+                  <th>Post To Twitter</th>
+                  <th>Post To Facebook</th>
+                  <th>Actions</th>
+              </tr>
+          </thead>
+          <tbody>
+            <% @menu_items.each do |item| %>
+              <tr>
+                <td><%= item.name %></td>
+                <td><%= item.twitter_job.run_at.to_s(:short) if item.twitter_job.present? %></td>
+                <td><%= item.facebook_job.run_at.to_s(:short) if item.facebook_job.present? %></td>
+                <td><%= link_to 'Edit', edit_restaurant_menu_item_path(@restaurant, item, :social => true), :class => 'edit' %></td>
+              </tr>
+            <% end %>
+          </tbody>
+      </table>
+  </div>
+<% end %>

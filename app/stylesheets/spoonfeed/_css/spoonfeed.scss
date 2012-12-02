@@ -111,6 +111,14 @@ form, #main form{
 		color: $orange;
 		margin:5px 0;
 	}
+	.counter {
+		color:#666;
+		font-size:11px;
+		font-style:italic;
+	}
+	.counter-warning {
+		color:$orange !important;
+	}
 } /* ## forms universal styles ------------------ */
 
 /* Primary layout */
