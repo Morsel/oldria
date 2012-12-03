@@ -118,7 +118,7 @@ class MenuItem < ActiveRecord::Base
   end
 
   def post_to_facebook(message=nil)
-    picture_url = self.photo_full if self.photo_file_name.present?
+    picture_url = self.photo(:full) if self.photo_file_name.present?
     message = message.blank? ? facebook_message : message
     post_attributes = {
       :message     => message,
