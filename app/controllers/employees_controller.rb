@@ -44,7 +44,12 @@ class EmployeesController < ApplicationController
 
   def update
     @employment = @restaurant.employments.find_by_employee_id(params[:id])
-    
+    if(params[:employment] && params[:employment][:omniscient].to_i>0)
+      params[:employment][:edit_privilege] = 0
+    end 
+    if(params[:employment] && params[:employment][:edit_privilege].to_i>0)
+      params[:employment][:omniscient] = 1
+    end 
     if @employment.update_attributes(params[:employment])
       flash[:notice] = "Successfully updated employee"
       redirect_to bulk_edit_restaurant_employees_path(@restaurant)

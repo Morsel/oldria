@@ -87,9 +87,9 @@ class AdminDiscussion < ActiveRecord::Base
   end
 
   def send_email_notification_to_each_employee
-    employees.each do |user|
-      if user.prefers_receive_email_notifications
-        UserMailer.send("deliver_#{discussionable.mailer_method}", self, user)
+    employments.each do |employment|
+      if employment.employee.prefers_receive_email_notifications && employment.prefers_receive_email_notifications # For employment basis email sending 
+        UserMailer.send("deliver_#{discussionable.mailer_method}", self, employment.employee)
       end
     end
   end
