@@ -7,7 +7,12 @@
 		<%= f.input :omniscient, 
 		    :label => "Grant this user the ability to administer and edit #{@restaurant.name}'s Spoonfeed Press Kit", 
 		    :hint => "Note: Admins receive all notifications", 
+		    :input_html => { :disabled => (@restaurant.manager == @employee),:checked=>((!@employment.edit_privilege && @employment.omniscient ) || (@restaurant.manager == @employee))} %>
+		 <%= f.input :edit_privilege, 
+		    :label => "Edit Privileges: Grant this user the ability to administer and edit #{@restaurant.name}'s Spoonfeed Press Kit", 
+		    :hint => "Note: Admins will not receive any notifications", 
 		    :input_html => { :disabled => (@restaurant.manager == @employee) } %>
+		 <%= f.input :prefers_receive_email_notifications ,:as =>"hidden" %>
 		<% if @employee == @restaurant.manager %>
 		  <p><%= @employee.name %> is the primary account administrator. Go to <%= link_to 'the restaurant page', edit_restaurant_path(@restaurant) %> to change this.</p>
 		<% end %>
@@ -22,4 +27,27 @@
 
     <p><%= button_tag "Submit", :class => 'positive' %></p>
 
+<% end %>
+
+<% content_for :javascript do %>
+<script type="text/javascript">
+	$(document).ready(function(){
+		$('#employment_edit_privilege').change(function(){
+			if($(this).is(':checked'))
+			{
+				$('#employment_omniscient').attr("checked",false)
+				$('#employment_prefers_receive_email_notifications').val(0)
+			}else{
+				$('#employment_prefers_receive_email_notifications').val(1)
+			}
+		})		
+		$('#employment_omniscient').change(function(){
+			if($(this).is(':checked'))
+			{
+				$('#employment_edit_privilege').attr("checked",false)
+				$('#employment_prefers_receive_email_notifications').val(1)
+			}
+		})
+	})
+</script>
 <% end %>
