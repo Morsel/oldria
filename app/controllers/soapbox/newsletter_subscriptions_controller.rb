@@ -7,4 +7,13 @@ class Soapbox::NewsletterSubscriptionsController < ApplicationController
     redirect_to edit_soapbox_newsletter_subscriber_path(@subscriber)
   end
 
+  def destroy
+    @subscription = NewsletterSubscription.find(params[:id])
+    @subscriber = @subscription.newsletter_subscriber
+    if @subscription.destroy
+      flash[:notice] = "You have successfully been unsubscribed."
+      redirect_to edit_soapbox_newsletter_subscriber_path(@subscriber)
+    end
+  end
+
 end

@@ -71,9 +71,14 @@
             <input type="submit" value="search">
             <input type="text" name="query" placeholder="Search the site">
           </fieldset>
-     <!--    </form> -->
-      <% end %>
+        <!--    </form> -->
+        <% end %>
+
+        <%= link_to 'Soapbox Login', find_subscriber_soapbox_newsletter_subscribers_path, :id => 'sb-log-in', :class => 'utility' unless current_subscriber %>
+        <%= link_to 'Logout', logout_path, :id => 'log-out', :class => 'utility' if current_user || current_subscriber %>
+        <%= link_to 'Preferences', edit_soapbox_newsletter_subscriber_path(current_subscriber), :id => 'preferences', :class => 'utility' if current_subscriber %>
       </div>
+
       <div class="nav-holder">
         <span class="height"> </span>
         <span class="note">A digital magazine written by chefs</span>
