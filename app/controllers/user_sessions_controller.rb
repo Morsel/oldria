@@ -1,7 +1,7 @@
 class UserSessionsController < ApplicationController
 
   before_filter :require_no_user, :only => [:new, :create, :create_from_facebook]
-  before_filter :require_user, :only => :destroy
+  before_filter :require_user_or_subscriber, :only => :destroy
 
   def new
     @user_session = UserSession.new(params[:user_session])
@@ -28,9 +28,18 @@ class UserSessionsController < ApplicationController
   end
 
   def destroy
-    @user_session = UserSession.find(params[:id])
-    user = @user_session.user
-    @user_session.destroy
+    # Logout of Spoonfeed
+    if current_user
+      @user_session = UserSession.find(params[:id])
+      user = @user_session.user
+      @user_session.destroy
+    end
+
+    # Logout of Soapbox
+    if current_subscriber
+      cookies.delete(:newsletter_subscriber_id)
+    end
+
     flash[:notice] = "Successfully logged out."
     redirect_to root_url
   end

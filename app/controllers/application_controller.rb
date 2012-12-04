@@ -16,6 +16,7 @@ class ApplicationController < ActionController::Base
   filter_parameter_logging :password
 
   helper_method :current_user
+  helper_method :current_subscriber
   helper_method :mediafeed?
   helper_method :soapbox?
   helper_method :heatmap
@@ -42,7 +43,7 @@ class ApplicationController < ActionController::Base
         (current_user && current_user.media?) ||
         request.path.match(/mediafeed/)
   end
-  
+
   def soapbox?
     return @is_soapbox if defined?(@is_soapbox)
     @is_soapbox = (current_subdomain =~ /^soapbox/) || 
@@ -52,6 +53,10 @@ class ApplicationController < ActionController::Base
 
   def require_user_unless_soapbox
     soapbox? ? true : require_user
+  end
+
+  def require_user_or_subscriber
+    current_user || current_subscriber
   end
 
   def find_user_feeds(dashboard = false)
@@ -67,6 +72,11 @@ class ApplicationController < ActionController::Base
   def current_user
     return @current_user if defined?(@current_user)
     @current_user = current_user_session && current_user_session.user
+  end
+
+  def current_subscriber
+    return @current_subscriber if defined?(@current_subscriber)
+    @current_subscriber = NewsletterSubscriber.find(cookies[:newsletter_subscriber_id]) if cookies.has_key?('newsletter_subscriber_id')
   end
 
   def require_twitter_authorization

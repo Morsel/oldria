@@ -28,6 +28,24 @@ em, i{
 	font-style:italic;
 }
 
+.hr {
+	border-top: 1px solid #dddddd;
+	margin: 15px 0px;
+	padding: 5px 0px;
+}
+
+.align-right {
+	text-align:right;
+}
+
+.hint {
+	color: $light-purple !important;
+}
+
+#flashes {
+	margin-bottom:15px;
+}
+
 #container{
 	@include container;
 	position:relative;
@@ -80,7 +98,10 @@ h1,h2,h3,h4,h5,h6{
     }
 		&#search-handle {background-position: 3px 5px;}
 		&#ria-hq {background-position: 3px -95px;}
-		&#log-in {background-position: 3px -195px;}
+		&#sf-log-in {background-position: 3px -195px;}
+		&#sb-log-in {background-position: 3px -195px;}
+		&#log-out {background-position: 3px -195px;}
+		&#preferences{background-position: 3px 50px; padding: 3px 10px 5px 10px;}
 	}
 }
 
@@ -138,6 +159,56 @@ h1,h2,h3,h4,h5,h6{
 	}
 }
 /* ## forms universal styles ------------------ */
+
+
+.soapbox-tabs {
+	nav {
+		overflow: hidden;
+		margin: 0;
+		padding: 0;
+		a {
+			margin: 0 5px 0 0;
+			background-color: $purple;
+			@include museoslabmedium;
+			color: #fff;
+			display: block;
+			padding: 10px;
+			float:left;
+			&:hover {
+				background-color: $baby-blue;
+				text-decoration: none;
+
+			}
+		}
+		span.ui-tabs-selected a{
+			background-color: #f0f1f8;
+			border-left: 1px solid #e7e8ef;
+			border-right: 1px solid #e7e8ef;
+			border-top: 1px solid #e7e8ef;
+			color: $purple;
+			&:hover {
+				text-decoration: none;
+			}
+		}
+	}
+	p {
+		padding:0px;
+	}
+	.ui-tabs-hide {
+		display:none;
+	}
+	.panel-bg {
+		background: #f0f1f8;
+		border-left: 1px solid #e7e8ef;
+		border-right: 1px solid #e7e8ef;
+		border-bottom: 1px solid #e7e8ef;
+		.ui-tabs-panel{
+			background: #f0f1f8;
+			padding: 6px;
+		}
+	}
+}
+
 
 #header{
 	background:url(/images/soapbox/nav.png) no-repeat;

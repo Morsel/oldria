@@ -1,25 +1,27 @@
 <% title "Soapbox Subscriptions" %>
 
 <%- if @restaurant.present? -%>
-<p>Are you signed up for Soapbox? Enter your email address to subscribe to <%= @restaurant.name %>.</p>
-<%- form_url = "/soapbox/newsletter_subscribers/connect?restaurant_id=#{@restaurant.id}" -%>
+  <p>Are you signed up for Soapbox? Enter your email address to subscribe to <%= @restaurant.name %>.</p>
+  <%- form_url = "/soapbox/newsletter_subscribers/connect?restaurant_id=#{@restaurant.id}" -%>
 <%- else -%>
-<p>Are you signed up for Soapbox? Enter your email address to edit your subscription settings.</p>
-<%- form_url = "/soapbox/newsletter_subscribers/connect" -%>
+  <p>Are you signed up for Soapbox? Enter your email address to edit your subscription settings.</p>
+  <%- form_url = "/soapbox/newsletter_subscribers/connect" -%>
 <%- end -%>
 
+<%= render 'layouts/flashes' %>
+
 <% form_tag form_url do %>
-    <p>
-        <label>Email address</label>
-        <%= text_field_tag "email" %>
-    </p>
+  <p>
+    <label>Email address</label>
+    <%= text_field_tag "email" %>
+  </p>
 
-    <p>
-        <label>Password</label>
-        <%= password_field_tag "password" %>
-    </p>
+  <p>
+    <label>Password</label>
+    <%= password_field_tag "password" %>
+  </p>
 
-    <p><%= submit_tag "Sign in" %></p>
+  <p><%= submit_tag "Sign in" %></p>
 <% end %>
 
 <p>If you haven't signed up for Soapbox yet, <%= link_to "join now!", join_url(:subdomain => "spoonfeed") %></p>
