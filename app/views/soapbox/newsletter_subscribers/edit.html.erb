@@ -1,30 +1,60 @@
-<% title "Edit your preferences" %>
+<% title "Edit your preferences: #{@subscriber.first_name} #{@subscriber.last_name}" %>
 
 <%= render 'layouts/flashes' %>
 
-<h2>Current subscriptions</h2>
-<ul>
-    <% for subscription in @subscriber.newsletter_subscriptions %>
-    <li><%= link_to subscription.restaurant.name, soapbox_restaurant_path(subscription.restaurant) %></li>
-    <% end %>
-</ul>
+<div class="soapbox-tabs">
+  <div class="tabable">
+    <nav>
+      <span><a href="#subscriptions">Subscriptions</a></span>
+      <span><a href="#password">Password</a></span>
+    </nav>
 
-<% semantic_form_for [:soapbox, @subscriber] do |f| %>
-    <% f.inputs :name => "Set a new password" do %>
-        <%= f.input :password %>
-        <%= f.input :password_confirmation %>
-    <% end %>
+    <section class="panel-bg">
+      <div id="subscriptions">
+        <h2>Current subscriptions</h2>
+        <% if @subscriber.newsletter_subscriptions.empty? %>
+          <p>You are not currently subscribed to any newsletters.</p>
+        <% else %>
+          <ul>
+            <% for subscription in @subscriber.newsletter_subscriptions %>
+              <li>
+                <%= link_to subscription.restaurant.name, soapbox_restaurant_path(subscription.restaurant) %>
+                <%= link_to '[unsubscribe]', soapbox_newsletter_subscription_path(subscription), :class => 'hint', :method => :delete, :confirm => 'Are you sure you want to unsubscribe?' %>
+              </li>
+            <% end %>
+          </ul>
+        <% end %>
 
-    <% f.inputs do %>
-        <%= f.input :receive_soapbox_news, :label => "I want to receive the Soapbox email newsletter" %>
-    <% end %>
-    <%= submit_tag "Save Email Preferences" %>
-<% end %>
+        <h2>Soapbox Newsletter</h2>
+        <% semantic_form_for [:soapbox, @subscriber] do |f| %>
+          <% f.inputs do %>
+            <%= f.input :receive_soapbox_news, :label => "I want to receive the Soapbox email newsletter" %>
+          <% end %>
+          <%= submit_tag "Save" %>
+        <% end %>
 
-<% if !@subscriber.opt_out %>
-<p><%= link_to "Opt out of all email communication", soapbox_newsletter_subscriber_path(:newsletter_subscriber => {:opt_out => true}), :method => "put", :confirm => "Are you sure you want to opt out?" %></p>
-<% else %>
-<p>You have opted out of all email communication. <%= link_to "Opt back in?", soapbox_newsletter_subscriber_path(:newsletter_subscriber => {:opt_out => false}), :method => "put" %></p>
-<% end %>
+        <h2>Opt Out</h2>
+        <% if !@subscriber.opt_out %>
+          <p><%= link_to "Opt out of all email communication", soapbox_newsletter_subscriber_path(:newsletter_subscriber => {:opt_out => true}), :method => "put", :confirm => "Are you sure you want to opt out?" %></p>
+        <% else %>
+          <p>You have opted out of all email communication. <%= link_to "Opt back in?", soapbox_newsletter_subscriber_path(:newsletter_subscriber => {:opt_out => false}), :method => "put" %></p>
+        <% end %>
+      </div>
 
-<p><%= @subscriber.email %> isn't you? <%= link_to "Log in with your own email address", find_subscriber_soapbox_newsletter_subscribers_path %></p>
+      <div id="password">
+        <h2>Change your password</h2>
+        <% semantic_form_for [:soapbox, @subscriber] do |f| %>
+          <% f.inputs do %>
+            <%= f.input :password %>
+            <%= f.input :password_confirmation %>
+          <% end %>
+          <%= submit_tag "Save Password" %>
+        <% end %>
+      </div>
+    </section>
+  </div>
+</div>
+
+<div class="hr align-right">
+  <%= "#{@subscriber.first_name} #{@subscriber.last_name} (#{@subscriber.email})" %> isn't you? <%= link_to "Log in with your own email address", find_subscriber_soapbox_newsletter_subscribers_path %>
+</div>
