@@ -274,6 +274,8 @@ ActionController::Routing::Routes.draw do |map|
   map.menu_item 'on_the_menu/:id', :controller => "spoonfeed/menu_items", :action => "show"
   map.resources :profile_questions, :only => ['index', 'show'], :as => "behind_the_line", :controller => 'spoonfeed/profile_questions'
   map.social 'social', :controller => "spoonfeed/social_updates", :action => "index"
+  map.expire_social_update 'expire_social_update', :controller => "spoonfeed/social_updates", :action => "expire_social_update"
+  
   map.update_social 'update_social', :controller => "spoonfeed/social_updates", :action => "load_updates"
   map.filter_social 'filter_social', :controller => "spoonfeed/social_updates", :action => "filter_updates"
   map.resources :restaurant_questions, :only => ['index', 'show'], :as => 'restaurant_btl', :controller => 'spoonfeed/restaurant_questions'
