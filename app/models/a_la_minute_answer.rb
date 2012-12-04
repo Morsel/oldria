@@ -53,7 +53,7 @@ class ALaMinuteAnswer < ActiveRecord::Base
   }
   named_scope :from_responders, lambda { |restaurants|
     {
-      :conditions => ["id in (?)", restaurants.map(&:id)]
+      :conditions => ["responder_id in (?)", restaurants.map(&:id)]
     }
   }
 
