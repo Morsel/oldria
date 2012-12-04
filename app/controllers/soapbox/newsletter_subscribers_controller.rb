@@ -53,8 +53,8 @@ class Soapbox::NewsletterSubscribersController < ApplicationController
       end
     else
       cookies.delete('newsletter_subscriber_id')
-      flash[:notice] = "Please register as a diner in order to subscribe to restaurants."
-      redirect_to join_path(:subdomain => "spoonfeed")
+      flash[:error] = "You entered in an incorrect email address or password. Please try again."
+      render :action => 'find_subscriber'
     end
   end
 
