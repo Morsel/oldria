@@ -2841,6 +2841,9 @@ ul#friend_timeline {
 			display:none;
 		}
 	}
+	li.fix-height{
+		height:125px;
+	}
 	.label label, div.loading{
 	  display:none;
 	}
