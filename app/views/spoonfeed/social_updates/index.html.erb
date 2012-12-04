@@ -49,6 +49,31 @@
                             </fieldset>
                         </li>
                     </div>
+                </div>                
+                <div class="accordion_box">
+                    <%= link_to "<span>Source</span>", "#" %>
+                    <div id="source_fields" class="loading" style="display:none;">
+                        <li id="search_source" class="check_boxes optional fix-height">
+                            <fieldset>
+                                <legend class="label">
+                                    <label for="search_metropolitan_area_id_eq_any">Metro area id equals any</label>
+                                </legend>
+                                <ol>
+                                    
+                                    <li><label for="search_facebook">
+                                        <%= check_box_tag "source[]", 'Facebook', true, :id => "search_facebook" %> Facebook                                       
+                                    </label></li>
+                                    <li><label for="search_twitter">
+                                        <%= check_box_tag "source[]", 'Twitter', true, :id => "search_twitter" %> Twitter                                       
+                                    </label></li>
+                                    <li><label for="search_alaminute">
+                                        <%= check_box_tag "source[]", 'Spoonfeed', true, :id => "search_alaminute" %> A la Minute                                       
+                                    </label></li>
+                                   
+                                </ol>
+                            </fieldset>
+                        </li>
+                    </div>
                 </div>
             </div>
         </ol>
