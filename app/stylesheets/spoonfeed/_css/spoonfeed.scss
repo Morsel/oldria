@@ -1532,7 +1532,7 @@ aside.dashboard_actions {
     height: 80px;
   }
   
-	button, input[type="submit"], a.button {
+	button, input[type="submit"] {
 		cursor:pointer;
 		float: left;
 		display: block;
@@ -1545,11 +1545,10 @@ aside.dashboard_actions {
 		padding: 5px 12px;
 		font-weight: bold;
 		text-shadow:0 1px 0 #444;
-		text-transform: none !important;
 		border:0;
 		&:hover {
 			background: #bbb08c;
-			color: #fff !important;
+			color: #fff;
 		}
 		&.positive {
 			margin:0 0 10px;
@@ -2844,7 +2843,7 @@ ul#friend_timeline {
 	}
 	li.fix-height{
 		height:125px;
-	} 
+	}
 	.label label, div.loading{
 	  display:none;
 	}
@@ -4386,6 +4385,3 @@ div .details p{
 .ui-autocomplete-loading {
         background: white url('/images/ajax-loader.gif') right center no-repeat;
     }
-.skipp-step2-fix{
-	margin :0 0 10px !important;	
-}
