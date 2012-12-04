@@ -16,4 +16,8 @@ class Spoonfeed::SocialUpdatesController < ApplicationController
     render :partial => "updates", :locals => { :updates => @updates }
   end
 
+  def expire_social_update
+      expire_fragment('social_restaurant_search_criteria')
+      redirect_to  :action => 'index'
+  end 
 end
