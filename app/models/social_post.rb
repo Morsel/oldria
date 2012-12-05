@@ -18,7 +18,6 @@ class SocialPost < ActiveRecord::Base
   def schedule_post
     if post_at_changed?
       delayed_job.destroy if delayed_job.present?
-      self.send(:post) # for testing , don't deployed to production
       job = self.send_at(post_at, :post)
       self.class.update_all("job_id = #{job.id}", ["id = ?", self.id])
     end
