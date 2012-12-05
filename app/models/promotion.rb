@@ -133,7 +133,8 @@ class Promotion < ActiveRecord::Base
 
   def post_to_twitter(message=nil)
     message = message.blank? ? twitter_message : message
-    restaurant.twitter_client.update(message)
+    restaurant.twitter_client.update("#{truncate(message,:length => 120)} #{self.bitly_link}")
+
   end
 
   def post_to_facebook(message=nil)
@@ -142,7 +143,8 @@ class Promotion < ActiveRecord::Base
       :message     => message,
       :link        => soapbox_promotion_url(self),
       :name        => headline,
-      :description => details
+      :description => details.gsub(/(<[^>]*>)|\r|\n|\t/s) {" "} ,
+      :picture => (restaurant.logo && restaurant.logo.attachment?) ? restaurant.logo.attachment.url(:medium) : nil
     }
     restaurant.post_to_facebook_page(post_attributes)
   end
