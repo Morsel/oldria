@@ -63,20 +63,18 @@
           <strong><%= menu_item.name %>
 
 </strong>
-          <% end %><% end %>
+          <% end %>
           <span class="bottommenu" style="font-family: Georgia, Times New Roman, Times, serif;font-size: 10px;color: #9F9A98;line-height: 16px;font-weight: bold;text-transform: uppercase;text-decoration: none;text-align: left;">
             <%= menu_item.otm_keywords.map { |k| link_to k.name, soapbox_menu_items_url(:keyword => k.name) }.to_sentence %><br/>
             <% for keyword in menu_item.otm_keywords %>
             <%= link_to keyword.name, soapbox_menu_items_url(:keyword => keyword.name) %>
             <% end %>
             </span>
-          <% end %>
         </p><br />
           <p><span style="font-size:20px; color:#333; font-family:'MuseoSlab300', 'Helvetica Neue', Helvetica, arial, sans-serif;">Newsfeed<br />
           </span><br /> <br /><% for promotion in @promotions %>
                   <% link_to soapbox_promotion_url(promotion), :style => "color: #fff;text-decoration: underline;font-family: Georgia, Times New Roman, Times, serif;font-size: 14px;line-height: 28px; font-weight:bold;" do %>
              <%= promotion.headline %><br /><br />
-                  <% end %>
                   <% end %>
        
           <p><span style="font-size:20px; color:#333; font-family:'MuseoSlab300', 'Helvetica Neue', Helvetica, arial, sans-serif;">A la Minute</span><br /><br />
