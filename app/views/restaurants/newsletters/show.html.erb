@@ -58,50 +58,59 @@
     <table cellpadding="0" cellspacing="0" width="600" border="0">
     <tr>
     <!--LEFT COLUMN-->
-        <td width="345" style="padding:20px; font-family:Verdana, Arial, Helvetica, sans-serif; font-size:12px;" valign="top">   <p><span style="font-size:20px; color:#333; font-family:'MuseoSlab300', 'Helvetica Neue', Helvetica, arial, sans-serif;">On the Menu</span><br /><br />
-        <% for menu_item in @menu_items %>
-          <%= link_to "<strong>#{menu_item.name}</strong>",soapbox_menu_item_url(menu_item), :style => "color: #000;text-decoration: underline;font-family: Georgia, Times New Roman, Times, serif;font-size: 14px;line-height: 28px;" %>
-         <br />
-        
+        <td width="345" style="padding:20px; font-family:Verdana, Arial, Helvetica, sans-serif; font-size:12px;" valign="top">   
+          <% unless @menu_items.blank? %>
+            <p><span style="font-size:20px; color:#333; font-family:'MuseoSlab300', 'Helvetica Neue', Helvetica, arial, sans-serif;">On the Menu</span></p><br />
+            <% for menu_item in @menu_items %>
+              <%= link_to "<strong>#{menu_item.name}</strong>",soapbox_menu_item_url(menu_item), :style => "color: #000;text-decoration: underline;font-family: Georgia, Times New Roman, Times, serif;font-size: 14px;line-height: 28px;" %>
+             <br />         
 
-          <p><span class="bottommenu" style="font-family: Georgia, Times New Roman, Times, serif;font-size: 10px;color: #9F9A98;line-height: 16px;font-weight: bold;text-transform: uppercase;text-decoration: none;text-align: left;">
-            <%= menu_item.otm_keywords.map { |k|  k.name }.to_sentence %><br/>
+              <p><span class="bottommenu" style="font-family: Georgia, Times New Roman, Times, serif;font-size: 10px;color: #9F9A98;line-height: 16px;font-weight: bold;text-transform: uppercase;text-decoration: none;text-align: left;">
+                <%= menu_item.otm_keywords.map { |k|  k.name }.to_sentence %></span></p>
 
-          <% for keyword in menu_item.otm_keywords %>
-              <%= link_to keyword.name, soapbox_menu_items_url(:keyword => keyword.name) %>
-          <% end %>
-          </span>
-
+              <% for keyword in menu_item.otm_keywords %>
+                  <%= link_to keyword.name, soapbox_menu_items_url(:keyword => keyword.name) %>
+              <% end %>
+              <br />                
             <br />
-        </p><br />
+          <% end %>
+          <hr>
         <% end %>
+        <% unless @promotions.blank? %>
           <p>
-            <span style="font-size:20px; color:#333; font-family:'MuseoSlab300', 'Helvetica Neue', Helvetica, arial, sans-serif;">Newsfeed</span><br /> <br />
+            <span style="font-size:20px; color:#333; font-family:'MuseoSlab300', 'Helvetica Neue', Helvetica, arial, sans-serif;">Newsfeed</span></p> 
           <% for promotion in @promotions %>
                <%= link_to promotion.headline, soapbox_promotion_url(promotion), :style => "color:#000;text-decoration: underline;font-family: Georgia, Times New Roman, Times, serif;font-size: 14px;line-height: 28px; font-weight:bold;"  %>
-            <br />
-                  
-          <% end %>
+            <br />  
 
-        </p><br />
-         
-          <p><span style="font-size:20px; color:#333; font-family:'MuseoSlab300', 'Helvetica Neue', Helvetica, arial, sans-serif;">A la Minute</span><br /><br />
+                          
+          <% end %>        
+           <hr> 
+        <% end %>
+        <% unless @alaminute_answers.blank? %>
+          <p><span style="font-size:20px; color:#333; font-family:'MuseoSlab300', 'Helvetica Neue', Helvetica, arial, sans-serif;">A la Minute</span></p>
             <% for alm_answer in @alaminute_answers %>
                 <%= link_to alm_answer.question, soapbox_a_la_minute_question_url(alm_answer.a_la_minute_question), :style => "color: ##CB4827;text-decoration: none;font-family: Georgia, Times New Roman, Times, serif;font-size: 14px;line-height: 24px; font-weight:bold;" %><br />
             <% end %>
-           <p><span style="font-size:20px; color:#333; font-family:'MuseoSlab300', 'Helvetica Neue', Helvetica, arial, sans-serif;">Behind the Line</span></p><br /><br />
+            <hr>
+        <% end %>  
+        <% unless @restaurant_answers.blank? %>
+           <p><span style="font-size:20px; color:#333; font-family:'MuseoSlab300', 'Helvetica Neue', Helvetica, arial, sans-serif;">Behind the Line</span></p>
 
             <% for answer in @restaurant_answers %> 
             <%= link_to answer.answer, soapbox_restaurant_url(@restaurant), :style => "color: #000;text-decoration: underline;font-family: Georgia, Times New Roman, Times, serif;font-size: 14px;line-height: 28px;" %><br /><br />
             <% end %>
-          
-          </p><p><span style="font-size:20px; color:#333; font-family:'MuseoSlab300', 'Helvetica Neue', Helvetica, arial, sans-serif;">Menus</span><br />
+            <br />
+            <hr>
+        <% end %>
 
+        <% unless @menus.blank? %>
+          <p><span style="font-size:20px; color:#333; font-family:'MuseoSlab300', 'Helvetica Neue', Helvetica, arial, sans-serif;">Menus</span></p>
           <% for menu in @menus %>
                 <p><%= link_to menu.name, restaurant_menu_url(@restaurant, menu), :style => "color: #000;text-decoration: underline;font-family: Georgia, Times New Roman, Times, serif;font-size: 14px;line-height: 28px;" %></p>
           <% end %>
-          
-          </p></td>
+        <% end %>
+    </td>
     <td width="215" valign="top" style="background: url(http://spoonfeed.restaurantintelligenceagency.com/images/soapbox/bg-sidebar-top-purple.png) no-repeat #333C68;">
     <table width="215" cellpadding="10" cellspacing="0">
     <tr>
@@ -138,7 +147,7 @@ color: white;" >             Twitter:
 
 <center>
 
-    <%= link_to "<strong>#{promotion.restaurant.name}</strong>", soapbox_restaurant_url(promotion.restaurant), :style => "color: #000;text-decoration: underline;font-family: Georgia, Times New Roman, Times, serif;line-height: 28px;" %><br />
+    <%= link_to "<strong>#{@restaurant.name}</strong>", soapbox_restaurant_url(@restaurant), :style => "color: #000;text-decoration: underline;font-family: Georgia, Times New Roman, Times, serif;line-height: 28px;" %><br />
     <br />
   <%= @restaurant.address_parts.join("<br />") %><br /><%= @restaurant.phone_number %><br /><%= link_to @restaurant.name, "http://" + @restaurant.website.gsub(/.*?:\/\//,"") %><br />
 </center>
