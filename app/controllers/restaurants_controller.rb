@@ -116,7 +116,7 @@ class RestaurantsController < ApplicationController
   end
 
   def fb_page_auth
-    debugger
+    
     if current_facebook_user
       @page = current_facebook_user.accounts.select { |a| a.id == params[:facebook_page] }.first      
       if @page
