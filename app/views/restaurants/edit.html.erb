@@ -98,8 +98,20 @@
       <% end %>
 
       <%- else -%>
-        <p>Facebook regulations require you to use your Facebook personal account permissions to access your restaurant's Facebook page. So first, link Spoonfeed to your personal Facebook account by clicking below. You can then link the account to your restaurant page. You must have admin permissions for your restaurant's Facebook page to link the accounts.</p>
+      <% if @restaurant.has_facebook_page? -%>
+            <% begin %>
+              <p>Current Facebook page for <%= @restaurant.name %>: <em>"<%= @restaurant.facebook_page.fetch.name %>"</em>
+               </p> 
+                <%= link_to "Disconnect Facebook", fb_deauth_restaurant_path(@restaurant), :class => 'sf-button negative' ,:id =>"no-fb-logged-in-disconnect" %>
+          <% rescue Mogli::Client::OAuthException, Mogli::Client::HTTPException %>
+              <p>Access to your Facebook page has expired. Please select the page again.</p>
+            <% end %>
+        <% else %>
+           <p>Facebook regulations require you to use your Facebook personal account permissions to access your restaurant's Facebook page. So first, link Spoonfeed to your personal Facebook account by clicking below. You can then link the account to your restaurant page. You must have admin permissions for your restaurant's Facebook page to link the accounts.</p>
         <%= link_to "Setup Facebook", fb_auth_user_path(current_user, :restaurant_id => @restaurant.id), :class => 'sf-button' %>
+      <%- end %>
+
+       
       <%- end -%>
   </fieldset>
 
