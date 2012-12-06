@@ -118,6 +118,7 @@ class RestaurantsController < ApplicationController
   end
 
   def fb_page_auth
+    
     if current_facebook_user
       @page = current_facebook_user.accounts.select { |a| a.id == params[:facebook_page] }.first      
       if @page
@@ -144,10 +145,11 @@ class RestaurantsController < ApplicationController
     end  
   end
 
-  def fb_deauth  
+  def fb_deauth
+      @page  = @restaurant.facebook_page.fetch if @restaurant.has_facebook_page?
       @restaurant.update_attributes!(:facebook_page_id => nil,
                                        :facebook_page_token => nil)
-      flash[:notice] = "Cleared the Facebook page #{@page.name} settings from your restaurant"
+      flash[:notice] = "Cleared the Facebook page #{@page.name} settings from your restaurant" unless @page.blank?
       redirect_to edit_restaurant_path(@restaurant)     
   end
 
