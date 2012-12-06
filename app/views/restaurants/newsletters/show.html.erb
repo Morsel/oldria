@@ -10,6 +10,16 @@ a:hover{
 
 }
 </style>
+<script>
+  
+<% javascript_tag do %>
+  var addthis_share = {
+    url: '<%= soapbox_restaurant_url(@restaurant) %>',
+    title: 'Soapbox'
+  }
+<% end %>
+
+</script>
 </head>
 
 <body leftmargin="0" topmargin="0">
@@ -102,7 +112,7 @@ a:hover{
         <% end %>
         <% unless @alaminute_answers.blank? %>
             <p><span style="font-size:20px; color:#333; font-family:'MuseoSlab300', 'Helvetica Neue', Helvetica, arial, sans-serif;">A la Minute</span></p>  <% for alm_answer in @alaminute_answers %>
-               <p> <%= link_to alm_answer.question, soapbox_a_la_minute_question_url(alm_answer.a_la_minute_question), :style => "color: ##CB4827;text-decoration: none;font-family: Georgia, Times New Roman, Times, serif;font-size: 14px;line-height: 24px; font-weight:bold;" %><br />
+               <p> <%= link_to alm_answer.question, soapbox_a_la_minute_question_url(alm_answer.a_la_minute_question), :style => "color: #000;text-decoration: none;font-family: Georgia, Times New Roman, Times, serif;font-size: 14px;line-height: 24px; font-weight:bold;" %><br />
             <% end %>
          </p>
         <% end %>  
@@ -112,7 +122,7 @@ a:hover{
            <p><span style="font-size:20px; color:#333; font-family:'MuseoSlab300', 'Helvetica Neue', Helvetica, arial, sans-serif;">Behind the Line</span></p>
 
              <p>   <% for answer in @restaurant_answers %> 
-            <%= link_to answer.answer, soapbox_restaurant_url(@restaurant), :style => "color: #000;text-decoration: underline;font-family: Georgia, Times New Roman, Times, serif;font-size: 14px;line-height: 28px;" %><br /><br />
+            <%= link_to answer.answer, soapbox_restaurant_url(@restaurant), :style => "color: #000;text-decoration: underline;font-family: Georgia, Times New Roman, Times, serif;font-size: 14px;line-height: 28px;font-weight:bold;" %><br /><br />
             <% end %>
           </p>
         <% end %>
@@ -120,10 +130,22 @@ a:hover{
         <% unless @menus.blank? %>
         
           <p><span style="font-size:20px; color:#333; font-family:'MuseoSlab300', 'Helvetica Neue', Helvetica, arial, sans-serif;">Menus</span></p>  <% for menu in @menus %>
-                <p><%= link_to menu.name, restaurant_menu_url(@restaurant, menu), :style => "color: #000;text-decoration: underline;font-family: Georgia, Times New Roman, Times, serif;font-size: 14px;line-height: 28px;" %></p>
+                <p><%= link_to menu.name, restaurant_menu_url(@restaurant, menu), :style => "color: #000;text-decoration: underline;font-family: Georgia, Times New Roman, Times, serif;font-size: 14px;line-height: 28px;font-weight:bold;" %></p>
           <% end %>
         <% end %>
-        
+          <!-- Likes and Tweets BEGIN -->
+        <div class="sharing">
+          <script type="text/javascript">var switchTo5x=true;</script>
+          <script type="text/javascript" src="http://w.sharethis.com/button/buttons.js"></script>
+          <script type="text/javascript">stLight.options({publisher: "041a7a0d-06a5-45e5-9455-9e9043faf823"}); </script>
+          <script type="text/javascript">var NREUMQ=[];NREUMQ.push(["mark","firstbyte",new Date().getTime()]);</script>
+            <span class='st_facebook_large' displayText='Facebook'></span>
+            <span class='st_twitter_large' displayText='Tweet'></span>
+            <span class='st_linkedin_large' displayText='LinkedIn'></span>
+            <span class='st_email_large' displayText='Email'></span>
+            <span class='st_googleplus_large' displayText='google plus'></span>                
+        </div>
+        <!-- Likes and Tweets END -->
     </td>
     <td width="215" valign="top" style="background: url(http://spoonfeed.restaurantintelligenceagency.com/images/soapbox/bg-sidebar-top-purple.png) no-repeat #333C68;"><table width="215" cellpadding="10" cellspacing="0">
       <tr>
@@ -152,7 +174,6 @@ font-weight: normal;color: #fff;font-family:inherit" ><strong> Twitter: <br />
       </tr>
     </table></td>
 </tr>
-
 
 </tbody></table><!--FOOTER--></td></tr></tbody></table></center>
 </td></tr></table>
