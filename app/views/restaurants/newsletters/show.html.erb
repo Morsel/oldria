@@ -3,6 +3,13 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <title><%= @restaurant.name %> Newsletter via Soapbox by Restaurant Intelligence Agency</title>
+<style type="text/css">
+a:hover{
+  text-decoration: underline !important;
+}
+
+}
+</style>
 </head>
 
 <body leftmargin="0" topmargin="0">
@@ -71,18 +78,18 @@
     <!--LEFT COLUMN-->
         <td width="345" style="padding:20px; font-family:Verdana, Arial, Helvetica, sans-serif; font-size:12px; text-align:center" valign="top">   
           <% unless @menu_items.blank? %>
-            <p><span style="font-size:20px; color:#333; font-family:'MuseoSlab300', 'Helvetica Neue', Helvetica, arial, sans-serif;">On the Menu</span></p> <p> <% for menu_item in @menu_items %>
+            <p><span style="font-size:20px; color:#333; font-family:'MuseoSlab300', 'Helvetica Neue', Helvetica, arial, sans-serif;">On the Menu</span></p> 
+
+            <% for menu_item in @menu_items %>
+            <p>
               <%= link_to "<strong>#{menu_item.name}</strong>",soapbox_menu_item_url(menu_item), :style => "color: #000;text-decoration: underline;font-family: Georgia, Times New Roman, Times, serif;font-size: 14px;line-height: 28px;" %>
              <br />         
-<span class="bottommenu" style="font-family: Georgia, Times New Roman, Times, serif;font-size: 10px;color: #9F9A98;line-height: 16px;font-weight: bold;text-transform: uppercase;text-decoration: none;text-align: center;">
-                <%= menu_item.otm_keywords.map { |k|  k.name }.to_sentence %></span>
-
-              <% for keyword in menu_item.otm_keywords %>
-                  <%= link_to keyword.name, soapbox_menu_items_url(:keyword => keyword.name) %>
-              <% end %>
-            
-            <% end %>
+              <span class="bottommenu" style="font-family: Georgia, Times New Roman, Times, serif;font-size: 10px;color: #9F9A98;line-height: 16px;font-weight: bold;text-transform: uppercase;text-decoration: none;text-align: center;">
+                <%= menu_item.otm_keywords.map { |keyword|  link_to(keyword.name, soapbox_menu_items_url(:keyword => keyword.name),:style=>"color: #9F9A98;") }.to_sentence %>
+              </span>
             </p>
+            <% end %>
+            
      <% end %>
         <% unless @promotions.blank? %>
             <span style="font-size:20px; color:#333; font-family:'MuseoSlab300', 'Helvetica Neue', Helvetica, arial, sans-serif;">Newsfeed</span></p> <p> <% for promotion in @promotions %>
@@ -120,25 +127,27 @@
     </td>
     <td width="215" valign="top" style="background: url(http://spoonfeed.restaurantintelligenceagency.com/images/soapbox/bg-sidebar-top-purple.png) no-repeat #333C68;"><table width="215" cellpadding="10" cellspacing="0">
       <tr>
-        <td><h2 style="text-transform:uppercase;font-weight: 500;font-size: 15px;line-height: 1.2;
-color: white;padding: 25px 0 3px;border-bottom: 1px solid #ADB5D8;text-transform: uppercase;
-text-shadow: 0px 1px 0px black;"> <strong><%= @restaurant.name %></strong></h2>
-          <div style="border-bottom: 1px dotted #6C769E; padding:4px" > <%= @restaurant.address_parts.join("<br />") %></div>
-          <div style="border-bottom: 1px dotted #6C769E; padding:4px;font-size: 14px;
-font-weight: normal;
-color: white;" ><strong> Phone Number:<br />
+        <td style="font-family:'Helvetica Neue',Helvetica,arial,sans-serif;">
+          <h2 style="text-transform:uppercase;font-weight: 500;font-size: 15px;line-height: 1.2;
+color: white;padding: 5px 0 3px;border-bottom: 1px solid #ADB5D8;text-transform: uppercase;
+text-shadow: 0px 1px 0px black; font-family:'MuseoSlab500','Helvetica Neue',Helvetica,arial,sans-serif"> <%= @restaurant.name %></h2>
+          <div style="border-bottom: 1px dotted #6C769E; padding:5px 0px 5px 5px;color: #FFFFFF; font-weight: bold;font-family:inherit" > <%= @restaurant.address_parts.join("<br />") %></div>
+
+          <div style="border-bottom: 1px dotted #6C769E; padding:10px 0 5px 5px;;font-size: 14px;
+font-weight: normal;color: #fff;font-family:inherit" ><strong> Phone Number:<br />
             </strong><%= @restaurant.phone_number %><strong>
-            </p>
-            </strong></div>
-          <div style="border-bottom: 1px dotted #6C769E; padding:4px;font-size: 14px;
-font-weight: normal;
-color: white;" ><strong> Website: <br />
-            </strong><%= link_to @restaurant.name, "http://" + @restaurant.website.gsub(/.*?:\/\//,"") %></div>
+            
+          </div>
+          <div style="border-bottom: 1px dotted #6C769E; padding:10px 0 5px 5px;font-size: 14px;
+font-weight: normal;color: #fff;font-family:inherit" ><strong> Website: 
+            </strong>
+            <br />
+            <%= link_to @restaurant.name, "http://" + @restaurant.website.gsub(/.*?:\/\//,""),:style=>"color:#FFFFFF; text-decoration: none;text-shadow: 0 1px 0 #000000;"  %>
+          </div>
 <% unless @restaurant.twitter_username.blank? %>
-          <div style="border-bottom: 1px dotted #6C769E; padding:4px;font-size: 14px;
-font-weight: normal;
-color: white;" ><strong> Twitter: <br />
-            </strong><%= link_to "@#{@restaurant.twitter_username}", "http://twitter.com/#{@restaurant.twitter_username}", :style => "color: #fff;text-decoration: underline;" %></div>
+          <div style="border-bottom: 1px dotted #6C769E; padding:10px 0 5px 5px;font-size: 14px;
+font-weight: normal;color: #fff;font-family:inherit" ><strong> Twitter: <br />
+            </strong><%= link_to "@#{@restaurant.twitter_username}", "http://twitter.com/#{@restaurant.twitter_username}", :style => "color: #fff;text-decoration: none;" %></div>
           <% end %></td>
       </tr>
     </table></td>
