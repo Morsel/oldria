@@ -207,7 +207,7 @@ ActionController::Routing::Routes.draw do |map|
     restaurant.resource :logo
     restaurant.resources :accolades
     restaurant.resources :restaurant_answers, :only => [:show, :create, :update, :destroy]
-    restaurant.resources :a_la_minute_answers, :collection => { :bulk_update => :put, :bulk_edit => :get }
+    restaurant.resources :a_la_minute_answers, :collection => { :bulk_update => :put, :bulk_edit => :get },:member => { :delete_attachment => :post }
     restaurant.resource :subscription, :collection => { :bt_callback => :get, :billing_history => :get },
                                        :controller => 'subscriptions'
     restaurant.resources :promotions, :member => { :delete_attachment => :post }
