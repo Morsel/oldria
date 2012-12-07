@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120830180210) do
+ActiveRecord::Schema.define(:version => 20121109104406) do
 
   create_table "a_la_minute_answers", :force => true do |t|
     t.text     "answer"
@@ -80,6 +80,8 @@ ActiveRecord::Schema.define(:version => 20120830180210) do
     t.integer  "profile_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.date     "start_date"
+    t.date     "end_date"
   end
 
   create_table "assets", :force => true do |t|
@@ -214,8 +216,8 @@ ActiveRecord::Schema.define(:version => 20120830180210) do
     t.date     "date_ended"
     t.string   "chef_name",       :default => "",    :null => false
     t.boolean  "chef_is_me",      :default => false, :null => false
-    t.text     "cuisine",         :default => "",    :null => false
-    t.text     "notes",           :default => "",    :null => false
+    t.text     "cuisine",                            :null => false
+    t.text     "notes",                              :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "opening_staff",   :default => false
@@ -304,9 +306,9 @@ ActiveRecord::Schema.define(:version => 20120830180210) do
     t.integer  "restaurant_role_id"
     t.boolean  "omniscient"
     t.boolean  "primary",              :default => false
-    t.string   "type"
     t.boolean  "public_profile",       :default => true
     t.integer  "position"
+    t.string   "type"
     t.string   "solo_restaurant_name"
   end
 
@@ -341,6 +343,25 @@ ActiveRecord::Schema.define(:version => 20120830180210) do
 
   add_index "events", ["restaurant_id"], :name => "index_events_on_restaurant_id"
 
+  create_table "faq_category", :force => true do |t|
+    t.string "name",        :limit => 75
+    t.string "create_date", :limit => 45
+  end
+
+  create_table "faq_profile_types", :force => true do |t|
+    t.string    "name",        :limit => 100
+    t.timestamp "create_date"
+  end
+
+  create_table "faq_ria", :force => true do |t|
+    t.integer   "faq_category_id",                     :null => false
+    t.integer   "faq_profile_types_id",                :null => false
+    t.integer   "user_type",                           :null => false
+    t.string    "question",             :limit => 500, :null => false
+    t.string    "answer",               :limit => 500, :null => false
+    t.timestamp "create_date",                         :null => false
+  end
+
   create_table "featured_profiles", :force => true do |t|
     t.integer  "feature_id"
     t.string   "feature_type"
@@ -357,8 +378,6 @@ ActiveRecord::Schema.define(:version => 20120830180210) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
-
-  add_index "feed_categories", ["id"], :name => "index_feed_categories_on_id", :unique => true
 
   create_table "feed_entries", :force => true do |t|
     t.string   "title"
@@ -606,6 +625,8 @@ ActiveRecord::Schema.define(:version => 20120830180210) do
     t.string   "pairing"
     t.datetime "post_to_twitter_at"
     t.datetime "post_to_facebook_at"
+    t.integer  "twitter_job_id"
+    t.integer  "facebook_job_id"
   end
 
   create_table "menus", :force => true do |t|
@@ -674,8 +695,8 @@ ActiveRecord::Schema.define(:version => 20120830180210) do
     t.string   "country",            :default => "", :null => false
     t.date     "date_started",                       :null => false
     t.date     "date_ended"
-    t.text     "responsibilities",   :default => "", :null => false
-    t.text     "reason_for_leaving", :default => "", :null => false
+    t.text     "responsibilities",                   :null => false
+    t.text     "reason_for_leaving",                 :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -756,7 +777,7 @@ ActiveRecord::Schema.define(:version => 20120830180210) do
     t.string   "title"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "position"
+    t.integer  "position",          :default => 0
     t.integer  "chapter_id"
     t.text     "roles_description"
   end
@@ -776,11 +797,12 @@ ActiveRecord::Schema.define(:version => 20120830180210) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "headline",              :default => ""
-    t.text     "summary",               :default => ""
+    t.text     "summary"
     t.string   "hometown"
     t.string   "current_residence"
     t.integer  "metropolitan_area_id"
     t.integer  "james_beard_region_id"
+    t.integer  "skipp_step"
   end
 
   add_index "profiles", ["user_id"], :name => "index_profiles_on_user_id", :unique => true
@@ -819,6 +841,16 @@ ActiveRecord::Schema.define(:version => 20120830180210) do
     t.string   "headline"
     t.datetime "post_to_twitter_at"
     t.datetime "post_to_facebook_at"
+    t.integer  "twitter_job_id"
+    t.integer  "facebook_job_id"
+  end
+
+  create_table "push_notification_users", :force => true do |t|
+    t.string   "device_tocken"
+    t.string   "uniq_device_key"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "question_pages", :force => true do |t|
@@ -857,6 +889,14 @@ ActiveRecord::Schema.define(:version => 20120830180210) do
     t.integer  "restaurant_question_id"
     t.text     "answer"
     t.integer  "restaurant_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "restaurant_employee_requests", :force => true do |t|
+    t.integer  "restaurant_id"
+    t.integer  "employee_id"
+    t.datetime "deleted_at"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -1014,10 +1054,11 @@ ActiveRecord::Schema.define(:version => 20120830180210) do
     t.string   "facebook_page_token"
     t.string   "atoken"
     t.string   "asecret"
-    t.boolean  "is_activated",               :default => false
+    t.boolean  "is_activated",               :default => true
     t.string   "newsletter_frequency",       :default => "biweekly"
     t.datetime "last_newsletter_at"
     t.datetime "next_newsletter_at"
+    t.boolean  "newsletter_approved",        :default => false
   end
 
   add_index "restaurants", ["cuisine_id"], :name => "index_restaurants_on_cuisine_id"
@@ -1100,6 +1141,17 @@ ActiveRecord::Schema.define(:version => 20120830180210) do
   end
 
   create_table "social_posts", :force => true do |t|
+    t.string   "source_type"
+    t.integer  "source_id"
+    t.integer  "job_id"
+    t.string   "type"
+    t.text     "content"
+    t.datetime "post_at"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "social_updates", :force => true do |t|
     t.string   "post_data"
     t.string   "link"
     t.datetime "post_created_at"
@@ -1234,6 +1286,11 @@ ActiveRecord::Schema.define(:version => 20120830180210) do
     t.integer  "editor_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "user_types", :force => true do |t|
+    t.string    "name",        :limit => 45
+    t.timestamp "create_date",               :null => false
   end
 
   create_table "users", :force => true do |t|
