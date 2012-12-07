@@ -12,6 +12,10 @@
 #  updated_at              :datetime
 #  post_to_twitter_at      :datetime
 #  post_to_facebook_at     :datetime
+#  attachment_file_name    :string(255)
+#  attachment_content_type :string(255)
+#  attachment_file_size    :integer
+#  attachment_updated_at   :datetime
 #
 
 class ALaMinuteAnswer < ActiveRecord::Base
@@ -31,6 +35,30 @@ class ALaMinuteAnswer < ActiveRecord::Base
 
   validates_presence_of :a_la_minute_question_id
   validates_presence_of :answer
+
+  # Attachments and validations
+  has_attached_file :attachment,
+                    :storage        => :s3,
+                    :s3_credentials => "#{RAILS_ROOT}/config/environments/#{RAILS_ENV}/amazon_s3.yml",
+                    :path           => "#{RAILS_ENV}/alaminute_answer_attachments/:id/:filename",
+                    :bucket         => "spoonfeed",
+                    :url            => ':s3_domain_url'
+
+  VALID_CONTENT_TYPES = ["application/pdf", "application/x-pdf","image/jpg", "image/jpeg", "image/png", "image/gif", "image/pjpeg", "image/x-png"]
+
+  before_validation(:on => :save) do |file|
+    if file.attachment_file_name.present? && (file.attachment_content_type == 'binary/octet-stream')
+      mime_type = MIME::Types.type_for(file.attachment_file_name)
+      file.attachment_content_type = mime_type.first.content_type if mime_type.first
+    end
+  end
+
+  validate :content_type, :if => Proc.new { |answer| answer.attachment_file_name.present? }
+
+  def content_type    
+    errors.add(:attachment, "Please upload a valid pdf or image type: jpeg, gif, or png") unless VALID_CONTENT_TYPES.include?(self.attachment_content_type)
+  end
+
 
   default_scope :order => 'created_at desc'
 

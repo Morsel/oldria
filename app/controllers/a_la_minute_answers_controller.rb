@@ -1,7 +1,7 @@
 class ALaMinuteAnswersController < ApplicationController
 
   before_filter :require_user
-  before_filter :require_restaurant_employee, :only => [:destroy, :bulk_edit, :edit, :update, :new, :create]
+  before_filter :require_restaurant_employee, :only => [:destroy, :bulk_edit, :edit, :update, :new, :create,:delete_attachment]
   before_filter :find_activated_restaurant, :only => [:index]
   before_filter :social_redirect, :only => [:edit]
 
@@ -62,6 +62,14 @@ class ALaMinuteAnswersController < ApplicationController
       @answer.build_social_posts
       render :action => "edit"
     end
+  end
+
+  def delete_attachment
+    @answer = ALaMinuteAnswer.find(params[:id])
+    @answer.attachment = nil
+    @answer.save
+    flash[:notice] = "Deleted attachment"
+    redirect_to edit_restaurant_a_la_minute_answer_path(@restaurant, @promotion)
   end
 
   private
