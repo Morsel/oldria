@@ -127,7 +127,8 @@ class MenuItem < ActiveRecord::Base
       :link        => soapbox_menu_item_url(self),
       :name        => name,
       :description => Loofah::Helpers.strip_tags(description),
-      :picture     => picture_url
+      :picture     => picture_url,
+      :timeline    => true
     }
     restaurant.post_to_facebook_page(post_attributes)
   end
