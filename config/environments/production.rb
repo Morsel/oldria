@@ -39,3 +39,5 @@ CLOUDMAIL_ID = '0df080edd37d5e209f5d'
 CLOUDMAIL_DOMAIN = 'mailbot.restaurantintelligenceagency.com'
 # for verifying the emails came from cloudmailin
 CLOUDMAIL_SECRET = '781ff8e2b62535e0eee2'.freeze
+
+ENV['MC_API_KEY'] = 'b992d9bf14db221d322b7add975b1c39-us2'
