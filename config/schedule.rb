@@ -36,9 +36,9 @@ every 1.day, :at => '2:30am' do
   rake "subscriptions:purge_expired"
 end
 
-every :tuesday, :at => "12:00pm" do
-  runner 'Restaurant.send_newsletter_preview_reminder'
-end
+# every :tuesday, :at => "12:00pm" do
+#   runner 'Restaurant.send_newsletter_preview_reminder'
+# end
 
 every :thursday, :at => "2:00am" do
   runner 'Restaurant.send_newsletters'
