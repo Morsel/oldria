@@ -127,7 +127,7 @@ class MenuItem < ActiveRecord::Base
       :link        => soapbox_menu_item_url(self),
       :name        => name,
       :description => Loofah::Helpers.strip_tags(description),
-      :picture     => picture_url,
+      :picture     => "http://spoonfeed.s3.amazonaws.com/development/otm_photos/1066/large/stiamoasciugando.jpg?1355145366",
       :timeline    => self.photo_file_name.present? ? true : false
     }
     restaurant.post_to_facebook_page(post_attributes)
