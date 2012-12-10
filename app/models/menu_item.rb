@@ -126,7 +126,7 @@ class MenuItem < ActiveRecord::Base
       :name        => name,
       :description => Loofah::Helpers.strip_tags(description),
       :picture     => picture_url,
-      :timeline    => true
+      :timeline    => self.photo_file_name.present? ? true : false
     }
     restaurant.post_to_facebook_page(post_attributes)
   end
