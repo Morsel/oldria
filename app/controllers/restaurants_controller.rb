@@ -1,8 +1,9 @@
 class RestaurantsController < ApplicationController
   before_filter :require_user
   before_filter :authorize, :only => [:edit, :update, :select_primary_photo,
-                                             :new_manager_needed, :replace_manager, :fb_page_auth,
-                                             :remove_twitter, :download_subscribers, :activate_restaurant,:new_media_contact,:replace_media_contact]
+                                      :new_manager_needed, :replace_manager, :fb_page_auth,
+                                      :remove_twitter, :download_subscribers, :activate_restaurant, :new_media_contact, :replace_media_contact,
+                                      :newsletter_subscriptions]
   before_filter :find_restaurant, :only => [:twitter_archive, :facebook_archive, :social_archive]
 
   def index
@@ -159,10 +160,30 @@ class RestaurantsController < ApplicationController
       flash[:error] = "We were unable to update the restaurant"
       redirect_to :restaurants
     end
-  end  
+  end
+
+  def newsletter_subscriptions
+    @subscriptions = @restaurant.newsletter_subscriptions
+  end
 
   def download_subscribers
-    send_data(@restaurant.newsletter_subscribers.to_csv, :filename => "#{@restaurant.name} subscribers.csv")
+    @subscriptions = @restaurant.newsletter_subscriptions
+
+    # csv string generator
+    @csv = FasterCSV.generate do |csv|
+      # header
+      csv << %w[first_name last_name email subscription_date]
+
+      # subscribers
+      @subscriptions.each do |subscription|
+        csv << [subscription.newsletter_subscriber.first_name,
+                subscription.newsletter_subscriber.last_name,
+                subscription.newsletter_subscriber.email,
+                subscription.created_at]
+      end
+    end
+
+    send_data(@csv, :filename => "#{@restaurant.name} subscribers.csv")
   end
 
   def add_restaurant

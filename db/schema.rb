@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121108160937) do
+ActiveRecord::Schema.define(:version => 20121208020259) do
 
   create_table "a_la_minute_answers", :id => false, :force => true do |t|
     t.integer  "id",                      :null => false
@@ -1151,6 +1151,7 @@ ActiveRecord::Schema.define(:version => 20121108160937) do
     t.string   "newsletter_frequency",       :default => "biweekly"
     t.datetime "last_newsletter_at"
     t.datetime "next_newsletter_at"
+    t.boolean  "newsletter_approved",        :default => false
   end
 
   add_index "restaurants", ["cuisine_id"], :name => "index_restaurants_on_cuisine_id"

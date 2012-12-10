@@ -37,13 +37,19 @@
 #  atoken                     :string(255)
 #  asecret                    :string(255)
 #  is_activated               :boolean         default(FALSE)
+#  newsletter_frequency       :string(255)
 #
+
+require 'chronic'
 
 class Restaurant < ActiveRecord::Base
   apply_addresslogic
   has_subscription
   include FacebookPageConnect
   include TwitterAuthorization
+
+  include ActionController::UrlWriter
+  default_url_options[:host] = DEFAULT_HOST
 
   default_scope :conditions => {:deleted_at => nil }, :order => "#{table_name}.sort_name"
 
@@ -81,8 +87,11 @@ class Restaurant < ActiveRecord::Base
   has_many :accolades, :as => :accoladable
   has_many :a_la_minute_answers, :as => :responder, :dependent => :destroy
   has_many :press_releases
-  has_many :newsletter_subscriptions, :conditions => { :share_with_restaurant => true }
+  has_many :restaurant_answers
+
+  has_many :newsletter_subscriptions, :dependent => :destroy
   has_many :newsletter_subscribers, :through => :newsletter_subscriptions
+  has_many :restaurant_newsletters
   has_many :social_posts
 
   has_many :restaurant_feature_items, :dependent => :destroy
@@ -113,6 +122,8 @@ class Restaurant < ActiveRecord::Base
       :with => %r{^https*://www\.facebook\.com(.*)},
       :allow_blank => true,
       :message => "Facebook page must start with http://www.facebook.com"
+
+  validates_inclusion_of :newsletter_frequency, :in => ["weekly", "biweekly", "monthly"]
 
   has_one :subscription, :as => :subscriber
   after_validation_on_create :add_manager_as_employee
@@ -255,6 +266,70 @@ class Restaurant < ActiveRecord::Base
 
   def photos_last_updated
     photos.present? ? photos.first(:order => "updated_at DESC").updated_at.strftime('%m/%d/%y') : ''
+  end
+
+  def shareable_newsletter_subscribers
+    newsletter_subscribers.all(:conditions => ["newsletter_subscriptions.share_with_restaurant = ?", true])
+  end
+
+  def self.send_newsletter_preview_reminder
+    for restaurant in Restaurant.with_premium_account
+      restaurant.send_later(:send_newsletter_preview_reminder)
+    end
+  end
+
+  def send_newsletter_preview_reminder
+    UserMailer.deliver_newsletter_preview_reminder(self)
+  end
+
+  def mailchimp_group_name
+    "#{name} in #{city} #{state}"
+  end
+
+  def next_newsletter_for_frequency
+    case newsletter_frequency
+    when "weekly"
+      Chronic.parse("next week Thursday 12:00am")
+    when "biweekly"
+      Chronic.parse("next week Thursday 12:00am") + 1.week
+    when "monthly"
+      Chronic.parse("next month Thursday 12:00am")
+    end
+  end
+
+  def self.send_newsletters
+    for restaurant in Restaurant.with_premium_account
+      if restaurant.next_newsletter_at < Time.now && restaurant.newsletter_approved
+        restaurant.send_later(:send_newsletter_to_subscribers)
+        restaurant.update_attribute(:next_newsletter_at, restaurant.next_newsletter_for_frequency)
+      end
+    end
+  end
+
+  def send_newsletter_to_subscribers
+    if newsletter_subscribers.present? && restaurant.newsletter_approved
+      # create newsletter
+      newsletter = RestaurantNewsletter.create_with_content(id)
+      # connect to Mailchimp
+      mc = MailchimpConnector.new
+      # create new campaign with content for the restaurant, selecting the correct subscribers
+      campaign_id = \
+      mc.client.campaign_create(:type => "regular",
+                                :options => { :list_id => mc.mailing_list_id,
+                                              :subject => "#{name} Soapbox Newsletter for #{Date.today}",
+                                              :from_email => "info@restaurantintelligenceagency.com",
+                                              :to_name => "*|FNAME|*",
+                                              :from_name => "Restaurant Intelligence Agency",
+                                              :generate_text => true },
+                                :segment_opts => { :match => "all",
+                                :conditions => [{ :field => "interests-#{mc.grouping_id}",
+                                                  :op => "all",
+                                                  :value => mailchimp_group_name}] },
+                                :content => { :url => restaurant_newsletter_url(self, newsletter) })
+      # send campaign
+      mc.client.campaign_send_now(:cid => campaign_id)
+      update_attributes(:last_newsletter_at => Time.now, :newsletter_approved => false)
+    end
   end
 
   def self.extended_find(keyword)

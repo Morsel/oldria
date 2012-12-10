@@ -252,6 +252,16 @@ form, #main form{
 			color:$med-brown;
 			text-transform:uppercase;
 		}
+		&.sub-title {
+			font-size: 15px;
+			text-transform: uppercase;
+			color: $orange;
+			letter-spacing: 0.1em;
+			line-height: 18px;
+			font-style: normal;
+			border-bottom: 2px solid $orange;
+			padding-top: 15px;
+		}
 	}
 	h3 {
 		font-family: 'Hoefler Text', Georgia, Times, serif;
@@ -1532,7 +1542,7 @@ aside.dashboard_actions {
     height: 80px;
   }
   
-	button, input[type="submit"] {
+	button, input[type="submit"], a.button {
 		cursor:pointer;
 		float: left;
 		display: block;
@@ -1545,10 +1555,11 @@ aside.dashboard_actions {
 		padding: 5px 12px;
 		font-weight: bold;
 		text-shadow:0 1px 0 #444;
+		text-transform: none !important;
 		border:0;
 		&:hover {
 			background: #bbb08c;
-			color: #fff;
+			color: #fff !important;
 		}
 		&.positive {
 			margin:0 0 10px;

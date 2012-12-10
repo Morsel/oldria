@@ -56,7 +56,7 @@ ActionController::Routing::Routes.draw do |map|
 
     soapbox.resources :newsletter_subscribers, :member => { :welcome => :get, :confirm => :get },
                                                :collection => { :find_subscriber => :get }
-    soapbox.resources :newsletter_subscriptions, :only => [:update]
+    soapbox.resources :newsletter_subscriptions, :only => [:update, :destroy]
 
     soapbox.connect 'travel_guides', :controller => 'soapbox', :action => 'travel_guides'
     soapbox.connect 'directory_search', :controller => 'soapbox', :action => 'directory_search'
@@ -131,7 +131,8 @@ ActionController::Routing::Routes.draw do |map|
     :fb_deauth => :any,
     :fb_page_auth => :post,
     :remove_editor => :put,
-    :upload =>:post
+    :upload =>:post,
+    :edit_newsletters => :get
   }, :shallow => true do |users|
     users.resource :profile, :only => ['create', 'edit', 'update'],
                    :controller => 'profiles',
@@ -182,6 +183,7 @@ ActionController::Routing::Routes.draw do |map|
                              :twitter_archive => :get,
                              :facebook_archive => :get,
                              :social_archive => :get,
+                             :newsletter_subscriptions => :get,
                              :download_subscribers => :get,
                              :new_media_contact => :get,
                              :replace_media_contact => :post,
@@ -220,6 +222,8 @@ ActionController::Routing::Routes.draw do |map|
 
     restaurant.social_posts 'social_posts', :controller => 'restaurants/social_post', :action => 'index'
     restaurant.social_posts_page 'social_posts/:page', :controller => 'restaurants/social_post', :action => 'index'
+
+    restaurant.resources :newsletters, :controller => 'restaurants/newsletters', :collection => { :update_settings => :post, :preview => :get, :approve => :post }
   end
 
   map.resources :user_sessions, :password_resets, :followings, :pages

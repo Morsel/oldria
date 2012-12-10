@@ -15,12 +15,11 @@ class Soapbox::NewsletterSubscribersController < ApplicationController
   end
 
   def update
-    @subscriber = NewsletterSubscriber.find(params[:id])
     if @subscriber.update_attributes(params[:newsletter_subscriber])
       flash[:notice] = "Thanks! Your preferences have been updated."
-      redirect_to :action => "edit"
+      redirect_to_user_or_edit
     else
-      render :action => "edit"
+      @subscriber.user.present? ? redirect_to_user_or_edit : render(:action => "edit")
     end
   end
 
@@ -53,16 +52,24 @@ class Soapbox::NewsletterSubscribersController < ApplicationController
       end
     else
       cookies.delete('newsletter_subscriber_id')
-      flash[:notice] = "Please register as a diner in order to subscribe to restaurants."
-      redirect_to join_path(:subdomain => "spoonfeed")
+      flash[:error] = "You entered in an incorrect email address or password. Please try again."
+      render :action => 'find_subscriber'
     end
   end
 
   private
 
   def verify_subscriber
-    @subscriber = NewsletterSubscriber.find(params[:id])
-    redirect_to :action => "find_subscriber" unless cookies['newsletter_subscriber_id'] == @subscriber.id.to_s
+    if current_user && current_user.newsletter_subscriber.present?
+      @subscriber = current_user.newsletter_subscriber
+    else
+      @subscriber = NewsletterSubscriber.find(params[:id])
+      redirect_to :action => "find_subscriber" unless cookies['newsletter_subscriber_id'] == @subscriber.id.to_s
+    end
+  end
+
+  def redirect_to_user_or_edit
+    redirect_to @subscriber.user.present? ? edit_newsletters_user_url(@subscriber.user) : { :action => "edit" }
   end
 
 end

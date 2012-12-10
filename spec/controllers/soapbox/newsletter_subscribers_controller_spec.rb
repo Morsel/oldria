@@ -21,6 +21,11 @@ describe Soapbox::NewsletterSubscribersController do
     it "should confirm a user when valid id and token are given" do
       subscriber = Factory(:newsletter_subscriber)
       NewsletterSubscriber.stubs(:find).returns(subscriber)
+
+      client = mock
+      MailchimpConnector.stubs(:new).returns(mock(:client => client, :mailing_list_id => 1234))
+      client.stubs(:list_subscribe).returns(true)
+
       get 'confirm', :id => 1, :token => subscriber.confirmation_token
       response.should be_success
       subscriber.reload.confirmed_at.should_not be_nil

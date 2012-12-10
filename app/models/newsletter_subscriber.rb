@@ -17,7 +17,8 @@
 
 class NewsletterSubscriber < ActiveRecord::Base
 
-  has_many :newsletter_subscriptions
+  has_many :newsletter_subscriptions, :dependent => :destroy
+  belongs_to :user
 
   validates_presence_of :email
   validates_uniqueness_of :email, :message => "has already registered"
@@ -32,6 +33,11 @@ class NewsletterSubscriber < ActiveRecord::Base
 
   before_save :encrypt_password
   after_create :send_confirmation
+  after_update :update_mailchimp
+
+  named_scope :confirmed, {
+    :conditions => "confirmed_at IS NOT NULL"
+  }
 
   def confirm!
     self.update_attribute(:confirmed_at, Time.now)
@@ -39,6 +45,10 @@ class NewsletterSubscriber < ActiveRecord::Base
 
   def confirmation_token
     Digest::MD5.hexdigest(id.to_s + created_at.to_s)
+  end
+
+  def confirmed?
+    confirmed_at.present?
   end
 
   def self.build_from_registration(params)
@@ -50,10 +60,26 @@ class NewsletterSubscriber < ActiveRecord::Base
         :password_confirmation => random_password)
   end
 
+  def self.create_from_user(u)
+    subscriber = new(:first_name => u.first_name,
+                     :last_name => u.last_name,
+                     :email => u.email,
+                     :user_id => u.id,
+                     :confirmed_at => Time.now)
+    subscriber.save(false)
+    subscriber
+  end
+
+  def update_from_user(u)
+    update_attributes(:first_name => u.first_name,
+                      :last_name => u.last_name,
+                      :email => u.email)
+  end
+
   def self.authenticate(email, password)
-    user = find_by_email(email)
-    if user && user.password_hash == BCrypt::Engine.hash_secret(password, user.password_salt)
-      user
+    subscriber = find_by_email(email)
+    if subscriber && subscriber.password_hash == BCrypt::Engine.hash_secret(password, subscriber.password_salt)
+      subscriber
     else
       nil
     end
@@ -66,7 +92,7 @@ class NewsletterSubscriber < ActiveRecord::Base
   private
 
   def not_a_user
-    if User.find_by_email(email).present?
+    if !user.present? && User.find_by_email(email).present?
       errors.add(:email, "is already signed up for Spoonfeed. Log in to manage your settings there.")
       false
     end
@@ -80,6 +106,24 @@ class NewsletterSubscriber < ActiveRecord::Base
     if password.present?
       self.password_salt = BCrypt::Engine.generate_salt
       self.password_hash = BCrypt::Engine.hash_secret(password, password_salt)
+    end
+  end
+
+  def update_mailchimp
+    if self.confirmed?
+      mc = MailchimpConnector.new
+
+      if self.opt_out?
+        mc.client.list_unsubscribe(:id => mc.mailing_list_id, :email_address => email)
+      else
+        groupings = if receive_soapbox_news?
+          { :name => "Your Interests", :groups => "National Newsletter" }
+        else
+          { :name => "Your Interests", :groups => "" }
+        end
+        mc.client.list_subscribe(:id => mc.mailing_list_id, :email_address => email, :update_existing => true, :double_optin => false,
+                                 :merge_vars => { :fname => first_name, :lname => last_name, :groupings => [groupings] })
+      end
     end
   end
 

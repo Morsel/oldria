@@ -191,6 +191,11 @@ class UsersController < ApplicationController
       end  
   end  
 
+  def edit_newsletters
+    @user = current_user
+    @subscriber = current_user.newsletter_subscriber
+  end
+
   private
 
   def get_user
