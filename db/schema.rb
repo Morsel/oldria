@@ -1151,6 +1151,7 @@ ActiveRecord::Schema.define(:version => 20121108160937) do
     t.string   "newsletter_frequency",       :default => "biweekly"
     t.datetime "last_newsletter_at"
     t.datetime "next_newsletter_at"
+    t.boolean  "newsletter_approved",        :default => false
   end
 
   add_index "restaurants", ["cuisine_id"], :name => "index_restaurants_on_cuisine_id"

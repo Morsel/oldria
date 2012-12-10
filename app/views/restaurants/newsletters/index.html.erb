@@ -28,6 +28,9 @@
 
                 <div id="restaurant_actions" class="clearfix">
                   <%= link_to "Preview newsletter", preview_restaurant_newsletters_path(@restaurant), :popup => true, :class => 'button' %>
+                  <% unless @restaurant.newsletter_approved? %>
+                    <%= button_to "Approve newsletter", approve_restaurant_newsletters_path(@restaurant), :method => 'post', :confirm => 'Are you sure you want to approve this newsletter for delivery?' %>
+                  <% end %>
                   <%= button_to "Send newsletter", restaurant_newsletters_path(@restaurant) %>
                 </div>
 

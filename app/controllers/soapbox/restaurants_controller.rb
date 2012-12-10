@@ -10,20 +10,23 @@ module Soapbox
       @questions = ALaMinuteAnswer.public_profile_for(@restaurant)
       @promotions = @restaurant.promotions.all(:order => "created_at DESC", :limit => 3)
       @menu_items = @restaurant.menu_items.all(:order => "created_at DESC", :limit => 3)
-      @subscriber = NewsletterSubscriber.find(cookies['newsletter_subscriber_id']) if cookies.has_key?('newsletter_subscriber_id')
+      @subscriber = current_subscriber
     end
 
     def subscribe
-      subscriber = NewsletterSubscriber.find(cookies['newsletter_subscriber_id'])
+      subscriber = current_subscriber(true)
       restaurant = Restaurant.find(params[:id])
-      if NewsletterSubscription.create(:newsletter_subscriber => subscriber, :restaurant => restaurant)
-        flash[:notice] = "#{subscriber.email} is now subscribed to #{restaurant.name}'s newsletter."
-        redirect_to :action => "confirm_subscription", :subscriber_id => subscriber.id
+
+      if subscriber.present?
+        if NewsletterSubscription.create(:newsletter_subscriber => subscriber, :restaurant => restaurant)
+          flash[:notice] = "#{subscriber.email} is now subscribed to #{restaurant.name}'s newsletter."
+          redirect_to :action => "confirm_subscription", :subscriber_id => subscriber.id
+        else
+          redirect_to :action => "show", :id => restaurant.id
+        end
       else
-        redirect_to :action => "show", :id => restaurant.id
+        redirect_to find_subscriber_soapbox_newsletter_subscribers_path(:restaurant_id => params[:id])
       end
-    rescue ActiveRecord::RecordNotFound
-      redirect_to find_subscriber_soapbox_newsletter_subscribers_path(:restaurant_id => params[:id])
     end
 
     def confirm_subscription

@@ -39,6 +39,15 @@ class Restaurants::NewslettersController < ApplicationController
     render :action => "show", :layout => false
   end
 
+  def approve
+    if @restaurant.update_attribute('newsletter_approved', true)
+      flash[:notice] = "The newsletter as been approved for delivery."
+    else
+      flash[:error] = "There was an issue approving the newsletter. Please try again."
+    end
+    render :action => "index"
+  end
+
   private
 
   def authorize

@@ -1,0 +1,36 @@
+<% title "Edit Newsletter Subscriptions: #{@user.name}" %>
+
+<h2 class="sub-title">Restaurant Subscriptions</h2>
+
+<% if !@subscriber.present? || @subscriber.newsletter_subscriptions.empty? %>
+  <p>You are not currently subscribed to any restaurant newsletters.</p>
+<% else %>
+  <ul>
+    <% for subscription in @subscriber.newsletter_subscriptions %>
+      <li>
+        <strong><%= link_to subscription.restaurant.name, soapbox_restaurant_path(subscription.restaurant) %></strong>
+        <%= link_to '[unsubscribe]', soapbox_newsletter_subscription_path(subscription), :class => 'hint', :method => :delete, :confirm => 'Are you sure you want to unsubscribe?' %>
+      </li>
+    <% end %>
+  </ul>
+<% end %>
+
+
+<h2 class="sub-title">Soapbox Newsletter</h2>
+
+<% semantic_form_for [:soapbox, @subscriber] do |f| %>
+  <% f.inputs do %>
+    <%= f.input :receive_soapbox_news, :label => "I want to receive the Soapbox email newsletter" %>
+  <% end %>
+  <%= submit_tag "Save" %>
+<% end %>
+
+
+<h2 class="sub-title">Opt Out</h2>
+
+<% if !@subscriber.opt_out %>
+  <p><%= link_to "Opt out of all email communication", soapbox_newsletter_subscriber_path(:newsletter_subscriber => {:opt_out => true}), :method => "put", :confirm => "Are you sure you want to opt out?" %></p>
+<% else %>
+  <p>You have opted out of all email communication. <%= link_to "Opt back in?", soapbox_newsletter_subscriber_path(:newsletter_subscriber => {:opt_out => false}), :method => "put" %></p>
+<% end %>
+</div>

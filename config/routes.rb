@@ -132,7 +132,8 @@ ActionController::Routing::Routes.draw do |map|
     :fb_deauth => :any,
     :fb_page_auth => :post,
     :remove_editor => :put,
-    :upload =>:post
+    :upload =>:post,
+    :edit_newsletters => :get
   }, :shallow => true do |users|
     users.resource :profile, :only => ['create', 'edit', 'update'],
                    :controller => 'profiles',
@@ -221,7 +222,7 @@ ActionController::Routing::Routes.draw do |map|
     restaurant.btl_topic 'behind_the_line/topic/:id', :controller => 'restaurants/behind_the_line', :action => 'topic'
     restaurant.btl_chapter 'behind_the_line/chapter/:id', :controller => 'restaurants/behind_the_line', :action => 'chapter'
 
-    restaurant.resources :newsletters, :controller => 'restaurants/newsletters', :collection => { :update_settings => :post, :preview => :get }
+    restaurant.resources :newsletters, :controller => 'restaurants/newsletters', :collection => { :update_settings => :post, :preview => :get, :approve => :post }
 
     restaurant.social_posts 'social_posts', :controller => 'restaurants/social_post', :action => 'index'
     restaurant.social_posts_page 'social_posts/:page', :controller => 'restaurants/social_post', :action => 'index'

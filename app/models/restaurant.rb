@@ -303,7 +303,7 @@ class Restaurant < ActiveRecord::Base
 
   def self.send_newsletters
     for restaurant in Restaurant.with_premium_account
-      if restaurant.next_newsletter_at < Time.now
+      if restaurant.next_newsletter_at < Time.now && restaurant.newsletter_approved
         restaurant.send_later(:send_newsletter_to_subscribers)
         restaurant.update_attribute(:next_newsletter_at, restaurant.next_newsletter_for_frequency)
       end
@@ -311,7 +311,7 @@ class Restaurant < ActiveRecord::Base
   end
 
   def send_newsletter_to_subscribers
-    if newsletter_subscribers.present?
+    if newsletter_subscribers.present? && restaurant.newsletter_approved
       # create newsletter
       newsletter = RestaurantNewsletter.create_with_content(id)
       # connect to Mailchimp
@@ -332,7 +332,7 @@ class Restaurant < ActiveRecord::Base
                                 :content => { :url => restaurant_newsletter_url(self, newsletter) })
       # send campaign
       mc.client.campaign_send_now(:cid => campaign_id)
-      update_attribute(:last_newsletter_at, Time.now)
+      update_attributes(:last_newsletter_at => Time.now, :newsletter_approved => false)
     end
   end
 

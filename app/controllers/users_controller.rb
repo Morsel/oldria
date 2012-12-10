@@ -192,13 +192,19 @@ class UsersController < ApplicationController
     redirect_to edit_user_profile_path(:user_id => @user.id)
   end
 
+
   def upload
       if @user.update_attributes(params[:user])
         render :json=>{:status=>true}
       else
         render :json=>{:status=>false,:errors =>  @user.errors.as_json.uniq}
       end  
-  end  
+  end
+
+  def edit_newsletters
+    @user = current_user
+    @subscriber = current_user.newsletter_subscriber
+  end
 
   private
 

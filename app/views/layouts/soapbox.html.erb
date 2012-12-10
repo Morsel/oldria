@@ -49,7 +49,12 @@
       <a id="ria-hq" title="RIA Home" href="<%= hq_root_url(:subdomain => "hq") %>"><abbr title="Restaurant Intelligence Agency">RIA</abbr> <abbr title="Headquarters">HQ</abbr></a>
       <%= link_to 'Spoonfeed Login', login_path, :id => 'sf-log-in' unless current_user %>
       <%= link_to 'Soapbox Login', find_subscriber_soapbox_newsletter_subscribers_path, :id => 'sb-log-in' unless current_subscriber %>
-      <%= link_to 'Preferences', edit_soapbox_newsletter_subscriber_path(current_subscriber), :id => 'preferences' if current_subscriber %>
+
+      <% if current_user || current_subscriber %>
+        <% profile_uri = current_user ? edit_user_profile_url(current_user, :subdomain => 'spoonfeed') : edit_soapbox_newsletter_subscriber_path(current_subscriber) %>
+        <%= link_to 'Edit Profile', profile_uri, :id => 'preferences' %>
+      <% end %>
+
       <%= link_to 'Logout', logout_path, :id => 'log-out' if current_user || current_subscriber %>
     </nav><!--#utilities-->
   
