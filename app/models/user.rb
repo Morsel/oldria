@@ -129,6 +129,10 @@ class User < ActiveRecord::Base
 
   after_create :deliver_invitation_message!, :if => Proc.new { |user| user.send_invitation }
 
+  # Newsletter Subscriber
+  has_one :newsletter_subscriber
+  after_update :update_newsletter_subscriber, :if => Proc.new { |user| user.newsletter_subscriber.present? }
+
   named_scope :media, :conditions => { :role => 'media' }
   named_scope :not_media, :conditions => ["(role != ? OR role IS NULL)", "media"]
   named_scope :admin, :conditions => { :role => 'admin' }
@@ -567,5 +571,14 @@ class User < ActiveRecord::Base
       ],
       :order => "LOWER(last_name) ASC" 
     }
+  end
+
+  def create_newsletter_subscriber
+    return newsletter_subscriber if newsletter_subscriber.present?
+    newsletter_subscriber = NewsletterSubscriber.create_from_user(self)
+  end
+
+  def update_newsletter_subscriber
+    newsletter_subscriber.update_from_user(self)
   end
 end

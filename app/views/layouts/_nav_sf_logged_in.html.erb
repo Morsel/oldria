@@ -1,5 +1,6 @@
 <nav id="navContainer">
     <ul>
+        <li><%= active_link_to "edit my newsletter settings", edit_newsletters_user_path(current_user), :title => "edit your newsletter subscriptions" %></li>
         <li><%= active_link_to "edit my profile", edit_user_profile_path(current_user), :title => "edit your profile" %></li>
         <li><%= active_link_to "edit my restaurant", restaurants_path, :title => "edit your restaurants" %></li>
         <li><%= active_link_to "read my messages", messages_path, :title => "messages" %></li>

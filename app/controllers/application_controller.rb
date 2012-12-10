@@ -74,9 +74,13 @@ class ApplicationController < ActionController::Base
     @current_user = current_user_session && current_user_session.user
   end
 
-  def current_subscriber
+  def current_subscriber(create_user_subscriber=false)
     return @current_subscriber if defined?(@current_subscriber)
-    @current_subscriber = NewsletterSubscriber.find(cookies[:newsletter_subscriber_id]) if cookies.has_key?('newsletter_subscriber_id')
+    @current_subscriber = if current_user
+                            create_user_subscriber ? current_user.create_newsletter_subscriber : current_user.newsletter_subscriber
+                          elsif cookies.has_key?('newsletter_subscriber_id')
+                            NewsletterSubscriber.find(cookies[:newsletter_subscriber_id])
+                          end
   end
 
   def require_twitter_authorization

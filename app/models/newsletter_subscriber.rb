@@ -18,6 +18,7 @@
 class NewsletterSubscriber < ActiveRecord::Base
 
   has_many :newsletter_subscriptions, :dependent => :destroy
+  belongs_to :user
 
   validates_presence_of :email
   validates_uniqueness_of :email, :message => "has already registered"
@@ -59,10 +60,26 @@ class NewsletterSubscriber < ActiveRecord::Base
         :password_confirmation => random_password)
   end
 
+  def self.create_from_user(u)
+    subscriber = new(:first_name => u.first_name,
+                     :last_name => u.last_name,
+                     :email => u.email,
+                     :user_id => u.id,
+                     :confirmed_at => Time.now)
+    subscriber.save(false)
+    subscriber
+  end
+
+  def update_from_user(u)
+    update_attributes(:first_name => u.first_name,
+                      :last_name => u.last_name,
+                      :email => u.email)
+  end
+
   def self.authenticate(email, password)
-    user = find_by_email(email)
-    if user && user.password_hash == BCrypt::Engine.hash_secret(password, user.password_salt)
-      user
+    subscriber = find_by_email(email)
+    if subscriber && subscriber.password_hash == BCrypt::Engine.hash_secret(password, subscriber.password_salt)
+      subscriber
     else
       nil
     end
@@ -75,7 +92,7 @@ class NewsletterSubscriber < ActiveRecord::Base
   private
 
   def not_a_user
-    if User.find_by_email(email).present?
+    if !user.present? && User.find_by_email(email).present?
       errors.add(:email, "is already signed up for Spoonfeed. Log in to manage your settings there.")
       false
     end
