@@ -222,7 +222,7 @@ class RestaurantsController < ApplicationController
                 unless news.save
                   @error_arr.push(news.email)
                 else
-                  news.newsletter_subscriptions.build({:restaurant_id=>params[:id]}).save
+                  news.newsletter_subscriptions.build({:restaurant_id=>params[:id],:share_with_restaurant=> true}).save
                 end
             end 
           rescue FasterCSV::MalformedCSVError               

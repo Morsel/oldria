@@ -10,7 +10,7 @@
 
               <nav id="restaurant_feature_nav">
                 <%= active_link_to 'Settings', restaurant_newsletters_path(:restaurant_id => @restaurant) %>
-                <%= active_link_to 'Subscribers', newsletter_subscriptions_restaurant_path(@restaurant) if @restaurant.shareable_newsletter_subscribers.present? %>
+                <%= active_link_to 'Subscribers', newsletter_subscriptions_restaurant_path(@restaurant) %>
               </nav>
 
               <div id="restaurant_features_content" style="width:700px;">
