@@ -18,7 +18,9 @@
                 <div class="right" style="margin-right:10px">
                     <%= link_to "Export to CSV file", download_subscribers_restaurant_path(@restaurant) %>
                 </div>
-
+                <div class="right" style="margin-right:10px" >
+                   <%= render 'restaurants/newsletters/csv' %>
+               </div>
                 <h1 class="pg_title">Newsletter Subscribers</h1>
 
                 <!-- <div id="read_messages" style="width:670px;margin:0;"> -->

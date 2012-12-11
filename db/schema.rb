@@ -11,6 +11,7 @@
 
 ActiveRecord::Schema.define(:version => 20121108160937) do
 
+
   create_table "a_la_minute_answers", :id => false, :force => true do |t|
     t.integer  "id",                      :null => false
     t.text     "answer"

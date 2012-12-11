@@ -186,6 +186,7 @@ ActionController::Routing::Routes.draw do |map|
                              :social_archive => :get,
                              :newsletter_subscriptions => :get,
                              :download_subscribers => :get,
+                             :import_csv =>:post,
                              :new_media_contact => :get,
                              :replace_media_contact => :post,
                              :send_restaurant_request => :get,
@@ -222,12 +223,14 @@ ActionController::Routing::Routes.draw do |map|
     restaurant.btl_topic 'behind_the_line/topic/:id', :controller => 'restaurants/behind_the_line', :action => 'topic'
     restaurant.btl_chapter 'behind_the_line/chapter/:id', :controller => 'restaurants/behind_the_line', :action => 'chapter'
 
+
     restaurant.resources :newsletters, :controller => 'restaurants/newsletters', :collection => { :update_settings => :post, :preview => :get, :approve => :post }
 
     restaurant.social_posts 'social_posts', :controller => 'restaurants/social_post', :action => 'index'
     restaurant.social_posts_page 'social_posts/:page', :controller => 'restaurants/social_post', :action => 'index'
 
     restaurant.add_keywords 'add_keywords', :controller => "menu_items", :action => "add_keywords"
+
   end
 
   map.resources :user_sessions, :password_resets, :followings, :pages

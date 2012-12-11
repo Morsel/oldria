@@ -199,7 +199,9 @@ class UsersController < ApplicationController
       else
         render :json=>{:status=>false,:errors =>  @user.errors.as_json.uniq}
       end  
+
   end
+
 
   def edit_newsletters
     @user = current_user
