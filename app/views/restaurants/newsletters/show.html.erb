@@ -92,6 +92,9 @@ a:hover{
 
             <% for menu_item in @menu_items %>
             <p>
+              <% if menu_item.photo_file_name.present? -%>
+                <%= link_to "#{image_tag menu_item.photo(:thumb)}",soapbox_menu_item_url(menu_item), :style => "color: #000;text-decoration: underline;font-family: Georgia, Times New Roman, Times, serif;font-size: 14px;line-height: 28px;" %>
+              <% end -%>
               <%= link_to "<strong>#{menu_item.name}</strong>",soapbox_menu_item_url(menu_item), :style => "color: #000;text-decoration: underline;font-family: Georgia, Times New Roman, Times, serif;font-size: 14px;line-height: 28px;" %>
              <br />         
               <span class="bottommenu" style="font-family: Georgia, Times New Roman, Times, serif;font-size: 10px;color: #9F9A98;line-height: 16px;font-weight: bold;text-transform: uppercase;text-decoration: none;text-align: center;">
