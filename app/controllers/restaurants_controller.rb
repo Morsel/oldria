@@ -209,6 +209,44 @@ class RestaurantsController < ApplicationController
     redirect_to root_path
   end
 
+  def import_csv  
+      @error_arr =[]  
+    if (!params[:document].nil?)
+       file_type = params[:document].original_filename.scan(/\.\w+$/)[0].to_s.gsub(".","")
+        if file_type.to_s.downcase =="csv" 
+          begin
+            file = params[:document]
+            tmp_pwd = 'temp123'               
+            FasterCSV.read(params[:document].path,:headers => true).each do |i|
+               news = NewsletterSubscriber.new(:first_name => i[0],:last_name => i[1],:email => i[2],:password=>tmp_pwd)               
+                unless news.save
+                  @error_arr.push(news.email)
+                else
+                  news.newsletter_subscriptions.build({:restaurant_id=>params[:id]}).save
+                end
+            end 
+          rescue FasterCSV::MalformedCSVError               
+              news.push("csv file not valid format.")
+          end
+           
+          unless @error_arr.compact.blank?
+            flash[:notice] = "Follwing email(s) #{@error_arr.to_sentence } already exits."
+            redirect_to newsletter_subscriptions_restaurant_path
+          else
+            flash[:notice] = "Records successfully inserted."
+            redirect_to newsletter_subscriptions_restaurant_path
+          end
+         
+        else
+         flash[:notice] = "Please select csv file."
+         redirect_to newsletter_subscriptions_restaurant_path
+        end 
+    else  
+        flash[:notice] = "Please select csv file. "
+         redirect_to newsletter_subscriptions_restaurant_path
+    end 
+  end
+  
   private
 
   def find_activated_restaurant    
