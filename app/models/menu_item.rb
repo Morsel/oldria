@@ -120,12 +120,16 @@ class MenuItem < ActiveRecord::Base
   def post_to_facebook(message=nil)
     picture_url = self.photo(:full) if self.photo_file_name.present?
     message = message.blank? ? facebook_message : message
+    unless self.photo_file_name.present? 
+      picture_url = (restaurant.logo && restaurant.logo.attachment?) ? restaurant.logo.attachment.url(:medium) : nil
+    end  
     post_attributes = {
       :message     => message,
       :link        => soapbox_menu_item_url(self),
       :name        => name,
       :description => Loofah::Helpers.strip_tags(description),
-      :picture     => picture_url
+      :picture     => picture_url,
+      :timeline    => self.photo_file_name.present? ? true : false
     }
     restaurant.post_to_facebook_page(post_attributes)
   end
