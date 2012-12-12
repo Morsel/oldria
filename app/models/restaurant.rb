@@ -123,7 +123,7 @@ class Restaurant < ActiveRecord::Base
       :allow_blank => true,
       :message => "Facebook page must start with http://www.facebook.com"
 
-  validates_inclusion_of :newsletter_frequency, :in => ["weekly", "biweekly", "monthly"]
+  validates_inclusion_of :newsletter_frequency, :in => ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday", "weekly", "biweekly", "monthly","daily"]
 
   has_one :subscription, :as => :subscriber
   after_validation_on_create :add_manager_as_employee
@@ -294,12 +294,15 @@ class Restaurant < ActiveRecord::Base
       Chronic.parse("next week Thursday 12:00am") + 1.week
     when "monthly"
       Chronic.parse("next month Thursday 12:00am")
+    else
+      
+      Chronic.parse("next #{newsletter_frequency} 12:00am")
     end
   end
 
   def self.send_newsletters
-    for restaurant in Restaurant.with_premium_account
-      if restaurant.next_newsletter_at < Time.now && restaurant.newsletter_approved
+    for restaurant in Restaurant.with_premium_account      
+      if restaurant.next_newsletter_at < Time.zone.now.end_of_day && restaurant.newsletter_approved
         restaurant.send_later(:send_newsletter_to_subscribers)
         restaurant.update_attribute(:next_newsletter_at, restaurant.next_newsletter_for_frequency)
       end
@@ -307,7 +310,7 @@ class Restaurant < ActiveRecord::Base
   end
 
   def send_newsletter_to_subscribers
-    if newsletter_subscribers.present? && restaurant.newsletter_approved
+       if newsletter_subscribers.present? && self.newsletter_approved
       # create newsletter
       newsletter = RestaurantNewsletter.create_with_content(id)
       # connect to Mailchimp
