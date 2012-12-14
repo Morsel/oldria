@@ -255,6 +255,7 @@
                 You are currently linked to your Facebook account <em>"<%= @fb_user.name %>"</em>. You can connect to a different Facebook profile by disconnecting below, then setting up Facebook again.
                 <%= fb_logout_link "Disconnect Facebook", fb_deauth_user_path(@user), :class => 'sf-button negative' %>
             </p>
+
             <% unless @fb_user.accounts.blank? %>
               <div class="clear">
                   <% form_tag fb_page_auth_user_path(@user) do %>
@@ -266,7 +267,18 @@
             <% end %>
 
           <%- else -%>
-            <%= link_to "Setup Facebook", fb_auth_user_path(@user), :class => 'sf-button' %>
+
+            <%  if @profile.user.facebook_authorized? %>
+                <% begin %>
+                    <p>Current Facebook page for <%= current_user.name %>: <em>"<%= @profile.user.facebook_page.fetch.name %>"</em>
+                     </p> 
+                      <%= link_to "Disconnect Facebook", fb_deauth_user_path(@profile.user), :class => 'sf-button negative' %>
+                  <% rescue Mogli::Client::OAuthException, Mogli::Client::HTTPException %>
+                    <p>Access to your Facebook page has expired. Please select the page again.</p>
+                  <% end %>
+              <% else %>
+              <%= link_to "Setup Facebook", fb_auth_user_path(@user), :class => 'sf-button' %>
+              <% end %>
           <%- end -%>
           <p><%= link_to "Need Help?  Read everything you need to know about Facebook in the Marketing Manual.", public_page_path('facebook_101_introduction') %></p>
       </fieldset>

@@ -140,6 +140,8 @@ class UsersController < ApplicationController
 
   def fb_deauth
     @user.update_attribute(:facebook_access_token, nil)
+    @user.update_attribute(:facebook_page_token, nil)
+    @user.update_attribute(:facebook_page_id, nil)
     flash[:notice] = "Your Facebook account has been disconnected"
     redirect_to params[:restaurant_id].present? ? edit_restaurant_path(params[:restaurant_id]) : edit_user_profile_path(:user_id => @user.id)
   end
@@ -154,7 +156,10 @@ class UsersController < ApplicationController
                                      :facebook_page_token => @page.client.access_token,
                                      :facebook_page_url => @page.link)
         end
-      end       
+      end
+
+      @user.update_attribute(:facebook_page_token, current_facebook_user.client.access_token)
+      @user.update_attribute(:facebook_page_id, current_facebook_user.id)       
       @user.connect_to_facebook_user(current_facebook_user.id, current_facebook_user.client.expiration)
       if @user.facebook_access_token != current_facebook_user.client.access_token
         @user.update_attribute(:facebook_access_token, current_facebook_user.client.access_token)
