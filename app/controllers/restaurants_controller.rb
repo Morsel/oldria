@@ -5,6 +5,7 @@ class RestaurantsController < ApplicationController
                                       :remove_twitter, :download_subscribers, :activate_restaurant, :new_media_contact, :replace_media_contact,
                                       :newsletter_subscriptions,:fb_deauth]
 
+
   before_filter :find_restaurant, :only => [:twitter_archive, :facebook_archive, :social_archive]
 
   def index

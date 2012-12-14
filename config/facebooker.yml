@@ -17,5 +17,5 @@ staging:
   secret: d3b821ef73ffd3643d1c90ed862cda3c
 
 production:
-  app_id: 147177445296317
-  secret: 7b651e84a6eb8a5824913467c569aaac
+  app_id: 293794010720831
+  secret: d3b821ef73ffd3643d1c90ed862cda3c
