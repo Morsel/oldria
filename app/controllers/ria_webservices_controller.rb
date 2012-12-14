@@ -246,8 +246,12 @@ end
     end 
       @data = []
       @messages.each_with_index do |message,index|
-        @data[index] = {}           
-        @data[index][:restaurant]  =  message.restaurant.name 
+        @data[index] = {}  
+        if message.employment.type == "DefaultEmployment"         
+          @data[index][:restaurant]  =  message.employment.solo_restaurant_name 
+        else
+           @data[index][:restaurant]  =  message.restaurant.name 
+        end
         @data[index][:id] = message.media_request.id
         @data[index][:message] = message.media_request.message
         @data[index][:due_date] = message.media_request.due_date.try(:to_s, :long_ordinal)
