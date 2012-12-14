@@ -185,6 +185,7 @@ class RestaurantsController < ApplicationController
 
   def newsletter_subscriptions
     @subscriptions = @restaurant.newsletter_subscriptions
+    render "restaurants/_comming_soon"
   end
 
   def download_subscribers
