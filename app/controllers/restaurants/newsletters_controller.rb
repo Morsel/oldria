@@ -2,8 +2,7 @@ class Restaurants::NewslettersController < ApplicationController
 
   before_filter :authorize, :except => "show"
 
-  def index
-    render "restaurants/_comming_soon"
+  def index    
   end
 
   # TODO - remove this once the feature is complete, for testing only
