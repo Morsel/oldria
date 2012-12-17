@@ -1,0 +1,24 @@
+<% unless @categories_keywords.blank? %>
+  <% counter = ((@categories_keywords.count/3).ceil)+1 %>
+  <% @categories_keywords.in_groups_of(counter).each do |keywords| %>
+    <div class="keyword-column">
+        <li id="menu_item_otm_keywords_input" class="check_boxes optional">
+            <fieldset>
+                <ol>       
+                  <% keywords.compact.each do |keyword| %>
+                  <li>    
+                    <%= label_tag("s_menu_item_otm_keyword_ids_#{keyword.id}",check_box_tag('menu_item[otm_keyword_ids][]',keyword.id,!params[:menu_item].nil? && !params[:menu_item][:otm_keyword_ids].nil? && params[:menu_item][:otm_keyword_ids].include?(keyword.id.to_s) ? true : false ,{:class=>"ajax_otm",:id=>"s_menu_item_otm_keyword_ids_#{keyword.id}"}) + "&nbsp;"+keyword.name)  %>
+                   </li> 
+                   <% end %>
+                </ol>
+            </fieldset>
+           </li>  
+          </div>
+  <% end %>
+<%else %>
+  <%unless @categories_keywords.nil?%>
+    <div> Would you like to request for this keyword to be added?: <%=params[:menu_item][:search_keywords] unless params[:menu_item].nil? %> <%=params[:search_keywords]%>
+      <%= link_to 'Yes', restaurant_add_keywords_path(@restaurant,:params=>{:keywords=>params[:search_keywords]}),:id=>"add_keywords_id" %></div>
+  <% end %>
+<%end%>
+<div class="clear">&nbsp;</div>

@@ -1,6 +1,7 @@
 ActionController::Routing::Routes.draw do |map|
   map.login  'login',  :controller => 'user_sessions', :action => 'new'
-  map.logout 'logout', :controller => 'user_sessions', :action => 'destroy'
+  map.logout 'logout', :controller => 'user_sessions', :action => 'destroy'  
+  
   map.fb_login 'facebook_login', :controller => 'user_sessions', :action => 'create_from_facebook'
 
   map.join 'join_us', :controller => "join", :action => "index"
@@ -220,10 +221,14 @@ ActionController::Routing::Routes.draw do |map|
     restaurant.btl_topic 'behind_the_line/topic/:id', :controller => 'restaurants/behind_the_line', :action => 'topic'
     restaurant.btl_chapter 'behind_the_line/chapter/:id', :controller => 'restaurants/behind_the_line', :action => 'chapter'
 
+
     restaurant.social_posts 'social_posts', :controller => 'restaurants/social_post', :action => 'index'
     restaurant.social_posts_page 'social_posts/:page', :controller => 'restaurants/social_post', :action => 'index'
 
     restaurant.resources :newsletters, :controller => 'restaurants/newsletters', :collection => { :update_settings => :post, :preview => :get, :approve => :post }
+
+    restaurant.add_keywords 'add_keywords', :controller => "menu_items", :action => "add_keywords"
+
   end
 
   map.resources :user_sessions, :password_resets, :followings, :pages
@@ -283,6 +288,9 @@ ActionController::Routing::Routes.draw do |map|
   map.update_social 'update_social', :controller => "spoonfeed/social_updates", :action => "load_updates"
   map.filter_social 'filter_social', :controller => "spoonfeed/social_updates", :action => "filter_updates"
   map.resources :restaurant_questions, :only => ['index', 'show'], :as => 'restaurant_btl', :controller => 'spoonfeed/restaurant_questions'
+  
+  map.get_keywords 'get_keywords', :controller => "menu_items", :action => "get_keywords"
+  
 
   map.resources :page_views, :only => ['create']
 

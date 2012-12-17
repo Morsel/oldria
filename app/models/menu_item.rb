@@ -61,6 +61,8 @@ class MenuItem < ActiveRecord::Base
     :conditions => ["restaurants.is_activated = ?", true]
   }
 
+  attr_accessor :search_keywords
+
   def keywords
     otm_keywords.map { |k| "#{k.category}: #{k.name}" }.to_sentence
   end

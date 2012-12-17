@@ -11,3 +11,16 @@
         <%= render :partial => "form" %>
     </div><!-- /editing_restaurant -->
 </div><!-- /restaurant_profile_view -->
+
+<% content_for :javascript do %>
+<script type="text/javascript">
+$(document).ready(function() {
+
+  $('#form-tabs').tabs({
+    panelTemplate: '<section></section>',
+    fx: { duration: 'fast', opacity: 'toggle' }
+  });
+
+});
+</script>
+<% end %>

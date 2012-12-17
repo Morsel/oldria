@@ -146,6 +146,7 @@ class UserMailer < ActionMailer::Base
     subject     'Spoonfeed: Email message error'
   end
 
+
   def newsletter_preview_reminder(restaurant)
     from        'notifications@restaurantintelligenceagency.com'
     recipients  restaurant.manager.email
@@ -153,5 +154,14 @@ class UserMailer < ActionMailer::Base
     subject     'Spoonfeed: Review your newsletter now'
     body        :restaurant => restaurant
   end
+
+
+  def add_keyword_request(restaurant,keyword)
+    from        'notifications@restaurantintelligenceagency.com'
+    recipients  "admin@restaurantintelligenceagency.com"
+    sent_on     Time.now
+    subject     "Keyword Request from RESTAURANT NAME: #{restaurant} REQUESTED ITEM: #{keyword}"
+  end
+  
 
 end
