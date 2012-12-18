@@ -4,6 +4,12 @@
 	<title>soapbox-2_email</title>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<style type="text/css">.ExternalClass{width:100% !important;}</style>
+	<style>
+		a{
+		color: #808080 !important;
+		text-decoration: none !important;
+		}
+	</style>
 </head>
 <body style="margin:0;padding:0; background-image:url(http://s10.postimage.org/nozwc9c21/bg_body.gif);" bgcolor="#ffffff" link="#666666">
 <table width="100%" cellspacing="0" cellpadding="0" style="background:url(http://s10.postimage.org/nozwc9c21/bg_body.gif); background-image:url(http://s10.postimage.org/nozwc9c21/bg_body.gif);">
@@ -95,9 +101,16 @@
 																<tr>
 																	<td style="font-size:0; line-height:0;" height="12"></td>
 																</tr>
-		   <% for menu_item in @menu_items %>														<tr>
-																	<td style="padding-left:7px; font:bold 17px Georgia, Times, serif; line-height:19px; color:#2f3861">   <%= link_to "#{menu_item.name}",soapbox_menu_item_url(menu_item), :style => "text-decoration: none;" %></td>
+		   <% for menu_item in @menu_items %>														
+		   														<tr>
+																	<td style="padding-left:7px; font:bold 17px Georgia, Times, serif; line-height:19px; color:#2f3861">   <%= link_to "#{menu_item.name.capitalize}",soapbox_menu_item_url(menu_item), :style => "text-decoration: none;" %></td>
 																</tr>
+																<tr>
+																	<td style="font-size:0; line-height:0;">
+																		<img src="http://blog.restaurantintelligenceagency.com/images/newsletter/separator.gif" width="376" height="1" alt="image description" />
+																	</td>
+																</tr>
+
 																<tr>
 																	<td style="font-size:0; line-height:0;" height="8"></td>
 																</tr>
@@ -107,11 +120,7 @@
 																<tr>
 																	<td style="font-size:0; line-height:0;" height="13"></td>
 																</tr>
-																<tr>
-																	<td style="font-size:0; line-height:0;">
-																		<img src="http://blog.restaurantintelligenceagency.com/images/newsletter/separator.gif" width="376" height="1" alt="image description" />
-																	</td>
-																</tr>
+																
 																<tr>
 																	<td style="font-size:0; line-height:0;" height="8"></td>
 																</tr>
@@ -169,15 +178,13 @@
        </tr>
      <% for promotion in @promotions %>
        <tr>
-         <td style="padding-left:7px; font:bold 17px Georgia, Times, serif; line-height:19px; color:#2f3861">  <%= link_to promotion.headline, soapbox_promotion_url(promotion), :style => "text-decoration: underline;"  %></td>
+         <td style="padding-left:7px; font:bold 17px Georgia, Times, serif; line-height:19px; color:#2f3861">  <%= link_to promotion.headline.capitalize, soapbox_promotion_url(promotion), :style => "text-decoration: underline;"  %></td>
        </tr>
        <tr>
          <td style="font-size:0; line-height:0;" height="8"></td>
        </tr>
       
-       <tr>
-         <td style="font-size:0; line-height:0;"><img src="http://blog.restaurantintelligenceagency.com/images/newsletter/separator.gif" width="376" height="1" alt="image description" /></td>
-       </tr>
+
        <tr>
          <td style="font-size:0; line-height:0;" height="8"></td>
        </tr>
@@ -229,15 +236,14 @@
        </tr>
     <% for alm_answer in @alaminute_answers %>
        <tr>
-         <td style="padding-left:7px; font:bold 17px Georgia, Times, serif; line-height:19px; color:#2f3861"><%= link_to alm_answer.question, soapbox_a_la_minute_question_url(alm_answer.a_la_minute_question), :style => "text-decoration: none;" %></td>
+         <td style="padding-left:7px; font:bold 17px Georgia, Times, serif; line-height:19px; color:#2f3861"><%= link_to alm_answer.question.capitalize, soapbox_a_la_minute_question_url(alm_answer.a_la_minute_question), :style => "text-decoration: none;" %>
+         	<p style="padding-left:7px; font:normal 17px Georgia, Times, serif; line-height:19px; color:#808080"><%=h alm_answer.answer.capitalize %></p>
+         </td>
        </tr>
        <tr>
          <td style="font-size:0; line-height:0;" height="8"></td>
        </tr>
       
-       <tr>
-         <td style="font-size:0; line-height:0;"><img src="http://blog.restaurantintelligenceagency.com/images/newsletter/separator.gif" width="376" height="1" alt="image description" /></td>
-       </tr>
        <tr>
          <td style="font-size:0; line-height:0;" height="8"></td>
        </tr>
@@ -290,15 +296,12 @@
        </tr>
   <% for answer in @restaurant_answers %> 
        <tr>
-         <td style="padding-left:7px; font:bold 17px Georgia, Times, serif; line-height:19px; color:#2f3861">   <%= link_to answer.answer, soapbox_restaurant_url(@restaurant), :style => "text-decoration: underline;" %><br /></td>
+         <td style="padding-left:7px; font:bold 17px Georgia, Times, serif; line-height:19px; color:#2f3861">   <%= link_to answer.answer.capitalize, soapbox_restaurant_url(@restaurant), :style => "text-decoration: underline;" %><br /></td>
        </tr>
        <tr>
          <td style="font-size:0; line-height:0;" height="8"></td>
        </tr>
       
-       <tr>
-         <td style="font-size:0; line-height:0;"><img src="http://blog.restaurantintelligenceagency.com/images/newsletter/separator.gif" width="376" height="1" alt="image description" /></td>
-       </tr>
        <tr>
          <td style="font-size:0; line-height:0;" height="8"></td>
        </tr>
@@ -351,15 +354,12 @@
        </tr>
   <% for menu in @menus %>
        <tr>
-         <td style="padding-left:7px; font:bold 17px Georgia, Times, serif; line-height:19px; color:#2f3861"><%= link_to menu.name, restaurant_menu_url(@restaurant, menu), :style => "text-decoration: underline;" %></td>
+         <td style="padding-left:7px; font:bold 17px Georgia, Times, serif; line-height:19px; color:#2f3861"><%= link_to menu.name.capitalize, restaurant_menu_url(@restaurant, menu), :style => "text-decoration: underline;" %></td>
        </tr>
        <tr>
          <td style="font-size:0; line-height:0;" height="8"></td>
        </tr>
       
-       <tr>
-         <td style="font-size:0; line-height:0;"><img src="http://blog.restaurantintelligenceagency.com/images/newsletter/separator.gif" width="376" height="1" alt="image description" /></td>
-       </tr>
        <tr>
          <td style="font-size:0; line-height:0;" height="8"></td>
        </tr>
@@ -615,12 +615,16 @@
 					<td valign="top" style="font-size:0; line-height:0;"><img src="http://blog.restaurantintelligenceagency.com/images/newsletter/img-10.jpg" width="604" height="12" alt="image description" /></td>
 				</tr>
 				<tr>
-					<td align="center" valign="top" bgcolor="#fff" style="padding-left:7px; font:bold 15px Georgia, Times, serif; line-height:19px; color:#2f3861">
-						<p>Sent by <a href="http://soapbox.restaurantintelligenceagency.com/">Restaurant Intelligence Agency</a></p>
+					<td width="1" background="#cac3b5" align="center" valign="top" bgcolor="#fff" style="padding-left:0px; font:bold 15px Georgia, Times, serif; line-height:19px; color:#2f3861">
 						<table width="100%" cellspacing="0" cellpadding="0">
 							<tr>
+							  <td style="font-size:0; line-height:0;"><img src="http://blog.restaurantintelligenceagency.com/images/newsletter/img-11.gif" width="23" height="33" alt="image description" /></td>
+							  <td colspan="16" align="center" valign="middle" style="font-size:0; line-height:0;padding-right:10px;color:#666666;font-size:14px">	  <p>Sent by <a href="http://soapbox.restaurantintelligenceagency.com/">Restaurant Intelligence Agency</a></p></td>
+							  <td style="font-size:0; line-height:0;"><img src="http://blog.restaurantintelligenceagency.com/images/newsletter/img-12.gif" width="2" height="33" alt="image description" /></td>
+						  </tr>
+							<tr>
 								<td style="font-size:0; line-height:0;"><img src="http://blog.restaurantintelligenceagency.com/images/newsletter/img-11.gif" width="23" height="33" alt="image description" /></td>
-								<td width="137" align="right" valign="middle" style="font-size:0; line-height:0;padding-right:10px;">Follow Us:</td>
+								<td width="137" align="right" valign="middle" style="font-size:14px; line-height:0;padding-right:10px;color:#666666;">Follow Us:</td>
 								<td style="font-size:0; line-height:0;"><a href="#"><img border="0" src="http://blog.restaurantintelligenceagency.com/images/newsletter/pincertone-2.gif" width="30" height="31" alt="image description" /></a></td>
 								<td style="font-size:0; line-height:0;" width="10"></td>
 								<td style="font-size:0; line-height:0;"><a href="#"><img border="0" src="http://blog.restaurantintelligenceagency.com/images/newsletter/linkedin-2.gif" width="32" height="33" alt="image description" /></a></td>
@@ -650,7 +654,7 @@
 				<tr>
 					<td style="padding-right:7px; font:11px Arial, Helvetica, sans-serif; line-height:18px; color:#7a7878" align="center">
 						You are receiving this email because your e-mail is subscribed to <br />
-					 <%= @restaurant.name %>  via <a href="http://soapbox.restaurantintelligenceagency.com" style="text-decoration:underline; color:#7a7878;">Soapbox</a><br />
+					 <%= @restaurant.name.capitalize %>  via <a href="http://soapbox.restaurantintelligenceagency.com" style="text-decoration:underline; color:#7a7878;">Soapbox</a><br />
 						<a href="#" style="text-decoration:underline; color:#7a7878;">Click here</a> to manage your preferences.<br />
 						If you received this email from a friend and would like to subscribe to our email list, <a href="#" style="text-decoration:underline; color:#7a7878;">Click here</a><br />						<span style="text-decoration:none; color:#7a7878;">
 
