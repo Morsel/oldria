@@ -489,18 +489,31 @@
 																<tr>
 																	<td style="font-size:0; line-height:0;" height="13"></td>
 																</tr>
+                              <%
+                                staffs = @restaurant.public_employments.all(:include => [ :restaurant_role, :employee])                                 
+                              %>
+                              <% unless staffs.blank? %>
 																<tr>
 																	<td style="padding-left:10px; padding-right:10px;">
+                                  
 																		<table width="100%" cellspacing="0" cellpadding="0">
 																			<tr>
 																				<td style="padding-left:10px; padding-right:10px;">
 																					<table width="100%" cellspacing="0" cellpadding="0">
 																						<tr>
-																							<td style="font:bold 12px Georgia, Times, serif; line-height:18px; color:#fff">Restaurant Staff:<br />Chef: Matt Troost</td>
+																							<td style="font:bold 12px Georgia, Times, serif; line-height:18px; color:#fff">Restaurant Staff:<br />
+                                                <% staffs.each do |employment| %>
+                                                <p><%=h (employment.restaurant_role.nil? ? "No Role" : employment.restaurant_role.try(:name)) %> :
+                                                <%=h employment.employee.try(:name) %></p>
+
+                                              <% end %>
+
+                                              </td>
 																						</tr>
 																					</table>
 																				</td>
-																			</tr>
+																	</tr>
+                                <% end %>
 																			<tr>
 																				<td style="font-size:0; line-height:0;" height="9"></td>
 																			</tr>
@@ -514,7 +527,7 @@
 																				<td style="padding-left:10px; padding-right:10px;">
 																					<table width="100%" cellspacing="0" cellpadding="0">
 																						<tr>
-																							<td style="font:bold 12px Georgia, Times, serif; line-height:18px; color:#fff">Cuisine:<br />Italian (Regional)</td>
+																							<td style="font:bold 12px Georgia, Times, serif; line-height:18px; color:#fff">Cuisine:<br /><%= @restaurant.cuisine.try(:name)%></td>
 																						</tr>
 																					</table>
 																				</td>
@@ -532,7 +545,7 @@
 																				<td style="padding-left:10px; padding-right:10px;">
 																					<table width="100%" cellspacing="0" cellpadding="0">
 																						<tr>
-																							<td style="font:bold 12px Georgia, Times, serif; line-height:18px; color:#fff">Metropolitan area:<br />Chicago</td>
+																							<td style="font:bold 12px Georgia, Times, serif; line-height:18px; color:#fff">Metropolitan area:<br /><%= @restaurant.metropolitan_area.try(:name)%></td>
 																						</tr>
 																					</table>
 																				</td>
@@ -550,7 +563,7 @@
 																				<td style="padding-left:10px; padding-right:10px;">
 																					<table width="100%" cellspacing="0" cellpadding="0">
 																						<tr>
-																							<td style="font:bold 12px Georgia, Times, serif; line-height:18px; color:#fff">Region:<br />Great Lakes</td>
+																							<td style="font:bold 12px Georgia, Times, serif; line-height:18px; color:#fff">Region:<br /><%= @restaurant.james_beard_region.try(:name)%></td>
 																						</tr>
 																					</table>
 																				</td>
@@ -568,7 +581,7 @@
 																				<td style="padding-left:10px; padding-right:10px;">
 																					<table width="100%" cellspacing="0" cellpadding="0">
 																						<tr>
-																							<td style="font:bold 12px Georgia, Times, serif; line-height:18px; color:#fff">Opening Date:<br />2010-10-31</td>
+																							<td style="font:bold 12px Georgia, Times, serif; line-height:18px; color:#fff">Opening Date:<br /><%=@restaurant.opening_date.to_s(:medium)%></td>
 																						</tr>
 																					</table>
 																				</td>
