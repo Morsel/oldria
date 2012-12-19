@@ -6,8 +6,8 @@
 	<style type="text/css">.ExternalClass{width:100% !important;}</style>
 	<style>
 		a{
-		color: #808080 !important;
-		text-decoration: none !important;
+		color: #808080;
+		text-decoration: none;
 		}
 	</style>
 </head>
@@ -93,34 +93,42 @@
 																<tr>
 																	<td style="font-size:0; line-height:0;" height="9"></td>
 																</tr>
-																<tr>
-																	<td style="font-size:0; line-height:0;">
-																		<img src="http://blog.restaurantintelligenceagency.com/images/newsletter/img-4.gif" width="376" height="6" alt="image description" />
-																	</td>
-																</tr>
+	
 																<tr>
 																	<td style="font-size:0; line-height:0;" height="12"></td>
 																</tr>
 		   <% for menu_item in @menu_items %>														
 		   														<tr>
-																	<td style="padding-left:7px; font:bold 17px Georgia, Times, serif; line-height:19px; color:#2f3861">   <%= link_to "#{menu_item.name.capitalize}",soapbox_menu_item_url(menu_item), :style => "text-decoration: none;" %></td>
+																	<td style="padding-left:7px; font:bold 17px Georgia, Times, serif; line-height:19px; color:#2f3861">   <%= link_to "#{menu_item.name.capitalize}",soapbox_menu_item_url(menu_item), :style => "text-decoration: none;color:#2f3861" %></td>
+																</tr>
+															<tr>
+																	<td style="font-size:0; line-height:0;" height="8"></td>
 																</tr>
 																<tr>
+																	<td style="padding-left:7px; font:12px Georgia, Times, serif; line-height:15px; color:#4e4e4e">Description &nbsp;<a href="#" style="text-decoration:underline; color:#bc2021;">find out more»</a></td>
+																</tr>															<tr>
+																	<td style="font-size:0; line-height:0;" height="13"></td>
+																</tr><tr>
 																	<td style="font-size:0; line-height:0;">
 																		<img src="http://blog.restaurantintelligenceagency.com/images/newsletter/separator.gif" width="376" height="1" alt="image description" />
 																	</td>
 																</tr>
 
+	
 																<tr>
 																	<td style="font-size:0; line-height:0;" height="8"></td>
-																</tr>
-																<tr>
-																	<td style="padding-left:7px; font:12px Georgia, Times, serif; line-height:15px; color:#4e4e4e">      <%= menu_item.otm_keywords.map { |keyword|  link_to(keyword.name, soapbox_menu_items_url(:keyword => keyword.name),:style=>"color: #bc2021;;") }.to_sentence %></td>
+																</tr>															<tr>
+																	<td style="padding-left:7px; font:12px Georgia, Times, serif; line-height:15px; color:#4e4e4e">      <%= menu_item.otm_keywords.map { |keyword|  link_to(keyword.name, soapbox_menu_items_url(:keyword => keyword.name),:style=>"text-decoration:underline; color:#bc2021;") }.to_sentence %></td>
 																</tr>
 																<tr>
 																	<td style="font-size:0; line-height:0;" height="13"></td>
 																</tr>
-																
+		<tr>
+																	<td style="font-size:0; line-height:0;">
+																		<img src="http://blog.restaurantintelligenceagency.com/images/newsletter/separator.gif" width="376" height="1" alt="image description" />
+																	</td>
+																</tr>
+														
 																<tr>
 																	<td style="font-size:0; line-height:0;" height="8"></td>
 																</tr>
@@ -147,7 +155,10 @@
 																	<td style="font-size:0; line-height:0;">
 																		<img src="http://blog.restaurantintelligenceagency.com/images/newsletter/img-4.gif" width="376" height="6" alt="image description" />
 																	</td>
-																</tr>     <% end %>
+																</tr>    <tr>
+																	<td style="font-size:0; line-height:0;" height="9"></td>
+																</tr>
+		 <% end %>
  
 															</table>
 			  
@@ -167,18 +178,13 @@
        <tr>
          <td style="font-size:0; line-height:0;"><img src="http://blog.restaurantintelligenceagency.com/images/newsletter/img-4.gif" width="376" height="6" alt="image description" /></td>
        </tr>
+
        <tr>
-         <td style="font-size:0; line-height:0;" height="9"></td>
-       </tr>
-       <tr>
-         <td style="font-size:0; line-height:0;"><img src="http://blog.restaurantintelligenceagency.com/images/newsletter/img-4.gif" width="376" height="6" alt="image description" /></td>
-       </tr>
-       <tr>
-         <td style="font-size:0; line-height:0;" height="12"></td>
+         <td style="font-size:0; line-height:0;" height="13"></td>
        </tr>
      <% for promotion in @promotions %>
        <tr>
-         <td style="padding-left:7px; font:bold 17px Georgia, Times, serif; line-height:19px; color:#2f3861">  <%= link_to promotion.headline.capitalize, soapbox_promotion_url(promotion), :style => "text-decoration: underline;"  %></td>
+         <td style="padding-left:7px; font:bold 17px Georgia, Times, serif; line-height:19px; color:#2f3861"><%= link_to promotion.headline.capitalize, soapbox_promotion_url(promotion), :style => "text-decoration: underline;"  %></td>
        </tr>
        <tr>
          <td style="font-size:0; line-height:0;" height="8"></td>
@@ -208,6 +214,9 @@
        <tr>
          <td style="font-size:0; line-height:0;"><img src="http://blog.restaurantintelligenceagency.com/images/newsletter/img-4.gif" width="376" height="6" alt="image description" /></td>
        </tr>
+           <tr>
+         <td style="font-size:0; line-height:0;" height="13"></td>
+       </tr>
        <% end %>
      </table>
      <% end %>
@@ -225,19 +234,14 @@
        <tr>
          <td style="font-size:0; line-height:0;"><img src="http://blog.restaurantintelligenceagency.com/images/newsletter/img-4.gif" width="376" height="6" alt="image description" /></td>
        </tr>
+
        <tr>
-         <td style="font-size:0; line-height:0;" height="9"></td>
-       </tr>
-       <tr>
-         <td style="font-size:0; line-height:0;"><img src="http://blog.restaurantintelligenceagency.com/images/newsletter/img-4.gif" width="376" height="6" alt="image description" /></td>
-       </tr>
-       <tr>
-         <td style="font-size:0; line-height:0;" height="12"></td>
+         <td style="font-size:0; line-height:0;" height="13"></td>
        </tr>
     <% for alm_answer in @alaminute_answers %>
        <tr>
          <td style="padding-left:7px; font:bold 17px Georgia, Times, serif; line-height:19px; color:#2f3861"><%= link_to alm_answer.question.capitalize, soapbox_a_la_minute_question_url(alm_answer.a_la_minute_question), :style => "text-decoration: none;" %>
-         	<p style="padding-left:7px; font:normal 17px Georgia, Times, serif; line-height:19px; color:#808080"><%=h alm_answer.answer.capitalize %></p>
+         	<p style="pa2ding-left:7px; font:normal 12px Georgia, Times, serif; line-height:19px; color:#4e4e4e"><%=h alm_answer.answer.capitalize %></p>
          </td>
        </tr>
        <tr>
@@ -264,8 +268,11 @@
        <tr>
          <td style="font-size:0; line-height:0;" height="9"></td>
        </tr>
-       <tr>
+ <tr>
          <td style="font-size:0; line-height:0;"><img src="http://blog.restaurantintelligenceagency.com/images/newsletter/img-4.gif" width="376" height="6" alt="image description" /></td>
+       </tr>
+           <tr>
+         <td style="font-size:0; line-height:0;" height="13"></td>
        </tr>
        <% end %>
      </table>
@@ -282,28 +289,21 @@
        <tr>
          <td style="font-size:0; line-height:0; background:#e0ddd9;" height="6"></td>
        </tr>
-       <tr>
+            <tr>
          <td style="font-size:0; line-height:0;"><img src="http://blog.restaurantintelligenceagency.com/images/newsletter/img-4.gif" width="376" height="6" alt="image description" /></td>
        </tr>
-       <tr>
-         <td style="font-size:0; line-height:0;" height="9"></td>
-       </tr>
-       <tr>
-         <td style="font-size:0; line-height:0;"><img src="http://blog.restaurantintelligenceagency.com/images/newsletter/img-4.gif" width="376" height="6" alt="image description" /></td>
-       </tr>
-       <tr>
-         <td style="font-size:0; line-height:0;" height="12"></td>
+    
+           <tr>
+         <td style="font-size:0; line-height:0;" height="13"></td>
        </tr>
   <% for answer in @restaurant_answers %> 
        <tr>
-         <td style="padding-left:7px; font:bold 17px Georgia, Times, serif; line-height:19px; color:#2f3861">   <%= link_to answer.answer.capitalize, soapbox_restaurant_url(@restaurant), :style => "text-decoration: underline;" %><br /></td>
+         <td style="padding-left:7px; font:bold 17px Georgia, Times, serif; line-height:19px; color:#2f3861"><%= link_to answer.answer.capitalize, soapbox_restaurant_url(@restaurant), :style => "text-decoration: underline;" %><br /></td>
        </tr>
-       <tr>
-         <td style="font-size:0; line-height:0;" height="8"></td>
-       </tr>
+     
       
        <tr>
-         <td style="font-size:0; line-height:0;" height="8"></td>
+         <td style="font-size:0; line-height:0;" height="13"></td>
        </tr>
        <tr>
          <td><table width="100%" cellspacing="0" cellpadding="0">
@@ -325,6 +325,9 @@
        <tr>
          <td style="font-size:0; line-height:0;"><img src="http://blog.restaurantintelligenceagency.com/images/newsletter/img-4.gif" width="376" height="6" alt="image description" /></td>
        </tr>
+           <tr>
+         <td style="font-size:0; line-height:0;" height="13"></td>
+       </tr>
        <% end %>
      </table>
      <% end %>
@@ -343,14 +346,9 @@
        <tr>
          <td style="font-size:0; line-height:0;"><img src="http://blog.restaurantintelligenceagency.com/images/newsletter/img-4.gif" width="376" height="6" alt="image description" /></td>
        </tr>
+
        <tr>
-         <td style="font-size:0; line-height:0;" height="9"></td>
-       </tr>
-       <tr>
-         <td style="font-size:0; line-height:0;"><img src="http://blog.restaurantintelligenceagency.com/images/newsletter/img-4.gif" width="376" height="6" alt="image description" /></td>
-       </tr>
-       <tr>
-         <td style="font-size:0; line-height:0;" height="12"></td>
+         <td style="font-size:0; line-height:0;" height="13"></td>
        </tr>
   <% for menu in @menus %>
        <tr>
