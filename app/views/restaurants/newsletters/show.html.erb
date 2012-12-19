@@ -46,12 +46,30 @@
 				<tr style="font-size:0; line-height:0;" height="13">
 					<td></td>
 				</tr>
+                  <tr>
+					<td valign="top" style="font-size:0; line-height:0;"><img src="http://blog.restaurantintelligenceagency.com/images/newsletter/img-10.jpg" width="604" height="12" alt="image description" /></td>
+				</tr>
+				<tr>
+					<td width="1" background="#cac3b5" align="center" valign="top" bgcolor="#fff" style="padding-left:0px; font:bold 15px Georgia, Times, serif; line-height:19px; color:#2f3861">
+						<table width="100%" cellspacing="0" cellpadding="0">
+							<tr>
+							  <td width="4%" style="font-size:0; line-height:0;"><img src="http://blog.restaurantintelligenceagency.com/images/newsletter/img-11.gif" width="23" height="170" alt="image description" /></td>
+							  <td width="96%" align="center" valign="middle" style="font-size:0; line-height:0;padding-right:10px;color:#666666;font-size:14px"><p><%= image_tag logo_for(@restaurant).attachment.url(:medium), :style => "border: none;font-size: 14px;font-weight: bold;height: auto;line-height: 100%;outline: none;text-decoration: none;text-transform: capitalize;" %></p>
+						      <p>Whats happining at  <%= @restaurant.name %>!</p></td>
+							  <td width="0%" style="font-size:0; line-height:0;"><img src="http://blog.restaurantintelligenceagency.com/images/newsletter/img-12.gif" width="2" height="170" alt="image description" /></td>
+						  </tr>
+						</table>
+					</td>
+				</tr>
+				<tr>
+					<td><img src="http://blog.restaurantintelligenceagency.com/images/newsletter/img-13.jpg" width="604" height="7" alt="image description" /></td>
+				</tr>
 				<tr>
 					<td>
 						<table width="100%" cellspacing="0" cellpadding="0">
-							<tr>
+								<tr>
 								<td style="font-size:0; line-height:0;"><img src="http://blog.restaurantintelligenceagency.com/images/newsletter/img-1.gif" width="205" height="68" alt="image description" /></td>
-								<td style="font-size:0; line-height:0;"><%= image_tag logo_for(@restaurant).attachment.url(:small), :style => "border: none;font-size: 14px;font-weight: bold;height: auto;line-height: 100%;outline: none;text-decoration: none;text-transform: capitalize;" %></td>
+								<td style="font-size:0; line-height:0;width:194px;"><img src="http://blog.restaurantintelligenceagency.com/images/newsletter/img-1-2.jpg" width="194" height="68" alt="image description" /></td>
 								<td style="font-size:0; line-height:0;"><img src="http://blog.restaurantintelligenceagency.com/images/newsletter/img-2.gif" width="205" height="68" alt="image description" /></td>
 							</tr>
 						</table>
@@ -74,7 +92,7 @@
 											<td>
 												<table width="100%" cellspacing="0" cellpadding="0">
 													<tr>
-														<td width="376" valign="top" style="padding-left:21px; padding-right:21px; background:#fff;">
+														<td width="376" rowspan="2" valign="top" style="padding-left:21px; padding-right:21px; background:#fff;">
 	 <% unless @menu_items.blank? %>														<table width="100%" cellspacing="0" cellpadding="0">
 																<tr>
 																	<td style="font-size:0; line-height:0; background:#e0ddd9;" height="7"></td>
@@ -395,18 +413,14 @@
 <p>&nbsp;</p></td>
 														<td width="182" valign="top" bgcolor="#333c68">
 															<table width="100%" cellspacing="0" cellpadding="0">
-																<tr>
-																	<td style="font-size:0; line-height:0;" height="7"></td>
-																</tr>
+		
 																<tr>
 																	<td style="padding-left:21px; padding-right:21px; font:18px Georgia, Times, serif; line-height:21px; color:#fff"> <%= @restaurant.name %></td>
 																</tr>
 																<tr>
 																	<td style="font-size:0; line-height:0;" height="8"></td>
 																</tr>
-																<tr style="font-size:0; line-height:0;">
-																	<td><img src="http://blog.restaurantintelligenceagency.com/images/newsletter/separator-2.gif" width="182" height="3" alt="image description" /></td>
-																</tr>
+			
 																<tr>
 																	<td style="font-size:0; line-height:0;" height="13"></td>
 																</tr>
@@ -467,7 +481,7 @@
 	
 																				<tr>
 																							<td style="font:bold 12px Georgia, Times, serif; line-height:18px; color:#fff">Twitter:<br /><%= link_to "@#{@restaurant.twitter_username}", "http://twitter.com/#{@restaurant.twitter_username}", :style => "color: #fff;text-decoration: none;" %></td>
-																						</tr>
+																					  </tr>
 																					</table>
 																				</td>
 																			</tr>
@@ -599,13 +613,14 @@
 																	<td style="font-size:0; line-height:0;" height="136"></td>
 																</tr>
 																<tr>
-																	<td style="font-size:0; line-height:0;">
-																		<img src="http://blog.restaurantintelligenceagency.com/images/newsletter/img-9.gif" width="182" height="145" alt="image description" />
-																	</td>
-																</tr>
+																	<td valign="bottom" style="font-size:0; line-height:0;">&nbsp;</td>
+															  </tr>
 															</table>
 														</td>
 													</tr>
+													<tr>
+													  <td valign="top" bgcolor="#333c68"><span style="font-size:0; line-height:0;"><img src="http://blog.restaurantintelligenceagency.com/images/newsletter/img-9.gif" width="182" height="145" alt="image description" /></span></td>
+												  </tr>
 												</table>
 											</td>
 										</tr>
