@@ -105,7 +105,10 @@
 																	<td style="font-size:0; line-height:0;" height="8"></td>
 																</tr>
 																<tr>
-																	<td style="padding-left:7px; font:12px Georgia, Times, serif; line-height:15px; color:#4e4e4e"><%= menu_item.description.gsub(/(<[^>]*>)|\r|\n|\t/s,"").capitalize %> &nbsp;<a href="#" style="text-decoration:underline; color:#bc2021;">find out more»</a></td>
+															
+																	<td style="padding-left:7px; font:12px Georgia, Times, serif; line-height:15px; color:#4e4e4e">&nbsp;<%= truncate menu_item.description.gsub(/(<[^>]*>)|\r|\n|\t/s, "").to_s.strip.capitalize ,
+                                     :length => 300,
+                                     :omission => (" " + link_to("read more»", soapbox_menu_item_url(menu_item)) ) %> </td>
 																</tr>															<tr>
 																	<td style="font-size:0; line-height:0;" height="13"></td>
 																</tr><tr>
@@ -241,7 +244,12 @@
     <% for alm_answer in @alaminute_answers %>
        <tr>
          <td style="padding-left:7px; font:bold 17px Georgia, Times, serif; line-height:19px; color:#2f3861"><%= link_to alm_answer.question.capitalize, soapbox_a_la_minute_question_url(alm_answer.a_la_minute_question), :style => "text-decoration: none;" %>
-         	<p style="pa2ding-left:7px; font:normal 12px Georgia, Times, serif; line-height:19px; color:#4e4e4e"><%=h alm_answer.answer.capitalize %></p>
+         	<p style="pa2ding-left:7px; font:normal 12px Georgia, Times, serif; line-height:19px; color:#4e4e4e">
+<%= truncate alm_answer.answer.gsub(/(<[^>]*>)|\r|\n|\t/s, "").to_s.strip.capitalize ,
+                                     :length => 300,
+                                     :omission => (" " + link_to("read more»", soapbox_a_la_minute_answer_path(alm_answer)) ) %>
+
+         		</p>
          </td>
        </tr>
        <tr>
