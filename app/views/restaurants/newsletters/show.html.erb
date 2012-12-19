@@ -129,7 +129,11 @@
                                      :omission => (" " + link_to("read more»", soapbox_menu_item_url(menu_item)) ) %> </td>
 																</tr>															<tr>
 																	<td style="font-size:0; line-height:0;" height="13"></td>
-																</tr><tr>
+																</tr>
+															<% unless menu_item.otm_keywords.blank? %>
+																
+															
+																<tr>
 																	<td style="font-size:0; line-height:0;">
 																		<img src="http://blog.restaurantintelligenceagency.com/images/newsletter/separator.gif" width="376" height="1" alt="image description" />
 																	</td>
@@ -149,7 +153,7 @@
 																		<img src="http://blog.restaurantintelligenceagency.com/images/newsletter/separator.gif" width="376" height="1" alt="image description" />
 																	</td>
 																</tr>
-														
+															<% end %>
 																<tr>
 																	<td style="font-size:0; line-height:0;" height="8"></td>
 																</tr>
@@ -205,7 +209,7 @@
        </tr>
      <% for promotion in @promotions %>
        <tr>
-         <td style="padding-left:7px; font:bold 17px Georgia, Times, serif; line-height:19px; color:#2f3861"><%= link_to promotion.headline.capitalize, soapbox_promotion_url(promotion), :style => "text-decoration: underline;"  %></td>
+         <td style="padding-left:7px; font:bold 17px Georgia, Times, serif; line-height:19px; color:#2f3861"><%= link_to promotion.headline.capitalize, soapbox_promotion_url(promotion), :style => "text-decoration: none;color:#2f3861"  %></td>
        </tr>
        <tr>
          <td style="font-size:0; line-height:0;" height="8"></td>
@@ -261,7 +265,7 @@
        </tr>
     <% for alm_answer in @alaminute_answers %>
        <tr>
-         <td style="padding-left:7px; font:bold 17px Georgia, Times, serif; line-height:19px; color:#2f3861"><%= link_to alm_answer.question.capitalize, soapbox_a_la_minute_question_url(alm_answer.a_la_minute_question), :style => "text-decoration: none;" %>
+         <td style="padding-left:7px; font:bold 17px Georgia, Times, serif; line-height:19px; color:#2f3861"><%= link_to alm_answer.question.capitalize, soapbox_a_la_minute_question_url(alm_answer.a_la_minute_question), :style => "text-decoration: none;color:#2f3861" %>
          	<p style="pa2ding-left:7px; font:normal 12px Georgia, Times, serif; line-height:19px; color:#4e4e4e">
 <%= truncate alm_answer.answer.gsub(/(<[^>]*>)|\r|\n|\t/s, "").to_s.strip.capitalize ,
                                      :length => 300,
@@ -324,7 +328,7 @@
        </tr>
   <% for answer in @restaurant_answers %> 
        <tr>
-         <td style="padding-left:7px; font:bold 17px Georgia, Times, serif; line-height:19px; color:#2f3861"><%= link_to answer.answer.capitalize, soapbox_restaurant_url(@restaurant), :style => "text-decoration: underline;" %><br /></td>
+         <td style="padding-left:7px; font:bold 17px Georgia, Times, serif; line-height:19px; color:#2f3861"><%= link_to answer.answer.capitalize, soapbox_restaurant_url(@restaurant), :style => "text-decoration: none;color:#2f3861" %><br /></td>
        </tr>
      
       
@@ -378,7 +382,7 @@
        </tr>
   <% for menu in @menus %>
        <tr>
-         <td style="padding-left:7px; font:bold 17px Georgia, Times, serif; line-height:19px; color:#2f3861"><%= link_to menu.name.capitalize, restaurant_menu_url(@restaurant, menu), :style => "text-decoration: underline;" %></td>
+         <td style="padding-left:7px; font:bold 17px Georgia, Times, serif; line-height:19px; color:#2f3861"><%= link_to menu.name.capitalize, restaurant_menu_url(@restaurant, menu), :style => "text-decoration: none;color:#2f3861" %></td>
        </tr>
        <tr>
          <td style="font-size:0; line-height:0;" height="8"></td>
