@@ -126,7 +126,7 @@
 															
 																	<td style="padding-left:7px; font:12px Georgia, Times, serif; line-height:15px; color:#4e4e4e">&nbsp;<%= truncate menu_item.description.gsub(/(<[^>]*>)|\r|\n|\t/s, "").to_s.strip.capitalize ,
                                      :length => 300,
-                                     :omission => (" " + link_to("read more»", soapbox_menu_item_url(menu_item)) ) %> </td>
+                                     :omission => (" " + link_to("read more", soapbox_menu_item_url(menu_item))+ "...»" ) %> </td>
 																</tr>															<tr>
 																	<td style="font-size:0; line-height:0;" height="13"></td>
 																</tr>
@@ -269,7 +269,7 @@
          	<p style="pa2ding-left:7px; font:normal 12px Georgia, Times, serif; line-height:19px; color:#4e4e4e">
 <%= truncate alm_answer.answer.gsub(/(<[^>]*>)|\r|\n|\t/s, "").to_s.strip.capitalize ,
                                      :length => 300,
-                                     :omission => (" " + link_to("read more»", soapbox_a_la_minute_answer_path(alm_answer)) ) %>
+                                     :omission => (" " + link_to("read more", soapbox_a_la_minute_answer_path(alm_answer))+ "...»" ) %>
 
          		</p>
          </td>
