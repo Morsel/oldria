@@ -185,7 +185,9 @@ class RestaurantsController < ApplicationController
 
   def newsletter_subscriptions
     @subscriptions = @restaurant.newsletter_subscriptions
-    render "restaurants/_comming_soon"
+    unless [56,146].include? params[:id].to_i
+      render "restaurants/_comming_soon"
+    end
   end
 
   def download_subscribers
