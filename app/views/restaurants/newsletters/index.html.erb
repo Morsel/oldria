@@ -16,6 +16,8 @@
               <div id="restaurant_features_content" style="width:700px;">
 
                 <h1 class="pg_title">Newsletter Settings</h1>
+                <P><strong>Newsletters must be approved before they are sent to your mailing list. </strong> To approve your newsletter, please click preview newsletter to view and then click approve newsletter below. </P>
+                <p> </p>
 
                 <div id="newsletter_settings" class="clearfix">
                   <% semantic_form_for @restaurant, :url => update_settings_restaurant_newsletters_path do |f| %>
@@ -26,13 +28,13 @@
                   <% end %>
                 </div>
 
-                <div id="restaurant_actions" class="clearfix">
-                  <%= link_to "Preview newsletter", preview_restaurant_newsletters_path(@restaurant), :popup => true, :class => 'button' %>
-                  <% unless @restaurant.newsletter_approved? %>
-                    <%= button_to "Approve newsletter", approve_restaurant_newsletters_path(@restaurant), :method => 'post', :confirm => 'Are you sure you want to approve this newsletter for delivery?' %>
-                  <% end %>
-                  <%= button_to "Send newsletter", restaurant_newsletters_path(@restaurant) %>
-                </div>
+                <div id="restaurant_actions" class="clearfix"><p>To preview your newsletter, click the preview newsletter button. <br>
+                  <%= button_to "Preview newsletter", preview_restaurant_newsletters_path(@restaurant), :popup => true, :class => 'button',:method=>"get" %></p>
+                  <% unless @restaurant.newsletter_approved? %><p>Approve your newsletter to send at regularly scheduled interval.<br>
+                    <%= button_to "Approve newsletter", approve_restaurant_newsletters_path(@restaurant), :method => 'post', :confirm => 'Are you sure you want to approve this newsletter for delivery?' %></p>
+                  <% end %><p>To send your newsletter to your list right now, select Send Newsletter<br>
+                  <%= button_to "Send newsletter", restaurant_newsletters_path(@restaurant), :confirm => 'Are you sure you want to send this newsletter right now?'%>
+               </p> </div>
 
               </div>
 
@@ -43,3 +45,11 @@
         </div>
     </div><!-- /editing_restaurant -->
 </div><!-- /restaurant_profile_view -->
+
+<% content_for :javascript do %>
+<script type="text/javascript">
+  $(document).ready(function(){  
+    $('input[type=submit][popup=true]').parents('form').attr("target","_blank")
+  })
+  </script>
+<% end %>
