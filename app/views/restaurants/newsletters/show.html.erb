@@ -121,7 +121,9 @@
 																<tr>
 	<td><table width="100%" cellspacing="0" cellpadding="0">
 																			<tr>
-																				<td width="138">
+																				<% if menu_item.photo_file_name.present? -%>
+																					<td width="138">
+
 																					<table width="100%" cellspacing="0" cellpadding="0">
 																						<tr>
 																							<td colspan="3" style="font-size:0; line-height:0;" height="4"></td>
@@ -131,7 +133,9 @@
 																						</tr>
 																						<tr>
 																							<td style="font-size:0; line-height:0;"><img src="http://blog.restaurantintelligenceagency.com/images/newsletter/img-6.gif" width="5" height="128" alt="image description" /></td>
-																							<td style="font-size:0; line-height:0;" valign="top"><img src="http://blog.restaurantintelligenceagency.com/images/newsletter/photo-1.jpg" width="129" height="128" alt="image description" /></td>
+																							<td style="font-size:0; line-height:0;" valign="top">																								
+																								<img src="<%=menu_item.photo(:small)%>" width="129" height="128" alt="image description" />
+																							</td>
 																							<td style="font-size:0; line-height:0;"><img src="http://blog.restaurantintelligenceagency.com/images/newsletter/img-7.gif" width="4" height="128" alt="image description" /></td>
 																						</tr>
 																						<tr style="font-size:0; line-height:0;">
@@ -139,6 +143,7 @@
 																						</tr>
 																					</table>
 																				</td>
+																				<% end %>
 																				<td style="padding-left:17px; font:14px Georgia, Times, serif; line-height:18px; color:#4e4e4e" valign="top" width="238"><%= truncate menu_item.description.gsub(/(<[^>]*>)|\r|\n|\t/s, "").to_s.strip.capitalize ,
                                      :length => 225,
                                      :omission => ("...  " + link_to("read more»", soapbox_menu_item_url(menu_item)) ) %> </td>
@@ -365,7 +370,7 @@
        </tr>
   <% for answer in @restaurant_answers %> 
        <tr>
-         <td style="padding-left:7px; font:bold 17px Georgia, Times, serif; line-height:19px; color:#2f3861"><%= link_to answer.answer.capitalize, soapbox_profile_question_url(answer.profile_question), :style => "text-decoration: none;color:#2f3861" %><br /></td>
+         <td style="padding-left:7px; font:bold 17px Georgia, Times, serif; line-height:19px; color:#2f3861"><%= link_to answer.answer.capitalize, soapbox_restaurant_question_url(answer.restaurant_question), :style => "text-decoration: none;color:#2f3861" %><br /></td>
        </tr>
      
       
@@ -378,16 +383,16 @@
 				<tr>
 					<td style="font-size:0; line-height:0;" width="204"></td>
 					<td style="font-size:0; line-height:0;">&nbsp;</td>
-					<td style="font-size:0; line-height:0;"><a href="http://pinterest.com/pin/create/button/?url=<%=soapbox_profile_question_url(answer.profile_question)%>&media=" target="_blank"><img border="0" src="http://blog.restaurantintelligenceagency.com/images/newsletter/pincertone.gif" width="17" height="20" alt="Share on Pinterest" /></a></td>
-					<td style="font-size:0; line-height:0;"><a href="https://plusone.google.com/_/+1/confirm?hl=en&amp;url=<%=soapbox_profile_question_url(answer.profile_question)%>" target="_blank"><img border="0" src="http://blog.restaurantintelligenceagency.com/images/newsletter/google.gif" width="19" height="20" alt="Share on Google+" /></a><a href="#"></a></td>
+					<td style="font-size:0; line-height:0;"><a href="http://pinterest.com/pin/create/button/?url=<%=soapbox_restaurant_question_url(answer.restaurant_question)%>&media=" target="_blank"><img border="0" src="http://blog.restaurantintelligenceagency.com/images/newsletter/pincertone.gif" width="17" height="20" alt="Share on Pinterest" /></a></td>
+					<td style="font-size:0; line-height:0;"><a href="https://plusone.google.com/_/+1/confirm?hl=en&amp;url=<%=soapbox_restaurant_question_url(answer.restaurant_question)%>" target="_blank"><img border="0" src="http://blog.restaurantintelligenceagency.com/images/newsletter/google.gif" width="19" height="20" alt="Share on Google+" /></a><a href="#"></a></td>
 					<td style="font-size:0; line-height:0;"> 
-<a href="http://twitter.com/share?url=&text=<%=  soapbox_profile_question_url(answer.profile_question)%> blog!&via=soapbox_hq&related=yarrcat" target="_blank"><img border="0" src="http://blog.restaurantintelligenceagency.com/images/newsletter/twitter.gif" width="19" height="20" alt="Share on Twitter" /></a>
+<a href="http://twitter.com/share?url=&text=<%=  soapbox_restaurant_question_url(answer.restaurant_question)%> blog!&via=soapbox_hq&related=yarrcat" target="_blank"><img border="0" src="http://blog.restaurantintelligenceagency.com/images/newsletter/twitter.gif" width="19" height="20" alt="Share on Twitter" /></a>
           
                    
 <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>                             
                     </td>
-					<td style="font-size:0; line-height:0;"><a href="http://www.facebook.com/sharer/sharer.php?u=<%= soapbox_profile_question_url(answer.profile_question) %>" target="_blank"><img border="0" src="http://blog.restaurantintelligenceagency.com/images/newsletter/facebook.gif" width="19" height="20" alt="Share on Facebook" /></a></td>
-					<td style="font-size:0; line-height:0;"><a href="http://www.stumbleupon.com/submit?url=<%= soapbox_profile_question_url(answer.profile_question) %>" target="_blank"><img border="0" src="http://blog.restaurantintelligenceagency.com/images/newsletter/stumbleupon.gif" width="19" height="20" alt="Share on Stumble Upon" /></a></td>
+					<td style="font-size:0; line-height:0;"><a href="http://www.facebook.com/sharer/sharer.php?u=<%= soapbox_restaurant_question_url(answer.restaurant_question) %>" target="_blank"><img border="0" src="http://blog.restaurantintelligenceagency.com/images/newsletter/facebook.gif" width="19" height="20" alt="Share on Facebook" /></a></td>
+					<td style="font-size:0; line-height:0;"><a href="http://www.stumbleupon.com/submit?url=<%= soapbox_restaurant_question_url(answer.restaurant_question) %>" target="_blank"><img border="0" src="http://blog.restaurantintelligenceagency.com/images/newsletter/stumbleupon.gif" width="19" height="20" alt="Share on Stumble Upon" /></a></td>
 					
 				</tr>
 			</table>
