@@ -2,7 +2,10 @@ class Restaurants::NewslettersController < ApplicationController
 
   before_filter :authorize, :except => "show"
 
-  def index    
+  def index
+    unless [56,146].include? params[:restaurant_id].to_i
+      render "restaurants/_comming_soon"
+    end
   end
 
   # TODO - remove this once the feature is complete, for testing only
