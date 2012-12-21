@@ -66,10 +66,14 @@ class ALaMinuteAnswersController < ApplicationController
 
   def delete_attachment
     @answer = ALaMinuteAnswer.find(params[:id])
-    @answer.attachment = nil
+    if params[:type]== "pdf"
+      @answer.attachment = nil
+    elsif params[:type]== "photo"
+       @answer.photo = nil
+    end  
     @answer.save
     flash[:notice] = "Deleted attachment"
-    redirect_to edit_restaurant_a_la_minute_answer_path(@restaurant, @promotion)
+    redirect_to edit_restaurant_a_la_minute_answer_path(@restaurant,@answer)
   end
 
   private

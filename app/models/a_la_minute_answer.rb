@@ -16,6 +16,10 @@
 #  attachment_content_type :string(255)
 #  attachment_file_size    :integer
 #  attachment_updated_at   :datetime
+#  photo_file_name    :string(255)
+#  photo_content_type :string(255)
+#  photo_file_size    :integer
+#  photo_updated_at   :datetime
 #
 
 class ALaMinuteAnswer < ActiveRecord::Base
@@ -44,7 +48,19 @@ class ALaMinuteAnswer < ActiveRecord::Base
                     :bucket         => "spoonfeed",
                     :url            => ':s3_domain_url'
 
-  VALID_CONTENT_TYPES = ["application/pdf", "application/x-pdf","image/jpg", "image/jpeg", "image/png", "image/gif", "image/pjpeg", "image/x-png"]
+   # Attachments and validations
+  has_attached_file :photo,
+                    :storage        => :s3,
+                    :s3_credentials => "#{RAILS_ROOT}/config/environments/#{RAILS_ENV}/amazon_s3.yml",
+                    :path           => "#{RAILS_ENV}/alaminute_answer_attachments/:id/:style/:filename",
+                    :bucket         => "spoonfeed",
+                    :url            => ':s3_domain_url',
+                    :styles         => { :full => "1966x2400>", :large => "360x480>", :medium => "240x320>", :small => "189x150>", :thumb => "120x160>" }
+  
+ 
+
+  VALID_CONTENT_TYPES = ["application/pdf", "application/x-pdf"]
+  VALID_PHOTO_CONTENT_TYPES = ["image/jpg", "image/jpeg", "image/png", "image/gif", "image/pjpeg", "image/x-png"]
 
   before_validation(:on => :save) do |file|
     if file.attachment_file_name.present? && (file.attachment_content_type == 'binary/octet-stream')
@@ -53,10 +69,15 @@ class ALaMinuteAnswer < ActiveRecord::Base
     end
   end
 
-  validate :content_type, :if => Proc.new { |answer| answer.attachment_file_name.present? }
+  validate :content_type
 
-  def content_type    
-    errors.add(:attachment, "Please upload a valid pdf or image type: jpeg, gif, or png") unless VALID_CONTENT_TYPES.include?(self.attachment_content_type)
+  def content_type  
+    if (!(VALID_PHOTO_CONTENT_TYPES.include?(self.photo_content_type)) && self.photo_file_name.present?)      
+      errors.add(:photo, "Please upload a image type: jpeg, gif, or png") 
+    end
+    if !(VALID_CONTENT_TYPES.include?(self.attachment_content_type)) && self.attachment_file_name.present?
+      errors.add(:attachment, "Please upload a valid pdf ") 
+  end
   end
 
 
