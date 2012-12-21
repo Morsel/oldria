@@ -1,8 +1,21 @@
-<% semantic_form_for [@restaurant, @answer] do |form| %>
+<% semantic_form_for [@restaurant, @answer],:html => { :multipart => true } do |form| %>
   <%= hidden_field_tag "question_id", @question.id %>
   <%= hidden_field_tag "a_la_minute_answer[a_la_minute_question_id]", @question.id %>
 
   <%= form.input :answer, :input_html => { :class => "new answer bulk-edit-text-area", :rows=>"10" } %>
+  <%= form.input :attachment, :hint => "PDF files allowed" ,:label =>"Add a file" %>
+  <%= form.input :photo, :hint => "Image files allowed" ,:label =>"Add a photo" %>
+
+  <% if !@answer.new_record? && @answer.attachment.file? -%>
+          Current attachment: <%= link_to @answer.attachment_file_name, @answer.attachment.url %>
+      <p><%= link_to "Delete attachment", delete_attachment_restaurant_a_la_minute_answer_path(@restaurant, @answer,{:type=>:pdf}), :method => :post, :confirm => "Are you sure you want to delete this?" %> or replace by uploading a new file</p>
+  <% end -%>
+
+  <% if !@answer.new_record? && @answer.photo.file? -%>
+        Current attachment: <%= link_to @answer.photo_file_name, @answer.photo.url,:target=>"_blank" %>
+    <p><%= link_to "Delete attachment", delete_attachment_restaurant_a_la_minute_answer_path(@restaurant, @answer,{:type=>:photo}), :method => :post, :confirm => "Are you sure you want to delete this?" %> or replace by uploading a new file</p>
+  <% end -%>
+
 
   <section id="social-tabs">
     <nav id="profile-options">
