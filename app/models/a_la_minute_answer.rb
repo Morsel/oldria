@@ -12,6 +12,14 @@
 #  updated_at              :datetime
 #  post_to_twitter_at      :datetime
 #  post_to_facebook_at     :datetime
+#  attachment_file_name    :string(255)
+#  attachment_content_type :string(255)
+#  attachment_file_size    :integer
+#  attachment_updated_at   :datetime
+#  photo_file_name    :string(255)
+#  photo_content_type :string(255)
+#  photo_file_size    :integer
+#  photo_updated_at   :datetime
 #
 
 class ALaMinuteAnswer < ActiveRecord::Base
@@ -31,6 +39,47 @@ class ALaMinuteAnswer < ActiveRecord::Base
 
   validates_presence_of :a_la_minute_question_id
   validates_presence_of :answer
+
+  # Attachments and validations
+  has_attached_file :attachment,
+                    :storage        => :s3,
+                    :s3_credentials => "#{RAILS_ROOT}/config/environments/#{RAILS_ENV}/amazon_s3.yml",
+                    :path           => "#{RAILS_ENV}/alaminute_answer_attachments/:id/:filename",
+                    :bucket         => "spoonfeed",
+                    :url            => ':s3_domain_url'
+
+   # Attachments and validations
+  has_attached_file :photo,
+                    :storage        => :s3,
+                    :s3_credentials => "#{RAILS_ROOT}/config/environments/#{RAILS_ENV}/amazon_s3.yml",
+                    :path           => "#{RAILS_ENV}/alaminute_answer_attachments/:id/:style/:filename",
+                    :bucket         => "spoonfeed",
+                    :url            => ':s3_domain_url',
+                    :styles         => { :full => "1966x2400>", :large => "360x480>", :medium => "240x320>", :small => "189x150>", :thumb => "120x160>" }
+  
+ 
+
+  VALID_CONTENT_TYPES = ["application/pdf", "application/x-pdf"]
+  VALID_PHOTO_CONTENT_TYPES = ["image/jpg", "image/jpeg", "image/png", "image/gif", "image/pjpeg", "image/x-png"]
+
+  before_validation(:on => :save) do |file|
+    if file.attachment_file_name.present? && (file.attachment_content_type == 'binary/octet-stream')
+      mime_type = MIME::Types.type_for(file.attachment_file_name)
+      file.attachment_content_type = mime_type.first.content_type if mime_type.first
+    end
+  end
+
+  validate :content_type
+
+  def content_type  
+    if (!(VALID_PHOTO_CONTENT_TYPES.include?(self.photo_content_type)) && self.photo_file_name.present?)      
+      errors.add(:photo, "Please upload a image type: jpeg, gif, or png") 
+    end
+    if !(VALID_CONTENT_TYPES.include?(self.attachment_content_type)) && self.attachment_file_name.present?
+      errors.add(:attachment, "Please upload a valid pdf ") 
+  end
+  end
+
 
   default_scope :order => 'created_at desc'
 

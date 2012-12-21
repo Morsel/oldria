@@ -1,10 +1,18 @@
 <% div_for answer do %>
     <h2><%= link_to answer.question, soapbox_a_la_minute_question_path(answer.a_la_minute_question) %></h2>
     <%= render :partial => 'restaurants/identity', :locals => { :restaurant => answer.responder } %>
-    <p class="answer"><%= answer.answer %>
+     <div class="question_answers">
+        <% if answer.photo_file_name.present? -%>
+        <p><%= image_tag answer.photo(:medium) %></p>
+        <% end -%>
+
+        <p class="answer"><%= answer.answer %></p>
      <%= link_to "Share this entry", soapbox_a_la_minute_answer_path(answer) %>
      	<br><span class="datestamp"><%= "Posted #{answer.created_at.strftime("%D")}" %></span>
 
    	</p>
-    <div class="clearfix">&nbsp;</div>
+   	<div class="clearfix">&nbsp;</div>
+    </div>
 <% end %>
+<div class="clear">&nbsp;</div>
+
