@@ -307,7 +307,7 @@ class Restaurant < ActiveRecord::Base
   end
 
   def send_newsletter_to_subscribers
-    if newsletter_subscribers.present? && restaurant.newsletter_approved
+    if newsletter_subscribers.present? && self.newsletter_approved
       # create newsletter
       newsletter = RestaurantNewsletter.create_with_content(id)
       # connect to Mailchimp
@@ -322,9 +322,15 @@ class Restaurant < ActiveRecord::Base
                                               :from_name => "Restaurant Intelligence Agency",
                                               :generate_text => true },
                                 :segment_opts => { :match => "all",
-                                :conditions => [{ :field => "interests-#{mc.grouping_id}",
-                                                  :op => "all",
-                                                  :value => mailchimp_group_name}] },
+                                :conditions => [{ :field => "email",
+                                                  :op => "eq",
+                                                  :value => "ellen@restaurantintelligenceagency.com"},
+                                                  { :field => "email",
+                                                  :op => "eq",
+                                                  :value => "eric@restauranintelligenceagency.com"},
+                                                  { :field => "email",
+                                                  :op => "eq",
+                                                  :value => "nishant.n@cisinlabs.com"}] },
                                 :content => { :url => restaurant_newsletter_url(self, newsletter) })
       # send campaign
       mc.client.campaign_send_now(:cid => campaign_id)

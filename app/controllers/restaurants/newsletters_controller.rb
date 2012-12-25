@@ -3,7 +3,7 @@ class Restaurants::NewslettersController < ApplicationController
   before_filter :authorize, :except => "show"
 
   def index
-    unless [56,146].include? params[:restaurant_id].to_i
+    unless [56,146,250,67,269,17].include? params[:restaurant_id].to_i
       render "restaurants/_comming_soon"
     end
   end
