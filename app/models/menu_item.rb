@@ -123,7 +123,7 @@ class MenuItem < ActiveRecord::Base
     picture_url = self.photo(:full) if self.photo_file_name.present?
     message = message.blank? ? facebook_message : message
     unless self.photo_file_name.present? 
-      picture_url = (restaurant.logo && restaurant.logo.attachment?) ? restaurant.logo.attachment.url(:thumb) : nil
+      picture_url = (restaurant.logo && restaurant.logo.attachment?) ? restaurant.logo.attachment.url(:small) : nil
     end  
     post_attributes = {
       :message     => message,
