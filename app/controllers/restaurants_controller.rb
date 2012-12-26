@@ -186,7 +186,7 @@ class RestaurantsController < ApplicationController
 
   def newsletter_subscriptions
     @subscriptions = @restaurant.newsletter_subscriptions
-    unless [56,146].include? params[:id].to_i
+    unless [56,146,250,67,269,17].include? params[:id].to_i
       render "restaurants/_comming_soon"
     end
   end

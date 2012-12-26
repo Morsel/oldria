@@ -1,8 +1,12 @@
 class MenuItemsController < ApplicationController
 
   before_filter :require_user
+
+
   before_filter :require_manager, :except => [:index,:get_keywords,:add_keywords]
   before_filter :social_redirect, :only => [:edit]
+
+
 
   def index
     find_restaurant
@@ -18,7 +22,6 @@ class MenuItemsController < ApplicationController
   end
 
   def create
-    debugger
     @menu_item = @restaurant.menu_items.build(params[:menu_item])
     if @menu_item.save
       flash[:notice] = "Your menu item has been saved"
