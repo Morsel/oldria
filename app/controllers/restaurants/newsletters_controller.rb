@@ -4,7 +4,7 @@ class Restaurants::NewslettersController < ApplicationController
 
   def index
     unless [56,146,250,67,269,17].include? params[:restaurant_id].to_i
-      render "restaurants/_comming_soon"
+      #render "restaurants/_comming_soon"
     end
   end
 
