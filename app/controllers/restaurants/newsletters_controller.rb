@@ -34,11 +34,11 @@ class Restaurants::NewslettersController < ApplicationController
   end
 
   def preview
-    @menu_items = @restaurant.menu_items.all(:order => "created_at DESC", :limit => 3)
-    @restaurant_answers = @restaurant.restaurant_answers.all(:order => "created_at DESC", :limit => 3)
-    @menus = @restaurant.menus.all(:order => "updated_at DESC", :limit => 3)
-    @promotions = @restaurant.promotions.all(:order => "created_at DESC", :limit => 3)
-    @alaminute_answers = @restaurant.a_la_minute_answers.all(:order => "created_at DESC", :limit => 3)
+    @menu_items = @restaurant.menu_items.all(:order => "created_at DESC", :limit => 5)
+    @restaurant_answers = @restaurant.restaurant_answers.all(:order => "created_at DESC", :limit => 5)
+    @menus = @restaurant.menus.all(:order => "updated_at DESC", :limit => 5)
+    @promotions = @restaurant.promotions.all(:order => "created_at DESC", :limit => 5)
+    @alaminute_answers = @restaurant.a_la_minute_answers.all(:order => "created_at DESC", :limit => 5)
     render :action => "show", :layout => false
   end
 
