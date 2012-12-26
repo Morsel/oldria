@@ -9,10 +9,6 @@
 		color: #808080;
 		text-decoration: none;
 		}
-		img.share{
-			height: 15px;
-			width: 15px;
-		}
 	</style>
 </head>
 <body style="margin:0;padding:0; background-image:url(http://s10.postimage.org/nozwc9c21/bg_body.gif);" bgcolor="#ffffff" link="#666666">
@@ -54,13 +50,12 @@
 					<td valign="top" style="font-size:0; line-height:0;"><img src="http://blog.restaurantintelligenceagency.com/images/newsletter/img-10.jpg" width="604" height="12" alt="image description" /></td>
 				</tr>
 				<tr>
-					<td width="1" background="#cac3b5" align="center" valign="top" bgcolor="#fff" style="padding-left:0px; font:bold 15px Georgia, Times, serif; line-height:19px; color:#2f3861">
+					<td width="1" background="#cac3b5" align="center" valign="top" bgcolor="#fff" style="padding-left:0px; font:bold 15px Georgia, Times, serif; color:#2f3861">
 						<table width="100%" cellspacing="0" cellpadding="0">
 							<tr>
-							  <td width="4%" style="font-size:0; line-height:0;"><img src="http://blog.restaurantintelligenceagency.com/images/newsletter/img-11.gif" width="23" height="170" alt="image description" /></td>
-							  <td width="96%" align="center" valign="middle" style="font-size:0; line-height:0;padding-right:10px;color:#666666;font-size:14px"><p><%= image_tag logo_for(@restaurant).attachment.url(:medium), :style => "border: none;font-size: 14px;font-weight: bold;height: auto;line-height: 100%;outline: none;text-decoration: none;text-transform: capitalize;" %></p>
-						</td>
-							  <td width="0%" style="font-size:0; line-height:0;"><img src="http://blog.restaurantintelligenceagency.com/images/newsletter/img-12.gif" width="2" height="170" alt="image description" /></td>
+							  <td width="4%" style="font-size:0; line-height:0;"><img src="http://blog.restaurantintelligenceagency.com/images/newsletter/img-11.gif" width="23" height="150" alt="image description" /></td>
+							  <td width="96%" align="center" valign="middle" style="font-size:0; line-height:0;color:#666666;font-size:14px"><%= image_tag logo_for(@restaurant).attachment.url(:medium), :style => "border: none;font-size: 14px;font-weight: bold;height: auto;line-height: 100%;outline: none;text-decoration: none;text-transform: capitalize;" %><p><%= @restaurant.send(:tag_line)%></p></td>
+							  <td width="0%" style="font-size:0; line-height:0;"><img src="http://blog.restaurantintelligenceagency.com/images/newsletter/img-12.gif" width="2" height="150" alt="image description" /></td>
 						  </tr>
 						</table>
 					</td>
@@ -72,9 +67,9 @@
 					<td>
 						<table width="100%" cellspacing="0" cellpadding="0">
 								<tr>
-								<td style="font-size:0; line-height:0;"><img src="http://blog.restaurantintelligenceagency.com/images/newsletter/img-1.gif" width="205" height="68" alt="image description" /></td>
-								<td style="font-size:0; line-height:0;width:194px;"><img src="http://blog.restaurantintelligenceagency.com/images/newsletter/img-1-2.jpg" width="194" height="68" alt="image description" /></td>
-								<td style="font-size:0; line-height:0;"><img src="http://blog.restaurantintelligenceagency.com/images/newsletter/img-2.gif" width="205" height="68" alt="image description" /></td>
+								<td style="font-size:0; line-height:0;"><img src="http://blog.restaurantintelligenceagency.com/images/newsletter/img-1.gif" width="205" height="45" alt="image description" /></td>
+								<td style="font-size:0; line-height:0;width:194px;"><img src="http://blog.restaurantintelligenceagency.com/images/newsletter/img-1-2.jpg" width="194" height="45" alt="image description" /></td>
+								<td style="font-size:0; line-height:0;"><img src="http://blog.restaurantintelligenceagency.com/images/newsletter/img-2.gif" width="205" height="45" alt="image description" /></td>
 							</tr>
 						</table>
 					</td>
@@ -93,7 +88,8 @@
 												<table width="100%" cellspacing="0" cellpadding="0">
 													<tr>
 														<td width="376" rowspan="2" valign="top" style="padding-left:21px; padding-right:21px; background:#fff;">
-	 <% unless @menu_items.blank? %>														<table width="100%" cellspacing="0" cellpadding="0">
+	 <% unless @menu_items.blank? %>														
+	 														<table width="100%" cellspacing="0" cellpadding="0">
 																<tr>
 																	<td style="font-size:0; line-height:0; background:#e0ddd9;" height="7"></td>
 																</tr>
@@ -186,20 +182,21 @@
 																</tr>
 																<tr>
 																	<td>
-																		<table width="100%" cellspacing="0" cellpadding="0">
+																		<table width="100%" cellspacing="0" cellpadding="3">
 																			<tr>
-																				<td style="font-size:0; line-height:0;" width="250"></td>
-																				<td style="font-size:0; line-height:0;">&nbsp;</td>
-																				<td style="font-size:0; line-height:0;"><a href="http://pinterest.com/pin/create/button/?url=<%=soapbox_menu_item_url(menu_item)%>&media=" target="_blank"><img class="share" border="0" src="http://blog.restaurantintelligenceagency.com/images/newsletter/pincertone.gif" width="17" height="20" alt="Share on Pinterest" /></a></td>
-																				<td style="font-size:0; line-height:0;"><a href="https://plusone.google.com/_/+1/confirm?hl=en&amp;url=<%=soapbox_menu_item_url(menu_item)%>" target="_blank"><img class="share" border="0" src="http://blog.restaurantintelligenceagency.com/images/newsletter/google.gif" width="19" height="20" alt="Share on Google+" /></a><a href="#"></a></td>
-																				<td style="font-size:0; line-height:0;"> 
-                     <a href="http://twitter.com/share?url=&text=<%=  soapbox_menu_item_url(menu_item) %> blog!&via=soapbox_hq&related=yarrcat" target="_blank"><img class="share" border="0" src="http://blog.restaurantintelligenceagency.com/images/newsletter/twitter.gif" width="19" height="20" alt="Share on Twitter" /></a>
+																				<td style="font-size:0; line-height:0;" width="164"></td>
+																				<td width="59" style="font-size:0; line-height:0;">&nbsp;</td>
+																				<td width="17" style="font-size:0; line-height:0;"><a href="http://pinterest.com/pin/create/button/?url=<%=soapbox_menu_item_url(menu_item)%>&media=" target="_blank"><img border="0" src="http://blog.restaurantintelligenceagency.com/images/newsletter/pincertone.gif" width="17" height="19" alt="Share on Pinterest" /></a></td>
+																				<td width="18" style="font-size:0; line-height:0;"><a href="https://plusone.google.com/_/+1/confirm?hl=en&amp;url=<%=soapbox_menu_item_url(menu_item)%>" target="_blank"><img border="0" src="http://blog.restaurantintelligenceagency.com/images/newsletter/google.gif" width="17" height="18" alt="Share on Google+" /></a><a href="#"></a></td>
+																				<td width="17" style="font-size:0; line-height:0;"> 
+                     <a href="http://twitter.com/share?url=&text=<%=  soapbox_menu_item_url(menu_item) %> blog!&via=soapbox_hq&related=yarrcat" target="_blank"><img border="0" src="http://blog.restaurantintelligenceagency.com/images/newsletter/twitter.gif" width="17" height="18" alt="Share on Twitter" /></a>
                                                                                 
                                                                                
 <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>                             
                                                                                 </td>
-																				<td style="font-size:0; line-height:0;"><a href="http://www.facebook.com/sharer/sharer.php?u=<%= soapbox_menu_item_url(menu_item) %>" target="_blank"><img class="share" border="0" src="http://blog.restaurantintelligenceagency.com/images/newsletter/facebook.gif" width="19" height="20" alt="Share on Facebook" /></a></td>
-																				<td style="font-size:0; line-height:0;"><a href="http://www.stumbleupon.com/submit?url=<%= soapbox_menu_item_url(menu_item)%>" target="_blank"><img class="share" border="0" src="http://blog.restaurantintelligenceagency.com/images/newsletter/stumbleupon.gif" width="19" height="20" alt="Share on Stumble Upon" /></a></td>
+																				<td width="17" style="font-size:0; line-height:0;padding:3px"><a href="http://www.facebook.com/sharer/sharer.php?u=<%= soapbox_menu_item_url(menu_item) %>" target="_blank"><img border="0" src="http://blog.restaurantintelligenceagency.com/images/newsletter/facebook.gif" width="17" height="18" alt="Share on Facebook" /></a></td>
+																				<td width="17" style="font-size:0; line-height:0;"><a href="http://www.stumbleupon.com/submit?url=<%= soapbox_menu_item_url(menu_item)%>" target="_blank"><img border="0" src="http://blog.restaurantintelligenceagency.com/images/newsletter/stumbleupon.gif" width="17" height="17" alt="Share on Stumble Upon" /></a></td>
+																				<td width="17" style="font-size:0; line-height:0;"><a href="javascript:window.print()" target="_blank"><img border="0" src="http://blog.restaurantintelligenceagency.com/images/newsletter/print.jpg" width="17" height="17" alt="Share on Print" /></a></td>
 																				
 																			</tr>
 																		</table>
@@ -212,12 +209,23 @@
 																	<td style="font-size:0; line-height:0;">
 																		<img src="http://blog.restaurantintelligenceagency.com/images/newsletter/img-4.gif" width="376" height="6" alt="image description" />
 																	</td>
-																</tr>    <tr>
+																</tr>    
+																<tr>
 																	<td style="font-size:0; line-height:0;" height="9"></td>
 																</tr>
 		 <% end %>
- 
-															</table>
+ 			<tr>
+			  	<td colspan="100%"><%= link_to "Check out more from #{@restaurant.send(:name).capitalize}",soapbox_menu_items_url({:restaurant_id=>@restaurant.id}) %> </td>
+			</tr>
+			<tr>
+				<td style="font-size:0; line-height:0;">
+					<img src="http://blog.restaurantintelligenceagency.com/images/newsletter/img-4.gif" width="376" height="6" alt="image description" />
+				</td>
+			</tr>    
+			<tr>
+				<td style="font-size:0; line-height:0;" height="9"></td>
+			</tr>	
+		</table>
 			  
        <% end %>											
         <% unless @promotions.blank? %>
@@ -253,20 +261,21 @@
        </tr>
        <tr>
          <td>
-         	<table width="100%" cellspacing="0" cellpadding="0">
+         	<table width="100%" cellspacing="0" cellpadding="3">
 				<tr>
-					<td style="font-size:0; line-height:0;" width="250"></td>
-					<td style="font-size:0; line-height:0;">&nbsp;</td>
-					<td style="font-size:0; line-height:0;"><a href="http://pinterest.com/pin/create/button/?url=<%=soapbox_promotion_url(promotion)%>&media=" target="_blank"><img class="share" border="0" src="http://blog.restaurantintelligenceagency.com/images/newsletter/pincertone.gif" width="17" height="20" alt="Share on Pinterest" /></a></td>
-					<td style="font-size:0; line-height:0;"><a href="https://plusone.google.com/_/+1/confirm?hl=en&amp;url=<%=soapbox_promotion_url(promotion)%>" target="_blank"><img class="share" border="0" src="http://blog.restaurantintelligenceagency.com/images/newsletter/google.gif" width="19" height="20" alt="Share on Google+" /></a><a href="#"></a></td>
-					<td style="font-size:0; line-height:0;"> 
-<a href="http://twitter.com/share?url=&text=<%=  soapbox_promotion_url(promotion) %> blog!&via=soapbox_hq&related=yarrcat" target="_blank"><img class="share" border="0" src="http://blog.restaurantintelligenceagency.com/images/newsletter/twitter.gif" width="19" height="20" alt="Share on Twitter" /></a>
+					<td style="font-size:0; line-height:0;" width="204"></td>
+					<td width="18" style="font-size:0; line-height:0;">&nbsp;</td>
+					<td width="17" style="font-size:0; line-height:0;"><a href="http://pinterest.com/pin/create/button/?url=<%=soapbox_promotion_url(promotion)%>&media=" target="_blank"><img border="0" src="http://blog.restaurantintelligenceagency.com/images/newsletter/pincertone.gif" width="17" height="19" alt="Share on Pinterest" /></a></td>
+					<td width="18" style="font-size:0; line-height:0;"><a href="https://plusone.google.com/_/+1/confirm?hl=en&amp;url=<%=soapbox_promotion_url(promotion)%>" target="_blank"><img border="0" src="http://blog.restaurantintelligenceagency.com/images/newsletter/google.gif" width="17" height="18" alt="Share on Google+" /></a><a href="#"></a></td>
+					<td width="17" style="font-size:0; line-height:0;"> 
+<a href="http://twitter.com/share?url=&text=<%=  soapbox_promotion_url(promotion) %> blog!&via=soapbox_hq&related=yarrcat" target="_blank"><img border="0" src="http://blog.restaurantintelligenceagency.com/images/newsletter/twitter.gif" width="17" height="18" alt="Share on Twitter" /></a>
                     
                    
 <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>                             
                     </td>
-					<td style="font-size:0; line-height:0;"><a href="http://www.facebook.com/sharer/sharer.php?u=<%= soapbox_promotion_url(promotion) %>" target="_blank"><img class="share" border="0" src="http://blog.restaurantintelligenceagency.com/images/newsletter/facebook.gif" width="19" height="20" alt="Share on Facebook" /></a></td>
-					<td style="font-size:0; line-height:0;"><a href="http://www.stumbleupon.com/submit?url=<%= soapbox_promotion_url(promotion) %>" target="_blank"><img class="share"border="0" src="http://blog.restaurantintelligenceagency.com/images/newsletter/stumbleupon.gif" width="19" height="20" alt="Share on Stumble Upon" /></a></td>
+					<td width="17" style="font-size:0; line-height:0;"><a href="http://www.facebook.com/sharer/sharer.php?u=<%= soapbox_promotion_url(promotion) %>" target="_blank"><img border="0" src="http://blog.restaurantintelligenceagency.com/images/newsletter/facebook.gif" width="17" height="18" alt="Share on Facebook" /></a></td>
+					<td width="17" style="font-size:0; line-height:0;"><a href="http://www.stumbleupon.com/submit?url=<%= soapbox_promotion_url(promotion) %>" target="_blank"><img border="0" src="http://blog.restaurantintelligenceagency.com/images/newsletter/stumbleupon.gif" width="17" height="18" alt="Share on Stumble Upon" /></a></td>
+					<td width="18" style="font-size:0; line-height:0;"><a href="javascript:window.print()" target="_blank"><img border="0" src="http://blog.restaurantintelligenceagency.com/images/newsletter/print.jpg" width="17" height="17" alt="Share on Print" /></a><a href="http://www.stumbleupon.com/submit?url=<%= soapbox_promotion_url(promotion) %>" target="_blank"></a></td>
 					
 				</tr>
 			</table>
@@ -282,6 +291,17 @@
          <td style="font-size:0; line-height:0;" height="13"></td>
        </tr>
        <% end %>
+       <tr>
+			<td colspan="100%"><%= link_to "Check out more from #{@restaurant.send(:name).capitalize}",soapbox_promotions_url({:restaurant_id=>@restaurant.id}) %> </td>
+			</tr>
+			<tr>
+				<td style="font-size:0; line-height:0;">
+					<img src="http://blog.restaurantintelligenceagency.com/images/newsletter/img-4.gif" width="376" height="6" alt="image description" />
+				</td>
+			</tr>    
+			<tr>
+				<td style="font-size:0; line-height:0;" height="9"></td>
+		</tr>
      </table>
      <% end %>
     <% unless @alaminute_answers.blank? %>
@@ -321,20 +341,21 @@
        </tr>
        <tr>
          <td>
-         	<table width="100%" cellspacing="0" cellpadding="0">
+         	<table width="100%" cellspacing="0" cellpadding="3">
 				<tr>
-					<td style="font-size:0; line-height:0;" width="250"></td>
-					<td style="font-size:0; line-height:0;">&nbsp;</td>
-					<td style="font-size:0; line-height:0;"><a href="http://pinterest.com/pin/create/button/?url=<%=soapbox_a_la_minute_answer_url(alm_answer)%>&media=" target="_blank" ><img class="share" border="0" src="http://blog.restaurantintelligenceagency.com/images/newsletter/pincertone.gif" width="17" height="20" alt="Share on Pinterest" /></a></td>
-					<td style="font-size:0; line-height:0;"><a href="https://plusone.google.com/_/+1/confirm?hl=en&amp;url=<%=soapbox_a_la_minute_answer_url(alm_answer)%>" target="_blank"><img class="share" border="0" src="http://blog.restaurantintelligenceagency.com/images/newsletter/google.gif" width="19" height="20" alt="Share on Google+" /></a><a href="#"></a></td>
-					<td style="font-size:0; line-height:0;"> 
-<a href="http://twitter.com/share?url=&text=<%=  soapbox_a_la_minute_answer_url(alm_answer) %> blog!&via=soapbox_hq&related=yarrcat" target="_blank"><img class="share" border="0" src="http://blog.restaurantintelligenceagency.com/images/newsletter/twitter.gif" width="19" height="20" alt="Share on Twitter" /></a>
+					<td style="font-size:0; line-height:0;" width="204"></td>
+					<td width="66" style="font-size:0; line-height:0;">&nbsp;</td>
+					<td width="17" style="font-size:0; line-height:0;"><a href="http://pinterest.com/pin/create/button/?url=<%=soapbox_a_la_minute_answer_url(alm_answer)%>&media=" target="_blank" ><img border="0" src="http://blog.restaurantintelligenceagency.com/images/newsletter/pincertone.gif" width="17" height="18" alt="Share on Pinterest" /></a></td>
+					<td width="18" style="font-size:0; line-height:0;"><a href="https://plusone.google.com/_/+1/confirm?hl=en&amp;url=<%=soapbox_a_la_minute_answer_url(alm_answer)%>" target="_blank"><img border="0" src="http://blog.restaurantintelligenceagency.com/images/newsletter/google.gif" width="17" height="18" alt="Share on Google+" /></a><a href="#"></a></td>
+					<td width="17" style="font-size:0; line-height:0;"> 
+<a href="http://twitter.com/share?url=&text=<%=  soapbox_a_la_minute_answer_url(alm_answer) %> blog!&via=soapbox_hq&related=yarrcat" target="_blank"><img border="0" src="http://blog.restaurantintelligenceagency.com/images/newsletter/twitter.gif" width="17" height="18" alt="Share on Twitter" /></a>
           
                    
 <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>                             
                     </td>
-					<td style="font-size:0; line-height:0;"><a href="http://www.facebook.com/sharer/sharer.php?u=<%= soapbox_a_la_minute_answer_url(alm_answer) %>" target="_blank"><img class="share" border="0" src="http://blog.restaurantintelligenceagency.com/images/newsletter/facebook.gif" width="19" height="20" alt="Share on Facebook" /></a></td>
-					<td style="font-size:0; line-height:0;"><a href="http://www.stumbleupon.com/submit?url=<%= soapbox_a_la_minute_answer_url(alm_answer) %>" target="_blank"><img class="share" border="0" src="http://blog.restaurantintelligenceagency.com/images/newsletter/stumbleupon.gif" width="19" height="20" alt="Share on Stumble Upon" /></a></td>
+					<td width="17" style="font-size:0; line-height:0;"><a href="http://www.facebook.com/sharer/sharer.php?u=<%= soapbox_a_la_minute_answer_url(alm_answer) %>" target="_blank"><img border="0" src="http://blog.restaurantintelligenceagency.com/images/newsletter/facebook.gif" width="17" height="18" alt="Share on Facebook" /></a></td>
+					<td width="17" style="font-size:0; line-height:0;"><a href="http://www.stumbleupon.com/submit?url=<%= soapbox_a_la_minute_answer_url(alm_answer) %>" target="_blank"><img border="0" src="http://blog.restaurantintelligenceagency.com/images/newsletter/stumbleupon.gif" width="17" height="18" alt="Share on Stumble Upon" /></a></td>		<td width="18" style="font-size:0; line-height:0;"><a href="javascript:window.print()" target="_blank"><img border="0" src="http://blog.restaurantintelligenceagency.com/images/newsletter/print.jpg" width="17" height="17" alt="Share on Print" /></a></td>
+					
 					
 				</tr>
 			</table>
@@ -350,6 +371,18 @@
          <td style="font-size:0; line-height:0;" height="13"></td>
        </tr>
        <% end %>
+       <tr>
+			<td colspan="100%"><%= link_to "See what else is happening at #{@restaurant.send(:name).capitalize}",soapbox_restaurant_url(@restaurant) %> </td>
+			</tr>
+			<tr>
+				<td style="font-size:0; line-height:0;">
+					<img src="http://blog.restaurantintelligenceagency.com/images/newsletter/img-4.gif" width="376" height="6" alt="image description" />
+				</td>
+			</tr>    
+			<tr>
+				<td style="font-size:0; line-height:0;" height="9"></td>
+		</tr>
+
      </table>
      <% end %>
      <% unless @restaurant_answers.blank? %>
@@ -382,20 +415,21 @@
        </tr>
        <tr>
          <td>
-         	<table width="100%" cellspacing="0" cellpadding="0">
+         	<table width="100%" cellspacing="0" cellpadding="3">
 				<tr>
-					<td style="font-size:0; line-height:0;" width="250"></td>
-					<td style="font-size:0; line-height:0;">&nbsp;</td>
-					<td style="font-size:0; line-height:0;"><a href="http://pinterest.com/pin/create/button/?url=<%=soapbox_restaurant_question_url(answer.restaurant_question)%>&media=" target="_blank"><img class="share" border="0" src="http://blog.restaurantintelligenceagency.com/images/newsletter/pincertone.gif" width="17" height="20" alt="Share on Pinterest" /></a></td>
-					<td style="font-size:0; line-height:0;"><a href="https://plusone.google.com/_/+1/confirm?hl=en&amp;url=<%=soapbox_restaurant_question_url(answer.restaurant_question)%>" target="_blank"><img class="share" border="0" src="http://blog.restaurantintelligenceagency.com/images/newsletter/google.gif" width="19" height="20" alt="Share on Google+" /></a><a href="#"></a></td>
-					<td style="font-size:0; line-height:0;"> 
-<a href="http://twitter.com/share?url=&text=<%=  soapbox_restaurant_question_url(answer.restaurant_question)%> blog!&via=soapbox_hq&related=yarrcat" target="_blank"><img class="share" border="0" src="http://blog.restaurantintelligenceagency.com/images/newsletter/twitter.gif" width="19" height="20" alt="Share on Twitter" /></a>
+					<td style="font-size:0; line-height:0;" width="204"></td>
+					<td width="66" style="font-size:0; line-height:0;">&nbsp;</td>
+					<td width="17" style="font-size:0; line-height:0;"><a href="http://pinterest.com/pin/create/button/?url=<%=soapbox_restaurant_question_url(answer.restaurant_question)%>&media=" target="_blank"><img border="0" src="http://blog.restaurantintelligenceagency.com/images/newsletter/pincertone.gif" width="17" height="19" alt="Share on Pinterest" /></a></td>
+					<td width="18" style="font-size:0; line-height:0;"><a href="https://plusone.google.com/_/+1/confirm?hl=en&amp;url=<%=soapbox_restaurant_question_url(answer.restaurant_question)%>" target="_blank"><img border="0" src="http://blog.restaurantintelligenceagency.com/images/newsletter/google.gif" width="17" height="18" alt="Share on Google+" /></a><a href="#"></a></td>
+					<td width="17" style="font-size:0; line-height:0;"> 
+<a href="http://twitter.com/share?url=&text=<%=  soapbox_restaurant_question_url(answer.restaurant_question)%> blog!&via=soapbox_hq&related=yarrcat" target="_blank"><img border="0" src="http://blog.restaurantintelligenceagency.com/images/newsletter/twitter.gif" width="17" height="18" alt="Share on Twitter" /></a>
           
                    
 <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>                             
                     </td>
-					<td style="font-size:0; line-height:0;"><a href="http://www.facebook.com/sharer/sharer.php?u=<%= soapbox_restaurant_question_url(answer.restaurant_question) %>" target="_blank"><img class="share" border="0" src="http://blog.restaurantintelligenceagency.com/images/newsletter/facebook.gif" width="19" height="20" alt="Share on Facebook" /></a></td>
-					<td style="font-size:0; line-height:0;"><a href="http://www.stumbleupon.com/submit?url=<%= soapbox_restaurant_question_url(answer.restaurant_question) %>" target="_blank"><img class="share" border="0" src="http://blog.restaurantintelligenceagency.com/images/newsletter/stumbleupon.gif" width="19" height="20" alt="Share on Stumble Upon" /></a></td>
+					<td width="17" style="font-size:0; line-height:0;"><a href="http://www.facebook.com/sharer/sharer.php?u=<%= soapbox_restaurant_question_url(answer.restaurant_question) %>" target="_blank"><img border="0" src="http://blog.restaurantintelligenceagency.com/images/newsletter/facebook.gif" width="17" height="18" alt="Share on Facebook" /></a></td>
+					<td width="17" style="font-size:0; line-height:0;"><a href="http://www.stumbleupon.com/submit?url=<%= soapbox_restaurant_question_url(answer.restaurant_question) %>" target="_blank"><img border="0" src="http://blog.restaurantintelligenceagency.com/images/newsletter/stumbleupon.gif" width="17" height="18" alt="Share on Stumble Upon" /></a></td>
+						<td width="18" style="font-size:0; line-height:0;"><a href="javascript:window.print()" target="_blank"><img border="0" src="http://blog.restaurantintelligenceagency.com/images/newsletter/print.jpg" width="17" height="17" alt="Share on Print" /></a></td>
 					
 				</tr>
 			</table>
@@ -411,6 +445,17 @@
          <td style="font-size:0; line-height:0;" height="13"></td>
        </tr>
        <% end %>
+         <tr>
+			<td colspan="100%"><%= link_to "See what else is happening at #{@restaurant.send(:name).capitalize}",soapbox_restaurant_url(@restaurant) %> </td>
+			</tr>
+			<tr>
+				<td style="font-size:0; line-height:0;">
+					<img src="http://blog.restaurantintelligenceagency.com/images/newsletter/img-4.gif" width="376" height="6" alt="image description" />
+				</td>
+			</tr>    
+			<tr>
+				<td style="font-size:0; line-height:0;" height="9"></td>
+		</tr>
      </table>
      <% end %>
 
@@ -445,20 +490,21 @@
        </tr>
        <tr>
          <td>
-         	<table width="100%" cellspacing="0" cellpadding="0">
+         	<table width="100%" cellspacing="0" cellpadding="3">
 				<tr>
-					<td style="font-size:0; line-height:0;" width="250"></td>
-					<td style="font-size:0; line-height:0;">&nbsp;</td>
-					<td style="font-size:0; line-height:0;"><a href="http://pinterest.com/pin/create/button/?url=<%=restaurant_menu_url(@restaurant, menu)%>&media=" target="_blank"><img class="share" border="0" src="http://blog.restaurantintelligenceagency.com/images/newsletter/pincertone.gif" width="17" height="20" alt="Share on Pinterest" /></a></td>
-					<td style="font-size:0; line-height:0;"><a href="https://plusone.google.com/_/+1/confirm?hl=en&amp;url=<%=restaurant_menu_url(@restaurant, menu)%>" target="_blank"><img class="share" border="0" src="http://blog.restaurantintelligenceagency.com/images/newsletter/google.gif" width="19" height="20" alt="Share on Google+" /></a><a href="#"></a></td>
-					<td style="font-size:0; line-height:0;"> 
-	<a href="http://twitter.com/share?url=&text=<%=  restaurant_menu_url(@restaurant, menu) %> blog!&via=soapbox_hq&related=yarrcat" target="_blank"><img class="share" border="0" src="http://blog.restaurantintelligenceagency.com/images/newsletter/twitter.gif" width="19" height="20" alt="Share on Twitter" /></a>
+					<td style="font-size:0; line-height:0;" width="204"></td>
+					<td width="18" style="font-size:0; line-height:0;">&nbsp;</td>
+					<td width="17" style="font-size:0; line-height:0;"><a href="http://pinterest.com/pin/create/button/?url=<%=restaurant_menu_url(@restaurant, menu)%>&media=" target="_blank"><img border="0" src="http://blog.restaurantintelligenceagency.com/images/newsletter/pincertone.gif" width="17" height="19" alt="Share on Pinterest" /></a></td>
+					<td width="18" style="font-size:0; line-height:0;"><a href="https://plusone.google.com/_/+1/confirm?hl=en&amp;url=<%=restaurant_menu_url(@restaurant, menu)%>" target="_blank"><img border="0" src="http://blog.restaurantintelligenceagency.com/images/newsletter/google.gif" width="17" height="18" alt="Share on Google+" /></a><a href="#"></a></td>
+					<td width="17" style="font-size:0; line-height:0;"> 
+	<a href="http://twitter.com/share?url=&text=<%=  restaurant_menu_url(@restaurant, menu) %> blog!&via=soapbox_hq&related=yarrcat" target="_blank"><img border="0" src="http://blog.restaurantintelligenceagency.com/images/newsletter/twitter.gif" width="17" height="18" alt="Share on Twitter" /></a>
 	                
 	               
 	<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>                             
 	                </td>
-					<td style="font-size:0; line-height:0;"><a href="http://www.facebook.com/sharer/sharer.php?u=<%= restaurant_menu_url(@restaurant, menu) %>" target="_blank"><img class="share" border="0" src="http://blog.restaurantintelligenceagency.com/images/newsletter/facebook.gif" width="19" height="20" alt="Share on Facebook" /></a></td>
-					<td style="font-size:0; line-height:0;"><a href="http://www.stumbleupon.com/submit?url=<%= restaurant_menu_url(@restaurant, menu)%>" target="_blank"><img class="share" border="0" src="http://blog.restaurantintelligenceagency.com/images/newsletter/stumbleupon.gif" width="19" height="20" alt="Share on Stumble Upon" /></a></td>
+					<td width="17" style="font-size:0; line-height:0;"><a href="http://www.facebook.com/sharer/sharer.php?u=<%= restaurant_menu_url(@restaurant, menu) %>" target="_blank"><img border="0" src="http://blog.restaurantintelligenceagency.com/images/newsletter/facebook.gif" width="17" height="18" alt="Share on Facebook" /></a></td>
+					<td width="17" style="font-size:0; line-height:0;"><a href="http://www.stumbleupon.com/submit?url=<%= restaurant_menu_url(@restaurant, menu)%>" target="_blank"><img border="0" src="http://blog.restaurantintelligenceagency.com/images/newsletter/stumbleupon.gif" width="17" height="18" alt="Share on Stumble Upon" /></a></td>	<td width="18" style="font-size:0; line-height:0;"><a href="javascript:window.print()" target="_blank"><img border="0" src="http://blog.restaurantintelligenceagency.com/images/newsletter/print.jpg" width="17" height="17" alt="Share on Print" /></a></td>
+					
 					
 				</tr>
 		</table>
@@ -472,6 +518,20 @@
          <td style="font-size:0; line-height:0;"><img src="http://blog.restaurantintelligenceagency.com/images/newsletter/img-4.gif" width="376" height="6" alt="image description" /></td>
        </tr>
        <% end %>
+
+        <tr>
+			<td colspan="100%"><%= link_to "See what else is happening at #{@restaurant.send(:name).capitalize}",soapbox_restaurant_url(@restaurant) %> </td>
+			</tr>
+			<tr>
+				<td style="font-size:0; line-height:0;">
+					<img src="http://blog.restaurantintelligenceagency.com/images/newsletter/img-4.gif" width="376" height="6" alt="image description" />
+				</td>
+			</tr>    
+			<tr>
+				<td style="font-size:0; line-height:0;" height="9"></td>
+		</tr>
+
+
      </table>
      <% end %>
 <p>&nbsp;</p></td>
@@ -706,29 +766,25 @@
 					<td width="1" background="#cac3b5" align="center" valign="top" bgcolor="#fff" style="padding-left:0px; font:bold 15px Georgia, Times, serif; line-height:19px; color:#2f3861">
 						<table width="100%" cellspacing="0" cellpadding="0">
 							<tr>
-							  <td style="font-size:0; line-height:0;"><img src="http://blog.restaurantintelligenceagency.com/images/newsletter/img-11.gif" width="23" height="33" alt="image description" /></td>
-							  <td colspan="16" align="center" valign="middle" style="font-size:0; line-height:0;padding-right:10px;color:#666666;font-size:14px">	  <p>Sent by <a href="http://soapbox.restaurantintelligenceagency.com/">Restaurant Intelligence Agency</a></p></td>
-							  <td style="font-size:0; line-height:0;"><img src="http://blog.restaurantintelligenceagency.com/images/newsletter/img-12.gif" width="2" height="33" alt="image description" /></td>
+							  <td width="23" style="font-size:0; line-height:0;"><img src="http://blog.restaurantintelligenceagency.com/images/newsletter/img-11.gif" width="23" height="33" alt="image description" /></td>
+							  <td colspan="13" align="center" valign="middle" style="font-size:0; line-height:0;padding-right:10px;color:#666666;font-size:14px">	  <p>Sent by <a href="http://soapbox.restaurantintelligenceagency.com/">Restaurant Intelligence Agency</a></p></td>
+							  <td width="2" style="font-size:0; line-height:0;"><img src="http://blog.restaurantintelligenceagency.com/images/newsletter/img-12.gif" width="2" height="33" alt="image description" /></td>
 						  </tr>
 							<tr>
 								<td style="font-size:0; line-height:0;"><img src="http://blog.restaurantintelligenceagency.com/images/newsletter/img-11.gif" width="23" height="33" alt="image description" /></td>
-								<td width="137" align="right" valign="middle" style="font-size:14px; line-height:0;padding-right:10px;color:#666666;">Follow Us:</td>
-								<td style="font-size:0; line-height:0;"><a target="_blank" href="http://pinterest.com/pin/create/button/?url=<%=preview_restaurant_newsletters_url(@restaurant)%>&media="><img border="0" src="http://blog.restaurantintelligenceagency.com/images/newsletter/pincertone-2.gif" width="30" height="31" alt="image description" /></a></td>
-								<td style="font-size:0; line-height:0;" width="10"></td>
-								<td style="font-size:0; line-height:0;"><a href="http://www.linkedin.com/shareArticle?mini=true&url=<%=preview_restaurant_newsletters_url(@restaurant)%>&title=On the menu &summary=News letter" target="_blank" ><img border="0" src="http://blog.restaurantintelligenceagency.com/images/newsletter/linkedin-2.gif" width="32" height="33" alt="image description" /></a></td>
-								<td style="font-size:0; line-height:0;" width="10"></td>
-								<td style="font-size:0; line-height:0;"><a target="_blank" href="https://plusone.google.com/_/+1/confirm?hl=en&amp;url=<%=preview_restaurant_newsletters_url(@restaurant)%>"><img border="0" src="http://blog.restaurantintelligenceagency.com/images/newsletter/google-2.gif" width="32" height="32" alt="image description" /></a></td>
-								<td style="font-size:0; line-height:0;" width="10"></td>
-								<td style="font-size:0; line-height:0;"><a target="_blank" href="https://twitter.com/#!/Soapbox_H!"><img border="0" src="http://blog.restaurantintelligenceagency.com/images/newsletter/twitter-2.gif" width="31" height="33" alt="image description" /></a></td>
-								<td style="font-size:0; line-height:0;" width="10"></td>
-								<td style="font-size:0; line-height:0;"><a target="_blank" href="https://www.facebook.com/RestaurantIntelligenceAgency"><img border="0" src="http://blog.restaurantintelligenceagency.com/images/newsletter/facebook-2.gif" width="32" height="33" alt="image description" /></a></td>
-								<td style="font-size:0; line-height:0;" width="10"></td>
-								<td style="font-size:0; line-height:0;"><a target="_blank" href="http://www.stumbleupon.com/submit?url=<%= preview_restaurant_newsletters_url(@restaurant)%>"><img border="0" src="http://blog.restaurantintelligenceagency.com/images/newsletter/stumbleupon-2.gif" width="32" height="33" alt="image description" /></a></td>
-								<td style="font-size:0; line-height:0;" width="10"></td>
-								<td style="font-size:0; line-height:0;"><a href="javascript:window.print()"><img alt="Printer" title="Printer" border="0" src="http://png-5.findicons.com/files/icons/262/hydropro_hardware/32/hp_printer.png" width="32" height="33" alt="printer" /></a></td>								
-								<td style="font-size:0; line-height:0;" width="10"></td>
-								<td style="font-size:0; line-height:0;" width="168"><img src="http://blog.restaurantintelligenceagency.com/images/newsletter/img-plugin.gif" width="124" height="24" alt="image description" /></td>
-								<td style="font-size:0; line-height:0;"><img src="http://blog.restaurantintelligenceagency.com/images/newsletter/img-12.gif" width="2" height="33" alt="image description" /></td>
+								<td width="173" align="right" valign="middle" style="font-size:14px; line-height:0;padding-right:10px;color:#666666;">Follow Us:</td>
+								<td width="25" style="font-size:0; line-height:0;"><a target="_blank" href="http://pinterest.com/pin/create/button/?url=<%=preview_restaurant_newsletters_url(@restaurant)%>&media="><img border="0" src="http://blog.restaurantintelligenceagency.com/images/newsletter/pincertone-2.gif" width="25" height="26" alt="image description" /></a></td>
+								<td style="font-size:0; line-height:0;" width="0"></td>
+								<td width="28" style="font-size:0; line-height:0;"><a href="http://www.linkedin.com/shareArticle?mini=true&url=<%=preview_restaurant_newsletters_url(@restaurant)%>&title=On the menu &summary=News letter" target="_blank" ><img border="0" src="http://blog.restaurantintelligenceagency.com/images/newsletter/linkedin-2.gif" width="28" height="29" alt="image description" /></a></td>
+								<td style="font-size:0; line-height:0;" width="0"></td>
+								<td width="28" style="font-size:0; line-height:0;"><a target="_blank" href="https://plusone.google.com/_/+1/confirm?hl=en&amp;url=<%=preview_restaurant_newsletters_url(@restaurant)%>"><img border="0" src="http://blog.restaurantintelligenceagency.com/images/newsletter/google-2.gif" width="28" height="28" alt="image description" /></a></td>
+								<td style="font-size:0; line-height:0;" width="0"></td>
+								<td width="29" style="font-size:0; line-height:0;"><a target="_blank" href="https://twitter.com/#!/Soapbox_H!"><img border="0" src="http://blog.restaurantintelligenceagency.com/images/newsletter/twitter-2.gif" width="29" height="31" alt="image description" /></a></td>
+								<td style="font-size:0; line-height:0;" width="0"></td>
+								<td width="28" style="font-size:0; line-height:0;"><a target="_blank" href="https://www.facebook.com/RestaurantIntelligenceAgency"><img border="0" src="http://blog.restaurantintelligenceagency.com/images/newsletter/facebook-2.gif" width="28" height="30" alt="image description" /></a></td>
+								<td style="font-size:0; line-height:0;" width="0"></td>
+								<td width="124" style="font-size:0; line-height:0;"><img src="http://blog.restaurantintelligenceagency.com/images/newsletter/img-plugin.gif" width="124" height="24" alt="image description" /></td>
+								<td width="2" style="font-size:0; line-height:0;"><img src="http://blog.restaurantintelligenceagency.com/images/newsletter/img-12.gif" width="2" height="33" alt="image description" /></td>
 							</tr>
 						</table>
 					</td>
