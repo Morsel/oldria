@@ -144,7 +144,7 @@ class Promotion < ActiveRecord::Base
       :link        => soapbox_promotion_url(self),
       :name        => headline,
       :description => details.gsub(/(<[^>]*>)|\r|\n|\t/s) {" "} ,
-      :picture => (restaurant.logo && restaurant.logo.attachment?) ? restaurant.logo.attachment.url(:medium) : nil
+      :picture => (restaurant.logo && restaurant.logo.attachment?) ? restaurant.logo.attachment.url(:thumb) : nil
     }
     restaurant.post_to_facebook_page(post_attributes)
   end
