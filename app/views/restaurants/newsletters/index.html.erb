@@ -1,3 +1,4 @@
+<% javascript 'ckeditor/ckeditor' %>
 <% title "Newsletter :: #{@restaurant.name}", false %>
 
 <div id="restaurant_profile_view" class="edit clear clearfix">
@@ -25,11 +26,27 @@
                       <%= f.input :newsletter_frequency, :as => :select, :collection => ["weekly", "biweekly", "monthly"], :input_html => { :style => 'width:150px;' }  %>
                       <%= submit_tag "Save" %>
                     <% end %>
-                      
-                      <%= f.input :tag_line, :as => :text, :input_html => { :style => 'margin-bottom: 12px;' }  %>
+                    <% f.inputs :class => "editing" do %>
+                      <%= f.input :tag_line, :as => :text,:label=>"Newsletter Tagline", :input_html => { :style => 'margin-bottom: 12px;' }  %>
+
                       <%= submit_tag "Add newsletter headline" %>
-                    
+                    <% end %>
                   <% end %>
+
+                  <% semantic_form_for @restaurant, :url => update_settings_restaurant_newsletters_path do |f| %>
+                     
+                        <% f.semantic_fields_for :newsletter_setting do |ns| %>
+                            <% f.inputs do %>
+                                <li class="span-12">
+                                    <label for="page_content_editor">Introduction</label>
+                                  <%= ns.cktext_area :introduction, :height => '340px'%>
+                                </li>
+                            <% end %>
+                        <% end %>
+                        <%= submit_tag "Add newsletter introduction" %>
+            
+                  <% end %>
+
                 </div>
 
                 <div id="restaurant_actions" class="clearfix"><p>To preview your newsletter, click the preview newsletter button. <br>

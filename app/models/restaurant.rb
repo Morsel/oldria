@@ -126,6 +126,11 @@ class Restaurant < ActiveRecord::Base
   validates_inclusion_of :newsletter_frequency, :in => ["weekly", "biweekly", "monthly"]
 
   has_one :subscription, :as => :subscriber
+  
+  has_one :newsletter_setting 
+  accepts_nested_attributes_for :newsletter_setting
+
+
   after_validation_on_create :add_manager_as_employee
   after_create :update_manager
   before_destroy :migrate_employees_to_default_employment
