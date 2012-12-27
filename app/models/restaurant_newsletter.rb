@@ -9,11 +9,11 @@ class RestaurantNewsletter < ActiveRecord::Base
 
   def self.create_with_content(restaurant_id)
     restaurant = Restaurant.find(restaurant_id)
-    newsletter = create(:menu_item_ids => restaurant.menu_items.all(:order => "created_at DESC", :limit => 3, :select => "id"),
-      :restaurant_answer_ids => restaurant.restaurant_answers.all(:order => "created_at DESC", :limit => 3, :select => "id"),
-      :menu_ids => restaurant.menus.all(:order => "updated_at DESC", :limit => 3, :select => "id"),
-      :promotion_ids => restaurant.promotions.all(:order => "created_at DESC", :limit => 3, :select => "id"),
-      :a_la_minute_answer_ids => restaurant.a_la_minute_answers.all(:order => "created_at DESC", :limit => 3, :select => "id"),
+    newsletter = create(:menu_item_ids => restaurant.menu_items.all(:order => "created_at DESC", :limit => 5, :select => "id"),
+      :restaurant_answer_ids => restaurant.restaurant_answers.all(:order => "created_at DESC", :limit => 5, :select => "id"),
+      :menu_ids => restaurant.menus.all(:order => "updated_at DESC", :limit => 5, :select => "id"),
+      :promotion_ids => restaurant.promotions.all(:order => "created_at DESC", :limit => 5, :select => "id"),
+      :a_la_minute_answer_ids => restaurant.a_la_minute_answers.all(:order => "created_at DESC", :limit => 5, :select => "id"),
       :restaurant => restaurant)
   end
 

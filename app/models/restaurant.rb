@@ -314,8 +314,8 @@ class Restaurant < ActiveRecord::Base
   end
 
   def send_newsletter_to_subscribers
-    
-      if newsletter_subscribers.present? && self.newsletter_approved
+
+    if self.newsletter_approved
 
       # create newsletter
       newsletter = RestaurantNewsletter.create_with_content(id)
