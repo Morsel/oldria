@@ -5,9 +5,12 @@
   	  <li class="reply">
 		    <h3><%= comment.user.name %><%= title_and_restaurant_name_for(comment.commentable, comment.user) %></h3>
 		    <p><%= comment.comment %></p>
-		    <% if (file = comment.attachments.first).present? -%>
-		      <%= render :partial => 'attachments/attachment', :locals => { :attachment => file } %>
-		    <% end -%>
+        <% unless comment.attachments.blank? %>
+          <% for attachment in comment.attachments %>            
+            <%= render :partial => 'attachments/attachment', :locals => { :attachment => attachment } %>  
+          <% end %>
+        <% end %>
+        
 			</li>
   	<% end -%>
   <% else -%>
