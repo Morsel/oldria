@@ -5,7 +5,7 @@ class Restaurants::NewslettersController < ApplicationController
   def index
     @restaurant.newsletter_setting || @restaurant.build_newsletter_setting
     unless [56,146,250,67,269,17].include? params[:restaurant_id].to_i
-      render "restaurants/_comming_soon"
+     render "restaurants/_comming_soon"
     end
   end
 
@@ -17,13 +17,13 @@ class Restaurants::NewslettersController < ApplicationController
   end
 
   def show
-    newsletter = RestaurantNewsletter.find(params[:id])
-    @restaurant = newsletter.restaurant
-    @menu_items = newsletter.menu_items
-    @restaurant_answers = newsletter.restaurant_answers
-    @menus = newsletter.menus
-    @promotions = newsletter.promotions
-    @alaminute_answers = newsletter.a_la_minute_answers
+    @newsletter = RestaurantNewsletter.find(params[:id])
+    @restaurant = @newsletter.restaurant
+    @menu_items = @newsletter.menu_items
+    @restaurant_answers = @newsletter.restaurant_answers
+    @menus = @newsletter.menus
+    @promotions = @newsletter.promotions
+    @alaminute_answers = @newsletter.a_la_minute_answers
     render :layout => false
   end
 
@@ -35,11 +35,17 @@ class Restaurants::NewslettersController < ApplicationController
   end
 
   def preview
-    @menu_items = @restaurant.menu_items.all(:order => "created_at DESC", :limit => 5)
-    @restaurant_answers = @restaurant.restaurant_answers.all(:order => "created_at DESC", :limit => 5)
-    @menus = @restaurant.menus.all(:order => "updated_at DESC", :limit => 5)
-    @promotions = @restaurant.promotions.all(:order => "created_at DESC", :limit => 5)
-    @alaminute_answers = @restaurant.a_la_minute_answers.all(:order => "created_at DESC", :limit => 5)
+    if @restaurant.restaurant_newsletters.blank?
+      filter_date = 7.day.ago
+    else
+      filter_date = @restaurant.restaurant_newsletters.find(:all,:order => "id desc").first.created_at
+    end
+
+    @menu_items = @restaurant.menu_items.all(:order => "created_at DESC", :limit => 7,:conditions => ["created_at > ? ",filter_date])
+    @restaurant_answers = @restaurant.restaurant_answers.all(:order => "created_at DESC", :limit => 7,:conditions => ["created_at > ? ",filter_date])
+    @menus = @restaurant.menus.all(:order => "updated_at DESC", :limit => 7,:conditions => ["created_at > ? ",filter_date])
+    @promotions = @restaurant.promotions.all(:order => "created_at DESC", :limit => 7,:conditions => ["created_at > ? ",filter_date])
+    @alaminute_answers = @restaurant.a_la_minute_answers.all(:order => "created_at DESC", :limit => 7,:conditions => ["created_at > ? ",filter_date])
     render :action => "show", :layout => false
   end
 
@@ -52,6 +58,9 @@ class Restaurants::NewslettersController < ApplicationController
     render :action => "index"
   end
 
+  def archives    
+  end
+    
   private
 
   def authorize

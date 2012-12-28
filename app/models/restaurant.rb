@@ -312,17 +312,18 @@ class Restaurant < ActiveRecord::Base
   end
 
   def send_newsletter_to_subscribers
-    if self.newsletter_approved
+    if self.newsletter_approved || true
       # create newsletter
       newsletter = RestaurantNewsletter.create_with_content(id)
       # connect to Mailchimp
       mc = MailchimpConnector.new
+      
       # create new campaign with content for the restaurant, selecting the correct subscribers
       campaign_id = \
       mc.client.campaign_create(:type => "regular",
                                 :options => { :list_id => mc.mailing_list_id,
                                               :subject => "#{name} Soapbox Newsletter for #{Date.today}",
-                                              :from_email => "info@restaurantintelligenceagency.com",
+                                              :from_email => "nishant.n@cisinlabs.com",
                                               :to_name => "*|FNAME|*",
                                               :from_name => "Restaurant Intelligence Agency",
                                               :generate_text => true },

@@ -9,12 +9,19 @@ class RestaurantNewsletter < ActiveRecord::Base
 
   def self.create_with_content(restaurant_id)
     restaurant = Restaurant.find(restaurant_id)
-    newsletter = create(:menu_item_ids => restaurant.menu_items.all(:order => "created_at DESC", :limit => 5, :select => "id"),
-      :restaurant_answer_ids => restaurant.restaurant_answers.all(:order => "created_at DESC", :limit => 5, :select => "id"),
-      :menu_ids => restaurant.menus.all(:order => "updated_at DESC", :limit => 5, :select => "id"),
-      :promotion_ids => restaurant.promotions.all(:order => "created_at DESC", :limit => 5, :select => "id"),
-      :a_la_minute_answer_ids => restaurant.a_la_minute_answers.all(:order => "created_at DESC", :limit => 5, :select => "id"),
-      :restaurant => restaurant)
+    
+    if restaurant.restaurant_newsletters.blank?
+      filter_date = 7.day.ago
+    else
+      filter_date = restaurant.restaurant_newsletters.find(:all,:order => "created_at desc").first.created_at
+    end
+
+    newsletter = create(:menu_item_ids => restaurant.menu_items.all(:order => "created_at DESC", :limit => 7, :select => "id",:conditions => ["created_at > ? ",filter_date]),
+    :restaurant_answer_ids => restaurant.restaurant_answers.all(:order => "created_at DESC", :limit => 7, :select => "id",:conditions => ["created_at > ? ",filter_date]),
+    :menu_ids => restaurant.menus.all(:order => "updated_at DESC", :limit => 7, :select => "id",:conditions => ["created_at > ? ",filter_date]),
+    :promotion_ids => restaurant.promotions.all(:order => "created_at DESC", :limit => 7, :select => "id",:conditions => ["created_at > ? ",filter_date]),
+    :a_la_minute_answer_ids => restaurant.a_la_minute_answers.all(:order => "created_at DESC", :limit => 7, :select => "id",:conditions => ["created_at > ? ",filter_date]),
+    :restaurant => restaurant,:introduction => restaurant.newsletter_setting.try(:introduction))
   end
 
   def menu_items
