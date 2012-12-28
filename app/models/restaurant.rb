@@ -124,6 +124,7 @@ class Restaurant < ActiveRecord::Base
       :message => "Facebook page must start with http://www.facebook.com"
 
   validates_inclusion_of :newsletter_frequency, :in => ["weekly", "biweekly", "monthly"]
+  validates_inclusion_of :newsletter_frequency_day, :in => ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
 
   has_one :subscription, :as => :subscriber
   
@@ -292,13 +293,15 @@ class Restaurant < ActiveRecord::Base
   end
 
   def next_newsletter_for_frequency
-    case newsletter_frequency
+     case newsletter_frequency
     when "weekly"
-      Chronic.parse("next week Thursday 12:00am")
+      Chronic.parse("week #{newsletter_frequency_day} 12:00am")
     when "biweekly"
-      Chronic.parse("next week Thursday 12:00am") + 1.week
+      Chronic.parse("next week #{newsletter_frequency_day} 12:00am")
     when "monthly"
-      Chronic.parse("next month Thursday 12:00am")
+      Chronic.parse("next month #{newsletter_frequency_day} 12:00am")
+    else      
+      Chronic.parse("next #{newsletter_frequency} 12:00am")
     end
   end
 
