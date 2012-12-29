@@ -5,7 +5,7 @@ class Restaurants::NewslettersController < ApplicationController
   def index
     @restaurant.newsletter_setting || @restaurant.build_newsletter_setting
     unless [56,146,250,67,269,17].include? params[:restaurant_id].to_i
-     #render "restaurants/_comming_soon"
+      render "restaurants/_comming_soon"
     end
   end
 
