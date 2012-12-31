@@ -1,0 +1,68 @@
+<% title "Newsletter Details :: #{@restaurant.name}", false %>
+
+<div id="restaurant_profile_view" class="edit clear clearfix">
+    <%= render 'restaurants/restaurant_editing_header' %>
+
+    <div id="editing_restaurant">
+        <div id="restaurant_pages" class="clearfix">
+
+            <%- if @restaurant.premium_account? -%>
+
+              <nav id="restaurant_feature_nav">
+                <%= active_link_to 'Settings', restaurant_newsletters_path(:restaurant_id => @restaurant) %>
+                <%= active_link_to 'Subscribers', newsletter_subscriptions_restaurant_path(@restaurant) if @restaurant.shareable_newsletter_subscribers.present? %>
+                <%= active_link_to 'Archives', archives_restaurant_newsletters_path(:restaurant_id => @restaurant) %>
+                <%= active_link_to 'campaign detail', get_campaign_status_restaurant_newsletters_path(@restaurant)  if @restaurant.restaurant_newsletters.present?%>
+              </nav>
+
+              <div id="restaurant_features_content" style="width:700px;">
+
+                <div class="right" style="margin-right:10px">
+                    <%= link_to "Export to CSV file", download_subscribers_restaurant_path(@restaurant) %>
+                </div>
+
+                <h1 class="pg_title">Campaign  Details</h1>
+
+                <!-- <div id="read_messages" style="width:670px;margin:0;"> -->
+                  <div class="editing clearfix clear">
+                      <table style="width: 100%" class="archives">
+                          <thead>
+                              <tr>
+                                  <th style="width:50%;">Restaurant Name</th>
+                                  <th style="width:10%;">Opens</th>
+                                  <th style="width:10%;">Bounces</th>
+                                  <th style="width:10%;">Clicks</th>
+                                  <th style="width:20%;">Newsletter Id</th>
+                              </tr>
+                          </thead>
+                          <tbody>
+                           
+                           <% @status_data.each do |key,value| %>
+                              <% if value[:data][:error].nil? %>
+                                    <td style="width:50%;"><%= value[:newsletter].restaurant.name.to_s+" Soapbox Newsletter for"%></td>
+                                    <td style="width:10%;"><%= value[:data]["opens"]%></td>
+                                    <td style="width:10%;" ><%= value[:data]["soft_bounces"]%></td>
+                                    <td style="width:10%;"><%= value[:data]["clicks"]%></td>
+                                    <td style="width:20%;"><%= value[:newsletter].id %></td>
+                                  </tr>
+                               <%  else %> 
+                                      <td style="width:50%;"><%=value[:newsletter].restaurant.name.to_s+" Soapbox Newsletter for"%></td>
+                                      <td  colspan="3">Invalid Campaign ID</td>
+                                      <td style="width:20%;"><%=value[:newsletter].id %></td>
+                                  </tr>
+                              <% end %>
+                            <% end %>
+                          </tbody>
+                      </table>
+                  </div>
+                <!-- </div> -->
+
+              </div>
+
+            <%- else -%>
+              <p><%= link_to "Upgrade to a premium account", new_subscription_path(@restaurant) %> to access your newsletter!</p>
+            <%- end -%>
+
+        </div>
+    </div><!-- /editing_restaurant -->
+</div><!-- /restaurant_profile_view -->

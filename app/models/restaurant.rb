@@ -349,10 +349,22 @@ class Restaurant < ActiveRecord::Base
                                                   :value => "nishant.n@cisinlabs.com"}] },
                                 :content => { :url => restaurant_newsletter_url(self, newsletter) })
       # send campaign
-      mc.client.campaign_send_now(:cid => campaign_id)
+      if mc.client.campaign_send_now(:cid => campaign_id)
+        newsletter.update_attributes(:campaign_id=>campaign_id)
+      end
       update_attributes(:last_newsletter_at => Time.now, :newsletter_approved => false)
     end
   end
+
+  def get_campaign
+    status_data = Hash.new
+    mc = MailchimpConnector.new
+      self.restaurant_newsletters.each do |r|
+      data = mc.client.campaign_stats(:cid=>r.campaign_id)
+      status_data[r.id] = {:data=>data,:newsletter =>r}
+     end
+    return status_data
+  end 
 
   def self.extended_find(keyword)
     # when searchlogic will be updated, instead of all(:conditions => ["restaurants.id NOT in (?)", [0] + restaurants.map(&:id)])
