@@ -67,7 +67,7 @@ class Restaurants::NewslettersController < ApplicationController
   end
     
   def get_campaign_status
-
+       
     unless [56,146,250,67,269,17].include? params[:restaurant_id].to_i
       render "restaurants/_comming_soon"
      else 

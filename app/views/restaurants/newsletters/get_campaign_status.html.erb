@@ -24,29 +24,34 @@
                       <table style="width: 100%" class="archives">
                           <thead>
                               <tr>
-                                  <th style="width:50%;">Restaurant Name</th>
+                                  <th style="width:50%;">Newsletter Name</th>
                                   <th style="width:10%;">Opens</th>
                                   <th style="width:10%;">Bounces</th>
                                   <th style="width:10%;">Clicks</th>
-                                  <th style="width:20%;">Newsletter Id</th>
+                                  <th style="width:20%;">Action</th>
                               </tr>
                           </thead>
                           <tbody>
-                           
-                           <% @status_data.each do |key,value| %>
-                              <% if value[:data][:error].nil? %>
-                                    <td style="width:50%;"><%= value[:newsletter].restaurant.name.to_s+" Soapbox Newsletter for"%></td>
-                                    <td style="width:10%;"><%= value[:data]["opens"]%></td>
-                                    <td style="width:10%;" ><%= value[:data]["soft_bounces"]%></td>
-                                    <td style="width:10%;"><%= value[:data]["clicks"]%></td>
-                                    <td style="width:20%;"><%= value[:newsletter].id %></td>
-                                  </tr>
-                               <%  else %> 
-                                      <td style="width:50%;"><%=value[:newsletter].restaurant.name.to_s+" Soapbox Newsletter for"%></td>
-                                      <td  colspan="3">Invalid Campaign ID</td>
-                                      <td style="width:20%;"><%=value[:newsletter].id %></td>
-                                  </tr>
-                              <% end %>
+                           <% unless @status_data.blank? %>
+                             <% @status_data.sort.each do |key,value| %>
+                                <% if value[:data][:error].nil? %>
+                                    <tr>
+                                      <td style="width:50%;"><%= value[:newsletter].restaurant.name.to_s+" Soapbox Newsletter for #{value[:newsletter].created_at.to_formatted_s(:short)}"%></td>
+                                      <td style="width:10%;"><%= value[:data]["opens"].to_i%></td>
+                                      <td style="width:10%;" ><%= value[:data]["soft_bounces"].to_i%></td>
+                                      <td style="width:10%;"><%= value[:data]["clicks"].to_i %></td>
+                                      <td style="width:20%;"><%= link_to "view",restaurant_newsletter_path(@restaurant,value[:newsletter]),:target =>"_blank" %> </td>
+                                    </tr>
+                                 <%  else %>
+                                      <tr> 
+                                        <td style="width:50%;"><%=value[:newsletter].restaurant.name.to_s+" Soapbox Newsletter for"%></td>
+                                        <td  colspan="3">Invalid Campaign ID</td>
+                                        <td style="width:20%;"><%= link_to "view",restaurant_newsletter_path(@restaurant,value[:newsletter]),:target =>"_blank" %></td>
+                                    </tr>
+                                <% end %>
+                            <% end %>
+                            <% else %>
+                                 <tr><td colspan="100%"> Sorry no newsletters!</td></tr>
                             <% end %>
                           </tbody>
                       </table>
