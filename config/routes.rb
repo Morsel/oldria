@@ -224,7 +224,6 @@ ActionController::Routing::Routes.draw do |map|
     restaurant.btl_chapter 'behind_the_line/chapter/:id', :controller => 'restaurants/behind_the_line', :action => 'chapter'
 
 
-    restaurant.resources :newsletters, :controller => 'restaurants/newsletters', :collection => { :update_settings => :post, :preview => :get, :approve => :post, :archives => :get  }
 
 
     restaurant.social_posts 'social_posts', :controller => 'restaurants/social_post', :action => 'index'
