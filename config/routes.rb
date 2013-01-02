@@ -226,7 +226,7 @@ ActionController::Routing::Routes.draw do |map|
     restaurant.social_posts 'social_posts', :controller => 'restaurants/social_post', :action => 'index'
     restaurant.social_posts_page 'social_posts/:page', :controller => 'restaurants/social_post', :action => 'index'
 
-    restaurant.resources :newsletters, :controller => 'restaurants/newsletters', :collection => { :update_settings => :post, :preview => :get, :approve => :post }
+    restaurant.resources :newsletters, :controller => 'restaurants/newsletters', :collection => { :update_settings => :post, :preview => :get, :approve => :post, :archives => :get , :get_campaign_status=> :get,:disapprove => :post}
 
     restaurant.add_keywords 'add_keywords', :controller => "menu_items", :action => "add_keywords"
 

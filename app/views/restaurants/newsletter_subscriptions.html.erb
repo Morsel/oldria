@@ -11,6 +11,7 @@
               <nav id="restaurant_feature_nav">
                 <%= active_link_to 'Settings', restaurant_newsletters_path(:restaurant_id => @restaurant) %>
                 <%= active_link_to 'Subscribers', newsletter_subscriptions_restaurant_path(@restaurant) if @restaurant.shareable_newsletter_subscribers.present? %>
+                <%= active_link_to 'Reports', archives_restaurant_newsletters_path(:restaurant_id => @restaurant) %>
               </nav>
 
               <div id="restaurant_features_content" style="width:700px;">
@@ -23,11 +24,9 @@
 
                 <!-- <div id="read_messages" style="width:670px;margin:0;"> -->
                   <div class="editing clearfix clear">
-                      <table style="width: 100%">
+                      <table style="width: 100%" class="archives">
                           <thead>
                               <tr>
-                                  <th style="width:20%;">First Name</th>
-                                  <th style="width:20%;">Last Name</th>
                                   <th>Email Address</th>
                                   <th>Subscription Date</th>
                               </tr>
@@ -35,8 +34,6 @@
                           <tbody>
                             <% @subscriptions.each do |subscription| %>
                               <tr>
-                                <td><%= subscription.newsletter_subscriber.first_name %></td>
-                                <td><%= subscription.newsletter_subscriber.last_name %></td>
                                 <td><%= subscription.newsletter_subscriber.email %></td>
                                 <td><%= subscription.created_at %></td>
                               </tr>

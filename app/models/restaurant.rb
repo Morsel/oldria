@@ -124,8 +124,14 @@ class Restaurant < ActiveRecord::Base
       :message => "Facebook page must start with http://www.facebook.com"
 
   validates_inclusion_of :newsletter_frequency, :in => ["weekly", "biweekly", "monthly"]
+  validates_inclusion_of :newsletter_frequency_day, :in => ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
 
   has_one :subscription, :as => :subscriber
+  
+  has_one :newsletter_setting 
+  accepts_nested_attributes_for :newsletter_setting
+
+
   after_validation_on_create :add_manager_as_employee
   after_create :update_manager
   before_destroy :migrate_employees_to_default_employment
@@ -287,13 +293,15 @@ class Restaurant < ActiveRecord::Base
   end
 
   def next_newsletter_for_frequency
-    case newsletter_frequency
+     case newsletter_frequency
     when "weekly"
-      Chronic.parse("next week Thursday 12:00am")
+      Chronic.parse("week #{newsletter_frequency_day} 12:00am")
     when "biweekly"
-      Chronic.parse("next week Thursday 12:00am") + 1.week
+      Chronic.parse("next week #{newsletter_frequency_day} 12:00am")
     when "monthly"
-      Chronic.parse("next month Thursday 12:00am")
+      Chronic.parse("next month #{newsletter_frequency_day} 12:00am")
+    else      
+      Chronic.parse("next #{newsletter_frequency} 12:00am")
     end
   end
 
@@ -312,12 +320,13 @@ class Restaurant < ActiveRecord::Base
       newsletter = RestaurantNewsletter.create_with_content(id)
       # connect to Mailchimp
       mc = MailchimpConnector.new
+      
       # create new campaign with content for the restaurant, selecting the correct subscribers
       campaign_id = \
       mc.client.campaign_create(:type => "regular",
                                 :options => { :list_id => mc.mailing_list_id,
                                               :subject => "#{name} Soapbox Newsletter for #{Date.today}",
-                                              :from_email => "info@restaurantintelligenceagency.com",
+                                              :from_email => "nishant.n@cisinlabs.com",
                                               :to_name => "*|FNAME|*",
                                               :from_name => "Restaurant Intelligence Agency",
                                               :generate_text => true },
@@ -333,10 +342,22 @@ class Restaurant < ActiveRecord::Base
                                                   :value => "nishant.n@cisinlabs.com"}] },
                                 :content => { :url => restaurant_newsletter_url(self, newsletter) })
       # send campaign
-      mc.client.campaign_send_now(:cid => campaign_id)
+      if mc.client.campaign_send_now(:cid => campaign_id)
+        newsletter.update_attributes(:campaign_id=>campaign_id)
+      end
       update_attributes(:last_newsletter_at => Time.now, :newsletter_approved => false)
     end
   end
+
+  def get_campaign
+    status_data = Hash.new
+    mc = MailchimpConnector.new
+      self.restaurant_newsletters.each do |r|
+      data = mc.client.campaign_stats(:cid=>r.campaign_id)
+      status_data[r.id] = {:data=>data,:newsletter =>r}
+     end
+    return status_data
+  end 
 
   def self.extended_find(keyword)
     # when searchlogic will be updated, instead of all(:conditions => ["restaurants.id NOT in (?)", [0] + restaurants.map(&:id)])
