@@ -4,7 +4,7 @@ class Restaurants::NewslettersController < ApplicationController
 
   def index
     @restaurant.newsletter_setting || @restaurant.build_newsletter_setting
-    unless [56,146,250,67,269,17].include? params[:restaurant_id].to_i
+    unless @restaurant.premium_account?
       render "restaurants/_comming_soon"
     end
   end
@@ -70,7 +70,7 @@ class Restaurants::NewslettersController < ApplicationController
   end  
 
   def archives    
-    unless [56,146,250,67,269,17].include? params[:restaurant_id].to_i
+    unless @restaurant.premium_account?
       render "restaurants/_comming_soon"
      else 
       @status_data = @restaurant.get_campaign 
@@ -78,7 +78,7 @@ class Restaurants::NewslettersController < ApplicationController
   end
     
   def get_campaign_status       
-    unless [56,146,250,67,269,17].include? params[:restaurant_id].to_i
+    unless @restaurant.premium_account?
       render "restaurants/_comming_soon"
      else 
       @status_data = @restaurant.get_campaign 
