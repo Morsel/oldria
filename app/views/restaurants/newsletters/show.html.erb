@@ -68,14 +68,14 @@
 							      </tr>
 								  <tr>
 								    <td align="center" valign="middle" bgcolor="#FFFFFF"><%= image_tag logo_for(@restaurant).attachment.url(:medium), :style => "border: none;font-size: 14px;font-weight: bold;height: auto;line-height: 100%;outline: none;text-decoration: none;text-transform: capitalize;" %>
-							        <p><%= @restaurant.send(:tag_line)%></p></td>
+							        <p style="font:bold 16px Georgia, Times, serif;"><%= @restaurant.send(:tag_line)%></p></td>
 							      </tr>
 								  <tr>
 								    <td bgcolor="#FFFFFF"><table width="100%" cellspacing="0" cellpadding="0">
                                     <tr><td>	<%unless @restaurant.newsletter_setting.blank? %>
-								          <table width="100%" cellspacing="0" cellpadding="0">
+								          <table width="100%" cellspacing="0" cellpadding="10">
                                          <tr>
-								              <td style="padding:2px; font:normal  14px Georgia, Times, serif; line-height:19px; color:#000000" height="7"> <%= @newsletter.blank? ? @restaurant.newsletter_setting.introduction : @newsletter.introduction%> </td>
+								              <td style="padding-left:20px; padding-right:10px; font:normal  14px Georgia, Times, serif; line-height:19px; color:#000000" height="7"> <%= @newsletter.blank? ? @restaurant.newsletter_setting.introduction : @newsletter.introduction%> </td>
 							                </tr>     
                            </table>
                            <% end %></td><td></td></tr>
@@ -321,11 +321,11 @@
 							                </tr>
 							              </table>
 								          <% end %>
-							            <p>&nbsp;</p></td>
+							   </td>
 								        <td width="182" valign="top" bgcolor="#333c68"><p>&nbsp;</p>
 								          <table width="100%" cellspacing="0" cellpadding="0">
 								            <tr>
-								              <td style="padding-left:21px; padding-right:21px; font:18px Georgia, Times, serif; line-height:36px; color:#fff"><%= @restaurant.name %></td>
+								              <td valign="top" style="padding-left:21px; padding-right:21px; font:18px Georgia, Times, serif; line-height:36px; color:#fff"><%= @restaurant.name %></td>
 							                </tr>
 								            <tr style="font-size:0; line-height:0;">
 								              <td><img src="http://blog.restaurantintelligenceagency.com/images/newsletter/separator-2.gif" width="182" height="3" alt="image description" /></td>
@@ -554,7 +554,7 @@
 				<tr>
 					<td style="padding-right:7px; font:11px Arial, Helvetica, sans-serif; line-height:18px; color:#7a7878" align="center">
 						You are receiving this email because your e-mail is subscribed to <br />
-					 <%= @restaurant.name.capitalize %>  via <a href="http://soapbox.restaurantintelligenceagency.com" style="text-decoration:underline; color:#7a7878;">Soapbox</a><br />
+					 <%= @restaurant.name %>  via <a href="http://soapbox.restaurantintelligenceagency.com" style="text-decoration:underline; color:#7a7878;">Soapbox</a><br />
 						<a href="http://soapbox.restaurantintelligenceagency.com/soapbox/newsletter_subscribers/find_subscriber" style="text-decoration:underline; color:#7a7878;">Click here</a> to manage your preferences.<br />
 						If you received this email from a friend and would like to subscribe to our email list, <a href="http://soapbox.restaurantintelligenceagency.com/soapbox/newsletter_subscribers/find_subscriber" style="text-decoration:underline; color:#7a7878;">Click here</a><br />						<span style="text-decoration:none; color:#7a7878;">
 
