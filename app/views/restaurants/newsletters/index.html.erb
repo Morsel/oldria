@@ -19,9 +19,9 @@
 
                 <h1 class="pg_title">Newsletter Settings</h1>
                 <p>RIA Newsletters are a unique new way to connect with diners. We believe your creativity is enough to drive business so our newsletters make it easy for you to connect with diners through your food, rather than relying on discounts, promotions and events to drive traffic in your door.  </p>
-<p>
-To get the most out of our newsletters, we recommend selecting a frequency that best matches how often you change your menu. Then, use our various platforms to post your news and menu items. </p>
-                <p> </p>
+                <p>
+                To get the most out of our newsletters, we recommend selecting a frequency that best matches how often you change your menu. Then, use our various platforms to post your news and menu items. </p>
+
 
                 <div id="newsletter_settings" class="clearfix">
                   <% semantic_form_for @restaurant, :url => update_settings_restaurant_newsletters_path do |f| %>
@@ -30,8 +30,9 @@ To get the most out of our newsletters, we recommend selecting a frequency that 
                        <%= f.input :newsletter_frequency_day, :as => :select, :collection => ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"], :input_html => { :style => 'width:150px;' }  %>
                       <%= submit_tag "Save" %>
                     <% end %>
+                    <h2>Customize Current Newsletter</h2><p>Add a headline and an introductory paragraph to your newsletter. This can be changed for every newsletter you send out. To see how it will look, add your headline and introduction below and then click Preview Newsletter.  </p>
                     <% f.inputs :class => "editing" do %>
-                      <%= f.input :tag_line, :as => :text,:label=>"Newsletter Tagline", :input_html => { :style => 'margin-bottom: 12px;' }  %>
+                      <%= f.input :tag_line, :as => :text,:label=>"Newsletter Headline", :input_html => { :style => 'margin-bottom: 12px;' }  %>
 
                       <%= submit_tag "Add newsletter headline" %>
                     <% end %>
@@ -52,6 +53,7 @@ To get the most out of our newsletters, we recommend selecting a frequency that 
                   <% end %>
 
                 </div>
+                <h2>Preview and Schedule Newsletter</h2>
                 <P><strong>Newsletters must be approved before they are sent to your mailing list. </strong> To approve your newsletter, please click preview newsletter to view and then click approve newsletter below. </P>
 
                 <div id="restaurant_actions" class="clearfix"><p>To preview your newsletter, click the preview newsletter button. <br>
