@@ -11,8 +11,7 @@
               <nav id="restaurant_feature_nav">
                 <%= link_to 'Settings', restaurant_newsletters_path(:restaurant_id => @restaurant) %>
                 <%= link_to 'Subscribers', newsletter_subscriptions_restaurant_path(@restaurant) if @restaurant.shareable_newsletter_subscribers.present? %>
-                <%= active_link_to 'Archives', archives_restaurant_newsletters_path(:restaurant_id => @restaurant) %>
-                <%= active_link_to 'Status', get_campaign_status_restaurant_newsletters_path(@restaurant)   if @restaurant.restaurant_newsletters.present?%>
+                <%= active_link_to 'Reports', archives_restaurant_newsletters_path(:restaurant_id => @restaurant) %>
               </nav>
 
               <div id="restaurant_features_content" style="width:700px;">
@@ -26,20 +25,34 @@
                       <table style="width: 100%" class="archives">
                           <thead>
                               <tr>
-                                  <th style="width:10%;">Id</th>
-                                  <th style="width:55%;">Introduction</th>
-                                  <th style="width:30%;">Sent Date</th>
-                                  <th style="width:5%;">Action</th>
+                                  <th style="width:30%;"> Send Date </th>
+                                  <th style="width:15%;"> Opens </th>
+                                  <th style="width:15%;"> Clicks </th>
+                                  <th style="width:20%;"> Bounces </th>
+                                  <th style="width:20%;"> Action </th>
                               </tr>
                           </thead>
                           <tbody>
-                            <% @restaurant.restaurant_newsletters.find(:all,:order => "created_at desc").each_with_index do |newsletter,i| %>
-                              <tr >
-                                <td style="width:10%;"><%= i+1 %></td>
-                                <td style="width:55%;"><%= truncate(newsletter.introduction,:length=>200) %></td>
-                                <td style="width:30%;"><%= newsletter.created_at.to_formatted_s(:long) %></td>                        
-                                <td style="width:5%;"><%= link_to "view",restaurant_newsletter_path(@restaurant,newsletter),:target =>"_blank" %></td>
-                              </tr>
+                            <% unless @status_data.blank? %>
+                             <% @status_data.sort.each do |key,value| %>
+                                <% if value[:data][:error].nil? %>
+                                    <tr align="center">
+                                      <td><%= value[:newsletter].created_at.to_formatted_s(:short) %></td>
+                                      <td><%= value[:data]["opens"].to_i%></td>
+                                      <td><%= value[:data]["clicks"].to_i %></td>
+                                      <td><%= value[:data]["soft_bounces"].to_i%></td>
+                                      <td><%= link_to "view",restaurant_newsletter_path(@restaurant,value[:newsletter]),:target =>"_blank" %> </td>
+                                    </tr>
+                                 <%  else %>
+                                      <tr align="center"> 
+                                        <td><%= value[:newsletter].restaurant.created_at.to_formatted_s(:short) %></td>
+                                        <td colspan="3">Invalid Campaign ID</td>
+                                        <td><%= link_to "view",restaurant_newsletter_path(@restaurant,value[:newsletter]),:target =>"_blank" %></td>
+                                    </tr>
+                                <% end %>
+                            <% end %>
+                            <% else %>
+                                 <tr><td colspan="100%"> Sorry no newsletters!</td></tr>
                             <% end %>
                           </tbody>
                       </table>
