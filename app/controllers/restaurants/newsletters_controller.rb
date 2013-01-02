@@ -57,17 +57,27 @@ class Restaurants::NewslettersController < ApplicationController
     else
       flash[:error] = "There was an issue approving the newsletter. Please try again."
     end
-    render :action => "index"
+    redirect_to :action => "index"
   end
+
+  def disapprove
+    if @restaurant.update_attribute('newsletter_approved', false)
+      flash[:notice] = "The newsletter as been disapproved for delivery."
+    else
+      flash[:error] = "There was an issue disapproving the newsletter. Please try again."
+    end
+    redirect_to :action => "index"
+  end  
 
   def archives    
     unless [56,146,250,67,269,17].include? params[:restaurant_id].to_i
       render "restaurants/_comming_soon"
-    end
+     else 
+      @status_data = @restaurant.get_campaign 
+    end 
   end
     
-  def get_campaign_status
-       
+  def get_campaign_status       
     unless [56,146,250,67,269,17].include? params[:restaurant_id].to_i
       render "restaurants/_comming_soon"
      else 

@@ -12,10 +12,7 @@
               <nav id="restaurant_feature_nav">
                 <%= active_link_to 'Settings', restaurant_newsletters_path(:restaurant_id => @restaurant) %>
                 <%= active_link_to 'Subscribers', newsletter_subscriptions_restaurant_path(@restaurant) if @restaurant.shareable_newsletter_subscribers.present? %>
-                <%= active_link_to 'Archives', archives_restaurant_newsletters_path(:restaurant_id => @restaurant) %>
-                <%= active_link_to 'Status', get_campaign_status_restaurant_newsletters_path(@restaurant)   if @restaurant.restaurant_newsletters.present?%>
-                
-
+                <%= active_link_to 'Reports', archives_restaurant_newsletters_path(:restaurant_id => @restaurant) %>             
               </nav>
 
               <div id="restaurant_features_content" style="width:700px;">
@@ -67,7 +64,8 @@ To get the most out of our newsletters, we recommend selecting a frequency that 
                   <% unless @restaurant.newsletter_approved %>
                     <%= button_to "Send newsletter", restaurant_newsletters_path(@restaurant), :onclick => 'alert("You must approved your newsletter first.") ; return false ; ',:disable=>"disabled"%>
                   <% else %>
-                  <%= button_to "Send newsletter", restaurant_newsletters_path(@restaurant), :confirm => 'Are you sure you want to send this newsletter right now?'%>
+                  <%= button_to "Cancel newsletter", disapprove_restaurant_newsletters_path(@restaurant), :method => 'post', :confirm => "are you sure?" %><p>Next newsletter will send on <%=@restaurant.next_newsletter_for_frequency.to_formatted_s(:sentence)%>.Click here to cancel newsletter.<br></p>
+                  <%= button_to "Send newsletter", restaurant_newsletters_path(@restaurant), :confirm => 'Are you sure you want to send this newsletter right now?'%> To send newsletter immidiatly click here.
                   <%end%>
                </p> </div>
 
