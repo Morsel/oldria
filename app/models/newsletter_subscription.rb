@@ -23,17 +23,25 @@ class NewsletterSubscription < ActiveRecord::Base
   private
 
   def add_subscription_to_mailchimp
+
     unless newsletter_subscriber.opt_out?
       mc = MailchimpConnector.new
       unless mc.client.list_interest_groupings(:id => mc.mailing_list_id).to_s.match(/#{restaurant.mailchimp_group_name}/)
         mc.client.list_interest_group_add(:id => mc.mailing_list_id, :group_name => restaurant.mailchimp_group_name)
       end
+      unless mc.client.listMembers({:id=>mc.mailing_list_id}).to_s.match(/#{newsletter_subscriber.email}/)
+        mc.client.list_subscribe(:id => mc.mailing_list_id, :email_address => newsletter_subscriber.email,
+                                :merge_vars => { :groupings => [{ :name => "Your Interests",:groups => restaurant.mailchimp_group_name}] },
+                                :replace_interests => false)
+      else
+        mc.client.list_update_member(:id => mc.mailing_list_id, :email_address => newsletter_subscriber.email,
+                                :merge_vars => { :groupings => [{ :name => "Your Interests",:groups => restaurant.mailchimp_group_name}] },
+                                :replace_interests => false)
 
-      mc.client.list_update_member(:id => mc.mailing_list_id, :email_address => newsletter_subscriber.email,
-                                   :merge_vars => { :groupings => [{ :name => "Your Interests",
-                                                                     :groups => restaurant.mailchimp_group_name}] },
-                                   :replace_interests => false)
-    end
+      end  
+      
+      #client.list_update_member old method
+      end
   end
 
   def remove_subscription_from_mailchimp
