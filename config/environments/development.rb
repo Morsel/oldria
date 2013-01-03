@@ -35,4 +35,4 @@ Braintree::Configuration.private_key = "w8kw3smb2g2m6mds"
 
 CLOUDMAIL_DOMAIN = 'dev-mailbot.restaurantintelligenceagency.com'
 
-ENV['MC_API_KEY'] = '1eb9e1ef0870c8caf6651ee2cf1232c0-us5'
+ENV['MC_API_KEY'] = 'b992d9bf14db221d322b7add975b1c39-us2'
