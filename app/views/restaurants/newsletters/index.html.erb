@@ -40,6 +40,14 @@
                     <% end %>
                   <% end %>
 
+                   <% semantic_form_for @restaurant, :url => update_settings_restaurant_newsletters_path do |f| %>
+                        <% f.semantic_fields_for :newsletter_setting do |ns| %>
+                            <% ns.inputs :class => "editing" do %>
+                              <%= ns.input :subject, :hint=>"Nesletter Subject"%>                         
+                              <%= submit_tag "Add Subject" %>
+                            <% end %>  
+                     <% end %>          
+                  <% end %>   
                   <% semantic_form_for @restaurant, :url => update_settings_restaurant_newsletters_path do |f| %>
                      
                         <% f.semantic_fields_for :newsletter_setting do |ns| %>

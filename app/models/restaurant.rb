@@ -327,31 +327,25 @@ class Restaurant < ActiveRecord::Base
       newsletter = RestaurantNewsletter.create_with_content(id)
       # connect to Mailchimp
       mc = MailchimpConnector.new
-      
+      mail_subj = self.newsletter_setting.subject.blank? ? "#{name} Soapbox Newsletter for #{Date.today}" : self.newsletter_setting.subject
+      newsletter.update_attributes(:subject => mail_subj)    
       # create new campaign with content for the restaurant, selecting the correct subscribers
       campaign_id = \
       mc.client.campaign_create(:type => "regular",
                                 :options => { :list_id => mc.mailing_list_id,
-                                              :subject => "#{name} Soapbox Newsletter for #{Date.today}",
-                                              :from_email => "nishant.n@cisinlabs.com",
+                                              :subject => mail_subj,
+                                              :from_email => "info@restaurantintelligenceagency.com",
                                               :to_name => "*|FNAME|*",
                                               :from_name => "Restaurant Intelligence Agency",
                                               :generate_text => true },
-                                :segment_opts => { :match => "all",
-                                :conditions => [{ :field => "email",
-                                                  :op => "eq",
-                                                  :value => "ellen@restaurantintelligenceagency.com"},
-                                                  { :field => "email",
-                                                  :op => "eq",
-                                                  :value => "eric@restauranintelligenceagency.com"},
-                                                  { :field => "email",
-                                                  :op => "eq",
-                                                  :value => "nishant.n@cisinlabs.com"}] },
+                                :segment_opts => { :match=>"any",
+                                                  :conditions=>[{:field=>"interests-#{mc.grouping_id}",:op => "all",:value => self.mailchimp_group_name}]},
                                 :content => { :url => restaurant_newsletter_url(self, newsletter) })
       # send campaign
       if mc.client.campaign_send_now(:cid => campaign_id)
         newsletter.update_attributes(:campaign_id=>campaign_id)
       end
+      self.newsletter_setting.subject
       update_attributes(:last_newsletter_at => Time.now, :newsletter_approved => false)
     end
   end
