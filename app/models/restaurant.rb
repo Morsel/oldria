@@ -315,7 +315,8 @@ class Restaurant < ActiveRecord::Base
   end
 
   def send_newsletter_to_subscribers
-    if self.newsletter_approved || true
+    
+    if self.newsletter_approved
       # create newsletter
       newsletter = RestaurantNewsletter.create_with_content(id)
       # connect to Mailchimp
