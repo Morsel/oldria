@@ -4,66 +4,7 @@
         <div id="content">
           <!-- post-section -->
           <section class="post-section">
-            <div class="column">
-                <header class="heading">
-                    <h2><%= link_to 'FRONT BURNER', 'http://blog.restaurantintelligenceagency.com/' %></h2>
-                </header>
-                
-                <article class="post">
-                    <%- if @box1.present? -%>
-                    <h2>
-                        <%= link_to(@box1.title, "http://blog.restaurantintelligenceagency.com/?p=#{@box1.id}") %>
-                    </h2>
-                    <p>
-                        <%= truncate @box1.description.gsub(/<\/?[^>]*>/, ""),
-                                     :length => 130,
-                                     :omission => (" " + link_to("read more", "http://blog.restaurantintelligenceagency.com/?p=#{@box1.id}", :class => "more") + "...") %>
-                    </p>
-                    <em class="date"><%= distance_of_time_in_words(@box1.post_date, Time.now) %> ago</em>
-                    <%- end -%>
-                </article>
-            </div>
-
-            <div class="column">
-                <article class="post size">
-                    <%- if @box2.present? -%>
-                    <h2>
-                        <%= link_to(@box2.title, "http://blog.restaurantintelligenceagency.com/?p=#{@box2.id}") %>
-                    </h2>
-                    <p><%= truncate @box2.description.gsub(/<\/?[^>]*>/, ""),
-                                    :length => 220,
-                                    :omission => (" " + link_to("read more", "http://blog.restaurantintelligenceagency.com/?p=#{@box2.id}", :class => "more") + "...") %>
-                    </p>
-                    <br /><br /><br>
-                    <em class="date"><%= distance_of_time_in_words(@box2.post_date, Time.now) %> ago</em>
-                    <%- end -%>
-                </article>
-            </div>
-
-            <div class="column last">
-                <article class="post size01">
-                  <%- if @box3.present? -%>
-                     <h2> 
-                      <%= link_to(@box3.title, "http://blog.restaurantintelligenceagency.com/?p=#{@box3.id}") %>
-                     </h2>
-                    <p><%= truncate @box3.description.gsub(/<\/?[^>]*>/, ""),
-                                    :length => 150,
-                                    :omission => " " + link_to("read more", "http://blog.restaurantintelligenceagency.com/?p=#{@box3.id}", :class => "more") + "..." %>
-                    </p>
-                    <em class="date"><%= distance_of_time_in_words(@box3.post_date, Time.now) %> ago</em>
-                   <% end %> 
-                </article>
-
-                <article class="post size02">
-                    <%- if @box4.present? -%>
-                    <h2>
-                        <%= link_to(@box4.title,"http://blog.restaurantintelligenceagency.com/?p=#{@box4.id}") %>
-                    </h2>                       
-                    <em class="date"><%= distance_of_time_in_words(@box4.post_date, Time.now) %> ago</em>
-                    <% end %> 
-                </article>
-
-            </div>
+            
           </section>
           <!-- twocolumns -->
           <div class="twocolumns">
