@@ -108,7 +108,12 @@ class Restaurant < ActiveRecord::Base
   has_many :restaurant_employee_requests
   has_many :requested_employees, :through => :restaurant_employee_requests ,:source =>:employee
 
-  accepts_nested_attributes_for :logo#,:employments
+
+
+  has_many :user_restaurant_visitors
+  
+  accepts_nested_attributes_for :logo
+
 
   validates_presence_of :name, :street1, :city, :state, :zip, :phone_number,
       :metropolitan_area, :website, :media_contact, :cuisine, :opening_date, :manager

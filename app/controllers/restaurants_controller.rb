@@ -31,6 +31,10 @@ class RestaurantsController < ApplicationController
 
   def show
     find_activated_restaurant
+    if current_user.media?
+      UserRestaurantVisitor.profile_visitor(current_user,@restaurant.id)
+    end
+    
     @employments = @restaurant.employments.by_position.all(
         :include => [:subject_matters, :restaurant_role, :employee])
     @questions = ALaMinuteAnswer.public_profile_for(@restaurant)[0...3]
