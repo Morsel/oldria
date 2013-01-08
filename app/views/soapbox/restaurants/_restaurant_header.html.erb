@@ -14,7 +14,7 @@
         <% if @subscriber.present? && @subscriber.has_subscription(@restaurant) %>
           <%= link_to 'Unsubscribe', unsubscribe_soapbox_restaurant_path(@restaurant, :subscriber_id => @subscriber.id), :method => "post" %>
         <%- else -%>
-          <%= link_to 'Subscribe', subscribe_soapbox_restaurant_path(@restaurant), :method => "post" %>
+          <%= link_to 'Subscribeq', subscribe_soapbox_restaurant_path(@restaurant), :method => "post" %>
         <%- end -%>
     </div><!--#restaurant_actions-->
 
