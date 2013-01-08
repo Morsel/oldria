@@ -31,18 +31,18 @@ class Soapbox::SoapboxController < ApplicationController
   end
 
   def restaurant_directory
-
+    @subscriber = current_subscriber
     if params[:cuisine_id]
       @cuisine = Cuisine.find(params[:cuisine_id])
-      @restaurants = Restaurant.activated_restaurant.with_premium_account.cuisine_id_eq(params[:cuisine_id]).all.uniq
+      @restaurants = Restaurant.cuisine_id_eq(params[:cuisine_id]).all.uniq
     elsif params[:metropolitan_area_id]
       @metro_area = MetropolitanArea.find(params[:metropolitan_area_id])
-      @restaurants = Restaurant.activated_restaurant.with_premium_account.metropolitan_area_id_eq(params[:metropolitan_area_id]).all.uniq
+      @restaurants = Restaurant.metropolitan_area_id_eq(params[:metropolitan_area_id]).all.uniq
     elsif params[:james_beard_region_id]
       @region = JamesBeardRegion.find(params[:james_beard_region_id])
-      @restaurants = Restaurant.activated_restaurant.with_premium_account.james_beard_region_id_eq(params[:james_beard_region_id]).all.uniq
+      @restaurants = Restaurant.james_beard_region_id_eq(params[:james_beard_region_id]).all.uniq
     else      
-      @restaurants = Restaurant.activated_restaurant.with_premium_account
+      @restaurants = Restaurant.all
     end
     @use_search = true
     @no_sidebar = true
@@ -50,7 +50,8 @@ class Soapbox::SoapboxController < ApplicationController
   end
 
   def restaurant_search
-    @restaurants = Restaurant.activated_restaurant.with_premium_account.search(params[:search]).all
+    @subscriber = current_subscriber
+    @restaurants = Restaurant.search(params[:search])
     render :partial => "directory/restaurant_search_results"
   end
 
