@@ -1,0 +1,25 @@
+<% restaurant ||= user %>
+<% cache "#{soapbox? ? "public" : "private"}_restaurant_#{restaurant.id}_#{on_mediafeed}", :expires_in => 1.hour do %>
+<div class="identity<% unless restaurant.logo && restaurant.logo.attachment? -%> no_avatar<% end -%>">
+    <div class="avatar">
+        <% if restaurant.logo && restaurant.logo.attachment? -%>
+          <%= image_tag(restaurant.logo.attachment.url(:thumb), :width => 'auto', :height => 'auto') %>
+        <% end -%>
+    </div>
+    <ul class="identity_details restaurant">
+        <li class="employee_name primary">
+            <b><%= link_to_if (restaurant.linkable_profile? || logged_in_on_spoonfeed), restaurant.try(:name), correct_restaurant_path(restaurant) %> </b>
+        </li>
+        <li class="metro_area">
+             <% if @subscriber.present? && @subscriber.has_subscription(restaurant) %>
+              <%= link_to 'Unsubscribe', unsubscribe_soapbox_restaurant_path(restaurant, :subscriber_id => @subscriber.id), :method => "post" ,:class=>"subscribe" %>
+            <%- else -%>
+              <%= link_to 'Subscribe', subscribe_soapbox_restaurant_path(restaurant), :method => "post",:class=>"subscribe" %>
+            <%- end -%>
+        </li>
+        <li class="metro_area">
+            <%= restaurant.metropolitan_area.try(:name) %>&nbsp;
+        </li>
+    </ul>
+</div>
+<% end %>
