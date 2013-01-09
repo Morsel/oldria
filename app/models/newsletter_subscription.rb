@@ -30,9 +30,14 @@ class NewsletterSubscription < ActiveRecord::Base
         mc.client.list_interest_group_add(:id => mc.mailing_list_id, :group_name => restaurant.mailchimp_group_name)
       end
       unless mc.client.listMembers({:id=>mc.mailing_list_id}).to_s.match(/#{newsletter_subscriber.email}/)
-        mc.client.list_subscribe(:id => mc.mailing_list_id, :email_address => newsletter_subscriber.email,
+        if mc.client.list_subscribe(:id => mc.mailing_list_id, :email_address => newsletter_subscriber.email,
+                                :merge_vars => { :groupings => [{ :name => "Your Interests",:groups => restaurant.mailchimp_group_name}] },
+                                :replace_interests => false).to_s.match(/error/)
+          mc.client.list_update_member(:id => mc.mailing_list_id, :email_address => newsletter_subscriber.email,
                                 :merge_vars => { :groupings => [{ :name => "Your Interests",:groups => restaurant.mailchimp_group_name}] },
                                 :replace_interests => false)
+
+        end
       else
         mc.client.list_update_member(:id => mc.mailing_list_id, :email_address => newsletter_subscriber.email,
                                 :merge_vars => { :groupings => [{ :name => "Your Interests",:groups => restaurant.mailchimp_group_name}] },
