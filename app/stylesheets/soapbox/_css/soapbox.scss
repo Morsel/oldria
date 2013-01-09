@@ -3330,3 +3330,35 @@ div .details p{
   margin: 5px 0 15px !important;
   padding: 0 !important;
 }
+#restaurant-results{
+	a.subscribe {
+				font-size: 13px;
+				display: block;
+				background-image: url(/images/soapbox/share-actions.png);
+				background-color: #CB4827;
+				background-repeat: no-repeat;
+				padding: 4px 0px 4px 20px;
+				background-position: 6px 7px;
+				-moz-border-radius: 30px;
+				-webkit-border-radius: 30px;
+				-o-border-radius: 30px;
+				-ms-border-radius: 30px;
+				-khtml-border-radius: 30px;
+				border-radius: 30px;
+				color: white;
+				font-family: 'MuseoSlab700', 'Helvetica Neue', Helvetica, arial, sans-serif;
+				font-weight: normal !important;
+				font-weight: 700;
+				margin: 6px 0 6px;
+				text-shadow: 0 1px 0 #333;
+				width: 70%;
+				&.edit_restaurant {
+					background-position: -188px 9px;
+					&:hover {
+						background-color: $purple;
+						background-position: -188px -91px;
+						text-decoration: none;
+					}
+				}
+	}
+}
