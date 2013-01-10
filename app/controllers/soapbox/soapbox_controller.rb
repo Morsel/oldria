@@ -81,19 +81,7 @@ class Soapbox::SoapboxController < ApplicationController
     @main_feature_comments = SoapboxEntry.main_feature_comments(5) if @main_feature
     @qoth = SoapboxEntry.secondary_feature
     @qoth_comments = SoapboxEntry.secondary_feature_comments(5) if @qoth    
-    @blog_posts = WpBlogPost.find_by_sql("select wp_posts.id, meta_title.meta_value as title, meta_description.meta_value as description, wp_posts.post_date
-                                          from wp_posts
-                                          join wp_postmeta meta_title on wp_posts.id = meta_title.post_id
-                                          join wp_postmeta meta_description on wp_posts.id = meta_description.post_id 
-                                          where meta_title.meta_key='soapbox_home_page_title'
-                                          and meta_description.meta_key='soapbox_home_page_description'
-                                          and wp_posts.post_status = 'publish'
-                                          order by wp_posts.post_date DESC
-                                          limit 4")
-    @box1 = @blog_posts[2]
-    @box2 = @blog_posts[0]
-    @box3 = @blog_posts[1]
-    @box4 = @blog_posts[3]
+
   end
   
   
