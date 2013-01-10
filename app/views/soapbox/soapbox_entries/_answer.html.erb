@@ -1,0 +1,15 @@
+<% div_for(answer,:class=>"comment") do %>
+  <header>
+     <div class="activity_header">
+       <h4><%= link_to "#{answer.profile_question.chapter.title_with_topic}: #{answer.profile_question.title}", soapbox_profile_question_path(answer.profile_question) %></h4>
+     </div>
+    </header>
+    <p>
+        <%= truncate(answer.answer, :length => 10)%>
+    	<% if answer.answer.size > 10 -%>
+          <%= link_to "more&nbsp;&#187;", soapbox_user_profile_question_path(answer.user, answer.profile_question) %>
+        <% end -%>
+    </p>
+<% end %>
+
+
