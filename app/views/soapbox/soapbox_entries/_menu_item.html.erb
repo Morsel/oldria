@@ -3,12 +3,12 @@
     <header>
         <h4><%= link_to menu_item.name, soapbox_menu_item_path(menu_item) %></h4>
         <% if menu_item.photo_file_name.present? -%>
-             <p><%= image_tag menu_item.photo(:thumb) %></p>
+             <p><%= image_tag menu_item.photo(:thumb),:width=>120,:height=>120 %></p>
         <% end -%>
     </header>
           <p>           
-             <%= truncate(menu_item.description, :length => 90) if menu_item.description.present?%>
-             <%= link_to "more&nbsp;&#187;", soapbox_menu_item_path(menu_item) if menu_item.description.size > 90%>
+             <%= truncate(menu_item.description, :length => 30) if menu_item.description.present?%>
+             <%= link_to "more&nbsp;&#187;", soapbox_menu_item_path(menu_item) if menu_item.description.size > 30%>
           </p>    
 <% end %>
 
