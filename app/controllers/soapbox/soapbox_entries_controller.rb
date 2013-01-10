@@ -1,5 +1,5 @@
 class Soapbox::SoapboxEntriesController < Soapbox::SoapboxController
-
+  include RiaCaching
   before_filter :hide_flashes
 
   caches_action :index,                
