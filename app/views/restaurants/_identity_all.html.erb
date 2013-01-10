@@ -11,15 +11,16 @@
             <b><%= link_to_if (restaurant.linkable_profile? || logged_in_on_spoonfeed), restaurant.try(:name), correct_restaurant_path(restaurant) %> </b>
         </li>
         <li class="metro_area">
+            <%= restaurant.metropolitan_area.try(:name) %>&nbsp;
+        </li>
+        <li class="metro_area">
              <% if @subscriber.present? && @subscriber.has_subscription(restaurant) %>
               <%= link_to 'Unsubscribe', unsubscribe_soapbox_restaurant_path(restaurant, :subscriber_id => @subscriber.id), :method => "post" ,:class=>"subscribe" %>
             <%- else -%>
               <%= link_to 'Subscribe', subscribe_soapbox_restaurant_path(restaurant), :method => "post",:class=>"subscribe" %>
             <%- end -%>
         </li>
-        <li class="metro_area">
-            <%= restaurant.metropolitan_area.try(:name) %>&nbsp;
-        </li>
+
     </ul>
 </div>
 <% end %>
