@@ -35,7 +35,6 @@
       </hgroup>
 	  <nav id="nav">
 		<%= link_to 'Home', soapbox_root_path, :id => "nav-home", :class => active_page?('/soapbox') %>
-		<%#= link_to 'Front Burner', 'http://blog.restaurantintelligenceagency.com/', :id => "nav-fb" %>
 		<%= link_to 'A La Minute', '/soapbox/a_la_minute_questions', :id => "nav-alm", :class => active_page?('/soapbox/a_la_minute_questions') %>
 		<%= link_to 'On the Menu', soapbox_menu_items_path, :id => "nav-otm", :class => active_page?('/soapbox/on_the_menu') %>
 		<%= link_to 'Personal Profiles', '/soapbox/directory', :id => "nav-directory", :class => active_page?('/soapbox/directory') %>
