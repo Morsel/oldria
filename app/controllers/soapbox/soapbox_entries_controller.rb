@@ -1,6 +1,14 @@
 class Soapbox::SoapboxEntriesController < Soapbox::SoapboxController
-
+  include RiaCaching
   before_filter :hide_flashes
+
+  caches_action :index,                
+                :expires_in => 10.minutes,
+                :cache_path => Proc.new { |controller| controller.dashboard_cache_key }
+
+  def initialize
+    @per_page = 10
+  end
 
   def index
     @main_feature = SoapboxEntry.main_feature
@@ -8,6 +16,10 @@ class Soapbox::SoapboxEntriesController < Soapbox::SoapboxController
 
     @secondary_feature = SoapboxEntry.secondary_feature
     @secondary_feature_comments = SoapboxEntry.secondary_feature_comments if @secondary_feature
+  end
+
+  def dashboard_cache_key
+    cache_key(controller_name, :index)
   end
 
   def show
@@ -55,6 +67,24 @@ class Soapbox::SoapboxEntriesController < Soapbox::SoapboxController
     render :action => "show"
   end
 
+  def frontburner
+    @announcements = []
+
+    @soapbox_comments   = SoapboxEntry.published.all(:limit => @per_page, :order => "published_at DESC").map(&:comments)
+    @answers            = ProfileAnswer.from_premium_users.all(:limit => @per_page, :order => "created_at DESC")
+    @menu_items         = MenuItem.activated_restaurants.from_premium_restaurants.all(:limit => @per_page, :order => "menu_items.created_at DESC")
+    @promotions         = Promotion.from_premium_restaurants.all(:limit => @per_page, :order => "created_at DESC")
+    @restaurant_answers = RestaurantAnswer.activated_restaurants.from_premium_restaurants.all(:limit => @per_page, :order => "restaurant_answers.created_at DESC")
+
+
+
+    @main_feature = SoapboxEntry.main_feature
+    @main_feature_comments = SoapboxEntry.main_feature_comments if @main_feature
+
+    @secondary_feature = SoapboxEntry.secondary_feature
+    @secondary_feature_comments = SoapboxEntry.secondary_feature_comments if @secondary_feature
+    render 'dashboard'
+  end
   protected
 
   def hide_flashes

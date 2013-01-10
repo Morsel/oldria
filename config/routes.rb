@@ -46,6 +46,8 @@ ActionController::Routing::Routes.draw do |map|
     soapbox.resources :soapbox_entries, :only => ['index', 'show', 'qotd', 'trend'], :as => "front_burner",
                       :collection => { :qotd => :get, :trend => :get },
                       :member => { :comment => :get }
+    soapbox.frontburner 'frontburner',:controller => 'soapbox_entries',:action=>'frontburner'
+
     soapbox.resources :promotions, :as => "newsfeed"
     soapbox.resources :menu_items, :as => "on_the_menu"
 

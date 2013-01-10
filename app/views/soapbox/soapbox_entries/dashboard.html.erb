@@ -1,0 +1,63 @@
+<% title "Front Burner - Soapbox", false %>
+<div id="dashboard">
+		
+<section id="question-of-the-day">
+  <header>
+       <h2>Fresh from Spoonfeed</h2>
+  </header>
+
+  <% if @menu_items %>
+    <div class="trend">
+     <h2><img src="/images/soapbox/title-otm.png"></h2>
+    </div>
+    <div class="details">
+     <h2>On The Menu</h2>
+    </div>
+    <section id="qotd-comments">
+      <%= render :partial => 'menu_item', :collection => @menu_items %>
+    </section>
+  <% end %>
+
+  <% if @promotions %>
+    <div class="trend">
+      <h2><img src="/images/soapbox/title-news.png"></h2>
+    </div>
+    <div class="details">
+      <h2>Newsfeed</h2>
+    </div>
+    <section id="qotd-comments">
+      <%= render :partial => 'promotion', :collection => @promotions %>
+    </section>
+  <% end %>
+
+  <% if @answers %>
+   <div class="trend">
+     <h2><img src="/images/soapbox/title-btl.png"></h2>
+    </div>
+    <div class="details">
+      <h2>Behind the line</h2>
+    </div>
+    <section id="qotd-comments">
+      <%= render :partial => 'answer', :collection => @answers %>
+    </section>
+  <% end %>
+
+  <% if @restaurant_answers %>
+    <div class="trend">
+      <h2><img src="/images/soapbox/tab-trend.png"></h2>
+    </div>
+    <div class="details">
+      <h2>Topics</h2>
+    </div>
+    <section id="qotd-comments">
+      <%= render :partial => 'restaurant_answer', :collection => @restaurant_answers %>
+    </section>
+  <% end %>
+</section><!-- /question-of-the-day -->
+
+</div><!-- /dashboard -->
+<% content_for :sidebar do -%>
+<%= render :partial => 'front_burner_sidebar' %>
+<% end -%>
+
+<%= render 'shared/unread_announcements_popup' %>

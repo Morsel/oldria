@@ -1,0 +1,14 @@
+<% div_for(promotion,:class=>"comment") do %>
+  <header>
+     <h4>
+        <% link_to soapbox_promotion_path(promotion) do %>
+        <%= "#{promotion.title}: #{promotion.start_date.to_formatted_s(:long)}" %> <%= "- #{promotion.end_date.to_formatted_s(:long)}" if promotion.end_date.present? %>
+
+        <% end %>
+     </h>
+   </header>
+     <p>
+        <%= promotion.headline %> 
+        <%= render :partial => 'restaurants/identity', :locals => { :restaurant => promotion.restaurant } %>     
+     </p>  
+<% end %>
