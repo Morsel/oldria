@@ -317,7 +317,7 @@ a.utility {
 /* post-section */
 .post-section{
 	overflow:hidden;
-	margin:0 0 35px;
+	margin: 0 0 25px;
 	padding:0 3px;
 }
 .post-section .column{
@@ -326,7 +326,7 @@ a.utility {
 	margin:0 7px 0 0;
 }
 .post-section .column:first-child{
-	width:24.7%;
+	width:99%;
 	margin-right:9px;
 }
 .post-section .column.last{
@@ -343,7 +343,7 @@ a.utility {
 	border-top:1px solid #abc7da;
 	-webkit-box-shadow: 1px 1px 2px 0 rgba(0, 0, 0, 0.3);
 	box-shadow: 1px 1px 2px 0 rgba(0, 0, 0, 0.3);
-	margin:0 0 17px;
+	margin: 0 0 1px;
 }
 .post-section .heading h2{
 	margin:0;
@@ -355,8 +355,7 @@ a.utility {
 	bottom:-16px;
 	right:11px;
 	width:29px;
-	height:16px;
-	background:url(/images/soapbox/sprite.png) no-repeat 0 -24px;
+	height:16px;	
 }
 .post-section a{
 	text-decoration:none;
@@ -1147,7 +1146,7 @@ a.utility {
 	.social-plugin li a{padding-top:3px;}
 	.add-info{padding:5px;}
 	.post-section .column{width:36%;}
-	.post-section .column:first-child{width:30.7%;}
+	.post-section .column:first-child{width:30.7%}
 	.post-section .post{padding-top:8px;}
 	.post-section .post.size{
 		padding:25px 5px 40px;
