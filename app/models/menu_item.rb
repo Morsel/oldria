@@ -115,8 +115,20 @@ class MenuItem < ActiveRecord::Base
   end
 
   def post_to_twitter(message=nil)
+    picture_url = self.photo(:full) if self.photo_file_name.present?
+    picture = nil
+    unless picture_url.blank?
+      begin
+        picture  = open(picture_url) {|f| f.read }
+      rescue        
+      end
+    end    
     message = message.blank? ? twitter_message : message
-    restaurant.twitter_client.update(message)
+    if(picture.nil?)
+      restaurant.twitter_client.update(message)
+    else
+      restaurant.twitter_client.update_with_media(message,picture)
+    end  
   end
 
   def post_to_facebook(message=nil)
