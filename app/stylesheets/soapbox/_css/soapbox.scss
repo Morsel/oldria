@@ -3331,7 +3331,7 @@ div .details p{
   padding: 0 !important;
 }
 #restaurant-results{
-	a.subscribe {
+	a.subscribe, a.unsubscribe {
 				font-size: 13px;
 				display: block;
 				background-image: url(/images/soapbox/share-actions.png);
@@ -3360,5 +3360,8 @@ div .details p{
 						text-decoration: none;
 					}
 				}
+	}
+	a.unsubscribe{
+		width: 80%;
 	}
 }

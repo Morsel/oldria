@@ -15,7 +15,7 @@
         </li>
         <li class="metro_area">
              <% if @subscriber.present? && @subscriber.has_subscription(restaurant) %>
-              <%= link_to 'Unsubscribe', unsubscribe_soapbox_restaurant_path(restaurant, :subscriber_id => @subscriber.id), :method => "post" ,:class=>"subscribe" %>
+              <%= link_to 'Unsubscribe', unsubscribe_soapbox_restaurant_path(restaurant, :subscriber_id => @subscriber.id), :method => "post" ,:class=>"unsubscribe" %>
             <%- else -%>
               <%= link_to 'Subscribe', subscribe_soapbox_restaurant_path(restaurant), :method => "post",:class=>"subscribe" %>
             <%- end -%>
