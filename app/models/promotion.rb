@@ -143,8 +143,8 @@ class Promotion < ActiveRecord::Base
       :message     => message,
       :link        => soapbox_promotion_url(self),
       :name        => headline,
-      :description => details.gsub(/(<[^>]*>)|\r|\n|\t/s) {" "} ,
-      :picture => (restaurant.logo && restaurant.logo.attachment?) ? restaurant.logo.attachment.url(:small) : nil
+      :description => Loofah::Helpers.strip_tags(details.gsub(/(<[^>]*>)|\r|\t/s) {" "}), 
+      :picture => (restaurant.logo && restaurant.logo.attachment?) ? restaurant.logo.attachment.url(:medium) : nil
     }
     restaurant.post_to_facebook_page(post_attributes)
   end
