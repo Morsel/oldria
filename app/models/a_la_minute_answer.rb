@@ -182,7 +182,7 @@ class ALaMinuteAnswer < ActiveRecord::Base
       :message     => message,
       :link        => soapbox_a_la_minute_answer_url(self),
       :name        => question,
-      :description => answer
+      :description => Loofah::Helpers.strip_tags(answer.gsub(/(<[^>]*>)|\r|\t/s) {" "})
     }
     restaurant.post_to_facebook_page(post_attributes)
   end
