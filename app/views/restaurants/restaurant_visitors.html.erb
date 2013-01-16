@@ -1,0 +1,34 @@
+<%= title "Restaurant Visitors :: #{@restaurant.name}", false %>
+
+<div id="restaurant_profile_view" class="edit clear clearfix">
+    <%= render 'restaurants/restaurant_editing_header' %>
+
+    <div id="editing_restaurant">
+        <div id="restaurant_pages" class="clearfix">
+           <div id="restaurant_features_content" style="width:700px;">
+              <h1 class="pg_title">Visitors</h1>
+                <div class="editing clearfix clear">
+                    <table style="width: 100%" class="archives">
+                        <tbody>
+                          <%unless @visitors.blank?%>
+                            <% @visitors.each do |visitor| %>
+                            <tr>
+                               <td>
+                                <%= link_to((image_tag visitor.user.avatar.url(:thumb) ,:alt => visitor.user.try(:name) ,:class => 'alignleft'),soapbox_profile_path(visitor.user.username)) %>                     
+                                <%= link_to visitor.user.username,soapbox_profile_path(visitor.user.username) if visitor.user.present?%>
+                              </td>
+                            </tr>
+                           <% end %>
+                          <%else%>
+                           <tr>
+                             <td>There is no visitors! </td>
+                          </tr>
+                          <% end %>
+                        </tbody>
+                    </table>
+                </div>
+            <!-- </div> -->
+          </div>
+        </div>
+    </div><!-- /editing_restaurant -->
+</div><!-- /restaurant_profile_view -->
