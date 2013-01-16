@@ -1,10 +1,9 @@
 class RestaurantsController < ApplicationController
   before_filter :require_user
   before_filter :authorize, :only => [:edit, :update, :select_primary_photo,
-                                      :new_manager_needed, :replace_manager, :fb_page_auth,
-                                      :remove_twitter, :download_subscribers, :activate_restaurant, :new_media_contact, :replace_media_contact,
-                                      :newsletter_subscriptions,:fb_deauth]
-
+                                             :new_manager_needed, :replace_manager, :fb_page_auth,
+                                             :remove_twitter, :download_subscribers, :activate_restaurant,:new_media_contact,:replace_media_contact,
+                                             :fb_deauth,:newsletter_subscriptions,:restaurant_visitors]
 
   before_filter :find_restaurant, :only => [:twitter_archive, :facebook_archive, :social_archive]
 
@@ -236,6 +235,9 @@ class RestaurantsController < ApplicationController
         flash[:notice] = "Something went wrong or may be you already sent request to <b> #{@restaurant.name} </b>."           
     end
     redirect_to root_path
+  end
+  def restaurant_visitors
+      @visitors = @restaurant.user_restaurant_visitors
   end
 
   def import_csv  

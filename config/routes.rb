@@ -191,6 +191,7 @@ ActionController::Routing::Routes.draw do |map|
                              :import_csv =>:post,
                              :new_media_contact => :get,
                              :replace_media_contact => :post,
+                             :restaurant_visitors => :get,
                              :send_restaurant_request => :get,
                              :fb_deauth => :any
                              } do |restaurant|
