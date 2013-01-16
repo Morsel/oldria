@@ -6,15 +6,15 @@ class RiaWebservicesController < ApplicationController
     Octopus.using(:webservice, &block)
   end
 
-   skip_before_filter :protect_from_forge
-   before_filter :require_user,:only => [:a_la_minute_answers,:require_restaurant_employee,:menu_items,:bulk_update,:create_menu,:create_promotions,:create_photo,:show_photo,:create_comments,:get_qotds,:get_newsfeed,:push_notification_user,:get_media_request]
-   before_filter :require_restaurant_employee, :only => [:a_la_minute_answers,:require_restaurant_employee,:menu_items,:bulk_update,:create_menu,:create_promotions,:create_photo,:show_photo,:get_newsfeed]
-   before_filter :find_activated_restaurant, :only => [:a_la_minute_answers,:require_restaurant_employee,:menu_items,:bulk_update,:create_menu,:create_promotions,:create_photo,:show_photo,:get_newsfeed]
-   before_filter :require_manager, :only => [:a_la_minute_answers,:require_restaurant_employee,:menu_items,:bulk_update,:create_menu,:create_promotions,:create_photo,:show_photo,:get_newsfeed]
-   before_filter :find_parent, :only => [:create_comments]
+  skip_before_filter :protect_from_forge
+  before_filter :require_user,:only => [:a_la_minute_answers,:require_restaurant_employee,:menu_items,:bulk_update,:create_menu,:create_promotions,:create_photo,:show_photo,:create_comments,:get_qotds,:get_newsfeed,:push_notification_user,:get_media_request]
+  before_filter :require_restaurant_employee, :only => [:a_la_minute_answers,:require_restaurant_employee,:menu_items,:bulk_update,:create_menu,:create_promotions,:create_photo,:show_photo,:get_newsfeed]
+  before_filter :find_activated_restaurant, :only => [:a_la_minute_answers,:require_restaurant_employee,:menu_items,:bulk_update,:create_menu,:create_promotions,:create_photo,:show_photo,:get_newsfeed]
+  before_filter :require_manager, :only => [:a_la_minute_answers,:require_restaurant_employee,:menu_items,:bulk_update,:create_menu,:create_promotions,:create_photo,:show_photo,:get_newsfeed]
+  before_filter :find_parent, :only => [:create_comments]
 
-   layout false
-  include ALaMinuteAnswersHelper
+  layout false
+    include ALaMinuteAnswersHelper
 
  
   def register    
@@ -133,11 +133,14 @@ def a_la_minute_answers
 end
 
 
-  def bulk_update   
+  def bulk_update  
+
     status = false
     message = "Your changes was not saved"
     params[:a_la_minute_questions] = eval(params[:a_la_minute_questions])
+
     params[:a_la_minute_questions].each do |id, attributes|
+      attributes.delete("no_twitter_crosspost")
       question = ALaMinuteQuestion.find(id)
       answer_id = attributes.delete(:answer_id)
       previous_answer = ALaMinuteAnswer.find(answer_id) if ALaMinuteAnswer.exists?(answer_id)
@@ -169,6 +172,7 @@ end
 
   def create_menu
     params[:menu_item][:otm_keyword_ids] = eval(params[:menu_item][:otm_keyword_ids])
+    params[:menu_item].delete("no_twitter_crosspost")    
     @menu_item = @restaurant.menu_items.build(params[:menu_item])
     @menu_item.photo_content_type = "image/#{@menu_item.photo_file_name.split(".").last}" if !@menu_item.photo_file_name.nil?
     if @menu_item.save
@@ -184,6 +188,9 @@ end
     end
 
  def create_promotions   
+    params[:promotion].delete("no_twitter_crosspost")
+    format_date = params[:promotion][:start_date].split("-")
+    params[:promotion][:start_date] = "#{format_date[1]}-#{format_date[0]}-#{format_date[2]}"
     @promotion = @restaurant.promotions.build(params[:promotion])
     @promotion.attachment_content_type = "application/#{@promotion.attachment_file_name.split(".").last}" if !@promotion.attachment_file_name.nil?  
     if @promotion.save
@@ -246,12 +253,8 @@ end
     end 
       @data = []
       @messages.each_with_index do |message,index|
-        @data[index] = {}  
-        if message.employment.type == "DefaultEmployment"         
-          @data[index][:restaurant]  =  message.employment.solo_restaurant_name 
-        else
-           @data[index][:restaurant]  =  message.restaurant.name 
-        end
+        @data[index] = {}           
+        @data[index][:restaurant]  =  message.restaurant.try(:name)
         @data[index][:id] = message.media_request.id
         @data[index][:message] = message.media_request.message
         @data[index][:due_date] = message.media_request.due_date.try(:to_s, :long_ordinal)
@@ -444,5 +447,6 @@ end
       render :json =>{:status=>false,:message=>"Login failed"}
     end
   end
+
 
 end
