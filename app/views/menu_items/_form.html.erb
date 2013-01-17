@@ -1,14 +1,28 @@
 <% semantic_form_for [@restaurant, @menu_item], :html => {:multipart => true} do |f| %>
     <% f.inputs do %>
-        <%= f.input :name, :label => "Name of Dish/Drink/Wine/Beer" %>
-	    <li>
-			<%= label_tag "menu_item_description_editor", "Inspiration/Background" %>
-        	<%= f.cktext_area :description, :input_html => { :rows => 4 }, :toolbar => 'Basic' %>
-			<p class="inline-hints">Share what makes you excited. Basic HTML formatting is allowed.</p>
-		</li>
-        <%= f.input :price, :hint => "Do not include the dollar sign ($)" %>
-        <%= f.input :pairing %>
-        <%= f.input :photo, :hint => "Please shrink large photos to 2400 pixels on a side before you attempt to upload them" %>
+      <li>
+         <%= f.label :name, :label => "Name of Dish/Drink/Wine/Beer" %></br>
+         <%= f.input :name, :label => false %>
+      </li> 
+      <li>
+        <%= label_tag "menu_item_description_editor", "Inspiration/Background" %> 
+        <p class="inline-hints">Share what makes you excited. Basic HTML formatting is allowed.</p>
+        <%= f.cktext_area :description, :input_html => { :rows => 4 }, :toolbar => 'Basic' %></br>
+      </li>
+      <li>
+        <%= f.label :price %>
+        <p class="inline-hints">Do not include the dollar sign ($).</p>
+        <%= f.input :price, :label => false %>
+      </li>   
+      <li>    
+        <%= f.label :pairing %></br>
+        <%= f.input :pairing , :label => false%>
+      </li>    
+      <li>
+        <%= f.label :photo %>
+        <p class="inline-hints">Please shrink large photos to 2400 pixels on a side before you attempt to upload them.</p>
+        <%= f.input :photo, :label => false%>
+      </li>   
         <% if @menu_item.photo_file_name.present? -%>
         <p class="clearfix"><%= image_tag @menu_item.photo(:thumb) %></p>
         <% end -%>
@@ -18,12 +32,17 @@
         <p><%= @menu_item.keywords %></p>
         <% end -%>
         <p class="inline-hints">  
+          Media will use the keywords to find your dish, so please be accurate and complete 
+             <!--Start typing your keywords below and they will appear as you type. Or select a heading to display known keywords-->
 
-            Media will use the keywords to find your dish, so please be accurate and complete
             <br/>
             <% if @is_new %>
-              Please type in your keywords or <%= link_to "select a heading to display known keywords","/" ,:id=>"select-keyword-tab" %>
-              <%= f.input :search_keywords, :required => false, :hint => "Example: artisanal, cocktail, beer" %>  
+              Start typing your keywords below and they will appear as you type. or <%= link_to "select a heading to display known keywords","/" ,:id=>"select-keyword-tab" %>
+              <li>
+                <%= f.label :search_keywords %>
+                 <p class="inline-hints">Example: artisanal, cocktail, beer.</p>
+                <%= f.input :search_keywords, :label => false %>  
+              </li>
             <% end %>
         </p>
         <section id="form-tabs">
@@ -53,6 +72,7 @@
         </section>
 
         <section id="social-tabs">
+           </br><%= label_tag "social-facebook", "Social Sharing" %>
           <nav id="profile-options">
             <span><a href="#social-twitter">Twitter</a></span>
             <span><a href="#social-facebook">Facebook</a></span>
