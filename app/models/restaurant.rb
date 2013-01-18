@@ -147,6 +147,7 @@ class Restaurant < ActiveRecord::Base
 
   has_one :fact_sheet, :class_name => "RestaurantFactSheet"
   after_create :add_fact_sheet
+  after_create :add_api_token
 
   preference :publish_profile, :default => true
 
@@ -461,5 +462,7 @@ class Restaurant < ActiveRecord::Base
   def add_fact_sheet
     self.fact_sheet = RestaurantFactSheet.create
   end
-  
+  def add_api_token
+      self.update_attribute(:api_token,  Digest::SHA1.hexdigest(id.to_s))
+  end
 end
