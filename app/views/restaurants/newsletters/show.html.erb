@@ -380,14 +380,42 @@
 								                    </table></td>
 							                    </tr>
 								                <tr>
-								                  <td style="font-size:0; line-height:0;" height="18"></td>
+								                  <td style="font-size:0; line-height:0;" height="8"></td>
 							                    </tr>
 								                <% unless @restaurant.twitter_username.blank? %>
+
+								                <tr style="font-size:0; line-height:0;">
+								                  <td><img src="http://blog.restaurantintelligenceagency.com/images/newsletter/separator-3.gif" width="151" height="1" alt="image description" /></td>
+							                    </tr>
+								                <tr>
+								                	<tr>
+								                  <td style="font-size:0; line-height:0;" height="8"></td>
+							                  </tr>
 								                <tr>
 								                  <td style="padding-left:10px; padding-right:10px;"><table width="100%" cellspacing="0" cellpadding="0">
 								                    <tr>
 								                      <td style="font:bold 12px Georgia, Times, serif; line-height:18px; color:#fff">Twitter:<br />
 								                        <%= link_to "@#{@restaurant.twitter_username}", "http://twitter.com/#{@restaurant.twitter_username}", :style => "color: #fff;text-decoration: none;" %></td>
+							                        </tr>
+								                    </table></td>
+							                    </tr>
+							                    <tr>
+								                  <td style="font-size:0; line-height:0;" height="8"></td>
+							                  </tr>
+								                <% end %>
+								                <% if @restaurant.has_facebook_page? %>
+
+								                <tr style="font-size:0; line-height:0;">
+								                  <td><img src="http://blog.restaurantintelligenceagency.com/images/newsletter/separator-3.gif" width="151" height="1" alt="image description" /></td>
+							                    </tr>								      
+								                	<tr>
+								                  <td style="font-size:0; line-height:0;" height="8"></td>
+							                  </tr>
+								                <tr>
+								                  <td style="padding-left:10px; padding-right:10px;"><table width="100%" cellspacing="0" cellpadding="0">
+								                    <tr>
+								                      <td style="font:bold 12px Georgia, Times, serif; line-height:18px; color:#fff">Facebook:<br />
+								                        <%= link_to @restaurant.facebook_page_url.gsub("http://www.facebook.com/",""), "#{@restaurant.facebook_page_url}", :style => "color: #fff;text-decoration: none;",:target=>"_blank" %></td>
 							                        </tr>
 								                    </table></td>
 							                    </tr>
@@ -424,9 +452,9 @@
 								                <tr>
 								                  <td style="padding-left:10px; padding-right:10px;"><table width="100%" cellspacing="0" cellpadding="0">
 								                    <tr>
-								                      <td style="font:bold 12px Georgia, Times, serif; line-height:18px; color:#fff">Restaurant Staff:<br />
+								                      <td style="font:bold 14px Georgia, Times, serif; line-height:18px; color:#fff">Restaurant Staff<br />
 								                        <% staffs.each do |employment| %>
-								                        <p><%=h (employment.restaurant_role.nil? ? "No Role" : employment.restaurant_role.try(:name)) %> : <%=h employment.employee.try(:name) %></p>
+								                        <p><%=h (employment.restaurant_role.nil? ? "No Role" : employment.restaurant_role.try(:name)) %>:<br /><%=h employment.employee.try(:name) %></p>
 								                        <% end %></td>
 							                        </tr>
 								                    </table></td>
