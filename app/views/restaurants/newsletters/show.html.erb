@@ -454,7 +454,7 @@
 								                    <tr>
 								                      <td style="font:bold 14px Georgia, Times, serif; line-height:18px; color:#fff">Restaurant Staff<br />
 								                        <% staffs.each do |employment| %>
-								                        <p><%=h (employment.restaurant_role.nil? ? "No Role" : employment.restaurant_role.try(:name)) %>:<br /><%=h employment.employee.try(:name) %></p>
+								                        <p style="font-size:12px"><%=h (employment.restaurant_role.nil? ? "No Role" : employment.restaurant_role.try(:name)) %>:<br /><%=h employment.employee.try(:name) %></p>
 								                        <% end %></td>
 							                        </tr>
 								                    </table></td>
