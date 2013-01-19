@@ -34,7 +34,7 @@
                     <% end %>
                     <h2>Customize Current Newsletter</h2><p>Add a headline and an introductory paragraph to your newsletter. This can be changed for every newsletter you send out. To see how it will look, add your headline and introduction below and then click Preview Newsletter.  </p>
                     <% f.inputs :class => "editing" do %>
-                      <%= f.input :tag_line, :as => :text,:label=>"Newsletter Headline", :input_html => { :style => 'margin-bottom: 12px;' }  %>
+                      <%= f.input :tag_line, :as => :text,:label=>"Newsletter Tagline", :input_html => { :style => 'margin-bottom: 12px;' }  %>
 
                       <%= submit_tag "Add newsletter headline" %>
                     <% end %>
