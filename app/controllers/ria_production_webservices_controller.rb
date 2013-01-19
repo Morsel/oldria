@@ -191,10 +191,11 @@ end
      render :json =>{ :categories=>@categories}
     end
 
- def create_promotions   
-  
-    params[:promotion].delete("no_twitter_crosspost")    
+ def create_promotions     
+       
     no_twitter_crosspost = params[:promotion][:no_twitter_crosspost]
+    params[:promotion].delete("no_twitter_crosspost") 
+    
     if(no_twitter_crosspost.to_i < 1)
       params[:promotion][:twitter_posts_attributes] = {}
       params[:promotion][:twitter_posts_attributes]["0"]={:post_at =>params[:promotion][:post_to_twitter_at] ,:content =>""}
