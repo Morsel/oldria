@@ -904,6 +904,13 @@ footer {
     opacity: .55;
   }
 }
+.media_nav {
+	li {
+		a {
+			width:74px !important;
+		}
+	}		
+}
 /* End logged in user nav */
 
 /* Reminder for basic users to upgrade, appears above main content area */
