@@ -133,12 +133,7 @@ end
     message = "Your changes was not saved"
     params[:a_la_minute_questions] = eval(params[:a_la_minute_questions])    
    
-    params[:a_la_minute_questions].each do |id, attributes|
-      no_twitter_crosspost = attributes[:no_twitter_crosspost]
-      if(no_twitter_crosspost.to_i < 1)
-        attributes[:twitter_posts_attributes] = {}
-        attributes[:twitter_posts_attributes]["0"]={:post_at =>attributes[:post_to_twitter_at] ,:content =>""}
-      end       
+    params[:a_la_minute_questions].each do |id, attributes|     
       attributes.delete("no_twitter_crosspost")
       question = ALaMinuteQuestion.find(id)
       answer_id = attributes.delete(:answer_id)
@@ -170,12 +165,7 @@ end
   end
 
   def create_menu
-    params[:menu_item][:otm_keyword_ids] = eval(params[:menu_item][:otm_keyword_ids])
-    no_twitter_crosspost = params[:menu_item][:no_twitter_crosspost]
-    if(no_twitter_crosspost.to_i < 1)
-      params[:menu_item][:twitter_posts_attributes] = {}
-      params[:menu_item][:twitter_posts_attributes]["0"]={:post_at =>params[:menu_item][:post_to_twitter_at] ,:content =>""}
-    end      
+    params[:menu_item][:otm_keyword_ids] = eval(params[:menu_item][:otm_keyword_ids])       
     params[:menu_item].delete("no_twitter_crosspost") 
     @menu_item = @restaurant.menu_items.build(params[:menu_item])
     @menu_item.photo_content_type = "image/#{@menu_item.photo_file_name.split(".").last}" if !@menu_item.photo_file_name.nil?
@@ -192,14 +182,7 @@ end
     end
 
  def create_promotions     
-       
-    no_twitter_crosspost = params[:promotion][:no_twitter_crosspost]
-    params[:promotion].delete("no_twitter_crosspost") 
-    
-    if(no_twitter_crosspost.to_i < 1)
-      params[:promotion][:twitter_posts_attributes] = {}
-      params[:promotion][:twitter_posts_attributes]["0"]={:post_at =>params[:promotion][:post_to_twitter_at] ,:content =>""}
-    end    
+    params[:promotion].delete("no_twitter_crosspost")   
     @promotion = @restaurant.promotions.build(params[:promotion])
     @promotion.attachment_content_type = "application/#{@promotion.attachment_file_name.split(".").last}" if !@promotion.attachment_file_name.nil?  
     if @promotion.save
