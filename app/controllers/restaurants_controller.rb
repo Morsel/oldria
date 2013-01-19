@@ -210,7 +210,8 @@ class RestaurantsController < ApplicationController
   end
 
   def import_csv  
-      @error_arr =[]  
+    @error_arr =[]
+    file_invalid = false
     if (!params[:document].nil?)
        file_type = params[:document].original_filename.scan(/\.\w+$/)[0].to_s.gsub(".","")
         if file_type.to_s.downcase =="csv" 
@@ -225,25 +226,28 @@ class RestaurantsController < ApplicationController
                   news.newsletter_subscriptions.build({:restaurant_id=>params[:id],:share_with_restaurant=> true}).save
                 end
             end 
-          rescue FasterCSV::MalformedCSVError               
-              news.push("csv file not valid format.")
+          rescue FasterCSV::MalformedCSVError
+              file_invalid = true                 
           end
-           
-          unless @error_arr.compact.blank?
-            flash[:notice] = "Follwing email(s) #{@error_arr.to_sentence } already exits."
-            redirect_to newsletter_subscriptions_restaurant_path
+          unless file_invalid 
+            unless @error_arr.compact.blank?
+              flash[:error] = "Follwing email(s) #{@error_arr.compact.to_sentence } already exits."
+              redirect_to newsletter_subscriptions_restaurant_path
+            else
+              flash[:notice] = "Records successfully inserted."
+              redirect_to newsletter_subscriptions_restaurant_path
+            end
           else
-            flash[:notice] = "Records successfully inserted."
+            flash[:error] = "csv file not valid format."
             redirect_to newsletter_subscriptions_restaurant_path
           end
-         
         else
-         flash[:notice] = "Please select csv file."
+         flash[:error] = "Please select csv file."
          redirect_to newsletter_subscriptions_restaurant_path
         end 
     else  
-        flash[:notice] = "Please select csv file. "
-         redirect_to newsletter_subscriptions_restaurant_path
+        flash[:error] = "Please select csv file. "
+        redirect_to newsletter_subscriptions_restaurant_path
     end 
   end
   
