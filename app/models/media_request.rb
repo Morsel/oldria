@@ -134,6 +134,7 @@ class MediaRequest < ActiveRecord::Base
       }).solo_employments
 
       _employments = [employment_search.solo_employments, extra_results].flatten.compact.uniq
+      _employments = _employments.map{|e| e if e.valid?}.compact
       self.employments = _employments if _employments.present?
     else
       self.employments = employment_search.solo_employments if employment_search.solo_employments.present?
