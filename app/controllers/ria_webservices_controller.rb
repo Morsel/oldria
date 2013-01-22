@@ -17,7 +17,7 @@ class RiaWebservicesController < ApplicationController
     include ALaMinuteAnswersHelper
 
  
-  def register    
+  def register        
      message = []
     if params[:role] == "media"
       @user = User.build_media_from_registration(params)
@@ -45,10 +45,18 @@ class RiaWebservicesController < ApplicationController
       end
     elsif params[:role] == "diner"
       @subscriber = NewsletterSubscriber.build_from_registration(params)
-      if @subscriber.save
+      if @subscriber.save        
+        unless(params[:api_token].blank?)
+          restaurant = Restaurant.find_by_api_token(params[:api_token])
+          NewsletterSubscription.create(:newsletter_subscriber => @subscriber, :restaurant => restaurant) unless restaurant.blank?
+          message.push("#{@subscriber.email} is now subscribed to #{restaurant.name}'s newsletters.")
+        end  
         status = true
       else
         status = false
+        @subscriber.errors.full_messages.each do |msg|
+          message.push(msg.gsub(/(<[^>]*>)|\r|\n|\t/s) {" "})
+        end 
       end
     else
         status = false
