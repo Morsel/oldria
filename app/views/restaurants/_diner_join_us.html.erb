@@ -1,0 +1,29 @@
+<div class="mainContainer">
+          
+
+    <h1 class="join">Diner Join Us</h1>
+
+    <form id="sp_join_us" action="<%=register_ria_webservices_url%>"  method="post">
+      <input type="hidden" value="<%=@restaurant.api_token%>" name="api_token">
+      <div style="margin:0;padding:0;display:inline">
+
+      <div >
+          First name:<input class="validate[required]" alt="First Name" class="standard-filler" id="firstName" name="first_name" value="" type="text">
+
+          Last name:<input class="validate[required]" alt="Last Name" class="standard-filler" id="lastName" name="last_name"  value="" type="text">
+      </div>
+      <div class="right">
+          Email:<input class="validate[required]" alt="Email" class="standard-filler" id="email" name="email"  value="" type="text">
+          <input type="hidden" name="role" value="diner">
+          
+      </div>
+
+      <div >
+          <p class="left">By entering your information you are agreeing to our <a href="http://spoonfeed.restaurantintelligenceagency.com/pages/terms" onclick="window.open(this.href);return false;">terms of use</a></p>
+          <input class="right" id="submit" name="commit" value="Sign Me Up" type="submit">
+
+      </div>
+    </div>
+    </form>
+
+  </div>

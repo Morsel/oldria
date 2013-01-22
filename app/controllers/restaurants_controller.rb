@@ -3,7 +3,7 @@ class RestaurantsController < ApplicationController
   before_filter :authorize, :only => [:edit, :update, :select_primary_photo,
                                              :new_manager_needed, :replace_manager, :fb_page_auth,
                                              :remove_twitter, :download_subscribers, :activate_restaurant,:new_media_contact,:replace_media_contact,
-                                             :fb_deauth,:newsletter_subscriptions]
+                                             :fb_deauth,:newsletter_subscriptions,:api]
 
   before_filter :find_restaurant, :only => [:twitter_archive, :facebook_archive, :social_archive]
 
@@ -233,6 +233,9 @@ class RestaurantsController < ApplicationController
     redirect_to root_path
   end
 
+  def api    
+  end
+    
   private
 
   def find_activated_restaurant    
