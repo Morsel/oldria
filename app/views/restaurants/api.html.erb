@@ -1,0 +1,74 @@
+<% title "Api Key :: #{@restaurant.name}", false %>
+
+<div id="restaurant_profile_view" class="edit clear clearfix">
+    <%= render 'restaurants/restaurant_editing_header' %>
+
+    <div id="editing_restaurant">
+
+        <div id="restaurant_pages" class="clearfix">
+              <nav id="restaurant_feature_nav">
+                <%= active_link_to 'Api', "#api-div",:class=>"selected api-a" %>
+                <%= active_link_to 'Html', "#html-div",:class=>"api-a" %>
+
+              </nav>
+              <div id="restaurant_features_content" style="width:700px;">
+                <div id="key-div">
+                  <h1 class="pg_title">Profile API key</h1>
+
+                  <!-- <div id="read_messages" style="width:670px;margin:0;"> -->
+                    <div class="editing clearfix clear">
+                        <table style="width:100%" class="archives">                         
+                            <tbody>
+                                <tr>
+                                  <td width="10%"><strong>Key :</strong></td>
+                                  <td width="90%"><%= @restaurant.api_token %></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                 <div id="html-div" class="display-none">
+                  <h1 class="pg_title">Diner signup Html</h1>
+                    <p>
+                      Use this form to allow a diner to subscribe to your email list on Spoonfeed. Just copy the html below and add anywhere to your website. You can modify the text how ever you would like.</p>
+                  <!-- <div id="read_messages" style="width:670px;margin:0;"> -->
+                    <div class="editing clearfix clear">
+                        <table style="width:100%" class="archives">                         
+                            <tbody>
+                                <tr>
+                                  <td width="10%"><strong>Html :</strong></td>
+                                  <td width="90%"><%= text_area_tag("html", (render :partial => "diner_join_us.html.erb"),:rows => 5) %></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+              </div>
+        </div>
+    </div><!-- /editing_restaurant -->
+</div><!-- /restaurant_profile_view -->
+<% content_for :javascript do %>
+<script type="text/javascript">
+  $(".api-a").click(function(e){
+    e.preventDefault();
+    $(".api-a").removeClass("selected");
+    $(this).addClass("selected");
+    if($(this).attr('href')=="#html-div")
+    {
+      $("#key-div").hide("slow",function(){
+        
+      })
+      $("#html-div").show("slow");
+    }
+    else
+      { 
+        $("#html-div").hide("slow",function(){
+        
+      })
+        $("#key-div").show("slow");
+
+      }
+  })
+</script>
+<% end %>
