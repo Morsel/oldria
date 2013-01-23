@@ -309,10 +309,13 @@ class RestaurantsController < ApplicationController
     @media_subscription.each do |media_subscription|
       @arrMedia.push(media_subscription.restaurant.id)
     end  
-    @menu_items=MediaNewsletterSubscription.menu_items(@arrMedia)
-    @menus=MediaNewsletterSubscription.menus(@arrMedia)
-    @restaurantAnswers=MediaNewsletterSubscription.restaurant_answers(@arrMedia)
-    @promotions=MediaNewsletterSubscription.promotions(@arrMedia)
+    @menu_items = @menus = @restaurantAnswers = @promotions = []
+    unless(@arrMedia.blank?)
+      @menu_items = MediaNewsletterSubscription.menu_items(@arrMedia)
+      @menus = MediaNewsletterSubscription.menus(@arrMedia)
+      @restaurantAnswers = MediaNewsletterSubscription.restaurant_answers(@arrMedia)
+      @promotions = MediaNewsletterSubscription.promotions(@arrMedia)
+    end
   end
 
 
