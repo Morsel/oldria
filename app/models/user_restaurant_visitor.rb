@@ -20,8 +20,9 @@ class UserRestaurantVisitor < ActiveRecord::Base
 	def self.send_notification
       userrestaurantvisitor = UserRestaurantVisitor.find(:all,:conditions=>["updated_at > ?",1.day.ago.beginning_of_day],:group => "restaurant_id")
       userrestaurantvisitor.each do |visitor|  
-      	visitors = UserRestaurantVisitor.profile_visitors(visitor.restaurant_id)  	
-        UserMailer.deliver_send_mail_visitor(visitor , visitors)
+      	visitors = UserRestaurantVisitor.profile_visitors(visitor.restaurant_id) 
+        media_visitors = visitor.restaurant.media_newsletter_subscriptions
+        UserMailer.deliver_send_mail_visitor(visitor , visitors , media_visitors)
       end
     end 
 end
