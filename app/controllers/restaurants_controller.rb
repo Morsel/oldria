@@ -170,7 +170,7 @@ class RestaurantsController < ApplicationController
     @subscriptions = @restaurant.newsletter_subscriptions
 
     # csv string generator
-    @csv = FasterCSV.generate do |csv|
+    @csv = FasterCSV.generate(:col_sep => "\t") do |csv|
       # header
       csv << %w[first_name last_name email subscription_date]
 
@@ -217,7 +217,7 @@ class RestaurantsController < ApplicationController
           begin
             file = params[:document]
             tmp_pwd = 'temp123'               
-            FasterCSV.read(params[:document].path,:headers => true).each do |i|
+            FasterCSV.read(params[:document].path,:headers => true,:col_sep => "\t").each do |i|
                news = NewsletterSubscriber.new(:first_name => i[0],:last_name => i[1],:email => i[2],:password=>tmp_pwd)               
                 unless news.save
                   @error_arr.push(news.email)
