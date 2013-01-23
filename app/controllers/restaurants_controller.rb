@@ -1,11 +1,11 @@
 class RestaurantsController < ApplicationController
-  before_filter :require_user
+  before_filter :require_user, :except =>[:media_user_newsletter_subscription]
   before_filter :authorize, :only => [:edit, :update, :select_primary_photo,
                                              :new_manager_needed, :replace_manager, :fb_page_auth,
                                              :remove_twitter, :download_subscribers, :activate_restaurant,:new_media_contact,:replace_media_contact,
                                              :fb_deauth,:newsletter_subscriptions]
 
-  before_filter :find_restaurant, :only => [:twitter_archive, :facebook_archive, :social_archive]
+  before_filter :find_restaurant, :only => [:twitter_archive, :facebook_archive, :social_archive,:media_subscribe]
 
   def index
     @employments = current_user.employments
@@ -231,6 +231,31 @@ class RestaurantsController < ApplicationController
         flash[:notice] = "Something went wrong or may be you already sent request to <b> #{@restaurant.name} </b>."           
     end
     redirect_to root_path
+  end
+   
+  def media_subscribe     
+    if current_user.media?   
+      mnls = current_user.restaurant_newsletter_subscription(@restaurant)   
+      if  mnls.blank? && MediaNewsletterSubscription.create(:media_newsletter_subscriber => current_user, :restaurant => @restaurant)
+        flash[:notice] = "#{current_user.email} is now subscribed to #{@restaurant.name}'s newsletter."            
+      else
+        mnls.destroy          
+        flash[:notice] = "#{current_user.email} is unsubscribed to #{@restaurant.name}'s newsletter."                    
+      end
+    end  
+    redirect_to :action => "show", :id => @restaurant.id
+  end
+
+  def media_user_newsletter_subscription
+    @arrMedia=[]    
+    @media_subscription = MediaNewsletterSubscription.all
+    @media_subscription.each do |media_subscription|
+      @arrMedia.push(media_subscription.restaurant.id)
+    end  
+    @menu_items=MediaNewsletterSubscription.menu_items(@arrMedia)
+    @menus=MediaNewsletterSubscription.menus(@arrMedia)
+    @restaurantAnswers=MediaNewsletterSubscription.restaurant_answers(@arrMedia)
+    @promotions=MediaNewsletterSubscription.promotions(@arrMedia)
   end
 
   private

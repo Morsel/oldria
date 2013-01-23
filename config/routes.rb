@@ -176,7 +176,7 @@ ActionController::Routing::Routes.draw do |map|
   map.feature '/features/:id', :controller => 'features', :action => 'show'
 
   map.resources :restaurants,
-                :collection => {:add_restaurant => :get},
+                :collection => {:add_restaurant => :get,:media_user_newsletter_subscription=>:get},
                 :member => { :edit_logo => :get,
                              :select_primary_photo => :post,
                              :new_manager_needed => :get,
@@ -191,7 +191,8 @@ ActionController::Routing::Routes.draw do |map|
                              :new_media_contact => :get,
                              :replace_media_contact => :post,
                              :send_restaurant_request => :get,
-                             :fb_deauth => :any
+                             :fb_deauth => :any,
+                             :media_subscribe => :get
                              } do |restaurant|
     restaurant.resources :employees, :collection => { :bulk_edit => :get }, :except => [:show, :index]
     restaurant.resources :employments, :collection => { "reorder" => :post }
