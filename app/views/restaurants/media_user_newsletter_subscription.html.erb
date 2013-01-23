@@ -1,41 +1,50 @@
 <div class="soapbox-tabs">
   <div class="tabable">
-<div ><h2>Menu Item1</h2>
-  <%@menu_items.each do |menu_item|%>
-    <tr>
-      <td><b><%=menu_item.name%></b></td>
-      <td><%=menu_item.restaurant.name%></td></br>
-    </tr>
+<div >
+  <% unless @menu_items.blank? %>
+    <h2>Menu Item1</h2>
+    <%@menu_items.each do |menu_item|%>
+      <tr>
+        <td><b><%=menu_item.name%></b></td>
+        <td><%=menu_item.restaurant.name%></td></br>
+      </tr>
+    <%end%>
   <%end%>
   </div>
  <div class="tabable">
-  <h2>Menu</h2>
-    <%@menus.each do |menu|%>
-     <tr>
-      <td> <b><%=menu.name%></b></td>
-      <td></td>
-      <td> <%=menu.restaurant.name%></td></br>
-    </tr>
+  <% unless @menus.blank? %>
+    <h2>Menu</h2>
+      <%@menus.each do |menu|%>
+       <tr>
+        <td> <b><%=menu.name%></b></td>
+        <td></td>
+        <td> <%=menu.restaurant.name%></td></br>
+      </tr>
+    <%end%>
   <%end%>
   </div>
  <div class="tabable">
- <h2>RestaurantAnswer</h2>
-    <%@restaurantAnswers.each do |restaurantAnswer|%>
-     <tr>
-     <td> <b><%= "#{restaurantAnswer.restaurant_question.chapter.title_with_topic}: #{restaurantAnswer.restaurant_question.title}"%></b></td>
-      <td> <%=restaurantAnswer.restaurant.name%></td>
-      <td> <%= truncate(restaurantAnswer.answer, :length => 100)%></td></br>
-    </tr>
+  <% unless @restaurantAnswers.blank? %>
+     <h2>RestaurantAnswer</h2>
+        <%@restaurantAnswers.each do |restaurantAnswer|%>
+         <tr>
+         <td> <b><%= "#{restaurantAnswer.restaurant_question.chapter.title_with_topic}: #{restaurantAnswer.restaurant_question.title}"%></b></td>
+          <td> <%=restaurantAnswer.restaurant.name%></td>
+          <td> <%= truncate(restaurantAnswer.answer, :length => 100)%></td></br>
+        </tr>
+      <%end%>
   <%end%>
  </div>
  <div class="tabable">
-  <h2>Promotion</h2>
-    <%@promotions.each do |promotion|%>
-     <tr>
-      <td> <b><%= "#{promotion.title}: #{promotion.start_date.to_formatted_s(:long)}" %> <%= "- #{promotion.end_date.to_formatted_s(:long)}" if promotion.end_date.present? %></b></td>
-      <td> <%= promotion.headline %> </td>
-      <td> <%=promotion.restaurant.name%></td></br>
-    </tr>
+  <% unless @promotions.blank? %>
+    <h2>Promotion</h2>
+      <%@promotions.each do |promotion|%>
+       <tr>
+        <td> <b><%= "#{promotion.title}: #{promotion.start_date.to_formatted_s(:long)}" %> <%= "- #{promotion.end_date.to_formatted_s(:long)}" if promotion.end_date.present? %></b></td>
+        <td> <%= promotion.headline %> </td>
+        <td> <%=promotion.restaurant.name%></td></br>
+      </tr>
+    <%end%>
   <%end%>
 </div>
 
