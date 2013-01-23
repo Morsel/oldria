@@ -33,19 +33,19 @@ class MediaNewsletterSubscription < ActiveRecord::Base
   end
 
   def self.menu_items(restaurants)
-    MenuItem.find(MenuItem.find_by_sql("SELECT GROUP_CONCAT(test.item SEPARATOR ',') as menu_ids FROM  (SELECT  SUBSTRING_INDEX(GROUP_CONCAT( DISTINCT  `id` SEPARATOR ',' ) ,',',3)as item FROM `menu_items` GROUP BY `restaurant_id` HAVING  `restaurant_id` IN (#{restaurants.join(',')}) ORDER BY  `created_at` DESC) test").first.menu_ids.split(","))
+    MenuItem.find(MenuItem.find_by_sql("SELECT GROUP_CONCAT(result_view.item SEPARATOR ',') as menu_ids FROM  (SELECT  SUBSTRING_INDEX(GROUP_CONCAT( DISTINCT  `id` SEPARATOR ',' ) ,',',3) as item FROM `menu_items` GROUP BY `restaurant_id` HAVING  `restaurant_id` IN (#{restaurants.join(',')}) ORDER BY  `created_at` DESC) result_view").first.menu_ids.split(","))
   end
 
   def self.menus(restaurants)
-    Menu.find(Menu.find_by_sql("SELECT GROUP_CONCAT(test.item SEPARATOR ',') as menu_ids FROM  (SELECT  SUBSTRING_INDEX(GROUP_CONCAT( DISTINCT  `id` SEPARATOR ',' ) ,',',3)as item FROM `menus` GROUP BY `restaurant_id` HAVING  `restaurant_id` IN (#{restaurants.join(',')}) ORDER BY  `created_at` DESC) test").first.menu_ids.split(","))
+    Menu.find(Menu.find_by_sql("SELECT GROUP_CONCAT(result_view.item SEPARATOR ',') as menu_ids FROM  (SELECT  SUBSTRING_INDEX(GROUP_CONCAT( DISTINCT  `id` SEPARATOR ',' ) ,',',3) as item FROM `menus` GROUP BY `restaurant_id` HAVING  `restaurant_id` IN (#{restaurants.join(',')}) ORDER BY  `created_at` DESC) result_view").first.menu_ids.split(","))
   end 
   
   def self.restaurant_answers(restaurants)
-    RestaurantAnswer.find(RestaurantAnswer.find_by_sql("SELECT GROUP_CONCAT(test.item SEPARATOR ',') as ans_ids FROM  (SELECT  SUBSTRING_INDEX(GROUP_CONCAT( DISTINCT  `id` SEPARATOR ',' ) ,',',3)as item FROM `restaurant_answers` GROUP BY `restaurant_id` HAVING  `restaurant_id` IN (#{restaurants.join(',')}) ORDER BY  `created_at` DESC) test").first.ans_ids.split(","))
+    RestaurantAnswer.find(RestaurantAnswer.find_by_sql("SELECT GROUP_CONCAT(result_view.item SEPARATOR ',') as ans_ids FROM  (SELECT  SUBSTRING_INDEX(GROUP_CONCAT( DISTINCT  `id` SEPARATOR ',' ) ,',',3) as item FROM `restaurant_answers` GROUP BY `restaurant_id` HAVING  `restaurant_id` IN (#{restaurants.join(',')}) ORDER BY  `created_at` DESC) result_view").first.ans_ids.split(","))
   end
 
   def self.promotions(restaurants)
-    Promotion.find(Promotion.find_by_sql("SELECT GROUP_CONCAT(test.item SEPARATOR ',') as prmotion_ids FROM  (SELECT  SUBSTRING_INDEX(GROUP_CONCAT( DISTINCT  `id` SEPARATOR ',' ) ,',',3) as item FROM `promotions` GROUP BY `restaurant_id` HAVING  `restaurant_id` IN (#{restaurants.join(',')}) ORDER BY  `created_at` DESC) test").first.prmotion_ids.split(","))
+    Promotion.find(Promotion.find_by_sql("SELECT GROUP_CONCAT(result_view.item SEPARATOR ',') as prmotion_ids FROM  (SELECT  SUBSTRING_INDEX(GROUP_CONCAT( DISTINCT  `id` SEPARATOR ',' ) ,',',3) as item FROM `promotions` GROUP BY `restaurant_id` HAVING  `restaurant_id` IN (#{restaurants.join(',')}) ORDER BY  `created_at` DESC) result_view").first.prmotion_ids.split(","))
   end
 
   private
