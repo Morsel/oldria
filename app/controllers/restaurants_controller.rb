@@ -199,7 +199,7 @@ class RestaurantsController < ApplicationController
     @subscriptions = @restaurant.newsletter_subscriptions
 
     # csv string generator
-    @csv = FasterCSV.generate do |csv|
+    @csv = FasterCSV.generate(:col_sep => "\t") do |csv|
       # header
       csv << %w[first_name last_name email subscription_date]
 
@@ -244,44 +244,40 @@ class RestaurantsController < ApplicationController
 
 
   def import_csv  
-    @error_arr =[]
-    file_invalid = false
+      @error_arr =[]  
     if (!params[:document].nil?)
        file_type = params[:document].original_filename.scan(/\.\w+$/)[0].to_s.gsub(".","")
         if file_type.to_s.downcase =="csv" 
           begin
             file = params[:document]
             tmp_pwd = 'temp123'               
-            FasterCSV.read(params[:document].path,:headers => true).each do |i|
+            FasterCSV.read(params[:document].path,:headers => true,:col_sep => "\t").each do |i|
                news = NewsletterSubscriber.new(:first_name => i[0],:last_name => i[1],:email => i[2],:password=>tmp_pwd)               
                 unless news.save
                   @error_arr.push(news.email)
                 else
-                  news.newsletter_subscriptions.build({:restaurant_id=>params[:id],:share_with_restaurant=> true}).save
+                  news.newsletter_subscriptions.build({:restaurant_id=>params[:id]}).save
                 end
             end 
-          rescue FasterCSV::MalformedCSVError
-              file_invalid = true                 
+          rescue FasterCSV::MalformedCSVError               
+              news.push("csv file not valid format.")
           end
-          unless file_invalid 
-            unless @error_arr.compact.blank?
-              flash[:error] = "Follwing email(s) #{@error_arr.compact.to_sentence } already exits."
-              redirect_to newsletter_subscriptions_restaurant_path
-            else
-              flash[:notice] = "Records successfully inserted."
-              redirect_to newsletter_subscriptions_restaurant_path
-            end
+           
+          unless @error_arr.compact.blank?
+            flash[:notice] = "Follwing email(s) #{@error_arr.to_sentence } already exits."
+            redirect_to newsletter_subscriptions_restaurant_path
           else
-            flash[:error] = "csv file not valid format."
+            flash[:notice] = "Records successfully inserted."
             redirect_to newsletter_subscriptions_restaurant_path
           end
+         
         else
-         flash[:error] = "Please select csv file."
+         flash[:notice] = "Please select csv file."
          redirect_to newsletter_subscriptions_restaurant_path
         end 
     else  
-        flash[:error] = "Please select csv file. "
-        redirect_to newsletter_subscriptions_restaurant_path
+        flash[:notice] = "Please select csv file. "
+         redirect_to newsletter_subscriptions_restaurant_path
     end 
   end
   
