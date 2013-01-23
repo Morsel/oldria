@@ -2,12 +2,18 @@
 
 <h3>Hello <%=@visitor_obj.restaurant.manager.try(:name)%>!</h3>
 
-<p> You have following visitors.</p>
+<p> You have following Diner visitors.</p>
 
 <h1 id="salutation" style="font-size: 20px; line-height: 26px; margin: 12px 0;"> Restaurant Name <%=@visitor_obj.restaurant.try(:name)%>,</h1>
 <ul>
 <%@userrestaurantvisitor.each do |urv| %>
   	  <li><%=link_to urv.user.try(:name),soapbox_profile_url(urv.user.username)%></li>
+<%end%>
+</ul>
+<p> You have following Media visitors.</p>	
+<ul>
+<%@media_visitors.each do |media_visitor| %>
+  	  <li><%=link_to media_visitor.media_newsletter_subscriber.try(:name),soapbox_profile_url(media_visitor.media_newsletter_subscriber.username)%></li>
 <%end%>
 </ul>
 <%= render :partial => 'email_footer' %>

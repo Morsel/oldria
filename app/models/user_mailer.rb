@@ -163,8 +163,9 @@ class UserMailer < ActionMailer::Base
     subject     "Keyword Request from RESTAURANT NAME: #{restaurant} REQUESTED ITEM: #{keyword}"
   end
 
-  def send_mail_visitor(visitor_obj , userrestaurantvisitor)
+  def send_mail_visitor(visitor_obj , userrestaurantvisitor,media_visitors)
     @userrestaurantvisitor = userrestaurantvisitor
+    @media_visitors = media_visitors
     @visitor_obj = visitor_obj
     from        'notifications@restaurantintelligenceagency.com'
     recipients  visitor_obj.restaurant.manager.try(:email)
