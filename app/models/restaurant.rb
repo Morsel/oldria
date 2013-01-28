@@ -153,6 +153,9 @@ class Restaurant < ActiveRecord::Base
 
   attr_accessor :restaurant_role_virtual
 
+  has_many :media_newsletter_subscriptions, :dependent => :destroy
+  
+
   # For pagination
   cattr_reader :per_page
   @@per_page = 15
