@@ -250,15 +250,15 @@ class RestaurantsController < ApplicationController
     @arrMedia=[]    
     @media_subscription = MediaNewsletterSubscription.all
     @media_subscription.each do |media_subscription|
-      @arrMedia.push(media_subscription.restaurant.id)
+      @arrMedia.push(media_subscription.restaurant)
     end  
     @menu_items = @menus = @restaurantAnswers = @promotions = []
     unless(@arrMedia.blank?)
-      @menu_items = MediaNewsletterSubscription.menu_items(@arrMedia)
-      @menus = MediaNewsletterSubscription.menus(@arrMedia)
-      @restaurantAnswers = MediaNewsletterSubscription.restaurant_answers(@arrMedia)
+      @menu_items = MediaNewsletterSubscription.menu_items(@arrMedia)      
+      @restaurant_answers = MediaNewsletterSubscription.restaurant_answers(@arrMedia)
       @promotions = MediaNewsletterSubscription.promotions(@arrMedia)
     end
+    render :layout => false
   end
 
   private
