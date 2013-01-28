@@ -33,19 +33,37 @@ class MediaNewsletterSubscription < ActiveRecord::Base
   end
 
   def self.menu_items(restaurants)
-    MenuItem.find(MenuItem.find_by_sql("SELECT GROUP_CONCAT(result_view.item SEPARATOR ',') as menu_ids FROM  (SELECT  SUBSTRING_INDEX(GROUP_CONCAT( DISTINCT  `id` SEPARATOR ',' ) ,',',3) as item FROM `menu_items` GROUP BY `restaurant_id` HAVING  `restaurant_id` IN (#{restaurants.join(',')}) ORDER BY  `created_at` DESC) result_view").first.menu_ids.split(","))
+    #menu_items = MenuItem.find_by_sql("SELECT GROUP_CONCAT(result_view.item SEPARATOR ',') as menu_ids FROM  (SELECT  SUBSTRING_INDEX(GROUP_CONCAT( DISTINCT  `id` SEPARATOR ',' ) ,',',3) as item FROM `menu_items` GROUP BY `restaurant_id` HAVING  `restaurant_id` IN (#{restaurants.join(',')}) ORDER BY  `created_at` DESC) result_view").first.menu_ids
+    #MenuItem.find(menu_items.split(",")) unless menu_items.nil? # TODO Need to workon this Query
+    menu_items = []
+    restaurants.each do |restaurant|      
+      menu_items.push(restaurant.menu_items.all(:order=>"created_at desc" ,:limit=>3))
+    end      
+    menu_items.flatten.compact
   end
 
   def self.menus(restaurants)
-    Menu.find(Menu.find_by_sql("SELECT GROUP_CONCAT(result_view.item SEPARATOR ',') as menu_ids FROM  (SELECT  SUBSTRING_INDEX(GROUP_CONCAT( DISTINCT  `id` SEPARATOR ',' ) ,',',3) as item FROM `menus` GROUP BY `restaurant_id` HAVING  `restaurant_id` IN (#{restaurants.join(',')}) ORDER BY  `created_at` DESC) result_view").first.menu_ids.split(","))
+    menus = []
+    restaurants.each do |restaurant|      
+      menus.push(restaurant.menus.all(:order=>"created_at desc" ,:limit=>3))
+    end          
+    menus.flatten.compact
   end 
   
   def self.restaurant_answers(restaurants)
-    RestaurantAnswer.find(RestaurantAnswer.find_by_sql("SELECT GROUP_CONCAT(result_view.item SEPARATOR ',') as ans_ids FROM  (SELECT  SUBSTRING_INDEX(GROUP_CONCAT( DISTINCT  `id` SEPARATOR ',' ) ,',',3) as item FROM `restaurant_answers` GROUP BY `restaurant_id` HAVING  `restaurant_id` IN (#{restaurants.join(',')}) ORDER BY  `created_at` DESC) result_view").first.ans_ids.split(","))
+    restaurant_answers = []
+    restaurants.each do |restaurant|      
+      restaurant_answers.push(restaurant.a_la_minute_answers.all(:order=>"created_at desc" ,:limit=>3))
+    end      
+    restaurant_answers.flatten.compact
   end
 
   def self.promotions(restaurants)
-    Promotion.find(Promotion.find_by_sql("SELECT GROUP_CONCAT(result_view.item SEPARATOR ',') as prmotion_ids FROM  (SELECT  SUBSTRING_INDEX(GROUP_CONCAT( DISTINCT  `id` SEPARATOR ',' ) ,',',3) as item FROM `promotions` GROUP BY `restaurant_id` HAVING  `restaurant_id` IN (#{restaurants.join(',')}) ORDER BY  `created_at` DESC) result_view").first.prmotion_ids.split(","))
+   promotions = []
+    restaurants.each do |restaurant|      
+      promotions.push(restaurant.promotions.all(:order=>"created_at desc" ,:limit=>3))
+    end      
+    promotions.flatten.compact
   end
 
   private
