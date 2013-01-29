@@ -4,7 +4,7 @@ class Restaurants::SocialPostController < ApplicationController
   before_filter :authorize
 
   def index
-    @social_posts = SocialPost.pending
+    @social_posts = SocialPost.pending.map{|social_post| social_post if (can? :edit, social_post.source.send(:restaurant)) }.compact
   end
 
   def newsfeed
