@@ -20,7 +20,7 @@
       </li>    
       <li>
         <%= f.label :photo %>
-        <p class="inline-hints">Please shrink large photos to 2400 pixels on a side before you attempt to upload them.</p>
+        <p class="inline-hints">Please shrink large photos to 2400 pixels on a side before you attempt to upload them. <br />"<strong>iPhone users</strong> - Please take photos in landscape mode"</p>
         <%= f.input :photo, :label => false%>
       </li>   
         <% if @menu_item.photo_file_name.present? -%>
@@ -32,12 +32,12 @@
         <p><%= @menu_item.keywords %></p>
         <% end -%>
         <p class="inline-hints">  
-          Media will use the keywords to find your dish, so please be accurate and complete 
+          Media will use the keywords to find your dish so please be accurate and complete.
              <!--Start typing your keywords below and they will appear as you type. Or select a heading to display known keywords-->
 
             <br/>
             <% if @is_new %>
-              Start typing your keywords below and they will appear as you type. or <%= link_to "select a heading to display known keywords","/" ,:id=>"select-keyword-tab" %>
+              Start typing your keywords below and they will appear as you type or <%= link_to "select a heading below to display known keywords.","/" ,:id=>"select-keyword-tab" %>
               <li>
                 <%= f.label :search_keywords %>
                  <p class="inline-hints">Example: artisanal, cocktail, beer.</p>
@@ -148,7 +148,7 @@
     <% end %>
 
     <p class="inline-hints">
-        Large, high-resolution photos can take a little while to upload, so please be patient
+        Large, high-resolution photos can take a little while to upload, so please be patient.
     </p>
     <%= submit_tag "Save" %>
 <% end %>
