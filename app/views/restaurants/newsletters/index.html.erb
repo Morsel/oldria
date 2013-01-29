@@ -66,18 +66,18 @@
                 <h2>Preview and Schedule Newsletter</h2>
                 <P><strong>Newsletters must be approved before they are sent to your mailing list. </strong> To approve your newsletter, please click preview newsletter to view and then click approve newsletter below. </P>
 
-                <div id="restaurant_actions" class="clearfix"><p>To preview your newsletter, click the preview newsletter button. <br>
-                  <%= button_to "Preview newsletter", preview_restaurant_newsletters_path(@restaurant), :popup => true, :class => 'button',:method=>"get" %></p>
-                  <% unless @restaurant.newsletter_approved? %><p>Approve your newsletter to send at regularly scheduled interval.<br>
-                    <%= button_to "Approve newsletter", approve_restaurant_newsletters_path(@restaurant), :method => 'post', :confirm => "your newsletter will send on (#{@restaurant.next_newsletter_for_frequency.to_formatted_s(:sentence)}). Click here to cancel or click Send Newsetter to send immediately." %></p>
-                  <% end %><p>To send your newsletter to your list right now, select Send Newsletter<br>
+                <div id="restaurant_actions" class="clearfix"><br>
+                  <%= button_to "Preview newsletter", preview_restaurant_newsletters_path(@restaurant), :popup => true, :class => 'button',:method=>"get" %>
+                  <% unless @restaurant.newsletter_approved? %><p>To preview your newsletter, click the preview newsletter button. </p>
+                    <%= button_to "Approve newsletter", approve_restaurant_newsletters_path(@restaurant), :method => 'post', :confirm => "your newsletter will send on (#{@restaurant.next_newsletter_for_frequency.to_formatted_s(:sentence)}). Click here to cancel or click Send Newsetter to send immediately." %>
+                  <% end %><p>Approve your newsletter to send at regularly scheduled interval.<br></p>
                   <% unless @restaurant.newsletter_approved %>
                     <%= button_to "Send newsletter", restaurant_newsletters_path(@restaurant), :onclick => 'alert("You must approved your newsletter first.") ; return false ; ',:disable=>"disabled"%>
                   <% else %>
                   <%= button_to "Cancel newsletter", disapprove_restaurant_newsletters_path(@restaurant), :method => 'post', :confirm => "are you sure?" %><p>Next newsletter will send on <%=@restaurant.next_newsletter_for_frequency.to_formatted_s(:sentence)%>.Click here to cancel newsletter.<br></p>
                   <%= button_to "Send newsletter", restaurant_newsletters_path(@restaurant), :confirm => 'Are you sure you want to send this newsletter right now?'%> To send newsletter immidiatly click here.
                   <%end%>
-               </p> </div>
+              <p>To send your newsletter to your list right now, select Send Newsletter<br> </p> </div>
 
               </div>
 
