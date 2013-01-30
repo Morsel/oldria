@@ -14,10 +14,10 @@ class RiaWebservicesController < ApplicationController
   before_filter :find_parent, :only => [:create_comments]
 
   layout false
-    include ALaMinuteAnswersHelper
+  include ALaMinuteAnswersHelper
 
  
-  def register        
+  def register    
      message = []
     if params[:role] == "media"
       @user = User.build_media_from_registration(params)
@@ -45,18 +45,10 @@ class RiaWebservicesController < ApplicationController
       end
     elsif params[:role] == "diner"
       @subscriber = NewsletterSubscriber.build_from_registration(params)
-      if @subscriber.save        
-        unless(params[:api_token].blank?)
-          restaurant = Restaurant.find_by_api_token(params[:api_token])
-          NewsletterSubscription.create(:newsletter_subscriber => @subscriber, :restaurant => restaurant) unless restaurant.blank?
-          message.push("#{@subscriber.email} is now subscribed to #{restaurant.name}'s newsletters.")
-        end  
+      if @subscriber.save
         status = true
       else
         status = false
-        @subscriber.errors.full_messages.each do |msg|
-          message.push(msg.gsub(/(<[^>]*>)|\r|\n|\t/s) {" "})
-        end 
       end
     else
         status = false
@@ -205,10 +197,11 @@ end
      render :json =>{ :categories=>@categories}
     end
 
- def create_promotions   
-  
-    params[:promotion].delete("no_twitter_crosspost")    
+ def create_promotions     
+       
     no_twitter_crosspost = params[:promotion][:no_twitter_crosspost]
+    params[:promotion].delete("no_twitter_crosspost") 
+    
     if(no_twitter_crosspost.to_i < 1)
       params[:promotion][:twitter_posts_attributes] = {}
       params[:promotion][:twitter_posts_attributes]["0"]={:post_at =>params[:promotion][:post_to_twitter_at] ,:content =>""}
@@ -469,6 +462,5 @@ end
       render :json =>{:status=>false,:message=>"Login failed"}
     end
   end
-
 
 end

@@ -1,14 +1,14 @@
 class RiaProductionWebservicesController < ApplicationController
 
-	skip_before_filter :protect_from_forge
-	before_filter :require_user,:only => [:a_la_minute_answers,:require_restaurant_employee,:menu_items,:bulk_update,:create_menu,:create_promotions,:create_photo,:show_photo,:create_comments,:get_qotds,:get_newsfeed,:push_notification_user,:get_media_request]
-	before_filter :require_restaurant_employee, :only => [:a_la_minute_answers,:require_restaurant_employee,:menu_items,:bulk_update,:create_menu,:create_promotions,:create_photo,:show_photo,:get_newsfeed]
-	before_filter :find_activated_restaurant, :only => [:a_la_minute_answers,:require_restaurant_employee,:menu_items,:bulk_update,:create_menu,:create_promotions,:create_photo,:show_photo,:get_newsfeed]
-	before_filter :require_manager, :only => [:a_la_minute_answers,:require_restaurant_employee,:menu_items,:bulk_update,:create_menu,:create_promotions,:create_photo,:show_photo,:get_newsfeed]
-	before_filter :find_parent, :only => [:create_comments]
+  skip_before_filter :protect_from_forge
+  before_filter :require_user,:only => [:a_la_minute_answers,:require_restaurant_employee,:menu_items,:bulk_update,:create_menu,:create_promotions,:create_photo,:show_photo,:create_comments,:get_qotds,:get_newsfeed,:push_notification_user,:get_media_request]
+  before_filter :require_restaurant_employee, :only => [:a_la_minute_answers,:require_restaurant_employee,:menu_items,:bulk_update,:create_menu,:create_promotions,:create_photo,:show_photo,:get_newsfeed]
+  before_filter :find_activated_restaurant, :only => [:a_la_minute_answers,:require_restaurant_employee,:menu_items,:bulk_update,:create_menu,:create_promotions,:create_photo,:show_photo,:get_newsfeed]
+  before_filter :require_manager, :only => [:a_la_minute_answers,:require_restaurant_employee,:menu_items,:bulk_update,:create_menu,:create_promotions,:create_photo,:show_photo,:get_newsfeed]
+  before_filter :find_parent, :only => [:create_comments]
 
-	layout false
-  	include ALaMinuteAnswersHelper
+  layout false
+  include ALaMinuteAnswersHelper
 
  
   def register    
@@ -133,7 +133,12 @@ end
     message = "Your changes was not saved"
     params[:a_la_minute_questions] = eval(params[:a_la_minute_questions])    
    
-    params[:a_la_minute_questions].each do |id, attributes|     
+    params[:a_la_minute_questions].each do |id, attributes|
+      no_twitter_crosspost = attributes[:no_twitter_crosspost]
+      if(no_twitter_crosspost.to_i < 1)
+        attributes[:twitter_posts_attributes] = {}
+        attributes[:twitter_posts_attributes]["0"]={:post_at =>attributes[:post_to_twitter_at] ,:content =>""}
+      end       
       attributes.delete("no_twitter_crosspost")
       question = ALaMinuteQuestion.find(id)
       answer_id = attributes.delete(:answer_id)
@@ -165,7 +170,12 @@ end
   end
 
   def create_menu
-    params[:menu_item][:otm_keyword_ids] = eval(params[:menu_item][:otm_keyword_ids])       
+    params[:menu_item][:otm_keyword_ids] = eval(params[:menu_item][:otm_keyword_ids])
+    no_twitter_crosspost = params[:menu_item][:no_twitter_crosspost]
+    if(no_twitter_crosspost.to_i < 1)
+      params[:menu_item][:twitter_posts_attributes] = {}
+      params[:menu_item][:twitter_posts_attributes]["0"]={:post_at =>params[:menu_item][:post_to_twitter_at] ,:content =>""}
+    end      
     params[:menu_item].delete("no_twitter_crosspost") 
     @menu_item = @restaurant.menu_items.build(params[:menu_item])
     @menu_item.photo_content_type = "image/#{@menu_item.photo_file_name.split(".").last}" if !@menu_item.photo_file_name.nil?
@@ -182,7 +192,14 @@ end
     end
 
  def create_promotions     
-    params[:promotion].delete("no_twitter_crosspost")   
+       
+    no_twitter_crosspost = params[:promotion][:no_twitter_crosspost]
+    params[:promotion].delete("no_twitter_crosspost") 
+    
+    if(no_twitter_crosspost.to_i < 1)
+      params[:promotion][:twitter_posts_attributes] = {}
+      params[:promotion][:twitter_posts_attributes]["0"]={:post_at =>params[:promotion][:post_to_twitter_at] ,:content =>""}
+    end    
     @promotion = @restaurant.promotions.build(params[:promotion])
     @promotion.attachment_content_type = "application/#{@promotion.attachment_file_name.split(".").last}" if !@promotion.attachment_file_name.nil?  
     if @promotion.save
