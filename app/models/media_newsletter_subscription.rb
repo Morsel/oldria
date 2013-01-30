@@ -8,18 +8,19 @@ class MediaNewsletterSubscription < ActiveRecord::Base
 
   def self.send_newsletters_to_media
     for mediaNewsletterSubscription in MediaNewsletterSubscription.find(:all,:group => "media_newsletter_subscriber_id")
-      mediaNewsletterSubscription.send(:send_newsletter_to_media_subscribers,mediaNewsletterSubscription.media_newsletter_subscriber)
+      mediaNewsletterSubscription.send_later(:send_newsletter_to_media_subscribers,mediaNewsletterSubscription.media_newsletter_subscriber)
     end
   end
 
 
   def send_newsletter_to_media_subscribers subscriber
+    debugger
       mc = MailchimpConnector.new
       campaign_id = \
       mc.client.campaign_create(:type => "regular",
                                 :options => { :list_id => mc.mailing_list_id,
                                               :subject => "Restaurant's Newsletter",
-                                              :from_email => "nishant.n@cisinlabs.com",
+                                              :from_email => subscriber.email,
                                               :to_name => "*|FNAME|*",
                                               :from_name => "Restaurant Intelligence Agency",
                                               :generate_text => true },
@@ -27,7 +28,7 @@ class MediaNewsletterSubscription < ActiveRecord::Base
                                                     :conditions => [{ :field => "email",
                                                                       :op => "eq",
                                                                       :value => subscriber.email}]},
-                                :content => { :url => media_user_newsletter_subscription_restaurants_url() })
+                                :content => { :url => media_user_newsletter_subscription_restaurants_url({:id=>subscriber.id}) })
       # send campaign
       mc.client.campaign_send_now(:cid => campaign_id)
   end
