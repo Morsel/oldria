@@ -299,9 +299,10 @@ class RestaurantsController < ApplicationController
     redirect_to :action => "show", :id => @restaurant.id
   end
 
-  def media_user_newsletter_subscription
+  def media_user_newsletter_subscription        
+    user = User.find(params[:id])    
     @arrMedia=[]    
-    @media_subscription = MediaNewsletterSubscription.all
+    @media_subscription = user.media_newsletter_subscriptions
     @media_subscription.each do |media_subscription|
       @arrMedia.push(media_subscription.restaurant)
     end  
