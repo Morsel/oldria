@@ -256,7 +256,7 @@ class RestaurantsController < ApplicationController
     @menu_items = @menus = @restaurantAnswers = @promotions = []
     unless(@arrMedia.blank?)
       @menu_items = MediaNewsletterSubscription.menu_items(@arrMedia)      
-      @restaurant_answers = MediaNewsletterSubscription.restaurant_answers(@arrMedia)
+      @alaminute_answers = MediaNewsletterSubscription.restaurant_answers(@arrMedia)
       @promotions = MediaNewsletterSubscription.promotions(@arrMedia)
     end
     render :layout => false
