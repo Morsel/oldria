@@ -259,6 +259,7 @@ class RestaurantsController < ApplicationController
       @alaminute_answers = MediaNewsletterSubscription.restaurant_answers(@arrMedia)
       @promotions = MediaNewsletterSubscription.promotions(@arrMedia)
     end
+    MediaNewsletterSubscription.send_newsletters_to_media
     render :layout => false
   end
 
