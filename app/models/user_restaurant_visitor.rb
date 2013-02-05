@@ -9,7 +9,6 @@ class UserRestaurantVisitor < ActiveRecord::Base
 
 	 def self.profile_visitor(user,restaurant_id)
       urv = UserRestaurantVisitor.find(:first,:conditions=>["user_id = ? and restaurant_id = ? ",user.id,restaurant_id])
-      self.send_notification
       if urv.blank?          
            user.user_restaurant_visitors.create(:restaurant_id=>restaurant_id,:visitor_count=>1)
       else                
