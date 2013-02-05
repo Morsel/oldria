@@ -4422,3 +4422,20 @@ div .details p{
 	 vertical-align: middle;
 	}
 }
+a.subscribe_btn {	
+		font-size: 13px;
+		display: block;
+		background-image: url(/images/soapbox/share-actions.png);
+		background-repeat: no-repeat;
+		padding: 8px 20px 8px 30px;
+		background-position:10px 10px;
+		@include border-radius(30px);
+		color: #fff;
+		margin: 0 0 6px;
+		text-shadow: 0 1px 0 #333;
+		background-color: #CB4827;
+		&:hover {
+				color: #ffffff !important;
+			}
+	}		
+

@@ -14,10 +14,20 @@
             <%= restaurant.metropolitan_area.try(:name) %>&nbsp;
         </li>
         <li class="metro_area">
-             <% if @subscriber.present? && @subscriber.has_subscription(restaurant) %>
-              <%= link_to 'Unsubscribe', unsubscribe_soapbox_restaurant_path(restaurant, :subscriber_id => @subscriber.id), :method => "post" ,:class=>"unsubscribe" %>
-            <%- else -%>
-              <%= link_to 'Subscribe', subscribe_soapbox_restaurant_path(restaurant), :method => "post",:class=>"subscribe" %>
+            <% if current_user.nil? || (!current_user.nil? && !current_user.media?) %>
+                 <% if @subscriber.present? && @subscriber.has_subscription(restaurant) %>
+                  <%= link_to 'Unsubscribe', unsubscribe_soapbox_restaurant_path(restaurant, :subscriber_id => @subscriber.id), :method => "post" ,:class=>"unsubscribe" %>
+                <%- else -%>
+                  <%= link_to 'Subscribe', subscribe_soapbox_restaurant_path(restaurant), :method => "post",:class=>"subscribe" %>
+                <%- end -%>
+            <% else %>
+                <% if(current_user.media?) %>
+                    <% if current_user.restaurant_newsletter_subscription(restaurant).blank? %>
+                        <%= link_to 'Subscribe', media_subscribe_restaurant_path(restaurant),:class=>"subscribe" %>
+                    <% else %>
+                        <%= link_to 'Unsubscribe', media_subscribe_restaurant_path(restaurant),:class=>"unsubscribe" %>
+                    <% end %>          
+                <% end %>            
             <%- end -%>
         </li>
 

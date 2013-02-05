@@ -41,3 +41,4 @@ CLOUDMAIL_DOMAIN = 'mailbot.restaurantintelligenceagency.com'
 CLOUDMAIL_SECRET = '781ff8e2b62535e0eee2'.freeze
 
 ENV['MC_API_KEY'] = 'b992d9bf14db221d322b7add975b1c39-us2'
+DOMAIN_NAME = "restaurantintelligenceagency.com"
