@@ -124,7 +124,8 @@
                                   <td style="padding-left:7px; font:bold 17px Georgia, Times, serif; line-height:19px; color:#2f3861">&nbsp;</td>
                                   </tr>
                                 <tr>
-                                  <td style="padding-left:7px; font:bold 17px Georgia, Times, serif; line-height:19px; color:#2f3861"><%="#{promotion.headline.capitalize}: #{promotion.start_date.to_formatted_s(:long)}"%></td>
+                                  <td style="padding-left:7px; font:bold 17px Georgia, Times, serif; line-height:19px; color:#2f3861"><%="#{promotion.try(:headline).try(:capitalize)
+}: #{promotion.start_date.to_formatted_s(:long)}"%></td>
                                   </tr>
                                 <tr>
                                   <td style="font-size:0; line-height:0;" height="18"></td>
