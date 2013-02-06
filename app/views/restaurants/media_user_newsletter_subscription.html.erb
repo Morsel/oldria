@@ -96,9 +96,15 @@
                                 </tr>
                                 <tr>
                                   <td width="15%" style="padding:7px; font:12px Georgia, Times, serif; line-height:15px; color:#4e4e4e">
-                                    <div>
-                                      <% menu_item.restaurant.logo ||= Image.new %>
-                                      <%= image_tag menu_item.restaurant.logo.attachment.url(:thumbnail),:style=>"width:50px;height:50px"%><br />
+                                    <div>                                      
+                                      <% unless menu_item.restaurant.logo.blank? %>
+                                        <%= image_tag menu_item.restaurant.logo.attachment.url(:thumb)%>
+                                      <%else%>
+                                        <% menu_item.restaurant.logo ||= Image.new %>
+                                        <%= image_tag menu_item.restaurant.logo.attachment.url(:thumb),:style=>"width:50px;height:50px"%>                                      
+                                      <% end %>
+                                      <br />
+
                                       <%= link_to menu_item.restaurant.try(:name),restaurant_path(menu_item.restaurant) %><br />
                                       <%= menu_item.restaurant.try(:city_and_state)%>
                                     </div>
@@ -159,8 +165,13 @@
                                       <tr>
                                         <td width="15%" style="padding:7px; font:12px Georgia, Times, serif; line-height:15px; color:#4e4e4e"><div>
                                           <div>
-                                            <% promotion.restaurant.logo ||= Image.new %>
-                                            <%=  image_tag promotion.restaurant.logo.attachment.url(:thumb) ,:style=>"height:50px;width:50px" %><br />
+                                            <% unless promotion.restaurant.logo.blank? %>
+                                                <%=  image_tag promotion.restaurant.logo.attachment.url(:thumb)%>
+                                              <%else%>
+                                                <% promotion.restaurant.logo ||= Image.new %>
+                                                  <%=  image_tag promotion.restaurant.logo.attachment.url(:thumb) ,:style=>"height:50px;width:50px" %>
+                                            <%end%>
+                                            <br />
                                             <%= link_to promotion.restaurant.try(:name) ,restaurant_path(promotion.restaurant)%><br />
                                             <%= promotion.restaurant.try(:city_and_state)%>
                                             </div>
@@ -236,8 +247,13 @@
                                     <tr>
                                       <td width="15%" style="padding:7px; font:12px Georgia, Times, serif; line-height:15px; color:#4e4e4e">
                                         <div>
-                                          <% alm_answer.responder.logo ||= Image.new %>
-                                          <%= image_tag alm_answer.responder.logo.attachment.url(:thumb) ,:style=>"height:50px;width:50px" %><br />
+                                           <% unless alm_answer.restaurant.logo.blank? %>
+                                              <%= image_tag alm_answer.responder.logo.attachment.url(:thumb)%>
+                                           <% else %>
+                                              <% alm_answer.responder.logo ||= Image.new %>
+                                              <%= image_tag alm_answer.responder.logo.attachment.url(:thumb) ,:style=>"height:50px;width:50px" %>
+                                           <% end %>
+                                          <br />
                                         <%= link_to alm_answer.responder.try(:name) ,restaurant_path(alm_answer.responder)%><br />
                                           <%= alm_answer.responder.try(:city_and_state)%>
                                         </div>
