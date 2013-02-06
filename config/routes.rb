@@ -190,6 +190,7 @@ ActionController::Routing::Routes.draw do |map|
                              :download_subscribers => :get,
                              :new_media_contact => :get,
                              :replace_media_contact => :post,
+                             :restaurant_visitors => :get,
                              :send_restaurant_request => :get,
                              :fb_deauth => :any,
                              :api => :get
