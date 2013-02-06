@@ -3,39 +3,54 @@
 <head>
   <title>Media newsletter</title>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-  <style type="text/css">.ExternalClass{width:100% !important;}</style>
+    <style type="text/css">
+  .ExternalClass{width:100% !important;}.bottommenu {     font-family:Georgia, Times New Roman, Times, serif;
+      font-size:10px;
+      color:#9F9A98;
+      line-height:16px;
+      font-weight:bold;
+      text-transform:uppercase;
+      text-decoration:none;
+      text-align:left;
+}
+  </style>
 </head>
-<body style="margin:0;padding:0; background-image:url(http://s10.postimage.org/nozwc9c21/bg_body.gif);" bgcolor="#ffffff" link="#666666">
-<table width="100%" cellspacing="0" cellpadding="0" style="background:url(http://s10.postimage.org/nozwc9c21/bg_body.gif); background-image:url(http://s10.postimage.org/nozwc9c21/bg_body.gif);">
-  <tr>
-    <td>
+<body style="margin:0;padding:0; background-image:url(http://hq.restaurantintelligenceagency.com/images/hq/top-bg.png);" bgcolor="#ffffff" link="#666666">
+<table width="100%" cellspacing="0" cellpadding="0" style="background:url(http://hq.restaurantintelligenceagency.com/images/hq/top-bg.png); background-image:url(http://hq.restaurantintelligenceagency.com/images/hq/top-bg.png);">
+ <tr>
+    <td valign="top">
       <table width="604" align="center" cellpadding="0" cellspacing="0">
-        <tr>
-          <td style="font-size:0; line-height:0;" height="18"></td>
+
+  <tr>
+    
+    <td colspan="2" bgcolor="#ea622e"><img src="http://blog.restaurantintelligenceagency.com/images/media-newsletter/menubar.jpg" width="700" height="31" border="0" usemap="#TopMap" style="display: block;border: none;font-size: 14px;font-weight: bold;height: auto;line-height: 100%;outline: none;text-decoration: none;text-transform: capitalize;" alt="RIA Menu"></td>
+    
+  </tr>
+
+  <tr>
+
+    <td colspan="2"><img src="http://blog.restaurantintelligenceagency.com/images/newsletter/topimages.jpg
+    " width="700" height="99" style="display: block;border: none;font-size: 14px;font-weight: bold;height: auto;line-height: 100%;outline: none;text-decoration: none;text-transform: capitalize;" alt="RIA Logo"></td>
+
+  </tr> 
+         <tr>
+          <td width="118" valign="top" bgcolor="#ea622e"><img src="http://blog.restaurantintelligenceagency.com/images/media-newsletter/dailydineline-logo.jpg" width="118"  style="display: block;border: none;font-size: 14px;font-weight: bold;height: auto;line-height: 100%;outline: none;text-decoration: none;text-transform: capitalize;" alt="RIA Logo" /></td>
+          <td width="582" valign="top" style="background:url(http://blog.restaurantintelligenceagency.com/images/media-newsletter/dailydineline-orangeback.jpg); background-image:url(http://blog.restaurantintelligenceagency.com/images/media-newsletter/dailydineline-orangeback.jpg);">
+            <table width="100%" border="0" cellspacing="0" cellpadding="3">
+            <tr>
+              <td style="padding-top: 4px;background: #ffffff url(http://blog.restaurantintelligenceagency.com/images/newsletter/dailydineline_texture.jpg) left;font-family: Georgia, Times New Roman, Times, serif;font-size: 19px;color: #FFF;line-height: 8px;"><center>
+      <p><em><strong>What's happening in restaurants today!</strong></em><br />
+
+      <span class="date1" style="font-family: Georgia, Times New Roman, Times, serif;font-size: 12px;color: #ffff99;font-weight: bold;"><!-- DATE GOES HERE! --></span></p>
+      <p><span class="date1" style="font-family: Georgia, Times New Roman, Times, serif;font-size: 12px;color: #ffff99;font-weight: bold;"><%=Date.today.to_formatted_s(:long)%></span></p>
+              </center></td>
+            </tr>
+          </table>
+        </td>
         </tr>
         <tr>
-          <td style="padding-right:3px; text-align:center; font:12px Arial, Helvetica, sans-serif; line-height:15px; color:#7a7878;">Is this email not displaying correctly? <a href="#" style="text-decoration:underline;" color="7a7878">View it in your browser.</a></td>
-        </tr>
-        <tr style="font-size:0; line-height:0;" height="13">
-          <td></td>
-        </tr>
-        <tr>
-          <td>
+          <td colspan="2" valign="top">
             <table width="100%" cellspacing="0" cellpadding="0">
-              <tr>
-                <td style="font-size:0; line-height:0;">
-                  <img src="http://blog.restaurantintelligenceagency.com/images/media-newsletter/img-1.gif" width="205" height="68" alt="image description" /></td>
-                <td style="font-size:0; line-height:0;">
-                  <a border="0" href="#">
-                  <img border="0" src="http://blog.restaurantintelligenceagency.com/images/newsletter/logo.png" width="194" height="68" alt="image description" /></a></td>
-                <td style="font-size:0; line-height:0;">
-                  <img src="http://blog.restaurantintelligenceagency.com/images/media-newsletter/img-2.gif" width="205" height="68" alt="image description" /></td>
-              </tr>
-            </table>
-          </td>
-        </tr>
-        <tr>
-          <td valign="top"><table width="100%" cellspacing="0" cellpadding="0">
             <tr>
                 <td style="font-size:0; line-height:0; background:#cac3b5;" width="1" background="#cac3b5"></td>
                 <td style="font-size:0; line-height:0; background:#c2b9ab;" width="1" background="#b3aca1"></td>
@@ -88,7 +103,15 @@
                                       <%= menu_item.restaurant.try(:city_and_state)%>
                                     </div>
                                   </td>
-                                  <td valign="top" width="75%" style="padding:7px; font:12px Georgia, Times, serif; line-height:15px; color:#4e4e4e"><%= truncate(menu_item.description.gsub(/(<[^>]*>)|\r|\n|\t/s, "").to_s.strip.capitalize ,:length => 210).gsub("...","")  %> <%=("...  " + link_to("find out more»", menu_item_url(menu_item),:style=>"text-decoration:underline; color:#bc2021;") ) %> </td>
+                                  <td valign="top" width="75%" style="padding:7px; font:12px Georgia, Times, serif; line-height:15px; color:#4e4e4e"><%= truncate(menu_item.description.gsub(/(<[^>]*>)|\r|\n|\t/s, "").to_s.strip.capitalize ,:length => 210).gsub("...","")  %><p> <%=("...  " + link_to("find out more»", menu_item_url(menu_item),:style=>"text-decoration:underline; color:#bc2021;") ) %> </p>
+                                    <% unless menu_item.otm_keywords.blank? %>
+                                     <p>
+                                        <span class="bottommenu" style="font-family: Georgia, Times New Roman, Times, serif;font-size: 10px;color: #9F9A98;line-height: 16px;font-weight: bold;text-transform: uppercase;text-decoration: none;text-align: left;">
+                                          <%= menu_item.otm_keywords.map { |keyword|  link_to(keyword.name, menu_items_url(:keyword => keyword.name),:style=>"color: #9F9A98;text-decoration: none;font-family: Georgia, Times New Roman, Times, serif;font-size: 10px;line-height: 16px;font-weight: bold;text-transform: uppercase;") }.to_sentence %>
+                                        </span>
+                                     </p>
+                                     <% end %>
+                                  </td>
                                 </tr>
                                 <tr>
                                   <td height="13" colspan="2" style="font-size:0; line-height:0;"></td>
@@ -264,61 +287,13 @@
             </table>
           </td>
         </tr>
-        <tr>
-          <td valign="top" style="font-size:0; line-height:0;"><img src="http://blog.restaurantintelligenceagency.com/images/newsletter/img-10.jpg" width="604" height="12" alt="image description" /></td>
-        </tr>
-        <tr>
-          <td valign="top" bgcolor="#fff" style="background:#fff;">
-            <table width="100%" cellspacing="0" cellpadding="0">
-              <tr>
-                <td style="font-size:0; line-height:0;">
-                  <img src="http://blog.restaurantintelligenceagency.com/images/newsletter/img-11.gif" width="23" height="33" alt="image description" />
-                </td>
-
-                <td style="font-size:0; line-height:0;" width="137">
-                  <img src="http://blog.restaurantintelligenceagency.com/images/newsletter/img-plugin.gif" width="124" height="24" alt="image description" />
-                </td>
-
-                <td style="font-size:0; line-height:0;">
-                  <a href="#">
-                  <img border="0" src="http://blog.restaurantintelligenceagency.com/images/newsletter/pincertone-2.gif" width="30" height="31" alt="image description" /></a>
-                </td>
-                <td style="font-size:0; line-height:0;" width="10"></td>
-                <td style="font-size:0; line-height:0;">
-                  <a href="#"><img border="0" src="http://blog.restaurantintelligenceagency.com/images/newsletter/linkedin-2.gif" width="32" height="33" alt="image description" /></a></td>
-                <td style="font-size:0; line-height:0;" width="10">
-                </td>
-                <td style="font-size:0; line-height:0;">
-                  <a href="#"><img border="0" src="http://blog.restaurantintelligenceagency.com/images/newsletter/google-2.gif" width="32" height="32" alt="image description" /></a></td>
-                <td style="font-size:0; line-height:0;" width="10"></td>
-                <td style="font-size:0; line-height:0;"><a href="#">
-                  <img border="0" src="http://blog.restaurantintelligenceagency.com/images/newsletter/twitter-2.gif" width="31" height="33" alt="image description" /></a></td>
-                <td style="font-size:0; line-height:0;" width="10"></td>
-                <td style="font-size:0; line-height:0;"><a href="#">
-                  <img border="0" src="http://blog.restaurantintelligenceagency.com/images/newsletter/facebook-2.gif" width="32" height="33" alt="image description" /></a></td>
-                <td style="font-size:0; line-height:0;" width="10"></td>
-                <td style="font-size:0; line-height:0;"><a href="#">
-                  <img border="0" src="http://blog.restaurantintelligenceagency.com/images/newsletter/stumbleupon-2.gif" width="32" height="33" alt="image description" /></a></td>
-                <td style="font-size:0; line-height:0;" width="10"></td>
-                <td style="font-size:0; line-height:0;"><a href="#">
-                  <img border="0" src="http://blog.restaurantintelligenceagency.com/images/newsletter/mail-2.gif" width="32" height="32" alt="image description" /></a></td>
-                <td style="font-size:0; line-height:0;" width="10"></td>
-                <td style="font-size:0; line-height:0;" width="168"></td>
-                <td style="font-size:0; line-height:0;">
-                  <img src="http://blog.restaurantintelligenceagency.com/images/newsletter/img-12.gif" width="2" height="33" alt="image description" /></td>
-              </tr>
-            </table>
-          </td>
-        </tr>
-        <tr>
-          <td><img src="http://blog.restaurantintelligenceagency.com/images/newsletter/img-13.jpg" width="604" height="7" alt="image description" /></td>
-        </tr>
+        
         <tr>
           <td style="font-size:0; line-height:0;" height="12"></td>
         </tr>
-        <tr>
-          <td style="padding-right:7px; font:11px Arial, Helvetica, sans-serif; line-height:18px; color:#7a7878" align="center">
-            You are receiving this email because your e-mail is subscribed to <a href="www.website.com" style="text-decoration:underline; color:#7a7878;">www.spoonfeed.com</a><br />
+         <tr>
+          <td colspan="2" align="center" style="padding-right:7px; font:11px Arial, Helvetica, sans-serif; line-height:18px; color:#7a7878">
+            You are receiving this email because your e-mail is subscribed to <a href="http://hq.restaurantintelligenceagency.com" style="text-decoration:underline; color:#7a7878;">Spoonfeed by RIA</a><br />
             <a href="http://soapbox.restaurantintelligenceagency.com/soapbox/newsletter_subscribers/find_subscriber">Click here</a> to manage your preferences.<br />
             If you received this email from a friend and would like to subscribe to our email list, <a href="http://soapbox.restaurantintelligenceagency.com/soapbox/newsletter_subscribers/find_subscriber">Click here</a><br />
               P.O. Box 259618, Chicago, IL 60625<br />
@@ -327,7 +302,7 @@
             www.restaurantintelligenceagency.com</a></td>
         </tr>
         <tr>
-          <td style="font-size:0; line-height:0;" height="33"></td>
+          <td height="33" colspan="2" style="font-size:0; line-height:0;"></td>
         </tr>
       </table>
     </td>
