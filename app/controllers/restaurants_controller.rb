@@ -239,7 +239,7 @@ class RestaurantsController < ApplicationController
   end
   def restaurant_visitors
       @visitors = @restaurant.user_restaurant_visitors
-   
+  end
   def media_subscribe     
     if current_user.media?   
       mnls = current_user.restaurant_newsletter_subscription(@restaurant)   
