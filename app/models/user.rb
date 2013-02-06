@@ -108,6 +108,8 @@ class User < ActiveRecord::Base
   validates_format_of :email, :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i, :message => "is not a valid email address", :allow_blank => true
 
   has_and_belongs_to_many :metropolitan_areas
+  has_many :media_newsletter_subscriptions, :dependent => :destroy, :foreign_key => "media_newsletter_subscriber_id"
+  
 
   attr_accessor :send_invitation, :agree_to_contract, :invitation_sender, :password_reset_required
 
@@ -603,5 +605,7 @@ class User < ActiveRecord::Base
   def update_newsletter_subscriber
     newsletter_subscriber.update_from_user(self)
   end
-
+  def restaurant_newsletter_subscription restaurant    
+    media_newsletter_subscriptions.find_by_restaurant_id(restaurant.id)
+  end  
 end

@@ -36,3 +36,4 @@ Braintree::Configuration.private_key = "w8kw3smb2g2m6mds"
 CLOUDMAIL_DOMAIN = 'dev-mailbot.restaurantintelligenceagency.com'
 
 ENV['MC_API_KEY'] = '1eb9e1ef0870c8caf6651ee2cf1232c0-us5'
+DOMAIN_NAME = "hq.smack.st"
