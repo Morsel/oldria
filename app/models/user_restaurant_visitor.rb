@@ -21,7 +21,7 @@ class UserRestaurantVisitor < ActiveRecord::Base
       userrestaurantvisitor.each do |visitor|  
       	visitors = visitor.restaurant.newsletter_subscribers 
         media_visitors = visitor.restaurant.media_newsletter_subscriptions
-        UserMailer.deliver_send_mail_visitor(visitor , visitors , media_visitors)
+        #UserMailer.deliver_send_mail_visitor(visitor , visitors , media_visitors)
       end
     end 
 end
