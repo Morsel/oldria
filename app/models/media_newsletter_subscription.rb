@@ -1,8 +1,8 @@
 class MediaNewsletterSubscription < ActiveRecord::Base
   belongs_to :restaurant
   belongs_to :media_newsletter_subscriber, :class_name => "User"  ,:foreign_key => "media_newsletter_subscriber_id"
-  after_create :add_subscription_to_mailchimp
-  after_destroy :remove_subscription_from_mailchimp
+  #after_create :add_subscription_to_mailchimp
+  #after_destroy :remove_subscription_from_mailchimp
   include ActionController::UrlWriter
   default_url_options[:host] = DEFAULT_HOST
 
