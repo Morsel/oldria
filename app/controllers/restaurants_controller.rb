@@ -3,7 +3,7 @@ class RestaurantsController < ApplicationController
   before_filter :authorize, :only => [:edit, :update, :select_primary_photo,
                                              :new_manager_needed, :replace_manager, :fb_page_auth,
                                              :remove_twitter, :download_subscribers, :activate_restaurant,:new_media_contact,:replace_media_contact,
-                                             :fb_deauth,:newsletter_subscriptions,:restaurant_visitors,:api]
+                                             :fb_deauth,:newsletter_subscriptions,:api,:restaurant_visitors]
 
 
   before_filter :find_restaurant, :only => [:twitter_archive, :facebook_archive, :social_archive,:media_subscribe]
@@ -238,6 +238,7 @@ class RestaurantsController < ApplicationController
     redirect_to root_path
   end
 
+
   def restaurant_visitors
       @visitors = @restaurant.user_restaurant_visitors
   end
@@ -285,7 +286,6 @@ class RestaurantsController < ApplicationController
   def api    
   end
     
-   
   def media_subscribe     
     if current_user.media?   
       mnls = current_user.restaurant_newsletter_subscription(@restaurant)   
@@ -312,7 +312,6 @@ class RestaurantsController < ApplicationController
       @alaminute_answers = MediaNewsletterSubscription.restaurant_answers(@arrMedia)
       @promotions = MediaNewsletterSubscription.promotions(@arrMedia)
     end
-    MediaNewsletterSubscription.send_newsletters_to_media
     render :layout => false
   end
 

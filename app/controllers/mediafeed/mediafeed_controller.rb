@@ -1,7 +1,7 @@
 class Mediafeed::MediafeedController < ApplicationController
 
   before_filter :require_media_user, :only => [:directory, :directory_search]
-  before_filter :require_user, :only => [:request_information]
+  before_filter :require_user, :only => [:request_information,:media_subscription]
   
   def index
     redirect_to root_url(:subdomain => "spoonfeed")
@@ -34,6 +34,17 @@ class Mediafeed::MediafeedController < ApplicationController
     else
       redirect_to :back
     end
+  end
+
+  def media_subscription
+    @subscriptions = current_user.media_newsletter_subscriptions
+    @user = current_user
+    @user.media_newsletter_setting || @user.build_media_newsletter_setting
+  end
+
+  def media_opt_update
+    current_user.update_attributes(params[:user])
+    redirect_to mediafeed_media_subscription_path  
   end
 
   protected
