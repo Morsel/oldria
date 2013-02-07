@@ -293,7 +293,9 @@ class Restaurant < ActiveRecord::Base
   def mailchimp_group_name
     "#{name} in #{city} #{state}"
   end
-
+  def mailchimp_group_name_media
+    "#{name} in #{city} #{state} media"
+  end
   def next_newsletter_for_frequency
      case newsletter_frequency
     when "weekly"
