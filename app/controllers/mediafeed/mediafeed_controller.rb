@@ -44,6 +44,7 @@ class Mediafeed::MediafeedController < ApplicationController
 
   def media_opt_update
     current_user.update_attributes(params[:user])
+    flash[:notice] = "Setting saved successfully."
     redirect_to mediafeed_media_subscription_path  
   end
 
