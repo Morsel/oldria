@@ -75,21 +75,21 @@ class MediaNewsletterSubscription < ActiveRecord::Base
 
   def add_subscription_to_mailchimp      
       mc = MailchimpConnector.new
-      unless mc.client.list_interest_groupings(:id => mc.mailing_list_id).to_s.match(/#{restaurant.mailchimp_group_name}/)
-        mc.client.list_interest_group_add(:id => mc.mailing_list_id, :group_name => restaurant.mailchimp_group_name)
+      unless mc.client.list_interest_groupings(:id => mc.mailing_list_id).to_s.match(/#{restaurant.mailchimp_group_name_media}/)
+        mc.client.list_interest_group_add(:id => mc.mailing_list_id, :group_name => restaurant.mailchimp_group_name_media)
       end
       unless mc.client.listMembers({:id=>mc.mailing_list_id}).to_s.match(/#{media_newsletter_subscriber.email}/)
         if mc.client.list_subscribe(:id => mc.mailing_list_id, :email_address => media_newsletter_subscriber.email,
-                                :merge_vars => { :groupings => [{ :name => "Your Interests",:groups => restaurant.mailchimp_group_name}] },
+                                :merge_vars => { :groupings => [{ :name => "Your Interests",:groups => restaurant.mailchimp_group_name_media}] },
                                 :replace_interests => false).to_s.match(/error/)
           mc.client.list_update_member(:id => mc.mailing_list_id, :email_address => media_newsletter_subscriber.email,
-                                :merge_vars => { :groupings => [{ :name => "Your Interests",:groups => restaurant.mailchimp_group_name}] },
+                                :merge_vars => { :groupings => [{ :name => "Your Interests",:groups => restaurant.mailchimp_group_name_media}] },
                                 :replace_interests => false)
 
         end
       else
         mc.client.list_update_member(:id => mc.mailing_list_id, :email_address => media_newsletter_subscriber.email,
-                                :merge_vars => { :groupings => [{ :name => "Your Interests",:groups => restaurant.mailchimp_group_name}] },
+                                :merge_vars => { :groupings => [{ :name => "Your Interests",:groups => restaurant.mailchimp_group_name_media}] },
                                 :replace_interests => false)
 
       end  
@@ -100,7 +100,7 @@ class MediaNewsletterSubscription < ActiveRecord::Base
     groups = []
     groups << "National Newsletter"
     for subscription in media_newsletter_subscriber.media_newsletter_subscriptions
-      groups << "#{subscription.restaurant.mailchimp_group_name}" unless subscription == self
+      groups << "#{subscription.restaurant.mailchimp_group_name_media}" unless subscription == self
     end
     mc = MailchimpConnector.new
     mc.client.list_update_member(:id => mc.mailing_list_id, :email_address => media_newsletter_subscriber.email,
