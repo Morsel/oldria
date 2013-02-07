@@ -8,12 +8,13 @@ class MediaNewsletterSubscription < ActiveRecord::Base
 
   def self.send_newsletters_to_media
     for mediaNewsletterSubscription in MediaNewsletterSubscription.find(:all,:group => "media_newsletter_subscriber_id")
-      mediaNewsletterSubscription.send(:send_newsletter_to_media_subscribers,mediaNewsletterSubscription.media_newsletter_subscriber)
+      mediaNewsletterSubscription.send_later(:send_newsletter_to_media_subscribers,mediaNewsletterSubscription.media_newsletter_subscriber)
     end
   end
 
 
   def send_newsletter_to_media_subscribers subscriber
+    if subscriber.media_newsletter_setting.blank? || (subscriber.media_newsletter_setting.opt_out )
       mc = MailchimpConnector.new
       campaign_id = \
       mc.client.campaign_create(:type => "regular",
@@ -33,6 +34,7 @@ class MediaNewsletterSubscription < ActiveRecord::Base
                                 :content => { :url => media_user_newsletter_subscription_restaurants_url({:id=>subscriber.id}) })
       # send campaign
       mc.client.campaign_send_now(:cid => campaign_id)
+    end  
   end
 
   def self.menu_items(restaurants)
