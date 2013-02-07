@@ -212,7 +212,7 @@
 
                               <% end %><!-- On Newsfeed end -->
 
-                             <% unless @alaminute_answers.blank? %>
+                             
 
                               <table width="100%" cellspacing="0" cellpadding="0">
                                 <tr>
@@ -225,71 +225,29 @@
 
 
 
-                               <% for alm_answer in @alaminute_answers %>
-
-
-                                  <tr>
+                                <tr>
                                   <td style="font-size:0; line-height:0;"><img src="http://blog.restaurantintelligenceagency.com/images/newsletter/img-4.gif" width="100%" height="6" alt="image description" /></td>
                                   </tr>
                                 <tr>
                                   <td style="padding-left:7px; font:bold 17px Georgia, Times, serif; line-height:19px; color:#2f3861">&nbsp;</td>
                                   </tr>
                                 <tr>
-                                  <td style="padding-left:7px; font:bold 17px Georgia, Times, serif; line-height:19px; color:#2f3861">
-                                    <%=alm_answer.question.capitalize%>
-                                  </td>
-                                  </tr>
-                                <tr>
-                                  <td style="font-size:0; line-height:0;" height="18"></td>
-                                  </tr>
-                                <tr>
-                                  <td><table width="100%" cellspacing="0" cellpadding="0">
-                                    <tr>
-                                      <td width="15%" style="padding:7px; font:12px Georgia, Times, serif; line-height:15px; color:#4e4e4e">
-                                        <div>
-                                           <% unless alm_answer.restaurant.logo.blank? %>
-                                              <%= image_tag alm_answer.responder.logo.attachment.url(:thumb)%>
-                                           <% else %>
-                                              <% alm_answer.responder.logo ||= Image.new %>
-                                              <%= image_tag alm_answer.responder.logo.attachment.url(:thumb) ,:style=>"height:50px;width:50px" %>
-                                           <% end %>
-                                          <br />
-                                        <%= link_to alm_answer.responder.try(:name) ,restaurant_path(alm_answer.responder)%><br />
-                                          <%= alm_answer.responder.try(:city_and_state)%>
-                                        </div>
-                                      </td>
-                                      <td valign="top" width="85%" style="padding:7px; font:12px Georgia, Times, serif; line-height:15px; color:#4e4e4e">
 
-                                        <%= truncate(alm_answer.answer.gsub(/(<[^>]*>)|\r|\n|\t/s, "").to_s.strip.capitalize ,
-                                     :length => 210).gsub("...","") %><br />
-                                        <%=link_to("share»", soapbox_a_la_minute_answer_url(alm_answer),:style=>"text-decoration:underline; color:#bc2021;") %></td>
-                                      </tr>
-                                    </table></td>
-                                  </tr>
-                                <tr>
-                                  <td><img src="http://blog.restaurantintelligenceagency.com/images/newsletter/separator.gif" width="100%" height="1" alt="image description" /></td>
-                                  </tr>
-                                <tr>
-                                  <td style="font-size:0; line-height:0;" height="5"></td>
-                                  </tr>
-                                <tr>
-                                  <td style="font-size:0; line-height:0;" height="8"></td>
-                                  </tr>
-                                <tr>
-                                  <td style="font-size:0; line-height:0;"><img src="http://blog.restaurantintelligenceagency.com/images/newsletter/separator.gif" width="100%" height="1" alt="image description" /></td>
-                                  </tr>
-                                <tr>
-                                  <td style="font-size:0; line-height:0;" height="10"></td>
+                                  <td align="center" style="padding-left:7px; font:normal 14px Georgia, Times, serif; line-height:19px; color:#2f3861"><a href="http://soapbox.restaurantintelligenceagency.com/soapbox/a_la_minute_questions/11">Today&#39;s Menu Specials</a> ::: <a href="http://soapbox.restaurantintelligenceagency.com/soapbox/a_la_minute_questions/22">Today&#39;s Great Deal</a><br />
+<a href="http://soapbox.restaurantintelligenceagency.com/soapbox/a_la_minute_questions/18">Selling Fast</a> ::: <a href="http://soapbox.restaurantintelligenceagency.com/soapbox/a_la_minute_questions/16">Coming Events</a><br />
+<a href="http://soapbox.restaurantintelligenceagency.com/soapbox/a_la_minute_questions/24">Today&#39;s Inspirations</a> ::: <a href="http://soapbox.restaurantintelligenceagency.com/soapbox/a_la_minute_questions/10">New Products</a><br />
+<a href="http://soapbox.restaurantintelligenceagency.com/soapbox/a_la_minute_questions/6">Seasonal Ingredients</a> ::: <a href="http://soapbox.restaurantintelligenceagency.com/soapbox/a_la_minute_questions/13">Newest Beer</a><br />
+<a href="http://soapbox.restaurantintelligenceagency.com/soapbox/a_la_minute_questions/2">Killer Pairings</a> ::: <a href="http://soapbox.restaurantintelligenceagency.com/soapbox/a_la_minute_questions/5">Bartender Toys</a><br />
+<a href="http://soapbox.restaurantintelligenceagency.com/soapbox/a_la_minute_questions/12">Newest Desserts</a> ::: <a href="http://soapbox.restaurantintelligenceagency.com/soapbox/a_la_minute_questions/1">Newest Menu Items</a><br />
+<a href="http://soapbox.restaurantintelligenceagency.com/soapbox/a_la_minute_questions/23">Bartender Projects</a> ::: <a href="http://soapbox.restaurantintelligenceagency.com/soapbox/a_la_minute_questions/15">Today&#39;s Soundtrack</a><br />
+<br />
+</td>
+
                                   </tr>
 
 
-                                  <% end %>
 
-
-                              </table>
-                            <% end %><!-- A la minute end --> 
-                             <p>&nbsp;</p>
-                              <p>&nbsp;</p>                              
+                              </table><!-- A La minute end -->                             
                             </td>
                           </tr>
                         </table>
