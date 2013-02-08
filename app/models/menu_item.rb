@@ -119,7 +119,7 @@ class MenuItem < ActiveRecord::Base
     picture = nil
     unless picture_url.blank?
       begin
-        picture  = open(picture_url) {|f| f.read }
+        picture  = open(picture_url)
       rescue        
       end
     end    
