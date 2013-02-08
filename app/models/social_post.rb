@@ -7,7 +7,7 @@ class SocialPost < ActiveRecord::Base
 
   after_save :schedule_post
 
-  named_scope :pending, :conditions => ['post_at > ?', DateTime.now]
+  named_scope :pending, :conditions => ['post_at > ?', DateTime.now.ago(7.days)]
 
   def posted?
     post_at.present? ? post_at < DateTime.now : false
