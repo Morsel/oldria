@@ -10,12 +10,22 @@
           }
         <% end %>
         <!-- AddThis Button END -->
-
-        <% if @subscriber.present? && @subscriber.has_subscription(@restaurant) %>
-          <%= link_to 'Unsubscribe', unsubscribe_soapbox_restaurant_path(@restaurant, :subscriber_id => @subscriber.id), :method => "post" %>
-        <%- else -%>
-          <%= link_to 'Subscribe', subscribe_soapbox_restaurant_path(@restaurant), :method => "post" %>
-        <%- end -%>
+        <% if current_user.nil? || (!current_user.nil? && !current_user.media?) %>
+          <% if @subscriber.present? && @subscriber.has_subscription(@restaurant) %>
+            <%= link_to 'Unsubscribe', unsubscribe_soapbox_restaurant_path(@restaurant, :subscriber_id => @subscriber.id), :method => "post" %>
+          <%- else -%>
+            <%= link_to 'Subscribe', subscribe_soapbox_restaurant_path(@restaurant), :method => "post" %>
+          <%- end -%>
+          <% else %>
+                <% if(current_user.media?) %>
+                  <% if current_user.restaurant_newsletter_subscription(@restaurant).blank? %>
+                      <%= link_to 'Subscribe', media_subscribe_restaurant_url(@restaurant,:subdomain => "spoonfeed"),:class=>"subscribe" %>
+                  <% else %>
+                      <%= link_to 'Unsubscribe', media_subscribe_restaurant_url(@restaurant,:subdomain => "spoonfeed"),:class=>"unsubscribe" %>
+                  <% end %>                    
+         
+              <% end %>  
+          <% end %>
     </div><!--#restaurant_actions-->
 
     <%= image_tag logo_for(@restaurant).attachment.url(:small) %>

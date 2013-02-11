@@ -108,6 +108,8 @@ class Restaurant < ActiveRecord::Base
   has_many :restaurant_employee_requests
   has_many :requested_employees, :through => :restaurant_employee_requests ,:source =>:employee
 
+  has_many :user_restaurant_visitors
+  
   accepts_nested_attributes_for :logo
 
   validates_presence_of :name, :street1, :city, :state, :zip, :phone_number,
@@ -141,6 +143,8 @@ class Restaurant < ActiveRecord::Base
   after_create :add_api_token
 
   preference :publish_profile, :default => true
+  
+  has_many :media_newsletter_subscriptions, :dependent => :destroy
   
   # For pagination
   cattr_reader :per_page
@@ -292,7 +296,9 @@ class Restaurant < ActiveRecord::Base
   def mailchimp_group_name
     "#{name} in #{city} #{state}"
   end
-
+  def mailchimp_group_name_media
+    "#{name} in #{city} #{state} media"
+  end
   def next_newsletter_for_frequency
      case newsletter_frequency
     when "weekly"

@@ -97,6 +97,9 @@ ActionController::Routing::Routes.draw do |map|
     mediafeed.connect 'directory_search', :controller => 'mediafeed', :action => 'directory_search'
     mediafeed.discussion 'media_requests/:id/:discussion_type/:discussion_id', :controller => 'media_requests', :action => 'discussion'
     mediafeed.request_information 'request_information', :controller => 'mediafeed', :action => 'request_information'
+    mediafeed.media_subscription 'media_subscription', :controller => 'mediafeed', :action => 'media_subscription'
+    mediafeed.media_opt_update 'media_opt_update', :controller => 'mediafeed', :action => 'media_opt_update'
+
   end
 
   map.with_options :conditions => { :subdomain => 'mediafeed' }, :controller => 'mediafeed/mediafeed' do |mediafeed|
@@ -176,7 +179,7 @@ ActionController::Routing::Routes.draw do |map|
   map.feature '/features/:id', :controller => 'features', :action => 'show'
 
   map.resources :restaurants,
-                :collection => {:add_restaurant => :get},
+                :collection => {:add_restaurant => :get,:media_user_newsletter_subscription=>:get},
                 :member => { :edit_logo => :get,
                              :select_primary_photo => :post,
                              :new_manager_needed => :get,
@@ -190,9 +193,11 @@ ActionController::Routing::Routes.draw do |map|
                              :download_subscribers => :get,
                              :new_media_contact => :get,
                              :replace_media_contact => :post,
+                             :restaurant_visitors => :get,
                              :send_restaurant_request => :get,
                              :fb_deauth => :any,
-                             :api => :get
+                             :api => :get,
+                             :media_subscribe => :get
                              } do |restaurant|
     restaurant.resources :employees, :collection => { :bulk_edit => :get }, :except => [:show, :index]
     restaurant.resources :employments, :collection => { "reorder" => :post }

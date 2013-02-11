@@ -102,11 +102,14 @@ class User < ActiveRecord::Base
   has_many :requested_restaurants, :through => :restaurant_employee_requests ,:source=> :restaurant
 
   has_one :push_notification_user
-
+  has_many :user_restaurant_visitors
+  
   validates_presence_of :email
   validates_format_of :email, :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i, :message => "is not a valid email address", :allow_blank => true
 
   has_and_belongs_to_many :metropolitan_areas
+  has_many :media_newsletter_subscriptions, :dependent => :destroy, :foreign_key => "media_newsletter_subscriber_id"
+  
 
   attr_accessor :send_invitation, :agree_to_contract, :invitation_sender, :password_reset_required
 
@@ -136,6 +139,8 @@ class User < ActiveRecord::Base
 
   # Newsletter Subscriber
   has_one :newsletter_subscriber
+  has_one :media_newsletter_setting
+  accepts_nested_attributes_for :media_newsletter_setting
   after_update :update_newsletter_subscriber, :if => Proc.new { |user| user.newsletter_subscriber.present? }
 
   named_scope :media, :conditions => { :role => 'media' }
@@ -602,5 +607,7 @@ class User < ActiveRecord::Base
   def update_newsletter_subscriber
     newsletter_subscriber.update_from_user(self)
   end
-
+  def restaurant_newsletter_subscription restaurant    
+    media_newsletter_subscriptions.find_by_restaurant_id(restaurant.id)
+  end  
 end

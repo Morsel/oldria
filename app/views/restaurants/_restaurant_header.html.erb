@@ -54,6 +54,17 @@
 					<% end -%>
 				</ul>
 			</div>
+            <% if(current_user.media?) %>
+                <div class="meta">
+                    <% if current_user.restaurant_newsletter_subscription(@restaurant).blank? %>
+                    <h4>Subscribe</h4>
+                        <%= link_to 'Subscribe', media_subscribe_restaurant_path(@restaurant),:class=>"subscribe_btn" %>
+                    <% else %>
+                    <h4>Unsubscribe</h4>
+                        <%= link_to 'Unsubscribe', media_subscribe_restaurant_path(@restaurant),:class=>"subscribe_btn" %>
+                    <% end %>                    
+                </div>
+            <% end %> 
 			<% if @restaurant.top_tags.any? -%>
 			<div class="meta">
 				<h4>Highlights</h4>
