@@ -18,6 +18,6 @@ class Admin::TestRestaurantsController < Admin::AdminController
   
 
   def find_restaurant
-    @restaurant = Restaurant.only_deleted_restaurants.map{|e| e if e.id == 328}.compact.first    
+    @restaurant = Restaurant.only_deleted_restaurants.map{|e| e if e.id == params[:id].to_i}.compact.first    
   end
 end
