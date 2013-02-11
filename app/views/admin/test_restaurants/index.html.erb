@@ -1,0 +1,23 @@
+<% title "Deleted Restaurants" %>
+
+<% table_for(@restaurants) do |t| %>
+  
+  <% t.data do
+      t.cell :name
+      t.cell :account_type
+      t.cell :city
+      t.cell :state
+      t.cell :manager
+      t.cell :media_contact
+      t.cell :metropolitan_area
+      t.cell :cuisine     
+     
+      t.cell :activate, :heading => "Activate" do |restaurant|
+        link_to "Activate", active_admin_test_restaurant_path(restaurant), :method => :get 
+      end
+  end %>
+
+<% end -%>
+
+
+

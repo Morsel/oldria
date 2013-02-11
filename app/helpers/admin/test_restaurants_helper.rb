@@ -1,0 +1,2 @@
+module Admin::TestRestaurantsHelper
+end
