@@ -347,6 +347,7 @@ ActionController::Routing::Routes.draw do |map|
     admin.resources :email_stopwords
     admin.resources :page_views, :only => ["index"]
     admin.resources :featured_profiles
+    admin.resources :test_restaurants, :member =>{:active => :get}
 
     # Admin Messaging
     exclusive_routes = [:index, :show, :destroy]
