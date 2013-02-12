@@ -413,6 +413,10 @@ class Restaurant < ActiveRecord::Base
       is_activated
   end
 
+  def self.only_deleted_restaurants
+    with_exclusive_scope{Restaurant.find(:all,:conditions=>"deleted_at is not null" ,:order=>"created_at desc")}
+  end
+
   private
 
   def add_manager_as_employee
