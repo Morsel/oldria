@@ -173,4 +173,12 @@ class UserMailer < ActionMailer::Base
     subject     "You have visitors!"
   end    
 
+  def send_payment_error(name,message)
+    @message = message
+    from        'notifications@restaurantintelligenceagency.com'
+    recipients  "eric@restaurantintelligenceagency.com"
+    sent_on     Time.now
+    subject     "Spoonfeed::Payment faild! :: #{name}"
+  end  
+
 end
