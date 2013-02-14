@@ -149,15 +149,12 @@ class UsersController < ApplicationController
   def fb_connect
     if current_facebook_user            
       unless params[:restaurant_id].blank? 
-        @restaurant = Restaurant.find(params[:restaurant_id]) 
-        unless (@restaurant.has_facebook_page?)       
+        @restaurant = Restaurant.find(params[:restaurant_id])       
           @page = current_facebook_user.fetch        
           @restaurant.update_attributes!(:facebook_page_id => @page.id,
                                      :facebook_page_token => @page.client.access_token,
                                      :facebook_page_url => @page.link)
-        end
       end
-
       @user.update_attribute(:facebook_page_token, current_facebook_user.client.access_token)
       @user.update_attribute(:facebook_page_id, current_facebook_user.id)       
       @user.connect_to_facebook_user(current_facebook_user.id, current_facebook_user.client.expiration)
