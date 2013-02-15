@@ -3,7 +3,7 @@
 
     <h1 class="join">Diner Join Us</h1>
 
-    <form id="sp_join_us" action="<%=register_ria_webservices_url%>"  method="post">
+    <form id="sp_join_us" action="<%=api_register_ria_production_webservices_url%>"  method="post">
       <input type="hidden" value="<%=@restaurant.api_token%>" name="api_token">
       <div style="margin:0;padding:0;display:inline">
 
@@ -15,6 +15,7 @@
       <div class="right">
           Email:<input class="validate[required]" alt="Email" class="standard-filler" id="email" name="email"  value="" type="text">
           <input type="hidden" name="role" value="diner">
+          <input type="hidden" name="url" value="">
           
       </div>
 
