@@ -10,7 +10,28 @@ class RiaProductionWebservicesController < ApplicationController
   layout false
   include ALaMinuteAnswersHelper
 
- 
+  def api_register    
+
+    if params[:role] == "diner" && !params[:url].blank?
+      @subscriber = NewsletterSubscriber.build_from_registration(params)
+      if @subscriber.save
+        status = true
+      else
+        status = false
+      end
+    end
+    
+    unless params[:url].blank?
+      url = params[:url]
+      url = "#{url}" unless url.match(/\.$/)
+      url = "http://#{url}" unless url.match(/^https?:\/\//)      
+      status ? redirect_to([url, '?success=1'].join) : redirect_to([url, '?success=0'].join)
+     else
+      render :text=>"Return url not found." 
+    end
+      
+  end
+    
   def register    
      message = []
     if params[:role] == "media"
