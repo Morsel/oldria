@@ -368,6 +368,7 @@ ActionController::Routing::Routes.draw do |map|
     admin.resources :soapbox_promos, :collection => { :sort => :post }
 
     admin.resources :testimonials
+    admin.resources :brain_tree_webhook,:collection => {:varify => :any}
   end
 
   # Not in use?
