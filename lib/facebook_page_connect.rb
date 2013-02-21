@@ -20,4 +20,29 @@ module FacebookPageConnect
     Rails.logger.error("Unable to post to Facebook page #{facebook_page_id} due to #{e.message} on #{Time.now}")
   end
 
+  def authenticator
+    app_config =  Facebooker2.load_facebooker_yaml if @authenticator.blank?
+    @authenticator ||= Mogli::Authenticator.new(app_config['app_id'],app_config['secret'], fb_page_auth_restaurant_url(self))
+    rescue Mogli::Client::OAuthException, Mogli::Client::HTTPException => e
+      Rails.logger.error("Unable to exchange token due to #{e.message} on #{Time.now}")
+  end
+
+  def extend_access_token token
+      authenticator.extend_access_token(token)
+      rescue Mogli::Client::OAuthException, Mogli::Client::HTTPException => e
+        Rails.logger.error("Unable to exchange token due to #{e.message} on #{Time.now}")   
+  end  
+  
+  def facebook_client fb_token
+    client = Mogli::Client.new(fb_token)
+    rescue Mogli::Client::OAuthException, Mogli::Client::HTTPException => e
+      Rails.logger.error("Unable to exchange token due to #{e.message} on #{Time.now}")
+  end  
+  
+  def  fb_user_find client
+    myself  = Mogli::User.find("me",client)
+    rescue Mogli::Client::OAuthException, Mogli::Client::HTTPException => e
+      Rails.logger.error("Unable to exchange token due to #{e.message} on #{Time.now}")
+  end
+  
 end
