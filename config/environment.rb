@@ -35,7 +35,7 @@ Rails::Initializer.run do |config|
   config.gem 'newrelic_rpm',          :version => "~>3.1.1"
   config.gem "facebooker2",           :version => "~>0.0.4"
   config.gem 'subdomain-fu',          :version => "~>0.5.4"
-  config.gem 'braintree',             :version => "2.6.1"
+  config.gem 'braintree',             :version => "2.22.0"
   config.gem 'ssl_requirement',       :version => "~>0.1.0"
   config.gem 'fastercsv'
   config.gem 'bitly',                 :version => "0.7.0"
