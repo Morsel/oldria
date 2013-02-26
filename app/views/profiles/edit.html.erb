@@ -273,7 +273,7 @@
                     <p>Current Facebook page for <%= current_user.name %>: <em>"<%= @profile.user.facebook_page.fetch.name %>"</em>
                      </p> 
                       <%= link_to "Disconnect Facebook", fb_deauth_user_path(@profile.user), :class => 'sf-button negative' %>
-                  <% rescue Mogli::Client::OAuthException, Mogli::Client::HTTPException %>
+                  <% rescue Mogli::Client::OAuthException, Mogli::Client::HTTPException ,Exception =>e%>
                     <p>Access to your Facebook page has expired. Please select the page again.</p>
                   <% end %>
               <% else %>
