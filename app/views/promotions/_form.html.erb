@@ -79,7 +79,7 @@
 
                       <%= facebook.input :content, :label => "Custom Message (optional)", :input_html => { :value => @promotion.new_record? ? '' : facebook_post.try(:input_value) } %>
                     <% end %>
-                  <% rescue Mogli::Client::OAuthException, Mogli::Client::HTTPException %>
+                  <% rescue Mogli::Client::OAuthException, Mogli::Client::HTTPException,Exception =>e %>
                     <p>Your Facebook page access has expired. Please reconnect your account on your restaurant profile page.</p>
                   <% end %>
                 <% end %>

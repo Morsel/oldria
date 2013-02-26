@@ -18,7 +18,7 @@ class ProfilesController < ApplicationController
 
   def edit
     @fb_user = current_facebook_user.fetch if @profile.user.facebook_authorized? && current_facebook_user
-    rescue Mogli::Client::OAuthException, Mogli::Client::HTTPException => e
+    rescue Mogli::Client::OAuthException, Mogli::Client::HTTPException,Exception => e
     Rails.logger.error("Unable to fetch Facebook user for restaurant editing due to #{e.message} on #{Time.now}")
   end
 
