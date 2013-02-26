@@ -45,7 +45,7 @@ class RestaurantsController < ApplicationController
 
   def edit
     @fb_user = current_facebook_user.fetch if current_facebook_user && current_user.facebook_authorized?
-  rescue Mogli::Client::OAuthException, Mogli::Client::HTTPException => e
+  rescue Mogli::Client::OAuthException, Mogli::Client::HTTPException,Exception => e
     Rails.logger.error("Unable to fetch Facebook user for restaurant editing due to #{e.message} on #{Time.now}")
   end
 
@@ -154,7 +154,7 @@ class RestaurantsController < ApplicationController
       redirect_to fb_auth_user_path(current_user, :restaurant_id => @restaurant.id)
     end 
 
-    rescue Mogli::Client::OAuthException, Mogli::Client::HTTPException => e      
+    rescue Mogli::Client::OAuthException, Mogli::Client::HTTPException ,Exception => e      
       Rails.logger.error("Unable to connect Facebook user account for #{@user.id} due to #{e.message} on #{Time.now}")
       flash[:error] = "We were unable to connect your account. Please log back into Facebook if you are logged out, or try again later."
       redirect_to edit_restaurant_path(@restaurant)
@@ -166,8 +166,8 @@ class RestaurantsController < ApplicationController
                                        :facebook_page_token => nil)
       begin
         @page  = @restaurant.facebook_page.fetch if @restaurant.has_facebook_page?
-        flash[:notice] = "Cleared the Facebook page #{@page.name} settings from your restaurant" unless @page.blank?      rescue Mogli::Client::OAuthException, Mogli::Client::HTTPException => e      
-      rescue Mogli::Client::OAuthException, Mogli::Client::HTTPException => e  
+        flash[:notice] = "Cleared the Facebook page #{@page.name} settings from your restaurant" unless @page.blank?
+      rescue Mogli::Client::OAuthException, Mogli::Client::HTTPException ,Exception => e  
         flash[:notice] = "Cleared the Facebook page  settings from your restaurant" 
       end 
       redirect_to edit_restaurant_path(@restaurant)  

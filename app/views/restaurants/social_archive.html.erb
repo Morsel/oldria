@@ -26,7 +26,7 @@
           <% for post in @restaurant.facebook_page.posts do %>
 			<p><%= post.message %> <span class="datestamp">(<%= Time.parse(post.created_time).strftime("%D") %>)</p>
 	      <% end %>
-	    <% rescue Mogli::Client::OAuthException, Mogli::Client::HTTPException %>
+	    <% rescue Mogli::Client::OAuthException, Mogli::Client::HTTPException ,Exception%>
 	      Sorry, we're unable to display Facebook posts for this restaurant.
 	    <% end %>
 	    <% end -%>
