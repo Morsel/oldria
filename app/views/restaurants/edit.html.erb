@@ -80,7 +80,7 @@
       <% begin %>
           <% page_name = @restaurant.facebook_page.fetch %>
           <p>Current Facebook page for <%= @restaurant.name %>: <em><%= page_name.name %></em></p>
-	  <% rescue Mogli::Client::OAuthException, Mogli::Client::HTTPException %>
+	  <% rescue Mogli::Client::OAuthException, Mogli::Client::HTTPException ,Exception =>e %>
         <p>Access to your Facebook page has expired. Please select the page again.</p>
       <% end %>
  
@@ -106,7 +106,7 @@
               <p>Current Facebook page for <%= @restaurant.name %>: <em>"<%=page_name  %>"</em>
                </p> 
                 <%= link_to "Disconnect Facebook", fb_deauth_restaurant_path(@restaurant), :class => 'sf-button negative' ,:id =>"no-fb-logged-in-disconnect" %>
-          <% rescue Mogli::Client::OAuthException, Mogli::Client::HTTPException %>
+          <% rescue Mogli::Client::OAuthException, Mogli::Client::HTTPException ,Exception =>e %>
               <%= link_to "Connect Facebook", fb_auth_user_path(current_user, :restaurant_id => @restaurant.id), :class => 'sf-button' %>
               <p>Access to your Facebook page has expired. Please select the page again.</p>
             <% end %>
