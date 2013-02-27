@@ -123,7 +123,7 @@ class RestaurantsController < ApplicationController
   end
 
   def fb_page_auth
-    
+
     if current_facebook_user  
       extended_token = @restaurant.extend_access_token(current_facebook_user.client.access_token)
       client = @restaurant.facebook_client(extended_token["access_token"])
@@ -155,7 +155,7 @@ class RestaurantsController < ApplicationController
     end 
 
     rescue Mogli::Client::OAuthException, Mogli::Client::HTTPException ,Exception => e      
-      Rails.logger.error("Unable to connect Facebook user account for #{@user.id} due to #{e.message} on #{Time.now}")
+      Rails.logger.error("Unable to connect Facebook user account for #{@restaurant.name} due to #{e.message} on #{Time.now}")
       flash[:error] = "We were unable to connect your account. Please log back into Facebook if you are logged out, or try again later."
       redirect_to edit_restaurant_path(@restaurant)
 
