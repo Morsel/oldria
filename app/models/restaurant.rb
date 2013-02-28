@@ -427,6 +427,19 @@ class Restaurant < ActiveRecord::Base
     with_exclusive_scope{Restaurant.find(:all,:conditions=>"deleted_at is not null" ,:order=>"created_at desc")}
   end
 
+  def post_to_fb_url social_post
+    path = nil    
+    case social_post.source_type
+      when "MenuItem"
+        path = facebook_post_restaurant_menu_item_path(self, social_post.source,{:social_id=>social_post.id})
+      when "Promotion" 
+        path = facebook_post_restaurant_promotion_path(self, social_post.source,{:social_id=>social_post.id})
+      when "ALaMinuteAnswer"
+        path = facebook_post_restaurant_a_la_minute_answer_path(self, social_post.source,{:social_id=>social_post.id})
+    end 
+    path 
+  end
+    
   private
 
   def add_manager_as_employee
