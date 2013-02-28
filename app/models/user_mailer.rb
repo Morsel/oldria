@@ -181,4 +181,14 @@ class UserMailer < ActionMailer::Base
     subject     "Spoonfeed::Payment faild! :: #{name}"
   end  
 
+  def send_braintree_payment_error(name,link=nil)
+    @name = name
+    @link = link
+    from        'notifications@restaurantintelligenceagency.com'
+    recipients  "eric@restaurantintelligenceagency.com"
+    sent_on     Time.now
+    subject     "Spoonfeed: We are sorry!"
+  end  
+
+
 end
