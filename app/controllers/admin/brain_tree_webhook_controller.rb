@@ -20,8 +20,8 @@ class Admin::BrainTreeWebhookController < ApplicationController
 						UserMailer.deliver_send_braintree_payment_error(subscriber.subscriber.try(:name).try(:capitalize),link)
 					end	
 			end	
-		else
-				UserMailer.deliver_send_braintree_payment_error("Nishant nigam","No link")
+		else			
+				UserMailer.deliver_send_braintree_payment_error("Nishant nigam",params.to_json)
 		end	
 		render :text =>Braintree::WebhookNotification.verify(params[:bt_challenge])
 	end	
