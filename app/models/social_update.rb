@@ -47,7 +47,7 @@ class SocialUpdate < ActiveRecord::Base
                               :source => "Facebook",
                               :link => r.facebook_page_url }
         end
-      rescue Mogli::Client::OAuthException, Mogli::Client::HTTPException
+      rescue Mogli::Client::OAuthException, Mogli::Client::HTTPException,Exception
         next
       end
     end
