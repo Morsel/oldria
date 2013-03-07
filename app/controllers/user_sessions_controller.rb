@@ -49,10 +49,16 @@ class UserSessionsController < ApplicationController
   def save_session
     if @user_session.save
       flash[:notice] = "You are now logged in."
-      user = @user_session.user      
+      user = @user_session.user                        
       
       if user.admin? || user.media? || (user.completed_setup? && !is_profile_not_completed?(user))
-        redirect_back_or_default
+        restaurants_has_setup_fb_tw user
+        if @restaurants_has_not_setup_fb_tw.blank?
+          redirect_back_or_default
+        else
+          flash[:notice] = "<a href='javascript:void(0)' onclick=\"$('html, body').animate({scrollTop: $('#twitter-fieldset').offset().top -50}, 400);\">Get the most out of Spoonfeed. Hook up your Twitter and Facebook accounts with your restaurant today!</a>"
+          redirect_to edit_restaurant_path(@restaurants_has_not_setup_fb_tw.first)
+        end  
       else
         if user.completed_setup? && is_profile_not_completed?(user)
           flash[:notice] += " Complete your profile."
