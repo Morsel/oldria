@@ -56,7 +56,7 @@ class UserSessionsController < ApplicationController
         if @restaurants_has_not_setup_fb_tw.blank?
           redirect_back_or_default
         else
-          flash[:notice] = "<a href='javascript:void(0)' onclick=\"$('html, body').animate({scrollTop: $('#twitter-fieldset').offset().top -50}, 400);\">Hook up twitter and facebook with your restaurant today.</a>"
+          flash[:notice] = "<a href='javascript:void(0)' onclick=\"$('html, body').animate({scrollTop: $('#twitter-fieldset').offset().top -50}, 400);\">Get the most out of Spoonfeed. Hook up your Twitter and Facebook accounts with your restaurant today!</a>"
           redirect_to edit_restaurant_path(@restaurants_has_not_setup_fb_tw.first)
         end  
       else
