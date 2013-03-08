@@ -29,6 +29,22 @@ class WelcomeController < ApplicationController
     end
   end
   
+  def welcome
+    @user_announcements = []
+    unless current_user && current_user.media?
+      restaurants = current_user.restaurants
+      unless restaurants.blank?
+        @user_announcements.push(MediaNewsletterSubscription.menu_items(restaurants))
+        @user_announcements.push(MediaNewsletterSubscription.restaurant_answers(restaurants))
+        @user_announcements.push(MediaNewsletterSubscription.promotions(restaurants))
+      end       
+      @user_announcements.flatten!.compact!
+    else
+      @testimonials = Testimonial.for_page("Spoonfeed").by_position
+      render :layout => 'home'
+    end
+  end
+    
   def require_login
     redirect_to :action => :index
   end

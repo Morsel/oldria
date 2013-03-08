@@ -18,6 +18,7 @@ ActionController::Routing::Routes.draw do |map|
   map.dashboard_more 'dashboard_more', :controller => 'welcome', :action => 'index', :is_more => true
   map.refresh_dashboard 'dashboard/refresh', :controller => 'welcome', :action => 'refresh'
   map.require_login 'dashboard/require_login', :controller => 'welcome', :action => 'require_login'
+  map.welcome 'welcome', :controller => 'welcome', :action => 'welcome'
 
   map.directory 'directory', :controller => 'directory', :action => 'index'
   map.restaurant_directory 'directory/restaurants', :controller => 'directory', :action => 'restaurants'
