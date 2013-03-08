@@ -4453,3 +4453,33 @@ a.subscribe_btn {
 .fix-nesfeed-details{
 	float: left; padding: 0px 5px; width: 650px;
 }
+#dashboard-right-column
+{
+		border: 5px solid #EFEFEF;
+    float: left;
+    margin-left: 15px;
+    width: 55%;
+}
+#dashboard-left-column
+{
+		border: 5px solid #EFEFEF;
+    float: left;    
+    width: 40%;
+}
+.annoucement{
+	 padding-left: 15px;
+	img{
+		height: 30px;
+		width: 30px;
+	}
+	h3{
+		font-size: 15px !important;
+	}
+	p{
+		 margin: 5px 0 0 ;
+	}
+	.content{
+		float: left;
+	}
+
+}
