@@ -73,7 +73,6 @@ class Restaurants::NewslettersController < ApplicationController
     unless @restaurant.premium_account?
       render "restaurants/_comming_soon"
      else 
-      debugger
       @status_data = @restaurant.get_campaign 
     end 
   end
