@@ -26,7 +26,11 @@
                 <div id="newsletter_settings" class="clearfix">
                   <% semantic_form_for @restaurant, :url => update_settings_restaurant_newsletters_path do |f| %>
                     <% f.inputs :class => "editing" do %>
+<<<<<<< HEAD
 
+=======
+                      <p>When changing frequency or date, the change will take affect for all emails that have not already been scheduled.</p>
+>>>>>>> origin/newsletter-changes-46091141
                       <%= f.input :newsletter_frequency, :as => :select, :collection => ["weekly", "biweekly", "monthly"], :input_html => { :style => 'width:150px;' }  %>
                        <%= f.input :newsletter_frequency_day, :as => :select, :collection => ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"], :input_html => { :style => 'width:150px;' }  %>
 
