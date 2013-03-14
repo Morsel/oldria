@@ -4453,3 +4453,37 @@ a.subscribe_btn {
 .fix-nesfeed-details{
 	float: left; padding: 0px 5px; width: 650px;
 }
+.menu_item_subscribe{
+  margin-top: 15px;
+  padding-top: 15px;
+  width: 130px;
+}
+
+.menu_item_subscribe{
+	a.subscribe, a.unsubscribe {
+				font-size: 12px;
+				display: block;
+				background-image: url(/images/soapbox/share-actions.png);
+				background-repeat: no-repeat;
+				padding: 6px 0 4px 18px;
+				background-position: 2px 6px;
+				-moz-border-radius: 30px;
+				-webkit-border-radius: 30px;
+				-o-border-radius: 30px;
+				-ms-border-radius: 30px;
+				-khtml-border-radius: 30px;
+				border-radius: 30px;
+				color: #333333;
+				font-family: 'MuseoSlab700', 'Helvetica Neue', Helvetica, arial, sans-serif;
+				font-weight: normal !important;
+				font-weight: 700;
+				margin: 0px;				
+				width: 65%;
+	}
+	a.unsubscribe{
+		width: 80%;
+	}
+	a:hover {
+ 	 text-decoration: underline;
+	}
+}
