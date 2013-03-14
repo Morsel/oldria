@@ -14,5 +14,15 @@
             <%= restaurant.metropolitan_area.try(:name) %>
         </li>
     </ul>
+    <% if(@is_subscribe && current_user && current_user.media? && restaurant.kind_of?(Restaurant) ) %>
+        <div class="meta menu_item_subscribe">
+            <% if current_user.restaurant_newsletter_subscription(restaurant).blank? %>
+                <%= link_to 'Subscribe', media_subscribe_restaurant_path(restaurant),:class=>"subscribe" %>
+            <% else %>
+                <%= link_to 'Unsubscribe', media_subscribe_restaurant_path(restaurant),:class=>"subscribe" %>
+            <% end %>                    
+        </div>
+    <% end %> 
+
 </div>
 <% end %>
