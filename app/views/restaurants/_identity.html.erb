@@ -1,6 +1,6 @@
 <% restaurant ||= user %>
-<% cache "#{soapbox? ? "public" : "private"}_restaurant_#{restaurant.id}_#{on_mediafeed}", :expires_in => 1.hour do %>
 <div class="identity<% unless restaurant.logo && restaurant.logo.attachment? -%> no_avatar<% end -%>">
+<% cache "#{soapbox? ? "public" : "private"}_restaurant_#{restaurant.id}_#{on_mediafeed}", :expires_in => 1.hour do %>
     <div class="avatar">
         <% if restaurant.logo && restaurant.logo.attachment? -%>
           <%= image_tag(restaurant.logo.attachment.url(:thumb), :width => 'auto', :height => 'auto') %>
@@ -14,6 +14,7 @@
             <%= restaurant.metropolitan_area.try(:name) %>
         </li>
     </ul>
+<% end %>
     <% if(@is_subscribe && current_user && current_user.media? && restaurant.kind_of?(Restaurant) ) %>
         <div class="meta menu_item_subscribe">
             <% if current_user.restaurant_newsletter_subscription(restaurant).blank? %>
@@ -25,4 +26,3 @@
     <% end %> 
 
 </div>
-<% end %>
