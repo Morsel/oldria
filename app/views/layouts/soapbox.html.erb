@@ -39,7 +39,7 @@
 		<%= link_to 'On the Menu', soapbox_menu_items_path, :id => "nav-otm", :class => active_page?('/soapbox/on_the_menu') %>
 		<%= link_to 'Personal Profiles', '/soapbox/directory', :id => "nav-directory", :class => active_page?('/soapbox/directory') %>
 		<%= link_to 'Restaurant Profiles', '/soapbox/directory/restaurants', :id => "nav-restaurant-directory", :class => active_page?('/soapbox/directory/restaurants') %>
-		<%= link_to 'Join', join_url(:subdomain => "spoonfeed"), :id => "nav-join", :class => "last" %>
+		<%= link_to 'Join', soapbox_join_url(:subdomain => "spoonfeed"), :id => "nav-join", :class => "last" %>
 	  </nav>
     </header>
   
@@ -84,7 +84,7 @@
 
 
 
-  <%= javascript_include_tag 'https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js', 'https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.7/jquery-ui.min.js' %>
+  <%= javascript_include_tag 'https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js', 'https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.7/jquery-ui.min.js' %>
   <%= javascript_include_tag '/soapbox/_js/jquery-ui-1.8.5.tabs-customized.min.js', 'jquery.ui.accordion', 'http://cachedcommons.org/cache/jquery-cycle/2.8.6/javascripts/jquery-cycle.js', 'showy', '/soapbox/_js/jquery.equalheights.js', 'jquery-colorbox-min.js', 'jquery.masonry.js', '/soapbox/_js/site' %>
   <!--[if lt IE 7 ]>
     <script src="/soapbox/_js/dd_belatedpng.js?v=1"></script>

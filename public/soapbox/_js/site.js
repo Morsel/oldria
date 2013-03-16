@@ -142,3 +142,12 @@ function updateRestoDirectoryList() {
 }
 
 $restoDirectoryInputs.change(updateRestoDirectoryList);
+jQuery(document).ready(function(){
+    updateRestaurantSignupFields = function() {
+    if ($('#role').val() == 'restaurant') {
+      $('#restaurant_fields').show();
+    } else {
+      $('#restaurant_fields').hide();
+    } 
+  };
+});
