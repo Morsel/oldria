@@ -256,7 +256,8 @@ class RestaurantsController < ApplicationController
 
 
   def restaurant_visitors
-      @visitors = @restaurant.user_restaurant_visitors
+      redirect_to :action => :edit
+      #@visitors = @restaurant.user_restaurant_visitors # will be use when redirect_to removed
   end
 
 
