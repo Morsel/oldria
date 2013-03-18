@@ -230,7 +230,7 @@ class RestaurantsController < ApplicationController
           end
            
           unless @error_arr.compact.blank?
-            flash[:notice] = "Follwing email(s) #{@error_arr.to_sentence } already exits."
+            flash[:notice] = "The following people are arleady subscribed #{@error_arr.to_sentence }."
             redirect_to newsletter_subscriptions_restaurant_path
           else
             flash[:notice] = "Records successfully inserted."
