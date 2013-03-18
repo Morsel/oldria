@@ -1,5 +1,4 @@
 <% restaurant ||= user %>
-<% cache "#{soapbox? ? "public" : "private"}_restaurant_#{restaurant.id}_#{on_mediafeed}", :expires_in => 1.hour do %>
 <div class="identity<% unless restaurant.logo && restaurant.logo.attachment? -%> no_avatar<% end -%>">
     <div class="avatar">
         <% if restaurant.logo && restaurant.logo.attachment? -%>
@@ -33,4 +32,3 @@
 
     </ul>
 </div>
-<% end %>
