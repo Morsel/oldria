@@ -168,7 +168,7 @@ class UserMailer < ActionMailer::Base
     @media_visitors = media_visitors
     @visitor_obj = visitor_obj
     from        'notifications@restaurantintelligenceagency.com'
-    recipients  visitor_obj.restaurant.manager.try(:email)
+    recipients  'eric@restaurantintelligenceagency.com'#visitor_obj.restaurant.manager.try(:email)
     sent_on     Time.now
     subject     "You have visitors!"
   end    
