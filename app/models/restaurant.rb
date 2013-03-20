@@ -111,6 +111,7 @@ class Restaurant < ActiveRecord::Base
 
 
   has_many :user_restaurant_visitors
+  has_many :restaurant_visitors ,:through => :user_restaurant_visitors ,:source => :user
   
   accepts_nested_attributes_for :logo
 
