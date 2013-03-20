@@ -17,7 +17,7 @@
 	<p> You have following Media visitors.</p>	
 	<ul>
 	<%@media_visitors.each do |media_visitor| %>
-	  	  <li><%=link_to media_visitor.media_newsletter_subscriber.try(:name),soapbox_profile_url(media_visitor.media_newsletter_subscriber.username)%></li>
+	  	  <li><%=link_to media_visitor.try(:name),soapbox_profile_url(media_visitor.username)%></li>
 	<%end%>
 	</ul>
 <%end%>	
