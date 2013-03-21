@@ -168,9 +168,27 @@ class UserMailer < ActionMailer::Base
     @media_visitors = media_visitors
     @visitor_obj = visitor_obj
     from        'notifications@restaurantintelligenceagency.com'
-    recipients  visitor_obj.restaurant.manager.try(:email)
+    recipients  'eric@restaurantintelligenceagency.com'#visitor_obj.restaurant.manager.try(:email)
     sent_on     Time.now
     subject     "You have visitors!"
   end    
+
+  def send_payment_error(name,message)
+    @message = message
+    from        'notifications@restaurantintelligenceagency.com'
+    recipients  "eric@restaurantintelligenceagency.com"
+    sent_on     Time.now
+    subject     "Spoonfeed::Payment faild! :: #{name}"
+  end  
+
+  def send_braintree_payment_error(name,link=nil)
+    @name = name
+    @link = link
+    from        'notifications@restaurantintelligenceagency.com'
+    recipients  "eric@restaurantintelligenceagency.com"
+    sent_on     Time.now
+    subject     "Spoonfeed: We are sorry!"
+  end  
+
 
 end

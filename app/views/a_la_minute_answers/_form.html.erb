@@ -72,11 +72,11 @@
 
                 <%= facebook.input :post_at, :label => "Post to Facebook page \"#{@restaurant.facebook_page.fetch.name}\" on", :as => :string, :input_html => { :class => 'datetime',
                                    :value => facebook_post.try(:post_at).try(:strftime, '%Y-%m-%d %H:%M') } %>
-                <p class="inline-hints">Schedule posts before <%= current_user.facebook_token_expiration.to_formatted_s(:long) rescue 1.day.from_now.to_formatted_s(:long) %>.</p>
+                <p class="inline-hints">Schedule posts before <%= current_user.facebook_token_expiration.try(:strftime , "%m/%d/%Y %H:%m:%S") rescue 1.day.from_now.try(:strftime , "%m/%d/%Y %H:%m:%S") %>.</p>
 
                 <%= facebook.input :content, :label => "Custom Message (optional)", :input_html => { :value => @answer.new_record? ? '' : facebook_post.try(:input_value) } %>
               <% end %>
-            <% rescue Mogli::Client::OAuthException, Mogli::Client::HTTPException %>
+            <% rescue Mogli::Client::OAuthException, Mogli::Client::HTTPException ,Exception => e%>
               <p>Your Facebook page access has expired. Please reconnect your account on your restaurant profile page.</p>
             <% end %>
           <% end %>

@@ -46,8 +46,9 @@ class SubscriptionsController < ApplicationController
       flash[:success] = (request_kind == "update_customer")? "Thanks! Your payment information has been updated." : "Thanks for upgrading to Premium!"
       redirect_to customer_edit_path(@braintree_customer)
     else
+      UserMailer.deliver_send_payment_error(@braintree_customer.try(:name).try(:capitalize),bt_result.message)
       Rails.logger.info "[Braintree Error Message] #{bt_result.message}"
-      flash[:error] = "Whoops. We couldn't process your credit card with the information you provided. If you continue to experience issues, please contact us."
+      flash[:error] = "Whoops. We couldn't process your credit card with the information you provided due to the following reason: <br /> <br /> If you continue to experience issues, <a href='mailto:billing@restaurantintelligenceagency.com?subject=Payment issue!'>Please contact us.</a>"
       if request_kind == 'update_customer'
         redirect_to(edit_subscription_path(@braintree_customer))
       else

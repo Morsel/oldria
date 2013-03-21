@@ -71,18 +71,19 @@
 
   <fieldset id="facebook-fieldset" class="inputs editing">
       <legend><span>Facebook</span></legend>
-      <%- if @fb_user.present? -%>
+      <%- if @fb_user.present? && @restaurant.has_facebook_page? -%>
       <p>
           You are currently linked to your Facebook account <em>"<%= @fb_user.name %>"</em>. You can connect to a different Facebook profile by disconnecting below, then setting up Facebook again.
       </p>
-      <%= fb_logout_link "Disconnect Facebook", fb_deauth_restaurant_path(@restaurant), :class => 'sf-button negative' %>
-      <% if @restaurant.has_facebook_page? -%>
+      <%= link_to "Disconnect Facebook", fb_deauth_restaurant_path(@restaurant), :class => 'sf-button negative' %>
+     
       <% begin %>
-        <p>Current Facebook page for <%= @restaurant.name %>: <em><%= @restaurant.facebook_page.fetch.name %></em></p>
-	  <% rescue Mogli::Client::OAuthException, Mogli::Client::HTTPException %>
+          <% page_name = @restaurant.facebook_page.fetch %>
+          <p>Current Facebook page for <%= @restaurant.name %>: <em><%= page_name.name %></em></p>
+	  <% rescue Mogli::Client::OAuthException, Mogli::Client::HTTPException ,Exception =>e %>
         <p>Access to your Facebook page has expired. Please select the page again.</p>
       <% end %>
-      <%- end %>
+ 
       <% if @fb_user.accounts.blank? %>
         <p>You don't appear to have access to any Facebook pages. If you'd like the change the page for this restaurant, please ask the admin to give you access through your Facebook account.</p>
       <% else %>
@@ -98,12 +99,15 @@
       <% end %>
 
       <%- else -%>
+      
       <% if @restaurant.has_facebook_page? -%>
             <% begin %>
-              <p>Current Facebook page for <%= @restaurant.name %>: <em>"<%= @restaurant.facebook_page.fetch.name %>"</em>
+              <% page_name = @restaurant.facebook_page.fetch.name %>
+              <p>Current Facebook page for <%= @restaurant.name %>: <em>"<%=page_name  %>"</em>
                </p> 
                 <%= link_to "Disconnect Facebook", fb_deauth_restaurant_path(@restaurant), :class => 'sf-button negative' ,:id =>"no-fb-logged-in-disconnect" %>
-          <% rescue Mogli::Client::OAuthException, Mogli::Client::HTTPException %>
+          <% rescue Mogli::Client::OAuthException, Mogli::Client::HTTPException ,Exception =>e %>
+              <%= link_to "Connect Facebook", fb_auth_user_path(current_user, :restaurant_id => @restaurant.id), :class => 'sf-button' %>
               <p>Access to your Facebook page has expired. Please select the page again.</p>
             <% end %>
         <% else %>

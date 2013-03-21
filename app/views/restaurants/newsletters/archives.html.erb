@@ -29,6 +29,7 @@
                                   <th style="width:15%;"> Opens </th>
                                   <th style="width:15%;"> Clicks </th>
                                   <th style="width:20%;"> Bounces </th>
+                                  <th style="width:20%;"> No of People </th>
                                   <th style="width:20%;"> Action </th>
                               </tr>
                           </thead>
@@ -41,6 +42,7 @@
                                       <td><%= value[:data]["opens"].to_i%></td>
                                       <td><%= value[:data]["clicks"].to_i %></td>
                                       <td><%= value[:data]["soft_bounces"].to_i%></td>
+                                      <td><%= value[:data]["emails_sent"].to_i%>
                                       <td><%= link_to "view",restaurant_newsletter_path(@restaurant,value[:newsletter]),:target =>"_blank" %> </td>
                                     </tr>
                                  <%  else %>

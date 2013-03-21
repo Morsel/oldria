@@ -35,7 +35,7 @@
                               <td><%= social_post.source.activity_name %></td>
                               <td><%= social_post.message %></td>
                               <td><%= social_post.post_at.to_s(:short) %></td>
-                              <td><%= link_to 'Edit Item', social_post.source.edit_path(:social => true), :class => 'edit' %></td>
+                              <td><%= (social_post.post_at > Time.zone.now ) ? (link_to 'Edit Item', social_post.source.edit_path(:social => true), :class => 'edit') : (link_to 'Sent','#') %> &nbsp;</td>
                             </tr>
                           <% end %>
                         </tbody>

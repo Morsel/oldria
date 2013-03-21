@@ -109,6 +109,7 @@ class Restaurant < ActiveRecord::Base
   has_many :requested_employees, :through => :restaurant_employee_requests ,:source =>:employee
 
   has_many :user_restaurant_visitors
+  has_many :restaurant_visitors ,:through => :user_restaurant_visitors ,:source => :user
   
   accepts_nested_attributes_for :logo
 
@@ -411,6 +412,10 @@ class Restaurant < ActiveRecord::Base
   end
   def is_activated_restaurant? 
       is_activated
+  end
+
+  def self.only_deleted_restaurants
+    with_exclusive_scope{Restaurant.find(:all,:conditions=>"deleted_at is not null" ,:order=>"created_at desc")}
   end
 
   private

@@ -122,7 +122,6 @@ class MediaRequest < ActiveRecord::Base
 
   def update_restaurants_from_search_criteria
     self.restaurant_ids = employment_search.restaurant_ids
-
     # FIXME kludgy hack here: media request can only have one employment search 
     # but we really need a second search to add solo users who have a matching region or metro on their profile
     if employment_search.search_params[:restaurant_james_beard_region_id_equals_any].present? || 
@@ -137,7 +136,7 @@ class MediaRequest < ActiveRecord::Base
       _employments = _employments.map{|e| e if e.valid?}.compact
       self.employments = _employments if _employments.present?
     else
-      self.employments = employment_search.solo_employments if employment_search.solo_employments.present?
+      self.employments = employment_search.solo_employments.map{|e| e if e.valid?}.compact if employment_search.solo_employments.present?
     end
   end
 end
