@@ -1,5 +1,13 @@
+<% buttons ||= false %>
 <% div_for menu_item do %>
-    <h2><%= link_to menu_item.name, restaurant_path(menu_item.restaurant) %></h2>
+    <h2><%= link_to menu_item.name, restaurant_path(menu_item.restaurant) %>
+        <% if buttons %>
+        <div style="float:right">
+           <%= link_to (image_tag "http://blog.restaurantintelligenceagency.com/images/newsletter/print.jpg"), "javascript:window.print();" %>
+            <%= link_to image_tag("http://blog.restaurantintelligenceagency.com/images/newsletter/mail.gif"), "mailto:#{menu_item.restaurant.manager.try(:email)}?Subject=On the menu at #{menu_item.restaurant.try(:name)}" %>
+        </div>
+        <% end%>
+    </h2>
     <%= render :partial => 'restaurants/identity', :locals => { :restaurant => menu_item.restaurant } unless @restaurant.present? %>
     <div class="menu_item_details">
         <% if menu_item.photo_file_name.present? -%>

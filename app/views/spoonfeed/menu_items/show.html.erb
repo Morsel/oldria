@@ -1,6 +1,6 @@
-<% title "On the Menu" %>
+ <% title "On the Menu At #{@restaurant.name}" %>
 
-<%= render @menu_item %>
+<%= render :partial=> @menu_item,:locals => { :buttons => true } %>
 
 <h2 class="clear">Also at <%= @restaurant.name %></h2>
 
