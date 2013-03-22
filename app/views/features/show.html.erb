@@ -1,8 +1,6 @@
 <% title "Restaurants with the feature: #{@feature.name}" %>
-<ul>
+<div id="restaurant-results">
   <% @restaurants.each do |restaurant| -%>
-    <% content_tag_for(:li, restaurant) do %>
-      <%= restaurant_link(restaurant) %>
+      <%= render :partial => 'restaurants/identity_all', :locals => { :user => restaurant } %>
     <% end %>
-  <% end -%>
-</ul>
+</div>

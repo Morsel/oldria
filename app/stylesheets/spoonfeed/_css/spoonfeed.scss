@@ -484,7 +484,7 @@ form, #main form{
   }
 	.identity {
     width: 183px;
-    min-height: 62px;
+    min-height: 85px;
     float: left;
     margin: 0 15px 10px 0;
     padding-bottom: 4px;
@@ -4490,10 +4490,14 @@ a.subscribe_btn {
 
 }
 .menu_item_subscribe{
+	
 	position: relative; 
 	float: right; 
 	right: 45px; 
 	bottom: 35px;
+}
+.menu_item_subscribe , .identity_details{
+
 
 	a.subscribe, a.unsubscribe {
 				font-size: 12px;
