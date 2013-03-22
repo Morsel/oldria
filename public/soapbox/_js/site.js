@@ -143,6 +143,7 @@ function updateRestoDirectoryList() {
 
 $restoDirectoryInputs.change(updateRestoDirectoryList);
 jQuery(document).ready(function(){
+		jQuery('.standard-filler').formFiller();
     updateRestaurantSignupFields = function() {
     if ($('#role').val() == 'restaurant') {
       $('#restaurant_fields').show();
