@@ -2,4 +2,6 @@
 
 <h1 class="join">Join Us</h1>
 
-<%= render :partial => "form" %>
+<% form_tag registration_path, :id => "join" do %>
+	<%= render :partial => "join/form" %>
+<% end %>
