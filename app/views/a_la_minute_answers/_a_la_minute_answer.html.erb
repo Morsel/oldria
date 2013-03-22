@@ -8,7 +8,12 @@
     <div class="user_comment">
         <%= render :partial => 'restaurants/identity', :locals => { :restaurant => a_la_minute_answer.responder } %>
         <div class="user_comment">
-            <%= truncate(a_la_minute_answer.answer, :length => 200) %>
+            <% if local_assigns[:dashboard]  -%>                  
+                <%=truncate(a_la_minute_answer.answer, :length => 240, :omission => (link_to(" more &raquo;", restaurant_a_la_minute_answers_path(a_la_minute_answer.responder)).to_s)) %>
+               <% else %>
+                <%= truncate(a_la_minute_answer.answer, :length => 200) %>
+            <%- end %>
+
             <%# if comment.comment.size > 200 -%>
             <%#= link_to "more &raquo;", soapbox_soapbox_entry_path(a_la_minute_answer.soapbox_entry, :anchor => "comment_#{comment.id}") %>
             <%#- end %>
