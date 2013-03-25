@@ -8,7 +8,7 @@
     </div>
     <ul class="identity_details restaurant">
         <li class="employee_name primary">
-            <%= link_to_if (restaurant.linkable_profile? || logged_in_on_spoonfeed), restaurant.try(:name), correct_restaurant_path(restaurant) %>
+            <%= link_to_if ((media_user_prefers_publish_profile? && restaurant.prefers_publish_profile?) || restaurant.linkable_profile? || logged_in_on_spoonfeed), restaurant.try(:name), correct_restaurant_path(restaurant) %>
         </li>
         <li class="metro_area">
             <%= restaurant.metropolitan_area.try(:name) %>
