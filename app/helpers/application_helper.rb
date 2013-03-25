@@ -62,6 +62,10 @@ module ApplicationHelper
     current_user.present? && not_soapbox && !current_user.media?
   end
 
+  def media_user_prefers_publish_profile?
+    current_user.present? && current_user.media?
+  end
+
   def logo_for(obj)
     obj.logo || Image.new
   end
