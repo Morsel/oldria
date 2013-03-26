@@ -9,7 +9,7 @@
         <%= render :partial => "restaurants/identity", :locals => { :restaurant => menu_item.restaurant } %>
         <div class="user_comment"> 
             <% if local_assigns[:dashboard]  -%>                  
-                <%=truncate(menu_item.description, :length => 240, :omission => (link_to(" more &raquo;", restaurant_menu_items_path(menu_item.restaurant)).to_s)) %>
+                <%=truncate(Loofah::Helpers.sanitize(menu_item.description), :length => 240, :omission => (link_to(" more &raquo;", restaurant_menu_items_path(menu_item.restaurant)).to_s)) %>
                <% else %>
                 <%= menu_item.description %>
             <%- end %>
