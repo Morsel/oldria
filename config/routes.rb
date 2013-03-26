@@ -371,6 +371,8 @@ ActionController::Routing::Routes.draw do |map|
 
     admin.resources :testimonials
     admin.resources :brain_tree_webhook,:collection => {:varify => :any}
+
+    admin.invalid_employments 'invalid_employments',:controller => "restaurants", :action => "invalid_employments"
   end
 
   # Not in use?
