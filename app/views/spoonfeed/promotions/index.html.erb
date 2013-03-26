@@ -32,7 +32,9 @@
         <div class="clear"></div>
     </div>
     <div class="fix-nesfeed-details">
-        <div class="details" ><%= (Loofah::Helpers.sanitize(promotion.details)) %></div>
+        <div class="details" >
+             <%=truncate(Loofah::Helpers.sanitize(promotion.details), :length => 240, :omission => (link_to(" more &raquo;", restaurant_promotions_path(promotion.restaurant,:anchor=>"promotion_#{promotion.id}")).to_s)) %>
+        </div>
         <p><%= link_to promotion.link, promotion.link %></p>
         <% if promotion.attachment.file? -%>
         <p><%= link_to promotion.attachment_file_name, promotion.attachment.url %></p>
