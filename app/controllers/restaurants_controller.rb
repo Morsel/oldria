@@ -254,10 +254,11 @@ class RestaurantsController < ApplicationController
     redirect_to root_path
   end
 
+  def restaurant_visitors      
+      @visitors = []
+      visitors = @restaurant.page_views.map(&:user).uniq!      
+      @visitors = visitors.zip(@restaurant.restaurant_visitors).flatten.compact # old was .user_restaurant_visitors
 
-  def restaurant_visitors
-      redirect_to :action => :edit
-      #@visitors = @restaurant.user_restaurant_visitors # will be use when redirect_to removed
   end
 
 

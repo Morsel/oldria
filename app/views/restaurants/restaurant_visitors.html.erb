@@ -14,12 +14,12 @@
                             <% @visitors.each do |visitor| %>
                             <tr>
                                <td width="15%">
-                                <%= link_to((image_tag visitor.user.avatar.url(:thumb) ,:alt => visitor.user.try(:name) ,:class => 'alignleft'),soapbox_profile_path(visitor.user.username)) %>        
+                                <%= link_to((image_tag visitor.avatar.url(:thumb) ,:alt => visitor.try(:name) ,:class => 'alignleft'),soapbox_profile_path(visitor.username)) %>        
                               </td>
                               <td width="85%">
-                                <div class="left"> <%= link_to visitor.user.name,soapbox_profile_path(visitor.user.username),:style=>"padding-top:0px" if visitor.user.present? %> 
+                                <div class="left"> <%= link_to visitor.name,soapbox_profile_path(visitor.username),:style=>"padding-top:0px" if visitor.present? %> 
                                 </div>
-                                 <div class="left"> has visited <%=visitor.visitor_count >1 ? "#{visitor.visitor_count} times" : "#{visitor.visitor_count} time" %>. Last visited at  <%=visitor.updated_at.to_formatted_s(:long)%></div>
+                                 <div class="left"> Last visited at  <%=visitor.updated_at.to_formatted_s(:long)%></div>
                               </td>
                             </tr>
                            <% end %>

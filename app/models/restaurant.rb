@@ -156,8 +156,8 @@ class Restaurant < ActiveRecord::Base
 
   has_many :media_newsletter_subscriptions, :dependent => :destroy
 
-  has_many :page_views, :as => :page_owner, :dependent => :destroy
-
+  has_many :page_views ,:as => :page_owner
+  
 
   # For pagination
   cattr_reader :per_page
