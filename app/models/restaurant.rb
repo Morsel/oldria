@@ -155,7 +155,9 @@ class Restaurant < ActiveRecord::Base
   attr_accessor :restaurant_role_virtual
 
   has_many :media_newsletter_subscriptions, :dependent => :destroy
-  
+
+  has_many :page_views, :as => :page_owner, :dependent => :destroy
+
 
   # For pagination
   cattr_reader :per_page

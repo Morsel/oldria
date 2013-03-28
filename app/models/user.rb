@@ -113,7 +113,7 @@ class User < ActiveRecord::Base
 
   has_and_belongs_to_many :metropolitan_areas
   has_many :media_newsletter_subscriptions, :dependent => :destroy, :foreign_key => "media_newsletter_subscriber_id"
-  
+  has_many :page_views, :as => :page_owner, :dependent => :destroy
 
   attr_accessor :send_invitation, :agree_to_contract, :invitation_sender, :password_reset_required
 
