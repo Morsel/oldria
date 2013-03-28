@@ -258,6 +258,7 @@ class RestaurantsController < ApplicationController
       @visitors = []
       visitors = @restaurant.page_views.map(&:user).uniq!      
       @visitors = visitors.zip(@restaurant.restaurant_visitors).flatten.compact # old was .user_restaurant_visitors
+      @visitors.uniq!
 
   end
 
@@ -298,6 +299,7 @@ class RestaurantsController < ApplicationController
         flash[:notice] = "Please select csv file. "
          redirect_to newsletter_subscriptions_restaurant_path
     end 
+
   end
   
 
