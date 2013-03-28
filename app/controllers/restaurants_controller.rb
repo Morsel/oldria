@@ -257,6 +257,7 @@ class RestaurantsController < ApplicationController
       @visitors = []
       visitors = @restaurant.page_views.map(&:user).uniq!      
       @visitors = visitors.zip(@restaurant.restaurant_visitors).flatten.compact # old was .user_restaurant_visitors
+      @visitors.uniq!
   end
   def media_subscribe     
     if current_user.media?   
