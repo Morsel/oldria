@@ -254,7 +254,8 @@ class RestaurantsController < ApplicationController
     redirect_to root_path
   end
   def restaurant_visitors
-      @visitors = @restaurant.user_restaurant_visitors
+      redirect_to :action => :edit
+      #@visitors = @restaurant.user_restaurant_visitors # will be use when redirect_to removed
   end
   def media_subscribe     
     if current_user.media?   
