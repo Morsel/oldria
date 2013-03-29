@@ -18,14 +18,21 @@
 
   <%= yield(:javascript) %>
 
-  <% if current_user.try(:media?) && (@user.present? || @restaurant.present?) -%>
+  <% if current_user.try(:media?) && (@user.present? || @restaurant.present? || @menu_item.present?) -%>
   <script type="text/javascript">
-	params = { page_view: { url: window.location.toString(),
-		                    user_id: <%= current_user.id %>,
-							title: "<%= @content_for_title %>",
-							page_owner_id: <%= @restaurant.try(:id) || @user.try(:id) %>,
-							page_owner_type: "<%= @restaurant.try(:class) || @user.try(:class) %>" } };
-	$.post("/page_views", params);
+
+  params = { page_view: { url: window.location.toString(),
+                        user_id: <%= current_user.id %>,
+              title: "<%= @content_for_title %>",
+              page_owner_id: <%= @restaurant.try(:id) || @user.try(:id) %>,
+              page_owner_type: "<%= @restaurant.try(:class) || @user.try(:class) %>" } };
+
+              if("<%=@menu_item.try(:class)%>" == "MenuItem" || <%=@promotions.present?%>)
+              {
+                params.page_view.page_type = "<%=@menu_item.try(:class) || 'Promotion' %>"
+                params.page_view.page_id   = "<%=@menu_item.try(:id)|| 0 %>"
+              }
+    $.post("/page_views", params);
   </script>
   <% end -%>
 </body>
