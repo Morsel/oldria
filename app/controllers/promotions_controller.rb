@@ -1,7 +1,7 @@
 class PromotionsController < ApplicationController
 
   before_filter :find_restaurant
-  before_filter :require_manager, :except => [:index]
+  before_filter :require_manager, :except => [:index,:details]
   before_filter :social_redirect, :only => [:edit]
 
   def index
@@ -61,6 +61,7 @@ class PromotionsController < ApplicationController
     redirect_to edit_restaurant_promotion_path(@restaurant, @promotion)
   end
 
+
   def facebook_post
     @promotions = @restaurant.promotions.find(params[:id])
     social_post = SocialPost.find(params[:social_id])
@@ -68,6 +69,12 @@ class PromotionsController < ApplicationController
     flash[:notice] = "Posted #{social_post.message} to Facebook page"
     redirect_to restaurant_social_posts_path(@restaurant)
   end
+
+  def details     
+    @promotion = Promotion.find(params[:id]) 
+    @restaurant = @promotion.restaurant     
+  end  
+
 
   private
 
