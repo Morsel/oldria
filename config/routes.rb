@@ -226,8 +226,10 @@ ActionController::Routing::Routes.draw do |map|
     restaurant.resources :a_la_minute_answers, :collection => { :bulk_update => :put, :bulk_edit => :get },:member => { :delete_attachment => :post,:facebook_post => :post }
     restaurant.resource :subscription, :collection => { :bt_callback => :get, :billing_history => :get },
                                        :controller => 'subscriptions'
+
     restaurant.resources :promotions, :member => { :delete_attachment => :post, :facebook_post => :post}
-    restaurant.resources :menu_items, :member => { :facebook_post => :post }
+    restaurant.resources :menu_items, :member => { :facebook_post => :post , :details => :get}
+
     restaurant.resources :press_releases, :collection => { :archive => :get }
 
     restaurant.behind_the_line 'behind_the_line', :controller => 'restaurants/behind_the_line', :action => 'index'

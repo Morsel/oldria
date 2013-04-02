@@ -22,7 +22,13 @@
 
         <%- if menu_item.description.present? -%>
         <p>
-            <%= Loofah::Helpers.sanitize(menu_item.description) %>
+            <% if local_assigns[:dashboard]  -%>                  
+                <%=truncate(Loofah::Helpers.strip_tags(menu_item.description), :length => 240, :omission => (link_to(" more &raquo;", details_restaurant_menu_item_path(menu_item.restaurant,menu_item)).to_s)) %>
+               <% else %>
+                <%= Loofah::Helpers.sanitize(menu_item.description) %>
+            <%- end %>
+
+
         </p>
         <%- end -%>
 
