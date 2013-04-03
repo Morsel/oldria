@@ -1,6 +1,6 @@
 <% div_for menu_item do %>
     <div class="activity_header">
-        <h3>On the Menu</h3>
+        <h3>On the Menu 1</h3>
         <p class="name">
             <%= menu_item.name %>
         </p>
@@ -9,7 +9,7 @@
         <%= render :partial => "restaurants/identity", :locals => { :restaurant => menu_item.restaurant } %>
         <div class="user_comment"> 
             <% if local_assigns[:dashboard]  -%>                  
-                <%=truncate(Loofah::Helpers.strip_tags(menu_item.description), :length => 240, :omission => (link_to(" more &raquo;", restaurant_menu_items_path(menu_item.restaurant)).to_s)) %>
+                <%=truncate(Loofah::Helpers.strip_tags(menu_item.description), :length => 140, :omission => (link_to(" more &raquo;", details_restaurant_menu_item_path(menu_item.restaurant,menu_item)).to_s)) %>
                <% else %>
                 <%= menu_item.description %>
             <%- end %>
