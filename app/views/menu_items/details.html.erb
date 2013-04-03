@@ -1,0 +1,10 @@
+ <% title "On the Menu At #{@restaurant.name}" %>
+
+<%= render :partial=> "spoonfeed/menu_items/menu_item",:locals => { :buttons => true } %>
+
+<h2 class="clear">Also at <%= @restaurant.name %></h2>
+
+<%@restaurant.menu_items.all(:order => "created_at DESC", :limit => 6).reject { |m| m == @menu_item }.each do |menu_item|  %>
+	<%= render :partial=> "spoonfeed/menu_items/menu_item",:locals => { :menu_item => menu_item ,:dashboard =>true } %>
+
+<% end %>
