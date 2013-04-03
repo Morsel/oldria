@@ -146,6 +146,7 @@ class Restaurant < ActiveRecord::Base
   preference :publish_profile, :default => true
   
   has_many :media_newsletter_subscriptions, :dependent => :destroy
+
   has_many :page_views, :as => :page_owner, :dependent => :destroy
 
 
