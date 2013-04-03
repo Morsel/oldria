@@ -1,7 +1,7 @@
 class PromotionsController < ApplicationController
 
   before_filter :find_restaurant
-  before_filter :require_manager, :except => [:index]
+  before_filter :require_manager, :except => [:index,:details]
   before_filter :social_redirect, :only => [:edit]
 
   def index
@@ -60,6 +60,11 @@ class PromotionsController < ApplicationController
     flash[:notice] = "Deleted attachment"
     redirect_to edit_restaurant_promotion_path(@restaurant, @promotion)
   end
+
+  def details     
+    @promotion = Promotion.find(params[:id]) 
+    @restaurant = @promotion.restaurant     
+  end  
 
   private
 
