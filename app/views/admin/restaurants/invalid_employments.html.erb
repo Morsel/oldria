@@ -1,0 +1,13 @@
+<% title "Envalid Restaurants" %>
+
+<% table_for(@employments) do |t| %>
+  
+  <% t.data do
+      t.cell :employee
+      t.cell :restaurant
+      t.cell (:message) {|p| p.errors.full_messages.to_sentence }
+      t.cell (:action) {|p| link_to "Edit",edit_restaurant_employee_path(p.restaurant,p.employee) }
+
+  end %>
+
+<% end -%>

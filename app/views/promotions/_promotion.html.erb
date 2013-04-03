@@ -11,7 +11,7 @@
     <div class="user_comment">
         <%= render :partial => "restaurants/identity", :locals => { :restaurant => promotion.restaurant } %>
         <div class="user_comment">
-            <%=truncate(Loofah::Helpers.sanitize(promotion.details), :length => 240, :omission => (link_to(" more &raquo;", restaurant_promotions_path(promotion.restaurant)).to_s)) %>
+            <%=truncate(Loofah::Helpers.strip_tags(promotion.details), :length => 240, :omission => (link_to(" more &raquo;", restaurant_promotions_path(promotion.restaurant)).to_s)) %>
             <%# if promotion.details.size > 200 -%>
                   <%#= link_to "more &raquo;", restaurant_promotions_path(promotion.restaurant) %>
             <%#- end %>

@@ -5,7 +5,9 @@ ActionController::Routing::Routes.draw do |map|
   map.fb_login 'facebook_login', :controller => 'user_sessions', :action => 'create_from_facebook'
 
   map.join 'join_us', :controller => "join", :action => "index"
+  map.soapbox_join 'soapbox/join_us', :controller => "join", :action => "soapbox_join"  
   map.registration 'register', :controller => "join", :action => "register"
+  map.soapbox_registration 'soapbox_register', :controller => "join", :action => "soapbox_register"
   map.confirm 'confirm/:id', :controller => 'users', :action => 'confirm'
   map.save_confirmation 'save_confirmation/:user_id', :controller => 'users', :action => 'save_confirmation'
   map.resources :invitations, :only => ['new', 'create', 'show'],
@@ -223,7 +225,7 @@ ActionController::Routing::Routes.draw do |map|
     restaurant.resource :subscription, :collection => { :bt_callback => :get, :billing_history => :get },
                                        :controller => 'subscriptions'
     restaurant.resources :promotions, :member => { :delete_attachment => :post }
-    restaurant.resources :menu_items, :member => { :facebook_post => :post }
+    restaurant.resources :menu_items, :member => { :facebook_post => :post, :details => :get}
     restaurant.resources :press_releases, :collection => { :archive => :get }
 
     restaurant.behind_the_line 'behind_the_line', :controller => 'restaurants/behind_the_line', :action => 'index'
@@ -369,6 +371,8 @@ ActionController::Routing::Routes.draw do |map|
 
     admin.resources :testimonials
     admin.resources :brain_tree_webhook,:collection => {:varify => :any}
+
+    admin.invalid_employments 'invalid_employments',:controller => "restaurants", :action => "invalid_employments"
   end
 
   # Not in use?

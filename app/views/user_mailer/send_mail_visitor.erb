@@ -3,7 +3,7 @@
 <h3>Hello <%=@visitor_obj.restaurant.manager.try(:name)%>!</h3>
 
 <h1 id="salutation" style="font-size: 20px; line-height: 26px; margin: 12px 0;"> Restaurant Name: <%=@visitor_obj.restaurant.try(:name).try(:capitalize)%></h1>
-
+<% if false %> <!-- Breaking the execution for temparory -->
 <% unless @userrestaurantvisitor.blank? %>
 		<p> You have following Diner visitors:</p>
 		<ul>
@@ -12,13 +12,24 @@
 		<%end%>
 		</ul>
 <% end %>
+<% end %>
 
 <% unless @media_visitors.blank? %>
-	<p> You have following Media visitors.</p>	
+	<p> Media have been checking out your profile from the following publications:</p>	
 	<ul>
-	<%@media_visitors.each do |media_visitor| %>
-	  	  <li><%=link_to media_visitor.try(:name),soapbox_profile_url(media_visitor.username)%></li>
-	<%end%>
+		<%@media_visitors.each do |media_visitor| %>
+				<% unless media_visitor.publication.blank? %>
+			  	<li>
+			  		<%= media_visitor.publication %>
+			  		<%#=link_to(media_visitor.try(:name),soapbox_profile_url(media_visitor.username))%>			  		
+			  	</li>
+			  <%else%>
+		  		<li>Freelance Writer</li>
+		  	<%end%>
+		<%end%>
 	</ul>
+	<%else%>
+	<p> You have <%=@media_visitors.count %>Media visitors.</p>
 <%end%>	
+
 <%= render :partial => 'email_footer' %>
