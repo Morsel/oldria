@@ -152,11 +152,10 @@ class Restaurant < ActiveRecord::Base
 
   preference :publish_profile, :default => true
 
-  attr_accessor :restaurant_role_virtual
-
   has_many :media_newsletter_subscriptions, :dependent => :destroy
 
-  has_many :page_views ,:as => :page_owner
+  has_many :page_views, :as => :page_owner, :dependent => :destroy
+
   
 
   # For pagination

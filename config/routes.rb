@@ -227,8 +227,10 @@ ActionController::Routing::Routes.draw do |map|
     restaurant.resource :subscription, :collection => { :bt_callback => :get, :billing_history => :get },
                                        :controller => 'subscriptions'
 
+
     restaurant.resources :promotions, :member => { :delete_attachment => :post, :facebook_post => :post ,:details => :get}
     restaurant.resources :menu_items, :member => { :facebook_post => :post , :details => :get}
+
 
 
     restaurant.resources :press_releases, :collection => { :archive => :get }
