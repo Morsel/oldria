@@ -2,7 +2,7 @@ class MenuItemsController < ApplicationController
 
   before_filter :require_user
 
-  before_filter :require_manager, :except => [:index,:get_keywords,:add_keywords]
+  before_filter :require_manager, :except => [:index,:get_keywords,:add_keywords,:details]
   before_filter :social_redirect, :only => [:edit]
 
 
@@ -77,6 +77,11 @@ class MenuItemsController < ApplicationController
     find_restaurant    
     UserMailer.deliver_add_keyword_request(@restaurant.name, params[:keywords])
     render :text=>"Request sent to admin,Wait for approval."  
+  end
+
+  def details
+    @menu_item = MenuItem.find(:first,:conditions=>["menu_items.id= ?",params[:id]])     
+    @restaurant = @menu_item.restaurant
   end
 
   private

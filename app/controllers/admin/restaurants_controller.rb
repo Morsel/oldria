@@ -1,5 +1,5 @@
 class Admin::RestaurantsController < Admin::AdminController
-  before_filter :find_restaurant, :except => :index
+  before_filter :find_restaurant, :except => [:index,:invalid_employments]
 
   def index
     @restaurants = Restaurant.find(:all, :include => [:manager, :cuisine], :order => :sort_name)
@@ -51,7 +51,12 @@ class Admin::RestaurantsController < Admin::AdminController
 
   def edit_photos
   end
-
+  def invalid_employments
+    @employments = []
+    Restaurant.all.each do |e| 
+      e.employments.map{|emp| @employments << emp unless emp.valid? }
+    end
+  end   
   private
 
   def find_restaurant

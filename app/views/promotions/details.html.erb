@@ -1,0 +1,8 @@
+ <% title "Newsfeed At #{@restaurant.name}" %>
+
+<%= render :partial=>"spoonfeed/promotions/promotion",:locals => {:dashboard=>true, :buttons => true } %>
+
+<h2 class="clear">Also at <%= @restaurant.name %></h2>
+<%@restaurant.promotions.all(:order => "created_at DESC", :limit => 6).reject { |m| m == @promotion }.each do |promotion|  %> 
+		<%= render :partial=>"spoonfeed/promotions/promotion",:locals => { :promotion => promotion} %>
+<% end %>
