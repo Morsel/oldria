@@ -24,11 +24,11 @@
                         user_id: <%= current_user.id %>,
               title: "<%= @content_for_title %>",
               page_owner_id: <%= @restaurant.try(:id) || @user.try(:id) %>,
-              page_owner_type: "<%= @restaurant.try(:class) || @user.try(:class) %>" } };
-
-              if("<%=@menu_item.try(:class)%>" == "MenuItem" || "<%=@promotions.blank?%>" == "true")
+              page_owner_type: "<%= @restaurant.try(:class) || @user.try(:class) %>" } 
+            };
+              if("<%=@menu_item.try(:class)%>" == "MenuItem" || <%=@promotions.present?%>)
               {
-                params.page_view.page_type = "<%=@menu_item.try(:class) || 'Promotions' %>"
+                params.page_view.page_type = "<%=@menu_item.try(:class) || 'Promotion' %>"
                 params.page_view.page_id   = "<%=@menu_item.try(:id)|| 0 %>"
               }
     $.post("/page_views", params);
