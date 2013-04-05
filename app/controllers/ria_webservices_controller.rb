@@ -89,6 +89,7 @@ class RiaWebservicesController < ApplicationController
 
   def save_session
     if @user_session.save
+        status = true
         user = @user_session.user
         @user_restaurants =user.restaurants
         @restaurants = @user_restaurants.find(:all ,:select=>"restaurants.id,name")
@@ -97,7 +98,7 @@ class RiaWebservicesController < ApplicationController
             if @push_notification_user.update_attributes(params[:push_notification_user])
               status = true
             else
-              status = false    
+              status = true    
             end
         else
             pnu = PushNotificationUser.new params[:push_notification_user]
@@ -105,7 +106,7 @@ class RiaWebservicesController < ApplicationController
                 pnu.update_attributes(:user=>current_user)
                 status = true
               else
-                status = false  
+                status = true  
               end
          end 
         render :json => {:status=>status,:restaurants=>@restaurants}
