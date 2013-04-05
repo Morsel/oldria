@@ -246,6 +246,11 @@ form, #main form{
 				text-decoration: none;
 			}
 		}
+		a.unsubscribe,a.subscribe{
+			text-transform:none;
+			font-size: 12px;
+			font-family: Georgia,​serif;	
+		}
 		&#topic_title{
 			font:normal 14px "Helvetica Neue", Helvetica, Arial, sans-serif;
 			margin:0 0 5px;
