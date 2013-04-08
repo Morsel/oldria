@@ -19,7 +19,7 @@
 			<td><%= truncate(media_request_with_reply.message, :length => 50)   %></td>
 			<% if media_request_with_reply.class.to_s == 'MediaRequestDiscussion'%>
 				<td><% media_request_with_reply.restaurant.employees.each do |employee| %>
-						<%= link_to employee.try(:name),media_request_discussion_path  %>
+						<%= link_to employee.try(:name),media_request_discussion_path(media_request_with_reply)  %>
 				    <% end %>
 			  </td>
 			  <td><%= media_request_with_reply.restaurant.try(:name) %></td>
