@@ -17,6 +17,28 @@ class RiaWebservicesController < ApplicationController
   layout false
   include ALaMinuteAnswersHelper
 
+  def api_register    
+
+    if params[:role] == "diner" && !params[:url].blank?
+      @subscriber = NewsletterSubscriber.build_from_registration(params)
+      if @subscriber.save
+        status = true
+      else
+        status = false
+      end
+    end
+    
+    unless params[:url].blank?
+      url = params[:url]
+      url = "#{url}" unless url.match(/\.$/)
+      url = "http://#{url}" unless url.match(/^https?:\/\//)      
+      status ? redirect_to([url, '?success=1'].join) : redirect_to([url, '?success=0'].join)
+     else
+      render :text=>"Return url not found." 
+    end
+      
+  end
+    
 
   def register    
      message = []
@@ -69,24 +91,25 @@ class RiaWebservicesController < ApplicationController
 
   def save_session
     if @user_session.save
+        status = true
         user = @user_session.user
         @user_restaurants =user.restaurants
         @restaurants = @user_restaurants.find(:all ,:select=>"restaurants.id,name")
         unless user.push_notification_user.nil?
-            @push_notification_user = user.push_notification_user
-            if @push_notification_user.update_attributes(eval(params[:push_notification_user]))
+            @push_notification_user = user.push_notification_user        
+            if @push_notification_user.update_attributes(params[:push_notification_user])
               status = true
             else
-              status = false    
+              status = true    
             end
         else
-              pnu = PushNotificationUser.new(eval params[:push_notification_user])
-                if(pnu.save) 
-                  pnu.update_attributes(:user=>current_user)
-                    status = true
-                else
-                    status = false  
-                end
+            pnu = PushNotificationUser.new params[:push_notification_user]
+              if(pnu.save) 
+                pnu.update_attributes(:user=>current_user)
+                status = true
+              else
+                status = true  
+              end
          end 
         render :json => {:status=>status,:restaurants=>@restaurants}
 
@@ -137,8 +160,7 @@ end
   def bulk_update  
 
     status = false
-    message = "Your changes was not saved"
-    params[:a_la_minute_questions] = eval(params[:a_la_minute_questions])    
+    message = "Your changes was not saved"      
    
     params[:a_la_minute_questions].each do |id, attributes|
       no_twitter_crosspost = attributes[:no_twitter_crosspost]
@@ -241,12 +263,7 @@ end
   end
   
   def create_comments
-    unless params[:media_request_discussion_id].blank? 
-      @comment = @parent.comments.build(params[:comment])
-      else  
-      @comment = @parent.comments.build(eval(params[:comment]))
-    end
-    
+    @comment = @parent.comments.build(params[:comment])
     @comment.user_id ||= current_user.id
     @is_mediafeed = params[:mediafeed]
     if  (params[:media_request_discussion_id].blank? && @parent.comments_count == 0) || !params[:media_request_discussion_id].blank?
@@ -463,5 +480,4 @@ end
       render :json =>{:status=>false,:message=>"Login failed"}
     end
   end
-
 end
