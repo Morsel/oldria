@@ -310,7 +310,7 @@ ActionController::Routing::Routes.draw do |map|
   map.namespace :admin do |admin|
     admin.root      :controller => 'admin'
 
-    admin.resources :users
+    admin.resources :users, :member=>{:impersonator => :get}
     admin.resources :pages
     admin.resources :feeds, :collection => { :sort => [:post, :put] }
     admin.resources :feed_categories

@@ -85,5 +85,16 @@ class Admin::UsersController < Admin::AdminController
     end
   end
 
-  
+  def impersonator  
+    session = UserSession.find
+    #session.destroy
+    user = User.find(params[:id])   
+    if UserSession.create(user).valid?
+      flash[:notice] = "Your are logged in as #{user.try(:name)}"
+      redirect_to root_path
+    else
+      flash[:error] = "#{user.try(:name)} has not activated his account."
+      redirect_to admin_users_path
+    end  
+  end  
 end
