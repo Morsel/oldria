@@ -46,7 +46,7 @@
 			t.cell :sender
 			t.cell(:recipients) {|r| r.discussions.size }
 			t.cell :subject_matter, :heading => "Type / Subject Matter"
-			t.cell(:message) {|r| truncate(r.message, :length => 50)}
+			t.cell(:message) {|r| link_to truncate(r.message, :length => 50),media_requests_list_admin_media_request_path(r) }
 			t.cell(:replies) {|r| list_and_link_replies(r) }
 			t.cell :due_date
 		end %>
