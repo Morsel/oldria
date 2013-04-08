@@ -189,6 +189,14 @@ class UserMailer < ActionMailer::Base
     sent_on     Time.now
     subject     "Spoonfeed: We are sorry!"
   end  
+  
+  def media_mail(users,media_request,discussion)
+    from        'notifications@restaurantintelligenceagency.com'
+    recipients  users.kind_of?(Array) ? users.map(&:email) : users.email
+    sent_on     Time.now
+    subject     "Spoonfeed: Media Request Reminder!"
+    body        :responders => users,:media_request => media_request ,:discussion =>discussion
+  end  
 
 
 end
