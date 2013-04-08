@@ -56,6 +56,7 @@ class Admin::MediaRequestsController < Admin::AdminController
       mrd = MediaRequestDiscussion.find(params[:media_requests_discussion])
       UserMailer.deliver_media_mail(mrd.restaurant.employees,mrd.media_request,mrd)
     end    
+    flash[:success] = "Successfully notified to users."
     redirect_to media_requests_list_admin_media_request_path
   end 
 
