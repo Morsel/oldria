@@ -1,0 +1,17 @@
+Hello ,
+
+Media Requester name is <%=@media_request.sender.try(:name) %>
+
+Media Requester's email Id <%=@media_request.sender.try(:email) %>
+
+<% correct_discussion_url = @discussion.is_a?(MediaRequestDiscussion) ? media_request_discussion_url(@discussion) : solo_media_discussion_url(@discussion) -%>
+
+<h3 id="messagetype" style="color: #bbb; font-size: 11px; font-weight: normal; letter-spacing: 2px; line-height: 14px; margin: 0 0 13px; text-transform: uppercase;"><%= @media_request.subject_matter.try(:name) || "Media Request" %></h3>
+
+<p id="messagemessage" style="font-size: 14px;">
+  <%= @media_request.publication_string %> has a question for <%= @discussion.recipient_name %>.
+</p>
+
+<p id="messagelink" style="clear: both; font-size: 16px;">
+  <a href="<%= correct_discussion_url %>" style="color: #cc6632; font-weight: bold; text-decoration: none;">Respond to this Media Request &raquo;</a></p>
+  
