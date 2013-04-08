@@ -2,7 +2,7 @@ class Admin::MediaRequestsController < Admin::AdminController
 
   # GET /admin/media_requests
   def index
-    @media_requests = MediaRequest.find(:all, :include => :media_request_discussions, :order => "id DESC",:limit => 5)
+    @media_requests = MediaRequest.find(:all, :include => :media_request_discussions, :order => "id DESC")
     @approved_media_requests = @media_requests.select(&:approved?)
     @pending_media_requests = @media_requests.select(&:pending?)
   end

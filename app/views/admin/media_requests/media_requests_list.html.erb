@@ -69,7 +69,7 @@
 
 			<% else %> 
 
-				<td> SOlo<%= link_to media_request_without_reply.employee.try(:name),send_media_mail_admin_media_request_path({:solo_media_discussion=>media_request_without_reply}) %></td>
+				<td> <%= link_to media_request_without_reply.employee.try(:name),send_media_mail_admin_media_request_path({:solo_media_discussion=>media_request_without_reply}) %></td>
 
 				<td><% media_request_without_reply.employee.restaurants.each do |restaurant| %>
 						<%= restaurant.try(:name) %>
