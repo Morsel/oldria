@@ -2,7 +2,7 @@ class Admin::MediaRequestsController < Admin::AdminController
 
   # GET /admin/media_requests
   def index
-    @media_requests = MediaRequest.find(:all, :include => :media_request_discussions, :order => "id DESC")
+    @media_requests = MediaRequest.find(:all, :include => :media_request_discussions, :order => "id DESC",:limit => 5)
     @approved_media_requests = @media_requests.select(&:approved?)
     @pending_media_requests = @media_requests.select(&:pending?)
   end
@@ -41,4 +41,23 @@ class Admin::MediaRequestsController < Admin::AdminController
       redirect_to admin_media_requests_path
     end
   end
+
+  def media_requests_list
+    @media_request = MediaRequest.find(params[:id])
+    @media_requests_with_replies = @media_request.discussions_with_comments
+    @media_requests_without_replies = @media_request.discussions_without_comments
+  end  
+
+  def send_media_mail
+    if !params[:solo_media_discussion].nil?
+       smdc = SoloMediaDiscussion.find(params[:id])
+       UserMailer.deliver_media_mail(smdc.employee,smdc.media_request,smdc)
+    else  
+      mrd = MediaRequestDiscussion.find(params[:media_requests_discussion])
+      UserMailer.deliver_media_mail(mrd.restaurant.employees,mrd.media_request,mrd)
+    end    
+    redirect_to media_requests_list_admin_media_request_path
+  end 
+
+
 end

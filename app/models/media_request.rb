@@ -81,6 +81,10 @@ class MediaRequest < ActiveRecord::Base
     media_request_discussions.with_comments + solo_media_discussions.with_comments
   end
 
+  def discussions_without_comments
+    (media_request_discussions  + solo_media_discussions ) - discussions_with_comments
+  end 
+  
   def reply_count
     @reply_count ||= media_request_discussions.with_comments.count + solo_media_discussions.with_comments.count
   end
