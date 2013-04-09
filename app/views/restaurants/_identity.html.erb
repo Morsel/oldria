@@ -16,7 +16,7 @@
                 <%= restaurant.metropolitan_area.try(:name) %>
             </li>
         <%- end -%>
-        <li class="metro_area">
+        <li class="subscribe">
             <% if current_user.nil? || (!current_user.nil? && !current_user.media? && !current_user.admin?) %>
                  <% if @subscriber.present? && @subscriber.has_subscription(restaurant) %>
                   <%= link_to 'Unsubscribe', unsubscribe_soapbox_restaurant_path(restaurant, :subscriber_id => @subscriber.id), :method => "post" ,:class=>"unsubscribe" %>
