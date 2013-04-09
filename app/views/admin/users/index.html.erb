@@ -29,6 +29,7 @@
             <th>Sub. Date</th>
             <th class="{sorter: false}"></th>
             <th class="{sorter: false}"></th>
+            <th class="{sorter: false}"></th>
         </tr>
     </thead>
     <tbody>
@@ -49,6 +50,10 @@
             <td class="actions destroy_link">
                 <%= link_to 'Destroy', admin_user_path(user), :confirm => 'Are you sure? This action CANNOT be undone', 
                     :method => :delete %>
+            </td>
+            <td class="actions edit_link">
+                <%= link_to 'Impersonator', impersonator_admin_user_path(user), :confirm => "Are you sure? want to logged in as #{user.try(:name)}"
+                    %>
             </td>
         </tr>
       <% end %>
