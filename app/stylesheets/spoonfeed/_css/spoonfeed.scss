@@ -250,6 +250,16 @@ form, #main form{
 			text-transform:none;
 			font-size: 12px;
 			font-family: Georgia,​serif;	
+			background-image: url("/images/soapbox/share-actions.png");
+	    background-position: 0 8px;
+	    background-repeat: no-repeat;
+	    display: inline;
+	    font-family: 'MuseoSlab700','Helvetica Neue',Helvetica,arial,sans-serif;
+	    font-size: 12px;
+	    font-weight: normal !important;
+	    margin: 0;
+	    padding: 6px 0 4px 18px;
+	    width: 65%;
 		}
 		&#topic_title{
 			font:normal 14px "Helvetica Neue", Helvetica, Arial, sans-serif;
@@ -4513,4 +4523,13 @@ a.subscribe_btn {
 }
 .metro_area .unsubscribe{
 	width: 70% !important;
+}
+#dashboard{
+	.unsubscribe{
+		 margin-left: 18px;
+	}
+	.subscribe{
+		 margin-left: 18px;
+	}
+
 }
