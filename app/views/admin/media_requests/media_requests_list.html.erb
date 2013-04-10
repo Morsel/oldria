@@ -1,13 +1,14 @@
 
-<% title "Media Requests list" %>
+<% title  "#{@media_request.sender.name}"+ ":" + "#{@media_request.message}" %>
+
 <h3>User who responded</h3>
 <% if @media_requests_with_replies.present? %>
 <table id="pending_media_requests">
 	<thead>
-		<tr>
+		<tr >
 			<th>Sender</th>
-			<th>Message</th>
 			<th>Recipients</th>
+			<th>Message</th>
 			<th>Restaurants</th>
 			<th></th><th></th><th></th>
 		</tr>
@@ -16,12 +17,13 @@
 		<% @media_requests_with_replies.each do |media_request_with_reply| -%>
 		<tr>
 			<td><%= media_request_with_reply.media_request.sender.try(:name) %></td>
-			<td><%= truncate(media_request_with_reply.message, :length => 50)   %></td>
+			
 			<% if media_request_with_reply.class.to_s == 'MediaRequestDiscussion'%>
-				<td><% media_request_with_reply.restaurant.employees.each do |employee| %>
-						<%= link_to employee.try(:name),media_request_discussion_path(media_request_with_reply)  %>
+				<td ><% media_request_with_reply.restaurant.employees.each do |employee| %>
+						<%= link_to employee.try(:name),media_request_discussion_path  %>
 				    <% end %>
 			  </td>
+			  <td><%= truncate(media_request_with_reply.message, :length => 50)   %></td>
 			  <td><%= media_request_with_reply.restaurant.try(:name) %></td>
 			<% else %> 
 
@@ -48,8 +50,8 @@
 	<thead>
 		<tr>
 			<th>Sender</th>
-			<th>Message</th>
 			<th>Recipients</th>
+			<th>Message</th>
 			<th>Restaurants</th>
 			<th></th><th></th><th></th>
 		</tr>
@@ -57,19 +59,23 @@
 	<tbody>
 		<% @media_requests_without_replies.each do |media_request_without_reply| -%>
 		<tr>
-			<td><%= media_request_without_reply.media_request.sender.try(:name) %></td>
-			<td><%= truncate(media_request_without_reply.message, :length => 50)  %></td>
+			<td style="width:10px;"><%= media_request_without_reply.media_request.sender.try(:name) %></td>
+	
 			<% if media_request_without_reply.kind_of? MediaRequestDiscussion %>	
 				<td>
-						<%= link_to media_request_without_reply.restaurant.employments.map(&:employee).map(&:name).to_sentence,send_media_mail_admin_media_request_path({:media_requests_discussion =>media_request_without_reply}) %>
+						<%#= link_to media_request_without_reply.restaurant.employments.map(&:employee).map(&:name).to_sentence,send_media_mail_admin_media_request_path({:media_requests_discussion =>media_request_without_reply}) %>
+					<%= mail_to media_request_without_reply.restaurant.employments.map(&:employee).map(&:email).join(",") ,media_request_without_reply.restaurant.employments.map(&:employee).map(&:name) %>	
 				
 			  </td>
 
+			  <td><%= truncate(media_request_without_reply.message, :length => 50)  %></td>
 			  <td><%= media_request_without_reply.restaurant.try(:name) %></td>
 
 			<% else %> 
-
-				<td> <%= link_to media_request_without_reply.employee.try(:name),send_media_mail_admin_media_request_path({:solo_media_discussion=>media_request_without_reply}) %></td>
+     
+				<td><%#= link_to media_request_without_reply.employee.try(:name),send_media_mail_admin_media_request_path({:solo_media_discussion=>media_request_without_reply}) %>
+					<%= mail_to media_request_without_reply.employee.try(:email) ,media_request_without_reply.employee.try(:name) %>
+				</td>
 
 				<td><% media_request_without_reply.employee.restaurants.each do |restaurant| %>
 						<%= restaurant.try(:name) %>
