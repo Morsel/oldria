@@ -574,7 +574,6 @@ $('#metropolitan_areas_state_state_id').change(function(){
 
     });
 
-
    $('.skipp').live('click',function(e){
       e.preventDefault();
       $(this).closest('form').submit();      
@@ -582,6 +581,61 @@ $('#metropolitan_areas_state_state_id').change(function(){
 
     if(typeof(openColorBox) !== "undefined" )
       $.colorbox({href: openColorBoxPath,overlayClose: false,escKey:false });
+
+
+  $("#user_newsfeed_metropolitan_areas_input input[type=checkbox]").click(function(){
+    if($("#user_newsfeed_metropolitan_areas_input input:checkbox:checked").length>0)
+    {
+      $("#regional_newsfeed_promotion_type").show('slow')
+    }else
+    {
+      $("#regional_newsfeed_promotion_type").hide('slow')
+    }
+
+  })
+  $("#user_newsfeed_options").change(function(){
+        $('#newsfeed_option_national input').prop('checked', false);
+        $('#newsfeed_option_regional input').prop('checked', false);
+        $('#newsfeed_option_locals input').prop('checked', false);
+        $("#metropolitan_areas_state_cities").html("")
+        $("#metropolitan_areas_state_state_id option[value='']").attr("selected", "selected");
+      if($(this).val() == "")
+      {
+        $('#newsfeed_option_national').hide('slow')
+        $('#newsfeed_option_regional').hide('slow')
+        $('#newsfeed_option_locals').hide('slow')
+
+        
+
+      }else{
+        if($(this).val()==1)
+        {
+          $('#newsfeed_option_national').show('slow')
+          $('#newsfeed_option_regional').hide('slow')
+          $('#newsfeed_option_locals').hide('slow')
+/*          $('#newsfeed_option_regional input').prop('checked', false);
+          $('#newsfeed_option_locals input').prop('checked', false);
+          $("#metropolitan_areas_state_state_id option[value='']").attr("selected", "selected");*/
+
+        }        
+        else if($(this).val()==2)
+          {
+            $('#newsfeed_option_regional').show('slow')
+            $('#newsfeed_option_national').hide('slow')
+/*            $('#newsfeed_option_national input').prop('checked', false);
+            $('#newsfeed_option_locals input').prop('checked', false);
+            $("#metropolitan_areas_state_state_id option[value='']").attr("selected", "selected");*/
+          }
+        else if($(this).val()==3)
+        {
+          $('#newsfeed_option_national').hide('slow')          
+          $('#newsfeed_option_regional').hide('slow')
+          $('#newsfeed_option_locals').show('slow')
+/*          $('#newsfeed_option_national input').prop('checked', false);*/
+        }
+      }
+
+    })
 
   // end $(document).ready
 });

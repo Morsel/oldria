@@ -38,6 +38,11 @@ class NewsletterSubscriber < ActiveRecord::Base
   named_scope :confirmed, {
     :conditions => "confirmed_at IS NOT NULL"
   }
+  cattr_accessor :media_writer_types
+  self.media_writer_types = {'National Writer' =>1,
+    'Regional Writer' =>2,
+    'Local Writer' =>3
+    }
 
   def confirm!
     self.update_attribute(:confirmed_at, Time.now)

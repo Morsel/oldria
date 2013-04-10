@@ -1068,7 +1068,7 @@ form#mediafeed_user {
   abbr[title=required] {
     color: red;
   }
-  li#user_metropolitan_areas_input ol li {
+  li#user_metropolitan_areas_input ol li ,li#user_newsfeed_metropolitan_areas_input ol li{
     float: left;
     width: 25%;
     label {
@@ -4556,6 +4556,7 @@ a.subscribe_btn {
 .metro_area .unsubscribe{
 	width: 70% !important;
 }
+
 #dashboard{
 	.unsubscribe{
 		 margin-left: 18px;
@@ -4563,5 +4564,8 @@ a.subscribe_btn {
 	.subscribe{
 		 margin-left: 18px;
 	}
-
+}
+.subscription-hints-li{
+	list-style:disc !important;
+	margin-left: 18px !important;
 }

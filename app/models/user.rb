@@ -158,6 +158,9 @@ class User < ActiveRecord::Base
   named_scope :visible, :conditions => ['visible = ? AND (role != ? OR role IS NULL)', true, 'media']
   named_scope :with_published_profile, :conditions => ["publish_profile = ?", true]
 
+  attr_accessor :newsfeed_options,:digest_options,:newsfeed_promotion_types ,:regional_newsfeed_promotion_types
+  has_and_belongs_to_many  :newsfeed_metropolitan_areas ,:class_name =>"MetropolitanArea"
+  accepts_nested_attributes_for :newsfeed_metropolitan_areas
 ### Preferences ###
   preference :hide_help_box, :default => false
   preference :receive_email_notifications, :default => true

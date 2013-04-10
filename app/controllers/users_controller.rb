@@ -65,6 +65,7 @@ class UsersController < ApplicationController
 
   def confirm
     @user = User.find_by_perishable_token(params[:id])
+    @promotionTypes = PromotionType.find(:all,:order=>"name").map(&:name)
     if @user
       # render the page
     elsif current_user
