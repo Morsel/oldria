@@ -35,7 +35,7 @@
             </div>
 
             <div id="newsfeed_option_regional" class="display-none">
-                <%= f.input :newsfeed_metropolitan_areas, :as => :check_boxes, :label => 'As a regional writer, I would like to receive Newsfeed items from the following regions:' %>
+                <%= f.input :james_beard_regions, :as => :check_boxes, :label => 'As a regional writer, I would like to receive Newsfeed items from the following regions:' ,:collection =>JamesBeardRegion.all %>
                  <% f.inputs :name => 'Regional promotion types', :id => 'regional_newsfeed_promotion_type', :class=>"display-none" do %>
                     <%= f.input :regional_newsfeed_promotion_types,:label=>false, :as => :check_boxes,:collection => @promotionTypes%>
                 <% end %>

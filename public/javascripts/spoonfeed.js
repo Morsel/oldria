@@ -541,8 +541,8 @@ $('#metropolitan_areas_state_state_id').change(function(){
       }
 
     });
-  $("#user_newsfeed_metropolitan_areas_input input[type=checkbox]").click(function(){
-    if($("#user_newsfeed_metropolitan_areas_input input:checkbox:checked").length>0)
+  $("#user_james_beard_regions_input input[type=checkbox]").click(function(){
+    if($("#user_james_beard_regions_input input:checkbox:checked").length>0)
     {
       $("#regional_newsfeed_promotion_type").show('slow')
     }else
