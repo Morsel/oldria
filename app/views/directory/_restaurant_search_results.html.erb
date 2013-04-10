@@ -1,6 +1,6 @@
 <div id="restaurant-results">
     <h3>Restaurants</h3>
     <% for restaurant in @restaurants %>
-    <%= render :partial => 'restaurants/identity_all', :locals => { :user => restaurant } %>
+    <%= render :partial => 'restaurants/identity', :locals => { :user => restaurant } %>
     <% end %>
 </div>
