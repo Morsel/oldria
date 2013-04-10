@@ -15,21 +15,6 @@
     <h3><%= promotion.headline %></h3>
     <div class="menu_item_main">
        <%= render :partial => 'restaurants/identity', :locals => { :restaurant => promotion.restaurant } %>
-       <% if(current_user.media? ) %>
-
-        <% if current_user.restaurant_newsletter_subscription(promotion.restaurant).blank? %>
-                <div class="meta menu_item_subscribe <% unless promotion.restaurant.logo && promotion.restaurant.logo.attachment? -%> no_avatar_1<% end -%>" >
-                    <%= link_to 'Subscribe', media_subscribe_restaurant_path(promotion.restaurant),:class=>"subscribe" %>
-                </div>
-                
-         <% else %>
-                <div class="meta menu_item_subscribe menu_items_unsubscribe <% unless promotion.restaurant.logo && promotion.restaurant.logo.attachment? -%> no_avatar<% end -%>" >
-                    <%= link_to 'Unsubscribe', media_subscribe_restaurant_path(promotion.restaurant),:class=>"subscribe" %>
-                </div>    
-            <% end %>                    
-        
-    <% end %> 
-        <div class="clear"></div>
     </div>
     <div class="fix-nesfeed-details">
         <div class="details" >
