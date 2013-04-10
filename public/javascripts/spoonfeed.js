@@ -573,7 +573,6 @@ $('#metropolitan_areas_state_state_id').change(function(){
       }
 
     });
-<<<<<<< HEAD
 
    $('.skipp').live('click',function(e){
       e.preventDefault();
