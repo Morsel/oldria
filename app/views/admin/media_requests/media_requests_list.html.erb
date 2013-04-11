@@ -1,0 +1,86 @@
+
+<% title  "#{@media_request.publication_string} has a question: #{@media_request.message}" %>
+
+<h3>User who responded</h3>
+<% if @media_requests_with_replies.present? %>
+<table id="pending_media_requests">
+	<thead>
+		<tr >
+			<th width="20%">Sender</th>
+			<th width="60%">Recipients</th>
+			<th width="20%">Restaurants</th>
+		</tr>
+	</thead>
+	<tbody>
+		<% @media_requests_with_replies.each do |media_request_with_reply| -%>
+		<tr>
+			<td ><%= media_request_with_reply.media_request.sender.try(:name) %></td>
+			
+			<% if media_request_with_reply.class.to_s == 'MediaRequestDiscussion' && media_request_with_reply.restaurant.present? %>
+				<td ><% media_request_with_reply.restaurant.employees.each do |employee| %>
+						<%= link_to employee.try(:name),media_request_discussion_path  %>
+				    <% end %>
+			  </td>
+			  <td><%= media_request_with_reply.restaurant.try(:name) %></td>
+			<% else %> 
+
+				<td><%= link_to media_request_with_reply.employee.try(:name),media_request_discussion_path %></td>
+
+				<td><% media_request_with_reply.employee.restaurants.each do |restaurant| %>
+						<%= restaurant.try(:name) %>
+				    <% end %>
+			  </td>
+			<% end %>
+
+			<td></td>
+		</tr>
+		<% end -%>
+	</tbody>
+</table>
+<% else %>
+	<p>No user found who have respond</p>
+<% end -%>
+
+<h3>User who do not respond</h3>
+<% if @media_requests_without_replies.present? %>
+<table id="pending_media_requests">
+	<thead>
+		<tr>
+			<th width="20%">Sender</th>
+			<th width="60%">Recipients</th>
+			<th width="20%">Restaurants</th>			
+		</tr>
+	</thead>
+	<tbody>
+		<% @media_requests_without_replies.each do |media_request_without_reply| -%>
+		<tr>
+			<td ><%= media_request_without_reply.media_request.sender.try(:name) %></td>
+	
+			<% if media_request_without_reply.kind_of? MediaRequestDiscussion %>	
+				<td>
+					<%= media_request_without_reply.restaurant.present? ? mail_to (media_request_without_reply.restaurant.employments.map(&:employee).map(&:email).join(",") ,media_request_without_reply.restaurant.employments.map(&:employee).map(&:name).join(" &nbsp; &nbsp;"),:body => media_request_without_reply.message) : "Restaurant Deleted" %>	
+				
+			  </td>
+
+			  <td><%= media_request_without_reply.restaurant.try(:name) %></td>
+
+			<% else %>      
+				<td>
+					<%= mail_to media_request_without_reply.employee.try(:email),media_request_without_reply.employee.try(:name),:body => media_request_without_reply.message %>
+				</td>
+
+				<td><% media_request_without_reply.employee.restaurants.each do |restaurant| %>
+						<%= restaurant.try(:name) %>
+				    <% end %>
+			  </td>
+			<% end %>
+			
+			<td></td>
+		
+		</tr>
+		<% end -%>
+	</tbody>
+</table>
+<% else %>
+	<p>No user found who didn't respond</p>
+<% end -%>
