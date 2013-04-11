@@ -58,11 +58,36 @@
 
             </div>  
 
-            <h3>Location(s) that I write for:</h3>
-            <%= f.input :national, :label => 'I would like to receive a national newsletter to keep abreast of national trends' %>
+            <!-- <h3>Location(s) that I write for:</h3>
+            <%#= f.input :national, :label => 'I would like to receive a national newsletter to keep abreast of national trends' %> -->
             <%#= f.input :metropolitan_areas, :as => :check_boxes, :label => 'I would like to receive local information for the following metro areas (check all that apply):' %>
             <h3> Digest Options </h3>
-                <%= f.input :digest_options, :as => :select,      :collection => NewsletterSubscriber.media_writer_types ,:include_blank => "Are you a.."%>
+                <%= f.input :digest_options, :as => :select,:label=>false, :collection => NewsletterSubscriber.media_writer_types ,:include_blank => "Are you a.."%>
+                
+            <div id="digest_option_national" class="display-none"> 
+                digest_option_national
+            </div>   
+            <div id="digest_option_regional" class="display-none"> 
+                regional
+            </div>
+            <div id="digest_option_locals" class="display-none"> 
+               <li>
+                    <fieldset>
+                        <legend class="label"> 
+                            <label for="user_metropolitan_areas">As a local writer, I would like to receive Newsfeed items from the following metro areas</label>
+                        </legend>                     
+                     </fieldset>
+                </li>
+                <%= select("digest_metropolitan_areas_state","state_id",options_for_select(MetropolitanArea.find(:all,:group=>"state",:conditions=>["state IS NOT NULL"]).map { |r| [r.state, r.state] },(@user.metropolitan_areas.first.state if !@user.metropolitan_areas.first.nil?)),{:include_blank => 'Select a state'}) %>
+
+                  <div id="digest_metropolitan_areas_state_cities">
+                    <% if(!@user.metropolitan_areas.first.nil?)%>
+                        <%= f.input :metropolitan_areas, :as => :check_boxes, :label => 'I would like to receive local information for the following metro areas (check all that apply)',:collection => MetropolitanArea.find_all_by_state(@user.metropolitan_areas.first.state).map{|e| [e.name,e.id]} %>
+                      <% end -%>
+                  </div>
+
+            </div>  
+
     	<% end %>
         <% end %>
         <p><%= submit_tag "Confirm" %></p>

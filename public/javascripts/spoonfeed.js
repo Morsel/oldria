@@ -440,15 +440,15 @@ updateRestoDirectoryList = function() {
 $restoSocialInputs.change(updateRestoDirectoryList);
 
 // get cities list by state name : Nishant
-$('#metropolitan_areas_state_state_id').change(function(){
+$('#metropolitan_areas_state_state_id,#digest_metropolitan_areas_state_state_id').change(function(){
 
-   $('#metropolitan_areas_state_cities').html($('<img />').attr({'src': '/images/redesign/ajax-loader.gif', 'alt': 'Lodding...' }));
-
+   $(this).next().html($('<img />').attr({'src': '/images/redesign/ajax-loader.gif', 'alt': 'Lodding...' }));
+   $this = $(this)
     if($(this).val())
         $.ajax({
 		data:'state_name=' + encodeURIComponent($(this).val()),
 	     	success:function(response){
-			    $('#metropolitan_areas_state_cities').html(response)
+			    $this.next().html(response)
 		    },
 		url:'/mediafeed/get_cities'
 	    });
@@ -552,11 +552,11 @@ $('#metropolitan_areas_state_state_id').change(function(){
 
   })
   $("#user_newsfeed_options").change(function(){
-        $('#newsfeed_option_national input').prop('checked', false);
-        $('#newsfeed_option_regional input').prop('checked', false);
-        $('#newsfeed_option_locals input').prop('checked', false);
-        $("#metropolitan_areas_state_cities").html("")
-        $("#metropolitan_areas_state_state_id option[value='']").attr("selected", "selected");
+      $('#newsfeed_option_national input').prop('checked', false);
+      $('#newsfeed_option_regional input').prop('checked', false);
+      $('#newsfeed_option_locals input').prop('checked', false);
+      $("#metropolitan_areas_state_cities").html("")
+      $("#metropolitan_areas_state_state_id option[value='']").attr("selected", "selected");
       if($(this).val() == "")
       {
         $('#newsfeed_option_national').hide('slow')
@@ -580,6 +580,7 @@ $('#metropolitan_areas_state_state_id').change(function(){
           {
             $('#newsfeed_option_regional').show('slow')
             $('#newsfeed_option_national').hide('slow')
+            $('#newsfeed_option_locals').hide('slow')
 /*            $('#newsfeed_option_national input').prop('checked', false);
             $('#newsfeed_option_locals input').prop('checked', false);
             $("#metropolitan_areas_state_state_id option[value='']").attr("selected", "selected");*/
@@ -590,6 +591,49 @@ $('#metropolitan_areas_state_state_id').change(function(){
           $('#newsfeed_option_regional').hide('slow')
           $('#newsfeed_option_locals').show('slow')
 /*          $('#newsfeed_option_national input').prop('checked', false);*/
+        }
+      }
+
+    })
+
+    $("#user_digest_options").change(function(e){
+
+      $("#digest_metropolitan_areas_state_cities").html("")
+      $("#digest_metropolitan_areas_state_state_id option[value='']").attr("selected", "selected");
+      if($(this).val() == "")
+      {
+        $('#digest_option_national').hide('slow')
+        $('#digest_option_regional').hide('slow')
+        $('#digest_option_locals').hide('slow')
+
+        
+
+      }else{
+        if($(this).val()==1)
+        {
+          $('#digest_option_national').show('slow')
+          $('#digest_option_regional').hide('slow')
+          $('#digest_option_locals').hide('slow')
+/*          $('#newsfeed_option_regional input').prop('checked', false);
+          $('#newsfeed_option_locals input').prop('checked', false);
+          $("#metropolitan_areas_state_state_id option[value='']").attr("selected", "selected");*/
+
+        }        
+        else if($(this).val()==2)
+          {
+            $('#digest_option_regional').show('slow')
+            $('#digest_option_national').hide('slow')
+            $('#digest_option_locals').hide('slow')
+/*            $('#newsfeed_option_national input').prop('checked', false);
+            $('#digest_option_locals input').prop('checked', false);
+            $("#metropolitan_areas_state_state_id option[value='']").attr("selected", "selected");*/
+          }
+        else if($(this).val()==3)
+        {
+          $('#digest_option_national').hide('slow')          
+          $('#digest_option_regional').hide('slow')
+          $('#digest_option_locals').show('slow')
+/*          $('#digest_option_national input').prop('checked', false);*/
         }
       }
 
