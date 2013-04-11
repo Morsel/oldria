@@ -1,0 +1,12 @@
+<%= render :partial => 'email_header' %>
+
+Hello <%=@user.try(:name)%>,
+<p>
+ 	<%= @detail %>
+</p>
+<%= render :partial => 'email_footer' %>
+
+
+
+
+

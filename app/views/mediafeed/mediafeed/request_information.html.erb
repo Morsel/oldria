@@ -1,0 +1,21 @@
+<% if  @promotion.blank? %>
+	<% semantic_form_for @menu_item, :url => mediafeed_request_information_mail_path, :html => {:id=>"editing_restaurant",:method => :post} do |f| %>
+  <% f.inputs :class => 'plain' do %>
+    <%= f.input :name %>
+    <%= f.input :description, :input_html => {:class => 'text', :rows => 4} %>
+    <%= f.hidden_field :id, :value => params[:menu_item_id] %>
+  <% end %>
+  <% button_tag :class => 'positive' do %>Send<% end %>
+<% end %>
+
+<% else %>
+<% semantic_form_for @promotion, :url => mediafeed_request_information_mail_path, :html => {:id=>"editing_restaurant",:method => :post} do |f| %>
+  <% f.inputs :class => 'plain' do %>
+    <%= f.input :title %>
+    <%= f.input :details, :input_html => {:class => 'text', :rows => 4} %>
+    <%= f.hidden_field :id, :value => params[:promotion_id] %>
+  <% end %>
+  <% button_tag :class => 'positive' do %>Send<% end %>
+<% end %>
+
+<% end %>
