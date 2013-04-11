@@ -190,5 +190,4 @@ class UserMailer < ActionMailer::Base
     subject     "Spoonfeed: We are sorry!"
   end  
 
-
 end
