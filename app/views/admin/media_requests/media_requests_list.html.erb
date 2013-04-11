@@ -58,16 +58,14 @@
 	
 			<% if media_request_without_reply.kind_of? MediaRequestDiscussion %>	
 				<td>
-						<%#= link_to media_request_without_reply.restaurant.employments.map(&:employee).map(&:name).to_sentence,send_media_mail_admin_media_request_path({:media_requests_discussion =>media_request_without_reply}) %>
-					<%= mail_to media_request_without_reply.restaurant.employments.map(&:employee).map(&:email).join(",") ,media_request_without_reply.restaurant.employments.map(&:employee).map(&:name),:body => media_request_without_reply.message %>	
+					<%= mail_to media_request_without_reply.restaurant.employments.map(&:employee).map(&:email).join(",") ,media_request_without_reply.restaurant.employments.map(&:employee).map(&:name).join(" &nbsp; &nbsp;"),:body => media_request_without_reply.message %>	
 				
 			  </td>
 
 			  <td><%= media_request_without_reply.restaurant.try(:name) %></td>
 
-			<% else %> 
-     
-				<td><%#= link_to media_request_without_reply.employee.try(:name),send_media_mail_admin_media_request_path({:solo_media_discussion=>media_request_without_reply}) %>
+			<% else %>      
+				<td>
 					<%= mail_to media_request_without_reply.employee.try(:email),media_request_without_reply.employee.try(:name),:body => media_request_without_reply.message %>
 				</td>
 

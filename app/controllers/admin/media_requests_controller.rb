@@ -48,17 +48,4 @@ class Admin::MediaRequestsController < Admin::AdminController
     @media_requests_without_replies = @media_request.discussions_without_comments
   end  
 
-  def send_media_mail
-    if !params[:solo_media_discussion].nil?
-       smdc = SoloMediaDiscussion.find(params[:id])
-       UserMailer.deliver_media_mail(smdc.employee,smdc.media_request,smdc)
-    else  
-      mrd = MediaRequestDiscussion.find(params[:media_requests_discussion])
-      UserMailer.deliver_media_mail(mrd.restaurant.employees,mrd.media_request,mrd)
-    end    
-    flash[:success] = "Successfully notified to users."
-    redirect_to media_requests_list_admin_media_request_path
-  end 
-
-
 end
