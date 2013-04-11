@@ -16,7 +16,7 @@
 		<tr>
 			<td ><%= media_request_with_reply.media_request.sender.try(:name) %></td>
 			
-			<% if media_request_with_reply.class.to_s == 'MediaRequestDiscussion'%>
+			<% if media_request_with_reply.class.to_s == 'MediaRequestDiscussion' && media_request_with_reply.restaurant.present? %>
 				<td ><% media_request_with_reply.restaurant.employees.each do |employee| %>
 						<%= link_to employee.try(:name),media_request_discussion_path  %>
 				    <% end %>
@@ -58,7 +58,7 @@
 	
 			<% if media_request_without_reply.kind_of? MediaRequestDiscussion %>	
 				<td>
-					<%= mail_to media_request_without_reply.restaurant.employments.map(&:employee).map(&:email).join(",") ,media_request_without_reply.restaurant.employments.map(&:employee).map(&:name).join(" &nbsp; &nbsp;"),:body => media_request_without_reply.message %>	
+					<%= media_request_without_reply.restaurant.present? ? mail_to (media_request_without_reply.restaurant.employments.map(&:employee).map(&:email).join(",") ,media_request_without_reply.restaurant.employments.map(&:employee).map(&:name).join(" &nbsp; &nbsp;"),:body => media_request_without_reply.message) : "Restaurant Deleted" %>	
 				
 			  </td>
 
