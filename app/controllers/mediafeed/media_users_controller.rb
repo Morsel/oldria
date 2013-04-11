@@ -19,6 +19,7 @@ class Mediafeed::MediaUsersController < Mediafeed::MediafeedController
 
   def edit
     @user = User.find(params[:id])
+    @promotionTypes = PromotionType.find(:all,:order=>"name").map(&:name)
   end
 
   def update
