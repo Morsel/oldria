@@ -18,10 +18,10 @@
 		  <% if @media_request.sender == current_user %>
 		    You sent this on
 		  <% else %>
-		    <%= @media_request.publication || @media_request.sender.publication %> sent this
+		    <%= @media_request.publication || @media_request.sender.publication %> sent this on 
 		  <% end %>
 		  <%= @media_request_discussion.present? ? "to #{@media_request_discussion.restaurant.try(:name)}" : "" %>
-		  on <%= @media_request.created_at.try(:to_s, :sentence) %>
+		  <%= @media_request.created_at.try(:to_s, :sentence) %>
 		</li>
 	</ul>
 
