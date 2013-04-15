@@ -133,7 +133,7 @@ ActionController::Routing::Routes.draw do |map|
 
   map.profile 'profile/:username', :controller => 'users', :action => 'show', :requirements => { :username => /[a-zA-Z0-9\-\_ ]+/}
 
-  map.resources :users, :collection => { :resend_confirmation => :any }, :member => {
+  map.resources :users, :collection => { :resend_confirmation => :any ,:add_region =>:get ,:new_james_beard_region =>:post }, :member => {
     :resume => :get,
     :remove_twitter => :put,
     :remove_avatar => :put,
@@ -143,7 +143,8 @@ ActionController::Routing::Routes.draw do |map|
     :fb_page_auth => :post,
     :remove_editor => :put,
     :upload =>:post,
-    :edit_newsletters => :get
+    :edit_newsletters => :get,    
+    :add_region_request=>:post
   }, :shallow => true do |users|
     users.resource :profile, :only => ['create', 'edit', 'update'],
                    :controller => 'profiles',

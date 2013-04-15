@@ -215,6 +215,26 @@ class UsersController < ApplicationController
     @subscriber = current_user.newsletter_subscriber
   end
 
+  def add_region
+    @james_beard_region = JamesBeardRegion.new 
+    @user = User.find(params[:id])   
+    render :layout => false if request.xhr?
+  end 
+
+  def new_james_beard_region
+    @user = User.find(params[:user_id])
+    @james_beard_region = JamesBeardRegion.new(params[:james_beard_region])
+    respond_to do |wants|
+      if @james_beard_region.valid? 
+        UserMailer.deliver_send_james_bear_region_request(@james_beard_region,@user)
+
+        wants.json do render :json => {:html => "<li id='msg'><h3>Sent request to admin, will look into this.<h3></li>" }  end      
+      else   
+        wants.json { render :json => render_to_string(:file => "users/add_region.html.erb"), :status => :unprocessable_entity }
+      end
+    end
+  end
+
   private
 
   def get_user

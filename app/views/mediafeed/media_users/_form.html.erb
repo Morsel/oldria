@@ -57,11 +57,12 @@
             <h3> Digest Options </h3>
                 <%= f.input :digest_options, :as => :select,:label=>false, :collection => NewsletterSubscriber.media_writer_types ,:include_blank => "Are you a.."%>
                 
-            <div id="digest_option_national" class="display-none"> 
-                digest_option_national
+            <div id="digest_option_national" class="display-none">                 
             </div>   
             <div id="digest_option_regional" class="display-none"> 
-                regional
+                <%= f.input :digest_james_beard_regions, :as => :check_boxes, :label => 'As a regional writer, I would like to receive Newsfeed items from the following regions:' ,:collection =>JamesBeardRegion.all %>
+                <%= link_to "Add a region" ,add_region_users_path({:id=>@user.id}),:class => 'colorbox' %>
+                 <div id="msg"></div>
             </div>
             <div id="digest_option_locals" class="display-none"> 
                <li>

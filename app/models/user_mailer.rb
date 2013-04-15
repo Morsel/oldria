@@ -190,6 +190,7 @@ class UserMailer < ActionMailer::Base
     subject     "Spoonfeed: We are sorry!"
   end  
 
+
   def request_info_mail(title,detail,user,restaurant)
     from        'notifications@restaurantintelligenceagency.com'
     recipients  user.email
@@ -198,6 +199,16 @@ class UserMailer < ActionMailer::Base
     subject     "Request More Information:#{title}"
     body        :detail => detail,:title => title,:user =>user
 
+  end  
+
+
+  def send_james_bear_region_request(jbrr,requested)
+    @jbrr = jbrr
+    @requested = requested
+    from        requested
+    recipients  "admin@restaurantintelligenceagency.com"
+    sent_on     Time.now
+    subject     "Spoonfeed: James Bear Region Request!"
   end  
 
 end
