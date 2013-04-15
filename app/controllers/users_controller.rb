@@ -12,10 +12,11 @@ class UsersController < ApplicationController
 
   def show
     get_user
+    redirect_to root_path if @user.media?
   end
 
   def resume
-    get_user
+    get_user redirect_to root_path if @user.media?
   end
 
   def edit
