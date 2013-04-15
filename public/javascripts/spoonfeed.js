@@ -262,7 +262,7 @@ function post_reply_text(){
 // Do it!
 bindColorbox();
 
-$('#colorbox form.stage, #colorbox form.apprenticeship, #colorbox form.nonculinary_enrollment, #colorbox form.award, #colorbox form.culinary_job, #colorbox form.nonculinary_job, #colorbox form.accolade, #colorbox form.enrollment, #colorbox form.competition, #colorbox form.internship').live('submit', colorboxForm);
+$('#colorbox form.stage, #colorbox form.apprenticeship, #colorbox form.nonculinary_enrollment, #colorbox form.award, #colorbox form.culinary_job, #colorbox form.nonculinary_job, #colorbox form.accolade, #colorbox form.enrollment, #colorbox form.competition, #colorbox form.internship, #colorbox form.james_beard_region').live('submit', colorboxForm);
 $('#complete_profile form.profile_cuisine').live('submit', colorboxForm);
 
 $("a.showit").showy();

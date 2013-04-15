@@ -190,5 +190,12 @@ class UserMailer < ActionMailer::Base
     subject     "Spoonfeed: We are sorry!"
   end  
 
-
+  def send_james_bear_region_request(jbrr,requested)
+    @jbrr = jbrr
+    @requested = requested
+    from        requested
+    recipients  "admin@restaurantintelligenceagency.com"
+    sent_on     Time.now
+    subject     "Spoonfeed: James Bear Region Request!"
+  end  
 end
