@@ -1562,7 +1562,7 @@ aside.dashboard_actions {
     border: 1px solid #ccc;
     @include box-shadow(#eaeaea, 0px, 1px, 1px);
     width: 55%;
-    height: 80px;
+    height: 119px;
   }
   
 	button, input[type="submit"], a.button {
@@ -4532,4 +4532,42 @@ a.subscribe_btn {
 		 margin-left: 18px;
 	}
 
+}
+
+.menu{
+	margin-top:-71px;
+}
+
+.manager{
+margin-top:-71px;margin-left:-23px;
+}
+
+
+.descr{
+	margin-top: -46px; margin-left: 200px;width:205px;
+}
+
+
+.from{
+	font-weight:bold;
+	margin-bottom: 15px;
+	width: 42px;
+}
+
+.to{
+	font-weight:bold;
+	margin-bottom: 15px;
+}
+
+
+.menu_name{
+	width: 148% !important;
+}
+
+#comment{
+	width:450% !important;
+}
+
+.table_width{
+	width: 42px;
 }

@@ -190,13 +190,13 @@ class UserMailer < ActionMailer::Base
     subject     "Spoonfeed: We are sorry!"
   end  
 
-  def request_info_mail(title,detail,user,restaurant)
+  def request_info_mail(title,detail,user,restaurant,comment)
     from        'notifications@restaurantintelligenceagency.com'
     recipients  user.email
     cc restaurant.manager.try(:email)
     sent_on     Time.now
     subject     "Request More Information:#{title}"
-    body        :detail => detail,:title => title,:user =>user
+    body        :detail => detail,:title => title,:user =>user,:comment=>comment
 
   end  
 

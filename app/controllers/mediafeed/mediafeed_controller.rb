@@ -33,22 +33,24 @@ class Mediafeed::MediafeedController < ApplicationController
     end  
   end
 
-  def request_info_mail    
+  def request_info_mail   
     if params[:promotion].blank?
       menu_item  = MenuItem.find(params[:menu_item][:id])
       title =  params[:menu_item][:name]
       detail = params[:menu_item][:description]
       user = menu_item.restaurant.media_contact
-      UserMailer.send_later(:deliver_request_info_mail,title,detail,user,menu_item.restaurant)     
+      comment = params[:comment]
+      UserMailer.send_later(:deliver_request_info_mail,title,detail,user,menu_item.restaurant,comment)     
       flash[:notice] = "Request info mail has been sent!"
       redirect_to menu_items_path
     else
       promotion=Promotion.find(params[:promotion][:id])
       detail = params[:promotion][:details]
       title = params[:promotion][:title]
-      user = promotion.restaurant.media_contact            
+      user = promotion.restaurant.media_contact  
+      comment = params[:comment]          
       flash[:notice] = "Request info mail has been sent!"
-      UserMailer.send_later(:deliver_request_info_mail,title,detail,user,promotion.restaurant)
+      UserMailer.send_later(:deliver_request_info_mail,title,detail,user,promotion.restaurant,comment)
       redirect_to promotions_path
     end     
   end 
@@ -66,6 +68,10 @@ class Mediafeed::MediafeedController < ApplicationController
   end
 
   def request_information_mail
+  end  
+ 
+  def add_comment
+
   end  
 
   protected
