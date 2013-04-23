@@ -14,85 +14,8 @@
         	<%= f.input :password, :required => true, :input_html => { :autocomplete => "off" } %>
         	<%= f.input :password_confirmation, :required => true, :input_html => { :autocomplete => "off" } %>
         <% end %>
-
-        <% f.inputs :name => 'Media Subscriptions', :class => 'basics' do %>
-                <p>There are two ways to receive information from RIA:</p>
-                <li class="subscription-hints-li">
-                        Subscribe to press information only, signing up for materials by location and type of news. Selecting this type of information will subscribe you to receiving press information only as it is posted by our members.
-                </li>
-                <li class="subscription-hints-li">
-                        Subscribe to daily digests for groups of restaurants, signing up for by location. Selecting this type of information will subscribe you to receiving a digest of all information each morning. You can elect to receive this information for all restaurants, for restaurants in a given region or metro area/s, or for your own selection of restaurants.
-                </li>
-
-        <% f.inputs do %>
-            <h3> Newsfeed Options </h3>
-            <%= f.input :newsfeed_options,:label=>false, :as => :select,      :collection => NewsletterSubscriber.media_writer_types ,:include_blank => "Are you a.."%>            
-            <div id="newsfeed_option_national" class="display-none">
-                <h3>
-                    As a national writer, I would like to receive Newsfeed items from all metro areas.
-                </h3>
-                <%= f.input :newsfeed_promotion_types,:label=>false, :as => :check_boxes,:collection => @promotionTypes %>
-            </div>
-
-            <div id="newsfeed_option_regional" class="display-none">
-                <%= f.input :james_beard_regions, :as => :check_boxes, :label => 'As a regional writer, I would like to receive Newsfeed items from the following regions:' ,:collection =>JamesBeardRegion.all %>
-                 <% f.inputs :name => 'Regional promotion types', :id => 'regional_newsfeed_promotion_type', :class=>"display-none" do %>
-                    <%= f.input :regional_newsfeed_promotion_types,:label=>false, :as => :check_boxes,:collection => @promotionTypes%>
-                <% end %>
-            </div>
-            <div id="newsfeed_option_locals" class="display-none"> 
-               <li>
-                    <fieldset>
-                        <legend class="label"> 
-                            <label for="user_metropolitan_areas">As a local writer, I would like to receive Newsfeed items from the following metro areas</label>
-                        </legend>                     
-                     </fieldset>
-                </li>
-                <%= select("metropolitan_areas_state","state_id",options_for_select(MetropolitanArea.find(:all,:group=>"state",:conditions=>["state IS NOT NULL"]).map { |r| [r.state, r.state] },(@user.metropolitan_areas.first.state if !@user.metropolitan_areas.first.nil?)),{:include_blank => 'Select a state'}) %>
-
-                  <div id="metropolitan_areas_state_cities">
-                    <% if(!@user.metropolitan_areas.first.nil?)%>
-                        <%= f.input :metropolitan_areas, :as => :check_boxes, :label => 'I would like to receive local information for the following metro areas (check all that apply)',:collection => MetropolitanArea.find_all_by_state(@user.metropolitan_areas.first.state).map{|e| [e.name,e.id]} %>
-                      <% end -%>
-                  </div>
-
-            </div>  
-
-            <!-- <h3>Location(s) that I write for:</h3>
-            <%#= f.input :national, :label => 'I would like to receive a national newsletter to keep abreast of national trends' %> -->
-            <%#= f.input :metropolitan_areas, :as => :check_boxes, :label => 'I would like to receive local information for the following metro areas (check all that apply):' %>
-            <h3> Digest Options </h3>
-                <%= f.input :digest_options, :as => :select,:label=>false, :collection => NewsletterSubscriber.media_writer_types ,:include_blank => "Are you a.."%>
-                
-            <div id="digest_option_national" class="display-none">                 
-            </div>   
-
-            <div id="digest_option_regional" class="display-none"> 
-                 <%= f.input :digest_james_beard_regions, :as => :check_boxes, :label => 'As a regional writer, I would like to receive Newsfeed items from the following regions:' ,:collection =>JamesBeardRegion.all %>
-                 <%= link_to "Add a region" ,add_region_users_path({:id=>@user.id}),:class => 'colorbox' %>
-                 <div id="msg"></div>
-
-            </div>
-            <div id="digest_option_locals" class="display-none"> 
-               <li>
-                    <fieldset>
-                        <legend class="label"> 
-                            <label for="user_metropolitan_areas">As a local writer, I would like to receive Newsfeed items from the following metro areas</label>
-                        </legend>                     
-                     </fieldset>
-                </li>
-                <%= select("digest_metropolitan_areas_state","state_id",options_for_select(MetropolitanArea.find(:all,:group=>"state",:conditions=>["state IS NOT NULL"]).map { |r| [r.state, r.state] },(@user.metropolitan_areas.first.state if !@user.metropolitan_areas.first.nil?)),{:include_blank => 'Select a state'}) %>
-
-                  <div id="digest_metropolitan_areas_state_cities">
-                    <% if(!@user.metropolitan_areas.first.nil?)%>
-                        <%= f.input :metropolitan_areas, :as => :check_boxes, :label => 'I would like to receive local information for the following metro areas (check all that apply)',:collection => MetropolitanArea.find_all_by_state(@user.metropolitan_areas.first.state).map{|e| [e.name,e.id]} %>
-                      <% end -%>
-                  </div>
-
-            </div>  
-
-    	<% end %>
-        <% end %>
+        <%=render :partial =>'mediafeed/media_users/media_sign_up' ,:locals =>{:f=>f} %>
+        <%= hidden_field_tag (:user_id ,@user.id) %>
         <p><%= submit_tag "Confirm" %></p>
     <% end %>
 <% end %>

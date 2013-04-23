@@ -65,7 +65,7 @@ class UsersController < ApplicationController
 
   def confirm
     @user = User.find_by_perishable_token(params[:id])
-    @promotionTypes = PromotionType.find(:all,:order=>"name").map(&:name)
+    self.get_newsletter_data    
     if @user
       # render the page
     elsif current_user
@@ -78,10 +78,15 @@ class UsersController < ApplicationController
   end
 
   def save_confirmation
-    @user = User.find(params[:user_id])
+    @user = User.find(params[:user_id])  
     # Force password reset
     @user.crypted_password = nil
-    if @user.update_attributes(params[:user])
+    @user.newsfeed_regional_promotion_types.destroy_all
+
+
+    if @user.update_attributes(params[:user]) 
+      update_newsletter_data(params[:user_id])
+
       @user.reset_perishable_token!
       @user.confirmed_at = Time.now
       @user_session = UserSession.new(@user)
@@ -92,6 +97,7 @@ class UsersController < ApplicationController
         flash[:error] = "Could not log you in. Please contact us for assistance."
       end
     else
+      self.get_newsletter_data
       render :action => "confirm"
     end
   end
@@ -205,7 +211,9 @@ class UsersController < ApplicationController
       else
         render :json=>{:status=>false,:errors =>  @user.errors.as_json.uniq}
       end  
-  end  
+
+  end
+
 
   def edit_newsletters
     @user = current_user

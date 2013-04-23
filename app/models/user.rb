@@ -154,7 +154,7 @@ class User < ActiveRecord::Base
   named_scope :visible, :conditions => ['visible = ? AND (role != ? OR role IS NULL)', true, 'media']
   named_scope :with_published_profile, :conditions => ["publish_profile = ?", true]
 
-  attr_accessor :newsfeed_options,:digest_options,:newsfeed_promotion_types ,:regional_newsfeed_promotion_types ,:james_beard_regions,:digest_james_beard_regions
+
   has_and_belongs_to_many  :newsfeed_metropolitan_areas ,:class_name =>"MetropolitanArea"
   accepts_nested_attributes_for :newsfeed_metropolitan_areas
 ### Preferences ###
@@ -162,6 +162,16 @@ class User < ActiveRecord::Base
   preference :receive_email_notifications, :default => true
   preference :publish_profile, :default => true # TODO - remove this after changes are on production
 
+  belongs_to :newsfeed_writer
+  belongs_to :digest_writer
+  has_many :metropolitan_areas_writers
+  has_many :promotion_types_writers
+  has_many :regional_writers  
+  has_many :newsfeed_regional_promotion_types
+  has_many :promotion_types,  :through => :newsfeed_regional_promotion_types
+
+  
+  
 
 ### Roles ###
   def admin?
@@ -613,4 +623,31 @@ class User < ActiveRecord::Base
   def restaurant_newsletter_subscription restaurant    
     media_newsletter_subscriptions.find_by_restaurant_id(restaurant.id)
   end  
+  #1 = National, 2 = Regional, 3 = Local
+  def delete_other_writers    
+    if newsfeed_writer_id == 1
+      metropolitan_areas_writers.find(:all,:conditions=>"area_writer_type = 'NewsfeedWriter'").map(&:destroy)      
+      regional_writers.find(:all,:conditions=>"regional_writer_type = 'NewsfeedWriter'").map(&:destroy)
+      newsfeed_regional_promotion_types.destroy_all
+    elsif  newsfeed_writer_id == 2
+      promotion_types_writers.find(:all,:conditions=>"promotion_writer_type = 'NewsfeedWriter'").map(&:destroy)
+      metropolitan_areas_writers.find(:all,:conditions=>"area_writer_type = 'NewsfeedWriter'").map(&:destroy)      
+    elsif  newsfeed_writer_id == 3
+      newsfeed_regional_promotion_types.destroy_all
+      promotion_types_writers.find(:all,:conditions=>"promotion_writer_type = 'NewsfeedWriter'").map(&:destroy)
+      regional_writers.find(:all,:conditions=>"regional_writer_type = 'NewsfeedWriter'").map(&:destroy)
+    end 
+
+    if digest_writer_id == 1
+      metropolitan_areas_writers.find(:all,:conditions=>"area_writer_type = 'DigestWriter'").map(&:destroy)      
+      regional_writers.find(:all,:conditions=>"regional_writer_type = 'DigestWriter'").map(&:destroy)
+    elsif  digest_writer_id == 2
+      promotion_types_writers.find(:all,:conditions=>"promotion_writer_type = 'DigestWriter'").map(&:destroy)
+      metropolitan_areas_writers.find(:all,:conditions=>"area_writer_type = 'DigestWriter'").map(&:destroy)      
+    elsif  digest_writer_id == 3
+      promotion_types_writers.find(:all,:conditions=>"promotion_writer_type = 'DigestWriter'").map(&:destroy)
+      regional_writers.find(:all,:conditions=>"regional_writer_type = 'DigestWriter'").map(&:destroy)
+    end 
+
+  end
 end
