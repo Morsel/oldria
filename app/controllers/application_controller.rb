@@ -31,6 +31,33 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def get_newsletter_data
+    @newsfeed_metropolitan_areas = @digest_metropolitan_areas = @newsfeed_promotions_types = @newsfeed_promotions_types = @newsfeed_regional_areas = @digest_regional_areas = []
+    @newsfeed_metropolitan_areas = @user.newsfeed_writer.find_metropolitan_areas_writers(@user) unless @user.newsfeed_writer.blank?
+    @digest_metropolitan_areas = @user.digest_writer.find_metropolitan_areas_writers(@user) unless @user.digest_writer.blank?
+    @newsfeed_promotions_types = @user.newsfeed_writer.find_promotions_types_writers(@user) unless @user.newsfeed_writer.blank?
+    @digest_promotions_types = @user.digest_writer.find_promotions_types_writers(@user) unless @user.digest_writer.blank?
+
+    @newsfeed_regional_areas = @user.newsfeed_writer.find_regional_writers(@user) unless @user.newsfeed_writer.blank?
+    @digest_regional_areas = @user.digest_writer.find_regional_writers(@user) unless @user.digest_writer.blank?
+
+    @promotionTypes = PromotionType.find(:all,:order=>"name")
+
+  end
+  def update_newsletter_data user_id
+      @user = User.find(user_id)     
+      @user.metropolitan_areas_writers.map(&:destroy)
+      @user.promotion_types_writers.map(&:destroy)
+      @user.regional_writers.map(&:destroy)     
+           
+      @user.newsfeed_writer.update_attributes(params[:newsfeed_writer]) unless @user.newsfeed_writer.blank?
+      @user.digest_writer.update_attributes(params[:digest_writer]) unless @user.digest_writer.blank?
+      
+      @user = User.find(user_id)  
+      self.get_newsletter_data
+      @user.delete_other_writers
+  end
+
   private
 
   def site_layout
