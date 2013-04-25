@@ -99,6 +99,9 @@ ActionController::Routing::Routes.draw do |map|
     mediafeed.connect 'directory_search', :controller => 'mediafeed', :action => 'directory_search'
     mediafeed.discussion 'media_requests/:id/:discussion_type/:discussion_id', :controller => 'media_requests', :action => 'discussion'
     mediafeed.request_information 'request_information', :controller => 'mediafeed', :action => 'request_information'
+
+    mediafeed.request_information_mail 'request_info_mail', :controller => 'mediafeed', :action => 'request_info_mail'
+
     mediafeed.media_subscription 'media_subscription', :controller => 'mediafeed', :action => 'media_subscription'
     mediafeed.media_opt_update 'media_opt_update', :controller => 'mediafeed', :action => 'media_opt_update'
     mediafeed.get_cities_list 'get_cities', :controller => 'media_users', :action => 'get_cities'
