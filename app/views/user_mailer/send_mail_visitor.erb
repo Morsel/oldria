@@ -59,8 +59,8 @@
 
 	<% unless @a_la_minute_message.blank?%>
 		<li>
-			<p><%=link_to"A La Minute",bulk_update_restaurant_a_la_minute_answers_url(@visitor_obj.restaurant)%> </p>
-			<p><%= link_to @a_la_minute_message,bulk_update_restaurant_a_la_minute_answers_url(@visitor_obj.restaurant) %></p>
+			<p><%=link_to"A La Minute",bulk_edit_restaurant_a_la_minute_answers_url(@visitor_obj.restaurant)%> </p>
+			<p><%= link_to @a_la_minute_message,bulk_edit_restaurant_a_la_minute_answers_url(@visitor_obj.restaurant) %></p>
 		</li>	
 	<% end %>
 
