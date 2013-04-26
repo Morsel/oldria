@@ -30,7 +30,7 @@
 
         <%- if current_user.media? -%>
         <p class="request">
-          <%= link_to "Request more information", mediafeed_request_information_path(:menu_item_id => menu_item.id) %></p>
+          <%= link_to "Request more information", mediafeed_request_information_path(:menu_item_id => menu_item.id),:class => 'colorbox' %></p>
         <%- end -%>
         <p><span class="datestamp"><%= "Posted #{menu_item.created_at.strftime("%D")}" %></span></p>
        

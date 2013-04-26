@@ -1,76 +1,108 @@
-<% if  @promotion.blank? %>
-  <% form_for @menu_item, :url => mediafeed_request_information_mail_path, :html => {:id=>"editing_restaurant",:method => :post} do |f| %>
-    
-      <table>  
-        <tr> <td class="from"> From: </td> <td> notifications@restaurantintelligenceagency.com </td></tr>
-        <tr> <td class="to"> Name: </td> <td><%= f.text_field :name ,:class=>'menu_name'%></td></tr>
-      </table>
+<div id="main">
+  <% if  @promotion.blank? %>
+    <% semantic_form_for @menu_item, :url => mediafeed_request_information_mail_path, :html => {:id=>"editing_restaurant",:class=>"request_more_information" ,:method => :post} do |f| %>
+      
+        <table class="fixed-width-tbl" cellpadding="10">  
+          <tr> 
+            <td width="15%" class="labels"> From: </td> 
+            <td width="85%"> notifications@restaurantintelligenceagency.com </td>
+          </tr>
+          <tr> 
+            <td class="labels"> Name: </td> 
+            <td ><%= f.text_field :name  %></td>
+          </tr>
+          <tr> 
+            <td class="labels"> Subject: </td> 
+            <td ><%= f.text_field_tag :subject ,"Request More Information : #{@menu_item.name}"  %></td>
+          </tr>
+        </table>
 
-      <table>
+      <table class="fixed-width-tbl"  cellpadding="10">
         <tr>
-          <td class="table_width"> </td>
-          <td>  <%= text_area_tag 'comment',nil,:placeholder => "Add a comment..."  %>  </td>
-        <tr>
-        <% if @menu_item.restaurant.manager.avatar? -%>
-          <td class="table_width"> </td>
-          <td><div class="menu"><%= image_tag(@menu_item.restaurant.manager.avatar.url(:thumb), :width => 'auto', :height => 'auto') %></div></td>
-        <% end -%>  
-          <td class="table_width"> </td>
-          <td><div class="manager"><%= @menu_item.restaurant.manager.name %></td>
+         <td width="15%" class="labels"> &nbsp;</td>
+          <td width="85%"> 
+            <%= text_area_tag 'comment',nil,:placeholder => "Add a comment..."  %>  
+            <%if @menu_item.restaurant.manager.avatar? -%>       
+                <div class="manager manager-img">
+                    <%= image_tag(@menu_item.restaurant.manager.avatar.url(:thumb), :width => 'auto', :height => 'auto') %>
+                </div>
+            <% end -%>
+                <div class="manager">
+                  <p>
+                    <b><%= @menu_item.restaurant.manager.name %></b>
+                    <br><%= truncate(@menu_item.description,:length => 50) %></p>
+                </div>
+
+          </td>
+
         </tr>
 
+
         <tr>
-          <td><div class="descr"><%= truncate(@menu_item.description,:length => 30) %></div>
+
+          <td>&nbsp;</td>
+           <td>
+            <% button_tag :class => 'positive' do %>Send <% end %>
           </td>
         </tr>
-          <%= f.hidden_field :name, :value => @menu_item.name %>
-          <%= f.hidden_field :description, :value => @menu_item.description %>
-          <%= f.hidden_field :id, :value => params[:menu_item_id] %>
-      <tr>
-        <td>
-        <% button_tag :class => 'positive' do %>Send <% end %>
-        </td>
-      </tr>
       </table>
+        <%= f.hidden_field :name, :value => @menu_item.name %>
+        <%= f.hidden_field :description, :value => @menu_item.description %>
+        <%= f.hidden_field :id, :value => params[:menu_item_id] %>
+
+    <% end %>
+
+  <% else %>
+
+    <% semantic_form_for @promotion, :url => mediafeed_request_information_mail_path, :html => {:id=>"editing_restaurant" ,:class=>"request_more_information" ,:method => :post} do |f| %>
+      <table class="fixed-width-tbl" cellpadding="10">  
+        <tr> 
+          <td width="15%" class="labels"> From: </td> 
+          <td width="85%"> notifications@restaurantintelligenceagency.com </td>
+        </tr>
+        <tr> 
+          <td class="labels"> Name: </td> 
+          <td ><%= f.text_field_tag :name ,@promotion.title  %></td>
+        </tr>
+        <tr> 
+          <td class="labels"> Subject: </td> 
+          <td ><%= f.text_field_tag :subject ,"Request More Information : #{@promotion.title}"  %></td>
+        </tr>
+      </table>
+
+      <table class="fixed-width-tbl"  cellpadding="10">
+        <tr>
+         <td width="15%" class="labels"> &nbsp;</td>
+          <td width="85%"> 
+            <%= text_area_tag 'comment',nil,:placeholder => "Add a comment..."  %>  
+            <%if @promotion.restaurant.manager.avatar? -%>       
+                <div class="manager manager-img">
+                    <%= image_tag(@promotion.restaurant.manager.avatar.url(:thumb), :width => 'auto', :height => 'auto') %>
+                </div>
+            <% end -%>
+                <div class="manager">
+                  <p>
+                    <b><%= @promotion.restaurant.manager.name %></b>
+                    <br><%= truncate(@promotion.details,:length => 50) %></p>
+                </div>
+
+          </td>
+
+        </tr>
+
+
+        <tr>
+
+          <td>&nbsp;</td>
+           <td>
+            <% button_tag :class => 'positive' do %>Send <% end %>
+          </td>
+        </tr>
+      </table>
+      <%= f.hidden_field :title, :value => @promotion.title %>
+      <%= f.hidden_field :details, :value => @promotion.details %>
+      <%= f.hidden_field :id, :value => params[:promotion_id] %>
+    <% end %>
+
   <% end %>
-
-<% else %>
-
-  <% semantic_form_for @promotion, :url => mediafeed_request_information_mail_path, :html => {:id=>"editing_restaurant",:method => :post} do |f| %>
-    <table>  
-      <tr> <td class="from"> From: </td> <td> notifications@restaurantintelligenceagency.com </td></tr>
-      <tr> <td class="to"> Name: </td> <td><%= f.text_field_tag :name ,@promotion.title,:class=>'menu_name'%></td></tr>
-    </table>
-
-    <table>
-      <tr>
-        <td class="table_width"> </td>
-        <td>  <%= text_area_tag 'comment',nil,:placeholder => "Add a comment..."  %>  </td>
-      <tr>
-      <% if @promotion.restaurant.manager.avatar? -%>
-        <td class="table_width"> </td>
-        <td><div class="menu"><%= image_tag(@promotion.restaurant.manager.avatar.url(:thumb), :width => 'auto', :height => 'auto') %></div></td>
-      <% end -%>  
-        <td class="table_width"> </td>
-        <td><div class="manager"><%= @promotion.restaurant.manager.name %></td>
-      </tr>
-
-      <tr>
-        <td><div class="descr"><%= truncate(@promotion.details,:length => 50) %></div>
-        </td>
-      </tr>
-        <%= f.hidden_field :title, :value => @promotion.title %>
-        <%= f.hidden_field :details, :value => @promotion.details %>
-        <%= f.hidden_field :id, :value => params[:promotion_id] %>
-      <tr>
-        <td>
-        <% button_tag :class => 'positive' do %>Send <% end %>
-        </td>
-      </tr>
-    </table>
-  <% end %>
-
-<% end %>
-
-
-
+</div>

@@ -31,26 +31,19 @@ class Mediafeed::MediafeedController < ApplicationController
       @promotion = Promotion.find(params[:promotion_id]) 
       @restaurant = @promotion.restaurant
     end  
+    render :layout=>false if request.xhr?
   end
 
   def request_info_mail   
     if params[:promotion].blank?
       menu_item  = MenuItem.find(params[:menu_item][:id])
-      title =  params[:menu_item][:name]
-      detail = params[:menu_item][:description]
-      user = menu_item.restaurant.media_contact
-      comment = params[:comment]
-      UserMailer.send_later(:deliver_request_info_mail,title,detail,user,menu_item.restaurant,comment)     
-      flash[:notice] = "Request info mail has been sent!"
+      UserMailer.send_later(:deliver_request_info_mail,params[:menu_item][:name],params[:menu_item][:description],menu_item.restaurant.media_contact,menu_item.restaurant,params[:comment],params[:subject])     
+      flash[:notice] = "Request has been sent!"
       redirect_to menu_items_path
     else
-      promotion=Promotion.find(params[:promotion][:id])
-      detail = params[:promotion][:details]
-      title = params[:promotion][:title]
-      user = promotion.restaurant.media_contact  
-      comment = params[:comment]          
-      flash[:notice] = "Request info mail has been sent!"
-      UserMailer.send_later(:deliver_request_info_mail,title,detail,user,promotion.restaurant,comment)
+      promotion=Promotion.find(params[:promotion][:id])       
+      flash[:notice] = "Request has been sent!"
+      UserMailer.send_later(:deliver_request_info_mail,params[:promotion][:title],params[:promotion][:details],promotion.restaurant.media_contact,promotion.restaurant,params[:comment],params[:subject])
       redirect_to promotions_path
     end     
   end 

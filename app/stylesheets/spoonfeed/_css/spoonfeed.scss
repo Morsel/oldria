@@ -4534,12 +4534,14 @@ a.subscribe_btn {
 
 }
 
-.menu{
-	margin-top:-71px;
+.manager-img{
+	  margin-left: 10px !important;
 }
-
 .manager{
-margin-top:-71px;margin-left:-23px;
+	margin-left: 70px;
+ 	margin-top: -55px;
+ 	position: absolute;
+ 	width: 30%;
 }
 
 
@@ -4548,26 +4550,38 @@ margin-top:-71px;margin-left:-23px;
 }
 
 
-.from{
-	font-weight:bold;
-	margin-bottom: 15px;
-	width: 42px;
-}
 
-.to{
+.labels{
 	font-weight:bold;
-	margin-bottom: 15px;
+
 }
 
 
 .menu_name{
-	width: 148% !important;
+	padding: 5px;
 }
 
-#comment{
-	width:450% !important;
-}
+
 
 .table_width{
 	width: 42px;
+}
+.fixed-width-tbl{
+	width:90% !important;
+	textarea{
+		padding-left: 5px;
+	}
+}
+.request_more_information{
+	margin-top:30px;
+	input{
+		&[type="text"]{
+			padding: 5px;
+		}
+	}
+}
+
+
+#main{
+	width:800px;
 }
