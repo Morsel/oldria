@@ -5,7 +5,7 @@
         <table class="fixed-width-tbl" cellpadding="10">  
           <tr> 
             <td width="15%" class="labels"> From: </td> 
-            <td width="85%"> notifications@restaurantintelligenceagency.com </td>
+            <td width="85%"> <%= current_user.email %> </td>
           </tr>
           <tr> 
             <td class="labels"> Name: </td> 
@@ -55,10 +55,11 @@
   <% else %>
 
     <% semantic_form_for @promotion, :url => mediafeed_request_information_mail_path, :html => {:id=>"editing_restaurant" ,:class=>"request_more_information" ,:method => :post} do |f| %>
+
       <table class="fixed-width-tbl" cellpadding="10">  
         <tr> 
           <td width="15%" class="labels"> From: </td> 
-          <td width="85%"> notifications@restaurantintelligenceagency.com </td>
+          <td width="85%"> <%= current_user.email %> </td>
         </tr>
         <tr> 
           <td class="labels"> Name: </td> 
