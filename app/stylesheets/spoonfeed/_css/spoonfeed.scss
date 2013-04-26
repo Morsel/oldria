@@ -1562,7 +1562,7 @@ aside.dashboard_actions {
     border: 1px solid #ccc;
     @include box-shadow(#eaeaea, 0px, 1px, 1px);
     width: 55%;
-    height: 80px;
+    height: 119px;
   }
   
 	button, input[type="submit"] {
@@ -4564,8 +4564,65 @@ a.subscribe_btn {
 	.subscribe{
 		 margin-left: 18px;
 	}
+
 }
 .subscription-hints-li{
 	list-style:disc !important;
 	margin-left: 18px !important;
 }
+
+
+
+
+.manager-img{
+	  margin-left: 10px !important;
+}
+.manager{
+	margin-left: 70px;
+ 	margin-top: -55px;
+ 	position: absolute;
+ 	width: 30%;
+}
+
+
+.descr{
+	margin-top: -46px; margin-left: 200px;width:205px;
+}
+
+
+
+.labels{
+	font-weight:bold;
+
+}
+
+
+.menu_name{
+	padding: 5px;
+}
+
+
+
+.table_width{
+	width: 42px;
+}
+.fixed-width-tbl{
+	width:90% !important;
+	textarea{
+		padding-left: 5px;
+	}
+}
+.request_more_information{
+	margin-top:30px;
+	input{
+		&[type="text"]{
+			padding: 5px;
+		}
+	}
+}
+
+
+#main{
+	width:800px;
+}
+

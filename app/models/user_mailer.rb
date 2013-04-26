@@ -191,13 +191,13 @@ class UserMailer < ActionMailer::Base
   end  
 
 
-  def request_info_mail(title,detail,user,restaurant)
+  def request_info_mail(title,detail,user,restaurant,comment,subject)
     from        'notifications@restaurantintelligenceagency.com'
-    recipients  user.email
-    cc restaurant.manager.try(:email)
+    recipients  user.email   
+    cc restaurant.manager.try(:email) unless user.email == restaurant.manager.try(:email) 
     sent_on     Time.now
-    subject     "Request More Information:#{title}"
-    body        :detail => detail,:title => title,:user =>user
+    subject     "#{subject} Media Request via RIA" #"Request More Information:#{title} Media Request via RIA"
+    body        :detail => detail,:title => title,:user =>user,:comment=>comment
 
   end  
 
