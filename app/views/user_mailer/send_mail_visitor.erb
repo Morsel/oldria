@@ -1,8 +1,8 @@
 <%= render :partial => 'email_header' %>
 
-<h3>Hello <%=@visitor_obj.restaurant.manager.try(:name)%>!</h3>
+<h3>Hello <%=@visitor_obj.restaurant.manager.try(:name)%>,</h3>
 
-<h1 id="salutation" style="font-size: 20px; line-height: 26px; margin: 12px 0;"> Restaurant Name: <%=@visitor_obj.restaurant.try(:name).try(:capitalize)%></h1>
+<h1 id="salutation" style="font-size: 20px; line-height: 26px; margin: 12px 0;"> Restaurant Name: <%=@visitor_obj.restaurant.try(:name)%></h1>
 <% if false %> <!-- Breaking the execution for temparory -->
 <% unless @userrestaurantvisitor.blank? %>
 		<p> You have following Diner visitors:</p>
@@ -14,8 +14,8 @@
 <% end %>
 <% end %>
 
-<% unless @media_visitors.blank? %>
-	<p> Media have been checking out your profile from the following publications:</p>	
+<% unless @media_visitors.blank? %>	
+	<p> Media have been checking ou	 your profile from the following publications:</p>	
 	<ul>
 		<%@media_visitors.each do |media_visitor| %>
 				<% unless media_visitor.publication.blank? %>
@@ -28,6 +28,51 @@
 		  	<%end%>
 		<%end%>
 	</ul>
+	<hr />
+	<p>Keep the media engaged! If you update your profile, we'll let these media folks know! Here's a few ideas:</p>
+<ul>	
+	<% unless @fact_message.blank?%>
+		<li>
+			<p>
+				<%=link_to("Fact Sheet",edit_restaurant_fact_sheet_url(@visitor_obj.restaurant))%>
+			</p>
+				<p> <%= link_to @fact_message,edit_restaurant_fact_sheet_url(@visitor_obj.restaurant)  %></p>		 
+		</li>
+	<% end %>
+
+	<% unless @menu_message.blank?%>
+		<li>
+			<p>
+				<%=link_to "Menus",bulk_edit_restaurant_menus_url(@visitor_obj.restaurant)%>
+			</p>
+			<p><%= link_to @menu_message, bulk_edit_restaurant_menus_url(@visitor_obj.restaurant)%></p>
+		</li>		
+	<% end %>
+
+	<% unless @menu_item_message.blank?%>
+		<li>
+			<p>
+				<%=link_to "Menu Items",restaurant_menu_items_url(@visitor_obj.restaurant)%></p>
+				<p><%= link_to @menu_item_message ,restaurant_menu_items_url(@visitor_obj.restaurant)%></p>
+	</li>
+	<% end %>
+
+	<% unless @a_la_minute_message.blank?%>
+		<li>
+			<p><%=link_to"A La Minute",bulk_edit_restaurant_a_la_minute_answers_url(@visitor_obj.restaurant)%> </p>
+			<p><%= link_to @a_la_minute_message,bulk_edit_restaurant_a_la_minute_answers_url(@visitor_obj.restaurant) %></p>
+		</li>	
+	<% end %>
+
+	<% unless @newsfeed_message.blank? %>
+	<li>
+		<p>
+			<%=link_to "Promotions",restaurant_promotions_url(@visitor_obj.restaurant)%>
+		</p>
+		<p><%= link_to @newsfeed_message ,restaurant_promotions_url(@visitor_obj.restaurant)%></p>
+	</li>
+	<% end %>
+</ul>
 	<%else%>
 	<p> You have <%=@media_visitors.count %>Media visitors.</p>
 <%end%>	

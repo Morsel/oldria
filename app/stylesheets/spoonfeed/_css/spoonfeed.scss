@@ -894,7 +894,7 @@ footer {
     a {
       display: table-cell;
       vertical-align: middle;
-      width: 96px;
+      width: 74px;
       border-right: 1px solid #c6c1ad;
       color: #a9a29f;
       text-align: center;
@@ -4574,6 +4574,7 @@ a.subscribe_btn {
 
 
 
+
 .manager-img{
 	  margin-left: 10px !important;
 }
@@ -4624,5 +4625,15 @@ a.subscribe_btn {
 
 #main{
 	width:800px;
+}
+
+
+fieldset{
+	ol{
+		li.media-signup{
+			list-style:disc !important;
+			margin-left: 18px !important;
+		}
+	}
 }
 
