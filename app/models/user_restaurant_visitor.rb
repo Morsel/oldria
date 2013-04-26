@@ -38,7 +38,7 @@ class UserRestaurantVisitor < ActiveRecord::Base
         end
 
         @menu_item = visitor.restaurant.menu_items.find(:first,:order =>"updated_at desc")
-        if @menu_item.blank?
+        unless @menu_item.blank?
           if @menu_item.created_at < 7.day.ago
             @menu_item_message = "Looks like you haven't uploaded a new dish or drink to On The Menu in quite some time. Let's keep media interested in you,add your newest dish or drink today!"
           end  
