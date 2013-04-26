@@ -155,6 +155,7 @@ class Restaurant < ActiveRecord::Base
   has_many :media_newsletter_subscriptions, :dependent => :destroy
 
   has_many :page_views, :as => :page_owner, :dependent => :destroy
+  attr_accessor :restaurant_role_virtual
 
   
 
