@@ -2,7 +2,7 @@
 
 <h3>Hello <%=@visitor_obj.restaurant.manager.try(:name)%>,</h3>
 
-<h1 id="salutation" style="font-size: 20px; line-height: 26px; margin: 12px 0;"> Restaurant Name: <%=@visitor_obj.restaurant.try(:name).try(:capitalize)%></h1>
+<h1 id="salutation" style="font-size: 20px; line-height: 26px; margin: 12px 0;"> Restaurant Name: <%=@visitor_obj.restaurant.try(:name)%></h1>
 <% if false %> <!-- Breaking the execution for temparory -->
 <% unless @userrestaurantvisitor.blank? %>
 		<p> You have following Diner visitors:</p>
@@ -14,8 +14,8 @@
 <% end %>
 <% end %>
 
-<% unless @media_visitors.blank? %>
-	<p> Media have been checking out your profile from the following publications:</p>	
+<% unless @media_visitors.blank? %>	
+	<p> Media have been checking ou	 your profile from the following publications:</p>	
 	<ul>
 		<%@media_visitors.each do |media_visitor| %>
 				<% unless media_visitor.publication.blank? %>
