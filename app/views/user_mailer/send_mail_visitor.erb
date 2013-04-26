@@ -67,7 +67,7 @@
 	<% unless @newsfeed_message.blank? %>
 	<li>
 		<p>
-			<%=link_to "Promotions",restaurant_promotions_url(@visitor_obj.restaurant)%>
+			<%=link_to "Newsfeed",restaurant_promotions_url(@visitor_obj.restaurant)%>
 		</p>
 		<p><%= link_to @newsfeed_message ,restaurant_promotions_url(@visitor_obj.restaurant)%></p>
 	</li>
