@@ -37,7 +37,7 @@ class UserRestaurantVisitor < ActiveRecord::Base
           end
         end
 
-        @menu_item = visitor.restaurant.menu_items.find(:first,:order =>"updated_at")
+        @menu_item = visitor.restaurant.menu_items.find(:first,:order =>"updated_at desc")
         if @menu_item.blank?
           if @menu_item.created_at < 7.day.ago
             @menu_item_message = "Looks like you haven't uploaded a new dish or drink to On The Menu in quite some time. Let's keep media interested in you,add your newest dish or drink today!"
@@ -49,7 +49,7 @@ class UserRestaurantVisitor < ActiveRecord::Base
         @a_la_minute_answer = visitor.restaurant.a_la_minute_answers.find(:first,:conditions=>["created_at > ?",4.days.ago ],:order =>"created_at desc")
         
         if @a_la_minute_answer.blank?
-            @a_la_minute_message = "If a restaurant has not uploaded an item to ALM in the last four days, please display the following text: A la Minute helps you share your daily news directly with media. Keep them interested and up-to-date on what you are doing by filling out one or two items to A la Minute each day!"
+            @a_la_minute_message = "A la Minute helps you share your daily news directly with media. Keep them interested and up-to-date on what you are doing by filling out one or two items to A la Minute each day!"
         else 
          unless @a_la_minute_answer.created_at < Time.now.beginning_of_day          
            @a_la_minute_message =  "Keep the media engaged and thinking about you, share your daily news on ,A la Minute today!"
