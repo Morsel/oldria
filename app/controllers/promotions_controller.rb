@@ -1,5 +1,5 @@
 class PromotionsController < ApplicationController
-
+  before_filter :require_user, :only =>[:details]
   before_filter :find_restaurant
   before_filter :require_manager, :except => [:index,:details]
   before_filter :social_redirect, :only => [:edit]
