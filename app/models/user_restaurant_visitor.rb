@@ -22,7 +22,7 @@ class UserRestaurantVisitor < ActiveRecord::Base
 
 
 	def send_notification      
-      userrestaurantvisitor = UserRestaurantVisitor.find(:all,:conditions=>["updated_at > ?",111.day.ago.beginning_of_day],:group => "restaurant_id")
+      userrestaurantvisitor = UserRestaurantVisitor.find(:all,:conditions=>["updated_at > ?",1.day.ago.beginning_of_day],:group => "restaurant_id")
 
       userrestaurantvisitor.each do |visitor|
         visitors = visitor.restaurant.newsletter_subscribers 
@@ -62,7 +62,7 @@ class UserRestaurantVisitor < ActiveRecord::Base
            counter +=1 
          end   
         end  
-                
+
         @newsfeeds =  visitor.restaurant.promotions.find(:first,:conditions=>["created_at > ?",28.days.ago ],:order =>"created_at desc")
         if counter < 3 && @newsfeeds.blank?
           @newsfeed_message ="Newsfeed posts are emailed directly to media as press releases from your restaurant and can feature everything from new menu items to events to promos. Don't forget to get news to the ,<a href='#{new_restaurant_promotion_url(visitor.restaurant)}'>media</a> so they can report it."
