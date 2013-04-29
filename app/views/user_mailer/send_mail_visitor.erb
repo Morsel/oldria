@@ -31,6 +31,15 @@
 	<hr />
 	<p>Keep the media engaged! If you update your profile, we'll let these media folks know! Here's a few ideas:</p>
 <ul>	
+	<% unless @menu_message.blank?%>
+		<li>
+			<p>
+				<%=link_to "Menus",bulk_edit_restaurant_menus_url(@visitor_obj.restaurant)%>
+			</p>
+			<p><%=  @menu_message %></p>
+		</li>		
+	<% end %>
+	
 	<% unless @fact_message.blank?%>
 		<li>
 			<p>
@@ -40,14 +49,7 @@
 		</li>
 	<% end %>
 
-	<% unless @menu_message.blank?%>
-		<li>
-			<p>
-				<%=link_to "Menus",bulk_edit_restaurant_menus_url(@visitor_obj.restaurant)%>
-			</p>
-			<p><%=  @menu_message %></p>
-		</li>		
-	<% end %>
+	
 
 	<% unless @menu_item_message.blank?%>
 		<li>
