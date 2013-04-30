@@ -5,7 +5,7 @@
         <table class="fixed-width-tbl" cellpadding="10">  
           <tr> 
             <td width="15%" class="labels"> From: </td> 
-            <td width="85%"> <%= current_user.email %> </td>
+            <td width="85%"> <%= current_user.publication? ? current_user.publication : "Freelance" %> </td>
           </tr>
           <tr> 
             <td class="labels"> Name: </td> 
@@ -59,7 +59,7 @@
       <table class="fixed-width-tbl" cellpadding="10">  
         <tr> 
           <td width="15%" class="labels"> From: </td> 
-          <td width="85%"> <%= current_user.email %> </td>
+          <td width="85%"> <%= current_user.publication? ? current_user.publication : "Freelance" %> </td>
         </tr>
         <tr> 
           <td class="labels"> Name: </td> 
