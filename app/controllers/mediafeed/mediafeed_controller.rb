@@ -24,18 +24,30 @@ class Mediafeed::MediafeedController < ApplicationController
   end
 
   def request_information
-    message = "Request for more information about your #{params[:request_type]} post \"#{params[:request_title]}\""
-
-    @direct_message = current_user.sent_direct_messages.build(:body => message)
-    @direct_message.receiver = User.find(params[:user_id])
-    if @direct_message.save
-      flash[:notice] = "Your message has been sent!"
-      redirect_to direct_message_path(@direct_message)
+    if !params[:menu_item_id].blank?
+      @menu_item  = MenuItem.find(params[:menu_item_id])
+      @restaurant = @menu_item.restaurant
     else
-      redirect_to :back
-    end
+      @promotion = Promotion.find(params[:promotion_id]) 
+      @restaurant = @promotion.restaurant
+    end  
+    render :layout=>false if request.xhr?
   end
 
+  def request_info_mail   
+    if params[:promotion].blank?
+      menu_item  = MenuItem.find(params[:menu_item][:id])
+      UserMailer.send_later(:deliver_request_info_mail,params[:menu_item][:name],params[:menu_item][:description],menu_item.restaurant.media_contact,menu_item.restaurant,params[:comment],params[:subject],current_user)     
+      flash[:notice] = "Request has been sent!"
+      redirect_to menu_items_path
+    else
+      promotion=Promotion.find(params[:promotion][:id])       
+      UserMailer.send_later(:deliver_request_info_mail,params[:promotion][:title],params[:promotion][:details],promotion.restaurant.media_contact,promotion.restaurant,params[:comment],params[:subject],current_user)
+      flash[:notice] = "Request has been sent!"
+      redirect_to promotions_path
+    end     
+  end 
+  
   def media_subscription
     @subscriptions = current_user.media_newsletter_subscriptions
     @user = current_user
@@ -47,6 +59,13 @@ class Mediafeed::MediafeedController < ApplicationController
     flash[:notice] = "Setting saved successfully."
     redirect_to mediafeed_media_subscription_path  
   end
+
+  def request_information_mail
+  end  
+ 
+  def add_comment
+
+  end  
 
   protected
 

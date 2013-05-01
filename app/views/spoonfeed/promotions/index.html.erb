@@ -25,7 +25,8 @@
         <% end -%>
         <p><%= promotion.date_description %></p>
         <%- if current_user.media? -%>
-        <p class="request"><%= link_to "Request more information", mediafeed_request_information_path(:user_id => promotion.restaurant.media_contact_id, :request_type => "Newsfeed", :request_title => promotion.title ) %></p>
+        <p class="request">
+          <%= link_to "Request more information", mediafeed_request_information_path(:promotion_id => promotion.id),:class => 'colorbox' %></p>
         <%- end -%>
         <p><span class="datestamp"><%= "Posted #{promotion.created_at.strftime("%D")}" %></span></p>
     </div>
