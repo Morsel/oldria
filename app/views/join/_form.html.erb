@@ -1,3 +1,4 @@
+<% form_tag registration_path, :id => "join" ,:class=>"sign-up-form" do %>
 <div class="left">
     <%= text_field_tag "first_name", "", :id => "firstName", :class => "standard-filler", :alt => "First Name", :required => "" %>
     <%= text_field_tag "last_name", "", :id => "lastName", :class => "standard-filler", :alt => "Last Name", :required => "" %>
@@ -23,3 +24,4 @@
     <%= submit_tag "Sign Me Up", :id => "submit", :class => "right" %>
 </div>
 
+<% end %>
