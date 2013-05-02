@@ -1,0 +1,37 @@
+<% title "Visitor Email Setting for :: #{@restaurant.name}", false %>
+
+<div id="restaurant_profile_view" class="edit clear clearfix">
+    <%= render 'restaurants/restaurant_editing_header' %>
+
+    <div id="editing_restaurant">
+        <div id="restaurant_pages" class="clearfix">                         
+              <div>
+
+                <h1 class="pg_title">Visitor Email Settings</h1>
+                <p>RIA Visitor email is a unique new way to get update from the restaurnat visitors. You can get the all visitors by email.  </p>                
+              </div>
+              <div id="newsletter_settings" class="clearfix">
+                  <% semantic_form_for [@restaurant,@restaurant.visitor_email_setting] ,:url=>restaurant_visitor_email_path do |f| %>
+                  	<%= f.input :is_approved %>
+                  	<%= f.input :email_frequency,  :as => :select, :collection => ["Daily","Weekly", "Biweekly", "Monthly"] %>
+                  	<%= f.input :email_frequency_day,  :as => :select, :collection => Date::DAYNAMES %>
+                  	 <%= f.submit "Save settings" %>
+              <% end %>
+
+        </div>
+    </div><!-- /editing_restaurant -->
+</div><!-- /restaurant_profile_view -->
+
+<% content_for :javascript do %>
+<script type="text/javascript">
+  $(document).ready(function(){  
+    $('#visitor_email_setting_email_frequency').change(function(){
+    	if($(this).val()=="Daily")
+    		$("#visitor_email_setting_email_frequency_day_input").hide('slow')
+    	else
+    		$("#visitor_email_setting_email_frequency_day_input").show('slow')
+    })
+    $('#visitor_email_setting_email_frequency').change();
+  })
+  </script>
+<% end %>
