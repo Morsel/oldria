@@ -242,6 +242,8 @@ ActionController::Routing::Routes.draw do |map|
 
     restaurant.add_keywords 'add_keywords', :controller => "menu_items", :action => "add_keywords"
 
+    restaurant.resources :visitor_emails
+
   end
 
   map.resources :user_sessions, :password_resets, :followings, :pages

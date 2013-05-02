@@ -142,6 +142,7 @@ class Restaurant < ActiveRecord::Base
   has_one :fact_sheet, :class_name => "RestaurantFactSheet"
   after_create :add_fact_sheet
   after_create :add_api_token
+  after_create :add_email_visitor_setting
 
   preference :publish_profile, :default => true
   
@@ -149,7 +150,8 @@ class Restaurant < ActiveRecord::Base
 
   has_many :page_views, :as => :page_owner, :dependent => :destroy
 
-
+  has_one  :visitor_email_setting
+  
   # For pagination
   cattr_reader :per_page
   @@per_page = 15
@@ -463,5 +465,8 @@ class Restaurant < ActiveRecord::Base
   end
   def add_api_token
       self.update_attribute(:api_token,  Digest::SHA1.hexdigest(id.to_s))
+  end
+  def add_email_visitor_setting
+      self.build_visitor_email_setting.save
   end
 end
