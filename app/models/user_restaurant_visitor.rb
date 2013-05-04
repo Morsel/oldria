@@ -27,6 +27,8 @@ class UserRestaurantVisitor < ActiveRecord::Base
       userrestaurantvisitor.each do |visitor|
         visitors = visitor.restaurant.newsletter_subscribers 
         media_visitors = visitor.restaurant.restaurant_visitors  
+        @menu_message = @fact_message = @menu_item_message = @a_la_minute_message = @newsfeed_message = nil
+
         counter  = 0
         menu = visitor.restaurant.menus.find(:first,:order =>"updated_at desc")
         
@@ -43,7 +45,7 @@ class UserRestaurantVisitor < ActiveRecord::Base
         @menu_item = visitor.restaurant.menu_items.find(:first,:order =>"updated_at desc")
         unless @menu_item.blank?
           if @menu_item.created_at < 7.day.ago
-            @menu_item_message = "You've never used On The Menu, a powerful tool for connecting with media. You can ,<a href='#{restaurant_menus_url(visitor.restaurant)}'>check it out here</a>"
+            @menu_item_message = "You've never used On The Menu, a powerful tool for connecting with media. You can <a href='#{restaurant_menus_url(visitor.restaurant)}'>check it out here</a>"
             counter +=1
           end  
         else
