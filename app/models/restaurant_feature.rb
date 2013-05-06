@@ -10,11 +10,10 @@
 #
 
 class RestaurantFeature < ActiveRecord::Base
-
   belongs_to :restaurant_feature_category, :include => :restaurant_feature_page
   has_many :restaurant_feature_items, :dependent => :destroy
   has_many :restaurants, :through => :restaurant_feature_items
-
+  has_many :trace_keywords, :as => :keywordable
   validates_presence_of :value
   validates_uniqueness_of :value, :scope => :restaurant_feature_category_id
 
@@ -37,5 +36,6 @@ class RestaurantFeature < ActiveRecord::Base
   def top_tag?(restaurant)
     restaurant_feature_items.find_by_restaurant_id(restaurant.id).top_tag
   end
+
 
 end
