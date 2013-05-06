@@ -84,6 +84,10 @@ class Employment < ActiveRecord::Base
   def employee_name
     @employee_name ||= employee && employee.name
   end
+  
+  def employee_last_name
+    @employee_last_name ||= employee && employee.last_name
+  end
 
   def employee_email
     @employee_email ||= employee && employee.email
