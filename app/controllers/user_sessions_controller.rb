@@ -54,7 +54,13 @@ class UserSessionsController < ApplicationController
       if user.admin? || user.media? || (user.completed_setup? && !is_profile_not_completed?(user))
         restaurants_has_setup_fb_tw user
         if @restaurants_has_not_setup_fb_tw.blank?
-          redirect_back_or_default
+          if user.media? && user.publication.blank? 
+            flash.delete(:notice)
+            flash[:error] = "You are now logged in and you can add publication."
+            redirect_to edit_mediafeed_media_user_path(user)
+          else  
+            redirect_back_or_default
+          end
         else
           flash[:notice] = "<a href='javascript:void(0)' onclick=\"$('html, body').animate({scrollTop: $('#twitter-fieldset').offset().top -50}, 400);\">Get the most out of Spoonfeed. Hook up your Twitter and Facebook accounts with your restaurant today!</a>"
           redirect_to edit_restaurant_path(@restaurants_has_not_setup_fb_tw.first)
