@@ -23,7 +23,7 @@ class UserRestaurantVisitor < ActiveRecord::Base
 
 	def send_notification      
       userrestaurantvisitor = UserRestaurantVisitor.find(:all,:conditions=>["updated_at > ?",1.day.ago.beginning_of_day],:group => "restaurant_id")
-
+      trace_keywords  = TraceKeyword.all(:conditions => ["DATE(created_at) <= ?", Time.zone.now.beginning_of_day]).map(&:keywordable).map(&:name).to_sentence
       userrestaurantvisitor.each do |visitor|
         visitors = visitor.restaurant.newsletter_subscribers 
         media_visitors = visitor.restaurant.restaurant_visitors  
@@ -68,7 +68,7 @@ class UserRestaurantVisitor < ActiveRecord::Base
           @newsfeed_message ="Newsfeed posts are emailed directly to media as press releases from your restaurant and can feature everything from new menu items to events to promos. Don't forget to get news to the ,<a href='#{new_restaurant_promotion_url(visitor.restaurant)}'>media</a> so they can report it."
         end
 
-      UserMailer.deliver_send_mail_visitor(visitor,visitors,media_visitors,@fact_message,@menu_message,@menu_item_message,@a_la_minute_message,@newsfeed_message)
+      UserMailer.deliver_send_mail_visitor(visitor,visitors,media_visitors,@fact_message,@menu_message,@menu_item_message,@a_la_minute_message,@newsfeed_message,trace_keywords)
    end
   end  
 end
