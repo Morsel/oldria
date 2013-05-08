@@ -5,13 +5,12 @@ class Spoonfeed::MenuItemsController < ApplicationController
 
   def index
 
-    #UserRestaurantVisitor.send_notification
     if params[:keyword].present?
 
       @menu_items = MenuItem.activated_restaurants.from_premium_restaurants.all(:joins => { :menu_item_keywords => :otm_keyword },
                                  :conditions => ["otm_keywords.name = ?", params[:keyword]],
                                  :order => "menu_items.created_at DESC")
-      if current_user.media?
+      if current_user.media? && !params[:id].blank?
         @trace_keywords =  TraceKeyword.find_by_keywordable_id_and_keywordable_type_and_user_id(params[:id], "OtmKeyword",current_user.id)
         @on_the_menu = OtmKeyword.find(params[:id])
         @trace_keywords.nil? ? @on_the_menu.trace_keywords.create(:user_id=>current_user.id,:count =>1) : @trace_keywords.increment!(:count)  
