@@ -46,9 +46,9 @@ class User < ActiveRecord::Base
   include TwitterAuthorization
   include FacebookPageConnect
   include UserMessaging
-
+  
+  has_many :trace_keywords, :as => :keywordable
   has_many :statuses, :dependent => :destroy
-
   has_many :followings, :foreign_key => 'follower_id', :dependent => :destroy
   has_many :friends, :through => :followings
   has_many :inverse_followings, :class_name => "Following", :foreign_key => 'friend_id', :dependent => :destroy

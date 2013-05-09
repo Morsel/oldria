@@ -12,7 +12,13 @@ class UsersController < ApplicationController
 
   def show
     get_user
+<<<<<<< HEAD
     redirect_to root_path if @user.media?
+=======
+    @user = User.find_by_username(params[:username])
+    @keywordable_id = @user.id
+    @keywordable_type = 'User'
+>>>>>>> origin/track-the-keywords-48751185
   end
 
   def resume

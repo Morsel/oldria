@@ -4,25 +4,32 @@ class Spoonfeed::MenuItemsController < ApplicationController
   before_filter :verify_restaurant_activation, :only =>[:show]
 
   def index
+<<<<<<< HEAD
 
+=======
+>>>>>>> origin/track-the-keywords-48751185
     if params[:keyword].present?
-
       @menu_items = MenuItem.activated_restaurants.from_premium_restaurants.all(:joins => { :menu_item_keywords => :otm_keyword },
                                  :conditions => ["otm_keywords.name = ?", params[:keyword]],
                                  :order => "menu_items.created_at DESC")
+<<<<<<< HEAD
       if current_user.media? && !params[:id].blank?
         @trace_keywords =  TraceKeyword.find_by_keywordable_id_and_keywordable_type_and_user_id(params[:id], "OtmKeyword",current_user.id)
         @on_the_menu = OtmKeyword.find(params[:id])
         @trace_keywords.nil? ? @on_the_menu.trace_keywords.create(:user_id=>current_user.id,:count =>1) : @trace_keywords.increment!(:count)  
       end  
     else
+=======
+      @keywordable_id =  params[:id]
+      @keywordable_type = 'OtmKeyword'
+ 
+     else
+>>>>>>> origin/track-the-keywords-48751185
       @menu_items = MenuItem.activated_restaurants.from_premium_restaurants.all(:order => "created_at DESC")
     end    
       
     @menu_items = @menu_items.paginate(:page => params[:page], :per_page => 5) unless @menu_items.count < 1
-      
-    
-    
+
   end
 
   def show

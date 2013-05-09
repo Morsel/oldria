@@ -4,7 +4,7 @@ class CreateTraceKeywords < ActiveRecord::Migration
       t.integer :keywordable_id
       t.string :keywordable_type
       t.integer :user_id
-      t.integer :count
+      t.integer :count ,:default=>1
 
       t.timestamps
     end
