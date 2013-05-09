@@ -17,6 +17,7 @@ class Chapter < ActiveRecord::Base
   belongs_to :topic
   has_many :profile_questions
   has_many :restaurant_questions
+  has_many :trace_keywords, :as => :keywordable
 
   validates_presence_of :title, :topic_id
   validates_uniqueness_of :title, :scope => :topic_id, :case_sensitive => false
@@ -184,5 +185,7 @@ class Chapter < ActiveRecord::Base
   def published_for_restaurant?(restaurant, page)
     answer_count_for_restaurant(restaurant, page) > 0
   end
-
+  def name
+    title
+  end  
 end

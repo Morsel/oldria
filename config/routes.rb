@@ -308,6 +308,7 @@ ActionController::Routing::Routes.draw do |map|
   
 
   map.resources :page_views, :only => ['create']
+  map.resources :trace_keywords, :only => ['create']
 
   map.namespace :admin do |admin|
     admin.root      :controller => 'admin'
