@@ -12,7 +12,6 @@ class UsersController < ApplicationController
 
   def show
     get_user
-    @user = User.find_by_username(params[:username])
     @keywordable_id = @user.id
     @keywordable_type = 'User'
   end
