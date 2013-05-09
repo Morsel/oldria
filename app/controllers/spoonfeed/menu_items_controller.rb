@@ -9,6 +9,7 @@ class Spoonfeed::MenuItemsController < ApplicationController
       @menu_items = MenuItem.activated_restaurants.from_premium_restaurants.all(:joins => { :menu_item_keywords => :otm_keyword },
                                  :conditions => ["otm_keywords.name = ?", params[:keyword]],
                                  :order => "menu_items.created_at DESC")
+
       @keywordable_id =  params[:id]
       @keywordable_type = 'OtmKeyword' 
      else
