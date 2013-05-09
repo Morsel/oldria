@@ -19,7 +19,10 @@ class FrontBurnerController < ApplicationController
   end
 
   def user_qotds
+
     @user = User.find(params[:id])
+    @keywordable_id = params[:id]
+    @keywordable_type = 'User'
     @qotds = @user.qotd_convos_with_comments.all(:order => "created_at DESC")
   end
 

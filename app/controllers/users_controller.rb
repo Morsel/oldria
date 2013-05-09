@@ -12,6 +12,8 @@ class UsersController < ApplicationController
 
   def show
     get_user
+    @keywordable_id = @user.id
+    @keywordable_type = 'User'
   end
 
   def resume
