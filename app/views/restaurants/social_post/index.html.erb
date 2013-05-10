@@ -1,4 +1,3 @@
-
 <% title "Social Posts", false -%>
 
 <div id="restaurant_profile_view" class="edit clear clearfix">
@@ -29,24 +28,14 @@
                                 <th>Actions</th>
                             </tr>
                         </thead>
-                        <tbody>                          
-
+                        <tbody>
                           <% @social_posts.each do |social_post| %>
-                           <% restaurnat = social_post.source.try(:restaurant) %>
-
                             <tr>
                               <td><%= social_post.type.to_s[0..-5] %></td>
                               <td><%= social_post.source.activity_name %></td>
                               <td><%= social_post.message %></td>
                               <td><%= social_post.post_at.to_s(:short) %></td>
-                              
-
-                              <td>
-                                <% if(social_post.type != "FacebookPost") %>
-                                <%= (social_post.post_at > Time.zone.now ) ? (link_to 'Edit Item', social_post.source.edit_path(:social => true), :class => 'edit') : (link_to 'Sent','#') %> &nbsp;
-                                 <% else %> 
-                                <%= (social_post.post_at > Time.zone.now ) ? (link_to 'Edit Item', social_post.source.edit_path(:social => true), :class => 'edit') : (link_to((!restaurnat.blank? &&  restaurnat.has_facebook_page? ? "post to Facebook page now" : "sent") ,((!restaurnat.blank? &&  restaurnat.has_facebook_page?) ? restaurnat.post_to_fb_url(social_post) : "#"),:method => :post,:confirm => "Are you sure you want to post this?" ))%> &nbsp;</td>
-                               <% end %> 
+                              <td><%= (social_post.post_at > Time.zone.now ) ? (link_to 'Edit Item', social_post.source.edit_path(:social => true), :class => 'edit') : (link_to 'Sent','#') %> &nbsp;</td>
                             </tr>
                           <% end %>
                         </tbody>

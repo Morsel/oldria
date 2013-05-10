@@ -15,12 +15,11 @@ ActionController::Routing::Routes.draw do |map|
         :member => { :confirm => :get }
   map.resource :complete_registration, :only => [:show, :update],
     :collection => { :user_details => :get, :find_restaurant => :any, :contact_restaurant => :post,
-      :finish_without_contact => :get, :add_employment => :get,:create_employment=>:post}
+      :finish_without_contact => :get }
 
   map.dashboard_more 'dashboard_more', :controller => 'welcome', :action => 'index', :is_more => true
   map.refresh_dashboard 'dashboard/refresh', :controller => 'welcome', :action => 'refresh'
   map.require_login 'dashboard/require_login', :controller => 'welcome', :action => 'require_login'
-  map.welcome 'welcome', :controller => 'welcome', :action => 'welcome'
 
   map.directory 'directory', :controller => 'directory', :action => 'index'
   map.restaurant_directory 'directory/restaurants', :controller => 'directory', :action => 'restaurants'
@@ -133,7 +132,7 @@ ActionController::Routing::Routes.draw do |map|
 
   map.profile 'profile/:username', :controller => 'users', :action => 'show', :requirements => { :username => /[a-zA-Z0-9\-\_ ]+/}
 
-  map.resources :users, :collection => { :resend_confirmation => :any ,:add_region =>:get ,:new_james_beard_region =>:post }, :member => {
+  map.resources :users, :collection => { :resend_confirmation => :any }, :member => {
     :resume => :get,
     :remove_twitter => :put,
     :remove_avatar => :put,
@@ -143,8 +142,7 @@ ActionController::Routing::Routes.draw do |map|
     :fb_page_auth => :post,
     :remove_editor => :put,
     :upload =>:post,
-    :edit_newsletters => :get,    
-    :add_region_request=>:post
+    :edit_newsletters => :get
   }, :shallow => true do |users|
     users.resource :profile, :only => ['create', 'edit', 'update'],
                    :controller => 'profiles',
@@ -197,7 +195,6 @@ ActionController::Routing::Routes.draw do |map|
                              :social_archive => :get,
                              :newsletter_subscriptions => :get,
                              :download_subscribers => :get,
-                             :import_csv =>:post,
                              :new_media_contact => :get,
                              :replace_media_contact => :post,
                              :restaurant_visitors => :get,
@@ -226,15 +223,12 @@ ActionController::Routing::Routes.draw do |map|
     restaurant.resource :logo
     restaurant.resources :accolades
     restaurant.resources :restaurant_answers, :only => [:show, :create, :update, :destroy]
-    restaurant.resources :a_la_minute_answers, :collection => { :bulk_update => :put, :bulk_edit => :get },:member => { :delete_attachment => :post,:facebook_post => :post }
+    restaurant.resources :a_la_minute_answers, :collection => { :bulk_update => :put, :bulk_edit => :get },:member => { :delete_attachment => :post }
     restaurant.resource :subscription, :collection => { :bt_callback => :get, :billing_history => :get },
                                        :controller => 'subscriptions'
 
-
-    restaurant.resources :promotions, :member => { :delete_attachment => :post, :facebook_post => :post ,:details => :get}
-    restaurant.resources :menu_items, :member => { :facebook_post => :post , :details => :get}
-
-
+    restaurant.resources :promotions, :member => { :delete_attachment => :post ,:details => :get}
+    restaurant.resources :menu_items, :member => { :facebook_post => :post, :details => :get}
 
     restaurant.resources :press_releases, :collection => { :archive => :get }
 
@@ -243,19 +237,12 @@ ActionController::Routing::Routes.draw do |map|
     restaurant.btl_chapter 'behind_the_line/chapter/:id', :controller => 'restaurants/behind_the_line', :action => 'chapter'
 
 
-
-
     restaurant.social_posts 'social_posts', :controller => 'restaurants/social_post', :action => 'index'
     restaurant.social_posts_page 'social_posts/:page', :controller => 'restaurants/social_post', :action => 'index'
 
-
     restaurant.resources :newsletters, :controller => 'restaurants/newsletters', :collection => { :update_settings => :post, :preview => :get, :approve => :post, :archives => :get , :get_campaign_status=> :get,:disapprove => :post}
 
-
-
     restaurant.add_keywords 'add_keywords', :controller => "menu_items", :action => "add_keywords"
-
-    restaurant.resources :visitor_emails
 
   end
 
@@ -305,7 +292,6 @@ ActionController::Routing::Routes.draw do |map|
   map.social_media 'social_media', :controller => 'social_media', :action => 'index'
 
   map.promotions 'newsfeed', :controller => "spoonfeed/promotions", :action => "index"
-  map.promotion 'newsfeed/:id', :controller => "spoonfeed/promotions", :action => "show"
   map.a_la_minute 'a_la_minute', :controller => "spoonfeed/a_la_minute", :action => "index"
   map.a_la_minute_answers 'a_la_minute/:question_id/answers', :controller => "spoonfeed/a_la_minute", :action => "answers"
   map.menu_items 'on_the_menu', :controller => "spoonfeed/menu_items", :action => "index"
@@ -322,7 +308,6 @@ ActionController::Routing::Routes.draw do |map|
   
 
   map.resources :page_views, :only => ['create']
-  map.resources :trace_keywords, :only => ['create']
 
   map.namespace :admin do |admin|
     admin.root      :controller => 'admin'
@@ -391,9 +376,7 @@ ActionController::Routing::Routes.draw do |map|
     admin.resources :testimonials
     admin.resources :brain_tree_webhook,:collection => {:varify => :any}
 
-
     admin.invalid_employments 'invalid_employments',:controller => "restaurants", :action => "invalid_employments"
-
   end
 
   # Not in use?

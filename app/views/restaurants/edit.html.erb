@@ -62,7 +62,7 @@
 
       <% if @restaurant.twitter_authorized? -%>
       <p>You currently have your Twitter account set up for <em><%= @restaurant.twitter_username %></em>. To change which Twitter account you want your Spoonfeed account linked with, you can remove the Twitter credentials below, and then setup Twitter again.<br/>
-          <%= link_to "Disconnect Twitter", remove_twitter_restaurant_path(@restaurant), :confirm => "Are you sure you want to unlink your Twitter account? Once disconnected you will have to reconnect in order to share on Twitter. If you have any scheduled posts, they will no longer post to Twitter until reconnected.", :class => 'sf-button', :method => :put %>
+          <%= link_to "Disconnect Twitter", remove_twitter_restaurant_path(@restaurant), :confirm => "Are you sure you want to unlink your Twitter account? This action cannot be undone.", :class => 'sf-button', :method => :put %>
       </p>
       <% else -%>
         <%= link_to "Setup Twitter", new_twitter_authorization_url(:restaurant_id => @restaurant.id), :class =>'sf-button' %>

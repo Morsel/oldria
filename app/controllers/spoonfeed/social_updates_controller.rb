@@ -13,7 +13,7 @@ class Spoonfeed::SocialUpdatesController < ApplicationController
 
   def filter_updates
     @updates = SocialUpdate.all(:order => "post_created_at DESC",:conditions => {:source =>params[:source], :restaurant_id => Restaurant.search(params[:search]).map(&:id)}).paginate(:page => params[:page], :per_page => 10)
-    render :partial => "updates", :locals => { :updates => @updates } 
+    render :partial => "updates", :locals => { :updates => @updates }
   end
 
   def expire_social_update

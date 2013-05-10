@@ -1,9 +1,11 @@
 <div id="add-role">
-<% semantic_form_for @user ,:url=>create_employment_complete_registration_path ,:html=>{:id=>"create_employment_form",:method=>:post } do |f| %>    
+<% semantic_form_for @user do |f| %>    
+    <% f.inputs :name => 'Login Information' do %>
 
           <% f.semantic_fields_for(@user.default_employment || @user.build_default_employment) do |employment_form| %>
-            <%= render :partial => "default_employments/form.html.erb", :locals => { :f => employment_form } %>
+            <%= render :partial => "default_employments/form", :locals => { :f => employment_form } %>
           <% end %>
+        <%- end %>
         <p class="save_end"><%= button_tag "Save Login Information", :class => 'positive' %></p>
 
 <% end %>

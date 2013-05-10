@@ -4,8 +4,7 @@ class WelcomeController < ApplicationController
   # preload classes which may be used while caching
   # to prevent "undefined class/module"
   before_filter :preload_classes
-  before_filter :require_user, :only => [:refresh, :require_login,:welcome]
-  before_filter :get_message_counts
+  before_filter :require_user, :only => [:refresh, :require_login]
 
   # cache dashboard for logged in users
   caches_action :index,
@@ -30,29 +29,6 @@ class WelcomeController < ApplicationController
     end
   end
   
-  def welcome
-    @total = @ria_message_count.to_i + @private_message_count.to_i + @discussions_count.to_i + @media_requests_count.to_i
-    @user_announcements = []
-    unless current_user && current_user.media?
-      restaurants = current_user.restaurants
-      unless restaurants.blank?        
-        restaurants.each do |restaurant|
-          @user_announcements.push(restaurant.menu_items.all(:order=>"created_at desc").paginate(:page => params[:page], :per_page => 2))
-          @user_announcements.push(restaurant.promotions.all(:order=>"created_at desc").paginate(:page => params[:page], :per_page => 2))
-          @user_announcements.push(restaurant.a_la_minute_answers.all(:order=>"created_at desc").paginate(:page => params[:page], :per_page => 2))
-        end  
-      end       
-      @user_announcements.flatten!.compact!
-      respond_to do |wants|
-        wants.html
-        wants.js {  render :partial=>'welcome/announcements' }
-      end
-    else
-      @testimonials = Testimonial.for_page("Spoonfeed").by_position
-      render :layout => 'home'
-    end
-  end
-    
   def require_login
     redirect_to :action => :index
   end

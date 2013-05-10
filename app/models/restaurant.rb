@@ -108,17 +108,13 @@ class Restaurant < ActiveRecord::Base
   has_many :restaurant_employee_requests
   has_many :requested_employees, :through => :restaurant_employee_requests ,:source =>:employee
 
-
-
   has_many :user_restaurant_visitors
   has_many :restaurant_visitors ,:through => :user_restaurant_visitors ,:source => :user
   
   accepts_nested_attributes_for :logo
 
-
   validates_presence_of :name, :street1, :city, :state, :zip, :phone_number,
       :metropolitan_area, :website, :media_contact, :cuisine, :opening_date, :manager
-  validates_presence_of :restaurant_role_virtual ,:on=> :create
 
   validates_format_of :management_company_website,
       :with => URI::regexp(%w(http https)),
@@ -130,10 +126,8 @@ class Restaurant < ActiveRecord::Base
       :allow_blank => true,
       :message => "Facebook page must start with http://www.facebook.com"
 
-
   validates_inclusion_of :newsletter_frequency, :in => ["weekly", "biweekly", "monthly"]
   validates_inclusion_of :newsletter_frequency_day, :in => ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
-
 
   has_one :subscription, :as => :subscriber
   
@@ -143,24 +137,18 @@ class Restaurant < ActiveRecord::Base
 
   after_validation_on_create :add_manager_as_employee
   after_create :update_manager
-  after_create :update_restaurant_role
   before_destroy :migrate_employees_to_default_employment
 
   has_one :fact_sheet, :class_name => "RestaurantFactSheet"
   after_create :add_fact_sheet
   after_create :add_api_token
-  after_create :add_email_visitor_setting
 
   preference :publish_profile, :default => true
-
+  
   has_many :media_newsletter_subscriptions, :dependent => :destroy
 
   has_many :page_views, :as => :page_owner, :dependent => :destroy
-  attr_accessor :restaurant_role_virtual
 
-
-  has_one  :visitor_email_setting
-  
 
   # For pagination
   cattr_reader :per_page
@@ -329,8 +317,8 @@ class Restaurant < ActiveRecord::Base
   end
 
   def self.send_newsletters
-    for restaurant in Restaurant.with_premium_account      
-      if restaurant.next_newsletter_at < Time.zone.now.end_of_day && restaurant.newsletter_approved
+    for restaurant in Restaurant.with_premium_account
+      if restaurant.next_newsletter_at < Time.now && restaurant.newsletter_approved
         restaurant.send_later(:send_newsletter_to_subscribers)
         restaurant.update_attribute(:next_newsletter_at, restaurant.next_newsletter_for_frequency)
       end
@@ -338,7 +326,7 @@ class Restaurant < ActiveRecord::Base
   end
 
   def send_newsletter_to_subscribers
-
+    
     if self.newsletter_approved
       # create newsletter
       newsletter = RestaurantNewsletter.create_with_content(id)
@@ -433,19 +421,6 @@ class Restaurant < ActiveRecord::Base
     with_exclusive_scope{Restaurant.find(:all,:conditions=>"deleted_at is not null" ,:order=>"created_at desc")}
   end
 
-  def post_to_fb_url social_post
-    path = nil    
-    case social_post.source_type
-      when "MenuItem"
-        path = facebook_post_restaurant_menu_item_path(self, social_post.source,{:social_id=>social_post.id})
-      when "Promotion" 
-        path = facebook_post_restaurant_promotion_path(self, social_post.source,{:social_id=>social_post.id})
-      when "ALaMinuteAnswer"
-        path = facebook_post_restaurant_a_la_minute_answer_path(self, social_post.source,{:social_id=>social_post.id})
-    end 
-    path 
-  end
-    
   private
 
   def add_manager_as_employee
@@ -455,10 +430,6 @@ class Restaurant < ActiveRecord::Base
 
   def update_manager
     self.employments.first.update_attribute(:omniscient, true) if employments.any?
-  end
-
-  def update_restaurant_role
-    self.employments.first.update_attribute(:restaurant_role_id, self.restaurant_role_virtual) if employments.any?
   end
 
   def handled_subject_matter_ids
@@ -492,8 +463,5 @@ class Restaurant < ActiveRecord::Base
   end
   def add_api_token
       self.update_attribute(:api_token,  Digest::SHA1.hexdigest(id.to_s))
-  end
-  def add_email_visitor_setting
-      self.build_visitor_email_setting.save
   end
 end

@@ -25,7 +25,8 @@
         </p>
 
         <p><%= "Pairing: #{menu_item.pairing}" if menu_item.pairing.present? %></p>
-        <p class="keywords"><%= menu_item.otm_keywords.map { |k| link_to k.name, menu_items_path(:keyword => k.name,:id=>k.id) }.to_sentence %></p>
+
+        <p class="keywords"><%= menu_item.otm_keywords.map { |k| link_to k.name, menu_items_path(:keyword => k.name) }.to_sentence %></p>
 
         <%- if current_user.media? -%>
         <p class="request">

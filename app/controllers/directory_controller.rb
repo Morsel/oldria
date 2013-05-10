@@ -6,13 +6,9 @@ class DirectoryController < ApplicationController
     if params[:specialty_id]
       @specialty = Specialty.find(params[:specialty_id])
       @users = User.in_soapbox_directory.profile_specialties_id_eq(params[:specialty_id]).all(:order => "users.last_name").uniq
-      @keywordable_id = params[:specialty_id]
-      @keywordable_type = 'Specialty'
     elsif params[:cuisine_id]
       @cuisine = Cuisine.find(params[:cuisine_id])
       @users = User.in_spoonfeed_directory.profile_cuisines_id_eq(params[:cuisine_id]).all(:order => "users.last_name").uniq
-      @keywordable_id = params[:cuisine_id]
-      @keywordable_type = 'Cuisine'
     elsif params[:metropolitan_area_id]
       @metro_area = MetropolitanArea.find(params[:metropolitan_area_id])
       @users = User.in_spoonfeed_directory.profile_metropolitan_area_id_eq(params[:metropolitan_area_id]).all(:order => "users.last_name").uniq

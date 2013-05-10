@@ -51,14 +51,12 @@ class Admin::RestaurantsController < Admin::AdminController
 
   def edit_photos
   end
-
   def invalid_employments
     @employments = []
     Restaurant.all.each do |e| 
       e.employments.map{|emp| @employments << emp unless emp.valid? }
     end
   end   
-
   private
 
   def find_restaurant

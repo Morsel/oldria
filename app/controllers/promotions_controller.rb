@@ -61,20 +61,10 @@ class PromotionsController < ApplicationController
     redirect_to edit_restaurant_promotion_path(@restaurant, @promotion)
   end
 
-
-  def facebook_post
-    @promotions = @restaurant.promotions.find(params[:id])
-    social_post = SocialPost.find(params[:social_id])
-    @promotions.post_to_facebook(social_post.message)
-    flash[:notice] = "Posted #{social_post.message} to Facebook page"
-    redirect_to restaurant_social_posts_path(@restaurant)
-  end
-
   def details     
     @promotion = Promotion.find(params[:id]) 
     @restaurant = @promotion.restaurant     
   end  
-
 
   private
 

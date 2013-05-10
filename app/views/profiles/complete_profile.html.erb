@@ -35,27 +35,25 @@
       <% end %><!-- End currnet_user.avtar -->
         
         <!-- Step two -->
-      <% if (@profile.specialties.blank? && @profile.skipp_step.to_i < 2)  %>
+      <% if @user.profile.specialties.blank? %>
             <div id="step2" class="display-none">   
               <% semantic_form_for @profile, :url => user_profile_path(@user),:html => { :id=>"specialties_form"} do |f| %>
                       <% f.inputs :name => "Next steps for your profile: select specialities to help media and diners find you" do %>
                           <div>
-
                             <%= f.input :specialties, 
                                         :as => :check_boxes, 
                                         :collection => Specialty.all, 
                                         :label => "What are your specialties?" %>
                             <% button_tag :class => 'positive' do %>Save changes to specialties<% end %>
-                            &nbsp;<%= link_to "Skip", request.url, :class => 'skipp-step2-fix sf-button skipp margin-bottom' %>
                           </div>
-                           <%= f.input :skipp_step, :as => "hidden" ,:value=>"2" %>
+
                       <% end %><!--   specialties -->
               <% end %> <%# form  %>
           </div><!-- Step two End-->
       <% end %><!-- End Specialties -->
 
       <!-- Step three -->
-      <% if @profile.cuisines.blank? && @profile.skipp_step.to_i < 3 %>
+      <% if @profile.cuisines.blank? %>
           <div id="step3" class="display-none"> 
                <% semantic_form_for @profile, :url => user_profile_path(@user),:html => { :id=>"cuisine_form"} do |f| %>
                       <% f.inputs :name => "Next steps for your profile: select your cuisines to help media and diners find you" do %>
@@ -63,12 +61,9 @@
                             <ul id="cuisines">
                                 <%= render @profile.cuisines %>
                             </ul>
-                            <p><%= link_to "Add Cuisine", new_user_profile_profile_cuisine_path(:user_id => @user.id), :class => 'sf-button colorbox' %>
-                              <%= link_to "Skip", request.url, :class => 'sf-button skipp' %>
-                            </p>                            
+                            <p><%= link_to "Add Cuisine", new_user_profile_profile_cuisine_path(:user_id => @user.id), :class => 'sf-button colorbox' %></p>                            
                         </div>
                     <% end %>
-                    <%= f.input :skipp_step, :as => "hidden" ,:value=>"3" %>
             <% end %><%# form  %>
           </div>
         <% end %>  <!-- Step three end-->

@@ -1,7 +1,7 @@
 class ALaMinuteAnswersController < ApplicationController
 
   before_filter :require_user
-  before_filter :require_restaurant_employee, :only => [:destroy, :bulk_edit, :edit, :update, :new, :create,:delete_attachment,:facebook_post]
+  before_filter :require_restaurant_employee, :only => [:destroy, :bulk_edit, :edit, :update, :new, :create,:delete_attachment]
   before_filter :find_activated_restaurant, :only => [:index]
   before_filter :social_redirect, :only => [:edit]
 
@@ -74,14 +74,6 @@ class ALaMinuteAnswersController < ApplicationController
     @answer.save
     flash[:notice] = "Deleted attachment"
     redirect_to edit_restaurant_a_la_minute_answer_path(@restaurant,@answer)
-  end
-
-  def facebook_post    
-    @a_la_minute_answer = @restaurant.a_la_minute_answers.find(params[:id])
-    social_post = SocialPost.find(params[:social_id])
-    @a_la_minute_answer.post_to_facebook(social_post.message)
-    flash[:notice] = "Posted #{social_post.message} to Facebook page"
-    redirect_to restaurant_social_posts_path(@restaurant)
   end
 
   private

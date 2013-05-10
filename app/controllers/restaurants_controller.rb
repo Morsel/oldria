@@ -215,7 +215,7 @@ class RestaurantsController < ApplicationController
     @subscriptions = @restaurant.newsletter_subscriptions
 
     # csv string generator
-    @csv = FasterCSV.generate(:col_sep => "\t") do |csv|
+    @csv = FasterCSV.generate do |csv|
       # header
       csv << %w[first_name last_name email subscription_date]
 
@@ -253,59 +253,12 @@ class RestaurantsController < ApplicationController
     end
     redirect_to root_path
   end
-
   def restaurant_visitors      
       @visitors = []
       visitors = @restaurant.page_views.map(&:user).uniq!      
       @visitors = visitors.zip(@restaurant.restaurant_visitors).flatten.compact # old was .user_restaurant_visitors
       @visitors.uniq!
-
   end
-
-
-  def import_csv  
-      @error_arr =[]  
-    if (!params[:document].nil?)
-       file_type = params[:document].original_filename.scan(/\.\w+$/)[0].to_s.gsub(".","")
-        if file_type.to_s.downcase =="csv" 
-          begin
-            file = params[:document]
-            tmp_pwd = 'temp123'               
-            FasterCSV.read(params[:document].path,:headers => true,:col_sep => "\t").each do |i|
-               news = NewsletterSubscriber.new(:first_name => i[0],:last_name => i[1],:email => i[2],:password=>tmp_pwd)               
-                unless news.save
-                  @error_arr.push(news.email)
-                else
-                  news.newsletter_subscriptions.build({:restaurant_id=>params[:id]}).save
-                end
-            end 
-          rescue FasterCSV::MalformedCSVError               
-              news.push("csv file not valid format.")
-          end
-           
-          unless @error_arr.compact.blank?
-            flash[:notice] = "The following people are arleady subscribed #{@error_arr.to_sentence }."
-            redirect_to newsletter_subscriptions_restaurant_path
-          else
-            flash[:notice] = "Records successfully inserted."
-            redirect_to newsletter_subscriptions_restaurant_path
-          end
-         
-        else
-         flash[:notice] = "Please select csv file."
-         redirect_to newsletter_subscriptions_restaurant_path
-        end 
-    else  
-        flash[:notice] = "Please select csv file. "
-         redirect_to newsletter_subscriptions_restaurant_path
-    end 
-
-  end
-  
-
-  def api    
-  end
-    
   def media_subscribe     
     if current_user.media?   
       mnls = current_user.restaurant_newsletter_subscription(@restaurant)   
@@ -335,7 +288,9 @@ class RestaurantsController < ApplicationController
     render :layout => false
   end
 
-
+  def api    
+  end
+    
   private
 
   def find_activated_restaurant    

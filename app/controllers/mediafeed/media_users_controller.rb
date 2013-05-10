@@ -19,15 +19,11 @@ class Mediafeed::MediaUsersController < Mediafeed::MediafeedController
 
   def edit
     @user = User.find(params[:id])
-    get_newsletter_data    
   end
 
   def update
-    @user = User.find(params[:id])    
-    @user.newsfeed_regional_promotion_types.destroy_all    
+    @user = User.find(params[:id])
     if @user.update_attributes(params[:user])
-      @user.newsfeed_regional_promotion_types.destroy_all if @user.newsfeed_writer.blank? #Deleting regiona promotion if user is not newsfeed regional writer
-      update_newsletter_data(params[:id])
       flash[:notice] = "Successfully updated your profile."
       redirect_to edit_mediafeed_media_user_path(@user)
     else
@@ -48,9 +44,8 @@ class Mediafeed::MediaUsersController < Mediafeed::MediafeedController
   end
 
   def get_cities
-      @selected_cities = []
       @cities = MetropolitanArea.find_all_by_state(params['state_name'])      
-      @selected_cities = params[:user_id].blank? ? (current_user.metropolitan_areas if current_user) : (User.find(params[:user_id]).metropolitan_areas)
+      @selected_cities = current_user.metropolitan_areas
       render :layout => false
   end
 

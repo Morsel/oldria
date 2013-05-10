@@ -1,7 +1,0 @@
- <% title "Newsfeed At #{@restaurant.name}" %>
-
-<%= render :partial=> @promotion,:locals => { :buttons => true } %>
-
-<h2 class="clear">Also at <%= @restaurant.name %></h2>
-
-<%= render @restaurant.promotions.all(:order => "created_at DESC", :limit => 6).reject { |m| m == @promotion } %>

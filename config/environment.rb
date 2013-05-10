@@ -17,7 +17,7 @@ Rails::Initializer.run do |config|
   config.gem 'aws-s3',                :lib => "aws/s3", :version => "0.6.2"
   config.gem 'faraday',               :version => "0.7.5"
   config.gem 'oauth',                 :version => "0.4.5"
-  #config.gem 'twitter',               :version => "1.7.2"
+  config.gem 'twitter',               :version => "1.7.2"
   config.gem 'jackdempsey-acts_as_commentable', :lib => 'acts_as_commentable', :source => "http://gems.github.com"
   config.gem 'acts_as_list',          :version => "~>0.1.2"
   config.gem 'aasm',                  :version => "~>2.1.5"
@@ -40,8 +40,9 @@ Rails::Initializer.run do |config|
   config.gem 'fastercsv'
   config.gem 'bitly',                 :version => "0.7.0"
   config.gem "bcrypt-ruby",           :version => "3.0.1", :lib => "bcrypt"
-  config.gem "gibbon",                :version => "0.3.5"
   config.gem "ar-octopus",            :version => "0.3.4", :lib => "octopus"
+  config.gem "gibbon",                :version => "0.3.5"
+
   # Settings in config/environments/* take precedence over those specified here.
   # Application configuration should go into files in config/initializers
   # -- all .rb files in that directory are automatically loaded.

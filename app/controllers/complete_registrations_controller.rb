@@ -49,36 +49,7 @@ class CompleteRegistrationsController < ApplicationController
     end
     @user.build_profile
   end
-
-  def add_employment
-    @user = current_user   
-  end
-
-  def create_employment  
-    @user = current_user   
-    
-    if @user.default_employment.present?
-      @user.default_employment.update_attributes(params[:user][:default_employment])
-    else
-      @user.build_default_employment(params[:user][:default_employment]).save
-    end
-    
-    if @user.default_employment.valid?
-      flash[:notice] = "Successfully updated your profile."
-      respond_to do |wants|
-        wants.html do          
-          redirect_to edit_user_profile_path(:user_id => @user.id)  
-        end
-        wants.json { render :json =>{:status=>true,:url=>edit_user_profile_path(:user_id => @user.id)}  }
-      end
-    else
-      respond_to do |wants|
-        wants.html { render :add_employment }
-        wants.json { render :json => render_to_string(:partial => "profiles/add_role_form.html.erb"), :status => :unprocessable_entity }
-      end
-    end  
-  end
-
+  
   def find_restaurant
     if params[:restaurant_name]
       @restaurants = Restaurant.find(:all, :conditions => ["name like ?", "%#{params[:restaurant_name]}%"])

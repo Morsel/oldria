@@ -1068,7 +1068,7 @@ form#mediafeed_user {
   abbr[title=required] {
     color: red;
   }
-  li#user_metropolitan_areas_input ol li ,li#user_newsfeed_metropolitan_areas_input ol li{
+  li#user_metropolitan_areas_input ol li {
     float: left;
     width: 25%;
     label {
@@ -1565,7 +1565,7 @@ aside.dashboard_actions {
     height: 119px;
   }
   
-	button, input[type="submit"] {
+	button, input[type="submit"], a.button {
 		cursor:pointer;
 		float: left;
 		display: block;
@@ -1578,10 +1578,11 @@ aside.dashboard_actions {
 		padding: 5px 12px;
 		font-weight: bold;
 		text-shadow:0 1px 0 #444;
+		text-transform: none !important;
 		border:0;
 		&:hover {
 			background: #bbb08c;
-			color: #fff;
+			color: #fff !important;
 		}
 		&.positive {
 			margin:0 0 10px;
@@ -2181,7 +2182,7 @@ aside.dashboard_actions {
   }
 }
 
-.menu_item , .promotion {
+.menu_item {
   clear: both;
 	h2 {
 		font-size:18px;
@@ -4463,47 +4464,15 @@ a.subscribe_btn {
 			}
 	}		
 
+
 .fix-nesfeed-details{
 	float: left; padding: 0px 5px; width: 650px;
 }
 
-
-
-#dashboard-right-column
-{
-		border: 5px solid #EFEFEF;
-    float: left;
-    margin-left: 15px;
-    width: 55%;
-}
-#dashboard-left-column
-{
-		border: 5px solid #EFEFEF;
-    float: left;    
-    width: 40%;
-}
-.annoucement{
-	 padding-left: 15px;
-	img{
-		height: 30px;
-		width: 30px;
-	}
-	h3{
-		font-size: 15px !important;
-	}
-	p{
-		 margin: 5px 0 0 ;
-	}
-	.content{
-		float: left;
-	}
-
-}
-
 .menu_items_unsubscribe{
 	right: 32px !important; 
-
 }
+
 .menu_item_subscribe{
 	
 	position: relative; 
@@ -4541,7 +4510,6 @@ a.subscribe_btn {
  	 text-decoration: underline;
 	}
 }
-
 .menu_item_main{
 	width: 183px; float: left;
 }
@@ -4556,7 +4524,6 @@ a.subscribe_btn {
 .metro_area .unsubscribe{
 	width: 70% !important;
 }
-
 #dashboard{
 	.unsubscribe{
 		 margin-left: 18px;
@@ -4566,15 +4533,6 @@ a.subscribe_btn {
 	}
 
 }
-<<<<<<< HEAD
-.subscription-hints-li{
-	list-style:disc !important;
-	margin-left: 18px !important;
-}
-
-
-
-
 
 .manager-img{
 	  margin-left: 10px !important;
@@ -4622,26 +4580,3 @@ a.subscribe_btn {
 		}
 	}
 }
-
-fieldset{
-	ol{
-		li.media-signup{
-			list-style:disc !important;
-			margin-left: 18px !important;
-		}
-	}
-}
-
-
-=======
-#restaurant_profile{
-	 color: #6EB33F;
-    font-family: 'Voltaire',sans-serif;
-    font-size: 42px;
-    font-weight: normal;
-    line-height: 57px;
-    margin: 30px 0 10px;
-    padding: 0;
-    text-transform: uppercase;
-}
->>>>>>> origin/restaurant-name-clickable-on-restaurant-profile-46808973

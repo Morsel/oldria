@@ -38,6 +38,7 @@ class NewsletterSubscriber < ActiveRecord::Base
   named_scope :confirmed, {
     :conditions => "confirmed_at IS NOT NULL"
   }
+
   def confirm!
     self.update_attribute(:confirmed_at, Time.now)
   end
