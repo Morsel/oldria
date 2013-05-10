@@ -25,13 +25,25 @@ class Mediafeed::MediafeedController < ApplicationController
 
   def request_information
     if !params[:menu_item_id].blank?
-      @menu_item  = MenuItem.find(params[:menu_item_id])
+      @menu_item = MenuItem.find(params[:menu_item_id])
       @restaurant = @menu_item.restaurant
-    else
-      @promotion = Promotion.find(params[:promotion_id]) 
+      render :layout=>false if request.xhr?
+    elsif !params[:promotion_id].blank?
+      @promotion = Promotion.find(params[:promotion_id])
       @restaurant = @promotion.restaurant
-    end  
-    render :layout=>false if request.xhr?
+      render :layout=>false if request.xhr?
+    else
+      message = "Request for more information about your #{params[:request_type]} post \"#{params[:request_title]}\""
+      @direct_message = current_user.sent_direct_messages.build(:body => message)
+      @direct_message.receiver = User.find(params[:user_id])
+      if @direct_message.save
+        flash[:notice] = "Your message has been sent!"
+        redirect_to direct_message_path(@direct_message)
+      else
+        redirect_to :back
+      end
+    end
+    
   end
 
   def request_info_mail   
