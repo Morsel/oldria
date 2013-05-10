@@ -6,7 +6,7 @@
     <div id="profileDetails" class="right">
         <div class="headingDetails clearfix">
             <hgroup class="left">
-                <h2><%= @restaurant.name %>
+                <h2><%= link_to @restaurant.name,restaurant_path(@restaurant),:id=>"restaurant_profile" %>
                 <% if(current_user.media? ) %>
                    <%= render :partial => 'restaurants/subscribe', :locals => { :restaurant => @restaurant } %>
                 <% end %>
